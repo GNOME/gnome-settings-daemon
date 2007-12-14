@@ -20,23 +20,151 @@
 #include "config.h"
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <libintl.h>
+#include <errno.h>
 #include <locale.h>
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
+#define DBUS_API_SUBJECT_TO_CHANGE
+#include <dbus/dbus-glib.h>
+#include <dbus/dbus-glib-lowlevel.h>
+
 #include "gnome-settings-manager.h"
+
+#define GSD_DBUS_NAME         "org.gnome.SettingsDaemon"
 
 #define DEFAULT_GCONF_PREFIX "/apps/gnome-settings-daemon/plugins"
 #define GCONF_PREFIX_ENV     "GNOME_SETTINGS_DAEMON_GCONF_PREFIX"
 
-static char *gconf_prefix = NULL;
+static char      *gconf_prefix = NULL;
+static gboolean   no_daemon    = FALSE;
 
 static GOptionEntry entries[] = {
+        { "no-daemon", 0, 0, G_OPTION_ARG_NONE, &no_daemon, N_("Don't become a daemon"), NULL },
         {"gconf-prefix", 0, 0, G_OPTION_ARG_STRING, &gconf_prefix, "GConf prefix from which to load plugin settings", NULL},
         {NULL}
 };
+
+static DBusGProxy *
+get_bus_proxy (DBusGConnection *connection)
+{
+        DBusGProxy *bus_proxy;
+
+        bus_proxy = dbus_g_proxy_new_for_name (connection,
+                                               DBUS_SERVICE_DBUS,
+                                               DBUS_PATH_DBUS,
+                                               DBUS_INTERFACE_DBUS);
+        return bus_proxy;
+}
+
+static gboolean
+acquire_name_on_proxy (DBusGProxy *bus_proxy)
+{
+        GError     *error;
+        guint       result;
+        gboolean    res;
+        gboolean    ret;
+
+        ret = FALSE;
+
+        if (bus_proxy == NULL) {
+                goto out;
+        }
+
+        error = NULL;
+        res = dbus_g_proxy_call (bus_proxy,
+                                 "RequestName",
+                                 &error,
+                                 G_TYPE_STRING, GSD_DBUS_NAME,
+                                 G_TYPE_UINT, 0,
+                                 G_TYPE_INVALID,
+                                 G_TYPE_UINT, &result,
+                                 G_TYPE_INVALID);
+        if (! res) {
+                if (error != NULL) {
+                        g_warning ("Failed to acquire %s: %s", GSD_DBUS_NAME, error->message);
+                        g_error_free (error);
+                } else {
+                        g_warning ("Failed to acquire %s", GSD_DBUS_NAME);
+                }
+                goto out;
+        }
+
+        if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER) {
+                if (error != NULL) {
+                        g_warning ("Failed to acquire %s: %s", GSD_DBUS_NAME, error->message);
+                        g_error_free (error);
+                } else {
+                        g_warning ("Failed to acquire %s", GSD_DBUS_NAME);
+                }
+                goto out;
+        }
+
+        ret = TRUE;
+
+ out:
+        return ret;
+}
+
+static DBusGConnection *
+get_session_bus (void)
+{
+        GError          *error;
+        DBusGConnection *bus;
+        DBusConnection  *connection;
+
+        error = NULL;
+        bus = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
+        if (bus == NULL) {
+                g_warning ("Couldn't connect to session bus: %s",
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        connection = dbus_g_connection_get_connection (bus);
+        dbus_connection_set_exit_on_disconnect (connection, TRUE);
+
+ out:
+        return bus;
+}
+
+static gboolean
+bus_register (void)
+{
+        DBusGConnection *bus;
+        DBusGProxy      *bus_proxy;
+        gboolean         ret;
+
+        ret = FALSE;
+
+        bus = get_session_bus ();
+        if (bus == NULL) {
+                g_warning ("Could not get a connection to the bus");
+                goto out;
+        }
+
+        bus_proxy = get_bus_proxy (bus);
+        if (bus_proxy == NULL) {
+                g_warning ("Could not construct bus_proxy object");
+                goto out;
+        }
+
+        if (! acquire_name_on_proxy (bus_proxy)) {
+                g_warning ("Could not acquire name");
+                goto out;
+        }
+
+        g_debug ("Successfully connected to D-Bus");
+
+        ret = TRUE;
+
+ out:
+        return ret;
+}
 
 int
 main (int argc, char *argv[])
@@ -44,6 +172,8 @@ main (int argc, char *argv[])
         GnomeSettingsManager *manager;
         gboolean              res;
         GError               *error;
+
+        manager = NULL;
 
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -71,6 +201,14 @@ main (int argc, char *argv[])
                 }
         }
 
+        if (! no_daemon && daemon (0, 0)) {
+                g_error ("Could not daemonize: %s", g_strerror (errno));
+        }
+
+        if (! bus_register ()) {
+                goto out;
+        }
+
         manager = gnome_settings_manager_new (gconf_prefix);
 
         res = gnome_settings_manager_start (manager, &error);
@@ -88,6 +226,8 @@ main (int argc, char *argv[])
         if (manager != NULL) {
                 g_object_unref (manager);
         }
+
+        g_debug ("SettingsDaemon finished");
 
         return 0;
 }
