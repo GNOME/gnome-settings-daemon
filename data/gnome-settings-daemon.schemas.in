@@ -2,6 +2,30 @@
   <schemalist>
 
     <schema>
+      <key>/schemas/apps/gnome-settings-daemon/plugins/clipboard/active</key>
+      <applyto>/apps/gnome-settings-daemon/plugins/clipboard/active</applyto>
+      <owner>gnome-settings-daemon</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>True if the clipboard settings manager plugin is enabled.</short>
+        <long>Set to True to enable the clipboard settings manager plugin.</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-settings-daemon/plugins/xrandr/active</key>
+      <applyto>/apps/gnome-settings-daemon/plugins/xrandr/active</applyto>
+      <owner>gnome-settings-daemon</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>True if the xrandr settings manager plugin is enabled.</short>
+        <long>Set to True to enable the xrandr settings manager plugin.</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-settings-daemon/plugins/xrdb/active</key>
       <applyto>/apps/gnome-settings-daemon/plugins/xrdb/active</applyto>
       <owner>gnome-settings-daemon</owner>
