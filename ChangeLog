@@ -1,6 +1,23 @@
 2007-12-14  William Jon McCann  <mccann@jhu.edu>
 
 	* configure.ac:
+	* plugins/Makefile.am:
+	* plugins/dummy/Makefile.am:
+	* plugins/dummy/gsd-dummy-manager.c: (gsd_dummy_manager_start),
+	(gsd_dummy_manager_stop), (gsd_dummy_manager_set_property),
+	(gsd_dummy_manager_get_property), (gsd_dummy_manager_constructor),
+	(gsd_dummy_manager_dispose), (gsd_dummy_manager_class_init),
+	(gsd_dummy_manager_init), (gsd_dummy_manager_finalize),
+	(gsd_dummy_manager_new):
+	* plugins/dummy/gsd-dummy-manager.h:
+	* plugins/dummy/gsd-dummy-plugin.c: (impl_activate),
+	(impl_deactivate), (gsd_dummy_plugin_class_init):
+	* plugins/dummy/gsd-dummy-plugin.h:
+	Build the dummy.
+
+2007-12-14  William Jon McCann  <mccann@jhu.edu>
+
+	* configure.ac:
 	* data/gnome-settings-daemon.schemas.in:
 	* plugins/Makefile.am:
 	* plugins/dummy/Makefile.am:

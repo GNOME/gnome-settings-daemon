@@ -23,7 +23,7 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gsd-settings-plugin.h"
+#include "gnome-settings-plugin.h"
 #include "gsd-dummy-plugin.h"
 #include "gsd-dummy-manager.h"
 
@@ -33,7 +33,7 @@ struct GsdDummyPluginPrivate {
 
 #define GSD_DUMMY_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_DUMMY_PLUGIN, GsdDummyPluginPrivate))
 
-GSD_SETTINGS_PLUGIN_REGISTER (GsdDummyPlugin, gsd_dummy_plugin)
+GNOME_SETTINGS_PLUGIN_REGISTER (GsdDummyPlugin, gsd_dummy_plugin)
 
 static void
 gsd_dummy_plugin_init (GsdDummyPlugin *plugin)
@@ -67,7 +67,7 @@ gsd_dummy_plugin_finalize (GObject *object)
 }
 
 static void
-impl_activate (GsdSettingsPlugin *plugin)
+impl_activate (GnomeSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -83,7 +83,7 @@ impl_activate (GsdSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GsdSettingsPlugin *plugin)
+impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating dummy plugin");
 }
@@ -92,7 +92,7 @@ static void
 gsd_dummy_plugin_class_init (GsdDummyPluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
-        GsdSettingsPluginClass *plugin_class = GSD_SETTINGS_PLUGIN_CLASS (klass);
+        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
 
         object_class->finalize = gsd_dummy_plugin_finalize;
 

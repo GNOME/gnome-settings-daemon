@@ -1,6 +1,5 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
  * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -37,11 +36,11 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include "gsd-xrdb-manager.h"
+#include "gsd-dummy-manager.h"
 
-#define GSD_XRDB_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRDB_MANAGER, GsdXrdbManagerPrivate))
+#define GSD_DUMMY_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_DUMMY_MANAGER, GsdDummyManagerPrivate))
 
-struct GsdXrdbManagerPrivate
+struct GsdDummyManagerPrivate
 {
 
 };
@@ -50,46 +49,38 @@ enum {
         PROP_0,
 };
 
-static void     gsd_xrdb_manager_class_init  (GsdXrdbManagerClass *klass);
-static void     gsd_xrdb_manager_init        (GsdXrdbManager      *xrdb_manager);
-static void     gsd_xrdb_manager_finalize    (GObject             *object);
+static void     gsd_dummy_manager_class_init  (GsdDummyManagerClass *klass);
+static void     gsd_dummy_manager_init        (GsdDummyManager      *dummy_manager);
+static void     gsd_dummy_manager_finalize    (GObject             *object);
 
-G_DEFINE_TYPE (GsdXrdbManager, gsd_xrdb_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdDummyManager, gsd_dummy_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
 gboolean
-gsd_xrdb_manager_start (GsdXrdbManager *manager,
+gsd_dummy_manager_start (GsdDummyManager *manager,
                                GError               **error)
 {
-        GConfClient *client;
-        int          i;
-
-        g_debug ("Starting xrdb manager");
-
-        client = gconf_client_get_default ();
-
-        g_object_unref (client);
-
+        g_debug ("Starting dummy manager");
 
         return TRUE;
 }
 
 void
-gsd_xrdb_manager_stop (GsdXrdbManager *manager)
+gsd_dummy_manager_stop (GsdDummyManager *manager)
 {
-        g_debug ("Stopping xrdb manager");
+        g_debug ("Stopping dummy manager");
 }
 
 static void
-gsd_xrdb_manager_set_property (GObject        *object,
+gsd_dummy_manager_set_property (GObject        *object,
                                guint           prop_id,
                                const GValue   *value,
                                GParamSpec     *pspec)
 {
-        GsdXrdbManager *self;
+        GsdDummyManager *self;
 
-        self = GSD_XRDB_MANAGER (object);
+        self = GSD_DUMMY_MANAGER (object);
 
         switch (prop_id) {
         default:
@@ -99,14 +90,14 @@ gsd_xrdb_manager_set_property (GObject        *object,
 }
 
 static void
-gsd_xrdb_manager_get_property (GObject        *object,
+gsd_dummy_manager_get_property (GObject        *object,
                                guint           prop_id,
                                GValue         *value,
                                GParamSpec     *pspec)
 {
-        GsdXrdbManager *self;
+        GsdDummyManager *self;
 
-        self = GSD_XRDB_MANAGER (object);
+        self = GSD_DUMMY_MANAGER (object);
 
         switch (prop_id) {
         default:
@@ -116,78 +107,78 @@ gsd_xrdb_manager_get_property (GObject        *object,
 }
 
 static GObject *
-gsd_xrdb_manager_constructor (GType                  type,
+gsd_dummy_manager_constructor (GType                  type,
                               guint                  n_construct_properties,
                               GObjectConstructParam *construct_properties)
 {
-        GsdXrdbManager      *xrdb_manager;
-        GsdXrdbManagerClass *klass;
+        GsdDummyManager      *dummy_manager;
+        GsdDummyManagerClass *klass;
 
-        klass = GSD_XRDB_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_XRDB_MANAGER));
+        klass = GSD_DUMMY_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_DUMMY_MANAGER));
 
-        xrdb_manager = GSD_XRDB_MANAGER (G_OBJECT_CLASS (gsd_xrdb_manager_parent_class)->constructor (type,
+        dummy_manager = GSD_DUMMY_MANAGER (G_OBJECT_CLASS (gsd_dummy_manager_parent_class)->constructor (type,
                                                                                                       n_construct_properties,
                                                                                                       construct_properties));
 
-        return G_OBJECT (xrdb_manager);
+        return G_OBJECT (dummy_manager);
 }
 
 static void
-gsd_xrdb_manager_dispose (GObject *object)
+gsd_dummy_manager_dispose (GObject *object)
 {
-        GsdXrdbManager *xrdb_manager;
+        GsdDummyManager *dummy_manager;
 
-        xrdb_manager = GSD_XRDB_MANAGER (object);
+        dummy_manager = GSD_DUMMY_MANAGER (object);
 
-        G_OBJECT_CLASS (gsd_xrdb_manager_parent_class)->dispose (object);
+        G_OBJECT_CLASS (gsd_dummy_manager_parent_class)->dispose (object);
 }
 
 static void
-gsd_xrdb_manager_class_init (GsdXrdbManagerClass *klass)
+gsd_dummy_manager_class_init (GsdDummyManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->get_property = gsd_xrdb_manager_get_property;
-        object_class->set_property = gsd_xrdb_manager_set_property;
-        object_class->constructor = gsd_xrdb_manager_constructor;
-        object_class->dispose = gsd_xrdb_manager_dispose;
-        object_class->finalize = gsd_xrdb_manager_finalize;
+        object_class->get_property = gsd_dummy_manager_get_property;
+        object_class->set_property = gsd_dummy_manager_set_property;
+        object_class->constructor = gsd_dummy_manager_constructor;
+        object_class->dispose = gsd_dummy_manager_dispose;
+        object_class->finalize = gsd_dummy_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdXrdbManagerPrivate));
+        g_type_class_add_private (klass, sizeof (GsdDummyManagerPrivate));
 }
 
 static void
-gsd_xrdb_manager_init (GsdXrdbManager *manager)
+gsd_dummy_manager_init (GsdDummyManager *manager)
 {
-        manager->priv = GSD_XRDB_MANAGER_GET_PRIVATE (manager);
+        manager->priv = GSD_DUMMY_MANAGER_GET_PRIVATE (manager);
 
 }
 
 static void
-gsd_xrdb_manager_finalize (GObject *object)
+gsd_dummy_manager_finalize (GObject *object)
 {
-        GsdXrdbManager *xrdb_manager;
+        GsdDummyManager *dummy_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_XRDB_MANAGER (object));
+        g_return_if_fail (GSD_IS_DUMMY_MANAGER (object));
 
-        xrdb_manager = GSD_XRDB_MANAGER (object);
+        dummy_manager = GSD_DUMMY_MANAGER (object);
 
-        g_return_if_fail (xrdb_manager->priv != NULL);
+        g_return_if_fail (dummy_manager->priv != NULL);
 
-        G_OBJECT_CLASS (gsd_xrdb_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (gsd_dummy_manager_parent_class)->finalize (object);
 }
 
-GsdXrdbManager *
-gsd_xrdb_manager_new (void)
+GsdDummyManager *
+gsd_dummy_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_XRDB_MANAGER, NULL);
+                manager_object = g_object_new (GSD_TYPE_DUMMY_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_XRDB_MANAGER (manager_object);
+        return GSD_DUMMY_MANAGER (manager_object);
 }

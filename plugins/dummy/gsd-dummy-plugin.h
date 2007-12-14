@@ -25,7 +25,7 @@
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gsd-settings-plugin.h"
+#include "gnome-settings-plugin.h"
 
 G_BEGIN_DECLS
 
@@ -40,19 +40,19 @@ typedef struct GsdDummyPluginPrivate GsdDummyPluginPrivate;
 
 typedef struct
 {
-        GsdSettingsPlugin      parent;
+        GnomeSettingsPlugin    parent;
         GsdDummyPluginPrivate *priv;
 } GsdDummyPlugin;
 
 typedef struct
 {
-        GsdSettingsPluginClass parent_class;
+        GnomeSettingsPluginClass parent_class;
 } GsdDummyPluginClass;
 
 GType   gsd_dummy_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gsd_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 

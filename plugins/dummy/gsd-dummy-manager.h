@@ -18,40 +18,40 @@
  *
  */
 
-#ifndef __GSD_XRDB_MANAGER_H
-#define __GSD_XRDB_MANAGER_H
+#ifndef __GSD_DUMMY_MANAGER_H
+#define __GSD_DUMMY_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_XRDB_MANAGER         (gsd_xrdb_manager_get_type ())
-#define GSD_XRDB_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_XRDB_MANAGER, GsdXrdbManager))
-#define GSD_XRDB_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_XRDB_MANAGER, GsdXrdbManagerClass))
-#define GSD_IS_XRDB_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_XRDB_MANAGER))
-#define GSD_IS_XRDB_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_XRDB_MANAGER))
-#define GSD_XRDB_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_XRDB_MANAGER, GsdXrdbManagerClass))
+#define GSD_TYPE_DUMMY_MANAGER         (gsd_dummy_manager_get_type ())
+#define GSD_DUMMY_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_DUMMY_MANAGER, GsdDummyManager))
+#define GSD_DUMMY_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_DUMMY_MANAGER, GsdDummyManagerClass))
+#define GSD_IS_DUMMY_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_DUMMY_MANAGER))
+#define GSD_IS_DUMMY_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_DUMMY_MANAGER))
+#define GSD_DUMMY_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_DUMMY_MANAGER, GsdDummyManagerClass))
 
-typedef struct GsdXrdbManagerPrivate GsdXrdbManagerPrivate;
+typedef struct GsdDummyManagerPrivate GsdDummyManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GsdXrdbManagerPrivate *priv;
-} GsdXrdbManager;
+        GsdDummyManagerPrivate *priv;
+} GsdDummyManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdXrdbManagerClass;
+} GsdDummyManagerClass;
 
-GType                   gsd_xrdb_manager_get_type            (void);
+GType                   gsd_dummy_manager_get_type            (void);
 
-GsdXrdbManager *        gsd_xrdb_manager_new                 (void);
-gboolean                gsd_xrdb_manager_start               (GsdXrdbManager *manager,
-                                                              GError        **error);
-void                    gsd_xrdb_manager_stop                (GsdXrdbManager *manager);
+GsdDummyManager *       gsd_dummy_manager_new                 (void);
+gboolean                gsd_dummy_manager_start               (GsdDummyManager *manager,
+                                                               GError         **error);
+void                    gsd_dummy_manager_stop                (GsdDummyManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_XRDB_MANAGER_H */
+#endif /* __GSD_DUMMY_MANAGER_H */
