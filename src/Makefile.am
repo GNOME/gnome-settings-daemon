@@ -1,0 +1,46 @@
+NULL =
+
+INCLUDES = \
+	-DDATADIR=\""$(datadir)"\"		 	\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
+	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
+	-DGNOME_SETTINGS_PLUGINDIR=\""$(libdir)/gnome-settings-daemon/plugins"\"	\
+	$(WARN_CFLAGS)					\
+	$(DISABLE_DEPRECATED_CFLAGS)			\
+	$(SETTINGS_DAEMON_CFLAGS)			\
+	$(NULL)
+
+libexec_PROGRAMS =			\
+	gnome-settings-daemon		\
+	$(NULL)
+
+gnome_settings_daemon_SOURCES =  	\
+	main.c				\
+	gnome-settings-manager.c	\
+	gnome-settings-manager.h	\
+	gnome-settings-plugin.c		\
+	gnome-settings-plugin.h		\
+	gnome-settings-plugins-engine.c	\
+	gnome-settings-plugins-engine.h	\
+	gnome-settings-module.c		\
+	gnome-settings-module.h		\
+	$(NULL)
+
+gnome_settings_daemon_CPPFLAGS =	\
+	$(AM_CPPFLAGS)			\
+	$(NULL)
+
+gnome_settings_daemon_CFLAGS =		\
+	$(AM_CFLAGS)			\
+	$(NULL)
+
+gnome_settings_daemon_LDFLAGS = 	\
+	$(AM_LDFLAGS)			\
+	$(NULL)
+
+gnome_settings_daemon_LDADD = 		\
+	$(SETTINGS_DAEMON_LIBS)		\
+	$(NULL)
+
+EXTRA_DIST = 				\
+	$(NULL)
