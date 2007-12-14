@@ -1,6 +1,7 @@
 NULL =
 
 SUBDIRS =		\
+	clipboard	\
 	dummy		\
 	xrandr		\
 	xrdb		\

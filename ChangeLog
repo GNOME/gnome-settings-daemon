@@ -1,6 +1,44 @@
 2007-12-14  William Jon McCann  <mccann@jhu.edu>
 
 	* configure.ac:
+	* plugins/Makefile.am:
+	* plugins/clipboard/Makefile.am:
+	* plugins/clipboard/clipboard.gnome-settings-plugin.desktop.in:
+	* plugins/clipboard/gsd-clipboard-manager.c: (target_data_ref),
+	(target_data_unref), (conversion_free), (send_selection_notify),
+	(finish_selection_request), (clipboard_bytes_per_item),
+	(save_targets), (find_content_target), (find_content_type),
+	(find_conversion_requestor), (get_property),
+	(receive_incrementally), (send_incrementally),
+	(convert_clipboard_manager), (convert_clipboard_target),
+	(collect_incremental), (convert_clipboard),
+	(clipboard_manager_process_event),
+	(clipboard_manager_event_filter), (clipboard_manager_watch_cb),
+	(gsd_clipboard_manager_start), (gsd_clipboard_manager_stop),
+	(gsd_clipboard_manager_set_property),
+	(gsd_clipboard_manager_get_property),
+	(gsd_clipboard_manager_constructor),
+	(gsd_clipboard_manager_dispose),
+	(gsd_clipboard_manager_class_init), (gsd_clipboard_manager_init),
+	(gsd_clipboard_manager_finalize), (gsd_clipboard_manager_new):
+	* plugins/clipboard/gsd-clipboard-manager.h:
+	* plugins/clipboard/gsd-clipboard-plugin.c:
+	(gsd_clipboard_plugin_init), (gsd_clipboard_plugin_finalize),
+	(impl_activate), (impl_deactivate),
+	(gsd_clipboard_plugin_class_init):
+	* plugins/clipboard/gsd-clipboard-plugin.h:
+	* plugins/clipboard/list.c: (list_foreach), (list_prepend),
+	(list_free), (list_find), (list_remove), (list_length),
+	(list_copy):
+	* plugins/clipboard/list.h:
+	* plugins/clipboard/xutils.c: (init_atoms), (timestamp_predicate),
+	(get_server_time):
+	* plugins/clipboard/xutils.h:
+	Port over the clipboard module.
+
+2007-12-14  William Jon McCann  <mccann@jhu.edu>
+
+	* configure.ac:
 	* plugins/xrdb/Makefile.am:
 	* plugins/xrdb/data/Editres.ad:
 	* plugins/xrdb/data/Emacs.ad:

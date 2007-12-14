@@ -163,6 +163,7 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 plugins/Makefile
+plugins/clipboard/Makefile
 plugins/dummy/Makefile
 plugins/xrandr/Makefile
 plugins/xrdb/Makefile
