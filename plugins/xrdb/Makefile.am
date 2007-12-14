@@ -1,5 +1,9 @@
 NULL =
 
+SUBDIRS =		\
+	data		\
+	$(NULL)
+
 modules_flags = -export_dynamic -avoid-version -module -no-undefined
 
 plugindir = $(libdir)/gnome-settings-daemon/plugins

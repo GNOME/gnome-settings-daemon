@@ -166,6 +166,7 @@ plugins/Makefile
 plugins/dummy/Makefile
 plugins/xrandr/Makefile
 plugins/xrdb/Makefile
+plugins/xrdb/data/Makefile
 plugins/xsettings/Makefile
 data/Makefile
 data/gnome-settings-daemon.pc
