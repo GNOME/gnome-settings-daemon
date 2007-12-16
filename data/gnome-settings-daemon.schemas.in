@@ -14,6 +14,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-settings-daemon/plugins/font/active</key>
+      <applyto>/apps/gnome-settings-daemon/plugins/font/active</applyto>
+      <owner>gnome-settings-daemon</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>True if the font settings manager plugin is enabled.</short>
+        <long>Set to True to enable the font settings manager plugin.</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-settings-daemon/plugins/xrandr/active</key>
       <applyto>/apps/gnome-settings-daemon/plugins/xrandr/active</applyto>
       <owner>gnome-settings-daemon</owner>

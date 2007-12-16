@@ -165,6 +165,7 @@ src/Makefile
 plugins/Makefile
 plugins/clipboard/Makefile
 plugins/dummy/Makefile
+plugins/font/Makefile
 plugins/xrandr/Makefile
 plugins/xrdb/Makefile
 plugins/xrdb/data/Makefile

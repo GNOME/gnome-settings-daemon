@@ -1,3 +1,30 @@
+2007-12-16  William Jon McCann  <mccann@jhu.edu>
+
+	* configure.ac:
+	* data/gnome-settings-daemon.schemas.in:
+	* plugins/Makefile.am:
+	* plugins/font/Makefile:
+	* plugins/font/Makefile.am:
+	* plugins/font/Makefile.in:
+	* plugins/font/delayed-dialog.c:
+	(gnome_settings_delayed_show_dialog), (delayed_show_timeout),
+	(message_filter):
+	* plugins/font/delayed-dialog.h:
+	* plugins/font/font.gnome-settings-plugin.desktop.in:
+	* plugins/font/gsd-font-manager.c: (write_all), (child_watch_cb),
+	(spawn_with_input), (load_xcursor_theme), (load_cursor),
+	(gsd_font_manager_start), (gsd_font_manager_stop),
+	(gsd_font_manager_set_property), (gsd_font_manager_get_property),
+	(gsd_font_manager_constructor), (gsd_font_manager_dispose),
+	(gsd_font_manager_class_init), (gsd_font_manager_init),
+	(gsd_font_manager_finalize), (gsd_font_manager_new):
+	* plugins/font/gsd-font-manager.h:
+	* plugins/font/gsd-font-plugin.c: (gsd_font_plugin_init),
+	(gsd_font_plugin_finalize), (impl_activate), (impl_deactivate),
+	(gsd_font_plugin_class_init):
+	* plugins/font/gsd-font-plugin.h:
+	Add font plugin
+
 2007-12-14  William Jon McCann  <mccann@jhu.edu>
 
 	* data/gnome-settings-daemon.schemas.in:
