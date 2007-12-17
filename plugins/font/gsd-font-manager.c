@@ -48,7 +48,7 @@
 
 struct GsdFontManagerPrivate
 {
-
+        gpointer dummy;
 };
 
 enum {

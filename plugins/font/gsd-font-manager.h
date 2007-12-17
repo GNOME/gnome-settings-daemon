@@ -36,7 +36,7 @@ typedef struct GsdFontManagerPrivate GsdFontManagerPrivate;
 
 typedef struct
 {
-        GObject                     parent;
+        GObject                parent;
         GsdFontManagerPrivate *priv;
 } GsdFontManager;
 

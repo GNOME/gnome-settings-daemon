@@ -1,3 +1,13 @@
+2007-12-17  William Jon McCann  <mccann@jhu.edu>
+
+	* plugins/font/gsd-font-manager.c:
+	* src/gnome-settings-plugins-engine.c:
+	(gnome_settings_plugins_engine_load_file),
+	(gnome_settings_plugins_engine_activate_plugin),
+	(gnome_settings_plugins_engine_deactivate_plugin):
+	Fix an extraneous / in gconf path.  Add a dummy var
+	to pad out private data.
+
 2007-12-16  William Jon McCann  <mccann@jhu.edu>
 
 	* configure.ac:

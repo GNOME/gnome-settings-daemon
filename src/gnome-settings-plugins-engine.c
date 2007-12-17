@@ -252,7 +252,6 @@ gnome_settings_plugins_engine_load_file (const char *filename)
                                                                 NULL,
                                                                 NULL);
 
-        g_debug ("Reading gconf key: %s", key_name);
         activate = gconf_client_get_bool (client, key_name, NULL);
         g_free (key_name);
 
@@ -539,7 +538,7 @@ gnome_settings_plugins_engine_activate_plugin (GnomeSettingsPluginInfo *info)
         if (gnome_settings_plugins_engine_activate_plugin_real (info)) {
                 char *key_name;
 
-                key_name = g_strdup_printf ("/%s/%s/active",
+                key_name = g_strdup_printf ("%s/%s/active",
                                             gnome_settings_gconf_prefix,
                                             info->location);
                 gconf_client_set_bool (client, key_name, TRUE, NULL);
@@ -575,7 +574,7 @@ gnome_settings_plugins_engine_deactivate_plugin (GnomeSettingsPluginInfo *info)
         /* Update plugin state */
         info->active = FALSE;
 
-        key_name = g_strdup_printf ("/%s/%s/active",
+        key_name = g_strdup_printf ("%s/%s/active",
                                     gnome_settings_gconf_prefix,
                                     info->location);
         gconf_client_set_bool (client, key_name, FALSE, NULL);
