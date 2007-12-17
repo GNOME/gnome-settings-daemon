@@ -42,7 +42,7 @@
 
 struct GsdDummyManagerPrivate
 {
-
+        gboolean padding;
 };
 
 enum {

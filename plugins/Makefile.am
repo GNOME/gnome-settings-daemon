@@ -8,6 +8,7 @@ SUBDIRS =		\
 	font		\
 	keybindings	\
 	keyboard	\
+	media-keys	\
 	mouse		\
 	screensaver	\
 	xrandr		\

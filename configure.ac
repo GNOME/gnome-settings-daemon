@@ -55,6 +55,7 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gconf-2.0 >= $GCONF_REQUIRED_VERSION
         gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED_VERSION
         libglade-2.0 >= 2.0.0
+        dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
 )
 AC_SUBST(SETTINGS_PLUGIN_CFLAGS)
 AC_SUBST(SETTINGS_PLUGIN_LIBS)
@@ -152,6 +153,122 @@ PKG_CHECK_MODULES(LIBGNOMEKBD, [libgnomekbd >= 2.21.4 libxklavier >= 3.3])
 AC_SUBST(LIBGNOMEKBD_CFLAGS)
 AC_SUBST(LIBGNOMEKBD_LIBS)
 
+dnl ==============================================
+dnl OSS section
+dnl ==============================================
+
+have_oss=no
+AC_TRY_COMPILE([
+	#ifdef __NetBSD__
+	#include <sys/param.h>
+	#include <sys/sysctl.h>
+	#include <soundcard.h>
+	#else
+	#include <sys/soundcard.h>
+	#endif
+	],[
+	int arg = SNDCTL_DSP_SETFRAGMENT;
+	],[
+	have_oss=yes
+])
+AC_MSG_CHECKING(for OSS audio support)
+AC_MSG_RESULT($have_oss)
+AM_CONDITIONAL(HAVE_OSS, test x"$have_oss" = "xyes")
+
+dnl ==============================================
+dnl ALSA section
+dnl ==============================================
+have_alsa=no
+AC_ARG_ENABLE(alsa,
+  AC_HELP_STRING([--disable-alsa],
+                 [turn off ALSA audio support]),
+       [case "${enableval}" in
+               yes) WANT_ALSA=yes ;;
+               no)  WANT_ALSA=no ;;
+               *) AC_MSG_ERROR(bad value ${enableval} for --disable-alsa) ;;
+       esac],
+       [WANT_ALSA=yes]) dnl Default value
+
+if test x$WANT_ALSA = xyes ; then
+       PKG_CHECK_MODULES(ALSA, alsa >= 0.9.0,
+               have_alsa=yes,
+               AC_MSG_RESULT([disabled]))
+fi
+
+AM_CONDITIONAL(HAVE_ALSA, test x"$have_alsa" = "xyes")
+AC_SUBST(ALSA_LIBS)
+AC_SUBST(ALSA_CFLAGS)
+
+dnl ==============================================
+dnl Esd section
+dnl ==============================================
+have_esd=no
+AC_ARG_ENABLE(esd,
+  AC_HELP_STRING([--disable-esd],
+                 [turn off ESD audio support]),
+       [case "${enableval}" in
+               yes) WANT_ESD=yes ;;
+               no)  WANT_ESD=no ;;
+               *) AC_MSG_ERROR(bad value ${enableval} for --disable-esd) ;;
+       esac],
+       [WANT_ESD=yes]) dnl Default value
+
+if test x$WANT_ESD = xyes ; then
+       PKG_CHECK_MODULES(ESD, esound >= 0.2.28,
+               have_esd=yes
+	       AC_DEFINE(HAVE_ESD, 1, [Define if ESD sound server should be used]),
+               AC_MSG_RESULT([disabled]))
+fi
+
+AM_CONDITIONAL(HAVE_ESD, test x"$have_esd" = "xyes")
+AC_SUBST(ESD_CFLAGS)
+AC_SUBST(ESD_LIBS)
+
+dnl ==============================================
+dnl GStreamer section
+dnl ==============================================
+GST_MAJORMINOR=auto
+
+AC_ARG_ENABLE(gstreamer,
+AC_HELP_STRING([--enable-gstreamer],[use gstreamer if available (and optionally specify a version)]),
+[case "${enableval}" in
+ yes) ENABLE_GSTREAMER=yes ;;
+ 0.10) ENABLE_GSTREAMER=yes && GST_MAJORMINOR=0.10 ;;
+ no)  ENABLE_GSTREAMER=no ;;
+ *) AC_MSG_ERROR([
+                  *** Bad value ${enableval} for --enable-gstreamer
+                  *** Please use one of the following:
+                  ***    --enable-gstreamer=0.10
+               ]) ;;
+esac],
+[ENABLE_GSTREAMER=yes]) dnl Default value
+
+have_gstreamer=no
+if test "x$ENABLE_GSTREAMER" = "xyes"; then
+   GST_REQS=0.10.1.2
+   PKGS="gstreamer-0.10 >= $GST_REQS gstreamer-plugins-base-0.10 >= $GST_REQS"
+
+   PKG_CHECK_MODULES(GST, $PKGS, have_gstreamer=yes,
+                     AC_MSG_RESULT([no]))
+
+   GST_LIBS="$GST_LIBS -lgstinterfaces-0.10 -lgstaudio-0.10"
+else
+   AC_MSG_NOTICE([*** GStreamer support disabled ***])
+fi
+AM_CONDITIONAL(HAVE_GSTREAMER, test "x$have_gstreamer" = "xyes")
+AC_SUBST(GST_LIBS)
+AC_SUBST(GST_CFLAGS)
+
+if test "x$have_gstreamer" = "xyes"; then
+  PKG_CHECK_MODULES(SOUND_CAPPLET, esound)
+  SOUND_CAPPLET_LIBS="$SOUND_CAPPLET_LIBS $GST_LIBS -lgstaudio-0.10 -lgstinterfaces-0.10"
+  SOUND_CAPPLET_CFLAGS="$SOUND_CAPPLET_CFLAGS $GST_CFLAGS"
+  AC_SUBST(SOUND_CAPPLET_LIBS)
+  AC_SUBST(SOUND_CAPPLET_CFLAGS)
+else
+  AC_MSG_NOTICE([*** Sound capplet will not be built]);
+fi
+
 dnl ---------------------------------------------------------------------------
 dnl - Expand vars
 dnl ---------------------------------------------------------------------------
@@ -238,6 +355,8 @@ plugins/dummy/Makefile
 plugins/font/Makefile
 plugins/keybindings/Makefile
 plugins/keyboard/Makefile
+plugins/media-keys/Makefile
+plugins/media-keys/actions/Makefile
 plugins/mouse/Makefile
 plugins/screensaver/Makefile
 plugins/xrandr/Makefile

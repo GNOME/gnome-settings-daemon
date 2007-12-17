@@ -1,6 +1,109 @@
 2007-12-17  William Jon McCann  <mccann@jhu.edu>
 
 	* configure.ac:
+	* plugins/Makefile.am:
+	* plugins/dummy/gsd-dummy-manager.c:
+	* plugins/media-keys/Makefile.am:
+	* plugins/media-keys/actions/Makefile.am:
+	* plugins/media-keys/actions/acme-volume-alsa.c:
+	(acme_volume_alsa_finalize), (acme_volume_alsa_set_mute),
+	(acme_volume_alsa_get_mute), (acme_volume_alsa_get_volume),
+	(acme_volume_alsa_set_volume), (acme_volume_alsa_close_real),
+	(acme_volume_alsa_open), (acme_volume_alsa_close),
+	(acme_volume_alsa_init), (acme_volume_alsa_class_init):
+	* plugins/media-keys/actions/acme-volume-alsa.h:
+	* plugins/media-keys/actions/acme-volume-dummy.c:
+	(acme_volume_dummy_finalize), (acme_volume_dummy_set_mute),
+	(acme_volume_dummy_get_mute), (acme_volume_dummy_get_volume),
+	(acme_volume_dummy_set_volume), (acme_volume_dummy_init),
+	(acme_volume_dummy_class_init), (acme_volume_dummy_get_type):
+	* plugins/media-keys/actions/acme-volume-dummy.h:
+	* plugins/media-keys/actions/acme-volume-gstreamer.c:
+	(acme_volume_gstreamer_finalize), (acme_volume_gstreamer_set_mute),
+	(update_state), (acme_volume_gstreamer_get_mute),
+	(acme_volume_gstreamer_get_volume),
+	(acme_volume_gstreamer_set_volume),
+	(acme_volume_gstreamer_close_real), (_acme_set_mixer),
+	(acme_volume_gstreamer_open), (acme_volume_gstreamer_close),
+	(acme_volume_gstreamer_init), (acme_volume_gstreamer_class_init):
+	* plugins/media-keys/actions/acme-volume-gstreamer.h:
+	* plugins/media-keys/actions/acme-volume-oss.c:
+	(acme_volume_oss_finalize), (acme_volume_oss_vol_check),
+	(acme_volume_oss_set_mute), (acme_volume_oss_get_mute),
+	(acme_volume_oss_get_volume), (acme_volume_oss_set_volume),
+	(acme_volume_oss_init), (acme_volume_oss_class_init),
+	(acme_volume_oss_mixer_check):
+	* plugins/media-keys/actions/acme-volume-oss.h:
+	* plugins/media-keys/actions/acme-volume.c:
+	(acme_volume_class_init), (acme_volume_init),
+	(acme_volume_get_volume), (acme_volume_set_volume),
+	(acme_volume_get_mute), (acme_volume_set_mute),
+	(acme_volume_mute_toggle), (acme_volume_new):
+	* plugins/media-keys/actions/acme-volume.h:
+	* plugins/media-keys/actions/acme.glade:
+	* plugins/media-keys/actions/acme.h:
+	* plugins/media-keys/eggaccelerators.c: (is_alt), (is_ctl),
+	(is_modx), (is_ctrl), (is_shft), (is_shift), (is_control),
+	(is_release), (is_meta), (is_super), (is_hyper), (is_keycode),
+	(egg_accelerator_parse_virtual), (egg_virtual_accelerator_name),
+	(egg_keymap_resolve_virtual_modifiers),
+	(egg_keymap_virtualize_modifiers), (reload_modmap),
+	(egg_keymap_get_modmap):
+	* plugins/media-keys/eggaccelerators.h:
+	* plugins/media-keys/gsd-marshal.list:
+	* plugins/media-keys/gsd-media-keys-manager.c: (init_screens),
+	(acme_error), (get_term_command), (execute), (do_sleep_action),
+	(dialog_init), (grab_key_real), (grab_key), (is_valid_shortcut),
+	(update_kbd_cb), (init_kbd), (dialog_show), (do_unknown_action),
+	(do_help_action), (do_mail_action), (do_media_action),
+	(do_www_action), (do_exit_action), (do_eject_action),
+	(do_sound_action), (find_by_application), (find_by_time),
+	(gsd_media_keys_manager_grab_media_player_keys),
+	(gsd_media_keys_manager_release_media_player_keys),
+	(gsd_media_player_key_pressed), (do_multimedia_player_action),
+	(do_action), (acme_get_screen_from_event), (acme_filter_events),
+	(gsd_media_keys_manager_start), (gsd_media_keys_manager_stop),
+	(gsd_media_keys_manager_set_property),
+	(gsd_media_keys_manager_get_property),
+	(gsd_media_keys_manager_constructor),
+	(gsd_media_keys_manager_dispose),
+	(gsd_media_keys_manager_class_init), (gsd_media_keys_manager_init),
+	(gsd_media_keys_manager_finalize), (register_manager),
+	(gsd_media_keys_manager_new):
+	* plugins/media-keys/gsd-media-keys-manager.h:
+	* plugins/media-keys/gsd-media-keys-manager.xml:
+	* plugins/media-keys/gsd-media-keys-plugin.c:
+	(gsd_media_keys_plugin_init), (gsd_media_keys_plugin_finalize),
+	(impl_activate), (impl_deactivate),
+	(gsd_media_keys_plugin_class_init):
+	* plugins/media-keys/gsd-media-keys-plugin.h:
+	* plugins/media-keys/gsd-media-keys-window.c: (fade_timeout),
+	(hide_timeout), (remove_hide_timeout), (add_hide_timeout),
+	(update_window), (volume_controls_set_visible),
+	(window_set_icon_name), (window_set_icon_file), (action_changed),
+	(volume_level_changed), (volume_muted_changed),
+	(gsd_media_keys_window_set_action),
+	(gsd_media_keys_window_set_volume_muted),
+	(gsd_media_keys_window_set_volume_level), (curved_rectangle),
+	(load_pixbuf), (render_eject), (draw_eject), (draw_action_eject),
+	(draw_waves), (draw_speaker), (render_speaker),
+	(draw_volume_boxes), (draw_action_volume), (draw_action),
+	(on_expose_event), (gsd_media_keys_window_real_show),
+	(gsd_media_keys_window_real_hide),
+	(gsd_media_keys_window_class_init),
+	(gsd_media_keys_window_is_valid), (initialize_alpha_mode),
+	(gsd_media_keys_window_init), (gsd_media_keys_window_finalize),
+	(gsd_media_keys_window_new):
+	* plugins/media-keys/gsd-media-keys-window.h:
+	* plugins/media-keys/media-keys.gnome-settings-plugin.desktop.in:
+	* plugins/media-keys/test-media-window.c: (update_state),
+	(test_window), (main):
+	* plugins/xrandr/Makefile.in:
+	Add media keys plugin.
+
+2007-12-17  William Jon McCann  <mccann@jhu.edu>
+
+	* configure.ac:
 	* data/Makefile.am:
 	* data/apps_gnome_settings_daemon_default_editor.schemas.in:
 	* data/apps_gnome_settings_daemon_keybindings.schemas.in:
