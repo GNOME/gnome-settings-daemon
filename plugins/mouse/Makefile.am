@@ -2,7 +2,7 @@ NULL =
 
 modules_flags = -export_dynamic -avoid-version -module -no-undefined
 
-plugindir = $(libdir)/gnome-settings-daemon/plugins
+plugindir = $(libdir)/gnome-settings-daemon/plugins/mouse
 
 INCLUDES = \
 	-I$(top_srcdir)/src		\
