@@ -54,6 +54,7 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gtk+-2.0 >= $GTK_REQUIRED_VERSION
         gconf-2.0 >= $GCONF_REQUIRED_VERSION
         gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED_VERSION
+        libglade-2.0 >= 2.0.0
 )
 AC_SUBST(SETTINGS_PLUGIN_CFLAGS)
 AC_SUBST(SETTINGS_PLUGIN_LIBS)
@@ -86,6 +87,66 @@ else
 fi
 AC_SUBST(DBUS_SYS_DIR)
 
+dnl ---------------------------------------------------------------------------
+dnl - X11 stuff
+dnl ---------------------------------------------------------------------------
+
+# Like AC_CHECK_HEADER, but it uses the already-computed -I directories.
+#
+AC_DEFUN(AC_CHECK_X_HEADER, [
+  ac_save_CPPFLAGS="$CPPFLAGS"
+  if test \! -z "$includedir" ; then
+    CPPFLAGS="$CPPFLAGS -I$includedir"
+  fi
+  CPPFLAGS="$CPPFLAGS $X_CFLAGS"
+  AC_CHECK_HEADER([$1],[$2],[$3],[$4])
+  CPPFLAGS="$ac_save_CPPFLAGS"])
+
+# Like AC_CHECK_LIB, but it uses the already-computed -I and -L directories.
+# Use this sparingly; it probably doesn't work very well on X programs.
+#
+AC_DEFUN(AC_CHECK_X_LIB, [
+  ac_save_CPPFLAGS="$CPPFLAGS"
+  ac_save_LDFLAGS="$LDFLAGS"
+#  ac_save_LIBS="$LIBS"
+
+  if test \! -z "$includedir" ; then
+    CPPFLAGS="$CPPFLAGS -I$includedir"
+  fi
+  # note: $X_CFLAGS includes $x_includes
+  CPPFLAGS="$CPPFLAGS $X_CFLAGS"
+
+  if test \! -z "$libdir" ; then
+    LDFLAGS="$LDFLAGS -L$libdir"
+  fi
+  # note: $X_LIBS includes $x_libraries
+  LDFLAGS="$LDFLAGS $ALL_X_LIBS"
+
+  AC_CHECK_LIB([$1], [$2], [$3], [$4], [$5])
+  CPPFLAGS="$ac_save_CPPFLAGS"
+  LDFLAGS="$ac_save_LDFLAGS"
+#  LIBS="$ac_save_LIBS"
+  ])
+
+AC_PATH_XTRA
+
+ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS"
+
+
+dnl ---------------------------------------------------------------------------
+dnl - Keyboard plugin stuff
+dnl ---------------------------------------------------------------------------
+
+AC_CHECK_HEADERS([X11/Xlib.h])
+
+AC_CHECK_X_LIB(Xxf86misc, XF86MiscQueryExtension, [
+  AC_CHECK_HEADERS([X11/extensions/xf86misc.h], [XF86MISC_LIBS="-lXxf86misc"],[],
+[#if HAVE_X11_XLIB_H
+#include <X11/Xlib.h>
+#endif
+])], [true], -lXext -lX11)
+AC_SUBST(XF86MISC_LIBS)
+AC_CHECK_HEADERS(X11/extensions/XKB.h)
 
 dnl ---------------------------------------------------------------------------
 dnl - Expand vars
@@ -169,6 +230,7 @@ plugins/clipboard/Makefile
 plugins/default-editor/Makefile
 plugins/dummy/Makefile
 plugins/font/Makefile
+plugins/keyboard/Makefile
 plugins/xrandr/Makefile
 plugins/xrdb/Makefile
 plugins/xrdb/data/Makefile

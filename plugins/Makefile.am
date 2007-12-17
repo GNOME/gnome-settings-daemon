@@ -5,6 +5,7 @@ SUBDIRS =		\
 	default-editor	\
 	dummy		\
 	font		\
+	keyboard	\
 	xrandr		\
 	xrdb		\
 	xsettings	\

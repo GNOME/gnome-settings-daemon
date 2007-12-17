@@ -3,6 +3,53 @@
 	* configure.ac:
 	* data/gnome-settings-daemon.schemas.in:
 	* plugins/Makefile.am:
+	* plugins/keyboard/Makefile.am:
+	* plugins/keyboard/delayed-dialog.c: (gsd_delayed_show_dialog),
+	(delayed_show_timeout), (message_filter):
+	* plugins/keyboard/delayed-dialog.h:
+	* plugins/keyboard/gsd-keyboard-manager.c:
+	(xfree86_set_keyboard_autorepeat_rate),
+	(xkb_set_keyboard_autorepeat_rate),
+	(gsd_keyboard_get_hostname_key), (numlock_NumLock_modifier_mask),
+	(numlock_set_xkb_state), (numlock_gconf_state_key),
+	(numlock_get_gconf_state), (numlock_set_gconf_state),
+	(numlock_xkb_callback), (numlock_install_xkb_callback),
+	(apply_settings), (register_config_callback),
+	(gsd_keyboard_manager_start), (gsd_keyboard_manager_stop),
+	(gsd_keyboard_manager_set_property),
+	(gsd_keyboard_manager_get_property),
+	(gsd_keyboard_manager_constructor), (gsd_keyboard_manager_dispose),
+	(gsd_keyboard_manager_class_init), (gsd_keyboard_manager_init),
+	(gsd_keyboard_manager_finalize), (gsd_keyboard_manager_new):
+	* plugins/keyboard/gsd-keyboard-manager.h:
+	* plugins/keyboard/gsd-keyboard-plugin.c:
+	(gsd_keyboard_plugin_init), (gsd_keyboard_plugin_finalize),
+	(impl_activate), (impl_deactivate),
+	(gsd_keyboard_plugin_class_init):
+	* plugins/keyboard/gsd-keyboard-plugin.h:
+	* plugins/keyboard/gsd-keyboard-xkb.c: (gsd_keyboard_log_appender),
+	(activation_error), (apply_settings), (apply_xkb_settings),
+	(gsd_keyboard_xkb_analyze_sysconfig), (gsd_chk_file_list),
+	(gsd_keyboard_xkb_chk_lcl_xmm),
+	(gsd_keyboard_xkb_set_post_activation_callback),
+	(gsd_keyboard_xkb_evt_filter), (register_config_callback),
+	(gsd_keyboard_xkb_init), (gsd_keyboard_xkb_load):
+	* plugins/keyboard/gsd-keyboard-xkb.h:
+	* plugins/keyboard/gsd-xmodmap.c: (check_button_callback),
+	(gsd_load_modmap_files), (response_callback),
+	(get_selected_files_func), (remove_string_from_list),
+	(remove_button_clicked_callback), (load_button_clicked_callback),
+	(gsd_modmap_dialog_call):
+	* plugins/keyboard/gsd-xmodmap.h:
+	* plugins/keyboard/keyboard.gnome-settings-plugin.desktop.in:
+	* plugins/xrandr/Makefile.in:
+	Add the keyboard plugin.
+
+2007-12-16  William Jon McCann  <mccann@jhu.edu>
+
+	* configure.ac:
+	* data/gnome-settings-daemon.schemas.in:
+	* plugins/Makefile.am:
 	* plugins/default-editor/Makefile.am:
 	* plugins/default-editor/default-editor.gnome-settings-plugin.deskt
 	op.in:
