@@ -67,7 +67,7 @@
 
 struct GsdKeyboardManagerPrivate
 {
-
+        gboolean dummy;
 };
 
 enum {

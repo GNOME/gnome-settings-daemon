@@ -1,6 +1,28 @@
 2007-12-17  William Jon McCann  <mccann@jhu.edu>
 
 	* configure.ac:
+	* data/Makefile.am:
+	* data/apps_gnome_settings_daemon_default_editor.schemas.in:
+	* data/apps_gnome_settings_daemon_keybindings.schemas.in:
+	* data/apps_gnome_settings_daemon_screensaver.schemas.in:
+	* data/desktop_gnome_font_rendering.schemas.in:
+	* plugins/default-editor/Makefile.am:
+	* plugins/default-editor/gsd-default-editor-manager.c:
+	(gsd_default_editor_manager_init):
+	* plugins/keyboard/Makefile.am:
+	* plugins/keyboard/gsd-keyboard-manager.c:
+	* plugins/mouse/gsd-mouse-manager.c:
+	* plugins/screensaver/gsd-screensaver-manager.c:
+	(gsd_screensaver_manager_start):
+	* plugins/xrandr/Makefile.in:
+	* plugins/xrandr/gsd-xrandr-manager.c:
+	* plugins/xrdb/Makefile.am:
+	Add other schemas.  Fix some zero length private data.
+	Fix some install dirs.  Add libgnomekbd deps.
+
+2007-12-17  William Jon McCann  <mccann@jhu.edu>
+
+	* configure.ac:
 	* data/gnome-settings-daemon.schemas.in:
 	* plugins/Makefile.am:
 	* plugins/screensaver/Makefile.am:

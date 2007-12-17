@@ -10,9 +10,9 @@ plugindir = $(libdir)/gnome-settings-daemon/plugins/xrdb
 
 INCLUDES = \
 	-I$(top_srcdir)/src		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
-	-DDATADIR=\""$(datadir)"\"		 	\
-	$(SETTINGS_PLUGIN_CFLAGS)			\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DDATADIR=\""$(datadir)/gnome-settings-daemon"\"	\
+	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(NULL)
 
 plugin_LTLIBRARIES = \

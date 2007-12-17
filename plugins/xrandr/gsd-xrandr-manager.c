@@ -46,7 +46,7 @@
 
 struct GsdXrandrManagerPrivate
 {
-
+        gboolean dummy;
 };
 
 enum {

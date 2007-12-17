@@ -9,6 +9,7 @@ INCLUDES = \
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
 	-DDATADIR=\""$(plugindir)"\"\
 	$(SETTINGS_PLUGIN_CFLAGS)			\
+	$(LIBGNOMEKBD_CFLAGS)				\
 	$(NULL)
 
 plugin_LTLIBRARIES = \
@@ -38,6 +39,8 @@ libkeyboard_la_LDFLAGS = 	\
 
 libkeyboard_la_LIBADD  = 	\
 	$(SETTINGS_PLUGIN_LIBS)	\
+	$(XF86MISC_LIBS)	\
+	$(LIBGNOMEKBD_LIBS)	\
 	$(NULL)
 
 libkeyboard_la_CFLAGS = 		\

@@ -57,7 +57,7 @@
 
 struct GsdMouseManagerPrivate
 {
-
+        gboolean dummy;
 };
 
 enum {

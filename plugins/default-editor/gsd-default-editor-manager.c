@@ -49,6 +49,7 @@
 
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 #include <libgnomevfs/gnome-vfs-mime-monitor.h>
+#include <libgnomevfs/gnome-vfs.h>
 
 #include "gsd-default-editor-manager.h"
 
@@ -252,6 +253,7 @@ gsd_default_editor_manager_init (GsdDefaultEditorManager *manager)
 {
         manager->priv = GSD_DEFAULT_EDITOR_MANAGER_GET_PRIVATE (manager);
 
+        gnome_vfs_init ();
 }
 
 static void

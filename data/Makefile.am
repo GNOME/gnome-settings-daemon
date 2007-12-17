@@ -2,8 +2,15 @@ NULL =
 
 @INTLTOOL_SCHEMAS_RULE@
 
-schemasdir = @GCONF_SCHEMA_FILE_DIR@
-schemas_in_files = gnome-settings-daemon.schemas.in
+schemasdir = $(GCONF_SCHEMA_FILE_DIR)
+schemas_in_files = 						\
+	gnome-settings-daemon.schemas.in			\
+	apps_gnome_settings_daemon_default_editor.schemas.in	\
+	apps_gnome_settings_daemon_keybindings.schemas.in	\
+	apps_gnome_settings_daemon_screensaver.schemas.in	\
+	desktop_gnome_font_rendering.schemas.in			\
+	$(NULL)
+
 schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
 
 servicedir = $(datadir)/dbus-1/services

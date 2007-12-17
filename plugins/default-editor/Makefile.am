@@ -11,7 +11,7 @@ INCLUDES = \
 	$(NULL)
 
 plugin_LTLIBRARIES = \
-	libdefault_editor.la		\
+	libdefault-editor.la		\
 	$(NULL)
 
 libdefault_editor_la_SOURCES = 		\

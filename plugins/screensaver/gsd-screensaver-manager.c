@@ -39,8 +39,8 @@
 
 #include "gsd-screensaver-manager.h"
 
-#define START_SCREENSAVER_KEY   "/apps/gnome-settings-daemon/plugins/screensaver/start_screensaver"
-#define SHOW_STARTUP_ERRORS_KEY "/apps/gnome-settings-daemon/plugins/screensaver/show_startup_errors"
+#define START_SCREENSAVER_KEY   "/apps/gnome_settings_daemon/screensaver/start_screensaver"
+#define SHOW_STARTUP_ERRORS_KEY "/apps/gnome_settings_daemon/screensaver/show_startup_errors"
 
 #define GSD_SCREENSAVER_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_SCREENSAVER_MANAGER, GsdScreensaverManagerPrivate))
 
@@ -123,7 +123,6 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
         } else {
                 manager->priv->have_xscreensaver = FALSE;
         }
-
 
         if (!manager->priv->start_screensaver) {
                 return TRUE;
