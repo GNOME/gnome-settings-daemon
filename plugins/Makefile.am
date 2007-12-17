@@ -6,6 +6,7 @@ SUBDIRS =		\
 	dummy		\
 	font		\
 	keyboard	\
+	mouse		\
 	xrandr		\
 	xrdb		\
 	xsettings	\

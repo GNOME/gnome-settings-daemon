@@ -231,6 +231,7 @@ plugins/default-editor/Makefile
 plugins/dummy/Makefile
 plugins/font/Makefile
 plugins/keyboard/Makefile
+plugins/mouse/Makefile
 plugins/xrandr/Makefile
 plugins/xrdb/Makefile
 plugins/xrdb/data/Makefile
