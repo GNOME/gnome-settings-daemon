@@ -9,6 +9,7 @@ SUBDIRS =		\
 	keybindings	\
 	keyboard	\
 	mouse		\
+	screensaver	\
 	xrandr		\
 	xrdb		\
 	xsettings	\

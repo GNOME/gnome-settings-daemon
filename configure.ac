@@ -235,6 +235,7 @@ plugins/font/Makefile
 plugins/keybindings/Makefile
 plugins/keyboard/Makefile
 plugins/mouse/Makefile
+plugins/screensaver/Makefile
 plugins/xrandr/Makefile
 plugins/xrdb/Makefile
 plugins/xrdb/data/Makefile
