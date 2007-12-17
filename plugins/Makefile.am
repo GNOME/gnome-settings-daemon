@@ -5,6 +5,7 @@ SUBDIRS =		\
 	default-editor	\
 	dummy		\
 	font		\
+	keybindings	\
 	keyboard	\
 	mouse		\
 	xrandr		\

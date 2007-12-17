@@ -230,6 +230,7 @@ plugins/clipboard/Makefile
 plugins/default-editor/Makefile
 plugins/dummy/Makefile
 plugins/font/Makefile
+plugins/keybindings/Makefile
 plugins/keyboard/Makefile
 plugins/mouse/Makefile
 plugins/xrandr/Makefile
