@@ -2,6 +2,18 @@
   <schemalist>
 
     <schema>
+      <key>/schemas/apps/gnome-settings-daemon/plugins/background/active</key>
+      <applyto>/apps/gnome-settings-daemon/plugins/background/active</applyto>
+      <owner>gnome-settings-daemon</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>True if the background settings manager plugin is enabled.</short>
+        <long>Set to True to enable the background settings manager plugin.</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-settings-daemon/plugins/clipboard/active</key>
       <applyto>/apps/gnome-settings-daemon/plugins/clipboard/active</applyto>
       <owner>gnome-settings-daemon</owner>

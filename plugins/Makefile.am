@@ -1,6 +1,7 @@
 NULL =
 
 SUBDIRS =		\
+	background	\
 	clipboard	\
 	default-editor	\
 	dummy		\

@@ -226,6 +226,8 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 plugins/Makefile
+plugins/background/Makefile
+plugins/background/libbackground/Makefile
 plugins/clipboard/Makefile
 plugins/default-editor/Makefile
 plugins/dummy/Makefile
