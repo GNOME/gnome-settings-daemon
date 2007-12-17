@@ -15,6 +15,9 @@ plugin_LTLIBRARIES = \
 	libkeyboard.la		\
 	$(NULL)
 
+Gladedir   = $(plugindir)
+Glade_DATA = modmap-dialog.glade
+
 libkeyboard_la_SOURCES = 	\
 	gsd-keyboard-plugin.h	\
 	gsd-keyboard-plugin.c	\
@@ -50,6 +53,7 @@ plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.desktop.in=.gnome-setting
 
 EXTRA_DIST = 			\
 	$(plugin_in_files)	\
+	$(Glade_DATA)		\
 	$(NULL)
 
 CLEANFILES = 			\
