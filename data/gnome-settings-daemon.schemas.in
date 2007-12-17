@@ -14,6 +14,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-settings-daemon/plugins/default-editor/active</key>
+      <applyto>/apps/gnome-settings-daemon/plugins/default-editor/active</applyto>
+      <owner>gnome-settings-daemon</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>True if the default editor settings manager plugin is enabled.</short>
+        <long>Set to True to enable the default editor settings manager plugin.</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-settings-daemon/plugins/font/active</key>
       <applyto>/apps/gnome-settings-daemon/plugins/font/active</applyto>
       <owner>gnome-settings-daemon</owner>

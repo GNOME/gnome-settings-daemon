@@ -37,6 +37,7 @@ DBUS_GLIB_REQUIRED_VERSION=0.74
 GLIB_REQUIRED_VERSION=2.13.0
 GTK_REQUIRED_VERSION=2.10.0
 GCONF_REQUIRED_VERSION=2.6.1
+GNOME_VFS_REQUIRED_VERSION=2.18.0
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -52,6 +53,7 @@ AC_SUBST(SETTINGS_DAEMON_LIBS)
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gtk+-2.0 >= $GTK_REQUIRED_VERSION
         gconf-2.0 >= $GCONF_REQUIRED_VERSION
+        gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED_VERSION
 )
 AC_SUBST(SETTINGS_PLUGIN_CFLAGS)
 AC_SUBST(SETTINGS_PLUGIN_LIBS)
@@ -164,6 +166,7 @@ Makefile
 src/Makefile
 plugins/Makefile
 plugins/clipboard/Makefile
+plugins/default-editor/Makefile
 plugins/dummy/Makefile
 plugins/font/Makefile
 plugins/xrandr/Makefile

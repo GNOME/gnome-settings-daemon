@@ -3,6 +3,36 @@
 	* configure.ac:
 	* data/gnome-settings-daemon.schemas.in:
 	* plugins/Makefile.am:
+	* plugins/default-editor/Makefile.am:
+	* plugins/default-editor/default-editor.gnome-settings-plugin.deskt
+	op.in:
+	* plugins/default-editor/gsd-default-editor-manager.c:
+	(sync_changes_cb), (register_config_callback), (vfs_change_cb),
+	(gsd_default_editor_manager_start),
+	(gsd_default_editor_manager_stop),
+	(gsd_default_editor_manager_set_property),
+	(gsd_default_editor_manager_get_property),
+	(gsd_default_editor_manager_constructor),
+	(gsd_default_editor_manager_dispose),
+	(gsd_default_editor_manager_class_init),
+	(gsd_default_editor_manager_init),
+	(gsd_default_editor_manager_finalize),
+	(gsd_default_editor_manager_new):
+	* plugins/default-editor/gsd-default-editor-manager.h:
+	* plugins/default-editor/gsd-default-editor-plugin.c:
+	(gsd_default_editor_plugin_init),
+	(gsd_default_editor_plugin_finalize), (impl_activate),
+	(impl_deactivate), (gsd_default_editor_plugin_class_init):
+	* plugins/default-editor/gsd-default-editor-plugin.h:
+	* plugins/font/Makefile:
+	* plugins/font/Makefile.in:
+	Add default editor plugin
+
+2007-12-16  William Jon McCann  <mccann@jhu.edu>
+
+	* configure.ac:
+	* data/gnome-settings-daemon.schemas.in:
+	* plugins/Makefile.am:
 	* plugins/font/Makefile:
 	* plugins/font/Makefile.am:
 	* plugins/font/Makefile.in:
