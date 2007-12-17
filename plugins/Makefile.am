@@ -11,6 +11,7 @@ SUBDIRS =		\
 	media-keys	\
 	mouse		\
 	screensaver	\
+	sound		\
 	xrandr		\
 	xrdb		\
 	xsettings	\

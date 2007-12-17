@@ -60,6 +60,8 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
 AC_SUBST(SETTINGS_PLUGIN_CFLAGS)
 AC_SUBST(SETTINGS_PLUGIN_LIBS)
 
+PKG_CHECK_MODULES(GNOME, libgnome-2.0 libgnomeui-2.0)
+
 PLUGIN_LIBTOOL_FLAGS="-export_dynamic -module -avoid-version"
 AC_SUBST(PLUGIN_LIBTOOL_FLAGS)
 
@@ -359,6 +361,8 @@ plugins/media-keys/Makefile
 plugins/media-keys/actions/Makefile
 plugins/mouse/Makefile
 plugins/screensaver/Makefile
+plugins/sound/Makefile
+plugins/sound/libsounds/Makefile
 plugins/xrandr/Makefile
 plugins/xrdb/Makefile
 plugins/xrdb/data/Makefile

@@ -110,6 +110,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-settings-daemon/plugins/sound/active</key>
+      <applyto>/apps/gnome-settings-daemon/plugins/sound/active</applyto>
+      <owner>gnome-settings-daemon</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>True if the sound settings manager plugin is enabled.</short>
+        <long>Set to True to enable the sound settings manager plugin.</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-settings-daemon/plugins/xrandr/active</key>
       <applyto>/apps/gnome-settings-daemon/plugins/xrandr/active</applyto>
       <owner>gnome-settings-daemon</owner>
