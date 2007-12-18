@@ -1,0 +1,910 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+ *
+ * Copyright © 2001 Ximian, Inc.
+ * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ */
+
+#include "config.h"
+
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <errno.h>
+
+#include <locale.h>
+
+#include <glib.h>
+#include <glib/gi18n.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkx.h>
+#include <gtk/gtk.h>
+#include <gconf/gconf-client.h>
+
+#include <X11/XKBlib.h>
+#include <X11/extensions/XKBstr.h>
+
+#include <libgnomeui/gnome-help.h>
+
+#include "gsd-a11y-keyboard-manager.h"
+
+#define CONFIG_ROOT "/desktop/gnome/accessibility/keyboard"
+
+#define GSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_A11Y_KEYBOARD_MANAGER, GsdA11yKeyboardManagerPrivate))
+
+struct GsdA11yKeyboardManagerPrivate
+{
+        int        xkbEventBase;
+        gboolean   stickykeys_shortcut_val;
+        gboolean   slowkeys_shortcut_val;
+        GtkWidget *stickykeys_alert;
+        GtkWidget *slowkeys_alert;
+};
+
+enum {
+        PROP_0,
+};
+
+static void     gsd_a11y_keyboard_manager_class_init  (GsdA11yKeyboardManagerClass *klass);
+static void     gsd_a11y_keyboard_manager_init        (GsdA11yKeyboardManager      *a11y_keyboard_manager);
+static void     gsd_a11y_keyboard_manager_finalize    (GObject             *object);
+
+G_DEFINE_TYPE (GsdA11yKeyboardManager, gsd_a11y_keyboard_manager, G_TYPE_OBJECT)
+
+static gpointer manager_object = NULL;
+
+#undef DEBUG_ACCESSIBILITY
+#ifdef DEBUG_ACCESSIBILITY
+#define d(str)          fprintf (stderr, str)
+#else
+#define d(str)          do { } while (0)
+#endif
+
+static gboolean
+xkb_enabled (GsdA11yKeyboardManager *manager)
+{
+        static gboolean initialized = 0;
+        static gboolean have_xkb = 0;
+
+        int opcode, errorBase, major, minor;
+
+        if (initialized) {
+                return have_xkb;
+        }
+
+        gdk_error_trap_push ();
+        have_xkb = XkbQueryExtension (GDK_DISPLAY (),
+                                      &opcode,
+                                      &manager->priv->xkbEventBase,
+                                      &errorBase,
+                                      &major,
+                                      &minor)
+                && XkbUseExtension (GDK_DISPLAY (), &major, &minor);
+        XSync (GDK_DISPLAY (), FALSE);
+        gdk_error_trap_pop ();
+
+        return have_xkb;
+}
+
+static XkbDescRec *
+get_xkb_desc_rec (GsdA11yKeyboardManager *manager)
+{
+        XkbDescRec *desc;
+        Status      status = Success; /* Any bogus value, to suppress warning */
+
+        if (! xkb_enabled (manager))
+                return NULL;
+
+        gdk_error_trap_push ();
+        desc = XkbGetMap (GDK_DISPLAY (), XkbAllMapComponentsMask, XkbUseCoreKbd);
+        if (desc != NULL) {
+                desc->ctrls = NULL;
+                status = XkbGetControls (GDK_DISPLAY (), XkbAllControlsMask, desc);
+        }
+        XSync (GDK_DISPLAY (), FALSE);
+        gdk_error_trap_pop ();
+
+        g_return_val_if_fail (desc != NULL, NULL);
+        g_return_val_if_fail (desc->ctrls != NULL, NULL);
+        g_return_val_if_fail (status == Success, NULL);
+
+        return desc;
+}
+
+static int
+get_int (GConfClient *client,
+         char const  *key)
+{
+        int res = gconf_client_get_int  (client, key, NULL);
+        if (res <= 0)
+                res = 1;
+        return res;
+}
+
+static gboolean
+set_int (GConfClient    *client,
+         GConfChangeSet *cs,
+         char const     *key,
+         int             val)
+{
+        gconf_change_set_set_int (cs, key, val);
+#ifdef DEBUG_ACCESSIBILITY
+        if (val != gconf_client_get_int (client, key, NULL)) {
+                g_warning ("%s changed", key);
+        }
+#endif
+        return val != gconf_client_get_int (client, key, NULL);
+}
+
+static gboolean
+set_bool (GConfClient    *client,
+          GConfChangeSet *cs,
+          gboolean        in_gconf,
+          char const     *key,
+          int             val)
+{
+        gboolean bval = (val != 0);
+
+        if (in_gconf || bval) {
+                gconf_change_set_set_bool (cs, key, bval ? TRUE : FALSE);
+#ifdef DEBUG_ACCESSIBILITY
+                if (bval != gconf_client_get_bool (client, key, NULL)) {
+                        d ("%s changed", key);
+                        return TRUE;
+                }
+#endif
+                return (bval != gconf_client_get_bool (client, key, NULL));
+        }
+        return FALSE;
+}
+
+static unsigned long
+set_clear (gboolean      flag,
+           unsigned long value,
+           unsigned long mask)
+{
+        if (flag)
+                return value | mask;
+        return value & ~mask;
+}
+
+static gboolean
+set_ctrl_from_gconf (XkbDescRec   *desc,
+                     GConfClient  *client,
+                     char const   *key,
+                     unsigned long mask,
+                     gboolean      flag)
+{
+        gboolean result = flag && gconf_client_get_bool (client, key, NULL);
+        desc->ctrls->enabled_ctrls = set_clear (result, desc->ctrls->enabled_ctrls, mask);
+        return result;
+}
+
+static void
+set_server_from_gconf (GsdA11yKeyboardManager *manager,
+                       GConfClient            *client)
+{
+        XkbDescRec      *desc;
+        gboolean         enable_accessX;
+
+        desc = get_xkb_desc_rec (manager);
+        if (!desc) {
+                d ("No XKB present\n");
+                return;
+        }
+
+        /* general */
+        enable_accessX = gconf_client_get_bool (client, CONFIG_ROOT "/enable", NULL);
+
+        desc->ctrls->enabled_ctrls = set_clear (enable_accessX,
+                                                desc->ctrls->enabled_ctrls,
+                                                XkbAccessXKeysMask | XkbAccessXFeedbackMask);
+
+        if (set_ctrl_from_gconf (desc, client, CONFIG_ROOT "/timeout_enable",
+                                 XkbAccessXTimeoutMask, enable_accessX)) {
+                desc->ctrls->ax_timeout = get_int (client,
+                                                   CONFIG_ROOT "/timeout");
+                /* disable only the master flag via the server we will disable
+                 * the rest on the rebound without affecting gconf state
+                 * don't change the option flags at all.
+                 */
+                desc->ctrls->axt_ctrls_mask = XkbAccessXKeysMask | XkbAccessXFeedbackMask;
+                desc->ctrls->axt_ctrls_values = 0;
+                desc->ctrls->axt_opts_mask = 0;
+        }
+
+        desc->ctrls->ax_options = set_clear (enable_accessX &&
+                                             gconf_client_get_bool (client, CONFIG_ROOT "/feature_state_change_beep", NULL),
+                                             desc->ctrls->ax_options,
+                                             XkbAX_FeatureFBMask | XkbAX_SlowWarnFBMask);
+
+        /* bounce keys */
+        if (set_ctrl_from_gconf (desc,
+                                 client,
+                                 CONFIG_ROOT "/bouncekeys_enable",
+                                 XkbBounceKeysMask, enable_accessX)) {
+                desc->ctrls->debounce_delay  = get_int (client,
+                                                        CONFIG_ROOT "/bouncekeys_delay");
+                desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/bouncekeys_beep_reject", NULL),
+                                                     desc->ctrls->ax_options,
+                                                     XkbAX_BKRejectFBMask);
+        }
+
+        /* mouse keys */
+        if (set_ctrl_from_gconf (desc,
+                                 client,
+                                 CONFIG_ROOT "/mousekeys_enable",
+                                 XkbMouseKeysMask | XkbMouseKeysAccelMask,
+                                 enable_accessX)) {
+                desc->ctrls->mk_interval     = 100;     /* msec between mousekey events */
+                desc->ctrls->mk_curve        = 50;
+
+                /* We store pixels / sec, XKB wants pixels / event */
+                desc->ctrls->mk_max_speed    = get_int (client,
+                        CONFIG_ROOT "/mousekeys_max_speed") / (1000 / desc->ctrls->mk_interval);
+                if (desc->ctrls->mk_max_speed <= 0)
+                        desc->ctrls->mk_max_speed = 1;
+
+                desc->ctrls->mk_time_to_max = get_int (client, /* events before max */
+                                                       CONFIG_ROOT "/mousekeys_accel_time") / desc->ctrls->mk_interval;
+                if (desc->ctrls->mk_time_to_max <= 0)
+                        desc->ctrls->mk_time_to_max = 1;
+
+                desc->ctrls->mk_delay = get_int (client, /* ms before 1st event */
+                                                 CONFIG_ROOT "/mousekeys_init_delay");
+        }
+
+        /* slow keys */
+        if (set_ctrl_from_gconf (desc,
+                                 client,
+                                 CONFIG_ROOT "/slowkeys_enable",
+                                 XkbSlowKeysMask,
+                                 enable_accessX)) {
+                desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/slowkeys_beep_press", NULL),
+                                                     desc->ctrls->ax_options,
+                                                     XkbAX_SKPressFBMask);
+                desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/slowkeys_beep_accept", NULL),
+                                                     desc->ctrls->ax_options,
+                                                     XkbAX_SKAcceptFBMask);
+                desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/slowkeys_beep_reject", NULL),
+                                                     desc->ctrls->ax_options,
+                                                     XkbAX_SKRejectFBMask);
+                desc->ctrls->slow_keys_delay = get_int (client,
+                                                        CONFIG_ROOT "/slowkeys_delay");
+                /* anything larger than 500 seems to loose all keyboard input */
+                if (desc->ctrls->slow_keys_delay > 500)
+                        desc->ctrls->slow_keys_delay = 500;
+        }
+
+        /* sticky keys */
+        if (set_ctrl_from_gconf (desc,
+                                 client,
+                                 CONFIG_ROOT "/stickykeys_enable",
+                                 XkbStickyKeysMask,
+                                 enable_accessX)) {
+                desc->ctrls->ax_options |= XkbAX_LatchToLockMask;
+                desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/stickykeys_two_key_off", NULL),
+                                                     desc->ctrls->ax_options,
+                                                     XkbAX_TwoKeysMask);
+                desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/stickykeys_modifier_beep", NULL),
+                                                     desc->ctrls->ax_options,
+                                                     XkbAX_StickyKeysFBMask);
+        }
+
+        /* toggle keys */
+        desc->ctrls->ax_options = set_clear (enable_accessX &&
+                                             gconf_client_get_bool (client, CONFIG_ROOT "/togglekeys_enable", NULL),
+                                             desc->ctrls->ax_options,
+                                             XkbAX_IndicatorFBMask);
+
+        /*
+        fprintf (stderr, "CHANGE to : 0x%x\n", desc->ctrls->enabled_ctrls);
+        fprintf (stderr, "CHANGE to : 0x%x (2)\n", desc->ctrls->ax_options);
+        */
+
+        gdk_error_trap_push ();
+        XkbSetControls (GDK_DISPLAY (),
+                        XkbSlowKeysMask         |
+                        XkbBounceKeysMask       |
+                        XkbStickyKeysMask       |
+                        XkbMouseKeysMask        |
+                        XkbMouseKeysAccelMask   |
+                        XkbAccessXKeysMask      |
+                        XkbAccessXTimeoutMask   |
+                        XkbAccessXFeedbackMask  |
+                        XkbControlsEnabledMask,
+                        desc);
+
+        XkbFreeKeyboard (desc, XkbAllComponentsMask, True);
+
+        XSync (GDK_DISPLAY (), FALSE);
+        gdk_error_trap_pop ();
+}
+
+static gboolean
+ax_response_callback (GsdA11yKeyboardManager *manager,
+                      gint                    response_id,
+                      guint                   revert_controls_mask,
+                      gboolean                enabled)
+{
+        GError *err = NULL;
+        gboolean success;
+
+        switch (response_id) {
+        case GTK_RESPONSE_DELETE_EVENT:
+        case GTK_RESPONSE_REJECT:
+        case GTK_RESPONSE_CANCEL: {
+                GConfClient *client;
+
+                client = gconf_client_get_default ();
+
+                /* we're reverting, so we invert sense of 'enabled' flag */
+                d ("cancelling AccessX request");
+                if (revert_controls_mask == XkbStickyKeysMask) {
+                        success = gconf_client_set_bool (client,
+                                                         CONFIG_ROOT "/stickykeys_enable",
+                                                         !enabled,
+                                                         &err);
+                        if (err != NULL)
+                                g_error_free (err);
+                }
+                if (revert_controls_mask == XkbSlowKeysMask) {
+                        success = gconf_client_set_bool (client,
+                                                         CONFIG_ROOT "/slowkeys_enable",
+                                                         !enabled,
+                                                         &err);
+                        if (err != NULL)
+                                g_error_free (err);
+                }
+                gconf_client_suggest_sync (client, NULL);
+                set_server_from_gconf (manager, client);
+
+                g_object_unref (client);
+
+                break;
+        }
+        case GTK_RESPONSE_HELP:
+                gnome_help_display_desktop (NULL,
+                                            "user-guide",
+                                            "user-guide.xml",
+                                            "goscustaccess-6",
+                                            &err);
+                if (err != NULL) {
+                        GtkWidget *error_dialog = gtk_message_dialog_new (NULL,
+                                                                          0,
+                                                                          GTK_MESSAGE_ERROR,
+                                                                          GTK_BUTTONS_CLOSE,
+                                                                          _("There was an error displaying help: %s"),
+                                                                          err->message);
+                        g_signal_connect (G_OBJECT (error_dialog),
+                                          "response",
+                                          G_CALLBACK (gtk_widget_destroy), NULL);
+                        gtk_window_set_resizable (GTK_WINDOW (error_dialog), FALSE);
+                        gtk_widget_show (error_dialog);
+                        g_error_free (err);
+                }
+                return FALSE;
+        default:
+                break;
+        }
+        return TRUE;
+}
+
+static void
+ax_stickykeys_response (GtkDialog              *dialog,
+                        gint                    response_id,
+                        GsdA11yKeyboardManager *manager)
+{
+        if (ax_response_callback (manager, response_id, XkbStickyKeysMask, manager->priv->stickykeys_shortcut_val)) {
+                gtk_widget_destroy (GTK_WIDGET (dialog));
+        }
+}
+
+static void
+ax_slowkeys_response (GtkDialog              *dialog,
+                      gint                    response_id,
+                      GsdA11yKeyboardManager *manager)
+{
+        if (ax_response_callback (manager, response_id, XkbSlowKeysMask, manager->priv->slowkeys_shortcut_val)) {
+                gtk_widget_destroy (GTK_WIDGET (dialog));
+        }
+}
+
+static void
+ax_slowkeys_warning_dialog_post (GsdA11yKeyboardManager *manager,
+                                 gboolean                enabled)
+{
+        manager->priv->slowkeys_shortcut_val = enabled;
+
+        if (manager->priv->slowkeys_alert != NULL) {
+                gtk_widget_show (manager->priv->slowkeys_alert);
+                return;
+        }
+
+        manager->priv->slowkeys_alert = gtk_message_dialog_new (NULL,
+                                                                0,
+                                                                GTK_MESSAGE_WARNING,
+                                                                GTK_BUTTONS_NONE,
+                                                                enabled ?
+                                                                _("Do you want to activate Slow Keys?") :
+                                                                _("Do you want to deactivate Slow Keys?"));
+
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (manager->priv->slowkeys_alert),
+                                                  _("You just held down the Shift key for 8 seconds.  This is the shortcut "
+                                                    "for the Slow Keys feature, which affects the way your keyboard works."));
+
+        gtk_dialog_add_button (GTK_DIALOG (manager->priv->slowkeys_alert),
+                               GTK_STOCK_HELP,
+                               GTK_RESPONSE_HELP);
+        gtk_dialog_add_button (GTK_DIALOG (manager->priv->slowkeys_alert),
+                               enabled ? _("Do_n't activate") : _("Do_n't deactivate"),
+                               GTK_RESPONSE_REJECT);
+        gtk_dialog_add_button (GTK_DIALOG (manager->priv->slowkeys_alert),
+                               enabled ? _("_Activate") : _("_Deactivate"),
+                               GTK_RESPONSE_ACCEPT);
+
+        gtk_window_set_title (GTK_WINDOW (manager->priv->slowkeys_alert),
+                              _("Slow Keys Alert"));
+        gtk_window_set_icon_name (GTK_WINDOW (manager->priv->slowkeys_alert),
+                                  "gnome-dev-keyboard");
+        gtk_dialog_set_default_response (GTK_DIALOG (manager->priv->slowkeys_alert),
+                                         GTK_RESPONSE_OK);
+
+        g_signal_connect (manager->priv->slowkeys_alert,
+                          "response",
+                          G_CALLBACK (ax_slowkeys_response),
+                          manager);
+        gtk_widget_show (manager->priv->slowkeys_alert);
+
+        g_object_add_weak_pointer (G_OBJECT (manager->priv->slowkeys_alert),
+                                   (gpointer*) &manager->priv->slowkeys_alert);
+}
+
+static void
+ax_stickykeys_warning_dialog_post (GsdA11yKeyboardManager *manager,
+                                   gboolean                enabled)
+{
+        manager->priv->stickykeys_shortcut_val = enabled;
+
+        if (manager->priv->stickykeys_alert != NULL) {
+                gtk_widget_show (manager->priv->stickykeys_alert);
+                return;
+        }
+
+        manager->priv->stickykeys_alert = gtk_message_dialog_new (NULL,
+                                                                  0,
+                                                                  GTK_MESSAGE_WARNING,
+                                                                  GTK_BUTTONS_NONE,
+                                                                  enabled ?
+                                                                  _("Do you want to activate Sticky Keys?") :
+                                                                  _("Do you want to deactivate Sticky Keys?"));
+
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (manager->priv->stickykeys_alert),
+                                                  enabled ? _("You just pressed the Shift key 5 times in a row.  This is the shortcut "
+                                                              "for the Sticky Keys feature, which affects the way your keyboard works.") :
+                                                  _("You just pressed two keys at once, or pressed the Shift key 5 times in a row.  "
+                                                    "This turns off the Sticky Keys feature, which affects the way your keyboard works."));
+
+        gtk_dialog_add_button (GTK_DIALOG (manager->priv->stickykeys_alert),
+                               GTK_STOCK_HELP,
+                               GTK_RESPONSE_HELP);
+        gtk_dialog_add_button (GTK_DIALOG (manager->priv->stickykeys_alert),
+                               enabled ? _("Do_n't activate") : _("Do_n't deactivate"),
+                               GTK_RESPONSE_REJECT);
+        gtk_dialog_add_button (GTK_DIALOG (manager->priv->stickykeys_alert),
+                               enabled ? _("_Activate") : _("_Deactivate"),
+                               GTK_RESPONSE_ACCEPT);
+
+        gtk_window_set_title (GTK_WINDOW (manager->priv->stickykeys_alert),
+                              _("Sticky Keys Alert"));
+        gtk_window_set_icon_name (GTK_WINDOW (manager->priv->stickykeys_alert),
+                                  "gnome-dev-keyboard");
+        gtk_dialog_set_default_response (GTK_DIALOG (manager->priv->stickykeys_alert),
+                                         GTK_RESPONSE_OK);
+
+        g_signal_connect (manager->priv->stickykeys_alert,
+                          "response",
+                          G_CALLBACK (ax_stickykeys_response),
+                          manager);
+        gtk_widget_show (manager->priv->stickykeys_alert);
+
+        g_object_add_weak_pointer (G_OBJECT (manager->priv->stickykeys_alert),
+                                   (gpointer*) &manager->priv->stickykeys_alert);
+}
+
+static void
+set_gconf_from_server (GsdA11yKeyboardManager *manager)
+{
+        gboolean        in_gconf;
+        GConfClient    *client;
+        GConfChangeSet *cs;
+        XkbDescRec     *desc;
+        gboolean        changed = FALSE;
+        gboolean        slowkeys_changed;
+        gboolean        stickykeys_changed;
+
+        cs = gconf_change_set_new ();
+        desc = get_xkb_desc_rec (manager);
+        if (! desc) {
+                d ("No XKB present\n");
+                return;
+        }
+
+        client = gconf_client_get_default ();
+
+        /*
+          fprintf (stderr, "changed to : 0x%x\n", desc->ctrls->enabled_ctrls);
+          fprintf (stderr, "changed to : 0x%x (2)\n", desc->ctrls->ax_options);
+        */
+
+        /* always toggle this irrespective of the state */
+        changed |= set_bool (client,
+                             cs,
+                             TRUE,
+                             CONFIG_ROOT "/enable",
+                             desc->ctrls->enabled_ctrls & (XkbAccessXKeysMask | XkbAccessXFeedbackMask));
+
+        /* if master is disabled in gconf do not change gconf state of subordinates
+         * to match the server.  However, we should enable the master if one of the subordinates
+         * get enabled.
+         */
+        in_gconf = gconf_client_get_bool (client, CONFIG_ROOT "/enable", NULL);
+
+        changed |= set_bool (client,
+                             cs,
+                             in_gconf,
+                             CONFIG_ROOT "/feature_state_change_beep",
+                             desc->ctrls->ax_options & (XkbAX_FeatureFBMask | XkbAX_SlowWarnFBMask));
+        changed |= set_bool (client,
+                             cs,
+                             in_gconf,
+                             CONFIG_ROOT "/timeout_enable",
+                             desc->ctrls->enabled_ctrls & XkbAccessXTimeoutMask);
+        changed |= set_int (client,
+                            cs,
+                            CONFIG_ROOT "/timeout",
+                            desc->ctrls->ax_timeout);
+
+        changed |= set_bool (client,
+                             cs,
+                             in_gconf,
+                             CONFIG_ROOT "/bouncekeys_enable",
+                             desc->ctrls->enabled_ctrls & XkbBounceKeysMask);
+        changed |= set_int (client,
+                            cs,
+                            CONFIG_ROOT "/bouncekeys_delay",
+                            desc->ctrls->debounce_delay);
+        changed |= set_bool (client,
+                             cs,
+                             TRUE,
+                             CONFIG_ROOT "/bouncekeys_beep_reject",
+                             desc->ctrls->ax_options & XkbAX_BKRejectFBMask);
+
+        changed |= set_bool (client,
+                             cs,
+                             in_gconf,
+                             CONFIG_ROOT "/mousekeys_enable",
+                             desc->ctrls->enabled_ctrls & XkbMouseKeysMask);
+        changed |= set_int (client,
+                            cs,
+                            CONFIG_ROOT "/mousekeys_max_speed",
+                            desc->ctrls->mk_max_speed * (1000 / desc->ctrls->mk_interval));
+        /* NOTE : mk_time_to_max is measured in events not time */
+        changed |= set_int (client,
+                            cs,
+                            CONFIG_ROOT "/mousekeys_accel_time",
+                            desc->ctrls->mk_time_to_max * desc->ctrls->mk_interval);
+        changed |= set_int (client,
+                            cs,
+                            CONFIG_ROOT "/mousekeys_init_delay",
+                            desc->ctrls->mk_delay);
+
+        slowkeys_changed = set_bool (client,
+                                     cs,
+                                     in_gconf,
+                                     CONFIG_ROOT "/slowkeys_enable",
+                                     desc->ctrls->enabled_ctrls & XkbSlowKeysMask);
+        changed |= set_bool (client,
+                             cs,
+                             TRUE,
+                             CONFIG_ROOT "/slowkeys_beep_press",
+                             desc->ctrls->ax_options & XkbAX_SKPressFBMask);
+        changed |= set_bool (client,
+                             cs,
+                             TRUE,
+                             CONFIG_ROOT "/slowkeys_beep_accept",
+                             desc->ctrls->ax_options & XkbAX_SKAcceptFBMask);
+        changed |= set_bool (client,
+                             cs,
+                             TRUE,
+                             CONFIG_ROOT "/slowkeys_beep_reject",
+                             desc->ctrls->ax_options & XkbAX_SKRejectFBMask);
+        changed |= set_int (client,
+                            cs,
+                            CONFIG_ROOT "/slowkeys_delay",
+                            desc->ctrls->slow_keys_delay);
+
+        stickykeys_changed = set_bool (client,
+                                       cs,
+                                       in_gconf,
+                                       CONFIG_ROOT "/stickykeys_enable",
+                                       desc->ctrls->enabled_ctrls & XkbStickyKeysMask);
+        changed |= set_bool (client,
+                             cs,
+                             TRUE,
+                             CONFIG_ROOT "/stickykeys_two_key_off",
+                             desc->ctrls->ax_options & XkbAX_TwoKeysMask);
+        changed |= set_bool (client,
+                             cs,
+                             TRUE,
+                             CONFIG_ROOT "/stickykeys_modifier_beep",
+                             desc->ctrls->ax_options & XkbAX_StickyKeysFBMask);
+
+        changed |= set_bool (client,
+                             cs,
+                             in_gconf,
+                             CONFIG_ROOT "/togglekeys_enable",
+                             desc->ctrls->ax_options & XkbAX_IndicatorFBMask);
+
+        if (!changed && stickykeys_changed ^ slowkeys_changed) {
+                /*
+                 * sticky or slowkeys has changed, singly, without our intervention.
+                 * 99% chance this is due to a keyboard shortcut being used.
+                 * we need to detect via this hack until we get
+                 *  XkbAXN_AXKWarning notifications working (probable XKB bug),
+                 *  at which time we can directly intercept such shortcuts instead.
+                 * See cb_xkb_event_filter () below.
+                 */
+
+                /* sanity check: are keyboard shortcuts available? */
+                if (desc->ctrls->enabled_ctrls & XkbAccessXKeysMask) {
+                        if (slowkeys_changed) {
+                                ax_slowkeys_warning_dialog_post (manager,
+                                                                 desc->ctrls->enabled_ctrls & XkbSlowKeysMask);
+                        } else {
+                                ax_stickykeys_warning_dialog_post (manager,
+                                                                   desc->ctrls->enabled_ctrls & XkbStickyKeysMask);
+                        }
+                }
+        }
+
+        XkbFreeKeyboard (desc, XkbAllComponentsMask, True);
+
+        changed |= (stickykeys_changed | slowkeys_changed);
+
+        if (changed) {
+                gconf_client_commit_change_set (client, cs, FALSE, NULL);
+                gconf_client_suggest_sync (client, NULL);
+        }
+        gconf_change_set_unref (cs);
+
+        g_object_unref (client);
+}
+
+static GdkFilterReturn
+cb_xkb_event_filter (GdkXEvent              *xevent,
+                     GdkEvent               *ignored1,
+                     GsdA11yKeyboardManager *manager)
+{
+        XEvent   *xev   = (XEvent *) xevent;
+        XkbEvent *xkbEv = (XkbEvent *) xevent;
+
+        if (xev->xany.type == (manager->priv->xkbEventBase + XkbEventCode) &&
+            xkbEv->any.xkb_type == XkbControlsNotify) {
+                d ("Someone changed XKB state\n");
+                set_gconf_from_server (manager);
+        } else if (xev->xany.type == (manager->priv->xkbEventBase + XkbEventCode) &&
+                   xkbEv->any.xkb_type == XkbAccessXNotify) {
+                if (xkbEv->accessx.detail == XkbAXN_AXKWarning) {
+                        d ("About to turn on an AccessX feature from the keyboard!");
+                        /*
+                         * TODO: when XkbAXN_AXKWarnings start working, we need to
+                         * invoke ax_keys_warning_dialog_run here instead of in
+                         * set_gconf_from_server().
+                         */
+                }
+        }
+
+        return GDK_FILTER_CONTINUE;
+}
+
+static void
+keyboard_callback (GConfClient            *client,
+                   guint                   cnxn_id,
+                   GConfEntry             *entry,
+                   GsdA11yKeyboardManager *manager)
+{
+        set_server_from_gconf (manager, client);
+}
+
+static void
+register_config_callback (GsdA11yKeyboardManager  *manager,
+                          const char              *path,
+                          GConfClientNotifyFunc    func)
+{
+        GConfClient *client;
+
+        client = gconf_client_get_default ();
+
+        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
+        gconf_client_notify_add (client, path, func, manager, NULL, NULL);
+
+        g_object_unref (client);
+}
+
+gboolean
+gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
+                                 GError                **error)
+{
+        guint        event_mask;
+        GConfClient *client;
+
+        g_debug ("Starting a11y_keyboard manager");
+
+        register_config_callback (manager,
+                                  CONFIG_ROOT,
+                                  (GConfClientNotifyFunc)keyboard_callback);
+
+        event_mask = XkbControlsNotifyMask;
+#ifdef DEBUG_ACCESSIBILITY
+        event_mask |= XkbAccessXNotifyMask; /* make default when AXN_AXKWarning works */
+#endif
+
+        if (!xkb_enabled (manager)) {
+                return FALSE;
+        }
+
+        client = gconf_client_get_default ();
+        /* be sure to init before starting to monitor the server */
+        set_server_from_gconf (manager, client);
+        g_object_unref (client);
+
+        gdk_error_trap_push ();
+        XkbSelectEvents (GDK_DISPLAY (),
+                         XkbUseCoreKbd,
+                         event_mask,
+                         event_mask);
+
+        XSync (GDK_DISPLAY (), FALSE);
+        gdk_error_trap_pop ();
+
+        gdk_window_add_filter (NULL,
+                               (GdkFilterFunc)cb_xkb_event_filter,
+                               manager);
+
+        return TRUE;
+}
+
+void
+gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
+{
+        g_debug ("Stopping a11y_keyboard manager");
+}
+
+static void
+gsd_a11y_keyboard_manager_set_property (GObject        *object,
+                                        guint           prop_id,
+                                        const GValue   *value,
+                                        GParamSpec     *pspec)
+{
+        GsdA11yKeyboardManager *self;
+
+        self = GSD_A11Y_KEYBOARD_MANAGER (object);
+
+        switch (prop_id) {
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                break;
+        }
+}
+
+static void
+gsd_a11y_keyboard_manager_get_property (GObject        *object,
+                                        guint           prop_id,
+                                        GValue         *value,
+                                        GParamSpec     *pspec)
+{
+        GsdA11yKeyboardManager *self;
+
+        self = GSD_A11Y_KEYBOARD_MANAGER (object);
+
+        switch (prop_id) {
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                break;
+        }
+}
+
+static GObject *
+gsd_a11y_keyboard_manager_constructor (GType                  type,
+                                       guint                  n_construct_properties,
+                                       GObjectConstructParam *construct_properties)
+{
+        GsdA11yKeyboardManager      *a11y_keyboard_manager;
+        GsdA11yKeyboardManagerClass *klass;
+
+        klass = GSD_A11Y_KEYBOARD_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_A11Y_KEYBOARD_MANAGER));
+
+        a11y_keyboard_manager = GSD_A11Y_KEYBOARD_MANAGER (G_OBJECT_CLASS (gsd_a11y_keyboard_manager_parent_class)->constructor (type,
+                                                                                                      n_construct_properties,
+                                                                                                      construct_properties));
+
+        return G_OBJECT (a11y_keyboard_manager);
+}
+
+static void
+gsd_a11y_keyboard_manager_dispose (GObject *object)
+{
+        GsdA11yKeyboardManager *a11y_keyboard_manager;
+
+        a11y_keyboard_manager = GSD_A11Y_KEYBOARD_MANAGER (object);
+
+        G_OBJECT_CLASS (gsd_a11y_keyboard_manager_parent_class)->dispose (object);
+}
+
+static void
+gsd_a11y_keyboard_manager_class_init (GsdA11yKeyboardManagerClass *klass)
+{
+        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+
+        object_class->get_property = gsd_a11y_keyboard_manager_get_property;
+        object_class->set_property = gsd_a11y_keyboard_manager_set_property;
+        object_class->constructor = gsd_a11y_keyboard_manager_constructor;
+        object_class->dispose = gsd_a11y_keyboard_manager_dispose;
+        object_class->finalize = gsd_a11y_keyboard_manager_finalize;
+
+        g_type_class_add_private (klass, sizeof (GsdA11yKeyboardManagerPrivate));
+}
+
+static void
+gsd_a11y_keyboard_manager_init (GsdA11yKeyboardManager *manager)
+{
+        manager->priv = GSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE (manager);
+
+}
+
+static void
+gsd_a11y_keyboard_manager_finalize (GObject *object)
+{
+        GsdA11yKeyboardManager *a11y_keyboard_manager;
+
+        g_return_if_fail (object != NULL);
+        g_return_if_fail (GSD_IS_A11Y_KEYBOARD_MANAGER (object));
+
+        a11y_keyboard_manager = GSD_A11Y_KEYBOARD_MANAGER (object);
+
+        g_return_if_fail (a11y_keyboard_manager->priv != NULL);
+
+        G_OBJECT_CLASS (gsd_a11y_keyboard_manager_parent_class)->finalize (object);
+}
+
+GsdA11yKeyboardManager *
+gsd_a11y_keyboard_manager_new (void)
+{
+        if (manager_object != NULL) {
+                g_object_ref (manager_object);
+        } else {
+                manager_object = g_object_new (GSD_TYPE_A11Y_KEYBOARD_MANAGER, NULL);
+                g_object_add_weak_pointer (manager_object,
+                                           (gpointer *) &manager_object);
+        }
+
+        return GSD_A11Y_KEYBOARD_MANAGER (manager_object);
+}

@@ -349,6 +349,7 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 plugins/Makefile
+plugins/a11y-keyboard/Makefile
 plugins/background/Makefile
 plugins/background/libbackground/Makefile
 plugins/clipboard/Makefile

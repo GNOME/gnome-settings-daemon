@@ -1,6 +1,7 @@
 NULL =
 
 SUBDIRS =		\
+	a11y-keyboard	\
 	background	\
 	clipboard	\
 	default-editor	\

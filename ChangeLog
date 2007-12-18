@@ -1,5 +1,18 @@
 2007-12-17  William Jon McCann  <mccann@jhu.edu>
 
+	* plugins/Makefile.am:
+	* plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.desktop
+	.in:
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.h:
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-plugin.c:
+	(gsd_a11y_keyboard_plugin_init),
+	(gsd_a11y_keyboard_plugin_finalize), (impl_activate),
+	(impl_deactivate), (gsd_a11y_keyboard_plugin_class_init):
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-plugin.h:
+	Add a11y keyboard plugin.
+
+2007-12-17  William Jon McCann  <mccann@jhu.edu>
+
 	* configure.ac:
 	* plugins/Makefile.am:
 	* plugins/typing-break/Makefile.am:
