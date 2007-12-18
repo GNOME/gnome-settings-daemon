@@ -12,6 +12,7 @@ SUBDIRS =		\
 	mouse		\
 	screensaver	\
 	sound		\
+	typing-break	\
 	xrandr		\
 	xrdb		\
 	xsettings	\

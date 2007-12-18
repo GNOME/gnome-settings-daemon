@@ -1,6 +1,33 @@
 2007-12-17  William Jon McCann  <mccann@jhu.edu>
 
 	* configure.ac:
+	* plugins/Makefile.am:
+	* plugins/typing-break/Makefile.am:
+	* plugins/typing-break/gsd-typing-break-manager.c:
+	(register_config_callback), (typing_break_timeout), (child_watch),
+	(setup_typing_break), (typing_break_callback),
+	(really_setup_typing_break), (gsd_typing_break_manager_start),
+	(gsd_typing_break_manager_stop),
+	(gsd_typing_break_manager_set_property),
+	(gsd_typing_break_manager_get_property),
+	(gsd_typing_break_manager_constructor),
+	(gsd_typing_break_manager_dispose),
+	(gsd_typing_break_manager_class_init),
+	(gsd_typing_break_manager_init),
+	(gsd_typing_break_manager_finalize),
+	(gsd_typing_break_manager_new):
+	* plugins/typing-break/gsd-typing-break-manager.h:
+	* plugins/typing-break/gsd-typing-break-plugin.c:
+	(gsd_typing_break_plugin_init), (gsd_typing_break_plugin_finalize),
+	(impl_activate), (impl_deactivate),
+	(gsd_typing_break_plugin_class_init):
+	* plugins/typing-break/gsd-typing-break-plugin.h:
+	* plugins/typing-break/typing-break.gnome-settings-plugin.desktop.in:
+	Add typing break plugin.
+
+2007-12-17  William Jon McCann  <mccann@jhu.edu>
+
+	* configure.ac:
 	* data/gnome-settings-daemon.schemas.in:
 	* plugins/Makefile.am:
 	* plugins/sound/Makefile.am:

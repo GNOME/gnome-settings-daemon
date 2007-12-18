@@ -363,6 +363,7 @@ plugins/mouse/Makefile
 plugins/screensaver/Makefile
 plugins/sound/Makefile
 plugins/sound/libsounds/Makefile
+plugins/typing-break/Makefile
 plugins/xrandr/Makefile
 plugins/xrdb/Makefile
 plugins/xrdb/data/Makefile
