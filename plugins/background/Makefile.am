@@ -10,7 +10,7 @@ plugindir = $(libdir)/gnome-settings-daemon/plugins/background
 
 INCLUDES = \
 	-I$(top_srcdir)/src		\
-	-I$(top_builddir)/plugins/background/libbackground	\
+	-I$(top_srcdir)/plugins/background/libbackground	\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(NULL)

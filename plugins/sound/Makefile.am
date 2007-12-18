@@ -10,7 +10,7 @@ plugindir = $(libdir)/gnome-settings-daemon/plugins/sound
 
 INCLUDES = \
 	-I$(top_srcdir)/src		\
-	-I$(top_builddir)/plugins/sounds/libsounds	\
+	-I$(top_srcdir)/plugins/sounds/libsounds	\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
 	$(SETTINGS_PLUGIN_CFLAGS)			\
 	$(GNOME_CFLAGS)					\
