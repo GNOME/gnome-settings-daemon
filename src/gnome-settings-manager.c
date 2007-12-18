@@ -60,10 +60,18 @@ G_DEFINE_TYPE (GnomeSettingsManager, gnome_settings_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+/*
+  Example:
+  dbus-send --session --dest=org.gnome.SettingsDaemon \
+  --type=method_call --print-reply --reply-timeout=2000 \
+  /org/gnome/SettingsDaemon \
+  org.gnome.SettingsDaemon.Awake
+*/
 gboolean
-gnome_settings_manager_awake      (GnomeSettingsManager *manager,
-                                   GError              **error)
+gnome_settings_manager_awake (GnomeSettingsManager *manager,
+                              GError              **error)
 {
+        g_debug ("Awake called");
         return TRUE;
 }
 

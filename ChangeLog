@@ -1,5 +1,12 @@
 2007-12-18  William Jon McCann  <mccann@jhu.edu>
 
+	* src/gnome-settings-manager.c: (gnome_settings_manager_awake):
+	* src/main.c:
+	Turn off daemonizing for now since it confused D-Bus service
+	activation.
+
+2007-12-18  William Jon McCann  <mccann@jhu.edu>
+
 	* src/Makefile.am:
 	* src/gnome-settings-manager.c: (gnome_settings_manager_awake),
 	(register_manager), (gnome_settings_manager_class_init),

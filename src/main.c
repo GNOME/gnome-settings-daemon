@@ -40,7 +40,7 @@
 #define GCONF_PREFIX_ENV     "GNOME_SETTINGS_DAEMON_GCONF_PREFIX"
 
 static char      *gconf_prefix = NULL;
-static gboolean   no_daemon    = FALSE;
+static gboolean   no_daemon    = TRUE;
 
 static GOptionEntry entries[] = {
         { "no-daemon", 0, 0, G_OPTION_ARG_NONE, &no_daemon, N_("Don't become a daemon"), NULL },
