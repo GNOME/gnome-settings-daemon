@@ -45,12 +45,15 @@ typedef struct
         GObjectClass   parent_class;
 } GnomeSettingsManagerClass;
 
-GType                  gnome_settings_manager_get_type            (void);
+GType                  gnome_settings_manager_get_type   (void);
 
-GnomeSettingsManager * gnome_settings_manager_new                 (const char           *gconf_prefix);
-gboolean               gnome_settings_manager_start               (GnomeSettingsManager *manager,
-                                                                   GError              **error);
-void                   gnome_settings_manager_stop                (GnomeSettingsManager *manager);
+GnomeSettingsManager * gnome_settings_manager_new        (const char           *gconf_prefix);
+gboolean               gnome_settings_manager_start      (GnomeSettingsManager *manager,
+                                                          GError              **error);
+void                   gnome_settings_manager_stop       (GnomeSettingsManager *manager);
+
+gboolean               gnome_settings_manager_awake      (GnomeSettingsManager *manager,
+                                                          GError              **error);
 
 G_END_DECLS
 

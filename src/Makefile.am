@@ -14,6 +14,20 @@ libexec_PROGRAMS =			\
 	gnome-settings-daemon		\
 	$(NULL)
 
+gnome-settings-manager-glue.h: gnome-settings-manager.xml Makefile.am
+	dbus-binding-tool --prefix=gnome_settings_manager --mode=glib-server --output=gnome-settings-manager-glue.h gnome-settings-manager.xml
+
+gnome-settings-client.h: gnome-settings-manager.xml Makefile.am
+	dbus-binding-tool --prefix=gnome_settings_manager --mode=glib-client $< > $@
+
+BUILT_SOURCES = 			\
+	gnome-settings-manager-glue.h	\
+	gnome-settings-client.h		\
+	$(NULL)
+
+Dbusapidir   = $(includedir)/gnome-settings-daemon-2.0/gnome-settings-daemon
+Dbusapi_DATA = gnome-settings-client.h
+
 gnome_settings_daemon_SOURCES =  	\
 	main.c				\
 	gnome-settings-manager.c	\
@@ -43,4 +57,10 @@ gnome_settings_daemon_LDADD = 		\
 	$(NULL)
 
 EXTRA_DIST = 				\
+	$(Dbusapi_DATA)			\
+	gnome-settings-manager.xml	\
+	$(NULL)
+
+CLEANFILES = 				\
+	$(BUILT_SOURCES)		\
 	$(NULL)

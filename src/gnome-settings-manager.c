@@ -28,15 +28,23 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
+#define DBUS_API_SUBJECT_TO_CHANGE
+#include <dbus/dbus-glib.h>
+#include <dbus/dbus-glib-lowlevel.h>
 
 #include "gnome-settings-manager.h"
 #include "gnome-settings-plugins-engine.h"
+
+#include "gnome-settings-manager-glue.h"
+
+#define GSD_MANAGER_DBUS_PATH "/org/gnome/SettingsDaemon"
 
 #define GNOME_SETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_SETTINGS_MANAGER, GnomeSettingsManagerPrivate))
 
 struct GnomeSettingsManagerPrivate
 {
-        char *gconf_prefix;
+        DBusGConnection *connection;
+        char            *gconf_prefix;
 };
 
 enum {
@@ -51,6 +59,33 @@ static void     gnome_settings_manager_finalize    (GObject                   *o
 G_DEFINE_TYPE (GnomeSettingsManager, gnome_settings_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+gboolean
+gnome_settings_manager_awake      (GnomeSettingsManager *manager,
+                                   GError              **error)
+{
+        return TRUE;
+}
+
+static gboolean
+register_manager (GnomeSettingsManager *manager)
+{
+        GError *error = NULL;
+
+        error = NULL;
+        manager->priv->connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
+        if (manager->priv->connection == NULL) {
+                if (error != NULL) {
+                        g_critical ("error getting system bus: %s", error->message);
+                        g_error_free (error);
+                }
+                return FALSE;
+        }
+
+        dbus_g_connection_register_g_object (manager->priv->connection, GSD_MANAGER_DBUS_PATH, G_OBJECT (manager));
+
+        return TRUE;
+}
 
 gboolean
 gnome_settings_manager_start (GnomeSettingsManager *manager,
@@ -171,6 +206,8 @@ gnome_settings_manager_class_init (GnomeSettingsManagerClass *klass)
                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 
         g_type_class_add_private (klass, sizeof (GnomeSettingsManagerPrivate));
+
+        dbus_g_object_type_install_info (GNOME_TYPE_SETTINGS_MANAGER, &dbus_glib_gnome_settings_manager_object_info);
 }
 
 static void
@@ -203,11 +240,18 @@ gnome_settings_manager_new (const char *gconf_prefix)
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
+                gboolean res;
+
                 manager_object = g_object_new (GNOME_TYPE_SETTINGS_MANAGER,
                                                "gconf-prefix", gconf_prefix,
                                                NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
+                res = register_manager (manager_object);
+                if (! res) {
+                        g_object_unref (manager_object);
+                        return NULL;
+                }
         }
 
         return GNOME_SETTINGS_MANAGER (manager_object);
