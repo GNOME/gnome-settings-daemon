@@ -15,7 +15,7 @@ libexec_PROGRAMS =			\
 	$(NULL)
 
 gnome-settings-manager-glue.h: gnome-settings-manager.xml Makefile.am
-	dbus-binding-tool --prefix=gnome_settings_manager --mode=glib-server --output=gnome-settings-manager-glue.h gnome-settings-manager.xml
+	dbus-binding-tool --prefix=gnome_settings_manager --mode=glib-server $< > $@
 
 gnome-settings-client.h: gnome-settings-manager.xml Makefile.am
 	dbus-binding-tool --prefix=gnome_settings_manager --mode=glib-client $< > $@
