@@ -37,18 +37,20 @@
 #include <gdk/gdkx.h>
 #include <gconf/gconf-client.h>
 
+#include <libgnomeui/gnome-bg.h>
+#include <X11/Xatom.h>
+
 #include "gsd-background-manager.h"
 
 #include "preferences.h"
-#include "applier.h"
 
 #define GSD_BACKGROUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_BACKGROUND_MANAGER, GsdBackgroundManagerPrivate))
 
 struct GsdBackgroundManagerPrivate
 {
-        BGApplier    **bg_appliers;
         BGPreferences *prefs;
-        guint          applier_idle_id;
+        GnomeBG       *bg;
+        guint          timeout_id;
 };
 
 enum {
@@ -64,15 +66,190 @@ G_DEFINE_TYPE (GsdBackgroundManager, gsd_background_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 static gboolean
-applier_idle (GsdBackgroundManager *manager)
+nautilus_is_running (void)
 {
-        int i;
+       Atom           window_id_atom;
+       Window         nautilus_xid;
+       Atom           actual_type;
+       int            actual_format;
+       unsigned long  nitems;
+       unsigned long  bytes_after;
+       unsigned char *data;
+       int            retval;
+       Atom           wmclass_atom;
+       gboolean       running;
+       gint           error;
 
-        for (i = 0; manager->priv->bg_appliers [i]; i++) {
-                bg_applier_apply_prefs (manager->priv->bg_appliers [i], manager->priv->prefs);
+       window_id_atom = XInternAtom (GDK_DISPLAY (),
+                                     "NAUTILUS_DESKTOP_WINDOW_ID", True);
+
+       if (window_id_atom == None) {
+               return FALSE;
+       }
+
+       retval = XGetWindowProperty (GDK_DISPLAY (),
+                                    GDK_ROOT_WINDOW (),
+                                    window_id_atom,
+                                    0,
+                                    1,
+                                    False,
+                                    XA_WINDOW,
+                                    &actual_type,
+                                    &actual_format,
+                                    &nitems,
+                                    &bytes_after,
+                                    &data);
+
+       if (data != NULL) {
+               nautilus_xid = *(Window *) data;
+               XFree (data);
+       } else {
+               return FALSE;
+       }
+
+       if (actual_type != XA_WINDOW) {
+               return FALSE;
+       }
+       if (actual_format != 32) {
+               return FALSE;
+       }
+
+       wmclass_atom = XInternAtom (GDK_DISPLAY (), "WM_CLASS", False);
+
+       gdk_error_trap_push ();
+
+       retval = XGetWindowProperty (GDK_DISPLAY (),
+                                    nautilus_xid,
+                                    wmclass_atom,
+                                    0,
+                                    24,
+                                    False,
+                                    XA_STRING,
+                                    &actual_type,
+                                    &actual_format,
+                                    &nitems,
+                                    &bytes_after,
+                                    &data);
+
+       error = gdk_error_trap_pop ();
+
+       if (error == BadWindow) {
+               return FALSE;
+       }
+
+       if (actual_type == XA_STRING &&
+           nitems == 24 &&
+           bytes_after == 0 &&
+           actual_format == 8 &&
+           data != NULL &&
+           !strcmp ((char *)data, "desktop_window") &&
+           !strcmp ((char *)data + strlen ((char *)data) + 1, "Nautilus")) {
+               running = TRUE;
+       } else {
+               running = FALSE;
+       }
+
+       if (data != NULL) {
+               XFree (data);
+       }
+
+       return running;
+}
+
+static gboolean
+apply_prefs (GsdBackgroundManager *manager)
+{
+        if (! nautilus_is_running ()) {
+                GdkDisplay      *display;
+                int              n_screens;
+                int              i;
+                GnomeBGPlacement placement;
+                GnomeBGColorType color;
+                const char      *uri;
+
+                display = gdk_display_get_default ();
+                n_screens = gdk_display_get_n_screens (display);
+
+                uri = manager->priv->prefs->wallpaper_filename;
+
+                placement = GNOME_BG_PLACEMENT_TILED;
+
+                switch (manager->priv->prefs->wallpaper_type) {
+                case WPTYPE_TILED:
+                        placement = GNOME_BG_PLACEMENT_TILED;
+                        break;
+                case WPTYPE_CENTERED:
+                        placement = GNOME_BG_PLACEMENT_CENTERED;
+                        break;
+                case WPTYPE_SCALED:
+                        placement = GNOME_BG_PLACEMENT_SCALED;
+                        break;
+                case WPTYPE_STRETCHED:
+                        placement = GNOME_BG_PLACEMENT_FILL_SCREEN;
+                        break;
+                case WPTYPE_ZOOM:
+                        placement = GNOME_BG_PLACEMENT_ZOOMED;
+                        break;
+                case WPTYPE_NONE:
+                case WPTYPE_UNSET:
+                        uri = NULL;
+                        break;
+                }
+
+                switch (manager->priv->prefs->orientation) {
+                case ORIENTATION_SOLID:
+                        color = GNOME_BG_COLOR_SOLID;
+                        break;
+                case ORIENTATION_HORIZ:
+                        color = GNOME_BG_COLOR_H_GRADIENT;
+                        break;
+                case ORIENTATION_VERT:
+                        color = GNOME_BG_COLOR_V_GRADIENT;
+                        break;
+                default:
+                        color = GNOME_BG_COLOR_SOLID;
+                        break;
+                }
+
+                gnome_bg_set_uri (manager->priv->bg, uri);
+                gnome_bg_set_placement (manager->priv->bg, placement);
+                gnome_bg_set_color (manager->priv->bg,
+                                    color,
+                                    manager->priv->prefs->color1,
+                                    manager->priv->prefs->color2);
+
+                for (i = 0; i < n_screens; ++i) {
+                        GdkScreen *screen;
+                        GdkWindow *root_window;
+                        GdkPixmap *pixmap;
+
+                        screen = gdk_display_get_screen (display, i);
+
+                        root_window = gdk_screen_get_root_window (screen);
+
+                        pixmap = gnome_bg_create_pixmap (manager->priv->bg,
+                                                         root_window,
+                                                         gdk_screen_get_width (screen),
+                                                         gdk_screen_get_height (screen),
+                                                         TRUE);
+
+                        gnome_bg_set_pixmap_as_root (screen, pixmap);
+
+                        g_object_unref (pixmap);
+                }
         }
-        manager->priv->applier_idle_id = 0;
+
         return FALSE;
+}
+
+static void
+queue_apply (GsdBackgroundManager *manager)
+{
+        if (manager->priv->timeout_id) {
+                g_source_remove (manager->priv->timeout_id);
+        }
+
+        manager->priv->timeout_id = g_timeout_add (100, (GSourceFunc)apply_prefs, manager);
 }
 
 static void
@@ -83,41 +260,34 @@ background_callback (GConfClient          *client,
 {
         bg_preferences_merge_entry (manager->priv->prefs, entry);
 
-        if (manager->priv->applier_idle_id != 0) {
-                g_source_remove (manager->priv->applier_idle_id);
-        }
+        queue_apply (manager);
+}
 
-        manager->priv->applier_idle_id = g_timeout_add (100, (GSourceFunc)applier_idle, manager);
+static void
+on_bg_changed (GnomeBG              *bg,
+               GsdBackgroundManager *manager)
+{
+        queue_apply (manager);
 }
 
 gboolean
 gsd_background_manager_start (GsdBackgroundManager *manager,
                               GError              **error)
 {
-        GdkDisplay  *display;
-        int          n_screens;
-        int          i;
         GConfClient *client;
 
         g_debug ("Starting background manager");
 
-        display = gdk_display_get_default ();
-        n_screens = gdk_display_get_n_screens (display);
-
-        manager->priv->bg_appliers = g_new (BGApplier *, n_screens + 1);
-
-        for (i = 0; i < n_screens; i++) {
-                GdkScreen *screen;
-
-                screen = gdk_display_get_screen (display, i);
-
-                manager->priv->bg_appliers [i] = BG_APPLIER (bg_applier_new_for_screen (BG_APPLIER_ROOT, screen));
-        }
-
-        manager->priv->bg_appliers [i] = NULL;
-
         manager->priv->prefs = BG_PREFERENCES (bg_preferences_new ());
+        manager->priv->bg = gnome_bg_new ();
+
+        g_signal_connect (manager->priv->bg,
+                          "changed",
+                          G_CALLBACK (on_bg_changed),
+                          manager);
         bg_preferences_load (manager->priv->prefs);
+
+        apply_prefs (manager);
 
         client = gconf_client_get_default ();
         gconf_client_notify_add (client,
@@ -126,7 +296,23 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
                                  manager,
                                  NULL,
                                  NULL);
+
+        /* If this is set, nautilus will draw the background and is
+	 * almost definitely in our session.  however, it may not be
+	 * running yet (so is_nautilus_running() will fail).  so, on
+	 * startup, just don't do anything if this key is set so we
+	 * don't waste time setting the background only to have
+	 * nautilus overwrite it.
+	 */
+        if (gconf_client_get_bool (client,
+                                   "/apps/nautilus/preferences/show_desktop",
+                                   NULL)) {
+                return TRUE;
+        }
+
         g_object_unref (client);
+
+        apply_prefs (manager);
 
         return TRUE;
 }
@@ -182,8 +368,8 @@ gsd_background_manager_constructor (GType                  type,
         klass = GSD_BACKGROUND_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_BACKGROUND_MANAGER));
 
         background_manager = GSD_BACKGROUND_MANAGER (G_OBJECT_CLASS (gsd_background_manager_parent_class)->constructor (type,
-                                                                                                      n_construct_properties,
-                                                                                                      construct_properties));
+                                                                                                                        n_construct_properties,
+                                                                                                                        construct_properties));
 
         return G_OBJECT (background_manager);
 }
