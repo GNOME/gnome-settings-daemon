@@ -39,7 +39,7 @@
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 
-#include "gnome-xsettings-manager.h"
+#include "gsd-xsettings-manager.h"
 #include "xsettings-manager.h"
 
 #define GNOME_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerPrivate))

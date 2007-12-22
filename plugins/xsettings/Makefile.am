@@ -15,10 +15,10 @@ plugin_LTLIBRARIES = \
 	$(NULL)
 
 libxsettings_la_SOURCES = 	\
-	gnome-xsettings-plugin.h	\
-	gnome-xsettings-plugin.c	\
-	gnome-xsettings-manager.h	\
-	gnome-xsettings-manager.c	\
+	gsd-xsettings-plugin.h	\
+	gsd-xsettings-plugin.c	\
+	gsd-xsettings-manager.h	\
+	gsd-xsettings-manager.c	\
 	xsettings-common.h	\
 	xsettings-common.c	\
 	xsettings-manager.h	\

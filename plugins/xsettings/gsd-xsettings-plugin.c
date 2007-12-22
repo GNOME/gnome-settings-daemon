@@ -24,8 +24,8 @@
 #include <gmodule.h>
 
 #include "gnome-settings-plugin.h"
-#include "gnome-xsettings-plugin.h"
-#include "gnome-xsettings-manager.h"
+#include "gsd-xsettings-plugin.h"
+#include "gsd-xsettings-manager.h"
 
 struct GnomeXSettingsPluginPrivate {
         GnomeXSettingsManager *manager;
