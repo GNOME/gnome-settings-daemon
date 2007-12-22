@@ -175,7 +175,7 @@ static TranslationEntry translations [] = {
         { "/desktop/gnome/interface/font_name",              "Gtk/FontName",            GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/gtk_key_theme",          "Gtk/KeyThemeName",        GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/toolbar_style",          "Gtk/ToolbarStyle",        GCONF_VALUE_STRING,   translate_string_string_toolbar },
-        { "/desktop/gnome/interface/toolbar_icon_size",      "Gtk/ToolbarIconSize",     GCONF_VALUE_STRING,   translate_string_string },
+        { "/desktop/gnome/interface/toolbar_icons_size",     "Gtk/ToolbarIconSize",     GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/can_change_accels",      "Gtk/CanChangeAccels",     GCONF_VALUE_BOOL,     translate_bool_int },
         { "/desktop/gnome/interface/cursor_blink",           "Net/CursorBlink",         GCONF_VALUE_BOOL,     translate_bool_int },
         { "/desktop/gnome/interface/cursor_blink_time",      "Net/CursorBlinkTime",     GCONF_VALUE_INT,      translate_int_int },
