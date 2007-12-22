@@ -47,9 +47,9 @@ typedef struct
 
 GType                   gsd_background_manager_get_type            (void);
 
-GsdBackgroundManager *       gsd_background_manager_new                 (void);
+GsdBackgroundManager *  gsd_background_manager_new                 (void);
 gboolean                gsd_background_manager_start               (GsdBackgroundManager *manager,
-                                                               GError         **error);
+                                                                    GError              **error);
 void                    gsd_background_manager_stop                (GsdBackgroundManager *manager);
 
 G_END_DECLS

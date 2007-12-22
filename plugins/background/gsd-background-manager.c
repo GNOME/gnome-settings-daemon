@@ -36,6 +36,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gconf/gconf-client.h>
+#include <libgnomevfs/gnome-vfs.h>
 
 #include <libgnomeui/gnome-bg.h>
 #include <X11/Xatom.h>
@@ -403,6 +404,7 @@ gsd_background_manager_init (GsdBackgroundManager *manager)
 {
         manager->priv = GSD_BACKGROUND_MANAGER_GET_PRIVATE (manager);
 
+        gnome_vfs_init ();
 }
 
 static void

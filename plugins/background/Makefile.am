@@ -15,6 +15,21 @@ INCLUDES = \
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(NULL)
 
+noinst_PROGRAMS = 			\
+	test-background			\
+	$(NULL)
+
+test_background_SOURCES = 		\
+	test-background.c		\
+	gsd-background-manager.h	\
+	gsd-background-manager.c	\
+	$(NULL)
+
+test_background_LDADD =		\
+	$(SETTINGS_PLUGIN_LIBS)	\
+	$(top_builddir)/plugins/background/libbackground/libbackground.la		\
+	$(NULL)
+
 plugin_LTLIBRARIES = \
 	libbackground.la		\
 	$(NULL)

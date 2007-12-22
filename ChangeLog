@@ -1,5 +1,14 @@
 2007-12-21  William Jon McCann  <mccann@jhu.edu>
 
+	* plugins/background/Makefile.am:
+	* plugins/background/background.gnome-settings-plugin.desktop.in:
+	* plugins/background/gsd-background-manager.c:
+	(gsd_background_manager_init):
+	* plugins/background/test-background.c: (idle), (main):
+	Init gnome-vfs and use the correct name in the desktop file.
+
+2007-12-21  William Jon McCann  <mccann@jhu.edu>
+
 	* configure.ac:
 	* plugins/background/gsd-background-manager.c:
 	(nautilus_is_running), (apply_prefs), (queue_apply),
