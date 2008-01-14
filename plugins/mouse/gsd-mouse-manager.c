@@ -33,6 +33,7 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gdk/gdkkeysyms.h>
@@ -54,6 +55,8 @@
 #define KEY_MOTION_ACCELERATION "/desktop/gnome/peripherals/mouse/motion_acceleration"
 #define KEY_MOTION_THRESHOLD    "/desktop/gnome/peripherals/mouse/motion_threshold"
 #define KEY_LOCATE_POINTER      "/desktop/gnome/peripherals/mouse/locate_pointer"
+#define KEY_DWELL_ENABLE        "/desktop/gnome/accessibility/mouse/dwell_enable"
+#define KEY_DELAY_ENABLE        "/desktop/gnome/accessibility/mouse/delay_enable"
 
 struct GsdMouseManagerPrivate
 {
@@ -542,6 +545,41 @@ set_locate_pointer (GsdMouseManager *manager,
 }
 
 static void
+set_mousetweaks_daemon (GsdMouseManager *manager,
+                        gboolean         dwell_enable,
+                        gboolean         delay_enable)
+{
+        GError *error = NULL;
+        gchar *comm;
+
+        comm = g_strdup_printf ("mousetweaks %s", 
+                                (dwell_enable || delay_enable) ? "" : "-s");
+
+        if (! g_spawn_command_line_async (comm, &error)) {
+                if (error->code == G_SPAWN_ERROR_NOENT &&
+                    (dwell_enable || delay_enable)) {
+                        GtkWidget *dialog;
+
+                        dialog = gtk_message_dialog_new (NULL, 0,
+                                                         GTK_MESSAGE_WARNING,
+                                                         GTK_BUTTONS_OK,
+                                                         _("Could not enable mouse accessibility features"));
+                        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+                                                                  _("Mouse accessibility requires the mousetweaks "
+                                                                    "daemon to be installed on your system."));
+                        gtk_window_set_title (GTK_WINDOW (dialog),
+                                              _("Mouse Preferences"));
+                        gtk_window_set_icon_name (GTK_WINDOW (dialog),
+                                                  "gnome-dev-mouse-optical");
+                        gtk_dialog_run (GTK_DIALOG (dialog));
+                        gtk_widget_destroy (dialog);
+                }
+                g_error_free (error);
+        }
+        g_free (comm);
+}
+
+static void
 mouse_callback (GConfClient        *client,
                 guint               cnxn_id,
                 GConfEntry         *entry,
@@ -562,6 +600,18 @@ mouse_callback (GConfClient        *client,
         } else if (! strcmp (entry->key, KEY_LOCATE_POINTER)) {
                 if (entry->value->type == GCONF_VALUE_BOOL) {
                         set_locate_pointer (manager, gconf_value_get_bool (entry->value));
+                }
+        } else if (! strcmp (entry->key, KEY_DWELL_ENABLE)) {
+                if (entry->value->type == GCONF_VALUE_BOOL) {
+                        set_mousetweaks_daemon (manager,
+                                                gconf_value_get_bool (entry->value),
+                                                gconf_client_get_bool (client, KEY_DELAY_ENABLE, NULL));
+                }
+        } else if (! strcmp (entry->key, KEY_DELAY_ENABLE)) {
+                if (entry->value->type == GCONF_VALUE_BOOL) {
+                        set_mousetweaks_daemon (manager,
+                                                gconf_client_get_bool (client, KEY_DWELL_ENABLE, NULL),
+                                                gconf_value_get_bool (entry->value));
                 }
         }
 }
@@ -589,6 +639,9 @@ gsd_mouse_manager_init (GsdMouseManager *manager)
         register_config_callback (manager,
                                   "/desktop/gnome/peripherals/mouse",
                                   (GConfClientNotifyFunc)mouse_callback);
+        register_config_callback (manager,
+                                  "/desktop/gnome/accessibility/mouse",
+                                  (GConfClientNotifyFunc)mouse_callback);
 }
 
 gboolean
@@ -605,6 +658,9 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
         set_motion_acceleration (manager, gconf_client_get_float (client, KEY_MOTION_ACCELERATION , NULL));
         set_motion_threshold (manager, gconf_client_get_int (client, KEY_MOTION_THRESHOLD, NULL));
         set_locate_pointer (manager, gconf_client_get_bool (client, KEY_LOCATE_POINTER, NULL));
+        set_mousetweaks_daemon (manager,
+                                gconf_client_get_bool (client, KEY_DWELL_ENABLE, NULL),
+                                gconf_client_get_bool (client, KEY_DELAY_ENABLE, NULL));
 
         g_object_unref (client);
 
