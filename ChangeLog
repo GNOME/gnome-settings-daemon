@@ -1,5 +1,12 @@
 2008-01-14  Denis Washington  <denisw@svn.gnome.org>
 
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
+	Only consider /desktop/gnome/accessibility/keyboard/enable
+	as option for enabling keyboard a11y features from the keyboard,
+	not as global switch to turn all a11y features on/off.
+
+2008-01-14  Denis Washington  <denisw@svn.gnome.org>
+
 	Patch from Gerd Kohlberger (bug #503547)
 
 	* plugins/mouse/gsd-mouse-manager.c:

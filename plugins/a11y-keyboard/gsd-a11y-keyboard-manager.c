@@ -156,23 +156,19 @@ set_int (GConfClient    *client,
 static gboolean
 set_bool (GConfClient    *client,
           GConfChangeSet *cs,
-          gboolean        in_gconf,
           char const     *key,
           int             val)
 {
         gboolean bval = (val != 0);
 
-        if (in_gconf || bval) {
-                gconf_change_set_set_bool (cs, key, bval ? TRUE : FALSE);
+        gconf_change_set_set_bool (cs, key, bval ? TRUE : FALSE);
 #ifdef DEBUG_ACCESSIBILITY
                 if (bval != gconf_client_get_bool (client, key, NULL)) {
                         d ("%s changed", key);
                         return TRUE;
                 }
 #endif
-                return (bval != gconf_client_get_bool (client, key, NULL));
-        }
-        return FALSE;
+        return (bval != gconf_client_get_bool (client, key, NULL));
 }
 
 static unsigned long
@@ -189,10 +185,9 @@ static gboolean
 set_ctrl_from_gconf (XkbDescRec   *desc,
                      GConfClient  *client,
                      char const   *key,
-                     unsigned long mask,
-                     gboolean      flag)
+                     unsigned long mask)
 {
-        gboolean result = flag && gconf_client_get_bool (client, key, NULL);
+        gboolean result = gconf_client_get_bool (client, key, NULL);
         desc->ctrls->enabled_ctrls = set_clear (result, desc->ctrls->enabled_ctrls, mask);
         return result;
 }
@@ -215,10 +210,10 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
 
         desc->ctrls->enabled_ctrls = set_clear (enable_accessX,
                                                 desc->ctrls->enabled_ctrls,
-                                                XkbAccessXKeysMask | XkbAccessXFeedbackMask);
+                                                XkbAccessXKeysMask);
 
         if (set_ctrl_from_gconf (desc, client, CONFIG_ROOT "/timeout_enable",
-                                 XkbAccessXTimeoutMask, enable_accessX)) {
+                                 XkbAccessXTimeoutMask)) {
                 desc->ctrls->ax_timeout = get_int (client,
                                                    CONFIG_ROOT "/timeout");
                 /* disable only the master flag via the server we will disable
@@ -230,29 +225,27 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
                 desc->ctrls->axt_opts_mask = 0;
         }
 
-        desc->ctrls->ax_options = set_clear (enable_accessX &&
-                                             gconf_client_get_bool (client, CONFIG_ROOT "/feature_state_change_beep", NULL),
+        desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/feature_state_change_beep", NULL),
                                              desc->ctrls->ax_options,
-                                             XkbAX_FeatureFBMask | XkbAX_SlowWarnFBMask);
+                                             XkbAccessXFeedbackMask | XkbAX_FeatureFBMask | XkbAX_SlowWarnFBMask);
 
         /* bounce keys */
         if (set_ctrl_from_gconf (desc,
                                  client,
                                  CONFIG_ROOT "/bouncekeys_enable",
-                                 XkbBounceKeysMask, enable_accessX)) {
+                                 XkbBounceKeysMask)) {
                 desc->ctrls->debounce_delay  = get_int (client,
                                                         CONFIG_ROOT "/bouncekeys_delay");
                 desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/bouncekeys_beep_reject", NULL),
                                                      desc->ctrls->ax_options,
-                                                     XkbAX_BKRejectFBMask);
+                                                     XkbAccessXFeedbackMask | XkbAX_BKRejectFBMask);
         }
 
         /* mouse keys */
         if (set_ctrl_from_gconf (desc,
                                  client,
                                  CONFIG_ROOT "/mousekeys_enable",
-                                 XkbMouseKeysMask | XkbMouseKeysAccelMask,
-                                 enable_accessX)) {
+                                 XkbMouseKeysMask | XkbMouseKeysAccelMask)) {
                 desc->ctrls->mk_interval     = 100;     /* msec between mousekey events */
                 desc->ctrls->mk_curve        = 50;
 
@@ -275,17 +268,16 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
         if (set_ctrl_from_gconf (desc,
                                  client,
                                  CONFIG_ROOT "/slowkeys_enable",
-                                 XkbSlowKeysMask,
-                                 enable_accessX)) {
+                                 XkbSlowKeysMask)) {
                 desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/slowkeys_beep_press", NULL),
                                                      desc->ctrls->ax_options,
-                                                     XkbAX_SKPressFBMask);
+                                                     XkbAccessXFeedbackMask | XkbAX_SKPressFBMask);
                 desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/slowkeys_beep_accept", NULL),
                                                      desc->ctrls->ax_options,
-                                                     XkbAX_SKAcceptFBMask);
+                                                     XkbAccessXFeedbackMask | XkbAX_SKAcceptFBMask);
                 desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/slowkeys_beep_reject", NULL),
                                                      desc->ctrls->ax_options,
-                                                     XkbAX_SKRejectFBMask);
+                                                     XkbAccessXFeedbackMask | XkbAX_SKRejectFBMask);
                 desc->ctrls->slow_keys_delay = get_int (client,
                                                         CONFIG_ROOT "/slowkeys_delay");
                 /* anything larger than 500 seems to loose all keyboard input */
@@ -297,22 +289,21 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
         if (set_ctrl_from_gconf (desc,
                                  client,
                                  CONFIG_ROOT "/stickykeys_enable",
-                                 XkbStickyKeysMask,
-                                 enable_accessX)) {
+                                 XkbStickyKeysMask)) {
                 desc->ctrls->ax_options |= XkbAX_LatchToLockMask;
                 desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/stickykeys_two_key_off", NULL),
                                                      desc->ctrls->ax_options,
-                                                     XkbAX_TwoKeysMask);
+                                                     XkbAccessXFeedbackMask | XkbAX_TwoKeysMask);
                 desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/stickykeys_modifier_beep", NULL),
                                                      desc->ctrls->ax_options,
-                                                     XkbAX_StickyKeysFBMask);
+                                                     XkbAccessXFeedbackMask | XkbAX_StickyKeysFBMask);
         }
 
         /* toggle keys */
         desc->ctrls->ax_options = set_clear (enable_accessX &&
                                              gconf_client_get_bool (client, CONFIG_ROOT "/togglekeys_enable", NULL),
                                              desc->ctrls->ax_options,
-                                             XkbAX_IndicatorFBMask);
+                                             XkbAccessXFeedbackMask | XkbAX_IndicatorFBMask);
 
         /*
         fprintf (stderr, "CHANGE to : 0x%x\n", desc->ctrls->enabled_ctrls);
@@ -532,7 +523,6 @@ ax_stickykeys_warning_dialog_post (GsdA11yKeyboardManager *manager,
 static void
 set_gconf_from_server (GsdA11yKeyboardManager *manager)
 {
-        gboolean        in_gconf;
         GConfClient    *client;
         GConfChangeSet *cs;
         XkbDescRec     *desc;
@@ -554,27 +544,17 @@ set_gconf_from_server (GsdA11yKeyboardManager *manager)
           fprintf (stderr, "changed to : 0x%x (2)\n", desc->ctrls->ax_options);
         */
 
-        /* always toggle this irrespective of the state */
         changed |= set_bool (client,
                              cs,
-                             TRUE,
                              CONFIG_ROOT "/enable",
-                             desc->ctrls->enabled_ctrls & (XkbAccessXKeysMask | XkbAccessXFeedbackMask));
-
-        /* if master is disabled in gconf do not change gconf state of subordinates
-         * to match the server.  However, we should enable the master if one of the subordinates
-         * get enabled.
-         */
-        in_gconf = gconf_client_get_bool (client, CONFIG_ROOT "/enable", NULL);
+                             desc->ctrls->enabled_ctrls & XkbAccessXKeysMask);
 
         changed |= set_bool (client,
                              cs,
-                             in_gconf,
                              CONFIG_ROOT "/feature_state_change_beep",
                              desc->ctrls->ax_options & (XkbAX_FeatureFBMask | XkbAX_SlowWarnFBMask));
         changed |= set_bool (client,
                              cs,
-                             in_gconf,
                              CONFIG_ROOT "/timeout_enable",
                              desc->ctrls->enabled_ctrls & XkbAccessXTimeoutMask);
         changed |= set_int (client,
@@ -584,7 +564,6 @@ set_gconf_from_server (GsdA11yKeyboardManager *manager)
 
         changed |= set_bool (client,
                              cs,
-                             in_gconf,
                              CONFIG_ROOT "/bouncekeys_enable",
                              desc->ctrls->enabled_ctrls & XkbBounceKeysMask);
         changed |= set_int (client,
@@ -593,13 +572,11 @@ set_gconf_from_server (GsdA11yKeyboardManager *manager)
                             desc->ctrls->debounce_delay);
         changed |= set_bool (client,
                              cs,
-                             TRUE,
                              CONFIG_ROOT "/bouncekeys_beep_reject",
                              desc->ctrls->ax_options & XkbAX_BKRejectFBMask);
 
         changed |= set_bool (client,
                              cs,
-                             in_gconf,
                              CONFIG_ROOT "/mousekeys_enable",
                              desc->ctrls->enabled_ctrls & XkbMouseKeysMask);
         changed |= set_int (client,
@@ -618,22 +595,18 @@ set_gconf_from_server (GsdA11yKeyboardManager *manager)
 
         slowkeys_changed = set_bool (client,
                                      cs,
-                                     in_gconf,
                                      CONFIG_ROOT "/slowkeys_enable",
                                      desc->ctrls->enabled_ctrls & XkbSlowKeysMask);
         changed |= set_bool (client,
                              cs,
-                             TRUE,
                              CONFIG_ROOT "/slowkeys_beep_press",
                              desc->ctrls->ax_options & XkbAX_SKPressFBMask);
         changed |= set_bool (client,
                              cs,
-                             TRUE,
                              CONFIG_ROOT "/slowkeys_beep_accept",
                              desc->ctrls->ax_options & XkbAX_SKAcceptFBMask);
         changed |= set_bool (client,
                              cs,
-                             TRUE,
                              CONFIG_ROOT "/slowkeys_beep_reject",
                              desc->ctrls->ax_options & XkbAX_SKRejectFBMask);
         changed |= set_int (client,
@@ -643,23 +616,19 @@ set_gconf_from_server (GsdA11yKeyboardManager *manager)
 
         stickykeys_changed = set_bool (client,
                                        cs,
-                                       in_gconf,
                                        CONFIG_ROOT "/stickykeys_enable",
                                        desc->ctrls->enabled_ctrls & XkbStickyKeysMask);
         changed |= set_bool (client,
                              cs,
-                             TRUE,
                              CONFIG_ROOT "/stickykeys_two_key_off",
                              desc->ctrls->ax_options & XkbAX_TwoKeysMask);
         changed |= set_bool (client,
                              cs,
-                             TRUE,
                              CONFIG_ROOT "/stickykeys_modifier_beep",
                              desc->ctrls->ax_options & XkbAX_StickyKeysFBMask);
 
         changed |= set_bool (client,
                              cs,
-                             in_gconf,
                              CONFIG_ROOT "/togglekeys_enable",
                              desc->ctrls->ax_options & XkbAX_IndicatorFBMask);
 
