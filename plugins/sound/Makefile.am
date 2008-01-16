@@ -34,7 +34,7 @@ libsound_la_LDFLAGS = 		\
 
 libsound_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(top_builddir)/plugins/sound/libsounds/libsounds.a	\
+	$(top_builddir)/plugins/sound/libsounds/libsounds.la	\
 	$(NULL)
 
 libsound_la_CFLAGS = 		\

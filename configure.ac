@@ -1,12 +1,12 @@
 
 AC_PREREQ([2.60])
 AC_INIT([gnome-settings-daemon],
-        [2.21.5.1],
+        [2.21.5.2],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([src/gnome-settings-manager.c])
 
-AM_INIT_AUTOMAKE([1.9])
+AM_INIT_AUTOMAKE([1.9 tar-ustar])
 
 AM_MAINTAINER_MODE
 
