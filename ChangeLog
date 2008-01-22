@@ -1,3 +1,12 @@
+2008-01-22  Carlos Garnacho  <carlosg@gnome.org>
+
+	* plugins/mouse/gsd-locate-pointer.c: Reworked, add a more appealing
+	animation if there's a composite manager present, also use a similar
+	animation for the non-composite case, so most of the code is shared.
+	* plugins/mouse/gsd-timeline.[ch]: New files, object to control the
+	"locate pointer" animation.
+	* plugins/mouse/Makefile.am: Added these files to build.
+
 ==== 2.21.5.2 ====
 
 2008-01-15  Rodrigo Moya <rodrigo@gnome-db.org>

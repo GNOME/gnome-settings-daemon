@@ -21,6 +21,8 @@ libmouse_la_SOURCES = 		\
 	gsd-mouse-manager.c	\
 	gsd-locate-pointer.h	\
 	gsd-locate-pointer.c	\
+	gsd-timeline.h		\
+	gsd-timeline.c		\
 	$(NULL)
 
 libmouse_la_LDFLAGS = 		\
