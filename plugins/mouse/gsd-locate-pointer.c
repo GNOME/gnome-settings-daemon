@@ -147,7 +147,7 @@ locate_pointer_expose (GtkWidget *widget,
 }
 
 static void
-timeline_frame_cb (GtkTimeline *timeline,
+timeline_frame_cb (GsdTimeline *timeline,
 		   gdouble      progress,
 		   gpointer     user_data)
 {
@@ -167,7 +167,7 @@ timeline_frame_cb (GtkTimeline *timeline,
 }
 
 static void
-timeline_finished_cb (GtkTimeline *timeline,
+timeline_finished_cb (GsdTimeline *timeline,
 		      gpointer     user_data)
 {
   GsdLocatePointerData *data = (GsdLocatePointerData *) user_data;
