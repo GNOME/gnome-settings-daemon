@@ -98,7 +98,7 @@ dnl ---------------------------------------------------------------------------
 
 # Like AC_CHECK_HEADER, but it uses the already-computed -I directories.
 #
-AC_DEFUN(AC_CHECK_X_HEADER, [
+AC_DEFUN([AC_CHECK_X_HEADER], [
   ac_save_CPPFLAGS="$CPPFLAGS"
   if test \! -z "$includedir" ; then
     CPPFLAGS="$CPPFLAGS -I$includedir"
@@ -110,7 +110,7 @@ AC_DEFUN(AC_CHECK_X_HEADER, [
 # Like AC_CHECK_LIB, but it uses the already-computed -I and -L directories.
 # Use this sparingly; it probably doesn't work very well on X programs.
 #
-AC_DEFUN(AC_CHECK_X_LIB, [
+AC_DEFUN([AC_CHECK_X_LIB], [
   ac_save_CPPFLAGS="$CPPFLAGS"
   ac_save_LDFLAGS="$LDFLAGS"
 #  ac_save_LIBS="$LIBS"
