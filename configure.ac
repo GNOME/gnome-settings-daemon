@@ -137,6 +137,13 @@ AC_PATH_XTRA
 
 ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS"
 
+dnl ---------------------------------------------------------------------------
+dnl - XFT2
+dnl ---------------------------------------------------------------------------
+
+if $PKG_CONFIG --exists xft; then
+  AC_DEFINE(HAVE_XFT2, 1, [Define if Xft functionality is available])
+fi
 
 dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
