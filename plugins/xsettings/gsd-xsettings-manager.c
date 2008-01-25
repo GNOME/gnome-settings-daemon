@@ -29,8 +29,6 @@
 #include <string.h>
 #include <errno.h>
 
-#include <locale.h>
-
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
@@ -455,17 +453,15 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
 {
         const char *command;
         GString    *add_string;
-        char       *old_locale;
+        char        dpibuf[G_ASCII_DTOSTR_BUF_SIZE];
 
         command = "xrdb -nocpp -merge";
 
         add_string = g_string_new (NULL);
-        old_locale = g_strdup (setlocale (LC_NUMERIC, NULL));
 
-        setlocale (LC_NUMERIC, "C");
         g_string_append_printf (add_string,
-                                "Xft.dpi: %f\n",
-                                settings->dpi / 1024.0);
+                                "Xft.dpi: %s\n",
+                                g_ascii_dtostr (dpibuf, sizeof (dpibuf), (double) settings->dpi / 1024.0));
         g_string_append_printf (add_string,
                                 "Xft.antialias: %d\n",
                                 settings->antialias);
@@ -482,7 +478,6 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
         spawn_with_input (command, add_string->str);
 
         g_string_free (add_string, TRUE);
-        setlocale (LC_NUMERIC, old_locale);
         g_free (old_locale);
 }
 

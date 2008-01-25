@@ -1,5 +1,11 @@
 2008-01-25  Christian Persch  <chpe@gnome.org>
 
+	* plugins/xsettings/gsd-xsettings-manager.c:
+	(xft_settings_set_xresources): Use g_ascii_dtostr instead of
+	setlocale. Bug #505470.
+
+2008-01-25  Christian Persch  <chpe@gnome.org>
+
 	* plugins/media-keys/Makefile.am: Fix build with builddir != srcdir.
 	BUg #509142.
 
