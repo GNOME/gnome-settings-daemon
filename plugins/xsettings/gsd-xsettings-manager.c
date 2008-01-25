@@ -478,7 +478,6 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
         spawn_with_input (command, add_string->str);
 
         g_string_free (add_string, TRUE);
-        g_free (old_locale);
 }
 
 /* We mirror the Xft properties both through XSETTINGS and through

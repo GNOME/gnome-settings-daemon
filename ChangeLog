@@ -1,5 +1,11 @@
 2008-01-25  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/xsettings/gsd-xsettings-manager.c:
+	(xft_settings_set_xresources): don't try to reference a non-existing
+	variable (left-over cruft from the patch for bug #505470)
+
+2008-01-25  Jens Granseuer  <jensgr@gmx.net>
+
 	* data/gnome-settings-daemon.schemas.in: fix typo in typing break key.
 	Bug #510429.
 
