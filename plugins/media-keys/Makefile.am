@@ -27,14 +27,16 @@ BUILT_SOURCES = 			\
 	gsd-marshal.c			\
 	$(NULL)
 
-gsd-media-keys-manager-glue.h: gsd-media-keys-manager.xml Makefile.am
-	dbus-binding-tool --prefix=gsd_media_keys_manager --mode=glib-server --output=gsd-media-keys-manager-glue.h gsd-media-keys-manager.xml
+gsd-media-keys-manager-glue.h: gsd-media-keys-manager.xml Makefile
+	dbus-binding-tool --prefix=gsd_media_keys_manager --mode=glib-server $< > xgen-$(@F) \
+	&& ( cmp -s xgen-$(@F) $@ || cp xgen-$(@F) $@ ) \
+	&& rm -f xgen-$(@F)
 
 gsd-marshal.c: gsd-marshal.list
-	@GLIB_GENMARSHAL@ --prefix=gsd_marshal $< --header --body > $@
+	$(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --body --internal > $@
 
 gsd-marshal.h: gsd-marshal.list
-	@GLIB_GENMARSHAL@ --prefix=gsd_marshal $< --header > $@
+	$(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --internal > $@
 
 libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-plugin.h		\
@@ -95,6 +97,7 @@ EXTRA_DIST = 				\
 	$(NULL)
 
 CLEANFILES = 			\
+	$(BUILT_SOURCES)	\
 	$(plugin_DATA)		\
 	$(NULL)
 
