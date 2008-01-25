@@ -115,5 +115,6 @@ AcmeVolume *acme_volume_new (void)
 	vol = ACME_VOLUME  (g_object_new (acme_volume_oss_get_type (), NULL));
 	return vol;
 #endif
+	return NULL;
 }
 
