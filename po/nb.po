@@ -1,14 +1,14 @@
 # Norwegian translation of control-center (bokmål dialect).
 # Copyright (C) 1999-2005 Free Software Foundation, Inc.
-# Kjartan Maraas <kmaraas@gnome.org>, 1999-2007.
+# Kjartan Maraas <kmaraas@gnome.org>, 1999-2008.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center 2.21.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-15 16:55+0100\n"
-"PO-Revision-Date: 2008-01-15 16:58+0100\n"
+"POT-Creation-Date: 2008-01-27 15:30+0100\n"
+"PO-Revision-Date: 2008-01-27 15:32+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -292,13 +292,12 @@ msgid "Set to True to enable the sound settings manager plugin."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:12
-#, fuzzy
 msgid "Set to True to enable the typing break settings manager plugin."
-msgstr "Start siden med innstillingene for skrivepause fremme"
+msgstr "Sett til True for å aktivere tillegg for skrivepause."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Set to True to enable the xrandr settings manager plugin."
-msgstr ""
+msgstr "Sett til True for å aktivere tillegg for xrandr-innstillinger"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Set to True to enable the xrdb settings manager plugin."
@@ -353,8 +352,9 @@ msgid "True if the sound settings manager plugin is enabled."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:27
-msgid "True if the typing breaksettings manager plugin is enabled."
-msgstr ""
+#, fuzzy
+msgid "True if the typing break settings manager plugin is enabled."
+msgstr "Start siden med innstillingene for skrivepause fremme"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "True if the xrandr settings manager plugin is enabled."
@@ -634,7 +634,9 @@ msgstr "Kunne ikke aktivere tilgjengelighetsfunksjoner for mus"
 msgid ""
 "Mouse accessibility requires the mousetweaks daemon to be installed on your "
 "system."
-msgstr "Tilgjengelighet for mus krever at mousetweaks-tjenesten er installert på systemet."
+msgstr ""
+"Tilgjengelighet for mus krever at mousetweaks-tjenesten er installert på "
+"systemet."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:571
 msgid "Mouse Preferences"
@@ -779,7 +781,7 @@ msgstr "Håndter X-ressursdatabasen"
 msgid "X Resource Database"
 msgstr "X-ressursdatabase"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:561
+#: ../plugins/xsettings/gsd-xsettings-manager.c:555
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf-nøkkel %s satt til type %s men forventet type var %s\n"
