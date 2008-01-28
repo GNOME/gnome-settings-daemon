@@ -1,17 +1,29 @@
 NULL =
 
 INCLUDES = \
-	-DDATADIR=\""$(datadir)"\"		 	\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
-	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
-	-DGNOME_SETTINGS_PLUGINDIR=\""$(libdir)/gnome-settings-daemon/plugins"\"	\
-	$(WARN_CFLAGS)					\
-	$(DISABLE_DEPRECATED_CFLAGS)			\
-	$(SETTINGS_DAEMON_CFLAGS)			\
+	-DDATADIR=\""$(datadir)"\"				\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DLIBEXECDIR=\""$(libexecdir)"\" 			\
+	-DGNOME_SETTINGS_PLUGINDIR=\""$(libdir)/gnome-settings-daemon/plugins"\" \
+	$(WARN_CFLAGS)						\
+	$(DISABLE_DEPRECATED_CFLAGS)				\
+	$(SETTINGS_DAEMON_CFLAGS)				\
 	$(NULL)
 
-libexec_PROGRAMS =			\
-	gnome-settings-daemon		\
+install-exec-local: install-gnome-settings-daemon
+
+uninstall-local:
+	$(RM) $(DESTDIR)$(libexecdir)/gnome-settings-daemon-gnome-settings-daemon
+
+install-gnome-settings-daemon:
+	$(mkinstalldirs) $(DESTDIR)$(libexecdir)/gnome-settings-daemon
+	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) gnome-settings-daemon $(DESTDIR)$(libexecdir)/gnome-settings-daemon
+
+libexec_PROGRAMS = \
+	$(NULL)
+
+noinst_PROGRAMS= \
+	gnome-settings-daemon
 	$(NULL)
 
 gnome-settings-manager-glue.h: gnome-settings-manager.xml Makefile.am
@@ -28,7 +40,7 @@ BUILT_SOURCES = 			\
 Dbusapidir   = $(includedir)/gnome-settings-daemon-2.0/gnome-settings-daemon
 Dbusapi_DATA = gnome-settings-client.h
 
-gnome_settings_daemon_SOURCES =  	\
+gnome_settings_daemon_SOURCES =		\
 	main.c				\
 	gnome-settings-manager.c	\
 	gnome-settings-manager.h	\
@@ -40,11 +52,12 @@ gnome_settings_daemon_SOURCES =  	\
 	gnome-settings-module.h		\
 	$(NULL)
 
-gnome_settings_daemon_CPPFLAGS =	\
+gnome_settings_daemon_CPPFLAGS = \
 	$(AM_CPPFLAGS)			\
 	$(NULL)
 
-gnome_settings_daemon_CFLAGS =		\
+gnome_settings_daemon_CFLAGS = 		\
+	$(AM_CFLAGS)			\
 	$(AM_CFLAGS)			\
 	$(NULL)
 
@@ -64,3 +77,6 @@ EXTRA_DIST = 				\
 CLEANFILES = 				\
 	$(BUILT_SOURCES)		\
 	$(NULL)
+
+
+# vim: ts=8

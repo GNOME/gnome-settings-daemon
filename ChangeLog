@@ -1,5 +1,16 @@
 2008-01-28  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* data/org.gnome.SettingsDaemon.service.in:
+	* src/Makefile.am:
+
+	Hopefully allow $(libdir) to be the same directory as
+	$(libexecdir) by installing the gnome-settings-daemon
+	binary into a subdirectory of $(libexecdir), i.e.
+	$(libexecdir)/gnome-settings-daemon/gnome-settings-daemon.
+	Fixes bug #504203.
+
+2008-01-28  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* src/main.c: (main):
 
 	Don't leak the GnomeProgram instance.
