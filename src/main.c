@@ -27,6 +27,7 @@
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#include <libgnome/libgnome.h>
 
 #define DBUS_API_SUBJECT_TO_CHANGE
 #include <dbus/dbus-glib.h>
@@ -170,6 +171,7 @@ int
 main (int argc, char *argv[])
 {
         GnomeSettingsManager *manager;
+        GnomeProgram         *program;
         gboolean              res;
         GError               *error;
 
@@ -208,6 +210,10 @@ main (int argc, char *argv[])
         if (! bus_register ()) {
                 goto out;
         }
+
+        program = gnome_program_init(
+                PACKAGE, VERSION, LIBGNOME_MODULE,
+                argc, argv, GNOME_PARAM_NONE);
 
         manager = gnome_settings_manager_new (gconf_prefix);
 
