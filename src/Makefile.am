@@ -10,20 +10,10 @@ INCLUDES = \
 	$(SETTINGS_DAEMON_CFLAGS)				\
 	$(NULL)
 
-install-exec-local: install-gnome-settings-daemon
+gsddir = $(libexecdir)/gnome-settings-daemon
 
-uninstall-local:
-	$(RM) $(DESTDIR)$(libexecdir)/gnome-settings-daemon-gnome-settings-daemon
-
-install-gnome-settings-daemon:
-	$(mkinstalldirs) $(DESTDIR)$(libexecdir)/gnome-settings-daemon
-	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) gnome-settings-daemon $(DESTDIR)$(libexecdir)/gnome-settings-daemon
-
-libexec_PROGRAMS = \
-	$(NULL)
-
-noinst_PROGRAMS= \
-	gnome-settings-daemon
+gsd_PROGRAMS = \
+	gnome-settings-daemon \
 	$(NULL)
 
 gnome-settings-manager-glue.h: gnome-settings-manager.xml Makefile.am

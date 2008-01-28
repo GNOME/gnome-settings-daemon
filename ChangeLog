@@ -1,5 +1,13 @@
 2008-01-28  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
+	* src/Makefile.am:
+
+	Don't use weird autofu stuff to install
+	gnome-settings-daemon into another directory, but define
+	gsddir and gsd_PROGRAMS instead. Fixes bug #504203.
+
+2008-01-28  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
 	* data/org.gnome.SettingsDaemon.service.in:
 	* src/Makefile.am:
 
