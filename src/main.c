@@ -176,6 +176,7 @@ main (int argc, char *argv[])
         GError               *error;
 
         manager = NULL;
+        program = NULL;
 
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -231,6 +232,10 @@ main (int argc, char *argv[])
  out:
         if (manager != NULL) {
                 g_object_unref (manager);
+        }
+
+        if (program != NULL) {
+                g_object_unref (program);
         }
 
         g_debug ("SettingsDaemon finished");
