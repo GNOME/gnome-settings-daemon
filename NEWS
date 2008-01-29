@@ -1,3 +1,27 @@
+===============
+Version 2.21.90
+===============
+
+- Add a more appealing animation for locate pointer feature if composite
+  is available (Carlos Garnacho)
+- Quote function names in AC_DEFUN to fix autoconf warnings (Jens Granseuer)
+- Fix build with builddir != srcdir (Christian Persch) (#509142)
+- Use g_ascii_dtostr instead of setlocale (Christian Persch) (#505470)
+- Read check for XFT2 that got loast in the g-s-d split (Jens Granseuer)
+  (#510925)
+- Fix typo in typing break key (Jens Granseuer) (#510429)
+- Define GNOME_DESKTOP_USE_UNSTABLE_API before including gnome-bg.h (Jens
+  Granseuer)
+- No longer define DBUS_API_SUBJECT_TO_CHANGE (Jens Granseuer)
+- Initialize GnomeProgram to avoid critical warnings from libgnome (Wouter
+  Bolsterlee) (#509770)
+- Hopefully allow $(libdir) to be the same directory as $(libexecdir) by
+  installing the gnome-settings-daemon binary into a subdirectory of
+  $(libexecdir) (Wouter Bolsterlee) (#504203)
+- Don't use weird autofoo stuff to install gnome-settings-daemon into another
+  directory (Wouter Bolsterlee) (#504203)
+- Suppress verbose GConf schema installation output (Wouter Bolsterlee)
+
 ================
 Version 2.21.5.2
 ================

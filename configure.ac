@@ -1,7 +1,7 @@
 
 AC_PREREQ([2.60])
 AC_INIT([gnome-settings-daemon],
-        [2.21.5.2],
+        [2.21.90],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([src/gnome-settings-manager.c])
