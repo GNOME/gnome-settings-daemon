@@ -10,7 +10,7 @@ INCLUDES = \
 	$(SETTINGS_DAEMON_CFLAGS)				\
 	$(NULL)
 
-gsddir = $(libexecdir)/gnome-settings-daemon
+gsddir = $(libexecdir)
 
 gsd_PROGRAMS = \
 	gnome-settings-daemon \
