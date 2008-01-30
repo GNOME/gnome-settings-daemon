@@ -6,7 +6,7 @@ AC_INIT([gnome-settings-daemon],
 
 AC_CONFIG_SRCDIR([src/gnome-settings-manager.c])
 
-AM_INIT_AUTOMAKE([1.9 tar-ustar])
+AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-bzip2 tar-ustar])
 
 AM_MAINTAINER_MODE
 
@@ -19,7 +19,7 @@ AC_HEADER_STDC
 
 AC_SUBST(VERSION)
 
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 
 IT_PROG_INTLTOOL([0.35.0])
 
@@ -28,6 +28,9 @@ AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Name of default gettext domain])
 
 AM_GLIB_GNU_GETTEXT
+
+GSD_INTLTOOL_PLUGIN_RULE='%.gnome-settings-plugin:   %.gnome-settings-plugin.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< [$]@'
+AC_SUBST([GSD_INTLTOOL_PLUGIN_RULE])
 
 dnl ---------------------------------------------------------------------------
 dnl - Dependencies
@@ -89,7 +92,7 @@ AC_ARG_WITH(dbus-services,
 if ! test -z "$with_dbus_sys" ; then
         DBUS_SYS_DIR="$with_dbus_sys"
 else
-        DBUS_SYS_DIR="$sysconfdir/dbus-1/system.d"
+        DBUS_SYS_DIR='${sysconfdir}/dbus-1/system.d'
 fi
 AC_SUBST(DBUS_SYS_DIR)
 

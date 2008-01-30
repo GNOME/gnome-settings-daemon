@@ -66,12 +66,10 @@ libmedia_keys_la_CFLAGS = 		\
 	$(NULL)
 
 plugin_in_files = 		\
-	media-keys.gnome-settings-plugin.desktop.in	\
+	media-keys.gnome-settings-plugin.in	\
 	$(NULL)
 
-%.gnome-settings-plugin: %.gnome-settings-plugin.desktop.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.desktop.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 noinst_PROGRAMS =				\
 	test-media-window			\
@@ -105,3 +103,4 @@ DISTCLEANFILES =		\
 	$(plugin_DATA)		\
 	$(NULL)
 
+@GSD_INTLTOOL_PLUGIN_RULE@

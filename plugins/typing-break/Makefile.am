@@ -34,12 +34,10 @@ libtyping_break_la_CFLAGS = 		\
 	$(NULL)
 
 plugin_in_files = 		\
-	typing-break.gnome-settings-plugin.desktop.in	\
+	typing-break.gnome-settings-plugin.in	\
 	$(NULL)
 
-%.gnome-settings-plugin: %.gnome-settings-plugin.desktop.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.desktop.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 EXTRA_DIST = 			\
 	$(plugin_in_files)	\
@@ -53,3 +51,4 @@ DISTCLEANFILES =		\
 	$(plugin_DATA)		\
 	$(NULL)
 
+@GSD_INTLTOOL_PLUGIN_RULE@

@@ -11,4 +11,3 @@ libsounds_la_SOURCES = \
 	sound-properties.h \
 	sound-view.c \
 	sound-view.h
-

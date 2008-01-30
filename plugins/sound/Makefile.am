@@ -33,20 +33,18 @@ libsound_la_LDFLAGS = 		\
 	$(NULL)
 
 libsound_la_LIBADD  = 		\
-	$(SETTINGS_PLUGIN_LIBS)	\
 	$(top_builddir)/plugins/sound/libsounds/libsounds.la	\
+	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NULL)
 
 libsound_la_CFLAGS = 		\
 	$(NULL)
 
 plugin_in_files = 		\
-	sound.gnome-settings-plugin.desktop.in	\
+	sound.gnome-settings-plugin.in	\
 	$(NULL)
 
-%.gnome-settings-plugin: %.gnome-settings-plugin.desktop.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.desktop.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 EXTRA_DIST = 			\
 	$(plugin_in_files)	\
@@ -60,3 +58,4 @@ DISTCLEANFILES =		\
 	$(plugin_DATA)		\
 	$(NULL)
 
+@GSD_INTLTOOL_PLUGIN_RULE@
