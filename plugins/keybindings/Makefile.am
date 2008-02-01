@@ -1,15 +1,5 @@
 NULL =
 
-modules_flags = -export_dynamic -avoid-version -module -no-undefined
-
-plugindir = $(libdir)/gnome-settings-daemon/plugins/keybindings
-
-INCLUDES = \
-	-I$(top_srcdir)/src		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
-	$(SETTINGS_PLUGIN_CFLAGS)			\
-	$(NULL)
-
 plugin_LTLIBRARIES = \
 	libkeybindings.la		\
 	$(NULL)
@@ -23,16 +13,21 @@ libkeybindings_la_SOURCES = 		\
 	eggaccelerators.c		\
 	$(NULL)
 
+libkeybindings_la_CPPFLAGS = \
+	-I$(top_srcdir)/src		\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
+
+libkeybindings_la_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
 libkeybindings_la_LDFLAGS = 		\
-	$(PLUGIN_LIBTOOL_FLAGS)	\
-	$(modules_flags)	\
+	$(GSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libkeybindings_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(NULL)
-
-libkeybindings_la_CFLAGS = 		\
 	$(NULL)
 
 plugin_in_files = 		\

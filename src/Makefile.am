@@ -4,7 +4,7 @@ INCLUDES = \
 	-DDATADIR=\""$(datadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\" 			\
-	-DGNOME_SETTINGS_PLUGINDIR=\""$(libdir)/gnome-settings-daemon/plugins"\" \
+	-DGNOME_SETTINGS_PLUGINDIR=\""$(plugindir)"\"		\
 	$(WARN_CFLAGS)						\
 	$(DISABLE_DEPRECATED_CFLAGS)				\
 	$(SETTINGS_DAEMON_CFLAGS)				\

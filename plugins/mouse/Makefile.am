@@ -1,15 +1,5 @@
 NULL =
 
-modules_flags = -export_dynamic -avoid-version -module -no-undefined
-
-plugindir = $(libdir)/gnome-settings-daemon/plugins/mouse
-
-INCLUDES = \
-	-I$(top_srcdir)/src		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
-	$(SETTINGS_PLUGIN_CFLAGS)			\
-	$(NULL)
-
 plugin_LTLIBRARIES = \
 	libmouse.la		\
 	$(NULL)
@@ -25,16 +15,21 @@ libmouse_la_SOURCES = 		\
 	gsd-timeline.c		\
 	$(NULL)
 
+libmouse_la_CPPFLAGS = \
+	-I$(top_srcdir)/src		\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
+
+libmouse_la_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
 libmouse_la_LDFLAGS = 		\
-	$(PLUGIN_LIBTOOL_FLAGS)	\
-	$(modules_flags)	\
+	$(GSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libmouse_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(NULL)
-
-libmouse_la_CFLAGS = 		\
 	$(NULL)
 
 plugin_in_files = 		\

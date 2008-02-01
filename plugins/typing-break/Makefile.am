@@ -1,15 +1,5 @@
 NULL =
 
-modules_flags = -export_dynamic -avoid-version -module -no-undefined
-
-plugindir = $(libdir)/gnome-settings-daemon/plugins/typing-break
-
-INCLUDES = \
-	-I$(top_srcdir)/src		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
-	$(SETTINGS_PLUGIN_CFLAGS)			\
-	$(NULL)
-
 plugin_LTLIBRARIES = \
 	libtyping-break.la		\
 	$(NULL)
@@ -21,16 +11,21 @@ libtyping_break_la_SOURCES = 		\
 	gsd-typing-break-manager.c	\
 	$(NULL)
 
+libtyping_break_la_CPPFLAGS = \
+	-I$(top_srcdir)/src		\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
+
+libtyping_break_la_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
 libtyping_break_la_LDFLAGS = 		\
-	$(PLUGIN_LIBTOOL_FLAGS)	\
-	$(modules_flags)	\
+	$(GSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libtyping_break_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(NULL)
-
-libtyping_break_la_CFLAGS = 		\
 	$(NULL)
 
 plugin_in_files = 		\

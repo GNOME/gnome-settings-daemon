@@ -4,17 +4,6 @@ SUBDIRS =		\
 	libbackground	\
 	$(NULL)
 
-modules_flags = -export_dynamic -avoid-version -module -no-undefined
-
-plugindir = $(libdir)/gnome-settings-daemon/plugins/background
-
-INCLUDES = \
-	-I$(top_srcdir)/src		\
-	-I$(top_srcdir)/plugins/background/libbackground	\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	$(SETTINGS_PLUGIN_CFLAGS)				\
-	$(NULL)
-
 noinst_PROGRAMS = 			\
 	test-background			\
 	$(NULL)
@@ -25,9 +14,19 @@ test_background_SOURCES = 		\
 	gsd-background-manager.c	\
 	$(NULL)
 
+test_background_CPPFLAGS = \
+	-I$(top_srcdir)/src		\
+	-I$(top_srcdir)/plugins/background/libbackground   \
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
+
+test_background_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
 test_background_LDADD =		\
+	$(top_builddir)/plugins/background/libbackground/libbackground.la \
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(top_builddir)/plugins/background/libbackground/libbackground.la		\
 	$(NULL)
 
 plugin_LTLIBRARIES = \
@@ -41,17 +40,23 @@ libbackground_la_SOURCES = 		\
 	gsd-background-manager.c	\
 	$(NULL)
 
+libbackground_la_CPPFLAGS = \
+	-I$(top_srcdir)/src		\
+	-I$(top_srcdir)/plugins/background/libbackground   \
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
+
+libbackground_la_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
 libbackground_la_LDFLAGS = 		\
-	$(PLUGIN_LIBTOOL_FLAGS)	\
-	$(modules_flags)	\
+	$(GSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libbackground_la_LIBADD  = 		\
+	$(top_builddir)/plugins/background/libbackground/libbackground.la \
 	$(SETTINGS_PLUGIN_LIBS)		\
-	$(top_builddir)/plugins/background/libbackground/libbackground.la		\
-	$(NULL)
-
-libbackground_la_CFLAGS = 		\
 	$(NULL)
 
 plugin_in_files = 		\

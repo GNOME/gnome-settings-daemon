@@ -1,3 +1,37 @@
+2008-02-01  Christian Persch  <chpe@gnome.org>
+
+	Bug #513246.
+
+	* acinclude.m4:
+	* configure.ac:
+	* plugins/a11y-keyboard/Makefile.am:
+	* plugins/background/Makefile.am:
+	* plugins/clipboard/Makefile.am:
+	* plugins/default-editor/Makefile.am:
+	* plugins/dummy/Makefile.am:
+	* plugins/font/Makefile.am:
+	* plugins/keybindings/Makefile.am:
+	* plugins/keyboard/Makefile.am:
+	* plugins/media-keys/Makefile.am:
+	* plugins/media-keys/actions/Makefile.am:
+	* plugins/mouse/Makefile.am:
+	* plugins/screensaver/Makefile.am:
+	* plugins/sound/Makefile.am:
+	* plugins/typing-break/Makefile.am:
+	* plugins/xrandr/Makefile.am:
+	* plugins/xrdb/Makefile.am:
+	* plugins/xsettings/Makefile.am: Use a flat directory instead of a
+	directory hierarchy to install the plugins into.
+	Install data files under $(pkgdatadir), not under $(libdir).
+
+	* src/Makefile.am:
+	* src/gnome-settings-plugins-engine.c:
+	(gnome_settings_plugin_info_free),
+	(gnome_settings_plugins_engine_load),
+	(gnome_settings_plugins_engine_load_file),
+	(gnome_settings_plugins_engine_load_dir): Don't scan the plugins
+	directory recursively. Use GSlice for the plugin info struct.
+
 ==== 2.21.90.2 ====
 
 2008-01-30  Rodrigo Moya <rodrigo@gnome-db.org>

@@ -68,8 +68,8 @@ AC_SUBST(SETTINGS_PLUGIN_LIBS)
 
 PKG_CHECK_MODULES(GNOME, libgnome-2.0 libgnomeui-2.0)
 
-PLUGIN_LIBTOOL_FLAGS="-export_dynamic -module -avoid-version"
-AC_SUBST(PLUGIN_LIBTOOL_FLAGS)
+GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
+AC_SUBST([GSD_PLUGIN_LDFLAGS])
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 AC_PATH_XTRA
@@ -283,16 +283,13 @@ if test "x$have_gstreamer" = "xyes"; then
 else
   AC_MSG_NOTICE([*** Sound capplet will not be built]);
 fi
+ 
+# ---------------------------------------------------------------------------
+# Plugins
+# ---------------------------------------------------------------------------
 
-dnl ---------------------------------------------------------------------------
-dnl - Expand vars
-dnl ---------------------------------------------------------------------------
-
-AS_AC_EXPAND(LOCALSTATEDIR, $localstatedir)
-AS_AC_EXPAND(SYSCONFDIR, $sysconfdir)
-AS_AC_EXPAND(DATADIR, $datadir)
-AS_AC_EXPAND(LIBDIR, $libdir)
-AS_AC_EXPAND(LIBEXECDIR, $libexecdir)
+plugindir='$(pkglibdir)/plugins'
+AC_SUBST([plugindir])
 
 dnl ---------------------------------------------------------------------------
 dnl - Finish
@@ -403,6 +400,7 @@ echo "
         sysconfdir:               ${sysconfdir}
         sysconfsubdir:            ${sysconfsubdir}
         localstatedir:            ${localstatedir}
+        plugindir:                ${plugindir}
         datadir:                  ${datadir}
 	source code location:	  ${srcdir}
 	compiler:		  ${CC}

@@ -1,15 +1,5 @@
 NULL =
 
-modules_flags = -export_dynamic -avoid-version -module -no-undefined
-
-plugindir = $(libdir)/gnome-settings-daemon/plugins/clipboard
-
-INCLUDES = \
-	-I$(top_srcdir)/src		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
-	$(SETTINGS_PLUGIN_CFLAGS)			\
-	$(NULL)
-
 plugin_LTLIBRARIES = \
 	libclipboard.la		\
 	$(NULL)
@@ -25,16 +15,21 @@ libclipboard_la_SOURCES = 	\
 	list.c			\
 	$(NULL)
 
+libclipboard_la_CPPFLAGS = \
+	-I$(top_srcdir)/src		\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
+
+libclipboard_la_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
 libclipboard_la_LDFLAGS = 	\
-	$(PLUGIN_LIBTOOL_FLAGS)	\
-	$(modules_flags)	\
+	$(GSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libclipboard_la_LIBADD  = 	\
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(NULL)
-
-libclipboard_la_CFLAGS = 	\
 	$(NULL)
 
 plugin_in_files = 		\

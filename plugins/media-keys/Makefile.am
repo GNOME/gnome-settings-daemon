@@ -4,19 +4,6 @@ SUBDIRS =		\
 	actions		\
 	$(NULL)
 
-modules_flags = -export_dynamic -avoid-version -module -no-undefined
-
-plugindir = $(libdir)/gnome-settings-daemon/plugins/media-keys
-
-INCLUDES = \
-	-I$(top_srcdir)/src		\
-	-I$(top_builddir)/plugins/media-keys/actions	\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
-	-DPIXMAPDIR=\""$(plugindir)"\"			\
-	-DGLADEDIR=\""$(plugindir)"\"			\
-	$(SETTINGS_PLUGIN_CFLAGS)			\
-	$(NULL)
-
 plugin_LTLIBRARIES = \
 	libmedia-keys.la		\
 	$(NULL)
@@ -50,19 +37,27 @@ libmedia_keys_la_SOURCES = 		\
 	$(BUILT_SOURCES)		\
 	$(NULL)
 
+libmedia_keys_la_CPPFLAGS = \
+	-I$(top_srcdir)/src					\
+	-I$(top_builddir)/plugins/media-keys/actions		\
+	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
+	-DGLADEDIR=\""$(pkgdatadir)"\"				\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	$(AM_CPPFLAGS)
+
+libmedia_keys_la_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
 libmedia_keys_la_LDFLAGS = 		\
-	$(PLUGIN_LIBTOOL_FLAGS)		\
-	$(modules_flags)		\
+	$(GSD_PLUGIN_LDFLAGS)		\
 	$(NULL)
 
 libmedia_keys_la_LIBADD  = 		\
+	$(top_builddir)/plugins/media-keys/actions/libacme.la	\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(XF86MISC_LIBS)		\
 	$(GST_LIBS)			\
-	$(top_builddir)/plugins/media-keys/actions/libacme.la	\
-	$(NULL)
-
-libmedia_keys_la_CFLAGS = 		\
 	$(NULL)
 
 plugin_in_files = 		\
@@ -80,6 +75,18 @@ test_media_window_SOURCES =			\
 	gsd-media-keys-window.h			\
 	test-media-window.c			\
 	$(NULL)
+
+test_media_window_CPPFLAGS = \
+	-I$(top_srcdir)/src					\
+	-I$(top_builddir)/plugins/media-keys/actions		\
+	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
+	-DGLADEDIR=\""$(pkgdatadir)"\"				\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	$(AM_CPPFLAGS)
+
+test_media_window_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
 
 test_media_window_LDADD = \
 	$(SETTINGS_DAEMON_LIBS)			\

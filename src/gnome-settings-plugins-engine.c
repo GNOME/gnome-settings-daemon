@@ -92,7 +92,7 @@ gnome_settings_plugin_info_free (GnomeSettingsPluginInfo *info)
         g_free (info->copyright);
         g_strfreev (info->authors);
 
-        g_free (info);
+        g_slice_free (GnomeSettingsPluginInfo, info);
 }
 
 static GnomeSettingsPluginInfo *
@@ -106,7 +106,7 @@ gnome_settings_plugins_engine_load (const char *file)
 
         g_debug ("Loading plugin: %s", file);
 
-        info = g_new0 (GnomeSettingsPluginInfo, 1);
+        info = g_slice_new0 (GnomeSettingsPluginInfo);
         info->file = g_strdup (file);
 
         plugin_file = g_key_file_new ();
@@ -197,7 +197,8 @@ error:
         g_free (info->file);
         g_free (info->location);
         g_free (info->name);
-        g_free (info);
+        g_slice_free (GnomeSettingsPluginInfo, info);
+
         g_key_file_free (plugin_file);
 
         return NULL;
@@ -222,10 +223,6 @@ gnome_settings_plugins_engine_load_file (const char *filename)
         GnomeSettingsPluginInfo *info;
         char                  *key_name;
         gboolean               activate;
-
-        if (g_str_has_suffix (filename, PLUGIN_EXT) == FALSE) {
-                return;
-        }
 
         info = gnome_settings_plugins_engine_load (filename);
         if (info == NULL) {
@@ -288,14 +285,14 @@ gnome_settings_plugins_engine_load_dir (const char *path)
         while ((name = g_dir_read_name (d))) {
                 char *filename;
 
+                if (!g_str_has_suffix (name, PLUGIN_EXT))
+                        continue;
+
                 filename = g_build_filename (path, name, NULL);
-                if (g_file_test (filename, G_FILE_TEST_IS_DIR) != FALSE) {
-                        gnome_settings_plugins_engine_load_dir (filename);
-                } else {
+                if (g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
                         gnome_settings_plugins_engine_load_file (filename);
                 }
                 g_free (filename);
-
         }
 
         g_dir_close (d);

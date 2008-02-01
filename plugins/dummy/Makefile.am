@@ -1,15 +1,5 @@
 NULL =
 
-modules_flags = -export_dynamic -avoid-version -module -no-undefined
-
-plugindir = $(libdir)/gnome-settings-daemon/plugins/dummy
-
-INCLUDES = \
-	-I$(top_srcdir)/src		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
-	$(SETTINGS_PLUGIN_CFLAGS)			\
-	$(NULL)
-
 plugin_LTLIBRARIES = \
 	libdummy.la		\
 	$(NULL)
@@ -21,16 +11,21 @@ libdummy_la_SOURCES = 		\
 	gsd-dummy-manager.c	\
 	$(NULL)
 
+libdummy_la_CPPFLAGS = \
+	-I$(top_srcdir)/src		\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
+
+libdummy_la_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
 libdummy_la_LDFLAGS = 		\
-	$(PLUGIN_LIBTOOL_FLAGS)	\
-	$(modules_flags)	\
+	$(GSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libdummy_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(NULL)
-
-libdummy_la_CFLAGS = 		\
 	$(NULL)
 
 plugin_in_files = 		\

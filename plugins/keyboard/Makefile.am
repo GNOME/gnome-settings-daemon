@@ -1,22 +1,10 @@
 NULL =
 
-modules_flags = -export_dynamic -avoid-version -module -no-undefined
-
-plugindir = $(libdir)/gnome-settings-daemon/plugins/keyboard
-
-INCLUDES = \
-	-I$(top_srcdir)/src		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"\
-	-DDATADIR=\""$(plugindir)"\"\
-	$(SETTINGS_PLUGIN_CFLAGS)			\
-	$(LIBGNOMEKBD_CFLAGS)				\
-	$(NULL)
-
 plugin_LTLIBRARIES = \
 	libkeyboard.la		\
 	$(NULL)
 
-Gladedir   = $(plugindir)
+Gladedir   = $(pkgdatadir)
 Glade_DATA = modmap-dialog.glade
 
 libkeyboard_la_SOURCES = 	\
@@ -32,18 +20,25 @@ libkeyboard_la_SOURCES = 	\
 	delayed-dialog.c	\
 	$(NULL)
 
+libkeyboard_la_CPPFLAGS = \
+	-I$(top_srcdir)/src		\
+	-DDATADIR=\""$(pkgdatadir)"\"	\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
+
+libkeyboard_la_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(LIBGNOMEKBD_CFLAGS)		\
+	$(AM_CFLAGS)
+
 libkeyboard_la_LDFLAGS = 	\
-	$(PLUGIN_LIBTOOL_FLAGS)	\
-	$(modules_flags)	\
+	$(GSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libkeyboard_la_LIBADD  = 	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(XF86MISC_LIBS)	\
 	$(LIBGNOMEKBD_LIBS)	\
-	$(NULL)
-
-libkeyboard_la_CFLAGS = 		\
 	$(NULL)
 
 plugin_in_files = 		\
