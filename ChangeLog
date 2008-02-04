@@ -1,3 +1,11 @@
+2008-02-04  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/screensaver/gsd-screensaver-manager.c:
+	(gsd_screensaver_manager_start): don't crash when running the
+	screensaver fails. The plugin relies on the GError it passes always
+	being filled in if we couldn't start the module, so set it up properly
+	in those cases (bug #514385)
+
 2008-02-04  Luca Ferretti  <elle.uca@libero.it>
 
 	reviewed by: Jens Granseuer

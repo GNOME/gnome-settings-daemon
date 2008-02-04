@@ -52,10 +52,6 @@ struct GsdScreensaverManagerPrivate
         gboolean have_xscreensaver;
 };
 
-enum {
-        PROP_0,
-};
-
 static void     gsd_screensaver_manager_class_init  (GsdScreensaverManagerClass *klass);
 static void     gsd_screensaver_manager_init        (GsdScreensaverManager      *screensaver_manager);
 static void     gsd_screensaver_manager_finalize    (GObject             *object);
@@ -86,8 +82,6 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
         char        *ss_cmd;
         GError      *gerr = NULL;
         gboolean     show_error;
-        GtkWidget   *dialog;
-        GtkWidget   *toggle;
         char        *args[3];
         GConfClient *client;
 
@@ -103,7 +97,6 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
 	 *
 	 * we could have xscreensaver-demo run gconftool-2 directly,
 	 * and start / stop xscreensaver here
-	 *
          */
 
         client = gconf_client_get_default ();
@@ -134,8 +127,11 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
         } else if (manager->priv->have_xscreensaver) {
                 args[0] = "xscreensaver";
                 args[1] = "-nosplash";
-        } else
+        } else {
+                g_set_error (error, G_SPAWN_ERROR, G_SPAWN_ERROR_FAILED,
+                             "No screensaver available.");
                 return FALSE;
+        }
         args[2] = NULL;
 
         if (g_spawn_async (g_get_home_dir (), args, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &manager->priv->screensaver_pid, &gerr)) {
@@ -144,48 +140,48 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
         }
 
         show_error = gconf_client_get_bool (client, SHOW_STARTUP_ERRORS_KEY, NULL);
-        if (!show_error) {
-                g_error_free (gerr);
-                g_object_unref (client);
-                return FALSE;
+
+        if (show_error) {
+                GtkWidget *dialog;
+                GtkWidget *toggle;
+
+	        dialog = gtk_message_dialog_new (NULL,
+                             0, GTK_MESSAGE_ERROR,
+                             GTK_BUTTONS_OK,
+                             _("There was an error starting up the screensaver:\n\n"
+                               "%s\n\n"
+                               "Screensaver functionality will not work in this session."),
+                             gerr->message);
+
+                g_signal_connect (dialog, "response",
+                                  G_CALLBACK (gtk_widget_destroy),
+                                  NULL);
+
+                toggle = gtk_check_button_new_with_mnemonic (_("_Do not show this message again"));
+                gtk_widget_show (toggle);
+
+                if (gconf_client_key_is_writable (client, SHOW_STARTUP_ERRORS_KEY, NULL)) {
+                        g_signal_connect (toggle,
+                                          "toggled",
+                                          G_CALLBACK (key_toggled_cb),
+                                          manager);
+                } else {
+                        gtk_widget_set_sensitive (toggle, FALSE);
+                }
+
+                gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),
+                                    toggle,
+                                    FALSE, FALSE, 0);
+
+                gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+                gtk_widget_show (dialog);
         }
 
-        dialog = gtk_message_dialog_new (NULL,
-                                         0,
-                                         GTK_MESSAGE_ERROR,
-                                         GTK_BUTTONS_OK,
-                                         _("There was an error starting up the screensaver:\n\n"
-                                         "%s\n\n"
-                                         "Screensaver functionality will not work in this session."),
-                                         gerr->message);
-        g_error_free (gerr);
-
-        g_signal_connect (dialog, "response",
-                          G_CALLBACK (gtk_widget_destroy),
-                          NULL);
-
-        toggle = gtk_check_button_new_with_mnemonic (_("_Do not show this message again"));
-        gtk_widget_show (toggle);
-
-        if (gconf_client_key_is_writable (client, SHOW_STARTUP_ERRORS_KEY, NULL)) {
-                g_signal_connect (toggle,
-                                  "toggled",
-                                  G_CALLBACK (key_toggled_cb),
-                                  manager);
-        } else {
-                gtk_widget_set_sensitive (toggle, FALSE);
-        }
+        g_propagate_error (error, gerr);
         g_object_unref (client);
 
-        gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),
-                            toggle,
-                            FALSE, FALSE, 0);
-
-        gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-
-        gtk_widget_show (dialog);
-
-        return TRUE;
+        return FALSE;
 }
 
 void
@@ -275,7 +271,6 @@ static void
 gsd_screensaver_manager_init (GsdScreensaverManager *manager)
 {
         manager->priv = GSD_SCREENSAVER_MANAGER_GET_PRIVATE (manager);
-
 }
 
 static void
