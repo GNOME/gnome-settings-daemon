@@ -1,3 +1,31 @@
+2008-02-05  Jens Granseuer  <jensgr@gmx.net>
+
+	Based on a patch by: Damien Carberry <damien carberry@sun.com>
+
+	* Makefile.am:
+	* autogen.sh:
+	* configure.ac:
+	* plugins/a11y-keyboard/Makefile.am:
+	* plugins/background/Makefile.am:
+	* plugins/clipboard/Makefile.am:
+	* plugins/default-editor/Makefile.am:
+	* plugins/dummy/Makefile.am:
+	* plugins/font/Makefile.am:
+	* plugins/keybindings/Makefile.am:
+	* plugins/keyboard/Makefile.am:
+	* plugins/media-keys/Makefile.am:
+	* plugins/media-keys/actions/Makefile.am:
+	* plugins/mouse/Makefile.am:
+	* plugins/screensaver/Makefile.am:
+	* plugins/sound/Makefile.am:
+	* plugins/typing-break/Makefile.am:
+	* plugins/xrandr/Makefile.am:
+	* plugins/xrdb/Makefile.am:
+	* plugins/xsettings/Makefile.am:
+	* src: rename the src folder to gnome-settings-daemon. This is needed
+	so we can supply an uninstalled.pc file for g-s-d (see discussion in
+	bug #511820)
+
 2008-02-04  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/screensaver/gsd-screensaver-manager.c:

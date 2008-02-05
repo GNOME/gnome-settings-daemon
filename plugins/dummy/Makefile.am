@@ -12,7 +12,7 @@ libdummy_la_SOURCES = 		\
 	$(NULL)
 
 libdummy_la_CPPFLAGS = \
-	-I$(top_srcdir)/src		\
+	-I$(top_srcdir)/gnome-settings-daemon		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 

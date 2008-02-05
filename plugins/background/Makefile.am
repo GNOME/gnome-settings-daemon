@@ -15,7 +15,7 @@ test_background_SOURCES = 		\
 	$(NULL)
 
 test_background_CPPFLAGS = \
-	-I$(top_srcdir)/src		\
+	-I$(top_srcdir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/plugins/background/libbackground   \
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
@@ -41,7 +41,7 @@ libbackground_la_SOURCES = 		\
 	$(NULL)
 
 libbackground_la_CPPFLAGS = \
-	-I$(top_srcdir)/src		\
+	-I$(top_srcdir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/plugins/background/libbackground   \
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)

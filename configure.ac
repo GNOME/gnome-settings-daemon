@@ -8,7 +8,7 @@ AC_INIT([gnome-settings-daemon],
         [2.21.90.2],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
-AC_CONFIG_SRCDIR([src/gnome-settings-manager.c])
+AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
 
 AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-bzip2 tar-ustar])
 
@@ -361,7 +361,7 @@ AC_SUBST(DEBUG_CFLAGS)
 
 AC_OUTPUT([
 Makefile
-src/Makefile
+gnome-settings-daemon/Makefile
 plugins/Makefile
 plugins/a11y-keyboard/Makefile
 plugins/background/Makefile

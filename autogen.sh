@@ -10,10 +10,10 @@ test -z "$srcdir" && srcdir=.
 PKG_NAME="gnome-settings-daemon"
 
 (test -f $srcdir/configure.ac \
-  && test -d $srcdir/src \
-  && test -f $srcdir/src/gnome-settings-manager.h) || {
+  && test -d $srcdir/gnome-settings-daemon \
+  && test -f $srcdir/gnome-settings-daemon/gnome-settings-manager.h) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
-    echo " top-level gdm directory"
+    echo " top-level gnome-settings-daemon directory"
     exit 1
 }
 

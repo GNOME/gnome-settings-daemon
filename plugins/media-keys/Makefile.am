@@ -1,18 +1,12 @@
-NULL =
-
-SUBDIRS =		\
-	actions		\
-	$(NULL)
+SUBDIRS = actions
 
 plugin_LTLIBRARIES = \
-	libmedia-keys.la		\
-	$(NULL)
+	libmedia-keys.la
 
 BUILT_SOURCES = 			\
 	gsd-media-keys-manager-glue.h	\
 	gsd-marshal.h			\
-	gsd-marshal.c			\
-	$(NULL)
+	gsd-marshal.c
 
 gsd-media-keys-manager-glue.h: gsd-media-keys-manager.xml Makefile
 	dbus-binding-tool --prefix=gsd_media_keys_manager --mode=glib-server $< > xgen-$(@F) \
@@ -34,11 +28,10 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-window.c		\
 	eggaccelerators.h		\
 	eggaccelerators.c		\
-	$(BUILT_SOURCES)		\
-	$(NULL)
+	$(BUILT_SOURCES)
 
 libmedia_keys_la_CPPFLAGS = \
-	-I$(top_srcdir)/src					\
+	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/plugins/media-keys/actions		\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGLADEDIR=\""$(pkgdatadir)"\"				\
@@ -50,34 +43,29 @@ libmedia_keys_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libmedia_keys_la_LDFLAGS = 		\
-	$(GSD_PLUGIN_LDFLAGS)		\
-	$(NULL)
+	$(GSD_PLUGIN_LDFLAGS)
 
 libmedia_keys_la_LIBADD  = 		\
 	$(top_builddir)/plugins/media-keys/actions/libacme.la	\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(XF86MISC_LIBS)		\
-	$(GST_LIBS)			\
-	$(NULL)
+	$(GST_LIBS)
 
 plugin_in_files = 		\
-	media-keys.gnome-settings-plugin.in	\
-	$(NULL)
+	media-keys.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 noinst_PROGRAMS =				\
-	test-media-window			\
-	$(NULL)
+	test-media-window
 
 test_media_window_SOURCES =			\
 	gsd-media-keys-window.c			\
 	gsd-media-keys-window.h			\
-	test-media-window.c			\
-	$(NULL)
+	test-media-window.c
 
 test_media_window_CPPFLAGS = \
-	-I$(top_srcdir)/src					\
+	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/plugins/media-keys/actions		\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGLADEDIR=\""$(pkgdatadir)"\"				\
@@ -92,22 +80,18 @@ test_media_window_LDADD = \
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(XF86MISC_LIBS)			\
-	$(GST_LIBS)				\
-	$(NULL)
+	$(GST_LIBS)
 
 EXTRA_DIST = 				\
 	gsd-media-keys-manager.xml	\
 	gsd-marshal.list		\
-	$(plugin_in_files)		\
-	$(NULL)
+	$(plugin_in_files)
 
 CLEANFILES = 			\
 	$(BUILT_SOURCES)	\
-	$(plugin_DATA)		\
-	$(NULL)
+	$(plugin_DATA)
 
 DISTCLEANFILES =		\
-	$(plugin_DATA)		\
-	$(NULL)
+	$(plugin_DATA)
 
 @GSD_INTLTOOL_PLUGIN_RULE@

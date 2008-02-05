@@ -1,7 +1,7 @@
 NULL =
 
 SUBDIRS = 			\
-	src 			\
+	gnome-settings-daemon	\
 	plugins			\
 	data			\
 	po 			\
