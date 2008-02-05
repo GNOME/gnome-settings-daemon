@@ -385,6 +385,7 @@ plugins/xrdb/data/Makefile
 plugins/xsettings/Makefile
 data/Makefile
 data/gnome-settings-daemon.pc
+data/gnome-settings-daemon-uninstalled.pc
 po/Makefile.in
 ])
 
