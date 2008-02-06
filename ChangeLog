@@ -1,5 +1,15 @@
 2008-02-06  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/media-keys/gsd-media-keys-window.c:
+	(volume_controls_set_visible), (window_set_icon_name),
+	(window_set_icon_file), (volume_level_changed),
+	(gsd_media_keys_window_class_init), (gsd_media_keys_window_init):
+	release the glade XML file as soon as possible and keep track of the
+	two widgets we need. This way we can also get rid of the custom
+	finalize method
+
+2008-02-06  Jens Granseuer  <jensgr@gmx.net>
+
 	* data/gnome-settings-daemon.schemas.in: use gnome_settings_daemon for
 	the GConf path. This is what the other g-s-d settings use as well, and
 	there is no good reason to use two separate paths (bug #514411)

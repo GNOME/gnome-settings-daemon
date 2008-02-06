@@ -40,7 +40,6 @@
 
 static void     gsd_media_keys_window_class_init (GsdMediaKeysWindowClass *klass);
 static void     gsd_media_keys_window_init       (GsdMediaKeysWindow      *fade);
-static void     gsd_media_keys_window_finalize   (GObject                 *object);
 
 #define GSD_MEDIA_KEYS_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MEDIA_KEYS_WINDOW, GsdMediaKeysWindowPrivate))
 
@@ -55,7 +54,8 @@ struct GsdMediaKeysWindowPrivate
         guint                    volume_muted : 1;
         int                      volume_level;
 
-        GladeXML                *xml;
+        GtkImage                *image;
+        GtkWidget               *progress;
 };
 
 G_DEFINE_TYPE (GsdMediaKeysWindow, gsd_media_keys_window, GTK_TYPE_WINDOW)
@@ -147,21 +147,13 @@ static void
 volume_controls_set_visible (GsdMediaKeysWindow *window,
                              gboolean            visible)
 {
-        GtkWidget *progress;
-
-        if (window->priv->xml == NULL) {
+        if (window->priv->progress == NULL)
                 return;
-        }
-
-        progress = glade_xml_get_widget (window->priv->xml, "acme_volume_progressbar");
-        if (progress == NULL) {
-                return;
-        }
 
         if (visible) {
-                gtk_widget_show (progress);
+                gtk_widget_show (window->priv->progress);
         } else {
-                gtk_widget_hide (progress);
+                gtk_widget_hide (window->priv->progress);
         }
 }
 
@@ -169,36 +161,21 @@ static void
 window_set_icon_name (GsdMediaKeysWindow *window,
                       const char         *name)
 {
-        GtkWidget *image;
-
-        if (window->priv->xml == NULL) {
+        if (window->priv->image == NULL)
                 return;
-        }
 
-        image = glade_xml_get_widget (window->priv->xml, "acme_image");
-        if (image == NULL) {
-                return;
-        }
-
-        gtk_image_set_from_icon_name (GTK_IMAGE (image), name, GTK_ICON_SIZE_DIALOG);
+        gtk_image_set_from_icon_name (window->priv->image,
+                                      name, GTK_ICON_SIZE_DIALOG);
 }
 
 static void
 window_set_icon_file (GsdMediaKeysWindow *window,
                       const char         *path)
 {
-        GtkWidget *image;
-
-        if (window->priv->xml == NULL) {
+        if (window->priv->image == NULL)
                 return;
-        }
 
-        image = glade_xml_get_widget (window->priv->xml, "acme_image");
-        if (image == NULL) {
-                return;
-        }
-
-        gtk_image_set_from_file (GTK_IMAGE (image), path);
+        gtk_image_set_from_file (window->priv->image, path);
 }
 
 static void
@@ -233,16 +210,13 @@ volume_level_changed (GsdMediaKeysWindow *window)
 {
         update_window (window);
 
-        if (! window->priv->is_composited) {
-                GtkWidget *progress;
-                double     fraction;
+        if (!window->priv->is_composited && window->priv->progress != NULL) {
+                double fraction;
 
-                if (window->priv->xml != NULL) {
-                        fraction = (double)window->priv->volume_level / 100.0;
+                fraction = (double) window->priv->volume_level / 100.0;
 
-                        progress = glade_xml_get_widget (window->priv->xml, "acme_volume_progressbar");
-                        gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress), fraction);
-                }
+                gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (window->priv->progress),
+                                               fraction);
         }
 }
 
@@ -855,15 +829,10 @@ gsd_media_keys_window_real_hide (GtkWidget *widget)
 static void
 gsd_media_keys_window_class_init (GsdMediaKeysWindowClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
-        GtkWidgetClass *widget_class;
+        GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-        widget_class = GTK_WIDGET_CLASS (klass);
-
-        object_class->finalize     = gsd_media_keys_window_finalize;
-
-        widget_class->show         = gsd_media_keys_window_real_show;
-        widget_class->hide         = gsd_media_keys_window_real_hide;
+        widget_class->show = gsd_media_keys_window_real_show;
+        widget_class->hide = gsd_media_keys_window_real_hide;
 
         g_type_class_add_private (klass, sizeof (GsdMediaKeysWindowPrivate));
 }
@@ -921,35 +890,22 @@ gsd_media_keys_window_init (GsdMediaKeysWindow *window)
 
                 window->priv->fade_out_alpha = 1.0;
         } else {
+        	GladeXML *xml;
                 GtkWidget *frame;
 
-                window->priv->xml = glade_xml_new (GLADEDIR "/acme.glade", "acme_frame", NULL);
+                xml = glade_xml_new (GLADEDIR "/acme.glade", "acme_frame", NULL);
 
-                frame = glade_xml_get_widget (window->priv->xml, "acme_frame");
+                window->priv->image = GTK_IMAGE (glade_xml_get_widget (xml, "acme_image"));
+                window->priv->progress = glade_xml_get_widget (xml, "acme_volume_progressbar");
+                frame = glade_xml_get_widget (xml, "acme_frame");
+
+                g_object_unref (xml);
+
                 if (frame != NULL) {
                         gtk_container_add (GTK_CONTAINER (window), frame);
                         gtk_widget_show_all (frame);
                 }
         }
-}
-
-static void
-gsd_media_keys_window_finalize (GObject *object)
-{
-        GsdMediaKeysWindow *window;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (object));
-
-        window = GSD_MEDIA_KEYS_WINDOW (object);
-
-        g_return_if_fail (window->priv != NULL);
-
-        if (window->priv->xml != NULL) {
-                g_object_unref (window->priv->xml);
-        }
-
-        G_OBJECT_CLASS (gsd_media_keys_window_parent_class)->finalize (object);
 }
 
 GtkWidget *
