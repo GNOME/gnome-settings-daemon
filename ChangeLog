@@ -1,5 +1,11 @@
 2008-02-06  Jens Granseuer  <jensgr@gmx.net>
 
+	* data/gnome-settings-daemon.schemas.in: use gnome_settings_daemon for
+	the GConf path. This is what the other g-s-d settings use as well, and
+	there is no good reason to use two separate paths (bug #514411)
+
+2008-02-06  Jens Granseuer  <jensgr@gmx.net>
+
 	* configure.ac: add separate checks for libbackground
 	* plugins/background/libbackground/*: delete files and use the external
 	copy from gnome-control-center to avoid duplication
