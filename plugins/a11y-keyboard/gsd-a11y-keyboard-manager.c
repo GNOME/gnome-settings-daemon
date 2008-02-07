@@ -58,8 +58,10 @@ struct GsdA11yKeyboardManagerPrivate
         GtkWidget *slowkeys_alert;
 };
 
+#define GSD_KBD_A11Y_ERROR gsd_kbd_a11y_error_quark ()
+
 enum {
-        PROP_0,
+        GSD_KBD_A11Y_ERROR_NOT_AVAILABLE
 };
 
 static void     gsd_a11y_keyboard_manager_class_init  (GsdA11yKeyboardManagerClass *klass);
@@ -76,6 +78,12 @@ static gpointer manager_object = NULL;
 #else
 #define d(str)          do { } while (0)
 #endif
+
+static GQuark
+gsd_kbd_a11y_error_quark (void)
+{
+        return g_quark_from_static_string ("gsd-kbd-a11y-error-quark");
+}
 
 static gboolean
 xkb_enabled (GsdA11yKeyboardManager *manager)
@@ -737,6 +745,9 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
 #endif
 
         if (!xkb_enabled (manager)) {
+                g_set_error (error, GSD_KBD_A11Y_ERROR,
+                             GSD_KBD_A11Y_ERROR_NOT_AVAILABLE,
+                             "XKB functionality is disabled.");
                 return FALSE;
         }
 

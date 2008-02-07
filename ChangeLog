@@ -1,3 +1,9 @@
+2008-02-07  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
+	(gsd_kbd_a11y_error_quark), (gsd_a11y_keyboard_manager_start): make
+	sure we return a GError if initialization fails (bug #514926)
+
 2008-02-06  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/media-keys/gsd-media-keys-window.c:
