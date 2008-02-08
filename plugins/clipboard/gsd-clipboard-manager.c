@@ -81,8 +81,11 @@ typedef struct
         int         offset;
 } IncrConversion;
 
+#define GSD_CLIPBOARD_ERROR gsd_clipboard_error_quark ()
+
 enum {
-        PROP_0,
+        GSD_CLIPBOARD_ERROR_RUNNING,
+        GSD_CLIPBOARD_ERROR_FAILED
 };
 
 static void     gsd_clipboard_manager_class_init  (GsdClipboardManagerClass *klass);
@@ -99,6 +102,11 @@ G_DEFINE_TYPE (GsdClipboardManager, gsd_clipboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+static GQuark
+gsd_kbd_a11y_error_quark (void)
+{
+        return g_quark_from_static_string ("gsd-kbd-a11y-error-quark");
+}
 
 /* We need to use reference counting for the target data, since we may
  * need to keep the data around after loosing the CLIPBOARD ownership
@@ -861,6 +869,9 @@ gsd_clipboard_manager_start (GsdClipboardManager *manager,
 
         /* check if there is a clipboard manager running */
         if (XGetSelectionOwner (manager->priv->display, XA_CLIPBOARD_MANAGER)) {
+        	g_set_error (error, GSD_CLIPBOARD_ERROR,
+        	             GSD_CLIPBOARD_ERROR_RUNNING,
+        	             "Clipboard manager is already running.");
                 return FALSE;
         }
 
@@ -917,6 +928,9 @@ gsd_clipboard_manager_start (GsdClipboardManager *manager,
                                             NULL);
                 /* FIXME: manager->priv->terminate (manager->priv->cb_data); */
 
+        	g_set_error (error, GSD_CLIPBOARD_ERROR,
+        	             GSD_CLIPBOARD_ERROR_FAILED,
+        	             "Failed to claim selection.");
                 return FALSE;
         }
 
