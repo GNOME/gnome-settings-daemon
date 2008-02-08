@@ -62,10 +62,6 @@ struct GsdDefaultEditorManagerPrivate
         gboolean sync_changes;
 };
 
-enum {
-        PROP_0,
-};
-
 static void     gsd_default_editor_manager_class_init  (GsdDefaultEditorManagerClass *klass);
 static void     gsd_default_editor_manager_init        (GsdDefaultEditorManager      *default_editor_manager);
 static void     gsd_default_editor_manager_finalize    (GObject             *object);
@@ -155,12 +151,14 @@ gsd_default_editor_manager_start (GsdDefaultEditorManager *manager,
 
         manager->priv->sync_changes = gconf_client_get_bool (client, SYNC_CHANGES_KEY, NULL);
 
-        register_config_callback (manager, SYNC_CHANGES_KEY, (GConfClientNotifyFunc)sync_changes_cb);
+        g_object_unref (client);
+
+        register_config_callback (manager, SYNC_CHANGES_KEY, (GConfClientNotifyFunc) sync_changes_cb);
 
         g_signal_connect (gnome_vfs_mime_monitor_get (),
                           "data_changed",
                           G_CALLBACK (vfs_change_cb),
-                          client);
+                          manager);
 
         vfs_change_cb (NULL, manager);
 

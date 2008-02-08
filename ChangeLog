@@ -1,5 +1,22 @@
 2008-02-08  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/background/gsd-background-manager.c:
+	(gsd_background_manager_start), (gsd_background_manager_stop):
+	* plugins/keybindings/gsd-keybindings-manager.c:
+	(gsd_keybindings_manager_start):
+	* plugins/media-keys/gsd-media-keys-manager.c:
+	(gsd_media_keys_manager_stop): fix leaks
+
+	* plugins/default-editor/gsd-default-editor-manager.c:
+	(gsd_default_editor_manager_start): fix leak and pass the correct data
+	to the mime type callback
+
+	* plugins/xsettings/gsd-xsettings-manager.c:
+	(gnome_xsettings_manager_start): unref the GConfClient only after
+	we're done with it
+
+2008-02-08  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/clipboard/gsd-clipboard-manager.c:
 	(gsd_kbd_a11y_error_quark), (gsd_clipboard_manager_start): make sure
 	we return a GError if initialization fails

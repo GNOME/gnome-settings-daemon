@@ -55,10 +55,6 @@ struct GsdBackgroundManagerPrivate
         guint          timeout_id;
 };
 
-enum {
-        PROP_0,
-};
-
 static void     gsd_background_manager_class_init  (GsdBackgroundManagerClass *klass);
 static void     gsd_background_manager_init        (GsdBackgroundManager      *background_manager);
 static void     gsd_background_manager_finalize    (GObject             *object);
@@ -277,6 +273,7 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
                               GError              **error)
 {
         GConfClient *client;
+        gboolean nautilus_show_desktop;
 
         g_debug ("Starting background manager");
 
@@ -306,15 +303,13 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
 	 * don't waste time setting the background only to have
 	 * nautilus overwrite it.
 	 */
-        if (gconf_client_get_bool (client,
-                                   "/apps/nautilus/preferences/show_desktop",
-                                   NULL)) {
-                return TRUE;
-        }
-
+	nautilus_show_desktop = gconf_client_get_bool (client,
+                                                       "/apps/nautilus/preferences/show_desktop",
+                                                       NULL);
         g_object_unref (client);
 
-        apply_prefs (manager);
+        if (!nautilus_show_desktop)
+                apply_prefs (manager);
 
         return TRUE;
 }
@@ -323,6 +318,16 @@ void
 gsd_background_manager_stop (GsdBackgroundManager *manager)
 {
         g_debug ("Stopping background manager");
+
+        if (manager->priv->prefs != NULL) {
+        	g_object_unref (manager->priv->prefs);
+        	manager->priv->prefs = NULL;
+        }
+
+        if (manager->priv->bg != NULL) {
+        	g_object_unref (manager->priv->bg);
+        	manager->priv->bg = NULL;
+        }
 }
 
 static void

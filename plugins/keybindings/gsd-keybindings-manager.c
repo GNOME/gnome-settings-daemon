@@ -75,10 +75,6 @@ struct GsdKeybindingsManagerPrivate
         GSList *screens;
 };
 
-enum {
-        PROP_0,
-};
-
 static void     gsd_keybindings_manager_class_init  (GsdKeybindingsManagerClass *klass);
 static void     gsd_keybindings_manager_init        (GsdKeybindingsManager      *keybindings_manager);
 static void     gsd_keybindings_manager_finalize    (GObject             *object);
@@ -595,6 +591,7 @@ gsd_keybindings_manager_start (GsdKeybindingsManager *manager,
         }
 
         g_slist_free (list);
+        g_object_unref (client);
 
         binding_register_keys (manager);
 

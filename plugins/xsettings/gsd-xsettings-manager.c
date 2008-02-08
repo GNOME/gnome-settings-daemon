@@ -83,10 +83,6 @@ struct GnomeXSettingsManagerPrivate
         XSettingsManager **managers;
 };
 
-enum {
-        PROP_0,
-};
-
 static void     gnome_xsettings_manager_class_init  (GnomeXSettingsManagerClass *klass);
 static void     gnome_xsettings_manager_init        (GnomeXSettingsManager      *xsettings_manager);
 static void     gnome_xsettings_manager_finalize    (GObject                  *object);
@@ -593,11 +589,11 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                 }
         }
 
-        g_object_unref (client);
-
 #ifdef HAVE_XFT2
         update_xft_settings (manager, client);
 #endif /* HAVE_XFT */
+
+        g_object_unref (client);
 
         for (i = 0; manager->priv->managers [i]; i++)
                 xsettings_manager_set_string (manager->priv->managers [i],

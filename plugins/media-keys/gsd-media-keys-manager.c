@@ -90,10 +90,6 @@ struct GsdMediaKeysManagerPrivate
 };
 
 enum {
-        PROP_0,
-};
-
-enum {
         MEDIA_PLAYER_KEY_PRESSED,
         LAST_SIGNAL
 };
@@ -1024,6 +1020,21 @@ void
 gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 {
         g_debug ("Stopping media_keys manager");
+
+        GsdMediaKeysManagerPrivate *priv = manager->priv;
+
+        if (priv->conf_client) {
+                g_object_unref (priv->conf_client);
+                priv->conf_client = NULL;
+        }
+
+        if (priv->volume) {
+                g_object_unref (priv->volume);
+                priv->volume = NULL;
+        }
+
+        g_slist_free (priv->screens);
+        priv->screens = NULL;
 }
 
 static void
