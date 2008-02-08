@@ -145,7 +145,22 @@ AC_DEFUN([AC_CHECK_X_LIB], [
 
 AC_PATH_XTRA
 
-ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS"
+dnl
+dnl Check for XInput
+dnl
+
+have_xinput=no
+AC_CHECK_LIB(Xi, XListInputDevices,
+  [AC_CHECK_HEADER(X11/extensions/XInput.h,
+     have_xinput=yes
+     XINPUT_LIBS="-lXi"
+     AC_DEFINE(HAVE_XINPUT, 1, [Define if XInput extension is available]),
+	  :, [#include <X11/Xlib.h>])], : ,
+       -lXi $x_libs)
+AM_CONDITIONAL(HAVE_XINPUT, [test $have_xinput = yes])
+
+
+ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS $XINPUT_LIBS"
 
 dnl ---------------------------------------------------------------------------
 dnl - XFT2
