@@ -410,6 +410,7 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
         /* Essential - xkb initialization should happen before */
         gsd_keyboard_xkb_set_post_activation_callback ((PostActivationCallback) gsd_load_modmap_files, NULL);
         gsd_keyboard_xkb_init (client);
+        gsd_keyboard_xkb_load (client);
 
         register_config_callback (manager,
                                   GSD_KEYBOARD_KEY,
