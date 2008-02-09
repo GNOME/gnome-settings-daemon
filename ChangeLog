@@ -1,5 +1,28 @@
 2008-02-09  Jens Granseuer  <jensgr@gmx.net>
 
+	Support for defining plugin start order got lost in the split from
+	gnome-control-center, but it is essential for some plugins to work
+	correctly. With this change the "Priority" keyword can be used in the
+	".gnome-settings-plugin" file to set plugin priorities. Priority can
+	take values from 1 upwards, with 1 being maximum priority and 100
+	being the default if nothing is specified by the plugin. For multiple
+	plugins with identical priority start order is undefined. (bug #515340)
+
+	* gnome-settings-daemon/gnome-settings-plugins-engine.c:
+	(gnome_settings_plugins_engine_load), (activate_plugin),
+	(compare_location), (compare_priority),
+	(gnome_settings_plugins_engine_load_file),
+	(gnome_settings_plugins_engine_load_all),
+	(gnome_settings_plugins_engine_init),
+	(gnome_settings_plugins_engine_shutdown),
+	(gnome_settings_plugins_engine_get_plugins_list),
+	(gnome_settings_plugins_engine_get_plugin_copyright),
+	(gnome_settings_plugins_engine_get_plugin_priority):
+	* gnome-settings-daemon/gnome-settings-plugins-engine.h: add back
+	support for defining plugin start order
+
+2008-02-09  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/media-keys/gsd-media-keys-manager.c:
 	(gsd_media_keys_manager_stop): declare variables at the beginning of
 	a block to make older compilers happy

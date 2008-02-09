@@ -2,6 +2,7 @@
  *
  * Copyright (C) 2002-2005 Paolo Maggi
  * Copyright (C) 2007      William Jon McCann <mccann@jhu.edu>
+ *                         Jens Granseuer <jensgr@gmx.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,10 +37,13 @@
 #define PLUGIN_EXT ".gnome-settings-plugin"
 #define PLUGIN_GROUP "GNOME Settings Plugin"
 
+#define PLUGIN_PRIORITY_MAX 1
+#define PLUGIN_PRIORITY_DEFAULT 100
+
 typedef enum
 {
         GNOME_SETTINGS_PLUGIN_LOADER_C,
-        GNOME_SETTINGS_PLUGIN_LOADER_PY,
+        GNOME_SETTINGS_PLUGIN_LOADER_PY
 } GnomeSettingsPluginLoader;
 
 struct _GnomeSettingsPluginInfo
@@ -56,20 +60,25 @@ struct _GnomeSettingsPluginInfo
         char                    *copyright;
         char                    *website;
 
-        GnomeSettingsPlugin       *plugin;
+        GnomeSettingsPlugin     *plugin;
 
+        gint                     activate : 1;
         gint                     active : 1;
-
-        guint                    active_notification_id;
 
         /* A plugin is unavailable if it is not possible to activate it
            due to an error loading the plugin module (e.g. for Python plugins
            when the interpreter has not been correctly initializated) */
         gint                     available : 1;
+
+        guint                    active_notification_id;
+
+        /* Priority determines the order in which plugins are started and
+         * stopped. A lower number means higher priority. */
+        guint                    priority;
 };
 
 static char        *gnome_settings_gconf_prefix = NULL;
-static GHashTable  *gnome_settings_plugins = NULL;
+static GSList      *gnome_settings_plugins = NULL;
 static GConfClient *client = NULL;
 
 static void
@@ -99,8 +108,9 @@ static GnomeSettingsPluginInfo *
 gnome_settings_plugins_engine_load (const char *file)
 {
         GnomeSettingsPluginInfo *info;
-        GKeyFile              *plugin_file = NULL;
-        char                  *str;
+        GKeyFile *plugin_file = NULL;
+        char *str;
+        gint priority;
 
         g_return_val_if_fail (file != NULL, NULL);
 
@@ -185,6 +195,15 @@ gnome_settings_plugins_engine_load (const char *file)
         else
                 g_debug ("Could not find 'Website' in %s", file);
 
+        /* Get Priority */
+        priority = g_key_file_get_integer (plugin_file, PLUGIN_GROUP, "Priority", NULL);
+        if (priority >= PLUGIN_PRIORITY_MAX) {
+                info->priority = priority;
+        } else {
+                g_debug ("Could not find valid 'Priority' in %s", file);
+                info->priority = PLUGIN_PRIORITY_DEFAULT;
+        }
+
         g_key_file_free (plugin_file);
 
         /* If we know nothing about the availability of the plugin,
@@ -218,23 +237,54 @@ gnome_settings_plugins_engine_plugin_active_cb (GConfClient           *client,
 }
 
 static void
+activate_plugin (GnomeSettingsPluginInfo *info, gpointer user_data)
+{
+        if (info->activate) {
+                gboolean res;
+                res = gnome_settings_plugins_engine_activate_plugin (info);
+                if (res) {
+                        g_debug ("Plugin %s: active", info->location);
+                } else {
+                        g_debug ("Plugin %s: activation failed", info->location);
+                }
+        } else {
+                g_debug ("Plugin %s: inactive", info->location);
+        }
+}
+
+static gint
+compare_location (const GnomeSettingsPluginInfo *a,
+                  const GnomeSettingsPluginInfo *b)
+{
+        return strcmp (a->location, b->location);
+}
+
+static gint
+compare_priority (const GnomeSettingsPluginInfo *a,
+                  const GnomeSettingsPluginInfo *b)
+{
+        return a->priority - b->priority;
+}
+
+static void
 gnome_settings_plugins_engine_load_file (const char *filename)
 {
         GnomeSettingsPluginInfo *info;
-        char                  *key_name;
-        gboolean               activate;
+        char                    *key_name;
 
         info = gnome_settings_plugins_engine_load (filename);
         if (info == NULL) {
                 return;
         }
 
-        if (g_hash_table_lookup (gnome_settings_plugins, info->location)) {
+        if (g_slist_find_custom (gnome_settings_plugins,
+                                 info,
+                                 (GCompareFunc) compare_location)) {
                 gnome_settings_plugin_info_free (info);
                 return;
         }
 
-        g_hash_table_insert (gnome_settings_plugins, info->location, info);
+        gnome_settings_plugins = g_slist_prepend (gnome_settings_plugins, info);
 
         key_name = g_strdup_printf ("%s/%s", gnome_settings_gconf_prefix, info->location);
         gconf_client_add_dir (client, key_name, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
@@ -249,20 +299,8 @@ gnome_settings_plugins_engine_load_file (const char *filename)
                                                                 NULL,
                                                                 NULL);
 
-        activate = gconf_client_get_bool (client, key_name, NULL);
+        info->activate = gconf_client_get_bool (client, key_name, NULL);
         g_free (key_name);
-
-        if (activate) {
-                gboolean res;
-                res = gnome_settings_plugins_engine_activate_plugin (info);
-                if (res) {
-                        g_debug ("Plugin %s: active", info->location);
-                } else {
-                        g_debug ("Plugin %s: activation failed", info->location);
-                }
-        } else {
-                g_debug ("Plugin %s: inactive", info->location);
-        }
 }
 
 static void
@@ -302,7 +340,10 @@ static void
 gnome_settings_plugins_engine_load_all (void)
 {
         /* load system plugins */
-        gnome_settings_plugins_engine_load_dir (GNOME_SETTINGS_PLUGINDIR "/");
+        gnome_settings_plugins_engine_load_dir (GNOME_SETTINGS_PLUGINDIR G_DIR_SEPARATOR_S);
+
+        g_slist_sort (gnome_settings_plugins, (GCompareFunc) compare_priority);
+        g_slist_foreach (gnome_settings_plugins, (GFunc) activate_plugin, NULL);
 }
 
 gboolean
@@ -312,14 +353,9 @@ gnome_settings_plugins_engine_init (const char *gconf_prefix)
         g_return_val_if_fail (gconf_prefix != NULL, FALSE);
 
         if (!g_module_supported ()) {
-                g_warning ("gnome_settings is not able to initialize the plugins engine.");
+                g_warning ("gnome-settings-daemon is not able to initialize the plugins engine.");
                 return FALSE;
         }
-
-        gnome_settings_plugins = g_hash_table_new_full (g_str_hash,
-                                                      g_str_equal,
-                                                      NULL,
-                                                      (GDestroyNotify)gnome_settings_plugin_info_free);
 
         gnome_settings_gconf_prefix = g_strdup (gconf_prefix);
 
@@ -351,10 +387,11 @@ gnome_settings_plugins_engine_shutdown (void)
         gnome_settings_python_shutdown ();
 #endif
 
-        if (gnome_settings_plugins != NULL) {
-                g_hash_table_destroy (gnome_settings_plugins);
-                gnome_settings_plugins = NULL;
-        }
+        g_slist_foreach (gnome_settings_plugins,
+                         (GFunc) gnome_settings_plugin_info_free,
+                         NULL);
+        g_slist_free (gnome_settings_plugins);
+        gnome_settings_plugins = NULL;
 
         if (client != NULL) {
                 g_object_unref (client);
@@ -365,27 +402,10 @@ gnome_settings_plugins_engine_shutdown (void)
         gnome_settings_gconf_prefix = NULL;
 }
 
-static void
-collate_values_cb (gpointer key,
-                   gpointer value,
-                   GList  **list)
-{
-        *list = g_list_prepend (*list, value);
-}
-
-const GList *
+const GSList *
 gnome_settings_plugins_engine_get_plugins_list (void)
 {
-        GList *list = NULL;
-
-        if (gnome_settings_plugins == NULL) {
-                return NULL;
-        }
-
-        g_hash_table_foreach (gnome_settings_plugins, (GHFunc)collate_values_cb, &list);
-        list = g_list_reverse (list);
-
-        return list;
+        return gnome_settings_plugins;
 }
 
 static gboolean
@@ -634,4 +654,12 @@ gnome_settings_plugins_engine_get_plugin_copyright (GnomeSettingsPluginInfo *inf
         g_return_val_if_fail (info != NULL, NULL);
 
         return info->copyright;
+}
+
+gint
+gnome_settings_plugins_engine_get_plugin_priority (GnomeSettingsPluginInfo *info)
+{
+        g_return_val_if_fail (info != NULL, PLUGIN_PRIORITY_DEFAULT);
+
+        return info->priority;
 }

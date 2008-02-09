@@ -31,7 +31,7 @@ void             gnome_settings_plugins_engine_shutdown               (void);
 
 void             gnome_settings_plugins_engine_garbage_collect        (void);
 
-const GList     *gnome_settings_plugins_engine_get_plugins_list       (void);
+const GSList    *gnome_settings_plugins_engine_get_plugins_list       (void);
 
 gboolean         gnome_settings_plugins_engine_activate_plugin        (GnomeSettingsPluginInfo *info);
 gboolean         gnome_settings_plugins_engine_deactivate_plugin      (GnomeSettingsPluginInfo *info);
@@ -43,5 +43,6 @@ const char      *gnome_settings_plugins_engine_get_plugin_description (GnomeSett
 const char     **gnome_settings_plugins_engine_get_plugin_authors     (GnomeSettingsPluginInfo *info);
 const char      *gnome_settings_plugins_engine_get_plugin_website     (GnomeSettingsPluginInfo *info);
 const char      *gnome_settings_plugins_engine_get_plugin_copyright   (GnomeSettingsPluginInfo *info);
+gint             gnome_settings_plugins_engine_get_plugin_priority    (GnomeSettingsPluginInfo *info);
 
 #endif  /* __GNOME_SETTINGS_PLUGINS_ENGINE_H__ */
