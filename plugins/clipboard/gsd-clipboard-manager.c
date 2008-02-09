@@ -103,9 +103,9 @@ G_DEFINE_TYPE (GsdClipboardManager, gsd_clipboard_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 static GQuark
-gsd_kbd_a11y_error_quark (void)
+gsd_clipboard_error_quark (void)
 {
-        return g_quark_from_static_string ("gsd-kbd-a11y-error-quark");
+        return g_quark_from_static_string ("gsd-clipboard-error-quark");
 }
 
 /* We need to use reference counting for the target data, since we may
