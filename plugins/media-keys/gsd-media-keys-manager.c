@@ -1019,9 +1019,9 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
 void
 gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 {
-        g_debug ("Stopping media_keys manager");
-
         GsdMediaKeysManagerPrivate *priv = manager->priv;
+
+        g_debug ("Stopping media_keys manager");
 
         if (priv->conf_client) {
                 g_object_unref (priv->conf_client);

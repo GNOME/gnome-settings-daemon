@@ -1,5 +1,11 @@
 2008-02-09  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/media-keys/gsd-media-keys-manager.c:
+	(gsd_media_keys_manager_stop): declare variables at the beginning of
+	a block to make older compilers happy
+
+2008-02-09  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/clipboard/gsd-clipboard-manager.c:
 	(gsd_clipboard_error_quark): fix copy'n'paste error (bug #515426)
 
