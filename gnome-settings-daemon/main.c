@@ -37,14 +37,14 @@
 
 #define GSD_DBUS_NAME         "org.gnome.SettingsDaemon"
 
-#define DEFAULT_GCONF_PREFIX "/apps/gnome-settings-daemon/plugins"
+#define DEFAULT_GCONF_PREFIX "/apps/gnome_settings_daemon/plugins"
 #define GCONF_PREFIX_ENV     "GNOME_SETTINGS_DAEMON_GCONF_PREFIX"
 
 static char      *gconf_prefix = NULL;
 static gboolean   no_daemon    = TRUE;
 
 static GOptionEntry entries[] = {
-        { "no-daemon", 0, 0, G_OPTION_ARG_NONE, &no_daemon, N_("Don't become a daemon"), NULL },
+        {"no-daemon", 0, 0, G_OPTION_ARG_NONE, &no_daemon, N_("Don't become a daemon"), NULL },
         {"gconf-prefix", 0, 0, G_OPTION_ARG_STRING, &gconf_prefix, "GConf prefix from which to load plugin settings", NULL},
         {NULL}
 };
