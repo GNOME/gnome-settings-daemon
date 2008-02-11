@@ -1,3 +1,40 @@
+===============
+Version 2.21.91
+===============
+
+- Use a flat directory instead of a hierarchy to install plugins
+  into (Christian Persch) (#513246)
+- Don't scan the plugins directory recursively (Christian Persch)
+  (#513246)
+- Install the settings plugin to a versioned directory to fix install
+  with libdir == libexecdir (Christan Persch) (#504203)
+- Review short and long descriptions for GConf keys (Luca Ferretti)
+  (#514047)
+- Don't crash when running the screensaver fails (Jens Granseuer)
+  (#514385)
+- Rename src folder to gnome-settings-daemon (Damien Carberry, Jens
+  Granseuer) (#511820)
+- Add uninstalled.pc file for building against an uninstalled copy of
+  g-s-d (Damien Carberry, Jens Granseuer) (#511820)
+- Add separate checks for libbackground and use external copy (Jens
+  Granseuer)
+- Use gnome_settings_daemon for the GConf path (Jens Granseuer) (#514411)
+- Release the Glade XML ASAP and keep track of the 2 widgets we need
+  (Jens Granseuer)
+- Make sure we return a GError if initialization fails (Jens Granseuer)
+  (#514926)
+- Load the XKB settings initially (Matthias Clasen) (#511771)
+- Fix leaks (Jens Granseuer)
+- Unref the GConfClient only after done with it (Jens Granseuer)
+- Check for xinput (Sebastien Bacher) (#514942)
+- Fix copy'n'paste error (Jens Granseuer) (#515426)
+- Declare variables at the beginning of a block to make older compilers
+  happy (Jens Granseuer)
+- Add back support for defining plugin start order (Jens Granseuer)
+- Assign return value from g_slist_sort to the plugins list variable
+  (Wouter Bolsterlee) (#515340)
+- Replace gnome_vfs usage with GIO (Rodrigo Moya) (#513990)
+
 =================
 Version 2.21.90.2
 =================
