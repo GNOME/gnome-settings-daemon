@@ -342,7 +342,7 @@ gnome_settings_plugins_engine_load_all (void)
         /* load system plugins */
         gnome_settings_plugins_engine_load_dir (GNOME_SETTINGS_PLUGINDIR G_DIR_SEPARATOR_S);
 
-        g_slist_sort (gnome_settings_plugins, (GCompareFunc) compare_priority);
+        gnome_settings_plugins = g_slist_sort (gnome_settings_plugins, (GCompareFunc) compare_priority);
         g_slist_foreach (gnome_settings_plugins, (GFunc) activate_plugin, NULL);
 }
 

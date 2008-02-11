@@ -1,3 +1,11 @@
+2008-02-11  Rodrigo Moya <rodrigo@gnome-db.org>
+
+	Patch by Wouter Bolsterlee <wbolster@gnome.org>
+
+	* gnome-settings-daemon/gnome-settings-plugins-engine.c
+	(gnome_settings_plugins_engine_load_all): assign return value from
+	g_slist_sort to the plugins list variable. (bug #515340)
+
 2008-02-10  Jens Granseuer  <jensgr@gmx.net>
 
 	* gnome-settings-daemon/main.c: update the default GConf prefix to
