@@ -36,7 +36,6 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gconf/gconf-client.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnomeui/gnome-bg.h>
@@ -409,8 +408,6 @@ static void
 gsd_background_manager_init (GsdBackgroundManager *manager)
 {
         manager->priv = GSD_BACKGROUND_MANAGER_GET_PRIVATE (manager);
-
-        gnome_vfs_init ();
 }
 
 static void

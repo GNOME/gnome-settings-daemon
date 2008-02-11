@@ -1,5 +1,16 @@
 2008-02-11  Rodrigo Moya <rodrigo@gnome-db.org>
 
+	Fixes bug #513990
+
+	* plugins/background/gsd-background-manager.c: use GIO instead of
+	gnome-vfs.
+
+	* plugins/configure.ac:
+	* plugins/Makefile.am:
+	* plugins/default-editor/*: removed useless default editor plugin.
+
+2008-02-11  Rodrigo Moya <rodrigo@gnome-db.org>
+
 	Patch by Wouter Bolsterlee <wbolster@gnome.org>
 
 	* gnome-settings-daemon/gnome-settings-plugins-engine.c

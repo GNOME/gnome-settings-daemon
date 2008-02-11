@@ -5,7 +5,7 @@ m4_define([gsd_api_version_minor],[0])
 m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])
 
 AC_INIT([gnome-settings-daemon],
-        [2.21.90.2],
+        [2.21.91],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
@@ -44,7 +44,7 @@ DBUS_GLIB_REQUIRED_VERSION=0.74
 GLIB_REQUIRED_VERSION=2.13.0
 GTK_REQUIRED_VERSION=2.10.0
 GCONF_REQUIRED_VERSION=2.6.1
-GNOME_VFS_REQUIRED_VERSION=2.18.0
+GIO_REQUIRED_VERSION=2.15.0
 GNOME_DESKTOP_REQUIRED_VERSION=2.21.4
 
 EXTRA_COMPILE_WARNINGS(yes)
@@ -63,7 +63,7 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gtk+-2.0 >= $GTK_REQUIRED_VERSION
         gconf-2.0 >= $GCONF_REQUIRED_VERSION
         gnome-desktop-2.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
-        gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED_VERSION
+        gio-2.0 >= $GIO_REQUIRED_VERSION
         libglade-2.0 >= 2.0.0
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
 )
@@ -384,7 +384,6 @@ plugins/a11y-keyboard/Makefile
 plugins/background/Makefile
 plugins/background/libbackground/Makefile
 plugins/clipboard/Makefile
-plugins/default-editor/Makefile
 plugins/dummy/Makefile
 plugins/font/Makefile
 plugins/keybindings/Makefile
