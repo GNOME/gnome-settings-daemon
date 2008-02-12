@@ -72,6 +72,7 @@ AC_SUBST(SETTINGS_PLUGIN_LIBS)
 
 PKG_CHECK_MODULES(GNOME, libgnome-2.0 libgnomeui-2.0)
 PKG_CHECK_MODULES(LIBBACKGROUND, glib-2.0 gobject-2.0 gdk-2.0 gconf-2.0)
+PKG_CHECK_MODULES(LIBSOUNDS, gio-2.0 libgnome-2.0 libgnomeui-2.0)
 
 
 GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
