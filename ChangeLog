@@ -1,3 +1,10 @@
+2008-02-14  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/background/gsd-background-manager.c:
+	(gsd_background_manager_start): at startup, don't apply background
+	prefs twice and don't check for nautilus running since we're usually
+	started first
+
 2008-02-12  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.ac: Fix for 515956. Build with Gio.

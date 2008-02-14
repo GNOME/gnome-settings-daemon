@@ -285,12 +285,10 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
                           manager);
         bg_preferences_load (manager->priv->prefs);
 
-        apply_prefs (manager);
-
         client = gconf_client_get_default ();
         gconf_client_notify_add (client,
                                  "/desktop/gnome/background",
-                                 (GConfClientNotifyFunc)background_callback,
+                                 (GConfClientNotifyFunc) background_callback,
                                  manager,
                                  NULL,
                                  NULL);
