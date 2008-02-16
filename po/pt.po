@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.22\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-09 17:46+0000\n"
-"PO-Revision-Date: 2008-02-09 18:00+0000\n"
+"POT-Creation-Date: 2008-02-16 18:20+0000\n"
+"PO-Revision-Date: 2008-02-16 18:20+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -235,8 +235,8 @@ msgid ""
 msgstr ""
 "A ordem de elementos de subpixel num ecrã LCD; apenas utilizado quando o "
 "antialiasing está definido como \"rgba\". Valores possíveis são: \"rgb\" "
-"para vermelho à esquerda (mais comum), \"bgr\" para azul à esquerda, \""
-"vrgb\" para vermelho no topo, \"vbgr\" para vermelho no fundo."
+"para vermelho à esquerda (mais comum), \"bgr\" para azul à esquerda, \"vrgb"
+"\" para vermelho no topo, \"vbgr\" para vermelho no fundo."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:6
 msgid ""
@@ -262,8 +262,8 @@ msgid ""
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
-"O tipo de dicas a utilizar ao renderizar fontes. Valores possíveis são: \""
-"none\" para nenhumas dicas, \"slight\" para básicas, \"medium\" para "
+"O tipo de dicas a utilizar ao renderizar fontes. Valores possíveis são: "
+"\"none\" para nenhumas dicas, \"slight\" para básicas, \"medium\" para "
 "moderadas, e \"full\" para dicas máximas (poderá causar distorção na forma "
 "das letras)."
 
@@ -424,6 +424,10 @@ msgstr ""
 msgid "Don't become a daemon"
 msgstr "Não se tornar num daemon"
 
+#: ../gnome-settings-daemon/main.c:48
+msgid "GConf prefix from which to load plugin settings"
+msgstr "Prefixo GConf do qual ler as definições de plugins"
+
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Acessibilidade do Teclado"
@@ -524,14 +528,6 @@ msgstr "Área de Transferência"
 #: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Plugin de área de transferência"
-
-#: ../plugins/default-editor/default-editor.gnome-settings-plugin.in.h:1
-msgid "Default Editor"
-msgstr "Editor Por Omissão"
-
-#: ../plugins/default-editor/default-editor.gnome-settings-plugin.in.h:2
-msgid "Default editor plugin"
-msgstr "Plugin de editor por omissão"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -788,16 +784,16 @@ msgstr "O ficheiro de som para este evento não existe."
 msgid "Select Sound File"
 msgstr "Seleccione um Ficheiro de Som"
 
-#: ../plugins/sound/libsounds/sound-view.c:203
+#: ../plugins/sound/libsounds/sound-view.c:210
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "O ficheiro %s não é um ficheiro wav válido"
 
-#: ../plugins/sound/libsounds/sound-view.c:264
+#: ../plugins/sound/libsounds/sound-view.c:271
 msgid "Select sound file..."
 msgstr "Seleccionar um ficheiro de som..."
 
-#: ../plugins/sound/libsounds/sound-view.c:366
+#: ../plugins/sound/libsounds/sound-view.c:373
 msgid "System Sounds"
 msgstr "Sons de Sistema"
 
@@ -852,3 +848,8 @@ msgstr "Gerir as Definições X"
 msgid "X Settings"
 msgstr "Definições X"
 
+#~ msgid "Default Editor"
+#~ msgstr "Editor Por Omissão"
+
+#~ msgid "Default editor plugin"
+#~ msgstr "Plugin de editor por omissão"
