@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-08 21:40+0100\n"
-"PO-Revision-Date: 2008-02-07 14:28+0100\n"
+"POT-Creation-Date: 2008-02-16 17:59+0100\n"
+"PO-Revision-Date: 2008-02-16 17:59+0100\n"
 "Last-Translator: Luca Ferretti <elle.uca@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -441,6 +441,10 @@ msgstr "Impostare a VERO per abilitare il plugin che gestisce xsettings."
 msgid "Don't become a daemon"
 msgstr "Non operare come demone"
 
+#: ../gnome-settings-daemon/main.c:48
+msgid "GConf prefix from which to load plugin settings"
+msgstr "Prefisso GConf da cui caricare le impostazioni dei plugin"
+
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Accessibilità tastiera"
@@ -546,14 +550,6 @@ msgstr "Appunti"
 #: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Plugin per gli appunti"
-
-#: ../plugins/default-editor/default-editor.gnome-settings-plugin.in.h:1
-msgid "Default Editor"
-msgstr "Editor predefinito"
-
-#: ../plugins/default-editor/default-editor.gnome-settings-plugin.in.h:2
-msgid "Default editor plugin"
-msgstr "Plugin per l'editor predefinito"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -817,16 +813,16 @@ msgstr "Il file audio per questo evento non esiste."
 msgid "Select Sound File"
 msgstr "Selezione file audio"
 
-#: ../plugins/sound/libsounds/sound-view.c:203
+#: ../plugins/sound/libsounds/sound-view.c:210
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "Il file %s non è un file wav valido"
 
-#: ../plugins/sound/libsounds/sound-view.c:264
+#: ../plugins/sound/libsounds/sound-view.c:271
 msgid "Select sound file..."
 msgstr "Selezione file audio..."
 
-#: ../plugins/sound/libsounds/sound-view.c:366
+#: ../plugins/sound/libsounds/sound-view.c:373
 msgid "System Sounds"
 msgstr "Suoni di sistema"
 
@@ -879,3 +875,9 @@ msgstr "Gestisce le impostazioni di X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Impostazioni X"
+
+#~ msgid "Default Editor"
+#~ msgstr "Editor predefinito"
+
+#~ msgid "Default editor plugin"
+#~ msgstr "Plugin per l'editor predefinito"
