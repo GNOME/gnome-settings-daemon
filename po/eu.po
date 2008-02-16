@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-08 18:56+0100\n"
-"PO-Revision-Date: 2008-02-08 19:12+0100\n"
+"POT-Creation-Date: 2008-02-16 18:43+0100\n"
+"PO-Revision-Date: 2008-02-16 18:44+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +24,8 @@ msgid ""
 "Set to True to keep the handlers for text/plain and text/* MIME types "
 "synchronized."
 msgstr ""
-"Ezarri TRUE (Egia) bezla  testu/soilerako eta testu/*-(e)rako mime kudeatzaileak "
-"sinkronizatuta mantentzeko."
+"Ezarri TRUE (Egia) bezla  testu/soilerako eta testu/*-(e)rako mime "
+"kudeatzaileak sinkronizatuta mantentzeko."
 
 #: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:2
 msgid "Sync text/plain and text/* handlers"
@@ -196,8 +196,8 @@ msgid ""
 "Set to True to display a dialog when there are errors running the "
 "screensaver."
 msgstr ""
-"Ezarri TRUE (EGIA ) gisa pantaila-babeslea exekutatzean erroreak daudenean"
-"elkarrizketa-koadroa bistaratzeko."
+"Ezarri TRUE (EGIA ) gisa pantaila-babeslea exekutatzean erroreak "
+"daudeneanelkarrizketa-koadroa bistaratzeko."
 
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
 msgid "Set to True to run the screensaver at login."
@@ -344,8 +344,8 @@ msgstr ""
 #: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
-"Ezarri TRUE (EGIA) bezala letra-tipoak konfiguratzeko kudeatzailearen plugin-a "
-"gaitzeko."
+"Ezarri TRUE (EGIA) bezala letra-tipoak konfiguratzeko kudeatzailearen plugin-"
+"a gaitzeko."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage keyboard settings."
@@ -394,8 +394,8 @@ msgstr ""
 #: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
-"Ezarri TRUE (EGIA) bezala laster-teklak konfiguratzeko kudeatzailearen plugin-a "
-"gaitzeko."
+"Ezarri TRUE (EGIA) bezala laster-teklak konfiguratzeko kudeatzailearen "
+"plugin-a gaitzeko."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage typing breaks."
@@ -424,6 +424,10 @@ msgstr ""
 #: ../gnome-settings-daemon/main.c:47
 msgid "Don't become a daemon"
 msgstr "Ez bihurtu daemon"
+
+#: ../gnome-settings-daemon/main.c:48
+msgid "GConf prefix from which to load plugin settings"
+msgstr "GConf-en aurrizkia (bertatik plugin-en ezarpenak kargatzeko)"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -523,14 +527,6 @@ msgstr "Arbela"
 #: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Arbelaren plugin-a"
-
-#: ../plugins/default-editor/default-editor.gnome-settings-plugin.in.h:1
-msgid "Default Editor"
-msgstr "Editore lehenetsia"
-
-#: ../plugins/default-editor/default-editor.gnome-settings-plugin.in.h:2
-msgid "Default editor plugin"
-msgstr "Editore lehenetsiaren plugin-a"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -787,16 +783,16 @@ msgstr "Gertaera honek ez du soinu-fitxategirik."
 msgid "Select Sound File"
 msgstr "Hautatu soinu-fitxategia"
 
-#: ../plugins/sound/libsounds/sound-view.c:203
+#: ../plugins/sound/libsounds/sound-view.c:210
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "%s fitxategia ez da baliozko wav fitxategia"
 
-#: ../plugins/sound/libsounds/sound-view.c:264
+#: ../plugins/sound/libsounds/sound-view.c:271
 msgid "Select sound file..."
 msgstr "Hautatu soinu-fitxategia..."
 
-#: ../plugins/sound/libsounds/sound-view.c:366
+#: ../plugins/sound/libsounds/sound-view.c:373
 msgid "System Sounds"
 msgstr "Sistemaren soinuak"
 
