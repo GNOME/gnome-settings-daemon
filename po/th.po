@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-12 17:09+0700\n"
-"PO-Revision-Date: 2008-02-12 17:51+0700\n"
+"POT-Creation-Date: 2008-02-17 10:18+0700\n"
+"PO-Revision-Date: 2008-02-17 10:20+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -388,6 +388,10 @@ msgstr "กำหนดเป็นค่าจริงถ้าต้องก
 msgid "Don't become a daemon"
 msgstr "ไม่ต้องเปิดเป็นดีมอน"
 
+#: gnome-settings-daemon/main.c:48
+msgid "GConf prefix from which to load plugin settings"
+msgstr "ชื่อส่วนหน้าของคีย์ GConf ที่จะใช้อ่านค่าตั้งปลั๊กอิน"
+
 #: plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "สิ่งอำนวยความสะดวกสำหรับแป้นพิมพ์"
@@ -463,8 +467,8 @@ msgid ""
 "row.  This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
-"คุณเพิ่งกดสองปุ่มพร้อมกัน หรือกดปุ่ม Shift ห้าครั้งต่อเนื่องกัน "
-"นี่เป็นสัญญาณสำหรับปิดการค้างปุ่มกด ซึ่งจะมีผลต่อการทำงานของแป้นพิมพ์"
+"คุณเพิ่งกดสองปุ่มพร้อมกัน หรือกดปุ่ม Shift ห้าครั้งต่อเนื่องกัน นี่เป็นสัญญาณสำหรับปิดการค้างปุ่มกด "
+"ซึ่งจะมีผลต่อการทำงานของแป้นพิมพ์"
 
 #: plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
 msgid "Sticky Keys Alert"
@@ -690,39 +694,39 @@ msgstr "ปลั๊กอินจัดการโปรแกรมรัก
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "ไม่สามารถเรียกแฟ้มเสียง %s เป็นตัวอย่างเสียง %s"
 
-#: plugins/sound/libsounds/sound-view.c:43
+#: plugins/sound/libsounds/sound-view.c:44
 msgid "Login"
 msgstr "เข้าระบบ"
 
-#: plugins/sound/libsounds/sound-view.c:44
+#: plugins/sound/libsounds/sound-view.c:45
 msgid "Logout"
 msgstr "ออกจากระบบ"
 
-#: plugins/sound/libsounds/sound-view.c:45
+#: plugins/sound/libsounds/sound-view.c:46
 msgid "Boing"
 msgstr "แจ้งเพื่อทราบ"
 
-#: plugins/sound/libsounds/sound-view.c:46
+#: plugins/sound/libsounds/sound-view.c:47
 msgid "Siren"
 msgstr "ผิดพลาด"
 
-#: plugins/sound/libsounds/sound-view.c:47
+#: plugins/sound/libsounds/sound-view.c:48
 msgid "Clink"
 msgstr "คลิก"
 
-#: plugins/sound/libsounds/sound-view.c:48
+#: plugins/sound/libsounds/sound-view.c:49
 msgid "Beep"
 msgstr "โผล่"
 
-#: plugins/sound/libsounds/sound-view.c:49
+#: plugins/sound/libsounds/sound-view.c:50
 msgid "No sound"
 msgstr "ไม่ใช้เสียง"
 
-#: plugins/sound/libsounds/sound-view.c:131
+#: plugins/sound/libsounds/sound-view.c:132
 msgid "Sound not set for this event."
 msgstr "ไม่ได้กำหนดเสียงสำหรับเหตุการณ์นี้ไว้"
 
-#: plugins/sound/libsounds/sound-view.c:140
+#: plugins/sound/libsounds/sound-view.c:141
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
@@ -730,24 +734,24 @@ msgstr ""
 "หาแฟ้มเสียงสำหรับเหตุการณ์นี้ไม่พบ\n"
 "ถ้าคุณต้องการชุดเสียงปริยาย กรุณาติดตั้ง gnome-audio"
 
-#: plugins/sound/libsounds/sound-view.c:151
+#: plugins/sound/libsounds/sound-view.c:152
 msgid "The sound file for this event does not exist."
 msgstr "หาแฟ้มเสียงสำหรับเหตุการณ์นี้ไม่พบ"
 
-#: plugins/sound/libsounds/sound-view.c:182
+#: plugins/sound/libsounds/sound-view.c:183
 msgid "Select Sound File"
 msgstr "เลือกแฟ้มเสียง"
 
-#: plugins/sound/libsounds/sound-view.c:209
+#: plugins/sound/libsounds/sound-view.c:210
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "แฟ้ม %s ไม่ใช่แฟ้ม wav ที่ใช้การได้"
 
-#: plugins/sound/libsounds/sound-view.c:270
+#: plugins/sound/libsounds/sound-view.c:271
 msgid "Select sound file..."
 msgstr "เลือกแฟ้มเสียง..."
 
-#: plugins/sound/libsounds/sound-view.c:372
+#: plugins/sound/libsounds/sound-view.c:373
 msgid "System Sounds"
 msgstr "เสียงของระบบ"
 
