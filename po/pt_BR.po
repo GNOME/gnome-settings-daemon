@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-13 12:00-0300\n"
-"PO-Revision-Date: 2008-02-10 10:47-0300\n"
+"POT-Creation-Date: 2008-02-17 08:06-0300\n"
+"PO-Revision-Date: 2008-02-17 08:06-0300\n"
 "Last-Translator: Djavan Fagundes <dnoway@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -434,6 +434,10 @@ msgstr ""
 msgid "Don't become a daemon"
 msgstr "Não se tornar um daemon"
 
+#: ../gnome-settings-daemon/main.c:48
+msgid "GConf prefix from which to load plugin settings"
+msgstr "Prefixo do GConf onde devemos carregar as configurações de plugin"
+
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Acessibilidade do Teclado"
@@ -739,6 +743,68 @@ msgstr "Plug-in da proteção de tela"
 #, c-format
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "Não foi possível carregar o arquivo de som %s como exemplo %s"
+
+#: ../plugins/sound/libsounds/sound-view.c:44
+msgid "Login"
+msgstr "Login"
+
+#: ../plugins/sound/libsounds/sound-view.c:45
+msgid "Logout"
+msgstr "Logout"
+
+#: ../plugins/sound/libsounds/sound-view.c:46
+msgid "Boing"
+msgstr "Boing"
+
+#: ../plugins/sound/libsounds/sound-view.c:47
+msgid "Siren"
+msgstr "Sirene"
+
+#: ../plugins/sound/libsounds/sound-view.c:48
+msgid "Clink"
+msgstr "Clink"
+
+#: ../plugins/sound/libsounds/sound-view.c:49
+msgid "Beep"
+msgstr "Bip"
+
+#: ../plugins/sound/libsounds/sound-view.c:50
+msgid "No sound"
+msgstr "Sem som"
+
+#: ../plugins/sound/libsounds/sound-view.c:132
+msgid "Sound not set for this event."
+msgstr "Som não definido para este evento."
+
+#: ../plugins/sound/libsounds/sound-view.c:141
+msgid ""
+"The sound file for this event does not exist.\n"
+"You may want to install the gnome-audio package for a set of default sounds."
+msgstr ""
+"O arquivo de som para este evento não existe.\n"
+"Você pode querer instalar o pacote gnome-audio para uma definição de sons "
+"padrão."
+
+#: ../plugins/sound/libsounds/sound-view.c:152
+msgid "The sound file for this event does not exist."
+msgstr "O arquivo de som para este evento não existe."
+
+#: ../plugins/sound/libsounds/sound-view.c:183
+msgid "Select Sound File"
+msgstr "Selecionar Arquivo de Som"
+
+#: ../plugins/sound/libsounds/sound-view.c:210
+#, c-format
+msgid "The file %s is not a valid wav file"
+msgstr "O arquivo %s não é um arquivo wav válido"
+
+#: ../plugins/sound/libsounds/sound-view.c:271
+msgid "Select sound file..."
+msgstr "Selecionar arquivo de som..."
+
+#: ../plugins/sound/libsounds/sound-view.c:373
+msgid "System Sounds"
+msgstr "Sons do Sistema"
 
 #: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
 msgid "Sound"
