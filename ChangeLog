@@ -1,3 +1,10 @@
+2008-02-19  Vincent Untz  <vuntz@gnome.org>
+
+	* plugins/keyboard/gsd-keyboard-manager.c:
+	(gsd_keyboard_get_hostname_key): escape the hostname before using it in
+	a gconf path since it might contain invalid characters.
+	Fix bug #517259.
+
 2008-02-19  Jens Granseuer  <jensgr@gmx.net>
 
 	* configure.ac: remove some unused stuff

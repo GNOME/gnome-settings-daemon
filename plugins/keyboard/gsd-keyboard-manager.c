@@ -134,12 +134,17 @@ gsd_keyboard_get_hostname_key (const char *subkey)
         if (gethostname (hostname, sizeof (hostname)) == 0 &&
             strcmp (hostname, "localhost") != 0 &&
             strcmp (hostname, "localhost.localdomain") != 0) {
-                char *key = g_strconcat (GSD_KEYBOARD_KEY
-                                         "/host-",
-                                         hostname,
-                                         "/0/",
-                                         subkey,
-                                         (char *)NULL);
+                char *escaped;
+                char *key;
+
+                escaped = gconf_escape_key (hostname, -1);
+                key = g_strconcat (GSD_KEYBOARD_KEY
+                                   "/host-",
+                                   escaped,
+                                   "/0/",
+                                   subkey,
+                                   (char *)NULL);
+                g_free (escaped);
                 return key;
         } else
                 return NULL;
