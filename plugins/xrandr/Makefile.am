@@ -1,15 +1,11 @@
-NULL =
-
 plugin_LTLIBRARIES = \
-	libxrandr.la		\
-	$(NULL)
+	libxrandr.la
 
 libxrandr_la_SOURCES = 		\
 	gsd-xrandr-plugin.h	\
 	gsd-xrandr-plugin.c	\
 	gsd-xrandr-manager.h	\
-	gsd-xrandr-manager.c	\
-	$(NULL)
+	gsd-xrandr-manager.c
 
 libxrandr_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
@@ -21,29 +17,19 @@ libxrandr_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libxrandr_la_LDFLAGS = 		\
-	$(GSD_PLUGIN_LDFLAGS)	\
-	$(NULL)
+	$(GSD_PLUGIN_LDFLAGS)
 
 libxrandr_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(NULL)
+	$(RANDR_LIBS)
 
 plugin_in_files = 		\
-	xrandr.gnome-settings-plugin.in	\
-	$(NULL)
+	xrandr.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-EXTRA_DIST = 			\
-	$(plugin_in_files)	\
-	$(NULL)
-
-CLEANFILES = 			\
-	$(plugin_DATA)		\
-	$(NULL)
-
-DISTCLEANFILES =		\
-	$(plugin_DATA)		\
-	$(NULL)
+EXTRA_DIST = $(plugin_in_files)
+CLEANFILES = $(plugin_DATA)
+DISTCLEANFILES = $(plugin_DATA)
 
 @GSD_INTLTOOL_PLUGIN_RULE@

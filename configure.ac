@@ -164,6 +164,20 @@ AM_CONDITIONAL(HAVE_XINPUT, [test $have_xinput = yes])
 ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS $XINPUT_LIBS"
 
 dnl ---------------------------------------------------------------------------
+dnl - XRandR
+dnl ---------------------------------------------------------------------------
+
+have_randr=no
+AC_CHECK_LIB(Xrandr, XRRUpdateConfiguration,
+  [AC_CHECK_HEADER(X11/extensions/Xrandr.h,
+     have_randr=yes
+     RANDR_LIBS="-lXrandr -lXrender"
+     AC_DEFINE(HAVE_RANDR, 1, [Define if Xrandr extension is available]),
+	  :, [#include <X11/Xlib.h>])], : ,
+       -lXrandr -lXrender $x_libs)
+AC_SUBST(RANDR_LIBS)
+
+dnl ---------------------------------------------------------------------------
 dnl - XFT2
 dnl ---------------------------------------------------------------------------
 
@@ -305,7 +319,7 @@ if test "x$have_gstreamer" = "xyes"; then
 else
   AC_MSG_NOTICE([*** Sound capplet will not be built]);
 fi
- 
+
 # ---------------------------------------------------------------------------
 # Plugins
 # ---------------------------------------------------------------------------

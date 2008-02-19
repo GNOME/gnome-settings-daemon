@@ -35,23 +35,13 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <gconf/gconf-client.h>
 
 #ifdef HAVE_RANDR
 #include <X11/extensions/Xrandr.h>
 #endif
 
 #include "gsd-xrandr-manager.h"
-
-#define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
-
-struct GsdXrandrManagerPrivate
-{
-        gboolean dummy;
-};
-
-enum {
-        PROP_0,
-};
 
 static void     gsd_xrandr_manager_class_init  (GsdXrandrManagerClass *klass);
 static void     gsd_xrandr_manager_init        (GsdXrandrManager      *xrandr_manager);
@@ -393,15 +383,11 @@ gsd_xrandr_manager_class_init (GsdXrandrManagerClass *klass)
         object_class->constructor = gsd_xrandr_manager_constructor;
         object_class->dispose = gsd_xrandr_manager_dispose;
         object_class->finalize = gsd_xrandr_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdXrandrManagerPrivate));
 }
 
 static void
 gsd_xrandr_manager_init (GsdXrandrManager *manager)
 {
-        manager->priv = GSD_XRANDR_MANAGER_GET_PRIVATE (manager);
-
 }
 
 static void
@@ -413,8 +399,6 @@ gsd_xrandr_manager_finalize (GObject *object)
         g_return_if_fail (GSD_IS_XRANDR_MANAGER (object));
 
         xrandr_manager = GSD_XRANDR_MANAGER (object);
-
-        g_return_if_fail (xrandr_manager->priv != NULL);
 
         G_OBJECT_CLASS (gsd_xrandr_manager_parent_class)->finalize (object);
 }
