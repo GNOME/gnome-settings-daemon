@@ -18,14 +18,16 @@ libsound_la_CPPFLAGS = \
 libsound_la_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GNOME_CFLAGS)			\
+	$(ESD_CFLAGS)			\
 	$(AM_CFLAGS)
 
 libsound_la_LDFLAGS = 		\
 	$(GSD_PLUGIN_LDFLAGS)
 
-libsound_la_LIBADD  = 		\
+libsound_la_LIBADD  = \
 	$(top_builddir)/plugins/sound/libsounds/libsounds.la	\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(SETTINGS_PLUGIN_LIBS)					\
+	$(ESD_LIBS)
 
 plugin_in_files = 		\
 	sound.gnome-settings-plugin.in

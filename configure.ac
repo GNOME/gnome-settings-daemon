@@ -253,7 +253,7 @@ AC_SUBST(ALSA_CFLAGS)
 dnl ==============================================
 dnl Esd section
 dnl ==============================================
-have_esd=no
+
 AC_ARG_ENABLE(esd,
   AC_HELP_STRING([--disable-esd],
                  [turn off ESD audio support]),
@@ -266,12 +266,10 @@ AC_ARG_ENABLE(esd,
 
 if test x$WANT_ESD = xyes ; then
        PKG_CHECK_MODULES(ESD, esound >= 0.2.28,
-               have_esd=yes
 	       AC_DEFINE(HAVE_ESD, 1, [Define if ESD sound server should be used]),
                AC_MSG_RESULT([disabled]))
 fi
 
-AM_CONDITIONAL(HAVE_ESD, test x"$have_esd" = "xyes")
 AC_SUBST(ESD_CFLAGS)
 AC_SUBST(ESD_LIBS)
 
@@ -309,16 +307,6 @@ fi
 AM_CONDITIONAL(HAVE_GSTREAMER, test "x$have_gstreamer" = "xyes")
 AC_SUBST(GST_LIBS)
 AC_SUBST(GST_CFLAGS)
-
-if test "x$have_gstreamer" = "xyes"; then
-  PKG_CHECK_MODULES(SOUND_CAPPLET, esound)
-  SOUND_CAPPLET_LIBS="$SOUND_CAPPLET_LIBS $GST_LIBS -lgstaudio-0.10 -lgstinterfaces-0.10"
-  SOUND_CAPPLET_CFLAGS="$SOUND_CAPPLET_CFLAGS $GST_CFLAGS"
-  AC_SUBST(SOUND_CAPPLET_LIBS)
-  AC_SUBST(SOUND_CAPPLET_CFLAGS)
-else
-  AC_MSG_NOTICE([*** Sound capplet will not be built]);
-fi
 
 # ---------------------------------------------------------------------------
 # Plugins
