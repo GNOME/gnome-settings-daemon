@@ -583,10 +583,19 @@ gnome_settings_plugin_info_get_location (GnomeSettingsPluginInfo *info)
         return info->priv->location;
 }
 
-gint
+int
 gnome_settings_plugin_info_get_priority (GnomeSettingsPluginInfo *info)
 {
         g_return_val_if_fail (info != NULL, PLUGIN_PRIORITY_DEFAULT);
 
         return info->priv->priority;
+}
+
+void
+gnome_settings_plugin_info_set_priority (GnomeSettingsPluginInfo *info,
+                                         int                      priority)
+{
+        g_return_if_fail (info != NULL);
+
+        info->priv->priority = priority;
 }

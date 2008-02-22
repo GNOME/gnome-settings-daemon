@@ -31,6 +31,7 @@
 #define DBUS_API_SUBJECT_TO_CHANGE
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
+#include <gconf/gconf-client.h>
 
 #include "gnome-settings-plugin-info.h"
 #include "gnome-settings-manager.h"
@@ -69,21 +70,6 @@ static void     gnome_settings_manager_finalize    (GObject                   *o
 G_DEFINE_TYPE (GnomeSettingsManager, gnome_settings_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
-
-static GnomeSettingsPluginInfo *
-_load_info (GnomeSettingsManager *manager,
-            const char           *file)
-{
-        GnomeSettingsPluginInfo *info;
-
-        g_return_val_if_fail (file != NULL, NULL);
-
-        g_debug ("Loading plugin: %s", file);
-
-        info = gnome_settings_plugin_info_new_from_file (file);
-
-        return info;
-}
 
 static void
 maybe_activate_plugin (GnomeSettingsPluginInfo *info, gpointer user_data)
@@ -153,8 +139,13 @@ _load_file (GnomeSettingsManager *manager,
 {
         GnomeSettingsPluginInfo *info;
         char                    *key_name;
+        GConfClient             *client;
+        int                      priority;
+        GError                  *error;
 
-        info = _load_info (manager, filename);
+        g_debug ("Loading plugin: %s", filename);
+
+        info = gnome_settings_plugin_info_new_from_file (filename);
         if (info == NULL) {
                 return;
         }
@@ -179,6 +170,23 @@ _load_file (GnomeSettingsManager *manager,
                                     gnome_settings_plugin_info_get_location (info));
         gnome_settings_plugin_info_set_enabled_key_name (info, key_name);
         g_free (key_name);
+
+        key_name = g_strdup_printf ("%s/%s/priority",
+                                    manager->priv->gconf_prefix,
+                                    gnome_settings_plugin_info_get_location (info));
+        client = gconf_client_get_default ();
+        error = NULL;
+        priority = gconf_client_get_int (client, key_name, &error);
+        if (error == NULL) {
+                if (priority > 0) {
+                        gnome_settings_plugin_info_set_priority (info, priority);
+                }
+        } else {
+                g_error_free (error);
+        }
+        g_object_unref (client);
+        g_free (key_name);
+
 }
 
 static void

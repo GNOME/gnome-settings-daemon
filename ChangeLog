@@ -1,5 +1,16 @@
 2008-02-22  William Jon McCann  <jmccann@redhat.com>
 
+	* data/gnome-settings-daemon.schemas.in:
+	* gnome-settings-daemon/gnome-settings-manager.c: (_load_file):
+	* gnome-settings-daemon/gnome-settings-plugin-info.c:
+	(gnome_settings_plugin_info_set_priority):
+	* gnome-settings-daemon/gnome-settings-plugin-info.h:
+	Allow gconf to override priorities.  Set sound plugin
+	priority to 1 (highest).
+	Fixes #515340
+
+2008-02-22  William Jon McCann  <jmccann@redhat.com>
+
 	* gnome-settings-daemon/Makefile.am:
 	* gnome-settings-daemon/gnome-settings-manager.c: (_load_info),
 	(maybe_activate_plugin), (compare_location), (compare_priority),

@@ -67,7 +67,10 @@ const char     **gnome_settings_plugin_info_get_authors     (GnomeSettingsPlugin
 const char      *gnome_settings_plugin_info_get_website     (GnomeSettingsPluginInfo *info);
 const char      *gnome_settings_plugin_info_get_copyright   (GnomeSettingsPluginInfo *info);
 const char      *gnome_settings_plugin_info_get_location    (GnomeSettingsPluginInfo *info);
-gint             gnome_settings_plugin_info_get_priority    (GnomeSettingsPluginInfo *info);
+int              gnome_settings_plugin_info_get_priority    (GnomeSettingsPluginInfo *info);
+
+void             gnome_settings_plugin_info_set_priority    (GnomeSettingsPluginInfo *info,
+                                                             int                      priority);
 
 G_END_DECLS
 
