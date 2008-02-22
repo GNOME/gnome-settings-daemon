@@ -44,6 +44,8 @@ typedef struct
 {
         GObjectClass parent_class;
 
+        void          (* activated)         (GnomeSettingsPluginInfo *info);
+        void          (* deactivated)       (GnomeSettingsPluginInfo *info);
 } GnomeSettingsPluginInfoClass;
 
 GType            gnome_settings_plugin_info_get_type           (void) G_GNUC_CONST;

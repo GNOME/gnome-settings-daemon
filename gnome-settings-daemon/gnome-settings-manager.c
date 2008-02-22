@@ -32,12 +32,13 @@
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
 
+#include "gnome-settings-plugin-info.h"
 #include "gnome-settings-manager.h"
-#include "gnome-settings-plugins-engine.h"
-
 #include "gnome-settings-manager-glue.h"
 
 #define GSD_MANAGER_DBUS_PATH "/org/gnome/SettingsDaemon"
+
+#define PLUGIN_EXT ".gnome-settings-plugin"
 
 #define GNOME_SETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_SETTINGS_MANAGER, GnomeSettingsManagerPrivate))
 
@@ -45,13 +46,21 @@ struct GnomeSettingsManagerPrivate
 {
         DBusGConnection            *connection;
         char                       *gconf_prefix;
-        GnomeSettingsPluginsEngine *engine;
+        GSList                     *plugins;
 };
 
 enum {
         PROP_0,
         PROP_GCONF_PREFIX,
 };
+
+enum {
+        PLUGIN_ACTIVATED,
+        PLUGIN_DEACTIVATED,
+        LAST_SIGNAL
+};
+
+static guint signals [LAST_SIGNAL] = { 0, };
 
 static void     gnome_settings_manager_class_init  (GnomeSettingsManagerClass *klass);
 static void     gnome_settings_manager_init        (GnomeSettingsManager      *settings_manager);
@@ -60,6 +69,169 @@ static void     gnome_settings_manager_finalize    (GObject                   *o
 G_DEFINE_TYPE (GnomeSettingsManager, gnome_settings_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static GnomeSettingsPluginInfo *
+_load_info (GnomeSettingsManager *manager,
+            const char           *file)
+{
+        GnomeSettingsPluginInfo *info;
+
+        g_return_val_if_fail (file != NULL, NULL);
+
+        g_debug ("Loading plugin: %s", file);
+
+        info = gnome_settings_plugin_info_new_from_file (file);
+
+        return info;
+}
+
+static void
+maybe_activate_plugin (GnomeSettingsPluginInfo *info, gpointer user_data)
+{
+        if (gnome_settings_plugin_info_get_enabled (info)) {
+                gboolean res;
+                res = gnome_settings_plugin_info_activate (info);
+                if (res) {
+                        g_debug ("Plugin %s: active", gnome_settings_plugin_info_get_location (info));
+                } else {
+                        g_debug ("Plugin %s: activation failed", gnome_settings_plugin_info_get_location (info));
+                }
+        } else {
+                g_debug ("Plugin %s: inactive", gnome_settings_plugin_info_get_location (info));
+        }
+}
+
+static gint
+compare_location (GnomeSettingsPluginInfo *a,
+                  GnomeSettingsPluginInfo *b)
+{
+        const char *loc_a;
+        const char *loc_b;
+
+        loc_a = gnome_settings_plugin_info_get_location (a);
+        loc_b = gnome_settings_plugin_info_get_location (b);
+
+        return strcmp (loc_a, loc_b);
+}
+
+static int
+compare_priority (GnomeSettingsPluginInfo *a,
+                  GnomeSettingsPluginInfo *b)
+{
+        int prio_a;
+        int prio_b;
+
+        prio_a = gnome_settings_plugin_info_get_priority (a);
+        prio_b = gnome_settings_plugin_info_get_priority (b);
+
+        return prio_a - prio_b;
+}
+
+static void
+on_plugin_activated (GnomeSettingsPluginInfo *info,
+                     GnomeSettingsManager    *manager)
+{
+        const char *name;
+        name = gnome_settings_plugin_info_get_location (info);
+        g_debug ("GnomeSettingsManager: emitting plugin-activated %s", name);
+        g_signal_emit (manager, signals [PLUGIN_ACTIVATED], 0, name);
+}
+
+static void
+on_plugin_deactivated (GnomeSettingsPluginInfo *info,
+                       GnomeSettingsManager    *manager)
+{
+        const char *name;
+        name = gnome_settings_plugin_info_get_location (info);
+        g_debug ("GnomeSettingsManager: emitting plugin-deactivated %s", name);
+        g_signal_emit (manager, signals [PLUGIN_DEACTIVATED], 0, name);
+}
+
+static void
+_load_file (GnomeSettingsManager *manager,
+            const char           *filename)
+{
+        GnomeSettingsPluginInfo *info;
+        char                    *key_name;
+
+        info = _load_info (manager, filename);
+        if (info == NULL) {
+                return;
+        }
+
+        if (g_slist_find_custom (manager->priv->plugins,
+                                 info,
+                                 (GCompareFunc) compare_location)) {
+                g_object_unref (info);
+                return;
+        }
+
+        /* list takes ownership of ref */
+        manager->priv->plugins = g_slist_prepend (manager->priv->plugins, info);
+
+        g_signal_connect (info, "activated",
+                          G_CALLBACK (on_plugin_activated), manager);
+        g_signal_connect (info, "deactivated",
+                          G_CALLBACK (on_plugin_deactivated), manager);
+
+        key_name = g_strdup_printf ("%s/%s/active",
+                                    manager->priv->gconf_prefix,
+                                    gnome_settings_plugin_info_get_location (info));
+        gnome_settings_plugin_info_set_enabled_key_name (info, key_name);
+        g_free (key_name);
+}
+
+static void
+_load_dir (GnomeSettingsManager *manager,
+           const char           *path)
+{
+        GError     *error;
+        GDir       *d;
+        const char *name;
+
+        g_debug ("Loading settings plugins from dir: %s", path);
+
+        error = NULL;
+        d = g_dir_open (path, 0, &error);
+        if (d == NULL) {
+                g_warning (error->message);
+                g_error_free (error);
+                return;
+        }
+
+        while ((name = g_dir_read_name (d))) {
+                char *filename;
+
+                if (!g_str_has_suffix (name, PLUGIN_EXT))
+                        continue;
+
+                filename = g_build_filename (path, name, NULL);
+                if (g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
+                        _load_file (manager, filename);
+                }
+                g_free (filename);
+        }
+
+        g_dir_close (d);
+}
+
+static void
+_load_all (GnomeSettingsManager *manager)
+{
+        /* load system plugins */
+        _load_dir (manager, GNOME_SETTINGS_PLUGINDIR G_DIR_SEPARATOR_S);
+
+        manager->priv->plugins = g_slist_sort (manager->priv->plugins, (GCompareFunc) compare_priority);
+        g_slist_foreach (manager->priv->plugins, (GFunc) maybe_activate_plugin, NULL);
+}
+
+static void
+_unload_all (GnomeSettingsManager *manager)
+{
+         g_slist_foreach (manager->priv->plugins, (GFunc) g_object_unref, NULL);
+         g_slist_free (manager->priv->plugins);
+         manager->priv->plugins = NULL;
+}
 
 /*
   Example:
@@ -104,7 +276,12 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
 
         g_debug ("Starting settings manager");
 
-        gnome_settings_plugins_engine_start (manager->priv->engine);
+        if (!g_module_supported ()) {
+                g_warning ("gnome-settings-daemon is not able to initialize the plugins.");
+                return FALSE;
+        }
+
+        _load_all (manager);
 
         ret = TRUE;
         return ret;
@@ -114,7 +291,17 @@ void
 gnome_settings_manager_stop (GnomeSettingsManager *manager)
 {
         g_debug ("Stopping settings manager");
-        gnome_settings_plugins_engine_stop (manager->priv->engine);
+
+#ifdef ENABLE_PYTHON
+        /* Note: that this may cause finalization of objects by
+         * running the garbage collector. Since some of the plugin may
+         * have installed callbacks upon object finalization it must
+         * run before we get rid of the plugins.
+         */
+        gnome_settings_python_shutdown ();
+#endif
+
+        _unload_all (manager);
 }
 
 static void
@@ -179,8 +366,6 @@ gnome_settings_manager_constructor (GType                  type,
                                                                                                          n_construct_properties,
                                                                                                          construct_properties));
 
-        manager->priv->engine = gnome_settings_plugins_engine_new (manager->priv->gconf_prefix);
-
         return G_OBJECT (manager);
 }
 
@@ -206,6 +391,27 @@ gnome_settings_manager_class_init (GnomeSettingsManagerClass *klass)
         object_class->constructor = gnome_settings_manager_constructor;
         object_class->dispose = gnome_settings_manager_dispose;
         object_class->finalize = gnome_settings_manager_finalize;
+
+        signals [PLUGIN_ACTIVATED] =
+                g_signal_new ("plugin-activated",
+                              G_TYPE_FROM_CLASS (object_class),
+                              G_SIGNAL_RUN_LAST,
+                              G_STRUCT_OFFSET (GnomeSettingsManagerClass, plugin_activated),
+                              NULL,
+                              NULL,
+                              g_cclosure_marshal_VOID__STRING,
+                              G_TYPE_NONE,
+                              1, G_TYPE_STRING);
+        signals [PLUGIN_DEACTIVATED] =
+                g_signal_new ("plugin-deactivated",
+                              G_TYPE_FROM_CLASS (object_class),
+                              G_SIGNAL_RUN_LAST,
+                              G_STRUCT_OFFSET (GnomeSettingsManagerClass, plugin_deactivated),
+                              NULL,
+                              NULL,
+                              g_cclosure_marshal_VOID__STRING,
+                              G_TYPE_NONE,
+                              1, G_TYPE_STRING);
 
         g_object_class_install_property (object_class,
                                          PROP_GCONF_PREFIX,
@@ -240,10 +446,6 @@ gnome_settings_manager_finalize (GObject *object)
         g_return_if_fail (manager->priv != NULL);
 
         g_free (manager->priv->gconf_prefix);
-
-        if (manager->priv->engine != NULL) {
-                g_object_unref (manager->priv->engine);
-        }
 
         G_OBJECT_CLASS (gnome_settings_manager_parent_class)->finalize (object);
 }

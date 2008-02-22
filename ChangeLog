@@ -1,6 +1,30 @@
 2008-02-22  William Jon McCann  <jmccann@redhat.com>
 
 	* gnome-settings-daemon/Makefile.am:
+	* gnome-settings-daemon/gnome-settings-manager.c: (_load_info),
+	(maybe_activate_plugin), (compare_location), (compare_priority),
+	(on_plugin_activated), (on_plugin_deactivated), (_load_file),
+	(_load_dir), (_load_all), (_unload_all),
+	(gnome_settings_manager_start), (gnome_settings_manager_stop),
+	(gnome_settings_manager_constructor),
+	(gnome_settings_manager_class_init),
+	(gnome_settings_manager_finalize):
+	* gnome-settings-daemon/gnome-settings-manager.h:
+	* gnome-settings-daemon/gnome-settings-manager.xml:
+	* gnome-settings-daemon/gnome-settings-plugin-info.c:
+	(gnome_settings_plugin_info_class_init),
+	(gnome_settings_plugin_info_set_enabled_key_name),
+	(_deactivate_plugin), (_activate_plugin):
+	* gnome-settings-daemon/gnome-settings-plugin-info.h:
+	* gnome-settings-daemon/gnome-settings-plugins-engine.c:
+	* gnome-settings-daemon/gnome-settings-plugins-engine.h:
+	Merge PluginsEngine functionality into Manager.  Emit
+	signals when plugins are activated or deactivated.
+	Fixes #515341
+
+2008-02-22  William Jon McCann  <jmccann@redhat.com>
+
+	* gnome-settings-daemon/Makefile.am:
 	* gnome-settings-daemon/gnome-settings-manager.c:
 	(gnome_settings_manager_start), (gnome_settings_manager_stop),
 	(gnome_settings_manager_constructor),

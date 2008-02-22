@@ -33,8 +33,6 @@ gnome_settings_daemon_SOURCES =		\
 	gnome-settings-plugin.h		\
 	gnome-settings-plugin-info.c	\
 	gnome-settings-plugin-info.h	\
-	gnome-settings-plugins-engine.c	\
-	gnome-settings-plugins-engine.h	\
 	gnome-settings-module.c		\
 	gnome-settings-module.h
 

@@ -3,5 +3,11 @@
   <interface name="org.gnome.SettingsDaemon">
     <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="gnome_settings_manager"/>
     <method name="Awake"/>
+    <signal name="PluginActivated">
+      <arg name="name" type="s"/>
+    </signal>
+    <signal name="PluginDeactivated">
+      <arg name="name" type="s"/>
+    </signal>
   </interface>
 </node>

@@ -76,6 +76,15 @@ struct GnomeSettingsPluginInfoPrivate
         guint                    priority;
 };
 
+
+enum {
+        ACTIVATED,
+        DEACTIVATED,
+        LAST_SIGNAL
+};
+
+static guint signals [LAST_SIGNAL] = { 0, };
+
 G_DEFINE_TYPE (GnomeSettingsPluginInfo, gnome_settings_plugin_info, G_TYPE_OBJECT)
 
 static void
@@ -125,6 +134,27 @@ gnome_settings_plugin_info_class_init (GnomeSettingsPluginInfoClass *klass)
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gnome_settings_plugin_info_finalize;
+
+        signals [ACTIVATED] =
+                g_signal_new ("activated",
+                              G_TYPE_FROM_CLASS (object_class),
+                              G_SIGNAL_RUN_LAST,
+                              G_STRUCT_OFFSET (GnomeSettingsPluginInfoClass, activated),
+                              NULL,
+                              NULL,
+                              g_cclosure_marshal_VOID__VOID,
+                              G_TYPE_NONE,
+                              0);
+        signals [DEACTIVATED] =
+                g_signal_new ("deactivated",
+                              G_TYPE_FROM_CLASS (object_class),
+                              G_SIGNAL_RUN_LAST,
+                              G_STRUCT_OFFSET (GnomeSettingsPluginInfoClass, deactivated),
+                              NULL,
+                              NULL,
+                              g_cclosure_marshal_VOID__VOID,
+                              G_TYPE_NONE,
+                              0);
 
         g_type_class_add_private (klass, sizeof (GnomeSettingsPluginInfoPrivate));
 }
@@ -266,13 +296,14 @@ void
 gnome_settings_plugin_info_set_enabled_key_name (GnomeSettingsPluginInfo *info,
                                                  const char              *key_name)
 {
-#if 0
-        key_name = g_strdup_printf ("%s/%s",
-                                    engine->priv->gconf_prefix,
-                                    gnome_settings_plugin_info_get_location (info));
-        gconf_client_add_dir (info->priv->client, key_name, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-        g_free (key_name);
-#endif
+        char *dirname;
+
+        dirname = g_path_get_dirname (key_name);
+        if (dirname != NULL) {
+                g_debug ("Monitoring dir %s for changes", dirname);
+                gconf_client_add_dir (info->priv->client, dirname, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+                g_free (dirname);
+        }
 
         info->priv->enabled_notification_id = gconf_client_notify_add (info->priv->client,
                                                                        key_name,
@@ -305,6 +336,7 @@ static void
 _deactivate_plugin (GnomeSettingsPluginInfo *info)
 {
         gnome_settings_plugin_deactivate (info->priv->plugin);
+        g_signal_emit (info, signals [DEACTIVATED], 0);
 }
 
 gboolean
@@ -448,6 +480,7 @@ _activate_plugin (GnomeSettingsPluginInfo *info)
 
         if (res) {
                 gnome_settings_plugin_activate (info->priv->plugin);
+                g_signal_emit (info, signals [ACTIVATED], 0);
         } else {
                 g_warning ("Error activating plugin '%s'", info->priv->name);
         }

@@ -43,6 +43,11 @@ typedef struct
 typedef struct
 {
         GObjectClass   parent_class;
+
+        void          (* plugin_activated)         (GnomeSettingsManager *manager,
+                                                    const char           *name);
+        void          (* plugin_deactivated)       (GnomeSettingsManager *manager,
+                                                    const char           *name);
 } GnomeSettingsManagerClass;
 
 GType                  gnome_settings_manager_get_type   (void);
