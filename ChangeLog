@@ -1,3 +1,10 @@
+2008-02-22  Bastien Nocera  <hadess@hadess.net>
+
+	* configure.ac: Only enable ALSA and OSS support if we don't
+	have GStreamer support, as the media-keys code doesn't
+	have any fallbacks if GStreamer fails to load (see acme-volume.c's
+	_new ())
+
 2008-02-19  Vincent Untz  <vuntz@gnome.org>
 
 	* plugins/keyboard/gsd-keyboard-manager.c:

@@ -205,52 +205,6 @@ AC_SUBST(LIBGNOMEKBD_CFLAGS)
 AC_SUBST(LIBGNOMEKBD_LIBS)
 
 dnl ==============================================
-dnl OSS section
-dnl ==============================================
-
-have_oss=no
-AC_TRY_COMPILE([
-	#ifdef __NetBSD__
-	#include <sys/param.h>
-	#include <sys/sysctl.h>
-	#include <soundcard.h>
-	#else
-	#include <sys/soundcard.h>
-	#endif
-	],[
-	int arg = SNDCTL_DSP_SETFRAGMENT;
-	],[
-	have_oss=yes
-])
-AC_MSG_CHECKING(for OSS audio support)
-AC_MSG_RESULT($have_oss)
-AM_CONDITIONAL(HAVE_OSS, test x"$have_oss" = "xyes")
-
-dnl ==============================================
-dnl ALSA section
-dnl ==============================================
-have_alsa=no
-AC_ARG_ENABLE(alsa,
-  AC_HELP_STRING([--disable-alsa],
-                 [turn off ALSA audio support]),
-       [case "${enableval}" in
-               yes) WANT_ALSA=yes ;;
-               no)  WANT_ALSA=no ;;
-               *) AC_MSG_ERROR(bad value ${enableval} for --disable-alsa) ;;
-       esac],
-       [WANT_ALSA=yes]) dnl Default value
-
-if test x$WANT_ALSA = xyes ; then
-       PKG_CHECK_MODULES(ALSA, alsa >= 0.9.0,
-               have_alsa=yes,
-               AC_MSG_RESULT([disabled]))
-fi
-
-AM_CONDITIONAL(HAVE_ALSA, test x"$have_alsa" = "xyes")
-AC_SUBST(ALSA_LIBS)
-AC_SUBST(ALSA_CFLAGS)
-
-dnl ==============================================
 dnl Esd section
 dnl ==============================================
 
@@ -307,6 +261,59 @@ fi
 AM_CONDITIONAL(HAVE_GSTREAMER, test "x$have_gstreamer" = "xyes")
 AC_SUBST(GST_LIBS)
 AC_SUBST(GST_CFLAGS)
+
+dnl ==============================================
+dnl OSS section
+dnl ==============================================
+
+if test "x$have_gstreamer" != "xyes"; then
+  have_oss=no
+  AC_TRY_COMPILE([
+		  #ifdef __NetBSD__
+		  #include <sys/param.h>
+		  #include <sys/sysctl.h>
+		  #include <soundcard.h>
+		  #else
+		  #include <sys/soundcard.h>
+		  #endif
+		  ],[
+		     int arg = SNDCTL_DSP_SETFRAGMENT;
+		     ],[
+			have_oss=yes
+			])
+  AC_MSG_CHECKING(for OSS audio support)
+  AC_MSG_RESULT($have_oss)
+fi
+
+AM_CONDITIONAL(HAVE_OSS, test x"$have_oss" = "xyes")
+
+dnl ==============================================
+dnl ALSA section
+dnl ==============================================
+
+if test "x$have_gstreamer" != "xyes"; then
+  have_alsa=no
+  AC_ARG_ENABLE(alsa,
+		AC_HELP_STRING([--disable-alsa],
+			       [turn off ALSA audio support]),
+			       [case "${enableval}" in
+				yes) WANT_ALSA=yes ;;
+				no)  WANT_ALSA=no ;;
+				*) AC_MSG_ERROR(bad value ${enableval} for --disable-alsa) ;;
+			esac],
+			[WANT_ALSA=yes]) dnl Default value
+
+  if test x$WANT_ALSA = xyes ; then
+	  PKG_CHECK_MODULES(ALSA, alsa >= 0.9.0,
+			    have_alsa=yes,
+			    AC_MSG_RESULT([disabled]))
+  fi
+
+  AC_SUBST(ALSA_LIBS)
+  AC_SUBST(ALSA_CFLAGS)
+fi
+
+AM_CONDITIONAL(HAVE_ALSA, test x"$have_alsa" = "xyes")
 
 # ---------------------------------------------------------------------------
 # Plugins
