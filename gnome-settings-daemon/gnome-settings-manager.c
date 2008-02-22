@@ -43,8 +43,9 @@
 
 struct GnomeSettingsManagerPrivate
 {
-        DBusGConnection *connection;
-        char            *gconf_prefix;
+        DBusGConnection            *connection;
+        char                       *gconf_prefix;
+        GnomeSettingsPluginsEngine *engine;
 };
 
 enum {
@@ -103,7 +104,7 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
 
         g_debug ("Starting settings manager");
 
-        gnome_settings_plugins_engine_init (manager->priv->gconf_prefix);
+        gnome_settings_plugins_engine_start (manager->priv->engine);
 
         ret = TRUE;
         return ret;
@@ -113,8 +114,7 @@ void
 gnome_settings_manager_stop (GnomeSettingsManager *manager)
 {
         g_debug ("Stopping settings manager");
-
-        gnome_settings_plugins_engine_shutdown ();
+        gnome_settings_plugins_engine_stop (manager->priv->engine);
 }
 
 static void
@@ -179,6 +179,8 @@ gnome_settings_manager_constructor (GType                  type,
                                                                                                          n_construct_properties,
                                                                                                          construct_properties));
 
+        manager->priv->engine = gnome_settings_plugins_engine_new (manager->priv->gconf_prefix);
+
         return G_OBJECT (manager);
 }
 
@@ -238,6 +240,10 @@ gnome_settings_manager_finalize (GObject *object)
         g_return_if_fail (manager->priv != NULL);
 
         g_free (manager->priv->gconf_prefix);
+
+        if (manager->priv->engine != NULL) {
+                g_object_unref (manager->priv->engine);
+        }
 
         G_OBJECT_CLASS (gnome_settings_manager_parent_class)->finalize (object);
 }

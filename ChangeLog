@@ -1,3 +1,51 @@
+2008-02-22  William Jon McCann  <jmccann@redhat.com>
+
+	* gnome-settings-daemon/Makefile.am:
+	* gnome-settings-daemon/gnome-settings-manager.c:
+	(gnome_settings_manager_start), (gnome_settings_manager_stop),
+	(gnome_settings_manager_constructor),
+	(gnome_settings_manager_finalize):
+	* gnome-settings-daemon/gnome-settings-plugin-info.c:
+	(gnome_settings_plugin_info_finalize),
+	(gnome_settings_plugin_info_class_init),
+	(gnome_settings_plugin_info_init),
+	(gnome_settings_plugin_info_fill_from_file), (plugin_enabled_cb),
+	(gnome_settings_plugin_info_set_enabled_key_name),
+	(gnome_settings_plugin_info_new_from_file), (_deactivate_plugin),
+	(gnome_settings_plugin_info_deactivate), (load_plugin_module),
+	(_activate_plugin), (gnome_settings_plugin_info_activate),
+	(gnome_settings_plugin_info_is_active),
+	(gnome_settings_plugin_info_get_enabled),
+	(gnome_settings_plugin_info_is_available),
+	(gnome_settings_plugin_info_get_name),
+	(gnome_settings_plugin_info_get_description),
+	(gnome_settings_plugin_info_get_authors),
+	(gnome_settings_plugin_info_get_website),
+	(gnome_settings_plugin_info_get_copyright),
+	(gnome_settings_plugin_info_get_location),
+	(gnome_settings_plugin_info_get_priority):
+	* gnome-settings-daemon/gnome-settings-plugin-info.h:
+	* gnome-settings-daemon/gnome-settings-plugins-engine.c:
+	(gnome_settings_plugins_engine_load), (maybe_activate_plugin),
+	(compare_location), (compare_priority),
+	(gnome_settings_plugins_engine_load_file),
+	(gnome_settings_plugins_engine_load_dir),
+	(gnome_settings_plugins_engine_load_all),
+	(gnome_settings_plugins_engine_unload_all),
+	(gnome_settings_plugins_engine_start),
+	(gnome_settings_plugins_engine_garbage_collect),
+	(gnome_settings_plugins_engine_stop),
+	(gnome_settings_plugins_engine_get_plugins_list),
+	(_set_gconf_prefix), (gnome_settings_plugins_engine_set_property),
+	(gnome_settings_plugins_engine_get_property),
+	(gnome_settings_plugins_engine_class_init),
+	(gnome_settings_plugins_engine_init),
+	(gnome_settings_plugins_engine_finalize),
+	(gnome_settings_plugins_engine_new):
+	* gnome-settings-daemon/gnome-settings-plugins-engine.h:
+	Refactor the PluginInfo structure into a class.  This
+	will facilitate fixing bug #515341
+
 2008-02-22  Bastien Nocera  <hadess@hadess.net>
 
 	* configure.ac: Only enable ALSA and OSS support if we don't

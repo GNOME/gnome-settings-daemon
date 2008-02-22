@@ -1,7 +1,8 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2002-2005 - Paolo Maggi
- * Copyright (C) 2007        William Jon McCann <mccann@jhu.edu>
+ * Copyright (C) 2002-2005 Paolo Maggi
+ * Copyright (C) 2007      William Jon McCann <mccann@jhu.edu>
+ * Copyright (C) 2008      Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,27 +23,42 @@
 #ifndef __GNOME_SETTINGS_PLUGINS_ENGINE_H__
 #define __GNOME_SETTINGS_PLUGINS_ENGINE_H__
 
-#include <glib.h>
+#include <glib-object.h>
 
-typedef struct _GnomeSettingsPluginInfo GnomeSettingsPluginInfo;
+G_BEGIN_DECLS
 
-gboolean         gnome_settings_plugins_engine_init                   (const char *gconf_prefix);
-void             gnome_settings_plugins_engine_shutdown               (void);
+#define GNOME_TYPE_SETTINGS_PLUGINS_ENGINE         (gnome_settings_plugins_engine_get_type ())
+#define GNOME_SETTINGS_PLUGINS_ENGINE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GNOME_TYPE_SETTINGS_PLUGINS_ENGINE, GnomeSettingsPluginsEngine))
+#define GNOME_SETTINGS_PLUGINS_ENGINE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GNOME_TYPE_SETTINGS_PLUGINS_ENGINE, GnomeSettingsPluginsEngineClass))
+#define GNOME_IS_SETTINGS_PLUGINS_ENGINE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GNOME_TYPE_SETTINGS_PLUGINS_ENGINE))
+#define GNOME_IS_SETTINGS_PLUGINS_ENGINE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GNOME_TYPE_SETTINGS_PLUGINS_ENGINE))
+#define GNOME_SETTINGS_PLUGINS_ENGINE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GNOME_TYPE_SETTINGS_PLUGINS_ENGINE, GnomeSettingsPluginsEngineClass))
 
-void             gnome_settings_plugins_engine_garbage_collect        (void);
+typedef struct GnomeSettingsPluginsEnginePrivate GnomeSettingsPluginsEnginePrivate;
 
-const GSList    *gnome_settings_plugins_engine_get_plugins_list       (void);
+typedef struct
+{
+        GObject                            parent;
+        GnomeSettingsPluginsEnginePrivate *priv;
+} GnomeSettingsPluginsEngine;
 
-gboolean         gnome_settings_plugins_engine_activate_plugin        (GnomeSettingsPluginInfo *info);
-gboolean         gnome_settings_plugins_engine_deactivate_plugin      (GnomeSettingsPluginInfo *info);
-gboolean         gnome_settings_plugins_engine_plugin_is_active       (GnomeSettingsPluginInfo *info);
-gboolean         gnome_settings_plugins_engine_plugin_is_available    (GnomeSettingsPluginInfo *info);
+typedef struct
+{
+        GObjectClass   parent_class;
+} GnomeSettingsPluginsEngineClass;
 
-const char      *gnome_settings_plugins_engine_get_plugin_name        (GnomeSettingsPluginInfo *info);
-const char      *gnome_settings_plugins_engine_get_plugin_description (GnomeSettingsPluginInfo *info);
-const char     **gnome_settings_plugins_engine_get_plugin_authors     (GnomeSettingsPluginInfo *info);
-const char      *gnome_settings_plugins_engine_get_plugin_website     (GnomeSettingsPluginInfo *info);
-const char      *gnome_settings_plugins_engine_get_plugin_copyright   (GnomeSettingsPluginInfo *info);
-gint             gnome_settings_plugins_engine_get_plugin_priority    (GnomeSettingsPluginInfo *info);
+
+GType                       gnome_settings_plugins_engine_get_type               (void);
+
+GnomeSettingsPluginsEngine *gnome_settings_plugins_engine_new                    (const char *gconf_prefix);
+gboolean         gnome_settings_plugins_engine_start                  (GnomeSettingsPluginsEngine *engine);
+
+gboolean         gnome_settings_plugins_engine_stop                   (GnomeSettingsPluginsEngine *engine);
+
+void             gnome_settings_plugins_engine_garbage_collect        (GnomeSettingsPluginsEngine *engine);
+
+const GSList    *gnome_settings_plugins_engine_get_plugins_list       (GnomeSettingsPluginsEngine *engine);
+
+G_END_DECLS
 
 #endif  /* __GNOME_SETTINGS_PLUGINS_ENGINE_H__ */
