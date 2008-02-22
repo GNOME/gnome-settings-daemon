@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-12 21:24+0100\n"
-"PO-Revision-Date: 2008-02-12 21:24+0100\n"
+"POT-Creation-Date: 2008-02-22 22:45+0100\n"
+"PO-Revision-Date: 2008-02-22 22:48+0100\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -403,6 +403,10 @@ msgstr "Si vrai, activer le greffon de gestion des paramètres xsettings."
 msgid "Don't become a daemon"
 msgstr "Ne pas devenir un démon"
 
+#: ../gnome-settings-daemon/main.c:48
+msgid "GConf prefix from which to load plugin settings"
+msgstr "Préfixe GConf à partir duquel charger les paramètres des greffons"
+
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Accessibilité du clavier"
@@ -411,20 +415,20 @@ msgstr "Accessibilité du clavier"
 msgid "Accessibility keyboard plugin"
 msgstr "Greffon de l'accessibilité du clavier"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:385
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:393
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Une erreur est survenue lors de l'affichage de l'aide : %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:437
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:445
 msgid "Do you want to activate Slow Keys?"
 msgstr "Voulez-vous activer les touches lentes ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:438
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:446
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Voulez-vous désactiver les touches lentes ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:441
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -433,39 +437,39 @@ msgstr ""
 "raccourci clavier pour activer la fonctionnalité des touches lentes, qui "
 "affecte la manière dont votre clavier fonctionne."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:448
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:500
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
 msgid "Do_n't activate"
 msgstr "_Ne pas activer"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:448
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:500
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
 msgid "Do_n't deactivate"
 msgstr "_Ne pas désactiver"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:451
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:503
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
 msgid "_Activate"
 msgstr "_Activer"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:451
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:503
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
 msgid "_Deactivate"
 msgstr "_Désactiver"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:455
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
 msgid "Slow Keys Alert"
 msgstr "Alerte de touches lentes"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:487
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:495
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Voulez-vous désactiver les touches collantes ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:488
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:496
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Voulez-vous désactiver les touches collantes ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:491
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:499
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -474,7 +478,7 @@ msgstr ""
 "raccourci clavier pour activer la fonctionnalité des touches collantes, qui "
 "affecte la manière dont votre clavier fonctionne."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:493
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -485,7 +489,7 @@ msgstr ""
 "fonctionnalité des touches collantes, qui affecte la manière dont votre "
 "clavier fonctionne."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:507
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
 msgid "Sticky Keys Alert"
 msgstr "Alerte touches collantes"
 
@@ -504,14 +508,6 @@ msgstr "Presse-papiers"
 #: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Greffon du presse-papiers"
-
-#: ../plugins/default-editor/default-editor.gnome-settings-plugin.in.h:1
-msgid "Default Editor"
-msgstr "Éditeur par défaut"
-
-#: ../plugins/default-editor/default-editor.gnome-settings-plugin.in.h:2
-msgid "Default editor plugin"
-msgstr "Greffon de l'éditeur par défaut"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -548,37 +544,37 @@ msgstr ""
 "Impossible de créer le dossier « %s ».\n"
 "Il est nécessaire pour permettre le changement de curseurs."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:199
+#: ../plugins/keybindings/gsd-keybindings-manager.c:195
 #, c-format
 msgid "Key Binding (%s) has its action defined multiple times\n"
 msgstr "Le raccourci clavier (%s) a son action définie plusieurs fois\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:206
+#: ../plugins/keybindings/gsd-keybindings-manager.c:202
 #, c-format
 msgid "Key Binding (%s) has its binding defined multiple times\n"
 msgstr "Le raccourci clavier (%s) a son raccourci défini plusieurs fois\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:215
+#: ../plugins/keybindings/gsd-keybindings-manager.c:211
 #, c-format
 msgid "Key Binding (%s) is incomplete\n"
 msgstr "Le raccourci clavier (%s) n'est pas complet\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:243
+#: ../plugins/keybindings/gsd-keybindings-manager.c:239
 #, c-format
 msgid "Key Binding (%s) is invalid\n"
 msgstr "Le raccourci clavier (%s) n'est pas valide\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:296
+#: ../plugins/keybindings/gsd-keybindings-manager.c:292
 #, c-format
 msgid "It seems that another application already has access to key '%u'."
 msgstr "Il semble qu'une autre application a déjà accès à la touche « %u »."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:369
+#: ../plugins/keybindings/gsd-keybindings-manager.c:365
 #, c-format
 msgid "Key Binding (%s) is already in use\n"
 msgstr "Le raccourci clavier (%s) est déjà utilisé\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:506
+#: ../plugins/keybindings/gsd-keybindings-manager.c:502
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -631,7 +627,7 @@ msgstr "_Fichiers chargés :"
 msgid "Volume"
 msgstr "Volume"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:204
+#: ../plugins/media-keys/gsd-media-keys-manager.c:200
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -639,7 +635,7 @@ msgstr ""
 "Impossible de trouver le terminal par défaut. Vérifiez que la commande de "
 "votre terminal par défaut est renseignée et désigne une application valide."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:244
+#: ../plugins/media-keys/gsd-media-keys-manager.c:240
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -648,7 +644,7 @@ msgstr ""
 "Impossible d'exécuter la commande : %s\n"
 "Vérifiez que cette commande est valide."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:260
+#: ../plugins/media-keys/gsd-media-keys-manager.c:256
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -770,16 +766,16 @@ msgstr "Le fichier son défini pour cet événement n'existe pas."
 msgid "Select Sound File"
 msgstr "Sélectionnez le fichier son"
 
-#: ../plugins/sound/libsounds/sound-view.c:203
+#: ../plugins/sound/libsounds/sound-view.c:210
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "Le fichier %s n'est pas un fichier wave valide"
 
-#: ../plugins/sound/libsounds/sound-view.c:264
+#: ../plugins/sound/libsounds/sound-view.c:271
 msgid "Select sound file..."
 msgstr "Sélectionnez un fichier son..."
 
-#: ../plugins/sound/libsounds/sound-view.c:366
+#: ../plugins/sound/libsounds/sound-view.c:373
 msgid "System Sounds"
 msgstr "Sons systèmes"
 
@@ -820,7 +816,7 @@ msgstr "Gère la base de données des ressources X"
 msgid "X Resource Database"
 msgstr "Base de données des ressources X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:555
+#: ../plugins/xsettings/gsd-xsettings-manager.c:551
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "La clé GConf %s est définie au type %s mais le type attendu est %s\n"
@@ -832,3 +828,9 @@ msgstr "Gestion des paramètres X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Paramètres X"
+
+#~ msgid "Default Editor"
+#~ msgstr "Éditeur par défaut"
+
+#~ msgid "Default editor plugin"
+#~ msgstr "Greffon de l'éditeur par défaut"
