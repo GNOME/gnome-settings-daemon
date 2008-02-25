@@ -42,8 +42,10 @@
 
 static char      *gconf_prefix = NULL;
 static gboolean   no_daemon    = TRUE;
+static gboolean   debug        = FALSE;
 
 static GOptionEntry entries[] = {
+        {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, "Enable debugging code", NULL },
         {"no-daemon", 0, 0, G_OPTION_ARG_NONE, &no_daemon, N_("Don't become a daemon"), NULL },
         {"gconf-prefix", 0, 0, G_OPTION_ARG_STRING, &gconf_prefix, N_("GConf prefix from which to load plugin settings"), NULL},
         {NULL}
@@ -167,6 +169,24 @@ bus_register (void)
         return ret;
 }
 
+static void
+gsd_log_default_handler (const gchar   *log_domain,
+                         GLogLevelFlags log_level,
+                         const gchar   *message,
+                         gpointer       unused_data)
+{
+        /* filter out DEBUG messages if debug isn't set */
+        if ((log_level & G_LOG_LEVEL_MASK) == G_LOG_LEVEL_DEBUG
+            && ! debug) {
+                return;
+        }
+
+        g_log_default_handler (log_domain,
+                               log_level,
+                               message,
+                               unused_data);
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -197,6 +217,8 @@ main (int argc, char *argv[])
                 exit (1);
         }
 
+        g_log_set_default_handler (gsd_log_default_handler, NULL);
+
         if (gconf_prefix == NULL) {
                 gconf_prefix = g_strdup (g_getenv (GCONF_PREFIX_ENV));
                 if (gconf_prefix == NULL) {
@@ -212,9 +234,12 @@ main (int argc, char *argv[])
                 goto out;
         }
 
-        program = gnome_program_init(
-                PACKAGE, VERSION, LIBGNOME_MODULE,
-                argc, argv, GNOME_PARAM_NONE);
+        program = gnome_program_init (PACKAGE,
+                                      VERSION,
+                                      LIBGNOME_MODULE,
+                                      argc,
+                                      argv,
+                                      GNOME_PARAM_NONE);
 
         manager = gnome_settings_manager_new (gconf_prefix);
 

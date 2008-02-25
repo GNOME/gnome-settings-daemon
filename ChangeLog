@@ -1,5 +1,11 @@
 2008-02-25  William Jon McCann  <jmccann@redhat.com>
 
+	* gnome-settings-daemon/main.c: (gsd_log_default_handler), (main):
+	Add --debug command line option.
+	Only print DEBUG level messages if --debug is used.
+
+2008-02-25  William Jon McCann  <jmccann@redhat.com>
+
 	* gnome-settings-daemon/gnome-settings-plugin-info.c:
 	(gnome_settings_plugin_info_fill_from_file):
 	Don't warn on missing priority since we don't recommend
