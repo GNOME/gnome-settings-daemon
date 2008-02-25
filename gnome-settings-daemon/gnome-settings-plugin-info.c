@@ -264,7 +264,6 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
         if (priority >= PLUGIN_PRIORITY_MAX) {
                 info->priv->priority = priority;
         } else {
-                g_debug ("Could not find valid 'Priority' in %s", filename);
                 info->priv->priority = PLUGIN_PRIORITY_DEFAULT;
         }
 
