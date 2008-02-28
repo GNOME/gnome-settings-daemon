@@ -54,6 +54,8 @@
 struct GsdSoundManagerPrivate
 {
         gboolean padding;
+        /* esd/PulseAudio pid */
+        GPid pid;
 };
 
 enum {
@@ -68,18 +70,46 @@ G_DEFINE_TYPE (GsdSoundManager, gsd_sound_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+static void
+reset_esd_pid (GPid pid, gint status, gpointer user_data)
+{
+	GsdSoundManager *manager = (GsdSoundManager *) user_data;
+
+	if (pid == manager->priv->pid)
+		manager->priv->pid = 0;
+}
 
 /* start_gnome_sound
  *
  * Start GNOME sound.
  */
-static void
-start_gnome_sound (void)
+static gboolean
+start_gnome_sound (GsdSoundManager *manager)
 {
-        gnome_sound_init (NULL);
-        if (gnome_sound_connection_get () < 0) {
-                g_warning ("Could not start GNOME sound.\n");
-        }
+	char  *argv[] = { "esd", "-nobeeps", NULL};
+	GError *err = NULL;
+	time_t  starttime;
+
+	if (!g_spawn_async (NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL,
+			    &manager->priv->pid, &err)) {
+		g_printerr ("Could not start esd: %s\n", err->message);
+		g_error_free (err);
+		return FALSE;
+	}
+
+	g_child_watch_add (manager->priv->pid, reset_esd_pid, NULL);
+
+	starttime = time (NULL);
+	gnome_sound_init (NULL);
+
+	while (gnome_sound_connection_get () < 0
+	       && ((time (NULL) - starttime) < 4))
+	{
+		g_usleep (200);
+		gnome_sound_init (NULL);
+	}
+
+	return gnome_sound_connection_get () >= 0;
 }
 
 #ifdef HAVE_ESD
@@ -91,7 +121,7 @@ static gboolean set_esd_standby = TRUE;
  * Stop GNOME sound.
  */
 static void
-stop_gnome_sound (void)
+stop_gnome_sound (GsdSoundManager *manager)
 {
 #ifdef HAVE_ESD
         /* Can't think of a way to do this reliably, so we fake it for now */
@@ -99,6 +129,13 @@ stop_gnome_sound (void)
         set_esd_standby = TRUE;
 #else
         gnome_sound_shutdown ();
+
+	if (manager->priv->pid) {
+		if (kill (manager->priv->pid, SIGTERM) == -1)
+			g_printerr ("Failed to kill esd (pid %d)\n", manager->priv->pid);
+		else
+			manager->priv->pid = 0;
+	}
 #endif
 }
 
@@ -189,13 +226,15 @@ apply_settings (GsdSoundManager *manager)
         enable_sound = TRUE;
 #endif
         event_sounds = gconf_client_get_bool (client, "/desktop/gnome/sound/event_sounds", NULL);
+        /* FIXME this is completely bogus, the entry doesn't exist */
         event_changed_new = gconf_client_get_int  (client, "/desktop/gnome/sound/event_changed", NULL);
 
         closure.enable_system_sounds = event_sounds;
 
         if (enable_sound) {
                 if (gnome_sound_connection_get () < 0)
-                        start_gnome_sound ();
+                        if (!start_gnome_sound (manager))
+                        	return;
 #ifdef HAVE_ESD
                 else if (set_esd_standby) {
                         esd_resume (gnome_sound_connection_get ());
@@ -206,7 +245,7 @@ apply_settings (GsdSoundManager *manager)
 #ifdef HAVE_ESD
                 if (!set_esd_standby)
 #endif
-                        stop_gnome_sound ();
+                        stop_gnome_sound (manager);
         }
 
         if (enable_sound &&
@@ -215,7 +254,6 @@ apply_settings (GsdSoundManager *manager)
 
                 inited = TRUE;
                 event_changed_old = event_changed_new;
-
 
                 props = sound_properties_new ();
                 sound_properties_add_defaults (props, NULL);
@@ -267,7 +305,7 @@ gsd_sound_manager_stop (GsdSoundManager *manager)
 {
         g_debug ("Stopping sound manager");
 
-        stop_gnome_sound ();
+        stop_gnome_sound (manager);
 }
 
 static void

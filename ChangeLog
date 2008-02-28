@@ -1,3 +1,17 @@
+2008-02-28  Bastien Nocera  <hadess@hadess.net>
+
+	* plugins/sound/gsd-sound-manager.c (reset_esd_pid),
+	(start_gnome_sound), (stop_gnome_sound), (apply_settings),
+	(gsd_sound_manager_stop): Start the sound server ourselves,
+	as we need it to cache samples. If esd (or the PulseAudio
+	esd compat bits) isn't available, just print an error, and
+	don't try to cache the samples
+
+	If you use PulseAudio instead of esound in your distribution,
+	build with --disable-esd passed to configure
+
+	(Closes: #518075)
+
 2008-02-25  William Jon McCann  <jmccann@redhat.com>
 
 	* gnome-settings-daemon/main.c: (gsd_log_default_handler), (main):
