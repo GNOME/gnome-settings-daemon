@@ -232,9 +232,10 @@ apply_settings (GsdSoundManager *manager)
         closure.enable_system_sounds = event_sounds;
 
         if (enable_sound) {
-                if (gnome_sound_connection_get () < 0)
+                if (gnome_sound_connection_get () < 0) {
                         if (!start_gnome_sound (manager))
-                        	return;
+                            return;
+                }
 #ifdef HAVE_ESD
                 else if (set_esd_standby) {
                         esd_resume (gnome_sound_connection_get ());

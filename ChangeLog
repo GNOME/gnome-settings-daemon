@@ -1,3 +1,10 @@
+2008-02-29  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* plugins/sound/gsd-sound-manager.c (apply_settings):
+
+	Add braces to fix amgiguous else. Avoids compiler
+	warnings.
+
 2008-02-28  Bastien Nocera  <hadess@hadess.net>
 
 	* plugins/sound/gsd-sound-manager.c (reset_esd_pid),
