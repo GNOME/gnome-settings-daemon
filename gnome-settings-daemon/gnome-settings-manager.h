@@ -50,9 +50,21 @@ typedef struct
                                                     const char           *name);
 } GnomeSettingsManagerClass;
 
+typedef enum
+{
+        GNOME_SETTINGS_MANAGER_ERROR_GENERAL
+} GnomeSettingsManagerError;
+
+#define GNOME_SETTINGS_MANAGER_ERROR gnome_settings_manager_error_quark ()
+
+GQuark                 gnome_settings_manager_error_quark         (void);
 GType                  gnome_settings_manager_get_type   (void);
 
-GnomeSettingsManager * gnome_settings_manager_new        (const char           *gconf_prefix);
+GnomeSettingsManager * gnome_settings_manager_new        (void);
+gboolean               gnome_settings_manager_start_with_settings_prefix
+                                                         (GnomeSettingsManager *manager,
+                                                          const char           *settings_prefix,
+                                                          GError              **error);
 gboolean               gnome_settings_manager_start      (GnomeSettingsManager *manager,
                                                           GError              **error);
 void                   gnome_settings_manager_stop       (GnomeSettingsManager *manager);

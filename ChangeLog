@@ -1,3 +1,22 @@
+2008-02-28  William Jon McCann  <jmccann@redhat.com>
+
+	* gnome-settings-daemon/gnome-settings-manager.c:
+	(gnome_settings_manager_error_quark), (_load_file),
+	(gnome_settings_manager_awake), (gnome_settings_manager_start),
+	(gnome_settings_manager_start_with_settings_prefix),
+	(_set_settings_prefix), (gnome_settings_manager_set_property),
+	(gnome_settings_manager_get_property),
+	(gnome_settings_manager_class_init),
+	(gnome_settings_manager_finalize), (gnome_settings_manager_new):
+	* gnome-settings-daemon/gnome-settings-manager.h:
+	* gnome-settings-daemon/gnome-settings-manager.xml:
+	* gnome-settings-daemon/main.c: (main):
+	When dbus activated only load the plugins when requested
+	instead of at startup.  Add a new method to start and set
+	plugin settings prefix.  This allows gdm to use dbus
+	activation.  It also fixes cases where g-s-d is activated
+	and plugins are loaded unintentionally.
+
 2008-02-29  Wouter Bolsterlee  <wbolster@svn.gnome.org>
 
 	* plugins/sound/gsd-sound-manager.c (apply_settings):

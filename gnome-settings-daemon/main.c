@@ -37,12 +37,9 @@
 
 #define GSD_DBUS_NAME         "org.gnome.SettingsDaemon"
 
-#define DEFAULT_GCONF_PREFIX "/apps/gnome_settings_daemon/plugins"
-#define GCONF_PREFIX_ENV     "GNOME_SETTINGS_DAEMON_GCONF_PREFIX"
-
 static char      *gconf_prefix = NULL;
 static gboolean   no_daemon    = TRUE;
-static gboolean   debug        = FALSE;
+static gboolean   debug        = TRUE;
 
 static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, "Enable debugging code", NULL },
@@ -219,13 +216,6 @@ main (int argc, char *argv[])
 
         g_log_set_default_handler (gsd_log_default_handler, NULL);
 
-        if (gconf_prefix == NULL) {
-                gconf_prefix = g_strdup (g_getenv (GCONF_PREFIX_ENV));
-                if (gconf_prefix == NULL) {
-                        gconf_prefix = g_strdup (DEFAULT_GCONF_PREFIX);
-                }
-        }
-
         if (! no_daemon && daemon (0, 0)) {
                 g_error ("Could not daemonize: %s", g_strerror (errno));
         }
@@ -241,13 +231,26 @@ main (int argc, char *argv[])
                                       argv,
                                       GNOME_PARAM_NONE);
 
-        manager = gnome_settings_manager_new (gconf_prefix);
-
-        res = gnome_settings_manager_start (manager, &error);
-        if (! res) {
-                g_warning ("Unable to start: %s", error->message);
-                g_error_free (error);
+        manager = gnome_settings_manager_new ();
+        if (manager == NULL) {
+                g_warning ("Unable to register object");
                 goto out;
+        }
+
+        /* If we aren't started by dbus then load the plugins
+           automatically.  Otherwise, wait for an Awake etc. */
+        if (g_getenv ("DBUS_STARTER_BUS_TYPE") == NULL) {
+                error = NULL;
+                if (gconf_prefix != NULL) {
+                        res = gnome_settings_manager_start_with_settings_prefix (manager, gconf_prefix, &error);
+                } else {
+                        res = gnome_settings_manager_start (manager, &error);
+                }
+                if (! res) {
+                        g_warning ("Unable to start: %s", error->message);
+                        g_error_free (error);
+                        goto out;
+                }
         }
 
         gtk_main ();

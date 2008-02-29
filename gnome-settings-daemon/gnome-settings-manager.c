@@ -39,6 +39,8 @@
 
 #define GSD_MANAGER_DBUS_PATH "/org/gnome/SettingsDaemon"
 
+#define DEFAULT_SETTINGS_PREFIX "/apps/gnome_settings_daemon/plugins"
+
 #define PLUGIN_EXT ".gnome-settings-plugin"
 
 #define GNOME_SETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_SETTINGS_MANAGER, GnomeSettingsManagerPrivate))
@@ -46,13 +48,13 @@
 struct GnomeSettingsManagerPrivate
 {
         DBusGConnection            *connection;
-        char                       *gconf_prefix;
+        char                       *settings_prefix;
         GSList                     *plugins;
 };
 
 enum {
         PROP_0,
-        PROP_GCONF_PREFIX,
+        PROP_SETTINGS_PREFIX,
 };
 
 enum {
@@ -70,6 +72,17 @@ static void     gnome_settings_manager_finalize    (GObject                   *o
 G_DEFINE_TYPE (GnomeSettingsManager, gnome_settings_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+GQuark
+gnome_settings_manager_error_quark (void)
+{
+        static GQuark ret = 0;
+        if (ret == 0) {
+                ret = g_quark_from_static_string ("gnome_settings_manager_error");
+        }
+
+        return ret;
+}
 
 static void
 maybe_activate_plugin (GnomeSettingsPluginInfo *info, gpointer user_data)
@@ -166,13 +179,13 @@ _load_file (GnomeSettingsManager *manager,
                           G_CALLBACK (on_plugin_deactivated), manager);
 
         key_name = g_strdup_printf ("%s/%s/active",
-                                    manager->priv->gconf_prefix,
+                                    manager->priv->settings_prefix,
                                     gnome_settings_plugin_info_get_location (info));
         gnome_settings_plugin_info_set_enabled_key_name (info, key_name);
         g_free (key_name);
 
         key_name = g_strdup_printf ("%s/%s/priority",
-                                    manager->priv->gconf_prefix,
+                                    manager->priv->settings_prefix,
                                     gnome_settings_plugin_info_get_location (info));
         client = gconf_client_get_default ();
         error = NULL;
@@ -253,7 +266,7 @@ gnome_settings_manager_awake (GnomeSettingsManager *manager,
                               GError              **error)
 {
         g_debug ("Awake called");
-        return TRUE;
+        return gnome_settings_manager_start (manager, error);
 }
 
 static gboolean
@@ -286,6 +299,11 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
 
         if (!g_module_supported ()) {
                 g_warning ("gnome-settings-daemon is not able to initialize the plugins.");
+                g_set_error (error,
+                             GNOME_SETTINGS_MANAGER_ERROR,
+                             GNOME_SETTINGS_MANAGER_ERROR_GENERAL,
+                             "%s", "Plugins not supported");
+
                 return FALSE;
         }
 
@@ -293,6 +311,16 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
 
         ret = TRUE;
         return ret;
+}
+
+gboolean
+gnome_settings_manager_start_with_settings_prefix (GnomeSettingsManager *manager,
+                                                   const char           *settings_prefix,
+                                                   GError              **error)
+{
+        g_object_set (manager, "settings-prefix", settings_prefix, NULL);
+
+        return gnome_settings_manager_start (manager, error);
 }
 
 void
@@ -313,11 +341,11 @@ gnome_settings_manager_stop (GnomeSettingsManager *manager)
 }
 
 static void
-_set_gconf_prefix (GnomeSettingsManager *self,
+_set_settings_prefix (GnomeSettingsManager *self,
                    const char           *prefix)
 {
-        g_free (self->priv->gconf_prefix);
-        self->priv->gconf_prefix = g_strdup (prefix);
+        g_free (self->priv->settings_prefix);
+        self->priv->settings_prefix = g_strdup (prefix);
 }
 
 static void
@@ -331,8 +359,8 @@ gnome_settings_manager_set_property (GObject        *object,
         self = GNOME_SETTINGS_MANAGER (object);
 
         switch (prop_id) {
-        case PROP_GCONF_PREFIX:
-                _set_gconf_prefix (self, g_value_get_string (value));
+        case PROP_SETTINGS_PREFIX:
+                _set_settings_prefix (self, g_value_get_string (value));
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -351,8 +379,8 @@ gnome_settings_manager_get_property (GObject        *object,
         self = GNOME_SETTINGS_MANAGER (object);
 
         switch (prop_id) {
-        case PROP_GCONF_PREFIX:
-                g_value_set_string (value, self->priv->gconf_prefix);
+        case PROP_SETTINGS_PREFIX:
+                g_value_set_string (value, self->priv->settings_prefix);
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -422,11 +450,11 @@ gnome_settings_manager_class_init (GnomeSettingsManagerClass *klass)
                               1, G_TYPE_STRING);
 
         g_object_class_install_property (object_class,
-                                         PROP_GCONF_PREFIX,
-                                         g_param_spec_string ("gconf-prefix",
-                                                              "gconf-prefix",
-                                                              "gconf-prefix",
-                                                              NULL,
+                                         PROP_SETTINGS_PREFIX,
+                                         g_param_spec_string ("settings-prefix",
+                                                              "settings-prefix",
+                                                              "settings-prefix",
+                                                              DEFAULT_SETTINGS_PREFIX,
                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 
         g_type_class_add_private (klass, sizeof (GnomeSettingsManagerPrivate));
@@ -453,13 +481,13 @@ gnome_settings_manager_finalize (GObject *object)
 
         g_return_if_fail (manager->priv != NULL);
 
-        g_free (manager->priv->gconf_prefix);
+        g_free (manager->priv->settings_prefix);
 
         G_OBJECT_CLASS (gnome_settings_manager_parent_class)->finalize (object);
 }
 
 GnomeSettingsManager *
-gnome_settings_manager_new (const char *gconf_prefix)
+gnome_settings_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
@@ -467,7 +495,6 @@ gnome_settings_manager_new (const char *gconf_prefix)
                 gboolean res;
 
                 manager_object = g_object_new (GNOME_TYPE_SETTINGS_MANAGER,
-                                               "gconf-prefix", gconf_prefix,
                                                NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
