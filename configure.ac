@@ -327,7 +327,7 @@ dnl - Finish
 dnl ---------------------------------------------------------------------------
 
 
-# Turn on the additional warnings last, so -Werror doesn't affect other tests.
+# Turn on the additional warnings last, so warnings don't affect other tests.
 
 AC_ARG_ENABLE(more-warnings,
 	[AC_HELP_STRING([--enable-more-warnings],
@@ -346,7 +346,7 @@ if test "$GCC" = "yes" -a "$set_more_warnings" != "no"; then
         -Wall \
         -Wchar-subscripts -Wmissing-declarations -Wmissing-prototypes \
         -Wnested-externs -Wpointer-arith \
-        -Wcast-align -Wsign-compare -Werror \
+        -Wcast-align -Wsign-compare \
         $CFLAGS"
 
         for option in -Wno-strict-aliasing -Wno-sign-compare; do
