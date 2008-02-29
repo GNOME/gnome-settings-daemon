@@ -274,7 +274,6 @@ register_manager (GnomeSettingsManager *manager)
 {
         GError *error = NULL;
 
-        error = NULL;
         manager->priv->connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
         if (manager->priv->connection == NULL) {
                 if (error != NULL) {
@@ -293,8 +292,6 @@ gboolean
 gnome_settings_manager_start (GnomeSettingsManager *manager,
                               GError              **error)
 {
-        gboolean ret;
-
         g_debug ("Starting settings manager");
 
         if (!g_module_supported ()) {
@@ -302,15 +299,14 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
                 g_set_error (error,
                              GNOME_SETTINGS_MANAGER_ERROR,
                              GNOME_SETTINGS_MANAGER_ERROR_GENERAL,
-                             "%s", "Plugins not supported");
+                             "Plugins not supported");
 
                 return FALSE;
         }
 
         _load_all (manager);
 
-        ret = TRUE;
-        return ret;
+        return TRUE;
 }
 
 gboolean
