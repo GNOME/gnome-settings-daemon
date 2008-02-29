@@ -39,7 +39,7 @@
 
 static char      *gconf_prefix = NULL;
 static gboolean   no_daemon    = TRUE;
-static gboolean   debug        = TRUE;
+static gboolean   debug        = FALSE;
 
 static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, "Enable debugging code", NULL },
