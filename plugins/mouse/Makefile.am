@@ -1,8 +1,4 @@
-NULL =
-
-plugin_LTLIBRARIES = \
-	libmouse.la		\
-	$(NULL)
+plugin_LTLIBRARIES = libmouse.la
 
 libmouse_la_SOURCES = 		\
 	gsd-mouse-plugin.h	\
@@ -12,8 +8,7 @@ libmouse_la_SOURCES = 		\
 	gsd-locate-pointer.h	\
 	gsd-locate-pointer.c	\
 	gsd-timeline.h		\
-	gsd-timeline.c		\
-	$(NULL)
+	gsd-timeline.c
 
 libmouse_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
@@ -25,29 +20,18 @@ libmouse_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libmouse_la_LDFLAGS = 		\
-	$(GSD_PLUGIN_LDFLAGS)	\
-	$(NULL)
+	$(GSD_PLUGIN_LDFLAGS)
 
 libmouse_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(NULL)
+	$(XINPUT_LIBS)
 
-plugin_in_files = 		\
-	mouse.gnome-settings-plugin.in	\
-	$(NULL)
+plugin_in_files = mouse.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-EXTRA_DIST = 			\
-	$(plugin_in_files)	\
-	$(NULL)
-
-CLEANFILES = 			\
-	$(plugin_DATA)		\
-	$(NULL)
-
-DISTCLEANFILES =		\
-	$(plugin_DATA)		\
-	$(NULL)
+EXTRA_DIST = $(plugin_in_files)
+CLEANFILES = $(plugin_DATA)
+DISTCLEANFILES = $(plugin_DATA)
 
 @GSD_INTLTOOL_PLUGIN_RULE@

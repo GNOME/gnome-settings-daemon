@@ -146,9 +146,11 @@ AC_DEFUN([AC_CHECK_X_LIB], [
 
 AC_PATH_XTRA
 
-dnl
-dnl Check for XInput
-dnl
+ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS"
+
+dnl ---------------------------------------------------------------------------
+dnl - XInput
+dnl ---------------------------------------------------------------------------
 
 have_xinput=no
 AC_CHECK_LIB(Xi, XListInputDevices,
@@ -159,9 +161,7 @@ AC_CHECK_LIB(Xi, XListInputDevices,
 	  :, [#include <X11/Xlib.h>])], : ,
        -lXi $x_libs)
 AM_CONDITIONAL(HAVE_XINPUT, [test $have_xinput = yes])
-
-
-ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS $XINPUT_LIBS"
+AC_SUBST(XINPUT_LIBS)
 
 dnl ---------------------------------------------------------------------------
 dnl - XRandR

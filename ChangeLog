@@ -1,3 +1,10 @@
+2008-02-29  Jens Granseuer  <jensgr@gmx.net>
+
+	* configure.ac:
+	* plugins/mouse/Makefile.am: when building with XInput support,
+	actually link against libXi, or we'll fail to load the plugin due
+	to unresolved symbols (bug #519488)
+
 2008-02-29  William Jon McCann  <jmccann@redhat.com>
 
 	* configure.ac: Post release version bump
