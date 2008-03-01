@@ -1,3 +1,9 @@
+2008-03-01  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
+	(ax_response_callback): don't pass the GError argument if we're
+	not going to use it. Also remove some unnecessary casting
+
 2008-02-29  William Jon McCann  <jmccann@redhat.com>
 
 	* gnome-settings-daemon/main.c:

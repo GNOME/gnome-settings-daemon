@@ -343,8 +343,7 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
                       guint                   revert_controls_mask,
                       gboolean                enabled)
 {
-        GError *err = NULL;
-        gboolean success;
+        GError *err;
 
         switch (response_id) {
         case GTK_RESPONSE_DELETE_EVENT:
@@ -357,20 +356,16 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
                 /* we're reverting, so we invert sense of 'enabled' flag */
                 d ("cancelling AccessX request");
                 if (revert_controls_mask == XkbStickyKeysMask) {
-                        success = gconf_client_set_bool (client,
-                                                         CONFIG_ROOT "/stickykeys_enable",
-                                                         !enabled,
-                                                         &err);
-                        if (err != NULL)
-                                g_error_free (err);
+                        gconf_client_set_bool (client,
+                                               CONFIG_ROOT "/stickykeys_enable",
+                                               !enabled,
+                                               NULL);
                 }
-                if (revert_controls_mask == XkbSlowKeysMask) {
-                        success = gconf_client_set_bool (client,
-                                                         CONFIG_ROOT "/slowkeys_enable",
-                                                         !enabled,
-                                                         &err);
-                        if (err != NULL)
-                                g_error_free (err);
+                else if (revert_controls_mask == XkbSlowKeysMask) {
+                        gconf_client_set_bool (client,
+                                               CONFIG_ROOT "/slowkeys_enable",
+                                               !enabled,
+                                               NULL);
                 }
                 gconf_client_suggest_sync (client, NULL);
                 set_server_from_gconf (manager, client);
@@ -380,6 +375,7 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
                 break;
         }
         case GTK_RESPONSE_HELP:
+                err = NULL;
                 gnome_help_display_desktop (NULL,
                                             "user-guide",
                                             "user-guide.xml",
@@ -392,8 +388,7 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
                                                                           GTK_BUTTONS_CLOSE,
                                                                           _("There was an error displaying help: %s"),
                                                                           err->message);
-                        g_signal_connect (G_OBJECT (error_dialog),
-                                          "response",
+                        g_signal_connect (error_dialog, "response",
                                           G_CALLBACK (gtk_widget_destroy), NULL);
                         gtk_window_set_resizable (GTK_WINDOW (error_dialog), FALSE);
                         gtk_widget_show (error_dialog);
