@@ -1,6 +1,15 @@
+2008-03-11  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/typing-break/gsd-typing-break-manager.c:
+	(setup_typing_break): pass data to the timeout so shutting down the
+	typing monitor works instead of segfaulting (bug #521786)
+	(gsd_typing_break_manager_start): use g_timeout_add_seconds instead of
+	g_timeout_add
+
 2008-03-10  Rodrigo Moya <rodrigo@gnome-db.org>
 
 	* configure.ac: Post release version bump
+
 ==== 2.22.0 ====
 
 2008-03-10  Rodrigo Moya <rodrigo@gnome-db.org>

@@ -49,10 +49,6 @@ struct GsdTypingBreakManagerPrivate
         guint setup_id;
 };
 
-enum {
-        PROP_0,
-};
-
 static void     gsd_typing_break_manager_class_init  (GsdTypingBreakManagerClass *klass);
 static void     gsd_typing_break_manager_init        (GsdTypingBreakManager      *typing_break_manager);
 static void     gsd_typing_break_manager_finalize    (GObject             *object);
@@ -105,13 +101,14 @@ setup_typing_break (GsdTypingBreakManager *manager,
 {
         if (! enabled) {
                 if (manager->priv->typing_monitor_pid != 0) {
-                        manager->priv->typing_monitor_idle_id = g_timeout_add (3000, (GSourceFunc)typing_break_timeout, NULL);
+                        manager->priv->typing_monitor_idle_id = g_timeout_add_seconds (3, (GSourceFunc) typing_break_timeout, manager);
                 }
                 return;
         }
 
         if (manager->priv->typing_monitor_idle_id != 0) {
                 g_source_remove (manager->priv->typing_monitor_idle_id);
+                manager->priv->typing_monitor_idle_id = 0;
         }
 
         if (manager->priv->typing_monitor_pid == 0) {
@@ -165,6 +162,7 @@ really_setup_typing_break (GsdTypingBreakManager *manager)
         manager->priv->setup_id = 0;
         return FALSE;
 }
+
 gboolean
 gsd_typing_break_manager_start (GsdTypingBreakManager *manager,
                                 GError               **error)
@@ -181,9 +179,9 @@ gsd_typing_break_manager_start (GsdTypingBreakManager *manager,
         enabled = gconf_client_get_bool (client, "/desktop/gnome/typing_break/enabled", NULL);
         g_object_unref (client);
         if (enabled) {
-                manager->priv->setup_id = g_timeout_add (30000,
-                                                         (GSourceFunc)really_setup_typing_break,
-                                                         manager);
+                manager->priv->setup_id = g_timeout_add_seconds (3,
+                                                                 (GSourceFunc)really_setup_typing_break,
+                                                                 manager);
         }
 
         return TRUE;
