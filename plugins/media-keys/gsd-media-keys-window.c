@@ -915,6 +915,7 @@ gsd_media_keys_window_new (void)
 
         object = g_object_new (GSD_TYPE_MEDIA_KEYS_WINDOW,
                                "type", GTK_WINDOW_POPUP,
+                               "type-hint", GDK_WINDOW_TYPE_HINT_NOTIFICATION,
                                "skip-taskbar-hint", TRUE,
                                "skip-pager-hint", TRUE,
                                "focus-on-map", FALSE,
