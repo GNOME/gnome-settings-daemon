@@ -114,6 +114,7 @@ remove_hide_timeout (GsdMediaKeysWindow *window)
         if (window->priv->fade_timeout_id != 0) {
                 g_source_remove (window->priv->fade_timeout_id);
                 window->priv->fade_timeout_id = 0;
+                window->priv->fade_out_alpha = 1.0;
         }
 }
 

@@ -1,3 +1,10 @@
+2008-03-14  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/media-keys/gsd-media-keys-window.c:
+	(remove_hide_timeout): reset opacity when removing the timeout so that
+	the fadeout is restarted when media keys are pressed while the popup is
+	already fading out (bug #522499)
+
 2008-03-13  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/media-keys/actions/acme.glade: remove unused properties (and,
