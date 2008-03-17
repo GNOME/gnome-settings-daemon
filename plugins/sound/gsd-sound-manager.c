@@ -53,9 +53,9 @@
 
 struct GsdSoundManagerPrivate
 {
-        gboolean padding;
         /* esd/PulseAudio pid */
-        GPid pid;
+        GPid  pid;
+        guint child_watch_id;
 };
 
 enum {
@@ -71,55 +71,114 @@ G_DEFINE_TYPE (GsdSoundManager, gsd_sound_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 static void
-reset_esd_pid (GPid pid, gint status, gpointer user_data)
+reset_esd_pid (GPid             pid,
+               int              status,
+               GsdSoundManager *manager)
 {
-	GsdSoundManager *manager = (GsdSoundManager *) user_data;
+        g_debug ("GsdSoundManager: **** child (pid:%d) done (%s:%d)",
+                 (int) pid,
+                 WIFEXITED (status) ? "status"
+                 : WIFSIGNALED (status) ? "signal"
+                 : "unknown",
+                 WIFEXITED (status) ? WEXITSTATUS (status)
+                 : WIFSIGNALED (status) ? WTERMSIG (status)
+                 : -1);
 
-	if (pid == manager->priv->pid)
-		manager->priv->pid = 0;
+        if (pid == manager->priv->pid) {
+                manager->priv->pid = 0;
+        }
+
+        g_spawn_close_pid (manager->priv->pid);
+        manager->priv->child_watch_id = 0;
 }
 
-/* start_gnome_sound
- *
- * Start GNOME sound.
- */
 static gboolean
 start_gnome_sound (GsdSoundManager *manager)
 {
-	char  *argv[] = { "esd", "-nobeeps", NULL};
-	GError *err = NULL;
-	time_t  starttime;
+        char    *argv[] = { "esd", "-nobeeps", NULL};
+        GError  *error;
+        gboolean res;
+        time_t   starttime;
 
-	if (!g_spawn_async (NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL,
-			    &manager->priv->pid, &err)) {
-		g_printerr ("Could not start esd: %s\n", err->message);
-		g_error_free (err);
-		return FALSE;
-	}
+        error = NULL;
+        res = g_spawn_async (NULL,
+                             argv,
+                             NULL,
+                             G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+                             NULL,
+                             NULL,
+                             &manager->priv->pid,
+                             &error);
+        if (! res) {
+                g_printerr ("Could not start esd: %s\n", error->message);
+                g_error_free (error);
+                return FALSE;
+        }
 
-	g_child_watch_add (manager->priv->pid, reset_esd_pid, NULL);
+        manager->priv->child_watch_id = g_child_watch_add (manager->priv->pid,
+                                                           reset_esd_pid,
+                                                           manager);
 
-	starttime = time (NULL);
-	gnome_sound_init (NULL);
+        starttime = time (NULL);
+        gnome_sound_init (NULL);
 
-	while (gnome_sound_connection_get () < 0
-	       && ((time (NULL) - starttime) < 4))
-	{
-		g_usleep (200);
-		gnome_sound_init (NULL);
-	}
+        while (gnome_sound_connection_get () < 0
+               && ((time (NULL) - starttime) < 4)) {
+                g_usleep (200);
+                gnome_sound_init (NULL);
+        }
 
-	return gnome_sound_connection_get () >= 0;
+        return gnome_sound_connection_get () >= 0;
+}
+
+static int
+wait_on_child (int pid)
+{
+        int status;
+
+ wait_again:
+        if (waitpid (pid, &status, 0) < 0) {
+                if (errno == EINTR) {
+                        goto wait_again;
+                } else if (errno == ECHILD) {
+                        ; /* do nothing, child already reaped */
+                } else {
+                        g_debug ("GsdSoundManager: waitpid () should not fail");
+                }
+        }
+
+        return status;
+}
+
+static void
+stop_child (GsdSoundManager *manager)
+{
+        int exit_status;
+
+        if (manager->priv->pid <= 0) {
+                return;
+        }
+
+        if (manager->priv->child_watch_id > 0) {
+                g_source_remove (manager->priv->child_watch_id);
+                manager->priv->child_watch_id = 0;
+        }
+
+        if (kill (manager->priv->pid, SIGTERM) == -1) {
+                g_printerr ("Failed to kill esd (pid %d)\n", manager->priv->pid);
+                return;
+        }
+
+        exit_status = wait_on_child (manager->priv->pid);
+
+        g_spawn_close_pid (manager->priv->pid);
+        manager->priv->pid = -1;
 }
 
 #ifdef HAVE_ESD
 static gboolean set_esd_standby = TRUE;
 #endif
 
-/* stop_gnome_sound
- *
- * Stop GNOME sound.
- */
 static void
 stop_gnome_sound (GsdSoundManager *manager)
 {
@@ -130,19 +189,13 @@ stop_gnome_sound (GsdSoundManager *manager)
 #else
         gnome_sound_shutdown ();
 
-	if (manager->priv->pid) {
-		if (kill (manager->priv->pid, SIGTERM) == -1)
-			g_printerr ("Failed to kill esd (pid %d)\n", manager->priv->pid);
-		else
-			manager->priv->pid = 0;
-	}
+        stop_child (manager);
 #endif
 }
 
 struct reload_foreach_closure {
         gboolean enable_system_sounds;
 };
-
 
 /* reload_foreach_cb
  *
@@ -233,8 +286,9 @@ apply_settings (GsdSoundManager *manager)
 
         if (enable_sound) {
                 if (gnome_sound_connection_get () < 0) {
-                        if (!start_gnome_sound (manager))
-                            return;
+                        if (!start_gnome_sound (manager)) {
+                                return;
+                        }
                 }
 #ifdef HAVE_ESD
                 else if (set_esd_standby) {
@@ -244,7 +298,7 @@ apply_settings (GsdSoundManager *manager)
 #endif
         } else {
 #ifdef HAVE_ESD
-                if (!set_esd_standby)
+                if (! set_esd_standby)
 #endif
                         stop_gnome_sound (manager);
         }
@@ -363,9 +417,11 @@ gsd_sound_manager_constructor (GType                  type,
 static void
 gsd_sound_manager_dispose (GObject *object)
 {
-        GsdSoundManager *sound_manager;
+        GsdSoundManager *manager;
 
-        sound_manager = GSD_SOUND_MANAGER (object);
+        manager = GSD_SOUND_MANAGER (object);
+
+        stop_child (manager);
 
         G_OBJECT_CLASS (gsd_sound_manager_parent_class)->dispose (object);
 }

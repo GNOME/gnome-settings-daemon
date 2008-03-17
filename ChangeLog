@@ -1,3 +1,10 @@
+2008-03-16  William Jon McCann  <jmccann@redhat.com>
+
+	* plugins/sound/gsd-sound-manager.c: (reset_esd_pid),
+	(start_gnome_sound), (wait_on_child), (stop_child),
+	(stop_gnome_sound), (apply_settings), (gsd_sound_manager_dispose):
+	Fix handling of child process.
+
 2008-03-14  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/media-keys/gsd-media-keys-window.c:
