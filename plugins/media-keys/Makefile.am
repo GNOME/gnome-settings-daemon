@@ -1,3 +1,5 @@
+NULL =
+
 SUBDIRS = actions
 
 plugin_LTLIBRARIES = \
@@ -6,7 +8,8 @@ plugin_LTLIBRARIES = \
 BUILT_SOURCES = 			\
 	gsd-media-keys-manager-glue.h	\
 	gsd-marshal.h			\
-	gsd-marshal.c
+	gsd-marshal.c			\
+	$(NULL)
 
 gsd-media-keys-manager-glue.h: gsd-media-keys-manager.xml Makefile
 	dbus-binding-tool --prefix=gsd_media_keys_manager --mode=glib-server $< > xgen-$(@F) \
@@ -28,7 +31,8 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-window.c		\
 	eggaccelerators.h		\
 	eggaccelerators.c		\
-	$(BUILT_SOURCES)
+	$(BUILT_SOURCES)		\
+	$(NULL)
 
 libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
@@ -57,12 +61,15 @@ plugin_in_files = 		\
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 noinst_PROGRAMS =				\
-	test-media-window
+	test-media-keys				\
+	test-media-window			\
+	$(NULL)
 
 test_media_window_SOURCES =			\
 	gsd-media-keys-window.c			\
 	gsd-media-keys-window.h			\
-	test-media-window.c
+	test-media-window.c			\
+	$(NULL)
 
 test_media_window_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
@@ -77,6 +84,36 @@ test_media_window_CFLAGS = \
 	$(AM_CFLAGS)
 
 test_media_window_LDADD = \
+	$(SETTINGS_DAEMON_LIBS)			\
+	$(SETTINGS_PLUGIN_LIBS)			\
+	$(XF86MISC_LIBS)			\
+	$(GST_LIBS)
+
+test_media_keys_SOURCES =			\
+	gsd-media-keys-manager.c		\
+	gsd-media-keys-manager.h		\
+	gsd-media-keys-window.h			\
+	gsd-media-keys-window.c			\
+	eggaccelerators.h			\
+	eggaccelerators.c			\
+	test-media-keys.c			\
+	$(BUILT_SOURCES)			\
+	$(NULL)
+
+test_media_keys_CPPFLAGS = \
+	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_builddir)/plugins/media-keys/actions		\
+	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
+	-DGLADEDIR=\""$(pkgdatadir)"\"				\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	$(AM_CPPFLAGS)
+
+test_media_keys_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
+test_media_keys_LDADD = \
+	$(top_builddir)/plugins/media-keys/actions/libacme.la	\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(XF86MISC_LIBS)			\

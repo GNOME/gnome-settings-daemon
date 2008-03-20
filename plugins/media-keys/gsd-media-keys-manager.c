@@ -62,7 +62,7 @@
    these modifiers mean
    these are the mods whose combinations are bound by the keygrabbing code */
 #define IGNORED_MODS (0x2000 /*Xkb modifier*/ | GDK_LOCK_MASK  | \
-	GDK_MOD2_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK | GDK_MOD5_MASK)
+       GDK_MOD2_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK | GDK_MOD5_MASK)
 /* these are the ones we actually use for global keys, we always only check
  * for these set */
 #define USED_MODS (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK)
@@ -281,6 +281,7 @@ grab_key_real (Key       *key,
 {
         gdk_error_trap_push ();
         if (grab) {
+                g_debug ("Grab: %d %d %x %s", result, (int)key->keycode, key->state, XKeysymToString (key->keysym));
                 XGrabKey (GDK_DISPLAY (),
                           key->keycode,
                           (result | key->state),
@@ -289,6 +290,7 @@ grab_key_real (Key       *key,
                           GrabModeAsync,
                           GrabModeAsync);
         } else {
+                g_debug ("UnGrab: %d %d %x", result, (int)key->keycode, key->state);
                 XUngrabKey (GDK_DISPLAY (),
                             key->keycode,
                             (result | key->state),
@@ -434,6 +436,7 @@ init_kbd (GsdMediaKeysManager *manager)
                                                keys[i].gconf_key,
                                                NULL);
                 if (!is_valid_shortcut (tmp)) {
+                        g_debug ("Not a valid shortcut: '%s'", tmp);
                         g_free (tmp);
                         continue;
                 }
@@ -441,6 +444,8 @@ init_kbd (GsdMediaKeysManager *manager)
                 key = g_new0 (Key, 1);
                 if (!egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycode, &key->state)
                     || key->keycode == 0) {
+                        g_debug ("Unable to parse: '%s'", tmp);
+
                         g_free (tmp);
                         g_free (key);
                         continue;
@@ -951,6 +956,8 @@ acme_filter_events (GdkXEvent           *xevent,
         keycode = xev->xkey.keycode;
         state = xev->xkey.state;
 
+        g_debug ("Got key: %u state: %u");
+
         for (i = 0; i < HANDLED_KEYS; i++) {
                 if (keys[i].key == NULL) {
                         continue;
@@ -1008,6 +1015,9 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
 
         /* Start filtering the events */
         for (l = manager->priv->screens; l != NULL; l = l->next) {
+                g_debug ("adding key filter for screen: %d",
+                         gdk_screen_get_number (l->data));
+
                 gdk_window_add_filter (gdk_screen_get_root_window (l->data),
                                        (GdkFilterFunc)acme_filter_events,
                                        manager);
