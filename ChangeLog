@@ -1,5 +1,14 @@
 2008-03-24  Jens Granseuer  <jensgr@gmx.net>
 
+	Patch by: Alexey Shabalin <a.shabalin@gmail.com>
+
+	* plugins/sound/gsd-sound-manager.c: (apply_settings): now that
+	"starting esd" can mean either esd or PulseAudio, check the GConf
+	setting for starting the sound server even when esd is disabled
+	(bug #523743)
+
+2008-03-24  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/dummy/Makefile.am: remove NULL definition so authors using
 	this as the base for their own plugins don't get strange ideas
 

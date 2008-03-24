@@ -273,11 +273,7 @@ apply_settings (GsdSoundManager *manager)
 
         client = gconf_client_get_default ();
 
-#ifdef HAVE_ESD
         enable_sound = gconf_client_get_bool (client, "/desktop/gnome/sound/enable_esd", NULL);
-#else
-        enable_sound = TRUE;
-#endif
         event_sounds = gconf_client_get_bool (client, "/desktop/gnome/sound/event_sounds", NULL);
         /* FIXME this is completely bogus, the entry doesn't exist */
         event_changed_new = gconf_client_get_int  (client, "/desktop/gnome/sound/event_changed", NULL);
