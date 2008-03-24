@@ -41,6 +41,7 @@
 #include <libgnomeui/gnome-bg.h>
 #include <X11/Xatom.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-background-manager.h"
 
 #include "preferences.h"
@@ -156,6 +157,8 @@ nautilus_is_running (void)
 static gboolean
 apply_prefs (GsdBackgroundManager *manager)
 {
+        gnome_settings_profile_start (NULL);
+
         if (! nautilus_is_running ()) {
                 GdkDisplay      *display;
                 int              n_screens;
@@ -236,6 +239,8 @@ apply_prefs (GsdBackgroundManager *manager)
                 }
         }
 
+        gnome_settings_profile_end (NULL);
+
         return FALSE;
 }
 
@@ -275,6 +280,7 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
         gboolean nautilus_show_desktop;
 
         g_debug ("Starting background manager");
+        gnome_settings_profile_start (NULL);
 
         manager->priv->prefs = BG_PREFERENCES (bg_preferences_new ());
         manager->priv->bg = gnome_bg_new ();
@@ -300,13 +306,16 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
 	 * don't waste time setting the background only to have
 	 * nautilus overwrite it.
 	 */
-	nautilus_show_desktop = gconf_client_get_bool (client,
+        nautilus_show_desktop = gconf_client_get_bool (client,
                                                        "/apps/nautilus/preferences/show_desktop",
                                                        NULL);
         g_object_unref (client);
 
-        if (!nautilus_show_desktop)
+        if (!nautilus_show_desktop) {
                 apply_prefs (manager);
+        }
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }
@@ -317,21 +326,21 @@ gsd_background_manager_stop (GsdBackgroundManager *manager)
         g_debug ("Stopping background manager");
 
         if (manager->priv->prefs != NULL) {
-        	g_object_unref (manager->priv->prefs);
-        	manager->priv->prefs = NULL;
+                g_object_unref (manager->priv->prefs);
+                manager->priv->prefs = NULL;
         }
 
         if (manager->priv->bg != NULL) {
-        	g_object_unref (manager->priv->bg);
-        	manager->priv->bg = NULL;
+                g_object_unref (manager->priv->bg);
+                manager->priv->bg = NULL;
         }
 }
 
 static void
 gsd_background_manager_set_property (GObject        *object,
-                               guint           prop_id,
-                               const GValue   *value,
-                               GParamSpec     *pspec)
+                                     guint           prop_id,
+                                     const GValue   *value,
+                                     GParamSpec     *pspec)
 {
         GsdBackgroundManager *self;
 
@@ -346,9 +355,9 @@ gsd_background_manager_set_property (GObject        *object,
 
 static void
 gsd_background_manager_get_property (GObject        *object,
-                               guint           prop_id,
-                               GValue         *value,
-                               GParamSpec     *pspec)
+                                     guint           prop_id,
+                                     GValue         *value,
+                                     GParamSpec     *pspec)
 {
         GsdBackgroundManager *self;
 
@@ -363,8 +372,8 @@ gsd_background_manager_get_property (GObject        *object,
 
 static GObject *
 gsd_background_manager_constructor (GType                  type,
-                              guint                  n_construct_properties,
-                              GObjectConstructParam *construct_properties)
+                                    guint                  n_construct_properties,
+                                    GObjectConstructParam *construct_properties)
 {
         GsdBackgroundManager      *background_manager;
         GsdBackgroundManagerClass *klass;

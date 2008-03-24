@@ -43,6 +43,7 @@
 
 #include <libgnomeui/gnome-help.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-a11y-keyboard-manager.h"
 
 #define CONFIG_ROOT "/desktop/gnome/accessibility/keyboard"
@@ -207,6 +208,8 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
         XkbDescRec      *desc;
         gboolean         enable_accessX;
 
+        gnome_settings_profile_start (NULL);
+
         desc = get_xkb_desc_rec (manager);
         if (!desc) {
                 d ("No XKB present\n");
@@ -335,6 +338,8 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
 
         XSync (GDK_DISPLAY (), FALSE);
         gdk_error_trap_pop ();
+
+        gnome_settings_profile_end (NULL);
 }
 
 static gboolean
@@ -727,9 +732,12 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
 {
         guint        event_mask;
         GConfClient *client;
+        gboolean     ret;
+
+        ret = FALSE;
 
         g_debug ("Starting a11y_keyboard manager");
-
+        gnome_settings_profile_start (NULL);
         register_config_callback (manager,
                                   CONFIG_ROOT,
                                   (GConfClientNotifyFunc)keyboard_callback);
@@ -743,7 +751,7 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
                 g_set_error (error, GSD_KBD_A11Y_ERROR,
                              GSD_KBD_A11Y_ERROR_NOT_AVAILABLE,
                              "XKB functionality is disabled.");
-                return FALSE;
+                goto out;
         }
 
         client = gconf_client_get_default ();
@@ -763,8 +771,10 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
         gdk_window_add_filter (NULL,
                                (GdkFilterFunc)cb_xkb_event_filter,
                                manager);
-
-        return TRUE;
+        ret = TRUE;
+ out:
+        gnome_settings_profile_end (NULL);
+        return ret;
 }
 
 void

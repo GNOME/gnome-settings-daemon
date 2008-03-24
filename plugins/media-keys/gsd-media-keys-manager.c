@@ -42,6 +42,7 @@
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-marshal.h"
 #include "gsd-media-keys-manager.h"
 #include "gsd-media-keys-manager-glue.h"
@@ -421,6 +422,8 @@ init_kbd (GsdMediaKeysManager *manager)
 {
         int i;
 
+        gnome_settings_profile_start (NULL);
+
         for (i = 0; i < HANDLED_KEYS; i++) {
                 char *tmp;
                 Key  *key;
@@ -464,6 +467,8 @@ init_kbd (GsdMediaKeysManager *manager)
 
                 grab_key (manager, key, TRUE);
         }
+
+        gnome_settings_profile_end (NULL);
 }
 
 static void
@@ -997,7 +1002,7 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         GSList *l;
 
         g_debug ("Starting media_keys manager");
-
+        gnome_settings_profile_start (NULL);
         manager->priv->conf_client = gconf_client_get_default ();
 
         gconf_client_add_dir (manager->priv->conf_client,
@@ -1020,6 +1025,8 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
                                        (GdkFilterFunc)acme_filter_events,
                                        manager);
         }
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

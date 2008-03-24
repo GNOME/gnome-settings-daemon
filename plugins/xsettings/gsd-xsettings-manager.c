@@ -37,6 +37,7 @@
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-xsettings-manager.h"
 #include "xsettings-manager.h"
 
@@ -355,6 +356,9 @@ xft_settings_set_xsettings (GnomeXSettingsManager *manager,
                             GnomeXftSettings      *settings)
 {
         int i;
+
+        gnome_settings_profile_start (NULL);
+
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/Antialias", settings->antialias);
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/Hinting", settings->hinting);
@@ -362,6 +366,7 @@ xft_settings_set_xsettings (GnomeXSettingsManager *manager,
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/DPI", settings->dpi);
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/RGBA", settings->rgba);
         }
+        gnome_settings_profile_end (NULL);
 }
 
 static gboolean
@@ -451,6 +456,8 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
         GString    *add_string;
         char        dpibuf[G_ASCII_DTOSTR_BUF_SIZE];
 
+        gnome_settings_profile_start (NULL);
+
         command = "xrdb -nocpp -merge";
 
         add_string = g_string_new (NULL);
@@ -474,6 +481,8 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
         spawn_with_input (command, add_string->str);
 
         g_string_free (add_string, TRUE);
+
+        gnome_settings_profile_end (NULL);
 }
 
 /* We mirror the Xft properties both through XSETTINGS and through
@@ -485,9 +494,13 @@ update_xft_settings (GnomeXSettingsManager *manager,
 {
         GnomeXftSettings settings;
 
+        gnome_settings_profile_start (NULL);
+
         xft_settings_get (client, &settings);
         xft_settings_set_xsettings (manager, &settings);
         xft_settings_set_xresources (&settings);
+
+        gnome_settings_profile_end (NULL);
 }
 
 static void
@@ -564,6 +577,7 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         int          i;
 
         g_debug ("Starting xsettings manager");
+        gnome_settings_profile_start (NULL);
 
         client = gconf_client_get_default ();
 
@@ -603,6 +617,8 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_notify (manager->priv->managers [i]);
         }
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

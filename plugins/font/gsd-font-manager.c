@@ -41,6 +41,7 @@
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-font-manager.h"
 #include "delayed-dialog.h"
 
@@ -151,6 +152,8 @@ load_xcursor_theme (GConfClient *client)
         GString    *add_string;
         const char *command;
 
+        gnome_settings_profile_start (NULL);
+
         command = "xrdb -nocpp -merge";
 
         add_string = g_string_new (NULL);
@@ -178,6 +181,8 @@ load_xcursor_theme (GConfClient *client)
 
         g_free (cursor_theme);
         g_string_free (add_string, TRUE);
+
+        gnome_settings_profile_end (NULL);
 }
 
 static void
@@ -194,6 +199,8 @@ load_cursor (GConfClient *client)
         int            new_n_fonts;
         int            i;
         char          *mkfontdir_cmd;
+
+        gnome_settings_profile_start (NULL);
 
         /* setting up the dir */
         font_dir_name = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome2/share/fonts", NULL);
@@ -317,6 +324,8 @@ load_cursor (GConfClient *client)
 
         XFreeFontPath (font_path);
 
+        gnome_settings_profile_end (NULL);
+
         g_free (new_font_path);
         g_free (font_dir_name);
         g_free (dir_name);
@@ -329,6 +338,7 @@ gsd_font_manager_start (GsdFontManager *manager,
         GConfClient *client;
 
         g_debug ("Starting font manager");
+        gnome_settings_profile_start (NULL);
 
         client = gconf_client_get_default ();
 
@@ -336,6 +346,8 @@ gsd_font_manager_start (GsdFontManager *manager,
         load_cursor (client);
 
         g_object_unref (client);
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

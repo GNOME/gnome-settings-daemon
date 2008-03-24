@@ -41,6 +41,7 @@
 #include <X11/extensions/Xrandr.h>
 #endif
 
+#include "gnome-settings-profile.h"
 #include "gsd-xrandr-manager.h"
 
 static void     gsd_xrandr_manager_class_init  (GsdXrandrManagerClass *klass);
@@ -195,18 +196,20 @@ apply_settings (GsdXrandrManager *manager)
         int          i;
         int          residx;
 
+        gnome_settings_profile_start (NULL);
+
         display = gdk_display_get_default ();
         xdisplay = gdk_x11_display_get_xdisplay (display);
 
         /* Check if XRandR is supported on the display */
         if (!XRRQueryExtension (xdisplay, &event_base, &error_base)
             || XRRQueryVersion (xdisplay, &major, &minor) == 0) {
-                return;
+                goto out;
         }
 
         if (major != 1 || minor < 1) {
                 g_message ("Display has unsupported version of XRandR (%d.%d), not setting resolution.", major, minor);
-                return;
+                goto out;
         }
 
         client = gconf_client_get_default ();
@@ -291,6 +294,8 @@ apply_settings (GsdXrandrManager *manager)
         if (client != NULL) {
                 g_object_unref (client);
         }
+ out:
+        gnome_settings_profile_end (NULL);
 
 #endif /* HAVE_RANDR */
 }

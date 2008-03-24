@@ -48,6 +48,7 @@
 #include "libsounds/sound-properties.h"
 
 #include "gsd-sound-manager.h"
+#include "gnome-settings-profile.h"
 
 #define GSD_SOUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_SOUND_MANAGER, GsdSoundManagerPrivate))
 
@@ -99,6 +100,11 @@ start_gnome_sound (GsdSoundManager *manager)
         GError  *error;
         gboolean res;
         time_t   starttime;
+        gboolean ret;
+
+        ret = FALSE;
+
+        gnome_settings_profile_start (NULL);
 
         error = NULL;
         res = g_spawn_async (NULL,
@@ -112,7 +118,7 @@ start_gnome_sound (GsdSoundManager *manager)
         if (! res) {
                 g_printerr ("Could not start esd: %s\n", error->message);
                 g_error_free (error);
-                return FALSE;
+                goto out;
         }
 
         manager->priv->child_watch_id = g_child_watch_add (manager->priv->pid,
@@ -128,7 +134,12 @@ start_gnome_sound (GsdSoundManager *manager)
                 gnome_sound_init (NULL);
         }
 
-        return gnome_sound_connection_get () >= 0;
+        ret = gnome_sound_connection_get () >= 0;
+
+ out:
+        gnome_settings_profile_end (NULL);
+
+        return ret;
 }
 
 static int
@@ -211,6 +222,8 @@ reload_foreach_cb (SoundEvent *event, gpointer data)
 
         closure = data;
 
+        gnome_settings_profile_start (NULL);
+
         key = sound_event_compose_key (event);
 
 #ifdef HAVE_ESD
@@ -218,24 +231,28 @@ reload_foreach_cb (SoundEvent *event, gpointer data)
          * esd allows multiple samples with the same name,
          * putting memory to waste. */
         sid = esd_sample_getid (gnome_sound_connection_get (), key);
-        if (sid >= 0)
+        if (sid >= 0) {
                 esd_sample_free (gnome_sound_connection_get (), sid);
+        }
 #endif
         /* We only disable sounds for system events.  Other events, like sounds
          * in games, should be preserved.  The games should have their own
          * configuration for sound anyway.
          */
         if ((strcmp (event->category, "gnome-2") == 0
-             || strcmp (event->category, "gtk-events-2") == 0))
+             || strcmp (event->category, "gtk-events-2") == 0)) {
                 do_load = closure->enable_system_sounds;
-        else
+        } else {
                 do_load = TRUE;
+        }
 
-        if (!do_load)
+        if (!do_load) {
                 goto out;
+        }
 
-        if (!event->file || !strcmp (event->file, ""))
+        if (!event->file || !strcmp (event->file, "")) {
                 goto out;
+        }
 
         if (event->file[0] == '/') {
                 file = g_strdup (event->file);
@@ -245,18 +262,22 @@ reload_foreach_cb (SoundEvent *event, gpointer data)
                                                   event->file, TRUE, NULL);
         }
 
-        if (!file)
+        if (!file) {
                 goto out;
+        }
 
         sid = gnome_sound_sample_load (key, file);
 
-        if (sid < 0)
+        if (sid < 0) {
                 g_warning (_("Couldn't load sound file %s as sample %s"),
                            file, key);
+        }
 
         g_free (file);
 
  out:
+        gnome_settings_profile_end (NULL);
+
         g_free (key);
 }
 
@@ -271,6 +292,8 @@ apply_settings (GsdSoundManager *manager)
         gboolean        event_sounds;
         struct reload_foreach_closure closure;
 
+        gnome_settings_profile_start (NULL);
+
         client = gconf_client_get_default ();
 
         enable_sound = gconf_client_get_bool (client, "/desktop/gnome/sound/enable_esd", NULL);
@@ -283,7 +306,7 @@ apply_settings (GsdSoundManager *manager)
         if (enable_sound) {
                 if (gnome_sound_connection_get () < 0) {
                         if (!start_gnome_sound (manager)) {
-                                return;
+                                goto out;
                         }
                 }
 #ifdef HAVE_ESD
@@ -311,6 +334,9 @@ apply_settings (GsdSoundManager *manager)
                 sound_properties_foreach (props, reload_foreach_cb, &closure);
                 gtk_object_destroy (GTK_OBJECT (props));
         }
+ out:
+        gnome_settings_profile_end (NULL);
+
 }
 
 static void
@@ -343,10 +369,14 @@ gsd_sound_manager_start (GsdSoundManager *manager,
 {
         g_debug ("Starting sound manager");
 
+        gnome_settings_profile_start (NULL);
+
         register_config_callback (manager,
                                   "/desktop/gnome/sound",
                                   (GConfClientNotifyFunc)sound_callback);
         apply_settings (manager);
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

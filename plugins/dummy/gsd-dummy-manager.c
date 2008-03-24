@@ -36,6 +36,7 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-dummy-manager.h"
 
 #define GSD_DUMMY_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_DUMMY_MANAGER, GsdDummyManagerPrivate))
@@ -62,7 +63,8 @@ gsd_dummy_manager_start (GsdDummyManager *manager,
                                GError               **error)
 {
         g_debug ("Starting dummy manager");
-
+        gnome_settings_profile_start (NULL);
+        gnome_settings_profile_end (NULL);
         return TRUE;
 }
 

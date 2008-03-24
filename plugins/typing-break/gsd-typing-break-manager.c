@@ -37,6 +37,7 @@
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-typing-break-manager.h"
 
 #define GSD_TYPING_BREAK_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_TYPING_BREAK_MANAGER, GsdTypingBreakManagerPrivate))
@@ -99,6 +100,8 @@ static void
 setup_typing_break (GsdTypingBreakManager *manager,
                     gboolean               enabled)
 {
+        gnome_settings_profile_start (NULL);
+
         if (! enabled) {
                 if (manager->priv->typing_monitor_pid != 0) {
                         manager->priv->typing_monitor_idle_id = g_timeout_add_seconds (3, (GSourceFunc) typing_break_timeout, manager);
@@ -140,6 +143,8 @@ setup_typing_break (GsdTypingBreakManager *manager,
                                                                    (GChildWatchFunc)child_watch,
                                                                    manager);
         }
+
+        gnome_settings_profile_end (NULL);
 }
 
 static void
@@ -171,6 +176,8 @@ gsd_typing_break_manager_start (GsdTypingBreakManager *manager,
         gboolean     enabled;
 
         g_debug ("Starting typing_break manager");
+        gnome_settings_profile_start (NULL);
+
         register_config_callback (manager,
                                   "/desktop/gnome/typing_break",
                                   (GConfClientNotifyFunc)typing_break_callback);
@@ -183,6 +190,8 @@ gsd_typing_break_manager_start (GsdTypingBreakManager *manager,
                                                                  (GSourceFunc)really_setup_typing_break,
                                                                  manager);
         }
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

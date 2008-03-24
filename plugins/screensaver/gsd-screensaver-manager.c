@@ -37,6 +37,7 @@
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-screensaver-manager.h"
 
 #define START_SCREENSAVER_KEY   "/apps/gnome_settings_daemon/screensaver/start_screensaver"
@@ -86,6 +87,7 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
         GConfClient *client;
 
         g_debug ("Starting screensaver manager");
+        gnome_settings_profile_start (NULL);
 
         /*
 	 * with gnome-screensaver, all settings are loaded internally
@@ -180,6 +182,8 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
 
         g_propagate_error (error, gerr);
         g_object_unref (client);
+
+        gnome_settings_profile_end (NULL);
 
         return FALSE;
 }

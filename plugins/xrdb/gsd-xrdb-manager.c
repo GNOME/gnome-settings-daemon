@@ -37,6 +37,7 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-xrdb-manager.h"
 
 #define GSD_XRDB_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRDB_MANAGER, GsdXrdbManagerPrivate))
@@ -433,6 +434,8 @@ apply_settings (GsdXrdbManager *manager,
         GSList     *p;
         GError     *error;
 
+        gnome_settings_profile_start (NULL);
+
         command = "xrdb -merge";
 
         string = g_string_sized_new (256);
@@ -474,6 +477,8 @@ apply_settings (GsdXrdbManager *manager,
         spawn_with_input (command, string->str);
         g_string_free (string, TRUE);
 
+        gnome_settings_profile_end (NULL);
+
         return;
 }
 
@@ -491,6 +496,8 @@ gsd_xrdb_manager_start (GsdXrdbManager *manager,
 {
         static gboolean initialized = FALSE;
 
+        gnome_settings_profile_start (NULL);
+
         if (! initialized) {
                 GtkSettings *settings;
                 /* the initialization is done here otherwise
@@ -506,6 +513,8 @@ gsd_xrdb_manager_start (GsdXrdbManager *manager,
                 gtk_widget_ensure_style (manager->priv->widget);
                 initialized = TRUE;
         }
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

@@ -44,6 +44,7 @@
 #include "xutils.h"
 #include "list.h"
 
+#include "gnome-settings-profile.h"
 #include "gsd-clipboard-manager.h"
 
 #define GSD_CLIPBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_CLIPBOARD_MANAGER, GsdClipboardManagerPrivate))
@@ -864,14 +865,15 @@ gsd_clipboard_manager_start (GsdClipboardManager *manager,
         XClientMessageEvent xev;
 
         g_debug ("Starting clipboard manager");
+        gnome_settings_profile_start (NULL);
 
         init_atoms (manager->priv->display);
 
         /* check if there is a clipboard manager running */
         if (XGetSelectionOwner (manager->priv->display, XA_CLIPBOARD_MANAGER)) {
-        	g_set_error (error, GSD_CLIPBOARD_ERROR,
-        	             GSD_CLIPBOARD_ERROR_RUNNING,
-        	             "Clipboard manager is already running.");
+                g_set_error (error, GSD_CLIPBOARD_ERROR,
+                             GSD_CLIPBOARD_ERROR_RUNNING,
+                             "Clipboard manager is already running.");
                 return FALSE;
         }
 
@@ -928,11 +930,13 @@ gsd_clipboard_manager_start (GsdClipboardManager *manager,
                                             NULL);
                 /* FIXME: manager->priv->terminate (manager->priv->cb_data); */
 
-        	g_set_error (error, GSD_CLIPBOARD_ERROR,
-        	             GSD_CLIPBOARD_ERROR_FAILED,
-        	             "Failed to claim selection.");
+                g_set_error (error, GSD_CLIPBOARD_ERROR,
+                             GSD_CLIPBOARD_ERROR_FAILED,
+                             "Failed to claim selection.");
                 return FALSE;
         }
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

@@ -45,6 +45,7 @@
 #include <X11/keysym.h>
 #endif
 
+#include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
 
 #include "gsd-keyboard-xkb.h"
@@ -410,6 +411,8 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
 {
         GConfClient *client;
 
+        gnome_settings_profile_start (NULL);
+
         client = gconf_client_get_default ();
         g_debug ("Starting keyboard manager");
         /* Essential - xkb initialization should happen before */
@@ -425,6 +428,8 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         g_object_unref (client);
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

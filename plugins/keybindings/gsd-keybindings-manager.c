@@ -38,6 +38,7 @@
 #include <X11/keysym.h>
 #include <gconf/gconf-client.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-keybindings-manager.h"
 
 #include "eggaccelerators.h"
@@ -562,12 +563,16 @@ gsd_keybindings_manager_start (GsdKeybindingsManager *manager,
         GConfClient *client;
         GSList      *list;
         GSList      *li;
-        GdkDisplay  *dpy = gdk_display_get_default ();
+        GdkDisplay  *dpy;
         GdkScreen   *screen;
-        int          screen_num = gdk_display_get_n_screens (dpy);
+        int          screen_num;
         int          i;
 
         g_debug ("Starting keybindings manager");
+        gnome_settings_profile_start (NULL);
+
+        dpy = gdk_display_get_default ();
+        screen_num = gdk_display_get_n_screens (dpy);
 
         register_config_callback (manager,
                                   GCONF_BINDING_DIR,
@@ -594,6 +599,8 @@ gsd_keybindings_manager_start (GsdKeybindingsManager *manager,
         g_object_unref (client);
 
         binding_register_keys (manager);
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

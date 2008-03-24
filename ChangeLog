@@ -1,5 +1,40 @@
 2008-03-24  William Jon McCann  <jmccann@redhat.com>
 
+	* gnome-settings-daemon/Makefile.am:
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
+	(set_server_from_gconf), (gsd_a11y_keyboard_manager_start):
+	* plugins/background/Makefile.am:
+	* plugins/background/gsd-background-manager.c: (apply_prefs),
+	(gsd_background_manager_start):
+	* plugins/clipboard/gsd-clipboard-manager.c:
+	(gsd_clipboard_manager_start):
+	* plugins/dummy/gsd-dummy-manager.c: (gsd_dummy_manager_start):
+	* plugins/font/gsd-font-manager.c: (load_xcursor_theme),
+	(load_cursor), (gsd_font_manager_start):
+	* plugins/keybindings/gsd-keybindings-manager.c:
+	(gsd_keybindings_manager_start):
+	* plugins/keyboard/gsd-keyboard-manager.c:
+	(gsd_keyboard_manager_start):
+	* plugins/media-keys/Makefile.am:
+	* plugins/media-keys/gsd-media-keys-manager.c: (init_kbd),
+	(gsd_media_keys_manager_start):
+	* plugins/mouse/gsd-mouse-manager.c: (gsd_mouse_manager_start):
+	* plugins/screensaver/gsd-screensaver-manager.c:
+	(gsd_screensaver_manager_start):
+	* plugins/sound/gsd-sound-manager.c: (start_gnome_sound),
+	(reload_foreach_cb), (apply_settings), (gsd_sound_manager_start):
+	* plugins/typing-break/gsd-typing-break-manager.c:
+	(setup_typing_break), (gsd_typing_break_manager_start):
+	* plugins/xrandr/gsd-xrandr-manager.c: (apply_settings):
+	* plugins/xrdb/gsd-xrdb-manager.c: (apply_settings),
+	(gsd_xrdb_manager_start):
+	* plugins/xsettings/gsd-xsettings-manager.c:
+	(xft_settings_set_xsettings), (xft_settings_set_xresources),
+	(update_xft_settings), (gnome_xsettings_manager_start):
+	Add profiling points to plugins.
+
+2008-03-24  William Jon McCann  <jmccann@redhat.com>
+
 	* gnome-settings-daemon/gnome-settings-manager.c:
 	(compare_location), (_load_file), (_load_dir):
 	* gnome-settings-daemon/gnome-settings-plugin-info.c: (debug_info),

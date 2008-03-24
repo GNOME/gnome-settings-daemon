@@ -45,6 +45,7 @@
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 
+#include "gnome-settings-profile.h"
 #include "gsd-mouse-manager.h"
 
 #include "gsd-locate-pointer.h"
@@ -651,6 +652,7 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
         GConfClient *client;
 
         g_debug ("Starting mouse manager");
+        gnome_settings_profile_start (NULL);
 
         client = gconf_client_get_default ();
 
@@ -663,6 +665,8 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
                                 gconf_client_get_bool (client, KEY_DELAY_ENABLE, NULL));
 
         g_object_unref (client);
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }
