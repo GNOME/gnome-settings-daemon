@@ -34,6 +34,7 @@
 #include <dbus/dbus-glib-lowlevel.h>
 
 #include "gnome-settings-manager.h"
+#include "gnome-settings-profile.h"
 
 #define GSD_DBUS_NAME         "org.gnome.SettingsDaemon"
 
@@ -139,6 +140,8 @@ bus_register (void)
         DBusGProxy      *bus_proxy;
         gboolean         ret;
 
+        gnome_settings_profile_start (NULL);
+
         ret = FALSE;
 
         bus = get_session_bus ();
@@ -163,6 +166,8 @@ bus_register (void)
         ret = TRUE;
 
  out:
+        gnome_settings_profile_end (NULL);
+
         return ret;
 }
 
@@ -224,14 +229,18 @@ main (int argc, char *argv[])
                 goto out;
         }
 
+        gnome_settings_profile_start ("gnome_program_init");
         program = gnome_program_init (PACKAGE,
                                       VERSION,
                                       LIBGNOME_MODULE,
                                       argc,
                                       argv,
                                       GNOME_PARAM_NONE);
+        gnome_settings_profile_end ("gnome_program_init");
 
+        gnome_settings_profile_start ("gnome_settings_manager_new");
         manager = gnome_settings_manager_new ();
+        gnome_settings_profile_end ("gnome_settings_manager_new");
         if (manager == NULL) {
                 g_warning ("Unable to register object");
                 goto out;

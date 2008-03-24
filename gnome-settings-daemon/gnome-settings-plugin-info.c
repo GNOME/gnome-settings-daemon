@@ -30,6 +30,7 @@
 #include "gnome-settings-plugin-info.h"
 #include "gnome-settings-module.h"
 #include "gnome-settings-plugin.h"
+#include "gnome-settings-profile.h"
 
 #define GNOME_SETTINGS_PLUGIN_INFO_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_SETTINGS_PLUGIN_INFO, GnomeSettingsPluginInfoPrivate))
 
@@ -175,6 +176,8 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
         int       priority;
         gboolean  ret;
 
+        gnome_settings_profile_start (NULL);
+
         ret = FALSE;
 
         info->priv->file = g_strdup (filename);
@@ -275,6 +278,8 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
 
         ret = TRUE;
  out:
+        gnome_settings_profile_end (NULL);
+
         return ret;
 }
 
@@ -359,14 +364,19 @@ gnome_settings_plugin_info_deactivate (GnomeSettingsPluginInfo *info)
 static gboolean
 load_plugin_module (GnomeSettingsPluginInfo *info)
 {
-        char *path;
-        char *dirname;
+        char    *path;
+        char    *dirname;
+        gboolean ret;
+
+        ret = FALSE;
 
         g_return_val_if_fail (info != NULL, FALSE);
         g_return_val_if_fail (info->priv->file != NULL, FALSE);
         g_return_val_if_fail (info->priv->location != NULL, FALSE);
         g_return_val_if_fail (info->priv->plugin == NULL, FALSE);
         g_return_val_if_fail (info->priv->available, FALSE);
+
+        gnome_settings_profile_start (NULL);
 
         switch (info->priv->loader) {
                 case GNOME_SETTINGS_PLUGIN_LOADER_C:
@@ -395,7 +405,7 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
                                            "was not able to initialize the Python interpreter.",
                                            info->priv->name);
 
-                                return FALSE;
+                                goto out;
                         }
 
                         dir = g_path_get_dirname (info->priv->file);
@@ -439,7 +449,7 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
                 /* Mark plugin as unavailable and fails */
                 info->priv->available = FALSE;
 
-                return FALSE;
+                goto out;
         }
 
         switch (info->priv->loader) {
@@ -460,8 +470,10 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
         }
 
         g_type_module_unuse (info->priv->module);
-
-        return TRUE;
+        ret = TRUE;
+ out:
+        gnome_settings_profile_end (NULL);
+        return ret;
 }
 
 static gboolean
@@ -474,8 +486,9 @@ _activate_plugin (GnomeSettingsPluginInfo *info)
                 return FALSE;
         }
 
-        if (info->priv->plugin == NULL)
+        if (info->priv->plugin == NULL) {
                 res = load_plugin_module (info);
+        }
 
         if (res) {
                 gnome_settings_plugin_activate (info->priv->plugin);

@@ -36,6 +36,7 @@
 #include "gnome-settings-plugin-info.h"
 #include "gnome-settings-manager.h"
 #include "gnome-settings-manager-glue.h"
+#include "gnome-settings-profile.h"
 
 #define GSD_MANAGER_DBUS_PATH "/org/gnome/SettingsDaemon"
 
@@ -155,19 +156,23 @@ _load_file (GnomeSettingsManager *manager,
         GConfClient             *client;
         int                      priority;
         GError                  *error;
+        GSList                  *l;
 
         g_debug ("Loading plugin: %s", filename);
+        gnome_settings_profile_start (NULL);
 
         info = gnome_settings_plugin_info_new_from_file (filename);
         if (info == NULL) {
-                return;
+                goto out;
         }
 
-        if (g_slist_find_custom (manager->priv->plugins,
+        gnome_settings_profile_start ("seeing if already loaded");
+        l = g_slist_find_custom (manager->priv->plugins,
                                  info,
-                                 (GCompareFunc) compare_location)) {
-                g_object_unref (info);
-                return;
+                                 (GCompareFunc) compare_location);
+        gnome_settings_profile_end ("seeing if already loaded");
+        if (l != NULL) {
+                goto out;
         }
 
         /* list takes ownership of ref */
@@ -178,12 +183,15 @@ _load_file (GnomeSettingsManager *manager,
         g_signal_connect (info, "deactivated",
                           G_CALLBACK (on_plugin_deactivated), manager);
 
+        gnome_settings_profile_start ("setting active property");
         key_name = g_strdup_printf ("%s/%s/active",
                                     manager->priv->settings_prefix,
                                     gnome_settings_plugin_info_get_location (info));
         gnome_settings_plugin_info_set_enabled_key_name (info, key_name);
         g_free (key_name);
+        gnome_settings_profile_end ("setting active property");
 
+        gnome_settings_profile_start ("setting priority property");
         key_name = g_strdup_printf ("%s/%s/priority",
                                     manager->priv->settings_prefix,
                                     gnome_settings_plugin_info_get_location (info));
@@ -197,9 +205,16 @@ _load_file (GnomeSettingsManager *manager,
         } else {
                 g_error_free (error);
         }
-        g_object_unref (client);
         g_free (key_name);
+        g_object_unref (client);
+        gnome_settings_profile_end ("setting priority property");
 
+ out:
+        if (info != NULL) {
+                g_object_unref (info);
+        }
+
+        gnome_settings_profile_end (NULL);
 }
 
 static void
@@ -211,6 +226,7 @@ _load_dir (GnomeSettingsManager *manager,
         const char *name;
 
         g_debug ("Loading settings plugins from dir: %s", path);
+        gnome_settings_profile_start (NULL);
 
         error = NULL;
         d = g_dir_open (path, 0, &error);
@@ -234,16 +250,21 @@ _load_dir (GnomeSettingsManager *manager,
         }
 
         g_dir_close (d);
+
+        gnome_settings_profile_end (NULL);
 }
 
 static void
 _load_all (GnomeSettingsManager *manager)
 {
+        gnome_settings_profile_start (NULL);
+
         /* load system plugins */
         _load_dir (manager, GNOME_SETTINGS_PLUGINDIR G_DIR_SEPARATOR_S);
 
         manager->priv->plugins = g_slist_sort (manager->priv->plugins, (GCompareFunc) compare_priority);
         g_slist_foreach (manager->priv->plugins, (GFunc) maybe_activate_plugin, NULL);
+        gnome_settings_profile_end (NULL);
 }
 
 static void
@@ -294,6 +315,8 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
 {
         g_debug ("Starting settings manager");
 
+        gnome_settings_profile_start (NULL);
+
         if (!g_module_supported ()) {
                 g_warning ("gnome-settings-daemon is not able to initialize the plugins.");
                 g_set_error (error,
@@ -305,6 +328,8 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
         }
 
         _load_all (manager);
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

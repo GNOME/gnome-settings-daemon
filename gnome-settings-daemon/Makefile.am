@@ -1,3 +1,5 @@
+NULL =
+
 INCLUDES = \
 	-DDATADIR=\""$(datadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -5,7 +7,8 @@ INCLUDES = \
 	-DGNOME_SETTINGS_PLUGINDIR=\""$(plugindir)"\"		\
 	$(WARN_CFLAGS)						\
 	$(DISABLE_DEPRECATED_CFLAGS)				\
-	$(SETTINGS_DAEMON_CFLAGS)
+	$(SETTINGS_DAEMON_CFLAGS)				\
+	$(NULL)
 
 gsddir = $(libexecdir)
 
@@ -20,7 +23,8 @@ gnome-settings-client.h: gnome-settings-manager.xml Makefile.am
 
 BUILT_SOURCES = 			\
 	gnome-settings-manager-glue.h	\
-	gnome-settings-client.h
+	gnome-settings-client.h		\
+	$(NULL)
 
 Dbusapidir   = $(includedir)/gnome-settings-daemon-2.0/gnome-settings-daemon
 Dbusapi_DATA = gnome-settings-client.h
@@ -34,7 +38,10 @@ gnome_settings_daemon_SOURCES =		\
 	gnome-settings-plugin-info.c	\
 	gnome-settings-plugin-info.h	\
 	gnome-settings-module.c		\
-	gnome-settings-module.h
+	gnome-settings-module.h		\
+	gnome-settings-profile.c	\
+	gnome-settings-profile.h	\
+	$(NULL)
 
 gnome_settings_daemon_CPPFLAGS = \
 	$(AM_CPPFLAGS)
@@ -50,10 +57,12 @@ gnome_settings_daemon_LDADD = 		\
 
 EXTRA_DIST = 				\
 	$(Dbusapi_DATA)			\
-	gnome-settings-manager.xml
+	gnome-settings-manager.xml	\
+	$(NULL)
 
 CLEANFILES = 				\
-	$(BUILT_SOURCES)
+	$(BUILT_SOURCES)		\
+	$(NULL)
 
 
 # vim: ts=8

@@ -1,3 +1,22 @@
+2008-03-24  William Jon McCann  <jmccann@redhat.com>
+
+	* configure.ac:
+	* gnome-settings-daemon/Makefile.am:
+	* gnome-settings-daemon/gnome-settings-manager.c: (_load_file),
+	(_load_dir), (_load_all), (gnome_settings_manager_start):
+	* gnome-settings-daemon/gnome-settings-plugin-info.c:
+	(gnome_settings_plugin_info_fill_from_file), (load_plugin_module),
+	(_activate_plugin):
+	* gnome-settings-daemon/main.c: (bus_register), (main):
+	Add some profiling code.  Must specify --enable-profiling to
+	configure.
+
+	Can now be profiled like so:
+	strace -ttt -f -o /tmp/logfile.strace gnome-settings-daemon
+	python plot-timeline.py -o prettygraph.png /tmp/logfile.strace
+
+	See: http://www.gnome.org/~federico/news-2006-03.html#09
+
 2008-03-24  Jens Granseuer  <jensgr@gmx.net>
 
 	Patch by: Alexey Shabalin <a.shabalin@gmail.com>
