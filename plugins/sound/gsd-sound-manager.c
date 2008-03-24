@@ -116,7 +116,7 @@ start_gnome_sound (GsdSoundManager *manager)
         }
 
         manager->priv->child_watch_id = g_child_watch_add (manager->priv->pid,
-                                                           reset_esd_pid,
+                                                           (GChildWatchFunc)reset_esd_pid,
                                                            manager);
 
         starttime = time (NULL);

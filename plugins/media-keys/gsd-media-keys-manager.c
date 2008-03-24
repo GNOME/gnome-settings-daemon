@@ -956,8 +956,6 @@ acme_filter_events (GdkXEvent           *xevent,
         keycode = xev->xkey.keycode;
         state = xev->xkey.state;
 
-        g_debug ("Got key: %u state: %u");
-
         for (i = 0; i < HANDLED_KEYS; i++) {
                 if (keys[i].key == NULL) {
                         continue;
