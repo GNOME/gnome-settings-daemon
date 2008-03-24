@@ -167,6 +167,15 @@ gnome_settings_plugin_info_init (GnomeSettingsPluginInfo *info)
         info->priv->client = gconf_client_get_default ();
 }
 
+static void
+debug_info (GnomeSettingsPluginInfo *info)
+{
+        g_debug ("GnomeSettingsPluginInfo: name='%s' file='%s' location='%s'",
+                 info->priv->name,
+                 info->priv->file,
+                 info->priv->location);
+}
+
 static gboolean
 gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
                                            const char              *filename)
@@ -205,13 +214,14 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
         if ((str != NULL) && (*str != '\0')) {
                 info->priv->location = str;
         } else {
+                g_free (str);
                 g_warning ("Could not find 'Module' in %s", filename);
                 goto out;
         }
 
         /* Get the loader for this plugin */
         str = g_key_file_get_string (plugin_file, PLUGIN_GROUP, "Loader", NULL);
-        if (str && strcmp(str, "python") == 0) {
+        if (str != NULL && strcmp (str, "python") == 0) {
                 info->priv->loader = GNOME_SETTINGS_PLUGIN_LOADER_PY;
 #ifndef ENABLE_PYTHON
                 g_warning ("Cannot load Python plugin '%s' since gnome_settings was not "
@@ -225,7 +235,7 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
 
         /* Get Name */
         str = g_key_file_get_locale_string (plugin_file, PLUGIN_GROUP, "Name", NULL, NULL);
-        if (str) {
+        if (str != NULL) {
                 info->priv->name = str;
         } else {
                 g_warning ("Could not find 'Name' in %s", filename);
@@ -234,7 +244,7 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
 
         /* Get Description */
         str = g_key_file_get_locale_string (plugin_file, PLUGIN_GROUP, "Description", NULL, NULL);
-        if (str) {
+        if (str != NULL) {
                 info->priv->desc = str;
         } else {
                 g_debug ("Could not find 'Description' in %s", filename);
@@ -248,7 +258,7 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
 
         /* Get Copyright */
         str = g_key_file_get_string (plugin_file, PLUGIN_GROUP, "Copyright", NULL);
-        if (str) {
+        if (str != NULL) {
                 info->priv->copyright = str;
         } else {
                 g_debug ("Could not find 'Copyright' in %s", filename);
@@ -256,7 +266,7 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
 
         /* Get Website */
         str = g_key_file_get_string (plugin_file, PLUGIN_GROUP, "Website", NULL);
-        if (str) {
+        if (str != NULL) {
                 info->priv->website = str;
         } else {
                 g_debug ("Could not find 'Website' in %s", filename);
@@ -271,6 +281,8 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
         }
 
         g_key_file_free (plugin_file);
+
+        debug_info (info);
 
         /* If we know nothing about the availability of the plugin,
            set it as available */
@@ -346,7 +358,7 @@ _deactivate_plugin (GnomeSettingsPluginInfo *info)
 gboolean
 gnome_settings_plugin_info_deactivate (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, FALSE);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         if (!info->priv->active || !info->priv->available) {
                 return TRUE;
@@ -370,7 +382,7 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
 
         ret = FALSE;
 
-        g_return_val_if_fail (info != NULL, FALSE);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
         g_return_val_if_fail (info->priv->file != NULL, FALSE);
         g_return_val_if_fail (info->priv->location != NULL, FALSE);
         g_return_val_if_fail (info->priv->plugin == NULL, FALSE);
@@ -504,7 +516,7 @@ gboolean
 gnome_settings_plugin_info_activate (GnomeSettingsPluginInfo *info)
 {
 
-        g_return_val_if_fail (info != NULL, FALSE);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         if (! info->priv->available) {
                 return FALSE;
@@ -525,7 +537,7 @@ gnome_settings_plugin_info_activate (GnomeSettingsPluginInfo *info)
 gboolean
 gnome_settings_plugin_info_is_active (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, FALSE);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         return (info->priv->available && info->priv->active);
 }
@@ -533,7 +545,7 @@ gnome_settings_plugin_info_is_active (GnomeSettingsPluginInfo *info)
 gboolean
 gnome_settings_plugin_info_get_enabled (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, FALSE);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         return (info->priv->enabled);
 }
@@ -541,7 +553,7 @@ gnome_settings_plugin_info_get_enabled (GnomeSettingsPluginInfo *info)
 gboolean
 gnome_settings_plugin_info_is_available (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, FALSE);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         return (info->priv->available != FALSE);
 }
@@ -549,7 +561,7 @@ gnome_settings_plugin_info_is_available (GnomeSettingsPluginInfo *info)
 const char *
 gnome_settings_plugin_info_get_name (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, NULL);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), NULL);
 
         return info->priv->name;
 }
@@ -557,7 +569,7 @@ gnome_settings_plugin_info_get_name (GnomeSettingsPluginInfo *info)
 const char *
 gnome_settings_plugin_info_get_description (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, NULL);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), NULL);
 
         return info->priv->desc;
 }
@@ -565,7 +577,7 @@ gnome_settings_plugin_info_get_description (GnomeSettingsPluginInfo *info)
 const char **
 gnome_settings_plugin_info_get_authors (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, (const char **)NULL);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), (const char **)NULL);
 
         return (const char **)info->priv->authors;
 }
@@ -573,7 +585,7 @@ gnome_settings_plugin_info_get_authors (GnomeSettingsPluginInfo *info)
 const char *
 gnome_settings_plugin_info_get_website (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, NULL);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), NULL);
 
         return info->priv->website;
 }
@@ -581,7 +593,7 @@ gnome_settings_plugin_info_get_website (GnomeSettingsPluginInfo *info)
 const char *
 gnome_settings_plugin_info_get_copyright (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, NULL);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), NULL);
 
         return info->priv->copyright;
 }
@@ -590,7 +602,7 @@ gnome_settings_plugin_info_get_copyright (GnomeSettingsPluginInfo *info)
 const char *
 gnome_settings_plugin_info_get_location (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, NULL);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), NULL);
 
         return info->priv->location;
 }
@@ -598,7 +610,7 @@ gnome_settings_plugin_info_get_location (GnomeSettingsPluginInfo *info)
 int
 gnome_settings_plugin_info_get_priority (GnomeSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (info != NULL, PLUGIN_PRIORITY_DEFAULT);
+        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), PLUGIN_PRIORITY_DEFAULT);
 
         return info->priv->priority;
 }
@@ -607,7 +619,7 @@ void
 gnome_settings_plugin_info_set_priority (GnomeSettingsPluginInfo *info,
                                          int                      priority)
 {
-        g_return_if_fail (info != NULL);
+        g_return_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info));
 
         info->priv->priority = priority;
 }

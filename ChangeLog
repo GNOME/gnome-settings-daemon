@@ -1,5 +1,27 @@
 2008-03-24  William Jon McCann  <jmccann@redhat.com>
 
+	* gnome-settings-daemon/gnome-settings-manager.c:
+	(compare_location), (_load_file), (_load_dir):
+	* gnome-settings-daemon/gnome-settings-plugin-info.c: (debug_info),
+	(gnome_settings_plugin_info_fill_from_file),
+	(gnome_settings_plugin_info_deactivate), (load_plugin_module),
+	(gnome_settings_plugin_info_activate),
+	(gnome_settings_plugin_info_is_active),
+	(gnome_settings_plugin_info_get_enabled),
+	(gnome_settings_plugin_info_is_available),
+	(gnome_settings_plugin_info_get_name),
+	(gnome_settings_plugin_info_get_description),
+	(gnome_settings_plugin_info_get_authors),
+	(gnome_settings_plugin_info_get_website),
+	(gnome_settings_plugin_info_get_copyright),
+	(gnome_settings_plugin_info_get_location),
+	(gnome_settings_plugin_info_get_priority),
+	(gnome_settings_plugin_info_set_priority):
+	Fix a refcounting bug.  Add a few more checks.  Fix up a leak.
+	Fixes #524183
+
+2008-03-24  William Jon McCann  <jmccann@redhat.com>
+
 	* plugins/media-keys/gsd-media-keys-manager.c:
 	(acme_filter_events):
 	* plugins/sound/gsd-sound-manager.c: (start_gnome_sound):

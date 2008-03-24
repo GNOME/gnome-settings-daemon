@@ -111,6 +111,10 @@ compare_location (GnomeSettingsPluginInfo *a,
         loc_a = gnome_settings_plugin_info_get_location (a);
         loc_b = gnome_settings_plugin_info_get_location (b);
 
+        if (loc_a == NULL || loc_b == NULL) {
+                return -1;
+        }
+
         return strcmp (loc_a, loc_b);
 }
 
@@ -175,8 +179,8 @@ _load_file (GnomeSettingsManager *manager,
                 goto out;
         }
 
-        /* list takes ownership of ref */
-        manager->priv->plugins = g_slist_prepend (manager->priv->plugins, info);
+        manager->priv->plugins = g_slist_prepend (manager->priv->plugins,
+                                                  g_object_ref (info));
 
         g_signal_connect (info, "activated",
                           G_CALLBACK (on_plugin_activated), manager);
@@ -239,8 +243,9 @@ _load_dir (GnomeSettingsManager *manager,
         while ((name = g_dir_read_name (d))) {
                 char *filename;
 
-                if (!g_str_has_suffix (name, PLUGIN_EXT))
+                if (!g_str_has_suffix (name, PLUGIN_EXT)) {
                         continue;
+                }
 
                 filename = g_build_filename (path, name, NULL);
                 if (g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
