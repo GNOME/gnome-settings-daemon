@@ -313,7 +313,11 @@ gboolean
 gnome_settings_manager_start (GnomeSettingsManager *manager,
                               GError              **error)
 {
+        gboolean ret;
+
         g_debug ("Starting settings manager");
+
+        ret = FALSE;
 
         gnome_settings_profile_start (NULL);
 
@@ -324,14 +328,16 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
                              GNOME_SETTINGS_MANAGER_ERROR_GENERAL,
                              "Plugins not supported");
 
-                return FALSE;
+                goto out;
         }
 
         _load_all (manager);
 
+        ret = TRUE;
+ out:
         gnome_settings_profile_end (NULL);
 
-        return TRUE;
+        return ret;
 }
 
 gboolean

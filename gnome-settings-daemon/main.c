@@ -200,6 +200,8 @@ main (int argc, char *argv[])
         manager = NULL;
         program = NULL;
 
+        gnome_settings_profile_start (NULL);
+
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
@@ -208,6 +210,7 @@ main (int argc, char *argv[])
 
         g_type_init ();
 
+        gnome_settings_profile_start ("gtk init");
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, NULL, entries, NULL, &error)) {
                 if (error != NULL) {
@@ -218,6 +221,7 @@ main (int argc, char *argv[])
                 }
                 exit (1);
         }
+        gnome_settings_profile_end ("gtk init");
 
         g_log_set_default_handler (gsd_log_default_handler, NULL);
 
@@ -276,6 +280,7 @@ main (int argc, char *argv[])
         }
 
         g_debug ("SettingsDaemon finished");
+        gnome_settings_profile_end (NULL);
 
         return 0;
 }
