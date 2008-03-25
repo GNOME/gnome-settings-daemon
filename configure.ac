@@ -266,8 +266,8 @@ dnl ==============================================
 dnl OSS section
 dnl ==============================================
 
+have_oss=no
 if test "x$have_gstreamer" != "xyes"; then
-  have_oss=no
   AC_TRY_COMPILE([
 		  #ifdef __NetBSD__
 		  #include <sys/param.h>
@@ -291,8 +291,8 @@ dnl ==============================================
 dnl ALSA section
 dnl ==============================================
 
+have_alsa=no
 if test "x$have_gstreamer" != "xyes"; then
-  have_alsa=no
   AC_ARG_ENABLE(alsa,
 		AC_HELP_STRING([--disable-alsa],
 			       [turn off ALSA audio support]),
@@ -452,4 +452,11 @@ echo "
         Maintainer mode:          ${USE_MAINTAINER_MODE}
 
         dbus-1 system.d dir:      ${DBUS_SYS_DIR}
+
+        OSS support:              ${have_oss}
+        ALSA support:             ${have_alsa}
+        GStreamer support:        ${have_gstreamer}
+        ESD support:              ${WANT_ESD}
+
+        Profiling support:        ${enable_profiling}
 "

@@ -1014,16 +1014,21 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         init_kbd (manager);
 
         /* initialise Volume handler */
+        gnome_settings_profile_start ("acme_volume_new");
         manager->priv->volume = acme_volume_new ();
+        gnome_settings_profile_end ("acme_volume_new");
 
         /* Start filtering the events */
         for (l = manager->priv->screens; l != NULL; l = l->next) {
+                gnome_settings_profile_start ("gdk_window_add_filter");
+
                 g_debug ("adding key filter for screen: %d",
                          gdk_screen_get_number (l->data));
 
                 gdk_window_add_filter (gdk_screen_get_root_window (l->data),
                                        (GdkFilterFunc)acme_filter_events,
                                        manager);
+                gnome_settings_profile_end ("gdk_window_add_filter");
         }
 
         gnome_settings_profile_end (NULL);
