@@ -1,3 +1,10 @@
+2008-03-25  Jens Granseuer  <jensgr@gmx.net>
+
+	Patch by: Matthias Clasen <mclasen@redhat.com>
+
+	* plugins/mouse/gsd-mouse-manager.c: (filter): don't eat key events;
+	other plugins might need them as well (bug #523676)
+
 2008-03-24  William Jon McCann  <jmccann@redhat.com>
 
 	* configure.ac:

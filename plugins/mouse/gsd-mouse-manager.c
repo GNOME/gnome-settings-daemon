@@ -440,8 +440,6 @@ filter (GdkXEvent *xevent,
                         XUngrabKeyboard (gdk_x11_get_default_xdisplay (),
                                          xev->xkey.time);
                 }
-
-                return GDK_FILTER_REMOVE;
         }
         return GDK_FILTER_CONTINUE;
 }
@@ -553,7 +551,7 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
         GError *error = NULL;
         gchar *comm;
 
-        comm = g_strdup_printf ("mousetweaks %s", 
+        comm = g_strdup_printf ("mousetweaks %s",
                                 (dwell_enable || delay_enable) ? "" : "-s");
 
         if (! g_spawn_command_line_async (comm, &error)) {
