@@ -1,3 +1,27 @@
+2008-03-28  Michael J. Chudobiak  <mjc@svn.gnome.org>
+
+	* configure.ac:
+	* data/gnome-settings-daemon.schemas.in:
+	* plugins/Makefile.am:
+	* plugins/housekeeping/Makefile.am:
+	* plugins/housekeeping/gsd-housekeeping-manager.c:
+	(thumb_data_free), (read_dir_for_purge), (purge_old_thumbnails),
+	(sort_file_mtime), (get_gconf_int_with_nonzero_default),
+	(purge_thumbnail_cache), (do_cleanup), (do_cleanup_once),
+	(do_cleanup_soon), (bindings_callback), (register_config_callback),
+	(gsd_housekeeping_manager_start), (gsd_housekeeping_manager_stop),
+	(gsd_housekeeping_manager_class_init),
+	(gsd_housekeeping_manager_init), (gsd_housekeeping_manager_new):
+	* plugins/housekeeping/gsd-housekeeping-manager.h:
+	* plugins/housekeeping/gsd-housekeeping-plugin.c:
+	(gsd_housekeeping_plugin_init), (gsd_housekeeping_plugin_finalize),
+	(impl_activate), (impl_deactivate),
+	(gsd_housekeeping_plugin_class_init):
+	* plugins/housekeeping/gsd-housekeeping-plugin.h:
+	* plugins/housekeeping/housekeeping.gnome-settings-plugin.in:
+	Added a new "housekeeping" plugin to set limits on the size and
+	age of the thumbnail cache (bug #523159).
+
 2008-03-25  Jens Granseuer  <jensgr@gmx.net>
 
 	Patch by: Matthias Clasen <mclasen@redhat.com>

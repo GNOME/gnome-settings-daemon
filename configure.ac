@@ -409,6 +409,7 @@ plugins/background/libbackground/Makefile
 plugins/clipboard/Makefile
 plugins/dummy/Makefile
 plugins/font/Makefile
+plugins/housekeeping/Makefile
 plugins/keybindings/Makefile
 plugins/keyboard/Makefile
 plugins/media-keys/Makefile

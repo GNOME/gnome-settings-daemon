@@ -6,6 +6,7 @@ SUBDIRS =		\
 	clipboard	\
 	dummy		\
 	font		\
+	housekeeping    \
 	keybindings	\
 	keyboard	\
 	media-keys	\
