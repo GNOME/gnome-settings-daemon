@@ -1,5 +1,17 @@
 2008-03-29  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/media-keys/eggaccelerators.c:
+	(egg_accelerator_parse_virtual), (egg_virtual_accelerator_name),
+	(egg_virtual_accelerator_label),
+	(egg_keymap_resolve_virtual_modifiers),
+	(egg_keymap_virtualize_modifiers), (reload_modmap),
+	(egg_keymap_get_modmap):
+	* plugins/media-keys/eggaccelerators.h: fix mismatched modifier
+	mapping between egg and GTK (so that e.g. <Super> works) and replace
+	some custom functionality with stock GTK
+
+2008-03-29  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/housekeeping/gsd-housekeeping-manager.c:
 	(get_gconf_int_with_default): rename to better reflect what it does,
 	and also use the default passed in if we don't get an int from GConf,
