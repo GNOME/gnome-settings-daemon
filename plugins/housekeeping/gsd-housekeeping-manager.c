@@ -1,5 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
- *
+/*
  * Copyright (C) 2008 Michael J. Chudobiak <mjc@avtechpulse.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -39,7 +38,7 @@
 #define DEFAULT_MAX_AGE_IN_DAYS 60
 #define GCONF_THUMB_SIZE "/desktop/gnome/thumbnail_cache/maximum_size"
 #define DEFAULT_MAX_SIZE_IN_MB 64
-#define GCONF_THUMB_BINDING_DIR "/desktop/gnome/thumbnail_cache" 
+#define GCONF_THUMB_BINDING_DIR "/desktop/gnome/thumbnail_cache"
 
 
 struct GsdHousekeepingManagerPrivate {
@@ -155,7 +154,7 @@ sort_file_mtime (ThumbData *file1, ThumbData *file2)
 
 
 static int
-get_gconf_int_with_nonzero_default (char *key, int default_value)
+get_gconf_int_with_default (char *key, int default_value)
 {
         /* If the key is unset, we use a non-zero default value.
            A zero value corresponds to an extra-paranoid level
@@ -168,15 +167,14 @@ get_gconf_int_with_nonzero_default (char *key, int default_value)
 
         client = gconf_client_get_default ();
         value = gconf_client_get (client, key, NULL);
+        g_object_unref (client);
 
-        if (value == NULL) {
+        if (value == NULL || value->type != GCONF_VALUE_INT) {
                 res = default_value;
         } else {
                 res = gconf_value_get_int (value);
                 gconf_value_free (value);
         }
-
-        g_object_unref (client);
 
         return res;
 }
@@ -218,8 +216,8 @@ purge_thumbnail_cache (void)
         g_get_current_time (&current_time);
 
         purge_data.now = current_time.tv_sec;
-        purge_data.max_age = get_gconf_int_with_nonzero_default (GCONF_THUMB_AGE, DEFAULT_MAX_AGE_IN_DAYS) * 24 * 60 * 60;
-        purge_data.max_size = get_gconf_int_with_nonzero_default (GCONF_THUMB_SIZE, DEFAULT_MAX_SIZE_IN_MB) * 1024 * 1024;
+        purge_data.max_age = get_gconf_int_with_default (GCONF_THUMB_AGE, DEFAULT_MAX_AGE_IN_DAYS) * 24 * 60 * 60;
+        purge_data.max_size = get_gconf_int_with_default (GCONF_THUMB_SIZE, DEFAULT_MAX_SIZE_IN_MB) * 1024 * 1024;
         purge_data.total_size = 0;
 
         if (purge_data.max_age >= 0)

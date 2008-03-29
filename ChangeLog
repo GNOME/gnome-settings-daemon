@@ -1,3 +1,12 @@
+2008-03-29  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/housekeeping/gsd-housekeeping-manager.c:
+	(get_gconf_int_with_default): rename to better reflect what it does,
+	and also use the default passed in if we don't get an int from GConf,
+	or we'll end up with a value of 0 which is certainly not what we want
+
+	(purge_thumbnail_cache): update callers
+
 2008-03-28  Michael J. Chudobiak  <mjc@svn.gnome.org>
 
 	* configure.ac:
