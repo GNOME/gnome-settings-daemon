@@ -1,6 +1,15 @@
 2008-03-29  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/keybindings/eggaccelerators.c:
+	(egg_accelerator_parse_virtual):
+	* plugins/media-keys/eggaccelerators.c:
+	(egg_accelerator_parse_virtual): readd a chunk that got lost in the
+	last commit. *sigh*. Why do we have several differing copies of those
+	files?
+
+2008-03-29  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/keybindings/eggaccelerators.c:
 	(egg_accelerator_parse_virtual), (egg_virtual_accelerator_name),
 	(egg_virtual_accelerator_label),
 	(egg_keymap_resolve_virtual_modifiers),
