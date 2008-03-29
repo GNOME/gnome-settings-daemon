@@ -43,7 +43,7 @@ static gboolean   no_daemon    = TRUE;
 static gboolean   debug        = FALSE;
 
 static GOptionEntry entries[] = {
-        {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, "Enable debugging code", NULL },
+        {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL },
         {"no-daemon", 0, 0, G_OPTION_ARG_NONE, &no_daemon, N_("Don't become a daemon"), NULL },
         {"gconf-prefix", 0, 0, G_OPTION_ARG_STRING, &gconf_prefix, N_("GConf prefix from which to load plugin settings"), NULL},
         {NULL}
