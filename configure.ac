@@ -322,8 +322,8 @@ AM_CONDITIONAL(HAVE_ALSA, test x"$have_alsa" = "xyes")
 AC_ARG_ENABLE(profiling,
 	[AC_HELP_STRING([--enable-profiling],
 	[turn on profiling])],
-	, enable_profiling=yes)
-if test "$enable_profiling" = "yes"; then
+	, enable_profiling=no)
+if test "x$enable_profiling" = "xyes"; then
     AC_DEFINE(ENABLE_PROFILING,1,[enable profiling])
 fi
 
