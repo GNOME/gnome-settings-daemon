@@ -167,6 +167,7 @@ static TranslationEntry translations [] = {
         { "/desktop/gnome/peripherals/mouse/double_click",   "Net/DoubleClickTime",     GCONF_VALUE_INT,      translate_int_int },
         { "/desktop/gnome/peripherals/mouse/drag_threshold", "Net/DndDragThreshold",    GCONF_VALUE_INT,      translate_int_int },
         { "/desktop/gnome/gtk-color-palette",                "Gtk/ColorPalette",        GCONF_VALUE_STRING,   translate_string_string },
+        { "/desktop/gnome/gtk-modules",                      "Gtk/Modules",             GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/font_name",              "Gtk/FontName",            GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/gtk_key_theme",          "Gtk/KeyThemeName",        GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/toolbar_style",          "Gtk/ToolbarStyle",        GCONF_VALUE_STRING,   translate_string_string_toolbar },
