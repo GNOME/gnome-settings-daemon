@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 02:34+0000\n"
-"PO-Revision-Date: 2008-03-03 21:14+0100\n"
+"POT-Creation-Date: 2008-03-29 14:08+0000\n"
+"PO-Revision-Date: 2008-03-30 13:31+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,18 +24,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:1
-msgid ""
-"Set to True to keep the handlers for text/plain and text/* MIME types "
-"synchronized."
-msgstr ""
-"Establézcala a «true» para mantener los manejadores MIME para text/plain y "
-"text/* sincronizados."
-
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:2
-msgid "Sync text/plain and text/* handlers"
-msgstr "Sincronizar los manejadores text/plain y text/*"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -288,12 +276,12 @@ msgid "Enable clipboard plugin"
 msgstr "Activar el complemento del portapapeles"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Enable default editor plugin"
-msgstr "Activar el complemento del editor predeterminado"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:5
 msgid "Enable font plugin"
 msgstr "Activar el complemento de tipografía"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Enable housekeeping plugin"
+msgstr "Activar el complemento de limpieza"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
@@ -336,66 +324,68 @@ msgid "Enable xsettings plugin"
 msgstr "Activar el complemento de xsettings"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:16
+msgid ""
+"Set to True to enable the housekeeping plugin, to prune transient file "
+"caches."
+msgstr ""
+"Establézcala a «true» para activar el complemento de limpieza, para reducir la caché de "
+"archivos temporales."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "Establézcala a «true» para activar el complemento que gestiona los ajustes "
 "del portapapeles."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Establézcala a «true» para activar el complemento que gestiona los ajustes "
 "del fondo."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 "Establézcala a «true» para activar el complemento que gestiona los ajustes "
 "de las tipografías."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 "Establézcala a «true» para activar el complemento que gestiona los ajustes "
 "del teclado."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 "Establézcala a «true» para activar el complemento que gestiona los ajustes "
 "del ratón."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Establézcala a «true» para activar el complemento que gestiona los ajustes "
 "de las teclas multimedia."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr ""
 "Establézcala a «true» para activar el complemento que gestiona los ajustes "
 "del salvapantallas."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Set to True to enable the plugin to manage sound settings."
 msgstr ""
 "Establézcala a «true» para activar el complemento que gestiona los ajustes "
 "del sonido."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr ""
 "Establézcala a «true» para activar el complemento que gestiona los ajustes "
 "de accesibilidad del teclado."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid "Set to True to enable the plugin to manage the default text editor setting."
-msgstr ""
-"Establézcala a «true» para activar el complemento que gestiona  los ajustes "
-"del editor de texto predeterminado."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
@@ -425,11 +415,15 @@ msgstr ""
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Establézcala a «true» para activar el complemento que gestiona xsettings."
 
-#: ../gnome-settings-daemon/main.c:49
+#: ../gnome-settings-daemon/main.c:46
+msgid "Enable debugging code"
+msgstr "Activar el código de depuración"
+
+#: ../gnome-settings-daemon/main.c:47
 msgid "Don't become a daemon"
 msgstr "No convertir en demonio"
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../gnome-settings-daemon/main.c:48
 msgid "GConf prefix from which to load plugin settings"
 msgstr "El prefijo de GConf desde el que cargar los ajustes del complemento"
 
@@ -441,7 +435,7 @@ msgstr "Accesibilidad del teclado"
 msgid "Accessibility keyboard plugin"
 msgstr "Complemento de accesibilidad del teclado"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:393
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:394
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Hubo un error al mostrar la ayuda: %s"
@@ -550,7 +544,7 @@ msgstr "Tipografía"
 msgid "Font plugin"
 msgstr "Complemento de tipografía"
 
-#: ../plugins/font/gsd-font-manager.c:208
+#: ../plugins/font/gsd-font-manager.c:215
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -559,7 +553,7 @@ msgstr ""
 "No es posible crear el directorio «%s».\n"
 "Esto es necesario para permitir cambiar el tema del puntero."
 
-#: ../plugins/font/gsd-font-manager.c:231
+#: ../plugins/font/gsd-font-manager.c:238
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -568,37 +562,37 @@ msgstr ""
 "No es posible crear el directorio «%s».\n"
 "Esto es necesario para permitir cambiar los cursores."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:195
+#: ../plugins/keybindings/gsd-keybindings-manager.c:196
 #, c-format
 msgid "Key Binding (%s) has its action defined multiple times\n"
 msgstr "La combinación de teclas (%s) tiene su acción definida múltiples veces\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:202
+#: ../plugins/keybindings/gsd-keybindings-manager.c:203
 #, c-format
 msgid "Key Binding (%s) has its binding defined multiple times\n"
 msgstr "La combinación de teclas (%s) tiene su combinación definida múltiples veces\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:211
+#: ../plugins/keybindings/gsd-keybindings-manager.c:212
 #, c-format
 msgid "Key Binding (%s) is incomplete\n"
 msgstr "La combinación de teclas (%s) está incompleta\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:239
+#: ../plugins/keybindings/gsd-keybindings-manager.c:240
 #, c-format
 msgid "Key Binding (%s) is invalid\n"
 msgstr "La combinación de teclas (%s) no es válida\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:292
+#: ../plugins/keybindings/gsd-keybindings-manager.c:293
 #, c-format
 msgid "It seems that another application already has access to key '%u'."
 msgstr "Parece ser que otra aplicación ya posee acceso a la tecla «%u»."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:365
+#: ../plugins/keybindings/gsd-keybindings-manager.c:366
 #, c-format
 msgid "Key Binding (%s) is already in use\n"
 msgstr "La combinación de teclas (%s) ya se está utilizando\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:502
+#: ../plugins/keybindings/gsd-keybindings-manager.c:503
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -647,11 +641,7 @@ msgstr "_Cargar"
 msgid "_Loaded files:"
 msgstr "Archivos _cargados:"
 
-#: ../plugins/media-keys/actions/acme.glade.h:1
-msgid "Volume"
-msgstr "Volumen"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:201
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -660,7 +650,7 @@ msgstr ""
 "predeterminado del terminal está configurado y apunta a una aplicación "
 "válida."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:241
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -669,7 +659,7 @@ msgstr ""
 "No se pudo ejecutar el comando: %s\n"
 "Compruebe que es un comando válido."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
+#: ../plugins/media-keys/gsd-media-keys-manager.c:257
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -685,11 +675,11 @@ msgstr "Teclas multimedia"
 msgid "Media keys plugin"
 msgstr "Complemento de teclas multimedia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:566
+#: ../plugins/mouse/gsd-mouse-manager.c:565
 msgid "Could not enable mouse accessibility features"
 msgstr "No se pudieron activar las características de accesibilidad del ratón"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:568
+#: ../plugins/mouse/gsd-mouse-manager.c:567
 msgid ""
 "Mouse accessibility requires the mousetweaks daemon to be installed on your "
 "system."
@@ -697,7 +687,7 @@ msgstr ""
 "La accesibilidad del ratón requiere que el demonio «mousetweaks» esté "
 "instalado en su sistema."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:570
 msgid "Mouse Preferences"
 msgstr "Preferencias del ratón"
 
@@ -709,7 +699,7 @@ msgstr "Ratón"
 msgid "Mouse plugin"
 msgstr "Complemento del ratón"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:151
+#: ../plugins/screensaver/gsd-screensaver-manager.c:153
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -724,7 +714,7 @@ msgstr ""
 "\n"
 "El salvapantallas no funcionará en esta sesión."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:160
+#: ../plugins/screensaver/gsd-screensaver-manager.c:162
 msgid "_Do not show this message again"
 msgstr "_No mostrar este mensaje otra vez"
 
@@ -736,7 +726,7 @@ msgstr "Salvapantallas"
 msgid "Screensaver plugin"
 msgstr "Complemento de salvapantallas"
 
-#: ../plugins/sound/gsd-sound-manager.c:164
+#: ../plugins/sound/gsd-sound-manager.c:272
 #, c-format
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "No es posible cargar el archivo de sonido %s como muestra %s"
@@ -827,8 +817,8 @@ msgstr "Establecer los ajustes de tamaño y rotación de la pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrdb/gsd-xrdb-manager.c:258
-#: ../plugins/xrdb/gsd-xrdb-manager.c:327
+#: ../plugins/xrdb/gsd-xrdb-manager.c:259
+#: ../plugins/xrdb/gsd-xrdb-manager.c:328
 msgid "Cannot determine user's home directory"
 msgstr "No se puede determinar el directorio personal del usuario"
 
@@ -840,7 +830,7 @@ msgstr "Gestionar la base de datos de recursos de las X"
 msgid "X Resource Database"
 msgstr "Base de datos de recursos de las X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:551
+#: ../plugins/xsettings/gsd-xsettings-manager.c:564
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr ""
