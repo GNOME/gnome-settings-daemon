@@ -42,8 +42,8 @@
 
 
 struct GsdHousekeepingManagerPrivate {
-        gint long_term_cb;
-        gint short_term_cb;
+        guint long_term_cb;
+        guint short_term_cb;
 };
 
 
@@ -58,10 +58,10 @@ static gpointer manager_object = NULL;
 
 
 typedef struct {
-        time_t now;
-        time_t max_age;
-        glong  total_size;
-        glong  max_size;
+        glong now;
+        glong max_age;
+        goffset total_size;
+        goffset max_size;
 } PurgeData;
 
 
