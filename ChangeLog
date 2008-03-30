@@ -1,3 +1,9 @@
+2008-03-30  Gerd Kohlberger <gerdk@svn.gnome.org>
+
+	* plugins/mouse/gsd-mouse-manager.c:
+	(set_mousetweaks_daemon): Set gconf keys back to false,
+	if mousetweaks isn't installed. Bug #525042.
+
 2008-03-30  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/xsettings/gsd-xsettings-manager.c: add mapping for
