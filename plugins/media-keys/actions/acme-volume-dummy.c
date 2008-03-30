@@ -25,8 +25,7 @@
 
 static GObjectClass *parent_class = NULL;
 
-static int acme_volume_dummy_get_volume (AcmeVolume *self);
-static void acme_volume_dummy_set_volume (AcmeVolume *self, int val);
+G_DEFINE_TYPE (AcmeVolumeDummy, acme_volume_dummy, ACME_TYPE_VOLUME)
 
 static void
 acme_volume_dummy_finalize (GObject *object)
@@ -60,7 +59,7 @@ acme_volume_dummy_set_volume (AcmeVolume *vol, int val)
 }
 
 static void
-acme_volume_dummy_init (AcmeVolume *vol)
+acme_volume_dummy_init (AcmeVolumeDummy *vol)
 {
 }
 
@@ -77,30 +76,3 @@ acme_volume_dummy_class_init (AcmeVolumeDummyClass *klass)
 	volume_class->set_mute = acme_volume_dummy_set_mute;
 	volume_class->get_mute = acme_volume_dummy_get_mute;
 }
-
-GType acme_volume_dummy_get_type (void)
-{
-	static GType object_type = 0;
-
-	if (!object_type)
-	{
-		static const GTypeInfo object_info =
-		{
-			sizeof (AcmeVolumeDummyClass),
-			NULL,         /* base_init */
-			NULL,         /* base_finalize */
-			(GClassInitFunc) acme_volume_dummy_class_init,
-			NULL,         /* class_finalize */
-			NULL,         /* class_data */
-			sizeof (AcmeVolumeDummy),
-			0,            /* n_preallocs */
-			(GInstanceInitFunc) acme_volume_dummy_init
-		};
-
-		object_type = g_type_register_static (ACME_TYPE_VOLUME,
-				"AcmeVolumeDummy", &object_info, 0);
-	}
-
-	return object_type;
-}
-
