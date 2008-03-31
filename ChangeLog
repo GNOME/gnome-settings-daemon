@@ -1,5 +1,11 @@
 2008-03-31  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/keybindings/gsd-keybindings-manager.c:
+	(bindings_get_entry), (binding_register_keys): remove trailing newlines
+	from messages since g_warning already takes care of those
+
+2008-03-31  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/keybindings/gsd-keybindings-manager.c: (do_grab):
 	* plugins/media-keys/gsd-media-keys-manager.c: (grab_key): don't try to
 	add grabs with invalid modifiers

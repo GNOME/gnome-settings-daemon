@@ -193,14 +193,14 @@ bindings_get_entry (GsdKeybindingsManager *manager,
                         if (!action) {
                                 action = entry_get_string (entry);
                         } else {
-                                g_warning (_("Key Binding (%s) has its action defined multiple times\n"),
+                                g_warning (_("Key Binding (%s) has its action defined multiple times"),
                                            gconf_key);
                         }
                 } else if (strcmp (key_name, "binding") == 0) {
                         if (!key) {
                                 key = entry_get_string (entry);
                         } else {
-                                g_warning (_("Key Binding (%s) has its binding defined multiple times\n"),
+                                g_warning (_("Key Binding (%s) has its binding defined multiple times"),
                                            gconf_key);
                         }
                 }
@@ -209,7 +209,7 @@ bindings_get_entry (GsdKeybindingsManager *manager,
         }
 
         if (!action || !key) {
-                g_warning (_("Key Binding (%s) is incomplete\n"), gconf_key);
+                g_warning (_("Key Binding (%s) is incomplete"), gconf_key);
                 goto out;
         }
 
@@ -237,7 +237,7 @@ bindings_get_entry (GsdKeybindingsManager *manager,
                 manager->priv->binding_list = g_slist_append (manager->priv->binding_list, new_binding);
                 ret = TRUE;
         } else {
-                g_warning (_("Key Binding (%s) is invalid\n"), gconf_key);
+                g_warning (_("Key Binding (%s) is invalid"), gconf_key);
                 g_free (new_binding->binding_str);
                 g_free (new_binding->action);
         }
@@ -367,7 +367,7 @@ binding_register_keys (GsdKeybindingsManager *manager)
                                 binding->previous_key.state = binding->key.state;
                                 binding->previous_key.keycode = binding->key.keycode;
                         } else
-                                g_warning (_("Key Binding (%s) is already in use\n"), binding->binding_str);
+                                g_warning (_("Key Binding (%s) is already in use"), binding->binding_str);
                 }
         }
         gdk_flush ();
