@@ -169,11 +169,9 @@ bindings_get_entry (GsdKeybindingsManager *manager,
         char    *gconf_key;
         char    *action = NULL;
         char    *key = NULL;
-        gboolean ret = FALSE;
 
         g_return_val_if_fail (subdir != NULL, FALSE);
 
-        /* value = gconf_entry_get_value (entry); */
         gconf_key = g_path_get_basename (subdir);
 
         if (!gconf_key) {
@@ -188,29 +186,35 @@ bindings_get_entry (GsdKeybindingsManager *manager,
                 char *key_name = g_path_get_basename (gconf_entry_get_key (entry));
 
                 if (key_name == NULL) {
-                        goto out;
+                        /* ignore entry */
                 } else if (strcmp (key_name, "action") == 0) {
                         if (!action) {
                                 action = entry_get_string (entry);
                         } else {
-                                g_warning (_("Key Binding (%s) has its action defined multiple times"),
+                                g_warning (_("Key binding (%s) has its action defined multiple times"),
                                            gconf_key);
                         }
                 } else if (strcmp (key_name, "binding") == 0) {
                         if (!key) {
                                 key = entry_get_string (entry);
                         } else {
-                                g_warning (_("Key Binding (%s) has its binding defined multiple times"),
+                                g_warning (_("Key binding (%s) has its binding defined multiple times"),
                                            gconf_key);
                         }
                 }
 
+                g_free (key_name);
                 gconf_entry_free (entry);
         }
 
+        g_slist_free (list);
+
         if (!action || !key) {
-                g_warning (_("Key Binding (%s) is incomplete"), gconf_key);
-                goto out;
+                g_warning (_("Key binding (%s) is incomplete"), gconf_key);
+                g_free (gconf_key);
+                g_free (action);
+                g_free (key);
+                return FALSE;
         }
 
         tmp_elem = g_slist_find_custom (manager->priv->binding_list,
@@ -220,9 +224,10 @@ bindings_get_entry (GsdKeybindingsManager *manager,
         if (!tmp_elem) {
                 new_binding = g_new0 (Binding, 1);
         } else {
-                new_binding = (Binding*) tmp_elem->data;
+                new_binding = (Binding *) tmp_elem->data;
                 g_free (new_binding->binding_str);
                 g_free (new_binding->action);
+                g_free (new_binding->gconf_key);
         }
 
         new_binding->binding_str = key;
@@ -234,17 +239,21 @@ bindings_get_entry (GsdKeybindingsManager *manager,
         new_binding->previous_key.keycode = new_binding->key.keycode;
 
         if (parse_binding (new_binding)) {
-                manager->priv->binding_list = g_slist_append (manager->priv->binding_list, new_binding);
-                ret = TRUE;
+                if (!tmp_elem)
+                        manager->priv->binding_list = g_slist_prepend (manager->priv->binding_list, new_binding);
         } else {
-                g_warning (_("Key Binding (%s) is invalid"), gconf_key);
+                g_warning (_("Key binding (%s) is invalid"), gconf_key);
                 g_free (new_binding->binding_str);
                 g_free (new_binding->action);
+                g_free (new_binding->gconf_key);
+                g_free (new_binding);
+
+                if (tmp_elem)
+                        manager->priv->binding_list = g_slist_delete_link (manager->priv->binding_list, tmp_elem);
+                return FALSE;
         }
 
- out:
-        g_slist_free (list);
-        return ret;
+        return TRUE;
 }
 
 

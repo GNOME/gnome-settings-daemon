@@ -1,6 +1,12 @@
 2008-03-31  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/keybindings/gsd-keybindings-manager.c:
+	(bindings_get_entry): fix various leaks and other memory management
+	issues
+
+2008-03-31  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/keybindings/gsd-keybindings-manager.c:
 	(bindings_get_entry), (binding_register_keys): remove trailing newlines
 	from messages since g_warning already takes care of those
 
