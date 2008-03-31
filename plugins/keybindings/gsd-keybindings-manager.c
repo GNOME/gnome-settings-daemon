@@ -295,7 +295,11 @@ grab_key (GdkWindow *root,
         }
 }
 
-/* inspired from all_combinations from gnome-panel/gnome-panel/global-keys.c */
+/* Grab the key. In order to ignore IGNORED_MODS we need to grab
+ * all combinations of the ignored modifiers and those actually used
+ * for the binding (if any).
+ *
+ * inspired by all_combinations from gnome-panel/gnome-panel/global-keys.c */
 #define N_BITS 32
 static void
 do_grab (GsdKeybindingsManager *manager,
@@ -307,7 +311,7 @@ do_grab (GsdKeybindingsManager *manager,
         int   bit;
         int   bits_set_cnt;
         int   uppervalue;
-        guint mask_to_traverse = IGNORED_MODS & ~ key->state;
+        guint mask_to_traverse = IGNORED_MODS & ~key->state & GDK_MODIFIER_MASK;
 
         bit = 0;
         for (i = 0; i < N_BITS; i++) {
