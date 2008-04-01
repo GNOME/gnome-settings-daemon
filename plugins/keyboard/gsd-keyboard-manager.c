@@ -422,11 +422,12 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
 
         register_config_callback (manager,
                                   GSD_KEYBOARD_KEY,
-                                  (GConfClientNotifyFunc)apply_settings);
+                                  (GConfClientNotifyFunc) apply_settings);
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
         numlock_install_xkb_callback ();
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
+        apply_settings (client, 0, NULL, manager);
         g_object_unref (client);
 
         gnome_settings_profile_end (NULL);
