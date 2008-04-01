@@ -427,6 +427,7 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
         numlock_install_xkb_callback ();
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
+        apply_settings (client, 0, NULL, manager);
         g_object_unref (client);
 
         gnome_settings_profile_end (NULL);
