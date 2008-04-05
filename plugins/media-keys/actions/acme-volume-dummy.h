@@ -24,7 +24,7 @@
 #include <glib-object.h>
 #include "acme-volume.h"
 
-#define ACME_TYPE_VOLUME_DUMMY		(acme_volume_get_type ())
+#define ACME_TYPE_VOLUME_DUMMY		(acme_volume_dummy_get_type ())
 #define ACME_VOLUME_DUMMY(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), ACME_TYPE_VOLUME_DUMMY, AcmeVolumeDummy))
 #define ACME_VOLUME_DUMMY_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), ACME_TYPE_VOLUME_DUMMY, AcmeVolumeDummyClass))
 #define ACME_IS_VOLUME_DUMMY(obj)	(G_TYPE_CHECK_INSTANCE_TYPE ((obj), ACME_TYPE_VOLUME_DUMMY))
@@ -42,5 +42,3 @@ struct AcmeVolumeDummyClass {
 };
 
 GType acme_volume_dummy_get_type		(void);
-AcmeVolume* acme_volume_dummy_new		(void);
-
