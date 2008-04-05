@@ -31,7 +31,9 @@
 #ifdef HAVE_GSTREAMER
 #include "acme-volume-gstreamer.h"
 #endif
-#include "acme-volume-dummy.h"
+#ifdef ENABLE_IBM_THINKPAD
+#include "acme-volume-thinkpad.h"
+#endif
 
 static GObjectClass *parent_class = NULL;
 
@@ -85,7 +87,7 @@ acme_volume_set_mute (AcmeVolume *self, gboolean val)
 }
 
 void
-acme_volume_mute_toggle (AcmeVolume * self)
+acme_volume_mute_toggle (AcmeVolume *self)
 {
 	gboolean muted;
 
@@ -100,6 +102,17 @@ AcmeVolume *acme_volume_new (void)
 {
 	AcmeVolume *vol;
 
+#ifdef ENABLE_IBM_THINKPAD
+	/* Check if we should be doing ThinkPad speaker volume handling
+	   rather than the software stuff.  Checking for the existence
+	   of /proc/acpi/ibm/volume put in place by the ibm-acpi
+	   kernel driver */
+	if (g_file_test (ACME_VOLUME_THINKPAD_ACPI_PATH, G_FILE_TEST_IS_REGULAR))
+	{
+		vol = ACME_VOLUME (g_object_new (acme_volume_thinkpad_get_type (), NULL));
+		return vol;
+	}
+#endif
 #ifdef HAVE_GSTREAMER
 	vol = ACME_VOLUME (g_object_new (acme_volume_gstreamer_get_type (), NULL));
 	return vol;

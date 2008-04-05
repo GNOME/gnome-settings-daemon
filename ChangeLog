@@ -2,6 +2,16 @@
 
 	Patch by: Lorne Applebaum <4lorne@gmail.com>
 
+	* plugins/media-keys/actions/acme-volume-thinkpad.c:
+	* plugins/media-keys/actions/acme-volume-thinkpad.h:
+	* plugins/media-keys/actions/acme-volume.c: (acme_volume_new): add a
+	special volume subclass for better support of IBM Thinkpad hardware
+	volume buttons (bug #524425)
+
+2008-04-05  Jens Granseuer  <jensgr@gmx.net>
+
+	Patch by: Lorne Applebaum <4lorne@gmail.com>
+
 	* plugins/media-keys/actions/acme-volume-dummy.h: fix TYPE macro and
 	remove an unimplemented prototype
 
