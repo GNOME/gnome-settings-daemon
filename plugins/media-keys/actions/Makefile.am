@@ -61,6 +61,13 @@ endif # HAVE_OSS
 endif # HAVE_ALSA
 endif # HAVE_GSTREAMER
 
+if ENABLE_IBM_THINKPAD
+libacme_la_SOURCES += \
+	acme-volume-thinkpad.c \
+	acme-volume-thinkpad.h \
+	$(NULL)
+endif
+
 gladedir = $(pkgdatadir)
 glade_DATA = 		\
 	acme.glade	\
@@ -72,7 +79,6 @@ pixmaps_DATA = 		\
 	$(NULL)
 
 EXTRA_DIST =			\
-	acme.h			\
 	$(glade_DATA)		\
 	$(pixmaps_DATA)		\
 	$(NULL)

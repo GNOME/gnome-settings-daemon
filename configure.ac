@@ -315,6 +315,24 @@ fi
 
 AM_CONDITIONAL(HAVE_ALSA, test x"$have_alsa" = "xyes")
 
+dnl ==============================================
+dnl IBM Thinkpad support
+dnl ==============================================
+
+AC_ARG_ENABLE(thinkpad,
+	      AC_HELP_STRING([--disable-thinkpad],
+			     [disable IBM Thinkpad hardware volume button support]),
+			     [case "${enableval}" in
+			     yes) WANT_THINKPAD=yes ;;
+			     no)  WANT_THINKPAD=no ;;
+			     *) AC_MSG_ERROR(bad value ${enableval} for --enable-thinkpad) ;;
+			     esac],
+			     [WANT_THINKPAD=yes]) dnl Default value
+
+if test "x$WANT_THINKPAD" = xyes; then
+  AC_DEFINE(ENABLE_IBM_THINKPAD, 1, [Define to enable Thinkpad hardware volume buttons support])
+fi
+AM_CONDITIONAL(ENABLE_IBM_THINKPAD, test "x$WANT_THINKPAD" = "xyes")
 
 # ---------------------------------------------------------------------------
 # Enable Profiling
