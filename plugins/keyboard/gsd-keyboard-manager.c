@@ -53,6 +53,10 @@
 
 #define GSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerPrivate))
 
+#ifndef HOST_NAME_MAX
+#  define HOST_NAME_MAX 255
+#endif
+
 #define GSD_KEYBOARD_KEY "/desktop/gnome/peripherals/keyboard"
 
 #define KEY_REPEAT        "/desktop/gnome/peripherals/keyboard/repeat"
@@ -68,11 +72,7 @@
 
 struct GsdKeyboardManagerPrivate
 {
-        gboolean dummy;
-};
-
-enum {
-        PROP_0,
+        gboolean have_xkb;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
@@ -109,6 +109,7 @@ xfree86_set_keyboard_autorepeat_rate (int delay, int rate)
         return res;
 }
 #endif /* HAVE_X11_EXTENSIONS_XF86MISC_H */
+
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
 static gboolean
 xkb_set_keyboard_autorepeat_rate (int delay, int rate)
@@ -126,11 +127,7 @@ xkb_set_keyboard_autorepeat_rate (int delay, int rate)
 static char *
 gsd_keyboard_get_hostname_key (const char *subkey)
 {
-#ifdef HOST_NAME_MAX
         char hostname[HOST_NAME_MAX + 1];
-#else
-        char hostname[256];
-#endif
 
         if (gethostname (hostname, sizeof (hostname)) == 0 &&
             strcmp (hostname, "localhost") != 0 &&
@@ -144,7 +141,7 @@ gsd_keyboard_get_hostname_key (const char *subkey)
                                    escaped,
                                    "/0/",
                                    subkey,
-                                   (char *)NULL);
+                                   NULL);
                 g_free (escaped);
                 return key;
         } else
@@ -153,18 +150,11 @@ gsd_keyboard_get_hostname_key (const char *subkey)
 
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
 
-enum {
+typedef enum {
         NUMLOCK_STATE_OFF = 0,
         NUMLOCK_STATE_ON = 1,
         NUMLOCK_STATE_UNKNOWN = 2
-};
-
-/* something fatal has happened so that it makes no
- * sense to try to remember anything.
- * that means: no calls to the set_state functions!
- */
-static gboolean
-numlock_setup_error = FALSE;
+} NumLockState;
 
 /* we didn't apply GConf settings yet
  * don't overwrite them with the initial state from
@@ -182,7 +172,7 @@ numlock_NumLock_modifier_mask (void)
 }
 
 static void
-numlock_set_xkb_state (gboolean new_state)
+numlock_set_xkb_state (int new_state)
 {
         unsigned int num_mask;
         Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
@@ -197,13 +187,12 @@ numlock_gconf_state_key (void)
 {
         char *key = gsd_keyboard_get_hostname_key ("numlock_on");
         if (!key) {
-                numlock_setup_error = TRUE;
                 g_warning ("numlock: Numlock remembering disabled because your hostname is set to \"localhost\".");
         }
         return key;
 }
 
-static int
+static NumLockState
 numlock_get_gconf_state (GConfClient *client)
 {
         int          curr_state;
@@ -217,29 +206,28 @@ numlock_get_gconf_state (GConfClient *client)
         curr_state = gconf_client_get_bool (client, key, &err);
         if (err) {
                 curr_state = NUMLOCK_STATE_UNKNOWN;
+                g_error_free (err);
         }
 
-        g_clear_error (&err);
         g_free (key);
         return curr_state;
 }
 
 static void
 numlock_set_gconf_state (GConfClient *client,
-                         gboolean     new_state)
+                         NumLockState new_state)
 {
         char *key;
 
         if (new_state != NUMLOCK_STATE_ON && new_state != NUMLOCK_STATE_OFF) {
                 return;
         }
-        key = numlock_gconf_state_key ();
-        if (!key) {
-                return;
-        }
 
-        gconf_client_set_bool (client, key, new_state, NULL);
-        g_free (key);
+        key = numlock_gconf_state_key ();
+        if (key) {
+                gconf_client_set_bool (client, key, new_state, NULL);
+                g_free (key);
+        }
 }
 
 static GdkFilterReturn
@@ -247,7 +235,7 @@ numlock_xkb_callback (GdkXEvent *xev_,
                       GdkEvent *gdkev_,
                       gpointer xkb_event_code)
 {
-        XEvent *xev = (XEvent *)xev_;
+        XEvent *xev = (XEvent *) xev_;
 
         if (xev->type == GPOINTER_TO_INT (xkb_event_code)) {
                 XkbEvent *xkbev = (XkbEvent *)xev;
@@ -257,7 +245,7 @@ numlock_xkb_callback (GdkXEvent *xev_,
                         unsigned locked_mods = xkbev->state.locked_mods;
                         int numlock_state = !! (num_mask & locked_mods);
 
-                        if (!numlock_starting_up && !numlock_setup_error) {
+                        if (!numlock_starting_up) {
                                 GConfClient *client;
                                 client = gconf_client_get_default ();
                                 numlock_set_gconf_state (client, numlock_state);
@@ -268,7 +256,7 @@ numlock_xkb_callback (GdkXEvent *xev_,
         return GDK_FILTER_CONTINUE;
 }
 
-static void
+static gboolean
 numlock_install_xkb_callback (void)
 {
         Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
@@ -284,9 +272,8 @@ numlock_install_xkb_callback (void)
                                           &major,
                                           &minor);
         if (have_xkb != True) {
-                numlock_setup_error = TRUE;
                 g_warning ("numlock: XkbQueryExtension returned an error");
-                return;
+                return FALSE;
         }
 
         XkbSelectEventDetails (dpy,
@@ -298,6 +285,8 @@ numlock_install_xkb_callback (void)
         gdk_window_add_filter (NULL,
                                numlock_xkb_callback,
                                GINT_TO_POINTER (xkb_event_code));
+
+        return TRUE;
 }
 
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
@@ -347,7 +336,7 @@ apply_settings (GConfClient        *client,
 
                 XAutoRepeatOn (GDK_DISPLAY ());
                 /* Use XKB in preference */
-#if defined (HAVE_X11_EXTENSIONS_XKB_H)
+#ifdef HAVE_X11_EXTENSIONS_XKB_H
                 rate_set = xkb_set_keyboard_autorepeat_rate (delay, rate);
 #endif
 #ifdef HAVE_X11_EXTENSIONS_XF86MISC_H
@@ -375,13 +364,9 @@ apply_settings (GConfClient        *client,
                                 KBKeyClickPercent | KBBellPercent | KBBellPitch | KBBellDuration,
                                 &kbdcontrol);
 
-
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
-        if (!numlock_setup_error && rnumlock) {
-                GConfClient *client;
-                client = gconf_client_get_default ();
+        if (manager->priv->have_xkb && rnumlock) {
                 numlock_set_xkb_state (numlock_get_gconf_state (client));
-                g_object_unref (client);
         }
         numlock_starting_up = FALSE;
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
@@ -418,13 +403,12 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
         /* Essential - xkb initialization should happen before */
         gsd_keyboard_xkb_set_post_activation_callback ((PostActivationCallback) gsd_load_modmap_files, NULL);
         gsd_keyboard_xkb_init (client);
-        gsd_keyboard_xkb_load (client);
 
         register_config_callback (manager,
                                   GSD_KEYBOARD_KEY,
                                   (GConfClientNotifyFunc) apply_settings);
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
-        numlock_install_xkb_callback ();
+        manager->priv->have_xkb = numlock_install_xkb_callback ();
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         apply_settings (client, 0, NULL, manager);
@@ -520,7 +504,6 @@ static void
 gsd_keyboard_manager_init (GsdKeyboardManager *manager)
 {
         manager->priv = GSD_KEYBOARD_MANAGER_GET_PRIVATE (manager);
-
 }
 
 static void

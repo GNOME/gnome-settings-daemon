@@ -1,5 +1,17 @@
 2008-04-06  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/keyboard/gsd-keyboard-manager.c:
+	(gsd_keyboard_get_hostname_key), (numlock_set_xkb_state),
+	(numlock_gconf_state_key), (numlock_get_gconf_state),
+	(numlock_set_gconf_state), (numlock_xkb_callback),
+	(numlock_install_xkb_callback), (apply_settings),
+	(gsd_keyboard_manager_start), (gsd_keyboard_manager_init):
+	* plugins/keyboard/gsd-keyboard-xkb.c: (gsd_keyboard_xkb_init):
+	* plugins/keyboard/gsd-keyboard-xkb.h: continued attempt at making XKB
+	setup and error handling a bit less arcane and crufty
+
+2008-04-06  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/keyboard/gsd-keyboard-xkb.c:
 	* plugins/keyboard/gsd-keyboard-xkb.h: initialize inited_ok or
 	behaviour is undefined when xkb setup fails; don't export XklEngine

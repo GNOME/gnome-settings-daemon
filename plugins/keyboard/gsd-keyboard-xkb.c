@@ -331,12 +331,8 @@ gsd_keyboard_xkb_init (GConfClient * client)
                 xkl_engine_start_listen (xkl_engine,
                                          XKLL_MANAGE_LAYOUTS |
                                          XKLL_MANAGE_WINDOW_STATES);
-        }
-}
 
-void
-gsd_keyboard_xkb_load (GConfClient * client)
-{
-        apply_settings ();
-        apply_xkb_settings ();
+                apply_settings ();
+                apply_xkb_settings ();
+        }
 }

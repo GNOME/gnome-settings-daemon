@@ -30,14 +30,11 @@
 #include <libxklavier/xklavier.h>
 
 void gsd_keyboard_xkb_init (GConfClient * client);
-void gsd_keyboard_xkb_load (GConfClient * client);
 
 typedef void (*PostActivationCallback) (void *userData);
 
 void
 gsd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
                                                void                  *userData);
-
-GType keyboard_config_registry_get_type (void);
 
 #endif
