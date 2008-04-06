@@ -859,7 +859,7 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case HOME_KEY:
                 path = g_shell_quote (g_get_home_dir ());
-                cmd = g_strconcat ("nautilus --no-desktop", path, NULL);
+                cmd = g_strconcat ("nautilus --no-desktop ", path, NULL);
                 g_free (path);
                 execute (manager, cmd, FALSE, FALSE);
                 g_free (cmd);
