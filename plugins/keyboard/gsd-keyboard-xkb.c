@@ -38,7 +38,7 @@
 #include "gsd-keyboard-xkb.h"
 #include "delayed-dialog.h"
 
-XklEngine *xkl_engine;
+static XklEngine *xkl_engine;
 
 static GkbdDesktopConfig current_config;
 static GkbdKeyboardConfig current_kbd_config;
@@ -46,7 +46,7 @@ static GkbdKeyboardConfig current_kbd_config;
 /* never terminated */
 static GkbdKeyboardConfig initial_sys_kbd_config;
 
-static gboolean inited_ok;
+static gboolean inited_ok = FALSE;
 
 static PostActivationCallback pa_callback = NULL;
 static void *pa_callback_user_data = NULL;

@@ -1,5 +1,11 @@
 2008-04-06  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/keyboard/gsd-keyboard-xkb.c:
+	* plugins/keyboard/gsd-keyboard-xkb.h: initialize inited_ok or
+	behaviour is undefined when xkb setup fails; don't export XklEngine
+
+2008-04-06  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/media-keys/gsd-media-keys-manager.c: (do_action): make "Home"
 	keybinding work again
 

@@ -40,6 +40,4 @@ gsd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
 
 GType keyboard_config_registry_get_type (void);
 
-extern XklEngine *xkl_engine;
-
 #endif
