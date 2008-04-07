@@ -45,6 +45,7 @@ typedef struct {
 	int (* get_volume) (AcmeVolume *self);
 	void (* set_mute) (AcmeVolume *self, gboolean val);
 	int (* get_mute) (AcmeVolume *self);
+	int (* get_threshold) (AcmeVolume *self);
 } AcmeVolumeClass;
 
 GType acme_volume_get_type			(void);
@@ -53,7 +54,8 @@ void acme_volume_set_volume			(AcmeVolume *self, int val);
 gboolean acme_volume_get_mute			(AcmeVolume *self);
 void acme_volume_set_mute			(AcmeVolume *self,
 						 gboolean val);
-void acme_volume_mute_toggle			(AcmeVolume * self);
+void acme_volume_mute_toggle			(AcmeVolume *self);
+int acme_volume_get_threshold			(AcmeVolume *self);
 AcmeVolume *acme_volume_new			(void);
 
 G_END_DECLS

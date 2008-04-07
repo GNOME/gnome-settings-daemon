@@ -155,6 +155,12 @@ acme_volume_oss_set_volume (AcmeVolume *vol, int val)
 	}
 }
 
+static int
+acme_volume_oss_get_threshold (AcmeVolume *vol)
+{
+	return 1;
+}
+
 static void
 acme_volume_oss_init (AcmeVolumeOss *self)
 {
@@ -193,6 +199,7 @@ acme_volume_oss_class_init (AcmeVolumeOssClass *klass)
 	volume_class->get_volume = acme_volume_oss_get_volume;
 	volume_class->set_mute = acme_volume_oss_set_mute;
 	volume_class->get_mute = acme_volume_oss_get_mute;
+	volume_class->get_threshold = acme_volume_oss_get_threshold;
 }
 
 static gboolean
@@ -210,4 +217,3 @@ acme_volume_oss_mixer_check (AcmeVolumeOss *self, int fd)
 	retval = (!self->_priv->mixerpb);
 	return retval;
 }
-

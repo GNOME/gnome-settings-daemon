@@ -95,6 +95,15 @@ acme_volume_mute_toggle (AcmeVolume *self)
 	ACME_VOLUME_GET_CLASS (self)->set_mute (self, !muted);
 }
 
+int
+acme_volume_get_threshold (AcmeVolume *self)
+{
+	g_return_val_if_fail (self != NULL, 0);
+	g_return_val_if_fail (ACME_IS_VOLUME (self), 0);
+
+	return ACME_VOLUME_GET_CLASS (self)->get_threshold (self);
+}
+
 AcmeVolume *acme_volume_new (void)
 {
 	AcmeVolume *vol;

@@ -58,6 +58,13 @@ acme_volume_dummy_set_volume (AcmeVolume *vol, int val)
 {
 }
 
+/* minimum step size (in percent) required to actually affect volume */
+static int
+acme_volume_dummy_get_threshold (AcmeVolume *vol)
+{
+	return 1;
+}
+
 static void
 acme_volume_dummy_init (AcmeVolumeDummy *vol)
 {
@@ -75,4 +82,5 @@ acme_volume_dummy_class_init (AcmeVolumeDummyClass *klass)
 	volume_class->get_volume = acme_volume_dummy_get_volume;
 	volume_class->set_mute = acme_volume_dummy_set_mute;
 	volume_class->get_mute = acme_volume_dummy_get_mute;
+	volume_class->get_threshold = acme_volume_dummy_get_threshold;
 }

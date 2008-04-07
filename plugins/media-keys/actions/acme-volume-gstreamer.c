@@ -212,6 +212,29 @@ acme_volume_gstreamer_set_volume (AcmeVolume *vol, int val)
  	acme_volume_gstreamer_close (self);
 }
 
+static int
+acme_volume_gstreamer_get_threshold (AcmeVolume *vol)
+{
+	AcmeVolumeGStreamer *self = (AcmeVolumeGStreamer *) vol;
+	GList *t;
+	int steps = 101;
+
+	if (acme_volume_gstreamer_open (self) == FALSE)
+		return 1;
+
+	for (t = self->_priv->mixer_tracks; t != NULL; t = t->next)
+	{
+		GstMixerTrack *track = GST_MIXER_TRACK (t->data);
+		int track_steps = track->max_volume - track->min_volume;
+		if (track_steps > 0 && track_steps < steps)
+			steps = track_steps;
+	}
+
+ 	acme_volume_gstreamer_close (self);
+
+	return 100 / steps + 1;
+}
+
 static gboolean
 acme_volume_gstreamer_close_real (AcmeVolumeGStreamer *self)
 {
@@ -430,5 +453,5 @@ acme_volume_gstreamer_class_init (AcmeVolumeGStreamerClass *klass)
 	volume_class->get_volume = acme_volume_gstreamer_get_volume;
 	volume_class->set_mute = acme_volume_gstreamer_set_mute;
 	volume_class->get_mute = acme_volume_gstreamer_get_mute;
+	volume_class->get_threshold = acme_volume_gstreamer_get_threshold;
 }
-

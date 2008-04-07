@@ -180,6 +180,21 @@ acme_volume_alsa_set_volume (AcmeVolume *vol, int val)
 	acme_volume_alsa_close (self);
 }
 
+static int
+acme_volume_alsa_get_threshold (AcmeVolume *vol)
+{
+	AcmeVolumeAlsa *self = (AcmeVolumeAlsa *) vol;
+	int steps;
+
+	if (acme_volume_alsa_open (self) == FALSE)
+		return 1;
+
+	acme_volume_alsa_close (self);
+
+	steps = self->_priv->pmax - self->_priv->pmin;
+	return (steps > 0) ? 100 / steps + 1 : 1;
+}
+
 static gboolean
 acme_volume_alsa_close_real (AcmeVolumeAlsa *self)
 {
@@ -310,5 +325,6 @@ acme_volume_alsa_class_init (AcmeVolumeAlsaClass *klass)
 	volume_class->get_volume = acme_volume_alsa_get_volume;
 	volume_class->set_mute = acme_volume_alsa_set_mute;
 	volume_class->get_mute = acme_volume_alsa_get_mute;
+	volume_class->get_threshold = acme_volume_alsa_get_threshold;
 }
 

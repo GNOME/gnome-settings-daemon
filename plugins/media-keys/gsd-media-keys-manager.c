@@ -705,6 +705,12 @@ do_sound_action (GsdMediaKeysManager *manager,
                 g_error_free (error);
         }
 
+        if (vol_step > 0) {
+                int threshold = acme_volume_get_threshold (manager->priv->volume);
+                if (vol_step < threshold)
+                        vol_step = threshold;
+        }
+
         /* FIXME: this is racy */
         vol = acme_volume_get_volume (manager->priv->volume);
         muted = acme_volume_get_mute (manager->priv->volume);

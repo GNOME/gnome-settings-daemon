@@ -1,5 +1,34 @@
 2008-04-07  Jens Granseuer  <jensgr@gmx.net>
 
+	Currently, the percentage by which to lower or raise the volume when
+	hitting the multimedia keys is taken from GConf, with 6 being the
+	default. We don't have any settings dialogs to actually change it,
+	though. If the user now selects a mixer that supports fewer volume
+	levels than the GConf setting implies (100/6) it becomes impossible
+	to change the volume (without fiddling with the GConf setting). This
+	patch adds a "threshold" property to the AcmeVolume class that denotes
+	the minimum percentage required to actually affect the volume. The
+	plugin now uses the step size read from GConf or the mixer threshold,
+	depending on which one is bigger. (bug #441910)
+
+	* plugins/media-keys/actions/acme-volume-alsa.c:
+	(acme_volume_alsa_get_threshold), (acme_volume_alsa_class_init):
+	* plugins/media-keys/actions/acme-volume-dummy.c:
+	(acme_volume_dummy_get_threshold), (acme_volume_dummy_class_init):
+	* plugins/media-keys/actions/acme-volume-gstreamer.c:
+	(acme_volume_gstreamer_get_threshold),
+	(acme_volume_gstreamer_class_init):
+	* plugins/media-keys/actions/acme-volume-oss.c:
+	(acme_volume_oss_get_threshold), (acme_volume_oss_class_init),
+	(acme_volume_oss_mixer_check):
+	* plugins/media-keys/actions/acme-volume.c:
+	(acme_volume_get_threshold):
+	* plugins/media-keys/actions/acme-volume.h: add get_threshold method
+	* plugins/media-keys/gsd-media-keys-manager.c: (do_sound_action): use
+	gconf value or threshold, depending on what's bigger
+
+2008-04-07  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/media-keys/gsd-media-keys-manager.c: (do_sound_action): only
 	use the built-in default for volume_step if we get an error from GConf,
 	not just when the value is 0 which might be what the user wants (see
