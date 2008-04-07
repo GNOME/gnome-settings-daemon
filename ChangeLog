@@ -1,3 +1,14 @@
+2008-04-07  Jens Granseuer  <jensgr@gmx.net>
+
+	Remove the Thinkpad driver again. See bug #524425 for some discussion.
+
+	* configure.ac:
+	* plugins/media-keys/actions/Makefile.am:
+	* plugins/media-keys/actions/acme-volume-thinkpad.c:
+	* plugins/media-keys/actions/acme-volume-thinkpad.h:
+	* plugins/media-keys/actions/acme-volume.c: (acme_volume_new): remove
+	extra Thinkpad support
+
 2008-04-06  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/keyboard/gsd-keyboard-manager.c:
