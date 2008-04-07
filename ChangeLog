@@ -1,5 +1,12 @@
 2008-04-07  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/media-keys/gsd-media-keys-manager.c: (do_sound_action): only
+	use the built-in default for volume_step if we get an error from GConf,
+	not just when the value is 0 which might be what the user wants (see
+	the discussion on the Thinkpad driver again)
+
+2008-04-07  Jens Granseuer  <jensgr@gmx.net>
+
 	Remove the Thinkpad driver again. See bug #524425 for some discussion.
 
 	* configure.ac:

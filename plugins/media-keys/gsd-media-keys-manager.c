@@ -690,6 +690,7 @@ do_sound_action (GsdMediaKeysManager *manager,
         gboolean muted;
         int      vol;
         int      vol_step;
+        GError  *error = NULL;
 
         if (manager->priv->volume == NULL) {
                 return;
@@ -697,10 +698,11 @@ do_sound_action (GsdMediaKeysManager *manager,
 
         vol_step = gconf_client_get_int (manager->priv->conf_client,
                                          GCONF_MISC_DIR "/volume_step",
-                                         NULL);
+                                         &error);
 
-        if (vol_step == 0) {
+        if (error) {
                 vol_step = VOLUME_STEP;
+                g_error_free (error);
         }
 
         /* FIXME: this is racy */
