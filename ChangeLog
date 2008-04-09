@@ -1,5 +1,14 @@
 2008-04-09  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/keyboard/gsd-keyboard-manager.c: (numlock_xkb_init),
+	(numlock_set_xkb_state), (numlock_gconf_state_key),
+	(numlock_xkb_callback), (numlock_install_xkb_callback),
+	(apply_settings), (gsd_keyboard_manager_start): split XKB
+	initialization and calbback installation which allows us to get rid of
+	some more special-casing and yet another static variable
+
+2008-04-09  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c: (xkb_enabled),
 	(get_xkb_desc_rec), (gsd_a11y_keyboard_manager_start): don't install
 	any listeners or callbacks when XKB is not available

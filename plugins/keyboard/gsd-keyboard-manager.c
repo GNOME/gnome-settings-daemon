@@ -73,6 +73,7 @@
 struct GsdKeyboardManagerPrivate
 {
         gboolean have_xkb;
+        int      xkb_event_base;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
@@ -156,13 +157,37 @@ typedef enum {
         NUMLOCK_STATE_UNKNOWN = 2
 } NumLockState;
 
-/* we didn't apply GConf settings yet
- * don't overwrite them with the initial state from
- * the newly started session!
- */
-static gboolean
-numlock_starting_up = TRUE;
+static void
+numlock_xkb_init (GsdKeyboardManager *manager)
+{
+        Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+        gboolean have_xkb;
+        int opcode, error_base, major, minor;
 
+        gdk_error_trap_push ();
+        have_xkb = XkbQueryExtension (dpy,
+                                      &opcode,
+                                      &manager->priv->xkb_event_base,
+                                      &error_base,
+                                      &major,
+                                      &minor)
+                && XkbUseExtension (dpy, &major, &minor);
+
+        if (have_xkb) {
+                XkbSelectEventDetails (dpy,
+                                       XkbUseCoreKbd,
+                                       XkbStateNotifyMask,
+                                       XkbModifierLockMask,
+                                       XkbModifierLockMask);
+        } else {
+                g_warning ("XKB extension not available");
+        }
+
+        XSync (dpy, FALSE);
+        gdk_error_trap_pop ();
+
+        manager->priv->have_xkb = have_xkb;
+}
 
 static unsigned
 numlock_NumLock_modifier_mask (void)
@@ -172,7 +197,7 @@ numlock_NumLock_modifier_mask (void)
 }
 
 static void
-numlock_set_xkb_state (int new_state)
+numlock_set_xkb_state (NumLockState new_state)
 {
         unsigned int num_mask;
         Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
@@ -187,7 +212,7 @@ numlock_gconf_state_key (void)
 {
         char *key = gsd_keyboard_get_hostname_key ("numlock_on");
         if (!key) {
-                g_warning ("numlock: Numlock remembering disabled because your hostname is set to \"localhost\".");
+                g_warning ("NumLock remembering disabled because hostname is set to \"localhost\"");
         }
         return key;
 }
@@ -244,49 +269,23 @@ numlock_xkb_callback (GdkXEvent *xev_,
                         unsigned num_mask = numlock_NumLock_modifier_mask ();
                         unsigned locked_mods = xkbev->state.locked_mods;
                         int numlock_state = !! (num_mask & locked_mods);
-
-                        if (!numlock_starting_up) {
-                                GConfClient *client;
-                                client = gconf_client_get_default ();
-                                numlock_set_gconf_state (client, numlock_state);
-                                g_object_unref (client);
-                        }
+                        GConfClient *client = gconf_client_get_default ();
+                        numlock_set_gconf_state (client, numlock_state);
+                        g_object_unref (client);
                 }
         }
         return GDK_FILTER_CONTINUE;
 }
 
-static gboolean
-numlock_install_xkb_callback (void)
+static void
+numlock_install_xkb_callback (GsdKeyboardManager *manager)
 {
-        Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        int      op_code = 0;
-        int      xkb_event_code = 0;
-        int      error_code = 0;
-        int      major = XkbMajorVersion;
-        int      minor = XkbMinorVersion;
-        int      have_xkb = XkbQueryExtension (dpy,
-                                          &op_code,
-                                          &xkb_event_code,
-                                          &error_code,
-                                          &major,
-                                          &minor);
-        if (have_xkb != True) {
-                g_warning ("numlock: XkbQueryExtension returned an error");
-                return FALSE;
-        }
-
-        XkbSelectEventDetails (dpy,
-                               XkbUseCoreKbd,
-                               XkbStateNotifyMask,
-                               XkbModifierLockMask,
-                               XkbModifierLockMask);
+        if (!manager->priv->have_xkb)
+                return;
 
         gdk_window_add_filter (NULL,
                                numlock_xkb_callback,
-                               GINT_TO_POINTER (xkb_event_code));
-
-        return TRUE;
+                               GINT_TO_POINTER (manager->priv->xkb_event_base));
 }
 
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
@@ -368,7 +367,6 @@ apply_settings (GConfClient        *client,
         if (manager->priv->have_xkb && rnumlock) {
                 numlock_set_xkb_state (numlock_get_gconf_state (client));
         }
-        numlock_starting_up = FALSE;
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         XSync (GDK_DISPLAY (), FALSE);
@@ -398,21 +396,28 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
 
         gnome_settings_profile_start (NULL);
 
-        client = gconf_client_get_default ();
         g_debug ("Starting keyboard manager");
+        client = gconf_client_get_default ();
+
         /* Essential - xkb initialization should happen before */
         gsd_keyboard_xkb_set_post_activation_callback ((PostActivationCallback) gsd_load_modmap_files, NULL);
         gsd_keyboard_xkb_init (client);
 
+#ifdef HAVE_X11_EXTENSIONS_XKB_H
+        numlock_xkb_init (manager);
+#endif /* HAVE_X11_EXTENSIONS_XKB_H */
+
         register_config_callback (manager,
                                   GSD_KEYBOARD_KEY,
                                   (GConfClientNotifyFunc) apply_settings);
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
-        manager->priv->have_xkb = numlock_install_xkb_callback ();
-#endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
+        /* apply current settings before we install the callback */
         apply_settings (client, 0, NULL, manager);
         g_object_unref (client);
+
+#ifdef HAVE_X11_EXTENSIONS_XKB_H
+        numlock_install_xkb_callback (manager);
+#endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         gnome_settings_profile_end (NULL);
 
