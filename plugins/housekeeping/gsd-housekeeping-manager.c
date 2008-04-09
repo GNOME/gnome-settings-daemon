@@ -322,16 +322,22 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
 {
         g_debug ("Stopping housekeeping manager");
 
-        if (manager->priv->long_term_cb) {
-                g_source_remove (manager->priv->long_term_cb);
-                manager->priv->long_term_cb = 0;
-        }
-
         if (manager->priv->short_term_cb) {
                 g_source_remove (manager->priv->short_term_cb);
                 manager->priv->short_term_cb = 0;
         }
 
+        if (manager->priv->long_term_cb) {
+                g_source_remove (manager->priv->long_term_cb);
+                manager->priv->long_term_cb = 0;
+
+                /* Do a clean-up on shutdown if and only if the size or age
+                   limits have been set to paranoid levels (zero) */
+                if ((get_gconf_int_with_default (GCONF_THUMB_AGE, DEFAULT_MAX_AGE_IN_DAYS) == 0) ||
+                    (get_gconf_int_with_default (GCONF_THUMB_SIZE, DEFAULT_MAX_SIZE_IN_MB) == 0)) {
+                        do_cleanup (manager);
+                }
+        }
 }
 
 

@@ -1,3 +1,10 @@
+2008-04-09  Michael J. Chudobiak  <mjc@svn.gnome.org>
+
+	* plugins/housekeeping/gsd-housekeeping-manager.c:
+	(gsd_housekeeping_manager_stop):
+	Purge thumbnail cache on shutdown if and only if the max size or
+	max age parameters have been set to zero (for paranoid people).
+
 2008-04-07  Jens Granseuer  <jensgr@gmx.net>
 
 	Currently, the percentage by which to lower or raise the volume when
