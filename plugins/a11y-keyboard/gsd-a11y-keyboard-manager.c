@@ -89,14 +89,8 @@ gsd_kbd_a11y_error_quark (void)
 static gboolean
 xkb_enabled (GsdA11yKeyboardManager *manager)
 {
-        static gboolean initialized = 0;
-        static gboolean have_xkb = 0;
-
+        gboolean have_xkb;
         int opcode, errorBase, major, minor;
-
-        if (initialized) {
-                return have_xkb;
-        }
 
         gdk_error_trap_push ();
         have_xkb = XkbQueryExtension (GDK_DISPLAY (),
@@ -117,9 +111,6 @@ get_xkb_desc_rec (GsdA11yKeyboardManager *manager)
 {
         XkbDescRec *desc;
         Status      status = Success; /* Any bogus value, to suppress warning */
-
-        if (! xkb_enabled (manager))
-                return NULL;
 
         gdk_error_trap_push ();
         desc = XkbGetMap (GDK_DISPLAY (), XkbAllMapComponentsMask, XkbUseCoreKbd);
@@ -732,20 +723,10 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
 {
         guint        event_mask;
         GConfClient *client;
-        gboolean     ret;
-
-        ret = FALSE;
+        gboolean     ret = FALSE;
 
         g_debug ("Starting a11y_keyboard manager");
         gnome_settings_profile_start (NULL);
-        register_config_callback (manager,
-                                  CONFIG_ROOT,
-                                  (GConfClientNotifyFunc)keyboard_callback);
-
-        event_mask = XkbControlsNotifyMask;
-#ifdef DEBUG_ACCESSIBILITY
-        event_mask |= XkbAccessXNotifyMask; /* make default when AXN_AXKWarning works */
-#endif
 
         if (!xkb_enabled (manager)) {
                 g_set_error (error, GSD_KBD_A11Y_ERROR,
@@ -753,6 +734,15 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
                              "XKB functionality is disabled.");
                 goto out;
         }
+
+        register_config_callback (manager,
+                                  CONFIG_ROOT,
+                                  (GConfClientNotifyFunc) keyboard_callback);
+
+        event_mask = XkbControlsNotifyMask;
+#ifdef DEBUG_ACCESSIBILITY
+        event_mask |= XkbAccessXNotifyMask; /* make default when AXN_AXKWarning works */
+#endif
 
         client = gconf_client_get_default ();
         /* be sure to init before starting to monitor the server */
@@ -769,7 +759,7 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
         gdk_error_trap_pop ();
 
         gdk_window_add_filter (NULL,
-                               (GdkFilterFunc)cb_xkb_event_filter,
+                               (GdkFilterFunc) cb_xkb_event_filter,
                                manager);
         ret = TRUE;
  out:

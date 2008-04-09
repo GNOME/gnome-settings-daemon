@@ -1,3 +1,9 @@
+2008-04-09  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c: (xkb_enabled),
+	(get_xkb_desc_rec), (gsd_a11y_keyboard_manager_start): don't install
+	any listeners or callbacks when XKB is not available
+
 2008-04-09  Michael J. Chudobiak  <mjc@svn.gnome.org>
 
 	* plugins/housekeeping/gsd-housekeeping-manager.c:
