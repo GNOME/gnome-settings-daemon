@@ -74,6 +74,7 @@ struct GsdKeybindingsManagerPrivate
 {
         GSList *binding_list;
         GSList *screens;
+        guint   notify;
 };
 
 static void     gsd_keybindings_manager_class_init  (GsdKeybindingsManagerClass *klass);
@@ -554,19 +555,14 @@ bindings_callback (GConfClient           *client,
         binding_register_keys (manager);
 }
 
-static void
+static guint
 register_config_callback (GsdKeybindingsManager   *manager,
+                          GConfClient             *client,
                           const char              *path,
                           GConfClientNotifyFunc    func)
 {
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-
         gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        gconf_client_notify_add (client, path, func, manager, NULL, NULL);
-
-        g_object_unref (client);
+        return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 }
 
 gboolean
@@ -587,18 +583,19 @@ gsd_keybindings_manager_start (GsdKeybindingsManager *manager,
         dpy = gdk_display_get_default ();
         screen_num = gdk_display_get_n_screens (dpy);
 
-        register_config_callback (manager,
-                                  GCONF_BINDING_DIR,
-                                  (GConfClientNotifyFunc)bindings_callback);
-
         for (i = 0; i < screen_num; i++) {
                 screen = gdk_display_get_screen (dpy, i);
                 gdk_window_add_filter (gdk_screen_get_root_window (screen),
-                                       (GdkFilterFunc)keybindings_filter,
+                                       (GdkFilterFunc) keybindings_filter,
                                        manager);
         }
 
         client = gconf_client_get_default ();
+
+        manager->priv->notify = register_config_callback (manager,
+                                                          client,
+                                                          GCONF_BINDING_DIR,
+                                                          (GConfClientNotifyFunc) bindings_callback);
 
         list = gconf_client_all_dirs (client, GCONF_BINDING_DIR, NULL);
         manager->priv->screens = get_screens_list ();
@@ -621,7 +618,37 @@ gsd_keybindings_manager_start (GsdKeybindingsManager *manager,
 void
 gsd_keybindings_manager_stop (GsdKeybindingsManager *manager)
 {
+        GsdKeybindingsManagerPrivate *p = manager->priv;
+        GSList *l;
+
         g_debug ("Stopping keybindings manager");
+
+        if (p->notify != 0) {
+                GConfClient *client = gconf_client_get_default ();
+                gconf_client_remove_dir (client, GCONF_BINDING_DIR, NULL);
+                gconf_client_notify_remove (client, p->notify);
+                g_object_unref (client);
+                p->notify = 0;
+        }
+
+        for (l = p->screens; l; l = l->next) {
+                GdkScreen *screen = l->data;
+                gdk_window_remove_filter (gdk_screen_get_root_window (screen),
+                                          (GdkFilterFunc) keybindings_filter,
+                                          manager);
+        }
+        g_slist_free (p->screens);
+        p->screens = NULL;
+
+        for (l = p->binding_list; l; l = l->next) {
+                Binding *b = l->data;
+                g_free (b->binding_str);
+                g_free (b->action);
+                g_free (b->gconf_key);
+                g_free (b);
+        }
+        g_slist_free (p->binding_list);
+        p->binding_list = NULL;
 }
 
 static void

@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating keybindings plugin");
+        gsd_keybindings_manager_stop (GSD_KEYBINDINGS_PLUGIN (plugin)->priv->manager);
 }
 
 static void
