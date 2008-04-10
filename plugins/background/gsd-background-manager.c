@@ -48,11 +48,14 @@
 
 #define GSD_BACKGROUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_BACKGROUND_MANAGER, GsdBackgroundManagerPrivate))
 
+#define GCONF_BG_DIR    "/desktop/gnome/background"
+
 struct GsdBackgroundManagerPrivate
 {
         BGPreferences *prefs;
         GnomeBG       *bg;
         guint          timeout_id;
+        guint          notify;
 };
 
 static void     gsd_background_manager_class_init  (GsdBackgroundManagerClass *klass);
@@ -292,12 +295,13 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
         bg_preferences_load (manager->priv->prefs);
 
         client = gconf_client_get_default ();
-        gconf_client_notify_add (client,
-                                 "/desktop/gnome/background",
-                                 (GConfClientNotifyFunc) background_callback,
-                                 manager,
-                                 NULL,
-                                 NULL);
+        gconf_client_add_dir (client, GCONF_BG_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
+        manager->priv->notify = gconf_client_notify_add (client,
+                                                         GCONF_BG_DIR,
+                                                         (GConfClientNotifyFunc) background_callback,
+                                                         manager,
+                                                         NULL,
+                                                         NULL);
 
         /* If this is set, nautilus will draw the background and is
 	 * almost definitely in our session.  however, it may not be
@@ -323,16 +327,31 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
 void
 gsd_background_manager_stop (GsdBackgroundManager *manager)
 {
+        GsdBackgroundManagerPrivate *p = manager->priv;
+
         g_debug ("Stopping background manager");
 
-        if (manager->priv->prefs != NULL) {
-                g_object_unref (manager->priv->prefs);
-                manager->priv->prefs = NULL;
+        if (p->notify != 0) {
+                GConfClient *client = gconf_client_get_default ();
+                gconf_client_remove_dir (client, GCONF_BG_DIR, NULL);
+                gconf_client_notify_remove (client, p->notify);
+                g_object_unref (client);
+                p->notify = 0;
         }
 
-        if (manager->priv->bg != NULL) {
-                g_object_unref (manager->priv->bg);
-                manager->priv->bg = NULL;
+        if (p->timeout_id != 0) {
+                g_source_remove (p->timeout_id);
+                p->timeout_id = 0;
+        }
+
+        if (p->prefs != NULL) {
+                g_object_unref (p->prefs);
+                p->prefs = NULL;
+        }
+
+        if (p->bg != NULL) {
+                g_object_unref (p->bg);
+                p->bg = NULL;
         }
 }
 

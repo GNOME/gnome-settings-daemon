@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating background plugin");
+        gsd_background_manager_stop (GSD_BACKGROUND_PLUGIN (plugin)->priv->manager);
 }
 
 static void
