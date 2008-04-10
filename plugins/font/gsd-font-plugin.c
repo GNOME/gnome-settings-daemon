@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating font plugin");
+        gsd_font_manager_stop (GSD_FONT_PLUGIN (plugin)->priv->manager);
 }
 
 static void
