@@ -44,6 +44,7 @@
 struct GsdHousekeepingManagerPrivate {
         guint long_term_cb;
         guint short_term_cb;
+        guint gconf_notify;
 };
 
 
@@ -277,19 +278,20 @@ bindings_callback (GConfClient            *client,
 }
 
 
-static void
+static guint
 register_config_callback (GsdHousekeepingManager *manager,
                           const char             *path,
                           GConfClientNotifyFunc   func)
 {
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
+        GConfClient *client = gconf_client_get_default ();
+        guint notify;
 
         gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        gconf_client_notify_add (client, path, func, manager, NULL, NULL);
+        notify = gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 
         g_object_unref (client);
+
+        return notify;
 }
 
 
@@ -300,9 +302,9 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
         g_debug ("Starting housekeeping manager");
         gnome_settings_profile_start (NULL);
 
-        register_config_callback (manager,
-                                  GCONF_THUMB_BINDING_DIR,
-                                  (GConfClientNotifyFunc) bindings_callback);
+        manager->priv->gconf_notify = register_config_callback (manager,
+                                      GCONF_THUMB_BINDING_DIR,
+                                      (GConfClientNotifyFunc) bindings_callback);
 
         /* Clean once, a few minutes after start-up */
         do_cleanup_soon (manager);
@@ -320,16 +322,28 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
 void
 gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
 {
+        GsdHousekeepingManagerPrivate *p = manager->priv;
+
         g_debug ("Stopping housekeeping manager");
 
-        if (manager->priv->short_term_cb) {
-                g_source_remove (manager->priv->short_term_cb);
-                manager->priv->short_term_cb = 0;
+        if (p->gconf_notify != 0) {
+                GConfClient *client = gconf_client_get_default ();
+
+                gconf_client_remove_dir (client, GCONF_THUMB_BINDING_DIR, NULL);
+                gconf_client_notify_remove (client, p->gconf_notify);
+
+                g_object_unref (client);
+                p->gconf_notify = 0;
         }
 
-        if (manager->priv->long_term_cb) {
-                g_source_remove (manager->priv->long_term_cb);
-                manager->priv->long_term_cb = 0;
+        if (p->short_term_cb) {
+                g_source_remove (p->short_term_cb);
+                p->short_term_cb = 0;
+        }
+
+        if (p->long_term_cb) {
+                g_source_remove (p->long_term_cb);
+                p->long_term_cb = 0;
 
                 /* Do a clean-up on shutdown if and only if the size or age
                    limits have been set to paranoid levels (zero) */
@@ -352,7 +366,6 @@ static void
 gsd_housekeeping_manager_init (GsdHousekeepingManager *manager)
 {
         manager->priv = GSD_HOUSEKEEPING_MANAGER_GET_PRIVATE (manager);
-
 }
 
 

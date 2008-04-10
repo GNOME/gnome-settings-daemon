@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating housekeeping plugin");
+        gsd_housekeeping_manager_stop (GSD_HOUSEKEEPING_PLUGIN (plugin)->priv->manager);
 }
 
 static void
