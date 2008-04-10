@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating a11y_keyboard plugin");
+        gsd_a11y_keyboard_manager_stop (GSD_A11Y_KEYBOARD_PLUGIN (plugin)->priv->manager);
 }
 
 static void

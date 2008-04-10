@@ -1,5 +1,15 @@
 2008-04-10  Jens Granseuer  <jensgr@gmx.net>
 
+	Make a11y-keyboard plugin deactivation work
+
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
+	(register_config_callback), (gsd_a11y_keyboard_manager_start),
+	(gsd_a11y_keyboard_manager_stop): properly clean up on _stop
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-plugin.c:
+	(impl_deactivate): stop manager on deactivation
+
+2008-04-10  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
 	(get_xkb_desc_rec), (set_server_from_gconf),
 	(ax_slowkeys_warning_dialog_post),

@@ -57,6 +57,9 @@ struct GsdA11yKeyboardManagerPrivate
         gboolean   slowkeys_shortcut_val;
         GtkWidget *stickykeys_alert;
         GtkWidget *slowkeys_alert;
+
+        guint      gconf_notify;
+
 };
 
 #define GSD_KBD_A11Y_ERROR gsd_kbd_a11y_error_quark ()
@@ -702,17 +705,13 @@ keyboard_callback (GConfClient            *client,
 
 static void
 register_config_callback (GsdA11yKeyboardManager  *manager,
+                          GConfClient             *client,
                           const char              *path,
-                          GConfClientNotifyFunc    func)
+                          GConfClientNotifyFunc    func,
+                          guint                   *notify)
 {
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-
         gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        gconf_client_notify_add (client, path, func, manager, NULL, NULL);
-
-        g_object_unref (client);
+        *notify = gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 }
 
 gboolean
@@ -733,16 +732,19 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
                 goto out;
         }
 
+        client = gconf_client_get_default ();
+
         register_config_callback (manager,
+                                  client,
                                   CONFIG_ROOT,
-                                  (GConfClientNotifyFunc) keyboard_callback);
+                                  (GConfClientNotifyFunc) keyboard_callback,
+                                  &manager->priv->gconf_notify);
 
         event_mask = XkbControlsNotifyMask;
 #ifdef DEBUG_ACCESSIBILITY
         event_mask |= XkbAccessXNotifyMask; /* make default when AXN_AXKWarning works */
 #endif
 
-        client = gconf_client_get_default ();
         /* be sure to init before starting to monitor the server */
         set_server_from_gconf (manager, client);
         g_object_unref (client);
@@ -768,7 +770,29 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
 void
 gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
 {
+        GsdA11yKeyboardManagerPrivate *p = manager->priv;
+
         g_debug ("Stopping a11y_keyboard manager");
+
+        if (p->gconf_notify != 0) {
+                GConfClient *client = gconf_client_get_default ();
+                gconf_client_notify_remove (client, p->gconf_notify);
+                g_object_unref (client);
+                p->gconf_notify = 0;
+        }
+
+        gdk_window_remove_filter (NULL,
+                                  (GdkFilterFunc) cb_xkb_event_filter,
+                                  manager);
+
+        if (p->slowkeys_alert != NULL)
+                gtk_widget_destroy (p->slowkeys_alert);
+
+        if (p->stickykeys_alert != NULL)
+                gtk_widget_destroy (p->stickykeys_alert);
+
+        p->slowkeys_shortcut_val = FALSE;
+        p->stickykeys_shortcut_val = FALSE;
 }
 
 static void
