@@ -282,7 +282,6 @@ grab_key_real (Key       *key,
 {
         gdk_error_trap_push ();
         if (grab) {
-                g_debug ("Grab: %d %d %x %s", result, (int)key->keycode, key->state, XKeysymToString (key->keysym));
                 XGrabKey (GDK_DISPLAY (),
                           key->keycode,
                           (result | key->state),
@@ -291,7 +290,6 @@ grab_key_real (Key       *key,
                           GrabModeAsync,
                           GrabModeAsync);
         } else {
-                g_debug ("UnGrab: %d %d %x", result, (int)key->keycode, key->state);
                 XUngrabKey (GDK_DISPLAY (),
                             key->keycode,
                             (result | key->state),
