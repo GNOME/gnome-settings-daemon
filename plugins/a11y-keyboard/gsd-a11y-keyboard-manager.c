@@ -776,6 +776,7 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
 
         if (p->gconf_notify != 0) {
                 GConfClient *client = gconf_client_get_default ();
+                gconf_client_remove_dir (client, CONFIG_ROOT, NULL);
                 gconf_client_notify_remove (client, p->gconf_notify);
                 g_object_unref (client);
                 p->gconf_notify = 0;
