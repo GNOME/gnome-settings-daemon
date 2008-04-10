@@ -48,6 +48,9 @@ static GkbdKeyboardConfig initial_sys_kbd_config;
 
 static gboolean inited_ok = FALSE;
 
+static guint notify_desktop = 0;
+static guint notify_keyboard = 0;
+
 static PostActivationCallback pa_callback = NULL;
 static void *pa_callback_user_data = NULL;
 
@@ -283,22 +286,17 @@ gsd_keyboard_xkb_evt_filter (GdkXEvent * xev,
         return GDK_FILTER_CONTINUE;
 }
 
-static void
-register_config_callback (const char              *path,
-                          GConfClientNotifyFunc    func)
+static guint
+register_config_callback (GConfClient          *client,
+                          const char           *path,
+                          GConfClientNotifyFunc func)
 {
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-
         gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        gconf_client_notify_add (client, path, func, NULL, NULL, NULL);
-
-        g_object_unref (client);
+        return gconf_client_notify_add (client, path, func, NULL, NULL, NULL);
 }
 
 void
-gsd_keyboard_xkb_init (GConfClient * client)
+gsd_keyboard_xkb_init (GConfClient *client)
 {
 #ifdef GSDKX
         xkl_set_debug_level (200);
@@ -319,11 +317,15 @@ gsd_keyboard_xkb_init (GConfClient * client)
                 gsd_keyboard_xkb_analyze_sysconfig ();
                 gsd_keyboard_xkb_chk_lcl_xmm ();
 
-                register_config_callback (GKBD_DESKTOP_CONFIG_DIR,
-                                          (GConfClientNotifyFunc)apply_settings);
+                notify_desktop =
+                        register_config_callback (client,
+                                                  GKBD_DESKTOP_CONFIG_DIR,
+                                                  (GConfClientNotifyFunc) apply_settings);
 
-                register_config_callback (GKBD_KEYBOARD_CONFIG_DIR,
-                                          (GConfClientNotifyFunc)apply_xkb_settings);
+                notify_keyboard =
+                        register_config_callback (client,
+                                                  GKBD_KEYBOARD_CONFIG_DIR,
+                                                  (GConfClientNotifyFunc) apply_xkb_settings);
 
                 gdk_window_add_filter (NULL, (GdkFilterFunc)
                                        gsd_keyboard_xkb_evt_filter,
@@ -335,4 +337,41 @@ gsd_keyboard_xkb_init (GConfClient * client)
                 apply_settings ();
                 apply_xkb_settings ();
         }
+}
+
+void
+gsd_keyboard_xkb_shutdown (void)
+{
+        GConfClient *client;
+
+        if (!inited_ok)
+                return;
+
+        xkl_engine_stop_listen (xkl_engine);
+
+        gdk_window_remove_filter (NULL,
+                                  (GdkFilterFunc) gsd_keyboard_xkb_evt_filter,
+                                  NULL);
+
+        client = gconf_client_get_default ();
+
+        if (notify_desktop != 0) {
+                gconf_client_remove_dir (client, GKBD_DESKTOP_CONFIG_DIR, NULL);
+                gconf_client_notify_remove (client, notify_desktop);
+                notify_desktop = 0;
+        }
+
+        if (notify_keyboard != 0) {
+                gconf_client_remove_dir (client, GKBD_KEYBOARD_CONFIG_DIR, NULL);
+                gconf_client_notify_remove (client, notify_keyboard);
+                notify_keyboard = 0;
+        }
+
+        g_object_unref (client);
+        g_object_unref (xkl_engine);
+
+        pa_callback = NULL;
+        pa_callback_user_data = NULL;
+        xkl_engine = NULL;
+        inited_ok = FALSE;
 }

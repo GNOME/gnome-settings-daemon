@@ -73,7 +73,8 @@
 struct GsdKeyboardManagerPrivate
 {
         gboolean have_xkb;
-        int      xkb_event_base;
+        gint     xkb_event_base;
+        guint    notify;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
@@ -373,19 +374,14 @@ apply_settings (GConfClient        *client,
         gdk_error_trap_pop ();
 }
 
-static void
+static guint
 register_config_callback (GsdKeyboardManager      *manager,
+                          GConfClient             *client,
                           const char              *path,
                           GConfClientNotifyFunc    func)
 {
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-
         gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        gconf_client_notify_add (client, path, func, manager, NULL, NULL);
-
-        g_object_unref (client);
+        return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 }
 
 gboolean
@@ -397,6 +393,8 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
         gnome_settings_profile_start (NULL);
 
         g_debug ("Starting keyboard manager");
+
+        manager->priv->have_xkb = 0;
         client = gconf_client_get_default ();
 
         /* Essential - xkb initialization should happen before */
@@ -407,12 +405,14 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
         numlock_xkb_init (manager);
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
-        register_config_callback (manager,
-                                  GSD_KEYBOARD_KEY,
-                                  (GConfClientNotifyFunc) apply_settings);
-
         /* apply current settings before we install the callback */
         apply_settings (client, 0, NULL, manager);
+
+        manager->priv->notify = register_config_callback (manager,
+                                                          client,
+                                                          GSD_KEYBOARD_KEY,
+                                                          (GConfClientNotifyFunc) apply_settings);
+
         g_object_unref (client);
 
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
@@ -427,7 +427,27 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
 void
 gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 {
+        GsdKeyboardManagerPrivate *p = manager->priv;
+
         g_debug ("Stopping keyboard manager");
+
+        if (p->notify != 0) {
+                GConfClient *client = gconf_client_get_default ();
+                gconf_client_remove_dir (client, GSD_KEYBOARD_KEY, NULL);
+                gconf_client_notify_remove (client, p->notify);
+                g_object_unref (client);
+                p->notify = 0;
+        }
+
+#if HAVE_X11_EXTENSIONS_XKB_H
+        if (p->have_xkb) {
+                gdk_window_remove_filter (NULL,
+                                          numlock_xkb_callback,
+                                          GINT_TO_POINTER (p->xkb_event_base));
+        }
+#endif /* HAVE_X11_EXTENSIONS_XKB_H */
+
+        gsd_keyboard_xkb_shutdown ();
 }
 
 static void

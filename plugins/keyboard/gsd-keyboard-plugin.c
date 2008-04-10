@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating keyboard plugin");
+        gsd_keyboard_manager_stop (GSD_KEYBOARD_PLUGIN (plugin)->priv->manager);
 }
 
 static void

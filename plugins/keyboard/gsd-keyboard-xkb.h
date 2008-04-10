@@ -29,7 +29,8 @@
 
 #include <libxklavier/xklavier.h>
 
-void gsd_keyboard_xkb_init (GConfClient * client);
+void gsd_keyboard_xkb_init (GConfClient *client);
+void gsd_keyboard_xkb_shutdown (void);
 
 typedef void (*PostActivationCallback) (void *userData);
 

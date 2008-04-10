@@ -1,5 +1,18 @@
 2008-04-10  Jens Granseuer  <jensgr@gmx.net>
 
+	Make keyboard plugin deactivation work
+
+	* plugins/keyboard/gsd-keyboard-manager.c:
+	(register_config_callback), (gsd_keyboard_manager_start),
+	(gsd_keyboard_manager_stop):
+	* plugins/keyboard/gsd-keyboard-xkb.c: (register_config_callback),
+	(gsd_keyboard_xkb_init), (gsd_keyboard_xkb_shutdown):
+	* plugins/keyboard/gsd-keyboard-xkb.h: clean up properly on stop
+	* plugins/keyboard/gsd-keyboard-plugin.c: (impl_deactivate): stop
+	manager on deactivation
+
+2008-04-10  Jens Granseuer  <jensgr@gmx.net>
+
 	Make keybinding plugin deactivation work
 
 	* plugins/keybindings/gsd-keybindings-manager.c:
