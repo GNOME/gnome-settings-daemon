@@ -75,7 +75,7 @@ static gpointer manager_object = NULL;
 
 #undef DEBUG_ACCESSIBILITY
 #ifdef DEBUG_ACCESSIBILITY
-#define d(str)          fprintf (stderr, str)
+#define d(str)          g_debug (str)
 #else
 #define d(str)          do { } while (0)
 #endif
@@ -110,7 +110,7 @@ static XkbDescRec *
 get_xkb_desc_rec (GsdA11yKeyboardManager *manager)
 {
         XkbDescRec *desc;
-        Status      status = Success; /* Any bogus value, to suppress warning */
+        Status      status = Success;
 
         gdk_error_trap_push ();
         desc = XkbGetMap (GDK_DISPLAY (), XkbAllMapComponentsMask, XkbUseCoreKbd);
@@ -203,7 +203,6 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
 
         desc = get_xkb_desc_rec (manager);
         if (!desc) {
-                d ("No XKB present\n");
                 return;
         }
 
@@ -308,8 +307,8 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
                                              XkbAccessXFeedbackMask | XkbAX_IndicatorFBMask);
 
         /*
-        fprintf (stderr, "CHANGE to : 0x%x\n", desc->ctrls->enabled_ctrls);
-        fprintf (stderr, "CHANGE to : 0x%x (2)\n", desc->ctrls->ax_options);
+        g_debug ("CHANGE to : 0x%x", desc->ctrls->enabled_ctrls);
+        g_debug ("CHANGE to : 0x%x (2)", desc->ctrls->ax_options);
         */
 
         gdk_error_trap_push ();
@@ -455,7 +454,7 @@ ax_slowkeys_warning_dialog_post (GsdA11yKeyboardManager *manager,
         gtk_window_set_icon_name (GTK_WINDOW (manager->priv->slowkeys_alert),
                                   "gnome-dev-keyboard");
         gtk_dialog_set_default_response (GTK_DIALOG (manager->priv->slowkeys_alert),
-                                         GTK_RESPONSE_OK);
+                                         GTK_RESPONSE_ACCEPT);
 
         g_signal_connect (manager->priv->slowkeys_alert,
                           "response",
@@ -507,7 +506,7 @@ ax_stickykeys_warning_dialog_post (GsdA11yKeyboardManager *manager,
         gtk_window_set_icon_name (GTK_WINDOW (manager->priv->stickykeys_alert),
                                   "gnome-dev-keyboard");
         gtk_dialog_set_default_response (GTK_DIALOG (manager->priv->stickykeys_alert),
-                                         GTK_RESPONSE_OK);
+                                         GTK_RESPONSE_ACCEPT);
 
         g_signal_connect (manager->priv->stickykeys_alert,
                           "response",
@@ -532,7 +531,6 @@ set_gconf_from_server (GsdA11yKeyboardManager *manager)
         cs = gconf_change_set_new ();
         desc = get_xkb_desc_rec (manager);
         if (! desc) {
-                d ("No XKB present\n");
                 return;
         }
 
@@ -676,7 +674,7 @@ cb_xkb_event_filter (GdkXEvent              *xevent,
 
         if (xev->xany.type == (manager->priv->xkbEventBase + XkbEventCode) &&
             xkbEv->any.xkb_type == XkbControlsNotify) {
-                d ("Someone changed XKB state\n");
+                d ("XKB state changed");
                 set_gconf_from_server (manager);
         } else if (xev->xany.type == (manager->priv->xkbEventBase + XkbEventCode) &&
                    xkbEv->any.xkb_type == XkbAccessXNotify) {
@@ -837,7 +835,7 @@ gsd_a11y_keyboard_manager_dispose (GObject *object)
 static void
 gsd_a11y_keyboard_manager_class_init (GsdA11yKeyboardManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
         object_class->get_property = gsd_a11y_keyboard_manager_get_property;
         object_class->set_property = gsd_a11y_keyboard_manager_set_property;
@@ -852,7 +850,6 @@ static void
 gsd_a11y_keyboard_manager_init (GsdA11yKeyboardManager *manager)
 {
         manager->priv = GSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE (manager);
-
 }
 
 static void

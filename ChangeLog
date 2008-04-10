@@ -1,5 +1,14 @@
 2008-04-10  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
+	(get_xkb_desc_rec), (set_server_from_gconf),
+	(ax_slowkeys_warning_dialog_post),
+	(ax_stickykeys_warning_dialog_post), (set_gconf_from_server),
+	(cb_xkb_event_filter), (gsd_a11y_keyboard_manager_init): more
+	cleanup
+
+2008-04-10  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/media-keys/gsd-media-keys-manager.c: (grab_key_real):
 	remove excessive key grab logging
 
