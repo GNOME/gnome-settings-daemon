@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating dummy plugin");
+        gsd_dummy_manager_stop (GSD_DUMMY_PLUGIN (plugin)->priv->manager);
 }
 
 static void
