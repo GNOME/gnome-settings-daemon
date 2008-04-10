@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating clipboard plugin");
+        gsd_clipboard_manager_stop (GSD_CLIPBOARD_PLUGIN (plugin)->priv->manager);
 }
 
 static void
