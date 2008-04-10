@@ -1,3 +1,11 @@
+2008-04-11  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/keyboard/gsd-xmodmap.c: (check_button_callback),
+	(gsd_load_modmap_files), (response_callback),
+	(remove_string_from_list), (remove_button_clicked_callback),
+	(load_button_clicked_callback), (gsd_modmap_dialog_call): fix
+	memory leaks
+
 2008-04-10  Jens Granseuer  <jensgr@gmx.net>
 
 	Make keyboard plugin deactivation work

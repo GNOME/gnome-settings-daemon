@@ -46,13 +46,11 @@ check_button_callback (GtkWidget *chk_button,
 
         client = gconf_client_get_default ();
 
-        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (chk_button))) {
-                gconf_client_set_bool (client, DISABLE_XMM_WARNING_KEY, TRUE,
-                                       NULL);
-        } else {
-                gconf_client_set_bool (client, DISABLE_XMM_WARNING_KEY, FALSE,
-                                       NULL);
-        }
+        gconf_client_set_bool (client,
+                               DISABLE_XMM_WARNING_KEY,
+                               gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (chk_button)),
+                               NULL);
+
         g_object_unref (client);
 }
 
@@ -60,21 +58,28 @@ void
 gsd_load_modmap_files (void)
 {
         GConfClient *client;
-        GSList      *tmp = NULL;
+        GSList      *tmp;
         GSList      *loaded_file_list;
 
         client = gconf_client_get_default ();
 
         loaded_file_list = gconf_client_get_list (client, LOADED_FILES_KEY, GCONF_VALUE_STRING, NULL);
-        tmp = loaded_file_list;
-        while (tmp != NULL) {
-                gchar *command = NULL;
-                command = g_strdup_printf ("xmodmap %s", g_build_filename (g_get_home_dir (), (gchar *)tmp->data, NULL));
+
+        for (tmp = loaded_file_list; tmp != NULL; tmp = tmp->next) {
+                gchar *file;
+                gchar *command;
+
+                file = g_build_filename (g_get_home_dir (), (gchar *) tmp->data);
+                command = g_strconcat ("xmodmap ", file, NULL);
+                g_free (file);
+
                 g_spawn_command_line_async (command, NULL);
-                tmp = tmp->next;
+
                 g_free (command);
+                g_free (tmp->data);
         }
 
+        g_slist_free (loaded_file_list);
         g_object_unref (client);
 }
 
@@ -88,7 +93,7 @@ response_callback (GtkWidget *dialog,
                 check_button_callback (chk_button, NULL);
                 gsd_load_modmap_files ();
         }
-        gtk_widget_destroy (GTK_WIDGET (dialog));
+        gtk_widget_destroy (dialog);
 }
 
 static void
@@ -116,17 +121,12 @@ remove_string_from_list (GSList     *list,
 {
         GSList *tmp;
 
-        tmp = list;
-        while (tmp != NULL) {
-                if (strcmp (tmp->data, str) == 0)
+        for (tmp = list; tmp != NULL; tmp = tmp->next) {
+                if (strcmp (tmp->data, str) == 0) {
+                        g_free (tmp->data);
+                        list = g_slist_delete_link (list, tmp);
                         break;
-
-                tmp = tmp->next;
-        }
-
-        if (tmp != NULL) {
-                g_free (tmp->data);
-                list = g_slist_remove (list, tmp->data);
+                }
         }
 
         return list;
@@ -137,7 +137,6 @@ static void
 remove_button_clicked_callback (GtkWidget *button,
                                 void      *data)
 {
-        GladeXML         *xml;
         GtkWidget        *dialog;
         GtkListStore     *tree = NULL;
         GtkTreeSelection *selection;
@@ -149,8 +148,7 @@ remove_button_clicked_callback (GtkWidget *button,
 
         dialog = data;
 
-        xml = g_object_get_data (G_OBJECT (dialog), "treeview1");
-        treeview = glade_xml_get_widget (xml, "treeview1");
+        treeview = g_object_get_data (G_OBJECT (dialog), "treeview1");
 
         selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
         gtk_tree_selection_selected_foreach (selection,
@@ -180,15 +178,13 @@ remove_button_clicked_callback (GtkWidget *button,
         tree = g_object_get_data (G_OBJECT (dialog), "tree");
 
         gtk_list_store_clear (tree);
-        tmp = loaded_files;
-        while (tmp != NULL) {
+        for (tmp = loaded_files; tmp != NULL; tmp = tmp->next) {
                 GtkTreeIter iter;
                 gtk_list_store_append (tree, &iter);
                 gtk_list_store_set (tree, &iter,
                                     0,
-                                    (char *)tmp->data,
+                                    tmp->data,
                                     -1);
-                tmp = tmp->next;
         }
 
         g_slist_foreach (loaded_files, (GFunc) g_free, NULL);
@@ -227,37 +223,35 @@ load_button_clicked_callback (GtkWidget *button,
                                               LOADED_FILES_KEY,
                                               GCONF_VALUE_STRING,
                                               NULL);
-        tmp = loaded_files;
-        while (tmp != NULL) {
-                if (strcmp (tmp->data, (char *)filenames->data) == 0)
-                        return;;
 
-                tmp = tmp->next;
-
+        if (g_slist_find_custom (loaded_files, filenames->data, (GCompareFunc) strcmp)) {
+                g_free (filenames->data);
+                g_slist_free (filenames);
+                goto out;
         }
 
-        loaded_files = g_slist_append (loaded_files, (char *)filenames->data);
+        loaded_files = g_slist_append (loaded_files, filenames->data);
         gconf_client_set_list (client,
                                LOADED_FILES_KEY,
                                GCONF_VALUE_STRING,
                                loaded_files,
                                NULL);
 
-        g_object_unref (client);
 
         tree = g_object_get_data (G_OBJECT (dialog), "tree");
 
         gtk_list_store_clear (tree);
-        tmp = loaded_files;
-        while (tmp != NULL) {
+        for (tmp = loaded_files; tmp != NULL; tmp = tmp->next) {
                 GtkTreeIter iter;
                 gtk_list_store_append (tree, &iter);
                 gtk_list_store_set (tree, &iter,
                                     0,
-                                    (char *)tmp->data,
+                                    tmp->data,
                                     -1);
-                tmp = tmp->next;
         }
+
+out:
+        g_object_unref (client);
         g_slist_foreach (loaded_files, (GFunc) g_free, NULL);
         g_slist_free (loaded_files);
 }
@@ -279,9 +273,9 @@ gsd_modmap_dialog_call (void)
         GtkWidget         *add_button;
         GtkWidget         *remove_button;
         GtkWidget         *chk_button;
-        GSList            *tmp = NULL;
+        GSList            *tmp;
         GDir              *homeDir;
-        GSList            *loaded_files = NULL;
+        GSList            *loaded_files;
         const char        *fname;
         GConfClient       *client;
 
@@ -291,38 +285,38 @@ gsd_modmap_dialog_call (void)
 
         xml = glade_xml_new (DATADIR "/modmap-dialog.glade", "dialog1", NULL);
 
-        if (! xml) {
-                g_warning ("Could not find glade file\n");
+        if (!xml) {
+                g_warning ("Could not find glade file");
+                g_dir_close (homeDir);
                 return;
         }
 
         load_dialog = glade_xml_get_widget (xml, "dialog1");
         gtk_window_set_modal (GTK_WINDOW (load_dialog), TRUE);
-        g_signal_connect (G_OBJECT (load_dialog),
+        g_signal_connect (load_dialog,
                           "response",
                           G_CALLBACK (response_callback),
                           xml);
         add_button = glade_xml_get_widget (xml, "button7");
-        g_signal_connect (G_OBJECT (add_button),
+        g_signal_connect (add_button,
                           "clicked",
                           G_CALLBACK (load_button_clicked_callback),
                           load_dialog);
         remove_button = glade_xml_get_widget (xml, "button6");
-        g_signal_connect (G_OBJECT (remove_button),
+        g_signal_connect (remove_button,
                           "clicked",
                           G_CALLBACK (remove_button_clicked_callback),
                           load_dialog);
         chk_button = glade_xml_get_widget (xml, "checkbutton1");
-        g_signal_connect (G_OBJECT (chk_button),
+        g_signal_connect (chk_button,
                           "toggled",
                           G_CALLBACK (check_button_callback),
                           NULL);
         g_object_set_data (G_OBJECT (load_dialog), "check_button", chk_button);
-        g_object_set_data (G_OBJECT (load_dialog), "treeview1", xml);
+        treeview = glade_xml_get_widget (xml, "treeview1");
+        g_object_set_data (G_OBJECT (load_dialog), "treeview1", treeview);
         treeview = glade_xml_get_widget (xml, "treeview2");
-        g_object_set_data (G_OBJECT (load_dialog),
-                           "loaded-treeview",
-                           treeview);
+        g_object_set_data (G_OBJECT (load_dialog), "loaded-treeview", treeview);
         tree = gtk_list_store_new (1, G_TYPE_STRING);
         cell_renderer = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes ("modmap",
@@ -338,7 +332,7 @@ gsd_modmap_dialog_call (void)
                         gtk_list_store_append (tree, &parent_iter);
                         gtk_list_store_set (tree, &parent_iter,
                                             0,
-                                            g_strdup (fname),
+                                            fname,
                                             -1);
                 }
         }
@@ -371,17 +365,16 @@ gsd_modmap_dialog_call (void)
         g_object_unref (client);
 
         /* Add the data */
-        tmp = loaded_files;
-        while (tmp != NULL) {
-                gchar *command = NULL;
+        for (tmp = loaded_files; tmp != NULL; tmp = tmp->next) {
                 gtk_list_store_append (tree, &iter);
                 gtk_list_store_set (tree, &iter,
                                     0,
-                                    (char *)tmp->data,
+                                    tmp->data,
                                     -1);
-                tmp = tmp->next;
-                g_free (command);
         }
+
+        g_slist_foreach (loaded_files, (GFunc) g_free, NULL);
+        g_slist_free (loaded_files);
 
         sort_model = gtk_tree_model_sort_new_with_model (GTK_TREE_MODEL (tree));
         gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (sort_model),
@@ -393,5 +386,5 @@ gsd_modmap_dialog_call (void)
         gtk_tree_selection_set_mode (GTK_TREE_SELECTION (selection),
                                      GTK_SELECTION_MULTIPLE);
         g_object_set_data (G_OBJECT (load_dialog), "tree", tree);
-
+        g_object_unref (xml);
 }
