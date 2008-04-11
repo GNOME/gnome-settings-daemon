@@ -52,6 +52,9 @@
 
 #define GSD_MOUSE_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerPrivate))
 
+#define GCONF_MOUSE_DIR         "/desktop/gnome/peripherals/mouse"
+#define GCONF_MOUSE_A11Y_DIR    "/desktop/gnome/accessibility/mouse"
+
 #define KEY_LEFT_HANDED         "/desktop/gnome/peripherals/mouse/left_handed"
 #define KEY_MOTION_ACCELERATION "/desktop/gnome/peripherals/mouse/motion_acceleration"
 #define KEY_MOTION_THRESHOLD    "/desktop/gnome/peripherals/mouse/motion_threshold"
@@ -61,11 +64,8 @@
 
 struct GsdMouseManagerPrivate
 {
-        gboolean dummy;
-};
-
-enum {
-        PROP_0,
+        guint notify;
+        guint notify_a11y;
 };
 
 static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
@@ -75,12 +75,6 @@ static void     gsd_mouse_manager_finalize    (GObject             *object);
 G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
-
-void
-gsd_mouse_manager_stop (GsdMouseManager *manager)
-{
-        g_debug ("Stopping mouse manager");
-}
 
 static void
 gsd_mouse_manager_set_property (GObject        *object,
@@ -627,32 +621,20 @@ mouse_callback (GConfClient        *client,
         }
 }
 
-static void
+static guint
 register_config_callback (GsdMouseManager         *manager,
+                          GConfClient             *client,
                           const char              *path,
                           GConfClientNotifyFunc    func)
 {
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-
         gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        gconf_client_notify_add (client, path, func, manager, NULL, NULL);
-
-        g_object_unref (client);
+        return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 }
 
 static void
 gsd_mouse_manager_init (GsdMouseManager *manager)
 {
         manager->priv = GSD_MOUSE_MANAGER_GET_PRIVATE (manager);
-
-        register_config_callback (manager,
-                                  "/desktop/gnome/peripherals/mouse",
-                                  (GConfClientNotifyFunc)mouse_callback);
-        register_config_callback (manager,
-                                  "/desktop/gnome/accessibility/mouse",
-                                  (GConfClientNotifyFunc)mouse_callback);
 }
 
 gboolean
@@ -665,6 +647,17 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
         gnome_settings_profile_start (NULL);
 
         client = gconf_client_get_default ();
+
+        manager->priv->notify =
+                register_config_callback (manager,
+                                          client,
+                                          GCONF_MOUSE_DIR,
+                                          (GConfClientNotifyFunc) mouse_callback);
+        manager->priv->notify_a11y =
+                register_config_callback (manager,
+                                          client,
+                                          GCONF_MOUSE_A11Y_DIR,
+                                          (GConfClientNotifyFunc) mouse_callback);
 
         set_left_handed (manager, gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
         set_motion_acceleration (manager, gconf_client_get_float (client, KEY_MOTION_ACCELERATION , NULL));
@@ -679,6 +672,33 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
         gnome_settings_profile_end (NULL);
 
         return TRUE;
+}
+
+void
+gsd_mouse_manager_stop (GsdMouseManager *manager)
+{
+        GsdMouseManagerPrivate *p = manager->priv;
+        GConfClient *client;
+
+        g_debug ("Stopping mouse manager");
+
+        client = gconf_client_get_default ();
+
+        if (p->notify != 0) {
+                gconf_client_remove_dir (client, GCONF_MOUSE_DIR, NULL);
+                gconf_client_notify_remove (client, p->notify);
+                p->notify = 0;
+        }
+
+        if (p->notify_a11y != 0) {
+                gconf_client_remove_dir (client, GCONF_MOUSE_A11Y_DIR, NULL);
+                gconf_client_notify_remove (client, p->notify_a11y);
+                p->notify_a11y = 0;
+        }
+
+        g_object_unref (client);
+
+        set_locate_pointer (manager, FALSE);
 }
 
 static void
