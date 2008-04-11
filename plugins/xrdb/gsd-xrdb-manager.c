@@ -55,10 +55,6 @@ struct GsdXrdbManagerPrivate
         GtkWidget *widget;
 };
 
-enum {
-        PROP_0,
-};
-
 static void     gsd_xrdb_manager_class_init  (GsdXrdbManagerClass *klass);
 static void     gsd_xrdb_manager_init        (GsdXrdbManager      *xrdb_manager);
 static void     gsd_xrdb_manager_finalize    (GObject             *object);
@@ -494,25 +490,19 @@ gboolean
 gsd_xrdb_manager_start (GsdXrdbManager *manager,
                         GError        **error)
 {
-        static gboolean initialized = FALSE;
-
         gnome_settings_profile_start (NULL);
 
-        if (! initialized) {
-                GtkSettings *settings;
-                /* the initialization is done here otherwise
-                   gnome_settings_xsettings_load would generate
-                   false hit as gtk-theme-name is set to Default in
-                   gnome_settings_xsettings_init */
-                settings = gtk_settings_get_default ();
-                manager->priv->widget = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-                g_signal_connect (settings,
-                                  "notify::gtk-theme-name",
-                                  G_CALLBACK (theme_changed),
-                                  manager);
-                gtk_widget_ensure_style (manager->priv->widget);
-                initialized = TRUE;
-        }
+        /* the initialization is done here otherwise
+           gnome_settings_xsettings_load would generate
+           false hit as gtk-theme-name is set to Default in
+           gnome_settings_xsettings_init */
+        g_signal_connect (gtk_settings_get_default (),
+                          "notify::gtk-theme-name",
+                          G_CALLBACK (theme_changed),
+                          manager);
+
+        manager->priv->widget = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+        gtk_widget_ensure_style (manager->priv->widget);
 
         gnome_settings_profile_end (NULL);
 
@@ -522,7 +512,18 @@ gsd_xrdb_manager_start (GsdXrdbManager *manager,
 void
 gsd_xrdb_manager_stop (GsdXrdbManager *manager)
 {
+        GsdXrdbManagerPrivate *p = manager->priv;
+
         g_debug ("Stopping xrdb manager");
+
+        g_signal_handlers_disconnect_by_func (gtk_settings_get_default (),
+                                              theme_changed,
+                                              manager);
+
+        if (p->widget != NULL) {
+                gtk_widget_destroy (p->widget);
+                p->widget = NULL;
+        }
 }
 
 static void
@@ -589,7 +590,7 @@ gsd_xrdb_manager_dispose (GObject *object)
 static void
 gsd_xrdb_manager_class_init (GsdXrdbManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
         object_class->get_property = gsd_xrdb_manager_get_property;
         object_class->set_property = gsd_xrdb_manager_set_property;

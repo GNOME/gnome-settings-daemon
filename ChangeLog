@@ -1,5 +1,25 @@
 2008-04-11  Jens Granseuer  <jensgr@gmx.net>
 
+	Make xrandr, xrdb, and xsettings plugin deactivation work
+
+	* plugins/xrandr/gsd-xrandr-manager.c: (apply_settings): cleanup
+
+	* plugins/xrandr/gsd-xrandr-plugin.c: (impl_deactivate):
+	* plugins/xrdb/gsd-xrdb-plugin.c: (impl_deactivate):
+	* plugins/xsettings/gsd-xsettings-plugin.c: (impl_deactivate):
+	stop manager on deactivation
+
+	* plugins/xrdb/gsd-xrdb-manager.c: (gsd_xrdb_manager_start),
+	(gsd_xrdb_manager_stop):
+	* plugins/xsettings/gsd-xsettings-manager.c:
+	(gsd_xsettings_error_quark), (find_translation_entry),
+	(xsettings_callback), (register_config_callback), (terminate_cb),
+	(setup_xsettings_managers), (gnome_xsettings_manager_start),
+	(gnome_xsettings_manager_stop), (gnome_xsettings_manager_init):
+	clean up properly on stop
+
+2008-04-11  Jens Granseuer  <jensgr@gmx.net>
+
 	Make typing-break plugin deactivation work
 
 	* plugins/typing-break/gsd-typing-break-manager.c:

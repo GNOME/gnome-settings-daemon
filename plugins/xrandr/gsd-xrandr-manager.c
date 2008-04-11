@@ -44,6 +44,10 @@
 #include "gnome-settings-profile.h"
 #include "gsd-xrandr-manager.h"
 
+#ifndef HOST_NAME_MAX
+#define HOST_NAME_MAX   255
+#endif
+
 static void     gsd_xrandr_manager_class_init  (GsdXrandrManagerClass *klass);
 static void     gsd_xrandr_manager_init        (GsdXrandrManager      *xrandr_manager);
 static void     gsd_xrandr_manager_finalize    (GObject             *object);
@@ -186,11 +190,7 @@ apply_settings (GsdXrandrManager *manager)
         int          height;
         int          rate;
         int          rotation;
-#ifdef HOST_NAME_MAX
         char         hostname[HOST_NAME_MAX + 1];
-#else
-        char         hostname[256];
-#endif
         char        *specific_path;
         char        *keys[3];
         int          i;
@@ -381,7 +381,7 @@ gsd_xrandr_manager_dispose (GObject *object)
 static void
 gsd_xrandr_manager_class_init (GsdXrandrManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
         object_class->get_property = gsd_xrandr_manager_get_property;
         object_class->set_property = gsd_xrandr_manager_set_property;

@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating xrandr plugin");
+        gsd_xrandr_manager_stop (GSD_XRANDR_PLUGIN (plugin)->priv->manager);
 }
 
 static void

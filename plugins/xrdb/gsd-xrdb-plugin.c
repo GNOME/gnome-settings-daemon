@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating xrdb plugin");
+        gsd_xrdb_manager_stop (GSD_XRDB_PLUGIN (plugin)->priv->manager);
 }
 
 static void

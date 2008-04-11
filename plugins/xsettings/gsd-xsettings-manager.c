@@ -43,6 +43,10 @@
 
 #define GNOME_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerPrivate))
 
+#define MOUSE_SETTINGS_DIR     "/desktop/gnome/peripherals/mouse"
+#define GTK_SETTINGS_DIR       "/desktop/gtk"
+#define INTERFACE_SETTINGS_DIR "/desktop/gnome/interface"
+
 #ifdef HAVE_XFT2
 #define FONT_RENDER_DIR "/desktop/gnome/font_rendering"
 #define FONT_ANTIALIASING_KEY FONT_RENDER_DIR "/antialiasing"
@@ -82,6 +86,13 @@ struct _TranslationEntry {
 struct GnomeXSettingsManagerPrivate
 {
         XSettingsManager **managers;
+        guint              notify[4];
+};
+
+#define GSD_XSETTINGS_ERROR gsd_xsettings_error_quark ()
+
+enum {
+        GSD_XSETTINGS_ERROR_INIT
 };
 
 static void     gnome_xsettings_manager_class_init  (GnomeXSettingsManagerClass *klass);
@@ -91,6 +102,12 @@ static void     gnome_xsettings_manager_finalize    (GObject                  *o
 G_DEFINE_TYPE (GnomeXSettingsManager, gnome_xsettings_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static GQuark
+gsd_xsettings_error_quark (void)
+{
+        return g_quark_from_static_string ("gsd-xsettings-error-quark");
+}
 
 static void
 translate_bool_int (GnomeXSettingsManager *manager,
@@ -570,6 +587,111 @@ process_value (GnomeXSettingsManager *manager,
         }
 }
 
+static TranslationEntry *
+find_translation_entry (const char *gconf_key)
+{
+        int i;
+
+        for (i = 0; i < G_N_ELEMENTS (translations); ++i) {
+                if (strcmp (translations[i].gconf_key, gconf_key) == 0) {
+                        return &translations[i];
+                }
+        }
+
+        return NULL;
+}
+
+static void
+xsettings_callback (GConfClient           *client,
+                    guint                  cnxn_id,
+                    GConfEntry            *entry,
+                    GnomeXSettingsManager *manager)
+{
+        TranslationEntry *trans;
+        int               i;
+
+        trans = find_translation_entry (entry->key);
+        if (trans == NULL) {
+                return;
+        }
+
+        process_value (manager, trans, entry->value);
+
+        for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_set_string (manager->priv->managers [i],
+                                              "Net/FallbackIconTheme",
+                                              "gnome");
+        }
+
+        for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_notify (manager->priv->managers [i]);
+        }
+}
+
+static guint
+register_config_callback (GnomeXSettingsManager  *manager,
+                          GConfClient            *client,
+                          const char             *path,
+                          GConfClientNotifyFunc   func)
+{
+        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
+        return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
+}
+
+static void
+terminate_cb (void *data)
+{
+        gboolean *terminated = data;
+
+        if (*terminated) {
+                return;
+        }
+
+        *terminated = TRUE;
+
+        gtk_main_quit ();
+}
+
+static gboolean
+setup_xsettings_managers (GnomeXSettingsManager *manager)
+{
+        GdkDisplay *display;
+        int         i;
+        int         n_screens;
+        gboolean    res;
+        gboolean    terminated;
+
+        display = gdk_display_get_default ();
+        n_screens = gdk_display_get_n_screens (display);
+
+        res = xsettings_manager_check_running (gdk_x11_display_get_xdisplay (display),
+                                               gdk_screen_get_number (gdk_screen_get_default ()));
+        if (res) {
+                g_error ("You can only run one xsettings manager at a time; exiting");
+                return FALSE;
+        }
+
+        manager->priv->managers = g_new0 (XSettingsManager *, n_screens + 1);
+
+        terminated = FALSE;
+        for (i = 0; i < n_screens; i++) {
+                GdkScreen *screen;
+
+                screen = gdk_display_get_screen (display, i);
+
+                manager->priv->managers [i] = xsettings_manager_new (gdk_x11_display_get_xdisplay (display),
+                                                                     gdk_screen_get_number (screen),
+                                                                     terminate_cb,
+                                                                     &terminated);
+                if (! manager->priv->managers [i]) {
+                        g_error ("Could not create xsettings manager for screen %d!", i);
+                        return FALSE;
+                }
+        }
+
+        return TRUE;
+}
+
 gboolean
 gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                GError               **error)
@@ -579,6 +701,13 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
 
         g_debug ("Starting xsettings manager");
         gnome_settings_profile_start (NULL);
+
+        if (!setup_xsettings_managers (manager)) {
+                g_set_error (error, GSD_XSETTINGS_ERROR,
+                             GSD_XSETTINGS_ERROR_INIT,
+                             "Could not initialize xsettings manager.");
+                return FALSE;
+        }
 
         client = gconf_client_get_default ();
 
@@ -604,7 +733,24 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                 }
         }
 
+        manager->priv->notify[0] =
+                register_config_callback (manager, client,
+                                          MOUSE_SETTINGS_DIR,
+                                          (GConfClientNotifyFunc) xsettings_callback);
+        manager->priv->notify[1] =
+                register_config_callback (manager, client,
+                                          GTK_SETTINGS_DIR,
+                                          (GConfClientNotifyFunc) xsettings_callback);
+        manager->priv->notify[2] =
+                register_config_callback (manager, client,
+                                          INTERFACE_SETTINGS_DIR,
+                                          (GConfClientNotifyFunc) xsettings_callback);
+
 #ifdef HAVE_XFT2
+        manager->priv->notify[3] =
+                register_config_callback (manager, client,
+                                          FONT_RENDER_DIR,
+                                          (GConfClientNotifyFunc) xft_callback);
         update_xft_settings (manager, client);
 #endif /* HAVE_XFT */
 
@@ -619,6 +765,7 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                 xsettings_manager_notify (manager->priv->managers [i]);
         }
 
+
         gnome_settings_profile_end (NULL);
 
         return TRUE;
@@ -627,7 +774,37 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
 void
 gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
 {
+        GnomeXSettingsManagerPrivate *p = manager->priv;
+        GConfClient *client;
+        int i;
+
         g_debug ("Stopping xsettings manager");
+
+        if (p->managers != NULL) {
+                for (i = 0; p->managers [i]; ++i)
+                        xsettings_manager_destroy (p->managers [i]);
+
+                g_free (p->managers);
+                p->managers = NULL;
+        }
+
+        client = gconf_client_get_default ();
+
+        gconf_client_remove_dir (client, MOUSE_SETTINGS_DIR, NULL);
+        gconf_client_remove_dir (client, GTK_SETTINGS_DIR, NULL);
+        gconf_client_remove_dir (client, INTERFACE_SETTINGS_DIR, NULL);
+#ifdef HAVE_XFT2
+        gconf_client_remove_dir (client, FONT_RENDER_DIR, NULL);
+#endif
+
+        for (i = 0; i < G_N_ELEMENTS (p->notify); ++i) {
+                if (p->notify[i] != 0) {
+                        gconf_client_notify_remove (client, p->notify[i]);
+                        p->notify[i] = 0;
+                }
+        }
+
+        g_object_unref (client);
 }
 
 static void
@@ -694,7 +871,7 @@ gnome_xsettings_manager_dispose (GObject *object)
 static void
 gnome_xsettings_manager_class_init (GnomeXSettingsManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
         object_class->get_property = gnome_xsettings_manager_get_property;
         object_class->set_property = gnome_xsettings_manager_set_property;
@@ -705,125 +882,10 @@ gnome_xsettings_manager_class_init (GnomeXSettingsManagerClass *klass)
         g_type_class_add_private (klass, sizeof (GnomeXSettingsManagerPrivate));
 }
 
-static TranslationEntry *
-find_translation_entry (const char *gconf_key)
-{
-        int i;
-
-        for (i =0; i < G_N_ELEMENTS (translations); i++) {
-                if (strcmp (translations[i].gconf_key, gconf_key) == 0) {
-                        return &translations[i];
-                }
-        }
-
-        return NULL;
-}
-
-static void
-xsettings_callback (GConfClient           *client,
-                    guint                  cnxn_id,
-                    GConfEntry            *entry,
-                    GnomeXSettingsManager *manager)
-{
-        TranslationEntry *trans;
-        int               i;
-
-        trans = find_translation_entry (entry->key);
-        if (trans == NULL) {
-                return;
-        }
-
-        process_value (manager, trans, entry->value);
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_string (manager->priv->managers [i],
-                                              "Net/FallbackIconTheme",
-                                              "gnome");
-        }
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_notify (manager->priv->managers [i]);
-        }
-}
-
-static void
-register_config_callback (GnomeXSettingsManager  *manager,
-                          const char             *path,
-                          GConfClientNotifyFunc   func)
-{
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-
-        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        gconf_client_notify_add (client, path, func, manager, NULL, NULL);
-
-        g_object_unref (client);
-}
-
-static void
-terminate_cb (void *data)
-{
-        gboolean *terminated = data;
-
-        if (*terminated) {
-                return;
-        }
-
-        *terminated = TRUE;
-
-        gtk_main_quit ();
-}
-
 static void
 gnome_xsettings_manager_init (GnomeXSettingsManager *manager)
 {
-        GdkDisplay *display;
-        int         i;
-        int         n_screens;
-        gboolean    res;
-        gboolean    terminated;
-
         manager->priv = GNOME_XSETTINGS_MANAGER_GET_PRIVATE (manager);
-
-        display = gdk_display_get_default ();
-        n_screens = gdk_display_get_n_screens (display);
-
-        res = xsettings_manager_check_running (gdk_x11_display_get_xdisplay (display),
-                                               gdk_screen_get_number (gdk_screen_get_default ()));
-        if (res) {
-                g_error ("You can only run one xsettings manager at a time; exiting\n");
-                exit (1);
-        }
-
-        manager->priv->managers = g_new (XSettingsManager *, n_screens + 1);
-
-        terminated = FALSE;
-        for (i = 0; i < n_screens; i++) {
-                GdkScreen *screen;
-
-                screen = gdk_display_get_screen (display, i);
-
-                manager->priv->managers [i] = xsettings_manager_new (gdk_x11_display_get_xdisplay (display),
-                                                                     gdk_screen_get_number (screen),
-                                                                     terminate_cb,
-                                                                     &terminated);
-                if (! manager->priv->managers [i]) {
-                        g_error ("Could not create xsettings manager for screen %d!\n", i);
-                        exit (1);
-                }
-        }
-
-        manager->priv->managers [i] = NULL;
-
-        register_config_callback (manager, "/desktop/gnome/peripherals/mouse", (GConfClientNotifyFunc)xsettings_callback);
-        register_config_callback (manager, "/desktop/gtk", (GConfClientNotifyFunc)xsettings_callback);
-        register_config_callback (manager, "/desktop/gnome/interface", (GConfClientNotifyFunc)xsettings_callback);
-
-#ifdef HAVE_XFT2
-        register_config_callback (manager, FONT_RENDER_DIR, (GConfClientNotifyFunc)xft_callback);
-#endif /* HAVE_XFT2 */
-
 }
 
 static void

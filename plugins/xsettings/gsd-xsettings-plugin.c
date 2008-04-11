@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating xsettings plugin");
+        gnome_xsettings_manager_stop (GNOME_XSETTINGS_PLUGIN (plugin)->priv->manager);
 }
 
 static void
