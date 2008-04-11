@@ -39,7 +39,7 @@
 #define GSD_DBUS_NAME         "org.gnome.SettingsDaemon"
 
 static char      *gconf_prefix = NULL;
-static gboolean   no_daemon    = TRUE;
+static gboolean   no_daemon    = FALSE;
 static gboolean   debug        = FALSE;
 
 static GOptionEntry entries[] = {
