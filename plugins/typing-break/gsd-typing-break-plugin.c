@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating typing_break plugin");
+        gsd_typing_break_manager_stop (GSD_TYPING_BREAK_PLUGIN (plugin)->priv->manager);
 }
 
 static void

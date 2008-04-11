@@ -1,5 +1,15 @@
 2008-04-11  Jens Granseuer  <jensgr@gmx.net>
 
+	Make typing-break plugin deactivation work
+
+	* plugins/typing-break/gsd-typing-break-manager.c:
+	(register_config_callback), (gsd_typing_break_manager_start),
+	(gsd_typing_break_manager_stop): clean up properly on stop
+	* plugins/typing-break/gsd-typing-break-plugin.c:
+	(impl_deactivate): stop manager on deactivation
+
+2008-04-11  Jens Granseuer  <jensgr@gmx.net>
+
 	Make screensaver and sound plugin deactivation work (sort of). The
 	screensaver is currently not reaped when deactivating the plugin, but
 	since the plugin should go away anyway, it doesn't seem worth adding

@@ -42,12 +42,15 @@
 
 #define GSD_TYPING_BREAK_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_TYPING_BREAK_MANAGER, GsdTypingBreakManagerPrivate))
 
+#define GCONF_BREAK_DIR           "/desktop/gnome/typing_break"
+
 struct GsdTypingBreakManagerPrivate
 {
         GPid  typing_monitor_pid;
         guint typing_monitor_idle_id;
         guint child_watch_id;
         guint setup_id;
+        guint notify;
 };
 
 static void     gsd_typing_break_manager_class_init  (GsdTypingBreakManagerClass *klass);
@@ -58,19 +61,14 @@ G_DEFINE_TYPE (GsdTypingBreakManager, gsd_typing_break_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-static void
+static guint
 register_config_callback (GsdTypingBreakManager   *manager,
+                          GConfClient             *client,
                           const char              *path,
                           GConfClientNotifyFunc    func)
 {
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-
         gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        gconf_client_notify_add (client, path, func, manager, NULL, NULL);
-
-        g_object_unref (client);
+        return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 }
 
 static gboolean
@@ -178,17 +176,21 @@ gsd_typing_break_manager_start (GsdTypingBreakManager *manager,
         g_debug ("Starting typing_break manager");
         gnome_settings_profile_start (NULL);
 
-        register_config_callback (manager,
-                                  "/desktop/gnome/typing_break",
-                                  (GConfClientNotifyFunc)typing_break_callback);
-
         client = gconf_client_get_default ();
+
+        manager->priv->notify =
+                register_config_callback (manager,
+                                          client,
+                                          GCONF_BREAK_DIR,
+                                          (GConfClientNotifyFunc) typing_break_callback);
+
         enabled = gconf_client_get_bool (client, "/desktop/gnome/typing_break/enabled", NULL);
         g_object_unref (client);
         if (enabled) {
-                manager->priv->setup_id = g_timeout_add_seconds (3,
-                                                                 (GSourceFunc)really_setup_typing_break,
-                                                                 manager);
+                manager->priv->setup_id =
+                        g_timeout_add_seconds (3,
+                                               (GSourceFunc) really_setup_typing_break,
+                                               manager);
         }
 
         gnome_settings_profile_end (NULL);
@@ -199,7 +201,38 @@ gsd_typing_break_manager_start (GsdTypingBreakManager *manager,
 void
 gsd_typing_break_manager_stop (GsdTypingBreakManager *manager)
 {
+        GsdTypingBreakManagerPrivate *p = manager->priv;
+
         g_debug ("Stopping typing_break manager");
+
+        if (p->setup_id != 0) {
+                g_source_remove (p->setup_id);
+                p->setup_id = 0;
+        }
+
+        if (p->child_watch_id != 0) {
+                g_source_remove (p->child_watch_id);
+                p->child_watch_id = 0;
+        }
+
+        if (p->typing_monitor_idle_id != 0) {
+                g_source_remove (p->typing_monitor_idle_id);
+                p->typing_monitor_idle_id = 0;
+        }
+
+        if (p->typing_monitor_pid > 0) {
+                kill (p->typing_monitor_pid, SIGKILL);
+                g_spawn_close_pid (p->typing_monitor_pid);
+                p->typing_monitor_pid = 0;
+        }
+
+        if (p->notify != 0) {
+                GConfClient *client = gconf_client_get_default ();
+                gconf_client_remove_dir (client, GCONF_BREAK_DIR, NULL);
+                gconf_client_notify_remove (client, p->notify);
+                g_object_unref (client);
+                p->notify = 0;
+        }
 }
 
 static void
