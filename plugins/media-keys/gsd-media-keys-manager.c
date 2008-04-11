@@ -88,6 +88,7 @@ struct GsdMediaKeysManagerPrivate
         GList           *media_players;
 
         DBusGConnection *connection;
+        guint            notify[HANDLED_KEYS];
 };
 
 enum {
@@ -145,11 +146,11 @@ acme_error (char * msg)
                                                GTK_DIALOG_MODAL,
                                                GTK_MESSAGE_ERROR,
                                                GTK_BUTTONS_OK,
-                                               "%s", msg);
+                                               msg, NULL);
         gtk_dialog_set_default_response (GTK_DIALOG (error_dialog),
                                          GTK_RESPONSE_OK);
         gtk_widget_show (error_dialog);
-        g_signal_connect (G_OBJECT (error_dialog),
+        g_signal_connect (error_dialog,
                           "response",
                           G_CALLBACK (gtk_widget_destroy),
                           NULL);
@@ -265,7 +266,7 @@ dialog_init (GsdMediaKeysManager *manager)
 {
         if (manager->priv->dialog != NULL
             && !gsd_media_keys_window_is_valid (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog))) {
-                g_object_unref (manager->priv->dialog);
+                gtk_widget_destroy (manager->priv->dialog);
                 manager->priv->dialog = NULL;
         }
 
@@ -430,12 +431,13 @@ init_kbd (GsdMediaKeysManager *manager)
                 char *tmp;
                 Key  *key;
 
-                gconf_client_notify_add (manager->priv->conf_client,
-                                         keys[i].gconf_key,
-                                         (GConfClientNotifyFunc)update_kbd_cb,
-                                         manager,
-                                         NULL,
-                                         NULL);
+                manager->priv->notify[i] =
+                        gconf_client_notify_add (manager->priv->conf_client,
+                                                 keys[i].gconf_key,
+                                                 (GConfClientNotifyFunc) update_kbd_cb,
+                                                 manager,
+                                                 NULL,
+                                                 NULL);
 
                 tmp = gconf_client_get_string (manager->priv->conf_client,
                                                keys[i].gconf_key,
@@ -1050,12 +1052,45 @@ void
 gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 {
         GsdMediaKeysManagerPrivate *priv = manager->priv;
+        GSList *ls;
+        GList *l;
+        int i;
 
         g_debug ("Stopping media_keys manager");
 
+        for (ls = priv->screens; ls != NULL; ls = ls->next) {
+                gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
+                                          (GdkFilterFunc) acme_filter_events,
+                                          manager);
+        }
+
+        g_slist_free (priv->screens);
+        priv->screens = NULL;
+
         if (priv->conf_client) {
+                gconf_client_remove_dir (priv->conf_client,
+                                         GCONF_BINDING_DIR,
+                                         NULL);
+
+                for (i = 0; i < HANDLED_KEYS; ++i) {
+                        if (priv->notify[i] != 0) {
+                                gconf_client_notify_remove (priv->conf_client, priv->notify[i]);
+                                priv->notify[i] = 0;
+                        }
+                }
+
                 g_object_unref (priv->conf_client);
                 priv->conf_client = NULL;
+        }
+
+        if (priv->connection != NULL) {
+                dbus_g_connection_unref (priv->connection);
+                priv->connection = NULL;
+        }
+
+        for (i = 0; i < HANDLED_KEYS; ++i) {
+                g_free (keys[i].key);
+                keys[i].key = NULL;
         }
 
         if (priv->volume) {
@@ -1063,8 +1098,18 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->volume = NULL;
         }
 
-        g_slist_free (priv->screens);
-        priv->screens = NULL;
+        if (priv->dialog != NULL) {
+                gtk_widget_destroy (priv->dialog);
+                priv->dialog = NULL;
+        }
+
+        for (l = priv->media_players; l; l = l->next) {
+                MediaPlayer *mp = l->data;
+                g_free (mp->application);
+                g_free (mp);
+        }
+        g_list_free (priv->media_players);
+        priv->media_players = NULL;
 }
 
 static void
@@ -1184,14 +1229,13 @@ register_manager (GsdMediaKeysManager *manager)
 {
         GError *error = NULL;
 
-        error = NULL;
         manager->priv->connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
         if (manager->priv->connection == NULL) {
                 if (error != NULL) {
-                        g_critical ("error getting session bus: %s", error->message);
+                        g_error ("Error getting session bus: %s", error->message);
                         g_error_free (error);
                 }
-                exit (1);
+                return FALSE;
         }
 
         dbus_g_connection_register_g_object (manager->priv->connection, GSD_MEDIA_KEYS_DBUS_PATH, G_OBJECT (manager));

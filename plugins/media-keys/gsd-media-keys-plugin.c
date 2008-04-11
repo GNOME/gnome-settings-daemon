@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating media_keys plugin");
+        gsd_media_keys_manager_stop (GSD_MEDIA_KEYS_PLUGIN (plugin)->priv->manager);
 }
 
 static void

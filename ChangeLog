@@ -1,5 +1,15 @@
 2008-04-11  Jens Granseuer  <jensgr@gmx.net>
 
+	Make media-keys plugin deactivation work
+
+	* plugins/media-keys/gsd-media-keys-manager.c: (acme_error),
+	(dialog_init), (init_kbd), (gsd_media_keys_manager_stop),
+	(register_manager): clean up properly on stop
+	* plugins/media-keys/gsd-media-keys-plugin.c: (impl_deactivate):
+	stop manager on deactivation
+
+2008-04-11  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/keyboard/gsd-xmodmap.c: (check_button_callback),
 	(gsd_load_modmap_files), (response_callback),
 	(remove_string_from_list), (remove_button_clicked_callback),
