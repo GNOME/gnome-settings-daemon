@@ -1,5 +1,21 @@
 2008-04-11  Jens Granseuer  <jensgr@gmx.net>
 
+	Make screensaver and sound plugin deactivation work (sort of). The
+	screensaver is currently not reaped when deactivating the plugin, but
+	since the plugin should go away anyway, it doesn't seem worth adding
+	that right now. For the sound plugin, esd is currently not reaped
+	when HAVE_ESD is set. Maybe we want to get rid of the esd API
+	altogether?
+
+	* plugins/sound/gsd-sound-manager.c: (apply_settings),
+	(register_config_callback), (gsd_sound_manager_start),
+	(gsd_sound_manager_stop): clean up a bit more on stop
+	* plugins/screensaver/gsd-screensaver-plugin.c: (impl_deactivate):
+	* plugins/sound/gsd-sound-plugin.c: (impl_deactivate): stop manager
+	on deactivation
+
+2008-04-11  Jens Granseuer  <jensgr@gmx.net>
+
 	Make mouse plugin deactivation work
 
 	* plugins/mouse/gsd-mouse-manager.c: (register_config_callback),

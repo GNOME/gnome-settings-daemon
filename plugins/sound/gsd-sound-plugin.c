@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating sound plugin");
+        gsd_sounds_manager_stop (GSD_SOUND_PLUGIN (plugin)->priv->manager);
 }
 
 static void

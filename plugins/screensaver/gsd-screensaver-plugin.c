@@ -86,6 +86,7 @@ static void
 impl_deactivate (GnomeSettingsPlugin *plugin)
 {
         g_debug ("Deactivating screensaver plugin");
+        gsd_screensaver_manager_stop (GSD_SCREENSAVER_PLUGIN (plugin)->priv->manager);
 }
 
 static void

@@ -57,11 +57,12 @@ struct GsdSoundManagerPrivate
         /* esd/PulseAudio pid */
         GPid  pid;
         guint child_watch_id;
+
+        gboolean inited;
+        guint notify;
 };
 
-enum {
-        PROP_0,
-};
+#define GCONF_SOUND_DIR         "/desktop/gnome/sound"
 
 static void     gsd_sound_manager_class_init  (GsdSoundManagerClass *klass);
 static void     gsd_sound_manager_init        (GsdSoundManager      *sound_manager);
@@ -285,9 +286,6 @@ static void
 apply_settings (GsdSoundManager *manager)
 {
         GConfClient    *client;
-        static gboolean inited = FALSE;
-        static int      event_changed_old = 0;
-        int             event_changed_new;
         gboolean        enable_sound;
         gboolean        event_sounds;
         struct reload_foreach_closure closure;
@@ -298,8 +296,6 @@ apply_settings (GsdSoundManager *manager)
 
         enable_sound = gconf_client_get_bool (client, "/desktop/gnome/sound/enable_esd", NULL);
         event_sounds = gconf_client_get_bool (client, "/desktop/gnome/sound/event_sounds", NULL);
-        /* FIXME this is completely bogus, the entry doesn't exist */
-        event_changed_new = gconf_client_get_int  (client, "/desktop/gnome/sound/event_changed", NULL);
 
         closure.enable_system_sounds = event_sounds;
 
@@ -322,13 +318,10 @@ apply_settings (GsdSoundManager *manager)
                         stop_gnome_sound (manager);
         }
 
-        if (enable_sound &&
-            (!inited || event_changed_old != event_changed_new)) {
+        if (enable_sound && !manager->priv->inited) {
                 SoundProperties *props;
 
-                inited = TRUE;
-                event_changed_old = event_changed_new;
-
+                manager->priv->inited = TRUE;
                 props = sound_properties_new ();
                 sound_properties_add_defaults (props, NULL);
                 sound_properties_foreach (props, reload_foreach_cb, &closure);
@@ -339,19 +332,21 @@ apply_settings (GsdSoundManager *manager)
 
 }
 
-static void
+static guint
 register_config_callback (GsdSoundManager         *manager,
                           const char              *path,
                           GConfClientNotifyFunc    func)
 {
         GConfClient *client;
+        guint notify;
 
         client = gconf_client_get_default ();
 
         gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        gconf_client_notify_add (client, path, func, manager, NULL, NULL);
+        notify = gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 
         g_object_unref (client);
+        return notify;
 }
 
 static void
@@ -371,9 +366,10 @@ gsd_sound_manager_start (GsdSoundManager *manager,
 
         gnome_settings_profile_start (NULL);
 
-        register_config_callback (manager,
-                                  "/desktop/gnome/sound",
-                                  (GConfClientNotifyFunc)sound_callback);
+        manager->priv->notify =
+                register_config_callback (manager,
+                                          GCONF_SOUND_DIR,
+                                          (GConfClientNotifyFunc) sound_callback);
         apply_settings (manager);
 
         gnome_settings_profile_end (NULL);
@@ -384,9 +380,20 @@ gsd_sound_manager_start (GsdSoundManager *manager,
 void
 gsd_sound_manager_stop (GsdSoundManager *manager)
 {
+        GsdSoundManagerPrivate *p = manager->priv;
+
         g_debug ("Stopping sound manager");
 
+        if (p->notify != 0) {
+                GConfClient *client = gconf_client_get_default ();
+                gconf_client_remove_dir (client, GCONF_SOUND_DIR, NULL);
+                gconf_client_notify_remove (client, p->notify);
+                g_object_unref (client);
+                p->notify = 0;
+        }
+
         stop_gnome_sound (manager);
+        p->inited = FALSE;
 }
 
 static void
