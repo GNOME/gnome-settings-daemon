@@ -1,5 +1,12 @@
 2008-04-11  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/keyboard/gsd-keyboard-xkb.c: (gsd_keyboard_xkb_shutdown):
+	clear the user callback data even if initialiation failed
+	* plugins/keyboard/gsd-xmodmap.c: (gsd_load_modmap_files):
+	properly NULL-terminate g_build_filename
+
+2008-04-11  Jens Granseuer  <jensgr@gmx.net>
+
 	Make media-keys plugin deactivation work
 
 	* plugins/media-keys/gsd-media-keys-manager.c: (acme_error),

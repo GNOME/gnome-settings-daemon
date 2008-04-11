@@ -344,6 +344,9 @@ gsd_keyboard_xkb_shutdown (void)
 {
         GConfClient *client;
 
+        pa_callback = NULL;
+        pa_callback_user_data = NULL;
+
         if (!inited_ok)
                 return;
 
@@ -370,8 +373,6 @@ gsd_keyboard_xkb_shutdown (void)
         g_object_unref (client);
         g_object_unref (xkl_engine);
 
-        pa_callback = NULL;
-        pa_callback_user_data = NULL;
         xkl_engine = NULL;
         inited_ok = FALSE;
 }

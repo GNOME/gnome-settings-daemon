@@ -69,7 +69,7 @@ gsd_load_modmap_files (void)
                 gchar *file;
                 gchar *command;
 
-                file = g_build_filename (g_get_home_dir (), (gchar *) tmp->data);
+                file = g_build_filename (g_get_home_dir (), (gchar *) tmp->data, NULL);
                 command = g_strconcat ("xmodmap ", file, NULL);
                 g_free (file);
 
