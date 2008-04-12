@@ -71,10 +71,6 @@ acquire_name_on_proxy (DBusGProxy *bus_proxy)
 
         ret = FALSE;
 
-        if (bus_proxy == NULL) {
-                goto out;
-        }
-
         error = NULL;
         res = dbus_g_proxy_call (bus_proxy,
                                  "RequestName",
@@ -151,19 +147,22 @@ bus_register (void)
         }
 
         bus_proxy = get_bus_proxy (bus);
+        dbus_g_connection_unref (bus);
+
         if (bus_proxy == NULL) {
                 g_warning ("Could not construct bus_proxy object");
                 goto out;
         }
 
-        if (! acquire_name_on_proxy (bus_proxy)) {
+        ret = acquire_name_on_proxy (bus_proxy);
+        g_object_unref (bus_proxy);
+
+        if (!ret) {
                 g_warning ("Could not acquire name");
                 goto out;
         }
 
         g_debug ("Successfully connected to D-Bus");
-
-        ret = TRUE;
 
  out:
         gnome_settings_profile_end (NULL);
@@ -214,7 +213,7 @@ main (int argc, char *argv[])
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, NULL, entries, NULL, &error)) {
                 if (error != NULL) {
-                        g_warning ("%s", error->message);
+                        g_warning (error->message);
                         g_error_free (error);
                 } else {
                         g_warning ("Unable to initialize GTK+");
@@ -268,9 +267,9 @@ main (int argc, char *argv[])
 
         gtk_main ();
 
+ out:
         g_free (gconf_prefix);
 
- out:
         if (manager != NULL) {
                 g_object_unref (manager);
         }
