@@ -114,15 +114,6 @@ init_screens (GsdMediaKeysManager *manager)
         int i;
 
         display = gdk_display_get_default ();
-        if (gdk_display_get_n_screens (display) == 1) {
-                GdkScreen *screen;
-
-                screen = gdk_screen_get_default ();
-                manager->priv->screens = g_slist_append (manager->priv->screens, screen);
-                manager->priv->current_screen = screen;
-                return;
-        }
-
         for (i = 0; i < gdk_display_get_n_screens (display); i++) {
                 GdkScreen *screen;
 
@@ -133,7 +124,7 @@ init_screens (GsdMediaKeysManager *manager)
                 manager->priv->screens = g_slist_append (manager->priv->screens, screen);
         }
 
-        manager->priv->current_screen = (GdkScreen *)manager->priv->screens->data;
+        manager->priv->current_screen = manager->priv->screens->data;
 }
 
 
