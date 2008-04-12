@@ -305,16 +305,17 @@ grab_key (GsdMediaKeysManager *manager,
           Key                 *key,
           gboolean             grab)
 {
-        int   indexes[N_BITS];/*indexes of bits we need to flip*/
+        int   indexes[N_BITS]; /* indexes of bits we need to flip */
         int   i;
         int   bit;
         int   bits_set_cnt;
         int   uppervalue;
-        guint mask_to_traverse = IGNORED_MODS & ~key->state & GDK_MODIFIER_MASK;
+        guint mask = IGNORED_MODS & ~key->state & GDK_MODIFIER_MASK;
 
         bit = 0;
-        for (i = 0; i < N_BITS; i++) {
-                if (mask_to_traverse & (1 << i)) {
+        /* store the indices of all set bits in mask in the array */
+        for (i = 0; mask; ++i, mask >>= 1) {
+                if (mask & 0x1) {
                         indexes[bit++] = i;
                 }
         }
@@ -322,12 +323,14 @@ grab_key (GsdMediaKeysManager *manager,
         bits_set_cnt = bit;
 
         uppervalue = 1 << bits_set_cnt;
-        for (i = 0; i < uppervalue; i++) {
+        /* grab all possible modifier combinations for our mask */
+        for (i = 0; i < uppervalue; ++i) {
                 GSList *l;
                 int     j;
                 int     result = 0;
 
-                for (j = 0; j < bits_set_cnt; j++) {
+                /* map bits in the counter to those in the mask */
+                for (j = 0; j < bits_set_cnt; ++j) {
                         if (i & (1 << j)) {
                                 result |= (1 << indexes[j]);
                         }
