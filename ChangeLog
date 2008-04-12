@@ -1,5 +1,11 @@
 2008-04-12  Jens Granseuer  <jensgr@gmx.net>
 
+	* gnome-settings-daemon/main.c:
+	* plugins/media-keys/gsd-media-keys-manager.c: DBus API has been
+	stable for a while; don't define DBUS_API_SUBJECT_TO_CHANGE anymore
+
+2008-04-12  Jens Granseuer  <jensgr@gmx.net>
+
 	* gnome-settings-daemon/main.c: (acquire_name_on_proxy),
 	(bus_register), (main): fix a few small leaks
 
