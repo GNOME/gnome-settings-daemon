@@ -159,7 +159,6 @@ apply_xkb_settings (void)
         if (!gkbd_keyboard_config_equals
             (&current_kbd_config, &current_sys_kbd_config)) {
                 if (gkbd_keyboard_config_activate (&current_kbd_config)) {
-                        gkbd_keyboard_config_save_to_gconf_backup (&initial_sys_kbd_config);
                         if (pa_callback != NULL) {
                                 (*pa_callback) (pa_callback_user_data);
                         }
