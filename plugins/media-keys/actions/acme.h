@@ -21,6 +21,8 @@
 #ifndef __ACME_H__
 #define __ACME_H__
 
+#include "gsd-keygrab.h"
+
 #define GCONF_BINDING_DIR "/apps/gnome_settings_daemon/keybindings"
 #define GCONF_MISC_DIR "/apps/gnome_settings_daemon"
 
@@ -46,12 +48,6 @@ enum {
         NEXT_KEY,
         HANDLED_KEYS
 };
-
-typedef struct {
-  guint keysym;
-  guint state;
-  guint keycode;
-} Key;
 
 static struct {
         int key_type;

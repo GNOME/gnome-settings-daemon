@@ -1,6 +1,7 @@
 NULL =
 
 SUBDIRS =		\
+	common		\
 	a11y-keyboard	\
 	background	\
 	clipboard	\

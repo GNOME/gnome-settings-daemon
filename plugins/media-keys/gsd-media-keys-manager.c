@@ -58,15 +58,6 @@
 
 #define VOLUME_STEP 6           /* percents for one volume button press */
 
-/* we exclude shift, GDK_CONTROL_MASK and GDK_MOD1_MASK since we know what
-   these modifiers mean
-   these are the mods whose combinations are bound by the keygrabbing code */
-#define IGNORED_MODS (0x2000 /*Xkb modifier*/ | GDK_LOCK_MASK  | \
-       GDK_MOD2_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK | GDK_MOD5_MASK)
-/* these are the ones we actually use for global keys, we always only check
- * for these set */
-#define USED_MODS (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK)
-
 #define GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MEDIA_KEYS_MANAGER, GsdMediaKeysManagerPrivate))
 
 typedef struct {
@@ -266,85 +257,6 @@ dialog_init (GsdMediaKeysManager *manager)
 }
 
 static gboolean
-grab_key_real (Key       *key,
-               GdkWindow *root,
-               gboolean   grab,
-               int        result)
-{
-        gdk_error_trap_push ();
-        if (grab) {
-                XGrabKey (GDK_DISPLAY (),
-                          key->keycode,
-                          (result | key->state),
-                          GDK_WINDOW_XID (root),
-                          True,
-                          GrabModeAsync,
-                          GrabModeAsync);
-        } else {
-                XUngrabKey (GDK_DISPLAY (),
-                            key->keycode,
-                            (result | key->state),
-                            GDK_WINDOW_XID (root));
-        }
-
-        gdk_flush ();
-
-        gdk_error_trap_pop ();
-
-        return TRUE;
-}
-
-/* Grab the key. In order to ignore IGNORED_MODS we need to grab
- * all combinations of the ignored modifiers and those actually used
- * for the binding (if any).
- *
- * inspired by all_combinations from gnome-panel/gnome-panel/global-keys.c */
-#define N_BITS 32
-static void
-grab_key (GsdMediaKeysManager *manager,
-          Key                 *key,
-          gboolean             grab)
-{
-        int   indexes[N_BITS]; /* indexes of bits we need to flip */
-        int   i;
-        int   bit;
-        int   bits_set_cnt;
-        int   uppervalue;
-        guint mask = IGNORED_MODS & ~key->state & GDK_MODIFIER_MASK;
-
-        bit = 0;
-        /* store the indices of all set bits in mask in the array */
-        for (i = 0; mask; ++i, mask >>= 1) {
-                if (mask & 0x1) {
-                        indexes[bit++] = i;
-                }
-        }
-
-        bits_set_cnt = bit;
-
-        uppervalue = 1 << bits_set_cnt;
-        /* grab all possible modifier combinations for our mask */
-        for (i = 0; i < uppervalue; ++i) {
-                GSList *l;
-                int     j;
-                int     result = 0;
-
-                /* map bits in the counter to those in the mask */
-                for (j = 0; j < bits_set_cnt; ++j) {
-                        if (i & (1 << j)) {
-                                result |= (1 << indexes[j]);
-                        }
-                }
-
-                for (l = manager->priv->screens; l ; l = l->next) {
-                        GdkScreen *screen = l->data;
-                        if (grab_key_real (key, gdk_screen_get_root_window (screen), grab, result) == FALSE)
-                                return;
-                }
-        }
-}
-
-static gboolean
 is_valid_shortcut (const char *string)
 {
         if (string == NULL || string[0] == '\0') {
@@ -364,7 +276,6 @@ update_kbd_cb (GConfClient         *client,
                GsdMediaKeysManager *manager)
 {
         int      i;
-        gboolean found = FALSE;
 
         g_return_if_fail (entry->key != NULL);
 
@@ -374,10 +285,8 @@ update_kbd_cb (GConfClient         *client,
                         char *tmp;
                         Key  *key;
 
-                        found = TRUE;
-
                         if (keys[i].key != NULL) {
-                                grab_key (manager, keys[i].key, FALSE);
+                                grab_key (keys[i].key, FALSE, manager->priv->screens);
                         }
 
                         g_free (keys[i].key);
@@ -399,17 +308,13 @@ update_kbd_cb (GConfClient         *client,
                                 break;
                         }
 
-                        grab_key (manager, key, TRUE);
+                        grab_key (key, TRUE, manager->priv->screens);
                         keys[i].key = key;
 
                         g_free (tmp);
 
                         break;
                 }
-        }
-
-        if (found != FALSE) {
-                return;
         }
 }
 
@@ -450,7 +355,7 @@ init_kbd (GsdMediaKeysManager *manager)
                         g_free (key);
                         continue;
                 }
-        /*avoid grabbing all the keyboard when KeyCode cannot be retrieved */
+                /* avoid grabbing all the keyboard when KeyCode cannot be retrieved */
                 if (key->keycode == AnyKey)  {
                         g_warning ("The shortcut key \"%s\" cannot be found on the current system, ignoring the binding", tmp);
                         g_free (tmp);
@@ -462,7 +367,7 @@ init_kbd (GsdMediaKeysManager *manager)
 
                 keys[i].key = key;
 
-                grab_key (manager, key, TRUE);
+                grab_key (key, TRUE, manager->priv->screens);
         }
 
         gnome_settings_profile_end (NULL);
@@ -952,27 +857,16 @@ acme_filter_events (GdkXEvent           *xevent,
                     GsdMediaKeysManager *manager)
 {
         XEvent    *xev = (XEvent *) xevent;
-        XAnyEvent *xanyev = (XAnyEvent *) xevent;
-        guint      keycode;
-        guint      state;
+        XAnyEvent *xany = (XAnyEvent *) xevent;
         int        i;
 
         /* verify we have a key event */
-        if (xev->xany.type != KeyPress
-            && xev->xany.type != KeyRelease) {
+        if (xev->type != KeyPress && xev->type != KeyRelease) {
                 return GDK_FILTER_CONTINUE;
         }
 
-        keycode = xev->xkey.keycode;
-        state = xev->xkey.state;
-
         for (i = 0; i < HANDLED_KEYS; i++) {
-                if (keys[i].key == NULL) {
-                        continue;
-                }
-
-                if (keys[i].key->keycode == keycode
-                    && (state & USED_MODS) == keys[i].key->state) {
+                if (match_key (keys[i].key, xev)) {
                         switch (keys[i].key_type) {
                         case VOLUME_DOWN_KEY:
                         case VOLUME_UP_KEY:
@@ -987,7 +881,7 @@ acme_filter_events (GdkXEvent           *xevent,
                                 }
                         }
 
-                        manager->priv->current_screen = acme_get_screen_from_event (manager, xanyev);
+                        manager->priv->current_screen = acme_get_screen_from_event (manager, xany);
 
                         if (do_action (manager, keys[i].key_type) == FALSE) {
                                 return GDK_FILTER_REMOVE;

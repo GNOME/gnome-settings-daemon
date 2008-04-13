@@ -41,26 +41,12 @@
 #include "gnome-settings-profile.h"
 #include "gsd-keybindings-manager.h"
 
+#include "gsd-keygrab.h"
 #include "eggaccelerators.h"
-
-/* we exclude shift, GDK_CONTROL_MASK and GDK_MOD1_MASK since we know what
-   these modifiers mean
-   these are the mods whose combinations are bound by the keygrabbing code */
-#define IGNORED_MODS (0x2000 /*Xkb modifier*/ | GDK_LOCK_MASK  | \
-        GDK_MOD2_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK | GDK_MOD5_MASK)
-/* these are the ones we actually use for global keys, we always only check
- * for these set */
-#define USED_MODS (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK)
 
 #define GCONF_BINDING_DIR "/desktop/gnome/keybindings"
 
 #define GSD_KEYBINDINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBINDINGS_MANAGER, GsdKeybindingsManagerPrivate))
-
-typedef struct {
-        guint keysym;
-        guint state;
-        guint keycode;
-} Key;
 
 typedef struct {
         char *binding_str;
@@ -257,7 +243,6 @@ bindings_get_entry (GsdKeybindingsManager *manager,
         return TRUE;
 }
 
-
 static gboolean
 key_already_used (GsdKeybindingsManager *manager,
                   Binding               *binding)
@@ -277,86 +262,6 @@ key_already_used (GsdKeybindingsManager *manager,
 }
 
 static void
-grab_key (GdkWindow *root,
-          Key       *key,
-          int        result,
-          gboolean   grab)
-{
-        gdk_error_trap_push ();
-
-        if (grab) {
-                XGrabKey (GDK_DISPLAY (),
-                          key->keycode,
-                          (result | key->state),
-                          GDK_WINDOW_XID (root),
-                          True,
-                          GrabModeAsync,
-                          GrabModeAsync);
-        } else {
-                XUngrabKey (GDK_DISPLAY (),
-                            key->keycode,
-                            (result | key->state),
-                            GDK_WINDOW_XID (root));
-        }
-        gdk_flush ();
-        if (gdk_error_trap_pop ()) {
-                g_warning (_("It seems that another application already has access to key '%u'."),
-                           key->keycode);
-        }
-}
-
-/* Grab the key. In order to ignore IGNORED_MODS we need to grab
- * all combinations of the ignored modifiers and those actually used
- * for the binding (if any).
- *
- * inspired by all_combinations from gnome-panel/gnome-panel/global-keys.c */
-#define N_BITS 32
-static void
-do_grab (GsdKeybindingsManager *manager,
-         gboolean               grab,
-         Key                   *key)
-{
-        int   indexes[N_BITS]; /* indexes of bits we need to flip */
-        int   i;
-        int   bit;
-        int   bits_set_cnt;
-        int   uppervalue;
-        guint mask = IGNORED_MODS & ~key->state & GDK_MODIFIER_MASK;
-
-        bit = 0;
-        /* store the indices of all set bits in mask in the array */
-        for (i = 0; mask; ++i, mask >>= 1) {
-                if (mask & 0x1) {
-                        indexes[bit++] = i;
-                }
-        }
-
-        bits_set_cnt = bit;
-
-        uppervalue = 1 << bits_set_cnt;
-        /* grab all possible modifier combinations for our mask */
-        for (i = 0; i < uppervalue; ++i) {
-                GSList *l;
-                int j, result = 0;
-
-                /* map bits in the counter to those in the mask */
-                for (j = 0; j < bits_set_cnt; ++j) {
-                        if (i & (1<<j)) {
-                                result |= (1<<indexes[j]);
-                        }
-                }
-
-                for (l = manager->priv->screens; l ; l = l->next) {
-                  GdkScreen *screen = l->data;
-                  grab_key (gdk_screen_get_root_window (screen),
-                            key,
-                            result,
-                            grab);
-                }
-        }
-}
-
-static void
 binding_register_keys (GsdKeybindingsManager *manager)
 {
         GSList *li;
@@ -372,15 +277,15 @@ binding_register_keys (GsdKeybindingsManager *manager)
                         /* Ungrab key if it changed and not clashing with previously set binding */
                         if (! key_already_used (manager, binding)) {
                                 if (binding->previous_key.keycode) {
-                                        do_grab (manager, FALSE, &binding->previous_key);
+                                        grab_key (&binding->previous_key, FALSE, manager->priv->screens);
                                 }
-                                do_grab (manager, TRUE, &binding->key);
+                                grab_key (&binding->key, TRUE, manager->priv->screens);
 
                                 binding->previous_key.keysym = binding->key.keysym;
                                 binding->previous_key.state = binding->key.state;
                                 binding->previous_key.keycode = binding->key.keycode;
                         } else
-                                g_warning (_("Key Binding (%s) is already in use"), binding->binding_str);
+                                g_warning ("Key binding (%s) is already in use", binding->binding_str);
                 }
         }
         gdk_flush ();
@@ -471,23 +376,17 @@ keybindings_filter (GdkXEvent             *gdk_xevent,
                     GdkEvent              *event,
                     GsdKeybindingsManager *manager)
 {
-        XEvent *xevent = (XEvent *)gdk_xevent;
-        guint   keycode;
-        guint   state;
+        XEvent *xevent = (XEvent *) gdk_xevent;
         GSList *li;
 
         if (xevent->type != KeyPress) {
                 return GDK_FILTER_CONTINUE;
         }
 
-        keycode = xevent->xkey.keycode;
-        state = xevent->xkey.state;
-
         for (li = manager->priv->binding_list; li != NULL; li = li->next) {
-                Binding *binding = (Binding*) li->data;
+                Binding *binding = (Binding *) li->data;
 
-                if (keycode == binding->key.keycode &&
-                    (state & USED_MODS) == binding->key.state) {
+                if (match_key (&binding->key, xevent)) {
                         GError  *error = NULL;
                         gboolean retval;
                         gchar  **argv = NULL;

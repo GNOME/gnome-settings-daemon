@@ -29,13 +29,12 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-manager.c	\
 	gsd-media-keys-window.h		\
 	gsd-media-keys-window.c		\
-	eggaccelerators.h		\
-	eggaccelerators.c		\
 	$(BUILT_SOURCES)		\
 	$(NULL)
 
 libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/plugins/common				\
 	-I$(top_builddir)/plugins/media-keys/actions		\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGLADEDIR=\""$(pkgdatadir)"\"				\
@@ -50,6 +49,7 @@ libmedia_keys_la_LDFLAGS = 		\
 	$(GSD_PLUGIN_LDFLAGS)
 
 libmedia_keys_la_LIBADD  = 		\
+	$(top_builddir)/plugins/common/libcommon.la		\
 	$(top_builddir)/plugins/media-keys/actions/libacme.la	\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(XF86MISC_LIBS)		\
@@ -94,14 +94,13 @@ test_media_keys_SOURCES =			\
 	gsd-media-keys-manager.h		\
 	gsd-media-keys-window.h			\
 	gsd-media-keys-window.c			\
-	eggaccelerators.h			\
-	eggaccelerators.c			\
 	test-media-keys.c			\
 	$(BUILT_SOURCES)			\
 	$(NULL)
 
 test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/plugins/common				\
 	-I$(top_builddir)/plugins/media-keys/actions		\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGLADEDIR=\""$(pkgdatadir)"\"				\
@@ -114,6 +113,7 @@ test_media_keys_CFLAGS = \
 
 test_media_keys_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la	\
+	$(top_builddir)/plugins/common/libcommon.la		\
 	$(top_builddir)/plugins/media-keys/actions/libacme.la	\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\

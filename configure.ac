@@ -56,8 +56,6 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
         libgnome-2.0
 )
-AC_SUBST(SETTINGS_DAEMON_CFLAGS)
-AC_SUBST(SETTINGS_DAEMON_LIBS)
 
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gtk+-2.0 >= $GTK_REQUIRED_VERSION
@@ -67,8 +65,6 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         libglade-2.0 >= 2.0.0
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
 )
-AC_SUBST(SETTINGS_PLUGIN_CFLAGS)
-AC_SUBST(SETTINGS_PLUGIN_LIBS)
 
 PKG_CHECK_MODULES(GNOME, libgnome-2.0 libgnomeui-2.0)
 PKG_CHECK_MODULES(LIBBACKGROUND, glib-2.0 gobject-2.0 gdk-2.0 gconf-2.0)
@@ -406,6 +402,7 @@ plugins/a11y-keyboard/Makefile
 plugins/background/Makefile
 plugins/background/libbackground/Makefile
 plugins/clipboard/Makefile
+plugins/common/Makefile
 plugins/dummy/Makefile
 plugins/font/Makefile
 plugins/housekeeping/Makefile

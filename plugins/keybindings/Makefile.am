@@ -9,12 +9,11 @@ libkeybindings_la_SOURCES = 		\
 	gsd-keybindings-plugin.c	\
 	gsd-keybindings-manager.h	\
 	gsd-keybindings-manager.c	\
-	eggaccelerators.h		\
-	eggaccelerators.c		\
 	$(NULL)
 
 libkeybindings_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/plugins/common			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
@@ -27,7 +26,8 @@ libkeybindings_la_LDFLAGS = 		\
 	$(NULL)
 
 libkeybindings_la_LIBADD  = 		\
-	$(SETTINGS_PLUGIN_LIBS)	\
+	$(top_builddir)/plugins/common/libcommon.la	\
+	$(SETTINGS_PLUGIN_LIBS)		\
 	$(NULL)
 
 plugin_in_files = 		\

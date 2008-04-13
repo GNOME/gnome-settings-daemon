@@ -1,3 +1,30 @@
+2008-04-13  Jens Granseuer  <jensgr@gmx.net>
+
+	Extract some functionality used by several plugins into a separate
+	shared helper library (bug #525426).
+
+	* configure.ac:
+	* plugins/Makefile.am:
+	* plugins/common/Makefile.am:
+	* plugins/common/gsd-keygrab.c:
+	* plugins/common/gsd-keygrab.h:
+	* plugins/common/eggaccelerators.c:
+	* plugins/common/eggaccelerators.h: new shared components
+
+	* plugins/keybindings/Makefile.am:
+	* plugins/keybindings/eggaccelerators.c:
+	* plugins/keybindings/eggaccelerators.h:
+	* plugins/keybindings/gsd-keybindings-manager.c:
+	(binding_register_keys), (keybindings_filter):
+	* plugins/media-keys/Makefile.am:
+	* plugins/media-keys/actions/Makefile.am:
+	* plugins/media-keys/actions/acme.h:
+	* plugins/media-keys/eggaccelerators.c:
+	* plugins/media-keys/eggaccelerators.h:
+	* plugins/media-keys/gsd-media-keys-manager.c: (update_kbd_cb),
+	(init_kbd), (acme_filter_events):
+	make keybindings and media-keys plugins use the shared components
+
 2008-04-13  Sergey Udaltsov <svu@gnome.org>
 
 	* plugins/keyboard/gsd-keyboard-xkb.c: dropped gconf backup
