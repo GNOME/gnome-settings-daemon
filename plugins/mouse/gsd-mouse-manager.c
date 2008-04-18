@@ -554,6 +554,17 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
                         GtkWidget *dialog;
                         GConfClient *client;
 
+                        client = gconf_client_get_default ();
+                        if (dwell_enable)
+                                gconf_client_set_bool (client,
+                                                       KEY_DWELL_ENABLE,
+                                                       FALSE, NULL);
+                        else if (delay_enable)
+                                gconf_client_set_bool (client,
+                                                       KEY_DELAY_ENABLE,
+                                                       FALSE, NULL);
+                        g_object_unref (client);
+
                         dialog = gtk_message_dialog_new (NULL, 0,
                                                          GTK_MESSAGE_WARNING,
                                                          GTK_BUTTONS_OK,
@@ -567,17 +578,6 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
                                                   "gnome-dev-mouse-optical");
                         gtk_dialog_run (GTK_DIALOG (dialog));
                         gtk_widget_destroy (dialog);
-
-                        client = gconf_client_get_default ();
-                        if (dwell_enable)
-                                gconf_client_set_bool (client,
-                                                       KEY_DWELL_ENABLE,
-                                                       FALSE, NULL);
-                        else if (delay_enable)
-                                gconf_client_set_bool (client,
-                                                       KEY_DELAY_ENABLE,
-                                                       FALSE, NULL);
-                        g_object_unref (client);
                 }
                 g_error_free (error);
         }
