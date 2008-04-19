@@ -175,19 +175,9 @@ bindings_get_entry (GsdKeybindingsManager *manager,
                 if (key_name == NULL) {
                         /* ignore entry */
                 } else if (strcmp (key_name, "action") == 0) {
-                        if (!action) {
-                                action = entry_get_string (entry);
-                        } else {
-                                g_warning (_("Key binding (%s) has its action defined multiple times"),
-                                           gconf_key);
-                        }
+                        action = entry_get_string (entry);
                 } else if (strcmp (key_name, "binding") == 0) {
-                        if (!key) {
-                                key = entry_get_string (entry);
-                        } else {
-                                g_warning (_("Key binding (%s) has its binding defined multiple times"),
-                                           gconf_key);
-                        }
+                        key = entry_get_string (entry);
                 }
 
                 g_free (key_name);
