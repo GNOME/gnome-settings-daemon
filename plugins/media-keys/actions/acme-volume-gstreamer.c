@@ -51,8 +51,6 @@ struct AcmeVolumeGStreamerPrivate
 	GConfClient *gconf_client;
 };
 
-static GObjectClass *parent_class = NULL;
-
 G_DEFINE_TYPE (AcmeVolumeGStreamer, acme_volume_gstreamer, ACME_TYPE_VOLUME)
 
 static int acme_volume_gstreamer_get_volume (AcmeVolume *self);
@@ -87,7 +85,7 @@ acme_volume_gstreamer_finalize (GObject *object)
 
 	g_free (self->_priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (acme_volume_gstreamer_parent_class)->finalize (object);
 }
 
 static void
@@ -446,8 +444,6 @@ acme_volume_gstreamer_class_init (AcmeVolumeGStreamerClass *klass)
 	G_OBJECT_CLASS (klass)->finalize = acme_volume_gstreamer_finalize;
 
 	gst_init (NULL, NULL);
-
-	parent_class = g_type_class_peek_parent (klass);
 
 	volume_class->set_volume = acme_volume_gstreamer_set_volume;
 	volume_class->get_volume = acme_volume_gstreamer_get_volume;

@@ -45,8 +45,6 @@ struct AcmeVolumeOssPrivate
 	gboolean mute;
 };
 
-static GObjectClass *parent_class = NULL;
-
 static int acme_volume_oss_get_volume (AcmeVolume *self);
 static void acme_volume_oss_set_volume (AcmeVolume *self, int val);
 static gboolean acme_volume_oss_mixer_check (AcmeVolumeOss *self, int fd);
@@ -66,7 +64,7 @@ acme_volume_oss_finalize (GObject *object)
 	g_return_if_fail (self->_priv != NULL);
 	g_free (self->_priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (acme_volume_oss_parent_class)->finalize (object);
 }
 
 static int
@@ -192,8 +190,6 @@ acme_volume_oss_class_init (AcmeVolumeOssClass *klass)
 {
 	AcmeVolumeClass *volume_class = ACME_VOLUME_CLASS (klass);
 	G_OBJECT_CLASS (klass)->finalize = acme_volume_oss_finalize;
-
-	parent_class = g_type_class_peek_parent (klass);
 
 	volume_class->set_volume = acme_volume_oss_set_volume;
 	volume_class->get_volume = acme_volume_oss_get_volume;

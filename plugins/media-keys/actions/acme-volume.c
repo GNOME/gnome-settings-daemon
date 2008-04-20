@@ -32,14 +32,11 @@
 #include "acme-volume-gstreamer.h"
 #endif
 
-static GObjectClass *parent_class = NULL;
-
 G_DEFINE_TYPE (AcmeVolume, acme_volume, G_TYPE_OBJECT)
 
 static void
 acme_volume_class_init (AcmeVolumeClass *klass)
 {
-	parent_class = g_type_class_peek_parent (klass);
 }
 
 static void

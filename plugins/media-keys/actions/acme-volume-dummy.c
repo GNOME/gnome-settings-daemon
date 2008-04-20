@@ -23,8 +23,6 @@
 #include "config.h"
 #include "acme-volume-dummy.h"
 
-static GObjectClass *parent_class = NULL;
-
 G_DEFINE_TYPE (AcmeVolumeDummy, acme_volume_dummy, ACME_TYPE_VOLUME)
 
 static void
@@ -33,7 +31,7 @@ acme_volume_dummy_finalize (GObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (ACME_IS_VOLUME_DUMMY (object));
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (acme_volume_dummy_parent_class)->finalize (object);
 }
 
 static void
@@ -75,8 +73,6 @@ acme_volume_dummy_class_init (AcmeVolumeDummyClass *klass)
 {
 	AcmeVolumeClass *volume_class = ACME_VOLUME_CLASS (klass);
 	G_OBJECT_CLASS (klass)->finalize = acme_volume_dummy_finalize;
-
-	parent_class = g_type_class_peek_parent (klass);
 
 	volume_class->set_volume = acme_volume_dummy_set_volume;
 	volume_class->get_volume = acme_volume_dummy_get_volume;

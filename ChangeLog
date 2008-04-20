@@ -1,3 +1,17 @@
+2008-04-20  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/media-keys/actions/acme-volume-alsa.c:
+	(acme_volume_alsa_finalize), (acme_volume_alsa_class_init):
+	* plugins/media-keys/actions/acme-volume-dummy.c:
+	(acme_volume_dummy_finalize), (acme_volume_dummy_class_init):
+	* plugins/media-keys/actions/acme-volume-gstreamer.c:
+	(acme_volume_gstreamer_finalize),
+	(acme_volume_gstreamer_class_init):
+	* plugins/media-keys/actions/acme-volume-oss.c:
+	(acme_volume_oss_finalize), (acme_volume_oss_class_init):
+	* plugins/media-keys/actions/acme-volume.c:
+	(acme_volume_class_init): drop redundant GType stuff
+
 2008-04-19  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/keybindings/gsd-keybindings-manager.c:
