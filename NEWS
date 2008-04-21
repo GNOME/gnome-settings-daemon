@@ -1,4 +1,55 @@
 ==============
+Version 2.23.1
+==============
+- Sound server startup based on GConf setting, even when esd is disabled
+  (Alexey Shabalin) (#523743)
+- Added a new "housekeeping" plugin to set limits on the size and age of the
+  thumbnail cache (Michael J. Chudobiak) (#523159)
+- Fix mismatched modifier maping between egg and GTK (Jens Granseuer)
+- Replace some custom functionality with stock GTK (Jens Granseuer)
+- Mark string for translation (Jens Granseuer)
+- Use G_DEFINE_TYPE instead of open-coding (Jens Granseuer)
+- Change data types to match glib, avoid using time_t (Jens Granseuer)
+- Add mapping for Gtk/Modules xsetting using GConf (Jens Granseuer) (#507386)
+- Set GConf keys back to false if mousetweaks is not installed (Gerd Kohlberger)
+  (#525042)
+- Don't try to add grabas with invalid modifiers (Jens Granseuer)
+- Remove trailing newlines from messages since g_warning already takes care
+  of those (Jens Granseuer)
+- Fix various leaks (Jens Granseuer)
+- Fix TYPE macro and remove unimplemented prototype (Lorne Applebaum)
+- Add a special volume subclass for better support of IBM Thinkpad hardware
+  volume buttons (Lorne Applebaum) (#524425)
+- Initialize inited_ok or behaviour is undefined when xkb setup fails (Jens
+  Granseuer)
+- Continued attempt at making XKB setup and error handling a bit less arcane
+  and crufty (Jens Granseuer)
+- Only use the built-in default for volume_step if we get an error from GConf,
+  not just when the value is 0 which might be what the user wants (Jens
+  Granseuer)
+- Adds a "threshold" property to the AcmeVolume class that denotes the minimum
+  percentage required to actually affect the volume (Jens Granseuer)
+- Don't install any listeners or callbacks when XKB is not available (Jens
+  Granseuer)
+- Remove excessive key grab logging (Jens Granseuer)
+- Make plugins deactivation work (Jens Granseuer)
+- Properly null-terminate g_build_filename (Jens Granseuer)
+- Turn into a daemon by default and make --no-daemon work (Jens Granseuer)
+- DBus API has been stable for a while; don't define DBUS_API_SUBJECT_TO_CHANGE
+  anymore (Jens Granseuer)
+- Drop GConf backup for xkb (Sergey Udaltsov)
+- Extract some functionality used by several plugins into a separate shared
+  helper library (Jens Granseuer) (#525426)
+- Reset GConf keys when we can't launch the daemon (Jens Granseuer)
+- Updated translations:
+  - bn_IN (Runa Bhattacharjee)
+  - es (Jorge Gonzalez)
+  - et (Priit Laes)
+  - nn (Eskild Hustvedt)
+  - sk (Marcel Telka)
+  - te (Sunil Mohan Adapa)
+
+==============
 Version 2.22.1
 ==============
 - Fix segfault when shutting down the typing break monitor (Jens Granseuer)
