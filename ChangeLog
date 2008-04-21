@@ -1,3 +1,14 @@
+2008-04-21  Lucas Rocha  <lucasr@gnome.org>
+
+	Install .desktop for gnome-settings-daemon in a standard autostart
+	directory as required by new gnome-session (bug #526984).
+
+	* configure.ac: expand $libexecdir to be used on .desktop file. 
+	* acinclude.m4: added new m4 macro (AS_AC_EXPAND) for expanding 
+	variables.
+	* data/Makefile.am, data/gnome-settings-daemon.desktop.in.in: install 
+	g-s-d .desktop file.
+
 2008-04-21  Rodrigo Moya <rodrigo@gnome-db.org>
 
 	* configure.ac: post release version bump.
@@ -36,6 +47,7 @@
 	dialog. If we wait until after the dialog is closed, the user can
 	still toggle the settings while it's open
 
+>>>>>>> .r314
 2008-04-13  Jens Granseuer  <jensgr@gmx.net>
 
 	Extract some functionality used by several plugins into a separate

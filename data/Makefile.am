@@ -12,6 +12,11 @@ schemas_in_files = 						\
 
 schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
 
+@INTLTOOL_DESKTOP_RULE@
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = gnome-settings-daemon.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
 servicedir = $(datadir)/dbus-1/services
 service_in_files = org.gnome.SettingsDaemon.service.in
 service_DATA = $(service_in_files:.service.in=.service)
@@ -25,12 +30,14 @@ pkgconfig_DATA = gnome-settings-daemon.pc
 EXTRA_DIST = 				\
 	$(schemas_in_files)		\
 	$(service_in_files)		\
+	$(desktop_in_files)		\
 	gnome-settings-daemon.pc.in	\
 	$(NULL)
 
 DISTCLEANFILES = 			\
 	$(schemas_DATA)			\
 	$(service_DATA)			\
+	$(desktop_DATA)			\
 	$(NULL)
 
 MAINTAINERCLEANFILES =			\
