@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gnome-settings-deamon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-16 14:19+0000\n"
-"PO-Revision-Date: 2008-04-13 19:21+0100\n"
+"PO-Revision-Date: 2008-04-26 16:14+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -229,6 +229,10 @@ msgstr "Vrsta glajenja pisave ob oblikovanju. Mogoče vrednosti so: \"brez\" za 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:8
 msgid "The type of hinting to use when rendering fonts. Possible values are: \"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum hinting (may cause distortion of letter forms)."
 msgstr "Vrsta prilagoditve pisave uporabljena pri oblikovanju pisav. Mogoče vrednosti so  \"brez\" za prezrto prilagoditev, \"delno\" za osnovno, \"srednje\" za srednje in \"polno\" za napredno prilagajanje (lahko zamegli videz črk)."
+
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "Demon GNOME nastavitev"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
 msgid "Enable accessibility keyboard plugin"
@@ -481,27 +485,17 @@ msgstr ""
 "Ni mogoče ustvariti imenika \"%s\".\n"
 "To je potrebno za spreminjanje kazalcev."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:181
-#, c-format
-msgid "Key binding (%s) has its action defined multiple times"
-msgstr "Tipkovna povezava (%s) ima večkrat nastavljeno dejanje"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:188
-#, c-format
-msgid "Key binding (%s) has its binding defined multiple times"
-msgstr "Tipkovna povezava (%s) je določena večkrat"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:200
+#: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
 msgid "Key binding (%s) is incomplete"
 msgstr "Tipkovna povezava (%s) ni popolna"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:232
+#: ../plugins/keybindings/gsd-keybindings-manager.c:222
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "Tipkovna povezava (%s) ni veljavna"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:419
+#: ../plugins/keybindings/gsd-keybindings-manager.c:409
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -579,15 +573,15 @@ msgstr "Medijske tipke"
 msgid "Media keys plugin"
 msgstr "Vstavek medijskih tipk"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:560
+#: ../plugins/mouse/gsd-mouse-manager.c:571
 msgid "Could not enable mouse accessibility features"
 msgstr "Ni mogoče zagnati možnosti dostopnosti miške"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:562
+#: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid "Mouse accessibility requires the mousetweaks daemon to be installed on your system."
 msgstr "Dostopnost miške zahteva pravilno nameščen mousetweaks demon."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:565
+#: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
 msgstr "Nastavitve miške"
 
