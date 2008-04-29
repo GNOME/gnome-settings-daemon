@@ -1,3 +1,12 @@
+2008-04-29  Bastien Nocera  <hadess@hadess.net>
+
+	* plugins/common/gsd-keygrab.c (have_xkb), (match_key):
+	When checking whether a key matches our key event, check
+	the keysym from the key event, to avoid triggering another
+	keybindings with the same keycode, but different keysym,
+	Fixes Eject being triggered when pressing the Stop key with the
+	default inet keymap (Closes: #530356)
+
 2008-04-23  Vincent Untz  <vuntz@gnome.org>
 
 	* configure.ac: post release version bump.

@@ -24,6 +24,11 @@
 
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
+#ifdef HAVE_X11_EXTENSIONS_XKB_H
+#include <X11/XKBlib.h>
+#include <X11/extensions/XKB.h>
+#include <gdk/gdkkeysyms.h>
+#endif
 
 #include "gsd-keygrab.h"
 
@@ -119,9 +124,60 @@ grab_key (Key                 *key,
         }
 }
 
+static gboolean
+have_xkb (Display *dpy)
+{
+	static int have_xkb = -1;
+
+	if (have_xkb == -1) {
+#ifdef HAVE_X11_EXTENSIONS_XKB_H
+		int opcode, error_base, major, minor, xkb_event_base;
+
+		gdk_error_trap_push ();
+		have_xkb = XkbQueryExtension (dpy,
+					      &opcode,
+					      &xkb_event_base,
+					      &error_base,
+					      &major,
+					      &minor)
+			&& XkbUseExtension (dpy, &major, &minor);
+		gdk_error_trap_pop ();
+#else
+		have_xkb = 0;
+#endif
+	}
+
+	return have_xkb;
+}
+
 gboolean
 match_key (Key *key, XEvent *event)
 {
+	GdkKeymap *keymap;
+	guint keyval;
+	GdkModifierType consumed;
+	gint group;
+
+	if (key == NULL)
+		return FALSE;
+
+	keymap = gdk_keymap_get_default ();
+	if (have_xkb (event->xkey.display))
+		group = XkbGroupForCoreState (event->xkey.state);
+	else
+		group = (event->xkey.state & GDK_Mode_switch) ? 1 : 0;
+	/* Check if we find a keysym that matches our current state */
+	if (gdk_keymap_translate_keyboard_state (keymap, event->xkey.keycode,
+					     event->xkey.state, group,
+					     &keyval, NULL, NULL, &consumed)) {
+		guint lower, upper;
+
+		gdk_keyval_convert_case (keyval, &lower, &upper);
+		return ((lower == key->keysym || upper == key->keysym)
+			&& (key->state & ~consumed & GSD_USED_MODS) == key->state);
+	}
+
+	/* The key we passed doesn't have a keysym, so try with just the keycode */
         return (key != NULL
                 && key->keycode == event->xkey.keycode
                 && key->state == (event->xkey.state & GSD_USED_MODS));
