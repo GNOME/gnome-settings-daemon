@@ -1,5 +1,12 @@
 2008-05-02  Jens Granseuer  <jensgr@gmx.net>
 
+	Patch by: Brian Cameron <brian.cameron@sun.com>
+
+	* gnome-settings-daemon/main.c: (main): don't die when the
+	user's home directory is read-only (bug #530975)
+
+2008-05-02  Jens Granseuer  <jensgr@gmx.net>
+
 	Based on a patch by: Matthias Clasen <mclasen@redhat.com>
 
 	* plugins/keyboard/gsd-keyboard-xkb.c: (apply_xkb_settings),
