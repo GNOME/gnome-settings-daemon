@@ -318,6 +318,9 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
         if (!nautilus_show_desktop) {
                 apply_prefs (manager);
         } else {
+                /* even when nautilus is supposedly handling the
+                 * background, apply the settings eventually to make
+                 * people running a nautilus-less session happy */
                 g_timeout_add_seconds (8, apply_prefs, manager);
         }
 
