@@ -317,7 +317,10 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
 
         if (!nautilus_show_desktop) {
                 apply_prefs (manager);
+        } else {
+                g_timeout_add_seconds (8, apply_prefs, manager);
         }
+
 
         gnome_settings_profile_end (NULL);
 
