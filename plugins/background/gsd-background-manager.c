@@ -292,6 +292,8 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
         bg_preferences_load (manager->priv->prefs);
 
         client = gconf_client_get_default ();
+        gconf_client_add_dir (client, "/desktop/gnome/background",
+                              GCONF_CLIENT_PRELOAD_NONE, NULL);
         gconf_client_notify_add (client,
                                  "/desktop/gnome/background",
                                  (GConfClientNotifyFunc) background_callback,
@@ -313,6 +315,8 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
 
         if (!nautilus_show_desktop) {
                 apply_prefs (manager);
+        } else {
+                g_timeout_add_seconds (8, apply_prefs, manager);
         }
 
         gnome_settings_profile_end (NULL);
