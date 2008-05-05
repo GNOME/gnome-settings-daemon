@@ -57,6 +57,8 @@ static void *pa_callback_user_data = NULL;
 static const char KNOWN_FILES_KEY[] =
     "/desktop/gnome/peripherals/keyboard/general/known_file_list";
 
+static char *gdm_keyboard_layout = NULL;
+
 #define noGSDKX
 
 #ifdef GSDKX
@@ -138,7 +140,7 @@ apply_settings (void)
 static void
 apply_xkb_settings (void)
 {
-        GConfClient       *conf_client;
+        GConfClient *conf_client;
         GkbdKeyboardConfig current_sys_kbd_config;
 
         if (!inited_ok)
@@ -155,6 +157,30 @@ apply_xkb_settings (void)
 
         gkbd_keyboard_config_load_from_x_current (&current_sys_kbd_config,
                                                   NULL);
+
+        /* With GDM the user can already set a layout from the login
+         * screen. Try to keep that setting */
+        if (gdm_keyboard_layout != NULL) {
+                if (current_kbd_config.layouts_variants == NULL) {
+                        current_kbd_config.layouts_variants = g_slist_append (NULL, gdm_keyboard_layout);
+                        gconf_client_set_list (conf_client,
+                                               GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
+                                               GCONF_VALUE_STRING,
+                                               current_kbd_config.layouts_variants,
+                                               NULL);
+                } else {
+                         GSList *l;
+                         int i;
+                         for (i = 0, l = current_kbd_config.layouts_variants; l; i++, l = l->next) {
+                                 if (strcmp (gdm_keyboard_layout, l->data) == 0) {
+                                        xkl_engine_lock_group (current_config.engine, i);
+                                        break;
+                                 }
+                         }
+                }
+                gdm_keyboard_layout = NULL;
+        }
+
         /* Activate - only if different! */
         if (!gkbd_keyboard_config_equals
             (&current_kbd_config, &current_sys_kbd_config)) {
@@ -302,10 +328,12 @@ gsd_keyboard_xkb_init (GConfClient *client)
         logfile = fopen ("/tmp/gsdkx.log", "a");
         xkl_set_log_appender (gsd_keyboard_log_appender);
 #endif
-
         xkl_engine = xkl_engine_get_instance (GDK_DISPLAY ());
         if (xkl_engine) {
                 inited_ok = TRUE;
+
+                gdm_keyboard_layout = g_getenv ("GDM_KEYBOARD_LAYOUT");
+
                 gkbd_desktop_config_init (&current_config,
                                           client,
                                           xkl_engine);

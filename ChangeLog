@@ -1,5 +1,13 @@
 2008-05-02  Jens Granseuer  <jensgr@gmx.net>
 
+	Based on a patch by: Matthias Clasen <mclasen@redhat.com>
+
+	* plugins/keyboard/gsd-keyboard-xkb.c: (apply_xkb_settings),
+	(gsd_keyboard_xkb_init): if the user set a keyboard layout from
+	the login screen, try to keep that setting (bug #531589)
+
+2008-05-02  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/background/gsd-background-manager.c:
 	(gsd_background_manager_start): add a comment explaining why we
 	are applying the prefs regardless of nautilus
