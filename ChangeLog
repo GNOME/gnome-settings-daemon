@@ -1,5 +1,13 @@
 2008-05-08  Carlos Garnacho  <carlosg@gnome.org>
 
+	* plugins/media-keys/gsd-media-keys-window.c
+	(gsd_media_keys_window_real_realize): New function, sets a fully
+	transparent input shape, so that clicks go through the media keys
+	windows. Bug #531862.
+	(gsd_media_keys_window_class_init): The usual glue.
+
+2008-05-08  Carlos Garnacho  <carlosg@gnome.org>
+
 	* plugins/mouse/gsd-locate-pointer.c (set_transparent_shape): new
 	function, sets a fully transparent shape to the whole window.
 	(timeline_finished_cb) (gsd_locate_pointer): set the window

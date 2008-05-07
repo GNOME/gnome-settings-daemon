@@ -828,12 +828,39 @@ gsd_media_keys_window_real_hide (GtkWidget *widget)
 }
 
 static void
+gsd_media_keys_window_real_realize (GtkWidget *widget)
+{
+        GdkBitmap *mask;
+        cairo_t *cr;
+
+        if (GTK_WIDGET_CLASS (gsd_media_keys_window_parent_class)->realize) {
+                GTK_WIDGET_CLASS (gsd_media_keys_window_parent_class)->realize (widget);
+        }
+
+        mask = gdk_pixmap_new (widget->window,
+                               widget->allocation.width,
+                               widget->allocation.height,
+                               1);
+        cr = gdk_cairo_create (mask);
+
+        cairo_set_source_rgba (cr, 1., 1., 1., 0.);
+        cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
+        cairo_paint (cr);
+
+        /* make the whole window ignore events */
+        gdk_window_input_shape_combine_mask (widget->window, mask, 0, 0);
+        g_object_unref (mask);
+        cairo_destroy (cr);
+}
+
+static void
 gsd_media_keys_window_class_init (GsdMediaKeysWindowClass *klass)
 {
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
         widget_class->show = gsd_media_keys_window_real_show;
         widget_class->hide = gsd_media_keys_window_real_hide;
+        widget_class->realize = gsd_media_keys_window_real_realize;
 
         g_type_class_add_private (klass, sizeof (GsdMediaKeysWindowPrivate));
 }
