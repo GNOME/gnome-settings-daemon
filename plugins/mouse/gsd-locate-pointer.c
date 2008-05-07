@@ -139,6 +139,7 @@ locate_pointer_expose (GtkWidget *widget,
       cr = gdk_cairo_create (mask);
       locate_pointer_paint (data, cr, FALSE);
       gdk_window_shape_combine_mask (data->window, mask, 0, 0);
+      g_object_unref (mask);
     }
 
   cairo_destroy (cr);
@@ -167,14 +168,34 @@ timeline_frame_cb (GsdTimeline *timeline,
 }
 
 static void
+set_transparent_shape (GdkWindow *window)
+{
+  GdkBitmap *mask;
+  cairo_t *cr;
+
+  mask = gdk_pixmap_new (data->window, WINDOW_SIZE, WINDOW_SIZE, 1);
+  cr = gdk_cairo_create (mask);
+
+  cairo_set_source_rgba (cr, 1., 1., 1., 0.);
+  cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
+  cairo_paint (cr);
+
+  gdk_window_shape_combine_mask (data->window, mask, 0, 0);
+  g_object_unref (mask);
+  cairo_destroy (cr);
+}
+
+static void
 timeline_finished_cb (GsdTimeline *timeline,
 		      gpointer     user_data)
 {
   GsdLocatePointerData *data = (GsdLocatePointerData *) user_data;
 
-  /* hide window and unset shape */
+  /* set transparent shape and hide window */
+  if (!gtk_widget_is_composited (data->widget))
+    set_transparent_shape (data->window);
+
   gdk_window_hide (data->window);
-  gdk_window_shape_combine_mask (data->window, NULL, 0, 0);
 }
 
 static void
@@ -286,6 +307,10 @@ gsd_locate_pointer (GdkScreen *screen)
     }
 
   data->progress = 0.;
+
+  if (!gtk_widget_is_composited (data->widget))
+    set_transparent_shape (data->window);
+
   gdk_window_show (data->window);
   move_locate_pointer_window (data, screen);
 

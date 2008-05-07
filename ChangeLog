@@ -1,3 +1,14 @@
+2008-05-08  Carlos Garnacho  <carlosg@gnome.org>
+
+	* plugins/mouse/gsd-locate-pointer.c (set_transparent_shape): new
+	function, sets a fully transparent shape to the whole window.
+	(timeline_finished_cb) (gsd_locate_pointer): set the window
+	transparent once the animation is finished, and before it's shown for
+	the first time. The shape will be changed afterwards while running the
+	animation. This fixes some artifacts shown when showing/moving the
+	window, bug #531861.
+	(locate_pointer_expose): Plug a leak.
+
 2008-05-02  Jens Granseuer  <jensgr@gmx.net>
 
 	Patch by: Brian Cameron <brian.cameron@sun.com>
