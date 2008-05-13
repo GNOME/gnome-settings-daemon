@@ -44,18 +44,14 @@
 #include "gnome-settings-profile.h"
 #include "gsd-background-manager.h"
 
-#include "preferences.h"
-
 #define GSD_BACKGROUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_BACKGROUND_MANAGER, GsdBackgroundManagerPrivate))
-
-#define GCONF_BG_DIR    "/desktop/gnome/background"
 
 struct GsdBackgroundManagerPrivate
 {
-        BGPreferences *prefs;
-        GnomeBG       *bg;
-        guint          timeout_id;
-        guint          notify;
+        GConfClient *client;
+        GnomeBG     *bg;
+        guint        bg_notify_id;
+        guint        timeout_id;
 };
 
 static void     gsd_background_manager_class_init  (GsdBackgroundManagerClass *klass);
@@ -157,122 +153,85 @@ nautilus_is_running (void)
        return running;
 }
 
-static gboolean
-apply_prefs (GsdBackgroundManager *manager)
+static void
+draw_background (GsdBackgroundManager *manager)
 {
+        GdkDisplay *display;
+        int         n_screens;
+        int         i;
+
+        if (nautilus_is_running ()) {
+                return;
+        }
+
         gnome_settings_profile_start (NULL);
 
-        if (! nautilus_is_running ()) {
-                GdkDisplay      *display;
-                int              n_screens;
-                int              i;
-                GnomeBGPlacement placement;
-                GnomeBGColorType color;
-                const char      *uri;
+        display = gdk_display_get_default ();
+        n_screens = gdk_display_get_n_screens (display);
 
-                display = gdk_display_get_default ();
-                n_screens = gdk_display_get_n_screens (display);
+        for (i = 0; i < n_screens; ++i) {
+                GdkScreen *screen;
+                GdkWindow *root_window;
+                GdkPixmap *pixmap;
 
-                uri = manager->priv->prefs->wallpaper_filename;
+                screen = gdk_display_get_screen (display, i);
 
-                placement = GNOME_BG_PLACEMENT_TILED;
+                root_window = gdk_screen_get_root_window (screen);
 
-                switch (manager->priv->prefs->wallpaper_type) {
-                case WPTYPE_TILED:
-                        placement = GNOME_BG_PLACEMENT_TILED;
-                        break;
-                case WPTYPE_CENTERED:
-                        placement = GNOME_BG_PLACEMENT_CENTERED;
-                        break;
-                case WPTYPE_SCALED:
-                        placement = GNOME_BG_PLACEMENT_SCALED;
-                        break;
-                case WPTYPE_STRETCHED:
-                        placement = GNOME_BG_PLACEMENT_FILL_SCREEN;
-                        break;
-                case WPTYPE_ZOOM:
-                        placement = GNOME_BG_PLACEMENT_ZOOMED;
-                        break;
-                case WPTYPE_NONE:
-                case WPTYPE_UNSET:
-                        uri = NULL;
-                        break;
-                }
+                pixmap = gnome_bg_create_pixmap (manager->priv->bg,
+                                                 root_window,
+                                                 gdk_screen_get_width (screen),
+                                                 gdk_screen_get_height (screen),
+                                                 TRUE);
 
-                switch (manager->priv->prefs->orientation) {
-                case ORIENTATION_SOLID:
-                        color = GNOME_BG_COLOR_SOLID;
-                        break;
-                case ORIENTATION_HORIZ:
-                        color = GNOME_BG_COLOR_H_GRADIENT;
-                        break;
-                case ORIENTATION_VERT:
-                        color = GNOME_BG_COLOR_V_GRADIENT;
-                        break;
-                default:
-                        color = GNOME_BG_COLOR_SOLID;
-                        break;
-                }
+                gnome_bg_set_pixmap_as_root (screen, pixmap);
 
-                gnome_bg_set_uri (manager->priv->bg, uri);
-                gnome_bg_set_placement (manager->priv->bg, placement);
-                gnome_bg_set_color (manager->priv->bg,
-                                    color,
-                                    manager->priv->prefs->color1,
-                                    manager->priv->prefs->color2);
-
-                for (i = 0; i < n_screens; ++i) {
-                        GdkScreen *screen;
-                        GdkWindow *root_window;
-                        GdkPixmap *pixmap;
-
-                        screen = gdk_display_get_screen (display, i);
-
-                        root_window = gdk_screen_get_root_window (screen);
-
-                        pixmap = gnome_bg_create_pixmap (manager->priv->bg,
-                                                         root_window,
-                                                         gdk_screen_get_width (screen),
-                                                         gdk_screen_get_height (screen),
-                                                         TRUE);
-
-                        gnome_bg_set_pixmap_as_root (screen, pixmap);
-
-                        g_object_unref (pixmap);
-                }
+                g_object_unref (pixmap);
         }
 
         gnome_settings_profile_end (NULL);
+}
 
+static gboolean
+queue_draw_background (GsdBackgroundManager *manager)
+{
+        manager->priv->timeout_id = 0;
+        draw_background (manager);
         return FALSE;
-}
-
-static void
-queue_apply (GsdBackgroundManager *manager)
-{
-        if (manager->priv->timeout_id) {
-                g_source_remove (manager->priv->timeout_id);
-        }
-
-        manager->priv->timeout_id = g_timeout_add (100, (GSourceFunc)apply_prefs, manager);
-}
-
-static void
-background_callback (GConfClient          *client,
-                     guint                 cnxn_id,
-                     GConfEntry           *entry,
-                     GsdBackgroundManager *manager)
-{
-        bg_preferences_merge_entry (manager->priv->prefs, entry);
-
-        queue_apply (manager);
 }
 
 static void
 on_bg_changed (GnomeBG              *bg,
                GsdBackgroundManager *manager)
 {
-        queue_apply (manager);
+        draw_background (manager);
+}
+
+static void
+gconf_changed_callback (GConfClient          *client,
+                        guint                 cnxn_id,
+                        GConfEntry           *entry,
+                        GsdBackgroundManager *manager)
+{
+        gnome_bg_load_from_preferences (manager->priv->bg,
+                                        manager->priv->client);
+}
+
+static void
+watch_bg_preferences (GsdBackgroundManager *manager)
+{
+        g_assert (manager->priv->bg_notify_id == 0);
+
+        gconf_client_add_dir (manager->priv->client,
+                              GNOME_BG_KEY_DIR,
+                              GCONF_CLIENT_PRELOAD_NONE,
+                              NULL);
+        manager->priv->bg_notify_id = gconf_client_notify_add (manager->priv->client,
+                                                               GNOME_BG_KEY_DIR,
+                                                               (GConfClientNotifyFunc)gconf_changed_callback,
+                                                               manager,
+                                                               NULL,
+                                                               NULL);
 }
 
 gboolean
@@ -285,23 +244,17 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
         g_debug ("Starting background manager");
         gnome_settings_profile_start (NULL);
 
-        manager->priv->prefs = BG_PREFERENCES (bg_preferences_new ());
+        manager->priv->client = gconf_client_get_default ();
         manager->priv->bg = gnome_bg_new ();
 
         g_signal_connect (manager->priv->bg,
                           "changed",
                           G_CALLBACK (on_bg_changed),
                           manager);
-        bg_preferences_load (manager->priv->prefs);
 
-        client = gconf_client_get_default ();
-        gconf_client_add_dir (client, GCONF_BG_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        manager->priv->notify = gconf_client_notify_add (client,
-                                                         GCONF_BG_DIR,
-                                                         (GConfClientNotifyFunc) background_callback,
-                                                         manager,
-                                                         NULL,
-                                                         NULL);
+        watch_bg_preferences (manager);
+        gnome_bg_load_from_preferences (manager->priv->bg,
+                                        manager->priv->client);
 
         /* If this is set, nautilus will draw the background and is
 	 * almost definitely in our session.  however, it may not be
@@ -310,20 +263,20 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
 	 * don't waste time setting the background only to have
 	 * nautilus overwrite it.
 	 */
+        client = gconf_client_get_default ();
         nautilus_show_desktop = gconf_client_get_bool (client,
                                                        "/apps/nautilus/preferences/show_desktop",
                                                        NULL);
         g_object_unref (client);
 
         if (!nautilus_show_desktop) {
-                apply_prefs (manager);
+                draw_background (manager);
         } else {
                 /* even when nautilus is supposedly handling the
                  * background, apply the settings eventually to make
                  * people running a nautilus-less session happy */
-                g_timeout_add_seconds (8, apply_prefs, manager);
+                manager->priv->timeout_id = g_timeout_add_seconds (8, (GSourceFunc)queue_draw_background, manager);
         }
-
 
         gnome_settings_profile_end (NULL);
 
@@ -337,22 +290,23 @@ gsd_background_manager_stop (GsdBackgroundManager *manager)
 
         g_debug ("Stopping background manager");
 
-        if (p->notify != 0) {
-                GConfClient *client = gconf_client_get_default ();
-                gconf_client_remove_dir (client, GCONF_BG_DIR, NULL);
-                gconf_client_notify_remove (client, p->notify);
-                g_object_unref (client);
-                p->notify = 0;
+        if (manager->priv->bg_notify_id != 0) {
+                gconf_client_remove_dir (manager->priv->client,
+                                         GNOME_BG_KEY_DIR,
+                                         NULL);
+                gconf_client_notify_remove (manager->priv->client,
+                                            manager->priv->bg_notify_id);
+                manager->priv->bg_notify_id = 0;
+        }
+
+        if (p->client != NULL) {
+                g_object_unref (p->client);
+                p->client = NULL;
         }
 
         if (p->timeout_id != 0) {
                 g_source_remove (p->timeout_id);
                 p->timeout_id = 0;
-        }
-
-        if (p->prefs != NULL) {
-                g_object_unref (p->prefs);
-                p->prefs = NULL;
         }
 
         if (p->bg != NULL) {

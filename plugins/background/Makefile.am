@@ -1,9 +1,5 @@
 NULL =
 
-SUBDIRS =		\
-	libbackground	\
-	$(NULL)
-
 noinst_PROGRAMS = 			\
 	test-background			\
 	$(NULL)
@@ -16,7 +12,6 @@ test_background_SOURCES = 		\
 
 test_background_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
-	-I$(top_srcdir)/plugins/background/libbackground   \
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
@@ -26,7 +21,6 @@ test_background_CFLAGS = \
 
 test_background_LDADD =		\
 	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la	\
-	$(top_builddir)/plugins/background/libbackground/libbackground.la \
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NULL)
 
@@ -56,7 +50,6 @@ libbackground_la_LDFLAGS = 		\
 	$(NULL)
 
 libbackground_la_LIBADD  = 		\
-	$(top_builddir)/plugins/background/libbackground/libbackground.la \
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(NULL)
 

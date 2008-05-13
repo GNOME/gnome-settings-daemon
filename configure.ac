@@ -47,7 +47,7 @@ GLIB_REQUIRED_VERSION=2.13.0
 GTK_REQUIRED_VERSION=2.10.0
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.15.0
-GNOME_DESKTOP_REQUIRED_VERSION=2.21.4
+GNOME_DESKTOP_REQUIRED_VERSION=2.23.2
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -69,7 +69,6 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
 )
 
 PKG_CHECK_MODULES(GNOME, libgnome-2.0 libgnomeui-2.0)
-PKG_CHECK_MODULES(LIBBACKGROUND, glib-2.0 gobject-2.0 gdk-2.0 gconf-2.0)
 PKG_CHECK_MODULES(LIBSOUNDS, gio-2.0 libgnome-2.0 libgnomeui-2.0)
 
 
@@ -402,7 +401,6 @@ gnome-settings-daemon/Makefile
 plugins/Makefile
 plugins/a11y-keyboard/Makefile
 plugins/background/Makefile
-plugins/background/libbackground/Makefile
 plugins/clipboard/Makefile
 plugins/common/Makefile
 plugins/dummy/Makefile
