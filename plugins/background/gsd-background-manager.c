@@ -238,7 +238,6 @@ gboolean
 gsd_background_manager_start (GsdBackgroundManager *manager,
                               GError              **error)
 {
-        GConfClient *client;
         gboolean nautilus_show_desktop;
 
         g_debug ("Starting background manager");
@@ -263,11 +262,9 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
 	 * don't waste time setting the background only to have
 	 * nautilus overwrite it.
 	 */
-        client = gconf_client_get_default ();
-        nautilus_show_desktop = gconf_client_get_bool (client,
+        nautilus_show_desktop = gconf_client_get_bool (manager->priv->client,
                                                        "/apps/nautilus/preferences/show_desktop",
                                                        NULL);
-        g_object_unref (client);
 
         if (!nautilus_show_desktop) {
                 draw_background (manager);
