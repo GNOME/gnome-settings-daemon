@@ -37,7 +37,8 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#define I_KNOW_THIS_IS_UNSTABLE_AND_ONLY_IN_FEDORA
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+
 #include <libgnomeui/monitor-db.h>
 #include <libgnomeui/randrwrap.h>
 
@@ -76,7 +77,7 @@ G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-  
+
 static GdkAtom
 gnome_randr_atom (void)
 {
