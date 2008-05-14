@@ -431,6 +431,8 @@ filter (GdkXEvent *xevent,
                         XAllowEvents (xev->xkey.display,
                                       ReplayKeyboard,
                                       xev->xkey.time);
+                        XUngrabKeyboard (gdk_x11_get_default_xdisplay (),
+                                         xev->xkey.time);
                 }
         }
         return GDK_FILTER_CONTINUE;
