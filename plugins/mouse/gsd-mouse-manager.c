@@ -418,21 +418,19 @@ filter (GdkXEvent *xevent,
                                                      NULL, NULL, NULL);
                 if (keyval == GDK_Control_L || keyval == GDK_Control_R) {
                         if (xev->type == KeyPress) {
-                                XAllowEvents (gdk_x11_get_default_xdisplay (),
+                                XAllowEvents (xev->xkey.display,
                                               SyncKeyboard,
                                               xev->xkey.time);
                         } else {
-                                XAllowEvents (gdk_x11_get_default_xdisplay (),
+                                XAllowEvents (xev->xkey.display,
                                               AsyncKeyboard,
                                               xev->xkey.time);
                                 gsd_locate_pointer (screen);
                         }
                 } else {
-                        XAllowEvents (gdk_x11_get_default_xdisplay (),
+                        XAllowEvents (xev->xkey.display,
                                       ReplayKeyboard,
                                       xev->xkey.time);
-                        XUngrabKeyboard (gdk_x11_get_default_xdisplay (),
-                                         xev->xkey.time);
                 }
         }
         return GDK_FILTER_CONTINUE;
