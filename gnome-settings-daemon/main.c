@@ -38,6 +38,10 @@
 
 #define GSD_DBUS_NAME         "org.gnome.SettingsDaemon"
 
+#define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
+#define GNOME_SESSION_DBUS_OBJECT    "/org/gnome/SessionManager"
+#define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
+
 static char      *gconf_prefix = NULL;
 static gboolean   no_daemon    = FALSE;
 static gboolean   debug        = FALSE;
@@ -130,9 +134,8 @@ get_session_bus (void)
 }
 
 static gboolean
-bus_register (void)
+bus_register (DBusGConnection *bus)
 {
-        DBusGConnection *bus;
         DBusGProxy      *bus_proxy;
         gboolean         ret;
 
@@ -140,14 +143,7 @@ bus_register (void)
 
         ret = FALSE;
 
-        bus = get_session_bus ();
-        if (bus == NULL) {
-                g_warning ("Could not get a connection to the bus");
-                goto out;
-        }
-
         bus_proxy = get_bus_proxy (bus);
-        dbus_g_connection_unref (bus);
 
         if (bus_proxy == NULL) {
                 g_warning ("Could not construct bus_proxy object");
@@ -168,6 +164,46 @@ bus_register (void)
         gnome_settings_profile_end (NULL);
 
         return ret;
+}
+
+static void
+on_session_over (DBusGProxy *proxy, GnomeSettingsManager *manager)
+{
+        gnome_settings_manager_stop (manager);
+        gtk_main_quit ();
+}
+
+static void
+set_session_over_handler (DBusGConnection *bus, GnomeSettingsManager *manager)
+{
+        DBusGProxy *session_proxy;
+
+        g_assert (bus != NULL);
+
+        gnome_settings_profile_start (NULL);
+
+        session_proxy = 
+                 dbus_g_proxy_new_for_name (bus,
+                                            GNOME_SESSION_DBUS_NAME,
+                                            GNOME_SESSION_DBUS_OBJECT,
+                                            GNOME_SESSION_DBUS_INTERFACE);
+
+	dbus_g_object_register_marshaller (
+		g_cclosure_marshal_VOID__VOID,
+		G_TYPE_NONE,
+		G_TYPE_INVALID);
+
+        dbus_g_proxy_add_signal (session_proxy, 
+                                 "SessionOver",
+                                 G_TYPE_INVALID);
+
+        dbus_g_proxy_connect_signal (session_proxy, 
+                                     "SessionOver",
+                                     G_CALLBACK (on_session_over), 
+                                     manager,
+                                     NULL);
+
+        gnome_settings_profile_end (NULL);
 }
 
 static void
@@ -193,6 +229,7 @@ main (int argc, char *argv[])
 {
         GnomeSettingsManager *manager;
         GnomeProgram         *program;
+        DBusGConnection      *bus;
         gboolean              res;
         GError               *error;
         gboolean              create_dirs;
@@ -229,7 +266,13 @@ main (int argc, char *argv[])
                 g_error ("Could not daemonize: %s", g_strerror (errno));
         }
 
-        if (! bus_register ()) {
+        bus = get_session_bus ();
+        if (bus == NULL) {
+                g_warning ("Could not get a connection to the bus");
+                goto out;
+        }
+
+        if (! bus_register (bus)) {
                 goto out;
         }
 
@@ -257,6 +300,8 @@ main (int argc, char *argv[])
                 goto out;
         }
 
+        set_session_over_handler (bus, manager);
+
         /* If we aren't started by dbus then load the plugins
            automatically.  Otherwise, wait for an Awake etc. */
         if (g_getenv ("DBUS_STARTER_BUS_TYPE") == NULL) {
@@ -277,6 +322,10 @@ main (int argc, char *argv[])
 
  out:
         g_free (gconf_prefix);
+
+        if (bus != NULL) {
+                dbus_g_connection_unref (bus);
+        }
 
         if (manager != NULL) {
                 g_object_unref (manager);
