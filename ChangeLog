@@ -1,3 +1,10 @@
+2008-05-30  Federico Mena Quintero  <federico@novell.com>
+
+	* plugins/xrandr/gsd-xrandr-manager.c (status_icon_start):
+	Connect to the activate / popup-menu signals on the status icon.
+	(status_icon_popup_menu): New function; creates a popup menu for
+	the status icon.
+
 2008-05-29  Federico Mena Quintero  <federico@novell.com>
 
 	* plugins/xrandr/gsd-xrandr-manager.c (struct

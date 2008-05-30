@@ -60,6 +60,9 @@
 /* name of the icon files (gsd-xrandr.svg, etc.) */
 #define GSD_XRANDR_ICON_NAME "gsd-xrandr"
 
+/* executable of the control center's display configuration capplet */
+#define GSD_XRANDR_DISPLAY_CAPPLET "gnome-display-properties"
+
 struct GsdXrandrManagerPrivate
 {
         /* Key code of the fn-F7 video key (XF86Display) */
@@ -145,12 +148,77 @@ event_filter (GdkXEvent           *xevent,
 static void
 on_randr_event (RWScreen *screen, gpointer data)
 {
-        GsdXrandrManager *manager = data;
+        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
 
         if (!manager->priv->running)
                 return;
         
         /* FIXME: Set up any new screens here */
+}
+
+static void
+popup_menu_configure_display_cb (GtkMenuItem *item, gpointer data)
+{
+        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
+        GdkScreen *screen;
+        GError *error;
+
+        screen = gtk_widget_get_screen (GTK_WIDGET (item));
+
+        error = NULL;
+        if (!gdk_spawn_command_line_on_screen (screen, GSD_XRANDR_DISPLAY_CAPPLET, &error)) {
+		GtkWidget *dialog;
+
+		dialog = gtk_message_dialog_new_with_markup (NULL, 0, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
+                                                             "<span weight=\"bold\" size=\"larger\">"
+                                                             "Display configuration could not be run"
+                                                             "</span>\n\n"
+                                                             "%s", error->message);
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+
+		g_error_free (error);
+        }
+}
+
+static void
+status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp)
+{
+        GtkWidget *menu;
+        GtkWidget *item;
+
+        menu = gtk_menu_new ();
+
+        item = gtk_menu_item_new_with_label (_("Screen Rotation"));
+        gtk_widget_set_sensitive (item, FALSE);
+        gtk_widget_show (item);
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+        item = gtk_menu_item_new_with_mnemonic (_("_Configure Display Settings"));
+        g_signal_connect (item, "activate",
+                          G_CALLBACK (popup_menu_configure_display_cb), manager);
+        gtk_widget_show (item);
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+        /* FIXME */
+
+        /* FIXME: the menu should get destroyed after a command gets activated */
+}
+
+static void
+status_icon_activate_cb (GtkStatusIcon *status_icon, gpointer data)
+{
+        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
+
+        /* Suck; we don't get a proper button/timestamp */
+        status_icon_popup_menu (manager, 0, gtk_get_current_event_time ());
+}
+
+static void
+status_icon_popup_menu_cb (GtkStatusIcon *status_icon, guint button, guint32 timestamp, gpointer data)
+{
+        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
+
+        status_icon_popup_menu (manager, button, timestamp);
 }
 
 static void
@@ -167,6 +235,11 @@ status_icon_start (GsdXrandrManager *manager)
 
         priv->status_icon = gtk_status_icon_new_from_icon_name (GSD_XRANDR_ICON_NAME);
         gtk_status_icon_set_tooltip (priv->status_icon, _("Configure display settings"));
+
+        g_signal_connect (priv->status_icon, "activate",
+                          G_CALLBACK (status_icon_activate_cb), manager);
+        g_signal_connect (priv->status_icon, "popup-menu",
+                          G_CALLBACK (status_icon_popup_menu_cb), manager);
 }
 
 static void
