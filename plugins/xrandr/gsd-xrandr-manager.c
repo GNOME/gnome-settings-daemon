@@ -184,6 +184,7 @@ popup_menu_configure_display_cb (GtkMenuItem *item, gpointer data)
 static void
 status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp)
 {
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
         GtkWidget *menu;
         GtkWidget *item;
 
@@ -201,7 +202,9 @@ status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timesta
         gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
         /* FIXME */
 
-        /* FIXME: the menu should get destroyed after a command gets activated */
+        g_signal_connect (menu, "deactivate",
+                          G_CALLBACK (gtk_widget_destroy), NULL);
+        gtk_menu_popup (menu, NULL, NULL, gtk_status_icon_position_menu, priv->status_icon, button, timestamp);
 }
 
 static void
