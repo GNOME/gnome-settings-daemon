@@ -57,12 +57,17 @@
 
 #define VIDEO_KEYSYM    "XF86Display"
 
+/* name of the icon files (gsd-xrandr.svg, etc.) */
+#define GSD_XRANDR_ICON_NAME "gsd-xrandr"
+
 struct GsdXrandrManagerPrivate
 {
         /* Key code of the fn-F7 video key (XF86Display) */
         guint keycode;
         RWScreen *rw_screen;
         gboolean running;
+
+        GtkStatusIcon *status_icon;
 };
 
 enum {
@@ -151,11 +156,25 @@ on_randr_event (RWScreen *screen, gpointer data)
 static void
 status_icon_start (GsdXrandrManager *manager)
 {
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+
+        /* FIXME: We may want to make this icon optional (with a GConf key,
+         * toggled from a checkbox in gnome-display-properties.
+         *
+         * Or ideally, we should detect if we are on a tablet and only display
+         * the icon in that case.
+         */
+
+        priv->status_icon = gtk_status_icon_new_from_icon_name (GSD_XRANDR_ICON_NAME);
 }
 
 static void
 status_icon_stop (GsdXrandrManager *manager)
 {
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+
+        g_object_unref (priv->status_icon);
+        priv->status_icon = NULL;
 }
 
 gboolean

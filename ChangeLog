@@ -1,5 +1,12 @@
 2008-05-29  Federico Mena Quintero  <federico@novell.com>
 
+	* plugins/xrandr/gsd-xrandr-manager.c (struct
+	GsdXrandrManagerPrivate): Add a status_icon field.
+	(status_icon_start): Create the icon.
+	(status_icon_stop): Unref the icon.
+
+2008-05-29  Federico Mena Quintero  <federico@novell.com>
+
 	* plugins/xrandr/gsd-xrandr-manager.c (gsd_xrandr_manager_start):
 	Start the status icon.
 	(gsd_xrandr_manager_stop): Stop the status icon.
