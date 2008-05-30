@@ -148,6 +148,16 @@ on_randr_event (RWScreen *screen, gpointer data)
         /* FIXME: Set up any new screens here */
 }
 
+static void
+status_icon_start (GsdXrandrManager *manager)
+{
+}
+
+static void
+status_icon_stop (GsdXrandrManager *manager)
+{
+}
+
 gboolean
 gsd_xrandr_manager_start (GsdXrandrManager *manager,
                           GError          **error)
@@ -177,6 +187,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         gdk_add_client_message_filter (gnome_randr_atom(),
                                        on_client_message,
                                        manager->priv->rw_screen);
+
+        status_icon_start (manager);
         
         return TRUE;
 }
@@ -195,6 +207,8 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                     gdk_x11_get_default_root_xwindow());
 
         gdk_error_trap_pop ();
+
+        status_icon_stop (manager);
 }
 
 static void
