@@ -166,6 +166,7 @@ status_icon_start (GsdXrandrManager *manager)
          */
 
         priv->status_icon = gtk_status_icon_new_from_icon_name (GSD_XRANDR_ICON_NAME);
+        gtk_status_icon_set_tooltip (priv->status_icon, _("Configure display settings"));
 }
 
 static void
