@@ -156,18 +156,22 @@ load_xcursor_theme (GConfClient *client)
 
         command = "xrdb -nocpp -merge";
 
-        add_string = g_string_new (NULL);
+
+        size = gconf_client_get_int (client,
+                                     "/desktop/gnome/peripherals/mouse/cursor_size",
+                                     NULL);
+        if (size <= 0) {
+                return;
+        }
 
         cursor_theme = gconf_client_get_string (client,
                                                 "/desktop/gnome/peripherals/mouse/cursor_theme",
                                                 NULL);
-        size = gconf_client_get_int (client,
-                                     "/desktop/gnome/peripherals/mouse/cursor_size",
-                                     NULL);
-        if (cursor_theme == NULL || size <= 0) {
+        if (cursor_theme == NULL) {
                 return;
         }
 
+        add_string = g_string_new (NULL);
         g_string_append_printf (add_string,
                                 "Xcursor.theme: %s\n",
                                 cursor_theme);
