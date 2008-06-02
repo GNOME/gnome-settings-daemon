@@ -153,6 +153,8 @@ timeline_frame_cb (GsdTimeline *timeline,
 		   gpointer     user_data)
 {
   GsdLocatePointerData *data = (GsdLocatePointerData *) user_data;
+  GdkScreen *screen;
+  gint cursor_x, cursor_y;
 
   if (gtk_widget_is_composited (data->widget))
     {
@@ -165,6 +167,13 @@ timeline_frame_cb (GsdTimeline *timeline,
       gdk_window_invalidate_rect (data->window, NULL, FALSE);
       data->progress += CIRCLES_PROGRESS_INTERVAL;
     }
+
+  screen = gdk_drawable_get_screen (data->window);
+  gdk_window_get_pointer (gdk_screen_get_root_window (screen),
+			  &cursor_x, &cursor_y, NULL);
+  gdk_window_move (data->window,
+                   cursor_x - WINDOW_SIZE / 2,
+                   cursor_y - WINDOW_SIZE / 2);
 }
 
 static void
