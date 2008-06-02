@@ -251,7 +251,9 @@ if test "x$ENABLE_GSTREAMER" = "xyes"; then
    PKG_CHECK_MODULES(GST, $PKGS, have_gstreamer=yes,
                      AC_MSG_RESULT([no]))
 
-   GST_LIBS="$GST_LIBS -lgstinterfaces-0.10 -lgstaudio-0.10"
+   if test "x$have_gstreamer" = "xyes"; then
+      GST_LIBS="$GST_LIBS -lgstinterfaces-0.10 -lgstaudio-0.10"
+   fi
 else
    AC_MSG_NOTICE([*** GStreamer support disabled ***])
 fi

@@ -1,3 +1,8 @@
+2008-06-02  Jens Granseuer  <jensgr@gmx.net>
+
+	* configure.ac: do not add stuff to GST_LIBS when gstreamer is
+	disabled. Fixes build without gstreamer (bug #536177)
+
 2008-06-02  Gerd Kohlberger  <gerdk@svn.gnome.org>
 
 	* plugins/mouse/gsd-locate-pointer.c: (timeline_frame_cb):
