@@ -1,3 +1,17 @@
+2008-06-02  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.ac: Check for fontconfig instead of xft2.
+
+	* plugins/xsettings/Makefile.am:
+	* plugins/xsettings/gsd-xsettings-manager.c (fontconfig_callback),
+	(gnome_xsettings_manager_start), (gnome_xsettings_manager_stop):
+	Send a Fontconfig/Timestamp xsettings notification whenever
+	fontconfig configurations change. (bug #490374)
+
+	* plugins/xsettings/fontconfig-monitor.c:
+	* plugins/xsettings/fontconfig-monitor.h:
+	Monitor fontconfig configuration files using gio.
+
 2008-06-02  Jens Granseuer  <jensgr@gmx.net>
 
 	* configure.ac: do not add stuff to GST_LIBS when gstreamer is
