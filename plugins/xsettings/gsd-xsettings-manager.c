@@ -28,7 +28,6 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
-#include <time.h>
 
 #include <glib.h>
 #include <glib/gi18n.h>
@@ -41,9 +40,6 @@
 #include "gnome-settings-profile.h"
 #include "gsd-xsettings-manager.h"
 #include "xsettings-manager.h"
-#ifdef HAVE_FONTCONFIG
-#include "fontconfig-monitor.h"
-#endif /* HAVE_FONTCONFIG */
 
 #define GNOME_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerPrivate))
 
@@ -51,7 +47,7 @@
 #define GTK_SETTINGS_DIR       "/desktop/gtk"
 #define INTERFACE_SETTINGS_DIR "/desktop/gnome/interface"
 
-#ifdef HAVE_FONTCONFIG
+#ifdef HAVE_XFT2
 #define FONT_RENDER_DIR "/desktop/gnome/font_rendering"
 #define FONT_ANTIALIASING_KEY FONT_RENDER_DIR "/antialiasing"
 #define FONT_HINTING_KEY      FONT_RENDER_DIR "/hinting"
@@ -72,7 +68,7 @@
 #define DPI_LOW_REASONABLE_VALUE 50
 #define DPI_HIGH_REASONABLE_VALUE 500
 
-#endif /* HAVE_FONTCONFIG */
+#endif /* HAVE_XFT2 */
 
 typedef struct _TranslationEntry TranslationEntry;
 typedef void (* TranslationFunc) (GnomeXSettingsManager *manager,
@@ -91,9 +87,6 @@ struct GnomeXSettingsManagerPrivate
 {
         XSettingsManager **managers;
         guint              notify[4];
-#ifdef HAVE_FONTCONFIG
-        fontconfig_monitor_handle_t *fontconfig_handle;
-#endif /* HAVE_FONTCONFIG */
 };
 
 #define GSD_XSETTINGS_ERROR gsd_xsettings_error_quark ()
@@ -214,7 +207,7 @@ static TranslationEntry translations [] = {
         { "/desktop/gnome/interface/show_unicode_menu",      "Gtk/ShowUnicodeMenu",     GCONF_VALUE_BOOL,     translate_bool_int },
 };
 
-#ifdef HAVE_FONTCONFIG
+#ifdef HAVE_XFT2
 static double
 dpi_from_pixels_and_mm (int pixels,
                         int mm)
@@ -543,22 +536,7 @@ xft_callback (GConfClient           *client,
         }
 }
 
-static void
-fontconfig_callback (fontconfig_monitor_handle_t *handle,
-                     GnomeXSettingsManager       *manager)
-{
-        int i;
-
-        gnome_settings_profile_start (NULL);
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_int (manager->priv->managers [i], "Fontconfig/Timestamp", time(NULL));
-                xsettings_manager_notify (manager->priv->managers [i]);
-        }
-        gnome_settings_profile_end (NULL);
-}
-
-#endif /* HAVE_FONTCONFIG */
+#endif /* HAVE_XFT2 */
 
 static const char *
 type_to_string (GConfValueType type)
@@ -768,15 +746,13 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                           INTERFACE_SETTINGS_DIR,
                                           (GConfClientNotifyFunc) xsettings_callback);
 
-#ifdef HAVE_FONTCONFIG
+#ifdef HAVE_XFT2
         manager->priv->notify[3] =
                 register_config_callback (manager, client,
                                           FONT_RENDER_DIR,
                                           (GConfClientNotifyFunc) xft_callback);
         update_xft_settings (manager, client);
-
-        manager->priv->fontconfig_handle = fontconfig_monitor_start ((GFunc) fontconfig_callback, manager);
-#endif /* HAVE_FONTCONFIG */
+#endif /* HAVE_XFT */
 
         g_object_unref (client);
 
@@ -817,12 +793,9 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
         gconf_client_remove_dir (client, MOUSE_SETTINGS_DIR, NULL);
         gconf_client_remove_dir (client, GTK_SETTINGS_DIR, NULL);
         gconf_client_remove_dir (client, INTERFACE_SETTINGS_DIR, NULL);
-#ifdef HAVE_FONTCONFIG
+#ifdef HAVE_XFT2
         gconf_client_remove_dir (client, FONT_RENDER_DIR, NULL);
-
-        fontconfig_monitor_stop (manager->priv->fontconfig_handle);
-        manager->priv->fontconfig_handle = NULL;
-#endif /* HAVE_FONTCONFIG */
+#endif
 
         for (i = 0; i < G_N_ELEMENTS (p->notify); ++i) {
                 if (p->notify[i] != 0) {

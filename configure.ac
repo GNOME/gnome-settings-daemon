@@ -175,15 +175,12 @@ AC_CHECK_LIB(Xrandr, XRRUpdateConfiguration,
 AC_SUBST(RANDR_LIBS)
 
 dnl ---------------------------------------------------------------------------
-dnl - Fontconfig
+dnl - XFT2
 dnl ---------------------------------------------------------------------------
 
-have_fontconfig=no
-PKG_CHECK_MODULES(FONTCONFIG, fontconfig,
-		  [AC_DEFINE(HAVE_FONTCONFIG, 1, [Define if Fontconfig functionality is available])
-		   have_fontconfig=yes],
-		  AC_MSG_RESULT([no]))
-AM_CONDITIONAL(HAVE_FONTCONFIG, test x"$have_fontconfig" = "xyes")
+if $PKG_CONFIG --exists xft; then
+  AC_DEFINE(HAVE_XFT2, 1, [Define if Xft functionality is available])
+fi
 
 dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff

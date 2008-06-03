@@ -1,5 +1,16 @@
 2008-06-02  Behdad Esfahbod  <behdad@gnome.org>
 
+	* configure.ac:
+	* plugins/xsettings/Makefile.am:
+	* plugins/xsettings/fontconfig-monitor.c:
+	* plugins/xsettings/fontconfig-monitor.h:
+	* plugins/xsettings/gsd-xsettings-manager.c
+	(gnome_xsettings_manager_start), (gnome_xsettings_manager_stop):
+	Revert previous change.  Working on a slightly different design.
+	(bug #490374)
+
+2008-06-02  Behdad Esfahbod  <behdad@gnome.org>
+
 	* configure.ac: Check for fontconfig instead of xft2.
 
 	* plugins/xsettings/Makefile.am:
