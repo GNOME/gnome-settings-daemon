@@ -1,3 +1,36 @@
+==============
+Version 2.23.3
+==============
+- Execute the correct action when there are multiple keyboard shortcuts with
+  the same keycode but different keysyms (Bastien Nocera) (#530356)
+- Fix wallpaper handling for people running a session without nautilus
+  (Matthias Clasen) (#531487)
+- Try to keep the keyboard layout from gdm (Matthias Clasen) (#531589)
+- Don't die when the user's home directory is read-only (Brian Cameron)
+  (#530975)
+- Fix artifacts from the locate pointer animation in non-composited mode
+  (Carlos Garnacho) (#531861)
+- Pass clicks to the media popup window through to the underlying window
+  (Carlos Garnacho) (#531862)
+- Use new gnome-desktop background API and get rid of libbackground (William
+  Jon McCann)
+- Don't eat keypresses for multimedia key events in the mouse plugin (Bastien
+  Nocera)
+- Shutdown when receiving the "SessionOver" signal from gnome-session (Lucas
+  Rocha, Jens Granseuer) (#522017)
+- Fix memory leaks in the font plugin (Jens Granseuer)
+- Move the locate pointer animation with the mouse cursor (Gerd Kohlberger)
+  (#531665)
+- Fix build without GStreamer (Jens Granseuer) (#536177)
+- Updated translation:
+  - ar (Djihed Afifi)
+  - bg (Yavor Doganov)
+  - es (Jorge Gonzalez)
+  - gl (Ignacio Casal Quinteiro)
+  - nb (Kjartan Maraas)
+  - th (Theppitak Karoonboonyanan)
+  - vi (Clytie Siddall)
+
 ================
 Version 2.23.1.1
 ================
