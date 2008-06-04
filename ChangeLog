@@ -1,3 +1,10 @@
+2008-06-04  Federico Mena Quintero  <federico@novell.com>
+
+	* plugins/xrandr/gsd-xrandr-manager.c (status_icon_popup_menu):
+	Hook to "selection-done" on the menu shell to destroy it, not
+	"deactivate".  The latter destroys the menu shell before the
+	selected menu item has a chance to emit "activate" itself.
+
 2008-05-30  Federico Mena Quintero  <federico@novell.com>
 
 	* plugins/xrandr/gsd-xrandr-manager.c (status_icon_popup_menu):

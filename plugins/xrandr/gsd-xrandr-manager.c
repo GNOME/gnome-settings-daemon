@@ -202,8 +202,9 @@ status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timesta
         gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
         /* FIXME */
 
-        g_signal_connect (menu, "deactivate",
+        g_signal_connect (menu, "selection-done",
                           G_CALLBACK (gtk_widget_destroy), NULL);
+
         gtk_menu_popup (menu, NULL, NULL, gtk_status_icon_position_menu, priv->status_icon, button, timestamp);
 }
 
