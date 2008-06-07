@@ -32,6 +32,18 @@ libxsettings_la_LIBADD  = 	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NULL)
 
+if HAVE_FONTCONFIG
+libxsettings_la_SOURCES += 	\
+	fontconfig-monitor.h	\
+	fontconfig-monitor.c	\
+	$(NULL)
+libxsettings_la_CFLAGS +=	\
+	$(FONTCONFIG_CFLAGS)
+libxsettings_la_LIBADD += 	\
+	$(FONTCONFIG_LIBS)
+endif
+
+
 plugin_in_files = 		\
 	xsettings.gnome-settings-plugin.in	\
 	$(NULL)
