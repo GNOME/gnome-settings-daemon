@@ -222,10 +222,18 @@ if test x$WANT_ESD = xyes ; then
        PKG_CHECK_MODULES(ESD, esound >= 0.2.28,
 	       AC_DEFINE(HAVE_ESD, 1, [Define if ESD sound server should be used]),
                AC_MSG_RESULT([disabled]))
+
+       GSD_ESD_LOCATION=`pkg-config esound --variable=esd_serverdir`
+       if test "x$GSD_ESD_LOCATION" != "x"; then
+           # Add slash so that if the ESD pkgconfig file does not
+           # specify esd_serverdir, g-s-d will look in the PATH
+           GSD_ESD_LOCATION="$GSD_ESD_LOCATION/"
+       fi
 fi
 
 AC_SUBST(ESD_CFLAGS)
 AC_SUBST(ESD_LIBS)
+AC_SUBST(ESD_LOCATION)
 
 dnl ==============================================
 dnl GStreamer section

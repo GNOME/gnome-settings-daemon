@@ -1,3 +1,13 @@
+2008-06-14  Jens Granseuer  <jensgr@gmx.net>
+
+	Based on a patch by: Brian Cameron <brian.cameron@sun.com>
+
+	* configure.ac:
+	* plugins/sound/Makefile.am:
+	* plugins/sound/gsd-sound-manager.c: (start_gnome_sound): if
+	available use the esd_serverdir variable to locate the esd daemon
+	so it can be started even if it's not in the PATH (bug #531868)
+
 2008-06-13  Jens Granseuer  <jensgr@gmx.net>
 
 	Based on a patch by: Bastien Nocera <hadess@hadess.net>
