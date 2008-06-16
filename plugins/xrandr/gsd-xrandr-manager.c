@@ -39,8 +39,8 @@
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 
-#include <libgnomeui/monitor-db.h>
-#include <libgnomeui/randrwrap.h>
+#include <libgnomeui/gnome-rr-config.h>
+#include <libgnomeui/gnome-rr.h>
 
 #ifdef HAVE_RANDR
 #include <X11/extensions/Xrandr.h>
@@ -67,7 +67,7 @@ struct GsdXrandrManagerPrivate
 {
         /* Key code of the fn-F7 video key (XF86Display) */
         guint keycode;
-        RWScreen *rw_screen;
+        GnomeRRScreen *rw_screen;
         gboolean running;
 
         GtkStatusIcon *status_icon;
@@ -103,7 +103,7 @@ on_client_message (GdkXEvent  *xevent,
 		   GdkEvent   *event,
 		   gpointer    data)
 {
-        RWScreen *screen = data;
+        GnomeRRScreen *screen = data;
         XEvent *ev = (XEvent *)xevent;
         
         if (ev->type == ClientMessage		&&
@@ -146,7 +146,7 @@ event_filter (GdkXEvent           *xevent,
 }
 
 static void
-on_randr_event (RWScreen *screen, gpointer data)
+on_randr_event (GnomeRRScreen *screen, gpointer data)
 {
         GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
 
