@@ -173,6 +173,12 @@ match_key (Key *key, XEvent *event)
 		guint lower, upper;
 
 		gdk_keyval_convert_case (keyval, &lower, &upper);
+
+		/* If we don't have different keysyms depending on the
+		 * shift state, remove the shift state from the consumed */
+		if (upper == lower)
+			consumed &= ~GDK_SHIFT_MASK;
+
 		return ((lower == key->keysym || upper == key->keysym)
 			&& (key->state & ~consumed & GSD_USED_MODS) == key->state);
 	}

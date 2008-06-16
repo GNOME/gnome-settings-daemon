@@ -16,6 +16,7 @@ libsound_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libsound_la_CFLAGS = \
+	-DESD_LOCATION=\"$(ESD_LOCATION)\" \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GNOME_CFLAGS)			\
 	$(ESD_CFLAGS)			\

@@ -273,9 +273,18 @@ _load_all (GnomeSettingsManager *manager)
 }
 
 static void
+_unload_plugin (GnomeSettingsPluginInfo *info, gpointer user_data)
+{
+        if (gnome_settings_plugin_info_get_enabled (info)) {
+                gnome_settings_plugin_info_deactivate (info);
+        }
+        g_object_unref (info);
+}
+
+static void
 _unload_all (GnomeSettingsManager *manager)
 {
-         g_slist_foreach (manager->priv->plugins, (GFunc) g_object_unref, NULL);
+         g_slist_foreach (manager->priv->plugins, (GFunc) _unload_plugin, NULL);
          g_slist_free (manager->priv->plugins);
          manager->priv->plugins = NULL;
 }

@@ -97,7 +97,7 @@ reset_esd_pid (GPid             pid,
 static gboolean
 start_gnome_sound (GsdSoundManager *manager)
 {
-        char    *argv[] = { "esd", "-nobeeps", NULL};
+        char    *argv[] = { ESD_LOCATION  "esd", "-nobeeps", NULL};
         GError  *error;
         gboolean res;
         time_t   starttime;

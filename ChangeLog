@@ -1,9 +1,116 @@
-2008-06-04  Federico Mena Quintero  <federico@novell.com>
+Mon Jun 16 14:30:13 2008  Søren Sandmann  <sandmann@redhat.com>
 
+	* Merge from trunk.
+
+2008-06-14  Jens Granseuer  <jensgr@gmx.net>
+
+	Based on a patch by: Brian Cameron <brian.cameron@sun.com>
+
+	* configure.ac:
+	* plugins/sound/Makefile.am:
+	* plugins/sound/gsd-sound-manager.c: (start_gnome_sound): if
+	available use the esd_serverdir variable to locate the esd daemon
+	so it can be started even if it's not in the PATH (bug #531868)
+
+2008-06-13  Jens Granseuer  <jensgr@gmx.net>
+
+	Based on a patch by: Bastien Nocera <hadess@hadess.net>
+
+	* plugins/common/gsd-keygrab.c: (match_key): properly match
+	keybindings that need Shift for resolving the keysym (bug #536581)
+
+2008-06-07  Behdad Esfahbod  <behdad@gnome.org>
+
+	(Commit this again)
+
+	* configure.ac: Check for fontconfig instead of xft2.
+
+	* plugins/xsettings/Makefile.am:
+	* plugins/xsettings/gsd-xsettings-manager.c (fontconfig_callback),
+	(gnome_xsettings_manager_start), (gnome_xsettings_manager_stop):
+	Send a Fontconfig/Timestamp xsettings notification whenever
+	fontconfig configurations change. (bug #490374)
+
+	* plugins/xsettings/fontconfig-monitor.c:
+	* plugins/xsettings/fontconfig-monitor.h:
+	Monitor fontconfig configuration files using gio.
+
+==================== 2.23.3 ======================
+
+2008-06-03  Jens Granseuer  <jensgr@gmx.net>
+
+	* configure.ac: use correct release number
+
+2008-06-03  Jens Granseuer  <jensgr@gmx.net>
+
+	* NEWS: Update for 2.23.3 release.
+
+2008-06-02  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.ac:
+	* plugins/xsettings/Makefile.am:
+	* plugins/xsettings/fontconfig-monitor.c:
+	* plugins/xsettings/fontconfig-monitor.h:
+	* plugins/xsettings/gsd-xsettings-manager.c
+	(gnome_xsettings_manager_start), (gnome_xsettings_manager_stop):
+	Revert previous change.  Working on a slightly different design.
+	(bug #490374)
+
+2008-06-02  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.ac: Check for fontconfig instead of xft2.
+
+	* plugins/xsettings/Makefile.am:
+	* plugins/xsettings/gsd-xsettings-manager.c (fontconfig_callback),
+	(gnome_xsettings_manager_start), (gnome_xsettings_manager_stop):
+	Send a Fontconfig/Timestamp xsettings notification whenever
+	fontconfig configurations change. (bug #490374)
+
+	* plugins/xsettings/fontconfig-monitor.c:
+	* plugins/xsettings/fontconfig-monitor.h:
+	Monitor fontconfig configuration files using gio.
+
+2008-06-02  Jens Granseuer  <jensgr@gmx.net>
+
+	* configure.ac: do not add stuff to GST_LIBS when gstreamer is
+	disabled. Fixes build without gstreamer (bug #536177)
+
+2008-06-02  Gerd Kohlberger  <gerdk@svn.gnome.org>
+
+	* plugins/mouse/gsd-locate-pointer.c: (timeline_frame_cb):
+	Keep animation centered below pointer. Bug #531665
+
+2008-05-30  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/font/gsd-font-manager.c: (load_xcursor_theme): fix a few
+	leaks
+
+2008-05-27  Jens Granseuer  <jensgr@gmx.net>
+
+	* gnome-settings-daemon/gnome-settings-manager.c: (_unload_plugin),
+	(_unload_all): stop all plugins on shutdown
+
+2008-05-27  Lucas Rocha  <lucasr@gnome.org>
+
+	* gnome-settings-daemon/main.c (set_session_over_handler,
+	on_session_over, main): listen to "SessionOver" D-Bus signal from
+	Session Manager to know when to shutdown. Bug #522017.
+
+2008-06-04  Federico Mena Quintero  <federico@novell.com>
 	* plugins/xrandr/gsd-xrandr-manager.c (status_icon_popup_menu):
 	Hook to "selection-done" on the menu shell to destroy it, not
 	"deactivate".  The latter destroys the menu shell before the
 	selected menu item has a chance to emit "activate" itself.
+
+2008-05-14  William Jon McCann  <jmccann@redhat.com>
+	* plugins/mouse/gsd-mouse-manager.c (filter):
+	Bummer.  Revert part of last commit.
+
+2008-05-14  William Jon McCann  <jmccann@redhat.com>
+
+	* plugins/mouse/gsd-mouse-manager.c (filter):
+	Don't eat keypresses for multimedia key events
+	Patch by Bastien Nocera  <hadess@hadess.net>
 
 2008-05-30  Federico Mena Quintero  <federico@novell.com>
 
@@ -187,7 +294,6 @@ Wed May 14 18:26:16 2008  Søren Sandmann  <sandmann@redhat.com>
 	dialog. If we wait until after the dialog is closed, the user can
 	still toggle the settings while it's open
 
->>>>>>> .r314
 2008-04-13  Jens Granseuer  <jensgr@gmx.net>
 
 	Extract some functionality used by several plugins into a separate

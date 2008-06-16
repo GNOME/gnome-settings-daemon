@@ -5,7 +5,7 @@ m4_define([gsd_api_version_minor],[0])
 m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])
 
 AC_INIT([gnome-settings-daemon],
-        [2.23.2],
+        [2.23.3],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
@@ -175,12 +175,15 @@ AC_CHECK_LIB(Xrandr, XRRUpdateConfiguration,
 AC_SUBST(RANDR_LIBS)
 
 dnl ---------------------------------------------------------------------------
-dnl - XFT2
+dnl - Fontconfig
 dnl ---------------------------------------------------------------------------
 
-if $PKG_CONFIG --exists xft; then
-  AC_DEFINE(HAVE_XFT2, 1, [Define if Xft functionality is available])
-fi
+have_fontconfig=no
+PKG_CHECK_MODULES(FONTCONFIG, fontconfig,
+		  [AC_DEFINE(HAVE_FONTCONFIG, 1, [Define if Fontconfig functionality is available])
+		   have_fontconfig=yes],
+		  AC_MSG_RESULT([no]))
+AM_CONDITIONAL(HAVE_FONTCONFIG, test x"$have_fontconfig" = "xyes")
 
 dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
@@ -219,10 +222,18 @@ if test x$WANT_ESD = xyes ; then
        PKG_CHECK_MODULES(ESD, esound >= 0.2.28,
 	       AC_DEFINE(HAVE_ESD, 1, [Define if ESD sound server should be used]),
                AC_MSG_RESULT([disabled]))
+
+       GSD_ESD_LOCATION=`pkg-config esound --variable=esd_serverdir`
+       if test "x$GSD_ESD_LOCATION" != "x"; then
+           # Add slash so that if the ESD pkgconfig file does not
+           # specify esd_serverdir, g-s-d will look in the PATH
+           GSD_ESD_LOCATION="$GSD_ESD_LOCATION/"
+       fi
 fi
 
 AC_SUBST(ESD_CFLAGS)
 AC_SUBST(ESD_LIBS)
+AC_SUBST(ESD_LOCATION)
 
 dnl ==============================================
 dnl GStreamer section
@@ -251,7 +262,9 @@ if test "x$ENABLE_GSTREAMER" = "xyes"; then
    PKG_CHECK_MODULES(GST, $PKGS, have_gstreamer=yes,
                      AC_MSG_RESULT([no]))
 
-   GST_LIBS="$GST_LIBS -lgstinterfaces-0.10 -lgstaudio-0.10"
+   if test "x$have_gstreamer" = "xyes"; then
+      GST_LIBS="$GST_LIBS -lgstinterfaces-0.10 -lgstaudio-0.10"
+   fi
 else
    AC_MSG_NOTICE([*** GStreamer support disabled ***])
 fi
