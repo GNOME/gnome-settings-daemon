@@ -326,6 +326,23 @@ fi
 AM_CONDITIONAL(HAVE_ALSA, test x"$have_alsa" = "xyes")
 
 # ---------------------------------------------------------------------------
+# Enable Legacy Sound Preference
+# ---------------------------------------------------------------------------
+PKG_CHECK_MODULES(PULSEAUDIO, libpulse, have_pulseaudio=yes, AC_MSG_RESULT([no]))
+if test x$have_pulseaudio = xyes; then
+	default_enable_legacy_sound_pref=no
+else
+	default_enable_legacy_sound_pref=yes
+fi
+AC_ARG_ENABLE(legacy-sound-pref,
+	[AC_HELP_STRING([--enable-legacy-sound-pref],
+	[check for preference to start ESD])],
+	,enable_legacy_sound_pref=$default_enable_legacy_sound_pref)
+if test "x$enable_legacy_sound_pref" = "xyes"; then
+    AC_DEFINE(ENABLE_LEGACY_SOUND_PREF,1,[enable preference for ESD startup])
+fi
+
+# ---------------------------------------------------------------------------
 # Enable Profiling
 # ---------------------------------------------------------------------------
 AC_ARG_ENABLE(profiling,

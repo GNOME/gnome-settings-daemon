@@ -1,3 +1,17 @@
+2008-06-17  Colin Walters <walters@verbum.org>
+
+	http://bugzilla.gnome.org/show_bug.cgi?id=533198
+
+	* configure.ac: Detect PulseAudio at build time; if available,
+	default to always starting it (ignore the legacy esd GConf
+	key /desktop/gnome/sound/enable_esd).  If you're a system
+	administrator or OS builder and want to disable PulseAudio,
+	you should preferably figure out what the problem you have
+	with it is; but failing that, just remove it from the install
+	image.
+	* plugins/sound/gsd-sound-manager.c: If we're not compiled with
+	legacy sound pref, always start sound.
+
 ==================== 2.23.4 ====================
 
 2008-06-17  Rodrigo Moya <rodrigo@gnome-db.org>

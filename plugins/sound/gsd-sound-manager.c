@@ -294,7 +294,18 @@ apply_settings (GsdSoundManager *manager)
 
         client = gconf_client_get_default ();
 
+	/* The "preference" here was just around because ESD introduced tradeoffs and was generally
+           poor software.  Pulseaudio is better and notably releases the sound device when not in
+           use, so should have no impact for legacy applications.  The reason we don't actually want
+           to even read from the preference is because someone may have set it to false intending
+           to disable ESD, but they will then disable Pulseaudio later.  
+           https://bugzilla.redhat.com/show_bug.cgi?id=430624
+        */
+#ifdef ENABLE_LEGACY_SOUND_PREF
         enable_sound = gconf_client_get_bool (client, "/desktop/gnome/sound/enable_esd", NULL);
+#else
+	enable_sound = TRUE;
+#endif
         event_sounds = gconf_client_get_bool (client, "/desktop/gnome/sound/event_sounds", NULL);
 
         closure.enable_system_sounds = event_sounds;
