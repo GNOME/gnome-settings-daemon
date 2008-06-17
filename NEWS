@@ -1,4 +1,19 @@
 ==============
+Version 2.23.4
+==============
+- Check for fontconfig instead of xft2 (Behdad Esfahbod)
+- Send a Fontconfig/Timestamp xsettings notification whenever fontconfig
+  configurations change (Behdad Esfahbod) (#490374)
+- Properly match keybindings that need Shift for resolving the keysym
+  (Jens Granseuer, Bastien Nocera) (#536581)
+- If available use the esd_serverdir variable to locate the esd daemon
+  so it can be started even if it's not in the PATH (Jens Granseuer, Brian
+  Cameron) (#531868)
+- Updated translations:
+  - ar (Djihed Afifi)
+  - th (Theppitak Karoonboonyanan)
+
+==============
 Version 2.23.3
 ==============
 - Execute the correct action when there are multiple keyboard shortcuts with
