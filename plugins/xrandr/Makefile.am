@@ -1,3 +1,32 @@
+icondir = $(datadir)/icons/hicolor
+context = apps
+
+ICON_FILES = 			\
+	gsd-xrandr-16.png	\
+	gsd-xrandr-22.png	\
+	gsd-xrandr-24.png	\
+	gsd-xrandr-32.png	\
+	gsd-xrandr.svg
+
+install-data-local:
+	$(mkinstalldirs) $(DESTDIR)$(icondir)/16x16/$(context)
+	$(mkinstalldirs) $(DESTDIR)$(icondir)/22x22/$(context)
+	$(mkinstalldirs) $(DESTDIR)$(icondir)/24x24/$(context)
+	$(mkinstalldirs) $(DESTDIR)$(icondir)/32x32/$(context)
+	$(mkinstalldirs) $(DESTDIR)$(icondir)/scalable/$(context)
+	$(INSTALL_DATA) $(srcdir)/gsd-xrandr-16.png $(DESTDIR)$(icondir)/16x16/$(context)/gsd-xrandr.png
+	$(INSTALL_DATA) $(srcdir)/gsd-xrandr-22.png $(DESTDIR)$(icondir)/22x22/$(context)/gsd-xrandr.png
+	$(INSTALL_DATA) $(srcdir)/gsd-xrandr-24.png $(DESTDIR)$(icondir)/24x24/$(context)/gsd-xrandr.png
+	$(INSTALL_DATA) $(srcdir)/gsd-xrandr-32.png $(DESTDIR)$(icondir)/32x32/$(context)/gsd-xrandr.png
+	$(INSTALL_DATA) $(srcdir)/gsd-xrandr.svg $(DESTDIR)$(icondir)/scalable/$(context)/gsd-xrandr.svg
+
+uninstall-local:
+	rm -f $(DESTDIR)$(icondir)/16x16/$(context)/gsd-xrandr.png
+	rm -f $(DESTDIR)$(icondir)/22x22/$(context)/gsd-xrandr.png
+	rm -f $(DESTDIR)$(icondir)/24x24/$(context)/gsd-xrandr.png
+	rm -f $(DESTDIR)$(icondir)/32x32/$(context)/gsd-xrandr.png
+	rm -f $(DESTDIR)$(icondir)/scalable/$(context)/gsd-xrandr.svg
+
 plugin_LTLIBRARIES = \
 	libxrandr.la
 
@@ -28,7 +57,7 @@ plugin_in_files = 		\
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-EXTRA_DIST = $(plugin_in_files)
+EXTRA_DIST = $(plugin_in_files) $(ICON_FILES)
 CLEANFILES = $(plugin_DATA)
 DISTCLEANFILES = $(plugin_DATA)
 
