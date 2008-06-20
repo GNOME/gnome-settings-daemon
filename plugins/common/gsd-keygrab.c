@@ -153,7 +153,6 @@ have_xkb (Display *dpy)
 gboolean
 match_key (Key *key, XEvent *event)
 {
-	GdkKeymap *keymap;
 	guint keyval;
 	GdkModifierType consumed;
 	gint group;
@@ -161,13 +160,15 @@ match_key (Key *key, XEvent *event)
 	if (key == NULL)
 		return FALSE;
 
-	keymap = gdk_keymap_get_default ();
+#ifdef HAVE_X11_EXTENSIONS_XKB_H
 	if (have_xkb (event->xkey.display))
 		group = XkbGroupForCoreState (event->xkey.state);
 	else
+#endif
 		group = (event->xkey.state & GDK_Mode_switch) ? 1 : 0;
+
 	/* Check if we find a keysym that matches our current state */
-	if (gdk_keymap_translate_keyboard_state (keymap, event->xkey.keycode,
+	if (gdk_keymap_translate_keyboard_state (NULL, event->xkey.keycode,
 					     event->xkey.state, group,
 					     &keyval, NULL, NULL, &consumed)) {
 		guint lower, upper;
@@ -180,7 +181,7 @@ match_key (Key *key, XEvent *event)
 			consumed &= ~GDK_SHIFT_MASK;
 
 		return ((lower == key->keysym || upper == key->keysym)
-			&& (key->state & ~consumed & GSD_USED_MODS) == key->state);
+			&& (event->xkey.state & ~consumed & GSD_USED_MODS) == key->state);
 	}
 
 	/* The key we passed doesn't have a keysym, so try with just the keycode */

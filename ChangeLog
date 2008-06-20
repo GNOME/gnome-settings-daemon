@@ -1,3 +1,9 @@
+2008-06-20  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/common/gsd-keygrab.c: (match_key): fix accel check so
+	that we don't match e.g. XF86RaiseVolume if <Alt> + XF86RaiseVolume
+	was pressed (bug #538699). Also fix build without XKB
+
 2008-06-18  Jens Granseuer  <jensgr@gmx.net>
 
 	* Makefile.am:
