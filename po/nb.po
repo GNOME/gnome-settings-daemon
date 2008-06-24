@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.23.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-30 01:38+0200\n"
-"PO-Revision-Date: 2008-04-22 21:45+0200\n"
+"POT-Creation-Date: 2008-06-25 01:46+0200\n"
+"PO-Revision-Date: 2008-06-25 01:46+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -397,15 +397,15 @@ msgstr ""
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Sett til True for å aktivere tillegg for å håndtere xsettings."
 
-#: ../gnome-settings-daemon/main.c:45
+#: ../gnome-settings-daemon/main.c:50
 msgid "Enable debugging code"
 msgstr "Aktiver kode for feilsøking"
 
-#: ../gnome-settings-daemon/main.c:46
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr "Ikke kjør som en tjeneste"
 
-#: ../gnome-settings-daemon/main.c:47
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr "GConf-prefiks for lasting av innstillinger for tillegg"
 
@@ -524,7 +524,7 @@ msgstr "Skrift"
 msgid "Font plugin"
 msgstr "Tillegg for skrift"
 
-#: ../plugins/font/gsd-font-manager.c:215
+#: ../plugins/font/gsd-font-manager.c:219
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -533,7 +533,7 @@ msgstr ""
 "Kan ikke opprette katalog «%s».\n"
 "Denne er nødvendig for å kunne endre tema for muspeker."
 
-#: ../plugins/font/gsd-font-manager.c:238
+#: ../plugins/font/gsd-font-manager.c:242
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -776,6 +776,18 @@ msgstr "Rediger innstillinger for skjermstørrelse og rotasjon"
 msgid "XRandR"
 msgstr "XRandR"
 
+#: ../plugins/xrandr/gsd-xrandr-manager.c:193
+msgid "Screen Rotation"
+msgstr "Rotasjon av skjerm"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:198
+msgid "_Configure Display Settings"
+msgstr "_Konfigurer innstillinger for skjerm"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:241
+msgid "Configure display settings"
+msgstr "Konfigurer skjerminnstillinger"
+
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
@@ -789,7 +801,7 @@ msgstr "Håndter X-ressursdatabasen"
 msgid "X Resource Database"
 msgstr "X-ressursdatabase"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:582
+#: ../plugins/xsettings/gsd-xsettings-manager.c:605
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf-nøkkel %s satt til type %s men forventet type var %s\n"
