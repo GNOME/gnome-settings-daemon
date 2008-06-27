@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-22 19:46+0000\n"
-"PO-Revision-Date: 2008-04-30 21:08+0200\n"
+"POT-Creation-Date: 2008-06-24 23:49+0000\n"
+"PO-Revision-Date: 2008-06-27 14:44+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -190,8 +190,8 @@ msgid ""
 "Set to True to display a dialog when there are errors running the "
 "screensaver."
 msgstr ""
-"Establézcala a «true» para mostrar un diálogo cuando haya errores al "
-"ejecutar el salvapantallas."
+"Establézcala a «true» para mostrar un diálogo cuando haya errores al ejecutar "
+"el salvapantallas."
 
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
 msgid "Set to True to run the screensaver at login."
@@ -350,8 +350,8 @@ msgstr ""
 #: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
-"Establézcala a «true» para activar el complemento que gestiona los ajustes "
-"de las tipografías."
+"Establézcala a «true» para activar el complemento que gestiona los ajustes de "
+"las tipografías."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Set to True to enable the plugin to manage keyboard settings."
@@ -368,8 +368,8 @@ msgstr ""
 #: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
-"Establézcala a «true» para activar el complemento que gestiona los ajustes "
-"de las teclas multimedia."
+"Establézcala a «true» para activar el complemento que gestiona los ajustes de "
+"las teclas multimedia."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Set to True to enable the plugin to manage screensaver settings."
@@ -388,8 +388,8 @@ msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr ""
-"Establézcala a «true» para activar el complemento que gestiona los ajustes "
-"de accesibilidad del teclado."
+"Establézcala a «true» para activar el complemento que gestiona los ajustes de "
+"accesibilidad del teclado."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
@@ -400,8 +400,8 @@ msgstr ""
 #: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
-"Establézcala a «true» para activar el complemento que gestiona el descanso "
-"de escritura."
+"Establézcala a «true» para activar el complemento que gestiona el descanso de "
+"escritura."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage xrandr settings."
@@ -419,15 +419,15 @@ msgstr ""
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Establézcala a «true» para activar el complemento que gestiona xsettings."
 
-#: ../gnome-settings-daemon/main.c:45
+#: ../gnome-settings-daemon/main.c:50
 msgid "Enable debugging code"
 msgstr "Activar el código de depuración"
 
-#: ../gnome-settings-daemon/main.c:46
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr "No convertir en demonio"
 
-#: ../gnome-settings-daemon/main.c:47
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr "El prefijo de GConf desde el que cargar los ajustes del complemento"
 
@@ -499,8 +499,8 @@ msgid ""
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Acaba de pulsar la tecla «Mayúsculas» 5 veces. Este es el acceso rápido para "
-"la característica «Teclas persistentes», que afecta la manera en que "
-"funciona el teclado."
+"la característica «Teclas persistentes», que afecta la manera en que funciona "
+"el teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:494
 msgid ""
@@ -509,8 +509,8 @@ msgid ""
 "keyboard works."
 msgstr ""
 "Acaba de pulsar dos teclas a la vez, o ha pulsado la tecla «Mayúsculas» 5 "
-"veces seguidas. Esto desactiva la característica de «Teclas persistentes», "
-"lo cual afecta a la forma en que funciona su teclado."
+"veces seguidas. Esto desactiva la característica de «Teclas persistentes», lo "
+"cual afecta a la forma en que funciona su teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
 msgid "Sticky Keys Alert"
@@ -548,7 +548,7 @@ msgstr "Tipografía"
 msgid "Font plugin"
 msgstr "Complemento de tipografía"
 
-#: ../plugins/font/gsd-font-manager.c:215
+#: ../plugins/font/gsd-font-manager.c:219
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -557,7 +557,7 @@ msgstr ""
 "No es posible crear el directorio «%s».\n"
 "Esto es necesario para permitir cambiar el tema del puntero."
 
-#: ../plugins/font/gsd-font-manager.c:238
+#: ../plugins/font/gsd-font-manager.c:242
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -801,6 +801,18 @@ msgstr "Establecer los ajustes de tamaño y rotación de la pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
+#: ../plugins/xrandr/gsd-xrandr-manager.c:193
+msgid "Screen Rotation"
+msgstr "Rotación de la pantalla"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:198
+msgid "_Configure Display Settings"
+msgstr "_Configurar los ajustes de la pantalla"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:241
+msgid "Configure display settings"
+msgstr "Configurar los ajustes de la pantalla"
+
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
@@ -814,7 +826,7 @@ msgstr "Gestionar la base de datos de recursos de las X"
 msgid "X Resource Database"
 msgstr "Base de datos de recursos de las X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:582
+#: ../plugins/xsettings/gsd-xsettings-manager.c:605
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr ""
