@@ -1,3 +1,10 @@
+2008-06-28  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/common/gsd-keygrab.c: don't ignore any ModX modifiers.
+	This should finally make g-s-d recognize keybindings with Super
+	and Meta although we still don't handle the corresponding virtual
+	modifiers (bug #165343)
+
 2008-06-20  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/common/gsd-keygrab.c: (match_key): fix accel check so

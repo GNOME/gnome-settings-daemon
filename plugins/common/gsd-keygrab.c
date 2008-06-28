@@ -35,11 +35,13 @@
 /* we exclude shift, GDK_CONTROL_MASK and GDK_MOD1_MASK since we know what
    these modifiers mean
    these are the mods whose combinations are bound by the keygrabbing code */
-#define GSD_IGNORED_MODS (0x2000 /*Xkb modifier*/ | GDK_LOCK_MASK  | \
-        GDK_MOD2_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK | GDK_MOD5_MASK)
+#define GSD_IGNORED_MODS (0x2000 /*Xkb modifier*/ | GDK_LOCK_MASK | GDK_HYPER_MASK)
+
 /* these are the ones we actually use for global keys, we always only check
  * for these set */
-#define GSD_USED_MODS (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK)
+#define GSD_USED_MODS (GDK_SHIFT_MASK | GDK_CONTROL_MASK |\
+		       GDK_MOD1_MASK | GDK_MOD2_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK |\
+		       GDK_MOD5_MASK | GDK_SUPER_MASK | GDK_META_MASK)
 
 
 static gboolean
