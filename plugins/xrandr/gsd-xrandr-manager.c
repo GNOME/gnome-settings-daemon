@@ -109,7 +109,7 @@ on_client_message (GdkXEvent  *xevent,
         if (ev->type == ClientMessage		&&
             ev->xclient.message_type == gnome_randr_xatom()) {
                 
-                configuration_apply_stored (screen);
+                gnome_rr_config_apply_stored (screen);
                 
                 return GDK_FILTER_REMOVE;
         }
@@ -137,7 +137,7 @@ event_filter (GdkXEvent           *xevent,
                 /* FIXME: here we should cycle between valid
                  * configurations, and save them
                  */
-                configuration_apply_stored (manager->priv->rw_screen);
+                gnome_rr_config_apply_stored (manager->priv->rw_screen);
                 
                 return GDK_FILTER_CONTINUE;
         }
@@ -159,7 +159,6 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
 static void
 popup_menu_configure_display_cb (GtkMenuItem *item, gpointer data)
 {
-        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
         GdkScreen *screen;
         GError *error;
 
@@ -205,7 +204,9 @@ status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timesta
         g_signal_connect (menu, "selection-done",
                           G_CALLBACK (gtk_widget_destroy), NULL);
 
-        gtk_menu_popup (menu, NULL, NULL, gtk_status_icon_position_menu, priv->status_icon, button, timestamp);
+        gtk_menu_popup (GTK_MENU (menu), NULL, NULL,
+                        gtk_status_icon_position_menu,
+                        priv->status_icon, button, timestamp);
 }
 
 static void
@@ -275,7 +276,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                 gdk_error_trap_pop ();
         }
         
-        configuration_apply_stored (manager->priv->rw_screen);
+        gnome_rr_config_apply_stored (manager->priv->rw_screen);
         
         gdk_window_add_filter (gdk_get_default_root_window(),
                                (GdkFilterFunc)event_filter,
@@ -393,7 +394,7 @@ gsd_xrandr_manager_init (GsdXrandrManager *manager)
         manager->priv = GSD_XRANDR_MANAGER_GET_PRIVATE (manager);
 
         manager->priv->keycode = keycode;
-        manager->priv->rw_screen = rw_screen_new (
+        manager->priv->rw_screen = gnome_rr_screen_new (
                 gdk_screen_get_default(), on_randr_event, NULL);
 }
 
