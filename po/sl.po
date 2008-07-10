@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-deamon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-16 14:19+0000\n"
-"PO-Revision-Date: 2008-04-26 16:14+0100\n"
+"POT-Creation-Date: 2008-07-10 03:42+0000\n"
+"PO-Revision-Date: 2008-07-10 15:29+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -354,15 +354,15 @@ msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev xrdb."
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev strežnika X."
 
-#: ../gnome-settings-daemon/main.c:45
+#: ../gnome-settings-daemon/main.c:50
 msgid "Enable debugging code"
 msgstr "Omogoči kodo razhroščevanja"
 
-#: ../gnome-settings-daemon/main.c:46
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr "Ne postani demon"
 
-#: ../gnome-settings-daemon/main.c:47
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr "Predpona GConf preko katere se naloži vstavek nastavitev"
 
@@ -467,7 +467,7 @@ msgstr "Pisava"
 msgid "Font plugin"
 msgstr "Vstavek pisave"
 
-#: ../plugins/font/gsd-font-manager.c:215
+#: ../plugins/font/gsd-font-manager.c:219
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -476,7 +476,7 @@ msgstr ""
 "Ni mogoče ustvariti mape \"%s\".\n"
 "Ustvarjanje je potrebno za dovolitev spreminjanja tem kazalcev."
 
-#: ../plugins/font/gsd-font-manager.c:238
+#: ../plugins/font/gsd-font-manager.c:242
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -710,6 +710,18 @@ msgstr "Nastavitev velikosti in obračanja zaslona"
 msgid "XRandR"
 msgstr "XRandR"
 
+#: ../plugins/xrandr/gsd-xrandr-manager.c:192
+msgid "Screen Rotation"
+msgstr "Kroženje zaslona"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:197
+msgid "_Configure Display Settings"
+msgstr "_Spremeni nastavitve zaslona"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:242
+msgid "Configure display settings"
+msgstr "Spremeni nastavitve zaslona"
+
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
@@ -723,7 +735,7 @@ msgstr "Upravljanje s podatkovno zbirko virov X"
 msgid "X Resource Database"
 msgstr "Podatkovna zbirka virov X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:582
+#: ../plugins/xsettings/gsd-xsettings-manager.c:605
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf ključ %s nastavljen na vrsto %s, a njegov pričakovan tip je bil %s\n"
