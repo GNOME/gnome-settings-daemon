@@ -1,3 +1,9 @@
+2008-07-15  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/common/gsd-keygrab.c: (match_key): always remove Shift
+	from the consumed modifiers if we're matching the lowercase
+	symbol to make more shortcuts with Shift work (bug #542275)
+
 Wed Jul  9 11:48:02 2008  Søren Sandmann  <sandmann@redhat.com>
 
 	* plugins/xrandr/gsd-xrandr-manager.c: Call the new gnome_rr

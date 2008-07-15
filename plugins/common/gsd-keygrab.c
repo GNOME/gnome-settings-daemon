@@ -177,9 +177,10 @@ match_key (Key *key, XEvent *event)
 
 		gdk_keyval_convert_case (keyval, &lower, &upper);
 
-		/* If we don't have different keysyms depending on the
-		 * shift state, remove the shift state from the consumed */
-		if (upper == lower)
+		/* If we are checking against the lower version of the
+		 * keysym, we might need the Shift state for matching,
+		 * so remove it from the consumed modifiers */
+		if (lower == key->keysym)
 			consumed &= ~GDK_SHIFT_MASK;
 
 		return ((lower == key->keysym || upper == key->keysym)
