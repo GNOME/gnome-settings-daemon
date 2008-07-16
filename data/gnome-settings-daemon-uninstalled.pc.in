@@ -8,4 +8,4 @@ Description: Utility library for accessing gnome-settings-daemon over DBUS
 Requires: glib-2.0 dbus-1 dbus-glib-1
 Version: @VERSION@
 Libs: ${pc_top_builddir}/${pcfiledir}/libgnome-settings-daemon.la
-Cflags: -I${pc_top_builddir}
+Cflags: -I${pc_top_builddir}/${pcfiledir}/..
