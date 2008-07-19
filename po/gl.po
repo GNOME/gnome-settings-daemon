@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-29 13:30+0200\n"
-"PO-Revision-Date: 2008-04-29 13:32+0200\n"
+"POT-Creation-Date: 2008-07-19 11:44+0200\n"
+"PO-Revision-Date: 2008-07-19 11:45+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -417,15 +417,15 @@ msgid "Set to True to enable the plugin to manage xsettings."
 msgstr ""
 "Establecer a verdadeiro para activar o complemento que xestiona xsettings."
 
-#: ../gnome-settings-daemon/main.c:45
+#: ../gnome-settings-daemon/main.c:50
 msgid "Enable debugging code"
 msgstr "Activar o código de depuración"
 
-#: ../gnome-settings-daemon/main.c:46
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr "Non converter en daemon"
 
-#: ../gnome-settings-daemon/main.c:47
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr "O prefixo de GConf desde o que cargar os axustes do complemento"
 
@@ -546,7 +546,7 @@ msgstr "Tipo de letra"
 msgid "Font plugin"
 msgstr "Complemento de tipo de letra"
 
-#: ../plugins/font/gsd-font-manager.c:215
+#: ../plugins/font/gsd-font-manager.c:219
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -555,7 +555,7 @@ msgstr ""
 "Non se puido crear o directorio \"%s\".\n"
 "Isto é preciso para permitir os cambios de tema de punteiros."
 
-#: ../plugins/font/gsd-font-manager.c:238
+#: ../plugins/font/gsd-font-manager.c:242
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -663,11 +663,10 @@ msgstr "Non se puido activar as características de accesibilidade do rato"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
+"Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
-"A accesibilidade do rato require que o daemon mousetweaks esté instalado no "
-"seu sistema."
+"A accesibilidade do rato require que mousetweaks esté instalado no seu "
+"sistema."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
@@ -799,6 +798,18 @@ msgstr "Establecer a configuración de tamaño e rotación da pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
+#: ../plugins/xrandr/gsd-xrandr-manager.c:192
+msgid "Screen Rotation"
+msgstr "Rotación da pantalla"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:197
+msgid "_Configure Display Settings"
+msgstr "_Configurar os axustes da pantalla"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:242
+msgid "Configure display settings"
+msgstr "Configurar os axustes da pantalla"
+
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
@@ -812,7 +823,7 @@ msgstr "Xestionar a base de datos de recursos das X"
 msgid "X Resource Database"
 msgstr "Base de datos de recursos das X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:582
+#: ../plugins/xsettings/gsd-xsettings-manager.c:605
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr ""
