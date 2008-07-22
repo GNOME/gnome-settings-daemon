@@ -50,6 +50,7 @@
 #define MOUSE_SETTINGS_DIR     "/desktop/gnome/peripherals/mouse"
 #define GTK_SETTINGS_DIR       "/desktop/gtk"
 #define INTERFACE_SETTINGS_DIR "/desktop/gnome/interface"
+#define SOUND_SETTINGS_DIR     "/desktop/gnome/sound"
 
 #ifdef HAVE_FONTCONFIG
 #define FONT_RENDER_DIR "/desktop/gnome/font_rendering"
@@ -90,7 +91,7 @@ struct _TranslationEntry {
 struct GnomeXSettingsManagerPrivate
 {
         XSettingsManager **managers;
-        guint              notify[4];
+        guint              notify[5];
 #ifdef HAVE_FONTCONFIG
         fontconfig_monitor_handle_t *fontconfig_handle;
 #endif /* HAVE_FONTCONFIG */
@@ -212,6 +213,9 @@ static TranslationEntry translations [] = {
         { "/desktop/gnome/peripherals/mouse/cursor_size",    "Gtk/CursorThemeSize",     GCONF_VALUE_INT,      translate_int_int },
         { "/desktop/gnome/interface/show_input_method_menu", "Gtk/ShowInputMethodMenu", GCONF_VALUE_BOOL,     translate_bool_int },
         { "/desktop/gnome/interface/show_unicode_menu",      "Gtk/ShowUnicodeMenu",     GCONF_VALUE_BOOL,     translate_bool_int },
+        { "/desktop/gnome/sound/theme_name",                 "Net/SoundThemeName",      GCONF_VALUE_STRING,   translate_string_string },
+        { "/desktop/gnome/sound/event_sounds",               "Net/EnableEventSounds" ,  GCONF_VALUE_BOOL,     translate_bool_int },
+        { "/desktop/gnome/sound/input_feedback_sounds",      "Net/EnableInputFeedbackSounds", GCONF_VALUE_BOOL, translate_bool_int }
 };
 
 #ifdef HAVE_FONTCONFIG
@@ -768,9 +772,13 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                 register_config_callback (manager, client,
                                           INTERFACE_SETTINGS_DIR,
                                           (GConfClientNotifyFunc) xsettings_callback);
+        manager->priv->notify[3] =
+                register_config_callback (manager, client,
+                                          SOUND_SETTINGS_DIR,
+                                          (GConfClientNotifyFunc) xsettings_callback);
 
 #ifdef HAVE_FONTCONFIG
-        manager->priv->notify[3] =
+        manager->priv->notify[4] =
                 register_config_callback (manager, client,
                                           FONT_RENDER_DIR,
                                           (GConfClientNotifyFunc) xft_callback);
@@ -818,6 +826,7 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
         gconf_client_remove_dir (client, MOUSE_SETTINGS_DIR, NULL);
         gconf_client_remove_dir (client, GTK_SETTINGS_DIR, NULL);
         gconf_client_remove_dir (client, INTERFACE_SETTINGS_DIR, NULL);
+        gconf_client_remove_dir (client, SOUND_SETTINGS_DIR, NULL);
 #ifdef HAVE_FONTCONFIG
         gconf_client_remove_dir (client, FONT_RENDER_DIR, NULL);
 
