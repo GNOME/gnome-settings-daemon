@@ -5,7 +5,7 @@ m4_define([gsd_api_version_minor],[0])
 m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])
 
 AC_INIT([gnome-settings-daemon],
-        [2.23.4],
+        [2.23.5],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
@@ -25,7 +25,7 @@ AC_SUBST(VERSION)
 
 AC_CONFIG_HEADERS([config.h])
 
-IT_PROG_INTLTOOL([0.40.0])
+IT_PROG_INTLTOOL([0.37.1])
 
 GETTEXT_PACKAGE=gnome-settings-daemon
 AC_SUBST(GETTEXT_PACKAGE)
