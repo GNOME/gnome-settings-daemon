@@ -44,7 +44,7 @@
 
 #include <libgnome/gnome-sound.h>
 #include <libgnome/gnome-exec.h>
-#include <libgnomeui/gnome-client.h>
+#include <libgnome/gnome-program.h>
 #include "libsounds/sound-properties.h"
 
 #include "gsd-sound-manager.h"

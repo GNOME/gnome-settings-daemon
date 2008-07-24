@@ -41,7 +41,7 @@
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKBstr.h>
 
-#include <libgnomeui/gnome-help.h>
+#include <libgnome/gnome-help.h>
 
 #include "gnome-settings-profile.h"
 #include "gsd-a11y-keyboard-manager.h"
