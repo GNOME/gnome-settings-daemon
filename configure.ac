@@ -69,7 +69,7 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
 )
 
 PKG_CHECK_MODULES(GNOME, libgnome-2.0)
-PKG_CHECK_MODULES(LIBSOUNDS, gio-2.0 libgnome-2.0)
+PKG_CHECK_MODULES(LIBSOUNDS, gio-2.0 libgnome-2.0 gtk+-2.0)
 
 
 GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
