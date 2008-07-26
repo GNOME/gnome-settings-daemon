@@ -43,7 +43,7 @@ dnl - Dependencies
 dnl ---------------------------------------------------------------------------
 
 DBUS_GLIB_REQUIRED_VERSION=0.74
-GLIB_REQUIRED_VERSION=2.13.0
+GLIB_REQUIRED_VERSION=2.15.0
 GTK_REQUIRED_VERSION=2.10.0
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.15.0
@@ -52,6 +52,7 @@ GNOME_DESKTOP_REQUIRED_VERSION=2.23.5
 EXTRA_COMPILE_WARNINGS(yes)
 
 PKG_CHECK_MODULES(SETTINGS_DAEMON,
+        glib-2.0 >= $GLIB_REQUIRED_VERSION
         gtk+-2.0 >= $GTK_REQUIRED_VERSION
         gconf-2.0 >= $GCONF_REQUIRED_VERSION
         gmodule-2.0
@@ -69,8 +70,7 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
 )
 
 PKG_CHECK_MODULES(GNOME, libgnome-2.0)
-PKG_CHECK_MODULES(LIBSOUNDS, gio-2.0 libgnome-2.0 gtk+-2.0)
-
+PKG_CHECK_MODULES(LIBSOUNDS, gio-2.0 gtk+-2.0 libgnome-2.0)
 
 GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
 AC_SUBST([GSD_PLUGIN_LDFLAGS])
