@@ -36,6 +36,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <gconf/gconf-client.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 
@@ -55,6 +56,9 @@
 
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
+#define CONF_DIR "/apps/gnome_settings_daemon/xrandr"
+#define CONF_KEY "show_notification_icon"
+
 #define VIDEO_KEYSYM    "XF86Display"
 
 /* name of the icon files (gsd-xrandr.svg, etc.) */
@@ -71,6 +75,8 @@ struct GsdXrandrManagerPrivate
         gboolean running;
 
         GtkStatusIcon *status_icon;
+        GConfClient *client;
+        int notify_id;
 };
 
 enum {
@@ -194,7 +200,7 @@ status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timesta
         gtk_widget_show (item);
         gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 
-        item = gtk_menu_item_new_with_mnemonic (_("_Configure Display Settings"));
+        item = gtk_menu_item_new_with_mnemonic (_("_Configure Display Settings ..."));
         g_signal_connect (item, "activate",
                           G_CALLBACK (popup_menu_configure_display_cb), manager);
         gtk_widget_show (item);
@@ -237,14 +243,15 @@ status_icon_start (GsdXrandrManager *manager)
          * Or ideally, we should detect if we are on a tablet and only display
          * the icon in that case.
          */
-
-        priv->status_icon = gtk_status_icon_new_from_icon_name (GSD_XRANDR_ICON_NAME);
-        gtk_status_icon_set_tooltip (priv->status_icon, _("Configure display settings"));
-
-        g_signal_connect (priv->status_icon, "activate",
-                          G_CALLBACK (status_icon_activate_cb), manager);
-        g_signal_connect (priv->status_icon, "popup-menu",
-                          G_CALLBACK (status_icon_popup_menu_cb), manager);
+        if (!priv->status_icon) {
+                priv->status_icon = gtk_status_icon_new_from_icon_name (GSD_XRANDR_ICON_NAME);
+                gtk_status_icon_set_tooltip (priv->status_icon, _("Configure display settings"));
+                
+                g_signal_connect (priv->status_icon, "activate",
+                                  G_CALLBACK (status_icon_activate_cb), manager);
+                g_signal_connect (priv->status_icon, "popup-menu",
+                                  G_CALLBACK (status_icon_popup_menu_cb), manager);
+        }
 }
 
 static void
@@ -252,8 +259,35 @@ status_icon_stop (GsdXrandrManager *manager)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
 
-        g_object_unref (priv->status_icon);
-        priv->status_icon = NULL;
+        if (priv->status_icon) {
+                g_signal_handlers_disconnect_by_func (
+                        priv->status_icon, G_CALLBACK (status_icon_activate_cb), manager);
+                g_signal_handlers_disconnect_by_func (
+                        priv->status_icon, G_CALLBACK (status_icon_popup_menu_cb), manager);
+                
+                g_object_unref (priv->status_icon);
+                priv->status_icon = NULL;
+        }
+}
+
+static void
+start_or_stop_icon (GsdXrandrManager *manager)
+{
+        if (gconf_client_get_bool (manager->priv->client, CONF_DIR "/" CONF_KEY, NULL)) {
+                status_icon_start (manager);
+        }
+        else {
+                status_icon_stop (manager);
+        }
+}
+
+static void
+on_config_changed (GConfClient          *client,
+                   guint                 cnxn_id,
+                   GConfEntry           *entry,
+                   GsdXrandrManager *manager)
+{
+        start_or_stop_icon (manager);
 }
 
 gboolean
@@ -263,6 +297,20 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         g_debug ("Starting xrandr manager");
 
         manager->priv->running = TRUE;
+        manager->priv->client = gconf_client_get_default ();
+
+        g_assert (manager->priv->notify_id == 0);
+
+        g_warning ("adding dir %s\n", CONF_DIR);
+        gconf_client_add_dir (manager->priv->client, CONF_DIR,
+                              GCONF_CLIENT_PRELOAD_NONE,
+                              NULL);
+        
+        manager->priv->notify_id =
+                gconf_client_notify_add (
+                        manager->priv->client, CONF_DIR,
+                        (GConfClientNotifyFunc)on_config_changed,
+                        manager, NULL, NULL);
         
         if (manager->priv->keycode) {
                 gdk_error_trap_push ();
@@ -286,7 +334,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                                        on_client_message,
                                        manager->priv->rw_screen);
 
-        status_icon_start (manager);
+        start_or_stop_icon (manager);
         
         return TRUE;
 }
@@ -297,7 +345,7 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         g_debug ("Stopping xrandr manager");
 
         manager->priv->running = FALSE;
-        
+
         gdk_error_trap_push ();
         
         XUngrabKey (gdk_x11_get_default_xdisplay(),
@@ -305,6 +353,19 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                     gdk_x11_get_default_root_xwindow());
 
         gdk_error_trap_pop ();
+
+        if (manager->priv->notify_id != 0) {
+                gconf_client_remove_dir (manager->priv->client,
+                                         CONF_DIR, NULL);
+                gconf_client_notify_remove (manager->priv->client,
+                                            manager->priv->notify_id);
+                manager->priv->notify_id = 0;
+        }
+
+        if (manager->priv->client != NULL) {
+                g_object_unref (manager->priv->client);
+                manager->priv->client = NULL;
+        }
 
         status_icon_stop (manager);
 }
