@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-11 22:28+0100\n"
+"POT-Creation-Date: 2008-07-29 02:16+0100\n"
 "PO-Revision-Date: 2008-02-26 10:13+0100\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -573,7 +573,7 @@ msgstr "الملفّات المو_جودة:"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
 msgid "Do _not show this warning again."
-msgstr "لا تظهر هذا التحذير مجدداً."
+msgstr "لا تظهر هذا التحذير مجددًا."
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
@@ -629,9 +629,9 @@ msgid "Could not enable mouse accessibility features"
 msgstr "غير قادر على إتاحة ميزات الفأرة"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:573
+#, fuzzy
 msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
+"Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "إتاحة الفأرة تتطلب أن يكون مراقب تحسينات الفأرة مُثبثا على نظامك."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:576
@@ -678,39 +678,39 @@ msgstr "ملحق حافظة الشاشة"
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "لم يمكن تحميل ملف الصوت %s كعيِّنة %s"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
 msgstr "ادخل"
 
-#: ../plugins/sound/libsounds/sound-view.c:45
+#: ../plugins/sound/libsounds/sound-view.c:44
 msgid "Logout"
 msgstr "اخرج"
 
-#: ../plugins/sound/libsounds/sound-view.c:46
+#: ../plugins/sound/libsounds/sound-view.c:45
 msgid "Boing"
 msgstr "بوينج"
 
-#: ../plugins/sound/libsounds/sound-view.c:47
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
 msgstr "صافرة إنذار"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr "صلصلة"
 
-#: ../plugins/sound/libsounds/sound-view.c:49
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
 msgstr "صافِرة"
 
-#: ../plugins/sound/libsounds/sound-view.c:50
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
 msgstr "لا صوت"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
 msgstr "الصوت لهذا الحدث غير معين."
 
-#: ../plugins/sound/libsounds/sound-view.c:141
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
@@ -718,24 +718,24 @@ msgstr ""
 "ملف الصوت لهذا الحدث غير موجود.\n"
 "قد يتوجب عليك تثبيت حزمة gnome-audio للحصول على مجموعة من الأصوات الإفتراضية."
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "ملف الصوت لهذا الحدث غير موجود."
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "انتق ملف صوت"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "الملف %s ليس ملف wav سليم"
 
-#: ../plugins/sound/libsounds/sound-view.c:271
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
 msgstr "انتقِ ملف صوت..."
 
-#: ../plugins/sound/libsounds/sound-view.c:373
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
 msgstr "أصوات النظام"
 
@@ -763,6 +763,19 @@ msgstr "اختر إعدادات حجم الشاشة والدوران"
 msgid "XRandR"
 msgstr "XRandR"
 
+#: ../plugins/xrandr/gsd-xrandr-manager.c:192
+#, fuzzy
+msgid "Screen Rotation"
+msgstr "استبانة الشاشة"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:197
+msgid "_Configure Display Settings"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:242
+msgid "Configure display settings"
+msgstr ""
+
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
@@ -776,7 +789,7 @@ msgstr "إدارة قاعدة بيانات موارد X"
 msgid "X Resource Database"
 msgstr "قاعدة بيانات موارد X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:605
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "مفتاح GConf وهو %s مضبوط لنوع %s بينما النوع المتوقع كان %s\n"
@@ -1472,7 +1485,7 @@ msgstr "إعدادات X"
 #~ msgstr "كل الملفّات"
 
 #~ msgid "Font may be too large"
-#~ msgstr "قد يكون الخط كبيراً جدا"
+#~ msgstr "قد يكون الخط كبيرًا جدا"
 
 #~ msgid ""
 #~ "The font selected is %d point large, and may make it difficult to "
@@ -1484,16 +1497,16 @@ msgstr "إعدادات X"
 #~ "smaller than %d."
 #~ msgstr[0] ""
 #~ "الخط المنتقى حجمه نقطة واحدة و قد يعرقل فعاليّة استخدام الحاسوب. من "
-#~ "المستحسن أن تختار حجماً أقلّ من %d."
+#~ "المستحسن أن تختار حجمًا أقلّ من %d."
 #~ msgstr[1] ""
 #~ "الخط المنتقى حجمه نقطتان و قد يعرقل فعالية استخدام الحاسوب. من المستحسن "
-#~ "أن تختار حجماً أقلّ من %d."
+#~ "أن تختار حجمًا أقلّ من %d."
 #~ msgstr[2] ""
 #~ "الخط المنتقى حجمه %d نقاط و قد يعرقل فعالية استخدام الحاسوب. من المستحسن "
-#~ "أن تختار حجماً أقلّ من %d."
+#~ "أن تختار حجمًا أقلّ من %d."
 #~ msgstr[3] ""
 #~ "الخط المنتقى حجمه %d نقطة و قد يعرقل فعالية استخدام الحاسوب. من المستحسن "
-#~ "أن تختار حجماً أقلّ من %d."
+#~ "أن تختار حجمًا أقلّ من %d."
 
 #~ msgid ""
 #~ "The font selected is %d point large, and may make it difficult to "
@@ -1505,16 +1518,16 @@ msgstr "إعدادات X"
 #~ "sized font."
 #~ msgstr[0] ""
 #~ "الخط المنتقى حجمه نقطة واحدة و قد يعرقل فعالية استخدام الحاسوب. من "
-#~ "المستحسن أن تختار خطّاً بحجمٍ أصغر."
+#~ "المستحسن أن تختار خطًّا بحجمٍ أصغر."
 #~ msgstr[1] ""
 #~ "الخط المنتقى حجمه نقطتان و قد يعرقل فعالية استخدام الحاسوب. من المستحسن "
-#~ "أن تختار خطّاً بحجمٍ أصغر."
+#~ "أن تختار خطًّا بحجمٍ أصغر."
 #~ msgstr[2] ""
 #~ "الخط المنتقى حجمه %d نقاط و قد يعرقل فعالية استخدام الحاسوب. من المستحسن "
-#~ "أن تختار خطّاً بحجمٍ أصغر."
+#~ "أن تختار خطًّا بحجمٍ أصغر."
 #~ msgstr[3] ""
 #~ "الخط المنتقى حجمه %d نقطة و قد يعرقل فعالية استخدام الحاسوب. من المستحسن "
-#~ "أن تختار خطّاً بحجمٍ أصغر."
+#~ "أن تختار خطًّا بحجمٍ أصغر."
 
 #~ msgid "Use previous font"
 #~ msgstr "استخدم الخط السابق"
@@ -1545,13 +1558,13 @@ msgstr "إعدادات X"
 #~ msgstr "استخدم الخ_ط"
 
 #~ msgid "The current theme suggests a background and a font."
-#~ msgstr "السمة الحالية تقترح خلفية وخطاً."
+#~ msgstr "السمة الحالية تقترح خلفية وخطًا."
 
 #~ msgid "The current theme suggests a background."
 #~ msgstr "السمة الحالية تقترح خلفية."
 
 #~ msgid "The current theme suggests a font."
-#~ msgstr "السمة الحالية تقترح خطاً."
+#~ msgstr "السمة الحالية تقترح خطًا."
 
 #~ msgid "Custom"
 #~ msgstr "مخصص"
@@ -1926,7 +1939,7 @@ msgstr "إعدادات X"
 #~ msgstr "يجب أن يكون اسم السِمة موجودا"
 
 #~ msgid "The theme already exists. Would you like to replace it?"
-#~ msgstr "هذه السِمة موجودة أصلاً. أتريد استبدالها؟"
+#~ msgstr "هذه السِمة موجودة أصلًا. أتريد استبدالها؟"
 
 #~ msgid "_Overwrite"
 #~ msgstr "ك_تابة فوقية"
@@ -2377,9 +2390,6 @@ msgstr "إعدادات X"
 #~ msgid "Change screen resolution"
 #~ msgstr "غيِّر استبانة الشاشة"
 
-#~ msgid "Screen Resolution"
-#~ msgstr "استبانة الشاشة"
-
 #~ msgid "Normal"
 #~ msgstr "عادي"
 
@@ -2523,7 +2533,7 @@ msgstr "إعدادات X"
 #~ "To edit a shortcut key, click on the corresponding row and type a new "
 #~ "accelerator, or press backspace to clear."
 #~ msgstr ""
-#~ "لتحرير مفتاح اختصار انقر السّطر المقابل و أدخل مسرّعاً جديداً أو اضغط مفتاح "
+#~ "لتحرير مفتاح اختصار انقر السّطر المقابل و أدخل مسرّعًا جديدًا أو اضغط مفتاح "
 #~ "التّراجع للإخلاء."
 
 #~ msgid "Assign shortcut keys to commands"
@@ -2574,7 +2584,7 @@ msgstr "إعدادات X"
 #~ msgstr "اختر طراز لوحة المفاتيح"
 
 #~ msgid "Choose a Layout"
-#~ msgstr "اختر تصميماً"
+#~ msgstr "اختر تصميمًا"
 
 #~ msgid "Choose..."
 #~ msgstr "اختر..."
@@ -2610,7 +2620,7 @@ msgstr "إعدادات X"
 #~ "Lock screen after a certain duration to help prevent repetitive keyboard "
 #~ "use injuries"
 #~ msgstr ""
-#~ "اقفل الشاشة بعد مدّة معيّنة للحماية من إستخدامات ممنوعة و متكرّرة للوحة "
+#~ "أقفل الشاشة بعد مدّة معيّنة للحماية من إستخدامات ممنوعة و متكرّرة للوحة "
 #~ "المفاتيح"
 
 #~ msgid "Microsoft Natural Keyboard"
@@ -3132,7 +3142,7 @@ msgstr "إعدادات X"
 #~ msgstr "لا يوجد ملف علامات مرجعية صالح في مجلدات البيانات"
 
 #~ msgid "A bookmark for URI '%s' already exists"
-#~ msgstr "هناك علامة مرجعية للعنوان '%s' موجودة مسبقاً"
+#~ msgstr "هناك علامة مرجعية للعنوان '%s' موجودة مسبقًا"
 
 #~ msgid "No bookmark found for URI '%s'"
 #~ msgstr "لا علامات مرجعية موجودة للعنوان '%s'"
@@ -3502,7 +3512,7 @@ msgstr "إعدادات X"
 #~ msgstr "تنسيق الملف غير صحيح."
 
 #~ msgid "Do _not show this warning again"
-#~ msgstr "لا _تظهر هذا التحذير مجدداً."
+#~ msgstr "لا _تظهر هذا التحذير مجددًا."
 
 #~ msgid ""
 #~ "<b>The X system keyboard settings differ from your current GNOME keyboard "
@@ -3649,8 +3659,8 @@ msgstr "إعدادات X"
 #~ "\"Theme Preferences\" dialog was improperly installed, or you haven't "
 #~ "installed the \"gnome-themes\" package."
 #~ msgstr ""
-#~ "لم يُعثر سِمات بِنظامك. قد يعني ذلك أن حوار \"تفضيلات السِمة\" ثُبِّت بشكل "
-#~ "خاطيء، أو أنّك لم تُثبيت حزمة \"سِمات جنوم\" (gnome-themes)."
+#~ "لم يُعثر سِمات بِنظامك. قد يعني ذلك أن حوار \"تفضيلات السِمة\" ثُبِّت بشكل خاطئ، "
+#~ "أو أنّك لم تُثبيت حزمة \"سِمات جنوم\" (gnome-themes)."
 
 #~ msgid "The theme file location specified to install is invalid"
 #~ msgstr "موقع ملف السِمة المحدّد لتثبيتها غير صحيح."
