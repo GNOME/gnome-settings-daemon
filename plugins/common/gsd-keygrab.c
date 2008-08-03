@@ -30,19 +30,42 @@
 #include <gdk/gdkkeysyms.h>
 #endif
 
+#include "eggaccelerators.h"
+
 #include "gsd-keygrab.h"
 
-/* we exclude shift, GDK_CONTROL_MASK and GDK_MOD1_MASK since we know what
-   these modifiers mean
-   these are the mods whose combinations are bound by the keygrabbing code */
-#define GSD_IGNORED_MODS (0x2000 /*Xkb modifier*/ | GDK_LOCK_MASK | GDK_HYPER_MASK)
+/* these are the mods whose combinations are ignored by the keygrabbing code */
+static GdkModifierType gsd_ignored_mods = 0;
 
 /* these are the ones we actually use for global keys, we always only check
  * for these set */
-#define GSD_USED_MODS (GDK_SHIFT_MASK | GDK_CONTROL_MASK |\
-		       GDK_MOD1_MASK | GDK_MOD2_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK |\
-		       GDK_MOD5_MASK | GDK_SUPER_MASK | GDK_META_MASK)
+static GdkModifierType gsd_used_mods = 0;
 
+static void
+setup_modifiers ()
+{
+        if (gsd_used_mods == 0 || gsd_ignored_mods == 0) {
+                GdkModifierType dynmods;
+
+                /* default modifiers */
+                gsd_ignored_mods = \
+                        0x2000 /*Xkb modifier*/ | GDK_LOCK_MASK | GDK_HYPER_MASK;
+		gsd_used_mods = \
+                        GDK_SHIFT_MASK | GDK_CONTROL_MASK |\
+                        GDK_MOD1_MASK | GDK_MOD2_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK |\
+                        GDK_MOD5_MASK | GDK_SUPER_MASK | GDK_META_MASK;
+
+                /* NumLock can be assigned to varying keys so we need to
+                 * resolve and ignore it specially */
+                dynmods = 0;
+                egg_keymap_resolve_virtual_modifiers (gdk_keymap_get_default (),
+                                                      EGG_VIRTUAL_NUM_LOCK_MASK,
+                                                      &dynmods);
+
+                gsd_ignored_mods |= dynmods;
+                gsd_used_mods &= ~dynmods;
+	}
+}
 
 static gboolean
 grab_key_real (guint      keycode,
@@ -86,7 +109,11 @@ grab_key (Key                 *key,
         int   bit;
         int   bits_set_cnt;
         int   uppervalue;
-        guint mask = GSD_IGNORED_MODS & ~key->state & GDK_MODIFIER_MASK;
+        guint mask;
+
+        setup_modifiers ();
+
+        mask = gsd_ignored_mods & ~key->state & GDK_MODIFIER_MASK;
 
         bit = 0;
         /* store the indexes of all set bits in mask in the array */
@@ -162,6 +189,8 @@ match_key (Key *key, XEvent *event)
 	if (key == NULL)
 		return FALSE;
 
+	setup_modifiers ();
+
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
 	if (have_xkb (event->xkey.display))
 		group = XkbGroupForCoreState (event->xkey.state);
@@ -184,11 +213,11 @@ match_key (Key *key, XEvent *event)
 			consumed &= ~GDK_SHIFT_MASK;
 
 		return ((lower == key->keysym || upper == key->keysym)
-			&& (event->xkey.state & ~consumed & GSD_USED_MODS) == key->state);
+			&& (event->xkey.state & ~consumed & gsd_used_mods) == key->state);
 	}
 
 	/* The key we passed doesn't have a keysym, so try with just the keycode */
         return (key != NULL
                 && key->keycode == event->xkey.keycode
-                && key->state == (event->xkey.state & GSD_USED_MODS));
+                && key->state == (event->xkey.state & gsd_used_mods));
 }

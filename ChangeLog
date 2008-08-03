@@ -1,3 +1,10 @@
+2008-08-03  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/common/gsd-keygrab.c: (setup_modifiers), (grab_key),
+	(match_key): resolve NumLock dynamically and make sure we ignore it
+	so using e.g. the media keys works even when NumLock is on (still
+	bug #165343)
+
 Tue Jul 29 01:09:46 2008  Søren Sandmann  <sandmann@redhat.com>
 
 	* plugins/xrandr/gsd-xrandr-manager.c (start_or_stop_icon): Make
