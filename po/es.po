@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-15 21:29+0000\n"
-"PO-Revision-Date: 2008-07-16 18:35+0200\n"
+"POT-Creation-Date: 2008-08-02 09:49+0000\n"
+"PO-Revision-Date: 2008-08-03 19:36+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -204,6 +204,16 @@ msgstr "Mostrar errores de arranque"
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
 msgid "Start screensaver"
 msgstr "Iniciar el salvapantallas"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr "Indica si se debería mostrar en el panel un icono de notificación con elementos relacionados con la pantalla."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr "Mostrar las pantallas en el área de notificación"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -665,7 +675,9 @@ msgstr "No se pudieron activar las características de accesibilidad del ratón"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr "La accesibilidad del ratón requiere que los ajustes finos del ratón estén instalados en su sistema."
+msgstr ""
+"La accesibilidad del ratón requiere que los ajustes finos del ratón estén "
+"instalados en su sistema."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
@@ -711,39 +723,39 @@ msgstr "Complemento de salvapantallas"
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "No es posible cargar el archivo de sonido %s como muestra %s"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
 msgstr "Entrada"
 
-#: ../plugins/sound/libsounds/sound-view.c:45
+#: ../plugins/sound/libsounds/sound-view.c:44
 msgid "Logout"
 msgstr "Salida"
 
-#: ../plugins/sound/libsounds/sound-view.c:46
+#: ../plugins/sound/libsounds/sound-view.c:45
 msgid "Boing"
 msgstr "Boing"
 
-#: ../plugins/sound/libsounds/sound-view.c:47
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
 msgstr "Sirena"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr "Clink"
 
-#: ../plugins/sound/libsounds/sound-view.c:49
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
 msgstr "Bip"
 
-#: ../plugins/sound/libsounds/sound-view.c:50
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
 msgstr "Sin sonido"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
 msgstr "No hay un sonido para este evento."
 
-#: ../plugins/sound/libsounds/sound-view.c:141
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
@@ -752,24 +764,24 @@ msgstr ""
 "Quizá quiera instalar el paquete gnome-audio para tener\n"
 "un conjunto de sonidos predeterminados."
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "No existe el archivo de sonido correspondiente a este evento."
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "Seleccione un archivo de sonido"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "El archivo %s no es un archivo wav válido"
 
-#: ../plugins/sound/libsounds/sound-view.c:271
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
 msgstr "Seleccione un archivo de sonido…"
 
-#: ../plugins/sound/libsounds/sound-view.c:373
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
 msgstr "Sonidos del sistema"
 
@@ -797,15 +809,15 @@ msgstr "Establecer los ajustes de tamaño y rotación de la pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:192
+#: ../plugins/xrandr/gsd-xrandr-manager.c:198
 msgid "Screen Rotation"
 msgstr "Rotación de la pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:197
-msgid "_Configure Display Settings"
-msgstr "_Configurar los ajustes de la pantalla"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:203
+msgid "_Configure Display Settings ..."
+msgstr "_Configurar los ajustes de la pantalla..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:242
+#: ../plugins/xrandr/gsd-xrandr-manager.c:248
 msgid "Configure display settings"
 msgstr "Configurar los ajustes de la pantalla"
 
@@ -822,7 +834,7 @@ msgstr "Gestionar la base de datos de recursos de las X"
 msgid "X Resource Database"
 msgstr "Base de datos de recursos de las X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:605
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr ""
