@@ -328,7 +328,7 @@ AM_CONDITIONAL(HAVE_ALSA, test x"$have_alsa" = "xyes")
 # ---------------------------------------------------------------------------
 # Enable Legacy Sound Preference
 # ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(PULSEAUDIO, libpulse, have_pulseaudio=yes, AC_MSG_RESULT([no]))
+PKG_CHECK_MODULES(PULSEAUDIO, libpulse, have_pulseaudio=yes, have_pulseaudio=no)
 if test x$have_pulseaudio = xyes; then
 	default_enable_legacy_sound_pref=no
 else
