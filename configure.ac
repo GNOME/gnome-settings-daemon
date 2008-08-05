@@ -84,18 +84,14 @@ AC_PATH_PROG(GCONFTOOL, gconftool-2)
 AM_GCONF_SOURCE_2
 
 dnl ---------------------------------------------------------------------------
-dnl - Is a new enough libnotify available?
+dnl - Check for libnotify
 dnl ---------------------------------------------------------------------------
 
-if $PKG_CONFIG --atleast-version $LIBNOTIFY_REQUIRED_VERSION libnotify; then
-   have_libnotify=yes
-   PKG_CHECK_MODULES(LIBNOTIFY, libnotify >= $LIBNOTIFY_REQUIRED_VERSION)
-   AC_SUBST(LIBNOTIFY_CFLAGS)
-   AC_SUBST(LIBNOTIFY_LIBS)
-   AC_DEFINE(HAVE_LIBNOTIFY, 1, [Building with libnotify support])
-else
-   have_libnotify=no
-fi
+PKG_CHECK_MODULES(LIBNOTIFY, libnotify >= $LIBNOTIFY_REQUIRED_VERSION,
+		  [AC_DEFINE(HAVE_LIBNOTIFY, 1, [Define if libnotify is available])
+                  have_libnotify=yes], [have_libnotify=no])
+AC_SUBST(LIBNOTIFY_CFLAGS)
+AC_SUBST(LIBNOTIFY_LIBS)
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for D-Bus
@@ -197,7 +193,7 @@ have_fontconfig=no
 PKG_CHECK_MODULES(FONTCONFIG, fontconfig,
 		  [AC_DEFINE(HAVE_FONTCONFIG, 1, [Define if Fontconfig functionality is available])
 		   have_fontconfig=yes],
-		  AC_MSG_RESULT([no]))
+		  [have_fontconfig=no])
 AM_CONDITIONAL(HAVE_FONTCONFIG, test x"$have_fontconfig" = "xyes")
 
 dnl ---------------------------------------------------------------------------
