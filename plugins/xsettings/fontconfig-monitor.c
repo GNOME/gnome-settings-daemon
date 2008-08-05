@@ -46,10 +46,7 @@ monitor_files (GPtrArray *monitors,
 
                 file = g_file_new_for_path (str);
 
-                if (g_file_test (str, G_FILE_TEST_IS_DIR))
-                        monitor = g_file_monitor_directory (file, G_FILE_MONITOR_NONE, NULL, NULL);
-                else
-                        monitor = g_file_monitor_file      (file, G_FILE_MONITOR_NONE, NULL, NULL);
+                monitor = g_file_monitor (file, G_FILE_MONITOR_NONE, NULL, NULL);
 
                 g_object_unref (file);
 
@@ -130,7 +127,7 @@ stuff_changed (GFileMonitor *monitor G_GNUC_UNUSED,
         /* wait for quiescence */
         if (handle->timeout)
                 g_source_remove (handle->timeout);
-        
+
         handle->timeout = g_timeout_add_seconds (TIMEOUT_SECONDS, update, data);
 }
 
