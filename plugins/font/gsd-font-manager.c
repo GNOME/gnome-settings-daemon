@@ -45,20 +45,8 @@
 #include "gsd-font-manager.h"
 #include "delayed-dialog.h"
 
-#define GSD_FONT_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_FONT_MANAGER, GsdFontManagerPrivate))
-
-struct GsdFontManagerPrivate
-{
-        gpointer dummy;
-};
-
-enum {
-        PROP_0,
-};
-
 static void     gsd_font_manager_class_init  (GsdFontManagerClass *klass);
 static void     gsd_font_manager_init        (GsdFontManager      *font_manager);
-static void     gsd_font_manager_finalize    (GObject             *object);
 
 G_DEFINE_TYPE (GsdFontManager, gsd_font_manager, G_TYPE_OBJECT)
 
@@ -414,49 +402,18 @@ gsd_font_manager_constructor (GType                  type,
 }
 
 static void
-gsd_font_manager_dispose (GObject *object)
-{
-        GsdFontManager *font_manager;
-
-        font_manager = GSD_FONT_MANAGER (object);
-
-        G_OBJECT_CLASS (gsd_font_manager_parent_class)->dispose (object);
-}
-
-static void
 gsd_font_manager_class_init (GsdFontManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
         object_class->get_property = gsd_font_manager_get_property;
         object_class->set_property = gsd_font_manager_set_property;
         object_class->constructor = gsd_font_manager_constructor;
-        object_class->dispose = gsd_font_manager_dispose;
-        object_class->finalize = gsd_font_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdFontManagerPrivate));
 }
 
 static void
 gsd_font_manager_init (GsdFontManager *manager)
 {
-        manager->priv = GSD_FONT_MANAGER_GET_PRIVATE (manager);
-
-}
-
-static void
-gsd_font_manager_finalize (GObject *object)
-{
-        GsdFontManager *font_manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_FONT_MANAGER (object));
-
-        font_manager = GSD_FONT_MANAGER (object);
-
-        g_return_if_fail (font_manager->priv != NULL);
-
-        G_OBJECT_CLASS (gsd_font_manager_parent_class)->finalize (object);
 }
 
 GsdFontManager *
