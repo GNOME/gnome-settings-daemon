@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-02 09:49+0000\n"
-"PO-Revision-Date: 2008-08-03 19:36+0200\n"
+"POT-Creation-Date: 2008-08-05 05:32+0000\n"
+"PO-Revision-Date: 2008-08-06 00:14+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -209,7 +209,9 @@ msgstr "Iniciar el salvapantallas"
 msgid ""
 "If a notification icon with display related things should be shown in the "
 "panel."
-msgstr "Indica si se debería mostrar en el panel un icono de notificación con elementos relacionados con la pantalla."
+msgstr ""
+"Indica si se debería mostrar en el panel un icono de notificación con "
+"elementos relacionados con la pantalla."
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "Show Displays in Notification Area"
@@ -449,20 +451,23 @@ msgstr "Accesibilidad del teclado"
 msgid "Accessibility keyboard plugin"
 msgstr "Complemento de accesibilidad del teclado"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:387
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Hubo un error al mostrar la ayuda: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:438
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
 msgid "Do you want to activate Slow Keys?"
 msgstr "¿Desea activar las «Teclas lentas»?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:439
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "¿Desea desactivar las «Teclas lentas»?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:442
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -471,39 +476,62 @@ msgstr ""
 "combinación de teclas para la característica «Teclas lentas», que afecta la "
 "forma en que funciona el teclado."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+msgid "Don't activate"
+msgstr "No activar"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+msgid "Don't deactivate"
+msgstr "No desactivar"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+msgid "Activate"
+msgstr "Activar"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+msgid "Deactivate"
+msgstr "Desactivar"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't activate"
 msgstr "_No activar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't deactivate"
 msgstr "_No desactivar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:452
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Activate"
 msgstr "_Activar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:452
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Deactivate"
 msgstr "_Desactivar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:625
 msgid "Slow Keys Alert"
 msgstr "Alerta de teclas lentas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:488
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do you want to activate Sticky Keys?"
 msgstr "¿Quiere activar las «Teclas persistentes»?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:489
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "¿Desea desactivar las «Teclas persistentes»?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -512,7 +540,8 @@ msgstr ""
 "la característica «Teclas persistentes», que afecta la manera en que funciona "
 "el teclado."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:494
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -522,9 +551,50 @@ msgstr ""
 "veces seguidas. Esto desactiva la característica de «Teclas persistentes», lo "
 "cual afecta a la forma en que funciona su teclado."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:770
 msgid "Sticky Keys Alert"
 msgstr "Alerta de teclas persistentes"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:888
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+msgid "Universal Access Preferences"
+msgstr "Preferencias de acceso universal"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr "Realzar _contraste en los colores"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr "Hacer el _texto más grande y fácil de leer"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "Pulsar y _mantener las teclas para aceptarlas (teclas lentas)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr "Usar teclado en pan_talla"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr "Usar _magnificador de pantalla"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr "Usar _lector de pantalla"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "_Ignorar las pulsaciones de (teclas repetidas)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr "_Pulsar los atajos de teclado uno cada vez (teclas persistentes)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:10
+msgid "gtk-close"
+msgstr "gtk-close"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
