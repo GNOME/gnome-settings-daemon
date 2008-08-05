@@ -48,6 +48,7 @@ GTK_REQUIRED_VERSION=2.10.0
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.15.0
 GNOME_DESKTOP_REQUIRED_VERSION=2.23.5
+LIBNOTIFY_REQUIRED_VERSION=0.4.3
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -81,6 +82,20 @@ AC_PATH_XTRA
 AC_PATH_PROG(GCONFTOOL, gconftool-2)
 
 AM_GCONF_SOURCE_2
+
+dnl ---------------------------------------------------------------------------
+dnl - Is a new enough libnotify available?
+dnl ---------------------------------------------------------------------------
+
+if $PKG_CONFIG --atleast-version $LIBNOTIFY_REQUIRED_VERSION libnotify; then
+   have_libnotify=yes
+   PKG_CHECK_MODULES(LIBNOTIFY, libnotify >= $LIBNOTIFY_REQUIRED_VERSION)
+   AC_SUBST(LIBNOTIFY_CFLAGS)
+   AC_SUBST(LIBNOTIFY_LIBS)
+   AC_DEFINE(HAVE_LIBNOTIFY, 1, [Building with libnotify support])
+else
+   have_libnotify=no
+fi
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for D-Bus

@@ -1,3 +1,55 @@
+2008-08-05  William Jon McCann  <jmccann@redhat.com>
+
+	* configure.ac:
+	* plugins/a11y-keyboard/Makefile.am:
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c (get_int),
+	(set_clear), (maybe_show_status_icon), (on_notification_closed),
+	(on_slow_keys_action), (on_sticky_keys_action),
+	(ax_slowkeys_warning_post_bubble),
+	(ax_slowkeys_warning_post_dialog), (ax_slowkeys_warning_post),
+	(ax_stickykeys_warning_post_bubble),
+	(ax_stickykeys_warning_post_dialog), (ax_stickykeys_warning_post),
+	(set_gconf_from_server), (keyboard_callback),
+	(gsd_a11y_keyboard_manager_start),
+	(gsd_a11y_keyboard_manager_stop), (on_preferences_dialog_response),
+	(on_status_icon_activate), (gsd_a11y_keyboard_manager_init):
+	* plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c
+	(gsd_a11y_preferences_dialog_set_property),
+	(gsd_a11y_preferences_dialog_get_property),
+	(gsd_a11y_preferences_dialog_constructor),
+	(gsd_a11y_preferences_dialog_dispose),
+	(gsd_a11y_preferences_dialog_class_init), (on_response),
+	(config_get_string), (config_get_bool), (dpi_from_pixels_and_mm),
+	(get_dpi_from_x_server), (config_get_large_print),
+	(config_set_large_print), (config_get_high_contrast),
+	(config_set_high_contrast), (config_get_sticky_keys),
+	(config_set_sticky_keys), (config_get_bounce_keys),
+	(config_set_bounce_keys), (config_get_slow_keys),
+	(config_set_slow_keys), (config_have_at_gconf_condition),
+	(config_get_at_screen_reader), (config_get_at_screen_keyboard),
+	(config_get_at_screen_magnifier), (config_set_at_screen_reader),
+	(config_set_at_screen_keyboard), (config_set_at_screen_magnifier),
+	(on_sticky_keys_checkbutton_toggled),
+	(on_bounce_keys_checkbutton_toggled),
+	(on_slow_keys_checkbutton_toggled),
+	(on_high_contrast_checkbutton_toggled),
+	(on_at_screen_reader_checkbutton_toggled),
+	(on_at_screen_keyboard_checkbutton_toggled),
+	(on_at_screen_magnifier_checkbutton_toggled),
+	(on_large_print_checkbutton_toggled), (ui_set_sticky_keys),
+	(ui_set_bounce_keys), (ui_set_slow_keys), (ui_set_high_contrast),
+	(ui_set_at_screen_reader), (ui_set_at_screen_keyboard),
+	(ui_set_at_screen_magnifier), (ui_set_large_print),
+	(key_changed_cb), (setup_dialog),
+	(gsd_a11y_preferences_dialog_init),
+	(gsd_a11y_preferences_dialog_finalize),
+	(gsd_a11y_preferences_dialog_new):
+	* plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade:
+	* plugins/a11y-keyboard/gsd-a11y-preferences-dialog.h:
+	Add status icon when a11y hotkeys are enabled.  Display
+	Universal Access Preferences when it is clicked.
+	Fixes #526070
+
 2008-08-04  Jens Granseuer  <jensgr@gmx.net>
 
 	* configure.ac: fix PulseAudio check to not output "no" twice
