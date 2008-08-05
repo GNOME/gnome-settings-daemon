@@ -1,6 +1,6 @@
 NULL =
 
-gladedir = $(pkgdatadir)/a11y-keyboard
+gladedir = $(pkgdatadir)
 glade_DATA = 					\
 	gsd-a11y-preferences-dialog.glade	\
 	$(NULL)
