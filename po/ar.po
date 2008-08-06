@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-29 02:16+0100\n"
+"POT-Creation-Date: 2008-08-06 09:19+0100\n"
 "PO-Revision-Date: 2008-02-26 10:13+0100\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -201,6 +201,16 @@ msgstr "اظهر أخطاء بدء التشغيل"
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
 msgid "Start screensaver"
 msgstr "ابدأ حافظة الشاشة"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr ""
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -408,20 +418,23 @@ msgstr "إتاحة لوحة المفاتيح"
 msgid "Accessibility keyboard plugin"
 msgstr "ملحق إتاحة لوحة المفاتيح"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:387
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "حدث خطأ عند عرض المساعدة: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:438
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
 msgid "Do you want to activate Slow Keys?"
 msgstr "أتريد تفعيل المفاتيح البطيئة؟"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:439
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "أتريد تعطيل المفاتيح البطيئة؟"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:442
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -429,39 +442,66 @@ msgstr ""
 "لقد ضغطت مفتاح Shift لثمان ثوان. إنّ هذا إختصار ميزة المفاتيح البطيئة المؤثّر "
 "على طريقة عمل لوحة مفاتيحك."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+#, fuzzy
+msgid "Don't activate"
+msgstr "_لا تنشط"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+#, fuzzy
+msgid "Don't deactivate"
+msgstr "_لا تعطل"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+#, fuzzy
+msgid "Activate"
+msgstr "_نَشِّط"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+#, fuzzy
+msgid "Deactivate"
+msgstr "_عَطِّل"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't activate"
 msgstr "_لا تنشط"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't deactivate"
 msgstr "_لا تعطل"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:452
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Activate"
 msgstr "_نَشِّط"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:452
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Deactivate"
 msgstr "_عَطِّل"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:625
 msgid "Slow Keys Alert"
 msgstr "تنبيه المفاتيح البطيئة"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:488
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do you want to activate Sticky Keys?"
 msgstr "أتريد تفعيل المفاتيح اللاصقة؟"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:489
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "أتريد تعطيل المفاتيح اللاصقة؟"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -469,7 +509,8 @@ msgstr ""
 "لقد نقرت مفتاح Shift خمس مرات متتالية. هذا اختصار ميزة المفاتيح اللاصقة "
 "المؤثّر على طريقة عمل لوحة مفاتيحك."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:494
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -478,9 +519,55 @@ msgstr ""
 "لقد ضغطت على مفتاحان في آن واحد أو نقرت مفتاح Shift خمس مرّات متتالية. يعطّل "
 "هذا ميزة المفاتيح اللاصقة المؤثّر على طريقة عمل لوحة مفاتيحك."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:770
 msgid "Sticky Keys Alert"
 msgstr "تنبيه المفاتيح اللاصقة"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:888
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+#, fuzzy
+msgid "Universal Access Preferences"
+msgstr "تفضيلات المظهر"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+#, fuzzy
+msgid "Use on-screen _keyboard"
+msgstr "لوحة المفاتيح البسيطة على الشاشة"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+#, fuzzy
+msgid "Use screen _reader"
+msgstr "قارئ شاشة لينوكس"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+#, fuzzy
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "_تجاهل النقرات المضاعفة للمفاتيح خلال:"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:10
+#, fuzzy
+msgid "gtk-close"
+msgstr "gtk-delete"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -514,7 +601,7 @@ msgstr "الخطوط"
 msgid "Font plugin"
 msgstr "ملحق الخط"
 
-#: ../plugins/font/gsd-font-manager.c:219
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -523,7 +610,7 @@ msgstr ""
 "لم يمكن إنشاء الدليل \"%s\".\n"
 "هذا مطلوب حتى يمكن تغيير سِمة مؤشر الفأرة."
 
-#: ../plugins/font/gsd-font-manager.c:242
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -763,16 +850,16 @@ msgstr "اختر إعدادات حجم الشاشة والدوران"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:192
+#: ../plugins/xrandr/gsd-xrandr-manager.c:198
 #, fuzzy
 msgid "Screen Rotation"
 msgstr "استبانة الشاشة"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:197
-msgid "_Configure Display Settings"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:203
+msgid "_Configure Display Settings ..."
 msgstr ""
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:242
+#: ../plugins/xrandr/gsd-xrandr-manager.c:248
 msgid "Configure display settings"
 msgstr ""
 
@@ -1401,9 +1488,6 @@ msgstr "إعدادات X"
 #~ msgid "Filters"
 #~ msgstr "مرشِّحات"
 
-#~ msgid "I_gnore duplicate keypresses within:"
-#~ msgstr "_تجاهل النقرات المضاعفة للمفاتيح خلال:"
-
 #~ msgid ""
 #~ "Ignore all subsequent presses of the SAME key if they happen within a "
 #~ "user selectable period of time."
@@ -1589,9 +1673,6 @@ msgstr "إعدادات X"
 
 #~ msgid "<b>_Wallpaper</b>"
 #~ msgstr "<b>خلفي_ة الشاشة</b>"
-
-#~ msgid "Appearance Preferences"
-#~ msgstr "تفضيلات المظهر"
 
 #~ msgid "Best _shapes"
 #~ msgstr "أفضل أ_شكال"
@@ -2309,9 +2390,6 @@ msgstr "إعدادات X"
 #~ msgid "Links Text Browser"
 #~ msgstr "متصفح Links النصي"
 
-#~ msgid "Linux Screen Reader"
-#~ msgstr "قارئ شاشة لينوكس"
-
 #~ msgid "Linux Screen Reader with Magnifier"
 #~ msgstr "قارئ شاشة لينوكس مع المكبّر"
 
@@ -2362,9 +2440,6 @@ msgstr "إعدادات X"
 
 #~ msgid "SeaMonkey Mail"
 #~ msgstr "بريد قرد البحر"
-
-#~ msgid "Simple OnScreen Keyboard"
-#~ msgstr "لوحة المفاتيح البسيطة على الشاشة"
 
 #~ msgid "Standard XTerminal"
 #~ msgstr "طرفيّة X القياسيّة"
@@ -3528,9 +3603,6 @@ msgstr "إعدادات X"
 #~ " المُتَوَقَّع كان %s، لكن عُثِر على الإعدادت التالية: %s.\n"
 #~ "\n"
 #~ "أي الإعدادات تريد استعماله؟"
-
-#~ msgid "gtk-delete"
-#~ msgstr "gtk-delete"
 
 #~ msgid "<b>Applications</b>"
 #~ msgstr "<b>تطبيقات</b>"
