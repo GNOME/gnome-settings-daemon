@@ -111,15 +111,15 @@ on_client_message (GdkXEvent  *xevent,
 {
         GnomeRRScreen *screen = data;
         XEvent *ev = (XEvent *)xevent;
-        
+
         if (ev->type == ClientMessage		&&
             ev->xclient.message_type == gnome_randr_xatom()) {
-                
+
                 gnome_rr_config_apply_stored (screen);
-                
+
                 return GDK_FILTER_REMOVE;
         }
-        
+
         /* Pass the event on to GTK+ */
         return GDK_FILTER_CONTINUE;
 }
@@ -144,7 +144,7 @@ event_filter (GdkXEvent           *xevent,
                  * configurations, and save them
                  */
                 gnome_rr_config_apply_stored (manager->priv->rw_screen);
-                
+
                 return GDK_FILTER_CONTINUE;
         }
 
@@ -158,7 +158,7 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
 
         if (!manager->priv->running)
                 return;
-        
+
         /* FIXME: Set up any new screens here */
 }
 
@@ -246,7 +246,7 @@ status_icon_start (GsdXrandrManager *manager)
         if (!priv->status_icon) {
                 priv->status_icon = gtk_status_icon_new_from_icon_name (GSD_XRANDR_ICON_NAME);
                 gtk_status_icon_set_tooltip (priv->status_icon, _("Configure display settings"));
-                
+
                 g_signal_connect (priv->status_icon, "activate",
                                   G_CALLBACK (status_icon_activate_cb), manager);
                 g_signal_connect (priv->status_icon, "popup-menu",
@@ -264,7 +264,7 @@ status_icon_stop (GsdXrandrManager *manager)
                         priv->status_icon, G_CALLBACK (status_icon_activate_cb), manager);
                 g_signal_handlers_disconnect_by_func (
                         priv->status_icon, G_CALLBACK (status_icon_popup_menu_cb), manager);
-                
+
                 g_object_unref (priv->status_icon);
                 priv->status_icon = NULL;
         }
@@ -301,20 +301,19 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
 
         g_assert (manager->priv->notify_id == 0);
 
-        g_warning ("adding dir %s\n", CONF_DIR);
         gconf_client_add_dir (manager->priv->client, CONF_DIR,
                               GCONF_CLIENT_PRELOAD_NONE,
                               NULL);
-        
+
         manager->priv->notify_id =
                 gconf_client_notify_add (
                         manager->priv->client, CONF_DIR,
                         (GConfClientNotifyFunc)on_config_changed,
                         manager, NULL, NULL);
-        
+
         if (manager->priv->keycode) {
                 gdk_error_trap_push ();
-                
+
                 XGrabKey (gdk_x11_get_default_xdisplay(),
                           manager->priv->keycode, AnyModifier,
                           gdk_x11_get_default_root_xwindow(),
@@ -323,19 +322,19 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                 gdk_flush ();
                 gdk_error_trap_pop ();
         }
-        
+
         gnome_rr_config_apply_stored (manager->priv->rw_screen);
-        
+
         gdk_window_add_filter (gdk_get_default_root_window(),
                                (GdkFilterFunc)event_filter,
                                manager);
-        
+
         gdk_add_client_message_filter (gnome_randr_atom(),
                                        on_client_message,
                                        manager->priv->rw_screen);
 
         start_or_stop_icon (manager);
-        
+
         return TRUE;
 }
 
@@ -347,7 +346,7 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         manager->priv->running = FALSE;
 
         gdk_error_trap_push ();
-        
+
         XUngrabKey (gdk_x11_get_default_xdisplay(),
                     manager->priv->keycode, AnyModifier,
                     gdk_x11_get_default_root_xwindow());
@@ -451,7 +450,7 @@ gsd_xrandr_manager_init (GsdXrandrManager *manager)
         Display *dpy = gdk_x11_get_default_xdisplay ();
         guint keyval = gdk_keyval_from_name (VIDEO_KEYSYM);
         guint keycode = XKeysymToKeycode (dpy, keyval);
-        
+
         manager->priv = GSD_XRANDR_MANAGER_GET_PRIVATE (manager);
 
         manager->priv->keycode = keycode;
