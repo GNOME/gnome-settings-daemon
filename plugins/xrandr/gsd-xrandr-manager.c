@@ -455,7 +455,7 @@ gsd_xrandr_manager_init (GsdXrandrManager *manager)
 
         manager->priv->keycode = keycode;
         manager->priv->rw_screen = gnome_rr_screen_new (
-                gdk_screen_get_default(), on_randr_event, NULL);
+                gdk_screen_get_default (), on_randr_event, manager);
 }
 
 static void

@@ -1,5 +1,11 @@
 2008-08-08  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/xrandr/gsd-xrandr-manager.c: (gsd_xrandr_manager_init):
+	pass the manager as callback data so we don't crash with a NULL
+	pointer in on_randr_event
+
+2008-08-08  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/xrandr/gsd-xrandr-manager.c: (gsd_xrandr_manager_start):
 	remove warning that isn't
 
