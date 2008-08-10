@@ -296,6 +296,12 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
 {
         g_debug ("Starting xrandr manager");
 
+        if (manager->priv->rw_screen == NULL) {
+                g_set_error (error, 0, 0, "Failed to initialize XRandR extension");
+                return FALSE;
+        }
+ 
+
         manager->priv->running = TRUE;
         manager->priv->client = gconf_client_get_default ();
 
