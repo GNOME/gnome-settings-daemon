@@ -79,10 +79,6 @@ struct GsdXrandrManagerPrivate
         int notify_id;
 };
 
-enum {
-        PROP_0,
-};
-
 static void     gsd_xrandr_manager_class_init  (GsdXrandrManagerClass *klass);
 static void     gsd_xrandr_manager_init        (GsdXrandrManager      *xrandr_manager);
 static void     gsd_xrandr_manager_finalize    (GObject             *object);
@@ -296,11 +292,13 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
 {
         g_debug ("Starting xrandr manager");
 
+        manager->priv->rw_screen = gnome_rr_screen_new (
+                gdk_screen_get_default (), on_randr_event, manager);
+
         if (manager->priv->rw_screen == NULL) {
                 g_set_error (error, 0, 0, "Failed to initialize XRandR extension");
                 return FALSE;
         }
- 
 
         manager->priv->running = TRUE;
         manager->priv->client = gconf_client_get_default ();
@@ -335,6 +333,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                                (GdkFilterFunc)event_filter,
                                manager);
 
+        /* FIXME: need to remove this in _stop */
         gdk_add_client_message_filter (gnome_randr_atom(),
                                        on_client_message,
                                        manager->priv->rw_screen);
@@ -359,6 +358,10 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
 
         gdk_error_trap_pop ();
 
+        gdk_window_remove_filter (gdk_get_default_root_window (),
+                                  (GdkFilterFunc) event_filter,
+                                  manager);
+
         if (manager->priv->notify_id != 0) {
                 gconf_client_remove_dir (manager->priv->client,
                                          CONF_DIR, NULL);
@@ -370,6 +373,11 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         if (manager->priv->client != NULL) {
                 g_object_unref (manager->priv->client);
                 manager->priv->client = NULL;
+        }
+
+        if (manager->priv->rw_screen != NULL) {
+                gnome_rr_screen_destroy (manager->priv->rw_screen);
+                manager->priv->rw_screen = NULL;
         }
 
         status_icon_stop (manager);
@@ -460,8 +468,6 @@ gsd_xrandr_manager_init (GsdXrandrManager *manager)
         manager->priv = GSD_XRANDR_MANAGER_GET_PRIVATE (manager);
 
         manager->priv->keycode = keycode;
-        manager->priv->rw_screen = gnome_rr_screen_new (
-                gdk_screen_get_default (), on_randr_event, manager);
 }
 
 static void
