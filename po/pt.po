@@ -6,28 +6,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 2.22\n"
+"Project-Id-Version: 2.24\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-26 21:06-0500\n"
-"PO-Revision-Date: 2008-02-16 18:20+0000\n"
+"POT-Creation-Date: 2008-08-12 21:06+0100\n"
+"PO-Revision-Date: 2008-08-12 21:15+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:1
-msgid ""
-"Set to True to keep the handlers for text/plain and text/* MIME types "
-"synchronized."
-msgstr ""
-"Definir como Verdadeiro para manter sincronizados os manipuladores dos tipos "
-"MIME text/plain e text/*."
-
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:2
-msgid "Sync text/plain and text/* handlers"
-msgstr "Sincronizar manipuladores text/plain e text/*"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -210,6 +198,18 @@ msgstr "Apresentar os erros no arranque"
 msgid "Start screensaver"
 msgstr "Iniciar o protector de ecrã"
 
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr ""
+"Se deverá ou não ser apresentado no painel um ícone de notificação com "
+"informação relacionada com o ecrã."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr "Apresentar Ecrãs na Área de Notificação"
+
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
 msgstr "Antialiasing"
@@ -267,6 +267,10 @@ msgstr ""
 "moderadas, e \"full\" para dicas máximas (poderá causar distorção na forma "
 "das letras)."
 
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "Daemon de Definições GNOME"
+
 #: ../data/gnome-settings-daemon.schemas.in.h:1
 msgid "Enable accessibility keyboard plugin"
 msgstr "Activar o plugin de acessibilidade de teclado"
@@ -280,12 +284,12 @@ msgid "Enable clipboard plugin"
 msgstr "Activar o plugin de área de transferência"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Enable default editor plugin"
-msgstr "Activar o plugin de editor por omissão"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:5
 msgid "Enable font plugin"
 msgstr "Activar o plgin de fontes"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Enable housekeeping plugin"
+msgstr "Activar o plugin de limpeza"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
@@ -328,67 +332,68 @@ msgid "Enable xsettings plugin"
 msgstr "Activar o plugin xsettings"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:16
+msgid ""
+"Set to True to enable the housekeeping plugin, to prune transient file "
+"caches."
+msgstr ""
+"Definir como Verdadeiro para activar o plugin de limpeza, para esvaziar "
+"caches temporárias de ficheiros."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "Definir como Verdadeiro para activar o plugin para gerir as definições de "
 "área de transferência."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Definir como Verdadeiro para activar o plugin para gerir as definições de "
 "fundo."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 "Definir como Verdadeiro para activar o plugin para gerir as definições de "
 "fonte."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 "Definir como Verdadeiro para activar o plugin para gerir as definições de "
 "teclado."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 "Definir como Verdadeiro para activar o plugin para gerir as definições de "
 "rato."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Definir como Verdadeiro para activar o plugin para gerir as definições de "
 "teclas multimedia."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr ""
 "Definir como Verdadeiro para activar o plugin para gerir as definições de "
 "protecção de ecrã."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Set to True to enable the plugin to manage sound settings."
 msgstr ""
 "Definir como Verdadeiro para activar o plugin para gerir as definições de "
 "som."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr ""
 "Definir como Verdadeiro para activar o plugin para gerir as definições de "
 "acessibilidade do teclado."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid ""
-"Set to True to enable the plugin to manage the default text editor setting."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"editor de texto por omissão."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
@@ -420,11 +425,15 @@ msgstr ""
 "Definir como Verdadeiro para activar o plugin para gerir as definições de "
 "xsettings."
 
-#: ../gnome-settings-daemon/main.c:49
+#: ../gnome-settings-daemon/main.c:50
+msgid "Enable debugging code"
+msgstr "Activar o código de depuração"
+
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr "Não se tornar num daemon"
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr "Prefixo GConf do qual ler as definições de plugins"
 
@@ -436,20 +445,23 @@ msgstr "Acessibilidade do Teclado"
 msgid "Accessibility keyboard plugin"
 msgstr "Plugin de acessibilidade do teclado"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:393
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Ocorreu um erro ao apresentar a ajuda: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:445
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
 msgid "Do you want to activate Slow Keys?"
 msgstr "Deseja activar as Teclas Lentas?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:446
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Deseja desactivar as Teclas Lentas?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -458,39 +470,62 @@ msgstr ""
 "para a funcionalidade de Teclas Lentas, que afecta a forma como o seu "
 "teclado funciona."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+msgid "Don't activate"
+msgstr "Não activar"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+msgid "Don't deactivate"
+msgstr "Não desactivar"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+msgid "Activate"
+msgstr "Activar"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+msgid "Deactivate"
+msgstr "Desactivar"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't activate"
 msgstr "_Não activar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't deactivate"
 msgstr "_Não desactivar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Activate"
 msgstr "_Activar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Deactivate"
 msgstr "_Desactivar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:625
 msgid "Slow Keys Alert"
 msgstr "Alerta de Teclas Lentas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:495
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Deseja activar as Teclas Coladas?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:496
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Deseja desactivar as Teclas Coladas?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:499
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -499,7 +534,8 @@ msgstr ""
 "funcionalidade de Teclas Coladas, que afecta a forma como o seu teclado "
 "funciona."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -509,9 +545,50 @@ msgstr ""
 "seguidas.  Isto desactiva a funcionalidade de Teclas Coladas, que afecta a "
 "forma como o seu teclado funciona."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:770
 msgid "Sticky Keys Alert"
 msgstr "Alerta de Teclas Coladas"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:888
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+msgid "Universal Access Preferences"
+msgstr "Preferências de Acesso Universal"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr "Aumentar o _contraste nas cores"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr "Tornar o _texto maior e mais fácil de ler"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "Premir e _manter teclas para as aceitar (Teclas Lentas)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr "Utilizar teclado no _ecrã"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr "Utilizar a_pliação de ecrã"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr "Utilizar locução de ec_rã"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "_Ignorar pressões de tecla duplicadas (Teclas Saltantes)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr "_Premir atalhos de teclado uma tecla de cada vez (Teclas Coladas)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:10
+msgid "gtk-close"
+msgstr "gtk-fechar"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -545,7 +622,7 @@ msgstr "Fonte"
 msgid "Font plugin"
 msgstr "Plugin de fonte"
 
-#: ../plugins/font/gsd-font-manager.c:208
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -554,7 +631,7 @@ msgstr ""
 "Incapaz de criar o directório \"%s\".\n"
 "Isto é necessário para permitir alterar o tema de cursor do rato."
 
-#: ../plugins/font/gsd-font-manager.c:231
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -563,37 +640,17 @@ msgstr ""
 "Incapaz de criar o directório \"%s\".\n"
 "Isto é necessário para permitir alterar cursores."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:195
+#: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
-msgid "Key Binding (%s) has its action defined multiple times\n"
-msgstr "Atalho de Teclado (%s) tem a sua acção definida múltiplas vezes\n"
+msgid "Key binding (%s) is incomplete"
+msgstr "Atalho de teclado (%s) está incompleto"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:202
+#: ../plugins/keybindings/gsd-keybindings-manager.c:222
 #, c-format
-msgid "Key Binding (%s) has its binding defined multiple times\n"
-msgstr "Atalho de Teclado (%s) tem a sua associação definida múltiplas vezes\n"
+msgid "Key binding (%s) is invalid"
+msgstr "Atalho de teclado (%s) é inválido"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:211
-#, c-format
-msgid "Key Binding (%s) is incomplete\n"
-msgstr "Atalho de Teclado (%s) está incompleto\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:239
-#, c-format
-msgid "Key Binding (%s) is invalid\n"
-msgstr "Atalho de Teclado (%s) é inválido\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:292
-#, c-format
-msgid "It seems that another application already has access to key '%u'."
-msgstr "Parece que outra aplicação já tem acesso à tecla '%u'."
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:365
-#, c-format
-msgid "Key Binding (%s) is already in use\n"
-msgstr "Atalho de Teclado (%s) já está a ser utilizado\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:502
+#: ../plugins/keybindings/gsd-keybindings-manager.c:409
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -642,11 +699,7 @@ msgstr "_Ler"
 msgid "_Loaded files:"
 msgstr "Ficheiros _lidos:"
 
-#: ../plugins/media-keys/actions/acme.glade.h:1
-msgid "Volume"
-msgstr "Volume"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:183
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -654,7 +707,7 @@ msgstr ""
 "Incapaz de obter consola por omissão. Certifique-se de que o comando de "
 "consola por omissão está definido e aponta para uma aplicação válida."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:223
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -663,7 +716,7 @@ msgstr ""
 "Incapaz de executar o comando: %s\n"
 "Certifique-se de que este comando é válido."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
+#: ../plugins/media-keys/gsd-media-keys-manager.c:239
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -679,19 +732,18 @@ msgstr "Teclas de Media"
 msgid "Media keys plugin"
 msgstr "Plugin de teclas de media"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:566
+#: ../plugins/mouse/gsd-mouse-manager.c:571
 msgid "Could not enable mouse accessibility features"
 msgstr "Incapaz de activar as funcionalidades de acessibilidade do rato"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:568
+#: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
+"Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
-"A acessibilidade de rato necessita que o daemon mousetweaks esteja instalado "
+"A acessibilidade de rato necessita que o mousetweaks esteja instalado "
 "no seu sistema."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
 msgstr "Preferências de Rato"
 
@@ -703,7 +755,7 @@ msgstr "Rato"
 msgid "Mouse plugin"
 msgstr "Plugin de rato"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:151
+#: ../plugins/screensaver/gsd-screensaver-manager.c:153
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -718,7 +770,7 @@ msgstr ""
 "\n"
 "O protector de ecrã não funcionará nesta sessão."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:160
+#: ../plugins/screensaver/gsd-screensaver-manager.c:162
 msgid "_Do not show this message again"
 msgstr "_Não apresentar novamente esta mensagem"
 
@@ -730,44 +782,44 @@ msgstr "Protector de Ecrã"
 msgid "Screensaver plugin"
 msgstr "Plugin de protecção de ecrã"
 
-#: ../plugins/sound/gsd-sound-manager.c:164
+#: ../plugins/sound/gsd-sound-manager.c:273
 #, c-format
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "Incapaz de ler ficheiro de som %s como amostra %s"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
 msgstr "Iniciar Sessão"
 
-#: ../plugins/sound/libsounds/sound-view.c:45
+#: ../plugins/sound/libsounds/sound-view.c:44
 msgid "Logout"
 msgstr "Terminar Sessão"
 
-#: ../plugins/sound/libsounds/sound-view.c:46
+#: ../plugins/sound/libsounds/sound-view.c:45
 msgid "Boing"
 msgstr "Boing"
 
-#: ../plugins/sound/libsounds/sound-view.c:47
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
 msgstr "Sirene"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr "Clinque"
 
-#: ../plugins/sound/libsounds/sound-view.c:49
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
 msgstr "Beep"
 
-#: ../plugins/sound/libsounds/sound-view.c:50
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
 msgstr "Nenhum som"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
 msgstr "Sons não definido para este evento."
 
-#: ../plugins/sound/libsounds/sound-view.c:141
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
@@ -776,24 +828,24 @@ msgstr ""
 "Poderá desejar instalar o pacote gnome-audio que contêm um conjunto de sons "
 "por omissão."
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "O ficheiro de som para este evento não existe."
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "Seleccione um Ficheiro de Som"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "O ficheiro %s não é um ficheiro wav válido"
 
-#: ../plugins/sound/libsounds/sound-view.c:271
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
 msgstr "Seleccionar um ficheiro de som..."
 
-#: ../plugins/sound/libsounds/sound-view.c:373
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
 msgstr "Sons de Sistema"
 
@@ -821,8 +873,20 @@ msgstr "Definir um tamanho de ecrã e definições de rotação"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrdb/gsd-xrdb-manager.c:258
-#: ../plugins/xrdb/gsd-xrdb-manager.c:327
+#: ../plugins/xrandr/gsd-xrandr-manager.c:197
+msgid "Screen Rotation"
+msgstr "Rotação de Ecrã"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:202
+msgid "_Configure Display Settings ..."
+msgstr "_Configurar as Definições de Ecrã ..."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:244
+msgid "Configure display settings"
+msgstr "Configurar as definições de ecrã"
+
+#: ../plugins/xrdb/gsd-xrdb-manager.c:255
+#: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
 msgstr "Incapaz de determinar directório pessoal do utilizador"
 
@@ -834,7 +898,7 @@ msgstr "Gerir a base de dados de recursos X"
 msgid "X Resource Database"
 msgstr "Base de Dados de Recursos X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:551
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr ""
@@ -847,6 +911,42 @@ msgstr "Gerir as Definições X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Definições X"
+
+#~ msgid ""
+#~ "Set to True to keep the handlers for text/plain and text/* MIME types "
+#~ "synchronized."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para manter sincronizados os manipuladores dos "
+#~ "tipos MIME text/plain e text/*."
+
+#~ msgid "Sync text/plain and text/* handlers"
+#~ msgstr "Sincronizar manipuladores text/plain e text/*"
+
+#~ msgid "Enable default editor plugin"
+#~ msgstr "Activar o plugin de editor por omissão"
+
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage the default text editor "
+#~ "setting."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "editor de texto por omissão."
+
+#~ msgid "Key Binding (%s) has its action defined multiple times\n"
+#~ msgstr "Atalho de Teclado (%s) tem a sua acção definida múltiplas vezes\n"
+
+#~ msgid "Key Binding (%s) has its binding defined multiple times\n"
+#~ msgstr ""
+#~ "Atalho de Teclado (%s) tem a sua associação definida múltiplas vezes\n"
+
+#~ msgid "It seems that another application already has access to key '%u'."
+#~ msgstr "Parece que outra aplicação já tem acesso à tecla '%u'."
+
+#~ msgid "Key Binding (%s) is already in use\n"
+#~ msgstr "Atalho de Teclado (%s) já está a ser utilizado\n"
+
+#~ msgid "Volume"
+#~ msgstr "Volume"
 
 #~ msgid "Default Editor"
 #~ msgstr "Editor Por Omissão"
