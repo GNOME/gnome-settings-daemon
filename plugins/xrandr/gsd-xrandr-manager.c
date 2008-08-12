@@ -233,10 +233,7 @@ status_icon_start (GsdXrandrManager *manager)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
 
-        /* FIXME: We may want to make this icon optional (with a GConf key,
-         * toggled from a checkbox in gnome-display-properties.
-         *
-         * Or ideally, we should detect if we are on a tablet and only display
+        /* Ideally, we should detect if we are on a tablet and only display
          * the icon in that case.
          */
         if (!priv->status_icon) {
