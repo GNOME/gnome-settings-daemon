@@ -1,5 +1,16 @@
 2008-08-12  Jens Granseuer  <jensgr@gmx.net>
 
+	Even if we can't properly remove a client message handler at least
+	make sure everything works as expected when enabling/disabling the
+	plugin at runtime
+
+	* plugins/xrandr/gsd-xrandr-manager.c: (on_client_message),
+	(gsd_xrandr_manager_start): pass the manager as user data instead of
+	the screen because the manager will remain stable during the lifetime
+	of the daemon; also, don't filter messages when the plugin is disabled
+
+2008-08-12  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/xrandr/gsd-xrandr-manager.c: (status_icon_start): remove
 	obsolete comment
 

@@ -73,6 +73,7 @@ struct GsdXrandrManagerPrivate
         guint keycode;
         GnomeRRScreen *rw_screen;
         gboolean running;
+        gboolean client_filter_set;
 
         GtkStatusIcon *status_icon;
         GConfClient *client;
@@ -105,11 +106,13 @@ on_client_message (GdkXEvent  *xevent,
 		   GdkEvent   *event,
 		   gpointer    data)
 {
-        GnomeRRScreen *screen = data;
+        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
+        GnomeRRScreen *screen = manager->priv->rw_screen;
         XEvent *ev = (XEvent *)xevent;
 
-        if (ev->type == ClientMessage		&&
-            ev->xclient.message_type == gnome_randr_xatom()) {
+        if (manager->priv->running &&
+            ev->type == ClientMessage &&
+            ev->xclient.message_type == gnome_randr_xatom ()) {
 
                 gnome_rr_config_apply_stored (screen);
 
@@ -330,10 +333,14 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                                (GdkFilterFunc)event_filter,
                                manager);
 
-        /* FIXME: need to remove this in _stop */
-        gdk_add_client_message_filter (gnome_randr_atom(),
-                                       on_client_message,
-                                       manager->priv->rw_screen);
+        if (!manager->priv->client_filter_set) {
+                /* FIXME: need to remove this in _stop;
+                 * for now make sure to only add it once */
+                gdk_add_client_message_filter (gnome_randr_atom (),
+                                               on_client_message,
+                                               manager);
+                manager->priv->client_filter_set = TRUE;
+        }
 
         start_or_stop_icon (manager);
 
