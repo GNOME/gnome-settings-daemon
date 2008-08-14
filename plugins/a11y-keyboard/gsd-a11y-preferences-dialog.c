@@ -71,10 +71,11 @@
  */
 #define DPI_LOW_REASONABLE_VALUE 50
 #define DPI_HIGH_REASONABLE_VALUE 500
+
 #define DPI_LARGE_FONT   120
 #define DPI_LARGER_FONT  144
 #define DPI_LARGEST_FONT 192
-#define DPI_DEFAULT    96
+#define DPI_DEFAULT      96
 
 #define KEY_GTK_THEME          "/desktop/gnome/interface/gtk_theme"
 #define KEY_COLOR_SCHEME       "/desktop/gnome/interface/gtk_color_scheme"
@@ -225,21 +226,6 @@ config_get_bool (const char *key,
 }
 
 static double
-dpi_from_pixels_and_mm (int pixels,
-                        int mm)
-{
-        double dpi;
-
-        if (mm >= 1) {
-                dpi = pixels / (mm / 25.4);
-        } else {
-                dpi = 0;
-        }
-
-        return dpi;
-}
-
-static double
 get_dpi_from_x_server (void)
 {
         GdkScreen *screen;
@@ -247,19 +233,10 @@ get_dpi_from_x_server (void)
 
         screen = gdk_screen_get_default ();
         if (screen != NULL) {
-                double width_dpi;
-                double height_dpi;
-
-                width_dpi = dpi_from_pixels_and_mm (gdk_screen_get_width (screen),
-                                                    gdk_screen_get_width_mm (screen));
-                height_dpi = dpi_from_pixels_and_mm (gdk_screen_get_height (screen),
-                                                     gdk_screen_get_height_mm (screen));
-
-                if (width_dpi < DPI_LOW_REASONABLE_VALUE || width_dpi > DPI_HIGH_REASONABLE_VALUE ||
-                    height_dpi < DPI_LOW_REASONABLE_VALUE || height_dpi > DPI_HIGH_REASONABLE_VALUE) {
+                dpi = gdk_screen_get_resolution (screen);
+                if (dpi < DPI_LOW_REASONABLE_VALUE || dpi > DPI_HIGH_REASONABLE_VALUE ||
+                    dpi < DPI_LOW_REASONABLE_VALUE || dpi > DPI_HIGH_REASONABLE_VALUE) {
                         dpi = DPI_DEFAULT;
-                } else {
-                        dpi = (width_dpi + height_dpi) / 2.0;
                 }
         } else {
                 /* Huh!?  No screen? */
