@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-05 19:52+0700\n"
-"PO-Revision-Date: 2008-07-05 19:53+0700\n"
+"POT-Creation-Date: 2008-08-15 17:04+0700\n"
+"PO-Revision-Date: 2008-08-15 17:18+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -198,6 +198,16 @@ msgstr "เตือนถ้าผิดพลาดเมื่อเริ่
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
 msgid "Start screensaver"
 msgstr "เปิดโปรแกรมรักษาหน้าจอ"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr "กำหนดว่าจะแสดงไอคอนเกี่ยวกับดิสเพลย์ในพาเนลหรือไม่"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr "แสดงดิสเพลย์ในพื้นที่แจ้งเหตุ"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -399,20 +409,23 @@ msgstr "สิ่งอำนวยความสะดวกสำหรับ
 msgid "Accessibility keyboard plugin"
 msgstr "ปลั๊กอินจัดการสิ่งอำนวยความสะดวกสำหรับแป้นพิมพ์"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:387
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "เกิดข้อผิดพลาดขณะแสดงวิธีใช้: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:438
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
 msgid "Do you want to activate Slow Keys?"
 msgstr "จะเริ่มใช้การพิมพ์แบบช้าหรือไม่?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:439
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "จะเลิกใช้การพิมพ์แบบช้าหรือไม่?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:442
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -420,39 +433,62 @@ msgstr ""
 "คุณเพิ่งกดปุ่ม Shift ค้างไว้แปดวินาที นี่เป็นสัญญาณเรียกใช้การพิมพ์แบบช้า "
 "ซึ่งจะมีผลต่อการทำงานของแป้นพิมพ์"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+msgid "Don't activate"
+msgstr "ไม่เริ่มใช้"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+msgid "Don't deactivate"
+msgstr "ไม่เลิกใช้"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+msgid "Activate"
+msgstr "เริ่มใช้"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+msgid "Deactivate"
+msgstr "เลิกใช้"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't activate"
 msgstr "ไ_ม่เริ่มใช้"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't deactivate"
 msgstr "ไ_ม่เลิกใช้"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:452
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Activate"
 msgstr "เ_ริ่มใช้"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:452
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Deactivate"
 msgstr "เ_ลิกใช้"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:625
 msgid "Slow Keys Alert"
 msgstr "เริ่มใช้การพิมพ์แบบช้า"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:488
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do you want to activate Sticky Keys?"
 msgstr "จะเริ่มใช้การค้างปุ่มกดหรือไม่?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:489
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "จะเลิกใช้การค้างปุ่มกดหรือไม่?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -460,7 +496,8 @@ msgstr ""
 "คุณเพิ่งกดปุ่ม Shift ห้าครั้งต่อเนื่องกัน นี่เป็นสัญญาณเรียกใช้การค้างปุ่มกด "
 "ซึ่งจะมีผลต่อการทำงานของแป้นพิมพ์"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:494
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -469,9 +506,50 @@ msgstr ""
 "คุณเพิ่งกดสองปุ่มพร้อมกัน หรือกดปุ่ม Shift ห้าครั้งต่อเนื่องกัน นี่เป็นสัญญาณสำหรับปิดการค้างปุ่มกด "
 "ซึ่งจะมีผลต่อการทำงานของแป้นพิมพ์"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:770
 msgid "Sticky Keys Alert"
 msgstr "เลิกใช้การค้างปุ่มกด"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:865
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+msgid "Universal Access Preferences"
+msgstr "ปรับแต่งการอำนวยความสะดวกทั่วไป"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr "เพิ่มความ_ต่างของสี"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr "แสดงตัว_อักษรใหญ่ขึ้นเพื่อให้อ่านง่าย"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "รับปุ่มกดแบบแ_ช่ (การพิมพ์แบบช้า)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr "ใช้แ_ป้นพิมพ์บนจอภาพ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr "ใช้แว่น_ขยายจอภาพ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr "ใช้โปรแกรมอ่านออกเ_สียงจอภาพ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "_ละเลยปุ่มกดซ้ำ (ป้องกันการกดแป้นรัว)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr "_กดปุ่มลัดโดยกดทีละปุ่ม (การค้างปุ่มกด)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:10
+msgid "gtk-close"
+msgstr "gtk-close"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -505,7 +583,7 @@ msgstr "แบบอักษร"
 msgid "Font plugin"
 msgstr "ปลั๊กอินจัดการแบบอักษร"
 
-#: ../plugins/font/gsd-font-manager.c:219
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -514,7 +592,7 @@ msgstr ""
 "ไม่สามารถสร้างโฟลเดอร์ \"%s\"\n"
 "ซึ่งจำเป็นสำหรับการเปลี่ยนชุดรูปแบบตัวชี้ของเมาส์"
 
-#: ../plugins/font/gsd-font-manager.c:242
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -621,9 +699,8 @@ msgstr "ไม่สามารถเปิดใช้สิ่งอำนว
 
 #: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
-msgstr "การใช้สิ่งอำนวยความสะดวกสำหรับเมาส์ ต้องติดตั้งดีมอน mousetweaks ในระบบด้วย"
+"Mouse accessibility requires mousetweaks to be installed on your system."
+msgstr "การใช้สิ่งอำนวยความสะดวกสำหรับเมาส์ ต้องติดตั้ง mousetweaks ในระบบด้วย"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
@@ -669,39 +746,39 @@ msgstr "ปลั๊กอินจัดการโปรแกรมรัก
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "ไม่สามารถเรียกแฟ้มเสียง %s เป็นตัวอย่างเสียง %s"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
 msgstr "เข้าระบบ"
 
-#: ../plugins/sound/libsounds/sound-view.c:45
+#: ../plugins/sound/libsounds/sound-view.c:44
 msgid "Logout"
 msgstr "ออกจากระบบ"
 
-#: ../plugins/sound/libsounds/sound-view.c:46
+#: ../plugins/sound/libsounds/sound-view.c:45
 msgid "Boing"
 msgstr "แจ้งเพื่อทราบ"
 
-#: ../plugins/sound/libsounds/sound-view.c:47
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
 msgstr "ผิดพลาด"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr "คลิก"
 
-#: ../plugins/sound/libsounds/sound-view.c:49
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
 msgstr "โผล่"
 
-#: ../plugins/sound/libsounds/sound-view.c:50
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
 msgstr "ไม่ใช้เสียง"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
 msgstr "ไม่ได้กำหนดเสียงสำหรับเหตุการณ์นี้ไว้"
 
-#: ../plugins/sound/libsounds/sound-view.c:141
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
@@ -709,24 +786,24 @@ msgstr ""
 "หาแฟ้มเสียงสำหรับเหตุการณ์นี้ไม่พบ\n"
 "ถ้าคุณต้องการชุดเสียงปริยาย กรุณาติดตั้ง gnome-audio"
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "หาแฟ้มเสียงสำหรับเหตุการณ์นี้ไม่พบ"
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "เลือกแฟ้มเสียง"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "แฟ้ม %s ไม่ใช่แฟ้ม wav ที่ใช้การได้"
 
-#: ../plugins/sound/libsounds/sound-view.c:271
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
 msgstr "เลือกแฟ้มเสียง..."
 
-#: ../plugins/sound/libsounds/sound-view.c:373
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
 msgstr "เสียงของระบบ"
 
@@ -754,15 +831,15 @@ msgstr "ตั้งค่าความละเอียดของจอภ
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:193
+#: ../plugins/xrandr/gsd-xrandr-manager.c:197
 msgid "Screen Rotation"
 msgstr "การหมุนหน้าจอ"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:198
-msgid "_Configure Display Settings"
-msgstr "_ตั้งค่าหน้าจอ"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:202
+msgid "_Configure Display Settings ..."
+msgstr "_ตั้งค่าหน้าจอ ..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:241
+#: ../plugins/xrandr/gsd-xrandr-manager.c:244
 msgid "Configure display settings"
 msgstr "ตั้งค่าหน้าจอ"
 
@@ -779,7 +856,7 @@ msgstr "จัดการฐานข้อมูลทรัพยากรข
 msgid "X Resource Database"
 msgstr "ฐานข้อมูลทรัพยากรของ X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:605
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "คีย์ GConf %s ถูกกำหนดเป็นชนิด %s แต่ควรจะเป็น %s\n"
