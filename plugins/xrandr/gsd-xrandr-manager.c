@@ -304,7 +304,19 @@ title_item_size_allocate_cb (GtkWidget *widget, GtkAllocation *allocation, gpoin
         gtk_menu_item_toggle_size_allocate (GTK_MENU_ITEM (widget), 0);
 
         g_signal_handlers_block_by_func (widget, title_item_size_allocate_cb, NULL);
+
+        /* Sigh. There is no way to turn on GTK_ALLOC_NEEDED outside of GTK+
+         * itself; also, since calling size_allocate on a widget with the same
+         * allcation is a no-op, we need to allocate with a "different" size
+         * first.
+         */
+
+        allocation->width++;
         gtk_widget_size_allocate (widget, allocation);
+
+        allocation->width--;
+        gtk_widget_size_allocate (widget, allocation);
+
         g_signal_handlers_unblock_by_func (widget, title_item_size_allocate_cb, NULL);
 }
 
