@@ -442,10 +442,18 @@ add_items_for_rotations (GsdXrandrManager *manager, GnomeOutputInfo *output, Gno
 
         struct GsdXrandrManagerPrivate *priv = manager->priv;
         int i;
-        GtkWidget *item;
+        GSList *group;
+        GtkWidget *active_item;
+        gulong active_item_activate_id;
+
+        group = NULL;
+        active_item = NULL;
+        active_item_activate_id = 0;
 
         for (i = 0; i < G_N_ELEMENTS (rotations); i++) {
                 GnomeRRRotation rot;
+                GtkWidget *item;
+                gulong activate_id;
 
                 rot = rotations[i].rotation;
 
@@ -457,16 +465,35 @@ add_items_for_rotations (GsdXrandrManager *manager, GnomeOutputInfo *output, Gno
                         continue;
                 }
 
-                item = gtk_menu_item_new_with_label (_(rotations[i].name));
+                item = gtk_radio_menu_item_new_with_label (group, _(rotations[i].name));
                 gtk_widget_show_all (item);
                 gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
 
                 g_object_set_data (G_OBJECT (item), "output", output);
                 g_object_set_data (G_OBJECT (item), "rotation", GINT_TO_POINTER (rot));
 
-                g_signal_connect (item, "activate",
-                                  G_CALLBACK (output_rotation_item_activate_cb), manager);
+                activate_id = g_signal_connect (item, "activate",
+                                                G_CALLBACK (output_rotation_item_activate_cb), manager);
+
+                group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+
+                if (rot == output->rotation) {
+                        active_item = item;
+                        active_item_activate_id = activate_id;
+                }
         }
+
+        if (active_item) {
+                /* Block the signal temporarily so our callback won't be called;
+                 * we are just setting up the UI.
+                 */
+                g_signal_handler_block (active_item, active_item_activate_id);
+
+                gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (active_item), TRUE);
+
+                g_signal_handler_unblock (active_item, active_item_activate_id);
+        }
+
 }
 
 static void
