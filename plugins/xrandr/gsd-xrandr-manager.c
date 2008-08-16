@@ -281,6 +281,33 @@ output_title_label_after_expose_event_cb (GtkWidget *widget, GdkEventExpose *eve
         return FALSE;
 }
 
+static void
+title_item_size_allocate_cb (GtkWidget *widget, GtkAllocation *allocation, gpointer data)
+{
+        /* When GtkMenu does size_request on its items, it asks them for their "toggle size",
+         * which will be non-zero when there are check/radio items.  GtkMenu remembers
+         * the largest of those sizes.  During the size_allocate pass, GtkMenu calls
+         * gtk_menu_item_toggle_size_allocate() with that value, to tell the menu item
+         * that it should later paint its child a bit to the right of its edge.
+         *
+         * However, we want the "title" menu items for each RANDR output to span the *whole*
+         * allocation of the menu item, not just the "allocation minus toggle" area.
+         *
+         * So, we let the menu item size_allocate itself as usual, but this
+         * callback gets run afterward.  Here we hack a toggle size of 0 into
+         * the menu item, and size_allocate it by hand *again*.  We also need to
+         * avoid recursing into this function.
+         */
+
+        g_assert (GTK_IS_MENU_ITEM (widget));
+
+        gtk_menu_item_toggle_size_allocate (GTK_MENU_ITEM (widget), 0);
+
+        g_signal_handlers_block_by_func (widget, title_item_size_allocate_cb, NULL);
+        gtk_widget_size_allocate (widget, allocation);
+        g_signal_handlers_unblock_by_func (widget, title_item_size_allocate_cb, NULL);
+}
+
 static GtkWidget *
 make_menu_item_for_output_title (GsdXrandrManager *manager, GnomeOutputInfo *output)
 {
@@ -289,6 +316,9 @@ make_menu_item_for_output_title (GsdXrandrManager *manager, GnomeOutputInfo *out
         char *str;
 
         item = gtk_menu_item_new ();
+
+        g_signal_connect (item, "size-allocate",
+                          G_CALLBACK (title_item_size_allocate_cb), NULL);
 
         str = g_markup_printf_escaped ("<b>%s</b>", output->display_name);
         label = gtk_label_new (NULL);
