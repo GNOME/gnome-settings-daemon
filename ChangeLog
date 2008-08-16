@@ -4,6 +4,17 @@
 	(get_dpi_from_x_server):
 	Use gdk api to get dpi.
 
+2008-08-13  Federico Mena Quintero  <federico@novell.com>
+
+	* plugins/xrandr/gsd-xrandr-manager.c (status_icon_popup_menu):
+	When the menu comes up, create a GnomeRRLabeler so that the user
+	can identify which physical monitors we are talking about.  This
+	will actually be visible in the popup menu once we implement the
+	rotation commands.
+	(status_icon_popup_menu_selection_done_cb): Hide and destroy the
+	GnomeRRLabeler.
+	(struct GsdXrandrManagerPrivate): New field "labeler".
+
 2008-08-12  Federico Mena Quintero  <federico@novell.com>
 
 	* configure.ac: For LIBSOUNDS, check for libgnomeui, not just libgnome.
@@ -514,7 +525,6 @@ Mon Jun 16 14:30:13 2008  Søren Sandmann  <sandmann@redhat.com>
 	dialog. If we wait until after the dialog is closed, the user can
 	still toggle the settings while it's open
 
->>>>>>> .r314
 2008-04-13  Jens Granseuer  <jensgr@gmx.net>
 
 	Extract some functionality used by several plugins into a separate

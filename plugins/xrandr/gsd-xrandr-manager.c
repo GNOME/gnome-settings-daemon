@@ -42,6 +42,7 @@
 
 #include <libgnomeui/gnome-rr-config.h>
 #include <libgnomeui/gnome-rr.h>
+#include <libgnomeui/gnome-rr-labeler.h>
 
 #ifdef HAVE_RANDR
 #include <X11/extensions/Xrandr.h>
@@ -76,6 +77,9 @@ struct GsdXrandrManagerPrivate
         gboolean client_filter_set;
 
         GtkStatusIcon *status_icon;
+        GtkWidget *popup_menu;
+        GnomeRRConfig *configuration;
+        GnomeRRLabeler *labeler;
         GConfClient *client;
         int notify_id;
 };
@@ -186,30 +190,54 @@ popup_menu_configure_display_cb (GtkMenuItem *item, gpointer data)
 }
 
 static void
+status_icon_popup_menu_selection_done_cb (GtkMenuShell *menu_shell, gpointer data)
+{
+        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+
+        gtk_widget_destroy (priv->popup_menu);
+        priv->popup_menu = NULL;
+
+        gnome_rr_labeler_hide (priv->labeler);
+        g_object_unref (priv->labeler);
+        priv->labeler = NULL;
+
+        gnome_rr_config_free (priv->configuration);
+        priv->configuration = NULL;
+}
+
+static void
 status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
         GtkWidget *menu;
         GtkWidget *item;
 
-        menu = gtk_menu_new ();
+        g_assert (priv->popup_menu == NULL);
+        priv->popup_menu = gtk_menu_new ();
 
         item = gtk_menu_item_new_with_label (_("Screen Rotation"));
         gtk_widget_set_sensitive (item, FALSE);
         gtk_widget_show (item);
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+        gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
 
         item = gtk_menu_item_new_with_mnemonic (_("_Configure Display Settings ..."));
         g_signal_connect (item, "activate",
                           G_CALLBACK (popup_menu_configure_display_cb), manager);
         gtk_widget_show (item);
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+        gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
         /* FIXME */
 
-        g_signal_connect (menu, "selection-done",
-                          G_CALLBACK (gtk_widget_destroy), NULL);
+        g_signal_connect (priv->popup_menu, "selection-done",
+                          G_CALLBACK (status_icon_popup_menu_selection_done_cb), manager);
 
-        gtk_menu_popup (GTK_MENU (menu), NULL, NULL,
+        g_assert (priv->configuration == NULL);
+        priv->configuration = gnome_rr_config_new_current (priv->rw_screen);
+
+        g_assert (priv->labeler == NULL);
+        priv->labeler = gnome_rr_labeler_new (priv->configuration);
+
+        gtk_menu_popup (GTK_MENU (priv->popup_menu), NULL, NULL,
                         gtk_status_icon_position_menu,
                         priv->status_icon, button, timestamp);
 }
