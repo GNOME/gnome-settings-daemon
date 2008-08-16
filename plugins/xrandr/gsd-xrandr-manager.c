@@ -206,9 +206,131 @@ status_icon_popup_menu_selection_done_cb (GtkMenuShell *menu_shell, gpointer dat
         priv->configuration = NULL;
 }
 
+#define OUTPUT_TITLE_ITEM_BORDER 2
+#define OUTPUT_TITLE_ITEM_PADDING 4
+
+/* This is an expose-event hander for the title label for each GnomeRROutput.
+ * We want each title to have a colored background, so we paint that background, then
+ * return FALSE to let GtkLabel expose itself (i.e. paint the label's text), and then
+ * we have a signal_connect_after handler as well.  See the comments below
+ * to see why that "after" handler is needed.
+ */
+static gboolean
+output_title_label_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
+{
+        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        GnomeOutputInfo *output;
+        GdkColor color;
+        cairo_t *cr;
+        GtkWidget *label;
+
+        g_assert (GTK_IS_LABEL (widget));
+
+        output = g_object_get_data (G_OBJECT (widget), "output");
+        g_assert (output != NULL);
+
+        g_assert (priv->labeler != NULL);
+
+        /* Draw a black rectangular border, filled with the color that corresponds to this output */
+
+        gnome_rr_labeler_get_color_for_output (priv->labeler, output, &color);
+
+        cr = gdk_cairo_create (widget->window);
+
+        cairo_set_source_rgb (cr, 0, 0, 0);
+        cairo_set_line_width (cr, OUTPUT_TITLE_ITEM_BORDER);
+        cairo_rectangle (cr,
+                         widget->allocation.x + OUTPUT_TITLE_ITEM_BORDER / 2.0,
+                         widget->allocation.y + OUTPUT_TITLE_ITEM_BORDER / 2.0,
+                         widget->allocation.width - OUTPUT_TITLE_ITEM_BORDER,
+                         widget->allocation.height - OUTPUT_TITLE_ITEM_BORDER);
+        cairo_stroke (cr);
+
+        gdk_cairo_set_source_color (cr, &color);
+        cairo_rectangle (cr,
+                         widget->allocation.x + OUTPUT_TITLE_ITEM_BORDER,
+                         widget->allocation.y + OUTPUT_TITLE_ITEM_BORDER,
+                         widget->allocation.width - 2 * OUTPUT_TITLE_ITEM_BORDER,
+                         widget->allocation.height - 2 * OUTPUT_TITLE_ITEM_BORDER);
+
+        cairo_fill (cr);
+
+        /* We want the label to always show up as if it were sensitive
+         * ("style->fg[GTK_STATE_NORMAL]"), even though the label is insensitive
+         * due to being inside an insensitive menu item.  So, here we have a
+         * HACK in which we frob the label's state directly.  GtkLabel's expose
+         * handler will be run after this function, so it will think that the
+         * label is in GTK_STATE_NORMAL.  We reset the label's state back to
+         * insensitive in output_title_label_after_expose_event_cb().
+         *
+         * Yay for fucking with GTK+'s internals.
+         */
+
+        widget->state = GTK_STATE_NORMAL;
+
+        return FALSE;        
+}
+
+/* See the comment in output_title_event_box_expose_event_cb() about this funny label widget */
+static gboolean
+output_title_label_after_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
+{
+        GtkWidget *label;
+
+        g_assert (GTK_IS_LABEL (widget));
+        widget->state = GTK_STATE_INSENSITIVE;
+
+        return FALSE;
+}
+
+static GtkWidget *
+make_menu_item_for_output_title (GsdXrandrManager *manager, GnomeOutputInfo *output)
+{
+        GtkWidget *item;
+        GtkWidget *label;
+        char *str;
+
+        item = gtk_menu_item_new ();
+
+        str = g_markup_printf_escaped ("<b>%s</b>", output->display_name);
+        label = gtk_label_new (NULL);
+        gtk_label_set_markup (GTK_LABEL (label), str);
+        g_free (str);
+
+        /* Add padding around the label to fit the box that we'll draw for color-coding */
+        gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+        gtk_misc_set_padding (GTK_MISC (label),
+                              OUTPUT_TITLE_ITEM_BORDER + OUTPUT_TITLE_ITEM_PADDING,
+                              OUTPUT_TITLE_ITEM_BORDER + OUTPUT_TITLE_ITEM_PADDING);
+
+        gtk_container_add (GTK_CONTAINER (item), label);
+
+        /* We want to paint a colored box as the background of the label, so we connect
+         * to its expose-event signal.  See the comment in *** to see why need to connect
+         * to the label both 'before' and 'after'.
+         */
+        g_signal_connect (label, "expose-event",
+                          G_CALLBACK (output_title_label_expose_event_cb), manager);
+        g_signal_connect_after (label, "expose-event",
+                                G_CALLBACK (output_title_label_after_expose_event_cb), manager);
+
+        g_object_set_data (G_OBJECT (label), "output", output);
+
+        gtk_widget_set_sensitive (item, FALSE); /* the title is not selectable */
+        gtk_widget_show_all (item);
+
+        return item;
+}
+
 static void
 add_menu_items_for_output (GsdXrandrManager *manager, GnomeOutputInfo *output)
 {
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        GtkWidget *item;
+
+        item = make_menu_item_for_output_title (manager, output);
+        gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
 }
 
 static void
@@ -217,15 +339,16 @@ add_menu_items_for_outputs (GsdXrandrManager *manager)
         struct GsdXrandrManagerPrivate *priv = manager->priv;
         int i;
 
-        for (i = 0; priv->configuration->outputs[i] != NULL; i++)
-                add_menu_items_for_output (manager, priv->configuration->outputs[i]);
+        for (i = 0; priv->configuration->outputs[i] != NULL; i++) {
+                if (priv->configuration->outputs[i]->connected)
+                        add_menu_items_for_output (manager, priv->configuration->outputs[i]);
+        }
 }
 
 static void
 status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
-        GtkWidget *menu;
         GtkWidget *item;
 
         g_assert (priv->configuration == NULL);
