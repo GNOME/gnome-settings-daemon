@@ -7,6 +7,11 @@
 2008-08-13  Federico Mena Quintero  <federico@novell.com>
 
 	* plugins/xrandr/gsd-xrandr-manager.c (status_icon_popup_menu):
+	Add a separator to the menu before "Configure display settings".
+
+2008-08-13  Federico Mena Quintero  <federico@novell.com>
+
+	* plugins/xrandr/gsd-xrandr-manager.c (status_icon_popup_menu):
 	When the menu comes up, create a GnomeRRLabeler so that the user
 	can identify which physical monitors we are talking about.  This
 	will actually be visible in the popup menu once we implement the
