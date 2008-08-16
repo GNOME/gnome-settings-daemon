@@ -207,6 +207,21 @@ status_icon_popup_menu_selection_done_cb (GtkMenuShell *menu_shell, gpointer dat
 }
 
 static void
+add_menu_items_for_output (GsdXrandrManager *manager, GnomeOutputInfo *output)
+{
+}
+
+static void
+add_menu_items_for_outputs (GsdXrandrManager *manager)
+{
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        int i;
+
+        for (i = 0; priv->configuration->outputs[i] != NULL; i++)
+                add_menu_items_for_output (manager, priv->configuration->outputs[i]);
+}
+
+static void
 status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
@@ -222,10 +237,7 @@ status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timesta
         g_assert (priv->popup_menu == NULL);
         priv->popup_menu = gtk_menu_new ();
 
-        item = gtk_menu_item_new_with_label (_("Screen Rotation"));
-        gtk_widget_set_sensitive (item, FALSE);
-        gtk_widget_show (item);
-        gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
+        add_menu_items_for_outputs (manager);
 
         item = gtk_separator_menu_item_new ();
         gtk_widget_show (item);
