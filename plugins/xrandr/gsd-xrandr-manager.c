@@ -213,6 +213,12 @@ status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timesta
         GtkWidget *menu;
         GtkWidget *item;
 
+        g_assert (priv->configuration == NULL);
+        priv->configuration = gnome_rr_config_new_current (priv->rw_screen);
+
+        g_assert (priv->labeler == NULL);
+        priv->labeler = gnome_rr_labeler_new (priv->configuration);
+
         g_assert (priv->popup_menu == NULL);
         priv->popup_menu = gtk_menu_new ();
 
@@ -233,12 +239,6 @@ status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timesta
 
         g_signal_connect (priv->popup_menu, "selection-done",
                           G_CALLBACK (status_icon_popup_menu_selection_done_cb), manager);
-
-        g_assert (priv->configuration == NULL);
-        priv->configuration = gnome_rr_config_new_current (priv->rw_screen);
-
-        g_assert (priv->labeler == NULL);
-        priv->labeler = gnome_rr_labeler_new (priv->configuration);
 
         gtk_menu_popup (GTK_MENU (priv->popup_menu), NULL, NULL,
                         gtk_status_icon_position_menu,
