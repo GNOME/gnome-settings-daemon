@@ -223,7 +223,6 @@ output_title_label_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gp
         GnomeOutputInfo *output;
         GdkColor color;
         cairo_t *cr;
-        GtkWidget *label;
 
         g_assert (GTK_IS_LABEL (widget));
 
@@ -276,8 +275,6 @@ output_title_label_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gp
 static gboolean
 output_title_label_after_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
 {
-        GtkWidget *label;
-
         g_assert (GTK_IS_LABEL (widget));
         widget->state = GTK_STATE_INSENSITIVE;
 
@@ -324,6 +321,166 @@ make_menu_item_for_output_title (GsdXrandrManager *manager, GnomeOutputInfo *out
 }
 
 static void
+get_allowed_rotations_for_output (GsdXrandrManager *manager, GnomeOutputInfo *output, int *out_num_rotations, GnomeRRRotation *out_rotations)
+{
+        static const GnomeRRRotation possible_rotations[] = {
+                GNOME_RR_ROTATION_0,
+                GNOME_RR_ROTATION_90,
+                GNOME_RR_ROTATION_180,
+                GNOME_RR_ROTATION_270
+                /* We don't allow REFLECT_X or REFLECT_Y for now, as gnome-display-properties doesn't allow them, either */
+        };
+                
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        GnomeRRRotation current_rotation;
+        int i;
+
+        *out_num_rotations = 0;
+        *out_rotations = 0;
+
+        current_rotation = output->rotation;
+
+        /* Yay for brute force */
+
+        for (i = 0; i < G_N_ELEMENTS (possible_rotations); i++) {
+                GnomeRRRotation rotation_to_test;
+
+                rotation_to_test = possible_rotations[i];
+
+                output->rotation = rotation_to_test;
+
+                if (gnome_rr_config_applicable (priv->configuration, priv->rw_screen)) {
+                        (*out_num_rotations)++;
+                        (*out_rotations) |= rotation_to_test;
+                }
+        }
+
+        output->rotation = current_rotation;
+
+        if (*out_num_rotations == 0 || *out_rotations == 0) {
+                g_warning ("Huh, output %p says it doesn't support any rotations, and yet it has a current rotation?", output);
+                *out_num_rotations = 1;
+                *out_rotations = output->rotation;
+        }
+}
+
+static void
+add_unsupported_rotation_item (GsdXrandrManager *manager)
+{
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        GtkWidget *item;
+        GtkWidget *label;
+
+        item = gtk_menu_item_new ();
+
+        label = gtk_label_new (NULL);
+        gtk_label_set_markup (GTK_LABEL (label), _("<i>Rotation not supported</i>"));
+        gtk_container_add (GTK_CONTAINER (item), label);
+
+        gtk_widget_show_all (item);
+        gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
+}
+
+static void
+error_dialog (const char *title, const char *msg)
+{
+        GtkWidget *dialog;
+
+        dialog = gtk_message_dialog_new (NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+                                         "%s", title);
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s", msg);
+
+        gtk_dialog_run (GTK_DIALOG (dialog));
+        gtk_widget_destroy (dialog);
+}
+
+static void
+output_rotation_item_activate_cb (GtkMenuItem *item, gpointer data)
+{
+        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        GnomeOutputInfo *output;
+        GnomeRRRotation rotation;
+        GError *error;
+
+        output = g_object_get_data (G_OBJECT (item), "output");
+        rotation = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "rotation"));
+
+        output->rotation = rotation;
+
+        error = NULL;
+        if (gnome_rr_config_save (priv->configuration, &error)) {
+                if (!gnome_rr_config_apply_stored (priv->rw_screen)) {
+                        error_dialog (_("The selected rotation could not be applied"),
+                                      _("An error occurred while configuring the screen"));
+                        /* FIXME: that message is really useless.  Make
+                         * gnome_rr_config_apply_stored() give us a meaningful
+                         * error message!
+                         */
+                }
+        } else {
+                error_dialog (_("The selected rotation could not be applied"),
+                              error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+add_items_for_rotations (GsdXrandrManager *manager, GnomeOutputInfo *output, GnomeRRRotation allowed_rotations)
+{
+        typedef struct {
+                GnomeRRRotation	rotation;
+                const char *	name;
+        } RotationInfo;
+        static const RotationInfo rotations[] = {
+                { GNOME_RR_ROTATION_0, N_("Normal") },
+                { GNOME_RR_ROTATION_90, N_("Left") },
+                { GNOME_RR_ROTATION_270, N_("Right") },
+                { GNOME_RR_ROTATION_180, N_("Upside Down") },
+                /* We don't allow REFLECT_X or REFLECT_Y for now, as gnome-display-properties doesn't allow them, either */
+        };
+
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        int i;
+        GtkWidget *item;
+
+        for (i = 0; i < G_N_ELEMENTS (rotations); i++) {
+                GnomeRRRotation rot;
+
+                rot = rotations[i].rotation;
+
+                item = gtk_menu_item_new_with_label (_(rotations[i].name));
+                gtk_widget_show_all (item);
+                gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
+
+                if ((allowed_rotations & rot) == 0) {
+                        gtk_widget_set_sensitive (item, FALSE);
+                        gtk_widget_set_tooltip_text (item, _("This rotation is not supported"));
+                }
+
+                g_object_set_data (G_OBJECT (item), "output", output);
+                g_object_set_data (G_OBJECT (item), "rotation", GINT_TO_POINTER (rot));
+
+                g_signal_connect (item, "activate",
+                                  G_CALLBACK (output_rotation_item_activate_cb), manager);
+        }
+}
+
+static void
+add_rotation_items_for_output (GsdXrandrManager *manager, GnomeOutputInfo *output)
+{
+        int num_rotations;
+        GnomeRRRotation rotations;
+
+        get_allowed_rotations_for_output (manager, output, &num_rotations, &rotations);
+
+        if (num_rotations == 1)
+                add_unsupported_rotation_item (manager);
+        else
+                add_items_for_rotations (manager, output, rotations);
+}
+
+static void
 add_menu_items_for_output (GsdXrandrManager *manager, GnomeOutputInfo *output)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
@@ -331,6 +488,8 @@ add_menu_items_for_output (GsdXrandrManager *manager, GnomeOutputInfo *output)
 
         item = make_menu_item_for_output_title (manager, output);
         gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
+
+        add_rotation_items_for_output (manager, output);
 }
 
 static void
