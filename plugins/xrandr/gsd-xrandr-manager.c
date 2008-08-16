@@ -449,14 +449,17 @@ add_items_for_rotations (GsdXrandrManager *manager, GnomeOutputInfo *output, Gno
 
                 rot = rotations[i].rotation;
 
+                if ((allowed_rotations & rot) == 0) {
+                        /* don't display items for rotations which are
+                         * unavailable.  Their availability is not under the
+                         * user's control, anyway.
+                         */
+                        continue;
+                }
+
                 item = gtk_menu_item_new_with_label (_(rotations[i].name));
                 gtk_widget_show_all (item);
                 gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
-
-                if ((allowed_rotations & rot) == 0) {
-                        gtk_widget_set_sensitive (item, FALSE);
-                        gtk_widget_set_tooltip_text (item, _("This rotation is not supported"));
-                }
 
                 g_object_set_data (G_OBJECT (item), "output", output);
                 g_object_set_data (G_OBJECT (item), "rotation", GINT_TO_POINTER (rot));
