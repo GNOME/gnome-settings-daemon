@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-05 05:32+0000\n"
-"PO-Revision-Date: 2008-08-06 00:14+0200\n"
+"POT-Creation-Date: 2008-08-16 01:56+0000\n"
+"PO-Revision-Date: 2008-08-17 23:45+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -555,7 +555,7 @@ msgstr ""
 msgid "Sticky Keys Alert"
 msgstr "Alerta de teclas persistentes"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:888
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:865
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
 msgid "Universal Access Preferences"
 msgstr "Preferencias de acceso universal"
@@ -628,7 +628,7 @@ msgstr "Tipografía"
 msgid "Font plugin"
 msgstr "Complemento de tipografía"
 
-#: ../plugins/font/gsd-font-manager.c:219
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -637,7 +637,7 @@ msgstr ""
 "No es posible crear el directorio «%s».\n"
 "Esto es necesario para permitir cambiar el tema del puntero."
 
-#: ../plugins/font/gsd-font-manager.c:242
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -879,15 +879,40 @@ msgstr "Establecer los ajustes de tamaño y rotación de la pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:198
-msgid "Screen Rotation"
-msgstr "Rotación de la pantalla"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:377
+msgid "<i>Rotation not supported</i>"
+msgstr "<i>La rotación no está soportada</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:203
+#: ../plugins/xrandr/gsd-xrandr-manager.c:414
+#: ../plugins/xrandr/gsd-xrandr-manager.c:422
+msgid "The selected rotation could not be applied"
+msgstr "No se pudo aplicar la rotación seleccionada"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:415
+msgid "An error occurred while configuring the screen"
+msgstr "Ocurrió un error al configurar la pantalla"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:436
+msgid "Normal"
+msgstr "Normal"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:437
+msgid "Left"
+msgstr "Izquierda"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:438
+msgid "Right"
+msgstr "Derecha"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:439
+msgid "Upside Down"
+msgstr "Hacia abajo"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:531
 msgid "_Configure Display Settings ..."
 msgstr "_Configurar los ajustes de la pantalla..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:248
+#: ../plugins/xrandr/gsd-xrandr-manager.c:572
 msgid "Configure display settings"
 msgstr "Configurar los ajustes de la pantalla"
 
