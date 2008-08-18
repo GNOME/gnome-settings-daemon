@@ -1,3 +1,39 @@
+===============
+Version 2.23.90
+===============
+- PulseAudio check to not ouput "no" twice (Jens Granseuer)
+- Add status icon when a11y hotkeys are enabled, and display Universal
+  Access preferences when it is clicked (William Jon McCann) (#526070)
+- Simplify libnotify check, fix fontconfig result output (Jens Granseuer)
+- Put the Glade file where all the others are (jens Granseuer)
+- Remove some unnecessary boilerplate (Jens Granseuer)
+- Use g_file_monitor instead of g_file_monitor_file/_directory (Jens
+  Granseuer) (#546372)
+- Remove warning that isn't (Jens Granseuer)
+- Fixed crash in randr startup (Jens Granseuer)
+- Fail xrandr initialization if we couldn't start xrandr (Matthias Clasen)
+  (#546446)
+- Try harder to clean up xrandr in _stop  so we can enable/disable the plugin
+  on the fly (Jens Granseuer)
+- For LIBSOUNDS, check for libgnomeui, not just libgnome (Federico Mena Quintero)
+- Add sexy labels when setting up dual monitors (Federico Mena Quintero)
+- Add a separator to the menu before "Configure display settings" (Federico Mena
+  Quintero)
+- Use GDK to get DPI (William Jon McCann)
+- Updated translations:
+  - ar (Djihed Afifi)
+  - es (Jorge Gonzalez)
+  - et (Priit Laes)
+  - fi (Ilkka Tuohela)
+  - gl (Ignacio Casal Quinteiro)
+  - ja (Takeshi AIHANA)
+  - he (Yair Hershkovitz)
+  - ml (Praveen Arimbrathodiyil)
+  - nb (Kjartan Maraas)
+  - pt (Duarte Loreto)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+  - th (Theppitak Karoonboonyanan)
+
 ==============
 Version 2.23.6
 ==============
