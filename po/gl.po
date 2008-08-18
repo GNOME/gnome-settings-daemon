@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-07 17:54+0200\n"
-"PO-Revision-Date: 2008-08-07 17:55+0200\n"
+"POT-Creation-Date: 2008-08-18 14:38+0200\n"
+"PO-Revision-Date: 2008-08-18 14:38+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -553,7 +553,7 @@ msgstr ""
 msgid "Sticky Keys Alert"
 msgstr "Alerta das teclas persistentes"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:888
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:865
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
 msgid "Universal Access Preferences"
 msgstr "Preferencias do acceso universal"
@@ -878,15 +878,40 @@ msgstr "Establecer a configuración de tamaño e rotación da pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:198
-msgid "Screen Rotation"
-msgstr "Rotación da pantalla"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+msgid "<i>Rotation not supported</i>"
+msgstr "<i>Rotación non soportada</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:203
+#: ../plugins/xrandr/gsd-xrandr-manager.c:456
+#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+msgid "The selected rotation could not be applied"
+msgstr "A rotación seleccionada non se puido aplicar"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:457
+msgid "An error occurred while configuring the screen"
+msgstr "Ocorreu un erro ao configurar a pantalla"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+msgid "Normal"
+msgstr "Normal"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+msgid "Left"
+msgstr "Esquerda"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+msgid "Right"
+msgstr "Dereita"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+msgid "Upside Down"
+msgstr "Para abaixo"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:600
 msgid "_Configure Display Settings ..."
 msgstr "_Configurar os axustes da pantalla..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:248
+#: ../plugins/xrandr/gsd-xrandr-manager.c:641
 msgid "Configure display settings"
 msgstr "Configurar os axustes da pantalla"
 
@@ -916,6 +941,9 @@ msgstr "Xestionar a configuración da pantalla"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Configuración das X"
+
+#~ msgid "Screen Rotation"
+#~ msgstr "Rotación da pantalla"
 
 #~ msgid ""
 #~ "Set to True to keep the handlers for text/plain and text/* MIME types "
