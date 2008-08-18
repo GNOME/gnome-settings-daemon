@@ -1,0 +1,367 @@
+===============
+Version 2.23.90
+===============
+- PulseAudio check to not ouput "no" twice (Jens Granseuer)
+- Add status icon when a11y hotkeys are enabled, and display Universal
+  Access preferences when it is clicked (William Jon McCann) (#526070)
+- Simplify libnotify check, fix fontconfig result output (Jens Granseuer)
+- Put the Glade file where all the others are (jens Granseuer)
+- Remove some unnecessary boilerplate (Jens Granseuer)
+- Use g_file_monitor instead of g_file_monitor_file/_directory (Jens
+  Granseuer) (#546372)
+- Remove warning that isn't (Jens Granseuer)
+- Fixed crash in randr startup (Jens Granseuer)
+- Fail xrandr initialization if we couldn't start xrandr (Matthias Clasen)
+  (#546446)
+- Try harder to clean up xrandr in _stop  so we can enable/disable the plugin
+  on the fly (Jens Granseuer)
+- For LIBSOUNDS, check for libgnomeui, not just libgnome (Federico Mena Quintero)
+- Add sexy labels when setting up dual monitors (Federico Mena Quintero)
+- Add a separator to the menu before "Configure display settings" (Federico Mena
+  Quintero)
+- Use GDK to get DPI (William Jon McCann)
+- Updated translations:
+  - ar (Djihed Afifi)
+  - es (Jorge Gonzalez)
+  - et (Priit Laes)
+  - fi (Ilkka Tuohela)
+  - gl (Ignacio Casal Quinteiro)
+  - ja (Takeshi AIHANA)
+  - he (Yair Hershkovitz)
+  - ml (Praveen Arimbrathodiyil)
+  - nb (Kjartan Maraas)
+  - pt (Duarte Loreto)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+  - th (Theppitak Karoonboonyanan)
+
+==============
+Version 2.23.6
+==============
+- Remove libgnomeui dependency (James Sharpe) (#544347)
+- Bump glib dependency to 2.15 (Wouter Bolsterlee) (#544737)
+- Use standard icon names for the OSD (Matthias Clasen) (#544733)
+- Make the display notification icon configurable (Søren Sandmann)
+- Resolve NumLock dynamically (Jens Granseuer) (#165343)
+- Updated translations:
+  - ar (Djihed Afifi)
+  - es (Jorge Gonzalez)
+  - gl (Ignacio Casal Quinteiro)
+  - nb (Kjartan Maraas)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+
+==============
+Version 2.23.5
+==============
+- New settings for event sounds (Lennart Poettering) (#539786) 
+- Fix include path for building against uninstalled package.
+  (Damien Carbery) (#543289)
+- Remove 'daemon' from the warning message (Gerd Kohlberger) (#543095)
+- Make more shortcuts with shift work (Jens Granseuer) (#542275)
+- Update RandR code to use new gnome-desktop API (Soren Sandmann)
+- Fix accelerator check (Jens Granseuer) (#538699)
+- Detect and enable PulseAudio (Colin Walters) (#533198)
+
+==============
+Version 2.23.4
+==============
+- Check for fontconfig instead of xft2 (Behdad Esfahbod)
+- Send a Fontconfig/Timestamp xsettings notification whenever fontconfig
+  configurations change (Behdad Esfahbod) (#490374)
+- Properly match keybindings that need Shift for resolving the keysym
+  (Jens Granseuer, Bastien Nocera) (#536581)
+- If available use the esd_serverdir variable to locate the esd daemon
+  so it can be started even if it's not in the PATH (Jens Granseuer, Brian
+  Cameron) (#531868)
+- Updated translations:
+  - ar (Djihed Afifi)
+  - th (Theppitak Karoonboonyanan)
+
+==============
+Version 2.23.3
+==============
+- Execute the correct action when there are multiple keyboard shortcuts with
+  the same keycode but different keysyms (Bastien Nocera) (#530356)
+- Fix wallpaper handling for people running a session without nautilus
+  (Matthias Clasen) (#531487)
+- Try to keep the keyboard layout from gdm (Matthias Clasen) (#531589)
+- Don't die when the user's home directory is read-only (Brian Cameron)
+  (#530975)
+- Fix artifacts from the locate pointer animation in non-composited mode
+  (Carlos Garnacho) (#531861)
+- Pass clicks to the media popup window through to the underlying window
+  (Carlos Garnacho) (#531862)
+- Use new gnome-desktop background API and get rid of libbackground (William
+  Jon McCann)
+- Don't eat keypresses for multimedia key events in the mouse plugin (Bastien
+  Nocera)
+- Shutdown when receiving the "SessionOver" signal from gnome-session (Lucas
+  Rocha, Jens Granseuer) (#522017)
+- Fix memory leaks in the font plugin (Jens Granseuer)
+- Move the locate pointer animation with the mouse cursor (Gerd Kohlberger)
+  (#531665)
+- Fix build without GStreamer (Jens Granseuer) (#536177)
+- Updated translation:
+  - ar (Djihed Afifi)
+  - bg (Yavor Doganov)
+  - es (Jorge Gonzalez)
+  - gl (Ignacio Casal Quinteiro)
+  - nb (Kjartan Maraas)
+  - th (Theppitak Karoonboonyanan)
+  - vi (Clytie Siddall)
+
+================
+Version 2.23.1.1
+================
+- Install .desktop for gnome-settings-daemon in a standard autostart directory
+  (Lucas Rocha)
+- Updated translations:
+  - nb (Kjartan Maraas)
+
+==============
+Version 2.23.1
+==============
+- Sound server startup based on GConf setting, even when esd is disabled
+  (Alexey Shabalin) (#523743)
+- Added a new "housekeeping" plugin to set limits on the size and age of the
+  thumbnail cache (Michael J. Chudobiak) (#523159)
+- Fix mismatched modifier maping between egg and GTK (Jens Granseuer)
+- Replace some custom functionality with stock GTK (Jens Granseuer)
+- Mark string for translation (Jens Granseuer)
+- Use G_DEFINE_TYPE instead of open-coding (Jens Granseuer)
+- Change data types to match glib, avoid using time_t (Jens Granseuer)
+- Add mapping for Gtk/Modules xsetting using GConf (Jens Granseuer) (#507386)
+- Set GConf keys back to false if mousetweaks is not installed (Gerd Kohlberger)
+  (#525042)
+- Don't try to add grabas with invalid modifiers (Jens Granseuer)
+- Remove trailing newlines from messages since g_warning already takes care
+  of those (Jens Granseuer)
+- Fix various leaks (Jens Granseuer)
+- Fix TYPE macro and remove unimplemented prototype (Lorne Applebaum)
+- Add a special volume subclass for better support of IBM Thinkpad hardware
+  volume buttons (Lorne Applebaum) (#524425)
+- Initialize inited_ok or behaviour is undefined when xkb setup fails (Jens
+  Granseuer)
+- Continued attempt at making XKB setup and error handling a bit less arcane
+  and crufty (Jens Granseuer)
+- Only use the built-in default for volume_step if we get an error from GConf,
+  not just when the value is 0 which might be what the user wants (Jens
+  Granseuer)
+- Adds a "threshold" property to the AcmeVolume class that denotes the minimum
+  percentage required to actually affect the volume (Jens Granseuer)
+- Don't install any listeners or callbacks when XKB is not available (Jens
+  Granseuer)
+- Remove excessive key grab logging (Jens Granseuer)
+- Make plugins deactivation work (Jens Granseuer)
+- Properly null-terminate g_build_filename (Jens Granseuer)
+- Turn into a daemon by default and make --no-daemon work (Jens Granseuer)
+- DBus API has been stable for a while; don't define DBUS_API_SUBJECT_TO_CHANGE
+  anymore (Jens Granseuer)
+- Drop GConf backup for xkb (Sergey Udaltsov)
+- Extract some functionality used by several plugins into a separate shared
+  helper library (Jens Granseuer) (#525426)
+- Reset GConf keys when we can't launch the daemon (Jens Granseuer)
+- Updated translations:
+  - bn_IN (Runa Bhattacharjee)
+  - es (Jorge Gonzalez)
+  - et (Priit Laes)
+  - nn (Eskild Hustvedt)
+  - sk (Marcel Telka)
+  - te (Sunil Mohan Adapa)
+
+==============
+Version 2.22.1
+==============
+- Fix segfault when shutting down the typing break monitor (Jens Granseuer)
+  (#521786)
+- Set window type hint on the volume popup (Jens Granseuer) (#522232)
+- Remove unused properties from actions GUI (Jens Granseuer)
+- Reset opacity when removing the timeout (Jens Granseuer) (#522499)
+- Fix handling of child process (William Jon McCann)
+- Add a tool to test media keys (William Jon McCann)
+- Add some profiling code (William Jon McCann)
+- Fix compiler warnings (William Jon McCann)
+- Fix leaks (William Jon McCann) (#524183)
+- Add more stuff to the configuration summary (William Jon McCann)
+- Don't eat key events (Jens Granseuer) (#523676)
+- Apply keyboard settings on startup (Jens Granseuer) (#525440)
+- Make "Home" keybinding work again (Jens Granseuer)
+- Updated translations:
+  - bn_IN (Runa Bhattacharjee)
+  - et (Priit Laes)
+  - nn (Eskild Hustvedt)
+  - sk (Marcel Telka)
+  - te (Sunil Mohan Adapa)
+  - vi (Nguyễn Thái Ngọc Duy)
+
+==============
+Version 2.22.0
+==============
+
+- Actually link against libXi when building with XInput support (Jens Granseuer)
+  (#519488)
+- Disable debug by default (William Jon McCann)
+- Don't pass GError's if we're not going to use them (Jens Graseuer)
+- Remove obsolete settings for the removed default editor plugin (Jens Granseuer)
+- Updated translations:
+  - da (Kenneth Nielsen)
+  - el (Kostas Papadimas)
+  - en_GB (Philip Withnall)
+  - es (Jorge Gonzalez)
+  - et (Priit Laes)
+  - hu (Gabor Kelemen)
+  - it (Luca Ferretti)
+  - lt (Gintautas Miliauskas)
+  - mk (Arangel Angov)
+  - nb (Kjartan Maraas)
+  - nl (Vincent van Adrighem)
+  - ru (Leonid Kanter)
+  - uk (Maxim Dziumanenko)
+  - zh_HK (Chao-Hsiung Liao)
+  - zh_TW (Chao-Hsiung Liao)
+
+===============
+Version 2.21.92
+===============
+
+- Only print debug messages if --debug is used
+- Only load plugins when requested not at every start
+- Fixed #515340, Add a way to prioritise plugin load (William Jon McCann)
+- Fixed #515341, Signal when plugins finish loading (William Jon McCann)
+- Fixed #517259, Escape hostname for use in gconf key (Vincent Untz)
+- Fixed #517418, gnome-display-properties resolution change will not be used after logout or reboot (Jens Granseuer)
+- Fixed #518075, Sound plugin should start pulseaudio itself (Bastien Nocera)
+
+Translations:
+- Updated fr: Claude Paroz
+- Updated de: Hendrik Brandt
+- Updated nl: Vincent van Adrighem
+- Updated be@latin: Ihar Hrachyshka
+- Updated pt_BR: Jonh Wendell
+- Updated pt: Duarte Loreto
+- Updated ca: Gil Forcada
+- Updated *: Matthias Clasen
+- Updated oc: Yannig Marchegay
+- Updated sv: Daniel Nylander
+- Updated ja: Takeshi AIHANA
+- Updated cs: Petr Kovar
+- Updated ar: Djihed Afifi <djihed@gmail.com>
+- Updated it: Luca Ferretti
+- Updated es: Jorge Gonzalez
+- Updated th: Theppitak Karoonboonyanan
+- Updated eu: Inaki Larranaga Murgoitio
+- Updated fi: bug #518255, Ilkka Tuohela
+- Updated gl: Ignacio Casal Quinteiro
+- Updated nb: Kjartan Maraas
+- Updated pl: Artur Flinta
+
+===============
+Version 2.21.91
+===============
+
+- Use a flat directory instead of a hierarchy to install plugins
+  into (Christian Persch) (#513246)
+- Don't scan the plugins directory recursively (Christian Persch)
+  (#513246)
+- Install the settings plugin to a versioned directory to fix install
+  with libdir == libexecdir (Christan Persch) (#504203)
+- Review short and long descriptions for GConf keys (Luca Ferretti)
+  (#514047)
+- Don't crash when running the screensaver fails (Jens Granseuer)
+  (#514385)
+- Rename src folder to gnome-settings-daemon (Damien Carberry, Jens
+  Granseuer) (#511820)
+- Add uninstalled.pc file for building against an uninstalled copy of
+  g-s-d (Damien Carberry, Jens Granseuer) (#511820)
+- Add separate checks for libbackground and use external copy (Jens
+  Granseuer)
+- Use gnome_settings_daemon for the GConf path (Jens Granseuer) (#514411)
+- Release the Glade XML ASAP and keep track of the 2 widgets we need
+  (Jens Granseuer)
+- Make sure we return a GError if initialization fails (Jens Granseuer)
+  (#514926)
+- Load the XKB settings initially (Matthias Clasen) (#511771)
+- Fix leaks (Jens Granseuer)
+- Unref the GConfClient only after done with it (Jens Granseuer)
+- Check for xinput (Sebastien Bacher) (#514942)
+- Fix copy'n'paste error (Jens Granseuer) (#515426)
+- Declare variables at the beginning of a block to make older compilers
+  happy (Jens Granseuer)
+- Add back support for defining plugin start order (Jens Granseuer)
+- Assign return value from g_slist_sort to the plugins list variable
+  (Wouter Bolsterlee) (#515340)
+- Replace gnome_vfs usage with GIO (Rodrigo Moya) (#513990)
+
+=================
+Version 2.21.90.2
+=================
+
+- Use correct binary path in DBus service file (Rodrigo Moya)
+- Updated translations:
+  - sv (Daniel Nylander)
+
+=================
+Version 2.21.90.1
+=================
+
+- Use plain $libexecdir for g-s-d binary (Rodrigo Moya)
+
+===============
+Version 2.21.90
+===============
+
+- Add a more appealing animation for locate pointer feature if composite
+  is available (Carlos Garnacho)
+- Quote function names in AC_DEFUN to fix autoconf warnings (Jens Granseuer)
+- Fix build with builddir != srcdir (Christian Persch) (#509142)
+- Use g_ascii_dtostr instead of setlocale (Christian Persch) (#505470)
+- Read check for XFT2 that got loast in the g-s-d split (Jens Granseuer)
+  (#510925)
+- Fix typo in typing break key (Jens Granseuer) (#510429)
+- Define GNOME_DESKTOP_USE_UNSTABLE_API before including gnome-bg.h (Jens
+  Granseuer)
+- No longer define DBUS_API_SUBJECT_TO_CHANGE (Jens Granseuer)
+- Initialize GnomeProgram to avoid critical warnings from libgnome (Wouter
+  Bolsterlee) (#509770)
+- Hopefully allow $(libdir) to be the same directory as $(libexecdir) by
+  installing the gnome-settings-daemon binary into a subdirectory of
+  $(libexecdir) (Wouter Bolsterlee) (#504203)
+- Don't use weird autofoo stuff to install gnome-settings-daemon into another
+  directory (Wouter Bolsterlee) (#504203)
+- Suppress verbose GConf schema installation output (Wouter Bolsterlee)
+
+================
+Version 2.21.5.2
+================
+
+- Use libtool for building static libs also (Rodrigo Moya)
+- Automake fixes for allowing long file names (Rodrigo Moya)
+- Updated translations:
+  - nb (Kjartan Maraas)
+
+================
+Version 2.21.5.1
+================
+
+- Added translations from gnome-control-center module (Rodrigo Moya)
+  (#509651)
+
+===============
+Version 2.21.5
+===============
+
+- Support animated backgrounds (Soren Sandmann)
+- Init gnome-vfs and use correct name in desktop file (William Jon McCann)
+- Use new setting from libgnome to make toolbar icon size setting work
+  (William Jon McCann)
+- Add Gtk/IMModule XSetting (Akira TAGOH) (#504182)
+- Reverted patch for SUPER key modifier (Rodrigo Moya)
+- Support mousetweaks (Gerd Kohlberger) (#503547)
+- Only consider /desktop/gnome/accessibility/keyboard/enable as option
+  for enabling keyboard a11y features from the keyboard, not as global
+  switch to turn all a11y features on/off (Denis Washington)
+
+===============
+Version 2.21.4
+===============
+
+Initial development release of new gnome-settings-daemon design.
