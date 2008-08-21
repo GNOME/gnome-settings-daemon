@@ -57,7 +57,7 @@ static void *pa_callback_user_data = NULL;
 static const char KNOWN_FILES_KEY[] =
     "/desktop/gnome/peripherals/keyboard/general/known_file_list";
 
-static char *gdm_keyboard_layout = NULL;
+static const char *gdm_keyboard_layout = NULL;
 
 #define noGSDKX
 
@@ -162,7 +162,7 @@ apply_xkb_settings (void)
          * screen. Try to keep that setting */
         if (gdm_keyboard_layout != NULL) {
                 if (current_kbd_config.layouts_variants == NULL) {
-                        current_kbd_config.layouts_variants = g_slist_append (NULL, gdm_keyboard_layout);
+                        current_kbd_config.layouts_variants = g_slist_append (NULL, (char *) gdm_keyboard_layout);
                         gconf_client_set_list (conf_client,
                                                GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
                                                GCONF_VALUE_STRING,
