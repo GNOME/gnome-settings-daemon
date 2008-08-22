@@ -449,7 +449,7 @@ maybe_show_status_icon (GsdA11yKeyboardManager *manager)
 #ifdef HAVE_LIBNOTIFY
 static void
 on_notification_closed (NotifyNotification     *notification,
-                        int                     reason
+                        int                     reason,
                         GsdA11yKeyboardManager *manager)
 {
         /* seems to crash if we unref */
