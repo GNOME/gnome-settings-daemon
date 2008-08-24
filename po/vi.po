@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.23.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-22 19:46+0000\n"
-"PO-Revision-Date: 2008-05-31 18:54+0930\n"
+"POT-Creation-Date: 2008-08-19 03:43+0000\n"
+"PO-Revision-Date: 2008-08-24 15:04+0700\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -181,7 +181,9 @@ msgstr "Tăng âm"
 msgid ""
 "Set to True to display a dialog when there are errors running the "
 "screensaver."
-msgstr "Đặt thành True (Đúng) để hiển thị hộp thoại khi có lỗi chạy trình bảo vệ màn hình."
+msgstr ""
+"Đặt thành True (Đúng) để hiển thị hộp thoại khi có lỗi chạy trình bảo vệ màn "
+"hình."
 
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
 msgid "Set to True to run the screensaver at login."
@@ -194,6 +196,16 @@ msgstr "Hiển thị các lỗi khởi động"
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
 msgid "Start screensaver"
 msgstr "Bắt đầu chạy trình bảo vệ màn hình"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr "Nếu cần hiển thị biểu tượng thông báo và những thứ liên quan đến màn hình trên bảng"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr "Hiện Màn hình trên vùng thông báo"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -217,38 +229,44 @@ msgid ""
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
 "common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
 "on bottom."
-msgstr "Thứ tự các phần tử điểm ảnh phụ trên một màn hình LCD (phẳng); chỉ được dùng khi chức năng làm trơn được đặt thành « rgba ». Giá trị có thể:\n"
-" • rgb	màu đỏ bên trái (thường nhất)\n"
-" • bgr	màu xanh bên trái\n"
-" • vrgb	màu đỏ bên trên\n"
-" • vbgr	màu đỏ bên dưới."
+msgstr ""
+"Thứ tự các phần tử điểm ảnh phụ trên một màn hình LCD (phẳng); chỉ được dùng "
+"khi chức năng làm trơn được đặt thành « rgba ». Giá trị có thể:\n"
+" • rgb\tmàu đỏ bên trái (thường nhất)\n"
+" • bgr\tmàu xanh bên trái\n"
+" • vrgb\tmàu đỏ bên trên\n"
+" • vbgr\tmàu đỏ bên dưới."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:6
 msgid ""
 "The resolution used for converting font sizes to pixel sizes, in dots per "
 "inch."
-msgstr "Độ phân giải được dùng để chuyển đổi kích cỡ phông chữ sang kích cỡ điểm ảnh, theo chấm mỗi insơ."
+msgstr ""
+"Độ phân giải được dùng để chuyển đổi kích cỡ phông chữ sang kích cỡ điểm "
+"ảnh, theo chấm mỗi insơ."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:7
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
 "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
-msgstr "Phương pháp làm trơn cần làm khi vẽ phông chữ. Giá trị có thể:\n"
-" • none		không làm trơn\n"
-" • grayscale	làm trơn ở mức xám tiêu chuẩn\n"
-" • rgba		làm trơn ở mức điểm ảnh phụ (chỉ cho màn hình LCD)."
+msgstr ""
+"Phương pháp làm trơn cần làm khi vẽ phông chữ. Giá trị có thể:\n"
+" • none\t\tkhông làm trơn\n"
+" • grayscale\tlàm trơn ở mức xám tiêu chuẩn\n"
+" • rgba\t\tlàm trơn ở mức điểm ảnh phụ (chỉ cho màn hình LCD)."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:8
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
 "\" for maximum hinting (may cause distortion of letter forms)."
-msgstr "Phương pháp tinh chỉnh phông cần làm khi vẽ phông chữ. Giá trị có thể:\n"
-" • none		không tinh chỉnh phông\n"
-" • slight		cơ bản\n"
-" • medium	vừa\n"
-" • full		tối đa (có thể gây ra sự méo mó trên các mẫu chữ)."
+msgstr ""
+"Phương pháp tinh chỉnh phông cần làm khi vẽ phông chữ. Giá trị có thể:\n"
+" • none\t\tkhông tinh chỉnh phông\n"
+" • slight\t\tcơ bản\n"
+" • medium\tvừa\n"
+" • full\t\ttối đa (có thể gây ra sự méo mó trên các mẫu chữ)."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -318,57 +336,75 @@ msgstr "Bật phần mở rộng xsettings"
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng nội trợ, để xén bớt các bộ nhớ tạm tập tin tạm thời."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng nội trợ, để xén bớt các bộ "
+"nhớ tạm tập tin tạm thời."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Set to True to enable the plugin to manage clipboard settings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập bảng nháp."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập bảng nháp."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Set to True to enable the plugin to manage desktop background settings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập nền màn hình."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập nền màn "
+"hình."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage font settings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập phông chữ."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập phông chữ."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Set to True to enable the plugin to manage keyboard settings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập bàn phím."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập bàn phím."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Set to True to enable the plugin to manage mouse settings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập con chuột."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập con chuột."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập các phím nhạc/phim."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập các phím "
+"nhạc/phim."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Set to True to enable the plugin to manage screensaver settings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập trình bảo vệ màn hình."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập trình bảo "
+"vệ màn hình."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Set to True to enable the plugin to manage sound settings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập âm thanh."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập âm thanh."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập bàn phím có khả năng truy cập."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập bàn phím có "
+"khả năng truy cập."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý các tổ hợp phím."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý các tổ hợp phím."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage typing breaks."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý các thư giãn gõ."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý các thư giãn gõ."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập xrandr."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập xrandr."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage xrdb settings."
@@ -376,17 +412,18 @@ msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản
 
 #: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage xsettings."
-msgstr "Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập xsettings."
+msgstr ""
+"Đặt thành True (Đúng) để hiệu lực phần mở rộng quản lý thiết lập xsettings."
 
-#: ../gnome-settings-daemon/main.c:45
+#: ../gnome-settings-daemon/main.c:50
 msgid "Enable debugging code"
 msgstr "Bật mã gỡ lỗi"
 
-#: ../gnome-settings-daemon/main.c:46
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr "Không chạy trong nền sau"
 
-#: ../gnome-settings-daemon/main.c:47
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr "Tiền tố GConf từ đó cần nạp thiết lập phần mở rộng"
 
@@ -398,77 +435,147 @@ msgstr "Bàn phím khả năng truy cập"
 msgid "Accessibility keyboard plugin"
 msgstr "Phần mở rộng bàn phím khả năng truy cập"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:387
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Gặp lỗi khi hiển thị trợ giúp: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:438
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
 msgid "Do you want to activate Slow Keys?"
 msgstr "Bạn có muốn kích hoạt Phím Chậm không?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:439
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Bạn có muốn bỏ kích hoạt Phím Chậm không?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:442
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
-"Bạn vừa mới ấn giữ phím Shift trong vòng 8 giây. Đây là phím tắt của tính năng Phím "
-"Chậm, mà ảnh hưởng đến hoạt động của bàn phím."
+"Bạn vừa mới ấn giữ phím Shift trong vòng 8 giây. Đây là phím tắt của tính "
+"năng Phím Chậm, mà ảnh hưởng đến hoạt động của bàn phím."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+msgid "Don't activate"
+msgstr "Không bật"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+msgid "Don't deactivate"
+msgstr "Không tắt"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+msgid "Activate"
+msgstr "Bật"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+msgid "Deactivate"
+msgstr "Tắt"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't activate"
 msgstr "Khô_ng bật"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't deactivate"
 msgstr "Khô_ng tắt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:452
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Activate"
 msgstr "_Bật"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:452
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Deactivate"
 msgstr "_Tắt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:625
 msgid "Slow Keys Alert"
 msgstr "Báo động Phím Chậm"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:488
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Bạn có muốn kích hoạt Phím Dính không?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:489
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Bạn có muốn bỏ kích hoạt Phím Dính không?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
-"Bạn vừa mới ấn phím Shift 5 lần liên tiếp. Đây là phím tắt của tính năng Phím Dính, mà ảnh hưởng đến hoạt động của bàn phím."
+"Bạn vừa mới ấn phím Shift 5 lần liên tiếp. Đây là phím tắt của tính năng "
+"Phím Dính, mà ảnh hưởng đến hoạt động của bàn phím."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:494
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
-"Bạn vừa mới ấn hai phím đồng thời, hoặc ấn phím Shift 5 lần liên tiếp. Phím tắt này tắt tính năng Phím Dính, mà ảnh hưởng đến hoạt động của bàn phím"
+"Bạn vừa mới ấn hai phím đồng thời, hoặc ấn phím Shift 5 lần liên tiếp. Phím "
+"tắt này tắt tính năng Phím Dính, mà ảnh hưởng đến hoạt động của bàn phím"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:770
 msgid "Sticky Keys Alert"
 msgstr "Báo động Phím Dính"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:865
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+msgid "Universal Access Preferences"
+msgstr "Tùy thích truy cập chung"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr "Cải thiện độ _tương phản màu sắc"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr "Phóng to _chữ nhằm dễ đọc hơn"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "Nhấn và _giữ phím để chấp nhận (Phím chậm)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr "Dùng _bàn phím _màn hình"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr "Dùng _kính lúp màn hình"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr "Dùng _bộ đọc màn hình"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "_Bỏ qua phím nhấn bị trùng (Phím nảy)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr "_Nhấn phím tắt bàn phím mỗi lần một phím (Phím dính)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:10
+msgid "gtk-close"
+msgstr "gtk-close"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -502,7 +609,7 @@ msgstr "Phông"
 msgid "Font plugin"
 msgstr "Phần mở rộng phông chữ"
 
-#: ../plugins/font/gsd-font-manager.c:215
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -511,7 +618,7 @@ msgstr ""
 "Không thể tạo thư mục « %s ».\n"
 "Nó đòi hỏi để thay đổi sắc thái con trỏ chuột."
 
-#: ../plugins/font/gsd-font-manager.c:238
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -584,7 +691,8 @@ msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
 msgstr ""
-"Không thể lấy thiết bị cuối mặc định. Hãy kiểm tra xem câu lệnh thiết bị cuối mặc định đã được đặt và chỉ tới một ứng dụng hợp lệ."
+"Không thể lấy thiết bị cuối mặc định. Hãy kiểm tra xem câu lệnh thiết bị "
+"cuối mặc định đã được đặt và chỉ tới một ứng dụng hợp lệ."
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:223
 #, c-format
@@ -617,9 +725,8 @@ msgstr "Không thể hiệu lực các tính năng khả năng truy cập bàn p
 
 #: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
-msgstr "Khả năng truy cập đến con chuột thì yêu cầu trình nền mousetweaks được cài đặt vào hệ thống của bạn."
+"Mouse accessibility requires mousetweaks to be installed on your system."
+msgstr "Khả năng truy cập con chuột cần trình nền mousetweaks được cài đặt vào hệ thống của bạn."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
@@ -665,64 +772,65 @@ msgstr "Phần mở rộng bảo vệ màn hình"
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "Không thể nạp tập tin âm thanh %s dưới dạng mẫu %s"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
 msgstr "Đăng nhập"
 
-#: ../plugins/sound/libsounds/sound-view.c:45
+#: ../plugins/sound/libsounds/sound-view.c:44
 msgid "Logout"
 msgstr "Đăng xuất"
 
-#: ../plugins/sound/libsounds/sound-view.c:46
+#: ../plugins/sound/libsounds/sound-view.c:45
 msgid "Boing"
 msgstr "Bôing"
 
-#: ../plugins/sound/libsounds/sound-view.c:47
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
 msgstr "Còi tầm"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr "Leng leng"
 
-#: ../plugins/sound/libsounds/sound-view.c:49
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
 msgstr "Bíp"
 
-#: ../plugins/sound/libsounds/sound-view.c:50
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
 msgstr "Không có âm thanh"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
 msgstr "Chưa lập âm thanh cho sự kiện này."
 
-#: ../plugins/sound/libsounds/sound-view.c:141
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
 msgstr ""
 "Không có tập tin âm thanh cho sự kiện này.\n"
-"Bạn có thể muốn cài đặt gói gnome-audio mà cung cấp một tập hợp các âm thanh mặc định."
+"Bạn có thể muốn cài đặt gói gnome-audio mà cung cấp một tập hợp các âm thanh "
+"mặc định."
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "Tập tin âm thanh cho sự kiện này không tồn tại."
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "Chọn tập tin âm thanh"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "Tập tin %s không phải là một tập tin « .wav » hợp lệ."
 
-#: ../plugins/sound/libsounds/sound-view.c:271
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
 msgstr "Chọn tập tin âm thanh..."
 
-#: ../plugins/sound/libsounds/sound-view.c:373
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
 msgstr "Âm thanh hệ thống"
 
@@ -750,6 +858,43 @@ msgstr "Thiết lập kích cỡ màn hình và chức năng xoay"
 msgid "XRandR"
 msgstr "XRandR"
 
+#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+msgid "<i>Rotation not supported</i>"
+msgstr "<i>Không hỗ trợ quay</i>"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:456
+#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+msgid "The selected rotation could not be applied"
+msgstr "Phần quay được chọn không thể được áp dụng"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:457
+msgid "An error occurred while configuring the screen"
+msgstr "Lỗi cấu hình màn hình"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+msgid "Normal"
+msgstr "Thường"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+msgid "Left"
+msgstr "Trái"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+msgid "Right"
+msgstr "Phải"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+msgid "Upside Down"
+msgstr "Trên xuống"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+msgid "_Configure Display Settings ..."
+msgstr "_Cấu hình thiết lập màn hình ..."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+msgid "Configure display settings"
+msgstr "_Cấu hình thiết lập màn hình"
+
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
@@ -763,7 +908,7 @@ msgstr "Quản lý cơ sở dữ liệu tài nguyên X"
 msgid "X Resource Database"
 msgstr "Cơ sở dữ liệu tài nguyên X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:582
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "Khoá GConf %s được đặt thành kiểu %s nhưng lẽ ra phải dùng kiểu %s\n"
