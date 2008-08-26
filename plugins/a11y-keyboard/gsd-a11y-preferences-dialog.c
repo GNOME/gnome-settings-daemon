@@ -72,10 +72,10 @@
 #define DPI_LOW_REASONABLE_VALUE 50
 #define DPI_HIGH_REASONABLE_VALUE 500
 
-#define DPI_LARGE_FONT   120
-#define DPI_LARGER_FONT  144
-#define DPI_LARGEST_FONT 192
-#define DPI_DEFAULT      96
+#define DPI_FACTOR_LARGE   1.25
+#define DPI_FACTOR_LARGER  1.5
+#define DPI_FACTOR_LARGEST 2.0
+#define DPI_DEFAULT        96
 
 #define KEY_GTK_THEME          "/desktop/gnome/interface/gtk_theme"
 #define KEY_COLOR_SCHEME       "/desktop/gnome/interface/gtk_color_scheme"
@@ -226,6 +226,21 @@ config_get_bool (const char *key,
 }
 
 static double
+dpi_from_pixels_and_mm (int pixels,
+                        int mm)
+{
+        double dpi;
+
+        if (mm >= 1) {
+                dpi = pixels / (mm / 25.4);
+        } else {
+                dpi = 0;
+        }
+
+        return dpi;
+}
+
+static double
 get_dpi_from_x_server (void)
 {
         GdkScreen *screen;
@@ -233,10 +248,20 @@ get_dpi_from_x_server (void)
 
         screen = gdk_screen_get_default ();
         if (screen != NULL) {
-                dpi = gdk_screen_get_resolution (screen);
-                if (dpi < DPI_LOW_REASONABLE_VALUE || dpi > DPI_HIGH_REASONABLE_VALUE ||
-                    dpi < DPI_LOW_REASONABLE_VALUE || dpi > DPI_HIGH_REASONABLE_VALUE) {
+                double width_dpi;
+                double height_dpi;
+
+                width_dpi = dpi_from_pixels_and_mm (gdk_screen_get_width (screen),
+                                                    gdk_screen_get_width_mm (screen));
+                height_dpi = dpi_from_pixels_and_mm (gdk_screen_get_height (screen),
+                                                     gdk_screen_get_height_mm (screen));
+                if (width_dpi < DPI_LOW_REASONABLE_VALUE
+                    || width_dpi > DPI_HIGH_REASONABLE_VALUE
+                    || height_dpi < DPI_LOW_REASONABLE_VALUE
+                    || height_dpi > DPI_HIGH_REASONABLE_VALUE) {
                         dpi = DPI_DEFAULT;
+                } else {
+                        dpi = (width_dpi + height_dpi) / 2.0;
                 }
         } else {
                 /* Huh!?  No screen? */
@@ -252,25 +277,26 @@ config_get_large_print (gboolean *is_writable)
         gboolean     ret;
         GConfClient *client;
         GConfValue  *value;
-        gdouble      dpi;
+        gdouble      x_dpi;
+        gdouble      u_dpi;
 
         client = gconf_client_get_default ();
         value = gconf_client_get_without_default (client, KEY_FONT_DPI, NULL);
 
         if (value != NULL) {
-                dpi = gconf_value_get_float (value);
+                u_dpi = gconf_value_get_float (value);
                 gconf_value_free (value);
         } else {
-                dpi = get_dpi_from_x_server ();
+                u_dpi = DPI_DEFAULT;
         }
 
-        if (dpi < DPI_LOW_REASONABLE_VALUE) {
-                dpi = DPI_LOW_REASONABLE_VALUE;
-        }
+        x_dpi = get_dpi_from_x_server ();
 
         g_object_unref (client);
 
-        ret = (dpi > DPI_DEFAULT);
+        g_debug ("GsdA11yPreferences: got x-dpi=%f user-dpi=%f", x_dpi, u_dpi);
+
+        ret = (((double)DPI_FACTOR_LARGE * x_dpi) < u_dpi);
 
         return ret;
 }
@@ -283,7 +309,15 @@ config_set_large_print (gboolean enabled)
         client = gconf_client_get_default ();
 
         if (enabled) {
-                gconf_client_set_float (client, KEY_FONT_DPI, DPI_LARGER_FONT, NULL);
+                gdouble x_dpi;
+                gdouble u_dpi;
+
+                x_dpi = get_dpi_from_x_server ();
+                u_dpi = (double)DPI_FACTOR_LARGER * x_dpi;
+
+                g_debug ("GsdA11yPreferences: setting x-dpi=%f user-dpi=%f", x_dpi, u_dpi);
+
+                gconf_client_set_float (client, KEY_FONT_DPI, u_dpi, NULL);
         } else {
                 gconf_client_unset (client, KEY_FONT_DPI, NULL);
         }

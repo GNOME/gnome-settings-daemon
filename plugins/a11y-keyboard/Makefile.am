@@ -5,6 +5,32 @@ glade_DATA = 					\
 	gsd-a11y-preferences-dialog.glade	\
 	$(NULL)
 
+noinst_PROGRAMS =				\
+	test-a11y-preferences-dialog		\
+	$(NULL)
+
+test_a11y_preferences_dialog_SOURCES =		\
+	gsd-a11y-preferences-dialog.c		\
+	gsd-a11y-preferences-dialog.h		\
+	test-a11y-preferences-dialog.c		\
+	$(NULL)
+
+test_a11y_preferences_dialog_CPPFLAGS = \
+	-I$(top_srcdir)/gnome-settings-daemon			\
+	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
+	-DGLADEDIR=\""$(pkgdatadir)"\"				\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	$(AM_CPPFLAGS)
+
+test_a11y_preferences_dialog_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
+test_a11y_preferences_dialog_LDADD = \
+	$(SETTINGS_DAEMON_LIBS)			\
+	$(SETTINGS_PLUGIN_LIBS)			\
+	$(NULL)
+
 plugin_LTLIBRARIES = \
 	liba11y-keyboard.la		\
 	$(NULL)

@@ -1,3 +1,14 @@
+2008-08-26  William Jon McCann  <jmccann@redhat.com>
+
+	* plugins/a11y-keyboard/Makefile.am:
+	* plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c
+	(dpi_from_pixels_and_mm), (get_dpi_from_x_server),
+	(config_get_large_print), (config_set_large_print):
+	* plugins/a11y-keyboard/test-a11y-preferences-dialog.c
+	(test_window), (main):
+	Use a scale factor instead of a fixed DPI.  Add a test
+	program.
+
 2008-08-22  William Jon McCann  <jmccann@redhat.com>
 
 	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
