@@ -694,7 +694,7 @@ setup_xsettings_managers (GnomeXSettingsManager *manager)
         res = xsettings_manager_check_running (gdk_x11_display_get_xdisplay (display),
                                                gdk_screen_get_number (gdk_screen_get_default ()));
         if (res) {
-                g_error ("You can only run one xsettings manager at a time; exiting");
+                g_warning ("You can only run one xsettings manager at a time; exiting");
                 return FALSE;
         }
 
@@ -711,7 +711,7 @@ setup_xsettings_managers (GnomeXSettingsManager *manager)
                                                                      terminate_cb,
                                                                      &terminated);
                 if (! manager->priv->managers [i]) {
-                        g_error ("Could not create xsettings manager for screen %d!", i);
+                        g_warning ("Could not create xsettings manager for screen %d!", i);
                         return FALSE;
                 }
         }
@@ -748,7 +748,7 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                         &err);
 
                 if (err != NULL) {
-                        g_warning ("Error getting value for %s: %s\n",
+                        g_warning ("Error getting value for %s: %s",
                                    translations[i].gconf_key,
                                    err->message);
                         g_error_free (err);
