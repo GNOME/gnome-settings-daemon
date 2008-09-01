@@ -1,4 +1,27 @@
 ===============
+Version 2.23.91
+===============
+- Removed translatable property on stock gtk-close (Claude Paroz)
+- Fix a constness warning (Jens Granseuer)
+- Fix a crash due to an incorrect signal handler definition (William Jon
+  McCann)
+- Use a scale factor instead of a fixed DPI (William Jon McCann)
+- Use g_warning instead of g_error when setup fails so we don't abort
+  (Jens Granseuer) (#549483)
+- Updated translations:
+  - cs (Petr Kovar)
+  - eu (Inaki Larranaga Murgoitio)
+  - fi (Ilkka Tuohela)
+  - fr (Claude Paroz)
+  - ja (Takeshi AIHANA)
+  - nb (Kjartan Maraas)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+  - th (Theppitak Karoonboonyanan)
+  - vi (Nguyễn Thái Ngọc Duy)
+  - zh_HK (Chao-Hsiung Liao)
+  - zh_TW (Chao-Hsiung Liao)
+
+===============
 Version 2.23.90
 ===============
 - PulseAudio check to not ouput "no" twice (Jens Granseuer)
