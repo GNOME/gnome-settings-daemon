@@ -171,8 +171,10 @@ apply_xkb_settings (void)
                 } else {
                          GSList *l;
                          int i;
+                         size_t len = strlen (gdm_keyboard_layout);
                          for (i = 0, l = current_kbd_config.layouts_variants; l; i++, l = l->next) {
-                                 if (strcmp (gdm_keyboard_layout, l->data) == 0) {
+                                 char *lv = l->data;
+                                 if (strncmp (lv, gdm_keyboard_layout, len) == 0 && (lv[len] == '\0' || lv[len] == '\t')) {
                                         xkl_engine_lock_group (current_config.engine, i);
                                         break;
                                  }
@@ -307,6 +309,7 @@ gsd_keyboard_xkb_evt_filter (GdkXEvent * xev,
                              GdkEvent  * event)
 {
         XEvent *xevent = (XEvent *) xev;
+	g_print ("gd_keyboard_xkb_evt_filter\n");
         xkl_engine_filter_events (xkl_engine, xevent);
         return GDK_FILTER_CONTINUE;
 }
