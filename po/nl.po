@@ -10,7 +10,7 @@
 # Jan-Willem Harmanny <jwharmanny@hotmail.com>, 2002
 # Huib Kleinhout <huib@stack.nl>, 2002
 # Ronald Hummelink <ronald@hummelink.xs4all.nl>, 2002
-# Reinout van Schouwen <reinout@cs.vu.nl>, 2002-2007
+# Reinout van Schouwen <reinouts@gnome.org>, 2002-2008
 # Tino Meinen <a.t.meinen@chello.nl>, 2004, 2006, 2007, 2008.
 # Wouter Bolsterlee <wbolster@gnome.org>, 2006, 2008
 #
@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Settings Daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-21 14:27+0200\n"
-"PO-Revision-Date: 2008-07-21 14:27+0200\n"
-"Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
+"POT-Creation-Date: 2008-08-19 03:43+0000\n"
+"PO-Revision-Date: 2008-09-07 22:30+0200\n"
+"Last-Translator: Reinout van Schouwen <reinouts@gnome.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -213,6 +213,18 @@ msgstr "Opstartfouten tonen"
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
 msgid "Start screensaver"
 msgstr "Schermbeveiliging activeren"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr ""
+"Of een mededelingspictogram met weergavegerelateerde zaken getoond moet "
+"worden in het paneel."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr "Schermen tonen in mededelingengebied"
 
 # gladmaken/wazig maken/afronden/rond maken/bijvijlen
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
@@ -451,20 +463,23 @@ msgstr "Toetsenbord-toegankelijkheid"
 msgid "Accessibility keyboard plugin"
 msgstr "Toetsenbord-toegankelijkheid-plugin"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:387
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Er is een fout opgetreden bij de hulpweergave: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:438
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
 msgid "Do you want to activate Slow Keys?"
-msgstr "Wilt u langzame toetsen activeren?"
+msgstr "Wilt u Trage Toetsen activeren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:439
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to deactivate Slow Keys?"
-msgstr "Wilt u langzame toesen deactiveren?"
+msgstr "Wilt u Trage Toetsen deactiveren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:442
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -473,41 +488,66 @@ msgstr ""
 "is de sneltoets voor de langzame toetsen modus hetgeen invloed heeft op de "
 "manier waarop het toetsenbord functioneert."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+msgid "Don't activate"
+msgstr "Niet activeren"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+msgid "Don't deactivate"
+msgstr "Niet deactiveren"
+
+# aanzetten
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+msgid "Activate"
+msgstr "Activeren"
+
+# uitzetten
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+msgid "Deactivate"
+msgstr "Deactiveren"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't activate"
 msgstr "_Niet activeren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Do_n't deactivate"
 msgstr "_Niet deactiveren"
 
 # aanzetten
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:452
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Activate"
 msgstr "_Activeren"
 
 # uitzetten
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:452
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "_Deactivate"
 msgstr "_Deactiveren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:625
 msgid "Slow Keys Alert"
-msgstr "Langzame toetsen waarschuwing"
+msgstr "Trage Toetsen-attendering"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:488
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Wilt u plaktoetsen activeren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:489
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Wilt u plaktoetsen deactiveren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -516,7 +556,8 @@ msgstr ""
 "sneltoets voor de plaktoetsen modus, hetgeen invloed heeft op de manier "
 "waarop uw toetsenbord functioneert."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:494
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -526,9 +567,50 @@ msgstr ""
 "op een rij.  Dat zet de plaktoetsen modus uit, hetgeen invloed heeft op de "
 "manier waarop uw toetsenbord functioneert"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:770
 msgid "Sticky Keys Alert"
 msgstr "Plaktoetsen waarschuwing"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:865
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+msgid "Universal Access Preferences"
+msgstr "Universele toegang-voorkeuren"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr "Kleur_contrast verbeteren"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr "_Tekst groter en makkelijker leesbaar maken"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "Toetsen in_drukken en vasthouden om ze te bevestigen (Trage Toetsen)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr "Toetsen_bord-op-scherm gebruiken"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr "Scher_mvergroter gebruiken"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr "Schermle_zer gebruiken"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "Dubbele toetsaanslagen ne_geren (KaatsToetsen)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr "Sneltoetscombinaties één toets per keer indrukken (PlakToetsen)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:10
+msgid "gtk-close"
+msgstr "gtk-close"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -563,7 +645,7 @@ msgstr "Lettertype"
 msgid "Font plugin"
 msgstr "Lettertype-plugin"
 
-#: ../plugins/font/gsd-font-manager.c:219
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -573,7 +655,7 @@ msgstr ""
 "Dit is nodig om het muisaanwijzer-thema te kunnen wijzigen."
 
 # het wijzigen van cursors mogelijk te maken/te kunnen wisselen van cursor
-#: ../plugins/font/gsd-font-manager.c:242
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -730,40 +812,40 @@ msgstr "Schermbeveiliging-plugin"
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "Kon geluidsbestand %s niet laden als sample %s"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
 msgstr "Aanmelden"
 
-#: ../plugins/sound/libsounds/sound-view.c:45
+#: ../plugins/sound/libsounds/sound-view.c:44
 msgid "Logout"
 msgstr "Afmelden"
 
-#: ../plugins/sound/libsounds/sound-view.c:46
+#: ../plugins/sound/libsounds/sound-view.c:45
 msgid "Boing"
 msgstr "Boing"
 
-#: ../plugins/sound/libsounds/sound-view.c:47
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
 msgstr "Sirene"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr "Klink"
 
-#: ../plugins/sound/libsounds/sound-view.c:49
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
 msgstr "Piepje"
 
 # geen/zonder
-#: ../plugins/sound/libsounds/sound-view.c:50
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
 msgstr "Zonder geluid"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
 msgstr "Geen geluid ingesteld voor deze actie."
 
-#: ../plugins/sound/libsounds/sound-view.c:141
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
@@ -772,25 +854,25 @@ msgstr ""
 "U kunt het pakket gnome-audio installeren voor een verzameling "
 "standaardgeluiden."
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "Het geluidsbestand voor deze actie bestaat niet."
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "Geluidsbestand selecteren"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "Het bestand %s is geen geldig wav-bestand"
 
 # geluid/geluidsbestand
-#: ../plugins/sound/libsounds/sound-view.c:271
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
 msgstr "Geluidsbestand selecteren..."
 
-#: ../plugins/sound/libsounds/sound-view.c:373
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
 msgstr "Systeemgeluiden"
 
@@ -819,17 +901,43 @@ msgstr "Schermafmeting en draaistand instellen"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:192
-msgid "Screen Rotation"
-msgstr "Schermresolutie"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+msgid "<i>Rotation not supported</i>"
+msgstr "<i>Rotatie niet ondersteund</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:197
-msgid "_Configure Display Settings"
-msgstr "_Scherminstellingen aanpassen"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:456
+#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+msgid "The selected rotation could not be applied"
+msgstr "De geselecteerde rotatie kon niet worden toegepast"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:242
+#: ../plugins/xrandr/gsd-xrandr-manager.c:457
+msgid "An error occurred while configuring the screen"
+msgstr "Er is een fout opgetreden bij het configureren van het scherm"
+
+# algemeen/normaal
+#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+msgid "Normal"
+msgstr "Normaal"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+msgid "Left"
+msgstr "Links"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+msgid "Right"
+msgstr "Rechts"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+msgid "Upside Down"
+msgstr "Ondersteboven"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+msgid "_Configure Display Settings ..."
+msgstr "_Scherminstellingen configureren…"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:641
 msgid "Configure display settings"
-msgstr "Scherminstellingen aanpassen"
+msgstr "Scherminstellingen configureren"
 
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
@@ -844,7 +952,7 @@ msgstr "De X-resource database beheren"
 msgid "X Resource Database"
 msgstr "X-resource database"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:605
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf-sleutel %s ingesteld op type %s maar het verwachte type was %s\n"
@@ -856,6 +964,9 @@ msgstr "X-instellingen beheren"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X-instellingen"
+
+#~ msgid "Screen Rotation"
+#~ msgstr "Schermresolutie"
 
 #~ msgid ""
 #~ "Set to True to keep the handlers for text/plain and text/* MIME types "
@@ -1318,9 +1429,6 @@ msgstr "X-instellingen"
 #~ msgid "Filters"
 #~ msgstr "Filters"
 
-#~ msgid "I_gnore duplicate keypresses within:"
-#~ msgstr "Dubbele toetsaanslagen ne_geren binnen:"
-
 #~ msgid ""
 #~ "Ignore all subsequent presses of the SAME key if they happen within a "
 #~ "user selectable period of time."
@@ -1504,9 +1612,6 @@ msgstr "X-instellingen"
 
 #~ msgid "<b>_Wallpaper</b>"
 #~ msgstr "<b>Werkblad_achtergrond</b>"
-
-#~ msgid "Appearance Preferences"
-#~ msgstr "Uiterlijk-voorkeuren"
 
 #~ msgid "Best _shapes"
 #~ msgstr "Beste v_ormen"
@@ -2241,9 +2346,6 @@ msgstr "X-instellingen"
 #~ msgid "Links Text Browser"
 #~ msgstr "Links tekst-browser"
 
-#~ msgid "Linux Screen Reader"
-#~ msgstr "Linux-schermlezer"
-
 #~ msgid "Linux Screen Reader with Magnifier"
 #~ msgstr "Linux-schermlezer met vergrootglas"
 
@@ -2295,9 +2397,6 @@ msgstr "X-instellingen"
 #~ msgid "SeaMonkey Mail"
 #~ msgstr "SeaMonkey Mail"
 
-#~ msgid "Simple OnScreen Keyboard"
-#~ msgstr "Eenvoudig toetsenbord op scherm"
-
 #~ msgid "Standard XTerminal"
 #~ msgstr "Standaard X-terminalvenster"
 
@@ -2322,18 +2421,8 @@ msgstr "X-instellingen"
 #~ msgid "Change screen resolution"
 #~ msgstr "Schermresolutie veranderen"
 
-# algemeen/normaal
-#~ msgid "Normal"
-#~ msgstr "Normaal"
-
-#~ msgid "Left"
-#~ msgstr "Links"
-
 #~ msgid "Inverted"
 #~ msgstr "Geïnverteerd"
-
-#~ msgid "Right"
-#~ msgstr "Rechts"
 
 #~ msgid "%d Hz"
 #~ msgstr "%d Hz"
