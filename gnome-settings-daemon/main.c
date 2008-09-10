@@ -182,7 +182,7 @@ set_session_over_handler (DBusGConnection *bus, GnomeSettingsManager *manager)
 
         gnome_settings_profile_start (NULL);
 
-        session_proxy = 
+        session_proxy =
                  dbus_g_proxy_new_for_name (bus,
                                             GNOME_SESSION_DBUS_NAME,
                                             GNOME_SESSION_DBUS_OBJECT,
@@ -193,13 +193,13 @@ set_session_over_handler (DBusGConnection *bus, GnomeSettingsManager *manager)
 		G_TYPE_NONE,
 		G_TYPE_INVALID);
 
-        dbus_g_proxy_add_signal (session_proxy, 
+        dbus_g_proxy_add_signal (session_proxy,
                                  "SessionOver",
                                  G_TYPE_INVALID);
 
-        dbus_g_proxy_connect_signal (session_proxy, 
+        dbus_g_proxy_connect_signal (session_proxy,
                                      "SessionOver",
-                                     G_CALLBACK (on_session_over), 
+                                     G_CALLBACK (on_session_over),
                                      manager,
                                      NULL);
 
@@ -279,7 +279,7 @@ main (int argc, char *argv[])
         /* If the user does not have a writable HOME directory, then
            init libgnome with appropriate arguments to run without
            needing one. */
-        create_dirs = (g_access (g_get_home_dir(), W_OK) != 0);
+        create_dirs = (g_access (g_get_home_dir(), W_OK) == 0);
 
         gnome_settings_profile_start ("gnome_program_init");
         program = gnome_program_init (PACKAGE,
