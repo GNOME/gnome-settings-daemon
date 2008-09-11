@@ -486,9 +486,15 @@ dialog_show (GsdMediaKeysManager *manager)
         GdkScreen     *pointer_screen;
         GdkRectangle   geometry;
         int            monitor;
+        GdkColormap   *colormap;
 
         gtk_window_set_screen (GTK_WINDOW (manager->priv->dialog),
                                manager->priv->current_screen);
+
+        colormap = gdk_screen_get_rgba_colormap (manager->priv->current_screen);
+        if (colormap != NULL) {
+                gtk_widget_set_colormap (manager->priv->dialog, colormap);
+        }
 
         /*
          * get the window size

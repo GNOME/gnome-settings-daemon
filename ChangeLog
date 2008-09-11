@@ -1,3 +1,17 @@
+2008-09-11  Jens Granseuer  <jensgr@gmx.net>
+
+	Backported from trunk.
+
+	Make the volume popup not crash when invoking it on any screen but the
+	first when using a compositing manager (bug #551677)
+
+	* plugins/media-keys/gsd-media-keys-manager.c: (dialog_show):
+	* plugins/media-keys/gsd-media-keys-window.c:
+	(gsd_media_keys_window_init):
+        do not set the window colormap at init time where we'll only use the
+        colormap of the default screen. Instead, whenever moving the window to
+        a new screen, also update the colormap.
+
 2008-05-26  Jens Granseuer  <jensgr@gmx.net>
 
 	* NEWS: update for 2.22.2 release
