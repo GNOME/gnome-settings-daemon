@@ -830,8 +830,15 @@ gsd_media_keys_window_real_hide (GtkWidget *widget)
 static void
 gsd_media_keys_window_real_realize (GtkWidget *widget)
 {
+        GdkColormap *colormap;
         GdkBitmap *mask;
         cairo_t *cr;
+
+        colormap = gdk_screen_get_rgba_colormap (gtk_widget_get_screen (widget));
+
+        if (colormap != NULL) {
+                gtk_widget_set_colormap (widget, colormap);
+        }
 
         if (GTK_WIDGET_CLASS (gsd_media_keys_window_parent_class)->realize) {
                 GTK_WIDGET_CLASS (gsd_media_keys_window_parent_class)->realize (widget);
@@ -873,23 +880,6 @@ gsd_media_keys_window_is_valid (GsdMediaKeysWindow *window)
 }
 
 static void
-initialize_alpha_mode (GsdMediaKeysWindow *window, GdkScreen *screen)
-{
-        GdkColormap *colormap = NULL;
-
-        if (gdk_screen_is_composited (screen)) {
-                colormap = gdk_screen_get_rgba_colormap (screen);
-        }
-
-        if (colormap != NULL) {
-                gtk_widget_set_colormap (GTK_WIDGET (window), colormap);
-                window->priv->is_composited = TRUE;
-        } else {
-                window->priv->is_composited = FALSE;
-        }
-}
-
-static void
 gsd_media_keys_window_init (GsdMediaKeysWindow *window)
 {
         GdkScreen *screen;
@@ -898,7 +888,7 @@ gsd_media_keys_window_init (GsdMediaKeysWindow *window)
 
         screen = gtk_widget_get_screen (GTK_WIDGET (window));
 
-        initialize_alpha_mode (window, screen);
+        window->priv->is_composited = gdk_screen_is_composited (screen);
 
         if (window->priv->is_composited) {
                 gdouble scalew, scaleh, scale;
