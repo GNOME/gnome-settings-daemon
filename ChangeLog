@@ -1,5 +1,18 @@
 2008-09-12  Jens Granseuer  <jensgr@gmx.net>
 
+	Specify GTK modules to load in a GConf directory instead of the single
+	/desktop/gnome/gtk-modules key. Apps can now easily install additional
+	modules by dropping a key with the name of the module and a boolean
+	value (enabled/disabled) into /apps/gnome_settings_daemon/gtk-modules/
+	(bug #539840).
+
+	* plugins/xsettings/gsd-xsettings-manager.c: (get_gtk_modules),
+	(gtk_modules_callback), (gnome_xsettings_manager_start),
+	(gnome_xsettings_manager_stop): remove the old gtk-modules key in
+	favor of a GConf directory
+
+2008-09-12  Jens Granseuer  <jensgr@gmx.net>
+
 	* COPYING: add GPLv2 copyright notice explicitly so that newer
 	versions of autotools don't declare us GPLv3 (bug #551956)
 

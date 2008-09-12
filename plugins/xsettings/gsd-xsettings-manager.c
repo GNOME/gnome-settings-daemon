@@ -51,6 +51,7 @@
 #define GTK_SETTINGS_DIR       "/desktop/gtk"
 #define INTERFACE_SETTINGS_DIR "/desktop/gnome/interface"
 #define SOUND_SETTINGS_DIR     "/desktop/gnome/sound"
+#define GTK_MODULES_DIR        "/apps/gnome_settings_daemon/gtk-modules"
 
 #ifdef HAVE_FONTCONFIG
 #define FONT_RENDER_DIR "/desktop/gnome/font_rendering"
@@ -91,7 +92,7 @@ struct _TranslationEntry {
 struct GnomeXSettingsManagerPrivate
 {
         XSettingsManager **managers;
-        guint              notify[5];
+        guint              notify[6];
 #ifdef HAVE_FONTCONFIG
         fontconfig_monitor_handle_t *fontconfig_handle;
 #endif /* HAVE_FONTCONFIG */
@@ -192,7 +193,6 @@ static TranslationEntry translations [] = {
         { "/desktop/gnome/peripherals/mouse/double_click",   "Net/DoubleClickTime",     GCONF_VALUE_INT,      translate_int_int },
         { "/desktop/gnome/peripherals/mouse/drag_threshold", "Net/DndDragThreshold",    GCONF_VALUE_INT,      translate_int_int },
         { "/desktop/gnome/gtk-color-palette",                "Gtk/ColorPalette",        GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/gtk-modules",                      "Gtk/Modules",             GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/font_name",              "Gtk/FontName",            GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/gtk_key_theme",          "Gtk/KeyThemeName",        GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/toolbar_style",          "Gtk/ToolbarStyle",        GCONF_VALUE_STRING,   translate_string_string_toolbar },
@@ -655,6 +655,92 @@ xsettings_callback (GConfClient           *client,
         }
 }
 
+static gchar *
+get_gtk_modules (GConfClient *client)
+{
+        GSList *entries, *l;
+        GString *mods = g_string_new (NULL);
+
+        entries = gconf_client_all_entries (client, GTK_MODULES_DIR, NULL);
+
+        for (l = entries; l != NULL; l = g_slist_next (l)) {
+                GConfEntry *e = l->data;
+                GConfValue *v = gconf_entry_get_value (e);
+
+                if (v != NULL) {
+                        gboolean enabled = FALSE;
+                        const gchar *key;
+
+                        switch (v->type) {
+                        case GCONF_VALUE_BOOL:
+                                /* simple enabled/disabled */
+                                enabled = gconf_value_get_bool (v);
+                                break;
+/* it would be good to have this, but unfortunately, due to limitations
+ * in GConf (or the client libraries, anyway), it is currently impossible
+ * to monitor arbitrary keys for changes, and without monitoring and
+ * live-updating, linking to another key doesn't make a lot of sense. */
+#if 0
+                        case GCONF_VALUE_STRING:
+                                /* linked to another GConf key of type bool */
+                                key = gconf_value_get_string (v);
+                                if (key != NULL) {
+                                        enabled = gconf_client_get_bool (client, key, NULL);
+                                }
+                                break;
+#endif
+                        default:
+                                g_warning ("GConf entry %s has invalid type %s",
+                                           gconf_entry_get_key (e), type_to_string (v->type));
+                        }
+
+                        if (enabled) {
+                                const gchar *name;
+                                name = strrchr (gconf_entry_get_key (e), '/') + 1;
+
+                                if (mods->len > 0) {
+                                        g_string_append_c (mods, ':');
+                                }
+                                g_string_append (mods, name);
+                        }
+                }
+
+                gconf_entry_free (e);
+        }
+
+        g_slist_free (entries);
+
+        return g_string_free (mods, mods->len == 0);
+}
+
+static void
+gtk_modules_callback (GConfClient           *client,
+                      guint                  cnxn_id,
+                      GConfEntry            *entry,
+                      GnomeXSettingsManager *manager)
+{
+        gchar *modules = get_gtk_modules (client);
+        int i;
+
+        if (modules == NULL) {
+                for (i = 0; manager->priv->managers [i]; ++i) {
+                        xsettings_manager_delete_setting (manager->priv->managers [i], "Gtk/Modules");
+                }
+        } else {
+                g_debug ("Setting GTK modules '%s'", modules);
+                for (i = 0; manager->priv->managers [i]; ++i) {
+                        xsettings_manager_set_string (manager->priv->managers [i],
+                                                      "Gtk/Modules",
+                                                      modules);
+                }
+                g_free (modules);
+        }
+
+        for (i = 0; manager->priv->managers [i]; ++i) {
+                xsettings_manager_notify (manager->priv->managers [i]);
+        }
+}
+
 static guint
 register_config_callback (GnomeXSettingsManager  *manager,
                           GConfClient            *client,
@@ -777,8 +863,14 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                           SOUND_SETTINGS_DIR,
                                           (GConfClientNotifyFunc) xsettings_callback);
 
-#ifdef HAVE_FONTCONFIG
         manager->priv->notify[4] =
+                register_config_callback (manager, client,
+                                          GTK_MODULES_DIR,
+                                          (GConfClientNotifyFunc) gtk_modules_callback);
+        gtk_modules_callback (client, 0, NULL, manager);
+
+#ifdef HAVE_FONTCONFIG
+        manager->priv->notify[5] =
                 register_config_callback (manager, client,
                                           FONT_RENDER_DIR,
                                           (GConfClientNotifyFunc) xft_callback);
@@ -827,6 +919,7 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
         gconf_client_remove_dir (client, GTK_SETTINGS_DIR, NULL);
         gconf_client_remove_dir (client, INTERFACE_SETTINGS_DIR, NULL);
         gconf_client_remove_dir (client, SOUND_SETTINGS_DIR, NULL);
+        gconf_client_remove_dir (client, GTK_MODULES_DIR, NULL);
 #ifdef HAVE_FONTCONFIG
         gconf_client_remove_dir (client, FONT_RENDER_DIR, NULL);
 
