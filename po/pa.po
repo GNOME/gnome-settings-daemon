@@ -5,21 +5,18 @@
 #
 #
 # Amanpreet Singh Alam <amanlinux@netscape.net>, 2004.
-# Amanpreet Singh Alam <aalam@redhat.com>, 2004, 2006.
 # Amanpreet Singh Alam <amanpreetalam@yahoo.com>, 2005.
-# ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ <aalam@redhat.com>, 2005.
-# A S Alam <apbrar@gmail.com>, 2006.
-# A S Alam <aalam@users.sf.net>, 2007.
-# ASB <aalam@users.sf.net>, 2007.
-# Amanpreet Singh Alam <apreet.alam@gmail.com>, 2008.
+# A S Alam <aalam@users.sf.net>,2006, 2007.
+# ASB <aalam@users.sf.net>, 2007, 2008.
+# Amanpreet Singh Alam <aalam@users.sf.net>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 02:34+0000\n"
-"PO-Revision-Date: 2008-03-06 22:10+0530\n"
-"Last-Translator: Amanpreet Singh Alam <apreet.alam@gmail.com>\n"
-"Language-Team: Punjabi/Panjabi <punjabi-users@list.sf.net>\n"
+"POT-Creation-Date: 2008-09-10 20:13+0000\n"
+"PO-Revision-Date: 2008-09-12 07:38+0000\n"
+"Last-Translator: Amanpreet Singh Alam <aalam@users.sf.net>\n"
+"Language-Team: Punjabi/Panjabi <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,16 +26,6 @@ msgstr ""
 "\n"
 "\n"
 "X-Generator: LoKalize 0.2\n"
-
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:1
-msgid ""
-"Set to True to keep the handlers for text/plain and text/* MIME types "
-"synchronized."
-msgstr "ਜੇਕਰ ਸੱਚ ਹੈ ਤਾਂ, ਟੈਕਸਟ/plain ਅਤੇ ਟੈਕਸਟ/* ਲਈ MIME ਨੂੰ sync ਵਿੱਚ ਰੱਖਿਆ ਜਾਵੇਗਾ।"
-
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:2
-msgid "Sync text/plain and text/* handlers"
-msgstr "Sync text/plain ਅਤੇ ਟੈਕਸਟ/* ਹੈਂਡਲਰ"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -218,6 +205,16 @@ msgstr "ਸ਼ੁਰੂਆਤੀ ਗਲਤੀ ਵੇਖੋ"
 msgid "Start screensaver"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਸ਼ੁਰੂ ਕਰੋ"
 
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr "ਡਿਸਪਲੇਅ ਨੂੰ ਨੋਟੀਫਿਕੇਸ਼ਨ ਖੇਤਰ 'ਚ ਵੇਖੋ"
+
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
 msgstr "ਐਂਟੀ-ਅਲਾਈਸਿੰਗ"
@@ -262,6 +259,10 @@ msgid ""
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "ਗਨੋਮ ਸੈਟਿੰਗ ਡੈਮਨ"
+
 #: ../data/gnome-settings-daemon.schemas.in.h:1
 msgid "Enable accessibility keyboard plugin"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਕੀਬੋਰਡ ਪਲੱਗਇਨ ਯੋਗ"
@@ -275,12 +276,12 @@ msgid "Enable clipboard plugin"
 msgstr "ਕਲਿੱਪਬੋਰਡ ਪਲੱਗਇਨ ਯੋਗ"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Enable default editor plugin"
-msgstr "ਡਿਫਾਲਟ ਐਡੀਟਰ ਪਲੱਗਇਨ ਯੋਗ"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:5
 msgid "Enable font plugin"
 msgstr "ਫੋਂਟ ਪਲੱਗਇਨ ਯੋਗ"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Enable housekeeping plugin"
+msgstr "ਹਾਊਸ-ਕੀਪਿੰਗ ਪਲੱਗਇਨ ਯੋਗ"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
@@ -323,46 +324,48 @@ msgid "Enable xsettings plugin"
 msgstr "xsetting ਪਲੱਗਇਨ ਯੋਗ"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:16
+msgid ""
+"Set to True to enable the housekeeping plugin, to prune transient file "
+"caches."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "ਕਲਿੱਪਬੋਰਡ ਸੈਟਿੰਗ ਦਾ ਪਰਬੰਧ ਕਰਨ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਲਈ ਸਹੀ ਸੈੱਟ ਕਰੋ।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "ਡੈਸਕਟਾਪ ਬੈਕਗਰਾਊਂਡ ਸੈਟਿੰਗ ਦੇ ਪਰਬੰਧ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਵਾਸਤੇ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "ਫੋਂਟ ਸੈਟਿੰਗ ਦਾ ਪਰਬੰਧ ਕਰਨ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਲਈ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "ਕੀਬੋਰਡ ਸੈਟਿੰਗ ਦੇ ਪਰਬੰਧ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਲਈ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "ਮਾਊਂਸ ਸੈਟਿੰਗ ਦੇ ਪਰਬੰਧ ਲਈ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਵਾਸਤੇ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr "ਮਲਟੀ-ਮੀਡਿਆ ਸਵਿੱਚ ਸੈਟਿੰਗ ਦੇ ਪਰਬੰਧ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਲਈ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਸੈਟਿੰਗ ਦੇ ਪਰਬੰਧ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਲਈ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Set to True to enable the plugin to manage sound settings."
 msgstr "ਸਾਊਂਡ ਸੈਟਿੰਗ ਦੇ ਪਰਬੰਧ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਲਈ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਕੀਬੋਰਡ ਸੈਟਿੰਗ ਦੇ ਪਰਬੰਧ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਲਈ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid "Set to True to enable the plugin to manage the default text editor setting."
-msgstr "ਡਿਫਾਲਟ ਟੈਕਸਟ ਐਡੀਟਰ ਸੈਟਿੰਗ ਦੇ ਪਰਬੰਧ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਲਈ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
@@ -384,11 +387,15 @@ msgstr "xrdb ਸੈਟਿੰਗ ਦੇ ਪਰਬੰਧ ਵਾਸਤੇ ਪਲੱ
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "xsetting ਦੇ ਪਰਬੰਧ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਲਈ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
 
-#: ../gnome-settings-daemon/main.c:49
+#: ../gnome-settings-daemon/main.c:50
+msgid "Enable debugging code"
+msgstr "ਡੀਬੱਗ ਕੋਡ ਯੋਗ"
+
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr "ਇੱਕ ਡੈਮਨ ਨਾ ਬਣਾਓ"
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr "ਪਲੱਗਇਨ ਸੈਟਿੰਗ ਲੋਡ ਕਰਨ ਵਾਸਤੇ GConf ਪ੍ਰੀ-ਫਿਕਸ"
 
@@ -400,20 +407,23 @@ msgstr "ਅਸੈੱਸਬਿਲਟੀ ਕੀਬੋਰਡ"
 msgid "Accessibility keyboard plugin"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਕੀਬੋਰਡ ਪਲੱਗਇਨ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:393
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "ਮੱਦਦ ਵੇਖਾਉਣ ਗਲਤੀ ਹੈ: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:445
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to activate Slow Keys?"
 msgstr "ਕੀ ਤੁਸੀ ਹੌਲੀ-ਸਵਿੱਚ ਨੂੰ ਸਰਗਰਮ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:446
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "ਕੀ ਤੁਸੀ ਹੌਲੀ-ਸਵਿੱਚ ਨੂੰ ਬੇਅਸਰ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -421,39 +431,62 @@ msgstr ""
 "ਤੁਸੀ ਸਿਫਟ (Shift) ਸਵਿੱਚ ਨੂੰ ਸਿਰਫ 8 ਵਾਰ ਦਬਾਉਣਾ ਹੈ। ਇਹ ਹੌਲੀ-ਸਵਿੱਚ ਫੀਚਰ ਦਾ ਸ਼ਾਰਟਕੱਟ ਹੈ, ਜੋ "
 "ਕਿ ਤੁਹਾਡੇ ਕੀ-ਬੋਰਡ ਦੇ ਕੰਮ ਕਰਨ ਦੇ ਢੰਗ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰੇਗਾ।"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+msgid "Don't activate"
+msgstr "ਸਰਗਰਮ ਨਾ ਕਰੋ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+msgid "Don't deactivate"
+msgstr "ਨਾ-ਸਰਗਰਮ ਨਾ ਕਰੋ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+msgid "Activate"
+msgstr "ਸਰਗਰਮ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+msgid "Deactivate"
+msgstr "ਨਾ-ਸਰਗਰਮ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
 msgid "Do_n't activate"
 msgstr "ਸਰਗਰਮ ਨਾ ਕਰੋ(_n)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
 msgid "Do_n't deactivate"
 msgstr "ਨਾ-ਸਰਗਰਮ ਨਾ ਕਰੋ(_n)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
 msgid "_Activate"
 msgstr "ਸਰਗਰਮ(_A)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
 msgid "_Deactivate"
 msgstr "ਨਾ-ਸਰਗਰਮ(_D)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:626
 msgid "Slow Keys Alert"
 msgstr "ਹੌਲੀ-ਸਵਿੱਚ ਚੇਤਾਵਨੀ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:495
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to activate Sticky Keys?"
 msgstr "ਕੀ ਤੁਸੀ ਸਟਿੱਕੀ-ਸਵਿੱਚ ਨੂੰ ਸਰਗਰਮ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:496
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "ਕੀ ਤੁਸੀ ਸਟਿੱਕੀ-ਸਵਿੱਚ ਨੂੰ ਬੇਅਸਰ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:499
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -461,7 +494,8 @@ msgstr ""
 "ਤੁਸੀ ਸਿਫਟ (Shift) ਸਵਿੱਚ ਨੂੰ ਸਿਰਫ 5 ਵਾਰ ਦਬਾਉਣਾ ਹੈ। ਇਹ ਸਟਿੱਕੀ-ਸਵਿੱਚ ਫੀਚਰ ਦਾ ਸ਼ਾਰਟਕੱਟ ਹੈ, "
 "ਜੋ ਕਿ ਤੁਹਾਡੇ ਕੀ-ਬੋਰਡ ਦੇ ਕੰਮ ਕਰਨ ਦੇ ਢੰਗ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰੇਗਾ।"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -470,9 +504,46 @@ msgstr ""
 "ਤੁਸੀ ਇੱਕ ਕਤਾਰ ਵਿੱਚੋ ਦੋ ਕੀ ਇੱਕ ਵਾਰ ਦਬਾ ਸਕਦੇ ਹੋ ਜਾਂ ਸਿਫਟ (Shift) ਸਵਿੱਚ ਨੂੰ 5 ਵਾਰ ਇਹ ਸਟਿੱਕੀ "
 "ਸਵਿੱਚ ਫੀਚਰ ਨੂੰ ਚਾਲੂ ਕਰ ਸਕਦੇ ਹੋ, ਜੋ ਕਿ ਤੁਹਾਡਾ ਕੀ-ਬੋਰਡ ਤੇ ਕੰਮ ਕਰਨ ਦੇ ਢੰਗ ਨੂੰ ਤਬਦੀਲ ਕਰਦਾ ਹੈ।"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "Sticky Keys Alert"
 msgstr "ਸਟਿੱਕੀ ਸਵਿੱਚ ਚੇਤਾਵਨੀ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+msgid "Universal Access Preferences"
+msgstr "ਯੂਨੀਵਰਸਲ ਅਸੈੱਸ ਪਸੰਦ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr "ਆਨ-ਸਕਰੀਨ ਕੀਬੋਰਡ ਵਰਤੋਂ(_k)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr "ਸਕਰੀਨ ਵੱਡਦਰਸ਼ੀ ਵਰਤੋਂ(_m)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr "ਸਕਰੀਨ ਰੀਡਰ ਵਰਤੋਂ(_r)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "ਇੰਨੇ ਅੰਤਰਾਲ ਵਿੱਚ ਦੂਹਰੀ ਸਵਿੱਚ ਦਬਾਉਣਾ ਅਣਡਿੱਠਾ (ਬਾਊਸ ਸਵਿੱਚਾਂ)(_I):"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr ""
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -506,7 +577,7 @@ msgstr "ਫੋਂਟ"
 msgid "Font plugin"
 msgstr "ਫੋਂਟ ਪਲੱਗਇਨ"
 
-#: ../plugins/font/gsd-font-manager.c:208
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -515,7 +586,7 @@ msgstr ""
 "ਡਾਇਰੈਕਟਰੀ \"%s\" ਬਣਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ ਹੈ।\n"
 "ਇਹ ਮਾਊਸ ਪੁਆਇੰਟਰ ਥੀਮ ਤਬਦੀਲ ਕਰਨ ਲਈ ਲਾਜ਼ਮੀ ਹੈ।"
 
-#: ../plugins/font/gsd-font-manager.c:231
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -524,37 +595,17 @@ msgstr ""
 "ਡਾਇਰੈਕਟਰੀ \"%s\" ਬਣਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ ਹੈ।\n"
 "ਇਹ ਕਰਸਰ ਤਬਦੀਲ ਕਰਨ ਲਈ ਲੋੜੀਦੀਂ ਹੈ।"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:195
+#: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
-msgid "Key Binding (%s) has its action defined multiple times\n"
-msgstr "ਕੀ-ਬਾਈਡਿੰਗ (%s) ਦੀ ਕਾਰਵਾਈ ਬਹੁਤ ਵਾਰ ਪ੍ਰਭਾਸ਼ਿਤ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ।\n"
+msgid "Key binding (%s) is incomplete"
+msgstr "ਕੀ-ਬਾਈਡਿੰਗ (%s) ਪੂਰੀ ਨਹੀਂ ਹੈ"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:202
+#: ../plugins/keybindings/gsd-keybindings-manager.c:222
 #, c-format
-msgid "Key Binding (%s) has its binding defined multiple times\n"
-msgstr "ਕੀ-ਬਾਈਡਿੰਗ (%s) ਦੀ ਬਾਈਡਿੰਗ ਬਹੁਤ ਵਾਰ ਪ੍ਰਭਾਸ਼ਿਤ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ।\n"
+msgid "Key binding (%s) is invalid"
+msgstr "ਕੀ-ਬਾਈਡਿੰਗ (%s) ਗਲਤ ਹੈ"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:211
-#, c-format
-msgid "Key Binding (%s) is incomplete\n"
-msgstr "ਕੀ-ਬਾਈਡਿੰਗ (%s) ਪੂਰੀ ਨਹੀਂ ਹੈ\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:239
-#, c-format
-msgid "Key Binding (%s) is invalid\n"
-msgstr "ਕੀ-ਬਾਈਡਿੰਗ (%s) ਠੀਕ ਨਹੀਂ ਹੈ\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:292
-#, c-format
-msgid "It seems that another application already has access to key '%u'."
-msgstr "ਇਹ ਲੱਗ ਰਿਹਾ ਹੈ ਕਿ ਇੱਕ ਹੋਰ ਕਾਰਜ ਸਵਿੱਚ '%u' ਨੂੰ ਵਰਤ ਰਿਹਾ ਹੈ।"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:365
-#, c-format
-msgid "Key Binding (%s) is already in use\n"
-msgstr "ਕੀ-ਬਾਈਡਿੰਗ (%s) ਪਹਿਲਾਂ ਹੀ ਵਰਤੀ ਜਾ ਰਹੀ ਹੈ\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:502
+#: ../plugins/keybindings/gsd-keybindings-manager.c:409
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -603,11 +654,7 @@ msgstr "ਲੋਡ(_L)"
 msgid "_Loaded files:"
 msgstr "ਲੋਡ ਕੀਤੀਆਂ ਫਾਇਲਾਂ(_L):"
 
-#: ../plugins/media-keys/actions/acme.glade.h:1
-msgid "Volume"
-msgstr "ਵਾਲੀਅਮ"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:183
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -615,7 +662,7 @@ msgstr ""
 "ਮੂਲ ਟਰਮੀਨਲ ਕਾਰਜ ਨਹੀਂ ਮਿਲਿਆ। ਜਾਂਚ ਕਰੋ ਕੀ ਤੁਹਾਡੀ ਮੂਲ ਟਰਮੀਨਲ ਕਮਾਂਡ ਸੈੱਟ ਕੀਤੀ ਹੋਈ ਹੈ ਅਤੇ ਇੱਕ "
 "ਠੀਕ ਕਾਰਜ ਲਈ ਇਸ਼ਾਰਾ ਕਰਦੀ ਹੈ।"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:223
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -624,7 +671,7 @@ msgstr ""
 "ਕਮਾਂਡ ਨੂੰ ਚਲਾਇਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ: %s\n"
 "ਜਾਂਚ ਲਵੋ ਕਿ ਇਹ ਕਮਾਂਡ ਠੀਕ ਹੈ"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
+#: ../plugins/media-keys/gsd-media-keys-manager.c:239
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -640,17 +687,15 @@ msgstr "ਮੀਡਿਆ ਸਵਿੱਚਾਂ"
 msgid "Media keys plugin"
 msgstr "ਮੀਡਿਆ ਸਵਿੱਚ ਪਲੱਗਇਨ"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:566
+#: ../plugins/mouse/gsd-mouse-manager.c:571
 msgid "Could not enable mouse accessibility features"
 msgstr "ਮਾਊਂਸ ਅਸੈੱਸਬਿਲਟੀ ਫੀਚਰ ਯੋਗ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕੇ"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:568
-msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
+#: ../plugins/mouse/gsd-mouse-manager.c:573
+msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
 msgstr "ਮਾਊਸ ਪਸੰਦ"
 
@@ -662,7 +707,7 @@ msgstr "ਮਾਊਸ"
 msgid "Mouse plugin"
 msgstr "ਮਾਊਂਸ ਪਲੱਗਇਨ"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:151
+#: ../plugins/screensaver/gsd-screensaver-manager.c:153
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -677,7 +722,7 @@ msgstr ""
 "\n"
 "ਸਕਰੀਨ-ਸੇਵਰ ਕਾਰਵਾਈ ਇਸ ਸ਼ੈਸ਼ਨ ਵਿੱਚ ਕੰਮ ਨਹੀਂ ਕਰੇਗੀ।"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:160
+#: ../plugins/screensaver/gsd-screensaver-manager.c:162
 msgid "_Do not show this message again"
 msgstr "ਇਹ ਸੁਨੇਹਾ ਮੁੜ ਨਾ ਵੇਖਾਓ(_D)"
 
@@ -689,44 +734,44 @@ msgstr "ਸਕਰੀਨ-ਸੇਵਰ"
 msgid "Screensaver plugin"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਪਲੱਗਇਨ"
 
-#: ../plugins/sound/gsd-sound-manager.c:164
+#: ../plugins/sound/gsd-sound-manager.c:273
 #, c-format
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "ਸਾਊਂਡ ਫਾਇਲ %s ਨੂੰ ਸੈਂਪਲ %s ਦੇ ਤੌਰ ਉੱਤੇ ਲੋਡ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
 msgstr "ਲਾਗ-ਇਨ"
 
-#: ../plugins/sound/libsounds/sound-view.c:45
+#: ../plugins/sound/libsounds/sound-view.c:44
 msgid "Logout"
 msgstr "ਲਾਗਆਉਟ"
 
-#: ../plugins/sound/libsounds/sound-view.c:46
+#: ../plugins/sound/libsounds/sound-view.c:45
 msgid "Boing"
 msgstr "ਬੋਇੰਗ"
 
-#: ../plugins/sound/libsounds/sound-view.c:47
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
 msgstr "ਸਿਰੀਨ"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr "ਕਲਿੰਕ"
 
-#: ../plugins/sound/libsounds/sound-view.c:49
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
 msgstr "ਬੀਪ"
 
-#: ../plugins/sound/libsounds/sound-view.c:50
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
 msgstr "ਕੋਈ ਸਾਊਂਡ ਨਹੀਂ"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
 msgstr "ਇਹ ਘਟਨਾ ਲਈ ਧੁਨੀ ਸੈੱਟ ਨਹੀਂ ਹੈ।"
 
-#: ../plugins/sound/libsounds/sound-view.c:141
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
@@ -734,24 +779,24 @@ msgstr ""
 "ਇਹ ਘਟਨਾ ਲਈ ਧੁਨੀ ਫਾਇਲ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।\n"
 "ਤੁਸੀਂ ਮੂਲ ਧੁਨੀਆਂ ਦੇਣ ਲਈ gnome-audio ਪੈਕੇਜ ਇੰਸਟਾਲ ਕਰ ਸਕਦੇ ਹੋ।"
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "ਇਹ ਘਟਨਾ ਲਈ ਧੁਨੀ ਫਾਇਲ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।"
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "ਸਾਊਂਡ ਫਾਇਲ ਚੁਣੋ"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "ਫਾਇਲ %s ਇੱਕ ਠੀਕ ਵੇਵ (wav) ਫਾਇਲ ਨਹੀਂ ਹੈ"
 
-#: ../plugins/sound/libsounds/sound-view.c:271
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
 msgstr "ਸਾਊਂਡ ਫਾਇਲ ਚੁਣੋ..."
 
-#: ../plugins/sound/libsounds/sound-view.c:373
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
 msgstr "ਸਿਸਟਮ ਸਾਊਂਡ"
 
@@ -779,8 +824,45 @@ msgstr "ਸਕਰੀਨ ਸਾਈਜ਼ ਅਤੇ ਘੁੰਮਾਉਣ ਸੈ�
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrdb/gsd-xrdb-manager.c:258
-#: ../plugins/xrdb/gsd-xrdb-manager.c:327
+#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+msgid "<i>Rotation not supported</i>"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:456
+#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+msgid "The selected rotation could not be applied"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:457
+msgid "An error occurred while configuring the screen"
+msgstr "ਸਕਰੀਨ ਦੀ ਸੰਰਚਨਾ ਕਰਨ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+msgid "Normal"
+msgstr "ਆਮ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+msgid "Left"
+msgstr "ਖੱਬੇ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+msgid "Right"
+msgstr "ਸੱਜੇ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+msgid "Upside Down"
+msgstr "ਉਤਲਾ ਹੇਠਾਂ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+msgid "_Configure Display Settings ..."
+msgstr "ਡਿਸਪਲੇਅ ਸੈਟਿੰਗ ਸੰਰਚਨਾ(_C)..."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+msgid "Configure display settings"
+msgstr "ਡਿਸਪਲੇਅ ਸੈਟਿੰਗ ਸੰਰਚਨਾ"
+
+#: ../plugins/xrdb/gsd-xrdb-manager.c:255
+#: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
 msgstr "ਯੂਜ਼ਰ ਦੀ ਘਰ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਜਾਣੀ ਜਾ ਸਕਦੀ ਹੈ"
 
@@ -792,7 +874,7 @@ msgstr "X ਸਰੋਤ ਡਾਟਾਬੇਸ ਪਰਬੰਧ"
 msgid "X Resource Database"
 msgstr "X ਸਰੋਤ ਡਾਟਾਬੇਸ"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:551
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "ਜੀ-ਕਾਨਫ ਕੁੰਜੀ %s ਦੀ ਦਿੱਤੀ ਕਿਸਮ %s ਹੈ, ਪਰ ਇਸ ਕਿਸਮ %s ਦੀ ਉਮੀਦ ਸੀ।\n"
@@ -804,6 +886,37 @@ msgstr "X ਸੈਟਿੰਗ ਪਰਬੰਧ"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X ਸੈਟਿੰਗ"
+
+#~ msgid ""
+#~ "Set to True to keep the handlers for text/plain and text/* MIME types "
+#~ "synchronized."
+#~ msgstr "ਜੇਕਰ ਸੱਚ ਹੈ ਤਾਂ, ਟੈਕਸਟ/plain ਅਤੇ ਟੈਕਸਟ/* ਲਈ MIME ਨੂੰ sync ਵਿੱਚ ਰੱਖਿਆ ਜਾਵੇਗਾ।"
+
+#~ msgid "Sync text/plain and text/* handlers"
+#~ msgstr "Sync text/plain ਅਤੇ ਟੈਕਸਟ/* ਹੈਂਡਲਰ"
+
+#~ msgid "Enable default editor plugin"
+#~ msgstr "ਡਿਫਾਲਟ ਐਡੀਟਰ ਪਲੱਗਇਨ ਯੋਗ"
+
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage the default text editor "
+#~ "setting."
+#~ msgstr "ਡਿਫਾਲਟ ਟੈਕਸਟ ਐਡੀਟਰ ਸੈਟਿੰਗ ਦੇ ਪਰਬੰਧ ਵਾਸਤੇ ਪਲੱਗਇਨ ਯੋਗ ਕਰਨ ਲਈ ਸਹੀਂ ਸੈੱਟ ਕਰੋ।"
+
+#~ msgid "Key Binding (%s) has its action defined multiple times\n"
+#~ msgstr "ਕੀ-ਬਾਈਡਿੰਗ (%s) ਦੀ ਕਾਰਵਾਈ ਬਹੁਤ ਵਾਰ ਪ੍ਰਭਾਸ਼ਿਤ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ।\n"
+
+#~ msgid "Key Binding (%s) has its binding defined multiple times\n"
+#~ msgstr "ਕੀ-ਬਾਈਡਿੰਗ (%s) ਦੀ ਬਾਈਡਿੰਗ ਬਹੁਤ ਵਾਰ ਪ੍ਰਭਾਸ਼ਿਤ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ।\n"
+
+#~ msgid "It seems that another application already has access to key '%u'."
+#~ msgstr "ਇਹ ਲੱਗ ਰਿਹਾ ਹੈ ਕਿ ਇੱਕ ਹੋਰ ਕਾਰਜ ਸਵਿੱਚ '%u' ਨੂੰ ਵਰਤ ਰਿਹਾ ਹੈ।"
+
+#~ msgid "Key Binding (%s) is already in use\n"
+#~ msgstr "ਕੀ-ਬਾਈਡਿੰਗ (%s) ਪਹਿਲਾਂ ਹੀ ਵਰਤੀ ਜਾ ਰਹੀ ਹੈ\n"
+
+#~ msgid "Volume"
+#~ msgstr "ਵਾਲੀਅਮ"
 
 #~ msgid "Image/label border"
 #~ msgstr "ਚਿੱਤਰ/ਲੇਬਲ ਹਾਸ਼ੀਆ"
@@ -1227,9 +1340,6 @@ msgstr "X ਸੈਟਿੰਗ"
 #~ msgid "Filters"
 #~ msgstr "ਫਿਲਟਰ"
 
-#~ msgid "I_gnore duplicate keypresses within:"
-#~ msgstr "ਇੰਨੇ ਅੰਤਰਾਲ ਵਿੱਚ ਦੂਹਰੀ ਸਵਿੱਚ ਦਬਾਉਣਾ ਰੱਦ(_g):"
-
 #~ msgid ""
 #~ "Ignore all subsequent presses of the SAME key if they happen within a "
 #~ "user selectable period of time."
@@ -1402,9 +1512,6 @@ msgstr "X ਸੈਟਿੰਗ"
 
 #~ msgid "<b>_Wallpaper</b>"
 #~ msgstr "<b>ਵਾਲਪੇਪਰ(_W)</b>"
-
-#~ msgid "Appearance Preferences"
-#~ msgstr "ਦਿੱਖ ਪਸੰਦ"
 
 #~ msgid "Best _shapes"
 #~ msgstr "ਉੱਤਮ ਸ਼ਕਲ(_s)"
@@ -2114,9 +2221,6 @@ msgstr "X ਸੈਟਿੰਗ"
 #~ msgid "Links Text Browser"
 #~ msgstr "Links ਟੈਕਸਟ ਬਰਾਊਜ਼ਰ"
 
-#~ msgid "Linux Screen Reader"
-#~ msgstr "ਲਿਨਕਸ ਸਕਰੀਨ ਰੀਡਰ"
-
 #~ msgid "Linux Screen Reader with Magnifier"
 #~ msgstr "ਵੱਡਦਰਸ਼ੀ ਨਾਲ ਲਿਨਕਸ ਸਕਰੀਨ ਰੀਡਰ"
 
@@ -2168,9 +2272,6 @@ msgstr "X ਸੈਟਿੰਗ"
 #~ msgid "SeaMonkey Mail"
 #~ msgstr "ਸਾਅਮਾਂਕੀ ਮੇਲ"
 
-#~ msgid "Simple OnScreen Keyboard"
-#~ msgstr "ਸਧਾਰਨ ਆਨ-ਸਕਰੀਨ ਕੀਬੋਰਡ"
-
 #~ msgid "Standard XTerminal"
 #~ msgstr "ਸਟੈਂਡਰਡ XTerminal"
 
@@ -2198,17 +2299,8 @@ msgstr "X ਸੈਟਿੰਗ"
 #~ msgid "Screen Resolution"
 #~ msgstr "ਸਕਰੀਨ ਰੈਜੋਲੇਸ਼ਨ"
 
-#~ msgid "Normal"
-#~ msgstr "ਆਮ"
-
-#~ msgid "Left"
-#~ msgstr "ਖੱਬੇ"
-
 #~ msgid "Inverted"
 #~ msgstr "ਉਲਟ"
-
-#~ msgid "Right"
-#~ msgstr "ਸੱਜੇ"
 
 #~ msgid "%d Hz"
 #~ msgstr "%d Hz"
@@ -2837,9 +2929,6 @@ msgstr "X ਸੈਟਿੰਗ"
 #~ "%s ਦੀ ਮੰਗ ਸੀ, ਪਰ ਅੱਗੇ ਦਿੱਤਾ ਸੈਟਿੰਗ ਮਿਲੀ ਹੈ: %s।\n"
 #~ "\n"
 #~ "ਤੁਸੀਂ ਕਿਹੜੀ ਦੀ ਵਰਤੋਂ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#~ msgid "Keep GNOME settings"
-#~ msgstr "ਗਨੋਮ ਸੈਟਿੰਗ ਰੱਖੋ"
 
 #~ msgid "Error creating signal pipe."
 #~ msgstr "ਸੰਕੇਤ ਪਾਇਪ ਬਣਾਉਣ ਵਿੱਚ ਗਲਤੀ"
