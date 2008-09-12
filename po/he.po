@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-05 05:32+0000\n"
+"POT-Creation-Date: 2008-08-19 03:43+0000\n"
 "PO-Revision-Date: 2005-07-31 16:09+0300\n"
 "Last-Translator: Yuval Tanny <>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -208,6 +208,8 @@ msgid ""
 "If a notification icon with display related things should be shown in the "
 "panel."
 msgstr ""
+"If a notification icon with display related things should be shown in the "
+"panel."
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "Show Displays in Notification Area"
@@ -517,7 +519,7 @@ msgstr ""
 msgid "Sticky Keys Alert"
 msgstr "התרעת מקשים דביקים"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:888
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:865
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
 msgid "Universal Access Preferences"
 msgstr "העדפות גישה אוניברסליץ"
@@ -590,7 +592,7 @@ msgstr "גופן"
 msgid "Font plugin"
 msgstr "תוסף גופן"
 
-#: ../plugins/font/gsd-font-manager.c:219
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -599,7 +601,7 @@ msgstr ""
 "לא ניתן ליצור את התיקייה \"%s\".\n"
 "אשר הכרחית לאישור שינוי הסמן."
 
-#: ../plugins/font/gsd-font-manager.c:242
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -608,8 +610,9 @@ msgstr ""
 "לא ניתן ליצור את התיקייה \"%s\".\n"
 "אשר הכרחית לאישור שינוי הסמן."
 
+# ת c-format
 #: ../plugins/keybindings/gsd-keybindings-manager.c:190
-#ת c-format
+#, c-format
 msgid "Key binding (%s) is incomplete"
 msgstr "קיצור המקש (%s) אינו שלם"
 
@@ -701,8 +704,7 @@ msgstr "לא ניתן להפעיל את אפשרויות נגישות העכבר
 #: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr ""
-"נכישות עכבר דורשת ש-mousetweaks תהיה מותקנת במערכת."
+msgstr "נכישות עכבר דורשת ש-mousetweaks תהיה מותקנת במערכת."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
@@ -778,9 +780,8 @@ msgid "No sound"
 msgstr "ללא קול"
 
 #: ../plugins/sound/libsounds/sound-view.c:131
-#, fuzzy
 msgid "Sound not set for this event."
-msgstr "לא נקבע קול עבור אירוע זה"
+msgstr "לא נקבע קול עבור אירוע זה."
 
 #: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
@@ -835,15 +836,40 @@ msgstr "הגדרות גודל וסיבוב מסך"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:198
-msgid "Screen Rotation"
-msgstr "סיבוב מסך"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+msgid "<i>Rotation not supported</i>"
+msgstr ""
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:203
+#: ../plugins/xrandr/gsd-xrandr-manager.c:456
+#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+msgid "The selected rotation could not be applied"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:457
+msgid "An error occurred while configuring the screen"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+msgid "Normal"
+msgstr "רגיל"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+msgid "Left"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+msgid "Right"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+msgid "Upside Down"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:600
 msgid "_Configure Display Settings ..."
 msgstr "הגדרות _תצוגה ..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:248
+#: ../plugins/xrandr/gsd-xrandr-manager.c:641
 msgid "Configure display settings"
 msgstr "הגדרות תצוגה"
 
@@ -872,6 +898,9 @@ msgstr "נהל הגדרות X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "הגדרות X"
+
+#~ msgid "Screen Rotation"
+#~ msgstr "סיבוב מסך"
 
 #~ msgid ""
 #~ "Set to True to keep the handlers for text/plain and text/* MIME types "
