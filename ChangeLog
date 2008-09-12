@@ -1,5 +1,14 @@
 2008-09-12  Jens Granseuer  <jensgr@gmx.net>
 
+	Also allow linking the module state to other boolean keys by using a
+	string value that is the name of the key to use. Note that in this
+	case the state won't be updated at runtime due to GConf limitations.
+
+	* plugins/xsettings/gsd-xsettings-manager.c: (get_gtk_modules):
+	enable linking to other keys
+
+2008-09-12  Jens Granseuer  <jensgr@gmx.net>
+
 	Specify GTK modules to load in a GConf directory instead of the single
 	/desktop/gnome/gtk-modules key. Apps can now easily install additional
 	modules by dropping a key with the name of the module and a boolean

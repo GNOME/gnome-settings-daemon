@@ -676,11 +676,11 @@ get_gtk_modules (GConfClient *client)
                                 /* simple enabled/disabled */
                                 enabled = gconf_value_get_bool (v);
                                 break;
-/* it would be good to have this, but unfortunately, due to limitations
- * in GConf (or the client libraries, anyway), it is currently impossible
- * to monitor arbitrary keys for changes, and without monitoring and
- * live-updating, linking to another key doesn't make a lot of sense. */
-#if 0
+
+                        /* due to limitations in GConf (or the client libraries,
+                         * anyway), it is currently impossible to monitor
+                         * arbitrary keys for changes, so these won't update at
+                         * runtime */
                         case GCONF_VALUE_STRING:
                                 /* linked to another GConf key of type bool */
                                 key = gconf_value_get_string (v);
@@ -688,7 +688,7 @@ get_gtk_modules (GConfClient *client)
                                         enabled = gconf_client_get_bool (client, key, NULL);
                                 }
                                 break;
-#endif
+
                         default:
                                 g_warning ("GConf entry %s has invalid type %s",
                                            gconf_entry_get_key (e), type_to_string (v->type));
