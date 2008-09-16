@@ -309,7 +309,6 @@ gsd_keyboard_xkb_evt_filter (GdkXEvent * xev,
                              GdkEvent  * event)
 {
         XEvent *xevent = (XEvent *) xev;
-	g_print ("gd_keyboard_xkb_evt_filter\n");
         xkl_engine_filter_events (xkl_engine, xevent);
         return GDK_FILTER_CONTINUE;
 }
