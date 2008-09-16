@@ -1,34 +1,25 @@
-# gnome-control-center translation to Catalan.
-# Copyright © 1999-2007 Free Software Foundation, Inc.
+# Traducció del mòdul gnome-settings-daemon de Softcatalà
+# Copyright © 1999-2008 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gnome-settings-daemon package.
 # Ivan Vilata i Balaguer <ivan@selidor.net>, 1999, 2000.
 # Softcatalà <linux@softcatala.org>, 2000, 2001.
 # Jordi Mallach <jordi@sindominio.net>, 2002, 2003, 2004, 2005.
 # Xavier Conde Rueda <xavi.conde@gmail.com>, 2005 
 # Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>, 2005, 2006, 2007.
+# Joan Duran <jodufi@gmail.com>, 2008.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-control-center 2.11.92\n"
+"Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-28 15:45+0100\n"
-"PO-Revision-Date: 2008-02-28 15:52+0100\n"
-"Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
+"POT-Creation-Date: 2008-09-16 12:57+0200\n"
+"PO-Revision-Date: 2008-09-11 11:31+0100\n"
+"Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:1
-msgid ""
-"Set to True to keep the handlers for text/plain and text/* MIME types "
-"synchronized."
-msgstr ""
-"Establiu-ho a «True» (cert) per a mantenir sincronitzats els gestors dels "
-"tipus MIME text/plain i text/*."
-
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:2
-msgid "Sync text/plain and text/* handlers"
-msgstr "Sincronitza els gestors text/plain i text/*"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -213,6 +204,18 @@ msgstr "Mostra els errors de l'inici"
 msgid "Start screensaver"
 msgstr "Inicia l'estalvi de pantalla"
 
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr ""
+"Si s'hauria de mostrar al quadre una icona de notificació amb elements "
+"relacionats amb la pantalla."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr "Mostra les pantalles a l'àrea de notificació"
+
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
 msgstr "Suavitzat"
@@ -258,8 +261,8 @@ msgid ""
 msgstr ""
 "El tipus de suavitzat que s'utilitzarà per a mostrar els tipus de lletra. "
 "Els valors possibles són: «none» (cap) per no aplicar cap suavitzat, "
-"«grayscale» (escala de grisos) per a suavitzat d'escala de grisos estàndard "
-"i «rgba» per a suavitzat de subpíxel (només per a pantalles LCD)."
+"«grayscale» (escala de grisos) per a suavitzat d'escala de grisos estàndard i "
+"«rgba» per a suavitzat de subpíxel (només per a pantalles LCD)."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:8
 msgid ""
@@ -268,13 +271,17 @@ msgid ""
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 "El tipus de contorn que s'utilitzarà per a mostrar els tipus de lletra. Els "
-"valors possibles són: «none» (cap) cap contorn, «slight» (lleu) contorn "
-"petit, «medium» (mitjà) contorn moderat i «full» (complet) màxim contorn "
-"(pot produïr distorsió en les formes de les lletres)."
+"valors possibles són: «none» (cap) cap contorn, «slight» (lleu) contorn petit, "
+"«medium» (mitjà) contorn moderat i «full» (complet) màxim contorn (pot produïr "
+"distorsió en les formes de les lletres)."
+
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "Dimoni de paràmetres del GNOME"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
 msgid "Enable accessibility keyboard plugin"
-msgstr "Habilita el connector d'accesibilitat pel teclat"
+msgstr "Habilita el connector d'accessibilitat pel teclat"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:2
 msgid "Enable background plugin"
@@ -285,12 +292,12 @@ msgid "Enable clipboard plugin"
 msgstr "Habilita el connector pel porta-retalls"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Enable default editor plugin"
-msgstr "Habilita el connector d'editor de text predeterminat"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:5
 msgid "Enable font plugin"
 msgstr "Habilita el connector de tipus de lletra"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Enable housekeeping plugin"
+msgstr "Habilita el connector de manteniment"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
@@ -333,67 +340,68 @@ msgid "Enable xsettings plugin"
 msgstr "Habilita el connector de xsettings"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:16
+msgid ""
+"Set to True to enable the housekeeping plugin, to prune transient file "
+"caches."
+msgstr ""
+"Establiu-ho a «True» (cert) per a habilitar el connector de manteniment, per "
+"a reduir els fitxers temporals de la memòria cau."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "Establiu-ho a «True» (Cert) per a habilitar el connector per a gestionar els "
 "paràmetres del porta-retalls."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar els "
 "paràmetres de fons de l'escriptori."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar els "
 "paràmetres de tipus de lletra."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar els "
 "paràmetres de teclat."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar els "
 "paràmetres de ratolí."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar els "
 "paràmetes de les tecles multimèdia."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr ""
 "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar els "
 "paràmetres de l'estalvi de pantalla."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Set to True to enable the plugin to manage sound settings."
 msgstr ""
 "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar els "
 "paràmetres de so."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr ""
 "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar els "
 "paràmetres d'accessibilitat del teclat."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid ""
-"Set to True to enable the plugin to manage the default text editor setting."
-msgstr ""
-"Establiu-ho a «True» (cert) per a habilitar el connector per a gestionarel "
-"paràmetre d'editor de text predeterminat."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
@@ -425,36 +433,43 @@ msgstr ""
 "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar "
 "l'xsettings."
 
-#: ../gnome-settings-daemon/main.c:49
+#: ../gnome-settings-daemon/main.c:50
+msgid "Enable debugging code"
+msgstr "Habilita el codi de depuració"
+
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr "No et tornis un dimoni"
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr "Prefix del GConf del que carregar els paràmetres del connector"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
-msgstr "Teclat accesible"
+msgstr "Teclat accessible"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
-msgstr "Connector de l'accesibilitat de teclat"
+msgstr "Connector de l'accessibilitat de teclat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:393
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "S'ha produït un error en mostrar l'ajuda: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:445
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to activate Slow Keys?"
 msgstr "Voleu activar les «tecles lentes»?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:446
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Voleu desactivar les «tecles lentes»?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -463,39 +478,62 @@ msgstr ""
 "drecera per a la funcionalitat «tecles lentes», que afecta la forma de "
 "funcionar del teclat."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+msgid "Don't activate"
+msgstr "No activis"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+msgid "Don't deactivate"
+msgstr "No desactivis"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+msgid "Activate"
+msgstr "Activa"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+msgid "Deactivate"
+msgstr "Desactiva"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
 msgid "Do_n't activate"
 msgstr "_No activis"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
 msgid "Do_n't deactivate"
 msgstr "_No desactivis"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
 msgid "_Activate"
 msgstr "_Activa"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
 msgid "_Deactivate"
 msgstr "_Desactiva"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:626
 msgid "Slow Keys Alert"
 msgstr "Alerta de «tecles lentes»"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:495
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Voleu activar les «tecles enganxoses»?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:496
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Voleu desactivar les «tecles enganxoses»?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:499
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -504,7 +542,8 @@ msgstr ""
 "per a la funcionalitat «tecles enganxoses», que afecta la forma de funcionar "
 "del teclat."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -514,9 +553,46 @@ msgstr ""
 "seguides. Això desactiva les «tecles enganxoses», que afecten la forma de "
 "funcionar del teclat."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "Sticky Keys Alert"
 msgstr "Alerta de «tecles enganxoses»"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+msgid "Universal Access Preferences"
+msgstr "Preferències d'accés universal"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr "Millora el _contrast dels colors"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr "Fes el _text més gran i més fàcil de llegir"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "Prem i _mantén les tecles per a acceptar-les (tecles lentes)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr "Utilitza el _teclat a la pantalla"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr "Utilitza l'_ampliador de pantalla"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr "Utilitza el _lector de pantalla"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "_Ignora les pulsacions duplicades (tecles de salt)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr "_Prem les dreceres de teclat una tecla a la vegada (tecles enganxoses)"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -550,7 +626,7 @@ msgstr "Tipus de lletra"
 msgid "Font plugin"
 msgstr "Connector de tipus de lletra"
 
-#: ../plugins/font/gsd-font-manager.c:208
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -559,7 +635,7 @@ msgstr ""
 "No s'ha pogut crear el directori «%s».\n"
 "Es necessita per a poder canviar el tema del cursor."
 
-#: ../plugins/font/gsd-font-manager.c:231
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -568,37 +644,17 @@ msgstr ""
 "No s'ha pogut crear el directori «%s».\n"
 "Es necessita per a poder canviar els cursors."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:195
+#: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
-msgid "Key Binding (%s) has its action defined multiple times\n"
-msgstr "L'assignació de tecla (%s) té l'acció definida múltiples vegades\n"
+msgid "Key binding (%s) is incomplete"
+msgstr "L'assignació de tecla (%s) és incompleta"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:202
+#: ../plugins/keybindings/gsd-keybindings-manager.c:222
 #, c-format
-msgid "Key Binding (%s) has its binding defined multiple times\n"
-msgstr "L'assignació de tecla (%s) està definit diverses vegades\n"
+msgid "Key binding (%s) is invalid"
+msgstr "L'assignació de tecla (%s) no és vàlida"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:211
-#, c-format
-msgid "Key Binding (%s) is incomplete\n"
-msgstr "L'assignació de tecla (%s) és incompleta\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:239
-#, c-format
-msgid "Key Binding (%s) is invalid\n"
-msgstr "L'assignació de tecla (%s) no és vàlida\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:292
-#, c-format
-msgid "It seems that another application already has access to key '%u'."
-msgstr "Sembla que una altra aplicació ja té accés a la tecla «%u»."
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:365
-#, c-format
-msgid "Key Binding (%s) is already in use\n"
-msgstr "L'assignació de tecla (%s) ja està en ús\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:502
+#: ../plugins/keybindings/gsd-keybindings-manager.c:409
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -647,11 +703,7 @@ msgstr "_Carrega"
 msgid "_Loaded files:"
 msgstr "Fitxers _carregats:"
 
-#: ../plugins/media-keys/actions/acme.glade.h:1
-msgid "Volume"
-msgstr "Volum"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:183
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -659,7 +711,7 @@ msgstr ""
 "No s'ha pogut obtenir el terminal per defecte. Verifiqueu que l'ordre que "
 "teniu establerta per el terminal per defecte existeixi."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:223
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -668,7 +720,7 @@ msgstr ""
 "No s'ha pogut executar l'ordre: %s\n"
 "Verifiqueu que sigui una ordre vàlida."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
+#: ../plugins/media-keys/gsd-media-keys-manager.c:239
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -684,20 +736,19 @@ msgstr "Tecles multimèdia"
 msgid "Media keys plugin"
 msgstr "Connector de les tecles multimèdia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:566
+#: ../plugins/mouse/gsd-mouse-manager.c:571
 msgid "Could not enable mouse accessibility features"
 msgstr ""
 "No s'han pogut habilitar les funcionalitats d'accessibilitat del ratolí"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:568
+#: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
+"Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
-"L'accessibilitat de ratolí requereix que s'instal·li el dimoni del "
-"mousetweaks a l'ordinador."
+"L'accessibilitat de ratolí requereix que s'instal·li el mousetweaks a "
+"l'ordinador."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
 msgstr "Preferències del ratolí"
 
@@ -709,7 +760,7 @@ msgstr "Ratolí"
 msgid "Mouse plugin"
 msgstr "Connector del ratolí"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:151
+#: ../plugins/screensaver/gsd-screensaver-manager.c:153
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -724,7 +775,7 @@ msgstr ""
 "\n"
 "La funcionalitat de l'estalvi de pantalla no funcionarà en aquesta sessió."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:160
+#: ../plugins/screensaver/gsd-screensaver-manager.c:162
 msgid "_Do not show this message again"
 msgstr "_No tornis a mostrar aquest missatge"
 
@@ -736,44 +787,44 @@ msgstr "Estalvi de pantalla"
 msgid "Screensaver plugin"
 msgstr "Connector de l'estalvi de pantalla"
 
-#: ../plugins/sound/gsd-sound-manager.c:164
+#: ../plugins/sound/gsd-sound-manager.c:273
 #, c-format
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "No s'ha pogut carregar el fitxer de so %s com a una mostra %s"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
 msgstr "Entrada"
 
-#: ../plugins/sound/libsounds/sound-view.c:45
+#: ../plugins/sound/libsounds/sound-view.c:44
 msgid "Logout"
 msgstr "Sortida"
 
-#: ../plugins/sound/libsounds/sound-view.c:46
+#: ../plugins/sound/libsounds/sound-view.c:45
 msgid "Boing"
 msgstr "Boing"
 
-#: ../plugins/sound/libsounds/sound-view.c:47
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
 msgstr "Sirena"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr "Clink"
 
-#: ../plugins/sound/libsounds/sound-view.c:49
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
 msgstr "Bip"
 
-#: ../plugins/sound/libsounds/sound-view.c:50
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
 msgstr "Sense so"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
 msgstr "El so per a aquesta incidència no està establert"
 
-#: ../plugins/sound/libsounds/sound-view.c:141
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
@@ -782,24 +833,24 @@ msgstr ""
 "Potser voldríeu instal·lar el paquet gnome-audio\n"
 "per obtenir un conjunt per defecte de sons."
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "El fitxer de so per a aquesta incidència no existeix."
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "Seleccioneu un fitxer de so"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "El fitxer %s no és un fitxer wav vàlid"
 
-#: ../plugins/sound/libsounds/sound-view.c:271
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
 msgstr "Seleccioneu un fitxer de so..."
 
-#: ../plugins/sound/libsounds/sound-view.c:373
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
 msgstr "Sons del sistema"
 
@@ -827,8 +878,45 @@ msgstr "Configura la mida de la pantalla i els paràmetres de rotació"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrdb/gsd-xrdb-manager.c:258
-#: ../plugins/xrdb/gsd-xrdb-manager.c:327
+#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+msgid "<i>Rotation not supported</i>"
+msgstr "<i>La rotació no és compatible</i>"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:456
+#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+msgid "The selected rotation could not be applied"
+msgstr "No s'ha pogut aplicar la rotació seleccionada"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:457
+msgid "An error occurred while configuring the screen"
+msgstr "Ha succeït un error mentre es configurava la pantalla"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+msgid "Normal"
+msgstr "Normal"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+msgid "Left"
+msgstr "Esquerra"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+msgid "Right"
+msgstr "Dreta"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+msgid "Upside Down"
+msgstr "Cara avall"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+msgid "_Configure Display Settings ..."
+msgstr "_Configura els paràmetres de la pantalla..."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+msgid "Configure display settings"
+msgstr "Configura els paràmetres de la pantalla"
+
+#: ../plugins/xrdb/gsd-xrdb-manager.c:255
+#: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
 msgstr "No es pot determinar el directori de l'usuari"
 
@@ -840,7 +928,7 @@ msgstr "Gestiona la base de dades de recursos d'X"
 msgid "X Resource Database"
 msgstr "Base de dades de recursos d'X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:551
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr ""
@@ -853,3 +941,41 @@ msgstr "Gestiona els paràmetres d'X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Paràmetres d'X"
+
+#~ msgid "gtk-close"
+#~ msgstr "gtk-close"
+
+#~ msgid ""
+#~ "Set to True to keep the handlers for text/plain and text/* MIME types "
+#~ "synchronized."
+#~ msgstr ""
+#~ "Establiu-ho a «True» (cert) per a mantenir sincronitzats els gestors dels "
+#~ "tipus MIME text/plain i text/*."
+
+#~ msgid "Sync text/plain and text/* handlers"
+#~ msgstr "Sincronitza els gestors text/plain i text/*"
+
+#~ msgid "Enable default editor plugin"
+#~ msgstr "Habilita el connector d'editor de text predeterminat"
+
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage the default text editor "
+#~ "setting."
+#~ msgstr ""
+#~ "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionarel "
+#~ "paràmetre d'editor de text predeterminat."
+
+#~ msgid "Key Binding (%s) has its action defined multiple times\n"
+#~ msgstr "L'assignació de tecla (%s) té l'acció definida múltiples vegades\n"
+
+#~ msgid "Key Binding (%s) has its binding defined multiple times\n"
+#~ msgstr "L'assignació de tecla (%s) està definit diverses vegades\n"
+
+#~ msgid "It seems that another application already has access to key '%u'."
+#~ msgstr "Sembla que una altra aplicació ja té accés a la tecla «%u»."
+
+#~ msgid "Key Binding (%s) is already in use\n"
+#~ msgstr "L'assignació de tecla (%s) ja està en ús\n"
+
+#~ msgid "Volume"
+#~ msgstr "Volum"
