@@ -40,14 +40,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-09 18:46+0200\n"
-"PO-Revision-Date: 2008-03-09 18:45+0200\n"
+"POT-Creation-Date: 2008-09-20 20:21+0300\n"
+"PO-Revision-Date: 2008-09-20 20:33+0300\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -231,6 +231,16 @@ msgstr "Εμφάνιση σφαλμάτων εκκίνησης"
 msgid "Start screensaver"
 msgstr "Έναρξη screensaver"
 
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr "Αν ένα εικονίδιο ειδοποίησης θα εμφανίζεται στο πίνακα εφαρμογών."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr "Προβολή οθονών στην περιοχή ειδοποίησης"
+
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
 msgstr "Antialiasing"
@@ -289,6 +299,10 @@ msgstr ""
 "βασικό, \"medium\" για μέτριο, και \"full\" για μέγιστο hinting (πιθανόν να "
 "προκαλέσει παραμόρφωση στις φόρμες των γραμμάτων)."
 
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "Δαίμονας ρυθμίσεων GNOME"
+
 #: ../data/gnome-settings-daemon.schemas.in.h:1
 msgid "Enable accessibility keyboard plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας προσιτότητας πληκτρολογίου"
@@ -306,94 +320,106 @@ msgid "Enable font plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας γραμματοσειράς"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Enable housekeeping plugin"
+msgstr "Ενεργοποίηση πρόσθετης λειτουργίας housekeeping "
+
+#: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας συνδυασμών πλήκτρων"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:7
 msgid "Enable keyboard plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας πληκτρολογίου"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable media keys plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας πλήκτρων πολυμέσων"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable mouse plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας ποντικιού"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable screensaver plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας screensaver"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable sound plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας ήχου"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable typing breaks plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας διαλείμματος πληκτρολόγησης"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable xrandr plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας xrandr"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable xrdb plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας xrdb"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable xsettings plugin"
 msgstr "Ενεργοποίηση πρόσθετης λειτουργίας xsettings"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:16
+msgid ""
+"Set to True to enable the housekeeping plugin, to prune transient file "
+"caches."
+msgstr ""
+"Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας  housekeeping  για την "
+"εκκαθάριση προσωρινής μνήμης αρχείων."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων προχείρου"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων παρασκηνίου"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων γραμματοσειράς."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων πληκτρολογίου."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων ποντικιού."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων πλήκτρων πολυμέσων."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων προστασίας οθόνης."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Set to True to enable the plugin to manage sound settings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων ήχου."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -401,41 +427,45 @@ msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων προσιτότητας πληκτρολογίου."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των συνδυασμών πλήκτρων."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των διαλειμμάτων πληκτρολόγησης."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων xrandr."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των ρυθμίσεων xrdb."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr ""
 "Ορισμός σε true για την ενεργοποίηση της πρόσθετης λειτουργίας για την "
 "διαχείριση των xsettings"
 
-#: ../gnome-settings-daemon/main.c:46
+#: ../gnome-settings-daemon/main.c:50
+msgid "Enable debugging code"
+msgstr "Ενεργοποίηση κώδικα εκσφαλμάτωσης"
+
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr "Να μην γίνει daemon"
 
-#: ../gnome-settings-daemon/main.c:47
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr ""
 "Πρόθεμα Gconf από το οποίο φορτώνονται οι ρυθμίσεις πρόσθετης λειτουργίας."
@@ -448,20 +478,23 @@ msgstr "Προσιτότητα πληκτρολογίου"
 msgid "Accessibility keyboard plugin"
 msgstr "Πρόσθετη λειτουργία προσιτότητας πληκτρολογίου"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:389
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Σφάλμα προβολής βοήθειας: %s "
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:440
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to activate Slow Keys?"
 msgstr "Θέλετε να ενεργοποίησετε τα Slow Keys;"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:441
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Θέλετε να απενεργοποιήσετε τα Slow Keys;"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:444
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -470,39 +503,62 @@ msgstr ""
 "λειτουργία Slow Keys, που επηρεάζει τον τρόπο λειτουργίας του πληκτρολογίου "
 "σας."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:451
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:503
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+msgid "Don't activate"
+msgstr "Να μην γίνει ενεργοποίηση"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+msgid "Don't deactivate"
+msgstr "Να μην γίνει απενεργοποίηση"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+msgid "Activate"
+msgstr "Ενεργοποίηση"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+msgid "Deactivate"
+msgstr "Απενεργοποίηση"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
 msgid "Do_n't activate"
 msgstr "Να _μην γίνει ενεργοποίηση"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:451
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:503
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
 msgid "Do_n't deactivate"
 msgstr "Να _μην γίνει απενεργοποίηση"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:454
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:506
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
 msgid "_Activate"
 msgstr "Ε_νεργοποίηση"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:454
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:506
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
 msgid "_Deactivate"
 msgstr "Α_πενεργοποίηση"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:458
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:626
 msgid "Slow Keys Alert"
 msgstr "Ειδοποίηση Slow Keys"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Θέλετε να ενεργοποιήσετε τα Sticky Keys;"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:491
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Θέλετε να απενεργοποιήσετε τα Sticky Keys;"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:494
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -511,7 +567,8 @@ msgstr ""
 "τη λειτουργία Sticky Keys, που επηρεάζει τον τρόπο λειτουργίας του "
 "πληκτρολογίου σας."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:496
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -521,9 +578,46 @@ msgstr ""
 "Αυτό είναι μια συντόμευση για τη λειτουργία Sticky Keys, που επηρεάζει τον "
 "τρόπο λειτουργίας του πληκτρολογίου σας."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:510
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "Sticky Keys Alert"
 msgstr "Ειδοποίηση Sticky Keys"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+msgid "Universal Access Preferences"
+msgstr "Προτιμήσεις καθολικής πρόσβασης"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr "Αύξηση αντί_θεσης στα χρώματα"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr "Μεγέθυνση _κειμένου για εύκολη ανάγνωση"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "Πατήστε και _κρατήστε τα πλήκτρα πατημένα για αποδοχή (Αργά πλήκτρα)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr "Χρήση _πληκτρολογίου οθόνης "
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr "Χρήση μεγε~θυντή οθόνης"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr "Χρήση αναγνώστη οθόνης"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "Να α_γνοούνται τα διπλά πατήματα πλήκτρων:"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr "_Πατήστε ένα πλήκτρο την φορά στις συντομεύσεις πληκτρολογίου (Κολλημένα πλήκτρα)"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -557,7 +651,7 @@ msgstr "Γραμματοσειρά"
 msgid "Font plugin"
 msgstr "Πρόσθετη λειτουργία γραμματοσειράς"
 
-#: ../plugins/font/gsd-font-manager.c:208
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -566,7 +660,7 @@ msgstr ""
 "Αδυναμία δημιουργίας του καταλόγου \"%s\".\n"
 "Αυτό χρειάζεται για να επιτρέπεται η αλλαγή θέματος του δείκτη ποντικιού."
 
-#: ../plugins/font/gsd-font-manager.c:231
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -575,37 +669,17 @@ msgstr ""
 "Αδυναμία δημιουργίας του καταλόγου \"%s\".\n"
 "Αυτό χρειάζεται για να επιτρέπεται η αλλαγή δρομέων."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:195
+#: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
-msgid "Key Binding (%s) has its action defined multiple times\n"
-msgstr "Στο Key Binding (%s)  έχει ορισθεί δράση πολλαπλές φορές\n"
+msgid "Key binding (%s) is incomplete"
+msgstr "Το Key Binding (%s) δεν είναι ολοκληρωμένο"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:202
+#: ../plugins/keybindings/gsd-keybindings-manager.c:222
 #, c-format
-msgid "Key Binding (%s) has its binding defined multiple times\n"
-msgstr "Στο Key Binding (%s)  έχει ορισθεί binding πολλαπλές φορές\n"
+msgid "Key binding (%s) is invalid"
+msgstr "Το Key Binding (%s) δεν είναι έγκυρο"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:211
-#, c-format
-msgid "Key Binding (%s) is incomplete\n"
-msgstr "Το Key Binding (%s) δεν είναι ολοκληρωμένο\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:239
-#, c-format
-msgid "Key Binding (%s) is invalid\n"
-msgstr "Το Key Binding (%s) δεν είναι έγκυρο\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:292
-#, c-format
-msgid "It seems that another application already has access to key '%u'."
-msgstr "Φαίνεται ότι κάποια άλλη εφαρμογή έχει ήδη πρόσβαση στο πλήκτρο '%u'."
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:365
-#, c-format
-msgid "Key Binding (%s) is already in use\n"
-msgstr "Το Key Binding (%s) χρησιμοποιείται ήδη\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:502
+#: ../plugins/keybindings/gsd-keybindings-manager.c:409
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -654,11 +728,7 @@ msgstr "_Φόρτωση"
 msgid "_Loaded files:"
 msgstr "_Φορτωμένα αρχεία:"
 
-#: ../plugins/media-keys/actions/acme.glade.h:1
-msgid "Volume"
-msgstr "Ένταση ήχου"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:183
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -666,7 +736,7 @@ msgstr ""
 "Αδυναμία λήψης προεπιλεγμένου τερματικού. Βεβαιωθείτε ότι έχει ορισθεί η "
 "εντολή προεπιλεγμένου τερματικού και ότι δείχνει σε έγκυρη εφαρμογή."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:223
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -675,7 +745,7 @@ msgstr ""
 "Αδυναμία εκτέλεσης εντολής: %s\n"
 "Βεβαιωθείτε ότι είναι μια έγκυρη εντολή."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
+#: ../plugins/media-keys/gsd-media-keys-manager.c:239
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -691,19 +761,17 @@ msgstr "Πλήκτρα πολυμέσων"
 msgid "Media keys plugin"
 msgstr "Πρόσθετη λειτουργία πλήκτρων πολυμέσων"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:566
+#: ../plugins/mouse/gsd-mouse-manager.c:571
 msgid "Could not enable mouse accessibility features"
 msgstr "Αδυναμία ενεργοποίησης χαρακτηριστικών προσιτότητας ποντικιού"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:568
+#: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
-msgstr ""
-"Η προσιτότητα ποντικιού απαιτεί τον mousetweaks daemon να είναι "
-"εγκατεστημένος στο σύστημα σας."
+"Mouse accessibility requires mousetweaks to be installed on your system."
+msgstr "Η προσιτότητα ποντικιού απαιτεί το mousetweaks να είναι "
+"εγκατεστημένο στο σύστημα σας."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
 msgstr "Προτιμήσεις Ποντικιού"
 
@@ -715,7 +783,7 @@ msgstr "Ποντίκι"
 msgid "Mouse plugin"
 msgstr "Πρόσθετη λειτουργία ποντικιού"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:151
+#: ../plugins/screensaver/gsd-screensaver-manager.c:153
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -731,7 +799,7 @@ msgstr ""
 "Η λειτουργικότητα του screensaver δε θα είναι διαθέσιμη για αυτήν τη "
 "συνεδρία."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:160
+#: ../plugins/screensaver/gsd-screensaver-manager.c:162
 msgid "_Do not show this message again"
 msgstr "_Να μην εμφανιστεί ξανά αυτό το μήνυμα"
 
@@ -743,44 +811,44 @@ msgstr "Screensaver"
 msgid "Screensaver plugin"
 msgstr "Πρόσθετη λειτουργία Screensaver"
 
-#: ../plugins/sound/gsd-sound-manager.c:201
+#: ../plugins/sound/gsd-sound-manager.c:273
 #, c-format
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "Αδυναμία φόρτωσης αρχείου ήχου %s ώς δείγμα %s"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
 msgstr "Σύνδεση"
 
-#: ../plugins/sound/libsounds/sound-view.c:45
+#: ../plugins/sound/libsounds/sound-view.c:44
 msgid "Logout"
 msgstr "Αποσύνδεση"
 
-#: ../plugins/sound/libsounds/sound-view.c:46
+#: ../plugins/sound/libsounds/sound-view.c:45
 msgid "Boing"
 msgstr "Αναπήδηση"
 
-#: ../plugins/sound/libsounds/sound-view.c:47
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
 msgstr "Σειρήνα"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr "Κουδούνισμα"
 
-#: ../plugins/sound/libsounds/sound-view.c:49
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
 msgstr "Μπιπ"
 
-#: ../plugins/sound/libsounds/sound-view.c:50
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
 msgstr "Χωρίς ήχο"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
 msgstr "Δεν έχει ορισθεί ήχος για αυτό το γεγονός."
 
-#: ../plugins/sound/libsounds/sound-view.c:141
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
@@ -789,24 +857,24 @@ msgstr ""
 "Εάν επιθυμείτε, μπορείτε να εγκαταστήσετε το πακέτο gnome-audio, με μια  "
 "συλλογή προεπιλεγμένων ήχων."
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "Το αρχείο ήχου για το παρόν γεγονός δεν υπάρχει."
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "Επιλογή Αρχείου Ήχου"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "Το αρχείο %s δεν είναι ένα έγκυρο αρχείο wav"
 
-#: ../plugins/sound/libsounds/sound-view.c:271
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
 msgstr "Επιλογή αρχείου ήχου..."
 
-#: ../plugins/sound/libsounds/sound-view.c:373
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
 msgstr "Ήχοι συστήματος"
 
@@ -834,8 +902,45 @@ msgstr "Ρύθμιση μεγέθους οθόνης και περιστροφή
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrdb/gsd-xrdb-manager.c:258
-#: ../plugins/xrdb/gsd-xrdb-manager.c:327
+#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+msgid "<i>Rotation not supported</i>"
+msgstr "<i>Η περιστροφή δεν υποστηρίζεται</i>"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:456
+#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+msgid "The selected rotation could not be applied"
+msgstr "Δεν είναι δυνατή η εφαρμογή της περιστροφής"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:457
+msgid "An error occurred while configuring the screen"
+msgstr "Σφάλμα κατά την ρύθμιση της οθόνης"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+msgid "Normal"
+msgstr "Κανονική"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+msgid "Left"
+msgstr "Αριστερά"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+msgid "Right"
+msgstr "Δεξιά"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+msgid "Upside Down"
+msgstr "Αντιστροφή"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+msgid "_Configure Display Settings ..."
+msgstr "_Ρύθμιση οθόνης..."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+msgid "Configure display settings"
+msgstr "Ρύθμιση οθόνης"
+
+#: ../plugins/xrdb/gsd-xrdb-manager.c:255
+#: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
 msgstr "Δεν είναι δυνατός ο εντοπισμός του αρχικού καταλόγου χρήστη"
 
@@ -847,7 +952,7 @@ msgstr "Διαχείριση της βάσης δεδομένων X resource"
 msgid "X Resource Database"
 msgstr "Βάση δεδομένων X Resource"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:551
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "Το GConf key %s έχει ορισθεί to type %s but its expected type was %s\n"
@@ -859,6 +964,22 @@ msgstr "Διαχείριση ρυθμίσεων X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Ρυθμίσεις Xχ"
+
+#~ msgid "Key Binding (%s) has its action defined multiple times\n"
+#~ msgstr "Στο Key Binding (%s)  έχει ορισθεί δράση πολλαπλές φορές\n"
+
+#~ msgid "Key Binding (%s) has its binding defined multiple times\n"
+#~ msgstr "Στο Key Binding (%s)  έχει ορισθεί binding πολλαπλές φορές\n"
+
+#~ msgid "It seems that another application already has access to key '%u'."
+#~ msgstr ""
+#~ "Φαίνεται ότι κάποια άλλη εφαρμογή έχει ήδη πρόσβαση στο πλήκτρο '%u'."
+
+#~ msgid "Key Binding (%s) is already in use\n"
+#~ msgstr "Το Key Binding (%s) χρησιμοποιείται ήδη\n"
+
+#~ msgid "Volume"
+#~ msgstr "Ένταση ήχου"
 
 #, fuzzy
 #~ msgid ""
@@ -1305,9 +1426,6 @@ msgstr "Ρυθμίσεις Xχ"
 #~ msgid "Filters"
 #~ msgstr "Φίλτρα"
 
-#~ msgid "I_gnore duplicate keypresses within:"
-#~ msgstr "Να α_γνοούνται τα πατήματα πλήκτρων μέσα:"
-
 #~ msgid ""
 #~ "Ignore all subsequent presses of the SAME key if they happen within a "
 #~ "user selectable period of time."
@@ -1491,9 +1609,6 @@ msgstr "Ρυθμίσεις Xχ"
 
 #~ msgid "<b>_Wallpaper</b>"
 #~ msgstr "<b>Τα_πετσαρία</b>"
-
-#~ msgid "Appearance Preferences"
-#~ msgstr "Προτιμήσεις εμφάνισης"
 
 #~ msgid "Best _shapes"
 #~ msgstr "Βέλτιστα _σχήματα"
@@ -2176,9 +2291,6 @@ msgstr "Ρυθμίσεις Xχ"
 #~ msgid "GNOME Magnifier without Screen Reader"
 #~ msgstr "Μεγεθυντής του GNOME χωρίς Αναγνώστη οθόνης"
 
-#~ msgid "GNOME OnScreen Keyboard"
-#~ msgstr "Πληκτρολόγιο οθόνης του GNOME "
-
 #~ msgid "GNOME Terminal"
 #~ msgstr "Τερματικό GNOME"
 
@@ -2211,9 +2323,6 @@ msgstr "Ρυθμίσεις Xχ"
 
 #~ msgid "Konqueror"
 #~ msgstr "Konqueror"
-
-#~ msgid "Linux Screen Reader"
-#~ msgstr "Αναγνώστης οθόνης Linux "
 
 #~ msgid "Linux Screen Reader with Magnifier"
 #~ msgstr "Αναγνώστης οθόνης Linux με μεγεθυντή"
@@ -2290,17 +2399,8 @@ msgstr "Ρυθμίσεις Xχ"
 #~ msgid "Screen Resolution"
 #~ msgstr "Ανάλυση Οθόνης"
 
-#~ msgid "Normal"
-#~ msgstr "Κανονική"
-
-#~ msgid "Left"
-#~ msgstr "Αριστερά"
-
 #~ msgid "Inverted"
 #~ msgstr "Ανεστραμμένη"
-
-#~ msgid "Right"
-#~ msgstr "Δεξιά"
 
 #~ msgid "%d Hz"
 #~ msgstr "%d Hz"
