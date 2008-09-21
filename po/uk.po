@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-09 01:13+0200\n"
+"POT-Creation-Date: 2008-09-21 15:55+0000\n"
 "PO-Revision-Date: 2007-09-11 23:09+0300\n"
 "Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -195,6 +195,18 @@ msgstr "Показувати помилки запуску системи"
 msgid "Start screensaver"
 msgstr "Запускати зберігач екрану"
 
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr ""
+"Чи показувати у панелі значок сповіщення з параметрами, що відносяться до "
+"дисплею."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr "Показувати дисплеї у області сповіщення"
+
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
 msgstr "Згладжування"
@@ -251,6 +263,10 @@ msgstr ""
 "\"none\" - без хінтінгу, \"slight\" - базовий, \"medium\" - помірний, \"full"
 "\" - максимальний хінтінг (може призводити до викривлення форми символів)."
 
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "Служба параметрів GNOME"
+
 #: ../data/gnome-settings-daemon.schemas.in.h:1
 msgid "Enable accessibility keyboard plugin"
 msgstr "Увімкнути модуль спеціальних можливостей клавіатури"
@@ -268,81 +284,93 @@ msgid "Enable font plugin"
 msgstr "Увімкнути модуль шрифту"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Enable housekeeping plugin"
+msgstr "Увімкнути модуль housekeeping"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
 msgstr "Увімкнути модуль прив'язки клавіш"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:7
 msgid "Enable keyboard plugin"
 msgstr "Увімкнути модуль клавіатури"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable media keys plugin"
 msgstr "Увімкнути модуль мультимедійних клавіш"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable mouse plugin"
 msgstr "Увімкнути модуль мишки"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable screensaver plugin"
 msgstr "Увімкнути модуль зберігача екрану"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable sound plugin"
 msgstr "Увімкнути модуль звуку"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable typing breaks plugin"
 msgstr "Увімкнути модуль перерви у роботі"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable xrandr plugin"
 msgstr "Увімкнути модуль xrandr"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable xrdb plugin"
 msgstr "Увімкнути модуль xrdb"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable xsettings plugin"
 msgstr "Увімкнути модуль xsettings"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:16
+msgid ""
+"Set to True to enable the housekeeping plugin, to prune transient file "
+"caches."
+msgstr ""
+"Встановіть у True, щоб увімкнути модуль housekeeping, для скорочення "
+"тимчасового файлу."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами буферу обміну."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Встановіть, щоб дозволити модулю керувати параметрами тла робочого столу."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами шрифту."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами клавіатури."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами миші."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Встановіть, щоб дозволити модулю керувати параметрами мультимедійних клавіш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr ""
 "Встановіть, щоб дозволити модулю керувати параметрами зберігача екрану."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Set to True to enable the plugin to manage sound settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами звука."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -350,31 +378,35 @@ msgstr ""
 "Встановіть, щоб увімкнути модуль керування спеціальними можливостями "
 "клавіатури."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "Встановіть, щоб дозволити модулю керувати прив'язками клавіатури."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Встановіть, щоб дозволити модулю керувати перервами у роботі"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами xrandr."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами xrdb."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами xsettings."
 
-#: ../gnome-settings-daemon/main.c:46
+#: ../gnome-settings-daemon/main.c:50
+msgid "Enable debugging code"
+msgstr "Увімкнути налагоджувальний код"
+
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr "Не переходити у режим служби"
 
-#: ../gnome-settings-daemon/main.c:47
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr "Префікс GConf для завантаження параметрів модуля"
 
@@ -386,20 +418,23 @@ msgstr "Технології доступності"
 msgid "Accessibility keyboard plugin"
 msgstr "Модуль технологій доступності клавіатури"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:389
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Помилка відображення довідки: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:440
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to activate Slow Keys?"
 msgstr "Бажаєте ввімкнути режим \"Повільні клавіші\"?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:441
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Бажаєте вимкнути режим \"Повільні клавіші\"?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:444
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -408,39 +443,62 @@ msgstr ""
 "для ввімкнення режиму \"Повільні клавіші\", який впливає на роботу "
 "клавіатури."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:451
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:503
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+msgid "Don't activate"
+msgstr "Не активувати"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+msgid "Don't deactivate"
+msgstr "Не деактивувати"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+msgid "Activate"
+msgstr "Активувати"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+msgid "Deactivate"
+msgstr "Деактивувати"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
 msgid "Do_n't activate"
 msgstr "Н_е запускати"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:451
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:503
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
 msgid "Do_n't deactivate"
 msgstr "_Не вимикати"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:454
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:506
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
 msgid "_Activate"
 msgstr "_Увімкнути"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:454
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:506
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
 msgid "_Deactivate"
 msgstr "_Вимкнути"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:458
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:626
 msgid "Slow Keys Alert"
 msgstr "Сповіщення про режим \"Повільні клавіші\""
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Бажаєте ввімкнути режим \"Липкі клавіші\"?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:491
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Бажаєте вимкнути режим \"Повільні клавіші\"?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:494
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -448,7 +506,8 @@ msgstr ""
 "Ви щойно утримували натиснутою клавішу Shift протягом 5 секунд. Це сигнал "
 "для ввімкнення режиму \"Липкі клавіші\", який впливає на роботу клавіатури."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:496
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -458,9 +517,47 @@ msgstr ""
 "Shift протягом 5 секунд. Це сигнал для вимкнення режиму \"Липкі клавіші\", "
 "який впливає на роботу клавіатури."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:510
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "Sticky Keys Alert"
 msgstr "Сповіщення про режим \"Липкі клавіші\""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+msgid "Universal Access Preferences"
+msgstr "Параметри універсального доступу"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr "Покращений _контраст у кольорах"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr "Зробити _текст більшим та простішим для читання"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "Приймати клавіші лише після т_ривалого натискання (Повільні клавіші)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr "Використовувати _екранну клавіатуру"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr "Використовувати _збільшувач екрану"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr "Використовувати _читання екрану"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "_Ігнорувати швидкі повторні натискання клавіш (Пружні клавіші)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr ""
+"Вводити комбінації клавіш _почерговим натисканням клавіш (Липкі клавіші)"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -494,7 +591,7 @@ msgstr "Шрифт"
 msgid "Font plugin"
 msgstr "Модуль шрифту"
 
-#: ../plugins/font/gsd-font-manager.c:208
+#: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -503,7 +600,7 @@ msgstr ""
 "Не вдається створити каталог \"%s\".\n"
 "Це потрібно зробити для зміни теми вказівників."
 
-#: ../plugins/font/gsd-font-manager.c:231
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -512,37 +609,17 @@ msgstr ""
 "Не вдається створити каталог \"%s\".\n"
 "Це потрібно, щоб дозволити зміну курсорів."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:195
+#: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
-msgid "Key Binding (%s) has its action defined multiple times\n"
-msgstr "Комбінації клавіш (%s) призначена більше ніж одна дія\n"
+msgid "Key binding (%s) is incomplete"
+msgstr "Комбінації клавіш (%s) не завершена"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:202
+#: ../plugins/keybindings/gsd-keybindings-manager.c:222
 #, c-format
-msgid "Key Binding (%s) has its binding defined multiple times\n"
-msgstr "Комбінації клавіш (%s) визначено декілька разів\n"
+msgid "Key binding (%s) is invalid"
+msgstr "Комбінація клавіш (%s) неправильна"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:211
-#, c-format
-msgid "Key Binding (%s) is incomplete\n"
-msgstr "Комбінації клавіш (%s) не завершена\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:239
-#, c-format
-msgid "Key Binding (%s) is invalid\n"
-msgstr "Комбінація клавіш (%s) неправильна\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:292
-#, c-format
-msgid "It seems that another application already has access to key '%u'."
-msgstr "Схоже, що інша програма вже має доступ до ключа '%u'."
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:365
-#, c-format
-msgid "Key Binding (%s) is already in use\n"
-msgstr "Комбінації клавіш (%s) вже використовується\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:502
+#: ../plugins/keybindings/gsd-keybindings-manager.c:409
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -591,11 +668,7 @@ msgstr "_Завантажити"
 msgid "_Loaded files:"
 msgstr "_Завантажено файлів:"
 
-#: ../plugins/media-keys/actions/acme.glade.h:1
-msgid "Volume"
-msgstr "Гучність"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:183
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -603,7 +676,7 @@ msgstr ""
 "Не вдається отримати типовий термінал. Перевірте, що обрана вами типова "
 "термінальна програма справді вказує типову програму."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:223
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -612,7 +685,7 @@ msgstr ""
 "Не вдається виконати команду: %s\n"
 "Перевірте чи команда існує."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
+#: ../plugins/media-keys/gsd-media-keys-manager.c:239
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -628,19 +701,18 @@ msgstr "Мультимедійний клавіші"
 msgid "Media keys plugin"
 msgstr "Модуль мультимедійних клавіш"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:566
+#: ../plugins/mouse/gsd-mouse-manager.c:571
 msgid "Could not enable mouse accessibility features"
 msgstr "Не вдається увімкнути спеціальні можливості миші"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:568
+#: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
+"Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 "Щоб активувати спеціальні можливості миші, треба встановити у систему службу "
 "mousetweaks."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
 msgstr "Параметри миші"
 
@@ -652,7 +724,7 @@ msgstr "Миша"
 msgid "Mouse plugin"
 msgstr "Модуль миші"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:151
+#: ../plugins/screensaver/gsd-screensaver-manager.c:153
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -667,7 +739,7 @@ msgstr ""
 "\n"
 "Функціональність зберігання екрана не працюватиме в цьому сеансі."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:160
+#: ../plugins/screensaver/gsd-screensaver-manager.c:162
 msgid "_Do not show this message again"
 msgstr "Більше _не показувати цього повідомлення"
 
@@ -679,44 +751,44 @@ msgstr "Зберігач екрану"
 msgid "Screensaver plugin"
 msgstr "Модуль зберігача екрану"
 
-#: ../plugins/sound/gsd-sound-manager.c:201
+#: ../plugins/sound/gsd-sound-manager.c:273
 #, c-format
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "Не вдається завантажити звуковий файл %s як фрагмент %s"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
 msgstr "Вхід"
 
-#: ../plugins/sound/libsounds/sound-view.c:45
+#: ../plugins/sound/libsounds/sound-view.c:44
 msgid "Logout"
 msgstr "Вихід"
 
-#: ../plugins/sound/libsounds/sound-view.c:46
+#: ../plugins/sound/libsounds/sound-view.c:45
 msgid "Boing"
 msgstr "Боінг"
 
-#: ../plugins/sound/libsounds/sound-view.c:47
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
 msgstr "Сирена"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr "Клацання"
 
-#: ../plugins/sound/libsounds/sound-view.c:49
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
 msgstr "Писк"
 
-#: ../plugins/sound/libsounds/sound-view.c:50
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
 msgstr "Немає звуку"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
 msgstr "Для цієї події звук не встановлено."
 
-#: ../plugins/sound/libsounds/sound-view.c:141
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
@@ -724,24 +796,24 @@ msgstr ""
 "Звуковий файл для цієї події не існує.\n"
 "Можна встановити пакет gnome-audio з набором типових звуків."
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "Звукового файлу для цієї події не існує."
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "Виберіть звуковий файл"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "Файл %s не є правильним wav-файлом"
 
-#: ../plugins/sound/libsounds/sound-view.c:271
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
 msgstr "Виберіть звуковий файл..."
 
-#: ../plugins/sound/libsounds/sound-view.c:373
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
 msgstr "Системні звуки"
 
@@ -769,8 +841,45 @@ msgstr "Встановити розмір екрану та параметри �
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrdb/gsd-xrdb-manager.c:258
-#: ../plugins/xrdb/gsd-xrdb-manager.c:327
+#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+msgid "<i>Rotation not supported</i>"
+msgstr "<i>Обертання не підтримується</i>"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:456
+#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+msgid "The selected rotation could not be applied"
+msgstr "Вибране обертання неможливо застосувати"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:457
+msgid "An error occurred while configuring the screen"
+msgstr "Помилка при налаштовуванні екрану"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+msgid "Normal"
+msgstr "Звичайне"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+msgid "Left"
+msgstr "Ліворуч"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+msgid "Right"
+msgstr "Праворуч"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+msgid "Upside Down"
+msgstr "Догори ногами"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+msgid "_Configure Display Settings ..."
+msgstr "_Налаштувати параметри екрану ..."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+msgid "Configure display settings"
+msgstr "Налаштувати параметри екрану"
+
+#: ../plugins/xrdb/gsd-xrdb-manager.c:255
+#: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
 msgstr "Не вдається визначити домашній каталог користувача"
 
@@ -782,7 +891,7 @@ msgstr "Керування базою даних ресурсів X"
 msgid "X Resource Database"
 msgstr "База даних ресурсів X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:551
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "Ключ GConf %s встановлено в тип %s, а очікувався тип %s\n"
@@ -794,23 +903,3 @@ msgstr "Керування параметрами X Window"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Параметри X Window"
-
-#~ msgid ""
-#~ "Set to True to keep the handlers for text/plain and text/* MIME types "
-#~ "synchronized."
-#~ msgstr ""
-#~ "Якщо встановлено, обробники для типів MIME text/plain і text/* будуть "
-#~ "синхронізуватись"
-
-#~ msgid "Sync text/plain and text/* handlers"
-#~ msgstr "Синхронізувати обробники для text/plain і text/*"
-
-#~ msgid "Enable default editor plugin"
-#~ msgstr "Увімкнути типовий модуль редактора"
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage the default text editor "
-#~ "setting."
-#~ msgstr ""
-#~ "Встановіть, щоб увімкнути модуль керування параметрами типового "
-#~ "текстового редаутора."
