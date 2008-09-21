@@ -1,34 +1,21 @@
 # Afrikaans translation of gnome-control-center.
 # Copyright (C) 2004 Zuza Software Foundation
 # This file is distributed under the same license as the gnome-control-center package.
-#
 # Zuza Software Foundation <info@translate.org.za>, 2004
-#
+# F Wolff <friedel@translate.org.za>, 2008
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center 2.6-branch\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-26 21:06-0500\n"
-"PO-Revision-Date: 2004-03-30 17:02+0200\n"
-"Last-Translator: Zuza Software Foundation <info@translate.org.za>\n"
-"Language-Team: Afrikaans <translate-discuss-af@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2008-09-22 00:13+0200\n"
+"PO-Revision-Date: 2008-09-15 23:10+0200\n"
+"Last-Translator: F Wolff <friedel@translate.org.za>\n"
+"Language-Team: translate-discuss-af@lists.sourceforge.net\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:1
-#, fuzzy
-msgid ""
-"Set to True to keep the handlers for text/plain and text/* MIME types "
-"synchronized."
-msgstr ""
-"Indien waar, sal die MIME-hanteerders vir teks/gewoon en teks/* "
-"gesinkroniseer gehou word"
-
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:2
-msgid "Sync text/plain and text/* handlers"
-msgstr "Sinkroniseer teks/gewoon en tekst/* hanteerders"
+"X-Generator: VirTaal 0.1\n"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -226,6 +213,16 @@ msgstr "Wys Aanmeldingsfoute"
 msgid "Start screensaver"
 msgstr "Laai XScreenSaver"
 
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr ""
+
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
 msgstr ""
@@ -271,6 +268,10 @@ msgid ""
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr ""
+
 #: ../data/gnome-settings-daemon.schemas.in.h:1
 #, fuzzy
 msgid "Enable accessibility keyboard plugin"
@@ -285,12 +286,13 @@ msgid "Enable clipboard plugin"
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Enable default editor plugin"
+msgid "Enable font plugin"
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:5
-msgid "Enable font plugin"
-msgstr ""
+#, fuzzy
+msgid "Enable housekeeping plugin"
+msgstr "Laat XScreenSaver loop by aanmelding"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
@@ -334,46 +336,47 @@ msgid "Enable xsettings plugin"
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid "Set to True to enable the plugin to manage clipboard settings."
+msgid ""
+"Set to True to enable the housekeeping plugin, to prune transient file "
+"caches."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Set to True to enable the plugin to manage desktop background settings."
+msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:18
-msgid "Set to True to enable the plugin to manage font settings."
+msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Set to True to enable the plugin to manage keyboard settings."
+msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:20
-msgid "Set to True to enable the plugin to manage mouse settings."
+msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:21
-msgid "Set to True to enable the plugin to manage multimedia keys settings."
+msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:22
-msgid "Set to True to enable the plugin to manage screensaver settings."
+msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:23
-msgid "Set to True to enable the plugin to manage sound settings."
+msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
+msgid "Set to True to enable the plugin to manage sound settings."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid ""
-"Set to True to enable the plugin to manage the default text editor setting."
+"Set to True to enable the plugin to manage the accessibility keyboard "
+"settings."
 msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:26
@@ -396,38 +399,43 @@ msgstr ""
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:49
+#: ../gnome-settings-daemon/main.c:50
+msgid "Enable debugging code"
+msgstr ""
+
+#: ../gnome-settings-daemon/main.c:51
 msgid "Don't become a daemon"
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../gnome-settings-daemon/main.c:52
 msgid "GConf prefix from which to load plugin settings"
 msgstr ""
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
-#, fuzzy
 msgid "Accessibility Keyboard"
-msgstr "_Toeganklikheid"
+msgstr "Toeganklikheidsleutelbord"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Accessibility keyboard plugin"
-msgstr "_Toeganklikheid"
+msgstr "Inprop vir toeganklikheidsleutelbord"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:393
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Daar was 'n fout met die vertoning van hulp: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:445
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to activate Slow Keys?"
 msgstr "Wil jy die Stadige-sleutels aktiveer?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:446
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Wil jy die Stadige-sleutels deaktiveer?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -436,39 +444,62 @@ msgstr ""
 "die Stadige-sleuteleienskap wat die manier waarop jou sleutelbord werk, "
 "affekteer."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+msgid "Don't activate"
+msgstr "Moenie aktiveer nie"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+msgid "Don't deactivate"
+msgstr "Moenie deaktiveer nie"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+msgid "Activate"
+msgstr "Aktiveer"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+msgid "Deactivate"
+msgstr "Deaktiveer"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
 msgid "Do_n't activate"
-msgstr ""
+msgstr "Moe_nie aktiveer nie"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
 msgid "Do_n't deactivate"
-msgstr ""
+msgstr "Moe_nie deaktiveer nie"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
 msgid "_Activate"
-msgstr ""
+msgstr "_Aktiveer"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
 msgid "_Deactivate"
-msgstr ""
+msgstr "_Deaktiveer"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:626
 msgid "Slow Keys Alert"
 msgstr "Stadige-sleutels waarskuwing"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:495
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
 msgid "Do you want to activate Sticky Keys?"
-msgstr "Wil Taai-sleutels aktiveer?"
+msgstr "Wil jy Taai-sleutels aktiveer?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:496
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do you want to deactivate Sticky Keys?"
-msgstr "Wil jy die Taai-sleutels deaktiveer?"
+msgstr "Wil jy Taai-sleutels deaktiveer?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:499
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -477,7 +508,8 @@ msgstr ""
 "die Taai-sleutels eienskap wat die manier waarop jou sleutelbord werk, "
 "affekteer."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -487,26 +519,62 @@ msgstr ""
 "namekaar gedruk.  Dit skakel die Taai-sleutels eienskap af wat die manier "
 "waarop jou sleutelbord werk, affekteer."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "Sticky Keys Alert"
 msgstr "Taaisleutels-waarskuwing"
 
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+msgid "Universal Access Preferences"
+msgstr "Voorkeure vir universele toegang"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr "Verbeter _kleurkontras"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr "Maak _teks groter en makliker om te lees"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "Druk en _hou sleutels om hulle te aanvaar (Stadige-sleutels)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr "Gebruik sleutelbord op die s_kerm"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr "Gebruik skerm_vergrootglas"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr "Gebruik _skermleser"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "_Ignoreer duplikaat sleuteldrukke (bonssleutels)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr "_Druk sleutelbordkortpaaie een sleutel op 'n slag (Taai-sleutels)"
+
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
-#, fuzzy
 msgid "Background"
-msgstr "Pas _Agtergrond toe"
+msgstr "Agtergrond"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:2
 msgid "Background plugin"
-msgstr ""
+msgstr "Agtergrond-inprop"
 
 #: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
 msgid "Clipboard"
-msgstr ""
+msgstr "Knipbord"
 
 #: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard plugin"
-msgstr ""
+msgstr "Inprop vir knipbord"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -522,18 +590,18 @@ msgstr "Lettertipe"
 
 #: ../plugins/font/font.gnome-settings-plugin.in.h:2
 msgid "Font plugin"
-msgstr ""
+msgstr "Inprop vir lettertipes"
 
-#: ../plugins/font/gsd-font-manager.c:208
-#, fuzzy, c-format
+#: ../plugins/font/gsd-font-manager.c:207
+#, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
 "This is needed to allow changing the mouse pointer theme."
 msgstr ""
 "Kan nie die gids \"%s\" skep nie.\n"
-"Dit word benodig vir die verandering van wysers."
+"Dit word benodig vir die verandering van die muiswysertema."
 
-#: ../plugins/font/gsd-font-manager.c:231
+#: ../plugins/font/gsd-font-manager.c:230
 #, c-format
 msgid ""
 "Cannot create the directory \"%s\".\n"
@@ -542,37 +610,17 @@ msgstr ""
 "Kan nie die gids \"%s\" skep nie.\n"
 "Dit word benodig vir die verandering van wysers."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:195
+#: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
-msgid "Key Binding (%s) has its action defined multiple times\n"
-msgstr "Sleutelbinding (%s) se funksie word herhaalde male gedefinieer\n"
+msgid "Key binding (%s) is incomplete"
+msgstr "Sleutelbinding (%s) is onvolledig"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:202
+#: ../plugins/keybindings/gsd-keybindings-manager.c:222
 #, c-format
-msgid "Key Binding (%s) has its binding defined multiple times\n"
-msgstr "Sleutelbinding  (%s) se binding word herhaalde male gedefinieer\n"
+msgid "Key binding (%s) is invalid"
+msgstr "Sleutelbinding (%s) is ongeldig"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:211
-#, c-format
-msgid "Key Binding (%s) is incomplete\n"
-msgstr "Sleutelbinding (%s) is onvolledig\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:239
-#, c-format
-msgid "Key Binding (%s) is invalid\n"
-msgstr "Sleutelbinding (%s) is ongeldig\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:292
-#, fuzzy, c-format
-msgid "It seems that another application already has access to key '%u'."
-msgstr "Dit blyk asof 'n ander toepassing reeds toegang het tot sleutel '%d'."
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:365
-#, c-format
-msgid "Key Binding (%s) is already in use\n"
-msgstr "Sleutelbinding (%s) is reeds in gebruik\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:502
+#: ../plugins/keybindings/gsd-keybindings-manager.c:409
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -583,68 +631,60 @@ msgstr ""
 
 #: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
 msgid "Keybindings"
-msgstr ""
+msgstr "Sleutelbindings"
 
 #: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
 msgid "Keybindings plugin"
-msgstr ""
+msgstr "Inprop vir sleutelbindings"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
 msgid "Keyboard"
 msgstr "Sleutelbord"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Keyboard plugin"
-msgstr "Sleutelbordkortpaaie"
+msgstr "Inprop vir die sleutelbord"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:1
-#, fuzzy
 msgid "A_vailable files:"
-msgstr "B_eskikbare uitlegte:"
+msgstr "_Beskikbare lêers:"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-#, fuzzy
 msgid "Do _not show this warning again."
-msgstr "_Moenie weer hierdie boodskap wys nie"
+msgstr "Moe_nie weer hierdie boodskap wys nie."
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
-msgstr ""
+msgstr "Laai modmap-lêers"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:4
 msgid "Would you like to load the modmap file(s)?"
-msgstr ""
+msgstr "Wil u die modmap-lêer(s) laai?"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
-msgstr ""
+msgstr "_Laai"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:6
-#, fuzzy
 msgid "_Loaded files:"
-msgstr "Model"
+msgstr "Ge_laaide lêers:"
 
-#: ../plugins/media-keys/actions/acme.glade.h:1
-msgid "Volume"
-msgstr "Volume"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:183
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
 msgstr ""
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
-#, fuzzy, c-format
+#: ../plugins/media-keys/gsd-media-keys-manager.c:223
+#, c-format
 msgid ""
 "Couldn't execute command: %s\n"
 "Verify that this is a valid command."
 msgstr ""
 "Kon nie opdrag uitvoer nie: %s\n"
-"Verifieer dat hierdie opdrag bestaan."
+"Verifieer dat hierdie 'n geldige opdrag is."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
+#: ../plugins/media-keys/gsd-media-keys-manager.c:239
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -653,26 +693,25 @@ msgstr ""
 "Verifieer dat die masjien korrek gekonfigureer is."
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
-#, fuzzy
 msgid "Media keys"
-msgstr "Muissleutels"
+msgstr "Mediasleutels"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
 msgid "Media keys plugin"
-msgstr ""
-
-#: ../plugins/mouse/gsd-mouse-manager.c:566
-#, fuzzy
-msgid "Could not enable mouse accessibility features"
-msgstr "_Aktiveer sleutelbord-toegangklikheidskenmerke"
-
-#: ../plugins/mouse/gsd-mouse-manager.c:568
-msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
-msgstr ""
+msgstr "Inprop vir mediasleutels"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:571
+msgid "Could not enable mouse accessibility features"
+msgstr "Kon nie muis-toeganklikheidskenmerke aktiveer nie"
+
+#: ../plugins/mouse/gsd-mouse-manager.c:573
+msgid ""
+"Mouse accessibility requires mousetweaks to be installed on your system."
+msgstr ""
+"Muis-toeganklikheidskenmerke benodig dat mousetweaks op u stelsel "
+"geïnstalleer is."
+
+#: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
 msgstr "Muisvoorkeure"
 
@@ -682,9 +721,9 @@ msgstr "Muis"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
-msgstr ""
+msgstr "Inprop vir die muis"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:151
+#: ../plugins/screensaver/gsd-screensaver-manager.c:153
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -699,148 +738,199 @@ msgstr ""
 "\n"
 "Skermskut funksionaliteit sal nie in hierdie sessie werk nie."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:160
+#: ../plugins/screensaver/gsd-screensaver-manager.c:162
 msgid "_Do not show this message again"
 msgstr "_Moenie weer hierdie boodskap wys nie"
 
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
-#, fuzzy
 msgid "Screensaver"
-msgstr "Laai XScreenSaver"
+msgstr ""
 
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Screensaver plugin"
-msgstr "Laat XScreenSaver loop by aanmelding"
+msgstr ""
 
-#: ../plugins/sound/gsd-sound-manager.c:164
+#: ../plugins/sound/gsd-sound-manager.c:273
 #, c-format
 msgid "Couldn't load sound file %s as sample %s"
 msgstr "Kon nie klanklêer %s laai as voorbeeld %s nie"
 
-#: ../plugins/sound/libsounds/sound-view.c:44
+#: ../plugins/sound/libsounds/sound-view.c:43
 msgid "Login"
-msgstr ""
+msgstr "Aanmelding"
+
+#: ../plugins/sound/libsounds/sound-view.c:44
+msgid "Logout"
+msgstr "Afmelding"
 
 #: ../plugins/sound/libsounds/sound-view.c:45
-#, fuzzy
-msgid "Logout"
-msgstr "Meld af"
-
-#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Boing"
 msgstr ""
 
-#: ../plugins/sound/libsounds/sound-view.c:47
-#, fuzzy
+#: ../plugins/sound/libsounds/sound-view.c:46
 msgid "Siren"
-msgstr "Skerm"
+msgstr "Sirene"
 
-#: ../plugins/sound/libsounds/sound-view.c:48
+#: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
 msgstr ""
 
-#: ../plugins/sound/libsounds/sound-view.c:49
-#, fuzzy
+#: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
-msgstr "Slaap"
+msgstr "Biep"
 
-#: ../plugins/sound/libsounds/sound-view.c:50
-#, fuzzy
+#: ../plugins/sound/libsounds/sound-view.c:49
 msgid "No sound"
-msgstr "Klank"
+msgstr "Geen klank"
 
-#: ../plugins/sound/libsounds/sound-view.c:132
-#, fuzzy
+#: ../plugins/sound/libsounds/sound-view.c:131
 msgid "Sound not set for this event."
-msgstr "_Klank vir gebeurtenisse"
+msgstr "Geen klank opgestel vir hierdie gebeurtenis nie."
 
-#: ../plugins/sound/libsounds/sound-view.c:141
-#, fuzzy
+#: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
 msgstr ""
 "Die klanklêer vir hierdie gebeurtenis bestaan nie.\n"
-"Jy mag dalk gnome-audio-pakket\n"
-" wil installeer vir 'n stel van verstek klanke."
+"Oorweeg om die pakket gnome-audio te installeer vir 'n stel van verstek "
+"klanke."
 
-#: ../plugins/sound/libsounds/sound-view.c:152
+#: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
 msgstr "Die klanklêer vir hierdie gebeurtenis bestaan nie."
 
-#: ../plugins/sound/libsounds/sound-view.c:183
+#: ../plugins/sound/libsounds/sound-view.c:182
 msgid "Select Sound File"
 msgstr "Kies Klanklêer"
 
-#: ../plugins/sound/libsounds/sound-view.c:210
+#: ../plugins/sound/libsounds/sound-view.c:209
 #, c-format
 msgid "The file %s is not a valid wav file"
 msgstr "Die lêer %s is nie 'n geldige wav-lêer nie"
 
-#: ../plugins/sound/libsounds/sound-view.c:271
-#, fuzzy
+#: ../plugins/sound/libsounds/sound-view.c:270
 msgid "Select sound file..."
-msgstr "Kies Klanklêer"
+msgstr "Kies klanklêer..."
 
-#: ../plugins/sound/libsounds/sound-view.c:373
-#, fuzzy
+#: ../plugins/sound/libsounds/sound-view.c:372
 msgid "System Sounds"
-msgstr "sekondes"
+msgstr "Stelselklanke"
 
 #: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
 msgid "Sound"
 msgstr "Klank"
 
 #: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Sound plugin"
-msgstr "Klanklêer"
+msgstr "Inprop vir klank"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
 msgstr "Tikonderbreking"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Typing break plugin"
-msgstr "Tikonderbreking"
+msgstr "Inprop vir tikonderbreking"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
-msgstr ""
+msgstr "Instellings vir skermgrootte en -rotasie"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
 msgid "XRandR"
-msgstr ""
+msgstr "XRandR"
 
-#: ../plugins/xrdb/gsd-xrdb-manager.c:258
-#: ../plugins/xrdb/gsd-xrdb-manager.c:327
+#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+msgid "<i>Rotation not supported</i>"
+msgstr "<i>Rotasie nie geondersteun nie</i>"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:456
+#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+msgid "The selected rotation could not be applied"
+msgstr "Die gekose rotasie kon nie toegepas word nie"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:457
+msgid "An error occurred while configuring the screen"
+msgstr "'n Fout het voorgekom met die opstelling van die skerm"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+msgid "Normal"
+msgstr "Normaal"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+msgid "Left"
+msgstr "Links"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+msgid "Right"
+msgstr "Regs"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+msgid "Upside Down"
+msgstr "Onderstebo"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+msgid "_Configure Display Settings ..."
+msgstr "_Opstelling van visuele vertoon ..."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+msgid "Configure display settings"
+msgstr "Opstelling van visuele vertoon"
+
+#: ../plugins/xrdb/gsd-xrdb-manager.c:255
+#: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
 msgstr "Kan nie gebruiker se tuisgids vasstel nie"
 
 #: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
 msgid "Manage the X resource database"
-msgstr ""
+msgstr "Bestuur die X-hulpbrondatabasis"
 
 #: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
 msgid "X Resource Database"
-msgstr ""
+msgstr "X-hulpbrondatabasis"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:551
+#: ../plugins/xsettings/gsd-xsettings-manager.c:609
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf-sleutel %s is ingestel na tipe %s maar sy verwagte tipe was %s\n"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
-#, fuzzy
 msgid "Manage X Settings"
-msgstr "Skerm %d Instellings\n"
+msgstr "Bestuur X-instellings"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "X Settings"
-msgstr "Skerm %d Instellings\n"
+msgstr "X-instellings"
+
+#, fuzzy
+#~ msgid ""
+#~ "Set to True to keep the handlers for text/plain and text/* MIME types "
+#~ "synchronized."
+#~ msgstr ""
+#~ "Indien waar, sal die MIME-hanteerders vir teks/gewoon en teks/* "
+#~ "gesinkroniseer gehou word"
+
+#~ msgid "Sync text/plain and text/* handlers"
+#~ msgstr "Sinkroniseer teks/gewoon en tekst/* hanteerders"
+
+#~ msgid "Key Binding (%s) has its action defined multiple times\n"
+#~ msgstr "Sleutelbinding (%s) se funksie word herhaalde male gedefinieer\n"
+
+#~ msgid "Key Binding (%s) has its binding defined multiple times\n"
+#~ msgstr "Sleutelbinding  (%s) se binding word herhaalde male gedefinieer\n"
+
+#, fuzzy
+#~ msgid "It seems that another application already has access to key '%u'."
+#~ msgstr ""
+#~ "Dit blyk asof 'n ander toepassing reeds toegang het tot sleutel '%d'."
+
+#~ msgid "Key Binding (%s) is already in use\n"
+#~ msgstr "Sleutelbinding (%s) is reeds in gebruik\n"
+
+#~ msgid "Volume"
+#~ msgstr "Volume"
 
 #, fuzzy
 #~ msgid "Alert Type"
@@ -1054,12 +1144,6 @@ msgstr "Skerm %d Instellings\n"
 #~ msgid "_Magnifier"
 #~ msgstr "_Vergroter"
 
-#~ msgid "_On-screen keyboard"
-#~ msgstr "_Op-skerm sleutelbord"
-
-#~ msgid "_Screenreader"
-#~ msgstr "_Skermleser"
-
 #~ msgid "Assistive Technology Support"
 #~ msgstr "Helpende Tegnologie Ondersteuning"
 
@@ -1176,9 +1260,6 @@ msgstr "Skerm %d Instellings\n"
 
 #~ msgid "Filters"
 #~ msgstr "Filters"
-
-#~ msgid "I_gnore duplicate keypresses within:"
-#~ msgstr "I_gnoreer duplikaat sleuteldrukke binne:"
 
 #~ msgid ""
 #~ "Ignore all subsequent presses of the SAME key if they happen within a "
@@ -1768,9 +1849,6 @@ msgstr "Skerm %d Instellings\n"
 
 #~ msgid "_RGB"
 #~ msgstr "_RGB"
-
-#~ msgid "_Slight"
-#~ msgstr "_Effens"
 
 #~ msgid "_Terminal font:"
 #~ msgstr "_Terminaal-lettertipe:"
