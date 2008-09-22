@@ -35,9 +35,9 @@
 
 /* Thumbnail cleaner */
 #define GCONF_THUMB_AGE "/desktop/gnome/thumbnail_cache/maximum_age"
-#define DEFAULT_MAX_AGE_IN_DAYS 60
+#define DEFAULT_MAX_AGE_IN_DAYS 180
 #define GCONF_THUMB_SIZE "/desktop/gnome/thumbnail_cache/maximum_size"
-#define DEFAULT_MAX_SIZE_IN_MB 64
+#define DEFAULT_MAX_SIZE_IN_MB 512
 #define GCONF_THUMB_BINDING_DIR "/desktop/gnome/thumbnail_cache"
 
 
