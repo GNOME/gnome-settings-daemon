@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.23.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-17 08:51+0200\n"
-"PO-Revision-Date: 2008-09-17 09:01+0200\n"
+"PO-Revision-Date: 2008-09-22 14:37+0200\n"
 "Last-Translator: Luca Ferretti <elle.uca@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -259,13 +259,12 @@ msgstr ""
 "rosso a sinistra (il più comune), \"bgr\" per blu a sinistra, \"vrgb\" per "
 "rosso in alto, \"vbgr\" per rosso in basso."
 
+# GNOME-2-24
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:6
 msgid ""
 "The resolution used for converting font sizes to pixel sizes, in dots per "
 "inch."
-msgstr ""
-"La risoluzione usata per convertire le dimensioni dei font in dimensioni dei "
-"pixel, espressa in punti per pollice."
+msgstr "La risoluzione usata per convertire le dimensioni dei tipi di carattere in dimensioni dei pixel, espressa in punti per pollice."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:7
 msgid ""
@@ -660,6 +659,7 @@ msgstr "Tipi di carattere"
 msgid "Font plugin"
 msgstr "Plugin per i tipi di carattere"
 
+# GNOME-2-24
 #: ../plugins/font/gsd-font-manager.c:207
 #, c-format
 msgid ""
@@ -667,8 +667,7 @@ msgid ""
 "This is needed to allow changing the mouse pointer theme."
 msgstr ""
 "Impossibile creare la directory «%s».\n"
-"Tale directory è necessaria per consentire il cambio del tema del puntatore "
-"del cursore."
+"Tale directory è necessaria per consentire il cambio del tema del puntatore del mouse."
 
 #: ../plugins/font/gsd-font-manager.c:230
 #, c-format
@@ -689,14 +688,20 @@ msgstr "L'associazione di tasti (%s) è incompleta"
 msgid "Key binding (%s) is invalid"
 msgstr "L'associazione di tasti (%s) non è valida"
 
+# GNOME-2-24
+#
+# Modificato il layout e l'uso delle ()
+# il primo %s è il nome dell'azione
+# il secondo %s è la scorciatoia
 #: ../plugins/keybindings/gsd-keybindings-manager.c:409
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
 "which is linked to the key (%s)"
 msgstr ""
-"Errore durante il tentativo di eseguire (%s)\n"
-"che è collegata al tasto (%s)"
+"Errore durante il tentativo di eseguire l'azione\n"
+"  %s\n"
+"che è collegata al tasto «%s»"
 
 #: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
 msgid "Keybindings"
@@ -786,9 +791,7 @@ msgstr "Impossibile abilitare l'accessibilità per il mouse"
 #: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr ""
-"Le funzioni di accesso universale per il mouse richiede che «mousetweaks» "
-"sia installato sul sistema in uso."
+msgstr "Le funzioni di accesso universale per il mouse richiedono che «mousetweaks» sia installato sul sistema in uso."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
@@ -866,14 +869,14 @@ msgstr "Nessun suono"
 msgid "Sound not set for this event."
 msgstr "Suono non impostato per questo evento."
 
+# GNOME-2-24
 #: ../plugins/sound/libsounds/sound-view.c:140
 msgid ""
 "The sound file for this event does not exist.\n"
 "You may want to install the gnome-audio package for a set of default sounds."
 msgstr ""
 "Il file audio per questo evento non esiste.\n"
-"Si dovrebbe installare il pacchetto gnome-audio per avere un insieme di "
-"suoni predefiniti."
+"Installare il pacchetto gnome-audio per avere un insieme di suoni predefiniti."
 
 #: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
