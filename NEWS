@@ -1,3 +1,39 @@
+==============
+Version 2.24.0
+==============
+- Fix the fix for read-only home directories (Simon Zheng) (#530975)
+- Make the volume popup not crash when invoking it on any screen but
+  the first when using a compositing manager (Jens Granseuer)
+  (#551677)
+- Add GPLv2 copyright notice explicitly so that newer versions of
+  autotools don't declare us GPLv3 (Jens Granseuer) (#551956)
+- Specify GTK modules to load in a GConf directory instead of the
+  single /desktop/gnome/gtk-modules key (Jens Granseuer) (#539840)
+- Also allow linking the module state to other boolean keys by using
+  a string value that is the name of the key to use (Jens Granseuer)
+- Made the housekeeping plugin less aggressive by default (Michael J.
+  Chudobiak) (#552680)
+- Updated translations:
+  - af (Friedel Wolff)
+  - ar (Khaled Hosny)
+  - bn_IN (Runa Bhattacharjee)
+  - ca (Gil Forcada)
+  - da (Kenneth Nielsen)
+  - el (Kostas Papadimas)
+  - et (Priit Laes)
+  - he (Yair Hershkovitz)
+  - hu (Gabor Kelemen)
+  - it (Luca Ferretti)
+  - kn (Shankar Prasad)
+  - lt (Gintautas Miliauskas)
+  - ml (Praveen Arimbrathodiyil)
+  - mr (Sandeep Shedmake)
+  - pl (Wadim Dziedzic)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+  - ro (Mişu Moldovan)
+  - ta (Tirumurthi Vasudevan)
+  - zh_CN (Funda Wang)
+
 ===============
 Version 2.23.92
 ===============
