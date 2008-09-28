@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.23.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-17 08:51+0200\n"
-"PO-Revision-Date: 2008-09-22 14:37+0200\n"
+"POT-Creation-Date: 2008-09-28 22:32+0200\n"
+"PO-Revision-Date: 2008-09-28 22:31+0200\n"
 "Last-Translator: Luca Ferretti <elle.uca@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Associazione per escludere il volume del sistema."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
 msgid "Binding to open the Home folder."
-msgstr "Associazione per aprire la cartella Home."
+msgstr "Associazione per aprire la cartella home."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
 msgid "Binding to pause playback."
@@ -102,7 +102,7 @@ msgstr "Espelli"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:21
 msgid "Home folder"
-msgstr "Cartella Home"
+msgstr "Cartella home"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
 msgid "Launch calculator"
@@ -264,7 +264,9 @@ msgstr ""
 msgid ""
 "The resolution used for converting font sizes to pixel sizes, in dots per "
 "inch."
-msgstr "La risoluzione usata per convertire le dimensioni dei tipi di carattere in dimensioni dei pixel, espressa in punti per pollice."
+msgstr ""
+"La risoluzione usata per convertire le dimensioni dei tipi di carattere in "
+"dimensioni dei pixel, espressa in punti per pollice."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:7
 msgid ""
@@ -295,64 +297,64 @@ msgstr "Demone di impostazioni per GNOME"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
 msgid "Enable accessibility keyboard plugin"
-msgstr "Abilitare plugin per accesso universale tastiera"
+msgstr "Abilita plugin per accesso universale tastiera"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:2
 msgid "Enable background plugin"
-msgstr "Abilitare plugin per sfondo"
+msgstr "Abilita plugin per sfondo"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:3
 msgid "Enable clipboard plugin"
-msgstr "Abilitare plugin appunti"
+msgstr "Abilita plugin appunti"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
 msgid "Enable font plugin"
-msgstr "Abilitare plugin per tipi di carattere"
+msgstr "Abilita plugin per tipi di carattere"
 
 # GNOME-2-24
 #: ../data/gnome-settings-daemon.schemas.in.h:5
 msgid "Enable housekeeping plugin"
-msgstr "Abilitare plugin per housekeeping"
+msgstr "Abilita plugin per housekeeping"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
-msgstr "Abilitare plugin per associazioni di tasti"
+msgstr "Abilita plugin per associazioni di tasti"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:7
 msgid "Enable keyboard plugin"
-msgstr "Abilitare plugin per tastiera"
+msgstr "Abilita plugin per tastiera"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable media keys plugin"
-msgstr "Abilitare plugin per tasti multimediali"
+msgstr "Abilita plugin per tasti multimediali"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable mouse plugin"
-msgstr "Abilitare plugin per mouse"
+msgstr "Abilita plugin per mouse"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable screensaver plugin"
-msgstr "Abilitare plugin per salvaschermo"
+msgstr "Abilita plugin per salvaschermo"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable sound plugin"
-msgstr "Abilitare plugin per audio"
+msgstr "Abilita plugin per audio"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable typing breaks plugin"
-msgstr "Abilitare plugin per pause nella digitazione"
+msgstr "Abilita plugin per pause nella digitazione"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable xrandr plugin"
-msgstr "Abilitare plugin per xrandr"
+msgstr "Abilita plugin per xrandr"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable xrdb plugin"
-msgstr "Abilitare plugin per xrdb"
+msgstr "Abilita plugin per xrdb"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable xsettings plugin"
-msgstr "Abilitare plugin per xsettings"
+msgstr "Abilita plugin per xsettings"
 
 # GNOME-2-24
 # to prune: potare, sfrondare...
@@ -667,7 +669,8 @@ msgid ""
 "This is needed to allow changing the mouse pointer theme."
 msgstr ""
 "Impossibile creare la directory «%s».\n"
-"Tale directory è necessaria per consentire il cambio del tema del puntatore del mouse."
+"Tale directory è necessaria per consentire il cambio del tema del puntatore "
+"del mouse."
 
 #: ../plugins/font/gsd-font-manager.c:230
 #, c-format
@@ -761,12 +764,15 @@ msgstr ""
 "Impossibile eseguire il comando: %s\n"
 "Verificare che questo sia un comando valido."
 
+# GNOME-2-24
+# s/machine/computer
+# <in pausa> come in g-p-m
 #: ../plugins/media-keys/gsd-media-keys-manager.c:239
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr ""
-"Impossibile mettere in modalità «sleep» la macchina.\n"
+"Impossibile mettere il computer in pausa.\n"
 "Verificare che sia configurata correttamente."
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
@@ -791,7 +797,9 @@ msgstr "Impossibile abilitare l'accessibilità per il mouse"
 #: ../plugins/mouse/gsd-mouse-manager.c:573
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr "Le funzioni di accesso universale per il mouse richiedono che «mousetweaks» sia installato sul sistema in uso."
+msgstr ""
+"Le funzioni di accesso universale per il mouse richiedono che «mousetweaks» "
+"sia installato sul sistema in uso."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:576
 msgid "Mouse Preferences"
@@ -853,9 +861,10 @@ msgstr "Boing"
 msgid "Siren"
 msgstr "Sirena"
 
+# GNOME-2-24
 #: ../plugins/sound/libsounds/sound-view.c:47
 msgid "Clink"
-msgstr "Clic"
+msgstr "Tintinnio"
 
 #: ../plugins/sound/libsounds/sound-view.c:48
 msgid "Beep"
@@ -876,7 +885,8 @@ msgid ""
 "You may want to install the gnome-audio package for a set of default sounds."
 msgstr ""
 "Il file audio per questo evento non esiste.\n"
-"Installare il pacchetto gnome-audio per avere un insieme di suoni predefiniti."
+"Installare il pacchetto gnome-audio per avere un insieme di suoni "
+"predefiniti."
 
 #: ../plugins/sound/libsounds/sound-view.c:151
 msgid "The sound file for this event does not exist."
