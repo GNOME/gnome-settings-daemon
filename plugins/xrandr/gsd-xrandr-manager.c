@@ -437,13 +437,17 @@ error_dialog (const char *title, const char *msg)
 }
 
 static void
-output_rotation_item_activate_cb (GtkMenuItem *item, gpointer data)
+output_rotation_item_activate_cb (GtkCheckMenuItem *item, gpointer data)
 {
         GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
         struct GsdXrandrManagerPrivate *priv = manager->priv;
         GnomeOutputInfo *output;
         GnomeRRRotation rotation;
         GError *error;
+
+	/* Not interested in deselected items */
+	if (!gtk_check_menu_item_get_active (item))
+		return;
 
         output = g_object_get_data (G_OBJECT (item), "output");
         rotation = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "rotation"));
