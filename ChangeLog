@@ -1,3 +1,12 @@
+2008-10-04  Jens Granseuer  <jensgr@gmx.net>
+
+	Patch by: Eric Piel <e.a.b.piel@tudelft.nl>
+
+	* plugins/xrandr/gsd-xrandr-manager.c:
+	(output_rotation_item_activate_cb): ignore the "activate" signal for
+	deselected items so that the rotation setting doesn't reset when the
+	systray menu is opened (bug #554951)
+
 ==================== 2.24.0 ====================
 
 2008-09-23  Rodrigo Moya <rodrigo@gnome-db.org>
