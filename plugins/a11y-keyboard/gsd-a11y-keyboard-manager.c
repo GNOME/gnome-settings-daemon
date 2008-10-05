@@ -317,8 +317,7 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
         }
 
         /* toggle keys */
-        desc->ctrls->ax_options = set_clear (enable_accessX &&
-                                             gconf_client_get_bool (client, CONFIG_ROOT "/togglekeys_enable", NULL),
+        desc->ctrls->ax_options = set_clear (gconf_client_get_bool (client, CONFIG_ROOT "/togglekeys_enable", NULL),
                                              desc->ctrls->ax_options,
                                              XkbAccessXFeedbackMask | XkbAX_IndicatorFBMask);
 
