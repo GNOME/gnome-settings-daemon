@@ -1,3 +1,11 @@
+2008-10-06  Matthias Clasen  <mclasen@redhat.com>
+
+	Bug 554525 – fix the picking up of the gdm layout
+
+	* plugins/keyboard/gsd-keyboard-xkb.c (apply_xkb_settings): Active
+	a specific group only after activating the right keyboard
+	configuration. Because the other way around doesn't work.
+
 2008-10-05  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
