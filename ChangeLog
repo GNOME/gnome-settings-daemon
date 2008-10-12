@@ -1,5 +1,13 @@
 2008-10-06  Matthias Clasen  <mclasen@redhat.com>
 
+	Bug 555873 – fix gdm keyboard layout handling even more
+
+	* plugins/keyboard/gsd-keyboard-xkb.c (apply_xkb_settings): 
+	Try harder to handle initial-login situations correctly, while
+	not overwriting any user configuration.
+
+2008-10-06  Matthias Clasen  <mclasen@redhat.com>
+
 	Bug 554525 – fix the picking up of the gdm layout
 
 	* plugins/keyboard/gsd-keyboard-xkb.c (apply_xkb_settings): Active
