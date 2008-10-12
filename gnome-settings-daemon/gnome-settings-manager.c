@@ -235,7 +235,7 @@ _load_dir (GnomeSettingsManager *manager,
         error = NULL;
         d = g_dir_open (path, 0, &error);
         if (d == NULL) {
-                g_warning (error->message);
+                g_warning ("%s", error->message);
                 g_error_free (error);
                 return;
         }

@@ -606,10 +606,10 @@ ax_slowkeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
                                                                 0,
                                                                 GTK_MESSAGE_WARNING,
                                                                 GTK_BUTTONS_NONE,
-                                                                title);
+                                                                "%s", title);
 
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (manager->priv->slowkeys_alert),
-                                                  message);
+                                                  "%s", message);
 
         gtk_dialog_add_button (GTK_DIALOG (manager->priv->slowkeys_alert),
                                GTK_STOCK_HELP,
@@ -751,10 +751,10 @@ ax_stickykeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
                                                                   0,
                                                                   GTK_MESSAGE_WARNING,
                                                                   GTK_BUTTONS_NONE,
-                                                                  title);
+                                                                  "%s", title);
 
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (manager->priv->stickykeys_alert),
-                                                  message);
+                                                  "%s", message);
 
         gtk_dialog_add_button (GTK_DIALOG (manager->priv->stickykeys_alert),
                                GTK_STOCK_HELP,

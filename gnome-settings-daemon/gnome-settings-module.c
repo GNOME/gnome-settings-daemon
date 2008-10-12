@@ -59,7 +59,7 @@ gnome_settings_module_load (GTypeModule *gmodule)
         module->library = g_module_open (module->path, 0);
 
         if (module->library == NULL) {
-                g_warning (g_module_error ());
+                g_warning ("%s", g_module_error ());
 
                 return FALSE;
         }
@@ -67,7 +67,7 @@ gnome_settings_module_load (GTypeModule *gmodule)
         /* extract symbols from the lib */
         res = g_module_symbol (module->library, "register_gnome_settings_plugin", (void *) &register_func);
         if (! res) {
-                g_warning (g_module_error ());
+                g_warning ("%s", g_module_error ());
                 g_module_close (module->library);
 
                 return FALSE;

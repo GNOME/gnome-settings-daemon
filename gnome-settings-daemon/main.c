@@ -251,7 +251,7 @@ main (int argc, char *argv[])
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, NULL, entries, NULL, &error)) {
                 if (error != NULL) {
-                        g_warning (error->message);
+                        g_warning ("%s", error->message);
                         g_error_free (error);
                 } else {
                         g_warning ("Unable to initialize GTK+");

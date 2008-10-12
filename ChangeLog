@@ -1,3 +1,13 @@
+2008-10-12 Christian Persch <chpe@gnome.org>
+
+	Bug 555553 – format not a string literal and no format arguments
+
+	* gnome-settings-daemon/gnome-settings-manager.c
+	* gnome-settings-daemon/gnome-settings-module.c
+	* gnome-settings-daemon/main.c
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
+	* plugins/xrdb/gsd-xrdb-manager.c: Use printf safely.
+
 2008-10-06  Matthias Clasen  <mclasen@redhat.com>
 
 	Bug 555873 – fix gdm keyboard layout handling even more

@@ -440,7 +440,7 @@ apply_settings (GsdXrdbManager *manager,
         error = NULL;
         list = scan_for_files (manager, &error);
         if (error != NULL) {
-                g_warning (error->message);
+                g_warning ("%s", error->message);
                 g_error_free (error);
         }
 
@@ -448,7 +448,7 @@ apply_settings (GsdXrdbManager *manager,
                 error = NULL;
                 append_file (p->data, string, &error);
                 if (error != NULL) {
-                        g_warning (error->message);
+                        g_warning ("%s", error->message);
                         g_error_free (error);
                 }
         }
@@ -459,14 +459,14 @@ apply_settings (GsdXrdbManager *manager,
         error = NULL;
         append_xresource_file (USER_X_RESOURCES, string, &error);
         if (error != NULL) {
-                g_warning (error->message);
+                g_warning ("%s", error->message);
                 g_error_free (error);
         }
 
         error = NULL;
         append_xresource_file (USER_X_DEFAULTS, string, &error);
         if (error != NULL) {
-                g_warning (error->message);
+                g_warning ("%s", error->message);
                 g_error_free (error);
         }
 
