@@ -143,11 +143,37 @@ apply_xkb_settings (void)
         GConfClient *conf_client;
         GkbdKeyboardConfig current_sys_kbd_config;
         int group_to_activate = -1;
+        const char *gdm_layout;
 
         if (!inited_ok)
                 return;
 
         conf_client = gconf_client_get_default ();
+
+        /* With GDM the user can already set a layout from the login
+         * screen. Try to keep that setting.
+         * We clear gdm_keyboard_layout early, so we don't risk 
+         * recursion from gconf notification.
+         */
+        gdm_layout = gdm_keyboard_layout;
+        gdm_keyboard_layout = NULL;
+        if (gdm_layout != NULL) {
+                GSList *layouts;
+                layouts = gconf_client_get_list (conf_client,
+                                                 GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
+                                                 GCONF_VALUE_STRING,
+                                                 NULL);    
+                if (layouts == NULL) {
+                        layouts = g_slist_append (layouts, g_strdup (gdm_layout));
+                        gconf_client_set_list (conf_client,
+                                               GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
+                                               GCONF_VALUE_STRING,
+                                               layouts,
+                                               NULL);
+                }
+                g_slist_foreach (layouts, (GFunc)g_free, NULL);
+                g_slist_free (layouts);
+        }
 
         gkbd_keyboard_config_init (&current_sys_kbd_config,
                                    conf_client,
@@ -159,29 +185,20 @@ apply_xkb_settings (void)
         gkbd_keyboard_config_load_from_x_current (&current_sys_kbd_config,
                                                   NULL);
 
-        /* With GDM the user can already set a layout from the login
-         * screen. Try to keep that setting */
-        if (gdm_keyboard_layout != NULL) {
-                if (current_kbd_config.layouts_variants == NULL) {
-                        current_kbd_config.layouts_variants = g_slist_append (NULL, (char *) gdm_keyboard_layout);
-                        gconf_client_set_list (conf_client,
-                                               GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
-                                               GCONF_VALUE_STRING,
-                                               current_kbd_config.layouts_variants,
-                                               NULL);
-                } else {
-                         GSList *l;
-                         int i;
-                         size_t len = strlen (gdm_keyboard_layout);
-                         for (i = 0, l = current_kbd_config.layouts_variants; l; i++, l = l->next) {
-                                 char *lv = l->data;
-                                 if (strncmp (lv, gdm_keyboard_layout, len) == 0 && (lv[len] == '\0' || lv[len] == '\t')) {
-                                        group_to_activate = i;
-                                        break;
-                                 }
-                         }
+        if (gdm_layout != NULL) {
+                /* If there are multiple layouts, 
+                 * try to find the one closest to the gdm layout
+                 */
+                GSList *l;
+                int i;
+                size_t len = strlen (gdm_layout);
+                for (i = 0, l = current_kbd_config.layouts_variants; l; i++, l = l->next) {
+                        char *lv = l->data;
+                        if (strncmp (lv, gdm_layout, len) == 0 && (lv[len] == '\0' || lv[len] == '\t')) {
+                                group_to_activate = i;
+                                break;
+                        }
                 }
-                gdm_keyboard_layout = NULL;
         }
 
         /* Activate - only if different! */
