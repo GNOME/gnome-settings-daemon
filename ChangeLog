@@ -1,3 +1,11 @@
+2008-10-15 Matthias Clasen  <mclasen@redhat.com>
+
+	Bug 556307 – show the shutdown dialog when the power button is pressed
+
+	* plugins/media-keys/gsd-media-keys-manager.c (do_exit_action): 
+	Show the shutdown dialog when the power button is pressed,
+	not the logout dialog.
+
 2008-10-12 Christian Persch <chpe@gnome.org>
 
 	Bug 555553 – format not a string literal and no format arguments
