@@ -556,7 +556,7 @@ do_www_action (GsdMediaKeysManager *manager,
 static void
 do_exit_action (GsdMediaKeysManager *manager)
 {
-        execute (manager, "gnome-session-save --kill", FALSE, FALSE);
+        execute (manager, "gnome-session-save --shutdown-dialog", FALSE, FALSE);
 }
 
 static void
