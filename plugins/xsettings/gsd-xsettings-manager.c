@@ -208,6 +208,7 @@ static TranslationEntry translations [] = {
         { "/desktop/gnome/interface/icon_theme",             "Net/IconThemeName",       GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/file_chooser_backend",   "Gtk/FileChooserBackend",  GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/interface/menus_have_icons",       "Gtk/MenuImages",          GCONF_VALUE_BOOL,     translate_bool_int },
+        { "/desktop/gnome/interface/buttons_have_icons",     "Gtk/ButtonImages",          GCONF_VALUE_BOOL,     translate_bool_int },
         { "/desktop/gnome/interface/menubar_accel",          "Gtk/MenuBarAccel",        GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/peripherals/mouse/cursor_theme",   "Gtk/CursorThemeName",     GCONF_VALUE_STRING,   translate_string_string },
         { "/desktop/gnome/peripherals/mouse/cursor_size",    "Gtk/CursorThemeSize",     GCONF_VALUE_INT,      translate_int_int },
