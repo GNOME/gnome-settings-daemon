@@ -26,7 +26,7 @@
 #include <glib-object.h>
 #include "acme-volume.h"
 
-#define ACME_TYPE_VOLUME_GSTREAMER		(acme_volume_get_type ())
+#define ACME_TYPE_VOLUME_GSTREAMER		(acme_volume_gstreamer_get_type ())
 #define ACME_VOLUME_GSTREAMER(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), ACME_TYPE_VOLUME_GSTREAMER, AcmeVolumeGStreamer))
 #define ACME_VOLUME_GSTREAMER_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), ACME_TYPE_VOLUME_GSTREAMER, AcmeVolumeGStreamerClass))
 #define ACME_IS_VOLUME_GSTREAMER(obj)	(G_TYPE_CHECK_INSTANCE_TYPE ((obj), ACME_TYPE_VOLUME_GSTREAMER))
@@ -46,4 +46,3 @@ struct AcmeVolumeGStreamerClass {
 };
 
 GType acme_volume_gstreamer_get_type		(void);
-

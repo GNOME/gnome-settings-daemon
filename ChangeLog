@@ -1,3 +1,15 @@
+2008-10-23  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/media-keys/actions/acme-volume-gstreamer.c:
+	(acme_volume_gstreamer_finalize),
+	(acme_volume_gstreamer_close_real), (acme_volume_gstreamer_open),
+	(acme_volume_gstreamer_close), (acme_volume_gstreamer_init),
+	(acme_volume_gstreamer_class_init):
+	* plugins/media-keys/actions/acme-volume-gstreamer.h:
+	clean up Volume initialization so that we don't get non-functional
+	volume keys when the plugin starts up with an invalid configuration
+	initially, even if the configuration is fixed afterwards (bug #552383)
+
 2008-10-19 Matthias Clasen  <mclasen@redhat.com>
 
 	Bug 556797 – support the Gtk/ButtonImages XSetting
