@@ -36,10 +36,12 @@
 
 #include <string.h>
 
-#define TIMEOUT	4000
+#define TIMEOUT	4
 
 #define DEFAULT_MIXER_DEVICE_KEY   "/desktop/gnome/sound/default_mixer_device"
 #define DEFAULT_MIXER_TRACKS_KEY   "/desktop/gnome/sound/default_mixer_tracks"
+
+#define ACME_VOLUME_GSTREAMER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), ACME_TYPE_VOLUME_GSTREAMER, AcmeVolumeGStreamerPrivate))
 
 struct AcmeVolumeGStreamerPrivate
 {
@@ -69,8 +71,6 @@ acme_volume_gstreamer_finalize (GObject *object)
 
 	self = ACME_VOLUME_GSTREAMER (object);
 
-	g_return_if_fail (self->_priv != NULL);
-
 	if (self->_priv->timer_id != 0)
 	{
 		g_source_remove (self->_priv->timer_id);
@@ -79,11 +79,9 @@ acme_volume_gstreamer_finalize (GObject *object)
 	acme_volume_gstreamer_close_real (self);
 
 	if (self->_priv->gconf_client != NULL) {
-		g_object_unref (G_OBJECT (self->_priv->gconf_client));
+		g_object_unref (self->_priv->gconf_client);
 		self->_priv->gconf_client = NULL;
 	}
-
-	g_free (self->_priv);
 
 	G_OBJECT_CLASS (acme_volume_gstreamer_parent_class)->finalize (object);
 }
@@ -236,17 +234,14 @@ acme_volume_gstreamer_get_threshold (AcmeVolume *vol)
 static gboolean
 acme_volume_gstreamer_close_real (AcmeVolumeGStreamer *self)
 {
-	if (self->_priv == NULL)
-		return FALSE;
-
 	if (self->_priv->mixer != NULL)
 	{
-		gst_element_set_state (GST_ELEMENT(self->_priv->mixer), GST_STATE_NULL);
+		gst_element_set_state (GST_ELEMENT (self->_priv->mixer), GST_STATE_NULL);
 		gst_object_unref (GST_OBJECT (self->_priv->mixer));
-		g_list_foreach (self->_priv->mixer_tracks, (GFunc)g_object_unref, NULL);
+		g_list_foreach (self->_priv->mixer_tracks, (GFunc) g_object_unref, NULL);
 		g_list_free (self->_priv->mixer_tracks);
-		self->_priv->mixer=NULL;
-		self->_priv->mixer_tracks=NULL;
+		self->_priv->mixer = NULL;
+		self->_priv->mixer_tracks = NULL;
 	}
 
 	self->_priv->timer_id = 0;
@@ -262,27 +257,27 @@ acme_volume_gstreamer_close_real (AcmeVolumeGStreamer *self)
 static gboolean
 _acme_set_mixer(GstMixer *mixer, gpointer user_data)
 {
-   const GList *tracks;
+	const GList *tracks;
 
-   tracks = gst_mixer_list_tracks (mixer);
+	tracks = gst_mixer_list_tracks (mixer);
 
-   while (tracks != NULL) {
-      GstMixerTrack *track = GST_MIXER_TRACK (tracks->data);
+	while (tracks != NULL) {
+		GstMixerTrack *track = GST_MIXER_TRACK (tracks->data);
 
-      if (GST_MIXER_TRACK_HAS_FLAG (track, GST_MIXER_TRACK_MASTER)) {
-         AcmeVolumeGStreamer *self;
+		if (GST_MIXER_TRACK_HAS_FLAG (track, GST_MIXER_TRACK_MASTER)) {
+			AcmeVolumeGStreamer *self;
 
-         self = ACME_VOLUME_GSTREAMER (user_data);
+			self = ACME_VOLUME_GSTREAMER (user_data);
 
-         self->_priv->mixer = mixer;
-         self->_priv->mixer_tracks = g_list_append (self->_priv->mixer_tracks, g_object_ref (track));
-         return TRUE;
-      }
+			self->_priv->mixer = mixer;
+			self->_priv->mixer_tracks = g_list_append (self->_priv->mixer_tracks, g_object_ref (track));
+			return TRUE;
+		}
 
-      tracks = tracks->next;
-   }
+		tracks = tracks->next;
+	}
 
-   return FALSE;
+	return FALSE;
 }
 
 /* This is a modified version of code from gnome-media's gst-mixer */
@@ -292,9 +287,6 @@ acme_volume_gstreamer_open (AcmeVolumeGStreamer *vol)
   	AcmeVolumeGStreamer *self = (AcmeVolumeGStreamer *) vol;
 	gchar *mixer_device, **factory_and_device = NULL;
 	GList *mixer_list;
-
-	if (self->_priv == NULL)
-		return FALSE;
 
 	if (self->_priv->timer_id != 0)
 	{
@@ -411,31 +403,16 @@ acme_volume_gstreamer_open (AcmeVolumeGStreamer *vol)
 static void
 acme_volume_gstreamer_close (AcmeVolumeGStreamer *self)
 {
-	self->_priv->timer_id = g_timeout_add (TIMEOUT,
+	self->_priv->timer_id = g_timeout_add_seconds (TIMEOUT,
 			(GSourceFunc) acme_volume_gstreamer_close_real, self);
 }
 
 static void
 acme_volume_gstreamer_init (AcmeVolumeGStreamer *self)
 {
-
-	self->_priv = g_new0 (AcmeVolumeGStreamerPrivate, 1);
-
+	self->_priv = ACME_VOLUME_GSTREAMER_GET_PRIVATE (self);
 	self->_priv->gconf_client = gconf_client_get_default ();
-
-	if (acme_volume_gstreamer_open (self) == FALSE)
-	{
-		g_free (self->_priv);
-		self->_priv = NULL;
-		return;
-	}
-
-	if (self->_priv->mixer != NULL) {
-		acme_volume_gstreamer_close_real (self);
-		return;
-	}
 }
-
 
 static void
 acme_volume_gstreamer_class_init (AcmeVolumeGStreamerClass *klass)
@@ -450,4 +427,6 @@ acme_volume_gstreamer_class_init (AcmeVolumeGStreamerClass *klass)
 	volume_class->set_mute = acme_volume_gstreamer_set_mute;
 	volume_class->get_mute = acme_volume_gstreamer_get_mute;
 	volume_class->get_threshold = acme_volume_gstreamer_get_threshold;
+
+	g_type_class_add_private (klass, sizeof (AcmeVolumeGStreamerPrivate));
 }
