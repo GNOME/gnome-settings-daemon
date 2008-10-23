@@ -465,33 +465,65 @@ static void
 draw_waves (cairo_t *cr,
             double   cx,
             double   cy,
-            double   max_radius)
+            double   max_radius,
+            int      volume_level)
 {
-        int    n_waves;
-        int    i;
+        const int n_waves = 3;
+        int last_wave;
+        int i;
 
-        n_waves = 3;
+        last_wave = n_waves * volume_level / 100;
 
         for (i = 0; i < n_waves; i++) {
                 double angle1;
                 double angle2;
                 double radius;
+                double alpha;
 
                 angle1 = -M_PI / 4;
                 angle2 = M_PI / 4;
 
+                if (i < last_wave)
+                        alpha = 1.0;
+                else if (i > last_wave)
+                        alpha = 0.1;
+                else alpha = 0.1 + 0.9 * (n_waves * volume_level % 100) / 100.0;
+
                 radius = (i + 1) * (max_radius / n_waves);
                 cairo_arc (cr, cx, cy, radius, angle1, angle2);
-                cairo_set_source_rgba (cr, 0.6, 0.6, 0.6, FG_ALPHA / 2);
+                cairo_set_source_rgba (cr, 0.6, 0.6, 0.6, alpha / 2);
                 cairo_set_line_width (cr, 14);
                 cairo_set_line_cap  (cr, CAIRO_LINE_CAP_ROUND);
                 cairo_stroke_preserve (cr);
 
-                cairo_set_source_rgba (cr, 1.0, 1.0, 1.0, FG_ALPHA);
+                cairo_set_source_rgba (cr, 1.0, 1.0, 1.0, alpha);
                 cairo_set_line_width (cr, 10);
                 cairo_set_line_cap  (cr, CAIRO_LINE_CAP_ROUND);
                 cairo_stroke (cr);
         }
+}
+
+static void
+draw_cross (cairo_t *cr,
+            double   cx,
+            double   cy,
+            double   size)
+{
+        cairo_move_to (cr, cx, cy - size/2.0);
+        cairo_rel_line_to (cr, size, size);
+
+        cairo_move_to (cr, cx, cy + size/2.0);
+        cairo_rel_line_to (cr, size, -size);
+
+        cairo_set_source_rgba (cr, 0.6, 0.6, 0.6, FG_ALPHA / 2);
+        cairo_set_line_width (cr, 14);
+        cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+        cairo_stroke_preserve (cr);
+
+        cairo_set_source_rgba (cr, 1.0, 1.0, 1.0, FG_ALPHA);
+        cairo_set_line_width (cr, 10);
+        cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+        cairo_stroke (cr);
 }
 
 static void
@@ -671,18 +703,11 @@ draw_action_volume (GsdMediaKeysWindow *window,
                 double speaker_height;
                 double speaker_cx;
                 double speaker_cy;
-                double wave_x0;
-                double wave_y0;
-                double wave_radius;
 
                 speaker_width = icon_box_width * 0.5;
                 speaker_height = icon_box_height * 0.75;
                 speaker_cx = icon_box_x0 + speaker_width / 2;
                 speaker_cy = icon_box_y0 + speaker_height / 2;
-
-                wave_x0 = window_width / 2;
-                wave_y0 = speaker_cy;
-                wave_radius = icon_box_width / 2;
 
 #if 0
                 g_message ("speaker box: w=%f h=%f cx=%f cy=%f",
@@ -694,9 +719,29 @@ draw_action_volume (GsdMediaKeysWindow *window,
 
                 /* draw speaker symbol */
                 draw_speaker (cr, speaker_cx, speaker_cy, speaker_width, speaker_height);
-                /* draw sound waves */
+
                 if (! window->priv->volume_muted) {
-                        draw_waves (cr, wave_x0, wave_y0, wave_radius);
+                        /* draw sound waves */
+                        double wave_x0;
+                        double wave_y0;
+                        double wave_radius;
+
+                        wave_x0 = window_width / 2;
+                        wave_y0 = speaker_cy;
+                        wave_radius = icon_box_width / 2;
+
+                        draw_waves (cr, wave_x0, wave_y0, wave_radius, window->priv->volume_level);
+                } else {
+                        /* draw 'mute' cross */
+                        double cross_x0;
+                        double cross_y0;
+                        double cross_size;
+
+                        cross_size = speaker_width * 3 / 4;
+                        cross_x0 = icon_box_x0 + icon_box_width - cross_size;
+                        cross_y0 = speaker_cy;
+
+                        draw_cross (cr, cross_x0, cross_y0, cross_size);
                 }
         }
 

@@ -1,5 +1,14 @@
 2008-10-23  Jens Granseuer  <jensgr@gmx.net>
 
+	Based on a patch by: Bogdan Butnaru <bogdanb@gmail.com>
+
+	* plugins/media-keys/gsd-media-keys-window.c: (draw_waves),
+	(draw_cross), (draw_action_volume): make the composited volume images
+	more clear: draw waves matching current volume and show a cross when
+	muted (bug #557307)
+
+2008-10-23  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/media-keys/actions/acme-volume-gstreamer.c:
 	(acme_volume_gstreamer_finalize),
 	(acme_volume_gstreamer_close_real), (acme_volume_gstreamer_open),
