@@ -1,5 +1,18 @@
 2008-10-29  Jens Granseuer  <jensgr@gmx.net>
 
+	Get rid of libgnome (bug #557808).
+
+	* configure.ac: bump required gtk+ version to 2.13.1
+	* gnome-settings-daemon/main.c: (main): don't use g_program_init
+	* plugins/a11y-keyboard/Makefile.am:
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
+	(ax_response_callback), (ax_stickykeys_response),
+	(ax_slowkeys_response), (on_slow_keys_action),
+	(on_sticky_keys_action): replace gnome_help_display_desktop with
+	gtk_show_uri
+
+2008-10-29  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/screensaver/gsd-screensaver-manager.c:
 	(gsd_screensaver_manager_start): fix plugin activation, too
 

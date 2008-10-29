@@ -44,7 +44,7 @@ dnl ---------------------------------------------------------------------------
 
 DBUS_GLIB_REQUIRED_VERSION=0.74
 GLIB_REQUIRED_VERSION=2.17.3
-GTK_REQUIRED_VERSION=2.10.0
+GTK_REQUIRED_VERSION=2.13.1
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.17.3
 GNOME_DESKTOP_REQUIRED_VERSION=2.23.90
@@ -58,7 +58,6 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
         gconf-2.0 >= $GCONF_REQUIRED_VERSION
         gmodule-2.0
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
-        libgnome-2.0
 )
 
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
@@ -69,9 +68,6 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         libglade-2.0 >= 2.0.0
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
 )
-
-PKG_CHECK_MODULES(GNOME, libgnome-2.0)
-PKG_CHECK_MODULES(LIBSOUNDS, gio-2.0 gtk+-2.0 libgnomeui-2.0)
 
 GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
 AC_SUBST([GSD_PLUGIN_LDFLAGS])

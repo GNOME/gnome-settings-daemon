@@ -28,7 +28,6 @@
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
-#include <libgnome/libgnome.h>
 
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
@@ -228,14 +227,11 @@ int
 main (int argc, char *argv[])
 {
         GnomeSettingsManager *manager;
-        GnomeProgram         *program;
         DBusGConnection      *bus;
         gboolean              res;
         GError               *error;
-        gboolean              create_dirs;
 
         manager = NULL;
-        program = NULL;
 
         gnome_settings_profile_start (NULL);
 
@@ -276,22 +272,6 @@ main (int argc, char *argv[])
                 goto out;
         }
 
-        /* If the user does not have a writable HOME directory, then
-           init libgnome with appropriate arguments to run without
-           needing one. */
-        create_dirs = (g_access (g_get_home_dir(), W_OK) == 0);
-
-        gnome_settings_profile_start ("gnome_program_init");
-        program = gnome_program_init (PACKAGE,
-                                      VERSION,
-                                      LIBGNOME_MODULE,
-                                      argc,
-                                      argv,
-                                      GNOME_PARAM_CREATE_DIRECTORIES,
-                                      create_dirs,
-                                      NULL);
-        gnome_settings_profile_end ("gnome_program_init");
-
         gnome_settings_profile_start ("gnome_settings_manager_new");
         manager = gnome_settings_manager_new ();
         gnome_settings_profile_end ("gnome_settings_manager_new");
@@ -329,10 +309,6 @@ main (int argc, char *argv[])
 
         if (manager != NULL) {
                 g_object_unref (manager);
-        }
-
-        if (program != NULL) {
-                g_object_unref (program);
         }
 
         g_debug ("SettingsDaemon finished");

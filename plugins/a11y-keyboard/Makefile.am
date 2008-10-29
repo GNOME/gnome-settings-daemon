@@ -53,7 +53,6 @@ liba11y_keyboard_la_CPPFLAGS = \
 liba11y_keyboard_la_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(LIBNOTIFY_CFLAGS)		\
-	$(GNOME_CFLAGS)			\
 	$(AM_CFLAGS)
 
 liba11y_keyboard_la_LDFLAGS = 		\
@@ -64,7 +63,6 @@ liba11y_keyboard_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(XF86MISC_LIBS)		\
 	$(LIBNOTIFY_LIBS)		\
-	$(GNOME_LIBS)			\
 	$(NULL)
 
 plugin_in_files = 		\

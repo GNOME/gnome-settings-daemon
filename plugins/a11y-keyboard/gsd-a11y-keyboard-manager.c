@@ -41,8 +41,6 @@
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKBstr.h>
 
-#include <libgnome/gnome-help.h>
-
 #ifdef HAVE_LIBNOTIFY
 #include <libnotify/notify.h>
 #endif /* HAVE_LIBNOTIFY */
@@ -349,17 +347,19 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
 
 static gboolean
 ax_response_callback (GsdA11yKeyboardManager *manager,
+                      GtkWindow              *parent,
                       gint                    response_id,
                       guint                   revert_controls_mask,
                       gboolean                enabled)
 {
+        GConfClient *client;
+	GdkScreen *screen;
         GError *err;
 
         switch (response_id) {
         case GTK_RESPONSE_DELETE_EVENT:
         case GTK_RESPONSE_REJECT:
-        case GTK_RESPONSE_CANCEL: {
-                GConfClient *client;
+        case GTK_RESPONSE_CANCEL:
 
                 client = gconf_client_get_default ();
 
@@ -383,16 +383,19 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
                 g_object_unref (client);
 
                 break;
-        }
+
         case GTK_RESPONSE_HELP:
+                if (!parent)
+                        screen = gdk_screen_get_default ();
+                else
+                        screen = gtk_widget_get_screen (GTK_WIDGET (parent));
+
                 err = NULL;
-                gnome_help_display_desktop (NULL,
-                                            "user-guide",
-                                            "user-guide.xml",
-                                            "goscustaccess-6",
-                                            &err);
-                if (err != NULL) {
-                        GtkWidget *error_dialog = gtk_message_dialog_new (NULL,
+                if (!gtk_show_uri (screen,
+                                   "ghelp:user-guide#goscustaccess-6",
+                                   gtk_get_current_event_time(),
+                                   &err)) {
+                        GtkWidget *error_dialog = gtk_message_dialog_new (parent,
                                                                           0,
                                                                           GTK_MESSAGE_ERROR,
                                                                           GTK_BUTTONS_CLOSE,
@@ -416,7 +419,9 @@ ax_stickykeys_response (GtkDialog              *dialog,
                         gint                    response_id,
                         GsdA11yKeyboardManager *manager)
 {
-        if (ax_response_callback (manager, response_id, XkbStickyKeysMask, manager->priv->stickykeys_shortcut_val)) {
+        if (ax_response_callback (manager, GTK_WINDOW (dialog),
+                                  response_id, XkbStickyKeysMask,
+                                  manager->priv->stickykeys_shortcut_val)) {
                 gtk_widget_destroy (GTK_WIDGET (dialog));
         }
 }
@@ -426,7 +431,9 @@ ax_slowkeys_response (GtkDialog              *dialog,
                       gint                    response_id,
                       GsdA11yKeyboardManager *manager)
 {
-        if (ax_response_callback (manager, response_id, XkbSlowKeysMask, manager->priv->slowkeys_shortcut_val)) {
+        if (ax_response_callback (manager, GTK_WINDOW (dialog),
+                                  response_id, XkbSlowKeysMask,
+                                  manager->priv->slowkeys_shortcut_val)) {
                 gtk_widget_destroy (GTK_WIDGET (dialog));
         }
 }
@@ -473,7 +480,9 @@ on_slow_keys_action (NotifyNotification     *notification,
                 return;
         }
 
-        res = ax_response_callback (manager, response_id, XkbSlowKeysMask, manager->priv->slowkeys_shortcut_val);
+        res = ax_response_callback (manager, NULL,
+                                    response_id, XkbSlowKeysMask,
+                                    manager->priv->slowkeys_shortcut_val);
         if (res) {
                 g_signal_handlers_disconnect_by_func (manager->priv->notification, on_notification_closed, manager);
                 notify_notification_close (manager->priv->notification, NULL);
@@ -500,7 +509,9 @@ on_sticky_keys_action (NotifyNotification     *notification,
                 return;
         }
 
-        res = ax_response_callback (manager, response_id, XkbStickyKeysMask, manager->priv->stickykeys_shortcut_val);
+        res = ax_response_callback (manager, NULL,
+                                    response_id, XkbStickyKeysMask,
+                                    manager->priv->stickykeys_shortcut_val);
         if (res) {
                 g_signal_handlers_disconnect_by_func (manager->priv->notification, on_notification_closed, manager);
                 notify_notification_close (manager->priv->notification, NULL);
