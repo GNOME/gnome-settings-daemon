@@ -76,9 +76,8 @@ key_toggled_cb (GtkWidget             *toggle,
         g_object_unref (client);
 }
 
-gboolean
-gsd_screensaver_manager_start (GsdScreensaverManager *manager,
-                               GError               **error)
+static gboolean
+start_screensaver_idle_cb (gpointer user_data)
 {
         char        *ss_cmd;
         GError      *gerr = NULL;
@@ -86,24 +85,14 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
         char        *args[3];
         GConfClient *client;
 
-        g_debug ("Starting screensaver manager");
+        g_debug ("Starting screensaver process in idle callback");
         gnome_settings_profile_start (NULL);
-
-        /*
-	 * with gnome-screensaver, all settings are loaded internally
-	 * from gconf at startup
-	 *
-	 * with xscreensaver, our settings only apply to startup, and
-	 * the screensaver settings are all in xscreensaver and not
-	 * gconf.
-	 *
-	 * we could have xscreensaver-demo run gconftool-2 directly,
-	 * and start / stop xscreensaver here
-         */
 
         client = gconf_client_get_default ();
 
         manager->priv->start_screensaver = gconf_client_get_bool (client, START_SCREENSAVER_KEY, NULL);
+        if (!manager->priv->start_screensaver)
+                return FALSE;
 
         if ((ss_cmd = g_find_program_in_path ("gnome-screensaver"))) {
                 manager->priv->have_gscreensaver = TRUE;
@@ -117,10 +106,6 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
                 g_free (ss_cmd);
         } else {
                 manager->priv->have_xscreensaver = FALSE;
-        }
-
-        if (!manager->priv->start_screensaver) {
-                return TRUE;
         }
 
         if (manager->priv->have_gscreensaver) {
@@ -138,7 +123,7 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
 
         if (g_spawn_async (g_get_home_dir (), args, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &manager->priv->screensaver_pid, &gerr)) {
                 g_object_unref (client);
-                return TRUE;
+                return FALSE;
         }
 
         show_error = gconf_client_get_bool (client, SHOW_STARTUP_ERRORS_KEY, NULL);
@@ -182,6 +167,32 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
 
         g_propagate_error (error, gerr);
         g_object_unref (client);
+
+        gnome_settings_profile_end (NULL);
+
+        return FALSE;
+}
+
+gboolean
+gsd_screensaver_manager_start (GsdScreensaverManager *manager,
+                               GError               **error)
+{
+        g_debug ("Starting screensaver manager");
+        gnome_settings_profile_start (NULL);
+
+        /*
+	 * with gnome-screensaver, all settings are loaded internally
+	 * from gconf at startup
+	 *
+	 * with xscreensaver, our settings only apply to startup, and
+	 * the screensaver settings are all in xscreensaver and not
+	 * gconf.
+	 *
+	 * we could have xscreensaver-demo run gconftool-2 directly,
+	 * and start / stop xscreensaver here
+         */
+
+        g_idle_add ((GFunc) start_screensaver_idle_cb, NULL);
 
         gnome_settings_profile_end (NULL);
 
