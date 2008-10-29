@@ -77,10 +77,10 @@ key_toggled_cb (GtkWidget             *toggle,
 }
 
 static gboolean
-start_screensaver_idle_cb (gpointer user_data)
+start_screensaver_idle_cb (GsdScreensaverManager *manager)
 {
+        GError      *error = NULL;
         char        *ss_cmd;
-        GError      *gerr = NULL;
         gboolean     show_error;
         char        *args[3];
         GConfClient *client;
@@ -115,13 +115,12 @@ start_screensaver_idle_cb (gpointer user_data)
                 args[0] = "xscreensaver";
                 args[1] = "-nosplash";
         } else {
-                g_set_error (error, G_SPAWN_ERROR, G_SPAWN_ERROR_FAILED,
-                             "No screensaver available.");
+                g_warning ("No screensaver available");
                 return FALSE;
         }
         args[2] = NULL;
 
-        if (g_spawn_async (g_get_home_dir (), args, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &manager->priv->screensaver_pid, &gerr)) {
+        if (g_spawn_async (g_get_home_dir (), args, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &manager->priv->screensaver_pid, &error)) {
                 g_object_unref (client);
                 return FALSE;
         }
@@ -138,7 +137,9 @@ start_screensaver_idle_cb (gpointer user_data)
                              _("There was an error starting up the screensaver:\n\n"
                                "%s\n\n"
                                "Screensaver functionality will not work in this session."),
-                             gerr->message);
+                             error->message);
+
+                g_error_free (error);
 
                 g_signal_connect (dialog, "response",
                                   G_CALLBACK (gtk_widget_destroy),
@@ -165,7 +166,6 @@ start_screensaver_idle_cb (gpointer user_data)
                 gtk_widget_show (dialog);
         }
 
-        g_propagate_error (error, gerr);
         g_object_unref (client);
 
         gnome_settings_profile_end (NULL);
@@ -192,7 +192,7 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
 	 * and start / stop xscreensaver here
          */
 
-        g_idle_add ((GFunc) start_screensaver_idle_cb, NULL);
+        g_idle_add ((GSourceFunc) start_screensaver_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 

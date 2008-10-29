@@ -1,5 +1,11 @@
 2008-10-29  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/screensaver/gsd-screensaver-manager.c:
+	(start_screensaver_idle_cb), (gsd_screensaver_manager_start): fix
+	broken changes to screensaver plugin
+
+2008-10-29  Jens Granseuer  <jensgr@gmx.net>
+
 	Remove ESD-based sound plugin (bug #557806). This means that g-s-d
 	will no longer start a sound server (esd or PulseAudio) at session
 	startup. This should be handled using the autostart mechanism of
