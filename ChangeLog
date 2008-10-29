@@ -1,3 +1,20 @@
+2008-10-29  Jens Granseuer  <jensgr@gmx.net>
+
+	Remove ESD-based sound plugin (bug #557806). This means that g-s-d
+	will no longer start a sound server (esd or PulseAudio) at session
+	startup. This should be handled using the autostart mechanism of
+	gnome-session instead.
+
+	* configure.ac:
+	* plugins/Makefile.am:
+	* plugins/sound/Makefile.am:
+	* plugins/sound/gsd-sound-manager.c:
+	* plugins/sound/gsd-sound-manager.h:
+	* plugins/sound/gsd-sound-plugin.c:
+	* plugins/sound/gsd-sound-plugin.h:
+	* plugins/sound/sound.gnome-settings-plugin.in:
+	remove sound plugin
+
 2008-10-29  Rodrigo Moya <rodrigo@gnome-db.org>
 
 	* plugins/screensaver/gsd-screensaver-manager.c

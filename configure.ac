@@ -216,37 +216,6 @@ AC_SUBST(LIBGNOMEKBD_CFLAGS)
 AC_SUBST(LIBGNOMEKBD_LIBS)
 
 dnl ==============================================
-dnl Esd section
-dnl ==============================================
-
-AC_ARG_ENABLE(esd,
-  AC_HELP_STRING([--disable-esd],
-                 [turn off ESD audio support]),
-       [case "${enableval}" in
-               yes) WANT_ESD=yes ;;
-               no)  WANT_ESD=no ;;
-               *) AC_MSG_ERROR(bad value ${enableval} for --disable-esd) ;;
-       esac],
-       [WANT_ESD=yes]) dnl Default value
-
-if test x$WANT_ESD = xyes ; then
-       PKG_CHECK_MODULES(ESD, esound >= 0.2.28,
-	       AC_DEFINE(HAVE_ESD, 1, [Define if ESD sound server should be used]),
-               AC_MSG_RESULT([disabled]))
-
-       GSD_ESD_LOCATION=`pkg-config esound --variable=esd_serverdir`
-       if test "x$GSD_ESD_LOCATION" != "x"; then
-           # Add slash so that if the ESD pkgconfig file does not
-           # specify esd_serverdir, g-s-d will look in the PATH
-           GSD_ESD_LOCATION="$GSD_ESD_LOCATION/"
-       fi
-fi
-
-AC_SUBST(ESD_CFLAGS)
-AC_SUBST(ESD_LIBS)
-AC_SUBST(ESD_LOCATION)
-
-dnl ==============================================
 dnl GStreamer section
 dnl ==============================================
 GST_MAJORMINOR=auto
@@ -335,23 +304,6 @@ if test "x$have_gstreamer" != "xyes"; then
 fi
 
 AM_CONDITIONAL(HAVE_ALSA, test x"$have_alsa" = "xyes")
-
-# ---------------------------------------------------------------------------
-# Enable Legacy Sound Preference
-# ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(PULSEAUDIO, libpulse, have_pulseaudio=yes, have_pulseaudio=no)
-if test x$have_pulseaudio = xyes; then
-	default_enable_legacy_sound_pref=no
-else
-	default_enable_legacy_sound_pref=yes
-fi
-AC_ARG_ENABLE(legacy-sound-pref,
-	[AC_HELP_STRING([--enable-legacy-sound-pref],
-	[check for preference to start ESD])],
-	,enable_legacy_sound_pref=$default_enable_legacy_sound_pref)
-if test "x$enable_legacy_sound_pref" = "xyes"; then
-    AC_DEFINE(ENABLE_LEGACY_SOUND_PREF,1,[enable preference for ESD startup])
-fi
 
 # ---------------------------------------------------------------------------
 # Enable Profiling
@@ -453,8 +405,6 @@ plugins/media-keys/Makefile
 plugins/media-keys/actions/Makefile
 plugins/mouse/Makefile
 plugins/screensaver/Makefile
-plugins/sound/Makefile
-plugins/sound/libsounds/Makefile
 plugins/typing-break/Makefile
 plugins/xrandr/Makefile
 plugins/xrdb/Makefile
@@ -495,7 +445,6 @@ echo "
         OSS support:              ${have_oss}
         ALSA support:             ${have_alsa}
         GStreamer support:        ${have_gstreamer}
-        ESD support:              ${WANT_ESD}
 
         Profiling support:        ${enable_profiling}
 "
