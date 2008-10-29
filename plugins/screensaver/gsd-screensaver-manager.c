@@ -196,7 +196,7 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
 
         gnome_settings_profile_end (NULL);
 
-        return FALSE;
+        return TRUE;
 }
 
 void
