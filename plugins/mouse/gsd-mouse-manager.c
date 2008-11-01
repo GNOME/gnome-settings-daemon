@@ -71,6 +71,7 @@ struct GsdMouseManagerPrivate
 static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
 static void     gsd_mouse_manager_init        (GsdMouseManager      *mouse_manager);
 static void     gsd_mouse_manager_finalize    (GObject             *object);
+static void     set_mouse_settings            (GsdMouseManager      *manager);
 
 G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
 
@@ -301,6 +302,40 @@ set_xinput_devices_left_handed (gboolean left_handed)
 
         if (device_info != NULL)
                 XFreeDeviceList (device_info);
+}
+
+static GdkFilterReturn
+devicepresence_filter (GdkXEvent *xevent,
+                       GdkEvent  *event,
+                       gpointer   data)
+{
+        XEvent *xev = (XEvent *) xevent;
+        XEventClass class_presence;
+        int xi_presence;
+
+        DevicePresence (gdk_x11_get_default_xdisplay (), xi_presence, class_presence);
+
+        if (xev->type == xi_presence)
+        {
+            XDevicePresenceNotifyEvent *dpn = (XDevicePresenceNotifyEvent *) xev;
+            if (dpn->devchange == DeviceAdded)
+                set_mouse_settings ((GsdMouseManager *) data);
+        }
+        return GDK_FILTER_CONTINUE;
+}
+
+static void
+set_devicepresence_handler (GsdMouseManager *manager)
+{
+        Display *display = gdk_x11_get_default_xdisplay ();
+        XEventClass class_presence;
+        int xi_presence;
+
+        DevicePresence (display, xi_presence, class_presence);
+        XSelectExtensionEvent (display,
+                               RootWindow (display, DefaultScreen (display)),
+                               &class_presence, 1);
+        gdk_window_add_filter (NULL, devicepresence_filter, manager);
 }
 #endif
 
@@ -585,6 +620,18 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
 }
 
 static void
+set_mouse_settings (GsdMouseManager *manager)
+{
+        GConfClient *client = gconf_client_get_default ();
+
+        set_left_handed (manager, gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
+        set_motion_acceleration (manager, gconf_client_get_float (client, KEY_MOTION_ACCELERATION , NULL));
+        set_motion_threshold (manager, gconf_client_get_int (client, KEY_MOTION_THRESHOLD, NULL));
+
+        g_object_unref (client);
+}
+
+static void
 mouse_callback (GConfClient        *client,
                 guint               cnxn_id,
                 GConfEntry         *entry,
@@ -659,9 +706,10 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
                                           GCONF_MOUSE_A11Y_DIR,
                                           (GConfClientNotifyFunc) mouse_callback);
 
-        set_left_handed (manager, gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
-        set_motion_acceleration (manager, gconf_client_get_float (client, KEY_MOTION_ACCELERATION , NULL));
-        set_motion_threshold (manager, gconf_client_get_int (client, KEY_MOTION_THRESHOLD, NULL));
+#ifdef HAVE_XINPUT
+        set_devicepresence_handler (manager);
+#endif
+        set_mouse_settings (manager);
         set_locate_pointer (manager, gconf_client_get_bool (client, KEY_LOCATE_POINTER, NULL));
         set_mousetweaks_daemon (manager,
                                 gconf_client_get_bool (client, KEY_DWELL_ENABLE, NULL),
@@ -699,6 +747,10 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
         g_object_unref (client);
 
         set_locate_pointer (manager, FALSE);
+
+#ifdef HAVE_XINPUT
+        gdk_window_remove_filter (NULL, devicepresence_filter, manager);
+#endif
 }
 
 static void

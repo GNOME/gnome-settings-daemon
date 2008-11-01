@@ -1,3 +1,13 @@
+2008-11-01  Jens Granseuer  <jensgr@gmx.net>
+
+	Patch by: William Grant <wgrant@ubuntu.com>
+
+	* plugins/mouse/gsd-mouse-manager.c: (devicepresence_filter),
+	(set_devicepresence_handler), (set_mouse_settings),
+	(gsd_mouse_manager_start), (gsd_mouse_manager_stop): listen for
+	X device changes, and reconfigure the mouse if necessary so that the
+	settings aren't ignored when hotplugging (bug #549267)
+
 2008-10-29  Jens Granseuer  <jensgr@gmx.net>
 
 	Get rid of libgnome (bug #557808).
