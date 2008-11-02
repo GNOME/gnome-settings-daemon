@@ -12,8 +12,6 @@ AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
 
 AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-bzip2 tar-ustar])
 
-AM_MAINTAINER_MODE
-
 AC_STDC_HEADERS
 AC_PROG_CXX
 AM_PROG_CC_C_O
