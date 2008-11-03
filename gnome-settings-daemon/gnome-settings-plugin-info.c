@@ -312,15 +312,6 @@ void
 gnome_settings_plugin_info_set_enabled_key_name (GnomeSettingsPluginInfo *info,
                                                  const char              *key_name)
 {
-        char *dirname;
-
-        dirname = g_path_get_dirname (key_name);
-        if (dirname != NULL) {
-                g_debug ("Monitoring dir %s for changes", dirname);
-                gconf_client_add_dir (info->priv->client, dirname, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-                g_free (dirname);
-        }
-
         info->priv->enabled_notification_id = gconf_client_notify_add (info->priv->client,
                                                                        key_name,
                                                                        (GConfClientNotifyFunc)plugin_enabled_cb,

@@ -59,16 +59,16 @@
 
 #define GSD_KEYBOARD_KEY "/desktop/gnome/peripherals/keyboard"
 
-#define KEY_REPEAT        "/desktop/gnome/peripherals/keyboard/repeat"
-#define KEY_CLICK         "/desktop/gnome/peripherals/keyboard/click"
-#define KEY_RATE          "/desktop/gnome/peripherals/keyboard/rate"
-#define KEY_DELAY         "/desktop/gnome/peripherals/keyboard/delay"
-#define KEY_CLICK_VOLUME  "/desktop/gnome/peripherals/keyboard/click_volume"
+#define KEY_REPEAT        GSD_KEYBOARD_KEY "/repeat"
+#define KEY_CLICK         GSD_KEYBOARD_KEY "/click"
+#define KEY_RATE          GSD_KEYBOARD_KEY "/rate"
+#define KEY_DELAY         GSD_KEYBOARD_KEY "/delay"
+#define KEY_CLICK_VOLUME  GSD_KEYBOARD_KEY "/click_volume"
 
-#define KEY_BELL_VOLUME   "/desktop/gnome/peripherals/keyboard/bell_volume"
-#define KEY_BELL_PITCH    "/desktop/gnome/peripherals/keyboard/bell_pitch"
-#define KEY_BELL_DURATION "/desktop/gnome/peripherals/keyboard/bell_duration"
-#define KEY_BELL_MODE     "/desktop/gnome/peripherals/keyboard/bell_mode"
+#define KEY_BELL_VOLUME   GSD_KEYBOARD_KEY "/bell_volume"
+#define KEY_BELL_PITCH    GSD_KEYBOARD_KEY "/bell_pitch"
+#define KEY_BELL_DURATION GSD_KEYBOARD_KEY "/bell_duration"
+#define KEY_BELL_MODE     GSD_KEYBOARD_KEY "/bell_mode"
 
 struct GsdKeyboardManagerPrivate
 {
@@ -374,16 +374,6 @@ apply_settings (GConfClient        *client,
         gdk_error_trap_pop ();
 }
 
-static guint
-register_config_callback (GsdKeyboardManager      *manager,
-                          GConfClient             *client,
-                          const char              *path,
-                          GConfClientNotifyFunc    func)
-{
-        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
-}
-
 gboolean
 gsd_keyboard_manager_start (GsdKeyboardManager *manager,
                             GError            **error)
@@ -397,6 +387,8 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
         manager->priv->have_xkb = 0;
         client = gconf_client_get_default ();
 
+        gconf_client_add_dir (client, GSD_KEYBOARD_KEY, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+
         /* Essential - xkb initialization should happen before */
         gsd_keyboard_xkb_set_post_activation_callback ((PostActivationCallback) gsd_load_modmap_files, NULL);
         gsd_keyboard_xkb_init (client);
@@ -408,10 +400,9 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
         /* apply current settings before we install the callback */
         apply_settings (client, 0, NULL, manager);
 
-        manager->priv->notify = register_config_callback (manager,
-                                                          client,
-                                                          GSD_KEYBOARD_KEY,
-                                                          (GConfClientNotifyFunc) apply_settings);
+        manager->priv->notify = gconf_client_notify_add (client, GSD_KEYBOARD_KEY,
+                                                         (GConfClientNotifyFunc) apply_settings, manager,
+                                                         NULL, NULL);
 
         g_object_unref (client);
 

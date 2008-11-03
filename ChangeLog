@@ -1,5 +1,26 @@
 2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
 
+	* gnome-settings-daemon/gnome-settings-manager.c (_load_file),
+	(gnome_settings_manager_start), (gnome_settings_manager_stop):
+	* gnome-settings-daemon/gnome-settings-plugin-info.c
+	(gnome_settings_plugin_info_set_enabled_key_name):
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
+	(register_config_callback):
+	* plugins/keybindings/gsd-keybindings-manager.c
+	(register_config_callback), (gsd_keybindings_manager_start):
+	* plugins/keyboard/gsd-keyboard-manager.c
+	(gsd_keyboard_manager_start):
+	* plugins/keyboard/gsd-keyboard-xkb.c (register_config_callback):
+	* plugins/mouse/gsd-mouse-manager.c (register_config_callback):
+	* plugins/typing-break/gsd-typing-break-manager.c
+	(gsd_typing_break_manager_start):
+	* plugins/xrandr/gsd-xrandr-manager.c (gsd_xrandr_manager_start):
+	* plugins/xsettings/gsd-xsettings-manager.c
+	(register_config_callback), (gnome_xsettings_manager_start):
+	Preload gconf dirs when feasible (bug #559167)
+
+2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
+
 	* plugins/clipboard/gsd-clipboard-manager.c
 	(start_clipboard_idle_cb), (gsd_clipboard_manager_start):
 	Start manager in idle callback (bug #559166)

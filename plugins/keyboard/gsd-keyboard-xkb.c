@@ -338,7 +338,7 @@ register_config_callback (GConfClient          *client,
                           const char           *path,
                           GConfClientNotifyFunc func)
 {
-        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
+        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
         return gconf_client_notify_add (client, path, func, NULL, NULL, NULL);
 }
 

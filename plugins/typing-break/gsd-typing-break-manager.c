@@ -61,16 +61,6 @@ G_DEFINE_TYPE (GsdTypingBreakManager, gsd_typing_break_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-static guint
-register_config_callback (GsdTypingBreakManager   *manager,
-                          GConfClient             *client,
-                          const char              *path,
-                          GConfClientNotifyFunc    func)
-{
-        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
-}
-
 static gboolean
 typing_break_timeout (GsdTypingBreakManager *manager)
 {
@@ -178,13 +168,14 @@ gsd_typing_break_manager_start (GsdTypingBreakManager *manager,
 
         client = gconf_client_get_default ();
 
+        gconf_client_add_dir (client, GCONF_BREAK_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
         manager->priv->notify =
-                register_config_callback (manager,
-                                          client,
-                                          GCONF_BREAK_DIR,
-                                          (GConfClientNotifyFunc) typing_break_callback);
+                gconf_client_notify_add (client,
+                                         GCONF_BREAK_DIR,
+                                         (GConfClientNotifyFunc) typing_break_callback, manager,
+                                         NULL, NULL);
 
-        enabled = gconf_client_get_bool (client, "/desktop/gnome/typing_break/enabled", NULL);
+        enabled = gconf_client_get_bool (client, GCONF_BREAK_DIR "/enabled", NULL);
         g_object_unref (client);
         if (enabled) {
                 manager->priv->setup_id =

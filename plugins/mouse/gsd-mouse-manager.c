@@ -55,12 +55,12 @@
 #define GCONF_MOUSE_DIR         "/desktop/gnome/peripherals/mouse"
 #define GCONF_MOUSE_A11Y_DIR    "/desktop/gnome/accessibility/mouse"
 
-#define KEY_LEFT_HANDED         "/desktop/gnome/peripherals/mouse/left_handed"
-#define KEY_MOTION_ACCELERATION "/desktop/gnome/peripherals/mouse/motion_acceleration"
-#define KEY_MOTION_THRESHOLD    "/desktop/gnome/peripherals/mouse/motion_threshold"
-#define KEY_LOCATE_POINTER      "/desktop/gnome/peripherals/mouse/locate_pointer"
-#define KEY_DWELL_ENABLE        "/desktop/gnome/accessibility/mouse/dwell_enable"
-#define KEY_DELAY_ENABLE        "/desktop/gnome/accessibility/mouse/delay_enable"
+#define KEY_LEFT_HANDED         GCONF_MOUSE_DIR "/left_handed"
+#define KEY_MOTION_ACCELERATION GCONF_MOUSE_DIR "/motion_acceleration"
+#define KEY_MOTION_THRESHOLD    GCONF_MOUSE_DIR "/motion_threshold"
+#define KEY_LOCATE_POINTER      GCONF_MOUSE_DIR "/locate_pointer"
+#define KEY_DWELL_ENABLE        GCONF_MOUSE_A11Y_DIR "/dwell_enable"
+#define KEY_DELAY_ENABLE        GCONF_MOUSE_A11Y_DIR "/delay_enable"
 
 struct GsdMouseManagerPrivate
 {
@@ -684,7 +684,7 @@ register_config_callback (GsdMouseManager         *manager,
                           const char              *path,
                           GConfClientNotifyFunc    func)
 {
-        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
+        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
         return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 }
 

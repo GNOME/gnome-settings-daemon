@@ -458,7 +458,7 @@ register_config_callback (GsdKeybindingsManager   *manager,
                           const char              *path,
                           GConfClientNotifyFunc    func)
 {
-        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
+        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
         return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 }
 
@@ -477,6 +477,13 @@ gsd_keybindings_manager_start (GsdKeybindingsManager *manager,
         g_debug ("Starting keybindings manager");
         gnome_settings_profile_start (NULL);
 
+        client = gconf_client_get_default ();
+
+        manager->priv->notify = register_config_callback (manager,
+                                                          client,
+                                                          GCONF_BINDING_DIR,
+                                                          (GConfClientNotifyFunc) bindings_callback);
+
         dpy = gdk_display_get_default ();
         screen_num = gdk_display_get_n_screens (dpy);
 
@@ -486,13 +493,6 @@ gsd_keybindings_manager_start (GsdKeybindingsManager *manager,
                                        (GdkFilterFunc) keybindings_filter,
                                        manager);
         }
-
-        client = gconf_client_get_default ();
-
-        manager->priv->notify = register_config_callback (manager,
-                                                          client,
-                                                          GCONF_BINDING_DIR,
-                                                          (GConfClientNotifyFunc) bindings_callback);
 
         list = gconf_client_all_dirs (client, GCONF_BINDING_DIR, NULL);
         manager->priv->screens = get_screens_list ();

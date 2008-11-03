@@ -708,7 +708,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         g_assert (manager->priv->notify_id == 0);
 
         gconf_client_add_dir (manager->priv->client, CONF_DIR,
-                              GCONF_CLIENT_PRELOAD_NONE,
+                              GCONF_CLIENT_PRELOAD_ONELEVEL,
                               NULL);
 
         manager->priv->notify_id =

@@ -49,6 +49,7 @@
 struct GnomeSettingsManagerPrivate
 {
         DBusGConnection            *connection;
+        GConfClient                *gconf_client;
         char                       *settings_prefix;
         GSList                     *plugins;
 };
@@ -157,7 +158,6 @@ _load_file (GnomeSettingsManager *manager,
 {
         GnomeSettingsPluginInfo *info;
         char                    *key_name;
-        GConfClient             *client;
         int                      priority;
         GError                  *error;
         GSList                  *l;
@@ -194,9 +194,8 @@ _load_file (GnomeSettingsManager *manager,
         key_name = g_strdup_printf ("%s/%s/priority",
                                     manager->priv->settings_prefix,
                                     gnome_settings_plugin_info_get_location (info));
-        client = gconf_client_get_default ();
         error = NULL;
-        priority = gconf_client_get_int (client, key_name, &error);
+        priority = gconf_client_get_int (manager->priv->gconf_client, key_name, &error);
         if (error == NULL) {
                 if (priority > 0) {
                         gnome_settings_plugin_info_set_priority (info, priority);
@@ -205,7 +204,6 @@ _load_file (GnomeSettingsManager *manager,
                 g_error_free (error);
         }
         g_free (key_name);
-        g_object_unref (client);
 
  out:
         if (info != NULL) {
@@ -339,6 +337,15 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
                 goto out;
         }
 
+        manager->priv->gconf_client = gconf_client_get_default ();
+
+        gnome_settings_profile_start ("preloading gconf keys");
+        gconf_client_add_dir (manager->priv->gconf_client,
+                              manager->priv->settings_prefix,
+                              GCONF_CLIENT_PRELOAD_RECURSIVE,
+                              NULL);
+        gnome_settings_profile_end ("preloading gconf keys");
+
         _load_all (manager);
 
         ret = TRUE;
@@ -373,6 +380,12 @@ gnome_settings_manager_stop (GnomeSettingsManager *manager)
 #endif
 
         _unload_all (manager);
+
+        gconf_client_remove_dir (manager->priv->gconf_client,
+                                 manager->priv->settings_prefix,
+                                 NULL);
+        g_object_unref (manager->priv->gconf_client);
+        manager->priv->gconf_client = NULL;
 }
 
 static void

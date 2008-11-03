@@ -782,7 +782,6 @@ register_config_callback (GnomeXSettingsManager  *manager,
                           const char             *path,
                           GConfClientNotifyFunc   func)
 {
-        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
         return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 }
 
@@ -858,6 +857,13 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         }
 
         client = gconf_client_get_default ();
+
+        gconf_client_add_dir (client, MOUSE_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+        gconf_client_add_dir (client, GTK_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+        gconf_client_add_dir (client, INTERFACE_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+        gconf_client_add_dir (client, SOUND_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+        gconf_client_add_dir (client, GTK_MODULES_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+        gconf_client_add_dir (client, FONT_RENDER_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
 
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
                 GConfValue *val;

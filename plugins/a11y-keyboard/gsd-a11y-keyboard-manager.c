@@ -997,7 +997,7 @@ register_config_callback (GsdA11yKeyboardManager  *manager,
                           GConfClientNotifyFunc    func,
                           guint                   *notify)
 {
-        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
+        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
         *notify = gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 }
 
