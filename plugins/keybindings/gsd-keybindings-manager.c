@@ -255,6 +255,7 @@ static void
 binding_register_keys (GsdKeybindingsManager *manager)
 {
         GSList *li;
+        gboolean need_flush = FALSE;
 
         gdk_error_trap_push ();
 
@@ -266,10 +267,11 @@ binding_register_keys (GsdKeybindingsManager *manager)
                     binding->previous_key.state != binding->key.state) {
                         /* Ungrab key if it changed and not clashing with previously set binding */
                         if (! key_already_used (manager, binding)) {
+                                need_flush = TRUE;
                                 if (binding->previous_key.keycode) {
-                                        grab_key (&binding->previous_key, FALSE, manager->priv->screens);
+                                        grab_key_unsafe (&binding->previous_key, FALSE, manager->priv->screens);
                                 }
-                                grab_key (&binding->key, TRUE, manager->priv->screens);
+                                grab_key_unsafe (&binding->key, TRUE, manager->priv->screens);
 
                                 binding->previous_key.keysym = binding->key.keysym;
                                 binding->previous_key.state = binding->key.state;
@@ -278,8 +280,11 @@ binding_register_keys (GsdKeybindingsManager *manager)
                                 g_warning ("Key binding (%s) is already in use", binding->binding_str);
                 }
         }
-        gdk_flush ();
-        gdk_error_trap_pop ();
+
+        if (need_flush)
+                gdk_flush ();
+        if (gdk_error_trap_pop ())
+                g_warning ("Grab failed for some keys, another application may already have access the them.");
 }
 
 extern char **environ;

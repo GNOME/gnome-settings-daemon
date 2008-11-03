@@ -276,8 +276,11 @@ update_kbd_cb (GConfClient         *client,
                GsdMediaKeysManager *manager)
 {
         int      i;
+        gboolean need_flush = TRUE;
 
         g_return_if_fail (entry->key != NULL);
+
+        gdk_error_trap_push ();
 
         /* Find the key that was modified */
         for (i = 0; i < HANDLED_KEYS; i++) {
@@ -286,7 +289,8 @@ update_kbd_cb (GConfClient         *client,
                         Key  *key;
 
                         if (keys[i].key != NULL) {
-                                grab_key (keys[i].key, FALSE, manager->priv->screens);
+                                need_flush = TRUE;
+                                grab_key_unsafe (keys[i].key, FALSE, manager->priv->screens);
                         }
 
                         g_free (keys[i].key);
@@ -308,7 +312,8 @@ update_kbd_cb (GConfClient         *client,
                                 break;
                         }
 
-                        grab_key (key, TRUE, manager->priv->screens);
+                        need_flush = TRUE;
+                        grab_key_unsafe (key, TRUE, manager->priv->screens);
                         keys[i].key = key;
 
                         g_free (tmp);
@@ -316,14 +321,22 @@ update_kbd_cb (GConfClient         *client,
                         break;
                 }
         }
+
+        if (need_flush)
+                gdk_flush ();
+        if (gdk_error_trap_pop ())
+                g_warning ("Grab failed for some keys, another application may already have access the them.");
 }
 
 static void
 init_kbd (GsdMediaKeysManager *manager)
 {
         int i;
+        gboolean need_flush = FALSE;
 
         gnome_settings_profile_start (NULL);
+
+        gdk_error_trap_push ();
 
         for (i = 0; i < HANDLED_KEYS; i++) {
                 char *tmp;
@@ -340,6 +353,7 @@ init_kbd (GsdMediaKeysManager *manager)
                 tmp = gconf_client_get_string (manager->priv->conf_client,
                                                keys[i].gconf_key,
                                                NULL);
+
                 if (!is_valid_shortcut (tmp)) {
                         g_debug ("Not a valid shortcut: '%s'", tmp);
                         g_free (tmp);
@@ -367,8 +381,14 @@ init_kbd (GsdMediaKeysManager *manager)
 
                 keys[i].key = key;
 
-                grab_key (key, TRUE, manager->priv->screens);
+                need_flush = TRUE;
+                grab_key_unsafe (key, TRUE, manager->priv->screens);
         }
+
+        if (need_flush)
+                gdk_flush ();
+        if (gdk_error_trap_pop ())
+                g_warning ("Grab failed for some keys, another application may already have access the them.");
 
         gnome_settings_profile_end (NULL);
 }

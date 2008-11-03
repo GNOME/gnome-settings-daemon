@@ -42,7 +42,7 @@ static GdkModifierType gsd_ignored_mods = 0;
 static GdkModifierType gsd_used_mods = 0;
 
 static void
-setup_modifiers ()
+setup_modifiers (void)
 {
         if (gsd_used_mods == 0 || gsd_ignored_mods == 0) {
                 GdkModifierType dynmods;
@@ -67,13 +67,12 @@ setup_modifiers ()
 	}
 }
 
-static gboolean
+static void
 grab_key_real (guint      keycode,
                GdkWindow *root,
                gboolean   grab,
                int        mask)
 {
-        gdk_error_trap_push ();
         if (grab) {
                 XGrabKey (GDK_DISPLAY (),
                           keycode,
@@ -88,21 +87,33 @@ grab_key_real (guint      keycode,
                             mask,
                             GDK_WINDOW_XID (root));
         }
-
-        gdk_flush ();
-        return gdk_error_trap_pop () == 0;
 }
 
 /* Grab the key. In order to ignore GSD_IGNORED_MODS we need to grab
  * all combinations of the ignored modifiers and those actually used
  * for the binding (if any).
  *
- * inspired by all_combinations from gnome-panel/gnome-panel/global-keys.c */
+ * inspired by all_combinations from gnome-panel/gnome-panel/global-keys.c
+ *
+ * This may generate X errors.  The correct way to use this is like:
+ *
+ *        gdk_error_trap_push ();
+ *
+ *        grab_key_unsafe (key, grab, screens);
+ *
+ *        gdk_flush ();
+ *        if (gdk_error_trap_pop ())
+ *                g_warning ("Grab failed, another application may already have access to key '%u'",
+ *                           key->keycode);
+ *
+ * This is not done in the function itself, to allow doing multiple grab_key
+ * operations with one flush only.
+ */
 #define N_BITS 32
 void
-grab_key (Key                 *key,
-          gboolean             grab,
-          GSList              *screens)
+grab_key_unsafe (Key                 *key,
+                 gboolean             grab,
+                 GSList              *screens)
 {
         int   indexes[N_BITS]; /* indexes of bits we need to flip */
         int   i;
@@ -141,14 +152,10 @@ grab_key (Key                 *key,
 
                 for (l = screens; l; l = l->next) {
                         GdkScreen *screen = l->data;
-                        if (!grab_key_real (key->keycode,
-                                            gdk_screen_get_root_window (screen),
-                                            grab,
-                                            result | key->state)) {
-                                g_warning ("Grab failed, another application may already have access to key '%u'",
-                                           key->keycode);
-                                return;
-                        }
+                        grab_key_real (key->keycode,
+                                       gdk_screen_get_root_window (screen),
+                                       grab,
+                                       result | key->state);
                 }
         }
 }

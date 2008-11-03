@@ -32,7 +32,7 @@ typedef struct {
 } Key;
 
 
-void	        grab_key	(Key     *key,
+void	        grab_key_unsafe	(Key     *key,
 		        	 gboolean grab,
 			         GSList  *screens);
 

@@ -1,5 +1,21 @@
 2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
 
+	* plugins/common/gsd-keygrab.c (setup_modifiers), (grab_key_real),
+	(grab_key_unsafe):
+	* plugins/common/gsd-keygrab.h:
+	* plugins/keybindings/gsd-keybindings-manager.c
+	(binding_register_keys):
+	* plugins/media-keys/gsd-media-keys-manager.c (update_kbd_cb),
+	(init_kbd):
+	Don't trap errors around grab_key (bug #559164)
+
+	Such that we can do a single gdk_flush for multiple keys.
+	The only downside is that we cannot write out in the warning
+	which key is being accessed by another app.  Not that we really
+	care.
+
+2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
+
 	* plugins/font/gsd-font-manager.c (setup_dir), (empty_check_dir),
 	(setup_font_dir), (setup_cursor_dir), (load_font_paths),
 	(gsd_font_manager_start): Cleanup font module (bug #559163)
