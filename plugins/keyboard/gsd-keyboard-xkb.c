@@ -37,6 +37,7 @@
 #include "gsd-xmodmap.h"
 #include "gsd-keyboard-xkb.h"
 #include "delayed-dialog.h"
+#include "gnome-settings-profile.h"
 
 static XklEngine *xkl_engine;
 
@@ -152,7 +153,7 @@ apply_xkb_settings (void)
 
         /* With GDM the user can already set a layout from the login
          * screen. Try to keep that setting.
-         * We clear gdm_keyboard_layout early, so we don't risk 
+         * We clear gdm_keyboard_layout early, so we don't risk
          * recursion from gconf notification.
          */
         gdm_layout = gdm_keyboard_layout;
@@ -162,7 +163,7 @@ apply_xkb_settings (void)
                 layouts = gconf_client_get_list (conf_client,
                                                  GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
                                                  GCONF_VALUE_STRING,
-                                                 NULL);    
+                                                 NULL);
                 if (layouts == NULL) {
                         layouts = g_slist_append (layouts, g_strdup (gdm_layout));
                         gconf_client_set_list (conf_client,
@@ -186,7 +187,7 @@ apply_xkb_settings (void)
                                                   NULL);
 
         if (gdm_layout != NULL) {
-                /* If there are multiple layouts, 
+                /* If there are multiple layouts,
                  * try to find the one closest to the gdm layout
                  */
                 GSList *l;
