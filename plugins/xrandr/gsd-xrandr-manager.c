@@ -692,6 +692,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                           GError          **error)
 {
         g_debug ("Starting xrandr manager");
+        gnome_settings_profile_start (NULL);
 
         manager->priv->rw_screen = gnome_rr_screen_new (
                 gdk_screen_get_default (), on_randr_event, manager);
@@ -744,6 +745,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         }
 
         start_or_stop_icon (manager);
+
+        gnome_settings_profile_end (NULL);
 
         return TRUE;
 }

@@ -1,5 +1,20 @@
 2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
 
+	* gnome-settings-daemon/gnome-settings-manager.c (_load_file):
+	* gnome-settings-daemon/gnome-settings-plugin-info.c
+	(gnome_settings_plugin_info_fill_from_file), (load_plugin_module):
+	* plugins/font/gsd-font-manager.c (child_watch_cb),
+	(spawn_with_input):
+	* plugins/keyboard/gsd-keyboard-xkb.c (gsd_keyboard_xkb_init):
+	* plugins/xrandr/gsd-xrandr-manager.c (gsd_xrandr_manager_start):
+	* plugins/xsettings/gsd-xsettings-manager.c (child_watch_cb),
+	(spawn_with_input), (start_fontconfig_monitor),
+	(stop_fontconfig_monitor), (gnome_xsettings_manager_start),
+	(gnome_xsettings_manager_stop):
+	Improve performance logging annotations (bug #559162)
+
+2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
+
 	* data/gnome-settings-daemon.schemas.in: Disable xrdb plugin by
 	default (#bug #557807)
 

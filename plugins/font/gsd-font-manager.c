@@ -78,6 +78,7 @@ child_watch_cb (GPid     pid,
 {
         char *command = user_data;
 
+        gnome_settings_profile_end ("%s", command);
         if (!WIFEXITED (status) || WEXITSTATUS (status)) {
                 g_warning ("Command %s failed", command);
         }
@@ -100,6 +101,7 @@ spawn_with_input (const char *command,
                 return;
         }
 
+        gnome_settings_profile_start ("%s", command);
         error = NULL;
         res = g_spawn_async_with_pipes (NULL,
                                         argv,

@@ -185,7 +185,7 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
         int       priority;
         gboolean  ret;
 
-        gnome_settings_profile_start (NULL);
+        gnome_settings_profile_start ("%s", filename);
 
         ret = FALSE;
 
@@ -290,7 +290,7 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
 
         ret = TRUE;
  out:
-        gnome_settings_profile_end (NULL);
+        gnome_settings_profile_end ("%s", filename);
 
         return ret;
 }
@@ -388,7 +388,7 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
         g_return_val_if_fail (info->priv->plugin == NULL, FALSE);
         g_return_val_if_fail (info->priv->available, FALSE);
 
-        gnome_settings_profile_start (NULL);
+        gnome_settings_profile_start ("%s", info->priv->location);
 
         switch (info->priv->loader) {
                 case GNOME_SETTINGS_PLUGIN_LOADER_C:
@@ -484,7 +484,7 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
         g_type_module_unuse (info->priv->module);
         ret = TRUE;
  out:
-        gnome_settings_profile_end (NULL);
+        gnome_settings_profile_end ("%s", info->priv->location);
         return ret;
 }
 

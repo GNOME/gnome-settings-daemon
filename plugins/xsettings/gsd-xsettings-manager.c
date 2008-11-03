@@ -425,6 +425,7 @@ child_watch_cb (GPid     pid,
 {
         char *command = user_data;
 
+        gnome_settings_profile_end ("%s", command);
         if (!WIFEXITED (status) || WEXITSTATUS (status)) {
                 g_warning ("Command %s failed", command);
         }
@@ -447,6 +448,7 @@ spawn_with_input (const char *command,
                 return;
         }
 
+        gnome_settings_profile_start ("%s", command);
         error = NULL;
         res = g_spawn_async_with_pipes (NULL,
                                         argv,
@@ -564,6 +566,22 @@ fontconfig_callback (fontconfig_monitor_handle_t *handle,
         gnome_settings_profile_end (NULL);
 }
 
+static void
+start_fontconfig_monitor (GnomeXSettingsManager  *manager)
+{
+        gnome_settings_profile_start (NULL);
+
+        manager->priv->fontconfig_handle = fontconfig_monitor_start ((GFunc) fontconfig_callback, manager);
+
+        gnome_settings_profile_end (NULL);
+}
+
+static void
+stop_fontconfig_monitor (GnomeXSettingsManager  *manager)
+{
+        fontconfig_monitor_stop (manager->priv->fontconfig_handle);
+        manager->priv->fontconfig_handle = NULL;
+}
 #endif /* HAVE_FONTCONFIG */
 
 static const char *
@@ -877,7 +895,7 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                           (GConfClientNotifyFunc) xft_callback);
         update_xft_settings (manager, client);
 
-        manager->priv->fontconfig_handle = fontconfig_monitor_start ((GFunc) fontconfig_callback, manager);
+        start_fontconfig_monitor (manager);
 #endif /* HAVE_FONTCONFIG */
 
         g_object_unref (client);
@@ -924,8 +942,7 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
 #ifdef HAVE_FONTCONFIG
         gconf_client_remove_dir (client, FONT_RENDER_DIR, NULL);
 
-        fontconfig_monitor_stop (manager->priv->fontconfig_handle);
-        manager->priv->fontconfig_handle = NULL;
+        stop_fontconfig_monitor (manager);
 #endif /* HAVE_FONTCONFIG */
 
         for (i = 0; i < G_N_ELEMENTS (p->notify); ++i) {

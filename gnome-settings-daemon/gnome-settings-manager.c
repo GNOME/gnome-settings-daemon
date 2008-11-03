@@ -163,18 +163,16 @@ _load_file (GnomeSettingsManager *manager,
         GSList                  *l;
 
         g_debug ("Loading plugin: %s", filename);
-        gnome_settings_profile_start (NULL);
+        gnome_settings_profile_start ("%s", filename);
 
         info = gnome_settings_plugin_info_new_from_file (filename);
         if (info == NULL) {
                 goto out;
         }
 
-        gnome_settings_profile_start ("seeing if already loaded");
         l = g_slist_find_custom (manager->priv->plugins,
                                  info,
                                  (GCompareFunc) compare_location);
-        gnome_settings_profile_end ("seeing if already loaded");
         if (l != NULL) {
                 goto out;
         }
@@ -187,15 +185,12 @@ _load_file (GnomeSettingsManager *manager,
         g_signal_connect (info, "deactivated",
                           G_CALLBACK (on_plugin_deactivated), manager);
 
-        gnome_settings_profile_start ("setting active property");
         key_name = g_strdup_printf ("%s/%s/active",
                                     manager->priv->settings_prefix,
                                     gnome_settings_plugin_info_get_location (info));
         gnome_settings_plugin_info_set_enabled_key_name (info, key_name);
         g_free (key_name);
-        gnome_settings_profile_end ("setting active property");
 
-        gnome_settings_profile_start ("setting priority property");
         key_name = g_strdup_printf ("%s/%s/priority",
                                     manager->priv->settings_prefix,
                                     gnome_settings_plugin_info_get_location (info));
@@ -211,14 +206,13 @@ _load_file (GnomeSettingsManager *manager,
         }
         g_free (key_name);
         g_object_unref (client);
-        gnome_settings_profile_end ("setting priority property");
 
  out:
         if (info != NULL) {
                 g_object_unref (info);
         }
 
-        gnome_settings_profile_end (NULL);
+        gnome_settings_profile_end ("%s", filename);
 }
 
 static void

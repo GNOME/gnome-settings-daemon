@@ -345,6 +345,7 @@ register_config_callback (GConfClient          *client,
 void
 gsd_keyboard_xkb_init (GConfClient *client)
 {
+        gnome_settings_profile_start (NULL);
 #ifdef GSDKX
         xkl_set_debug_level (200);
         logfile = fopen ("/tmp/gsdkx.log", "a");
@@ -386,6 +387,7 @@ gsd_keyboard_xkb_init (GConfClient *client)
                 apply_settings ();
                 apply_xkb_settings ();
         }
+        gnome_settings_profile_end (NULL);
 }
 
 void
