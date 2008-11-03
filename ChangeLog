@@ -1,5 +1,26 @@
 2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
 
+	* plugins/font/gsd-font-manager.c (setup_dir), (empty_check_dir),
+	(setup_font_dir), (setup_cursor_dir), (load_font_paths),
+	(gsd_font_manager_start): Cleanup font module (bug #559163)
+
+	The old code had several flaws:
+
+	- It tried to create directories in user's home even if we didn't have
+	  any use for them.
+
+	- It called mkfontdir and XSync even if there was no fonts installed.
+
+	The new code does the following:
+
+	- Only call mkfontdir and XSync if there's actually any fonts in the
+	  relevant dirs.
+
+	- Remove the ~/.gnome2/share/fonts and/or ~/.gnome2/share/cursor-fonts
+	  if they are empty and no cursor font is set.
+
+2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
+
 	* gnome-settings-daemon/gnome-settings-manager.c (_load_file):
 	* gnome-settings-daemon/gnome-settings-plugin-info.c
 	(gnome_settings_plugin_info_fill_from_file), (load_plugin_module):

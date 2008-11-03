@@ -179,134 +179,185 @@ load_xcursor_theme (GConfClient *client)
         gnome_settings_profile_end (NULL);
 }
 
-static void
-load_cursor (GConfClient *client)
+static char*
+setup_dir (const char *font_dir_name, gboolean create)
 {
-        DIR           *dir;
-        char          *font_dir_name;
-        char          *dir_name;
-        struct dirent *file_dirent;
+        char *font_dir;
+
+        font_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome2", "share", font_dir_name, NULL);
+
+        if (create) {
+                if (g_mkdir_with_parents (font_dir, 0755) != 0) {
+                        g_warning ("Cannot create needed directory \"%s\".", font_dir);
+                        g_free (font_dir);
+                        font_dir = NULL;
+                }
+        } else if (! g_file_test (font_dir, G_FILE_TEST_EXISTS)) {
+                g_free (font_dir);
+                font_dir = NULL;
+        }
+
+        return font_dir;
+}
+
+static char *
+empty_check_dir (char *font_dir)
+{
+        char *file_name;
+
+        if (!font_dir)
+                return NULL;
+
+        /* remove the fonts.dir and fonts.scale files that mkfontdir generates. */
+
+        file_name = g_build_filename (G_DIR_SEPARATOR_S, font_dir, "fonts.dir", NULL);
+        unlink (file_name);
+        g_free (file_name);
+
+        file_name = g_build_filename (G_DIR_SEPARATOR_S, font_dir, "fonts.scale", NULL);
+        unlink (file_name);
+        g_free (file_name);
+
+        /* if it's empty, get rid of it. */
+        if (0 == rmdir (font_dir)) {
+                g_free (font_dir);
+                font_dir = NULL;
+        }
+
+        return font_dir;
+}
+
+static char*
+setup_font_dir (GConfClient *client)
+{
+        return empty_check_dir (setup_dir ("fonts", FALSE));
+}
+
+static char*
+setup_cursor_dir (GConfClient *client)
+{
+        char          *cursor_dir;
         char          *cursor_font;
-        char         **font_path;
-        char         **new_font_path;
-        int            n_fonts;
-        int            new_n_fonts;
-        int            i;
-        char          *mkfontdir_cmd;
-
-        gnome_settings_profile_start (NULL);
-
-        /* setting up the dir */
-        font_dir_name = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome2/share/fonts", NULL);
-        if (! g_file_test (font_dir_name, G_FILE_TEST_EXISTS)) {
-                if (g_mkdir_with_parents (font_dir_name, 0755) != 0) {
-                        GtkWidget *dialog;
-
-                        dialog = gtk_message_dialog_new (NULL,
-                                                         0,
-                                                         GTK_MESSAGE_ERROR,
-                                                         GTK_BUTTONS_CLOSE,
-                                                         _("Cannot create the directory \"%s\".\n"\
-                                                           "This is needed to allow changing the mouse pointer theme."),
-                                                         font_dir_name);
-                        g_signal_connect (dialog,
-                                          "response",
-                                          G_CALLBACK (gtk_widget_destroy),
-                                          NULL);
-                        gnome_settings_delayed_show_dialog (dialog);
-                        g_free (font_dir_name);
-
-                        return;
-                }
-        }
-
-        dir_name = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome2/share/cursor-fonts", NULL);
-        if (! g_file_test (dir_name, G_FILE_TEST_EXISTS)) {
-                if (g_mkdir_with_parents (dir_name, 0755) != 0) {
-                        GtkWidget *dialog;
-
-                        dialog = gtk_message_dialog_new (NULL,
-                                                         0,
-                                                         GTK_MESSAGE_ERROR,
-                                                         GTK_BUTTONS_CLOSE,
-                                                         (_("Cannot create the directory \"%s\".\n"\
-                                                            "This is needed to allow changing cursors.")),
-                                                         dir_name);
-                        g_signal_connect (dialog, "response",
-                                          G_CALLBACK (gtk_widget_destroy), NULL);
-                        gnome_settings_delayed_show_dialog (dialog);
-                        g_free (dir_name);
-
-                        return;
-                }
-        }
-
-        dir = opendir (dir_name);
-
-        while ((file_dirent = readdir (dir)) != NULL) {
-                struct stat st;
-                char       *link_name;
-
-                link_name = g_build_filename (dir_name, file_dirent->d_name, NULL);
-                if (lstat (link_name, &st)) {
-                        g_free (link_name);
-                        continue;
-                }
-                g_free (link_name);
-
-                if (S_ISLNK (st.st_mode))
-                        unlink (link_name);
-        }
-
-        closedir (dir);
+        DIR           *dir;
+        struct dirent *file_dirent;
 
         cursor_font = gconf_client_get_string (client,
                                                "/desktop/gnome/peripherals/mouse/cursor_font",
                                                NULL);
+        if (cursor_font != NULL) {
+                if (!g_path_is_absolute (cursor_font) ||
+                    !g_file_test (cursor_font, G_FILE_TEST_IS_REGULAR)) {
+                        /* font file is not usable */
+                        g_free (cursor_font);
+                        cursor_font = NULL;
+                }
+        }
 
-        if ((cursor_font != NULL) &&
-            (g_file_test (cursor_font, G_FILE_TEST_IS_REGULAR)) &&
-            (g_path_is_absolute (cursor_font))) {
+        cursor_dir = setup_dir ("cursor-fonts", cursor_font != NULL);
+
+        /* remove previously made symlinks, if any */
+        if (cursor_dir) {
+                dir = opendir (cursor_dir);
+                while ((file_dirent = readdir (dir)) != NULL) {
+                        struct stat st;
+                        char       *link_name;
+
+                        link_name = g_build_filename (cursor_dir, file_dirent->d_name, NULL);
+                        if (lstat (link_name, &st)) {
+                                g_free (link_name);
+                                continue;
+                        }
+                        g_free (link_name);
+
+                        if (S_ISLNK (st.st_mode))
+                                unlink (link_name);
+                }
+                closedir (dir);
+        }
+
+        if (cursor_font && cursor_dir) {
                 char *newpath;
                 char *font_name;
 
                 font_name = strrchr (cursor_font, G_DIR_SEPARATOR);
-                newpath = g_build_filename (dir_name, font_name, NULL);
+                newpath = g_build_filename (cursor_dir, font_name, NULL);
                 symlink (cursor_font, newpath);
                 g_free (newpath);
+                g_free (cursor_font);
+                cursor_font = NULL;
+        } else {
+                cursor_dir = empty_check_dir (cursor_dir);
         }
-        g_free (cursor_font);
+
+        return cursor_dir;
+}
+
+static void
+load_font_paths (GConfClient *client)
+{
+        char          *font_dir_name;
+        char          *cursor_dir_name;
+
+        char         **font_path;
+        char         **new_font_path;
+        int            n_fonts;
+        int            new_n_fonts;
+
+        int            i;
+
+        const char    *argv[4];
+        int            argc = 0;
+
+        gnome_settings_profile_start (NULL);
+
+        font_dir_name = setup_font_dir (client);
+        cursor_dir_name = setup_cursor_dir (client);
+
+        if (font_dir_name == NULL && cursor_dir_name == NULL)
+                goto done;
 
         /* run mkfontdir */
-        mkfontdir_cmd = g_strdup_printf ("mkfontdir %s %s", dir_name, font_dir_name);
-        /* maybe check for error...
-         * also, it's not going to like that if there are spaces in dir_name/font_dir_name.
-         */
-        g_spawn_command_line_sync (mkfontdir_cmd, NULL, NULL, NULL, NULL);
-        g_free (mkfontdir_cmd);
+        argv[argc++] = "mkfontdir";
+        if (font_dir_name)
+                argv[argc++] = font_dir_name;
+        if (cursor_dir_name)
+                argv[argc++] = cursor_dir_name;
+        argv[argc] = NULL;
+        g_spawn_sync (NULL, /* current dir */
+                      (char **) (void *) argv, NULL /* envp */,
+                      G_SPAWN_SEARCH_PATH,
+                      NULL, NULL, /* child_setup */
+                      NULL, NULL, NULL, NULL);
 
         /* Set the font path */
         font_path = XGetFontPath (gdk_x11_get_default_xdisplay (), &n_fonts);
         new_n_fonts = n_fonts;
-        if (n_fonts == 0 || strcmp (font_path[0], dir_name))
+        if (cursor_dir_name && (n_fonts == 0 || strcmp (font_path[0], cursor_dir_name)))
                 new_n_fonts++;
-        if (n_fonts == 0 || strcmp (font_path[n_fonts-1], font_dir_name))
+        if (font_dir_name && (n_fonts == 0 || strcmp (font_path[n_fonts-1], font_dir_name)))
                 new_n_fonts++;
 
-        new_font_path = g_new0 (char *, new_n_fonts);
-        if (n_fonts == 0 || strcmp (font_path[0], dir_name)) {
-                new_font_path[0] = dir_name;
-                for (i = 0; i < n_fonts; i++)
-                        new_font_path [i+1] = font_path [i];
-        } else {
-                for (i = 0; i < n_fonts; i++)
-                        new_font_path [i] = font_path [i];
+        if (new_n_fonts == n_fonts)
+                new_font_path = font_path;
+        else {
+                new_font_path = g_new0 (char *, new_n_fonts);
+
+                if (cursor_dir_name && (n_fonts == 0 || strcmp (font_path[0], cursor_dir_name))) {
+                        new_font_path[0] = cursor_dir_name;
+                        for (i = 0; i < n_fonts; i++)
+                                new_font_path [i+1] = font_path [i];
+                } else {
+                        for (i = 0; i < n_fonts; i++)
+                                new_font_path [i] = font_path [i];
+                }
+
+                if (font_dir_name && (n_fonts == 0 || strcmp (font_path[n_fonts-1], font_dir_name))) {
+                        new_font_path[new_n_fonts-1] = font_dir_name;
+                }
         }
 
-        if (n_fonts == 0 || strcmp (font_path[n_fonts-1], font_dir_name)) {
-                new_font_path[new_n_fonts-1] = font_dir_name;
-        }
-
+        /* We set font path even if it was not changed, to enforce dropping
+         * caches in the server */
         gdk_error_trap_push ();
         XSetFontPath (gdk_display, new_font_path, new_n_fonts);
         gdk_flush ();
@@ -316,13 +367,16 @@ load_cursor (GConfClient *client)
                 XSetFontPath (gdk_display, font_path, n_fonts);
         }
 
+        g_free (font_dir_name);
+        g_free (cursor_dir_name);
+
+        if (new_font_path != font_path)
+                g_free (new_font_path);
+
         XFreeFontPath (font_path);
 
+done:
         gnome_settings_profile_end (NULL);
-
-        g_free (new_font_path);
-        g_free (font_dir_name);
-        g_free (dir_name);
 }
 
 gboolean
@@ -337,7 +391,7 @@ gsd_font_manager_start (GsdFontManager *manager,
         client = gconf_client_get_default ();
 
         load_xcursor_theme (client);
-        load_cursor (client);
+        load_font_paths (client);
 
         g_object_unref (client);
 
