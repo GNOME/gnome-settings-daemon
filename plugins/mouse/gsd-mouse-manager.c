@@ -66,6 +66,8 @@ struct GsdMouseManagerPrivate
 {
         guint notify;
         guint notify_a11y;
+
+        gboolean mousetweaks_daemon_running;
 };
 
 static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
@@ -579,9 +581,17 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
 {
         GError *error = NULL;
         gchar *comm;
+        gboolean run_daemon = dwell_enable || delay_enable;
 
-        comm = g_strdup_printf ("mousetweaks %s",
-                                (dwell_enable || delay_enable) ? "" : "-s");
+        if (run_daemon || manager->priv->mousetweaks_daemon_running)
+                comm = g_strdup_printf ("mousetweaks %s",
+                                        run_daemon ? "" : "-s");
+        else
+                return;
+
+        if (run_daemon)
+                manager->priv->mousetweaks_daemon_running = TRUE;
+
 
         if (! g_spawn_command_line_async (comm, &error)) {
                 if (error->code == G_SPAWN_ERROR_NOENT &&

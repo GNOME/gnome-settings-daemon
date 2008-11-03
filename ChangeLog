@@ -1,5 +1,14 @@
 2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
 
+	* plugins/mouse/gsd-mouse-manager.c (set_mousetweaks_daemon):
+	Don't run "mousetweaks -s" at startup time (#559165)
+
+	All "mousetweaks -s" does is shutdown the already-running daemon.
+	When g-s-d starts, there is no daemon running.  So, remember that and
+	do not try to shut the non-existing daemon down.
+
+2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
+
 	* plugins/common/gsd-keygrab.c (setup_modifiers), (grab_key_real),
 	(grab_key_unsafe):
 	* plugins/common/gsd-keygrab.h:
