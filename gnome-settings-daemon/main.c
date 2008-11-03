@@ -24,6 +24,9 @@
 #include <libintl.h>
 #include <errno.h>
 #include <locale.h>
+#include <signal.h>
+#include <fcntl.h>
+#include <sys/wait.h>
 
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
@@ -223,6 +226,49 @@ gsd_log_default_handler (const gchar   *log_domain,
                                unused_data);
 }
 
+static gboolean
+daemonize (void)
+{
+        int child_pid;
+
+        child_pid = fork ();
+
+        switch (child_pid) {
+        case -1:
+                return FALSE;
+
+        case 0:
+                /* child */
+
+                /* disconnect */
+                setsid ();
+                close (0);
+                close (1);
+                close (2);
+                open ("/dev/null", O_RDONLY);
+                open ("/dev/null", O_WRONLY);
+                dup2 (1, 2);
+
+                /* get outta the way */
+                chdir ("/");
+                umask (0117);
+
+                return TRUE;
+
+         default:
+                /* parent */
+
+                /* Wait for child to signal that we are good to go.
+		 * We actully are just waiting for the child to send
+		 * us a signal, any signal, not for it to quit.  Any
+		 * signal received from any process gets us out of the
+		 * wait with EINTR, and that's fine. */
+                waitpid (child_pid, NULL, 0);
+
+                exit (EXIT_SUCCESS);
+        }
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -258,8 +304,10 @@ main (int argc, char *argv[])
 
         g_log_set_default_handler (gsd_log_default_handler, NULL);
 
-        if (! no_daemon && daemon (0, 0)) {
-                g_error ("Could not daemonize: %s", g_strerror (errno));
+        if (! no_daemon) {
+                gnome_settings_profile_start ("daemon initialization");
+                if (! daemonize ())
+                        g_error ("Could not daemonize: %s", g_strerror (errno));
         }
 
         bus = get_session_bus ();
@@ -296,6 +344,19 @@ main (int argc, char *argv[])
                         g_error_free (error);
                         goto out;
                 }
+        }
+
+        /* Notify parent to exit.
+	 *
+	 * We want the parent process to quit after initializaing all plugins,
+	 * but we have to do all the work in the child process.  We can't
+	 * initialize in parent and then fork here: that is not clean with
+	 * X display and DBUS where we would make the connection from one
+	 * process and continue using from the other. So, we just made the
+	 * parent to fork early and wait. */
+        if (! no_daemon) {
+                kill (getppid (), SIGCHLD);
+                gnome_settings_profile_end ("daemon initialization");
         }
 
         gtk_main ();

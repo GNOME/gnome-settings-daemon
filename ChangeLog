@@ -1,5 +1,14 @@
 2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
 
+	* gnome-settings-daemon/main.c (daemonize), (main):
+	Make parent wait for initialization in children to finish before
+	returning.  This makes gnome-session to wait for initialization
+	to be done before spawning other processes.  This way, apps
+	start up with the right xsettings and other settings, and don't
+	have to handle change signals right after starting up. (bug #559168)
+
+2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
+
 	* gnome-settings-daemon/gnome-settings-manager.c (_load_file),
 	(gnome_settings_manager_start), (gnome_settings_manager_stop):
 	* gnome-settings-daemon/gnome-settings-plugin-info.c
