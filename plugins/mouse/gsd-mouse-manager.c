@@ -694,13 +694,11 @@ gsd_mouse_manager_init (GsdMouseManager *manager)
         manager->priv = GSD_MOUSE_MANAGER_GET_PRIVATE (manager);
 }
 
-gboolean
-gsd_mouse_manager_start (GsdMouseManager *manager,
-                         GError         **error)
+static gboolean
+gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 {
         GConfClient *client;
 
-        g_debug ("Starting mouse manager");
         gnome_settings_profile_start (NULL);
 
         client = gconf_client_get_default ();
@@ -726,6 +724,19 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
                                 gconf_client_get_bool (client, KEY_DELAY_ENABLE, NULL));
 
         g_object_unref (client);
+
+        gnome_settings_profile_end (NULL);
+
+        return FALSE;
+}
+
+gboolean
+gsd_mouse_manager_start (GsdMouseManager *manager,
+                         GError         **error)
+{
+        gnome_settings_profile_start (NULL);
+
+        g_idle_add ((GSourceFunc) gsd_mouse_manager_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 

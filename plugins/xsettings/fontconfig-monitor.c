@@ -33,6 +33,12 @@ stuff_changed (GFileMonitor *monitor,
                GFileMonitorEvent event_type,
                gpointer handle);
 
+gboolean
+fontconfig_cache_update (void)
+{
+        return !FcConfigUptoDate (NULL) && FcInitReinitialize ();
+}
+
 static void
 monitor_files (GPtrArray *monitors,
                FcStrList *list,
@@ -100,7 +106,7 @@ update (gpointer data)
 
         handle->timeout = 0;
 
-        if (!FcConfigUptoDate (NULL) && FcInitReinitialize ()) {
+        if (fontconfig_cache_update ()) {
                 notify = TRUE;
                 monitors_free (handle->monitors);
                 handle->monitors = monitors_create (data);

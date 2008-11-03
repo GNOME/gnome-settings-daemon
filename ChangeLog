@@ -1,5 +1,24 @@
 2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
 
+	* plugins/clipboard/gsd-clipboard-manager.c
+	(start_clipboard_idle_cb), (gsd_clipboard_manager_start):
+	Start manager in idle callback (bug #559166)
+
+	* plugins/mouse/gsd-mouse-manager.c (gsd_mouse_manager_idle_cb),
+	(gsd_mouse_manager_start):
+	Start manager in idle callback (bug #559166)
+
+	* plugins/xsettings/fontconfig-monitor.c (fontconfig_cache_update),
+	(update):
+	* plugins/xsettings/fontconfig-monitor.h:
+	* plugins/xsettings/gsd-xsettings-manager.c
+	(start_fontconfig_monitor_idle_cb), (start_fontconfig_monitor),
+	(stop_fontconfig_monitor):
+	Start fontconfig monitors in idle callback.  However, make sure
+	fontconfig caches are up to date during initialization (bug #559166)
+
+2008-11-03  Behdad Esfahbod  <behdad@gnome.org>
+
 	* plugins/mouse/gsd-mouse-manager.c (set_mousetweaks_daemon):
 	Don't run "mousetweaks -s" at startup time (#559165)
 

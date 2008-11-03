@@ -82,13 +82,6 @@ typedef struct
         int         offset;
 } IncrConversion;
 
-#define GSD_CLIPBOARD_ERROR gsd_clipboard_error_quark ()
-
-enum {
-        GSD_CLIPBOARD_ERROR_RUNNING,
-        GSD_CLIPBOARD_ERROR_FAILED
-};
-
 static void     gsd_clipboard_manager_class_init  (GsdClipboardManagerClass *klass);
 static void     gsd_clipboard_manager_init        (GsdClipboardManager      *clipboard_manager);
 static void     gsd_clipboard_manager_finalize    (GObject                  *object);
@@ -102,12 +95,6 @@ static void     clipboard_manager_watch_cb        (GsdClipboardManager *manager,
 G_DEFINE_TYPE (GsdClipboardManager, gsd_clipboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
-
-static GQuark
-gsd_clipboard_error_quark (void)
-{
-        return g_quark_from_static_string ("gsd-clipboard-error-quark");
-}
 
 /* We need to use reference counting for the target data, since we may
  * need to keep the data around after loosing the CLIPBOARD ownership
@@ -858,22 +845,19 @@ clipboard_manager_watch_cb (GsdClipboardManager *manager,
         }
 }
 
-gboolean
-gsd_clipboard_manager_start (GsdClipboardManager *manager,
-                             GError             **error)
+static gboolean
+start_clipboard_idle_cb (GsdClipboardManager *manager)
 {
         XClientMessageEvent xev;
 
-        g_debug ("Starting clipboard manager");
+
         gnome_settings_profile_start (NULL);
 
         init_atoms (manager->priv->display);
 
         /* check if there is a clipboard manager running */
         if (XGetSelectionOwner (manager->priv->display, XA_CLIPBOARD_MANAGER)) {
-                g_set_error (error, GSD_CLIPBOARD_ERROR,
-                             GSD_CLIPBOARD_ERROR_RUNNING,
-                             "Clipboard manager is already running.");
+                g_warning ("Clipboard manager is already running.");
                 return FALSE;
         }
 
@@ -929,12 +913,20 @@ gsd_clipboard_manager_start (GsdClipboardManager *manager,
                                             0,
                                             NULL);
                 /* FIXME: manager->priv->terminate (manager->priv->cb_data); */
-
-                g_set_error (error, GSD_CLIPBOARD_ERROR,
-                             GSD_CLIPBOARD_ERROR_FAILED,
-                             "Failed to claim selection.");
-                return FALSE;
         }
+
+        gnome_settings_profile_end (NULL);
+
+        return FALSE;
+}
+
+gboolean
+gsd_clipboard_manager_start (GsdClipboardManager *manager,
+                             GError             **error)
+{
+        gnome_settings_profile_start (NULL);
+
+        g_idle_add ((GSourceFunc) start_clipboard_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 

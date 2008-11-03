@@ -566,12 +566,26 @@ fontconfig_callback (fontconfig_monitor_handle_t *handle,
         gnome_settings_profile_end (NULL);
 }
 
+static gboolean
+start_fontconfig_monitor_idle_cb (GnomeXSettingsManager *manager)
+{
+        gnome_settings_profile_start (NULL);
+
+        manager->priv->fontconfig_handle = fontconfig_monitor_start ((GFunc) fontconfig_callback, manager);
+
+        gnome_settings_profile_end (NULL);
+
+        return FALSE;
+}
+
 static void
 start_fontconfig_monitor (GnomeXSettingsManager  *manager)
 {
         gnome_settings_profile_start (NULL);
 
-        manager->priv->fontconfig_handle = fontconfig_monitor_start ((GFunc) fontconfig_callback, manager);
+        fontconfig_cache_update ();
+
+        g_idle_add ((GSourceFunc) start_fontconfig_monitor_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 }
@@ -579,8 +593,10 @@ start_fontconfig_monitor (GnomeXSettingsManager  *manager)
 static void
 stop_fontconfig_monitor (GnomeXSettingsManager  *manager)
 {
-        fontconfig_monitor_stop (manager->priv->fontconfig_handle);
-        manager->priv->fontconfig_handle = NULL;
+        if (manager->priv->fontconfig_handle) {
+                fontconfig_monitor_stop (manager->priv->fontconfig_handle);
+                manager->priv->fontconfig_handle = NULL;
+        }
 }
 #endif /* HAVE_FONTCONFIG */
 
