@@ -47,6 +47,7 @@
 static char      *gconf_prefix = NULL;
 static gboolean   no_daemon    = FALSE;
 static gboolean   debug        = FALSE;
+static int        pipefds[2];
 
 static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL },
@@ -230,7 +231,10 @@ static gboolean
 daemonize (void)
 {
         int child_pid;
+        char buf[1];
 
+        signal (SIGPIPE, SIG_IGN);
+        pipe (pipefds);
         child_pid = fork ();
 
         switch (child_pid) {
@@ -251,17 +255,16 @@ daemonize (void)
                 chdir ("/");
                 umask (0117);
 
+                close (pipefds[0]);
+
                 return TRUE;
 
          default:
                 /* parent */
 
-                /* Wait for child to signal that we are good to go.
-                 * We actully are just waiting for the child to send
-                 * us a signal, any signal, not for it to quit.  Any
-                 * signal received from any process gets us out of the
-                 * wait with EINTR, and that's fine. */
-                waitpid (child_pid, NULL, 0);
+                close (pipefds[1]);
+                /* Wait for child to signal that we are good to go. */
+                read (pipefds[0], buf, 1);
 
                 exit (EXIT_SUCCESS);
         }
@@ -353,7 +356,8 @@ main (int argc, char *argv[])
          * process and continue using from the other. So, we just made the
          * parent to fork early and wait. */
         if (! no_daemon) {
-                kill (getppid (), SIGCHLD);
+                write (pipefds[1], "1", 1);
+                close (pipefds[1]);
                 gnome_settings_profile_end ("daemon initialization");
         }
 

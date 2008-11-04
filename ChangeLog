@@ -1,5 +1,14 @@
 2008-11-04  Behdad Esfahbod  <behdad@gnome.org>
 
+	* gnome-settings-daemon/main.c (daemonize), (main): Use a pipe
+	to communicate between child and parent process instead of a
+	signal.  Signals are not queued, so if the child tried to signal
+	the parent before the parent got a chance to wait for it, the signal
+	would be lost and parent wait indefinitely for a signal that would
+	never arrive.
+
+2008-11-04  Behdad Esfahbod  <behdad@gnome.org>
+
 	* gnome-settings-daemon/main.c (daemonize): Don't close stderr.
 	Otherwise we just lose all our warnings that will not end up
 	in ~/.xsession-errors.
