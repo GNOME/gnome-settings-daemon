@@ -190,10 +190,10 @@ set_session_over_handler (DBusGConnection *bus, GnomeSettingsManager *manager)
                                             GNOME_SESSION_DBUS_OBJECT,
                                             GNOME_SESSION_DBUS_INTERFACE);
 
-	dbus_g_object_register_marshaller (
-		g_cclosure_marshal_VOID__VOID,
-		G_TYPE_NONE,
-		G_TYPE_INVALID);
+        dbus_g_object_register_marshaller (
+                g_cclosure_marshal_VOID__VOID,
+                G_TYPE_NONE,
+                G_TYPE_INVALID);
 
         dbus_g_proxy_add_signal (session_proxy,
                                  "SessionOver",
@@ -244,10 +244,8 @@ daemonize (void)
                 setsid ();
                 close (0);
                 close (1);
-                close (2);
                 open ("/dev/null", O_RDONLY);
                 open ("/dev/null", O_WRONLY);
-                dup2 (1, 2);
 
                 /* get outta the way */
                 chdir ("/");
@@ -259,10 +257,10 @@ daemonize (void)
                 /* parent */
 
                 /* Wait for child to signal that we are good to go.
-		 * We actully are just waiting for the child to send
-		 * us a signal, any signal, not for it to quit.  Any
-		 * signal received from any process gets us out of the
-		 * wait with EINTR, and that's fine. */
+                 * We actully are just waiting for the child to send
+                 * us a signal, any signal, not for it to quit.  Any
+                 * signal received from any process gets us out of the
+                 * wait with EINTR, and that's fine. */
                 waitpid (child_pid, NULL, 0);
 
                 exit (EXIT_SUCCESS);
@@ -347,13 +345,13 @@ main (int argc, char *argv[])
         }
 
         /* Notify parent to exit.
-	 *
-	 * We want the parent process to quit after initializaing all plugins,
-	 * but we have to do all the work in the child process.  We can't
-	 * initialize in parent and then fork here: that is not clean with
-	 * X display and DBUS where we would make the connection from one
-	 * process and continue using from the other. So, we just made the
-	 * parent to fork early and wait. */
+         *
+         * We want the parent process to quit after initializaing all plugins,
+         * but we have to do all the work in the child process.  We can't
+         * initialize in parent and then fork here: that is not clean with
+         * X display and DBUS where we would make the connection from one
+         * process and continue using from the other. So, we just made the
+         * parent to fork early and wait. */
         if (! no_daemon) {
                 kill (getppid (), SIGCHLD);
                 gnome_settings_profile_end ("daemon initialization");
