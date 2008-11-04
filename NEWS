@@ -1,4 +1,47 @@
 ==============
+Version 2.25.1
+==============
+- Ignore the 'activate' signal for deselected items so that the rotation
+  setting doesn't reset when the systray menu is opened (Eric Piel)
+  (#554951)
+- Don't make togglekeys_enable depend on global AccessX state (Jens
+  Granseuer) (#555009)
+- Fix picking up of the GDM layout (Matthias Clasen) (#554525 and
+  #555873)
+- Use printf safely (Christian Persch) (#555553)
+- Show the shutdown dialog when the power button is pressed (Matthias
+  Clasen) (#556307)
+- Support the Gtk/ButtonImages XSetting (Matthias Clasen) (#556797)
+- Clean-up volume initialization (Jens Granseuer) (#552383)
+- Make the composited volume images more clear (Bogdan Butnaru)
+  (#557307)
+- Spawn screensaver process in idle callback (Rodrigo Moya)
+- Remove sound plugin (Jens Granseuer) (#557806)
+- Replace gnome_help_display_desktop with gtk_show_uri (Jens Granseuer)
+  (#557808)
+- Listen for X device changes and reconfigure the mouse if necessary
+  (William Grant) (#549267)
+- Remove AM_MAINTAINER_MODE (Jens Granseuer) (#558503)
+- Disable xrdb plugin by default (Behdad Esfahbod) (#557807)
+- Improve performance logging annotations (Behdad Esfahbod) (#559162)
+- Cleanup font module (Behdad Esfahbod) (#559163)
+- Don't trap errors around grab_key (Behdad Esfahbod) (#559164)
+- Don't run 'mousetweaks -s' at startup (Behdad Esfahbod) (#559165)
+- Start fontconfig monitors, mouse and clipboard managers in idle
+  callbacks (Behdad Esfahbod) (#559166)
+- Preload gconf dirs when feasible (Behdad Esfahbod) (#559167)
+- Wait for initialization processes to be done before spawning other
+  processes (Behdad Esfahbod) (#559168)
+- Don't close stderr to not lose warnings (Behdad Esfahbod)
+- Use a pipe to communicate between children and parent process instead
+  of a signal (Behdad Esfahbod)
+- Updated translations:
+  - et (Priit Laes)
+  - mk (Jovan Naumovski)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+  - sk (Marcel Telka)
+
+==============
 Version 2.24.0
 ==============
 - Fix the fix for read-only home directories (Simon Zheng) (#530975)
