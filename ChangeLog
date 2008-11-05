@@ -1,3 +1,9 @@
+2008-11-05  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/keyboard/gsd-keyboard-manager.c: (numlock_xkb_init):
+	XkbQueryExtension and friends shouldn't cause errors, so no need to
+	try and trap them (bug #559346)
+
 ==================== 2.25.1 ====================
 
 2008-11-04  Rodrigo Moya <rodrigo@gnome-db.org>

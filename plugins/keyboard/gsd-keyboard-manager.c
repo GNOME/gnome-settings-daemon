@@ -165,7 +165,6 @@ numlock_xkb_init (GsdKeyboardManager *manager)
         gboolean have_xkb;
         int opcode, error_base, major, minor;
 
-        gdk_error_trap_push ();
         have_xkb = XkbQueryExtension (dpy,
                                       &opcode,
                                       &manager->priv->xkb_event_base,
@@ -183,9 +182,6 @@ numlock_xkb_init (GsdKeyboardManager *manager)
         } else {
                 g_warning ("XKB extension not available");
         }
-
-        XSync (dpy, FALSE);
-        gdk_error_trap_pop ();
 
         manager->priv->have_xkb = have_xkb;
 }
