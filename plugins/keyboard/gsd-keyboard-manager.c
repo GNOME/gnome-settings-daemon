@@ -370,9 +370,8 @@ apply_settings (GConfClient        *client,
         gdk_error_trap_pop ();
 }
 
-gboolean
-gsd_keyboard_manager_start (GsdKeyboardManager *manager,
-                            GError            **error)
+static gboolean
+start_keyboard_idle_cb (GsdKeyboardManager *manager)
 {
         GConfClient *client;
 
@@ -405,6 +404,19 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
         numlock_install_xkb_callback (manager);
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
+
+        gnome_settings_profile_end (NULL);
+
+        return FALSE;
+}
+
+gboolean
+gsd_keyboard_manager_start (GsdKeyboardManager *manager,
+                            GError            **error)
+{
+        gnome_settings_profile_start (NULL);
+
+        g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 
