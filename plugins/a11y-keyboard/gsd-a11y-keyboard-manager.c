@@ -104,7 +104,6 @@ xkb_enabled (GsdA11yKeyboardManager *manager)
         gboolean have_xkb;
         int opcode, errorBase, major, minor;
 
-        gdk_error_trap_push ();
         have_xkb = XkbQueryExtension (GDK_DISPLAY (),
                                       &opcode,
                                       &manager->priv->xkbEventBase,
@@ -112,8 +111,6 @@ xkb_enabled (GsdA11yKeyboardManager *manager)
                                       &major,
                                       &minor)
                 && XkbUseExtension (GDK_DISPLAY (), &major, &minor);
-        XSync (GDK_DISPLAY (), FALSE);
-        gdk_error_trap_pop ();
 
         return have_xkb;
 }
@@ -1036,14 +1033,10 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
         set_server_from_gconf (manager, client);
         g_object_unref (client);
 
-        gdk_error_trap_push ();
         XkbSelectEvents (GDK_DISPLAY (),
                          XkbUseCoreKbd,
                          event_mask,
                          event_mask);
-
-        XSync (GDK_DISPLAY (), FALSE);
-        gdk_error_trap_pop ();
 
         gdk_window_add_filter (NULL,
                                (GdkFilterFunc) cb_xkb_event_filter,
