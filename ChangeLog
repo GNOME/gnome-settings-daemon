@@ -1,5 +1,11 @@
 2008-11-06  Behdad Esfahbod  <behdad@gnome.org>
 
+	* data/gnome-settings-daemon.schemas.in: Reshuffle plugin priorities a
+	bit.  Now that we do many of the plugins in idle callback, those can
+	be put at the end.
+
+2008-11-06  Behdad Esfahbod  <behdad@gnome.org>
+
 	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
 	(maybe_show_status_icon), (ax_slowkeys_warning_post_bubble),
 	(ax_stickykeys_warning_post_bubble),
