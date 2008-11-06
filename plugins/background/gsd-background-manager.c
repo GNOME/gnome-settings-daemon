@@ -193,14 +193,6 @@ draw_background (GsdBackgroundManager *manager)
         gnome_settings_profile_end (NULL);
 }
 
-static gboolean
-queue_draw_background (GsdBackgroundManager *manager)
-{
-        manager->priv->timeout_id = 0;
-        draw_background (manager);
-        return FALSE;
-}
-
 static void
 on_bg_changed (GnomeBG              *bg,
                GsdBackgroundManager *manager)
@@ -235,16 +227,11 @@ watch_bg_preferences (GsdBackgroundManager *manager)
                                                                NULL);
 }
 
-gboolean
-gsd_background_manager_start (GsdBackgroundManager *manager,
-                              GError              **error)
+static void
+setup_bg (GsdBackgroundManager *manager)
 {
-        gboolean nautilus_show_desktop;
+        g_return_if_fail (manager->priv->bg == NULL);
 
-        g_debug ("Starting background manager");
-        gnome_settings_profile_start (NULL);
-
-        manager->priv->client = gconf_client_get_default ();
         manager->priv->bg = gnome_bg_new ();
 
         g_signal_connect (manager->priv->bg,
@@ -255,6 +242,27 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
         watch_bg_preferences (manager);
         gnome_bg_load_from_preferences (manager->priv->bg,
                                         manager->priv->client);
+}
+
+static gboolean
+queue_draw_background (GsdBackgroundManager *manager)
+{
+        manager->priv->timeout_id = 0;
+        setup_bg (manager);
+        draw_background (manager);
+        return FALSE;
+}
+
+gboolean
+gsd_background_manager_start (GsdBackgroundManager *manager,
+                              GError              **error)
+{
+        gboolean nautilus_show_desktop;
+
+        g_debug ("Starting background manager");
+        gnome_settings_profile_start (NULL);
+
+        manager->priv->client = gconf_client_get_default ();
 
         /* If this is set, nautilus will draw the background and is
 	 * almost definitely in our session.  however, it may not be
@@ -268,6 +276,7 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
                                                        NULL);
 
         if (!nautilus_show_desktop) {
+                setup_bg (manager);
                 draw_background (manager);
         } else {
                 /* even when nautilus is supposedly handling the

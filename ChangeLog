@@ -1,5 +1,13 @@
 2008-11-06  Behdad Esfahbod  <behdad@gnome.org>
 
+	* plugins/background/gsd-background-manager.c (setup_bg),
+	(queue_draw_background), (gsd_background_manager_start):
+	Delay constructing the GnomeBg object until we need it.  This avoids
+	unneeded change triggers caused by a bug in gnome-screensaver (fixed
+	in trunk it seems). (bug #559639)
+
+2008-11-06  Behdad Esfahbod  <behdad@gnome.org>
+
 	* data/gnome-settings-daemon.schemas.in: Reshuffle plugin priorities a
 	bit.  Now that we do many of the plugins in idle callback, those can
 	be put at the end.
