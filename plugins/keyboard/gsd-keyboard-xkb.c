@@ -352,7 +352,9 @@ gsd_keyboard_xkb_init (GConfClient *client)
         logfile = fopen ("/tmp/gsdkx.log", "a");
         xkl_set_log_appender (gsd_keyboard_log_appender);
 #endif
+        gnome_settings_profile_start ("xkl_engine_get_instance");
         xkl_engine = xkl_engine_get_instance (GDK_DISPLAY ());
+        gnome_settings_profile_end ("xkl_engine_get_instance");
         if (xkl_engine) {
                 inited_ok = TRUE;
 
@@ -366,7 +368,9 @@ gsd_keyboard_xkb_init (GConfClient *client)
                                            xkl_engine);
                 xkl_engine_backup_names_prop (xkl_engine);
                 gsd_keyboard_xkb_analyze_sysconfig ();
+		gnome_settings_profile_start ("gsd_keyboard_xkb_chk_lcl_xmm");
                 gsd_keyboard_xkb_chk_lcl_xmm ();
+		gnome_settings_profile_end ("gsd_keyboard_xkb_chk_lcl_xmm");
 
                 notify_desktop =
                         register_config_callback (client,
@@ -381,12 +385,19 @@ gsd_keyboard_xkb_init (GConfClient *client)
                 gdk_window_add_filter (NULL, (GdkFilterFunc)
                                        gsd_keyboard_xkb_evt_filter,
                                        NULL);
+
+		gnome_settings_profile_start ("xkl_engine_start_listen");
                 xkl_engine_start_listen (xkl_engine,
                                          XKLL_MANAGE_LAYOUTS |
                                          XKLL_MANAGE_WINDOW_STATES);
+		gnome_settings_profile_end ("xkl_engine_start_listen");
 
+		gnome_settings_profile_start ("apply_settings");
                 apply_settings ();
+		gnome_settings_profile_end ("apply_settings");
+		gnome_settings_profile_start ("apply_xkb_settings");
                 apply_xkb_settings ();
+		gnome_settings_profile_end ("apply_xkb_settings");
         }
         gnome_settings_profile_end (NULL);
 }
