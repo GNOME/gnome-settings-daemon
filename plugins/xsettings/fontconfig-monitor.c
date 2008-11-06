@@ -33,6 +33,12 @@ stuff_changed (GFileMonitor *monitor,
                GFileMonitorEvent event_type,
                gpointer handle);
 
+void
+fontconfig_cache_init (void)
+{
+        FcInit ();
+}
+
 gboolean
 fontconfig_cache_update (void)
 {

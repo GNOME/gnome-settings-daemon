@@ -583,7 +583,7 @@ start_fontconfig_monitor (GnomeXSettingsManager  *manager)
 {
         gnome_settings_profile_start (NULL);
 
-        fontconfig_cache_update ();
+        fontconfig_cache_init ();
 
         g_idle_add ((GSourceFunc) start_fontconfig_monitor_idle_cb, manager);
 

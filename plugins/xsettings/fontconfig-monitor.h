@@ -25,6 +25,7 @@
 
 G_BEGIN_DECLS
 
+void fontconfig_cache_init (void);
 gboolean fontconfig_cache_update (void);
 
 typedef struct _fontconfig_monitor_handle fontconfig_monitor_handle_t;

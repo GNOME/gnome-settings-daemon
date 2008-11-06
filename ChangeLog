@@ -1,5 +1,13 @@
 2008-11-05  Behdad Esfahbod  <behdad@gnome.org>
 
+	* plugins/xsettings/fontconfig-monitor.c (fontconfig_cache_init):
+	* plugins/xsettings/fontconfig-monitor.h:
+	* plugins/xsettings/gsd-xsettings-manager.c
+	(start_fontconfig_monitor):  Only initialize fontconfig when starting
+	up.  A cache update is redundant there. (bug #559550)
+
+2008-11-05  Behdad Esfahbod  <behdad@gnome.org>
+
 	* plugins/keyboard/gsd-keyboard-manager.c (start_keyboard_idle_cb),
 	(gsd_keyboard_manager_start): Start manager in idle callback (bug
 	#559482)
