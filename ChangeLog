@@ -1,6 +1,16 @@
 2008-11-06  Behdad Esfahbod  <behdad@gnome.org>
 
 	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
+	(maybe_show_status_icon), (ax_slowkeys_warning_post_bubble),
+	(ax_stickykeys_warning_post_bubble),
+	(gsd_a11y_keyboard_manager_stop),
+	(gsd_a11y_keyboard_manager_ensure_status_icon),
+	(gsd_a11y_keyboard_manager_init):
+	Init status icon only when needed (bug #559558)
+
+2008-11-06  Behdad Esfahbod  <behdad@gnome.org>
+
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
 	(start_a11y_keyboard_idle_cb), (gsd_a11y_keyboard_manager_start):
 	Start manager in idle callback (bug #559564)
 

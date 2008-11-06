@@ -74,6 +74,7 @@ struct GsdA11yKeyboardManagerPrivate
 static void     gsd_a11y_keyboard_manager_class_init  (GsdA11yKeyboardManagerClass *klass);
 static void     gsd_a11y_keyboard_manager_init        (GsdA11yKeyboardManager      *a11y_keyboard_manager);
 static void     gsd_a11y_keyboard_manager_finalize    (GObject             *object);
+static void     gsd_a11y_keyboard_manager_ensure_status_icon (GsdA11yKeyboardManager *manager);
 
 G_DEFINE_TYPE (GsdA11yKeyboardManager, gsd_a11y_keyboard_manager, G_TYPE_OBJECT)
 
@@ -337,7 +338,7 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
                       gboolean                enabled)
 {
         GConfClient *client;
-	GdkScreen *screen;
+        GdkScreen *screen;
         GError *err;
 
         switch (response_id) {
@@ -433,6 +434,10 @@ maybe_show_status_icon (GsdA11yKeyboardManager *manager)
         show = gconf_client_get_bool (client, CONFIG_ROOT "/enable", NULL);
         g_object_unref (client);
 
+        if (!show && manager->priv->status_icon == NULL)
+                return;
+
+        gsd_a11y_keyboard_manager_ensure_status_icon (manager);
         gtk_status_icon_set_visible (manager->priv->status_icon, show);
 }
 
@@ -522,7 +527,7 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         message = _("You just held down the Shift key for 8 seconds.  This is the shortcut "
                     "for the Slow Keys feature, which affects the way your keyboard works.");
 
-        if (! gtk_status_icon_is_embedded (manager->priv->status_icon)) {
+        if (manager->priv->status_icon == NULL || ! gtk_status_icon_is_embedded (manager->priv->status_icon)) {
                 return FALSE;
         }
 
@@ -537,6 +542,7 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                 manager->priv->notification = NULL;
         }
 
+        gsd_a11y_keyboard_manager_ensure_status_icon (manager);
         manager->priv->notification = notify_notification_new_with_status_icon (title,
                                                                                 message,
                                                                                 "preferences-desktop-accessibility",
@@ -665,7 +671,7 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                 _("You just pressed two keys at once, or pressed the Shift key 5 times in a row.  "
                   "This turns off the Sticky Keys feature, which affects the way your keyboard works.");
 
-        if (! gtk_status_icon_is_embedded (manager->priv->status_icon)) {
+        if (manager->priv->status_icon == NULL || ! gtk_status_icon_is_embedded (manager->priv->status_icon)) {
                 return FALSE;
         }
 
@@ -680,6 +686,7 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                 manager->priv->notification = NULL;
         }
 
+        gsd_a11y_keyboard_manager_ensure_status_icon (manager);
         manager->priv->notification = notify_notification_new_with_status_icon (title,
                                                                                 message,
                                                                                 "preferences-desktop-accessibility",
@@ -1052,7 +1059,8 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
 
         g_debug ("Stopping a11y_keyboard manager");
 
-        gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
+        if (manager->priv->status_icon)
+                gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
 
         if (p->gconf_notify != 0) {
                 GConfClient *client = gconf_client_get_default ();
@@ -1186,15 +1194,26 @@ on_status_icon_activate (GtkStatusIcon          *status_icon,
 }
 
 static void
+gsd_a11y_keyboard_manager_ensure_status_icon (GsdA11yKeyboardManager *manager)
+{
+        gnome_settings_profile_start (NULL);
+
+        if (!manager->priv->status_icon) {
+
+                manager->priv->status_icon = gtk_status_icon_new_from_icon_name ("preferences-desktop-accessibility");
+                g_signal_connect (manager->priv->status_icon,
+                                  "activate",
+                                  G_CALLBACK (on_status_icon_activate),
+                                  manager);
+        }
+
+        gnome_settings_profile_end (NULL);
+}
+
+static void
 gsd_a11y_keyboard_manager_init (GsdA11yKeyboardManager *manager)
 {
         manager->priv = GSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE (manager);
-
-        manager->priv->status_icon = gtk_status_icon_new_from_icon_name ("preferences-desktop-accessibility");
-        g_signal_connect (manager->priv->status_icon,
-                          "activate",
-                          G_CALLBACK (on_status_icon_activate),
-                          manager);
 
 #ifdef HAVE_LIBNOTIFY
         notify_init ("gnome-settings-daemon");
