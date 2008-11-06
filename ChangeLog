@@ -1,3 +1,10 @@
+2008-11-06  Behdad Esfahbod  <behdad@gnome.org>
+
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
+	(get_xkb_desc_rec):
+	* plugins/common/gsd-keygrab.c (have_xkb):
+	Remove more unnecessary X error traps and synchs (bug #559562)
+
 2008-11-06  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c: (xkb_enabled),

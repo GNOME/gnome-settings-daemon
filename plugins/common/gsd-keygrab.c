@@ -169,7 +169,6 @@ have_xkb (Display *dpy)
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
 		int opcode, error_base, major, minor, xkb_event_base;
 
-		gdk_error_trap_push ();
 		have_xkb = XkbQueryExtension (dpy,
 					      &opcode,
 					      &xkb_event_base,
@@ -177,7 +176,6 @@ have_xkb (Display *dpy)
 					      &major,
 					      &minor)
 			&& XkbUseExtension (dpy, &major, &minor);
-		gdk_error_trap_pop ();
 #else
 		have_xkb = 0;
 #endif

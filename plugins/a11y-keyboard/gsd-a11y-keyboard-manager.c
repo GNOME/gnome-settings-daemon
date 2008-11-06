@@ -127,7 +127,6 @@ get_xkb_desc_rec (GsdA11yKeyboardManager *manager)
                 desc->ctrls = NULL;
                 status = XkbGetControls (GDK_DISPLAY (), XkbAllControlsMask, desc);
         }
-        XSync (GDK_DISPLAY (), FALSE);
         gdk_error_trap_pop ();
 
         g_return_val_if_fail (desc != NULL, NULL);
