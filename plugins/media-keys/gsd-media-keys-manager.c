@@ -914,9 +914,8 @@ acme_filter_events (GdkXEvent           *xevent,
         return GDK_FILTER_CONTINUE;
 }
 
-gboolean
-gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
-                              GError             **error)
+static gboolean
+start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 {
         GSList *l;
 
@@ -932,11 +931,6 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         init_screens (manager);
         init_kbd (manager);
 
-        /* initialise Volume handler */
-        gnome_settings_profile_start ("acme_volume_new");
-        manager->priv->volume = acme_volume_new ();
-        gnome_settings_profile_end ("acme_volume_new");
-
         /* Start filtering the events */
         for (l = manager->priv->screens; l != NULL; l = l->next) {
                 gnome_settings_profile_start ("gdk_window_add_filter");
@@ -949,6 +943,29 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
                                        manager);
                 gnome_settings_profile_end ("gdk_window_add_filter");
         }
+
+        gnome_settings_profile_end (NULL);
+
+        return FALSE;
+}
+
+gboolean
+gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
+                              GError             **error)
+{
+        gnome_settings_profile_start (NULL);
+
+        /* initialise Volume handler
+         * 
+         * We do this one here to force checking gstreamer cache, etc.
+         * The rest (grabbing and setting the keys) can happen in an
+         * idle.
+         */
+        gnome_settings_profile_start ("acme_volume_new");
+        manager->priv->volume = acme_volume_new ();
+        gnome_settings_profile_end ("acme_volume_new");
+
+        g_idle_add ((GSourceFunc) start_media_keys_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 

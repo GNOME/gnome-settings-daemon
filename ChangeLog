@@ -1,6 +1,18 @@
 2008-11-06  Behdad Esfahbod  <behdad@gnome.org>
 
 	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
+	(start_a11y_keyboard_idle_cb), (gsd_a11y_keyboard_manager_start):
+	Start manager in idle callback (bug #559564)
+
+	* plugins/media-keys/gsd-media-keys-manager.c
+	(start_media_keys_idle_cb), (gsd_media_keys_manager_start):
+	Start manager in idle callback (bug #559564).  Leave the acme
+	initialization in the main start function to force gstreamer
+	cache up to date check before we let other applications start.
+
+2008-11-06  Behdad Esfahbod  <behdad@gnome.org>
+
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
 	(get_xkb_desc_rec):
 	* plugins/common/gsd-keygrab.c (have_xkb):
 	Remove more unnecessary X error traps and synchs (bug #559562)

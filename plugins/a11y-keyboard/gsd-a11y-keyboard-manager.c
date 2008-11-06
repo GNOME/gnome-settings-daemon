@@ -71,12 +71,6 @@ struct GsdA11yKeyboardManagerPrivate
 #endif /* HAVE_LIBNOTIFY */
 };
 
-#define GSD_KBD_A11Y_ERROR gsd_kbd_a11y_error_quark ()
-
-enum {
-        GSD_KBD_A11Y_ERROR_NOT_AVAILABLE
-};
-
 static void     gsd_a11y_keyboard_manager_class_init  (GsdA11yKeyboardManagerClass *klass);
 static void     gsd_a11y_keyboard_manager_init        (GsdA11yKeyboardManager      *a11y_keyboard_manager);
 static void     gsd_a11y_keyboard_manager_finalize    (GObject             *object);
@@ -91,12 +85,6 @@ static gpointer manager_object = NULL;
 #else
 #define d(str)          do { } while (0)
 #endif
-
-static GQuark
-gsd_kbd_a11y_error_quark (void)
-{
-        return g_quark_from_static_string ("gsd-kbd-a11y-error-quark");
-}
 
 static gboolean
 xkb_enabled (GsdA11yKeyboardManager *manager)
@@ -997,23 +985,17 @@ register_config_callback (GsdA11yKeyboardManager  *manager,
         *notify = gconf_client_notify_add (client, path, func, manager, NULL, NULL);
 }
 
-gboolean
-gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
-                                 GError                **error)
+static gboolean
+start_a11y_keyboard_idle_cb (GsdA11yKeyboardManager *manager)
 {
         guint        event_mask;
         GConfClient *client;
-        gboolean     ret = FALSE;
 
         g_debug ("Starting a11y_keyboard manager");
         gnome_settings_profile_start (NULL);
 
-        if (!xkb_enabled (manager)) {
-                g_set_error (error, GSD_KBD_A11Y_ERROR,
-                             GSD_KBD_A11Y_ERROR_NOT_AVAILABLE,
-                             "XKB functionality is disabled.");
+        if (!xkb_enabled (manager))
                 goto out;
-        }
 
         client = gconf_client_get_default ();
 
@@ -1043,11 +1025,24 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
 
         maybe_show_status_icon (manager);
 
-        ret = TRUE;
-
  out:
         gnome_settings_profile_end (NULL);
-        return ret;
+
+        return FALSE;
+}
+
+
+gboolean
+gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
+                                 GError                **error)
+{
+        gnome_settings_profile_start (NULL);
+
+        g_idle_add ((GSourceFunc) start_a11y_keyboard_idle_cb, manager);
+
+        gnome_settings_profile_end (NULL);
+
+        return TRUE;
 }
 
 void
