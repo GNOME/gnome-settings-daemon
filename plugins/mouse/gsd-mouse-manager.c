@@ -320,7 +320,7 @@ devicepresence_filter (GdkXEvent *xevent,
         if (xev->type == xi_presence)
         {
             XDevicePresenceNotifyEvent *dpn = (XDevicePresenceNotifyEvent *) xev;
-            if (dpn->devchange == DeviceAdded)
+            if (dpn->devchange == DeviceEnabled)
                 set_mouse_settings ((GsdMouseManager *) data);
         }
         return GDK_FILTER_CONTINUE;

@@ -1,3 +1,11 @@
+2008-11-08  Jens Granseuer  <jensgr@gmx.net>
+
+	Patch by: William Grant <wgrant@ubuntu.com>
+
+	* plugins/mouse/gsd-mouse-manager.c: (devicepresence_filter): listen
+	for DeviceEnabled instead of DeviceAdded so we can be sure it has been
+	initialized (bug #559827)
+
 2008-11-06  Behdad Esfahbod  <behdad@gnome.org>
 
 	* plugins/background/gsd-background-manager.c (setup_bg),
