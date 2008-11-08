@@ -1,3 +1,13 @@
+2008-11-08  Jens Granseuer  <jensgr@gmx.net>
+
+	Merged from trunk.
+
+	Patch by: William Grant <wgrant@ubuntu.com>
+
+	* plugins/mouse/gsd-mouse-manager.c: (devicepresence_filter): listen
+	for DeviceEnabled instead of DeviceAdded so we can be sure it has been
+	initialized (bug #559827)
+
 2008-11-01  Jens Granseuer  <jensgr@gmx.net>
 
 	Merged from trunk.
