@@ -627,6 +627,7 @@ do_sound_action (GsdMediaKeysManager *manager,
                 int threshold = acme_volume_get_threshold (manager->priv->volume);
                 if (vol_step < threshold)
                         vol_step = threshold;
+                g_debug ("Using volume step of %d", vol_step);
         }
 
         /* FIXME: this is racy */
@@ -956,7 +957,7 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         gnome_settings_profile_start (NULL);
 
         /* initialise Volume handler
-         * 
+         *
          * We do this one here to force checking gstreamer cache, etc.
          * The rest (grabbing and setting the keys) can happen in an
          * idle.
