@@ -1,3 +1,8 @@
+2008-11-10  Behdad Esfahbod  <behdad@gnome.org>
+
+	* gnome-settings-daemon/main.c (daemon_start), (daemon_detach),
+	(daemon_terminate_parent), (main): Fork before gtk_init (bug #559695)
+
 2008-11-09  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/media-keys/gsd-media-keys-manager.c: (do_sound_action):

@@ -227,11 +227,24 @@ gsd_log_default_handler (const gchar   *log_domain,
                                unused_data);
 }
 
-static gboolean
-daemonize (void)
+
+/* We want the parent process to quit after initializing all plugins,
+ * but we have to do all the work in the child process.  We can't
+ * initialize in parent and then fork here: that is not clean with
+ * X display and DBUS where we would make the connection from one
+ * process and continue using it from the other. So, we just make the
+ * parent to fork early and wait. */
+
+static void
+daemon_start (void)
 {
         int child_pid;
         char buf[1];
+
+        if (no_daemon)
+                return;
+
+        gnome_settings_profile_msg ("forking daemon");
 
         signal (SIGPIPE, SIG_IGN);
         pipe (pipefds);
@@ -239,35 +252,59 @@ daemonize (void)
 
         switch (child_pid) {
         case -1:
-                return FALSE;
+                g_error ("Could not daemonize: %s", g_strerror (errno));
+
+                exit (EXIT_FAILURE);
 
         case 0:
                 /* child */
 
-                /* disconnect */
-                setsid ();
-                close (0);
-                close (1);
-                open ("/dev/null", O_RDONLY);
-                open ("/dev/null", O_WRONLY);
-
-                /* get outta the way */
-                chdir ("/");
-                umask (0117);
-
                 close (pipefds[0]);
 
-                return TRUE;
+                return;
 
          default:
                 /* parent */
 
                 close (pipefds[1]);
+
                 /* Wait for child to signal that we are good to go. */
                 read (pipefds[0], buf, 1);
 
                 exit (EXIT_SUCCESS);
         }
+}
+
+static void
+daemon_detach (void)
+{
+        if (no_daemon)
+                return;
+
+        gnome_settings_profile_msg ("detaching daemon");
+
+        /* disconnect */
+        setsid ();
+        close (0);
+        close (1);
+        open ("/dev/null", O_RDONLY);
+        open ("/dev/null", O_WRONLY);
+
+        /* get outta the way */
+        chdir ("/");
+        umask (0117);
+}
+
+static void
+daemon_terminate_parent (void)
+{
+        if (no_daemon)
+                return;
+
+        gnome_settings_profile_msg ("terminating parent");
+
+        write (pipefds[1], "1", 1);
+        close (pipefds[1]);
 }
 
 int
@@ -281,6 +318,8 @@ main (int argc, char *argv[])
         manager = NULL;
 
         gnome_settings_profile_start (NULL);
+
+        daemon_start ();
 
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -299,17 +338,14 @@ main (int argc, char *argv[])
                 } else {
                         g_warning ("Unable to initialize GTK+");
                 }
-                exit (1);
+                daemon_terminate_parent ();
+                exit (EXIT_FAILURE);
         }
         gnome_settings_profile_end ("gtk init");
 
-        g_log_set_default_handler (gsd_log_default_handler, NULL);
+        daemon_detach ();
 
-        if (! no_daemon) {
-                gnome_settings_profile_start ("daemon initialization");
-                if (! daemonize ())
-                        g_error ("Could not daemonize: %s", g_strerror (errno));
-        }
+        g_log_set_default_handler (gsd_log_default_handler, NULL);
 
         bus = get_session_bus ();
         if (bus == NULL) {
@@ -347,19 +383,7 @@ main (int argc, char *argv[])
                 }
         }
 
-        /* Notify parent to exit.
-         *
-         * We want the parent process to quit after initializaing all plugins,
-         * but we have to do all the work in the child process.  We can't
-         * initialize in parent and then fork here: that is not clean with
-         * X display and DBUS where we would make the connection from one
-         * process and continue using from the other. So, we just made the
-         * parent to fork early and wait. */
-        if (! no_daemon) {
-                write (pipefds[1], "1", 1);
-                close (pipefds[1]);
-                gnome_settings_profile_end ("daemon initialization");
-        }
+        daemon_terminate_parent ();
 
         gtk_main ();
 
