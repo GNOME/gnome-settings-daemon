@@ -247,13 +247,16 @@ daemon_start (void)
         gnome_settings_profile_msg ("forking daemon");
 
         signal (SIGPIPE, SIG_IGN);
-        pipe (pipefds);
+        if (-1 == pipe (pipefds)) {
+                g_error ("Could not create pipe: %s", g_strerror (errno));
+                exit (EXIT_FAILURE);
+        }
+
         child_pid = fork ();
 
         switch (child_pid) {
         case -1:
                 g_error ("Could not daemonize: %s", g_strerror (errno));
-
                 exit (EXIT_FAILURE);
 
         case 0:

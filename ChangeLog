@@ -1,5 +1,10 @@
 2008-11-10  Behdad Esfahbod  <behdad@gnome.org>
 
+	* gnome-settings-daemon/main.c (daemon_start): Check return value of
+	pipe().
+
+2008-11-10  Behdad Esfahbod  <behdad@gnome.org>
+
 	* gnome-settings-daemon/main.c (daemon_start), (daemon_detach),
 	(daemon_terminate_parent), (main): Fork before gtk_init (bug #559695)
 
