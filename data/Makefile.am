@@ -8,6 +8,7 @@ schemas_in_files = 						\
 	apps_gnome_settings_daemon_keybindings.schemas.in	\
 	apps_gnome_settings_daemon_screensaver.schemas.in	\
 	desktop_gnome_font_rendering.schemas.in			\
+	desktop_gnome_keybindings.schemas.in			\
 	apps_gnome_settings_daemon_xrandr.schemas.in		\
 	$(NULL)
 

@@ -45,6 +45,7 @@
 #include "eggaccelerators.h"
 
 #define GCONF_BINDING_DIR "/desktop/gnome/keybindings"
+#define ALLOWED_KEYS_KEY GCONF_BINDING_DIR "/allowed_keys"
 
 #define GSD_KEYBINDINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBINDINGS_MANAGER, GsdKeybindingsManagerPrivate))
 
@@ -59,6 +60,7 @@ typedef struct {
 struct GsdKeybindingsManagerPrivate
 {
         GSList *binding_list;
+	GSList *allowed_keys;
         GSList *screens;
         guint   notify;
 };
@@ -263,6 +265,13 @@ binding_register_keys (GsdKeybindingsManager *manager)
         for (li = manager->priv->binding_list ; li != NULL; li = li->next) {
                 Binding *binding = (Binding *) li->data;
 
+		if (manager->priv->allowed_keys != NULL &&
+                    !g_slist_find_custom (manager->priv->allowed_keys, 
+                                          binding->gconf_key, 
+                                          g_strcmp0)) {
+                        continue;
+		}
+
                 if (binding->previous_key.keycode != binding->key.keycode ||
                     binding->previous_key.state != binding->key.state) {
                         /* Ungrab key if it changed and not clashing with previously set binding */
@@ -436,18 +445,27 @@ bindings_callback (GConfClient           *client,
         char** key_elems;
         char* binding_entry;
 
-        /* ensure we get binding dir not a sub component */
+        if (strcmp (gconf_entry_get_key (entry), ALLOWED_KEYS_KEY) == 0) {
+                g_slist_foreach (manager->priv->allowed_keys, (GFunc)g_free, NULL);
+                g_slist_free (manager->priv->allowed_keys);
+                manager->priv->allowed_keys = gconf_client_get_list (client, 
+                                                                     ALLOWED_KEYS_KEY,
+                                                                     GCONF_VALUE_STRING,
+                                                                     NULL);
+        }
+        else {
+                /* ensure we get binding dir not a sub component */
+                key_elems = g_strsplit (gconf_entry_get_key (entry), "/", 15);
+                binding_entry = g_strdup_printf ("/%s/%s/%s/%s",
+                                                 key_elems[1],
+                                                 key_elems[2],
+                                                 key_elems[3],
+                                                 key_elems[4]);
+                g_strfreev (key_elems);
 
-        key_elems = g_strsplit (gconf_entry_get_key (entry), "/", 15);
-        binding_entry = g_strdup_printf ("/%s/%s/%s/%s",
-                                         key_elems[1],
-                                         key_elems[2],
-                                         key_elems[3],
-                                         key_elems[4]);
-        g_strfreev (key_elems);
-
-        bindings_get_entry (manager, client, binding_entry);
-        g_free (binding_entry);
+                bindings_get_entry (manager, client, binding_entry);
+                g_free (binding_entry);
+        }
 
         binding_register_keys (manager);
 }
@@ -479,6 +497,10 @@ gsd_keybindings_manager_start (GsdKeybindingsManager *manager,
 
         client = gconf_client_get_default ();
 
+        manager->priv->allowed_keys = gconf_client_get_list (client, 
+                                                             ALLOWED_KEYS_KEY,
+                                                             GCONF_VALUE_STRING,
+                                                             NULL);
         manager->priv->notify = register_config_callback (manager,
                                                           client,
                                                           GCONF_BINDING_DIR,
