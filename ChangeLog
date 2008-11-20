@@ -1,3 +1,9 @@
+2008-11-20  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/mouse/gsd-mouse-manager.c: (set_devicepresence_handler):
+	trap X errors so we don't crash on X servers that don't support
+	DevicePresence (bug #560618)
+
 2008-11-13  Jens Granseuer  <jensgr@gmx.net>
 
 	* data/desktop_gnome_keybindings.schemas.in: fix typo

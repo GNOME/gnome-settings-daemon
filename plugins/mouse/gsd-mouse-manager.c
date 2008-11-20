@@ -333,11 +333,15 @@ set_devicepresence_handler (GsdMouseManager *manager)
         XEventClass class_presence;
         int xi_presence;
 
+        gdk_error_trap_push ();
         DevicePresence (display, xi_presence, class_presence);
         XSelectExtensionEvent (display,
                                RootWindow (display, DefaultScreen (display)),
                                &class_presence, 1);
-        gdk_window_add_filter (NULL, devicepresence_filter, manager);
+
+        gdk_flush ();
+        if (!gdk_error_trap_pop ())
+                gdk_window_add_filter (NULL, devicepresence_filter, manager);
 }
 #endif
 
