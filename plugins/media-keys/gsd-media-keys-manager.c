@@ -682,10 +682,16 @@ static gint
 find_by_time (gconstpointer a,
               gconstpointer b)
 {
-        return ((MediaPlayer *)a)->time != 0 && ((MediaPlayer *)a)->time < ((MediaPlayer *)b)->time;
+        return ((MediaPlayer *)a)->time < ((MediaPlayer *)b)->time;
 }
 
-
+/*
+ * Register a new media player. Most applications will want to call
+ * this with time = GDK_CURRENT_TIME. This way, the last registered
+ * player will receive media events. In some cases, applications
+ * may want to register with a lower priority (usually 1), to grab
+ * events only nobody is interested.
+ */
 gboolean
 gsd_media_keys_manager_grab_media_player_keys (GsdMediaKeysManager *manager,
                                                const char          *application,
@@ -695,12 +701,19 @@ gsd_media_keys_manager_grab_media_player_keys (GsdMediaKeysManager *manager,
         GList       *iter;
         MediaPlayer *media_player;
 
+        if (time == GDK_CURRENT_TIME) {
+                GTimeVal tv;
+
+                g_get_current_time (&tv);
+                time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+        }
+
         iter = g_list_find_custom (manager->priv->media_players,
                                    application,
                                    find_by_application);
 
         if (iter != NULL) {
-                if (time == 0 || ((MediaPlayer *)iter->data)->time < time) {
+                if (((MediaPlayer *)iter->data)->time < time) {
                         g_free (((MediaPlayer *)iter->data)->application);
                         g_free (iter->data);
                         manager->priv->media_players = g_list_delete_link (manager->priv->media_players, iter);
