@@ -119,6 +119,8 @@ parse_binding (Binding *binding)
 
         binding->key.keysym = 0;
         binding->key.state = 0;
+        g_free (binding->key.keycodes);
+        binding->key.keycodes = NULL;
 
         if (binding->binding_str == NULL ||
             binding->binding_str[0] == '\0' ||
@@ -126,14 +128,10 @@ parse_binding (Binding *binding)
                 return FALSE;
         }
 
-        if (egg_accelerator_parse_virtual (binding->binding_str,
-                                           &binding->key.keysym,
-                                           &binding->key.keycode,
-                                           &binding->key.state) == FALSE) {
-                return FALSE;
-        }
-
-        return TRUE;
+        return egg_accelerator_parse_virtual (binding->binding_str,
+                                              &binding->key.keysym,
+                                              &binding->key.keycodes,
+                                              &binding->key.state);
 }
 
 static gint
@@ -207,15 +205,16 @@ bindings_get_entry (GsdKeybindingsManager *manager,
                 g_free (new_binding->binding_str);
                 g_free (new_binding->action);
                 g_free (new_binding->gconf_key);
+
+                new_binding->previous_key.keysym = new_binding->key.keysym;
+                new_binding->previous_key.state = new_binding->key.state;
+                new_binding->previous_key.keycodes = new_binding->key.keycodes;
+                new_binding->key.keycodes = NULL;
         }
 
         new_binding->binding_str = key;
         new_binding->action = action;
         new_binding->gconf_key = gconf_key;
-
-        new_binding->previous_key.keysym = new_binding->key.keysym;
-        new_binding->previous_key.state = new_binding->key.state;
-        new_binding->previous_key.keycode = new_binding->key.keycode;
 
         if (parse_binding (new_binding)) {
                 if (!tmp_elem)
@@ -225,6 +224,7 @@ bindings_get_entry (GsdKeybindingsManager *manager,
                 g_free (new_binding->binding_str);
                 g_free (new_binding->action);
                 g_free (new_binding->gconf_key);
+                g_free (new_binding->previous_key.keycodes);
                 g_free (new_binding);
 
                 if (tmp_elem)
@@ -236,6 +236,40 @@ bindings_get_entry (GsdKeybindingsManager *manager,
 }
 
 static gboolean
+same_keycode (const Key *key, const Key *other)
+{
+        if (key->keycodes != NULL && other->keycodes != NULL) {
+                guint *c;
+
+                for (c = key->keycodes; *c; ++c) {
+                        if (key_uses_keycode (other, *c))
+                                return TRUE;
+                }
+        }
+        return FALSE;
+}
+
+static gboolean
+same_key (const Key *key, const Key *other)
+{
+        if (key->state == other->state) {
+                if (key->keycodes != NULL && other->keycodes != NULL) {
+                        guint *c1, *c2;
+
+                        for (c1 = key->keycodes, c2 = other->keycodes;
+                             *c1 || *c2; ++c1, ++c2) {
+                                     if (*c1 != *c2)
+                                        return FALSE;
+                        }
+                }
+
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
+static gboolean
 key_already_used (GsdKeybindingsManager *manager,
                   Binding               *binding)
 {
@@ -244,7 +278,8 @@ key_already_used (GsdKeybindingsManager *manager,
         for (li = manager->priv->binding_list; li != NULL; li = li->next) {
                 Binding *tmp_binding =  (Binding*) li->data;
 
-                if (tmp_binding != binding &&  tmp_binding->key.keycode == binding->key.keycode &&
+                if (tmp_binding != binding &&
+                    same_keycode (&tmp_binding->key, &binding->key) &&
                     tmp_binding->key.state == binding->key.state) {
                         return TRUE;
                 }
@@ -262,29 +297,34 @@ binding_register_keys (GsdKeybindingsManager *manager)
         gdk_error_trap_push ();
 
         /* Now check for changes and grab new key if not already used */
-        for (li = manager->priv->binding_list ; li != NULL; li = li->next) {
+        for (li = manager->priv->binding_list; li != NULL; li = li->next) {
                 Binding *binding = (Binding *) li->data;
 
 		if (manager->priv->allowed_keys != NULL &&
-                    !g_slist_find_custom (manager->priv->allowed_keys, 
-                                          binding->gconf_key, 
-                                          g_strcmp0)) {
+                    !g_slist_find_custom (manager->priv->allowed_keys,
+                                          binding->gconf_key,
+                                          (GCompareFunc) g_strcmp0)) {
                         continue;
 		}
 
-                if (binding->previous_key.keycode != binding->key.keycode ||
-                    binding->previous_key.state != binding->key.state) {
+                if (!same_key (&binding->previous_key, &binding->key)) {
                         /* Ungrab key if it changed and not clashing with previously set binding */
-                        if (! key_already_used (manager, binding)) {
+                        if (!key_already_used (manager, binding)) {
+                                gint i;
+
                                 need_flush = TRUE;
-                                if (binding->previous_key.keycode) {
+                                if (binding->previous_key.keycodes) {
                                         grab_key_unsafe (&binding->previous_key, FALSE, manager->priv->screens);
                                 }
                                 grab_key_unsafe (&binding->key, TRUE, manager->priv->screens);
 
                                 binding->previous_key.keysym = binding->key.keysym;
                                 binding->previous_key.state = binding->key.state;
-                                binding->previous_key.keycode = binding->key.keycode;
+                                g_free (binding->previous_key.keycodes);
+                                for (i = 0; binding->key.keycodes[i]; ++i);
+                                binding->previous_key.keycodes = g_new0 (guint, i);
+                                for (i = 0; binding->key.keycodes[i]; ++i)
+                                        binding->previous_key.keycodes[i] = binding->key.keycodes[i];
                         } else
                                 g_warning ("Key binding (%s) is already in use", binding->binding_str);
                 }
@@ -448,7 +488,7 @@ bindings_callback (GConfClient           *client,
         if (strcmp (gconf_entry_get_key (entry), ALLOWED_KEYS_KEY) == 0) {
                 g_slist_foreach (manager->priv->allowed_keys, (GFunc)g_free, NULL);
                 g_slist_free (manager->priv->allowed_keys);
-                manager->priv->allowed_keys = gconf_client_get_list (client, 
+                manager->priv->allowed_keys = gconf_client_get_list (client,
                                                                      ALLOWED_KEYS_KEY,
                                                                      GCONF_VALUE_STRING,
                                                                      NULL);
@@ -497,7 +537,7 @@ gsd_keybindings_manager_start (GsdKeybindingsManager *manager,
 
         client = gconf_client_get_default ();
 
-        manager->priv->allowed_keys = gconf_client_get_list (client, 
+        manager->priv->allowed_keys = gconf_client_get_list (client,
                                                              ALLOWED_KEYS_KEY,
                                                              GCONF_VALUE_STRING,
                                                              NULL);
@@ -564,6 +604,8 @@ gsd_keybindings_manager_stop (GsdKeybindingsManager *manager)
                 g_free (b->binding_str);
                 g_free (b->action);
                 g_free (b->gconf_key);
+                g_free (b->previous_key.keycodes);
+                g_free (b->key.keycodes);
                 g_free (b);
         }
         g_slist_free (p->binding_list);

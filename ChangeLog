@@ -1,3 +1,27 @@
+2008-11-24  Jens Granseuer  <jensgr@gmx.net>
+
+	When multiple keys (keycodes) were mapped to the same keysym, g-s-d
+	would only accept the first of those keycodes in the keymap as a
+	valid shortcut. To fix this, instead of checking against a single
+	keycode, we need to grab all keycodes that match the respective
+	keysym (bug #561275).
+
+	With thanks to Mario Limonciello <mario_limonciello@dell.com>
+
+	* plugins/common/eggaccelerators.c:
+	(egg_accelerator_parse_virtual):
+	* plugins/common/eggaccelerators.h: possibly return multiple keycodes
+	* plugins/common/gsd-keygrab.c: (grab_key_unsafe),
+	(key_uses_keycode), (match_key): grab all matching keys
+	* plugins/common/gsd-keygrab.h:
+	* plugins/keybindings/gsd-keybindings-manager.c: (parse_binding),
+	(bindings_get_entry), (same_keycode), (same_key),
+	(key_already_used), (binding_register_keys),
+	(gsd_keybindings_manager_stop):
+	* plugins/media-keys/gsd-media-keys-manager.c: (update_kbd_cb),
+	(init_kbd), (gsd_media_keys_manager_stop): update to handle changes
+	in data structures
+
 2008-11-23  Jens Granseuer  <jensgr@gmx.net>
 
 	Patch by: <dmacks@netspace.org>

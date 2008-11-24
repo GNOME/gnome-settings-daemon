@@ -152,10 +152,14 @@ grab_key_unsafe (Key                 *key,
 
                 for (l = screens; l; l = l->next) {
                         GdkScreen *screen = l->data;
-                        grab_key_real (key->keycode,
-                                       gdk_screen_get_root_window (screen),
-                                       grab,
-                                       result | key->state);
+                        guint *code;
+
+                        for (code = key->keycodes; *code; ++code) {
+                                grab_key_real (*code,
+                                               gdk_screen_get_root_window (screen),
+                                               grab,
+                                               result | key->state);
+                        }
                 }
         }
 }
@@ -182,6 +186,20 @@ have_xkb (Display *dpy)
 	}
 
 	return have_xkb;
+}
+
+gboolean
+key_uses_keycode (const Key *key, guint keycode)
+{
+	if (key->keycodes != NULL) {
+		guint *c;
+
+		for (c = key->keycodes; *c; ++c) {
+			if (*c == keycode)
+				return TRUE;
+		}
+	}
+	return FALSE;
 }
 
 gboolean
@@ -223,6 +241,6 @@ match_key (Key *key, XEvent *event)
 
 	/* The key we passed doesn't have a keysym, so try with just the keycode */
         return (key != NULL
-                && key->keycode == event->xkey.keycode
-                && key->state == (event->xkey.state & gsd_used_mods));
+                && key->state == (event->xkey.state & gsd_used_mods)
+                && key_uses_keycode (key, event->xkey.keycode));
 }

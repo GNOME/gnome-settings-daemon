@@ -305,8 +305,7 @@ update_kbd_cb (GConfClient         *client,
                         }
 
                         key = g_new0 (Key, 1);
-                        if (egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycode, &key->state) == FALSE
-                            || key->keycode == 0) {
+                        if (!egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state)) {
                                 g_free (tmp);
                                 g_free (key);
                                 break;
@@ -361,17 +360,8 @@ init_kbd (GsdMediaKeysManager *manager)
                 }
 
                 key = g_new0 (Key, 1);
-                if (!egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycode, &key->state)
-                    || key->keycode == 0) {
+                if (!egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state)) {
                         g_debug ("Unable to parse: '%s'", tmp);
-
-                        g_free (tmp);
-                        g_free (key);
-                        continue;
-                }
-                /* avoid grabbing all the keyboard when KeyCode cannot be retrieved */
-                if (key->keycode == AnyKey)  {
-                        g_warning ("The shortcut key \"%s\" cannot be found on the current system, ignoring the binding", tmp);
                         g_free (tmp);
                         g_free (key);
                         continue;
@@ -1027,8 +1017,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         }
 
         for (i = 0; i < HANDLED_KEYS; ++i) {
-                g_free (keys[i].key);
-                keys[i].key = NULL;
+                if (keys[i].key) {
+                        g_free (keys[i].key->keycodes);
+                        g_free (keys[i].key);
+                        keys[i].key = NULL;
+                }
         }
 
         if (priv->volume) {

@@ -28,7 +28,7 @@ G_BEGIN_DECLS
 typedef struct {
         guint keysym;
         guint state;
-        guint keycode;
+        guint *keycodes;
 } Key;
 
 
@@ -38,6 +38,9 @@ void	        grab_key_unsafe	(Key     *key,
 
 gboolean        match_key       (Key     *key,
                                  XEvent  *event);
+
+gboolean        key_uses_keycode (const Key *key,
+                                  guint keycode);
 
 G_END_DECLS
 

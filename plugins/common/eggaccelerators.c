@@ -188,6 +188,8 @@ is_keycode (const gchar *string)
  * egg_accelerator_parse_virtual:
  * @accelerator:      string representing an accelerator
  * @accelerator_key:  return location for accelerator keyval
+ * @accelerator_codes: return location for a 0-terminated array
+ *                     of accelerator keycodes
  * @accelerator_mods: return location for accelerator modifier mask
  *
  * Parses a string representing a virtual accelerator. The format
@@ -212,7 +214,7 @@ is_keycode (const gchar *string)
 gboolean
 egg_accelerator_parse_virtual (const gchar            *accelerator,
                                guint                  *accelerator_key,
-			       guint                  *keycode,
+			       guint                 **accelerator_codes,
                                EggVirtualModifierType *accelerator_mods)
 {
   guint keyval;
@@ -224,8 +226,8 @@ egg_accelerator_parse_virtual (const gchar            *accelerator,
     *accelerator_key = 0;
   if (accelerator_mods)
     *accelerator_mods = 0;
-  if (keycode)
-    *keycode = 0;
+  if (accelerator_codes)
+    *accelerator_codes = NULL;
 
   g_return_val_if_fail (accelerator != NULL, FALSE);
 
@@ -345,20 +347,40 @@ egg_accelerator_parse_virtual (const gchar            *accelerator,
 		    {
 		      bad_keyval = TRUE;
 		    }
-		  else if (keycode != NULL)
+		  else if (accelerator_codes != NULL)
 		    {
-		      *keycode = tmp_keycode;
 		      /* 0x00 is an invalid keycode too. */
-		      if (*keycode == 0)
+		      if (tmp_keycode == 0) {
 			bad_keyval = TRUE;
+		      } else {
+			*accelerator_codes = g_new0 (guint, 2);
+			(*accelerator_codes)[0] = tmp_keycode;
+		      }
 		    }
 		}
 	    }
-	  else if (keycode != NULL)
+	  else if (accelerator_codes != NULL)
 	    {
-	      *keycode = XKeysymToKeycode (GDK_DISPLAY(), keyval);
-	      if (*keycode == 0)
-	 	bad_keyval = TRUE;
+	      GdkKeymapKey *keys;
+	      gint n_keys, i, j;
+
+	      if (!gdk_keymap_get_entries_for_keyval (NULL, keyval, &keys, &n_keys)) {
+ 	 	bad_keyval = TRUE;
+	      } else {
+		*accelerator_codes = g_new0 (guint, n_keys + 1);
+
+		for (i = 0, j = 0; i < n_keys; ++i) {
+		  if (keys[i].level == 0)
+		    (*accelerator_codes)[j++] = keys[i].keycode;
+		}
+
+		if (j == 0) {
+		  g_free (*accelerator_codes);
+		  *accelerator_codes = NULL;
+		  bad_keyval = TRUE;
+	        }
+	        g_free (keys);
+	      }
 	    }
 
           accelerator += len;
