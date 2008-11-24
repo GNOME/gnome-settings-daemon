@@ -310,6 +310,36 @@ daemon_terminate_parent (void)
         close (pipefds[1]);
 }
 
+static void
+parse_args (int *argc, char ***argv)
+{
+        GError *error;
+        GOptionContext *context;
+
+        gnome_settings_profile_start (NULL);
+
+
+        context = g_option_context_new (NULL);
+
+        g_option_context_add_main_entries (context, entries, NULL);
+        g_option_context_add_group (context, gtk_get_option_group (FALSE));
+
+        error = NULL;
+        if (!g_option_context_parse (context, argc, argv, &error)) {
+                if (error != NULL) {
+                        g_warning ("%s", error->message);
+                        g_error_free (error);
+                } else {
+                        g_warning ("Unable to initialize GTK+");
+                }
+                exit (EXIT_FAILURE);
+        }
+
+        g_option_context_free (context);
+
+        gnome_settings_profile_end (NULL);
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -322,29 +352,24 @@ main (int argc, char *argv[])
 
         gnome_settings_profile_start (NULL);
 
-        daemon_start ();
-
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
-
         setlocale (LC_ALL, "");
+
+        parse_args (&argc, &argv);
+
+        daemon_start ();
 
         g_type_init ();
 
-        gnome_settings_profile_start ("gtk init");
-        error = NULL;
-        if (! gtk_init_with_args (&argc, &argv, NULL, entries, NULL, &error)) {
-                if (error != NULL) {
-                        g_warning ("%s", error->message);
-                        g_error_free (error);
-                } else {
-                        g_warning ("Unable to initialize GTK+");
-                }
+        gnome_settings_profile_start ("opening gtk display");
+        if (! gtk_init_check (NULL, NULL)) {
+                g_warning ("Unable to initialize GTK+");
                 daemon_terminate_parent ();
                 exit (EXIT_FAILURE);
         }
-        gnome_settings_profile_end ("gtk init");
+        gnome_settings_profile_end ("opening gtk display");
 
         daemon_detach ();
 
