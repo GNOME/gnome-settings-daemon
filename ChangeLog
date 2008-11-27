@@ -1,3 +1,9 @@
+2008-11-27  Sergey Udaltsov <svu@gnome.org>
+
+	* configure.ac, plugins/keyboard/gsd-keyboard-xkb.c: introduce
+	dependency on libxklavier 3.8. Use "new device" notification to reload
+	XKB configuration when new keyboard is plugged in
+
 2008-11-24  Behdad Esfahbod  <behdad@gnome.org>
 
 	* gnome-settings-daemon/main.c (parse_args), (main): Fix --no-daemon 

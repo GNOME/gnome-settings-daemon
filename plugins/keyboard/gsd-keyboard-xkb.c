@@ -343,6 +343,14 @@ register_config_callback (GConfClient          *client,
         return gconf_client_notify_add (client, path, func, NULL, NULL, NULL);
 }
 
+/* When new Keyboard is plugged in - reload the settings */
+static void
+gsd_keyboard_new_device (XklEngine * engine)
+{
+        apply_settings ();
+        apply_xkb_settings ();
+}
+
 void
 gsd_keyboard_xkb_init (GConfClient *client)
 {
@@ -385,6 +393,12 @@ gsd_keyboard_xkb_init (GConfClient *client)
                 gdk_window_add_filter (NULL, (GdkFilterFunc)
                                        gsd_keyboard_xkb_evt_filter,
                                        NULL);
+
+                if (xkl_engine_get_features (xkl_engine) |
+                    XKLF_DEVICE_DISCOVERY)
+                        g_signal_connect (xkl_engine, "X-new-device",
+                                          G_CALLBACK
+                                          (gsd_keyboard_new_device), NULL);
 
 		gnome_settings_profile_start ("xkl_engine_start_listen");
                 xkl_engine_start_listen (xkl_engine,
