@@ -67,389 +67,391 @@ static FILE *logfile;
 
 static void
 gsd_keyboard_log_appender (const char file[],
-                           const char function[],
-                           int        level,
-                           const char format[],
-                           va_list    args)
+			   const char function[],
+			   int level, const char format[], va_list args)
 {
-        time_t now = time (NULL);
-        fprintf (logfile, "[%08ld,%03d,%s:%s/] \t", now,
-                 level, file, function);
-        vfprintf (logfile, format, args);
-        fflush (logfile);
+	time_t now = time (NULL);
+	fprintf (logfile, "[%08ld,%03d,%s:%s/] \t", now,
+		 level, file, function);
+	vfprintf (logfile, format, args);
+	fflush (logfile);
 }
 #endif
 
 static void
 activation_error (void)
 {
-        char const *vendor = ServerVendor (GDK_DISPLAY ());
-        int         release = VendorRelease (GDK_DISPLAY ());
-        GtkWidget  *dialog;
-        gboolean    badXFree430Release;
+	char const *vendor = ServerVendor (GDK_DISPLAY ());
+	int release = VendorRelease (GDK_DISPLAY ());
+	GtkWidget *dialog;
+	gboolean badXFree430Release;
 
-        badXFree430Release = (vendor != NULL)
-            && (0 == strcmp (vendor, "The XFree86 Project, Inc"))
-            && (release / 100000 == 403);
+	badXFree430Release = (vendor != NULL)
+	    && (0 == strcmp (vendor, "The XFree86 Project, Inc"))
+	    && (release / 100000 == 403);
 
-        /* VNC viewers will not work, do not barrage them with warnings */
-        if (NULL != vendor && NULL != strstr (vendor, "VNC"))
-                return;
+	/* VNC viewers will not work, do not barrage them with warnings */
+	if (NULL != vendor && NULL != strstr (vendor, "VNC"))
+		return;
 
-        dialog = gtk_message_dialog_new_with_markup (NULL,
-                                                     0,
-                                                     GTK_MESSAGE_ERROR,
-                                                     GTK_BUTTONS_CLOSE,
-                                                     _
-                                                     ("Error activating XKB configuration.\n"
-                                                      "It can happen under various circumstances:\n"
-                                                      "- a bug in libxklavier library\n"
-                                                      "- a bug in X server (xkbcomp, xmodmap utilities)\n"
-                                                      "- X server with incompatible libxkbfile implementation\n\n"
-                                                      "X server version data:\n%s\n%d\n%s\n"
-                                                      "If you report this situation as a bug, please include:\n"
-                                                      "- The result of <b>%s</b>\n"
-                                                      "- The result of <b>%s</b>"),
-                                                     vendor,
-                                                     release,
-                                                     badXFree430Release
-                                                     ?
-                                                     _
-                                                     ("You are using XFree 4.3.0.\n"
-                                                      "There are known problems with complex XKB configurations.\n"
-                                                      "Try using a simpler configuration or taking a fresher version of XFree software.")
-                                                     : "",
-                                                     "xprop -root | grep XKB",
-                                                     "gconftool-2 -R /desktop/gnome/peripherals/keyboard/kbd");
-        g_signal_connect (dialog, "response",
-                          G_CALLBACK (gtk_widget_destroy), NULL);
-        gsd_delayed_show_dialog (dialog);
+	dialog = gtk_message_dialog_new_with_markup (NULL,
+						     0,
+						     GTK_MESSAGE_ERROR,
+						     GTK_BUTTONS_CLOSE,
+						     _
+						     ("Error activating XKB configuration.\n"
+						      "It can happen under various circumstances:\n"
+						      "- a bug in libxklavier library\n"
+						      "- a bug in X server (xkbcomp, xmodmap utilities)\n"
+						      "- X server with incompatible libxkbfile implementation\n\n"
+						      "X server version data:\n%s\n%d\n%s\n"
+						      "If you report this situation as a bug, please include:\n"
+						      "- The result of <b>%s</b>\n"
+						      "- The result of <b>%s</b>"),
+						     vendor,
+						     release,
+						     badXFree430Release
+						     ?
+						     _
+						     ("You are using XFree 4.3.0.\n"
+						      "There are known problems with complex XKB configurations.\n"
+						      "Try using a simpler configuration or taking a fresher version of XFree software.")
+						     : "",
+						     "xprop -root | grep XKB",
+						     "gconftool-2 -R /desktop/gnome/peripherals/keyboard/kbd");
+	g_signal_connect (dialog, "response",
+			  G_CALLBACK (gtk_widget_destroy), NULL);
+	gsd_delayed_show_dialog (dialog);
 }
 
 static void
 apply_settings (void)
 {
-        if (!inited_ok)
-                return;
+	if (!inited_ok)
+		return;
 
-        gkbd_desktop_config_load_from_gconf (&current_config);
-        /* again, probably it would be nice to compare things
-           before activating them */
-        gkbd_desktop_config_activate (&current_config);
+	gkbd_desktop_config_load_from_gconf (&current_config);
+	/* again, probably it would be nice to compare things
+	   before activating them */
+	gkbd_desktop_config_activate (&current_config);
 }
 
 static void
 apply_xkb_settings (void)
 {
-        GConfClient *conf_client;
-        GkbdKeyboardConfig current_sys_kbd_config;
-        int group_to_activate = -1;
-        const char *gdm_layout;
+	GConfClient *conf_client;
+	GkbdKeyboardConfig current_sys_kbd_config;
+	int group_to_activate = -1;
+	const char *gdm_layout;
 
-        if (!inited_ok)
-                return;
+	if (!inited_ok)
+		return;
 
-        conf_client = gconf_client_get_default ();
+	conf_client = gconf_client_get_default ();
 
-        /* With GDM the user can already set a layout from the login
-         * screen. Try to keep that setting.
-         * We clear gdm_keyboard_layout early, so we don't risk
-         * recursion from gconf notification.
-         */
-        gdm_layout = gdm_keyboard_layout;
-        gdm_keyboard_layout = NULL;
-        if (gdm_layout != NULL) {
-                GSList *layouts;
-                layouts = gconf_client_get_list (conf_client,
-                                                 GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
-                                                 GCONF_VALUE_STRING,
-                                                 NULL);
-                if (layouts == NULL) {
-                        layouts = g_slist_append (layouts, g_strdup (gdm_layout));
-                        gconf_client_set_list (conf_client,
-                                               GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
-                                               GCONF_VALUE_STRING,
-                                               layouts,
-                                               NULL);
-                }
-                g_slist_foreach (layouts, (GFunc)g_free, NULL);
-                g_slist_free (layouts);
-        }
+	/* With GDM the user can already set a layout from the login
+	 * screen. Try to keep that setting.
+	 * We clear gdm_keyboard_layout early, so we don't risk
+	 * recursion from gconf notification.
+	 */
+	gdm_layout = gdm_keyboard_layout;
+	gdm_keyboard_layout = NULL;
+	if (gdm_layout != NULL) {
+		GSList *layouts;
+		layouts = gconf_client_get_list (conf_client,
+						 GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
+						 GCONF_VALUE_STRING, NULL);
+		if (layouts == NULL) {
+			layouts =
+			    g_slist_append (layouts,
+					    g_strdup (gdm_layout));
+			gconf_client_set_list (conf_client,
+					       GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
+					       GCONF_VALUE_STRING, layouts,
+					       NULL);
+		}
+		g_slist_foreach (layouts, (GFunc) g_free, NULL);
+		g_slist_free (layouts);
+	}
 
-        gkbd_keyboard_config_init (&current_sys_kbd_config,
-                                   conf_client,
-                                   xkl_engine);
+	gkbd_keyboard_config_init (&current_sys_kbd_config,
+				   conf_client, xkl_engine);
 
-        gkbd_keyboard_config_load_from_gconf (&current_kbd_config,
-                                              &initial_sys_kbd_config);
+	gkbd_keyboard_config_load_from_gconf (&current_kbd_config,
+					      &initial_sys_kbd_config);
 
-        gkbd_keyboard_config_load_from_x_current (&current_sys_kbd_config,
-                                                  NULL);
+	gkbd_keyboard_config_load_from_x_current (&current_sys_kbd_config,
+						  NULL);
 
-        if (gdm_layout != NULL) {
-                /* If there are multiple layouts,
-                 * try to find the one closest to the gdm layout
-                 */
-                GSList *l;
-                int i;
-                size_t len = strlen (gdm_layout);
-                for (i = 0, l = current_kbd_config.layouts_variants; l; i++, l = l->next) {
-                        char *lv = l->data;
-                        if (strncmp (lv, gdm_layout, len) == 0 && (lv[len] == '\0' || lv[len] == '\t')) {
-                                group_to_activate = i;
-                                break;
-                        }
-                }
-        }
+	if (gdm_layout != NULL) {
+		/* If there are multiple layouts,
+		 * try to find the one closest to the gdm layout
+		 */
+		GSList *l;
+		int i;
+		size_t len = strlen (gdm_layout);
+		for (i = 0, l = current_kbd_config.layouts_variants; l;
+		     i++, l = l->next) {
+			char *lv = l->data;
+			if (strncmp (lv, gdm_layout, len) == 0
+			    && (lv[len] == '\0' || lv[len] == '\t')) {
+				group_to_activate = i;
+				break;
+			}
+		}
+	}
 
-        /* Activate - only if different! */
-        if (!gkbd_keyboard_config_equals
-            (&current_kbd_config, &current_sys_kbd_config)) {
-                if (gkbd_keyboard_config_activate (&current_kbd_config)) {
-                        if (pa_callback != NULL) {
-                                (*pa_callback) (pa_callback_user_data);
-                        }
-                } else {
-                        g_warning
-                            ("Could not activate the XKB configuration");
-                        activation_error ();
-                }
-        } else
-                xkl_debug (100,
-                           "Actual KBD configuration was not changed: redundant notification\n");
+	/* Activate - only if different! */
+	if (!gkbd_keyboard_config_equals
+	    (&current_kbd_config, &current_sys_kbd_config)) {
+		if (gkbd_keyboard_config_activate (&current_kbd_config)) {
+			if (pa_callback != NULL) {
+				(*pa_callback) (pa_callback_user_data);
+			}
+		} else {
+			g_warning
+			    ("Could not activate the XKB configuration");
+			activation_error ();
+		}
+	} else
+		xkl_debug (100,
+			   "Actual KBD configuration was not changed: redundant notification\n");
 
-        if (group_to_activate != -1)
-                xkl_engine_lock_group (current_config.engine, group_to_activate);
-        gkbd_keyboard_config_term (&current_sys_kbd_config);
+	if (group_to_activate != -1)
+		xkl_engine_lock_group (current_config.engine,
+				       group_to_activate);
+	gkbd_keyboard_config_term (&current_sys_kbd_config);
 }
 
 static void
 gsd_keyboard_xkb_analyze_sysconfig (void)
 {
-        GConfClient *conf_client;
+	GConfClient *conf_client;
 
-        if (!inited_ok)
-                return;
+	if (!inited_ok)
+		return;
 
-        conf_client = gconf_client_get_default ();
-        gkbd_keyboard_config_init (&initial_sys_kbd_config,
-                                   conf_client,
-                                   xkl_engine);
-        gkbd_keyboard_config_load_from_x_initial (&initial_sys_kbd_config,
-                                                  NULL);
-        g_object_unref (conf_client);
+	conf_client = gconf_client_get_default ();
+	gkbd_keyboard_config_init (&initial_sys_kbd_config,
+				   conf_client, xkl_engine);
+	gkbd_keyboard_config_load_from_x_initial (&initial_sys_kbd_config,
+						  NULL);
+	g_object_unref (conf_client);
 }
 
 static gboolean
 gsd_chk_file_list (void)
 {
-        GDir        *home_dir;
-        const char  *fname;
-        GSList      *file_list = NULL;
-        GSList      *last_login_file_list = NULL;
-        GSList      *tmp = NULL;
-        GSList      *tmp_l = NULL;
-        gboolean     new_file_exist = FALSE;
-        GConfClient *conf_client;
+	GDir *home_dir;
+	const char *fname;
+	GSList *file_list = NULL;
+	GSList *last_login_file_list = NULL;
+	GSList *tmp = NULL;
+	GSList *tmp_l = NULL;
+	gboolean new_file_exist = FALSE;
+	GConfClient *conf_client;
 
-        home_dir = g_dir_open (g_get_home_dir (), 0, NULL);
-        while ((fname = g_dir_read_name (home_dir)) != NULL) {
-                if (g_strrstr (fname, "modmap")) {
-                        file_list = g_slist_append (file_list, g_strdup (fname));
-                }
-        }
-        g_dir_close (home_dir);
+	home_dir = g_dir_open (g_get_home_dir (), 0, NULL);
+	while ((fname = g_dir_read_name (home_dir)) != NULL) {
+		if (g_strrstr (fname, "modmap")) {
+			file_list =
+			    g_slist_append (file_list, g_strdup (fname));
+		}
+	}
+	g_dir_close (home_dir);
 
-        conf_client = gconf_client_get_default ();
+	conf_client = gconf_client_get_default ();
 
-        last_login_file_list = gconf_client_get_list (conf_client,
-                                                      KNOWN_FILES_KEY,
-                                                      GCONF_VALUE_STRING,
-                                                      NULL);
+	last_login_file_list = gconf_client_get_list (conf_client,
+						      KNOWN_FILES_KEY,
+						      GCONF_VALUE_STRING,
+						      NULL);
 
-        /* Compare between the two file list, currently available modmap files
-           and the files available in the last log in */
-        tmp = file_list;
-        while (tmp != NULL) {
-                tmp_l = last_login_file_list;
-                new_file_exist = TRUE;
-                while (tmp_l != NULL) {
-                        if (strcmp (tmp->data, tmp_l->data) == 0) {
-                                new_file_exist = FALSE;
-                                break;
-                        } else {
-                                tmp_l = tmp_l->next;
-                        }
-                }
-                if (new_file_exist) {
-                        break;
-                } else {
-                        tmp = tmp->next;
-                }
-        }
+	/* Compare between the two file list, currently available modmap files
+	   and the files available in the last log in */
+	tmp = file_list;
+	while (tmp != NULL) {
+		tmp_l = last_login_file_list;
+		new_file_exist = TRUE;
+		while (tmp_l != NULL) {
+			if (strcmp (tmp->data, tmp_l->data) == 0) {
+				new_file_exist = FALSE;
+				break;
+			} else {
+				tmp_l = tmp_l->next;
+			}
+		}
+		if (new_file_exist) {
+			break;
+		} else {
+			tmp = tmp->next;
+		}
+	}
 
-        if (new_file_exist) {
-                gconf_client_set_list (conf_client,
-                                       KNOWN_FILES_KEY,
-                                       GCONF_VALUE_STRING,
-                                       file_list,
-                                       NULL);
-        }
+	if (new_file_exist) {
+		gconf_client_set_list (conf_client,
+				       KNOWN_FILES_KEY,
+				       GCONF_VALUE_STRING,
+				       file_list, NULL);
+	}
 
-        g_object_unref (conf_client);
+	g_object_unref (conf_client);
 
-        g_slist_foreach (file_list, (GFunc) g_free, NULL);
-        g_slist_free (file_list);
+	g_slist_foreach (file_list, (GFunc) g_free, NULL);
+	g_slist_free (file_list);
 
-        g_slist_foreach (last_login_file_list, (GFunc) g_free, NULL);
-        g_slist_free (last_login_file_list);
+	g_slist_foreach (last_login_file_list, (GFunc) g_free, NULL);
+	g_slist_free (last_login_file_list);
 
-        return new_file_exist;
+	return new_file_exist;
 
 }
 
 static void
 gsd_keyboard_xkb_chk_lcl_xmm (void)
 {
-        if (gsd_chk_file_list ()) {
-                gsd_modmap_dialog_call ();
-        }
-        gsd_load_modmap_files ();
+	if (gsd_chk_file_list ()) {
+		gsd_modmap_dialog_call ();
+	}
+	gsd_load_modmap_files ();
 }
 
 void
 gsd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
-                                               void *user_data)
+					       void *user_data)
 {
-        pa_callback = fun;
-        pa_callback_user_data = user_data;
+	pa_callback = fun;
+	pa_callback_user_data = user_data;
 }
 
 static GdkFilterReturn
-gsd_keyboard_xkb_evt_filter (GdkXEvent * xev,
-                             GdkEvent  * event)
+gsd_keyboard_xkb_evt_filter (GdkXEvent * xev, GdkEvent * event)
 {
-        XEvent *xevent = (XEvent *) xev;
-        xkl_engine_filter_events (xkl_engine, xevent);
-        return GDK_FILTER_CONTINUE;
+	XEvent *xevent = (XEvent *) xev;
+	xkl_engine_filter_events (xkl_engine, xevent);
+	return GDK_FILTER_CONTINUE;
 }
 
 static guint
-register_config_callback (GConfClient          *client,
-                          const char           *path,
-                          GConfClientNotifyFunc func)
+register_config_callback (GConfClient * client,
+			  const char *path, GConfClientNotifyFunc func)
 {
-        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-        return gconf_client_notify_add (client, path, func, NULL, NULL, NULL);
+	gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_ONELEVEL,
+			      NULL);
+	return gconf_client_notify_add (client, path, func, NULL, NULL,
+					NULL);
 }
 
 /* When new Keyboard is plugged in - reload the settings */
 static void
 gsd_keyboard_new_device (XklEngine * engine)
 {
-        apply_settings ();
-        apply_xkb_settings ();
+	apply_settings ();
+	apply_xkb_settings ();
 }
 
 void
-gsd_keyboard_xkb_init (GConfClient *client)
+gsd_keyboard_xkb_init (GConfClient * client)
 {
-        gnome_settings_profile_start (NULL);
+	gnome_settings_profile_start (NULL);
 #ifdef GSDKX
-        xkl_set_debug_level (200);
-        logfile = fopen ("/tmp/gsdkx.log", "a");
-        xkl_set_log_appender (gsd_keyboard_log_appender);
+	xkl_set_debug_level (200);
+	logfile = fopen ("/tmp/gsdkx.log", "a");
+	xkl_set_log_appender (gsd_keyboard_log_appender);
 #endif
-        gnome_settings_profile_start ("xkl_engine_get_instance");
-        xkl_engine = xkl_engine_get_instance (GDK_DISPLAY ());
-        gnome_settings_profile_end ("xkl_engine_get_instance");
-        if (xkl_engine) {
-                inited_ok = TRUE;
+	gnome_settings_profile_start ("xkl_engine_get_instance");
+	xkl_engine = xkl_engine_get_instance (GDK_DISPLAY ());
+	gnome_settings_profile_end ("xkl_engine_get_instance");
+	if (xkl_engine) {
+		inited_ok = TRUE;
 
-                gdm_keyboard_layout = g_getenv ("GDM_KEYBOARD_LAYOUT");
+		gdm_keyboard_layout = g_getenv ("GDM_KEYBOARD_LAYOUT");
 
-                gkbd_desktop_config_init (&current_config,
-                                          client,
-                                          xkl_engine);
-                gkbd_keyboard_config_init (&current_kbd_config,
-                                           client,
-                                           xkl_engine);
-                xkl_engine_backup_names_prop (xkl_engine);
-                gsd_keyboard_xkb_analyze_sysconfig ();
-		gnome_settings_profile_start ("gsd_keyboard_xkb_chk_lcl_xmm");
-                gsd_keyboard_xkb_chk_lcl_xmm ();
-		gnome_settings_profile_end ("gsd_keyboard_xkb_chk_lcl_xmm");
+		gkbd_desktop_config_init (&current_config,
+					  client, xkl_engine);
+		gkbd_keyboard_config_init (&current_kbd_config,
+					   client, xkl_engine);
+		xkl_engine_backup_names_prop (xkl_engine);
+		gsd_keyboard_xkb_analyze_sysconfig ();
+		gnome_settings_profile_start
+		    ("gsd_keyboard_xkb_chk_lcl_xmm");
+		gsd_keyboard_xkb_chk_lcl_xmm ();
+		gnome_settings_profile_end
+		    ("gsd_keyboard_xkb_chk_lcl_xmm");
 
-                notify_desktop =
-                        register_config_callback (client,
-                                                  GKBD_DESKTOP_CONFIG_DIR,
-                                                  (GConfClientNotifyFunc) apply_settings);
+		notify_desktop =
+		    register_config_callback (client,
+					      GKBD_DESKTOP_CONFIG_DIR,
+					      (GConfClientNotifyFunc)
+					      apply_settings);
 
-                notify_keyboard =
-                        register_config_callback (client,
-                                                  GKBD_KEYBOARD_CONFIG_DIR,
-                                                  (GConfClientNotifyFunc) apply_xkb_settings);
+		notify_keyboard =
+		    register_config_callback (client,
+					      GKBD_KEYBOARD_CONFIG_DIR,
+					      (GConfClientNotifyFunc)
+					      apply_xkb_settings);
 
-                gdk_window_add_filter (NULL, (GdkFilterFunc)
-                                       gsd_keyboard_xkb_evt_filter,
-                                       NULL);
+		gdk_window_add_filter (NULL, (GdkFilterFunc)
+				       gsd_keyboard_xkb_evt_filter, NULL);
 
-                if (xkl_engine_get_features (xkl_engine) |
-                    XKLF_DEVICE_DISCOVERY)
-                        g_signal_connect (xkl_engine, "X-new-device",
-                                          G_CALLBACK
-                                          (gsd_keyboard_new_device), NULL);
+		if (xkl_engine_get_features (xkl_engine) |
+		    XKLF_DEVICE_DISCOVERY)
+			g_signal_connect (xkl_engine, "X-new-device",
+					  G_CALLBACK
+					  (gsd_keyboard_new_device), NULL);
 
 		gnome_settings_profile_start ("xkl_engine_start_listen");
-                xkl_engine_start_listen (xkl_engine,
-                                         XKLL_MANAGE_LAYOUTS |
-                                         XKLL_MANAGE_WINDOW_STATES);
+		xkl_engine_start_listen (xkl_engine,
+					 XKLL_MANAGE_LAYOUTS |
+					 XKLL_MANAGE_WINDOW_STATES);
 		gnome_settings_profile_end ("xkl_engine_start_listen");
 
 		gnome_settings_profile_start ("apply_settings");
-                apply_settings ();
+		apply_settings ();
 		gnome_settings_profile_end ("apply_settings");
 		gnome_settings_profile_start ("apply_xkb_settings");
-                apply_xkb_settings ();
+		apply_xkb_settings ();
 		gnome_settings_profile_end ("apply_xkb_settings");
-        }
-        gnome_settings_profile_end (NULL);
+	}
+	gnome_settings_profile_end (NULL);
 }
 
 void
 gsd_keyboard_xkb_shutdown (void)
 {
-        GConfClient *client;
+	GConfClient *client;
 
-        pa_callback = NULL;
-        pa_callback_user_data = NULL;
+	pa_callback = NULL;
+	pa_callback_user_data = NULL;
 
-        if (!inited_ok)
-                return;
+	if (!inited_ok)
+		return;
 
-        xkl_engine_stop_listen (xkl_engine);
+	xkl_engine_stop_listen (xkl_engine);
 
-        gdk_window_remove_filter (NULL,
-                                  (GdkFilterFunc) gsd_keyboard_xkb_evt_filter,
-                                  NULL);
+	gdk_window_remove_filter (NULL,
+				  (GdkFilterFunc)
+				  gsd_keyboard_xkb_evt_filter, NULL);
 
-        client = gconf_client_get_default ();
+	client = gconf_client_get_default ();
 
-        if (notify_desktop != 0) {
-                gconf_client_remove_dir (client, GKBD_DESKTOP_CONFIG_DIR, NULL);
-                gconf_client_notify_remove (client, notify_desktop);
-                notify_desktop = 0;
-        }
+	if (notify_desktop != 0) {
+		gconf_client_remove_dir (client, GKBD_DESKTOP_CONFIG_DIR,
+					 NULL);
+		gconf_client_notify_remove (client, notify_desktop);
+		notify_desktop = 0;
+	}
 
-        if (notify_keyboard != 0) {
-                gconf_client_remove_dir (client, GKBD_KEYBOARD_CONFIG_DIR, NULL);
-                gconf_client_notify_remove (client, notify_keyboard);
-                notify_keyboard = 0;
-        }
+	if (notify_keyboard != 0) {
+		gconf_client_remove_dir (client, GKBD_KEYBOARD_CONFIG_DIR,
+					 NULL);
+		gconf_client_notify_remove (client, notify_keyboard);
+		notify_keyboard = 0;
+	}
 
-        g_object_unref (client);
-        g_object_unref (xkl_engine);
+	g_object_unref (client);
+	g_object_unref (xkl_engine);
 
-        xkl_engine = NULL;
-        inited_ok = FALSE;
+	xkl_engine = NULL;
+	inited_ok = FALSE;
 }
