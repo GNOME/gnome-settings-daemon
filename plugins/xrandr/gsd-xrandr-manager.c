@@ -44,7 +44,7 @@
 #include <libgnomeui/gnome-rr.h>
 #include <libgnomeui/gnome-rr-labeler.h>
 
-#ifdef HAVE_RANDR
+#ifdef HAVE_X11_EXTENSIONS_XRANDR_H
 #include <X11/extensions/Xrandr.h>
 #endif
 
@@ -268,7 +268,7 @@ output_title_label_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gp
 
         widget->state = GTK_STATE_NORMAL;
 
-        return FALSE;        
+        return FALSE;
 }
 
 /* See the comment in output_title_event_box_expose_event_cb() about this funny label widget */
@@ -372,7 +372,7 @@ get_allowed_rotations_for_output (GsdXrandrManager *manager, GnomeOutputInfo *ou
                 GNOME_RR_ROTATION_270
                 /* We don't allow REFLECT_X or REFLECT_Y for now, as gnome-display-properties doesn't allow them, either */
         };
-                
+
         struct GsdXrandrManagerPrivate *priv = manager->priv;
         GnomeRRRotation current_rotation;
         int i;

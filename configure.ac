@@ -42,7 +42,7 @@ dnl ---------------------------------------------------------------------------
 
 DBUS_GLIB_REQUIRED_VERSION=0.74
 GLIB_REQUIRED_VERSION=2.17.3
-GTK_REQUIRED_VERSION=2.13.1
+GTK_REQUIRED_VERSION=2.12.1
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.17.3
 GNOME_DESKTOP_REQUIRED_VERSION=2.23.90
@@ -76,7 +76,6 @@ esac
 AC_SUBST([GSD_PLUGIN_LDFLAGS])
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
-AC_PATH_XTRA
 
 AC_PATH_PROG(GCONFTOOL, gconftool-2)
 
@@ -114,15 +113,15 @@ dnl ---------------------------------------------------------------------------
 dnl - X11 stuff
 dnl ---------------------------------------------------------------------------
 
-# Like AC_CHECK_HEADER, but it uses the already-computed -I directories.
+# Like AC_CHECK_HEADERS, but it uses the already-computed -I directories.
 #
-AC_DEFUN([AC_CHECK_X_HEADER], [
+AC_DEFUN([AC_CHECK_X_HEADERS], [
   ac_save_CPPFLAGS="$CPPFLAGS"
   if test \! -z "$includedir" ; then
     CPPFLAGS="$CPPFLAGS -I$includedir"
   fi
   CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-  AC_CHECK_HEADER([$1],[$2],[$3],[$4])
+  AC_CHECK_HEADERS([$1],[$2],[$3],[$4])
   CPPFLAGS="$ac_save_CPPFLAGS"])
 
 # Like AC_CHECK_LIB, but it uses the already-computed -I and -L directories.
@@ -160,11 +159,10 @@ dnl - XInput
 dnl ---------------------------------------------------------------------------
 
 have_xinput=no
-AC_CHECK_LIB(Xi, XListInputDevices,
-  [AC_CHECK_HEADER(X11/extensions/XInput.h,
+AC_CHECK_X_LIB(Xi, XListInputDevices,
+  [AC_CHECK_X_HEADERS(X11/extensions/XInput.h,
      have_xinput=yes
-     XINPUT_LIBS="-lXi"
-     AC_DEFINE(HAVE_XINPUT, 1, [Define if XInput extension is available]),
+     XINPUT_LIBS="-lXi",
 	  :, [#include <X11/Xlib.h>])], : ,
        -lXi $x_libs)
 AM_CONDITIONAL(HAVE_XINPUT, [test $have_xinput = yes])
@@ -175,11 +173,10 @@ dnl - XRandR
 dnl ---------------------------------------------------------------------------
 
 have_randr=no
-AC_CHECK_LIB(Xrandr, XRRUpdateConfiguration,
-  [AC_CHECK_HEADER(X11/extensions/Xrandr.h,
+AC_CHECK_X_LIB(Xrandr, XRRUpdateConfiguration,
+  [AC_CHECK_X_HEADERS(X11/extensions/Xrandr.h,
      have_randr=yes
-     RANDR_LIBS="-lXrandr -lXrender"
-     AC_DEFINE(HAVE_RANDR, 1, [Define if Xrandr extension is available]),
+     RANDR_LIBS="-lXrandr -lXrender",
 	  :, [#include <X11/Xlib.h>])], : ,
        -lXrandr -lXrender $x_libs)
 AC_SUBST(RANDR_LIBS)
@@ -199,16 +196,13 @@ dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
 dnl ---------------------------------------------------------------------------
 
-AC_CHECK_HEADERS([X11/Xlib.h])
-
 AC_CHECK_X_LIB(Xxf86misc, XF86MiscQueryExtension, [
-  AC_CHECK_HEADERS([X11/extensions/xf86misc.h], [XF86MISC_LIBS="-lXxf86misc"],[],
-[#if HAVE_X11_XLIB_H
-#include <X11/Xlib.h>
-#endif
-])], [true], -lXext -lX11)
+  AC_CHECK_X_HEADERS([X11/extensions/xf86misc.h],
+      [XF86MISC_LIBS="-lXxf86misc"], :,
+      [#include <X11/Xlib.h>])], : ,
+      -lXxf86misc $x_libs)
 AC_SUBST(XF86MISC_LIBS)
-AC_CHECK_HEADERS(X11/extensions/XKB.h)
+AC_CHECK_X_HEADERS([X11/extensions/XKB.h])
 
 PKG_CHECK_MODULES(LIBGNOMEKBD, [libgnomekbd >= 2.21.4 libxklavier >= 3.8])
 AC_SUBST(LIBGNOMEKBD_CFLAGS)

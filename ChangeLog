@@ -1,3 +1,11 @@
+2008-11-29  Jens Granseuer  <jensgr@gmx.net>
+
+	* configure.ac: fix checks for various X11 libraries (bug #562661)
+
+	* plugins/mouse/gsd-mouse-manager.c: (set_left_handed),
+	(gsd_mouse_manager_idle_cb), (gsd_mouse_manager_stop):
+	* plugins/xrandr/gsd-xrandr-manager.c: adapt ifdefs accordingly
+
 2008-11-27  Sergey Udaltsov <svu@gnome.org>
 
 	* configure.ac, plugins/keyboard/gsd-keyboard-xkb.c: introduce

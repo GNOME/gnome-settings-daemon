@@ -39,7 +39,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <X11/keysym.h>
 
-#ifdef HAVE_XINPUT
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 #include <X11/extensions/XInput.h>
 #endif
 #include <gconf/gconf.h>
@@ -155,7 +155,7 @@ gsd_mouse_manager_class_init (GsdMouseManagerClass *klass)
 }
 
 
-#ifdef HAVE_XINPUT
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 static gboolean
 supports_xinput_devices (void)
 {
@@ -226,7 +226,7 @@ configure_button_layout (guchar   *buttons,
         }
 }
 
-#ifdef HAVE_XINPUT
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 static gboolean
 xinput_device_has_buttons (XDeviceInfo *device_info)
 {
@@ -353,7 +353,7 @@ set_left_handed (GsdMouseManager *manager,
         gsize buttons_capacity = 16;
         gint n_buttons, i;
 
-#ifdef HAVE_XINPUT
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         if (supports_xinput_devices ()) {
                 set_xinput_devices_left_handed (left_handed);
         }
@@ -718,7 +718,7 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                                           GCONF_MOUSE_A11Y_DIR,
                                           (GConfClientNotifyFunc) mouse_callback);
 
-#ifdef HAVE_XINPUT
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         set_devicepresence_handler (manager);
 #endif
         set_mouse_settings (manager);
@@ -773,7 +773,7 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
 
         set_locate_pointer (manager, FALSE);
 
-#ifdef HAVE_XINPUT
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         gdk_window_remove_filter (NULL, devicepresence_filter, manager);
 #endif
 }
