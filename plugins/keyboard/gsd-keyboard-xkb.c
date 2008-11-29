@@ -394,7 +394,7 @@ gsd_keyboard_xkb_init (GConfClient * client)
 		gdk_window_add_filter (NULL, (GdkFilterFunc)
 				       gsd_keyboard_xkb_evt_filter, NULL);
 
-		if (xkl_engine_get_features (xkl_engine) |
+		if (xkl_engine_get_features (xkl_engine) &
 		    XKLF_DEVICE_DISCOVERY)
 			g_signal_connect (xkl_engine, "X-new-device",
 					  G_CALLBACK
