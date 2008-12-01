@@ -1,4 +1,32 @@
 ==============
+Version 2.25.2
+==============
+- No need to trap XkbQueryExtension and friends errors (Jens Granseuer) (#559346)
+- Add some performance annotations around libxklavier calls (Behdad Esfahbod)
+- Start managers in idle callbacks (Behdad Esfahbod) (#559482, #559564)
+- Only initialize fontconfig when starting up (Behdad Esfahbod) (#559550)
+- Remove unnecessary X error traps (Jens Granseuer) (#559562)
+- Init a11y status icon only when needed (Behdad Esfahbod) (#559558)
+- Reshufle plugin priorities a bit (Behdad Esfhabod)
+- Delay constructing the GnomeBg object until we need it (Behdad Esfahbod)
+  (#559639)
+- Listen for DeviceEnabled instead of DeviceAdded to be sure the mouse has
+  been initialized (William Grant) (#559827)
+- Add debugging output for volume_step (Jens Granseuer)
+- Fork before gtk_init (Behdad Esfahbod) (#559695)
+- Lockdown in the keybinding plugin (Matthias Clasen) (#553434)
+- Trap X errors so we don't crash on X servers that don't support DevicePresence
+  (Jens Granseuer) (#560618)
+- Fix handling of time = GDK_CURRENT_TIME (Jens Granseuer) (#559797)
+- Add bundle_loader linker flag to fix compilation on MacOS X (dmack@netspace.org)
+  (#522673)
+- Grab all keycodes that match the respective keysim (Mario Limonciello) (#561275)
+- Fix --no-daemon (Behdad Esfahbod)
+- Depend on libxklavier 3.8 (Sergey Udaltsov)
+- Fix checks for various X libraries (Jens Granseuer)
+- Fix check for xklavier device discovery (Jens Granseuer)
+
+==============
 Version 2.25.1
 ==============
 - Ignore the 'activate' signal for deselected items so that the rotation
