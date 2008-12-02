@@ -82,6 +82,10 @@ struct GsdXrandrManagerPrivate
         GnomeRRLabeler *labeler;
         GConfClient *client;
         int notify_id;
+
+        /* fn-F7 status */
+        int             current_fn_f7_config;             /* -1 if no configs */
+        GnomeRRConfig **fn_f7_configs;  /* NULL terminated, NULL if there are no configs */
 };
 
 static void     gsd_xrandr_manager_class_init  (GsdXrandrManagerClass *klass);
@@ -127,6 +131,421 @@ on_client_message (GdkXEvent  *xevent,
         return GDK_FILTER_CONTINUE;
 }
 
+static gboolean
+is_laptop (GnomeOutputInfo *output)
+{
+        const char *output_name = output->name;
+
+        if (output->connected && output_name &&
+            (strstr ("lvds", output_name)	||
+             strstr ("LVDS", output_name)	||
+             strstr ("Lvds", output_name)))
+        {
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
+static gboolean
+get_clone_size (GnomeRRScreen *screen, int *width, int *height)
+{
+        GnomeRRMode **modes = gnome_rr_screen_list_clone_modes (screen);
+        int best_w, best_h;
+        int i;
+
+        best_w = 0;
+        best_h = 0;
+
+        for (i = 0; modes[i] != NULL; ++i) {
+                GnomeRRMode *mode = modes[i];
+                int w, h;
+
+                w = gnome_rr_mode_get_width (mode);
+                h = gnome_rr_mode_get_height (mode);
+
+                if (w * h > best_w * best_h) {
+                        best_w = w;
+                        best_h = h;
+                }
+        }
+
+        if (best_w > 0 && best_h > 0) {
+                if (width)
+                        *width = best_w;
+                if (height)
+                        *height = best_h;
+
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
+static void
+print_output (GnomeOutputInfo *info)
+{
+        g_print ("  Output: %s attached to %s\n", info->display_name, info->name);
+        g_print ("     status: %s\n", info->on ? "on" : "off");
+        g_print ("     width: %d\n", info->width);
+        g_print ("     height: %d\n", info->height);
+        g_print ("     rate: %d\n", info->rate);
+        g_print ("     position: %d %d\n", info->x, info->y);
+}
+
+static void
+print_configuration (GnomeRRConfig *config, const char *header)
+{
+        int i;
+
+        g_print ("=== %s Configuration ===\n", header);
+        if (!config) {
+                g_print ("  none\n");
+                return;
+        }
+        
+        for (i = 0; config->outputs[i] != NULL; ++i)
+                print_output (config->outputs[i]);
+}
+
+static GnomeRRConfig *
+make_clone_setup (GnomeRRScreen *screen)
+{
+        GnomeRRConfig *result;
+        int width, height;
+        int i;
+
+        if (!get_clone_size (screen, &width, &height))
+                return NULL;
+        
+        result = gnome_rr_config_new_current (screen);
+
+        for (i = 0; result->outputs[i] != NULL; ++i) {
+                GnomeOutputInfo *info = result->outputs[i];
+
+                info->on = FALSE;
+                if (info->connected) {
+                        GnomeRROutput *output =
+                                gnome_rr_screen_get_output_by_name (screen, info->name);
+                        GnomeRRMode **modes = gnome_rr_output_list_modes (output);
+                        int j;
+                        int best_rate = 0;
+                        
+                        for (j = 0; modes[j] != NULL; ++j) {
+                                GnomeRRMode *mode = modes[j];
+                                int w, h;
+                                
+                                w = gnome_rr_mode_get_width (mode);
+                                h = gnome_rr_mode_get_height (mode);
+                                
+                                if (w == width && h == height) {
+                                        int r = gnome_rr_mode_get_freq (mode);
+                                        if (r > best_rate)
+                                                best_rate = r;
+                                }
+                        }
+
+                        if (best_rate > 0) {
+                                info->on = TRUE;
+                                info->width = width;
+                                info->height = height;
+                                info->rate = best_rate;
+                                info->rotation = GNOME_RR_ROTATION_0;
+                                info->x = 0;
+                                info->y = 0;
+                        }
+                }
+        }
+
+        print_configuration (result, "clone setup");
+        
+        return result;
+}
+
+static gboolean
+turn_on (GnomeRRScreen *screen,
+         GnomeOutputInfo *info,
+         int x, int y)
+{
+        GnomeRROutput *output =
+                gnome_rr_screen_get_output_by_name (screen, info->name);
+        GnomeRRMode *mode = gnome_rr_output_get_preferred_mode (output);
+
+        if (mode) {
+                info->on = TRUE;
+                info->x = x;
+                info->y = y;
+                info->width = gnome_rr_mode_get_width (mode);
+                info->height = gnome_rr_mode_get_height (mode);
+                info->rotation = GNOME_RR_ROTATION_0;
+                info->rate = gnome_rr_mode_get_freq (mode);
+
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
+static GnomeRRConfig *
+make_laptop_setup (GnomeRRScreen *screen)
+{
+        /* Turn on the laptop, disable everything else */
+        GnomeRRConfig *result = gnome_rr_config_new_current (screen);
+        int i;
+
+        for (i = 0; result->outputs[i] != NULL; ++i) {
+                GnomeOutputInfo *info = result->outputs[i];
+
+                if (is_laptop (info)) {
+                        if (!info->on) {
+                                if (!turn_on (screen, info, 0, 0)) {
+                                        gnome_rr_config_free (result);
+                                        result = NULL;
+                                        break;
+                                }
+                        }
+                }
+                else {
+                        info->on = FALSE;
+                }
+        }
+
+        print_configuration (result, "Laptop setup");
+        
+        /* FIXME - Maybe we should return NULL if there is more than
+         * one connected "laptop" screen?
+         */
+        return result;
+        
+}
+
+static GnomeRRConfig *
+make_xinerama_setup (GnomeRRScreen *screen)
+{
+        /* Turn on everything that has a preferred mode, and
+         * position it from left to right
+         */
+        GnomeRRConfig *result = gnome_rr_config_new_current (screen);
+        int i;
+        int x;
+
+        x = 0;
+        for (i = 0; result->outputs[i] != NULL; ++i) {
+                GnomeOutputInfo *info = result->outputs[i];
+
+                if (is_laptop (info)) {
+                        if (info->on || turn_on (screen, info, x, 0)) {
+                                x += info->width;
+                        }
+                }
+        }
+
+        for (i = 0; result->outputs[i] != NULL; ++i) {
+                GnomeOutputInfo *info = result->outputs[i];
+
+                if (info->connected && !is_laptop (info)) {
+                        if (info->on || turn_on (screen, info, x, 0)) {
+                                x += info->width;
+                        }
+                }
+        }
+
+        print_configuration (result, "xinerama setup");
+        
+        return result;
+}
+
+static GnomeRRConfig *
+make_other_setup (GnomeRRScreen *screen)
+{
+        /* Turn off all laptops, and make all external monitors clone
+         * from (0, 0)
+         */
+        
+        GnomeRRConfig *result = gnome_rr_config_new_current (screen);
+        int i;
+
+        for (i = 0; result->outputs[i] != NULL; ++i) {
+                GnomeOutputInfo *info = result->outputs[i];
+
+                if (is_laptop (info)) {
+                        info->on = FALSE;
+                }
+                else {
+                        if (info->connected && !info->on) {
+                                turn_on (screen, info, 0, 0);
+                        }
+               }
+        }
+
+        print_configuration (result, "other setup");
+        
+        return result;
+}
+
+static GPtrArray *
+sanitize (GPtrArray *array)
+{
+        int i;
+        GPtrArray *new;
+
+        g_print ("before sanitizing\n");
+
+        for (i = 0; i < array->len; ++i) {
+                if (array->pdata[i]) {
+                        print_configuration (array->pdata[i], "before");
+                }
+        }
+        
+
+        /* Remove configurations that are duplicates of
+         * configurations earlier in the cycle
+         */
+        for (i = 0; i < array->len; ++i) {
+                int j;
+
+                for (j = 0; j < i; ++j) {
+                        GnomeRRConfig *this = array->pdata[j];
+                        GnomeRRConfig *other = array->pdata[i];
+
+                        if (this && other && gnome_rr_config_equal (this, other)) {
+                                g_print ("removing duplicate configuration\n");
+                                gnome_rr_config_free (this);
+                                array->pdata[j] = NULL;
+                                break;
+                        }
+                }
+        }
+
+        for (i = 0; i < array->len; ++i) {
+                GnomeRRConfig *config = array->pdata[i];
+
+                if (config) {
+                        gboolean all_off = TRUE;
+                        int j;
+                        
+                        for (j = 0; config->outputs[j] != NULL; ++j) {
+                                if (config->outputs[j]->on)
+                                        all_off = FALSE;
+                        }
+                        
+                        if (all_off) {
+                                gnome_rr_config_free (array->pdata[i]);
+                                array->pdata[i] = NULL;
+                        }
+                }
+        }
+        
+        /* Remove NULL configurations */
+        new = g_ptr_array_new ();
+
+        for (i = 0; i < array->len; ++i) {
+                if (array->pdata[i]) {
+                        g_ptr_array_add (new, array->pdata[i]);
+                        print_configuration (array->pdata[i], "Final");
+                }
+        }
+
+        g_ptr_array_add (new, NULL);
+
+        g_ptr_array_free (array, TRUE);
+
+        return new;
+}
+
+static void
+generate_fn_f7_configs (GsdXrandrManager *mgr)
+{
+        GPtrArray *array = g_ptr_array_new ();
+        GnomeRRScreen *screen = mgr->priv->rw_screen;
+
+        g_print ("Generating configurations\n");
+        
+        /* Free any existing list of configurations */
+        if (mgr->priv->fn_f7_configs) {
+                int i;
+
+                for (i = 0; mgr->priv->fn_f7_configs[i] != NULL; ++i)
+                        gnome_rr_config_free (mgr->priv->fn_f7_configs[i]);
+                g_free (mgr->priv->fn_f7_configs);
+
+                mgr->priv->fn_f7_configs = NULL;
+                mgr->priv->current_fn_f7_config = -1;
+        }
+
+        g_ptr_array_add (array, gnome_rr_config_new_current (screen));
+        g_ptr_array_add (array, make_xinerama_setup (screen));
+        g_ptr_array_add (array, make_clone_setup (screen));
+        g_ptr_array_add (array, make_laptop_setup (screen));
+        g_ptr_array_add (array, make_other_setup (screen));
+        g_ptr_array_add (array, gnome_rr_config_new_stored (screen));
+        g_ptr_array_add (array, NULL);
+
+        array = sanitize (array);
+        
+        mgr->priv->fn_f7_configs = (GnomeRRConfig **)g_ptr_array_free (array, FALSE);
+        mgr->priv->current_fn_f7_config = 0;
+}
+
+static void
+handle_fn_f7 (GsdXrandrManager *mgr)
+{
+        GsdXrandrManagerPrivate *priv = mgr->priv;
+        GnomeRRScreen *screen = priv->rw_screen;
+        GnomeRRConfig *current;
+        
+        /* Theory of fn-F7 operation
+         *
+         * We maintain a datastructure "fn_f7_status", that contains
+         * a list of GnomeRRConfig's. Each of the GnomeRRConfigs has a
+         * mode (or "off") for each connected output.
+         *
+         * When the user hits fn-F7, we cycle to the next GnomeRRConfig
+         * in the data structure. If the data structure does not exist, it
+         * is generated. If the configs in the data structure do not match
+         * the current hardware reality, it is regenerated.
+         *
+         */
+        g_print ("Handling fn-f7\n");
+        gnome_rr_screen_refresh (screen);
+
+        if (!priv->fn_f7_configs)
+                generate_fn_f7_configs (mgr);
+
+        current = gnome_rr_config_new_current (screen);
+        
+        if (priv->fn_f7_configs && 
+            (!gnome_rr_config_match (current, priv->fn_f7_configs[0]) ||
+             !gnome_rr_config_equal (current, priv->fn_f7_configs[mgr->priv->current_fn_f7_config]))) {
+                    /* Our view of the world is incorrect, so regenerate the
+                     * configurations
+                     */
+                    generate_fn_f7_configs (mgr);
+            }
+
+        gnome_rr_config_free (current);
+        
+        if (priv->fn_f7_configs) {
+                mgr->priv->current_fn_f7_config++;
+
+                if (priv->fn_f7_configs[mgr->priv->current_fn_f7_config] == NULL)
+                        mgr->priv->current_fn_f7_config = 0;
+
+                g_print ("cycling to next configuration (%d)\n", mgr->priv->current_fn_f7_config);
+
+                print_configuration (priv->fn_f7_configs[mgr->priv->current_fn_f7_config], "new config");
+
+                g_print ("applying\n");
+                
+                gnome_rr_config_apply (priv->fn_f7_configs[mgr->priv->current_fn_f7_config],
+                                       screen);
+        }
+        else {
+                g_print ("no configurations generated\n");
+        }
+        g_print ("done handling fn-f7\n");
+}
+
 static GdkFilterReturn
 event_filter (GdkXEvent           *xevent,
               GdkEvent            *event,
@@ -142,12 +561,9 @@ event_filter (GdkXEvent           *xevent,
         if (xev->xany.type != KeyPress && xev->xany.type != KeyRelease)
                 return GDK_FILTER_CONTINUE;
 
-        if (xev->xkey.keycode == manager->priv->keycode) {
-                /* FIXME: here we should cycle between valid
-                 * configurations, and save them
-                 */
-                gnome_rr_config_apply_stored (manager->priv->rw_screen);
-
+        if (xev->xkey.keycode == manager->priv->keycode && xev->xany.type == KeyPress) {
+                handle_fn_f7 (manager);
+                
                 return GDK_FILTER_CONTINUE;
         }
 
@@ -876,6 +1292,9 @@ gsd_xrandr_manager_init (GsdXrandrManager *manager)
         manager->priv = GSD_XRANDR_MANAGER_GET_PRIVATE (manager);
 
         manager->priv->keycode = keycode;
+
+        manager->priv->current_fn_f7_config = -1;
+        manager->priv->fn_f7_configs = NULL;
 }
 
 static void
