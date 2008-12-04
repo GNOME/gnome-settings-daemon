@@ -1,3 +1,10 @@
+2008-12-04  Jens Granseuer  <jensgr@gmx.net>
+
+	Merged from trunk.
+
+	* plugins/mouse/gsd-mouse-manager.c: (set_devicepresence_handler):
+	fix crash with X servers that don't provide XInput (bug #562977)
+
 2008-11-24  Matthias Clasen  <mclasen@redhat.com>
 
 	* configure.in: Bump version
