@@ -329,9 +329,14 @@ devicepresence_filter (GdkXEvent *xevent,
 static void
 set_devicepresence_handler (GsdMouseManager *manager)
 {
-        Display *display = gdk_x11_get_default_xdisplay ();
+        Display *display;
         XEventClass class_presence;
         int xi_presence;
+
+        if (!supports_xinput_devices ())
+                return;
+
+        display = gdk_x11_get_default_xdisplay ();
 
         gdk_error_trap_push ();
         DevicePresence (display, xi_presence, class_presence);
