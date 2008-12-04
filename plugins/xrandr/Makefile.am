@@ -36,23 +36,25 @@ libxrandr_la_SOURCES = 		\
 	gsd-xrandr-manager.h	\
 	gsd-xrandr-manager.c
 
-libxrandr_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+libxrandr_la_CPPFLAGS =						\
+	-I$(top_srcdir)/gnome-settings-daemon			\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
-libxrandr_la_CFLAGS = \
+libxrandr_la_CFLAGS =			\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
-libxrandr_la_LDFLAGS = 		\
+libxrandr_la_LDFLAGS = 			\
 	$(GSD_PLUGIN_LDFLAGS)
 
-libxrandr_la_LIBADD  = 		\
-	$(SETTINGS_PLUGIN_LIBS)	\
+libxrandr_la_LIBADD  =			\
+	$(SETTINGS_PLUGIN_LIBS)		\
+	$(LIBNOTIFY_LIBS)		\
 	$(RANDR_LIBS)
 
-plugin_in_files = 		\
+plugin_in_files =			\
 	xrandr.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)

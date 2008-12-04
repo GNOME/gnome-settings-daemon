@@ -37,6 +37,7 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
+#include <libnotify/notify.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 
@@ -122,6 +123,7 @@ on_client_message (GdkXEvent  *xevent,
             ev->type == ClientMessage &&
             ev->xclient.message_type == gnome_randr_xatom ()) {
 
+                /* FMQ: this should happen with DBus */
                 gnome_rr_config_apply_stored (screen);
 
                 return GDK_FILTER_REMOVE;
@@ -478,7 +480,7 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
         g_ptr_array_add (array, make_clone_setup (screen));
         g_ptr_array_add (array, make_laptop_setup (screen));
         g_ptr_array_add (array, make_other_setup (screen));
-        g_ptr_array_add (array, gnome_rr_config_new_stored (screen));
+        g_ptr_array_add (array, gnome_rr_config_new_stored (screen, NULL)); /* NULL-GError - if this can't read the stored config, no big deal */
         g_ptr_array_add (array, NULL);
 
         array = sanitize (array);
@@ -488,11 +490,27 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
 }
 
 static void
+error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text)
+{
+        GsdXrandrManagerPrivate *priv = mgr->priv;
+        NotifyNotification *notification;
+
+        g_assert (error_to_display == NULL || secondary_text == NULL);
+
+        notification = notify_notification_new_with_status_icon (primary_text,
+                                                                 error_to_display ? error_to_display->message : secondary_text,
+                                                                 GSD_XRANDR_ICON_NAME,
+                                                                 priv->status_icon);
+        notify_notification_show (notification, NULL); /* NULL-GError */
+}
+
+static void
 handle_fn_f7 (GsdXrandrManager *mgr)
 {
         GsdXrandrManagerPrivate *priv = mgr->priv;
         GnomeRRScreen *screen = priv->rw_screen;
         GnomeRRConfig *current;
+        GError *error;
         
         /* Theory of fn-F7 operation
          *
@@ -507,7 +525,16 @@ handle_fn_f7 (GsdXrandrManager *mgr)
          *
          */
         g_print ("Handling fn-f7\n");
-        gnome_rr_screen_refresh (screen);
+
+        error = NULL;
+        if (!gnome_rr_screen_refresh (screen, &error)) {
+                char *str;
+
+                str = g_strdup_printf (_("Could not refresh the screen information: %s"), error->message);
+                g_error_free (error);
+
+                error_message (mgr, str, NULL, _("Trying to switch the monitor configuration anyway."));
+        }
 
         if (!priv->fn_f7_configs)
                 generate_fn_f7_configs (mgr);
@@ -536,9 +563,12 @@ handle_fn_f7 (GsdXrandrManager *mgr)
                 print_configuration (priv->fn_f7_configs[mgr->priv->current_fn_f7_config], "new config");
 
                 g_print ("applying\n");
-                
-                gnome_rr_config_apply (priv->fn_f7_configs[mgr->priv->current_fn_f7_config],
-                                       screen);
+
+                error = NULL;
+                if (!gnome_rr_config_apply (priv->fn_f7_configs[mgr->priv->current_fn_f7_config], screen, &error)) {
+                        error_message (mgr, _("Could not switch the monitor configuration"), error, NULL);
+                        g_error_free (error);
+                }
         }
         else {
                 g_print ("no configurations generated\n");
@@ -807,7 +837,7 @@ get_allowed_rotations_for_output (GsdXrandrManager *manager, GnomeOutputInfo *ou
 
                 output->rotation = rotation_to_test;
 
-                if (gnome_rr_config_applicable (priv->configuration, priv->rw_screen)) {
+                if (gnome_rr_config_applicable (priv->configuration, priv->rw_screen, NULL)) { /* NULL-GError */
                         (*out_num_rotations)++;
                         (*out_rotations) |= rotation_to_test;
                 }
@@ -840,19 +870,6 @@ add_unsupported_rotation_item (GsdXrandrManager *manager)
 }
 
 static void
-error_dialog (const char *title, const char *msg)
-{
-        GtkWidget *dialog;
-
-        dialog = gtk_message_dialog_new (NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-                                         "%s", title);
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s", msg);
-
-        gtk_dialog_run (GTK_DIALOG (dialog));
-        gtk_widget_destroy (dialog);
-}
-
-static void
 output_rotation_item_activate_cb (GtkCheckMenuItem *item, gpointer data)
 {
         GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
@@ -871,19 +888,20 @@ output_rotation_item_activate_cb (GtkCheckMenuItem *item, gpointer data)
         output->rotation = rotation;
 
         error = NULL;
-        if (gnome_rr_config_save (priv->configuration, &error)) {
-                if (!gnome_rr_config_apply_stored (priv->rw_screen)) {
-                        error_dialog (_("The selected rotation could not be applied"),
-                                      _("An error occurred while configuring the screen"));
-                        /* FIXME: that message is really useless.  Make
-                         * gnome_rr_config_apply_stored() give us a meaningful
-                         * error message!
-                         */
-                }
-        } else {
-                error_dialog (_("The selected rotation could not be applied"),
-                              error->message);
-                g_error_free (error);
+        if (!gnome_rr_config_save (priv->configuration, &error)) {
+                error_message (manager, _("Could not save monitor configuration"), error, NULL);
+                if (error)
+                        g_error_free (error);
+
+                return;
+        }
+
+        if (!gnome_rr_config_apply_stored (priv->rw_screen, &error)) {
+                error_message (manager, _("The selected rotation could not be applied"), error, NULL);
+                if (error)
+                        g_error_free (error);
+
+                return;
         }
 }
 
@@ -1107,16 +1125,16 @@ gboolean
 gsd_xrandr_manager_start (GsdXrandrManager *manager,
                           GError          **error)
 {
+        GError *my_error;
+
         g_debug ("Starting xrandr manager");
         gnome_settings_profile_start (NULL);
 
         manager->priv->rw_screen = gnome_rr_screen_new (
-                gdk_screen_get_default (), on_randr_event, manager);
+                gdk_screen_get_default (), on_randr_event, manager, error);
 
-        if (manager->priv->rw_screen == NULL) {
-                g_set_error (error, 0, 0, "Failed to initialize XRandR extension");
+        if (manager->priv->rw_screen == NULL)
                 return FALSE;
-        }
 
         manager->priv->running = TRUE;
         manager->priv->client = gconf_client_get_default ();
@@ -1145,7 +1163,14 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                 gdk_error_trap_pop ();
         }
 
-        gnome_rr_config_apply_stored (manager->priv->rw_screen);
+        my_error = NULL;
+        if (!gnome_rr_config_apply_stored (manager->priv->rw_screen, &my_error)) {
+                /* my_error can be null if there were no stored configurations */
+                if (my_error) {
+                        error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
+                        g_error_free (my_error);
+                }
+        }
 
         gdk_window_add_filter (gdk_get_default_root_window(),
                                (GdkFilterFunc)event_filter,

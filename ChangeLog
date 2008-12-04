@@ -1,3 +1,19 @@
+2008-12-02  Federico Mena Quintero  <federico@novell.com>
+
+	* plugins/xrandr/gsd-xrandr-manager.c (error_message): Renamed
+	from error_dialog(); use libnotify instead of ugly dialogs for
+	error messages.
+	(gsd_xrandr_manager_start):  Proxy the error from
+	gnome_rr_screen_new() to our caller.
+	(gsd_xrandr_manager_start): Display an error if we cannot apply
+	the initially-loaded configuration.
+	(generate_fn_f7_configs, get_allowed_rotations_for_output): Pass
+	GError arguments to the gnome_rr_*() functions.
+	(handle_fn_f7): Display an error if we cannot refresh the screen
+	configuration or apply the new one.
+	(output_rotation_item_activate_cb): Display an error if the
+	rotation cannot be applied.
+
 Tue Dec  2 15:37:21 2008  Søren Sandmann  <sandmann@redhat.com>
 
 	* plugins/xrandr/gsd-xrandr-manager.c: Add support for fn-F7 type
