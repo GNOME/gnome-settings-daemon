@@ -38,6 +38,7 @@
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
 #include <libnotify/notify.h>
+#include <dbus/dbus-glib.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 
@@ -69,13 +70,19 @@
 /* executable of the control center's display configuration capplet */
 #define GSD_XRANDR_DISPLAY_CAPPLET "gnome-display-properties"
 
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_XRANDR_DBUS_PATH GSD_DBUS_PATH "/XRANDR"
+#define GSD_XRANDR_DBUS_NAME GSD_DBUS_NAME ".XRANDR"
+
 struct GsdXrandrManagerPrivate
 {
+        DBusGConnection *dbus_connection;
+
         /* Key code of the fn-F7 video key (XF86Display) */
         guint keycode;
         GnomeRRScreen *rw_screen;
         gboolean running;
-        gboolean client_filter_set;
 
         GtkStatusIcon *status_icon;
         GtkWidget *popup_menu;
@@ -98,40 +105,17 @@ G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 
-static GdkAtom
-gnome_randr_atom (void)
+/* DBus method; see gsd-xrandr-manager.xml for the interface definition */
+static gboolean
+gsd_xrandr_manager_apply_configuration (GsdXrandrManager *manager,
+                                        GError          **error)
 {
-        return gdk_atom_intern ("_GNOME_RANDR_ATOM", FALSE);
-}
-
-static Atom
-gnome_randr_xatom (void)
-{
-        return gdk_x11_atom_to_xatom (gnome_randr_atom());
-}
-
-static GdkFilterReturn
-on_client_message (GdkXEvent  *xevent,
-		   GdkEvent   *event,
-		   gpointer    data)
-{
-        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
         GnomeRRScreen *screen = manager->priv->rw_screen;
-        XEvent *ev = (XEvent *)xevent;
 
-        if (manager->priv->running &&
-            ev->type == ClientMessage &&
-            ev->xclient.message_type == gnome_randr_xatom ()) {
-
-                /* FMQ: this should happen with DBus */
-                gnome_rr_config_apply_stored (screen);
-
-                return GDK_FILTER_REMOVE;
-        }
-
-        /* Pass the event on to GTK+ */
-        return GDK_FILTER_CONTINUE;
+        return gnome_rr_config_apply_stored (screen, error);
 }
+/* We include this after the definition of gsd_xrandr_manager_apply_configuration() so the prototype will already exist */
+#include "gsd-xrandr-manager-glue.h"
 
 static gboolean
 is_laptop (GnomeOutputInfo *output)
@@ -1176,15 +1160,6 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                                (GdkFilterFunc)event_filter,
                                manager);
 
-        if (!manager->priv->client_filter_set) {
-                /* FIXME: need to remove this in _stop;
-                 * for now make sure to only add it once */
-                gdk_add_client_message_filter (gnome_randr_atom (),
-                                               on_client_message,
-                                               manager);
-                manager->priv->client_filter_set = TRUE;
-        }
-
         start_or_stop_icon (manager);
 
         gnome_settings_profile_end (NULL);
@@ -1227,6 +1202,11 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         if (manager->priv->rw_screen != NULL) {
                 gnome_rr_screen_destroy (manager->priv->rw_screen);
                 manager->priv->rw_screen = NULL;
+        }
+
+        if (manager->priv->dbus_connection != NULL) {
+                dbus_g_connection_unref (manager->priv->dbus_connection);
+                manager->priv->dbus_connection = NULL;
         }
 
         status_icon_stop (manager);
@@ -1304,6 +1284,8 @@ gsd_xrandr_manager_class_init (GsdXrandrManagerClass *klass)
         object_class->dispose = gsd_xrandr_manager_dispose;
         object_class->finalize = gsd_xrandr_manager_finalize;
 
+        dbus_g_object_type_install_info (GSD_TYPE_XRANDR_MANAGER, &dbus_glib_gsd_xrandr_manager_object_info);
+
         g_type_class_add_private (klass, sizeof (GsdXrandrManagerPrivate));
 }
 
@@ -1337,6 +1319,26 @@ gsd_xrandr_manager_finalize (GObject *object)
         G_OBJECT_CLASS (gsd_xrandr_manager_parent_class)->finalize (object);
 }
 
+static gboolean
+register_manager_dbus (GsdXrandrManager *manager)
+{
+        GError *error = NULL;
+
+        manager->priv->dbus_connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
+        if (manager->priv->dbus_connection == NULL) {
+                if (error != NULL) {
+                        g_warning ("Error getting session bus: %s", error->message);
+                        g_error_free (error);
+                }
+                return FALSE;
+        }
+
+        /* Hmm, should we do this in gsd_xrandr_manager_start()? */
+        dbus_g_connection_register_g_object (manager->priv->dbus_connection, GSD_XRANDR_DBUS_PATH, G_OBJECT (manager));
+
+        return TRUE;
+}
+
 GsdXrandrManager *
 gsd_xrandr_manager_new (void)
 {
@@ -1346,6 +1348,11 @@ gsd_xrandr_manager_new (void)
                 manager_object = g_object_new (GSD_TYPE_XRANDR_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
+
+                if (!register_manager_dbus (manager_object)) {
+                        g_object_unref (manager_object);
+                        return NULL;
+                }
         }
 
         return GSD_XRANDR_MANAGER (manager_object);

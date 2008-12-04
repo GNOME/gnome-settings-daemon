@@ -1,7 +1,16 @@
 2008-12-02  Federico Mena Quintero  <federico@novell.com>
 
+	Use a DBus interface to tell the XRANDR manager to apply the
+	stored configuration, instead of an X client message, so that we
+	can pass errors back to the caller.
+
 	* plugins/xrandr/gsd-xrandr-manager.xml: Trivial DBus interface to
 	tell the XRANDR manager to apply the stored configuration.
+
+	* plugins/xrandr/gsd-xrandr-manager.c
+	(gsd_xrandr_manager_apply_configuration): Moved from
+	on_client_message().  Now we are a DBus-Glib method, so that we
+	can pass back errors to the remote caller.
 
 	* plugins/xrandr/Makefile.am: Add the machinery to generate DBus
 	glue.
