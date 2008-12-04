@@ -1,6 +1,9 @@
 icondir = $(datadir)/icons/hicolor
 context = apps
 
+BUILT_SOURCES =				\
+	gsd-xrandr-manager-glue.h
+
 ICON_FILES = 			\
 	gsd-xrandr-16.png	\
 	gsd-xrandr-22.png	\
@@ -30,7 +33,13 @@ uninstall-local:
 plugin_LTLIBRARIES = \
 	libxrandr.la
 
+gsd-xrandr-manager-glue.h: gsd-xrandr-manager.xml Makefile
+	dbus-binding-tool --prefix=gsd_xrandr_manager --mode=glib-server $< > xgen-$(@F) \
+	&& ( cmp -s xgen-$(@F) $@ || cp xgen-$(@F) $@ ) \
+	&& rm -f xgen-$(@F)
+
 libxrandr_la_SOURCES = 		\
+	$(BUILT_SOURCES)	\
 	gsd-xrandr-plugin.h	\
 	gsd-xrandr-plugin.c	\
 	gsd-xrandr-manager.h	\
@@ -60,7 +69,7 @@ plugin_in_files =			\
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 EXTRA_DIST = $(plugin_in_files) $(ICON_FILES)
-CLEANFILES = $(plugin_DATA)
+CLEANFILES = $(plugin_DATA) $(BUILT_SOURCES)
 DISTCLEANFILES = $(plugin_DATA)
 
 @GSD_INTLTOOL_PLUGIN_RULE@

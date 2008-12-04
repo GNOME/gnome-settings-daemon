@@ -1,5 +1,13 @@
 2008-12-02  Federico Mena Quintero  <federico@novell.com>
 
+	* plugins/xrandr/gsd-xrandr-manager.xml: Trivial DBus interface to
+	tell the XRANDR manager to apply the stored configuration.
+
+	* plugins/xrandr/Makefile.am: Add the machinery to generate DBus
+	glue.
+
+2008-12-02  Federico Mena Quintero  <federico@novell.com>
+
 	* plugins/xrandr/gsd-xrandr-manager.c (error_message): Renamed
 	from error_dialog(); use libnotify instead of ugly dialogs for
 	error messages.
