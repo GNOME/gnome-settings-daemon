@@ -295,7 +295,6 @@ daemon_detach (void)
 
         /* get outta the way */
         chdir ("/");
-        umask (0117);
 }
 
 static void

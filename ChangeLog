@@ -1,3 +1,8 @@
+2008-12-07  Behdad Esfahbod  <behdad@gnome.org>
+
+	* gnome-settings-daemon/main.c (daemon_detach): Don't call umask (bug
+	#563543)
+
 2008-12-04  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/mouse/gsd-mouse-manager.c: (set_devicepresence_handler):
