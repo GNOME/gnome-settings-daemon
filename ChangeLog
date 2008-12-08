@@ -1,3 +1,9 @@
+2008-12-08  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/xrandr/gsd-xrandr-manager.c: (error_message): make libnotify
+	optional again (bug #563226)
+	(handle_fn_f7): fix memory leak, use g_debug instead of g_print
+
 2008-12-07  Behdad Esfahbod  <behdad@gnome.org>
 
 	* gnome-settings-daemon/main.c (daemon_detach): Don't call umask (bug

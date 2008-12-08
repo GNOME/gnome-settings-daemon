@@ -37,7 +37,6 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
-#include <libnotify/notify.h>
 #include <dbus/dbus-glib.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
@@ -48,6 +47,10 @@
 
 #ifdef HAVE_X11_EXTENSIONS_XRANDR_H
 #include <X11/extensions/Xrandr.h>
+#endif
+
+#ifdef HAVE_LIBNOTIFY
+#include <libnotify/notify.h>
 #endif
 
 #include "gnome-settings-profile.h"
@@ -189,7 +192,7 @@ print_configuration (GnomeRRConfig *config, const char *header)
                 g_print ("  none\n");
                 return;
         }
-        
+
         for (i = 0; config->outputs[i] != NULL; ++i)
                 print_output (config->outputs[i]);
 }
@@ -203,7 +206,7 @@ make_clone_setup (GnomeRRScreen *screen)
 
         if (!get_clone_size (screen, &width, &height))
                 return NULL;
-        
+
         result = gnome_rr_config_new_current (screen);
 
         for (i = 0; result->outputs[i] != NULL; ++i) {
@@ -216,14 +219,14 @@ make_clone_setup (GnomeRRScreen *screen)
                         GnomeRRMode **modes = gnome_rr_output_list_modes (output);
                         int j;
                         int best_rate = 0;
-                        
+
                         for (j = 0; modes[j] != NULL; ++j) {
                                 GnomeRRMode *mode = modes[j];
                                 int w, h;
-                                
+
                                 w = gnome_rr_mode_get_width (mode);
                                 h = gnome_rr_mode_get_height (mode);
-                                
+
                                 if (w == width && h == height) {
                                         int r = gnome_rr_mode_get_freq (mode);
                                         if (r > best_rate)
@@ -244,7 +247,7 @@ make_clone_setup (GnomeRRScreen *screen)
         }
 
         print_configuration (result, "clone setup");
-        
+
         return result;
 }
 
@@ -297,12 +300,12 @@ make_laptop_setup (GnomeRRScreen *screen)
         }
 
         print_configuration (result, "Laptop setup");
-        
+
         /* FIXME - Maybe we should return NULL if there is more than
          * one connected "laptop" screen?
          */
         return result;
-        
+
 }
 
 static GnomeRRConfig *
@@ -337,7 +340,7 @@ make_xinerama_setup (GnomeRRScreen *screen)
         }
 
         print_configuration (result, "xinerama setup");
-        
+
         return result;
 }
 
@@ -347,7 +350,7 @@ make_other_setup (GnomeRRScreen *screen)
         /* Turn off all laptops, and make all external monitors clone
          * from (0, 0)
          */
-        
+
         GnomeRRConfig *result = gnome_rr_config_new_current (screen);
         int i;
 
@@ -365,7 +368,7 @@ make_other_setup (GnomeRRScreen *screen)
         }
 
         print_configuration (result, "other setup");
-        
+
         return result;
 }
 
@@ -382,7 +385,7 @@ sanitize (GPtrArray *array)
                         print_configuration (array->pdata[i], "before");
                 }
         }
-        
+
 
         /* Remove configurations that are duplicates of
          * configurations earlier in the cycle
@@ -409,19 +412,19 @@ sanitize (GPtrArray *array)
                 if (config) {
                         gboolean all_off = TRUE;
                         int j;
-                        
+
                         for (j = 0; config->outputs[j] != NULL; ++j) {
                                 if (config->outputs[j]->on)
                                         all_off = FALSE;
                         }
-                        
+
                         if (all_off) {
                                 gnome_rr_config_free (array->pdata[i]);
                                 array->pdata[i] = NULL;
                         }
                 }
         }
-        
+
         /* Remove NULL configurations */
         new = g_ptr_array_new ();
 
@@ -446,7 +449,7 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
         GnomeRRScreen *screen = mgr->priv->rw_screen;
 
         g_print ("Generating configurations\n");
-        
+
         /* Free any existing list of configurations */
         if (mgr->priv->fn_f7_configs) {
                 int i;
@@ -468,7 +471,7 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
         g_ptr_array_add (array, NULL);
 
         array = sanitize (array);
-        
+
         mgr->priv->fn_f7_configs = (GnomeRRConfig **)g_ptr_array_free (array, FALSE);
         mgr->priv->current_fn_f7_config = 0;
 }
@@ -476,6 +479,7 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
 static void
 error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text)
 {
+#ifdef HAVE_LIBNOTIFY
         GsdXrandrManagerPrivate *priv = mgr->priv;
         NotifyNotification *notification;
 
@@ -486,6 +490,17 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
                                                                  GSD_XRANDR_ICON_NAME,
                                                                  priv->status_icon);
         notify_notification_show (notification, NULL); /* NULL-GError */
+#else
+        GtkWidget *dialog;
+
+	dialog = gtk_message_dialog_new (NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+                                         "%s", primary_text);
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s",
+                                                  error_to_display ? error_to_display->message : secondary_text);
+
+        gtk_dialog_run (GTK_DIALOG (dialog));
+        gtk_widget_destroy (dialog);
+#endif /* HAVE_LIBNOTIFY */
 }
 
 static void
@@ -495,7 +510,7 @@ handle_fn_f7 (GsdXrandrManager *mgr)
         GnomeRRScreen *screen = priv->rw_screen;
         GnomeRRConfig *current;
         GError *error;
-        
+
         /* Theory of fn-F7 operation
          *
          * We maintain a datastructure "fn_f7_status", that contains
@@ -508,7 +523,7 @@ handle_fn_f7 (GsdXrandrManager *mgr)
          * the current hardware reality, it is regenerated.
          *
          */
-        g_print ("Handling fn-f7\n");
+        g_debug ("Handling fn-f7");
 
         error = NULL;
         if (!gnome_rr_screen_refresh (screen, &error)) {
@@ -518,14 +533,15 @@ handle_fn_f7 (GsdXrandrManager *mgr)
                 g_error_free (error);
 
                 error_message (mgr, str, NULL, _("Trying to switch the monitor configuration anyway."));
+                g_free (str);
         }
 
         if (!priv->fn_f7_configs)
                 generate_fn_f7_configs (mgr);
 
         current = gnome_rr_config_new_current (screen);
-        
-        if (priv->fn_f7_configs && 
+
+        if (priv->fn_f7_configs &&
             (!gnome_rr_config_match (current, priv->fn_f7_configs[0]) ||
              !gnome_rr_config_equal (current, priv->fn_f7_configs[mgr->priv->current_fn_f7_config]))) {
                     /* Our view of the world is incorrect, so regenerate the
@@ -535,18 +551,18 @@ handle_fn_f7 (GsdXrandrManager *mgr)
             }
 
         gnome_rr_config_free (current);
-        
+
         if (priv->fn_f7_configs) {
                 mgr->priv->current_fn_f7_config++;
 
                 if (priv->fn_f7_configs[mgr->priv->current_fn_f7_config] == NULL)
                         mgr->priv->current_fn_f7_config = 0;
 
-                g_print ("cycling to next configuration (%d)\n", mgr->priv->current_fn_f7_config);
+                g_debug ("cycling to next configuration (%d)", mgr->priv->current_fn_f7_config);
 
                 print_configuration (priv->fn_f7_configs[mgr->priv->current_fn_f7_config], "new config");
 
-                g_print ("applying\n");
+                g_debug ("applying");
 
                 error = NULL;
                 if (!gnome_rr_config_apply (priv->fn_f7_configs[mgr->priv->current_fn_f7_config], screen, &error)) {
@@ -555,9 +571,9 @@ handle_fn_f7 (GsdXrandrManager *mgr)
                 }
         }
         else {
-                g_print ("no configurations generated\n");
+                g_debug ("no configurations generated");
         }
-        g_print ("done handling fn-f7\n");
+        g_debug ("done handling fn-f7");
 }
 
 static GdkFilterReturn
@@ -577,7 +593,7 @@ event_filter (GdkXEvent           *xevent,
 
         if (xev->xkey.keycode == manager->priv->keycode && xev->xany.type == KeyPress) {
                 handle_fn_f7 (manager);
-                
+
                 return GDK_FILTER_CONTINUE;
         }
 
