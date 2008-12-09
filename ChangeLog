@@ -1,3 +1,13 @@
+2008-12-09  Jens Granseuer  <jensgr@gmx.net>
+
+	Patch by: Pedro Fragoso <ember@ubuntu.com>
+
+	* plugins/a11y-keyboard/gsd-a11y-preferences-dialog.h:
+	* plugins/common/eggaccelerators.c:
+	* plugins/common/eggaccelerators.h:
+	* plugins/mouse/gsd-locate-pointer.h: only use top-level headers for
+	glib and GTK+ (bug #563796)
+
 2008-12-08  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/xrandr/gsd-xrandr-manager.c: (error_message): make libnotify

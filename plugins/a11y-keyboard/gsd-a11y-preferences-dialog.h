@@ -22,7 +22,7 @@
 #define __GSD_A11Y_PREFERENCES_DIALOG_H
 
 #include <glib-object.h>
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

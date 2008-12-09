@@ -17,7 +17,7 @@
 #ifndef LOCATE_POINTER_H
 #define LOCATE_POINTER_H
 
-#include <gdk/gdkscreen.h>
+#include <gdk/gdk.h>
 
 void gsd_locate_pointer (GdkScreen *screen);
 
