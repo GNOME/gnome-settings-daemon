@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 2.23.x\n"
+"Project-Id-Version: gnome-settings-daemon 2.25.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-17 08:51+0200\n"
-"PO-Revision-Date: 2008-09-22 14:37+0200\n"
+"POT-Creation-Date: 2008-12-12 14:59+0100\n"
+"PO-Revision-Date: 2008-12-12 15:06+0100\n"
 "Last-Translator: Luca Ferretti <elle.uca@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Associazione per escludere il volume del sistema."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
 msgid "Binding to open the Home folder."
-msgstr "Associazione per aprire la cartella Home."
+msgstr "Associazione per aprire la cartella home."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
 msgid "Binding to pause playback."
@@ -102,7 +102,7 @@ msgstr "Espelli"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:21
 msgid "Home folder"
-msgstr "Cartella Home"
+msgstr "Cartella home"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
 msgid "Launch calculator"
@@ -264,7 +264,9 @@ msgstr ""
 msgid ""
 "The resolution used for converting font sizes to pixel sizes, in dots per "
 "inch."
-msgstr "La risoluzione usata per convertire le dimensioni dei tipi di carattere in dimensioni dei pixel, espressa in punti per pollice."
+msgstr ""
+"La risoluzione usata per convertire le dimensioni dei tipi di carattere in "
+"dimensioni dei pixel, espressa in punti per pollice."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:7
 msgid ""
@@ -288,6 +290,19 @@ msgstr ""
 "\"slight\" per essenziale, \"medium\" per moderata e \"full\" per la massima "
 "approssimazione (può causare distorsioni nella forma delle lettere)."
 
+# GNOME-2-26
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+msgid "Allowed keys"
+msgstr "Tasti consentiti"
+
+# GNOME-2-26
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+#, fuzzy
+msgid ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
+msgstr "Se non vuoto, le associazioni di tasti sono ignorate a meno che la loro directory GConf non sia in questa lista. Questo è utile per il lockdown."
+
 # GNOME-2-24
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -295,64 +310,64 @@ msgstr "Demone di impostazioni per GNOME"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
 msgid "Enable accessibility keyboard plugin"
-msgstr "Abilitare plugin per accesso universale tastiera"
+msgstr "Abilita plugin per accesso universale tastiera"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:2
 msgid "Enable background plugin"
-msgstr "Abilitare plugin per sfondo"
+msgstr "Abilita plugin per sfondo"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:3
 msgid "Enable clipboard plugin"
-msgstr "Abilitare plugin appunti"
+msgstr "Abilita plugin appunti"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
 msgid "Enable font plugin"
-msgstr "Abilitare plugin per tipi di carattere"
+msgstr "Abilita plugin per tipi di carattere"
 
 # GNOME-2-24
 #: ../data/gnome-settings-daemon.schemas.in.h:5
 msgid "Enable housekeeping plugin"
-msgstr "Abilitare plugin per housekeeping"
+msgstr "Abilita plugin per housekeeping"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
-msgstr "Abilitare plugin per associazioni di tasti"
+msgstr "Abilita plugin per associazioni di tasti"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:7
 msgid "Enable keyboard plugin"
-msgstr "Abilitare plugin per tastiera"
+msgstr "Abilita plugin per tastiera"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable media keys plugin"
-msgstr "Abilitare plugin per tasti multimediali"
+msgstr "Abilita plugin per tasti multimediali"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable mouse plugin"
-msgstr "Abilitare plugin per mouse"
+msgstr "Abilita plugin per mouse"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable screensaver plugin"
-msgstr "Abilitare plugin per salvaschermo"
+msgstr "Abilita plugin per salvaschermo"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable sound plugin"
-msgstr "Abilitare plugin per audio"
+msgstr "Abilita plugin per audio"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable typing breaks plugin"
-msgstr "Abilitare plugin per pause nella digitazione"
+msgstr "Abilita plugin per pause nella digitazione"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable xrandr plugin"
-msgstr "Abilitare plugin per xrandr"
+msgstr "Abilita plugin per xrandr"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable xrdb plugin"
-msgstr "Abilitare plugin per xrdb"
+msgstr "Abilita plugin per xrdb"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable xsettings plugin"
-msgstr "Abilitare plugin per xsettings"
+msgstr "Abilita plugin per xsettings"
 
 # GNOME-2-24
 # to prune: potare, sfrondare...
@@ -447,15 +462,15 @@ msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Impostare a VERO per abilitare il plugin che gestisce xsettings."
 
 # GNOME-2-24
-#: ../gnome-settings-daemon/main.c:50
+#: ../gnome-settings-daemon/main.c:53
 msgid "Enable debugging code"
 msgstr "Abilita codice di debug"
 
-#: ../gnome-settings-daemon/main.c:51
+#: ../gnome-settings-daemon/main.c:54
 msgid "Don't become a daemon"
 msgstr "Non operare come demone"
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:55
 msgid "GConf prefix from which to load plugin settings"
 msgstr "Prefisso GConf da cui caricare le impostazioni dei plugin"
 
@@ -468,24 +483,24 @@ msgid "Accessibility keyboard plugin"
 msgstr "Plugin di accesso universale per la tastiera"
 
 # il %s inizia sempre con maiuscolo!!
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:387
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Errore nel mostrare la documentazione. %s"
 
 # ##### Slow Keys ######
 # rallentamento dei tasti
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 msgid "Do you want to activate Slow Keys?"
 msgstr "Attivare il rallentamento dei tasti?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Disattivare il rallentamento dei tasti?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
@@ -497,45 +512,45 @@ msgstr ""
 
 # GNOME-2-24
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:698
 msgid "Don't activate"
 msgstr "Non attivare"
 
 # GNOME-2-24
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:698
 msgid "Don't deactivate"
 msgstr "Non disattivare"
 
 # GNOME-2-24
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:704
 msgid "Activate"
 msgstr "Attiva"
 
 # GNOME-2-24
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:704
 msgid "Deactivate"
 msgstr "Disattiva"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:765
 msgid "Do_n't activate"
 msgstr "_Non attivare"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:765
 msgid "Do_n't deactivate"
 msgstr "_Non disattivare"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "_Activate"
 msgstr "_Attiva"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "_Deactivate"
 msgstr "_Disattiva"
 
@@ -546,17 +561,17 @@ msgstr "Allerta rallentamento dei tasti"
 # ###### Sticky Keys ######
 # permanenza dei tasti
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Attivare la permanenza dei tasti?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Disattivare la permanenza dei tasti?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -566,7 +581,7 @@ msgstr ""
 "in cui opera la tastiera."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -576,7 +591,7 @@ msgstr ""
 "il tasto «Maiusc». Questo disabilita la funzione di permanenza dei tasti, "
 "che determina il modo in cui opera la tastiera."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:772
 msgid "Sticky Keys Alert"
 msgstr "Allerta permanenza dei tasti"
 
@@ -659,31 +674,12 @@ msgstr "Tipi di carattere"
 msgid "Font plugin"
 msgstr "Plugin per i tipi di carattere"
 
-# GNOME-2-24
-#: ../plugins/font/gsd-font-manager.c:207
-#, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing the mouse pointer theme."
-msgstr ""
-"Impossibile creare la directory «%s».\n"
-"Tale directory è necessaria per consentire il cambio del tema del puntatore del mouse."
-
-#: ../plugins/font/gsd-font-manager.c:230
-#, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing cursors."
-msgstr ""
-"Impossibile creare la directory «%s».\n"
-"Tale directory è necessaria per consentire il cambio dei cursori."
-
 #: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
 msgid "Key binding (%s) is incomplete"
 msgstr "L'associazione di tasti (%s) è incompleta"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:222
+#: ../plugins/keybindings/gsd-keybindings-manager.c:223
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "L'associazione di tasti (%s) non è valida"
@@ -693,7 +689,7 @@ msgstr "L'associazione di tasti (%s) non è valida"
 # Modificato il layout e l'uso delle ()
 # il primo %s è il nome dell'azione
 # il secondo %s è la scorciatoia
-#: ../plugins/keybindings/gsd-keybindings-manager.c:409
+#: ../plugins/keybindings/gsd-keybindings-manager.c:463
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -761,12 +757,15 @@ msgstr ""
 "Impossibile eseguire il comando: %s\n"
 "Verificare che questo sia un comando valido."
 
+# GNOME-2-24
+# s/machine/computer
+# <in pausa> come in g-p-m
 #: ../plugins/media-keys/gsd-media-keys-manager.c:239
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr ""
-"Impossibile mettere in modalità «sleep» la macchina.\n"
+"Impossibile mettere il computer in pausa.\n"
 "Verificare che sia configurata correttamente."
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
@@ -780,7 +779,7 @@ msgstr "Plugin per i tasti multimediali"
 # GNOME-2-24
 # Spostato funzioni al messaggio dopo.
 # Questo è primario di allerta, meglio lasciare corto.
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:625
 msgid "Could not enable mouse accessibility features"
 msgstr "Impossibile abilitare l'accessibilità per il mouse"
 
@@ -788,12 +787,14 @@ msgstr "Impossibile abilitare l'accessibilità per il mouse"
 # usato accesso universale perché è testo secondario di
 # allerta, con accessibilità già usato in testo primario
 # (ossia messaggio precedente)
-#: ../plugins/mouse/gsd-mouse-manager.c:573
+#: ../plugins/mouse/gsd-mouse-manager.c:627
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr "Le funzioni di accesso universale per il mouse richiedono che «mousetweaks» sia installato sul sistema in uso."
+msgstr ""
+"Le funzioni di accesso universale per il mouse richiedono che «mousetweaks» "
+"sia installato sul sistema in uso."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:576
+#: ../plugins/mouse/gsd-mouse-manager.c:630
 msgid "Mouse Preferences"
 msgstr "Preferenze del mouse"
 
@@ -805,7 +806,7 @@ msgstr "Mouse"
 msgid "Mouse plugin"
 msgstr "Plugin per il mouse"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:153
+#: ../plugins/screensaver/gsd-screensaver-manager.c:137
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -820,7 +821,7 @@ msgstr ""
 "\n"
 "La funzionalità di salvaschermo non sarà funzionante in questa sessione."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:162
+#: ../plugins/screensaver/gsd-screensaver-manager.c:148
 msgid "_Do not show this message again"
 msgstr "_Non mostrare questo messaggio in futuro"
 
@@ -831,81 +832,6 @@ msgstr "Salvaschermo"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "Plugin per il salvaschermo"
-
-#: ../plugins/sound/gsd-sound-manager.c:273
-#, c-format
-msgid "Couldn't load sound file %s as sample %s"
-msgstr "Impossibile caricare il file audio «%s» come campione «%s»"
-
-#: ../plugins/sound/libsounds/sound-view.c:43
-msgid "Login"
-msgstr "Accesso"
-
-#: ../plugins/sound/libsounds/sound-view.c:44
-msgid "Logout"
-msgstr "Termine sessione"
-
-#: ../plugins/sound/libsounds/sound-view.c:45
-msgid "Boing"
-msgstr "Boing"
-
-#: ../plugins/sound/libsounds/sound-view.c:46
-msgid "Siren"
-msgstr "Sirena"
-
-#: ../plugins/sound/libsounds/sound-view.c:47
-msgid "Clink"
-msgstr "Clic"
-
-#: ../plugins/sound/libsounds/sound-view.c:48
-msgid "Beep"
-msgstr "Bip"
-
-#: ../plugins/sound/libsounds/sound-view.c:49
-msgid "No sound"
-msgstr "Nessun suono"
-
-#: ../plugins/sound/libsounds/sound-view.c:131
-msgid "Sound not set for this event."
-msgstr "Suono non impostato per questo evento."
-
-# GNOME-2-24
-#: ../plugins/sound/libsounds/sound-view.c:140
-msgid ""
-"The sound file for this event does not exist.\n"
-"You may want to install the gnome-audio package for a set of default sounds."
-msgstr ""
-"Il file audio per questo evento non esiste.\n"
-"Installare il pacchetto gnome-audio per avere un insieme di suoni predefiniti."
-
-#: ../plugins/sound/libsounds/sound-view.c:151
-msgid "The sound file for this event does not exist."
-msgstr "Il file audio per questo evento non esiste."
-
-#: ../plugins/sound/libsounds/sound-view.c:182
-msgid "Select Sound File"
-msgstr "Selezione file audio"
-
-#: ../plugins/sound/libsounds/sound-view.c:209
-#, c-format
-msgid "The file %s is not a valid wav file"
-msgstr "Il file «%s» non è un file wav valido"
-
-#: ../plugins/sound/libsounds/sound-view.c:270
-msgid "Select sound file..."
-msgstr "Selezione file audio..."
-
-#: ../plugins/sound/libsounds/sound-view.c:372
-msgid "System Sounds"
-msgstr "Suoni di sistema"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "Audio"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound plugin"
-msgstr "Plugin per l'audio"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -923,54 +849,72 @@ msgstr "Imposta la dimensione dello schermo e le impostazioni di rotazione"
 msgid "XRandR"
 msgstr "XRandR"
 
+# GNOME-2-26
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#, c-format
+msgid "Could not refresh the screen information: %s"
+msgstr "Impossibile aggiornare le informazioni dello schermo: %s"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:535
+msgid "Trying to switch the monitor configuration anyway."
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:569
+msgid "Could not switch the monitor configuration"
+msgstr ""
+
 # GNOME-2-24
-#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+#: ../plugins/xrandr/gsd-xrandr-manager.c:865
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Rotazione non supportata</i>"
 
+# GNOME-2-26
+#: ../plugins/xrandr/gsd-xrandr-manager.c:892
+msgid "Could not save monitor configuration"
+msgstr "Impossibile salvare la configurazione del monitor"
+
 # GNOME-2-24
-#: ../plugins/xrandr/gsd-xrandr-manager.c:456
-#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+#: ../plugins/xrandr/gsd-xrandr-manager.c:900
 msgid "The selected rotation could not be applied"
 msgstr "La rotazione selezionata non può essere applicata"
 
 # GNOME-2-24
-#: ../plugins/xrandr/gsd-xrandr-manager.c:457
-msgid "An error occurred while configuring the screen"
-msgstr "Si è verificato un errore durante la configurazione dello schermo"
-
-# GNOME-2-24
 # rotazione
-#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+#: ../plugins/xrandr/gsd-xrandr-manager.c:916
 msgid "Normal"
 msgstr "Normale"
 
 # GNOME-2-24
-#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+#: ../plugins/xrandr/gsd-xrandr-manager.c:917
 msgid "Left"
 msgstr "Sinistra"
 
 # GNOME-2-24
-#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+#: ../plugins/xrandr/gsd-xrandr-manager.c:918
 msgid "Right"
 msgstr "Destra"
 
 # GNOME-2-24
-#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+#: ../plugins/xrandr/gsd-xrandr-manager.c:919
 msgid "Upside Down"
 msgstr "Capovolta"
 
 # GNOME-2-24
 # altra voce di menù...
-#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1038
 msgid "_Configure Display Settings ..."
 msgstr "_Configura impostazioni display..."
 
 # Suggerimento per icona di stato di cui sopra
 # GNOME-2-24
-#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1079
 msgid "Configure display settings"
 msgstr "Configura le impostazioni del display"
+
+# GNOME-2-26
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1170
+msgid "Could not apply the stored configuration for monitors"
+msgstr "Impossibile applicare la configurazione memorizzata per i monitor"
 
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
@@ -985,7 +929,7 @@ msgstr "Gestisce il database delle risorse X"
 msgid "X Resource Database"
 msgstr "Database risorse X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:609
+#: ../plugins/xsettings/gsd-xsettings-manager.c:644
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "La chiave GConf «%s» è impostata al tipo %s, ma dovrebbe essere %s\n"
@@ -997,6 +941,85 @@ msgstr "Gestisce le impostazioni di X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Impostazioni X"
+
+# GNOME-2-24
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing the mouse pointer theme."
+#~ msgstr ""
+#~ "Impossibile creare la directory «%s».\n"
+#~ "Tale directory è necessaria per consentire il cambio del tema del "
+#~ "puntatore del mouse."
+
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing cursors."
+#~ msgstr ""
+#~ "Impossibile creare la directory «%s».\n"
+#~ "Tale directory è necessaria per consentire il cambio dei cursori."
+
+#~ msgid "Couldn't load sound file %s as sample %s"
+#~ msgstr "Impossibile caricare il file audio «%s» come campione «%s»"
+
+#~ msgid "Login"
+#~ msgstr "Accesso"
+
+#~ msgid "Logout"
+#~ msgstr "Termine sessione"
+
+#~ msgid "Boing"
+#~ msgstr "Boing"
+
+#~ msgid "Siren"
+#~ msgstr "Sirena"
+
+# GNOME-2-24
+#~ msgid "Clink"
+#~ msgstr "Tintinnio"
+
+#~ msgid "Beep"
+#~ msgstr "Bip"
+
+#~ msgid "No sound"
+#~ msgstr "Nessun suono"
+
+#~ msgid "Sound not set for this event."
+#~ msgstr "Suono non impostato per questo evento."
+
+# GNOME-2-24
+#~ msgid ""
+#~ "The sound file for this event does not exist.\n"
+#~ "You may want to install the gnome-audio package for a set of default "
+#~ "sounds."
+#~ msgstr ""
+#~ "Il file audio per questo evento non esiste.\n"
+#~ "Installare il pacchetto gnome-audio per avere un insieme di suoni "
+#~ "predefiniti."
+
+#~ msgid "The sound file for this event does not exist."
+#~ msgstr "Il file audio per questo evento non esiste."
+
+#~ msgid "Select Sound File"
+#~ msgstr "Selezione file audio"
+
+#~ msgid "The file %s is not a valid wav file"
+#~ msgstr "Il file «%s» non è un file wav valido"
+
+#~ msgid "Select sound file..."
+#~ msgstr "Selezione file audio..."
+
+#~ msgid "System Sounds"
+#~ msgstr "Suoni di sistema"
+
+#~ msgid "Sound"
+#~ msgstr "Audio"
+
+#~ msgid "Sound plugin"
+#~ msgstr "Plugin per l'audio"
+
+# GNOME-2-24
+#~ msgid "An error occurred while configuring the screen"
+#~ msgstr "Si è verificato un errore durante la configurazione dello schermo"
 
 # Voce di menù contestuale per icona area di notifica....
 #
