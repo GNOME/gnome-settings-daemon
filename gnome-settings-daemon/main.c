@@ -47,7 +47,7 @@
 static char      *gconf_prefix = NULL;
 static gboolean   no_daemon    = FALSE;
 static gboolean   debug        = FALSE;
-static int        pipefds[2];
+static int        daemon_pipe_fds[2];
 
 static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL },
@@ -247,7 +247,7 @@ daemon_start (void)
         gnome_settings_profile_msg ("forking daemon");
 
         signal (SIGPIPE, SIG_IGN);
-        if (-1 == pipe (pipefds)) {
+        if (-1 == pipe (daemon_pipe_fds)) {
                 g_error ("Could not create pipe: %s", g_strerror (errno));
                 exit (EXIT_FAILURE);
         }
@@ -262,17 +262,17 @@ daemon_start (void)
         case 0:
                 /* child */
 
-                close (pipefds[0]);
+                close (daemon_pipe_fds[0]);
 
                 return;
 
          default:
                 /* parent */
 
-                close (pipefds[1]);
+                close (daemon_pipe_fds[1]);
 
                 /* Wait for child to signal that we are good to go. */
-                read (pipefds[0], buf, 1);
+                read (daemon_pipe_fds[0], buf, 1);
 
                 exit (EXIT_SUCCESS);
         }
@@ -305,8 +305,8 @@ daemon_terminate_parent (void)
 
         gnome_settings_profile_msg ("terminating parent");
 
-        write (pipefds[1], "1", 1);
-        close (pipefds[1]);
+        write (daemon_pipe_fds[1], "1", 1);
+        close (daemon_pipe_fds[1]);
 }
 
 static void

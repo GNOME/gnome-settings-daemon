@@ -1,3 +1,10 @@
+2008-12-07  Ray Strode  <rstrode@redhat.com>
+
+	* gnome-settings-daemon/main.c: Rename pipefds to
+	daemon_pipe_fds.  This fits the naming style of the
+	surrounding code better.  Also, we're going to need
+	another pipe, so better to use a specific name here.
+
 2008-12-09  Jens Granseuer  <jensgr@gmx.net>
 
 	Patch by: Pedro Fragoso <ember@ubuntu.com>
