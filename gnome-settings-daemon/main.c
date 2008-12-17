@@ -114,6 +114,21 @@ acquire_name_on_proxy (DBusGProxy *bus_proxy)
         return ret;
 }
 
+static DBusHandlerResult
+bus_message_handler (DBusConnection *connection,
+                     DBusMessage    *message,
+                     void           *user_data)
+{
+        if (dbus_message_is_signal (message,
+                                    DBUS_INTERFACE_LOCAL,
+                                    "Disconnected")) {
+                gtk_main_quit ();
+                return DBUS_HANDLER_RESULT_HANDLED;
+        }
+
+        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+}
+
 static DBusGConnection *
 get_session_bus (void)
 {
@@ -131,7 +146,12 @@ get_session_bus (void)
         }
 
         connection = dbus_g_connection_get_connection (bus);
-        dbus_connection_set_exit_on_disconnect (connection, TRUE);
+        dbus_connection_add_filter (connection,
+                                    (DBusHandleMessageFunction)
+                                    bus_message_handler,
+                                    NULL, NULL);
+
+        dbus_connection_set_exit_on_disconnect (connection, FALSE);
 
  out:
         return bus;

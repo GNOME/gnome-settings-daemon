@@ -1,5 +1,16 @@
 2008-12-07  Ray Strode  <rstrode@redhat.com>
 
+	Shutdown properly when bus goes away.  Previously
+	we were just letting libdbus call exit(1) for us.
+
+	* gnome-settings-daemon/main.c (get_session_bus):
+	Set up a filter function to catch disconection
+	events.
+	(bus_message_handler): quit event loop when
+	disconnected from bus.
+
+2008-12-07  Ray Strode  <rstrode@redhat.com>
+
 	Shutdown properly when killed.
 
 	* gnome-settings-daemon/main.c (on_term_signal):
