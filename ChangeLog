@@ -1,5 +1,17 @@
 2008-12-07  Ray Strode  <rstrode@redhat.com>
 
+	Restore AccessX bits to original values on exit
+
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
+	(struct GsdA11yKeyboardManagerPrivate): add new
+	field to cache original AccessX bits.
+	(start_a11y_keyboard_idle_cb): save bits.
+	(restore_server_xkb_config),
+	(gsd_a11y_keyboard_manager_stop): restore bits
+	when stopping.
+
+2008-12-07  Ray Strode  <rstrode@redhat.com>
+
 	Shutdown properly when bus goes away.  Previously
 	we were just letting libdbus call exit(1) for us.
 

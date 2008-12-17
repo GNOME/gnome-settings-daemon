@@ -63,6 +63,7 @@ struct GsdA11yKeyboardManagerPrivate
         GtkWidget *slowkeys_alert;
         GtkWidget *preferences_dialog;
         GtkStatusIcon *status_icon;
+        XkbDescRec *original_xkb_desc;
 
         guint      gconf_notify;
 
@@ -1012,6 +1013,10 @@ start_a11y_keyboard_idle_cb (GsdA11yKeyboardManager *manager)
                                   (GConfClientNotifyFunc) keyboard_callback,
                                   &manager->priv->gconf_notify);
 
+        /* Save current xkb state so we can restore it on exit
+         */
+        manager->priv->original_xkb_desc = get_xkb_desc_rec (manager);
+
         event_mask = XkbControlsNotifyMask;
 #ifdef DEBUG_ACCESSIBILITY
         event_mask |= XkbAccessXNotifyMask; /* make default when AXN_AXKWarning works */
@@ -1052,6 +1057,31 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
         return TRUE;
 }
 
+static void
+restore_server_xkb_config (GsdA11yKeyboardManager *manager)
+{
+        gdk_error_trap_push ();
+        XkbSetControls (GDK_DISPLAY (),
+                        XkbSlowKeysMask         |
+                        XkbBounceKeysMask       |
+                        XkbStickyKeysMask       |
+                        XkbMouseKeysMask        |
+                        XkbMouseKeysAccelMask   |
+                        XkbAccessXKeysMask      |
+                        XkbAccessXTimeoutMask   |
+                        XkbAccessXFeedbackMask  |
+                        XkbControlsEnabledMask,
+                        manager->priv->original_xkb_desc);
+
+        XkbFreeKeyboard (manager->priv->original_xkb_desc,
+                         XkbAllComponentsMask, True);
+
+        XSync (GDK_DISPLAY (), FALSE);
+        gdk_error_trap_pop ();
+
+        manager->priv->original_xkb_desc = NULL;
+}
+
 void
 gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
 {
@@ -1073,6 +1103,10 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
         gdk_window_remove_filter (NULL,
                                   (GdkFilterFunc) cb_xkb_event_filter,
                                   manager);
+
+        /* Disable all the AccessX bits
+         */
+        restore_server_xkb_config (manager);
 
         if (p->slowkeys_alert != NULL)
                 gtk_widget_destroy (p->slowkeys_alert);
