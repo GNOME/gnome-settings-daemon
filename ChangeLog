@@ -1,5 +1,17 @@
 2008-12-07  Ray Strode  <rstrode@redhat.com>
 
+	Shutdown properly when killed.
+
+	* gnome-settings-daemon/main.c (on_term_signal):
+	top half of signal handling code. close a pipe
+	when getting SIGTERM.
+	(on_term_signal_pipe_closed),
+	(watch_for_term_signal),
+	(set_session_over_handler): bottom half.  Quit
+	event loop when term pipe gets closed.
+
+2008-12-07  Ray Strode  <rstrode@redhat.com>
+
 	* gnome-settings-daemon/main.c: Rename pipefds to
 	daemon_pipe_fds.  This fits the naming style of the
 	surrounding code better.  Also, we're going to need
