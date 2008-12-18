@@ -1,4 +1,18 @@
 ==============
+Version 2.25.3
+==============
+- Add support for fn-f7 type keys (Søren Sandmann)
+- Use D-Bus instead of an X client mesage in the xrandr plugin, so
+  the front-end can get error messages as well (Federico Mena Quintero)
+- Fix crash when the X server doesn't have the XInput extension (Jens Granseuer) (#562977)
+- Don't call umask (Behdad Esfahbod) (#563543)
+- Shut the daemon down properly when the SIGTERM signal is received or the
+  D-Bus bus goes away (Ray Strode)
+- Restore AccessX bits to original values on exit, fixes sticky keys
+  coming on when gnome-settings-daemon has exited (Ray Strode)
+- Use only top-level glib and gtk+ headers (Pedro Fragoso) (#563796)
+
+==============
 Version 2.25.2
 ==============
 - No need to trap XkbQueryExtension and friends errors (Jens Granseuer) (#559346)

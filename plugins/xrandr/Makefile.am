@@ -68,7 +68,7 @@ plugin_in_files =			\
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-EXTRA_DIST = $(plugin_in_files) $(ICON_FILES)
+EXTRA_DIST = $(plugin_in_files) $(ICON_FILES) gsd-xrandr-manager.xml
 CLEANFILES = $(plugin_DATA) $(BUILT_SOURCES)
 DISTCLEANFILES = $(plugin_DATA)
 
