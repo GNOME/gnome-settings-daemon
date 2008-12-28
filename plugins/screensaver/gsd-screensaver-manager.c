@@ -77,7 +77,7 @@ key_toggled_cb (GtkWidget             *toggle,
 }
 
 static gboolean
-start_screensaver_idle_cb (GsdScreensaverManager *manager)
+start_screensaver_cb (GsdScreensaverManager *manager)
 {
         GError      *error = NULL;
         char        *ss_cmd;
@@ -85,14 +85,14 @@ start_screensaver_idle_cb (GsdScreensaverManager *manager)
         char        *args[3];
         GConfClient *client;
 
-        g_debug ("Starting screensaver process in idle callback");
+        g_debug ("Starting screensaver process after timeout");
         gnome_settings_profile_start (NULL);
 
         client = gconf_client_get_default ();
 
         manager->priv->start_screensaver = gconf_client_get_bool (client, START_SCREENSAVER_KEY, NULL);
         if (!manager->priv->start_screensaver)
-                return FALSE;
+                goto done;
 
         if ((ss_cmd = g_find_program_in_path ("gnome-screensaver"))) {
                 manager->priv->have_gscreensaver = TRUE;
@@ -116,13 +116,12 @@ start_screensaver_idle_cb (GsdScreensaverManager *manager)
                 args[1] = "-nosplash";
         } else {
                 g_warning ("No screensaver available");
-                return FALSE;
+                goto done;
         }
         args[2] = NULL;
 
         if (g_spawn_async (g_get_home_dir (), args, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &manager->priv->screensaver_pid, &error)) {
-                g_object_unref (client);
-                return FALSE;
+                goto done;
         }
 
         show_error = gconf_client_get_bool (client, SHOW_STARTUP_ERRORS_KEY, NULL);
@@ -138,8 +137,6 @@ start_screensaver_idle_cb (GsdScreensaverManager *manager)
                                "%s\n\n"
                                "Screensaver functionality will not work in this session."),
                              error->message);
-
-                g_error_free (error);
 
                 g_signal_connect (dialog, "response",
                                   G_CALLBACK (gtk_widget_destroy),
@@ -165,7 +162,9 @@ start_screensaver_idle_cb (GsdScreensaverManager *manager)
 
                 gtk_widget_show (dialog);
         }
+        g_error_free (error);
 
+done:
         g_object_unref (client);
 
         gnome_settings_profile_end (NULL);
@@ -181,18 +180,10 @@ gsd_screensaver_manager_start (GsdScreensaverManager *manager,
         gnome_settings_profile_start (NULL);
 
         /*
-	 * with gnome-screensaver, all settings are loaded internally
-	 * from gconf at startup
-	 *
-	 * with xscreensaver, our settings only apply to startup, and
-	 * the screensaver settings are all in xscreensaver and not
-	 * gconf.
-	 *
-	 * we could have xscreensaver-demo run gconftool-2 directly,
-	 * and start / stop xscreensaver here
+         * We'll start the screensaver after a delay so it doesn't
+         * compete with other processes while the session is starting
          */
-
-        g_idle_add ((GSourceFunc) start_screensaver_idle_cb, manager);
+        g_timeout_add_seconds (30, (GSourceFunc) start_screensaver_cb, manager);
 
         gnome_settings_profile_end (NULL);
 

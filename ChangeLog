@@ -1,5 +1,13 @@
 2008-12-28  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/screensaver/gsd-screensaver-manager.c:
+	(start_screensaver_cb), (gsd_screensaver_manager_start): spawn
+	screensaver after a 30 second timeout instead of when idle so that
+	it doesn't compete with other processes when the session starts
+	(bug #564059). Also plug a few small leaks.
+
+2008-12-28  Jens Granseuer  <jensgr@gmx.net>
+
 	Based on patch by: Jasper Lievisse Adriaanse <jasper@humppa.nl>
 
 	* plugins/media-keys/gsd-media-keys-manager.c: (do_eject_action),
