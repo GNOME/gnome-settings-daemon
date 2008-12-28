@@ -28,6 +28,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#include <signal.h>
 
 #include <locale.h>
 
@@ -298,7 +299,7 @@ apply_settings (GsdSoundManager *manager)
            poor software.  Pulseaudio is better and notably releases the sound device when not in
            use, so should have no impact for legacy applications.  The reason we don't actually want
            to even read from the preference is because someone may have set it to false intending
-           to disable ESD, but they will then disable Pulseaudio later.  
+           to disable ESD, but they will then disable Pulseaudio later.
            https://bugzilla.redhat.com/show_bug.cgi?id=430624
         */
 #ifdef ENABLE_LEGACY_SOUND_PREF

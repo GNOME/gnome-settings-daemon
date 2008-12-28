@@ -1,3 +1,11 @@
+2008-12-28  Jens Granseuer  <jensgr@gmx.net>
+
+	Patch by: Jasper Lievisse Adriaanse <jasper@humppa.nl>
+
+	* plugins/sound/gsd-sound-manager.c:
+	* plugins/typing-break/gsd-typing-break-manager.c: include signal.h to
+	fix build on OpenBSD (bug #565470)
+
 2008-12-04  Jens Granseuer  <jensgr@gmx.net>
 
 	Merged from trunk.
