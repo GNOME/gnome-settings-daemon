@@ -1,5 +1,12 @@
 2008-12-28  Jens Granseuer  <jensgr@gmx.net>
 
+	Patch by: Jasper Lievisse Adriaanse <jasper@humppa.nl>
+
+	* plugins/typing-break/gsd-typing-break-manager.c: include signal.h to
+	fix build on OpenBSD (bug #565470)
+
+2008-12-28  Jens Granseuer  <jensgr@gmx.net>
+
 	Patch by: Frederic Peters <fpeters@0d.be>
 
 	* gnome-settings-daemon/main.c: (main): initialize thread system since
