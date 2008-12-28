@@ -419,6 +419,10 @@ main (int argc, char *argv[])
 
         manager = NULL;
 
+        if (!g_thread_supported ()) {
+                g_thread_init (NULL);
+        }
+
         gnome_settings_profile_start (NULL);
 
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
