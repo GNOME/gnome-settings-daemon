@@ -1,3 +1,24 @@
+2008-12-30  Matthias Clasen  <mclasen@redhat.com>
+
+	Bug 565310 – support hotkeys for a11y tools
+
+	* configure.ac: Set GNOME_KEYBINDINGS_KEYSDIR.
+
+	* data/gnome-settings-daemon.schemas.in: Add missing schemas for
+	the keys in /destkop/gnome/applications/at, and also add new
+	schemas for keys in /desktop/gnome/keybindings that define 
+	global keybindings for turning ATs on and off. Todo: There are no
+	default key combinations in the schema yet.
+
+	* data/50-accessibility.xml.in: Keybinding file to group the
+	new keybindings in an "Accessibility" section in the keybinding
+	capplet.
+
+	* data/Makefile.am: Install the keybinding file in the proper
+	location.
+	
+	* po/POTFILES.in: Add 50-accessibility.xml.in.
+
 2008-12-31  Rodrigo Moya <rodrigo@gnome-db.org>
 
 	Patch by Vincent Untz from openSUSE package (bug #557647)

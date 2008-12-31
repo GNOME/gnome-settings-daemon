@@ -29,6 +29,12 @@ org.gnome.SettingsDaemon.service: org.gnome.SettingsDaemon.service.in Makefile
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gnome-settings-daemon.pc
 
+@INTLTOOL_XML_NOMERGE_RULE@
+
+xmldir = @GNOME_KEYBINDINGS_KEYSDIR@
+xml_in_files = 50-accessibility.xml.in
+xml_DATA = $(xml_in_files:.xml.in=.xml)
+
 EXTRA_DIST = 				\
 	$(schemas_in_files)		\
 	$(service_in_files)		\

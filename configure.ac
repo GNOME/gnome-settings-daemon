@@ -36,6 +36,10 @@ AS_AC_EXPAND(LIBEXECDIR, "$libexecdir")
 GSD_INTLTOOL_PLUGIN_RULE='%.gnome-settings-plugin:   %.gnome-settings-plugin.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< [$]@'
 AC_SUBST([GSD_INTLTOOL_PLUGIN_RULE])
 
+ dnl Unconditionally use this dir to avoid a circular dep with gnomecc
+GNOME_KEYBINDINGS_KEYSDIR="${datadir}/gnome-control-center/keybindings"
+AC_SUBST(GNOME_KEYBINDINGS_KEYSDIR)
+
 dnl ---------------------------------------------------------------------------
 dnl - Dependencies
 dnl ---------------------------------------------------------------------------
