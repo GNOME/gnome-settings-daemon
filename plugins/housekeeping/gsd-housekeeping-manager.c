@@ -302,6 +302,8 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
         g_debug ("Starting housekeeping manager");
         gnome_settings_profile_start (NULL);
 
+        gsd_ldsm_setup (FALSE);
+
         manager->priv->gconf_notify = register_config_callback (manager,
                                       GCONF_THUMB_BINDING_DIR,
                                       (GConfClientNotifyFunc) bindings_callback);
@@ -352,6 +354,8 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
                         do_cleanup (manager);
                 }
         }
+
+        gsd_ldsm_clean ();
 }
 
 

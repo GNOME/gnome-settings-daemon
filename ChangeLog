@@ -1,3 +1,22 @@
+2008-12-31  Rodrigo Moya <rodrigo@gnome-db.org>
+
+	Patch by Vincent Untz from openSUSE package (bug #557647)
+
+	* configure.ac: require giounix for diskspace checker
+
+	* Makefile.am:
+	* plugins/housekeeping/gsd-disk-space.[ch]: add low diskspace
+	checker to housekeeping plugin.
+
+	* plugins/housekeeping/gsd-housekeeping-manager.c
+	(gsd_housekeeping_manager_start, gsd_housekeeping_manager_stop):
+	start/stop the low diskspace checker.
+
+	* plugins/housekeeping/housekeeping.gnome-settings-plugin.in: add new
+	plugin capability to description
+
+	* po/POTFILES.in: add new files
+
 2008-12-28  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/screensaver/gsd-screensaver-manager.c:

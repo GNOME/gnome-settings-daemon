@@ -13,11 +13,13 @@ libhousekeeping_la_CPPFLAGS = 					\
 
 libhousekeeping_la_CFLAGS = 		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(GIOUNIX_CFLAGS)		\
+	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libhousekeeping_la_LDFLAGS = $(GSD_PLUGIN_LDFLAGS)
 
-libhousekeeping_la_LIBADD = $(SETTINGS_PLUGIN_LIBS)
+libhousekeeping_la_LIBADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
 
 plugin_in_files = housekeeping.gnome-settings-plugin.in
 

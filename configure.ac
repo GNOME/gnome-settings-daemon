@@ -208,6 +208,14 @@ PKG_CHECK_MODULES(LIBGNOMEKBD, [libgnomekbd >= 2.21.4 libxklavier >= 3.8])
 AC_SUBST(LIBGNOMEKBD_CFLAGS)
 AC_SUBST(LIBGNOMEKBD_LIBS)
 
+dnl ---------------------------------------------------------------------------
+dnl - Housekeeping plugin stuff
+dnl ---------------------------------------------------------------------------
+
+PKG_CHECK_MODULES(GIOUNIX, [gio-unix-2.0])
+AC_SUBST(GIOUNIX_CFLAGS)
+AC_SUBST(GIOUNIX_LIBS)
+
 dnl ==============================================
 dnl GStreamer section
 dnl ==============================================
