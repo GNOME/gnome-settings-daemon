@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.25.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-12 14:59+0100\n"
-"PO-Revision-Date: 2008-12-12 15:06+0100\n"
+"POT-Creation-Date: 2009-01-01 11:08+0100\n"
+"PO-Revision-Date: 2009-01-01 11:31+0100\n"
 "Last-Translator: Luca Ferretti <elle.uca@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -301,77 +301,134 @@ msgstr "Tasti consentiti"
 msgid ""
 "If non-empty, keybindings will be ignored unless their GConf directory is in "
 "the list. This is useful for lockdown."
-msgstr "Se non vuoto, le associazioni di tasti sono ignorate a meno che la loro directory GConf non sia in questa lista. Questo è utile per il lockdown."
+msgstr ""
+"Se non vuoto, le associazioni di tasti sono ignorate a meno che la loro "
+"directory GConf non sia in questa lista. Questo è utile per il lockdown."
 
 # GNOME-2-24
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "Demone di impostazioni per GNOME"
 
+# GNOME-2-26
 #: ../data/gnome-settings-daemon.schemas.in.h:1
+msgid "Binding to toggle the magnifier."
+msgstr "Associazione per commutare l'ingranditore."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:2
+msgid "Binding to toggle the on-screen keyboard."
+msgstr "Associazione per commutare la tastiera a schermo."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:3
+msgid "Binding to toggle the screen reader."
+msgstr "Associazione per commutare il lettore di schermo."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:4
+msgid "Bounce keys"
+msgstr "Tasti ravvicinati"
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Command used to turn the magnifier on or off."
+msgstr "Comando usato per attivare o disattivare l'ingranditore."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:6
+msgid "Command used to turn the on-screen keyboard on or off."
+msgstr "Comando usto per attivare o disattivare la tastiera a schermo."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:7
+msgid "Command used to turn the screen reader on or off."
+msgstr "Comando usato per attivare o disattivare il lettore di schermo."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
 msgstr "Abilita plugin per accesso universale tastiera"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "Abilita plugin per sfondo"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "Abilita plugin appunti"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "Abilita plugin per tipi di carattere"
 
 # GNOME-2-24
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable housekeeping plugin"
 msgstr "Abilita plugin per housekeeping"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
 msgstr "Abilita plugin per associazioni di tasti"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "Abilita plugin per tastiera"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable media keys plugin"
 msgstr "Abilita plugin per tasti multimediali"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "Abilita plugin per mouse"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable screensaver plugin"
 msgstr "Abilita plugin per salvaschermo"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "Abilita plugin per audio"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable typing breaks plugin"
 msgstr "Abilita plugin per pause nella digitazione"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrandr plugin"
 msgstr "Abilita plugin per xrandr"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "Abilita plugin per xrdb"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "Abilita plugin per xsettings"
 
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:23
+msgid "Mouse keys"
+msgstr "Mouse da tastiera"
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:24
+msgid "On-screen keyboard"
+msgstr "Tastiera a schermo"
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:25
+msgid "Screen magnifier"
+msgstr "Ingranditore schermo"
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:26
+msgid "Screen reader"
+msgstr "Lettore schermo"
+
 # GNOME-2-24
 # to prune: potare, sfrondare...
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -379,55 +436,55 @@ msgstr ""
 "Impostare a VERO per abilitare il plugin housekeeping, che tiene ordinate le "
 "cache dei file transitori."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni degli "
 "appunti."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni dello "
 "sfondo della scrivania."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni dei "
 "tipi di carattere."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni della "
 "tastiera."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni del "
 "mouse."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni dei "
 "tasti multimediali."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni del "
 "salvaschermo."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage sound settings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni "
 "dell'audio."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -435,42 +492,107 @@ msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni di "
 "accessibilità della tastiera."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le associazioni di "
 "tasti."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le pause nella "
 "digitazione."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni xrandr."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr ""
 "Impostare a VERO per abilitare il plugin che gestisce le impostazioni xrdb."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Impostare a VERO per abilitare il plugin che gestisce xsettings."
 
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:42
+msgid "Slow keys"
+msgstr "Rallentamento dei tasti"
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:43
+msgid "Sticky keys"
+msgstr "Permanenza dei tasti"
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "Toggle magnifier"
+msgstr "Commuta ingranditore"
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid "Toggle on-screen keyboard"
+msgstr "Commuta tastiera a schermo"
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid "Toggle screen reader"
+msgstr "Commuta lettore di schermo"
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+msgstr "Indica se la funzione di accessibilità pressione ravvicinata dei tasti è attivata."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+msgstr "Indica se la funzione di accessibilità mouse da tastiera è attivata."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid "Whether the on-screen keyboard is turned on."
+msgstr "Indica se la tastiera a schermo è attivata."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:50
+msgid "Whether the screen magnifier is turned on."
+msgstr "Indica se l'ingraditore di schermo è attivato."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:51
+msgid "Whether the screen reader is turned on."
+msgstr "Indica se il lettore di schermo è attivato."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:52
+msgid "Whether the slow keys keyboard accessibility feature is turned on."
+msgstr "Indica se la funzione di accessibilità rallentamento dei tasti è attivata."
+
+# GNOME-2-26
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+msgstr "Indica se la funzione di accessibilità permanenza dei tasti è attivata."
+
+# GNOME-2-26
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "Accessibilità"
+
 # GNOME-2-24
-#: ../gnome-settings-daemon/main.c:53
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Abilita codice di debug"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Don't become a daemon"
 msgstr "Non operare come demone"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../gnome-settings-daemon/main.c:56
 msgid "GConf prefix from which to load plugin settings"
 msgstr "Prefisso GConf da cui caricare le impostazioni dei plugin"
 
@@ -483,25 +605,25 @@ msgid "Accessibility keyboard plugin"
 msgstr "Plugin di accesso universale per la tastiera"
 
 # il %s inizia sempre con maiuscolo!!
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:387
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Errore nel mostrare la documentazione. %s"
 
 # ##### Slow Keys ######
 # rallentamento dei tasti
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
 msgid "Do you want to activate Slow Keys?"
 msgstr "Attivare il rallentamento dei tasti?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Disattivare il rallentamento dei tasti?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -511,67 +633,67 @@ msgstr ""
 "modo in cui opera la tastiera."
 
 # GNOME-2-24
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:698
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
 msgid "Don't activate"
 msgstr "Non attivare"
 
 # GNOME-2-24
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:698
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
 msgid "Don't deactivate"
 msgstr "Non disattivare"
 
 # GNOME-2-24
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:704
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
 msgid "Activate"
 msgstr "Attiva"
 
 # GNOME-2-24
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:704
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
 msgid "Deactivate"
 msgstr "Disattiva"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:765
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "Do_n't activate"
 msgstr "_Non attivare"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:765
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "Do_n't deactivate"
 msgstr "_Non disattivare"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
 msgid "_Activate"
 msgstr "_Attiva"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
 msgid "_Deactivate"
 msgstr "_Disattiva"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:626
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:627
 msgid "Slow Keys Alert"
 msgstr "Allerta rallentamento dei tasti"
 
 # ###### Sticky Keys ######
 # permanenza dei tasti
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Attivare la permanenza dei tasti?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Disattivare la permanenza dei tasti?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -580,18 +702,18 @@ msgstr ""
 "scorciatoia per la funzione di permanenza dei tasti, che determina il modo "
 "in cui opera la tastiera."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:672
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
 "Sono stati premuti due tasti contemporaneamente o cinque volte consecutive "
-"il tasto «Maiusc». Questo disabilita la funzione di permanenza dei tasti, "
-"che determina il modo in cui opera la tastiera."
+"il tasto «Maiusc». Questo disabilita la funzione di permanenza dei tasti, che "
+"determina il modo in cui opera la tastiera."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:772
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:773
 msgid "Sticky Keys Alert"
 msgstr "Allerta permanenza dei tasti"
 
@@ -674,6 +796,25 @@ msgstr "Tipi di carattere"
 msgid "Font plugin"
 msgstr "Plugin per i tipi di carattere"
 
+# GNOME-2-26
+# come era in gnome-volume-manager
+#: ../plugins/housekeeping/gsd-disk-space.c:120
+#, c-format
+msgid "%d%% of the disk space on `%s' is in use"
+msgstr "%d%% dello spazio disco su «%s» è in uso"
+
+# GNOME-2-26
+# come era in gnome-volume-manager
+#: ../plugins/housekeeping/gsd-disk-space.c:128
+msgid "Low Disk Space"
+msgstr "Poco spazio disco"
+
+# GNOME-2-26
+# pulsante su notifica, credo apra baobab
+#: ../plugins/housekeeping/gsd-disk-space.c:139
+msgid "Analyze"
+msgstr "Analizza"
+
 #: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
 msgid "Key binding (%s) is incomplete"
@@ -739,7 +880,7 @@ msgstr "_Carica"
 msgid "_Loaded files:"
 msgstr "_File caricati:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:195
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -748,7 +889,7 @@ msgstr ""
 "comando predefinito per il terminale sia impostato e punti a un'applicazione "
 "valida."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:223
+#: ../plugins/media-keys/gsd-media-keys-manager.c:235
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -760,7 +901,7 @@ msgstr ""
 # GNOME-2-24
 # s/machine/computer
 # <in pausa> come in g-p-m
-#: ../plugins/media-keys/gsd-media-keys-manager.c:239
+#: ../plugins/media-keys/gsd-media-keys-manager.c:251
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -806,7 +947,7 @@ msgstr "Mouse"
 msgid "Mouse plugin"
 msgstr "Plugin per il mouse"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:137
+#: ../plugins/screensaver/gsd-screensaver-manager.c:136
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -821,7 +962,7 @@ msgstr ""
 "\n"
 "La funzionalità di salvaschermo non sarà funzionante in questa sessione."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:148
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
 msgid "_Do not show this message again"
 msgstr "_Non mostrare questo messaggio in futuro"
 
