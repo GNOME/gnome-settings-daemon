@@ -432,7 +432,7 @@ apply_settings (GsdXrdbManager *manager,
 
         gnome_settings_profile_start (NULL);
 
-        command = "xrdb -merge";
+        command = "xrdb -merge -quiet";
 
         string = g_string_sized_new (256);
         append_theme_colors (style, string);
