@@ -724,6 +724,7 @@ gsd_media_keys_manager_grab_media_player_keys (GsdMediaKeysManager *manager,
                 }
         }
 
+        g_debug ("Registering %s at %ld", application, time);
         media_player = g_new0 (MediaPlayer, 1);
         media_player->application = g_strdup (application);
         media_player->time = time;
@@ -747,6 +748,7 @@ gsd_media_keys_manager_release_media_player_keys (GsdMediaKeysManager *manager,
                                    find_by_application);
 
         if (iter != NULL) {
+                g_debug ("Deregistering %s", application);
                 g_free (((MediaPlayer *)iter->data)->application);
                 g_free (iter->data);
                 manager->priv->media_players = g_list_delete_link (manager->priv->media_players, iter);
