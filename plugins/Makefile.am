@@ -13,6 +13,7 @@ SUBDIRS =		\
 	media-keys	\
 	mouse		\
 	screensaver	\
+	sound		\
 	typing-break	\
 	xrandr		\
 	xrdb		\

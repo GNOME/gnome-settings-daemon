@@ -1,5 +1,19 @@
 2009-01-08  Jens Granseuer  <jensgr@gmx.net>
 
+	Based on a patch by: Lennart Poettering <lennart@poettering.net>
+
+	* configure.ac:
+	* data/gnome-settings-daemon.schemas.in:
+	* plugins/Makefile.am:
+	* plugins/sound/Makefile.am:
+	* plugins/sound/gsd-sound-manager.c:
+	* plugins/sound/gsd-sound-plugin.h:
+	* plugins/sound/sound.gnome-settings-plugin.in:
+	Add a new sound plugin that tells PulseAudio to drop its sample
+	cache when the sound theme changes (bug #545386).
+
+2009-01-08  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/media-keys/gsd-media-keys-manager.c:
 	(gsd_media_keys_manager_grab_media_player_keys),
 	(gsd_media_keys_manager_release_media_player_keys): add a little
