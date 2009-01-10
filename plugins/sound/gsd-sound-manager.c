@@ -223,7 +223,7 @@ register_config_callback (GsdSoundManager *manager, GError **error)
         gconf_client_add_dir (client, GCONF_SOUND_DIR, GCONF_CLIENT_PRELOAD_NONE, error);
         succ = !error || !*error;
 
-        if (!err) {
+        if (!error) {
                 manager->priv->gconf_notify = gconf_client_notify_add (client, GCONF_SOUND_DIR, (GConfClientNotifyFunc) gconf_client_notify_cb, manager, NULL, error);
                 succ = !error || !*error;
         }
