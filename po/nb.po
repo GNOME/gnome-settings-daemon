@@ -1,14 +1,14 @@
 # Norwegian Bokmål translation of gnome-settings-daemon.
 # Copyright (C) 1999-2005 Free Software Foundation, Inc.
-# Kjartan Maraas <kmaraas@gnome.org>, 1999-2008.
+# Kjartan Maraas <kmaraas@gnome.org>, 1999-2009.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.25.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-05 07:50+0100\n"
-"PO-Revision-Date: 2009-01-05 07:53+0100\n"
+"POT-Creation-Date: 2009-01-12 15:01+0100\n"
+"PO-Revision-Date: 2009-01-12 15:02+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -278,19 +278,16 @@ msgid "GNOME Settings Daemon"
 msgstr "GNOME konfigurasjonstjeneste"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
-#, fuzzy
 msgid "Binding to toggle the magnifier."
-msgstr "Binding for å åpne hjemmemappen."
+msgstr "Binding for å slå av/på forstørrelsesglass."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:2
-#, fuzzy
 msgid "Binding to toggle the on-screen keyboard."
-msgstr "Binding for å låse skjermen."
+msgstr "Binding for å slå av/på tastatur på skjermen."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:3
-#, fuzzy
 msgid "Binding to toggle the screen reader."
-msgstr "Binding for å låse skjermen."
+msgstr "Binding for å slå av/på skjermleser."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
 msgid "Bounce keys"
@@ -298,7 +295,7 @@ msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:5
 msgid "Command used to turn the magnifier on or off."
-msgstr ""
+msgstr "Kommando for å slå forstørrelsesglasset på eller av."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Command used to turn the on-screen keyboard on or off."
@@ -432,7 +429,8 @@ msgstr ""
 "skjermsparer."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:35
-msgid "Set to True to enable the plugin to manage sound settings."
+#, fuzzy
+msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr ""
 "Sett til True for å aktivere tillegg for å håndtere innstillinger for lyd."
 
@@ -476,17 +474,15 @@ msgstr "Klebrige taster"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:44
 msgid "Toggle magnifier"
-msgstr ""
+msgstr "Slå av/på forstørrelsesglass"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:45
-#, fuzzy
 msgid "Toggle on-screen keyboard"
-msgstr "Bruk tastatur på s_kjermen"
+msgstr "Slå av/på tastatur på skjermen"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:46
-#, fuzzy
 msgid "Toggle screen reader"
-msgstr "Bruk skje_rmleser"
+msgstr "Slå av/på skjermleser"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
@@ -864,6 +860,14 @@ msgstr "Skjermsparer"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "Tillegg for skjermsparer"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
+msgid "Sound"
+msgstr "Lyd"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
+msgid "Sound Sample Cache plugin"
+msgstr "Eksempel på tillegg for bufring av lyder"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
