@@ -5,14 +5,14 @@
 # He Qiangqiang <carton@linux.net.cn>, 2002
 # Sun G11n <gnome_int_l10n@ireland.sun.com>, 2002
 # Funda Wang <fundawang@linux.net.cn>, 2003-2006
-#
+# 甘露(Gan Lu) <rhythm.gan@gmail.com>, 2009
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-19 03:43+0000\n"
-"PO-Revision-Date: 2008-02-27 12:59+0800\n"
-"Last-Translator: cathayan <cathayan@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
+"POT-Creation-Date: 2008-12-31 03:16+0000\n"
+"PO-Revision-Date: 2009-01-13 17:13+0700\n"
+"Last-Translator: 甘露(Gan Lu) <rhythm.gan@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr "调用计算器的键绑定。"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
 msgid "Binding to launch the email client."
-msgstr "调用 email 客户端的键绑定。"
+msgstr "调用电子邮件客户端的键绑定。"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
 msgid "Binding to launch the help browser."
@@ -45,7 +45,7 @@ msgstr "调用搜索工具的键绑定。"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
 msgid "Binding to launch the web browser."
-msgstr "调用 Web 浏览器的键绑定。"
+msgstr "调用网际浏览器的键绑定。"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
 msgid "Binding to lock the screen."
@@ -105,23 +105,23 @@ msgstr "主文件夹"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
 msgid "Launch calculator"
-msgstr "调用计算器"
+msgstr "启动计算器"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:23
 msgid "Launch email client"
-msgstr "调用 email 客户端"
+msgstr "启动电子邮件客户端"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:24
 msgid "Launch help browser"
-msgstr "调用帮助浏览器"
+msgstr "启动帮助浏览器"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:25
 msgid "Launch media player"
-msgstr "调用媒体播放机"
+msgstr "启动媒体播放机"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:26
 msgid "Launch web browser"
-msgstr "调用 Web 浏览器"
+msgstr "启动网际浏览器"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:27
 msgid "Lock screen"
@@ -180,9 +180,7 @@ msgid "Volume up"
 msgstr "音量升高"
 
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
-msgid ""
-"Set to True to display a dialog when there are errors running the "
-"screensaver."
+msgid "Set to True to display a dialog when there are errors running the screensaver."
 msgstr "设为 True 以在运行屏幕保护程序出错时显示对话框。"
 
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
@@ -198,11 +196,8 @@ msgid "Start screensaver"
 msgstr "启动屏幕保护程序"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
-msgid ""
-"If a notification icon with display related things should be shown in the "
-"panel."
-msgstr ""
-"是否在面板中显示一个通知图标，其中包括相关设置。"
+msgid "If a notification icon with display related things should be shown in the panel."
+msgstr "是否在面板中显示一个通知图标，其中包括相关设置。"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "Show Displays in Notification Area"
@@ -225,290 +220,358 @@ msgid "RGBA order"
 msgstr "RGBA 顺序"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:5
-msgid ""
-"The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
-msgstr ""
-"LCD 屏幕上次像素的顺序；仅在反锯齿设为 \"rgba\" 时有用。可能的设定值有：\"rgb"
-"\" - 红色在左侧，最常见设置。\"bgr\" - 蓝色在左侧。\"vrgb\" - 红色在上端。"
-"\"vbgr\" - 红色在底部。"
+msgid "The order of subpixel elements on an LCD screen; only used when antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red on bottom."
+msgstr "LCD 屏幕上次像素的顺序；仅在反锯齿设为 \"rgba\" 时有用。可能的设定值有：\"rgb\" - 红色在左侧，最常见设置。\"bgr\" - 蓝色在左侧。\"vrgb\" - 红色在上端。\"vbgr\" - 红色在底部。"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:6
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch."
+msgid "The resolution used for converting font sizes to pixel sizes, in dots per inch."
 msgstr "将字体尺寸转换为像素值时所用的分辨率，以每英寸点数为单位。"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:7
-msgid ""
-"The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
-msgstr ""
-"绘制字形时使用的反锯齿类型。可能的设定有：\"无\" - 无反锯齿。\"灰度\" - 标准"
-"灰度反锯齿。\"rgba\" - 次像素反锯齿 (LCD 屏幕专用)。"
+msgid "The type of antialiasing to use when rendering fonts. Possible values are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+msgstr "绘制字形时使用的反锯齿类型。可能的设定有：\"无\" - 无反锯齿。\"灰度\" - 标准灰度反锯齿。\"rgba\" - 次像素反锯齿 (LCD 屏幕专用)。"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:8
-msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
-msgstr ""
-"绘制字形时使用 微调(hinting) 的类型。可能的设定有：\"无\" - 无微调，\"轻微"
-"\"，\"中等\" 以及 \"完全\" - 尽量多地进行微调 ；可能会引起字形扭曲。"
+msgid "The type of hinting to use when rendering fonts. Possible values are: \"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum hinting (may cause distortion of letter forms)."
+msgstr "绘制字形时使用 微调(hinting) 的类型。可能的设定有：\"无\" - 无微调，\"轻微\"，\"中等\" 以及 \"完全\" - 尽量多地进行微调 ；可能会引起字形扭曲。"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+msgid "Allowed keys"
+msgstr "许可键"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+msgid "If non-empty, keybindings will be ignored unless their GConf directory is in the list. This is useful for lockdown."
+msgstr "如果非空，将忽略键绑定除非它们的 GConf 目录位于列表中。对于锁定有用处。"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "GNOME 设置守护程序"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
+msgid "Binding to toggle the magnifier."
+msgstr "开/关放大镜的键绑定。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:2
+msgid "Binding to toggle the on-screen keyboard."
+msgstr "开/关屏幕键盘的键绑定。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:3
+msgid "Binding to toggle the screen reader."
+msgstr "开/关屏幕阅读器的键绑定。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:4
+msgid "Bounce keys"
+msgstr "回键"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Command used to turn the magnifier on or off."
+msgstr "用于打开或关闭放大镜的命令。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:6
+msgid "Command used to turn the on-screen keyboard on or off."
+msgstr "用于打开或关闭屏幕键盘的命令。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:7
+msgid "Command used to turn the screen reader on or off."
+msgstr "用于打开或关闭屏幕阅读器的命令。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
 msgstr "启用辅助键盘插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "启用背景插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "启用剪贴板插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "启用字体插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable housekeeping plugin"
 msgstr "启用内务插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
 msgstr "启用键绑定插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "启用键盘插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable media keys plugin"
 msgstr "启用媒体键插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "启用鼠标插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable screensaver plugin"
 msgstr "启用屏保插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "启用声音插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable typing breaks plugin"
 msgstr "启用打字间隔插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrandr plugin"
 msgstr "启用 xrandr 插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "启用 xrdb 插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "启用 xsettings 插件"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid ""
-"Set to True to enable the housekeeping plugin, to prune transient file "
-"caches."
+#: ../data/gnome-settings-daemon.schemas.in.h:23
+msgid "Mouse keys"
+msgstr "鼠标键"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:24
+msgid "On-screen keyboard"
+msgstr "屏幕键盘"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:25
+msgid "Screen magnifier"
+msgstr "屏幕放大镜"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:26
+msgid "Screen reader"
+msgstr "屏幕阅读器"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:27
+msgid "Set to True to enable the housekeeping plugin, to prune transient file caches."
 msgstr "设为 True 启用内务插件，以便删掉临时文件缓存。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "设为 True 启用剪切板设置管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "设为 True 启用桌面背景设置管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "设为 True 启用字体设置管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "设为 True 启用键盘设置管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "设为 True 启用鼠标设置管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr "设为 True 启用媒体键设置管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr "设为 True 启用屏保设置管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage sound settings."
 msgstr "设为 True 启用声音设置管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
+#: ../data/gnome-settings-daemon.schemas.in.h:36
+msgid "Set to True to enable the plugin to manage the accessibility keyboard settings."
 msgstr "设为 True 启用辅助键盘设置管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "设为 True 启用键绑定管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "设为 True 启用打字中断管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "设为 True 启用 xrandr 管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "设为 True 启用 xrdb 管理插件。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "设为 True 以启用 xsettings 管理插件。"
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../data/gnome-settings-daemon.schemas.in.h:42
+msgid "Slow keys"
+msgstr "迟缓按键"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:43
+msgid "Sticky keys"
+msgstr "粘滞键"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "Toggle magnifier"
+msgstr "开/关放大镜"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid "Toggle on-screen keyboard"
+msgstr "关/开屏幕键盘"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid "Toggle screen reader"
+msgstr "关/开屏幕阅读器"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+msgstr "是否已打开回键键盘辅助功能。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+msgstr "是否已打开鼠标键键盘辅助功能。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid "Whether the on-screen keyboard is turned on."
+msgstr "是否已打开屏幕键盘。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
+msgid "Whether the screen magnifier is turned on."
+msgstr "是否已打开屏幕放大镜。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:51
+msgid "Whether the screen reader is turned on."
+msgstr "是否已打开屏幕阅读器。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:52
+msgid "Whether the slow keys keyboard accessibility feature is turned on."
+msgstr "是否已打开迟缓按键键盘辅助功能。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+msgstr "是否已打开粘滞键键盘辅助功能。"
+
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "辅助功能"
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "启用调试代码"
 
-#: ../gnome-settings-daemon/main.c:51
+#: ../gnome-settings-daemon/main.c:55
 msgid "Don't become a daemon"
 msgstr "不要成为守护进程"
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:56
 msgid "GConf prefix from which to load plugin settings"
 msgstr "加载插件设置所需 GConf 的前缀"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
-msgstr "快捷键盘"
+msgstr "辅助功能键盘"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
-msgstr "快捷键盘插件"
+msgstr "辅助功能键盘插件"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "显示帮助时出错：%s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
-msgid "Do you want to activate Slow Keys?"
-msgstr "您想要激活筛选键吗？"
-
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
-msgid "Do you want to deactivate Slow Keys?"
-msgstr "您想要禁用筛选键吗？"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+msgid "Do you want to activate Slow Keys?"
+msgstr "您想要激活迟缓按键吗？"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
-msgid ""
-"You just held down the Shift key for 8 seconds.  This is the shortcut for "
-"the Slow Keys feature, which affects the way your keyboard works."
-msgstr ""
-"您已经按下了 Shift 键 8 秒。这是筛选键特性的快捷键，这将影响您键盘工作的方"
-"式。"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+msgid "Do you want to deactivate Slow Keys?"
+msgstr "您想要禁用迟缓按键吗？"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for the Slow Keys feature, which affects the way your keyboard works."
+msgstr "您已经按下了 Shift 键 8 秒。这是迟缓按键功能的快捷键，这将影响您键盘工作的方式。"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
 msgid "Don't activate"
 msgstr "不激活"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
 msgid "Don't deactivate"
 msgstr "不禁用"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
 msgid "Activate"
 msgstr "激活"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
 msgid "Deactivate"
 msgstr "禁用"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "Do_n't activate"
 msgstr "不激活(_N)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
 msgid "Do_n't deactivate"
 msgstr "不禁用(_N)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
 msgid "_Activate"
 msgstr "激活(_A)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
 msgid "_Deactivate"
 msgstr "禁用(_D)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:625
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:627
 msgid "Slow Keys Alert"
-msgstr "筛选键提醒"
+msgstr "迟缓按键提醒"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "Do you want to activate Sticky Keys?"
 msgstr "您想要激活粘滞键吗？"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "您想要禁用粘滞键吗？"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
-msgid ""
-"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
-"the Sticky Keys feature, which affects the way your keyboard works."
-msgstr ""
-"您刚刚连续按了五次 Shift 键。这是粘滞键特性的快捷键，这将影响您键盘的工作方"
-"式。"
-
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
-msgid ""
-"You just pressed two keys at once, or pressed the Shift key 5 times in a "
-"row.  This turns off the Sticky Keys feature, which affects the way your "
-"keyboard works."
-msgstr ""
-"您刚刚同时按下了两个键，或连续按了五次 Shift 键。这是取消粘滞键特性的快捷键，"
-"这将影响您键盘的工作方式。"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+msgid "You just pressed the Shift key 5 times in a row.  This is the shortcut for the Sticky Keys feature, which affects the way your keyboard works."
+msgstr "您刚刚连续按了五次 Shift 键。这是粘滞键特性的快捷键，这将影响您键盘的工作方式。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:770
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:672
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+msgid "You just pressed two keys at once, or pressed the Shift key 5 times in a row.  This turns off the Sticky Keys feature, which affects the way your keyboard works."
+msgstr "您刚刚同时按下了两个键，或连续按了五次 Shift 键。这是取消粘滞键特性的快捷键，这将影响您键盘的工作方式。"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:773
 msgid "Sticky Keys Alert"
 msgstr "粘滞键提醒"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:865
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
 msgid "Universal Access Preferences"
 msgstr "通用访问首选项"
@@ -531,7 +594,7 @@ msgstr "使用屏幕键盘(_K)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
 msgid "Use screen _magnifier"
-msgstr "使用屏幕放大器(_M)"
+msgstr "使用屏幕放大镜(_M)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
 msgid "Use screen _reader"
@@ -544,10 +607,6 @@ msgstr "忽略快速重复按键(弹跳键)(_I)"
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "请一次按住键盘快捷键(粘滞键)(_P)"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:10
-msgid "gtk-close"
-msgstr "gtk-close"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -581,35 +640,30 @@ msgstr "字体"
 msgid "Font plugin"
 msgstr "字体插件"
 
-#: ../plugins/font/gsd-font-manager.c:207
+#: ../plugins/housekeeping/gsd-disk-space.c:120
 #, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing the mouse pointer theme."
-msgstr ""
-"无法创建目录“%s”。\n"
-"允许改变鼠标指针主题需要此操作。"
+msgid "%d%% of the disk space on `%s' is in use"
+msgstr "已使用 `%2$s' 上的 %1$d%% 磁盘空间"
 
-#: ../plugins/font/gsd-font-manager.c:230
-#, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing cursors."
-msgstr ""
-"无法创建目录“%s”。\n"
-"允许改变光标需要此操作。"
+#: ../plugins/housekeeping/gsd-disk-space.c:128
+msgid "Low Disk Space"
+msgstr "磁盘空间小"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:139
+msgid "Analyze"
+msgstr "分析"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
 msgid "Key binding (%s) is incomplete"
 msgstr "键绑定(%s)不完整"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:222
+#: ../plugins/keybindings/gsd-keybindings-manager.c:223
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "键绑定(%s)无效"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:409
+#: ../plugins/keybindings/gsd-keybindings-manager.c:463
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -658,13 +712,11 @@ msgstr "载入(_L)"
 msgid "_Loaded files:"
 msgstr "载入的文件(_L)："
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:183
-msgid ""
-"Could not get default terminal. Verify that your default terminal command is "
-"set and points to a valid application."
+#: ../plugins/media-keys/gsd-media-keys-manager.c:195
+msgid "Could not get default terminal. Verify that your default terminal command is set and points to a valid application."
 msgstr "无法获得默认终端。请检查您的默认终端是否已设置，并指向有效的应用程序。"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:223
+#: ../plugins/media-keys/gsd-media-keys-manager.c:235
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -673,7 +725,7 @@ msgstr ""
 "无法执行命令：%s\n"
 "请检查此命令是否有效。"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:239
+#: ../plugins/media-keys/gsd-media-keys-manager.c:251
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -689,16 +741,15 @@ msgstr "媒体键"
 msgid "Media keys plugin"
 msgstr "媒体键插件"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:625
 msgid "Could not enable mouse accessibility features"
 msgstr "不能启用鼠标快捷键功能"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:573
-msgid ""
-"Mouse accessibility requires mousetweaks to be installed on your system."
+#: ../plugins/mouse/gsd-mouse-manager.c:627
+msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "鼠标辅助功能需要在您的系统中安装 mousetweaks。"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:576
+#: ../plugins/mouse/gsd-mouse-manager.c:630
 msgid "Mouse Preferences"
 msgstr "鼠标首选项"
 
@@ -710,7 +761,7 @@ msgstr "鼠标"
 msgid "Mouse plugin"
 msgstr "鼠标插件"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:153
+#: ../plugins/screensaver/gsd-screensaver-manager.c:136
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -725,7 +776,7 @@ msgstr ""
 "\n"
 "此对话中将无法使用屏幕保护功能。"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:162
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
 msgid "_Do not show this message again"
 msgstr "不再显示此信息(_D)"
 
@@ -736,80 +787,6 @@ msgstr "屏幕保护程序"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "屏保插件"
-
-#: ../plugins/sound/gsd-sound-manager.c:273
-#, c-format
-msgid "Couldn't load sound file %s as sample %s"
-msgstr "无法载入声音文件 %s 作为示例 %s"
-
-#: ../plugins/sound/libsounds/sound-view.c:43
-msgid "Login"
-msgstr "登录"
-
-#: ../plugins/sound/libsounds/sound-view.c:44
-msgid "Logout"
-msgstr "注销"
-
-#: ../plugins/sound/libsounds/sound-view.c:45
-msgid "Boing"
-msgstr "啵嘤"
-
-#: ../plugins/sound/libsounds/sound-view.c:46
-msgid "Siren"
-msgstr "鸣笛"
-
-#: ../plugins/sound/libsounds/sound-view.c:47
-msgid "Clink"
-msgstr "叮咚"
-
-#: ../plugins/sound/libsounds/sound-view.c:48
-msgid "Beep"
-msgstr "响铃"
-
-#: ../plugins/sound/libsounds/sound-view.c:49
-msgid "No sound"
-msgstr "无声音"
-
-#: ../plugins/sound/libsounds/sound-view.c:131
-msgid "Sound not set for this event."
-msgstr "此事件未设定音效。"
-
-#: ../plugins/sound/libsounds/sound-view.c:140
-msgid ""
-"The sound file for this event does not exist.\n"
-"You may want to install the gnome-audio package for a set of default sounds."
-msgstr ""
-"此事件的声音文件不存在。\n"
-"您需要安装 gnome-audio 软件包以获得一组默认声音。"
-
-#: ../plugins/sound/libsounds/sound-view.c:151
-msgid "The sound file for this event does not exist."
-msgstr "此事件的声音文件不存在。"
-
-#: ../plugins/sound/libsounds/sound-view.c:182
-msgid "Select Sound File"
-msgstr "选择声音文件"
-
-#: ../plugins/sound/libsounds/sound-view.c:209
-#, c-format
-msgid "The file %s is not a valid wav file"
-msgstr "文件 %s 不是有效的 wav 文件"
-
-#: ../plugins/sound/libsounds/sound-view.c:270
-msgid "Select sound file..."
-msgstr "选择声音文件..."
-
-#: ../plugins/sound/libsounds/sound-view.c:372
-msgid "System Sounds"
-msgstr "系统声音"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "音效"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound plugin"
-msgstr "声音插件"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -827,42 +804,58 @@ msgstr "设置屏幕尺寸及旋转"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#, c-format
+msgid "Could not refresh the screen information: %s"
+msgstr "无法刷新屏幕信息：%s"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:535
+msgid "Trying to switch the monitor configuration anyway."
+msgstr "正在尝试改变显示器配置。"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:569
+msgid "Could not switch the monitor configuration"
+msgstr "无法改变显示器配置"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:865
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>旋转不支持</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:456
-#: ../plugins/xrandr/gsd-xrandr-manager.c:464
+#: ../plugins/xrandr/gsd-xrandr-manager.c:892
+msgid "Could not save monitor configuration"
+msgstr "无法保存显示器配置"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:900
 msgid "The selected rotation could not be applied"
 msgstr "选中的旋转无法应用"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:457
-msgid "An error occurred while configuring the screen"
-msgstr "配置屏幕时发生了错误"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+#: ../plugins/xrandr/gsd-xrandr-manager.c:916
 msgid "Normal"
 msgstr "普通"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+#: ../plugins/xrandr/gsd-xrandr-manager.c:917
 msgid "Left"
 msgstr "左"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+#: ../plugins/xrandr/gsd-xrandr-manager.c:918
 msgid "Right"
 msgstr "右"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+#: ../plugins/xrandr/gsd-xrandr-manager.c:919
 msgid "Upside Down"
 msgstr "颠倒"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1038
 msgid "_Configure Display Settings ..."
 msgstr "配置显示设置(_C)..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1079
 msgid "Configure display settings"
 msgstr "配置显示设置"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1170
+msgid "Could not apply the stored configuration for monitors"
+msgstr "无法应用原保存的显示器配置。"
 
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
@@ -877,7 +870,7 @@ msgstr "管理 X 资源数据库"
 msgid "X Resource Database"
 msgstr "X 资源数据库"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:609
+#: ../plugins/xsettings/gsd-xsettings-manager.c:644
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf 键 %s 被设为 %s 类型，但是期望的类型是 %s\n"
@@ -889,3 +882,60 @@ msgstr "管理 X 设置"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X 设置"
+
+#~ msgid "gtk-close"
+#~ msgstr "gtk-close"
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing the mouse pointer theme."
+#~ msgstr ""
+#~ "无法创建目录“%s”。\n"
+#~ "允许改变鼠标指针主题需要此操作。"
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing cursors."
+#~ msgstr ""
+#~ "无法创建目录“%s”。\n"
+#~ "允许改变光标需要此操作。"
+#~ msgid "Couldn't load sound file %s as sample %s"
+#~ msgstr "无法载入声音文件 %s 作为示例 %s"
+#~ msgid "Login"
+#~ msgstr "登录"
+#~ msgid "Logout"
+#~ msgstr "注销"
+#~ msgid "Boing"
+#~ msgstr "啵嘤"
+#~ msgid "Siren"
+#~ msgstr "鸣笛"
+#~ msgid "Clink"
+#~ msgstr "叮咚"
+#~ msgid "Beep"
+#~ msgstr "响铃"
+#~ msgid "No sound"
+#~ msgstr "无声音"
+#~ msgid "Sound not set for this event."
+#~ msgstr "此事件未设定音效。"
+#~ msgid ""
+#~ "The sound file for this event does not exist.\n"
+#~ "You may want to install the gnome-audio package for a set of default "
+#~ "sounds."
+#~ msgstr ""
+#~ "此事件的声音文件不存在。\n"
+#~ "您需要安装 gnome-audio 软件包以获得一组默认声音。"
+#~ msgid "The sound file for this event does not exist."
+#~ msgstr "此事件的声音文件不存在。"
+#~ msgid "Select Sound File"
+#~ msgstr "选择声音文件"
+#~ msgid "The file %s is not a valid wav file"
+#~ msgstr "文件 %s 不是有效的 wav 文件"
+#~ msgid "Select sound file..."
+#~ msgstr "选择声音文件..."
+#~ msgid "System Sounds"
+#~ msgstr "系统声音"
+#~ msgid "Sound"
+#~ msgstr "音效"
+#~ msgid "Sound plugin"
+#~ msgstr "声音插件"
+#~ msgid "An error occurred while configuring the screen"
+#~ msgstr "配置屏幕时发生了错误"
+
