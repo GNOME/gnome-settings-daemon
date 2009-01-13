@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2008-12-31 03:16+0000\n"
-"PO-Revision-Date: 2009-01-13 17:13+0700\n"
+"POT-Creation-Date: 2009-01-13 09:30+0000\n"
+"PO-Revision-Date: 2009-01-13 18:01+0700\n"
 "Last-Translator: 甘露(Gan Lu) <rhythm.gan@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -384,8 +384,9 @@ msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr "设为 True 启用屏保设置管理插件。"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:35
-msgid "Set to True to enable the plugin to manage sound settings."
-msgstr "设为 True 启用声音设置管理插件。"
+#| msgid "Set to True to enable the plugin to manage sound settings."
+msgid "Set to True to enable the plugin to manage sound sample caches."
+msgstr "设为 True 启用该插件管理声音样本缓存。"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage the accessibility keyboard settings."
@@ -425,11 +426,11 @@ msgstr "开/关放大镜"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid "Toggle on-screen keyboard"
-msgstr "关/开屏幕键盘"
+msgstr "开/关屏幕键盘"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid "Toggle screen reader"
-msgstr "关/开屏幕阅读器"
+msgstr "开/关屏幕阅读器"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
@@ -602,11 +603,11 @@ msgstr "使用屏幕阅读器(_R)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "忽略快速重复按键(弹跳键)(_I)"
+msgstr "忽略快速重复按键(回键)(_I)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr "请一次按住键盘快捷键(粘滞键)(_P)"
+msgstr "请一次一个的按键盘快捷键(粘滞键)(_P)"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -788,6 +789,15 @@ msgstr "屏幕保护程序"
 msgid "Screensaver plugin"
 msgstr "屏保插件"
 
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
+msgid "Sound"
+msgstr "声音"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
+#| msgid "Sound plugin"
+msgid "Sound Sample Cache plugin"
+msgstr "声音样本缓存插件"
+
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
 msgstr "打字间断"
@@ -827,7 +837,7 @@ msgstr "无法保存显示器配置"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:900
 msgid "The selected rotation could not be applied"
-msgstr "选中的旋转无法应用"
+msgstr "无法应用选定的旋转"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:916
 msgid "Normal"
@@ -843,7 +853,7 @@ msgstr "右"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:919
 msgid "Upside Down"
-msgstr "颠倒"
+msgstr "上下倒置"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:1038
 msgid "_Configure Display Settings ..."
@@ -932,10 +942,6 @@ msgstr "X 设置"
 #~ msgstr "选择声音文件..."
 #~ msgid "System Sounds"
 #~ msgstr "系统声音"
-#~ msgid "Sound"
-#~ msgstr "音效"
-#~ msgid "Sound plugin"
-#~ msgstr "声音插件"
 #~ msgid "An error occurred while configuring the screen"
 #~ msgstr "配置屏幕时发生了错误"
 
