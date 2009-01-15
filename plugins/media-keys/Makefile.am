@@ -1,9 +1,12 @@
 NULL =
 
-SUBDIRS = actions
+SUBDIRS =
+plugin_LTLIBRARIES =
 
-plugin_LTLIBRARIES = \
-	libmedia-keys.la
+if HAVE_PULSE
+SUBDIRS += cut-n-paste
+plugin_LTLIBRARIES = libmedia-keys.la
+endif
 
 BUILT_SOURCES = 			\
 	gsd-media-keys-manager-glue.h	\
@@ -29,13 +32,14 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-manager.c	\
 	gsd-media-keys-window.h		\
 	gsd-media-keys-window.c		\
+	acme.h				\
 	$(BUILT_SOURCES)		\
 	$(NULL)
 
 libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-I$(top_builddir)/plugins/media-keys/actions		\
+	-I$(top_builddir)/plugins/media-keys/cut-n-paste	\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGLADEDIR=\""$(pkgdatadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -49,11 +53,10 @@ libmedia_keys_la_LDFLAGS = 		\
 	$(GSD_PLUGIN_LDFLAGS)
 
 libmedia_keys_la_LIBADD  = 		\
-	$(top_builddir)/plugins/common/libcommon.la		\
-	$(top_builddir)/plugins/media-keys/actions/libacme.la	\
-	$(SETTINGS_PLUGIN_LIBS)		\
-	$(XF86MISC_LIBS)		\
-	$(GST_LIBS)
+	$(top_builddir)/plugins/common/libcommon.la			\
+	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
+	$(SETTINGS_PLUGIN_LIBS)						\
+	$(XF86MISC_LIBS)
 
 plugin_in_files = 		\
 	media-keys.gnome-settings-plugin.in
@@ -73,7 +76,7 @@ test_media_window_SOURCES =			\
 
 test_media_window_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/plugins/media-keys/actions		\
+	-I$(top_builddir)/plugins/media-keys/cut-n-paste	\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGLADEDIR=\""$(pkgdatadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -101,7 +104,7 @@ test_media_keys_SOURCES =			\
 test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-I$(top_builddir)/plugins/media-keys/actions		\
+	-I$(top_builddir)/plugins/media-keys/cut-n-paste	\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGLADEDIR=\""$(pkgdatadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -112,18 +115,32 @@ test_media_keys_CFLAGS = \
 	$(AM_CFLAGS)
 
 test_media_keys_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la	\
-	$(top_builddir)/plugins/common/libcommon.la		\
-	$(top_builddir)/plugins/media-keys/actions/libacme.la	\
+	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
+	$(top_builddir)/plugins/common/libcommon.la			\
+	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(XF86MISC_LIBS)			\
 	$(GST_LIBS)
 
+gladedir = $(pkgdatadir)
+glade_DATA = 		\
+	acme.glade	\
+	$(NULL)
+
+pixmapsdir = $(pkgdatadir)
+pixmaps_DATA = 		\
+	acme-eject.png	\
+	$(NULL)
+
+DIST_SUBDIRS = cut-n-paste
+
 EXTRA_DIST = 				\
 	gsd-media-keys-manager.xml	\
 	gsd-marshal.list		\
-	$(plugin_in_files)
+	$(plugin_in_files)		\
+	$(glade_DATA)			\
+	$(pixmaps_DATA)
 
 CLEANFILES = 			\
 	$(BUILT_SOURCES)	\

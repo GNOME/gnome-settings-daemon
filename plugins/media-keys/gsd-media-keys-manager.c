@@ -47,9 +47,12 @@
 #include "gsd-media-keys-manager-glue.h"
 
 #include "eggaccelerators.h"
-#include "actions/acme.h"
-#include "actions/acme-volume.h"
+#include "acme.h"
 #include "gsd-media-keys-window.h"
+
+#ifdef HAVE_PULSE
+#include "gvc-mixer-control.h"
+#endif /* HAVE_PULSE */
 
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
@@ -57,6 +60,7 @@
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"
 
 #define VOLUME_STEP 6           /* percents for one volume button press */
+#define MAX_VOLUME 65536.0
 
 #if defined(__OpenBSD__)
 # define EJECT_COMMAND "eject -t /dev/cd0"
@@ -79,7 +83,14 @@ typedef struct {
 
 struct GsdMediaKeysManagerPrivate
 {
-        AcmeVolume      *volume;
+#ifdef HAVE_PULSE
+        /* Volume bits */
+        GvcMixerControl *volume;
+        GvcMixerStream  *stream;
+        /* Number of expected update signals, zero meaning we
+         * shouldn't be showing any update dialogues */
+        guint            num_expected_update_signals;
+#endif /* HAVE_PULSE */
         GtkWidget       *dialog;
         GConfClient     *conf_client;
 
@@ -603,75 +614,158 @@ do_eject_action (GsdMediaKeysManager *manager)
         g_free (command);
 }
 
+#ifdef HAVE_PULSE
+static void
+update_dialog (GsdMediaKeysManager *manager)
+{
+        gboolean muted;
+        guint vol;
+
+	/* Not expecting a dialogue to show up */
+        if (manager->priv->num_expected_update_signals == 0)
+                return;
+
+	/* If we aren't expecting any more updates, show the dialogue */
+        manager->priv->num_expected_update_signals--;
+        if (manager->priv->num_expected_update_signals != 0)
+                return;
+
+        vol = gvc_mixer_stream_get_volume (manager->priv->stream);
+        muted = gvc_mixer_stream_get_is_muted (manager->priv->stream);
+
+        dialog_init (manager);
+        gsd_media_keys_window_set_volume_muted (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                muted);
+        gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                (int) (100 * (double)vol / PA_VOLUME_NORM));
+        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                          GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME);
+        dialog_show (manager);
+}
+
+static void
+on_stream_event_notify (GObject             *object,
+                        GParamSpec          *pspec,
+                        GsdMediaKeysManager *manager)
+{
+        update_dialog (manager);
+}
+
 static void
 do_sound_action (GsdMediaKeysManager *manager,
                  int                  type)
 {
         gboolean muted;
-        int      vol;
-        int      vol_step;
-        GError  *error = NULL;
+        guint vol, norm_vol_step;
+        int vol_step;
 
-        if (manager->priv->volume == NULL) {
+        if (manager->priv->stream == NULL)
                 return;
-        }
 
         vol_step = gconf_client_get_int (manager->priv->conf_client,
                                          GCONF_MISC_DIR "/volume_step",
-                                         &error);
+                                         NULL);
 
-        if (error) {
+        if (vol_step <= 0 || vol_step > 100)
                 vol_step = VOLUME_STEP;
-                g_error_free (error);
-        }
 
-        if (vol_step > 0) {
-                int threshold = acme_volume_get_threshold (manager->priv->volume);
-                if (vol_step < threshold)
-                        vol_step = threshold;
-                g_debug ("Using volume step of %d", vol_step);
-        }
+        norm_vol_step = PA_VOLUME_NORM * vol_step / 100;
 
         /* FIXME: this is racy */
-        vol = acme_volume_get_volume (manager->priv->volume);
-        muted = acme_volume_get_mute (manager->priv->volume);
+        vol = gvc_mixer_stream_get_volume (manager->priv->stream);
+        muted = gvc_mixer_stream_get_is_muted (manager->priv->stream);
+        /* By default, we would be showing a dialogue
+         * based on the current values, eg. an unchanged dialogue */
+        manager->priv->num_expected_update_signals = 0;
 
         switch (type) {
         case MUTE_KEY:
-                acme_volume_mute_toggle (manager->priv->volume);
+                manager->priv->num_expected_update_signals = 1;
+                gvc_mixer_stream_change_is_muted (manager->priv->stream, !muted);
                 break;
         case VOLUME_DOWN_KEY:
-                if (!muted && (vol <= vol_step)) {
-                        acme_volume_mute_toggle (manager->priv->volume);
+                if (!muted && (vol <= norm_vol_step)) {
+                        manager->priv->num_expected_update_signals = 2;
+                        gvc_mixer_stream_change_is_muted (manager->priv->stream, !muted);
+                        gvc_mixer_stream_change_volume (manager->priv->stream, 0);
+                } else if (!muted) {
+                        manager->priv->num_expected_update_signals = 1;
+                        gvc_mixer_stream_change_volume (manager->priv->stream, vol - norm_vol_step);
                 }
-                acme_volume_set_volume (manager->priv->volume, vol - vol_step);
                 break;
         case VOLUME_UP_KEY:
                 if (muted) {
                         if (vol == 0) {
-                                acme_volume_set_volume (manager->priv->volume, vol + vol_step);
+                                manager->priv->num_expected_update_signals = 2;
+                                gvc_mixer_stream_change_volume (manager->priv->stream, vol + norm_vol_step);
+                                gvc_mixer_stream_change_is_muted (manager->priv->stream, !muted);
+                        } else {
+                                manager->priv->num_expected_update_signals = 1;
+                                gvc_mixer_stream_change_is_muted (manager->priv->stream, !muted);
                         }
-                        acme_volume_mute_toggle (manager->priv->volume);
                 } else {
-                        acme_volume_set_volume (manager->priv->volume, vol + vol_step);
+                        if (vol < MAX_VOLUME) {
+                                manager->priv->num_expected_update_signals = 1;
+                                if (vol + norm_vol_step >= MAX_VOLUME) {
+                                        gvc_mixer_stream_change_volume (manager->priv->stream, MAX_VOLUME);
+                                } else {
+                                        gvc_mixer_stream_change_volume (manager->priv->stream, vol + norm_vol_step);
+                                }
+                        }
                 }
                 break;
         }
 
-        muted = acme_volume_get_mute (manager->priv->volume);
-        vol = acme_volume_get_volume (manager->priv->volume);
-
-        /* FIXME: AcmeVolume should probably emit signals
-           instead of doing it like this */
-        dialog_init (manager);
-        gsd_media_keys_window_set_volume_muted (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                                muted);
-        gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                                vol);
-        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                          GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME);
-        dialog_show (manager);
+        /* We didn't actually make any changes, so force showing the dialogue */
+        if (manager->priv->num_expected_update_signals == 0) {
+                manager->priv->num_expected_update_signals = 1;
+                update_dialog (manager);
+        }
 }
+
+static void
+update_default_sink (GsdMediaKeysManager *manager)
+{
+        GvcMixerStream *stream;
+
+        stream = gvc_mixer_control_get_default_sink (manager->priv->volume);
+        if (stream == manager->priv->stream)
+                return;
+
+        if (manager->priv->stream != NULL) {
+                g_signal_handlers_disconnect_by_func (G_OBJECT (manager->priv->stream),
+                                                      G_CALLBACK (on_stream_event_notify), manager);
+                g_object_unref (manager->priv->stream);
+                manager->priv->stream = NULL;
+        }
+
+        if (stream != NULL) {
+                manager->priv->stream = stream;
+                g_signal_connect (G_OBJECT (manager->priv->stream), "notify::volume",
+                                  G_CALLBACK (on_stream_event_notify), manager);
+                g_signal_connect (G_OBJECT (manager->priv->stream), "notify::is-muted",
+                                  G_CALLBACK (on_stream_event_notify), manager);
+        } else {
+                g_warning ("Unable to get default sink");
+        }
+}
+
+static void
+on_control_ready (GvcMixerControl     *control,
+		  GsdMediaKeysManager *manager)
+{
+        update_default_sink (manager);
+}
+
+static void
+on_control_default_sink_changed (GvcMixerControl     *control,
+                                 guint                id,
+                                 GsdMediaKeysManager *manager)
+{
+        update_default_sink (manager);
+}
+
+#endif /* HAVE_PULSE */
 
 static gint
 find_by_application (gconstpointer a,
@@ -793,7 +887,9 @@ do_action (GsdMediaKeysManager *manager,
         case MUTE_KEY:
         case VOLUME_DOWN_KEY:
         case VOLUME_UP_KEY:
+#ifdef HAVE_PULSE
                 do_sound_action (manager, type);
+#endif /* HAVE_PULSE */
                 break;
         case POWER_KEY:
                 do_exit_action (manager);
@@ -973,16 +1069,30 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
+#ifdef HAVE_PULSE
         /* initialise Volume handler
          *
          * We do this one here to force checking gstreamer cache, etc.
          * The rest (grabbing and setting the keys) can happen in an
          * idle.
          */
-        gnome_settings_profile_start ("acme_volume_new");
-        manager->priv->volume = acme_volume_new ();
-        gnome_settings_profile_end ("acme_volume_new");
+        gnome_settings_profile_start ("gvc_mixer_control_new");
 
+        manager->priv->volume = gvc_mixer_control_new ();
+
+        g_signal_connect (manager->priv->volume,
+                          "ready",
+                          G_CALLBACK (on_control_ready),
+                          manager);
+        g_signal_connect (manager->priv->volume,
+                          "default-sink-changed",
+                          G_CALLBACK (on_control_default_sink_changed),
+                          manager);
+
+        gvc_mixer_control_open (manager->priv->volume);
+
+        gnome_settings_profile_end ("gvc_mixer_control_new");
+#endif /* HAVE_PULSE */
         g_idle_add ((GSourceFunc) start_media_keys_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
@@ -1049,10 +1159,17 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         g_slist_free (priv->screens);
         priv->screens = NULL;
 
+#ifdef HAVE_PULSE
+        if (priv->stream) {
+                g_object_unref (priv->stream);
+                priv->stream = NULL;
+        }
+
         if (priv->volume) {
                 g_object_unref (priv->volume);
                 priv->volume = NULL;
         }
+#endif /* HAVE_PULSE */
 
         if (priv->dialog != NULL) {
                 gtk_widget_destroy (priv->dialog);

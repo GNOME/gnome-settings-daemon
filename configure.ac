@@ -224,6 +224,8 @@ dnl ==============================================
 dnl PulseAudio section
 dnl ==============================================
 
+
+have_pulse=false
 AC_ARG_ENABLE(pulse,
   AC_HELP_STRING([--disable-pulse],
                  [turn off PulseAudio support]),
@@ -235,103 +237,15 @@ AC_ARG_ENABLE(pulse,
        [WANT_PULSE=yes]) dnl Default value
 
 if test x$WANT_PULSE = xyes ; then
-       PKG_CHECK_MODULES(PULSE, libpulse >= 0.9.11,
-             AC_DEFINE(HAVE_PULSE, 1, [Define if PULSE sound server should be used]),
+       PA_REQUIRED_VERSION=0.9.12
+       PKG_CHECK_MODULES(PULSE, glib-2.0 libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION,
+             [have_pulse=true, AC_DEFINE(HAVE_PULSE, 1, [Define if PULSE sound server should be used])],
              [have_pulse=false])
 fi
+AM_CONDITIONAL(HAVE_PULSE, test x"$have_pulse" = "xtrue")
 
 AC_SUBST(PULSE_CFLAGS)
 AC_SUBST(PULSE_LIBS)
-
-dnl ==============================================
-dnl GStreamer section
-dnl ==============================================
-GST_MAJORMINOR=auto
-
-AC_ARG_ENABLE(gstreamer,
-AC_HELP_STRING([--enable-gstreamer],[use gstreamer if available (and optionally specify a version)]),
-[case "${enableval}" in
- yes) ENABLE_GSTREAMER=yes ;;
- 0.10) ENABLE_GSTREAMER=yes && GST_MAJORMINOR=0.10 ;;
- no)  ENABLE_GSTREAMER=no ;;
- *) AC_MSG_ERROR([
-                  *** Bad value ${enableval} for --enable-gstreamer
-                  *** Please use one of the following:
-                  ***    --enable-gstreamer=0.10
-               ]) ;;
-esac],
-[ENABLE_GSTREAMER=yes]) dnl Default value
-
-have_gstreamer=no
-if test "x$ENABLE_GSTREAMER" = "xyes"; then
-   GST_REQS=0.10.1.2
-   PKGS="gstreamer-0.10 >= $GST_REQS gstreamer-plugins-base-0.10 >= $GST_REQS"
-
-   PKG_CHECK_MODULES(GST, $PKGS, have_gstreamer=yes,
-                     AC_MSG_RESULT([no]))
-
-   if test "x$have_gstreamer" = "xyes"; then
-      GST_LIBS="$GST_LIBS -lgstinterfaces-0.10 -lgstaudio-0.10"
-   fi
-else
-   AC_MSG_NOTICE([*** GStreamer support disabled ***])
-fi
-AM_CONDITIONAL(HAVE_GSTREAMER, test "x$have_gstreamer" = "xyes")
-AC_SUBST(GST_LIBS)
-AC_SUBST(GST_CFLAGS)
-
-dnl ==============================================
-dnl OSS section
-dnl ==============================================
-
-have_oss=no
-if test "x$have_gstreamer" != "xyes"; then
-  AC_TRY_COMPILE([
-		  #ifdef __NetBSD__
-		  #include <sys/param.h>
-		  #include <sys/sysctl.h>
-		  #include <soundcard.h>
-		  #else
-		  #include <sys/soundcard.h>
-		  #endif
-		  ],[
-		     int arg = SNDCTL_DSP_SETFRAGMENT;
-		     ],[
-			have_oss=yes
-			])
-  AC_MSG_CHECKING(for OSS audio support)
-  AC_MSG_RESULT($have_oss)
-fi
-
-AM_CONDITIONAL(HAVE_OSS, test x"$have_oss" = "xyes")
-
-dnl ==============================================
-dnl ALSA section
-dnl ==============================================
-
-have_alsa=no
-if test "x$have_gstreamer" != "xyes"; then
-  AC_ARG_ENABLE(alsa,
-		AC_HELP_STRING([--disable-alsa],
-			       [turn off ALSA audio support]),
-			       [case "${enableval}" in
-				yes) WANT_ALSA=yes ;;
-				no)  WANT_ALSA=no ;;
-				*) AC_MSG_ERROR(bad value ${enableval} for --disable-alsa) ;;
-			esac],
-			[WANT_ALSA=yes]) dnl Default value
-
-  if test x$WANT_ALSA = xyes ; then
-	  PKG_CHECK_MODULES(ALSA, alsa >= 0.9.0,
-			    have_alsa=yes,
-			    AC_MSG_RESULT([disabled]))
-  fi
-
-  AC_SUBST(ALSA_LIBS)
-  AC_SUBST(ALSA_CFLAGS)
-fi
-
-AM_CONDITIONAL(HAVE_ALSA, test x"$have_alsa" = "xyes")
 
 # ---------------------------------------------------------------------------
 # Enable Profiling
@@ -430,7 +344,7 @@ plugins/housekeeping/Makefile
 plugins/keybindings/Makefile
 plugins/keyboard/Makefile
 plugins/media-keys/Makefile
-plugins/media-keys/actions/Makefile
+plugins/media-keys/cut-n-paste/Makefile
 plugins/mouse/Makefile
 plugins/screensaver/Makefile
 plugins/sound/Makefile
@@ -471,9 +385,7 @@ echo "
 
         dbus-1 system.d dir:      ${DBUS_SYS_DIR}
 
-        OSS support:              ${have_oss}
-        ALSA support:             ${have_alsa}
-        GStreamer support:        ${have_gstreamer}
+        PulseAudio support:       ${have_pulse}
 
         Profiling support:        ${enable_profiling}
 "

@@ -1,3 +1,28 @@
+2009-01-15  Bastien Nocera  <hadess@hadess.net>
+
+	* plugins/media-keys/cut-n-paste/*:
+	Cut'n'paste code from the PulseAudio enabled code in
+	gnome-media's gnome-volume-control
+
+	* plugins/media-keys/actions/acme-volume-*.[ch]:
+	Remove the old AcmeVolume code
+
+	* plugins/media-keys/actions/acme.glade:
+	* plugins/media-keys/actions/acme.h: Move to plugins/media-keys/
+
+	* configure.ac: Tell config.h when PulseAudio support is disabled
+
+	* plugins/media-keys/gsd-media-keys-manager.c (update_dialog),
+	(on_stream_event_notify), (do_sound_action), (update_default_sink),
+	(on_control_ready), (on_control_default_sink_changed), (do_action),
+	(gsd_media_keys_manager_start), (gsd_media_keys_manager_stop):
+	Use PulseAudio directly to change the volume. It will automatically
+	change the volume of the default audio output for the machine
+	(Closes: #567177)
+
+	* plugins/media-keys/Makefile.am:
+	* plugins/media-keys/actions/Makefile.am: Changes for the above
+
 2009-01-15  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/keybindings/gsd-keybindings-manager.c:
