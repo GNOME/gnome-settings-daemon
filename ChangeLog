@@ -1,5 +1,11 @@
 2009-01-15  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/keybindings/gsd-keybindings-manager.c:
+	(binding_unregister_keys), (gsd_keybindings_manager_stop): also ungrab
+	keys when this module is disabled
+
+2009-01-15  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/media-keys/gsd-media-keys-manager.c:
 	(gsd_media_keys_manager_stop): ungrab shortcut keys when the plugin
 	is disabled (bug #567867)

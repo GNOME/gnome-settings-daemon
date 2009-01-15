@@ -289,6 +289,28 @@ key_already_used (GsdKeybindingsManager *manager,
 }
 
 static void
+binding_unregister_keys (GsdKeybindingsManager *manager)
+{
+        GSList *li;
+        gboolean need_flush = FALSE;
+
+        gdk_error_trap_push ();
+
+        for (li = manager->priv->binding_list; li != NULL; li = li->next) {
+                Binding *binding = (Binding *) li->data;
+
+                if (binding->key.keycodes) {
+                        need_flush = TRUE;
+                        grab_key_unsafe (&binding->key, FALSE, manager->priv->screens);
+                }
+        }
+
+        if (need_flush)
+                gdk_flush ();
+        gdk_error_trap_pop ();
+}
+
+static void
 binding_register_keys (GsdKeybindingsManager *manager)
 {
         GSList *li;
@@ -596,6 +618,9 @@ gsd_keybindings_manager_stop (GsdKeybindingsManager *manager)
                                           (GdkFilterFunc) keybindings_filter,
                                           manager);
         }
+
+        binding_unregister_keys (manager);
+
         g_slist_free (p->screens);
         p->screens = NULL;
 
