@@ -1,3 +1,10 @@
+2009-01-14  Federico Mena Quintero  <federico@novell.com>
+
+	* plugins/xrandr/gsd-xrandr-manager.c (gsd_xrandr_manager_start):
+	If there was no file with a stored configuration, don't pop up an
+	error message --- this is not an error when the daemon starts up.
+	Fixes https://bugzilla.novell.com/show_bug.cgi?id=465968
+
 2009-01-10  William Jon McCann  <jmccann@redhat.com>
 
 	* plugins/sound/gsd-sound-manager.c (register_config_callback):

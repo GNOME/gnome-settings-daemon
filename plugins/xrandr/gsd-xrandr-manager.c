@@ -1165,9 +1165,10 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
 
         my_error = NULL;
         if (!gnome_rr_config_apply_stored (manager->priv->rw_screen, &my_error)) {
-                /* my_error can be null if there were no stored configurations */
                 if (my_error) {
-                        error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
+                        if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+                                error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
+
                         g_error_free (my_error);
                 }
         }
