@@ -724,7 +724,7 @@ gsd_media_keys_manager_grab_media_player_keys (GsdMediaKeysManager *manager,
                 }
         }
 
-        g_debug ("Registering %s at %ld", application, time);
+        g_debug ("Registering %s at %u", application, time);
         media_player = g_new0 (MediaPlayer, 1);
         media_player->application = g_strdup (application);
         media_player->time = time;
@@ -997,6 +997,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         GSList *ls;
         GList *l;
         int i;
+        gboolean need_flush;
 
         g_debug ("Stopping media_keys manager");
 
@@ -1005,9 +1006,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                                           (GdkFilterFunc) acme_filter_events,
                                           manager);
         }
-
-        g_slist_free (priv->screens);
-        priv->screens = NULL;
 
         if (priv->conf_client) {
                 gconf_client_remove_dir (priv->conf_client,
@@ -1030,13 +1028,26 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->connection = NULL;
         }
 
+        need_flush = FALSE;
+        gdk_error_trap_push ();
+
         for (i = 0; i < HANDLED_KEYS; ++i) {
                 if (keys[i].key) {
+                        need_flush = TRUE;
+                        grab_key_unsafe (keys[i].key, FALSE, priv->screens);
+
                         g_free (keys[i].key->keycodes);
                         g_free (keys[i].key);
                         keys[i].key = NULL;
                 }
         }
+
+        if (need_flush)
+                gdk_flush ();
+        gdk_error_trap_pop ();
+
+        g_slist_free (priv->screens);
+        priv->screens = NULL;
 
         if (priv->volume) {
                 g_object_unref (priv->volume);
