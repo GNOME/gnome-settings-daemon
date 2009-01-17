@@ -117,11 +117,14 @@ test_media_keys_CFLAGS = \
 test_media_keys_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
-	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(XF86MISC_LIBS)			\
 	$(GST_LIBS)
+
+if HAVE_PULSE
+test_media_keys_LDADD += $(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la
+endif
 
 gladedir = $(pkgdatadir)
 glade_DATA = 		\
