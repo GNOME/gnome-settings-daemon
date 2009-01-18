@@ -5,7 +5,7 @@ plugin_LTLIBRARIES =
 
 if HAVE_PULSE
 SUBDIRS += cut-n-paste
-plugin_LTLIBRARIES = libmedia-keys.la
+plugin_LTLIBRARIES += libmedia-keys.la
 endif
 
 BUILT_SOURCES = 			\
