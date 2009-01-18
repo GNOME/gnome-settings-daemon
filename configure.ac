@@ -239,10 +239,11 @@ AC_ARG_ENABLE(pulse,
 if test x$WANT_PULSE = xyes ; then
        PA_REQUIRED_VERSION=0.9.12
        PKG_CHECK_MODULES(PULSE, glib-2.0 libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION,
-             [have_pulse=true, AC_DEFINE(HAVE_PULSE, 1, [Define if PULSE sound server should be used])],
+             [have_pulse=true
+              AC_DEFINE(HAVE_PULSE, 1, [Define if PULSE sound server should be used])],
              [have_pulse=false])
 fi
-AM_CONDITIONAL(HAVE_PULSE, test x"$have_pulse" = "xtrue")
+AM_CONDITIONAL(HAVE_PULSE, test "x$have_pulse" = "xtrue")
 
 AC_SUBST(PULSE_CFLAGS)
 AC_SUBST(PULSE_LIBS)
