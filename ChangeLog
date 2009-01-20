@@ -1,3 +1,11 @@
+2009-01-19  Ray Strode  <rstrode@redhat.com>
+
+	* plugins/background/gsd-background-manager.c
+	(gsd_background_manager_start): Don't draw_background
+	immediately when nautilus is disabled.
+	gnome_bg_load_from_preferences forces a "changed" signal
+	to get emitted which will queue a draw anyway
+
 2009-01-18  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/media-keys/Makefile.am: fix automake warning

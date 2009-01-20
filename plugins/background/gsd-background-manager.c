@@ -277,7 +277,6 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
 
         if (!nautilus_show_desktop) {
                 setup_bg (manager);
-                draw_background (manager);
         } else {
                 /* even when nautilus is supposedly handling the
                  * background, apply the settings eventually to make
