@@ -1,5 +1,22 @@
 2009-01-19  Ray Strode  <rstrode@redhat.com>
 
+	Add crossfade transition when switching bgs
+	(bug 552857)
+
+	* plugins/background/gsd-background-manager.c
+	(draw_background): Add use_crossfade argument
+	that initiates the fade if TRUE.
+	(on_bg_changed): call draw_background with crossfade.
+	(on_bg_transitioned): new function that calls
+	draw_background without crossfade during slide show
+	transitioning.
+	(setup_bg): set up transitioned signal handler.
+	(queue_draw_background): draw_background without
+	crossfade after 8 second timeout waiting for
+	nautilus.
+
+2009-01-19  Ray Strode  <rstrode@redhat.com>
+
 	* plugins/background/gsd-background-manager.c
 	(gsd_background_manager_start): Don't draw_background
 	immediately when nautilus is disabled.

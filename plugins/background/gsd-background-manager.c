@@ -155,7 +155,8 @@ nautilus_is_running (void)
 }
 
 static void
-draw_background (GsdBackgroundManager *manager)
+draw_background (GsdBackgroundManager *manager,
+                 gboolean              use_crossfade)
 {
         GdkDisplay *display;
         int         n_screens;
@@ -185,7 +186,15 @@ draw_background (GsdBackgroundManager *manager)
                                                  gdk_screen_get_height (screen),
                                                  TRUE);
 
-                gnome_bg_set_pixmap_as_root (screen, pixmap);
+                if (use_crossfade) {
+                        GnomeBGCrossfade *fade;
+
+                        fade = gnome_bg_set_pixmap_as_root_with_crossfade (screen, pixmap);
+                        g_signal_connect (fade, "finished",
+                                          G_CALLBACK (g_object_unref), NULL);
+                } else {
+                        gnome_bg_set_pixmap_as_root (screen, pixmap);
+                }
 
                 g_object_unref (pixmap);
         }
@@ -197,7 +206,14 @@ static void
 on_bg_changed (GnomeBG              *bg,
                GsdBackgroundManager *manager)
 {
-        draw_background (manager);
+        draw_background (manager, TRUE);
+}
+
+static void
+on_bg_transitioned (GnomeBG              *bg,
+                    GsdBackgroundManager *manager)
+{
+        draw_background (manager, FALSE);
 }
 
 static void
@@ -239,6 +255,11 @@ setup_bg (GsdBackgroundManager *manager)
                           G_CALLBACK (on_bg_changed),
                           manager);
 
+        g_signal_connect (manager->priv->bg,
+                          "transitioned",
+                          G_CALLBACK (on_bg_transitioned),
+                          manager);
+
         watch_bg_preferences (manager);
         gnome_bg_load_from_preferences (manager->priv->bg,
                                         manager->priv->client);
@@ -249,7 +270,7 @@ queue_draw_background (GsdBackgroundManager *manager)
 {
         manager->priv->timeout_id = 0;
         setup_bg (manager);
-        draw_background (manager);
+        draw_background (manager, FALSE);
         return FALSE;
 }
 
