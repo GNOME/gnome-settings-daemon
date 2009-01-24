@@ -526,7 +526,7 @@ handle_fn_f7 (GsdXrandrManager *mgr)
         g_debug ("Handling fn-f7");
 
         error = NULL;
-        if (!gnome_rr_screen_refresh (screen, &error)) {
+        if (!gnome_rr_screen_refresh (screen, &error) && error) {
                 char *str;
 
                 str = g_strdup_printf (_("Could not refresh the screen information: %s"), error->message);

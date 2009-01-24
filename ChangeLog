@@ -1,3 +1,12 @@
+2009-01-24  Jens Granseuer  <jensgr@gmx.net>
+
+	Patch by: Andres Freund <andres@anarazel.de>
+
+	Fix possible crash when pressing Fn-F7 (bug #568713)
+
+	* plugins/xrandr/gsd-xrandr-manager.c: (handle_fn_f7): only try to
+	dereference the error when it was actually set
+
 2009-01-22  Bastien Nocera  <hadess@hadess.net>
 
 	* data/apps_gnome_settings_daemon_keybindings.schemas.in:
