@@ -1,3 +1,15 @@
+2009-01-26  Ray Strode  <rstrode@redhat.com>
+
+	Delay drawing the background until SessionRunning.
+
+	* plugins/background/gsd-background-manager.c:
+	(queue_draw_background): Cancel queued draw if nautilus
+	is now running.
+	(on_bus_message), (draw_background_after_session_loads),
+	(gsd_background_manager_start): wait for SessionRunning
+	and then queue background draw
+	(gsd_background_manager_stop): remove message filter
+
 2009-01-24  Jens Granseuer  <jensgr@gmx.net>
 
 	Patch by: Andres Freund <andres@anarazel.de>

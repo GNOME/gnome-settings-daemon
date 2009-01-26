@@ -32,6 +32,8 @@
 
 #include <locale.h>
 
+#include <dbus/dbus.h>
+
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
@@ -53,6 +55,8 @@ struct GsdBackgroundManagerPrivate
         GnomeBG     *bg;
         guint        bg_notify_id;
         guint        timeout_id;
+
+        DBusConnection *dbus_connection;
 };
 
 static void     gsd_background_manager_class_init  (GsdBackgroundManagerClass *klass);
@@ -269,9 +273,61 @@ static gboolean
 queue_draw_background (GsdBackgroundManager *manager)
 {
         manager->priv->timeout_id = 0;
+        if (nautilus_is_running ()) {
+                return FALSE;
+        }
         setup_bg (manager);
         draw_background (manager, FALSE);
         return FALSE;
+}
+
+static DBusHandlerResult
+on_bus_message (DBusConnection *connection,
+                DBusMessage    *message,
+                void           *user_data)
+{
+        GsdBackgroundManager *manager = user_data;
+
+        if (dbus_message_is_signal (message,
+                                    "org.gnome.SessionManager",
+                                    "SessionRunning")) {
+                /* If the session finishes then check if nautilus is
+                 * running and if not, set the background.
+                 *
+                 * We wait a few seconds after the session is up
+                 * because nautilus tells the session manager that its
+                 * ready before it sets the background.
+                 */
+                manager->priv->timeout_id = g_timeout_add_seconds (8,
+                                                                   (GSourceFunc)
+                                                                   queue_draw_background,
+                                                                   manager);
+                dbus_connection_remove_filter (connection,
+                                               on_bus_message,
+                                               manager);
+
+                manager->priv->dbus_connection = NULL;
+        }
+
+        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+}
+
+static void
+draw_background_after_session_loads (GsdBackgroundManager *manager)
+{
+        DBusConnection *connection;
+
+        connection = dbus_bus_get (DBUS_BUS_SESSION, NULL);
+
+        if (connection == NULL) {
+                return;
+        }
+
+        if (!dbus_connection_add_filter (connection, on_bus_message, manager, NULL)) {
+                return;
+        };
+
+        manager->priv->dbus_connection = connection;
 }
 
 gboolean
@@ -299,10 +355,7 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
         if (!nautilus_show_desktop) {
                 setup_bg (manager);
         } else {
-                /* even when nautilus is supposedly handling the
-                 * background, apply the settings eventually to make
-                 * people running a nautilus-less session happy */
-                manager->priv->timeout_id = g_timeout_add_seconds (8, (GSourceFunc)queue_draw_background, manager);
+                draw_background_after_session_loads (manager);
         }
 
         gnome_settings_profile_end (NULL);
@@ -316,6 +369,12 @@ gsd_background_manager_stop (GsdBackgroundManager *manager)
         GsdBackgroundManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping background manager");
+
+        if (manager->priv->dbus_connection != NULL) {
+                dbus_connection_remove_filter (manager->priv->dbus_connection,
+                                               on_bus_message,
+                                               manager);
+        }
 
         if (manager->priv->bg_notify_id != 0) {
                 gconf_client_remove_dir (manager->priv->client,
