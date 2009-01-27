@@ -1122,12 +1122,39 @@ on_config_changed (GConfClient          *client,
 }
 
 static void
-apply_stored_configuration_at_startup (GsdXrandrManager *manager)
+restore_backup_configuration (GsdXrandrManager *manager, const char *backup_filename, const char *intended_filename)
+{
+        int saved_errno;
+        char *msg;
+
+        if (rename (backup_filename, intended_filename) == 0)
+                return;
+
+        saved_errno = errno;
+
+        msg = g_strdup_printf ("Could not rename %s to %s: %s",
+                               backup_filename, intended_filename,
+                               g_strerror (saved_errno));
+        error_message (manager,
+                       _("Could not restore the display's configuration from a backup"),
+                       NULL,
+                       msg);
+        g_free (msg);
+
+        unlink (backup_filename);
+
+        /* FIXME: maybe we should save the *current* configuration to overwrite
+         * the failed one, or revert to a likely-good state and then save.
+         */
+}
+
+static void
+apply_intended_configuration (GsdXrandrManager *manager, const char *intended_filename)
 {
         GError *my_error;
 
         my_error = NULL;
-        if (!gnome_rr_config_apply_stored (manager->priv->rw_screen, &my_error)) {
+        if (!gnome_rr_config_apply_stored (manager->priv->rw_screen, intended_filename, &my_error)) {
                 if (my_error) {
                         if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
                                 error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
@@ -1136,6 +1163,61 @@ apply_stored_configuration_at_startup (GsdXrandrManager *manager)
                 }
         }
 
+}
+
+static void
+apply_stored_configuration_at_startup (GsdXrandrManager *manager)
+{
+        GError *my_error;
+        gboolean success;
+        char *backup_filename;
+        char *intended_filename;
+
+        backup_filename = gnome_rr_config_get_backup_filename ();
+        intended_filename = gnome_rr_config_get_intended_filename ();
+
+        /* 1. See if there was a "saved" configuration.  If there is one, it means
+         * that the user had selected to change the display configuration, but the
+         * machine crashed.  In that case, we'll apply *that* configuration and save it on top of the
+         * "intended" one.
+         */
+
+        my_error = NULL;
+
+        success = gnome_rr_config_apply_stored (manager->priv->rw_screen, backup_filename, &my_error);
+        if (success) {
+                /* The backup configuration existed, and could be applied
+                 * successfully, so we must restore it on top of the
+                 * failed/intended one.
+                 */
+                restore_backup_configuration (manager, backup_filename, intended_filename);
+                goto out;
+        }
+
+        if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT)) {
+                /* Epic fail:  there (probably) was a backup configuration, but
+                 * we could not apply it.  The only thing we can do is delete
+                 * the backup configuration.  Let's hope that the user doesn't
+                 * get left with an unusable display...
+                 */
+
+                unlink (backup_filename);
+                goto out;
+        }
+
+        /* 2. There was no backup configuration!  This means we are
+         * good.  Apply the intended configuration instead.
+         */
+
+        apply_intended_configuration (manager, intended_filename);
+
+out:
+
+        if (my_error)
+                g_error_free (my_error);
+
+        g_free (backup_filename);
+        g_free (intended_filename);
 }
 
 gboolean

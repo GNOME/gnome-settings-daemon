@@ -14,6 +14,46 @@
 	apply the stored configuration at startup.
 	(gsd_xrandr_manager_start): Use the function above.
 
+	During startup, restore the backup configuration if it existed, to
+	recover from the case when the machine crashes while applying an
+	intended configuration.
+
+	* plugins/xrandr/gsd-xrandr-manager.c
+	(apply_stored_configuration_at_startup): First see if we have a
+	backup configuration; if so, it means the machine or g-s-d crashed
+	while changing the RANDR parameters.  If there is no backup
+	configuration, then we have a known-good configuration which we
+	can use.
+	(apply_intended_configuration): New function, used to load the
+	intended configuration (i.e. the non-backup one).
+	(restore_backup_configuration): Utility function to overwrite the
+	known-bad configuration with the known-good backup one.
+    
+2009-01-24  Jens Granseuer  <jensgr@gmx.net>
+
+	Patch by: Andres Freund <andres@anarazel.de>
+
+	Fix possible crash when pressing Fn-F7 (bug #568713)
+
+	* plugins/xrandr/gsd-xrandr-manager.c: (handle_fn_f7): only try to
+	dereference the error when it was actually set
+
+2009-01-27  Federico Mena Quintero  <federico@novell.com>
+
+	http://bugzilla.gnome.org/show_bug.cgi?id=545115 - Ask for
+	confirmation, with a timeout, after changing the RANDR
+	configuration for if we leave the user with an unusable display.
+	This also handles the case where the machine may crash after
+	changing the configuration; the old/known-good configuration will
+	be restored when the user restarts his session.
+
+	Refactor:
+
+	* plugins/xrandr/gsd-xrandr-manager.c
+	(apply_stored_configuration_at_startup): Factor out the logic to
+	apply the stored configuration at startup.
+	(gsd_xrandr_manager_start): Use the function above.
+
 2009-01-26  Ray Strode  <rstrode@redhat.com>
 
 	Delay drawing the background until SessionRunning.
