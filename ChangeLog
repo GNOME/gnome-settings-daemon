@@ -28,7 +28,27 @@
 	intended configuration (i.e. the non-backup one).
 	(restore_backup_configuration): Utility function to overwrite the
 	known-bad configuration with the known-good backup one.
-    
+
+	Use a timeout-confirmation dialog after changing the display
+	configuration:
+
+	* plugins/xrandr/gsd-xrandr-manager.c
+	(try_to_apply_intended_configuration): New function; applies the
+	intended configuration, restores the backup configuration if that
+	fails, or asks the user to confirm if the intended configuration
+	is usable.
+	(gsd_xrandr_manager_apply_configuration): Use
+	try_to_apply_intended_configuration() in the implementation of the
+	D-Bus method to apply RANDR configurations.  This way all apps
+	which use this D-Bus method will get confirmation for free.
+	(output_rotation_item_activate_cb): Use
+	try_to_apply_intended_configuration() so that the RANDR tray-icon
+	also uses the confirmation/backup logic.
+	(restore_backup_configuration): Restore the screen configuration
+	itself in addition to restoring the file on disk from the backup.
+	(user_says_things_are_ok): New utility function to handle a
+	timeout-confirmation dialog.
+
 2009-01-24  Jens Granseuer  <jensgr@gmx.net>
 
 	Patch by: Andres Freund <andres@anarazel.de>

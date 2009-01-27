@@ -103,20 +103,183 @@ static void     gsd_xrandr_manager_class_init  (GsdXrandrManagerClass *klass);
 static void     gsd_xrandr_manager_init        (GsdXrandrManager      *xrandr_manager);
 static void     gsd_xrandr_manager_finalize    (GObject             *object);
 
+static void error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text);
+
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+static void
+restore_backup_configuration_without_messages (const char *backup_filename, const char *intended_filename)
+{
+        backup_filename = gnome_rr_config_get_backup_filename ();
+        rename (backup_filename, intended_filename);
+}
+
+static void
+restore_backup_configuration (GsdXrandrManager *manager, const char *backup_filename, const char *intended_filename)
+{
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        int saved_errno;
+        char *msg;
+
+        if (rename (backup_filename, intended_filename) == 0) {
+                GError *error;
+
+                error = NULL;
+                if (!gnome_rr_config_apply_stored (priv->rw_screen, intended_filename, &error)) {
+                        error_message (manager, _("Could not restore the display's configuration"), error, NULL);
+
+                        if (error)
+                                g_error_free (error);
+                }
+
+                return;
+        }
+
+        saved_errno = errno;
+
+        msg = g_strdup_printf ("Could not rename %s to %s: %s",
+                               backup_filename, intended_filename,
+                               g_strerror (saved_errno));
+        error_message (manager,
+                       _("Could not restore the display's configuration from a backup"),
+                       NULL,
+                       msg);
+        g_free (msg);
+
+        unlink (backup_filename);
+}
+
+typedef struct {
+        GsdXrandrManager *manager;
+        GtkWidget *dialog;
+
+        int countdown;
+        int response_id;
+} TimeoutDialog;
+
+static void
+print_countdown_text (TimeoutDialog *timeout)
+{
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (timeout->dialog),
+                                                  _("The display will be reset to its previous configuration in %d seconds"),
+                                                  timeout->countdown);
+}
+
+static gboolean
+timeout_cb (gpointer data)
+{
+        TimeoutDialog *timeout = data;
+
+        timeout->countdown--;
+
+        if (timeout->countdown == 0) {
+                timeout->response_id = GTK_RESPONSE_CANCEL;
+                gtk_main_quit ();
+        } else {
+                print_countdown_text (timeout);
+        }
+
+        return TRUE;
+}
+
+static void
+timeout_response_cb (GtkDialog *dialog, int response_id, gpointer data)
+{
+        TimeoutDialog *timeout = data;
+
+        if (response_id == GTK_RESPONSE_DELETE_EVENT) {
+                /* The user closed the dialog, presumably saying, "go away, everything is fine" */
+                timeout->response_id = GTK_RESPONSE_ACCEPT;
+        } else
+                timeout->response_id = response_id;
+
+        gtk_main_quit ();
+}
+
+static gboolean
+user_says_things_are_ok (GsdXrandrManager *manager)
+{
+        TimeoutDialog timeout;
+        guint timeout_id;
+
+        timeout.manager = manager;
+
+        /* It sucks that we don't know the parent window here */
+        timeout.dialog = gtk_message_dialog_new (NULL,
+                                                 GTK_DIALOG_MODAL,
+                                                 GTK_MESSAGE_QUESTION,
+                                                 GTK_BUTTONS_NONE,
+                                                 _("Does the display look OK?"));
+        timeout.countdown = 10;
+        print_countdown_text (&timeout);
+
+        gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("Restore the previous configuration"), GTK_RESPONSE_CANCEL);
+        gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("Keep this configuration"), GTK_RESPONSE_ACCEPT);
+        gtk_dialog_set_default_response (GTK_DIALOG (timeout.dialog), GTK_RESPONSE_ACCEPT); /* ah, the optimism */
+
+        g_signal_connect (timeout.dialog, "response",
+                          G_CALLBACK (timeout_response_cb),
+                          &timeout);
+
+        gtk_widget_show_all (timeout.dialog);
+        timeout_id = g_timeout_add (1000,
+                                    timeout_cb,
+                                    &timeout);
+        gtk_main ();
+
+        gtk_widget_destroy (timeout.dialog);
+        g_source_remove (timeout_id);
+
+        if (timeout.response_id == GTK_RESPONSE_ACCEPT)
+                return TRUE;
+        else
+                return FALSE;
+}
+
+static gboolean
+try_to_apply_intended_configuration (GsdXrandrManager *manager, GError **error)
+{
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        char *backup_filename;
+        char *intended_filename;
+        gboolean result;
+
+        /* Try to apply the intended configuration */
+
+        backup_filename = gnome_rr_config_get_backup_filename ();
+        intended_filename = gnome_rr_config_get_intended_filename ();
+
+        result = gnome_rr_config_apply_stored (priv->rw_screen, intended_filename, error);
+        if (!result) {
+                error_message (manager, _("The selected configuration for displays could not be applied"), error ? *error : NULL, NULL);
+                restore_backup_configuration_without_messages (backup_filename, intended_filename);
+                goto out;
+        }
+
+        /* Confirm with the user */
+
+        if (user_says_things_are_ok (manager))
+                unlink (backup_filename);
+        else
+                restore_backup_configuration (manager, backup_filename, intended_filename);
+
+out:
+        g_free (backup_filename);
+        g_free (intended_filename);
+
+        return result;
+}
 
 /* DBus method; see gsd-xrandr-manager.xml for the interface definition */
 static gboolean
 gsd_xrandr_manager_apply_configuration (GsdXrandrManager *manager,
                                         GError          **error)
 {
-        GnomeRRScreen *screen = manager->priv->rw_screen;
-
-        return gnome_rr_config_apply_stored (screen, error);
+        return try_to_apply_intended_configuration (manager, error);
 }
+
 /* We include this after the definition of gsd_xrandr_manager_apply_configuration() so the prototype will already exist */
 #include "gsd-xrandr-manager-glue.h"
 
@@ -896,13 +1059,7 @@ output_rotation_item_activate_cb (GtkCheckMenuItem *item, gpointer data)
                 return;
         }
 
-        if (!gnome_rr_config_apply_stored (priv->rw_screen, &error)) {
-                error_message (manager, _("The selected rotation could not be applied"), error, NULL);
-                if (error)
-                        g_error_free (error);
-
-                return;
-        }
+        try_to_apply_intended_configuration (manager, NULL); /* NULL-GError */
 }
 
 static void
@@ -1122,33 +1279,6 @@ on_config_changed (GConfClient          *client,
 }
 
 static void
-restore_backup_configuration (GsdXrandrManager *manager, const char *backup_filename, const char *intended_filename)
-{
-        int saved_errno;
-        char *msg;
-
-        if (rename (backup_filename, intended_filename) == 0)
-                return;
-
-        saved_errno = errno;
-
-        msg = g_strdup_printf ("Could not rename %s to %s: %s",
-                               backup_filename, intended_filename,
-                               g_strerror (saved_errno));
-        error_message (manager,
-                       _("Could not restore the display's configuration from a backup"),
-                       NULL,
-                       msg);
-        g_free (msg);
-
-        unlink (backup_filename);
-
-        /* FIXME: maybe we should save the *current* configuration to overwrite
-         * the failed one, or revert to a likely-good state and then save.
-         */
-}
-
-static void
 apply_intended_configuration (GsdXrandrManager *manager, const char *intended_filename)
 {
         GError *my_error;
@@ -1162,7 +1292,6 @@ apply_intended_configuration (GsdXrandrManager *manager, const char *intended_fi
                         g_error_free (my_error);
                 }
         }
-
 }
 
 static void
