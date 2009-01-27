@@ -1121,12 +1121,27 @@ on_config_changed (GConfClient          *client,
         start_or_stop_icon (manager);
 }
 
+static void
+apply_stored_configuration_at_startup (GsdXrandrManager *manager)
+{
+        GError *my_error;
+
+        my_error = NULL;
+        if (!gnome_rr_config_apply_stored (manager->priv->rw_screen, &my_error)) {
+                if (my_error) {
+                        if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+                                error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
+
+                        g_error_free (my_error);
+                }
+        }
+
+}
+
 gboolean
 gsd_xrandr_manager_start (GsdXrandrManager *manager,
                           GError          **error)
 {
-        GError *my_error;
-
         g_debug ("Starting xrandr manager");
         gnome_settings_profile_start (NULL);
 
@@ -1163,15 +1178,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                 gdk_error_trap_pop ();
         }
 
-        my_error = NULL;
-        if (!gnome_rr_config_apply_stored (manager->priv->rw_screen, &my_error)) {
-                if (my_error) {
-                        if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
-                                error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
-
-                        g_error_free (my_error);
-                }
-        }
+        apply_stored_configuration_at_startup (manager);
 
         gdk_window_add_filter (gdk_get_default_root_window(),
                                (GdkFilterFunc)event_filter,

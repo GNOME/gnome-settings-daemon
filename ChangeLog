@@ -1,3 +1,19 @@
+2009-01-27  Federico Mena Quintero  <federico@novell.com>
+
+	http://bugzilla.gnome.org/show_bug.cgi?id=545115 - Ask for
+	confirmation, with a timeout, after changing the RANDR
+	configuration for if we leave the user with an unusable display.
+	This also handles the case where the machine may crash after
+	changing the configuration; the old/known-good configuration will
+	be restored when the user restarts his session.
+
+	Refactor:
+
+	* plugins/xrandr/gsd-xrandr-manager.c
+	(apply_stored_configuration_at_startup): Factor out the logic to
+	apply the stored configuration at startup.
+	(gsd_xrandr_manager_start): Use the function above.
+
 2009-01-26  Ray Strode  <rstrode@redhat.com>
 
 	Delay drawing the background until SessionRunning.
