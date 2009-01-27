@@ -1293,7 +1293,12 @@ apply_intended_configuration (GsdXrandrManager *manager, const char *intended_fi
         my_error = NULL;
         if (!gnome_rr_config_apply_stored (manager->priv->rw_screen, intended_filename, &my_error)) {
                 if (my_error) {
-                        if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+                        if (g_error_matches (my_error, GNOME_RR_ERROR, GNOME_RR_ERROR_NO_MATCHING_CONFIG)) {
+                                /* This is not an error; the user probably
+                                 * changed his monitors and then logged in
+                                 * again, thus restarting gnome-settings-daemon.
+                                 */
+                        } else if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
                                 error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
 
                         g_error_free (my_error);
