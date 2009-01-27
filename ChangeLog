@@ -49,6 +49,12 @@
 	(user_says_things_are_ok): New utility function to handle a
 	timeout-confirmation dialog.
 
+	Fix error reporting at startup:
+
+	* plugins/xrandr/gsd-xrandr-manager.c (error_message): Handle the
+	case where the status_icon is not created yet; this happens during
+	startup or when the status_icon is disabled by the user.
+
 2009-01-24  Jens Granseuer  <jensgr@gmx.net>
 
 	Patch by: Andres Freund <andres@anarazel.de>
