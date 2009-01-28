@@ -14,5 +14,30 @@
 		</long>
             </locale>
         </schema>
+
+	<schema>
+	    <key>/schemas/apps/gnome_settings_daemon/xrandr/rotate_tablet_with_monitor</key>
+	    <applyto>/apps/gnome_settings_daemon/xrandr/rotate_tablet_with_monitor</applyto>
+            <owner>gnome</owner>
+	    <type>bool</type>
+            <default>true</default>
+            <locale name="C">
+	        <short>Rotate pressure-sensitive tablet along with the
+                monitor</short>
+		<long>For internal pressure-sensitive
+                tablets which are part of the display (such as the
+                ones in tablet PCs), you want the tablet's cursor to
+                rotate when the monitor is rotated, so that the
+                orientation of the stylus will match the orientation
+                of the monitor; use "true" in this case.  But for
+                external tablets, you may prefer to keep the tablet in
+                the same orientation even if you rotate the monitor;
+                use "false" in this case.
+
+		This option will only be used if the xsetwacom binary
+		is in your PATH.
+		</long>
+            </locale>
+        </schema>
     </schemalist>
 </gconfschemafile>
