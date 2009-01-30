@@ -196,8 +196,10 @@ apply_configuration_from_filename (GsdXrandrManager *manager,
 
         my_error = NULL;
         success = gnome_rr_config_apply_from_filename_with_time (priv->rw_screen, filename, timestamp, &my_error);
-        if (success)
+        if (success) {
+                handle_tablet_rotation (manager);
                 return TRUE;
+        }
 
         if (g_error_matches (my_error, GNOME_RR_ERROR, GNOME_RR_ERROR_NO_MATCHING_CONFIG)) {
                 if (no_matching_config_is_an_error)
@@ -233,6 +235,8 @@ apply_configuration_and_display_error (GsdXrandrManager *manager, GnomeGnomeRRCo
                 error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
                 g_error_free (error);
         }
+
+        handle_tablet_rotation (manager);
 
         return success;
 }
