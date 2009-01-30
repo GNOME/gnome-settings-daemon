@@ -63,7 +63,8 @@
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
 #define CONF_DIR "/apps/gnome_settings_daemon/xrandr"
-#define CONF_KEY_SHOW_NOTIFICATION_ICON (CONF_DIR "/show_notification_icon")
+#define CONF_KEY_SHOW_NOTIFICATION_ICON		(CONF_DIR "/show_notification_icon")
+#define CONF_KEY_ROTATE_TABLET_WITH_MONITOR	(CONF_DIR "/rotate_tablet_with_monitor")
 
 #define VIDEO_KEYSYM    "XF86Display"
 #define ROTATE_KEYSYM   "XF86RotateWindows"
@@ -164,6 +165,12 @@ show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
                           G_CALLBACK (gtk_widget_destroy), NULL);
         gtk_widget_show (dialog);
 #endif
+}
+
+static void
+handle_tablet_rotation (GsdXrandrManager *manager)
+{
+        /* FMQ: implement */
 }
 
 /* This function centralizes the use of gnome_rr_config_apply_from_filename_with_time().
@@ -1979,6 +1986,8 @@ on_config_changed (GConfClient          *client,
 {
         if (strcmp (entry->key, CONF_KEY_SHOW_NOTIFICATION_ICON) == 0)
                 start_or_stop_icon (manager);
+        else if (strcmp (entry->key, CONF_KEY_ROTATE_TABLET_WITH_MONITOR) == 0)
+                handle_tablet_rotation (manager);
 }
 
 static void
