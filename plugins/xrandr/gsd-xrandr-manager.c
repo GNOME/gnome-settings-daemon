@@ -197,6 +197,80 @@ find_rotation_for_tablet (GnomeRRConfig *configuration)
 }
 
 static void
+rotate_tablet (GsdXrandrManager *manager, GnomeRRRotation rotation)
+{
+        char *stdout_str;
+        int status;
+        char *p;
+        char *newline;
+        const char *arg;
+
+        /* We really don't do error checking.  If xsetwacom(1) doesn't exist,
+         * well, too bad.  Maybe that means that the user doesn't have a tablet.
+         */
+
+        stdout_str = NULL;
+        if (!g_spawn_command_line_sync ("xsetwacom list",
+                                        &stdout_str,
+                                        NULL,
+                                        &status,
+                                        NULL))
+                goto out;
+
+        if (!(WIFEXITED (status) && WEXITSTATUS (status) == 0 && stdout_str != NULL))
+                goto out;
+
+        switch (rotation) {
+        case GNOME_RR_ROTATION_90:
+                arg = "CW";
+                break;
+
+        case GNOME_RR_ROTATION_180:
+                arg = "HALF";
+                break;
+
+        case GNOME_RR_ROTATION_270:
+                arg = "CCW";
+                break;
+
+        default: /* this also catches GNOME_RR_ROTATION_0 */
+                arg = "NONE";
+                break;
+        }
+
+        for (p = stdout_str; *p != '\0'; p = newline + 1) {
+                char *end;
+                char *device_name;
+                char *command;
+
+                newline = strchr (p, '\n');
+                if (!newline)
+                        break;
+
+                *newline = '\0';
+
+                if (!strstr (p, "stylus"))
+                        continue;
+
+                device_name = p;
+                for (end = device_name; *end != '\0' && !g_ascii_isspace (*end); end++);
+
+                *end = '\0';
+
+                if (strlen (device_name) == 0)
+                        continue;
+
+                command = g_strconcat ("xsetwacom set ", device_name, " Rotate ", arg, NULL);
+                g_spawn_command_line_sync (command, NULL, NULL, NULL, NULL);
+                g_free (command);
+        }
+
+out:
+
+        g_free (stdout_str);
+}
+
+static void
 handle_tablet_rotation (GsdXrandrManager *manager)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
