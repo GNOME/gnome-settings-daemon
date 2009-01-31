@@ -39,7 +39,7 @@ libmedia_keys_la_SOURCES = 		\
 libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-I$(top_builddir)/plugins/media-keys/cut-n-paste	\
+	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGLADEDIR=\""$(pkgdatadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -76,7 +76,7 @@ test_media_window_SOURCES =			\
 
 test_media_window_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/plugins/media-keys/cut-n-paste	\
+	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGLADEDIR=\""$(pkgdatadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -104,7 +104,7 @@ test_media_keys_SOURCES =			\
 test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-I$(top_builddir)/plugins/media-keys/cut-n-paste	\
+	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGLADEDIR=\""$(pkgdatadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
