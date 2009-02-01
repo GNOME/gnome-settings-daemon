@@ -297,7 +297,7 @@ ldsm_mounts_changed (GObject  *monitor,
                                                  ldsm_check_all_mounts, NULL);
 }
 
-static void
+void
 gsd_ldsm_setup (gboolean check_now)
 {
         if (ldsm_notified_hash || ldsm_timeout_id || ldsm_monitor) {
@@ -326,7 +326,7 @@ gsd_ldsm_setup (gboolean check_now)
                                                  ldsm_check_all_mounts, NULL);
 }
 
-static void
+void
 gsd_ldsm_clean (void)
 {
         if (ldsm_timeout_id)
@@ -344,12 +344,12 @@ gsd_ldsm_clean (void)
 
 #else  /* HAVE_LIBNOTIFY */
 
-static void
+void
 gsd_ldsm_setup (gboolean check_now)
 {
 }
 
-static void
+void
 gsd_ldsm_clean (void)
 {
 }

@@ -1,6 +1,8 @@
 plugin_LTLIBRARIES = libhousekeeping.la
 
 libhousekeeping_la_SOURCES = 		\
+	gsd-disk-space.c		\
+	gsd-disk-space.h		\
 	gsd-housekeeping-manager.c	\
 	gsd-housekeeping-manager.h	\
 	gsd-housekeeping-plugin.c	\
