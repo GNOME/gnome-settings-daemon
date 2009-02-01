@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-01-08 20:01+0000\n"
-"PO-Revision-Date: 2009-01-10 03:12+0100\n"
+"POT-Creation-Date: 2009-02-01 16:04+0000\n"
+"PO-Revision-Date: 2009-02-01 17:57+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -772,7 +772,7 @@ msgstr "La combinación de teclas (%s) está incompleta"
 msgid "Key binding (%s) is invalid"
 msgstr "La combinación de teclas (%s) no es válida"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:463
+#: ../plugins/keybindings/gsd-keybindings-manager.c:485
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -821,7 +821,7 @@ msgstr "_Cargar"
 msgid "_Loaded files:"
 msgstr "Archivos _cargados:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:195
+#: ../plugins/media-keys/gsd-media-keys-manager.c:206
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -830,7 +830,7 @@ msgstr ""
 "predeterminado del terminal está configurado y apunta a una aplicación "
 "válida."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:235
+#: ../plugins/media-keys/gsd-media-keys-manager.c:246
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -839,13 +839,21 @@ msgstr ""
 "No se pudo ejecutar el comando: %s\n"
 "Compruebe que es un comando válido."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:251
+#: ../plugins/media-keys/gsd-media-keys-manager.c:262
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr ""
 "No es posible poner la máquina en bajo consumo\n"
 "Verifique que la máquina esté configurada correctamente."
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+msgid "System Sounds"
+msgstr "Sonidos del sistema"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+msgid "GNOME Volume Control"
+msgstr "Control de volumen de GNOME"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -929,56 +937,85 @@ msgstr "Establecer los ajustes de tamaño y rotación de la pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+#| msgid "Could not switch the monitor configuration"
+msgid "Could not restore the display's configuration"
+msgstr "No se pudo restaurar la configuración del monitor"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+#| msgid "Could not switch the monitor configuration"
+msgid "Could not restore the display's configuration from a backup"
+msgstr "No se pudo restaurar la configuración del monitor desde un respaldo"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:166
+#, c-format
+msgid "The display will be reset to its previous configuration in %d seconds"
+msgstr "La pantalla se reiniciará a su configuración anterior en %d segundos"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+msgid "Does the display look OK?"
+msgstr "¿Se ve bien la pantalla?"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:218
+#| msgid "Could not switch the monitor configuration"
+msgid "Restore the previous configuration"
+msgstr "Restaurar la configuración anterior"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:219
+msgid "Keep this configuration"
+msgstr "Mantener esta configuración"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:256
+#| msgid "The selected rotation could not be applied"
+msgid "The selected configuration for displays could not be applied"
+msgstr "No se pudo aplicar la configuración seleccionada para las pantallas"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:702
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "No se pudo refrescar la información de la pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:535
+#: ../plugins/xrandr/gsd-xrandr-manager.c:705
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Intentando cambiar la configuración del monitor de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:569
+#: ../plugins/xrandr/gsd-xrandr-manager.c:739
 msgid "Could not switch the monitor configuration"
 msgstr "No se pudo cambiar la configuración del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:865
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>La rotación no está soportada</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:892
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
 msgid "Could not save monitor configuration"
 msgstr "No se pudo guardar la configuración del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:900
-msgid "The selected rotation could not be applied"
-msgstr "No se pudo aplicar la rotación seleccionada"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:916
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
 msgid "Normal"
 msgstr "Normal"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:917
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
 msgid "Left"
 msgstr "Izquierda"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:918
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
 msgid "Right"
 msgstr "Derecha"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:919
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
 msgid "Upside Down"
 msgstr "Hacia abajo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1038
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
 msgid "_Configure Display Settings ..."
 msgstr "_Configurar los ajustes de la pantalla..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1079
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
 msgid "Configure display settings"
 msgstr "Configurar los ajustes de la pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1170
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
 msgid "Could not apply the stored configuration for monitors"
 msgstr "No se pudo aplicar la configuración almacenada para los monitores"
 
@@ -1074,9 +1111,6 @@ msgstr "Ajustes de las X"
 
 #~ msgid "Select sound file..."
 #~ msgstr "Seleccione un archivo de sonido…"
-
-#~ msgid "System Sounds"
-#~ msgstr "Sonidos del sistema"
 
 #~ msgid "An error occurred while configuring the screen"
 #~ msgstr "Ocurrió un error al configurar la pantalla"
