@@ -127,7 +127,7 @@ restore_backup_configuration (GsdXrandrManager *manager, const char *backup_file
                 GError *error;
 
                 error = NULL;
-                if (!gnome_rr_config_apply_stored (priv->rw_screen, intended_filename, &error)) {
+                if (!gnome_rr_config_apply_from_filename (priv->rw_screen, intended_filename, &error)) {
                         error_message (manager, _("Could not restore the display's configuration"), error, NULL);
 
                         if (error)
@@ -251,7 +251,7 @@ try_to_apply_intended_configuration (GsdXrandrManager *manager, GError **error)
         backup_filename = gnome_rr_config_get_backup_filename ();
         intended_filename = gnome_rr_config_get_intended_filename ();
 
-        result = gnome_rr_config_apply_stored (priv->rw_screen, intended_filename, error);
+        result = gnome_rr_config_apply_from_filename (priv->rw_screen, intended_filename, error);
         if (!result) {
                 error_message (manager, _("The selected configuration for displays could not be applied"), error ? *error : NULL, NULL);
                 restore_backup_configuration_without_messages (backup_filename, intended_filename);
@@ -1291,7 +1291,7 @@ apply_intended_configuration (GsdXrandrManager *manager, const char *intended_fi
         GError *my_error;
 
         my_error = NULL;
-        if (!gnome_rr_config_apply_stored (manager->priv->rw_screen, intended_filename, &my_error)) {
+        if (!gnome_rr_config_apply_from_filename (manager->priv->rw_screen, intended_filename, &my_error)) {
                 if (my_error) {
                         if (g_error_matches (my_error, GNOME_RR_ERROR, GNOME_RR_ERROR_NO_MATCHING_CONFIG)) {
                                 /* This is not an error; the user probably
@@ -1325,7 +1325,7 @@ apply_stored_configuration_at_startup (GsdXrandrManager *manager)
 
         my_error = NULL;
 
-        success = gnome_rr_config_apply_stored (manager->priv->rw_screen, backup_filename, &my_error);
+        success = gnome_rr_config_apply_from_filename (manager->priv->rw_screen, backup_filename, &my_error);
         if (success) {
                 /* The backup configuration existed, and could be applied
                  * successfully, so we must restore it on top of the

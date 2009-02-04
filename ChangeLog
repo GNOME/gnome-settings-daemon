@@ -1,3 +1,13 @@
+2009-02-03  Federico Mena Quintero  <federico@novell.com>
+
+	* plugins/xrandr/gsd-xrandr-manager.c
+	(restore_backup_configuration): Use
+	gnome_rr_config_apply_from_filename(), as that's the new,
+	non-deprecated API.
+	(try_to_apply_intended_configuration): Likewise.
+	(apply_intended_configuration): Likewise.
+	(apply_stored_configuration_at_startup): Likewise.
+
 2009-02-01  Frederic Peters  <fpeters@0d.be>
 
 	* plugins/housekeeping/Makefile.am:
