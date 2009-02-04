@@ -47,6 +47,7 @@ DISTCLEANFILES = 			\
 	$(schemas_DATA)			\
 	$(service_DATA)			\
 	$(desktop_DATA)			\
+	$(xml_DATA)			\
 	$(NULL)
 
 MAINTAINERCLEANFILES =			\
