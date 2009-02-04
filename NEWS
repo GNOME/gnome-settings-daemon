@@ -1,3 +1,47 @@
+===============
+Version 2.25.90
+===============
+- Initialize thread system (Frederic Peters) (#565515)
+- Better support for Eject and Sleep actions on BSD (Jasper Lievisse Adriaanse)
+  (#565472)
+- Spawn screensaver after a 30 second timeout instead of when idle so that it
+  doesn't compete with other processes when the session starts (Jens Granseuer)
+  (#564059)
+- Add low diskspace notification (Vincent Untz) (#557647)
+- Support hotkeys for a11y tools (Matthias Clasen) (#565310)
+- Quiet xrdb when there are duplicate rules in the .ad files (Bastien Nocera)
+  (#566610)
+- Add debugging output when de/registering media players (Jens Granseuer)
+  (#564433)
+- Add a new sound plugin that tells PulseAudio to drop its sample cache when
+  the sound theme changes (Lennart Poettering) (#545386)
+- Don't pop up an error message when there's no randr configuration file
+  (Federico Mena Quintero)
+- Ungrab keys when key-related plugins are disabled (Jens Granseuer) (#567867)
+- Use PulseAudio directly to change the volume (Bastien Nocera) (#567177)
+- Don't draw_background immediately when nautilus is disabled, GnomeBG will
+  send a signal (Ray Strode)
+- Add crossfade transition when switching backgrounds (Ray Strode) (#552857)
+- Use XF86Explorer to launch the file manager (Bastien Nocera)
+- Fix possible crash when pressing Fn-F7 (Andres Freund) (#568713)
+- Delay drawing the background until SessionRunning (Ray Stode)
+- Ask for confirmation with a timeout after changing the randr configuration
+  (Federico Mena Quintero) (#545115)
+- Require gnome-desktop 2.25.6 (Jen Granseuer)
+- Plug leaks
+- Build fixes
+- Updated translations:
+  - es (Jorge González)
+  - et (Mattias Põldaru)
+  - he (Yuval Tanny)
+  - hu (Gabor Kelemen)
+  - it (Luca Ferretti)
+  - ko (Changwoo Ryu)
+  - nb (Kjartan Maraas)
+  - pt_BR (Krix Apolinário)
+  - sv (Daniel Nylander)
+  - zh_CN (甘露(Gan Lu))
+
 ==============
 Version 2.25.3
 ==============
