@@ -39,6 +39,7 @@ EXTRA_DIST = 				\
 	$(schemas_in_files)		\
 	$(service_in_files)		\
 	$(desktop_in_files)		\
+	$(xml_in_files)			\
 	gnome-settings-daemon.pc.in	\
 	$(NULL)
 
