@@ -89,9 +89,19 @@ dnl ---------------------------------------------------------------------------
 dnl - Check for libnotify
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(LIBNOTIFY, libnotify >= $LIBNOTIFY_REQUIRED_VERSION,
-		  [AC_DEFINE(HAVE_LIBNOTIFY, 1, [Define if libnotify is available])
-                  have_libnotify=yes], [have_libnotify=no])
+have_libnotify=no
+AC_ARG_WITH(libnotify,
+	AC_HELP_STRING([--without-libnotify], [Disable notifications (default: auto)]),
+	with_libnotify=$withval, with_libnotify=auto)
+
+if test "x$with_libnotify" != "xno"; then
+	PKG_CHECK_MODULES(LIBNOTIFY, libnotify >= $LIBNOTIFY_REQUIRED_VERSION,
+			  [AC_DEFINE(HAVE_LIBNOTIFY, 1, [Define if libnotify is available])
+			  have_libnotify=yes], have_libnotify=no)
+	if test "x$have_libnotify" = xno -a "x$with_libnotify" = xyes; then
+		AC_MSG_ERROR([libnotify support requested but libraries not found])
+	fi
+fi
 AC_SUBST(LIBNOTIFY_CFLAGS)
 AC_SUBST(LIBNOTIFY_LIBS)
 
@@ -386,7 +396,7 @@ echo "
 
         dbus-1 system.d dir:      ${DBUS_SYS_DIR}
 
+        Libnotify support:        ${have_libnotify}
         PulseAudio support:       ${have_pulse}
-
         Profiling support:        ${enable_profiling}
 "
