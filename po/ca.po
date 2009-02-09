@@ -1,19 +1,19 @@
 # Traducció del mòdul gnome-settings-daemon de Softcatalà
-# Copyright © 1999-2008 Free Software Foundation, Inc.
+# Copyright © 1999-2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-settings-daemon package.
 # Ivan Vilata i Balaguer <ivan@selidor.net>, 1999, 2000.
 # Softcatalà <linux@softcatala.org>, 2000, 2001.
 # Jordi Mallach <jordi@sindominio.net>, 2002, 2003, 2004, 2005.
 # Xavier Conde Rueda <xavi.conde@gmail.com>, 2005 
 # Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>, 2005, 2006, 2007.
-# Joan Duran <jodufi@gmail.com>, 2008.
+# Joan Duran <jodufi@gmail.com>, 2008, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-17 00:08+0200\n"
-"PO-Revision-Date: 2008-09-16 23:43+0100\n"
+"POT-Creation-Date: 2009-02-09 22:16+0100\n"
+"PO-Revision-Date: 2009-02-09 22:16+0100\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -406,13 +406,13 @@ msgstr ""
 #: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
-"Establiu-ho a «True» (cert) per a habilitar el connector per a gestionarles "
+"Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar les "
 "vinculacions."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
-"Establiu-ho a «True» (cert) per a habilitar el connector per a gestionarels "
+"Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar els "
 "descans de tecleig."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:28
@@ -644,6 +644,19 @@ msgstr ""
 "No s'ha pogut crear el directori «%s».\n"
 "Es necessita per a poder canviar els cursors."
 
+#: ../plugins/housekeeping/gsd-disk-space.c:120
+#, c-format
+msgid "%d%% of the disk space on `%s' is in use"
+msgstr "s'està utilitzant el %d%% de l'espai del disc a «%s»"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:128
+msgid "Low Disk Space"
+msgstr "Espai del disc baix"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:139
+msgid "Analyze"
+msgstr "Analitza"
+
 #: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
 msgid "Key binding (%s) is incomplete"
@@ -703,7 +716,7 @@ msgstr "_Carrega"
 msgid "_Loaded files:"
 msgstr "Fitxers _carregats:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:206
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -711,7 +724,7 @@ msgstr ""
 "No s'ha pogut obtenir el terminal per defecte. Verifiqueu que l'ordre que "
 "teniu establerta per el terminal per defecte existeixi."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:223
+#: ../plugins/media-keys/gsd-media-keys-manager.c:246
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -720,13 +733,21 @@ msgstr ""
 "No s'ha pogut executar l'ordre: %s\n"
 "Verifiqueu que sigui una ordre vàlida."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:239
+#: ../plugins/media-keys/gsd-media-keys-manager.c:262
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr ""
 "No s'ha pogut posar l'ordinador a dormir.\n"
 "Comproveu que l'ordinador està configurat correctament."
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+msgid "System Sounds"
+msgstr "Sons del sistema"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+msgid "GNOME Volume Control"
+msgstr "Control del volum del GNOME"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -736,19 +757,19 @@ msgstr "Tecles multimèdia"
 msgid "Media keys plugin"
 msgstr "Connector de les tecles multimèdia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:625
 msgid "Could not enable mouse accessibility features"
 msgstr ""
 "No s'han pogut habilitar les funcionalitats d'accessibilitat del ratolí"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:573
+#: ../plugins/mouse/gsd-mouse-manager.c:627
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 "L'accessibilitat de ratolí requereix que s'instal·li el mousetweaks a "
 "l'ordinador."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:576
+#: ../plugins/mouse/gsd-mouse-manager.c:630
 msgid "Mouse Preferences"
 msgstr "Preferències del ratolí"
 
@@ -760,7 +781,7 @@ msgstr "Ratolí"
 msgid "Mouse plugin"
 msgstr "Connector del ratolí"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:153
+#: ../plugins/screensaver/gsd-screensaver-manager.c:136
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -775,7 +796,7 @@ msgstr ""
 "\n"
 "La funcionalitat de l'estalvi de pantalla no funcionarà en aquesta sessió."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:162
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
 msgid "_Do not show this message again"
 msgstr "_No tornis a mostrar aquest missatge"
 
@@ -786,81 +807,6 @@ msgstr "Estalvi de pantalla"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "Connector de l'estalvi de pantalla"
-
-#: ../plugins/sound/gsd-sound-manager.c:273
-#, c-format
-msgid "Couldn't load sound file %s as sample %s"
-msgstr "No s'ha pogut carregar el fitxer de so %s com a una mostra %s"
-
-#: ../plugins/sound/libsounds/sound-view.c:43
-msgid "Login"
-msgstr "Entrada"
-
-#: ../plugins/sound/libsounds/sound-view.c:44
-msgid "Logout"
-msgstr "Sortida"
-
-#: ../plugins/sound/libsounds/sound-view.c:45
-msgid "Boing"
-msgstr "Boing"
-
-#: ../plugins/sound/libsounds/sound-view.c:46
-msgid "Siren"
-msgstr "Sirena"
-
-#: ../plugins/sound/libsounds/sound-view.c:47
-msgid "Clink"
-msgstr "Clink"
-
-#: ../plugins/sound/libsounds/sound-view.c:48
-msgid "Beep"
-msgstr "Bip"
-
-#: ../plugins/sound/libsounds/sound-view.c:49
-msgid "No sound"
-msgstr "Sense so"
-
-#: ../plugins/sound/libsounds/sound-view.c:131
-msgid "Sound not set for this event."
-msgstr "El so per a aquesta incidència no està establert"
-
-#: ../plugins/sound/libsounds/sound-view.c:140
-msgid ""
-"The sound file for this event does not exist.\n"
-"You may want to install the gnome-audio package for a set of default sounds."
-msgstr ""
-"El fitxer de so per a aquesta incidència no existeix.\n"
-"Potser voldríeu instal·lar el paquet gnome-audio\n"
-"per obtenir un conjunt per defecte de sons."
-
-#: ../plugins/sound/libsounds/sound-view.c:151
-msgid "The sound file for this event does not exist."
-msgstr "El fitxer de so per a aquesta incidència no existeix."
-
-#: ../plugins/sound/libsounds/sound-view.c:182
-msgid "Select Sound File"
-msgstr "Seleccioneu un fitxer de so"
-
-#: ../plugins/sound/libsounds/sound-view.c:209
-#, c-format
-msgid "The file %s is not a valid wav file"
-msgstr "El fitxer %s no és un fitxer wav vàlid"
-
-#: ../plugins/sound/libsounds/sound-view.c:270
-msgid "Select sound file..."
-msgstr "Seleccioneu un fitxer de so..."
-
-#: ../plugins/sound/libsounds/sound-view.c:372
-msgid "System Sounds"
-msgstr "Sons del sistema"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "So"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound plugin"
-msgstr "Connector de so"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -928,7 +874,7 @@ msgstr "Gestiona la base de dades de recursos d'X"
 msgid "X Resource Database"
 msgstr "Base de dades de recursos d'X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:609
+#: ../plugins/xsettings/gsd-xsettings-manager.c:644
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr ""
@@ -941,6 +887,174 @@ msgstr "Gestiona els paràmetres d'X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Paràmetres d'X"
+
+#~ msgid "Allowed keys"
+#~ msgstr "Tecles permeses"
+
+#~ msgid ""
+#~ "If non-empty, keybindings will be ignored unless their GConf directory is "
+#~ "in the list. This is useful for lockdown."
+#~ msgstr ""
+#~ "Si no està buit, s'ignoraran les vinculacions a menys que el seu "
+#~ "directori GConf estigui a la llista. És útil per a les restriccions."
+
+#~ msgid "Binding to toggle the magnifier."
+#~ msgstr "Vinculació per a commutar l'ampliador."
+
+#~ msgid "Binding to toggle the on-screen keyboard."
+#~ msgstr "Vinculació per a commutar el teclat a la pantalla."
+
+#~ msgid "Binding to toggle the screen reader."
+#~ msgstr "Vinculació per a commutar el lector de pantalla."
+
+#~ msgid "Bounce keys"
+#~ msgstr "Tecles de salt"
+
+#~ msgid "Command used to turn the magnifier on or off."
+#~ msgstr "Ordre utilitzada per a habilitar o inhabilitar l'ampliador."
+
+#~ msgid "Command used to turn the on-screen keyboard on or off."
+#~ msgstr ""
+#~ "Ordre utilitzada per a habilitar o inhabilitar el teclat a la pantalla."
+
+#~ msgid "Command used to turn the screen reader on or off."
+#~ msgstr ""
+#~ "Ordre utilitzada per a habilitar o inhabilitar el lector de pantalla."
+
+#~ msgid "Mouse keys"
+#~ msgstr "Tecles del ratolí"
+
+#~ msgid "On-screen keyboard"
+#~ msgstr "Teclat a la pantalla"
+
+#~ msgid "Screen magnifier"
+#~ msgstr "Ampliador de pantalla"
+
+#~ msgid "Screen reader"
+#~ msgstr "Lector de pantalla"
+
+#~ msgid "Set to True to enable the plugin to manage sound sample caches."
+#~ msgstr ""
+#~ "Establiu-ho a «True» (cert) per a habilitar el connector per a gestionar "
+#~ "la memòria cau de les mostres de so."
+
+#~ msgid "Slow keys"
+#~ msgstr "Tecles lentes"
+
+#~ msgid "Sticky keys"
+#~ msgstr "Tecles enganxoses"
+
+#~ msgid "Toggle magnifier"
+#~ msgstr "Commuta l'ampliador"
+
+#~ msgid "Toggle on-screen keyboard"
+#~ msgstr "Commuta el teclat a la pantalla"
+
+#~ msgid "Toggle screen reader"
+#~ msgstr "Commuta el lector de pantalla"
+
+#~ msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Indica si la funció de tecles de salt del teclat accessible està "
+#~ "habilitada."
+
+#~ msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Indica si la funció de tecles del ratolí del teclat accessible està "
+#~ "habilitada."
+
+#~ msgid "Whether the on-screen keyboard is turned on."
+#~ msgstr "Indica si el teclat a la pantalla està habilitat."
+
+#~ msgid "Whether the screen magnifier is turned on."
+#~ msgstr "Indica si l'ampliador de pantalla està habilitat."
+
+#~ msgid "Whether the screen reader is turned on."
+#~ msgstr "Indica si el lector de pantalla està habilitat."
+
+#~ msgid "Whether the slow keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Indica si la funció de tecles lentes del teclat accessible està "
+#~ "habilitada."
+
+#~ msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Indica si la funció de tecles enganxoses del teclat accessible està "
+#~ "habilitada."
+
+#~ msgid "Accessibility"
+#~ msgstr "Accessibilitat"
+
+#~ msgid "Sound"
+#~ msgstr "So"
+
+#~ msgid "Sound Sample Cache plugin"
+#~ msgstr "Connector de memòria cau de les mostres de so"
+
+#~ msgid "Could not refresh the screen information: %s"
+#~ msgstr "No s'ha pogut refrescar la informació de la pantalla: %s"
+
+#~ msgid "Trying to switch the monitor configuration anyway."
+#~ msgstr ""
+#~ "S'està intentant commutar la configuració del monitor de totes maneres."
+
+#~ msgid "Could not switch the monitor configuration"
+#~ msgstr "No s'ha pogut commutar la configuració del monitor."
+
+#~ msgid "Could not save monitor configuration"
+#~ msgstr "No s'ha pogut desar la configuració del monitor"
+
+#~ msgid "Could not apply the stored configuration for monitors"
+#~ msgstr ""
+#~ "No s'ha pogut aplicar la configuració emmagatzemada per als monitors"
+
+#~ msgid "Couldn't load sound file %s as sample %s"
+#~ msgstr "No s'ha pogut carregar el fitxer de so %s com a una mostra %s"
+
+#~ msgid "Login"
+#~ msgstr "Entrada"
+
+#~ msgid "Logout"
+#~ msgstr "Sortida"
+
+#~ msgid "Boing"
+#~ msgstr "Boing"
+
+#~ msgid "Siren"
+#~ msgstr "Sirena"
+
+#~ msgid "Clink"
+#~ msgstr "Clink"
+
+#~ msgid "Beep"
+#~ msgstr "Bip"
+
+#~ msgid "No sound"
+#~ msgstr "Sense so"
+
+#~ msgid "Sound not set for this event."
+#~ msgstr "El so per a aquesta incidència no està establert"
+
+#~ msgid ""
+#~ "The sound file for this event does not exist.\n"
+#~ "You may want to install the gnome-audio package for a set of default "
+#~ "sounds."
+#~ msgstr ""
+#~ "El fitxer de so per a aquesta incidència no existeix.\n"
+#~ "Potser voldríeu instal·lar el paquet gnome-audio\n"
+#~ "per obtenir un conjunt per defecte de sons."
+
+#~ msgid "The sound file for this event does not exist."
+#~ msgstr "El fitxer de so per a aquesta incidència no existeix."
+
+#~ msgid "Select Sound File"
+#~ msgstr "Seleccioneu un fitxer de so"
+
+#~ msgid "The file %s is not a valid wav file"
+#~ msgstr "El fitxer %s no és un fitxer wav vàlid"
+
+#~ msgid "Select sound file..."
+#~ msgstr "Seleccioneu un fitxer de so..."
 
 #~ msgid "gtk-close"
 #~ msgstr "gtk-close"
