@@ -358,6 +358,10 @@ egg_accelerator_parse_virtual (const gchar            *accelerator,
 		      }
 		    }
 		}
+	      else
+		{
+		  bad_keyval = TRUE;
+		}
 	    }
 	  else if (accelerator_codes != NULL)
 	    {

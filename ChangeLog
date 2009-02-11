@@ -1,3 +1,10 @@
+2009-02-11  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/common/eggaccelerators.c:
+	(egg_accelerator_parse_virtual): don't return TRUE if we can't parse
+	the accelerator at all; fixes crash with invalid keyboard shortuts
+	(bug #571329)
+
 2009-02-11  Matthias Clasen  <mclasen@redhat.com>
 
 	Bug 570590 – a11y plugin warning
