@@ -692,7 +692,7 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         manager->priv->notification = notify_notification_new (title,
                                                                message,
                                                                "preferences-desktop-accessibility",
-                                                               NULL):
+                                                               NULL);
         notify_notification_attach_to_status_icon (manager->priv->notification, manager->priv->status_icon);
         notify_notification_set_timeout (manager->priv->notification, NOTIFICATION_TIMEOUT * 1000);
 
