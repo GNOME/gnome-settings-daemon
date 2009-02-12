@@ -4,22 +4,21 @@
 # Mișu Moldovan <dumol@gnome.ro> 2003, 2004.
 # Sebastian Ivan <sebastian.ivan@ubuntu.ro>, 2005.
 # Dan Damian <dand@gnome.ro>, 2005-2006.
+# Adi Roiban https://launchpad.net/~adiroiban, 2008, 2009
 #
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-28 03:49+0000\n"
-"PO-Revision-Date: 2009-02-06 15:01+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
+"POT-Creation-Date: 2009-02-11 23:08+0000\n"
+"PO-Revision-Date: 2009-02-12 14:20+0200\n"
 "Last-Translator: Adi Roiban <adi@roiban.ro>\n"
-"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language-Team: Gnome Romanian Team <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 == 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2009-02-05 20:48+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -183,7 +182,7 @@ msgstr "Volum mărit"
 
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
 msgid "Set to True to display a dialog when there are errors running the screensaver."
-msgstr "Definește la „True” pentru a arată un dialog la apariţia unor erori generate de economizorul de ecran"
+msgstr "Definește la „True” pentru a arată un dialog la apariția unor erori generate de economizorul de ecran"
 
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
 msgid "Set to True to run the screensaver at login."
@@ -235,139 +234,223 @@ msgstr "Tipul de antialiasing folosint la randarea fonturilor. Valori posibile s
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:8
 msgid "The type of hinting to use when rendering fonts. Possible values are: \"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum hinting (may cause distortion of letter forms)."
-msgstr ""
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:1
-msgid "Allowed keys"
-msgstr "Taste permise"
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:2
-msgid "If non-empty, keybindings will be ignored unless their GConf directory is in the list. This is useful for lockdown."
-msgstr ""
+msgstr "Tipul de indiciu folosit la afișarea fonturilor. Valorile posibile sunt: „none” pentru nici un indiciu, „slight” pentru cel de bază, „medium„ pentru moderat și  „full” pentru maxim (poate cauza distorsionarea formei literelor)."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "Serviciul de configurări GNOME"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
-msgid "Enable accessibility keyboard plugin"
-msgstr "Activea_ză facilităţile pentru accesibilitatea tastaturii"
+msgid "Binding to toggle the magnifier."
+msgstr "Asociere pentru comuarea lupei."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:2
+msgid "Binding to toggle the on-screen keyboard."
+msgstr "Asociere pentru comutarea tastaturii pe ecran."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:3
+msgid "Binding to toggle the screen reader."
+msgstr "Asociere pentru comutarea cititorului de ecran."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:4
+msgid "Bounce keys"
+msgstr "Taste ce sar"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Command used to turn the magnifier on or off."
+msgstr "Comanda folosită pentru a activa sau dezactiva lupa."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:6
+msgid "Command used to turn the on-screen keyboard on or off."
+msgstr "Comanda folosită pentru a activa sau dezactiva tastatura pe ecran."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:7
+msgid "Command used to turn the screen reader on or off."
+msgstr "Comanda folosită pentru a activa sau dezactiva cititorul de ecran."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:8
+msgid "Enable accessibility keyboard plugin"
+msgstr "Activea_ză facilitățile pentru accesibilitatea tastaturii"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "Activare modul fundal"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "Activare modul clipboard"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "Activare modul font"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable housekeeping plugin"
-msgstr ""
+msgstr "Activează modul de menaj"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
 msgstr "Activare modul asociere taste"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "Activare modul tastatură"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable media keys plugin"
 msgstr "Activare modul taste media"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "Activare modul mouse"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable screensaver plugin"
 msgstr "Activare modul economizor ecran"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "Activare modul sunet"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable typing breaks plugin"
 msgstr "Activare modul pauze tastare"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrandr plugin"
 msgstr "Activare modul xrandr"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "Activare modul xrdb"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "Activare modul xsettings"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid "Set to True to enable the housekeeping plugin, to prune transient file caches."
-msgstr ""
+#: ../data/gnome-settings-daemon.schemas.in.h:23
+msgid "Mouse keys"
+msgstr "Taste maus"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:24
+msgid "On-screen keyboard"
+msgstr "Tastatură pe ecran"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:25
+msgid "Screen magnifier"
+msgstr "Lupă ecran"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:26
+msgid "Screen reader"
+msgstr "Cititor ecran"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:27
+msgid "Set to True to enable the housekeeping plugin, to prune transient file caches."
+msgstr "Definița la „true” pentru a activa modulul de menaj să șteargă fișierele de cache."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări clipboard."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări fundal."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări fonturi."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări tastatură."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări mouse."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări taste multimedia."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări economizor de ecran."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "Set to True to enable the plugin to manage sound settings."
-msgstr "Definit la „True” pentru a activa modulul de administrare configurări de sunet."
+#: ../data/gnome-settings-daemon.schemas.in.h:35
+msgid "Set to True to enable the plugin to manage sound sample caches."
+msgstr "Definit la „true” pentru a activa modulul de administrare monstre de sunet."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage the accessibility keyboard settings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări tastatură de accesibilitate."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări asocieri taste."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări pauze tastare."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări xrandr."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "Definit la „True” pentru a activa modulul de administrare configurări xrdb."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Definit la „True” pentru a activa modulul de administrare xsettings."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:42
+msgid "Slow keys"
+msgstr "Taste încete"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:43
+msgid "Sticky keys"
+msgstr "Taste lipicioase"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "Toggle magnifier"
+msgstr "Comută lupa"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid "Toggle on-screen keyboard"
+msgstr "Comută tastatura pe ecran"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid "Toggle screen reader"
+msgstr "Comută cititorul de ecran"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+msgstr "Dacă funcționalitatea de accesibilitate tastatură, taste ce sar este activată."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+msgstr "Dacă funcționalitatea de accesibilitate tastatură, taste maus este activată."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid "Whether the on-screen keyboard is turned on."
+msgstr "Dacă tastatura pe ecran este pornită."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
+msgid "Whether the screen magnifier is turned on."
+msgstr "Dacă mărirea ecranului este activată."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:51
+msgid "Whether the screen reader is turned on."
+msgstr "Dacă citirea ecranului este activată."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:52
+msgid "Whether the slow keys keyboard accessibility feature is turned on."
+msgstr "Dacă funcționalitatea de accesibilitate tastatură, taste încete este activată."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+msgstr "Dacă funcționalitatea de accesibilitate tastatură, taste lipicioase este activată. "
 
 #: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
@@ -395,85 +478,85 @@ msgid "There was an error displaying help: %s"
 msgstr "A intervenit o eroare la afișarea ajutorului: %s"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid "Do you want to activate Slow Keys?"
 msgstr "Doriți să activați „tastele încete”?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Doriți să dezactivați „tastele încete”?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for the Slow Keys feature, which affects the way your keyboard works."
 msgstr "Ați ținut tasta Shift apăsată timp de opt secunde. Aceasta este tasta ce activează „tastele încete” și schimbă modul de funcționare al tastaturii."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't activate"
 msgstr "Nu activa"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't deactivate"
 msgstr "Nu dezactiva"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Activate"
 msgstr "Activează"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Deactivate"
 msgstr "Dezactivează"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't activate"
 msgstr "_Nu activa"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't deactivate"
 msgstr "_Nu dezactiva"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Activate"
 msgstr "_Activează"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Deactivate"
 msgstr "_Dezactivează"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:627
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
 msgid "Slow Keys Alert"
 msgstr "Alertă pentru „taste încete”"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Doriți să activați modificatorii persistenți?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Doriți să dezactivați modificatorii persistenți?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
 msgid "You just pressed the Shift key 5 times in a row.  This is the shortcut for the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "Ați apăsat Shift de cinci ori la rând. Aceasta este combinația ce activează „modificatorii persistenți” și schimbă modul de funcționare al tastaturii."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:672
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid "You just pressed two keys at once, or pressed the Shift key 5 times in a row.  This turns off the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "Ați apăsat două taste în același timp sau ați apăsat Shift de cinci ori la rând. Aceasta inactivează „modificatorii persistenți și schimbă modul de funcționare al tastaturii."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:773
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
 msgid "Sticky Keys Alert"
 msgstr "Alertă „modificatori persistenți”"
 
@@ -492,7 +575,7 @@ msgstr "Fă _textul mai mare și mai ușor de citit"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
-msgstr "Tineți apăsate tastele pentru a le accepta (Taste încete)"
+msgstr "Tineți _apăsate tastele pentru a le accepta (Taste încete)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
 msgid "Use on-screen _keyboard"
@@ -508,7 +591,7 @@ msgstr "Folosește citito_rul de ecran"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr ""
+msgstr "_Ignoră apăsările duplicate de taste (Taste ce sar)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
@@ -546,6 +629,19 @@ msgstr "Fonturi"
 msgid "Font plugin"
 msgstr "Modul font"
 
+#: ../plugins/housekeeping/gsd-disk-space.c:120
+#, c-format
+msgid "%d%% of the disk space on `%s' is in use"
+msgstr "%d%% spațiu de disc de pe „%s” este folosit"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:128
+msgid "Low Disk Space"
+msgstr "Spațiu disc puțin"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:139
+msgid "Analyze"
+msgstr "Analizeaz["
+
 #: ../plugins/keybindings/gsd-keybindings-manager.c:190
 #, c-format
 msgid "Key binding (%s) is incomplete"
@@ -556,7 +652,7 @@ msgstr "Asocierea de taste (%s) este incompletă"
 msgid "Key binding (%s) is invalid"
 msgstr "Asocierea de taste (%s) nu este validă"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:463
+#: ../plugins/keybindings/gsd-keybindings-manager.c:485
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -605,11 +701,11 @@ msgstr "Î_ncărcare"
 msgid "_Loaded files:"
 msgstr "Fișiere î_ncărcate:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:206
 msgid "Could not get default terminal. Verify that your default terminal command is set and points to a valid application."
-msgstr "Nu s-a putut obţine terminalul implicit. Asigurați-vă de definirea şi validitatea comenzii pentru terminalul implicit."
+msgstr "Nu s-a putut obține terminalul implicit. Asigurați-vă de definirea și validitatea comenzii pentru terminalul implicit."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:223
+#: ../plugins/media-keys/gsd-media-keys-manager.c:246
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -618,13 +714,21 @@ msgstr ""
 "Nu s-a putut executa comanda: %s\n"
 "Asigurați-vă că aceasta este o comandă validă."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:239
+#: ../plugins/media-keys/gsd-media-keys-manager.c:262
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr ""
 "Nu s-a reușit trecerea sistemul în modul „Adormire”.\n"
 "Verificați configurările sistemului."
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+msgid "System Sounds"
+msgstr "Sunete sistem"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+msgid "GNOME Volume Control"
+msgstr "Control volum GNOME"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -634,15 +738,15 @@ msgstr "Taste media"
 msgid "Media keys plugin"
 msgstr "Modul taste media"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:760
+#: ../plugins/mouse/gsd-mouse-manager.c:625
 msgid "Could not enable mouse accessibility features"
-msgstr "Nu s-au putut activa facilităţile pentru accesibilitatea mousului"
+msgstr "Nu s-au putut activa facilitățile pentru accesibilitatea mousului"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:762
+#: ../plugins/mouse/gsd-mouse-manager.c:627
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "Accesibilitățile mouseului necesită instalarea mousetweaks în sistemul dumneavoastră."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:765
+#: ../plugins/mouse/gsd-mouse-manager.c:630
 msgid "Mouse Preferences"
 msgstr "Preferințe mouse"
 
@@ -654,7 +758,7 @@ msgstr "Mouse"
 msgid "Mouse plugin"
 msgstr "Modul mouse"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:137
+#: ../plugins/screensaver/gsd-screensaver-manager.c:136
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -669,7 +773,7 @@ msgstr ""
 "\n"
 "Economizorul de ecran nu va funcționa în această sesiune."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:148
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
 msgid "_Do not show this message again"
 msgstr "_Nu mai arăta acest mesaj în viitor"
 
@@ -697,56 +801,81 @@ msgstr "Definire dimensiune și rotire ecran"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+msgid "Could not restore the display's configuration"
+msgstr "Nu s-a putut restaura configurația ecranului"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+msgid "Could not restore the display's configuration from a backup"
+msgstr "Nu s-a putut restaura configurația ecranului dintr-o copie de siguranță"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:166
+#, c-format
+msgid "The display will be reset to its previous configuration in %d seconds"
+msgstr "Ecranul va fi restaurat la configurația anterioară în %d secunde"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+msgid "Does the display look OK?"
+msgstr "Ecranul arată bine?"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:218
+msgid "Restore the previous configuration"
+msgstr "Restaurează configurația anterioară"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:219
+msgid "Keep this configuration"
+msgstr "Păstrează această configurație"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:256
+msgid "The selected configuration for displays could not be applied"
+msgstr "Configurația aleasă pentru ecrane nu a putut fi aplicată"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:702
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Nu s-a putut reîncărca informația ecranului: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:535
+#: ../plugins/xrandr/gsd-xrandr-manager.c:705
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Se încearcă oricum comutarea configurării monitorului."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:569
+#: ../plugins/xrandr/gsd-xrandr-manager.c:739
 msgid "Could not switch the monitor configuration"
 msgstr "Nu s-a putut comuta configurația monitorului"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:865
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Rotirea nu este suportată</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:892
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
 msgid "Could not save monitor configuration"
 msgstr "Nu s-a putut salva configurația monitorului"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:900
-msgid "The selected rotation could not be applied"
-msgstr "Rotirea aleasă nu a putut fi aplicată"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:916
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
 msgid "Normal"
 msgstr "Normal"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:917
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
 msgid "Left"
 msgstr "Stânga"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:918
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
 msgid "Right"
 msgstr "Dreapta"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:919
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
 msgid "Upside Down"
 msgstr "Răsturnat"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1038
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
 msgid "_Configure Display Settings ..."
 msgstr "_Configurare preferințe ecran..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1079
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
 msgid "Configure display settings"
 msgstr "Configurare preferințe ecran"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1170
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Nu s-a putut aplica configurația stocată pentru monitoare"
 
@@ -776,23 +905,18 @@ msgstr "Administrare configurări X"
 msgid "X Settings"
 msgstr "Configurări X"
 
-#, c-format
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
 #~ "This is needed to allow changing the mouse pointer theme."
 #~ msgstr ""
 #~ "Nu am putut crea directorul „%s”.\n"
 #~ "E nevoie de acesta pentru a permite schimbarea temei de cursor."
-
-#, c-format
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
 #~ "This is needed to allow changing cursors."
 #~ msgstr ""
 #~ "Nu am putut crea directorul „%s”.\n"
 #~ "E nevoie de acesta pentru a permite a schimba cursoarele."
-
-#, c-format
 #~ msgid "Couldn't load sound file %s as sample %s"
 #~ msgstr "Nu am putut încărca fișierul de sunet %s ca eșantion %s"
 #~ msgid "Login"
@@ -813,7 +937,8 @@ msgstr "Configurări X"
 #~ msgstr "Nici un sunet nu este setat pentru acest eveniment"
 #~ msgid ""
 #~ "The sound file for this event does not exist.\n"
-#~ "You may want to install the gnome-audio package for a set of default sounds."
+#~ "You may want to install the gnome-audio package for a set of default "
+#~ "sounds."
 #~ msgstr ""
 #~ "Fișierul de sunet pentru acest eveniment nu există.\n"
 #~ "Puteți instala pachetul gnome-audio pentru un set implicit de sunete."
@@ -821,12 +946,8 @@ msgstr "Configurări X"
 #~ msgstr "Fișierul de sunet pentru acest eveniment nu există."
 #~ msgid "Select Sound File"
 #~ msgstr "Selectează fișierul de sunet"
-
-#, c-format
 #~ msgid "The file %s is not a valid wav file"
 #~ msgstr "Fișierul %s nu este un fișier wave valid"
-#~ msgid "System Sounds"
-#~ msgstr "Sunete sistem"
 #~ msgid "Sound"
 #~ msgstr "Sunet"
 #~ msgid "Sync text/plain and text/* handlers"
@@ -951,48 +1072,45 @@ msgstr "Configurări X"
 #~ msgstr "Pornește aceste tehnologii de asistență la fiecare autentificare:"
 #~ msgid "_Enable assistive technologies"
 #~ msgstr "Activare te_hnologii de asistență"
-#~ msgid "_Magnifier"
-#~ msgstr "_Lupă"
 #~ msgid "Assistive Technology Support"
 #~ msgstr "Suport pentru tehnologii de asistență"
 #~ msgid "Enable support for GNOME assistive technologies at login"
 #~ msgstr ""
 #~ "Activează suportul pentru tehnologiile de asistență GNOME la autentificare"
 #~ msgid ""
-#~ "No Assistive Technology is available on your system.  The 'gok' package must "
-#~ "be installed in order to get on-screen keyboard support, and the "
+#~ "No Assistive Technology is available on your system.  The 'gok' package "
+#~ "must be installed in order to get on-screen keyboard support, and the "
 #~ "'gnopernicus' package must be installed for screenreading and magnifying "
 #~ "capabilities."
 #~ msgstr ""
 #~ "Nici o tehnologie de asistență nu este prezentă în sistem. Pachetul „gok” "
-#~ "trebuie să fie instalat pentru a obține o tastatură virtuală, iar pachetul "
-#~ "„gnopernicus” trebuie instalat pentru naratorul ecran și facilitățile de "
-#~ "mărire."
+#~ "trebuie să fie instalat pentru a obține o tastatură virtuală, iar "
+#~ "pachetul „gnopernicus” trebuie instalat pentru naratorul ecran și "
+#~ "facilitățile de mărire."
 #~ msgid ""
-#~ "Not all available assistive technologies are installed on your system.  The "
-#~ "'gok' package must be installed in order to get on-screen keyboard support."
+#~ "Not all available assistive technologies are installed on your system.  "
+#~ "The 'gok' package must be installed in order to get on-screen keyboard "
+#~ "support."
 #~ msgstr ""
 #~ "Nu toate tehnologiile de asistență sunt instalate. Pachetul „gok” trebuie "
 #~ "instalat pentru a obține o tastatură virtuală."
 #~ msgid ""
-#~ "Not all available assistive technologies are installed on your system.  The "
-#~ "'gnopernicus' package must be installed for screenreading and magnifying "
-#~ "capabilities."
+#~ "Not all available assistive technologies are installed on your system.  "
+#~ "The 'gnopernicus' package must be installed for screenreading and "
+#~ "magnifying capabilities."
 #~ msgstr ""
 #~ "Nu toate tehnologiile de asistență sunt instalate. Pachetul „gnopernicus” "
 #~ "trebuie instalat pentru facilități de citire ecran și mărire."
 #~ msgid "There was an error launching the mouse preferences dialog: %s"
 #~ msgstr ""
-#~ "A intervenit o eroare la deschiderea ferestrei cu preferințele pentru mouse: "
-#~ "%s"
+#~ "A intervenit o eroare la deschiderea ferestrei cu preferințele pentru "
+#~ "mouse: %s"
 #~ msgid "Unable to import AccessX settings from file '%s'"
 #~ msgstr "Nu am putut importa setările AccessX din fișierul „%s”"
 #~ msgid "Import Feature Settings File"
 #~ msgstr "Importă setările din fișier"
 #~ msgid "_Import"
 #~ msgstr "_Importă"
-#~ msgid "Set your keyboard accessibility preferences"
-#~ msgstr "Setați opțiunile de accesibilitate ale tastaturii"
 #~ msgid ""
 #~ "This system does not seem to have the XKB extension.  The keyboard "
 #~ "accessibility features will not operate without it."
@@ -1038,8 +1156,8 @@ msgstr "Configurări X"
 #~ msgid "Filters"
 #~ msgstr "Filtre"
 #~ msgid ""
-#~ "Ignore all subsequent presses of the SAME key if they happen within a user "
-#~ "selectable period of time."
+#~ "Ignore all subsequent presses of the SAME key if they happen within a "
+#~ "user selectable period of time."
 #~ msgstr ""
 #~ "Ignoră toate apăsările ACELEIAȘI taste dacă se întâmplă într-o anumită "
 #~ "perioadă de timp ce poate fi setată"
@@ -1050,14 +1168,14 @@ msgstr "Configurări X"
 #~ msgid "Mouse _Preferences..."
 #~ msgstr "_Preferințe mouse..."
 #~ msgid ""
-#~ "Only accept keys after they have been pressed and held for a user adjustable "
-#~ "amount of time."
+#~ "Only accept keys after they have been pressed and held for a user "
+#~ "adjustable amount of time."
 #~ msgstr ""
-#~ "Acceptă tasta doar după ce a fost ținută apăsată o anumită perioadă de timp "
-#~ "ce poate fi setată"
+#~ "Acceptă tasta doar după ce a fost ținută apăsată o anumită perioadă de "
+#~ "timp ce poate fi setată"
 #~ msgid ""
-#~ "Perform multiple simultaneous key press operations by pressing modifier keys "
-#~ "in sequence."
+#~ "Perform multiple simultaneous key press operations by pressing modifier "
+#~ "keys in sequence."
 #~ msgstr ""
 #~ "Permite apăsări simultane de taste prin apăsarea secvențială a "
 #~ "modificatorilor."
@@ -1124,15 +1242,15 @@ msgstr "Configurări X"
 #~ msgid ""
 #~ "Unable to start the settings manager 'gnome-settings-daemon'.\n"
 #~ "Without the GNOME settings manager running, some preferences may not take "
-#~ "effect. This could indicate a problem with Bonobo, or a non-GNOME (e.g. KDE) "
-#~ "settings manager may already be active and conflicting with the GNOME "
-#~ "settings manager."
+#~ "effect. This could indicate a problem with Bonobo, or a non-GNOME (e.g. "
+#~ "KDE) settings manager may already be active and conflicting with the "
+#~ "GNOME settings manager."
 #~ msgstr ""
 #~ "Nu am putut porni administratorul de setări „gnome-settings-daemon”.\n"
-#~ "Fără a porni administratorul de setări GNOME unele preferințe ar putea să nu "
-#~ "aibă efect. Acest lucru ar putea indica o problemă cu Bonobo sau faptul că "
-#~ "un administrator de setări non-GNOME (de exemplu KDE) ar putea fi activ și "
-#~ "în conflict cu managerul de setări GNOME."
+#~ "Fără a porni administratorul de setări GNOME unele preferințe ar putea să "
+#~ "nu aibă efect. Acest lucru ar putea indica o problemă cu Bonobo sau "
+#~ "faptul că un administrator de setări non-GNOME (de exemplu KDE) ar putea "
+#~ "fi activ și în conflict cu managerul de setări GNOME."
 #~ msgid "Just apply settings and quit"
 #~ msgstr "Aplică setările și ieși"
 #~ msgid "Retrieve and store legacy settings"
@@ -1175,19 +1293,22 @@ msgstr "Configurări X"
 #~ msgid "Change set"
 #~ msgstr "Set de schimbări"
 #~ msgid ""
-#~ "GConf change set containing data to be forwarded to the gconf client on apply"
+#~ "GConf change set containing data to be forwarded to the gconf client on "
+#~ "apply"
 #~ msgstr ""
 #~ "Set de schimbări GConf conținând datele de trimis clientului Gconf pentru "
 #~ "aplicare"
 #~ msgid "Conversion to widget callback"
 #~ msgstr "Ape returnat de conversie spre widget"
 #~ msgid ""
-#~ "Callback to be issued when data are to be converted from GConf to the widget"
+#~ "Callback to be issued when data are to be converted from GConf to the "
+#~ "widget"
 #~ msgstr "Apel returnat inițiat la conversia datelor din GConf spre widget"
 #~ msgid "Conversion from widget callback"
 #~ msgstr "Apel returnat de conversie din widget"
 #~ msgid ""
-#~ "Callback to be issued when data are to be converted to GConf from the widget"
+#~ "Callback to be issued when data are to be converted to GConf from the "
+#~ "widget"
 #~ msgstr "Apel returnat inițiat la conversia datelor spre GConf din widget"
 #~ msgid "UI Control"
 #~ msgstr "Control UI"
@@ -1199,14 +1320,15 @@ msgstr "Configurări X"
 #~ msgstr "Date personalizate cerute de editorul specific de proprietăți"
 #~ msgid "Property editor data freeing callback"
 #~ msgstr "Apel returnat de eliberare a datelor editorului de proprietăți"
-#~ msgid "Callback to be issued when property editor object data is to be freed"
+#~ msgid ""
+#~ "Callback to be issued when property editor object data is to be freed"
 #~ msgstr ""
 #~ "Apel returnat inițiat la eliberarea datelor din editorul de proprietăți"
 #~ msgid ""
 #~ "Couldn't find the file '%s'.\n"
 #~ "\n"
-#~ "Please make sure it exists and try again, or choose a different background "
-#~ "picture."
+#~ "Please make sure it exists and try again, or choose a different "
+#~ "background picture."
 #~ msgstr ""
 #~ "Nu am putut găsi fișierul „%s”.\n"
 #~ "\n"
@@ -1300,17 +1422,17 @@ msgstr "Configurări X"
 #~ "Select the window manager you want.  You will need to hit apply, wave the "
 #~ "magic wand, and do a magic dance for it to work."
 #~ msgstr ""
-#~ "Selectați administratorul de ferestre dorit. Va trebui să apăsați „Aplică”, "
-#~ "să fluturați bagheta magică și să executați un dans ritual pentru a-l face "
-#~ "să funcționeze."
+#~ "Selectați administratorul de ferestre dorit. Va trebui să apăsați "
+#~ "„Aplică”, să fluturați bagheta magică și să executați un dans ritual "
+#~ "pentru a-l face să funcționeze."
 #~ msgid "Terminal"
 #~ msgstr "Terminal"
 #~ msgid "Understands _Netscape Remote Control"
 #~ msgstr "Ș_tie „Netscape Remote Control”"
 #~ msgid "Use this _editor to open text files in the file manager"
 #~ msgstr ""
-#~ "Utilizează acest _editor pentru a deschide fișierele text în administratorul "
-#~ "de fișiere"
+#~ "Utilizează acest _editor pentru a deschide fișierele text în "
+#~ "administratorul de fișiere"
 #~ msgid "Window Manager"
 #~ msgstr "Administrator de ferestre"
 #~ msgid "_Command:"
@@ -1348,34 +1470,30 @@ msgstr "Configurări X"
 #~ "Testing the new settings. If you don't respond in %d seconds the previous "
 #~ "settings will be restored."
 #~ msgstr[0] ""
-#~ "Testez noile setări. Dacă nu răspundeți în %d secundă setările vechi vor fi "
-#~ "restaurate."
-#~ msgstr[1] ""
-#~ "Testez noile setări. Dacă nu răspundeți în %d secunde setările vechi vor fi "
-#~ "restaurate."
-#~ msgstr[2] ""
-#~ "Testez noile setări. Dacă nu răspundeți în %d de secunde setările vechi vor "
+#~ "Testez noile setări. Dacă nu răspundeți în %d secundă setările vechi vor "
 #~ "fi restaurate."
-#~ msgid "Keep Resolution"
-#~ msgstr "Păstrează rezoluția"
+#~ msgstr[1] ""
+#~ "Testez noile setări. Dacă nu răspundeți în %d secunde setările vechi vor "
+#~ "fi restaurate."
+#~ msgstr[2] ""
+#~ "Testez noile setări. Dacă nu răspundeți în %d de secunde setările vechi "
+#~ "vor fi restaurate."
 #~ msgid "Do you want to keep this resolution?"
 #~ msgstr "Doriți să păstrați această rezoluție?"
-#~ msgid "Use _previous resolution"
-#~ msgstr "_Utilizează rezoluția precedentă"
 #~ msgid "_Keep resolution"
 #~ msgstr "_Păstrează această rezoluție"
 #~ msgid ""
 #~ "The X Server does not support the XRandR extension.  Runtime resolution "
 #~ "changes to the display size are not available."
 #~ msgstr ""
-#~ "Serverul X nu suportă extensia XRandR. Ca atare nu puteți schimba rezoluția "
-#~ "serverului X în timp ce este pornit."
+#~ "Serverul X nu suportă extensia XRandR. Ca atare nu puteți schimba "
+#~ "rezoluția serverului X în timp ce este pornit."
 #~ msgid ""
 #~ "The version of the XRandR extension is incompatible with this program. "
 #~ "Runtime changes to the display size are not available."
 #~ msgstr ""
-#~ "Versiunea extensiei XRandR este incompatibilă cu acest program. Ca atare nu "
-#~ "puteți schimba rezoluția în timp ce serverul X este pornit."
+#~ "Versiunea extensiei XRandR este incompatibilă cu acest program. Ca atare "
+#~ "nu puteți schimba rezoluția în timp ce serverul X este pornit."
 #~ msgid "Select fonts for the desktop"
 #~ msgstr "Selectați fonturile desktopului"
 #~ msgid "<b>Font Rendering</b>"
@@ -1447,12 +1565,12 @@ msgstr "Configurări X"
 #~ "Fontul selectat este de %d puncte și s-ar putea să îngreuneze utilizarea "
 #~ "desktopului. Alegeți o mărime a fontului mai mică de %d."
 #~ msgstr[2] ""
-#~ "Fontul selectat este de %d de puncte și s-ar putea să îngreuneze utilizarea "
-#~ "desktopului. Alegeți o mărime a fontului mai mică de %d."
+#~ "Fontul selectat este de %d de puncte și s-ar putea să îngreuneze "
+#~ "utilizarea desktopului. Alegeți o mărime a fontului mai mică de %d."
 #~ msgid ""
 #~ "The font selected is %d point large, and may make it difficult to "
-#~ "effectively use the computer.  It is recommended that you select a smaller "
-#~ "sized font."
+#~ "effectively use the computer.  It is recommended that you select a "
+#~ "smaller sized font."
 #~ msgid_plural ""
 #~ "The font selected is %d points large, and may make it difficult to "
 #~ "effectively use the computer. It is recommended that you select a smaller "
@@ -1464,8 +1582,8 @@ msgstr "Configurări X"
 #~ "Fontul selectat este de %d puncte și s-ar putea să îngreuneze utilizarea "
 #~ "desktopului. Alegeți o mărime a fontului mai mică."
 #~ msgstr[2] ""
-#~ "Fontul selectat este de %d de puncte și s-ar putea să îngreuneze utilizarea "
-#~ "desktopului. Alegeți o mărime a fontului mai mică."
+#~ "Fontul selectat este de %d de puncte și s-ar putea să îngreuneze "
+#~ "utilizarea desktopului. Alegeți o mărime a fontului mai mică."
 #~ msgid "New accelerator..."
 #~ msgstr "Nou accelerator..."
 #~ msgid "Accelerator key"
@@ -1493,9 +1611,11 @@ msgstr "Configurări X"
 #~ "Combinația „%s” este deja utilizată pentru:\n"
 #~ " „%s”\n"
 #~ msgid "Error setting new accelerator in configuration database: %s\n"
-#~ msgstr "Eroare la setarea noului accelerator în baza de date cu setări: %s\n"
+#~ msgstr ""
+#~ "Eroare la setarea noului accelerator în baza de date cu setări: %s\n"
 #~ msgid "Error unsetting accelerator in configuration database: %s\n"
-#~ msgstr "Eroare la setarea noului accelerator în baza de date cu setări: %s\n"
+#~ msgstr ""
+#~ "Eroare la setarea noului accelerator în baza de date cu setări: %s\n"
 #~ msgid "Action"
 #~ msgstr "Acțiune"
 #~ msgid "Shortcut"
@@ -1506,8 +1626,8 @@ msgstr "Configurări X"
 #~ "To edit a shortcut key, click on the corresponding row and type a new "
 #~ "accelerator, or press backspace to clear."
 #~ msgstr ""
-#~ "Pentru a edita o combinație, alegeți pe rândul corespunzător și tastați un "
-#~ "nou accelerator (sau Backspace pentru a șterge)"
+#~ "Pentru a edita o combinație, alegeți pe rândul corespunzător și tastați "
+#~ "un nou accelerator (sau Backspace pentru a șterge)"
 #~ msgid "Assign shortcut keys to commands"
 #~ msgstr "Asociați combinații comenzilor des utilizate"
 #~ msgid "Unknown"
@@ -1521,8 +1641,8 @@ msgstr "Configurări X"
 #~ msgid ""
 #~ "Just apply settings and quit (compatibility only; now handled by daemon)"
 #~ msgstr ""
-#~ "Aplică setările și ieși (doar pentru compatibilitate, un demon monitorizează "
-#~ "orice schimbare)"
+#~ "Aplică setările și ieși (doar pentru compatibilitate, un demon "
+#~ "monitorizează orice schimbare)"
 #~ msgid "Start the page with the typing break settings showing"
 #~ msgstr "Deschide fereastra cu setările pauzelor de lucru"
 #~ msgid "..."
@@ -1564,8 +1684,8 @@ msgstr "Configurări X"
 #~ msgid "Layouts"
 #~ msgstr "Aranjamente"
 #~ msgid ""
-#~ "Lock screen after a certain duration to help prevent repetitive keyboard use "
-#~ "injuries"
+#~ "Lock screen after a certain duration to help prevent repetitive keyboard "
+#~ "use injuries"
 #~ msgstr ""
 #~ "Blochează ecranul după o anumită perioadă pentru a preveni problemele "
 #~ "provocate de lucrul prelungit la tastatură"
@@ -1714,7 +1834,8 @@ msgstr "Configurări X"
 #~ msgid "The file format is invalid"
 #~ msgstr "Formatul fișierului este invalid"
 #~ msgid "No theme file location specified to install"
-#~ msgstr "Nu s-a specificat nici o locație a fișierului temei pentru instalare"
+#~ msgstr ""
+#~ "Nu s-a specificat nici o locație a fișierului temei pentru instalare"
 #~ msgid "The theme file location specified to install is invalid"
 #~ msgstr "Locația fișierelui temei specifică pentru instalare este invalidă"
 #~ msgid "The file format is invalid."
@@ -1723,8 +1844,8 @@ msgstr "Configurări X"
 #~ "%s is the path where the theme files will be installed. This can not be "
 #~ "selected as the source location"
 #~ msgstr ""
-#~ "%s este calea în care vor fi instalate fișierele temei. Aceasta nu poate fi "
-#~ "selectată ca locație a sursei de instalare."
+#~ "%s este calea în care vor fi instalate fișierele temei. Aceasta nu poate "
+#~ "fi selectată ca locație a sursei de instalare."
 #~ msgid "Custom theme"
 #~ msgstr "Temă personalizată"
 #~ msgid "You can save this theme by pressing the Save Theme button."
@@ -1851,7 +1972,8 @@ msgstr "Configurări X"
 #~ "\n"
 #~ "%s"
 #~ msgstr ""
-#~ "<b>Nu pot porni aplicația pentru setarea administratorului de ferestre</b>\n"
+#~ "<b>Nu pot porni aplicația pentru setarea administratorului de ferestre</"
+#~ "b>\n"
 #~ "\n"
 #~ "%s"
 #~ msgid "<b>Movement Key</b>"
@@ -1878,8 +2000,6 @@ msgstr "Configurări X"
 #~ msgstr "Altele"
 #~ msgid "Desktop Preferences"
 #~ msgstr "Preferințe desktop"
-#~ msgid "GNOME Control Center"
-#~ msgstr "Centrul de control GNOME"
 #~ msgid "The GNOME configuration tool"
 #~ msgstr "Unealta de configurare GNOME"
 #~ msgid "Could not initialize Bonobo"
@@ -2054,8 +2174,8 @@ msgstr "Configurări X"
 #~ "Unable to bring up the typing break properties dialog with the following "
 #~ "error: %s"
 #~ msgstr ""
-#~ "Nu am reușit să deschid fereastra pentru setarea pauzelor de lucru. Eroarea "
-#~ "este: %s"
+#~ "Nu am reușit să deschid fereastra pentru setarea pauzelor de lucru. "
+#~ "Eroarea este: %s"
 #~ msgid "About GNOME Typing Monitor"
 #~ msgstr "Despre monitorul pauzelor GNOME"
 #~ msgid "A computer break reminder."
@@ -2147,8 +2267,8 @@ msgstr "Configurări X"
 #~ "The theme you have selected suggests a new font. A preview of the font is "
 #~ "shown below."
 #~ msgstr ""
-#~ "Tema pe care ati selectat-o sugerează un nou font. O previzualizare pentru "
-#~ "acest font este afișată mai jos."
+#~ "Tema pe care ati selectat-o sugerează un nou font. O previzualizare "
+#~ "pentru acest font este afișată mai jos."
 #~ msgid "_Apply font"
 #~ msgstr "Aplică _fontul"
 #~ msgid "Themes"
@@ -2172,7 +2292,8 @@ msgstr "Configurări X"
 #~ msgid "If set to true, then themes will be thumbnailed."
 #~ msgstr "La activare, se vor crea miniaturi pentru teme."
 #~ msgid ""
-#~ "Set this key to the command used to create thumbnails for installed themes."
+#~ "Set this key to the command used to create thumbnails for installed "
+#~ "themes."
 #~ msgstr ""
 #~ "Setați această cheie cu comanda utilizată pentru a crea miniaturi pentru "
 #~ "temele instalate."
@@ -2407,7 +2528,8 @@ msgstr "Configurări X"
 #~ msgstr "_Meta"
 #~ msgid "To move a window, press-and-hold this key then grab the window:"
 #~ msgstr ""
-#~ "Pentru a muta o fereastră, înainte de a o apuca țineți apăsată această tastă:"
+#~ "Pentru a muta o fereastră, înainte de a o apuca țineți apăsată această "
+#~ "tastă:"
 #~ msgid "Screen"
 #~ msgstr "Ecran"
 #~ msgid "Sleep"
@@ -2501,28 +2623,30 @@ msgstr "Configurări X"
 #~ msgid "Keep and manage separate group per window"
 #~ msgstr "Menține grup separat pentru fiecare fereastră"
 #~ msgid "Save/restore indicators together with layout groups"
-#~ msgstr "Salvează/restaurează indicatorii împreună cu grupurile de aranjament"
+#~ msgstr ""
+#~ "Salvează/restaurează indicatorii împreună cu grupurile de aranjament"
 #~ msgid "Show layout names instead of group names"
 #~ msgstr "Afișează numele de aranjament în locul numelor de grup"
 #~ msgid ""
 #~ "Show layout names instead of group names (only for versions of XFree "
 #~ "supporting multiple layouts)"
 #~ msgstr ""
-#~ "Afișează numele de aranjament în locul numelor de grup (doar pentru versiuni "
-#~ "de XFree ce suportă aranjamente multiple)"
+#~ "Afișează numele de aranjament în locul numelor de grup (doar pentru "
+#~ "versiuni de XFree ce suportă aranjamente multiple)"
 #~ msgid "Suppress the \"X sysconfig changed\" warning message"
 #~ msgstr ""
 #~ "Nu mai afișa mesajul de avertizare „Configurația de sistem X a fost "
 #~ "schimbată”"
 #~ msgid ""
 #~ "Very soon, keyboard settings in gconf will be overridden (from the system "
-#~ "configuration) This key has been deprecated since GNOME 2.12, please unset "
-#~ "the model, layouts and options keys to get the default system configuration."
+#~ "configuration) This key has been deprecated since GNOME 2.12, please "
+#~ "unset the model, layouts and options keys to get the default system "
+#~ "configuration."
 #~ msgstr ""
 #~ "Curând, setările tastaturii in gconf vor fi rescrise (din configurarea "
 #~ "sistemului) Această tastă nu mai este folosită începând cu GNOME 2.12, "
-#~ "schimbă setarea legată de model, layout și tastele opționale pentru a reveni "
-#~ "la configurarea inițială"
+#~ "schimbă setarea legată de model, layout și tastele opționale pentru a "
+#~ "reveni la configurarea inițială"
 #~ msgid "modmap file list"
 #~ msgstr "listă fișiere modmap"
 #~ msgid "Orientation"
@@ -2550,12 +2674,12 @@ msgstr "Configurări X"
 #~ msgid "<b>Please type the passwords.</b>"
 #~ msgstr "<b>Vă rog să introduceți parola.</b>"
 #~ msgid ""
-#~ "The shortcut \"%s\" cannot be used because it will become unusable to type "
-#~ "using this key.\n"
+#~ "The shortcut \"%s\" cannot be used because it will become unusable to "
+#~ "type using this key.\n"
 #~ "Please try with a key such as Control, Alt or Shift at the same time.\n"
 #~ msgstr ""
-#~ "Combinația de taste „%s” nu poate fi utilizată pentru că ar face imposibilă "
-#~ "tastarea cu această tastă.\n"
+#~ "Combinația de taste „%s” nu poate fi utilizată pentru că ar face "
+#~ "imposibilă tastarea cu această tastă.\n"
 #~ "Încercați vă rog cu o cheie ca și Control, Alt sau Shift simultan.\n"
 #~ msgid "%d milliseconds"
 #~ msgid_plural "%d milliseconds"
@@ -2582,6 +2706,6 @@ msgstr "Configurări X"
 #~ "The X system keyboard settings differ from your current GNOME keyboard "
 #~ "settings.  Which set would you like to use?"
 #~ msgstr ""
-#~ "Setările X pentru tastatură diferă de cele din GNOME. Care dintre ele doriți "
-#~ "să le utilizați?"
+#~ "Setările X pentru tastatură diferă de cele din GNOME. Care dintre ele "
+#~ "doriți să le utilizați?"
 
