@@ -215,8 +215,8 @@ user_says_things_are_ok (GsdXrandrManager *manager)
         timeout.countdown = 10;
         print_countdown_text (&timeout);
 
-        gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("Restore the previous configuration"), GTK_RESPONSE_CANCEL);
-        gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("Keep this configuration"), GTK_RESPONSE_ACCEPT);
+        gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("_Restore Previous Configuration"), GTK_RESPONSE_CANCEL);
+        gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("_Keep This Configuration"), GTK_RESPONSE_ACCEPT);
         gtk_dialog_set_default_response (GTK_DIALOG (timeout.dialog), GTK_RESPONSE_ACCEPT); /* ah, the optimism */
 
         g_signal_connect (timeout.dialog, "response",
