@@ -627,7 +627,7 @@ ax_slowkeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
         gtk_window_set_title (GTK_WINDOW (manager->priv->slowkeys_alert),
                               _("Slow Keys Alert"));
         gtk_window_set_icon_name (GTK_WINDOW (manager->priv->slowkeys_alert),
-                                  "gnome-dev-keyboard");
+                                  "input-keyboard");
         gtk_dialog_set_default_response (GTK_DIALOG (manager->priv->slowkeys_alert),
                                          GTK_RESPONSE_ACCEPT);
 
@@ -774,7 +774,7 @@ ax_stickykeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
         gtk_window_set_title (GTK_WINDOW (manager->priv->stickykeys_alert),
                               _("Sticky Keys Alert"));
         gtk_window_set_icon_name (GTK_WINDOW (manager->priv->stickykeys_alert),
-                                  "gnome-dev-keyboard");
+                                  "input-keyboard");
         gtk_dialog_set_default_response (GTK_DIALOG (manager->priv->stickykeys_alert),
                                          GTK_RESPONSE_ACCEPT);
 

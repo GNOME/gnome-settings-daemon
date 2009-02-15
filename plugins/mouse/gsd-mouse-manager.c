@@ -629,7 +629,7 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
                         gtk_window_set_title (GTK_WINDOW (dialog),
                                               _("Mouse Preferences"));
                         gtk_window_set_icon_name (GTK_WINDOW (dialog),
-                                                  "gnome-dev-mouse-optical");
+                                                  "input-mouse");
                         gtk_dialog_run (GTK_DIALOG (dialog));
                         gtk_widget_destroy (dialog);
                 }

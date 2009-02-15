@@ -2,6 +2,16 @@
 
 	reviewed by: Jens Granseuer
 
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
+	(ax_slowkeys_warning_post_dialog),
+	(ax_stickykeys_warning_post_dialog):
+	* plugins/mouse/gsd-mouse-manager.c: (set_mousetweaks_daemon):
+	Don't use legacy icons for keyboard and mouse (bug #571823)
+
+2009-02-15  Luca Ferretti  <elle.uca@libero.it>
+
+	reviewed by: Jens Granseuer
+
 	* plugins/xrandr/gsd-xrandr-manager.c: (user_says_things_are_ok):
 	HIG fix for button labels (bug #571819)
 
