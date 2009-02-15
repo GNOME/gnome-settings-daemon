@@ -807,7 +807,7 @@ on_expose_event (GtkWidget          *widget,
         cairo_paint (cr);
 
         /* draw a box */
-        curved_rectangle (cr, 0, 0, width, height, height / 10);
+        curved_rectangle (cr, 0.5, 0.5, width-1, height-1, height / 10);
         color = GTK_WIDGET (window)->style->bg [GTK_STATE_NORMAL];
         r = (float)color.red / 65535.0;
         g = (float)color.green / 65535.0;
