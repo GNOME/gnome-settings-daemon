@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-28 09:59+0900\n"
-"PO-Revision-Date: 2009-01-28 10:14+0900\n"
+"POT-Creation-Date: 2009-02-18 05:38+0900\n"
+"PO-Revision-Date: 2009-02-18 05:39+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -260,16 +260,6 @@ msgstr ""
 "음, \"slight\"이면 기초적인 방법, \"medium\"이면 중간, \"full\"이면 최대 힌"
 "팅 (글자 모양이 왜곡될 수도 있습니다)."
 
-#: ../data/desktop_gnome_keybindings.schemas.in.h:1
-msgid "Allowed keys"
-msgstr "허용할 키 목록"
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:2
-msgid ""
-"If non-empty, keybindings will be ignored unless their GConf directory is in "
-"the list. This is useful for lockdown."
-msgstr "값이 비어 있지 않다면, 해당 GConf 디렉터리가 이 목록에 들어 있지 않은 키 바인딩은 무시합니다. 기능을 제한할 때 유용하게 쓰입니다."
-
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "그놈 설정 데몬"
@@ -491,10 +481,6 @@ msgstr "느린 키 키보드 접근성 기능을 켤 지 여부."
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "고정 키 키보드 접근성 기능을 켤 지 여부."
 
-#: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "접근성"
-
 #: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "디버깅 코드 사용"
@@ -521,17 +507,17 @@ msgid "There was an error displaying help: %s"
 msgstr "도움말을 보여주는데 오류가 발생했습니다: %s"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid "Do you want to activate Slow Keys?"
 msgstr "느린 키를 사용하시겠습니까?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "느린 키를 해제하시겠습니까?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -539,62 +525,62 @@ msgstr ""
 "<Shift> 키를 8초 동안 누르고 있었습니다.  느린 키 기능을 사용하게 됩니다.  느"
 "린 키를 사용하면 키보드가 동작하는 방식이 달라집니다."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't activate"
 msgstr "활성하지 않기"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't deactivate"
 msgstr "비활성하지 않기"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Activate"
 msgstr "활성"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Deactivate"
 msgstr "비활성"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't activate"
 msgstr "활성하지 않기(_N)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't deactivate"
 msgstr "비활성하지 않기(_N)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Activate"
 msgstr "활성(_A)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Deactivate"
 msgstr "비활성(_D)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:627
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
 msgid "Slow Keys Alert"
 msgstr "느린 키 알림"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "Do you want to activate Sticky Keys?"
 msgstr "고정 키를 사용하시겠습니까?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "고정 키를 해제하시겠습니까?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -602,8 +588,8 @@ msgstr ""
 "<Shift> 키를 5번 연속해서 눌렀습니다.  고정 키 기능을 사용하게 됩니다.  고정 "
 "키를 사용하면 키보드가 동작하는 방식이 달라집니다."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:672
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -613,7 +599,7 @@ msgstr ""
 "능을 해제하게 됩니다.  고정 키를 해제하면 키보드가 동작하는 방식이 달라집니"
 "다."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:773
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
 msgid "Sticky Keys Alert"
 msgstr "고정 키 알림"
 
@@ -739,16 +725,17 @@ msgid "A_vailable files:"
 msgstr "사용 가능한 파일(_V):"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "이 경고를 다시 표시하지 않기(_N)."
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
 msgstr "modmap 파일 읽어들이기"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "modmap 파일을 읽어들이시겠습니까?"
+
+#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+msgid "_Do not show this message again"
+msgstr "이 메시지를 다시 표시하지 않기(_D)"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
@@ -782,6 +769,14 @@ msgid ""
 msgstr ""
 "컴퓨터를 절전 모드로 바꿀 수 없습니다.\n"
 "컴퓨터가 올바르게 설정되어 있는 지 확인하십시오."
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+msgid "System Sounds"
+msgstr "시스템 소리"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+msgid "GNOME Volume Control"
+msgstr "그놈 볼륨 조정"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -827,10 +822,6 @@ msgstr ""
 "\n"
 "이 세션에서는 화면 보호기 기능이 동작하지 않을 것입니다."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
-msgid "_Do not show this message again"
-msgstr "이 메시지를 다시 표시하지 않기(_D)"
-
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
 msgid "Screensaver"
 msgstr "화면 보호기"
@@ -838,14 +829,6 @@ msgstr "화면 보호기"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "화면 보호기 플러그인"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "소리"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound Sample Cache plugin"
-msgstr "사운드 샘플 캐쉬 플러그인"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -881,12 +864,12 @@ msgid "Does the display look OK?"
 msgstr "화면이 올바르게 보입니까?"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:218
-msgid "Restore the previous configuration"
-msgstr "이전 설정 복구"
+msgid "_Restore Previous Configuration"
+msgstr "이전 설정 복구(_R)"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:219
-msgid "Keep this configuration"
-msgstr "이 설정 유지"
+msgid "_Keep This Configuration"
+msgstr "이 설정 유지(_K)"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:256
 msgid "The selected configuration for displays could not be applied"
@@ -968,6 +951,28 @@ msgstr "X 설정 관리"
 msgid "X Settings"
 msgstr "X 설정"
 
+#~ msgid "Allowed keys"
+#~ msgstr "허용할 키 목록"
+
+#~ msgid ""
+#~ "If non-empty, keybindings will be ignored unless their GConf directory is "
+#~ "in the list. This is useful for lockdown."
+#~ msgstr ""
+#~ "값이 비어 있지 않다면, 해당 GConf 디렉터리가 이 목록에 들어 있지 않은 키 "
+#~ "바인딩은 무시합니다. 기능을 제한할 때 유용하게 쓰입니다."
+
+#~ msgid "Accessibility"
+#~ msgstr "접근성"
+
+#~ msgid "Do _not show this warning again."
+#~ msgstr "이 경고를 다시 표시하지 않기(_N)."
+
+#~ msgid "Sound"
+#~ msgstr "소리"
+
+#~ msgid "Sound Sample Cache plugin"
+#~ msgstr "사운드 샘플 캐쉬 플러그인"
+
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
 #~ "This is needed to allow changing the mouse pointer theme."
@@ -1029,9 +1034,6 @@ msgstr "X 설정"
 
 #~ msgid "Select sound file..."
 #~ msgstr "소리 파일 선택..."
-
-#~ msgid "System Sounds"
-#~ msgstr "시스템 소리"
 
 #~ msgid "An error occurred while configuring the screen"
 #~ msgstr "화면을 설정하는 데 오류가 발생했습니다"
