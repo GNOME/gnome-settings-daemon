@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-02-11 23:08+0000\n"
-"PO-Revision-Date: 2009-02-12 14:20+0200\n"
+"POT-Creation-Date: 2009-02-15 13:37+0000\n"
+"PO-Revision-Date: 2009-02-17 23:10+0200\n"
 "Last-Translator: Adi Roiban <adi@roiban.ro>\n"
 "Language-Team: Gnome Romanian Team <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -682,16 +682,17 @@ msgid "A_vailable files:"
 msgstr "Fișiere _disponibile:"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "_Nu mai arăta acest mesaj în viitor."
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
 msgstr "Încărcare fișiere modmap"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "Doriți să încarc fișierul/fișierele modmap?"
+
+#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+msgid "_Do not show this message again"
+msgstr "_Nu mai arăta acest mesaj în viitor"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
@@ -773,10 +774,6 @@ msgstr ""
 "\n"
 "Economizorul de ecran nu va funcționa în această sesiune."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
-msgid "_Do not show this message again"
-msgstr "_Nu mai arăta acest mesaj în viitor"
-
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
 msgid "Screensaver"
 msgstr "Economizor de ecran"
@@ -819,12 +816,14 @@ msgid "Does the display look OK?"
 msgstr "Ecranul arată bine?"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:218
-msgid "Restore the previous configuration"
-msgstr "Restaurează configurația anterioară"
+#| msgid "Restore the previous configuration"
+msgid "_Restore Previous Configuration"
+msgstr "_Restaurează configurația anterioară"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:219
-msgid "Keep this configuration"
-msgstr "Păstrează această configurație"
+#| msgid "Keep this configuration"
+msgid "_Keep This Configuration"
+msgstr "_Păstrează această configurație"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:256
 msgid "The selected configuration for displays could not be applied"
@@ -905,6 +904,8 @@ msgstr "Administrare configurări X"
 msgid "X Settings"
 msgstr "Configurări X"
 
+#~ msgid "Do _not show this warning again."
+#~ msgstr "_Nu mai arăta acest mesaj în viitor."
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
 #~ "This is needed to allow changing the mouse pointer theme."
