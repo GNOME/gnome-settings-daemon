@@ -115,6 +115,8 @@ entry_get_string (GConfEntry *entry)
 static gboolean
 parse_binding (Binding *binding)
 {
+        gboolean success;
+
         g_return_val_if_fail (binding != NULL, FALSE);
 
         binding->key.keysym = 0;
@@ -128,10 +130,15 @@ parse_binding (Binding *binding)
                 return FALSE;
         }
 
-        return egg_accelerator_parse_virtual (binding->binding_str,
-                                              &binding->key.keysym,
-                                              &binding->key.keycodes,
-                                              &binding->key.state);
+        success = egg_accelerator_parse_virtual (binding->binding_str,
+                                                 &binding->key.keysym,
+                                                 &binding->key.keycodes,
+                                                 &binding->key.state);
+
+        if (!success)
+            g_warning (_("Key binding (%s) is invalid"), binding->gconf_key);
+
+        return success;
 }
 
 static gint
@@ -220,7 +227,6 @@ bindings_get_entry (GsdKeybindingsManager *manager,
                 if (!tmp_elem)
                         manager->priv->binding_list = g_slist_prepend (manager->priv->binding_list, new_binding);
         } else {
-                g_warning (_("Key binding (%s) is invalid"), gconf_key);
                 g_free (new_binding->binding_str);
                 g_free (new_binding->action);
                 g_free (new_binding->gconf_key);
