@@ -35,6 +35,8 @@
 
 #include <libnotify/notify.h>
 
+#include "gsd-disk-space.h"
+
 /*
  * TODO:
  *  + gconf to make it possible to customize the define below (?)

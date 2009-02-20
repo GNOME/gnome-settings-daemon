@@ -28,8 +28,8 @@
 
 G_BEGIN_DECLS
 
-static void gsd_ldsm_setup (gboolean check_now);
-static void gsd_ldsm_clean (void);
+void gsd_ldsm_setup (gboolean check_now);
+void gsd_ldsm_clean (void);
 
 G_END_DECLS
 

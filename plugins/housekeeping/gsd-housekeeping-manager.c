@@ -26,6 +26,7 @@
 
 #include "gnome-settings-profile.h"
 #include "gsd-housekeeping-manager.h"
+#include "gsd-disk-space.h"
 
 
 /* General */
