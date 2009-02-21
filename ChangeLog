@@ -1,5 +1,11 @@
 2009-02-21  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/xrandr/gsd-xrandr-manager.c: (timeout_response_cb):
+	revert the screen resolution change if the user closes the window
+	or hits escape (bug #571492)
+
+2009-02-21  Jens Granseuer  <jensgr@gmx.net>
+
 	Fix compiler warnings.
 
 	* plugins/housekeeping/gsd-disk-space.c: add missing include
