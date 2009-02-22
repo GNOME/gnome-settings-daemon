@@ -224,9 +224,9 @@ user_says_things_are_ok (GsdXrandrManager *manager)
                           &timeout);
 
         gtk_widget_show_all (timeout.dialog);
-        timeout_id = g_timeout_add (1000,
-                                    timeout_cb,
-                                    &timeout);
+        timeout_id = g_timeout_add_seconds (1,
+                                            timeout_cb,
+                                            &timeout);
         gtk_main ();
 
         gtk_widget_destroy (timeout.dialog);
