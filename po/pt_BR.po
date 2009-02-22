@@ -15,12 +15,14 @@
 # Raul Pereira <contato@raulpereira.com>, 2007.
 # Djavan Fagundes <dnoway@gmail.com>, 2008.
 # Jonh Wendell <jwendell@gnome.org>, 2009.
+# Krix Apolinário <krixapolinario@gmail.com>, 2009.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-03 10:06-0300\n"
-"PO-Revision-Date: 2009-02-03 10:00-0300\n"
+"POT-Creation-Date: 2009-02-22 09:44-0500\n"
+"PO-Revision-Date: 2009-02-19 10:27-0300\n"
 "Last-Translator: Krix Apolinário <krixapolinario@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -203,7 +205,7 @@ msgstr ""
 
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:3
 msgid "Show startup errors"
-msgstr "Exibir erros de inicialização"
+msgstr "Mostrar erros de inicialização"
 
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
 msgid "Start screensaver"
@@ -220,7 +222,7 @@ msgstr ""
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "Show Displays in Notification Area"
-msgstr "Exibir telas na área de notificação"
+msgstr "Mostrar telas na área de notificação"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -277,18 +279,6 @@ msgstr ""
 "O tipo de hinting a utilizar ao renderizar fontes. Valores possíveis são: "
 "\"none\" (nenhum), \"slight\" (discreto), \"medium\" (médio) , e \"full"
 "\" (completo) (poderá causar distorção na forma das letras)."
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:1
-msgid "Allowed keys"
-msgstr "Teclas permitidas"
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:2
-msgid ""
-"If non-empty, keybindings will be ignored unless their GConf directory is in "
-"the list. This is useful for lockdown."
-msgstr ""
-"Se não vazio, os atalhos do teclado deverão ser ignorados a menos que o "
-"diretório GConf esteja na lista. Isso é útil para bloqueios."
 
 # Deixado nome original
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
@@ -544,10 +534,6 @@ msgstr "Se a função de acessibilidade teclas lentas está ligada ou não."
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Se a função de acessibiliade teclas de aderência está ligada ou não."
 
-#: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "Acessibilidade"
-
 #: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Habilitar código de depuração"
@@ -571,103 +557,103 @@ msgstr "Plug-in de acessibilidade do teclado"
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
 #, c-format
 msgid "There was an error displaying help: %s"
-msgstr "Houve um erro ao mostrar a ajuda: %s"
+msgstr "Houve um erro ao exibir a ajuda: %s"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid "Do you want to activate Slow Keys?"
 msgstr "Você deseja ativar Teclas Lentas?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Você deseja desativar Teclas Lentas?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
-"Você segurou a tecla Shift por 8 segundos.  Esse é o atalho para Teclas "
+"Você segurou a tecla Shift por 8 segundos. Esse é o atalho para Teclas "
 "Lentas, que afetam o modo de funcionamento do seu teclado."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't activate"
 msgstr "Não ativar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't deactivate"
 msgstr "Não desativar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Activate"
 msgstr "Ativar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Deactivate"
 msgstr "Desativar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't activate"
 msgstr "_Não ativar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't deactivate"
 msgstr "_Não desativar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Activate"
 msgstr "_Ativar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Deactivate"
 msgstr "_Desativar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:627
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
 msgid "Slow Keys Alert"
 msgstr "Alerta de teclas lentas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Você deseja ativar as Teclas de Aderência?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Você deseja desativar as Teclas de Aderência?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
-"Você acaba de pressionar a tecla Shift 5 vezes consecutivas.  Esse é um "
+"Você acaba de pressionar a tecla Shift 5 vezes consecutivas. Esse é um "
 "atalho de teclado para a função de Teclas de Aderência, que afeta a forma "
 "como seu teclado funciona."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:672
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
 "Você acaba de pressionar duas teclas de uma vez ou a tecla Shift 5 vezes "
-"consecutivas.  Isso desliga a função de Teclas de Aderência, que afeta a "
+"consecutivas. Isso desliga a função de Teclas de Aderência, que afeta a "
 "forma como seu teclado funciona."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:773
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
 msgid "Sticky Keys Alert"
 msgstr "Alerta de teclas de aderência"
 
@@ -702,7 +688,7 @@ msgstr "Usar _leitor de tela"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "_Ignorar pressionamento de teclas duplicados (Teclas de repercursão)"
+msgstr "_Ignorar pressionamento de teclas duplicados (teclas de repercursão)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
@@ -741,30 +727,30 @@ msgstr "Fonte"
 msgid "Font plugin"
 msgstr "Plug-in de fonte"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:120
+#: ../plugins/housekeeping/gsd-disk-space.c:122
 #, c-format
 msgid "%d%% of the disk space on `%s' is in use"
 msgstr "%d%% do espaço no disco `%s' está em uso"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:128
+#: ../plugins/housekeeping/gsd-disk-space.c:130
 msgid "Low Disk Space"
 msgstr "Pouco espaco em disco"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:139
+#: ../plugins/housekeeping/gsd-disk-space.c:141
 msgid "Analyze"
 msgstr "Analisar"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:190
-#, c-format
-msgid "Key binding (%s) is incomplete"
-msgstr "Tecla de Atalho (%s) está incompleta"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:223
+#: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
-msgstr "Tecla de Atalho (%s) é inválida"
+msgstr "A tecla de atalho (%s) é inválida"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:485
+#: ../plugins/keybindings/gsd-keybindings-manager.c:197
+#, c-format
+msgid "Key binding (%s) is incomplete"
+msgstr "A tecla de atalho (%s) está incompleta"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:491
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -794,16 +780,17 @@ msgid "A_vailable files:"
 msgstr "Arquivos _disponíveis:"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "_Não mostrar esta mensagem novamente."
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
 msgstr "Carregar arquivos modmap"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "Você gostaria de carregar o(s) arquivo(s) modmap?"
+
+#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+msgid "_Do not show this message again"
+msgstr "_Não mostrar esta mensagem novamente"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
@@ -892,10 +879,6 @@ msgstr ""
 "\n"
 "A proteção de tela não funcionará nesta sessão."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
-msgid "_Do not show this message again"
-msgstr "_Não mostrar esta mensagem novamente"
-
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
 msgid "Screensaver"
 msgstr "Proteção de tela"
@@ -903,14 +886,6 @@ msgstr "Proteção de tela"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "Plug-in da proteção de tela"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "Som"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound Sample Cache plugin"
-msgstr "Plug-in do cache da amostra de som"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -947,12 +922,12 @@ msgid "Does the display look OK?"
 msgstr "O vídeo está bom?"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:218
-msgid "Restore the previous configuration"
-msgstr "Restaurar a configuração anterior"
+msgid "_Restore Previous Configuration"
+msgstr "_Restaurar configuração anterior"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:219
-msgid "Keep this configuration"
-msgstr "Manter esta configuração"
+msgid "_Keep This Configuration"
+msgstr "_Manter essa configuração"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:256
 msgid "The selected configuration for displays could not be applied"
@@ -1032,6 +1007,28 @@ msgstr "Gerenciar configurações do X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Configurações do X"
+
+#~ msgid "Allowed keys"
+#~ msgstr "Teclas permitidas"
+
+#~ msgid ""
+#~ "If non-empty, keybindings will be ignored unless their GConf directory is "
+#~ "in the list. This is useful for lockdown."
+#~ msgstr ""
+#~ "Se não vazio, os atalhos do teclado deverão ser ignorados a menos que o "
+#~ "diretório GConf esteja na lista. Isso é útil para bloqueios."
+
+#~ msgid "Accessibility"
+#~ msgstr "Acessibilidade"
+
+#~ msgid "Do _not show this warning again."
+#~ msgstr "_Não mostrar esta mensagem novamente."
+
+#~ msgid "Sound"
+#~ msgstr "Som"
+
+#~ msgid "Sound Sample Cache plugin"
+#~ msgstr "Plug-in do cache da amostra de som"
 
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
