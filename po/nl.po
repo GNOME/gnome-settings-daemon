@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Settings Daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 20:34+0100\n"
-"PO-Revision-Date: 2009-02-23 20:34+0100\n"
+"POT-Creation-Date: 2009-02-23 23:11+0100\n"
+"PO-Revision-Date: 2009-02-23 23:11+0100\n"
 "Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Dutch\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "Toegankelijkheid"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -284,6 +288,19 @@ msgstr ""
 "Mogelijke waardes zijn: ‘none’ voor niet hinten, ‘slight’ voor weinig, "
 "‘medium’ voor gemiddeld, en ‘full’ voor maximaal hinten (kan vervorming van "
 "letters veroorzaken)."
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+msgid "Allowed keys"
+msgstr "Toegestane toetsen"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+msgid ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
+msgstr ""
+"Indien niet leeg zullen sneltoetsen genegeerd worden, tenzij het GConf-pad "
+"in de lijst voorkomt. Dit is handig voor het vergrendelen van bepaalde "
+"functionaliteit."
 
 # behouden/gebruiken
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
