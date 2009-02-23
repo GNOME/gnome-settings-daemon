@@ -12,14 +12,14 @@
 # Ronald Hummelink <ronald@hummelink.xs4all.nl>, 2002
 # Reinout van Schouwen <reinouts@gnome.org>, 2002-2008
 # Tino Meinen <a.t.meinen@chello.nl>, 2004, 2006, 2007, 2008.
-# Wouter Bolsterlee <wbolster@gnome.org>, 2006, 2008–2009
+# Wouter Bolsterlee <wbolster@gnome.org>, 2006, 2008–2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Settings Daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-16 12:57+0100\n"
-"PO-Revision-Date: 2009-02-16 12:57+0100\n"
+"POT-Creation-Date: 2009-02-23 20:34+0100\n"
+"PO-Revision-Date: 2009-02-23 20:34+0100\n"
 "Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -497,42 +497,84 @@ msgid "Sticky keys"
 msgstr "Plaktoetsen"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the magnifier"
+msgstr "De naam van de sneltoets om het vergrootglas aan of uit te zetten."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr ""
+"De naam van de sneltoets om het toetsenbord op het scherm aan of uit te "
+"zetten."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgstr "Naam van de sneltoets om de schermlezer aan of uit te zetten."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid ""
+"This is the name of the keyboard shortcut to toggle the magnifier. This name "
+"will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Dit is de naam van de sneltoets om het vergrootglas aan of uit te zetten. "
+"Deze naam wordt getoond in de het sneltoetsen-voorkeurenvenster."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid ""
+"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
+"This name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"De naam van de sneltoets om het toetsenbord op het scherm aan of uit te "
+"zetten.Deze naam wordt getoond in de het sneltoetsen-voorkeurenvenster."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid ""
+"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Naam van de sneltoets om de schermlezer aan of uit te zetten.Deze naam wordt "
+"getoond in de het sneltoetsen-voorkeurenvenster."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle magnifier"
 msgstr "Vergrootglas aan- of uitzetten"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Toggle on-screen keyboard"
 msgstr "Toetsen_bord-op-scherm aan- of uitzetten"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Toggle screen reader"
 msgstr "Schermle_zer aan- of uitzetten"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Toggle screenreader"
+msgstr "Schermlezer aan- of uitzetten"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "Of toegankelijkheidsondersteuning voor kaatstoetsen ingeschakeld is."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "Of toegankelijkheidsondersteuning voor muistoetsen ingeschakeld is."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "Of het toetsenbord op het scherm ingeschakeld is"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen magnifier is turned on."
 msgstr "Of het schermvergrootglas ingeschakeld is."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the screen reader is turned on."
 msgstr "Of de schermlezer ingeschakeld is."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "Of toegankelijkheidsondersteuning voor trage toetsen ingeschakeld is."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/gnome-settings-daemon.schemas.in.h:60
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Of toegankelijkheidsondersteuning voor plaktoetsen ingeschakeld is."
 
@@ -733,30 +775,30 @@ msgstr "Lettertype"
 msgid "Font plugin"
 msgstr "Lettertype-plugin"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:120
+#: ../plugins/housekeeping/gsd-disk-space.c:122
 #, c-format
 msgid "%d%% of the disk space on `%s' is in use"
 msgstr "%d%% van de schijfruimte op ‘%s’ is in gebruik"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:128
+#: ../plugins/housekeeping/gsd-disk-space.c:130
 msgid "Low Disk Space"
 msgstr "Weinig schijfruimte"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:139
+#: ../plugins/housekeeping/gsd-disk-space.c:141
 msgid "Analyze"
 msgstr "Analyseren"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:190
-#, c-format
-msgid "Key binding (%s) is incomplete"
-msgstr "Sneltoets (%s) is incompleet"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:223
+#: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "Sneltoets (%s) is ongeldig"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:485
+#: ../plugins/keybindings/gsd-keybindings-manager.c:197
+#, c-format
+msgid "Key binding (%s) is incomplete"
+msgstr "Sneltoets (%s) is incompleet"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:491
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
