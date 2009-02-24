@@ -4,14 +4,14 @@
 # Andraz Tori <andraz.tori1@guest.arnes.si>
 # Matjaz Horvat <m@owca.info>, 2005, 2006.
 # Matic Žgur <mr.zgur@gmail.com>, 2006, 2007.
-# Matej Urbančič <mateju@svn.gnome.org>, 2007 - 2008.
+# Matej Urbančič <mateju@svn.gnome.org>, 2007 - 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-deamon\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&amp;component=general\n"
-"POT-Creation-Date: 2008-12-08 21:00+0000\n"
-"PO-Revision-Date: 2008-12-15 13:44+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
+"POT-Creation-Date: 2009-02-24 07:24+0000\n"
+"PO-Revision-Date: 2009-02-24 09:07+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,10 @@ msgstr ""
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "Dostopnost"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -251,134 +255,254 @@ msgid "GNOME Settings Daemon"
 msgstr "Demon GNOME nastavitev"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
+msgid "Binding to toggle the magnifier."
+msgstr "Bližnjica za preklop povečevala."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:2
+msgid "Binding to toggle the on-screen keyboard."
+msgstr "Bližnjica za preklop zaslonske tipkovnice."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:3
+msgid "Binding to toggle the screen reader."
+msgstr "Bližnjica za preklop zaslonskega bralnika."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:4
+msgid "Bounce keys"
+msgstr "Odskočne tipke"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Command used to turn the magnifier on or off."
+msgstr "Ukaz za zagon ali izklop zaslonskega povečevala."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:6
+msgid "Command used to turn the on-screen keyboard on or off."
+msgstr "Ukaz za zagon ali izklop zaslonske tipkovnice."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:7
+msgid "Command used to turn the screen reader on or off."
+msgstr "Ukaz za zagon ali izklop zaslonskega bralnika."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
 msgstr "Omogoči vstavek dostopnosti tipkovnice"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "Omogoči vstavek ozadja"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "Omogoči vstavek odložišča"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "Omogoči vstavek pisave"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable housekeeping plugin"
 msgstr "Omogoči vstavek čiščenja"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
 msgstr "Omogoči vstavek tipkovnih bližnjic"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "Omogoči vstavek tipkovnice"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable media keys plugin"
 msgstr "Omogoči vstavek medijskih tipk"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "Omogoči vstavek miške"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable screensaver plugin"
 msgstr "Omogoči vstavek ohranjevalnika zaslona"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "Omogoči vstavek zvoka"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable typing breaks plugin"
 msgstr "Omogoči vstavek premora tipkanja"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrandr plugin"
 msgstr "Omogoči vstavek xrandr"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "Omogoči xrdb vstavek"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "Omogoči vstavek nastavitev X"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:23
+msgid "Mouse keys"
+msgstr "Miškine tipke"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:24
+msgid "On-screen keyboard"
+msgstr "Zaslonsko aipkovnica"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:25
+msgid "Screen magnifier"
+msgstr "Zaslonsko povečevalo"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:26
+msgid "Screen reader"
+msgstr "Zalsonski bralnik"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the housekeeping plugin, to prune transient file caches."
 msgstr "Izbrana možnost omogoči vstavek čiščenja za brisanje datotek predpomnilnika."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev odložišča."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev ozadja namizja."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev pisave."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev tipkovnice."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev miške."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev medijskih tipk."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev ohranjevalnika zaslona."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "Set to True to enable the plugin to manage sound settings."
-msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev zvoka."
+#: ../data/gnome-settings-daemon.schemas.in.h:35
+msgid "Set to True to enable the plugin to manage sound sample caches."
+msgstr "Izbrana možnost omogoči uporabo vstavka za upravljanje vzorcev zvoka."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage the accessibility keyboard settings."
 msgstr "Izbrana možnost omogoča upravljanje nastavitev dostopnosti tipkovnice."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev tipkovnih bližnjic."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev premora med tipkanjem."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev xrandr."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev xrdb."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Izbrana možnost omogoči vstavek za upravljanje nastavitev strežnika X."
 
-#: ../gnome-settings-daemon/main.c:53
+#: ../data/gnome-settings-daemon.schemas.in.h:42
+msgid "Slow keys"
+msgstr "Počasne tipke"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:43
+msgid "Sticky keys"
+msgstr "Lepljive tipke"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the magnifier"
+msgstr "Ime tipkovne bližnice za preklop zaslonskega povečevala."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr "Ime tipkovne bližnice za preklop zaslonske tipkovnice."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgstr "Ime tipkovne bližnice za preklop zaslonskega bralnika."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid "This is the name of the keyboard shortcut to toggle the magnifier. This name will be shown in the keyboard shortcut preferences dialog."
+msgstr "To je ime tipkovne bližnice za preklop zaslonskega povečevala. Ime bo prikazano med nastavitvami bližnic."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid "This is the name of the keyboard shortcut to toggle the on-screen keyboard. This name will be shown in the keyboard shortcut preferences dialog."
+msgstr "To je ime tipkovne bližnice za preklop zaslonske tipkovnice. Ime bo prikazano med nastavitvami bližnic."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid "This is the name of the keyboard shortcut to toggle the screenreader. This name will be shown in the keyboard shortcut preferences dialog."
+msgstr "To je ime tipkovne bližnice za preklop zaslonskega bralnika. Ime bo prikazano med nastavitvami bližnic."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
+msgid "Toggle magnifier"
+msgstr "Preklop povečevala"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:51
+msgid "Toggle on-screen keyboard"
+msgstr "Preklopi zaslonsko tipkovnico"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:52
+msgid "Toggle screen reader"
+msgstr "Preklopi zalsonski bralnik"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Toggle screenreader"
+msgstr "Preklopi zalsonski bralnik"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:54
+msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+msgstr "Možnost omogoča, da so odskočne tipke zagnane."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:55
+msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+msgstr "Možnost omogoča, da so miškine tipke zagnane."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:56
+msgid "Whether the on-screen keyboard is turned on."
+msgstr "Možnost omogoča, da je zaslonska tipkovnica zagnana."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:57
+msgid "Whether the screen magnifier is turned on."
+msgstr "Možnost omogoča, da je zaslonsko povečevalo zagnano."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:58
+msgid "Whether the screen reader is turned on."
+msgstr "Možnost omogoča, da je zaslonski bralnik zagnan."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:59
+msgid "Whether the slow keys keyboard accessibility feature is turned on."
+msgstr "Možnost omogoča, da so počasne tipke zagnane."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:60
+msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+msgstr "Možnost omogoča, da so lepljive tipke zagnane."
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Omogoči kodo razhroščevanja"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Don't become a daemon"
 msgstr "Ne postani demon"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../gnome-settings-daemon/main.c:56
 msgid "GConf prefix from which to load plugin settings"
 msgstr "Predpona GConf preko katere se naloži vstavek nastavitev"
 
@@ -390,91 +514,91 @@ msgstr "Dostopnost tipkovnice"
 msgid "Accessibility keyboard plugin"
 msgstr "Vstavek dostopnosti tipkovnice"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:387
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Ob prikazovanju pomoči se je zgodila napaka: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid "Do you want to activate Slow Keys?"
 msgstr "Ali želite vključiti počasne tipke?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Ali želite izključiti počasne tipke?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for the Slow Keys feature, which affects the way your keyboard works."
 msgstr "Držite tipko Shift pritisnjeno 8 sekund. To je bližnjica za možnost počasnih tipk, ki se nanaša na delovanje vaše tipkovnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:698
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't activate"
 msgstr "Ne vključi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:698
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't deactivate"
 msgstr "Ne izključi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:704
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Activate"
 msgstr "Vključi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:704
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Deactivate"
 msgstr "Izključi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:765
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't activate"
 msgstr "_Ne vključi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:765
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't deactivate"
 msgstr "_Ne izključi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Activate"
 msgstr "_Vključi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Deactivate"
 msgstr "_Izključi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:626
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
 msgid "Slow Keys Alert"
 msgstr "Opozorilo o počasnih tipkah"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Ali želite vključiti lepljive tipke?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Ali želite izključiti lepljive tipke?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
 msgid "You just pressed the Shift key 5 times in a row.  This is the shortcut for the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "Pravkar ste pritisnili tipko Shift 5-krat zapovrstjo. To je bližnjica za možnost lepljivih tipk, ki se nanaša na delovanje vaše tipkovnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid "You just pressed two keys at once, or pressed the Shift key 5 times in a row.  This turns off the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "Pravkar ste pritisnili dve tipki hkrati ali tipko Shift 5-krat zapovrstjo. S tem ste izključili možnost lepljivih tipk, ki se nanaša na delovanje vaše tipkovnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:772
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
 msgid "Sticky Keys Alert"
 msgstr "Opozorilo o lepljivih tipkah"
 
@@ -547,17 +671,30 @@ msgstr "Pisava"
 msgid "Font plugin"
 msgstr "Vstavek pisave"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:190
+#: ../plugins/housekeeping/gsd-disk-space.c:122
 #, c-format
-msgid "Key binding (%s) is incomplete"
-msgstr "Tipkovna povezava (%s) ni popolna"
+msgid "%d%% of the disk space on `%s' is in use"
+msgstr "%d%% prostora na disku na `%s' je v uporabi"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:223
+#: ../plugins/housekeeping/gsd-disk-space.c:130
+msgid "Low Disk Space"
+msgstr "Malo prostora na disku"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:141
+msgid "Analyze"
+msgstr "Analiziraj"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "Tipkovna povezava (%s) ni veljavna"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:463
+#: ../plugins/keybindings/gsd-keybindings-manager.c:197
+#, c-format
+msgid "Key binding (%s) is incomplete"
+msgstr "Tipkovna povezava (%s) ni popolna"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:491
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -587,16 +724,17 @@ msgid "A_vailable files:"
 msgstr "Datoteke na _voljo:"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "_Ne pokaži več tega opozorila."
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
 msgstr "Naloži datoteke modmap"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "Želite naložiti datoteke modmap?"
+
+#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+msgid "_Do not show this message again"
+msgstr "_Ne pokaži več tega sporočila"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
@@ -606,11 +744,11 @@ msgstr "Na_loži"
 msgid "_Loaded files:"
 msgstr "Naložene datoteke:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:206
 msgid "Could not get default terminal. Verify that your default terminal command is set and points to a valid application."
 msgstr "Ni mogoče priklicati privzetega terminala. Preverite, če je ukaz za zagon terminala ustrezno določen."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:223
+#: ../plugins/media-keys/gsd-media-keys-manager.c:246
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -619,13 +757,21 @@ msgstr ""
 "Ni mogoče izvesti ukaza: %s\n"
 "Preverite ali je ukaz veljaven."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:239
+#: ../plugins/media-keys/gsd-media-keys-manager.c:262
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr ""
 "Sistema ni mogoče pripraviti na spanje.\n"
 "Preverite, da je pravilno nastavljen."
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+msgid "System Sounds"
+msgstr "Sistemski zvoki"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+msgid "GNOME Volume Control"
+msgstr "Nadzornik glasnosti"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -655,7 +801,7 @@ msgstr "Miška"
 msgid "Mouse plugin"
 msgstr "Vstavek miške"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:137
+#: ../plugins/screensaver/gsd-screensaver-manager.c:136
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -669,10 +815,6 @@ msgstr ""
 "%s\n"
 "\n"
 "Ohranjevalnik zaslona v tej seji ne bo deloval"
-
-#: ../plugins/screensaver/gsd-screensaver-manager.c:148
-msgid "_Do not show this message again"
-msgstr "_Ne pokaži več tega sporočila"
 
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
 msgid "Screensaver"
@@ -698,56 +840,81 @@ msgstr "Nastavitev velikosti in obračanja zaslona"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+msgid "Could not restore the display's configuration"
+msgstr "Ni mogoče obnoviti nastavitev zaslona"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+msgid "Could not restore the display's configuration from a backup"
+msgstr "Ni mogoče obnoviti nastavitve zaslona iz varnostne kopije"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:166
+#, c-format
+msgid "The display will be reset to its previous configuration in %d seconds"
+msgstr "zaslon bo povrnjen na predhodne nastavitve v %d sekundah"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+msgid "Does the display look OK?"
+msgstr "Ali je slika na zaslonu videti v redu?"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:218
+msgid "_Restore Previous Configuration"
+msgstr "_Obnovi predhodne nastavitve"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:219
+msgid "_Keep This Configuration"
+msgstr "_Ohrani nastavitve"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:256
+msgid "The selected configuration for displays could not be applied"
+msgstr "Izbranih nastavitev zaslona ni mogoče uporabiti"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:702
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Ni mogoče posodobiti podrobnosti zaslona: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:535
+#: ../plugins/xrandr/gsd-xrandr-manager.c:705
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Poskus preklopa nastavitev zaslona."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:569
+#: ../plugins/xrandr/gsd-xrandr-manager.c:739
 msgid "Could not switch the monitor configuration"
 msgstr "Ni mogoče preklopiti nastavitve zaslona"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:865
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Vrtenje ni podprto</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:892
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
 msgid "Could not save monitor configuration"
 msgstr "Ni mogoče shraniti nastavitev zaslona."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:900
-msgid "The selected rotation could not be applied"
-msgstr "Izbranega vrtenja ni mogoče uporabiti"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:916
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
 msgid "Normal"
 msgstr "Običajno"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:917
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
 msgid "Left"
 msgstr "Levo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:918
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
 msgid "Right"
 msgstr "Desno"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:919
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
 msgid "Upside Down"
 msgstr "Zgoraj navzdol"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1038
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
 msgid "_Configure Display Settings ..."
 msgstr "_Prilagodi nastavitve zaslona ..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1079
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
 msgid "Configure display settings"
 msgstr "Spremeni nastavitve zaslona"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1170
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Ni mogoče uporabiti shranjenih nastavitev za zaslone."
 
@@ -777,6 +944,8 @@ msgstr "Upravljanje nastavitve strežnika X"
 msgid "X Settings"
 msgstr "Nastavitve X"
 
+#~ msgid "Do _not show this warning again."
+#~ msgstr "_Ne pokaži več tega opozorila."
 #~ msgid "gtk-close"
 #~ msgstr "gtk-close"
 #~ msgid ""
@@ -824,8 +993,6 @@ msgstr "Nastavitve X"
 #~ msgstr "Datoteka %s ni veljavna datoteka wav"
 #~ msgid "Select sound file..."
 #~ msgstr "Izberi zvočno datoteko ..."
-#~ msgid "System Sounds"
-#~ msgstr "Sistemski zvoki"
 #~ msgid "Sound"
 #~ msgstr "Zvok"
 #~ msgid "Sound plugin"
