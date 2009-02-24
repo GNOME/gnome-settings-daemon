@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: control-centre CVS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 19:46+0000\n"
+"POT-Creation-Date: 2009-02-24 07:23+0000\n"
 "PO-Revision-Date: 2009-02-23 18:23+0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=( n != 1 );\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "Accessibility"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -264,6 +268,18 @@ msgstr ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
 "\" for maximum hinting (may cause distortion of letter forms)."
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+msgid "Allowed keys"
+msgstr "Allowed keys"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+msgid ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
+msgstr ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -2649,9 +2665,6 @@ msgstr "X Settings"
 
 #~ msgid "There was an error launching the keyboard tool: %s"
 #~ msgstr "There was an error launching the keyboard tool: %s"
-
-#~ msgid "_Accessibility"
-#~ msgstr "_Accessibility"
 
 #~ msgid ""
 #~ "Just apply settings and quit (compatibility only; now handled by daemon)"
