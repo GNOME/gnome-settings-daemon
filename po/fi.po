@@ -13,14 +13,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 16:15+0300\n"
-"PO-Revision-Date: 2009-02-23 16:30+0300\n"
+"POT-Creation-Date: 2009-02-26 12:25+0300\n"
+"PO-Revision-Date: 2009-02-26 12:25+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "Esteettömyys"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -267,6 +271,19 @@ msgstr ""
 "\" (tavallinen vihjeistys) \"full\" (suurin mahdollinen, saattaa aiheuttaa "
 "kirjainmuotojen säröytymistä)"
 
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+msgid "Allowed keys"
+msgstr "Sallitut näppäimet"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+msgid ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
+msgstr ""
+"Jos arvo ei ole tyhjä, näppäinsidekset jätetään huomioimatta, jollei "
+"niiden GConf-kansio ole luettelossa. Tämä on hyödyllinen rajattaessa "
+"käyttöä."
+
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "Gnomen asetuspalvelin"
@@ -289,11 +306,13 @@ msgstr "Kimmonäppäimet"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:5
 msgid "Command used to turn the magnifier on or off."
-msgstr "Komento, jolla näytönsuurentaja otetaan käyttöön tai poistetaan käytöstä."
+msgstr ""
+"Komento, jolla näytönsuurentaja otetaan käyttöön tai poistetaan käytöstä."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Command used to turn the on-screen keyboard on or off."
-msgstr "Komento, jolla näyttönäppäimistö otetaan käyttöön tai poistetaan käytöstä."
+msgstr ""
+"Komento, jolla näyttönäppäimistö otetaan käyttöön tai poistetaan käytöstä."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:7
 msgid "Command used to turn the screen reader on or off."
@@ -411,7 +430,8 @@ msgstr ""
 #: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
-"Aseta todeksi, jos haluat ottaa käyttöön multimedianäppäinten hallintalisäosan."
+"Aseta todeksi, jos haluat ottaa käyttöön multimedianäppäinten "
+"hallintalisäosan."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage screensaver settings."
@@ -420,8 +440,7 @@ msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr ""
-"Aseta todeksi, jos haluat äänisamplejen välimuistin hallintalisäosan."
+msgstr "Aseta todeksi, jos haluat äänisamplejen välimuistin hallintalisäosan."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid ""
@@ -439,8 +458,7 @@ msgstr ""
 #: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
-"Aseta todeksi, jos haluat ottaa käyttöön kirjoitustaukojen "
-"hallintalisäosan."
+"Aseta todeksi, jos haluat ottaa käyttöön kirjoitustaukojen hallintalisäosan."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
@@ -467,42 +485,82 @@ msgid "Sticky keys"
 msgstr "Pohjaan jäävät näppäimet"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the magnifier"
+msgstr "Pikanäppäin, jolla valitaan näytetäänkö suurennuslasi"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr "Pikanäppäin, jolla valitaan näytetäänkö näyttönäppäimistö"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgstr "Pikanäppäin, jolla valitaan näytetäänkö näytönlukija"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid ""
+"This is the name of the keyboard shortcut to toggle the magnifier. This name "
+"will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Tällä pikanäppäimellä valitaan, näytetäänkö suurennuslasi. Sama "
+"nimi näytetään pikanäppäinten asetusikkunassa."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid ""
+"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
+"This name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Tällä pikanäppäimellä valitaan, näytetäänkö näyttönäppäimistö. Sama "
+"nimi näytetään pikanäppäinten asetusikkunassa."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid ""
+"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Tällä pikanäppäimellä valitaan, näytetäänkö näytönlukija. Sama "
+"nimi näytetään pikanäppäinten asetusikkunassa."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle magnifier"
 msgstr "Näytetäänkö näytönsuurentaja"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Toggle on-screen keyboard"
 msgstr "Näytetäänkö näyttönäppäimistö"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Toggle screen reader"
 msgstr "Näytetäänkö näytönlukija"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Toggle screenreader"
+msgstr "Näytetäänkö näytönlukija"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "Onko estettömyystoiminto \"Kimmonäppäimet\" päällä."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "Onko estettömyystoiminto \"Hiirinäppäimet\" päällä."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "Onko näyttönäppäimistö päällä."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen magnifier is turned on."
 msgstr "Onko näytönsuurentaja päällä."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the screen reader is turned on."
 msgstr "Onko näytönlukija päällä."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "Onko estettömyystoiminto \"Hitaat näppäimet\" päällä."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/gnome-settings-daemon.schemas.in.h:60
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Onko estettömyystoiminto \"Pohjaan jäävät näppäimet\" päällä."
 
@@ -665,7 +723,8 @@ msgstr "_Jätä kahdennetut näppäilyt huomioimatta (kimmonäppäimet)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr "Syötä _pikanäppäimet yksi näppäin kerrallaan (pohjaan jäävät näppäimet)"
+msgstr ""
+"Syötä _pikanäppäimet yksi näppäin kerrallaan (pohjaan jäävät näppäimet)"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
