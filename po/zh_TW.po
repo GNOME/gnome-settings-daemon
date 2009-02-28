@@ -13,14 +13,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.25.91\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-08 22:17+0800\n"
-"PO-Revision-Date: 2009-02-07 21:55+0800\n"
+"POT-Creation-Date: 2009-02-28 13:55+0800\n"
+"PO-Revision-Date: 2009-02-26 20:17+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Taiwan) <zh-l10n@lists.linux.org.tw>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "無障礙功能"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -456,48 +460,80 @@ msgid "Sticky keys"
 msgstr "黏性特殊鍵"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the magnifier"
+msgstr "用來切換放大鏡的捷徑鍵名稱"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr "用來切換螢幕鍵盤的捷徑鍵名稱"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgstr "用來切換螢幕閱讀器的捷徑鍵名稱"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid ""
+"This is the name of the keyboard shortcut to toggle the magnifier. This name "
+"will be shown in the keyboard shortcut preferences dialog."
+msgstr "這是用來切換放大鏡的捷徑鍵名稱。這個名稱會顯示在捷徑鍵偏好設定對話盒。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid ""
+"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
+"This name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"這是用來切換螢幕鍵盤的捷徑鍵名稱。這個名稱會顯示在捷徑鍵偏好設定對話盒。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid ""
+"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"這是用來切換螢幕閱讀器的捷徑鍵名稱。這個名稱會顯示在捷徑鍵偏好設定對話盒。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle magnifier"
 msgstr "切換放大鏡"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Toggle on-screen keyboard"
 msgstr "切換螢幕鍵盤"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Toggle screen reader"
 msgstr "切換螢幕閱讀器"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Toggle screenreader"
+msgstr "切換螢幕閱讀器"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "是否開啟回鍵鍵盤無障礙功能。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "是否開啟滑鼠按鍵鍵盤無障礙功能。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "是否開啟螢幕鍵盤。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen magnifier is turned on."
 msgstr "是否開啟放大鏡。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the screen reader is turned on."
 msgstr "是否開啟螢幕閱讀器。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "是否開啟遲緩按鍵鍵盤無障礙功能。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/gnome-settings-daemon.schemas.in.h:60
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "是否開啟黏性特殊鍵鍵盤無障礙功能。"
-
-#: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "無障礙功能"
 
 #: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
@@ -525,79 +561,79 @@ msgid "There was an error displaying help: %s"
 msgstr "顯示說明文件時發生錯誤：%s"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid "Do you want to activate Slow Keys?"
 msgstr "是否啟用遲緩按鍵？"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "是否停用遲緩按鍵？"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
 "您按住 Shift 鍵達 8 秒。這是使用遲緩鍵功能的捷徑，那會影響鍵盤的操作方式。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't activate"
 msgstr "不要使用"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't deactivate"
 msgstr "不要停用"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Activate"
 msgstr "使用"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Deactivate"
 msgstr "停用"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't activate"
 msgstr "不要啟用(_N)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't deactivate"
 msgstr "不要停用(_N)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Activate"
 msgstr "使用(_A)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Deactivate"
 msgstr "不使用(_D)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:627
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
 msgid "Slow Keys Alert"
 msgstr "遲緩按鍵警告"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "Do you want to activate Sticky Keys?"
 msgstr "是否啟用黏性特殊鍵？"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "是否停用黏性特殊鍵？"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -605,8 +641,8 @@ msgstr ""
 "您連續按了 5 下 Shift 鍵。這是使用黏性特殊鍵功能的捷徑，那會影響鍵盤的操作方"
 "式。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:672
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -615,7 +651,7 @@ msgstr ""
 "您同時按下兩個鍵，或是連續按下5次 Shift 鍵。這會停用黏性特殊鍵功能，那會影響"
 "鍵盤的操作方式。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:773
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
 msgid "Sticky Keys Alert"
 msgstr "黏性特殊鍵警告"
 
@@ -688,30 +724,30 @@ msgstr "字型"
 msgid "Font plugin"
 msgstr "字型外掛程式"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:120
+#: ../plugins/housekeeping/gsd-disk-space.c:122
 #, c-format
 msgid "%d%% of the disk space on `%s' is in use"
 msgstr "「%2$s」上已使用 %1$d%% 磁碟空間"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:128
+#: ../plugins/housekeeping/gsd-disk-space.c:130
 msgid "Low Disk Space"
 msgstr "磁碟空間不足"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:139
+#: ../plugins/housekeeping/gsd-disk-space.c:141
 msgid "Analyze"
 msgstr "分析"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:190
-#, c-format
-msgid "Key binding (%s) is incomplete"
-msgstr "按鍵組合 (%s) 不完整"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:223
+#: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "按鍵組合 (%s) 無效"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:485
+#: ../plugins/keybindings/gsd-keybindings-manager.c:197
+#, c-format
+msgid "Key binding (%s) is incomplete"
+msgstr "按鍵組合 (%s) 不完整"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:491
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -741,16 +777,17 @@ msgid "A_vailable files:"
 msgstr "可用的檔案(_V)："
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "不再顯示此訊息(_N)。"
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
 msgstr "載入 modmap 檔"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "是否要載入 modmap 檔？"
+
+#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+msgid "_Do not show this message again"
+msgstr "不要再顯示這個訊息(_D)"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
@@ -834,10 +871,6 @@ msgstr ""
 "\n"
 "今次作業階段不會有螢幕保護桯式的功能。"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
-msgid "_Do not show this message again"
-msgstr "不要再顯示這個訊息(_D)"
-
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
 msgid "Screensaver"
 msgstr "螢幕保護程式"
@@ -845,14 +878,6 @@ msgstr "螢幕保護程式"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "螢幕保護外掛程式"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "音效"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound Sample Cache plugin"
-msgstr "音效樣本快取外掛程式"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -888,12 +913,12 @@ msgid "Does the display look OK?"
 msgstr "畫面看來是否正常？"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:218
-msgid "Restore the previous configuration"
-msgstr "還原前一個組態"
+msgid "_Restore Previous Configuration"
+msgstr "復原前一個組態(_R)"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:219
-msgid "Keep this configuration"
-msgstr "保留這個組態"
+msgid "_Keep This Configuration"
+msgstr "保留這個組態(_K)"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:256
 msgid "The selected configuration for displays could not be applied"
@@ -973,6 +998,15 @@ msgstr "管理 X 設定值"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X 設定值"
+
+#~ msgid "Do _not show this warning again."
+#~ msgstr "不再顯示此訊息(_N)。"
+
+#~ msgid "Sound"
+#~ msgstr "音效"
+
+#~ msgid "Sound Sample Cache plugin"
+#~ msgstr "音效樣本快取外掛程式"
 
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
