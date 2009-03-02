@@ -50,8 +50,10 @@ BUILT_SOURCES = 			\
 	gnome-settings-client.h		\
 	$(NULL)
 
-Dbusapidir   = $(includedir)/gnome-settings-daemon-2.0/gnome-settings-daemon
-Dbusapi_DATA = gnome-settings-client.h
+apidir   = $(includedir)/gnome-settings-daemon-2.0/gnome-settings-daemon
+api_DATA = 				\
+	gnome-settings-client.h		\
+	gnome-settings-plugin.h
 
 gnome_settings_daemon_SOURCES =		\
 	main.c				\
