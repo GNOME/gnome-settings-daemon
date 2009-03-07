@@ -12,14 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-12 00:26+0900\n"
-"PO-Revision-Date: 2009-02-12 00:25+0900\n"
+"POT-Creation-Date: 2009-03-07 11:07+0900\n"
+"PO-Revision-Date: 2009-03-07 11:06+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "アクセシビリティ"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -271,21 +275,34 @@ msgstr ""
 "ヒンティングのみ、\"medium\" は穏やかなヒンテイング、\"full\" は最大限のヒン"
 "テイング (文字の形状に歪みが発生する可能性あり)"
 
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+msgid "Allowed keys"
+msgstr "利用可能なキーバインディング"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+msgid ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
+msgstr ""
+"ここで指定した種類のキーバインディング以外は利用できなくなります (キーバイン"
+"ディングはこの下にあるサブディレクトリのキー名で指定します)。これは主にロック"
+"ダウンで使用します。"
+
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "GNOME 設定デーモン"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
 msgid "Binding to toggle the magnifier."
-msgstr "拡大鏡の切り替えに使用するコマンド"
+msgstr "拡大鏡の切り替えに使用するキーバインディングです。"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:2
 msgid "Binding to toggle the on-screen keyboard."
-msgstr "オンスクリーン・キーボードの切り替えに使用するコマンド"
+msgstr "オンスクリーン・キーボードの切り替えに使用するキーバインディングです。"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:3
 msgid "Binding to toggle the screen reader."
-msgstr "スクリーン・リーダの切り替えに使用するコマンド"
+msgstr "スクリーン・リーダの切り替えに使用するキーバインディングです。"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
 msgid "Bounce keys"
@@ -302,7 +319,7 @@ msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:7
 msgid "Command used to turn the screen reader on or off."
-msgstr "スクリーン・リーダの有効/無効を切り替える際に使用するコマンドです。"
+msgstr "スクリーン・リーダを起動したり停止する際に使用するコマンドです。"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
@@ -463,48 +480,88 @@ msgid "Sticky keys"
 msgstr "スティッキー・キーを有効にするかどうか"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:44
-msgid "Toggle magnifier"
-msgstr "拡大鏡を切り替える際のキー・バインディング"
+msgid "The name of the keyboard shortcut to toggle the magnifier"
+msgstr "キーボード・ショートカットの変更ダイアログで表示する項目名"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:45
-msgid "Toggle on-screen keyboard"
-msgstr "オンスクリーン・キーボードを切り替える際のキー・バインディング"
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr "キーボード・ショートカットの変更ダイアログで表示する項目名"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "Toggle screen reader"
-msgstr "スクリーン・リーダを切り替える際のキー・バインディング"
+msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgstr "キーボード・ショートカットの変更ダイアログで表示する項目名"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid ""
+"This is the name of the keyboard shortcut to toggle the magnifier. This name "
+"will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"キーボード・ショートカットの設定ダイアログで、拡大鏡を起動したり停止する"
+"キー・バインディングの項目に表示する名称です。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid ""
+"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
+"This name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"キーボード・ショートカットの設定ダイアログで、オンスクリーン・キーボードを起"
+"動したり停止するキー・バインディングの項目に表示する名称です。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid ""
+"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"キーボード・ショートカットの設定ダイアログで、スクリーン・リーダを起動したり"
+"停止するキー・バインディングの項目に表示する名称です。"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
+msgid "Toggle magnifier"
+msgstr "拡大鏡を起動または停止する"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:51
+msgid "Toggle on-screen keyboard"
+msgstr "オンスクリーン・キーボードを起動または停止する"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:52
+msgid "Toggle screen reader"
+msgstr "スクリーン・リーダの切り替え"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Toggle screenreader"
+msgstr "スクリーン・リーダを起動または停止する"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr ""
 "バウンス・キーによるキーボード・アクセシビリティの機能を有効にするかどうかで"
 "す。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr ""
 "マウス・キーによるキーボード・アクセシビリティの機能を有効にするかどうかで"
 "す。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "オンスクリーン・キーボードを有効にするかどうかです。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen magnifier is turned on."
 msgstr "スクリーンの拡大鏡を有効にするかどうかです。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the screen reader is turned on."
 msgstr "スクリーン・リーダを有効にするかどうかです。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr ""
 "スロー・キーによるによるキーボード・アクセシビリティの機能を有効にするかどう"
 "かです。"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/gnome-settings-daemon.schemas.in.h:60
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr ""
 "スティッキー・キーによるキーボード・アクセシビリティの機能を有効にするかどう"
@@ -536,17 +593,17 @@ msgid "There was an error displaying help: %s"
 msgstr "ヘルプを表示する際にエラーが発生しました: %s"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid "Do you want to activate Slow Keys?"
 msgstr "スロー・キーを有効にしますか？"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "スロー・キーを無効にしますか？"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -554,62 +611,62 @@ msgstr ""
 "[SHIFT] キーを８秒間押下しました。これはスロー・キー機能のショートカットとし"
 "て、キーボード操作に影響を与えるものです。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't activate"
 msgstr "有効にしない"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:555
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:699
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't deactivate"
 msgstr "無効にしない"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Activate"
 msgstr "有効にする"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:561
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Deactivate"
 msgstr "無効にする"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't activate"
 msgstr "有効にしない(_N)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't deactivate"
 msgstr "無効にしない(_N)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Activate"
 msgstr "有効にする(_A)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:623
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:769
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Deactivate"
 msgstr "無効にする(_D)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:627
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
 msgid "Slow Keys Alert"
 msgstr "スロー・キーの警告"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "Do you want to activate Sticky Keys?"
 msgstr "スティッキー・キーを有効にしますか？"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "スティッキー・キーを無効にしますか？"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -617,8 +674,8 @@ msgstr ""
 "[SHIFT] キーを連続して５回押下しました。これはスティッキー・キー機能のショー"
 "トカットとして、キーボード操作に影響を与えるものです。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:672
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -628,7 +685,7 @@ msgstr ""
 "これはスティッキー・キー機能を無効にし、キーボード操作に影響を与えるもので"
 "す。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:773
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
 msgid "Sticky Keys Alert"
 msgstr "スティッキー・キーの警告"
 
@@ -701,30 +758,30 @@ msgstr "フォント"
 msgid "Font plugin"
 msgstr "フォントのプラグイン"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:120
+#: ../plugins/housekeeping/gsd-disk-space.c:122
 #, c-format
 msgid "%d%% of the disk space on `%s' is in use"
 msgstr "%2$s では %1$d%% のディスク容量が使用中です"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:128
+#: ../plugins/housekeeping/gsd-disk-space.c:130
 msgid "Low Disk Space"
 msgstr "ディスクの空き容量が少ないです"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:139
+#: ../plugins/housekeeping/gsd-disk-space.c:141
 msgid "Analyze"
 msgstr "解析する"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:190
-#, c-format
-msgid "Key binding (%s) is incomplete"
-msgstr "キー・バインディング (%s) が完了していません"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:223
+#: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "キー・バインディング (%s) が無効です"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:485
+#: ../plugins/keybindings/gsd-keybindings-manager.c:197
+#, c-format
+msgid "Key binding (%s) is incomplete"
+msgstr "キー・バインディング (%s) が完了していません"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:491
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -754,16 +811,17 @@ msgid "A_vailable files:"
 msgstr "利用可能なファイル(_V):"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "次回からこのメッセージを表示しない(_N)"
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
 msgstr "modmap ファイルの読み込み"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "modmap ファイルを読み込みますか？"
+
+#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+msgid "_Do not show this message again"
+msgstr "次回からこのメッセージを表示しない(_D)"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
@@ -853,10 +911,6 @@ msgstr ""
 "\n"
 "このセッションでは、スクリーンセーバーが無効になります。"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
-msgid "_Do not show this message again"
-msgstr "次回からこのメッセージを表示しない(_D)"
-
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
 msgid "Screensaver"
 msgstr "スクリーンセーバー"
@@ -899,12 +953,12 @@ msgid "Does the display look OK?"
 msgstr "ディスプレイの設定に問題はありませんか？"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:218
-msgid "Restore the previous configuration"
-msgstr "前の設定に戻す"
+msgid "_Restore Previous Configuration"
+msgstr "前の設定に戻す(_R)"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:219
-msgid "Keep this configuration"
-msgstr "この設定にする"
+msgid "_Keep This Configuration"
+msgstr "この設定のままにする(_K)"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:256
 msgid "The selected configuration for displays could not be applied"
