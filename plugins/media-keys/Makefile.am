@@ -53,6 +53,7 @@ libmedia_keys_la_LDFLAGS = 		\
 	$(GSD_PLUGIN_LDFLAGS)
 
 libmedia_keys_la_LIBADD  = 		\
+	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(SETTINGS_PLUGIN_LIBS)						\
@@ -115,7 +116,7 @@ test_media_keys_CFLAGS = \
 	$(AM_CFLAGS)
 
 test_media_keys_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
+	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\

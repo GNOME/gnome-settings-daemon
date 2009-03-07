@@ -29,6 +29,7 @@ libclipboard_la_LDFLAGS = 	\
 	$(NULL)
 
 libclipboard_la_LIBADD  = 	\
+	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NULL)
 

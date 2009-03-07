@@ -23,6 +23,7 @@ libmouse_la_LDFLAGS = 		\
 	$(GSD_PLUGIN_LDFLAGS)
 
 libmouse_la_LIBADD  = 		\
+	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(XINPUT_LIBS)
 

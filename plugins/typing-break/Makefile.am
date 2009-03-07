@@ -25,6 +25,7 @@ libtyping_break_la_LDFLAGS = 		\
 	$(NULL)
 
 libtyping_break_la_LIBADD  = 		\
+	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NULL)
 

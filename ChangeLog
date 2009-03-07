@@ -1,3 +1,26 @@
+2009-03-07  Jens Granseuer  <jensgr@gmx.net>
+
+	Based on patch by: Christopher Taylor <christophth@tiscali.it>
+
+	* gnome-settings-daemon/Makefile.am:
+	* plugins/a11y-keyboard/Makefile.am:
+	* plugins/background/Makefile.am:
+	* plugins/clipboard/Makefile.am:
+	* plugins/dummy/Makefile.am:
+	* plugins/font/Makefile.am:
+	* plugins/housekeeping/Makefile.am:
+	* plugins/keybindings/Makefile.am:
+	* plugins/keyboard/Makefile.am:
+	* plugins/media-keys/Makefile.am:
+	* plugins/mouse/Makefile.am:
+	* plugins/screensaver/Makefile.am:
+	* plugins/sound/Makefile.am:
+	* plugins/typing-break/Makefile.am:
+	* plugins/xrandr/Makefile.am:
+	* plugins/xrdb/Makefile.am:
+	* plugins/xsettings/Makefile.am: make build work with -Wl,-z,defs
+	linker options (bug #574452)
+
 ==================== 2.25.92 ====================
 
 2009-03-02  Jens Granseuer  <jensgr@gmx.net>

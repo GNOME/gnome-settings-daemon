@@ -20,7 +20,7 @@ test_background_CFLAGS = \
 	$(AM_CFLAGS)
 
 test_background_LDADD =		\
-	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la	\
+	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NULL)
 
@@ -50,6 +50,7 @@ libbackground_la_LDFLAGS = 		\
 	$(NULL)
 
 libbackground_la_LIBADD  = 		\
+	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la	\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(NULL)
 
