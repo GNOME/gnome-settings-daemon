@@ -1,21 +1,29 @@
+# translation of gnome-settings-daemon.HEAD.te.po to Telugu
 # Telugu translation of control-center
 # Copyright (C) 2005 Free Software Foundation, Andhra Pradesh.
 # This file is distributed under the same license as the control-center package.
 #
 # Prajasakti Localisation Team <localisation@prajasakti.com>, 2005.
-# Krishna Babu K <kkrothap@redhat.com>, 2008.
+# Krishna Babu K <kkrothap@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-12 11:47+0530\n"
-"PO-Revision-Date: 2008-02-15 17:30+0530\n"
+"Project-Id-Version: gnome-settings-daemon.HEAD.te\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
+"POT-Creation-Date: 2009-02-23 21:39+0000\n"
+"PO-Revision-Date: 2009-03-11 13:29+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
-"Language-Team: Swecha Telugu Localisation Team <localisation@swecha.org>\n"
+"Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+#, fuzzy
+#| msgid "Accessibility Keyboard"
+msgid "Accessibility"
+msgstr "అందుబాటు"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -181,8 +189,7 @@ msgstr "వాల్యూమ్ పైకి"
 msgid ""
 "Set to True to display a dialog when there are errors running the "
 "screensaver."
-msgstr ""
-"స్క్రీన్‌సేవికను అక్కడ కొన్ని దోషాలు నడుపుతున్నప్పుడు డైలాగ్ ను ప్రదర్శించుటకు నిజం కు అమర్చుము."
+msgstr "స్క్రీన్‌సేవికను అక్కడ కొన్ని దోషాలు నడుపుతున్నప్పుడు డైలాగ్ ను ప్రదర్శించుటకు నిజం కు అమర్చుము."
 
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
 msgid "Set to True to run the screensaver at login."
@@ -195,6 +202,16 @@ msgstr "ప్రారంభ దోషాలను చూపుము"
 #: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
 msgid "Start screensaver"
 msgstr "స్క్రీన్‌సేవర్ ను ప్రారంభించుము"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid ""
+"If a notification icon with display related things should be shown in the "
+"panel."
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "Show Displays in Notification Area"
+msgstr ""
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -250,125 +267,309 @@ msgstr ""
 "హింటింగ్ కొరకు, \"స్వల్ప\" ప్రాదమికంకు, \"మద్యమం\" నవీనతకు, మరియు \"పూర్తిగా\" గరిష్ఠ హింటింగ్ "
 "కు (ఆక్షర రూపాల యొక్క విరూపంకు కారణం అవ్వొచ్చు)."
 
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+#, fuzzy
+#| msgid "Media keys"
+msgid "Allowed keys"
+msgstr "మాద్యమం కీలు"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+msgid ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+#, fuzzy
+#| msgid "Use GNOME settings"
+msgid "GNOME Settings Daemon"
+msgstr "GNOME అమర్పుల డెమోన్"
+
 #: ../data/gnome-settings-daemon.schemas.in.h:1
+#, fuzzy
+#| msgid "Binding to open the Home folder."
+msgid "Binding to toggle the magnifier."
+msgstr "నివాస సంచయంను తెరుచుటకు బందనం అయిఉంది."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:2
+#, fuzzy
+#| msgid "Binding to lock the screen."
+msgid "Binding to toggle the on-screen keyboard."
+msgstr "తెరను లాక్‌చేయుటకు బందనం అయిఉంది."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:3
+#, fuzzy
+#| msgid "Binding to lock the screen."
+msgid "Binding to toggle the screen reader."
+msgstr "తెరను లాక్‌చేయుటకు బందనం అయిఉంది."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:4
+msgid "Bounce keys"
+msgstr "బౌన్సు కీలు"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Command used to turn the magnifier on or off."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:6
+msgid "Command used to turn the on-screen keyboard on or off."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:7
+#, fuzzy
+#| msgid "Set to True to run the screensaver at login."
+msgid "Command used to turn the screen reader on or off."
+msgstr "లాగిన్ వద్ద స్క్రీన్‌సేవర్ ను నడుపుటకు నిజంకు అమర్చుము."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
 msgstr "అందుబాటు కీబోర్డు ప్లగ్‌ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "బ్యాక్‌గ్రౌండ్ ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "క్లిప్‌బోర్డు ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "ఫాంటు ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/gnome-settings-daemon.schemas.in.h:12
+#, fuzzy
+#| msgid "Enable mouse plugin"
+msgid "Enable housekeeping plugin"
+msgstr "మౌస్ ప్లగ్ఇన్ చేతనంచేయుము"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
 msgstr "కీబందనముల ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "కీబోర్డు ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable media keys plugin"
 msgstr "మాద్యమం కీల ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "మౌస్ ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable screensaver plugin"
 msgstr "స్క్రీన్‌సేవర్ ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "శబ్దము ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable typing breaks plugin"
 msgstr "టైపింగ్ విరామాల ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrandr plugin"
 msgstr "Xrandr ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "Xrdb ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "xఅమరికల ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:23
+#, fuzzy
+#| msgid "Media keys"
+msgid "Mouse keys"
+msgstr "మౌస్ కీలు"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:24
+msgid "On-screen keyboard"
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:25
+#, fuzzy
+#| msgid "Screensaver"
+msgid "Screen magnifier"
+msgstr "స్క్రీన్‌సేవర్"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:26
+#, fuzzy
+#| msgid "Screensaver"
+msgid "Screen reader"
+msgstr "స్క్రీన్‌సేవర్"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:27
+#, fuzzy
+#| msgid "Set to True to enable the plugin to manage xrandr settings."
+msgid ""
+"Set to True to enable the housekeeping plugin, to prune transient file "
+"caches."
+msgstr "xrandr అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "క్లిప్‌బోర్డు అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "డెస్కుటాప్ బ్యాక్‌గ్రౌండ్ అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "ఫాంటు అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "క్లిప్‌బోర్డు అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "మౌస్ అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr "బహుళమాద్యమం కీల అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr "స్క్రీన్‌సేవర్ అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
-msgid "Set to True to enable the plugin to manage sound settings."
+#: ../data/gnome-settings-daemon.schemas.in.h:35
+#, fuzzy
+#| msgid "Set to True to enable the plugin to manage sound settings."
+msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr "శబ్ద అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr "అందుబాటు క్లిప్‌బోర్డు అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "కీబందనాలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "టైపింగ్ విరామాలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "xrandr అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "xrdb అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "xఅమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../gnome-settings-daemon/main.c:46
+#: ../data/gnome-settings-daemon.schemas.in.h:42
+#, fuzzy
+#| msgid "Slow Keys Alert"
+msgid "Slow keys"
+msgstr "స్లో కీలు"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:43
+#, fuzzy
+#| msgid "Sticky Keys Alert"
+msgid "Sticky keys"
+msgstr "స్టికీ కీలు"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the magnifier"
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid ""
+"This is the name of the keyboard shortcut to toggle the magnifier. This name "
+"will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid ""
+"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
+"This name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid ""
+"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
+msgid "Toggle magnifier"
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:51
+msgid "Toggle on-screen keyboard"
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:52
+msgid "Toggle screen reader"
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Toggle screenreader"
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:54
+msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:55
+msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:56
+msgid "Whether the on-screen keyboard is turned on."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:57
+msgid "Whether the screen magnifier is turned on."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:58
+msgid "Whether the screen reader is turned on."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:59
+msgid "Whether the slow keys keyboard accessibility feature is turned on."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:60
+msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+msgstr ""
+
+#: ../gnome-settings-daemon/main.c:54
+#, fuzzy
+#| msgid "Enable xrdb plugin"
+msgid "Enable debugging code"
+msgstr "డీబగ్గింగ్ సంహిత ను చేతనంచేయి"
+
+#: ../gnome-settings-daemon/main.c:55
 msgid "Don't become a daemon"
 msgstr "డెమోన్ కావద్దు"
 
-#: ../gnome-settings-daemon/main.c:47
+#: ../gnome-settings-daemon/main.c:56
 msgid "GConf prefix from which to load plugin settings"
 msgstr ""
 
@@ -380,20 +581,23 @@ msgstr "అందుబాటు కీబోర్డు"
 msgid "Accessibility keyboard plugin"
 msgstr "అందుబాటు కీబోర్డు ప్లగ్ఇన్"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:389
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "సహాయం ప్రదర్శించుటలో దోషం: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:440
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid "Do you want to activate Slow Keys?"
 msgstr "నెమ్మది మీటలను క్రియాశీలం చేయాలా?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:441
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "నెమ్మది మీటల సౌకర్యాన్ని క్రియాహీనం చేయాలా?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:444
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -401,39 +605,70 @@ msgstr ""
 "మీరు షిఫ్ట్ మీటను ౮8 సెకన్లు నొక్కివుంచారు. ఇది నెమ్మది మీటల విశిష్ఠ అంశానికి అడ్డదారి ఇది మీ మీటలపలకం "
 "పనిచేయు విధానంపై ప్రభావం చూపుతుంది."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:451
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:503
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
+#, fuzzy
+#| msgid "Do_n't activate"
+msgid "Don't activate"
+msgstr "క్రియాశీలం చేయవద్దు(_n)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
+#, fuzzy
+#| msgid "Do_n't deactivate"
+msgid "Don't deactivate"
+msgstr "క్రియాహీనం చేయవద్దు(_n)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#, fuzzy
+#| msgid "_Activate"
+msgid "Activate"
+msgstr "క్రియాశీలించు"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#, fuzzy
+#| msgid "_Deactivate"
+msgid "Deactivate"
+msgstr "నిసారమగు"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't activate"
 msgstr "క్రియాశీలం చేయవద్దు(_n)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:451
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:503
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't deactivate"
 msgstr "క్రియాహీనం చేయవద్దు(_n)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:454
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:506
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Activate"
 msgstr "క్రియాశీలం(_A)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:454
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:506
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Deactivate"
 msgstr "క్రియాహీనం(_D)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:458
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
 msgid "Slow Keys Alert"
 msgstr "నెమ్మది మీటల అప్రమత్తం"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "Do you want to activate Sticky Keys?"
 msgstr "చీటీ మీటలను క్రియాశీలం చేయాలా?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:491
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "చీటీ మీటలను క్రియాహీనం చేయాలా?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:494
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -441,7 +676,8 @@ msgstr ""
 "షిఫ్ట్ మీటను మీరు వరుసక్రమంలో 5సార్లు నొక్కారు. ఇది చీటీ మీటల సౌకర్యానికి అడ్డదారిఇది మీ మీటల పలకం పనిపై "
 "ప్రభావం చూపుతుంది."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:496
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -450,9 +686,48 @@ msgstr ""
 "మీరు రెండు షిఫ్ట్ మీటలను ఒకేసారి నొక్కారు. షిఫ్ట్ మీటను మీరు వరుసక్రమంలో 5సార్లు నొక్కారు. ఇది చీటీ మీటల "
 "సౌకర్యానికి అడ్డదారి, ఇది మీ మీటల పలకం పనిపై ప్రభావం చూపుతుంది."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:510
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
 msgid "Sticky Keys Alert"
 msgstr "చీటీ మీటల అప్రమత్తత"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+#, fuzzy
+#| msgid "Mouse Preferences"
+msgid "Universal Access Preferences"
+msgstr "మౌస్ అభీష్టాలు"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+msgid "Enhance _contrast in colors"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+msgid "Make _text larger and easier to read"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+msgid "Use on-screen _keyboard"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+msgid "Use screen _magnifier"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+msgid "Use screen _reader"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr ""
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr ""
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -486,55 +761,32 @@ msgstr "అక్షరశైలి"
 msgid "Font plugin"
 msgstr "ఫాంటు ప్లగ్ఇన్"
 
-#: ../plugins/font/gsd-font-manager.c:208
+#: ../plugins/housekeeping/gsd-disk-space.c:122
 #, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing the mouse pointer theme."
+msgid "%d%% of the disk space on `%s' is in use"
 msgstr ""
-"డైరెక్టరీని సృష్టించలేము \"%s\".\n"
-"మౌస్ సూచిక థీమ్ మార్పు అనుమతించుటకు ఇది అవసరం."
 
-#: ../plugins/font/gsd-font-manager.c:231
-#, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing cursors."
+#: ../plugins/housekeeping/gsd-disk-space.c:130
+msgid "Low Disk Space"
 msgstr ""
-"డైరెక్టరీని సృష్టించలేము \"%s\".\n"
-"మారే ములుకులను అనుమతించాలంటే ఇది అవసరం."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:195
-#, c-format
-msgid "Key Binding (%s) has its action defined multiple times\n"
-msgstr "మీటల అనుసంధానం (%s) దాని క్రియలను పలుసార్లు నిర్వచించబడింది\n"
+#: ../plugins/housekeeping/gsd-disk-space.c:141
+msgid "Analyze"
+msgstr ""
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:202
-#, c-format
-msgid "Key Binding (%s) has its binding defined multiple times\n"
-msgstr "మీటల అనుసంధానం (%s) దాని అనుసంధానాన్ని పలుసార్లు నిర్వచించబడింద\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:211
-#, c-format
-msgid "Key Binding (%s) is incomplete\n"
-msgstr "మీటల అనుసంధానం (%s) పూర్తికాలేదు\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:239
-#, c-format
-msgid "Key Binding (%s) is invalid\n"
+#: ../plugins/keybindings/gsd-keybindings-manager.c:139
+#, fuzzy, c-format
+#| msgid "Key Binding (%s) is invalid\n"
+msgid "Key binding (%s) is invalid"
 msgstr "మీటల అనుసంధానం (%s) నిస్సారం\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:292
-#, c-format
-msgid "It seems that another application already has access to key '%u'."
-msgstr "వేరే కార్యక్షేత్రం ఇప్పటికే '%u' మీటతో సాంగత్యం ఏర్పరచుకొనివున్నట్లుంది."
+#: ../plugins/keybindings/gsd-keybindings-manager.c:197
+#, fuzzy, c-format
+#| msgid "Key Binding (%s) is incomplete\n"
+msgid "Key binding (%s) is incomplete"
+msgstr "మీటల అనుసంధానం (%s) పూర్తికాలేదు\n"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:365
-#, c-format
-msgid "Key Binding (%s) is already in use\n"
-msgstr "మీటల అనుసంధానం (%s) ఇప్పటికే వాడుకలో వుంది\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:502
+#: ../plugins/keybindings/gsd-keybindings-manager.c:491
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -564,16 +816,17 @@ msgid "A_vailable files:"
 msgstr "అందుబాటులోఉన్న దస్త్రాలు(_v):"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "ఈ హెచ్చరికను మరలా చూపవద్దు(_n)."
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
 msgstr "modmap దస్త్రాలను నింపుము"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "మీరు modmap దస్త్రము(ల)ను నింపుటకు ఇష్టపడతారా?"
+
+#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+msgid "_Do not show this message again"
+msgstr "_ఈ సందేశాన్ని మళ్ళీ చూపకండి"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
@@ -583,11 +836,7 @@ msgstr "నింపుము(_L)"
 msgid "_Loaded files:"
 msgstr "దస్త్రములను నింపుము(_L):"
 
-#: ../plugins/media-keys/actions/acme.glade.h:1
-msgid "Volume"
-msgstr "వాల్యూమ్"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:206
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -595,7 +844,7 @@ msgstr ""
 "అప్రమేయ టెర్మినల్‌ను పొందలేకపోతోంది. మీ అప్రమేయ టెర్మినల్ ఆదేశం అమర్చబడిఉంటునట్లు మరియు చెల్లునటువంటి "
 "అనువర్తనంను సూచించునట్లు నిర్ధారించుము."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:246
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -604,13 +853,23 @@ msgstr ""
 "ఆదేశాన్ని నిర్వర్తించలేదు: %s\n"
 "ఈ ఆదేశం వున్నదోలేదో సరిచూసుకోండి."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
+#: ../plugins/media-keys/gsd-media-keys-manager.c:262
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr ""
 "మీ కంప్యూటర్ ను నిద్రాణస్థితిలో పెట్టలేదు.\n"
 "మీ కంప్యూటర్ రూపకరణ సరిగావుందోలేదో సరిచూసుకోండి."
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+msgid "System Sounds"
+msgstr "సిస్టమ్ శబ్దములు"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+#, fuzzy
+#| msgid "GNOME Control Center"
+msgid "GNOME Volume Control"
+msgstr "GNOME ధ్వని నియంత్రిక"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -620,17 +879,19 @@ msgstr "మాద్యమం కీలు"
 msgid "Media keys plugin"
 msgstr "మాద్యమం కీల ప్లగ్ఇన్"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:566
+#: ../plugins/mouse/gsd-mouse-manager.c:625
 msgid "Could not enable mouse accessibility features"
 msgstr "మౌస్ అందుబాటు సౌలభ్యాలను చేతనం చేయలేకపోయింది"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:568
-msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
+#: ../plugins/mouse/gsd-mouse-manager.c:627
+#, fuzzy
+#| msgid ""
+#| "Mouse accessibility requires the mousetweaks daemon to be installed on "
+#| "your system."
+msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "మౌస్ అందుబాటు కొరకు మీ కంప్యూటర్ నందు మౌస్‌ట్వీక్సు డెమోన్ సంస్థాపించవలిసిన అనసరంఉంది."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:630
 msgid "Mouse Preferences"
 msgstr "మౌస్ అభీష్టాలు"
 
@@ -642,7 +903,7 @@ msgstr "మౌస్"
 msgid "Mouse plugin"
 msgstr "మౌస్ ప్లగ్ఇన్"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:151
+#: ../plugins/screensaver/gsd-screensaver-manager.c:136
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -657,10 +918,6 @@ msgstr ""
 "\n"
 "ఈ సమకూర్పులో తెర సేవిక పనిచేయదు."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:160
-msgid "_Do not show this message again"
-msgstr "_ఈ సందేశాన్ని మళ్ళీ చూపకండి"
-
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
 msgid "Screensaver"
 msgstr "స్క్రీన్‌సేవర్"
@@ -668,80 +925,6 @@ msgstr "స్క్రీన్‌సేవర్"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "స్క్రీన్‌సేవర్ ప్లగ్ఇన్"
-
-#: ../plugins/sound/gsd-sound-manager.c:201
-#, c-format
-msgid "Couldn't load sound file %s as sample %s"
-msgstr "%s ధ్వని దస్ర్తాన్ని నమూనా %sగా నింపలేకపోయింది"
-
-#: ../plugins/sound/libsounds/sound-view.c:44
-msgid "Login"
-msgstr "లాగిన్"
-
-#: ../plugins/sound/libsounds/sound-view.c:45
-msgid "Logout"
-msgstr "లాగ్అవుట్"
-
-#: ../plugins/sound/libsounds/sound-view.c:46
-msgid "Boing"
-msgstr "బోయింగ్"
-
-#: ../plugins/sound/libsounds/sound-view.c:47
-msgid "Siren"
-msgstr "సిరెన్"
-
-#: ../plugins/sound/libsounds/sound-view.c:48
-msgid "Clink"
-msgstr "క్లింక్"
-
-#: ../plugins/sound/libsounds/sound-view.c:49
-msgid "Beep"
-msgstr "బీప్"
-
-#: ../plugins/sound/libsounds/sound-view.c:50
-msgid "No sound"
-msgstr "ఏ శబ్దంలేదు"
-
-#: ../plugins/sound/libsounds/sound-view.c:132
-msgid "Sound not set for this event."
-msgstr "ఈ ఘటనకు శబ్దం అమర్చలేదు."
-
-#: ../plugins/sound/libsounds/sound-view.c:141
-msgid ""
-"The sound file for this event does not exist.\n"
-"You may want to install the gnome-audio package for a set of default sounds."
-msgstr ""
-"ఈ ఘటనకు ధ్వని దస్త్రం లేదు.\n"
-"మీరు కొన్ని అప్రమేయ ధ్వనుల కొరకు గ్నోమ్-శ్రవణ కట్టను నెలకోల్పాలనుకుంటున్నారా."
-
-#: ../plugins/sound/libsounds/sound-view.c:152
-msgid "The sound file for this event does not exist."
-msgstr "ఈ ఘటనకు ధ్వని దస్త్రం లేదు."
-
-#: ../plugins/sound/libsounds/sound-view.c:183
-msgid "Select Sound File"
-msgstr "ధ్వని దస్త్రమును ఎంచు"
-
-#: ../plugins/sound/libsounds/sound-view.c:210
-#, c-format
-msgid "The file %s is not a valid wav file"
-msgstr "%s దస్త్రము వర్తించు wav దస్త్రము కాదు"
-
-#: ../plugins/sound/libsounds/sound-view.c:271
-msgid "Select sound file..."
-msgstr "శబ్దము దస్త్రమును ఎంపికచేయుము..."
-
-#: ../plugins/sound/libsounds/sound-view.c:373
-msgid "System Sounds"
-msgstr "సిస్టమ్ శబ్దములు"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "ధ్వని"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound plugin"
-msgstr "శబ్దం ప్లగ్ఇన్"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -759,8 +942,90 @@ msgstr "తెర పరిమాణంను మరియు సర్దుబ
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrdb/gsd-xrdb-manager.c:258
-#: ../plugins/xrdb/gsd-xrdb-manager.c:327
+#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+msgid "Could not restore the display's configuration"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+msgid "Could not restore the display's configuration from a backup"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:166
+#, c-format
+msgid "The display will be reset to its previous configuration in %d seconds"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+msgid "Does the display look OK?"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:218
+#, fuzzy
+#| msgid "Use _previous resolution"
+msgid "_Restore Previous Configuration"
+msgstr "_పూర్వపు దృశ్యప్రమాణాన్ని వాడు"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:219
+#, fuzzy
+#| msgid "_Keep resolution"
+msgid "_Keep This Configuration"
+msgstr "_దృశ్యప్రమాణాన్ని వుంచుకో"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:256
+msgid "The selected configuration for displays could not be applied"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:702
+#, c-format
+msgid "Could not refresh the screen information: %s"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:705
+msgid "Trying to switch the monitor configuration anyway."
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:739
+msgid "Could not switch the monitor configuration"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
+msgid "<i>Rotation not supported</i>"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
+msgid "Could not save monitor configuration"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
+msgid "Normal"
+msgstr "సాదారణముగా"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
+msgid "Left"
+msgstr "ఎడమ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
+msgid "Right"
+msgstr "కుడి"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
+msgid "Upside Down"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
+msgid "_Configure Display Settings ..."
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
+msgid "Configure display settings"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
+msgid "Could not apply the stored configuration for monitors"
+msgstr ""
+
+#: ../plugins/xrdb/gsd-xrdb-manager.c:255
+#: ../plugins/xrdb/gsd-xrdb-manager.c:324
 msgid "Cannot determine user's home directory"
 msgstr "వినియోగదారుని నివాస డైరెక్టరీని నిర్ణయించలేకపోతోంది"
 
@@ -772,7 +1037,7 @@ msgstr "X వనరు డాటాబేస్ ను నిర్వహిం�
 msgid "X Resource Database"
 msgstr "X వనరు డాటాబేస్"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:551
+#: ../plugins/xsettings/gsd-xsettings-manager.c:644
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf మీట %s %s రకానికి అమర్చబడింది. కానీ అవసరమైన రకం%s\n"
@@ -785,915 +1050,3 @@ msgstr "X అమరికలను నిర్వహించు"
 msgid "X Settings"
 msgstr "X అమరికలు"
 
-#, fuzzy
-#~ msgid "Alert Type"
-#~ msgstr "దస్త్ర రకాన్ని జతచేయు"
-
-#, fuzzy
-#~ msgid "The type of alert"
-#~ msgstr "త్వరణసాధనం యొక్క రకం."
-
-#, fuzzy
-#~ msgid "About Me"
-#~ msgstr "/_గురించి"
-
-#, fuzzy
-#~ msgid "Set your personal information"
-#~ msgstr "MIME రకం సమాచారం"
-
-#, fuzzy
-#~ msgid "Select Image"
-#~ msgstr "_ఎంచు"
-
-#, fuzzy
-#~ msgid "No Image"
-#~ msgstr "ప్రతిబింబాలు"
-
-#, fuzzy
-#~ msgid "About %s"
-#~ msgstr "/_గురించి"
-
-#~ msgid " "
-#~ msgstr " "
-
-#~ msgid "    "
-#~ msgstr "    "
-
-#, fuzzy
-#~ msgid "<b>Work</b>"
-#~ msgstr "<b>మిణుగురు ములుకు</b>"
-
-#, fuzzy
-#~ msgid "Change Password"
-#~ msgstr "అమరిక మార్పు"
-
-#, fuzzy
-#~ msgid "Co_untry:"
-#~ msgstr "నియంత్రణ"
-
-#, fuzzy
-#~ msgid "Cou_ntry:"
-#~ msgstr "నియంత్రణ"
-
-#, fuzzy
-#~ msgid "_Profession:"
-#~ msgstr "వివరణం:"
-
-#, fuzzy
-#~ msgid "_Title:"
-#~ msgstr "పెంకులుగా"
-
-#~ msgid ""
-#~ "No Assistive Technology is available on your system.  The 'gok' package "
-#~ "must be installed in order to get on-screen keyboard support, and the "
-#~ "'gnopernicus' package must be installed for screenreading and magnifying "
-#~ "capabilities."
-#~ msgstr ""
-#~ "మీ వ్యవస్థ మీద సహాయ సాంకేతిక పరిజ్ఞానం అమర్చబడ లేదు.  'gok' కట్టని నెలకొల్పినప్పుడే తెరమీద "
-#~ "మీటలపలకం సహాయం అందుబాటులో ఉంటుంది, మరియు 'గ్నోపర్నికస్'  నెలకొల్పినప్పుడే తెర మీద ఉన్న వాటిని "
-#~ "చదువగలం మరియు సూక్ష్మ గ్రాహక శక్తిని పెంచగలం. "
-
-#~ msgid ""
-#~ "Not all available assistive technologies are installed on your system.  "
-#~ "The 'gok' package must be installed in order to get on-screen keyboard "
-#~ "support."
-#~ msgstr ""
-#~ "మీ వ్యవస్థ మీద  సహాయ సాంకేతిక పరిజ్ఞానం అంతా అమర్చబడి లేదు.''gok' కట్టని నెలకొల్పినప్పుడే తెరమీద "
-#~ "మీటలపలకం సహాయం అందుబాటులో ఉంటుంది."
-
-#~ msgid ""
-#~ "Not all available assistive technologies are installed on your system.  "
-#~ "The 'gnopernicus' package must be installed for screenreading and "
-#~ "magnifying capabilities."
-#~ msgstr ""
-#~ "మీ వ్యవస్థ మీద  సహాయ సాంకేతిక పరిజ్ఞానం అంతా అమర్చబడి లేదు.'గ్నోపర్నికస్'  నెలకొల్పినప్పుడే తెర మీద "
-#~ "ఉన్న వాటిని చదువగలం మరియు సూక్ష్మ గ్రాహక శక్తిని పెంచగలం."
-
-#, fuzzy
-#~ msgid "There was an error launching the mouse preferences dialog: %s"
-#~ msgstr "సహాయం ప్రదర్శించుటలో దోషం: %s"
-
-#~ msgid "Unable to import AccessX settings from file '%s'"
-#~ msgstr "Xసాంగత్య అమరికలను '%s' దస్త్రమునుండి దిగుమతి చేయలేకపోయింది"
-
-#~ msgid "Import Feature Settings File"
-#~ msgstr "విశిష్ట అమరికల దస్ర్తాన్ని దిగుమతి చేయు"
-
-#~ msgid "_Import"
-#~ msgstr "_దిగుమతి"
-
-#~ msgid ""
-#~ "This system does not seem to have the XKB extension.  The keyboard "
-#~ "accessibility features will not operate without it."
-#~ msgstr "XKB పొడగింపు ఈ వ్యవస్థకు ఉన్నట్లు లేదు మీటలపలకం విశిష్టాంశాలు ఇవి లేకుండా పని చేయవు."
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "Centered"
-#~ msgstr "కేంద్రీకృతమైన"
-
-#~ msgid "Fill Screen"
-#~ msgstr "నిండు తెర"
-
-#~ msgid "Scaled"
-#~ msgstr "పెంచిన"
-
-#~ msgid "Tiled"
-#~ msgstr "పెంకులుగా"
-
-#~ msgid "Solid Color"
-#~ msgstr "ముదురు వర్ణము"
-
-#~ msgid "Horizontal Gradient"
-#~ msgstr "అడ్డం వాలు"
-
-#~ msgid "Vertical Gradient"
-#~ msgstr "నిలువు వాలు"
-
-#~ msgid "Add Wallpaper"
-#~ msgstr "రంగాలంకరణ పటాన్ని జతచేయు"
-
-#~ msgid "No Wallpaper"
-#~ msgstr "రంగాలంకరణ పటం లేదు"
-
-#~ msgid ""
-#~ "Unable to start the settings manager 'gnome-settings-daemon'.\n"
-#~ "Without the GNOME settings manager running, some preferences may not take "
-#~ "effect. This could indicate a problem with Bonobo, or a non-GNOME (e.g. "
-#~ "KDE) settings manager may already be active and conflicting with the "
-#~ "GNOME settings manager."
-#~ msgstr ""
-#~ "అమరికల అభికర్త 'గ్నోమ్ అమరికల సూత్రధారి'ను ప్రారంభించలేకపోయింది.\n"
-#~ "గ్నోమ్ అమరికల అభికర్త నడవకపోతే అభీష్టాల్లోని కొన్ని అంశాలు పనిచేయవు గ్నోమ్ యేతర లేక బోనోబోతో సమస్య వుండే "
-#~ "అవకాశం వుంది.  (ఉదా. KDE) అమరికల అభికర్త  క్రియాశీలంగా వుండి గ్నోమ్ అమరికల అభికర్తతో ఘర్షణ "
-#~ "పడుతూ వుండవచ్చు "
-
-#~ msgid "Unable to load capplet stock icon '%s'\n"
-#~ msgstr "'సి'యాప్లెట్ స్టాక్ ప్రతిమను నింపలేకపోయింది '%s'\n"
-
-#~ msgid "Just apply settings and quit"
-#~ msgstr "కేవలం అమరికలను అమర్చి త్యజించు"
-
-#~ msgid "Retrieve and store legacy settings"
-#~ msgstr "వారసత్వపు అమరికలను వెలికితీసి నిల్వచేయి"
-
-#~ msgid "From URI"
-#~ msgstr " యుఆర్ఎల్ నుండి"
-
-#~ msgid "URI currently transferring from"
-#~ msgstr "యుఆర్ఎల్ ప్రస్తుతం ఇక్కడ నుండి బదలాయించబడుతుంది"
-
-#~ msgid "To URI"
-#~ msgstr "యుఆర్ఎల్ కు"
-
-#~ msgid "URI currently transferring to"
-#~ msgstr "యుఆర్ఎల్ ప్రస్తుతం ఇక్కడకు బదలాయించబడుతుంది"
-
-#~ msgid "Fraction completed"
-#~ msgstr "పూర్తయిన భిన్నం"
-
-#~ msgid "Fraction of transfer currently completed"
-#~ msgstr "ఇప్పటివరకూ పూర్తయిన బదలాయింపు భిన్నం"
-
-#~ msgid "Current URI index"
-#~ msgstr "ప్రస్తుత యుఆర్ఎల్ సూచి"
-
-#~ msgid "Current URI index - starts from 1"
-#~ msgstr "ప్రస్తుత యుఆర్ఎల్ సూచి -1నుండి ప్రారంభం"
-
-#~ msgid "Total URIs"
-#~ msgstr "మొత్తం యుఆర్ఎల్ లు"
-
-#~ msgid "Total number of URIs"
-#~ msgstr "మొత్తం యుఆర్ఎల్ ల సంఖ్య"
-
-#, fuzzy
-#~ msgid "From:"
-#~ msgstr "నుండి: %s"
-
-#, fuzzy
-#~ msgid "To:"
-#~ msgstr "వీరికి: %s"
-
-#~ msgid "Connecting..."
-#~ msgstr "బంధం ఏర్పడుతున్నది..."
-
-#~ msgid "Key"
-#~ msgstr "మీట"
-
-#~ msgid "GConf key to which this property editor is attached"
-#~ msgstr "లక్షణాలను సరిచేయుదానికి అనుబంధంగా వున్న GConf మీట"
-
-#~ msgid "Callback"
-#~ msgstr "వెనక్కి పిలుపు"
-
-#~ msgid "Issue this callback when the value associated with key gets changed"
-#~ msgstr "మీటకు అనుబంధంగా వున్న విలువ మారినప్పుడు తిరిగి వెనక్కి పిలుపు"
-
-#~ msgid "Change set"
-#~ msgstr "అమరిక మార్పు"
-
-#~ msgid ""
-#~ "GConf change set containing data to be forwarded to the gconf client on "
-#~ "apply"
-#~ msgstr "బంట్రోతుకు చేర్చవలసిన GConf మార్పు అమరికలు వున్న దత్తాంశం"
-
-#~ msgid "Conversion to widget callback"
-#~ msgstr "widget వెనక్కి పిలుపుకు మార్పు"
-
-#~ msgid ""
-#~ "Callback to be issued when data are to be converted from GConf to the "
-#~ "widget"
-#~ msgstr "దత్తాంశం GConfనుండి widgetకు మార్చునప్పుడు జారీ చేయవలసిన వెనక్కి పిలుపు"
-
-#~ msgid "Conversion from widget callback"
-#~ msgstr "widget నుండి వెనక్కి పిలుపు మార్పు"
-
-#~ msgid ""
-#~ "Callback to be issued when data are to be converted to GConf from the "
-#~ "widget"
-#~ msgstr "దత్తాంశం widgetనుండి GConf నకు మార్చునప్పుడు  జారీ చేయవలసిన వెనక్కి పిలుపు "
-
-#~ msgid "UI Control"
-#~ msgstr "యుఐ నియంత్రణ"
-
-#~ msgid "Object that controls the property (normally a widget)"
-#~ msgstr "లక్షణాలను నియంత్రించే తాత్పర్యం (సహజంగా ఒక widget)"
-
-#~ msgid "Property editor object data"
-#~ msgstr "లక్షణాలను సరిచేయుదాని దత్తాంశం తాత్పర్యం"
-
-#~ msgid "Custom data required by the specific property editor"
-#~ msgstr "నిర్దేశిత లక్షణాల సరిచేయుదానికవసరమయ్యే మలచిన దత్తాంశం"
-
-#~ msgid "Property editor data freeing callback"
-#~ msgstr "లక్షణాలను సరిచేయుదాని దత్తాంశాన్ని ఖాళీచేయు వెనక్కిపిలుపు"
-
-#~ msgid ""
-#~ "Callback to be issued when property editor object data is to be freed"
-#~ msgstr "లక్షణాలను సరిచేయుదాని తాత్పర్య దత్తాంశాన్ని ఖాళీచేయుటకు జారీ చేయవలసిన వెనక్కిపిలుపు"
-
-#~ msgid ""
-#~ "Couldn't find the file '%s'.\n"
-#~ "\n"
-#~ "Please make sure it exists and try again, or choose a different "
-#~ "background picture."
-#~ msgstr ""
-#~ " '%s'దస్త్రము దొరకలేదు.\n"
-#~ "\n"
-#~ "దయచేసిన వుందోలేదో సరిచూసుకొని మళ్ళీ ప్రయత్నించండి, లేక  వేరొక పూర్వరంగ దృశ్యాన్ని ఎంపిక చేసుకోండి"
-
-#~ msgid ""
-#~ "I don't know how to open the file '%s'.\n"
-#~ "Perhaps it's a kind of picture that is not yet supported.\n"
-#~ "\n"
-#~ "Please select a different picture instead."
-#~ msgstr ""
-#~ " '%s'దస్త్రమును ఎలా తెరవాలో తెలియదు.\n"
-#~ "బహుశా, ఈ రకమైన దృశ్యానికి సహకారంలేదు.\n"
-#~ "\n"
-#~ "దీనికి బదులుగా వేరొక దృశ్యాన్ని ఎంపిక చేసుకోండి."
-
-#~ msgid "Please select an image."
-#~ msgstr "దయచేసి ఒక దృశ్యాన్ని ఎంపిక చేసుకోండి."
-
-#~ msgid "_Select"
-#~ msgstr "_ఎంచు"
-
-#~ msgid "Epiphany"
-#~ msgstr "ఎపిఫనీ"
-
-#~ msgid "Galeon"
-#~ msgstr "గాలియన్"
-
-#~ msgid "Encompass"
-#~ msgstr "పరివేష్టించు"
-
-#, fuzzy
-#~ msgid "Firebird"
-#~ msgstr "ఫైర్_బర్డ్/ఫైర్_ఫాక్స్"
-
-#, fuzzy
-#~ msgid "Firefox"
-#~ msgstr "ఫైర్_బర్డ్/ఫైర్_ఫాక్స్"
-
-#, fuzzy
-#~ msgid "Mozilla"
-#~ msgstr "మోజిల్లా తపాలా"
-
-#~ msgid "Netscape Communicator"
-#~ msgstr "నెట్_స్కేప్ కమ్యూనికేటర్"
-
-#~ msgid "Konqueror"
-#~ msgstr "కాంక్వెరర్"
-
-#~ msgid "W3M Text Browser"
-#~ msgstr "డబ్ల్యు3ఎం పాఠ్య అన్వేషి"
-
-#, fuzzy
-#~ msgid "Lynx Text Browser"
-#~ msgstr "వెబ్ అన్వేషణిని దింపుము"
-
-#, fuzzy
-#~ msgid "Links Text Browser"
-#~ msgstr "వెబ్ అన్వేషణిని దింపుము"
-
-#~ msgid "Evolution Mail Reader"
-#~ msgstr "ఎవల్యూషన్ తపాలా చదువరి"
-
-#~ msgid "Balsa"
-#~ msgstr "బాల్సా"
-
-#~ msgid "KMail"
-#~ msgstr "కె_మెయిల్"
-
-#~ msgid "Mozilla Mail"
-#~ msgstr "మోజిల్లా తపాలా"
-
-#~ msgid "Mutt"
-#~ msgstr "మట్"
-
-#~ msgid "Standard XTerminal"
-#~ msgstr "ప్రామాణిక Xఅగ్రం"
-
-#~ msgid "NXterm"
-#~ msgstr "NXఅగ్రం"
-
-#, fuzzy
-#~ msgid "aterm"
-#~ msgstr "NXఅగ్రం"
-
-#~ msgid "ETerm"
-#~ msgstr "Eఅగ్రం"
-
-#~ msgid "Please specify a name and a command for this editor."
-#~ msgstr "దయచేసి ఈ సరిచేయుదానికి ఒక నామము మరియు ఆదేశాన్ని పేర్కొనండి."
-
-#, fuzzy
-#~ msgid "C_ustom"
-#~ msgstr "మలచిన"
-
-#, fuzzy
-#~ msgid "C_ustom:"
-#~ msgstr "మలచిన"
-
-#, fuzzy
-#~ msgid "_Select:"
-#~ msgstr "_ఎంచు"
-
-#~ msgid "_Resolution:"
-#~ msgstr "_దృశ్యప్రమాణం:"
-
-#~ msgid "Re_fresh rate:"
-#~ msgstr "పునర్వికాసం రేటు:"
-
-#, fuzzy
-#~ msgid "Default Settings"
-#~ msgstr "X అమరికలు"
-
-#, fuzzy
-#~ msgid "Screen %d Settings\n"
-#~ msgstr "X అమరికలు"
-
-#, fuzzy
-#~ msgid "Screen Resolution Preferences"
-#~ msgstr "మౌస్ అభీష్టాలు"
-
-#~ msgid "_Make default for this computer (%s) only"
-#~ msgstr "(%s)ఈ కంప్యూటర్ కు మాత్రమే అప్రమేయం _చేయు"
-
-#~ msgid "Options"
-#~ msgstr "ఇచ్ఛాపూర్వకాలు"
-
-#~ msgid ""
-#~ "Testing the new settings. If you don't respond in %d second the previous "
-#~ "settings will be restored."
-#~ msgid_plural ""
-#~ "Testing the new settings. If you don't respond in %d seconds the previous "
-#~ "settings will be restored."
-#~ msgstr[0] ""
-#~ "కొత్త అమరికల పరీక్ష. %d సెకనులో కనుక మీరు స్పందించకపోతే పాత అమరికలే మళ్ళీ నిల్వ చేయబడతాయి."
-#~ msgstr[1] ""
-#~ "కొత్త అమరికల పరీక్ష. %d సెకన్లలో కనుక మీరు స్పందించకపోతే పాత అమరికలే మళ్ళీ నిల్వ చేయబడతాయి."
-
-#~ msgid "Keep Resolution"
-#~ msgstr "దృశ్యప్రమాణాన్ని వుంచుకో"
-
-#, fuzzy
-#~ msgid "Do you want to keep this resolution?"
-#~ msgstr "చీటీ మీటలను క్రియాహీనం చేయాలా?"
-
-#~ msgid "Use _previous resolution"
-#~ msgstr "_పూర్వపు దృశ్యప్రమాణాన్ని వాడు"
-
-#~ msgid "_Keep resolution"
-#~ msgstr "_దృశ్యప్రమాణాన్ని వుంచుకో"
-
-#~ msgid ""
-#~ "The X Server does not support the XRandR extension.  Runtime resolution "
-#~ "changes to the display size are not available."
-#~ msgstr ""
-#~ "XRandR పొడిగింపులకు X సేవిక సహకరించుటలేదు.వాడుక సమయంలో దృశ్య ప్రమాణాన్ని ప్రదర్శించు పరిమాణ "
-#~ "మార్పులు అందుబాటులోలేవు."
-
-#~ msgid ""
-#~ "The version of the XRandR extension is incompatible with this program. "
-#~ "Runtime changes to the display size are not available."
-#~ msgstr ""
-#~ "ఈ వివరణంతో వున్న XRandR పొడిగింపులు ఈ కార్యక్రమంతో పనిచేయవు. వాడుక సమయంలో ప్రదర్శించు పరిమాణ "
-#~ "మార్పులు అందుబాటులోలేవు."
-
-#~ msgid "Font may be too large"
-#~ msgstr "అక్షరశైలి చాలా పెద్దదిగా ఉన్నట్లుంది"
-
-#~ msgid ""
-#~ "The font selected is %d point large, and may make it difficult to "
-#~ "effectively use the computer.  It is recommended that you select a size "
-#~ "smaller than %d."
-#~ msgid_plural ""
-#~ "The font selected is %d points large, and may make it difficult to "
-#~ "effectively use the computer. It is recommended that you select a size "
-#~ "smaller than %d."
-#~ msgstr[0] ""
-#~ "ఎంపిక చేసిన అక్షరశైలి %d పాలు పెద్దది, దీన్ని కంప్యూటర్ వినియోగించటం కష్టతరం.మీరు %dపాలు కన్నా "
-#~ "చిన్నది ఎంపిక చేసుకోవాలని సలహా"
-#~ msgstr[1] ""
-#~ "ఎంపిక చేసిన అక్షరశైలి %d పాళ్ళు పెద్దది, దీన్ని కంప్యూటర్ వినియోగించటం కష్టతరంమీరు %dపాలు కన్నా "
-#~ "చిన్నది ఎంపిక చేసుకోవాలని సలహా"
-
-#~ msgid ""
-#~ "The font selected is %d point large, and may make it difficult to "
-#~ "effectively use the computer.  It is recommended that you select a "
-#~ "smaller sized font."
-#~ msgid_plural ""
-#~ "The font selected is %d points large, and may make it difficult to "
-#~ "effectively use the computer. It is recommended that you select a smaller "
-#~ "sized font."
-#~ msgstr[0] ""
-#~ "ఎంపిక చేసిన అక్షరశైలి %d పాలు పెద్దది, దీన్ని కంప్యూటర్ వినియోగించటం కష్టతరం.మీరు పరిమాణం చిన్నదిగా "
-#~ "ఉన్న అక్షరశైలిని ఎంపిక చేసుకోవాలని సలహా"
-#~ msgstr[1] ""
-#~ "ఎంపిక చేసిన అక్షరశైలి %d పాళ్ళు పెద్దది, దీన్ని కంప్యూటర్ వినియోగించటం కష్టతరంమీరు పరిమాణం చిన్నదిగా "
-#~ "ఉన్న అక్షరశైలిని ఎంపిక చేసుకోవాలని సలహా"
-
-#~ msgid "New accelerator..."
-#~ msgstr "కొత్త త్వరణసాధనం..."
-
-#~ msgid "Accelerator key"
-#~ msgstr "త్వరణసాధనం మీట"
-
-#~ msgid "Accelerator modifiers"
-#~ msgstr "త్వరణసాధనం మార్చునవి"
-
-#~ msgid "Accelerator keycode"
-#~ msgstr "త్వరణసాధనం ముఖ్యసంకేతం"
-
-#~ msgid "Accel Mode"
-#~ msgstr "త్వరణసాధన విధం"
-
-#~ msgid "The type of accelerator."
-#~ msgstr "త్వరణసాధనం యొక్క రకం."
-
-#~ msgid "Disabled"
-#~ msgstr "నిరుపయోగమైన"
-
-#~ msgid "<Unknown Action>"
-#~ msgstr "<అపరిచిత క్రియ>"
-
-#~ msgid "Desktop"
-#~ msgstr "రంగస్థలం"
-
-#~ msgid "Window Management"
-#~ msgstr "గవాక్ష నిర్వాహకి"
-
-#~ msgid ""
-#~ "The shortcut \"%s\" is already used for:\n"
-#~ " \"%s\"\n"
-#~ msgstr ""
-#~ " \"%s\" అను అడ్డదారి ఇప్పటికే :\n"
-#~ " \"%s\"కొరకు వినియోగంలో వుంది\n"
-
-#~ msgid "Error setting new accelerator in configuration database: %s\n"
-#~ msgstr "రూపకరణ దత్తాంశస్థానంలో కొత్త త్వరణసాధనాన్ని అమర్చుటలో దోషం: %s\n"
-
-#~ msgid "Error unsetting accelerator in configuration database: %s\n"
-#~ msgstr "రూపకరణ దత్తాంశస్థానంలో  త్వరణసాధన అమరికను తీసివేయుటలో దోషం: %s\n"
-
-#~ msgid "Action"
-#~ msgstr "క్రియ"
-
-#~ msgid "Shortcut"
-#~ msgstr "అడ్డదారి"
-
-#~ msgid "Unknown"
-#~ msgstr "అపరిచిత"
-
-#, fuzzy
-#~ msgid "Default"
-#~ msgstr "అప్రమేయ ములుకు"
-
-#~ msgid "Models"
-#~ msgstr "నమూనాలు"
-
-#, fuzzy
-#~ msgid "There was an error launching the keyboard capplet : %s"
-#~ msgstr "సహాయం ప్రదర్శించుటలో దోషం: %s"
-
-#~ msgid ""
-#~ "Just apply settings and quit (compatibility only; now handled by daemon)"
-#~ msgstr ""
-#~ "కేవలం అమరికలను అమలు చేసి త్యజించు(అనుసంధానం మాత్రమే, ప్రస్తుతం సూత్రధారులతో మాత్రమే "
-#~ "నడుపబడుతుంది)"
-
-#~ msgid "Start the page with the typing break settings showing"
-#~ msgstr "టైపింగ్ విరామ అమరికలను చూపుతూ పుటను ప్రారంభించు"
-
-#~ msgid "<b>Cursor Blinking</b>"
-#~ msgstr "<b>మిణుగురు ములుకు</b>"
-
-#~ msgid "<b>Repeat Keys</b>"
-#~ msgstr "<b>మళ్ళీచేయు మీటలు</b>"
-
-#~ msgid "Unknown Cursor"
-#~ msgstr "అపరిచిత ములుకు"
-
-#~ msgid "Default Cursor"
-#~ msgstr "అప్రమేయ ములుకు"
-
-#~ msgid "Default Cursor - Current"
-#~ msgstr "అప్రమేయ ములుకు - వర్తమాన"
-
-#~ msgid "The default cursor that ships with X"
-#~ msgstr "Xతో కదిలే అప్రమేయ ములుకు"
-
-#~ msgid "White Cursor"
-#~ msgstr "శ్వేత ములుకు"
-
-#~ msgid "White Cursor - Current"
-#~ msgstr "శ్వేతములుకు - వర్తమాన"
-
-#~ msgid "The default cursor inverted"
-#~ msgstr "తిరగబడ్డ అప్రమేయ ములుకు"
-
-#~ msgid "Large Cursor"
-#~ msgstr "భారీ ములుకు"
-
-#~ msgid "Large Cursor - Current"
-#~ msgstr "భారీ ములుకు - వర్తమాన"
-
-#~ msgid "Large version of normal cursor"
-#~ msgstr "'సాధారణ ములుకు యొక్క భారీ వివరణం"
-
-#~ msgid "Large White Cursor - Current"
-#~ msgstr "భారీ శ్వేత ములుకు - వర్తమాన"
-
-#~ msgid "Large White Cursor"
-#~ msgstr "పెద్ద శ్వేత ములుకు"
-
-#~ msgid "Large version of white cursor"
-#~ msgstr "శ్వేత ములుకు యొక్క భారీ వివరణం"
-
-#~ msgid "Cursor Theme"
-#~ msgstr "ములకు వైవిద్యాంశం"
-
-#, fuzzy
-#~ msgid "Cursor Size:"
-#~ msgstr "ములుకు పరిమాణం"
-
-#~ msgid ""
-#~ "No themes could be found on your system.  This probably means that your "
-#~ "\"Theme Preferences\" dialog was improperly installed, or you haven't "
-#~ "installed the \"gnome-themes\" package."
-#~ msgstr ""
-#~ "మీ వ్యవస్థలో వైవిద్యాంశాలేవీ దొరకలేదు. బహుశా మీ\"వైవిద్యాంశ అభీష్టాల\" సంభాషణ సరిగా నెలకొల్పబడిలేదు.లేక "
-#~ "మీరు \"గ్నోమ్-వైవిద్యాంశాల\" కట్టను నెలకొల్పలేదు."
-
-#, fuzzy
-#~ msgid "The file format is invalid"
-#~ msgstr "%s దస్త్రము వర్తించు wav దస్త్రము కాదు"
-
-#~ msgid "No theme file location specified to install"
-#~ msgstr "నెలకొల్పుటకు వైవిద్యాంశ దస్త్ర స్థానాన్ని పేర్కొనలేదు "
-
-#~ msgid "The theme file location specified to install is invalid"
-#~ msgstr "నెలకొల్పుటకు పేర్కొన్న వైవిద్యాంశ దస్త్ర స్థానం నిస్సారమైనది"
-
-#, fuzzy
-#~ msgid "The file format is invalid."
-#~ msgstr "%s దస్త్రము వర్తించు wav దస్త్రము కాదు"
-
-#~ msgid ""
-#~ "%s is the path where the theme files will be installed. This can not be "
-#~ "selected as the source location"
-#~ msgstr "%sత్రోవలో వైవిద్యాంశ దస్ర్తాలు నెలకొల్పబడతాయిదీన్ని మూలస్థానం కింద ఎంపిక చేయరాదు"
-
-#~ msgid "Custom theme"
-#~ msgstr "మలచిన వైవిద్యాంశం"
-
-#~ msgid "You can save this theme by pressing the Save Theme button."
-#~ msgstr "వైవిద్యాంశాన్ని దాచు బొత్తాన్ని నొక్కి ఈ వైవిద్యాంశాన్ని దాచలేరు."
-
-#~ msgid ""
-#~ "The default theme schemas could not be found on your system.  This means "
-#~ "that you probably don't have metacity installed, or that your gconf is "
-#~ "configured incorrectly."
-#~ msgstr ""
-#~ "అప్రమేయ వైవిద్యాంశ ముఖ్యాంశ సూచికలు మీ వ్యవస్థలో దొరకలేదు అంటే మీరు మెటాసిటీని నెలకొల్పివుండరు, లేక "
-#~ "gconf రూపకరణ సరిగాలేదు "
-
-#~ msgid "Theme name must be present"
-#~ msgstr "వైవిద్యాంశం తప్పనిసరిగా వుండాలి"
-
-#~ msgid "The theme already exists. Would you like to replace it?"
-#~ msgstr "వైవిద్యాంశ ఇప్పటికే వుంది. దీన్ని పునఃస్థాపించాలా?"
-
-#~ msgid ""
-#~ "<b>Cannot start the preferences application for your window manager</b>\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "<b>మీ గవాక్ష అభికర్త కొరకు అభీష్టాల కార్యక్షేత్రాన్ని ప్రారంభించడం సాధ్యంకాదు</b>\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "Control"
-#~ msgstr "నియంత్రణ"
-
-#~ msgid "Hyper"
-#~ msgstr "అమిత"
-
-#~ msgid "Super (or \"Windows logo\")"
-#~ msgstr "సూపర్ (or \"Windows logo\")"
-
-#~ msgid "Others"
-#~ msgstr "ఇతరములు"
-
-#~ msgid "GNOME Control Center"
-#~ msgstr "గ్నోమ్ నియంత్రణా కేంద్రం"
-
-#~ msgid "Could not initialize Bonobo"
-#~ msgstr "బోనోబోను సంసిద్ధపరచలేకపోయింది"
-
-#, fuzzy
-#~ msgid ""
-#~ "Error activating XKB configuration.\n"
-#~ "It can happen under various circumstances:\n"
-#~ "- a bug in libxklavier library\n"
-#~ "- a bug in X server (xkbcomp, xmodmap utilities)\n"
-#~ "- X server with incompatible libxkbfile implementation\n"
-#~ "\n"
-#~ "X server version data:\n"
-#~ "%s\n"
-#~ "%d\n"
-#~ "%s\n"
-#~ "If you report this situation as a bug, please include:\n"
-#~ "- The result of <b>%s</b>\n"
-#~ "- The result of <b>%s</b>"
-#~ msgstr ""
-#~ "XKB రూపకరణను క్రియాశీలం చేయడంలో దోషం.\n"
-#~ "బహుశా, X సేవిక అంతర్గత సమస్య అయివుంటుంది.\n"
-#~ "\n"
-#~ "X సేవిక వివరణం:\n"
-#~ "%s\n"
-#~ "%d\n"
-#~ "%s\n"
-#~ "దీన్ని మీరు లోపం కింద భావించి నివేదిస్తే, దయచేసి దీన్నికూడా చేర్చండి :\n"
-#~ "- The result of <b>xprop -root | grep XKB</b>\n"
-#~ "- The result of <b>gconftool-2 -R /desktop/gnome/peripherals/keyboard/"
-#~ "xkb</b>"
-
-#, fuzzy
-#~ msgid ""
-#~ "You are using XFree 4.3.0.\n"
-#~ "There are known problems with complex XKB configurations.\n"
-#~ "Try using a simpler configuration or taking a fresher version of XFree "
-#~ "software."
-#~ msgstr ""
-#~ "మీరువాడుతున్నది XFree 4.3.0.\n"
-#~ "క్లిష్టమైన XKB రూపకరణలో తెలిసిన అనేక సమస్యలున్నాయి.\n"
-#~ "సరళమైన రూపకరణను ఉపయోగించండి లేక  XFree సాఫ్ట్వేర్ యొక్క తాజా వివరణాన్ని వాడుము."
-
-#, fuzzy
-#~ msgid "Do _not show this warning again"
-#~ msgstr "ఈ హెచ్చరికను మరలా చూపవద్దు(_n)."
-
-#~ msgid ""
-#~ "The X system keyboard settings differ from your current GNOME keyboard "
-#~ "settings.  Which set would you like to use?"
-#~ msgstr ""
-#~ "ప్రస్తుత గ్నోమ్ మీటలపలకం అమరికలతో X వ్యవస్థ మీటలపలకం అమరికలు ఏకీభవించడంలేదుమీరు  ఏ అమరికను "
-#~ "వాడతారు?"
-
-#~ msgid "Use GNOME settings"
-#~ msgstr "గ్నోమ్ అమరికలు వాడు"
-
-#~ msgid "Permissions on the file %s are broken\n"
-#~ msgstr "%s దస్త్రము యొక్క అనుమతులు సరిగాలేవు\n"
-
-#~ msgid ""
-#~ "Couldn't load the Glade file.\n"
-#~ "Make sure that this daemon is properly installed."
-#~ msgstr ""
-#~ "Glade దస్త్రమును నింపలేకపోయింది.\n"
-#~ "ఈ సూత్రధారి సరిగ్గా అమర్చివుందోలేదో సరిచూసుకోండి."
-
-#~ msgid "Error creating signal pipe."
-#~ msgstr "ఒక పైప్ ను సృష్టించుటలో దోషం."
-
-#~ msgid "Type"
-#~ msgstr "రకం"
-
-#~ msgid ""
-#~ "Type of bg_applier: BG_APPLIER_ROOT for root window or BG_APPLIER_PREVIEW "
-#~ "for preview"
-#~ msgstr ""
-#~ "bg_applier రకం: BG_APPLIER_ROOT మూల గవాక్షానికి లేక BG_APPLIER_PREVIEW ఉప దర్శనానికి"
-
-#~ msgid "Preview Width"
-#~ msgstr "ఉపదర్శనం వెడల్పు"
-
-#~ msgid "Width if applier is a preview: Defaults to 64."
-#~ msgstr "దరఖాస్తుదారు ఉపదర్శని అయితే వెడల్పు: అప్రమేయంగా 64."
-
-#~ msgid "Preview Height"
-#~ msgstr "ఉపదర్శనం ఎత్తు"
-
-#~ msgid "Height if applier is a preview: Defaults to 48."
-#~ msgstr "దరఖాస్తుదారు ఉపదర్శని అయితే పొడవు: అప్రమేయంగా 48."
-
-#~ msgid "Screen on which BGApplier is to draw"
-#~ msgstr "BGApplier గీయు తెర"
-
-#, fuzzy
-#~ msgid "There was an error loading an image: %s"
-#~ msgstr "సహాయం ప్రదర్శించుటలో దోషం: %s"
-
-#, fuzzy
-#~ msgid "Event"
-#~ msgstr "బయటకుపంపుము"
-
-#, fuzzy
-#~ msgid "_Sounds:"
-#~ msgstr "ధ్వని"
-
-#, fuzzy
-#~ msgid "Sound _file:"
-#~ msgstr "శబ్దము దస్త్రమును ఎంపికచేయుము..."
-
-#~ msgid "_Play"
-#~ msgstr "_ఆడు"
-
-#~ msgid "Window manager \"%s\" has not registered a configuration tool\n"
-#~ msgstr "Window manager \"%s\" గవాక్ష అభికర్త రూపకరణ పనిముట్టును నమోదు చేసుకోలేదు\n"
-
-#~ msgid "Maximize"
-#~ msgstr "పెద్దది చేయు"
-
-#, fuzzy
-#~ msgid "Roll up"
-#~ msgstr "వాల్యూమ్ పైకి"
-
-#~ msgid "_Postpone break"
-#~ msgstr "విరామం _వాయిదా"
-
-#~ msgid "Take a break!"
-#~ msgstr "విరామం తీసుకొ!"
-
-#, fuzzy
-#~ msgid "/_Preferences"
-#~ msgstr "మౌస్ అభీష్టాలు"
-
-#~ msgid "/_About"
-#~ msgstr "/_గురించి"
-
-#~ msgid "/_Take a Break"
-#~ msgstr "/_విరామం తీసుకొ"
-
-#~ msgid "%d minute until the next break"
-#~ msgid_plural "%d minutes until the next break"
-#~ msgstr[0] "%d నిముషం తర్వాత విరామం"
-#~ msgstr[1] "%d నిముషాల తర్వాత విరామం"
-
-#~ msgid "Less than one minute until the next break"
-#~ msgstr "తర్వాత విరామానికి ౧఍1 నిమిషం కన్నా తక్కువ సమయం"
-
-#~ msgid ""
-#~ "Unable to bring up the typing break properties dialog with the following "
-#~ "error: %s"
-#~ msgstr "పేర్కొన్న దోషంతో పాటు టైపింగు విరామ లక్షణాల సంభాషణను వెలికి తీసుకు రాలేకసోయింది: %s"
-
-#~ msgid "About GNOME Typing Monitor"
-#~ msgstr "గ్నోమ్ టైపింగ్ మానిటర్ గురించి"
-
-#~ msgid "A computer break reminder."
-#~ msgstr "కంప్యూటర్ విరామం జ్ఞాపకం చేయునది."
-
-#~ msgid "Eye candy added by Anders Carlsson"
-#~ msgstr "ఏండర్స్ కార్ల్సన్  చే ఐ క్యాండీ జత చేయబడినది"
-
-#~ msgid "Break reminder"
-#~ msgstr "విరామం జ్ఞాపకం చేయునది."
-
-#~ msgid "The typing monitor is already running."
-#~ msgstr "టైపింగ్ దర్శిని ఇప్పటికే నడుస్తున్నది."
-
-#, fuzzy
-#~ msgid ""
-#~ "The typing monitor uses the notification area to display information. You "
-#~ "don't seem to have a notification area on your panel. You can add it by "
-#~ "right-clicking on your panel and choosing 'Add to panel', selecting "
-#~ "'Notification area' and clicking 'Add'."
-#~ msgstr ""
-#~ "టైపింగ్ దర్శిని తాఖీదు ఇచ్చు స్థలాన్ని సమాచారం ప్రదర్శించుటకు ఉపయోగిస్తుందిమీ ప్యానల్ పై తాఖీదు ఇచ్చు "
-#~ "స్థలం ఉన్నట్లు లేదు. చుంచు కుడివైపును ప్యానల్ పై నొక్కి 'ప్యానల్ కు జత చేయు -> సౌలభ్యాలు -> "
-#~ "తాఖీదు ఇచ్చు స్థలం' ను ఎంపికచేస్తే జత అవుతుంది."
-
-#~ msgid "Name:"
-#~ msgstr "నామము:"
-
-#~ msgid "Style:"
-#~ msgstr "శైలి:"
-
-#~ msgid "Type:"
-#~ msgstr "రకం:"
-
-#, fuzzy
-#~ msgid "Size:"
-#~ msgstr "సిరెన్"
-
-#~ msgid "Version:"
-#~ msgstr "వివరణం:"
-
-#~ msgid "Copyright:"
-#~ msgstr "కాపీరైట్:"
-
-#~ msgid "Description:"
-#~ msgstr "నిర్వచనం:"
-
-#~ msgid "usage: %s fontfile\n"
-#~ msgstr "వినిమయం: %s అక్షరశైలిదస్త్రం\n"
-
-#~ msgid ""
-#~ "Set this key to the command used to create thumbnails for OpenType fonts."
-#~ msgstr ""
-#~ "Set this key to the command used to create thumbnails for OpenType fonts."
-
-#~ msgid ""
-#~ "Set this key to the command used to create thumbnails for TrueType fonts."
-#~ msgstr ""
-#~ "Set this key to the command used to create thumbnails for TrueType fonts."
-
-#, fuzzy
-#~ msgid "GNOME Font Viewer"
-#~ msgstr "గ్నోమ్ నియంత్రణా కేంద్రం"
-
-#~ msgid ""
-#~ "The theme you have selected suggests a new font. A preview of the font is "
-#~ "shown below."
-#~ msgstr ""
-#~ "The theme you have selected suggests a new font. A preview of the font is "
-#~ "shown below."
-
-#~ msgid "Themes"
-#~ msgstr "వైవిద్యాంశములు"
-
-#~ msgid "Description"
-#~ msgstr "విశదీకరణ"
-
-#~ msgid "Control theme"
-#~ msgstr "వైవిద్యాంశ నియంత్రణ"
-
-#~ msgid "Window border theme"
-#~ msgstr "గవాక్ష సరిహద్దు వైవిద్యాంశం"
-
-#~ msgid "Icon theme"
-#~ msgstr "వైవిద్యాంశ ప్రతిమ"
-
-#~ msgid "ABCDEFG"
-#~ msgstr "అఆఇఈఉఊఎ"
-
-#~ msgid ""
-#~ "Set this key to the command used to create thumbnails for installed "
-#~ "themes."
-#~ msgstr ""
-#~ "Set this key to the command used to create thumbnails for installed "
-#~ "themes."
-
-#~ msgid ""
-#~ "Set to True to keep the handlers for text/plain and text/* MIME types "
-#~ "synchronized."
-#~ msgstr ""
-#~ "పాఠ్యము/సాదా మరియు పాఠ్యము/* MIME రకాలు ఏకకాలం చేయుటకు సంభాలికలను ఉంచుటకు నిజంకు "
-#~ "అమర్చుము."
-
-#~ msgid "Sync text/plain and text/* handlers"
-#~ msgstr "పాఠ్యము/సాదా మరియు పాఠ్యము/* సంభాలికలను సింక్‌చేయుము"
-
-#~ msgid "Enable default editor plugin"
-#~ msgstr "అప్రమేయ సరికూర్పరి ప్లగ్ఇన్ చేతనంచేయుము"
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage the default text editor "
-#~ "setting."
-#~ msgstr "అప్రమేయ పాఠ్య కూర్పరి అమరికను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
