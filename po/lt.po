@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD.lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-13 18:27+0300\n"
-"PO-Revision-Date: 2008-09-13 18:27+0300\n"
+"POT-Creation-Date: 2009-03-12 13:14+0200\n"
+"PO-Revision-Date: 2009-03-12 13:14+0200\n"
 "Last-Translator: Vytautas Liuolia <vytautas.liuolia@gmail.com>\n"
 "Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,10 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "Pritaikymas neįgaliesiems"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -273,71 +277,127 @@ msgstr ""
 "netaikyti taškinės korekcijos, „slight“ - bazinė, „medium“ - vidutinė ir "
 "„full“ - didžiausia galima (gali iškraipyti kai kurių raidžių formą)."
 
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+msgid "Allowed keys"
+msgstr "Leidžiami klavišai"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+msgid ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
+msgstr ""
+"Jei netuščias, klavišų susiejimai bus ignoruojami, nebent jų GConf aplankas "
+"būtų sąraše. Ši parinktis naudinga ribojimui."
+
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "GNOME nustatymų tarnyba"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
+msgid "Binding to toggle the magnifier."
+msgstr "Priskyrimas lupos įjungimui/išjungimui."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:2
+msgid "Binding to toggle the on-screen keyboard."
+msgstr "Priskyrimas klaviatūrai ekrane."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:3
+msgid "Binding to toggle the screen reader."
+msgstr "Priskyrimas ekrano skaityklei."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:4
+msgid "Bounce keys"
+msgstr "Šoklūs klavišai"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Command used to turn the magnifier on or off."
+msgstr "Komanda lupos įjungimui/išjungimui"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:6
+msgid "Command used to turn the on-screen keyboard on or off."
+msgstr "Komanda klaviatūros ekrane įjungimui/išjungimui"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:7
+msgid "Command used to turn the screen reader on or off."
+msgstr "Komanda ekrano skaityklės įjungimui ir išjungimui."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
 msgstr "Įjungti klaviatūros pritaikymo neįgaliesiems įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "Įjungti darbalaukio fono įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "Įjungti iškarpinės įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "Įjungti šriftų įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable housekeeping plugin"
 msgstr "Įjungti priežiūros įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
 msgstr "Įjungti klavišų susiejimų įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "Įjungti klaviatūros įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable media keys plugin"
 msgstr "Įjungti multimedijos klavišų įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "Įjungti pelės įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable screensaver plugin"
 msgstr "Įjungti ekrano užsklandos įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "Įjungti garso įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable typing breaks plugin"
 msgstr "Įjungti spausdinimo pertraukėlių įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrandr plugin"
 msgstr "Įjungti xrandr įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "Įjungti xrdb įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "Įjungti xsettings įskiepį"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:23
+msgid "Mouse keys"
+msgstr "Pelės klavišai"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:24
+msgid "On-screen keyboard"
+msgstr "Klaviatūra ekrane"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:25
+msgid "Screen magnifier"
+msgstr "Ekrano lupa"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:26
+msgid "Screen reader"
+msgstr "Ekrano skaityklė"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -345,42 +405,42 @@ msgstr ""
 "Nustatykite tiesa, norėdami įjungti priežiūros įskiepį, valantį failų "
 "podėlius."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "Nustatykite tiesa, norėdami įjungti iškarpinės nustatymų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Nustatykite tiesa, norėdami įjungti darbalaukio fono nustatymų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "Nustatykite tiesa, norėdami įjungti  nustatymų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Nustatykite tiesa, norėdami įjungti klaviatūros nustatymų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Nustatykite tiesa, norėdami įjungti pelės nustatymų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Nustatykite tiesa, norėdami įjungti multimedijos klavišų nustatymų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr ""
 "Nustatykite tiesa, norėdami įjungti ekrano užsklandos nustatymų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "Set to True to enable the plugin to manage sound settings."
-msgstr "Nustatykite tiesa, norėdami įjungti garso nustatymų įskiepį."
+#: ../data/gnome-settings-daemon.schemas.in.h:35
+msgid "Set to True to enable the plugin to manage sound sample caches."
+msgstr "Nustatykite tiesa, norėdami įjungti garsų podėlių valdymo įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -388,35 +448,123 @@ msgstr ""
 "Nustatykite tiesa, norėdami įjungti klaviatūros pritaikymo neįgaliesiems "
 "nustatymų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "Nustatykite tiesa, norėdami įjungti klavišų susiejimų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Nustatykite tiesa, norėdami įjungti spausdinimo pertraukėlių įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "Nustatykite tiesa, norėdami įjungti xrandr nustatymų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "Nustatykite tiesa, norėdami įjungti xrdb nustatymų įskiepį."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Nustatykite tiesa, norėdami įjungti xsettings nustatymų įskiepį."
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../data/gnome-settings-daemon.schemas.in.h:42
+msgid "Slow keys"
+msgstr "Lėti klavišai"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:43
+msgid "Sticky keys"
+msgstr "Lipnūs klavišai"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the magnifier"
+msgstr "Klaviatūros susiejimas lupos įjungimui/išjungimui"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr "Klaviatūros susiejimas klaviatūros ekrane įjungimui/išjungimui"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgstr "Klaviatūros susiejimas skaityklės įjungimui/išjungimui"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid ""
+"This is the name of the keyboard shortcut to toggle the magnifier. This name "
+"will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Tai klaviatūros trumpinio lupai įjungti/išjungti vardas. Šis vardas bus "
+"rodomas klaviatūros trumpinių nustatymų dialoge."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid ""
+"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
+"This name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Tai klaviatūros trumpinio klaviatūrai ekrane įjungti/išjungti vardas. Šis "
+"vardas bus rodomas klaviatūros trumpinių nustatymų dialoge."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid ""
+"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Tai klaviatūros trumpinio ekrano skaityklei įjungti/išjungti vardas. Šis "
+"vardas bus rodomas klaviatūros trumpinių nustatymų dialoge."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
+msgid "Toggle magnifier"
+msgstr "Įjungti/išjungti lupą"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:51
+msgid "Toggle on-screen keyboard"
+msgstr "Naudoti klaviatūrą ekrane"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:52
+msgid "Toggle screen reader"
+msgstr "Jungti ekrano _skaityklę"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Toggle screenreader"
+msgstr "Jungti ekrano _skaityklę"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:54
+msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+msgstr "Ar šoklių klavišų funkcija įjungta."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:55
+msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+msgstr "Ar pelės klavišų funkcija įjungta."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:56
+msgid "Whether the on-screen keyboard is turned on."
+msgstr "Ar klaviatūra ekrane įjungta."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:57
+msgid "Whether the screen magnifier is turned on."
+msgstr "Ar ekrano lupa įjungta."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:58
+msgid "Whether the screen reader is turned on."
+msgstr "Ar ekrano skaityklė įjungta."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:59
+msgid "Whether the slow keys keyboard accessibility feature is turned on."
+msgstr "Ar įjungta lėtų klavišų funkcija."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:60
+msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+msgstr "Ar įjungta lipnių klavišų funkcija."
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Įjungti derinimo kodą"
 
-#: ../gnome-settings-daemon/main.c:51
+#: ../gnome-settings-daemon/main.c:55
 msgid "Don't become a daemon"
 msgstr "Neveikti kaip tarnyba"
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:56
 msgid "GConf prefix from which to load plugin settings"
 msgstr "GConf priesaga, iš kurios įkelti įskiepių nustatymus"
 
@@ -428,23 +576,23 @@ msgstr "Klaviatūros pritaikymas neįgaliesiems"
 msgid "Accessibility keyboard plugin"
 msgstr "Klaviatūros pritaikymo neįgaliesiems įskiepis"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Įvyko klaida bandant parodyti žinyną: %s"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid "Do you want to activate Slow Keys?"
 msgstr "Ar norite aktyvuoti Lėtus Klavišus?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Ar norite deaktyvuoti Lėtus Klavišus?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -452,62 +600,62 @@ msgstr ""
 "Jūs laikėte nuspaudę Shift klavišą 8 sekundes.  Tai yra Lipnių Klavišų "
 "funkcijos susiejimas, kuris veikia Jūsų klaviatūros darbo būdą."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't activate"
 msgstr "Neaktyvuoti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't deactivate"
 msgstr "Nedeaktyvuoti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Activate"
 msgstr "Aktyvuoti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Deactivate"
 msgstr "Deaktyvuoti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't activate"
 msgstr "_Neaktyvuoti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't deactivate"
 msgstr "_Nedeaktyvuoti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Activate"
 msgstr "_Aktyvuoti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Deactivate"
 msgstr "_Deaktyvuoti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:626
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
 msgid "Slow Keys Alert"
 msgstr "Lėtų klavišų aliarmas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Ar norite aktyvuoti Lipnius Klavišus?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Ar norite deaktyvuoti Lipnius Klavišus?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -516,8 +664,8 @@ msgstr ""
 "funkcijos iškvietimo kombinacija.  Lipnūs Klavišai leidžia kitaip dirbti su "
 "klaviatūra."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -527,7 +675,7 @@ msgstr ""
 "kartus iš eilės.  Tai įšjungia Lipnių Klavišų funkciją, kuri veikia "
 "klaviatūros darbo būdą."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
 msgid "Sticky Keys Alert"
 msgstr "Lipnių klavišų įspėjimas"
 
@@ -558,7 +706,7 @@ msgstr "Naudoti ekrano _lupą"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
 msgid "Use screen _reader"
-msgstr "Naudoti ekrano _skaitytuvą"
+msgstr "Naudoti ekrano _skaityklę"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
@@ -600,35 +748,30 @@ msgstr "Šriftai"
 msgid "Font plugin"
 msgstr "Šriftų įskiepis"
 
-#: ../plugins/font/gsd-font-manager.c:207
+#: ../plugins/housekeeping/gsd-disk-space.c:122
 #, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing the mouse pointer theme."
-msgstr ""
-"Nepavyko sukurti aplanko „%s“.\n"
-"To reikia norint leisti pakeisti žymeklių temą."
+msgid "%d%% of the disk space on `%s' is in use"
+msgstr "Naudojama %d%% disko „%s“ vietos"
 
-#: ../plugins/font/gsd-font-manager.c:230
-#, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing cursors."
-msgstr ""
-"Nepavyko sukurti aplanko „%s“.\n"
-"To reikia norint leisti pakeisti žymeklius."
+#: ../plugins/housekeeping/gsd-disk-space.c:130
+msgid "Low Disk Space"
+msgstr "Baigiasi vieta diske"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:190
-#, c-format
-msgid "Key binding (%s) is incomplete"
-msgstr "Klavišų susiejimas (%s) nepilnas"
+#: ../plugins/housekeeping/gsd-disk-space.c:141
+msgid "Analyze"
+msgstr "Analizuoti"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:222
+#: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "Klavišų susiejimas (%s) neįmanomas"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:409
+#: ../plugins/keybindings/gsd-keybindings-manager.c:197
+#, c-format
+msgid "Key binding (%s) is incomplete"
+msgstr "Klavišų susiejimas (%s) nepilnas"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:491
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -658,16 +801,17 @@ msgid "A_vailable files:"
 msgstr "P_rieinami failai:"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "Daugiau _nerodyti šio pranešimo."
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
 msgstr "Įkelti modmap failus"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "Ar norite įkelti šį modmap failą(us)?"
+
+#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+msgid "_Do not show this message again"
+msgstr "_Daugiau nerodyti šio pranešimo"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
@@ -677,7 +821,7 @@ msgstr "Į_kelti"
 msgid "_Loaded files:"
 msgstr "Į_kelti failai:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:206
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -685,7 +829,7 @@ msgstr ""
 "Nepavyko gauti numatytojo teminalo. Patikrinkite, kad jūsų numatytojo "
 "terminalo komanda yra nurodyta ir nurodo tinkamą programą."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:223
+#: ../plugins/media-keys/gsd-media-keys-manager.c:246
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -694,13 +838,21 @@ msgstr ""
 "Nepavyko paleisti komandos: %s\n"
 "Įsitikinkite, kad tai tinkama komanda."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:239
+#: ../plugins/media-keys/gsd-media-keys-manager.c:262
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr ""
 "Nepavyko užmigdyti kompiuterio.\n"
 "Įsitikinkite, kad kompiuteris sukonfigūruotas teisingai."
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+msgid "System Sounds"
+msgstr "Sistemos garsai"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+msgid "GNOME Volume Control"
+msgstr "GNOME garsumo valdymas"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -710,17 +862,17 @@ msgstr "Multimedijos klavišai"
 msgid "Media keys plugin"
 msgstr "Multimedijos klavišų įskiepis"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:625
 msgid "Could not enable mouse accessibility features"
 msgstr "Nepavyko įjungti pelės pritaikymo neįgaliesiems ypatybių"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:573
+#: ../plugins/mouse/gsd-mouse-manager.c:627
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 "Pelės pritaikymui neįgaliesiems reikia, kad būtų įdiegta mousetweaks tarnyba."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:576
+#: ../plugins/mouse/gsd-mouse-manager.c:630
 msgid "Mouse Preferences"
 msgstr "Pelės nustatymai"
 
@@ -732,7 +884,7 @@ msgstr "Pelė"
 msgid "Mouse plugin"
 msgstr "Pelės įskiepis"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:153
+#: ../plugins/screensaver/gsd-screensaver-manager.c:136
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -747,10 +899,6 @@ msgstr ""
 "\n"
 "Ekrano užsklanda šioje sesijoje neveiks."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:162
-msgid "_Do not show this message again"
-msgstr "_Daugiau nerodyti šio pranešimo"
-
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
 msgid "Screensaver"
 msgstr "Ekrano užsklanda"
@@ -758,80 +906,6 @@ msgstr "Ekrano užsklanda"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "Ekrano užsklandos įskiepis"
-
-#: ../plugins/sound/gsd-sound-manager.c:273
-#, c-format
-msgid "Couldn't load sound file %s as sample %s"
-msgstr "Nepavyko įkelti garso failo %s kaip pavyzdžio %s"
-
-#: ../plugins/sound/libsounds/sound-view.c:43
-msgid "Login"
-msgstr "Prisijungti"
-
-#: ../plugins/sound/libsounds/sound-view.c:44
-msgid "Logout"
-msgstr "Atsijungti"
-
-#: ../plugins/sound/libsounds/sound-view.c:45
-msgid "Boing"
-msgstr "Trinkt"
-
-#: ../plugins/sound/libsounds/sound-view.c:46
-msgid "Siren"
-msgstr "Sirena"
-
-#: ../plugins/sound/libsounds/sound-view.c:47
-msgid "Clink"
-msgstr "Cinkt"
-
-#: ../plugins/sound/libsounds/sound-view.c:48
-msgid "Beep"
-msgstr "Pypt"
-
-#: ../plugins/sound/libsounds/sound-view.c:49
-msgid "No sound"
-msgstr "Jokio garso"
-
-#: ../plugins/sound/libsounds/sound-view.c:131
-msgid "Sound not set for this event."
-msgstr "Šiam įvykiui nėra nustatyto garso."
-
-#: ../plugins/sound/libsounds/sound-view.c:140
-msgid ""
-"The sound file for this event does not exist.\n"
-"You may want to install the gnome-audio package for a set of default sounds."
-msgstr ""
-"Šiam įvykiui priskirtas garsinis failas neegzistuoja.\n"
-"Galbūt norite įdiegti gnome-audio paketą, kuriame yra numatytieji garsai."
-
-#: ../plugins/sound/libsounds/sound-view.c:151
-msgid "The sound file for this event does not exist."
-msgstr "Šiam įvykiui skirtas garso failas neegzistuoja."
-
-#: ../plugins/sound/libsounds/sound-view.c:182
-msgid "Select Sound File"
-msgstr "Pasirinkite garso failą"
-
-#: ../plugins/sound/libsounds/sound-view.c:209
-#, c-format
-msgid "The file %s is not a valid wav file"
-msgstr "Failas %s nėra tinkamas wav failas"
-
-#: ../plugins/sound/libsounds/sound-view.c:270
-msgid "Select sound file..."
-msgstr "Pasirinkite garso failą..."
-
-#: ../plugins/sound/libsounds/sound-view.c:372
-msgid "System Sounds"
-msgstr "Sistemos garsai"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "Garsas"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound plugin"
-msgstr "Garso įskiepis"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -849,42 +923,83 @@ msgstr "Nustatyti ekrano dydį ir pasukimą"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+msgid "Could not restore the display's configuration"
+msgstr "Nepavyko atkurti ekrano konfigūracijos"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+msgid "Could not restore the display's configuration from a backup"
+msgstr "Nepavyko atkurti ekrano konfigūracijos iš atsarginės kopijos"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:166
+#, c-format
+msgid "The display will be reset to its previous configuration in %d seconds"
+msgstr "Ekranas bus grąžintas į ankstesnę būseną po %d sekundžių"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+msgid "Does the display look OK?"
+msgstr "Ar ekranas rodo vaizdą korektiškai?"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:218
+msgid "_Restore Previous Configuration"
+msgstr "_Atkurti ankstesnę konfigūraciją"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:219
+msgid "_Keep This Configuration"
+msgstr "_Patvirtinti šią konfigūraciją"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:256
+msgid "The selected configuration for displays could not be applied"
+msgstr "Pasirinkta ekranų konfigūracija negalėjo būti pritaikyta"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:702
+#, c-format
+msgid "Could not refresh the screen information: %s"
+msgstr "Nepavyko atnaujinti ekrano informacijos: %s"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:705
+msgid "Trying to switch the monitor configuration anyway."
+msgstr "Vis vien bandoma pakeisti monitoriaus konfigūraciją."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:739
+msgid "Could not switch the monitor configuration"
+msgstr "Nepavyko pakeisti monitoriaus konfigūracijos"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Sukimas nepalaikomas</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:456
-#: ../plugins/xrandr/gsd-xrandr-manager.c:464
-msgid "The selected rotation could not be applied"
-msgstr "Nurodytas sukimas negalėjo būti pritaikytas"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
+msgid "Could not save monitor configuration"
+msgstr "Nepavyko įrašyti monitoriaus konfigūracijos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:457
-msgid "An error occurred while configuring the screen"
-msgstr "Konfigūruojant ekraną įvyko klaida"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
 msgid "Normal"
 msgstr "Normalus"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
 msgid "Left"
 msgstr "Kairė"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
 msgid "Right"
 msgstr "Dešinė"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
 msgid "Upside Down"
 msgstr "Apverstas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
 msgid "_Configure Display Settings ..."
 msgstr "_Konfigūruoti ekraną..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
 msgid "Configure display settings"
 msgstr "Konfigūruoti ekraną"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
+msgid "Could not apply the stored configuration for monitors"
+msgstr "Nepavyko pritaikyti įrašytos monitorių konfigūracijos"
 
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
@@ -899,7 +1014,7 @@ msgstr "Tvarkyti X resursų duomenų bazę"
 msgid "X Resource Database"
 msgstr "X resursų duomenų bazė"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:609
+#: ../plugins/xsettings/gsd-xsettings-manager.c:644
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf rakto %s tipas %s, bet jo tipas turėtų būti %s\n"
@@ -911,6 +1026,79 @@ msgstr "Tvarkyti X serverio nustatymus"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X serverio nustatymai"
+
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing the mouse pointer theme."
+#~ msgstr ""
+#~ "Nepavyko sukurti aplanko „%s“.\n"
+#~ "To reikia norint leisti pakeisti žymeklių temą."
+
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing cursors."
+#~ msgstr ""
+#~ "Nepavyko sukurti aplanko „%s“.\n"
+#~ "To reikia norint leisti pakeisti žymeklius."
+
+#~ msgid "Do _not show this warning again."
+#~ msgstr "Daugiau _nerodyti šio pranešimo."
+
+#~ msgid "Couldn't load sound file %s as sample %s"
+#~ msgstr "Nepavyko įkelti garso failo %s kaip pavyzdžio %s"
+
+#~ msgid "Login"
+#~ msgstr "Prisijungti"
+
+#~ msgid "Logout"
+#~ msgstr "Atsijungti"
+
+#~ msgid "Boing"
+#~ msgstr "Trinkt"
+
+#~ msgid "Siren"
+#~ msgstr "Sirena"
+
+#~ msgid "Clink"
+#~ msgstr "Cinkt"
+
+#~ msgid "Beep"
+#~ msgstr "Pypt"
+
+#~ msgid "No sound"
+#~ msgstr "Jokio garso"
+
+#~ msgid "Sound not set for this event."
+#~ msgstr "Šiam įvykiui nėra nustatyto garso."
+
+#~ msgid ""
+#~ "The sound file for this event does not exist.\n"
+#~ "You may want to install the gnome-audio package for a set of default "
+#~ "sounds."
+#~ msgstr ""
+#~ "Šiam įvykiui priskirtas garsinis failas neegzistuoja.\n"
+#~ "Galbūt norite įdiegti gnome-audio paketą, kuriame yra numatytieji garsai."
+
+#~ msgid "The sound file for this event does not exist."
+#~ msgstr "Šiam įvykiui skirtas garso failas neegzistuoja."
+
+#~ msgid "Select Sound File"
+#~ msgstr "Pasirinkite garso failą"
+
+#~ msgid "The file %s is not a valid wav file"
+#~ msgstr "Failas %s nėra tinkamas wav failas"
+
+#~ msgid "Select sound file..."
+#~ msgstr "Pasirinkite garso failą..."
+
+#~ msgid "Sound"
+#~ msgstr "Garsas"
+
+#~ msgid "Sound plugin"
+#~ msgstr "Garso įskiepis"
+
+#~ msgid "An error occurred while configuring the screen"
+#~ msgstr "Konfigūruojant ekraną įvyko klaida"
 
 #~ msgid "Key Binding (%s) has its action defined multiple times\n"
 #~ msgstr "Klavišų susiejimo (%s) veiksmas yra nustatytas per daug kartų\n"
