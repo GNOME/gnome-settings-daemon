@@ -11,28 +11,27 @@ INCLUDES = \
 	$(NULL)
 
 noinst_LTLIBRARIES = 			\
-	libgsd-plugins.la		\
+	libgsd-profile.la		\
 	$(NULL)
 
-libgsd_plugins_la_SOURCES =		\
-	gnome-settings-plugin.c		\
-	gnome-settings-plugin.h		\
+libgsd_profile_la_SOURCES =		\
 	gnome-settings-profile.c	\
 	gnome-settings-profile.h	\
 	$(NULL)
 
-libgsd_plugins_la_CPPFLAGS = 		\
+libgsd_profile_la_CPPFLAGS = 		\
 	$(DISABLE_DEPRECATED_CFLAGS)	\
 	$(NULL)
 
-libgsd_plugins_la_CFLAGS =		\
+libgsd_profile_la_CFLAGS =		\
+	$(SIMPLE_GREETER_CFLAGS)	\
 	$(NULL)
 
-libgsd_plugins_la_LIBADD =		\
+libgsd_profile_la_LIBADD =		\
 	$(NULL)
 
-libgsd_plugins_la_LDFLAGS = 		\
-	-export-dynamic 		\
+libgsd_profile_la_LDFLAGS = 	\
+	-export-dynamic 	\
 	$(NULL)
 
 gsddir = $(libexecdir)
@@ -60,6 +59,8 @@ gnome_settings_daemon_SOURCES =		\
 	main.c				\
 	gnome-settings-manager.c	\
 	gnome-settings-manager.h	\
+	gnome-settings-plugin.c		\
+	gnome-settings-plugin.h		\
 	gnome-settings-plugin-info.c	\
 	gnome-settings-plugin-info.h	\
 	gnome-settings-module.c		\
@@ -76,7 +77,7 @@ gnome_settings_daemon_LDFLAGS = 	\
 	$(AM_LDFLAGS)
 
 gnome_settings_daemon_LDADD = 		\
-	libgsd-plugins.la		\
+	libgsd-profile.la		\
 	$(SETTINGS_DAEMON_LIBS)
 
 EXTRA_DIST = 				\

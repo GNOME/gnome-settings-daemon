@@ -29,7 +29,6 @@ libxsettings_la_LDFLAGS = 	\
 	$(NULL)
 
 libxsettings_la_LIBADD  = 	\
-	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NULL)
 

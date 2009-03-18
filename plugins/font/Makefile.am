@@ -23,7 +23,6 @@ libfont_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libfont_la_LDFLAGS = 		\
-	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la	\
 	$(GSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 

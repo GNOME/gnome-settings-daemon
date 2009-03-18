@@ -36,7 +36,6 @@ libkeyboard_la_LDFLAGS = 	\
 	$(NULL)
 
 libkeyboard_la_LIBADD  = 	\
-	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(XF86MISC_LIBS)	\
 	$(LIBGNOMEKBD_LIBS)	\

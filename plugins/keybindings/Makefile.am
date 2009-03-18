@@ -26,7 +26,6 @@ libkeybindings_la_LDFLAGS = 		\
 	$(NULL)
 
 libkeybindings_la_LIBADD  = 		\
-	$(top_builddir)/gnome-settings-daemon/libgsd-plugins.la	\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(NULL)
