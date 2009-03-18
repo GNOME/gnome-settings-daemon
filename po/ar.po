@@ -13,8 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-14 11:09+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&component=general\n"
+"POT-Creation-Date: 2009-03-17 10:01+0000\n"
 "PO-Revision-Date: 2008-08-25 02:06+0300\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -24,6 +25,11 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+#, fuzzy
+msgid "Accessibility"
+msgstr "الإ_تاحة"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -267,143 +273,301 @@ msgstr ""
 "\"slight\" بدائي، \"medium\" قليل، و \"full\" أقصى ه (يمكن أن يؤدي إلى "
 "اعوجاج شكل الحروف)."
 
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+#, fuzzy
+msgid "Allowed keys"
+msgstr "تنبيه المفاتيح البطيئة"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+msgid ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
+msgstr ""
+
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "أبقِ على إعدادات جنوم"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
+#, fuzzy
+msgid "Binding to toggle the magnifier."
+msgstr "ارتباط فتح مجلد المنزل."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:2
+#, fuzzy
+msgid "Binding to toggle the on-screen keyboard."
+msgstr "ارتباط إقفال الشاشة."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:3
+#, fuzzy
+msgid "Binding to toggle the screen reader."
+msgstr "ارتباط إقفال الشاشة."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:4
+#, fuzzy
+msgid "Bounce keys"
+msgstr "مفاتيح الفأرة"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Command used to turn the magnifier on or off."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:6
+msgid "Command used to turn the on-screen keyboard on or off."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:7
+#, fuzzy
+msgid "Command used to turn the screen reader on or off."
+msgstr "اضبط لصحيح لِتشغيل حافظة الشاشة عند الولوج."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
 msgstr "فعّل ملحق إتاحة لوحة المفاتيح"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "فعّل ملحق الخلفية"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "فعّل ملحق الحافظة"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "فعّل ملحق الخط"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable housekeeping plugin"
 msgstr "فعّل ملحق تنظيف البيت"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
 msgstr "فعّل ملحق ارتباطات المفاتيح"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "فعّل ملحق لوحة المفاتيح"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable media keys plugin"
 msgstr "فعّل ملحق مفاتيح الوسائط"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "فعّل ملحق الفأرة"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable screensaver plugin"
 msgstr "فعّل ملحق حافظة الشاشة"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "فعّل ملحق الصوت"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable typing breaks plugin"
 msgstr "فعّل ملحق استراحة الكتابة"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrandr plugin"
 msgstr "فعّل ملحق xrandr"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "فعّل ملحق xrdb"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "فعّل ملحق xsettings"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:23
+#, fuzzy
+msgid "Mouse keys"
+msgstr "مفاتيح الفأرة"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:24
+#, fuzzy
+msgid "On-screen keyboard"
+msgstr "استعمل _لوحة مفاتيح على الشاشة"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:25
+#, fuzzy
+msgid "Screen magnifier"
+msgstr "استعمل _مكبّر شاشة"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:26
+#, fuzzy
+msgid "Screen reader"
+msgstr "تستعمب _قارئ شاشة"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
 msgstr "اضبط لصحيح لِتفعيل ملحق تنظيف البيت، لتتخلصص من ملفات الخبيئة المؤقتة."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات الحافظة."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات خلفية سطح المكتب."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات الخط."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات لوحة المفاتيح."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات الفأرة."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات المفاتيح الوسائطية."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات حافظة الشاشة."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "Set to True to enable the plugin to manage sound settings."
+#: ../data/gnome-settings-daemon.schemas.in.h:35
+#, fuzzy
+msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات الصوت."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات إتاحة لوحة المفاتيح."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة ارتباط المفاتيح."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة استراحة الكتابة."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات xrandr."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات xrdb."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "اضبط لصحيح لِتمكين الملحق من إدارة إعدادات xsettings."
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../data/gnome-settings-daemon.schemas.in.h:42
+#, fuzzy
+msgid "Slow keys"
+msgstr "تنبيه المفاتيح البطيئة"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:43
+#, fuzzy
+msgid "Sticky keys"
+msgstr "تنبيه المفاتيح اللاصقة"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the magnifier"
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+#, fuzzy
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr "ارتباط إقفال الشاشة."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+#, fuzzy
+msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgstr "ارتباط إقفال الشاشة."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid ""
+"This is the name of the keyboard shortcut to toggle the magnifier. This name "
+"will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid ""
+"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
+"This name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid ""
+"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
+msgid "Toggle magnifier"
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:51
+#, fuzzy
+msgid "Toggle on-screen keyboard"
+msgstr "استعمل _لوحة مفاتيح على الشاشة"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:52
+#, fuzzy
+msgid "Toggle screen reader"
+msgstr "تستعمب _قارئ شاشة"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+#, fuzzy
+msgid "Toggle screenreader"
+msgstr "تستعمب _قارئ شاشة"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:54
+#, fuzzy
+msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+msgstr "اضبط خيارات الإتاحة للوحة مفاتيحك"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:55
+#, fuzzy
+msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+msgstr "اضبط خيارات الإتاحة للوحة مفاتيحك"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:56
+msgid "Whether the on-screen keyboard is turned on."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:57
+msgid "Whether the screen magnifier is turned on."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:58
+msgid "Whether the screen reader is turned on."
+msgstr ""
+
+#: ../data/gnome-settings-daemon.schemas.in.h:59
+#, fuzzy
+msgid "Whether the slow keys keyboard accessibility feature is turned on."
+msgstr "اضبط خيارات الإتاحة للوحة مفاتيحك"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:60
+#, fuzzy
+msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+msgstr "اضبط خيارات الإتاحة للوحة مفاتيحك"
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "فعّل كود تتبع الأخطاء"
 
-#: ../gnome-settings-daemon/main.c:51
+#: ../gnome-settings-daemon/main.c:55
 msgid "Don't become a daemon"
 msgstr "لا تصبح جنيا"
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:56
 msgid "GConf prefix from which to load plugin settings"
 msgstr "بادئة GConf التي يتم منها تحميل إعدادات الملحق"
 
@@ -415,23 +579,23 @@ msgstr "إتاحة لوحة المفاتيح"
 msgid "Accessibility keyboard plugin"
 msgstr "ملحق إتاحة لوحة المفاتيح"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "حدث خطأ عند عرض المساعدة: %s"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
 msgid "Do you want to activate Slow Keys?"
 msgstr "أتريد تفعيل المفاتيح البطيئة؟"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "أتريد تعطيل المفاتيح البطيئة؟"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -439,62 +603,62 @@ msgstr ""
 "لقد ضغطت مفتاح Shift لثمان ثوان. إنّ هذا إختصار ميزة المفاتيح البطيئة المؤثّر "
 "على طريقة عمل لوحة مفاتيحك."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't activate"
 msgstr "لا تنشط"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
 msgid "Don't deactivate"
 msgstr "لا تعطل"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Activate"
 msgstr "نَشِّط"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
 msgid "Deactivate"
 msgstr "عَطِّل"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't activate"
 msgstr "_لا تنشط"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
 msgid "Do_n't deactivate"
 msgstr "_لا تعطل"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Activate"
 msgstr "_نَشِّط"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
 msgid "_Deactivate"
 msgstr "_عَطِّل"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:626
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
 msgid "Slow Keys Alert"
 msgstr "تنبيه المفاتيح البطيئة"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "Do you want to activate Sticky Keys?"
 msgstr "أتريد تفعيل المفاتيح اللاصقة؟"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "أتريد تعطيل المفاتيح اللاصقة؟"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -502,8 +666,8 @@ msgstr ""
 "لقد نقرت مفتاح Shift خمس مرات متتالية. هذا اختصار ميزة المفاتيح اللاصقة "
 "المؤثّر على طريقة عمل لوحة مفاتيحك."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -512,7 +676,7 @@ msgstr ""
 "لقد ضغطت على مفتاحان في آن واحد أو نقرت مفتاح Shift خمس مرّات متتالية. يعطّل "
 "هذا ميزة المفاتيح اللاصقة المؤثّر على طريقة عمل لوحة مفاتيحك."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
 msgid "Sticky Keys Alert"
 msgstr "تنبيه المفاتيح اللاصقة"
 
@@ -585,35 +749,30 @@ msgstr "الخط"
 msgid "Font plugin"
 msgstr "ملحق الخط"
 
-#: ../plugins/font/gsd-font-manager.c:207
+#: ../plugins/housekeeping/gsd-disk-space.c:122
 #, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing the mouse pointer theme."
+msgid "%d%% of the disk space on `%s' is in use"
 msgstr ""
-"تعذّر إنشاء الدليل \"%s\".\n"
-"هذا مطلوب حتى يمكن تغيير سِمة مؤشر الفأرة."
 
-#: ../plugins/font/gsd-font-manager.c:230
-#, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing cursors."
+#: ../plugins/housekeeping/gsd-disk-space.c:130
+msgid "Low Disk Space"
 msgstr ""
-"تعذّر إنشاء الدليل \"%s\".\n"
-"هذا مطلوب حتى يمكن تغيير المؤشرات."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:190
-#, c-format
-msgid "Key binding (%s) is incomplete"
-msgstr "ارتباط المفتاح (%s) غير مكتمل"
+#: ../plugins/housekeeping/gsd-disk-space.c:141
+msgid "Analyze"
+msgstr ""
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:222
+#: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "ارتباط المفتاح (%s) غير صالح"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:409
+#: ../plugins/keybindings/gsd-keybindings-manager.c:197
+#, c-format
+msgid "Key binding (%s) is incomplete"
+msgstr "ارتباط المفتاح (%s) غير مكتمل"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:491
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -643,16 +802,17 @@ msgid "A_vailable files:"
 msgstr "الملفّات المو_جودة:"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "لا تظهر هذا التحذير مجددًا."
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
 msgstr "حمِّل ملفات modmap"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "أتريد تحميل ملفات modmap ؟"
+
+#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+msgid "_Do not show this message again"
+msgstr "لا _تظهر هذه الرسالة مرة أخرى"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
@@ -662,7 +822,7 @@ msgstr "_حمِّل"
 msgid "_Loaded files:"
 msgstr "المل_فّات المحملة:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:206
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -670,7 +830,7 @@ msgstr ""
 "تعذر معرفة الطرفية الافتراضية. تحقق من أن أمر الطرفية الافتراضية لديك مُعدّ "
 "ويشير إلى تطبيق صالح."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:223
+#: ../plugins/media-keys/gsd-media-keys-manager.c:246
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -679,13 +839,22 @@ msgstr ""
 "تعذّر تنفيذ الأمر: %s\n"
 "تأكّد من أن هذا الأمر صالح."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:239
+#: ../plugins/media-keys/gsd-media-keys-manager.c:262
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr ""
 "تعذّرت إنامة الحاسوب.\n"
 "تأكّد من أنّ الحاسوب معدّ بسلامة."
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+msgid "System Sounds"
+msgstr "أصوات النظام"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+#, fuzzy
+msgid "GNOME Volume Control"
+msgstr "تحكم شدّة مجهول %d"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -695,16 +864,16 @@ msgstr "مفاتيح الوسائط"
 msgid "Media keys plugin"
 msgstr "ملحق مفاتيح الوسائط"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:625
 msgid "Could not enable mouse accessibility features"
 msgstr "تعذّر تفعيل ميزات إتاحة الفأرة"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:573
+#: ../plugins/mouse/gsd-mouse-manager.c:627
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "إتاحة الفأرة تتطلب تثبيت تحسينات الفأرة على نظامك."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:576
+#: ../plugins/mouse/gsd-mouse-manager.c:630
 msgid "Mouse Preferences"
 msgstr "تفضيلات الفأرة"
 
@@ -716,7 +885,7 @@ msgstr "الفأرة"
 msgid "Mouse plugin"
 msgstr "ملحق الفأرة"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:153
+#: ../plugins/screensaver/gsd-screensaver-manager.c:136
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -731,10 +900,6 @@ msgstr ""
 "\n"
 "لن تعمل حافظة الشاشة في هذه الجلسة."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:162
-msgid "_Do not show this message again"
-msgstr "لا _تظهر هذه الرسالة مرة أخرى"
-
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
 msgid "Screensaver"
 msgstr "حافظة الشاشة"
@@ -742,80 +907,6 @@ msgstr "حافظة الشاشة"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "ملحق حافظة الشاشة"
-
-#: ../plugins/sound/gsd-sound-manager.c:273
-#, c-format
-msgid "Couldn't load sound file %s as sample %s"
-msgstr "تعذّر تحميل ملف الصوت %s كعيِّنة %s"
-
-#: ../plugins/sound/libsounds/sound-view.c:43
-msgid "Login"
-msgstr "لًج"
-
-#: ../plugins/sound/libsounds/sound-view.c:44
-msgid "Logout"
-msgstr "اخرج"
-
-#: ../plugins/sound/libsounds/sound-view.c:45
-msgid "Boing"
-msgstr "بوينج"
-
-#: ../plugins/sound/libsounds/sound-view.c:46
-msgid "Siren"
-msgstr "صافرة إنذار"
-
-#: ../plugins/sound/libsounds/sound-view.c:47
-msgid "Clink"
-msgstr "صلصلة"
-
-#: ../plugins/sound/libsounds/sound-view.c:48
-msgid "Beep"
-msgstr "صافِرة"
-
-#: ../plugins/sound/libsounds/sound-view.c:49
-msgid "No sound"
-msgstr "لا صوت"
-
-#: ../plugins/sound/libsounds/sound-view.c:131
-msgid "Sound not set for this event."
-msgstr "الصوت لهذا الحدث غير معين."
-
-#: ../plugins/sound/libsounds/sound-view.c:140
-msgid ""
-"The sound file for this event does not exist.\n"
-"You may want to install the gnome-audio package for a set of default sounds."
-msgstr ""
-"ملف الصوت لهذا الحدث غير موجود.\n"
-"قد يتوجب عليك تثبيت حزمة gnome-audio للحصول على مجموعة من الأصوات الإفتراضية."
-
-#: ../plugins/sound/libsounds/sound-view.c:151
-msgid "The sound file for this event does not exist."
-msgstr "ملف الصوت لهذا الحدث غير موجود."
-
-#: ../plugins/sound/libsounds/sound-view.c:182
-msgid "Select Sound File"
-msgstr "اختر ملف صوت"
-
-#: ../plugins/sound/libsounds/sound-view.c:209
-#, c-format
-msgid "The file %s is not a valid wav file"
-msgstr "الملف %s ليس ملف wav سليم"
-
-#: ../plugins/sound/libsounds/sound-view.c:270
-msgid "Select sound file..."
-msgstr "اخترِ ملف صوت..."
-
-#: ../plugins/sound/libsounds/sound-view.c:372
-msgid "System Sounds"
-msgstr "أصوات النظام"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "صوت"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound plugin"
-msgstr "ملحق الصوت"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -833,42 +924,87 @@ msgstr "اختر إعدادات حجم الشاشة والدوران"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+msgid "Could not restore the display's configuration"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+msgid "Could not restore the display's configuration from a backup"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:166
+#, c-format
+msgid "The display will be reset to its previous configuration in %d seconds"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+msgid "Does the display look OK?"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:218
+#, fuzzy
+msgid "_Restore Previous Configuration"
+msgstr "استخدم الإستبانة السا_بقة"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:219
+#, fuzzy
+msgid "_Keep This Configuration"
+msgstr "ابقِ الإستبانة"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:256
+#, fuzzy
+msgid "The selected configuration for displays could not be applied"
+msgstr "تعذّر تطبيق التدوير المختار"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:702
+#, c-format
+msgid "Could not refresh the screen information: %s"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:705
+msgid "Trying to switch the monitor configuration anyway."
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:739
+msgid "Could not switch the monitor configuration"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>التدوير غير مدعوم</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:456
-#: ../plugins/xrandr/gsd-xrandr-manager.c:464
-msgid "The selected rotation could not be applied"
-msgstr "تعذّر تطبيق التدوير المختار"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
+#, fuzzy
+msgid "Could not save monitor configuration"
+msgstr "خطأ أثناء حفظ الإعدادات: %s."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:457
-msgid "An error occurred while configuring the screen"
-msgstr "حدث خطأ أثناء ضبط الشاشة"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
 msgid "Normal"
 msgstr "طبيعي"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
 msgid "Left"
 msgstr "يسار"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
 msgid "Right"
 msgstr "يمين"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
 msgid "Upside Down"
 msgstr "رأسا على عقب"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
 msgid "_Configure Display Settings ..."
 msgstr "_اضبط إعدادات أجهزة العرض..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
 msgid "Configure display settings"
 msgstr "اضبط إعدادات أجهزة العرض"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
+msgid "Could not apply the stored configuration for monitors"
+msgstr ""
 
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
@@ -883,7 +1019,7 @@ msgstr "أدر قاعدة بيانات موارد X"
 msgid "X Resource Database"
 msgstr "قاعدة بيانات موارد X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:609
+#: ../plugins/xsettings/gsd-xsettings-manager.c:644
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "مفتاح GConf وهو %s مضبوط لنوع %s بينما النوع المتوقع كان %s\n"
@@ -895,6 +1031,80 @@ msgstr "أدِر إعدادات X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "إعدادات X"
+
+#~ msgid "Do _not show this warning again."
+#~ msgstr "لا تظهر هذا التحذير مجددًا."
+
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing the mouse pointer theme."
+#~ msgstr ""
+#~ "تعذّر إنشاء الدليل \"%s\".\n"
+#~ "هذا مطلوب حتى يمكن تغيير سِمة مؤشر الفأرة."
+
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing cursors."
+#~ msgstr ""
+#~ "تعذّر إنشاء الدليل \"%s\".\n"
+#~ "هذا مطلوب حتى يمكن تغيير المؤشرات."
+
+#~ msgid "Couldn't load sound file %s as sample %s"
+#~ msgstr "تعذّر تحميل ملف الصوت %s كعيِّنة %s"
+
+#~ msgid "Login"
+#~ msgstr "لًج"
+
+#~ msgid "Logout"
+#~ msgstr "اخرج"
+
+#~ msgid "Boing"
+#~ msgstr "بوينج"
+
+#~ msgid "Siren"
+#~ msgstr "صافرة إنذار"
+
+#~ msgid "Clink"
+#~ msgstr "صلصلة"
+
+#~ msgid "Beep"
+#~ msgstr "صافِرة"
+
+#~ msgid "No sound"
+#~ msgstr "لا صوت"
+
+#~ msgid "Sound not set for this event."
+#~ msgstr "الصوت لهذا الحدث غير معين."
+
+#~ msgid ""
+#~ "The sound file for this event does not exist.\n"
+#~ "You may want to install the gnome-audio package for a set of default "
+#~ "sounds."
+#~ msgstr ""
+#~ "ملف الصوت لهذا الحدث غير موجود.\n"
+#~ "قد يتوجب عليك تثبيت حزمة gnome-audio للحصول على مجموعة من الأصوات "
+#~ "الإفتراضية."
+
+#~ msgid "The sound file for this event does not exist."
+#~ msgstr "ملف الصوت لهذا الحدث غير موجود."
+
+#~ msgid "Select Sound File"
+#~ msgstr "اختر ملف صوت"
+
+#~ msgid "The file %s is not a valid wav file"
+#~ msgstr "الملف %s ليس ملف wav سليم"
+
+#~ msgid "Select sound file..."
+#~ msgstr "اخترِ ملف صوت..."
+
+#~ msgid "Sound"
+#~ msgstr "صوت"
+
+#~ msgid "Sound plugin"
+#~ msgstr "ملحق الصوت"
+
+#~ msgid "An error occurred while configuring the screen"
+#~ msgstr "حدث خطأ أثناء ضبط الشاشة"
 
 #~ msgid "gtk-close"
 #~ msgstr "gtk-close"
@@ -1437,9 +1647,6 @@ msgstr "إعدادات X"
 #~ msgid "Keyboard Accessibility"
 #~ msgstr "إتاحة لوحة المفاتيح"
 
-#~ msgid "Set your keyboard accessibility preferences"
-#~ msgstr "اضبط خيارات الإتاحة للوحة مفاتيحك"
-
 #~ msgid ""
 #~ "This system does not seem to have the XKB extension.  The keyboard "
 #~ "accessibility features will not operate without it."
@@ -1513,9 +1720,6 @@ msgstr "إعدادات X"
 
 #~ msgid "Ma_ximum pointer speed:"
 #~ msgstr "سرعة المؤشر ال_قصوى:"
-
-#~ msgid "Mouse Keys"
-#~ msgstr "مفاتيح الفأرة"
 
 #~ msgid "Mouse _Preferences..."
 #~ msgstr "تفضيلات ال_فأرة..."
@@ -2229,9 +2433,6 @@ msgstr "إعدادات X"
 #~ msgid "Visual"
 #~ msgstr "المرئي"
 
-#~ msgid "Error saving configuration: %s"
-#~ msgstr "خطأ أثناء حفظ الإعدادات: %s."
-
 #~ msgid "Could not load the main interface"
 #~ msgstr "لم يمكن تحميل الواجهة الرئيسيّة"
 
@@ -2524,14 +2725,8 @@ msgstr "إعدادات X"
 #~ "يجري اختبار التّعيينات الجديدة. ستسترجع التّعيينات السابقة اذا لم تستجب "
 #~ "خلال %d ثانية."
 
-#~ msgid "Keep Resolution"
-#~ msgstr "ابقِ الإستبانة"
-
 #~ msgid "Do you want to keep this resolution?"
 #~ msgstr "أتريد الحفاظ على هذه الإستبانة؟"
-
-#~ msgid "Use _previous resolution"
-#~ msgstr "استخدم الإستبانة السا_بقة"
 
 #~ msgid "_Keep resolution"
 #~ msgstr "ا_بقِ الإستبانة"
@@ -2620,9 +2815,6 @@ msgstr "إعدادات X"
 
 #~ msgid "There was an error launching the keyboard tool: %s"
 #~ msgstr "حصل خطأ اثناء تشغيل أداة لوحة المفاتيح: %s"
-
-#~ msgid "_Accessibility"
-#~ msgstr "الإ_تاحة"
 
 #~ msgid ""
 #~ "Just apply settings and quit (compatibility only; now handled by daemon)"
@@ -2897,9 +3089,6 @@ msgstr "إعدادات X"
 
 #~ msgid "Enable sound and associate sounds with events"
 #~ msgstr "فعِّل الصوت واربطه بالأحداث"
-
-#~ msgid "Unknown Volume Control %d"
-#~ msgstr "تحكم شدّة مجهول %d"
 
 #~ msgid "Failed to construct test pipeline for '%s'"
 #~ msgstr "فشل تركيب خط أنابيب اختبار '%s'"
