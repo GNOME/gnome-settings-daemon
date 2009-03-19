@@ -199,7 +199,7 @@ timeout_response_cb (GtkDialog *dialog, int response_id, gpointer data)
 }
 
 static gboolean
-user_says_things_are_ok (GsdXrandrManager *manager)
+user_says_things_are_ok (GsdXrandrManager *manager, GdkWindow *parent_window)
 {
         TimeoutDialog timeout;
         guint timeout_id;
@@ -223,6 +223,11 @@ user_says_things_are_ok (GsdXrandrManager *manager)
                           G_CALLBACK (timeout_response_cb),
                           &timeout);
 
+        gtk_widget_realize (timeout.dialog);
+
+        if (parent_window)
+                gdk_window_set_transient_for (gtk_widget_get_window (timeout.dialog), parent_window);
+
         gtk_widget_show_all (timeout.dialog);
         /* We don't use g_timeout_add_seconds() since we actually care that the user sees "real" second ticks in the dialog */
         timeout_id = g_timeout_add (1000,
@@ -240,7 +245,7 @@ user_says_things_are_ok (GsdXrandrManager *manager)
 }
 
 static gboolean
-try_to_apply_intended_configuration (GsdXrandrManager *manager, GError **error)
+try_to_apply_intended_configuration (GsdXrandrManager *manager, GdkWindow *parent_window, guint32 timestamp, GError **error)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
         char *backup_filename;
@@ -261,7 +266,7 @@ try_to_apply_intended_configuration (GsdXrandrManager *manager, GError **error)
 
         /* Confirm with the user */
 
-        if (user_says_things_are_ok (manager))
+        if (user_says_things_are_ok (manager, parent_window))
                 unlink (backup_filename);
         else
                 restore_backup_configuration (manager, backup_filename, intended_filename);
@@ -273,12 +278,35 @@ out:
         return result;
 }
 
-/* DBus method; see gsd-xrandr-manager.xml for the interface definition */
+/* DBus method for org.gnome.SettingsDaemon.XRANDR ApplyConfiguration; see gsd-xrandr-manager.xml for the interface definition */
 static gboolean
 gsd_xrandr_manager_apply_configuration (GsdXrandrManager *manager,
                                         GError          **error)
 {
-        return try_to_apply_intended_configuration (manager, error);
+        return try_to_apply_intended_configuration (manager, NULL, 0, error);
+}
+
+/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 ApplyConfiguration; see gsd-xrandr-manager.xml for the interface definition */
+static gboolean
+gsd_xrandr_manager_2_apply_configuration (GsdXrandrManager *manager,
+                                          long              parent_window_id,
+                                          long              timestamp,
+                                          GError          **error)
+{
+        GdkWindow *parent_window;
+        gboolean result;
+
+        if (parent_window_id != 0)
+                parent_window = gdk_window_foreign_new_for_display (gdk_display_get_default (), parent_window_id);
+        else
+                parent_window = NULL;
+
+        result = try_to_apply_intended_configuration (manager, parent_window, (guint32) timestamp, error);
+
+        if (parent_window)
+                g_object_unref (parent_window);
+
+        return result;
 }
 
 /* We include this after the definition of gsd_xrandr_manager_apply_configuration() so the prototype will already exist */
@@ -1067,7 +1095,7 @@ output_rotation_item_activate_cb (GtkCheckMenuItem *item, gpointer data)
                 return;
         }
 
-        try_to_apply_intended_configuration (manager, NULL); /* NULL-GError */
+        try_to_apply_intended_configuration (manager, NULL, 0, NULL); /* NULL-GError */
 }
 
 static void
