@@ -1,5 +1,22 @@
 2009-03-19  Federico Mena Quintero  <federico@novell.com>
 
+	http://bugzilla.gnome.org/show_bug.cgi?id=576006 - The
+	confirmation dialog from the RANDR plugin can appear behind the
+	window from gnome-display-properties.  This also depends on a
+	change to gnome-control-center.
+
+	* plugins/xrandr/gsd-xrandr-manager.xml: Add an
+	org.gnome.SettingsDaemon.XRANDR_2 interface
+	in addition to the old XRANDR one, with an ApplyConfiguration
+	method that also takes a parent window ID and a timestamp.
+
+	* plugins/xrandr/gsd-xrandr-manager.c (gsd_xrandr_manager_2_apply_configuration):
+	Implement the new DBus method with the parent window and
+	timestamp.
+	(user_says_things_are_ok): Use the parent window.
+
+2009-03-19  Federico Mena Quintero  <federico@novell.com>
+
 	* plugins/xrandr/gsd-xrandr-manager.c (user_says_things_are_ok):
 	Revert the use of g_timeout_add_seconds(), since we actually care
 	that the user sees real second ticks in the dialog.  This isn't a
