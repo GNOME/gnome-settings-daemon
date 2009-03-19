@@ -1,3 +1,10 @@
+2009-03-19  Federico Mena Quintero  <federico@novell.com>
+
+	* plugins/xrandr/gsd-xrandr-manager.c (user_says_things_are_ok):
+	Revert the use of g_timeout_add_seconds(), since we actually care
+	that the user sees real second ticks in the dialog.  This isn't a
+	neverending timeout anyway.
+
 2009-03-18  Jens Granseuer  <jensgr@gmx.net>
 
 	* gnome-settings-daemon/Makefile.am:

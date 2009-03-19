@@ -212,7 +212,7 @@ user_says_things_are_ok (GsdXrandrManager *manager)
                                                  GTK_MESSAGE_QUESTION,
                                                  GTK_BUTTONS_NONE,
                                                  _("Does the display look OK?"));
-        timeout.countdown = 10;
+        timeout.countdown = 15;
         print_countdown_text (&timeout);
 
         gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("_Restore Previous Configuration"), GTK_RESPONSE_CANCEL);
@@ -224,9 +224,10 @@ user_says_things_are_ok (GsdXrandrManager *manager)
                           &timeout);
 
         gtk_widget_show_all (timeout.dialog);
-        timeout_id = g_timeout_add_seconds (1,
-                                            timeout_cb,
-                                            &timeout);
+        /* We don't use g_timeout_add_seconds() since we actually care that the user sees "real" second ticks in the dialog */
+        timeout_id = g_timeout_add (1000,
+                                    timeout_cb,
+                                    &timeout);
         gtk_main ();
 
         gtk_widget_destroy (timeout.dialog);
