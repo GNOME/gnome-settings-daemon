@@ -1,3 +1,20 @@
+2009-03-25  Federico Mena Quintero  <federico@novell.com>
+
+	Centralize the handling of GNOME_RR_ERROR_NO_MATCHING_CONFIG, as
+	that is not really an error.
+
+	* plugins/xrandr/gsd-xrandr-manager.c
+	(apply_configuration_from_filename): New helper function;
+	centralizes the handling of gnome_rr_config_apply_from_filename()
+	and ignores GNOME_RR_ERROR_NO_MATCHING_CONFIG.  That is not
+	actually an error; it just means that the user probably changed
+	his monitors and the stored set of configurations doesn't have a
+	config that is usable for the new monitors.
+	(restore_backup_configuration): Use apply_configuration_from_filename().
+	(try_to_apply_intended_configuration): Likewise.
+	(apply_intended_configuration): Likewise.
+	(apply_stored_configuration_at_startup): Likewise.
+
 2009-03-19  Federico Mena Quintero  <federico@novell.com>
 
 	http://bugzilla.gnome.org/show_bug.cgi?id=576006 - The
