@@ -1,5 +1,12 @@
 2009-03-25  Federico Mena Quintero  <federico@novell.com>
 
+	* plugins/xrandr/gsd-xrandr-manager.c
+	(restore_backup_configuration): Handle the case where no backup
+	file was created for monitors.xml, because *that* file didn't
+	exist (such as on a first-time login).
+
+2009-03-25  Federico Mena Quintero  <federico@novell.com>
+
 	Centralize the handling of GNOME_RR_ERROR_NO_MATCHING_CONFIG, as
 	that is not really an error.
 

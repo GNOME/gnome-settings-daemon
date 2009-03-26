@@ -148,7 +148,6 @@ restore_backup_configuration (GsdXrandrManager *manager, const char *backup_file
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
         int saved_errno;
-        char *msg;
 
         if (rename (backup_filename, intended_filename) == 0) {
                 GError *error;
@@ -166,14 +165,22 @@ restore_backup_configuration (GsdXrandrManager *manager, const char *backup_file
 
         saved_errno = errno;
 
-        msg = g_strdup_printf ("Could not rename %s to %s: %s",
-                               backup_filename, intended_filename,
-                               g_strerror (saved_errno));
-        error_message (manager,
-                       _("Could not restore the display's configuration from a backup"),
-                       NULL,
-                       msg);
-        g_free (msg);
+        /* ENOENT means the original file didn't exist.  That is *not* an error;
+         * the backup was not created because there wasn't even an original
+         * monitors.xml (such as on a first-time login).
+         */
+        if (saved_errno != ENOENT) {
+                char *msg;
+
+                msg = g_strdup_printf ("Could not rename %s to %s: %s",
+                                       backup_filename, intended_filename,
+                                       g_strerror (saved_errno));
+                error_message (manager,
+                               _("Could not restore the display's configuration from a backup"),
+                               NULL,
+                               msg);
+                g_free (msg);
+        }
 
         unlink (backup_filename);
 }
