@@ -1,3 +1,14 @@
+2009-03-26  Federico Mena Quintero  <federico@novell.com>
+
+	* plugins/xrandr/gsd-xrandr-manager.c
+	(ensure_current_configuration_is_saved): New helper function.
+	Ensures that a monitors.xml exists with the current/unchanged
+	configuration, so that a latter gnome_rr_config_save() will create
+	a backup file out of *that* original configuration.  This lets the
+	"revert" function from gnome-display-properties work properly on
+	an initial login, even when there is no monitors.xml already
+	present.
+
 2009-03-25  Federico Mena Quintero  <federico@novell.com>
 
 	* plugins/xrandr/gsd-xrandr-manager.c
