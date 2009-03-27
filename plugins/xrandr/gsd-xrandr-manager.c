@@ -146,7 +146,6 @@ restore_backup_configuration_without_messages (const char *backup_filename, cons
 static void
 restore_backup_configuration (GsdXrandrManager *manager, const char *backup_filename, const char *intended_filename)
 {
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
         int saved_errno;
 
         if (rename (backup_filename, intended_filename) == 0) {
@@ -284,7 +283,6 @@ user_says_things_are_ok (GsdXrandrManager *manager, GdkWindow *parent_window)
 static gboolean
 try_to_apply_intended_configuration (GsdXrandrManager *manager, GdkWindow *parent_window, guint32 timestamp, GError **error)
 {
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
         char *backup_filename;
         char *intended_filename;
         gboolean result;
