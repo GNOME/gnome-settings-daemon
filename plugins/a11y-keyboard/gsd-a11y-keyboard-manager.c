@@ -445,10 +445,9 @@ maybe_show_status_icon (GsdA11yKeyboardManager *manager)
 #ifdef HAVE_LIBNOTIFY
 static void
 on_notification_closed (NotifyNotification     *notification,
-                        int                     reason,
                         GsdA11yKeyboardManager *manager)
 {
-        /* seems to crash if we unref */
+        g_object_unref (manager->priv->notification);
         manager->priv->notification = NULL;
 }
 
@@ -474,10 +473,7 @@ on_slow_keys_action (NotifyNotification     *notification,
                                     response_id, XkbSlowKeysMask,
                                     manager->priv->slowkeys_shortcut_val);
         if (res) {
-                g_signal_handlers_disconnect_by_func (manager->priv->notification, on_notification_closed, manager);
                 notify_notification_close (manager->priv->notification, NULL);
-                g_object_unref (manager->priv->notification);
-                manager->priv->notification = NULL;
         }
 }
 
@@ -503,10 +499,7 @@ on_sticky_keys_action (NotifyNotification     *notification,
                                     response_id, XkbStickyKeysMask,
                                     manager->priv->stickykeys_shortcut_val);
         if (res) {
-                g_signal_handlers_disconnect_by_func (manager->priv->notification, on_notification_closed, manager);
                 notify_notification_close (manager->priv->notification, NULL);
-                g_object_unref (manager->priv->notification);
-                manager->priv->notification = NULL;
         }
 }
 
@@ -537,10 +530,7 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         }
 
         if (manager->priv->notification != NULL) {
-                g_signal_handlers_disconnect_by_func (manager->priv->notification, on_notification_closed, manager);
                 notify_notification_close (manager->priv->notification, NULL);
-                g_object_unref (manager->priv->notification);
-                manager->priv->notification = NULL;
         }
 
         gsd_a11y_keyboard_manager_ensure_status_icon (manager);
@@ -574,10 +564,7 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         if (! res) {
                 g_warning ("GsdA11yKeyboardManager: unable to show notification: %s", error->message);
                 g_error_free (error);
-                g_signal_handlers_disconnect_by_func (manager->priv->notification, on_notification_closed, manager);
                 notify_notification_close (manager->priv->notification, NULL);
-                g_object_unref (manager->priv->notification);
-                manager->priv->notification = NULL;
         }
 
         return res;
@@ -682,10 +669,7 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         }
 
         if (manager->priv->notification != NULL) {
-                g_signal_handlers_disconnect_by_func (manager->priv->notification, on_notification_closed, manager);
                 notify_notification_close (manager->priv->notification, NULL);
-                g_object_unref (manager->priv->notification);
-                manager->priv->notification = NULL;
         }
 
         gsd_a11y_keyboard_manager_ensure_status_icon (manager);
@@ -719,10 +703,7 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         if (! res) {
                 g_warning ("GsdA11yKeyboardManager: unable to show notification: %s", error->message);
                 g_error_free (error);
-                g_signal_handlers_disconnect_by_func (manager->priv->notification, on_notification_closed, manager);
                 notify_notification_close (manager->priv->notification, NULL);
-                g_object_unref (manager->priv->notification);
-                manager->priv->notification = NULL;
         }
 
         return res;
@@ -1091,8 +1072,8 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
 
         g_debug ("Stopping a11y_keyboard manager");
 
-        if (manager->priv->status_icon)
-                gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
+        if (p->status_icon)
+                gtk_status_icon_set_visible (p->status_icon, FALSE);
 
         if (p->gconf_notify != 0) {
                 GConfClient *client = gconf_client_get_default ();

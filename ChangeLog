@@ -1,5 +1,15 @@
 2009-03-27  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:
+	(on_notification_closed), (on_slow_keys_action),
+	(on_sticky_keys_action), (ax_slowkeys_warning_post_bubble),
+	(ax_stickykeys_warning_post_bubble),
+	(gsd_a11y_keyboard_manager_stop): fix crash when closing the a11y
+	notification bubble caused by incompatible changes in libnotify API
+	(bug #576535). Also remove workarounds for bugs in libnotify < 0.4.4
+
+2009-03-27  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/xrandr/gsd-xrandr-manager.c:
 	(restore_backup_configuration),
 	(try_to_apply_intended_configuration): remove unused variables
