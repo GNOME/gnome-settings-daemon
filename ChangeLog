@@ -1,3 +1,11 @@
+2009-03-28  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/xrandr/gsd-xrandr-manager.c: (sanitize),
+	(generate_fn_f7_configs): if the sanitized array ends up having no
+	members at all return a NULL configuration since the following code
+	assumes it has at least one valid setup if it's not NULL. Fixes a
+	crash when closing the lid on some laptops (bug #576875)
+
 2009-03-27  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:

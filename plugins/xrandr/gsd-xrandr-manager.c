@@ -605,7 +605,7 @@ sanitize (GPtrArray *array)
         int i;
         GPtrArray *new;
 
-        g_print ("before sanitizing\n");
+        g_debug ("before sanitizing");
 
         for (i = 0; i < array->len; ++i) {
                 if (array->pdata[i]) {
@@ -617,7 +617,7 @@ sanitize (GPtrArray *array)
         /* Remove configurations that are duplicates of
          * configurations earlier in the cycle
          */
-        for (i = 0; i < array->len; ++i) {
+        for (i = 1; i < array->len; ++i) {
                 int j;
 
                 for (j = 0; j < i; ++j) {
@@ -625,7 +625,7 @@ sanitize (GPtrArray *array)
                         GnomeRRConfig *other = array->pdata[i];
 
                         if (this && other && gnome_rr_config_equal (this, other)) {
-                                g_print ("removing duplicate configuration\n");
+                                g_debug ("removing duplicate configuration");
                                 gnome_rr_config_free (this);
                                 array->pdata[j] = NULL;
                                 break;
@@ -662,7 +662,12 @@ sanitize (GPtrArray *array)
                 }
         }
 
-        g_ptr_array_add (new, NULL);
+        if (new->len > 0) {
+                g_ptr_array_add (new, NULL);
+        } else {
+                g_ptr_array_free (new, TRUE);
+                new = NULL;
+        }
 
         g_ptr_array_free (array, TRUE);
 
@@ -675,7 +680,7 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
         GPtrArray *array = g_ptr_array_new ();
         GnomeRRScreen *screen = mgr->priv->rw_screen;
 
-        g_print ("Generating configurations\n");
+        g_debug ("Generating configurations");
 
         /* Free any existing list of configurations */
         if (mgr->priv->fn_f7_configs) {
@@ -695,12 +700,13 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
         g_ptr_array_add (array, make_laptop_setup (screen));
         g_ptr_array_add (array, make_other_setup (screen));
         g_ptr_array_add (array, gnome_rr_config_new_stored (screen, NULL)); /* NULL-GError - if this can't read the stored config, no big deal */
-        g_ptr_array_add (array, NULL);
 
         array = sanitize (array);
 
-        mgr->priv->fn_f7_configs = (GnomeRRConfig **)g_ptr_array_free (array, FALSE);
-        mgr->priv->current_fn_f7_config = 0;
+        if (array) {
+                mgr->priv->fn_f7_configs = (GnomeRRConfig **)g_ptr_array_free (array, FALSE);
+                mgr->priv->current_fn_f7_config = 0;
+        }
 }
 
 static void
