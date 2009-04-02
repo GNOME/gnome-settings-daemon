@@ -209,7 +209,7 @@ numlock_gconf_state_key (void)
 {
         char *key = gsd_keyboard_get_hostname_key ("numlock_on");
         if (!key) {
-                g_warning ("NumLock remembering disabled because hostname is set to \"localhost\"");
+                g_message ("NumLock remembering disabled because hostname is set to \"localhost\"");
         }
         return key;
 }
