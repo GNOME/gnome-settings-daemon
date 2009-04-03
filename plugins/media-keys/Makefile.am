@@ -61,7 +61,9 @@ libmedia_keys_la_LIBADD  = 		\
 plugin_in_files = 		\
 	media-keys.gnome-settings-plugin.in
 
+if HAVE_PULSE
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+endif
 
 noinst_PROGRAMS =				\
 	test-media-keys				\
