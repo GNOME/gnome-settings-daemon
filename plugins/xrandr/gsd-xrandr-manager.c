@@ -67,6 +67,11 @@
 
 #define VIDEO_KEYSYM    "XF86Display"
 
+/* Number of seconds that the confirmation dialog will last before it resets the
+ * RANDR configuration to its old state.
+ */
+#define CONFIRMATION_DIALOG_SECONDS 30
+
 /* name of the icon files (gsd-xrandr.svg, etc.) */
 #define GSD_XRANDR_ICON_NAME "gsd-xrandr"
 
@@ -248,7 +253,9 @@ user_says_things_are_ok (GsdXrandrManager *manager, GdkWindow *parent_window)
                                                  GTK_MESSAGE_QUESTION,
                                                  GTK_BUTTONS_NONE,
                                                  _("Does the display look OK?"));
-        timeout.countdown = 15;
+
+        timeout.countdown = CONFIRMATION_DIALOG_SECONDS;
+
         print_countdown_text (&timeout);
 
         gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("_Restore Previous Configuration"), GTK_RESPONSE_CANCEL);

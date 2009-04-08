@@ -1,3 +1,9 @@
+2009-04-08  Federico Mena Quintero  <federico@novell.com>
+
+	* plugins/xrandr/gsd-xrandr-manager.c (user_says_things_are_ok):
+	Use 30 seconds for the confirmation timeout, so that monitors can
+	settle down and the user will have a chance to read the message.
+
 2009-04-03  Jens Granseuer  <jensgr@gmx.net>
 
 	Patch by: <yselkowitz@users.sourceforge.net>
