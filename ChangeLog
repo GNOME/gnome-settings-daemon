@@ -1,3 +1,9 @@
+2009-04-11  Jens Granseuer  <jensgr@gmx.net>
+
+	* plugins/keyboard/gsd-keyboard-manager.c:
+	(start_keyboard_idle_cb): preload GConf keyboard directory recursively
+	to avoid roundtrips (bug #578542)
+
 2009-04-08  Federico Mena Quintero  <federico@novell.com>
 
 	* plugins/xrandr/gsd-xrandr-manager.c (user_says_things_are_ok):

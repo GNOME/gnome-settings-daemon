@@ -382,7 +382,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         manager->priv->have_xkb = 0;
         client = gconf_client_get_default ();
 
-        gconf_client_add_dir (client, GSD_KEYBOARD_KEY, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+        gconf_client_add_dir (client, GSD_KEYBOARD_KEY, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 
         /* Essential - xkb initialization should happen before */
         gsd_keyboard_xkb_set_post_activation_callback ((PostActivationCallback) gsd_load_modmap_files, NULL);
