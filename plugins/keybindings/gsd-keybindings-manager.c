@@ -565,14 +565,15 @@ gsd_keybindings_manager_start (GsdKeybindingsManager *manager,
 
         client = gconf_client_get_default ();
 
-        manager->priv->allowed_keys = gconf_client_get_list (client,
-                                                             ALLOWED_KEYS_KEY,
-                                                             GCONF_VALUE_STRING,
-                                                             NULL);
         manager->priv->notify = register_config_callback (manager,
                                                           client,
                                                           GCONF_BINDING_DIR,
                                                           (GConfClientNotifyFunc) bindings_callback);
+
+        manager->priv->allowed_keys = gconf_client_get_list (client,
+                                                             ALLOWED_KEYS_KEY,
+                                                             GCONF_VALUE_STRING,
+                                                             NULL);
 
         dpy = gdk_display_get_default ();
         screen_num = gdk_display_get_n_screens (dpy);

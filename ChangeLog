@@ -1,5 +1,12 @@
 2009-04-11  Jens Granseuer  <jensgr@gmx.net>
 
+	* plugins/keybindings/gsd-keybindings-manager.c:
+	(gsd_keybindings_manager_start): move the lookup of allowed keys
+	after the directory has been cached in callback registration to avoid
+	GConf roundtrip (bug #578539)
+
+2009-04-11  Jens Granseuer  <jensgr@gmx.net>
+
 	* plugins/keyboard/gsd-keyboard-manager.c:
 	(start_keyboard_idle_cb): preload GConf keyboard directory recursively
 	to avoid roundtrips (bug #578542)
