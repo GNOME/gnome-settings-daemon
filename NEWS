@@ -1,4 +1,25 @@
 ==============
+Version 2.26.1
+==============
+- Fix crash when closing the lid on some laptops (Jens Granseuer) (#576875)
+- Fix crash when closing a11y notification bubble (Jens Granseuer) (#576535)
+  (use of libnotify >= 0.4.5 highly recommended)
+- Fix problems with saving/restoring screen setup (Federico Mena Quintero)
+- Make the screen resolution confirmation dialog always appear in front of
+  the settings window (Federico Mena Quintero) (#576006)
+- Increase confirmation timeout to 30 seconds to give slower devices (like
+  projectors) time to adjust
+- Avoid some GConf roundtrips (Jens Granseuer) (#578539, #578542)
+- Build fixes (Jens Granseuer, yselkowitz@users.sourceforge.net)
+- Updated translations:
+  - ar (Khaled Hosny)
+  - as (Amitakhya Phukan)
+  - kn (Shankar Prasad)
+  - nb (Kjartan Maraas)
+  - sr (Miloš Popović)
+  - sr@latin (Miloš Popović)
+
+==============
 Version 2.26.0
 ==============
 - Make build work with -Wl,-z,defs (Christopher Taylor) (#574452)
