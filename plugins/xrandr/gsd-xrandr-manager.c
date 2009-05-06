@@ -1019,6 +1019,7 @@ make_menu_item_for_output_title (GsdXrandrManager *manager, GnomeOutputInfo *out
         GtkWidget *item;
         GtkWidget *label;
         char *str;
+	GdkColor black = { 0, 0, 0, 0 };
 
         item = gtk_menu_item_new ();
 
@@ -1029,6 +1030,12 @@ make_menu_item_for_output_title (GsdXrandrManager *manager, GnomeOutputInfo *out
         label = gtk_label_new (NULL);
         gtk_label_set_markup (GTK_LABEL (label), str);
         g_free (str);
+
+	/* Make the label explicitly black.  We don't want it to follow the
+	 * theme's colors, since the label is always shown against a light
+	 * pastel background.  See bgo#556050
+	 */
+	gtk_widget_modify_fg (label, GTK_WIDGET_STATE (label), &black);
 
         /* Add padding around the label to fit the box that we'll draw for color-coding */
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
