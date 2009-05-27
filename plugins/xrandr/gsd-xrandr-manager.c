@@ -143,17 +143,17 @@ show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
 }
 
 /* Filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from
- * gnome_rr_config_apply_from_filename(), since that is not usually an error.
+ * gnome_rr_config_apply_from_filename_with_time(), since that is not usually an error.
  */
 static gboolean
-apply_configuration_from_filename (GsdXrandrManager *manager, const char *filename, GError **error)
+apply_configuration_from_filename (GsdXrandrManager *manager, const char *filename, guint32 timestamp, GError **error)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
         GError *my_error;
         gboolean success;
 
         my_error = NULL;
-        success = gnome_rr_config_apply_from_filename (priv->rw_screen, filename, &my_error);
+        success = gnome_rr_config_apply_from_filename_with_time (priv->rw_screen, filename, timestamp, &my_error);
         if (success)
                 return TRUE;
 
@@ -177,7 +177,7 @@ restore_backup_configuration_without_messages (const char *backup_filename, cons
 }
 
 static void
-restore_backup_configuration (GsdXrandrManager *manager, const char *backup_filename, const char *intended_filename)
+restore_backup_configuration (GsdXrandrManager *manager, const char *backup_filename, const char *intended_filename, guint32 timestamp)
 {
         int saved_errno;
 
@@ -185,7 +185,7 @@ restore_backup_configuration (GsdXrandrManager *manager, const char *backup_file
                 GError *error;
 
                 error = NULL;
-                if (!apply_configuration_from_filename (manager, intended_filename, &error)) {
+                if (!apply_configuration_from_filename (manager, intended_filename, timestamp, &error)) {
                         error_message (manager, _("Could not restore the display's configuration"), error, NULL);
 
                         if (error)
@@ -329,7 +329,7 @@ try_to_apply_intended_configuration (GsdXrandrManager *manager, GdkWindow *paren
         backup_filename = gnome_rr_config_get_backup_filename ();
         intended_filename = gnome_rr_config_get_intended_filename ();
 
-        result = apply_configuration_from_filename (manager, intended_filename, error);
+        result = apply_configuration_from_filename (manager, intended_filename, timestamp, error);
         if (!result) {
                 error_message (manager, _("The selected configuration for displays could not be applied"), error ? *error : NULL, NULL);
                 restore_backup_configuration_without_messages (backup_filename, intended_filename);
@@ -341,7 +341,7 @@ try_to_apply_intended_configuration (GsdXrandrManager *manager, GdkWindow *paren
         if (user_says_things_are_ok (manager, parent_window))
                 unlink (backup_filename);
         else
-                restore_backup_configuration (manager, backup_filename, intended_filename);
+                restore_backup_configuration (manager, backup_filename, intended_filename, timestamp);
 
 out:
         g_free (backup_filename);
@@ -355,7 +355,7 @@ static gboolean
 gsd_xrandr_manager_apply_configuration (GsdXrandrManager *manager,
                                         GError          **error)
 {
-        return try_to_apply_intended_configuration (manager, NULL, 0, error);
+        return try_to_apply_intended_configuration (manager, NULL, GDK_CURRENT_TIME, error);
 }
 
 /* DBus method for org.gnome.SettingsDaemon.XRANDR_2 ApplyConfiguration; see gsd-xrandr-manager.xml for the interface definition */
@@ -781,7 +781,7 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
 }
 
 static void
-handle_fn_f7 (GsdXrandrManager *mgr)
+handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
 {
         GsdXrandrManagerPrivate *priv = mgr->priv;
         GnomeRRScreen *screen = priv->rw_screen;
@@ -842,7 +842,7 @@ handle_fn_f7 (GsdXrandrManager *mgr)
                 g_debug ("applying");
 
                 error = NULL;
-                if (!gnome_rr_config_apply (priv->fn_f7_configs[mgr->priv->current_fn_f7_config], screen, &error)) {
+                if (!gnome_rr_config_apply_with_time (priv->fn_f7_configs[mgr->priv->current_fn_f7_config], screen, timestamp, &error)) {
                         error_message (mgr, _("Could not switch the monitor configuration"), error, NULL);
                         g_error_free (error);
                 }
@@ -868,8 +868,8 @@ event_filter (GdkXEvent           *xevent,
         if (xev->xany.type != KeyPress && xev->xany.type != KeyRelease)
                 return GDK_FILTER_CONTINUE;
 
-        if (xev->xkey.keycode == manager->priv->keycode && xev->xany.type == KeyPress) {
-                handle_fn_f7 (manager);
+        if (xev->xany.type == KeyPress && xev->xkey.keycode == manager->priv->keycode) {
+                handle_fn_f7 (manager, xev->xkey.time);
 
                 return GDK_FILTER_CONTINUE;
         }
@@ -1207,7 +1207,7 @@ output_rotation_item_activate_cb (GtkCheckMenuItem *item, gpointer data)
                 return;
         }
 
-        try_to_apply_intended_configuration (manager, NULL, 0, NULL); /* NULL-GError */
+        try_to_apply_intended_configuration (manager, NULL, gtk_get_current_event_time (), NULL); /* NULL-GError */
 }
 
 static void
@@ -1427,12 +1427,12 @@ on_config_changed (GConfClient          *client,
 }
 
 static void
-apply_intended_configuration (GsdXrandrManager *manager, const char *intended_filename)
+apply_intended_configuration (GsdXrandrManager *manager, const char *intended_filename, guint32 timestamp)
 {
         GError *my_error;
 
         my_error = NULL;
-        if (!apply_configuration_from_filename (manager, intended_filename, &my_error)) {
+        if (!apply_configuration_from_filename (manager, intended_filename, timestamp, &my_error)) {
                 if (my_error) {
                         if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
                                 error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
@@ -1443,7 +1443,7 @@ apply_intended_configuration (GsdXrandrManager *manager, const char *intended_fi
 }
 
 static void
-apply_stored_configuration_at_startup (GsdXrandrManager *manager)
+apply_stored_configuration_at_startup (GsdXrandrManager *manager, guint32 timestamp)
 {
         GError *my_error;
         gboolean success;
@@ -1461,13 +1461,13 @@ apply_stored_configuration_at_startup (GsdXrandrManager *manager)
 
         my_error = NULL;
 
-        success = apply_configuration_from_filename (manager, backup_filename, &my_error);
+        success = apply_configuration_from_filename (manager, backup_filename, timestamp, &my_error);
         if (success) {
                 /* The backup configuration existed, and could be applied
                  * successfully, so we must restore it on top of the
                  * failed/intended one.
                  */
-                restore_backup_configuration (manager, backup_filename, intended_filename);
+                restore_backup_configuration (manager, backup_filename, intended_filename, timestamp);
                 goto out;
         }
 
@@ -1486,7 +1486,7 @@ apply_stored_configuration_at_startup (GsdXrandrManager *manager)
          * good.  Apply the intended configuration instead.
          */
 
-        apply_intended_configuration (manager, intended_filename);
+        apply_intended_configuration (manager, intended_filename, timestamp);
 
 out:
 
@@ -1537,7 +1537,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                 gdk_error_trap_pop ();
         }
 
-        apply_stored_configuration_at_startup (manager);
+        show_timestamps_dialog (manager, "Startup");
+        apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME); /* we don't have a real timestamp at startup anyway */
 
         gdk_window_add_filter (gdk_get_default_root_window(),
                                (GdkFilterFunc)event_filter,
