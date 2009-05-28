@@ -114,6 +114,34 @@ G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+static void
+show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
+{
+#if 1
+        return;
+#else
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        GtkWidget *dialog;
+        guint32 change_timestamp, config_timestamp;
+        static int serial;
+
+        gnome_rr_screen_get_timestamps (priv->rw_screen, &change_timestamp, &config_timestamp);
+
+        dialog = gtk_message_dialog_new (NULL,
+                                         0,
+                                         GTK_MESSAGE_INFO,
+                                         GTK_BUTTONS_CLOSE,
+                                         "RANDR timestamps (%d):\n%s\nchange: %u\nconfig: %u",
+                                         serial++,
+                                         msg,
+                                         change_timestamp,
+                                         config_timestamp);
+        g_signal_connect (dialog, "response",
+                          G_CALLBACK (gtk_widget_destroy), NULL);
+        gtk_widget_show (dialog);
+#endif
+}
+
 /* Filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from
  * gnome_rr_config_apply_from_filename(), since that is not usually an error.
  */
