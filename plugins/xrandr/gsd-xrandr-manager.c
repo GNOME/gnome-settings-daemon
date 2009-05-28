@@ -151,6 +151,11 @@ apply_configuration_from_filename (GsdXrandrManager *manager, const char *filena
         struct GsdXrandrManagerPrivate *priv = manager->priv;
         GError *my_error;
         gboolean success;
+        char *str;
+
+        str = g_strdup_printf ("Applying %s with timestamp %d", filename, timestamp);
+        show_timestamps_dialog (manager, str);
+        g_free (str);
 
         my_error = NULL;
         success = gnome_rr_config_apply_from_filename_with_time (priv->rw_screen, filename, timestamp, &my_error);
