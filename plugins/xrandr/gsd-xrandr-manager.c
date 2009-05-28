@@ -885,6 +885,7 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
         if (!manager->priv->running)
                 return;
 
+        show_timestamps_dialog (manager, "Got RANDR event");
         /* FIXME: Set up any new screens here */
 }
 
