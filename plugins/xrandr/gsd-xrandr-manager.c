@@ -333,15 +333,15 @@ gsd_xrandr_manager_apply_configuration (GsdXrandrManager *manager,
 /* DBus method for org.gnome.SettingsDaemon.XRANDR_2 ApplyConfiguration; see gsd-xrandr-manager.xml for the interface definition */
 static gboolean
 gsd_xrandr_manager_2_apply_configuration (GsdXrandrManager *manager,
-                                          long              parent_window_id,
-                                          long              timestamp,
+                                          gint64            parent_window_id,
+                                          gint64            timestamp,
                                           GError          **error)
 {
         GdkWindow *parent_window;
         gboolean result;
 
         if (parent_window_id != 0)
-                parent_window = gdk_window_foreign_new_for_display (gdk_display_get_default (), parent_window_id);
+                parent_window = gdk_window_foreign_new_for_display (gdk_display_get_default (), (GdkNativeWindow) parent_window_id);
         else
                 parent_window = NULL;
 
