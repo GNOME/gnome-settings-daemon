@@ -886,12 +886,31 @@ static void
 on_randr_event (GnomeRRScreen *screen, gpointer data)
 {
         GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        guint32 change_timestamp, config_timestamp;
 
-        if (!manager->priv->running)
+        if (!priv->running)
                 return;
 
-        show_timestamps_dialog (manager, "Got RANDR event");
-        /* FIXME: Set up any new screens here */
+        gnome_rr_screen_get_timestamps (screen, &change_timestamp, &config_timestamp);
+
+        if (change_timestamp > config_timestamp) {
+                /* The event is due to an explicit configuration change.
+                 *
+                 * If the change was performed by us, then we need to do nothing.
+                 *
+                 * If the change was done by some other X client, we don't need
+                 * to do anything, either; the screen is already configured.
+                 */
+                show_timestamps_dialog (manager, "ignoring since change > config");
+        } else {
+                /* Here, config_timestamp >= change_timestamp.  This means that
+                 * the screen got reconfigured because of hotplug/unplug; the X
+                 * server is just notifying us, and we need to configure the
+                 * outputs in a sane way.
+                 */
+                show_timestamps_dialog (manager, "need to deal with reconfiguration, as config >= change");
+        }
 }
 
 static void
