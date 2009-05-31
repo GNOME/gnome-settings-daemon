@@ -144,11 +144,15 @@ show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
 #endif
 }
 
-/* Filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from
+/* Optionally filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from
  * gnome_rr_config_apply_from_filename_with_time(), since that is not usually an error.
  */
 static gboolean
-apply_configuration_from_filename (GsdXrandrManager *manager, const char *filename, guint32 timestamp, GError **error)
+apply_configuration_from_filename (GsdXrandrManager *manager,
+                                   const char       *filename,
+                                   gboolean          no_matching_config_is_an_error,
+                                   guint32           timestamp,
+                                   GError          **error)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
         GError *my_error;
@@ -165,6 +169,9 @@ apply_configuration_from_filename (GsdXrandrManager *manager, const char *filena
                 return TRUE;
 
         if (g_error_matches (my_error, GNOME_RR_ERROR, GNOME_RR_ERROR_NO_MATCHING_CONFIG)) {
+                if (no_matching_config_is_an_error)
+                        goto fail;
+
                 /* This is not an error; the user probably changed his monitors
                  * and so they don't match any of the stored configurations.
                  */
@@ -172,6 +179,7 @@ apply_configuration_from_filename (GsdXrandrManager *manager, const char *filena
                 return TRUE;
         }
 
+fail:
         g_propagate_error (error, my_error);
         return FALSE;
 }
@@ -192,7 +200,7 @@ restore_backup_configuration (GsdXrandrManager *manager, const char *backup_file
                 GError *error;
 
                 error = NULL;
-                if (!apply_configuration_from_filename (manager, intended_filename, timestamp, &error)) {
+                if (!apply_configuration_from_filename (manager, intended_filename, FALSE, timestamp, &error)) {
                         error_message (manager, _("Could not restore the display's configuration"), error, NULL);
 
                         if (error)
@@ -336,7 +344,7 @@ try_to_apply_intended_configuration (GsdXrandrManager *manager, GdkWindow *paren
         backup_filename = gnome_rr_config_get_backup_filename ();
         intended_filename = gnome_rr_config_get_intended_filename ();
 
-        result = apply_configuration_from_filename (manager, intended_filename, timestamp, error);
+        result = apply_configuration_from_filename (manager, intended_filename, FALSE, timestamp, error);
         if (!result) {
                 error_message (manager, _("The selected configuration for displays could not be applied"), error ? *error : NULL, NULL);
                 restore_backup_configuration_without_messages (backup_filename, intended_filename);
@@ -1472,7 +1480,7 @@ apply_intended_configuration (GsdXrandrManager *manager, const char *intended_fi
         GError *my_error;
 
         my_error = NULL;
-        if (!apply_configuration_from_filename (manager, intended_filename, timestamp, &my_error)) {
+        if (!apply_configuration_from_filename (manager, intended_filename, FALSE, timestamp, &my_error)) {
                 if (my_error) {
                         if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
                                 error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
@@ -1501,7 +1509,7 @@ apply_stored_configuration_at_startup (GsdXrandrManager *manager, guint32 timest
 
         my_error = NULL;
 
-        success = apply_configuration_from_filename (manager, backup_filename, timestamp, &my_error);
+        success = apply_configuration_from_filename (manager, backup_filename, FALSE, timestamp, &my_error);
         if (success) {
                 /* The backup configuration existed, and could be applied
                  * successfully, so we must restore it on top of the
