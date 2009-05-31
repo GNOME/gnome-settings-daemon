@@ -904,6 +904,12 @@ refresh_tray_icon_menu_if_active (GsdXrandrManager *manager, guint32 timestamp)
 }
 
 static void
+auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
+{
+        /* FMQ: implement */
+}
+
+static void
 on_randr_event (GnomeRRScreen *screen, gpointer data)
 {
         GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
@@ -925,12 +931,44 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  */
                 show_timestamps_dialog (manager, "ignoring since change > config");
         } else {
+                char *intended_filename;
+                GError *error;
+                gboolean success;
+
                 /* Here, config_timestamp >= change_timestamp.  This means that
                  * the screen got reconfigured because of hotplug/unplug; the X
                  * server is just notifying us, and we need to configure the
                  * outputs in a sane way.
                  */
                 show_timestamps_dialog (manager, "need to deal with reconfiguration, as config >= change");
+
+                intended_filename = gnome_rr_config_get_intended_filename ();
+
+                error = NULL;
+                success = apply_configuration_from_filename (manager, intended_filename, TRUE, config_timestamp, &error);
+                g_free (intended_filename);
+
+                if (!success) {
+                        /* We don't bother checking the error type.
+                         *
+                         * Both G_FILE_ERROR_NOENT and
+                         * GNOME_RR_ERROR_NO_MATCHING_CONFIG would mean, "there
+                         * was no configuration to apply, or none that matched
+                         * the current outputs", and in that case we need to run
+                         * our fallback.
+                         *
+                         * Any other error means "we couldn't do the smart thing
+                         * of using a previously- saved configuration, anyway,
+                         * for some other reason.  In that case, we also need to
+                         * run our fallback to avoid leaving the user with a
+                         * bogus configuration.
+                         */
+
+                        if (error)
+                                g_error_free (error);
+
+                        auto_configure_outputs (manager, config_timestamp);
+                }
         }
 
         refresh_tray_icon_menu_if_active (manager, MAX (change_timestamp, config_timestamp));
