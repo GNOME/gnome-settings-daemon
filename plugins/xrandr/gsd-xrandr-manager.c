@@ -102,6 +102,9 @@ struct GsdXrandrManagerPrivate
         /* fn-F7 status */
         int             current_fn_f7_config;             /* -1 if no configs */
         GnomeRRConfig **fn_f7_configs;  /* NULL terminated, NULL if there are no configs */
+
+        /* Last time at which we got a "screen got reconfigured" event; see on_randr_event() */
+        guint32 last_config_timestamp;
 };
 
 static void     gsd_xrandr_manager_class_init  (GsdXrandrManagerClass *klass);
@@ -1018,7 +1021,7 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
 
         gnome_rr_screen_get_timestamps (screen, &change_timestamp, &config_timestamp);
 
-        if (change_timestamp > config_timestamp) {
+        if (change_timestamp >= config_timestamp) {
                 /* The event is due to an explicit configuration change.
                  *
                  * If the change was performed by us, then we need to do nothing.
@@ -1028,13 +1031,18 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  */
                 show_timestamps_dialog (manager, "ignoring since change > config");
         } else {
-                /* Here, config_timestamp >= change_timestamp.  This means that
+                /* Here, config_timestamp > change_timestamp.  This means that
                  * the screen got reconfigured because of hotplug/unplug; the X
                  * server is just notifying us, and we need to configure the
                  * outputs in a sane way.
                  */
+
+
 #if 1
-                auto_configure_outputs (manager, config_timestamp);
+                if (config_timestamp != priv->last_config_timestamp) {
+                        priv->last_config_timestamp = config_timestamp;
+                        auto_configure_outputs (manager, config_timestamp);
+                }
 #else
                 /* WHY THIS CODE IS DISABLED:
                  *
