@@ -110,6 +110,8 @@ static void     gsd_xrandr_manager_finalize    (GObject             *object);
 
 static void error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text);
 
+static void status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp);
+
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
@@ -883,6 +885,17 @@ event_filter (GdkXEvent           *xevent,
 }
 
 static void
+refresh_tray_icon_menu_if_active (GsdXrandrManager *manager, guint32 timestamp)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+
+        if (priv->popup_menu) {
+                gtk_menu_shell_cancel (GTK_MENU_SHELL (priv->popup_menu)); /* status_icon_popup_menu_selection_done_cb() will free everything */
+                status_icon_popup_menu (manager, 0, timestamp);
+        }
+}
+
+static void
 on_randr_event (GnomeRRScreen *screen, gpointer data)
 {
         GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
@@ -911,6 +924,8 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  */
                 show_timestamps_dialog (manager, "need to deal with reconfiguration, as config >= change");
         }
+
+        refresh_tray_icon_menu_if_active (manager, MAX (change_timestamp, config_timestamp));
 }
 
 static void
