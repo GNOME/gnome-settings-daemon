@@ -931,15 +931,38 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  */
                 show_timestamps_dialog (manager, "ignoring since change > config");
         } else {
-                char *intended_filename;
-                GError *error;
-                gboolean success;
-
                 /* Here, config_timestamp >= change_timestamp.  This means that
                  * the screen got reconfigured because of hotplug/unplug; the X
                  * server is just notifying us, and we need to configure the
                  * outputs in a sane way.
                  */
+#if 1
+                auto_configure_outputs (manager, config_timestamp);
+#else
+                /* WHY THIS CODE IS DISABLED:
+                 *
+                 * The strategy of "on hotplug or unsuspend, restore a
+                 * known-good configuration, and fall back to autoconfiguration"
+                 * works fine as long as you don't happen to be running
+                 * gnome-display-properties and click its "Detect displays"
+                 * button.
+                 *
+                 * If you do that, the RANDR calls from g-d-p will cause the X
+                 * server to re-probe the RANDR outputs.  The server will send
+                 * us an event, we'll restore the configuration to something
+                 * else... and you'll be weirded out, because "just detecting
+                 * your monitors" should not change the current configuration,
+                 * right?
+                 *
+                 * We may need some kind of D-bus API so that g-d-p can inhibit
+                 * this RANDR plugin's reconfiguration-fu when the "Detect
+                 * displays" button is being used.
+                 */
+
+                char *intended_filename;
+                GError *error;
+                gboolean success;
+
                 show_timestamps_dialog (manager, "need to deal with reconfiguration, as config >= change");
 
                 intended_filename = gnome_rr_config_get_intended_filename ();
@@ -969,6 +992,7 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
 
                         auto_configure_outputs (manager, config_timestamp);
                 }
+#endif
         }
 
         refresh_tray_icon_menu_if_active (manager, MAX (change_timestamp, config_timestamp));
