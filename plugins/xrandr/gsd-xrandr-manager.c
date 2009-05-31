@@ -111,6 +111,7 @@ static void     gsd_xrandr_manager_finalize    (GObject             *object);
 static void error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text);
 
 static void status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp);
+static void run_display_capplet (GtkWidget *widget);
 
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
@@ -1001,6 +1002,8 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
          * start the display capplet so that the user can tweak things to his
          * liking.
          */
+
+        run_display_capplet (NULL);
 }
 
 static void
@@ -1093,12 +1096,15 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
 }
 
 static void
-popup_menu_configure_display_cb (GtkMenuItem *item, gpointer data)
+run_display_capplet (GtkWidget *widget)
 {
         GdkScreen *screen;
         GError *error;
 
-        screen = gtk_widget_get_screen (GTK_WIDGET (item));
+        if (widget)
+                screen = gtk_widget_get_screen (widget);
+        else
+                screen = gdk_screen_get_default ();
 
         error = NULL;
         if (!gdk_spawn_command_line_on_screen (screen, GSD_XRANDR_DISPLAY_CAPPLET, &error)) {
@@ -1114,6 +1120,12 @@ popup_menu_configure_display_cb (GtkMenuItem *item, gpointer data)
 
 		g_error_free (error);
         }
+}
+
+static void
+popup_menu_configure_display_cb (GtkMenuItem *item, gpointer data)
+{
+        run_display_capplet (GTK_WIDGET (item));
 }
 
 static void
