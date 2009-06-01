@@ -23,6 +23,8 @@
 
 /* gcc -DHAVE_LIBNOTIFY -DTEST -Wall `pkg-config --cflags --libs gobject-2.0 gio-unix-2.0 glib-2.0 gtk+-2.0 libnotify` -o gsd-disk-space-test gsd-disk-space.c */
 
+#include "config.h"
+
 #include <sys/statvfs.h>
 
 #include <glib.h>
