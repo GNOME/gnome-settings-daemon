@@ -1006,7 +1006,22 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
          * liking.
          */
 
+#if 0
+        /* FIXME: This is disabled for now.  The capplet is not a single-instance application.
+         * If you do this:
+         *
+         *   1. Start the display capplet
+         *
+         *   2. Plug an extra monitor
+         *
+         *   3. Hit the "Detect displays" button
+         *
+         * Then we will get a RANDR event because X re-probes the outputs.  We don't want to
+         * start up a second display capplet right there!
+         */
+
         run_display_capplet (NULL);
+#endif
 }
 
 static void
