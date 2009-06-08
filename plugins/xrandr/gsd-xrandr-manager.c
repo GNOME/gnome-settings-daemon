@@ -704,8 +704,8 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
         }
 
         g_ptr_array_add (array, gnome_rr_config_new_current (screen));
-        g_ptr_array_add (array, make_xinerama_setup (screen));
         g_ptr_array_add (array, make_clone_setup (screen));
+        g_ptr_array_add (array, make_xinerama_setup (screen));
         g_ptr_array_add (array, make_laptop_setup (screen));
         g_ptr_array_add (array, make_other_setup (screen));
         g_ptr_array_add (array, gnome_rr_config_new_stored (screen, NULL)); /* NULL-GError - if this can't read the stored config, no big deal */
