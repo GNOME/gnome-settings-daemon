@@ -233,18 +233,44 @@ apply_xkb_settings (void)
 	gdm_keyboard_layout = NULL;
 	if (gdm_layout != NULL) {
 		GSList *layouts;
+		GSList *found_node;
+		int     max_groups;
+
+		max_groups = xkl_engine_get_max_num_groups (xkl_engine);
 		layouts = gconf_client_get_list (conf_client,
 						 GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
 						 GCONF_VALUE_STRING, NULL);
-		if (layouts == NULL) {
-			layouts =
-			    g_slist_append (layouts,
-					    g_strdup (gdm_layout));
+
+		/* Add the layout if it doesn't already exist. XKB limits the
+		 * total number of layouts. If we already have the maximum
+		 * number of layouts configured, we replace the last one. This
+		 * prevents the list from becoming full if the user has a habit
+		 * of selecting many different keyboard layouts in GDM. */
+
+		found_node = g_slist_find_custom (layouts, gdm_layout, g_strcmp0);
+
+		if (!found_node) {
+			/* Insert at the last valid place, or at the end of
+			 * list, whichever comes first */
+			layouts = g_slist_insert (layouts, g_strdup (gdm_layout), max_groups - 1);
+			if (g_slist_length (layouts) > max_groups) {
+				GSList *last;
+				GSList *free_layouts;
+
+				last = g_slist_nth (layouts, max_groups - 1);
+				free_layouts = last->next;
+				last->next = NULL;
+
+				g_slist_foreach (free_layouts, (GFunc) g_free, NULL);
+				g_slist_free (free_layouts);
+			}
+
 			gconf_client_set_list (conf_client,
 					       GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
 					       GCONF_VALUE_STRING, layouts,
 					       NULL);
 		}
+
 		g_slist_foreach (layouts, (GFunc) g_free, NULL);
 		g_slist_free (layouts);
 	}
