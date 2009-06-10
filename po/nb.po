@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.25.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-29 11:50+0200\n"
-"PO-Revision-Date: 2009-04-29 11:56+0200\n"
+"POT-Creation-Date: 2009-06-10 11:28+0200\n"
+"PO-Revision-Date: 2009-06-10 11:29+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -433,7 +433,8 @@ msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr "Sett til True for å aktivere tillegg for å håndtere caching av lydsampler."
+msgstr ""
+"Sett til True for å aktivere tillegg for å håndtere caching av lydsampler."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid ""
@@ -482,7 +483,7 @@ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "Navn på tastatursnarvei for å slå av/på tastatur på skjermen"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "Navn på tastaturbinding for å slå av/på skjermleser"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:47
@@ -499,9 +500,9 @@ msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid ""
-"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
+msgstr "Navn på tastatursnarvei for å slå av/på skjermleser. Dette navnet vil vises i dialogen for brukervalg for tastatursnarveier."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle magnifier"
@@ -516,34 +517,30 @@ msgid "Toggle screen reader"
 msgstr "Slå av/på skjermleser"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Toggle screenreader"
-msgstr "Slå av/på skjermleser"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the on-screen keyboard is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the screen magnifier is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:58
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen reader is turned on."
 msgstr "Om skjermleser er slått på."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:59
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:60
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr ""
 
@@ -738,16 +735,16 @@ msgstr "Skrift"
 msgid "Font plugin"
 msgstr "Tillegg for skrift"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:122
+#: ../plugins/housekeeping/gsd-disk-space.c:124
 #, c-format
 msgid "%d%% of the disk space on `%s' is in use"
 msgstr "%d%% av diskplassen på «%s» er i bruk"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:130
+#: ../plugins/housekeeping/gsd-disk-space.c:132
 msgid "Low Disk Space"
 msgstr "Lite diskplass"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:141
+#: ../plugins/housekeeping/gsd-disk-space.c:143
 msgid "Analyze"
 msgstr "Analyser"
 
@@ -913,84 +910,87 @@ msgstr "Rediger innstillinger for skjermstørrelse og rotasjon"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:161
+#: ../plugins/xrandr/gsd-xrandr-manager.c:208
 msgid "Could not restore the display's configuration"
 msgstr "Kunne ikke gjenopprette skjermkonfigurasjon"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:186
+#: ../plugins/xrandr/gsd-xrandr-manager.c:233
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Kunne ikke gjenopprette skjermkonfigurasjonen fra sikkerhetskopi"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:207
+#: ../plugins/xrandr/gsd-xrandr-manager.c:254
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
-msgstr[0] "Skjermen vil bli satt tilbake til forrige konfigurasjon om %d sekund"
-msgstr[1] "Skjermen vil bli satt tilbake til forrige konfigurasjon om %d sekunder"
+msgstr[0] ""
+"Skjermen vil bli satt tilbake til forrige konfigurasjon om %d sekund"
+msgstr[1] ""
+"Skjermen vil bli satt tilbake til forrige konfigurasjon om %d sekunder"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:257
+#: ../plugins/xrandr/gsd-xrandr-manager.c:304
 msgid "Does the display look OK?"
 msgstr "Ser dette bra ut?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:263
+#: ../plugins/xrandr/gsd-xrandr-manager.c:310
 msgid "_Restore Previous Configuration"
 msgstr "Gjenopp_rett forrige konfigurasjon"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:264
+#: ../plugins/xrandr/gsd-xrandr-manager.c:311
 msgid "_Keep This Configuration"
 msgstr "_Behold denne konfigurasjonen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:306
+#: ../plugins/xrandr/gsd-xrandr-manager.c:353
 msgid "The selected configuration for displays could not be applied"
 msgstr "Valgt konfigurasjon for skjermer kunne ikke brukes"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:781
+#: ../plugins/xrandr/gsd-xrandr-manager.c:828
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Kunne ikke oppdatere informasjon om skjermen: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:784
+#: ../plugins/xrandr/gsd-xrandr-manager.c:831
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Prøver å bytte skjermkonfigurasjon likevel."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:818
+#: ../plugins/xrandr/gsd-xrandr-manager.c:865
+#: ../plugins/xrandr/gsd-xrandr-manager.c:996
 msgid "Could not switch the monitor configuration"
 msgstr "Kunne ikke bytte skjermkonfigurasjon"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1114
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1388
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Rotering ikke støttet</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1168
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1442
 msgid "Could not save monitor configuration"
 msgstr "Kunne ikke lagre skjermkonfigurasjon"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1186
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1460
 msgid "Normal"
 msgstr "Normal"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1187
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1461
 msgid "Left"
 msgstr "Venstre"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1188
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1462
 msgid "Right"
 msgstr "Høyre"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1189
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1463
 msgid "Upside Down"
 msgstr "Opp-ned"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1308
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1582
 msgid "_Configure Display Settings ..."
 msgstr "_Konfigurer innstillinger for skjerm..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1349
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1623
 msgid "Configure display settings"
 msgstr "Konfigurer skjerminnstillinger"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1403
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1677
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kunne ikke bruke lagret konfigurasjon for skjermer"
 
