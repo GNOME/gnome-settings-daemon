@@ -40,6 +40,7 @@
 #include "gnome-settings-profile.h"
 
 static XklEngine *xkl_engine;
+static XklConfigRegistry *xkl_registry = NULL;
 
 static GkbdDesktopConfig current_config;
 static GkbdKeyboardConfig current_kbd_config;
@@ -125,7 +126,7 @@ activation_error (void)
 }
 
 static void
-apply_settings (void)
+apply_desktop_settings (void)
 {
 	if (!inited_ok)
 		return;
@@ -134,6 +135,79 @@ apply_settings (void)
 	/* again, probably it would be nice to compare things
 	   before activating them */
 	gkbd_desktop_config_activate (&current_config);
+}
+
+static gboolean
+try_activating_xkb_config_if_new (GkbdKeyboardConfig *current_sys_kbd_config)
+{
+	/* Activate - only if different! */
+	if (!gkbd_keyboard_config_equals
+	    (&current_kbd_config, current_sys_kbd_config)) {
+		if (gkbd_keyboard_config_activate (&current_kbd_config)) {
+			if (pa_callback != NULL) {
+				(*pa_callback) (pa_callback_user_data);
+				return TRUE;
+			}
+		} else {
+		       return FALSE;
+		}
+	}
+	return TRUE;
+}
+
+static gboolean
+filter_xkb_config (void)
+{
+	XklConfigItem *item;
+	gchar *lname;
+	gchar *vname;
+	GSList *lv;
+	GSList *filtered;
+	gboolean any_change = FALSE;
+
+	xkl_debug (100, "Filtering configuration against the registry\n");
+	if (!xkl_registry) {
+		xkl_registry = xkl_config_registry_get_instance (xkl_engine);
+		if (!xkl_config_registry_load (xkl_registry)) {
+			g_object_unref (xkl_registry);
+			xkl_registry = NULL;
+			return FALSE;
+		}
+	}
+	lv = current_kbd_config.layouts_variants;
+	item = xkl_config_item_new ();
+	while (lv) {
+		xkl_debug (100, "Checking [%s]\n", lv->data);
+		if (gkbd_keyboard_config_split_items(lv->data, &lname, &vname)) {
+			g_snprintf (item->name, sizeof (item->name), "%s", lname);
+			if (!xkl_config_registry_find_layout (xkl_registry, item)) {
+			xkl_debug (100, "Bad layout [%s]\n", lname);
+				filtered = lv;
+				lv = lv->next;
+				g_free (filtered->data);
+				current_kbd_config.layouts_variants = g_slist_delete_link (current_kbd_config.layouts_variants,
+											   filtered);
+				any_change = TRUE;
+				continue;
+			}
+			if (vname) {
+				g_snprintf (item->name, sizeof (item->name), "%s", vname);
+				if (!xkl_config_registry_find_variant (xkl_registry, lname, item)) {
+				xkl_debug(100, "Bad variant [%s(%s)]\n", lname, vname);
+					filtered = lv;
+					lv = lv->next;
+					g_free (filtered->data);
+					current_kbd_config.layouts_variants = g_slist_delete_link (current_kbd_config.layouts_variants,
+												   filtered);
+					any_change = TRUE;
+					continue;
+				}
+			}
+		}
+		lv = lv->next;
+	}
+	g_object_unref(item);
+	return any_change;
 }
 
 static void
@@ -201,16 +275,14 @@ apply_xkb_settings (void)
 		}
 	}
 
-	/* Activate - only if different! */
-	if (!gkbd_keyboard_config_equals
-	    (&current_kbd_config, &current_sys_kbd_config)) {
-		if (gkbd_keyboard_config_activate (&current_kbd_config)) {
-			if (pa_callback != NULL) {
-				(*pa_callback) (pa_callback_user_data);
+	if (!try_activating_xkb_config_if_new (&current_sys_kbd_config)) {
+		if (filter_xkb_config ()) {
+			if (!try_activating_xkb_config_if_new (&current_sys_kbd_config)) {
+				g_warning ("Could not activate the filtered XKB configuration");
+				activation_error ();
 			}
-		} else {
-			g_warning
-			    ("Could not activate the XKB configuration");
+		} else {	
+			g_warning ("Could not activate the XKB configuration");
 			activation_error ();
 		}
 	} else
@@ -346,7 +418,7 @@ register_config_callback (GConfClient * client,
 static void
 gsd_keyboard_new_device (XklEngine * engine)
 {
-	apply_settings ();
+	apply_desktop_settings ();
 	apply_xkb_settings ();
 }
 
@@ -383,7 +455,7 @@ gsd_keyboard_xkb_init (GConfClient * client)
 		    register_config_callback (client,
 					      GKBD_DESKTOP_CONFIG_DIR,
 					      (GConfClientNotifyFunc)
-					      apply_settings);
+					      apply_desktop_settings);
 
 		notify_keyboard =
 		    register_config_callback (client,
@@ -406,9 +478,9 @@ gsd_keyboard_xkb_init (GConfClient * client)
 					 XKLL_MANAGE_WINDOW_STATES);
 		gnome_settings_profile_end ("xkl_engine_start_listen");
 
-		gnome_settings_profile_start ("apply_settings");
-		apply_settings ();
-		gnome_settings_profile_end ("apply_settings");
+		gnome_settings_profile_start ("apply_desktop_settings");
+		apply_desktop_settings ();
+		gnome_settings_profile_end ("apply_desktop_settings");
 		gnome_settings_profile_start ("apply_xkb_settings");
 		apply_xkb_settings ();
 		gnome_settings_profile_end ("apply_xkb_settings");
@@ -447,6 +519,10 @@ gsd_keyboard_xkb_shutdown (void)
 					 NULL);
 		gconf_client_notify_remove (client, notify_keyboard);
 		notify_keyboard = 0;
+	}
+
+	if (xkl_registry) {
+		g_object_unref (xkl_registry);
 	}
 
 	g_object_unref (client);
