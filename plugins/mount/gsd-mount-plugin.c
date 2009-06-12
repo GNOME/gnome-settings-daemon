@@ -17,6 +17,8 @@
  *
  */
 
+#include <config.h>
+
 #include <glib/gi18n.h>
 #include <gmodule.h>
 #include <gnome-settings-daemon/gnome-settings-plugin.h>
