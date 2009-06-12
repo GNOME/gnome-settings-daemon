@@ -534,5 +534,29 @@
       </locale>
     </schema>
 
+    <schema>
+      <key>/schemas/apps/gnome_settings_daemon/plugins/mount/active</key>
+      <applyto>/apps/gnome_settings_daemon/plugins/mount/active</applyto>
+      <owner>gnome-settings-daemon</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>Enable mount plugin</short>
+        <long>Set to True to enable the plugin to automount media.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/gnome_settings_daemon/plugins/mount/priority</key>
+      <applyto>/apps/gnome_settings_daemon/plugins/mount/priority</applyto>
+      <owner>gnome-settings-daemon</owner>
+      <type>int</type>
+      <default>99</default>
+      <locale name="C">
+        <short></short>
+        <long></long>
+      </locale>
+    </schema>
+
+
   </schemalist>
 </gconfschemafile>
