@@ -11,6 +11,7 @@ SUBDIRS =		\
 	keybindings	\
 	keyboard	\
 	media-keys	\
+	mount		\
 	mouse		\
 	sound		\
 	typing-break	\
