@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-28 17:20+0100\n"
-"PO-Revision-Date: 2009-02-28 17:22+0100\n"
+"POT-Creation-Date: 2009-06-14 11:22+0200\n"
+"PO-Revision-Date: 2009-06-14 11:22+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -436,7 +436,7 @@ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "Namnet på tangentbordsgenvägen för att växla skärmtangentbordet"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "Namnet på tangentbordsgenvägen för att växla skärmläsaren"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:47
@@ -448,7 +448,7 @@ msgid "This is the name of the keyboard shortcut to toggle the on-screen keyboar
 msgstr "Detta är namnet på tangentbordsgenvägen för att växla skärmtangentbordet. Detta namn kommer att visas i inställningsdialogen för tangentbordsgenvägar."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:49
-msgid "This is the name of the keyboard shortcut to toggle the screenreader. This name will be shown in the keyboard shortcut preferences dialog."
+msgid "This is the name of the keyboard shortcut to toggle the screen reader. This name will be shown in the keyboard shortcut preferences dialog."
 msgstr "Detta är namnet på tangentbordsgenvägen för att växla skärmläsaren. Detta namn kommer att visas i inställningsdialogen för tangentbordsgenvägar."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:50
@@ -464,34 +464,30 @@ msgid "Toggle screen reader"
 msgstr "Växla skärmläsare"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Toggle screenreader"
-msgstr "Växla skärmläsare"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "Huruvida hjälpmedelsfunktionen Studsande tangenter är påslagen."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "Huruvida hjälpmedelsfunktionen Mustangenter är påslagen."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "Huruvida hjälpmedelsfunktionen Skärmtangentbord är påslagen."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the screen magnifier is turned on."
 msgstr "Huruvida hjälpmedelsfunktionen Skärmförstorare är påslagen."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:58
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen reader is turned on."
 msgstr "Huruvida hjälpmedelsfunktionen Skärmläsare är påslagen."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:59
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "Huruvida hjälpmedelsfunktionen Tröga tangenter är påslagen."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:60
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Huruvida hjälpmedelsfunktionen Klistriga tangenter är påslagen."
 
@@ -520,86 +516,86 @@ msgstr "Insticksmodul för hjälpmedelstangentbord"
 msgid "There was an error displaying help: %s"
 msgstr "Ett fel inträffade vid visning av hjälp: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
 msgid "Do you want to activate Slow Keys?"
 msgstr "Vill du aktivera tröga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Vill du inaktivera tröga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
 msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for the Slow Keys feature, which affects the way your keyboard works."
 msgstr "Du höll precis ned skifttangenten under 8 sekunder. Detta är genvägen för funktionen tröga tangenter, som påverkar hur ditt tangentbord fungerar."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't activate"
 msgstr "Aktivera inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't deactivate"
 msgstr "Inaktivera inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Activate"
 msgstr "Aktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Deactivate"
 msgstr "Inaktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't activate"
 msgstr "Aktivera _inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't deactivate"
 msgstr "Inaktivera _inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Activate"
 msgstr "_Aktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Deactivate"
 msgstr "_Inaktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
 msgid "Slow Keys Alert"
 msgstr "Varning för tröga tangenter"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Vill du aktivera klistriga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Vill du inaktivera klistriga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
 msgid "You just pressed the Shift key 5 times in a row.  This is the shortcut for the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "Du tryckte precis ned skifttangenten 5 gånger i följd. Detta är genvägen för funktionen klistriga tangenter, som påverkar hur ditt tangentbord fungerar."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
 msgid "You just pressed two keys at once, or pressed the Shift key 5 times in a row.  This turns off the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "Du tryckte precis ned två tangenter samtidigt, eller tryckte ned skifttangenten 5 gånger i följd. Detta stänger av funktionen tröga tangenter, som påverkar hur ditt tangentbord fungerar."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
 msgid "Sticky Keys Alert"
 msgstr "Larm från Klistriga tangenter"
 
@@ -672,16 +668,16 @@ msgstr "Typsnitt"
 msgid "Font plugin"
 msgstr "Insticksmodul för typsnitt"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:122
+#: ../plugins/housekeeping/gsd-disk-space.c:124
 #, c-format
 msgid "%d%% of the disk space on `%s' is in use"
 msgstr "%d %% av diskutrymmet på \"%s\" används"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:130
+#: ../plugins/housekeeping/gsd-disk-space.c:132
 msgid "Low Disk Space"
 msgstr "Lågt diskutrymme"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:141
+#: ../plugins/housekeeping/gsd-disk-space.c:143
 msgid "Analyze"
 msgstr "Analysera"
 
@@ -841,81 +837,84 @@ msgstr "Konfigurera skärmstorlek och roteringsinställningar"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+#: ../plugins/xrandr/gsd-xrandr-manager.c:208
 msgid "Could not restore the display's configuration"
 msgstr "Kunde inte återställa skärmens konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+#: ../plugins/xrandr/gsd-xrandr-manager.c:233
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Kunde inte återställa skärmens konfiguration från en säkerhetskopia"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:166
+#: ../plugins/xrandr/gsd-xrandr-manager.c:254
 #, c-format
-msgid "The display will be reset to its previous configuration in %d seconds"
-msgstr "Skärmen kommer att återställas till dess tidigare konfiguration om %d sekunder"
+msgid "The display will be reset to its previous configuration in %d second"
+msgid_plural "The display will be reset to its previous configuration in %d seconds"
+msgstr[0] "Skärmen kommer att återställas till dess tidigare konfiguration om %d sekund"
+msgstr[1] "Skärmen kommer att återställas till dess tidigare konfiguration om %d sekunder"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+#: ../plugins/xrandr/gsd-xrandr-manager.c:304
 msgid "Does the display look OK?"
 msgstr "Ser skärmen bra ut?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:218
+#: ../plugins/xrandr/gsd-xrandr-manager.c:310
 msgid "_Restore Previous Configuration"
 msgstr "_Återställ tidigare konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:219
+#: ../plugins/xrandr/gsd-xrandr-manager.c:311
 msgid "_Keep This Configuration"
 msgstr "_Behåll denna konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:256
+#: ../plugins/xrandr/gsd-xrandr-manager.c:353
 msgid "The selected configuration for displays could not be applied"
 msgstr "Den valda konfigurationen för skärmar kunde inte tillämpas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:702
+#: ../plugins/xrandr/gsd-xrandr-manager.c:828
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Kunde inte uppdatera skärminformationen: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:705
+#: ../plugins/xrandr/gsd-xrandr-manager.c:831
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Försöker att växla till skärmkonfigurationen ändå."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:739
+#: ../plugins/xrandr/gsd-xrandr-manager.c:865
+#: ../plugins/xrandr/gsd-xrandr-manager.c:996
 msgid "Could not switch the monitor configuration"
 msgstr "Kunde inte växla till skärmkonfigurationen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1388
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Rotering stöds inte</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1442
 msgid "Could not save monitor configuration"
 msgstr "Kunde inte spara skärmkonfigurationen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1460
 msgid "Normal"
 msgstr "Normal"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1461
 msgid "Left"
 msgstr "Vänster"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1462
 msgid "Right"
 msgstr "Höger"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1463
 msgid "Upside Down"
 msgstr "Upp och ner"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1582
 msgid "_Configure Display Settings ..."
 msgstr "_Konfigurera skärminställningar ..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1623
 msgid "Configure display settings"
 msgstr "Konfigurera skärminställningar"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1677
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kunde inte tillämpa lagrad konfiguration för skärmar"
 
@@ -945,6 +944,8 @@ msgstr "Hantera X-inställningar"
 msgid "X Settings"
 msgstr "X-inställningar"
 
+#~ msgid "Toggle screenreader"
+#~ msgstr "Växla skärmläsare"
 #~ msgid "Do _not show this warning again."
 #~ msgstr "Visa i_nte denna varning igen."
 #~ msgid "Sound"
