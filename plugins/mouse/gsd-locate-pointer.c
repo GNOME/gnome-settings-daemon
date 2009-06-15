@@ -195,6 +195,22 @@ set_transparent_shape (GdkWindow *window)
 }
 
 static void
+unset_transparent_shape (GdkWindow *window)
+{
+  gdk_window_shape_combine_mask (data->window, NULL, 0, 0);
+}
+
+static void
+composited_changed (GtkWidget            *widget,
+                    GsdLocatePointerData *data)
+{
+  if (!gtk_widget_is_composited (widget))
+    set_transparent_shape (data->window);
+  else
+    unset_transparent_shape (data->window);
+}
+
+static void
 timeline_finished_cb (GsdTimeline *timeline,
 		      gpointer     user_data)
 {
@@ -317,8 +333,10 @@ gsd_locate_pointer (GdkScreen *screen)
 
   data->progress = 0.;
 
-  if (!gtk_widget_is_composited (data->widget))
-    set_transparent_shape (data->window);
+  g_signal_connect (data->widget, "composited-changed",
+                    G_CALLBACK (composited_changed), data);
+
+  composited_changed (data->widget, data);
 
   gdk_window_show (data->window);
   move_locate_pointer_window (data, screen);
