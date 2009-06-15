@@ -12,7 +12,6 @@ SUBDIRS =		\
 	keyboard	\
 	media-keys	\
 	mouse		\
-	screensaver	\
 	sound		\
 	typing-break	\
 	xrandr		\
