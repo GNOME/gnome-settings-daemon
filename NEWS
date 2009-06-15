@@ -1,4 +1,24 @@
 ==============
+Version 2.27.3
+==============
+- Make the RANDR tray icon's per-monitor labels explicitly black (Federico Mena
+  Quintero) (#556050)
+- Include config.h so that the notifications code in housekeeping plugin can
+  actually be built (Jens Granseuer) (#584217)
+- Use "screen reader" instead of "screenreader" in schema (Gabor Kelemen) (#572911)
+- Lots of RANDR fixes and improvements (Federico Mena Quintero)
+- Nicer handling of broken XKB configuration in gconf (Sergey Udaltsov) (#585259)
+- Make 'locate pointer' deal with wm/cm changes (Matthias Clasen) (#585209)
+- Be more careful when comparing two key structs (Matthias Clasen) (#580616)
+- Translations:
+  - da (Ask H. Larsen)
+  - es (Jorge Gonzalez)
+  - et (Ivar Smolin)
+  - nb (Kjartan Maraas)
+  - sv (Daniel Nylander)
+  - ta (drtvasudevan)
+
+==============
 Version 2.27.1
 ==============
 - Use ngettext for the reset dialog (Jens Granseuer) (#575409)
