@@ -296,7 +296,6 @@ user_says_things_are_ok (GsdXrandrManager *manager, GdkWindow *parent_window)
 
         timeout.manager = manager;
 
-        /* It sucks that we don't know the parent window here */
         timeout.dialog = gtk_message_dialog_new (NULL,
                                                  GTK_DIALOG_MODAL,
                                                  GTK_MESSAGE_QUESTION,
@@ -336,6 +335,45 @@ user_says_things_are_ok (GsdXrandrManager *manager, GdkWindow *parent_window)
                 return FALSE;
 }
 
+struct confirmation {
+        GsdXrandrManager *manager;
+        GdkWindow *parent_window;
+        guint32 timestamp;
+};
+
+static gboolean
+confirm_with_user_idle_cb (gpointer data)
+{
+        struct confirmation *confirmation = data;
+        char *backup_filename;
+        char *intended_filename;
+
+        backup_filename = gnome_rr_config_get_backup_filename ();
+        intended_filename = gnome_rr_config_get_intended_filename ();
+
+        if (user_says_things_are_ok (confirmation->manager, confirmation->parent_window))
+                unlink (backup_filename);
+        else
+                restore_backup_configuration (confirmation->manager, backup_filename, intended_filename, confirmation->timestamp);
+
+        g_free (confirmation);
+
+        return FALSE;
+}
+
+static void
+queue_confirmation_by_user (GsdXrandrManager *manager, GdkWindow *parent_window, guint32 timestamp)
+{
+        struct confirmation *confirmation;
+
+        confirmation = g_new (struct confirmation, 1);
+        confirmation->manager = manager;
+        confirmation->parent_window = parent_window;
+        confirmation->timestamp = timestamp;
+
+        g_idle_add (confirm_with_user_idle_cb, confirmation);
+}
+
 static gboolean
 try_to_apply_intended_configuration (GsdXrandrManager *manager, GdkWindow *parent_window, guint32 timestamp, GError **error)
 {
@@ -353,14 +391,15 @@ try_to_apply_intended_configuration (GsdXrandrManager *manager, GdkWindow *paren
                 error_message (manager, _("The selected configuration for displays could not be applied"), error ? *error : NULL, NULL);
                 restore_backup_configuration_without_messages (backup_filename, intended_filename);
                 goto out;
+        } else {
+                /* We need to return as quickly as possible, so instead of
+                 * confirming with the user right here, we do it in an idle
+                 * handler.  The caller only expects a status for "could you
+                 * change the RANDR configuration?", not "is the user OK with it
+                 * as well?".
+                 */
+                queue_confirmation_by_user (manager, parent_window, timestamp);
         }
-
-        /* Confirm with the user */
-
-        if (user_says_things_are_ok (manager, parent_window))
-                unlink (backup_filename);
-        else
-                restore_backup_configuration (manager, backup_filename, intended_filename, timestamp);
 
 out:
         g_free (backup_filename);
