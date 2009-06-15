@@ -7,21 +7,25 @@
 # Progga <progga@BengaLinux.Org>, 2003-2006.
 # Runa Bhattacharjee <runabh@gmail.com>, 2006, 2007.
 # Runa Bhattacharjee <runab@fedoraproject.org>, 2008.
-# Runa Bhattacharjee <runab@redhat.com>, 2008.
+# Runa Bhattacharjee <runab@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-10 20:13+0000\n"
-"PO-Revision-Date: 2008-09-19 01:10+0530\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
+"POT-Creation-Date: 2009-06-15 10:12+0000\n"
+"PO-Revision-Date: 2009-06-15 18:56+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
-"Language-Team: Bengali INDIA <fedora-trans-bn_IN@redhat.com>\n"
+"Language-Team: Bengali INDIA <discuss@lists.ankur.org.in>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 "X-Generator: KBabel 1.11.4\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "সহায়ক প্রযুক্তি"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -89,7 +93,9 @@ msgstr "পূর্ববর্তী গানে পিছিয়ে যাও
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
 msgid "Binding to start playback (or toggle play/pause)."
-msgstr "প্লে-ব্যাক অর্থাৎ চালনার আরম্ভের জন্য বাইন্ড করুন (অথবা চালনা/স্থগিত কর্মের মধ্যে পরিবর্তন)।"
+msgstr ""
+"প্লে-ব্যাক অর্থাৎ চালনার আরম্ভের জন্য বাইন্ড করুন (অথবা চালনা/স্থগিত কর্মের মধ্যে "
+"পরিবর্তন)।"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
 msgid "Binding to stop playback."
@@ -208,7 +214,7 @@ msgstr "স্ক্রিনসেভার চালু করো"
 msgid ""
 "If a notification icon with display related things should be shown in the "
 "panel."
-msgstr ""
+msgstr "প্রদর্শন সংক্রান্ত বিজ্ঞপ্তির একটি আইকন প্যানেলের মধ্যে দৃশ্যমান হবে কি না।"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "Show Displays in Notification Area"
@@ -237,12 +243,18 @@ msgid ""
 "common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
 "on bottom."
 msgstr ""
+"LCD পর্দায় উপস্থিত সাব-পিক্সেল বস্তুর অনুক্রম; অ্যান্টি-অ্যালায়েসিংয়ের মান \"rgba\" "
+"নির্ধারিত হলে এটি ব্যবহার করা হবে। সম্ভাব্য মান হল: বাঁদিকে লাল ব্যবহারের জন্য \"rgb"
+"\" (সবচেয়ে বেশি ব্যবহৃত মান), বাঁদিকে নীল ব্যবহারের জন্য \"bgr\", উপরে লাল "
+"ব্যবহারের জন্য \"vrgb\", নীচে লাল ব্যবহারের জন্য \"vbgr\"।"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:6
 msgid ""
 "The resolution used for converting font sizes to pixel sizes, in dots per "
 "inch."
 msgstr ""
+"ফন্টের মাপকে পিক্সেলের মাপে পরিবর্তনের জন্য ব্যবহৃত রেসোলিউশন, প্রতি ইঞ্চে বিন্দুর "
+"সংখ্যা অনুযায়ী গণনা করা হয়েছে।"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:7
 msgid ""
@@ -250,6 +262,10 @@ msgid ""
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
 "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgstr ""
+"ফন্ট রেন্ডার করার সময় ব্যবহারযোগ্য অ্যান্টি-অ্যালায়েসিংয়ের ধরন। সম্ভাব্য মানগুলি হল: "
+"অ্যান্টি-অ্যালয়েসিং ব্যবহার না করার জন্য \"none\", সাধারণ সাদা-কালো অ্যান্টি-"
+"অ্যালায়েসিংয়ের জন্য \"grayscale\", ও সাব-পিক্সেল অ্যান্টি-অ্যালায়েসিংয়ের জন্য "
+"(শুধুমাত্র LCD পর্দায় প্রযোজ্য) \"rgba\"।"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:8
 msgid ""
@@ -257,150 +273,297 @@ msgid ""
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
+"ফন্ট রেন্ডার করার সময় ব্যবহারযোগ্য হিন্টিংয়ের ধরন। সম্ভাব্য মানগুলি হল: অ্যান্টি-"
+"অ্যালয়েসিং ব্যবহার না করার জন্য \"none\", সাধারণ সাদা-কালো অ্যান্টি-অ্যালায়েসিংয়ের "
+"জন্য \"grayscale\", ও সাব-পিক্সেল অ্যান্টি-অ্যালায়েসিংয়ের জন্য (শুধুমাত্র LCD পর্দায় "
+"প্রযোজ্য) \"rgba\"।"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+msgid "Allowed keys"
+msgstr "অনুমোদিত কি"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+msgid ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
+msgstr ""
+"ফাঁকা না হলে, তালিকার মধ্যে সংশ্লিষ্ট GConf ডিরেক্টরি উপস্থিত না থাকলে কি-"
+"বাইন্ডিংগুলি উপেক্ষা করা হবে। লক-ডাউনের ক্ষেত্রে এটি সুবিধাজনক।"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "GNOME Settings ডেমন"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
+msgid "Binding to toggle the magnifier."
+msgstr "বিবর্ধক টগল করার জন্য বাইন্ড করুন।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:2
+msgid "Binding to toggle the on-screen keyboard."
+msgstr "পর্দায় উপস্থিত কি-বোর্ড টগল করার জন্য বাইন্ড করুন।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:3
+msgid "Binding to toggle the screen reader."
+msgstr "পর্দা পাঠের ব্যবস্থা টগল করার জন্য বাইন্ড করুন।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:4
+msgid "Bounce keys"
+msgstr "বাউন্স কি"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Command used to turn the magnifier on or off."
+msgstr "বিবর্ধক চালু অথবা বন্ধ করার জন্য ব্যবহৃত কমান্ড।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:6
+msgid "Command used to turn the on-screen keyboard on or off."
+msgstr "পর্দার কি-বোর্ড চালু অথবা বন্ধ করার জন্য ব্যবহৃত কমান্ড।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:7
+msgid "Command used to turn the screen reader on or off."
+msgstr "পর্দা পাঠের ব্যবস্থা চালু অথবা বন্ধ করার জন্য ব্যবহৃত কমান্ড।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
 msgstr "কি-বোর্ড ব্যবহারের বিশেষ সহায়ক প্রযুক্তির প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "পটভূমির ছবি সংক্রান্ত প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "ক্লিপ-বোর্ড প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "ফন্ট প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable housekeeping plugin"
-msgstr ""
+msgstr "housekeeping প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
 msgstr "কি-বাইন্ডিং প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "কি-বোর্ড প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable media keys plugin"
 msgstr "মিডিয়া-কি প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "মাউজ প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable screensaver plugin"
 msgstr "স্ক্রিনসেভার প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "শব্দের প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable typing breaks plugin"
 msgstr "টাইপিং বিরতির প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrandr plugin"
 msgstr "xrandr প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "xrdb প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "xsettings প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:23
+msgid "Mouse keys"
+msgstr "মাউস কি"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:24
+msgid "On-screen keyboard"
+msgstr "পর্দার কি-বোর্ড"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:25
+msgid "Screen magnifier"
+msgstr "পর্দা বিবর্ধক"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:26
+msgid "Screen reader"
+msgstr "পর্দা পাঠের ব্যবস্থা"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
 msgstr ""
+"সাময়িক ফাইল ক্যাশে ছাঁটাই করার উদ্দেশ্যে housekeeping প্লাগ-ইন সক্রিয় করার জন্য মান "
+"True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "প্লাগ-ইন দ্বারা ক্লিপ-বোর্ডের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "প্লাগ-ইন দ্বারা ডেস্কটপের পটভূমির বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ "
 "করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "প্লাগ-ইন দ্বারা ফন্টের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "প্লাগ-ইন দ্বারা কি-বোর্ডের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "প্লাগ-ইন দ্বারা মাউজের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "প্লাগ-ইন দ্বারা মাল্টিমিডিয়া কি-র বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ "
 "করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr "প্লাগ-ইন দ্বারা স্ক্রিন-সেভারের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "Set to True to enable the plugin to manage sound settings."
-msgstr "প্লাগ-ইন দ্বারা শব্দের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
+#: ../data/gnome-settings-daemon.schemas.in.h:35
+msgid "Set to True to enable the plugin to manage sound sample caches."
+msgstr "প্লাগ-ইন দ্বারা শব্দের নমূনার ক্যাশে পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr ""
-"প্লাগ-ইন দ্বারা বিশেষ ব্যবহারের কি-বোর্ডে বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) "
+"প্লাগ-ইন দ্বারা বিশেষ ব্যবহারের কি-বোর্ডের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) "
 "নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "প্লাগ-ইন দ্বারা কি-বাইন্ডিং পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "প্লাগ-ইন দ্বারা টাইপিং-বিরতি পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "প্লাগ-ইন দ্বারা xrandr-র বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "প্লাগ-ইন দ্বারা xrdb-র বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "প্লাগ-ইন দ্বারা xsettings-র বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../gnome-settings-daemon/main.c:50
+# FIXME
+#: ../data/gnome-settings-daemon.schemas.in.h:42
+msgid "Slow keys"
+msgstr "ধীর গতির কি"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:43
+msgid "Sticky keys"
+msgstr "স্টিকি কি"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the magnifier"
+msgstr "বিবর্ধক টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr "পর্দার কি-বোর্ড টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid "The name of the keyboard shortcut to toggle the screen reader"
+msgstr "পর্দা থেকে পাঠের ব্যবস্থা টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid ""
+"This is the name of the keyboard shortcut to toggle the magnifier. This name "
+"will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"বিবর্ধক টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম। কি-বোর্ড শর্ট-কাট সংক্রান্ত "
+"পছন্দসই বৈশিষ্ট্যের ডায়লগ বক্সের মধ্যে এই নামটি প্রদর্শন করা হবে।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid ""
+"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
+"This name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"পর্দার কি-বোর্ড টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম। কি-বোর্ড শর্ট-কাট "
+"সংক্রান্ত পছন্দসই বৈশিষ্ট্যের ডায়লগ বক্সের মধ্যে এই নামটি প্রদর্শন করা হবে।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid ""
+"This is the name of the keyboard shortcut to toggle the screen reader. This "
+"name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"পর্দা থেকে পাঠের ব্যবস্থা টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম। কি-বোর্ড "
+"শর্ট-কাট সংক্রান্ত পছন্দসই বৈশিষ্ট্যের ডায়লগ বক্সের মধ্যে এই নামটি প্রদর্শন করা হবে।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
+msgid "Toggle magnifier"
+msgstr "বিবর্ধক টগল করা হবে"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:51
+msgid "Toggle on-screen keyboard"
+msgstr "পর্দার কি-বোর্ড টগল করা হবে"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:52
+msgid "Toggle screen reader"
+msgstr "পর্দা পাঠের ব্যবস্থা টগল করা হবে"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+msgstr "বাউন্স কি নামক কি-বোর্ডের সহায়ক প্রযুক্তি সক্রিয় করা হয়েছে কি না।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:54
+msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+msgstr "মাউস কি-র কি-বোর্ডের সহায়ক প্রযুক্তি সক্রিয় করা হয়েছে কি না।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:55
+msgid "Whether the on-screen keyboard is turned on."
+msgstr "পর্দার কি-বোর্ড সক্রিয় করা হয়েছে কি না।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:56
+msgid "Whether the screen magnifier is turned on."
+msgstr "পর্দার বিবর্ধক সক্রিয় করা হয়েছে কি না।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:57
+msgid "Whether the screen reader is turned on."
+msgstr "পর্দা থেকে পাঠে ব্যবস্থা সক্রিয় করা হয়েছে কি না।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:58
+msgid "Whether the slow keys keyboard accessibility feature is turned on."
+msgstr "কি-বোর্ডের সহায়ক প্রযুক্তি ধীর গতির কি সক্রিয় করা হয়েছে কি না।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:59
+msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+msgstr "কি-বোর্ডের সহায়ক প্রযুক্তি স্টিকি-কি সক্রিয় করা হয়েছে কি না।"
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "কোড ডিবাগ ব্যবস্থা সক্রিয় করুন"
 
-#: ../gnome-settings-daemon/main.c:51
+#: ../gnome-settings-daemon/main.c:55
 msgid "Don't become a daemon"
 msgstr "ডেমন তৈরি করা হবে না"
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:56
 msgid "GConf prefix from which to load plugin settings"
 msgstr "প্লাগ-ইন লোড করার জন্য ব্যবহৃত GConf প্রে-ফিক্স"
 
@@ -412,23 +575,23 @@ msgstr "সহায়ক প্রযুক্তি বিশিষ্ট কি
 msgid "Accessibility keyboard plugin"
 msgstr "সহায়ক প্রযুক্তি বিশিষ্ট কি-বোর্ডের প্লাগ-ইন"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "সাহায্যকারী তথ্য দেখাতে সমস্যা হয়েছে: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
 msgid "Do you want to activate Slow Keys?"
 msgstr "আপনি কি ধীর কী (Key) সক্রিয় করতে চান?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "আপনি কি ধীর কী (Key) নিষ্ক্রিয় করতে চান?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -436,64 +599,64 @@ msgstr ""
 "আপনি এইমাত্র শিফ্‌ট কী-কে ৮ সেকেন্ড যাবত চেপে রেখেছিলেন।  এটি হল ধীর কী (Key) "
 "সক্রিয়কারক শর্টকাট যা সম্পূর্ণ কীবোর্ড ব্যবস্থা কীভাবে কাজ করবে তা নির্ধারণ করে।"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't activate"
 msgstr "সক্রিয় করা হবে না"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:554
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:697
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't deactivate"
 msgstr "নিষ্ক্রিয় করা হবে না"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Activate"
 msgstr "সক্রিয় করুন"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:560
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:703
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Deactivate"
 msgstr "নিষ্ক্রিয় করুন"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't activate"
 msgstr "সক্রিয় করো না (_n)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:619
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:764
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't deactivate"
 msgstr "নিষ্ক্রিয় করো না (_n)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Activate"
 msgstr "সক্রিয় করো (_A)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:622
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:767
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Deactivate"
 msgstr "নিষ্ক্রিয় করো (_D)"
 
 # FIXME
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:626
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
 msgid "Slow Keys Alert"
 msgstr "ধীর কী (Key) সম্পর্কিত সতর্কবাণী"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
 msgid "Do you want to activate Sticky Keys?"
 msgstr "আপনি কি স্টিকি কী (Key) সক্রিয় করতে চান?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:667
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "আপনি কি স্টিকি কী (Key) নিষ্ক্রিয় করতে চান?"
 
 # FIXME
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -501,8 +664,8 @@ msgstr ""
 "আপনি এইমাত্র শিফ্‌ট কী-কে ৫ সেকেন্ড যাবত চেপে রেখেছিলেন।  এটি হল স্টিকি কী (Key) "
 "সক্রিয়কারক শর্টকাট যা সম্পূর্ণ কীবোর্ড ব্যবস্থা কীভাবে কাজ করবে তা নির্ধারণ করে।"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -512,7 +675,7 @@ msgstr ""
 "চেপেছেন।  এর ফলে স্টিকি কী (Key) নিষ্ক্রিয় হয়ে যায় যা সম্পূর্ণ কীবোর্ড ব্যবস্থা "
 "কীভাবে কাজ করবে তা নির্ধারণ করে।"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
 msgid "Sticky Keys Alert"
 msgstr "স্টিকি কী (Key) সম্পর্কিত সতর্কবাণী"
 
@@ -547,11 +710,11 @@ msgstr "পর্দা পাঠের ব্যবস্থা ব্যবহ
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr ""
+msgstr "দুইবার কি টেপার হলে তা উপেক্ষা করা হবে (বাউন্স-কি) (_I)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr ""
+msgstr "কি-বোর্ড শর্ট-কাট টেপার সময় একবারে একটি কি টেপা হবে (স্টিকি-কি) (_P)"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -585,35 +748,30 @@ msgstr "ফন্ট"
 msgid "Font plugin"
 msgstr "ফন্ট প্লাগ-ইন"
 
-#: ../plugins/font/gsd-font-manager.c:207
+#: ../plugins/housekeeping/gsd-disk-space.c:124
 #, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing the mouse pointer theme."
-msgstr ""
-"ডিরেক্টরি \"%s\" তৈরি করা যায় নি।\n"
-"মাউস পয়েন্টারের থিম পরিবর্তনের জন্য এই ডিরেক্টরিটি প্রয়োজন।"
+msgid "%d%% of the disk space on `%s' is in use"
+msgstr "%d%% পরিমাণ ডিস্কের স্থান `%s'-এ মধ্যে ব্যবহৃত হচ্ছে"
 
-#: ../plugins/font/gsd-font-manager.c:230
-#, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing cursors."
-msgstr ""
-"ডিরেক্টরি \"%s\" তৈরি করা যায় নি।\n"
-"কার্সার পরিবর্তনের জন্য এটি করা প্রয়োজন।"
+#: ../plugins/housekeeping/gsd-disk-space.c:132
+msgid "Low Disk Space"
+msgstr "ডিস্কে উপস্থিত স্থানের পরিমাণ কম"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:190
-#, c-format
-msgid "Key binding (%s) is incomplete"
-msgstr "কি-বাইন্ডিং (%s) অসম্পূর্ণ"
+#: ../plugins/housekeeping/gsd-disk-space.c:143
+msgid "Analyze"
+msgstr "বিশ্লেষণ করুন"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:222
+#: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "কি-বাইন্ডিং (%s) বৈধ নয়"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:409
+#: ../plugins/keybindings/gsd-keybindings-manager.c:197
+#, c-format
+msgid "Key binding (%s) is incomplete"
+msgstr "কি-বাইন্ডিং (%s) অসম্পূর্ণ"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:493
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -643,16 +801,17 @@ msgid "A_vailable files:"
 msgstr "ব্যবহারযোগ্য ফাইল (_v):"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "পুনরায় এই সতর্কবাণী প্রদর্শন করা হবে না (_n) ।"
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Load modmap files"
 msgstr "modmap-এর ফাইল লোড করো"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.glade.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "আপনি কি modmap-এর ফাইল লোড করতে চান?"
+
+#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+msgid "_Do not show this message again"
+msgstr "আর কখনো এই তথ্যটি দেখাবে না (_D)"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:5
 msgid "_Load"
@@ -662,13 +821,15 @@ msgstr "লোড করো (_L)"
 msgid "_Loaded files:"
 msgstr "লোড করা ফাইল (_L):"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:206
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
 msgstr ""
+"ডিফল্ট টার্মিনাল প্রাপ্ত করতে ব্যর্থ। অনুগ্রহ করে পরীক্ষা করুন যে ডিফল্ট টার্মিনালের "
+"কমান্ড ধার্য করে তা একটি বৈধ অ্যাপ্লিকেশনের প্রতি নির্দেশ করা হয়েছে কি না।"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:223
+#: ../plugins/media-keys/gsd-media-keys-manager.c:246
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -677,13 +838,22 @@ msgstr ""
 "চিহ্নিত কমান্ডটি চালানো যায়নি: %s\n"
 "কমান্ডের বৈধতা নিশ্চিত করুন।"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:239
+#: ../plugins/media-keys/gsd-media-keys-manager.c:262
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr ""
 "কম্পিউটারকে স্থগিতাবস্থায় নিয়ে যাওয়া যায় নি।\n"
 "কম্পিউটারটি সঠিকভাবে কনফিগার করা আছে কিনা তা নিশ্চিত হোন।"
+
+# FIXME
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+msgid "System Sounds"
+msgstr "সিস্টেমের শব্দ"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+msgid "GNOME Volume Control"
+msgstr "GNOME শব্দের মাত্রা নিয়ন্ত্রণ ব্যবস্থা"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -693,15 +863,15 @@ msgstr "মিডিয়া কি"
 msgid "Media keys plugin"
 msgstr "মিডিয়া-কি প্লাগ-ইন"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:625
 msgid "Could not enable mouse accessibility features"
 msgstr "মাউস ব্যবহারের বিশেষ সহায়ক বৈশিষ্ট্য সক্রিয় করতে ব্যর্থ"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:573
+#: ../plugins/mouse/gsd-mouse-manager.c:627
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr ""
+msgstr "মাউসের সহায়ক প্রযুক্তি ব্যবহারের জন্য সিস্টেমের মধ্যে mousetweaks ইনস্টল করা আবশ্যক।"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:576
+#: ../plugins/mouse/gsd-mouse-manager.c:630
 msgid "Mouse Preferences"
 msgstr "মাউস সম্পর্কিত পছন্দ"
 
@@ -713,7 +883,7 @@ msgstr "মাউস"
 msgid "Mouse plugin"
 msgstr "মাউজ প্লাগ-ইন"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:153
+#: ../plugins/screensaver/gsd-screensaver-manager.c:136
 #, c-format
 msgid ""
 "There was an error starting up the screensaver:\n"
@@ -728,10 +898,6 @@ msgstr ""
 "\n"
 "এই সেশনে কোন স্ক্রিন সেভার কাজ করবে না।"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:162
-msgid "_Do not show this message again"
-msgstr "আর কখনো এই তথ্যটি দেখাবে না (_D)"
-
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
 msgid "Screensaver"
 msgstr "স্ক্রিন-সেভার"
@@ -739,81 +905,6 @@ msgstr "স্ক্রিন-সেভার"
 #: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
 msgid "Screensaver plugin"
 msgstr "স্ক্রিন-সেভারের প্লাগ-ইন"
-
-#: ../plugins/sound/gsd-sound-manager.c:273
-#, c-format
-msgid "Couldn't load sound file %s as sample %s"
-msgstr "নমুনা %s হিসেবে শব্দের ফাইল %s ব্যবহার করা যাচ্ছে না"
-
-#: ../plugins/sound/libsounds/sound-view.c:43
-msgid "Login"
-msgstr "লগ-ইন"
-
-#: ../plugins/sound/libsounds/sound-view.c:44
-msgid "Logout"
-msgstr "লগ-আউট"
-
-#: ../plugins/sound/libsounds/sound-view.c:45
-msgid "Boing"
-msgstr "Boing"
-
-#: ../plugins/sound/libsounds/sound-view.c:46
-msgid "Siren"
-msgstr "সাইরেন"
-
-#: ../plugins/sound/libsounds/sound-view.c:47
-msgid "Clink"
-msgstr "ক্লিঙ্ক"
-
-#: ../plugins/sound/libsounds/sound-view.c:48
-msgid "Beep"
-msgstr "বিপ"
-
-#: ../plugins/sound/libsounds/sound-view.c:49
-msgid "No sound"
-msgstr "নিঃশব্দ"
-
-#: ../plugins/sound/libsounds/sound-view.c:131
-msgid "Sound not set for this event."
-msgstr "এই ইভেন্টের জন্য কোন শব্দ নির্ধারণ করা নেেই।"
-
-#: ../plugins/sound/libsounds/sound-view.c:140
-msgid ""
-"The sound file for this event does not exist.\n"
-"You may want to install the gnome-audio package for a set of default sounds."
-msgstr ""
-"এই ইভেন্টের জন্য বরাদ্দকৃত শব্দের ফাইলটি নেই।\n"
-"ডিফল্ট শব্দের সেট ব্যবহার করতে চাইলে গনোম-অডিও প্যাকেজটি ইনস্টল করতে পারেন।"
-
-#: ../plugins/sound/libsounds/sound-view.c:151
-msgid "The sound file for this event does not exist."
-msgstr "এই ইভেন্টের জন্য বরাদ্দকৃত শব্দের ফাইলটি নেই।"
-
-#: ../plugins/sound/libsounds/sound-view.c:182
-msgid "Select Sound File"
-msgstr "শব্দের ফাইলটি বেছে নিন"
-
-#: ../plugins/sound/libsounds/sound-view.c:209
-#, c-format
-msgid "The file %s is not a valid wav file"
-msgstr "%s ফাইলটি কোন বৈধ ওয়েভ (Wav) ফাইল নয়"
-
-#: ../plugins/sound/libsounds/sound-view.c:270
-msgid "Select sound file..."
-msgstr "শব্দের ফাইল বেছে নিন..."
-
-# FIXME
-#: ../plugins/sound/libsounds/sound-view.c:372
-msgid "System Sounds"
-msgstr "সিস্টেমের শব্দ"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "শব্দ"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound plugin"
-msgstr "শব্দের প্লাগ-ইন"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -825,48 +916,92 @@ msgstr "টাইপিং বিরতির প্লাগ-ইন"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
-msgstr ""
+msgstr "পর্দার মাপ ও আবর্তন সংক্রান্ত বৈশিষ্ট্য নির্ধারণ করুন"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+#: ../plugins/xrandr/gsd-xrandr-manager.c:208
+msgid "Could not restore the display's configuration"
+msgstr "ডিসপ্লের কনফিগারেশন পুনরুদ্ধার করতে ব্যর্থ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:233
+msgid "Could not restore the display's configuration from a backup"
+msgstr "ব্যাক-আপ থেকে ডিসপ্লের কনফিগারেশন পুনরুদ্ধার করতে ব্যর্থ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:254
+#, c-format
+msgid "The display will be reset to its previous configuration in %d second"
+msgid_plural "The display will be reset to its previous configuration in %d seconds"
+msgstr[0] "%d সেকেন্ড পরে ডিসপ্লের পূর্ববর্তী কনফিগারেশন পুনরায় স্থাপন করা হবে"
+msgstr[1] "%d সেকেন্ড পরে ডিসপ্লের পূর্ববর্তী কনফিগারেশন পুনরায় স্থাপন করা হবে"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:304
+msgid "Does the display look OK?"
+msgstr "ডিসপ্লে কি ঠিক ভাবে প্রদর্শিত হচ্ছে?"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:310
+msgid "_Restore Previous Configuration"
+msgstr "পূর্ববর্তী কনফিগারেশন পুনরুদ্ধার করা হবে (_R)"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:311
+msgid "_Keep This Configuration"
+msgstr "এই কনফিগারেশন প্রয়োগ করা হবে (_K)"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:353
+msgid "The selected configuration for displays could not be applied"
+msgstr "ডিসপ্লের জন্য নির্বাচিত কনফিগারেশন প্রয়োগ করতে ব্যর্থ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:828
+#, c-format
+msgid "Could not refresh the screen information: %s"
+msgstr "পর্দা সংক্রান্ত তথ্য নতুন করে প্রদর্শন করতে ব্যর্থ: %s"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:831
+msgid "Trying to switch the monitor configuration anyway."
+msgstr "তথাপি মনিটর সংক্রান্ত কনফিগারেশন পরিবর্তনের প্রয়াস করা হবে।"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:865
+#: ../plugins/xrandr/gsd-xrandr-manager.c:996
+msgid "Could not switch the monitor configuration"
+msgstr "মনিটরের কনফিগারেশন পরিবর্তন করতে ব্যর্থ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1388
 msgid "<i>Rotation not supported</i>"
-msgstr ""
+msgstr "<i>আবর্তন সমর্থিত নয়</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:456
-#: ../plugins/xrandr/gsd-xrandr-manager.c:464
-msgid "The selected rotation could not be applied"
-msgstr ""
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1442
+msgid "Could not save monitor configuration"
+msgstr "মনিটর সংক্রান্ত কনফিগারেশন সংরক্ষণ করতে ব্যর্থ"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:457
-msgid "An error occurred while configuring the screen"
-msgstr "পর্দা কনফিগার করতে সমস্যা দেখা দিয়েছে"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:478
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1460
 msgid "Normal"
 msgstr "স্বাভাবিক"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:479
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1461
 msgid "Left"
 msgstr "বাঁদিকে"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:480
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1462
 msgid "Right"
 msgstr "ডানদিকে"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1463
 msgid "Upside Down"
 msgstr "উল্টো"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:600
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1582
 msgid "_Configure Display Settings ..."
 msgstr "পর্দা সংক্রান্ত বৈশিষ্ট্য পরিবর্তন করুন... (_C)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:641
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1623
 msgid "Configure display settings"
 msgstr "পর্দা সংক্রান্ত বৈশিষ্ট্য পরিবর্তন করুন"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1677
+msgid "Could not apply the stored configuration for monitors"
+msgstr "মনিটরের জন্য সংরক্ষিত কনফিগারেশন প্রয়োগ করতে ব্যর্থ"
 
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
@@ -881,7 +1016,7 @@ msgstr "X রিসোর্সের ডাটাবেস পরিচাল�
 msgid "X Resource Database"
 msgstr "X রিসোর্স ডাটাবেস"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:609
+#: ../plugins/xsettings/gsd-xsettings-manager.c:644
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "জীকন্‌ফ কী (key) %s এর মান %s করা হলেও তা %s হওয়ার কথা\n"
