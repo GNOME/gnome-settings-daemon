@@ -267,7 +267,9 @@ same_key (const Key *key, const Key *other)
                                      if (*c1 != *c2)
                                         return FALSE;
                         }
-                }
+                } else if (key->keycodes != NULL || other->keycodes != NULL)
+                        return FALSE;
+
 
                 return TRUE;
         }
