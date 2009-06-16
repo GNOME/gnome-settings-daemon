@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<gconfschemafile>
+  <schemalist>
+
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/touchpad/disable_while_typing</key>
+      <applyto>/desktop/gnome/peripherals/touchpad/disable_while_typing</applyto>
+      <owner>gnome</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable touchpad while typing</short>
+        <long>Set this to TRUE if you have problems with accidentally hitting the touchpad while typing.</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/touchpad/tap_to_click</key>
+      <applyto>/desktop/gnome/peripherals/touchpad/tap_to_click</applyto>
+      <owner>gnome</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Enable mouse clicks with touchpad</short>
+        <long>Set this to TRUE to be able to send mouse clicks by tapping on the touchpad.</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/touchpad/scroll_method</key>
+      <applyto>/desktop/gnome/peripherals/touchpad/scroll_method</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>1</default>
+      <locale name="C">
+        <short>Select the touchpad scroll method</short>
+        <long>Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - edge scrolling, 2 - two-finger scrolling</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/touchpad/horiz_scroll_enabled</key>
+      <applyto>/desktop/gnome/peripherals/touchpad/horiz_scroll_enabled</applyto>
+      <owner>gnome</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Enable horizontal scrolling</short>
+        <long>Set this to TRUE to allow horizontal scrolling by the same method selected with the scroll_method key.</long>
+      </locale>
+    </schema>
+
+  </schemalist>
+</gconfschemafile>
