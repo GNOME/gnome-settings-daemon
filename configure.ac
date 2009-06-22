@@ -357,7 +357,6 @@ plugins/keyboard/Makefile
 plugins/media-keys/Makefile
 plugins/media-keys/cut-n-paste/Makefile
 plugins/mouse/Makefile
-plugins/screensaver/Makefile
 plugins/sound/Makefile
 plugins/typing-break/Makefile
 plugins/xrandr/Makefile
