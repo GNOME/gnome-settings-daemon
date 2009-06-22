@@ -48,8 +48,7 @@ typedef struct
         GObjectClass           parent_class;
 
         /* vtable */
-        gboolean (*change_volume)   (GvcMixerStream *stream,
-                                     guint           volume);
+        gboolean (*push_volume)   (GvcMixerStream *stream, gpointer *operation);
         gboolean (*change_is_muted) (GvcMixerStream *stream,
                                      gboolean        is_muted);
 } GvcMixerStreamClass;
@@ -61,22 +60,26 @@ guint               gvc_mixer_stream_get_index       (GvcMixerStream *stream);
 guint               gvc_mixer_stream_get_id          (GvcMixerStream *stream);
 GvcChannelMap *     gvc_mixer_stream_get_channel_map (GvcMixerStream *stream);
 
-guint               gvc_mixer_stream_get_volume      (GvcMixerStream *stream);
+pa_volume_t         gvc_mixer_stream_get_volume      (GvcMixerStream *stream);
 gdouble             gvc_mixer_stream_get_decibel     (GvcMixerStream *stream);
-gboolean            gvc_mixer_stream_change_volume   (GvcMixerStream *stream,
-                                                      guint           volume);
+gboolean            gvc_mixer_stream_push_volume     (GvcMixerStream *stream);
+pa_volume_t         gvc_mixer_stream_get_base_volume (GvcMixerStream *stream);
 
 gboolean            gvc_mixer_stream_get_is_muted    (GvcMixerStream *stream);
 gboolean            gvc_mixer_stream_get_can_decibel (GvcMixerStream *stream);
 gboolean            gvc_mixer_stream_change_is_muted (GvcMixerStream *stream,
                                                       gboolean        is_muted);
+gboolean            gvc_mixer_stream_is_running      (GvcMixerStream *stream);
 const char *        gvc_mixer_stream_get_name        (GvcMixerStream *stream);
 const char *        gvc_mixer_stream_get_icon_name   (GvcMixerStream *stream);
 const char *        gvc_mixer_stream_get_description (GvcMixerStream *stream);
+const char *        gvc_mixer_stream_get_application_id (GvcMixerStream *stream);
+gboolean            gvc_mixer_stream_is_event_stream (GvcMixerStream *stream);
+gboolean            gvc_mixer_stream_is_virtual      (GvcMixerStream *stream);
 
 /* private */
 gboolean            gvc_mixer_stream_set_volume      (GvcMixerStream *stream,
-                                                      guint           volume);
+                                                      pa_volume_t     volume);
 gboolean            gvc_mixer_stream_set_decibel     (GvcMixerStream *stream,
                                                       gdouble         db);
 gboolean            gvc_mixer_stream_set_is_muted    (GvcMixerStream *stream,
@@ -89,6 +92,14 @@ gboolean            gvc_mixer_stream_set_description (GvcMixerStream *stream,
                                                       const char     *description);
 gboolean            gvc_mixer_stream_set_icon_name   (GvcMixerStream *stream,
                                                       const char     *name);
+gboolean            gvc_mixer_stream_set_is_event_stream (GvcMixerStream *stream,
+                                                          gboolean is_event_stream);
+gboolean            gvc_mixer_stream_set_is_virtual  (GvcMixerStream *stream,
+                                                      gboolean is_event_stream);
+gboolean            gvc_mixer_stream_set_application_id (GvcMixerStream *stream,
+                                                         const char *application_id);
+gboolean            gvc_mixer_stream_set_base_volume (GvcMixerStream *stream,
+                                                      pa_volume_t     base_volume);
 
 G_END_DECLS
 

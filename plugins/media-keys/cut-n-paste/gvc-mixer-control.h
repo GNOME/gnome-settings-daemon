@@ -46,6 +46,7 @@ typedef struct
 {
         GObjectClass            parent_class;
 
+        void (*connecting)             (GvcMixerControl *control);
         void (*ready)                  (GvcMixerControl *control);
         void (*stream_added)           (GvcMixerControl *control,
                                         guint            id);

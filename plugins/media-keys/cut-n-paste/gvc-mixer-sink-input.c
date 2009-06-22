@@ -40,44 +40,33 @@ struct GvcMixerSinkInputPrivate
 
 static void     gvc_mixer_sink_input_class_init (GvcMixerSinkInputClass *klass);
 static void     gvc_mixer_sink_input_init       (GvcMixerSinkInput      *mixer_sink_input);
-static void     gvc_mixer_sink_input_finalize   (GObject            *object);
+static void     gvc_mixer_sink_input_finalize   (GObject                *object);
+static void     gvc_mixer_sink_input_dispose    (GObject                *object);
 
 G_DEFINE_TYPE (GvcMixerSinkInput, gvc_mixer_sink_input, GVC_TYPE_MIXER_STREAM)
 
 static gboolean
-gvc_mixer_sink_input_change_volume (GvcMixerStream *stream,
-                                    guint           volume)
+gvc_mixer_sink_input_push_volume (GvcMixerStream *stream, gpointer *op)
 {
         pa_operation      *o;
         guint              index;
         GvcChannelMap     *map;
         pa_context        *context;
-        pa_cvolume         cv;
-        guint              i;
+        const pa_cvolume  *cv;
         guint              num_channels;
-        gdouble           *gains;
 
         index = gvc_mixer_stream_get_index (stream);
 
         map = gvc_mixer_stream_get_channel_map (stream);
         num_channels = gvc_channel_map_get_num_channels (map);
-        gains = gvc_channel_map_get_gains (map);
 
-        /* set all values to nominal level */
-        pa_cvolume_set (&cv, num_channels, (pa_volume_t)volume);
-
-        /* apply channel gain mapping */
-        for (i = 0; i < num_channels; i++) {
-                pa_volume_t v;
-                v = (double) volume * gains[i];
-                cv.values[i] = v;
-        }
+        cv = gvc_channel_map_get_cvolume(map);
 
         context = gvc_mixer_stream_get_pa_context (stream);
 
         o = pa_context_set_sink_input_volume (context,
                                               index,
-                                              &cv,
+                                              cv,
                                               NULL,
                                               NULL);
 
@@ -86,7 +75,7 @@ gvc_mixer_sink_input_change_volume (GvcMixerStream *stream,
                 return FALSE;
         }
 
-        pa_operation_unref(o);
+        *op = o;
 
         return TRUE;
 }
@@ -140,9 +129,10 @@ gvc_mixer_sink_input_class_init (GvcMixerSinkInputClass *klass)
         GvcMixerStreamClass *stream_class = GVC_MIXER_STREAM_CLASS (klass);
 
         object_class->constructor = gvc_mixer_sink_input_constructor;
+        object_class->dispose = gvc_mixer_sink_input_dispose;
         object_class->finalize = gvc_mixer_sink_input_finalize;
 
-        stream_class->change_volume = gvc_mixer_sink_input_change_volume;
+        stream_class->push_volume = gvc_mixer_sink_input_push_volume;
         stream_class->change_is_muted = gvc_mixer_sink_input_change_is_muted;
 
         g_type_class_add_private (klass, sizeof (GvcMixerSinkInputPrivate));
@@ -152,7 +142,19 @@ static void
 gvc_mixer_sink_input_init (GvcMixerSinkInput *sink_input)
 {
         sink_input->priv = GVC_MIXER_SINK_INPUT_GET_PRIVATE (sink_input);
+}
 
+static void
+gvc_mixer_sink_input_dispose (GObject *object)
+{
+        GvcMixerSinkInput *mixer_sink_input;
+
+        g_return_if_fail (object != NULL);
+        g_return_if_fail (GVC_IS_MIXER_SINK_INPUT (object));
+
+        mixer_sink_input = GVC_MIXER_SINK_INPUT (object);
+
+        G_OBJECT_CLASS (gvc_mixer_sink_input_parent_class)->dispose (object);
 }
 
 static void

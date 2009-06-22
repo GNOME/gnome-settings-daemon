@@ -44,19 +44,35 @@ typedef struct
 typedef struct
 {
         GObjectClass           parent_class;
-        void (*gains_changed) (GvcChannelMap *channel_map);
+        void (*volume_changed) (GvcChannelMap *channel_map);
 } GvcChannelMapClass;
+
+enum {
+        VOLUME,
+        BALANCE,
+        FADE,
+        LFE,
+};
+
+#define NUM_TYPES LFE + 1
 
 GType                   gvc_channel_map_get_type                (void);
 
 GvcChannelMap *         gvc_channel_map_new                     (void);
 GvcChannelMap *         gvc_channel_map_new_from_pa_channel_map (const pa_channel_map *map);
 guint                   gvc_channel_map_get_num_channels        (GvcChannelMap  *map);
-pa_channel_position_t * gvc_channel_map_get_positions           (GvcChannelMap  *map);
-gdouble *               gvc_channel_map_get_gains               (GvcChannelMap  *map);
+const gdouble *         gvc_channel_map_get_volume              (GvcChannelMap  *map);
+gboolean                gvc_channel_map_can_balance             (GvcChannelMap  *map);
+gboolean                gvc_channel_map_can_fade                (GvcChannelMap  *map);
+gboolean                gvc_channel_map_has_lfe                 (GvcChannelMap  *map);
 
-void                    gvc_channel_map_gains_changed           (GvcChannelMap  *map);
+void                    gvc_channel_map_volume_changed          (GvcChannelMap    *map,
+                                                                 const pa_cvolume *cv);
+const char *            gvc_channel_map_get_mapping             (GvcChannelMap  *map);
 
+/* private */
+const pa_cvolume *      gvc_channel_map_get_cvolume             (GvcChannelMap  *map);
+const pa_channel_map *  gvc_channel_map_get_pa_channel_map      (GvcChannelMap  *map);
 G_END_DECLS
 
 #endif /* __GVC_CHANNEL_MAP_H */

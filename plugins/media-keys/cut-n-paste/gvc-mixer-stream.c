@@ -41,13 +41,16 @@ struct GvcMixerStreamPrivate
         guint          id;
         guint          index;
         GvcChannelMap *channel_map;
-        guint          volume;
-        gdouble        decibel;
         char          *name;
         char          *description;
+        char          *application_id;
         char          *icon_name;
         gboolean       is_muted;
         gboolean       can_decibel;
+        gboolean       is_event_stream;
+        gboolean       is_virtual;
+        pa_volume_t    base_volume;
+        pa_operation  *change_volume_op;
 };
 
 enum
@@ -59,11 +62,14 @@ enum
         PROP_INDEX,
         PROP_NAME,
         PROP_DESCRIPTION,
+        PROP_APPLICATION_ID,
         PROP_ICON_NAME,
         PROP_VOLUME,
         PROP_DECIBEL,
         PROP_IS_MUTED,
-        PROP_CAN_DECIBEL
+        PROP_CAN_DECIBEL,
+        PROP_IS_EVENT_STREAM,
+        PROP_IS_VIRTUAL,
 };
 
 static void     gvc_mixer_stream_class_init (GvcMixerStreamClass *klass);
@@ -114,28 +120,36 @@ gvc_mixer_stream_get_channel_map (GvcMixerStream *stream)
         return stream->priv->channel_map;
 }
 
-guint
+pa_volume_t
 gvc_mixer_stream_get_volume (GvcMixerStream *stream)
 {
         g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), 0);
-        return stream->priv->volume;
+
+        return (pa_volume_t) gvc_channel_map_get_volume(stream->priv->channel_map)[VOLUME];
 }
 
 gdouble
 gvc_mixer_stream_get_decibel (GvcMixerStream *stream)
 {
         g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), 0);
-        return stream->priv->decibel;
+
+        return pa_sw_volume_to_dB(
+                        (pa_volume_t) gvc_channel_map_get_volume(stream->priv->channel_map)[VOLUME]);
 }
 
 gboolean
 gvc_mixer_stream_set_volume (GvcMixerStream *stream,
-                             pa_volume_t     volume)
+                              pa_volume_t     volume)
 {
+        pa_cvolume cv;
+
         g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
 
-        if (volume != stream->priv->volume) {
-                stream->priv->volume = volume;
+        cv = *gvc_channel_map_get_cvolume(stream->priv->channel_map);
+        pa_cvolume_scale(&cv, volume);
+
+        if (!pa_cvolume_equal(gvc_channel_map_get_cvolume(stream->priv->channel_map), &cv)) {
+                gvc_channel_map_volume_changed(stream->priv->channel_map, &cv);
                 g_object_notify (G_OBJECT (stream), "volume");
         }
 
@@ -146,11 +160,16 @@ gboolean
 gvc_mixer_stream_set_decibel (GvcMixerStream *stream,
                               gdouble         db)
 {
+        pa_cvolume cv;
+
         g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
 
-        if (db != stream->priv->decibel) {
-                stream->priv->decibel = db;
-                g_object_notify (G_OBJECT (stream), "decibel");
+        cv = *gvc_channel_map_get_cvolume(stream->priv->channel_map);
+        pa_cvolume_scale(&cv, pa_sw_volume_from_dB(db));
+
+        if (!pa_cvolume_equal(gvc_channel_map_get_cvolume(stream->priv->channel_map), &cv)) {
+                gvc_channel_map_volume_changed(stream->priv->channel_map, &cv);
+                g_object_notify (G_OBJECT (stream), "volume");
         }
 
         return TRUE;
@@ -238,12 +257,73 @@ gvc_mixer_stream_set_description (GvcMixerStream *stream,
         return TRUE;
 }
 
-static void
-on_channel_map_gains_changed (GvcChannelMap  *channel_map,
-                              GvcMixerStream *stream)
+gboolean
+gvc_mixer_stream_is_event_stream (GvcMixerStream *stream)
 {
-        g_debug ("Gains changed");
-        gvc_mixer_stream_change_volume (stream, stream->priv->volume);
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+
+        return stream->priv->is_event_stream;
+}
+
+gboolean
+gvc_mixer_stream_set_is_event_stream (GvcMixerStream *stream,
+                                      gboolean is_event_stream)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+
+        stream->priv->is_event_stream = is_event_stream;
+        g_object_notify (G_OBJECT (stream), "is-event-stream");
+
+        return TRUE;
+}
+
+gboolean
+gvc_mixer_stream_is_virtual (GvcMixerStream *stream)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+
+        return stream->priv->is_virtual;
+}
+
+gboolean
+gvc_mixer_stream_set_is_virtual (GvcMixerStream *stream,
+                                 gboolean is_virtual)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+
+        stream->priv->is_virtual = is_virtual;
+        g_object_notify (G_OBJECT (stream), "is-virtual");
+
+        return TRUE;
+}
+
+const char *
+gvc_mixer_stream_get_application_id (GvcMixerStream *stream)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), NULL);
+        return stream->priv->application_id;
+}
+
+gboolean
+gvc_mixer_stream_set_application_id (GvcMixerStream *stream,
+                                     const char *application_id)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+
+        g_free (stream->priv->application_id);
+        stream->priv->application_id = g_strdup (application_id);
+        g_object_notify (G_OBJECT (stream), "application-id");
+
+        return TRUE;
+}
+
+static void
+on_channel_map_volume_changed (GvcChannelMap  *channel_map,
+                               GvcMixerStream *stream)
+{
+        gvc_mixer_stream_push_volume (stream);
+
+        g_object_notify (G_OBJECT (stream), "volume");
 }
 
 static gboolean
@@ -258,7 +338,7 @@ gvc_mixer_stream_set_channel_map (GvcMixerStream *stream,
 
         if (stream->priv->channel_map != NULL) {
                 g_signal_handlers_disconnect_by_func (stream->priv->channel_map,
-                                                      on_channel_map_gains_changed,
+                                                      on_channel_map_volume_changed,
                                                       stream);
                 g_object_unref (stream->priv->channel_map);
         }
@@ -267,8 +347,8 @@ gvc_mixer_stream_set_channel_map (GvcMixerStream *stream,
 
         if (stream->priv->channel_map != NULL) {
                 g_signal_connect (stream->priv->channel_map,
-                                  "gains-changed",
-                                  G_CALLBACK (on_channel_map_gains_changed),
+                                  "volume-changed",
+                                  G_CALLBACK (on_channel_map_volume_changed),
                                   stream);
 
                 g_object_notify (G_OBJECT (stream), "channel-map");
@@ -293,6 +373,25 @@ gvc_mixer_stream_set_icon_name (GvcMixerStream *stream,
         g_free (stream->priv->icon_name);
         stream->priv->icon_name = g_strdup (icon_name);
         g_object_notify (G_OBJECT (stream), "icon-name");
+
+        return TRUE;
+}
+
+pa_volume_t
+gvc_mixer_stream_get_base_volume (GvcMixerStream *stream)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), 0);
+
+        return stream->priv->base_volume;
+}
+
+gboolean
+gvc_mixer_stream_set_base_volume (GvcMixerStream *stream,
+                                  pa_volume_t base_volume)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+
+        stream->priv->base_volume = base_volume;
 
         return TRUE;
 }
@@ -324,6 +423,9 @@ gvc_mixer_stream_set_property (GObject       *object,
         case PROP_DESCRIPTION:
                 gvc_mixer_stream_set_description (self, g_value_get_string (value));
                 break;
+        case PROP_APPLICATION_ID:
+                gvc_mixer_stream_set_application_id (self, g_value_get_string (value));
+                break;
         case PROP_ICON_NAME:
                 gvc_mixer_stream_set_icon_name (self, g_value_get_string (value));
                 break;
@@ -335,6 +437,12 @@ gvc_mixer_stream_set_property (GObject       *object,
                 break;
         case PROP_IS_MUTED:
                 gvc_mixer_stream_set_is_muted (self, g_value_get_boolean (value));
+                break;
+        case PROP_IS_EVENT_STREAM:
+                gvc_mixer_stream_set_is_event_stream (self, g_value_get_boolean (value));
+                break;
+        case PROP_IS_VIRTUAL:
+                gvc_mixer_stream_set_is_virtual (self, g_value_get_boolean (value));
                 break;
         case PROP_CAN_DECIBEL:
                 gvc_mixer_stream_set_can_decibel (self, g_value_get_boolean (value));
@@ -372,17 +480,28 @@ gvc_mixer_stream_get_property (GObject     *object,
         case PROP_DESCRIPTION:
                 g_value_set_string (value, self->priv->description);
                 break;
+        case PROP_APPLICATION_ID:
+                g_value_set_string (value, self->priv->application_id);
+                break;
         case PROP_ICON_NAME:
                 g_value_set_string (value, self->priv->icon_name);
                 break;
         case PROP_VOLUME:
-                g_value_set_ulong (value, self->priv->volume);
+                g_value_set_ulong (value,
+                                   pa_cvolume_max(gvc_channel_map_get_cvolume(self->priv->channel_map)));
                 break;
         case PROP_DECIBEL:
-                g_value_set_double (value, self->priv->decibel);
+                g_value_set_double (value,
+                                    pa_sw_volume_to_dB(pa_cvolume_max(gvc_channel_map_get_cvolume(self->priv->channel_map))));
                 break;
         case PROP_IS_MUTED:
                 g_value_set_boolean (value, self->priv->is_muted);
+                break;
+        case PROP_IS_EVENT_STREAM:
+                g_value_set_boolean (value, self->priv->is_event_stream);
+                break;
+        case PROP_IS_VIRTUAL:
+                g_value_set_boolean (value, self->priv->is_virtual);
                 break;
         case PROP_CAN_DECIBEL:
                 g_value_set_boolean (value, self->priv->can_decibel);
@@ -411,8 +530,7 @@ gvc_mixer_stream_constructor (GType                  type,
 }
 
 static gboolean
-gvc_mixer_stream_real_change_volume (GvcMixerStream *stream,
-                                     guint           volume)
+gvc_mixer_stream_real_push_volume (GvcMixerStream *stream, gpointer *op)
 {
         return FALSE;
 }
@@ -425,12 +543,17 @@ gvc_mixer_stream_real_change_is_muted (GvcMixerStream *stream,
 }
 
 gboolean
-gvc_mixer_stream_change_volume (GvcMixerStream *stream,
-                                guint           volume)
+gvc_mixer_stream_push_volume (GvcMixerStream *stream)
 {
+        pa_operation *op;
         gboolean ret;
         g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
-        ret = GVC_MIXER_STREAM_GET_CLASS (stream)->change_volume (stream, volume);
+        ret = GVC_MIXER_STREAM_GET_CLASS (stream)->push_volume (stream, (gpointer *) &op);
+        if (ret) {
+                if (stream->priv->change_volume_op != NULL)
+                        pa_operation_unref (stream->priv->change_volume_op);
+                stream->priv->change_volume_op = op;
+        }
         return ret;
 }
 
@@ -444,6 +567,21 @@ gvc_mixer_stream_change_is_muted (GvcMixerStream *stream,
         return ret;
 }
 
+gboolean
+gvc_mixer_stream_is_running (GvcMixerStream *stream)
+{
+        if (stream->priv->change_volume_op == NULL)
+                return FALSE;
+
+        if ((pa_operation_get_state(stream->priv->change_volume_op) == PA_OPERATION_RUNNING))
+                return TRUE;
+
+        pa_operation_unref(stream->priv->change_volume_op);
+        stream->priv->change_volume_op = NULL;
+
+        return FALSE;
+}
+
 static void
 gvc_mixer_stream_class_init (GvcMixerStreamClass *klass)
 {
@@ -454,7 +592,7 @@ gvc_mixer_stream_class_init (GvcMixerStreamClass *klass)
         gobject_class->set_property = gvc_mixer_stream_set_property;
         gobject_class->get_property = gvc_mixer_stream_get_property;
 
-        klass->change_volume = gvc_mixer_stream_real_change_volume;
+        klass->push_volume = gvc_mixer_stream_real_push_volume;
         klass->change_is_muted = gvc_mixer_stream_real_change_is_muted;
 
         g_object_class_install_property (gobject_class,
@@ -490,7 +628,7 @@ gvc_mixer_stream_class_init (GvcMixerStreamClass *klass)
                                                              "Volume",
                                                              "The volume for this stream",
                                                              0, G_MAXULONG, 0,
-                                                             G_PARAM_READWRITE|G_PARAM_CONSTRUCT));
+                                                             G_PARAM_READWRITE));
         g_object_class_install_property (gobject_class,
                                          PROP_DECIBEL,
                                          g_param_spec_double ("decibel",
@@ -514,6 +652,13 @@ gvc_mixer_stream_class_init (GvcMixerStreamClass *klass)
                                                               NULL,
                                                               G_PARAM_READWRITE|G_PARAM_CONSTRUCT));
         g_object_class_install_property (gobject_class,
+                                         PROP_APPLICATION_ID,
+                                         g_param_spec_string ("application-id",
+                                                              "Application identifier",
+                                                              "Application identifier for this stream",
+                                                              NULL,
+                                                              G_PARAM_READWRITE|G_PARAM_CONSTRUCT));
+        g_object_class_install_property (gobject_class,
                                          PROP_ICON_NAME,
                                          g_param_spec_string ("icon-name",
                                                               "Icon Name",
@@ -534,7 +679,20 @@ gvc_mixer_stream_class_init (GvcMixerStreamClass *klass)
                                                                "Whether stream volume can be converted to decibel units",
                                                                FALSE,
                                                                G_PARAM_READWRITE|G_PARAM_CONSTRUCT));
-
+        g_object_class_install_property (gobject_class,
+                                         PROP_IS_EVENT_STREAM,
+                                         g_param_spec_boolean ("is-event-stream",
+                                                               "is event stream",
+                                                               "Whether stream's role is to play an event",
+                                                               FALSE,
+                                                               G_PARAM_READWRITE|G_PARAM_CONSTRUCT));
+        g_object_class_install_property (gobject_class,
+                                         PROP_IS_VIRTUAL,
+                                         g_param_spec_boolean ("is-virtual",
+                                                               "is virtual stream",
+                                                               "Whether the stream is virtual",
+                                                               FALSE,
+                                                               G_PARAM_READWRITE|G_PARAM_CONSTRUCT));
         g_type_class_add_private (klass, sizeof (GvcMixerStreamPrivate));
 }
 
@@ -542,7 +700,6 @@ static void
 gvc_mixer_stream_init (GvcMixerStream *stream)
 {
         stream->priv = GVC_MIXER_STREAM_GET_PRIVATE (stream);
-
 }
 
 static void
@@ -563,8 +720,16 @@ gvc_mixer_stream_finalize (GObject *object)
         g_free (mixer_stream->priv->description);
         mixer_stream->priv->description = NULL;
 
+        g_free (mixer_stream->priv->application_id);
+        mixer_stream->priv->application_id = NULL;
+
         g_free (mixer_stream->priv->icon_name);
         mixer_stream->priv->icon_name = NULL;
+
+       if (mixer_stream->priv->change_volume_op) {
+               pa_operation_unref(mixer_stream->priv->change_volume_op);
+               mixer_stream->priv->change_volume_op = NULL;
+       }
 
         G_OBJECT_CLASS (gvc_mixer_stream_parent_class)->finalize (object);
 }

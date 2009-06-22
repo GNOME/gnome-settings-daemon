@@ -48,8 +48,9 @@ typedef struct
 
 GType               gvc_mixer_event_role_get_type      (void);
 
-GvcMixerStream *    gvc_mixer_event_role_new           (pa_context *context,
-                                                        const char *device);
+GvcMixerStream *    gvc_mixer_event_role_new           (pa_context    *context,
+                                                        const char    *device,
+                                                        GvcChannelMap *channel_map);
 
 G_END_DECLS
 

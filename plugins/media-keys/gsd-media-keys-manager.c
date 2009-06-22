@@ -687,17 +687,17 @@ do_sound_action (GsdMediaKeysManager *manager,
                 if (!muted && (vol <= norm_vol_step)) {
                         manager->priv->num_expected_update_signals = 2;
                         gvc_mixer_stream_change_is_muted (manager->priv->stream, !muted);
-                        gvc_mixer_stream_change_volume (manager->priv->stream, 0);
+                        gvc_mixer_stream_set_volume (manager->priv->stream, 0);
                 } else if (!muted) {
                         manager->priv->num_expected_update_signals = 1;
-                        gvc_mixer_stream_change_volume (manager->priv->stream, vol - norm_vol_step);
+                        gvc_mixer_stream_set_volume (manager->priv->stream, vol - norm_vol_step);
                 }
                 break;
         case VOLUME_UP_KEY:
                 if (muted) {
                         if (vol == 0) {
                                 manager->priv->num_expected_update_signals = 2;
-                                gvc_mixer_stream_change_volume (manager->priv->stream, vol + norm_vol_step);
+                                gvc_mixer_stream_set_volume (manager->priv->stream, vol + norm_vol_step);
                                 gvc_mixer_stream_change_is_muted (manager->priv->stream, !muted);
                         } else {
                                 manager->priv->num_expected_update_signals = 1;
@@ -707,9 +707,9 @@ do_sound_action (GsdMediaKeysManager *manager,
                         if (vol < MAX_VOLUME) {
                                 manager->priv->num_expected_update_signals = 1;
                                 if (vol + norm_vol_step >= MAX_VOLUME) {
-                                        gvc_mixer_stream_change_volume (manager->priv->stream, MAX_VOLUME);
+                                        gvc_mixer_stream_set_volume (manager->priv->stream, MAX_VOLUME);
                                 } else {
-                                        gvc_mixer_stream_change_volume (manager->priv->stream, vol + norm_vol_step);
+                                        gvc_mixer_stream_set_volume (manager->priv->stream, vol + norm_vol_step);
                                 }
                         }
                 }

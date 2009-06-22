@@ -53,21 +53,22 @@ G_DEFINE_TYPE (GvcMixerEventRole, gvc_mixer_event_role, GVC_TYPE_MIXER_STREAM)
 
 static gboolean
 update_settings (GvcMixerEventRole *role,
-                 guint              volume,
-                 gboolean           is_muted)
+                 gboolean           is_muted,
+                 gpointer          *op)
 {
         pa_operation              *o;
         guint                      index;
+        GvcChannelMap     *map;
         pa_context                *context;
         pa_ext_stream_restore_info info;
 
         index = gvc_mixer_stream_get_index (GVC_MIXER_STREAM (role));
 
-        pa_cvolume_set (&info.volume, 1, (pa_volume_t)volume);
+        map = gvc_mixer_stream_get_channel_map (GVC_MIXER_STREAM(role));
 
+        info.volume = *gvc_channel_map_get_cvolume(map);
         info.name = "sink-input-by-media-role:event";
-        info.channel_map.channels = 1;
-        info.channel_map.map[0] = PA_CHANNEL_POSITION_MONO;
+        info.channel_map = *gvc_channel_map_get_pa_channel_map(map);
         info.device = role->priv->device;
         info.mute = is_muted;
 
@@ -86,18 +87,17 @@ update_settings (GvcMixerEventRole *role,
                 return FALSE;
         }
 
-        pa_operation_unref(o);
+	if (op != NULL)
+		*op = o;
 
         return TRUE;
 }
 
 static gboolean
-gvc_mixer_event_role_change_volume (GvcMixerStream *stream,
-                                    guint           volume)
+gvc_mixer_event_role_push_volume (GvcMixerStream *stream, gpointer *op)
 {
         return update_settings (GVC_MIXER_EVENT_ROLE (stream),
-                                volume,
-                                gvc_mixer_stream_get_is_muted (stream));
+                                gvc_mixer_stream_get_is_muted (stream), op);
 }
 
 static gboolean
@@ -105,8 +105,7 @@ gvc_mixer_event_role_change_is_muted (GvcMixerStream *stream,
                                       gboolean        is_muted)
 {
         return update_settings (GVC_MIXER_EVENT_ROLE (stream),
-                                gvc_mixer_stream_get_volume (stream),
-                                is_muted);
+                                is_muted, NULL);
 }
 
 static gboolean
@@ -184,7 +183,7 @@ gvc_mixer_event_role_class_init (GvcMixerEventRoleClass *klass)
         object_class->set_property = gvc_mixer_event_role_set_property;
         object_class->get_property = gvc_mixer_event_role_get_property;
 
-        stream_class->change_volume = gvc_mixer_event_role_change_volume;
+        stream_class->push_volume = gvc_mixer_event_role_push_volume;
         stream_class->change_is_muted = gvc_mixer_event_role_change_is_muted;
 
         g_object_class_install_property (object_class,
@@ -224,7 +223,8 @@ gvc_mixer_event_role_finalize (GObject *object)
 
 GvcMixerStream *
 gvc_mixer_event_role_new (pa_context *context,
-                          const char *device)
+                          const char *device,
+                          GvcChannelMap *channel_map)
 {
         GObject *object;
 
@@ -232,6 +232,7 @@ gvc_mixer_event_role_new (pa_context *context,
                                "pa-context", context,
                                "index", 0,
                                "device", device,
+                               "channel-map", channel_map,
                                NULL);
 
         return GVC_MIXER_STREAM (object);
