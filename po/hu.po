@@ -1,7 +1,6 @@
-# translation of gnome-control-center.HEAD.hu.po to Hungarian
-# Hungarian translation of gnome-control-center.
+# Hungarian translation of gnome-settings-daemon.
 # Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gnome-control-center package.
+# This file is distributed under the same license as the gnome-settings-daemon package.
 #
 # Szabolcs Ban <shooby@gnome.hu>, 1998, 1999, 2000.
 # Emese Kovacs <emese@gnome.hu>, 2001.
@@ -11,14 +10,15 @@
 # Laszlo Dvornik <dvornik@gnome.hu>, 2004.
 # Gabor Kelemen <kelemeng@gnome.hu>, 2004, 2005, 2006, 2007, 2008, 2009.
 # Mate ORY <orymate at gmail d0t com>, 2006.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-control-center.HEAD\n"
+"Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 22:29+0100\n"
-"PO-Revision-Date: 2009-02-23 22:37+0100\n"
-"Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
-"Language-Team: Hungarian <gnome@fsf.hu>\n"
+"POT-Creation-Date: 2009-06-25 03:35+0200\n"
+"PO-Revision-Date: 2009-06-25 03:39+0200\n"
+"Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
+"Language-Team: Hungarian <gnome at gnome dot hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -59,7 +59,7 @@ msgstr "Billentyűparancs a webböngésző indításához."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
 msgid "Binding to lock the screen."
-msgstr "Billentyűparancs a képernyő zárolásához."
+msgstr "Billentyűparancs a kijelző zárolásához."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
 msgid "Binding to log out."
@@ -135,7 +135,7 @@ msgstr "Webböngésző indítása"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:27
 msgid "Lock screen"
-msgstr "Képernyő lezárása"
+msgstr "Képernyő zárolása"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:28
 msgid "Log out"
@@ -188,26 +188,6 @@ msgstr "Hangerő lépésköze a hangerő százalékában."
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:40
 msgid "Volume up"
 msgstr "Hangosítás"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
-msgid ""
-"Set to True to display a dialog when there are errors running the "
-"screensaver."
-msgstr ""
-"Állítsa igazra párbeszédablak megjelenítéséhez a képernyővédő futtatása "
-"közben fellépő hibák esetén."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
-msgid "Set to True to run the screensaver at login."
-msgstr "Állítsa igazra a képernyővédő futtatásához bejelentkezéskor."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:3
-msgid "Show startup errors"
-msgstr "Indulási hibák megjelenítése"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
-msgid "Start screensaver"
-msgstr "Képernyővédő indítása"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
 msgid ""
@@ -283,7 +263,9 @@ msgstr "Engedélyezett billentyűk"
 msgid ""
 "If non-empty, keybindings will be ignored unless their GConf directory is in "
 "the list. This is useful for lockdown."
-msgstr "Ha nem üres, a billentyűtársítások figyelmen kívül maradnak, hacsak a GConf könyvtáruk nincs a listában. Ez zároláshoz hasznos."
+msgstr ""
+"Ha nem üres, a billentyűtársítások figyelmen kívül maradnak, hacsak a GConf "
+"könyvtáruk nincs a listában. Ez zároláshoz hasznos."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -354,46 +336,42 @@ msgid "Enable mouse plugin"
 msgstr "Egér bővítmény engedélyezése"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable screensaver plugin"
-msgstr "Képernyővédő bővítmény engedélyezése"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "Hang bővítmény engedélyezése"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable typing breaks plugin"
 msgstr "Gépelési szünet bővítmény engedélyezése"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable xrandr plugin"
 msgstr "Xrandr bővítmény engedélyezése"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrdb plugin"
 msgstr "Xrdb bővítmény engedélyezése"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xsettings plugin"
 msgstr "Xsettings bővítmény engedélyezése"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Mouse keys"
 msgstr "Egérbillentyűk"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "On-screen keyboard"
 msgstr "Képernyő-billentyűzet"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Screen magnifier"
 msgstr "Képernyőnagyító"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen reader"
 msgstr "Képernyőolvasó"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -401,41 +379,37 @@ msgstr ""
 "Állítsa igazra a karbantartó bővítmény engedélyezéséhez, amely törli az "
 "ideiglenes fájlgyorsítótárakat."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "Állítsa igazra a vágólap beállításait kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "Állítsa igazra az asztal háttérképét kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "Állítsa igazra a betűkészlet beállításait kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Állítsa igazra a billentyűzet beállításait kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Állítsa igazra az egér beállításait kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Állítsa igazra a multimédia-billentyűk beállításait kezelő bővítmény "
 "engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid "Set to True to enable the plugin to manage screensaver settings."
-msgstr "Állítsa igazra a képernyővédő beállításait kezelő bővítmény engedélyezéséhez."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr "Állítsa igazra a hangminta-gyorsítótárakat kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -443,111 +417,113 @@ msgstr ""
 "Állítsa igazra a billentyűzet akadálymentesítési beállításait kezelő "
 "bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "Állítsa igazra a billentyűparancsokat kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Állítsa igazra a gépelési szüneteket kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "Állítsa igazra az xrandr beállításait kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "Állítsa igazra az xrdb beállításait kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Állítsa igazra az xsettings beállításait kezelő bővítmény engedélyezéséhez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Slow keys"
 msgstr "Lassú billentyűk"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Sticky keys"
 msgstr "Ragadós billentyűk"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "Billentyűparancs neve a nagyító be/kikapcsolásához"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "Billentyűparancs neve a képernyő-billentyűzet be/kikapcsolásához"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "The name of the keyboard shortcut to toggle the screenreader"
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "Billentyűparancs neve a képernyőolvasó be/kikapcsolásához"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
-msgstr "Ez a képernyő-billentyűzetet be/kikapcsoló billentyűparancs neve. Ez a név jelenik meg a Gyorsbillentyűk tulajdonságai ablakban."
+msgstr ""
+"Ez a képernyő-billentyűzetet be/kikapcsoló billentyűparancs neve. Ez a név "
+"jelenik meg a Gyorsbillentyűk tulajdonságai ablakban."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
-msgstr "Ez a nagyítót be/kikapcsoló billentyűparancs neve. Ez a név jelenik meg a Gyorsbillentyűk tulajdonságai ablakban."
+msgstr ""
+"Ez a nagyítót be/kikapcsoló billentyűparancs neve. Ez a név jelenik meg a "
+"Gyorsbillentyűk tulajdonságai ablakban."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid ""
-"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
-msgstr "Ez a képernyőolvasót be/kikapcsoló billentyűparancs neve. Ez a név jelenik meg a Gyorsbillentyűk tulajdonságai ablakban."
+msgstr ""
+"Ez a képernyőolvasót be/kikapcsoló billentyűparancs neve. Ez a név jelenik "
+"meg a Gyorsbillentyűk tulajdonságai ablakban."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
 msgstr "Nagyító be/ki"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid "Toggle on-screen keyboard"
 msgstr "Képernyő-billentyűzet be/ki"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle screen reader"
 msgstr "Képernyőolvasó be/ki"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Toggle screenreader"
-msgstr "Képernyőolvasó be/ki"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr ""
 "A billentyűszűrés billentyűzet-akadálymentesítési szolgáltatás be van-e "
 "kapcsolva?"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr ""
 "Az egérbillentyűzet billentyűzet-akadálymentesítési szolgáltatás be van-e "
 "kapcsolva?"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "A képernyő-billentyűzet be van-e kapcsolva?"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the screen magnifier is turned on."
 msgstr "A képernyőnagyító be van-e kapcsolva?"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:58
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the screen reader is turned on."
 msgstr "A képernyőolvasó be van-e kapcsolva?"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:59
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr ""
 "A lassú billentyűk billentyűzet-akadálymentesítési szolgáltatás be van-e "
 "kapcsolva?"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:60
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr ""
 "A ragadós billentyűk billentyűzet-akadálymentesítési szolgáltatás be van-e "
@@ -578,18 +554,18 @@ msgstr "Billentyűzet akadálymentesítése bővítmény"
 msgid "There was an error displaying help: %s"
 msgstr "Hiba történt a súgó megjelenítése közben: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
 msgid "Do you want to activate Slow Keys?"
 msgstr "Szeretné aktiválni a Lassú billentyűket?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Ki szeretné kapcsolni a Lassú billentyűket?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -597,62 +573,62 @@ msgstr ""
 "Lenyomva tartotta a Shift billentyűt 8 másodpercig. Ez a Lassú billentyűk "
 "szolgáltatás gyorsbillentyűje, ami a billentyűzet működését befolyásolja."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't activate"
 msgstr "Ne kerüljön aktiválásra"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't deactivate"
 msgstr "Ne kerüljön deaktiválásra"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Activate"
 msgstr "Aktiválás"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Deactivate"
 msgstr "Deaktiválás"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't activate"
 msgstr "_Ne kerüljön aktiválásra"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't deactivate"
 msgstr "N_e kerüljön deaktiválásra"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Activate"
 msgstr "_Aktiválás"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Deactivate"
 msgstr "_Deaktiválás"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
 msgid "Slow Keys Alert"
 msgstr "Lassú billentyűk figyelmeztetés"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Szeretné bekapcsolni a Ragadós billentyűket?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Ki szeretné kapcsolni a Ragadós billentyűket?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -660,8 +636,8 @@ msgstr ""
 "Egymás után ötször nyomta meg a Shift billentyűt. Ez a Ragadós billentyűk "
 "szolgáltatás gyorsbillentyűje, ami a billentyűzet viselkedését befolyásolja."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -671,7 +647,7 @@ msgstr ""
 "kikapcsolja a Ragadós billentyűk szolgáltatást, ami a billentyűzet "
 "viselkedését befolyásolja."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
 msgid "Sticky Keys Alert"
 msgstr "Ragadós billentyűk figyelmeztetés"
 
@@ -744,16 +720,16 @@ msgstr "Betűkészlet"
 msgid "Font plugin"
 msgstr "Betűkészlet bővítmény"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:122
+#: ../plugins/housekeeping/gsd-disk-space.c:124
 #, c-format
 msgid "%d%% of the disk space on `%s' is in use"
 msgstr "A lemezterület %d százaléka használatban van a következőn: „%s”"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:130
+#: ../plugins/housekeeping/gsd-disk-space.c:132
 msgid "Low Disk Space"
 msgstr "Kevés a lemezterület"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:141
+#: ../plugins/housekeeping/gsd-disk-space.c:143
 msgid "Analyze"
 msgstr "Elemzés"
 
@@ -767,7 +743,7 @@ msgstr "A billentyűparancs (%s) érvénytelen"
 msgid "Key binding (%s) is incomplete"
 msgstr "A billentyűparancs (%s) hiányos"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:491
+#: ../plugins/keybindings/gsd-keybindings-manager.c:493
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -805,7 +781,6 @@ msgid "Would you like to load the modmap file(s)?"
 msgstr "Be szeretné tölteni a modmap fájlokat?"
 
 #: ../plugins/keyboard/modmap-dialog.glade.h:4
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
 msgid "_Do not show this message again"
 msgstr "_Ne mutassa ezt többé"
 
@@ -843,11 +818,11 @@ msgstr ""
 "A gép nem vihető alvás állapotba.\n"
 "Ellenőrizze, hogy gépe helyesen van-e konfigurálva."
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1065
 msgid "System Sounds"
 msgstr "Rendszerhangok"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1471
 msgid "GNOME Volume Control"
 msgstr "GNOME hangerőszabályzó"
 
@@ -859,15 +834,15 @@ msgstr "Médiabillentyűk"
 msgid "Media keys plugin"
 msgstr "Médiabillentyűk bővítmény"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:625
+#: ../plugins/mouse/gsd-mouse-manager.c:890
 msgid "Could not enable mouse accessibility features"
 msgstr "A billentyűzet akadálymentesítési szolgáltatásai nem engedélyezhetők"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:627
+#: ../plugins/mouse/gsd-mouse-manager.c:892
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "Az egér akadálymentesítése megköveteli a mousetweaks jelenlétét a rendszeren."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:630
+#: ../plugins/mouse/gsd-mouse-manager.c:895
 msgid "Mouse Preferences"
 msgstr "Egér beállításai"
 
@@ -878,29 +853,6 @@ msgstr "Egér"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Egér bővítmény"
-
-#: ../plugins/screensaver/gsd-screensaver-manager.c:136
-#, c-format
-msgid ""
-"There was an error starting up the screensaver:\n"
-"\n"
-"%s\n"
-"\n"
-"Screensaver functionality will not work in this session."
-msgstr ""
-"Hiba történt a képernyővédő indítása közben:\n"
-"\n"
-"%s\n"
-"\n"
-"A képernyővédő ebben a munkamenetben nem fog működni."
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
-msgid "Screensaver"
-msgstr "Képernyővédő"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
-msgid "Screensaver plugin"
-msgstr "Képernyővédő bővítmény"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -918,81 +870,84 @@ msgstr "A képernyőméret és -forgatás beállítása"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+#: ../plugins/xrandr/gsd-xrandr-manager.c:208
 msgid "Could not restore the display's configuration"
-msgstr "A monitor beállításai nem állíthatók vissza"
+msgstr "A kijelző beállításai nem állíthatók vissza"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+#: ../plugins/xrandr/gsd-xrandr-manager.c:233
 msgid "Could not restore the display's configuration from a backup"
-msgstr "A monitor beállításai nem állíthatók vissza a mentésből"
+msgstr "A kijelző beállításai nem állíthatók vissza a mentésből"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:166
+#: ../plugins/xrandr/gsd-xrandr-manager.c:254
 #, c-format
-msgid "The display will be reset to its previous configuration in %d seconds"
-msgstr "A képernyő visszaáll a korábbi beállításaira %d másodpercen belül"
+msgid "The display will be reset to its previous configuration in %d second"
+msgid_plural "The display will be reset to its previous configuration in %d seconds"
+msgstr[0] "A kijelző visszaáll a korábbi beállításaira %d másodpercen belül"
+msgstr[1] "A kijelző visszaáll a korábbi beállításaira %d másodpercen belül"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+#: ../plugins/xrandr/gsd-xrandr-manager.c:303
 msgid "Does the display look OK?"
 msgstr "Megfelelően jelenik meg a kép?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:218
+#: ../plugins/xrandr/gsd-xrandr-manager.c:309
 msgid "_Restore Previous Configuration"
 msgstr "A korábbi beállítások _visszaállítása"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:219
+#: ../plugins/xrandr/gsd-xrandr-manager.c:310
 msgid "_Keep This Configuration"
 msgstr "Ezen beállítások _megtartása"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:256
+#: ../plugins/xrandr/gsd-xrandr-manager.c:391
 msgid "The selected configuration for displays could not be applied"
 msgstr "A kiválasztott kijelzőbeállítás nem alkalmazható"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:702
+#: ../plugins/xrandr/gsd-xrandr-manager.c:867
 #, c-format
 msgid "Could not refresh the screen information: %s"
-msgstr "A képernyő-információk nem frissíthetők: %s"
+msgstr "A kijelzőinformációk nem frissíthetők: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:705
+#: ../plugins/xrandr/gsd-xrandr-manager.c:870
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Kísérlet a monitor beállításainak átváltására mindenképp."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:739
+#: ../plugins/xrandr/gsd-xrandr-manager.c:904
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
 msgid "Could not switch the monitor configuration"
 msgstr "A monitor beállításai nem válthatók át"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1427
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>A forgatás nem támogatott</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1481
 msgid "Could not save monitor configuration"
 msgstr "A monitor beállításai nem menthetők"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1499
 msgid "Normal"
 msgstr "Normál"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1500
 msgid "Left"
 msgstr "Balra"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1501
 msgid "Right"
 msgstr "Jobbra"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1502
 msgid "Upside Down"
 msgstr "Fejjel lefelé"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1621
 msgid "_Configure Display Settings ..."
 msgstr "Ké_pernyő beállítása…"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1662
 msgid "Configure display settings"
-msgstr "Képernyő beállítása"
+msgstr "Kijelző beállítása"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1716
 msgid "Could not apply the stored configuration for monitors"
 msgstr "A tárolt beállítás nem alkalmazható a monitorokra"
 
