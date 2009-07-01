@@ -168,7 +168,8 @@ filter_xkb_config (void)
 	xkl_debug (100, "Filtering configuration against the registry\n");
 	if (!xkl_registry) {
 		xkl_registry = xkl_config_registry_get_instance (xkl_engine);
-		if (!xkl_config_registry_load (xkl_registry)) {
+		/* load all materials, unconditionally! */
+		if (!xkl_config_registry_load (xkl_registry, TRUE)) {
 			g_object_unref (xkl_registry);
 			xkl_registry = NULL;
 			return FALSE;
