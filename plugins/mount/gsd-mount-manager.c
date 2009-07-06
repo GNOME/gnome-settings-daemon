@@ -111,6 +111,35 @@ mount_added_cb (GVolumeMonitor *monitor,
         g_object_unref (file);
 }
 
+static void
+mount_existing_volumes (GsdMountManager *manager)
+{
+        /* TODO: iterate over drives to hook up eject */
+        GList *l;
+
+        l = g_volume_monitor_get_volumes (manager->priv->monitor);
+        while (l) {
+                GVolume *volume = l->data;
+                GMount *mount;
+
+                mount = g_volume_get_mount (volume);
+                if (mount == NULL &&
+                    g_volume_can_mount (volume) &&
+                    g_volume_should_automount (volume)) {
+                        GMountOperation *mount_op;
+                        mount_op = gtk_mount_operation_new (NULL);
+                        g_volume_mount (volume, G_MOUNT_MOUNT_NONE,
+                                        mount_op, NULL,
+                                        volume_mounted_cb, manager);
+                }
+
+                if (mount)
+                        g_object_unref (mount);
+                g_object_unref (volume);
+                l = g_list_delete_link (l, l);
+        }
+}
+
 gboolean
 gsd_mount_manager_start (GsdMountManager *manager,
                                GError               **error)
@@ -129,6 +158,8 @@ gsd_mount_manager_start (GsdMountManager *manager,
 				 G_CALLBACK (mount_added_cb), manager, 0);
 
         /* TODO: handle eject buttons */
+
+        mount_existing_volumes (manager);
         return TRUE;
 }
 
