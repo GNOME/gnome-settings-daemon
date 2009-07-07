@@ -27,8 +27,6 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#include <glade/glade.h>
-
 #include "gsd-media-keys-window.h"
 
 #define DIALOG_TIMEOUT 2000     /* dialog timeout in ms */
@@ -953,21 +951,29 @@ gsd_media_keys_window_init (GsdMediaKeysWindow *window)
 
                 window->priv->fade_out_alpha = 1.0;
         } else {
-        	GladeXML *xml;
+                GtkBuilder *builder;
+                gchar *objects[] = {"acme_frame", NULL};
                 GtkWidget *frame;
 
-                xml = glade_xml_new (GLADEDIR "/acme.glade", "acme_frame", NULL);
+                builder = gtk_builder_new ();
+                gtk_builder_add_objects_from_file (builder,
+                                                   GTKBUILDERDIR "/acme.ui",
+                                                   objects,
+                                                   NULL);
 
-                window->priv->image = GTK_IMAGE (glade_xml_get_widget (xml, "acme_image"));
-                window->priv->progress = glade_xml_get_widget (xml, "acme_volume_progressbar");
-                frame = glade_xml_get_widget (xml, "acme_frame");
-
-                g_object_unref (xml);
+                window->priv->image = GTK_IMAGE (gtk_builder_get_object (builder, "acme_image"));
+                window->priv->progress = GTK_WIDGET (gtk_builder_get_object (builder, "acme_volume_progressbar"));
+                frame = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                            "acme_frame"));
 
                 if (frame != NULL) {
                         gtk_container_add (GTK_CONTAINER (window), frame);
                         gtk_widget_show_all (frame);
                 }
+
+                /* The builder needs to stay alive until the window
+                   takes ownership of the frame (and its children)  */
+                g_object_unref (builder);
         }
 }
 

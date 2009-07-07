@@ -41,7 +41,7 @@ libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
-	-DGLADEDIR=\""$(pkgdatadir)"\"				\
+	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
@@ -80,7 +80,7 @@ test_media_window_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
-	-DGLADEDIR=\""$(pkgdatadir)"\"				\
+	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
@@ -108,7 +108,7 @@ test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
-	-DGLADEDIR=\""$(pkgdatadir)"\"				\
+	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
@@ -128,9 +128,9 @@ if HAVE_PULSE
 test_media_keys_LDADD += $(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la
 endif
 
-gladedir = $(pkgdatadir)
-glade_DATA = 		\
-	acme.glade	\
+gtkbuilderdir = $(pkgdatadir)
+gtkbuilder_DATA =	\
+	acme.ui		\
 	$(NULL)
 
 pixmapsdir = $(pkgdatadir)
@@ -144,7 +144,7 @@ EXTRA_DIST = 				\
 	gsd-media-keys-manager.xml	\
 	gsd-marshal.list		\
 	$(plugin_in_files)		\
-	$(glade_DATA)			\
+	$(gtkbuilder_DATA)		\
 	$(pixmaps_DATA)
 
 CLEANFILES = 			\
