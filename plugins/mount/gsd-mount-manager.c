@@ -184,7 +184,10 @@ gsd_mount_manager_start (GsdMountManager *manager,
 
         /* TODO: handle eject buttons */
 
+#if 0
         mount_existing_volumes (manager);
+#endif
+
         return TRUE;
 }
 
