@@ -52,15 +52,18 @@ static void
 volume_mounted_cb (GObject *source_object, GAsyncResult *result, gpointer user_data)
 {
         GError *error = NULL;
+        char *name;
+
+        name = g_volume_get_name (G_VOLUME (source_object));
 
 	if (!g_volume_mount_finish (G_VOLUME (source_object), result, &error)) {
+                g_debug ("Failed to mount '%s': %s", name, error->message);
+
 		if (error->code != G_IO_ERROR_FAILED_HANDLED) {
-                        char *name, *primary;
+                        char *primary;
                         GtkWidget *dialog;
 
-			name = g_volume_get_name (G_VOLUME (source_object));
 			primary = g_strdup_printf (_("Unable to mount %s"), name);
-			g_free (name);
 
                         dialog = gtk_message_dialog_new (NULL, 0,
                                                          GTK_MESSAGE_ERROR,
@@ -74,8 +77,11 @@ volume_mounted_cb (GObject *source_object, GAsyncResult *result, gpointer user_d
                         gtk_widget_destroy (dialog);
 		}
 		g_error_free (error);
-	}
+	} else {
+                g_debug ("Mounted '%s'", name);
+        }
 
+        g_free (name);
 }
 
 static void
@@ -83,14 +89,23 @@ volume_added_cb (GVolumeMonitor *monitor,
                  GVolume *volume,
                  GsdMountManager *manager)
 {
+        char *name;
+
+        name = g_volume_get_name (volume);
+        g_debug ("Volme '%s' added", name);
+
         if (g_volume_can_mount (volume)) {
                 GMountOperation *mount_op;
+
+                g_debug ("Mounting '%s'", name);
 
                 mount_op = gtk_mount_operation_new (NULL);
                 g_volume_mount (volume, G_MOUNT_MOUNT_NONE,
                                 mount_op, NULL,
                                 volume_mounted_cb, manager);
         }
+
+        g_free (name);
 }
 
 static void
@@ -103,6 +118,8 @@ mount_added_cb (GVolumeMonitor *monitor,
 
         file = g_mount_get_root (mount);
         uri = g_file_get_uri (file);
+
+        g_debug ("%s mounted, starting file manager", uri);
 
         /* TODO: error */
         gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, NULL);
@@ -117,6 +134,8 @@ mount_existing_volumes (GsdMountManager *manager)
         /* TODO: iterate over drives to hook up eject */
         GList *l;
 
+        g_debug ("Mounting existing volumes");
+
         l = g_volume_monitor_get_volumes (manager->priv->monitor);
         while (l) {
                 GVolume *volume = l->data;
@@ -127,6 +146,12 @@ mount_existing_volumes (GsdMountManager *manager)
                     g_volume_can_mount (volume) &&
                     g_volume_should_automount (volume)) {
                         GMountOperation *mount_op;
+                        char *name;
+
+                        name = g_volume_get_name (volume);
+                        g_debug ("Mounting '%s'", name);
+                        g_free (name);
+
                         mount_op = gtk_mount_operation_new (NULL);
                         g_volume_mount (volume, G_MOUNT_MOUNT_NONE,
                                         mount_op, NULL,
