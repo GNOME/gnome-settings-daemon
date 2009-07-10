@@ -27,7 +27,6 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
-#include <glade/glade.h>
 
 #include "gsd-xmodmap.h"
 
@@ -259,7 +258,9 @@ out:
 void
 gsd_modmap_dialog_call (void)
 {
-        GladeXML          *xml;
+        GtkBuilder        *builder;
+        guint              res;
+        GError            *error;
         GtkWidget         *load_dialog;
         GtkListStore      *tree;
         GtkCellRenderer   *cell_renderer;
@@ -283,39 +284,47 @@ gsd_modmap_dialog_call (void)
         if (homeDir == NULL)
                 return;
 
-        xml = glade_xml_new (DATADIR "/modmap-dialog.glade", "dialog1", NULL);
+        error = NULL;
+        builder = gtk_builder_new ();
+        res = gtk_builder_add_from_file (builder,
+                                         DATADIR "/modmap-dialog.ui",
+                                         &error);
 
-        if (!xml) {
-                g_warning ("Could not find glade file");
+        if (res == 0) {
+                g_warning ("Could not load UI file: %s", error->message);
+                g_error_free (error);
+                g_object_unref (builder);
                 g_dir_close (homeDir);
                 return;
         }
 
-        load_dialog = glade_xml_get_widget (xml, "dialog1");
+        load_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "dialog1"));
         gtk_window_set_modal (GTK_WINDOW (load_dialog), TRUE);
         g_signal_connect (load_dialog,
                           "response",
                           G_CALLBACK (response_callback),
-                          xml);
-        add_button = glade_xml_get_widget (xml, "button7");
+                          builder);
+        add_button =  GTK_WIDGET (gtk_builder_get_object (builder, "button7"));
         g_signal_connect (add_button,
                           "clicked",
                           G_CALLBACK (load_button_clicked_callback),
                           load_dialog);
-        remove_button = glade_xml_get_widget (xml, "button6");
+        remove_button =  GTK_WIDGET (gtk_builder_get_object (builder,
+                                                             "button6"));
         g_signal_connect (remove_button,
                           "clicked",
                           G_CALLBACK (remove_button_clicked_callback),
                           load_dialog);
-        chk_button = glade_xml_get_widget (xml, "checkbutton1");
+        chk_button =  GTK_WIDGET (gtk_builder_get_object (builder,
+                                                          "checkbutton1"));
         g_signal_connect (chk_button,
                           "toggled",
                           G_CALLBACK (check_button_callback),
                           NULL);
         g_object_set_data (G_OBJECT (load_dialog), "check_button", chk_button);
-        treeview = glade_xml_get_widget (xml, "treeview1");
+        treeview = GTK_WIDGET (gtk_builder_get_object (builder, "treeview1"));
         g_object_set_data (G_OBJECT (load_dialog), "treeview1", treeview);
-        treeview = glade_xml_get_widget (xml, "treeview2");
+        treeview =  GTK_WIDGET (gtk_builder_get_object (builder, "treeview2"));
         g_object_set_data (G_OBJECT (load_dialog), "loaded-treeview", treeview);
         tree = gtk_list_store_new (1, G_TYPE_STRING);
         cell_renderer = gtk_cell_renderer_text_new ();
@@ -350,7 +359,7 @@ gsd_modmap_dialog_call (void)
         g_dir_close (homeDir);
 
         /* Left treeview */
-        treeview1 = glade_xml_get_widget (xml, "treeview1");
+        treeview1 =  GTK_WIDGET (gtk_builder_get_object (builder, "treeview1"));
         tree = gtk_list_store_new (1, G_TYPE_STRING);
         cell_renderer = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes ("modmap",
@@ -386,5 +395,5 @@ gsd_modmap_dialog_call (void)
         gtk_tree_selection_set_mode (GTK_TREE_SELECTION (selection),
                                      GTK_SELECTION_MULTIPLE);
         g_object_set_data (G_OBJECT (load_dialog), "tree", tree);
-        g_object_unref (xml);
+        g_object_unref (builder);
 }
