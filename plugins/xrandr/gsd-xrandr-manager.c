@@ -695,7 +695,7 @@ make_other_setup (GnomeRRScreen *screen)
 }
 
 static GPtrArray *
-sanitize (GPtrArray *array)
+sanitize (GsdXrandrManager *manager, GPtrArray *array)
 {
         int i;
         GPtrArray *new;
@@ -741,7 +741,29 @@ sanitize (GPtrArray *array)
                         }
 
                         if (all_off) {
+                                g_debug ("removing configuration as all outputs are off");
                                 gnome_rr_config_free (array->pdata[i]);
+                                array->pdata[i] = NULL;
+                        }
+                }
+        }
+
+        /* Do a final sanitization pass.  This will remove configurations that
+         * don't fit in the framebuffer's Virtual size.
+         */
+
+        for (i = 0; i < array->len; i++) {
+                GnomeRRConfig *config = array->pdata[i];
+
+                if (config) {
+                        GError *error;
+
+                        error = NULL;
+                        if (!gnome_rr_config_applicable (config, manager->priv->rw_screen, &error)) { /* NULL-GError */
+                                g_debug ("removing configuration which is not applicable because %s", error->message);
+                                g_error_free (error);
+
+                                gnome_rr_config_free (config);
                                 array->pdata[i] = NULL;
                         }
                 }
@@ -796,7 +818,7 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
         g_ptr_array_add (array, make_other_setup (screen));
         g_ptr_array_add (array, gnome_rr_config_new_stored (screen, NULL)); /* NULL-GError - if this can't read the stored config, no big deal */
 
-        array = sanitize (array);
+        array = sanitize (mgr, array);
 
         if (array) {
                 mgr->priv->fn_f7_configs = (GnomeRRConfig **)g_ptr_array_free (array, FALSE);
