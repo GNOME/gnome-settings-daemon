@@ -978,6 +978,7 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         GList *l;
         int x;
         GError *error;
+        gboolean applicable;
 
         config = gnome_rr_config_new_current (priv->rw_screen);
 
@@ -1050,12 +1051,47 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
                 x += output->width;
         }
 
+        /* Check if we have a large enough framebuffer size.  If not, turn off
+         * outputs from right to left until we reach a usable size.
+         */
+
+        just_turned_on = g_list_reverse (just_turned_on); /* now the outputs here are from right to left */
+
+        l = just_turned_on;
+        while (1) {
+                GnomeOutputInfo *output;
+                gboolean is_bounds_error;
+
+                error = NULL;
+                applicable = gnome_rr_config_applicable (config, priv->rw_screen, &error);
+
+                if (applicable)
+                        break;
+
+                is_bounds_error = g_error_matches (error, GNOME_RR_ERROR, GNOME_RR_ERROR_BOUNDS_ERROR);
+                g_error_free (error);
+
+                if (!is_bounds_error)
+                        break;
+
+                if (l) {
+                        i = GPOINTER_TO_INT (l->data);
+                        l = l->next;
+
+                        output = config->outputs[i];
+                        output->on = FALSE;
+                } else
+                        break;
+        }
+
         /* Apply the configuration! */
 
-        error = NULL;
-        if (!gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, &error)) {
-                error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
-                g_error_free (error);
+        if (applicable) {
+                error = NULL;
+                if (!gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, &error)) {
+                        error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
+                        g_error_free (error);
+                }
         }
 
         g_list_free (just_turned_on);
