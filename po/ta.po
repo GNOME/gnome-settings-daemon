@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-08 04:45+0530\n"
-"PO-Revision-Date: 2009-07-15 16:40+0530\n"
+"POT-Creation-Date: 2009-07-15 17:03+0530\n"
+"PO-Revision-Date: 2009-07-15 17:25+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: Tamil <Ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr ""
 
 #: ../data/50-accessibility.xml.in.h:1
 msgid "Accessibility"
-msgstr "அணுகல் "
+msgstr "அணுகல்"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -191,24 +191,6 @@ msgstr "ஒலியின் சதவிகித படி ஒலி."
 msgid "Volume up"
 msgstr "ஒலி அளவை உயர்த்து"
 
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
-msgid ""
-"Set to True to display a dialog when there are errors running the "
-"screensaver."
-msgstr "திரைசேமிப்பி  இயங்கும் போது  பிழைகள் வரின் ஒரு உரையாடலை காட்ட உண்மை என அமைக்கவும்."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
-msgid "Set to True to run the screensaver at login."
-msgstr "உள் அனுமதியில் திரைசேமிப்பியை  இயக்க உண்மை என அமைக்கவும்"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:3
-msgid "Show startup errors"
-msgstr "துவக்கும் போது எழும் பிழைகளை காட்டு "
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
-msgid "Start screensaver"
-msgstr "திரைசேமிப்பியை தொடங்கு"
-
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
 msgid ""
 "If a notification icon with display related things should be shown in the "
@@ -285,6 +267,46 @@ msgstr ""
 "வெற்று இல்லையெனில், விசைபிணைவுகள் அதன் GConf அடைவு பட்டியலில் இல்லையெனில் "
 "தவிர்க்கப்படும். இது பூட்டுக்கு பயனுள்ளது."
 
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
+msgid "Disable touchpad while typing"
+msgstr "தட்டச்சும்போது தொடுதிட்டை செயல்நீக்கு"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
+msgid "Enable horizontal scrolling"
+msgstr "கிடைமட்ட உருளலை இயலுமை செய்க"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
+msgid "Enable mouse clicks with touchpad"
+msgstr "தொடுதிட்டால் சொடுக்கி சொடுக்கலை செயல்படுத்து"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
+msgid "Select the touchpad scroll method"
+msgstr "தொடுதிட்டால் உருளல் செயலை தேர்ந்தெடு"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
+msgid ""
+"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
+"edge scrolling, 2 - two-finger scrolling"
+msgstr ""
+"தொடுதிட்டால் உருளல் செயலை தேர்ந்தெடு. ஆதரவுள்ள மதிப்புகள்:0 - செயல்நீக்கப்பட்டது, 1 - "
+"விளிம்பு உருளல் , 2 - இரு-விரல் உருளல்"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr "தட்டச்சும்போது தவறுதலாக தொடு திட்டை தொடுபவராக இருந்தால் இதை உண்மை என அமைக்கவும்."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr "_m உருளல் முறைமை விசையுடன் தெந்தெடுத்த அதே முறையில் கிடைமட்ட உருளலை இயலுமை செய்ய  இதை உண்மை என அமைக்கவும்"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr "சொடுக்கி சொடுக்கலை திட்டு தட்டலால் செய்ய இதை உண்மை என அமைக்கவும்"
+
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "GNOME அமைவுகள் கிங்கரன்"
@@ -354,46 +376,42 @@ msgid "Enable mouse plugin"
 msgstr "சொடுக்கி சொருகி செயல்படுத்து"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable screensaver plugin"
-msgstr "திரைசேமிப்பி சொருகியை இயக்கவும்"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "ஒலி சொருகி செயல்படுத்து"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable typing breaks plugin"
 msgstr "தட்டச்சு முறிவு  சொருகியை இயலுமை செய்க"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable xrandr plugin"
 msgstr "xrandr சொருகியை இயலுமை செய்க"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrdb plugin"
 msgstr "xrdb சொருகியை செயல்படுத்து"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xsettings plugin"
 msgstr "எக்ஸ் அமைப்பு  சொருகியை இயலுமை செய்க"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Mouse keys"
 msgstr "சுட்டி விசைகள்"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "On-screen keyboard"
 msgstr "திரை விசைப்பலகை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Screen magnifier"
 msgstr "திரை பெரிதாக்கி"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen reader"
 msgstr "திரைபடிப்பான்"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -401,85 +419,81 @@ msgstr ""
 "வீட்டுப்பராமரிப்பு  சொருகியை இயலுமை செய்ய உண்மை என்று அமை. இது தற்காலிக கோப்பு "
 "இடையகத்தை சுருக்கும்."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "ஒட்டு பலகை அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "மேல்மேசை பின்னணி அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "எழுத்துரு அமைப்பை  மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "விசைபலகை அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "சொடுக்கி அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr "பல்லூடக விசைகள் அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid "Set to True to enable the plugin to manage screensaver settings."
-msgstr "திரை சேமிப்பி அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr "ஒலி அமைப்பை மேலாள சொருகியை செயல்படுத்த உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr "அணுகல் விசைகள் அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "விசை பிணைப்புகள் அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "தட்டச்சு முறிவுகள் அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "xrandr அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "xrdb அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "xஅமைப்புகளை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Slow keys"
 msgstr "மெதுவான விசைகள்"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Sticky keys"
 msgstr "விசைகள் ஒட்டுபவை"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "விசைப்பலகை குறுக்குவழியின் பெயர் பெரிதாக்கியை மாற்றுகிறது"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "விசைப்பலகை குறுக்குவழியின் பெயர் திரையில் விசைப்பலகையை மாற்றுகிறது"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "The name of the keyboard shortcut to toggle the screenreader"
-msgstr "விசைப்பலகை குறுக்குவழியின் பெயர் திரைப்படிப்பானை மாற்றுகிறது"
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the screen reader"
+msgstr "திரைப்படிப்பானை நிலை மாற்ற விசைப்பலகை குறுக்குவழியின் பெயர்  "
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
@@ -487,7 +501,7 @@ msgstr ""
 "இது விசைப்பலகை குறுக்குவழியின் பெயர் பெரிதாக்கியை மாற்றுகிறது. இந்த பெயர் விசைப்பலகை "
 "குறுக்குவழி முன்னுரிமைகளை உரையாடலை காட்டுகிறது."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
@@ -495,55 +509,51 @@ msgstr ""
 "இது விசைப்பலகை குறுக்குவழியின் பெயர் திரையில் விசைப்பலகை மாற்றுகிறது. இந்த பெயர் "
 "விசைப்பலகை குறுக்குவழி முன்னுரிமைகளை உரையாடலை காட்டுகிறது."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid ""
-"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"இது விசைப்பலகை குறுக்குவழியின் பெயர் திரைப்படிப்பானை மாற்றுகிறது. இந்த பெயர் "
-"விசைப்பலகை குறுக்குவழி முன்னுரிமைகளை உரையாடலை காட்டுகிறது."
+"திரைப்படிப்பானை நிலை மாற்ற விசைப்பலகை குறுக்குவழியின் பெயர். "
+"விசைப்பலகை குறுக்குவழி முன்னுரிமைகளை உரையாடலுல் இந்த பெயர் காட்டப்படும்"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
 msgstr "பெரிதாக்கியை மாற்று"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid "Toggle on-screen keyboard"
 msgstr "திரை விசைப்பலகையை மாற்று"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle screen reader"
 msgstr "திரைபடிப்பானை மாற்று"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Toggle screenreader"
-msgstr "திரைபடிப்பானை மாற்று"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "பவுன்ஸ் விசைகள் விசைப்பலகை அணுகல் வசதி செயல்படுத்தப்பட்டுள்ளதா"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "சுட்டி விசைகள் விசைப்பலகை அணுகல் வசதி செயல்படுத்தப்பட்டுள்ளதா"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "திரையில் விசைப்பலகை செயல்படுத்தப்பட்டுள்ளதா"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the screen magnifier is turned on."
 msgstr "திரை பெரிதாக்கி செயல்படுத்தப்பட்டுள்ளதா"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:58
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the screen reader is turned on."
 msgstr "திரைப்படிப்பான் செயல்படுத்தப்பட்டுள்ளதா"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:59
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "மெதுவான விசைகள் விசைப்பலகை அணுகல் வசதி செயல்படுத்தப்பட்டுள்ளதா"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:60
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "ஒட்டு விசைகள் விசைப்பலகை அணுகல் வசதி செயல்படுத்தப்பட்டுள்ளதா"
 
@@ -737,16 +747,16 @@ msgstr "எழுத்துருக்கள் "
 msgid "Font plugin"
 msgstr "எழுத்துரு சொருகி"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:122
+#: ../plugins/housekeeping/gsd-disk-space.c:124
 #, c-format
 msgid "%d%% of the disk space on `%s' is in use"
 msgstr "%d%% வட்டு இடம் `%s' இல் பயன்படுத்தப்படுகிறது"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:130
+#: ../plugins/housekeeping/gsd-disk-space.c:132
 msgid "Low Disk Space"
 msgstr "குறைந்த வட்டு இடம்"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:141
+#: ../plugins/housekeeping/gsd-disk-space.c:143
 msgid "Analyze"
 msgstr "ஆய்வு செய்"
 
@@ -760,7 +770,7 @@ msgstr "(%s) விசை-அணுகல் செல்லுபடியா�
 msgid "Key binding (%s) is incomplete"
 msgstr "(%s) விசை-அணுகல் பூர்தியாகவில்லை"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:491
+#: ../plugins/keybindings/gsd-keybindings-manager.c:493
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -785,28 +795,27 @@ msgstr "விசைப்பலகை"
 msgid "Keyboard plugin"
 msgstr "விசைப்பலகை சொருகி"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:1
+#: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
 msgstr "இருக்கும் கோப்புகள்: (_v)"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:2
+#: ../plugins/keyboard/modmap-dialog.ui.h:2
 msgid "Load modmap files"
 msgstr "modmap கோப்புகளை ஏற்று"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
+#: ../plugins/keyboard/modmap-dialog.ui.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "modmap கோப்பு(களை) ஏற்ற வேண்டுமா?"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+#: ../plugins/keyboard/modmap-dialog.ui.h:4
 msgid "_Do not show this message again"
 msgstr "_இத்தகவலை இனிமேல் காண்பிக்க வேண்டாம்"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:5
+#: ../plugins/keyboard/modmap-dialog.ui.h:5
 msgid "_Load"
 msgstr "ஏற்று (_L)"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:6
+#: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "ஏற்றப்பட்ட கோப்புகள்: (_L)"
 
@@ -835,11 +844,11 @@ msgstr ""
 "பொறியை தூங்க வைக்க முடியவில்லை .\n"
 "பொறியின் அமைப்பு சரியாக உள்ளதா என சரிப்பார்க்கவும்."
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1065
 msgid "System Sounds"
 msgstr "கணினி ஒலிகள்"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1471
 msgid "GNOME Volume Control"
 msgstr "GNOME ஒலியளவு கட்டுப்பாடு"
 
@@ -851,15 +860,15 @@ msgstr "ஊடக விசைகள்"
 msgid "Media keys plugin"
 msgstr "ஊடக விசைகள் சொருகி"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:625
+#: ../plugins/mouse/gsd-mouse-manager.c:890
 msgid "Could not enable mouse accessibility features"
 msgstr "சொடுக்கி அணுகல்-முறைகளை செயல்படுத்த முடியவில்லை"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:627
+#: ../plugins/mouse/gsd-mouse-manager.c:892
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "சொடுக்கி அணுகலுக்கு மவுஸ்ட்வீக்ஸ் ஐ உங்கள் கணினியில் நிறுவி இருக்க வேண்டும்."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:630
+#: ../plugins/mouse/gsd-mouse-manager.c:895
 msgid "Mouse Preferences"
 msgstr "சுட்டி பண்புகள்"
 
@@ -870,29 +879,6 @@ msgstr "சுட்டி"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "சொடுக்கி சொருகி"
-
-#: ../plugins/screensaver/gsd-screensaver-manager.c:136
-#, c-format
-msgid ""
-"There was an error starting up the screensaver:\n"
-"\n"
-"%s\n"
-"\n"
-"Screensaver functionality will not work in this session."
-msgstr ""
-"திரை பாதுகாப்பாலரை தொடங்கும்போது பிழை:\n"
-"\n"
-"%s\n"
-"\n"
-"இவ்வர்வில் திரை பாதுகாப்பாலரின் செயல்கூறுகள் வேலை செய்யாது."
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
-msgid "Screensaver"
-msgstr "திரைசேமிப்பி"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
-msgid "Screensaver plugin"
-msgstr " திரைசேமிப்பி சொருகி"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -910,82 +896,84 @@ msgstr "திரை அளவு மற்றும் சுழற்சி �
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:161
+#: ../plugins/xrandr/gsd-xrandr-manager.c:208
 msgid "Could not restore the display's configuration"
 msgstr "காட்சி கட்டமைப்பை மறுசேமிக்க முடியவில்லை"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:186
+#: ../plugins/xrandr/gsd-xrandr-manager.c:233
 msgid "Could not restore the display's configuration from a backup"
 msgstr "ஒரு பின்சேமிப்பிலிருந்து காட்சி கட்டமைப்பை மறுசேமிக்க முடியாது"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:207, c-format
+#: ../plugins/xrandr/gsd-xrandr-manager.c:254
+#, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "இந்த காட்சி முந்தைய கட்டமைப்புக்கு %d விநாடியில் மறு அமைக்கப்படும்"
 msgstr[1] "இந்த காட்சி முந்தைய கட்டமைப்புக்கு %d விநாடிகளில் மறுஅமைக்கப்படும்"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:257
+#: ../plugins/xrandr/gsd-xrandr-manager.c:303
 msgid "Does the display look OK?"
 msgstr "காட்சி சரியாக உள்ளதா?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:263
+#: ../plugins/xrandr/gsd-xrandr-manager.c:309
 msgid "_Restore Previous Configuration"
 msgstr "முந்தைய கட்டமைப்பை மறுசேமி (_R)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:264
+#: ../plugins/xrandr/gsd-xrandr-manager.c:310
 msgid "_Keep This Configuration"
 msgstr "இந்த கட்டமைப்பை வைக்க முடியவில்லை (_K)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:306
+#: ../plugins/xrandr/gsd-xrandr-manager.c:391
 msgid "The selected configuration for displays could not be applied"
 msgstr "தேர்ந்தெடுத்த காட்சிகளுக்கான கட்டமைப்பை செயலாக்க முடியவில்லை"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:781
+#: ../plugins/xrandr/gsd-xrandr-manager.c:867
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "திரை தகவலை புதுப்பிக்க முடியவில்லை: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:784
+#: ../plugins/xrandr/gsd-xrandr-manager.c:870
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "மானிட்டர் கட்டமைப்பை எப்படியும் மாற்ற முயற்சிக்கிறது."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:818
+#: ../plugins/xrandr/gsd-xrandr-manager.c:904
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
 msgid "Could not switch the monitor configuration"
 msgstr "மானிட்டர் கட்டமைப்பை மாற்ற முடியவில்லை"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1121
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1427
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>சுற்றுதல் ஆதரிக்கப்படவில்லை</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1175
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1481
 msgid "Could not save monitor configuration"
 msgstr "மானிட்டர் கட்டமைப்பை சேமிக்க முடியவில்லை"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1193
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1499
 msgid "Normal"
 msgstr "இயல்பான"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1194
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1500
 msgid "Left"
 msgstr "இடது"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1195
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1501
 msgid "Right"
 msgstr "வலது"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1196
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1502
 msgid "Upside Down"
 msgstr "தலை கீழ்"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1315
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1621
 msgid "_Configure Display Settings ..."
 msgstr "(_C) காட்சி அமைப்பை வடிவமை..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1356
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1662
 msgid "Configure display settings"
 msgstr "காட்சி அமைப்பை வடிவமை"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1410
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1716
 msgid "Could not apply the stored configuration for monitors"
 msgstr "மானிட்டர்களுக்கான சேமிக்கப்பட்ட கட்டமைப்பை செயல்படுத்த முடியவில்லை"
 
@@ -1015,3 +1003,45 @@ msgstr "x அமைப்பை மேலாளுக"
 msgid "X Settings"
 msgstr "x அமைப்பு"
 
+#~ msgid ""
+#~ "Set to True to display a dialog when there are errors running the "
+#~ "screensaver."
+#~ msgstr ""
+#~ "திரைசேமிப்பி  இயங்கும் போது  பிழைகள் வரின் ஒரு உரையாடலை காட்ட உண்மை என அமைக்கவும்."
+
+#~ msgid "Set to True to run the screensaver at login."
+#~ msgstr "உள் அனுமதியில் திரைசேமிப்பியை  இயக்க உண்மை என அமைக்கவும்"
+
+#~ msgid "Show startup errors"
+#~ msgstr "துவக்கும் போது எழும் பிழைகளை காட்டு "
+
+#~ msgid "Start screensaver"
+#~ msgstr "திரைசேமிப்பியை தொடங்கு"
+
+#~ msgid "Enable screensaver plugin"
+#~ msgstr "திரைசேமிப்பி சொருகியை இயக்கவும்"
+
+#~ msgid "Set to True to enable the plugin to manage screensaver settings."
+#~ msgstr "திரை சேமிப்பி அமைப்பை மேலாள  சொருகியை இயலுமை செய்ய உண்மை என்று அமை"
+
+#~ msgid "Toggle screenreader"
+#~ msgstr "திரைபடிப்பானை மாற்று"
+
+#~ msgid ""
+#~ "There was an error starting up the screensaver:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Screensaver functionality will not work in this session."
+#~ msgstr ""
+#~ "திரை பாதுகாப்பாலரை தொடங்கும்போது பிழை:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "இவ்வர்வில் திரை பாதுகாப்பாலரின் செயல்கூறுகள் வேலை செய்யாது."
+
+#~ msgid "Screensaver"
+#~ msgstr "திரைசேமிப்பி"
+
+#~ msgid "Screensaver plugin"
+#~ msgstr " திரைசேமிப்பி சொருகி"
