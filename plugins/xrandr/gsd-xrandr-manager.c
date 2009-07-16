@@ -573,14 +573,61 @@ make_clone_setup (GnomeRRScreen *screen)
         return result;
 }
 
+static GnomeRRMode *
+find_best_mode (GnomeRROutput *output)
+{
+        GnomeRRMode *preferred;
+        GnomeRRMode **modes;
+        int best_size;
+        int best_width, best_height, best_rate;
+        int i;
+        GnomeRRMode *best_mode;
+
+        preferred = gnome_rr_output_get_preferred_mode (output);
+        if (preferred)
+                return preferred;
+
+        modes = gnome_rr_output_list_modes (output);
+        if (!modes)
+                return NULL;
+
+        best_size = best_width = best_height = best_rate = 0;
+        best_mode = NULL;
+
+        for (i = 0; modes[i] != NULL; i++) {
+                int w, h, r;
+                int size;
+
+                w = gnome_rr_mode_get_width (modes[i]);
+                h = gnome_rr_mode_get_height (modes[i]);
+                r = gnome_rr_mode_get_freq  (modes[i]);
+
+                size = w * h;
+
+                if (size > best_size) {
+                        best_size   = size;
+                        best_width  = w;
+                        best_height = h;
+                        best_rate   = r;
+                        best_mode   = modes[i];
+                } else if (size == best_size) {
+                        if (r > best_rate) {
+                                best_rate = r;
+                                best_mode = modes[i];
+                        }
+                }
+        }
+
+        return best_mode;
+}
+
 static gboolean
 turn_on (GnomeRRScreen *screen,
          GnomeOutputInfo *info,
          int x, int y)
 {
-        GnomeRROutput *output =
-                gnome_rr_screen_get_output_by_name (screen, info->name);
-        GnomeRRMode *mode = gnome_rr_output_get_preferred_mode (output);
+        GnomeRROutput *output = gnome_rr_screen_get_output_by_name (screen, info->name);
+        GnomeRRMode *mode = find_best_mode (output);
 
         if (mode) {
                 info->on = TRUE;
@@ -630,6 +677,21 @@ make_laptop_setup (GnomeRRScreen *screen)
 
 }
 
+static int
+turn_on_and_get_rightmost_offset (GnomeRRScreen *screen, GnomeOutputInfo *info, int x)
+{
+        if (info->on) {
+                info->x = x;
+                info->y = 0;
+                x += info->width;
+        } else {
+                if (turn_on (screen, info, x, 0))
+                        x += info->width;
+        }
+
+        return x;
+}
+
 static GnomeRRConfig *
 make_xinerama_setup (GnomeRRScreen *screen)
 {
@@ -644,21 +706,15 @@ make_xinerama_setup (GnomeRRScreen *screen)
         for (i = 0; result->outputs[i] != NULL; ++i) {
                 GnomeOutputInfo *info = result->outputs[i];
 
-                if (is_laptop (info)) {
-                        if (info->on || turn_on (screen, info, x, 0)) {
-                                x += info->width;
-                        }
-                }
+                if (is_laptop (info))
+                        x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
         for (i = 0; result->outputs[i] != NULL; ++i) {
                 GnomeOutputInfo *info = result->outputs[i];
 
-                if (info->connected && !is_laptop (info)) {
-                        if (info->on || turn_on (screen, info, x, 0)) {
-                                x += info->width;
-                        }
-                }
+                if (info->connected && !is_laptop (info))
+                        x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
         print_configuration (result, "xinerama setup");
