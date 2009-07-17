@@ -768,10 +768,10 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
         /* Remove configurations that are duplicates of
          * configurations earlier in the cycle
          */
-        for (i = 1; i < array->len; ++i) {
+        for (i = 0; i < array->len; i++) {
                 int j;
 
-                for (j = 0; j < i; ++j) {
+                for (j = i + 1; j < array->len; j++) {
                         GnomeRRConfig *this = array->pdata[j];
                         GnomeRRConfig *other = array->pdata[i];
 
