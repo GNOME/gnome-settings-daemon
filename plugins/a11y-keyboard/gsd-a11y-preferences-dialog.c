@@ -32,7 +32,6 @@
 
 #include <dbus/dbus-glib.h>
 
-#include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
 
 #include "gsd-a11y-preferences-dialog.h"
@@ -44,7 +43,7 @@
 
 #define GSD_A11Y_PREFERENCES_DIALOG_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_A11Y_PREFERENCES_DIALOG, GsdA11yPreferencesDialogPrivate))
 
-#define GLADE_XML_FILE "gsd-a11y-preferences-dialog.glade"
+#define GTKBUILDER_UI_FILE "gsd-a11y-preferences-dialog.ui"
 
 #define KEY_A11Y_DIR              "/desktop/gnome/accessibility"
 #define KEY_STICKY_KEYS_ENABLED   KEY_A11Y_DIR "/keyboard/stickykeys_enable"
@@ -731,14 +730,15 @@ key_changed_cb (GConfClient              *client,
 
 static void
 setup_dialog (GsdA11yPreferencesDialog *dialog,
-              GladeXML                 *xml)
+              GtkBuilder               *builder)
 {
         GtkWidget   *widget;
         gboolean     enabled;
         gboolean     is_writable;
         GConfClient *client;
 
-        widget = glade_xml_get_widget (xml, "sticky_keys_checkbutton");
+        widget = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                     "sticky_keys_checkbutton"));
         dialog->priv->sticky_keys_checkbutton = widget;
         g_signal_connect (widget,
                           "toggled",
@@ -750,7 +750,8 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
                 gtk_widget_set_sensitive (widget, FALSE);
         }
 
-        widget = glade_xml_get_widget (xml, "bounce_keys_checkbutton");
+        widget = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                     "bounce_keys_checkbutton"));
         dialog->priv->bounce_keys_checkbutton = widget;
         g_signal_connect (widget,
                           "toggled",
@@ -762,7 +763,8 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
                 gtk_widget_set_sensitive (widget, FALSE);
         }
 
-        widget = glade_xml_get_widget (xml, "slow_keys_checkbutton");
+        widget = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                     "slow_keys_checkbutton"));
         dialog->priv->slow_keys_checkbutton = widget;
         g_signal_connect (widget,
                           "toggled",
@@ -774,7 +776,8 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
                 gtk_widget_set_sensitive (widget, FALSE);
         }
 
-        widget = glade_xml_get_widget (xml, "high_contrast_checkbutton");
+        widget = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                     "high_contrast_checkbutton"));
         dialog->priv->high_contrast_checkbutton = widget;
         g_signal_connect (widget,
                           "toggled",
@@ -786,7 +789,8 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
                 gtk_widget_set_sensitive (widget, FALSE);
         }
 
-        widget = glade_xml_get_widget (xml, "at_screen_keyboard_checkbutton");
+        widget = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                     "at_screen_keyboard_checkbutton"));
         dialog->priv->screen_keyboard_checkbutton = widget;
         g_signal_connect (widget,
                           "toggled",
@@ -804,7 +808,8 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
                 gtk_widget_hide (widget);
         }
 
-        widget = glade_xml_get_widget (xml, "at_screen_reader_checkbutton");
+        widget = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                     "at_screen_reader_checkbutton"));
         dialog->priv->screen_reader_checkbutton = widget;
         g_signal_connect (widget,
                           "toggled",
@@ -822,7 +827,8 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
                 gtk_widget_hide (widget);
         }
 
-        widget = glade_xml_get_widget (xml, "at_screen_magnifier_checkbutton");
+        widget = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                     "at_screen_magnifier_checkbutton"));
         dialog->priv->screen_magnifier_checkbutton = widget;
         g_signal_connect (widget,
                           "toggled",
@@ -840,7 +846,8 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
                 gtk_widget_hide (widget);
         }
 
-        widget = glade_xml_get_widget (xml, "large_print_checkbutton");
+        widget = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                     "large_print_checkbutton"));
         dialog->priv->large_print_checkbutton = widget;
         g_signal_connect (widget,
                           "toggled",
@@ -882,19 +889,33 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
 static void
 gsd_a11y_preferences_dialog_init (GsdA11yPreferencesDialog *dialog)
 {
-        GtkWidget *widget;
-        GladeXML  *xml;
+        static const gchar *ui_file_path = GTKBUILDERDIR "/" GTKBUILDER_UI_FILE;
+        gchar *objects[] = {"main_box", NULL};
+        GError *error = NULL;
+        GtkBuilder  *builder;
 
         dialog->priv = GSD_A11Y_PREFERENCES_DIALOG_GET_PRIVATE (dialog);
 
-        xml = glade_xml_new (GLADEDIR "/" GLADE_XML_FILE, "main_box", PACKAGE);
-        g_assert (xml != NULL);
+        builder = gtk_builder_new ();
+        gtk_builder_set_translation_domain (builder, PACKAGE);
+        if (gtk_builder_add_objects_from_file (builder, ui_file_path, objects,
+                                               &error) == 0) {
+                g_warning ("Could not load A11Y-UI: %s", error->message);
+                g_error_free (error);
+        } else {
+                GtkWidget *widget;
 
-        widget = glade_xml_get_widget (xml, "main_box");
-        gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), widget);
+                widget = GTK_WIDGET (gtk_builder_get_object (builder,
+                                                             "main_box"));
+                gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),
+                                   widget);
+                gtk_container_set_border_width (GTK_CONTAINER (widget), 12);
+                setup_dialog (dialog, builder);
+       }
+
+        g_object_unref (builder);
 
         gtk_container_set_border_width (GTK_CONTAINER (dialog), 12);
-        gtk_container_set_border_width (GTK_CONTAINER (widget), 12);
         gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
         gtk_window_set_title (GTK_WINDOW (dialog), _("Universal Access Preferences"));
         gtk_window_set_icon_name (GTK_WINDOW (dialog), "preferences-desktop-accessibility");
@@ -911,9 +932,6 @@ gsd_a11y_preferences_dialog_init (GsdA11yPreferencesDialog *dialog)
                           G_CALLBACK (on_response),
                           dialog);
 
-        setup_dialog (dialog, xml);
-
-        g_object_unref (xml);
 
         gtk_widget_show_all (GTK_WIDGET (dialog));
 }

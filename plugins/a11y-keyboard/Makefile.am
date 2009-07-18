@@ -1,8 +1,8 @@
 NULL =
 
-gladedir = $(pkgdatadir)
-glade_DATA = 					\
-	gsd-a11y-preferences-dialog.glade	\
+gtkbuilderdir = $(pkgdatadir)
+gtkbuilder_DATA = 			\
+	gsd-a11y-preferences-dialog.ui	\
 	$(NULL)
 
 noinst_PROGRAMS =				\
@@ -18,7 +18,7 @@ test_a11y_preferences_dialog_SOURCES =		\
 test_a11y_preferences_dialog_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
-	-DGLADEDIR=\""$(pkgdatadir)"\"				\
+	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
@@ -47,7 +47,7 @@ liba11y_keyboard_la_SOURCES = 		\
 liba11y_keyboard_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DGLADEDIR=\""$(gladedir)"\" \
+	-DGTKBUILDERDIR=\""$(gtkbuilderdir)"\" \
 	$(AM_CPPFLAGS)
 
 liba11y_keyboard_la_CFLAGS = \
@@ -73,7 +73,7 @@ plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin
 
 EXTRA_DIST = 			\
 	$(plugin_in_files)	\
-	$(glade_DATA)		\
+	$(gtkbuilder_DATA)		\
 	$(NULL)
 
 CLEANFILES = 			\
