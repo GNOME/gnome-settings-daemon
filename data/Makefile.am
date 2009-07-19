@@ -5,6 +5,7 @@ NULL =
 schemasdir = $(GCONF_SCHEMA_FILE_DIR)
 schemas_in_files = 						\
 	gnome-settings-daemon.schemas.in			\
+	apps_gnome_settings_daemon_housekeeping.schemas.in	\
 	apps_gnome_settings_daemon_keybindings.schemas.in	\
 	desktop_gnome_font_rendering.schemas.in			\
 	desktop_gnome_keybindings.schemas.in			\

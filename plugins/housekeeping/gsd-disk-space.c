@@ -26,235 +26,431 @@
 #include "config.h"
 
 #include <sys/statvfs.h>
+#include <time.h>
+#include <unistd.h>
 
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gio/gunixmounts.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
-
-#ifdef HAVE_LIBNOTIFY
-
-#include <libnotify/notify.h>
+#include <gconf/gconf-client.h>
 
 #include "gsd-disk-space.h"
+#include "gsd-ldsm-dialog.h"
+#include "gsd-ldsm-trash-empty.h"
 
-/*
- * TODO:
- *  + gconf to make it possible to customize the define below (?)
- */
 
-#define FREE_PERCENT_NOTIFY        0.05
-#define FREE_PERCENT_NOTIFY_AGAIN  0.01
-/* No notification if there's more than 2 GB */
-#define FREE_SIZE_GB_NO_NOTIFY     2
 #define GIGABYTE                   1024 * 1024 * 1024
-
-#ifdef TEST
-#undef  FREE_PERCENT_NOTIFY
-#define FREE_PERCENT_NOTIFY        0.95
-#undef  FREE_SIZE_GB_NO_NOTIFY
-#define FREE_SIZE_GB_NO_NOTIFY     200
-#endif
 
 #define CHECK_EVERY_X_SECONDS      60
 
 #define DISK_SPACE_ANALYZER        "baobab"
 
+#define GCONF_HOUSEKEEPING_DIR     "/apps/gnome_settings_daemon/plugins/housekeeping"
+#define GCONF_FREE_PC_NOTIFY_KEY   "free_percent_notify"
+#define GCONF_FREE_PC_NOTIFY_AGAIN_KEY "free_percent_notify_again"
+#define GCONF_FREE_SIZE_NO_NOTIFY  "free_size_gb_no_notify"
+#define GCONF_MIN_NOTIFY_PERIOD    "min_notify_period"
+#define GCONF_IGNORE_PATHS         "ignore_paths"
+
+typedef struct
+{
+        GUnixMountEntry *mount;
+        struct statvfs buf;
+        time_t notify_time;
+} LdsmMountInfo;
+
 static GHashTable        *ldsm_notified_hash = NULL;
 static unsigned int       ldsm_timeout_id = 0;
 static GUnixMountMonitor *ldsm_monitor = NULL;
+static double             free_percent_notify = 0.05;
+static double             free_percent_notify_again = 0.01;
+static unsigned int       free_size_gb_no_notify = 2;
+static unsigned int       min_notify_period = 10;
+static GSList            *ignore_paths = NULL;
+static unsigned int       gconf_notify_id;
+static GConfClient       *client = NULL;
+static GsdLdsmDialog     *dialog = NULL;
+static guint64           *time_read;
 
-static void
-ldsm_hash_free_slice_gdouble (gpointer data)
+static gchar*
+ldsm_get_fs_id_for_path (const gchar *path)
 {
-        g_slice_free (gdouble, data);
-}
-
-static char *
-ldsm_get_icon_name_from_g_icon (GIcon *gicon)
-{
-        const char * const *names;
-        GtkIconTheme *icon_theme;
-        int i;
-
-        if (!G_IS_THEMED_ICON (gicon))
-                return NULL;
-
-        names = g_themed_icon_get_names (G_THEMED_ICON (gicon));
-        icon_theme = gtk_icon_theme_get_default ();
-
-        for (i = 0; names[i] != NULL; i++) {
-                if (gtk_icon_theme_has_icon (icon_theme, names[i]))
-                        return g_strdup (names[i]);
+        GFile *file;
+        GFileInfo *fileinfo;
+        gchar *attr_id_fs;
+        
+        file = g_file_new_for_path (path);
+        fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_ID_FILESYSTEM, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL, NULL);
+        if (fileinfo) {
+                attr_id_fs = g_strdup (g_file_info_get_attribute_string (fileinfo, G_FILE_ATTRIBUTE_ID_FILESYSTEM));
+                g_object_unref (fileinfo);
+        } else {
+                attr_id_fs = NULL;
         }
-
-        return NULL;
+        
+        g_object_unref (file);
+        
+        return attr_id_fs;
 }
 
-static void
-ldsm_notification_clicked (NotifyNotification *notification,
-                           const char         *action,
-                           const char         *path)
+static gboolean 
+ldsm_mount_has_trash (LdsmMountInfo *mount)
 {
-        const char *argv[] = { DISK_SPACE_ANALYZER, path, NULL };
-
-        if (strcmp (action, "analyze") != 0) {
-                return;
+        const gchar *user_data_dir;
+        gchar *user_data_attr_id_fs;
+        gchar *path_attr_id_fs;
+        gboolean mount_uses_user_trash = FALSE;
+        gchar *trash_files_dir;
+        gboolean has_trash = FALSE;
+        GDir *dir;
+        const gchar *path;
+        
+        user_data_dir = g_get_user_data_dir ();
+        user_data_attr_id_fs = ldsm_get_fs_id_for_path (user_data_dir);
+        
+        path = g_unix_mount_get_mount_path (mount->mount);
+        path_attr_id_fs = ldsm_get_fs_id_for_path (path);
+        
+        if (g_strcmp0 (user_data_attr_id_fs, path_attr_id_fs) == 0) {
+                /* The volume that is low on space is on the same volume as our home
+                 * directory. This means the trash is at $XDG_DATA_HOME/Trash,
+                 * not at the root of the volume which is full.
+                 */
+                mount_uses_user_trash = TRUE;
         }
-
-        g_spawn_async (NULL, (char **) argv, NULL, G_SPAWN_SEARCH_PATH,
-                       NULL, NULL, NULL, NULL);
+        
+        g_free (user_data_attr_id_fs);
+        g_free (path_attr_id_fs);
+        
+        /* I can't think of a better way to find out if a volume has any trash. Any suggestions? */
+        if (mount_uses_user_trash) {
+                trash_files_dir = g_build_filename (g_get_user_data_dir (), "Trash", "files", NULL);
+        } else {
+                gchar *uid;
+                
+                uid = g_strdup_printf ("%d", getuid ());
+                trash_files_dir = g_build_filename (path, ".Trash", uid, "files", NULL);
+                if (!g_file_test (trash_files_dir, G_FILE_TEST_IS_DIR)) {
+                        gchar *trash_dir;
+                        
+                        g_free (trash_files_dir);
+                        trash_dir = g_strdup_printf (".Trash-%s", uid);
+                        trash_files_dir = g_build_filename (path, trash_dir, "files", NULL);
+                        g_free (trash_dir);
+                        if (!g_file_test (trash_files_dir, G_FILE_TEST_IS_DIR)) {
+                                g_free (trash_files_dir);
+                                g_free (uid);
+                                return has_trash;
+                        }
+                }
+                g_free (uid);
+        }
+        
+        dir = g_dir_open (trash_files_dir, 0, NULL);
+        if (dir) {
+                if (g_dir_read_name (dir))
+                        has_trash = TRUE;
+                g_dir_close (dir);
+        }
+        
+        g_free (trash_files_dir);      
+                
+        return has_trash;  
 }
 
 static void
-ldsm_notify_for_mount (GUnixMountEntry *mount,
-                       double           free_space,
-                       gboolean         has_disk_analyzer)
+ldsm_analyze_path (const gchar *path)
 {
-        char  *name;
-        char  *msg;
-        GIcon *gicon;
-        char  *icon;
-        int    in_use;
-        NotifyNotification *notif;
+        const gchar *argv[] = { DISK_SPACE_ANALYZER, path, NULL };
+        
+        g_spawn_async (NULL, (gchar **) argv, NULL, G_SPAWN_SEARCH_PATH,
+                        NULL, NULL, NULL, NULL);
+}
 
-        name = g_unix_mount_guess_name (mount);
-        in_use = 100 - (free_space * 100);
-        msg = g_strdup_printf (_("%d%% of the disk space on `%s' is in use"),
-                               in_use, name);
+static gboolean
+ldsm_notify_for_mount (LdsmMountInfo *mount,
+                       gboolean       has_disk_analyzer,
+                       gboolean       multiple_volumes,
+                       gboolean       other_usable_volumes)
+{
+        gchar  *name;
+        gint64 free_space;
+        gint response;
+        gboolean has_trash;
+        gboolean retval = TRUE;
+        const gchar *path;
+        
+        /* Don't show a dialog if one is already displayed */
+        if (dialog)
+                return retval;
+        
+        name = g_unix_mount_guess_name (mount->mount);
+        free_space = (mount->buf.f_frsize * mount->buf.f_bavail);
+        has_trash = ldsm_mount_has_trash (mount);
+        path = g_unix_mount_get_mount_path (mount->mount);
+        
+        dialog = gsd_ldsm_dialog_new (other_usable_volumes,
+                                      multiple_volumes,
+                                      has_disk_analyzer,
+                                      has_trash,
+                                      free_space,
+                                      name,
+                                      path);
+                                        
         g_free (name);
+        
+        g_object_ref (G_OBJECT (dialog));        
+        response = gtk_dialog_run (GTK_DIALOG (dialog));
+        
+        gtk_object_destroy (GTK_OBJECT (dialog));
+        dialog = NULL;
+        
+        switch (response) {
+        case GTK_RESPONSE_CANCEL:
+                retval = FALSE;
+                break;
+        case GSD_LDSM_DIALOG_RESPONSE_ANALYZE:
+                retval = FALSE;
+                ldsm_analyze_path (g_unix_mount_get_mount_path (mount->mount));
+                break;
+        case GSD_LDSM_DIALOG_RESPONSE_EMPTY_TRASH:
+                retval = TRUE;
+                gsd_ldsm_trash_empty ();
+                break;
+        case GTK_RESPONSE_NONE:
+        case GTK_RESPONSE_DELETE_EVENT:
+                retval = TRUE;
+                break;
+        default:
+                g_assert_not_reached ();
+        }
+        
+        return retval;      
+}
 
-        gicon = g_unix_mount_guess_icon (mount);
-        icon = ldsm_get_icon_name_from_g_icon (gicon);
-        g_object_unref (gicon);
+static gboolean
+ldsm_mount_has_space (LdsmMountInfo *mount)
+{
+        gdouble free_space;
+        
+        free_space = (double) mount->buf.f_bavail / (double) mount->buf.f_blocks;
+        /* enough free space, nothing to do */
+        if (free_space > free_percent_notify)
+                return TRUE;
+        
+        /* If we got here, then this volume is low on space */
+        return FALSE;
+}
 
-        notif = notify_notification_new (_("Low Disk Space"), msg, icon, NULL);
-        g_free (msg);
-        g_free (icon);
-
-        notify_notification_set_urgency (notif, NOTIFY_URGENCY_CRITICAL);
-
-        if (has_disk_analyzer) {
-                const char *path;
-
-                path = g_unix_mount_get_mount_path (mount);
-
-                notify_notification_add_action (notif, "analyze", _("Analyze"),
-                                                (NotifyActionCallback) ldsm_notification_clicked,
-                                                g_strdup (path), g_free);
+static gboolean
+ldsm_mount_is_virtual (LdsmMountInfo *mount)
+{
+        const gchar *dev_path;
+        
+        if (mount->buf.f_blocks == 0) {
+                /* Filesystems with zero blocks are virtual */
+                return TRUE;
         }
 
-        g_signal_connect (notif, "closed", G_CALLBACK (g_object_unref), NULL);
-
-        notify_notification_show (notif, NULL);
+        dev_path = g_unix_mount_get_device_path (mount->mount);
+        if (!g_str_has_prefix (dev_path, "/dev")) {
+                /* If the device path doesn't begin with /dev, then it's
+                 * likely to be virtual eg devpts, varrun, tmpfs etc.
+                 */
+                return TRUE;
+         }
+        
+        return FALSE;
 }
 
 static void
-ldsm_check_mount (GUnixMountEntry *mount,
-                  gboolean         has_disk_analyzer)
+ldsm_free_mount_info (gpointer data)
 {
-        const char *path;
-        struct statvfs buf;
-        unsigned long threshold_blocks;
-        double free_space;
-        double previous_free_space;
-        double *previous_free_space_p;
-
-        path = g_unix_mount_get_mount_path (mount);
-
-        /* get the old stats we saved for this mount in case we notified */
-        previous_free_space_p = g_hash_table_lookup (ldsm_notified_hash, path);
-        if (previous_free_space_p != NULL)
-                previous_free_space = *previous_free_space_p;
-        else
-                previous_free_space = 0;
-
-        if (statvfs (path, &buf) != 0) {
-                g_hash_table_remove (ldsm_notified_hash, path);
-                return;
-        }
-
-        /* not a real filesystem, but a virtual one. Skip it */
-        if (buf.f_blocks == 0) {
-                g_hash_table_remove (ldsm_notified_hash, path);
-                return;
-        }
-
-        free_space = (double) buf.f_bavail / (double) buf.f_blocks;
-        /* enough free space, nothing to do */
-        if (free_space > FREE_PERCENT_NOTIFY) {
-                g_hash_table_remove (ldsm_notified_hash, path);
-                return;
-        }
-
-        /* note that we try to avoid doing an overflow */
-        threshold_blocks = FREE_SIZE_GB_NO_NOTIFY * (GIGABYTE / buf.f_bsize);
-        /* more than enough space, nothing to do */
-        if (buf.f_bavail > threshold_blocks) {
-                g_hash_table_remove (ldsm_notified_hash, path);
-                return;
-        }
-
-        /* did we already notify the user? If yes, we only notify if the disk
-         * is getting more and more filled */
-        if (previous_free_space != 0 &&
-            previous_free_space - free_space < FREE_PERCENT_NOTIFY_AGAIN) {
-                return;
-        }
-
-        ldsm_notify_for_mount (mount, free_space, has_disk_analyzer);
-
-        /* replace the information about the latest notification */
-        previous_free_space_p = g_slice_new (gdouble);
-        *previous_free_space_p = free_space;
-        g_hash_table_replace (ldsm_notified_hash,
-                              g_strdup (path), previous_free_space_p);
+        LdsmMountInfo *mount = data;
+        
+        g_return_if_fail (mount != NULL);
+        
+        g_unix_mount_free (mount->mount);
+        g_free (mount);
 }
+
+static void
+ldsm_maybe_warn_mounts (GList *mounts,
+                        gboolean has_disk_analyzer,
+                        gboolean multiple_volumes,
+                        gboolean other_usable_volumes)
+{
+        GList *l;
+        gboolean done = FALSE;
+        
+        for (l = mounts; l != NULL; l = l->next) {
+                LdsmMountInfo *mount_info = l->data;
+                LdsmMountInfo *previous_mount_info;
+                gdouble free_space;
+                gdouble previous_free_space;
+                time_t previous_notify_time;
+                time_t curr_time;
+                const gchar *path;
+                gboolean show_notify;
+                
+                if (done) {
+                        /* Don't show any more dialogs if the user took action with the last one. The user action
+                         * might free up space on multiple volumes, making the next dialog redundant.
+                         */
+                        ldsm_free_mount_info (mount_info);
+                        continue;
+                }
+                
+                path = g_unix_mount_get_mount_path (mount_info->mount);
+                
+                previous_mount_info = g_hash_table_lookup (ldsm_notified_hash, path);
+                if (previous_mount_info != NULL)
+                        previous_free_space = (gdouble) previous_mount_info->buf.f_bavail / (gdouble) previous_mount_info->buf.f_blocks;
+ 
+                free_space = (gdouble) mount_info->buf.f_bavail / (gdouble) mount_info->buf.f_blocks;
+                
+                if (previous_mount_info == NULL) {
+                        /* We haven't notified for this mount yet */
+                        show_notify = TRUE;
+                        mount_info->notify_time = time (NULL);
+                        g_hash_table_replace (ldsm_notified_hash, g_strdup (path), mount_info);
+                } else if ((previous_free_space - free_space) > free_percent_notify_again) {
+                        /* We've notified for this mount before and free space has decreased sufficiently since last time to notify again */
+                        curr_time = time (NULL);
+                        if (difftime (curr_time, previous_mount_info->notify_time) > (gdouble)(min_notify_period * 60)) {
+                                show_notify = TRUE;
+                                mount_info->notify_time = curr_time;
+                        } else {
+                                /* It's too soon to show the dialog again. However, we still replace the LdsmMountInfo
+                                 * struct in the hash table, but give it the notfiy time from the previous dialog.
+                                 * This will stop the notification from reappearing unnecessarily as soon as the timeout expires.
+                                 */
+                                show_notify = FALSE;
+                                mount_info->notify_time = previous_mount_info->notify_time;
+                        }
+                        g_hash_table_replace (ldsm_notified_hash, g_strdup (path), mount_info);
+                } else {
+                        /* We've notified for this mount before, but the free space hasn't decreased sufficiently to notify again */
+                        ldsm_free_mount_info (mount_info);
+                        show_notify = FALSE;
+                }
+               
+                if (show_notify) {
+                        if (ldsm_notify_for_mount (mount_info, has_disk_analyzer, multiple_volumes, other_usable_volumes))
+                                done = TRUE;
+                }
+        }
+}
+
+static gint
+ldsm_ignore_path_compare (gconstpointer a,
+                          gconstpointer b)
+{
+        return g_strcmp0 ((const gchar *)a, (const gchar *)b);
+}
+
+static gboolean
+ldsm_mount_should_ignore (const gchar *path)
+{
+        if (g_slist_find_custom (ignore_paths, path, (GCompareFunc) ldsm_ignore_path_compare) != NULL)
+                return TRUE;
+        else
+                return FALSE;
+}                
 
 static gboolean
 ldsm_check_all_mounts (gpointer data)
 {
         GList *mounts;
         GList *l;
-        GHashTable *seen;
+        GList *check_mounts = NULL;
+        GList *full_mounts = NULL;
         char *program;
         gboolean has_disk_analyzer;
+        guint number_of_mounts;
+        guint number_of_full_mounts;
+        gboolean multiple_volumes = FALSE;
+        gboolean other_usable_volumes = FALSE;
 
         program = g_find_program_in_path (DISK_SPACE_ANALYZER);
         has_disk_analyzer = (program != NULL);
         g_free (program);
-
-        /* it's possible to get duplicate mounts, and we don't want duplicate
-         * notifications */
-        seen = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-        mounts = g_unix_mounts_get (NULL);
-
+        
+        /* We iterate through the static mounts in /etc/fstab first, seeing if
+         * they're mounted by checking if the GUnixMountPoint has a corresponding GUnixMountEntry.
+         * Iterating through the static mounts means we automatically ignore dynamically mounted media.
+         */
+        mounts = g_unix_mount_points_get (time_read);
+                
         for (l = mounts; l != NULL; l = l->next) {
-                GUnixMountEntry *mount = l->data;
-                const char *path;
+                GUnixMountPoint *mount_point = l->data;
+                GUnixMountEntry *mount;
+                LdsmMountInfo *mount_info;
+                const gchar *path;
 
-                if (g_unix_mount_is_readonly (mount)) {
-                        g_unix_mount_free (mount);
+                path = g_unix_mount_point_get_mount_path (mount_point);
+                mount = g_unix_mount_at (path, time_read);
+                g_unix_mount_point_free (mount_point);
+                if (mount == NULL) {
+                        /* The GUnixMountPoint is not mounted */
                         continue;
                 }
-
+                
+                mount_info = g_new0 (LdsmMountInfo, 1);
+                mount_info->mount = mount;
+                
                 path = g_unix_mount_get_mount_path (mount);
-
-                if (g_hash_table_lookup_extended (seen, path, NULL, NULL)) {
-                        g_unix_mount_free (mount);
+                                
+                if (g_unix_mount_is_readonly (mount)) {
+                        ldsm_free_mount_info (mount_info);
                         continue;
                 }
+                
+                if (ldsm_mount_should_ignore (path)) {
+                        ldsm_free_mount_info (mount_info);
+                        continue;                
+                }
+                
+                if (statvfs (path, &mount_info->buf) != 0) {
+                        ldsm_free_mount_info (mount_info);
+                        continue;
+                }
+                
+                if (ldsm_mount_is_virtual (mount_info)) {
+                        ldsm_free_mount_info (mount_info);
+                        continue;
+                }                        
 
-                g_hash_table_insert (seen,
-                                     g_strdup (path), GINT_TO_POINTER(1));
-
-                ldsm_check_mount (mount, has_disk_analyzer);
-
-                g_unix_mount_free (mount);
+                check_mounts = g_list_prepend (check_mounts, mount_info);
         }
+        
+        number_of_mounts = g_list_length (check_mounts);
+        if (number_of_mounts > 1)
+                multiple_volumes = TRUE;
 
-        g_hash_table_destroy (seen);
+        for (l = check_mounts; l != NULL; l = l->next) {
+                LdsmMountInfo *mount_info = l->data;
+
+                if (!ldsm_mount_has_space (mount_info)) {
+                        full_mounts = g_list_prepend (full_mounts, mount_info);
+                } else {
+                        g_hash_table_remove (ldsm_notified_hash, g_unix_mount_get_mount_path (mount_info->mount));
+                        ldsm_free_mount_info (mount_info);
+                }
+        }
+        
+        number_of_full_mounts = g_list_length (full_mounts);
+        if (number_of_mounts > number_of_full_mounts)
+                other_usable_volumes = TRUE;
+                
+        ldsm_maybe_warn_mounts (full_mounts, has_disk_analyzer, multiple_volumes,
+                                other_usable_volumes);
+                
+        g_list_free (check_mounts);
+        g_list_free (full_mounts);
 
         return TRUE;
 }
@@ -286,7 +482,7 @@ ldsm_mounts_changed (GObject  *monitor,
         GList *mounts;
 
         /* remove the saved data for mounts that got removed */
-        mounts = g_unix_mounts_get (NULL);
+        mounts = g_unix_mounts_get (time_read);
         g_hash_table_foreach_remove (ldsm_notified_hash,
                                      ldsm_is_hash_item_not_in_mounts, mounts);
         g_list_foreach (mounts, (GFunc) g_unix_mount_free, NULL);
@@ -301,22 +497,114 @@ ldsm_mounts_changed (GObject  *monitor,
                                                  ldsm_check_all_mounts, NULL);
 }
 
+static gboolean
+ldsm_is_hash_item_in_ignore_paths (gpointer key,
+                                   gpointer value,
+                                   gpointer user_data)
+{
+        return ldsm_mount_should_ignore (key);   
+}
+
+static void
+gsd_ldsm_get_config ()
+{
+        GError *error = NULL;
+       
+        free_percent_notify = gconf_client_get_float (client,
+                                                      GCONF_HOUSEKEEPING_DIR "/" GCONF_FREE_PC_NOTIFY_KEY,
+                                                      &error);
+        if (error != NULL) {
+                g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unknown error");
+                g_clear_error (&error);
+        }
+        if (free_percent_notify >= 1 || free_percent_notify < 0) {
+                g_warning ("Invalid configuration of free_percent_notify: %f\n" \
+                           "Using sensible default", free_percent_notify);
+                free_percent_notify = 0.05;
+        }
+        
+        free_percent_notify_again = gconf_client_get_float (client,
+                                                            GCONF_HOUSEKEEPING_DIR "/" GCONF_FREE_PC_NOTIFY_AGAIN_KEY,
+                                                            &error);
+        if (error != NULL) {
+                g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unknown error");
+                g_clear_error (&error);
+        }
+        if (free_percent_notify_again >= 1 || free_percent_notify_again < 0) {
+                g_warning ("Invalid configuration of free_percent_notify_again: %f\n" \
+                           "Using sensible default\n", free_percent_notify_again);
+                free_percent_notify_again = 0.01;
+        }
+        
+        free_size_gb_no_notify = gconf_client_get_int (client,
+                                                       GCONF_HOUSEKEEPING_DIR "/" GCONF_FREE_SIZE_NO_NOTIFY,
+                                                       &error);
+        if (error != NULL) {
+                g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unknown error");
+                g_clear_error (&error);
+        }
+         min_notify_period = gconf_client_get_int (client,
+                                                   GCONF_HOUSEKEEPING_DIR "/" GCONF_MIN_NOTIFY_PERIOD,
+                                                   &error);
+         if (error != NULL) {
+                 g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unkown error");
+                 g_clear_error (&error);
+         }
+         
+         if (ignore_paths != NULL) {
+                g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
+                g_slist_free (ignore_paths);
+         }
+         ignore_paths = gconf_client_get_list (client,
+                                               GCONF_HOUSEKEEPING_DIR "/" GCONF_IGNORE_PATHS,
+                                               GCONF_VALUE_STRING, &error);
+         if (error != NULL) {
+                 g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unkown error");
+                 g_clear_error (&error);
+         } else {
+                /* Make sure we dont leave stale entries in ldsm_notified_hash */
+                 g_hash_table_foreach_remove (ldsm_notified_hash,
+                                              ldsm_is_hash_item_in_ignore_paths, NULL);
+         }
+}
+
+static void
+gsd_ldsm_update_config (GConfClient *client,
+                        guint cnxn_id,
+                        GConfEntry *entry,
+                        gpointer user_data)
+{
+        gsd_ldsm_get_config ();
+}
+
 void
 gsd_ldsm_setup (gboolean check_now)
 {
+        GError          *error = NULL;
+        
         if (ldsm_notified_hash || ldsm_timeout_id || ldsm_monitor) {
                 g_warning ("Low disk space monitor already initialized.");
                 return;
         }
 
-        if (!notify_is_initted ()) {
-                if (!notify_init ("Low Disk Space Monitor"))
-                        return;
-        }
-
         ldsm_notified_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                     g_free,
-                                                    ldsm_hash_free_slice_gdouble);
+                                                    ldsm_free_mount_info);
+                                                    
+        client = gconf_client_get_default ();
+        if (client != NULL) {
+                gsd_ldsm_get_config ();
+                gconf_notify_id = gconf_client_notify_add (client,
+                                                           GCONF_HOUSEKEEPING_DIR,
+                                                           (GConfClientNotifyFunc) gsd_ldsm_update_config,
+                                                           NULL, NULL, &error);
+                if (error != NULL) {
+                        g_warning ("Cannot register callback for GConf notification");
+                        g_clear_error (&error);
+                }
+        } else {
+                g_warning ("Failed to get default client");
+        }
 
         ldsm_monitor = g_unix_mount_monitor_new ();
         g_unix_mount_monitor_set_rate_limit (ldsm_monitor, 1000);
@@ -328,6 +616,7 @@ gsd_ldsm_setup (gboolean check_now)
 
         ldsm_timeout_id = g_timeout_add_seconds (CHECK_EVERY_X_SECONDS,
                                                  ldsm_check_all_mounts, NULL);
+                                                 
 }
 
 void
@@ -344,21 +633,22 @@ gsd_ldsm_clean (void)
         if (ldsm_monitor)
                 g_object_unref (ldsm_monitor);
         ldsm_monitor = NULL;
+        
+        if (client) {
+                gconf_client_notify_remove (client, gconf_notify_id);
+                g_object_unref (client);
+        }
+        
+        if (dialog) {
+                gtk_widget_destroy (GTK_WIDGET (dialog));
+                dialog = NULL;
+        }
+        
+        if (ignore_paths) {
+                g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
+                g_slist_free (ignore_paths);
+        }
 }
-
-#else  /* HAVE_LIBNOTIFY */
-
-void
-gsd_ldsm_setup (gboolean check_now)
-{
-}
-
-void
-gsd_ldsm_clean (void)
-{
-}
-
-#endif /* HAVE_LIBNOTIFY */
 
 #ifdef TEST
 int

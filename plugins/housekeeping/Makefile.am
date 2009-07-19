@@ -1,6 +1,10 @@
 plugin_LTLIBRARIES = libhousekeeping.la
 
 libhousekeeping_la_SOURCES = 		\
+	gsd-ldsm-dialog.c	\
+	gsd-ldsm-dialog.h	\
+	gsd-ldsm-trash-empty.c	\
+	gsd-ldsm-trash-empty.h	\
 	gsd-disk-space.c		\
 	gsd-disk-space.h		\
 	gsd-housekeeping-manager.c	\
