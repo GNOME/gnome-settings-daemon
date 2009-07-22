@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-15 17:03+0530\n"
-"PO-Revision-Date: 2009-07-15 17:25+0530\n"
+"POT-Creation-Date: 2009-07-22 19:59+0530\n"
+"PO-Revision-Date: 2009-07-22 20:08+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: Tamil <Ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,54 @@ msgstr ""
 #: ../data/50-accessibility.xml.in.h:1
 msgid "Accessibility"
 msgstr "அணுகல்"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+msgid "Free percentage notify threshold"
+msgstr "அறிவிப்பு விளிம்புக்கு காலி சதவிகிதம்."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
+msgid "Free space no notify threshold"
+msgstr "அறிவிப்பு தவிர்க்க  விளிம்புக்கு காலி இடம்."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+msgid "Minimum notify period for repeated warnings"
+msgstr "மீண்டும் மீண்டும் அறிவிக்க குறைந்த பட்ச நேர இடைவெளி"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+msgid "Mount paths to ignore"
+msgstr "தவிர்க்க வேண்டிய ஏற்றப்பாதைகள்"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown"
+msgstr "வட்டு இடம் குறையும் போது முதல் முறை எச்சரிக்க இடத்தின் சதவிகிதம். இதற்குக்கீழே காலி இடம் குறைந்தால் அறிவிப்பு வெளியாகும்."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr "வட்டு இடம் குறையும் போது தவிர்க்க வேண்டிய ஏற்றப்பாதைகள்."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr "நேரத்தை நிமிடங்களில் குறிக்கவும். ஒரு தொகுதிக்காக  பின் வரும் எச்சரிக்கைகள் இந்த நேரத்துக்கும் குறைவாக தோன்றா."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown"
+msgstr "இடத்தை ஜிபி அளவில் குறிக்கவும். இதற்கு அதிகமாக காலி இடம் இருப்பின் எச்சரிக்கை காட்டப்பட மாட்டாது. "
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning"
+msgstr "அடுத்த எச்சரிக்கைக்கு முன் குறைய வேண்டிய வட்டு இடத்தை சதவிகிதமாக குறிக்கவும்."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
+msgid "Subsequent free percentage notify threshold"
+msgstr "அடுத்த காலி சதவிகித அறிவிப்பு விளிம்பு"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -301,7 +349,9 @@ msgstr "தட்டச்சும்போது தவறுதலாக த�
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
-msgstr "_m உருளல் முறைமை விசையுடன் தெந்தெடுத்த அதே முறையில் கிடைமட்ட உருளலை இயலுமை செய்ய  இதை உண்மை என அமைக்கவும்"
+msgstr ""
+"_m உருளல் முறைமை விசையுடன் தெந்தெடுத்த அதே முறையில் கிடைமட்ட உருளலை இயலுமை செய்ய  "
+"இதை உண்மை என அமைக்கவும்"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
 msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
@@ -514,8 +564,8 @@ msgid ""
 "This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"திரைப்படிப்பானை நிலை மாற்ற விசைப்பலகை குறுக்குவழியின் பெயர். "
-"விசைப்பலகை குறுக்குவழி முன்னுரிமைகளை உரையாடலுல் இந்த பெயர் காட்டப்படும்"
+"திரைப்படிப்பானை நிலை மாற்ற விசைப்பலகை குறுக்குவழியின் பெயர். விசைப்பலகை குறுக்குவழி "
+"முன்னுரிமைகளை உரையாடலுல் இந்த பெயர் காட்டப்படும்"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
@@ -678,40 +728,40 @@ msgstr ""
 msgid "Sticky Keys Alert"
 msgstr "எச்சரிக்கை விசைகள் ஒட்டுபவை"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "உலகளாவிய அணுகல் தேர்வுகள்"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Enhance _contrast in colors"
 msgstr "(_c) வண்ணங்களில் வேறுபாட்டை அதிகப்படுத்து."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
 msgid "Make _text larger and easier to read"
 msgstr "(_t) உரைஐ பெரிதாயும் படிக்க சுலபமாயும் ஆக்குக"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "(_h) ஒப்புக்கொள்ள விசைகளை அழுத்தி பிடிக்கவும். (மெதுவான விசைகள்)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
 msgstr "(_k) திரை விசைப்பலகையை பயன்படுத்து."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
 msgid "Use screen _magnifier"
 msgstr "(_m) திரை பெரிதாக்கி யை பயன்படுத்துக."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
 msgid "Use screen _reader"
 msgstr "(_r)  திரைபடிப்பான்"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
 msgstr "(_I) இரட்டை விசை அமுத்தலை புறக்கணி (துள்ளு விசைகள்)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "(_P) குறுக்கு விசைகளை ஒரு நேரத்தில் ஒன்று என அழுத்தவும்."
 
@@ -747,18 +797,104 @@ msgstr "எழுத்துருக்கள் "
 msgid "Font plugin"
 msgstr "எழுத்துரு சொருகி"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:124
-#, c-format
-msgid "%d%% of the disk space on `%s' is in use"
-msgstr "%d%% வட்டு இடம் `%s' இல் பயன்படுத்தப்படுகிறது"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+msgid "Don't show any warnings again for this filesystem"
+msgstr "இந்த கோப்பு முறைக்கு எச்சரிக்கைகளை இனிமேல் காண்பிக்க வேண்டாம்"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:132
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+msgid "Don't show any warnings again"
+msgstr "எச்சரிக்கைகளை இனிமேல் காண்பிக்க வேண்டாம்"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "தொகுதி  \"%s\" இல் %s வட்டு இடம் மட்டுமே மீதி உள்ளது."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "கணினியில் %s வட்டு இடம் மட்டுமே மீதி உள்ளது"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
+msgstr "குப்பையை காலி செய்வதாலும், பயன்படாத நிரல்கள் அல்லது கோப்புகளை நீக்குவதாலும், கோப்புகளை வேறு வட்டு அல்லது பகிர்வுக்கு மாற்றுவதாலும் வட்டு இடத்தை மீட்கலாம்."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
+msgstr "பயன்படாத நிரல்கள் அல்லது கோப்புகளை நீக்குவதாலும், கோப்புகளை வேறு வட்டு அல்லது பகிர்வுக்கு மாற்றுவதாலும் வட்டு இடத்தை மீட்கலாம்."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr "குப்பையை காலி செய்வதாலும், பயன்படாத நிரல்கள் அல்லது கோப்புகளை நீக்குவதாலும், கோப்புகளை வெளி  வட்டுக்கு மாற்றுவதாலும் வட்டு இடத்தை மீட்கலாம்."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr "பயன்படாத நிரல்கள் அல்லது கோப்புகளை நீக்குவதாலும், கோப்புகளை வெளி  வட்டுக்கு மாற்றுவதாலும் வட்டு இடத்தை மீட்கலாம்."
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
 msgstr "குறைந்த வட்டு இடம்"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:143
-msgid "Analyze"
-msgstr "ஆய்வு செய்"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
+msgid "Empty Trash"
+msgstr "குப்பையை காலி செய்"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
+msgid "Examine..."
+msgstr "சோதி..."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
+msgid "Ignore"
+msgstr "உதாசீனம் செய்"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#, c-format
+msgid "Removing item %lu of %lu"
+msgstr "உருப்படி %lu, %lu இல் நீக்கப்படுகிறது."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#, c-format
+msgid "<i>Removing: %s</i>"
+msgstr "<i>நீக்கப்படுகிறது: %s</i>"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+msgid "Emptying the trash"
+msgstr "குப்பை காலி செய்யப்படுகிறது"
+
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+msgid "Preparing to empty trash..."
+msgstr "குப்பையை காலி செய்ய தயார் செய்கிறது..."
+
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+msgid "From: "
+msgstr "அனுப்புனர்:"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+msgid "Empty all of the items from the trash?"
+msgstr "குப்பையிலிருந்து எல்லா உருப்படிகளையும் காலி செய்யவா?"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+msgid ""
+"If you choose to empty the trash, all items in it will be permanently lost. "
+"Please note that you can also delete them separately."
+msgstr "குப்பையை காலி செய்ய தேர்ந்தெடுத்தால் எல்லா உருப்படிகளும் நிரந்தரமாக"
+" இழக்கப்படும். அவற்றை தனித்தனியாக கூட நீக்கலாம் என அறியவும். "
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+msgid "_Empty Trash"
+msgstr "_E குப்பையை காலி செய்"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -809,7 +945,7 @@ msgstr "modmap கோப்பு(களை) ஏற்ற வேண்டும�
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:4
 msgid "_Do not show this message again"
-msgstr "_இத்தகவலை இனிமேல் காண்பிக்க வேண்டாம்"
+msgstr "_D இத்தகவலை இனிமேல் காண்பிக்க வேண்டாம்"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:5
 msgid "_Load"
@@ -927,53 +1063,53 @@ msgstr "இந்த கட்டமைப்பை வைக்க முடி
 msgid "The selected configuration for displays could not be applied"
 msgstr "தேர்ந்தெடுத்த காட்சிகளுக்கான கட்டமைப்பை செயலாக்க முடியவில்லை"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:867
+#: ../plugins/xrandr/gsd-xrandr-manager.c:945
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "திரை தகவலை புதுப்பிக்க முடியவில்லை: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:870
+#: ../plugins/xrandr/gsd-xrandr-manager.c:948
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "மானிட்டர் கட்டமைப்பை எப்படியும் மாற்ற முயற்சிக்கிறது."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:904
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
+#: ../plugins/xrandr/gsd-xrandr-manager.c:982
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1148
 msgid "Could not switch the monitor configuration"
 msgstr "மானிட்டர் கட்டமைப்பை மாற்ற முடியவில்லை"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1427
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1541
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>சுற்றுதல் ஆதரிக்கப்படவில்லை</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1481
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1595
 msgid "Could not save monitor configuration"
 msgstr "மானிட்டர் கட்டமைப்பை சேமிக்க முடியவில்லை"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1499
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1613
 msgid "Normal"
 msgstr "இயல்பான"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1500
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1614
 msgid "Left"
 msgstr "இடது"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1501
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1615
 msgid "Right"
 msgstr "வலது"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1502
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1616
 msgid "Upside Down"
 msgstr "தலை கீழ்"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1621
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1735
 msgid "_Configure Display Settings ..."
 msgstr "(_C) காட்சி அமைப்பை வடிவமை..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1662
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1776
 msgid "Configure display settings"
 msgstr "காட்சி அமைப்பை வடிவமை"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1716
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1830
 msgid "Could not apply the stored configuration for monitors"
 msgstr "மானிட்டர்களுக்கான சேமிக்கப்பட்ட கட்டமைப்பை செயல்படுத்த முடியவில்லை"
 
@@ -1002,6 +1138,12 @@ msgstr "x அமைப்பை மேலாளுக"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "x அமைப்பு"
+
+#~ msgid "%d%% of the disk space on `%s' is in use"
+#~ msgstr "%d%% வட்டு இடம் `%s' இல் பயன்படுத்தப்படுகிறது"
+
+#~ msgid "Analyze"
+#~ msgstr "ஆய்வு செய்"
 
 #~ msgid ""
 #~ "Set to True to display a dialog when there are errors running the "
