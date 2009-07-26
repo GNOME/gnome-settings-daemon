@@ -81,7 +81,7 @@ ldsm_get_fs_id_for_path (const gchar *path)
         GFile *file;
         GFileInfo *fileinfo;
         gchar *attr_id_fs;
-        
+
         file = g_file_new_for_path (path);
         fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_ID_FILESYSTEM, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL, NULL);
         if (fileinfo) {
@@ -90,13 +90,13 @@ ldsm_get_fs_id_for_path (const gchar *path)
         } else {
                 attr_id_fs = NULL;
         }
-        
+
         g_object_unref (file);
-        
+
         return attr_id_fs;
 }
 
-static gboolean 
+static gboolean
 ldsm_mount_has_trash (LdsmMountInfo *mount)
 {
         const gchar *user_data_dir;
@@ -107,13 +107,13 @@ ldsm_mount_has_trash (LdsmMountInfo *mount)
         gboolean has_trash = FALSE;
         GDir *dir;
         const gchar *path;
-        
+
         user_data_dir = g_get_user_data_dir ();
         user_data_attr_id_fs = ldsm_get_fs_id_for_path (user_data_dir);
-        
+
         path = g_unix_mount_get_mount_path (mount->mount);
         path_attr_id_fs = ldsm_get_fs_id_for_path (path);
-        
+
         if (g_strcmp0 (user_data_attr_id_fs, path_attr_id_fs) == 0) {
                 /* The volume that is low on space is on the same volume as our home
                  * directory. This means the trash is at $XDG_DATA_HOME/Trash,
@@ -121,21 +121,21 @@ ldsm_mount_has_trash (LdsmMountInfo *mount)
                  */
                 mount_uses_user_trash = TRUE;
         }
-        
+
         g_free (user_data_attr_id_fs);
         g_free (path_attr_id_fs);
-        
+
         /* I can't think of a better way to find out if a volume has any trash. Any suggestions? */
         if (mount_uses_user_trash) {
                 trash_files_dir = g_build_filename (g_get_user_data_dir (), "Trash", "files", NULL);
         } else {
                 gchar *uid;
-                
+
                 uid = g_strdup_printf ("%d", getuid ());
                 trash_files_dir = g_build_filename (path, ".Trash", uid, "files", NULL);
                 if (!g_file_test (trash_files_dir, G_FILE_TEST_IS_DIR)) {
                         gchar *trash_dir;
-                        
+
                         g_free (trash_files_dir);
                         trash_dir = g_strdup_printf (".Trash-%s", uid);
                         trash_files_dir = g_build_filename (path, trash_dir, "files", NULL);
@@ -148,24 +148,24 @@ ldsm_mount_has_trash (LdsmMountInfo *mount)
                 }
                 g_free (uid);
         }
-        
+
         dir = g_dir_open (trash_files_dir, 0, NULL);
         if (dir) {
                 if (g_dir_read_name (dir))
                         has_trash = TRUE;
                 g_dir_close (dir);
         }
-        
-        g_free (trash_files_dir);      
-                
-        return has_trash;  
+
+        g_free (trash_files_dir);
+
+        return has_trash;
 }
 
 static void
 ldsm_analyze_path (const gchar *path)
 {
         const gchar *argv[] = { DISK_SPACE_ANALYZER, path, NULL };
-        
+
         g_spawn_async (NULL, (gchar **) argv, NULL, G_SPAWN_SEARCH_PATH,
                         NULL, NULL, NULL, NULL);
 }
@@ -182,16 +182,16 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
         gboolean has_trash;
         gboolean retval = TRUE;
         const gchar *path;
-        
+
         /* Don't show a dialog if one is already displayed */
         if (dialog)
                 return retval;
-        
+
         name = g_unix_mount_guess_name (mount->mount);
         free_space = (mount->buf.f_frsize * mount->buf.f_bavail);
         has_trash = ldsm_mount_has_trash (mount);
         path = g_unix_mount_get_mount_path (mount->mount);
-        
+
         dialog = gsd_ldsm_dialog_new (other_usable_volumes,
                                       multiple_volumes,
                                       has_disk_analyzer,
@@ -199,15 +199,15 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                                       free_space,
                                       name,
                                       path);
-                                        
+
         g_free (name);
-        
-        g_object_ref (G_OBJECT (dialog));        
+
+        g_object_ref (G_OBJECT (dialog));
         response = gtk_dialog_run (GTK_DIALOG (dialog));
-        
+
         gtk_object_destroy (GTK_OBJECT (dialog));
         dialog = NULL;
-        
+
         switch (response) {
         case GTK_RESPONSE_CANCEL:
                 retval = FALSE;
@@ -227,20 +227,20 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
         default:
                 g_assert_not_reached ();
         }
-        
-        return retval;      
+
+        return retval;
 }
 
 static gboolean
 ldsm_mount_has_space (LdsmMountInfo *mount)
 {
         gdouble free_space;
-        
+
         free_space = (double) mount->buf.f_bavail / (double) mount->buf.f_blocks;
         /* enough free space, nothing to do */
         if (free_space > free_percent_notify)
                 return TRUE;
-        
+
         /* If we got here, then this volume is low on space */
         return FALSE;
 }
@@ -249,7 +249,7 @@ static gboolean
 ldsm_mount_is_virtual (LdsmMountInfo *mount)
 {
         const gchar *dev_path;
-        
+
         if (mount->buf.f_blocks == 0) {
                 /* Filesystems with zero blocks are virtual */
                 return TRUE;
@@ -262,7 +262,7 @@ ldsm_mount_is_virtual (LdsmMountInfo *mount)
                  */
                 return TRUE;
          }
-        
+
         return FALSE;
 }
 
@@ -270,9 +270,9 @@ static void
 ldsm_free_mount_info (gpointer data)
 {
         LdsmMountInfo *mount = data;
-        
+
         g_return_if_fail (mount != NULL);
-        
+
         g_unix_mount_free (mount->mount);
         g_free (mount);
 }
@@ -285,17 +285,16 @@ ldsm_maybe_warn_mounts (GList *mounts,
 {
         GList *l;
         gboolean done = FALSE;
-        
+
         for (l = mounts; l != NULL; l = l->next) {
                 LdsmMountInfo *mount_info = l->data;
                 LdsmMountInfo *previous_mount_info;
                 gdouble free_space;
                 gdouble previous_free_space;
-                time_t previous_notify_time;
                 time_t curr_time;
                 const gchar *path;
                 gboolean show_notify;
-                
+
                 if (done) {
                         /* Don't show any more dialogs if the user took action with the last one. The user action
                          * might free up space on multiple volumes, making the next dialog redundant.
@@ -303,15 +302,15 @@ ldsm_maybe_warn_mounts (GList *mounts,
                         ldsm_free_mount_info (mount_info);
                         continue;
                 }
-                
+
                 path = g_unix_mount_get_mount_path (mount_info->mount);
-                
+
                 previous_mount_info = g_hash_table_lookup (ldsm_notified_hash, path);
                 if (previous_mount_info != NULL)
                         previous_free_space = (gdouble) previous_mount_info->buf.f_bavail / (gdouble) previous_mount_info->buf.f_blocks;
- 
+
                 free_space = (gdouble) mount_info->buf.f_bavail / (gdouble) mount_info->buf.f_blocks;
-                
+
                 if (previous_mount_info == NULL) {
                         /* We haven't notified for this mount yet */
                         show_notify = TRUE;
@@ -337,7 +336,7 @@ ldsm_maybe_warn_mounts (GList *mounts,
                         ldsm_free_mount_info (mount_info);
                         show_notify = FALSE;
                 }
-               
+
                 if (show_notify) {
                         if (ldsm_notify_for_mount (mount_info, has_disk_analyzer, multiple_volumes, other_usable_volumes))
                                 done = TRUE;
@@ -359,7 +358,7 @@ ldsm_mount_should_ignore (const gchar *path)
                 return TRUE;
         else
                 return FALSE;
-}                
+}
 
 static gboolean
 ldsm_check_all_mounts (gpointer data)
@@ -378,13 +377,13 @@ ldsm_check_all_mounts (gpointer data)
         program = g_find_program_in_path (DISK_SPACE_ANALYZER);
         has_disk_analyzer = (program != NULL);
         g_free (program);
-        
+
         /* We iterate through the static mounts in /etc/fstab first, seeing if
          * they're mounted by checking if the GUnixMountPoint has a corresponding GUnixMountEntry.
          * Iterating through the static mounts means we automatically ignore dynamically mounted media.
          */
         mounts = g_unix_mount_points_get (time_read);
-                
+
         for (l = mounts; l != NULL; l = l->next) {
                 GUnixMountPoint *mount_point = l->data;
                 GUnixMountEntry *mount;
@@ -398,35 +397,35 @@ ldsm_check_all_mounts (gpointer data)
                         /* The GUnixMountPoint is not mounted */
                         continue;
                 }
-                
+
                 mount_info = g_new0 (LdsmMountInfo, 1);
                 mount_info->mount = mount;
-                
+
                 path = g_unix_mount_get_mount_path (mount);
-                                
+
                 if (g_unix_mount_is_readonly (mount)) {
                         ldsm_free_mount_info (mount_info);
                         continue;
                 }
-                
+
                 if (ldsm_mount_should_ignore (path)) {
                         ldsm_free_mount_info (mount_info);
-                        continue;                
+                        continue;
                 }
-                
+
                 if (statvfs (path, &mount_info->buf) != 0) {
                         ldsm_free_mount_info (mount_info);
                         continue;
                 }
-                
+
                 if (ldsm_mount_is_virtual (mount_info)) {
                         ldsm_free_mount_info (mount_info);
                         continue;
-                }                        
+                }
 
                 check_mounts = g_list_prepend (check_mounts, mount_info);
         }
-        
+
         number_of_mounts = g_list_length (check_mounts);
         if (number_of_mounts > 1)
                 multiple_volumes = TRUE;
@@ -441,14 +440,14 @@ ldsm_check_all_mounts (gpointer data)
                         ldsm_free_mount_info (mount_info);
                 }
         }
-        
+
         number_of_full_mounts = g_list_length (full_mounts);
         if (number_of_mounts > number_of_full_mounts)
                 other_usable_volumes = TRUE;
-                
+
         ldsm_maybe_warn_mounts (full_mounts, has_disk_analyzer, multiple_volumes,
                                 other_usable_volumes);
-                
+
         g_list_free (check_mounts);
         g_list_free (full_mounts);
 
@@ -502,14 +501,14 @@ ldsm_is_hash_item_in_ignore_paths (gpointer key,
                                    gpointer value,
                                    gpointer user_data)
 {
-        return ldsm_mount_should_ignore (key);   
+        return ldsm_mount_should_ignore (key);
 }
 
 static void
 gsd_ldsm_get_config ()
 {
         GError *error = NULL;
-       
+
         free_percent_notify = gconf_client_get_float (client,
                                                       GCONF_HOUSEKEEPING_DIR "/" GCONF_FREE_PC_NOTIFY_KEY,
                                                       &error);
@@ -522,7 +521,7 @@ gsd_ldsm_get_config ()
                            "Using sensible default", free_percent_notify);
                 free_percent_notify = 0.05;
         }
-        
+
         free_percent_notify_again = gconf_client_get_float (client,
                                                             GCONF_HOUSEKEEPING_DIR "/" GCONF_FREE_PC_NOTIFY_AGAIN_KEY,
                                                             &error);
@@ -535,7 +534,7 @@ gsd_ldsm_get_config ()
                            "Using sensible default\n", free_percent_notify_again);
                 free_percent_notify_again = 0.01;
         }
-        
+
         free_size_gb_no_notify = gconf_client_get_int (client,
                                                        GCONF_HOUSEKEEPING_DIR "/" GCONF_FREE_SIZE_NO_NOTIFY,
                                                        &error);
@@ -550,7 +549,7 @@ gsd_ldsm_get_config ()
                  g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unkown error");
                  g_clear_error (&error);
          }
-         
+
          if (ignore_paths != NULL) {
                 g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
                 g_slist_free (ignore_paths);
@@ -581,7 +580,7 @@ void
 gsd_ldsm_setup (gboolean check_now)
 {
         GError          *error = NULL;
-        
+
         if (ldsm_notified_hash || ldsm_timeout_id || ldsm_monitor) {
                 g_warning ("Low disk space monitor already initialized.");
                 return;
@@ -590,7 +589,7 @@ gsd_ldsm_setup (gboolean check_now)
         ldsm_notified_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                     g_free,
                                                     ldsm_free_mount_info);
-                                                    
+
         client = gconf_client_get_default ();
         if (client != NULL) {
                 gsd_ldsm_get_config ();
@@ -616,7 +615,7 @@ gsd_ldsm_setup (gboolean check_now)
 
         ldsm_timeout_id = g_timeout_add_seconds (CHECK_EVERY_X_SECONDS,
                                                  ldsm_check_all_mounts, NULL);
-                                                 
+
 }
 
 void
@@ -633,17 +632,17 @@ gsd_ldsm_clean (void)
         if (ldsm_monitor)
                 g_object_unref (ldsm_monitor);
         ldsm_monitor = NULL;
-        
+
         if (client) {
                 gconf_client_notify_remove (client, gconf_notify_id);
                 g_object_unref (client);
         }
-        
+
         if (dialog) {
                 gtk_widget_destroy (GTK_WIDGET (dialog));
                 dialog = NULL;
         }
-        
+
         if (ignore_paths) {
                 g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
                 g_slist_free (ignore_paths);

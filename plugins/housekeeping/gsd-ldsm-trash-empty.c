@@ -3,17 +3,17 @@
  * gsd-ldsm-trash-empty.c
  * Copyright (C) Chris Coulson 2009 <chrisccoulson@googlemail.com>
  *	     (C) Ryan Lortie 2008
- * 
+ *
  * gsd-ldsm-trash-empty.c is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * gsd-ldsm-trash-empty.c is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,7 +50,7 @@ trash_empty_done (gpointer data)
                 g_timer_destroy (timer);
                 timer = NULL;
         }
-	
+
         return FALSE;
 }
 
@@ -87,7 +87,7 @@ trash_empty_update_dialog (gpointer user_data)
                         timer = g_timer_new ();
                         g_timer_start (timer);
                         gtk_progress_bar_pulse (GTK_PROGRESS_BAR (progressbar));
-                }	
+                }
         } else {
                 gchar *text;
                 gchar *tmp;
@@ -108,7 +108,7 @@ trash_empty_update_dialog (gpointer user_data)
                 parent = g_file_get_parent (file);
                 text = g_file_get_uri (parent);
                 g_object_unref (parent);
-	
+
                 gtk_label_set_text (GTK_LABEL (location_label), text);
                 g_free (text);
 
@@ -117,7 +117,7 @@ trash_empty_update_dialog (gpointer user_data)
                 gtk_label_set_markup (GTK_LABEL (file_label), text);
                 g_free (text);
                 g_free (tmp);
-                
+
                 /* unhide the labels */
                 gtk_widget_show_all (GTK_WIDGET (trash_empty_dialog));
         }
@@ -141,7 +141,7 @@ trash_empty_maybe_schedule_update (GIOSchedulerJob *job,
 {
         if (!trash_empty_update_pending) {
                 g_assert (trash_empty_current_file == NULL);
-		
+
                 trash_empty_current_file = g_object_ref (file);
                 trash_empty_deleted_files = deleted;
                 trash_empty_actually_deleting = actually_deleting;
@@ -213,8 +213,8 @@ trash_empty_job (GIOSchedulerJob *job,
         deleted = 0;
         trash_empty_delete_contents (job, cancellable, trash, FALSE, &deleted);
         trash_empty_total_files = deleted;
- 
-        /* now do the real thing */ 
+
+        /* now do the real thing */
         deleted = 0;
         trash_empty_delete_contents (job, cancellable, trash, TRUE, &deleted);
 
@@ -229,24 +229,24 @@ trash_empty_job (GIOSchedulerJob *job,
 
 /* Worker thread end */
 
-static void 
+static void
 trash_empty_start ()
-{	
+{
         GtkWidget *vbox1, *vbox2, *hbox;
         GtkWidget *label1, *label3;
         gchar *markup;
-        GCancellable *cancellable;	
-	
+        GCancellable *cancellable;
+
         trash_empty_dialog = gtk_dialog_new ();
         gtk_window_set_default_size (GTK_WINDOW (trash_empty_dialog), 400, -1);
         gtk_window_set_icon_name (GTK_WINDOW (trash_empty_dialog), "user-trash");
         gtk_window_set_title (GTK_WINDOW (trash_empty_dialog),
                               _("Emptying the trash"));
-	
+
         vbox1 = gtk_vbox_new (FALSE, 12);
         vbox2 = gtk_vbox_new (FALSE, 0);
         hbox = gtk_hbox_new (FALSE, 0);
-	
+
         label1 = gtk_label_new (NULL);
         gtk_label_set_line_wrap (GTK_LABEL (label1), TRUE);
         gtk_misc_set_alignment (GTK_MISC (label1), 0.0, 0.5);
@@ -255,19 +255,19 @@ trash_empty_start ()
         gtk_label_set_line_wrap (GTK_LABEL (label3), TRUE);
         gtk_misc_set_alignment (GTK_MISC (label3), 0.0, 0.5);
         gtk_widget_hide (label3);
-	
+
         location_label = gtk_label_new (NULL);
         gtk_label_set_line_wrap (GTK_LABEL (location_label), TRUE);
         gtk_misc_set_alignment (GTK_MISC (location_label), 0.0, 0.5);
-	
+
         file_label = gtk_label_new (NULL);
         gtk_label_set_line_wrap (GTK_LABEL (file_label), TRUE);
         gtk_misc_set_alignment (GTK_MISC (file_label), 0.0, 0.5);
-	
+
         progressbar = gtk_progress_bar_new ();
-        gtk_progress_bar_set_pulse_step (progressbar, 0.1);
-        gtk_progress_bar_set_text (progressbar, _("Preparing to empty trash..."));
-	
+        gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (progressbar), 0.1);
+        gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progressbar), _("Preparing to empty trash..."));
+
         gtk_box_pack_start (GTK_BOX (GTK_DIALOG (trash_empty_dialog)->vbox), vbox1, TRUE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (vbox1), label1, TRUE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (hbox), label3, FALSE, TRUE, 0);
@@ -276,32 +276,32 @@ trash_empty_start ()
         gtk_box_pack_start (GTK_BOX (vbox2), progressbar, TRUE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (vbox2), file_label, TRUE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (vbox1), vbox2, TRUE, TRUE, 0);
-	
+
         gtk_widget_show (label1);
         gtk_widget_show (vbox1);
         gtk_widget_show_all (vbox2);
         gtk_widget_show (hbox);
         gtk_widget_show (location_label);
-	
+
         gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (trash_empty_dialog)->vbox), 6);
         gtk_container_set_border_width (GTK_CONTAINER (vbox1), 6);
-	
+
         gtk_dialog_add_button (GTK_DIALOG (trash_empty_dialog),
                                GTK_STOCK_CANCEL,
                                GTK_RESPONSE_CANCEL);
-	
+
         markup = g_markup_printf_escaped ("<big><b>%s</b></big>", _("Emptying the trash"));
         gtk_label_set_markup (GTK_LABEL (label1), markup);
         gtk_label_set_text (GTK_LABEL (label3), _("From: "));
-	
+
         cancellable = g_cancellable_new ();
         g_signal_connect_object (trash_empty_dialog, "response",
                                  G_CALLBACK (g_cancellable_cancel),
                                  cancellable, G_CONNECT_SWAPPED);
         g_io_scheduler_push_job (trash_empty_job, NULL, NULL, 0, cancellable);
-	
+
         gtk_widget_show (trash_empty_dialog);
-	
+
         g_free (markup);
         g_object_unref (cancellable);
 }
@@ -324,7 +324,7 @@ trash_empty_require_confirmation ()
         GConfClient *client;
         gboolean require_confirmation = TRUE;
         GError *error = NULL;
-	
+
         client = gconf_client_get_default ();
         if (client) {
                 require_confirmation = gconf_client_get_bool (client, NAUTILUS_CONFIRM_TRASH_KEY, &error);
@@ -336,22 +336,22 @@ trash_empty_require_confirmation ()
                 }
                 g_object_unref (client);
         }
-	
-        return require_confirmation;	
+
+        return require_confirmation;
 }
 
 static void
 trash_empty_show_confirmation_dialog ()
 {
         GtkWidget *button;
-	
+
         if (!trash_empty_require_confirmation ()) {
                 trash_empty_start ();
                 return;
         }
-	
+
         trash_empty_confirm_dialog = gtk_message_dialog_new (NULL, 0,
-                                                             GTK_MESSAGE_WARNING, 
+                                                             GTK_MESSAGE_WARNING,
                                                              GTK_BUTTONS_NONE,
                                                              _("Empty all of the items from the trash?"));
 
@@ -359,7 +359,7 @@ trash_empty_show_confirmation_dialog ()
                                                   _("If you choose to empty the trash, all items in "
                                                   "it will be permanently lost. Please note that "
                                                   "you can also delete them separately."));
-												
+
         gtk_dialog_add_button (GTK_DIALOG (trash_empty_confirm_dialog), GTK_STOCK_CANCEL,
                                GTK_RESPONSE_CANCEL);
 
@@ -367,12 +367,12 @@ trash_empty_show_confirmation_dialog ()
         gtk_widget_show (button);
         GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
 
-        gtk_dialog_add_action_widget (GTK_DIALOG (trash_empty_confirm_dialog), 
+        gtk_dialog_add_action_widget (GTK_DIALOG (trash_empty_confirm_dialog),
                                       button, GTK_RESPONSE_YES);
 
         gtk_dialog_set_default_response (GTK_DIALOG (trash_empty_confirm_dialog),
                                          GTK_RESPONSE_YES);
-	
+
         gtk_window_set_icon_name (GTK_WINDOW (trash_empty_confirm_dialog),
                                   "user-trash");
 
