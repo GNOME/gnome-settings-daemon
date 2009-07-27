@@ -13,10 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-07-17 18:07+0000\n"
-"PO-Revision-Date: 2009-07-17 17:28+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
+"POT-Creation-Date: 2009-07-20 21:12+0000\n"
+"PO-Revision-Date: 2009-07-27 15:12+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <kde-il@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +26,46 @@ msgstr ""
 #: ../data/50-accessibility.xml.in.h:1
 msgid "Accessibility"
 msgstr "נגישות"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+msgid "Free percentage notify threshold"
+msgstr "Free percentage notify threshold"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
+msgid "Free space no notify threshold"
+msgstr "Free space no notify threshold"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+msgid "Minimum notify period for repeated warnings"
+msgstr "Minimum notify period for repeated warnings"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+msgid "Mount paths to ignore"
+msgstr "Mount paths to ignore"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+msgid "Percentage free space threshold for initial warning of low disk space. If the percentage free space drops below this, a warning will be shown"
+msgstr "Percentage free space threshold for initial warning of low disk space. If the percentage free space drops below this, a warning will be shown"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr "Specify a list of mount paths to ignore when they run low on space."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+msgid "Specify a time in minutes. Subsequent warnings for a volume will not appear more often than this period."
+msgstr "Specify a time in minutes. Subsequent warnings for a volume will not appear more often than this period."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+msgid "Specify an amount in GB. If the amount of free space is more than this, no warning will be shown"
+msgstr "Specify an amount in GB. If the amount of free space is more than this, no warning will be shown"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+msgid "Specify the percentage that the free disk space should reduce by before issuing a subsequent warning"
+msgstr "Specify the percentage that the free disk space should reduce by before issuing a subsequent warning"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
+msgid "Subsequent free percentage notify threshold"
+msgstr "Subsequent free percentage notify threshold"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -189,16 +228,12 @@ msgid "Volume up"
 msgstr "Volume up"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
-msgid ""
-"If a notification icon with display related things should be shown in the "
-"panel."
-msgstr ""
-"If a notification icon with display related things should be shown in the "
-"panel."
+msgid "If a notification icon with display related things should be shown in the panel."
+msgstr "If a notification icon with display related things should be shown in the panel."
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "Show Displays in Notification Area"
-msgstr "הצג תצוגות באיזור ההתראות"
+msgstr "Show Displays in Notification Area"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -217,56 +252,28 @@ msgid "RGBA order"
 msgstr "RGBA order"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:5
-msgid ""
-"The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
-msgstr ""
-"The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
+msgid "The order of subpixel elements on an LCD screen; only used when antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red on bottom."
+msgstr "The order of subpixel elements on an LCD screen; only used when antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red on bottom."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:6
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch."
-msgstr ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch."
+msgid "The resolution used for converting font sizes to pixel sizes, in dots per inch."
+msgstr "The resolution used for converting font sizes to pixel sizes, in dots per inch."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:7
-msgid ""
-"The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
-msgstr ""
-"The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+msgid "The type of antialiasing to use when rendering fonts. Possible values are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+msgstr "The type of antialiasing to use when rendering fonts. Possible values are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:8
-msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
-msgstr ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+msgid "The type of hinting to use when rendering fonts. Possible values are: \"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum hinting (may cause distortion of letter forms)."
+msgstr "The type of hinting to use when rendering fonts. Possible values are: \"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum hinting (may cause distortion of letter forms)."
 
 #: ../data/desktop_gnome_keybindings.schemas.in.h:1
 msgid "Allowed keys"
 msgstr "Allowed keys"
 
 #: ../data/desktop_gnome_keybindings.schemas.in.h:2
-msgid ""
-"If non-empty, keybindings will be ignored unless their GConf directory is in "
-"the list. This is useful for lockdown."
-msgstr ""
-"If non-empty, keybindings will be ignored unless their GConf directory is in "
-"the list. This is useful for lockdown."
+msgid "If non-empty, keybindings will be ignored unless their GConf directory is in the list. This is useful for lockdown."
+msgstr "If non-empty, keybindings will be ignored unless their GConf directory is in the list. This is useful for lockdown."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
 msgid "Disable touchpad while typing"
@@ -285,34 +292,20 @@ msgid "Select the touchpad scroll method"
 msgstr "Select the touchpad scroll method"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
-msgid ""
-"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
-"edge scrolling, 2 - two-finger scrolling"
-msgstr ""
-"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
-"edge scrolling, 2 - two-finger scrolling"
+msgid "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - edge scrolling, 2 - two-finger scrolling"
+msgstr "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - edge scrolling, 2 - two-finger scrolling"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
-msgid ""
-"Set this to TRUE if you have problems with accidentally hitting the touchpad "
-"while typing."
-msgstr ""
-"Set this to TRUE if you have problems with accidentally hitting the touchpad "
-"while typing."
+msgid "Set this to TRUE if you have problems with accidentally hitting the touchpad while typing."
+msgstr "Set this to TRUE if you have problems with accidentally hitting the touchpad while typing."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
-msgid ""
-"Set this to TRUE to allow horizontal scrolling by the same method selected "
-"with the scroll_method key."
-msgstr ""
-"Set this to TRUE to allow horizontal scrolling by the same method selected "
-"with the scroll_method key."
+msgid "Set this to TRUE to allow horizontal scrolling by the same method selected with the scroll_method key."
+msgstr "Set this to TRUE to allow horizontal scrolling by the same method selected with the scroll_method key."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
-msgid ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
-msgstr ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -419,12 +412,8 @@ msgid "Screen reader"
 msgstr "Screen reader"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:26
-msgid ""
-"Set to True to enable the housekeeping plugin, to prune transient file "
-"caches."
-msgstr ""
-"Set to True to enable the housekeeping plugin, to prune transient file "
-"caches."
+msgid "Set to True to enable the housekeeping plugin, to prune transient file caches."
+msgstr "Set to True to enable the housekeeping plugin, to prune transient file caches."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
@@ -432,8 +421,7 @@ msgstr "Set to True to enable the plugin to manage clipboard settings."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
-msgstr ""
-"Set to True to enable the plugin to manage desktop background settings."
+msgstr "Set to True to enable the plugin to manage desktop background settings."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
@@ -456,12 +444,8 @@ msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr "Set to True to enable the plugin to manage sound sample caches."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
-msgstr ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
+msgid "Set to True to enable the plugin to manage the accessibility keyboard settings."
+msgstr "Set to True to enable the plugin to manage the accessibility keyboard settings."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
@@ -504,28 +488,16 @@ msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "The name of the keyboard shortcut to toggle the screen reader"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:45
-msgid ""
-"This is the name of the keyboard shortcut to toggle the magnifier. This name "
-"will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"This is the name of the keyboard shortcut to toggle the magnifier. This name "
-"will be shown in the keyboard shortcut preferences dialog."
+msgid "This is the name of the keyboard shortcut to toggle the magnifier. This name will be shown in the keyboard shortcut preferences dialog."
+msgstr "This is the name of the keyboard shortcut to toggle the magnifier. This name will be shown in the keyboard shortcut preferences dialog."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid ""
-"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
-"This name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
-"This name will be shown in the keyboard shortcut preferences dialog."
+msgid "This is the name of the keyboard shortcut to toggle the on-screen keyboard. This name will be shown in the keyboard shortcut preferences dialog."
+msgstr "This is the name of the keyboard shortcut to toggle the on-screen keyboard. This name will be shown in the keyboard shortcut preferences dialog."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:47
-msgid ""
-"This is the name of the keyboard shortcut to toggle the screen reader. This "
-"name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"This is the name of the keyboard shortcut to toggle the screen reader. This "
-"name will be shown in the keyboard shortcut preferences dialog."
+msgid "This is the name of the keyboard shortcut to toggle the screen reader. This name will be shown in the keyboard shortcut preferences dialog."
+msgstr "This is the name of the keyboard shortcut to toggle the screen reader. This name will be shown in the keyboard shortcut preferences dialog."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
@@ -604,12 +576,8 @@ msgstr "האם ברצונך להפסיק מקשים איטיים?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
-msgid ""
-"You just held down the Shift key for 8 seconds.  This is the shortcut for "
-"the Slow Keys feature, which affects the way your keyboard works."
-msgstr ""
-"כרגע הוחזק מקש ה־Shift למשך 8 שניות.  זהו הקיצור עבור תכונת המקשים האיטיים, "
-"המשפיעה על אופן פעולת המקלדת."
+msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for the Slow Keys feature, which affects the way your keyboard works."
+msgstr "כרגע הוחזק מקש ה־Shift למשך 8 שניות.  זהו הקיצור עבור תכונת המקשים האיטיים, המשפיעה על אופן פעולת המקלדת."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
@@ -667,61 +635,52 @@ msgstr "האם ברצונך להפסיק מקשים דביקים?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
-msgid ""
-"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
-"the Sticky Keys feature, which affects the way your keyboard works."
-msgstr ""
-"כרגע לחצת על מקש ה־Shift 5 פעמים ברצף. זהו הקיצור עבור תכונת המקשים הדביקים, "
-"המשפיעה על אופן פעולת המקלדת שלך."
+msgid "You just pressed the Shift key 5 times in a row.  This is the shortcut for the Sticky Keys feature, which affects the way your keyboard works."
+msgstr "כרגע לחצת על מקש ה־Shift 5 פעמים ברצף. זהו הקיצור עבור תכונת המקשים הדביקים, המשפיעה על אופן פעולת המקלדת שלך."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
-msgid ""
-"You just pressed two keys at once, or pressed the Shift key 5 times in a "
-"row.  This turns off the Sticky Keys feature, which affects the way your "
-"keyboard works."
-msgstr ""
-"כרגע לחצת על שני מקשים יחדיו, או שלחצת על מקש ה־Shift 5 פעמים ברצף. בכך "
-"מבוטלת תכונת המקשים הדביקים, המשפיעה על אופן פעולת המקלדת שלך."
+msgid "You just pressed two keys at once, or pressed the Shift key 5 times in a row.  This turns off the Sticky Keys feature, which affects the way your keyboard works."
+msgstr "כרגע לחצת על שני מקשים יחדיו, או שלחצת על מקש ה־Shift 5 פעמים ברצף. בכך מבוטלת תכונת המקשים הדביקים, המשפיעה על אופן פעולת המקלדת שלך."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
 msgid "Sticky Keys Alert"
 msgstr "התרעת מקשים דביקים"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
-msgstr "העדפות גישה אוניברסליץ"
+msgstr "העדפות גישה אוניברסלית"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Enhance _contrast in colors"
 msgstr "הגבר את _ניגודיות הצבעים"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
 msgid "Make _text larger and easier to read"
 msgstr "ה_גדלת את הטקסט לקריאה נוחה יותר"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "לחץ והח_זק כדי לקבלם (מקשים איטיים)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
 msgstr "השתמש ב_מקלדת על המסך"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
 msgid "Use screen _magnifier"
 msgstr "השתמש במ_גדיל מסך"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
 msgid "Use screen _reader"
 msgstr "השתמש ב_קורא מסך"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
 msgstr "ה_תעלם מלחיצות מקשים נשנות (הקפצת מקשים)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "לחיצה על אחד ממקשי הקיצורים בכל פעם (מקשים דביקים)"
 
@@ -757,18 +716,92 @@ msgstr "גופן"
 msgid "Font plugin"
 msgstr "תוסף גופן"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:124
-#, c-format
-msgid "%d%% of the disk space on `%s' is in use"
-msgstr "‏%d%% משטח הכונן `%s' בשימוש"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+msgid "Don't show any warnings again for this filesystem"
+msgstr "לא להציג אזהרות שוב עבור מערכת הקבצים"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:132
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+#| msgid "Do _not show this warning again."
+msgid "Don't show any warnings again"
+msgstr "אל להציג עוד אזהרות"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "בכרך  \"%s\" נותר %s מקום פנוי בכונן בלבד."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "במחשב זה ישנם %s פנויים בכונן הקשיח."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+msgid "You can free up disk space by emptying the Trash, removing unused programs or files, or moving files to another disk or partition."
+msgstr "ניתן לפנות מקום בכונן על ידי ריקון האשפה, הסרת קבצים או תוכניות שאינם בשימוש, או על ידי העברת קבצים למחיצה אחרת או לכונן אחרים."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+msgid "You can free up disk space by removing unused programs or files, or by moving files to another disk or partition."
+msgstr "ניתן לפנות מקום בכונן על ידי הסרת קבצים או תוכניות שאינם בשימוש, או על ידי העברת קבצים למחיצה אחרת או לכונן אחרים."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+msgid "You can free up disk space by emptying the Trash, removing unused programs or files, or moving files to an external disk."
+msgstr "ניתן לפנות מקום בכונן על ידי ריקון האשפה, הסרת תוכניות או קבצים שאינם בשימוש, או על ידי העברת קבצים לכונן חיצוני."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+msgid "You can free up disk space by removing unused programs or files, or by moving files to an external disk."
+msgstr "ניתן לפנות מקום בכונן על ידי הסרת תוכניות או קבצים, או על ידי העברת קבצים לכונן חיצוני."
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
 msgstr "שטח פנוי מועט"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:143
-msgid "Analyze"
-msgstr "ניתוח"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
+msgid "Empty Trash"
+msgstr "רוקן אשפה"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
+msgid "Examine..."
+msgstr "לבחון..."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
+msgid "Ignore"
+msgstr "התעלם"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#, c-format
+msgid "Removing item %lu of %lu"
+msgstr "הסרת פריט %lu מתוך %lu"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#, c-format
+msgid "<i>Removing: %s</i>"
+msgstr "<i>הסרת: %s</i>"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+msgid "Emptying the trash"
+msgstr "מרוקן את האשפה"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+msgid "Preparing to empty trash..."
+msgstr "מתכונן לרוקן את האשפה..."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+msgid "From: "
+msgstr "מ:"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+msgid "Empty all of the items from the trash?"
+msgstr "האם לרוקן את כל הפריטים מהאשפה?\""
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+msgid "If you choose to empty the trash, all items in it will be permanently lost. Please note that you can also delete them separately."
+msgstr "אם תבחר לרוקן את האשפה, כל הפריטים בה יאבדו לצמיתות. נא לשים לב שניתן למחוק אותם בנפרד."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+msgid "_Empty Trash"
+msgstr "_רוקן אשפה"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -831,12 +864,8 @@ msgid "_Loaded files:"
 msgstr "קבצים _טעונים:"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:206
-msgid ""
-"Could not get default terminal. Verify that your default terminal command is "
-"set and points to a valid application."
-msgstr ""
-"לא ניתן לקבל את מסוף ברירת המחדל. יש לוודא כי פקודת מסוף ברירת המחדל מוגדרת "
-"ושהיא אכן מצביעה אל יישום תקף."
+msgid "Could not get default terminal. Verify that your default terminal command is set and points to a valid application."
+msgstr "לא ניתן לקבל את מסוף ברירת המחדל. יש לוודא כי פקודת מסוף ברירת המחדל מוגדרת ושהיא אכן מצביעה אל יישום תקף."
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:246
 #, c-format
@@ -876,8 +905,7 @@ msgid "Could not enable mouse accessibility features"
 msgstr "לא ניתן להפעיל את אפשרויות נגישות העכבר"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:892
-msgid ""
-"Mouse accessibility requires mousetweaks to be installed on your system."
+msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "נכישות עכבר דורשת ש-mousetweaks תהיה מותקנת במערכת."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:895
@@ -919,8 +947,7 @@ msgstr "לא ניתן לשחזר את תצורת התצוגה מגיבוי"
 #: ../plugins/xrandr/gsd-xrandr-manager.c:254
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
-msgid_plural ""
-"The display will be reset to its previous configuration in %d seconds"
+msgid_plural "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "התצוגה תאופס לתצורה הקודמת בעוד שניה אחת"
 msgstr[1] "התצוגה תאופס לתצורה הקודמת בעוד %d שניות"
 
@@ -1016,28 +1043,26 @@ msgstr "נהל הגדרות X"
 msgid "X Settings"
 msgstr "הגדרות X"
 
+#~ msgid "%d%% of the disk space on `%s' is in use"
+#~ msgstr "‏%d%% משטח הכונן `%s' בשימוש"
+#~ msgid "Analyze"
+#~ msgstr "ניתוח"
 #~ msgid ""
 #~ "Set to True to display a dialog when there are errors running the "
 #~ "screensaver."
 #~ msgstr ""
 #~ "Set to True to display a dialog when there are errors running the "
 #~ "screensaver."
-
 #~ msgid "Set to True to run the screensaver at login."
 #~ msgstr "Set to True to run the screensaver at login."
-
 #~ msgid "Show startup errors"
 #~ msgstr "Show startup errors"
-
 #~ msgid "Start screensaver"
 #~ msgstr "Start screensaver"
-
 #~ msgid "Enable screensaver plugin"
 #~ msgstr "Enable screensaver plugin"
-
 #~ msgid "Set to True to enable the plugin to manage screensaver settings."
 #~ msgstr "Set to True to enable the plugin to manage screensaver settings."
-
 #~ msgid ""
 #~ "There was an error starting up the screensaver:\n"
 #~ "\n"
@@ -1050,66 +1075,49 @@ msgstr "הגדרות X"
 #~ "%s\n"
 #~ "\n"
 #~ "שומר המסך לא יפעל בתקופת ההרצה הנוכחית."
-
 #~ msgid "Screensaver"
 #~ msgstr "שומר מסך"
-
 #~ msgid "Screensaver plugin"
 #~ msgstr "תוסף שומר מסך"
 
 #~| msgid "Toggle screen reader"
 #~ msgid "Toggle screenreader"
 #~ msgstr "Toggle screenreader"
-
-#~ msgid "Do _not show this warning again."
-#~ msgstr "_אל תציג התרעה זו שוב."
-
 #~ msgid "Sound"
 #~ msgstr "קול"
-
 #, fuzzy
 #~ msgid "Sound Sample Cache plugin"
 #~ msgstr "תוסף קול"
-
 #~ msgid "gtk-close"
 #~ msgstr "gtk-close"
-
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
 #~ "This is needed to allow changing the mouse pointer theme."
 #~ msgstr ""
 #~ "לא ניתן ליצור את התיקייה \"%s\".\n"
 #~ "אשר הכרחית לאישור שינוי הסמן."
-
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
 #~ "This is needed to allow changing cursors."
 #~ msgstr ""
 #~ "לא ניתן ליצור את התיקייה \"%s\".\n"
 #~ "אשר הכרחית לאישור שינוי הסמן."
-
 #~ msgid "Couldn't load sound file %s as sample %s"
 #~ msgstr "לא ניתן לטעון את קובץ הקול %s כדוגמה %s"
-
 #~ msgid "Login"
 #~ msgstr "התחבר"
-
 #~ msgid "Logout"
 #~ msgstr "התנתק"
-
 #~ msgid "Siren"
 #~ msgstr "סירנה"
 
 #, fuzzy
 #~ msgid "Beep"
 #~ msgstr "מהירות"
-
 #~ msgid "No sound"
 #~ msgstr "ללא קול"
-
 #~ msgid "Sound not set for this event."
 #~ msgstr "לא נקבע קול עבור אירוע זה."
-
 #~ msgid ""
 #~ "The sound file for this event does not exist.\n"
 #~ "You may want to install the gnome-audio package for a set of default "
@@ -1117,59 +1125,44 @@ msgstr "הגדרות X"
 #~ msgstr ""
 #~ "קובץ הקול לאירוע זה אינו קיים.\n"
 #~ "תרצה להתקין את חבילת gnome-audio לערכת קולות ברירת המחדל."
-
 #~ msgid "The sound file for this event does not exist."
 #~ msgstr "הקול לאירוע זה אינו קיים."
-
 #~ msgid "Select Sound File"
 #~ msgstr "בחר קובץ קול"
-
 #~ msgid "The file %s is not a valid wav file"
 #~ msgstr "הקובץ %s איננו קובץ wav תקני"
-
 #~ msgid "Select sound file..."
 #~ msgstr "בחר קובץ קול..."
-
 #~ msgid "Screen Rotation"
 #~ msgstr "סיבוב מסך"
-
 #~ msgid ""
 #~ "Set to True to keep the handlers for text/plain and text/* MIME types "
 #~ "synchronized."
 #~ msgstr ""
 #~ "Set to True to keep the handlers for text/plain and text/* MIME types "
 #~ "synchronized."
-
 #~ msgid "Sync text/plain and text/* handlers"
 #~ msgstr "Sync text/plain and text/* handlers"
-
 #~ msgid "Enable default editor plugin"
 #~ msgstr "Enable default editor plugin"
-
 #~ msgid ""
 #~ "Set to True to enable the plugin to manage the default text editor "
 #~ "setting."
 #~ msgstr ""
 #~ "Set to True to enable the plugin to manage the default text editor "
 #~ "setting."
-
 #~ msgid "Key Binding (%s) has its action defined multiple times\n"
 #~ msgstr "לקיצור המקש (%s) ישנה פעולה שהוגדרה מספר פעמים\n"
-
 #~ msgid "Key Binding (%s) has its binding defined multiple times\n"
 #~ msgstr "לקיצור המקש (%s) ישנו קיצור שהוגדר מספר פעמים\n"
-
 #~ msgid "It seems that another application already has access to key '%u'."
 #~ msgstr "נראה שליישום אחר כבר יש גישה למפתח '%u'."
-
 #~ msgid "Key Binding (%s) is already in use\n"
 #~ msgstr "קיצור המקש (%s) כבר בשימוש\n"
-
 #~ msgid "Volume"
 #~ msgstr "עוצמה"
-
 #~ msgid "Default Editor"
 #~ msgstr "עורך ברירת מחדל"
-
 #~ msgid "Default editor plugin"
 #~ msgstr "תוסף עורך ברירת מחדל"
+
