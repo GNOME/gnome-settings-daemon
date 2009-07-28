@@ -18,6 +18,8 @@ libgvc_la_SOURCES =			\
 	gvc-mixer-stream.c		\
 	gvc-channel-map.h		\
 	gvc-channel-map.c		\
+	gvc-mixer-card.c		\
+	gvc-mixer-card.h		\
 	gvc-mixer-sink.h		\
 	gvc-mixer-sink.c		\
 	gvc-mixer-source.h		\

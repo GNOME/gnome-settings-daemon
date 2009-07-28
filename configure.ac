@@ -246,7 +246,7 @@ AC_ARG_ENABLE(pulse,
        [WANT_PULSE=yes]) dnl Default value
 
 if test x$WANT_PULSE = xyes ; then
-       PA_REQUIRED_VERSION=0.9.12
+       PA_REQUIRED_VERSION=0.9.15
        PKG_CHECK_MODULES(PULSE, glib-2.0 libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION,
              [have_pulse=true
               AC_DEFINE(HAVE_PULSE, 1, [Define if PULSE sound server should be used])],

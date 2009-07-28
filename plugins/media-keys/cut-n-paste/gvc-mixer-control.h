@@ -24,6 +24,7 @@
 #include <glib-object.h>
 #include <pulse/pulseaudio.h>
 #include "gvc-mixer-stream.h"
+#include "gvc-mixer-card.h"
 
 G_BEGIN_DECLS
 
@@ -52,6 +53,10 @@ typedef struct
                                         guint            id);
         void (*stream_removed)         (GvcMixerControl *control,
                                         guint            id);
+        void (*card_added)             (GvcMixerControl *control,
+                                        guint            id);
+        void (*card_removed)           (GvcMixerControl *control,
+                                        guint            id);
         void (*default_sink_changed)   (GvcMixerControl *control,
                                         guint            id);
         void (*default_source_changed) (GvcMixerControl *control,
@@ -67,6 +72,7 @@ gboolean            gvc_mixer_control_close               (GvcMixerControl *cont
 gboolean            gvc_mixer_control_is_ready            (GvcMixerControl *control);
 
 pa_context *        gvc_mixer_control_get_pa_context      (GvcMixerControl *control);
+GSList *            gvc_mixer_control_get_cards           (GvcMixerControl *control);
 GSList *            gvc_mixer_control_get_streams         (GvcMixerControl *control);
 GSList *            gvc_mixer_control_get_sinks           (GvcMixerControl *control);
 GSList *            gvc_mixer_control_get_sources         (GvcMixerControl *control);
@@ -74,6 +80,8 @@ GSList *            gvc_mixer_control_get_sink_inputs     (GvcMixerControl *cont
 GSList *            gvc_mixer_control_get_source_outputs  (GvcMixerControl *control);
 
 GvcMixerStream *    gvc_mixer_control_lookup_stream_id    (GvcMixerControl *control,
+                                                           guint            id);
+GvcMixerCard   *    gvc_mixer_control_lookup_card_id      (GvcMixerControl *control,
                                                            guint            id);
 
 GvcMixerStream *    gvc_mixer_control_get_default_sink     (GvcMixerControl *control);

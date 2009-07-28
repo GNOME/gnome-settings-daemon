@@ -48,10 +48,20 @@ typedef struct
         GObjectClass           parent_class;
 
         /* vtable */
-        gboolean (*push_volume)   (GvcMixerStream *stream, gpointer *operation);
+        gboolean (*push_volume)     (GvcMixerStream *stream,
+                                     gpointer *operation);
         gboolean (*change_is_muted) (GvcMixerStream *stream,
                                      gboolean        is_muted);
+        gboolean (*change_port)     (GvcMixerStream *stream,
+                                     const char     *port);
 } GvcMixerStreamClass;
+
+typedef struct
+{
+        char *port;
+        char *human_port;
+        guint priority;
+} GvcMixerStreamPort;
 
 GType               gvc_mixer_stream_get_type        (void);
 
@@ -59,6 +69,10 @@ pa_context *        gvc_mixer_stream_get_pa_context  (GvcMixerStream *stream);
 guint               gvc_mixer_stream_get_index       (GvcMixerStream *stream);
 guint               gvc_mixer_stream_get_id          (GvcMixerStream *stream);
 GvcChannelMap *     gvc_mixer_stream_get_channel_map (GvcMixerStream *stream);
+GvcMixerStreamPort *gvc_mixer_stream_get_port        (GvcMixerStream *stream);
+const GList *       gvc_mixer_stream_get_ports       (GvcMixerStream *stream);
+gboolean            gvc_mixer_stream_change_port     (GvcMixerStream *stream,
+                                                      const char     *port);
 
 pa_volume_t         gvc_mixer_stream_get_volume      (GvcMixerStream *stream);
 gdouble             gvc_mixer_stream_get_decibel     (GvcMixerStream *stream);
@@ -100,6 +114,10 @@ gboolean            gvc_mixer_stream_set_application_id (GvcMixerStream *stream,
                                                          const char *application_id);
 gboolean            gvc_mixer_stream_set_base_volume (GvcMixerStream *stream,
                                                       pa_volume_t     base_volume);
+gboolean            gvc_mixer_stream_set_port        (GvcMixerStream *stream,
+                                                      const char     *port);
+gboolean            gvc_mixer_stream_set_ports       (GvcMixerStream *stream,
+                                                      GList          *ports);
 
 G_END_DECLS
 

@@ -51,6 +51,9 @@ struct GvcMixerStreamPrivate
         gboolean       is_virtual;
         pa_volume_t    base_volume;
         pa_operation  *change_volume_op;
+        char          *port;
+        char          *human_port;
+        GList         *ports;
 };
 
 enum
@@ -70,6 +73,7 @@ enum
         PROP_CAN_DECIBEL,
         PROP_IS_EVENT_STREAM,
         PROP_IS_VIRTUAL,
+        PROP_PORT,
 };
 
 static void     gvc_mixer_stream_class_init (GvcMixerStreamClass *klass);
@@ -396,6 +400,92 @@ gvc_mixer_stream_set_base_volume (GvcMixerStream *stream,
         return TRUE;
 }
 
+GvcMixerStreamPort *
+gvc_mixer_stream_get_port (GvcMixerStream *stream)
+{
+        GList *l;
+
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), NULL);
+        g_return_val_if_fail (stream->priv->ports != NULL, NULL);
+
+        for (l = stream->priv->ports; l != NULL; l = l->next) {
+                GvcMixerStreamPort *p = l->data;
+                if (g_strcmp0 (stream->priv->port, p->port) == 0) {
+                        return p;
+                }
+        }
+
+        g_assert_not_reached ();
+
+        return NULL;
+}
+
+gboolean
+gvc_mixer_stream_set_port (GvcMixerStream *stream,
+                           const char     *port)
+{
+        GList *l;
+
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+        g_return_val_if_fail (stream->priv->ports != NULL, FALSE);
+
+        g_free (stream->priv->port);
+        stream->priv->port = g_strdup (port);
+
+        g_free (stream->priv->human_port);
+        stream->priv->human_port = NULL;
+
+        for (l = stream->priv->ports; l != NULL; l = l->next) {
+                GvcMixerStreamPort *p = l->data;
+                if (g_str_equal (stream->priv->port, p->port)) {
+                        stream->priv->human_port = g_strdup (p->human_port);
+                        break;
+                }
+        }
+
+        g_object_notify (G_OBJECT (stream), "port");
+
+        return TRUE;
+}
+
+gboolean
+gvc_mixer_stream_change_port (GvcMixerStream *stream,
+                              const char     *port)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+        return GVC_MIXER_STREAM_GET_CLASS (stream)->change_port (stream, port);
+}
+
+const GList *
+gvc_mixer_stream_get_ports (GvcMixerStream *stream)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+        return stream->priv->ports;
+}
+
+static int
+sort_ports (GvcMixerStreamPort *a,
+            GvcMixerStreamPort *b)
+{
+        if (a->priority == b->priority)
+                return 0;
+        if (a->priority > b->priority)
+                return 1;
+        return -1;
+}
+
+gboolean
+gvc_mixer_stream_set_ports (GvcMixerStream *stream,
+                            GList          *ports)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+        g_return_val_if_fail (stream->priv->ports == NULL, FALSE);
+
+        stream->priv->ports = g_list_sort (ports, (GCompareFunc) sort_ports);
+
+        return TRUE;
+}
+
 static void
 gvc_mixer_stream_set_property (GObject       *object,
                                guint          prop_id,
@@ -446,6 +536,9 @@ gvc_mixer_stream_set_property (GObject       *object,
                 break;
         case PROP_CAN_DECIBEL:
                 gvc_mixer_stream_set_can_decibel (self, g_value_get_boolean (value));
+                break;
+        case PROP_PORT:
+                gvc_mixer_stream_set_port (self, g_value_get_string (value));
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -506,6 +599,9 @@ gvc_mixer_stream_get_property (GObject     *object,
         case PROP_CAN_DECIBEL:
                 g_value_set_boolean (value, self->priv->can_decibel);
                 break;
+        case PROP_PORT:
+                g_value_set_string (value, self->priv->port);
+                break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                 break;
@@ -527,6 +623,13 @@ gvc_mixer_stream_constructor (GType                  type,
         self->priv->id = get_next_stream_serial ();
 
         return object;
+}
+
+static gboolean
+gvc_mixer_stream_real_change_port (GvcMixerStream *stream,
+                                   const char     *port)
+{
+        return FALSE;
 }
 
 static gboolean
@@ -593,6 +696,7 @@ gvc_mixer_stream_class_init (GvcMixerStreamClass *klass)
         gobject_class->get_property = gvc_mixer_stream_get_property;
 
         klass->push_volume = gvc_mixer_stream_real_push_volume;
+        klass->change_port = gvc_mixer_stream_real_change_port;
         klass->change_is_muted = gvc_mixer_stream_real_change_is_muted;
 
         g_object_class_install_property (gobject_class,
@@ -693,6 +797,13 @@ gvc_mixer_stream_class_init (GvcMixerStreamClass *klass)
                                                                "Whether the stream is virtual",
                                                                FALSE,
                                                                G_PARAM_READWRITE|G_PARAM_CONSTRUCT));
+        g_object_class_install_property (gobject_class,
+                                         PROP_PORT,
+                                         g_param_spec_string ("port",
+                                                              "Port",
+                                                              "The name of the current port for this stream",
+                                                              NULL,
+                                                              G_PARAM_READWRITE));
         g_type_class_add_private (klass, sizeof (GvcMixerStreamPrivate));
 }
 
@@ -700,6 +811,14 @@ static void
 gvc_mixer_stream_init (GvcMixerStream *stream)
 {
         stream->priv = GVC_MIXER_STREAM_GET_PRIVATE (stream);
+}
+
+static void
+free_port (GvcMixerStreamPort *p)
+{
+        g_free (p->port);
+        g_free (p->human_port);
+        g_free (p);
 }
 
 static void
@@ -725,6 +844,16 @@ gvc_mixer_stream_finalize (GObject *object)
 
         g_free (mixer_stream->priv->icon_name);
         mixer_stream->priv->icon_name = NULL;
+
+        g_free (mixer_stream->priv->port);
+        mixer_stream->priv->port = NULL;
+
+        g_free (mixer_stream->priv->human_port);
+        mixer_stream->priv->human_port = NULL;
+
+        g_list_foreach (mixer_stream->priv->ports, (GFunc) free_port, NULL);
+        g_list_free (mixer_stream->priv->ports);
+        mixer_stream->priv->ports = NULL;
 
        if (mixer_stream->priv->change_volume_op) {
                pa_operation_unref(mixer_stream->priv->change_volume_op);
