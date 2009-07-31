@@ -740,7 +740,7 @@ update_default_sink (GsdMediaKeysManager *manager)
         }
 
         if (stream != NULL) {
-                manager->priv->stream = stream;
+                manager->priv->stream = g_object_ref (stream);
                 g_signal_connect (G_OBJECT (manager->priv->stream), "notify::volume",
                                   G_CALLBACK (on_stream_event_notify), manager);
                 g_signal_connect (G_OBJECT (manager->priv->stream), "notify::is-muted",
