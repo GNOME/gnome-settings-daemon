@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: GNOME Settings Daemon HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-07-14 12:38+0000\n"
-"PO-Revision-Date: 2009-07-16 10:56+0300\n"
+"POT-Creation-Date: 2009-07-28 10:19+0000\n"
+"PO-Revision-Date: 2009-08-01 13:49+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,44 @@ msgstr ""
 
 msgid "Accessibility"
 msgstr "Hõlbustused"
+
+msgid "Free percentage notify threshold"
+msgstr ""
+
+msgid "Free space no notify threshold"
+msgstr ""
+
+msgid "Minimum notify period for repeated warnings"
+msgstr ""
+
+msgid "Mount paths to ignore"
+msgstr ""
+
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown"
+msgstr ""
+
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr ""
+
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown"
+msgstr ""
+
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning"
+msgstr ""
+
+msgid "Subsequent free percentage notify threshold"
+msgstr ""
 
 msgid "Binding to eject an optical disk."
 msgstr "Klahviseos optilise ketta väljastamiseks."
@@ -592,15 +630,80 @@ msgstr "Kirjatüüp"
 msgid "Font plugin"
 msgstr "Kirjatüübi plugin"
 
-#, c-format
-msgid "%d%% of the disk space on `%s' is in use"
-msgstr "%d%% kettamahust seadmel `%s' on kasutusel"
+msgid "Don't show any warnings again for this filesystem"
+msgstr ""
 
+msgid "Don't show any warnings again"
+msgstr "_Tulevikus ei kuvata enam ühtegi hoiatust"
+
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr ""
+
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr ""
+
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
+msgstr ""
+
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
+msgstr ""
+
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr ""
+
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr ""
+
+#. Set up all the window stuff here
 msgid "Low Disk Space"
 msgstr "Kettal on vähe ruumi"
 
-msgid "Analyze"
-msgstr "Analüüsi"
+msgid "Empty Trash"
+msgstr ""
+
+msgid "Examine..."
+msgstr ""
+
+msgid "Ignore"
+msgstr "Eira"
+
+#, c-format
+msgid "Removing item %lu of %lu"
+msgstr "%lu. kirje eemaldamine (%lu-st)"
+
+#, c-format
+msgid "<i>Removing: %s</i>"
+msgstr "<i>Eemaldamine: %s</i>"
+
+msgid "Emptying the trash"
+msgstr "Prügikasti tühjendamine"
+
+msgid "Preparing to empty trash..."
+msgstr "Ettevalmistused prügikasti tühjendamiseks..."
+
+msgid "From: "
+msgstr ""
+
+msgid "Empty all of the items from the trash?"
+msgstr "Kas tühjendada kogu prügikast?"
+
+msgid ""
+"If you choose to empty the trash, all items in it will be permanently lost. "
+"Please note that you can also delete them separately."
+msgstr ""
+
+msgid "_Empty Trash"
+msgstr ""
 
 #, c-format
 msgid "Key binding (%s) is invalid"
@@ -640,7 +743,7 @@ msgid "Would you like to load the modmap file(s)?"
 msgstr "Kas soovid modmap faile laadida?"
 
 msgid "_Do not show this message again"
-msgstr "_Seda teadet mitte enam kuvada"
+msgstr "Tulevikus _seda teadet enam ei kuvata"
 
 msgid "_Load"
 msgstr "_Laadi"
@@ -669,6 +772,27 @@ msgid ""
 msgstr ""
 "Masinat pole võimalik uinutada.\n"
 "Veendu, et masin on korrektselt seadistatud."
+
+#. translators:
+#. * The device has been disabled
+msgid "Disabled"
+msgstr "Keelatud"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "%u väljund"
+msgstr[1] "%u väljundit"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "%u sisend"
+msgstr[1] "%u sisendit"
 
 msgid "System Sounds"
 msgstr "Süsteemsed helid"
