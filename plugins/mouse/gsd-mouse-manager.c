@@ -487,7 +487,7 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
 
         if (state) {
                 GError        *error = NULL;
-                const char *args[4];
+                const char *args[5];
 
                 if (manager->priv->syndaemon_spawned)
                         return 0;
@@ -495,7 +495,8 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
                 args[0] = "syndaemon";
                 args[1] = "-i";
                 args[2] = "0.5";
-                args[3] = NULL;
+                args[3] = "-k;
+                args[4] = NULL;
 
                 if (!g_find_program_in_path (args[0]))
                         return 0;
