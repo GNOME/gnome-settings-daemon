@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 2.25.x\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-19 19:45+0200\n"
-"PO-Revision-Date: 2009-07-19 20:01+0200\n"
+"Project-Id-Version: gnome-settings-daemon 2.27.x\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2009-08-04 18:26+0200\n"
+"PO-Revision-Date: 2009-08-04 18:28+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -816,25 +816,33 @@ msgstr "Denne datamaskinen har kun %s gjenværende diskplass."
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
-msgstr "Du kan frigjøre plass ved å tømme papirkurven, fjerne ubrukte programmer og filer eller ved å flytte filer til en annen disk eller partisjon."
+msgstr ""
+"Du kan frigjøre plass ved å tømme papirkurven, fjerne ubrukte programmer og "
+"filer eller ved å flytte filer til en annen disk eller partisjon."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
-msgstr "Du kan frigjøre diskplass ved å fjerne ubrukte programmer og filer eller ved å flytte filer til en annen disk eller partisjon."
+msgstr ""
+"Du kan frigjøre diskplass ved å fjerne ubrukte programmer og filer eller ved "
+"å flytte filer til en annen disk eller partisjon."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
-msgstr "Du kan frigjøre diskplass ved å tømme papirkurven, fjerne ubrukte programmer og filer eller flytte filer til en ekstern disk."
+msgstr ""
+"Du kan frigjøre diskplass ved å tømme papirkurven, fjerne ubrukte programmer "
+"og filer eller flytte filer til en ekstern disk."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
-msgstr "Du kan frigjøre diskplass ved å fjerne ubrukte programmer og filer eller ved å flytte filer til en ekstern disk."
+msgstr ""
+"Du kan frigjøre diskplass ved å fjerne ubrukte programmer og filer eller ved "
+"å flytte filer til en ekstern disk."
 
 #. Set up all the window stuff here
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
@@ -884,7 +892,9 @@ msgstr "Tøm alle oppføringer fra papirkurven?"
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
-msgstr "Hvis du velger å tømme papirkurven vil alle oppføringer i den gå tapt permanent. Merk at du også kan slette dem hver for seg."
+msgstr ""
+"Hvis du velger å tømme papirkurven vil alle oppføringer i den gå tapt "
+"permanent. Merk at du også kan slette dem hver for seg."
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
 msgid "_Empty Trash"
@@ -974,11 +984,35 @@ msgstr ""
 "Kunne ikke sette maskinen i hvilemodus.\n"
 "Sjekk at maskinen er korrekt konfigurert."
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1065
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:985
+msgid "Disabled"
+msgstr "Slått av"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:992
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "%u utgang"
+msgstr[1] "%u utganger"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1002
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "%u inngang"
+msgstr[1] "%u innganger"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1298
 msgid "System Sounds"
 msgstr "Systemlyder"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1471
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1750
 msgid "GNOME Volume Control"
 msgstr "GNOME volumkontroll"
 
@@ -990,17 +1024,17 @@ msgstr "Medietaster"
 msgid "Media keys plugin"
 msgstr "Tillegg for medietaster"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:890
+#: ../plugins/mouse/gsd-mouse-manager.c:891
 msgid "Could not enable mouse accessibility features"
 msgstr "Kunne ikke aktivere tilgjengelighetsfunksjoner for mus"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:892
+#: ../plugins/mouse/gsd-mouse-manager.c:893
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 "Tilgjengelighet for mus krever at mousetweaks er installert på systemet."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:895
+#: ../plugins/mouse/gsd-mouse-manager.c:896
 msgid "Mouse Preferences"
 msgstr "Brukervalg for mus"
 
@@ -1137,52 +1171,3 @@ msgstr "Håndter innstillinger for X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Innstillinger for X"
-
-#~ msgid ""
-#~ "Set to True to display a dialog when there are errors running the "
-#~ "screensaver."
-#~ msgstr ""
-#~ "Sett til True for å vise en melding når det oppstår problemer med å kjøre "
-#~ "skjermspareren."
-
-#~ msgid "Set to True to run the screensaver at login."
-#~ msgstr "Sett til True for å kjøre skjermsparer ved pålogging."
-
-#~ msgid "Show startup errors"
-#~ msgstr "Vis feil ved oppstart"
-
-#~ msgid "Start screensaver"
-#~ msgstr "Start skjermsparer"
-
-#~ msgid "Enable screensaver plugin"
-#~ msgstr "Aktiver tillegg for skjermsparer"
-
-#~ msgid "Set to True to enable the plugin to manage screensaver settings."
-#~ msgstr ""
-#~ "Sett til True for å aktivere tillegg for å håndtere innstillinger for "
-#~ "skjermsparer."
-
-#~ msgid "%d%% of the disk space on `%s' is in use"
-#~ msgstr "%d%% av diskplassen på «%s» er i bruk"
-
-#~ msgid "Analyze"
-#~ msgstr "Analyser"
-
-#~ msgid ""
-#~ "There was an error starting up the screensaver:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Screensaver functionality will not work in this session."
-#~ msgstr ""
-#~ "Det oppsto en feil ved oppstart av skjermspareren:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Skjermsparerfunksjonen vil ikke fungere i denne sesjonen."
-
-#~ msgid "Screensaver"
-#~ msgstr "Skjermsparer"
-
-#~ msgid "Screensaver plugin"
-#~ msgstr "Tillegg for skjermsparer"
