@@ -2,16 +2,18 @@
 # Copyright (C) 2008-2009 Free Software Foundation, Inc.
 # This file is under the same license as the gnome-settings-daemon package.
 #
-# Claude Paroz <claude@2xlibre.net>, 2008-2009.
-# Robert-André Mauchin <zebob.m@pengzone.org>, 2008.
-# Laurent Coudeur <laurentc@iol.ie, 2009.
+# Claude Paroz <claude@2xlibre.net>, 2008-2009
+# Robert-André Mauchin <zebob.m@pengzone.org>, 2008
+# Laurent Coudeur <laurentc@iol.ie, 2009
+# Nicolas Repentin <nicolas@shivaserv.fr>, 2009
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-18 16:33+0200\n"
-"PO-Revision-Date: 2009-07-18 16:49+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&component=general\n"
+"POT-Creation-Date: 2009-08-03 17:57+0000\n"
+"PO-Revision-Date: 2009-08-06 21:13+0200\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +24,65 @@ msgstr ""
 #: ../data/50-accessibility.xml.in.h:1
 msgid "Accessibility"
 msgstr "Accessibilité"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+msgid "Free percentage notify threshold"
+msgstr "Seuil d'avertissement en pourcentage d'espace libre"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
+msgid "Free space no notify threshold"
+msgstr "Seuil de non avertissement en Go d'espace libre"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+msgid "Minimum notify period for repeated warnings"
+msgstr "Intervalle minimum de répétition des avertissements"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+msgid "Mount paths to ignore"
+msgstr "Chemins de montage à ignorer"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown"
+msgstr ""
+"Seuil en pourcentage d'espace libre pour l'alerte initiale d'espace disque "
+"faible. Si le pourcentage d'espace libre tombe en dessous de ce seuil, une "
+"alerte sera affichée."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr ""
+"Indique une liste de chemins de montage à ignorer lorsque leur espace "
+"disque est faible."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+"Indique un intervalle en minutes. Ce paramètre constitue l'intervalle de "
+"temps minimum entre plusieurs alertes pour un même volume."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown"
+msgstr ""
+"Indique une taille en Go. Si la quantité d'espace disque disponible est "
+"supérieure à ce paramètre, aucune alerte ne sera affichée."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning"
+msgstr ""
+"Indique le pourcentage de réduction d'espace disque avant d'émettre un "
+"nouvel avertissement."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
+msgid "Subsequent free percentage notify threshold"
+msgstr "Seuil de répétition d'avertissement en pourcentage d'espace libre"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -287,15 +348,16 @@ msgid ""
 "edge scrolling, 2 - two-finger scrolling"
 msgstr ""
 "Sélection de la méthode de défilement du pavé tactile. Les valeurs admises "
-"sont : 0 (désactivé), 1 (défilement sur les bords), 2 (défilement à deux doigts)"
+"sont : 0 (désactivé), 1 (défilement sur les bords), 2 (défilement à deux "
+"doigts)"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
 msgstr ""
-"Activez cette clé s'il vous arrive de toucher accidentellement le pavé tactile "
-"lorsque vous écrivez au clavier."
+"Activez cette clé s'il vous arrive de toucher accidentellement le pavé "
+"tactile lorsque vous écrivez au clavier."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
 msgid ""
@@ -309,8 +371,8 @@ msgstr ""
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
-"Activez cette clé pour pouvoir effectuer des clics de souris en tapant sur le "
-"pavé tactile."
+"Activez cette clé pour pouvoir effectuer des clics de souris en tapant sur "
+"le pavé tactile."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -771,18 +833,115 @@ msgstr "Polices"
 msgid "Font plugin"
 msgstr "Greffon des polices"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:124
-#, c-format
-msgid "%d%% of the disk space on `%s' is in use"
-msgstr "%d %% de l'espace disque sur « %s » est utilisé"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+msgid "Don't show any warnings again for this filesystem"
+msgstr "Ne plus afficher d'avertissements pour ce système de fichiers"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:132
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+msgid "Don't show any warnings again"
+msgstr "Ne plus jamais afficher d'avertissements"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "Le volume « %s » n'a plus que %s d'espace disque disponible."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "Cet ordinateur n'a plus que %s d'espace disque disponible."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
+msgstr ""
+"Vous pouvez libérer de l'espace disque en vidant la corbeille, en supprimant "
+"des logiciels ou fichiers inutilisés ou en déplaçant des fichiers vers un "
+"autre disque ou une autre partition."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
+msgstr ""
+"Vous pouvez libérer de l'espace disque en supprimant des logiciels ou des "
+"fichiers inutilisés ou en déplaçant des fichiers vers un autre disque ou une "
+"autre partition."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr ""
+"Vous pouvez libérer de l'espace disque en vidant la corbeille, en supprimant "
+"des logiciels ou des fichiers inutilisés ou en déplaçant des fichiers vers "
+"un disque externe."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr ""
+"Vous pouvez libérer de l'espace disque en supprimant des logiciels ou des "
+"fichiers inutilisés ou en déplaçant des fichiers vers un disque externe."
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
 msgstr "Espace disque faible"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:143
-msgid "Analyze"
-msgstr "Analyser"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
+msgid "Empty Trash"
+msgstr "Vider la corbeille"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
+msgid "Examine..."
+msgstr "Examiner..."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
+msgid "Ignore"
+msgstr "Ignorer"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#, c-format
+msgid "Removing item %lu of %lu"
+msgstr "Suppression de l'objet %lu sur %lu"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#, c-format
+msgid "<i>Removing: %s</i>"
+msgstr "<i>Suppression : %s</i>"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+msgid "Emptying the trash"
+msgstr "Vidage de la corbeille"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+msgid "Preparing to empty trash..."
+msgstr "Préparation du vidage de la corbeille..."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+msgid "From: "
+msgstr "Depuis : "
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+msgid "Empty all of the items from the trash?"
+msgstr "Supprimer tous les objets de la corbeille ?"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+msgid ""
+"If you choose to empty the trash, all items in it will be permanently lost. "
+"Please note that you can also delete them separately."
+msgstr ""
+"Si vous choisissez de vider la corbeille, tous les objets qui s'y trouvent "
+"seront définitivement perdus. Notez que vous pouvez aussi les supprimer "
+"séparément."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+msgid "_Empty Trash"
+msgstr "_Vider la corbeille"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -868,11 +1027,35 @@ msgstr ""
 "Impossible de mettre la machine en veille.\n"
 "Vérifiez que la machine est correctement configurée."
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1065
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:985
+msgid "Disabled"
+msgstr "Désactivé"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:992
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "%u sortie"
+msgstr[1] "%u sorties"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1002
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "%u entrée"
+msgstr[1] "%u entrées"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1298
 msgid "System Sounds"
 msgstr "Sons système"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1471
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1750
 msgid "GNOME Volume Control"
 msgstr "Contrôle de volume GNOME"
 
@@ -884,18 +1067,18 @@ msgstr "Touches multimédias"
 msgid "Media keys plugin"
 msgstr "Greffon des touches multimédias"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:890
+#: ../plugins/mouse/gsd-mouse-manager.c:891
 msgid "Could not enable mouse accessibility features"
 msgstr "Impossible d'activer les fonctionnalités d'accessibilité de la souris"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:892
+#: ../plugins/mouse/gsd-mouse-manager.c:893
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 "Pour activer les fonctions d'accessibilité de la souris, mousetweaks doit "
 "être installé."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:895
+#: ../plugins/mouse/gsd-mouse-manager.c:896
 msgid "Mouse Preferences"
 msgstr "Préférences de la souris"
 
