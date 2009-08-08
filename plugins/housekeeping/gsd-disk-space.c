@@ -188,7 +188,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                 return retval;
 
         name = g_unix_mount_guess_name (mount->mount);
-        free_space = (mount->buf.f_frsize * mount->buf.f_bavail);
+        free_space = (gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail;
         has_trash = ldsm_mount_has_trash (mount);
         path = g_unix_mount_get_mount_path (mount->mount);
 
@@ -240,6 +240,9 @@ ldsm_mount_has_space (LdsmMountInfo *mount)
         /* enough free space, nothing to do */
         if (free_space > free_percent_notify)
                 return TRUE;
+                
+        if (((gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail) > ((gint64) free_size_gb_no_notify * GIGABYTE))
+                return TRUE;
 
         /* If we got here, then this volume is low on space */
         return FALSE;
@@ -248,20 +251,96 @@ ldsm_mount_has_space (LdsmMountInfo *mount)
 static gboolean
 ldsm_mount_is_virtual (LdsmMountInfo *mount)
 {
-        const gchar *dev_path;
-
         if (mount->buf.f_blocks == 0) {
                 /* Filesystems with zero blocks are virtual */
                 return TRUE;
         }
 
-        dev_path = g_unix_mount_get_device_path (mount->mount);
-        if (!g_str_has_prefix (dev_path, "/dev")) {
-                /* If the device path doesn't begin with /dev, then it's
-                 * likely to be virtual eg devpts, varrun, tmpfs etc.
-                 */
+        return FALSE;
+}
+
+static gint
+ldsm_ignore_path_compare (gconstpointer a,
+                          gconstpointer b)
+{
+        return g_strcmp0 ((const gchar *)a, (const gchar *)b);
+}
+
+static gboolean
+ldsm_mount_is_user_ignore (const gchar *path)
+{
+        if (g_slist_find_custom (ignore_paths, path, (GCompareFunc) ldsm_ignore_path_compare) != NULL)
                 return TRUE;
-         }
+        else
+                return FALSE;
+}                
+
+
+static gboolean
+is_in (const gchar *value, const gchar *set[])
+{
+        int i;
+        for (i = 0; set[i] != NULL; i++)
+        {
+              if (strcmp (set[i], value) == 0)
+                return TRUE;
+        }
+        return FALSE;
+}
+
+static gboolean
+ldsm_mount_should_ignore (GUnixMountEntry *mount)
+{
+        const gchar *fs, *device, *path;
+        
+        path = g_unix_mount_get_mount_path (mount);
+        if (ldsm_mount_is_user_ignore (path))
+                return TRUE;
+        
+        /* This is borrowed from GLib and used as a way to determine
+         * which mounts we should ignore by default. GLib doesn't
+         * expose this in a way that allows it to be used for this
+         * purpose
+         */
+                 
+        const gchar *ignore_fs[] = {
+                "auto",
+                "autofs",
+                "devfs",
+                "devpts",
+                "ecryptfs",
+                "kernfs",
+                "linprocfs",
+                "proc",
+                "procfs",
+                "ptyfs",
+                "selinuxfs",
+                "sysfs",
+                "tmpfs",
+                "usbfs",
+                "nfsd",
+                "rpc_pipefs",
+                "zfs",
+                NULL
+        };
+        const gchar *ignore_devices[] = {
+                "none",
+                "sunrpc",
+                "devpts",
+                "nfsd",
+                "/dev/loop",
+                "/dev/vn",
+                NULL
+        };
+        
+        fs = g_unix_mount_get_fs_type (mount);
+        device = g_unix_mount_get_device_path (mount);
+        
+        if (is_in (fs, ignore_fs))
+                return TRUE;
+  
+        if (is_in (device, ignore_devices))
+                return TRUE;
 
         return FALSE;
 }
@@ -344,22 +423,6 @@ ldsm_maybe_warn_mounts (GList *mounts,
         }
 }
 
-static gint
-ldsm_ignore_path_compare (gconstpointer a,
-                          gconstpointer b)
-{
-        return g_strcmp0 ((const gchar *)a, (const gchar *)b);
-}
-
-static gboolean
-ldsm_mount_should_ignore (const gchar *path)
-{
-        if (g_slist_find_custom (ignore_paths, path, (GCompareFunc) ldsm_ignore_path_compare) != NULL)
-                return TRUE;
-        else
-                return FALSE;
-}
-
 static gboolean
 ldsm_check_all_mounts (gpointer data)
 {
@@ -408,7 +471,7 @@ ldsm_check_all_mounts (gpointer data)
                         continue;
                 }
 
-                if (ldsm_mount_should_ignore (path)) {
+                if (ldsm_mount_should_ignore (mount)) {
                         ldsm_free_mount_info (mount_info);
                         continue;
                 }
@@ -501,7 +564,7 @@ ldsm_is_hash_item_in_ignore_paths (gpointer key,
                                    gpointer value,
                                    gpointer user_data)
 {
-        return ldsm_mount_should_ignore (key);
+        return ldsm_mount_is_user_ignore (key);
 }
 
 static void
