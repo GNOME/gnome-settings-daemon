@@ -17,9 +17,9 @@ msgstr ""
 "Project-Id-Version: GNOME Settings Daemon HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-07-28 10:19+0000\n"
-"PO-Revision-Date: 2009-08-01 13:49+0300\n"
-"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
+"POT-Creation-Date: 2009-08-10 14:38+0000\n"
+"PO-Revision-Date: 2009-08-10 22:18+0300\n"
+"Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,43 +29,53 @@ msgstr ""
 msgid "Accessibility"
 msgstr "Hõlbustused"
 
+#, fuzzy
 msgid "Free percentage notify threshold"
-msgstr ""
+msgstr "Vaba ruumi hoiatuse protsent"
 
+#, fuzzy
 msgid "Free space no notify threshold"
-msgstr ""
+msgstr "Vaba ruumi vähesuse hoiatuse keeld"
 
 msgid "Minimum notify period for repeated warnings"
-msgstr ""
+msgstr "Kordushoiatuste intervall"
 
 msgid "Mount paths to ignore"
-msgstr ""
+msgstr "Eiratavad haakepunktid"
 
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown"
 msgstr ""
+"Vaba kettaruumi lävi protsentides, mil kuvatakse esimene hoiatus. Kui vaba "
+"kettaruumi jääb määratud protsendist vähem, kuvatakse hoiatus."
 
 msgid "Specify a list of mount paths to ignore when they run low on space."
-msgstr ""
+msgstr "Määra haakepunktid, mille kettaruumi vähesust eiratakse."
 
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
 msgstr ""
+"Määra aeg minutites. Kordushoiatused sama köite kohta ei ilmu tihedamini kui "
+"määratud vahemik."
 
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown"
 msgstr ""
+"Määra maht GB-des. Kui vaba ruumi on rohkem, kui see väärtus, ei näidata "
+"mingit hoiatust."
 
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning"
 msgstr ""
+"Määra, mitme protsendini peab vaba kettaruum kahanema, enne kui näidatakse "
+"kordushoiatust"
 
 msgid "Subsequent free percentage notify threshold"
-msgstr ""
+msgstr "Vaba kettaruumi protsendi muutus enne kordushoiatust"
 
 msgid "Binding to eject an optical disk."
 msgstr "Klahviseos optilise ketta väljastamiseks."
@@ -631,48 +641,57 @@ msgid "Font plugin"
 msgstr "Kirjatüübi plugin"
 
 msgid "Don't show any warnings again for this filesystem"
-msgstr ""
+msgstr "Ära näita failisüsteemi kohta mingeid hoiatusi"
 
 msgid "Don't show any warnings again"
 msgstr "_Tulevikus ei kuvata enam ühtegi hoiatust"
 
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr ""
+msgstr "Köitel \"%s\" on alles ainult %s vaba kettaruumi."
 
 #, c-format
 msgid "This computer has only %s disk space remaining."
-msgstr ""
+msgstr "Sellel arvutil on alles ainult %s vaba kettaruumi."
 
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
 msgstr ""
+"Kettaruumi on võimalik vabastada prügikasti tühjendades, eemaldades "
+"programme, mida sa ei kasuta, või liigutades faile teisele kettale või "
+"partitsioonile."
 
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
 msgstr ""
+"Kettaruumi on võimalik vabastada eemaldades rakendusi, mida sa ei kasuta, "
+"või liigutades faile teisele kettale või partitsioonile."
 
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
 msgstr ""
+"Kettaruumi on võimalik vabastada prügikasti tühjendades, eemaldades "
+"rakendusi, mida sa ei kasuta, või tõstes faile välisele kettale."
 
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
 msgstr ""
+"Kettaruumi on võimalik vabastada eemaldades rakendusi, mida sa ei kasuta, "
+"või tõstes faile välisele kettale."
 
 #. Set up all the window stuff here
 msgid "Low Disk Space"
 msgstr "Kettal on vähe ruumi"
 
 msgid "Empty Trash"
-msgstr ""
+msgstr "Prügikasti tühjendamine"
 
 msgid "Examine..."
-msgstr ""
+msgstr "Uurimine..."
 
 msgid "Ignore"
 msgstr "Eira"
@@ -692,7 +711,7 @@ msgid "Preparing to empty trash..."
 msgstr "Ettevalmistused prügikasti tühjendamiseks..."
 
 msgid "From: "
-msgstr ""
+msgstr "Kust:"
 
 msgid "Empty all of the items from the trash?"
 msgstr "Kas tühjendada kogu prügikast?"
@@ -701,9 +720,11 @@ msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
 msgstr ""
+"Kui sa valid prügikasti tühjendamise, siis kõik seal asuvad asjad visatakse "
+"jäädavalt minema. Vajadusel saab neid asju ka ükshaaval minema visata."
 
 msgid "_Empty Trash"
-msgstr ""
+msgstr "_Tühjenda prügikast"
 
 #, c-format
 msgid "Key binding (%s) is invalid"
