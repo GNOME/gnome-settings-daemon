@@ -691,7 +691,7 @@ update_sink (GvcMixerControl    *control,
 
         if (map == NULL)
                 map = gvc_mixer_stream_get_channel_map (stream);
-        gvc_channel_map_volume_changed (map, &info->volume);
+        gvc_channel_map_volume_changed (map, &info->volume, TRUE);
 }
 
 static void

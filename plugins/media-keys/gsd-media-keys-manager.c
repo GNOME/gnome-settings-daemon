@@ -688,9 +688,11 @@ do_sound_action (GsdMediaKeysManager *manager,
                         manager->priv->num_expected_update_signals = 2;
                         gvc_mixer_stream_change_is_muted (manager->priv->stream, !muted);
                         gvc_mixer_stream_set_volume (manager->priv->stream, 0);
+                        gvc_mixer_stream_push_volume (manager->priv->stream);
                 } else if (!muted) {
                         manager->priv->num_expected_update_signals = 1;
                         gvc_mixer_stream_set_volume (manager->priv->stream, vol - norm_vol_step);
+                        gvc_mixer_stream_push_volume (manager->priv->stream);
                 }
                 break;
         case VOLUME_UP_KEY:
@@ -698,6 +700,7 @@ do_sound_action (GsdMediaKeysManager *manager,
                         if (vol == 0) {
                                 manager->priv->num_expected_update_signals = 2;
                                 gvc_mixer_stream_set_volume (manager->priv->stream, vol + norm_vol_step);
+                                gvc_mixer_stream_push_volume (manager->priv->stream);
                                 gvc_mixer_stream_change_is_muted (manager->priv->stream, !muted);
                         } else {
                                 manager->priv->num_expected_update_signals = 1;

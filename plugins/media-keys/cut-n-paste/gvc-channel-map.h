@@ -44,7 +44,7 @@ typedef struct
 typedef struct
 {
         GObjectClass           parent_class;
-        void (*volume_changed) (GvcChannelMap *channel_map);
+        void (*volume_changed) (GvcChannelMap *channel_map, gboolean set);
 } GvcChannelMapClass;
 
 enum {
@@ -67,7 +67,8 @@ gboolean                gvc_channel_map_can_fade                (GvcChannelMap  
 gboolean                gvc_channel_map_has_lfe                 (GvcChannelMap  *map);
 
 void                    gvc_channel_map_volume_changed          (GvcChannelMap    *map,
-                                                                 const pa_cvolume *cv);
+                                                                 const pa_cvolume *cv,
+                                                                 gboolean          set);
 const char *            gvc_channel_map_get_mapping             (GvcChannelMap  *map);
 
 /* private */
