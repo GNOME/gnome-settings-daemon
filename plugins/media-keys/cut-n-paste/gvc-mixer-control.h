@@ -65,7 +65,7 @@ typedef struct
 
 GType               gvc_mixer_control_get_type            (void);
 
-GvcMixerControl *   gvc_mixer_control_new                 (void);
+GvcMixerControl *   gvc_mixer_control_new                 (const char *name);
 
 gboolean            gvc_mixer_control_open                (GvcMixerControl *control);
 gboolean            gvc_mixer_control_close               (GvcMixerControl *control);

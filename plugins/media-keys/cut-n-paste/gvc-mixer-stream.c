@@ -155,9 +155,10 @@ gvc_mixer_stream_set_volume (GvcMixerStream *stream,
         if (!pa_cvolume_equal(gvc_channel_map_get_cvolume(stream->priv->channel_map), &cv)) {
                 gvc_channel_map_volume_changed(stream->priv->channel_map, &cv, FALSE);
                 g_object_notify (G_OBJECT (stream), "volume");
+                return TRUE;
         }
 
-        return TRUE;
+        return FALSE;
 }
 
 gboolean

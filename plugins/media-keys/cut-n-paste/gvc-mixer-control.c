@@ -45,6 +45,11 @@
 
 #define RECONNECT_DELAY 5
 
+enum {
+        PROP_0,
+        PROP_NAME
+};
+
 struct GvcMixerControlPrivate
 {
         pa_glib_mainloop *pa_mainloop;
@@ -52,6 +57,7 @@ struct GvcMixerControlPrivate
         pa_context       *pa_context;
         int               n_outstanding;
         guint             reconnect_id;
+        char             *name;
 
         gboolean          default_sink_is_set;
         guint             default_sink_id;
@@ -691,7 +697,7 @@ update_sink (GvcMixerControl    *control,
 
         if (map == NULL)
                 map = gvc_mixer_stream_get_channel_map (stream);
-        gvc_channel_map_volume_changed (map, &info->volume, TRUE);
+        gvc_channel_map_volume_changed (map, &info->volume, FALSE);
 }
 
 static void
@@ -1743,11 +1749,10 @@ gvc_mixer_new_pa_context (GvcMixerControl *self)
         g_return_if_fail (self);
         g_return_if_fail (!self->priv->pa_context);
 
-        /* FIXME: read these from an object property */
         proplist = pa_proplist_new ();
         pa_proplist_sets (proplist,
                           PA_PROP_APPLICATION_NAME,
-                          _("GNOME Volume Control"));
+                          self->priv->name);
         pa_proplist_sets (proplist,
                           PA_PROP_APPLICATION_ID,
                           "org.gnome.VolumeControl");
@@ -1927,6 +1932,45 @@ gvc_mixer_control_dispose (GObject *object)
         G_OBJECT_CLASS (gvc_mixer_control_parent_class)->dispose (object);
 }
 
+static void
+gvc_mixer_control_set_property (GObject       *object,
+                                guint          prop_id,
+                                const GValue  *value,
+                                GParamSpec    *pspec)
+{
+        GvcMixerControl *self = GVC_MIXER_CONTROL (object);
+
+        switch (prop_id) {
+        case PROP_NAME:
+                g_free (self->priv->name);
+                self->priv->name = g_value_dup_string (value);
+                g_object_notify (G_OBJECT (self), "name");
+                break;
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                break;
+        }
+}
+
+static void
+gvc_mixer_control_get_property (GObject     *object,
+                                guint        prop_id,
+                                GValue      *value,
+                                GParamSpec  *pspec)
+{
+        GvcMixerControl *self = GVC_MIXER_CONTROL (object);
+
+        switch (prop_id) {
+        case PROP_NAME:
+                g_value_set_string (value, self->priv->name);
+                break;
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                break;
+        }
+}
+
+
 static GObject *
 gvc_mixer_control_constructor (GType                  type,
                                guint                  n_construct_properties,
@@ -1952,6 +1996,16 @@ gvc_mixer_control_class_init (GvcMixerControlClass *klass)
         object_class->constructor = gvc_mixer_control_constructor;
         object_class->dispose = gvc_mixer_control_dispose;
         object_class->finalize = gvc_mixer_control_finalize;
+        object_class->set_property = gvc_mixer_control_set_property;
+        object_class->get_property = gvc_mixer_control_get_property;
+
+        g_object_class_install_property (object_class,
+                                         PROP_NAME,
+                                         g_param_spec_string ("name",
+                                                              "Name",
+                                                              "Name to display for this mixer control",
+                                                              NULL,
+                                                              G_PARAM_READWRITE|G_PARAM_CONSTRUCT_ONLY));
 
         signals [CONNECTING] =
                 g_signal_new ("connecting",
@@ -2051,15 +2105,19 @@ gvc_mixer_control_finalize (GObject *object)
         g_return_if_fail (GVC_IS_MIXER_CONTROL (object));
 
         mixer_control = GVC_MIXER_CONTROL (object);
+        g_free (mixer_control->priv->name);
+        mixer_control->priv->name = NULL;
 
         g_return_if_fail (mixer_control->priv != NULL);
         G_OBJECT_CLASS (gvc_mixer_control_parent_class)->finalize (object);
 }
 
 GvcMixerControl *
-gvc_mixer_control_new (void)
+gvc_mixer_control_new (const char *name)
 {
         GObject *control;
-        control = g_object_new (GVC_TYPE_MIXER_CONTROL, NULL);
+        control = g_object_new (GVC_TYPE_MIXER_CONTROL,
+                                "name", name,
+                                NULL);
         return GVC_MIXER_CONTROL (control);
 }
