@@ -143,24 +143,13 @@ mount_existing_volumes (GsdMountManager *manager)
                 GMount *mount;
 
                 mount = g_volume_get_mount (volume);
-                if (mount == NULL &&
-                    g_volume_can_mount (volume) &&
-                    g_volume_should_automount (volume)) {
-                        GMountOperation *mount_op;
-                        char *name;
 
-                        name = g_volume_get_name (volume);
-                        g_debug ("Mounting '%s'", name);
-                        g_free (name);
-
-                        mount_op = gtk_mount_operation_new (NULL);
-                        g_volume_mount (volume, G_MOUNT_MOUNT_NONE,
-                                        mount_op, NULL,
-                                        volume_mounted_cb, manager);
+                if (mount == NULL) {
+                        volume_added_cb (manager->priv->monitor, volume, manager);
+                } else {
+                        g_object_unref (mount);
                 }
 
-                if (mount)
-                        g_object_unref (mount);
                 g_object_unref (volume);
                 l = g_list_delete_link (l, l);
         }
