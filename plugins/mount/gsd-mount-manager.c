@@ -94,7 +94,8 @@ volume_added_cb (GVolumeMonitor *monitor,
         name = g_volume_get_name (volume);
         g_debug ("Volme '%s' added", name);
 
-        if (g_volume_can_mount (volume)) {
+        if (g_volume_can_mount (volume) &&
+            g_volume_should_automount (volume)) {
                 GMountOperation *mount_op;
 
                 g_debug ("Mounting '%s'", name);
