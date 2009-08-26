@@ -279,7 +279,8 @@ set_xinput_devices_left_handed (gboolean left_handed)
         for (i = 0; i < n_devices; i++) {
                 XDevice *device = NULL;
 
-                if ((device_info[i].use != IsXExtensionDevice) ||
+                if ((device_info[i].use == IsXPointer) ||
+                    (device_info[i].use == IsXKeyboard) ||
                     (!xinput_device_has_buttons (&device_info[i])))
                         continue;
 
