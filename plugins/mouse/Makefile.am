@@ -4,11 +4,7 @@ libmouse_la_SOURCES = 		\
 	gsd-mouse-plugin.h	\
 	gsd-mouse-plugin.c	\
 	gsd-mouse-manager.h	\
-	gsd-mouse-manager.c	\
-	gsd-locate-pointer.h	\
-	gsd-locate-pointer.c	\
-	gsd-timeline.h		\
-	gsd-timeline.c
+	gsd-mouse-manager.c
 
 libmouse_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
@@ -29,6 +25,21 @@ libmouse_la_LIBADD  = 		\
 plugin_in_files = mouse.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+
+libexec_PROGRAMS = gsd-locate-pointer
+
+gsd_locate_pointer_SOURCES = 	\
+	gsd-locate-pointer.h	\
+	gsd-locate-pointer.c	\
+	gsd-timeline.h		\
+	gsd-timeline.c
+
+gsd_locate_pointer_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
+gsd_locate_pointer_LDADD  = 		\
+	$(SETTINGS_PLUGIN_LIBS)
 
 EXTRA_DIST = $(plugin_in_files)
 CLEANFILES = $(plugin_DATA)

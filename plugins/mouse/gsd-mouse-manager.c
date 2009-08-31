@@ -50,8 +50,6 @@
 #include "gnome-settings-profile.h"
 #include "gsd-mouse-manager.h"
 
-#include "gsd-locate-pointer.h"
-
 #define GSD_MOUSE_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerPrivate))
 
 #define GCONF_MOUSE_DIR         "/desktop/gnome/peripherals/mouse"
@@ -78,6 +76,8 @@ struct GsdMouseManagerPrivate
         gboolean mousetweaks_daemon_running;
         gboolean syndaemon_spawned;
         GPid syndaemon_pid;
+	gboolean locate_pointer_spawned;
+	GPid locate_pointer_pid;
 };
 
 static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
@@ -703,149 +703,39 @@ set_edge_scroll (int method)
         return 0;
 }
 
-#define KEYBOARD_GROUP_SHIFT 13
-#define KEYBOARD_GROUP_MASK ((1 << 13) | (1 << 14))
-
-/* Owen magic */
-static GdkFilterReturn
-filter (GdkXEvent *xevent,
-        GdkEvent  *event,
-        gpointer   data)
-{
-        XEvent *xev = (XEvent *) xevent;
-        guint keyval;
-        gint group;
-
-        GdkScreen *screen = (GdkScreen *)data;
-
-        if (xev->type == KeyPress ||
-            xev->type == KeyRelease) {
-                /* get the keysym */
-                group = (xev->xkey.state & KEYBOARD_GROUP_MASK) >> KEYBOARD_GROUP_SHIFT;
-                gdk_keymap_translate_keyboard_state (gdk_keymap_get_default (),
-                                                     xev->xkey.keycode,
-                                                     xev->xkey.state,
-                                                     group,
-                                                     &keyval,
-                                                     NULL, NULL, NULL);
-                if (keyval == GDK_Control_L || keyval == GDK_Control_R) {
-                        if (xev->type == KeyPress) {
-                                XAllowEvents (xev->xkey.display,
-                                              SyncKeyboard,
-                                              xev->xkey.time);
-                        } else {
-                                XAllowEvents (xev->xkey.display,
-                                              AsyncKeyboard,
-                                              xev->xkey.time);
-                                gsd_locate_pointer (screen);
-                        }
-                } else {
-                        XAllowEvents (xev->xkey.display,
-                                      ReplayKeyboard,
-                                      xev->xkey.time);
-                        XUngrabKeyboard (gdk_x11_get_default_xdisplay (),
-                                         xev->xkey.time);
-                }
-        }
-        return GDK_FILTER_CONTINUE;
-}
-
 static void
 set_locate_pointer (GsdMouseManager *manager,
-                    gboolean         locate_pointer)
+                    gboolean         state)
 {
-        GdkKeymapKey *keys;
-        GdkDisplay *display;
-        int n_screens;
-        int n_keys;
-        gboolean has_entries;
-        static const guint keyvals[] = { GDK_Control_L, GDK_Control_R };
-        unsigned j;
+        if (state) {
+                GError        *error = NULL;
+                const char *args[2];
 
-        display = gdk_display_get_default ();
-        n_screens = gdk_display_get_n_screens (display);
+                if (manager->priv->locate_pointer_spawned)
+                        return 0;
 
-        for (j = 0 ; j < G_N_ELEMENTS (keyvals) ; j++) {
-                has_entries = gdk_keymap_get_entries_for_keyval (gdk_keymap_get_default (),
-                                                                 keyvals[j],
-                                                                 &keys,
-                                                                 &n_keys);
-                if (has_entries) {
-                        gint i, j;
+                args[0] = "/usr/libexec/gsd-locate-pointer";
+                args[1] = NULL;
 
-                        for (i = 0; i < n_keys; i++) {
-                                for(j=0; j< n_screens; j++) {
-                                        GdkScreen *screen = gdk_display_get_screen (display, j);
-                                        Window xroot = gdk_x11_drawable_get_xid (gdk_screen_get_root_window (screen));
+                g_spawn_async (NULL, args, NULL,
+                               0, NULL, NULL,
+                               &manager->priv->locate_pointer_pid, &error);
 
-                                        if (locate_pointer) {
-                                                XGrabKey (GDK_DISPLAY_XDISPLAY (display),
-                                                          keys[i].keycode,
-                                                          0,
-                                                          xroot,
-                                                          False,
-                                                          GrabModeAsync,
-                                                          GrabModeSync);
-                                                XGrabKey (GDK_DISPLAY_XDISPLAY (display),
-                                                          keys[i].keycode,
-                                                          LockMask,
-                                                          xroot,
-                                                          False,
-                                                          GrabModeAsync,
-                                                          GrabModeSync);
-                                                XGrabKey (GDK_DISPLAY_XDISPLAY (display),
-                                                          keys[i].keycode,
-                                                          Mod2Mask,
-                                                          xroot,
-                                                          False,
-                                                          GrabModeAsync,
-                                                          GrabModeSync);
-                                                XGrabKey (GDK_DISPLAY_XDISPLAY (display),
-                                                          keys[i].keycode,
-                                                          Mod4Mask,
-                                                          xroot,
-                                                          False,
-                                                          GrabModeAsync,
-                                                          GrabModeSync);
-                                        } else {
-                                                XUngrabKey (GDK_DISPLAY_XDISPLAY (display),
-                                                            keys[i].keycode,
-                                                            Mod4Mask,
-                                                            xroot);
-                                                XUngrabKey (GDK_DISPLAY_XDISPLAY (display),
-                                                            keys[i].keycode,
-                                                            Mod2Mask,
-                                                            xroot);
-                                                XUngrabKey (GDK_DISPLAY_XDISPLAY (display),
-                                                            keys[i].keycode,
-                                                            LockMask,
-                                                            xroot);
-                                                XUngrabKey (GDK_DISPLAY_XDISPLAY (display),
-                                                            keys[i].keycode,
-                                                            0,
-                                                            xroot);
-                                        }
-                                }
-                        }
-                        g_free (keys);
-                        if (locate_pointer) {
-                                for (i = 0; i < n_screens; i++) {
-                                        GdkScreen *screen;
-                                        screen = gdk_display_get_screen (display, i);
-                                        gdk_window_add_filter (gdk_screen_get_root_window (screen),
-                                                               filter,
-                                                               screen);
-                                }
-                        } else {
-                                for (i = 0; i < n_screens; i++) {
-                                        GdkScreen *screen;
-                                        screen = gdk_display_get_screen (display, i);
-                                        gdk_window_remove_filter (gdk_screen_get_root_window (screen),
-                                                                  filter,
-                                                                  screen);
-                                }
-                        }
+                manager->priv->locate_pointer_spawned = (error == NULL);
+
+                if (error) {
+                        GConfClient *client;
+                        client = gconf_client_get_default ();
+                        gconf_client_set_bool (client, KEY_LOCATE_POINTER, FALSE, NULL);
+                        g_object_unref (client);
+                        g_error_free (error);
                 }
+
+        }
+	else if (manager->priv->locate_pointer_spawned) {
+                kill (manager->priv->locate_pointer_pid, SIGHUP);
+                g_spawn_close_pid (manager->priv->locate_pointer_pid);
+                manager->priv->locate_pointer_spawned = FALSE;
         }
 }
 
