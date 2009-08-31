@@ -1,4 +1,4 @@
-# translation of gnome-settings-daemon.HEAD.te.po to Telugu
+# translation of te.po to Telugu
 # Telugu translation of control-center
 # Copyright (C) 2005 Free Software Foundation, Andhra Pradesh.
 # This file is distributed under the same license as the control-center package.
@@ -7,23 +7,72 @@
 # Krishna Babu K <kkrothap@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.HEAD.te\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-02-23 21:39+0000\n"
-"PO-Revision-Date: 2009-03-11 13:29+0530\n"
+"Project-Id-Version: te\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&component=general\n"
+"POT-Creation-Date: 2009-07-28 10:19+0000\n"
+"PO-Revision-Date: 2009-05-11 16:14+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+"\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../data/50-accessibility.xml.in.h:1
-#, fuzzy
-#| msgid "Accessibility Keyboard"
 msgid "Accessibility"
 msgstr "అందుబాటు"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+msgid "Free percentage notify threshold"
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
+msgid "Free space no notify threshold"
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+msgid "Minimum notify period for repeated warnings"
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+msgid "Mount paths to ignore"
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown"
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown"
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning"
+msgstr ""
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
+msgid "Subsequent free percentage notify threshold"
+msgstr ""
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -185,33 +234,15 @@ msgstr "వాల్యూమ్ యొక్క శాతంలా వాల్
 msgid "Volume up"
 msgstr "వాల్యూమ్ పైకి"
 
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
-msgid ""
-"Set to True to display a dialog when there are errors running the "
-"screensaver."
-msgstr "స్క్రీన్‌సేవికను అక్కడ కొన్ని దోషాలు నడుపుతున్నప్పుడు డైలాగ్ ను ప్రదర్శించుటకు నిజం కు అమర్చుము."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
-msgid "Set to True to run the screensaver at login."
-msgstr "లాగిన్ వద్ద స్క్రీన్‌సేవర్ ను నడుపుటకు నిజంకు అమర్చుము."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:3
-msgid "Show startup errors"
-msgstr "ప్రారంభ దోషాలను చూపుము"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
-msgid "Start screensaver"
-msgstr "స్క్రీన్‌సేవర్ ను ప్రారంభించుము"
-
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
 msgid ""
 "If a notification icon with display related things should be shown in the "
 "panel."
-msgstr ""
+msgstr "ప్రదర్శనకు సంభందిత విషయాలతో కూడిన వొక ప్రకటన ప్రతిమ ప్యానల్ నందు చూపించవలెనా."
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "Show Displays in Notification Area"
-msgstr ""
+msgstr "ప్రకటన ప్రాంతమునందు ప్రదర్శనలను చూపుము"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -268,40 +299,72 @@ msgstr ""
 "కు (ఆక్షర రూపాల యొక్క విరూపంకు కారణం అవ్వొచ్చు)."
 
 #: ../data/desktop_gnome_keybindings.schemas.in.h:1
-#, fuzzy
-#| msgid "Media keys"
 msgid "Allowed keys"
-msgstr "మాద్యమం కీలు"
+msgstr "అనుమతించబడిన కీలు"
 
 #: ../data/desktop_gnome_keybindings.schemas.in.h:2
 msgid ""
 "If non-empty, keybindings will be ignored unless their GConf directory is in "
 "the list. This is useful for lockdown."
 msgstr ""
+"నాన్-యెంప్టీ, కీబైండింగ్సు వదిలివేయబడతాయి వాటి GConf డైరెక్టరీ జాబితానందు లేనంతవరకు. లాక్‌డౌన్‌కు యిది "
+"వుపయోగపడుతుంది."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
+msgid "Disable touchpad while typing"
+msgstr ""
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
+#, fuzzy
+msgid "Enable horizontal scrolling"
+msgstr "ఫాంటు ప్లగ్ఇన్ చేతనంచేయుము"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
+msgid "Enable mouse clicks with touchpad"
+msgstr ""
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
+msgid "Select the touchpad scroll method"
+msgstr ""
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
+msgid ""
+"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
+"edge scrolling, 2 - two-finger scrolling"
+msgstr ""
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
-#, fuzzy
-#| msgid "Use GNOME settings"
 msgid "GNOME Settings Daemon"
 msgstr "GNOME అమర్పుల డెమోన్"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
-#, fuzzy
-#| msgid "Binding to open the Home folder."
 msgid "Binding to toggle the magnifier."
-msgstr "నివాస సంచయంను తెరుచుటకు బందనం అయిఉంది."
+msgstr "పెద్దదిచేయుదాన్ని మార్చుటకు బందనమైవుంటుంది."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:2
-#, fuzzy
-#| msgid "Binding to lock the screen."
 msgid "Binding to toggle the on-screen keyboard."
-msgstr "తెరను లాక్‌చేయుటకు బందనం అయిఉంది."
+msgstr "తెర-పైని కీబోర్డును మార్చుటకు బందనమైవుంటుంది."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:3
-#, fuzzy
-#| msgid "Binding to lock the screen."
 msgid "Binding to toggle the screen reader."
-msgstr "తెరను లాక్‌చేయుటకు బందనం అయిఉంది."
+msgstr "తెర చదువరిని మార్చుటకు బందనమైవుంటుంది."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
 msgid "Bounce keys"
@@ -309,17 +372,15 @@ msgstr "బౌన్సు కీలు"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:5
 msgid "Command used to turn the magnifier on or off."
-msgstr ""
+msgstr "పెద్దదిచేయుదానిని ఆన్ లేదా ఆఫ్ చేయుటకు ఆదేశము"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Command used to turn the on-screen keyboard on or off."
-msgstr ""
+msgstr "తెర-పైని కీబోర్డు ఆన్ లేదా ఆఫ్ చేయుటకు ఆదేశము."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:7
-#, fuzzy
-#| msgid "Set to True to run the screensaver at login."
 msgid "Command used to turn the screen reader on or off."
-msgstr "లాగిన్ వద్ద స్క్రీన్‌సేవర్ ను నడుపుటకు నిజంకు అమర్చుము."
+msgstr "తెర చదువరిని ఆన్ లేదా ఆఫ్ చేయుటకు ఆదేశము."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
@@ -338,10 +399,8 @@ msgid "Enable font plugin"
 msgstr "ఫాంటు ప్లగ్ఇన్ చేతనంచేయుము"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:12
-#, fuzzy
-#| msgid "Enable mouse plugin"
 msgid "Enable housekeeping plugin"
-msgstr "మౌస్ ప్లగ్ఇన్ చేతనంచేయుము"
+msgstr "హౌస్‌కీపింగ్ ప్లగ్‌యిన్‌ను చేతనముచేయుము"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
@@ -360,210 +419,190 @@ msgid "Enable mouse plugin"
 msgstr "మౌస్ ప్లగ్ఇన్ చేతనంచేయుము"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable screensaver plugin"
-msgstr "స్క్రీన్‌సేవర్ ప్లగ్ఇన్ చేతనంచేయుము"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "శబ్దము ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable typing breaks plugin"
 msgstr "టైపింగ్ విరామాల ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable xrandr plugin"
 msgstr "Xrandr ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrdb plugin"
 msgstr "Xrdb ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xsettings plugin"
 msgstr "xఅమరికల ప్లగ్ఇన్ చేతనంచేయుము"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-#, fuzzy
-#| msgid "Media keys"
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Mouse keys"
 msgstr "మౌస్ కీలు"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "తెర-పైని కీబోర్డు"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:24
+msgid "Screen magnifier"
+msgstr "తెర పెద్దదిచేయునది"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:25
-#, fuzzy
-#| msgid "Screensaver"
-msgid "Screen magnifier"
-msgstr "స్క్రీన్‌సేవర్"
+msgid "Screen reader"
+msgstr "తెర చదువునది"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:26
-#, fuzzy
-#| msgid "Screensaver"
-msgid "Screen reader"
-msgstr "స్క్రీన్‌సేవర్"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:27
-#, fuzzy
-#| msgid "Set to True to enable the plugin to manage xrandr settings."
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
-msgstr "xrandr అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
+msgstr "హౌస్‌కీపింగ్ ప్లగ్‌యిన్ చేతనము చేసి, ట్రాన్సియంట్ ఫైల్ క్యాచీలను దిద్దుటకు సత్యమునకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "క్లిప్‌బోర్డు అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "డెస్కుటాప్ బ్యాక్‌గ్రౌండ్ అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "ఫాంటు అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "క్లిప్‌బోర్డు అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "మౌస్ అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr "బహుళమాద్యమం కీల అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid "Set to True to enable the plugin to manage screensaver settings."
-msgstr "స్క్రీన్‌సేవర్ అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
-#, fuzzy
-#| msgid "Set to True to enable the plugin to manage sound settings."
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr "శబ్ద అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
+msgstr "మాదిరి శబ్దపు క్యాచీలను నిర్వహించుటకు ప్లగ్‌యిన్ చేతనము చేయుటకు సత్యమునకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr "అందుబాటు క్లిప్‌బోర్డు అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "కీబందనాలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "టైపింగ్ విరామాలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "xrandr అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "xrdb అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "xఅమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
-#, fuzzy
-#| msgid "Slow Keys Alert"
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Slow keys"
 msgstr "స్లో కీలు"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
-#, fuzzy
-#| msgid "Sticky Keys Alert"
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Sticky keys"
 msgstr "స్టికీ కీలు"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "The name of the keyboard shortcut to toggle the magnifier"
-msgstr ""
+msgstr "పెద్దదిచేయుదాన్ని మార్చుటకు కీబోర్డు లఘవుయొక్క నామము"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:43
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr "తెర-పైని కీబోర్డు మార్చుటకు కీబోర్డు లఘవుయొక్క నామము"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+#, fuzzy
+msgid "The name of the keyboard shortcut to toggle the screen reader"
+msgstr "తెరచదువరిని మార్చుటకు కీబోర్డు లఘువు యొక్క నామము"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:45
-msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "The name of the keyboard shortcut to toggle the screenreader"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
+"పెద్దదిచేయు దానిని మార్చుటకు కీబోర్డు లఘువుయొక్క నామము. ఈ నామము కీబోర్డు లఘువు అభీష్టముల డైలాగునందు "
+"చూపబడుతుంది."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
+"తెర-పైని కీబోర్డు మార్చుటకు కీబోర్డు లఘువుయొక్క నామము. ఈ నామము కీబోర్డు లఘువు ఆభీష్టాల డైలాగునందు "
+"చూపబడుతుంది."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+#, fuzzy
 msgid ""
-"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
+"తెరపీఠికను మార్చుటకు కీబోర్డు లఘువుయొక్క నామము. ఈ నామము కీబోర్డు లఘువు అభీష్టాల డైలాగునందు "
+"చూపబడుతుంది."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid "Toggle magnifier"
+msgstr "పెద్దదిచేయుదాన్ని మార్చుము"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid "Toggle on-screen keyboard"
+msgstr "తెర-పైని కీబోర్డును మార్చుము"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:50
-msgid "Toggle magnifier"
-msgstr ""
+msgid "Toggle screen reader"
+msgstr "తెర చదువరిని మార్చుము"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:51
-msgid "Toggle on-screen keyboard"
-msgstr ""
+msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+msgstr "బౌన్సు కీల కీబోర్డు అందుబాటు సౌలభ్యము ఆన్ కావలెనా."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:52
-msgid "Toggle screen reader"
-msgstr ""
+msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+msgstr "మౌస్ కీల కీబోర్డు అందుబాటు సౌలభ్యము ఆన్ కావలెనా."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Toggle screenreader"
-msgstr ""
+msgid "Whether the on-screen keyboard is turned on."
+msgstr "తెర-పైని కీబోర్డు ఆన్ కావలెనా."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:54
-msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-msgstr ""
+msgid "Whether the screen magnifier is turned on."
+msgstr "తెర పెద్దదిచేయునది ఆన్ కావలెనా."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:55
-msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-msgstr ""
+msgid "Whether the screen reader is turned on."
+msgstr "తెర చదువునది ఆన్ కావలెనా."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:56
-msgid "Whether the on-screen keyboard is turned on."
-msgstr ""
+msgid "Whether the slow keys keyboard accessibility feature is turned on."
+msgstr "స్లో కీల కీబోర్డు అందుబాటు సౌలభ్యము ఆన్ కావలెనా."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:57
-msgid "Whether the screen magnifier is turned on."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:58
-msgid "Whether the screen reader is turned on."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:59
-msgid "Whether the slow keys keyboard accessibility feature is turned on."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:60
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-msgstr ""
+msgstr "స్టికీ కీల కీబోర్డు అందుబాటు సౌలభ్యము ఆన్ కావలెనా."
 
 #: ../gnome-settings-daemon/main.c:54
-#, fuzzy
-#| msgid "Enable xrdb plugin"
 msgid "Enable debugging code"
-msgstr "డీబగ్గింగ్ సంహిత ను చేతనంచేయి"
+msgstr "డీబగ్గింగ్ కోడ్‌ను చేతనంచేయుము"
 
 #: ../gnome-settings-daemon/main.c:55
 msgid "Don't become a daemon"
@@ -571,7 +610,7 @@ msgstr "డెమోన్ కావద్దు"
 
 #: ../gnome-settings-daemon/main.c:56
 msgid "GConf prefix from which to load plugin settings"
-msgstr ""
+msgstr "దేనినుండైతే ప్లగ్‌యిన్ అమరికలను లోడుచేయాలో GConf ప్రిఫిక్స్"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -586,18 +625,18 @@ msgstr "అందుబాటు కీబోర్డు ప్లగ్ఇన�
 msgid "There was an error displaying help: %s"
 msgstr "సహాయం ప్రదర్శించుటలో దోషం: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
 msgid "Do you want to activate Slow Keys?"
 msgstr "నెమ్మది మీటలను క్రియాశీలం చేయాలా?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "నెమ్మది మీటల సౌకర్యాన్ని క్రియాహీనం చేయాలా?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -605,70 +644,62 @@ msgstr ""
 "మీరు షిఫ్ట్ మీటను ౮8 సెకన్లు నొక్కివుంచారు. ఇది నెమ్మది మీటల విశిష్ఠ అంశానికి అడ్డదారి ఇది మీ మీటలపలకం "
 "పనిచేయు విధానంపై ప్రభావం చూపుతుంది."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
-#, fuzzy
-#| msgid "Do_n't activate"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't activate"
-msgstr "క్రియాశీలం చేయవద్దు(_n)"
+msgstr "క్రియాశీలం చేయవద్దు"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
-#, fuzzy
-#| msgid "Do_n't deactivate"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't deactivate"
-msgstr "క్రియాహీనం చేయవద్దు(_n)"
+msgstr "క్రియాహీనం చేయవద్దు"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
-#, fuzzy
-#| msgid "_Activate"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Activate"
 msgstr "క్రియాశీలించు"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
-#, fuzzy
-#| msgid "_Deactivate"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Deactivate"
-msgstr "నిసారమగు"
+msgstr "క్రియాహీనంచేయి"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't activate"
 msgstr "క్రియాశీలం చేయవద్దు(_n)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't deactivate"
 msgstr "క్రియాహీనం చేయవద్దు(_n)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Activate"
 msgstr "క్రియాశీలం(_A)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Deactivate"
 msgstr "క్రియాహీనం(_D)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
 msgid "Slow Keys Alert"
 msgstr "నెమ్మది మీటల అప్రమత్తం"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
 msgid "Do you want to activate Sticky Keys?"
 msgstr "చీటీ మీటలను క్రియాశీలం చేయాలా?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "చీటీ మీటలను క్రియాహీనం చేయాలా?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -676,8 +707,8 @@ msgstr ""
 "షిఫ్ట్ మీటను మీరు వరుసక్రమంలో 5సార్లు నొక్కారు. ఇది చీటీ మీటల సౌకర్యానికి అడ్డదారిఇది మీ మీటల పలకం పనిపై "
 "ప్రభావం చూపుతుంది."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -686,48 +717,46 @@ msgstr ""
 "మీరు రెండు షిఫ్ట్ మీటలను ఒకేసారి నొక్కారు. షిఫ్ట్ మీటను మీరు వరుసక్రమంలో 5సార్లు నొక్కారు. ఇది చీటీ మీటల "
 "సౌకర్యానికి అడ్డదారి, ఇది మీ మీటల పలకం పనిపై ప్రభావం చూపుతుంది."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
 msgid "Sticky Keys Alert"
 msgstr "చీటీ మీటల అప్రమత్తత"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
-#, fuzzy
-#| msgid "Mouse Preferences"
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
-msgstr "మౌస్ అభీష్టాలు"
+msgstr "యూనివర్సల్ యాక్సిస్ అభీష్టాలు"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Enhance _contrast in colors"
-msgstr ""
+msgstr "రంగులనందు కాంట్రాస్టును విస్తరించుము (_c)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
 msgid "Make _text larger and easier to read"
-msgstr ""
+msgstr "పాఠ్యమును చదువుటకు పెద్దదిగా మరియు సులువైనదిగా చేయుము (_t)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
-msgstr ""
+msgstr "కీలను ఆమోదించుటకు వాటిని వత్తి పట్టివుంచుము (స్లో కీలు) (_h)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
-msgstr ""
+msgstr "తెర-పైని కీబోర్డును వుపయోగించుము (_k)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
 msgid "Use screen _magnifier"
-msgstr ""
+msgstr "తెర పెద్దదిచేయుదాన్ని వుపయోగించుము (_m)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
 msgid "Use screen _reader"
-msgstr ""
+msgstr "తెర చదువరిని వుపయోగించుము (_r)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr ""
+msgstr "బూటకపు కీ వత్తులను వదిలివేయుము (బౌన్సు కీలు) (_I)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr ""
+msgstr "కీబోర్డు లఘువులను వొక సారి వొకే కీను వత్తుము (స్టికి కీలు) (_P)"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -761,32 +790,114 @@ msgstr "అక్షరశైలి"
 msgid "Font plugin"
 msgstr "ఫాంటు ప్లగ్ఇన్"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:122
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+msgid "Don't show any warnings again for this filesystem"
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+#, fuzzy
+msgid "Don't show any warnings again"
+msgstr "_ఈ సందేశాన్ని మళ్ళీ చూపకండి"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
 #, c-format
-msgid "%d%% of the disk space on `%s' is in use"
+msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr ""
 
-#: ../plugins/housekeeping/gsd-disk-space.c:130
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr ""
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
+msgstr "తక్కువ డిస్కు జాగా"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
+msgid "Empty Trash"
 msgstr ""
 
-#: ../plugins/housekeeping/gsd-disk-space.c:141
-msgid "Analyze"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
+msgid "Examine..."
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
+msgid "Ignore"
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#, c-format
+msgid "Removing item %lu of %lu"
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#, c-format
+msgid "<i>Removing: %s</i>"
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+msgid "Emptying the trash"
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+msgid "Preparing to empty trash..."
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+msgid "From: "
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+msgid "Empty all of the items from the trash?"
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+msgid ""
+"If you choose to empty the trash, all items in it will be permanently lost. "
+"Please note that you can also delete them separately."
+msgstr ""
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+msgid "_Empty Trash"
 msgstr ""
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
-#, fuzzy, c-format
-#| msgid "Key Binding (%s) is invalid\n"
+#, c-format
 msgid "Key binding (%s) is invalid"
-msgstr "మీటల అనుసంధానం (%s) నిస్సారం\n"
+msgstr "కీ బైండింగ్ (%s) చెల్లనిది"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:197
-#, fuzzy, c-format
-#| msgid "Key Binding (%s) is incomplete\n"
+#, c-format
 msgid "Key binding (%s) is incomplete"
-msgstr "మీటల అనుసంధానం (%s) పూర్తికాలేదు\n"
+msgstr "కీ బైండింగ్ (%s) పూర్తికానటువంటిది"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:491
+#: ../plugins/keybindings/gsd-keybindings-manager.c:493
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -811,28 +922,27 @@ msgstr "కీబోర్డు"
 msgid "Keyboard plugin"
 msgstr "కీబోర్డు ప్లగ్ఇన్"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:1
+#: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
 msgstr "అందుబాటులోఉన్న దస్త్రాలు(_v):"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:2
+#: ../plugins/keyboard/modmap-dialog.ui.h:2
 msgid "Load modmap files"
 msgstr "modmap దస్త్రాలను నింపుము"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
+#: ../plugins/keyboard/modmap-dialog.ui.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "మీరు modmap దస్త్రము(ల)ను నింపుటకు ఇష్టపడతారా?"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+#: ../plugins/keyboard/modmap-dialog.ui.h:4
 msgid "_Do not show this message again"
 msgstr "_ఈ సందేశాన్ని మళ్ళీ చూపకండి"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:5
+#: ../plugins/keyboard/modmap-dialog.ui.h:5
 msgid "_Load"
 msgstr "నింపుము(_L)"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:6
+#: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "దస్త్రములను నింపుము(_L):"
 
@@ -861,13 +971,35 @@ msgstr ""
 "మీ కంప్యూటర్ ను నిద్రాణస్థితిలో పెట్టలేదు.\n"
 "మీ కంప్యూటర్ రూపకరణ సరిగావుందోలేదో సరిచూసుకోండి."
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:985
+msgid "Disabled"
+msgstr ""
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:992
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1002
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1298
 msgid "System Sounds"
 msgstr "సిస్టమ్ శబ్దములు"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
-#, fuzzy
-#| msgid "GNOME Control Center"
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1750
 msgid "GNOME Volume Control"
 msgstr "GNOME ధ్వని నియంత్రిక"
 
@@ -879,19 +1011,16 @@ msgstr "మాద్యమం కీలు"
 msgid "Media keys plugin"
 msgstr "మాద్యమం కీల ప్లగ్ఇన్"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:625
+#: ../plugins/mouse/gsd-mouse-manager.c:890
 msgid "Could not enable mouse accessibility features"
 msgstr "మౌస్ అందుబాటు సౌలభ్యాలను చేతనం చేయలేకపోయింది"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:627
-#, fuzzy
-#| msgid ""
-#| "Mouse accessibility requires the mousetweaks daemon to be installed on "
-#| "your system."
-msgid "Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr "మౌస్ అందుబాటు కొరకు మీ కంప్యూటర్ నందు మౌస్‌ట్వీక్సు డెమోన్ సంస్థాపించవలిసిన అనసరంఉంది."
+#: ../plugins/mouse/gsd-mouse-manager.c:892
+msgid ""
+"Mouse accessibility requires mousetweaks to be installed on your system."
+msgstr "మౌస్ అందుబాటు కొరకు మీ కంప్యూటర్ నందు మౌస్‌ట్వీక్సు సంస్థాపించవలిసిన అనసరంఉంది."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:630
+#: ../plugins/mouse/gsd-mouse-manager.c:895
 msgid "Mouse Preferences"
 msgstr "మౌస్ అభీష్టాలు"
 
@@ -902,29 +1031,6 @@ msgstr "మౌస్"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "మౌస్ ప్లగ్ఇన్"
-
-#: ../plugins/screensaver/gsd-screensaver-manager.c:136
-#, c-format
-msgid ""
-"There was an error starting up the screensaver:\n"
-"\n"
-"%s\n"
-"\n"
-"Screensaver functionality will not work in this session."
-msgstr ""
-"తెర సేవికను ప్రారంభించుటలో దోషం:\n"
-"\n"
-"%s\n"
-"\n"
-"ఈ సమకూర్పులో తెర సేవిక పనిచేయదు."
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
-msgid "Screensaver"
-msgstr "స్క్రీన్‌సేవర్"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
-msgid "Screensaver plugin"
-msgstr "స్క్రీన్‌సేవర్ ప్లగ్ఇన్"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -942,87 +1048,87 @@ msgstr "తెర పరిమాణంను మరియు సర్దుబ
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+#: ../plugins/xrandr/gsd-xrandr-manager.c:208
 msgid "Could not restore the display's configuration"
-msgstr ""
+msgstr "ప్రదర్శనయొక్క ఆకృతీకరణను తిరిగివుంచ లేకపోయింది"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+#: ../plugins/xrandr/gsd-xrandr-manager.c:233
 msgid "Could not restore the display's configuration from a backup"
-msgstr ""
+msgstr "బ్యాకప్‌నుండి ప్రదర్శనయొక్క ఆకృతీకరణను తిరిగివుంచ లేకపోయింది"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:166
-#, c-format
-msgid "The display will be reset to its previous configuration in %d seconds"
-msgstr ""
+#: ../plugins/xrandr/gsd-xrandr-manager.c:254
+#, fuzzy, c-format
+msgid "The display will be reset to its previous configuration in %d second"
+msgid_plural ""
+"The display will be reset to its previous configuration in %d seconds"
+msgstr[0] "ప్రదర్శన దాని గత ఆకృతీకరణకు %d సెకనులలో తిరిగివుంచబడుతుంది"
+msgstr[1] "ప్రదర్శన దాని గత ఆకృతీకరణకు %d సెకనులలో తిరిగివుంచబడుతుంది"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+#: ../plugins/xrandr/gsd-xrandr-manager.c:303
 msgid "Does the display look OK?"
-msgstr ""
+msgstr "ప్రదర్శన సరిగానే చూడబడుతుందా?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:218
-#, fuzzy
-#| msgid "Use _previous resolution"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:309
 msgid "_Restore Previous Configuration"
-msgstr "_పూర్వపు దృశ్యప్రమాణాన్ని వాడు"
+msgstr "మునుపటి ఆకృతీకరణను తిరిగివుంచుము (_R)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:219
-#, fuzzy
-#| msgid "_Keep resolution"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:310
 msgid "_Keep This Configuration"
-msgstr "_దృశ్యప్రమాణాన్ని వుంచుకో"
+msgstr "ఈ ఆకృతీకరణను కలిగివుండుము (_K)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:256
+#: ../plugins/xrandr/gsd-xrandr-manager.c:391
 msgid "The selected configuration for displays could not be applied"
-msgstr ""
+msgstr "ప్రదర్శన కొరకు యెంపికచేసిన ఆకృతీకరణలు ఆపాదింప బడలేవు"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:702
+#: ../plugins/xrandr/gsd-xrandr-manager.c:945
 #, c-format
 msgid "Could not refresh the screen information: %s"
-msgstr ""
+msgstr "తెర సమాచారమును రీఫ్రెష్ చేయలేము: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:705
+#: ../plugins/xrandr/gsd-xrandr-manager.c:948
 msgid "Trying to switch the monitor configuration anyway."
-msgstr ""
+msgstr "ఏమైనప్పటికి మానిటర్ ఆకృతీకరణను స్విచ్ చేయుటకు ప్రయత్నిస్తోంది."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:739
+#: ../plugins/xrandr/gsd-xrandr-manager.c:982
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1148
 msgid "Could not switch the monitor configuration"
-msgstr ""
+msgstr "మానిటర్ ఆకృతీకరణను స్విచ్ చేయలేక పోయింది"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1541
 msgid "<i>Rotation not supported</i>"
-msgstr ""
+msgstr "<i>భ్రమణం చేయుట మద్దతీయదు</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1595
 msgid "Could not save monitor configuration"
-msgstr ""
+msgstr "మానిటర్ ఆకృతీకరణను దాయలేక పోయింది"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1613
 msgid "Normal"
 msgstr "సాదారణముగా"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1614
 msgid "Left"
 msgstr "ఎడమ"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1615
 msgid "Right"
 msgstr "కుడి"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1616
 msgid "Upside Down"
-msgstr ""
+msgstr "పైప్రక్క క్రిందన"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1735
 msgid "_Configure Display Settings ..."
-msgstr ""
+msgstr "ప్రదర్శన అమర్పులను ఆకృతీకరించుము ... (_C)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1776
 msgid "Configure display settings"
-msgstr ""
+msgstr "ప్రదర్శన అమర్పులను ఆకృతీకరించుము"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1830
 msgid "Could not apply the stored configuration for monitors"
-msgstr ""
+msgstr "మానిటర్ల కొరకు నిల్వవుంచిన ఆకృతీకరణను ఆపాదించలేక పోయింది"
 
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
@@ -1050,3 +1156,51 @@ msgstr "X అమరికలను నిర్వహించు"
 msgid "X Settings"
 msgstr "X అమరికలు"
 
+#~ msgid ""
+#~ "Set to True to display a dialog when there are errors running the "
+#~ "screensaver."
+#~ msgstr ""
+#~ "స్క్రీన్‌సేవికను అక్కడ కొన్ని దోషాలు నడుపుతున్నప్పుడు డైలాగ్ ను ప్రదర్శించుటకు నిజం కు అమర్చుము."
+
+#~ msgid "Set to True to run the screensaver at login."
+#~ msgstr "లాగిన్ వద్ద స్క్రీన్‌సేవర్ ను నడుపుటకు నిజంకు అమర్చుము."
+
+#~ msgid "Show startup errors"
+#~ msgstr "ప్రారంభ దోషాలను చూపుము"
+
+#~ msgid "Start screensaver"
+#~ msgstr "స్క్రీన్‌సేవర్ ను ప్రారంభించుము"
+
+#~ msgid "Enable screensaver plugin"
+#~ msgstr "స్క్రీన్‌సేవర్ ప్లగ్ఇన్ చేతనంచేయుము"
+
+#~ msgid "Set to True to enable the plugin to manage screensaver settings."
+#~ msgstr "స్క్రీన్‌సేవర్ అమరికలను నిర్వహించుటకు ప్లగ్ఇన్ చేతనంచేయుటకు నిజంకు అమర్చుము."
+
+#~ msgid ""
+#~ "There was an error starting up the screensaver:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Screensaver functionality will not work in this session."
+#~ msgstr ""
+#~ "తెర సేవికను ప్రారంభించుటలో దోషం:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "ఈ సమకూర్పులో తెర సేవిక పనిచేయదు."
+
+#~ msgid "Screensaver"
+#~ msgstr "స్క్రీన్‌సేవర్"
+
+#~ msgid "Screensaver plugin"
+#~ msgstr "స్క్రీన్‌సేవర్ ప్లగ్ఇన్"
+
+#~ msgid "Toggle screenreader"
+#~ msgstr "తెరచదువరిని మార్చుము"
+
+#~ msgid "%d%% of the disk space on `%s' is in use"
+#~ msgstr "%d%% డిస్కు జాగా మొత్తం `%s' జాగాలో వినియోగంలోవుంది"
+
+#~ msgid "Analyze"
+#~ msgstr "విశ్లేషించుము"
