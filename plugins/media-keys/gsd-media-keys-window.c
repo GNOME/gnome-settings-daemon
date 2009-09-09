@@ -168,16 +168,6 @@ window_set_icon_name (GsdMediaKeysWindow *window,
 }
 
 static void
-window_set_icon_file (GsdMediaKeysWindow *window,
-                      const char         *path)
-{
-        if (window->priv->image == NULL)
-                return;
-
-        gtk_image_set_from_file (window->priv->image, path);
-}
-
-static void
 action_changed (GsdMediaKeysWindow *window)
 {
         if (! window->priv->is_composited) {
@@ -194,7 +184,7 @@ action_changed (GsdMediaKeysWindow *window)
                         break;
                 case GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT:
                         volume_controls_set_visible (window, FALSE);
-                        window_set_icon_file (window, PIXMAPDIR "/acme-eject.png");
+                        window_set_icon_name (window, "media-eject");
                         break;
                 default:
                         break;

@@ -133,11 +133,6 @@ gtkbuilder_DATA =	\
 	acme.ui		\
 	$(NULL)
 
-pixmapsdir = $(pkgdatadir)
-pixmaps_DATA = 		\
-	acme-eject.png	\
-	$(NULL)
-
 DIST_SUBDIRS = cut-n-paste
 
 EXTRA_DIST = 				\
