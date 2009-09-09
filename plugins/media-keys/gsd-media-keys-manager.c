@@ -51,6 +51,7 @@
 #include "gsd-media-keys-window.h"
 
 #ifdef HAVE_PULSE
+#include <canberra-gtk.h>
 #include "gvc-mixer-control.h"
 #endif /* HAVE_PULSE */
 
@@ -625,6 +626,12 @@ update_dialog (GsdMediaKeysManager *manager,
         gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
                                           GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME);
         dialog_show (manager);
+
+        ca_gtk_play_for_widget (manager->priv->dialog, 0,
+                                CA_PROP_EVENT_ID, "audio-volume-change",
+                                CA_PROP_EVENT_DESCRIPTION, "volume changed through key press",
+                                CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
+                                NULL);
 }
 
 static void
