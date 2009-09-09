@@ -401,6 +401,7 @@ filter (GdkXEvent *xevent,
   return GDK_FILTER_CONTINUE;
 }
 
+static void
 set_locate_pointer (void)
 {
   GdkKeymapKey *keys;
