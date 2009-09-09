@@ -84,6 +84,7 @@ static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
 static void     gsd_mouse_manager_init        (GsdMouseManager      *mouse_manager);
 static void     gsd_mouse_manager_finalize    (GObject             *object);
 static void     set_mouse_settings            (GsdMouseManager      *manager);
+static XDevice* device_is_touchpad            (XDeviceInfo deviceinfo);
 
 G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
 
@@ -284,6 +285,14 @@ set_xinput_devices_left_handed (gboolean left_handed)
                     (!xinput_device_has_buttons (&device_info[i])))
                         continue;
 
+                /* If the device is a touchpad, don't swap buttons
+                 * around, otherwise a tap would be a right-click */
+                device = device_is_touchpad (device_info[i]);
+                if (device != NULL) {
+                        XCloseDevice (GDK_DISPLAY (), device);
+                        continue;
+                }
+
                 gdk_error_trap_push ();
 
                 device = XOpenDevice (GDK_DISPLAY (), device_info[i].id);
@@ -371,7 +380,11 @@ set_left_handed (GsdMouseManager *manager,
 
 #ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         if (supports_xinput_devices ()) {
+                /* When XInput support is available, never set the
+                 * button ordering on the core pointer as that would
+                 * revert the changes we make on the devices themselves */
                 set_xinput_devices_left_handed (left_handed);
+                return;
         }
 #endif
 
