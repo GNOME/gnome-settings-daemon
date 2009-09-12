@@ -500,8 +500,8 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
 {
 
         if (state) {
-                GError        *error = NULL;
-                const char *args[5];
+                GError *error = NULL;
+                char *args[5];
 
                 if (manager->priv->syndaemon_spawned)
                         return 0;
@@ -722,11 +722,11 @@ set_locate_pointer (GsdMouseManager *manager,
                     gboolean         state)
 {
         if (state) {
-                GError        *error = NULL;
-                const char *args[2];
+                GError *error = NULL;
+                char *args[2];
 
                 if (manager->priv->locate_pointer_spawned)
-                        return 0;
+                        return;
 
                 args[0] = "/usr/libexec/gsd-locate-pointer";
                 args[1] = NULL;
