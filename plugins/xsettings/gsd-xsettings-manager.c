@@ -719,7 +719,7 @@ get_gtk_modules (GConfClient *client)
                         case GCONF_VALUE_STRING:
                                 /* linked to another GConf key of type bool */
                                 key = gconf_value_get_string (v);
-                                if (key != NULL) {
+                                if (key != NULL && gconf_valid_key (key, NULL)) {
                                         enabled = gconf_client_get_bool (client, key, NULL);
                                 }
                                 break;
