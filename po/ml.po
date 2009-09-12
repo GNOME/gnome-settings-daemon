@@ -1,3 +1,4 @@
+# translation of gnome-settings-daemon.master.ml.po to
 # translation of gnome-settings-daemon.HEAD.ml.po to
 # This file is distributed under the same license as the gnome-settings-daemon package.
 # Copyright (C) 2003-2008 gnome-settings-daemon'S COPYRIGHT HOLDER.
@@ -9,12 +10,12 @@
 # Praveen|പ്രവീണ്‍ A|എ <pravi.a@gmail.com>, 2007,2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.HEAD.ml\n"
+"Project-Id-Version: gnome-settings-daemon.master.ml\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-02-23 21:39+0000\n"
-"PO-Revision-Date: 2009-03-16 00:19+0530\n"
-"Last-Translator: Ani Peter <apeter@redhat.com>\n"
-"Language-Team:  Swathanthra Malayalam Computing|സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-discuss@googlegroups.com>\n"
+"POT-Creation-Date: 2009-08-18 13:03+0000\n"
+"PO-Revision-Date: 2009-09-12 20:08+0530\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,9 +24,64 @@ msgstr ""
 "\n"
 
 #: ../data/50-accessibility.xml.in.h:1
-#| msgid "Accessibility Keyboard"
 msgid "Accessibility"
 msgstr "സാമീപ്യത "
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+msgid "Free percentage notify threshold"
+msgstr "Free percentage notify threshold"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
+msgid "Free space no notify threshold"
+msgstr "Free space no notify threshold"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+msgid "Minimum notify period for repeated warnings"
+msgstr "ആവര്‍ത്തിച്ചുള്ള മുന്നറിയിപ്പുകള്‍ക്കുള്ള ഏറ്റവും കുറഞ്ഞ അറിയിപ്പു് സമയം"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+msgid "Mount paths to ignore"
+msgstr "അവഗണിക്കുവാനുള്ള മൌണ്ട് പാഥുകള്‍"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown"
+msgstr ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr "സ്ഥലം കുറവാകുമ്പോള്‍ അവഗണിക്കുവാനുള്ള മൌണ്ട് പാഥുകളുടെ പട്ടിക വ്യക്തമാക്കുക."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+"സമയം മിനിറ്റുകളില്‍ വ്യക്തമാക്കുക. ഈ സമയത്തിലല്ലാതെ, ഒരു വോള്യത്തിനുള്ള മുന്നറിയിപ്പുകള്‍ "
+"ലഭ്യമാകുന്നതല്ല."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown"
+msgstr ""
+"GB-ല്‍ സ്ഥലം വ്യക്തമാക്കുക. ഉപയോഗത്തിലില്ലാത്ത സ്ഥലം ഇതില്‍ കൂടുതലാണെങ്കില്‍, "
+"മുന്നറിയിപ്പു് ലഭിക്കില്ല."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning"
+msgstr ""
+"ഒരു മുന്നറിയിപ്പ് ലഭിക്കുന്നതിനു് മുമ്പു്, ഉപയോഗത്തിലില്ലാത്ത സ്ഥലം എത്ര ശതമാനം "
+"കുറയണമെന്നു് വ്യക്തമാക്കുക"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
+msgid "Subsequent free percentage notify threshold"
+msgstr "Subsequent free percentage notify threshold"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -187,24 +243,6 @@ msgstr "ശബ്ദത്തിനെ ശതമാനക്കണക്കി�
 msgid "Volume up"
 msgstr "ശബ്ദം കൂട്ടുക"
 
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
-msgid ""
-"Set to True to display a dialog when there are errors running the "
-"screensaver."
-msgstr "'സത്യം' എന്നാക്കുക, സ്ക്രീന്‍ സേവര്‍ പ്രവര്‍ത്തിപ്പിക്കാന്‍ പിശകുകളുണ്ടാകുമ്പോള്‍  ഡയലോഗ് കാണിക്കാന്‍"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
-msgid "Set to True to run the screensaver at login."
-msgstr "'സത്യം' എന്നാക്കുക, ലോഗിന്‍ ആകുമ്പോള്‍ സ്ക്രീന്‍സേവര്‍ പ്രവര്‍ത്തിപ്പിക്കാന്‍"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:3
-msgid "Show startup errors"
-msgstr "ആരംഭത്തിലുണ്ടായ പിശകുകള്‍ കാണിയ്ക്കുക"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
-msgid "Start screensaver"
-msgstr "സ്ക്രീന്‍ സേവര്‍ ആരംഭിക്കുക"
-
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
 msgid ""
 "If a notification icon with display related things should be shown in the "
@@ -275,7 +313,6 @@ msgstr ""
 "ഏറ്റവും കൂടുതല്‍ നിര്‍ദ്ദേശങ്ങള്‍ക്കായ് (അക്ഷര രൂപങ്ങളില്‍ വ്യത്യാസം വരുത്തിയേക്കാം)."
 
 #: ../data/desktop_gnome_keybindings.schemas.in.h:1
-#| msgid "Media keys"
 msgid "Allowed keys"
 msgstr "അനുവദിച്ചിട്ടുള്ള കീകള്‍"
 
@@ -284,25 +321,67 @@ msgid ""
 "If non-empty, keybindings will be ignored unless their GConf directory is in "
 "the list. This is useful for lockdown."
 msgstr ""
-"ശൂന്യമല്ലെങ്കില്‍, ലിസ്റ്റില്‍ GConf ഡയറക്ടറി ഇല്ലാത്തിടത്തോളം കീബൈന്‍ഡിങുകള്‍ "
-"അവഗണിക്കപ്പെടുന്നു. ഇതു് ലോക്ക്ഡൌണിനു് നല്ലതാണു്."
+"ശൂന്യമല്ലെങ്കില്‍, ലിസ്റ്റില്‍ GConf ഡയറക്ടറി ഇല്ലാത്തിടത്തോളം കീബൈന്‍ഡിങുകള്‍ അവഗണിക്കപ്പെടുന്നു. "
+"ഇതു് ലോക്ക്ഡൌണിനു് നല്ലതാണു്."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
+msgid "Disable touchpad while typing"
+msgstr "ടൈപ്പ് ചെയ്യുമ്പോള്‍ ടച്ച്പാഡ് പ്രവര്‍ത്തന രഹിതമാക്കുക"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
+#| msgid "Enable font plugin"
+msgid "Enable horizontal scrolling"
+msgstr "നേരെയുള്ള സ്ക്രോളിങ് പ്രാവര്‍ത്തികമാക്കുക"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
+msgid "Enable mouse clicks with touchpad"
+msgstr "ടച്ച്പാഡില്‍ മൌസ് ക്ലിക്കുകള്‍ പ്രവര്‍ത്തന സജ്ജമാക്കുക"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
+msgid "Select the touchpad scroll method"
+msgstr "ടച്ച്പാഡ് സ്ക്രോള്‍ മാര്‍ഗ്ഗം തെരഞ്ഞെടുക്കുക"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
+msgid ""
+"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
+"edge scrolling, 2 - two-finger scrolling"
+msgstr ""
+"ടച്ച്പാഡ് സ്ക്രോള്‍ മാര്‍ഗ്ഗം തെരഞ്ഞെടുക്കുക. പിന്തുണയ്ക്കുന്ന മൂല്ല്യങ്ങള്‍: 0 - പ്രവര്‍ത്തന രഹിതം, 1 - "
+"എഡ്ജ് സ്ക്രോളിങ്, 2 - ടു-ഫിംഗര്‍ സ്ക്രോളിങ്"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"ടൈപ്പ് ചെയ്യുമ്പോള്‍ അബന്ധത്തില്‍ ടച്ച്പാഡില്‍ ഹിറ്റ് ചെയ്യുന്നതു് പ്രശ്നമുണ്ടാക്കുന്നുണ്ടെങ്കില്‍, "
+"ഇതു് TRUE ആയി സജ്ജമാക്കുക. "
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"സ്ക്രോള്‍_മാര്‍ഗ്ഗമുള്ള കീയുപയോഗിച്ചു് തെരഞ്ഞെടുത്ത അതേ മാര്‍ഗ്ഗം വഴി നേരെയുള്ള സ്ക്രോളിങ് "
+"അനുവദിക്കുന്നതിനായി ഇതു് TRUE ആയി സജ്ജമാക്കുക. "
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr "ടച്ച്പാഡില്‍ ടാപ്പ് ചെയ്തു മൌസ് ക്ലിക്കുകള്‍ അയയ്ക്കുന്നതിനായി ഇതു് TRUE ആയി സജ്ജമാക്കുക."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "ഗ്നോമിലെ സജ്ജീകരണങ്ങളുടെ നിരന്തരപ്രവൃത്തി"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
-#| msgid "Binding to open the Home folder."
 msgid "Binding to toggle the magnifier."
 msgstr "മാഗ്നിഫയര്‍ ടോഗിള്‍ ചെയ്യുന്നതിനായി ബൈന്‍ഡ് ചെയ്യുക"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:2
-#| msgid "Binding to lock the screen."
 msgid "Binding to toggle the on-screen keyboard."
 msgstr "ഓണ്‍ സ്ക്രീന്‍ കീബോര്‍ഡ് ടോഗിള്‍ ചെയ്യുന്നതിനായി ബൈന്‍ഡ് ചെയ്യുക."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:3
-#| msgid "Binding to lock the screen."
 msgid "Binding to toggle the screen reader."
 msgstr "സ്ക്രീന്‍ റീഡര്‍ ടോഗിള്‍ ചെയ്യുന്നതിനായി ബൈന്‍ഡ് ചെയ്യുക."
 
@@ -319,7 +398,6 @@ msgid "Command used to turn the on-screen keyboard on or off."
 msgstr "ഓണ്‍-സ്ക്രീന്‍ കീബോര്‍ഡ് ഓണ്‍ അല്ലെങ്കില്‍ ഓഫ് ആക്കുന്നതിനുള്ള കമാന്‍ഡ്."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:7
-#| msgid "Set to True to run the screensaver at login."
 msgid "Command used to turn the screen reader on or off."
 msgstr "സ്ക്രീന്‍ റീഡര്‍ ഓണ്‍ അല്ലെങ്കില്‍ ഓഫ് ചെയ്യുന്നതിനുള്ള കമാന്‍ഡ്."
 
@@ -360,50 +438,42 @@ msgid "Enable mouse plugin"
 msgstr "മൌസ് സമ്യോജകം പ്രാവര്‍ത്തികമാക്കുക"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable screensaver plugin"
-msgstr "സ്ക്രീന്‍സേവര്‍  സമ്യോജകം പ്രാവര്‍ത്തികമാക്കുക"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "ശബ്ദ സമ്യോജകം പ്രാവര്‍ത്തികമാക്കുക"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable typing breaks plugin"
 msgstr "'ടൈപ്പിങ്ങ് പൊട്ടലുകള്‍' സംയോജകം പ്രാവര്‍ത്തികമാക്കുക"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable xrandr plugin"
 msgstr "'എക്സ്-റാന്റ്-ആര്‍' സംയോജകം പ്രാവര്‍ത്തികമാക്കുക"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrdb plugin"
 msgstr "എക്സ്.ആര്‍.ഡി.ബി സമ്യോജകം പ്രാവര്‍ത്തികമാക്കുക"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xsettings plugin"
 msgstr "'എക്സ്-സജ്ജീകരണങ്ങള്‍' സംയോജകം പ്രാവര്‍ത്തികമാക്കുക"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-#| msgid "Media keys"
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Mouse keys"
 msgstr "മൌസ് കീകള്‍"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-#| msgid "Use on-screen _keyboard"
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "On-screen keyboard"
 msgstr "ഓണ്‍ സ്ക്രീന്‍ കീബോര്‍ഡ്"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-#| msgid "Use screen _magnifier"
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Screen magnifier"
 msgstr "സ്ക്രീന്‍വലിപ്പം കൂട്ടാനുള്ള ഉപകരണം "
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
-#| msgid "Use screen _reader"
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen reader"
 msgstr "സ്ക്രീന്‍ വായനക്കാരന്‍"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -411,50 +481,41 @@ msgstr ""
 "'സത്യം' എന്നാക്കുക, വീട് കാര്യസ്ഥന്‍ സംയോജകം പ്രാവര്‍ത്തികമാക്കാന്‍, ട്രാന്‍സിയെന്റ് ഫയലുകളുടെ "
 "താല്‍കാലിക ശേഖരം വെട്ടി ചുരുക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "'സത്യം' എന്നാക്കുക, താല്‍കാലിക വിവര ശേഖരം സജ്ജീകരണങ്ങള്‍  കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം "
 "പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "'സത്യം' എന്നാക്കുക, പണിയിട പശ്ചാത്തലം സജ്ജീകരണങ്ങള്‍  കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം "
 "പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "'സത്യം' എന്നാക്കുക, ലിപി സജ്ജീകരണങ്ങള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "'സത്യം' എന്നാക്കുക, കീബോര്‍ട് സജ്ജീകരണങ്ങള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "'സത്യം' എന്നാക്കുക, മൌസ് സജ്ജീകരണങ്ങള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "'സത്യം' എന്നാക്കുക, ബഹുമാധ്യമ കീകളുടെ സജ്ജീകരണങ്ങള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം "
 "പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid "Set to True to enable the plugin to manage screensaver settings."
-msgstr ""
-"'സത്യം' എന്നാക്കുക, സ്ക്രീന്‍ സുരക്ഷകന്‍ സജ്ജീകരണങ്ങള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം "
-"പ്രാവര്‍ത്തികമാക്കാന്‍."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
-#| msgid "Set to True to enable the plugin to manage sound settings."
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr ""
-"ശബ്ദ മാതൃക കാഷുകള്‍ കൈകാര്യം ചെയ്യുന്നതിനായി പ്ലഗിന്‍ സജ്ജമാക്കുന്നതിനായി True എന്നു് "
-"സജ്ജമാക്കുക."
+msgstr "ശബ്ദ മാതൃക കാഷുകള്‍ കൈകാര്യം ചെയ്യുന്നതിനായി പ്ലഗിന്‍ സജ്ജമാക്കുന്നതിനായി True എന്നു് സജ്ജമാക്കുക."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -462,120 +523,115 @@ msgstr ""
 "'സത്യം' എന്നാക്കുക, ഉപയുക്തി കീബോര്‍ട് സജ്ജീകരണങ്ങള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം "
 "പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "'സത്യം' എന്നാക്കുക, കീ ബന്ധ്ധങ്ങള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "'സത്യം' എന്നാക്കുക, ടൈപ്പിങ്ങ് പൊട്ടലുകള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr ""
 "'സത്യം' എന്നാക്കുക, എക്സ്-റാന്റ്-ആര്‍ സജ്ജീകരണങ്ങള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം "
 "പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr ""
 "'സത്യം' എന്നാക്കുക, എക്സ്-ആര്‍-ഡി-ബി സജ്ജീകരണങ്ങള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം "
 "പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "'സത്യം' എന്നാക്കുക, എക്സ്-സജ്ജീകരണങ്ങള്‍ കയ്കാര്യം ചെയ്യാനുള്ള സംയോജകം പ്രാവര്‍ത്തികമാക്കാന്‍."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
-#| msgid "Slow Keys Alert"
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Slow keys"
 msgstr "വേഗത കുറഞ്ഞ കീ"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
-#| msgid "Sticky Keys Alert"
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Sticky keys"
 msgstr "സ്റ്റിക്കി കീകള്‍"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "മാഗ്നിഫയര്‍ ടൊഗിള്‍ ചെയ്യുന്നതിനുള്ള കീബോര്‍ഡ് എളുപ്പവഴിയുടെ പേരു്"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "ഓണ്‍-സ്ക്രീന്‍ കീബോര്‍ഡ് ടൊഗിള്‍ ചെയ്യുന്നതിനുള്ള കീബോര്‍ഡ് എളുപ്പവഴിയുടെ പേരു്"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "The name of the keyboard shortcut to toggle the screenreader"
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+#| msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "സ്ക്രീന്‍റീഡര്‍ ടൊഗിള്‍ ചെയ്യുന്നതിനുള്ള കീബോര്‍ഡ് എളുപ്പവഴിയുടെ പേരു്"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"മാഗ്നിഫയര്‍ ടൊഗിള്‍ ചെയ്യുന്നതിനുള്ള കീബോര്‍ഡ് എളുപ്പവഴിയുടെ പേരിതാണു്. ഈ പേരു് "
-"കീബോര്‍ഡ് എളുപ്പവഴിയ്ക്കുള്ള മുന്‍ഗണനകളുടെ ഡയലോഗില്‍ കാണിക്കുന്നു."
+"മാഗ്നിഫയര്‍ ടൊഗിള്‍ ചെയ്യുന്നതിനുള്ള കീബോര്‍ഡ് എളുപ്പവഴിയുടെ പേരിതാണു്. ഈ പേരു് കീബോര്‍ഡ് "
+"എളുപ്പവഴിയ്ക്കുള്ള മുന്‍ഗണനകളുടെ ഡയലോഗില്‍ കാണിക്കുന്നു."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"ഓണ്‍-സ്ക്രീന്‍ കീബോര്‍ഡ് ടൊഗിള്‍ ചെയ്യുന്നതിനുള്ള കീബോര്‍ഡ് എളുപ്പവഴിയുടെ പേരിതാണു്. "
-"ഈ പേരു് കീബോര്‍ഡ് എളുപ്പവഴിയ്ക്കുള്ള മുന്‍ഗണനകളുടെ ഡയലോഗില്‍ കാണിക്കുന്നു."
+"ഓണ്‍-സ്ക്രീന്‍ കീബോര്‍ഡ് ടൊഗിള്‍ ചെയ്യുന്നതിനുള്ള കീബോര്‍ഡ് എളുപ്പവഴിയുടെ പേരിതാണു്. ഈ പേരു് കീബോര്‍ഡ് "
+"എളുപ്പവഴിയ്ക്കുള്ള മുന്‍ഗണനകളുടെ ഡയലോഗില്‍ കാണിക്കുന്നു."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+#| msgid ""
+#| "This is the name of the keyboard shortcut to toggle the screenreader. "
+#| "This name will be shown in the keyboard shortcut preferences dialog."
 msgid ""
-"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"സ്ക്രീന്‍റീഡര്‍ ടൊഗിള്‍ ചെയ്യുന്നതിനുള്ള കീബോര്‍ഡ് എളുപ്പവഴിയുടെ പേരിതാണു്. ഈ പേരു് "
-"കീബോര്‍ഡ് എളുപ്പവഴിയ്ക്കുള്ള മുന്‍ഗണനകളുടെ ഡയലോഗില്‍ കാണിക്കുന്നു."
+"സ്ക്രീന്‍ റീഡര്‍ ടൊഗിള്‍ ചെയ്യുന്നതിനുള്ള കീബോര്‍ഡ് എളുപ്പവഴിയുടെ പേരിതാണു്. ഈ പേരു് കീബോര്‍ഡ് "
+"എളുപ്പവഴിയ്ക്കുള്ള മുന്‍ഗണനകളുടെ ഡയലോഗില്‍ കാണിക്കുന്നു."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
 msgstr "മാഗ്നിഫയര്‍ ടൊഗിള്‍ ചെയ്യുക"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
-#| msgid "Use on-screen _keyboard"
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid "Toggle on-screen keyboard"
 msgstr "ഓണ്‍ സ്ക്രീന്‍ കീബോര്‍ഡ് ടൊഗിള്‍ ചെയ്യുക"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
-#| msgid "Use screen _reader"
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle screen reader"
 msgstr "സ്ക്രീന്‍ റീഡര്‍ ടൊഗിള്‍ ചെയ്യുക"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-#| msgid "Use screen _reader"
-msgid "Toggle screenreader"
-msgstr "സ്ക്രീന്‍റീഡര്‍ ടൊഗിള്‍ ചെയ്യുക"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "ബൌണ്‍സ്കീ യുടെ കീബോര്‍ഡ് ആക്സസിബിളിറ്റി വിശേഷത ഓണ്‍ ആണോ എന്നു്."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "മൌസ് കീയുടെ കീബോര്‍ഡ് ആക്സസിബിളിറ്റി വിശേഷത ഓണ്‍ ആണോ എന്നു്."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "ഓണ്‍-സ്ക്രീന്‍ കീബോര്‍ഡ് ഓണ്‍ ആണോ എന്നു്."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the screen magnifier is turned on."
 msgstr "സ്ക്രീന്‍ മാഗ്നിഫയര്‍ ഓണ്‍ ആണോ എന്നു്."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:58
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the screen reader is turned on."
 msgstr "സ്ക്രീന്‍ റീഡര്‍ ഓണ്‍ ആണോ എന്നു്."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:59
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "വേഗത കൂറഞ്ഞ കീയുടെ കീബോര്‍ഡ് ആക്സസിബിളിറ്റി വിശേഷത ഓണ്‍ ആണോ എന്നു്."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:60
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "സ്റ്റിക്കി കീയുടെ കീബോര്‍ഡ് ആക്സസിബിളിറ്റി വിശേഷത ഓണ്‍ ആണോ എന്നു്."
 
@@ -604,18 +660,18 @@ msgstr "സാമീപ്യത കീബോര്‍ഡ് സമ്യോജ�
 msgid "There was an error displaying help: %s"
 msgstr "സഹായം കാണിയ്ക്കുന്നതില്‍ തെറ്റുണ്ടായി: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
 msgid "Do you want to activate Slow Keys?"
 msgstr "നിങ്ങള്‍ക്ക് വേഗത കുറഞ്ഞ കീ പ്രവര്‍ത്തിപ്പിക്കണമോ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "നിങ്ങള്‍ക്ക് വേഗത കുറഞ്ഞ കീ പ്രവര്‍ത്തന രഹിതമാക്കണമോ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -623,62 +679,62 @@ msgstr ""
 "നിങ്ങള്‍ ഷിഫ്റ്റ് കീ 8 സെക്കന്റ് നേരത്തേക്ക് അമര്‍ത്തിപ്പിടിച്ചു. ഇത് സ്ലോ കീ സൌകര്യത്തിനുള്ള കുറുക്കു "
 "കീ ആണ്. കീബോര്‍ഡ് പ്രവര്‍ത്തിക്കുന്ന രീതിയെ ഇത് ബാധിക്കും. "
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't activate"
 msgstr "സജ്ജമാക്കേണ്ടതില്ല"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't deactivate"
 msgstr "സജ്ജമാക്കാതിരിക്കേണ്ടതില്ല"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Activate"
 msgstr "സജ്ജമാക്കുക"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Deactivate"
 msgstr "നിര്‍ത്തുക"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't activate"
 msgstr "പ്രവര്‍ത്തനം _സജ്ജമാക്കേണ്ടതില്ല"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't deactivate"
 msgstr "പ്രവര്‍ത്തനം നിര്‍ത്തേണ്ട_തില്ല"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Activate"
 msgstr "_സജീവമാക്കുക"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Deactivate"
 msgstr "പ്രവര്‍ത്തനം _നിര്‍ത്തുക"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
 msgid "Slow Keys Alert"
 msgstr "വേഗത കുറഞ്ഞ കീ അറിയിപ്പ്"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
 msgid "Do you want to activate Sticky Keys?"
 msgstr "നിങ്ങള്‍ക്ക് സ്റ്റിക്കി കീകള്‍ സജ്ജമാക്കണമോ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "നിങ്ങള്‍ക്ക് സ്റ്റിക്കി കീകളുടെ പ്രവര്‍ത്തനം നിര്‍ത്തണമോ?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -686,8 +742,8 @@ msgstr ""
 "നിങ്ങള്‍ ഷിഫ്റ്റ് കീ 5 തവണ ഒരു വരിയില്‍ അമര്‍ത്തിപ്പിടിച്ചു. ഇത് സ്റ്റിക്കി കീ സൌകര്യത്തിനുള്ള കുറുക്കു "
 "കീ ആണ്. കീബോര്‍ഡ് പ്രവര്‍ത്തിക്കുന്ന രീതിയെ ഇത് ബാധിക്കും. "
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -697,44 +753,44 @@ msgstr ""
 "അമര്‍ത്തിപ്പിടിച്ചു. ഇത് സ്റ്റിക്കി കീ സൌകര്യം നിര്‍ത്താനുള്ള കുറുക്കു കീ ആണ്. കീബോര്‍ഡ് പ്രവര്‍ത്തിക്കുന്ന "
 "രീതിയെ ഇത് ബാധിക്കും. "
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
 msgid "Sticky Keys Alert"
 msgstr "സ്റ്റിക്കി കീ അറിയിപ്പ്"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "ആഗോള സമീപന മുന്‍ഗണനകള്‍"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Enhance _contrast in colors"
 msgstr "(_)നിറ-വ്യത്യാസം കൂട്ടുക"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
 msgid "Make _text larger and easier to read"
 msgstr "(_t)അക്ഷരങ്ങള്‍ വലുതും വായിക്കാന്‍ എളുപ്പവും ആക്കുക"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "കീകള്‍ അമര്‍ത്തി (_h)പിടിക്കുക അവ അംഗീകരിക്കാന്‍ (പതുക്കെയുള്ള കീകള്‍)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
 msgstr "ഓണ്‍ സ്ക്രീന്‍ (_k)കീബോര്‍ഡ് ഉപയോഗിക്കുക"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
 msgid "Use screen _magnifier"
 msgstr "സ്ക്രീന്‍ (_m)വലിപ്പം കൂട്ടാനുള്ള ഉപകരണം ഉപയോഗിക്കുക"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
 msgid "Use screen _reader"
 msgstr "സ്ക്രീന്‍ (_r)വായനക്കാരന്‍"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
 msgstr "ഈ സമയത്തിനിടയിലെ ഇരട്ട കീ അമര്‍ത്തലുകളെ അവഗണിക്കുക(_I)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr ""
 "കീബോര്‍ട് ചുരുക്കവഴി-കീകള്‍ ഓരോന്നായി അമര്‍ത്തുക (സ്റ്റിക്കി കീകള്‍)_Press keyboard shortcuts "
@@ -772,18 +828,110 @@ msgstr "ലിപി"
 msgid "Font plugin"
 msgstr "ലിപി സംയോജകം"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:122
-#, c-format
-msgid "%d%% of the disk space on `%s' is in use"
-msgstr "%d%% ഡിസ്ക് സ്ഥലം (`%s'-ലുള്ളതു്) ഉപയോഗത്തിലാണു്."
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+msgid "Don't show any warnings again for this filesystem"
+msgstr "ഈ ഫയല്‍സിസ്റ്റത്തിനായി ഇനി ഒരു മുന്നറിയിപ്പുകളും കാണിക്കേണ്ട"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:130
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+#| msgid "_Do not show this message again"
+msgid "Don't show any warnings again"
+msgstr " ഈ മുന്നറിയിപ്പുകള് ഇനി കാണിക്കരുതു്ല"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "വോള്യം \"%s\"-നു് %s ഡിസ്ക് സ്പെയിസ് മാത്രമേ ബാക്കിയുള്ളൂ."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "%s ഡിസ്ക് സ്പെയിസ് മാത്രമേ ഈ കമ്പ്യൂട്ടറില്‍ ബാക്കിയുള്ളൂ."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
+msgstr "ചവറ്റുകുട്ട കാലിയാക്കി അല്ലെങ്കില്‍ ഉപയോഗിക്കാത്ത പ്രോഗ്രാമുകള്‍ അല്ലെങ്കില്‍ ഫയലുകള്‍ നീക്കം ചെയ്തു് അല്ലെങ്കില്‍ പുറമേയുള്ളൊരു ഡിസ്ക് അല്ലെങ്കില്‍ പാര്‍ട്ടീഷനിലേക്ക് ഫയലുകള്‍ മാറ്റി നിങ്ങള്‍ക്കു് ഡിസ്കില്‍ സ്ഥലം ലഭ്യമാക്കാം."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
+msgstr ""
+"ഉപയോഗിക്കാത്ത പ്രോഗ്രാമുകള്‍ അല്ലെങ്കില്‍ ഫയലുകള്‍ നീക്കം ചെയ്തു് അല്ലെങ്കില്‍ പുറമേയുള്ളൊരു "
+"ഡിസ്ക് അല്ലെങ്കില്‍ പാര്‍ട്ടീഷനിലേക്ക് ഫയലുകള്‍ മാറ്റി നിങ്ങള്‍ക്കു് ഡിസ്കില്‍ സ്ഥലം ലഭ്യമാക്കാം."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr ""
+"ചവറ്റുകുട്ട കാലിയാക്കി അല്ലെങ്കില്‍ ഉപയോഗിക്കാത്ത പ്രോഗ്രാമുകള്‍ അല്ലെങ്കില്‍ ഫയലുകള്‍ നീക്കം "
+"ചെയ്തു് അല്ലെങ്കില്‍ പുറമേയുള്ളൊരു ഡിസ്കിലേക്ക് ഫയലുകള്‍ മാറ്റി നിങ്ങള്‍ക്കു് ഡിസ്കില്‍ സ്ഥലം ലഭ്യമാക്കാം."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr ""
+"ഉപയോഗിക്കാത്ത പ്രോഗ്രാമുകള്‍ അല്ലെങ്കില്‍ ഫയലുകള്‍ നീക്കം ചെയ്തു് അല്ലെങ്കില്‍ "
+"പുറമേയുള്ളൊരു ഡിസ്കിലേക്ക് ഫയലുകള്‍ മാറ്റി നിങ്ങള്‍ക്കു് ഡിസ്കില്‍ സ്ഥലം ലഭ്യമാക്കാം."
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
 msgstr "കുറഞ്ഞ ഡിസ്ക് സ്ഥലം"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:141
-msgid "Analyze"
-msgstr "നിരീക്ഷിക്കുക"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
+msgid "Empty Trash"
+msgstr "ചവറ്റുകുട്ട കാലിയാക്കുക"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
+msgid "Examine..."
+msgstr "പരിശോധിക്കുക..."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
+msgid "Ignore"
+msgstr "അവഗണിക്കുക"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#, c-format
+msgid "Removing item %lu of %lu"
+msgstr "%lu/%lu വസ്തു നീക്കം ചെയ്യുന്നു"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#, c-format
+msgid "<i>Removing: %s</i>"
+msgstr "<i>നീക്കം ചെയ്യുന്നു: %s</i>"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+msgid "Emptying the trash"
+msgstr "ചവറ്റുകുട്ട കാലിയാക്കുന്നു"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+msgid "Preparing to empty trash..."
+msgstr "ചവറ്റുകുട്ട കാലിയാക്കുന്നതിനു് തയ്യാറാകുന്നു..."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+msgid "From: "
+msgstr "എവിടെ നിന്നു്:"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+msgid "Empty all of the items from the trash?"
+msgstr "ചവറ്റുകുട്ടയില്‍ നിന്നും എല്ലാ വസ്തുക്കളും കാലിയാക്കണമോ?"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+msgid ""
+"If you choose to empty the trash, all items in it will be permanently lost. "
+"Please note that you can also delete them separately."
+msgstr ""
+"ചവറ്റുകട്ട കാലിയാക്കിയാല്‍, എല്ലാ വസ്തുക്കളും എന്നേക്കുമായി നഷ്ടമാകുന്നു. "
+"നിങ്ങള്‍ക്കിവ വേവ്വേറയായും വെട്ടി നീക്കുവാന്‍ സാധ്യമാണു് എന്നു് പ്രത്യേകം ഓര്‍ക്കുക."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+msgid "_Empty Trash"
+msgstr "ചവറ്റുകുട്ട _കാലിയാക്കുക"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -795,7 +943,7 @@ msgstr "കീ ബന്ധനം(%s) അസാധുവാണ്"
 msgid "Key binding (%s) is incomplete"
 msgstr "കീ ബന്ധനം(%s) അപൂര്‍ണ്ണമാണ്"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:491
+#: ../plugins/keybindings/gsd-keybindings-manager.c:493
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -820,32 +968,31 @@ msgstr "കീബോര്‍ഡ്"
 msgid "Keyboard plugin"
 msgstr "കീബോര്‍ഡ് സംയോജകം"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:1
+#: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
 msgstr "_ലഭ്യമായ ഫയലുകള്‍:"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:2
+#: ../plugins/keyboard/modmap-dialog.ui.h:2
 msgid "Load modmap files"
 msgstr "modmap ഫയലുകള്‍ ലോഡ് ചെയ്യുക"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
+#: ../plugins/keyboard/modmap-dialog.ui.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "നിങ്ങള്‍ക്ക് modmap ഫയല്‍ ലോഡ് ചെയ്യണമോ?"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+#: ../plugins/keyboard/modmap-dialog.ui.h:4
 msgid "_Do not show this message again"
 msgstr "ഇനി ഈ സന്ദേശം _കാണിക്കേണ്ടതില്ല"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:5
+#: ../plugins/keyboard/modmap-dialog.ui.h:5
 msgid "_Load"
 msgstr "_ചേര്‍ക്കുക"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:6
+#: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "_ചേര്‍ത്ത ഫയലുകള്‍:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:206
+#: ../plugins/media-keys/gsd-media-keys-manager.c:203
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -853,7 +1000,7 @@ msgstr ""
 "സഹജമായ ടെര്‍മിനല്‍ കിട്ടിയില്ല. സഹജമായ ടെര്‍മിനലിനുള്ള  ആജ്ഞ ക്രമീകരിച്ചിരിക്കുന്നുവെന്നും, അത് "
 "ശരിയായ പ്രയോഗത്തിലേയ്ക്കാണ് ചൂണ്ടുന്നതെന്നും ഉറപ്പുവരുത്തുക"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:246
+#: ../plugins/media-keys/gsd-media-keys-manager.c:243
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -862,7 +1009,7 @@ msgstr ""
 "ആജ്ഞ നടപ്പിലാക്കാന്‍ പറ്റിയില്ല.:  %s\n"
 " ഈ ആജ്ഞ നിലവിലുണ്ടെന്ന് ഉറപ്പുവരുത്തുക"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:262
+#: ../plugins/media-keys/gsd-media-keys-manager.c:259
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -870,13 +1017,33 @@ msgstr ""
 "സിസ്റ്റം നിദ്രയിലാക്കുവാന്‍ പറ്റിയില്ല .\n"
 "സിസ്റ്റം ശരിയായി ക്രമീകരിച്ചിരിക്കുന്നു എന്ന് ഉറപ്പ് വരുത്തുക."
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+msgid "Disabled"
+msgstr "പ്രവര്‍ത്തന രഹിതം"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "%u ഔട്ട്പുട്ട്"
+msgstr[1] "%u ഔട്ട്പുട്ടുകള്‍"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "%u ഇന്‍പുട്ട്"
+msgstr[1] "%u ഇന്‍പുട്ടുകള്‍"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
 msgid "System Sounds"
 msgstr "സിസ്റ്റത്തിന്റെ ശബ്ദങ്ങള്‍"
-
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
-msgid "GNOME Volume Control"
-msgstr "ഗ്നോം വോള്യം കണ്ട്രോള്‍"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -886,15 +1053,15 @@ msgstr "മാധ്യമ സംയോജകം"
 msgid "Media keys plugin"
 msgstr " സംയോജകം"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:625
+#: ../plugins/mouse/gsd-mouse-manager.c:891
 msgid "Could not enable mouse accessibility features"
 msgstr "മൌസ് ഉപയുക്തി സവിശേഷതകള്‍  പ്രാവര്‍ത്തികമാക്കാനായില്ല"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:627
+#: ../plugins/mouse/gsd-mouse-manager.c:893
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "മൌസ് സാമീപ്യത മൌസ്-ട്വീക്സ് നിങ്ങളുടെ സിസ്റ്റത്തില്‍ ഉണ്ടാവണം എന്ന് ആവശ്യപെടുന്നു."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:630
+#: ../plugins/mouse/gsd-mouse-manager.c:896
 msgid "Mouse Preferences"
 msgstr "മൌസ് മുന്‍‌ഗണനകള്‍"
 
@@ -905,29 +1072,6 @@ msgstr "മൌസ്"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "മൌസ് സംയോജകം"
-
-#: ../plugins/screensaver/gsd-screensaver-manager.c:136
-#, c-format
-msgid ""
-"There was an error starting up the screensaver:\n"
-"\n"
-"%s\n"
-"\n"
-"Screensaver functionality will not work in this session."
-msgstr ""
-"സ്ക്രീന്‍ സേവര്‍ ആരംഭിക്കുന്നതില്‍ പിശക്:\n"
-"\n"
-"%s\n"
-"\n"
-"ഈ സെഷനില്‍ സ്ക്രീന്‍ സേവര്‍ പ്രവര്‍ത്തിക്കുന്നതല്ല."
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
-msgid "Screensaver"
-msgstr "സ്ക്രീന്‍ സേവര്‍"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
-msgid "Screensaver plugin"
-msgstr "സ്ക്രീന്‍സേവര്‍  സംയോജകം"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -945,82 +1089,86 @@ msgstr "സ്ക്രീന്‍ വലിപ്പവും തിരിക�
 msgid "XRandR"
 msgstr "XRandR(എക്സ്-റാന്റ്-ആര്‍)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+#: ../plugins/xrandr/gsd-xrandr-manager.c:208
 msgid "Could not restore the display's configuration"
 msgstr "പ്രദര്‍ശനത്തിനുള്ള ക്രമീകരണം വീണ്ടെടുക്കുവാന്‍ സാധ്യമല്ല"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+#: ../plugins/xrandr/gsd-xrandr-manager.c:233
 msgid "Could not restore the display's configuration from a backup"
 msgstr "ഒരു ബാക്കപ്പില്‍ നിന്നും പ്രദര്‍ശനത്തിനുള്ള ക്രമീകരണം വീണ്ടെടുക്കുവാന്‍ സാധ്യമല്ല"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:166
+#: ../plugins/xrandr/gsd-xrandr-manager.c:254
 #, c-format
-msgid "The display will be reset to its previous configuration in %d seconds"
-msgstr "%d സെക്കന്‍ഡില്‍ ഡിസ്പ്ലെ മുമ്പുള്ള ക്രമീകരണത്തിലേക്കു് സജ്ജമാക്കപ്പെടുന്നു."
+#| msgid ""
+#| "The display will be reset to its previous configuration in %d seconds"
+msgid "The display will be reset to its previous configuration in %d second"
+msgid_plural "The display will be reset to its previous configuration in %d seconds"
+msgstr[0] "%d സെക്കന്‍ഡില്‍ ഡിസ്പ്ലെ മുമ്പുള്ള ക്രമീകരണത്തിലേക്കു് സജ്ജമാക്കപ്പെടുന്നു."
+msgstr[1] "%d സെക്കന്‍ഡില്‍ ഡിസ്പ്ലെ മുമ്പുള്ള ക്രമീകരണത്തിലേക്കു് സജ്ജമാക്കപ്പെടുന്നു."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+#: ../plugins/xrandr/gsd-xrandr-manager.c:303
 msgid "Does the display look OK?"
 msgstr "പ്രദര്‍ശനം ശരിയാണോ?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:218
+#: ../plugins/xrandr/gsd-xrandr-manager.c:309
 msgid "_Restore Previous Configuration"
 msgstr "മുമ്പുള്ള ക്രമീകരണം _വീണ്ടെടുക്കുക"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:219
+#: ../plugins/xrandr/gsd-xrandr-manager.c:310
 msgid "_Keep This Configuration"
 msgstr "ഈ ക്രമീകരണം _സൂക്ഷിക്കുക"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:256
-#| msgid "The selected rotation could not be applied"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:391
 msgid "The selected configuration for displays could not be applied"
 msgstr "പ്രദര്‍ശനത്തിനായി തെരഞ്ഞെടുത്ത ക്രമീകരണം പ്രായോഗികമാക്കാനായില്ല"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:702
+#: ../plugins/xrandr/gsd-xrandr-manager.c:945
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "സ്ക്രീന്‍ വിവരം പുതുക്കുവാന്‍ സാധ്യമായില്ല: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:705
+#: ../plugins/xrandr/gsd-xrandr-manager.c:948
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "മോണിറ്റര്‍ ക്രമീകരണം എങ്ങനെയെങ്കിലും സ്വിച്ച് ചെയ്യുവാന്‍ ശ്രമിക്കുക."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:739
+#: ../plugins/xrandr/gsd-xrandr-manager.c:982
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1148
 msgid "Could not switch the monitor configuration"
 msgstr "മോണിറ്റര്‍ ക്രമീകരണം സ്വിച്ച് ചെയ്യുവാന്‍ സാധ്യമായില്ല"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1541
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>തിരിയ്ക്കുന്നതിനുള്ള പിന്തുണയില്ല</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1595
 msgid "Could not save monitor configuration"
 msgstr "മോണിറ്റര്‍ ക്രമീകരണം സൂക്ഷിക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1613
 msgid "Normal"
 msgstr "സാധാരണ"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1614
 msgid "Left"
 msgstr "ഇടത്"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1615
 msgid "Right"
 msgstr "വലത്ത്"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1616
 msgid "Upside Down"
 msgstr "തല തിരിച്ചു്"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1735
 msgid "_Configure Display Settings ..."
 msgstr "അവതരണ സജ്ജീകരണങ്ങള്‍ _ക്രമീകരിക്കുക..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1776
 msgid "Configure display settings"
 msgstr "അവതരണ സജ്ജീകരണങ്ങള്‍ ക്രമീകരിക്കുക"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1830
 msgid "Could not apply the stored configuration for monitors"
 msgstr "മോണിറ്ററുകള്‍ക്കുള്ള സൂക്ഷിച്ചിട്ടുള്ള ക്രമീകരണം പ്രായോഗികമാക്കുവാന്‍ സാധ്യമായില്ല"
 
