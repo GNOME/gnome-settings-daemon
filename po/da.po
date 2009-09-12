@@ -20,6 +20,9 @@
 #   typing break -> tastepause
 #   plugin -> modul
 #
+# Specielt:
+#   volume -> diskenhed.  Dette diskuteres i øjeblikket; det vil måske være nødvendigt at ændre det senere
+#
 # Undgå sammensætninger med 'indstil x' fordi indstil også kan betyde stop.
 # Vær opmærksom på at ordet key bruges både i betydningen nøgle og (genvejs)tast
 #
@@ -27,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-30 18:58+0200\n"
-"PO-Revision-Date: 2009-05-15 00:29+0200\n"
+"POT-Creation-Date: 2009-09-12 03:15+0200\n"
+"PO-Revision-Date: 2009-09-12 02:11+0200\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +42,66 @@ msgstr ""
 #: ../data/50-accessibility.xml.in.h:1
 msgid "Accessibility"
 msgstr "Tilgængelighed"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+msgid "Free percentage notify threshold"
+msgstr "Påmindelsestærskel for fri plads i procent"
+
+# Meddelelsen ovenfor har noget at gøre med, at hvis der er mindre end X procent fri plads, så vises en advarsel.  Denne meddelelse, derimod, sørger for, at hvis X procent af den samlede plads udgør mindst Y harddiskplads i alt, så vises ingen advarsel alligevel
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
+msgid "Free space no notify threshold"
+msgstr "Tærskel for ikke at give påmindelser om fri plads"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+msgid "Minimum notify period for repeated warnings"
+msgstr "Minimal påmindelsesperiode for gentagne advarsler"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+msgid "Mount paths to ignore"
+msgstr "Monteringsstier, der skal ignoreres"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown"
+msgstr ""
+"Mængden af fri plads i procent, der giver anledning til første advarsel om "
+"lav diskplads. Hvis procentdelen af fri plads kommer under dette, vises en "
+"advarsel"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr ""
+"Angiv en liste af monteringsstier, der ignoreres når de er ved at løbe tør "
+"for diskplads."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+"Angiv en tid i minutter. Efterfølgende advarsler for en diskenhed vil ikke "
+"blive vist oftere end dette interval."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown"
+msgstr ""
+"Angiv en pladsmængde i GB. Hvis mængden af fri plads er større end denne, "
+"vil ingen advarsel blive vist"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning"
+msgstr ""
+"Angiv procentdelen hvortil mængden af fri plads skal reduceres, før der "
+"bliver givet en yderligere advarsel"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
+msgid "Subsequent free percentage notify threshold"
+msgstr "Efterfølgende påmindelsestærskel for fri plads i procent"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -200,26 +263,6 @@ msgstr "Lydstyrkeskridt som procent af lydstyrke."
 msgid "Volume up"
 msgstr "Forøg lydstyrken"
 
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
-msgid ""
-"Set to True to display a dialog when there are errors running the "
-"screensaver."
-msgstr ""
-"Sæt til \"True\" for at vise et vindue når der opstår en fejl ved kørsel af "
-"pauseskærm."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
-msgid "Set to True to run the screensaver at login."
-msgstr "Sæt til \"True\" for at køre pauseskærmen ved indlogning."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:3
-msgid "Show startup errors"
-msgstr "Vis startfejl"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
-msgid "Start screensaver"
-msgstr "Start pauseskærm"
-
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
 msgid ""
 "If a notification icon with display related things should be shown in the "
@@ -301,6 +344,51 @@ msgstr ""
 "Hvis udfyldt, vil tastegenveje blive ignoreret, med mindre deres GConf-mappe "
 "er i listen. Dette er brugbart i forbindelse med låsning."
 
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
+msgid "Disable touchpad while typing"
+msgstr "Deaktivér touchpad når der skrives"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
+msgid "Enable horizontal scrolling"
+msgstr "Aktivér vandret rulning"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
+msgid "Enable mouse clicks with touchpad"
+msgstr "Aktivér museklik med touchpad"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
+msgid "Select the touchpad scroll method"
+msgstr "Vælg rullemetoden for touchpad"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
+msgid ""
+"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
+"edge scrolling, 2 - two-finger scrolling"
+msgstr ""
+"Vælg touchpaddens rullemetode. Understøttede værdier er: 0 - deaktiveret, 1 "
+"- kantrulning, 2 - tofingerrulning"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Sæt denne til TRUE hvis du kommer til at ramme touchpadden mens du skriver."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Sæt denne til TRUE for at tillade vandret rulning ved samme metode, som "
+"vælges med nøglen scroll_method."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Sæt denne til TRUE for at muliggøre museklik ved at trykke på touchpadden."
+
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "GNOME-indstillingsdæmon"
@@ -370,46 +458,42 @@ msgid "Enable mouse plugin"
 msgstr "Aktivér musemodul"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable screensaver plugin"
-msgstr "Aktivér pauseskærmsmodul"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "Aktivér lydmodul"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable typing breaks plugin"
 msgstr "Aktivér tastepausemodul"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable xrandr plugin"
 msgstr "Aktivér xrandr-modul"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrdb plugin"
 msgstr "Aktivér xrdb-modul"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xsettings plugin"
 msgstr "Aktivér xsettings-modul"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Mouse keys"
 msgstr "Musetaster"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "On-screen keyboard"
 msgstr "Skærmtastatur"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Screen magnifier"
 msgstr "Skærmforstørrelse"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen reader"
 msgstr "Skærmoplæser"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -417,52 +501,46 @@ msgstr ""
 "Sæt til \"True\" for at aktivere husholdningsmodulet, som beskærer "
 "midlertidige filer."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "Sæt til \"True\" for at aktivere modulet til at håndtere indstillinger for "
 "udklipsholderen."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Sæt til \"True\" for at aktivere modulet til at håndtere indstillinger for "
 "skrivebordsbaggrund."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 "Sæt til \"True\" for at aktivere modulet til at håndtere "
 "skrifttypeindstillinger."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 "Sæt til \"True\" for at aktivere modulet til at håndtere "
 "tastaturindstillinger."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 "Sæt til \"True\" for at aktivere modulet til at håndtere museindstillinger."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr "Sæt til \"True\" for at aktivere modulet for multimedietaster."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid "Set to True to enable the plugin to manage screensaver settings."
-msgstr ""
-"Sæt til \"True\" for at aktivere modulet til at håndtere "
-"pauseskærmsindstillinger."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr ""
 "Sæt til \"True\" for at aktivere modulet til at håndtere mellemlager til "
 "prøver."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -470,51 +548,51 @@ msgstr ""
 "Sæt til \"True\" for at aktivere modulet til at håndtere "
 "tastaturtilgængelighedsindstillinger."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "Sæt til \"True\" for at aktivere modulet til at håndtere tastegenveje."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Sæt til \"True\" for at aktivere modulet for tastepauser."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr ""
 "Sæt til \"True\" for at aktivere modulet til at håndtere xrandr-"
 "indstillinger."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr ""
 "Sæt til \"True\" for at aktivere modulet til at håndtere xrdb-indstillinger."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Sæt til \"True\" for at aktivere modulet til at håndtere xsettings."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Slow keys"
 msgstr "Langsomme taster"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Sticky keys"
 msgstr "Klæbetaster"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr ""
 "Navnet på tastaturgenvejen, der aktiverer/deaktiverer skærmforstørrelse"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "Navnet på tastaturgenvejen, der aktiverer/deaktiverer skærmtastatur"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "The name of the keyboard shortcut to toggle the screenreader"
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "Navnet på tastaturgenvejen, der aktiverer/deaktiverer skærmoplæseren"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
@@ -523,7 +601,7 @@ msgstr ""
 "skærmforstørrelse. Dette navn vil blive vist i indstillingsvinduet for "
 "tastaturgenveje."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
@@ -532,56 +610,52 @@ msgstr ""
 "skærmtastaturet. Dette navn vil blive vist i indstillingsvinduet for "
 "tastaturgenveje."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid ""
-"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
 "Dette er navnet på tastaturgenvejen, der aktiverer/deaktiverer "
 "skærmoplæseren. Dette navn vil blive vist i indstillingsvinduet for "
 "tastaturgenveje."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
 msgstr "Slå skærmforstørrelse til eller fra"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid "Toggle on-screen keyboard"
 msgstr "Slå skærmtastatur til eller fra"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle screen reader"
 msgstr "Slå skærmoplæser til eller fra"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Toggle screenreader"
-msgstr "Slå skærmoplæser til eller fra"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "Hvorvidt tastaturtilgængelighedsfunktionen rystetaster er slået til."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "Hvorvidt tastaturtilgængelighedsfunktionen musetaster er slået til."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "Om skærmtastaturet er slået til."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the screen magnifier is turned on."
 msgstr "Om skærmforstørrelse er slået til."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:58
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the screen reader is turned on."
 msgstr "Om skærmoplæseren er slået til."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:59
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "Om tastaturtilgængelighedsfunktionen langsomme taster er slået til."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:60
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Om tastaturtilgængelighedsfunktionen klæbetaster er slået til."
 
@@ -707,42 +781,42 @@ msgstr ""
 msgid "Sticky Keys Alert"
 msgstr "Blivende taster"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Indstillinger for universel tilgang"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Enhance _contrast in colors"
 msgstr "Forøg farve_kontrast"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
 msgid "Make _text larger and easier to read"
 msgstr "Gør _teksten større og lettere at læse"
 
 # mystisk formulering
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr ""
 "Tryk på taster og _hold dem nede for at acceptere dem (langsomme taster)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
 msgstr "Brug skærm_tastatur"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
 msgid "Use screen _magnifier"
 msgstr "Brug skærm_forstørrelse"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
 msgid "Use screen _reader"
 msgstr "Brug skærmop_læser"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
 msgstr "_Ignorér gentagne tastetryk (afvis gentagelser)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "Anvend _tastekombinationer en enkelt tast ad gangen (klæbetaster)"
 
@@ -778,18 +852,112 @@ msgstr "Skrifttype"
 msgid "Font plugin"
 msgstr "Skrifttypemodul"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:122
-#, c-format
-msgid "%d%% of the disk space on `%s' is in use"
-msgstr "%d%% af diskpladsen på \"%s\" er i brug"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+msgid "Don't show any warnings again for this filesystem"
+msgstr "Vis ikke nogen advarsler igen for dette filsystem"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:130
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+msgid "Don't show any warnings again"
+msgstr "Vis ikke nogen advarsler igen"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "Diskenheden \"%s\" har kun %s resterende diskplads."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "Denne computer har kun %s resterende diskplads."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
+msgstr ""
+"Du kan frigøre diskplads ved at tømme papirkurven, ved at fjerne ubenyttede "
+"programmer eller filer, eller ved at flytte filer til en anden disk eller "
+"partition."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
+msgstr ""
+"Du kan frigøre plads ved at fjerne ubenyttede programmer eller filer, eller "
+"ved at flytte filer til en anden disk eller partition."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr ""
+"Du kan frigøre plads ved at tømme papirkurven, fjerne ubenyttede programmer "
+"eller filer, eller ved at flytte filer til en ekstern disk."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr ""
+"Du kan frigøre plads ved at fjerne ubrugte programmer eller filer, eller ved "
+"at flytte filer til en ekstern disk."
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
 msgstr "Lav resterende diskplads"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:141
-msgid "Analyze"
-msgstr "Analysér"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
+msgid "Empty Trash"
+msgstr "Tøm papirkurv"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
+msgid "Examine..."
+msgstr "Undersøg..."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
+msgid "Ignore"
+msgstr "Ignorér"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#, c-format
+msgid "Removing item %lu of %lu"
+msgstr "Fjerner element %lu af %lu"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#, c-format
+msgid "<i>Removing: %s</i>"
+msgstr "<i>Fjerner: %s</i>"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+msgid "Emptying the trash"
+msgstr "Tømmer papirkurven"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+msgid "Preparing to empty trash..."
+msgstr "Forbereder tømning af papirkurven..."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+msgid "From: "
+msgstr "Fra: "
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+msgid "Empty all of the items from the trash?"
+msgstr "Slet alle elementerne fra papirkurven?"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+msgid ""
+"If you choose to empty the trash, all items in it will be permanently lost. "
+"Please note that you can also delete them separately."
+msgstr ""
+"Hvis du vælger at tømme papirkurven, vil alle elementer i den gå permanent "
+"tabt. Bemærk venligst, at du også kan slette dem enkeltvis."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+msgid "_Empty Trash"
+msgstr "_Tøm papirkurv"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -801,7 +969,7 @@ msgstr "Tastegenvejen (%s) er ugyldig"
 msgid "Key binding (%s) is incomplete"
 msgstr "Tastegenvejen (%s) er ufuldstændig"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:491
+#: ../plugins/keybindings/gsd-keybindings-manager.c:493
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -826,32 +994,31 @@ msgstr "Tastatur"
 msgid "Keyboard plugin"
 msgstr "Tastaturmodul"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:1
+#: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
 msgstr "_Tilgængelige filer:"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:2
+#: ../plugins/keyboard/modmap-dialog.ui.h:2
 msgid "Load modmap files"
 msgstr "Indlæs modmap-filer"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
+#: ../plugins/keyboard/modmap-dialog.ui.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "Vil du indlæse modmap-filerne?"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+#: ../plugins/keyboard/modmap-dialog.ui.h:4
 msgid "_Do not show this message again"
 msgstr "_Vis ikke denne besked igen"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:5
+#: ../plugins/keyboard/modmap-dialog.ui.h:5
 msgid "_Load"
 msgstr "_Indlæs"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:6
+#: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "_Indlæste filer:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:206
+#: ../plugins/media-keys/gsd-media-keys-manager.c:204
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -859,7 +1026,7 @@ msgstr ""
 "Kunne ikke finde standardterminal. Sikr dig, at kommandoen til din "
 "standardterminal er indstillet og peger på et gyldigt program."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:246
+#: ../plugins/media-keys/gsd-media-keys-manager.c:244
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -868,7 +1035,7 @@ msgstr ""
 "Kunne ikke køre kommandoen: %s\n"
 "Kontrollér at kommandoen er gyldig."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:262
+#: ../plugins/media-keys/gsd-media-keys-manager.c:260
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -876,13 +1043,33 @@ msgstr ""
 "Kunne ikke sætte maskinen i dvale.\n"
 "Kontrollér at maskinen er konfiguret korrekt."
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+msgid "Disabled"
+msgstr "Deaktiveret"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "%u output"
+msgstr[1] "%u output"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "%u input"
+msgstr[1] "%u input"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
 msgid "System Sounds"
 msgstr "Systemlyde"
-
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
-msgid "GNOME Volume Control"
-msgstr "Lydstyrkekontrol til GNOME"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -892,16 +1079,16 @@ msgstr "Medietaster"
 msgid "Media keys plugin"
 msgstr "Medietastmodul"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:625
+#: ../plugins/mouse/gsd-mouse-manager.c:795
 msgid "Could not enable mouse accessibility features"
 msgstr "Kunne ikke aktivere musetilgængelighedsfaciliteter"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:627
+#: ../plugins/mouse/gsd-mouse-manager.c:797
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "Musetilgængelighed kræver at mousetweaks er installeret på dit system."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:630
+#: ../plugins/mouse/gsd-mouse-manager.c:800
 msgid "Mouse Preferences"
 msgstr "Indstillinger for mus"
 
@@ -912,29 +1099,6 @@ msgstr "Mus"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Musemodul"
-
-#: ../plugins/screensaver/gsd-screensaver-manager.c:136
-#, c-format
-msgid ""
-"There was an error starting up the screensaver:\n"
-"\n"
-"%s\n"
-"\n"
-"Screensaver functionality will not work in this session."
-msgstr ""
-"Der opstod en fejl under start af pauseskærmen:\n"
-"\n"
-"%s\n"
-"\n"
-"Pauseskærmen vil ikke fungere i denne session."
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
-msgid "Screensaver"
-msgstr "Pauseskærm"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
-msgid "Screensaver plugin"
-msgstr "Pauseskærmsmodul"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -952,88 +1116,89 @@ msgstr "Indstil skærmstørrelse og rotation"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:161
+#: ../plugins/xrandr/gsd-xrandr-manager.c:208
 msgid "Could not restore the display's configuration"
 msgstr "Kunne ikke genoprette displaykonfigurationen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:186
+#: ../plugins/xrandr/gsd-xrandr-manager.c:233
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Kunne ikke genoprette displaykonfigurationen fra sikkerhedskopi"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:207
-#, fuzzy, c-format
+#: ../plugins/xrandr/gsd-xrandr-manager.c:254
+#, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] ""
 "Skærmtilstanden vil blive nulstillet til dens sidste konfiguration om %d "
-"sekunder"
+"sekund"
 msgstr[1] ""
 "Skærmtilstanden vil blive nulstillet til dens sidste konfiguration om %d "
 "sekunder"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:257
+#: ../plugins/xrandr/gsd-xrandr-manager.c:303
 msgid "Does the display look OK?"
 msgstr "Ser skærmbilledet acceptabelt ud?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:263
+#: ../plugins/xrandr/gsd-xrandr-manager.c:309
 msgid "_Restore Previous Configuration"
 msgstr "_Gendan foregående konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:264
+#: ../plugins/xrandr/gsd-xrandr-manager.c:310
 msgid "_Keep This Configuration"
 msgstr "_Behold denne konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:306
+#: ../plugins/xrandr/gsd-xrandr-manager.c:391
 msgid "The selected configuration for displays could not be applied"
 msgstr "Den valgte displaykonfiguration kunne ikke anvendes"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:781
+#: ../plugins/xrandr/gsd-xrandr-manager.c:945
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Kunne ikke genopfriske skærminformation: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:784
+#: ../plugins/xrandr/gsd-xrandr-manager.c:948
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Forsøger at ændre monitorkonfiguration alligevel."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:818
+#: ../plugins/xrandr/gsd-xrandr-manager.c:982
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1148
 msgid "Could not switch the monitor configuration"
 msgstr "Kunne ikke ændre monitorkonfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1121
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1541
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Rotation understøttes ikke</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1175
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1595
 msgid "Could not save monitor configuration"
 msgstr "Kunne ikke gemme monitorkonfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1193
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1613
 msgid "Normal"
 msgstr "Normal"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1194
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1614
 msgid "Left"
 msgstr "Venstre"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1195
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1615
 msgid "Right"
 msgstr "Højre"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1196
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1616
 msgid "Upside Down"
 msgstr "På hovedet"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1315
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1735
 msgid "_Configure Display Settings ..."
 msgstr "_Konfigurér skærmindstillinger ..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1356
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1776
 msgid "Configure display settings"
 msgstr "Konfigurér skærmindstillinger"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1410
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1830
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kunne ikke anvende gemt konfiguration for monitorer"
 
@@ -1062,6 +1227,61 @@ msgstr "Håndtér indstillinger for X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X-indstillinger"
+
+#~ msgid "GNOME Volume Control"
+#~ msgstr "Lydstyrkekontrol til GNOME"
+
+#~ msgid ""
+#~ "Set to True to display a dialog when there are errors running the "
+#~ "screensaver."
+#~ msgstr ""
+#~ "Sæt til \"True\" for at vise et vindue når der opstår en fejl ved kørsel "
+#~ "af pauseskærm."
+
+#~ msgid "Set to True to run the screensaver at login."
+#~ msgstr "Sæt til \"True\" for at køre pauseskærmen ved indlogning."
+
+#~ msgid "Show startup errors"
+#~ msgstr "Vis startfejl"
+
+#~ msgid "Start screensaver"
+#~ msgstr "Start pauseskærm"
+
+#~ msgid "Enable screensaver plugin"
+#~ msgstr "Aktivér pauseskærmsmodul"
+
+#~ msgid "Set to True to enable the plugin to manage screensaver settings."
+#~ msgstr ""
+#~ "Sæt til \"True\" for at aktivere modulet til at håndtere "
+#~ "pauseskærmsindstillinger."
+
+#~ msgid "Toggle screenreader"
+#~ msgstr "Slå skærmoplæser til eller fra"
+
+#~ msgid "%d%% of the disk space on `%s' is in use"
+#~ msgstr "%d%% af diskpladsen på \"%s\" er i brug"
+
+#~ msgid "Analyze"
+#~ msgstr "Analysér"
+
+#~ msgid ""
+#~ "There was an error starting up the screensaver:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Screensaver functionality will not work in this session."
+#~ msgstr ""
+#~ "Der opstod en fejl under start af pauseskærmen:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Pauseskærmen vil ikke fungere i denne session."
+
+#~ msgid "Screensaver"
+#~ msgstr "Pauseskærm"
+
+#~ msgid "Screensaver plugin"
+#~ msgstr "Pauseskærmsmodul"
 
 #~ msgid "Do _not show this warning again."
 #~ msgstr "Vis _ikke denne advarsel igen."
@@ -2159,9 +2379,6 @@ msgstr "X-indstillinger"
 #~ msgid "Retrieve and store legacy settings"
 #~ msgstr "Fremskaf og gem gamle indstillinger"
 
-#~ msgid "Copying file: %u of %u"
-#~ msgstr "Kopierer fil: %u af %u"
-
 #~ msgid "Copying '%s'"
 #~ msgstr "Kopierer \"%s\""
 
@@ -2646,9 +2863,6 @@ msgstr "X-indstillinger"
 
 #~ msgid "The type of accelerator."
 #~ msgstr "Genvejstypen."
-
-#~ msgid "Disabled"
-#~ msgstr "Deaktiveret"
 
 #~ msgid "<Unknown Action>"
 #~ msgstr "<ukendt handling>"
@@ -3174,9 +3388,6 @@ msgstr "X-indstillinger"
 #~ "Der er kendte problemer med komplekse XKB-konfigurationer.\n"
 #~ "Prøv en simplere konfiguration eller en nyere udgave af XFree."
 
-#~ msgid "Do _not show this warning again"
-#~ msgstr "Vis _ikke denne besked igen"
-
 #~ msgid ""
 #~ "<b>The X system keyboard settings differ from your current GNOME keyboard "
 #~ "settings.</b>\n"
@@ -3278,9 +3489,6 @@ msgstr "X-indstillinger"
 #~ msgid "<b>Open</b>"
 #~ msgstr "<b>Åbn</b>"
 
-#~ msgid "Rename..."
-#~ msgstr "Omdøb..."
-
 #~ msgid "Send To..."
 #~ msgstr "Send til..."
 
@@ -3338,9 +3546,6 @@ msgstr "X-indstillinger"
 
 #~ msgid "Find Now"
 #~ msgstr "Find nu"
-
-#~ msgid "<b>Open %s</b>"
-#~ msgstr "<b>Åbn %s</b>"
 
 #~ msgid "Remove from System Items"
 #~ msgstr "Fjern fra systemelementer"
@@ -4001,9 +4206,6 @@ msgstr "X-indstillinger"
 
 #~ msgid "Old pa_ssword:"
 #~ msgstr "Gammel adgang_skode:"
-
-#~ msgid "From:"
-#~ msgstr "Fra:"
 
 #~ msgid "To:"
 #~ msgstr "Til:"
