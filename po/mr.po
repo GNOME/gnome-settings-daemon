@@ -1,17 +1,18 @@
-# translation of gnome-settings-daemon.HEAD.mr.po to marathi
+# translation of mr.po to Marathi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Rahul Bhalerao <b.rahul.pm@gmail.com>, 2006.
 # Sandeep Shedmake <sandeep.shedmake@gmail.com>, 2008, 2009.
+# Sandeep Shedmake <sshedmak@redhat.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.HEAD.mr\n"
+"Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-02-23 21:39+0000\n"
-"PO-Revision-Date: 2009-03-13 13:15+0530\n"
-"Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
-"Language-Team: marathi\n"
+"POT-Creation-Date: 2009-08-18 13:03+0000\n"
+"PO-Revision-Date: 2009-09-14 12:48+0530\n"
+"Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
+"Language-Team: Marathi <fedora-trans-mr@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,9 +20,56 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../data/50-accessibility.xml.in.h:1
-#| msgid "Accessibility Keyboard"
 msgid "Accessibility"
 msgstr "सुलभता"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+msgid "Free percentage notify threshold"
+msgstr "मोकळी टक्केवारी सूचना मर्यादा"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
+msgid "Free space no notify threshold"
+msgstr "मोकळी जागा क्रमांक सूचना मर्यादा"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+msgid "Minimum notify period for repeated warnings"
+msgstr "सतत सावधानतासाठी कमाल सूचना कालावधी"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+msgid "Mount paths to ignore"
+msgstr "दुर्लक्ष करण्याजोगी माऊंट मार्गे"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown"
+msgstr "कमी डिस्क जागेच्या प्रारंभीक सावधानता करीता मोकळी जागा मर्यादेची टक्केवारी. मोकळी जागा टक्केवारी याच्या खाली आढळल्यास, सावधानता दाखवली जाईल"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr "जागा कमी पडत असल्यास दुर्लक्ष करण्याजोगी माऊंट मार्गांची सूची निर्देशीत करा."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr "वेळ मिनीटांत निर्देशीत करा. खंडकरीता या कालावधीपेक्षा जास्तवेळी सावधानता वारंवार आढळणार नाही."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown"
+msgstr "प्रमाण GB मध्ये निर्देशीत करा. मोकळी जागा यापेक्षा जास्त असल्यास, कुठलिही सावधानता दाखवली जाणार नाही"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning"
+msgstr "परस्पर सावधानता दाखवण्यापूर्वी मोकळी डिस्क जागा कमी करण्यासाठी टक्केवारी निर्देशीत करा"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
+msgid "Subsequent free percentage notify threshold"
+msgstr "परस्पर रिमाकी टक्केवारी सूचना मर्यादा"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -183,24 +231,6 @@ msgstr "आवाज वाढ टक्केवारी स्वरूपा
 msgid "Volume up"
 msgstr "आवाज जास्त"
 
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
-msgid ""
-"Set to True to display a dialog when there are errors running the "
-"screensaver."
-msgstr "स्क्रीनसेवर चालवितेवेळी त्रुटी आढळल्यास संवाद दर्शविण्यासाठी खरे असे निश्चित करा."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
-msgid "Set to True to run the screensaver at login."
-msgstr "दाखलनवेळी स्क्रीनसेवर चालविण्याकरीता खरे असे निश्चित केले जाते."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:3
-msgid "Show startup errors"
-msgstr "प्रारंभवेळीचे त्रुटी दर्शवा"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
-msgid "Start screensaver"
-msgstr "स्क्रीनसेवर सुरू करा"
-
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
 msgid ""
 "If a notification icon with display related things should be shown in the "
@@ -268,7 +298,6 @@ msgstr ""
 "उपपीक्सेल अलायसींग करीता (फक्त LCD पडदा करीता)."
 
 #: ../data/desktop_gnome_keybindings.schemas.in.h:1
-#| msgid "Media keys"
 msgid "Allowed keys"
 msgstr "स्वीकार्य किज्"
 
@@ -280,22 +309,58 @@ msgstr ""
 "रिकामे नसल्यास, किबाइन्डींग तोपर्यंत दुर्लक्ष केले जाईल जोपर्यंत त्यांची GConf डिरेक्ट्री "
 "यादीत उपल्बध आहे. lockdown करीता उपयोगी आहे."
 
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
+msgid "Disable touchpad while typing"
+msgstr "टाईपकरतेवेळी टचपॅड अकार्यक्षम करा"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
+#| msgid "Enable font plugin"
+msgid "Enable horizontal scrolling"
+msgstr "आडवे स्क्रोलींग कार्यक्षम करा"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
+msgid "Enable mouse clicks with touchpad"
+msgstr "टचपॅडसह माऊस क्लिक्स् कार्यक्षम करा"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
+msgid "Select the touchpad scroll method"
+msgstr "टचपॅड स्क्रोल पद्धत नीवडा"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
+msgid ""
+"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
+"edge scrolling, 2 - two-finger scrolling"
+msgstr "टचपॅड स्क्रोल पद्धत नीवडा. समर्थीत मूल्ये असे आहेत: 0 - अकार्यक्षम, 1 - किनार स्क्रोलींग, 2 - दोन-बोटांचे स्क्रोलींग"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr "टाईप करतेवेळी टचपॅडला चुकीने हात लागल्यास यांस TRUE सेट करा."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr "scroll_method कि सह समान पद्धत नीवडले असल्यास आडवे स्क्रोलींग स्वीकारण्याकरीता याला TRUE असे सेट करा."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr "टचपॅडवर टॅप केल्यानंतर माऊस क्लिक्स् पाठवण्यासाठी यांस TRUE असे सेट करा."
+
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "GNOME संयोजना डीमन"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
-#| msgid "Binding to open the Home folder."
 msgid "Binding to toggle the magnifier."
 msgstr "वर्धक टॉगल करण्याकरीता बांधणी करत आहे."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:2
-#| msgid "Binding to lock the screen."
 msgid "Binding to toggle the on-screen keyboard."
 msgstr "ऑन-स्क्रीन कळफलक टॉगल करण्याकरीता बांधणी करत आहे."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:3
-#| msgid "Binding to lock the screen."
 msgid "Binding to toggle the screen reader."
 msgstr "स्क्रीन रिडर टॉगल करण्याकरीता बांधणी करत आहे."
 
@@ -312,7 +377,6 @@ msgid "Command used to turn the on-screen keyboard on or off."
 msgstr "ऑन-स्क्रीन कळफलक सुरू किंवा बंद करण्याकरीता वपारण्याजोगी आदेश."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:7
-#| msgid "Set to True to run the screensaver at login."
 msgid "Command used to turn the screen reader on or off."
 msgstr "स्क्रीन रिडीर सुरू किंवा बंद करण्याकरीता वापरण्याजोगी आदेश."
 
@@ -353,50 +417,42 @@ msgid "Enable mouse plugin"
 msgstr "माऊस प्लगइन कार्यान्वीत करा"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable screensaver plugin"
-msgstr "स्क्रीनसेवर प्लगइन कार्यान्वीत करा"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "आवाज प्लगइन कार्यान्वीत करा"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable typing breaks plugin"
 msgstr "ब्रेक प्लगइन टाइप करणे कार्यान्वीत करा"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable xrandr plugin"
 msgstr "xrandr प्लगइन कार्यान्वीत करा"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrdb plugin"
 msgstr "xrdb प्लगइन कार्यान्वीत करा"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xsettings plugin"
 msgstr "xsettings प्लगइन कार्यान्वीत करा"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-#| msgid "Media keys"
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Mouse keys"
 msgstr "माऊस किज्"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-#| msgid "Use on-screen _keyboard"
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "On-screen keyboard"
 msgstr "ऑन-स्क्रीन कळफलक"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-#| msgid "Use screen _magnifier"
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Screen magnifier"
 msgstr "स्क्रीन वर्धक"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
-#| msgid "Use screen _reader"
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen reader"
 msgstr "स्क्रीन रिडर"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -404,48 +460,43 @@ msgstr ""
 "हाऊसकिपींग प्लगइन कार्यान्वीत करण्याकरीता खरे असे निश्चित केले जाते, ज्यामुळे फाइल कॅश काढूण "
 "टाकले जातील."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "क्लिपबोर्ड संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित केले "
 "जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "डेस्कटॉप पार्श्वभूमी संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे "
 "निश्चित केले जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "फॉन्ट संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित केले जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "कळफलक संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित केले जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "माऊस संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित केले जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "मल्टिमिडीया कि संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित "
 "केले जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid "Set to True to enable the plugin to manage screensaver settings."
-msgstr ""
-"स्क्रीनसेवर संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित केले "
-"जाते."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
-#| msgid "Set to True to enable the plugin to manage sound settings."
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr "sound sample caches व्यवस्थापन करीता प्लगइन कार्यान्वीत करण्यासाठी True असे निश्चित करा."
+msgstr ""
+"sound sample caches व्यवस्थापन करीता प्लगइन कार्यान्वीत करण्यासाठी True असे निश्चित "
+"करा."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -453,118 +504,111 @@ msgstr ""
 "प्रवेशीय कळफलक संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित "
 "केले जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "कळफलक व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित केले जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "ब्रेक टाईप करणे व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित केले जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "xrandr संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित केले जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "xrdb संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित केले जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr ""
 "xsettings संयोजना व्यवस्थापन करीता प्लगइन कार्यान्वतीत करण्यासाठी खरे असे निश्चित केले "
 "जाते."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
-#| msgid "Slow Keys Alert"
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Slow keys"
 msgstr "हळु किज्"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
-#| msgid "Sticky Keys Alert"
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Sticky keys"
 msgstr "स्टिकी किज्"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "वर्धक टॉगल करण्याकरीता कळफलक शार्टकटचे नाव"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "ऑन-स्क्रीन कळफलक टॉगल करण्याकरीता कळफलक शार्टकटचे नाव"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "The name of the keyboard shortcut to toggle the screenreader"
-msgstr "स्क्रीन रिडर टॉगल करण्याकरीता कळफलक शार्टकटचे नाव"
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+#| msgid "The name of the keyboard shortcut to toggle the screenreader"
+msgid "The name of the keyboard shortcut to toggle the screen reader"
+msgstr "स्क्रीन रीडर टॉगल करण्याकरीता कळफलक शार्टकटचे नाव"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"वर्धक टॉगल करण्याकरीता हे कळफलक शार्टकट नाव वापरा. हे नाव "
-"कळफलक शार्टकट आवड निवड संवाद अंतर्गत दाखविले जाईल."
+"वर्धक टॉगल करण्याकरीता हे कळफलक शार्टकट नाव वापरा. हे नाव कळफलक शार्टकट आवड निवड "
+"संवाद अंतर्गत दाखविले जाईल."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"ऑन-स्क्रीन कळफलक टॉगल करण्याकरीता हे कळफलक शार्टकट नाव वापरा. हे नाव "
-"कळफलक शार्टकट आवड निवड संवाद अंतर्गत दाखविले जाईल."
+"ऑन-स्क्रीन कळफलक टॉगल करण्याकरीता हे कळफलक शार्टकट नाव वापरा. हे नाव कळफलक शार्टकट "
+"आवड निवड संवाद अंतर्गत दाखविले जाईल."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+#| msgid ""
+#| "This is the name of the keyboard shortcut to toggle the screenreader. "
+#| "This name will be shown in the keyboard shortcut preferences dialog."
 msgid ""
-"This is the name of the keyboard shortcut to toggle the screenreader. This "
+"This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"स्क्रीन रिडर टॉगल करण्याकरीता हे कळफलक शार्टकट नाव वापरा. हे नाव "
-"कळफलक शार्टकट आवड निवड संवाद अंतर्गत दाखविले जाईल."
+msgstr "स्क्रीन रीडर टॉगल करण्याकरीता हे कळफलक शार्टकट नाव वापरा. हे नाव कळफलक शार्टकट पसंती संवादात दाखवले जाईल."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
 msgstr "टॉगल वर्धक"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
-#| msgid "Use on-screen _keyboard"
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid "Toggle on-screen keyboard"
 msgstr "ऑन-स्क्रीन कळफलक टॉगल करा"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
-#| msgid "Use screen _reader"
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle screen reader"
 msgstr "स्क्रीन रिडर टॉगल करा"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-#| msgid "Use screen _reader"
-msgid "Toggle screenreader"
-msgstr "स्क्रीनरिडर टॉगल करा"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "बाऊन्स् किज् कळफलक सुलभता गुणविशेष कार्यान्वीत केले आहे का."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "माऊस किज् कळफलक सुलभता गुणविशेष कार्यान्वीत केले आहे का."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "ऑन-स्क्रीन कळफलक कार्यान्वीत केले आहे का."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the screen magnifier is turned on."
 msgstr "पडदा वर्धक कार्यान्वीत केले आहे का."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:58
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the screen reader is turned on."
 msgstr "पडदा वाचक कार्यान्वीत केले आहे का."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:59
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "हळु किज् कळफलक सुलभता गुणविशेष कार्यान्वीत केले आहे का."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:60
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "स्टिकी किज् कळफलक सुलभता गुणविशेष कार्यान्वीत केले आहे का."
 
@@ -593,18 +637,18 @@ msgstr "प्रवेशीय कळफलक प्लगइन"
 msgid "There was an error displaying help: %s"
 msgstr "मदत दर्शवण्यात चूक झाली: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
 msgid "Do you want to activate Slow Keys?"
 msgstr "तुम्हाला हळुवार कि सक्रीय करायचे?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "तुम्हाला हळुवार कि निष्क्रीय करायचे?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -612,62 +656,62 @@ msgstr ""
 "तुम्ही नुकतेच Shift कि 8 सेकंद करीता दाबून ठेवले आहे.  हे हळुवार कि करीता शार्टकट आहे, "
 "ज्यामुळे कळफलकच्या कार्यपद्धतीवर प्रभाव पडतो."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't activate"
 msgstr "सक्रीय करू नका"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:556
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:701
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't deactivate"
 msgstr "निष्क्रीय करू नका"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Activate"
 msgstr "सक्रीय"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:562
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Deactivate"
 msgstr "निष्क्रीय"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't activate"
 msgstr "सक्रीय करू नका (_n)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:768
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't deactivate"
 msgstr "निष्क्रीय करू नका (_n)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Activate"
 msgstr "कार्यान्वीत करा(_A)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:771
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Deactivate"
 msgstr "अकार्यान्वीत करा(_D)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:628
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
 msgid "Slow Keys Alert"
 msgstr "धिमी कि सतर्कता"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
 msgid "Do you want to activate Sticky Keys?"
 msgstr "स्टीकी कि सक्रीय करायचे?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "तुम्हाला स्टिकी कि निष्क्रीय करायचे?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -675,8 +719,8 @@ msgstr ""
 "तुम्ही नुकतेच Shift कि 5 वेळा एका ओळीत दाबून ठेवले होते.  हे हळुवार कि करीता शार्टकट आहे, "
 "ज्यामुळे कळफलकच्या कार्यपद्धतीवर प्रभाव पडतो."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:673
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -685,44 +729,44 @@ msgstr ""
 "तुम्ही नुकतेच दोन कि एकाच वेळा, किंवा Shift कि 5 सेकंद करीता दाबून ठेवले होते.  या हळुवार "
 "कि अकार्यक्षम होते, ज्यामुळे कळफलकच्या कार्यपद्धतीवर प्रभाव पडतो."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:775
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
 msgid "Sticky Keys Alert"
 msgstr "स्टिकी कि सतर्कता"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "जागतिक प्रवेश प्राधान्यता"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Enhance _contrast in colors"
 msgstr "रंग मधिल भेद वाढवा (_c)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
 msgid "Make _text larger and easier to read"
 msgstr "पाठ्य मोठे व वाचन करीता सुलभ करा (_t)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "स्वीकारण्याकरीता कि दाबा व जरा वेळ धरून ठेवा (हळु कि) (_h)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
 msgstr "ऑन-स्क्रीन कळफलक वापरा (_k)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
 msgid "Use screen _magnifier"
 msgstr "स्क्रीन वर्धक वापरा (_m)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
 msgid "Use screen _reader"
 msgstr "पदडा वाचकचा वापर करा (_r)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
 msgstr "पुन्हापुन्हा कि दाबल्यास दुर्लक्ष करा (बाऊन्स् कि) (_I)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "कळफलक शार्टकट करीता एका वेळी एकच कि दाबा (स्टिकी कि) (_P)"
 
@@ -758,18 +802,104 @@ msgstr "फॉन्ट"
 msgid "Font plugin"
 msgstr "फॉन्ट प्लगइन"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:122
-#, c-format
-msgid "%d%% of the disk space on `%s' is in use"
-msgstr "`%2$s' वरील %1$d%% डिस्क जागा वापरणीत आहे"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+msgid "Don't show any warnings again for this filesystem"
+msgstr "या फाइलप्रणालीसाठी कुठल्याही सावधानता पुन्हा दाखवू नका"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:130
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+#| msgid "_Do not show this message again"
+msgid "Don't show any warnings again"
+msgstr "कुठल्याही सावधानता पुन्हा दाखवू नका"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "खंड \"%s\" येथे फक्त %s उर्वरीत डिस्क जागा आढळली."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "या संगणकावर फक्त %s डिस्क जागा उर्वरीत आहे."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
+msgstr "कचरापेटी रिकामी करून, न वापरलेले कार्यक्रम किंवा फाइल्स् काढून, किंवा फाइल्स्ला इतर डिस्क किंवा पार्टिशनवर हलवून तुम्ही डिस्क जागा मोकळी करू शकता."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
+msgstr "न वापरलेले कार्यक्रम किंवा फाइल्स् काढून, किंवा फाइल्स्ला इतर डिस्क किंवा पार्टिशनवर हलवून तुम्ही डिस्क जागा मोकळी करू शकता."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr "कचरापेटी रिकामी करून, न वापरलेले कार्यक्रम किंवा फाइल्स् काढून, किंवा फाइल्स्ला बाहेर डिस्कवर हलवून तुम्ही डिस्क जागा मोकळी करू शकता."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr "न वापरलेले कार्यक्रम किंवा फाइल्स् काढून, किंवा फाइल्स्ला बाहेरील डिस्कवर हलवून तुम्ही डिस्क जागा मोकळी करू शकता."
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
 msgstr "कमी डिस्क जागा"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:141
-msgid "Analyze"
-msgstr "विश्लेषण"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
+msgid "Empty Trash"
+msgstr "कचरापेटी रिकामी करा"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
+msgid "Examine..."
+msgstr "विश्लेषीत करा..."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
+msgid "Ignore"
+msgstr "दुर्लक्ष करा"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#, c-format
+msgid "Removing item %lu of %lu"
+msgstr "%lu पैकी घटक %lu काढून टाकत आहे"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#, c-format
+msgid "<i>Removing: %s</i>"
+msgstr "<i>काढून टाकत आहे: %s</i>"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+msgid "Emptying the trash"
+msgstr "कचरापेटी रिकामे करत आहे"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+msgid "Preparing to empty trash..."
+msgstr "कचरापेटी रिकामे करण्याची तयारी करत आहे..."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+msgid "From: "
+msgstr "पासून: "
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+msgid "Empty all of the items from the trash?"
+msgstr "कचरापेटीतून सर्व घटके रिकामे करा?"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+msgid ""
+"If you choose to empty the trash, all items in it will be permanently lost. "
+"Please note that you can also delete them separately."
+msgstr ""
+"कचरापेटी रिकामी करायचे ठरवल्यास, त्यातील सर्व घटके नेहमीकरीता नाहीसे होतील. "
+"तुम्ही त्यांस वेगळ्याप्रकारे नष्ट करू शकता कृपया हे लक्षात ठेवा."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+msgid "_Empty Trash"
+msgstr "कचरापेटी रिकामे करा (_E)"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -781,7 +911,7 @@ msgstr "कि बांधणी (%s) अवैध आहे"
 msgid "Key binding (%s) is incomplete"
 msgstr "कि बांधणी (%s) अपूरे आहे"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:491
+#: ../plugins/keybindings/gsd-keybindings-manager.c:493
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -806,32 +936,31 @@ msgstr "कळफलक"
 msgid "Keyboard plugin"
 msgstr "कळफलक प्लगइन"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:1
+#: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
 msgstr "उपलब्ध फाइल (_v):"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:2
+#: ../plugins/keyboard/modmap-dialog.ui.h:2
 msgid "Load modmap files"
 msgstr "modmap फाइल दाखल करा"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
+#: ../plugins/keyboard/modmap-dialog.ui.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "तुम्हाला modmap फाइल दाखल करायला आवडेल का?"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+#: ../plugins/keyboard/modmap-dialog.ui.h:4
 msgid "_Do not show this message again"
-msgstr "हा संदेश पुन्हा दर्शवू नका (_D)"
+msgstr "हा संदेश पुन्हा दाखवू नका (_D)"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:5
+#: ../plugins/keyboard/modmap-dialog.ui.h:5
 msgid "_Load"
 msgstr "भार (_L)"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:6
+#: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "दाखल केलेले फाइल (_L):"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:206
+#: ../plugins/media-keys/gsd-media-keys-manager.c:203
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -839,7 +968,7 @@ msgstr ""
 "मुलभूत टर्मिनल प्राप्त करू शकत नाही. तुमचे मुलभूत टर्मिनल आदेश निश्चित केले आहे व वैध अनुप्रयोग "
 "करीता निर्देशीत आहे याची तपासणी करा."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:246
+#: ../plugins/media-keys/gsd-media-keys-manager.c:243
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -848,7 +977,7 @@ msgstr ""
 "आदेश चालवू शकत नाही: %s\n"
 "हे वैध आदेश आहे याची तपासणी करा."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:262
+#: ../plugins/media-keys/gsd-media-keys-manager.c:259
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -856,13 +985,33 @@ msgstr ""
 "मशीनला विश्रांती पद्धतीत अकार्यक्षम ठेवू शकत नाही.\n"
 "मशीन योग्यरित्या संयोजीत केली गेली आहे याची तपासणी करा."
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+msgid "Disabled"
+msgstr "अकार्यक्षम"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "%u आऊटपुट"
+msgstr[1] "%u आऊटपुटस्"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "%u इंपुट"
+msgstr[1] "%u इंपुटस्"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
 msgid "System Sounds"
 msgstr "प्रणाली आवाज"
-
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
-msgid "GNOME Volume Control"
-msgstr "GNOME ध्वनिमान नियंत्रण"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -872,15 +1021,15 @@ msgstr "मिडीया कि"
 msgid "Media keys plugin"
 msgstr "मिडीया कि पल्गइन"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:625
+#: ../plugins/mouse/gsd-mouse-manager.c:891
 msgid "Could not enable mouse accessibility features"
 msgstr "कळफलक सुलभता वैशिष्ट्ये कार्यान्वीत करा(_E)"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:627
+#: ../plugins/mouse/gsd-mouse-manager.c:893
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "माऊस प्रवेशीय करीता माऊसट्वीक प्रणालीवर प्रतिष्ठापीत असण्याची आवश्यकता आहे."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:630
+#: ../plugins/mouse/gsd-mouse-manager.c:896
 msgid "Mouse Preferences"
 msgstr "माउस प्राधान्यता"
 
@@ -891,29 +1040,6 @@ msgstr "माउस"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "माऊस प्लगइन"
-
-#: ../plugins/screensaver/gsd-screensaver-manager.c:136
-#, c-format
-msgid ""
-"There was an error starting up the screensaver:\n"
-"\n"
-"%s\n"
-"\n"
-"Screensaver functionality will not work in this session."
-msgstr ""
-"स्क्रीनसेवर सुरू करतेवेळी त्रुटी आढळली:\n"
-"\n"
-"%s\n"
-"\n"
-"स्क्रीनसेवर कार्यपद्धती या सत्र करीता कार्यशील राहणार नाही."
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
-msgid "Screensaver"
-msgstr "स्क्रीनसेवर"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
-msgid "Screensaver plugin"
-msgstr "स्क्रीनसेवर प्लगइन"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -931,82 +1057,86 @@ msgstr "पडदा आकार व चक्राकार संयोज�
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:131
+#: ../plugins/xrandr/gsd-xrandr-manager.c:208
 msgid "Could not restore the display's configuration"
 msgstr "दृष्यची संयोजना पूर्ववत करण्यास अशक्य"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:146
+#: ../plugins/xrandr/gsd-xrandr-manager.c:233
 msgid "Could not restore the display's configuration from a backup"
 msgstr "बॅकअप पासून दृष्यची संयोजना पूर्ववत करण्यास अशक्य"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:166
+#: ../plugins/xrandr/gsd-xrandr-manager.c:254
 #, c-format
-msgid "The display will be reset to its previous configuration in %d seconds"
-msgstr "%d सेकंदात दृष्य मागील संयोजना नुरूप पूर्ववत केले जाईल"
+#| msgid ""
+#| "The display will be reset to its previous configuration in %d seconds"
+msgid "The display will be reset to its previous configuration in %d second"
+msgid_plural "The display will be reset to its previous configuration in %d seconds"
+msgstr[0] "%d सेकंदात दृष्य मागील संरचना प्रमाणे पूर्ववत् केले जाईल"
+msgstr[1] "%d सेकंदात दृष्य मागील संरचना प्रमाणे पूर्ववत् केले जाईल"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:214
+#: ../plugins/xrandr/gsd-xrandr-manager.c:303
 msgid "Does the display look OK?"
 msgstr "दृष्य ठिक दिसते?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:218
+#: ../plugins/xrandr/gsd-xrandr-manager.c:309
 msgid "_Restore Previous Configuration"
 msgstr "मागील संयोजना पूर्ववत करा (_R)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:219
+#: ../plugins/xrandr/gsd-xrandr-manager.c:310
 msgid "_Keep This Configuration"
 msgstr "ही संयोजना जपवा (_K)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:256
-#| msgid "The selected rotation could not be applied"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:391
 msgid "The selected configuration for displays could not be applied"
 msgstr "दृष्य करीता निवडलेली संयोजना लागू करणे शक्य नाही"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:702
+#: ../plugins/xrandr/gsd-xrandr-manager.c:945
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "पडदा माहिती पुन्ह दाखल करण्यास अशक्य: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:705
+#: ../plugins/xrandr/gsd-xrandr-manager.c:948
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "मॉनीटर संयोजना कसेही करून बदलविण्याचा प्रयत्न करत आहे."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:739
+#: ../plugins/xrandr/gsd-xrandr-manager.c:982
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1148
 msgid "Could not switch the monitor configuration"
 msgstr "मॉनीटर संयोजना बदलविणे शक्य नाही"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1035
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1541
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>चक्राकार समर्थीत नाही</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1062
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1595
 msgid "Could not save monitor configuration"
 msgstr "मॉनीटर संयोजना साठविणे शक्य नाही"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1080
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1613
 msgid "Normal"
 msgstr "सर्वसाधारण"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1081
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1614
 msgid "Left"
 msgstr "डावी"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1082
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1615
 msgid "Right"
 msgstr "उजवी"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1083
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1616
 msgid "Upside Down"
 msgstr "वर खाली"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1202
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1735
 msgid "_Configure Display Settings ..."
 msgstr "दृश्य संयोजना संयोजीत करा (_C) ..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1243
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1776
 msgid "Configure display settings"
 msgstr "दृश्य संयोजना संयोजीत करा"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1302
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1830
 msgid "Could not apply the stored configuration for monitors"
 msgstr "मॉनीटर करीता साठविलेली संयोजना लागू करणे शक्य नाही"
 
