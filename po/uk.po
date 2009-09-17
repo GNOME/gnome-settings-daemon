@@ -6,10 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-06-15 13:29+0000\n"
-"PO-Revision-Date: 2009-07-01 23:09+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-09-17 14:34+0300\n"
+"PO-Revision-Date: 2009-09-17 23:09+0300\n"
 "Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +20,60 @@ msgstr ""
 #: ../data/50-accessibility.xml.in.h:1
 msgid "Accessibility"
 msgstr "Технології доступності"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+msgid "Free percentage notify threshold"
+msgstr "Поріг у відсотках сповіщення про брак вільного місця"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
+msgid "Free space no notify threshold"
+msgstr "Поріг сповіщення про брак вільного місця"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+msgid "Minimum notify period for repeated warnings"
+msgstr "Мінімальний період попереджень про брак вільного місця"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+msgid "Mount paths to ignore"
+msgstr "Точки монтування, що ігноруються"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown"
+msgstr ""
+"Поріг у відсотках сповіщення для першого повідомлення про брак вільного місця. Якщо "
+"відсоток вільного місця стає нижче цього значення, виводиться попередження"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr "Вкажіть список точок монтування, що ігноруються у попередженні про брак вільного місця."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+"Вкажіть час у хвилинах. Подальші попередження про заповнення тому не виводитимуться "
+"частіше ніж цей період."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown"
+msgstr ""
+"Вкажіть величину у гігабайтах. Якщо вільного простору на більше ніж це значення, попередження про брак вільного місця не виводитиметься"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning"
+msgstr ""
+"Вкажіть на скільки відсотків має зменшитися вільне місце, перед виводом наступного попередження"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
+msgid "Subsequent free percentage notify threshold"
+msgstr "Поріг у відсотках для сповіщення про брак вільного місця"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -182,24 +235,6 @@ msgstr "Крок зміни гучності у відсотках."
 msgid "Volume up"
 msgstr "Збільшення гучності"
 
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
-msgid ""
-"Set to True to display a dialog when there are errors running the "
-"screensaver."
-msgstr "Відображати діалог, що відображає помилки запуску зберігача екрана."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
-msgid "Set to True to run the screensaver at login."
-msgstr "Запускати зберігач екрана при вході у сеанс."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:3
-msgid "Show startup errors"
-msgstr "Показувати помилки запуску системи"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
-msgid "Start screensaver"
-msgstr "Запускати зберігач екрану"
-
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
 msgid ""
 "If a notification icon with display related things should be shown in the "
@@ -277,8 +312,53 @@ msgid ""
 "If non-empty, keybindings will be ignored unless their GConf directory is in "
 "the list. This is useful for lockdown."
 msgstr ""
-"Якщо список не порожній, прив'язки клавіш будуть ігноруватися, якщо їх каталог GConf не буде "
-"присутній у цьому списку. Це використовується для блокування функцій робочого столу."
+"Якщо список не порожній, прив'язки клавіш будуть ігноруватися, якщо їх "
+"каталог GConf не буде присутній у цьому списку. Це використовується для "
+"блокування функцій робочого столу."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
+msgid "Disable touchpad while typing"
+msgstr "Вимикати точпад при наборі на клавіатурі"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
+msgid "Enable horizontal scrolling"
+msgstr "Увімкнути горизонтальну прокрутку"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
+msgid "Enable mouse clicks with touchpad"
+msgstr "Увімкнути клацання миші на точпаді"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
+msgid "Select the touchpad scroll method"
+msgstr "Виберіть для точпаду метод прокрутки"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
+msgid ""
+"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
+"edge scrolling, 2 - two-finger scrolling"
+msgstr ""
+"Виберіть метод прокрутки при використанні точпаду. Підтримувані значення: 0 - вимкнено, 1 - "
+"прокрутка на межі точпаду, 2 - прокрутка двома пальцями"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Відмітьте цей параметр, якщо у вас виникають проблеми з випадковим натисканням на топад при наборі тексту на клавіатурі."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Відмітьте цей параметр, щоб дозволити горизонтальну прокрутку обраним у ключі scroll_method методом."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Відмітьте цей параметр, щоб мати змогу виконувати клацання мишею на постукуючи на точпаді."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -349,46 +429,42 @@ msgid "Enable mouse plugin"
 msgstr "Увімкнути модуль мишки"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable screensaver plugin"
-msgstr "Увімкнути модуль зберігача екрану"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "Увімкнути модуль звуку"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable typing breaks plugin"
 msgstr "Увімкнути модуль перерви у роботі"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable xrandr plugin"
 msgstr "Увімкнути модуль xrandr"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrdb plugin"
 msgstr "Увімкнути модуль xrdb"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xsettings plugin"
 msgstr "Увімкнути модуль xsettings"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Mouse keys"
 msgstr "Клавіші миші"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "On-screen keyboard"
 msgstr "Екранна клавіатура"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "Screen magnifier"
 msgstr "Збільшувач екрану"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen reader"
 msgstr "Читання екрану"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -396,42 +472,37 @@ msgstr ""
 "Встановіть у True, щоб увімкнути модуль housekeeping, для скорочення "
 "тимчасового файлу."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами буферу обміну."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Встановіть, щоб дозволити модулю керувати параметрами тла робочого столу."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами шрифту."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами клавіатури."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами миші."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Встановіть, щоб дозволити модулю керувати параметрами мультимедійних клавіш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid "Set to True to enable the plugin to manage screensaver settings."
-msgstr ""
-"Встановіть, щоб дозволити модулю керувати параметрами зберігача екрану."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr "Встановіть, щоб увімкнути модуль керування кешуванням звуків."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -439,47 +510,47 @@ msgstr ""
 "Встановіть, щоб увімкнути модуль керування спеціальними можливостями "
 "клавіатури."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "Встановіть, щоб дозволити модулю керувати прив'язками клавіатури."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Встановіть, щоб дозволити модулю керувати перервами у роботі"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами xrandr."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами xrdb."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Встановіть, щоб дозволити модулю керувати параметрами xsettings."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Slow keys"
 msgstr "Повільні клавіші"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Sticky keys"
 msgstr "Липкі клавіші"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "Комбінація клавіш для вмикання екранного збільшувача"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "Комбінація клавіш для вмикання екранної клавіатури"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/gnome-settings-daemon.schemas.in.h:44
 msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "Комбінація клавіш для вмикання екранного читання екрану"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
@@ -487,59 +558,60 @@ msgstr ""
 "Комбінація клавіш для вмикання збільшувача екрану. Цей параметр можна "
 "змінити у діалозі налаштовування комбінацій клавіш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"Комбінація клавіш для вмикання екранної клавіатури екрану. Цей параметр можна "
-"змінити у діалозі налаштовування комбінацій клавіш."
+"Комбінація клавіш для вмикання екранної клавіатури екрану. Цей параметр "
+"можна змінити у діалозі налаштовування комбінацій клавіш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid ""
 "This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"Комбінація клавіш для вмикання читання екрану. Цей параметр можна "
-"змінити у діалозі налаштовування комбінацій клавіш."
+"Комбінація клавіш для вмикання читання екрану. Цей параметр можна змінити у "
+"діалозі налаштовування комбінацій клавіш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
 msgstr "Увімкнути екранний збільшувач"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid "Toggle on-screen keyboard"
 msgstr "Увімнкути екранну клавіатуру"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle screen reader"
 msgstr "Увімкнути читання екрану"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "Чи увімкнено підтримку пружних клавіш системи технологій доступності."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "Чи увімкнено підтримку роботи з мишею системи технологій доступності."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "Чи увімкнено екранну клавіатуру."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the screen magnifier is turned on."
 msgstr "Чи увімкнено збільшувач екрану."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the screen reader is turned on."
 msgstr "Чи увімкнено систему читання з екрану."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:58
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
-msgstr "Чи увімкнено підтримку повільних клавіш системи технологій доступності."
+msgstr ""
+"Чи увімкнено підтримку повільних клавіш системи технологій доступності."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:59
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Чи увімкнено підтримку липких клавіш системи технологій доступності."
 
@@ -666,40 +738,40 @@ msgstr ""
 msgid "Sticky Keys Alert"
 msgstr "Сповіщення про режим \"Липкі клавіші\""
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Параметри універсального доступу"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Enhance _contrast in colors"
 msgstr "Покращений _контраст у кольорах"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
 msgid "Make _text larger and easier to read"
 msgstr "Зробити _текст більшим та простішим для читання"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Приймати клавіші лише після т_ривалого натискання (Повільні клавіші)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
 msgstr "Використовувати _екранну клавіатуру"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
 msgid "Use screen _magnifier"
 msgstr "Використовувати _збільшувач екрану"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
 msgid "Use screen _reader"
 msgstr "Використовувати _читання екрану"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
 msgstr "_Ігнорувати швидкі повторні натискання клавіш (Пружні клавіші)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr ""
 "Вводити комбінації клавіш _почерговим натисканням клавіш (Липкі клавіші)"
@@ -736,18 +808,111 @@ msgstr "Шрифт"
 msgid "Font plugin"
 msgstr "Модуль шрифту"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:124
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+msgid "Don't show any warnings again for this filesystem"
+msgstr "Не показувати  будь-які попередження для цієї файлової системи"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+msgid "Don't show any warnings again"
+msgstr "Не показувати більше це повідомлення"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
 #, c-format
-msgid "%d%% of the disk space on `%s' is in use"
-msgstr "Використовується %d%% дискового простору на «%s»"
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "На томі \"%s\" залишилось лише %s дискового простору."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:132
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "На комп'ютері залишилось лише %s дискового простору."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
+msgstr ""
+"Ви можете звільнити дисковий простір очищаючи Смітник, видаляючи зайві програми "
+"чи файли, або переміщенням файлів на інший диск чи розділ."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
+msgstr ""
+"Ви можете звільнити дисковий простір видаленням зайвих програми "
+"чи файлів, або переміщенням файлів на інший диск чи розділ."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr ""
+"Ви можете звільнити дисковий простір очищаючи Смітник, видаляючи зайві програми "
+"чи файли, або переміщенням файлів на зовнішній диск."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr ""
+"Ви можете звільнити дисковий простір видаленням зайвих програми "
+"чи файлів, або переміщенням файлів на зовнішній диск."
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
-msgstr "Недостатньо місця на файловій системі"
+msgstr "Мало місця на файловій системі"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:143
-msgid "Analyze"
-msgstr "Аналізувати"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
+msgid "Empty Trash"
+msgstr "Очистити смітник"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
+msgid "Examine..."
+msgstr "Аналізувати..."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
+msgid "Ignore"
+msgstr "Ігнорувати"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#, c-format
+msgid "Removing item %lu of %lu"
+msgstr "Видалення елементу %lu з %lu"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#, c-format
+msgid "<i>Removing: %s</i>"
+msgstr "<i>Видалення: %s</i>"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+msgid "Emptying the trash"
+msgstr "Очищується смітник"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+msgid "Preparing to empty trash..."
+msgstr "Підготовка до очищення смітника..."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+msgid "From: "
+msgstr "З:"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+msgid "Empty all of the items from the trash?"
+msgstr "Видалити весь вміст смітника?"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+msgid ""
+"If you choose to empty the trash, all items in it will be permanently lost. "
+"Please note that you can also delete them separately."
+msgstr ""
+"Якщо ви очистите смітник, весь його вміст буде остаточно втрачено. "
+"Зверніть увагу, ви також можете видалити їх окремо."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+msgid "_Empty Trash"
+msgstr "О_чистити смітник"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -784,32 +949,31 @@ msgstr "Клавіатура"
 msgid "Keyboard plugin"
 msgstr "Модуль клавіатури"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:1
+#: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
 msgstr "_Наявні файли:"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:2
+#: ../plugins/keyboard/modmap-dialog.ui.h:2
 msgid "Load modmap files"
 msgstr "Завантаження файлів modmap"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
+#: ../plugins/keyboard/modmap-dialog.ui.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "Бажаєте завантажити файл(и) modmap?"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
-#: ../plugins/screensaver/gsd-screensaver-manager.c:145
+#: ../plugins/keyboard/modmap-dialog.ui.h:4
 msgid "_Do not show this message again"
 msgstr "Більше _не показувати цього повідомлення"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:5
+#: ../plugins/keyboard/modmap-dialog.ui.h:5
 msgid "_Load"
 msgstr "_Завантажити"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:6
+#: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "_Завантажено файлів:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:206
+#: ../plugins/media-keys/gsd-media-keys-manager.c:204
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -817,7 +981,7 @@ msgstr ""
 "Не вдається отримати типовий термінал. Перевірте, що обрана вами типова "
 "термінальна програма справді вказує типову програму."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:246
+#: ../plugins/media-keys/gsd-media-keys-manager.c:244
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -826,7 +990,7 @@ msgstr ""
 "Не вдається виконати команду: %s\n"
 "Перевірте чи команда існує."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:262
+#: ../plugins/media-keys/gsd-media-keys-manager.c:260
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -834,13 +998,35 @@ msgstr ""
 "Не вдається перевести комп'ютер у стан призупинення.\n"
 "Перевірте чи правильно налаштований комп'ютер."
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:954
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+msgid "Disabled"
+msgstr "Вимкнено"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "%u вихід"
+msgstr[1] "%u виходи"
+msgstr[2] "%u виходів"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "%u вхід"
+msgstr[1] "%u входи"
+msgstr[2] "%u входів"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
 msgid "System Sounds"
 msgstr "Системні звуки"
-
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1478
-msgid "GNOME Volume Control"
-msgstr "Гучність звуку в GNOME"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -850,18 +1036,18 @@ msgstr "Мультимедійний клавіші"
 msgid "Media keys plugin"
 msgstr "Модуль мультимедійних клавіш"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:625
+#: ../plugins/mouse/gsd-mouse-manager.c:795
 msgid "Could not enable mouse accessibility features"
 msgstr "Не вдається увімкнути спеціальні можливості миші"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:627
+#: ../plugins/mouse/gsd-mouse-manager.c:797
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 "Щоб активувати спеціальні можливості миші, треба встановити у систему службу "
 "mousetweaks."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:630
+#: ../plugins/mouse/gsd-mouse-manager.c:800
 msgid "Mouse Preferences"
 msgstr "Параметри миші"
 
@@ -872,29 +1058,6 @@ msgstr "Миша"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Модуль миші"
-
-#: ../plugins/screensaver/gsd-screensaver-manager.c:136
-#, c-format
-msgid ""
-"There was an error starting up the screensaver:\n"
-"\n"
-"%s\n"
-"\n"
-"Screensaver functionality will not work in this session."
-msgstr ""
-"Помилка запуску зберігача екрана:\n"
-"\n"
-"%s\n"
-"\n"
-"Функціональність зберігання екрана не працюватиме в цьому сеансі."
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
-msgid "Screensaver"
-msgstr "Зберігач екрану"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
-msgid "Screensaver plugin"
-msgstr "Модуль зберігача екрану"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -929,69 +1092,69 @@ msgstr[0] "Попередню конфігурацію дисплею буде �
 msgstr[1] "Попередню конфігурацію дисплею буде повернуто через %d секунди"
 msgstr[2] "Попередню конфігурацію дисплею буде повернуто через %d секунд"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:304
+#: ../plugins/xrandr/gsd-xrandr-manager.c:303
 msgid "Does the display look OK?"
 msgstr "Конфігурація влаштовує?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:310
+#: ../plugins/xrandr/gsd-xrandr-manager.c:309
 msgid "_Restore Previous Configuration"
 msgstr "_Відновити попередню конфігурацію"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:311
+#: ../plugins/xrandr/gsd-xrandr-manager.c:310
 msgid "_Keep This Configuration"
 msgstr "_Застосувати поточну конфігурацію"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:353
+#: ../plugins/xrandr/gsd-xrandr-manager.c:391
 msgid "The selected configuration for displays could not be applied"
 msgstr "Не вдається застосувати обрану конфігурацію моніторів"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:828
+#: ../plugins/xrandr/gsd-xrandr-manager.c:945
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Не вдається оновити інформацію про екран: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:831
+#: ../plugins/xrandr/gsd-xrandr-manager.c:948
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Конфігурація моніторів застосовується примусово."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:865
-#: ../plugins/xrandr/gsd-xrandr-manager.c:996
+#: ../plugins/xrandr/gsd-xrandr-manager.c:982
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1148
 msgid "Could not switch the monitor configuration"
 msgstr "Не вдається застосувати конфігурацію моніторів"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1388
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1541
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Обертання не підтримується</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1442
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1595
 msgid "Could not save monitor configuration"
 msgstr "Не вдається зберегти конфігурацію мониторів"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1460
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1613
 msgid "Normal"
 msgstr "Звичайне"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1461
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1614
 msgid "Left"
 msgstr "Ліворуч"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1462
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1615
 msgid "Right"
 msgstr "Праворуч"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1463
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1616
 msgid "Upside Down"
 msgstr "Догори ногами"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1582
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1735
 msgid "_Configure Display Settings ..."
 msgstr "_Налаштувати параметри екрану ..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1623
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1776
 msgid "Configure display settings"
 msgstr "Налаштувати параметри екрану"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1677
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1830
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Не вдається застосувати збережену конфігурацію моніторів"
 
@@ -1021,4 +1184,51 @@ msgstr "Керування параметрами X Window"
 msgid "X Settings"
 msgstr "Параметри X Window"
 
+#~ msgid ""
+#~ "Set to True to display a dialog when there are errors running the "
+#~ "screensaver."
+#~ msgstr "Відображати діалог, що відображає помилки запуску зберігача екрана."
 
+#~ msgid "Set to True to run the screensaver at login."
+#~ msgstr "Запускати зберігач екрана при вході у сеанс."
+
+#~ msgid "Show startup errors"
+#~ msgstr "Показувати помилки запуску системи"
+
+#~ msgid "Start screensaver"
+#~ msgstr "Запускати зберігач екрану"
+
+#~ msgid "Enable screensaver plugin"
+#~ msgstr "Увімкнути модуль зберігача екрану"
+
+#~ msgid "Set to True to enable the plugin to manage screensaver settings."
+#~ msgstr ""
+#~ "Встановіть, щоб дозволити модулю керувати параметрами зберігача екрану."
+
+#~ msgid "%d%% of the disk space on `%s' is in use"
+#~ msgstr "Використовується %d%% дискового простору на «%s»"
+
+#~ msgid "Analyze"
+#~ msgstr "Аналізувати"
+
+#~ msgid "GNOME Volume Control"
+#~ msgstr "Гучність звуку в GNOME"
+
+#~ msgid ""
+#~ "There was an error starting up the screensaver:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Screensaver functionality will not work in this session."
+#~ msgstr ""
+#~ "Помилка запуску зберігача екрана:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Функціональність зберігання екрана не працюватиме в цьому сеансі."
+
+#~ msgid "Screensaver"
+#~ msgstr "Зберігач екрану"
+
+#~ msgid "Screensaver plugin"
+#~ msgstr "Модуль зберігача екрану"
