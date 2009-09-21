@@ -11,10 +11,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 2.27.4\n"
+"Project-Id-Version: gnome-settings-daemon 2.28.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-22 16:33+0800\n"
-"PO-Revision-Date: 2009-07-22 16:34+0800\n"
+"POT-Creation-Date: 2009-09-21 21:00+0800\n"
+"PO-Revision-Date: 2009-09-21 21:01+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr "指定要忽略磁碟空間不足的掛載路徑清單。"
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
-msgstr ""
+msgstr "以分鐘指定的時間。後續的儲存區警告出現頻率不會高於這個週期。"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
 msgid ""
@@ -68,11 +68,11 @@ msgstr "指定一個 GB 數值。如果可用空間大於此數值，就不會�
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning"
-msgstr ""
+msgstr "指定可用磁碟空間減少時發出後續警告前的百分比"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
 msgid "Subsequent free percentage notify threshold"
-msgstr ""
+msgstr "後續可用百分比通知門檻"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -918,13 +918,13 @@ msgstr "載入(_L)"
 msgid "_Loaded files:"
 msgstr "載入的檔案(_L)："
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:206
+#: ../plugins/media-keys/gsd-media-keys-manager.c:204
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
 msgstr "無法取得預設的終端機。請檢查你預設的終端機指令已設定並指向正確的應用程式。"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:246
+#: ../plugins/media-keys/gsd-media-keys-manager.c:244
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -933,19 +933,37 @@ msgstr ""
 "不能執行指令： %s\n"
 "請檢查該指令是否為有效的指令。"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:262
+#: ../plugins/media-keys/gsd-media-keys-manager.c:260
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
 msgstr "不能進入睡眠模式，請檢查是否已經設置妥當。"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1065
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+msgid "Disabled"
+msgstr "已停用"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "%u 輸出"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "%u 輸入"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
 msgid "System Sounds"
 msgstr "系統音效"
-
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1471
-msgid "GNOME Volume Control"
-msgstr "GNOME 音量控制"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -955,16 +973,16 @@ msgstr "多媒體按鍵"
 msgid "Media keys plugin"
 msgstr "多媒體按鍵外掛程式"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:890
+#: ../plugins/mouse/gsd-mouse-manager.c:795
 msgid "Could not enable mouse accessibility features"
 msgstr "無法啟用滑鼠可存取性功能"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:892
+#: ../plugins/mouse/gsd-mouse-manager.c:797
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "滑鼠無障礙功能需要你的系統安裝 mousetweaks。"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:895
+#: ../plugins/mouse/gsd-mouse-manager.c:800
 msgid "Mouse Preferences"
 msgstr "滑鼠偏好設定"
 
@@ -1098,6 +1116,9 @@ msgstr "管理 X 設定值"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X 設定值"
+
+#~ msgid "GNOME Volume Control"
+#~ msgstr "GNOME 音量控制"
 
 #~ msgid ""
 #~ "Set to True to display a dialog when there are errors running the "
