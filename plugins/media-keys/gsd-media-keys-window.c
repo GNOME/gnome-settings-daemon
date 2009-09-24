@@ -33,7 +33,7 @@
 #define DIALOG_FADE_TIMEOUT 1500 /* timeout before fade starts */
 #define FADE_TIMEOUT 10        /* timeout in ms between each frame of the fade */
 
-#define BG_ALPHA 0.50
+#define BG_ALPHA 0.75
 #define FG_ALPHA 1.00
 
 static void     gsd_media_keys_window_class_init (GsdMediaKeysWindowClass *klass);
@@ -593,6 +593,36 @@ render_speaker (GsdMediaKeysWindow *window,
 }
 
 static void
+color_reverse (const GdkColor *a,
+               GdkColor       *b)
+{
+        gdouble red;
+        gdouble green;
+        gdouble blue;
+        gdouble h;
+        gdouble s;
+        gdouble v;
+
+        red = (gdouble) a->red / 65535.0;
+        green = (gdouble) a->green / 65535.0;
+        blue = (gdouble) a->blue / 65535.0;
+
+        gtk_rgb_to_hsv (red, green, blue, &h, &s, &v);
+
+        v = 0.5 + (0.5 - v);
+        if (v > 1.0)
+                v = 1.0;
+        else if (v < 0.0)
+                v = 0.0;
+
+        gtk_hsv_to_rgb (h, s, v, &red, &green, &blue);
+
+        b->red = red * 65535.0;
+        b->green = green * 65535.0;
+        b->blue = blue * 65535.0;
+}
+
+static void
 draw_volume_boxes (GsdMediaKeysWindow *window,
                    cairo_t            *cr,
                    double              percentage,
@@ -612,30 +642,31 @@ draw_volume_boxes (GsdMediaKeysWindow *window,
         x1 = round ((width - 1) * percentage);
 
         /* bar background */
-        color = GTK_WIDGET (window)->style->dark [GTK_STATE_NORMAL];
+        color_reverse (&GTK_WIDGET (window)->style->dark[GTK_STATE_NORMAL], &color);
         r = (float)color.red / 65535.0;
         g = (float)color.green / 65535.0;
         b = (float)color.blue / 65535.0;
-        cairo_rectangle (cr, x0, y0, width, height);
-        cairo_set_source_rgba (cr, r, g, b, FG_ALPHA);
-        cairo_fill (cr);
+        rounded_rectangle (cr, 1.0, x0, y0, height / 6, width, height);
+        cairo_set_source_rgba (cr, r, g, b, FG_ALPHA / 2);
+        cairo_fill_preserve (cr);
 
         /* bar border */
-        color = GTK_WIDGET (window)->style->dark [GTK_STATE_SELECTED];
+        color_reverse (&GTK_WIDGET (window)->style->light[GTK_STATE_NORMAL], &color);
         r = (float)color.red / 65535.0;
         g = (float)color.green / 65535.0;
         b = (float)color.blue / 65535.0;
-        cairo_rectangle (cr, x0, y0, width, height);
-        cairo_set_source_rgba (cr, r, g, b, FG_ALPHA);
+        cairo_set_source_rgba (cr, r, g, b, FG_ALPHA / 2);
         cairo_set_line_width (cr, 1);
         cairo_stroke (cr);
 
         /* bar progress */
-        color = GTK_WIDGET (window)->style->bg [GTK_STATE_SELECTED];
+        if (percentage < 0.01)
+                return;
+        color = GTK_WIDGET (window)->style->bg[GTK_STATE_NORMAL];
         r = (float)color.red / 65535.0;
         g = (float)color.green / 65535.0;
         b = (float)color.blue / 65535.0;
-        cairo_rectangle (cr, x0 + 0.5, y0 + 0.5, x1, height - 1);
+        rounded_rectangle (cr, 1.0, x0 + 0.5, y0 + 0.5, height / 6 - 0.5, x1, height - 1);
         cairo_set_source_rgba (cr, r, g, b, FG_ALPHA);
         cairo_fill (cr);
 }
@@ -795,18 +826,18 @@ on_expose_event (GtkWidget          *widget,
 
         /* draw a box */
         rounded_rectangle (cr, 1.0, 0.5, 0.5, height / 10, width-1, height-1);
-        color = GTK_WIDGET (window)->style->bg [GTK_STATE_NORMAL];
+        color_reverse (&GTK_WIDGET (window)->style->bg[GTK_STATE_NORMAL], &color);
         r = (float)color.red / 65535.0;
         g = (float)color.green / 65535.0;
         b = (float)color.blue / 65535.0;
         cairo_set_source_rgba (cr, r, g, b, BG_ALPHA);
         cairo_fill_preserve (cr);
 
-        color = GTK_WIDGET (window)->style->fg [GTK_STATE_NORMAL];
+        color_reverse (&GTK_WIDGET (window)->style->text_aa[GTK_STATE_NORMAL], &color);
         r = (float)color.red / 65535.0;
         g = (float)color.green / 65535.0;
         b = (float)color.blue / 65535.0;
-        cairo_set_source_rgba (cr, r, g, b, BG_ALPHA);
+        cairo_set_source_rgba (cr, r, g, b, BG_ALPHA / 2);
         cairo_set_line_width (cr, 1);
         cairo_stroke (cr);
 
