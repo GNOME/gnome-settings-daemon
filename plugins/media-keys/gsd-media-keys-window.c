@@ -260,59 +260,54 @@ gsd_media_keys_window_set_volume_level (GsdMediaKeysWindow *window,
 }
 
 static void
-curved_rectangle (cairo_t *cr,
-                  double   x0,
-                  double   y0,
-                  double   width,
-                  double   height,
-                  double   radius)
+rounded_rectangle (cairo_t* cr,
+                   gdouble  aspect,
+                   gdouble  x,
+                   gdouble  y,
+                   gdouble  corner_radius,
+                   gdouble  width,
+                   gdouble  height)
 {
-        double x1;
-        double y1;
+        gdouble radius = corner_radius / aspect;
 
-        x1 = x0 + width;
-        y1 = y0 + height;
+        cairo_move_to (cr, x + radius, y);
 
-        if (!width || !height) {
-                return;
-        }
-
-        if (width / 2 < radius) {
-                if (height / 2 < radius) {
-                        cairo_move_to  (cr, x0, (y0 + y1) / 2);
-                        cairo_curve_to (cr, x0 ,y0, x0, y0, (x0 + x1) / 2, y0);
-                        cairo_curve_to (cr, x1, y0, x1, y0, x1, (y0 + y1) / 2);
-                        cairo_curve_to (cr, x1, y1, x1, y1, (x1 + x0) / 2, y1);
-                        cairo_curve_to (cr, x0, y1, x0, y1, x0, (y0 + y1) / 2);
-                } else {
-                        cairo_move_to  (cr, x0, y0 + radius);
-                        cairo_curve_to (cr, x0, y0, x0, y0, (x0 + x1) / 2, y0);
-                        cairo_curve_to (cr, x1, y0, x1, y0, x1, y0 + radius);
-                        cairo_line_to (cr, x1, y1 - radius);
-                        cairo_curve_to (cr, x1, y1, x1, y1, (x1 + x0) / 2, y1);
-                        cairo_curve_to (cr, x0, y1, x0, y1, x0, y1 - radius);
-                }
-        } else {
-                if (height / 2 < radius) {
-                        cairo_move_to  (cr, x0, (y0 + y1) / 2);
-                        cairo_curve_to (cr, x0, y0, x0 , y0, x0 + radius, y0);
-                        cairo_line_to (cr, x1 - radius, y0);
-                        cairo_curve_to (cr, x1, y0, x1, y0, x1, (y0 + y1) / 2);
-                        cairo_curve_to (cr, x1, y1, x1, y1, x1 - radius, y1);
-                        cairo_line_to (cr, x0 + radius, y1);
-                        cairo_curve_to (cr, x0, y1, x0, y1, x0, (y0 + y1) / 2);
-                } else {
-                        cairo_move_to  (cr, x0, y0 + radius);
-                        cairo_curve_to (cr, x0 , y0, x0 , y0, x0 + radius, y0);
-                        cairo_line_to (cr, x1 - radius, y0);
-                        cairo_curve_to (cr, x1, y0, x1, y0, x1, y0 + radius);
-                        cairo_line_to (cr, x1, y1 - radius);
-                        cairo_curve_to (cr, x1, y1, x1, y1, x1 - radius, y1);
-                        cairo_line_to (cr, x0 + radius, y1);
-                        cairo_curve_to (cr, x0, y1, x0, y1, x0, y1 - radius);
-                }
-        }
-
+        cairo_line_to (cr,
+                       x + width - radius,
+                       y);
+        cairo_arc (cr,
+                   x + width - radius,
+                   y + radius,
+                   radius,
+                   -90.0f * G_PI / 180.0f,
+                   0.0f * G_PI / 180.0f);
+        cairo_line_to (cr,
+                       x + width,
+                       y + height - radius);
+        cairo_arc (cr,
+                   x + width - radius,
+                   y + height - radius,
+                   radius,
+                   0.0f * G_PI / 180.0f,
+                   90.0f * G_PI / 180.0f);
+        cairo_line_to (cr,
+                       x + radius,
+                       y + height);
+        cairo_arc (cr,
+                   x + radius,
+                   y + height - radius,
+                   radius,
+                   90.0f * G_PI / 180.0f,
+                   180.0f * G_PI / 180.0f);
+        cairo_line_to (cr,
+                       x,
+                       y + radius);
+        cairo_arc (cr,
+                   x + radius,
+                   y + radius,
+                   radius,
+                   180.0f * G_PI / 180.0f,
+                   270.0f * G_PI / 180.0f);
         cairo_close_path (cr);
 }
 
@@ -799,7 +794,7 @@ on_expose_event (GtkWidget          *widget,
         cairo_paint (cr);
 
         /* draw a box */
-        curved_rectangle (cr, 0.5, 0.5, width-1, height-1, height / 10);
+        rounded_rectangle (cr, 1.0, 0.5, 0.5, height / 10, width-1, height-1);
         color = GTK_WIDGET (window)->style->bg [GTK_STATE_NORMAL];
         r = (float)color.red / 65535.0;
         g = (float)color.green / 65535.0;
