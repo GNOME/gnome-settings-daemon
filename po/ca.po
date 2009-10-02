@@ -11,9 +11,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-28 12:03+0200\n"
-"PO-Revision-Date: 2009-08-28 12:03+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&component=general\n"
+"POT-Creation-Date: 2009-10-01 20:52+0200\n"
+"PO-Revision-Date: 2009-09-09 23:58+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,51 +28,63 @@ msgstr "Accessibilitat"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
 msgid "Free percentage notify threshold"
-msgstr ""
+msgstr "Llindar per a notificar el percentatge lliure"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
 msgid "Free space no notify threshold"
-msgstr ""
+msgstr "Llindar per a no notificar el percentatge lliure"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
 msgid "Minimum notify period for repeated warnings"
-msgstr ""
+msgstr "Període mínim entre notificacions d'avisos repetits"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
 msgid "Mount paths to ignore"
-msgstr ""
+msgstr "Camins de muntatge a ignorar"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown"
 msgstr ""
+"Percentatge del llindar d'espai lliure per a l'avís inicial de poc espai de "
+"disc. Si el percentatge d'espai lliure baixa per sota d'aquest, es mostrarà "
+"un avís."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
+"Especifica una llista de camins de muntatge a ignorar quan els queda poc "
+"espai lliure."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
 msgstr ""
+"Especifica un temps en minuts. Els pròxims avisos per a un volum no "
+"apareixeran abans d'aquest període de temps."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown"
 msgstr ""
+"Especifica una quantitat en GB. Si l'espai lliure és més gran, no es "
+"mostrarà cap avís"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning"
 msgstr ""
+"Especifica el percentatge d'espai de disc lliure que s'hauria de reduir "
+"abans de mostrar més avisos"
 
+# FIXME no es digerible, però no se m'acudeix res millor
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
 msgid "Subsequent free percentage notify threshold"
-msgstr ""
+msgstr "Llindar de notificació de percentatge lliure subseqüent"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
@@ -320,43 +333,51 @@ msgstr ""
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
 msgid "Disable touchpad while typing"
-msgstr ""
+msgstr "Inhabilita el ratolí tàctil mentre s'escriu"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
-#, fuzzy
 msgid "Enable horizontal scrolling"
-msgstr "Habilita el connector de tipus de lletra"
+msgstr "Habilita el desplaçament horitzontal"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
 msgid "Enable mouse clicks with touchpad"
-msgstr ""
+msgstr "Permet fer clic amb el ratolí tàctil"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
 msgid "Select the touchpad scroll method"
-msgstr ""
+msgstr "Seleccioneu el mètode de desplaçament del ratolí tàctil"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
 msgid ""
 "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
 "edge scrolling, 2 - two-finger scrolling"
 msgstr ""
+"Seleccioneu el mètode de desplaçament del ratolí tàctil. Els valors admesos "
+"són: 0 - inhabilitat, 1 - desplaçament a la vora, 2 - desplaçament amb dos "
+"dits"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
 msgstr ""
+"Establiu-ho a «True» (cert) si accidentalment toqueu el ratolí tàctil mentre "
+"escriviu."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
 msgstr ""
+"Establiu-ho a «True» (cert) per a permetre desplaçaments horitzontals "
+"utilitzant el mètode seleccionat amb la clau «scroll_method»."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
+"Establiu-ho a «True» (cert) per a permetre enviar clics de ratolí en prémer "
+"al ratolí tàctil."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -568,7 +589,6 @@ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "El nom de la drecera de teclat per a commutar el teclat a la pantalla"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:44
-#, fuzzy
 msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "El nom de la drecera de teclat per a commutar el lector de pantalla"
 
@@ -589,13 +609,12 @@ msgstr ""
 "pantalla. Es mostrarà al diàleg de preferències de les dreceres de teclat."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:47
-#, fuzzy
 msgid ""
 "This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"Aquest és el nom de la drecera de teclat per a commutar el lector de "
-"pantalla. Es mostrarà al diàleg de preferències de les dreceres de teclat."
+"És el nom de la drecera de teclat per a commutar el lector de pantalla. Es "
+"mostrarà al diàleg de preferències de les dreceres de teclat."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
@@ -838,46 +857,53 @@ msgstr "Connector de tipus de lletra"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
 msgid "Don't show any warnings again for this filesystem"
-msgstr ""
+msgstr "No tornis a mostrar més avisos per a aquest sistema de fitxers"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-#, fuzzy
 msgid "Don't show any warnings again"
-msgstr "_No tornis a mostrar aquest missatge"
+msgstr "No tornis a mostrar més avisos"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr ""
+msgstr "El volum «%s» només li resta %s d'espai de disc."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
 #, c-format
 msgid "This computer has only %s disk space remaining."
-msgstr ""
+msgstr "Aquest ordinador només li resta %s d'espai de disc"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
 msgstr ""
+"Podeu alliberar espai de disc buidant la paperera, suprimint programes o "
+"fitxers que no utilitzeu o movent fitxers a un altre disc o partició."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
 msgstr ""
+"Podeu alliberar espai de disc suprimint programes o fitxers que no utilitzeu "
+"o movent fitxers a un altre disc o partició."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
 msgstr ""
+"Podeu alliberar espai de disc buidant la paperera, suprimint programes o "
+"fitxers que no utilitzeu o movent fitxers a un disc extern."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
 msgstr ""
+"Podeu alliberar espai de disc suprimint programes o fitxers que no utilitzeu "
+"o movent fitxers a un disc extern."
 
 #. Set up all the window stuff here
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
@@ -886,52 +912,54 @@ msgstr "Espai del disc baix"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
 msgid "Empty Trash"
-msgstr ""
+msgstr "Buida la paperera"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
 msgid "Examine..."
-msgstr ""
+msgstr "Examina..."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
 msgid "Ignore"
-msgstr ""
+msgstr "Ignora"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
 #, c-format
 msgid "Removing item %lu of %lu"
-msgstr ""
+msgstr "S'està suprimint l'element %lu de %lu"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
 #, c-format
 msgid "<i>Removing: %s</i>"
-msgstr ""
+msgstr "<i>S'està suprimint: %s</i>"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
 msgid "Emptying the trash"
-msgstr ""
+msgstr "S'està buidant la paperera"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
 msgid "Preparing to empty trash..."
-msgstr ""
+msgstr "S'està preparant per a buidar la paperera..."
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
 msgid "From: "
-msgstr ""
+msgstr "Des de: "
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
 msgid "Empty all of the items from the trash?"
-msgstr ""
+msgstr "Voleu buidar tots els elements de la paperera?"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
 msgstr ""
+"Si buideu la paperera, se'n perdran tots els elements per sempre. Tingueu en "
+"compte que també podeu seleccionar elements per separat."
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
 msgid "_Empty Trash"
-msgstr ""
+msgstr "_Buida la paperera"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -992,7 +1020,7 @@ msgstr "_Carrega"
 msgid "_Loaded files:"
 msgstr "Fitxers _carregats:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:203
+#: ../plugins/media-keys/gsd-media-keys-manager.c:204
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1000,7 +1028,7 @@ msgstr ""
 "No s'ha pogut obtenir el terminal per defecte. Verifiqueu que l'ordre que "
 "teniu establerta per el terminal per defecte existeixi."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:243
+#: ../plugins/media-keys/gsd-media-keys-manager.c:244
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1009,7 +1037,7 @@ msgstr ""
 "No s'ha pogut executar l'ordre: %s\n"
 "Verifiqueu que sigui una ordre vàlida."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:259
+#: ../plugins/media-keys/gsd-media-keys-manager.c:260
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -1021,7 +1049,7 @@ msgstr ""
 #. * The device has been disabled
 #: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
 msgid "Disabled"
-msgstr ""
+msgstr "Inhabilitat"
 
 #. translators:
 #. * The number of sound outputs on a particular device
@@ -1029,8 +1057,8 @@ msgstr ""
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u sortida"
+msgstr[1] "%u sortides"
 
 #. translators:
 #. * The number of sound inputs on a particular device
@@ -1038,8 +1066,8 @@ msgstr[1] ""
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u entrada"
+msgstr[1] "%u entrades"
 
 #: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
 msgid "System Sounds"
@@ -1053,19 +1081,19 @@ msgstr "Tecles multimèdia"
 msgid "Media keys plugin"
 msgstr "Connector de les tecles multimèdia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:891
+#: ../plugins/mouse/gsd-mouse-manager.c:795
 msgid "Could not enable mouse accessibility features"
 msgstr ""
 "No s'han pogut habilitar les funcionalitats d'accessibilitat del ratolí"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:893
+#: ../plugins/mouse/gsd-mouse-manager.c:797
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 "L'accessibilitat de ratolí requereix que s'instal·li el mousetweaks a "
 "l'ordinador."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:896
+#: ../plugins/mouse/gsd-mouse-manager.c:800
 msgid "Mouse Preferences"
 msgstr "Preferències del ratolí"
 
@@ -1104,12 +1132,12 @@ msgstr ""
 "seguretat"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:254
-#, fuzzy, c-format
+#, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] ""
-"Es reiniciarà la pantalla a la configuració anterior d'aquí %d segons"
+"Es reiniciarà la pantalla a la configuració anterior d'aquí %d segon"
 msgstr[1] ""
 "Es reiniciarà la pantalla a la configuració anterior d'aquí %d segons"
 
