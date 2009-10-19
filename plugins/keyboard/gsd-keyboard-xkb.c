@@ -217,7 +217,8 @@ apply_xkb_settings (void)
 	GConfClient *conf_client;
 	GkbdKeyboardConfig current_sys_kbd_config;
 	int group_to_activate = -1;
-	const char *gdm_layout;
+	char *gdm_layout;
+	char *s;
 
 	if (!inited_ok)
 		return;
@@ -229,8 +230,18 @@ apply_xkb_settings (void)
 	 * We clear gdm_keyboard_layout early, so we don't risk
 	 * recursion from gconf notification.
 	 */
-	gdm_layout = gdm_keyboard_layout;
+	gdm_layout = g_strdup (gdm_keyboard_layout);
 	gdm_keyboard_layout = NULL;
+
+	/* gdm's configuration and $GDM_KEYBOARD_LAYOUT separates layout and
+	 * variant with a space, but gconf uses tabs; so convert to be robust
+	 * with both */
+	for (s = gdm_layout; s && *s; ++s) {
+		if (*s == ' ') {
+			*s = '\t';
+		}
+	}
+
 	if (gdm_layout != NULL) {
 		GSList *layouts;
 		GSList *found_node;
@@ -301,6 +312,8 @@ apply_xkb_settings (void)
 			}
 		}
 	}
+
+	g_free (gdm_layout);
 
 	if (!try_activating_xkb_config_if_new (&current_sys_kbd_config)) {
 		if (filter_xkb_config ()) {
