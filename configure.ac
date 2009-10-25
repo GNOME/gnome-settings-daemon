@@ -174,10 +174,13 @@ dnl ---------------------------------------------------------------------------
 have_xinput=no
 AC_CHECK_X_LIB(Xi, XListInputDevices,
   [AC_CHECK_X_HEADERS(X11/extensions/XInput.h,
-     have_xinput=yes
-     XINPUT_LIBS="-lXi",
-	  :, [#include <X11/Xlib.h>])], : ,
-       -lXi $x_libs)
+    [AC_CHECK_TYPES([XDevicePresenceNotifyEvent], [
+       have_xinput=yes
+       XINPUT_LIBS="-lXi"],
+       [], [#include <X11/extensions/XInput.h>])],
+     [], [[#include <X11/Xlib.h>>]])],
+  [], [-lXi $x_libs])
+
 AM_CONDITIONAL(HAVE_XINPUT, [test $have_xinput = yes])
 AC_SUBST(XINPUT_LIBS)
 
