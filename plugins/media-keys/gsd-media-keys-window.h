@@ -49,7 +49,8 @@ struct GsdMediaKeysWindowClass {
 
 typedef enum {
         GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME,
-        GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT
+        GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT,
+        GSD_MEDIA_KEYS_WINDOW_ACTION_BRIGHTNESS
 } GsdMediaKeysWindowAction;
 
 GType                 gsd_media_keys_window_get_type          (void);

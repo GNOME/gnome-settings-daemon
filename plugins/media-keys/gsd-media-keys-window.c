@@ -186,6 +186,10 @@ action_changed (GsdMediaKeysWindow *window)
                         volume_controls_set_visible (window, FALSE);
                         window_set_icon_name (window, "media-eject");
                         break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_BRIGHTNESS:
+                        volume_controls_set_visible (window, TRUE);
+                        window_set_icon_name (window, "gpm-brightness-lcd");
+                        break;
                 default:
                         break;
                 }
@@ -773,6 +777,89 @@ draw_action_volume (GsdMediaKeysWindow *window,
                            volume_box_height);
 }
 
+static gboolean
+render_brightness (GsdMediaKeysWindow *window,
+                   cairo_t            *cr,
+                   double              x0,
+                   double              y0,
+                   double              width,
+                   double              height)
+{
+        GdkPixbuf         *pixbuf;
+        int                icon_size;
+
+        icon_size = (int)width;
+
+        pixbuf = load_pixbuf (window, "gpm-brightness-lcd", icon_size);
+
+        if (pixbuf == NULL) {
+                return FALSE;
+        }
+
+        gdk_cairo_set_source_pixbuf (cr, pixbuf, x0, y0);
+        cairo_paint_with_alpha (cr, FG_ALPHA);
+
+        g_object_unref (pixbuf);
+
+        return TRUE;
+}
+
+static void
+draw_action_brightness (GsdMediaKeysWindow *window,
+                        cairo_t            *cr)
+{
+        int window_width;
+        int window_height;
+        double icon_box_width;
+        double icon_box_height;
+        double icon_box_x0;
+        double icon_box_y0;
+        double bright_box_x0;
+        double bright_box_y0;
+        double bright_box_width;
+        double bright_box_height;
+        gboolean res;
+
+        gtk_window_get_size (GTK_WINDOW (window), &window_width, &window_height);
+
+        icon_box_width = round (window_width * 0.65);
+        icon_box_height = round (window_height * 0.65);
+        bright_box_width = round (icon_box_width);
+        bright_box_height = round (window_height * 0.05);
+
+        icon_box_x0 = (window_width - icon_box_width) / 2;
+        icon_box_y0 = (window_height - icon_box_height - bright_box_height) / 2;
+        bright_box_x0 = round (icon_box_x0);
+        bright_box_y0 = round (icon_box_height + icon_box_y0);
+
+#if 0
+        g_message ("icon box: w=%f h=%f x0=%f y0=%f",
+                   icon_box_width,
+                   icon_box_height,
+                   icon_box_x0,
+                   icon_box_y0);
+        g_message ("brightness box: w=%f h=%f x0=%f y0=%f",
+                   bright_box_width,
+                   bright_box_height,
+                   bright_box_x0,
+                   bright_box_y0);
+#endif
+
+        res = render_brightness (window,
+                                 cr,
+                                 icon_box_x0, icon_box_y0,
+                                 icon_box_width, icon_box_height);
+
+        /* draw volume meter */
+        draw_volume_boxes (window,
+                           cr,
+                           (double)window->priv->volume_level / 100.0,
+                           bright_box_x0,
+                           bright_box_y0,
+                           bright_box_width,
+                           bright_box_height);
+}
+
 static void
 draw_action (GsdMediaKeysWindow *window,
              cairo_t            *cr)
@@ -783,6 +870,9 @@ draw_action (GsdMediaKeysWindow *window,
                 break;
         case GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT:
                 draw_action_eject (window, cr);
+                break;
+        case GSD_MEDIA_KEYS_WINDOW_ACTION_BRIGHTNESS:
+                draw_action_brightness (window, cr);
                 break;
         default:
                 break;
