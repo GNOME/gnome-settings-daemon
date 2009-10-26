@@ -84,6 +84,7 @@ static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
 static void     gsd_mouse_manager_init        (GsdMouseManager      *mouse_manager);
 static void     gsd_mouse_manager_finalize    (GObject             *object);
 static void     set_mouse_settings            (GsdMouseManager      *manager);
+static int      set_tap_to_click              (gboolean state, gboolean left_handed);
 static XDevice* device_is_touchpad            (XDeviceInfo deviceinfo);
 
 G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
@@ -285,12 +286,17 @@ set_xinput_devices_left_handed (gboolean left_handed)
                     (!xinput_device_has_buttons (&device_info[i])))
                         continue;
 
-                /* If the device is a touchpad, don't swap buttons
-                 * around, otherwise a tap would be a right-click */
+                /* If the device is a touchpad, swap tap buttons
+                 * around too, otherwise a tap would be a right-click */
                 device = device_is_touchpad (device_info[i]);
                 if (device != NULL) {
+                        GConfClient *client = gconf_client_get_default ();
+                        gboolean tap = gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL);
+
+                        if (tap)
+                                set_tap_to_click (tap, left_handed);
                         XCloseDevice (GDK_DISPLAY (), device);
-                        continue;
+                        g_object_unref (client);
                 }
 
                 gdk_error_trap_push ();
@@ -540,7 +546,7 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
 }
 
 static int
-set_tap_to_click (gboolean state)
+set_tap_to_click (gboolean state, gboolean left_handed)
 {
         int numdevices, i, format, rc;
         unsigned long nitems, bytes_after;
@@ -567,8 +573,8 @@ set_tap_to_click (gboolean state)
                         if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 7)
                         {
                                 /* Set RLM mapping for 1/2/3 fingers*/
-                                data[4] = (state) ? 1 : 0;
-                                data[5] = (state) ? 3 : 0;
+                                data[4] = (state) ? ((left_handed) ? 3 : 1) : 0;
+                                data[5] = (state) ? ((left_handed) ? 1 : 3) : 0;
                                 data[6] = (state) ? 2 : 0;
                                 XChangeDeviceProperty (GDK_DISPLAY (), device, prop, XA_INTEGER, 8,
                                                         PropModeReplace, data, nitems);
@@ -812,13 +818,14 @@ static void
 set_mouse_settings (GsdMouseManager *manager)
 {
         GConfClient *client = gconf_client_get_default ();
+        gboolean left_handed = gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL);
 
-        set_left_handed (manager, gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
+        set_left_handed (manager, left_handed);
         set_motion_acceleration (manager, gconf_client_get_float (client, KEY_MOTION_ACCELERATION , NULL));
         set_motion_threshold (manager, gconf_client_get_int (client, KEY_MOTION_THRESHOLD, NULL));
 
         set_disable_w_typing (manager, gconf_client_get_bool (client, KEY_TOUCHPAD_DISABLE_W_TYPING, NULL));
-        set_tap_to_click (gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL));
+        set_tap_to_click (gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL), left_handed);
         set_edge_scroll (gconf_client_get_int (client, KEY_SCROLL_METHOD, NULL));
         set_horiz_scroll (gconf_client_get_bool (client, KEY_PAD_HORIZ_SCROLL, NULL));
 
@@ -847,8 +854,10 @@ mouse_callback (GConfClient        *client,
                 if (entry->value->type == GCONF_VALUE_BOOL)
                         set_disable_w_typing (manager, gconf_value_get_bool (entry->value));
         } else if (! strcmp (entry->key, KEY_TAP_TO_CLICK)) {
-                if (entry->value->type == GCONF_VALUE_BOOL)
-                        set_tap_to_click (gconf_value_get_bool (entry->value));
+                if (entry->value->type == GCONF_VALUE_BOOL) {
+                        set_tap_to_click (gconf_value_get_bool (entry->value),
+                                          gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
+                }
         } else if (! strcmp (entry->key, KEY_SCROLL_METHOD)) {
                 if (entry->value->type == GCONF_VALUE_INT) {
                         set_edge_scroll (gconf_value_get_int (entry->value));
@@ -928,7 +937,8 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                                 gconf_client_get_bool (client, KEY_DELAY_ENABLE, NULL));
 
         set_disable_w_typing (manager, gconf_client_get_bool (client, KEY_TOUCHPAD_DISABLE_W_TYPING, NULL));
-        set_tap_to_click (gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL));
+        set_tap_to_click (gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL),
+                          gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
         set_edge_scroll (gconf_client_get_int (client, KEY_SCROLL_METHOD, NULL));
         set_horiz_scroll (gconf_client_get_bool (client, KEY_PAD_HORIZ_SCROLL, NULL));
 
