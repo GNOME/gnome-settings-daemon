@@ -610,7 +610,11 @@ draw_volume_boxes (GsdMediaKeysWindow *window,
         GdkColor color;
         double   r, g, b;
 
-        x1 = width * percentage;
+        x0 += 0.5;
+        y0 += 0.5;
+        height = round (height) - 1;
+        width = round (width) - 1;
+        x1 = round ((width - 1) * percentage);
 
         /* bar background */
         color = GTK_WIDGET (window)->style->dark [GTK_STATE_NORMAL];
@@ -636,7 +640,7 @@ draw_volume_boxes (GsdMediaKeysWindow *window,
         r = (float)color.red / 65535.0;
         g = (float)color.green / 65535.0;
         b = (float)color.blue / 65535.0;
-        cairo_rectangle (cr, x0, y0, x1, height);
+        cairo_rectangle (cr, x0 + 0.5, y0 + 0.5, x1, height - 1);
         cairo_set_source_rgba (cr, r, g, b, FG_ALPHA);
         cairo_fill (cr);
 }
@@ -659,15 +663,15 @@ draw_action_volume (GsdMediaKeysWindow *window,
 
         gtk_window_get_size (GTK_WINDOW (window), &window_width, &window_height);
 
-        icon_box_width = window_width * 0.65;
-        icon_box_height = window_height * 0.65;
+        icon_box_width = round (window_width * 0.65);
+        icon_box_height = round (window_height * 0.65);
         volume_box_width = icon_box_width;
-        volume_box_height = window_height * 0.05;
+        volume_box_height = round (window_height * 0.05);
 
         icon_box_x0 = (window_width - icon_box_width) / 2;
         icon_box_y0 = (window_height - icon_box_height - volume_box_height) / 2;
-        volume_box_x0 = icon_box_x0;
-        volume_box_y0 = icon_box_height + icon_box_y0;
+        volume_box_x0 = round (icon_box_x0);
+        volume_box_y0 = round (icon_box_height + icon_box_y0);
 
 #if 0
         g_message ("icon box: w=%f h=%f x0=%f y0=%f",
