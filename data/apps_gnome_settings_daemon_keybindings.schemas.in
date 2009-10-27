@@ -3,6 +3,17 @@
     <schemalist>
 
         <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/touchpad</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/touchpad</applyto>
+            <type>string</type>
+            <default>XF86TouchpadToggle</default>
+            <locale name="C">
+                <short>Toggle touchpad</short>
+                <long>Binding to enable or disable the touchpad.</long>
+            </locale>
+        </schema>
+
+        <schema>
 	    <key>/schemas/apps/gnome_settings_daemon/volume_step</key>
 	    <applyto>/apps/gnome_settings_daemon/volume_step</applyto>
 	    <type>int</type>

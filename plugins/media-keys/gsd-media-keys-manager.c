@@ -60,6 +60,8 @@
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"
 
+#define TOUCHPAD_ENABLED_KEY "/desktop/gnome/peripherals/touchpad/touchpad_enabled"
+
 #define VOLUME_STEP 6           /* percents for one volume button press */
 #define MAX_VOLUME 65536.0
 
@@ -607,6 +609,15 @@ do_eject_action (GsdMediaKeysManager *manager)
         g_free (command);
 }
 
+static void
+do_touchpad_action (GsdMediaKeysManager *manager)
+{
+        GConfClient *client = manager->priv->conf_client;
+        gboolean state = gconf_client_get_bool (client, TOUCHPAD_ENABLED_KEY, NULL);
+
+        gconf_client_set_bool (client, TOUCHPAD_ENABLED_KEY, !state, NULL);
+}
+
 #ifdef HAVE_PULSE
 static void
 update_dialog (GsdMediaKeysManager *manager,
@@ -856,6 +867,9 @@ do_action (GsdMediaKeysManager *manager,
         char *path;
 
         switch (type) {
+        case TOUCHPAD_KEY:
+                do_touchpad_action (manager);
+                break;
         case MUTE_KEY:
         case VOLUME_DOWN_KEY:
         case VOLUME_UP_KEY:
