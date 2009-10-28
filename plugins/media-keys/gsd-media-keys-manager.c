@@ -689,7 +689,6 @@ do_sound_action (GsdMediaKeysManager *manager,
                         }
                 } else {
                         if (vol < MAX_VOLUME) {
-                                gboolean set;
                                 if (vol + norm_vol_step >= MAX_VOLUME) {
                                         vol = MAX_VOLUME;
                                 } else {
