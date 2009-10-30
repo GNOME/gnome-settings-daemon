@@ -728,7 +728,7 @@ set_locate_pointer (GsdMouseManager *manager,
                 if (manager->priv->locate_pointer_spawned)
                         return;
 
-                args[0] = "/usr/libexec/gsd-locate-pointer";
+                args[0] = LIBEXECDIR "/gsd-locate-pointer";
                 args[1] = NULL;
 
                 g_spawn_async (NULL, args, NULL,
