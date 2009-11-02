@@ -1178,6 +1178,23 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 }
 
 static void
+apply_color_profiles (void)
+{
+        gboolean ret;
+        GError *error = NULL;
+
+        /* run the gnome-color-manager apply program */
+        ret = g_spawn_command_line_async (BINDIR "/gcm-apply", &error);
+        if (!ret) {
+                /* only print the warning if the binary is installed */
+                if (error->code != G_SPAWN_ERROR_NOENT) {
+                        g_warning ("failed to apply color profiles: %s", error->message);
+                }
+                g_error_free (error);
+        }
+}
+
+static void
 on_randr_event (GnomeRRScreen *screen, gpointer data)
 {
         GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
@@ -1267,6 +1284,9 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                 }
 #endif
         }
+
+        /* poke gnome-color-manager */
+        apply_color_profiles ();
 
         refresh_tray_icon_menu_if_active (manager, MAX (change_timestamp, config_timestamp));
 }
