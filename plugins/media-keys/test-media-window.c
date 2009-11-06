@@ -62,32 +62,36 @@ update_state (GtkWidget *window)
                 gtk_widget_show (window);
                 break;
         case 4:
-                gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (window),
-                                                  GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT);
+                gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
+                                                         "media-eject",
+                                                         FALSE);
 
                 gtk_widget_show (window);
                 break;
         case 5:
                 gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (window),
                                                         0);
-                gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (window),
-                                                  GSD_MEDIA_KEYS_WINDOW_ACTION_BRIGHTNESS);
+                gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
+                                                         "gpm-brightness-lcd",
+                                                         TRUE);
 
                 gtk_widget_show (window);
                 break;
         case 6:
                 gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (window),
                                                         50);
-                gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (window),
-                                                  GSD_MEDIA_KEYS_WINDOW_ACTION_BRIGHTNESS);
+                gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
+                                                         "gpm-brightness-lcd",
+                                                         TRUE);
 
                 gtk_widget_show (window);
                 break;
         case 7:
                 gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (window),
                                                         100);
-                gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (window),
-                                                  GSD_MEDIA_KEYS_WINDOW_ACTION_BRIGHTNESS);
+                gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
+                                                         "gpm-brightness-lcd",
+                                                         TRUE);
 
                 gtk_widget_show (window);
                 break;

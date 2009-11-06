@@ -596,8 +596,9 @@ do_eject_action (GsdMediaKeysManager *manager)
         char *command;
 
         dialog_init (manager);
-        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                          GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT);
+        gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                 "media-eject",
+                                                 FALSE);
         dialog_show (manager);
 
         command = gconf_client_get_string (manager->priv->conf_client,

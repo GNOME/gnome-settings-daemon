@@ -49,8 +49,7 @@ struct GsdMediaKeysWindowClass {
 
 typedef enum {
         GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME,
-        GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT,
-        GSD_MEDIA_KEYS_WINDOW_ACTION_BRIGHTNESS
+        GSD_MEDIA_KEYS_WINDOW_ACTION_CUSTOM
 } GsdMediaKeysWindowAction;
 
 GType                 gsd_media_keys_window_get_type          (void);
@@ -58,6 +57,9 @@ GType                 gsd_media_keys_window_get_type          (void);
 GtkWidget *           gsd_media_keys_window_new               (void);
 void                  gsd_media_keys_window_set_action        (GsdMediaKeysWindow      *window,
                                                                GsdMediaKeysWindowAction action);
+void                  gsd_media_keys_window_set_action_custom (GsdMediaKeysWindow      *window,
+                                                               const char              *icon_name,
+                                                               gboolean                 show_level);
 void                  gsd_media_keys_window_set_volume_muted  (GsdMediaKeysWindow      *window,
                                                                gboolean                 muted);
 void                  gsd_media_keys_window_set_volume_level  (GsdMediaKeysWindow      *window,

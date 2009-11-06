@@ -45,6 +45,8 @@ struct GsdMediaKeysWindowPrivate
         guint                    fade_timeout_id;
         double                   fade_out_alpha;
         GsdMediaKeysWindowAction action;
+        char                    *icon_name;
+        gboolean                 show_level;
 
         guint                    volume_muted : 1;
         int                      volume_level;
@@ -181,15 +183,12 @@ action_changed (GsdMediaKeysWindow *window)
                         }
 
                         break;
-                case GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT:
-                        volume_controls_set_visible (window, FALSE);
-                        window_set_icon_name (window, "media-eject");
-                        break;
-                case GSD_MEDIA_KEYS_WINDOW_ACTION_BRIGHTNESS:
-                        volume_controls_set_visible (window, TRUE);
-                        window_set_icon_name (window, "gpm-brightness-lcd");
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_CUSTOM:
+                        volume_controls_set_visible (window, window->priv->show_level);
+                        window_set_icon_name (window, window->priv->icon_name);
                         break;
                 default:
+                        g_assert_not_reached ();
                         break;
                 }
         }
@@ -231,10 +230,34 @@ gsd_media_keys_window_set_action (GsdMediaKeysWindow      *window,
                                   GsdMediaKeysWindowAction action)
 {
         g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+        g_return_if_fail (action == GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME);
 
         if (window->priv->action != action) {
                 window->priv->action = action;
                 action_changed (window);
+        } else {
+                update_window (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_action_custom (GsdMediaKeysWindow      *window,
+                                         const char              *icon_name,
+                                         gboolean                 show_level)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+        g_return_if_fail (icon_name != NULL);
+
+        if (window->priv->action != GSD_MEDIA_KEYS_WINDOW_ACTION_CUSTOM ||
+            g_strcmp0 (window->priv->icon_name, icon_name) != 0 ||
+            window->priv->show_level != show_level) {
+                window->priv->action = GSD_MEDIA_KEYS_WINDOW_ACTION_CUSTOM;
+                g_free (window->priv->icon_name);
+                window->priv->icon_name = g_strdup (icon_name);
+                window->priv->show_level = show_level;
+                action_changed (window);
+        } else {
+                update_window (window);
         }
 }
 
@@ -350,36 +373,6 @@ load_pixbuf (GsdMediaKeysWindow *window,
         return pixbuf;
 }
 
-static gboolean
-render_eject (GsdMediaKeysWindow *window,
-              cairo_t            *cr,
-              double              _x0,
-              double              _y0,
-              double              width,
-              double              height)
-{
-        GdkPixbuf  *pixbuf;
-        int         icon_size;
-        const char *icon_name;
-
-        icon_name = "media-eject";
-
-        icon_size = (int)width;
-
-        pixbuf = load_pixbuf (window, icon_name, icon_size);
-
-        if (pixbuf == NULL) {
-                return FALSE;
-        }
-
-        gdk_cairo_set_source_pixbuf (cr, pixbuf, _x0, _y0);
-        cairo_paint_with_alpha (cr, FG_ALPHA);
-
-        g_object_unref (pixbuf);
-
-        return TRUE;
-}
-
 static void
 draw_eject (cairo_t *cr,
             double   _x0,
@@ -408,43 +401,6 @@ draw_eject (cairo_t *cr,
         cairo_set_source_rgba (cr, 0.6, 0.6, 0.6, FG_ALPHA / 2);
         cairo_set_line_width (cr, 2);
         cairo_stroke (cr);
-}
-
-static void
-draw_action_eject (GsdMediaKeysWindow *window,
-                   cairo_t            *cr)
-{
-        int      window_width;
-        int      window_height;
-        double   width;
-        double   height;
-        double   _x0;
-        double   _y0;
-        gboolean res;
-
-        gtk_window_get_size (GTK_WINDOW (window), &window_width, &window_height);
-
-        width = window_width * 0.65;
-        height = window_height * 0.65;
-        _x0 = (window_width - width) / 2;
-        _y0 = (window_height - height) / 2;
-
-#if 0
-        g_message ("eject box: w=%f h=%f _x0=%f _y0=%f",
-                   width,
-                   height,
-                   _x0,
-                   _y0);
-#endif
-
-        res = render_eject (window,
-                            cr,
-                            _x0, _y0,
-                            width, height);
-        if (! res) {
-                /* draw eject symbol */
-                draw_eject (cr, _x0, _y0, width, height);
-        }
 }
 
 static void
@@ -779,19 +735,19 @@ draw_action_volume (GsdMediaKeysWindow *window,
 }
 
 static gboolean
-render_brightness (GsdMediaKeysWindow *window,
-                   cairo_t            *cr,
-                   double              _x0,
-                   double              _y0,
-                   double              width,
-                   double              height)
+render_custom (GsdMediaKeysWindow *window,
+               cairo_t            *cr,
+               double              _x0,
+               double              _y0,
+               double              width,
+               double              height)
 {
         GdkPixbuf         *pixbuf;
         int                icon_size;
 
         icon_size = (int)width;
 
-        pixbuf = load_pixbuf (window, "gpm-brightness-lcd", icon_size);
+        pixbuf = load_pixbuf (window, window->priv->icon_name, icon_size);
 
         if (pixbuf == NULL) {
                 return FALSE;
@@ -806,8 +762,8 @@ render_brightness (GsdMediaKeysWindow *window,
 }
 
 static void
-draw_action_brightness (GsdMediaKeysWindow *window,
-                        cairo_t            *cr)
+draw_action_custom (GsdMediaKeysWindow *window,
+                    cairo_t            *cr)
 {
         int window_width;
         int window_height;
@@ -846,19 +802,27 @@ draw_action_brightness (GsdMediaKeysWindow *window,
                    bright_box_y0);
 #endif
 
-        res = render_brightness (window,
-                                 cr,
-                                 icon_box_x0, icon_box_y0,
-                                 icon_box_width, icon_box_height);
+        res = render_custom (window,
+                             cr,
+                             icon_box_x0, icon_box_y0,
+                             icon_box_width, icon_box_height);
+        if (! res && g_strcmp0 (window->priv->icon_name, "media-eject") == 0) {
+                /* draw eject symbol */
+                draw_eject (cr,
+                            icon_box_x0, icon_box_y0,
+                            icon_box_width, icon_box_height);
+        }
 
-        /* draw volume meter */
-        draw_volume_boxes (window,
-                           cr,
-                           (double)window->priv->volume_level / 100.0,
-                           bright_box_x0,
-                           bright_box_y0,
-                           bright_box_width,
-                           bright_box_height);
+        if (window->priv->show_level != FALSE) {
+                /* draw volume meter */
+                draw_volume_boxes (window,
+                                   cr,
+                                   (double)window->priv->volume_level / 100.0,
+                                   bright_box_x0,
+                                   bright_box_y0,
+                                   bright_box_width,
+                                   bright_box_height);
+        }
 }
 
 static void
@@ -869,11 +833,8 @@ draw_action (GsdMediaKeysWindow *window,
         case GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME:
                 draw_action_volume (window, cr);
                 break;
-        case GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT:
-                draw_action_eject (window, cr);
-                break;
-        case GSD_MEDIA_KEYS_WINDOW_ACTION_BRIGHTNESS:
-                draw_action_brightness (window, cr);
+        case GSD_MEDIA_KEYS_WINDOW_ACTION_CUSTOM:
+                draw_action_custom (window, cr);
                 break;
         default:
                 break;
