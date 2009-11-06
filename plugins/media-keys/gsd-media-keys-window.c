@@ -750,7 +750,15 @@ render_custom (GsdMediaKeysWindow *window,
         pixbuf = load_pixbuf (window, window->priv->icon_name, icon_size);
 
         if (pixbuf == NULL) {
-                return FALSE;
+                char *name;
+                if (gtk_widget_get_direction (GTK_WIDGET (window)) == GTK_TEXT_DIR_RTL)
+                        name = g_strdup_printf ("%s-rtl", window->priv->icon_name);
+                else
+                        name = g_strdup_printf ("%s-ltr", window->priv->icon_name);
+                pixbuf = load_pixbuf (window, name, icon_size);
+                g_free (name);
+                if (pixbuf == NULL)
+                        return FALSE;
         }
 
         gdk_cairo_set_source_pixbuf (cr, pixbuf, _x0, _y0);
