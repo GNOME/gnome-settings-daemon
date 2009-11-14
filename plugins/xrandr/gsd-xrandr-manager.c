@@ -1793,6 +1793,9 @@ status_icon_stop (GsdXrandrManager *manager)
                 g_signal_handlers_disconnect_by_func (
                         priv->status_icon, G_CALLBACK (status_icon_popup_menu_cb), manager);
 
+                /* hide the icon before unreffing it; otherwise we will leak
+                   whitespace in the notification area due to a bug in there */
+                gtk_status_icon_set_visible (priv->status_icon, FALSE);
                 g_object_unref (priv->status_icon);
                 priv->status_icon = NULL;
         }
