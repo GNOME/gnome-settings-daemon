@@ -64,7 +64,7 @@
 #define MAX_VOLUME 65536.0
 
 #if defined(__OpenBSD__)
-# define EJECT_COMMAND "eject -t /dev/cd0"
+# define EJECT_COMMAND "eject -t /dev/rcd0c"
 #else
 # define EJECT_COMMAND "eject -T"
 #endif
