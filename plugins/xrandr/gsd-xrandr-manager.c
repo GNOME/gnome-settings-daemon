@@ -112,6 +112,14 @@ struct GsdXrandrManagerPrivate
         guint32 last_config_timestamp;
 };
 
+static const GnomeRRRotation possible_rotations[] = {
+        GNOME_RR_ROTATION_0,
+        GNOME_RR_ROTATION_90,
+        GNOME_RR_ROTATION_180,
+        GNOME_RR_ROTATION_270
+        /* We don't allow REFLECT_X or REFLECT_Y for now, as gnome-display-properties doesn't allow them, either */
+};
+
 static void     gsd_xrandr_manager_class_init  (GsdXrandrManagerClass *klass);
 static void     gsd_xrandr_manager_init        (GsdXrandrManager      *xrandr_manager);
 static void     gsd_xrandr_manager_finalize    (GObject             *object);
@@ -120,6 +128,11 @@ static void error_message (GsdXrandrManager *mgr, const char *primary_text, GErr
 
 static void status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp);
 static void run_display_capplet (GtkWidget *widget);
+static void get_allowed_rotations_for_output (GnomeRRConfig *config,
+                                              GnomeRRScreen *rr_screen,
+                                              GnomeOutputInfo *output,
+                                              int *out_num_rotations,
+                                              GnomeRRRotation *out_rotations);
 
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
@@ -994,6 +1007,118 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
         g_debug ("done handling fn-f7");
 }
 
+static GnomeOutputInfo *
+get_laptop_output_info (GnomeRRConfig *config)
+{
+        int i;
+
+        for (i = 0; config->outputs[i] != NULL; i++) {
+                GnomeOutputInfo *info;
+
+                info = config->outputs[i];
+                if (is_laptop (info))
+                        return info;
+        }
+
+        return NULL;
+
+}
+
+static GnomeRRRotation
+get_next_rotation (GnomeRRRotation allowed_rotations, GnomeRRRotation current_rotation)
+{
+        int i;
+        int current_index;
+
+        /* First, find the index of the current rotation */
+
+        current_index = -1;
+
+        for (i = 0; i < G_N_ELEMENTS (possible_rotations); i++) {
+                GnomeRRRotation r;
+
+                r = possible_rotations[i];
+                if (r == current_rotation) {
+                        current_index = i;
+                        break;
+                }
+        }
+
+        if (current_index == -1) {
+                /* Huh, the current_rotation was not one of the supported rotations.  Bail out. */
+                return current_rotation;
+        }
+
+        /* Then, find the next rotation that is allowed */
+
+        i = (current_index + 1) % G_N_ELEMENTS (possible_rotations);
+
+        while (1) {
+                GnomeRRRotation r;
+
+                r = possible_rotations[i];
+                if (r == current_rotation) {
+                        /* We wrapped around and no other rotation is suported.  Bummer. */
+                        return current_rotation;
+                } else if (r & allowed_rotations)
+                        return r;
+
+                i = (i + 1) % G_N_ELEMENTS (possible_rotations);
+        }
+}
+
+/* We use this when the XF86RotateWindows key is pressed.  That key is present
+ * on some tablet PCs; they use it so that the user can rotate the tablet
+ * easily.
+ */
+static void
+handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
+{
+        GsdXrandrManagerPrivate *priv = mgr->priv;
+        GnomeRRScreen *screen = priv->rw_screen;
+        GnomeRRConfig *current;
+        GError *error;
+        GnomeOutputInfo *rotatable_output_info;
+        int num_allowed_rotations;
+        GnomeRRRotation allowed_rotations;
+        GnomeRRRotation next_rotation;
+
+        g_debug ("Handling XF86RotateWindows");
+
+        /* Which output? */
+
+        current = gnome_rr_config_new_current (screen);
+
+        rotatable_output_info = get_laptop_output_info (current);
+        if (rotatable_output_info == NULL) {
+                g_debug ("No laptop outputs found to rotate; XF86RotateWindows key will do nothing");
+                goto out;
+        }
+
+        /* Which rotation? */
+
+        get_allowed_rotations_for_output (current, priv->rw_screen, rotatable_output_info, &num_allowed_rotations, &allowed_rotations);
+        next_rotation = get_next_rotation (allowed_rotations, rotatable_output_info->rotation);
+
+        if (next_rotation == rotatable_output_info->rotation) {
+                g_debug ("No rotations are supported other than the current one; XF86RotateWindows key will do nothing");
+                goto out;
+        }
+
+        /* Rotate */
+
+        rotatable_output_info->rotation = next_rotation;
+
+        error = NULL;
+        if (!gnome_rr_config_apply_with_time (current, screen, timestamp, &error)) {
+                error_message (mgr, _("Could not switch the monitor configuration"), error, NULL);
+                g_error_free (error);
+        }
+
+out:
+        gnome_rr_config_free (current);
+}
+
 static GdkFilterReturn
 event_filter (GdkXEvent           *xevent,
               GdkEvent            *event,
@@ -1009,8 +1134,11 @@ event_filter (GdkXEvent           *xevent,
         if (xev->xany.type != KeyPress && xev->xany.type != KeyRelease)
                 return GDK_FILTER_CONTINUE;
 
-        if (xev->xany.type == KeyPress && xev->xkey.keycode == manager->priv->switch_video_mode_keycode) {
-                handle_fn_f7 (manager, xev->xkey.time);
+        if (xev->xany.type == KeyPress) {
+                if (xev->xkey.keycode == manager->priv->switch_video_mode_keycode)
+                        handle_fn_f7 (manager, xev->xkey.time);
+                else if (xev->xkey.keycode == manager->priv->rotate_windows_keycode)
+                        handle_rotate_windows (manager, xev->xkey.time);
 
                 return GDK_FILTER_CONTINUE;
         }
@@ -1510,17 +1638,12 @@ make_menu_item_for_output_title (GsdXrandrManager *manager, GnomeOutputInfo *out
 }
 
 static void
-get_allowed_rotations_for_output (GsdXrandrManager *manager, GnomeOutputInfo *output, int *out_num_rotations, GnomeRRRotation *out_rotations)
+get_allowed_rotations_for_output (GnomeRRConfig *config,
+                                  GnomeRRScreen *rr_screen,
+                                  GnomeOutputInfo *output,
+                                  int *out_num_rotations,
+                                  GnomeRRRotation *out_rotations)
 {
-        static const GnomeRRRotation possible_rotations[] = {
-                GNOME_RR_ROTATION_0,
-                GNOME_RR_ROTATION_90,
-                GNOME_RR_ROTATION_180,
-                GNOME_RR_ROTATION_270
-                /* We don't allow REFLECT_X or REFLECT_Y for now, as gnome-display-properties doesn't allow them, either */
-        };
-
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
         GnomeRRRotation current_rotation;
         int i;
 
@@ -1538,7 +1661,7 @@ get_allowed_rotations_for_output (GsdXrandrManager *manager, GnomeOutputInfo *ou
 
                 output->rotation = rotation_to_test;
 
-                if (gnome_rr_config_applicable (priv->configuration, priv->rw_screen, NULL)) { /* NULL-GError */
+                if (gnome_rr_config_applicable (config, rr_screen, NULL)) { /* NULL-GError */
                         (*out_num_rotations)++;
                         (*out_rotations) |= rotation_to_test;
                 }
@@ -1701,10 +1824,11 @@ add_items_for_rotations (GsdXrandrManager *manager, GnomeOutputInfo *output, Gno
 static void
 add_rotation_items_for_output (GsdXrandrManager *manager, GnomeOutputInfo *output)
 {
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
         int num_rotations;
         GnomeRRRotation rotations;
 
-        get_allowed_rotations_for_output (manager, output, &num_rotations, &rotations);
+        get_allowed_rotations_for_output (priv->configuration, priv->rw_screen, output, &num_rotations, &rotations);
 
         if (num_rotations == 1)
                 add_unsupported_rotation_item (manager);
