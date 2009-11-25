@@ -87,8 +87,8 @@ struct GsdXrandrManagerPrivate
 {
         DBusGConnection *dbus_connection;
 
-        /* Key code of the fn-F7 video key (XF86Display) */
-        guint keycode;
+        /* Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.) */
+        guint switch_video_mode_keycode;
         GnomeRRScreen *rw_screen;
         gboolean running;
 
@@ -1004,7 +1004,7 @@ event_filter (GdkXEvent           *xevent,
         if (xev->xany.type != KeyPress && xev->xany.type != KeyRelease)
                 return GDK_FILTER_CONTINUE;
 
-        if (xev->xany.type == KeyPress && xev->xkey.keycode == manager->priv->keycode) {
+        if (xev->xany.type == KeyPress && xev->xkey.keycode == manager->priv->switch_video_mode_keycode) {
                 handle_fn_f7 (manager, xev->xkey.time);
 
                 return GDK_FILTER_CONTINUE;
@@ -1940,11 +1940,11 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                         (GConfClientNotifyFunc)on_config_changed,
                         manager, NULL, NULL);
 
-        if (manager->priv->keycode) {
+        if (manager->priv->switch_video_mode_keycode) {
                 gdk_error_trap_push ();
 
                 XGrabKey (gdk_x11_get_default_xdisplay(),
-                          manager->priv->keycode, AnyModifier,
+                          manager->priv->switch_video_mode_keycode, AnyModifier,
                           gdk_x11_get_default_root_xwindow(),
                           True, GrabModeAsync, GrabModeAsync);
 
@@ -1973,13 +1973,15 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
 
         manager->priv->running = FALSE;
 
-        gdk_error_trap_push ();
+        if (manager->priv->switch_video_mode_keycode) {
+                gdk_error_trap_push ();
 
-        XUngrabKey (gdk_x11_get_default_xdisplay(),
-                    manager->priv->keycode, AnyModifier,
-                    gdk_x11_get_default_root_xwindow());
+                XUngrabKey (gdk_x11_get_default_xdisplay(),
+                            manager->priv->switch_video_mode_keycode, AnyModifier,
+                            gdk_x11_get_default_root_xwindow());
 
-        gdk_error_trap_pop ();
+                gdk_error_trap_pop ();
+        }
 
         gdk_window_remove_filter (gdk_get_default_root_window (),
                                   (GdkFilterFunc) event_filter,
@@ -2088,16 +2090,24 @@ gsd_xrandr_manager_class_init (GsdXrandrManagerClass *klass)
         g_type_class_add_private (klass, sizeof (GsdXrandrManagerPrivate));
 }
 
+static guint
+get_keycode_for_keysym_name (const char *name)
+{
+        Display *dpy;
+        guint keyval;
+
+        dpy = gdk_x11_get_default_xdisplay ();
+
+        keyval = gdk_keyval_from_name (name);
+        return XKeysymToKeycode (dpy, keyval);
+}
+
 static void
 gsd_xrandr_manager_init (GsdXrandrManager *manager)
 {
-        Display *dpy = gdk_x11_get_default_xdisplay ();
-        guint keyval = gdk_keyval_from_name (VIDEO_KEYSYM);
-        guint keycode = XKeysymToKeycode (dpy, keyval);
-
         manager->priv = GSD_XRANDR_MANAGER_GET_PRIVATE (manager);
 
-        manager->priv->keycode = keycode;
+        manager->priv->switch_video_mode_keycode = get_keycode_for_keysym_name (VIDEO_KEYSYM);
 
         manager->priv->current_fn_f7_config = -1;
         manager->priv->fn_f7_configs = NULL;
