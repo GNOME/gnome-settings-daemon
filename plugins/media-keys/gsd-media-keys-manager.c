@@ -615,6 +615,12 @@ do_touchpad_action (GsdMediaKeysManager *manager)
         GConfClient *client = manager->priv->conf_client;
         gboolean state = gconf_client_get_bool (client, TOUCHPAD_ENABLED_KEY, NULL);
 
+        dialog_init (manager);
+        gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                 (!state) ? "touchpad-enabled" : "touchpad-disabled",
+                                                 FALSE);
+        dialog_show (manager);
+
         gconf_client_set_bool (client, TOUCHPAD_ENABLED_KEY, !state, NULL);
 }
 
