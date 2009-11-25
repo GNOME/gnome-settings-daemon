@@ -66,6 +66,7 @@
 #define CONF_KEY "show_notification_icon"
 
 #define VIDEO_KEYSYM    "XF86Display"
+#define ROTATE_KEYSYM   "XF86RotateWindows"
 
 /* Number of seconds that the confirmation dialog will last before it resets the
  * RANDR configuration to its old state.
@@ -89,6 +90,10 @@ struct GsdXrandrManagerPrivate
 
         /* Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.) */
         guint switch_video_mode_keycode;
+
+        /* Key code of the XF86RotateWindows key (present on some tablets) */
+        guint rotate_windows_keycode;
+
         GnomeRRScreen *rw_screen;
         gboolean running;
 
@@ -1952,6 +1957,18 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                 gdk_error_trap_pop ();
         }
 
+        if (manager->priv->rotate_windows_keycode) {
+                gdk_error_trap_push ();
+
+                XGrabKey (gdk_x11_get_default_xdisplay(),
+                          manager->priv->rotate_windows_keycode, AnyModifier,
+                          gdk_x11_get_default_root_xwindow(),
+                          True, GrabModeAsync, GrabModeAsync);
+
+                gdk_flush ();
+                gdk_error_trap_pop ();
+        }
+
         show_timestamps_dialog (manager, "Startup");
         apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME); /* we don't have a real timestamp at startup anyway */
 
@@ -1978,6 +1995,16 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
 
                 XUngrabKey (gdk_x11_get_default_xdisplay(),
                             manager->priv->switch_video_mode_keycode, AnyModifier,
+                            gdk_x11_get_default_root_xwindow());
+
+                gdk_error_trap_pop ();
+        }
+
+        if (manager->priv->rotate_windows_keycode) {
+                gdk_error_trap_push ();
+
+                XUngrabKey (gdk_x11_get_default_xdisplay(),
+                            manager->priv->rotate_windows_keycode, AnyModifier,
                             gdk_x11_get_default_root_xwindow());
 
                 gdk_error_trap_pop ();
@@ -2108,6 +2135,7 @@ gsd_xrandr_manager_init (GsdXrandrManager *manager)
         manager->priv = GSD_XRANDR_MANAGER_GET_PRIVATE (manager);
 
         manager->priv->switch_video_mode_keycode = get_keycode_for_keysym_name (VIDEO_KEYSYM);
+        manager->priv->rotate_windows_keycode = get_keycode_for_keysym_name (ROTATE_KEYSYM);
 
         manager->priv->current_fn_f7_config = -1;
         manager->priv->fn_f7_configs = NULL;
