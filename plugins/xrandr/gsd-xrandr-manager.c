@@ -167,10 +167,57 @@ show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
 #endif
 }
 
+static GnomeRRRotation
+find_rotation_for_tablet (GnomeRRConfig *configuration)
+{
+        int i;
+
+        /* The stupid heuristic is to find the first rotated output, and use its rotation.
+         * The rationale is:
+         *
+         * - If you have a built-in tablet (like a tablet PC), then you want the
+         *   stylus to match the built-in monitor's orientation.  Your external
+         *   monitor has no relationship to your stylus.
+         *
+         * - If you have a single swivel monitor, that's the one which corresponds to
+         *   your external tablet.
+         *
+         * - If you have two swivel monitors, well, I want your setup at my home, too.
+         */
+
+        for (i = 0; configuration->outputs[i] != NULL; i++) {
+                GnomeOutputInfo *output;
+
+                output = configuration->outputs[i];
+                if (output->on && output->connected && output->rotation != GNOME_RR_ROTATION_0)
+                        return output->rotation;
+        }
+
+        return GNOME_RR_ROTATION_0;
+}
+
 static void
 handle_tablet_rotation (GsdXrandrManager *manager)
 {
-        /* FMQ: implement */
+        struct GsdXrandrManagerPrivate *priv = manager->priv;
+        GnomeRRConfig *configuration;
+        GnomeRRRotation rotation;
+
+        if (!gconf_client_get_bool (priv->client, CONF_KEY_ROTATE_TABLET_WITH_MONITOR, NULL)) {
+                rotate_tablet (manager, GNOME_RR_ROTATION_0); /* un-rotate the tablet when the GConf key is turned off */
+                return;
+        }
+
+        /* Re-creating the current configuration is probably not the most
+         * efficient thing, but it should give us an accurate view of the world.
+         */
+        configuration = gnome_rr_config_new_current (priv->rw_screen);
+
+        rotation = find_rotation_for_tablet (configuration);
+
+        gnome_rr_config_free (configuration);
+
+        rotate_tablet (manager, rotation);
 }
 
 /* This function centralizes the use of gnome_rr_config_apply_from_filename_with_time().
