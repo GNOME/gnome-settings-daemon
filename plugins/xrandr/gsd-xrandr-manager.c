@@ -166,7 +166,9 @@ show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
 #endif
 }
 
-/* Optionally filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from
+/* This function centralizes the use of gnome_rr_config_apply_from_filename_with_time().
+ *
+ * Optionally filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from
  * gnome_rr_config_apply_from_filename_with_time(), since that is not usually an error.
  */
 static gboolean
@@ -204,6 +206,28 @@ apply_configuration_from_filename (GsdXrandrManager *manager,
 fail:
         g_propagate_error (error, my_error);
         return FALSE;
+}
+
+/* This function centralizes the use of gnome_rr_config_apply_with_time().
+ *
+ * Applies a configuration and displays an error message if an error happens.
+ * We just return whether setting the configuration succeeded.
+ */
+static gboolean
+apply_configuration_and_display_error (GsdXrandrManager *manager, GnomeGnomeRRConfig *config, guint32 timestamp)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        GError *error;
+        gboolean success;
+
+        error = NULL;
+        success = gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, &error);
+        if (!success) {
+                error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
+                g_error_free (error);
+        }
+
+        return success;
 }
 
 static void
@@ -995,11 +1019,7 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
 
                 g_debug ("applying");
 
-                error = NULL;
-                if (!gnome_rr_config_apply_with_time (priv->fn_f7_configs[mgr->priv->current_fn_f7_config], screen, timestamp, &error)) {
-                        error_message (mgr, _("Could not switch the monitor configuration"), error, NULL);
-                        g_error_free (error);
-                }
+                apply_configuration_and_display_error (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp);
         }
         else {
                 g_debug ("no configurations generated");
@@ -1077,7 +1097,6 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
         GsdXrandrManagerPrivate *priv = mgr->priv;
         GnomeRRScreen *screen = priv->rw_screen;
         GnomeRRConfig *current;
-        GError *error;
         GnomeOutputInfo *rotatable_output_info;
         int num_allowed_rotations;
         GnomeRRRotation allowed_rotations;
@@ -1109,11 +1128,7 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
 
         rotatable_output_info->rotation = next_rotation;
 
-        error = NULL;
-        if (!gnome_rr_config_apply_with_time (current, screen, timestamp, &error)) {
-                error_message (mgr, _("Could not switch the monitor configuration"), error, NULL);
-                g_error_free (error);
-        }
+        apply_configuration_and_display_error (mgr, current, timestamp);
 
 out:
         gnome_rr_config_free (current);
@@ -1275,13 +1290,8 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 
         /* Apply the configuration! */
 
-        if (applicable) {
-                error = NULL;
-                if (!gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, &error)) {
-                        error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
-                        g_error_free (error);
-                }
-        }
+        if (applicable)
+                apply_configuration_and_display_error (manager, config, timestamp);
 
         g_list_free (just_turned_on);
         gnome_rr_config_free (config);
