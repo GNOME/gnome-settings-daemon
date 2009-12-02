@@ -47,6 +47,8 @@
 #include "gnome-settings-profile.h"
 #include "gsd-background-manager.h"
 
+#define NAUTILUS_SHOW_DESKTOP_KEY "/apps/nautilus/preferences/show_desktop"
+
 #define GSD_BACKGROUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_BACKGROUND_MANAGER, GsdBackgroundManagerPrivate))
 
 struct GsdBackgroundManagerPrivate
@@ -330,6 +332,67 @@ draw_background_after_session_loads (GsdBackgroundManager *manager)
         manager->priv->dbus_connection = connection;
 }
 
+static void
+on_screen_size_changed (GdkScreen            *screen,
+                        GsdBackgroundManager *manager)
+{
+        gboolean nautilus_show_desktop;
+
+        nautilus_show_desktop = gconf_client_get_bool (manager->priv->client,
+                                                       NAUTILUS_SHOW_DESKTOP_KEY,
+                                                       NULL);
+
+        if (!nautilus_is_running () || !nautilus_show_desktop) {
+                if (manager->priv->bg == NULL) {
+                        setup_bg (manager);
+                }
+                draw_background (manager, FALSE);
+        }
+}
+
+static void
+disconnect_screen_signals (GsdBackgroundManager *manager)
+{
+        GdkDisplay *display;
+        int         i;
+        int         n_screens;
+
+        display = gdk_display_get_default ();
+        n_screens = gdk_display_get_n_screens (display);
+
+        for (i = 0; i < n_screens; ++i) {
+                GdkScreen *screen;
+                screen = gdk_display_get_screen (display, i);
+                g_signal_handlers_disconnect_by_func (screen,
+                                                      G_CALLBACK (on_screen_size_changed),
+                                                      manager);
+        }
+}
+
+static void
+connect_screen_signals (GsdBackgroundManager *manager)
+{
+        GdkDisplay *display;
+        int         i;
+        int         n_screens;
+
+        display = gdk_display_get_default ();
+        n_screens = gdk_display_get_n_screens (display);
+
+        for (i = 0; i < n_screens; ++i) {
+                GdkScreen *screen;
+                screen = gdk_display_get_screen (display, i);
+                g_signal_connect (screen,
+                                  "monitors-changed",
+                                  G_CALLBACK (on_screen_size_changed),
+                                  manager);
+                g_signal_connect (screen,
+                                  "size-changed",
+                                  G_CALLBACK (on_screen_size_changed),
+                                  manager);
+        }
+}
+
 gboolean
 gsd_background_manager_start (GsdBackgroundManager *manager,
                               GError              **error)
@@ -349,7 +412,7 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
 	 * nautilus overwrite it.
 	 */
         nautilus_show_desktop = gconf_client_get_bool (manager->priv->client,
-                                                       "/apps/nautilus/preferences/show_desktop",
+                                                       NAUTILUS_SHOW_DESKTOP_KEY,
                                                        NULL);
 
         if (!nautilus_show_desktop) {
@@ -357,6 +420,8 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
         } else {
                 draw_background_after_session_loads (manager);
         }
+
+        connect_screen_signals (manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -369,6 +434,8 @@ gsd_background_manager_stop (GsdBackgroundManager *manager)
         GsdBackgroundManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping background manager");
+
+        disconnect_screen_signals (manager);
 
         if (manager->priv->dbus_connection != NULL) {
                 dbus_connection_remove_filter (manager->priv->dbus_connection,
