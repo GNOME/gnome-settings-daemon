@@ -295,6 +295,20 @@ apply_xkb_settings (void)
 	gkbd_keyboard_config_load_from_x_current (&current_sys_kbd_config,
 						  NULL);
 
+	if (!try_activating_xkb_config_if_new (&current_sys_kbd_config)) {
+		if (filter_xkb_config ()) {
+			if (!try_activating_xkb_config_if_new (&current_sys_kbd_config)) {
+				g_warning ("Could not activate the filtered XKB configuration");
+				activation_error ();
+			}
+		} else {
+			g_warning ("Could not activate the XKB configuration");
+			activation_error ();
+		}
+	} else
+		xkl_debug (100,
+			   "Actual KBD configuration was not changed: redundant notification\n");
+
 	if (gdm_layout != NULL) {
 		/* If there are multiple layouts,
 		 * try to find the one closest to the gdm layout
@@ -314,20 +328,6 @@ apply_xkb_settings (void)
 	}
 
 	g_free (gdm_layout);
-
-	if (!try_activating_xkb_config_if_new (&current_sys_kbd_config)) {
-		if (filter_xkb_config ()) {
-			if (!try_activating_xkb_config_if_new (&current_sys_kbd_config)) {
-				g_warning ("Could not activate the filtered XKB configuration");
-				activation_error ();
-			}
-		} else {	
-			g_warning ("Could not activate the XKB configuration");
-			activation_error ();
-		}
-	} else
-		xkl_debug (100,
-			   "Actual KBD configuration was not changed: redundant notification\n");
 
 	if (group_to_activate != -1)
 		xkl_engine_lock_group (current_config.engine,
