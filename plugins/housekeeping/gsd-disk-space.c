@@ -315,6 +315,7 @@ ldsm_mount_should_ignore (GUnixMountEntry *mount)
                 "procfs",
                 "ptyfs",
                 "selinuxfs",
+                "linsysfs",
                 "sysfs",
                 "tmpfs",
                 "usbfs",
