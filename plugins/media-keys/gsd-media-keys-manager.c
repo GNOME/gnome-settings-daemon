@@ -69,12 +69,6 @@
 # define EJECT_COMMAND "eject -T"
 #endif
 
-#if defined(__OpenBSD__) || defined(__FreeBSD__)
-# define SLEEP_COMMAND "zzz"
-#else
-# define SLEEP_COMMAND "apm"
-#endif
-
 #define GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MEDIA_KEYS_MANAGER, GsdMediaKeysManagerPrivate))
 
 typedef struct {
@@ -895,9 +889,6 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case EMAIL_KEY:
                 do_mail_action (manager);
-                break;
-        case SLEEP_KEY:
-                do_sleep_action (SLEEP_COMMAND, "xset dpms force off");
                 break;
         case SCREENSAVER_KEY:
                 if ((cmd = g_find_program_in_path ("gnome-screensaver-command"))) {
