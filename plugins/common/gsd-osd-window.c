@@ -107,11 +107,14 @@ rounded_rectangle (cairo_t* cr,
         cairo_close_path (cr);
 }
 
-static gboolean
-on_expose_event (GtkWidget          *widget,
-                 GdkEventExpose     *event,
-                 GsdOsdWindow *window)
+/* This is our expose-event handler when the window is in a compositing manager.
+ * We draw everything by hand, using Cairo, so that we can have a nice
+ * transparent/rounded look.
+ */
+static void
+expose_when_composited (GtkWidget *widget, GdkEventExpose *event)
 {
+	GsdOsdWindow    *window;
         cairo_t         *context;
         cairo_t         *cr;
         cairo_surface_t *surface;
@@ -120,6 +123,8 @@ on_expose_event (GtkWidget          *widget,
         GtkStyle        *style;
         GdkColor         color;
         double           r, g, b;
+
+	window = GSD_OSD_WINDOW (widget);
 
         context = gdk_cairo_create (gtk_widget_get_window (widget));
 
@@ -181,6 +186,36 @@ on_expose_event (GtkWidget          *widget,
                 cairo_surface_destroy (surface);
         }
         cairo_destroy (context);
+}
+
+/* This is our expose-event handler when the window is *not* in a compositing manager.
+ * We just draw a rectangular frame by hand.  We do this with hardcoded drawing code,
+ * instead of GtkFrame, to avoid changing the window's internal widget hierarchy:  in
+ * either case (composited or non-composited), callers can assume that this works
+ * identically to a GtkWindow without any intermediate widgetry.
+ */
+static void
+expose_when_not_composited (GtkWidget *widget, GdkEventExpose *event)
+{
+	GsdOsdWindow *window;
+
+	window = GSD_OSD_WINDOW (widget);
+
+	/* FIXME */
+}
+
+static gboolean
+gsd_osd_window_expose_event (GtkWidget          *widget,
+			     GdkEventExpose     *event)
+{
+	GsdOsdWindow *window;
+
+	window = GSD_OSD_WINDOW (widget);
+
+	if (window->priv->is_composited)
+		expose_when_composited (widget, event);
+	else
+		expose_when_not_composited (widget, event);
 
         return FALSE;
 }
@@ -255,6 +290,7 @@ gsd_osd_window_class_init (GsdOsdWindowClass *klass)
         widget_class->show = gsd_osd_window_real_show;
         widget_class->hide = gsd_osd_window_real_hide;
         widget_class->realize = gsd_osd_window_real_realize;
+	widget_class->expose_event = gsd_osd_window_expose_event;
 
         g_type_class_add_private (klass, sizeof (GsdOsdWindowPrivate));
 }
@@ -298,7 +334,6 @@ gsd_osd_window_init (GsdOsdWindow *window)
                 size = 130 * MAX (1, scale);
 
                 gtk_window_set_default_size (GTK_WINDOW (window), size, size);
-                g_signal_connect (window, "expose-event", G_CALLBACK (on_expose_event), window);
 
                 window->priv->fade_out_alpha = 1.0;
         } else {
