@@ -50,10 +50,87 @@
 struct GsdOsdWindowPrivate
 {
         guint                    is_composited : 1;
+        guint                    hide_timeout_id;
+        guint                    fade_timeout_id;
         double                   fade_out_alpha;
 };
 
 G_DEFINE_TYPE (GsdOsdWindow, gsd_osd_window, GTK_TYPE_WINDOW)
+
+static gboolean
+fade_timeout (GsdOsdWindow *window)
+{
+        if (window->priv->fade_out_alpha <= 0.0) {
+                gtk_widget_hide (GTK_WIDGET (window));
+
+                /* Reset it for the next time */
+                window->priv->fade_out_alpha = 1.0;
+                window->priv->fade_timeout_id = 0;
+
+                return FALSE;
+        } else {
+                GdkRectangle rect;
+                GtkWidget *win = GTK_WIDGET (window);
+                GtkAllocation allocation;
+
+                window->priv->fade_out_alpha -= 0.10;
+
+                rect.x = 0;
+                rect.y = 0;
+                gtk_widget_get_allocation (win, &allocation);
+                rect.width = allocation.width;
+                rect.height = allocation.height;
+
+                gdk_window_invalidate_rect (gtk_widget_get_window (win), &rect, FALSE);
+        }
+
+        return TRUE;
+}
+
+static gboolean
+hide_timeout (GsdOsdWindow *window)
+{
+        if (window->priv->is_composited) {
+                window->priv->hide_timeout_id = 0;
+                window->priv->fade_timeout_id = g_timeout_add (FADE_TIMEOUT,
+                                                               (GSourceFunc) fade_timeout,
+                                                               window);
+        } else {
+                gtk_widget_hide (GTK_WIDGET (window));
+        }
+
+        return FALSE;
+}
+
+static void
+remove_hide_timeout (GsdOsdWindow *window)
+{
+        if (window->priv->hide_timeout_id != 0) {
+                g_source_remove (window->priv->hide_timeout_id);
+                window->priv->hide_timeout_id = 0;
+        }
+
+        if (window->priv->fade_timeout_id != 0) {
+                g_source_remove (window->priv->fade_timeout_id);
+                window->priv->fade_timeout_id = 0;
+                window->priv->fade_out_alpha = 1.0;
+        }
+}
+
+static void
+add_hide_timeout (GsdOsdWindow *window)
+{
+        int timeout;
+
+        if (window->priv->is_composited) {
+                timeout = DIALOG_FADE_TIMEOUT;
+        } else {
+                timeout = DIALOG_TIMEOUT;
+        }
+        window->priv->hide_timeout_id = g_timeout_add (timeout,
+                                                       (GSourceFunc) hide_timeout,
+                                                       window);
+}
 
 static void
 rounded_rectangle (cairo_t* cr,
@@ -105,6 +182,36 @@ rounded_rectangle (cairo_t* cr,
                    180.0f * G_PI / 180.0f,
                    270.0f * G_PI / 180.0f);
         cairo_close_path (cr);
+}
+
+static void
+color_reverse (const GdkColor *a,
+               GdkColor       *b)
+{
+        gdouble red;
+        gdouble green;
+        gdouble blue;
+        gdouble h;
+        gdouble s;
+        gdouble v;
+
+        red = (gdouble) a->red / 65535.0;
+        green = (gdouble) a->green / 65535.0;
+        blue = (gdouble) a->blue / 65535.0;
+
+        gtk_rgb_to_hsv (red, green, blue, &h, &s, &v);
+
+        v = 0.5 + (0.5 - v);
+        if (v > 1.0)
+                v = 1.0;
+        else if (v < 0.0)
+                v = 0.0;
+
+        gtk_hsv_to_rgb (h, s, v, &red, &green, &blue);
+
+        b->red = red * 65535.0;
+        b->green = green * 65535.0;
+        b->blue = blue * 65535.0;
 }
 
 /* This is our expose-event handler when the window is in a compositing manager.
