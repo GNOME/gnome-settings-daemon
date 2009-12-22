@@ -201,7 +201,23 @@ expose_when_not_composited (GtkWidget *widget, GdkEventExpose *event)
 
 	window = GSD_OSD_WINDOW (widget);
 
-	/* FIXME */
+	/* FIXME: although we set the border_width to 12 in
+	 * gsd_osd_window_init(), we are not taking into account the style's
+	 * xthickness/ythickness for the frame's shadow.  We need to do that with a
+	 * custom size_request handler.
+	 */
+
+	gtk_paint_shadow (gtk_widget_get_style (widget),
+			  gtk_widget_get_window (widget),
+			  gtk_widget_get_state (widget),
+			  GTK_SHADOW_IN,
+			  &event->area,
+			  widget,
+			  NULL, /* NULL detail -> themes should use the GsdOsdWindow widget name, probably */
+			  0,
+			  0,
+			  widget->allocation.width,
+			  widget->allocation.height);
 }
 
 static gboolean
@@ -209,6 +225,7 @@ gsd_osd_window_expose_event (GtkWidget          *widget,
 			     GdkEventExpose     *event)
 {
 	GsdOsdWindow *window;
+	GtkWidget *child;
 
 	window = GSD_OSD_WINDOW (widget);
 
@@ -216,6 +233,10 @@ gsd_osd_window_expose_event (GtkWidget          *widget,
 		expose_when_composited (widget, event);
 	else
 		expose_when_not_composited (widget, event);
+
+	child = gtk_bin_get_child (GTK_BIN (window));
+	if (child)
+		gtk_container_propagate_expose (GTK_CONTAINER (window), child, event);
 
         return FALSE;
 }
@@ -337,27 +358,7 @@ gsd_osd_window_init (GsdOsdWindow *window)
 
                 window->priv->fade_out_alpha = 1.0;
         } else {
-                GtkBuilder *builder;
-                const gchar *objects[] = {"acme_frame", NULL};
-                GtkWidget *frame;
-
-                builder = gtk_builder_new ();
-                gtk_builder_add_objects_from_file (builder,
-                                                   GTKBUILDERDIR "/acme.ui",
-                                                   (char **) objects,
-                                                   NULL);
-
-                frame = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "acme_frame"));
-
-                if (frame != NULL) {
-                        gtk_container_add (GTK_CONTAINER (window), frame);
-                        gtk_widget_show_all (frame);
-                }
-
-                /* The builder needs to stay alive until the window
-                   takes ownership of the frame (and its children)  */
-                g_object_unref (builder);
+		gtk_container_set_border_width (GTK_CONTAINER (window), 12);
         }
 }
 
