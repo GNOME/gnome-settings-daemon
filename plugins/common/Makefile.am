@@ -5,7 +5,9 @@ libcommon_la_SOURCES = \
 	eggaccelerators.c	\
 	eggaccelerators.h	\
 	gsd-keygrab.c		\
-	gsd-keygrab.h
+	gsd-keygrab.h		\
+	gsd-osd-window.c	\
+	gsd-osd-window.h
 
 libcommon_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
