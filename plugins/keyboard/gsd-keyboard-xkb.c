@@ -31,6 +31,7 @@
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
 
+#include <libgnomekbd/gkbd-status.h>
 #include <libgnomekbd/gkbd-desktop-config.h>
 #include <libgnomekbd/gkbd-keyboard-config.h>
 
@@ -60,6 +61,8 @@ static const char KNOWN_FILES_KEY[] =
     "/desktop/gnome/peripherals/keyboard/general/known_file_list";
 
 static const char *gdm_keyboard_layout = NULL;
+
+static GkbdStatus *icon = NULL;
 
 #define noGSDKX
 
@@ -137,6 +140,23 @@ apply_desktop_settings (void)
 	gkbd_desktop_config_activate (&current_config);
 }
 
+static void
+show_hide_icon ()
+{
+	if (g_slist_length(current_kbd_config.layouts_variants) > 1) {
+		if (icon == NULL) {
+			xkl_debug (150, "Creating new icon\n");
+			icon = gkbd_status_new();
+		}
+	} else {
+		if (icon != NULL) {
+			xkl_debug (150, "Destroying icon\n");
+			g_object_unref(icon);
+			icon = NULL;
+		}
+	}
+}
+
 static gboolean
 try_activating_xkb_config_if_new (GkbdKeyboardConfig *current_sys_kbd_config)
 {
@@ -144,6 +164,7 @@ try_activating_xkb_config_if_new (GkbdKeyboardConfig *current_sys_kbd_config)
 	if (!gkbd_keyboard_config_equals
 	    (&current_kbd_config, current_sys_kbd_config)) {
 		if (gkbd_keyboard_config_activate (&current_kbd_config)) {
+			show_hide_icon ();
 			if (pa_callback != NULL) {
 				(*pa_callback) (pa_callback_user_data);
 				return TRUE;
@@ -258,7 +279,7 @@ apply_xkb_settings (void)
 		 * prevents the list from becoming full if the user has a habit
 		 * of selecting many different keyboard layouts in GDM. */
 
-		found_node = g_slist_find_custom (layouts, gdm_layout, g_strcmp0);
+		found_node = g_slist_find_custom (layouts, gdm_layout, (GCompareFunc)g_strcmp0);
 
 		if (!found_node) {
 			/* Insert at the last valid place, or at the end of

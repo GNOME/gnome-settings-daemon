@@ -220,9 +220,9 @@ AC_CHECK_X_LIB(Xxf86misc, XF86MiscQueryExtension, [
 AC_SUBST(XF86MISC_LIBS)
 AC_CHECK_X_HEADERS([X11/extensions/XKB.h])
 
-PKG_CHECK_MODULES(LIBGNOMEKBD, [libgnomekbd >= 2.21.4 libxklavier >= 4.0])
-AC_SUBST(LIBGNOMEKBD_CFLAGS)
-AC_SUBST(LIBGNOMEKBD_LIBS)
+PKG_CHECK_MODULES(LIBGNOMEKBDUI, [libgnomekbdui >= 2.29.5 libgnomekbd >= 2.29.5 libxklavier >= 4.0])
+AC_SUBST(LIBGNOMEKBDUI_CFLAGS)
+AC_SUBST(LIBGNOMEKBDUI_LIBS)
 
 dnl ---------------------------------------------------------------------------
 dnl - Housekeeping plugin stuff
