@@ -32,13 +32,17 @@
 #include <gconf/gconf-client.h>
 
 #include <libgnomekbd/gkbd-status.h>
+#include <libgnomekbd/gkbd-keyboard-drawing.h>
 #include <libgnomekbd/gkbd-desktop-config.h>
 #include <libgnomekbd/gkbd-keyboard-config.h>
+#include <libgnomekbd/gkbd-util.h>
 
 #include "gsd-xmodmap.h"
 #include "gsd-keyboard-xkb.h"
 #include "delayed-dialog.h"
 #include "gnome-settings-profile.h"
+
+#define GTK_RESPONSE_PRINT 2
 
 static XklEngine *xkl_engine;
 static XklConfigRegistry *xkl_registry = NULL;
@@ -62,7 +66,9 @@ static const char KNOWN_FILES_KEY[] =
 
 static const char *gdm_keyboard_layout = NULL;
 
-static GkbdStatus *icon = NULL;
+static GtkStatusIcon *icon = NULL;
+
+static GHashTable *preview_dialogs = NULL;
 
 #define noGSDKX
 
@@ -141,24 +147,300 @@ apply_desktop_settings (void)
 }
 
 static void
+popup_menu_launch_capplet ()
+{
+	GError *error = NULL;
+
+	gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
+					  "gnome-keyboard-properties",
+					  &error);
+
+	if (error != NULL) {
+		g_warning
+		    ("Could not execute keyboard properties capplet: [%s]\n",
+		     error->message);
+		g_error_free (error);
+	}
+}
+
+static void
+show_layout_response (GtkWidget * dialog, gint resp)
+{
+	GdkRectangle rect;
+	GtkWidget *kbdraw;
+	const gchar *groupName;
+
+	switch (resp) {
+	case GTK_RESPONSE_HELP:
+		gtk_show_uri (gtk_widget_get_screen (GTK_WIDGET (dialog)),
+			      "ghelp:gswitchit?layout-view",
+			      gtk_get_current_event_time (), NULL);
+		return;
+	case GTK_RESPONSE_CLOSE:
+		gtk_window_get_position (GTK_WINDOW (dialog), &rect.x,
+					 &rect.y);
+		gtk_window_get_size (GTK_WINDOW (dialog), &rect.width,
+				     &rect.height);
+		gkbd_preview_save_position (&rect);
+		gtk_widget_destroy (dialog);
+		break;
+	case GTK_RESPONSE_PRINT:
+		kbdraw =
+		    GTK_WIDGET (g_object_get_data
+				(G_OBJECT (dialog), "kbdraw"));
+		groupName =
+		    (const gchar *) g_object_get_data (G_OBJECT (dialog),
+						       "groupName");
+		gkbd_keyboard_drawing_print (GKBD_KEYBOARD_DRAWING
+					     (kbdraw), GTK_WINDOW (dialog),
+					     groupName ? groupName :
+					     _("Unknown"));
+	}
+}
+
+static void
+show_layout_destroy (GtkWidget * dialog, gint group)
+{
+	GtkBuilder *builder =
+	    GTK_BUILDER (g_object_get_data
+			 (G_OBJECT (dialog), "builderData"));
+	g_object_unref (G_OBJECT (builder));
+	g_hash_table_remove (preview_dialogs, GINT_TO_POINTER (group));
+}
+
+static void
+popup_menu_show_layout ()
+{
+	static GkbdKeyboardDrawingGroupLevel groupsLevels[] = { {
+								 0, 1}, {
+									 0,
+									 3},
+	{
+	 0, 0}, {
+		 0, 2}
+	};
+	static GkbdKeyboardDrawingGroupLevel *pGroupsLevels[] = {
+		groupsLevels, groupsLevels + 1, groupsLevels + 2,
+		groupsLevels + 3
+	};
+
+	GtkBuilder *builder;
+	GtkWidget *dialog, *kbdraw;
+	XkbComponentNamesRec component_names;
+	XklConfigRec *xkl_data;
+	GdkRectangle *rect;
+	GError *error = NULL;
+
+	XklEngine *engine = xkl_engine_get_instance (GDK_DISPLAY ());
+	XklState *xkl_state = xkl_engine_get_current_state (engine);
+	gchar **group_names = gkbd_status_get_group_names ();
+	gpointer p = g_hash_table_lookup (preview_dialogs,
+					  GINT_TO_POINTER
+					  (xkl_state->group));
+	if (p != NULL) {
+		/* existing window */
+		gtk_window_present (GTK_WINDOW (p));
+		return;
+	}
+
+	builder = gtk_builder_new ();
+	gtk_builder_add_from_file (builder, DATADIR "/show-layout.ui",
+				   &error);
+
+	if (error) {
+		g_error ("building ui from %s failed: %s",
+			 DATADIR "/show-layout.ui", error->message);
+		g_clear_error (&error);
+	}
+
+
+	dialog =
+	    GTK_WIDGET (gtk_builder_get_object
+			(builder, "gswitchit_layout_view"));
+	kbdraw = gkbd_keyboard_drawing_new ();
+
+	if (xkl_state->group >= 0 &&
+	    xkl_state->group < g_strv_length (group_names)) {
+		char title[128] = "";
+		snprintf (title, sizeof (title),
+			  _("Keyboard Layout \"%s\""),
+			  group_names[xkl_state->group]);
+		gtk_window_set_title (GTK_WINDOW (dialog), title);
+		g_object_set_data_full (G_OBJECT (dialog), "group_name",
+					g_strdup (group_names
+						  [xkl_state->group]),
+					g_free);
+	}
+
+	gkbd_keyboard_drawing_set_groups_levels (GKBD_KEYBOARD_DRAWING
+						 (kbdraw), pGroupsLevels);
+
+	xkl_data = xkl_config_rec_new ();
+	if (xkl_config_rec_get_from_server (xkl_data, engine)) {
+		int num_layouts = g_strv_length (xkl_data->layouts);
+		int num_variants = g_strv_length (xkl_data->variants);
+		if (xkl_state->group >= 0 &&
+		    xkl_state->group < num_layouts &&
+		    xkl_state->group < num_variants) {
+			char *l =
+			    g_strdup (xkl_data->layouts[xkl_state->group]);
+			char *v =
+			    g_strdup (xkl_data->
+				      variants[xkl_state->group]);
+			char **p;
+			int i;
+
+			if ((p = xkl_data->layouts) != NULL)
+				for (i = num_layouts; --i >= 0;)
+					g_free (*p++);
+
+			if ((p = xkl_data->variants) != NULL)
+				for (i = num_variants; --i >= 0;)
+					g_free (*p++);
+
+			xkl_data->layouts =
+			    g_realloc (xkl_data->layouts,
+				       sizeof (char *) * 2);
+			xkl_data->variants =
+			    g_realloc (xkl_data->variants,
+				       sizeof (char *) * 2);
+			xkl_data->layouts[0] = l;
+			xkl_data->variants[0] = v;
+			xkl_data->layouts[1] = xkl_data->variants[1] =
+			    NULL;
+		}
+
+		if (xkl_xkb_config_native_prepare
+		    (engine, xkl_data, &component_names)) {
+			gkbd_keyboard_drawing_set_keyboard
+			    (GKBD_KEYBOARD_DRAWING (kbdraw),
+			     &component_names);
+			xkl_xkb_config_native_cleanup (engine,
+						       &component_names);
+		}
+	}
+	g_object_unref (G_OBJECT (xkl_data));
+
+	g_object_set_data (G_OBJECT (dialog), "builderData", builder);
+	g_signal_connect (GTK_OBJECT (dialog),
+			  "destroy", G_CALLBACK (show_layout_destroy),
+			  GINT_TO_POINTER (xkl_state->group));
+	g_signal_connect (G_OBJECT (dialog), "response",
+			  G_CALLBACK (show_layout_response), NULL);
+
+	rect = gkbd_preview_load_position ();
+	if (rect != NULL) {
+		gtk_window_move (GTK_WINDOW (dialog), rect->x, rect->y);
+		gtk_window_resize (GTK_WINDOW (dialog), rect->width,
+				   rect->height);
+		g_free (rect);
+	} else
+		gtk_window_resize (GTK_WINDOW (dialog), 700, 400);
+
+	gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
+
+	gtk_container_add (GTK_CONTAINER
+			   (gtk_builder_get_object
+			    (builder, "preview_vbox")), kbdraw);
+
+	g_object_set_data (G_OBJECT (dialog), "kbdraw", kbdraw);
+
+	g_hash_table_insert (preview_dialogs,
+			     GINT_TO_POINTER (xkl_state->group), dialog);
+
+	gtk_widget_show_all (GTK_WIDGET (dialog));
+}
+
+static void
+popup_menu_set_group (GtkMenuItem * item, gpointer param)
+{
+	gint group_number = GPOINTER_TO_INT(param);
+	XklEngine *engine = gkbd_status_get_xkl_engine ();
+	XklState st;
+	Window cur;
+
+	st.group = group_number;
+	xkl_engine_allow_one_switch_to_secondary_group (engine);
+	cur = xkl_engine_get_current_window (engine);
+	if (cur != (Window) NULL) {
+		xkl_debug (150, "Enforcing the state %d for window %lx\n",
+			   st.group, cur);
+		xkl_engine_save_state (engine,
+				       xkl_engine_get_current_window
+				       (engine), &st);
+/*    XSetInputFocus( GDK_DISPLAY(), cur, RevertToNone, CurrentTime );*/
+	} else {
+		xkl_debug (150,
+			   "??? Enforcing the state %d for unknown window\n",
+			   st.group);
+		/* strange situation - bad things can happen */
+	}
+	xkl_engine_lock_group (engine, st.group);
+}
+
+static void
+status_icon_popup_menu_cb (GtkStatusIcon * icon, guint button, guint time)
+{
+	GtkMenu *popup_menu = GTK_MENU (gtk_menu_new ());
+	GtkMenu *groups_menu = GTK_MENU (gtk_menu_new ());
+	int i = 0;
+	gchar **current_name = gkbd_status_get_group_names ();
+
+	GtkWidget *item = gtk_menu_item_new_with_mnemonic (_("_Groups"));
+	gtk_widget_show (item);
+	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (item),
+				   GTK_WIDGET (groups_menu));
+
+	item =
+	    gtk_menu_item_new_with_mnemonic (_("Keyboard _Preferences"));
+	gtk_widget_show (item);
+	g_signal_connect (item, "activate", popup_menu_launch_capplet,
+			  NULL);
+	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
+
+	item = gtk_menu_item_new_with_mnemonic (_("Show Current _Layout"));
+	gtk_widget_show (item);
+	g_signal_connect (item, "activate", popup_menu_show_layout, NULL);
+	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
+
+	for (i = 0; *current_name; i++, current_name++) {
+		item = gtk_menu_item_new_with_label (*current_name);
+		gtk_widget_show (item);
+		gtk_menu_shell_append (GTK_MENU_SHELL (groups_menu), item);
+		g_signal_connect (item, "activate", G_CALLBACK(popup_menu_set_group), GINT_TO_POINTER(i));
+	}
+
+	gtk_menu_popup (popup_menu, NULL, NULL,
+			gtk_status_icon_position_menu,
+			(gpointer) icon, button, time);
+}
+
+static void
 show_hide_icon ()
 {
-	if (g_slist_length(current_kbd_config.layouts_variants) > 1) {
+	if (g_slist_length (current_kbd_config.layouts_variants) > 1) {
 		if (icon == NULL) {
 			xkl_debug (150, "Creating new icon\n");
-			icon = gkbd_status_new();
+			icon = gkbd_status_new ();
+			g_signal_connect (icon, "popup-menu",
+					  G_CALLBACK
+					  (status_icon_popup_menu_cb),
+					  NULL);
+
 		}
 	} else {
 		if (icon != NULL) {
 			xkl_debug (150, "Destroying icon\n");
-			g_object_unref(icon);
+			g_object_unref (icon);
 			icon = NULL;
 		}
 	}
 }
 
 static gboolean
-try_activating_xkb_config_if_new (GkbdKeyboardConfig *current_sys_kbd_config)
+try_activating_xkb_config_if_new (GkbdKeyboardConfig *
+				  current_sys_kbd_config)
 {
 	/* Activate - only if different! */
 	if (!gkbd_keyboard_config_equals
@@ -170,7 +452,7 @@ try_activating_xkb_config_if_new (GkbdKeyboardConfig *current_sys_kbd_config)
 				return TRUE;
 			}
 		} else {
-		       return FALSE;
+			return FALSE;
 		}
 	}
 	return TRUE;
@@ -188,7 +470,8 @@ filter_xkb_config (void)
 
 	xkl_debug (100, "Filtering configuration against the registry\n");
 	if (!xkl_registry) {
-		xkl_registry = xkl_config_registry_get_instance (xkl_engine);
+		xkl_registry =
+		    xkl_config_registry_get_instance (xkl_engine);
 		/* load all materials, unconditionally! */
 		if (!xkl_config_registry_load (xkl_registry, TRUE)) {
 			g_object_unref (xkl_registry);
@@ -200,27 +483,41 @@ filter_xkb_config (void)
 	item = xkl_config_item_new ();
 	while (lv) {
 		xkl_debug (100, "Checking [%s]\n", lv->data);
-		if (gkbd_keyboard_config_split_items(lv->data, &lname, &vname)) {
-			g_snprintf (item->name, sizeof (item->name), "%s", lname);
-			if (!xkl_config_registry_find_layout (xkl_registry, item)) {
-			xkl_debug (100, "Bad layout [%s]\n", lname);
+		if (gkbd_keyboard_config_split_items
+		    (lv->data, &lname, &vname)) {
+			g_snprintf (item->name, sizeof (item->name), "%s",
+				    lname);
+			if (!xkl_config_registry_find_layout
+			    (xkl_registry, item)) {
+				xkl_debug (100, "Bad layout [%s]\n",
+					   lname);
 				filtered = lv;
 				lv = lv->next;
 				g_free (filtered->data);
-				current_kbd_config.layouts_variants = g_slist_delete_link (current_kbd_config.layouts_variants,
-											   filtered);
+				current_kbd_config.layouts_variants =
+				    g_slist_delete_link
+				    (current_kbd_config.layouts_variants,
+				     filtered);
 				any_change = TRUE;
 				continue;
 			}
 			if (vname) {
-				g_snprintf (item->name, sizeof (item->name), "%s", vname);
-				if (!xkl_config_registry_find_variant (xkl_registry, lname, item)) {
-				xkl_debug(100, "Bad variant [%s(%s)]\n", lname, vname);
+				g_snprintf (item->name,
+					    sizeof (item->name), "%s",
+					    vname);
+				if (!xkl_config_registry_find_variant
+				    (xkl_registry, lname, item)) {
+					xkl_debug (100,
+						   "Bad variant [%s(%s)]\n",
+						   lname, vname);
 					filtered = lv;
 					lv = lv->next;
 					g_free (filtered->data);
-					current_kbd_config.layouts_variants = g_slist_delete_link (current_kbd_config.layouts_variants,
-												   filtered);
+					current_kbd_config.layouts_variants
+					    =
+					    g_slist_delete_link
+					    (current_kbd_config.layouts_variants,
+					     filtered);
 					any_change = TRUE;
 					continue;
 				}
@@ -228,7 +525,7 @@ filter_xkb_config (void)
 		}
 		lv = lv->next;
 	}
-	g_object_unref(item);
+	g_object_unref (item);
 	return any_change;
 }
 
@@ -266,7 +563,7 @@ apply_xkb_settings (void)
 	if (gdm_layout != NULL) {
 		GSList *layouts;
 		GSList *found_node;
-		int     max_groups;
+		int max_groups;
 
 		max_groups = xkl_engine_get_max_num_groups (xkl_engine);
 		layouts = gconf_client_get_list (conf_client,
@@ -279,21 +576,27 @@ apply_xkb_settings (void)
 		 * prevents the list from becoming full if the user has a habit
 		 * of selecting many different keyboard layouts in GDM. */
 
-		found_node = g_slist_find_custom (layouts, gdm_layout, (GCompareFunc)g_strcmp0);
+		found_node =
+		    g_slist_find_custom (layouts, gdm_layout,
+					 (GCompareFunc) g_strcmp0);
 
 		if (!found_node) {
 			/* Insert at the last valid place, or at the end of
 			 * list, whichever comes first */
-			layouts = g_slist_insert (layouts, g_strdup (gdm_layout), max_groups - 1);
+			layouts =
+			    g_slist_insert (layouts, g_strdup (gdm_layout),
+					    max_groups - 1);
 			if (g_slist_length (layouts) > max_groups) {
 				GSList *last;
 				GSList *free_layouts;
 
-				last = g_slist_nth (layouts, max_groups - 1);
+				last =
+				    g_slist_nth (layouts, max_groups - 1);
 				free_layouts = last->next;
 				last->next = NULL;
 
-				g_slist_foreach (free_layouts, (GFunc) g_free, NULL);
+				g_slist_foreach (free_layouts,
+						 (GFunc) g_free, NULL);
 				g_slist_free (free_layouts);
 			}
 
@@ -318,12 +621,15 @@ apply_xkb_settings (void)
 
 	if (!try_activating_xkb_config_if_new (&current_sys_kbd_config)) {
 		if (filter_xkb_config ()) {
-			if (!try_activating_xkb_config_if_new (&current_sys_kbd_config)) {
-				g_warning ("Could not activate the filtered XKB configuration");
+			if (!try_activating_xkb_config_if_new
+			    (&current_sys_kbd_config)) {
+				g_warning
+				    ("Could not activate the filtered XKB configuration");
 				activation_error ();
 			}
 		} else {
-			g_warning ("Could not activate the XKB configuration");
+			g_warning
+			    ("Could not activate the XKB configuration");
 			activation_error ();
 		}
 	} else
@@ -546,6 +852,7 @@ gsd_keyboard_xkb_init (GConfClient * client)
 		apply_xkb_settings ();
 		gnome_settings_profile_end ("apply_xkb_settings");
 	}
+	preview_dialogs = g_hash_table_new (g_direct_hash, g_direct_equal);
 	gnome_settings_profile_end (NULL);
 }
 
@@ -557,13 +864,14 @@ gsd_keyboard_xkb_shutdown (void)
 	pa_callback = NULL;
 	pa_callback_user_data = NULL;
 
+	g_hash_table_destroy (preview_dialogs);
+
 	if (!inited_ok)
 		return;
 
 	xkl_engine_stop_listen (xkl_engine);
 
-	gdk_window_remove_filter (NULL,
-				  (GdkFilterFunc)
+	gdk_window_remove_filter (NULL, (GdkFilterFunc)
 				  gsd_keyboard_xkb_evt_filter, NULL);
 
 	client = gconf_client_get_default ();

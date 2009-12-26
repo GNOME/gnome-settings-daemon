@@ -5,7 +5,7 @@ plugin_LTLIBRARIES = \
 	$(NULL)
 
 uidir   = $(pkgdatadir)
-ui_DATA = modmap-dialog.ui
+ui_DATA = modmap-dialog.ui show-layout.ui
 
 libkeyboard_la_SOURCES = 	\
 	gsd-keyboard-plugin.h	\
