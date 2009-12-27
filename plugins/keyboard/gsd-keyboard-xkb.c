@@ -285,8 +285,8 @@ popup_menu_show_layout ()
 			char *l =
 			    g_strdup (xkl_data->layouts[xkl_state->group]);
 			char *v =
-			    g_strdup (xkl_data->
-				      variants[xkl_state->group]);
+			    g_strdup (xkl_data->variants
+				      [xkl_state->group]);
 			char **p;
 			int i;
 
@@ -354,7 +354,7 @@ popup_menu_show_layout ()
 static void
 popup_menu_set_group (GtkMenuItem * item, gpointer param)
 {
-	gint group_number = GPOINTER_TO_INT(param);
+	gint group_number = GPOINTER_TO_INT (param);
 	XklEngine *engine = gkbd_status_get_xkl_engine ();
 	XklState st;
 	Window cur;
@@ -405,10 +405,33 @@ status_icon_popup_menu_cb (GtkStatusIcon * icon, guint button, guint time)
 	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
 
 	for (i = 0; *current_name; i++, current_name++) {
-		item = gtk_menu_item_new_with_label (*current_name);
+		gchar *image_file = gkbd_status_get_image_filename (i);
+
+		if (image_file == NULL) {
+			item =
+			    gtk_menu_item_new_with_label (*current_name);
+		} else {
+			GdkPixbuf *pixbuf =
+			    gdk_pixbuf_new_from_file_at_size (image_file,
+							      24, 24,
+							      NULL);
+			GtkWidget *img =
+			    gtk_image_new_from_pixbuf (pixbuf);
+			item =
+			    gtk_image_menu_item_new_with_label
+			    (*current_name);
+			gtk_widget_show (img);
+			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM
+						       (item), img);
+			gtk_image_menu_item_set_always_show_image
+			    (GTK_IMAGE_MENU_ITEM (item), TRUE);
+			g_free (image_file);
+		}
 		gtk_widget_show (item);
 		gtk_menu_shell_append (GTK_MENU_SHELL (groups_menu), item);
-		g_signal_connect (item, "activate", G_CALLBACK(popup_menu_set_group), GINT_TO_POINTER(i));
+		g_signal_connect (item, "activate",
+				  G_CALLBACK (popup_menu_set_group),
+				  GINT_TO_POINTER (i));
 	}
 
 	gtk_menu_popup (popup_menu, NULL, NULL,
@@ -516,8 +539,8 @@ filter_xkb_config (void)
 					current_kbd_config.layouts_variants
 					    =
 					    g_slist_delete_link
-					    (current_kbd_config.layouts_variants,
-					     filtered);
+					    (current_kbd_config.
+					     layouts_variants, filtered);
 					any_change = TRUE;
 					continue;
 				}
