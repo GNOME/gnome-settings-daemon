@@ -467,20 +467,18 @@ gsd_osd_window_init (GsdOsdWindow *window)
         } else {
 		gtk_container_set_border_width (GTK_CONTAINER (window), 12);
         }
+
+        g_object_set (window,
+                      "type", GTK_WINDOW_POPUP,
+                      "type-hint", GDK_WINDOW_TYPE_HINT_NOTIFICATION,
+                      "skip-taskbar-hint", TRUE,
+                      "skip-pager-hint", TRUE,
+                      "focus-on-map", FALSE,
+                      NULL);
 }
 
 GtkWidget *
 gsd_osd_window_new (void)
 {
-        GObject *object;
-
-        object = g_object_new (GSD_TYPE_OSD_WINDOW,
-                               "type", GTK_WINDOW_POPUP,
-                               "type-hint", GDK_WINDOW_TYPE_HINT_NOTIFICATION,
-                               "skip-taskbar-hint", TRUE,
-                               "skip-pager-hint", TRUE,
-                               "focus-on-map", FALSE,
-                               NULL);
-
-        return GTK_WIDGET (object);
+        return g_object_new (GSD_TYPE_OSD_WINDOW, NULL);
 }
