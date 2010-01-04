@@ -50,6 +50,7 @@ G_BEGIN_DECLS
 #define GSD_OSD_WINDOW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),   GSD_TYPE_OSD_WINDOW, GsdOsdWindowClass))
 #define GSD_IS_OSD_WINDOW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj),  GSD_TYPE_OSD_WINDOW))
 #define GSD_IS_OSD_WINDOW_CLASS(klass) (G_TYPE_INSTANCE_GET_CLASS ((klass), GSD_TYPE_OSD_WINDOW))
+#define GSD_OSD_WINDOW_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GSD_TYPE_OSD_WINDOW, GsdOsdWindowClass))
 
 typedef struct GsdOsdWindow                   GsdOsdWindow;
 typedef struct GsdOsdWindowClass              GsdOsdWindowClass;
@@ -63,12 +64,27 @@ struct GsdOsdWindow {
 
 struct GsdOsdWindowClass {
         GtkWindowClass parent_class;
+
+        void (* expose_when_composited) (GsdOsdWindow *window, cairo_t *cr);
 };
 
 GType                 gsd_osd_window_get_type          (void);
 
 GtkWidget *           gsd_osd_window_new               (void);
+gboolean              gsd_osd_window_is_composited     (GsdOsdWindow      *window);
 gboolean              gsd_osd_window_is_valid          (GsdOsdWindow      *window);
+void                  gsd_osd_window_update_and_hide   (GsdOsdWindow      *window);
+
+void                  gsd_osd_window_draw_rounded_rectangle (cairo_t *cr,
+                                                             gdouble  aspect,
+                                                             gdouble  x,
+                                                             gdouble  y,
+                                                             gdouble  corner_radius,
+                                                             gdouble  width,
+                                                             gdouble  height);
+
+void                  gsd_osd_window_color_reverse          (const GdkColor *a,
+                                                             GdkColor       *b);
 
 G_END_DECLS
 

@@ -55,6 +55,13 @@ struct GsdOsdWindowPrivate
         double                   fade_out_alpha;
 };
 
+enum {
+        EXPOSE_WHEN_COMPOSITED,
+        LAST_SIGNAL
+};
+
+static guint signals[LAST_SIGNAL] = { 0 };
+
 G_DEFINE_TYPE (GsdOsdWindow, gsd_osd_window, GTK_TYPE_WINDOW)
 
 static gboolean
@@ -132,14 +139,14 @@ add_hide_timeout (GsdOsdWindow *window)
                                                        window);
 }
 
-static void
-rounded_rectangle (cairo_t* cr,
-                   gdouble  aspect,
-                   gdouble  x,
-                   gdouble  y,
-                   gdouble  corner_radius,
-                   gdouble  width,
-                   gdouble  height)
+void
+gsd_osd_window_draw_rounded_rectangle (cairo_t* cr,
+                                       gdouble  aspect,
+                                       gdouble  x,
+                                       gdouble  y,
+                                       gdouble  corner_radius,
+                                       gdouble  width,
+                                       gdouble  height)
 {
         gdouble radius = corner_radius / aspect;
 
@@ -184,9 +191,9 @@ rounded_rectangle (cairo_t* cr,
         cairo_close_path (cr);
 }
 
-static void
-color_reverse (const GdkColor *a,
-               GdkColor       *b)
+void
+gsd_osd_window_color_reverse (const GdkColor *a,
+                              GdkColor       *b)
 {
         gdouble red;
         gdouble green;
@@ -257,15 +264,15 @@ expose_when_composited (GtkWidget *widget, GdkEventExpose *event)
         cairo_paint (cr);
 
         /* draw a box */
-        rounded_rectangle (cr, 1.0, 0.5, 0.5, height / 10, width-1, height-1);
-        color_reverse (&style->bg[GTK_STATE_NORMAL], &color);
+        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.5, 0.5, height / 10, width-1, height-1);
+        gsd_osd_window_color_reverse (&style->bg[GTK_STATE_NORMAL], &color);
         r = (float)color.red / 65535.0;
         g = (float)color.green / 65535.0;
         b = (float)color.blue / 65535.0;
         cairo_set_source_rgba (cr, r, g, b, BG_ALPHA);
         cairo_fill_preserve (cr);
 
-        color_reverse (&style->text_aa[GTK_STATE_NORMAL], &color);
+        gsd_osd_window_color_reverse (&style->text_aa[GTK_STATE_NORMAL], &color);
         r = (float)color.red / 65535.0;
         g = (float)color.green / 65535.0;
         b = (float)color.blue / 65535.0;
@@ -273,10 +280,7 @@ expose_when_composited (GtkWidget *widget, GdkEventExpose *event)
         cairo_set_line_width (cr, 1);
         cairo_stroke (cr);
 
-#if 0
-        /* draw action */
-        draw_action (window, cr);
-#endif
+        g_signal_emit (window, signals[EXPOSE_WHEN_COMPOSITED], 0, cr);
 
         cairo_destroy (cr);
 
@@ -413,6 +417,7 @@ gsd_osd_window_real_realize (GtkWidget *widget)
 static void
 gsd_osd_window_class_init (GsdOsdWindowClass *klass)
 {
+        GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
         widget_class->show = gsd_osd_window_real_show;
@@ -420,11 +425,32 @@ gsd_osd_window_class_init (GsdOsdWindowClass *klass)
         widget_class->realize = gsd_osd_window_real_realize;
 	widget_class->expose_event = gsd_osd_window_expose_event;
 
+        signals[EXPOSE_WHEN_COMPOSITED] = g_signal_new ("expose-when-composited",
+                                                        G_TYPE_FROM_CLASS (gobject_class),
+                                                        G_SIGNAL_RUN_FIRST,
+                                                        G_STRUCT_OFFSET (GsdOsdWindowClass, expose_when_composited),
+                                                        NULL, NULL,
+                                                        g_cclosure_marshal_VOID__POINTER,
+                                                        G_TYPE_NONE, 1,
+                                                        G_TYPE_POINTER);
+
         g_type_class_add_private (klass, sizeof (GsdOsdWindowPrivate));
 }
 
+/**
+ * gsd_osd_window_is_composited:
+ * @window: a #GsdOsdWindow
+ *
+ * Return value: whether the window was created on a composited screen.
+ */
+gboolean
+gsd_osd_window_is_composited (GsdOsdWindow *window)
+{
+        return window->priv->is_composited;
+}
 
-/* gsd_osd_window_is_valid:
+/**
+ * gsd_osd_window_is_valid:
  * @window: a #GsdOsdWindow
  *
  * Return value: TRUE if the @window's idea of being composited matches whether
@@ -481,4 +507,21 @@ GtkWidget *
 gsd_osd_window_new (void)
 {
         return g_object_new (GSD_TYPE_OSD_WINDOW, NULL);
+}
+
+/**
+ * gsd_osd_window_update_and_hide:
+ * @window: a #GsdOsdWindow
+ *
+ * Queues the @window for immediate drawing, and queues a timer to hide the window.
+ */
+void
+gsd_osd_window_update_and_hide (GsdOsdWindow *window)
+{
+        remove_hide_timeout (window);
+        add_hide_timeout (window);
+
+        if (window->priv->is_composited) {
+                gtk_widget_queue_draw (GTK_WIDGET (window));
+        }
 }
