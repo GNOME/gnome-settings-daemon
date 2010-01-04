@@ -43,7 +43,6 @@
 #define FADE_TIMEOUT 10        /* timeout in ms between each frame of the fade */
 
 #define BG_ALPHA 0.75
-#define FG_ALPHA 1.00
 
 #define GSD_OSD_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_OSD_WINDOW, GsdOsdWindowPrivate))
 
