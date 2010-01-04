@@ -413,11 +413,33 @@ gsd_osd_window_real_realize (GtkWidget *widget)
         cairo_destroy (cr);
 }
 
+static GObject *
+gsd_osd_window_constructor (GType                  type,
+                            guint                  n_construct_properties,
+                            GObjectConstructParam *construct_params)
+{
+        GObject *object;
+
+        object = G_OBJECT_CLASS (gsd_osd_window_parent_class)->constructor (type, n_construct_properties, construct_params);
+
+        g_object_set (object,
+                      "type", GTK_WINDOW_POPUP,
+                      "type-hint", GDK_WINDOW_TYPE_HINT_NOTIFICATION,
+                      "skip-taskbar-hint", TRUE,
+                      "skip-pager-hint", TRUE,
+                      "focus-on-map", FALSE,
+                      NULL);
+
+        return object;
+}
+
 static void
 gsd_osd_window_class_init (GsdOsdWindowClass *klass)
 {
         GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+        gobject_class->constructor = gsd_osd_window_constructor;
 
         widget_class->show = gsd_osd_window_real_show;
         widget_class->hide = gsd_osd_window_real_hide;
@@ -492,14 +514,6 @@ gsd_osd_window_init (GsdOsdWindow *window)
         } else {
 		gtk_container_set_border_width (GTK_CONTAINER (window), 12);
         }
-
-        g_object_set (window,
-                      "type", GTK_WINDOW_POPUP,
-                      "type-hint", GDK_WINDOW_TYPE_HINT_NOTIFICATION,
-                      "skip-taskbar-hint", TRUE,
-                      "skip-pager-hint", TRUE,
-                      "focus-on-map", FALSE,
-                      NULL);
 }
 
 GtkWidget *
