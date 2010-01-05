@@ -311,12 +311,6 @@ expose_when_not_composited (GtkWidget *widget, GdkEventExpose *event)
 
 	window = GSD_OSD_WINDOW (widget);
 
-	/* FIXME: although we set the border_width to 12 in
-	 * gsd_osd_window_init(), we are not taking into account the style's
-	 * xthickness/ythickness for the frame's shadow.  We need to do that with a
-	 * custom size_request handler.
-	 */
-
 	gtk_paint_shadow (gtk_widget_get_style (widget),
 			  gtk_widget_get_window (widget),
 			  gtk_widget_get_state (widget),
@@ -413,6 +407,39 @@ gsd_osd_window_real_realize (GtkWidget *widget)
         cairo_destroy (cr);
 }
 
+static void
+gsd_osd_window_style_set (GtkWidget *widget,
+                          GtkStyle  *previous_style)
+{
+        GtkStyle *style;
+
+        GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->style_set (widget, previous_style);
+
+        /* We set our border width to 12 (per the GNOME standard), plus the
+         * thickness of the frame that we draw in our expose handler.  This will
+         * make our child be 12 pixels away from the frame.
+         */
+
+        style = gtk_widget_get_style (widget);
+        gtk_container_set_border_width (GTK_CONTAINER (widget), 12 + MAX (style->xthickness, style->ythickness));
+}
+
+static void
+gsd_osd_window_size_request (GtkWidget      *widget,
+                             GtkRequisition *requisition)
+{
+        GtkStyle *style;
+
+        GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->size_request (widget, requisition);
+
+        /* See the comment in gsd_osd_window_style_set() for why we add the thickness here */
+
+        style = gtk_widget_get_style (widget);
+
+        requisition->width  += style->xthickness;
+        requisition->height += style->ythickness;
+}
+
 static GObject *
 gsd_osd_window_constructor (GType                  type,
                             guint                  n_construct_properties,
@@ -444,6 +471,8 @@ gsd_osd_window_class_init (GsdOsdWindowClass *klass)
         widget_class->show = gsd_osd_window_real_show;
         widget_class->hide = gsd_osd_window_real_hide;
         widget_class->realize = gsd_osd_window_real_realize;
+        widget_class->style_set = gsd_osd_window_style_set;
+        widget_class->size_request = gsd_osd_window_size_request;
 	widget_class->expose_event = gsd_osd_window_expose_event;
 
         signals[EXPOSE_WHEN_COMPOSITED] = g_signal_new ("expose-when-composited",
