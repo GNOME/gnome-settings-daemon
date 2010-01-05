@@ -78,6 +78,7 @@ test_media_window_SOURCES =			\
 
 test_media_window_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DDATADIR=\""$(datadir)"\"				\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
@@ -90,6 +91,7 @@ test_media_window_CFLAGS = \
 	$(AM_CFLAGS)
 
 test_media_window_LDADD = \
+	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(XF86MISC_LIBS)			\

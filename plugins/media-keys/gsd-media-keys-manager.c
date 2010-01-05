@@ -261,7 +261,7 @@ static void
 dialog_init (GsdMediaKeysManager *manager)
 {
         if (manager->priv->dialog != NULL
-            && !gsd_media_keys_window_is_valid (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog))) {
+            && !gsd_osd_window_is_valid (GSD_OSD_WINDOW (manager->priv->dialog))) {
                 gtk_widget_destroy (manager->priv->dialog);
                 manager->priv->dialog = NULL;
         }
