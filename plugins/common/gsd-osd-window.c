@@ -320,7 +320,7 @@ expose_when_not_composited (GtkWidget *widget, GdkEventExpose *event)
 	gtk_paint_shadow (gtk_widget_get_style (widget),
 			  gtk_widget_get_window (widget),
 			  gtk_widget_get_state (widget),
-			  GTK_SHADOW_IN,
+			  GTK_SHADOW_OUT,
 			  &event->area,
 			  widget,
 			  NULL, /* NULL detail -> themes should use the GsdOsdWindow widget name, probably */

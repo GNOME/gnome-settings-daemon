@@ -696,8 +696,8 @@ gsd_media_keys_window_init (GsdMediaKeysWindow *window)
 
         if (!gsd_osd_window_is_composited (GSD_OSD_WINDOW (window))) {
                 GtkBuilder *builder;
-                const gchar *objects[] = {"acme_frame", NULL};
-                GtkWidget *frame;
+                const gchar *objects[] = {"acme_box", NULL};
+                GtkWidget *box;
 
                 builder = gtk_builder_new ();
                 gtk_builder_add_objects_from_file (builder,
@@ -707,16 +707,15 @@ gsd_media_keys_window_init (GsdMediaKeysWindow *window)
 
                 window->priv->image = GTK_IMAGE (gtk_builder_get_object (builder, "acme_image"));
                 window->priv->progress = GTK_WIDGET (gtk_builder_get_object (builder, "acme_volume_progressbar"));
-                frame = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "acme_frame"));
+                box = GTK_WIDGET (gtk_builder_get_object (builder, "acme_box"));
 
-                if (frame != NULL) {
-                        gtk_container_add (GTK_CONTAINER (window), frame);
-                        gtk_widget_show_all (frame);
+                if (box != NULL) {
+                        gtk_container_add (GTK_CONTAINER (window), box);
+                        gtk_widget_show_all (box);
                 }
 
                 /* The builder needs to stay alive until the window
-                   takes ownership of the frame (and its children)  */
+                   takes ownership of the box (and its children)  */
                 g_object_unref (builder);
         }
 }
