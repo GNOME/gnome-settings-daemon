@@ -84,6 +84,22 @@
 #define GSD_XRANDR_DBUS_PATH GSD_DBUS_PATH "/XRANDR"
 #define GSD_XRANDR_DBUS_NAME GSD_DBUS_NAME ".XRANDR"
 
+/* The stock configuration types that we generate for the XF86Display hotkey */
+typedef enum {
+        STOCK_CONFIG_CURRENT,
+        STOCK_CONFIG_LAPTOP,
+        STOCK_CONFIG_CLONE,
+        STOCK_CONFIG_EXTEND,
+        STOCK_CONFIG_OTHER,
+        STOCK_CONFIG_CUSTOM
+} StockConfigType;
+
+/* One of the stock configurations that we generate for the XFDisplay hotkey */
+typedef struct {
+        StockConfigType type;
+        GnomeRRConfig *rr_config;
+} StockConfig;
+
 struct GsdXrandrManagerPrivate
 {
         DBusGConnection *dbus_connection;
@@ -535,6 +551,25 @@ print_configuration (GnomeRRConfig *config, const char *header)
 
         for (i = 0; config->outputs[i] != NULL; ++i)
                 print_output (config->outputs[i]);
+}
+
+static void
+stock_config_free (StockConfig *config)
+{
+        gnome_rr_config_free (config->rr_config);
+        g_slice_free (StockConfig, config);
+}
+
+StockConfig *
+stock_config_new (StockConfigType type, GnomeRRConfig *rr_config)
+{
+        StockConfig *config;
+
+        config = g_slice_new (StockConfig);
+        config->type = type;
+        config->rr_config = rr_config;
+
+        return config;
 }
 
 static GnomeRRConfig *
