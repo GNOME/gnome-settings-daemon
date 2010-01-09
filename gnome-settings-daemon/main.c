@@ -47,6 +47,7 @@
 static char      *gconf_prefix = NULL;
 static gboolean   no_daemon    = FALSE;
 static gboolean   debug        = FALSE;
+static gboolean   do_timed_exit = FALSE;
 static int        daemon_pipe_fds[2];
 static int        term_signal_pipe_fds[2];
 
@@ -54,8 +55,16 @@ static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL },
         {"no-daemon", 0, 0, G_OPTION_ARG_NONE, &no_daemon, N_("Don't become a daemon"), NULL },
         {"gconf-prefix", 0, 0, G_OPTION_ARG_STRING, &gconf_prefix, N_("GConf prefix from which to load plugin settings"), NULL},
+        { "timed-exit", 0, 0, G_OPTION_ARG_NONE, &do_timed_exit, N_("Exit after a time - for debugging"), NULL },
         {NULL}
 };
+
+static gboolean
+timed_exit_cb (void)
+{
+        gtk_main_quit ();
+        return FALSE;
+}
 
 static DBusGProxy *
 get_bus_proxy (DBusGConnection *connection)
@@ -485,6 +494,10 @@ main (int argc, char *argv[])
         }
 
         daemon_terminate_parent ();
+
+        if (do_timed_exit) {
+                g_timeout_add (1000 * 30, (GSourceFunc) timed_exit_cb, NULL);
+        }
 
         gtk_main ();
 
