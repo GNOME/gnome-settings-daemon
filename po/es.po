@@ -10,14 +10,14 @@
 # Pablo Gonzalo del Campo <pablodc@bigfoot.com>, 2002,2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2005, 2006.
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 200, 2009.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-12-26 23:42+0000\n"
-"PO-Revision-Date: 2009-12-28 02:13+0100\n"
+"POT-Creation-Date: 2010-01-09 18:34+0000\n"
+"PO-Revision-Date: 2010-01-10 12:37+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -665,17 +665,21 @@ msgstr ""
 "Indica si la característica de accesibilidad del teclado de teclas "
 "persistentes está activada."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Enable debugging code"
 msgstr "Activar el código de depuración"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../gnome-settings-daemon/main.c:56
 msgid "Don't become a daemon"
 msgstr "No convertir en demonio"
 
-#: ../gnome-settings-daemon/main.c:56
+#: ../gnome-settings-daemon/main.c:57
 msgid "GConf prefix from which to load plugin settings"
 msgstr "El prefijo de GConf desde el que cargar los ajustes del complemento"
+
+#: ../gnome-settings-daemon/main.c:58
+msgid "Exit after a time - for debugging"
+msgstr "Salir después de un tiempo: para depuración"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -1024,7 +1028,6 @@ msgid "_Loaded files:"
 msgstr "Archivos _cargados:"
 
 #: ../plugins/keyboard/show-layout.ui.h:1
-#| msgid "Keyboard"
 msgid "Keyboard Layout"
 msgstr "Distribución del teclado"
 
