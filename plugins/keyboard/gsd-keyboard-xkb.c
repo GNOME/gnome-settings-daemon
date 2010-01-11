@@ -539,8 +539,8 @@ filter_xkb_config (void)
 					current_kbd_config.layouts_variants
 					    =
 					    g_slist_delete_link
-					    (current_kbd_config.
-					     layouts_variants, filtered);
+					    (current_kbd_config.layouts_variants,
+					     filtered);
 					any_change = TRUE;
 					continue;
 				}
@@ -892,7 +892,9 @@ gsd_keyboard_xkb_shutdown (void)
 	if (!inited_ok)
 		return;
 
-	xkl_engine_stop_listen (xkl_engine);
+	xkl_engine_stop_listen (xkl_engine,
+				XKLL_MANAGE_LAYOUTS |
+				XKLL_MANAGE_WINDOW_STATES);
 
 	gdk_window_remove_filter (NULL, (GdkFilterFunc)
 				  gsd_keyboard_xkb_evt_filter, NULL);

@@ -220,7 +220,7 @@ AC_CHECK_X_LIB(Xxf86misc, XF86MiscQueryExtension, [
 AC_SUBST(XF86MISC_LIBS)
 AC_CHECK_X_HEADERS([X11/extensions/XKB.h])
 
-PKG_CHECK_MODULES(LIBGNOMEKBDUI, [libgnomekbdui >= 2.29.5 libgnomekbd >= 2.29.5 libxklavier >= 4.0])
+PKG_CHECK_MODULES(LIBGNOMEKBDUI, [libgnomekbdui >= 2.29.5 libgnomekbd >= 2.29.5 libxklavier >= 5.0])
 AC_SUBST(LIBGNOMEKBDUI_CFLAGS)
 AC_SUBST(LIBGNOMEKBDUI_LIBS)
 
