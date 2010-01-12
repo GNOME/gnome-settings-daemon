@@ -1,6 +1,9 @@
 NULL =
 
-SUBDIRS =
+SUBDIRS =		\
+	libhal-glib	\
+	$(NULL)
+
 plugin_LTLIBRARIES =
 
 if HAVE_PULSE
@@ -40,6 +43,7 @@ libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
+	-I$(top_builddir)/plugins/media-keys/libhal-glib	\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -55,6 +59,7 @@ libmedia_keys_la_LDFLAGS = 		\
 libmedia_keys_la_LIBADD  = 		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
+	$(top_builddir)/plugins/media-keys/libhal-glib/libhal-glib.la	\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	$(XF86MISC_LIBS)
 
@@ -79,6 +84,7 @@ test_media_window_SOURCES =			\
 test_media_window_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
+	-I$(top_builddir)/plugins/media-keys/libhal-glib	\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -107,6 +113,7 @@ test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
+	-I$(top_builddir)/plugins/media-keys/libhal-glib	\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -119,6 +126,7 @@ test_media_keys_CFLAGS = \
 test_media_keys_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
+	$(top_builddir)/plugins/media-keys/libhal-glib/libhal-glib.la	\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(XF86MISC_LIBS)			\

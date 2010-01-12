@@ -355,6 +355,7 @@ plugins/keybindings/Makefile
 plugins/keyboard/Makefile
 plugins/media-keys/Makefile
 plugins/media-keys/cut-n-paste/Makefile
+plugins/media-keys/libhal-glib/Makefile
 plugins/mouse/Makefile
 plugins/sound/Makefile
 plugins/typing-break/Makefile
