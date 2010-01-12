@@ -41,6 +41,9 @@
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
 
+#include "libhal-glib/hal-manager.h"
+#include "libhal-glib/hal-device.h"
+
 #include "gnome-settings-profile.h"
 #include "gsd-marshal.h"
 #include "gsd-media-keys-manager.h"
@@ -91,6 +94,7 @@ struct GsdMediaKeysManagerPrivate
 #endif /* HAVE_PULSE */
         GtkWidget       *dialog;
         GConfClient     *conf_client;
+        HalDevice 	*hk_device;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -308,6 +312,7 @@ update_kbd_cb (GConfClient         *client,
                 if (strcmp (entry->key, keys[i].gconf_key) == 0) {
                         char *tmp;
                         Key  *key;
+                	char *prefix;
 
                         if (keys[i].key != NULL) {
                                 need_flush = TRUE;
@@ -316,6 +321,8 @@ update_kbd_cb (GConfClient         *client,
 
                         g_free (keys[i].key);
                         keys[i].key = NULL;
+			g_free (keys[i].hk_cond_detail);
+			keys[i].hk_cond_detail = NULL;
 
                         tmp = gconf_client_get_string (manager->priv->conf_client,
                                                        keys[i].gconf_key, NULL);
@@ -324,6 +331,17 @@ update_kbd_cb (GConfClient         *client,
                                 g_free (tmp);
                                 break;
                         }
+
+                	/* parse for HAL key event */
+                	prefix = strstr (tmp,"HK");
+                	if (tmp == prefix) {
+                                keys[i].hk_cond_detail = g_strdup (tmp + 2);
+                                if (keys[i].hk_cond_detail == NULL) {
+                                        continue;
+                                }
+
+                                g_debug ("HAL key hk_cond_detail: '%s'", keys[i].hk_cond_detail);
+                	}
 
                         key = g_new0 (Key, 1);
                         if (!egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state)) {
@@ -361,6 +379,7 @@ init_kbd (GsdMediaKeysManager *manager)
         for (i = 0; i < HANDLED_KEYS; i++) {
                 char *tmp;
                 Key  *key;
+		char *prefix;
 
                 manager->priv->notify[i] =
                         gconf_client_notify_add (manager->priv->conf_client,
@@ -380,6 +399,18 @@ init_kbd (GsdMediaKeysManager *manager)
                         continue;
                 }
 
+		/* parse for HAL key event */
+		prefix = strstr (tmp,"HK");
+		if (tmp == prefix) {
+                        keys[i].hk_cond_detail = g_strdup (tmp + 2);
+                        if (keys[i].hk_cond_detail == NULL) {
+                                continue;
+                        }
+
+                        g_debug ("HAL key hk_cond_detail: '%s'", keys[i].hk_cond_detail);
+		}
+
+		/* parse for keysym  */
                 key = g_new0 (Key, 1);
                 if (!egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state)) {
                         g_debug ("Unable to parse: '%s'", tmp);
@@ -1004,6 +1035,29 @@ acme_filter_events (GdkXEvent           *xevent,
         return GDK_FILTER_CONTINUE;
 }
 
+static void
+_hk_device_condition_cb (HalDevice   *device,
+                         const gchar *condition,
+                         const gchar *details,
+                         GsdMediaKeysManager *manager)
+{
+        int i;
+
+        if (!g_str_equal (condition, "ButtonPressed"))
+        {
+                /* Not expecting another event...*/
+                return;
+        }
+
+        for (i = 0; i < HANDLED_KEYS; i++) {
+                if ((keys[i].hk_cond_detail != NULL)
+                    && !strcmp (keys[i].hk_cond_detail, details)) {
+                        g_debug ("HAL keys[i].key_type: '%d'", keys[i].key_type);
+                        do_action (manager, keys[i].key_type);
+                }
+        }
+}
+
 static gboolean
 start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 {
@@ -1073,6 +1127,16 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
 
         gnome_settings_profile_end (NULL);
 
+        /* Start monitor hal key event*/
+        manager->priv->hk_device = hal_device_new ();
+        hal_device_set_udi (manager->priv->hk_device,
+                            "/org/freedesktop/Hal/devices/platform_i8042_i8042_KBD_port_logicaldev_input");
+        hal_device_watch_condition (manager->priv->hk_device);
+        g_signal_connect (manager->priv->hk_device,
+                          "device-condition",
+                          (GCallback) _hk_device_condition_cb,
+                          manager);
+
         return TRUE;
 }
 
@@ -1086,6 +1150,10 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         gboolean need_flush;
 
         g_debug ("Stopping media_keys manager");
+
+	/* remove HalDevice */
+	if (priv->hk_device)
+                g_object_unref (priv->hk_device);
 
         for (ls = priv->screens; ls != NULL; ls = ls->next) {
                 gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
@@ -1125,6 +1193,9 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                         g_free (keys[i].key->keycodes);
                         g_free (keys[i].key);
                         keys[i].key = NULL;
+
+                        g_free (keys[i].hk_cond_detail);
+                        keys[i].hk_cond_detail = NULL;
                 }
         }
 
