@@ -1,4 +1,60 @@
 ==============
+Version 2.29.5
+==============
+
+- Fix variant handling in $GDM_KEYBOARD_LAYOUT (Martin Pitt) (#596897)
+- Tighten check for XInput (Jens Granseuer)
+- Fix bluriness in level bar, and popup (Bastien Nocera) (#567249)
+- Remove unused variable (Bastien Nocera) (#599904)
+- Honour libexecdir when spawning gsd-locate-pointer (Jens Granseuer) (#599209)
+- Allow left-handed setting for touchpads (Peter Hutterer)
+- Use a rounded instead of curved rectangle (William Jon McCann)
+- Improve the media keys overlay design (William Jon McCann) (#596136)
+- Add brightness to the media-keys popup (Bastien Nocera) (#599677)
+- Fix for GSEAL goal (Bastien Nocera) (#599861)
+- Avoid volumes going over 100% (Bastien Nocera) (#600770)
+- Make OSD display more generic (Bastien Nocera) (#600951)
+- Support loading -rtl and -ltr variants of icons (Bastien Nocera) (#600984)
+- Relicense gsd-media-keys-window.[ch] to LGPL (Bastien Nocera) (#600986)
+- Hide the status icon before unreffing it (Matthias Clasen) (#601696)
+- Make eject behave better on OpenBSD (Jasper Lievisse Adriaanse) (#598573)
+- Export libexecdir in .pc file (DJ Lucas) (#596388)
+- Run gnome-color-manager apply program when the outputs change
+  (Richard Hughes)
+- Factor out function to get keycodes from keysym names (Federico Mena Quintero)
+- Handle the XF86RotateWindows hotkey by rotating a laptop's display
+  (Federico Mena Quintero)
+- Respond to monitor configuration changes when in charge (Matthias Clasen)
+  (#601203)
+- Filter invalid layouts before looking for the index of one passed by gdm
+  (Vincent Untz) (#585868)
+- Add linsysfs to list of virtual filesystems (Coleman Kane) (#604396)
+- Remove sleep keybindings (Bastien Nocera) (#170175)
+- Start an on-screen-display window (OSD) (Federico Mena Quintero)
+- Split the composited and non-composited code for the expose-event handler
+  (Federico Mena Quintero)
+- Use a hand-drawn frame instead of a GtkBuilder frame (Federico Mena Quintero)
+- Using GkbdStatus for the automatic notification icon (Sergey V. Udaltsov)
+- Implement popup menu for the notification icon (Sergey V. Udaltsov)
+- Add extra API required by GsdMediaKeysWindow (Federico Mena Quintero)
+- Add timed exit option (William Jon McCann)
+- Fixes for new libxklavier (Sergey V. Udaltsov)
+- Translations:
+  - ast (Xandru Armesto Fernandez)
+  - en@shaw (Thomas Thurman)
+  - es (Jorge González)
+  - et (Mattias Põldaru, Ivar Smolin)
+  - ja (Takayuki KUSANO)
+  - nb (Kjartan Maraas)
+  - nds (Nils-Christoph Fiedler)
+  - ru (Leonid Kanter)
+  - sl (Matej Urbančič)
+  - sv (Daniel Nylander)
+  - uk (Maxim V. Dziumanenko)
+  - vi (Nguyễn Thái Ngọc Duy)
+  - zh_CN (Aron Xu)
+
+==============
 Version 2.28.1
 ==============
 
