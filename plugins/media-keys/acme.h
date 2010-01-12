@@ -53,26 +53,27 @@ static struct {
         int key_type;
         const char *gconf_key;
         Key *key;
+	char *hk_cond_detail;
 } keys[HANDLED_KEYS] = {
-        { MUTE_KEY, GCONF_BINDING_DIR "/volume_mute",NULL },
+        { MUTE_KEY, GCONF_BINDING_DIR "/volume_mute",NULL, NULL},
         { VOLUME_DOWN_KEY, GCONF_BINDING_DIR "/volume_down", NULL },
-        { VOLUME_UP_KEY, GCONF_BINDING_DIR "/volume_up", NULL },
-        { POWER_KEY, GCONF_BINDING_DIR "/power", NULL },
-        { EJECT_KEY, GCONF_BINDING_DIR "/eject", NULL },
-        { HOME_KEY, GCONF_BINDING_DIR "/home", NULL },
+        { VOLUME_UP_KEY, GCONF_BINDING_DIR "/volume_up", NULL, NULL },
+        { POWER_KEY, GCONF_BINDING_DIR "/power", NULL, NULL },
+        { EJECT_KEY, GCONF_BINDING_DIR "/eject", NULL, NULL },
+        { HOME_KEY, GCONF_BINDING_DIR "/home", NULL, NULL },
         { MEDIA_KEY, GCONF_BINDING_DIR "/media", NULL },
-        { CALCULATOR_KEY, GCONF_BINDING_DIR "/calculator", NULL },
-        { SEARCH_KEY, GCONF_BINDING_DIR "/search", NULL },
-        { EMAIL_KEY, GCONF_BINDING_DIR "/email", NULL },
-        { SLEEP_KEY, GCONF_BINDING_DIR "/sleep", NULL },
-        { SCREENSAVER_KEY, GCONF_BINDING_DIR "/screensaver", NULL },
-        { HELP_KEY, GCONF_BINDING_DIR "/help", NULL },
-        { WWW_KEY, GCONF_BINDING_DIR "/www", NULL },
-        { PLAY_KEY, GCONF_BINDING_DIR "/play", NULL },
-        { PAUSE_KEY, GCONF_BINDING_DIR "/pause", NULL },
-        { STOP_KEY, GCONF_BINDING_DIR "/stop", NULL },
-        { PREVIOUS_KEY, GCONF_BINDING_DIR "/previous", NULL },
-        { NEXT_KEY, GCONF_BINDING_DIR "/next", NULL },
+        { CALCULATOR_KEY, GCONF_BINDING_DIR "/calculator", NULL, NULL },
+        { SEARCH_KEY, GCONF_BINDING_DIR "/search", NULL, NULL },
+        { EMAIL_KEY, GCONF_BINDING_DIR "/email", NULL, NULL },
+        { SLEEP_KEY, GCONF_BINDING_DIR "/sleep", NULL, NULL },
+        { SCREENSAVER_KEY, GCONF_BINDING_DIR "/screensaver", NULL, NULL },
+        { HELP_KEY, GCONF_BINDING_DIR "/help", NULL, NULL },
+        { WWW_KEY, GCONF_BINDING_DIR "/www", NULL, NULL },
+        { PLAY_KEY, GCONF_BINDING_DIR "/play", NULL, NULL },
+        { PAUSE_KEY, GCONF_BINDING_DIR "/pause", NULL, NULL },
+        { STOP_KEY, GCONF_BINDING_DIR "/stop", NULL, NULL },
+        { PREVIOUS_KEY, GCONF_BINDING_DIR "/previous", NULL, NULL },
+        { NEXT_KEY, GCONF_BINDING_DIR "/next", NULL, NULL },
 };
 
 #endif /* __ACME_H__ */
