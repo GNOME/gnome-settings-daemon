@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-01-09 18:34+0000\n"
-"PO-Revision-Date: 2010-01-10 12:37+0100\n"
+"POT-Creation-Date: 2010-01-12 17:22+0000\n"
+"PO-Revision-Date: 2010-01-12 20:29+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1002,6 +1002,72 @@ msgstr "Teclado"
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Complemento de teclado"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:112
+#, c-format
+msgid ""
+"Error activating XKB configuration.\n"
+"It can happen under various circumstances:\n"
+"- a bug in libxklavier library\n"
+"- a bug in X server (xkbcomp, xmodmap utilities)\n"
+"- X server with incompatible libxkbfile implementation\n"
+"\n"
+"X server version data:\n"
+"%s\n"
+"%d\n"
+"%s\n"
+"If you report this situation as a bug, please include:\n"
+"- The result of <b>%s</b>\n"
+"- The result of <b>%s</b>"
+msgstr ""
+"Error al activar la configuración de XKB.\n"
+"Puede suceder bajo ciertas circunstancias:\n"
+"- un error en la biblioteca libxklavier\n"
+"- un error en el servidor X (xkbcomp, utilidades xmodmap)\n"
+"- un servidor X con implementación incompatible de libxlbfile\n"
+"\n"
+"Versión de los datos del servidor X:\n"
+"%s\n"
+"%d\n"
+"%s\n"
+"Si informa de esta situación como un error incluya:\n"
+"- El resultado de <b>%s</b>\n"
+"- El resultado de <b>%s</b>"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:126
+msgid ""
+"You are using XFree 4.3.0.\n"
+"There are known problems with complex XKB configurations.\n"
+"Try using a simpler configuration or taking a fresher version of XFree "
+"software."
+msgstr ""
+"Está usando XFree 4.3.0\n"
+"Existen problemas conocidos con configuraciones complejas de XKB.\n"
+"Intente usar una configuración más simple o usar una versión más moderna del "
+"software de XFree."
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:197
+msgid "Unknown"
+msgstr "Desconocido"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:266
+#, c-format
+#| msgid "Keyboard Layout"
+msgid "Keyboard Layout \"%s\""
+msgstr "Distribución del teclado «%s»"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:389
+msgid "_Groups"
+msgstr "_Grupos"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:396
+#| msgid "Mouse Preferences"
+msgid "Keyboard _Preferences"
+msgstr "Prefere_ncias del teclado"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
+msgid "Show Current _Layout"
+msgstr "Mostrar _distribución actual"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
