@@ -1179,6 +1179,7 @@ create_osd_window (GsdXrandrManager *manager)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
         GtkWidget *box;
+        int i;
 
         if (priv->osd_window != NULL)
                 destroy_osd_window (manager);
@@ -1186,8 +1187,16 @@ create_osd_window (GsdXrandrManager *manager)
         priv->osd_window = gsd_osd_window_new ();
 
         box = gtk_hbox_new (TRUE, 12);
+        gtk_container_add (GTK_CONTAINER (priv->osd_window), box);
 
-        /* FIXME */
+        for (i = 0; priv->stock_configs[i]; i++) {
+                GtkWidget *button;
+
+                button = make_button_for_stock_config (manager, priv->stock_configs[i]->type);
+                gtk_box_pack_start (GTK_BOX (box), button, FALSE, FALSE, 0);
+        }
+
+        gtk_widget_show_all (priv->osd_window);
 }
 
 static void
