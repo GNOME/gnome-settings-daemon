@@ -261,6 +261,36 @@ xinput_device_has_buttons (XDeviceInfo *device_info)
         return FALSE;
 }
 
+static gboolean
+touchpad_has_single_button (XDevice *device)
+{
+        Atom type, prop;
+        int format;
+        unsigned long nitems, bytes_after;
+        unsigned char *data;
+        gboolean is_single_button = FALSE;
+        int rc;
+
+        prop = XInternAtom (GDK_DISPLAY (), "Synaptics Capabilities", False);
+        if (!prop)
+                return FALSE;
+
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY (), device, prop, 0, 1, False,
+                                XA_INTEGER, &type, &format, &nitems,
+                                &bytes_after, &data);
+        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 3)
+                is_single_button = (data[0] == 1 && data[1] == 0 && data[2] == 0);
+
+        if (rc == Success)
+                XFree (data);
+
+        gdk_error_trap_pop ();
+
+        return is_single_button;
+}
+
+
 static void
 set_xinput_devices_left_handed (gboolean left_handed)
 {
@@ -292,11 +322,15 @@ set_xinput_devices_left_handed (gboolean left_handed)
                 if (device != NULL) {
                         GConfClient *client = gconf_client_get_default ();
                         gboolean tap = gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL);
+                        gboolean single_button = touchpad_has_single_button (device);
 
-                        if (tap)
+                        if (tap && !single_button)
                                 set_tap_to_click (tap, left_handed);
                         XCloseDevice (GDK_DISPLAY (), device);
                         g_object_unref (client);
+
+                        if (single_button)
+                            continue;
                 }
 
                 gdk_error_trap_push ();
