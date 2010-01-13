@@ -39,6 +39,8 @@
 #include <gconf/gconf-client.h>
 #include <dbus/dbus-glib.h>
 
+#include "gsd-osd-window.h"
+
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 
 #include <libgnomeui/gnome-rr-config.h>
@@ -123,6 +125,9 @@ struct GsdXrandrManagerPrivate
         /* Status of stock configurations */
         int           current_stock_config;             /* -1 if no configs */
         StockConfig **stock_configs;  /* NULL terminated, NULL if there are no configs */
+
+        /* On-screen-display window for the options shown with the XF86Display hotkey */
+        GtkWidget *osd_window;
 
         /* Last time at which we got a "screen got reconfigured" event; see on_randr_event() */
         guint32 last_config_timestamp;
@@ -992,6 +997,34 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
 }
 
 static void
+destroy_osd_window (GsdXrandrManager *manager)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+
+        if (priv->osd_window == NULL)
+                return;
+
+        gtk_widget_destroy (priv->osd_window);
+        priv->osd_window = NULL;
+}
+
+static void
+create_osd_window (GsdXrandrManager *manager)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        GtkWidget *box;
+
+        if (priv->osd_window != NULL)
+                destroy_osd_window (manager);
+
+        priv->osd_window = gsd_osd_window_new ();
+
+        box = gtk_hbox_new (TRUE, 12);
+
+        /* FIXME */
+}
+
+static void
 handle_stock_config_hotkey (GsdXrandrManager *mgr, guint32 timestamp)
 {
         GsdXrandrManagerPrivate *priv = mgr->priv;
@@ -1035,12 +1068,16 @@ handle_stock_config_hotkey (GsdXrandrManager *mgr, guint32 timestamp)
                     /* Our view of the world is incorrect, so regenerate the
                      * configurations
                      */
+                    destroy_osd_window (mgr);
                     generate_stock_configs (mgr);
             }
 
         gnome_rr_config_free (current);
 
         if (priv->stock_configs) {
+                if (!mgr->priv->osd_window)
+                        create_osd_window (mgr);
+
                 mgr->priv->current_stock_config++;
 
                 if (priv->stock_configs[mgr->priv->current_stock_config] == NULL)
@@ -1060,6 +1097,7 @@ handle_stock_config_hotkey (GsdXrandrManager *mgr, guint32 timestamp)
         }
         else {
                 g_debug ("no configurations generated");
+                destroy_osd_window (mgr);
         }
         g_debug ("done handling XF86Display");
 }

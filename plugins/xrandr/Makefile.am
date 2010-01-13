@@ -59,9 +59,10 @@ libxrandr_la_CFLAGS =			\
 libxrandr_la_LDFLAGS = 			\
 	$(GSD_PLUGIN_LDFLAGS)
 
-libxrandr_la_LIBADD  =			\
-	$(SETTINGS_PLUGIN_LIBS)		\
-	$(LIBNOTIFY_LIBS)		\
+libxrandr_la_LIBADD  =					\
+	$(top_builddir)/plugins/common/libcommon.la	\
+	$(SETTINGS_PLUGIN_LIBS)				\
+	$(LIBNOTIFY_LIBS)				\
 	$(RANDR_LIBS)
 
 plugin_in_files =			\
