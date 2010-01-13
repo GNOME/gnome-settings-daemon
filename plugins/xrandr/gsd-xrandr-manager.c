@@ -1074,6 +1074,68 @@ get_filename_for_stock_config_icon (StockConfigType type)
         return g_build_filename (GNOME_SETTINGS_DATADIR, "xrandr", base, NULL);
 }
 
+static StockConfig *
+find_stock_config (GsdXrandrManager *manager, StockConfigType type)
+{
+        GsdXrandrManagerPrivate *priv;
+        int i;
+
+        priv = manager->priv;
+
+        if (!priv->stock_configs)
+                return NULL;
+
+        for (i = 0; priv->stock_configs[i]; i++)
+                if (priv->stock_configs[i]->type == type)
+                        return priv->stock_configs[i];
+
+        return NULL;
+}
+
+static void
+destroy_osd_window (GsdXrandrManager *manager)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+
+        if (priv->osd_window == NULL)
+                return;
+
+        gtk_widget_destroy (priv->osd_window);
+        priv->osd_window = NULL;
+}
+
+static void
+stock_config_button_clicked_cb (GtkButton *button, gpointer data)
+{
+        GsdXrandrManager *manager;
+        GsdXrandrManagerPrivate *priv;
+        StockConfigType type;
+        StockConfig *config;
+        GError *error;
+
+        manager = data;
+        priv = manager->priv;
+
+        type = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (button), "stock-config-type"));
+
+        destroy_osd_window (manager);
+
+        config = find_stock_config (manager, type);
+        if (!config) {
+                /* Huh, this shouldn't happen... */
+                return;
+        }
+
+        error = NULL;
+        if (!gnome_rr_config_apply_with_time (config->rr_config,
+                                              priv->rw_screen,
+                                              gtk_get_current_event_time (),
+                                              &error)) {
+                error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
+                g_error_free (error);
+        }
+}
+
 static GtkWidget *
 make_button_for_stock_config (GsdXrandrManager *manager, StockConfigType type)
 {
@@ -1110,18 +1172,6 @@ make_button_for_stock_config (GsdXrandrManager *manager, StockConfigType type)
         gtk_widget_show_all (button);
 
         return button;
-}
-
-static void
-destroy_osd_window (GsdXrandrManager *manager)
-{
-        GsdXrandrManagerPrivate *priv = manager->priv;
-
-        if (priv->osd_window == NULL)
-                return;
-
-        gtk_widget_destroy (priv->osd_window);
-        priv->osd_window = NULL;
 }
 
 static void
