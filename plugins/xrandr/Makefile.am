@@ -71,10 +71,12 @@ libxrandr_la_SOURCES = 		\
 	gsd-xrandr-manager.h	\
 	gsd-xrandr-manager.c
 
-libxrandr_la_CPPFLAGS =						\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-DBINDIR=\"$(bindir)\"					\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+libxrandr_la_CPPFLAGS =							\
+	-I$(top_srcdir)/gnome-settings-daemon				\
+	-I$(top_srcdir)/plugins/common					\
+	-DBINDIR=\"$(bindir)\"						\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"		\
+	-DGNOME_SETTINGS_DATADIR=\""$(datadir)/gnome-settings-daemon"\"	\
 	$(AM_CPPFLAGS)
 
 libxrandr_la_CFLAGS =			\

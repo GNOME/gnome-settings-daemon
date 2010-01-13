@@ -999,40 +999,6 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
 }
 
 static const char *
-get_icon_name_for_stock_config (StockConfigType type)
-{
-        switch (type) {
-        case STOCK_CONFIG_CURRENT:
-                return "gsd-xrandr-current";
-
-        case STOCK_CONFIG_LAPTOP:
-                return "gsd-xrandr-laptop";
-
-        case STOCK_CONFIG_CLONE_LAPTOP:
-                return "gsd-xrandr-clone-laptop";
-
-        case STOCK_CONFIG_CLONE_MONITORS:
-                return "gsd-xrandr-clone-monitors";
-
-        case STOCK_CONFIG_EXTENDED_RIGHT:
-                return "gsd-xrandr-extended-right";
-
-        case STOCK_CONFIG_EXTENDED_ONTOP:
-                return "gsd-xrandr-extended-ontop";
-
-        case STOCK_CONFIG_EXTERNAL:
-                return "gsd-xrandr-external";
-
-        case STOCK_CONFIG_CUSTOM:
-                return "gsd-xrandr-custom";
-
-        default:
-                g_assert_not_reached ();
-                return NULL;
-        }
-}
-
-static const char *
 get_label_for_stock_config (StockConfigType type)
 {
         switch (type) {
@@ -1060,6 +1026,90 @@ get_label_for_stock_config (StockConfigType type)
                 g_assert_not_reached ();
                 return NULL;
         }
+}
+
+static char *
+get_filename_for_stock_config_icon (StockConfigType type)
+{
+        const char *base;
+
+        switch (type) {
+        case STOCK_CONFIG_CURRENT:
+                base = "gsd-xrandr-current.png";
+                break;
+
+        case STOCK_CONFIG_LAPTOP:
+                base = "gsd-xrandr-laptop.png";
+                break;
+
+        case STOCK_CONFIG_CLONE_LAPTOP:
+                base = "gsd-xrandr-clone-laptop.png";
+                break;
+
+        case STOCK_CONFIG_CLONE_MONITORS:
+                base = "gsd-xrandr-clone-monitors.png";
+                break;
+
+        case STOCK_CONFIG_EXTENDED_RIGHT:
+                base = "gsd-xrandr-extended-right.png";
+                break;
+
+        case STOCK_CONFIG_EXTENDED_ONTOP:
+                base = "gsd-xrandr-extended-ontop.png";
+                break;
+
+        case STOCK_CONFIG_EXTERNAL:
+                base = "gsd-xrandr-external.png";
+                break;
+
+        case STOCK_CONFIG_CUSTOM:
+                base = "gsd-xrandr-custom.png";
+                break;
+
+        default:
+                g_assert_not_reached ();
+                return NULL;
+        }
+
+        return g_build_filename (GNOME_SETTINGS_DATADIR, "xrandr", base, NULL);
+}
+
+static GtkWidget *
+make_button_for_stock_config (GsdXrandrManager *manager, StockConfigType type)
+{
+        GtkWidget *button;
+        GtkWidget *box;
+        GtkWidget *label;
+        GdkPixbuf *pixbuf;
+        char *icon_filename;
+
+        button = gtk_button_new ();
+        g_object_set_data (G_OBJECT (button), "stock-config-type", GINT_TO_POINTER (type));
+        g_signal_connect (button, "clicked",
+                          G_CALLBACK (stock_config_button_clicked_cb), manager);
+
+        box = gtk_vbox_new (FALSE, 12);
+        gtk_container_set_border_width (GTK_CONTAINER (box), 12);
+        gtk_container_add (GTK_CONTAINER (button), box);
+
+        icon_filename = get_filename_for_stock_config_icon (type);
+        pixbuf = gdk_pixbuf_new_from_file (icon_filename, NULL); /* NULL-GError */
+        if (pixbuf) {
+                GtkWidget *image;
+
+                image = gtk_image_new_from_pixbuf (pixbuf);
+                g_object_unref (pixbuf);
+
+                gtk_box_pack_start (GTK_BOX (box), image, FALSE, FALSE, 0);
+        }
+
+        label = gtk_label_new_with_mnemonic (get_label_for_stock_config (type));
+        gtk_label_set_mnemonic_widget (GTK_LABEL (label), button);
+        gtk_box_pack_end (GTK_BOX (box), label, FALSE, FALSE, 0);
+
+        gtk_widget_show_all (button);
+
+        return button;
 }
 
 static void
