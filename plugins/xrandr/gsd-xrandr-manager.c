@@ -90,8 +90,10 @@
 typedef enum {
         STOCK_CONFIG_CURRENT,
         STOCK_CONFIG_LAPTOP,
-        STOCK_CONFIG_CLONE,
-        STOCK_CONFIG_EXTENDED,
+        STOCK_CONFIG_CLONE_LAPTOP,
+        STOCK_CONFIG_CLONE_MONITORS,
+        STOCK_CONFIG_EXTENDED_RIGHT,
+        STOCK_CONFIG_EXTENDED_ONTOP,
         STOCK_CONFIG_EXTERNAL,
         STOCK_CONFIG_CUSTOM
 } StockConfigType;
@@ -994,6 +996,40 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
         gtk_dialog_run (GTK_DIALOG (dialog));
         gtk_widget_destroy (dialog);
 #endif /* HAVE_LIBNOTIFY */
+}
+
+static const char *
+get_icon_name_for_stock_config (StockConfigType type)
+{
+        switch (type) {
+        case STOCK_CONFIG_CURRENT:
+                return "gsd-xrandr-current";
+
+        case STOCK_CONFIG_LAPTOP:
+                return "gsd-xrandr-laptop";
+
+        case STOCK_CONFIG_CLONE_LAPTOP:
+                return "gsd-xrandr-clone-laptop";
+
+        case STOCK_CONFIG_CLONE_MONITORS:
+                return "gsd-xrandr-clone-monitors";
+
+        case STOCK_CONFIG_EXTENDED_RIGHT:
+                return "gsd-xrandr-extended-right";
+
+        case STOCK_CONFIG_EXTENDED_ONTOP:
+                return "gsd-xrandr-extended-ontop";
+
+        case STOCK_CONFIG_EXTERNAL:
+                return "gsd-xrandr-external";
+
+        case STOCK_CONFIG_CUSTOM:
+                return "gsd-xrandr-custom";
+
+        default:
+                g_assert_not_reached ();
+                return NULL;
+        }
 }
 
 static void
