@@ -1,14 +1,14 @@
 # Norwegian Bokmål translation of gnome-settings-daemon.
 # Copyright (C) 1999-2005 Free Software Foundation, Inc.
-# Kjartan Maraas <kmaraas@gnome.org>, 1999-2009.
+# Kjartan Maraas <kmaraas@gnome.org>, 1999-2010.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 2.27.x\n"
+"Project-Id-Version: gnome-settings-daemon 2.29.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-15 19:12+0100\n"
-"PO-Revision-Date: 2009-12-15 19:13+0100\n"
+"POT-Creation-Date: 2010-01-13 21:51+0100\n"
+"PO-Revision-Date: 2010-01-13 21:52+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -595,17 +595,21 @@ msgstr ""
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Enable debugging code"
 msgstr "Aktiver kode for feilsøking"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../gnome-settings-daemon/main.c:56
 msgid "Don't become a daemon"
 msgstr "Ikke kjør som en tjeneste"
 
-#: ../gnome-settings-daemon/main.c:56
+#: ../gnome-settings-daemon/main.c:57
 msgid "GConf prefix from which to load plugin settings"
 msgstr "GConf-prefiks for lasting av innstillinger for tillegg"
+
+#: ../gnome-settings-daemon/main.c:58
+msgid "Exit after a time - for debugging"
+msgstr "Avslutt etter oppgitt tid - for feilsøking"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -927,6 +931,53 @@ msgstr "Tastatur"
 msgid "Keyboard plugin"
 msgstr "Tillegg for tastatur"
 
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:112
+#, c-format
+msgid ""
+"Error activating XKB configuration.\n"
+"It can happen under various circumstances:\n"
+"- a bug in libxklavier library\n"
+"- a bug in X server (xkbcomp, xmodmap utilities)\n"
+"- X server with incompatible libxkbfile implementation\n"
+"\n"
+"X server version data:\n"
+"%s\n"
+"%d\n"
+"%s\n"
+"If you report this situation as a bug, please include:\n"
+"- The result of <b>%s</b>\n"
+"- The result of <b>%s</b>"
+msgstr ""
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:126
+msgid ""
+"You are using XFree 4.3.0.\n"
+"There are known problems with complex XKB configurations.\n"
+"Try using a simpler configuration or taking a fresher version of XFree "
+"software."
+msgstr ""
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:197
+msgid "Unknown"
+msgstr "Ukjent"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:266
+#, c-format
+msgid "Keyboard Layout \"%s\""
+msgstr "Tastaturutforming «%s»"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:389
+msgid "_Groups"
+msgstr "_Grupper"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:396
+msgid "Keyboard _Preferences"
+msgstr "Brukervalg for _tastatur"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
+msgid "Show Current _Layout"
+msgstr "Vis aktiv _utforming"
+
 #: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
 msgstr "Til_gjengelige filer:"
@@ -950,6 +1001,11 @@ msgstr "_Last"
 #: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "_Lastede filer:"
+
+#: ../plugins/keyboard/show-layout.ui.h:1
+#, fuzzy
+msgid "Keyboard Layout"
+msgstr "Tastatur"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:198
 msgid ""
