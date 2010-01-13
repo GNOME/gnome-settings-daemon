@@ -1032,6 +1032,36 @@ get_icon_name_for_stock_config (StockConfigType type)
         }
 }
 
+static const char *
+get_label_for_stock_config (StockConfigType type)
+{
+        switch (type) {
+        case STOCK_CONFIG_CURRENT:
+                return _("Current");
+
+        case STOCK_CONFIG_LAPTOP:
+                return _("_Laptop only");
+
+        case STOCK_CONFIG_CLONE_LAPTOP:
+        case STOCK_CONFIG_CLONE_MONITORS:
+                return _("_Mirror screens");
+
+        case STOCK_CONFIG_EXTENDED_RIGHT:
+        case STOCK_CONFIG_EXTENDED_ONTOP:
+                return _("_Extended");
+
+        case STOCK_CONFIG_EXTERNAL:
+                return _("E_xternal only");
+
+        case STOCK_CONFIG_CUSTOM:
+                return _("_Custom setup...");
+
+        default:
+                g_assert_not_reached ();
+                return NULL;
+        }
+}
+
 static void
 destroy_osd_window (GsdXrandrManager *manager)
 {
