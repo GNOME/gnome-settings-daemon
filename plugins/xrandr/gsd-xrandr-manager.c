@@ -161,6 +161,9 @@ G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+/* Used to access (StockConfig *) elements in a GArray */
+#define NTH_STOCK_CONFIG(array, n) ((StockConfig *) array->pdata[n])
+
 static void
 show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
 {
@@ -843,8 +846,9 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
         g_debug ("before sanitizing");
 
         for (i = 0; i < array->len; ++i) {
-                if (array->pdata[i]) {
-                        print_configuration (array->pdata[i]->rr_config, "before");
+                if (NTH_STOCK_CONFIG (array, i)) {
+                        StockConfig *config = NTH_STOCK_CONFIG (array, i);
+                        print_configuration (config->rr_config, "before");
                 }
         }
 
@@ -856,12 +860,14 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
                 int j;
 
                 for (j = i + 1; j < array->len; j++) {
-                        GnomeRRConfig *this = array->pdata[j] ? array->pdata[j]->rr_config : NULL;
-                        GnomeRRConfig *other = array->pdata[i] ? array->pdata[i]->rr_config : NULL;
+                        StockConfig   *this_config  = NTH_STOCK_CONFIG (array, j);
+                        StockConfig   *other_config = NTH_STOCK_CONFIG (array, i);
+                        GnomeRRConfig *this         = this_config  ? this_config->rr_config  : NULL;
+                        GnomeRRConfig *other        = other_config ? other_config->rr_config : NULL;
 
                         if (this && other && gnome_rr_config_equal (this, other)) {
                                 g_debug ("removing duplicate configuration");
-                                stock_config_free (array->pdata[j]);
+                                stock_config_free (this_config);
                                 array->pdata[j] = NULL;
                                 break;
                         }
@@ -869,8 +875,10 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
         }
 
         for (i = 0; i < array->len; ++i) {
-                if (array->pdata[i]) {
-                        GnomeRRConfig *rr_config = array->pdata[i]->rr_config;
+                StockConfig *config = NTH_STOCK_CONFIG (array, i);
+
+                if (config) {
+                        GnomeRRConfig *rr_config = config->rr_config;
                         gboolean all_off = TRUE;
                         int j;
 
@@ -881,7 +889,7 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
 
                         if (all_off) {
                                 g_debug ("removing configuration as all outputs are off");
-                                stock_config_free (array->pdata[i]);
+                                stock_config_free (config);
                                 array->pdata[i] = NULL;
                         }
                 }
@@ -892,8 +900,10 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
          */
 
         for (i = 0; i < array->len; i++) {
-                if (array->pdata[i]) {
-                        GnomeRRConfig *rr_config = array->pdata[i]->rr_config;
+                StockConfig *config = NTH_STOCK_CONFIG (array, i);
+
+                if (config) {
+                        GnomeRRConfig *rr_config = config->rr_config;
                         GError *error;
 
                         error = NULL;
@@ -901,7 +911,7 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
                                 g_debug ("removing configuration which is not applicable because %s", error->message);
                                 g_error_free (error);
 
-                                stock_config_free (array->pdata[i]);
+                                stock_config_free (config);
                                 array->pdata[i] = NULL;
                         }
                 }
@@ -911,9 +921,10 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
         new = g_ptr_array_new ();
 
         for (i = 0; i < array->len; ++i) {
-                if (array->pdata[i]) {
-                        g_ptr_array_add (new, array->pdata[i]);
-                        print_configuration (array->pdata[i]->rr_config, "Final");
+                StockConfig *config = NTH_STOCK_CONFIG (array, i);
+                if (config) {
+                        g_ptr_array_add (new, config);
+                        print_configuration (config->rr_config, "Final");
                 }
         }
 
