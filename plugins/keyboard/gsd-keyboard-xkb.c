@@ -588,7 +588,7 @@ apply_xkb_settings (void)
 		GSList *found_node;
 		int max_groups;
 
-		max_groups = xkl_engine_get_max_num_groups (xkl_engine);
+		max_groups = MAX (xkl_engine_get_max_num_groups (xkl_engine), 1);
 		layouts = gconf_client_get_list (conf_client,
 						 GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
 						 GCONF_VALUE_STRING, NULL);
