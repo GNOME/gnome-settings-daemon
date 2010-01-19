@@ -65,7 +65,7 @@
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
 #define CONF_DIR "/apps/gnome_settings_daemon/xrandr"
-#define CONF_KEY "show_notification_icon"
+#define SHOW_NOTIFICATION_ICON_KEY "show_notification_icon"
 
 #define VIDEO_KEYSYM    "XF86Display"
 #define ROTATE_KEYSYM   "XF86RotateWindows"
@@ -2234,7 +2234,7 @@ status_icon_stop (GsdXrandrManager *manager)
 static void
 start_or_stop_icon (GsdXrandrManager *manager)
 {
-        if (gconf_client_get_bool (manager->priv->client, CONF_DIR "/" CONF_KEY, NULL)) {
+        if (gconf_client_get_bool (manager->priv->client, CONF_DIR "/" SHOW_NOTIFICATION_ICON_KEY, NULL)) {
                 status_icon_start (manager);
         }
         else {
