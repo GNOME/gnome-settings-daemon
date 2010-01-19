@@ -48,10 +48,11 @@
 
 struct GsdOsdWindowPrivate
 {
-        guint                    is_composited : 1;
         guint                    hide_timeout_id;
         guint                    fade_timeout_id;
         double                   fade_out_alpha;
+        guint                    is_composited : 1;
+        guint                    auto_hide : 1;
 };
 
 enum {
@@ -356,7 +357,9 @@ gsd_osd_window_real_show (GtkWidget *widget)
 
         window = GSD_OSD_WINDOW (widget);
         remove_hide_timeout (window);
-        add_hide_timeout (window);
+
+        if (window->priv->auto_hide)
+                add_hide_timeout (window);
 }
 
 static void
@@ -522,6 +525,8 @@ gsd_osd_window_init (GsdOsdWindow *window)
 
         screen = gtk_widget_get_screen (GTK_WIDGET (window));
 
+        window->priv->auto_hide = TRUE;
+
         window->priv->is_composited = gdk_screen_is_composited (screen);
 
         if (window->priv->is_composited) {
@@ -566,4 +571,19 @@ gsd_osd_window_update_and_hide (GsdOsdWindow *window)
         if (window->priv->is_composited) {
                 gtk_widget_queue_draw (GTK_WIDGET (window));
         }
+}
+
+/**
+ * gsd_osd_window_set_auto_hide:
+ * @window: a #GsdOsdWindow
+ * @auto_hide: whether to automatically hide the window some time after it is shown
+ *
+ * Sets whether the @window will automatically hide itself some time after it is
+ * shown.  This is set to TRUE by default.  Callers that need to hide the window
+ * themselves should specify FALSE here.
+ */
+void
+gsd_osd_window_set_auto_hide (GsdOsdWindow *window, gboolean auto_hide)
+{
+        window->priv->auto_hide = auto_hide;
 }

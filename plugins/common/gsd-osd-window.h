@@ -77,6 +77,8 @@ GtkWidget *           gsd_osd_window_new               (void);
 gboolean              gsd_osd_window_is_composited     (GsdOsdWindow      *window);
 gboolean              gsd_osd_window_is_valid          (GsdOsdWindow      *window);
 void                  gsd_osd_window_update_and_hide   (GsdOsdWindow      *window);
+void                  gsd_osd_window_set_auto_hide     (GsdOsdWindow      *window,
+                                                        gboolean           auto_hide);
 
 void                  gsd_osd_window_draw_rounded_rectangle (cairo_t *cr,
                                                              gdouble  aspect,
