@@ -1201,6 +1201,7 @@ create_osd_window (GsdXrandrManager *manager)
                 destroy_osd_window (manager);
 
         priv->osd_window = gsd_osd_window_new ();
+        gsd_osd_window_set_auto_hide (GSD_OSD_WINDOW (priv->osd_window), FALSE);
 
         box = gtk_hbox_new (TRUE, 12);
         gtk_container_add (GTK_CONTAINER (priv->osd_window), box);
