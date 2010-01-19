@@ -65,7 +65,9 @@
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
 #define CONF_DIR "/apps/gnome_settings_daemon/xrandr"
-#define SHOW_NOTIFICATION_ICON_KEY "show_notification_icon"
+#define SHOW_NOTIFICATION_ICON_KEY (CONF_DIR "/show_notification_icon") /* Whether to show the tray icon to let the user switch monitor configurations */
+#define SWITCH_MONITORS_KEY        (CONF_DIR "/switch_monitors_key")    /* Normally XF86Display (Fn-F7 on Thinkpads, Fn-F4 on HPs, etc.) */
+#define ROTATE_DISPLAY_KEY         (CONF_DIR "/rotate_display_key")     /* Normally XF86RotateWindows (special hotkey on pressure-sensitive tablets) */
 
 #define VIDEO_KEYSYM    "XF86Display"
 #define ROTATE_KEYSYM   "XF86RotateWindows"
@@ -2234,7 +2236,7 @@ status_icon_stop (GsdXrandrManager *manager)
 static void
 start_or_stop_icon (GsdXrandrManager *manager)
 {
-        if (gconf_client_get_bool (manager->priv->client, CONF_DIR "/" SHOW_NOTIFICATION_ICON_KEY, NULL)) {
+        if (gconf_client_get_bool (manager->priv->client, SHOW_NOTIFICATION_ICON_KEY, NULL)) {
                 status_icon_start (manager);
         }
         else {

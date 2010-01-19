@@ -14,5 +14,39 @@
 		</long>
             </locale>
         </schema>
+
+	<schema>
+	    <key>/schemas/apps/gnome_settings_daemon/xrandr/switch_monitors_key</key>
+	    <applyto>/apps/gnome_settings_daemon/xrandr/switch_monitors_key</applyto>
+            <owner>gnome</owner>
+	    <type>string</type>
+            <default>XF86Display</default>
+            <locale name="C">
+	        <short>Key to use to switch the monitor configuration</short>
+                <long>Most laptops have a hotkey that you can press to
+                switch the display among the internal or external
+                monitor.  This GConf key should normally be set to
+                'XF86Display' as X will have that key preconfigured,
+                but you can change it to something else if you wish.
+		</long>
+            </locale>
+        </schema>
+
+	<schema>
+	    <key>/schemas/apps/gnome_settings_daemon/xrandr/rotate_display_key</key>
+	    <applyto>/apps/gnome_settings_daemon/xrandr/rotate_display_key</applyto>
+            <owner>gnome</owner>
+	    <type>string</type>
+            <default>XF86RotateWindows</default>
+            <locale name="C">
+	        <short>Key to use to rotate the monitor's display</short>
+                <long>Some tablet PCs have a hotkey that you can press
+                to rotate the display from portrait to landscape
+                orientation.  This GConf key should normally be set to
+                'XF86RotateWindows' as X will have that key preconfigured,
+                but you can change it to something else if you wish.
+		</long>
+            </locale>
+        </schema>
     </schemalist>
 </gconfschemafile>
