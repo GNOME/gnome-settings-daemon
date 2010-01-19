@@ -1208,8 +1208,10 @@ create_osd_window (GsdXrandrManager *manager)
         for (i = 0; priv->stock_configs[i]; i++) {
                 GtkWidget *button;
 
-                button = make_button_for_stock_config (manager, priv->stock_configs[i]->type);
-                gtk_box_pack_start (GTK_BOX (box), button, FALSE, FALSE, 0);
+                if (priv->stock_configs[i]->type != STOCK_CONFIG_CURRENT) {
+                        button = make_button_for_stock_config (manager, priv->stock_configs[i]->type);
+                        gtk_box_pack_start (GTK_BOX (box), button, FALSE, FALSE, 0);
+                }
         }
 
         gtk_widget_show_all (priv->osd_window);
