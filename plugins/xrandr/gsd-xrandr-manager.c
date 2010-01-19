@@ -39,6 +39,8 @@
 #include <gconf/gconf-client.h>
 #include <dbus/dbus-glib.h>
 
+#include "eggaccelerators.h"
+#include "gsd-keygrab.h"
 #include "gsd-osd-window.h"
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
@@ -69,8 +71,9 @@
 #define SWITCH_MONITORS_KEY        (CONF_DIR "/switch_monitors_key")    /* Normally XF86Display (Fn-F7 on Thinkpads, Fn-F4 on HPs, etc.) */
 #define ROTATE_DISPLAY_KEY         (CONF_DIR "/rotate_display_key")     /* Normally XF86RotateWindows (special hotkey on pressure-sensitive tablets) */
 
-#define VIDEO_KEYSYM    "XF86Display"
-#define ROTATE_KEYSYM   "XF86RotateWindows"
+/* In case the GConf schemas are screwed up... */
+#define SWITCH_MONITORS_DEFAULT_KEY "XF86Display"
+#define ROTATE_DISPLAY_DEFAULT_KEY  "XF86RotateWindows"
 
 /* Number of seconds that the confirmation dialog will last before it resets the
  * RANDR configuration to its old state.
@@ -110,11 +113,11 @@ struct GsdXrandrManagerPrivate
 {
         DBusGConnection *dbus_connection;
 
-        /* Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.) */
-        guint switch_video_mode_keycode;
+        /* Keygrab for SWITCH_MONITORS_KEY (normally the XF86Display keysym) */
+        Key switch_monitors_key;
 
-        /* Key code of the XF86RotateWindows key (present on some tablets) */
-        guint rotate_windows_keycode;
+        /* Keygrab for ROTATE_DISPLAY_KEY (normally the XF86RotateWindows keysym) */
+        Key rotate_display_key;
 
         GnomeRRScreen *rw_screen;
         gboolean running;
@@ -1418,12 +1421,18 @@ event_filter (GdkXEvent           *xevent,
                 return GDK_FILTER_CONTINUE;
 
         if (xev->xany.type == KeyPress) {
-                if (xev->xkey.keycode == manager->priv->switch_video_mode_keycode)
-                        handle_stock_config_hotkey (manager, xev->xkey.time);
-                else if (xev->xkey.keycode == manager->priv->rotate_windows_keycode)
-                        handle_rotate_windows (manager, xev->xkey.time);
+                gboolean matched = FALSE;
 
-                return GDK_FILTER_CONTINUE;
+                if (match_key (&manager->priv->switch_monitors_key, xev)) {
+                        matched = TRUE;
+                        handle_stock_config_hotkey (manager, xev->xkey.time);
+                } else if (match_key (&manager->priv->rotate_display_key, xev)) {
+                        matched = TRUE;
+                        handle_rotate_windows (manager, xev->xkey.time);
+                }
+
+                if (matched)
+                        return GDK_FILTER_REMOVE;
         }
 
         return GDK_FILTER_CONTINUE;
@@ -2244,13 +2253,112 @@ start_or_stop_icon (GsdXrandrManager *manager)
         }
 }
 
+static gboolean
+parse_key (Key *key, const char *str)
+{
+        return egg_accelerator_parse_virtual (str, &key->keysym, &key->keycodes, &key->state);
+}
+
+static void
+read_hotkey_configuration (GsdXrandrManager *manager)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        char *switch_monitors_value;
+        char *rotate_display_value;
+
+        g_assert (priv->switch_monitors_key.keysym == 0);
+        g_assert (priv->rotate_display_key.keysym == 0);
+
+        switch_monitors_value = gconf_client_get_string (priv->client, SWITCH_MONITORS_KEY, NULL);
+        if (!switch_monitors_value)
+                switch_monitors_value = g_strdup (SWITCH_MONITORS_DEFAULT_KEY);
+
+        rotate_display_value = gconf_client_get_string (priv->client, ROTATE_DISPLAY_KEY, NULL);
+        if (!rotate_display_value)
+                rotate_display_value = g_strdup (ROTATE_DISPLAY_DEFAULT_KEY);
+
+        parse_key (&priv->switch_monitors_key, switch_monitors_value);
+        parse_key (&priv->rotate_display_key, rotate_display_value);
+
+        g_free (switch_monitors_value);
+        g_free (rotate_display_value);
+
+}
+
+static void
+grab_keys (GsdXrandrManager *manager)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        GSList screens_list;
+
+        read_hotkey_configuration (manager);
+
+        gdk_error_trap_push ();
+
+        screens_list.data = gdk_screen_get_default ();
+        screens_list.next = NULL;
+
+        if (priv->switch_monitors_key.keysym != 0)
+                grab_key_unsafe (&priv->switch_monitors_key, TRUE, &screens_list);
+
+        if (priv->rotate_display_key.keysym != 0)
+                grab_key_unsafe (&priv->rotate_display_key, TRUE, &screens_list);
+
+        gdk_flush ();
+
+        if (gdk_error_trap_pop ())
+                g_warning ("RANDR: Could not grab one of the hotkeys; another application may already have grabbed them.");
+}
+
+static void
+ungrab_keys (GsdXrandrManager *manager)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        GSList screens_list;
+
+        gdk_error_trap_push ();
+
+        screens_list.data = gdk_screen_get_default ();
+        screens_list.next = NULL;
+
+        if (priv->switch_monitors_key.keysym != 0)
+                grab_key_unsafe (&priv->switch_monitors_key, FALSE, &screens_list);
+
+        if (priv->rotate_display_key.keysym != 0)
+                grab_key_unsafe (&priv->rotate_display_key, FALSE, &screens_list);
+
+        g_free (priv->switch_monitors_key.keycodes);
+        g_free (priv->rotate_display_key.keycodes);
+
+        priv->switch_monitors_key.keysym = 0;
+        priv->switch_monitors_key.state = 0;
+        priv->switch_monitors_key.keycodes = NULL;
+
+        priv->rotate_display_key.keysym = 0;
+        priv->rotate_display_key.state = 0;
+        priv->rotate_display_key.keycodes = NULL;
+
+        gdk_flush ();
+        gdk_error_trap_pop ();
+}
+
 static void
 on_config_changed (GConfClient          *client,
                    guint                 cnxn_id,
                    GConfEntry           *entry,
                    GsdXrandrManager *manager)
 {
-        start_or_stop_icon (manager);
+        const char *key_name;
+
+        key_name = gconf_entry_get_key (entry);
+
+        if (strcmp (key_name, SHOW_NOTIFICATION_ICON_KEY) == 0)
+                start_or_stop_icon (manager);
+        else if (strcmp (key_name, SWITCH_MONITORS_KEY) == 0
+                 || strcmp (key_name, ROTATE_DISPLAY_KEY) == 0) {
+                ungrab_keys (manager);
+                grab_keys (manager);
+        }
 }
 
 static void
@@ -2352,29 +2460,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                         (GConfClientNotifyFunc)on_config_changed,
                         manager, NULL, NULL);
 
-        if (manager->priv->switch_video_mode_keycode) {
-                gdk_error_trap_push ();
-
-                XGrabKey (gdk_x11_get_default_xdisplay(),
-                          manager->priv->switch_video_mode_keycode, AnyModifier,
-                          gdk_x11_get_default_root_xwindow(),
-                          True, GrabModeAsync, GrabModeAsync);
-
-                gdk_flush ();
-                gdk_error_trap_pop ();
-        }
-
-        if (manager->priv->rotate_windows_keycode) {
-                gdk_error_trap_push ();
-
-                XGrabKey (gdk_x11_get_default_xdisplay(),
-                          manager->priv->rotate_windows_keycode, AnyModifier,
-                          gdk_x11_get_default_root_xwindow(),
-                          True, GrabModeAsync, GrabModeAsync);
-
-                gdk_flush ();
-                gdk_error_trap_pop ();
-        }
+        grab_keys (manager);
 
         show_timestamps_dialog (manager, "Startup");
         apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME); /* we don't have a real timestamp at startup anyway */
@@ -2397,25 +2483,7 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
 
         manager->priv->running = FALSE;
 
-        if (manager->priv->switch_video_mode_keycode) {
-                gdk_error_trap_push ();
-
-                XUngrabKey (gdk_x11_get_default_xdisplay(),
-                            manager->priv->switch_video_mode_keycode, AnyModifier,
-                            gdk_x11_get_default_root_xwindow());
-
-                gdk_error_trap_pop ();
-        }
-
-        if (manager->priv->rotate_windows_keycode) {
-                gdk_error_trap_push ();
-
-                XUngrabKey (gdk_x11_get_default_xdisplay(),
-                            manager->priv->rotate_windows_keycode, AnyModifier,
-                            gdk_x11_get_default_root_xwindow());
-
-                gdk_error_trap_pop ();
-        }
+        ungrab_keys (manager);
 
         gdk_window_remove_filter (gdk_get_default_root_window (),
                                   (GdkFilterFunc) event_filter,
@@ -2524,25 +2592,10 @@ gsd_xrandr_manager_class_init (GsdXrandrManagerClass *klass)
         g_type_class_add_private (klass, sizeof (GsdXrandrManagerPrivate));
 }
 
-static guint
-get_keycode_for_keysym_name (const char *name)
-{
-        Display *dpy;
-        guint keyval;
-
-        dpy = gdk_x11_get_default_xdisplay ();
-
-        keyval = gdk_keyval_from_name (name);
-        return XKeysymToKeycode (dpy, keyval);
-}
-
 static void
 gsd_xrandr_manager_init (GsdXrandrManager *manager)
 {
         manager->priv = GSD_XRANDR_MANAGER_GET_PRIVATE (manager);
-
-        manager->priv->switch_video_mode_keycode = get_keycode_for_keysym_name (VIDEO_KEYSYM);
-        manager->priv->rotate_windows_keycode = get_keycode_for_keysym_name (ROTATE_KEYSYM);
 
         manager->priv->current_stock_config = -1;
         manager->priv->stock_configs = NULL;
