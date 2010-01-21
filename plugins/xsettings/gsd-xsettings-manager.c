@@ -30,6 +30,8 @@
 #include <errno.h>
 #include <time.h>
 
+#include <X11/Xatom.h>
+
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
@@ -399,118 +401,68 @@ xft_settings_set_xsettings (GnomeXSettingsManager *manager,
         gnome_settings_profile_end (NULL);
 }
 
-static gboolean
-write_all (int         fd,
-           const char *buf,
-           gsize       to_write)
-{
-        while (to_write > 0) {
-                gssize count = write (fd, buf, to_write);
-                if (count < 0) {
-                        if (errno != EINTR)
-                                return FALSE;
-                } else {
-                        to_write -= count;
-                        buf += count;
-                }
-        }
-
-        return TRUE;
-}
-
 static void
-child_watch_cb (GPid     pid,
-                int      status,
-                gpointer user_data)
+update_property (GString *props, const gchar* key, const gchar* value)
 {
-        char *command = user_data;
+        gchar* needle;
+        size_t needle_len;
+        gchar* found = NULL;
 
-        gnome_settings_profile_end ("%s", command);
-        if (!WIFEXITED (status) || WEXITSTATUS (status)) {
-                g_warning ("Command %s failed", command);
+        /* update an existing property */
+        needle = g_strconcat (key, ":", NULL);
+        needle_len = strlen (needle);
+        if (g_str_has_prefix (props->str, needle))
+                found = props->str;
+        else 
+            found = strstr (props->str, needle);
+
+        if (found) {
+                size_t value_index;
+                gchar* end;
+
+                end = strchr (found, '\n');
+                value_index = (found - props->str) + needle_len + 1;
+                g_string_erase (props, value_index, end ? (end - found - needle_len) : -1);
+                g_string_insert (props, value_index, "\n");
+                g_string_insert (props, value_index, value);
+        } else {
+                g_string_append_printf (props, "%s:\t%s\n", key, value);
         }
-}
-
-static void
-spawn_with_input (const char *command,
-                  const char *input)
-{
-        char   **argv;
-        int      child_pid;
-        int      inpipe;
-        GError  *error;
-        gboolean res;
-
-        argv = NULL;
-        res = g_shell_parse_argv (command, NULL, &argv, NULL);
-        if (! res) {
-                g_warning ("Unable to parse command: %s", command);
-                return;
-        }
-
-        gnome_settings_profile_start ("%s", command);
-        error = NULL;
-        res = g_spawn_async_with_pipes (NULL,
-                                        argv,
-                                        NULL,
-                                        G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-                                        NULL,
-                                        NULL,
-                                        &child_pid,
-                                        &inpipe,
-                                        NULL,
-                                        NULL,
-                                        &error);
-        g_strfreev (argv);
-
-        if (! res) {
-                g_warning ("Could not execute %s: %s", command, error->message);
-                g_error_free (error);
-
-                return;
-        }
-
-        if (input != NULL) {
-                if (! write_all (inpipe, input, strlen (input))) {
-                        g_warning ("Could not write input to %s", command);
-                }
-
-                close (inpipe);
-        }
-
-        g_child_watch_add (child_pid, (GChildWatchFunc) child_watch_cb, (gpointer)command);
 }
 
 static void
 xft_settings_set_xresources (GnomeXftSettings *settings)
 {
-        const char *command;
         GString    *add_string;
         char        dpibuf[G_ASCII_DTOSTR_BUF_SIZE];
+        Display    *dpy;
 
         gnome_settings_profile_start (NULL);
 
-        command = "xrdb -nocpp -merge";
+        /* get existing properties */
+        dpy = XOpenDisplay (NULL);
+        g_return_if_fail (dpy != NULL);
+        add_string = g_string_new (XResourceManagerString (dpy));
 
-        add_string = g_string_new (NULL);
+        g_debug("xft_settings_set_xresources: orig res '%s'", add_string->str);
 
-        g_string_append_printf (add_string,
-                                "Xft.dpi: %s\n",
+        update_property (add_string, "Xft.dpi",
                                 g_ascii_dtostr (dpibuf, sizeof (dpibuf), (double) settings->dpi / 1024.0));
-        g_string_append_printf (add_string,
-                                "Xft.antialias: %d\n",
-                                settings->antialias);
-        g_string_append_printf (add_string,
-                                "Xft.hinting: %d\n",
-                                settings->hinting);
-        g_string_append_printf (add_string,
-                                "Xft.hintstyle: %s\n",
+        update_property (add_string, "Xft.antialias",
+                                settings->antialias ? "1" : "0");
+        update_property (add_string, "Xft.hinting",
+                                settings->hinting ? "1" : "0");
+        update_property (add_string, "Xft.hintstyle",
                                 settings->hintstyle);
-        g_string_append_printf (add_string,
-                                "Xft.rgba: %s\n",
+        update_property (add_string, "Xft.rgba",
                                 settings->rgba);
 
-        spawn_with_input (command, add_string->str);
+        g_debug("xft_settings_set_xresources: new res '%s'", add_string->str);
+
+        /* Set the new X property */
+        XChangeProperty(dpy, RootWindow (dpy, 0),
+                XA_RESOURCE_MANAGER, XA_STRING, 8, PropModeReplace, add_string->str, add_string->len);
+        XCloseDisplay (dpy);
 
         g_string_free (add_string, TRUE);
 
