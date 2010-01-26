@@ -2,13 +2,13 @@
 # Estonian translation of GNOME Settings Daemon.
 #
 # Copyright (C) 1999, 2002, 2003, 2005, 2006 Free Software Foundation, Inc.
-# Copyright (C) 2007-2009 The Gnome Project.
+# Copyright (C) 2007-2010 The Gnome Project.
 # This file is distributed under the same license as the gnome-control-center
 # package.
 #
 # Lauris Kaplinski <lauris ariman ee>, 1999.
 # Tõivo Leedjärv <toivo linux ee>, 2002, 2003.
-# Ivar Smolin <okul linux ee>, 2005-2009.
+# Ivar Smolin <okul linux ee>, 2005-2010.
 # Priit Laes <plaes plaes org>, 2005, 2006, 2009
 # Mattias Põldaru <mahfiaz gmail com>, 2009.
 #
@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: GNOME Settings Daemon MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-08-11 06:24+0000\n"
-"PO-Revision-Date: 2010-01-03 12:20+0200\n"
+"POT-Creation-Date: 2010-01-12 17:22+0000\n"
+"PO-Revision-Date: 2010-01-24 10:32+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -129,9 +129,6 @@ msgstr "Klahviseos esitamise alustamiseks (või esitamiseks/pausimiseks)"
 msgid "Binding to stop playback."
 msgstr "Klahviseos meediaesituse seiskamiseks."
 
-msgid "Binding to suspend the computer."
-msgstr "Klahviseos arvuti peatamiseks."
-
 msgid "Eject"
 msgstr "Sahtli lahtilükkamine"
 
@@ -176,9 +173,6 @@ msgstr "Otsing"
 
 msgid "Stop playback"
 msgstr "Esitamise lõpetamine"
-
-msgid "Suspend"
-msgstr "Arvuti peatamine"
 
 msgid "Volume down"
 msgstr "Heli vaiksemaks"
@@ -507,6 +501,9 @@ msgstr "Deemoniks ei minda"
 msgid "GConf prefix from which to load plugin settings"
 msgstr "GConfi prefiks, millelt laaditakse plugina sätteid"
 
+msgid "Exit after a time - for debugging"
+msgstr ""
+
 msgid "Accessibility Keyboard"
 msgstr "Hõlbustustega klaviatuur"
 
@@ -754,6 +751,46 @@ msgstr "Klaviatuur"
 msgid "Keyboard plugin"
 msgstr "Klaviatuuriplugin"
 
+#, c-format
+msgid ""
+"Error activating XKB configuration.\n"
+"It can happen under various circumstances:\n"
+"- a bug in libxklavier library\n"
+"- a bug in X server (xkbcomp, xmodmap utilities)\n"
+"- X server with incompatible libxkbfile implementation\n"
+"\n"
+"X server version data:\n"
+"%s\n"
+"%d\n"
+"%s\n"
+"If you report this situation as a bug, please include:\n"
+"- The result of <b>%s</b>\n"
+"- The result of <b>%s</b>"
+msgstr ""
+
+msgid ""
+"You are using XFree 4.3.0.\n"
+"There are known problems with complex XKB configurations.\n"
+"Try using a simpler configuration or taking a fresher version of XFree "
+"software."
+msgstr ""
+
+msgid "Unknown"
+msgstr "Tundmatu"
+
+#, c-format
+msgid "Keyboard Layout \"%s\""
+msgstr "Klaviatuuripaigutus \"%s\""
+
+msgid "_Groups"
+msgstr "_Grupid"
+
+msgid "Keyboard _Preferences"
+msgstr "Klaviatuuri _eelistused"
+
+msgid "Show Current _Layout"
+msgstr "Näita _praegust paigutust"
+
 msgid "A_vailable files:"
 msgstr "_Saadaolevad failid:"
 
@@ -771,6 +808,9 @@ msgstr "_Laadi"
 
 msgid "_Loaded files:"
 msgstr "Laaditud _failid:"
+
+msgid "Keyboard Layout"
+msgstr "Klaviatuuripaigutus"
 
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
@@ -817,9 +857,6 @@ msgstr[1] "%u sisendit"
 
 msgid "System Sounds"
 msgstr "Süsteemsed helid"
-
-msgid "GNOME Volume Control"
-msgstr "GNOME helitugevuse juhtija"
 
 msgid "Media keys"
 msgstr "Meediaklahvid"
