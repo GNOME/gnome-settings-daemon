@@ -14,6 +14,105 @@
 	</schema>
 
         <schema>
+	    <key>/schemas/apps/gnome_settings_daemon/volume_step_icons</key>
+	    <applyto>/apps/gnome_settings_daemon/volume_step_icons</applyto>
+	    <type>bool</type>
+	    <default>FALSE</default>
+	    <locale name="C">
+	        <short>Volume step icons</short>
+		<long>Turn this switch on will hide the volume progress bar, and show volume icon by current level.</long>
+	    </locale>
+	</schema>
+
+        <schema>
+	    <key>/schemas/apps/gnome_settings_daemon/backlight_xrandr</key>
+	    <applyto>/apps/gnome_settings_daemon/backlight_xrandr</applyto>
+	    <type>bool</type>
+	    <default>FALSE</default>
+	    <locale name="C">
+	        <short>Use xrandr turn screen on/off when backlight power on/off</short>
+		<long>When backlight power(bl_power) on/off, set the LDVS screen on/off at the same time.</long>
+	    </locale>
+	</schema>
+
+        <schema>
+	    <key>/schemas/apps/gnome_settings_daemon/cpu_governor_powersave</key>
+	    <applyto>/apps/gnome_settings_daemon/cpu_governor_powersave</applyto>
+	    <type>bool</type>
+	    <default>FALSE</default>
+	    <locale name="C">
+	        <short>Enable/Disable the powersave selection for CPU governor function key</short>
+		<long>Turn this switch on will causes user can be select the CPU governor to powersave by using function key.</long>
+	    </locale>
+	</schema>
+
+        <schema>
+	    <key>/schemas/apps/gnome_settings_daemon/wifi_nm_sw_kill</key>
+	    <applyto>/apps/gnome_settings_daemon/wifi_nm_sw_kill</applyto>
+	    <type>bool</type>
+	    <default>FALSE</default>
+	    <locale name="C">
+	        <short>Enable/Disable networkmanager software kill for wireless function key</short>
+		<long>Turn this switch on will causes wireless function key call networkmanager interface to software interface down.</long>
+	    </locale>
+	</schema>
+
+	<schema>
+            <key>/schemas/apps/gnome_settings_daemon/wifi_hw_rfkill_udi</key>
+            <applyto>/apps/gnome_settings_daemon/wifi_hw_rfkill_udi</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>The HAL udi will call by function key to run killswitch function.</short>
+                <long>If this udi have setup, function key will call HAL to do hardware rfkill.</long>
+            </locale>
+        </schema>
+
+        <schema>
+	    <key>/schemas/apps/gnome_settings_daemon/toggle_touchpad</key>
+	    <applyto>/apps/gnome_settings_daemon/toggle_touchpad</applyto>
+	    <type>bool</type>
+	    <default>TRUE</default>
+	    <locale name="C">
+	        <short>Toggle Touchpad</short>
+		<long>Toggle the touchpad on/off status when then touchpad Fn key is pressed.</long>
+	    </locale>
+	</schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/draw_osd_box</key>
+            <applyto>/apps/gnome_settings_daemon/draw_osd_box</applyto>
+            <type>bool</type>
+            <default>TRUE</default>
+            <locale name="C">
+                <short>Draw OSD background box</short>
+                <long>Draw a box on OSD's background.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/osd_window_size</key>
+            <applyto>/apps/gnome_settings_daemon/osd_window_size</applyto>
+            <type>int</type>
+            <default>130</default>
+            <locale name="C">
+                <short>OSD window size</short>
+                <long>Setup OSD window size.</long>
+            </locale>
+        </schema>
+
+	<schema>
+            <key>/schemas/apps/gnome_settings_daemon/cust_theme</key>
+            <applyto>/apps/gnome_settings_daemon/cust_theme</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Customer OSD theme</short>
+                <long>Setup customer OSD theme.</long>
+            </locale>
+        </schema>
+
+        <schema>
             <key>/schemas/apps/gnome_settings_daemon/keybindings/volume_mute</key>
             <applyto>/apps/gnome_settings_daemon/keybindings/volume_mute</applyto>
             <type>string</type>
@@ -234,6 +333,138 @@
             <locale name="C">
                 <short>Next track</short>
                 <long>Binding to skip to next track.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/num_lock</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/num_lock</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Number Lock</short>
+                <long>Binding to do something with Number Lock.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/scroll_lock</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/scroll_lock</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Scroll Lock</short>
+                <long>Binding to do something with Scroll Lock.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/wifi</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/wifi</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Wifi on/off</short>
+                <long>Binding to do something with Wifi on/off.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/touchpad_on</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/touchpad_on</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Touchpad on</short>
+                <long>Binding to do something with Touchpad on.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/touchpad_off</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/touchpad_off</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Touchpad off</short>
+                <long>Binding to do something with Touchpad off.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/xrandr</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/xrandr</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Xrandr</short>
+                <long>Use Xrandr to change screen status: LCD->CRT->CLONE->DUAL.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/cpu_governor</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/cpu_governor</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>CPU governor</short>
+                <long>Setup CPU governor by 3 different model.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/backlight</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/backlight</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Backlight power</short>
+                <long>Turn on/off or setup backlight power status.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/performance</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/performance</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Change the performance level</short>
+                <long>Use function key to change the performance level on this machine.HAL reference: 10-samsung-performance.fdi</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/esc</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/esc</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Interrupt when function key feature was launched</short>
+                <long>A bit function key feature is launched after OSD fade out and hide, this key can interrupt those keys.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/webcam</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/webcam</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>WebCam on/off</short>
+                <long>Binding to do something with WebCam on/off.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/gnome_settings_daemon/keybindings/bluetooth</key>
+            <applyto>/apps/gnome_settings_daemon/keybindings/bluetooth</applyto>
+            <type>string</type>
+            <default></default>
+            <locale name="C">
+                <short>Bluetooth on/off</short>
+                <long>Binding to do something with Bluetooth on/off.</long>
             </locale>
         </schema>
 
