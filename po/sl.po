@@ -1,17 +1,18 @@
+# Slovenian translation of gnome-settings-deamon.
 # Copyright (C) 2000-2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-settings-deamon package.
 #
-# Andraz Tori <andraz.tori1@guest.arnes.si>
-# Matjaz Horvat <m@owca.info>, 2005, 2006.
+# Andraž Tori <andraz.tori1@guest.arnes.si>
+# Matjaž Horvat <m@owca.info>, 2005, 2006.
 # Matic Žgur <mr.zgur@gmail.com>, 2006, 2007.
-# Matej Urbančič <mateju@svn.gnome.org>, 2007 - 2009.
+# Matej Urbančič <mateju@svn.gnome.org>, 2007 - 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-deamon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-12-28 01:14+0000\n"
-"PO-Revision-Date: 2009-12-30 09:39+0100\n"
+"POT-Creation-Date: 2010-01-25 21:26+0000\n"
+"PO-Revision-Date: 2010-01-26 09:21+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -530,17 +531,21 @@ msgstr "Možnost omogoča, da so počasne tipke zagnane."
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Možnost omogoča, da so lepljive tipke zagnane."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Enable debugging code"
 msgstr "Omogoči razhroščevanje kode"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../gnome-settings-daemon/main.c:56
 msgid "Don't become a daemon"
 msgstr "Ne zaženi kot ozadnji program"
 
-#: ../gnome-settings-daemon/main.c:56
+#: ../gnome-settings-daemon/main.c:57
 msgid "GConf prefix from which to load plugin settings"
 msgstr "Predpona GConf preko katere se naloži vstavek nastavitev"
+
+#: ../gnome-settings-daemon/main.c:58
+msgid "Exit after a time - for debugging"
+msgstr "Končaj po določenem času - za razhroščevanje"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -828,6 +833,68 @@ msgstr "Tipkovnica"
 msgid "Keyboard plugin"
 msgstr "Vstavek tipkovnice"
 
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:112
+#, c-format
+msgid ""
+"Error activating XKB configuration.\n"
+"It can happen under various circumstances:\n"
+"- a bug in libxklavier library\n"
+"- a bug in X server (xkbcomp, xmodmap utilities)\n"
+"- X server with incompatible libxkbfile implementation\n"
+"\n"
+"X server version data:\n"
+"%s\n"
+"%d\n"
+"%s\n"
+"If you report this situation as a bug, please include:\n"
+"- The result of <b>%s</b>\n"
+"- The result of <b>%s</b>"
+msgstr ""
+"Napaka med zaganjanjem nastavitev XKB.\n"
+"Težave se lahko pojavijo ob različnih dogodkih:\n"
+"- hrošč v libxklavier knjižnici\n"
+"- hrošč strežnika X (xkbcomp, xmodmap utilities)\n"
+"- napaka skladnosti strežnika X in libxkbfile\n"
+"\n"
+"Podatki različice strežnika X:\n"
+"%s\n"
+"%d\n"
+"%s\n"
+"V kolikor poročate o hrošču, dodajte tudi:\n"
+"- izpis <b>%s</b>\n"
+"- izpis <b>%s</b>"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:126
+msgid ""
+"You are using XFree 4.3.0.\n"
+"There are known problems with complex XKB configurations.\n"
+"Try using a simpler configuration or taking a fresher version of XFree software."
+msgstr ""
+"Uporabljate XFree 4.3.0.\n"
+"Znani so primeri težav z nastavitvami XKB.\n"
+"Uporabite enostavnejše nastavitve ali pa namestite novejšo različico XFree programske opreme."
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:197
+msgid "Unknown"
+msgstr "Neznano"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:266
+#, c-format
+msgid "Keyboard Layout \"%s\""
+msgstr "Razpored tipkovnice \"%s\""
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:389
+msgid "_Groups"
+msgstr "_Skupine"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:396
+msgid "Keyboard _Preferences"
+msgstr "Možnosti _tipkovnice"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
+msgid "Show Current _Layout"
+msgstr "Pokaži trenutni _razpored"
+
 #: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
 msgstr "Datoteke na _voljo:"
@@ -917,15 +984,15 @@ msgstr "Medijske tipke"
 msgid "Media keys plugin"
 msgstr "Vstavek medijskih tipk"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:801
+#: ../plugins/mouse/gsd-mouse-manager.c:835
 msgid "Could not enable mouse accessibility features"
 msgstr "Ni mogoče zagnati možnosti dostopnosti miške"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:803
+#: ../plugins/mouse/gsd-mouse-manager.c:837
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "Dostopnost miške zahteva pravilno nameščen mousetweaks ozadnjega programa."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:806
+#: ../plugins/mouse/gsd-mouse-manager.c:840
 msgid "Mouse Preferences"
 msgstr "Možnosti miške"
 
