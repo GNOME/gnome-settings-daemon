@@ -51,9 +51,30 @@ struct GsdMediaKeysWindowPrivate
 
         guint                    volume_muted : 1;
         int                      volume_level;
+	/* volume per-step percentage */
+	int      		 vol_step;
+        guint                    is_mute_key : 1;
 
         GtkImage                *image;
         GtkWidget               *progress;
+
+	/* OSD parameter */
+        guint                    draw_osd_box : 1;
+	int			 osd_window_size;
+	guint 		 	 volume_step_icons : 1;
+
+	/* customer OSD theme */
+	GtkIconTheme 		 *cust_theme;
+
+	unsigned int		 num_locked;
+	unsigned int		 scroll_locked;
+	gchar*		 	 cpu_governor;
+	gboolean		 wifi_enabled;
+	GsdMediaKeysXrandr	 xrandr;
+	guint 		 	 backlight;
+	guint			 performance;
+	gboolean		 webcam_enabled;
+	gboolean		 bluetooth_enabled;
 };
 
 G_DEFINE_TYPE (GsdMediaKeysWindow, gsd_media_keys_window, GTK_TYPE_WINDOW)
@@ -67,7 +88,6 @@ fade_timeout (GsdMediaKeysWindow *window)
                 /* Reset it for the next time */
                 window->priv->fade_out_alpha = 1.0;
                 window->priv->fade_timeout_id = 0;
-
                 return FALSE;
         } else {
                 GdkRectangle rect;
@@ -97,7 +117,6 @@ hide_timeout (GsdMediaKeysWindow *window)
         } else {
                 gtk_widget_hide (GTK_WIDGET (window));
         }
-
         return FALSE;
 }
 
@@ -186,6 +205,119 @@ action_changed (GsdMediaKeysWindow *window)
                         volume_controls_set_visible (window, FALSE);
                         window_set_icon_name (window, "media-eject");
                         break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_WIFI:
+                        volume_controls_set_visible (window, FALSE);
+
+			if (window->priv->wifi_enabled) {
+                        	window_set_icon_name (window, "wireless-on");
+			} else {
+                        	window_set_icon_name (window, "wireless-off");
+			}
+
+                        break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_TOUCHPAD_ON:
+                        volume_controls_set_visible (window, FALSE);
+                        window_set_icon_name (window, "touchpad-on");
+                        break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_TOUCHPAD_OFF:
+                        volume_controls_set_visible (window, FALSE);
+                        window_set_icon_name (window, "touchpad-off");
+                        break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_XRANDR:
+                        volume_controls_set_visible (window, FALSE);
+			switch (window->priv->xrandr) {
+			case GSD_MEDIA_KEYS_XRANDR_LCD_ONLY:
+				window_set_icon_name (window, "display-internal-only");
+				break;
+			case GSD_MEDIA_KEYS_XRANDR_LCD:
+				window_set_icon_name (window, "display-internal");
+				break;
+			case GSD_MEDIA_KEYS_XRANDR_CRT:
+				window_set_icon_name (window, "display-external");
+				break;
+			case GSD_MEDIA_KEYS_XRANDR_CLONE:
+				window_set_icon_name (window, "display-mirror");
+				break;
+			case GSD_MEDIA_KEYS_XRANDR_DUAL:
+				window_set_icon_name (window, "display-extended-desktop");
+				break;
+			}
+                        break;
+		case GSD_MEDIA_KEYS_WINDOW_ACTION_CPU_GOVERNOR:
+                        volume_controls_set_visible (window, FALSE);
+
+	                if (!g_strcmp0(window->priv->cpu_governor, CPU_GOVERNOR_POWERSAVE)) {
+        	                window_set_icon_name (window, "cpu-governor-low");
+                	}
+                	else if (!g_strcmp0(window->priv->cpu_governor, CPU_GOVERNOR_ONDEMAND)) {
+                        	window_set_icon_name (window, "cpu-governor-normal");
+                	}
+                	else if (!g_strcmp0(window->priv->cpu_governor, CPU_GOVERNOR_PERFORMANCE)) {
+                        	window_set_icon_name (window, "cpu-governor-speed");
+                	}
+
+                        break;
+        	case GSD_MEDIA_KEYS_WINDOW_ACTION_NUM_LOCK:
+                        volume_controls_set_visible (window, FALSE);
+
+			if (window->priv->num_locked) {
+                            window_set_icon_name (window, "numlock-on");
+			} else {
+                            window_set_icon_name (window, "numlock-off");
+			}
+
+                	break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_SCROLL_LOCK:
+                        volume_controls_set_visible (window, FALSE);
+
+                        if (window->priv->scroll_locked) {
+                            window_set_icon_name (window, "scrolllock-on");
+                        } else {
+                            window_set_icon_name (window, "scrolllock-off");
+                        }
+
+                        break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_BACKLIGHT:
+                        volume_controls_set_visible (window, FALSE);
+
+                        if (window->priv->backlight) {
+                            window_set_icon_name (window, "lcd-backlight-1");
+                        } else {
+                            window_set_icon_name (window, "lcd-backlight-0");
+                        }
+
+                        break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_PERFORMANCE:
+                        volume_controls_set_visible (window, FALSE);
+
+                        if (window->priv->performance >= 0) {
+			    gchar		   icon_name_tmp [25];
+                            g_snprintf (icon_name_tmp, 25, "performance-%01d",
+					window->priv->performance);
+                            window_set_icon_name (window, icon_name_tmp);
+                        }
+
+                        break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_WEBCAM:
+                        volume_controls_set_visible (window, FALSE);
+
+			if (window->priv->webcam_enabled) {
+                        	window_set_icon_name (window, "camera-web-on");
+			} else {
+                        	window_set_icon_name (window, "camera-web-off");
+			}
+
+                        break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_BLUETOOTH:
+                        volume_controls_set_visible (window, FALSE);
+
+			if (window->priv->bluetooth_enabled) {
+                        	window_set_icon_name (window, "bluetooth-on");
+			} else {
+                        	window_set_icon_name (window, "bluetooth-off");
+			}
+
+                        break;
                 default:
                         break;
                 }
@@ -210,6 +342,26 @@ volume_level_changed (GsdMediaKeysWindow *window)
 }
 
 static void
+vol_step_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (!window->priv->is_composited) {
+		;//TODO: change the icon
+        }
+}
+
+static void
+is_mute_key_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (!window->priv->is_composited) {
+                ;//TODO: change the icon
+        }
+}
+
+static void
 volume_muted_changed (GsdMediaKeysWindow *window)
 {
         update_window (window);
@@ -220,6 +372,152 @@ volume_muted_changed (GsdMediaKeysWindow *window)
                 } else {
                         window_set_icon_name (window, "audio-volume-high");
                 }
+        }
+}
+
+static void
+num_locked_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (! window->priv->is_composited) {
+                if (window->priv->num_locked) {
+                        window_set_icon_name (window, "numlock-on");
+                } else {
+                        window_set_icon_name (window, "numlock-off");
+                }
+        }
+}
+
+static void
+scroll_locked_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (! window->priv->is_composited) {
+                if (window->priv->scroll_locked) {
+                        window_set_icon_name (window, "scrolllock-on");
+                } else {
+                        window_set_icon_name (window, "scrolllock-off");
+                }
+        }
+}
+
+static void
+cpu_governor_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (! window->priv->is_composited) {
+		if (!g_strcmp0(window->priv->cpu_governor, CPU_GOVERNOR_POWERSAVE)) {
+                        window_set_icon_name (window, "cpu-governor-low");
+		}
+		else if (!g_strcmp0(window->priv->cpu_governor, CPU_GOVERNOR_ONDEMAND)) {
+                        window_set_icon_name (window, "cpu-governor-normal");
+		}
+		else if (!g_strcmp0(window->priv->cpu_governor, CPU_GOVERNOR_PERFORMANCE)) {
+                        window_set_icon_name (window, "cpu-governor-speed");
+		}
+        }
+}
+
+static void
+xrandr_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (! window->priv->is_composited) {
+		switch (window->priv->xrandr) {
+		case GSD_MEDIA_KEYS_XRANDR_LCD_ONLY:
+			window_set_icon_name (window, "display-internal-only");
+			break;
+		case GSD_MEDIA_KEYS_XRANDR_LCD:
+			window_set_icon_name (window, "display-internal");
+			break;
+		case GSD_MEDIA_KEYS_XRANDR_CRT:
+			window_set_icon_name (window, "display-external");
+			break;
+		case GSD_MEDIA_KEYS_XRANDR_CLONE:
+			window_set_icon_name (window, "display-mirror");
+			break;
+		case GSD_MEDIA_KEYS_XRANDR_DUAL:
+			window_set_icon_name (window, "display-extended-desktop");
+			break;
+		}
+	}
+}
+
+static void
+wifi_enabled_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (! window->priv->is_composited) {
+                if (window->priv->wifi_enabled) {
+                        window_set_icon_name (window, "wireless-on");
+                }
+                else {
+                        window_set_icon_name (window, "wireless-off");
+		}
+        }
+}
+
+static void
+webcam_enabled_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (! window->priv->is_composited) {
+                if (window->priv->webcam_enabled) {
+                        window_set_icon_name (window, "camera-web-on");
+                }
+                else {
+                        window_set_icon_name (window, "camera-web-off");
+		}
+        }
+}
+
+static void
+bluetooth_enabled_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (! window->priv->is_composited) {
+                if (window->priv->bluetooth_enabled) {
+                        window_set_icon_name (window, "bluetooth-on");
+                }
+                else {
+                        window_set_icon_name (window, "bluetooth-off");
+		}
+        }
+}
+
+static void
+backlight_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (! window->priv->is_composited) {
+		if (window->priv->backlight) {
+		    window_set_icon_name (window, "lcd-backlight-1");
+		} else {
+		    window_set_icon_name (window, "lcd-backlight-0");
+		}
+        }
+}
+
+static void
+performance_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (! window->priv->is_composited) {
+		if (window->priv->performance >= 0) {
+			gchar		   icon_name_tmp [25];
+               		g_snprintf (icon_name_tmp, 25, "performance-%01d",
+			    		window->priv->performance);
+                	window_set_icon_name (window, icon_name_tmp);
+		}
         }
 }
 
@@ -248,6 +546,171 @@ gsd_media_keys_window_set_volume_muted (GsdMediaKeysWindow *window,
 }
 
 void
+gsd_media_keys_window_set_draw_osd_box (GsdMediaKeysWindow *window,
+                                        gboolean            draw_osd_box_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->draw_osd_box != draw_osd_box_in) {
+                window->priv->draw_osd_box = draw_osd_box_in;
+        }
+}
+
+void
+gsd_media_keys_window_set_osd_window_size (GsdMediaKeysWindow *window,
+                                           int            osd_window_size_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        gint size;
+
+        window->priv->osd_window_size = osd_window_size_in;
+        size = window->priv->osd_window_size;
+
+        gtk_window_set_default_size (GTK_WINDOW (window), size, size);
+}
+
+void
+gsd_media_keys_window_set_volume_step_icons (GsdMediaKeysWindow *window,
+                                             gboolean            volume_step_icons_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->volume_step_icons != volume_step_icons_in) {
+                window->priv->volume_step_icons = volume_step_icons_in;
+        }
+}
+
+void
+gsd_media_keys_window_set_is_mute_key (GsdMediaKeysWindow *window,
+                                       gboolean            is_mute_key_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->is_mute_key != is_mute_key_in) {
+                window->priv->is_mute_key = is_mute_key_in;
+                is_mute_key_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_cust_theme (GsdMediaKeysWindow *window,
+                                      GtkIconTheme       *cust_theme_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        window->priv->cust_theme = cust_theme_in;
+}
+
+void
+gsd_media_keys_window_set_num_locked (GsdMediaKeysWindow *window,
+                                      unsigned int	  state)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->num_locked != state) {
+        	window->priv->num_locked = state;
+                num_locked_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_scroll_locked (GsdMediaKeysWindow *window,
+                                         unsigned int        state)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->scroll_locked != state) {
+                window->priv->scroll_locked = state;
+                scroll_locked_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_cpu_governor (GsdMediaKeysWindow *window,
+                                        gchar*         cpu_governor_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (g_strcmp0(window->priv->cpu_governor, cpu_governor_in)) {
+                window->priv->cpu_governor = cpu_governor_in;
+                cpu_governor_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_xrandr (GsdMediaKeysWindow *window,
+                                  GsdMediaKeysXrandr  xrandr_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->xrandr != xrandr_in) {
+                window->priv->xrandr = xrandr_in;
+                xrandr_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_wifi_enabled (GsdMediaKeysWindow *window,
+                                        gboolean	    wifi_enabled_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->wifi_enabled != wifi_enabled_in) {
+                window->priv->wifi_enabled = wifi_enabled_in;
+                wifi_enabled_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_webcam_enabled (GsdMediaKeysWindow *window,
+                                          gboolean	     webcam_enabled_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->webcam_enabled != webcam_enabled_in) {
+                window->priv->webcam_enabled = webcam_enabled_in;
+                webcam_enabled_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_bluetooth_enabled (GsdMediaKeysWindow *window,
+                                          gboolean	     bluetooth_enabled_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->bluetooth_enabled != bluetooth_enabled_in) {
+                window->priv->bluetooth_enabled = bluetooth_enabled_in;
+                webcam_enabled_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_backlight (GsdMediaKeysWindow *window,
+                                     guint	         backlight_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->backlight != backlight_in) {
+                window->priv->backlight = backlight_in;
+                backlight_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_performance (GsdMediaKeysWindow *window,
+                                       guint	           performance_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->performance != performance_in) {
+                window->priv->performance = performance_in;
+                performance_changed (window);
+        }
+}
+
+void
 gsd_media_keys_window_set_volume_level (GsdMediaKeysWindow *window,
                                         int                 level)
 {
@@ -256,6 +719,18 @@ gsd_media_keys_window_set_volume_level (GsdMediaKeysWindow *window,
         if (window->priv->volume_level != level) {
                 window->priv->volume_level = level;
                 volume_level_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_volume_step (GsdMediaKeysWindow *window,
+                                       int                 vol_step_in)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->vol_step != vol_step_in) {
+                window->priv->vol_step = vol_step_in;
+                vol_step_changed (window);
         }
 }
 
@@ -324,13 +799,15 @@ load_pixbuf (GsdMediaKeysWindow *window,
         GtkIconTheme *theme;
         GdkPixbuf    *pixbuf;
 
-        if (window != NULL && gtk_widget_has_screen (GTK_WIDGET (window))) {
+	if ((window != NULL) && (window->priv->cust_theme != NULL)) {
+		theme = window->priv->cust_theme;
+	} else if (gtk_widget_has_screen (GTK_WIDGET (window))) {
                 theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (window)));
         } else {
                 theme = gtk_icon_theme_get_default ();
         }
 
-        pixbuf = gtk_icon_theme_load_icon (theme,
+	pixbuf = gtk_icon_theme_load_icon (theme,
                                            name,
                                            icon_size,
                                            GTK_ICON_LOOKUP_FORCE_SVG,
@@ -341,12 +818,40 @@ load_pixbuf (GsdMediaKeysWindow *window,
          * seems to be broken */
         if (pixbuf != NULL) {
                 int width;
+		int height;
 
                 width = gdk_pixbuf_get_width (pixbuf);
+        	height = gdk_pixbuf_get_height (pixbuf);
+
                 if (width < (float)icon_size * 0.75) {
                         g_object_unref (pixbuf);
                         pixbuf = NULL;
                 }
+
+		/* if pixbuf out of range, rescale it*/
+        	if (width > icon_size || height > icon_size)
+    		{
+			int new_width;
+			int new_height;
+
+			new_width = icon_size;
+			new_height = icon_size;
+			if (width > height)
+			{
+			    new_height = icon_size * height / width;
+			}
+			else
+			{
+			    new_width = icon_size * width / height;
+			}
+
+        		GdkPixbuf *temp = pixbuf;
+        		pixbuf = gdk_pixbuf_scale_simple (temp,
+                                      new_width,
+                                      new_height,
+                                      GDK_INTERP_HYPER);
+                	g_object_unref (temp);
+    		}
         }
 
         return pixbuf;
@@ -365,6 +870,34 @@ render_eject (GsdMediaKeysWindow *window,
         const char *icon_name;
 
         icon_name = "media-eject";
+
+        icon_size = (int)width;
+
+        pixbuf = load_pixbuf (window, icon_name, icon_size);
+
+        if (pixbuf == NULL) {
+                return FALSE;
+        }
+
+        gdk_cairo_set_source_pixbuf (cr, pixbuf, x0, y0);
+        cairo_paint_with_alpha (cr, FG_ALPHA);
+
+        g_object_unref (pixbuf);
+
+        return TRUE;
+}
+
+static gboolean
+render_common (GsdMediaKeysWindow *window,
+              cairo_t            *cr,
+              double              x0,
+              double              y0,
+              double              width,
+              double              height,
+	      const char	  *icon_name)
+{
+        GdkPixbuf  *pixbuf;
+        int         icon_size;
 
         icon_size = (int)width;
 
@@ -426,7 +959,7 @@ draw_action_eject (GsdMediaKeysWindow *window,
 
         gtk_window_get_size (GTK_WINDOW (window), &window_width, &window_height);
 
-        width = window_width * 0.65;
+        width = window_width * 0.65;		//TODO: add gconf key for setup percent
         height = window_height * 0.65;
         x0 = (window_width - width) / 2;
         y0 = (window_height - height) / 2;
@@ -447,6 +980,153 @@ draw_action_eject (GsdMediaKeysWindow *window,
                 /* draw eject symbol */
                 draw_eject (cr, x0, y0, width, height);
         }
+}
+
+static gboolean
+draw_action_common (GsdMediaKeysWindow *window,
+                    cairo_t            *cr,
+		    const char 	       *icon_name)
+{
+        int      window_width;
+        int      window_height;
+        double   width;
+        double   height;
+        double   x0;
+        double   y0;
+        gboolean res;
+
+        gtk_window_get_size (GTK_WINDOW (window), &window_width, &window_height);
+
+        width = window_width * 0.65;
+        height = window_height * 0.65;
+        x0 = (window_width - width) / 2;
+        y0 = (window_height - height) / 2;
+
+        res = render_common (window,
+                            cr,
+                            x0, y0,
+                            width, height, icon_name);
+
+	return res;
+}
+
+static void
+draw_action_num_lock (GsdMediaKeysWindow *window,
+                      cairo_t            *cr)
+{
+	if (window->priv->num_locked) {
+        	draw_action_common (window, cr, "numlock-on");
+	} else {
+        	draw_action_common (window, cr, "numlock-off");
+	}
+}
+
+static void
+draw_action_webcam (GsdMediaKeysWindow *window,
+                      cairo_t            *cr)
+{
+	if (window->priv->webcam_enabled) {
+        	draw_action_common (window, cr, "camera-web-on");
+	} else {
+        	draw_action_common (window, cr, "camera-web-off");
+	}
+}
+
+static void
+draw_action_bluetooth (GsdMediaKeysWindow *window,
+                      cairo_t            *cr)
+{
+	if (window->priv->bluetooth_enabled) {
+        	draw_action_common (window, cr, "bluetooth-on");
+	} else {
+        	draw_action_common (window, cr, "bluetooth-off");
+	}
+}
+
+static void
+draw_action_scroll_lock (GsdMediaKeysWindow *window,
+                         cairo_t            *cr)
+{
+        if (window->priv->scroll_locked) {
+                draw_action_common (window, cr, "scrolllock-on");
+        } else {
+                draw_action_common (window, cr, "scrolllock-off");
+        }
+}
+
+static void
+draw_action_cpu_governor (GsdMediaKeysWindow *window,
+                          cairo_t            *cr)
+{
+	if (!g_strcmp0(window->priv->cpu_governor, CPU_GOVERNOR_POWERSAVE)) {
+        	draw_action_common (window, cr, "cpu-governor-low");
+        }
+        else if (!g_strcmp0(window->priv->cpu_governor, CPU_GOVERNOR_ONDEMAND)) {
+        	draw_action_common (window, cr, "cpu-governor-normal");
+       	}
+        else if (!g_strcmp0(window->priv->cpu_governor, CPU_GOVERNOR_PERFORMANCE)) {
+        	draw_action_common (window, cr, "cpu-governor-speed");
+        }
+}
+
+static void
+draw_action_xrandr (GsdMediaKeysWindow *window,
+                    cairo_t            *cr)
+{
+	switch (window->priv->xrandr) {
+	case GSD_MEDIA_KEYS_XRANDR_LCD_ONLY:
+		if (!draw_action_common (window, cr, "display-internal-only"))
+			draw_action_common (window, cr, "display-internal");
+		break;
+	case GSD_MEDIA_KEYS_XRANDR_LCD:
+		draw_action_common (window, cr, "display-internal");
+		break;
+	case GSD_MEDIA_KEYS_XRANDR_CRT:
+		draw_action_common (window, cr, "display-external");
+		break;
+	case GSD_MEDIA_KEYS_XRANDR_CLONE:
+		draw_action_common (window, cr, "display-mirror");
+		break;
+	case GSD_MEDIA_KEYS_XRANDR_DUAL:
+		draw_action_common (window, cr, "display-extended-desktop");
+		break;
+	}
+}
+
+static void
+draw_action_wifi_enabled (GsdMediaKeysWindow *window,
+                          cairo_t            *cr)
+{
+        if (window->priv->wifi_enabled) {
+                draw_action_common (window, cr, "wireless-on");
+        }
+        else {
+                draw_action_common (window, cr, "wireless-off");
+        }
+}
+
+static void
+draw_action_backlight (GsdMediaKeysWindow *window,
+                       cairo_t            *cr)
+{
+        if (window->priv->backlight) {
+                draw_action_common (window, cr, "lcd-backlight-1");
+        }
+        else {
+                draw_action_common (window, cr, "lcd-backlight-0");
+        }
+}
+
+static void
+draw_action_performance (GsdMediaKeysWindow *window,
+                         cairo_t            *cr)
+{
+        if (window->priv->performance >= 0) {
+		gchar		   icon_name_tmp [25];
+                g_snprintf (icon_name_tmp, 25, "performance-%01d",
+			    window->priv->performance);
+        	draw_action_common (window, cr, icon_name_tmp);
+	}
 }
 
 static void
@@ -561,6 +1241,8 @@ render_speaker (GsdMediaKeysWindow *window,
         GdkPixbuf         *pixbuf;
         int                icon_size;
         int                n;
+	const char        *icon_name;
+	gchar		   icon_name_tmp [25];
         static const char *icon_names[] = {
                 "audio-volume-muted",
                 "audio-volume-low",
@@ -569,21 +1251,37 @@ render_speaker (GsdMediaKeysWindow *window,
                 NULL
         };
 
-        if (window->priv->volume_muted) {
-                n = 0;
-        } else {
-                /* select image */
-                n = 3 * window->priv->volume_level / 100 + 1;
-                if (n < 1) {
-                        n = 1;
-                } else if (n > 3) {
-                        n = 3;
+        if (window->priv->volume_step_icons) {
+                if (window->priv->is_mute_key) {
+                        if (window->priv->volume_muted) {
+                                icon_name = "audio-volume-muted";
+                        } else {
+                                icon_name = "audio-volume-unmuted";
+                        }
+                } else {
+                        n = window->priv->volume_level / window->priv->vol_step;
+			n = (n == 0 && window->priv->volume_level > 0)? 1:n;
+                        g_snprintf (icon_name_tmp, 25, "audio-volume-%02d", n);
+                        icon_name = icon_name_tmp;
                 }
-        }
+	} else {
+		if (window->priv->volume_muted) {
+			n = 0;
+		} else {
+			/* select image */
+			n = 3 * window->priv->volume_level / 100 + 1;
+			if (n < 1) {
+				n = 1;
+			} else if (n > 3) {
+				n = 3;
+			}
+		}
+		icon_name = icon_names[n];
+	}
 
         icon_size = (int)width;
 
-        pixbuf = load_pixbuf (window, icon_names[n], icon_size);
+        pixbuf = load_pixbuf (window, icon_name, icon_size);
 
         if (pixbuf == NULL) {
                 return FALSE;
@@ -665,7 +1363,12 @@ draw_action_volume (GsdMediaKeysWindow *window,
         volume_box_height = window_height * 0.05;
 
         icon_box_x0 = (window_width - icon_box_width) / 2;
-        icon_box_y0 = (window_height - icon_box_height - volume_box_height) / 2;
+        if (!window->priv->volume_step_icons)
+        {
+        	icon_box_y0 = (window_height - icon_box_height - volume_box_height) / 2;
+	} else {
+        	icon_box_y0 = (window_height - icon_box_height) / 2;
+	}
         volume_box_x0 = icon_box_x0;
         volume_box_y0 = icon_box_height + icon_box_y0;
 
@@ -734,13 +1437,16 @@ draw_action_volume (GsdMediaKeysWindow *window,
         }
 
         /* draw volume meter */
-        draw_volume_boxes (window,
-                           cr,
-                           (double)window->priv->volume_level / 100.0,
-                           volume_box_x0,
-                           volume_box_y0,
-                           volume_box_width,
-                           volume_box_height);
+        if (!window->priv->volume_step_icons)
+        {
+		draw_volume_boxes (window,
+				   cr,
+				   (double)window->priv->volume_level / 100.0,
+				   volume_box_x0,
+				   volume_box_y0,
+				   volume_box_width,
+				   volume_box_height);
+	}
 }
 
 static void
@@ -754,6 +1460,39 @@ draw_action (GsdMediaKeysWindow *window,
         case GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT:
                 draw_action_eject (window, cr);
                 break;
+        case GSD_MEDIA_KEYS_WINDOW_ACTION_WIFI:
+		draw_action_wifi_enabled (window, cr);
+                break;
+        case GSD_MEDIA_KEYS_WINDOW_ACTION_TOUCHPAD_ON:
+                draw_action_common (window, cr, "touchpad-on");
+                break;
+        case GSD_MEDIA_KEYS_WINDOW_ACTION_TOUCHPAD_OFF:
+                draw_action_common (window, cr, "touchpad-off");
+                break;
+        case GSD_MEDIA_KEYS_WINDOW_ACTION_XRANDR:
+		draw_action_xrandr (window, cr);
+                break;
+        case GSD_MEDIA_KEYS_WINDOW_ACTION_CPU_GOVERNOR:
+		draw_action_cpu_governor (window, cr);
+                break;
+	case GSD_MEDIA_KEYS_WINDOW_ACTION_NUM_LOCK:
+		draw_action_num_lock (window, cr);
+		break;
+        case GSD_MEDIA_KEYS_WINDOW_ACTION_SCROLL_LOCK:
+                draw_action_scroll_lock (window, cr);
+                break;
+        case GSD_MEDIA_KEYS_WINDOW_ACTION_BACKLIGHT:
+                draw_action_backlight (window, cr);
+                break;
+        case GSD_MEDIA_KEYS_WINDOW_ACTION_PERFORMANCE:
+                draw_action_performance (window, cr);
+                break;
+	case GSD_MEDIA_KEYS_WINDOW_ACTION_WEBCAM:
+		draw_action_webcam (window, cr);
+		break;
+	case GSD_MEDIA_KEYS_WINDOW_ACTION_BLUETOOTH:
+		draw_action_bluetooth (window, cr);
+		break;
         default:
                 break;
         }
@@ -795,21 +1534,23 @@ on_expose_event (GtkWidget          *widget,
         cairo_paint (cr);
 
         /* draw a box */
-        curved_rectangle (cr, 0.5, 0.5, width-1, height-1, height / 10);
-        color = GTK_WIDGET (window)->style->bg [GTK_STATE_NORMAL];
-        r = (float)color.red / 65535.0;
-        g = (float)color.green / 65535.0;
-        b = (float)color.blue / 65535.0;
-        cairo_set_source_rgba (cr, r, g, b, BG_ALPHA);
-        cairo_fill_preserve (cr);
+        if (window->priv->draw_osd_box) { 
+                curved_rectangle (cr, 0.5, 0.5, width-1, height-1, height / 10);
+                color = GTK_WIDGET (window)->style->bg [GTK_STATE_NORMAL];
+                r = (float)color.red / 65535.0;
+                g = (float)color.green / 65535.0;
+                b = (float)color.blue / 65535.0;
+                cairo_set_source_rgba (cr, r, g, b, BG_ALPHA);
+                cairo_fill_preserve (cr);
 
-        color = GTK_WIDGET (window)->style->fg [GTK_STATE_NORMAL];
-        r = (float)color.red / 65535.0;
-        g = (float)color.green / 65535.0;
-        b = (float)color.blue / 65535.0;
-        cairo_set_source_rgba (cr, r, g, b, BG_ALPHA);
-        cairo_set_line_width (cr, 1);
-        cairo_stroke (cr);
+                color = GTK_WIDGET (window)->style->fg [GTK_STATE_NORMAL];
+                r = (float)color.red / 65535.0;
+                g = (float)color.green / 65535.0;
+                b = (float)color.blue / 65535.0;
+                cairo_set_source_rgba (cr, r, g, b, BG_ALPHA);
+                cairo_set_line_width (cr, 1);
+                cairo_stroke (cr);
+        }
 
         /* draw action */
         draw_action (window, cr);
@@ -856,7 +1597,7 @@ gsd_media_keys_window_real_hide (GtkWidget *widget)
                 GTK_WIDGET_CLASS (gsd_media_keys_window_parent_class)->hide (widget);
         }
 
-        window = GSD_MEDIA_KEYS_WINDOW (widget);
+	window = GSD_MEDIA_KEYS_WINDOW (widget);
         remove_hide_timeout (window);
 }
 
