@@ -44,6 +44,12 @@
 #include "libhal-glib/hal-manager.h"
 #include "libhal-glib/hal-device.h"
 
+#include <X11/XKBlib.h>
+#include <X11/extensions/Xrandr.h>
+
+#include <nm-client.h>
+#include <nm-device-wifi.h>
+
 #include "gnome-settings-profile.h"
 #include "gsd-marshal.h"
 #include "gsd-media-keys-manager.h"
@@ -62,6 +68,8 @@
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"
+
+#define CPU0_FREQ_GOVERNOR "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
 
 #define VOLUME_STEP 6           /* percents for one volume button press */
 #define MAX_VOLUME 65536.0
@@ -94,7 +102,8 @@ struct GsdMediaKeysManagerPrivate
 #endif /* HAVE_PULSE */
         GtkWidget       *dialog;
         GConfClient     *conf_client;
-        HalDevice 	*hk_device;
+	HalManager    	*manager;
+	GList         	*devices;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -103,7 +112,38 @@ struct GsdMediaKeysManagerPrivate
         GList           *media_players;
 
         DBusGConnection *connection;
+        DBusGConnection *sys_connection;
         guint            notify[HANDLED_KEYS];
+
+	/* variables for key post action  */
+	int 		 type_for_hide;
+	gboolean	 osd_window_showing;
+	gboolean	 esc_post_action;
+	Key 		*esc_key;
+
+	/* OSD window parameter */
+        gboolean 	 draw_osd_box;
+	int 		 osd_window_size;
+	gboolean 	 volume_step_icons;
+
+        /* customer OSD theme */
+        GtkIconTheme    *cust_theme;
+
+	/* hotkey properties */
+	GsdMediaKeysXrandr	xrandr;
+	GsdMediaKeysXrandr	last_xrandr;
+	gboolean		backlight_xrandr;
+	gboolean		cpu_governor_powersave;
+
+	gboolean		wifi_nm_sw_kill;
+	gboolean		wifi_hw_rfkill;
+	char		       *wifi_hw_rfkill_udi;
+
+	gint			p_num_levels;
+	gint			p_level;
+
+	gboolean		toggle_touchpad;
+	gboolean		touchpad_enabled;
 };
 
 enum {
@@ -255,16 +295,214 @@ execute (GsdMediaKeysManager *manager,
         g_free (exec);
 }
 
-static void
-do_sleep_action (char *cmd1,
-                 char *cmd2)
+static gboolean
+is_lvds (XRROutputInfo *output_info)
 {
-        if (g_spawn_command_line_async (cmd1, NULL) == FALSE) {
-                if (g_spawn_command_line_async (cmd2, NULL) == FALSE) {
-                        acme_error (_("Couldn't put the machine to sleep.\n"
-                                        "Verify that the machine is correctly configured."));
-                }
+        const char *output_name = output_info->name;
+
+        if (output_info->connection == RR_Connected &&
+	    output_name &&
+            (strstr (output_name, "lvds")       ||
+             strstr (output_name, "LVDS")       ||
+             strstr (output_name, "Lvds")))
+        {
+                return TRUE;
         }
+
+        return FALSE;
+}
+
+static gboolean
+is_crt_connected (gchar **lcd, gchar **crt)
+{
+    	Display  *dpy;
+	int	  i, screen;
+    	Window    root;
+        int	  minWidth, maxWidth, minHeight, maxHeight;
+    	XRRScreenResources  *res;
+	gboolean 	     crt_connected = FALSE;
+//	gboolean lcd_connected = FALSE;	TODO: lcd mode off?
+
+	dpy = XOpenDisplay (NULL);
+        screen = DefaultScreen (dpy);
+	root = RootWindow (dpy, screen);
+
+	XRRGetScreenSizeRange (dpy, root, &minWidth, &minHeight,
+                               &maxWidth, &maxHeight);
+    	res = XRRGetScreenResources (dpy, root);
+    	if (!res) {
+		g_warning ("could not get screen resources");
+		return FALSE;
+    	}
+
+	/* check it has right status to CRT mode */
+	for (i = 0; i < res->noutput; i++)
+    	{
+        	XRROutputInfo   *output_info = XRRGetOutputInfo (dpy, res, res->outputs[i]);
+        	if (!output_info) {
+                	g_debug ("could not get output 0x%x information\n", (int) res->outputs[i]);
+                	continue;
+        	}
+
+		/* check if is LVDS (LCD, internal monitor) */
+		if (is_lvds(output_info)) {
+			*lcd = g_strdup (output_info->name);
+			//TODO: lcd mode is on/off?
+		} else {
+			*crt = g_strdup (output_info->name);
+			crt_connected = (output_info->connection == RR_Connected);
+		}
+	}
+
+	return crt_connected;
+}
+
+static void
+do_xrandr_post_action (GsdMediaKeysManager *manager)
+{
+	gchar *lcd = NULL, *crt = NULL;
+
+	if (is_crt_connected (&lcd, &crt)) {
+		gchar	command1[255], command2[255];
+
+		/* change to next status when hotkey click*/
+		switch (manager->priv->xrandr) {
+		case GSD_MEDIA_KEYS_XRANDR_LCD_ONLY:
+			break;
+		case GSD_MEDIA_KEYS_XRANDR_LCD:
+			g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --auto", lcd);
+			execute (manager, command1, FALSE, FALSE);
+			g_snprintf (command2, 255, "/usr/bin/xrandr --output %s --off", crt);
+			execute (manager, command2, FALSE, FALSE);
+			break;
+		case GSD_MEDIA_KEYS_XRANDR_CRT:
+ 			g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --mode 1024x768", crt);
+			execute (manager, command1, FALSE, FALSE);
+			g_snprintf (command2, 255, "/usr/bin/xrandr --output %s --off", lcd);
+			execute (manager, command2, FALSE, FALSE);
+			break;
+		case GSD_MEDIA_KEYS_XRANDR_CLONE:
+			if (manager->priv->last_xrandr == GSD_MEDIA_KEYS_XRANDR_DUAL) {
+				g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --off", crt);
+				execute (manager, command1, FALSE, FALSE);
+				sleep (1);
+			}
+			g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --mode 1024x768", crt);
+			execute (manager, command1, FALSE, FALSE);
+			g_snprintf (command2, 255, "/usr/bin/xrandr --output %s --auto", lcd);
+			execute (manager, command2, FALSE, FALSE);
+			break;
+		case GSD_MEDIA_KEYS_XRANDR_DUAL:
+			/* TODO: virtual desktop can't large than 2048x2048? */
+			//TODO: capture the virtual desktop size and choice the best resolution
+			g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --auto", lcd);
+			execute (manager, command1, FALSE, FALSE);
+			g_snprintf (command2, 255, "/usr/bin/xrandr --output %s --mode 800x600 --right-of %s", crt, lcd);
+			execute (manager, command2, FALSE, FALSE);
+			break;
+		}
+	} else {
+		if (manager->priv->xrandr != manager->priv->last_xrandr) {
+			gchar	command1[255], command2[255];
+
+			g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --auto", lcd);
+			execute (manager, command1, FALSE, FALSE);
+			g_snprintf (command2, 255, "/usr/bin/xrandr --output %s --off", crt);
+			execute (manager, command2, FALSE, FALSE);
+		}
+		manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_LCD_ONLY;
+	}
+	manager->priv->last_xrandr = manager->priv->xrandr;
+
+	g_free (lcd);
+	g_free (crt);
+}
+
+static void
+do_xrandr_esc_post_action (GsdMediaKeysManager *manager)
+{
+	/* change back to last status when hotkey click*/
+	manager->priv->xrandr = manager->priv->last_xrandr;
+/*
+	switch (manager->priv->xrandr) {
+	case GSD_MEDIA_KEYS_XRANDR_LCD_ONLY:
+		manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_LCD;
+		break;
+	case GSD_MEDIA_KEYS_XRANDR_LCD:
+		manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_CRT;
+		break;
+	case GSD_MEDIA_KEYS_XRANDR_CRT:
+		manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_CLONE;
+		break;
+	case GSD_MEDIA_KEYS_XRANDR_CLONE:
+		manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_DUAL;
+		break;
+	case GSD_MEDIA_KEYS_XRANDR_DUAL:
+		manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_LCD;
+		break;
+	}
+*/
+}
+
+static void
+do_performance_post_action (GsdMediaKeysManager *manager)
+{
+	if (manager->priv->p_level >= 0) {
+
+		DBusGProxy *proxy;
+		GError *error = NULL;
+
+		//set new performance level
+		proxy = dbus_g_proxy_new_for_name (manager->priv->sys_connection,
+						  "org.freedesktop.Hal",
+						   "/org/freedesktop/Hal/devices/performance",
+						   "org.freedesktop.Hal.Device.Performance");
+		if (!dbus_g_proxy_call (proxy, "SetPerformance", &error,
+						G_TYPE_INT, manager->priv->p_level ,
+						G_TYPE_INVALID, G_TYPE_INVALID)) {
+			g_print ("DBus method call failed\n");
+		}
+
+		if (proxy)
+			g_object_unref (proxy);
+	}
+}
+
+static void
+_dialog_hide_cb (GtkWidget   	     *dialog,
+                 GsdMediaKeysManager *manager)
+{
+	g_debug ("got dialog hide cb");
+
+	if (!manager->priv->esc_post_action) {
+		switch (manager->priv->type_for_hide) {
+		case XRANDR_KEY:
+			do_xrandr_post_action (manager);
+			break;
+        	case PERFORMANCE_KEY:
+                	do_performance_post_action (manager);
+                	break;
+		default:
+			break;
+		}
+	} else {
+                switch (manager->priv->type_for_hide) {
+                case XRANDR_KEY:
+                        do_xrandr_esc_post_action (manager);
+                        break;
+                default:
+                        break;
+                }
+	}
+
+	/* reset key type and variables for post action */
+	manager->priv->type_for_hide = -1;
+	manager->priv->esc_post_action = FALSE;
+	manager->priv->osd_window_showing = FALSE;
+
+	/* un-grab the esc key */
+	if (manager->priv->esc_key != NULL)
+		grab_key_unsafe (manager->priv->esc_key, FALSE, manager->priv->screens);
 }
 
 static void
@@ -278,6 +516,19 @@ dialog_init (GsdMediaKeysManager *manager)
 
         if (manager->priv->dialog == NULL) {
                 manager->priv->dialog = gsd_media_keys_window_new ();
+        	gsd_media_keys_window_set_draw_osd_box (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+							manager->priv->draw_osd_box);
+                gsd_media_keys_window_set_osd_window_size (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                           manager->priv->osd_window_size);
+        	gsd_media_keys_window_set_volume_step_icons (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+							     manager->priv->volume_step_icons);
+		gsd_media_keys_window_set_cust_theme (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                      manager->priv->cust_theme);
+
+		g_signal_connect (manager->priv->dialog,
+      				  "hide",
+                        	  (GCallback)_dialog_hide_cb,
+                        	  manager);
         }
 }
 
@@ -304,6 +555,9 @@ update_kbd_cb (GConfClient         *client,
         gboolean need_flush = TRUE;
 
         g_return_if_fail (entry->key != NULL);
+
+	manager->priv->type_for_hide = -1;
+	manager->priv->esc_key = NULL;
 
         gdk_error_trap_push ();
 
@@ -350,6 +604,12 @@ update_kbd_cb (GConfClient         *client,
                                 break;
                         }
 
+			/* ESC key is only grab when OSD window showing  */
+			if (keys[i].key_type == ESC_KEY) {
+				manager->priv->esc_key = key;
+				continue;
+			}
+
                         need_flush = TRUE;
                         grab_key_unsafe (key, TRUE, manager->priv->screens);
                         keys[i].key = key;
@@ -371,6 +631,9 @@ init_kbd (GsdMediaKeysManager *manager)
 {
         int i;
         gboolean need_flush = FALSE;
+
+	manager->priv->type_for_hide = -1;
+	manager->priv->esc_key = NULL;
 
         gnome_settings_profile_start (NULL);
 
@@ -422,6 +685,12 @@ init_kbd (GsdMediaKeysManager *manager)
                 g_free (tmp);
 
                 keys[i].key = key;
+
+		/* ESC key is only grab when OSD window showing  */
+		if (keys[i].key_type == ESC_KEY) {
+			manager->priv->esc_key = key;
+			continue;
+		}
 
                 need_flush = TRUE;
                 grab_key_unsafe (key, TRUE, manager->priv->screens);
@@ -499,6 +768,11 @@ dialog_show (GsdMediaKeysManager *manager)
         gtk_window_move (GTK_WINDOW (manager->priv->dialog), x, y);
 
         gtk_widget_show (manager->priv->dialog);
+	manager->priv->osd_window_showing = TRUE;
+
+	/* grab the esc key */
+	if (manager->priv->esc_key != NULL)
+		grab_key_unsafe (manager->priv->esc_key, TRUE, manager->priv->screens);
 
         gdk_display_sync (gdk_screen_get_display (manager->priv->current_screen));
 }
@@ -733,7 +1007,393 @@ do_sound_action (GsdMediaKeysManager *manager,
                 break;
         }
 
+        gsd_media_keys_window_set_volume_step (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                vol_step);
+        gsd_media_keys_window_set_is_mute_key (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                               type == MUTE_KEY);
         update_dialog (manager, vol, muted);
+}
+
+static void
+do_sleep_action (GsdMediaKeysManager *manager,
+                 char *cmd1,
+                 char *cmd2)
+{
+	if (g_spawn_command_line_async (cmd1, NULL) == FALSE) {
+		if (g_spawn_command_line_async (cmd2, NULL) == FALSE) {
+			acme_error (_("Couldn't put the machine to sleep.\n"
+					"Verify that the machine is correctly configured."));
+		}
+	}
+}
+
+static void
+do_bluetooth_action (GsdMediaKeysManager *manager)
+{
+	gboolean bluetooth_enabled;
+	gchar **names;
+	GError *error = NULL;
+	HalDevice *device;
+
+	/* check have available video4linux.video_capture */
+	g_usleep (1000000);      // 1 second to wait USB H/W on/off
+	hal_manager_find_device_string_match (manager->priv->manager,
+						"killswitch.type",
+						"bluetooth",
+						&names,
+						&error);
+	bluetooth_enabled = (names[0] != NULL)? TRUE:FALSE;
+	if (names[0] != NULL)
+		g_debug ("bluetooth: %s", names[0]);
+
+        dialog_init (manager);
+        gsd_media_keys_window_set_bluetooth_enabled (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                  bluetooth_enabled);
+        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                          GSD_MEDIA_KEYS_WINDOW_ACTION_BLUETOOTH);
+        dialog_show (manager);
+}
+
+static void
+do_num_lock_action (GsdMediaKeysManager *manager)
+{
+	Display *display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+        unsigned int state = 0;
+
+        dialog_init (manager);
+        XkbGetIndicatorState(display, XkbUseCoreKbd, &state);
+        gsd_media_keys_window_set_num_locked (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                              state & (1 << 1));
+        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                          GSD_MEDIA_KEYS_WINDOW_ACTION_NUM_LOCK);
+        dialog_show (manager);
+}
+
+static void
+do_scroll_lock_action (GsdMediaKeysManager *manager)
+{
+        Display *display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+        unsigned int state = 0;
+
+        dialog_init (manager);
+        XkbGetIndicatorState(display, XkbUseCoreKbd, &state);
+	g_debug ("scroll_lock: %d", state & (1 << 2));
+        gsd_media_keys_window_set_scroll_locked (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                 state & (1 << 2));
+        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                          GSD_MEDIA_KEYS_WINDOW_ACTION_SCROLL_LOCK);
+        dialog_show (manager);
+}
+
+static void
+do_wifi_action (GsdMediaKeysManager *manager)
+{
+        gboolean  wifi_enabled;
+
+	/* call HAL to run hardware rfkill */
+	if (manager->priv->wifi_hw_rfkill) {
+
+		DBusGProxy *proxy;
+		GError *error = NULL;
+		guint state = -1;
+
+		//get wireless rf state
+		proxy = dbus_g_proxy_new_for_name (manager->priv->sys_connection,
+						  "org.freedesktop.Hal",
+						   manager->priv->wifi_hw_rfkill_udi,
+						   "org.freedesktop.Hal.Device.KillSwitch");
+
+		if (!dbus_g_proxy_call (proxy, "GetPower", &error,
+					G_TYPE_INVALID,
+					G_TYPE_INT, &state, G_TYPE_INVALID)) {
+			g_print ("DBus method call failed\n");
+		}
+
+		if (state >= 0) {
+			//set new state
+			wifi_enabled = (state == 1)? TRUE:FALSE;
+			if (!dbus_g_proxy_call (proxy, "SetPower", &error,
+						G_TYPE_BOOLEAN, !wifi_enabled ,
+						G_TYPE_INVALID, G_TYPE_INVALID)) {
+				g_print ("DBus method call failed\n");
+			}
+		}
+
+		if (proxy)
+			g_object_unref (proxy);
+	}
+
+	/* run networkmanager software disable*/
+	if (manager->priv->wifi_nm_sw_kill) {
+
+		NMClient *client;
+
+		g_usleep (500000);	//0.5 second to wait H/W rfkill
+
+		client = nm_client_new ();
+		if (!client) {
+			g_debug ("do_wifi_action new nm_client fail.");
+			return;
+		}
+
+		//get wifi status
+		wifi_enabled = nm_client_wireless_get_enabled (client);
+		nm_client_wireless_set_enabled (client, !wifi_enabled);
+
+		g_object_unref (client);
+	}
+
+        dialog_init (manager);
+        gsd_media_keys_window_set_wifi_enabled (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                !wifi_enabled);
+        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                          GSD_MEDIA_KEYS_WINDOW_ACTION_WIFI);
+        dialog_show (manager);
+}
+
+static void
+do_touchpad_action (GsdMediaKeysManager *manager,
+		    int 		 type)
+{
+	if (manager->priv->toggle_touchpad) {
+		type = (manager->priv->touchpad_enabled)? TOUCHPAD_OFF_KEY:TOUCHPAD_ON_KEY;
+		manager->priv->touchpad_enabled	= (manager->priv->touchpad_enabled)? FALSE:TRUE;
+	}
+
+        switch (type) {
+        case TOUCHPAD_ON_KEY:
+        	dialog_init (manager);
+        	gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                          	  GSD_MEDIA_KEYS_WINDOW_ACTION_TOUCHPAD_ON);
+        	dialog_show (manager);
+                break;
+        case TOUCHPAD_OFF_KEY:
+                dialog_init (manager);
+                gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                  GSD_MEDIA_KEYS_WINDOW_ACTION_TOUCHPAD_OFF);
+                dialog_show (manager);
+		break;
+        }
+}
+
+static void
+do_webcam_action (GsdMediaKeysManager *manager)
+{
+	gboolean webcam_enabled;
+	gchar **names;
+	GError *error = NULL;
+	HalDevice *device;
+
+	/* check have available video4linux.video_capture */
+	g_usleep (1000000);      // 1 second to wait USB H/W on/off
+	hal_manager_find_capability (manager->priv->manager,
+					"video4linux.video_capture",
+					&names,
+					&error);
+	webcam_enabled = (names[0] != NULL)? TRUE:FALSE;
+	if (names[0] != NULL)
+		g_debug ("webcam: %s", names[0]);
+
+        dialog_init (manager);
+        gsd_media_keys_window_set_webcam_enabled (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                  webcam_enabled);
+        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                          GSD_MEDIA_KEYS_WINDOW_ACTION_WEBCAM);
+        dialog_show (manager);
+}
+
+static void
+do_xrandr_action (GsdMediaKeysManager *manager)
+{
+	gchar	*lcd = NULL, *crt = NULL;
+
+	if (is_crt_connected (&lcd, &crt)) {
+		if (manager->priv->osd_window_showing) {
+			/* change to next status when hotkey click*/
+			switch (manager->priv->xrandr) {
+			case GSD_MEDIA_KEYS_XRANDR_LCD_ONLY:
+				manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_LCD;
+				break;
+			case GSD_MEDIA_KEYS_XRANDR_LCD:
+				manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_CRT;
+				break;
+			case GSD_MEDIA_KEYS_XRANDR_CRT:
+				manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_CLONE;
+				break;
+			case GSD_MEDIA_KEYS_XRANDR_CLONE:
+				manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_DUAL;
+				break;
+			case GSD_MEDIA_KEYS_XRANDR_DUAL:
+				manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_LCD;
+				break;
+			}
+		} else if (manager->priv->xrandr == GSD_MEDIA_KEYS_XRANDR_LCD_ONLY) {
+			manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_LCD;
+		}
+	} else {
+		manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_LCD_ONLY;
+	}
+	g_free(lcd);
+	g_free(crt);
+
+        dialog_init (manager);
+        gsd_media_keys_window_set_xrandr (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+         				  manager->priv->xrandr);
+        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                          GSD_MEDIA_KEYS_WINDOW_ACTION_XRANDR);
+        dialog_show (manager);
+}
+
+static void
+do_cpu_governor_action (GsdMediaKeysManager *manager)
+{
+	//logic to get cpus governor
+        DBusGProxy *proxy;
+	gchar* cpu_governor = CPU_GOVERNOR_ONDEMAND;
+	gchar *current_governor;
+	gsize bytes;
+	GError *error = NULL;
+
+	if (!g_file_test (CPU0_FREQ_GOVERNOR, G_FILE_TEST_EXISTS)) {
+		g_warning ("Warning: /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor does not exist!");
+		return;
+	}
+
+	g_file_get_contents (CPU0_FREQ_GOVERNOR, &current_governor, &bytes, &error);
+
+	if (!g_ascii_strncasecmp (current_governor, CPU_GOVERNOR_PERFORMANCE, 11)) {
+		if (manager->priv->cpu_governor_powersave)
+			cpu_governor = CPU_GOVERNOR_POWERSAVE;
+	} else if (!g_ascii_strncasecmp (current_governor, CPU_GOVERNOR_POWERSAVE, 9)) {
+		cpu_governor = CPU_GOVERNOR_ONDEMAND;
+	} else if (!g_ascii_strncasecmp (current_governor, CPU_GOVERNOR_ONDEMAND, 8)) {
+		cpu_governor = CPU_GOVERNOR_PERFORMANCE;
+	}
+	g_free (current_governor);
+
+	g_debug ("cpu_governor: %s", cpu_governor);
+
+	//set new governor
+        proxy = dbus_g_proxy_new_for_name (manager->priv->sys_connection,
+                                          "org.freedesktop.Hal",
+                                           "/org/freedesktop/Hal/devices/computer",
+                                           "org.freedesktop.Hal.Device.CPUFreq");
+
+        if (!dbus_g_proxy_call (proxy, "SetCPUFreqGovernor", &error,
+                                G_TYPE_STRING, cpu_governor, G_TYPE_INVALID,
+                                G_TYPE_INVALID)) {
+                g_print ("DBus method call failed\n");
+        }
+
+	if (proxy)
+		g_object_unref (proxy);
+
+	dialog_init (manager);
+        gsd_media_keys_window_set_cpu_governor (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+         					cpu_governor);
+        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                          GSD_MEDIA_KEYS_WINDOW_ACTION_CPU_GOVERNOR);
+        dialog_show (manager);
+}
+
+static void
+do_backlight_action (GsdMediaKeysManager *manager)
+{
+        DBusGProxy *proxy;
+	GError *error = NULL;
+	guint level = -1;
+
+	//get current backlight power state
+       	proxy = dbus_g_proxy_new_for_name (manager->priv->sys_connection,
+                                          "org.freedesktop.Hal",
+                                           "/org/freedesktop/Hal/devices/computer_backlight",
+                                           "org.freedesktop.Hal.Device.LaptopPanel");
+
+        if (!dbus_g_proxy_call (proxy, "GetPower", &error,
+                                G_TYPE_INVALID,
+				G_TYPE_INT, &level, G_TYPE_INVALID)) {
+                g_print ("DBus method call failed\n");
+        }
+
+	g_debug ("bl_power: %d", level);
+
+	if (level >= 0) {
+		/* turn on/off backlight */
+		if (!dbus_g_proxy_call (proxy, "SetPower", &error,
+					G_TYPE_INT, (level == 0)? 1:0 ,
+					G_TYPE_INVALID, G_TYPE_INVALID)) {
+			g_print ("DBus method call failed\n");
+		}
+
+		//show backlight on/off OSD
+		dialog_init (manager);
+		gsd_media_keys_window_set_backlight (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+						     (level == 0)? 1:0 );
+		gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+						  GSD_MEDIA_KEYS_WINDOW_ACTION_BACKLIGHT);
+		dialog_show (manager);
+	}
+
+	if (proxy)
+		g_object_unref (proxy);
+}
+
+static void
+do_performance_action (GsdMediaKeysManager *manager)
+{
+	if (manager->priv->p_num_levels <= 0)
+		return;
+
+	if (manager->priv->osd_window_showing) {
+
+		manager->priv->p_level++;
+		if (manager->priv->p_level >= manager->priv->p_num_levels)
+			manager->priv->p_level = 0;		//back to 0 level
+	} else {
+		DBusGProxy *proxy;
+		GError *error = NULL;
+		guint level = -1;
+
+		//get current performance level
+		proxy = dbus_g_proxy_new_for_name (manager->priv->sys_connection,
+						  "org.freedesktop.Hal",
+						   "/org/freedesktop/Hal/devices/performance",
+						   "org.freedesktop.Hal.Device.Performance");
+
+		if (!dbus_g_proxy_call (proxy, "GetPerformance", &error,
+					G_TYPE_INVALID,
+					G_TYPE_INT, &level, G_TYPE_INVALID)) {
+			g_print ("DBus method call failed\n");
+		}
+
+		manager->priv->p_level = level;
+
+		dialog_show (manager);
+
+		if (proxy)
+			g_object_unref (proxy);
+	}
+
+	//show OSD
+	dialog_init (manager);
+	gsd_media_keys_window_set_performance (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+					       manager->priv->p_level );
+	gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+					  GSD_MEDIA_KEYS_WINDOW_ACTION_PERFORMANCE);
+	dialog_show (manager);
+}
+
+static void
+do_esc_action (GsdMediaKeysManager *manager)
+{
+	/* interrupt osc window and post action */
+	if (manager->priv->osd_window_showing) {
+
+		manager->priv->esc_post_action = TRUE;
+
+		//TODO: interrupt OSD
+		//remove OSD icon
+	}
 }
 
 static void
@@ -890,6 +1550,9 @@ do_action (GsdMediaKeysManager *manager,
         char *cmd;
         char *path;
 
+	if (type != ESC_KEY)
+		manager->priv->type_for_hide = type;
+
         switch (type) {
         case MUTE_KEY:
         case VOLUME_DOWN_KEY:
@@ -926,7 +1589,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_mail_action (manager);
                 break;
         case SLEEP_KEY:
-                do_sleep_action (SLEEP_COMMAND, "xset dpms force off");
+                do_sleep_action (manager, SLEEP_COMMAND, "xset dpms force off");
                 break;
         case SCREENSAVER_KEY:
                 if ((cmd = g_find_program_in_path ("gnome-screensaver-command"))) {
@@ -963,6 +1626,40 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case NEXT_KEY:
                 return do_multimedia_player_action (manager, "Next");
+                break;
+        case NUM_LOCK_KEY:
+                do_num_lock_action (manager);
+                break;
+        case SCROLL_LOCK_KEY:
+                do_scroll_lock_action (manager);
+                break;
+        case WIFI_KEY:
+                do_wifi_action (manager);
+                break;
+        case TOUCHPAD_ON_KEY:
+        case TOUCHPAD_OFF_KEY:
+                do_touchpad_action (manager, type);
+                break;
+        case XRANDR_KEY:
+                do_xrandr_action (manager);
+                break;
+        case CPU_GOVERNOR_KEY:
+                do_cpu_governor_action (manager);
+                break;
+        case BACKLIGHT_KEY:
+                do_backlight_action (manager);
+                break;
+        case PERFORMANCE_KEY:
+                do_performance_action (manager);
+                break;
+        case ESC_KEY:
+                do_esc_action (manager);
+                break;
+        case WEBCAM_KEY:
+                do_webcam_action (manager);
+                break;
+        case BLUETOOTH_KEY:
+                do_bluetooth_action (manager);
                 break;
         default:
                 g_assert_not_reached ();
@@ -1058,10 +1755,71 @@ _hk_device_condition_cb (HalDevice   *device,
         }
 }
 
+static void
+_setup_button_devices (GsdMediaKeysManager *self)
+{
+        //GsdMediaKeysManagerPrivate *priv = GET_PRIVATE (self);
+        gchar **names;
+        GError *error = NULL;
+        gchar *udi;
+        gint i;
+        HalDevice *device;
+        gchar *type;
+
+        if (!hal_manager_find_capability (self->priv->manager,
+                                        "button",
+                                        &names,
+                                        &error))
+        {
+                g_warning (G_STRLOC ": Unable to find devices with capability 'button': %s",
+               error->message);
+                g_clear_error (&error);
+                return;
+        }
+
+        for (i = 0, udi = names[i]; udi != NULL; i++, udi = names[i])
+        {
+                type = NULL;
+
+                device = hal_device_new ();
+                hal_device_set_udi (device, udi);
+
+                hal_device_watch_condition (device);
+                g_signal_connect (device,
+                                "device-condition",
+                                (GCallback)_hk_device_condition_cb,
+                                self);
+                self->priv->devices = g_list_append (self->priv->devices, device);
+        }
+
+        hal_manager_free_capability (names);
+}
+
+static void
+_cleanup_button_devices (GsdMediaKeysManager *self)
+{
+  	GList *l = NULL;
+  	HalDevice *device = NULL;
+
+  	for (l = self->priv->devices; l; l = g_list_delete_link (l, l))
+  	{
+    		device = (HalDevice *)l->data;
+
+    		if (device)
+    		{
+      			g_object_unref (device);
+    		}
+  	}
+
+  	self->priv->devices = l;
+}
+
 static gboolean
 start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 {
+	char   *cust_theme_name;
         GSList *l;
+        GError  *gconf_error = NULL;
 
         g_debug ("Starting media_keys manager");
         gnome_settings_profile_start (NULL);
@@ -1075,6 +1833,106 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         init_screens (manager);
         init_kbd (manager);
 
+	/* Initial a bit variables */
+	manager->priv->osd_window_showing = FALSE;
+	manager->priv->esc_post_action = FALSE;
+
+	/* Load OSD window parameter */
+        manager->priv->draw_osd_box = gconf_client_get_bool (manager->priv->conf_client,
+                                             		   GCONF_MISC_DIR "/draw_osd_box",
+                                             		   &gconf_error);
+        if (gconf_error) {
+                manager->priv->draw_osd_box = TRUE;
+                g_error_free (gconf_error);
+        }
+
+        manager->priv->osd_window_size = gconf_client_get_int (manager->priv->conf_client,
+                                                           GCONF_MISC_DIR "/osd_window_size",
+                                                           &gconf_error);
+        if (gconf_error) {
+                manager->priv->osd_window_size = 130;
+                g_error_free (gconf_error);
+        }
+
+        manager->priv->volume_step_icons = gconf_client_get_bool (manager->priv->conf_client,
+                                                           GCONF_MISC_DIR "/volume_step_icons",
+                                                           &gconf_error);
+        if (gconf_error) {
+                manager->priv->volume_step_icons = FALSE;
+                g_error_free (gconf_error);
+        }
+
+	/* use xrandr turn screen on/off when backlight control enable */
+        manager->priv->backlight_xrandr = gconf_client_get_bool (manager->priv->conf_client,
+                                                           GCONF_MISC_DIR "/backlight_xrandr",
+                                                           &gconf_error);
+        if (gconf_error) {
+                manager->priv->backlight_xrandr = FALSE;
+                g_error_free (gconf_error);
+        }
+
+	/* setup cpu governor powersave switch  */
+        manager->priv->cpu_governor_powersave = gconf_client_get_bool (manager->priv->conf_client,
+                                                           GCONF_MISC_DIR "/cpu_governor_powersave",
+                                                           &gconf_error);
+        if (gconf_error) {
+                manager->priv->cpu_governor_powersave = FALSE;
+                g_error_free (gconf_error);
+        }
+
+	/* get wifi networkmanager disable or not   */
+        manager->priv->wifi_nm_sw_kill = gconf_client_get_bool (manager->priv->conf_client,
+                                                           GCONF_MISC_DIR "/wifi_nm_sw_kill",
+                                                           &gconf_error);
+        if (gconf_error) {
+                manager->priv->wifi_nm_sw_kill = FALSE;
+                g_error_free (gconf_error);
+        }
+
+	/* get rfkill udi */
+        manager->priv->wifi_hw_rfkill_udi = gconf_client_get_string (manager->priv->conf_client,
+                                                           	  GCONF_MISC_DIR "/wifi_hw_rfkill_udi",
+                                                           	  &gconf_error);
+        if (gconf_error) {
+                manager->priv->wifi_hw_rfkill_udi = NULL;
+                manager->priv->wifi_hw_rfkill = FALSE;
+                g_error_free (gconf_error);
+        } else if ((manager->priv->wifi_hw_rfkill_udi != NULL) &&
+		   (strcmp (manager->priv->wifi_hw_rfkill_udi, "") != 0)) {
+                manager->priv->wifi_hw_rfkill = TRUE;
+	}
+
+	/* use xrandr turn screen on/off when backlight control enable */
+	manager->priv->touchpad_enabled = TRUE;
+        manager->priv->toggle_touchpad = gconf_client_get_bool (manager->priv->conf_client,
+                                                           GCONF_MISC_DIR "/toggle_touchpad",
+                                                           &gconf_error);
+        if (gconf_error) {
+                manager->priv->toggle_touchpad = TRUE;
+                g_error_free (gconf_error);
+        }
+
+
+	/* get performance level  */
+	manager->priv->p_level = -1;
+	manager->priv->p_num_levels = -1;
+  	GError *error_per = NULL;
+        HalDevice *performance_device = hal_device_new ();
+        hal_device_set_udi (performance_device,
+                	    "/org/freedesktop/Hal/devices/performance");
+  	if (!hal_device_get_int (performance_device,
+                           	 "performance.num_levels",
+                           	 &manager->priv->p_num_levels,
+                           	 &error_per))
+  	{
+    		g_warning (G_STRLOC ": Error getting number of performance levels: %s",
+               		   error_per->message);
+    		g_error_free (error_per);
+	}
+	/* remove HalDevice */
+	if (performance_device)
+		g_object_unref (performance_device);
+
         /* Start filtering the events */
         for (l = manager->priv->screens; l != NULL; l = l->next) {
                 gnome_settings_profile_start ("gdk_window_add_filter");
@@ -1087,6 +1945,22 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
                                        manager);
                 gnome_settings_profile_end ("gdk_window_add_filter");
         }
+
+	/* Get customer OSD theme */
+        cust_theme_name = gconf_client_get_string (manager->priv->conf_client,
+                                                           	  GCONF_MISC_DIR "/cust_theme",
+                                                           	  &gconf_error);
+        if (gconf_error) {
+                cust_theme_name = NULL;
+                g_error_free (gconf_error);
+        }
+
+	if (cust_theme_name != NULL) {
+        	manager->priv->cust_theme = gtk_icon_theme_new ();
+        	gtk_icon_theme_set_custom_theme(manager->priv->cust_theme, cust_theme_name);
+	}
+
+	g_free(cust_theme_name);
 
         gnome_settings_profile_end (NULL);
 
@@ -1128,14 +2002,7 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         gnome_settings_profile_end (NULL);
 
         /* Start monitor hal key event*/
-        manager->priv->hk_device = hal_device_new ();
-        hal_device_set_udi (manager->priv->hk_device,
-                            "/org/freedesktop/Hal/devices/platform_i8042_i8042_KBD_port_logicaldev_input");
-        hal_device_watch_condition (manager->priv->hk_device);
-        g_signal_connect (manager->priv->hk_device,
-                          "device-condition",
-                          (GCallback) _hk_device_condition_cb,
-                          manager);
+	_setup_button_devices (manager);
 
         return TRUE;
 }
@@ -1152,8 +2019,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         g_debug ("Stopping media_keys manager");
 
 	/* remove HalDevice */
-	if (priv->hk_device)
-                g_object_unref (priv->hk_device);
+  	_cleanup_button_devices (manager);
 
         for (ls = priv->screens; ls != NULL; ls = ls->next) {
                 gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
@@ -1180,6 +2046,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         if (priv->connection != NULL) {
                 dbus_g_connection_unref (priv->connection);
                 priv->connection = NULL;
+        }
+
+        if (priv->sys_connection != NULL) {
+                dbus_g_connection_unref (priv->sys_connection);
+                priv->sys_connection = NULL;
         }
 
         need_flush = FALSE;
@@ -1230,6 +2101,13 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         }
         g_list_free (priv->media_players);
         priv->media_players = NULL;
+
+	//TODO: free draw_osd_box?
+	if (priv->cust_theme != NULL)
+	{
+		g_object_unref (priv->cust_theme);
+		priv->cust_theme = NULL;
+	}
 }
 
 static void
@@ -1326,7 +2204,7 @@ static void
 gsd_media_keys_manager_init (GsdMediaKeysManager *manager)
 {
         manager->priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-
+	manager->priv->manager = hal_manager_new ();
 }
 
 static void
@@ -1359,6 +2237,16 @@ register_manager (GsdMediaKeysManager *manager)
         }
 
         dbus_g_connection_register_g_object (manager->priv->connection, GSD_MEDIA_KEYS_DBUS_PATH, G_OBJECT (manager));
+
+	//get system bus connection
+	manager->priv->sys_connection = dbus_g_bus_get (DBUS_BUS_SYSTEM, &error);
+	if (manager->priv->sys_connection == NULL) {
+		if (error != NULL) {
+		    g_printerr ("Error getting system bus: %s\n", error->message);
+		    g_error_free (error);
+		}
+	    	return FALSE;
+	}
 
         return TRUE;
 }
