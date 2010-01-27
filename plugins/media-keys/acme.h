@@ -46,6 +46,18 @@ enum {
         STOP_KEY,
         PREVIOUS_KEY,
         NEXT_KEY,
+	NUM_LOCK_KEY,
+	SCROLL_LOCK_KEY,
+	WIFI_KEY,
+	TOUCHPAD_ON_KEY,
+	TOUCHPAD_OFF_KEY,
+	XRANDR_KEY,
+	CPU_GOVERNOR_KEY,
+	BACKLIGHT_KEY,
+	PERFORMANCE_KEY,
+	ESC_KEY,
+	WEBCAM_KEY,
+	BLUETOOTH_KEY,
         HANDLED_KEYS
 };
 
@@ -74,6 +86,18 @@ static struct {
         { STOP_KEY, GCONF_BINDING_DIR "/stop", NULL, NULL },
         { PREVIOUS_KEY, GCONF_BINDING_DIR "/previous", NULL, NULL },
         { NEXT_KEY, GCONF_BINDING_DIR "/next", NULL, NULL },
+        { NUM_LOCK_KEY, GCONF_BINDING_DIR "/num_lock", NULL, NULL },
+        { SCROLL_LOCK_KEY, GCONF_BINDING_DIR "/scroll_lock", NULL, NULL },
+        { WIFI_KEY, GCONF_BINDING_DIR "/wifi", NULL, NULL },
+        { TOUCHPAD_ON_KEY, GCONF_BINDING_DIR "/touchpad_on", NULL, NULL },
+        { TOUCHPAD_OFF_KEY, GCONF_BINDING_DIR "/touchpad_off", NULL, NULL },
+        { XRANDR_KEY, GCONF_BINDING_DIR "/xrandr", NULL, NULL },
+        { CPU_GOVERNOR_KEY, GCONF_BINDING_DIR "/cpu_governor", NULL, NULL },
+        { BACKLIGHT_KEY, GCONF_BINDING_DIR "/backlight", NULL, NULL },
+        { PERFORMANCE_KEY, GCONF_BINDING_DIR "/performance", NULL, NULL },
+        { ESC_KEY, GCONF_BINDING_DIR "/esc", NULL, NULL },
+        { WEBCAM_KEY, GCONF_BINDING_DIR "/webcam", NULL, NULL },
+        { BLUETOOTH_KEY, GCONF_BINDING_DIR "/bluetooth", NULL, NULL },
 };
 
 #endif /* __ACME_H__ */
