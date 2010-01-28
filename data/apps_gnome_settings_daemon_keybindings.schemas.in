@@ -46,6 +46,17 @@
 	    </locale>
 	</schema>
 
+	<schema>
+            <key>/schemas/apps/gnome_settings_daemon/wifi_hal_rfkill</key>
+            <applyto>/apps/gnome_settings_daemon/wifi_hal_rfkill</applyto>
+            <type>bool</type>
+            <default>FALSE</default>
+            <locale name="C">
+                <short>The function key will call hal to run killswitch function.</short>
+                <long>If this value is True, function key will call HAL to do rfkill.</long>
+            </locale>
+        </schema>
+
         <schema>
 	    <key>/schemas/apps/gnome_settings_daemon/wifi_nm_sw_kill</key>
 	    <applyto>/apps/gnome_settings_daemon/wifi_nm_sw_kill</applyto>
@@ -56,17 +67,6 @@
 		<long>Turn this switch on will causes wireless function key call networkmanager interface to software interface down.</long>
 	    </locale>
 	</schema>
-
-	<schema>
-            <key>/schemas/apps/gnome_settings_daemon/wifi_hw_rfkill_udi</key>
-            <applyto>/apps/gnome_settings_daemon/wifi_hw_rfkill_udi</applyto>
-            <type>string</type>
-            <default></default>
-            <locale name="C">
-                <short>The HAL udi will call by function key to run killswitch function.</short>
-                <long>If this udi have setup, function key will call HAL to do hardware rfkill.</long>
-            </locale>
-        </schema>
 
         <schema>
 	    <key>/schemas/apps/gnome_settings_daemon/toggle_touchpad</key>
