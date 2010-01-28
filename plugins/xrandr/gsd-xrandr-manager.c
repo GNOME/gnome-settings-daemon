@@ -65,8 +65,11 @@
 #define CONF_DIR "/apps/gnome_settings_daemon/xrandr"
 #define CONF_KEY_SHOW_NOTIFICATION_ICON		(CONF_DIR "/show_notification_icon")
 #define CONF_KEY_ROTATE_TABLET_WITH_MONITOR	(CONF_DIR "/rotate_tablet_with_monitor")
+#define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP	(CONF_DIR "/turn_on_external_monitors_at_startup")
+#define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP	(CONF_DIR "/turn_on_laptop_monitor_at_startup")
 
 #define VIDEO_KEYSYM    "XF86Display"
+
 #define ROTATE_KEYSYM   "XF86RotateWindows"
 
 /* Number of seconds that the confirmation dialog will last before it resets the
@@ -2092,13 +2095,15 @@ on_config_changed (GConfClient          *client,
                 handle_tablet_rotation (manager);
 }
 
-static void
+static gboolean
 apply_intended_configuration (GsdXrandrManager *manager, const char *intended_filename, guint32 timestamp)
 {
         GError *my_error;
+	gboolean result;
 
         my_error = NULL;
-        if (!apply_configuration_from_filename (manager, intended_filename, FALSE, timestamp, &my_error)) {
+        result = apply_configuration_from_filename (manager, intended_filename, FALSE, timestamp, &my_error);
+        if (!result) {
                 if (my_error) {
                         if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
                                 error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
@@ -2106,9 +2111,42 @@ apply_intended_configuration (GsdXrandrManager *manager, const char *intended_fi
                         g_error_free (my_error);
                 }
         }
+
+        return result;
 }
 
 static void
+apply_default_boot_configuration (GsdXrandrManager *mgr)
+{
+	GsdXrandrManagerPrivate *priv = mgr->priv;
+	GnomeRRScreen *screen = priv->rw_screen;
+   	GnomeRRConfig *config;
+   	gboolean turn_on_external, turn_on_laptop;
+	GError *error = NULL;
+
+        turn_on_external =
+                gconf_client_get_bool (mgr->priv->client, CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP, NULL);
+        turn_on_laptop =
+                gconf_client_get_bool (mgr->priv->client, CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP, NULL);
+
+	if (turn_on_external && turn_on_laptop)
+		config = make_clone_setup (screen);
+	else if (!turn_on_external && turn_on_laptop)
+		config = make_laptop_setup (screen);
+	else if (turn_on_external && !turn_on_laptop)
+		config = make_other_setup (screen);
+	else
+		config = make_laptop_setup (screen);
+
+	if (!gnome_rr_config_apply (config, screen, &error)) {
+		error_message (mgr, _("Could not switch the monitor configuration"), error, NULL);
+		g_error_free (error);
+	}
+
+	gnome_rr_config_free (config);
+}
+
+static gboolean
 apply_stored_configuration_at_startup (GsdXrandrManager *manager, guint32 timestamp)
 {
         GError *my_error;
@@ -2152,7 +2190,7 @@ apply_stored_configuration_at_startup (GsdXrandrManager *manager, guint32 timest
          * good.  Apply the intended configuration instead.
          */
 
-        apply_intended_configuration (manager, intended_filename, timestamp);
+        success = apply_intended_configuration (manager, intended_filename, timestamp);
 
 out:
 
@@ -2161,6 +2199,8 @@ out:
 
         g_free (backup_filename);
         g_free (intended_filename);
+
+        return success;
 }
 
 gboolean
@@ -2216,7 +2256,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         }
 
         show_timestamps_dialog (manager, "Startup");
-        apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME); /* we don't have a real timestamp at startup anyway */
+        if (!apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME)) /* we don't have a real timestamp at startup anyway */
+                apply_default_boot_configuration (manager);
 
         gdk_window_add_filter (gdk_get_default_root_window(),
                                (GdkFilterFunc)event_filter,
