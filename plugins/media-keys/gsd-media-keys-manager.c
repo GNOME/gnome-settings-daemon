@@ -313,7 +313,8 @@ is_lvds (XRROutputInfo *output_info)
 }
 
 static gboolean
-is_crt_connected (gchar **lcd, gchar **crt)
+is_crt_connected (gchar **lcd, gint *lcd_width, gint *lcd_height,
+                  gchar **crt, gint *crt_width, gint *crt_height)
 {
     	Display  *dpy;
 	int	  i, screen;
@@ -339,18 +340,46 @@ is_crt_connected (gchar **lcd, gchar **crt)
 	for (i = 0; i < res->noutput; i++)
     	{
         	XRROutputInfo   *output_info = XRRGetOutputInfo (dpy, res, res->outputs[i]);
+                XRRModeInfo	*mode_info = NULL;
+                int             j, k;
         	if (!output_info) {
                 	g_debug ("could not get output 0x%x information\n", (int) res->outputs[i]);
                 	continue;
         	}
 
+                for (j = 0; j < res->nmode; j++)
+                        if (res->modes[j].id == *(output_info->modes))
+                                mode_info = &res->modes[j];
+
 		/* check if is LVDS (LCD, internal monitor) */
 		if (is_lvds(output_info)) {
 			*lcd = g_strdup (output_info->name);
+                        if (mode_info) {
+                                if (lcd_width)
+                                        *lcd_width = mode_info->width;
+                                if (lcd_height)
+                                        *lcd_height = mode_info->height;
+                        } else {
+                                if (lcd_width)
+                                        *lcd_width = 800;
+                                if (lcd_height)
+                                        *lcd_height = 600;
+                        }
 			//TODO: lcd mode is on/off?
 		} else {
 			*crt = g_strdup (output_info->name);
 			crt_connected = (output_info->connection == RR_Connected);
+                        if (mode_info) {
+                                if (crt_width)
+                                        *crt_width = mode_info->width;
+                                if (crt_height)
+                                        *crt_height = mode_info->height;
+                        } else {
+                                if (crt_width)
+                                        *crt_width = 800;
+                                if (crt_height)
+                                        *crt_height = 600;
+                        }
 		}
 	}
 
@@ -361,8 +390,11 @@ static void
 do_xrandr_post_action (GsdMediaKeysManager *manager)
 {
 	gchar *lcd = NULL, *crt = NULL;
+        gint lcd_width = 0, lcd_height = 0, crt_width = 0, crt_height = 0;
 
-	if (is_crt_connected (&lcd, &crt)) {
+        sleep (1);
+	if (is_crt_connected (&lcd, &lcd_width, &lcd_height,
+                              &crt, &crt_width, &crt_height)) {
 		gchar	command1[255], command2[255];
 
 		/* change to next status when hotkey click*/
@@ -376,7 +408,12 @@ do_xrandr_post_action (GsdMediaKeysManager *manager)
 			execute (manager, command2, FALSE, FALSE);
 			break;
 		case GSD_MEDIA_KEYS_XRANDR_CRT:
- 			g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --mode 1024x768", crt);
+			if (manager->priv->last_xrandr != GSD_MEDIA_KEYS_XRANDR_CRT) {
+                                g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --off", crt);
+                                execute (manager, command1, FALSE, FALSE);
+                                sleep (1);
+                        }
+			g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --auto", crt);
 			execute (manager, command1, FALSE, FALSE);
 			g_snprintf (command2, 255, "/usr/bin/xrandr --output %s --off", lcd);
 			execute (manager, command2, FALSE, FALSE);
@@ -387,17 +424,23 @@ do_xrandr_post_action (GsdMediaKeysManager *manager)
 				execute (manager, command1, FALSE, FALSE);
 				sleep (1);
 			}
-			g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --mode 1024x768", crt);
-			execute (manager, command1, FALSE, FALSE);
 			g_snprintf (command2, 255, "/usr/bin/xrandr --output %s --auto", lcd);
 			execute (manager, command2, FALSE, FALSE);
+			g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --mode %dx%d --scale %fx%f", crt, crt_width, crt_height, (double) lcd_width / crt_width, (double) lcd_height / crt_height);
+			execute (manager, command1, FALSE, FALSE);
 			break;
 		case GSD_MEDIA_KEYS_XRANDR_DUAL:
 			/* TODO: virtual desktop can't large than 2048x2048? */
 			//TODO: capture the virtual desktop size and choice the best resolution
+                        if (manager->priv->last_xrandr != GSD_MEDIA_KEYS_XRANDR_DUAL) {
+                                g_snprintf (command2, 255, "/usr/bin/xrandr --output %s --off", crt);
+                                execute (manager, command2, FALSE, FALSE);
+                                sleep (1);
+                        }
 			g_snprintf (command1, 255, "/usr/bin/xrandr --output %s --auto", lcd);
 			execute (manager, command1, FALSE, FALSE);
-			g_snprintf (command2, 255, "/usr/bin/xrandr --output %s --mode 800x600 --right-of %s", crt, lcd);
+                        sleep (1);
+                        g_snprintf (command2, 255, "/usr/bin/xrandr --output %s --mode %dx%d --below %s --scale %fx%f", crt, crt_width, crt_height, lcd, (double) lcd_width / crt_width, (double) lcd_width / crt_width);
 			execute (manager, command2, FALSE, FALSE);
 			break;
 		}
@@ -1207,7 +1250,7 @@ do_xrandr_action (GsdMediaKeysManager *manager)
 {
 	gchar	*lcd = NULL, *crt = NULL;
 
-	if (is_crt_connected (&lcd, &crt)) {
+	if (is_crt_connected (&lcd, NULL, NULL, &crt, NULL, NULL)) {
 		if (manager->priv->osd_window_showing) {
 			/* change to next status when hotkey click*/
 			switch (manager->priv->xrandr) {
@@ -1221,7 +1264,7 @@ do_xrandr_action (GsdMediaKeysManager *manager)
 				manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_CLONE;
 				break;
 			case GSD_MEDIA_KEYS_XRANDR_CLONE:
-				manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_DUAL;
+				manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_LCD;
 				break;
 			case GSD_MEDIA_KEYS_XRANDR_DUAL:
 				manager->priv->xrandr = GSD_MEDIA_KEYS_XRANDR_LCD;
