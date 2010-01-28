@@ -214,7 +214,7 @@ fail:
  * We just return whether setting the configuration succeeded.
  */
 static gboolean
-apply_configuration_and_display_error (GsdXrandrManager *manager, GnomeGnomeRRConfig *config, guint32 timestamp)
+apply_configuration_and_display_error (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
         GError *error;
