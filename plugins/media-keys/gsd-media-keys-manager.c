@@ -104,6 +104,7 @@ struct GsdMediaKeysManagerPrivate
         GConfClient     *conf_client;
 	HalManager    	*manager;
 	GList         	*devices;
+	GList         	*killswitch_devices;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -135,9 +136,8 @@ struct GsdMediaKeysManagerPrivate
 	gboolean		backlight_xrandr;
 	gboolean		cpu_governor_powersave;
 
+	gboolean		wifi_hal_rfkill;
 	gboolean		wifi_nm_sw_kill;
-	gboolean		wifi_hw_rfkill;
-	char		       *wifi_hw_rfkill_udi;
 
 	gint			p_num_levels;
 	gint			p_level;
@@ -1129,66 +1129,146 @@ do_scroll_lock_action (GsdMediaKeysManager *manager)
 }
 
 static void
-do_wifi_action (GsdMediaKeysManager *manager)
+do_wifi_hal_rfkill (GsdMediaKeysManager *manager)
 {
-        gboolean  wifi_enabled;
+        GSList    *l;
 
-	/* call HAL to run hardware rfkill */
-	if (manager->priv->wifi_hw_rfkill) {
-
+	for (l = manager->priv->killswitch_devices; l; l = l->next) {
+		HalDevice *device = (HalDevice *)l->data;
 		DBusGProxy *proxy;
 		GError *error = NULL;
 		guint state = -1;
 
 		//get wireless rf state
+		gchar *udi =  hal_device_get_udi(device);
+		g_debug ("udi: %s", udi);
 		proxy = dbus_g_proxy_new_for_name (manager->priv->sys_connection,
 						  "org.freedesktop.Hal",
-						   manager->priv->wifi_hw_rfkill_udi,
+						   hal_device_get_udi(device),
 						   "org.freedesktop.Hal.Device.KillSwitch");
 
 		if (!dbus_g_proxy_call (proxy, "GetPower", &error,
 					G_TYPE_INVALID,
 					G_TYPE_INT, &state, G_TYPE_INVALID)) {
-			g_print ("DBus method call failed\n");
+			g_print ("DBus GetPower method call failed\n");
+			continue;
 		}
 
+		g_debug ("state: %d", state);
 		if (state >= 0) {
 			//set new state
-			wifi_enabled = (state == 1)? TRUE:FALSE;
-			if (!dbus_g_proxy_call (proxy, "SetPower", &error,
+			gboolean wifi_enabled = (state == 0)? FALSE:TRUE;
+			if (dbus_g_proxy_call (proxy, "SetPower", &error,
 						G_TYPE_BOOLEAN, !wifi_enabled ,
-						G_TYPE_INVALID, G_TYPE_INVALID)) {
-				g_print ("DBus method call failed\n");
+						G_TYPE_INVALID, G_TYPE_INVALID) < 0) {
+				g_print ("DBus SetPower method call failed\n");
 			}
 		}
 
 		if (proxy)
 			g_object_unref (proxy);
 	}
+}
 
-	/* run networkmanager software disable*/
+static void
+do_wifi_nm_sw_kill (GsdMediaKeysManager *manager)
+{
+	NMClient *client;
+        gboolean  wifi_enabled;
+
+	g_usleep (500000);	//0.5 second to wait H/W rfkill
+
+	client = nm_client_new ();
+	if (!client) {
+		g_debug ("do_wifi_action new nm_client fail.");
+		return;
+	}
+
+	//get wifi status
+	wifi_enabled = nm_client_wireless_get_enabled (client);
+	nm_client_wireless_set_enabled (client, !wifi_enabled);
+
+	g_object_unref (client);
+}
+
+static gboolean
+is_wifi_enabled (GsdMediaKeysManager *manager)
+{
+        gboolean  wifi_enabled;
+
+	/* check current wifi status, priority:
+	   a. software networkmanager state
+	   b. hardware device disappear?
+	   c. rfkill state */
 	if (manager->priv->wifi_nm_sw_kill) {
-
 		NMClient *client;
-
-		g_usleep (500000);	//0.5 second to wait H/W rfkill
 
 		client = nm_client_new ();
 		if (!client) {
 			g_debug ("do_wifi_action new nm_client fail.");
-			return;
+		} else {
+			wifi_enabled = nm_client_wireless_get_enabled (client);
+		}
+		g_object_unref (client);
+	} else {
+		/* check have available net.80211 */
+        	gchar **names;
+        	GError *error = NULL;
+        	HalDevice *device;
+        	gchar *udi;
+
+		g_usleep (500000);	//0.5 second to wait H/W rfkill
+		hal_manager_find_capability (manager->priv->manager,
+						"net.80211",
+						&names,
+						&error);
+		wifi_enabled = FALSE;
+		udi = names[0];
+
+		/* just need check the first net.80211 device */
+		if (udi != NULL) {
+			gchar *parent_udi;
+			gchar **p_names;
+			gint j;
+
+			device = hal_device_new ();
+			hal_device_set_udi (device, udi);
+			hal_device_get_string (device, "info.parent", &parent_udi, &error);
+
+			hal_manager_find_device_string_match (manager->priv->manager,
+								"info.udi",
+								parent_udi,
+								&p_names,
+								&error);
+			wifi_enabled = (p_names[0] != NULL)? TRUE:FALSE;
+			if (p_names[0] != NULL)
+				g_debug ("wifi parent: %s", p_names[0]);
 		}
 
-		//get wifi status
-		wifi_enabled = nm_client_wireless_get_enabled (client);
-		nm_client_wireless_set_enabled (client, !wifi_enabled);
-
-		g_object_unref (client);
+		//TODO: check rfkill state
 	}
+	return wifi_enabled;
+}
 
-        dialog_init (manager);
+static void
+do_wifi_action (GsdMediaKeysManager *manager)
+{
+        gboolean  wifi_enabled;
+
+	/* call HAL to run hardware rfkill */
+	if (manager->priv->wifi_hal_rfkill)
+		do_wifi_hal_rfkill (manager);
+
+	/* run networkmanager software disable*/
+	if (manager->priv->wifi_nm_sw_kill)
+		do_wifi_nm_sw_kill (manager);
+
+        /* check the wifi state */
+	wifi_enabled = is_wifi_enabled (manager);
+
+	dialog_init (manager);
         gsd_media_keys_window_set_wifi_enabled (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                                !wifi_enabled);
+                                                wifi_enabled);
         gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
                                           GSD_MEDIA_KEYS_WINDOW_ACTION_WIFI);
         dialog_show (manager);
@@ -1839,6 +1919,39 @@ _setup_button_devices (GsdMediaKeysManager *self)
 }
 
 static void
+_setup_killswitch_devices (GsdMediaKeysManager *self)
+{
+        gchar **names;
+        GError *error = NULL;
+        gchar *udi;
+        gint i;
+        HalDevice *device;
+        gchar *type;
+
+        if (!hal_manager_find_capability (self->priv->manager,
+                                        "killswitch",
+                                        &names,
+                                        &error))
+        {
+                g_warning (G_STRLOC ": Unable to find devices with capability 'killswitch': %s",
+               error->message);
+                g_clear_error (&error);
+                return;
+        }
+
+        for (i = 0, udi = names[i]; udi != NULL; i++, udi = names[i])
+        {
+                type = NULL;
+
+                device = hal_device_new ();
+                hal_device_set_udi (device, udi);
+		self->priv->killswitch_devices = g_list_append (self->priv->killswitch_devices, device);	//TODO: split WWAN and Bluttooht
+        }
+
+        hal_manager_free_capability (names);
+}
+
+static void
 _cleanup_button_devices (GsdMediaKeysManager *self)
 {
   	GList *l = NULL;
@@ -1923,6 +2036,15 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
                 g_error_free (gconf_error);
         }
 
+	/* get wifi hal rfkill */
+        manager->priv->wifi_hal_rfkill = gconf_client_get_bool (manager->priv->conf_client,
+                                                           	  GCONF_MISC_DIR "/wifi_hal_rfkill",
+                                                           	  &gconf_error);
+        if (gconf_error) {
+                manager->priv->wifi_hal_rfkill = FALSE;
+                g_error_free (gconf_error);
+        }
+
 	/* get wifi networkmanager disable or not   */
         manager->priv->wifi_nm_sw_kill = gconf_client_get_bool (manager->priv->conf_client,
                                                            GCONF_MISC_DIR "/wifi_nm_sw_kill",
@@ -1931,19 +2053,6 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
                 manager->priv->wifi_nm_sw_kill = FALSE;
                 g_error_free (gconf_error);
         }
-
-	/* get rfkill udi */
-        manager->priv->wifi_hw_rfkill_udi = gconf_client_get_string (manager->priv->conf_client,
-                                                           	  GCONF_MISC_DIR "/wifi_hw_rfkill_udi",
-                                                           	  &gconf_error);
-        if (gconf_error) {
-                manager->priv->wifi_hw_rfkill_udi = NULL;
-                manager->priv->wifi_hw_rfkill = FALSE;
-                g_error_free (gconf_error);
-        } else if ((manager->priv->wifi_hw_rfkill_udi != NULL) &&
-		   (strcmp (manager->priv->wifi_hw_rfkill_udi, "") != 0)) {
-                manager->priv->wifi_hw_rfkill = TRUE;
-	}
 
 	/* use xrandr turn screen on/off when backlight control enable */
 	manager->priv->touchpad_enabled = TRUE;
@@ -1988,6 +2097,12 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
                                        manager);
                 gnome_settings_profile_end ("gdk_window_add_filter");
         }
+
+        /* Start monitor hal key event*/
+	_setup_button_devices (manager);
+
+	/* collect all killswitch devices */
+	_setup_killswitch_devices (manager);
 
 	/* Get customer OSD theme */
         cust_theme_name = gconf_client_get_string (manager->priv->conf_client,
@@ -2044,10 +2159,26 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
 
         gnome_settings_profile_end (NULL);
 
-        /* Start monitor hal key event*/
-	_setup_button_devices (manager);
-
         return TRUE;
+}
+
+static void
+_cleanup_killswitch_devices (GsdMediaKeysManager *self)
+{
+  	GList *l = NULL;
+  	HalDevice *device = NULL;
+
+  	for (l = self->priv->killswitch_devices; l; l = g_list_delete_link (l, l))
+  	{
+    		device = (HalDevice *)l->data;
+
+    		if (device)
+    		{
+      			g_object_unref (device);
+    		}
+  	}
+
+  	self->priv->devices = l;
 }
 
 void
@@ -2063,6 +2194,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 
 	/* remove HalDevice */
   	_cleanup_button_devices (manager);
+  	_cleanup_killswitch_devices (manager);
 
         for (ls = priv->screens; ls != NULL; ls = ls->next) {
                 gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
