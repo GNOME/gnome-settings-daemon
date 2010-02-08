@@ -251,18 +251,19 @@ static void
 print_countdown_text (TimeoutDialog *timeout)
 {
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (timeout->dialog),
-                                                  ngettext ("The display will be reset to its previous configuration in %d second",
-                                                            "The display will be reset to its previous configuration in %d seconds",
+                                                  ngettext ("If you don't do anything we'll switch back in %d second",
+                                                            "If you don't do anything we'll switch back in %d seconds",
                                                             timeout->countdown),
                                                   timeout->countdown);
 }
+
 
 static gboolean
 timeout_cb (gpointer data)
 {
         TimeoutDialog *timeout = data;
 
-        timeout->countdown--;
+        timeout->countdown -= 5;
 
         if (timeout->countdown == 0) {
                 timeout->response_id = GTK_RESPONSE_CANCEL;
@@ -300,14 +301,16 @@ user_says_things_are_ok (GsdXrandrManager *manager, GdkWindow *parent_window)
                                                  GTK_DIALOG_MODAL,
                                                  GTK_MESSAGE_QUESTION,
                                                  GTK_BUTTONS_NONE,
-                                                 _("Does the display look OK?"));
+                                                 _("Resolution changed to %dx%d. Does that look right?"),
+                                                 gdk_screen_get_width (gdk_screen_get_default ()),
+                                                 gdk_screen_get_height (gdk_screen_get_default ()));
 
         timeout.countdown = CONFIRMATION_DIALOG_SECONDS;
 
         print_countdown_text (&timeout);
 
-        gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("_Restore Previous Configuration"), GTK_RESPONSE_CANCEL);
-        gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("_Keep This Configuration"), GTK_RESPONSE_ACCEPT);
+        gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("No, revert"), GTK_RESPONSE_CANCEL);
+        gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("Yes, keep"), GTK_RESPONSE_ACCEPT);
         gtk_dialog_set_default_response (GTK_DIALOG (timeout.dialog), GTK_RESPONSE_ACCEPT); /* ah, the optimism */
 
         g_signal_connect (timeout.dialog, "response",
@@ -320,8 +323,7 @@ user_says_things_are_ok (GsdXrandrManager *manager, GdkWindow *parent_window)
                 gdk_window_set_transient_for (gtk_widget_get_window (timeout.dialog), parent_window);
 
         gtk_widget_show_all (timeout.dialog);
-        /* We don't use g_timeout_add_seconds() since we actually care that the user sees "real" second ticks in the dialog */
-        timeout_id = g_timeout_add (1000,
+        timeout_id = g_timeout_add_seconds (5,
                                     timeout_cb,
                                     &timeout);
         gtk_main ();
