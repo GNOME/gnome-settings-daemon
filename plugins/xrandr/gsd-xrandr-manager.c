@@ -70,7 +70,7 @@
 /* Number of seconds that the confirmation dialog will last before it resets the
  * RANDR configuration to its old state.
  */
-#define CONFIRMATION_DIALOG_SECONDS 30
+#define CONFIRMATION_DIALOG_SECONDS 15
 
 /* name of the icon files (gsd-xrandr.svg, etc.) */
 #define GSD_XRANDR_ICON_NAME "gsd-xrandr"
