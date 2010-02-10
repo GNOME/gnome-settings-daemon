@@ -735,11 +735,9 @@ make_laptop_stock_config (GnomeRRScreen *screen)
                 GnomeOutputInfo *info = rr_config->outputs[i];
 
                 if (is_laptop (info)) {
-                        if (!info->on) {
-                                if (!turn_on (screen, info, 0, 0)) {
-                                        gnome_rr_config_free (rr_config);
-                                        return NULL;
-                                }
+                        if (!turn_on (screen, info, 0, 0)) {
+                                gnome_rr_config_free (rr_config);
+                                return NULL;
                         }
                 }
                 else {
@@ -758,14 +756,8 @@ make_laptop_stock_config (GnomeRRScreen *screen)
 static int
 turn_on_and_get_rightmost_offset (GnomeRRScreen *screen, GnomeOutputInfo *info, int x)
 {
-        if (info->on) {
-                info->x = x;
-                info->y = 0;
+        if (turn_on (screen, info, x, 0))
                 x += info->width;
-        } else {
-                if (turn_on (screen, info, x, 0))
-                        x += info->width;
-        }
 
         return x;
 }
@@ -819,9 +811,8 @@ make_external_stock_config (GnomeRRScreen *screen)
                         info->on = FALSE;
                 }
                 else {
-                        if (info->connected && !info->on) {
+                        if (info->connected)
                                 turn_on (screen, info, 0, 0);
-                        }
                }
         }
 
