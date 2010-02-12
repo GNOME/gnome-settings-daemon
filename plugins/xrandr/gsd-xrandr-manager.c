@@ -1024,6 +1024,7 @@ refresh_tray_icon_menu_if_active (GsdXrandrManager *manager, guint32 timestamp)
         }
 }
 
+#if 0
 static void
 auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 {
@@ -1176,6 +1177,62 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         run_display_capplet (NULL);
 #endif
 }
+#else
+static void
+auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        GnomeRRScreen *screen = priv->rw_screen;
+        GnomeRRConfig *config;
+        int i;
+        gboolean external = FALSE;
+        GnomeOutputInfo *info;
+        GError *error = NULL;
+
+        config = gnome_rr_config_new_current (priv->rw_screen);
+
+        /* Look to see if we've any connected non-laptop screens */
+        for (i = 0; config->outputs[i] != NULL; i++) {
+                info = config->outputs[i];
+
+                if (info->connected && ! is_laptop (info)) {
+                        external = TRUE;
+                        break;
+                }
+        }
+
+        /*
+         * If we have connected non-laptop outputs, turn them on and turn the
+         * laptop off.  Otherwise just enable the laptop screen.
+         */
+        for (i = 0; config->outputs[i] != NULL; i++) {
+                info = config->outputs[i];
+
+                if (external) {
+                        if (is_laptop (info)) {
+                                info->on = FALSE;
+                        } else {
+                                if (info->connected && !info->on) {
+                                        turn_on (screen, info, 0, 0);
+                                }
+                        }
+                } else {
+                        if (is_laptop (info) && !info->on) {
+                                turn_on (screen, info, 0, 0);
+                        } else {
+                                info->on = FALSE;
+                        }
+                }
+        }
+
+        if (!gnome_rr_config_apply_with_time (config, screen, timestamp, &error)) {
+                error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
+                g_error_free (error);
+        }
+
+        gnome_rr_config_free (config);
+}
+#endif
 
 static void
 on_randr_event (GnomeRRScreen *screen, gpointer data)
