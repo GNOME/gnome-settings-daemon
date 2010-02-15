@@ -628,7 +628,8 @@ do_touchpad_action (GsdMediaKeysManager *manager)
 static void
 update_dialog (GsdMediaKeysManager *manager,
                guint vol,
-               gboolean muted)
+               gboolean muted,
+               gboolean sound_changed)
 {
         vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
         vol = CLAMP (vol, 0, 100);
@@ -641,11 +642,12 @@ update_dialog (GsdMediaKeysManager *manager,
                                           GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME);
         dialog_show (manager);
 
-        ca_gtk_play_for_widget (manager->priv->dialog, 0,
-                                CA_PROP_EVENT_ID, "audio-volume-change",
-                                CA_PROP_EVENT_DESCRIPTION, "volume changed through key press",
-                                CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
-                                NULL);
+        if (sound_changed != FALSE && muted == FALSE)
+                ca_gtk_play_for_widget (manager->priv->dialog, 0,
+                                        CA_PROP_EVENT_ID, "audio-volume-change",
+                                        CA_PROP_EVENT_DESCRIPTION, "volume changed through key press",
+                                        CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
+                                        NULL);
 }
 
 static void
@@ -655,6 +657,7 @@ do_sound_action (GsdMediaKeysManager *manager,
         gboolean muted;
         guint vol, norm_vol_step;
         int vol_step;
+        gboolean sound_changed;
 
         if (manager->priv->stream == NULL)
                 return;
@@ -671,23 +674,29 @@ do_sound_action (GsdMediaKeysManager *manager,
         /* FIXME: this is racy */
         vol = gvc_mixer_stream_get_volume (manager->priv->stream);
         muted = gvc_mixer_stream_get_is_muted (manager->priv->stream);
+        sound_changed = FALSE;
 
         switch (type) {
         case MUTE_KEY:
                 muted = !muted;
                 gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
+                sound_changed = TRUE;
                 break;
         case VOLUME_DOWN_KEY:
                 if (!muted && (vol <= norm_vol_step)) {
                         muted = !muted;
                         vol = 0;
                         gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
-                        if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE)
+                        if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE) {
                                 gvc_mixer_stream_push_volume (manager->priv->stream);
+                                sound_changed = TRUE;
+                        }
                 } else if (!muted) {
                         vol = vol - norm_vol_step;
-                        if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE)
+                        if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE) {
                                 gvc_mixer_stream_push_volume (manager->priv->stream);
+                                sound_changed = TRUE;
+                        }
                 }
                 break;
         case VOLUME_UP_KEY:
@@ -696,10 +705,13 @@ do_sound_action (GsdMediaKeysManager *manager,
                         if (vol == 0) {
                                vol = vol + norm_vol_step;
                                gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
-                               if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE)
+                               if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE) {
                                         gvc_mixer_stream_push_volume (manager->priv->stream);
+                                        sound_changed = TRUE;
+                               }
                         } else {
                                 gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
+                                sound_changed = TRUE;
                         }
                 } else {
                         if (vol < MAX_VOLUME) {
@@ -708,14 +720,16 @@ do_sound_action (GsdMediaKeysManager *manager,
                                 } else {
                                         vol = vol + norm_vol_step;
                                 }
-                                if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE)
+                                if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE) {
                                         gvc_mixer_stream_push_volume (manager->priv->stream);
+                                        sound_changed = TRUE;
+                                }
                         }
                 }
                 break;
         }
 
-        update_dialog (manager, vol, muted);
+        update_dialog (manager, vol, muted, sound_changed);
 }
 
 static void
