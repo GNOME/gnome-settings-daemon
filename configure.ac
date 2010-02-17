@@ -168,6 +168,9 @@ AC_PATH_XTRA
 
 ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS"
 
+X11_LIBS="$ALL_X_LIBS"
+AC_SUBST(X11_LIBS)
+
 dnl ---------------------------------------------------------------------------
 dnl - XInput
 dnl ---------------------------------------------------------------------------

@@ -21,6 +21,7 @@ libmouse_la_LDFLAGS = 		\
 
 libmouse_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)	\
+	$(X11_LIBS)		\
 	$(XINPUT_LIBS)
 
 plugin_in_files = mouse.gnome-settings-plugin.in
@@ -40,7 +41,9 @@ gsd_locate_pointer_CFLAGS = \
 	$(AM_CFLAGS)
 
 gsd_locate_pointer_LDADD  = 		\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(SETTINGS_PLUGIN_LIBS)		\
+	$(X11_LIBS)			\
+	-lm
 
 EXTRA_DIST = $(plugin_in_files)
 CLEANFILES = $(plugin_DATA)

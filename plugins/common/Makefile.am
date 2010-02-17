@@ -17,7 +17,7 @@ libcommon_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libcommon_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(GSD_PLUGIN_LDFLAGS) $(X11_LIBS)
 
 libcommon_la_LIBADD  = \
 	$(SETTINGS_PLUGIN_LIBS)

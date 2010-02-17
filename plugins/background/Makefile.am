@@ -22,6 +22,7 @@ test_background_CFLAGS = \
 test_background_LDADD =		\
 	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la	\
 	$(SETTINGS_PLUGIN_LIBS)	\
+	$(X11_LIBS) \
 	$(NULL)
 
 plugin_LTLIBRARIES = \

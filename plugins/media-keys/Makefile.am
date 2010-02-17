@@ -102,7 +102,8 @@ libmedia_keys_la_LIBADD  = 		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(SETTINGS_PLUGIN_LIBS)						\
-	$(XF86MISC_LIBS)
+	$(XF86MISC_LIBS)						\
+	-lm
 
 plugin_in_files = 		\
 	media-keys.gnome-settings-plugin.in
@@ -141,7 +142,8 @@ test_media_window_LDADD = \
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(XF86MISC_LIBS)			\
-	$(GST_LIBS)
+	$(GST_LIBS)				\
+	-lm
 
 test_media_keys_SOURCES =			\
 	gsd-media-keys-manager.c		\
@@ -171,7 +173,8 @@ test_media_keys_LDADD = \
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(XF86MISC_LIBS)			\
-	$(GST_LIBS)
+	$(GST_LIBS)				\
+	-lm
 
 if HAVE_PULSE
 test_media_keys_LDADD += $(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la
