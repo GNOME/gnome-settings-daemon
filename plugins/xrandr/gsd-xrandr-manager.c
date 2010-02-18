@@ -492,7 +492,8 @@ is_laptop (GnomeOutputInfo *output)
         if (output->connected && output_name &&
             (strstr (output_name, "lvds")	||
              strstr (output_name, "LVDS")	||
-             strstr (output_name, "Lvds")))
+             strstr (output_name, "Lvds")       ||
+             strstr (output_name, "LCD")))
         {
                 return TRUE;
         }
