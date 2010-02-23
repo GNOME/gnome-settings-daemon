@@ -12,6 +12,7 @@ enabled_plugins =	\
 	media-keys	\
 	mouse		\
 	sound		\
+	wacom		\
 	xrandr		\
 	xsettings	\
 	$(NULL)

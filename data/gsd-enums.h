@@ -82,4 +82,12 @@ typedef enum
   GSD_XRANDR_BOOT_BEHAVIOUR_DOCK
 } GsdXrandrBootBehaviour;
 
+typedef enum
+{
+  GSD_WACOM_ROTATION_NONE,
+  GSD_WACOM_ROTATION_CW,
+  GSD_WACOM_ROTATION_CCW,
+  GSD_WACOM_ROTATION_HALF
+} GsdWacomRotation;
+
 #endif /* __gsd_enums_h__ */

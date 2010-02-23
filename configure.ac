@@ -453,6 +453,7 @@ plugins/media-keys/cut-n-paste/Makefile
 plugins/mouse/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
+plugins/wacom/Makefile
 plugins/xrandr/Makefile
 plugins/xsettings/Makefile
 data/Makefile
@@ -467,6 +468,7 @@ data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in
+data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in
 po/Makefile.in
 ])
 
