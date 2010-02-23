@@ -186,19 +186,6 @@ AM_CONDITIONAL(HAVE_XINPUT, [test $have_xinput = yes])
 AC_SUBST(XINPUT_LIBS)
 
 dnl ---------------------------------------------------------------------------
-dnl - XRandR
-dnl ---------------------------------------------------------------------------
-
-have_randr=no
-AC_CHECK_X_LIB(Xrandr, XRRUpdateConfiguration,
-  [AC_CHECK_X_HEADERS(X11/extensions/Xrandr.h,
-     have_randr=yes
-     RANDR_LIBS="-lXrandr -lXrender",
-	  :, [#include <X11/Xlib.h>])], : ,
-       -lXrandr -lXrender $x_libs)
-AC_SUBST(RANDR_LIBS)
-
-dnl ---------------------------------------------------------------------------
 dnl - Fontconfig
 dnl ---------------------------------------------------------------------------
 

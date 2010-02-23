@@ -61,8 +61,7 @@ libxrandr_la_LDFLAGS = 			\
 
 libxrandr_la_LIBADD  =			\
 	$(SETTINGS_PLUGIN_LIBS)		\
-	$(LIBNOTIFY_LIBS)		\
-	$(RANDR_LIBS)
+	$(LIBNOTIFY_LIBS)
 
 plugin_in_files =			\
 	xrandr.gnome-settings-plugin.in

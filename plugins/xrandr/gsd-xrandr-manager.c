@@ -45,10 +45,6 @@
 #include <libgnomeui/gnome-rr.h>
 #include <libgnomeui/gnome-rr-labeler.h>
 
-#ifdef HAVE_X11_EXTENSIONS_XRANDR_H
-#include <X11/extensions/Xrandr.h>
-#endif
-
 #ifdef HAVE_LIBNOTIFY
 #include <libnotify/notify.h>
 #endif
