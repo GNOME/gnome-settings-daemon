@@ -485,20 +485,12 @@ gsd_xrandr_manager_2_apply_configuration (GsdXrandrManager *manager,
 #include "gsd-xrandr-manager-glue.h"
 
 static gboolean
-is_laptop (GnomeOutputInfo *output)
+is_laptop (GnomeRRScreen *screen, GnomeOutputInfo *output)
 {
-        const char *output_name = output->name;
+        GnomeRROutput *rr_output;
 
-        if (output->connected && output_name &&
-            (strstr (output_name, "lvds")	||
-             strstr (output_name, "LVDS")	||
-             strstr (output_name, "Lvds")       ||
-             strstr (output_name, "LCD")))
-        {
-                return TRUE;
-        }
-
-        return FALSE;
+        rr_output = gnome_rr_screen_get_output_by_name (screen, output->name);
+        return gnome_rr_output_is_laptop (rr_output);
 }
 
 static gboolean
@@ -697,7 +689,7 @@ make_laptop_setup (GnomeRRScreen *screen)
         for (i = 0; result->outputs[i] != NULL; ++i) {
                 GnomeOutputInfo *info = result->outputs[i];
 
-                if (is_laptop (info)) {
+                if (is_laptop (screen, info)) {
                         if (!turn_on (screen, info, 0, 0)) {
                                 gnome_rr_config_free (result);
                                 result = NULL;
@@ -741,14 +733,14 @@ make_xinerama_setup (GnomeRRScreen *screen)
         for (i = 0; result->outputs[i] != NULL; ++i) {
                 GnomeOutputInfo *info = result->outputs[i];
 
-                if (is_laptop (info))
+                if (is_laptop (screen, info))
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
         for (i = 0; result->outputs[i] != NULL; ++i) {
                 GnomeOutputInfo *info = result->outputs[i];
 
-                if (info->connected && !is_laptop (info))
+                if (info->connected && !is_laptop (screen, info))
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
@@ -770,7 +762,7 @@ make_other_setup (GnomeRRScreen *screen)
         for (i = 0; result->outputs[i] != NULL; ++i) {
                 GnomeOutputInfo *info = result->outputs[i];
 
-                if (is_laptop (info)) {
+                if (is_laptop (screen, info)) {
                         info->on = FALSE;
                 }
                 else {
@@ -1020,7 +1012,7 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
 }
 
 static GnomeOutputInfo *
-get_laptop_output_info (GnomeRRConfig *config)
+get_laptop_output_info (GnomeRRScreen *screen, GnomeRRConfig *config)
 {
         int i;
 
@@ -1028,7 +1020,7 @@ get_laptop_output_info (GnomeRRConfig *config)
                 GnomeOutputInfo *info;
 
                 info = config->outputs[i];
-                if (is_laptop (info))
+                if (is_laptop (screen, info))
                         return info;
         }
 
@@ -1100,7 +1092,7 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
 
         current = gnome_rr_config_new_current (screen);
 
-        rotatable_output_info = get_laptop_output_info (current);
+        rotatable_output_info = get_laptop_output_info (screen, current);
         if (rotatable_output_info == NULL) {
                 g_debug ("No laptop outputs found to rotate; XF86RotateWindows key will do nothing");
                 goto out;
