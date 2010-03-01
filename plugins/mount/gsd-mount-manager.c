@@ -122,8 +122,8 @@ mount_added_cb (GVolumeMonitor *monitor,
 
         g_debug ("%s mounted, starting file manager", uri);
 
-        /* TODO: error */
-        gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, NULL);
+        /* TODO: some sort of dialog */
+        /* gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, NULL); */
 
         g_free (uri);
         g_object_unref (file);
