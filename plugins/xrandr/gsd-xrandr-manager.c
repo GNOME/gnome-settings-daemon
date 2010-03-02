@@ -749,9 +749,8 @@ make_laptop_stock_config (GnomeRRScreen *screen)
 
                 if (is_laptop (screen, info)) {
                         if (!turn_on (screen, info, 0, 0)) {
-                                gnome_rr_config_free (result);
-                                result = NULL;
-                                break;
+                                gnome_rr_config_free (rr_config);
+                                return NULL;
                         }
                 }
                 else {
