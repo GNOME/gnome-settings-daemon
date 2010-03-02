@@ -66,6 +66,7 @@
 #define KEY_TAP_TO_CLICK        GCONF_TOUCHPAD_DIR "/tap_to_click"
 #define KEY_SCROLL_METHOD       GCONF_TOUCHPAD_DIR "/scroll_method"
 #define KEY_PAD_HORIZ_SCROLL    GCONF_TOUCHPAD_DIR "/horiz_scroll_enabled"
+#define KEY_TOUCHPAD_ENABLED    GCONF_TOUCHPAD_DIR "/touchpad_enabled"
 
 struct GsdMouseManagerPrivate
 {
@@ -261,6 +262,36 @@ xinput_device_has_buttons (XDeviceInfo *device_info)
         return FALSE;
 }
 
+static gboolean
+touchpad_has_single_button (XDevice *device)
+{
+        Atom type, prop;
+        int format;
+        unsigned long nitems, bytes_after;
+        unsigned char *data;
+        gboolean is_single_button = FALSE;
+        int rc;
+
+        prop = XInternAtom (GDK_DISPLAY (), "Synaptics Capabilities", False);
+        if (!prop)
+                return FALSE;
+
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY (), device, prop, 0, 1, False,
+                                XA_INTEGER, &type, &format, &nitems,
+                                &bytes_after, &data);
+        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 3)
+                is_single_button = (data[0] == 1 && data[1] == 0 && data[2] == 0);
+
+        if (rc == Success)
+                XFree (data);
+
+        gdk_error_trap_pop ();
+
+        return is_single_button;
+}
+
+
 static void
 set_xinput_devices_left_handed (gboolean left_handed)
 {
@@ -292,11 +323,15 @@ set_xinput_devices_left_handed (gboolean left_handed)
                 if (device != NULL) {
                         GConfClient *client = gconf_client_get_default ();
                         gboolean tap = gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL);
+                        gboolean single_button = touchpad_has_single_button (device);
 
-                        if (tap)
+                        if (tap && !single_button)
                                 set_tap_to_click (tap, left_handed);
                         XCloseDevice (GDK_DISPLAY (), device);
                         g_object_unref (client);
+
+                        if (single_button)
+                            continue;
                 }
 
                 gdk_error_trap_push ();
@@ -723,6 +758,44 @@ set_edge_scroll (int method)
         return 0;
 }
 
+static int
+set_touchpad_enabled (gboolean state)
+{
+        int numdevices, i;
+        XDeviceInfo *devicelist = XListInputDevices (GDK_DISPLAY (), &numdevices);
+        XDevice *device;
+        Atom prop_enabled;
+
+        if (devicelist == NULL)
+                return 0;
+
+        prop_enabled = XInternAtom (GDK_DISPLAY (), "Device Enabled", False);
+
+        if (!prop_enabled)
+            return 0;
+
+        for (i = 0; i < numdevices; i++) {
+                if ((device = device_is_touchpad (devicelist[i]))) {
+                        unsigned char data = state;
+                        gdk_error_trap_push ();
+                        XChangeDeviceProperty (GDK_DISPLAY (), device,
+                                               prop_enabled, XA_INTEGER, 8,
+                                               PropModeReplace, &data, 1);
+                        XCloseDevice (GDK_DISPLAY (), device);
+                        gdk_flush ();
+                        if (gdk_error_trap_pop ()) {
+                                g_warning ("Error %s device \"%s\"",
+                                           (state) ? "enabling" : "disabling",
+                                           devicelist[i].name);
+                                continue;
+                        }
+                }
+        }
+
+        XFreeDeviceList (devicelist);
+        return 0;
+}
+
 static void
 set_locate_pointer (GsdMouseManager *manager,
                     gboolean         state)
@@ -828,6 +901,7 @@ set_mouse_settings (GsdMouseManager *manager)
         set_tap_to_click (gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL), left_handed);
         set_edge_scroll (gconf_client_get_int (client, KEY_SCROLL_METHOD, NULL));
         set_horiz_scroll (gconf_client_get_bool (client, KEY_PAD_HORIZ_SCROLL, NULL));
+        set_touchpad_enabled (gconf_client_get_bool (client, KEY_TOUCHPAD_ENABLED, NULL));
 
         g_object_unref (client);
 }
@@ -869,6 +943,10 @@ mouse_callback (GConfClient        *client,
         } else if (! strcmp (entry->key, KEY_LOCATE_POINTER)) {
                 if (entry->value->type == GCONF_VALUE_BOOL) {
                         set_locate_pointer (manager, gconf_value_get_bool (entry->value));
+                }
+        } else if (! strcmp (entry->key, KEY_TOUCHPAD_ENABLED)) {
+                if (entry->value->type == GCONF_VALUE_BOOL) {
+                    set_touchpad_enabled (gconf_value_get_bool (entry->value));
                 }
         } else if (! strcmp (entry->key, KEY_DWELL_ENABLE)) {
                 if (entry->value->type == GCONF_VALUE_BOOL) {
@@ -941,6 +1019,7 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                           gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
         set_edge_scroll (gconf_client_get_int (client, KEY_SCROLL_METHOD, NULL));
         set_horiz_scroll (gconf_client_get_bool (client, KEY_PAD_HORIZ_SCROLL, NULL));
+        set_touchpad_enabled (gconf_client_get_bool (client, KEY_TOUCHPAD_ENABLED, NULL));
 
         g_object_unref (client);
 

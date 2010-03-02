@@ -49,10 +49,6 @@
 #include <libgnomeui/gnome-rr.h>
 #include <libgnomeui/gnome-rr-labeler.h>
 
-#ifdef HAVE_X11_EXTENSIONS_XRANDR_H
-#include <X11/extensions/Xrandr.h>
-#endif
-
 #ifdef HAVE_LIBNOTIFY
 #include <libnotify/notify.h>
 #endif
@@ -197,7 +193,9 @@ show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
 #endif
 }
 
-/* Optionally filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from
+/* This function centralizes the use of gnome_rr_config_apply_from_filename_with_time().
+ *
+ * Optionally filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from
  * gnome_rr_config_apply_from_filename_with_time(), since that is not usually an error.
  */
 static gboolean
@@ -235,6 +233,28 @@ apply_configuration_from_filename (GsdXrandrManager *manager,
 fail:
         g_propagate_error (error, my_error);
         return FALSE;
+}
+
+/* This function centralizes the use of gnome_rr_config_apply_with_time().
+ *
+ * Applies a configuration and displays an error message if an error happens.
+ * We just return whether setting the configuration succeeded.
+ */
+static gboolean
+apply_configuration_and_display_error (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        GError *error;
+        gboolean success;
+
+        error = NULL;
+        success = gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, &error);
+        if (!success) {
+                error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
+                g_error_free (error);
+        }
+
+        return success;
 }
 
 static void
@@ -492,19 +512,12 @@ gsd_xrandr_manager_2_apply_configuration (GsdXrandrManager *manager,
 #include "gsd-xrandr-manager-glue.h"
 
 static gboolean
-is_laptop (GnomeOutputInfo *output)
+is_laptop (GnomeRRScreen *screen, GnomeOutputInfo *output)
 {
-        const char *output_name = output->name;
+        GnomeRROutput *rr_output;
 
-        if (output->connected && output_name &&
-            (strstr (output_name, "lvds")	||
-             strstr (output_name, "LVDS")	||
-             strstr (output_name, "Lvds")))
-        {
-                return TRUE;
-        }
-
-        return FALSE;
+        rr_output = gnome_rr_screen_get_output_by_name (screen, output->name);
+        return gnome_rr_output_is_laptop (rr_output);
 }
 
 static gboolean
@@ -734,10 +747,11 @@ make_laptop_stock_config (GnomeRRScreen *screen)
         for (i = 0; rr_config->outputs[i] != NULL; ++i) {
                 GnomeOutputInfo *info = rr_config->outputs[i];
 
-                if (is_laptop (info)) {
+                if (is_laptop (screen, info)) {
                         if (!turn_on (screen, info, 0, 0)) {
-                                gnome_rr_config_free (rr_config);
-                                return NULL;
+                                gnome_rr_config_free (result);
+                                result = NULL;
+                                break;
                         }
                 }
                 else {
@@ -778,14 +792,14 @@ make_extended_stock_config (GnomeRRScreen *screen)
 
                 /* FIXME: pick the primary output or the laptop as the leftmost one */
 
-                if (is_laptop (info))
+                if (is_laptop (screen, info))
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
         for (i = 0; rr_config->outputs[i] != NULL; ++i) {
                 GnomeOutputInfo *info = rr_config->outputs[i];
 
-                if (info->connected && !is_laptop (info))
+                if (info->connected && !is_laptop (screen, info))
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
@@ -807,7 +821,7 @@ make_external_stock_config (GnomeRRScreen *screen)
         for (i = 0; rr_config->outputs[i] != NULL; ++i) {
                 GnomeOutputInfo *info = rr_config->outputs[i];
 
-                if (is_laptop (info)) {
+                if (is_laptop (screen, info)) {
                         info->on = FALSE;
                 }
                 else {
@@ -1274,11 +1288,7 @@ handle_stock_config_hotkey (GsdXrandrManager *mgr, guint32 timestamp)
 
                 g_debug ("applying");
 
-                error = NULL;
-                if (!gnome_rr_config_apply_with_time (priv->stock_configs[mgr->priv->current_stock_config]->rr_config, screen, timestamp, &error)) {
-                        error_message (mgr, _("Could not switch the monitor configuration"), error, NULL);
-                        g_error_free (error);
-                }
+                apply_configuration_and_display_error (mgr, priv->stock_configs[mgr->priv->current_stock_config]->rr_config, timestamp);
         }
         else {
                 g_debug ("no configurations generated");
@@ -1288,7 +1298,7 @@ handle_stock_config_hotkey (GsdXrandrManager *mgr, guint32 timestamp)
 }
 
 static GnomeOutputInfo *
-get_laptop_output_info (GnomeRRConfig *config)
+get_laptop_output_info (GnomeRRScreen *screen, GnomeRRConfig *config)
 {
         int i;
 
@@ -1296,7 +1306,7 @@ get_laptop_output_info (GnomeRRConfig *config)
                 GnomeOutputInfo *info;
 
                 info = config->outputs[i];
-                if (is_laptop (info))
+                if (is_laptop (screen, info))
                         return info;
         }
 
@@ -1357,7 +1367,6 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
         GsdXrandrManagerPrivate *priv = mgr->priv;
         GnomeRRScreen *screen = priv->rw_screen;
         GnomeRRConfig *current;
-        GError *error;
         GnomeOutputInfo *rotatable_output_info;
         int num_allowed_rotations;
         GnomeRRRotation allowed_rotations;
@@ -1369,7 +1378,7 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
 
         current = gnome_rr_config_new_current (screen);
 
-        rotatable_output_info = get_laptop_output_info (current);
+        rotatable_output_info = get_laptop_output_info (screen, current);
         if (rotatable_output_info == NULL) {
                 g_debug ("No laptop outputs found to rotate; XF86RotateWindows key will do nothing");
                 goto out;
@@ -1389,11 +1398,7 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
 
         rotatable_output_info->rotation = next_rotation;
 
-        error = NULL;
-        if (!gnome_rr_config_apply_with_time (current, screen, timestamp, &error)) {
-                error_message (mgr, _("Could not switch the monitor configuration"), error, NULL);
-                g_error_free (error);
-        }
+        apply_configuration_and_display_error (mgr, current, timestamp);
 
 out:
         gnome_rr_config_free (current);
@@ -1561,13 +1566,8 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 
         /* Apply the configuration! */
 
-        if (applicable) {
-                error = NULL;
-                if (!gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, &error)) {
-                        error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
-                        g_error_free (error);
-                }
-        }
+        if (applicable)
+                apply_configuration_and_display_error (manager, config, timestamp);
 
         g_list_free (just_turned_on);
         gnome_rr_config_free (config);

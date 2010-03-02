@@ -27,6 +27,7 @@
 #define GCONF_MISC_DIR "/apps/gnome_settings_daemon"
 
 enum {
+        TOUCHPAD_KEY,
         MUTE_KEY,
         VOLUME_DOWN_KEY,
         VOLUME_UP_KEY,
@@ -53,6 +54,7 @@ static struct {
         const char *gconf_key;
         Key *key;
 } keys[HANDLED_KEYS] = {
+        { TOUCHPAD_KEY, GCONF_BINDING_DIR "/touchpad", NULL },
         { MUTE_KEY, GCONF_BINDING_DIR "/volume_mute",NULL },
         { VOLUME_DOWN_KEY, GCONF_BINDING_DIR "/volume_down", NULL },
         { VOLUME_UP_KEY, GCONF_BINDING_DIR "/volume_up", NULL },

@@ -5,7 +5,7 @@ m4_define([gsd_api_version_minor],[0])
 m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])
 
 AC_INIT([gnome-settings-daemon],
-        [2.28.1],
+        [2.29.91],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
@@ -49,7 +49,7 @@ GLIB_REQUIRED_VERSION=2.17.3
 GTK_REQUIRED_VERSION=2.16.0
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.17.3
-GNOME_DESKTOP_REQUIRED_VERSION=2.26.3
+GNOME_DESKTOP_REQUIRED_VERSION=2.29.92
 LIBNOTIFY_REQUIRED_VERSION=0.4.3
 
 EXTRA_COMPILE_WARNINGS(yes)
@@ -59,6 +59,7 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
         gtk+-2.0 >= $GTK_REQUIRED_VERSION
         gconf-2.0 >= $GCONF_REQUIRED_VERSION
         gmodule-2.0
+        gthread-2.0
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
 )
 
@@ -185,19 +186,6 @@ AM_CONDITIONAL(HAVE_XINPUT, [test $have_xinput = yes])
 AC_SUBST(XINPUT_LIBS)
 
 dnl ---------------------------------------------------------------------------
-dnl - XRandR
-dnl ---------------------------------------------------------------------------
-
-have_randr=no
-AC_CHECK_X_LIB(Xrandr, XRRUpdateConfiguration,
-  [AC_CHECK_X_HEADERS(X11/extensions/Xrandr.h,
-     have_randr=yes
-     RANDR_LIBS="-lXrandr -lXrender",
-	  :, [#include <X11/Xlib.h>])], : ,
-       -lXrandr -lXrender $x_libs)
-AC_SUBST(RANDR_LIBS)
-
-dnl ---------------------------------------------------------------------------
 dnl - Fontconfig
 dnl ---------------------------------------------------------------------------
 
@@ -220,7 +208,7 @@ AC_CHECK_X_LIB(Xxf86misc, XF86MiscQueryExtension, [
 AC_SUBST(XF86MISC_LIBS)
 AC_CHECK_X_HEADERS([X11/extensions/XKB.h])
 
-PKG_CHECK_MODULES(LIBGNOMEKBDUI, [libgnomekbdui >= 2.29.5 libgnomekbd >= 2.29.5 libxklavier >= 4.0])
+PKG_CHECK_MODULES(LIBGNOMEKBDUI, [libgnomekbdui >= 2.29.5 libgnomekbd >= 2.29.5 libxklavier >= 5.0])
 AC_SUBST(LIBGNOMEKBDUI_CFLAGS)
 AC_SUBST(LIBGNOMEKBDUI_LIBS)
 
@@ -290,7 +278,7 @@ AC_ARG_ENABLE(more-warnings,
 	[AC_HELP_STRING([--enable-more-warnings],
 	[Maximum compiler warnings])],
 	set_more_warnings="$enableval",[
-        	if test -d $srcdir/.svn; then
+        	if test -d $srcdir/.git; then
         		set_more_warnings=yes
               	else
                   	set_more_warnings=no

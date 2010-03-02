@@ -13,11 +13,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-11-28 03:00+0000\n"
-"PO-Revision-Date: 2009-11-30 21:39+0800\n"
-"Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-19 18:35+0800\n"
+"PO-Revision-Date: 2010-01-03 16:45+0700\n"
+"Last-Translator: 甘露(Gan Lu) <rhythm.gan@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,127 +29,130 @@ msgstr "辅助功能"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
 msgid "Free percentage notify threshold"
-msgstr ""
+msgstr "触发通知的最低可用百分比"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
 msgid "Free space no notify threshold"
-msgstr ""
+msgstr "不触发通知的最低可用空间"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
 msgid "Minimum notify period for repeated warnings"
-msgstr ""
+msgstr "重复警示的最小通知周期"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
 msgid "Mount paths to ignore"
-msgstr ""
+msgstr "要忽略的挂载路径"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown"
 msgstr ""
+"触发低硬盘空间初次警示的最低可用空间百分比。如果可用空间的百分比低于该值，将"
+"显示一个警示"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
 msgid "Specify a list of mount paths to ignore when they run low on space."
-msgstr ""
+msgstr "指定当运行在低硬盘空间时要忽略的挂载路径清单"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
-msgstr ""
+msgstr "以分钟为单位指定某个时间。该周期内不会多次显示某个卷的后续警示。"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown"
-msgstr ""
+msgstr "以 GB 为单位指定某个量。如果可用空间超过该值，将不再显示警示。"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning"
-msgstr ""
+msgstr "在发布一个后续警示之前，指定应减少的可用硬盘空间百分比。"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
 msgid "Subsequent free percentage notify threshold"
-msgstr ""
+msgstr "触发通知的最低后续可用空间百分比"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
 msgstr "弹出光盘的键绑定。"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
+#, fuzzy
+msgid "Binding to enable or disable the touchpad."
+msgstr "升高系统音量的键绑定。"
+
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
 msgid "Binding to launch the calculator."
 msgstr "调用计算器的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
 msgid "Binding to launch the email client."
 msgstr "调用电子邮件客户端的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
 msgid "Binding to launch the help browser."
 msgstr "调用帮助浏览器的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
 msgid "Binding to launch the media player."
 msgstr "调用媒体播放机的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
 msgid "Binding to launch the search tool."
 msgstr "调用搜索工具的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
 msgid "Binding to launch the web browser."
 msgstr "调用网际浏览器的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
 msgid "Binding to lock the screen."
 msgstr "锁住屏幕的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
 msgid "Binding to log out."
 msgstr "注销的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
 msgid "Binding to lower the system volume."
 msgstr "降低系统音量的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
 msgid "Binding to mute the system volume."
 msgstr "使系统静音的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
 msgid "Binding to open the Home folder."
 msgstr "打开家目录的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
 msgid "Binding to pause playback."
 msgstr "暂停播放的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
 msgid "Binding to raise the system volume."
 msgstr "升高系统音量的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
 msgid "Binding to skip to next track."
 msgstr "跳到下一音轨的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
 msgid "Binding to skip to previous track."
 msgstr "跳到上一音轨的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "开始回放或切换 播放/暂停 的键绑定。"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
 msgid "Binding to stop playback."
 msgstr "停止回放的键绑定。"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
-msgid "Binding to suspend the computer."
-msgstr "挂起计算机的键绑定。"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:20
 msgid "Eject"
@@ -213,8 +215,8 @@ msgid "Stop playback"
 msgstr "停止回放"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:35
-msgid "Suspend"
-msgstr "挂起"
+msgid "Toggle touchpad"
+msgstr ""
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:36
 msgid "Volume down"
@@ -321,31 +323,42 @@ msgid "Enable mouse clicks with touchpad"
 msgstr "使用触摸板启用鼠标点击"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
+#, fuzzy
+msgid "Enable touchpad"
+msgstr "使用触摸板启用鼠标点击"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
 msgid "Select the touchpad scroll method"
 msgstr "选择触摸板滚动模式"
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
 msgid ""
 "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
 "edge scrolling, 2 - two-finger scrolling"
-msgstr ""
+msgstr "选择触摸板卷页模式。支持的值有：0 - 禁止，1 - 边界卷页，2 - 双指卷页"
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
-msgstr ""
+msgstr "如果你打字时会因偶尔会碰到触摸板而造成麻烦，将其设置为真(TRUE)。"
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
 msgstr ""
+"设置为真(TRUE)，即启用水平卷页且使用与 scroll_method 键值选定的同种方式。"
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:9
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
-msgstr ""
+msgstr "设置为真(TRUE)，即可在轻敲触摸板时发送鼠标点击信息。"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
+#, fuzzy
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "设置为真(TRUE)，即可在轻敲触摸板时发送鼠标点击信息。"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -528,8 +541,6 @@ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "切换屏幕键盘的快捷键名称"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:44
-#, fuzzy
-#| msgid "The name of the keyboard shortcut to toggle the screenreader"
 msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "切换屏幕阅读器的快捷键名称"
 
@@ -549,16 +560,12 @@ msgstr ""
 "中。"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:47
-#, fuzzy
-#| msgid ""
-#| "This is the name of the keyboard shortcut to toggle the screenreader. "
-#| "This name will be shown in the keyboard shortcut preferences dialog."
 msgid ""
 "This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
-"这是用于切换屏幕阅读器的键盘快捷键名称。此名称将显示在键盘快捷键首选项对话框"
-"中。"
+"这是用于切换屏幕阅读器的键盘快捷键名称。此名称将显示在键盘快捷键的首选项对话"
+"框中。"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
@@ -600,17 +607,21 @@ msgstr "是否已打开迟缓按键键盘辅助功能。"
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "是否已打开粘滞键键盘辅助功能。"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Enable debugging code"
 msgstr "启用调试代码"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../gnome-settings-daemon/main.c:56
 msgid "Don't become a daemon"
 msgstr "不要成为守护进程"
 
-#: ../gnome-settings-daemon/main.c:56
+#: ../gnome-settings-daemon/main.c:57
 msgid "GConf prefix from which to load plugin settings"
 msgstr "加载插件设置所需 GConf 的前缀"
+
+#: ../gnome-settings-daemon/main.c:58
+msgid "Exit after a time - for debugging"
+msgstr ""
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -756,7 +767,7 @@ msgstr "忽略快速重复按键(回键)(_I)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr "请一次一个的按键盘快捷键(粘滞键)(_P)"
+msgstr "请一次一个的按下键盘快捷键(粘滞键)(_P)"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -792,7 +803,7 @@ msgstr "字体插件"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
 msgid "Don't show any warnings again for this filesystem"
-msgstr ""
+msgstr "不再为该文件系统显示任何警示"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again"
@@ -801,36 +812,41 @@ msgstr "不再显示任何警告"
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr ""
+msgstr "卷 \"%s\" 仅剩余 %s 硬盘空间。"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
 #, c-format
 msgid "This computer has only %s disk space remaining."
-msgstr ""
+msgstr "本计算机仅剩余 %s 硬盘空间。"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
 msgstr ""
+"你可以通过清空回收站，删除无用程序或文件，或者将文件移动到另外的硬盘或分区来"
+"增加可用的硬盘空间。"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
 msgstr ""
+"你可以通过删除无用程序或文件，或者移动文件到另外的磁盘或分区来增加磁盘空间。"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
 msgstr ""
+"你可以通过清空回收站，删除无用程序或文件，或者移动文件到外部的磁盘来增加磁盘"
+"空间。"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
-msgstr ""
+msgstr "你可以通过删除无用程序或文件，或者移动文件到外部的磁盘来增加磁盘空间。"
 
 #. Set up all the window stuff here
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
@@ -852,7 +868,7 @@ msgstr "忽略"
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
 #, c-format
 msgid "Removing item %lu of %lu"
-msgstr ""
+msgstr "正在删除 %lu 项目，共 %lu"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
 #, c-format
@@ -874,13 +890,15 @@ msgstr "来自："
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
 msgid "Empty all of the items from the trash?"
-msgstr ""
+msgstr "删除回收站里的所有项目？"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
 msgstr ""
+"如果你选择清空回收站，里面所有的项目都将永久丢失。请注意你也可以分别删除这些"
+"项目。"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
 msgid "_Empty Trash"
@@ -921,6 +939,54 @@ msgstr "键盘"
 msgid "Keyboard plugin"
 msgstr "键盘插件"
 
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:112
+#, c-format
+msgid ""
+"Error activating XKB configuration.\n"
+"It can happen under various circumstances:\n"
+"- a bug in libxklavier library\n"
+"- a bug in X server (xkbcomp, xmodmap utilities)\n"
+"- X server with incompatible libxkbfile implementation\n"
+"\n"
+"X server version data:\n"
+"%s\n"
+"%d\n"
+"%s\n"
+"If you report this situation as a bug, please include:\n"
+"- The result of <b>%s</b>\n"
+"- The result of <b>%s</b>"
+msgstr ""
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:126
+msgid ""
+"You are using XFree 4.3.0.\n"
+"There are known problems with complex XKB configurations.\n"
+"Try using a simpler configuration or taking a fresher version of XFree "
+"software."
+msgstr ""
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:197
+msgid "Unknown"
+msgstr ""
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:266
+#, fuzzy, c-format
+msgid "Keyboard Layout \"%s\""
+msgstr "键盘布局"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:389
+msgid "_Groups"
+msgstr ""
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:396
+#, fuzzy
+msgid "Keyboard _Preferences"
+msgstr "鼠标首选项"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
+msgid "Show Current _Layout"
+msgstr ""
+
 #: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
 msgstr "可用文件(_V)："
@@ -945,13 +1011,17 @@ msgstr "载入(_L)"
 msgid "_Loaded files:"
 msgstr "载入的文件(_L)："
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:204
+#: ../plugins/keyboard/show-layout.ui.h:1
+msgid "Keyboard Layout"
+msgstr "键盘布局"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:200
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
 msgstr "无法获得默认终端。请检查您的默认终端是否已设置，并指向有效的应用程序。"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:244
+#: ../plugins/media-keys/gsd-media-keys-manager.c:240
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -960,7 +1030,7 @@ msgstr ""
 "无法执行命令：%s\n"
 "请检查此命令是否有效。"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:260
+#: ../plugins/media-keys/gsd-media-keys-manager.c:256
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -1002,16 +1072,16 @@ msgstr "媒体键"
 msgid "Media keys plugin"
 msgstr "媒体键插件"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:801
+#: ../plugins/mouse/gsd-mouse-manager.c:874
 msgid "Could not enable mouse accessibility features"
 msgstr "不能启用鼠标快捷键功能"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:803
+#: ../plugins/mouse/gsd-mouse-manager.c:876
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "鼠标辅助功能需要在您的系统中安装 mousetweaks。"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:806
+#: ../plugins/mouse/gsd-mouse-manager.c:879
 msgid "Mouse Preferences"
 msgstr "鼠标首选项"
 
@@ -1040,84 +1110,82 @@ msgid "XRandR"
 msgstr "XRandR"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:226
+msgid "Could not switch the monitor configuration"
+msgstr "无法改变显示器配置"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:250
 msgid "Could not restore the display's configuration"
 msgstr "无法恢复显示配置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:251
+#: ../plugins/xrandr/gsd-xrandr-manager.c:275
 msgid "Could not restore the display's configuration from a backup"
 msgstr "无法从备份中恢复显示配置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:272
+#: ../plugins/xrandr/gsd-xrandr-manager.c:296
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "显示将会在 %d 秒内恢复之前的配置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:321
+#: ../plugins/xrandr/gsd-xrandr-manager.c:345
 msgid "Does the display look OK?"
 msgstr "显示是否正常？"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:327
+#: ../plugins/xrandr/gsd-xrandr-manager.c:351
 msgid "_Restore Previous Configuration"
 msgstr "恢复之前的配置(_R)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:328
+#: ../plugins/xrandr/gsd-xrandr-manager.c:352
 msgid "_Keep This Configuration"
 msgstr "保持当前配置(_K)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:409
+#: ../plugins/xrandr/gsd-xrandr-manager.c:433
 msgid "The selected configuration for displays could not be applied"
 msgstr "无法为显示应用选定的配置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:963
+#: ../plugins/xrandr/gsd-xrandr-manager.c:979
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "无法刷新屏幕信息：%s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:966
+#: ../plugins/xrandr/gsd-xrandr-manager.c:982
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "正在尝试改变显示器配置。"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1000
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1114
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1281
-msgid "Could not switch the monitor configuration"
-msgstr "无法改变显示器配置"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1689
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1691
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>旋转不支持</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1743
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1745
 msgid "Could not save monitor configuration"
 msgstr "无法保存显示器配置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1761
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1763
 msgid "Normal"
 msgstr "普通"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1762
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1764
 msgid "Left"
 msgstr "左"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1763
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1765
 msgid "Right"
 msgstr "右"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1764
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1766
 msgid "Upside Down"
 msgstr "上下倒置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1884
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1886
 msgid "_Configure Display Settings ..."
 msgstr "配置显示设置(_C)..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1925
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1927
 msgid "Configure display settings"
 msgstr "配置显示设置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1982
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1984
 msgid "Could not apply the stored configuration for monitors"
 msgstr "无法应用原保存的显示器配置。"
 
@@ -1146,6 +1214,12 @@ msgstr "管理 X 设置"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X 设置"
+
+#~ msgid "Binding to suspend the computer."
+#~ msgstr "挂起计算机的键绑定。"
+
+#~ msgid "Suspend"
+#~ msgstr "挂起"
 
 #~ msgid "GNOME Volume Control"
 #~ msgstr "GNOME 音量控制"

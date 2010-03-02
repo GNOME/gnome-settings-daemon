@@ -539,8 +539,8 @@ filter_xkb_config (void)
 					current_kbd_config.layouts_variants
 					    =
 					    g_slist_delete_link
-					    (current_kbd_config.
-					     layouts_variants, filtered);
+					    (current_kbd_config.layouts_variants,
+					     filtered);
 					any_change = TRUE;
 					continue;
 				}
@@ -588,7 +588,7 @@ apply_xkb_settings (void)
 		GSList *found_node;
 		int max_groups;
 
-		max_groups = xkl_engine_get_max_num_groups (xkl_engine);
+		max_groups = MAX (xkl_engine_get_max_num_groups (xkl_engine), 1);
 		layouts = gconf_client_get_list (conf_client,
 						 GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
 						 GCONF_VALUE_STRING, NULL);
@@ -892,7 +892,9 @@ gsd_keyboard_xkb_shutdown (void)
 	if (!inited_ok)
 		return;
 
-	xkl_engine_stop_listen (xkl_engine);
+	xkl_engine_stop_listen (xkl_engine,
+				XKLL_MANAGE_LAYOUTS |
+				XKLL_MANAGE_WINDOW_STATES);
 
 	gdk_window_remove_filter (NULL, (GdkFilterFunc)
 				  gsd_keyboard_xkb_evt_filter, NULL);
