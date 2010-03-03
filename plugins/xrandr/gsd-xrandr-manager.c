@@ -588,7 +588,7 @@ stock_config_free (StockConfig *config)
         g_slice_free (StockConfig, config);
 }
 
-StockConfig *
+static StockConfig *
 stock_config_new (StockConfigType type, GnomeRRConfig *rr_config)
 {
         StockConfig *config;
