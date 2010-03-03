@@ -1209,6 +1209,7 @@ create_osd_window (GsdXrandrManager *manager)
         gsd_osd_window_set_auto_hide (GSD_OSD_WINDOW (priv->osd_window), FALSE);
         gtk_window_set_type_hint (GTK_WINDOW (priv->osd_window), GDK_WINDOW_TYPE_HINT_NORMAL);
         gtk_window_set_focus_on_map (GTK_WINDOW (priv->osd_window), TRUE);
+        gtk_window_set_position (GTK_WINDOW (priv->osd_window), GTK_WIN_POS_CENTER);
 
         box = gtk_hbox_new (TRUE, 12);
         gtk_container_add (GTK_CONTAINER (priv->osd_window), box);
