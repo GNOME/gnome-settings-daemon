@@ -1116,9 +1116,15 @@ static void
 destroy_osd_window (GsdXrandrManager *manager)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
+        GdkDisplay *display;
 
         if (priv->osd_window == NULL)
                 return;
+
+        display = gtk_widget_get_display (priv->osd_window);
+
+        gdk_display_pointer_ungrab (display, GDK_CURRENT_TIME);
+        gdk_display_keyboard_ungrab (display, GDK_CURRENT_TIME);
 
         gtk_widget_destroy (priv->osd_window);
         priv->osd_window = NULL;
@@ -1194,6 +1200,52 @@ make_button_for_stock_config (GsdXrandrManager *manager, StockConfigType type)
         return button;
 }
 
+static gboolean
+osd_window_map_event_cb (GtkWidget *widget, GdkEventAny *event, gpointer data)
+{
+        GsdXrandrManager *manager = data;
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        GdkWindow *window;
+
+        /* Now that the OSD window is mapped, grab the mouse and keyboard so that
+         * we can forcibly take care of user input until the window is dismissed.
+         */
+
+        window = gtk_widget_get_window (priv->osd_window);
+
+        gdk_pointer_grab (window,
+                          TRUE,
+                          GDK_BUTTON_RELEASE_MASK,
+                          NULL,
+                          NULL,
+                          GDK_CURRENT_TIME);
+
+        gdk_keyboard_grab (window,
+                           TRUE,
+                           GDK_CURRENT_TIME);
+
+        return FALSE;
+}
+
+static gboolean
+osd_window_button_release_event_cb (GtkWidget *widget, GdkEventButton *event, gpointer data)
+{
+        GsdXrandrManager *manager = data;
+        GtkAllocation allocation;
+
+        /* If the mouse is outside the OSD window, then the user wants to dismiss it */
+
+        gtk_widget_get_allocation (widget, &allocation);
+
+        if (event->x < 0 || event->y < 0
+            || event->x >= allocation.width || event->y >= allocation.height) {
+                destroy_osd_window (manager);
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
 static void
 create_osd_window (GsdXrandrManager *manager)
 {
@@ -1210,6 +1262,11 @@ create_osd_window (GsdXrandrManager *manager)
         gtk_window_set_type_hint (GTK_WINDOW (priv->osd_window), GDK_WINDOW_TYPE_HINT_NORMAL);
         gtk_window_set_focus_on_map (GTK_WINDOW (priv->osd_window), TRUE);
         gtk_window_set_position (GTK_WINDOW (priv->osd_window), GTK_WIN_POS_CENTER);
+
+        g_signal_connect (priv->osd_window, "map-event",
+                          G_CALLBACK (osd_window_map_event_cb), manager);
+        g_signal_connect (priv->osd_window, "button-release-event",
+                          G_CALLBACK (osd_window_button_release_event_cb), manager);
 
         box = gtk_hbox_new (TRUE, 12);
         gtk_container_add (GTK_CONTAINER (priv->osd_window), box);
