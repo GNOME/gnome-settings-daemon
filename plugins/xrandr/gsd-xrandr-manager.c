@@ -67,6 +67,7 @@
 #define SHOW_NOTIFICATION_ICON_KEY (CONF_DIR "/show_notification_icon") /* Whether to show the tray icon to let the user switch monitor configurations */
 #define SWITCH_MONITORS_KEY        (CONF_DIR "/switch_monitors_key")    /* Normally XF86Display (Fn-F7 on Thinkpads, Fn-F4 on HPs, etc.) */
 #define ROTATE_DISPLAY_KEY         (CONF_DIR "/rotate_display_key")     /* Normally XF86RotateWindows (special hotkey on pressure-sensitive tablets) */
+#define SHOW_DEBUG_WINDOW_KEY      (CONF_DIR "/show_debug_window")      /* Whether to show a debug window for stock configurations */
 
 /* In case the GConf schemas are screwed up... */
 #define SWITCH_MONITORS_DEFAULT_KEY "XF86Display"
@@ -135,6 +136,9 @@ struct GsdXrandrManagerPrivate
 
         /* Last time at which we got a "screen got reconfigured" event; see on_randr_event() */
         guint32 last_config_timestamp;
+
+        GtkWidget *debug_window;
+        GtkTextBuffer *debug_text_buffer;
 };
 
 static const GnomeRRRotation possible_rotations[] = {
@@ -158,6 +162,8 @@ static void get_allowed_rotations_for_output (GnomeRRConfig *config,
                                               GnomeOutputInfo *output,
                                               int *out_num_rotations,
                                               GnomeRRRotation *out_rotations);
+
+static const char * get_label_for_stock_config (StockConfigType type);
 
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
@@ -959,6 +965,111 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
         return new;
 }
 
+static gboolean
+should_use_debug_window (GsdXrandrManager *manager)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+
+        return gconf_client_get_bool (priv->client, SHOW_DEBUG_WINDOW_KEY, NULL);
+}
+
+static void
+debug_window_destroy_cb (GtkObject *object, gpointer data)
+{
+        GsdXrandrManager *manager = data;
+        GsdXrandrManagerPrivate *priv = manager->priv;
+
+        priv->debug_window = NULL;
+        priv->debug_text_buffer = NULL;
+}
+
+static void
+debug_window_setup (GsdXrandrManager *manager)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        GtkWidget *text_view;
+        GtkWidget *sw;
+
+        if (priv->debug_window)
+                return;
+
+        priv->debug_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+        g_signal_connect (priv->debug_window, "destroy",
+                          G_CALLBACK (debug_window_destroy_cb),
+                          manager);
+
+        gtk_window_set_title (GTK_WINDOW (priv->debug_window), "RANDR debug");
+
+        priv->debug_text_buffer = gtk_text_buffer_new (NULL);
+
+        sw = gtk_scrolled_window_new (NULL, NULL);
+        gtk_container_add (GTK_CONTAINER (priv->debug_window), sw);
+
+        text_view = gtk_text_view_new_with_buffer (priv->debug_text_buffer);
+        gtk_container_add (GTK_CONTAINER (sw), text_view);
+
+        gtk_widget_show_all (priv->debug_window);
+}
+
+static void
+debug_window_add_text (GsdXrandrManager *manager, const char *str)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        GtkTextIter iter;
+
+        if (!priv->debug_window)
+                return;
+
+        gtk_text_buffer_get_end_iter (priv->debug_text_buffer, &iter);
+        gtk_text_buffer_insert (priv->debug_text_buffer, &iter, str, -1);
+}
+
+static void
+debug_window_add_configuration (GsdXrandrManager *manager, StockConfig *config)
+{
+        char buf[500];
+
+        if (config) {
+                GnomeRRConfig *rr_config;
+                int i;
+
+                rr_config = config->rr_config;
+
+                g_snprintf (buf, sizeof (buf), "config - %s:\n", get_label_for_stock_config (config->type));
+                debug_window_add_text (manager, buf);
+
+                for (i = 0; rr_config->outputs[i] != NULL; i++) {
+                        g_snprintf (buf, sizeof (buf), "    %s - ", rr_config->outputs[i]->name);
+                        debug_window_add_text (manager, buf);
+
+                        if (rr_config->outputs[i]->on) {
+                                g_snprintf (buf, sizeof (buf), "%dx%d+%d+%d\n",
+                                            rr_config->outputs[i]->width,
+                                            rr_config->outputs[i]->height,
+                                            rr_config->outputs[i]->x,
+                                            rr_config->outputs[i]->y);
+                        } else
+                                strcpy (buf, "off\n");
+
+                        debug_window_add_text (manager, buf);
+                }
+        } else
+                debug_window_add_text (manager, "config - NULL\n");
+}
+
+static void
+debug_window_add_configurations (GsdXrandrManager *manager, GPtrArray *array)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        int i;
+
+        if (!priv->debug_window)
+                return;
+
+        for (i = 0; i < array->len; i++)
+                debug_window_add_configuration (manager, NTH_STOCK_CONFIG (array, i));
+}
+
 static void
 generate_stock_configs (GsdXrandrManager *mgr)
 {
@@ -986,7 +1097,16 @@ generate_stock_configs (GsdXrandrManager *mgr)
         g_ptr_array_add (array, make_external_stock_config (screen));
         g_ptr_array_add (array, make_stored_stock_config (screen));
 
+        if (should_use_debug_window (mgr))
+                debug_window_setup (mgr);
+
+        debug_window_add_text (mgr, "---------------\nBuilt stock configurations.  Before sanitizing:\n\n");
+        debug_window_add_configurations (mgr, array);
+
         array = sanitize (mgr, array);
+
+        debug_window_add_text (mgr, "\nAfter sanitizing:\n\n");
+        debug_window_add_configurations (mgr, array);
 
         if (array) {
                 mgr->priv->stock_configs = (StockConfig **) g_ptr_array_free (array, FALSE);
