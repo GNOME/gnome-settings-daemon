@@ -34,6 +34,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
@@ -1246,12 +1247,22 @@ osd_window_button_release_event_cb (GtkWidget *widget, GdkEventButton *event, gp
         return FALSE;
 }
 
+static gboolean
+osd_window_escape_pressed_cb (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval, GdkModifierType modifier, gpointer data)
+{
+        GsdXrandrManager *manager = data;
+
+        destroy_osd_window (manager);
+        return TRUE;
+}
+
 static void
 create_osd_window (GsdXrandrManager *manager)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
         GtkWidget *box;
         int i;
+        GtkAccelGroup *accel;
 
         if (priv->osd_window != NULL)
                 destroy_osd_window (manager);
@@ -1267,6 +1278,14 @@ create_osd_window (GsdXrandrManager *manager)
                           G_CALLBACK (osd_window_map_event_cb), manager);
         g_signal_connect (priv->osd_window, "button-release-event",
                           G_CALLBACK (osd_window_button_release_event_cb), manager);
+
+        accel = gtk_accel_group_new ();
+        gtk_accel_group_connect (accel, GDK_Escape, 0, 0,
+                                 g_cclosure_new (G_CALLBACK (osd_window_escape_pressed_cb),
+                                                 manager,
+                                                 NULL));
+        gtk_window_add_accel_group (GTK_WINDOW (priv->osd_window), accel);
+        g_object_unref (accel);
 
         box = gtk_hbox_new (TRUE, 12);
         gtk_container_add (GTK_CONTAINER (priv->osd_window), box);
