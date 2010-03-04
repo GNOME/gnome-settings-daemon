@@ -619,11 +619,14 @@ make_clone_stock_config (GnomeRRScreen *screen)
         GnomeRRConfig *rr_config;
         int width, height;
         int i;
+        int num_outputs_on;
 
         if (!get_clone_size (screen, &width, &height))
                 return NULL;
 
         rr_config = gnome_rr_config_new_current (screen);
+
+        num_outputs_on = 0;
 
         for (i = 0; rr_config->outputs[i] != NULL; ++i) {
                 GnomeOutputInfo *info = rr_config->outputs[i];
@@ -651,6 +654,7 @@ make_clone_stock_config (GnomeRRScreen *screen)
                         }
 
                         if (best_rate > 0) {
+                                num_outputs_on++;
                                 info->on = TRUE;
                                 info->width = width;
                                 info->height = height;
@@ -660,6 +664,11 @@ make_clone_stock_config (GnomeRRScreen *screen)
                                 info->y = 0;
                         }
                 }
+        }
+
+        if (num_outputs_on < 2) {
+                gnome_rr_config_free (rr_config);
+                return NULL;
         }
 
         print_configuration (rr_config, "clone setup");
