@@ -14,5 +14,31 @@
 		</long>
             </locale>
         </schema>
+	<schema>
+	    <key>/schemas/apps/gnome_settings_daemon/xrandr/turn_on_external_monitors_at_startup</key>
+	    <applyto>/apps/gnome_settings_daemon/xrandr/turn_on_external_monitors_at_startup</applyto>
+            <owner>gnome</owner>
+	    <type>bool</type>
+            <default>false</default>
+            <locale name="C">
+	        <short>Turn on external monitor after system boot</short>
+                <long>Turn on external monitor after system boot if user plugin
+		external monitor when system boot.
+		</long>
+            </locale>
+        </schema>
+	<schema>
+	    <key>/schemas/apps/gnome_settings_daemon/xrandr/turn_on_laptop_monitor_at_startup</key>
+	    <applyto>/apps/gnome_settings_daemon/xrandr/turn_on_laptop_monitor_at_startup</applyto>
+            <owner>gnome</owner>
+	    <type>bool</type>
+            <default>true</default>
+            <locale name="C">
+	        <short>Turn on laptop monitor after system boot</short>
+                <long>Turn on laptop monitor after system boot if user plugin
+		external monitor when system boot.
+		</long>
+            </locale>
+        </schema>
     </schemalist>
 </gconfschemafile>
