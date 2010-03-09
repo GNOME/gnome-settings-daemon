@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  * gnome-settings-keyboard-xkb.h
  *
- * Copyright © 2001 Udaltsoft
+ * Copyright (C) 2001 Udaltsoft
  *
  * Written by Sergey V. Oudaltsov <svu@users.sourceforge.net>
  *
@@ -28,8 +28,9 @@
 #include <gconf/gconf-client.h>
 
 #include <libxklavier/xklavier.h>
+#include "gsd-keyboard-manager.h"
 
-void gsd_keyboard_xkb_init (GConfClient *client);
+void gsd_keyboard_xkb_init (GConfClient *client, GsdKeyboardManager *manager);
 void gsd_keyboard_xkb_shutdown (void);
 
 typedef void (*PostActivationCallback) (void *userData);

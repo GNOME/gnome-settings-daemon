@@ -370,6 +370,16 @@ apply_settings (GConfClient        *client,
         gdk_error_trap_pop ();
 }
 
+void
+gsd_keyboard_manager_apply_settings (GsdKeyboardManager *manager)
+{
+        GConfClient *client;
+
+        client = gconf_client_get_default ();
+        apply_settings (client, 0, NULL, manager);
+        g_object_unref (client);
+}
+
 static gboolean
 start_keyboard_idle_cb (GsdKeyboardManager *manager)
 {
@@ -386,14 +396,14 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         /* Essential - xkb initialization should happen before */
         gsd_keyboard_xkb_set_post_activation_callback ((PostActivationCallback) gsd_load_modmap_files, NULL);
-        gsd_keyboard_xkb_init (client);
+        gsd_keyboard_xkb_init (client, manager);
 
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
         numlock_xkb_init (manager);
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         /* apply current settings before we install the callback */
-        apply_settings (client, 0, NULL, manager);
+        gsd_keyboard_manager_apply_settings (manager);
 
         manager->priv->notify = gconf_client_notify_add (client, GSD_KEYBOARD_KEY,
                                                          (GConfClientNotifyFunc) apply_settings, manager,
