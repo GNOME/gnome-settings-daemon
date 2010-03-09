@@ -2069,6 +2069,23 @@ out:
         return success;
 }
 
+static gboolean
+apply_default_configuration_from_file (GsdXrandrManager *manager, guint32 timestamp)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        char *default_config_filename;
+        gboolean result;
+
+        default_config_filename = gconf_client_get_string (priv->client, CONF_KEY_DEFAULT_CONFIGURATION_FILE, NULL);
+        if (!default_config_filename)
+                return FALSE;
+
+        result = apply_configuration_from_filename (manager, default_config_filename, TRUE, timestamp, NULL);
+
+        g_free (default_config_filename);
+        return result;
+}
+
 gboolean
 gsd_xrandr_manager_start (GsdXrandrManager *manager,
                           GError          **error)
@@ -2123,7 +2140,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
 
         show_timestamps_dialog (manager, "Startup");
         if (!apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME)) /* we don't have a real timestamp at startup anyway */
-                apply_default_boot_configuration (manager, GDK_CURRENT_TIME);
+                if (!apply_default_configuration_from_file (manager, GDK_CURRENT_TIME))
+                        apply_default_boot_configuration (manager, GDK_CURRENT_TIME);
 
         gdk_window_add_filter (gdk_get_default_root_window(),
                                (GdkFilterFunc)event_filter,
