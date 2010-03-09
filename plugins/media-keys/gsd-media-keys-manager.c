@@ -65,12 +65,6 @@
 #define VOLUME_STEP 6           /* percents for one volume button press */
 #define MAX_VOLUME 65536.0
 
-#if defined(__OpenBSD__)
-# define EJECT_COMMAND "eject -t /dev/rcd0c"
-#else
-# define EJECT_COMMAND "eject -T"
-#endif
-
 #define GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MEDIA_KEYS_MANAGER, GsdMediaKeysManagerPrivate))
 
 typedef struct {
@@ -87,6 +81,7 @@ struct GsdMediaKeysManagerPrivate
 #endif /* HAVE_PULSE */
         GtkWidget       *dialog;
         GConfClient     *conf_client;
+        GVolumeMonitor  *volume_monitor;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -575,26 +570,69 @@ do_exit_action (GsdMediaKeysManager *manager)
 }
 
 static void
+do_eject_action_cb (GDrive              *drive,
+                    GAsyncResult        *res,
+                    GsdMediaKeysManager *manager)
+{
+        g_drive_eject_with_operation_finish (drive, res, NULL);
+}
+
+#define NO_SCORE 0
+#define SCORE_CAN_EJECT 50
+#define SCORE_HAS_MEDIA 100
+static void
 do_eject_action (GsdMediaKeysManager *manager)
 {
-        char *command;
+        GList *drives, *l;
+        GDrive *fav_drive;
+        guint score;
 
+        /* Find the best drive to eject */
+        fav_drive = NULL;
+        score = NO_SCORE;
+        drives = g_volume_monitor_get_connected_drives (manager->priv->volume_monitor);
+        for (l = drives; l != NULL; l = l->next) {
+                GDrive *drive = l->data;
+
+                if (g_drive_can_eject (drive) == FALSE)
+                        continue;
+                if (g_drive_is_media_removable (drive) == FALSE)
+                        continue;
+                if (score < SCORE_CAN_EJECT) {
+                        fav_drive = drive;
+                        score = SCORE_CAN_EJECT;
+                }
+                if (g_drive_has_media (drive) == FALSE)
+                        continue;
+                if (score < SCORE_HAS_MEDIA) {
+                        fav_drive = drive;
+                        score = SCORE_HAS_MEDIA;
+                        break;
+                }
+        }
+
+        /* Show the dialogue */
         dialog_init (manager);
         gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
                                                  "media-eject",
                                                  FALSE);
         dialog_show (manager);
 
-        command = gconf_client_get_string (manager->priv->conf_client,
-                                           GCONF_MISC_DIR "/eject_command",
-                                           NULL);
-        if ((command != NULL) && (strcmp (command, "") != 0)) {
-                execute (manager, command, FALSE, FALSE);
-        } else {
-                execute (manager, EJECT_COMMAND, FALSE, FALSE);
-        }
+        /* Clean up the drive selection and exit if no suitable
+         * drives are found */
+        if (fav_drive != NULL)
+                fav_drive = g_object_ref (fav_drive);
 
-        g_free (command);
+        g_list_foreach (drives, (GFunc) g_object_unref, NULL);
+        if (fav_drive == NULL)
+                return;
+
+        /* Eject! */
+        g_drive_eject_with_operation (fav_drive, G_MOUNT_UNMOUNT_FORCE,
+                                      NULL, NULL,
+                                      (GAsyncReadyCallback) do_eject_action_cb,
+                                      manager);
+        g_object_unref (fav_drive);
 }
 
 static void
@@ -1026,6 +1064,7 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 
         g_debug ("Starting media_keys manager");
         gnome_settings_profile_start (NULL);
+        manager->priv->volume_monitor = g_volume_monitor_get ();
         manager->priv->conf_client = gconf_client_get_default ();
 
         gconf_client_add_dir (manager->priv->conf_client,
@@ -1122,6 +1161,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 
                 g_object_unref (priv->conf_client);
                 priv->conf_client = NULL;
+        }
+
+        if (priv->volume_monitor != NULL) {
+                g_object_unref (priv->volume_monitor);
+                priv->volume_monitor = NULL;
         }
 
         if (priv->connection != NULL) {
