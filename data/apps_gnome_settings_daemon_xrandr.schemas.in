@@ -40,5 +40,23 @@
 		</long>
             </locale>
         </schema>
+	<schema>
+	    <key>/schemas/apps/gnome_settings_daemon/xrandr/default_configuration_file</key>
+	    <applyto>/apps/gnome_settings_daemon/xrandr/default_configuration_file</applyto>
+            <owner>gnome</owner>
+	    <type>string</type>
+            <default>/etc/gnome-settings-daemon/xrandr/monitors.xml</default>
+            <locale name="C">
+	        <short>File for default configuration for RANDR</short>
+	        <long>The XRANDR plugin will look for a default
+                configuration in the file specified by this key.  This
+                is similar to the ~/.config/monitors.xml that normally
+                gets stored in users' home directories.  If a user
+                does not have such a file, or has one that does not
+                match the user's setup of monitors, then the file
+                specified by this key will be used instead.
+	        </long>
+            </locale>
+        </schema>
     </schemalist>
 </gconfschemafile>
