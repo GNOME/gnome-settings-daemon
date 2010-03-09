@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
- * Copyright © 2001 Udaltsoft
+ * Copyright (C) 2001 Udaltsoft
  *
  * Written by Sergey V. Oudaltsov <svu@users.sourceforge.net>
  *
@@ -38,6 +38,8 @@
 #include "gsd-keyboard-xkb.h"
 #include "delayed-dialog.h"
 #include "gnome-settings-profile.h"
+
+static GsdKeyboardManager *manager = NULL;
 
 static XklEngine *xkl_engine;
 static XklConfigRegistry *xkl_registry = NULL;
@@ -131,6 +133,7 @@ apply_desktop_settings (void)
 	if (!inited_ok)
 		return;
 
+	gsd_keyboard_manager_apply_settings (manager);
 	gkbd_desktop_config_load_from_gconf (&current_config);
 	/* again, probably it would be nice to compare things
 	   before activating them */
@@ -463,7 +466,8 @@ gsd_keyboard_new_device (XklEngine * engine)
 }
 
 void
-gsd_keyboard_xkb_init (GConfClient * client)
+gsd_keyboard_xkb_init (GConfClient * client,
+		       GsdKeyboardManager * kbd_manager)
 {
 	gnome_settings_profile_start (NULL);
 #ifdef GSDKX
@@ -471,6 +475,7 @@ gsd_keyboard_xkb_init (GConfClient * client)
 	logfile = fopen ("/tmp/gsdkx.log", "a");
 	xkl_set_log_appender (gsd_keyboard_log_appender);
 #endif
+	manager = kbd_manager;
 	gnome_settings_profile_start ("xkl_engine_get_instance");
 	xkl_engine = xkl_engine_get_instance (GDK_DISPLAY ());
 	gnome_settings_profile_end ("xkl_engine_get_instance");
@@ -535,6 +540,7 @@ gsd_keyboard_xkb_shutdown (void)
 
 	pa_callback = NULL;
 	pa_callback_user_data = NULL;
+	manager = NULL;
 
 	if (!inited_ok)
 		return;
