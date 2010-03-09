@@ -248,18 +248,6 @@ execute (GsdMediaKeysManager *manager,
 }
 
 static void
-do_sleep_action (char *cmd1,
-                 char *cmd2)
-{
-        if (g_spawn_command_line_async (cmd1, NULL) == FALSE) {
-                if (g_spawn_command_line_async (cmd2, NULL) == FALSE) {
-                        acme_error (_("Couldn't put the machine to sleep.\n"
-                                        "Verify that the machine is correctly configured."));
-                }
-        }
-}
-
-static void
 dialog_init (GsdMediaKeysManager *manager)
 {
         if (manager->priv->dialog != NULL
