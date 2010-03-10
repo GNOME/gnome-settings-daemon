@@ -261,7 +261,7 @@ apply_xkb_settings (void)
 		 * prevents the list from becoming full if the user has a habit
 		 * of selecting many different keyboard layouts in GDM. */
 
-		found_node = g_slist_find_custom (layouts, gdm_layout, g_strcmp0);
+		found_node = g_slist_find_custom (layouts, gdm_layout, (GCompareFunc) g_strcmp0);
 
 		if (!found_node) {
 			/* Insert at the last valid place, or at the end of
