@@ -1,4 +1,31 @@
 ==============
+Version 2.28.2
+==============
+
+- Fix variant handling in $GDM_KEYBOARD_LAYOUT (Martin Pitt) (#596897)
+- Tighten check for XInput (Jens Granseuer) (#585315)
+- Fix bluriness in level bar, and popup (Bastien Nocera) (567249)
+- Honour libexecdir when spawning gsd-locate-pointer (Jens Granseuer) (#599209)
+- Allow left-handed setting for touchpads (Peter Hutterer)
+- Hide the status icon before unreffing it (Matthias Clasen) (#601696)
+- Add missing include for OpenBSD (Jasper Lievisse Adriaanse) (#598573)
+- Make eject behave better on OpenBSD (Jasper Lievisse Adriaanse) (#598573)
+- Add linsysfs to list of virtual filesystems (Coleman Kane) (#604396)
+- Always set the position of outputs, even if they are already turned on
+  (Federico Mena Quintero) (#578296)
+- Allow 'LCD' as a laptop's output name (Federico Mena Quintero)
+- Apply all keyboard settings to new keyboards (Bastien Nocera) (#610245)
+- Avoid volumes going over 100% (Bastien Nocera) (#600770)
+- Respond to monitor configuration changes when in charge (Matthias Clasen)
+  (#601203)
+- Don't die on X servers without XKB (Matthias Clasen) (#604651)
+- Translations:
+  - et (Mattias Põldaru, Ivar Smolin)
+  - ja (Takayuki KUSANO)
+  - nds (Nils-Christoph Fiedler)
+  - ru (Leonid Kanter)
+
+==============
 Version 2.28.1
 ==============
 
