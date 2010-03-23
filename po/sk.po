@@ -1,98 +1,166 @@
-# GNOME settings-daemon Slovak translation
-# Copyright (C) 2000-2008 Free Software Foundation, Inc.
-#
+# Slovak translation for gnome-settings-daemon.
+# Copyright (C) 2000-2005, 2007-2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gnome-settings-daemon package.
 # Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>, 2000-2004.
 # Marcel Telka <marcel@telka.sk>, 2005.
 # Peter Tuharsky <tuharsky@misbb.sk>, 2007.
-# Pavol Šimo <palo.simo@gmail.com>, 2008.
+# Pavol Šimo <palo.simo@gmail.com>, 2008, 2009, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-17 00:47+0200\n"
-"PO-Revision-Date: 2008-09-19 13:44+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&component=general\n"
+"POT-Creation-Date: 2010-03-21 22:57+0000\n"
+"PO-Revision-Date: 2010-03-22 23:34+0100\n"
 "Last-Translator: Pavol Šimo <palo.simo@gmail.com>\n"
-"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural= (n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
+
+#: ../data/50-accessibility.xml.in.h:1
+msgid "Accessibility"
+msgstr "Prístupnosť"
+
+# * https://bugzilla.gnome.org/show_bug.cgi?id=611940
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+msgid "Free percentage notify threshold"
+msgstr "Prah oznamovania percent voľného miesta"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
+msgid "Free space no notify threshold"
+msgstr "Prah neoznamovania voľného miesta"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+msgid "Minimum notify period for repeated warnings"
+msgstr "Minimálna perióda oznamovania opakovaných upozornení"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+msgid "Mount paths to ignore"
+msgstr "Ignorované cesty pripojenia"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown"
+msgstr ""
+"Prah pre percento voľného miesta prvého upozornenia na nedostatok diskového "
+"priestoru. Ak percento voľného miesta klesne pod túto hodnotu, zobrazí sa "
+"upozornenie"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr ""
+"Zadajte zoznam ciest prípojných bodov, na ktorých bude ignorovaný nedostatok "
+"voľného miesta."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+"Zadajte čas v minútach. Nasledujúce upozornenia pre zväzok sa nezobrazia "
+"častejšie ako s touto periódou."
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown"
+msgstr ""
+"Zadajte množstvo v GB. Ak je množstvo voľného miesta väčšia než táto "
+"hodnota, nebude zobrazené žiadne upozornenie"
+
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning"
+msgstr ""
+"Zadajte percento, o ktoré sa musí zmenšiť veľkosť voľného miesta pred "
+"zobrazením nasledujúceho upozornenia"
+
+# * https://bugzilla.gnome.org/show_bug.cgi?id=611940
+#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
+msgid "Subsequent free percentage notify threshold"
+msgstr "Prah nasledujúceho oznamovania percent voľného miesta"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
 msgstr "Klávesová skratka na vysunutie média."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
+#, fuzzy
+msgid "Binding to enable or disable the touchpad."
+msgstr "Klávesová skratka na zapnutie alebo vypnutie touchpadu."
+
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
 msgid "Binding to launch the calculator."
 msgstr "Klávesová skratka na spustenie kalkulačky."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
 msgid "Binding to launch the email client."
 msgstr "Klávesová skratka na spustenie emailového klienta."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
 msgid "Binding to launch the help browser."
 msgstr "Klávesová skratka na spustenie prehliadača pomocníka."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
 msgid "Binding to launch the media player."
 msgstr "Klávesová skratka na spustenie prehrávača médií."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
 msgid "Binding to launch the search tool."
 msgstr "Klávesová skratka na spustenie vyhľadávacieho nástroja."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
 msgid "Binding to launch the web browser."
 msgstr "Klávesová skratka na spustenie WWW prehliadača."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
 msgid "Binding to lock the screen."
 msgstr "Klávesová skratka na uzamknutie obrazovky."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
 msgid "Binding to log out."
 msgstr "Klávesová skratka na odhlásenie."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
 msgid "Binding to lower the system volume."
 msgstr "Klávesová skratka na zníženie hlasitosti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
 msgid "Binding to mute the system volume."
 msgstr "Klávesová skratka na umlčanie zvuku."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
 msgid "Binding to open the Home folder."
 msgstr "Klávesová skratka na otvorenie domovského priečinka."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
 msgid "Binding to pause playback."
 msgstr "Klávesová skratka na pozastavenie prehrávania."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
 msgid "Binding to raise the system volume."
 msgstr "Klávesová skratka na zvýšenie hlasitosti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
 msgid "Binding to skip to next track."
 msgstr "Klávesová skratka na preskočenie na nasledujúcu stopu."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
 msgid "Binding to skip to previous track."
 msgstr "Klávesová skratka na preskočenie na predchádzajúcu stopu."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Klávesová skratka na začatie prehrávania (alebo hrať/pozastaviť)."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
+#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
 msgid "Binding to stop playback."
 msgstr "Klávesová skratka na zastavenie prehrávania."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
-msgid "Binding to suspend the computer."
-msgstr "Klávesová skratka na uspatie počítača."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:20
 msgid "Eject"
@@ -155,8 +223,9 @@ msgid "Stop playback"
 msgstr "Zastaviť prehrávanie"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:35
-msgid "Suspend"
-msgstr "Uspať"
+#, fuzzy
+msgid "Toggle touchpad"
+msgstr "Prepnúť touchpad"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:36
 msgid "Volume down"
@@ -177,26 +246,6 @@ msgstr "Krok zmeny hlasitosti v percentách."
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:40
 msgid "Volume up"
 msgstr "Zvýšiť hlasitosť"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
-msgid ""
-"Set to True to display a dialog when there are errors running the "
-"screensaver."
-msgstr ""
-"Ak je True, zobrazí sa dialógové okno, ak sa pri behu šetriča obrazovky "
-"vyskytli chyby."
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
-msgid "Set to True to run the screensaver at login."
-msgstr "Ak je true, pri prihlásení sa spustí šetrič obrazovky"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:3
-msgid "Show startup errors"
-msgstr "Zobraziť chyby pri štarte"
-
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
-msgid "Start screensaver"
-msgstr "Spustiť šetrič obrazovky"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
 msgid ""
@@ -265,71 +314,180 @@ msgstr ""
 "na strednú a \"full\" pre úplnú úpravu (môže spôsobiť skreslenie tvarov "
 "písmen)."
 
+#: ../data/desktop_gnome_keybindings.schemas.in.h:1
+msgid "Allowed keys"
+msgstr "Povolené klávesy"
+
+#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+msgid ""
+"If non-empty, keybindings will be ignored unless their GConf directory is in "
+"the list. This is useful for lockdown."
+msgstr ""
+"Ak je neprázdne, klávesové skratky budú ignorované, pokiaľ ich GConf adresár "
+"nebude v zozname. Je to použiteľné pre uzamknutie."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
+msgid "Disable touchpad while typing"
+msgstr "Zakázať touchpad počas písania"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
+msgid "Enable horizontal scrolling"
+msgstr "Povoliť horizontálne rolovanie"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
+msgid "Enable mouse clicks with touchpad"
+msgstr "Povoliť kliknutia myšou pomocou touchpadu"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
+#, fuzzy
+msgid "Enable touchpad"
+msgstr "Zapnúť touchpad"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
+msgid "Select the touchpad scroll method"
+msgstr "Zvoľte si spôsob rolovania touchpadom"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+msgid ""
+"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
+"edge scrolling, 2 - two-finger scrolling"
+msgstr ""
+"Zvoľte si spôsob rolovania touchpadom. Podporované hodnoty sú: 0 - zakázané, "
+"1 - skrolovanie pri okraji, 2 - skrolovanie dvoma prstami"
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Nastavte na TRUE, ak máte problémy s náhodnými stlačeniami touchpadu počas "
+"písania."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Nastavte na TRUE na povolenie horizontálneho rolovania rovnakým spôsobom "
+"zvoleným v kľúči scroll_method."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:9
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Nastavte na TRUE, aby ste mohli posielať kliknutia myšou pomocou ťuknutia na "
+"touchpad."
+
+#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
+#, fuzzy
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Nastavte na TRUE na zapnutie všetkých touchpadov."
+
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "Démon nastavení GNOME"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:1
+msgid "Binding to toggle the magnifier."
+msgstr "Klávesová skratka na prepnutie lupy."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:2
+msgid "Binding to toggle the on-screen keyboard."
+msgstr "Klávesová skratka na prepnutie klávesnice na obrazovke."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:3
+msgid "Binding to toggle the screen reader."
+msgstr "Klávesová skratka na prepnutie čítača obrazovky."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:4
+msgid "Bounce keys"
+msgstr "Poskakujúce klávesy"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:5
+msgid "Command used to turn the magnifier on or off."
+msgstr "Príkaz použitý na zapnutie alebo vypnutie lupy."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:6
+msgid "Command used to turn the on-screen keyboard on or off."
+msgstr "Príkaz použitý na zapnutie alebo vypnutie klávesnice na obrazovke."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:7
+msgid "Command used to turn the screen reader on or off."
+msgstr "Príkaz použitý na zapnutie alebo vypnutie čítača obrazovky."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
 msgstr "Povoliť modul sprístupnenia klávesnice"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "Povoliť modul pozadia plochy"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "Povoliť modul schránky"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "Povoliť modul písiem"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable housekeeping plugin"
 msgstr "Povoliť \"upratovací\" modul"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
 msgstr "Povoliť modul klávesových skratiek"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "Povoliť modul klávesnice"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable media keys plugin"
 msgstr "Povoliť modul multimediálnych kláves"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "Povoliť modul myši"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
-msgid "Enable screensaver plugin"
-msgstr "Povoliť modul šetriča obrazovky"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable sound plugin"
 msgstr "Povoliť modul zvuku"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable typing breaks plugin"
 msgstr "Povoliť modul prestávok v písaní"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable xrandr plugin"
 msgstr "Povoliť modul xrandr"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrdb plugin"
 msgstr "Povoliť modul xrdb"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xsettings plugin"
 msgstr "Povoliť modul xsettings"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:22
+msgid "Mouse keys"
+msgstr "Myš klávesami"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:23
+msgid "On-screen keyboard"
+msgstr "Klávesnica na obrazovke"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:24
+msgid "Screen magnifier"
+msgstr "Lupa obrazovky"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:25
+msgid "Screen reader"
+msgstr "Čítač obrazovky"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -337,42 +495,37 @@ msgstr ""
 "Pre povolenie \"upratovacieho\" modulu (vyčistenie dočasných súborových "
 "keší) nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "Pre povolenie modulu správy nastavení schránky nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "Pre povolenie modulu správy nastavení pozadia plochy nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "Pre povolenie modulu správy nastavení písiem nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Pre povolenie modulu správy nastavení klávesnice nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Pre povolenie modulu správy nastavení myši nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Pre povolenie modulu správy nastavení multimediálnych kláves nastavte na "
 "true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-msgid "Set to True to enable the plugin to manage screensaver settings."
-msgstr ""
-"Pre povolenie modulu správy nastavení šetriča obrazovky nastavte na true."
+#: ../data/gnome-settings-daemon.schemas.in.h:33
+msgid "Set to True to enable the plugin to manage sound sample caches."
+msgstr "Pre povolenie modulu správy zvukových medzipamätí nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "Set to True to enable the plugin to manage sound settings."
-msgstr "Pre povolenie modulu správy nastavení zvuku nastavte na true."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -380,39 +533,129 @@ msgstr ""
 "Pre povolenie modulu správy nastavení prístupnosti klávesnice nastavte na "
 "true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
 "Pre povolenie modulu správy nastavení klávesových skratiek nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
 "Pre povolenie modulu správy nastavení prestávok v písaní nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "Pre povolenie modulu správy nastavení xrandr nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "Pre povolenie modulu správy nastavení xrdb nastavte na true."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Pre povolenie modulu správy nastavení xsettings nastavte na true."
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../data/gnome-settings-daemon.schemas.in.h:40
+msgid "Slow keys"
+msgstr "Pomalé klávesy"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:41
+msgid "Sticky keys"
+msgstr "Lepkavé klávesy"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:42
+msgid "The name of the keyboard shortcut to toggle the magnifier"
+msgstr "Názov klávesovej skratky na prepnutie lupy"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:43
+msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+msgstr "Názov klávesovej skratky na prepnutie klávesnice na obrazovke"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:44
+msgid "The name of the keyboard shortcut to toggle the screen reader"
+msgstr "Názov klávesovej skratky na prepnutie čítača obrazovky"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:45
+msgid ""
+"This is the name of the keyboard shortcut to toggle the magnifier. This name "
+"will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Toto je názov klávesovej skratky na prepnutie lupy. Tento názov bude "
+"zobrazený v dialógovom okne nastavenia klávesových skratiek."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:46
+msgid ""
+"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
+"This name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Toto je názov klávesovej skratky na prepnutie klávesnice na obrazovke. Tento "
+"názov bude zobrazený v dialógovom okne nastavenia klávesových skratiek."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:47
+msgid ""
+"This is the name of the keyboard shortcut to toggle the screen reader. This "
+"name will be shown in the keyboard shortcut preferences dialog."
+msgstr ""
+"Toto je názov klávesovej skratky na prepnutie čítača obrazovky. Tento názov "
+"bude zobrazený v dialógovom okne nastavenia klávesových skratiek."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:48
+msgid "Toggle magnifier"
+msgstr "Prepnúť lupu"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:49
+msgid "Toggle on-screen keyboard"
+msgstr "Prepnúť klávesnicu na obrazovke"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:50
+msgid "Toggle screen reader"
+msgstr "Prepnúť čítač obrazovky"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:51
+msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+msgstr ""
+"Či je funkcia sprístupnenia klávesnice \"poskakujúce klávesy\" zapnutá."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:52
+msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+msgstr "Či je funkcia sprístupnenia klávesnice klávesy myšou zapnutá."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:53
+msgid "Whether the on-screen keyboard is turned on."
+msgstr "Či je klávesnica na obrazovke zapnutá."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:54
+msgid "Whether the screen magnifier is turned on."
+msgstr "Či je lupa obrazovky zapnutá."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:55
+msgid "Whether the screen reader is turned on."
+msgstr "Či je čítač obrazovky zapnutý."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:56
+msgid "Whether the slow keys keyboard accessibility feature is turned on."
+msgstr "Či je vlastnosť sprístupnenia klávesnice pomalé klávesy zapnutá."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:57
+msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+msgstr "Či je vlastnosť sprístupnenia klávesnice lepkavé klávesy zapnutá."
+
+#: ../gnome-settings-daemon/main.c:55
 msgid "Enable debugging code"
 msgstr "Povoliť ladiaci kód"
 
-#: ../gnome-settings-daemon/main.c:51
+#: ../gnome-settings-daemon/main.c:56
 msgid "Don't become a daemon"
 msgstr "Nestať sa démonom"
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:57
 msgid "GConf prefix from which to load plugin settings"
-msgstr "GConf prefix, z ktorého načítať nastavenia modulu"
+msgstr "GConf prefix, z ktorého sa majú načítať nastavenia modulu"
+
+#: ../gnome-settings-daemon/main.c:58
+#, fuzzy
+msgid "Exit after a time - for debugging"
+msgstr "Ukončiť po určitom čase - pre ladenie"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -422,23 +665,23 @@ msgstr "Prístupnosť klávesnice"
 msgid "Accessibility keyboard plugin"
 msgstr "Modul prístupnosti klávesnice"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:399
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Pri pokuse o zobrazenie Pomocníka nastala chyba: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:525
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
 msgid "Do you want to activate Slow Keys?"
 msgstr "Chcete použiť Pomalé klávesy?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:526
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Chcete zrušiť používanie Pomalých kláves?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:527
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:597
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -446,62 +689,62 @@ msgstr ""
 "Práve ste stlačili kláves Shift 8 sekúnd. To je skratka pre funkciu Pomalé "
 "klávesy, ktorá ovplyvňuje fungovanie vašej klávesnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't activate"
 msgstr "Neaktivovať"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:696
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
 msgid "Don't deactivate"
 msgstr "Nedeaktivovať"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Activate"
 msgstr "Aktivovať"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:559
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
 msgid "Deactivate"
 msgstr "Deaktivovať"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't activate"
 msgstr "_Neaktivovať"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
 msgid "Do_n't deactivate"
 msgstr "_Nedeaktivovať"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Activate"
 msgstr "_Aktivovať"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:621
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:766
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
 msgid "_Deactivate"
 msgstr "_Deaktivovať"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:625
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
 msgid "Slow Keys Alert"
 msgstr "Upozornenie na pomalé klávesy"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Chcete použiť Lepkavé klávesy?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Chcete zrušiť používanie Lepkavých kláves?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:668
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -509,8 +752,8 @@ msgstr ""
 "Práve ste stlačili kláves Shift 5-krát za sebou. To je skratka pre funkciu "
 "Lepkavé klávesy, ktorá ovplyvňuje fungovanie vašej klávesnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:670
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -519,44 +762,44 @@ msgstr ""
 "Práve ste stlačili dve klávesy naraz, alebo kláves Shift 5-krát za sebou. To "
 "vypína funkciu Lepkavé klávesy, ktorá ovplyvňuje fungovanie vašej klávesnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:770
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
 msgid "Sticky Keys Alert"
 msgstr "Upozornenie na Lepkavé klávesy"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:899
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:4
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Nastavenie všeobecného prístupu"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:1
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Enhance _contrast in colors"
 msgstr "Zvýšiť kontrast vo _farbách"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:2
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
 msgid "Make _text larger and easier to read"
 msgstr "Zväčšiť _text pre lepšiu čitateľnosť"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:3
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Stlačiť a po_držať klávesy pre ich prijatie (pomalé klávesy)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:5
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
 msgstr "Použiť _klávesnicu na obrazovke"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:6
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
 msgid "Use screen _magnifier"
 msgstr "Použiť l_upu obrazovky"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:7
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
 msgid "Use screen _reader"
-msgstr "Použiť čítanie _obrazovky"
+msgstr "Použiť čítač _obrazovky"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:8
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "_Ignorovať opakované klávesy (odmietnuté klávesy)"
+msgstr "_Ignorovať opakované klávesy (poskakujúce klávesy)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.glade.h:9
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Stláčať klávesové skratky po jednom klávese (lepkavé klávesy)"
 
@@ -592,35 +835,124 @@ msgstr "Písma"
 msgid "Font plugin"
 msgstr "Modul písiem"
 
-#: ../plugins/font/gsd-font-manager.c:207
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+msgid "Don't show any warnings again for this filesystem"
+msgstr "Nezobrazovať znova žiadne upozornenia pre tento súborový systém"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+msgid "Don't show any warnings again"
+msgstr "Nezobrazovať znova žiadne upozornenia"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
 #, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "Na zväzku \"%s\" zostáva už len %s diskového priestoru."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "Na tomto počítači zostáva už len %s diskového priestoru."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
 msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing the mouse pointer theme."
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
 msgstr ""
-"Nepodarilo sa vytvoriť priečinok \"%s\".\n"
-"Je to potrebné na zmenu témy kurzora myši."
+"Uvoľniť diskový priestor môžete vyprázdnením Koša, odstránením nepoužívaných "
+"programov alebo súborov, alebo presunutím súborov na iný disk alebo oddiel."
 
-#: ../plugins/font/gsd-font-manager.c:230
-#, c-format
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
 msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing cursors."
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
 msgstr ""
-"Nepodarilo sa vytvoriť priečinok \"%s\".\n"
-"Je to potrebné na zmenu kurzorov."
+"Uvoľniť diskový priestor môžete odstránením nepoužívaných programov alebo "
+"súborov, alebo presunutím súborov na iný disk alebo oddiel."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:190
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr ""
+"Uvoľniť diskový priestor môžete vyprázdnením Koša, odstránením nepoužívaných "
+"programov alebo súborov, alebo presunutím súborov na externý disk."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr ""
+"Uvoľniť diskový priestor môžete odstránením nepoužívaných programov alebo "
+"súborov, alebo presunutím súborov na externý disk."
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
+msgid "Low Disk Space"
+msgstr "Nedostatok diskového priestoru"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
+msgid "Empty Trash"
+msgstr "Vyprázdniť Kôš"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
+msgid "Examine..."
+msgstr "Preskúmať..."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
+msgid "Ignore"
+msgstr "Ignorovať"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
 #, c-format
-msgid "Key binding (%s) is incomplete"
-msgstr "Klávesová skratka (%s) je neúplná"
+msgid "Removing item %lu of %lu"
+msgstr "Odstraňuje sa položka %lu z %lu"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:222
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#, c-format
+msgid "<i>Removing: %s</i>"
+msgstr "<i>Odstraňuje sa: %s</i>"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+msgid "Emptying the trash"
+msgstr "Kôš sa vyprázdňuje"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+msgid "Preparing to empty trash..."
+msgstr "Pripravuje sa vyprázdnenie koša..."
+
+# * https://bugzilla.gnome.org/show_bug.cgi?id=613647
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+msgid "From: "
+msgstr "Z: "
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+msgid "Empty all of the items from the trash?"
+msgstr "Vyprázdniť všetky položky z koša?"
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+msgid ""
+"If you choose to empty the trash, all items in it will be permanently lost. "
+"Please note that you can also delete them separately."
+msgstr ""
+"Ak si zvolíte vyprázdnenie koša, všetky položky sa z neho nenávratne "
+"stratia. Poznmámka: môžete ich taktiež odstrániť každú zvlášť."
+
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+msgid "_Empty Trash"
+msgstr "_Vyprázdniť Kôš"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
 msgstr "Klávesová skratka (%s) je neplatná"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:409
+#: ../plugins/keybindings/gsd-keybindings-manager.c:197
+#, c-format
+msgid "Key binding (%s) is incomplete"
+msgstr "Klávesová skratka (%s) je neúplná"
+
+#: ../plugins/keybindings/gsd-keybindings-manager.c:493
 #, c-format
 msgid ""
 "Error while trying to run (%s)\n"
@@ -645,31 +977,101 @@ msgstr "Klávesnica"
 msgid "Keyboard plugin"
 msgstr "Modul klávesnice"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:1
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:114
+#, fuzzy, c-format
+msgid ""
+"Error activating XKB configuration.\n"
+"It can happen under various circumstances:\n"
+"- a bug in libxklavier library\n"
+"- a bug in X server (xkbcomp, xmodmap utilities)\n"
+"- X server with incompatible libxkbfile implementation\n"
+"\n"
+"X server version data:\n"
+"%s\n"
+"%d\n"
+"%s\n"
+"If you report this situation as a bug, please include:\n"
+"- The result of <b>%s</b>\n"
+"- The result of <b>%s</b>"
+msgstr ""
+"Chyba pri aktivovaní nastavenia XKB.\n"
+"Toto sa môže stať za rôznych okolností:\n"
+"- chyba v knižnici libxklavier\n"
+"- chyba v X serveri (nástroje xkbcomp, xmodmap)\n"
+"- X server s nekompatibilnou implementáciou libxkbfile\n"
+"\n"
+"Údaje o verzii X servera:\n"
+"%s\n"
+"%d\n"
+"%s\n"
+"Ak túto situáciu nahlasujete ako chybu, pripojte, prosím:\n"
+"- Výsledok <b>%s</b>\n"
+"- Výsledok <b>%s</b>"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:128
+#, fuzzy
+msgid ""
+"You are using XFree 4.3.0.\n"
+"There are known problems with complex XKB configurations.\n"
+"Try using a simpler configuration or taking a fresher version of XFree "
+"software."
+msgstr ""
+"Používate XFree 4.3.0.\n"
+"Nachádzajú sa v ňom známe problémy so zložitými nastaveniami XKB.\n"
+"Skúste použiť jednoduchšie nastavenia alebo prevziať novšiu verziu softvéru "
+"XFree."
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:200
+#, fuzzy
+msgid "Unknown"
+msgstr "Neznáme"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:269
+#, c-format
+msgid "Keyboard Layout \"%s\""
+msgstr "Rozloženie klávesnice \"%s\""
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:392
+msgid "_Groups"
+msgstr "_Skupiny"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:399
+msgid "Keyboard _Preferences"
+msgstr "Nas_tavenia klávesnice"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:405
+msgid "Show Current _Layout"
+msgstr "Zobraziť aktuálne _rozloženie"
+
+#: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
 msgstr "_Dostupné súbory:"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:2
-msgid "Do _not show this warning again."
-msgstr "Toto upozornenie už _nezobrazovať."
-
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
+#: ../plugins/keyboard/modmap-dialog.ui.h:2
 msgid "Load modmap files"
 msgstr "Načítať súbory modmap"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
+#: ../plugins/keyboard/modmap-dialog.ui.h:3
 msgid "Would you like to load the modmap file(s)?"
 msgstr "Chceli by ste načítať súbor(y) modmap?"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:5
+#: ../plugins/keyboard/modmap-dialog.ui.h:4
+msgid "_Do not show this message again"
+msgstr "_Túto správu už nezobrazovať"
+
+#: ../plugins/keyboard/modmap-dialog.ui.h:5
 msgid "_Load"
 msgstr "_Načítať"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:6
+#: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "_Načítané súbory:"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:183
+#: ../plugins/keyboard/show-layout.ui.h:1
+msgid "Keyboard Layout"
+msgstr "Rozloženie klávesnice"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:195
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -677,7 +1079,7 @@ msgstr ""
 "Nepodarilo sa získať predvolený terminál. Overte si, či máte nastavený "
 "príkaz pre terminál, a či je to platná aplikácia."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:223
+#: ../plugins/media-keys/gsd-media-keys-manager.c:235
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -686,13 +1088,35 @@ msgstr ""
 "Nepodarilo sa spustiť príkaz: %s\n"
 "Skontrolujte, či je to platný príkaz."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:239
-msgid ""
-"Couldn't put the machine to sleep.\n"
-"Verify that the machine is correctly configured."
-msgstr ""
-"Nepodarilo sa uspať počítač.\n"
-"Overte si, či máte počítač správne nastavený."
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+msgid "Disabled"
+msgstr "Zakázané"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "%u výstupov"
+msgstr[1] "%u výstup"
+msgstr[2] "%u výstupy"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "%u vstupov"
+msgstr[1] "%u vstup"
+msgstr[2] "%u vstupy"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
+msgid "System Sounds"
+msgstr "Systémové zvuky"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -702,17 +1126,17 @@ msgstr "Multimediálne klávesy"
 msgid "Media keys plugin"
 msgstr "Modul multimediálnych kláves"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
+#: ../plugins/mouse/gsd-mouse-manager.c:882
 msgid "Could not enable mouse accessibility features"
 msgstr "Nepodarilo sa povoliť sprístupnenie myši"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:573
+#: ../plugins/mouse/gsd-mouse-manager.c:884
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 "Sprístupnenie myši vyžaduje na vašom systéme nainštalované mousetweaks."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:576
+#: ../plugins/mouse/gsd-mouse-manager.c:887
 msgid "Mouse Preferences"
 msgstr "Nastavenie myši"
 
@@ -723,108 +1147,6 @@ msgstr "Myš"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Modul myši"
-
-#: ../plugins/screensaver/gsd-screensaver-manager.c:153
-#, c-format
-msgid ""
-"There was an error starting up the screensaver:\n"
-"\n"
-"%s\n"
-"\n"
-"Screensaver functionality will not work in this session."
-msgstr ""
-"Pri spúšťaní šetriča obrazovky nastala chyba:\n"
-"\n"
-"%s\n"
-"\n"
-"Počas tejto relácie nebude šetrič obrazovky fungovať."
-
-#: ../plugins/screensaver/gsd-screensaver-manager.c:162
-msgid "_Do not show this message again"
-msgstr "_Túto správu už nezobrazovať"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
-msgid "Screensaver"
-msgstr "Šetrič obrazovky"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
-msgid "Screensaver plugin"
-msgstr "Modul šetriča obrazovky"
-
-#: ../plugins/sound/gsd-sound-manager.c:273
-#, c-format
-msgid "Couldn't load sound file %s as sample %s"
-msgstr "Nepodarilo sa načítať zvukový súbor %s ako zvuk %s"
-
-#: ../plugins/sound/libsounds/sound-view.c:43
-msgid "Login"
-msgstr "Prihlásenie"
-
-#: ../plugins/sound/libsounds/sound-view.c:44
-msgid "Logout"
-msgstr "Odhlásenie"
-
-#: ../plugins/sound/libsounds/sound-view.c:45
-msgid "Boing"
-msgstr "Beng"
-
-#: ../plugins/sound/libsounds/sound-view.c:46
-msgid "Siren"
-msgstr "Siréna"
-
-#: ../plugins/sound/libsounds/sound-view.c:47
-msgid "Clink"
-msgstr "Cink"
-
-#: ../plugins/sound/libsounds/sound-view.c:48
-msgid "Beep"
-msgstr "Zvonček"
-
-#: ../plugins/sound/libsounds/sound-view.c:49
-msgid "No sound"
-msgstr "Žiaden zvuk"
-
-#: ../plugins/sound/libsounds/sound-view.c:131
-msgid "Sound not set for this event."
-msgstr "Pre túto udalosť nie je nastavený zvuk."
-
-#: ../plugins/sound/libsounds/sound-view.c:140
-msgid ""
-"The sound file for this event does not exist.\n"
-"You may want to install the gnome-audio package for a set of default sounds."
-msgstr ""
-"Zvukový súbor pre túto udalosť neexistuje.\n"
-"Môžno budete chcieť nainštalovať balíček gnome-audio, ktorý obsahuje sadu "
-"predvolených zvukov."
-
-#: ../plugins/sound/libsounds/sound-view.c:151
-msgid "The sound file for this event does not exist."
-msgstr "Zvukový súbor pre túto udalosť neexistuje."
-
-#: ../plugins/sound/libsounds/sound-view.c:182
-msgid "Select Sound File"
-msgstr "Vybrať súbor so zvukom"
-
-#: ../plugins/sound/libsounds/sound-view.c:209
-#, c-format
-msgid "The file %s is not a valid wav file"
-msgstr "Súbor %s nie je platný súbor wav"
-
-#: ../plugins/sound/libsounds/sound-view.c:270
-msgid "Select sound file..."
-msgstr "Vybrať zvukový súbor..."
-
-#: ../plugins/sound/libsounds/sound-view.c:372
-msgid "System Sounds"
-msgstr "Systémové zvuky"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "Zvuk"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound plugin"
-msgstr "Modul zvuku"
 
 #: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
 msgid "Typing Break"
@@ -842,42 +1164,90 @@ msgstr "Nastavenie veľkosti a rotácie obrazovky"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+#: ../plugins/xrandr/gsd-xrandr-manager.c:222
+msgid "Could not switch the monitor configuration"
+msgstr "Nepodarilo sa prepnúť nastavenia monitora"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:246
+msgid "Could not restore the display's configuration"
+msgstr "Nepodarilo sa obnoviť nastavenia monitora"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:271
+msgid "Could not restore the display's configuration from a backup"
+msgstr "Nepodarilo sa obnoviť nastavenia monitora zo zálohy"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:292
+#, c-format
+msgid "The display will be reset to its previous configuration in %d second"
+msgid_plural ""
+"The display will be reset to its previous configuration in %d seconds"
+msgstr[0] ""
+"Nastavenia monitora budú obnovené do predchádzajúceho stavu o %d sekúnd"
+msgstr[1] ""
+"Nastavenia monitora budú obnovené do predchádzajúceho stavu o %d sekúnd"
+msgstr[2] ""
+"Nastavenia monitora budú obnovené do predchádzajúceho stavu o %d sekúnd"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:341
+msgid "Does the display look OK?"
+msgstr "Je zobrazenie na monitore v poriadku?"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:347
+msgid "_Restore Previous Configuration"
+msgstr "Obnoviť _predchádzajúce nastavenia"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:348
+msgid "_Keep This Configuration"
+msgstr "Ponechať _tieto nastavenia"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:429
+msgid "The selected configuration for displays could not be applied"
+msgstr "Zvolené nastavenia pre monitory nemôžu byť použité"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:967
+#, c-format
+msgid "Could not refresh the screen information: %s"
+msgstr "Nepodarilo sa obnoviť informácie o obrazovke: %s"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+msgid "Trying to switch the monitor configuration anyway."
+msgstr "Aj napriek tomu sa pokúsiť prepnúť nastavenia monitora."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1679
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Rotácia nie je podporovaná</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:460
-#: ../plugins/xrandr/gsd-xrandr-manager.c:468
-msgid "The selected rotation could not be applied"
-msgstr "Zvolená rotácie nemôže byť aplikovaná"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1733
+msgid "Could not save monitor configuration"
+msgstr "Nepodarilo sa uložiť nastavenia monitora"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:461
-msgid "An error occurred while configuring the screen"
-msgstr "Pri nastavovaní obrazovky nastala chyba"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:482
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1751
 msgid "Normal"
 msgstr "Normálna"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1752
 msgid "Left"
 msgstr "Vľavo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:484
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1753
 msgid "Right"
 msgstr "Vpravo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:485
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1754
 msgid "Upside Down"
 msgstr "Dolu hlavou"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:604
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1874
 msgid "_Configure Display Settings ..."
 msgstr "_Konfigurovať nastavenia obrazovky..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:645
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1915
 msgid "Configure display settings"
 msgstr "Konfigurovať nastavenia obrazovky"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1972
+msgid "Could not apply the stored configuration for monitors"
+msgstr "Nie je možné použiť uložené nastavenia pre monitory"
 
 #: ../plugins/xrdb/gsd-xrdb-manager.c:255
 #: ../plugins/xrdb/gsd-xrdb-manager.c:324
@@ -892,10 +1262,10 @@ msgstr "Spravovanie databázy zdrojov X"
 msgid "X Resource Database"
 msgstr "Databáza zdrojov X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:609
+#: ../plugins/xsettings/gsd-xsettings-manager.c:596
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
-msgstr "Kľúč GConf %s nastavený na typ %s, ale očakáva sa typ %s\n"
+msgstr "Kľúč GConf %s je nastavený na typ %s, ale očakáva sa typ %s\n"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
 msgid "Manage X Settings"
@@ -904,6 +1274,144 @@ msgstr "Spravovanie nastavenia X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Nastavenia X"
+
+#~ msgid ""
+#~ "Couldn't put the machine to sleep.\n"
+#~ "Verify that the machine is correctly configured."
+#~ msgstr ""
+#~ "Nepodarilo sa uspať počítač.\n"
+#~ "Overte si, či máte počítač správne nastavený."
+
+#~ msgid "Binding to suspend the computer."
+#~ msgstr "Klávesová skratka na uspatie počítača."
+
+#~ msgid "Suspend"
+#~ msgstr "Uspať"
+
+#~ msgid ""
+#~ "Set to True to display a dialog when there are errors running the "
+#~ "screensaver."
+#~ msgstr ""
+#~ "Ak je True, zobrazí sa dialógové okno, ak sa pri behu šetriča obrazovky "
+#~ "vyskytli chyby."
+
+#~ msgid "Set to True to run the screensaver at login."
+#~ msgstr "Ak je true, pri prihlásení sa spustí šetrič obrazovky"
+
+#~ msgid "Show startup errors"
+#~ msgstr "Zobraziť chyby pri štarte"
+
+#~ msgid "Start screensaver"
+#~ msgstr "Spustiť šetrič obrazovky"
+
+#~ msgid "Enable screensaver plugin"
+#~ msgstr "Povoliť modul šetriča obrazovky"
+
+#~ msgid "Set to True to enable the plugin to manage screensaver settings."
+#~ msgstr ""
+#~ "Pre povolenie modulu správy nastavení šetriča obrazovky nastavte na true."
+
+#~ msgid "%d%% of the disk space on `%s' is in use"
+#~ msgstr "%d %% diskového priestoru na `%s' sa používa"
+
+#~ msgid "Analyze"
+#~ msgstr "Analyzovať"
+
+#~ msgid "GNOME Volume Control"
+#~ msgstr "GNOME Ovládanie hlasitosti"
+
+#~ msgid ""
+#~ "There was an error starting up the screensaver:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Screensaver functionality will not work in this session."
+#~ msgstr ""
+#~ "Pri spúšťaní šetriča obrazovky nastala chyba:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Počas tejto relácie nebude šetrič obrazovky fungovať."
+
+#~ msgid "Screensaver"
+#~ msgstr "Šetrič obrazovky"
+
+#~ msgid "Screensaver plugin"
+#~ msgstr "Modul šetriča obrazovky"
+
+#~ msgid "Toggle screenreader"
+#~ msgstr "Prepnúť čítač obrazovky"
+
+#~ msgid "Sound"
+#~ msgstr "Zvuk"
+
+#~ msgid "Sound Sample Cache plugin"
+#~ msgstr "Modul ukladania zvukových samplov"
+
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing the mouse pointer theme."
+#~ msgstr ""
+#~ "Nepodarilo sa vytvoriť priečinok \"%s\".\n"
+#~ "Je to potrebné na zmenu témy kurzora myši."
+
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing cursors."
+#~ msgstr ""
+#~ "Nepodarilo sa vytvoriť priečinok \"%s\".\n"
+#~ "Je to potrebné na zmenu kurzorov."
+
+#~ msgid "Couldn't load sound file %s as sample %s"
+#~ msgstr "Nepodarilo sa načítať zvukový súbor %s ako zvuk %s"
+
+#~ msgid "Login"
+#~ msgstr "Prihlásenie"
+
+#~ msgid "Logout"
+#~ msgstr "Odhlásenie"
+
+#~ msgid "Boing"
+#~ msgstr "Beng"
+
+#~ msgid "Siren"
+#~ msgstr "Siréna"
+
+#~ msgid "Clink"
+#~ msgstr "Cink"
+
+#~ msgid "Beep"
+#~ msgstr "Zvonček"
+
+#~ msgid "No sound"
+#~ msgstr "Žiaden zvuk"
+
+#~ msgid "Sound not set for this event."
+#~ msgstr "Pre túto udalosť nie je nastavený zvuk."
+
+#~ msgid ""
+#~ "The sound file for this event does not exist.\n"
+#~ "You may want to install the gnome-audio package for a set of default "
+#~ "sounds."
+#~ msgstr ""
+#~ "Zvukový súbor pre túto udalosť neexistuje.\n"
+#~ "Môžno budete chcieť nainštalovať balíček gnome-audio, ktorý obsahuje sadu "
+#~ "predvolených zvukov."
+
+#~ msgid "The sound file for this event does not exist."
+#~ msgstr "Zvukový súbor pre túto udalosť neexistuje."
+
+#~ msgid "Select Sound File"
+#~ msgstr "Vybrať súbor so zvukom"
+
+#~ msgid "The file %s is not a valid wav file"
+#~ msgstr "Súbor %s nie je platný súbor wav"
+
+#~ msgid "Select sound file..."
+#~ msgstr "Vybrať zvukový súbor..."
+
+#~ msgid "An error occurred while configuring the screen"
+#~ msgstr "Pri nastavovaní obrazovky nastala chyba"
 
 #~ msgid "Key Binding (%s) has its action defined multiple times\n"
 #~ msgstr "Klávesová skratka (%s) má viackrát definovanú akciu.\n"
