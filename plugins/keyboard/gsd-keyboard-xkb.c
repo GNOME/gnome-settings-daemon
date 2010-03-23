@@ -595,6 +595,23 @@ apply_xkb_settings (void)
 						 GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
 						 GCONF_VALUE_STRING, NULL);
 
+		/* Use system layouts as a default if we do not have
+		 * user configuration */
+		if (layouts == NULL) {
+			GSList *i;
+			int len;
+
+			for (i = initial_sys_kbd_config.layouts_variants; i; i = g_slist_next (i)) {
+				s = g_strdup (i->data);
+
+				/* chop off empty variants to avoid duplicates */
+				len = strlen (s);
+				if (s[len - 1] == '\t')
+					s[len - 1] = '\0';
+				layouts = g_slist_append (layouts, s);
+			}
+		}
+
 		/* Add the layout if it doesn't already exist. XKB limits the
 		 * total number of layouts. If we already have the maximum
 		 * number of layouts configured, we replace the last one. This
