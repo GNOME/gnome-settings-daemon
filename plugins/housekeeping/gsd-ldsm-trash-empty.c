@@ -292,6 +292,7 @@ trash_empty_start ()
 
         markup = g_markup_printf_escaped ("<big><b>%s</b></big>", _("Emptying the trash"));
         gtk_label_set_markup (GTK_LABEL (label1), markup);
+        /* Translators: "Emptying trash from <device>" */
         gtk_label_set_text (GTK_LABEL (label3), _("From: "));
 
         cancellable = g_cancellable_new ();
