@@ -472,7 +472,6 @@ try_activating_xkb_config_if_new (GkbdKeyboardConfig *
 	if (!gkbd_keyboard_config_equals
 	    (&current_kbd_config, current_sys_kbd_config)) {
 		if (gkbd_keyboard_config_activate (&current_kbd_config)) {
-			show_hide_icon ();
 			if (pa_callback != NULL) {
 				(*pa_callback) (pa_callback_user_data);
 				return TRUE;
@@ -686,6 +685,7 @@ apply_xkb_settings (void)
 		xkl_engine_lock_group (current_config.engine,
 				       group_to_activate);
 	gkbd_keyboard_config_term (&current_sys_kbd_config);
+	show_hide_icon ();
 }
 
 static void
