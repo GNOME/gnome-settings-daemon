@@ -32,6 +32,7 @@
 struct GsdMountManagerPrivate
 {
         GVolumeMonitor *monitor;
+        gboolean coldplugging;
 };
 
 G_DEFINE_TYPE (GsdMountManager, gsd_mount_manager, G_TYPE_OBJECT)
@@ -51,6 +52,7 @@ drive_connected_cb (GVolumeMonitor *monitor,
 static void
 volume_mounted_cb (GObject *source_object, GAsyncResult *result, gpointer user_data)
 {
+        GsdMountManager *manager = GSD_MOUNT_MANAGER (user_data);
         GError *error = NULL;
         char *name;
 
@@ -59,7 +61,8 @@ volume_mounted_cb (GObject *source_object, GAsyncResult *result, gpointer user_d
 	if (!g_volume_mount_finish (G_VOLUME (source_object), result, &error)) {
                 g_debug ("Failed to mount '%s': %s", name, error->message);
 
-		if (error->code != G_IO_ERROR_FAILED_HANDLED) {
+                /* Only display errors if we're hotplugging */
+		if (!manager->priv->coldplugging && error->code != G_IO_ERROR_FAILED_HANDLED) {
                         char *primary;
                         GtkWidget *dialog;
 
@@ -137,6 +140,8 @@ mount_existing_volumes (GsdMountManager *manager)
 
         g_debug ("Mounting existing volumes");
 
+        manager->priv->coldplugging = TRUE;
+
         l = g_volume_monitor_get_volumes (manager->priv->monitor);
         while (l) {
                 GVolume *volume = l->data;
@@ -153,6 +158,8 @@ mount_existing_volumes (GsdMountManager *manager)
                 g_object_unref (volume);
                 l = g_list_delete_link (l, l);
         }
+
+        manager->priv->coldplugging = FALSE;
 }
 
 gboolean
@@ -174,9 +181,7 @@ gsd_mount_manager_start (GsdMountManager *manager,
 
         /* TODO: handle eject buttons */
 
-#if 0
         mount_existing_volumes (manager);
-#endif
 
         return TRUE;
 }
