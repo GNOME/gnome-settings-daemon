@@ -25,12 +25,15 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
+#include <dbus/dbus-glib.h>
+
 #include "gsd-mount-manager.h"
 
 #define GSD_MOUNT_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MOUNT_MANAGER, GsdMountManagerPrivate))
 
 struct GsdMountManagerPrivate
 {
+        DBusGConnection *session_bus;
         GVolumeMonitor *monitor;
         gboolean coldplugging;
 };
@@ -48,6 +51,38 @@ drive_connected_cb (GVolumeMonitor *monitor,
         /* TODO: listen for the eject button */
 }
 #endif
+
+static void
+mount_added_cb (GVolumeMonitor *monitor,
+                GMount *mount,
+                GsdMountManager *manager)
+{
+        GFile *file;
+        char *uri;
+        DBusGProxy *proxy;
+
+        if (manager->priv->coldplugging)
+                return;
+
+        file = g_mount_get_root (mount);
+        uri = g_file_get_uri (file);
+        g_debug ("%s mounted, showing devices panel", uri);
+        g_free (uri);
+        g_object_unref (file);
+
+
+        if (manager->priv->session_bus) {
+                proxy = dbus_g_proxy_new_for_name (manager->priv->session_bus,
+                                                   "org.moblin.UX.Shell.Toolbar",
+                                                   "/org/moblin/UX/Shell/Toolbar",
+                                                   "org.moblin.UX.Shell.Toolbar");
+
+                dbus_g_proxy_call_no_reply (proxy, "ShowPanel",
+                                            G_TYPE_STRING, "devices", G_TYPE_INVALID);
+
+                g_object_unref (proxy);
+        }
+}
 
 static void
 volume_mounted_cb (GObject *source_object, GAsyncResult *result, gpointer user_data)
@@ -113,26 +148,6 @@ volume_added_cb (GVolumeMonitor *monitor,
 }
 
 static void
-mount_added_cb (GVolumeMonitor *monitor,
-                GMount *mount,
-                GsdMountManager *manager)
-{
-        GFile *file;
-        char *uri;
-
-        file = g_mount_get_root (mount);
-        uri = g_file_get_uri (file);
-
-        g_debug ("%s mounted, starting file manager", uri);
-
-        /* TODO: some sort of dialog */
-        /* gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, NULL); */
-
-        g_free (uri);
-        g_object_unref (file);
-}
-
-static void
 mount_existing_volumes (GsdMountManager *manager)
 {
         /* TODO: iterate over drives to hook up eject */
@@ -164,11 +179,21 @@ mount_existing_volumes (GsdMountManager *manager)
 
 gboolean
 gsd_mount_manager_start (GsdMountManager *manager,
-                               GError               **error)
+                         GError         **error)
 {
+        GError *derror = NULL;
+
         g_debug ("Starting mount manager");
 
+        manager->priv->session_bus = dbus_g_bus_get (DBUS_BUS_SESSION, &derror);
+        if (manager->priv->session_bus == NULL) {
+                g_printerr ("Cannot connect to DBus: %s\n", derror->message);
+                g_error_free (derror);
+        }
+
         manager->priv->monitor = g_volume_monitor_get ();
+
+        manager->priv->coldplugging = FALSE;
 
 #if 0
 	g_signal_connect_object (manager->priv->monitor, "drive-connected",
@@ -190,6 +215,13 @@ void
 gsd_mount_manager_stop (GsdMountManager *manager)
 {
         g_debug ("Stopping mount manager");
+
+        /* TODO: disconnect signals */
+
+        g_object_unref (manager->priv->monitor);
+        manager->priv->monitor = NULL;
+
+        manager->priv->session_bus = NULL;
 }
 
 static void
