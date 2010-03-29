@@ -1,3 +1,35 @@
+==============
+Version 2.30.0
+==============
+
+- Protect XInput code by ifdefs if XInput isn't available (Daniel Macks) (#611670)
+- Don't play a sound when the volume doesn't change (Bastien Nocera) (#610001)
+- Fix linking with pedantic linkers (Bastien Nocera) (#610244)
+- Remove unused do_sleep_action function (Bastien Nocera)
+- Apply all keyboard settings to new keyboards (Bastien Nocera) (#610245)
+- Ensure the window is realized before we invalidate it (Richard Hughes) (#604918)
+- Replace "eject" spawn with GIO code (Bastien Nocera) (#580779)
+- Don't spawn xrdb (Martin Pitt) (#586276)
+- Add translator hint (Jens Granseuer) (#613647)
+- Disable font plugin by default (Bastien Nocera) (#613604)
+- Translations:
+  - bn (Jamil Ahmed)
+  - da (Ask H. Larsen)
+  - et (Ivar Smolin)
+  - eu (Inaki Larranaga Murgoitio)
+  - he (Nikos Bakaoukas)
+  - hu (Gabor Kelemen)
+  - ko (Changwoo Ryu)
+  - lt (Gintautas Miliauskas)
+  - nl (Hannie Dumoleyn, Reinout van Schouwen)
+  - nn (Torstein Adolf Winterseth)
+  - pa (A S Alam)
+  - pt (Duarte Loreto)
+  - ro (Adi Roiban)
+  - sl (Pavol Šimo)
+  - sr (Miloš Popović)
+  - uk (Maxim V. Dziumanenko)
+
 ===============
 Version 2.29.92
 ===============
