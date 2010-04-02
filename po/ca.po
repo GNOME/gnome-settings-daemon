@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 20:28+0100\n"
-"PO-Revision-Date: 2010-02-21 22:31+0100\n"
+"POT-Creation-Date: 2010-04-02 18:10+0200\n"
+"PO-Revision-Date: 2010-04-02 18:11+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -881,7 +881,7 @@ msgstr "El volum «%s» només li resta %s d'espai de disc."
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
 #, c-format
 msgid "This computer has only %s disk space remaining."
-msgstr "Aquest ordinador només li resta %s d'espai de disc"
+msgstr "Aquest ordinador només li resta %s d'espai de disc."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
 msgid ""
@@ -951,15 +951,16 @@ msgstr "S'està buidant la paperera"
 msgid "Preparing to empty trash..."
 msgstr "S'està preparant per buidar la paperera..."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+#. Translators: "Emptying trash from <device>"
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
 msgid "From: "
 msgstr "Des de: "
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
 msgid "Empty all of the items from the trash?"
 msgstr "Voleu buidar tots els elements de la paperera?"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
@@ -967,7 +968,7 @@ msgstr ""
 "Si buideu la paperera, se'n perdran tots els elements per sempre. Tingueu en "
 "compte que també podeu seleccionar elements per separat."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
 msgid "_Empty Trash"
 msgstr "_Buida la paperera"
 
@@ -1006,7 +1007,7 @@ msgstr "Teclat"
 msgid "Keyboard plugin"
 msgstr "Connector del teclat"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:112
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:114
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
@@ -1037,7 +1038,7 @@ msgstr ""
 "- El resultat de <b>%s</b>\n"
 "- El resultat de <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:126
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:128
 msgid ""
 "You are using XFree 4.3.0.\n"
 "There are known problems with complex XKB configurations.\n"
@@ -1049,24 +1050,24 @@ msgstr ""
 "Intenteu utilitzar una configuració coneguda o utilitzar una versió més "
 "moderna del programari de l'XFree."
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:197
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:200
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:266
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:269
 #, c-format
 msgid "Keyboard Layout \"%s\""
 msgstr "Disposició del teclat «%s»"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:389
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:392
 msgid "_Groups"
 msgstr "_Grups"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:396
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:399
 msgid "Keyboard _Preferences"
 msgstr "_Preferències del teclat"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:405
 msgid "Show Current _Layout"
 msgstr "Mostra la _disposició actual"
 
@@ -1098,7 +1099,7 @@ msgstr "Fitxers _carregats:"
 msgid "Keyboard Layout"
 msgstr "Disposició del teclat"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:195
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1106,7 +1107,7 @@ msgstr ""
 "No s'ha pogut obtenir el terminal per defecte. Verifiqueu que l'ordre que "
 "teniu establerta per al terminal per defecte existeixi."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:235
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1114,14 +1115,6 @@ msgid ""
 msgstr ""
 "No s'ha pogut executar l'ordre: %s\n"
 "Verifiqueu que sigui una ordre vàlida."
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
-msgid ""
-"Couldn't put the machine to sleep.\n"
-"Verify that the machine is correctly configured."
-msgstr ""
-"No s'ha pogut posar l'ordinador a dormir.\n"
-"Comproveu que l'ordinador està configurat correctament."
 
 #. translators:
 #. * The device has been disabled
@@ -1159,19 +1152,19 @@ msgstr "Tecles multimèdia"
 msgid "Media keys plugin"
 msgstr "Connector de les tecles multimèdia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:874
+#: ../plugins/mouse/gsd-mouse-manager.c:882
 msgid "Could not enable mouse accessibility features"
 msgstr ""
 "No s'han pogut habilitar les funcionalitats d'accessibilitat del ratolí"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:876
+#: ../plugins/mouse/gsd-mouse-manager.c:884
 msgid ""
 "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 "L'accessibilitat de ratolí requereix que s'instal·li el mousetweaks a "
 "l'ordinador."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:879
+#: ../plugins/mouse/gsd-mouse-manager.c:887
 msgid "Mouse Preferences"
 msgstr "Preferències del ratolí"
 
@@ -1298,7 +1291,7 @@ msgstr "Gestiona la base de dades de recursos d'X"
 msgid "X Resource Database"
 msgstr "Base de dades de recursos d'X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:644
+#: ../plugins/xsettings/gsd-xsettings-manager.c:596
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr ""
@@ -1311,6 +1304,13 @@ msgstr "Gestiona els paràmetres d'X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Paràmetres d'X"
+
+#~ msgid ""
+#~ "Couldn't put the machine to sleep.\n"
+#~ "Verify that the machine is correctly configured."
+#~ msgstr ""
+#~ "No s'ha pogut posar l'ordinador a dormir.\n"
+#~ "Comproveu que l'ordinador està configurat correctament."
 
 #~ msgid "Binding to suspend the computer."
 #~ msgstr "Vinculació per aturar temporalment l'ordinador."
