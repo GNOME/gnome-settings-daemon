@@ -66,6 +66,9 @@ static void *pa_callback_user_data = NULL;
 static const char KNOWN_FILES_KEY[] =
     "/desktop/gnome/peripherals/keyboard/general/known_file_list";
 
+static const char DISABLE_INDICATOR_KEY[] =
+    "/desktop/gnome/peripherals/keyboard/general/disable_indicator";
+
 static const char *gdm_keyboard_layout = NULL;
 
 static GtkStatusIcon *icon = NULL;
@@ -447,6 +450,16 @@ show_hide_icon ()
 {
 	if (g_slist_length (current_kbd_config.layouts_variants) > 1) {
 		if (icon == NULL) {
+			GConfClient *conf_client =
+			    gconf_client_get_default ();
+			gboolean disable =
+			    gconf_client_get_bool (conf_client,
+						   DISABLE_INDICATOR_KEY,
+						   NULL);
+			g_object_unref (conf_client);
+			if (disable)
+				return;
+
 			xkl_debug (150, "Creating new icon\n");
 			icon = gkbd_status_new ();
 			g_signal_connect (icon, "popup-menu",
@@ -541,8 +554,8 @@ filter_xkb_config (void)
 					current_kbd_config.layouts_variants
 					    =
 					    g_slist_delete_link
-					    (current_kbd_config.layouts_variants,
-					     filtered);
+					    (current_kbd_config.
+					     layouts_variants, filtered);
 					any_change = TRUE;
 					continue;
 				}
@@ -590,10 +603,12 @@ apply_xkb_settings (void)
 		GSList *found_node;
 		int max_groups;
 
-		max_groups = MAX (xkl_engine_get_max_num_groups (xkl_engine), 1);
-		layouts = gconf_client_get_list (conf_client,
-						 GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
-						 GCONF_VALUE_STRING, NULL);
+		max_groups =
+		    MAX (xkl_engine_get_max_num_groups (xkl_engine), 1);
+		layouts =
+		    gconf_client_get_list (conf_client,
+					   GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
+					   GCONF_VALUE_STRING, NULL);
 
 		/* Use system layouts as a default if we do not have
 		 * user configuration */
@@ -601,7 +616,8 @@ apply_xkb_settings (void)
 			GSList *i;
 			int len;
 
-			for (i = initial_sys_kbd_config.layouts_variants; i; i = g_slist_next (i)) {
+			for (i = initial_sys_kbd_config.layouts_variants;
+			     i; i = g_slist_next (i)) {
 				s = g_strdup (i->data);
 
 				/* chop off empty variants to avoid duplicates */
