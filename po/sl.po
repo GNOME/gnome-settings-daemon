@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-deamon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-02-16 02:09+0000\n"
-"PO-Revision-Date: 2010-02-16 11:16+0100\n"
+"POT-Creation-Date: 2010-04-07 05:50+0000\n"
+"PO-Revision-Date: 2010-04-07 08:19+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,7 @@ msgstr "Prag obveščanja odstotka prostora"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
 msgid "Binding to eject an optical disk."
-msgstr "Bližnjica za odklop optičnega diska."
+msgstr "Bližnjica za izmet optičnega diska."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
 msgid "Binding to enable or disable the touchpad."
@@ -228,12 +228,36 @@ msgid "Volume up"
 msgstr "Po_večaj glasnost"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid "File for default configuration for RANDR"
+msgstr "Datoteka za privzeto nastavitev za RANDR"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "If a notification icon with display related things should be shown in the panel."
 msgstr "Ali naj bo na opravilni vrstici prikazana ikona za prikaz podobnih stvari."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
 msgid "Show Displays in Notification Area"
 msgstr "Počasen prikaz obvestil na zaslonu"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
+msgid "The XRANDR plugin will look for a default configuration in the file specified by this key. This is similar to the ~/.config/monitors.xml that normally gets stored in users' home directories. If a user does not have such a file, or has one that does not match the user's setup of monitors, then the file specified by this key will be used instead."
+msgstr "Vstavek XRANDR preišče privzete nastavitve v datoteki, ki je določena na tem mestu. To je podobna datoteka kot je datoteka ~/.config/monitors.xml, ki je običajno shranjena v uporabnikovi mapi. V kolikor uporabnik v osebni mapi te datoteke nima, ali pa jo ima, vendar ni skladna z nastavitvami zaslonov, bo uporabljena datoteka določena na tem mestu."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+msgid "Turn on external monitor after system boot"
+msgstr "Priklopi zunanji zaslon po sistemskem zagonu."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
+msgid "Turn on external monitor after system boot if user plugin external monitor when system boot."
+msgstr "Priklopi zunanji zaslon po sistemskem zagonu, če je priklopljen zunanji zaslon ob zagonu sistema."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+msgid "Turn on laptop monitor after system boot"
+msgstr "Ugasni zaslon prenosnika po sistemskem zagonu"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
+msgid "Turn on laptop monitor after system boot if user plugin external monitor when system boot."
+msgstr "Ugasni zaslon prenosnika po sistemskem zagonu, če je priklopljen zunanji zaslon ob zagonu sistema."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -798,19 +822,20 @@ msgstr "Praznjenje smeti"
 msgid "Preparing to empty trash..."
 msgstr "Priprava na praznjenje smeti ..."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+#. Translators: "Emptying trash from <device>"
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
 msgid "From: "
 msgstr "Od:"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
 msgid "Empty all of the items from the trash?"
 msgstr "Ali naj se izbrišejo vsi predmeti iz smeti?"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
 msgid "If you choose to empty the trash, all items in it will be permanently lost. Please note that you can also delete them separately."
 msgstr "V primeru, da se odločite izprazniti smeti, bodo vsi predmeti trajno izgubljeni. Predmete lahko izbrišete tudi posamič."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
 msgid "_Empty Trash"
 msgstr "Sprazni _smeti"
 
@@ -849,7 +874,7 @@ msgstr "Tipkovnica"
 msgid "Keyboard plugin"
 msgstr "Vstavek tipkovnice"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:112
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:117
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
@@ -880,7 +905,7 @@ msgstr ""
 "- izpis <b>%s</b>\n"
 "- izpis <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:126
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:131
 msgid ""
 "You are using XFree 4.3.0.\n"
 "There are known problems with complex XKB configurations.\n"
@@ -890,24 +915,24 @@ msgstr ""
 "Znani so primeri težav z nastavitvami XKB.\n"
 "Uporabite enostavnejše nastavitve ali pa namestite novejšo različico XFree programske opreme."
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:197
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:203
 msgid "Unknown"
 msgstr "Neznano"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:266
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:272
 #, c-format
 msgid "Keyboard Layout \"%s\""
 msgstr "Razpored tipkovnice \"%s\""
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:389
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:395
 msgid "_Groups"
 msgstr "_Skupine"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:396
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
 msgid "Keyboard _Preferences"
 msgstr "Možnosti _tipkovnice"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:408
 msgid "Show Current _Layout"
 msgstr "Pokaži trenutni _razpored"
 
@@ -939,11 +964,11 @@ msgstr "Naložene datoteke:"
 msgid "Keyboard Layout"
 msgstr "Razpored tipk"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:195
 msgid "Could not get default terminal. Verify that your default terminal command is set and points to a valid application."
 msgstr "Ni mogoče priklicati privzetega terminala. Preverite, če je ukaz za zagon terminala ustrezno določen."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:235
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -951,14 +976,6 @@ msgid ""
 msgstr ""
 "Ni mogoče izvesti ukaza: %s\n"
 "Preverite ali je ukaz veljaven."
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
-msgid ""
-"Couldn't put the machine to sleep.\n"
-"Verify that the machine is correctly configured."
-msgstr ""
-"Sistema ni mogoče pripraviti na spanje.\n"
-"Preverite, da je pravilno nastavljen."
 
 #. translators:
 #. * The device has been disabled
@@ -1000,15 +1017,15 @@ msgstr "Medijske tipke"
 msgid "Media keys plugin"
 msgstr "Vstavek medijskih tipk"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:874
+#: ../plugins/mouse/gsd-mouse-manager.c:882
 msgid "Could not enable mouse accessibility features"
 msgstr "Ni mogoče zagnati možnosti dostopnosti miške"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:876
+#: ../plugins/mouse/gsd-mouse-manager.c:884
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "Dostopnost miške zahteva pravilno nameščen mousetweaks ozadnjega programa."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:879
+#: ../plugins/mouse/gsd-mouse-manager.c:887
 msgid "Mouse Preferences"
 msgstr "Možnosti miške"
 
@@ -1036,19 +1053,19 @@ msgstr "Nastavitev velikosti in obračanja zaslona"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:226
+#: ../plugins/xrandr/gsd-xrandr-manager.c:225
 msgid "Could not switch the monitor configuration"
 msgstr "Ni mogoče preklopiti nastavitve zaslona"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:250
+#: ../plugins/xrandr/gsd-xrandr-manager.c:249
 msgid "Could not restore the display's configuration"
 msgstr "Ni mogoče obnoviti nastavitev zaslona"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:275
+#: ../plugins/xrandr/gsd-xrandr-manager.c:274
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Ni mogoče obnoviti nastavitve zaslona iz varnostne kopije"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:296
+#: ../plugins/xrandr/gsd-xrandr-manager.c:295
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural "The display will be reset to its previous configuration in %d seconds"
@@ -1057,64 +1074,64 @@ msgstr[1] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundi"
 msgstr[2] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
 msgstr[3] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:345
+#: ../plugins/xrandr/gsd-xrandr-manager.c:344
 msgid "Does the display look OK?"
 msgstr "Ali je slika na zaslonu videti v redu?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:351
+#: ../plugins/xrandr/gsd-xrandr-manager.c:350
 msgid "_Restore Previous Configuration"
 msgstr "_Obnovi predhodne nastavitve"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:352
+#: ../plugins/xrandr/gsd-xrandr-manager.c:351
 msgid "_Keep This Configuration"
 msgstr "_Ohrani nastavitve"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:433
+#: ../plugins/xrandr/gsd-xrandr-manager.c:432
 msgid "The selected configuration for displays could not be applied"
 msgstr "Izbranih nastavitev zaslona ni mogoče uporabiti"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:978
+#: ../plugins/xrandr/gsd-xrandr-manager.c:970
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Ni mogoče posodobiti podrobnosti zaslona: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:981
+#: ../plugins/xrandr/gsd-xrandr-manager.c:973
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Poskus preklopa nastavitev zaslona."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1690
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1682
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Vrtenje ni podprto</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1744
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1736
 msgid "Could not save monitor configuration"
 msgstr "Ni mogoče shraniti nastavitev zaslona."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1762
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1754
 msgid "Normal"
 msgstr "Običajno"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1763
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1755
 msgid "Left"
 msgstr "Levo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1764
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1756
 msgid "Right"
 msgstr "Desno"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1765
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1757
 msgid "Upside Down"
 msgstr "Zgoraj navzdol"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1885
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1877
 msgid "_Configure Display Settings ..."
 msgstr "_Prilagodi nastavitve zaslona ..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1926
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1918
 msgid "Configure display settings"
 msgstr "Spremeni nastavitve zaslona"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1983
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1978
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Ni mogoče uporabiti shranjenih nastavitev za zaslone."
 
@@ -1131,7 +1148,7 @@ msgstr "Upravljanje s podatkovno zbirko virov X"
 msgid "X Resource Database"
 msgstr "Podatkovna zbirka virov X"
 
-#: ../plugins/xsettings/gsd-xsettings-manager.c:644
+#: ../plugins/xsettings/gsd-xsettings-manager.c:596
 #, c-format
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf ključ %s nastavljen na vrsto %s, a njegov pričakovan tip je bil %s\n"
@@ -1144,34 +1161,53 @@ msgstr "Upravljanje nastavitve strežnika X"
 msgid "X Settings"
 msgstr "Nastavitve X"
 
+#~ msgid ""
+#~ "Couldn't put the machine to sleep.\n"
+#~ "Verify that the machine is correctly configured."
+#~ msgstr ""
+#~ "Sistema ni mogoče pripraviti na spanje.\n"
+#~ "Preverite, da je pravilno nastavljen."
+
 #~ msgid "Binding to suspend the computer."
 #~ msgstr "Bližnjica za zaustavitev predvajanja."
+
 #~ msgid "Suspend"
 #~ msgstr "V mirovanje"
+
 #~ msgid ""
 #~ "Set to True to display a dialog when there are errors running the "
 #~ "screensaver."
 #~ msgstr "Omogoči prikaz napak pri zagonu ohranjevalnika zaslona."
+
 #~ msgid "Set to True to run the screensaver at login."
 #~ msgstr "Omogoči zagon ohranjevalnika zaslona ob prijavi."
+
 #~ msgid "Show startup errors"
 #~ msgstr "Pokaži napake ob zagonu"
+
 #~ msgid "Start screensaver"
 #~ msgstr "Zaženi ohranjevalnik zaslona"
+
 #~ msgid "Enable screensaver plugin"
 #~ msgstr "Omogoči vstavek ohranjevalnika zaslona"
+
 #~ msgid "Set to True to enable the plugin to manage screensaver settings."
 #~ msgstr ""
 #~ "Izbrana možnost omogoči vstavek za upravljanje nastavitev ohranjevalnika "
 #~ "zaslona."
+
 #~ msgid "Toggle screenreader"
 #~ msgstr "Preklopi zalsonski bralnik"
+
 #~ msgid "%d%% of the disk space on `%s' is in use"
 #~ msgstr "%d%% prostora na disku na `%s' je v uporabi"
+
 #~ msgid "Analyze"
 #~ msgstr "Analiziraj"
+
 #~ msgid "GNOME Volume Control"
 #~ msgstr "Nadzornik glasnosti"
+
 #~ msgid ""
 #~ "There was an error starting up the screensaver:\n"
 #~ "\n"
@@ -1184,42 +1220,57 @@ msgstr "Nastavitve X"
 #~ "%s\n"
 #~ "\n"
 #~ "Ohranjevalnik zaslona v tej seji ne bo deloval"
+
 #~ msgid "Screensaver"
 #~ msgstr "Ohranjevalnik zaslona"
+
 #~ msgid "Screensaver plugin"
 #~ msgstr "Vstavek ohranjevalnika zaslona"
+
 #~ msgid "gtk-close"
 #~ msgstr "gtk-close"
+
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
 #~ "This is needed to allow changing the mouse pointer theme."
 #~ msgstr ""
 #~ "Ni mogoče ustvariti mape \"%s\".\n"
 #~ "Ustvarjanje je zahtevano za dovolitev spreminjanja tem kazalcev."
+
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
 #~ "This is needed to allow changing cursors."
 #~ msgstr ""
 #~ "Ni mogoče ustvariti imenika \"%s\".\n"
 #~ "To je zahtevano za spreminjanje kazalcev."
+
 #~ msgid "Couldn't load sound file %s as sample %s"
 #~ msgstr "Ni mogoče naložiti zvočne datoteke %s kot vzorca %s"
+
 #~ msgid "Login"
 #~ msgstr "Prijava"
+
 #~ msgid "Logout"
 #~ msgstr "Odjava"
+
 #~ msgid "Boing"
 #~ msgstr "Boing"
+
 #~ msgid "Siren"
 #~ msgstr "Sirena"
+
 #~ msgid "Clink"
 #~ msgstr "Clink"
+
 #~ msgid "Beep"
 #~ msgstr "Pisk"
+
 #~ msgid "No sound"
 #~ msgstr "Brez zvoka"
+
 #~ msgid "Sound not set for this event."
 #~ msgstr "Za ta dogodek zvok ni nastavljen"
+
 #~ msgid ""
 #~ "The sound file for this event does not exist.\n"
 #~ "You may want to install the gnome-audio package for a set of default "
@@ -1227,20 +1278,27 @@ msgstr "Nastavitve X"
 #~ msgstr ""
 #~ "Zvočna datoteka za ta dogodek ne obstaja.\n"
 #~ "Morda bi želeli namestiti paket gnome-audio za zbirko privzetih zvokov."
+
 #~ msgid "The sound file for this event does not exist."
 #~ msgstr "Zvočna datoteka za ta dogodek ne obstaja."
+
 #~ msgid "Select Sound File"
 #~ msgstr "Izberi zvočno datoteko"
+
 #~ msgid "The file %s is not a valid wav file"
 #~ msgstr "Datoteka %s ni veljavna datoteka wav"
+
 #~ msgid "Select sound file..."
 #~ msgstr "Izberi zvočno datoteko ..."
+
 #~ msgid "Sound"
 #~ msgstr "Zvok"
+
 #~ msgid "Sound plugin"
 #~ msgstr "Vstavek zvoka"
+
 #~ msgid "An error occurred while configuring the screen"
 #~ msgstr "Prišlo je od napake med prilagajanjem zaslona"
+
 #~ msgid "Screen Rotation"
 #~ msgstr "Kroženje zaslona"
-
