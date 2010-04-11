@@ -1603,7 +1603,7 @@ make_menu_item_for_output_title (GsdXrandrManager *manager, GnomeOutputInfo *out
 	 * theme's colors, since the label is always shown against a light
 	 * pastel background.  See bgo#556050
 	 */
-	gtk_widget_modify_fg (label, GTK_WIDGET_STATE (label), &black);
+	gtk_widget_modify_fg (label, gtk_widget_get_state (label), &black);
 
         /* Add padding around the label to fit the box that we'll draw for color-coding */
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
