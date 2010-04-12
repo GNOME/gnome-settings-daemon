@@ -268,7 +268,7 @@ trash_empty_start ()
         gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (progressbar), 0.1);
         gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progressbar), _("Preparing to empty trash..."));
 
-        gtk_box_pack_start (GTK_BOX (GTK_DIALOG (trash_empty_dialog)->vbox), vbox1, TRUE, TRUE, 0);
+        gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (trash_empty_dialog))), vbox1, TRUE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (vbox1), label1, TRUE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (hbox), label3, FALSE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (hbox), location_label, TRUE, TRUE, 0);
@@ -283,7 +283,7 @@ trash_empty_start ()
         gtk_widget_show (hbox);
         gtk_widget_show (location_label);
 
-        gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (trash_empty_dialog)->vbox), 6);
+        gtk_container_set_border_width (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (trash_empty_dialog))), 6);
         gtk_container_set_border_width (GTK_CONTAINER (vbox1), 6);
 
         gtk_dialog_add_button (GTK_DIALOG (trash_empty_dialog),
@@ -366,7 +366,7 @@ trash_empty_show_confirmation_dialog ()
 
         button = gtk_button_new_with_mnemonic (_("_Empty Trash"));
         gtk_widget_show (button);
-        GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+        gtk_widget_set_can_default (button, TRUE);
 
         gtk_dialog_add_action_widget (GTK_DIALOG (trash_empty_confirm_dialog),
                                       button, GTK_RESPONSE_YES);

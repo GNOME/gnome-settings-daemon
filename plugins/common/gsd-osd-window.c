@@ -309,8 +309,11 @@ static void
 expose_when_not_composited (GtkWidget *widget, GdkEventExpose *event)
 {
 	GsdOsdWindow *window;
+	GtkAllocation allocation;
 
 	window = GSD_OSD_WINDOW (widget);
+
+	gtk_widget_get_allocation (widget, &allocation);
 
 	gtk_paint_shadow (gtk_widget_get_style (widget),
 			  gtk_widget_get_window (widget),
@@ -321,8 +324,8 @@ expose_when_not_composited (GtkWidget *widget, GdkEventExpose *event)
 			  NULL, /* NULL detail -> themes should use the GsdOsdWindow widget name, probably */
 			  0,
 			  0,
-			  widget->allocation.width,
-			  widget->allocation.height);
+			  allocation.width,
+			  allocation.height);
 }
 
 static gboolean

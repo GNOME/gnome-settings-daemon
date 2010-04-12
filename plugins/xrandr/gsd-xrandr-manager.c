@@ -1484,6 +1484,7 @@ output_title_label_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gp
         GnomeOutputInfo *output;
         GdkColor color;
         cairo_t *cr;
+        GtkAllocation allocation;
 
         g_assert (GTK_IS_LABEL (widget));
 
@@ -1496,23 +1497,24 @@ output_title_label_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gp
 
         gnome_rr_labeler_get_color_for_output (priv->labeler, output, &color);
 
-        cr = gdk_cairo_create (widget->window);
+        cr = gdk_cairo_create (gtk_widget_get_window (widget));
 
         cairo_set_source_rgb (cr, 0, 0, 0);
         cairo_set_line_width (cr, OUTPUT_TITLE_ITEM_BORDER);
+        gtk_widget_get_allocation (widget, &allocation);
         cairo_rectangle (cr,
-                         widget->allocation.x + OUTPUT_TITLE_ITEM_BORDER / 2.0,
-                         widget->allocation.y + OUTPUT_TITLE_ITEM_BORDER / 2.0,
-                         widget->allocation.width - OUTPUT_TITLE_ITEM_BORDER,
-                         widget->allocation.height - OUTPUT_TITLE_ITEM_BORDER);
+                         allocation.x + OUTPUT_TITLE_ITEM_BORDER / 2.0,
+                         allocation.y + OUTPUT_TITLE_ITEM_BORDER / 2.0,
+                         allocation.width - OUTPUT_TITLE_ITEM_BORDER,
+                         allocation.height - OUTPUT_TITLE_ITEM_BORDER);
         cairo_stroke (cr);
 
         gdk_cairo_set_source_color (cr, &color);
         cairo_rectangle (cr,
-                         widget->allocation.x + OUTPUT_TITLE_ITEM_BORDER,
-                         widget->allocation.y + OUTPUT_TITLE_ITEM_BORDER,
-                         widget->allocation.width - 2 * OUTPUT_TITLE_ITEM_BORDER,
-                         widget->allocation.height - 2 * OUTPUT_TITLE_ITEM_BORDER);
+                         allocation.x + OUTPUT_TITLE_ITEM_BORDER,
+                         allocation.y + OUTPUT_TITLE_ITEM_BORDER,
+                         allocation.width - 2 * OUTPUT_TITLE_ITEM_BORDER,
+                         allocation.height - 2 * OUTPUT_TITLE_ITEM_BORDER);
 
         cairo_fill (cr);
 
@@ -1527,7 +1529,7 @@ output_title_label_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gp
          * Yay for fucking with GTK+'s internals.
          */
 
-        widget->state = GTK_STATE_NORMAL;
+        gtk_widget_set_state (widget, GTK_STATE_NORMAL);
 
         return FALSE;
 }
@@ -1537,7 +1539,7 @@ static gboolean
 output_title_label_after_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
 {
         g_assert (GTK_IS_LABEL (widget));
-        widget->state = GTK_STATE_INSENSITIVE;
+        gtk_widget_set_state (widget, GTK_STATE_INSENSITIVE);
 
         return FALSE;
 }

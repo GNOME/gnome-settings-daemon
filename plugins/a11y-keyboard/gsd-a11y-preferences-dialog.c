@@ -907,7 +907,7 @@ gsd_a11y_preferences_dialog_init (GsdA11yPreferencesDialog *dialog)
 
                 widget = GTK_WIDGET (gtk_builder_get_object (builder,
                                                              "main_box"));
-                gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),
+                gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
                                    widget);
                 gtk_container_set_border_width (GTK_CONTAINER (widget), 12);
                 setup_dialog (dialog, builder);

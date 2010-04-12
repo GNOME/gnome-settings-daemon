@@ -58,10 +58,12 @@ locate_pointer_paint (GsdLocatePointerData *data,
   GdkColor color;
   gdouble progress, circle_progress;
   gint width, height, i;
+  GtkStyle *style;
 
   progress = data->progress;
   gdk_drawable_get_size (data->window, &width, &height);
-  color = data->widget->style->bg[GTK_STATE_SELECTED];
+  style = gtk_widget_get_style (data->widget);
+  color = style->bg[GTK_STATE_SELECTED];
 
   cairo_set_source_rgba (cr, 1., 1., 1., 0.);
   cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);

@@ -254,8 +254,8 @@ gsd_ldsm_dialog_init (GsdLdsmDialog *dialog)
         gtk_box_pack_start (GTK_BOX (main_vbox), hbox, FALSE, FALSE, 0);
 						
         /* Set up the action area */
-        gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area), 6);
-        gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
+        gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG (dialog))), 6);
+        gtk_container_set_border_width (GTK_CONTAINER (gtk_dialog_get_action_area (GTK_DIALOG (dialog))), 5);
 	
         gtk_widget_show_all (hbox);
 }
