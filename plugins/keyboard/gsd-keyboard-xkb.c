@@ -392,7 +392,7 @@ status_icon_popup_menu_cb (GtkStatusIcon * icon, guint button, guint time)
 	int i = 0;
 	gchar **current_name = gkbd_status_get_group_names ();
 
-	GtkWidget *item = gtk_menu_item_new_with_mnemonic (_("_Groups"));
+	GtkWidget *item = gtk_menu_item_new_with_mnemonic (_("_Layouts"));
 	gtk_widget_show (item);
 	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (item),
@@ -405,7 +405,7 @@ status_icon_popup_menu_cb (GtkStatusIcon * icon, guint button, guint time)
 			  NULL);
 	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
 
-	item = gtk_menu_item_new_with_mnemonic (_("Show Current _Layout"));
+	item = gtk_menu_item_new_with_mnemonic (_("Show _Current Layout"));
 	gtk_widget_show (item);
 	g_signal_connect (item, "activate", popup_menu_show_layout, NULL);
 	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
