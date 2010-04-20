@@ -12,6 +12,7 @@ SUBDIRS =		\
 	keyboard	\
 	media-keys	\
 	mouse		\
+	smartcard	\
 	sound		\
 	typing-break	\
 	xrandr		\
