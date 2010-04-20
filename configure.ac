@@ -251,6 +251,52 @@ AM_CONDITIONAL(HAVE_PULSE, test "x$have_pulse" = "xtrue")
 AC_SUBST(PULSE_CFLAGS)
 AC_SUBST(PULSE_LIBS)
 
+
+dnl ==============================================
+dnl smartcard section
+dnl ==============================================
+have_smartcard_support=false
+AC_ARG_ENABLE(smartcard-support,
+  AC_HELP_STRING([--disable-smartcard-support],
+                 [turn off smartcard support]),
+       [case "${enableval}" in
+               yes) WANT_SMARTCARD_SUPPORT=yes ;;
+               no)  WANT_SMARTCARD_SUPPORT=no ;;
+               *) AC_MSG_ERROR(bad value ${enableval} for --disable-smartcard-support) ;;
+       esac],
+       [WANT_SMARTCARD_SUPPORT=yes])
+
+if test x$WANT_SMARTCARD_SUPPORT = xyes ; then
+       NSS_REQUIRED_VERSION=3.11.2
+       PKG_CHECK_MODULES(NSS, nss >= $NSS_REQUIRED_VERSION,
+             [have_smartcard_support=true
+              AC_DEFINE(SMARTCARD_SUPPORT, 1, [Define if smartcard support should be enabled])],
+             [have_smartcard_support=false])
+fi
+AM_CONDITIONAL(SMARTCARD_SUPPORT, test "x$have_smartcard_support" = "xtrue")
+
+AC_SUBST(NSS_CFLAGS)
+AC_SUBST(NSS_LIBS)
+
+AC_ARG_WITH(nssdb,
+  AC_HELP_STRING([--with-nssdb],
+                 [where system NSS database is]))
+
+NSS_DATABASE=""
+if test "x$have_smartcard_support" = "xtrue"; then
+        if ! test -z "$with_nssdb" ; then
+                NSS_DATABASE="$with_nssdb"
+        else
+                NSS_DATABASE="${sysconfdir}/pki/nssdb"
+        fi
+else
+        if ! test -z "$with_nssdb" ; then
+                AC_MSG_WARN([nssdb specified when smartcard support is disabled])
+        fi
+fi
+
+AC_SUBST(NSS_DATABASE)
+
 # ---------------------------------------------------------------------------
 # Enable Profiling
 # ---------------------------------------------------------------------------
@@ -350,6 +396,7 @@ plugins/keyboard/Makefile
 plugins/media-keys/Makefile
 plugins/media-keys/cut-n-paste/Makefile
 plugins/mouse/Makefile
+plugins/smartcard/Makefile
 plugins/sound/Makefile
 plugins/typing-break/Makefile
 plugins/xrandr/Makefile
@@ -390,5 +437,9 @@ echo "
 
         Libnotify support:        ${have_libnotify}
         PulseAudio support:       ${have_pulse}
+        Smartcard support:        ${have_smartcard_support}
+${NSS_DATABASE:+\
+        System nssdb:             ${NSS_DATABASE}
+}\
         Profiling support:        ${enable_profiling}
 "
