@@ -269,7 +269,7 @@ trash_empty_start ()
 
         progressbar = gtk_progress_bar_new ();
         gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (progressbar), 0.1);
-        gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progressbar), _("Preparing to empty trash..."));
+        gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progressbar), _("Preparing to empty trash…"));
 
         gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (trash_empty_dialog))), vbox1, TRUE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (vbox1), label1, TRUE, TRUE, 0);

@@ -1879,7 +1879,7 @@ status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timesta
         gtk_widget_show (item);
         gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
 
-        item = gtk_menu_item_new_with_mnemonic (_("_Configure Display Settings ..."));
+        item = gtk_menu_item_new_with_mnemonic (_("_Configure Display Settings…"));
         g_signal_connect (item, "activate",
                           G_CALLBACK (popup_menu_configure_display_cb), manager);
         gtk_widget_show (item);

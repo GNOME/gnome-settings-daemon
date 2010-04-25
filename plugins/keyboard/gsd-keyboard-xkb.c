@@ -136,13 +136,13 @@ activation_error (void)
 						     _
 						     ("Error activating XKB configuration.\n"
 						      "It can happen under various circumstances:\n"
-						      "- a bug in libxklavier library\n"
-						      "- a bug in X server (xkbcomp, xmodmap utilities)\n"
-						      "- X server with incompatible libxkbfile implementation\n\n"
+						      " • a bug in libxklavier library\n"
+						      " • a bug in X server (xkbcomp, xmodmap utilities)\n"
+						      " • X server with incompatible libxkbfile implementation\n\n"
 						      "X server version data:\n%s\n%d\n%s\n"
 						      "If you report this situation as a bug, please include:\n"
-						      "- The result of <b>%s</b>\n"
-						      "- The result of <b>%s</b>"),
+						      " • The result of <b>%s</b>\n"
+						      " • The result of <b>%s</b>"),
 						     vendor,
 						     release,
 						     badXFree430Release
