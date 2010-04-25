@@ -9,7 +9,7 @@
             <default>false</default>
             <locale name="C">
 	        <short>Show Displays in Notification Area</short>
-                <long>If a notification icon with display related things should be
+                <long>Whether a notification icon with display-related things should be
 		    shown in the panel.
 		</long>
             </locale>
@@ -22,8 +22,8 @@
             <default>false</default>
             <locale name="C">
 	        <short>Turn on external monitor after system boot</short>
-                <long>Turn on external monitor after system boot if user plugin
-		external monitor when system boot.
+                <long>Turn on external monitor after system boot if user plugs in
+		external monitor on system boot.
 		</long>
             </locale>
         </schema>
@@ -35,8 +35,8 @@
             <default>true</default>
             <locale name="C">
 	        <short>Turn on laptop monitor after system boot</short>
-                <long>Turn on laptop monitor after system boot if user plugin
-		external monitor when system boot.
+                <long>Turn on laptop monitor after system boot if user plugs in
+		external monitor on system boot.
 		</long>
             </locale>
         </schema>
@@ -47,8 +47,8 @@
 	    <type>string</type>
             <default>/etc/gnome-settings-daemon/xrandr/monitors.xml</default>
             <locale name="C">
-	        <short>File for default configuration for RANDR</short>
-	        <long>The XRANDR plugin will look for a default
+	        <short>File for default configuration for RandR</short>
+	        <long>The XRandR plugin will look for a default
                 configuration in the file specified by this key.  This
                 is similar to the ~/.config/monitors.xml that normally
                 gets stored in users' home directories.  If a user

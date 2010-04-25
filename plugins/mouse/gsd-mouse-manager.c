@@ -881,7 +881,7 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
                                                          GTK_BUTTONS_OK,
                                                          _("Could not enable mouse accessibility features"));
                         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-                                                                  _("Mouse accessibility requires mousetweaks "
+                                                                  _("Mouse accessibility requires Mousetweaks "
                                                                     "to be installed on your system."));
                         gtk_window_set_title (GTK_WINDOW (dialog),
                                               _("Mouse Preferences"));

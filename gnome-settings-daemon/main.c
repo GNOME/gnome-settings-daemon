@@ -55,7 +55,7 @@ static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL },
         {"no-daemon", 0, 0, G_OPTION_ARG_NONE, &no_daemon, N_("Don't become a daemon"), NULL },
         {"gconf-prefix", 0, 0, G_OPTION_ARG_STRING, &gconf_prefix, N_("GConf prefix from which to load plugin settings"), NULL},
-        { "timed-exit", 0, 0, G_OPTION_ARG_NONE, &do_timed_exit, N_("Exit after a time - for debugging"), NULL },
+        { "timed-exit", 0, 0, G_OPTION_ARG_NONE, &do_timed_exit, N_("Exit after a time (for debugging)"), NULL },
         {NULL}
 };
 

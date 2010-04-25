@@ -61,7 +61,7 @@ gsd_ldsm_dialog_get_checkbutton_text (GsdLdsmDialog *dialog)
         g_return_val_if_fail (GSD_IS_LDSM_DIALOG (dialog), NULL);
         
         if (dialog->priv->other_partitions)
-                return _("Don't show any warnings again for this filesystem");
+                return _("Don't show any warnings again for this file system");
         else
                 return _("Don't show any warnings again");
 }

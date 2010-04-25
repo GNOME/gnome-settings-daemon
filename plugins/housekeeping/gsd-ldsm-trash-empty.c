@@ -91,6 +91,7 @@ trash_empty_update_dialog (gpointer user_data)
         } else {
                 gchar *text;
                 gchar *tmp;
+                gchar *markup;
                 GFile *parent;
 
                 text = g_strdup_printf (_("Removing item %lu of %lu"),
@@ -113,8 +114,10 @@ trash_empty_update_dialog (gpointer user_data)
                 g_free (text);
 
                 tmp = g_file_get_basename (file);
-                text = g_markup_printf_escaped (_("<i>Removing: %s</i>"), tmp);
+                text = g_markup_printf_escaped (_("Removing: %s"), tmp);
+                markup = g_strdup_printf ("<i>%s</i>", text);
                 gtk_label_set_markup (GTK_LABEL (file_label), text);
+                g_free (markup);
                 g_free (text);
                 g_free (tmp);
 
