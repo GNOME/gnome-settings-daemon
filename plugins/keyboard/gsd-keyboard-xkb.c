@@ -69,11 +69,31 @@ static const char KNOWN_FILES_KEY[] =
 static const char DISABLE_INDICATOR_KEY[] =
     "/desktop/gnome/peripherals/keyboard/general/disable_indicator";
 
+static const char DUPLICATE_LEDS_KEY[] =
+    "/desktop/gnome/peripherals/keyboard/general/duplicate_leds";
+
 static const char *gdm_keyboard_layout = NULL;
 
 static GtkStatusIcon *icon = NULL;
 
 static GHashTable *preview_dialogs = NULL;
+
+static Atom caps_lock;
+static Atom num_lock;
+static Atom scroll_lock;
+
+static GtkStatusIcon *indicator_icons[3];
+static const gchar *indicator_on_icon_names[] = {
+	DATADIR "/scroll.on.png",
+	DATADIR "/num.on.png",
+	DATADIR "/caps.on.png"
+};
+
+static const gchar *indicator_off_icon_names[] = {
+	DATADIR "/scroll.off.png",
+	DATADIR "/num.off.png",
+	DATADIR "/caps.off.png"
+};
 
 #define noGSDKX
 
@@ -142,6 +162,9 @@ activation_error (void)
 static void
 apply_desktop_settings (void)
 {
+	GConfClient *conf_client;
+	gboolean show_leds;
+	int i;
 	if (!inited_ok)
 		return;
 
@@ -150,6 +173,16 @@ apply_desktop_settings (void)
 	/* again, probably it would be nice to compare things
 	   before activating them */
 	gkbd_desktop_config_activate (&current_config);
+
+	conf_client = gconf_client_get_default ();
+	show_leds =
+	    gconf_client_get_bool (conf_client, DUPLICATE_LEDS_KEY, NULL);
+	g_object_unref (conf_client);
+	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
+	     --i >= 0;) {
+		gtk_status_icon_set_visible (indicator_icons[i],
+					     show_leds);
+	}
 }
 
 static void
@@ -848,11 +881,68 @@ gsd_keyboard_new_device (XklEngine * engine)
 	apply_xkb_settings ();
 }
 
+static void
+gsd_keyboard_update_indicator_icons ()
+{
+	Bool state;
+	int new_state, i;
+	Display *display = GDK_DISPLAY ();
+	XkbGetNamedIndicator (display, caps_lock, NULL, &state,
+			      NULL, NULL);
+	new_state = state ? 1 : 0;
+	XkbGetNamedIndicator (display, num_lock, NULL, &state, NULL, NULL);
+	new_state <<= 1;
+	new_state |= (state ? 1 : 0);
+	XkbGetNamedIndicator (display, scroll_lock, NULL, &state,
+			      NULL, NULL);
+	new_state <<= 1;
+	new_state |= (state ? 1 : 0);
+	xkl_debug (160, "Indicators state: %d\n", new_state);
+
+
+	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
+	     --i >= 0;) {
+		gtk_status_icon_set_from_file (indicator_icons[i],
+					       (new_state & (1 << i)) ?
+					       indicator_on_icon_names[i] :
+					       indicator_off_icon_names
+					       [i]);
+	}
+}
+
+static void
+gsd_keyboard_state_changed (XklEngine * engine, XklEngineStateChange type,
+			    gint new_group, gboolean restore)
+{
+	xkl_debug (160,
+		   "State changed: type %d, new group: %d, restore: %d.\n",
+		   type, new_group, restore);
+	if (type == INDICATORS_CHANGED) {
+		gsd_keyboard_update_indicator_icons ();
+	}
+}
+
 void
 gsd_keyboard_xkb_init (GConfClient * client,
 		       GsdKeyboardManager * kbd_manager)
 {
+	int i;
+	Display *display = GDK_DISPLAY ();
 	gnome_settings_profile_start (NULL);
+
+	caps_lock = XInternAtom (display, "Caps Lock", False);
+	num_lock = XInternAtom (display, "Num Lock", False);
+	scroll_lock = XInternAtom (display, "Scroll Lock", False);
+
+	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
+	     --i >= 0;) {
+		indicator_icons[i] =
+		    gtk_status_icon_new_from_file (indicator_off_icon_names
+						   [i]);
+	}
+
+	gsd_keyboard_update_indicator_icons ();
+
 #ifdef GSDKX
 	xkl_set_debug_level (200);
 	logfile = fopen ("/tmp/gsdkx.log", "a");
@@ -860,7 +950,7 @@ gsd_keyboard_xkb_init (GConfClient * client,
 #endif
 	manager = kbd_manager;
 	gnome_settings_profile_start ("xkl_engine_get_instance");
-	xkl_engine = xkl_engine_get_instance (GDK_DISPLAY ());
+	xkl_engine = xkl_engine_get_instance (display);
 	gnome_settings_profile_end ("xkl_engine_get_instance");
 	if (xkl_engine) {
 		inited_ok = TRUE;
@@ -899,6 +989,9 @@ gsd_keyboard_xkb_init (GConfClient * client,
 			g_signal_connect (xkl_engine, "X-new-device",
 					  G_CALLBACK
 					  (gsd_keyboard_new_device), NULL);
+		g_signal_connect (xkl_engine, "X-state-changed",
+				  G_CALLBACK
+				  (gsd_keyboard_state_changed), NULL);
 
 		gnome_settings_profile_start ("xkl_engine_start_listen");
 		xkl_engine_start_listen (xkl_engine,
@@ -914,6 +1007,7 @@ gsd_keyboard_xkb_init (GConfClient * client,
 		gnome_settings_profile_end ("apply_xkb_settings");
 	}
 	preview_dialogs = g_hash_table_new (g_direct_hash, g_direct_equal);
+
 	gnome_settings_profile_end (NULL);
 }
 
@@ -921,10 +1015,17 @@ void
 gsd_keyboard_xkb_shutdown (void)
 {
 	GConfClient *client;
+	int i;
 
 	pa_callback = NULL;
 	pa_callback_user_data = NULL;
 	manager = NULL;
+
+	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
+	     --i >= 0;) {
+		g_object_unref (G_OBJECT (indicator_icons[i]));
+		indicator_icons[i] = NULL;
+	}
 
 	g_hash_table_destroy (preview_dialogs);
 
