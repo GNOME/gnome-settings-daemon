@@ -84,15 +84,15 @@ static Atom scroll_lock;
 
 static GtkStatusIcon *indicator_icons[3];
 static const gchar *indicator_on_icon_names[] = {
-	"scrolllock_on",
-	"numlock_on",
-	"capslock_on"
+	"kbd-scrolllock-on",
+	"kbd-numlock-on",
+	"kbd-capslock-on"
 };
 
 static const gchar *indicator_off_icon_names[] = {
-	"scrolllock_off",
-	"numlock_off",
-	"capslock_off"
+	"kbd-scrolllock-off",
+	"kbd-numlock-off",
+	"kbd-capslock-off"
 };
 
 #define noGSDKX

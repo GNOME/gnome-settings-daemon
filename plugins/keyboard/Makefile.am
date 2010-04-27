@@ -10,8 +10,8 @@ context = devices
 
 iconsdir = $(themedir)/$(size)/$(context)
 icons_DATA = \
-	  capslock_off.png numlock_off.png scrolllock_off.png \
-	  capslock_on.png numlock_on.png scrolllock_on.png
+	  kbd-capslock-off.png kbd-numlock-off.png kbd-scrolllock-off.png \
+	  kbd-capslock-on.png kbd-numlock-on.png kbd-scrolllock-on.png
 
 uidir   = $(pkgdatadir)
 ui_DATA = modmap-dialog.ui show-layout.ui
