@@ -4,10 +4,17 @@ plugin_LTLIBRARIES = \
 	libkeyboard.la		\
 	$(NULL)
 
+themedir = $(pkgdatadir)/icons/hicolor
+size = 64x64
+context = devices
+
+iconsdir = $(themedir)/$(size)/$(context)
+icons_DATA = \
+	  capslock_off.png numlock_off.png scrolllock_off.png \
+	  capslock_on.png numlock_on.png scrolllock_on.png
+
 uidir   = $(pkgdatadir)
-ui_DATA = modmap-dialog.ui show-layout.ui \
-	  caps.off.png num.off.png scroll.off.png \
-	  caps.on.png num.on.png scroll.on.png
+ui_DATA = modmap-dialog.ui show-layout.ui
 
 libkeyboard_la_SOURCES = 	\
 	gsd-keyboard-plugin.h	\
@@ -50,6 +57,7 @@ plugin_in_files = 		\
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 EXTRA_DIST = 			\
+	$(icons_DATA)		\
 	$(plugin_in_files)	\
 	$(ui_DATA)		\
 	$(NULL)

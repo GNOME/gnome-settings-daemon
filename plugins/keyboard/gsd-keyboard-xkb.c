@@ -84,15 +84,15 @@ static Atom scroll_lock;
 
 static GtkStatusIcon *indicator_icons[3];
 static const gchar *indicator_on_icon_names[] = {
-	DATADIR "/scroll.on.png",
-	DATADIR "/num.on.png",
-	DATADIR "/caps.on.png"
+	"scrolllock_on",
+	"numlock_on",
+	"capslock_on"
 };
 
 static const gchar *indicator_off_icon_names[] = {
-	DATADIR "/scroll.off.png",
-	DATADIR "/num.off.png",
-	DATADIR "/caps.off.png"
+	"scrolllock_off",
+	"numlock_off",
+	"capslock_off"
 };
 
 #define noGSDKX
@@ -902,11 +902,13 @@ gsd_keyboard_update_indicator_icons ()
 
 	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
 	     --i >= 0;) {
-		gtk_status_icon_set_from_file (indicator_icons[i],
-					       (new_state & (1 << i)) ?
-					       indicator_on_icon_names[i] :
-					       indicator_off_icon_names
-					       [i]);
+		gtk_status_icon_set_from_icon_name (indicator_icons[i],
+						    (new_state & (1 << i))
+						    ?
+						    indicator_on_icon_names
+						    [i] :
+						    indicator_off_icon_names
+						    [i]);
 	}
 }
 
@@ -930,6 +932,10 @@ gsd_keyboard_xkb_init (GConfClient * client,
 	Display *display = GDK_DISPLAY ();
 	gnome_settings_profile_start (NULL);
 
+	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
+					   DATADIR G_DIR_SEPARATOR_S
+					   "icons");
+
 	caps_lock = XInternAtom (display, "Caps Lock", False);
 	num_lock = XInternAtom (display, "Num Lock", False);
 	scroll_lock = XInternAtom (display, "Scroll Lock", False);
@@ -937,8 +943,8 @@ gsd_keyboard_xkb_init (GConfClient * client,
 	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
 	     --i >= 0;) {
 		indicator_icons[i] =
-		    gtk_status_icon_new_from_file (indicator_off_icon_names
-						   [i]);
+		    gtk_status_icon_new_from_icon_name
+		    (indicator_off_icon_names[i]);
 	}
 
 	gsd_keyboard_update_indicator_icons ();
