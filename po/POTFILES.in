@@ -9,6 +9,7 @@ data/desktop_gnome_keybindings.schemas.in
 data/desktop_gnome_peripherals_touchpad.schemas.in
 data/gnome-settings-daemon.desktop.in.in
 data/gnome-settings-daemon.schemas.in
+data/desktop_gnome_peripherals_smartcard.schemas.in
 gnome-settings-daemon/main.c
 [type: gettext/ini]plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in
 plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
@@ -40,3 +41,5 @@ plugins/xrdb/gsd-xrdb-manager.c
 [type: gettext/ini]plugins/xrdb/xrdb.gnome-settings-plugin.in
 plugins/xsettings/gsd-xsettings-manager.c
 [type: gettext/ini]plugins/xsettings/xsettings.gnome-settings-plugin.in
+plugins/smartcard/gsd-smartcard-manager.c
+plugins/smartcard/gsd-smartcard.c
