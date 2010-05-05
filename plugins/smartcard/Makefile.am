@@ -31,6 +31,9 @@ libsmartcard_la_LIBADD = \
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NSS_LIBS)
 
+@GSD_INTLTOOL_PLUGIN_RULE@
+endif
+
 plugin_in_files = \
 	smartcard.gnome-settings-plugin.in
 
@@ -44,6 +47,3 @@ CLEANFILES = \
 
 DISTCLEANFILES = \
 	$(plugin_DATA)
-
-@GSD_INTLTOOL_PLUGIN_RULE@
-endif
