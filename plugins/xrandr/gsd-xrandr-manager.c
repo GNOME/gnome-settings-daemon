@@ -1219,8 +1219,6 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
                 } else {
                         if (is_laptop (info) && !info->on) {
                                 turn_on (screen, info, 0, 0);
-                        } else {
-                                info->on = FALSE;
                         }
                 }
         }
