@@ -12,7 +12,7 @@ ICON_FILES = 			\
 	gsd-xrandr.svg
 
 install-data-local:
-	$(mkinstalldirs) $(sysconfdir)/etc/gnome-settings-daemon/xrandr
+	$(mkinstalldirs) $(DESTDIR)$(sysconfdir)/gnome-settings-daemon/xrandr
 	$(mkinstalldirs) $(DESTDIR)$(icondir)/16x16/$(context)
 	$(mkinstalldirs) $(DESTDIR)$(icondir)/22x22/$(context)
 	$(mkinstalldirs) $(DESTDIR)$(icondir)/24x24/$(context)
