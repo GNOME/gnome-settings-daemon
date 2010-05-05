@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-04 23:06+0200\n"
-"PO-Revision-Date: 2010-05-04 23:14+0200\n"
+"POT-Creation-Date: 2010-05-05 13:38+0200\n"
+"PO-Revision-Date: 2010-05-05 13:34+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome@g11n.net>\n"
 "MIME-Version: 1.0\n"
@@ -727,6 +727,19 @@ msgstr ""
 "Indica se está activada a función de accesibilidade do teclado de teclas "
 "persistentes."
 
+#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:1
+msgid ""
+"Set this to one of \"none\", \"lock_screen\", or \"force_logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+"Estabelecer isto a \"none\", \"lock_screen\" ou \"force_logout\". A acción "
+"levarase a cabo cando a tarxeta intelixente usada para iniciar a sesión se "
+"extraia."
+
+#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:2
+msgid "Smartcard removal action"
+msgstr "Acción ao extraer a tarxeta intelixente"
+
 #: ../gnome-settings-daemon/main.c:55
 msgid "Enable debugging code"
 msgstr "Activar o código de depuración"
@@ -1360,6 +1373,75 @@ msgstr "Xestionar as configuracións de X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Configuracións de X"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:167
+msgid "Module Path"
+msgstr "Camiño ao módulo"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:168
+msgid "path to smartcard PKCS #11 driver"
+msgstr "camiño ao controlador PKCS #11 da tarxeta intelixente"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:504
+msgid "received error or hang up from event source"
+msgstr "recibiuse un erro ou un colgue desde o evento orixe"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:593
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr "Non foi posíbel inicializar o sistema de seguranza NSS"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr ""
+"non foi posíbel encontrar o controlador da tarxeta intelixente axeitado"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:682
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr "non foi posíbel cargar o controlador «%s» da tarxeta intelixente"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:771
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr "non foi posíbel monitorizar os eventos entrantes de tarxetas - %s"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1124
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr ""
+"encontráronse erros non esperados ao agardar polos eventos de tarxeta "
+"intelixente"
+
+#: ../plugins/smartcard/gsd-smartcard.c:154
+msgid "Slot ID"
+msgstr "ID do slot"
+
+#: ../plugins/smartcard/gsd-smartcard.c:155
+msgid "The slot the card is in"
+msgstr "O slot onde está a tarxeta"
+
+#: ../plugins/smartcard/gsd-smartcard.c:161
+msgid "Slot Series"
+msgstr "Serie do slot"
+
+#: ../plugins/smartcard/gsd-smartcard.c:162
+msgid "per-slot card identifier"
+msgstr "identificador de tarxeta por slot"
+
+#: ../plugins/smartcard/gsd-smartcard.c:168
+#: ../plugins/smartcard/gsd-smartcard.c:169
+msgid "name"
+msgstr "nome"
+
+#: ../plugins/smartcard/gsd-smartcard.c:173
+msgid "Module"
+msgstr "Módulo"
+
+#: ../plugins/smartcard/gsd-smartcard.c:174
+msgid "smartcard driver"
+msgstr "controlador da tarxeta intelixente"
 
 #~ msgid "_Groups"
 #~ msgstr "_Grupos"
