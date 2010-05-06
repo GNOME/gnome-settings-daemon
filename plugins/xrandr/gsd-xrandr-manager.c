@@ -991,6 +991,8 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
         gnome_rr_config_free (current);
 
         if (priv->fn_f7_configs) {
+                guint32 server_timestamp;
+
                 mgr->priv->current_fn_f7_config++;
 
                 if (priv->fn_f7_configs[mgr->priv->current_fn_f7_config] == NULL)
@@ -1001,6 +1003,22 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                 print_configuration (priv->fn_f7_configs[mgr->priv->current_fn_f7_config], "new config");
 
                 g_debug ("applying");
+
+                /* See https://bugzilla.gnome.org/show_bug.cgi?id=610482
+                 *
+                 * Sometimes we'll get two rapid XF86Display keypress events,
+                 * but their timestamps will be out of order with respect to the
+                 * RANDR timestamps.  This *may* be due to stupid BIOSes sending
+                 * out display-switch keystrokes "to make Windows work".
+                 *
+                 * The X server will error out if the timestamp provided is
+                 * older than a previous change configuration timestamp. We
+                 * assume here that we do want this event to go through still,
+                 * since kernel timestamps may be skewed wrt the X server.
+                 */
+                gnome_rr_screen_get_timestamps (screen, NULL, &server_timestamp);
+                if (timestamp < server_timestamp)
+                        timestamp = server_timestamp;
 
                 apply_configuration_and_display_error (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp);
         }
