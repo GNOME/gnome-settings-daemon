@@ -193,6 +193,8 @@ EXTRA_DIST = 				\
 	$(plugin_in_files)		\
 	$(gtkbuilder_DATA)		\
 	$(pixmaps_DATA)			\
+	touchpad-enabled-template.svg	\
+	touchpad-disabled-template.svg	\
 	$(ICON_FILES)
 
 CLEANFILES = 			\
