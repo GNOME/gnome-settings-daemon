@@ -172,14 +172,14 @@ ldsm_analyze_path (const gchar *path)
 
 static gboolean
 ldsm_notify_for_mount (LdsmMountInfo *mount,
-                       gboolean       has_disk_analyzer,
                        gboolean       multiple_volumes,
                        gboolean       other_usable_volumes)
 {
-        gchar  *name;
+        gchar  *name, *program;
         gint64 free_space;
         gint response;
         gboolean has_trash;
+        gboolean has_disk_analyzer;
         gboolean retval = TRUE;
         const gchar *path;
 
@@ -191,6 +191,10 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
         free_space = (gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail;
         has_trash = ldsm_mount_has_trash (mount);
         path = g_unix_mount_get_mount_path (mount->mount);
+
+        program = g_find_program_in_path (DISK_SPACE_ANALYZER);
+        has_disk_analyzer = (program != NULL);
+        g_free (program);
 
         dialog = gsd_ldsm_dialog_new (other_usable_volumes,
                                       multiple_volumes,
@@ -359,7 +363,6 @@ ldsm_free_mount_info (gpointer data)
 
 static void
 ldsm_maybe_warn_mounts (GList *mounts,
-                        gboolean has_disk_analyzer,
                         gboolean multiple_volumes,
                         gboolean other_usable_volumes)
 {
@@ -418,7 +421,7 @@ ldsm_maybe_warn_mounts (GList *mounts,
                 }
 
                 if (show_notify) {
-                        if (ldsm_notify_for_mount (mount_info, has_disk_analyzer, multiple_volumes, other_usable_volumes))
+                        if (ldsm_notify_for_mount (mount_info, multiple_volumes, other_usable_volumes))
                                 done = TRUE;
                 }
         }
@@ -431,16 +434,10 @@ ldsm_check_all_mounts (gpointer data)
         GList *l;
         GList *check_mounts = NULL;
         GList *full_mounts = NULL;
-        char *program;
-        gboolean has_disk_analyzer;
         guint number_of_mounts;
         guint number_of_full_mounts;
         gboolean multiple_volumes = FALSE;
         gboolean other_usable_volumes = FALSE;
-
-        program = g_find_program_in_path (DISK_SPACE_ANALYZER);
-        has_disk_analyzer = (program != NULL);
-        g_free (program);
 
         /* We iterate through the static mounts in /etc/fstab first, seeing if
          * they're mounted by checking if the GUnixMountPoint has a corresponding GUnixMountEntry.
@@ -509,7 +506,7 @@ ldsm_check_all_mounts (gpointer data)
         if (number_of_mounts > number_of_full_mounts)
                 other_usable_volumes = TRUE;
 
-        ldsm_maybe_warn_mounts (full_mounts, has_disk_analyzer, multiple_volumes,
+        ldsm_maybe_warn_mounts (full_mounts, multiple_volumes,
                                 other_usable_volumes);
 
         g_list_free (check_mounts);
