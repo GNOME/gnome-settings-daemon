@@ -14,7 +14,7 @@ icons_DATA = \
 	  kbd-capslock-on.png kbd-numlock-on.png kbd-scrolllock-on.png
 
 uidir   = $(pkgdatadir)
-ui_DATA = modmap-dialog.ui show-layout.ui
+ui_DATA = modmap-dialog.ui
 
 libkeyboard_la_SOURCES = 	\
 	gsd-keyboard-plugin.h	\
