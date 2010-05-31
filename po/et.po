@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: GNOME Settings Daemon MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-03-11 17:14+0000\n"
-"PO-Revision-Date: 2010-03-14 10:41+0200\n"
+"POT-Creation-Date: 2010-05-20 23:02+0000\n"
+"PO-Revision-Date: 2010-05-31 13:41+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Eiratavad haakepunktid"
 
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown"
+"the percentage free space drops below this, a warning will be shown."
 msgstr ""
 "Vaba kettaruumi lävi protsentides, mil kuvatakse esimene hoiatus. Kui vaba "
 "kettaruumi jääb määratud protsendist vähem, kuvatakse hoiatus."
@@ -60,22 +60,21 @@ msgstr ""
 
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown"
+"warning will be shown."
 msgstr ""
 "Määra maht GB-des. Kui vaba ruumi on rohkem, kui see väärtus, ei näidata "
 "mingit hoiatust."
 
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
-"issuing a subsequent warning"
+"issuing a subsequent warning."
 msgstr ""
-"Määra, mitme protsendini peab vaba kettaruum kahanema, enne kui näidatakse "
-"kordushoiatust"
+"Mitme protsendini peab vaba kettaruum enne kordushoiatuse näitamist kahanema."
 
 msgid "Subsequent free percentage notify threshold"
 msgstr "Vaba kettaruumi protsendi muutus enne kordushoiatust"
 
-msgid "Binding to eject an optical disk."
+msgid "Binding to eject an optical disc."
 msgstr "Klahviseos optilise ketta väljastamiseks."
 
 msgid "Binding to enable or disable the touchpad."
@@ -195,13 +194,40 @@ msgstr "Helitugevuse reguleerimise samm protsentides."
 msgid "Volume up"
 msgstr "Heli valjemaks"
 
-msgid ""
-"If a notification icon with display related things should be shown in the "
-"panel."
-msgstr "Kas kuvaga seotud teavitusikooni tuleb paneelil näidata või mitte."
+msgid "File for default configuration for RandR"
+msgstr "RandR vaikesätete fail"
 
 msgid "Show Displays in Notification Area"
 msgstr "Kuvade näitamine teavitusalas"
+
+msgid ""
+"The XRandR plugin will look for a default configuration in the file "
+"specified by this key. This is similar to the ~/.config/monitors.xml that "
+"normally gets stored in users' home directories. If a user does not have "
+"such a file, or has one that does not match the user's setup of monitors, "
+"then the file specified by this key will be used instead."
+msgstr ""
+
+msgid "Turn on external monitor after system boot"
+msgstr ""
+
+msgid ""
+"Turn on external monitor after system boot if user plugs in external monitor "
+"on system boot."
+msgstr ""
+
+msgid "Turn on laptop monitor after system boot"
+msgstr ""
+
+msgid ""
+"Turn on laptop monitor after system boot if user plugs in external monitor "
+"on system boot."
+msgstr ""
+
+msgid ""
+"Whether a notification icon with display-related things should be shown in "
+"the panel."
+msgstr "Kas kuvaga seotud teavitusikooni tuleb paneelil näidata või mitte."
 
 msgid "Antialiasing"
 msgstr "Sakisilumine"
@@ -279,11 +305,11 @@ msgid "Select the touchpad scroll method"
 msgstr "Puuteplaadi kerimismeetodi valimine"
 
 msgid ""
-"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
-"edge scrolling, 2 - two-finger scrolling"
+"Select the touchpad scroll method. Supported values are: 0: disabled, 1: "
+"edge scrolling, and 2: two-finger scrolling"
 msgstr ""
-"Puuteplaadi kerimismeetod. Võimalikud väärtused on 0 - keelatud, 1 - "
-"kerimine servalt ja 2 - kahe sõrmega kerimine"
+"Puuteplaadi kerimismeetod. Võimalikud väärtused on 0: keelatud, 1: kerimine "
+"servalt ja 2: kahe sõrmega kerimine"
 
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
@@ -331,6 +357,9 @@ msgstr "Ekraaniklaviatuuri sisse-/väljalülitamise käsk."
 msgid "Command used to turn the screen reader on or off."
 msgstr "Ekraanilugeja sisse-/väljalülitamise käsk."
 
+msgid "Enable XRandR plugin"
+msgstr "XRandR plugina lubamine"
+
 msgid "Enable accessibility keyboard plugin"
 msgstr "Hõlbustustega klaviatuuriplugina lubamine"
 
@@ -358,14 +387,14 @@ msgstr "Meediaklahvide plugina lubamine"
 msgid "Enable mouse plugin"
 msgstr "Hiireplugina lubamine"
 
+msgid "Enable smartcard plugin"
+msgstr ""
+
 msgid "Enable sound plugin"
 msgstr "Heliplugina lubamine"
 
 msgid "Enable typing breaks plugin"
 msgstr "Tippimise vaheaeja plugina lubamine"
-
-msgid "Enable xrandr plugin"
-msgstr "Xrandr plugina lubamine"
 
 msgid "Enable xrdb plugin"
 msgstr "Xrdb plugina lubamine"
@@ -392,6 +421,9 @@ msgstr ""
 "Kui määratud, siis on majahoidjaplugin lubatud. Selle plugina abil "
 "eemaldatakse ajutiste failide puhvrid."
 
+msgid "Set to True to enable the plugin to manage XRandR settings."
+msgstr "Kui märgitud, siis on pluginal lubatud XRandR sätteid hallata."
+
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "Kui märgitud, siis on pluginal lubatud lõikelaua sätteid hallata."
 
@@ -403,6 +435,11 @@ msgstr "Kui märgitud, siis on pluginal lubatud kirjatüüpide sätteid hallata.
 
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Kui märgitud, siis on pluginal lubatud klaviatuurisätteid hallata."
+
+msgid ""
+"Set to True to enable the plugin to manage locking the screen on smartcard "
+"removal."
+msgstr ""
 
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Kui märgitud, siis on pluginal lubatud hiiresätteid hallata."
@@ -426,9 +463,6 @@ msgstr "Kui märgitud, siis on pluginal lubatud klahviseoseid hallata."
 
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Kui märgitud, siis on pluginal lubatud tippimise vaheaegu hallata."
-
-msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr "Kui märgitud, siis on pluginal lubatud xrandr sätteid hallata."
 
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "Kui märgitud, siis on pluginal lubatud xrdb sätteid hallata."
@@ -504,6 +538,14 @@ msgstr "Kas aeglaste klahvide hõlbustus on sisse lülitatud või mitte."
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Kas kleepuvate klahvide hõlbustus on sisse lülitatud või mitte."
 
+msgid ""
+"Set this to one of \"none\", \"lock_screen\", or \"force_logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+
+msgid "Smartcard removal action"
+msgstr ""
+
 msgid "Enable debugging code"
 msgstr "Silumiskoodi lubamine"
 
@@ -513,8 +555,8 @@ msgstr "Deemoniks ei minda"
 msgid "GConf prefix from which to load plugin settings"
 msgstr "GConfi prefiks, millelt laaditakse plugina sätteid"
 
-msgid "Exit after a time - for debugging"
-msgstr "Lõpetamine aja möödudes - silumiseks"
+msgid "Exit after a time (for debugging)"
+msgstr "Lõpetamine teatud aja möödudes (silumiseks)"
 
 msgid "Accessibility Keyboard"
 msgstr "Hõlbustustega klaviatuur"
@@ -647,7 +689,7 @@ msgstr "Kirjatüüp"
 msgid "Font plugin"
 msgstr "Kirjatüübi plugin"
 
-msgid "Don't show any warnings again for this filesystem"
+msgid "Don't show any warnings again for this file system"
 msgstr "Selle failisüsteemi kohta ei pea enam mingeid hoiatusi näitama"
 
 msgid "Don't show any warnings again"
@@ -699,8 +741,8 @@ msgstr "Kettal on vähe ruumi"
 msgid "Empty Trash"
 msgstr "Tühjenda prügikast"
 
-msgid "Examine..."
-msgstr "Uuri olukorda..."
+msgid "Examine…"
+msgstr "Uuri olukorda…"
 
 msgid "Ignore"
 msgstr "Eira"
@@ -710,15 +752,16 @@ msgid "Removing item %lu of %lu"
 msgstr "%lu. kirje eemaldamine (%lu-st)"
 
 #, c-format
-msgid "<i>Removing: %s</i>"
-msgstr "<i>Eemaldamine: %s</i>"
+msgid "Removing: %s"
+msgstr "Eemaldamine: %s"
 
 msgid "Emptying the trash"
 msgstr "Prügikasti tühjendamine"
 
-msgid "Preparing to empty trash..."
-msgstr "Ettevalmistused prügikasti tühjendamiseks..."
+msgid "Preparing to empty trash…"
+msgstr "Ettevalmistused prügikasti tühjendamiseks…"
 
+#. Translators: "Emptying trash from <device>"
 msgid "From: "
 msgstr "Kust:"
 
@@ -767,36 +810,36 @@ msgstr "Klaviatuuriplugin"
 msgid ""
 "Error activating XKB configuration.\n"
 "It can happen under various circumstances:\n"
-"- a bug in libxklavier library\n"
-"- a bug in X server (xkbcomp, xmodmap utilities)\n"
-"- X server with incompatible libxkbfile implementation\n"
+" • a bug in libxklavier library\n"
+" • a bug in X server (xkbcomp, xmodmap utilities)\n"
+" • X server with incompatible libxkbfile implementation\n"
 "\n"
 "X server version data:\n"
 "%s\n"
 "%d\n"
 "%s\n"
 "If you report this situation as a bug, please include:\n"
-"- The result of <b>%s</b>\n"
-"- The result of <b>%s</b>"
+" • The result of <b>%s</b>\n"
+" • The result of <b>%s</b>"
 msgstr ""
 "Viga XKB sätete aktiveerimisel.\n"
 "See võib juhtuda mitmetel asjaoludel:\n"
-"- vea tõttu libxklavier teegis\n"
-"- vea tõttu X-serveris (utiliidid xkbcomp ja xmodmap)\n"
-"- ühildamatusega libxkbfile ja X-serveri vahel\n"
+" • vea tõttu libxklavier teegis\n"
+" • vea tõttu X-serveris (utiliidid xkbcomp ja xmodmap)\n"
+" • ühildamatusega libxkbfile ja X-serveri vahel\n"
 "\n"
 "X-serveri versiooniandmed:\n"
 "%s\n"
 "%d\n"
 "%s\n"
 "Kui sa plaanid olukorra kohta vearaporti saata, siis lisa sinna ka:\n"
-"- <b>%s</b> tulemus\n"
-"- <b>%s</b> tulemus"
+" • <b>%s</b> tulemus\n"
+" • <b>%s</b> tulemus"
 
 msgid ""
 "You are using XFree 4.3.0.\n"
 "There are known problems with complex XKB configurations.\n"
-"Try using a simpler configuration or taking a fresher version of XFree "
+"Try using a simpler configuration or using a later version of the XFree "
 "software."
 msgstr ""
 "Sa kasutad XFree versiooni 4.3.0.\n"
@@ -810,13 +853,13 @@ msgstr "Tundmatu"
 msgid "Keyboard Layout \"%s\""
 msgstr "Klaviatuuripaigutus \"%s\""
 
-msgid "_Groups"
-msgstr "_Grupid"
+msgid "_Layouts"
+msgstr "_Paigutused"
 
 msgid "Keyboard _Preferences"
 msgstr "Klaviatuuri _eelistused"
 
-msgid "Show Current _Layout"
+msgid "Show _Current Layout"
 msgstr "Näita _praegust paigutust"
 
 msgid "A_vailable files:"
@@ -825,7 +868,7 @@ msgstr "_Saadaolevad failid:"
 msgid "Load modmap files"
 msgstr "Modmap failide laadimine"
 
-msgid "Would you like to load the modmap file(s)?"
+msgid "Would you like to load the modmap files?"
 msgstr "Kas soovid modmap faile laadida?"
 
 msgid "_Do not show this message again"
@@ -889,8 +932,8 @@ msgid "Could not enable mouse accessibility features"
 msgstr "Hiirehõlbustuste võimalusi pole võimalik lubada"
 
 msgid ""
-"Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr "Hiirehõlbustuste kasutamiseks peab mousetweaks olema paigaldatud."
+"Mouse accessibility requires Mousetweaks to be installed on your system."
+msgstr "Hiirehõlbustuste kasutamiseks peab Mousetweaks olema paigaldatud."
 
 msgid "Mouse Preferences"
 msgstr "Hiire-eelistused"
@@ -948,8 +991,8 @@ msgstr "Ekraaniteavet pole võimalik värskendada: %s"
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Sellest hoolimata proovitakse kuvari häälestust muuta."
 
-msgid "<i>Rotation not supported</i>"
-msgstr "<i>Pööramine pole toetatud</i>"
+msgid "Rotation not supported"
+msgstr "Pööramine pole toetatud"
 
 msgid "Could not save monitor configuration"
 msgstr "Kuvari häälestust pole võimalik salvestada"
@@ -966,8 +1009,8 @@ msgstr "Paremale"
 msgid "Upside Down"
 msgstr "Tagurpidi"
 
-msgid "_Configure Display Settings ..."
-msgstr "_Seadista kuva..."
+msgid "_Configure Display Settings…"
+msgstr "_Seadista kuva…"
 
 msgid "Configure display settings"
 msgstr "Kuva seadistamine"
@@ -993,3 +1036,53 @@ msgstr "X'i seadistuste haldamine"
 
 msgid "X Settings"
 msgstr "X'i sätted"
+
+msgid "Module Path"
+msgstr "Mooduli rada"
+
+msgid "path to smartcard PKCS #11 driver"
+msgstr ""
+
+msgid "received error or hang up from event source"
+msgstr ""
+
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr "NSS turvasüsteemi pole võimalik lähtestada"
+
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr ""
+
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr ""
+
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr ""
+
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr ""
+
+msgid "Slot ID"
+msgstr "Sloti ID"
+
+msgid "The slot the card is in"
+msgstr ""
+
+msgid "Slot Series"
+msgstr ""
+
+msgid "per-slot card identifier"
+msgstr ""
+
+msgid "name"
+msgstr "nimi"
+
+msgid "Module"
+msgstr "Moodul"
+
+msgid "smartcard driver"
+msgstr ""
