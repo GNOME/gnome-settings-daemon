@@ -1,4 +1,3 @@
-if SMARTCARD_SUPPORT
 plugin_LTLIBRARIES = \
 	libsmartcard.la
 
@@ -32,7 +31,6 @@ libsmartcard_la_LIBADD = \
 	$(NSS_LIBS)
 
 @GSD_INTLTOOL_PLUGIN_RULE@
-endif
 
 plugin_in_files = \
 	smartcard.gnome-settings-plugin.in

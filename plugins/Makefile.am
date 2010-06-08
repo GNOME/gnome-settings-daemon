@@ -1,7 +1,6 @@
 NULL =
 
-SUBDIRS =		\
-	common		\
+enabled_plugins =	\
 	a11y-keyboard	\
 	background	\
 	clipboard	\
@@ -12,10 +11,20 @@ SUBDIRS =		\
 	keyboard	\
 	media-keys	\
 	mouse		\
-	smartcard	\
 	sound		\
 	typing-break	\
 	xrandr		\
 	xrdb		\
 	xsettings	\
 	$(NULL)
+
+disabled_plugins = $(NULL)
+
+if SMARTCARD_SUPPORT
+enabled_plugins += smartcard
+else
+disabled_plugins += smartcard
+endif
+
+SUBDIRS = common $(enabled_plugins)
+DIST_SUBDIRS = $(SUBDIRS) $(disabled_plugins)
