@@ -1198,13 +1198,13 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  */
 
 
-#if 1
+#if 0
                 if (config_timestamp != priv->last_config_timestamp) {
                         priv->last_config_timestamp = config_timestamp;
                         auto_configure_outputs (manager, config_timestamp);
                 }
 #else
-                /* WHY THIS CODE IS DISABLED:
+                /* WHY THIS CODE WAS DISABLED:
                  *
                  * The strategy of "on hotplug or unsuspend, restore a
                  * known-good configuration, and fall back to autoconfiguration"
