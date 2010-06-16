@@ -76,7 +76,7 @@
 #define GSD_XRANDR_ICON_NAME "gsd-xrandr"
 
 /* executable of the control center's display configuration capplet */
-#define GSD_XRANDR_DISPLAY_CAPPLET "gnome-display-properties"
+#define GSD_XRANDR_DISPLAY_CAPPLET "gnome-control-center display"
 
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
