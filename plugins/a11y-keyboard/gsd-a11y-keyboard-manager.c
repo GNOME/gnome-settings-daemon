@@ -41,6 +41,11 @@
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKBstr.h>
 
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
+#include <X11/extensions/XInput.h>
+#include <X11/extensions/XIproto.h>
+#endif
+
 #ifdef HAVE_LIBNOTIFY
 #include <libnotify/notify.h>
 #endif /* HAVE_LIBNOTIFY */
@@ -76,6 +81,8 @@ static void     gsd_a11y_keyboard_manager_class_init  (GsdA11yKeyboardManagerCla
 static void     gsd_a11y_keyboard_manager_init        (GsdA11yKeyboardManager      *a11y_keyboard_manager);
 static void     gsd_a11y_keyboard_manager_finalize    (GObject             *object);
 static void     gsd_a11y_keyboard_manager_ensure_status_icon (GsdA11yKeyboardManager *manager);
+static void     set_server_from_gconf (GsdA11yKeyboardManager *manager,
+				       GConfClient            *client);
 
 G_DEFINE_TYPE (GsdA11yKeyboardManager, gsd_a11y_keyboard_manager, G_TYPE_OBJECT)
 
@@ -86,6 +93,71 @@ static gpointer manager_object = NULL;
 #define d(str)          g_debug (str)
 #else
 #define d(str)          do { } while (0)
+#endif
+
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
+static GdkFilterReturn
+devicepresence_filter (GdkXEvent *xevent,
+                       GdkEvent  *event,
+                       gpointer   data)
+{
+        XEvent *xev = (XEvent *) xevent;
+        XEventClass class_presence;
+        int xi_presence;
+
+        DevicePresence (gdk_x11_get_default_xdisplay (), xi_presence, class_presence);
+
+        if (xev->type == xi_presence)
+        {
+            XDevicePresenceNotifyEvent *dpn = (XDevicePresenceNotifyEvent *) xev;
+            if (dpn->devchange == DeviceEnabled) {
+                GConfClient *client;
+		client = gconf_client_get_default ();
+		set_server_from_gconf (data, client);
+                g_object_unref (client);
+	    }
+        }
+        return GDK_FILTER_CONTINUE;
+}
+
+static gboolean
+supports_xinput_devices (void)
+{
+        gint op_code, event, error;
+
+        return XQueryExtension (GDK_DISPLAY (),
+                                "XInputExtension",
+                                &op_code,
+                                &event,
+                                &error);
+}
+
+static void
+set_devicepresence_handler (GsdA11yKeyboardManager *manager)
+{
+        Display *display;
+        XEventClass class_presence;
+        int xi_presence;
+
+        if (!supports_xinput_devices ())
+                return;
+
+        display = gdk_x11_get_default_xdisplay ();
+
+        gdk_error_trap_push ();
+        DevicePresence (display, xi_presence, class_presence);
+        /* FIXME:
+         * Note that this might overwrite other events, see:
+         * https://bugzilla.gnome.org/show_bug.cgi?id=610245#c2
+         **/
+        XSelectExtensionEvent (display,
+                               RootWindow (display, DefaultScreen (display)),
+                               &class_presence, 1);
+
+        gdk_flush ();
+        if (!gdk_error_trap_pop ())
+                gdk_window_add_filter (NULL, devicepresence_filter, manager);
+}
 #endif
 
 static gboolean
@@ -996,6 +1068,10 @@ start_a11y_keyboard_idle_cb (GsdA11yKeyboardManager *manager)
                                   (GConfClientNotifyFunc) keyboard_callback,
                                   &manager->priv->gconf_notify);
 
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
+	set_devicepresence_handler (manager);
+#endif
+
         /* Save current xkb state so we can restore it on exit
          */
         manager->priv->original_xkb_desc = get_xkb_desc_rec (manager);
@@ -1071,6 +1147,10 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
         GsdA11yKeyboardManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping a11y_keyboard manager");
+
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
+        gdk_window_remove_filter (NULL, devicepresence_filter, manager);
+#endif
 
         if (p->status_icon)
                 gtk_status_icon_set_visible (p->status_icon, FALSE);
