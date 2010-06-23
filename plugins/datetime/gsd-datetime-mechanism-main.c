@@ -39,7 +39,7 @@
 #include <dbus/dbus-glib-lowlevel.h>
 
 
-#include "gnome-clock-applet-mechanism.h"
+#include "gsd-datetime-mechanism.h"
 
 static DBusGProxy *
 get_bus_proxy (DBusGConnection *connection)

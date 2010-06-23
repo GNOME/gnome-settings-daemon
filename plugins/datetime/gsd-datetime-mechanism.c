@@ -41,8 +41,8 @@
 
 #include "system-timezone.h"
 
-#include "gnome-clock-applet-mechanism.h"
-#include "gnome-clock-applet-mechanism-glue.h"
+#include "gsd-datetime-mechanism.h"
+#include "gsd-datetime-mechanism-glue.h"
 
 static gboolean
 do_exit (gpointer user_data)
@@ -275,7 +275,7 @@ _set_time (GsdDatetimeMechanism    *mechanism,
 {
         GError *error;
 
-        if (!_check_polkit_for_action (mechanism, context, "org.gnome.clockapplet.mechanism.settime"))
+        if (!_check_polkit_for_action (mechanism, context, "org.gnome.settingsdaemon.datetimemechanism.settime"))
                 return FALSE;
 
         if (settimeofday (tv, NULL) != 0) {
@@ -433,7 +433,7 @@ gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism *mechanism,
         reset_killtimer ();
         g_debug ("SetTimezone('%s') called", zone_file);
 
-        if (!_check_polkit_for_action (mechanism, context, "org.gnome.clockapplet.mechanism.settimezone"))
+        if (!_check_polkit_for_action (mechanism, context, "org.gnome.settingsdaemon.datetimemechanism.settimezone"))
                 return FALSE;
 
         error = NULL;
@@ -527,7 +527,8 @@ gsd_datetime_mechanism_set_hardware_clock_using_utc  (GsdDatetimeMechanism    *m
 
         error = NULL;
 
-        if (!_check_polkit_for_action (mechanism, context, "org.gnome.clockapplet.mechanism.configurehwclock"))
+        if (!_check_polkit_for_action (mechanism, context,
+                                       "org.gnome.settingsdaemon.datetimemechanism.configurehwclock"))
                 return FALSE;
 
         if (g_file_test ("/sbin/hwclock", 
@@ -613,7 +614,7 @@ gsd_datetime_mechanism_can_set_time (GsdDatetimeMechanism    *mechanism,
                                            DBusGMethodInvocation        *context)
 {
         check_can_do (mechanism,
-                      "org.gnome.clockapplet.mechanism.settime",
+                      "org.gnome.settingsdaemon.datetimemechanism.settime",
                       context);
 
         return TRUE;
@@ -624,7 +625,7 @@ gsd_datetime_mechanism_can_set_timezone (GsdDatetimeMechanism    *mechanism,
                                                DBusGMethodInvocation        *context)
 {
         check_can_do (mechanism,
-                      "org.gnome.clockapplet.mechanism.settimezone",
+                      "org.gnome.settingsdaemon.datetimemechanism.settimezone",
                       context);
 
         return TRUE;

@@ -4,6 +4,7 @@ enabled_plugins =	\
 	a11y-keyboard	\
 	background	\
 	clipboard	\
+	datetime	\
 	dummy		\
 	font		\
 	housekeeping    \
