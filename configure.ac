@@ -297,6 +297,46 @@ fi
 
 AC_SUBST(NSS_DATABASE)
 
+
+# ---------------------------------------------------------------------------
+# PolicyKit
+# ---------------------------------------------------------------------------
+
+POLKIT_REQUIRED=0.91
+DBUS_GLIB_REQUIRED=0.71
+DBUS_REQUIRED=1.1.2
+NETWORK_MANAGER_REQUIRED=0.6
+
+# PolicyKit detection; defaults to 'auto' (use it if it's available)
+#
+POLKIT_CFLAGS=
+POLKIT_LIBS=
+AC_ARG_ENABLE(polkit,
+              AS_HELP_STRING([--enable-polkit],
+                             [Enable PolicyKit support (auto)]),
+              enable_polkit=$enableval,
+              enable_polkit=auto)
+
+if test "x$enable_polkit" = "xno" ; then
+  HAVE_POLKIT=no
+else
+  HAVE_POLKIT=no
+  PKG_CHECK_MODULES(POLKIT, polkit-gobject-1 >= $POLKIT_REQUIRED dbus-1 >= $DBUS_REQUIRED, HAVE_POLKIT=yes, HAVE_POLKIT=no)
+
+  if test "x$enable_polkit" = "xyes" -a "x$HAVE_POLKIT" = "xno" ; then
+    AC_MSG_ERROR(PolicyKit support explicity enabled but not available)
+  fi
+
+  if test "x$HAVE_POLKIT" = "xyes" ; then
+    AC_DEFINE(HAVE_POLKIT, 1, [Defined if PolicyKit support is enabled])
+  fi
+fi
+AM_CONDITIONAL(HAVE_POLKIT, test "x$HAVE_POLKIT" = "xyes")
+AC_SUBST(POLKIT_CFLAGS)
+AC_SUBST(POLKIT_LIBS)
+
+
+
 # ---------------------------------------------------------------------------
 # Enable Profiling
 # ---------------------------------------------------------------------------
@@ -388,6 +428,7 @@ plugins/a11y-keyboard/Makefile
 plugins/background/Makefile
 plugins/clipboard/Makefile
 plugins/common/Makefile
+plugins/datetime/Makefile
 plugins/dummy/Makefile
 plugins/font/Makefile
 plugins/housekeeping/Makefile
@@ -434,6 +475,7 @@ echo "
         Maintainer mode:          ${USE_MAINTAINER_MODE}
 
         dbus-1 system.d dir:      ${DBUS_SYS_DIR}
+        PolicyKit support:        ${HAVE_POLKIT}
 
         Libnotify support:        ${have_libnotify}
         PulseAudio support:       ${have_pulse}
