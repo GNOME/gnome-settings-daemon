@@ -463,6 +463,20 @@ gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism  *mechanism,
 }
 
 
+gboolean
+gsd_datetime_mechanism_get_timezone (GsdDatetimeMechanism   *mechism,
+                                     DBusGMethodInvocation  *context)
+{
+  gchar *timezone;
+
+  reset_killtimer ();
+
+  timezone = system_timezone_find ();
+
+  dbus_g_method_return (context, timezone);
+
+  return TRUE;
+}
 
 gboolean
 gsd_datetime_mechanism_get_hardware_clock_using_utc (GsdDatetimeMechanism  *mechanism,

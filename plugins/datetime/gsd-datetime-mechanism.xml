@@ -5,6 +5,12 @@
       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
       <arg name="zonefile" direction="in" type="s"/>
     </method>
+
+    <method name="GetTimezone">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg name="timezone" direction="out" type="s"/>
+    </method>
+
     <method name="CanSetTimezone">
       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
       <arg name="value" direction="out" type="i">

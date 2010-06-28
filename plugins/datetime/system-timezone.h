@@ -74,6 +74,8 @@ typedef enum
         SYSTEM_TIMEZONE_NUM_ERRORS
 } SystemTimezoneError;
 
+char *system_timezone_find (void);
+
 gboolean system_timezone_set_from_file (const char  *zone_file,
                                         GError     **error);
 gboolean system_timezone_set (const char  *tz,

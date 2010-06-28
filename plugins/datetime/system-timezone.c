@@ -101,7 +101,6 @@ static void system_timezone_monitor_changed (GFileMonitor *handle,
                                              GFile *other_file,
                                              GFileMonitorEvent event,
                                              gpointer user_data);
-static char *system_timezone_find (void);
 
 #define PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), SYSTEM_TIMEZONE_TYPE, SystemTimezonePrivate))
 
@@ -831,7 +830,7 @@ system_timezone_is_valid (const char *tz)
         return TRUE;
 }
 
-static char *
+char *
 system_timezone_find (void)
 {
         char *tz;
