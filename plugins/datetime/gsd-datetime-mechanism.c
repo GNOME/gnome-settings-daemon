@@ -118,8 +118,8 @@ gsd_datetime_mechanism_error_get_type (void)
 
 static GObject *
 gsd_datetime_mechanism_constructor (GType                  type,
-                                  guint                  n_construct_properties,
-                                  GObjectConstructParam *construct_properties)
+                                    guint                  n_construct_properties,
+                                    GObjectConstructParam *construct_properties)
 {
         GsdDatetimeMechanism      *mechanism;
 
@@ -269,9 +269,9 @@ _check_polkit_for_action (GsdDatetimeMechanism *mechanism, DBusGMethodInvocation
 
 
 static gboolean
-_set_time (GsdDatetimeMechanism    *mechanism,
-           const struct timeval         *tv,
-           DBusGMethodInvocation        *context)
+_set_time (GsdDatetimeMechanism  *mechanism,
+           const struct timeval  *tv,
+           DBusGMethodInvocation *context)
 {
         GError *error;
 
@@ -384,9 +384,9 @@ _rh_update_etc_sysconfig_clock (DBusGMethodInvocation *context, const char *key,
 /* exported methods */
 
 gboolean
-gsd_datetime_mechanism_set_time (GsdDatetimeMechanism    *mechanism,
-                                       gint64                        seconds_since_epoch,
-                                       DBusGMethodInvocation        *context)
+gsd_datetime_mechanism_set_time (GsdDatetimeMechanism  *mechanism,
+                                 gint64                 seconds_since_epoch,
+                                 DBusGMethodInvocation *context)
 {
         struct timeval tv;
 
@@ -399,9 +399,9 @@ gsd_datetime_mechanism_set_time (GsdDatetimeMechanism    *mechanism,
 }
 
 gboolean
-gsd_datetime_mechanism_adjust_time (GsdDatetimeMechanism    *mechanism,
-                                          gint64                        seconds_to_add,
-                                          DBusGMethodInvocation        *context)
+gsd_datetime_mechanism_adjust_time (GsdDatetimeMechanism  *mechanism,
+                                    gint64                 seconds_to_add,
+                                    DBusGMethodInvocation *context)
 {
         struct timeval tv;
 
@@ -424,9 +424,9 @@ gsd_datetime_mechanism_adjust_time (GsdDatetimeMechanism    *mechanism,
 
 
 gboolean
-gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism *mechanism,
-                                           const char                *zone_file,
-                                           DBusGMethodInvocation     *context)
+gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism  *mechanism,
+                                     const char            *zone_file,
+                                     DBusGMethodInvocation *context)
 {
         GError *error;
 
@@ -465,8 +465,8 @@ gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism *mechanism,
 
 
 gboolean
-gsd_datetime_mechanism_get_hardware_clock_using_utc  (GsdDatetimeMechanism    *mechanism,
-                                                            DBusGMethodInvocation        *context)
+gsd_datetime_mechanism_get_hardware_clock_using_utc (GsdDatetimeMechanism  *mechanism,
+                                                     DBusGMethodInvocation *context)
 {
         char **lines;
         char *data;
@@ -519,9 +519,9 @@ gsd_datetime_mechanism_get_hardware_clock_using_utc  (GsdDatetimeMechanism    *m
 }
 
 gboolean
-gsd_datetime_mechanism_set_hardware_clock_using_utc  (GsdDatetimeMechanism    *mechanism,
-                                                            gboolean                      using_utc,
-                                                            DBusGMethodInvocation        *context)
+gsd_datetime_mechanism_set_hardware_clock_using_utc (GsdDatetimeMechanism  *mechanism,
+                                                     gboolean               using_utc,
+                                                     DBusGMethodInvocation *context)
 {
         GError *error;
 
@@ -566,9 +566,9 @@ gsd_datetime_mechanism_set_hardware_clock_using_utc  (GsdDatetimeMechanism    *m
 }
 
 static void
-check_can_do (GsdDatetimeMechanism *mechanism,
-              const char                *action,
-              DBusGMethodInvocation     *context)
+check_can_do (GsdDatetimeMechanism  *mechanism,
+              const char            *action,
+              DBusGMethodInvocation *context)
 {
         const char *sender;
         PolkitSubject *subject;
@@ -610,8 +610,8 @@ check_can_do (GsdDatetimeMechanism *mechanism,
 
 
 gboolean
-gsd_datetime_mechanism_can_set_time (GsdDatetimeMechanism    *mechanism,
-                                           DBusGMethodInvocation        *context)
+gsd_datetime_mechanism_can_set_time (GsdDatetimeMechanism  *mechanism,
+                                     DBusGMethodInvocation *context)
 {
         check_can_do (mechanism,
                       "org.gnome.settingsdaemon.datetimemechanism.settime",
@@ -621,8 +621,8 @@ gsd_datetime_mechanism_can_set_time (GsdDatetimeMechanism    *mechanism,
 }
 
 gboolean
-gsd_datetime_mechanism_can_set_timezone (GsdDatetimeMechanism    *mechanism,
-                                               DBusGMethodInvocation        *context)
+gsd_datetime_mechanism_can_set_timezone (GsdDatetimeMechanism  *mechanism,
+                                         DBusGMethodInvocation *context)
 {
         check_can_do (mechanism,
                       "org.gnome.settingsdaemon.datetimemechanism.settimezone",

@@ -62,33 +62,35 @@ GType gsd_datetime_mechanism_error_get_type (void);
 
 GQuark                     gsd_datetime_mechanism_error_quark         (void);
 GType                      gsd_datetime_mechanism_get_type            (void);
-GsdDatetimeMechanism *gsd_datetime_mechanism_new                 (void);
+GsdDatetimeMechanism      *gsd_datetime_mechanism_new                 (void);
 
 /* exported methods */
-gboolean            gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism    *mechanism,
-                                                         const char                   *zone_file,
-                                                         DBusGMethodInvocation        *context);
+gboolean            gsd_datetime_mechanism_get_timezone (GsdDatetimeMechanism   *mechanism,
+                                                         DBusGMethodInvocation  *context);
+gboolean            gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism   *mechanism,
+                                                         const char             *zone_file,
+                                                         DBusGMethodInvocation  *context);
 
-gboolean            gsd_datetime_mechanism_can_set_timezone (GsdDatetimeMechanism    *mechanism,
-                                                             DBusGMethodInvocation        *context);
+gboolean            gsd_datetime_mechanism_can_set_timezone (GsdDatetimeMechanism  *mechanism,
+                                                             DBusGMethodInvocation *context);
 
-gboolean            gsd_datetime_mechanism_set_time     (GsdDatetimeMechanism    *mechanism,
-                                                         gint64                        seconds_since_epoch,
-                                                         DBusGMethodInvocation        *context);
+gboolean            gsd_datetime_mechanism_set_time     (GsdDatetimeMechanism  *mechanism,
+                                                         gint64                 seconds_since_epoch,
+                                                         DBusGMethodInvocation *context);
 
-gboolean            gsd_datetime_mechanism_can_set_time (GsdDatetimeMechanism    *mechanism,
-                                                         DBusGMethodInvocation        *context);
+gboolean            gsd_datetime_mechanism_can_set_time (GsdDatetimeMechanism  *mechanism,
+                                                         DBusGMethodInvocation *context);
 
-gboolean            gsd_datetime_mechanism_adjust_time  (GsdDatetimeMechanism    *mechanism,
-                                                         gint64                        seconds_to_add,
-                                                         DBusGMethodInvocation        *context);
+gboolean            gsd_datetime_mechanism_adjust_time  (GsdDatetimeMechanism  *mechanism,
+                                                         gint64                 seconds_to_add,
+                                                         DBusGMethodInvocation *context);
 
-gboolean            gsd_datetime_mechanism_get_hardware_clock_using_utc  (GsdDatetimeMechanism    *mechanism,
-                                                                          DBusGMethodInvocation        *context);
+gboolean            gsd_datetime_mechanism_get_hardware_clock_using_utc  (GsdDatetimeMechanism  *mechanism,
+                                                                          DBusGMethodInvocation *context);
 
-gboolean            gsd_datetime_mechanism_set_hardware_clock_using_utc  (GsdDatetimeMechanism    *mechanism,
-                                                                          gboolean                      using_utc,
-                                                                          DBusGMethodInvocation        *context);
+gboolean            gsd_datetime_mechanism_set_hardware_clock_using_utc  (GsdDatetimeMechanism  *mechanism,
+                                                                          gboolean               using_utc,
+                                                                          DBusGMethodInvocation *context);
 
 G_END_DECLS
 
