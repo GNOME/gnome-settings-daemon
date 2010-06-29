@@ -31,9 +31,6 @@ AM_CFLAGS = $(SETTINGS_PLUGIN_CFLAGS) $(POLKIT_CFLAGS)
 gsd_datetime_mechanism_LDADD = $(POLKIT_LIBS) $(SETTINGS_PLUGIN_LIBS)
 
 
-
-
-
 if HAVE_POLKIT
 dbus_services_DATA = $(dbus_services_in_files:.service.in=.service)
 
@@ -57,3 +54,7 @@ EXTRA_DIST =						\
 	$(polkit_in_files)				\
 	gsd-datetime-mechanism.xml
 
+CLEANFILES = 		\
+	org.gnome.SettingsDaemon.DateTimeMechanism.service	\
+	org.gnome.settingsdaemon.datetimemechanism.policy	\
+	$(BUILT_SOURCES)
