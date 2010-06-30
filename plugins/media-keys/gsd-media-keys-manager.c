@@ -106,6 +106,8 @@ struct GsdMediaKeysManagerPrivate
         guint            owner_id;
         GDBusNodeInfo   *introspection_data;
         GDBusConnection *connection;
+        GDBusProxy      *xrandr_proxy;
+        GCancellable    *cancellable;
 };
 
 static void     gsd_media_keys_manager_class_init  (GsdMediaKeysManagerClass *klass);
@@ -948,9 +950,86 @@ do_multimedia_player_action (GsdMediaKeysManager *manager,
         return gsd_media_player_key_pressed (manager, key);
 }
 
+static void
+on_xrandr_action_call_finished (GObject             *source_object,
+				GAsyncResult        *res,
+				GsdMediaKeysManager *manager)
+{
+        GError *error = NULL;
+        GVariant *variant;
+        char *action;
+
+        action = g_object_get_data (G_OBJECT (source_object),
+				    "gsd-media-keys-manager-xrandr-action");
+
+	variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
+
+	g_object_unref (manager->priv->cancellable);
+	manager->priv->cancellable = NULL;
+
+        if (!res) {
+                g_warning ("Unable to call '%s': %s", action, error->message);
+                g_error_free (error);
+        } else {
+		g_variant_unref (variant);
+	}
+
+        g_free (action);
+}
+
+static void
+do_xrandr_action (GsdMediaKeysManager *manager,
+                  const char          *action,
+                  gint64               timestamp)
+{
+        GsdMediaKeysManagerPrivate *priv = manager->priv;
+
+        if (priv->connection == NULL || priv->xrandr_proxy == NULL) {
+                g_warning ("No existing D-Bus connection trying to handle XRANDR keys");
+                return;
+        }
+
+        if (priv->cancellable != NULL) {
+                g_debug ("xrandr action already in flight");
+                return;
+        }
+
+	priv->cancellable = g_cancellable_new ();
+
+        g_object_set_data (G_OBJECT (priv->xrandr_proxy),
+			   "gsd-media-keys-manager-xrandr-action",
+			   g_strdup (action));
+
+	g_dbus_proxy_call (priv->xrandr_proxy,
+			   action,
+			   g_variant_new ("(x)", timestamp),
+			   G_DBUS_CALL_FLAGS_NONE,
+			   -1,
+			   priv->cancellable,
+			   (GAsyncReadyCallback) on_xrandr_action_call_finished,
+			   manager);
+}
+
+static gboolean
+do_video_out_action (GsdMediaKeysManager *manager,
+                     gint64               timestamp)
+{
+        do_xrandr_action (manager, "VideoModeSwitch", timestamp);
+        return FALSE;
+}
+
+static gboolean
+do_video_rotate_action (GsdMediaKeysManager *manager,
+                        gint64               timestamp)
+{
+        do_xrandr_action (manager, "Rotate", timestamp);
+        return FALSE;
+}
+
 static gboolean
 do_action (GsdMediaKeysManager *manager,
-           int                  type)
+           int                  type,
+           gint64               timestamp)
 {
         char *cmd;
         char *path;
@@ -1032,8 +1111,16 @@ do_action (GsdMediaKeysManager *manager,
                 return do_multimedia_player_action (manager, "Repeat");
         case RANDOM_KEY:
                 return do_multimedia_player_action (manager, "Shuffle");
-        default:
+        case VIDEO_OUT_KEY:
+        case VIDEO_OUT2_KEY:
+                do_video_out_action (manager, timestamp);
+                break;
+	case ROTATE_VIDEO_KEY:
+		do_video_rotate_action (manager, timestamp);
+		break;
+        case HANDLED_KEYS:
                 g_assert_not_reached ();
+        /* Note, no default so compiler catches missing keys */
         }
 
         return FALSE;
@@ -1092,7 +1179,7 @@ acme_filter_events (GdkXEvent           *xevent,
 
                         manager->priv->current_screen = acme_get_screen_from_event (manager, xany);
 
-                        if (do_action (manager, keys[i].key_type) == FALSE) {
+                        if (do_action (manager, keys[i].key_type, xev->xkey.time) == FALSE) {
                                 return GDK_FILTER_REMOVE;
                         } else {
                                 return GDK_FILTER_CONTINUE;
@@ -1199,6 +1286,12 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 g_object_unref (priv->volume_monitor);
                 priv->volume_monitor = NULL;
         }
+
+	if (priv->cancellable != NULL) {
+		g_cancellable_cancel (priv->cancellable);
+		g_object_unref (priv->cancellable);
+		priv->cancellable = NULL;
+	}
 
         if (priv->owner_id > 0) {
                 g_bus_unown_name (priv->owner_id);
@@ -1311,16 +1404,6 @@ gsd_media_keys_manager_constructor (GType                  type,
 }
 
 static void
-gsd_media_keys_manager_dispose (GObject *object)
-{
-        GsdMediaKeysManager *media_keys_manager;
-
-        media_keys_manager = GSD_MEDIA_KEYS_MANAGER (object);
-
-        G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->dispose (object);
-}
-
-static void
 gsd_media_keys_manager_class_init (GsdMediaKeysManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
@@ -1328,7 +1411,6 @@ gsd_media_keys_manager_class_init (GsdMediaKeysManagerClass *klass)
         object_class->get_property = gsd_media_keys_manager_get_property;
         object_class->set_property = gsd_media_keys_manager_set_property;
         object_class->constructor = gsd_media_keys_manager_constructor;
-        object_class->dispose = gsd_media_keys_manager_dispose;
         object_class->finalize = gsd_media_keys_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdMediaKeysManagerPrivate));
@@ -1338,7 +1420,6 @@ static void
 gsd_media_keys_manager_init (GsdMediaKeysManager *manager)
 {
         manager->priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-
 }
 
 static void
@@ -1357,6 +1438,20 @@ gsd_media_keys_manager_finalize (GObject *object)
 }
 
 static void
+xrandr_ready_cb (GObject             *source_object,
+		 GAsyncResult        *res,
+		 GsdMediaKeysManager *manager)
+{
+	GError *error = NULL;
+
+	manager->priv->xrandr_proxy = g_dbus_proxy_new_finish (res, &error);
+	if (manager->priv->xrandr_proxy == NULL) {
+		g_warning ("Failed to get proxy for XRandR operations: %s", error->message);
+		g_error_free (error);
+	}
+}
+
+static void
 on_bus_acquired (GDBusConnection     *connection,
                  const gchar         *name,
                  GsdMediaKeysManager *manager)
@@ -1370,8 +1465,19 @@ on_bus_acquired (GDBusConnection     *connection,
                                                              manager,
                                                              NULL,
                                                              NULL);
-        if (registration_id > 0)
+        if (registration_id > 0) {
                 manager->priv->connection = connection;
+
+		g_dbus_proxy_new (manager->priv->connection,
+				  G_DBUS_PROXY_FLAGS_NONE,
+				  NULL,
+				  "org.gnome.SettingsDaemon",
+				  "/org/gnome/SettingsDaemon/XRANDR",
+				  "org.gnome.SettingsDaemon.XRANDR_2",
+				  NULL,
+				  (GAsyncReadyCallback) xrandr_ready_cb,
+				  manager);
+	}
 }
 
 static void

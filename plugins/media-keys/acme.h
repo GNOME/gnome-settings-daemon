@@ -49,6 +49,9 @@ enum {
         FORWARD_KEY,
         REPEAT_KEY,
         RANDOM_KEY,
+        VIDEO_OUT_KEY,
+        VIDEO_OUT2_KEY,
+        ROTATE_VIDEO_KEY,
         HANDLED_KEYS
 };
 
@@ -80,7 +83,12 @@ static struct {
         { REWIND_KEY, "rewind", "XF86AudioRewind", NULL },
         { FORWARD_KEY, "forward", "XF86AudioForward", NULL },
         { REPEAT_KEY, "repeat", "XF86AudioRepeat", NULL },
-        { RANDOM_KEY, "random", "XF86AudioRandomPlay", NULL}
+        { RANDOM_KEY, "random", "XF86AudioRandomPlay", NULL},
+        { VIDEO_OUT_KEY, NULL, "<Mod4>p", NULL },
+        /* Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.) */
+        { VIDEO_OUT2_KEY, NULL, "XF86Display", NULL },
+        /* Key code of the XF86RotateWindows key (present on some tablets) */
+        { ROTATE_VIDEO_KEY, NULL, "XF86RotateWindows", NULL },
 };
 
 #endif /* __ACME_H__ */

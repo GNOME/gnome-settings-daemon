@@ -19,5 +19,13 @@
       the future) for the RANDR calls themselves -->
       <arg name="timestamp" type="x" direction="in"/>
     </method>
+    <method name="VideoModeSwitch">
+       <!-- Timestamp for the RANDR call itself -->
+       <arg name="timestamp" type="x" direction="in"/>
+    </method>
+    <method name="Rotate">
+       <!-- Timestamp for the RANDR call itself -->
+       <arg name="timestamp" type="x" direction="in"/>
+    </method>
   </interface>
 </node>

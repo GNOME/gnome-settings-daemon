@@ -81,12 +81,6 @@ struct GsdXrandrManagerPrivate
 {
         DBusGConnection *dbus_connection;
 
-        /* Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.) */
-        guint switch_video_mode_keycode;
-
-        /* Key code of the XF86RotateWindows key (present on some tablets) */
-        guint rotate_windows_keycode;
-
         GnomeRRScreen *rw_screen;
         gboolean running;
 
@@ -119,6 +113,8 @@ static void get_allowed_rotations_for_output (GnomeRRConfig *config,
                                               GnomeOutputInfo *output,
                                               int *out_num_rotations,
                                               GnomeRRRotation *out_rotations);
+static void handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp);
+static void handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp);
 
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
@@ -613,7 +609,27 @@ gsd_xrandr_manager_2_apply_configuration (GsdXrandrManager *manager,
         return result;
 }
 
-/* We include this after the definition of gsd_xrandr_manager_apply_configuration() so the prototype will already exist */
+/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 VideoModeSwitch; see gsd-xrandr-manager.xml for the interface definition */
+static gboolean
+gsd_xrandr_manager_2_video_mode_switch (GsdXrandrManager *manager,
+					guint32           timestamp,
+					GError          **error)
+{
+	handle_fn_f7 (manager, timestamp);
+	return TRUE;
+}
+
+/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 Rotate; see gsd-xrandr-manager.xml for the interface definition */
+static gboolean
+gsd_xrandr_manager_2_rotate (GsdXrandrManager *manager,
+			     guint32           timestamp,
+			     GError          **error)
+{
+	handle_rotate_windows (manager, timestamp);
+	return TRUE;
+}
+
+/* We include this after the definition of gsd_xrandr_manager_* D-Bus methods so the prototype will already exist */
 #include "gsd-xrandr-manager-glue.h"
 
 static gboolean
@@ -1301,33 +1317,6 @@ out:
         gnome_rr_config_free (current);
 }
 
-static GdkFilterReturn
-event_filter (GdkXEvent           *xevent,
-              GdkEvent            *event,
-              gpointer             data)
-{
-        GsdXrandrManager *manager = data;
-        XEvent *xev = (XEvent *) xevent;
-
-        if (!manager->priv->running)
-                return GDK_FILTER_CONTINUE;
-
-        /* verify we have a key event */
-        if (xev->xany.type != KeyPress && xev->xany.type != KeyRelease)
-                return GDK_FILTER_CONTINUE;
-
-        if (xev->xany.type == KeyPress) {
-                if (xev->xkey.keycode == manager->priv->switch_video_mode_keycode)
-                        handle_fn_f7 (manager, xev->xkey.time);
-                else if (xev->xkey.keycode == manager->priv->rotate_windows_keycode)
-                        handle_rotate_windows (manager, xev->xkey.time);
-
-                return GDK_FILTER_CONTINUE;
-        }
-
-        return GDK_FILTER_CONTINUE;
-}
-
 static void
 auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 {
@@ -1741,30 +1730,6 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         manager->priv->running = TRUE;
         manager->priv->settings = g_settings_new (CONF_DIR);
 
-        if (manager->priv->switch_video_mode_keycode) {
-                gdk_error_trap_push ();
-
-                XGrabKey (gdk_x11_get_default_xdisplay(),
-                          manager->priv->switch_video_mode_keycode, AnyModifier,
-                          gdk_x11_get_default_root_xwindow(),
-                          True, GrabModeAsync, GrabModeAsync);
-
-                gdk_flush ();
-                gdk_error_trap_pop ();
-        }
-
-        if (manager->priv->rotate_windows_keycode) {
-                gdk_error_trap_push ();
-
-                XGrabKey (gdk_x11_get_default_xdisplay(),
-                          manager->priv->rotate_windows_keycode, AnyModifier,
-                          gdk_x11_get_default_root_xwindow(),
-                          True, GrabModeAsync, GrabModeAsync);
-
-                gdk_flush ();
-                gdk_error_trap_pop ();
-        }
-
         show_timestamps_dialog (manager, "Startup");
         if (!apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME)) /* we don't have a real timestamp at startup anyway */
                 if (!apply_default_configuration_from_file (manager, GDK_CURRENT_TIME))
@@ -1773,10 +1738,6 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
 
         log_msg ("State of screen after initial configuration:\n");
         log_screen (manager->priv->rw_screen);
-
-        gdk_window_add_filter (gdk_get_default_root_window(),
-                               (GdkFilterFunc)event_filter,
-                               manager);
 
         log_close ();
 
@@ -1791,30 +1752,6 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         g_debug ("Stopping xrandr manager");
 
         manager->priv->running = FALSE;
-
-        if (manager->priv->switch_video_mode_keycode) {
-                gdk_error_trap_push ();
-
-                XUngrabKey (gdk_x11_get_default_xdisplay(),
-                            manager->priv->switch_video_mode_keycode, AnyModifier,
-                            gdk_x11_get_default_root_xwindow());
-
-                gdk_error_trap_pop ();
-        }
-
-        if (manager->priv->rotate_windows_keycode) {
-                gdk_error_trap_push ();
-
-                XUngrabKey (gdk_x11_get_default_xdisplay(),
-                            manager->priv->rotate_windows_keycode, AnyModifier,
-                            gdk_x11_get_default_root_xwindow());
-
-                gdk_error_trap_pop ();
-        }
-
-        gdk_window_remove_filter (gdk_get_default_root_window (),
-                                  (GdkFilterFunc) event_filter,
-                                  manager);
 
         if (manager->priv->settings != NULL) {
                 g_object_unref (manager->priv->settings);
@@ -1913,25 +1850,10 @@ gsd_xrandr_manager_class_init (GsdXrandrManagerClass *klass)
         g_type_class_add_private (klass, sizeof (GsdXrandrManagerPrivate));
 }
 
-static guint
-get_keycode_for_keysym_name (const char *name)
-{
-        Display *dpy;
-        guint keyval;
-
-        dpy = gdk_x11_get_default_xdisplay ();
-
-        keyval = gdk_keyval_from_name (name);
-        return XKeysymToKeycode (dpy, keyval);
-}
-
 static void
 gsd_xrandr_manager_init (GsdXrandrManager *manager)
 {
         manager->priv = GSD_XRANDR_MANAGER_GET_PRIVATE (manager);
-
-        manager->priv->switch_video_mode_keycode = get_keycode_for_keysym_name (VIDEO_KEYSYM);
-        manager->priv->rotate_windows_keycode = get_keycode_for_keysym_name (ROTATE_KEYSYM);
 
         manager->priv->current_fn_f7_config = -1;
         manager->priv->fn_f7_configs = NULL;
