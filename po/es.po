@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-05-07 17:25+0000\n"
-"PO-Revision-Date: 2010-05-10 20:02+0200\n"
+"POT-Creation-Date: 2010-06-29 11:24+0000\n"
+"PO-Revision-Date: 2010-07-01 08:58+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1133,24 +1133,15 @@ msgstr ""
 "Intente usar una configuración más simple o usar una versión más moderna del "
 "software de XFree."
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
-msgid "Unknown"
-msgstr "Desconocido"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:305
-#, c-format
-msgid "Keyboard Layout \"%s\""
-msgstr "Distribución del teclado «%s»"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:428
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:279
 msgid "_Layouts"
 msgstr "_Distribuciones"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:435
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:286
 msgid "Keyboard _Preferences"
 msgstr "Prefere_ncias del teclado"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:441
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:292
 msgid "Show _Current Layout"
 msgstr "Mostrar distribución _actual"
 
@@ -1177,10 +1168,6 @@ msgstr "_Cargar"
 #: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "Archivos _cargados:"
-
-#: ../plugins/keyboard/show-layout.ui.h:1
-msgid "Keyboard Layout"
-msgstr "Distribución del teclado"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:195
 msgid ""
@@ -1433,7 +1420,6 @@ msgid "The slot the card is in"
 msgstr "La ranura en la que está la tarjeta"
 
 #: ../plugins/smartcard/gsd-smartcard.c:161
-#| msgid "Slow keys"
 msgid "Slot Series"
 msgstr "Serie de la ranura"
 
@@ -1447,13 +1433,45 @@ msgid "name"
 msgstr "nombre"
 
 #: ../plugins/smartcard/gsd-smartcard.c:173
-#| msgid "Mouse"
 msgid "Module"
 msgstr "Módulo"
 
 #: ../plugins/smartcard/gsd-smartcard.c:174
 msgid "smartcard driver"
 msgstr "controlador de tarjeta inteligente"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
+msgid "Change system time"
+msgstr "Cambiar la hora del sistema"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
+msgid "Change system time zone"
+msgstr "Cambiar la zona horaria del sistema"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
+msgid "Configure hardware clock"
+msgstr "Configurar el reloj hardware"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
+msgid "Privileges are required to change the system time zone."
+msgstr "Se requieren privilegios para cambiar la zona horaria del sistema."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
+msgid "Privileges are required to change the system time."
+msgstr "Se requieren privilegios para cambiar la hora del sistema."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
+msgid "Privileges are required to configure the hardware clock."
+msgstr "Se requieren privilegios para cambiar el reloj hardware."
+
+#~ msgid "Unknown"
+#~ msgstr "Desconocido"
+
+#~ msgid "Keyboard Layout \"%s\""
+#~ msgstr "Distribución del teclado «%s»"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "Distribución del teclado"
 
 #~ msgid "_Groups"
 #~ msgstr "_Grupos"
