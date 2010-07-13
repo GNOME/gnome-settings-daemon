@@ -5,7 +5,7 @@ m4_define([gsd_api_version_minor],[0])
 m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])
 
 AC_INIT([gnome-settings-daemon],
-        [2.31.4.2],
+        [2.31.5],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
@@ -66,7 +66,7 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
         gconf-2.0 >= $GCONF_REQUIRED_VERSION
-        gnome-desktop-2.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
+        gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
         gio-2.0 >= $GIO_REQUIRED_VERSION
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
 )

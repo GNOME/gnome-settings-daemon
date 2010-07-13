@@ -6,11 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.31.x\n"
-"Report-Msgid-Bugs-To:\n"
-"POT-Creation-Date: 2010-06-20 12:26+0200\n"
-"PO-Revision-Date: 2010-06-20 12:33+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-13 15:17+0200\n"
+"PO-Revision-Date: 2010-07-13 15:25+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,9 +26,8 @@ msgid "Free percentage notify threshold"
 msgstr "Terskel for varsling av ledig plass"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
-#, fuzzy
 msgid "Free space no notify threshold"
-msgstr "Terskel for "
+msgstr "Terskel for å stoppe varsling om ledig plass"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
 msgid "Minimum notify period for repeated warnings"
@@ -267,7 +267,6 @@ msgid ""
 msgstr ""
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
-#, fuzzy
 msgid ""
 "Whether a notification icon with display-related things should be shown in "
 "the panel."
@@ -299,8 +298,8 @@ msgid ""
 msgstr ""
 "Rekkefølge for underpikselelementer på en LCD-skjerm; brukes kun når "
 "utjevning er satt til «rgba». Mulige verdier er «rgb» for rød til venstre "
-"(mest vanlig), «bgr» for blå til venstre, «vrgb» for rød øverst, «vbgr» for rød "
-"nederst."
+"(mest vanlig), «bgr» for blå til venstre, «vrgb» for rød øverst, «vbgr» for "
+"rød nederst."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:6
 msgid ""
@@ -317,8 +316,8 @@ msgid ""
 "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgstr ""
 "Type utjevning som skal brukes ved rendring av skrifter. Mulige verdier er: "
-"«none» for ingen utjevning, «grayscale» for vanlig gråtoneutjevning og «rgba» "
-"for underpikselutjevning (kun LCD-skjermer)."
+"«none» for ingen utjevning, «grayscale» for vanlig gråtoneutjevning og "
+"«rgba» for underpikselutjevning (kun LCD-skjermer)."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:8
 msgid ""
@@ -327,8 +326,8 @@ msgid ""
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 "Type hinting som skal brukes ved rendring av skrifter. Mulige verdier er "
-"«none» for ingen hinting, «slight» for grunnleggende, «medium» for moderat, og "
-"«full» for maksimal hinting (kan forårsake forvrenging av bokstavformer)."
+"«none» for ingen hinting, «slight» for grunnleggende, «medium» for moderat, "
+"og «full» for maksimal hinting (kan forårsake forvrenging av bokstavformer)."
 
 #: ../data/desktop_gnome_keybindings.schemas.in.h:1
 msgid "Allowed keys"
@@ -460,9 +459,8 @@ msgid "Enable mouse plugin"
 msgstr "Aktiver tillegg for mus"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:18
-#, fuzzy
 msgid "Enable smartcard plugin"
-msgstr "Aktiver tillegg for xrandr"
+msgstr "Aktiver tillegg for smartkort"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable sound plugin"
@@ -503,10 +501,8 @@ msgid ""
 msgstr "Sett til True for å aktivere tillegg for opprydding av filbuffere."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:28
-#, fuzzy
 msgid "Set to True to enable the plugin to manage XRandR settings."
-msgstr ""
-"Sett til True for å aktivere tillegg for å håndtere innstillinger for xrandr."
+msgstr "Sett til True for å aktivere tillegg for å håndtere innstillinger for XRandR."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage clipboard settings."
@@ -532,12 +528,10 @@ msgstr ""
 "tastatur."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:33
-#, fuzzy
 msgid ""
 "Set to True to enable the plugin to manage locking the screen on smartcard "
 "removal."
-msgstr ""
-"Sett til True for å aktivere tillegg for å håndtere innstillinger for skrift."
+msgstr "Sett til True for å aktivere tillegg for å håndtere låsing av skjermen ved fjerning av smartkort."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage mouse settings."
@@ -1144,11 +1138,9 @@ msgid "Could not enable mouse accessibility features"
 msgstr "Kunne ikke aktivere tilgjengelighetsfunksjoner for mus"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:884
-#, fuzzy
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
-msgstr ""
-"Tilgjengelighet for mus krever at mousetweaks er installert på systemet."
+msgstr "Tilgjengelighet for mus krever at Mousetweaks er installert på systemet."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:887
 msgid "Mouse Preferences"
@@ -1226,9 +1218,8 @@ msgid "Trying to switch the monitor configuration anyway."
 msgstr "Prøver å bytte skjermkonfigurasjon likevel."
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:1703
-#, fuzzy
 msgid "Rotation not supported"
-msgstr "<i>Rotering ikke støttet</i>"
+msgstr "Rotering ikke støttet"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:1759
 msgid "Could not save monitor configuration"
@@ -1251,9 +1242,8 @@ msgid "Upside Down"
 msgstr "Opp-ned"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:1900
-#, fuzzy
 msgid "_Configure Display Settings…"
-msgstr "_Konfigurer innstillinger for skjerm..."
+msgstr "_Konfigurer innstillinger for skjerm…"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:1941
 msgid "Configure display settings"
@@ -1299,12 +1289,12 @@ msgstr "sti til PKCS #11-driver for smartkort"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:504
 msgid "received error or hang up from event source"
-msgstr ""
+msgstr "fikk en feil fra, eller så la hendelseskilden på"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:593
 #, c-format
 msgid "NSS security system could not be initialized"
-msgstr ""
+msgstr "NSS-sikkerhetssystemet kunne ikke initieres"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:662
 #, c-format
@@ -1319,7 +1309,7 @@ msgstr "kunne ikke laste smartkortdriver «%s»"
 #: ../plugins/smartcard/gsd-smartcard-manager.c:771
 #, c-format
 msgid "could not watch for incoming card events - %s"
-msgstr ""
+msgstr "kunne ikke se etter innkommende hendelser fra kort - %s"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:1124
 #, c-format
@@ -1328,16 +1318,15 @@ msgstr ""
 
 #: ../plugins/smartcard/gsd-smartcard.c:154
 msgid "Slot ID"
-msgstr ""
+msgstr "Spor-ID"
 
 #: ../plugins/smartcard/gsd-smartcard.c:155
 msgid "The slot the card is in"
-msgstr ""
+msgstr "Sporet kortet står i"
 
 #: ../plugins/smartcard/gsd-smartcard.c:161
-#, fuzzy
 msgid "Slot Series"
-msgstr "Trege taster"
+msgstr ""
 
 #: ../plugins/smartcard/gsd-smartcard.c:162
 msgid "per-slot card identifier"
@@ -1355,3 +1344,27 @@ msgstr "Modul"
 #: ../plugins/smartcard/gsd-smartcard.c:174
 msgid "smartcard driver"
 msgstr "smartkortdriver"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
+msgid "Change system time"
+msgstr "Endre tid på systemet"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
+msgid "Change system time zone"
+msgstr "Endre tidssone for systemet"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
+msgid "Configure hardware clock"
+msgstr "Konfigurer maskinvareklokken"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
+msgid "Privileges are required to change the system time zone."
+msgstr "Rettigheter kreves forå  endre systemets tidssone."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
+msgid "Privileges are required to change the system time."
+msgstr "Rettigheter kreves for å stille klokken på systemet."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
+msgid "Privileges are required to configure the hardware clock."
+msgstr "Rettigheter kreves for å konfigurere maskinvareklokken."
