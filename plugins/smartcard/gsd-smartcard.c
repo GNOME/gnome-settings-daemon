@@ -52,26 +52,28 @@ static void gsd_smartcard_finalize (GObject *object);
 static void gsd_smartcard_class_install_signals (GsdSmartcardClass *card_class);
 static void gsd_smartcard_class_install_properties (GsdSmartcardClass *card_class);
 static void gsd_smartcard_set_property (GObject       *object,
-                                        guint          prop_id,
-                                        const GValue  *value,
-                                        GParamSpec    *pspec);
+                                       guint          prop_id,
+                                       const GValue  *value,
+                                       GParamSpec    *pspec);
 static void gsd_smartcard_get_property (GObject     *object,
-                                        guint        prop_id,
-                                        GValue      *value,
-                                        GParamSpec  *pspec);
+                                       guint        prop_id,
+                                       GValue      *value,
+                                       GParamSpec  *pspec);
 static void gsd_smartcard_set_name (GsdSmartcard *card, const char *name);
 static void gsd_smartcard_set_slot_id (GsdSmartcard *card,
-                                       int                 slot_id);
+                                      int                 slot_id);
 static void gsd_smartcard_set_slot_series (GsdSmartcard *card,
-                                           int          slot_series);
+                                          int          slot_series);
 static void gsd_smartcard_set_module (GsdSmartcard *card,
-                                      SECMODModule *module);
+                                     SECMODModule *module);
 
 static PK11SlotInfo *gsd_smartcard_find_slot_from_id (GsdSmartcard *card,
-                                                      int slot_id);
+                                                     int slot_id);
 
 static PK11SlotInfo *gsd_smartcard_find_slot_from_card_name (GsdSmartcard *card,
-                                                             const char  *card_name);
+                                                            const char  *card_name);
+static gboolean gsd_smartcard_fetch_certificates (GsdSmartcard *card);
+
 #ifndef GSD_SMARTCARD_DEFAULT_SLOT_ID
 #define GSD_SMARTCARD_DEFAULT_SLOT_ID ((gulong) -1)
 #endif
@@ -396,10 +398,6 @@ gsd_smartcard_init (GsdSmartcard *card)
         card->priv = G_TYPE_INSTANCE_GET_PRIVATE (card,
                                                   GSD_TYPE_SMARTCARD,
                                                   GsdSmartcardPrivate);
-
-        if (card->priv->slot != NULL) {
-                card->priv->name = g_strdup (PK11_GetTokenName (card->priv->slot));
-        }
 }
 
 static void gsd_smartcard_finalize (GObject *object)
@@ -469,6 +467,7 @@ void
 _gsd_smartcard_set_state (GsdSmartcard      *card,
                           GsdSmartcardState  state)
 {
+        /* gsd_smartcard_fetch_certificates (card); */
         if (card->priv->state != state) {
                 card->priv->state = state;
 
