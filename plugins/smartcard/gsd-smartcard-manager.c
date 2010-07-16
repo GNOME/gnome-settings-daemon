@@ -44,13 +44,26 @@
 #include <glib/gi18n.h>
 
 #include <prerror.h>
+#include <prinit.h>
 #include <nss.h>
 #include <pk11func.h>
 #include <secmod.h>
 #include <secerr.h>
 
+#ifndef GSD_SMARTCARD_MANAGER_DRIVER
+#define GSD_SMARTCARD_MANAGER_DRIVER LIBDIR"/pkcs11/libcoolkeypk11.so"
+#endif
+
 #ifndef GSD_SMARTCARD_MANAGER_NSS_DB
 #define GSD_SMARTCARD_MANAGER_NSS_DB SYSCONFDIR"/pki/nssdb"
+#endif
+
+#ifndef GSD_MAX_OPEN_FILE_DESCRIPTORS
+#define GSD_MAX_OPEN_FILE_DESCRIPTORS 1024
+#endif
+
+#ifndef GSD_OPEN_FILE_DESCRIPTORS_DIR
+#define GSD_OPEN_FILE_DESCRIPTORS_DIR "/proc/self/fd"
 #endif
 
 typedef enum _GsdSmartcardManagerState GsdSmartcardManagerState;
@@ -65,14 +78,13 @@ enum _GsdSmartcardManagerState {
 
 struct _GsdSmartcardManagerPrivate {
         GsdSmartcardManagerState state;
-        SECMODModule *module;
+        GList        *modules;
         char        *module_path;
 
-        GSource *smartcard_event_source;
+        GList        *workers;
+
         GPid smartcard_event_watcher_pid;
         GHashTable *smartcards;
-
-        GThread    *worker_thread;
 
         guint poll_timeout_id;
 
@@ -81,9 +93,14 @@ struct _GsdSmartcardManagerPrivate {
 };
 
 struct _GsdSmartcardManagerWorker {
+        GsdSmartcardManager *manager;
+        int manager_fd;
+
+        GThread      *thread;
         SECMODModule *module;
         GHashTable *smartcards;
-        int write_fd;
+        int fd;
+        GSource *event_source;
 
         guint32 nss_is_loaded : 1;
 };
@@ -108,10 +125,13 @@ static void gsd_smartcard_manager_card_inserted_handler (GsdSmartcardManager *ma
 static gboolean gsd_smartcard_manager_stop_now (GsdSmartcardManager *manager);
 static void gsd_smartcard_manager_queue_stop (GsdSmartcardManager *manager);
 
-static gboolean gsd_smartcard_manager_create_worker (GsdSmartcardManager *manager,
-                                                     int *worker_fd, GThread **worker_thread);
+static GsdSmartcardManagerWorker *gsd_smartcard_manager_create_worker (GsdSmartcardManager  *manager,
+                                                                       SECMODModule         *module);
 
-static GsdSmartcardManagerWorker * gsd_smartcard_manager_worker_new (int write_fd);
+static GsdSmartcardManagerWorker * gsd_smartcard_manager_worker_new (GsdSmartcardManager *manager,
+                                                                     int                  worker_fd,
+                                                                     int                  manager_fd,
+                                                                     SECMODModule        *module);
 static void gsd_smartcard_manager_worker_free (GsdSmartcardManagerWorker *worker);
 static gboolean open_pipe (int *write_fd, int *read_fd);
 static gboolean read_bytes (int fd, gpointer bytes, gsize num_bytes);
@@ -220,7 +240,7 @@ gsd_smartcard_manager_get_module_path (GsdSmartcardManager *manager)
 
 static void
 gsd_smartcard_manager_set_module_path (GsdSmartcardManager *manager,
-                                       const char         *module_path)
+                                       const char          *module_path)
 {
         if ((manager->priv->module_path == NULL) && (module_path == NULL)) {
                 return;
@@ -333,7 +353,6 @@ gsd_smartcard_manager_init (GsdSmartcardManager *manager)
                                                      GsdSmartcardManagerPrivate);
         manager->priv->poll_timeout_id = 0;
         manager->priv->is_unstoppable = FALSE;
-        manager->priv->module = NULL;
 
         manager->priv->smartcards =
                 g_hash_table_new_full (g_str_hash,
@@ -411,7 +430,7 @@ gsd_smartcard_manager_emit_smartcard_inserted (GsdSmartcardManager *manager,
 
 static void
 gsd_smartcard_manager_emit_smartcard_removed (GsdSmartcardManager *manager,
-                                             GsdSmartcard        *card)
+                                              GsdSmartcard        *card)
 {
         GsdSmartcardManagerState old_state;
 
@@ -425,14 +444,18 @@ gsd_smartcard_manager_emit_smartcard_removed (GsdSmartcardManager *manager,
 static gboolean
 gsd_smartcard_manager_check_for_and_process_events (GIOChannel          *io_channel,
                                                     GIOCondition         condition,
-                                                    GsdSmartcardManager *manager)
+                                                    GsdSmartcardManagerWorker *worker)
 {
         GsdSmartcard *card;
+        GsdSmartcardManager *manager;
         gboolean should_stop;
-        gchar event_type;
+        guchar event_type;
         char *card_name;
         int fd;
 
+        manager = worker->manager;
+
+        g_debug ("event!");
         card = NULL;
         should_stop = (condition & G_IO_HUP) || (condition & G_IO_ERR);
 
@@ -446,6 +469,7 @@ gsd_smartcard_manager_check_for_and_process_events (GIOChannel          *io_chan
         }
 
         if (!(condition & G_IO_IN)) {
+                g_debug ("nevermind outta here!");
                 goto out;
         }
 
@@ -453,18 +477,21 @@ gsd_smartcard_manager_check_for_and_process_events (GIOChannel          *io_chan
 
         event_type = '\0';
         if (!read_bytes (fd, &event_type, 1)) {
+                g_debug ("could not read event type, stopping");
                 should_stop = TRUE;
                 goto out;
         }
 
-        card = read_smartcard (fd, manager->priv->module);
+        card = read_smartcard (fd, worker->module);
 
         if (card == NULL) {
+                g_debug ("could not read card, stopping");
                 should_stop = TRUE;
                 goto out;
         }
 
         card_name = gsd_smartcard_get_name (card);
+        g_debug ("card '%s' had event %c", card_name, event_type);
 
         switch (event_type) {
                 case 'I':
@@ -513,15 +540,53 @@ out:
 }
 
 static void
-gsd_smartcard_manager_event_processing_stopped_handler (GsdSmartcardManager *manager)
+stop_manager (GsdSmartcardManager *manager)
 {
-        manager->priv->smartcard_event_source = NULL;
-        gsd_smartcard_manager_stop_now (manager);
+        manager->priv->state = GSD_SMARTCARD_MANAGER_STATE_STOPPED;
+
+        if (manager->priv->nss_is_loaded) {
+                NSS_Shutdown ();
+                manager->priv->nss_is_loaded = FALSE;
+        }
+        g_debug ("smartcard manager stopped");
+}
+
+static void
+stop_worker (GsdSmartcardManagerWorker *worker)
+{
+        GsdSmartcardManager *manager;
+
+        manager = worker->manager;
+
+        if (worker->event_source != NULL) {
+                g_source_destroy (worker->event_source);
+                worker->event_source = NULL;
+        }
+
+        if (worker->thread != NULL) {
+                SECMOD_CancelWait (worker->module);
+                worker->thread = NULL;
+        }
+
+        SECMOD_DestroyModule (worker->module);
+        manager->priv->workers = g_list_remove (manager->priv->workers, worker);
+
+        if (manager->priv->workers == NULL && manager->priv->state != GSD_SMARTCARD_MANAGER_STATE_STOPPED) {
+                stop_manager (manager);
+        }
+}
+
+static void
+gsd_smartcard_manager_event_processing_stopped_handler (GsdSmartcardManagerWorker *worker)
+{
+        worker->event_source = NULL;
+
+        stop_worker (worker);
 }
 
 static gboolean
 open_pipe (int *write_fd,
-                  int *read_fd)
+           int *read_fd)
 {
         int pipe_fds[2] = { -1, -1 };
 
@@ -553,14 +618,19 @@ open_pipe (int *write_fd,
 static void
 gsd_smartcard_manager_stop_watching_for_events (GsdSmartcardManager  *manager)
 {
-        if (manager->priv->smartcard_event_source != NULL) {
-                g_source_destroy (manager->priv->smartcard_event_source);
-                manager->priv->smartcard_event_source = NULL;
-        }
+        GList *node;
 
-        if (manager->priv->worker_thread != NULL) {
-                SECMOD_CancelWait (manager->priv->module);
-                manager->priv->worker_thread = NULL;
+        node = manager->priv->workers;
+        while (node != NULL) {
+                GsdSmartcardManagerWorker *worker;
+                GList *next_node;
+
+                worker = (GsdSmartcardManagerWorker *) node->data;
+                next_node = node->next;
+
+                stop_worker (worker);
+
+                node = next_node;
         }
 }
 
@@ -569,12 +639,14 @@ load_nss (GError **error)
 {
         SECStatus status = SECSuccess;
         static const guint32 flags =
-        NSS_INIT_READONLY | NSS_INIT_NOCERTDB | NSS_INIT_NOMODDB |
+        NSS_INIT_READONLY |
         NSS_INIT_FORCEOPEN | NSS_INIT_NOROOTINIT |
         NSS_INIT_OPTIMIZESPACE | NSS_INIT_PK11RELOAD;
 
         g_debug ("attempting to load NSS database '%s'",
-                  GSD_SMARTCARD_MANAGER_NSS_DB);
+                 GSD_SMARTCARD_MANAGER_NSS_DB);
+
+        PR_Init (PR_USER_THREAD, PR_PRIORITY_NORMAL, 0);
 
         status = NSS_Initialize (GSD_SMARTCARD_MANAGER_NSS_DB,
                                  "", "", SECMOD_DB, flags);
@@ -617,19 +689,46 @@ out:
         return FALSE;
 }
 
-static SECMODModule *
-load_driver (char    *module_path,
-             GError **error)
+static GList *
+get_available_modules (GsdSmartcardManager  *manager)
 {
-        SECMODModule *module;
+        SECMODModuleList *module_list, *tmp;
+        GList *modules;
+
+        g_debug ("Getting list of suitable modules");
+
+        module_list = SECMOD_GetDefaultModuleList ();
+        modules = NULL;
+        for (tmp = module_list; tmp != NULL; tmp = tmp->next) {
+                if (!SECMOD_HasRemovableSlots (tmp->module) ||
+                    !tmp->module->loaded)
+                        continue;
+
+                g_debug ("Using module '%s'", tmp->module->commonName);
+
+                modules = g_list_prepend (modules,
+                                          SECMOD_ReferenceModule (tmp->module));
+        }
+
+        return modules;
+}
+
+static gboolean
+load_driver (GsdSmartcardManager  *manager,
+             char                 *module_path,
+             GError              **error)
+{
+        GList *modules;
         char *module_spec;
         gboolean module_explicitly_specified;
 
         g_debug ("attempting to load driver...");
 
-        module = NULL;
+        modules = NULL;
         module_explicitly_specified = module_path != NULL;
         if (module_explicitly_specified) {
+                SECMODModule *module;
+
                 module_spec = g_strdup_printf ("library=\"%s\"", module_path);
                 g_debug ("loading smartcard driver using spec '%s'",
                           module_spec);
@@ -640,36 +739,62 @@ load_driver (char    *module_path,
                 g_free (module_spec);
                 module_spec = NULL;
 
-        } else {
-                SECMODModuleList *modules, *tmp;
-
-                modules = SECMOD_GetDefaultModuleList ();
-
-                for (tmp = modules; tmp != NULL; tmp = tmp->next) {
-                        if (!SECMOD_HasRemovableSlots (tmp->module) ||
-                            !tmp->module->loaded)
-                                continue;
-
-                        module = SECMOD_ReferenceModule (tmp->module);
-                        break;
+                if (!SECMOD_HasRemovableSlots (module) ||
+                    !module->loaded) {
+                        modules = g_list_prepend (modules, module);
+                } else {
+                        g_debug ("fallback module found but not %s",
+                                 SECMOD_HasRemovableSlots (module)?
+                                 "removable" : "loaded");
+                        SECMOD_DestroyModule (module);
                 }
+
+        } else {
+                SECMODListLock *lock;
+
+                lock = SECMOD_GetDefaultModuleListLock ();
+
+                if (lock != NULL) {
+                        SECMOD_GetReadLock (lock);
+                        modules = get_available_modules (manager);
+                        SECMOD_ReleaseReadLock (lock);
+                }
+
+                /* fallback to compiled in driver path
+                 */
+                if (modules == NULL) {
+                        SECMODModule *module;
+                        module_path = GSD_SMARTCARD_MANAGER_DRIVER;
+                        module_spec = g_strdup_printf ("library=\"%s\"", module_path);
+                        g_debug ("loading smartcard driver using spec '%s'",
+                                module_spec);
+
+                        module = SECMOD_LoadUserModule (module_spec,
+                                NULL /* parent */,
+                                FALSE /* recurse */);
+                        g_free (module_spec);
+                        module_spec = NULL;
+
+                        if (!SECMOD_HasRemovableSlots (module) ||
+                            !module->loaded) {
+                                modules = g_list_prepend (modules, module);
+                        } else {
+                                g_debug ("fallback module found but not loaded");
+                                SECMOD_DestroyModule (module);
+                        }
+                }
+
         }
 
-        if (!module_explicitly_specified && module == NULL) {
+        if (!module_explicitly_specified && modules == NULL) {
                 g_set_error (error,
                              GSD_SMARTCARD_MANAGER_ERROR,
                              GSD_SMARTCARD_MANAGER_ERROR_LOADING_DRIVER,
                              _("no suitable smartcard driver could be found"));
-        } else if (module == NULL || !module->loaded) {
+        } else if (modules == NULL) {
 
                 gsize error_message_size;
                 char *error_message;
-
-                if (module != NULL && !module->loaded) {
-                        g_debug ("module found but not loaded?!");
-                        SECMOD_DestroyModule (module);
-                        module = NULL;
-                }
 
                 error_message_size = PR_GetErrorTextLength ();
 
@@ -697,74 +822,58 @@ load_driver (char    *module_path,
                 g_slice_free1 (error_message_size, error_message);
         }
 
+        manager->priv->modules = modules;
 out:
-        return module;
+        return manager->priv->modules != NULL;
 }
 
 static void
 gsd_smartcard_manager_get_all_cards (GsdSmartcardManager *manager)
 {
+        GList *node;
         int i;
 
-        for (i = 0; i < manager->priv->module->slotCount; i++) {
-                GsdSmartcard *card;
-                CK_SLOT_ID    slot_id;
-                int          slot_series;
-                char *card_name;
+        node = manager->priv->workers;
+        while (node != NULL) {
 
-                slot_id = PK11_GetSlotID (manager->priv->module->slots[i]);
-                slot_series = PK11_GetSlotSeries (manager->priv->module->slots[i]);
+                GsdSmartcardManagerWorker *worker;
 
-                card = _gsd_smartcard_new (manager->priv->module,
-                                                slot_id, slot_series);
+                worker = (GsdSmartcardManagerWorker *) node->data;
 
-                card_name = gsd_smartcard_get_name (card);
+                for (i = 0; i < worker->module->slotCount; i++) {
+                        GsdSmartcard *card;
+                        CK_SLOT_ID    slot_id;
+                        int          slot_series;
+                        char         *card_name;
 
-                g_hash_table_replace (manager->priv->smartcards,
-                                      card_name, card);
+                        slot_id = PK11_GetSlotID (worker->module->slots[i]);
+                        slot_series = PK11_GetSlotSeries (worker->module->slots[i]);
+
+                        card = _gsd_smartcard_new (worker->module,
+                                                   slot_id, slot_series);
+
+                        card_name = gsd_smartcard_get_name (card);
+
+                        g_hash_table_replace (manager->priv->smartcards,
+                                              card_name, card);
+                }
+                node = node->next;
         }
 }
 
-gboolean
-gsd_smartcard_manager_start (GsdSmartcardManager  *manager,
-                             GError              **error)
+static GsdSmartcardManagerWorker *
+start_worker (GsdSmartcardManager  *manager,
+              SECMODModule         *module,
+              GError              **error)
 {
-        GError *watching_error;
-        int worker_fd;
-        GPid worker_pid;
         GIOChannel *io_channel;
         GSource *source;
         GIOFlags channel_flags;
-        GError *nss_error;
+        GsdSmartcardManagerWorker *worker;
 
-        if (manager->priv->state == GSD_SMARTCARD_MANAGER_STATE_STARTED) {
-                g_debug ("smartcard manager already started");
-                return TRUE;
-        }
+        worker = gsd_smartcard_manager_create_worker (manager, module);
 
-        manager->priv->state = GSD_SMARTCARD_MANAGER_STATE_STARTING;
-
-        worker_fd = -1;
-        worker_pid = 0;
-
-        nss_error = NULL;
-        if (!manager->priv->nss_is_loaded && !load_nss (&nss_error)) {
-                g_propagate_error (error, nss_error);
-                goto out;
-        }
-        manager->priv->nss_is_loaded = TRUE;
-
-        if (manager->priv->module == NULL) {
-                manager->priv->module = load_driver (manager->priv->module_path, &nss_error);
-        }
-
-        if (manager->priv->module == NULL) {
-                g_propagate_error (error, nss_error);
-                goto out;
-        }
-
-        if (!gsd_smartcard_manager_create_worker (manager, &worker_fd, &manager->priv->worker_thread)) {
-
+        if (worker == NULL) {
                 g_set_error (error,
                              GSD_SMARTCARD_MANAGER_ERROR,
                              GSD_SMARTCARD_MANAGER_ERROR_WATCHING_FOR_EVENTS,
@@ -774,25 +883,82 @@ gsd_smartcard_manager_start (GsdSmartcardManager  *manager,
                 goto out;
         }
 
-        io_channel = g_io_channel_unix_new (worker_fd);
+        io_channel = g_io_channel_unix_new (worker->manager_fd);
 
         channel_flags = g_io_channel_get_flags (io_channel);
-        watching_error = NULL;
 
         source = g_io_create_watch (io_channel, G_IO_IN | G_IO_HUP);
         g_io_channel_unref (io_channel);
         io_channel = NULL;
 
-        manager->priv->smartcard_event_source = source;
+        worker->event_source = source;
 
-        g_source_set_callback (manager->priv->smartcard_event_source,
+        g_source_set_callback (worker->event_source,
                                (GSourceFunc) (GIOFunc)
                                gsd_smartcard_manager_check_for_and_process_events,
-                               manager,
+                               worker,
                                (GDestroyNotify)
                                gsd_smartcard_manager_event_processing_stopped_handler);
-        g_source_attach (manager->priv->smartcard_event_source, NULL);
-        g_source_unref (manager->priv->smartcard_event_source);
+        g_source_attach (worker->event_source, NULL);
+        g_source_unref (worker->event_source);
+out:
+        return worker;
+}
+
+static void
+start_workers (GsdSmartcardManager *manager)
+{
+        GList        *node;
+
+        node = manager->priv->modules;
+        while (node != NULL) {
+                SECMODModule *module;
+                GsdSmartcardManagerWorker *worker;
+                GError *error;
+
+                module = (SECMODModule *) node->data;
+
+                error = NULL;
+                worker = start_worker (manager, module, &error);
+                if (worker == NULL) {
+                        g_warning ("%s", error->message);
+                        g_error_free (error);
+                } else {
+                        manager->priv->workers = g_list_prepend (manager->priv->workers,
+                                                                 worker);
+                }
+                node = node->next;
+        }
+}
+
+gboolean
+gsd_smartcard_manager_start (GsdSmartcardManager  *manager,
+                             GError              **error)
+{
+        GError *nss_error;
+
+        if (manager->priv->state == GSD_SMARTCARD_MANAGER_STATE_STARTED) {
+                g_debug ("smartcard manager already started");
+                return TRUE;
+        }
+
+        manager->priv->state = GSD_SMARTCARD_MANAGER_STATE_STARTING;
+
+        nss_error = NULL;
+        if (!manager->priv->nss_is_loaded && !load_nss (&nss_error)) {
+                g_propagate_error (error, nss_error);
+                goto out;
+        }
+        manager->priv->nss_is_loaded = TRUE;
+
+        if (manager->priv->modules == NULL) {
+                if (!load_driver (manager, manager->priv->module_path, &nss_error)) {
+                        g_propagate_error (error, nss_error);
+                        goto out;
+                }
+        }
+
+        start_workers (manager);
 
         /* populate the hash with cards that are already inserted
          */
@@ -820,20 +986,7 @@ gsd_smartcard_manager_stop_now (GsdSmartcardManager *manager)
                 return FALSE;
         }
 
-        manager->priv->state = GSD_SMARTCARD_MANAGER_STATE_STOPPED;
         gsd_smartcard_manager_stop_watching_for_events (manager);
-
-        if (manager->priv->module != NULL) {
-                SECMOD_DestroyModule (manager->priv->module);
-                manager->priv->module = NULL;
-        }
-
-        if (manager->priv->nss_is_loaded) {
-                NSS_Shutdown ();
-                manager->priv->nss_is_loaded = FALSE;
-        }
-
-        g_debug ("smartcard manager stopped");
 
         return FALSE;
 }
@@ -863,7 +1016,7 @@ gsd_smartcard_manager_stop (GsdSmartcardManager *manager)
 }
 
 static void
-gsd_smartcard_manager_check_for_login_card (CK_SLOT_ID   slot_id,
+gsd_smartcard_manager_check_for_login_card (CK_SLOT_ID    slot_id,
                                             GsdSmartcard *card,
                                             gboolean     *is_inserted)
 {
@@ -890,13 +1043,18 @@ gsd_smartcard_manager_login_card_is_inserted (GsdSmartcardManager *manager)
 }
 
 static GsdSmartcardManagerWorker *
-gsd_smartcard_manager_worker_new (int write_fd)
+gsd_smartcard_manager_worker_new (GsdSmartcardManager *manager,
+                                  int                 worker_fd,
+                                  int                 manager_fd,
+                                  SECMODModule        *module)
 {
         GsdSmartcardManagerWorker *worker;
 
         worker = g_slice_new0 (GsdSmartcardManagerWorker);
-        worker->write_fd = write_fd;
-        worker->module = NULL;
+        worker->manager = manager;
+        worker->fd = worker_fd;
+        worker->manager_fd = manager_fd;
+        worker->module = module;
 
         worker->smartcards =
                 g_hash_table_new_full ((GHashFunc) slot_id_hash,
@@ -1017,8 +1175,8 @@ read_smartcard (int           fd,
 }
 
 static gboolean
-write_smartcard (int           fd,
-                 GsdSmartcard *card)
+write_smartcard (int          fd,
+                    GsdSmartcard *card)
 {
         gsize card_name_size;
         char *card_name;
@@ -1043,15 +1201,15 @@ write_smartcard (int           fd,
 static gboolean
 gsd_smartcard_manager_worker_emit_smartcard_removed (GsdSmartcardManagerWorker  *worker,
                                                      GsdSmartcard               *card,
-                                                     GError                   **error)
+                                                     GError                    **error)
 {
         g_debug ("card '%s' removed!", gsd_smartcard_get_name (card));
 
-        if (!write_bytes (worker->write_fd, "R", 1)) {
+        if (!write_bytes (worker->fd, "R", 1)) {
                 goto error_out;
         }
 
-        if (!write_smartcard (worker->write_fd, card)) {
+        if (!write_smartcard (worker->fd, card)) {
                 goto error_out;
         }
 
@@ -1067,17 +1225,17 @@ error_out:
 static gboolean
 gsd_smartcard_manager_worker_emit_smartcard_inserted (GsdSmartcardManagerWorker  *worker,
                                                       GsdSmartcard               *card,
-                                                      GError                   **error)
+                                                      GError                    **error)
 {
         GError *write_error;
 
         write_error = NULL;
         g_debug ("card '%s' inserted!", gsd_smartcard_get_name (card));
-        if (!write_bytes (worker->write_fd, "I", 1)) {
+        if (!write_bytes (worker->fd, "I", 1)) {
                 goto error_out;
         }
 
-        if (!write_smartcard (worker->write_fd, card)) {
+        if (!write_smartcard (worker->fd, card)) {
                 goto error_out;
         }
 
@@ -1105,6 +1263,7 @@ gsd_smartcard_manager_worker_watch_for_and_process_event (GsdSmartcardManagerWor
         ret = FALSE;
 
         slot = SECMOD_WaitForAnyTokenEvent (worker->module, 0, PR_SecondsToInterval (1));
+
         processing_error = NULL;
 
         if (slot == NULL) {
@@ -1167,9 +1326,7 @@ gsd_smartcard_manager_worker_watch_for_and_process_event (GsdSmartcardManagerWor
                                       key, card);
                 key = NULL;
 
-                if (!gsd_smartcard_manager_worker_emit_smartcard_inserted (worker,
-                                                                           card,
-                                                                           &processing_error)) {
+                if (!gsd_smartcard_manager_worker_emit_smartcard_inserted (worker, card, &processing_error)) {
                         g_propagate_error (error, processing_error);
                         goto out;
                 }
@@ -1230,24 +1387,27 @@ static void
 gsd_smartcard_manager_worker_run (GsdSmartcardManagerWorker *worker)
 {
         GError *error;
+        gboolean should_continue;
 
-
-        error = NULL;
-
-        while (gsd_smartcard_manager_worker_watch_for_and_process_event (worker, &error));
+        do
+        {
+                error = NULL;
+                should_continue = gsd_smartcard_manager_worker_watch_for_and_process_event (worker, &error);
+        }
+        while (should_continue);
 
         if (error != NULL)  {
                 g_debug ("could not process card event - %s", error->message);
                 g_error_free (error);
         }
 
+out:
         gsd_smartcard_manager_worker_free (worker);
 }
 
-static gboolean
+static GsdSmartcardManagerWorker *
 gsd_smartcard_manager_create_worker (GsdSmartcardManager  *manager,
-                                     int                  *worker_fd,
-                                     GThread             **worker_thread)
+                                     SECMODModule         *module)
 {
         GsdSmartcardManagerWorker *worker;
         int write_fd, read_fd;
@@ -1258,23 +1418,21 @@ gsd_smartcard_manager_create_worker (GsdSmartcardManager  *manager,
                 return FALSE;
         }
 
-        worker = gsd_smartcard_manager_worker_new (write_fd);
-        worker->module = manager->priv->module;
+        worker = gsd_smartcard_manager_worker_new (manager,
+                                                   write_fd,
+                                                   read_fd,
+                                                   module);
 
-        *worker_thread = g_thread_create ((GThreadFunc)
+        worker->thread = g_thread_create ((GThreadFunc)
                                           gsd_smartcard_manager_worker_run,
                                           worker, FALSE, NULL);
 
-        if (*worker_thread == NULL) {
+        if (worker->thread == NULL) {
                 gsd_smartcard_manager_worker_free (worker);
-                return FALSE;
+                return NULL;
         }
 
-        if (worker_fd) {
-                *worker_fd = read_fd;
-        }
-
-        return TRUE;
+        return worker;
 }
 
 #ifdef GSD_SMARTCARD_MANAGER_ENABLE_TEST
