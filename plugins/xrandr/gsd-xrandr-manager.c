@@ -87,8 +87,6 @@ struct GsdXrandrManagerPrivate
 {
         DBusGConnection *dbus_connection;
 
-        /* Key code of the fn-F7 video key (XF86Display) */
-        guint keycode;
         GnomeRRScreen *rw_screen;
         gboolean running;
 
@@ -116,6 +114,7 @@ static void error_message (GsdXrandrManager *mgr, const char *primary_text, GErr
 static void status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp);
 static void run_display_capplet (GtkWidget *widget);
 
+static void handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp);
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
@@ -437,6 +436,26 @@ gsd_xrandr_manager_2_apply_configuration (GsdXrandrManager *manager,
                 g_object_unref (parent_window);
 
         return result;
+}
+
+/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 VideoModeSwitch; see gsd-xrandr-manager.xml for the interface definition */
+static gboolean
+gsd_xrandr_manager_2_video_mode_switch (GsdXrandrManager *manager,
+                                        guint32           timestamp,
+                                        GError          **error)
+{
+        handle_fn_f7 (manager, timestamp);
+        return TRUE;
+}
+
+/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 Rotate; see gsd-xrandr-manager.xml for the interface definition */
+static gboolean
+gsd_xrandr_manager_2_rotate (GsdXrandrManager *manager,
+                             guint32           timestamp,
+                             GError          **error)
+{
+        //handle_rotate_windows (manager, timestamp);
+        return TRUE;
 }
 
 /* We include this after the definition of gsd_xrandr_manager_apply_configuration() so the prototype will already exist */
@@ -979,30 +998,6 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                 g_debug ("no configurations generated");
         }
         g_debug ("done handling fn-f7");
-}
-
-static GdkFilterReturn
-event_filter (GdkXEvent           *xevent,
-              GdkEvent            *event,
-              gpointer             data)
-{
-        GsdXrandrManager *manager = data;
-        XEvent *xev = (XEvent *) xevent;
-
-        if (!manager->priv->running)
-                return GDK_FILTER_CONTINUE;
-
-        /* verify we have a key event */
-        if (xev->xany.type != KeyPress && xev->xany.type != KeyRelease)
-                return GDK_FILTER_CONTINUE;
-
-        if (xev->xany.type == KeyPress && xev->xkey.keycode == manager->priv->keycode) {
-                handle_fn_f7 (manager, xev->xkey.time);
-
-                return GDK_FILTER_CONTINUE;
-        }
-
-        return GDK_FILTER_CONTINUE;
 }
 
 static void
@@ -1912,24 +1907,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                         (GConfClientNotifyFunc)on_config_changed,
                         manager, NULL, NULL);
 
-        if (manager->priv->keycode) {
-                gdk_error_trap_push ();
-
-                XGrabKey (gdk_x11_get_default_xdisplay(),
-                          manager->priv->keycode, AnyModifier,
-                          gdk_x11_get_default_root_xwindow(),
-                          True, GrabModeAsync, GrabModeAsync);
-
-                gdk_flush ();
-                gdk_error_trap_pop ();
-        }
-
         show_timestamps_dialog (manager, "Startup");
         apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME); /* we don't have a real timestamp at startup anyway */
-
-        gdk_window_add_filter (gdk_get_default_root_window(),
-                               (GdkFilterFunc)event_filter,
-                               manager);
 
         start_or_stop_icon (manager);
 
@@ -1944,18 +1923,6 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         g_debug ("Stopping xrandr manager");
 
         manager->priv->running = FALSE;
-
-        gdk_error_trap_push ();
-
-        XUngrabKey (gdk_x11_get_default_xdisplay(),
-                    manager->priv->keycode, AnyModifier,
-                    gdk_x11_get_default_root_xwindow());
-
-        gdk_error_trap_pop ();
-
-        gdk_window_remove_filter (gdk_get_default_root_window (),
-                                  (GdkFilterFunc) event_filter,
-                                  manager);
 
         if (manager->priv->notify_id != 0) {
                 gconf_client_remove_dir (manager->priv->client,
@@ -2063,13 +2030,7 @@ gsd_xrandr_manager_class_init (GsdXrandrManagerClass *klass)
 static void
 gsd_xrandr_manager_init (GsdXrandrManager *manager)
 {
-        Display *dpy = gdk_x11_get_default_xdisplay ();
-        guint keyval = gdk_keyval_from_name (VIDEO_KEYSYM);
-        guint keycode = XKeysymToKeycode (dpy, keyval);
-
         manager->priv = GSD_XRANDR_MANAGER_GET_PRIVATE (manager);
-
-        manager->priv->keycode = keycode;
 
         manager->priv->current_fn_f7_config = -1;
         manager->priv->fn_f7_configs = NULL;

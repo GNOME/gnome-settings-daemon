@@ -46,12 +46,16 @@ enum {
         STOP_KEY,
         PREVIOUS_KEY,
         NEXT_KEY,
+        VIDEO_OUT_KEY,
+        VIDEO_OUT2_KEY,
+        ROTATE_VIDEO_KEY,
         HANDLED_KEYS
 };
 
 static struct {
         int key_type;
         const char *gconf_key;
+        const char *hard_coded;
         Key *key;
 } keys[HANDLED_KEYS] = {
         { MUTE_KEY, GCONF_BINDING_DIR "/volume_mute",NULL },
@@ -73,6 +77,11 @@ static struct {
         { STOP_KEY, GCONF_BINDING_DIR "/stop", NULL },
         { PREVIOUS_KEY, GCONF_BINDING_DIR "/previous", NULL },
         { NEXT_KEY, GCONF_BINDING_DIR "/next", NULL },
+        { VIDEO_OUT_KEY, NULL, "<Mod4>p", NULL },
+        /* Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.) */
+        { VIDEO_OUT2_KEY, NULL, "XF86Display", NULL },
+        /* Key code of the XF86RotateWindows key (present on some tablets) */
+        { ROTATE_VIDEO_KEY, NULL, "XF86RotateWindows", NULL },
 };
 
 #endif /* __ACME_H__ */

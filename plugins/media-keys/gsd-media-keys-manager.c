@@ -100,6 +100,8 @@ struct GsdMediaKeysManagerPrivate
 
         DBusGConnection *connection;
         guint            notify[HANDLED_KEYS];
+
+	DBusGProxyCall  *pending_call;
 };
 
 enum {
@@ -317,8 +319,12 @@ update_kbd_cb (GConfClient         *client,
                         g_free (keys[i].key);
                         keys[i].key = NULL;
 
-                        tmp = gconf_client_get_string (manager->priv->conf_client,
-                                                       keys[i].gconf_key, NULL);
+			if (keys[i].gconf_key != NULL) {
+				tmp = gconf_client_get_string (manager->priv->conf_client,
+							       keys[i].gconf_key, NULL);
+			} else {
+				tmp = g_strdup (keys[i].hard_coded);
+			}
 
                         if (is_valid_shortcut (tmp) == FALSE) {
                                 g_free (tmp);
@@ -362,17 +368,21 @@ init_kbd (GsdMediaKeysManager *manager)
                 char *tmp;
                 Key  *key;
 
-                manager->priv->notify[i] =
-                        gconf_client_notify_add (manager->priv->conf_client,
-                                                 keys[i].gconf_key,
-                                                 (GConfClientNotifyFunc) update_kbd_cb,
-                                                 manager,
-                                                 NULL,
-                                                 NULL);
+		if (keys[i].gconf_key != NULL) {
+			manager->priv->notify[i] =
+				gconf_client_notify_add (manager->priv->conf_client,
+							 keys[i].gconf_key,
+							 (GConfClientNotifyFunc) update_kbd_cb,
+							 manager,
+							 NULL,
+							 NULL);
 
-                tmp = gconf_client_get_string (manager->priv->conf_client,
-                                               keys[i].gconf_key,
-                                               NULL);
+			tmp = gconf_client_get_string (manager->priv->conf_client,
+						       keys[i].gconf_key,
+						       NULL);
+		} else {
+			tmp = g_strdup (keys[i].hard_coded);
+		}
 
                 if (!is_valid_shortcut (tmp)) {
                         g_debug ("Not a valid shortcut: '%s'", tmp);
@@ -853,9 +863,87 @@ do_multimedia_player_action (GsdMediaKeysManager *manager,
         return gsd_media_player_key_pressed (manager, key);
 }
 
+static void
+on_xrandr_action_call_finished (DBusGProxy       *proxy,
+                                DBusGProxyCall   *call_id,
+                                void             *user_data)
+{
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+        GError *error = NULL;
+        gboolean res;
+        char *action;
+
+        action = g_object_get_data (G_OBJECT (proxy), "gsd-media-keys-manager-xrandr-action");
+
+        res = dbus_g_proxy_end_call (proxy, call_id, &error, G_TYPE_INVALID);
+        manager->priv->pending_call = NULL;
+
+        if (!res) {
+                g_warning ("Unable to call '%s': %s", action, error->message);
+                g_error_free (error);
+        }
+
+        g_free (action);
+        g_object_unref (proxy);
+}
+
+static void
+do_xrandr_action (GsdMediaKeysManager *manager,
+                  const char          *action,
+                  gint64               timestamp)
+{
+        GsdMediaKeysManagerPrivate *priv = manager->priv;
+        DBusGProxy *proxy;
+
+        if (priv->connection == NULL) {
+                g_warning ("No existing D-Bus connection trying to handle XRANDR keys");
+                return;
+        }
+
+        if (priv->pending_call != NULL) {
+                g_debug ("xrandr action already in flight");
+                return;
+        }
+
+        proxy = dbus_g_proxy_new_for_name (priv->connection,
+                                           "org.gnome.SettingsDaemon",
+                                           "/org/gnome/SettingsDaemon/XRANDR",
+                                           "org.gnome.SettingsDaemon.XRANDR_2");
+        if (proxy == NULL) {
+                g_debug ("Failed to get D-Bus proxy for XRANDR keyboard shortcut");
+                return;
+        }
+
+        priv->pending_call = dbus_g_proxy_begin_call (proxy,
+                                                      action,
+                                                      on_xrandr_action_call_finished,
+                                                      manager,
+                                                      NULL,
+                                                      G_TYPE_INT64, timestamp,
+                                                      G_TYPE_INVALID);
+        g_object_set_data (G_OBJECT (proxy), "gsd-media-keys-manager-xrandr-action", g_strdup (action));
+}
+
+static gboolean
+do_video_out_action (GsdMediaKeysManager *manager,
+                     gint64               timestamp)
+{
+        do_xrandr_action (manager, "VideoModeSwitch", timestamp);
+        return FALSE;
+}
+
+static gboolean
+do_video_rotate_action (GsdMediaKeysManager *manager,
+                        gint64               timestamp)
+{
+        do_xrandr_action (manager, "Rotate", timestamp);
+        return FALSE;
+}
+
 static gboolean
 do_action (GsdMediaKeysManager *manager,
-           int                  type)
+           int                  type,
+           gint64               timestamp)
 {
         char *cmd;
         char *path;
@@ -934,8 +1022,16 @@ do_action (GsdMediaKeysManager *manager,
         case NEXT_KEY:
                 return do_multimedia_player_action (manager, "Next");
                 break;
-        default:
+        case VIDEO_OUT_KEY:
+        case VIDEO_OUT2_KEY:
+                do_video_out_action (manager, timestamp);
+                break;
+        case ROTATE_VIDEO_KEY:
+                do_video_rotate_action (manager, timestamp);
+                break;
+        case HANDLED_KEYS:
                 g_assert_not_reached ();
+        /* Note, no default so compiler catches missing keys */
         }
 
         return FALSE;
@@ -994,7 +1090,7 @@ acme_filter_events (GdkXEvent           *xevent,
 
                         manager->priv->current_screen = acme_get_screen_from_event (manager, xany);
 
-                        if (do_action (manager, keys[i].key_type) == FALSE) {
+                        if (do_action (manager, keys[i].key_type, xev->xkey.time) == FALSE) {
                                 return GDK_FILTER_REMOVE;
                         } else {
                                 return GDK_FILTER_CONTINUE;
@@ -1219,6 +1315,11 @@ gsd_media_keys_manager_dispose (GObject *object)
         GsdMediaKeysManager *media_keys_manager;
 
         media_keys_manager = GSD_MEDIA_KEYS_MANAGER (object);
+
+        if (media_keys_manager->priv->pending_call != NULL) {
+                g_object_unref (media_keys_manager->priv->pending_call);
+                media_keys_manager->priv->pending_call = NULL;
+        }
 
         G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->dispose (object);
 }
