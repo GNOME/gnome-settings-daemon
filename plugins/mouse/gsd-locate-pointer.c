@@ -235,15 +235,15 @@ create_window (GsdLocatePointerData *data,
   GdkColormap *colormap;
   GdkVisual *visual;
   GdkWindowAttr attributes;
+  gint attributes_mask;
 
   colormap = gdk_screen_get_rgba_colormap (screen);
   visual = gdk_screen_get_rgba_visual (screen);
 
-  if (!colormap)
-    {
-      colormap = gdk_screen_get_rgb_colormap (screen);
-      visual = gdk_screen_get_rgb_visual (screen);
-    }
+  attributes_mask = GDK_WA_X | GDK_WA_Y;
+
+  if (colormap)
+    attributes_mask = attributes_mask | GDK_WA_VISUAL | GDK_WA_COLORMAP;
 
   attributes.window_type = GDK_WINDOW_TEMP;
   attributes.wclass = GDK_INPUT_OUTPUT;
@@ -255,7 +255,7 @@ create_window (GsdLocatePointerData *data,
 
   data->window = gdk_window_new (gdk_screen_get_root_window (screen),
 				 &attributes,
-				 GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP);
+				 attributes_mask);
 
   gdk_window_set_user_data (data->window, data->widget);
 }
@@ -294,8 +294,7 @@ move_locate_pointer_window (GsdLocatePointerData *data,
 {
   gint cursor_x, cursor_y;
   GdkBitmap *mask;
-  GdkColor col;
-  GdkGC *gc;
+  cairo_t *cr;
 
   gdk_window_get_pointer (gdk_screen_get_root_window (screen), &cursor_x, &cursor_y, NULL);
 
@@ -304,18 +303,19 @@ move_locate_pointer_window (GsdLocatePointerData *data,
                           cursor_y - WINDOW_SIZE / 2,
                           WINDOW_SIZE, WINDOW_SIZE);
 
-  col.pixel = 0;
   mask = gdk_pixmap_new (data->window, WINDOW_SIZE, WINDOW_SIZE, 1);
 
-  gc = gdk_gc_new (mask);
-  gdk_gc_set_foreground (gc, &col);
-  gdk_draw_rectangle (mask, gc, TRUE, 0, 0, WINDOW_SIZE, WINDOW_SIZE);
+
+  cr = gdk_cairo_create (mask);
+  cairo_set_source_rgb (cr, 0., 0., 0.);
+  cairo_rectangle (cr, 0., 0., WINDOW_SIZE, WINDOW_SIZE);
+  cairo_fill (cr);
+  cairo_destroy (cr);
 
   /* allow events to happen through the window */
   gdk_window_input_shape_combine_mask (data->window, mask, 0, 0);
 
   g_object_unref (mask);
-  g_object_unref (gc);
 }
 
 void
