@@ -16,10 +16,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-07-16 13:35+0000\n"
-"PO-Revision-Date: 2010-07-17 12:46+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-08-23 18:38+0800\n"
+"PO-Revision-Date: 2010-08-23 18:36+0800\n"
 "Last-Translator: Tao Wang <dancefire@gmail.com>\n"
 "Language-Team: Chinese Simplified <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +40,7 @@ msgstr "不触发通知的最低可用空间"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
 msgid "Minimum notify period for repeated warnings"
-msgstr "重复警示的最小通知周期"
+msgstr "重复警告的最小通知周期"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
 msgid "Mount paths to ignore"
@@ -52,8 +51,8 @@ msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
 msgstr ""
-"触发低硬盘空间初次警示的最低可用空间百分比。如果可用空间的百分比低于该值，将"
-"显示一个警示"
+"触发低硬盘空间初次警告的最低可用空间百分比。如果可用空间的百分比低于该值，将"
+"显示一个警告"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
 msgid "Specify a list of mount paths to ignore when they run low on space."
@@ -63,19 +62,19 @@ msgstr "指定当运行在低硬盘空间时要忽略的挂载路径清单"
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
-msgstr "以分钟为单位指定某个时间。该周期内不会多次显示某个卷的后续警示。"
+msgstr "以分钟为单位指定某个时间。该周期内不会多次显示某个卷的后续警告。"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
-msgstr "以 GB 为单位指定某个量。如果可用空间超过该值，将不再显示警示。"
+msgstr "以 GB 为单位指定某个量。如果可用空间超过该值，将不再显示警告。"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
-msgstr "在发布一个后续警示之前，指定应减少的可用硬盘空间百分比。"
+msgstr "在发布一个后续警告之前，指定应减少的可用硬盘空间百分比。"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
 msgid "Subsequent free percentage notify threshold"
@@ -131,7 +130,7 @@ msgstr "使系统静音的键绑定。"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
 msgid "Binding to open the Home folder."
-msgstr "打开家目录的键绑定。"
+msgstr "打开主文件夹的键绑定。"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
 msgid "Binding to pause playback."
@@ -258,8 +257,8 @@ msgid ""
 "then the file specified by this key will be used instead."
 msgstr ""
 "XRandR 插件将在本项指定的文件中寻找默认配置。通常，这类似于 获取存储在家目录"
-"下的~/.config/monitors.xml。如果用户没有这样的文件，或者有一个不符合用户显"
-"示器的设置，然后本项指定的文件将被替代。"
+"下的~/.config/monitors.xml。如果用户没有这样的文件，或者有一个不符合用户显示"
+"器的设置，然后本项指定的文件将被替代。"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
 msgid "Turn on external monitor after system boot"
@@ -379,7 +378,7 @@ msgstr "选择触摸板滚动模式。支持的值有：0 - 禁止，1 - 边界�
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
-msgstr "如果你打字时会因偶尔会碰到触摸板而造成麻烦，将其设置为真(TRUE)。"
+msgstr "如果您打字时会因偶尔会碰到触摸板而造成麻烦，将其设置为真(TRUE)。"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
 msgid ""
@@ -395,7 +394,7 @@ msgstr "设置为真(TRUE)，即可在轻敲触摸板时发送鼠标点击信息
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
 msgid "Set this to TRUE to enable all touchpads."
-msgstr "设置为真(TRUE)则启用触摸板"
+msgstr "设置为真(TRUE)启用所有触摸板"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -659,8 +658,8 @@ msgid ""
 "Set this to one of \"none\", \"lock_screen\", or \"force_logout\". The "
 "action will get performed when the smartcard used for log in is removed."
 msgstr ""
-"设置为“none”、“lock_screen”或“force_logout”之一。 当智能卡移除"
-"时，这个动作被执行。"
+"设置为“none”、“lock_screen”或“force_logout”之一。 当智能卡移除时，这个动作被"
+"执行。"
 
 #: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:2
 msgid "Smartcard removal action"
@@ -680,7 +679,7 @@ msgstr "加载插件设置所需 GConf 的前缀"
 
 #: ../gnome-settings-daemon/main.c:58
 msgid "Exit after a time (for debugging)"
-msgstr "一段时间后退出(调试时)"
+msgstr "一段时间后退出(调试用)"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -862,7 +861,7 @@ msgstr "字体插件"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
 msgid "Don't show any warnings again for this file system"
-msgstr "不再为该文件系统显示任何警示"
+msgstr "不再为该文件系统显示任何警告"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again"
@@ -883,7 +882,7 @@ msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
 msgstr ""
-"你可以通过清空回收站，删除无用程序或文件，或者将文件移动到另外的硬盘或分区来"
+"您可以通过清空回收站，删除无用程序或文件，或者将文件移动到另外的硬盘或分区来"
 "增加可用的硬盘空间。"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
@@ -891,21 +890,21 @@ msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
 msgstr ""
-"你可以通过删除无用程序或文件，或者移动文件到另外的磁盘或分区来增加磁盘空间。"
+"您可以通过删除无用程序或文件，或者移动文件到另外的磁盘或分区来增加磁盘空间。"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
 msgstr ""
-"你可以通过清空回收站，删除无用程序或文件，或者移动文件到外部的磁盘来增加磁盘"
+"您可以通过清空回收站，删除无用程序或文件，或者移动文件到外部的磁盘来增加磁盘"
 "空间。"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
-msgstr "你可以通过删除无用程序或文件，或者移动文件到外部的磁盘来增加磁盘空间。"
+msgstr "您可以通过删除无用程序或文件，或者移动文件到外部的磁盘来增加磁盘空间。"
 
 #. Set up all the window stuff here
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
@@ -957,7 +956,7 @@ msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
 msgstr ""
-"如果你选择清空回收站，里面所有的项目都将永久丢失。请注意你也可以分别删除这些"
+"如果您选择清空回收站，里面所有的项目都将永久丢失。请注意您也可以分别删除这些"
 "项目。"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:370
@@ -1017,16 +1016,16 @@ msgid ""
 " • The result of <b>%s</b>"
 msgstr ""
 "激活XKB配置错误。\n"
-"它可以发生在不同的情况下：\n"
+"发生这种错误有多种可能情况：\n"
 " • 一个 libxklavier 库的 bug\n"
 " • 一个 X 服务器的 bug (xkbcomp, xmodmap 工具)\n"
-" • X 服务器执行不兼容libxkbfile\n"
+" • X 服务器的实现不兼容 libxkbfile\n"
 "\n"
 "X 服务器版本数据：\n"
 "%s\n"
 "%d\n"
 "%s\n"
-"如果你要报告bug，请包括：\n"
+"如果您要报告 bug，请包括：\n"
 " • <b>%s</b>的结果\n"
 " • <b>%s</b>的结果"
 
@@ -1037,9 +1036,9 @@ msgid ""
 "Try using a simpler configuration or using a later version of the XFree "
 "software."
 msgstr ""
-"你正在使用XFree 4.3.0。\n"
-"目前已知的复杂XKB的配置问题。\n"
-"试着使用一个简单的配置或者使用XFree软件的一个新版本"
+"您正在使用 XFree 4.3.0。\n"
+"目前已知的复杂 XKB 的配置问题。\n"
+"试着使用一个简单的配置或者使用 XFree 软件的一个新版本"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:279
 msgid "_Layouts"
@@ -1051,7 +1050,7 @@ msgstr "键盘首选项(_P)"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:292
 msgid "Show _Current Layout"
-msgstr "显示当前(_C)布局"
+msgstr "显示当前布局(_C)"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
