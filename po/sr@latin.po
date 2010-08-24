@@ -6,21 +6,22 @@
 # Maintainer: Veljko M. Stanojević <veljko@vms.homelinux.net>
 # Reviewed on 2005-03-03 by: Danilo Šegan <danilo@gnome.org>
 # Translated on 2006-03-11 by: Slobodan D. Sredojević <slobo@akrep.be>
+# Miloš Popović <gpopac@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-03-23 15:35+0000\n"
-"PO-Revision-Date: 2010-03-25 17:11+0100\n"
+"POT-Creation-Date: 2010-08-02 23:45+0000\n"
+"PO-Revision-Date: 2010-08-23 22:12+0200\n"
 "Last-Translator: Miloš Popović <gpopac@gmail.com>\n"
-"Language-Team: Serbian (sr) <gnom@prevod.org>\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4;    plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 :    n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: ../data/50-accessibility.xml.in.h:1
 msgid "Accessibility"
@@ -43,9 +44,12 @@ msgid "Mount paths to ignore"
 msgstr "Putanje za montiranje koje treba zanemariti"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+#| msgid ""
+#| "Percentage free space threshold for initial warning of low disk space. If "
+#| "the percentage free space drops below this, a warning will be shown"
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown"
+"the percentage free space drops below this, a warning will be shown."
 msgstr ""
 "Prag zauzetosti u procentima pri kome se ispisuju upozorenja o malo slobodnog "
 "prostora na disku. Ukoliko procenat padne ispod ove vrednosti, upozorenje će "
@@ -66,31 +70,37 @@ msgstr ""
 "isteka ovog vremena."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+#| msgid ""
+#| "Specify an amount in GB. If the amount of free space is more than this, "
+#| "no warning will be shown"
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown"
+"warning will be shown."
 msgstr ""
 "Odredite veličinu u gigabajtima. Upozorenja se neće prikazivati ukoliko je "
-"slobodan prostor veći od ove vrednosti"
+"slobodan prostor veći od ove vrednosti."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+#| msgid ""
+#| "Specify the percentage that the free disk space should reduce by before "
+#| "issuing a subsequent warning"
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
-"issuing a subsequent warning"
+"issuing a subsequent warning."
 msgstr ""
 "Odredite koliko procenta od slobodnog prostora treba popuniti pre nego što "
-"se ponovo ispiše upozorenje"
+"se ponovo ispiše upozorenje."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
 msgid "Subsequent free percentage notify threshold"
 msgstr "Prag za ponovnog obaveštenja o procentu slobodnog prostora"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-msgid "Binding to eject an optical disk."
+#| msgid "Binding to eject an optical disk."
+msgid "Binding to eject an optical disc."
 msgstr "Vezujem za izbacivanje optičkog diska."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
-#| msgid "Binding to raise the system volume."
 msgid "Binding to enable or disable the touchpad."
 msgstr "Vezujem uključivanje/isključivanje dodirne table."
 
@@ -247,16 +257,59 @@ msgid "Volume up"
 msgstr "Pojačavanje zvuka"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
-msgid ""
-"If a notification icon with display related things should be shown in the "
-"panel."
-msgstr ""
-"Određuje da li da se prikazuje ikonica sa stavkama vezanim za ekrane unutar "
-"panela."
+msgid "File for default configuration for RandR"
+msgstr "Datoteka za podrazumevana RandR podešavanja"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "Show Displays in Notification Area"
 msgstr "Prikaži ekrane u obaveštajnoj zoni"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+msgid ""
+"The XRandR plugin will look for a default configuration in the file "
+"specified by this key. This is similar to the ~/.config/monitors.xml that "
+"normally gets stored in users' home directories. If a user does not have "
+"such a file, or has one that does not match the user's setup of monitors, "
+"then the file specified by this key will be used instead."
+msgstr ""
+"IksRandR dodatak će tražiti podrazumevana podešavanja u datoteci iz ovog "
+"ključa. Ovo je slično kao ~/.config/monitors.xml koja se obično čuva u ličnom "
+"direktorijumu korisnika. Datoteka iz ovog ključa se koristi ukoliko nema "
+"takve datoteke, ili se ona ne poklapa sa podešavanjima ekrana."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
+msgid "Turn on external monitor after system boot"
+msgstr "Uključi spoljni ekran nakon pokretanja"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+msgid ""
+"Turn on external monitor after system boot if user plugs in external monitor "
+"on system boot."
+msgstr ""
+"Uključuje spoljni ekran pri podizanju sistema ukoliko ga korisnik priključi."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
+msgid "Turn on laptop monitor after system boot"
+msgstr "Uključi ekran prenosnog računara nakon pokretanja"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+msgid ""
+"Turn on laptop monitor after system boot if user plugs in external monitor "
+"on system boot."
+msgstr ""
+"Uključuje ekran prenosnog računara pri podizanju sistema ukoliko korisnik "
+"priključi spoljni ekran."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
+#| msgid ""
+#| "If a notification icon with display related things should be shown in the "
+#| "panel."
+msgid ""
+"Whether a notification icon with display-related things should be shown in "
+"the panel."
+msgstr ""
+"Određuje da li da se prikazuje ikonica sa stavkama vezanim za ekrane unutar "
+"panela."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -346,7 +399,6 @@ msgid "Enable mouse clicks with touchpad"
 msgstr "Uključi klik na dodirnoj tabli"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
-#| msgid "Enable mouse clicks with touchpad"
 msgid "Enable touchpad"
 msgstr "Uključi dodirnu površ"
 
@@ -355,13 +407,16 @@ msgid "Select the touchpad scroll method"
 msgstr "Izaberite režim klizanja preko dodirne table"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+#| msgid ""
+#| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
+#| "- edge scrolling, 2 - two-finger scrolling"
 msgid ""
-"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
-"edge scrolling, 2 - two-finger scrolling"
+"Select the touchpad scroll method. Supported values are: 0: disabled, 1: "
+"edge scrolling, and 2: two-finger scrolling"
 msgstr ""
-"Izaberite režim klizanja preko dodirne table. Dozvoljene su vrednosti: 0 "
-"(isključeno klizanje), 1 (klizanje ivicom dodirne table) i 2 (klizanje sa dva "
-"prsta)"
+"Izaberite režim klizanja preko dodirne table. Dozvoljene su vrednosti: "
+"„0“ (isključeno klizanje), „1“ (klizanje ivicom dodirne table) i „2“ (klizanje "
+"sa dva prsta)"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
 msgid ""
@@ -387,9 +442,6 @@ msgstr ""
 "tabli."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
-#| msgid ""
-#| "Set this to TRUE to be able to send mouse clicks by tapping on the "
-#| "touchpad."
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Postavite na „TRUE“ (tačno) da uključite sve dodirne table."
 
@@ -426,78 +478,84 @@ msgid "Command used to turn the screen reader on or off."
 msgstr "Naredba za uključivanje ili isključivanje čitača ekrana."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:8
+#| msgid "Enable xrandr plugin"
+msgid "Enable XRandR plugin"
+msgstr "Uključi IksRandR dodatak"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable accessibility keyboard plugin"
 msgstr "Uključi dodatak za pristupačnost tastature"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable background plugin"
 msgstr "Uključi dodatak za pozadinsku sliku"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable clipboard plugin"
 msgstr "Uključi dodatak za spisak isečaka"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable font plugin"
 msgstr "Uključi dodatak za font"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable housekeeping plugin"
 msgstr "Uključi dodatak za čišćenje"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keybindings plugin"
 msgstr "Uključi dodatak za prečice"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable keyboard plugin"
 msgstr "Uključi dodatak za tastaturu"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable media keys plugin"
 msgstr "Uključi dodatak za multimedijalne tastere"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable mouse plugin"
 msgstr "Uključi dodatak za miša"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:18
+#| msgid "Enable xrandr plugin"
+msgid "Enable smartcard plugin"
+msgstr "Uključi dodatak za pametne kartice"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable sound plugin"
 msgstr "Uključi dodatak za zvuk"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable typing breaks plugin"
 msgstr "Uključi dodatak za prekide prilikom kucanja"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Enable xrandr plugin"
-msgstr "Uključi xrandr dodatak"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "Uključi xrdb dodatak"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "Uključi dodatak za podešavanja Iksa"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Mouse keys"
 msgstr "Tasteri miša"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "On-screen keyboard"
 msgstr "Tastatura na ekranu"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen magnifier"
 msgstr "Lupa"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Screen reader"
 msgstr "Čitač ekrana"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -505,81 +563,92 @@ msgstr ""
 "Uključite radi pokretanja dodatka za čišćenje sistema koji uklanja privremene "
 "datoteke."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:28
+#| msgid "Set to True to enable the plugin to manage xrandr settings."
+msgid "Set to True to enable the plugin to manage XRandR settings."
+msgstr ""
+"Postavite na „True“ (tačno) kako bo dodatak upravljao IksRandR podešavanjima."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "Uključite za pokretanje dodatka koji podešava spisak isečaka."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr "Uključite za pokretanje dodatka koji podešava pozadinsku sliku."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "Uključite za pokretanje dodatka koji podešava fontove."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Uključite za pokretanje dodatka koji podešava tastaturu."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:33
+#| msgid "Set to True to enable the plugin to manage screensaver settings."
+msgid ""
+"Set to True to enable the plugin to manage locking the screen on smartcard "
+"removal."
+msgstr ""
+"Postavite na „True“ (tačno) kako bi dodatak zaključao ekran pri uklanjanju "
+"pametne kartice."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Uključite za pokretanje dodatka koji podešava miša."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr "Uključite za pokretanje dodatka koji podešava multimedijalne tastere."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr "Uključite za pokretanje dodatka koji upravlja ostavom zvučnih isečaka."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr "Uključite za pokretanje dodatka koji podešava pristupačnost tastature."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "Uključite za pokretanje dodatka koji podešava prečice na tastaturi."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Uključite za pokretanje dodatka koji podešava odmor prilikom kucanja."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
-msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr "Uključite za pokretanje dodatka koji podešava xrandr."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "Uključite za pokretanje dodatka koji podešava xrdb."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Uključite za pokretanje dodatka koji podešava postavke Iksa."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "Slow keys"
 msgstr "Spori tasteri"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "Sticky keys"
 msgstr "Lepljivi tasteri"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/gnome-settings-daemon.schemas.in.h:44
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "Naziv prečice na tastaturi koja uključuje lupu"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "Naziv prečice na tastaturi koja uključuje tastaturu na ekranu"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "Naziv prečice na tastaturi koja uključuje čitača ekrana"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
@@ -587,7 +656,7 @@ msgstr ""
 "Ovo je naziv prečice na tastaturi koja uključuje lupu. Naziv je prikazan u "
 "prozorčetu sa postavkama prečica na tastaturi."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
@@ -595,7 +664,7 @@ msgstr ""
 "Ovo je naziv prečice na tastaturi koja uključuje tastaturu na ekranu. Naziv "
 "je prikazan u prozorčetu sa postavkama prečica na tastaturi."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid ""
 "This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
@@ -603,47 +672,60 @@ msgstr ""
 "Ovo je naziv prečice na tastaturi koja uključuje čitača ekrana. Naziv je "
 "prikazan u prozorčetu sa postavkama prečica na tastaturi."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle magnifier"
 msgstr "Prikaz lupe"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Toggle on-screen keyboard"
 msgstr "Prikaz tastature na ekranu"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Toggle screen reader"
 msgstr "Prikaz čitača ekrana"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr ""
 "Određuje da li su uključeni odskačući tasteri u sklopu podrške za "
 "pristupačnost."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "Određuje da li je uključena pristupačnost tastera miša preko tastature."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "Određuje da li je uključena tastatura na ekranu."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the screen magnifier is turned on."
 msgstr "Određuje da li je uključena lupa."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen reader is turned on."
 msgstr "Određuje da li je uključen čitač ekrana."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "Određuje da li je uključena pristupačnost sporih tastera."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Određuje da li je uključena pristupačnost lepljivih tastera."
+
+#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:1
+msgid ""
+"Set this to one of \"none\", \"lock_screen\", or \"force_logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+"Postavite na „none“ (ništa), „lock_screen“ (zaključaj ekran) ili "
+"„force_logout“ (primoraj odjavu). Ove radnje se primenjuju kada se korisnik "
+"prijavljuje putem pametne kartice."
+
+#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:2
+msgid "Smartcard removal action"
+msgstr "Radnja pru uklanjanju pametne kartice"
 
 #: ../gnome-settings-daemon/main.c:55
 msgid "Enable debugging code"
@@ -658,8 +740,9 @@ msgid "GConf prefix from which to load plugin settings"
 msgstr "Gkonfov prefiks iz koga se čitaju podešavanja za dodatke"
 
 #: ../gnome-settings-daemon/main.c:58
-msgid "Exit after a time - for debugging"
-msgstr "Izađi nakon određenog vremena — za traženje grešaka"
+#| msgid "Exit after a time - for debugging"
+msgid "Exit after a time (for debugging)"
+msgstr "Izađi nakon određenog vremena (za traženje grešaka)"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -669,23 +752,23 @@ msgstr "Pristupačnost tastature"
 msgid "Accessibility keyboard plugin"
 msgstr "Dodatak za pristupačnost tastature"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:460
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Došlo je do greške prilikom prikaza pomoći: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:591
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:657
 msgid "Do you want to activate Slow Keys?"
 msgstr "Želite li da uključite spore tastere?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:592
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Želite li da uključite spore tastere?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:659
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -693,62 +776,62 @@ msgstr ""
 "Upravo ste držali taster Shift pritisnut 8 sekundi.  Ovo je prečica za "
 "mogućnost sporih tastera, koja utiče na to kako radi vaša tastatura."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
 msgid "Don't activate"
 msgstr "Ne pokreći"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
 msgid "Don't deactivate"
 msgstr "Ne obustavljaj"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Activate"
 msgstr "Pokreni"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Deactivate"
 msgstr "Obustavi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
 msgid "Do_n't activate"
 msgstr "Ne pokreć_i"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
 msgid "Do_n't deactivate"
 msgstr "Ne obust_avljaj"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
 msgid "_Activate"
 msgstr "Po_kreni"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
 msgid "_Deactivate"
 msgstr "Ob_ustavi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:687
 msgid "Slow Keys Alert"
 msgstr "Upozorenje o sporim tasterima"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:727
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:795
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Želite li da uključite lepljive tastere?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:796
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Želite li da isključite lepljive tastere?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:730
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:798
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -756,8 +839,8 @@ msgstr ""
 "Upravo ste pritisnuli taster Shift pet puta zaredom.  Ovo je prečica za "
 "mogućnost lepljivih tastera, koja utiče na način rada vaše tastature."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:732
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:800
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -767,7 +850,7 @@ msgstr ""
 "puta zaredom.  Ovo isključuje mogućnost lepljivih tastera, što utiče na to "
 "kako vaša tastatura radi."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:828
 msgid "Sticky Keys Alert"
 msgstr "Upozorenje o lepljivim tasterima"
 
@@ -843,7 +926,8 @@ msgid "Font plugin"
 msgstr "Dodatak za font"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-msgid "Don't show any warnings again for this filesystem"
+#| msgid "Don't show any warnings again for this filesystem"
+msgid "Don't show any warnings again for this file system"
 msgstr "Ne prikazuj upozorenja za ovaj sistem datoteka"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
@@ -902,41 +986,45 @@ msgid "Empty Trash"
 msgstr "Izbaci smeće"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
-msgid "Examine..."
-msgstr "Ispitaj..."
+#| msgid "Examine..."
+msgid "Examine…"
+msgstr "Ispitaj…"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
 msgid "Ignore"
 msgstr "Zanemari"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
 #, c-format
 msgid "Removing item %lu of %lu"
 msgstr "Uklanjam %lu stavku od %lu"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:117
 #, c-format
-msgid "<i>Removing: %s</i>"
-msgstr "<i>Uklanjam: %s</i>"
+#| msgid "<i>Removing: %s</i>"
+msgid "Removing: %s"
+msgstr "Uklanjam: %s"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:247
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
 msgid "Emptying the trash"
 msgstr "Izbacujem smeće"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
-msgid "Preparing to empty trash..."
-msgstr "Pripremam se za izbacivanje smeća..."
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:272
+#| msgid "Preparing to empty trash..."
+msgid "Preparing to empty trash…"
+msgstr "Pripremam se da izbacim smeće…"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+#. Translators: "Emptying trash from <device>"
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:299
 msgid "From: "
 msgstr "Od:"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
 msgid "Empty all of the items from the trash?"
 msgstr "Da izbacim sve stavke iz smeća?"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:363
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
@@ -944,7 +1032,7 @@ msgstr ""
 "Ukoliko izaberete da ispraznite smeće, sve stavke će biti trajno izgubljene. "
 "Možete izbaciti i zasebno svaku stavku iz smeća."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:370
 msgid "_Empty Trash"
 msgstr "Iz_baci smeće"
 
@@ -983,69 +1071,79 @@ msgstr "Tastatura"
 msgid "Keyboard plugin"
 msgstr "Dodatak za tastaturu"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:114
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:137
 #, c-format
+#| msgid ""
+#| "Error activating XKB configuration.\n"
+#| "It can happen under various circumstances:\n"
+#| "- a bug in libxklavier library\n"
+#| "- a bug in X server (xkbcomp, xmodmap utilities)\n"
+#| "- X server with incompatible libxkbfile implementation\n"
+#| "\n"
+#| "X server version data:\n"
+#| "%s\n"
+#| "%d\n"
+#| "%s\n"
+#| "If you report this situation as a bug, please include:\n"
+#| "- The result of <b>%s</b>\n"
+#| "- The result of <b>%s</b>"
 msgid ""
 "Error activating XKB configuration.\n"
 "It can happen under various circumstances:\n"
-"- a bug in libxklavier library\n"
-"- a bug in X server (xkbcomp, xmodmap utilities)\n"
-"- X server with incompatible libxkbfile implementation\n"
+" • a bug in libxklavier library\n"
+" • a bug in X server (xkbcomp, xmodmap utilities)\n"
+" • X server with incompatible libxkbfile implementation\n"
 "\n"
 "X server version data:\n"
 "%s\n"
 "%d\n"
 "%s\n"
 "If you report this situation as a bug, please include:\n"
-"- The result of <b>%s</b>\n"
-"- The result of <b>%s</b>"
+" • The result of <b>%s</b>\n"
+" • The result of <b>%s</b>"
 msgstr ""
 "Greška pri pokretanju podešavanja tastature.\n"
 "Ovo se može desiti u slučaju:\n"
-"- greške unutar biblioteke libxklavier\n"
-"- greške unutar X servera (alati xkbcomp, xmodmap)\n"
-"- nesaglasnosti X servera i libxkbfile\n"
+" • greške unutar biblioteke libxklavier\n"
+" • greške unutar Iks servera (alati xkbcomp, xmodmap)\n"
+" • nesaglasnosti Iks servera i libxkbfile\n"
 "\n"
 "Podaci o izdanju X servera:\n"
 "%s\n"
 "%d\n"
 "%s\n"
 "Ukoliko projavite ovo kao grešku, priložite i sledeće:\n"
-"- Rezultat <b>%s</b>\n"
-"- Rezultat <b>%s</b>"
+" • Rezultat <b>%s</b>\n"
+" • Rezultat <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:128
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:151
+#| msgid ""
+#| "You are using XFree 4.3.0.\n"
+#| "There are known problems with complex XKB configurations.\n"
+#| "Try using a simpler configuration or taking a fresher version of XFree "
+#| "software."
 msgid ""
 "You are using XFree 4.3.0.\n"
 "There are known problems with complex XKB configurations.\n"
-"Try using a simpler configuration or taking a fresher version of XFree "
+"Try using a simpler configuration or using a later version of the XFree "
 "software."
 msgstr ""
-"Trenutno koristitie XFree 4.3.0.\n"
+"Trenutno koristite IksFri 4.3.0.\n"
 "U ovom izdanju postoje problemi sa složenijim podešavanjima tastature.\n"
-"Pokušajte da koristite jednostavnija podešavanja ili nabavite noviji XFree."
+"Pokušajte da koristite jednostavnija podešavanja ili nabavite noviji IksFri."
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:200
-msgid "Unknown"
-msgstr "Nepoznat"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:279
+msgid "_Layouts"
+msgstr "_Rasporedi"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:269
-#, c-format
-msgid "Keyboard Layout \"%s\""
-msgstr "Raspored tastature „%s“"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:392
-msgid "_Groups"
-msgstr "_Grupe"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:399
-#| msgid "Mouse Preferences"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:286
 msgid "Keyboard _Preferences"
 msgstr "_Postavke tastature"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:405
-msgid "Show Current _Layout"
-msgstr "Prikaži trenutni _raspored"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:292
+#| msgid "Show Current _Layout"
+msgid "Show _Current Layout"
+msgstr "Prika_ži trenutni raspored"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:1
 msgid "A_vailable files:"
@@ -1056,8 +1154,9 @@ msgid "Load modmap files"
 msgstr "Učitaj modmap datoteke"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:3
-msgid "Would you like to load the modmap file(s)?"
-msgstr "Želite li da učitate modmap datoteku(e)?"
+#| msgid "Would you like to load the modmap file(s)?"
+msgid "Would you like to load the modmap files?"
+msgstr "Da li želite da učitate modmap datoteke?"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:4
 msgid "_Do not show this message again"
@@ -1070,11 +1169,6 @@ msgstr "_Učitaj"
 #: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "_Učitane datoteke:"
-
-#: ../plugins/keyboard/show-layout.ui.h:1
-#| msgid "Keyboard"
-msgid "Keyboard Layout"
-msgstr "Raspored tastature"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:195
 msgid ""
@@ -1108,6 +1202,7 @@ msgid_plural "%u Outputs"
 msgstr[0] "%u izlaz"
 msgstr[1] "%u izlaza"
 msgstr[2] "%u izlaza"
+msgstr[3] "%u izlaz"
 
 #. translators:
 #. * The number of sound inputs on a particular device
@@ -1118,6 +1213,7 @@ msgid_plural "%u Inputs"
 msgstr[0] "%u ulaz"
 msgstr[1] "%u ulaza"
 msgstr[2] "%u ulaza"
+msgstr[3] "%u ulaz"
 
 #: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
 msgid "System Sounds"
@@ -1136,9 +1232,12 @@ msgid "Could not enable mouse accessibility features"
 msgstr "Ne mogu da uključim pristupačnost miša"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:884
+#, fuzzy
+#| msgid ""
+#| "Mouse accessibility requires mousetweaks to be installed on your system."
 msgid ""
-"Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr "Za pristupačnost miša morate da instalirate mousetweaks program."
+"Mouse accessibility requires Mousetweaks to be installed on your system."
+msgstr "Za pristupačnost miša morate da instalirate Mousetweaks program."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:887
 msgid "Mouse Preferences"
@@ -1168,19 +1267,19 @@ msgstr "Podešavanje veličine i rotacije ekrana"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:222
+#: ../plugins/xrandr/gsd-xrandr-manager.c:225
 msgid "Could not switch the monitor configuration"
 msgstr "Ne mogu da učitam podešavanja monitora"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:246
+#: ../plugins/xrandr/gsd-xrandr-manager.c:249
 msgid "Could not restore the display's configuration"
 msgstr "Ne mogu da vratim podešavanja ekrana"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:271
+#: ../plugins/xrandr/gsd-xrandr-manager.c:274
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Ne mogu da vratim podešavanja ekrana iz rezervnih podešavanja"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:292
+#: ../plugins/xrandr/gsd-xrandr-manager.c:295
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1188,65 +1287,68 @@ msgid_plural ""
 msgstr[0] "Podešavanja ekrana će biti vraćena na prethodna za %d sekundu"
 msgstr[1] "Podešavanja ekrana će biti vraćena na prethodna za %d sekunde"
 msgstr[2] "Podešavanja ekrana će biti vraćena na prethodna za %d sekundi"
+msgstr[3] "Podešavanja ekrana će biti vraćena na prethodna za %d sekundu"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:341
+#: ../plugins/xrandr/gsd-xrandr-manager.c:344
 msgid "Does the display look OK?"
 msgstr "Da li ekran izgleda kako treba?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:347
+#: ../plugins/xrandr/gsd-xrandr-manager.c:350
 msgid "_Restore Previous Configuration"
 msgstr "_Vrati prethodna podešavanja"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:348
+#: ../plugins/xrandr/gsd-xrandr-manager.c:351
 msgid "_Keep This Configuration"
 msgstr "_Zadrži ova podešavanja"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:429
+#: ../plugins/xrandr/gsd-xrandr-manager.c:432
 msgid "The selected configuration for displays could not be applied"
 msgstr "Ne mogu da primenim izabrana podešavanja ekrana"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:967
+#: ../plugins/xrandr/gsd-xrandr-manager.c:970
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Ne mogu da osvežim podatke o ekranu: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:973
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Pokušavam da ipak učitam podešavanja monitora."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1679
-msgid "<i>Rotation not supported</i>"
-msgstr "<i>Nije podržano rotiranje</i>"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1703
+#| msgid "<i>Rotation not supported</i>"
+msgid "Rotation not supported"
+msgstr "Nije podržano rotiranje"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1733
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1759
 msgid "Could not save monitor configuration"
 msgstr "Ne mogu da sačuvam podešavanja monitora"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1751
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1777
 msgid "Normal"
 msgstr "Obično"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1752
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1778
 msgid "Left"
 msgstr "Levo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1753
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1779
 msgid "Right"
 msgstr "Desno"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1754
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1780
 msgid "Upside Down"
 msgstr "Naopačke"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1874
-msgid "_Configure Display Settings ..."
-msgstr "Podesi _ekran..."
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1900
+#| msgid "_Configure Display Settings ..."
+msgid "_Configure Display Settings…"
+msgstr "Podesi _ekrane…"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1915
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1941
 msgid "Configure display settings"
 msgstr "Podesi ekran"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1972
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2001
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Ne mogu da primenim sačuvana podešavanja ekrana"
 
@@ -1275,6 +1377,111 @@ msgstr "Uredi podešavanja Iksa"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Podešavanja Iksa"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:167
+msgid "Module Path"
+msgstr "Putanja do modula"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:168
+msgid "path to smartcard PKCS #11 driver"
+msgstr "putanja do PKCS #11 putanje drajvera za pametne kartice"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:504
+msgid "received error or hang up from event source"
+msgstr "greška ili prekid sa izvorom događaja"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:593
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr "Ne mogu da pokrenem NSS sigurnosni sistem"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr "ne postoji odgovarajući drajver za pametne kartice"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:682
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr "ne mogu da učitam drajver „%s“ za pametne kartice"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:771
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr "ne mogu da pratim priključivanje kartice — %s"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1124
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr "neočekivana greška pri čekanju na priključivanje pametne kartice"
+
+#: ../plugins/smartcard/gsd-smartcard.c:154
+msgid "Slot ID"
+msgstr "IB slota"
+
+#: ../plugins/smartcard/gsd-smartcard.c:155
+msgid "The slot the card is in"
+msgstr "Slot u kome je kartica"
+
+#: ../plugins/smartcard/gsd-smartcard.c:161
+#| msgid "Slow keys"
+msgid "Slot Series"
+msgstr "Niz slotova"
+
+#: ../plugins/smartcard/gsd-smartcard.c:162
+msgid "per-slot card identifier"
+msgstr "identifikazija kartica po slotovima"
+
+#: ../plugins/smartcard/gsd-smartcard.c:168
+#: ../plugins/smartcard/gsd-smartcard.c:169
+msgid "name"
+msgstr "ime"
+
+#: ../plugins/smartcard/gsd-smartcard.c:173
+#| msgid "Mouse"
+msgid "Module"
+msgstr "Modul"
+
+#: ../plugins/smartcard/gsd-smartcard.c:174
+msgid "smartcard driver"
+msgstr "drajver za pametne kartice"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
+msgid "Change system time"
+msgstr "Promeni vreme na sistemu"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
+msgid "Change system time zone"
+msgstr "Promeni vremensku zonu"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
+msgid "Configure hardware clock"
+msgstr "Podesi sat na računaru"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
+msgid "Privileges are required to change the system time zone."
+msgstr "Potrebna su ovlašćenja za promenu vremenske zone na sistemu."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
+msgid "Privileges are required to change the system time."
+msgstr "Potrebna su ovlašćenja za promenu vremena na sistemu."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
+msgid "Privileges are required to configure the hardware clock."
+msgstr "Potrebna su ovlašćenja za podešavanje sata na računaru."
+
+#~ msgid "Unknown"
+#~ msgstr "Nepoznat"
+
+#~ msgid "Keyboard Layout \"%s\""
+#~ msgstr "Raspored tastature „%s“"
+
+#~ msgid "_Groups"
+#~ msgstr "_Grupe"
+
+#~| msgid "Keyboard"
+#~ msgid "Keyboard Layout"
+#~ msgstr "Raspored tastature"
 
 #~ msgid "Binding to suspend the computer."
 #~ msgstr "Vezujem za obustavljanje računara."
@@ -1307,9 +1514,6 @@ msgstr "Podešavanja Iksa"
 
 #~ msgid "Enable screensaver plugin"
 #~ msgstr "Uključi dodatak za čuvanje ekrana"
-
-#~ msgid "Set to True to enable the plugin to manage screensaver settings."
-#~ msgstr "Uključite za pokretanje dodatka koji podešava čuvara ekrana."
 
 #~ msgid "Toggle screenreader"
 #~ msgstr "Prikaz čitača ekrana"
