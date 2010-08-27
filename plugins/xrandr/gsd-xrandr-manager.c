@@ -553,6 +553,20 @@ print_configuration (GnomeRRConfig *config, const char *header)
                 print_output (config->outputs[i]);
 }
 
+static gboolean
+config_is_all_off (GnomeRRConfig *config)
+{
+        int j;
+
+        for (j = 0; config->outputs[j] != NULL; ++j) {
+                if (config->outputs[j]->on) {
+                        return FALSE;
+                }
+        }
+
+        return TRUE;
+}
+
 static GnomeRRConfig *
 make_clone_setup (GnomeRRScreen *screen)
 {
@@ -600,6 +614,11 @@ make_clone_setup (GnomeRRScreen *screen)
                                 info->y = 0;
                         }
                 }
+        }
+
+        if (config_is_all_off (result)) {
+                gnome_rr_config_free (result);
+                result = NULL;
         }
 
         print_configuration (result, "clone setup");
@@ -700,6 +719,11 @@ make_laptop_setup (GnomeRRScreen *screen)
                 }
         }
 
+        if (config_is_all_off (result)) {
+                gnome_rr_config_free (result);
+                result = NULL;
+        }
+
         print_configuration (result, "Laptop setup");
 
         /* FIXME - Maybe we should return NULL if there is more than
@@ -743,6 +767,11 @@ make_xinerama_setup (GnomeRRScreen *screen)
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
+        if (config_is_all_off (result)) {
+                gnome_rr_config_free (result);
+                result = NULL;
+        }
+
         print_configuration (result, "xinerama setup");
 
         return result;
@@ -768,6 +797,11 @@ make_other_setup (GnomeRRScreen *screen)
                         if (info->connected)
                                 turn_on (screen, info, 0, 0);
                }
+        }
+
+        if (config_is_all_off (result)) {
+                gnome_rr_config_free (result);
+                result = NULL;
         }
 
         print_configuration (result, "other setup");
@@ -812,20 +846,10 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
         for (i = 0; i < array->len; ++i) {
                 GnomeRRConfig *config = array->pdata[i];
 
-                if (config) {
-                        gboolean all_off = TRUE;
-                        int j;
-
-                        for (j = 0; config->outputs[j] != NULL; ++j) {
-                                if (config->outputs[j]->on)
-                                        all_off = FALSE;
-                        }
-
-                        if (all_off) {
-                                g_debug ("removing configuration as all outputs are off");
-                                gnome_rr_config_free (array->pdata[i]);
-                                array->pdata[i] = NULL;
-                        }
+                if (config && config_is_all_off (config)) {
+                        g_debug ("removing configuration as all outputs are off");
+                        gnome_rr_config_free (array->pdata[i]);
+                        array->pdata[i] = NULL;
                 }
         }
 
