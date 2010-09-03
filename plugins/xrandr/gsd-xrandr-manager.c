@@ -97,8 +97,7 @@ typedef enum {
         STOCK_CONFIG_CLONE_MONITORS,
         STOCK_CONFIG_EXTENDED_RIGHT,
         STOCK_CONFIG_EXTENDED_ONTOP,
-        STOCK_CONFIG_EXTERNAL,
-        STOCK_CONFIG_CUSTOM
+        STOCK_CONFIG_EXTERNAL
 } StockConfigType;
 
 /* One of the stock configurations that we generate for the XFDisplay hotkey */
@@ -850,18 +849,6 @@ make_external_stock_config (GnomeRRScreen *screen)
         return stock_config_new (STOCK_CONFIG_EXTERNAL, rr_config);
 }
 
-static StockConfig *
-make_stored_stock_config (GnomeRRScreen *screen)
-{
-        GnomeRRConfig *rr_config;
-
-        rr_config = gnome_rr_config_new_stored (screen, NULL); /* NULL-GError - if this can't read the stored config, no big deal */
-        if (rr_config != NULL)
-                return stock_config_new (STOCK_CONFIG_CUSTOM, rr_config);
-        else
-                return NULL;
-}
-
 static GPtrArray *
 sanitize (GsdXrandrManager *manager, GPtrArray *array)
 {
@@ -1095,7 +1082,6 @@ generate_stock_configs (GsdXrandrManager *mgr)
         g_ptr_array_add (array, make_clone_stock_config (screen));
         g_ptr_array_add (array, make_extended_stock_config (screen));
         g_ptr_array_add (array, make_external_stock_config (screen));
-        g_ptr_array_add (array, make_stored_stock_config (screen));
 
         if (should_use_debug_window (mgr))
                 debug_window_setup (mgr);
@@ -1169,9 +1155,6 @@ get_label_for_stock_config (StockConfigType type)
         case STOCK_CONFIG_EXTERNAL:
                 return _("E_xternal only");
 
-        case STOCK_CONFIG_CUSTOM:
-                return _("_Custom setup...");
-
         default:
                 g_assert_not_reached ();
                 return NULL;
@@ -1210,10 +1193,6 @@ get_filename_for_stock_config_icon (StockConfigType type)
 
         case STOCK_CONFIG_EXTERNAL:
                 base = "gsd-xrandr-external.png";
-                break;
-
-        case STOCK_CONFIG_CUSTOM:
-                base = "gsd-xrandr-custom.png";
                 break;
 
         default:
