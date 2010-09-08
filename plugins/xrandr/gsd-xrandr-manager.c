@@ -23,6 +23,7 @@
 
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -136,6 +137,146 @@ static void get_allowed_rotations_for_output (GnomeRRConfig *config,
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static FILE *log_file;
+
+static void
+log_open (void)
+{
+        char *toggle_filename;
+        char *log_filename;
+        struct stat st;
+
+        if (log_file)
+                return;
+
+        toggle_filename = g_build_filename (g_get_home_dir (), "gsd-debug-randr", NULL);
+        log_filename = g_build_filename (g_get_home_dir (), "gsd-debug-randr.log", NULL);
+
+        if (stat (toggle_filename, &st) != 0)
+                goto out;
+
+        log_file = fopen (log_filename, "a");
+
+out:
+        g_free (toggle_filename);
+        g_free (log_filename);
+}
+
+static void
+log_close (void)
+{
+        if (log_file) {
+                fclose (log_file);
+                log_file = NULL;
+        }
+}
+
+static void
+log_msg (const char *format, ...)
+{
+        if (log_file) {
+                va_list args;
+
+                va_start (args, format);
+                vfprintf (log_file, format, args);
+                va_end (args);
+        }
+}
+
+static void
+log_output (GnomeOutputInfo *output)
+{
+        log_msg ("        %s: ", output->name ? output->name : "unknown");
+
+        if (output->connected) {
+                if (output->on) {
+                        log_msg ("%dx%d@%d +%d+%d",
+                                 output->width,
+                                 output->height,
+                                 output->rate,
+                                 output->x,
+                                 output->y);
+                } else
+                        log_msg ("off");
+        } else
+                log_msg ("disconnected");
+
+        if (output->display_name)
+                log_msg (" (%s)", output->display_name);
+
+        if (output->primary)
+                log_msg (" (primary output)");
+
+        log_msg ("\n");
+}
+
+static void
+log_configuration (GnomeRRConfig *config)
+{
+        int i;
+
+        log_msg ("        cloned: %s\n", config->clone ? "yes" : "no");
+
+        for (i = 0; config->outputs[i] != NULL; i++)
+                log_output (config->outputs[i]);
+
+        if (i == 0)
+                log_msg ("        no outputs!\n");
+}
+
+static char
+timestamp_relationship (guint32 a, guint32 b)
+{
+        if (a < b)
+                return '<';
+        else if (a > b)
+                return '>';
+        else
+                return '=';
+}
+
+static void
+log_screen (GnomeRRScreen *screen)
+{
+        GnomeRRConfig *config;
+        int min_w, min_h, max_w, max_h;
+        guint32 change_timestamp, config_timestamp;
+
+        if (!log_file)
+                return;
+
+        config = gnome_rr_config_new_current (screen);
+
+        gnome_rr_screen_get_ranges (screen, &min_w, &max_w, &min_h, &max_h);
+        gnome_rr_screen_get_timestamps (screen, &change_timestamp, &config_timestamp);
+
+        log_msg ("        Screen min(%d, %d), max(%d, %d), change=%u %c config=%u\n",
+                 min_w, min_h,
+                 max_w, max_h,
+                 change_timestamp,
+                 timestamp_relationship (change_timestamp, config_timestamp),
+                 config_timestamp);
+
+        log_configuration (config);
+        gnome_rr_config_free (config);
+}
+
+static void
+log_configurations (GnomeRRConfig **configs)
+{
+        int i;
+
+        if (!configs) {
+                log_msg ("    No configurations\n");
+                return;
+        }
+
+        for (i = 0; configs[i]; i++) {
+                log_msg ("    Configuration %d\n", i);
+                log_configuration (configs[i]);
+        }
+}
 
 static void
 show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
