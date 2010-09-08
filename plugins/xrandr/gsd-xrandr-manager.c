@@ -363,6 +363,8 @@ apply_configuration_and_display_error (GsdXrandrManager *manager, GnomeRRConfig 
         error = NULL;
         success = gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, &error);
         if (!success) {
+                log_msg ("Could not switch to the following configuration (timestamp %u): %s\n", timestamp, error->message);
+                log_configuration (config);
                 error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
                 g_error_free (error);
         }
@@ -1127,6 +1129,9 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
          */
         g_debug ("Handling fn-f7");
 
+        log_open ();
+        log_msg ("Handling XF86Display hotkey - timestamp %u\n", timestamp);
+
         error = NULL;
         if (!gnome_rr_screen_refresh (screen, &error) && error) {
                 char *str;
@@ -1134,12 +1139,16 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                 str = g_strdup_printf (_("Could not refresh the screen information: %s"), error->message);
                 g_error_free (error);
 
+                log_msg ("%s\n", str);
                 error_message (mgr, str, NULL, _("Trying to switch the monitor configuration anyway."));
                 g_free (str);
         }
 
-        if (!priv->fn_f7_configs)
+        if (!priv->fn_f7_configs) {
+                log_msg ("Generating stock configurations:\n");
                 generate_fn_f7_configs (mgr);
+                log_configurations (priv->fn_f7_configs);
+        }
 
         current = gnome_rr_config_new_current (screen);
 
@@ -1150,12 +1159,15 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                      * configurations
                      */
                     generate_fn_f7_configs (mgr);
+                    log_msg ("Regenerated stock configurations:\n");
+                    log_configurations (priv->fn_f7_configs);
             }
 
         gnome_rr_config_free (current);
 
         if (priv->fn_f7_configs) {
                 guint32 server_timestamp;
+                gboolean success;
 
                 mgr->priv->current_fn_f7_config++;
 
@@ -1184,11 +1196,19 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                 if (timestamp < server_timestamp)
                         timestamp = server_timestamp;
 
-                apply_configuration_and_display_error (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp);
+                success = apply_configuration_and_display_error (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp);
+
+                if (success) {
+                        log_msg ("Successfully switched to configuration (timestamp %u):\n", timestamp);
+                        log_configuration (priv->fn_f7_configs[mgr->priv->current_fn_f7_config]);
+                }
         }
         else {
                 g_debug ("no configurations generated");
         }
+
+        log_close ();
+
         g_debug ("done handling fn-f7");
 }
 
