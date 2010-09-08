@@ -158,6 +158,9 @@ log_open (void)
 
         log_file = fopen (log_filename, "a");
 
+        if (log_file && ftell (log_file) == 0)
+                fprintf (log_file, "To keep this log from being created, please rm ~/gsd-debug-randr\n");
+
 out:
         g_free (toggle_filename);
         g_free (log_filename);
