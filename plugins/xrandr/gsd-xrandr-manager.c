@@ -2280,11 +2280,22 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         g_debug ("Starting xrandr manager");
         gnome_settings_profile_start (NULL);
 
+        log_open ();
+        log_msg ("------------------------------------------------------------\nSTARTING XRANDR PLUGIN\n");
+
         manager->priv->rw_screen = gnome_rr_screen_new (
                 gdk_screen_get_default (), on_randr_event, manager, error);
 
-        if (manager->priv->rw_screen == NULL)
+        if (manager->priv->rw_screen == NULL) {
+                log_msg ("Could not initialize the RANDR plugin%s%s\n",
+                         (error && *error) ? ": " : "",
+                         (error && *error) ? (*error)->message : "");
+                log_close ();
                 return FALSE;
+        }
+
+        log_msg ("State of screen at startup:\n");
+        log_screen (manager->priv->rw_screen);
 
         manager->priv->running = TRUE;
         manager->priv->client = gconf_client_get_default ();
@@ -2330,11 +2341,16 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                 if (!apply_default_configuration_from_file (manager, GDK_CURRENT_TIME))
                         apply_default_boot_configuration (manager, GDK_CURRENT_TIME);
 
+        log_msg ("State of screen after initial configuration:\n");
+        log_screen (manager->priv->rw_screen);
+
         gdk_window_add_filter (gdk_get_default_root_window(),
                                (GdkFilterFunc)event_filter,
                                manager);
 
         start_or_stop_icon (manager);
+
+        log_close ();
 
         gnome_settings_profile_end (NULL);
 
@@ -2396,6 +2412,10 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         }
 
         status_icon_stop (manager);
+
+        log_open ();
+        log_msg ("STOPPING XRANDR PLUGIN\n------------------------------------------------------------\n");
+        log_close ();
 }
 
 static void
