@@ -1534,6 +1534,12 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
 
         gnome_rr_screen_get_timestamps (screen, &change_timestamp, &config_timestamp);
 
+        log_open ();
+        log_msg ("Got RANDR event with timestamps change=%u %c config=%u\n",
+                 change_timestamp,
+                 timestamp_relationship (change_timestamp, config_timestamp),
+                 config_timestamp);
+
         if (change_timestamp >= config_timestamp) {
                 /* The event is due to an explicit configuration change.
                  *
@@ -1543,6 +1549,7 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  * to do anything, either; the screen is already configured.
                  */
                 show_timestamps_dialog (manager, "ignoring since change > config");
+                log_msg ("  Ignoring event since change >= config\n");
         } else {
                 /* Here, config_timestamp > change_timestamp.  This means that
                  * the screen got reconfigured because of hotplug/unplug; the X
@@ -1550,38 +1557,11 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  * outputs in a sane way.
                  */
 
-
-#if 1
-                if (config_timestamp != priv->last_config_timestamp) {
-                        priv->last_config_timestamp = config_timestamp;
-                        auto_configure_outputs (manager, config_timestamp);
-                }
-#else
-                /* WHY THIS CODE IS DISABLED:
-                 *
-                 * The strategy of "on hotplug or unsuspend, restore a
-                 * known-good configuration, and fall back to autoconfiguration"
-                 * works fine as long as you don't happen to be running
-                 * gnome-display-properties and click its "Detect displays"
-                 * button.
-                 *
-                 * If you do that, the RANDR calls from g-d-p will cause the X
-                 * server to re-probe the RANDR outputs.  The server will send
-                 * us an event, we'll restore the configuration to something
-                 * else... and you'll be weirded out, because "just detecting
-                 * your monitors" should not change the current configuration,
-                 * right?
-                 *
-                 * We may need some kind of D-bus API so that g-d-p can inhibit
-                 * this RANDR plugin's reconfiguration-fu when the "Detect
-                 * displays" button is being used.
-                 */
-
                 char *intended_filename;
                 GError *error;
                 gboolean success;
 
-                show_timestamps_dialog (manager, "need to deal with reconfiguration, as config >= change");
+                show_timestamps_dialog (manager, "need to deal with reconfiguration, as config > change");
 
                 intended_filename = gnome_rr_config_get_intended_filename ();
 
@@ -1608,15 +1588,22 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                         if (error)
                                 g_error_free (error);
 
-                        auto_configure_outputs (manager, config_timestamp);
-                }
-#endif
+                        if (config_timestamp != priv->last_config_timestamp) {
+                                priv->last_config_timestamp = config_timestamp;
+                                auto_configure_outputs (manager, config_timestamp);
+                                log_msg ("  Automatically configured outputs to deal with event\n");
+                        } else
+                                log_msg ("  Ignored event as old and new config timestamps are the same\n");
+                } else
+                        log_msg ("Applied stored configuration to deal with event\n");
         }
 
         /* poke gnome-color-manager */
         apply_color_profiles ();
 
         refresh_tray_icon_menu_if_active (manager, MAX (change_timestamp, config_timestamp));
+
+        log_close ();
 }
 
 static void
