@@ -84,14 +84,14 @@ nautilus_is_running (void)
        gboolean       running;
        gint           error;
 
-       window_id_atom = XInternAtom (GDK_DISPLAY (),
+       window_id_atom = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                      "NAUTILUS_DESKTOP_WINDOW_ID", True);
 
        if (window_id_atom == None) {
                return FALSE;
        }
 
-       retval = XGetWindowProperty (GDK_DISPLAY (),
+       retval = XGetWindowProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                     GDK_ROOT_WINDOW (),
                                     window_id_atom,
                                     0,
@@ -118,11 +118,11 @@ nautilus_is_running (void)
                return FALSE;
        }
 
-       wmclass_atom = XInternAtom (GDK_DISPLAY (), "WM_CLASS", False);
+       wmclass_atom = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "WM_CLASS", False);
 
        gdk_error_trap_push ();
 
-       retval = XGetWindowProperty (GDK_DISPLAY (),
+       retval = XGetWindowProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                     nautilus_xid,
                                     wmclass_atom,
                                     0,

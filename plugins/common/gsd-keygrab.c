@@ -74,7 +74,7 @@ grab_key_real (guint      keycode,
                int        mask)
 {
         if (grab) {
-                XGrabKey (GDK_DISPLAY (),
+                XGrabKey (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                           keycode,
                           mask,
                           GDK_WINDOW_XID (root),
@@ -82,7 +82,7 @@ grab_key_real (guint      keycode,
                           GrabModeAsync,
                           GrabModeAsync);
         } else {
-                XUngrabKey (GDK_DISPLAY (),
+                XUngrabKey (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                             keycode,
                             mask,
                             GDK_WINDOW_XID (root));

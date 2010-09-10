@@ -312,12 +312,12 @@ load_font_paths (GConfClient *client)
         /* We set font path even if it was not changed, to enforce dropping
          * caches in the server */
         gdk_error_trap_push ();
-        XSetFontPath (gdk_display, new_font_path, new_n_fonts);
+        XSetFontPath (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), new_font_path, new_n_fonts);
         gdk_flush ();
 
         /* if there was an error setting the new path, revert */
         if (gdk_error_trap_pop ()) {
-                XSetFontPath (gdk_display, font_path, n_fonts);
+                XSetFontPath (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), font_path, n_fonts);
         }
 
         g_free (font_dir_name);
