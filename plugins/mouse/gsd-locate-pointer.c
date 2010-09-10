@@ -374,7 +374,7 @@ filter (GdkXEvent *xevent,
                                            group,
                                            &keyval,
                                            NULL, NULL, NULL);
-      if (keyval == GDK_Control_L || keyval == GDK_Control_R)
+      if (keyval == GDK_KEY_Control_L || keyval == GDK_KEY_Control_R)
         {
           if (xev->type == KeyPress)
             {
@@ -411,7 +411,7 @@ set_locate_pointer (void)
   int n_screens;
   int n_keys;
   gboolean has_entries;
-  static const guint keyvals[] = { GDK_Control_L, GDK_Control_R };
+  static const guint keyvals[] = { GDK_KEY_Control_L, GDK_KEY_Control_R };
   unsigned j;
 
   display = gdk_display_get_default ();

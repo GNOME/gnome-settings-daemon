@@ -219,7 +219,7 @@ match_key (Key *key, XEvent *event)
 		group = XkbGroupForCoreState (event->xkey.state);
 	else
 #endif
-		group = (event->xkey.state & GDK_Mode_switch) ? 1 : 0;
+		group = (event->xkey.state & GDK_KEY_Mode_switch) ? 1 : 0;
 
 	/* Check if we find a keysym that matches our current state */
 	if (gdk_keymap_translate_keyboard_state (NULL, event->xkey.keycode,
