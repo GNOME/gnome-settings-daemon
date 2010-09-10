@@ -916,7 +916,6 @@ gsd_a11y_preferences_dialog_init (GsdA11yPreferencesDialog *dialog)
         g_object_unref (builder);
 
         gtk_container_set_border_width (GTK_CONTAINER (dialog), 12);
-        gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
         gtk_window_set_title (GTK_WINDOW (dialog), _("Universal Access Preferences"));
         gtk_window_set_icon_name (GTK_WINDOW (dialog), "preferences-desktop-accessibility");
         g_object_set (dialog,
