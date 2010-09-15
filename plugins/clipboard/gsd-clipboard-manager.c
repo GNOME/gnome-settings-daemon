@@ -599,8 +599,11 @@ convert_clipboard (GsdClipboardManager *manager,
                                     &type, &format, &nitems, &remaining,
                                     (unsigned char **) &multiple);
 
-                if (type != XA_ATOM_PAIR)
+                if (type != XA_ATOM_PAIR || nitems == 0) {
+                        if (multiple)
+                                free (multiple);
                         return;
+                }
 
                 for (i = 0; i < nitems; i += 2) {
                         rdata = (IncrConversion *) malloc (sizeof (IncrConversion));
