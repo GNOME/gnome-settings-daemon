@@ -116,8 +116,8 @@ gsd_keyboard_log_appender (const char file[],
 static void
 activation_error (void)
 {
-	char const *vendor = ServerVendor (GDK_DISPLAY ());
-	int release = VendorRelease (GDK_DISPLAY ());
+	char const *vendor = ServerVendor (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
+	int release = VendorRelease (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
 	GtkWidget *dialog;
 	gboolean badXFree430Release;
 
@@ -212,7 +212,7 @@ static void
 popup_menu_show_layout ()
 {
 	GtkWidget *dialog;
-	XklEngine *engine = xkl_engine_get_instance (GDK_DISPLAY ());
+	XklEngine *engine = xkl_engine_get_instance (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
 	XklState *xkl_state = xkl_engine_get_current_state (engine);
 	gpointer p = g_hash_table_lookup (preview_dialogs,
 					  GINT_TO_POINTER
@@ -737,7 +737,7 @@ gsd_keyboard_update_indicator_icons ()
 {
 	Bool state;
 	int new_state, i;
-	Display *display = GDK_DISPLAY ();
+	Display *display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 	XkbGetNamedIndicator (display, caps_lock, NULL, &state,
 			      NULL, NULL);
 	new_state = state ? 1 : 0;
@@ -780,7 +780,7 @@ gsd_keyboard_xkb_init (GConfClient * client,
 		       GsdKeyboardManager * kbd_manager)
 {
 	int i;
-	Display *display = GDK_DISPLAY ();
+	Display *display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 	gnome_settings_profile_start (NULL);
 
 	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
