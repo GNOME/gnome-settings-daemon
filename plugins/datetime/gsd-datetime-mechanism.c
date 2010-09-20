@@ -176,9 +176,15 @@ register_mechanism (GsdDatetimeMechanism *mechanism)
 {
         GError *error = NULL;
 
-        mechanism->priv->auth = polkit_authority_get ();
+        mechanism->priv->auth = polkit_authority_get_sync (NULL, &error);
+        if (mechanism->priv->auth == NULL) {
+                if (error != NULL) {
+                        g_critical ("error getting system bus: %s", error->message);
+                        g_error_free (error);
+                }
+                goto error;
+        }
 
-        error = NULL;
         mechanism->priv->system_bus_connection = dbus_g_bus_get (DBUS_BUS_SYSTEM, &error);
         if (mechanism->priv->system_bus_connection == NULL) {
                 if (error != NULL) {
