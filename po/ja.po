@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-08-31 14:31+0000\n"
+"POT-Creation-Date: 2010-09-18 22:24+0000\n"
 "PO-Revision-Date: 2010-09-01 01:36+0900\n"
 "Last-Translator: Noritada Kobayashi <noritadak@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -421,7 +421,7 @@ msgstr ""
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
 msgid "Set this to TRUE to enable all touchpads."
-msgstr "この値を TRUE にすると、全てのタッチ・パッドを有効にします。"
+msgstr "この値を TRUE にすると、すべてのタッチ・パッドを有効にします。"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -759,7 +759,7 @@ msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
-"[SHIFT] キーを８秒間押下しました。これはスロー・キー機能のショートカットとし"
+"[SHIFT] キーを8秒間押下しました。これはスロー・キー機能のショートカットとし"
 "て、キーボード操作に影響を与えるものです。"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
@@ -822,8 +822,8 @@ msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
-"[SHIFT] キーを連続して５回押下しました。これはスティッキー・キー機能のショー"
-"トカットとして、キーボード操作に影響を与えるものです。"
+"[SHIFT] キーを連続して5回押下しました。これはスティッキー・キー機能のショート"
+"カットとして、キーボード操作に影響を与えるものです。"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:732
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:800
@@ -832,7 +832,7 @@ msgid ""
 "row.  This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
-"キーを一度に２回押下したか、あるいは [SHIFT] キーを連続して 5回押下しました。"
+"キーを一度に2回押下したか、あるいは [SHIFT] キーを連続して 5回押下しました。"
 "これはスティッキー・キー機能を無効にし、キーボード操作に影響を与えるもので"
 "す。"
 
@@ -1003,15 +1003,15 @@ msgstr "From: "
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
 msgid "Empty all of the items from the trash?"
-msgstr "ゴミ箱の中の全てのアイテムを空にしますか?"
+msgstr "ゴミ箱の中のすべてのアイテムを空にしますか?"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:363
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
 msgstr ""
-"ゴミ箱を空にすることを選択すると、全てのアイテムは永遠に失なわれます。別途、"
-"それらを削除できることに留意してください。"
+"ゴミ箱を空にすることを選択すると、すべてのアイテムは永遠に失なわれます。別"
+"途、それらを削除できることに留意してください。"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:370
 msgid "_Empty Trash"
@@ -1147,7 +1147,7 @@ msgid ""
 "Verify that this is a valid command."
 msgstr ""
 "コマンドを実行できませんでした: %s\n"
-"このコマンドがインストールされているか確認して下さい。"
+"このコマンドがインストールされているか確認してください。"
 
 #. translators:
 #. * The device has been disabled
@@ -1222,83 +1222,83 @@ msgstr "画面の大きさや回転といった設定を管理します"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:225
+#: ../plugins/xrandr/gsd-xrandr-manager.c:371
 msgid "Could not switch the monitor configuration"
 msgstr "モニタの設定に切り替えることができませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:249
+#: ../plugins/xrandr/gsd-xrandr-manager.c:395
 msgid "Could not restore the display's configuration"
 msgstr "ディスプレイの設定を元に戻せませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:274
+#: ../plugins/xrandr/gsd-xrandr-manager.c:420
 msgid "Could not restore the display's configuration from a backup"
 msgstr "バックアップしたディスプレイの設定に戻せませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:295
+#: ../plugins/xrandr/gsd-xrandr-manager.c:441
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] " %d秒後に元のディスプレイの設定に戻ります"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:344
+#: ../plugins/xrandr/gsd-xrandr-manager.c:490
 msgid "Does the display look OK?"
 msgstr "ディスプレイの設定に問題はありませんか?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:350
+#: ../plugins/xrandr/gsd-xrandr-manager.c:496
 msgid "_Restore Previous Configuration"
 msgstr "前の設定に戻す(_R)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:351
+#: ../plugins/xrandr/gsd-xrandr-manager.c:497
 msgid "_Keep This Configuration"
 msgstr "この設定のままにする(_K)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:432
+#: ../plugins/xrandr/gsd-xrandr-manager.c:578
 msgid "The selected configuration for displays could not be applied"
 msgstr "選択したディスプレイの設定を適用できませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:994
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1142
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "スクリーンの情報を更新できませんでした: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:997
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1146
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "いずれにせよ、モニタの設定を切り替えてみます"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1727
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1877
 msgid "Rotation not supported"
 msgstr "回転はサポートしていません"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1783
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1933
 msgid "Could not save monitor configuration"
 msgstr "モニタの設定を保存できませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1801
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1951
 msgid "Normal"
 msgstr "標準"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1802
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
 msgid "Left"
 msgstr "左"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1803
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
 msgid "Right"
 msgstr "右"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1804
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
 msgid "Upside Down"
 msgstr "逆さま"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1924
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2074
 msgid "_Configure Display Settings…"
 msgstr "ディスプレイの設定(_C)…"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1965
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2115
 msgid "Configure display settings"
 msgstr "ディスプレイの設定を変更します"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2025
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2175
 msgid "Could not apply the stored configuration for monitors"
 msgstr "保存したモニタの設定を適用できませんでした"
 
@@ -1307,14 +1307,14 @@ msgstr "保存したモニタの設定を適用できませんでした"
 msgid "Cannot determine user's home directory"
 msgstr "ユーザのホーム・フォルダを確定できません"
 
-# 'X' という１文字は固有名詞のため大文字にする
+# 'X' という1文字は固有名詞のため大文字にする
 #: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
 msgid "Manage the X resource database"
-msgstr "Ｘのリソース・データベースを管理します"
+msgstr "Xのリソース・データベースを管理します"
 
 #: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
 msgid "X Resource Database"
-msgstr "Ｘリソース・データベース"
+msgstr "Xリソース・データベース"
 
 #: ../plugins/xsettings/gsd-xsettings-manager.c:596
 #, c-format
@@ -1437,4 +1437,4 @@ msgstr "ハードウェアの時計を変更するには権限が必要です。
 #~ "Verify that the machine is correctly configured."
 #~ msgstr ""
 #~ "お使いのシステムをスリープできませんでした。\n"
-#~ "お使いのシステムが正しく設定されているか確認して下さい。"
+#~ "お使いのシステムが正しく設定されているか確認してください。"
