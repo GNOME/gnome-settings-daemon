@@ -66,7 +66,6 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
         gconf-2.0 >= $GCONF_REQUIRED_VERSION
-        gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
         gio-2.0 >= $GIO_REQUIRED_VERSION
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
 )
@@ -84,6 +83,11 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 AC_PATH_PROG(GCONFTOOL, gconftool-2)
 
 AM_GCONF_SOURCE_2
+
+dnl ---------------------------------------------------------------------------
+dnl - Check for gnome-desktop
+dnl ---------------------------------------------------------------------------
+PKG_CHECK_MODULES(GNOME_DESKTOP, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for libnotify
@@ -367,11 +371,11 @@ AC_ARG_ENABLE(more-warnings,
 	[AC_HELP_STRING([--enable-more-warnings],
 	[Maximum compiler warnings])],
 	set_more_warnings="$enableval",[
-        	if test -d $srcdir/.git; then
-        		set_more_warnings=yes
-              	else
-                  	set_more_warnings=no
-              	fi
+		if test -d $srcdir/.git; then
+			set_more_warnings=yes
+		else
+			set_more_warnings=no
+		fi
         ])
 AC_MSG_CHECKING(for more warnings)
 if test "$GCC" = "yes" -a "$set_more_warnings" != "no"; then
@@ -414,9 +418,9 @@ if test "$enable_debug" = "yes"; then
 else
 	if test "x$enable_debug" = "xno"; then
 		DEBUG_CFLAGS="-DG_DISABLE_ASSERT -DG_DISABLE_CHECKS"
-  	else
-    		DEBUG_CFLAGS=""
-  	fi
+	else
+		DEBUG_CFLAGS=""
+	fi
 fi
 AC_SUBST(DEBUG_CFLAGS)
 
