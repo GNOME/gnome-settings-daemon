@@ -6,7 +6,7 @@ dbus_services_in_files = org.gnome.SettingsDaemon.DateTimeMechanism.service.in
 polkit_in_files = org.gnome.settingsdaemon.datetimemechanism.policy.in
 
 gsd-datetime-mechanism-glue.h: $(srcdir)/gsd-datetime-mechanism.xml
-	$(AM_V_GEN)dbus-binding-tool \
+	$(AM_V_GEN) dbus-binding-tool \
 			--prefix=gsd_datetime_mechanism --mode=glib-server	\
 			--output=gsd-datetime-mechanism-glue.h			\
 			$(srcdir)/gsd-datetime-mechanism.xml

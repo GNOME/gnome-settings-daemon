@@ -35,7 +35,7 @@ plugin_LTLIBRARIES = \
 	libxrandr.la
 
 gsd-xrandr-manager-glue.h: gsd-xrandr-manager.xml Makefile
-	dbus-binding-tool --prefix=gsd_xrandr_manager --mode=glib-server $< > xgen-$(@F) \
+	$(AM_V_GEN) dbus-binding-tool --prefix=gsd_xrandr_manager --mode=glib-server $< > xgen-$(@F) \
 	&& ( cmp -s xgen-$(@F) $@ || cp xgen-$(@F) $@ ) \
 	&& rm -f xgen-$(@F)
 

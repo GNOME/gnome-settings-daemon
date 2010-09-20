@@ -40,10 +40,10 @@ gsd_PROGRAMS = \
 	gnome-settings-daemon
 
 gnome-settings-manager-glue.h: gnome-settings-manager.xml Makefile.am
-	dbus-binding-tool --prefix=gnome_settings_manager --mode=glib-server $< > $@
+	$(AM_V_GEN) dbus-binding-tool --prefix=gnome_settings_manager --mode=glib-server $< > $@
 
 gnome-settings-client.h: gnome-settings-manager.xml Makefile.am
-	dbus-binding-tool --prefix=gnome_settings_manager --mode=glib-client $< > $@
+	$(AM_V_GEN) dbus-binding-tool --prefix=gnome_settings_manager --mode=glib-client $< > $@
 
 BUILT_SOURCES = 			\
 	gnome-settings-manager-glue.h	\

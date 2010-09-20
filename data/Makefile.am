@@ -26,7 +26,7 @@ service_in_files = org.gnome.SettingsDaemon.service.in
 service_DATA = $(service_in_files:.service.in=.service)
 
 org.gnome.SettingsDaemon.service: org.gnome.SettingsDaemon.service.in Makefile
-	@sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gnome-settings-daemon.pc
