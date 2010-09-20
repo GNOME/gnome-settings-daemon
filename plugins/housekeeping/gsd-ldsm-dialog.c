@@ -210,9 +210,6 @@ gsd_ldsm_dialog_init (GsdLdsmDialog *dialog)
         gtk_window_set_focus_on_map (GTK_WINDOW (dialog), FALSE);
         gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
 
-        /* We don't want a separator - they're really ugly */
-        gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
-
         /* Create the image */
         image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_DIALOG);
         gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
