@@ -125,7 +125,7 @@ supports_xinput_devices (void)
 {
         gint op_code, event, error;
 
-        return XQueryExtension (GDK_DISPLAY (),
+        return XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                 "XInputExtension",
                                 &op_code,
                                 &event,
@@ -166,13 +166,13 @@ xkb_enabled (GsdA11yKeyboardManager *manager)
         gboolean have_xkb;
         int opcode, errorBase, major, minor;
 
-        have_xkb = XkbQueryExtension (GDK_DISPLAY (),
+        have_xkb = XkbQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                       &opcode,
                                       &manager->priv->xkbEventBase,
                                       &errorBase,
                                       &major,
                                       &minor)
-                && XkbUseExtension (GDK_DISPLAY (), &major, &minor);
+                && XkbUseExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor);
 
         return have_xkb;
 }
@@ -184,10 +184,10 @@ get_xkb_desc_rec (GsdA11yKeyboardManager *manager)
         Status      status = Success;
 
         gdk_error_trap_push ();
-        desc = XkbGetMap (GDK_DISPLAY (), XkbAllMapComponentsMask, XkbUseCoreKbd);
+        desc = XkbGetMap (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XkbAllMapComponentsMask, XkbUseCoreKbd);
         if (desc != NULL) {
                 desc->ctrls = NULL;
-                status = XkbGetControls (GDK_DISPLAY (), XkbAllControlsMask, desc);
+                status = XkbGetControls (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XkbAllControlsMask, desc);
         }
         gdk_error_trap_pop ();
 
@@ -383,7 +383,7 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
         */
 
         gdk_error_trap_push ();
-        XkbSetControls (GDK_DISPLAY (),
+        XkbSetControls (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                         XkbSlowKeysMask         |
                         XkbBounceKeysMask       |
                         XkbStickyKeysMask       |
@@ -397,7 +397,7 @@ set_server_from_gconf (GsdA11yKeyboardManager *manager,
 
         XkbFreeKeyboard (desc, XkbAllComponentsMask, True);
 
-        XSync (GDK_DISPLAY (), FALSE);
+        XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
         gdk_error_trap_pop ();
 
         gnome_settings_profile_end (NULL);
@@ -1085,7 +1085,7 @@ start_a11y_keyboard_idle_cb (GsdA11yKeyboardManager *manager)
         set_server_from_gconf (manager, client);
         g_object_unref (client);
 
-        XkbSelectEvents (GDK_DISPLAY (),
+        XkbSelectEvents (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                          XkbUseCoreKbd,
                          event_mask,
                          event_mask);
@@ -1120,7 +1120,7 @@ static void
 restore_server_xkb_config (GsdA11yKeyboardManager *manager)
 {
         gdk_error_trap_push ();
-        XkbSetControls (GDK_DISPLAY (),
+        XkbSetControls (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                         XkbSlowKeysMask         |
                         XkbBounceKeysMask       |
                         XkbStickyKeysMask       |
@@ -1135,7 +1135,7 @@ restore_server_xkb_config (GsdA11yKeyboardManager *manager)
         XkbFreeKeyboard (manager->priv->original_xkb_desc,
                          XkbAllComponentsMask, True);
 
-        XSync (GDK_DISPLAY (), FALSE);
+        XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
         gdk_error_trap_pop ();
 
         manager->priv->original_xkb_desc = NULL;
