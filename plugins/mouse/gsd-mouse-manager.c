@@ -318,6 +318,7 @@ set_xinput_devices_left_handed (gboolean left_handed)
 
                 if ((device_info[i].use == IsXPointer) ||
                     (device_info[i].use == IsXKeyboard) ||
+                    (device_info[i].name != NULL && strcmp ("Virtual core XTEST pointer", device_info[i].name) == 0) ||
                     (!xinput_device_has_buttons (&device_info[i])))
                         continue;
 
