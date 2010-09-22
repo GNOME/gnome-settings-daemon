@@ -1,11 +1,11 @@
 AC_PREREQ([2.60])
 
-m4_define([gsd_api_version_major],[2])
+m4_define([gsd_api_version_major],[3])
 m4_define([gsd_api_version_minor],[0])
 m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])
 
 AC_INIT([gnome-settings-daemon],
-        [2.31.5.1],
+        [2.90.1],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
