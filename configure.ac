@@ -3,6 +3,8 @@ AC_PREREQ([2.60])
 m4_define([gsd_api_version_major],[3])
 m4_define([gsd_api_version_minor],[0])
 m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])
+GSD_API_VERSION="gsd_api_version"
+AC_SUBST(GSD_API_VERSION)
 
 AC_INIT([gnome-settings-daemon],
         [2.90.1],

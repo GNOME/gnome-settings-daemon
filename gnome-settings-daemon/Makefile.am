@@ -50,7 +50,7 @@ BUILT_SOURCES = 			\
 	gnome-settings-client.h		\
 	$(NULL)
 
-apidir   = $(includedir)/gnome-settings-daemon-2.0/gnome-settings-daemon
+apidir   = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings-daemon
 api_DATA = 				\
 	gnome-settings-client.h		\
 	gnome-settings-plugin.h
