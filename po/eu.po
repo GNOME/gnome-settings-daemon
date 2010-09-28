@@ -1,4 +1,4 @@
-# translation of eu.po to Basque
+# translation of eu_to_be_translate.po to Basque
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -7,10 +7,10 @@
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: eu\n"
+"Project-Id-Version: eu_to_be_translate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-27 17:56+0100\n"
-"PO-Revision-Date: 2010-03-27 17:56+0100\n"
+"POT-Creation-Date: 2010-09-28 18:39+0200\n"
+"PO-Revision-Date: 2010-09-28 20:18+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "Muntaien bide-izenak ezikusi egiteko"
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown"
+"the percentage free space drops below this, a warning will be shown."
 msgstr ""
 "Leku librearen ehunekoaren atalasea, diskoan leku libre baxua dagoela abisu "
 "emateko. Leku librearen ehunekoa mugaren azpira erortzen bada, abisu bat "
@@ -65,7 +65,7 @@ msgstr ""
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown"
+"warning will be shown."
 msgstr ""
 "Zehaztu kopurua GBtan. Leku librearen kopurua hori baino handiagoa bada, ez "
 "da abisurik erakutsiko."
@@ -73,7 +73,7 @@ msgstr ""
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
-"issuing a subsequent warning"
+"issuing a subsequent warning."
 msgstr ""
 "Diskoaren leku libreak murriztu beharko lukeen ehunekoa zehaztu beharko luke "
 "dagokion geroztiko abisua jaurti aurretik."
@@ -85,7 +85,7 @@ msgstr ""
 "errepikapena"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-msgid "Binding to eject an optical disk."
+msgid "Binding to eject an optical disc."
 msgstr "Lotura disko optikoa egozteko."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
@@ -154,7 +154,8 @@ msgstr "Lotura aurreko pistara saltatzeko."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
 msgid "Binding to start playback (or toggle play/pause)."
-msgstr "Lotura erreprodukzioa hasteko (edo erreproduzitu/pausarazi txandakatzeko)."
+msgstr ""
+"Lotura erreprodukzioa hasteko (edo erreproduzitu/pausarazi txandakatzeko)."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
 msgid "Binding to stop playback."
@@ -245,16 +246,59 @@ msgid "Volume up"
 msgstr "Igo bolumena"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
-msgid ""
-"If a notification icon with display related things should be shown in the "
-"panel."
-msgstr ""
-"Pantailarekin zerikusia duten gauzen jakinarazpeneko ikonoa panelean "
-"bistaratu behar den ala ez."
+msgid "File for default configuration for RandR"
+msgstr "RandR-ren konfigurazio lehenetsiaren fitxategia"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "Show Displays in Notification Area"
 msgstr "Erakutsi pantailak jakinarazpeneko arean"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+msgid ""
+"The XRandR plugin will look for a default configuration in the file "
+"specified by this key. This is similar to the ~/.config/monitors.xml that "
+"normally gets stored in users' home directories. If a user does not have "
+"such a file, or has one that does not match the user's setup of monitors, "
+"then the file specified by this key will be used instead."
+msgstr ""
+"XRandR pluginak konfigurazio lehenetsiaren bila hasiko da gako honetan "
+"zehaztutako fitxategian. Hau erabiltzailearen karpeta nagusian gorde ohi den "
+"~/.config/monitors.xml fitxategiaren antzekoa da. Erabiltzaile batek ez badu "
+"halako fitxategirik, edo dagoena ez badator bat erabiltzailearen pantailen "
+"konfigurazioarekin, gako honetan zehaztutako fitxategia erabiliko da haren "
+"ordez."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
+msgid "Turn on external monitor after system boot"
+msgstr "Aktibatu kanpoko pantaila sistema abiatu ondoren"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+msgid ""
+"Turn on external monitor after system boot if user plugs in external monitor "
+"on system boot."
+msgstr ""
+"Aktibatu kanpoko pantaila sistema abiatu ondoren, erabiltzaileak kanpoko "
+"pantaila sistemara konektatzen badu."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
+msgid "Turn on laptop monitor after system boot"
+msgstr "Aktibatu ordenagailu eramangarriaren pantaila sistema abiatu ondoren"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+msgid ""
+"Turn on laptop monitor after system boot if user plugs in external monitor "
+"on system boot."
+msgstr ""
+"Aktibatu ordenagailu eramangarriaren pantaila sistema abiatu ondoren, "
+"erabiltzaileak kanpoko pantaila sistemara konektatzen badu."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
+msgid ""
+"Whether a notification icon with display-related things should be shown in "
+"the panel."
+msgstr ""
+"Pantailarekin zerikusia duten gauzen jakinarazpeneko ikonoa panelean "
+"bistaratu behar den ala ez."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -348,8 +392,8 @@ msgstr "Hautatu 'touchpad'-aren korritzeko metodoa"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
 msgid ""
-"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
-"edge scrolling, 2 - two-finger scrolling"
+"Select the touchpad scroll method. Supported values are: 0: disabled, 1: "
+"edge scrolling, and 2: two-finger scrolling"
 msgstr ""
 "Hautatu 'touchpad'-aren korritzeko metodoa. Balio erabilgarriak: 0 - "
 "desgaituta, 1 - ertzean korritzea, 2 - bi hatzekin korritzea"
@@ -371,7 +415,8 @@ msgstr ""
 "gakoan hautatutako metodo berdinaren arabera)."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:9
-msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "Ezarri hau TRUE (egia) gisa saguaren klik-ak bidaltzeko touchpad-ean "
 "kolpetxoak ematean."
@@ -406,85 +451,91 @@ msgstr "Lupa aktibatzeko edo desaktibatzeko erabiliko den komandoa."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:6
 msgid "Command used to turn the on-screen keyboard on or off."
-msgstr "Pantailako teklatua aktibatzeko edo desaktibatzeko erabiliko den komandoa."
+msgstr ""
+"Pantailako teklatua aktibatzeko edo desaktibatzeko erabiliko den komandoa."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:7
 msgid "Command used to turn the screen reader on or off."
-msgstr "Pantaila irakurlea aktibatzeko edo desaktibatzeko erabiliko den komandoa."
+msgstr ""
+"Pantaila irakurlea aktibatzeko edo desaktibatzeko erabiliko den komandoa."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:8
+msgid "Enable XRandR plugin"
+msgstr "Gaitu XRandR plugina"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable accessibility keyboard plugin"
 msgstr "Gaitu teklatuaren erabilerraztasunaren plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable background plugin"
 msgstr "Gaitu atzeko planoaren plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable clipboard plugin"
 msgstr "Gaitu arbelaren plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable font plugin"
 msgstr "Gaitu letra-tipoaren plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable housekeeping plugin"
 msgstr "Gaitu garbiketako plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keybindings plugin"
 msgstr "Gaitu laster-teklen plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable keyboard plugin"
 msgstr "Gaitu teklatuaren plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable media keys plugin"
 msgstr "Gaitu multimedia-teklen plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable mouse plugin"
 msgstr "Gaitu saguaren plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:18
+msgid "Enable smartcard plugin"
+msgstr "Gaitu smartcard plugina"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable sound plugin"
 msgstr "Gaitu soinuaren plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable typing breaks plugin"
 msgstr "Gaitu idazketa-etenaren plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Enable xrandr plugin"
-msgstr "Gaitu xrandr plugina"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "Gaitu xrdb plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "Gaitu xsettings plugina"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Mouse keys"
 msgstr "Sagu-teklak"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "On-screen keyboard"
 msgstr "Pantailako teklatua"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen magnifier"
 msgstr "pantailaren lupa"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Screen reader"
 msgstr "Pantaila irakurlea"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -492,47 +543,62 @@ msgstr ""
 "Ezarri TRUE (EGIA) bezala garbiketako plugina gaitzeko (cacheko aldi "
 "baterako fitxategiak murrizteko)."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:28
+msgid "Set to True to enable the plugin to manage XRandR settings."
+msgstr ""
+"Ezarri TRUE (egia) bezala XRandR konfiguratzeko kudeatzailearen plugina "
+"gaitzeko."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "Ezarri TRUE (EGIA) bezala arbela konfiguratzeko kudeatzailearen plugina "
 "gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Ezarri TRUE (EGIA) bezala atzeko planoa konfiguratzeko kudeatzailearen "
 "plugina gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 "Ezarri TRUE (EGIA) bezala letra-tipoak konfiguratzeko kudeatzailearen "
 "plugina gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 "Ezarri TRUE (EGIA) bezala teklatua konfiguratzeko kudeatzailearen plugina "
 "gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:33
+msgid ""
+"Set to True to enable the plugin to manage locking the screen on smartcard "
+"removal."
+msgstr ""
+"Ezarri TRUE (egia) bezala smartcard-a kentzean pantaila blokeatzeko "
+"kudeatzeko plugina gaitzeko."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 "Ezarri TRUE (EGIA) bezala sagua konfiguratzeko kudeatzailearen plugina "
 "gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Ezarri TRUE (EGIA) bezala multimedia-teklak konfiguratzeko kudeatzailearen "
 "plugina gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr "Ezarri TRUE (EGIA) bezala soinuaren lagin-cachea kudeatzeko plugina gaitzeko."
+msgstr ""
+"Ezarri TRUE (EGIA) bezala soinuaren lagin-cachea kudeatzeko plugina gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -540,57 +606,51 @@ msgstr ""
 "Ezarri TRUE (EGIA) bezala teklatuaren erabilerraztasuna konfiguratzeko "
 "kudeatzailearen plugina gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
 "Ezarri TRUE (EGIA) bezala laster-teklak konfiguratzeko kudeatzailearen "
 "plugina gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
 "Ezarri TRUE (EGIA) bezala idazketa-etenaren konfiguratzeko kudeatzailearen "
 "plugina gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
-msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr ""
-"Ezarri TRUE (EGIA) bezala xrand konfiguratzeko kudeatzailearen plugina "
-"gaitzeko."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr ""
 "Ezarri TRUE (EGIA) bezala xrdb konfiguratzeko kudeatzailearen plugina "
 "gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr ""
 "Ezarri TRUE (EGIA) bezala xsettings konfiguratzeko kudeatzailearen plugina "
 "gaitzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "Slow keys"
 msgstr "Tekla geldoak"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "Sticky keys"
 msgstr "Tekla itsaskorrak"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/gnome-settings-daemon.schemas.in.h:44
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "Laster-teklaren izena lupa txandakatzeko"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "Lotura pantailako teklatua txandakatzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "Teklatuko lasterbidearen izena pantaila irakurlea txandakatzeko."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
@@ -598,7 +658,7 @@ msgstr ""
 "Hau teklatuko laster-teklaren izena da lupa txandakatzeko. Izen hau "
 "teklatuko laster-teklen hobespenen elkarrizketa-koadroan erakutsiko da."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
@@ -607,7 +667,7 @@ msgstr ""
 "Izen hau teklatuko laster-teklen hobespenen elkarrizketa-koadroan erakutsiko "
 "da."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid ""
 "This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
@@ -615,53 +675,66 @@ msgstr ""
 "Hau teklatuko lasterbidearen izena da pantaila irakurlea txandakatzeko. Izen "
 "hau teklatuko lasterbideen hobespenen elkarrizketa-koadroan erakutsiko da."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle magnifier"
 msgstr "Txandakatu lupa"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Toggle on-screen keyboard"
 msgstr "Txandakatu pantailako teklatua"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Toggle screen reader"
 msgstr "Txandakatu pantaila irakurlea"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr ""
 "Teklatuaren errebote-teklen erabilerraztasunaren eginbidea aktibatuta dagoen "
 "ala ez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr ""
 "Teklatuaren sagu-teklen erabilerraztasunaren eginbidea aktibatuta dagoen ala "
 "ez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "Pantailako teklatua aktibatuta dagoen ala ez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the screen magnifier is turned on."
 msgstr "Lupa aktibatuta dagoen ala ez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen reader is turned on."
 msgstr "Pantaila irakurlea aktibatuta dagoen ala ez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr ""
 "Teklatuaren tekla-geldoen erabilerraztasunaren eginbidea aktibatuta dagoen "
 "ala ez."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr ""
 "Teklatuaren tekla-itsaskorren erabilerraztasunaren eginbidea aktibatuta "
 "dagoen ala ez."
+
+#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:1
+msgid ""
+"Set this to one of \"none\", \"lock_screen\", or \"force_logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+"Ezarri hauetariko bat: \"none\" (bat ere ez), \"lock_screen\" (blokeatu "
+"pantaila) edo \"force_logout\" (derrigortu saioa amaitzea). Ekintza landu "
+"egingo da saioa hasteko erabili den smartcard txartela kentzean."
+
+#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:2
+msgid "Smartcard removal action"
+msgstr "Smartcard kentzearen ekintza"
 
 #: ../gnome-settings-daemon/main.c:55
 msgid "Enable debugging code"
@@ -676,8 +749,8 @@ msgid "GConf prefix from which to load plugin settings"
 msgstr "GConf-en aurrizkia (bertatik pluginen ezarpenak kargatzeko)"
 
 #: ../gnome-settings-daemon/main.c:58
-msgid "Exit after a time - for debugging"
-msgstr "Irten denbora baten ostean - arazketarako"
+msgid "Exit after a time (for debugging)"
+msgstr "Irten denbora baten ostean (arazketarako)"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -687,23 +760,23 @@ msgstr "Teklatuaren erabilerraztasuna"
 msgid "Accessibility keyboard plugin"
 msgstr "Teklatuaren erabilerraztasunaren plugina"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:460
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Errorea gertatu da laguntza bistaratzean: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:591
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:657
 msgid "Do you want to activate Slow Keys?"
 msgstr "Tekla geldoak aktibatzea nahi duzu?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:592
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Tekla geldoak desaktibatzea nahi duzu?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:659
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -711,62 +784,62 @@ msgstr ""
 "Maius tekla 8 segundoz sakatuta eduki duzu. Tekla motelen eginbidearen "
 "laster-tekla da eta teklatuaren funtzionamenduari eragiten dio."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
 msgid "Don't activate"
 msgstr "Ez aktibatu"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
 msgid "Don't deactivate"
 msgstr "Ez desaktibatu"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Activate"
 msgstr "Aktibatu"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Deactivate"
 msgstr "Desaktibatu"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
 msgid "Do_n't activate"
 msgstr "_Ez aktibatu"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
 msgid "Do_n't deactivate"
 msgstr "E_z desaktibatu"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
 msgid "_Activate"
 msgstr "_Aktibatu"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
 msgid "_Deactivate"
 msgstr "_Desaktibatu"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:687
 msgid "Slow Keys Alert"
 msgstr "Tekla geldoen abisua"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:727
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:795
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Tekla itsaskorrak aktibatzea nahi duzu?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:796
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Tekla itsaskorrak desaktibatzea nahi duzu?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:730
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:798
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -774,8 +847,8 @@ msgstr ""
 "Maius tekla 5 aldiz segidan sakatu duzu. Tekla itsaskorren eginbidearen "
 "laster-tekla da eta teklatuaren funtzionamenduari eragiten dio."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:732
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:800
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -785,7 +858,7 @@ msgstr ""
 "Horrek Tekla itsasgarrien eginbidea desaktibatzen du eta horrek teklatuaren "
 "funtzionamenduari eragiten dio."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:828
 msgid "Sticky Keys Alert"
 msgstr "Tekla itsaskorren abisua"
 
@@ -859,7 +932,7 @@ msgid "Font plugin"
 msgstr "Letra-tipoaren plugina"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-msgid "Don't show any warnings again for this filesystem"
+msgid "Don't show any warnings again for this file system"
 msgstr "Ez erakutsi inolako abisurik berriro fitxategi-sistema honentzako"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
@@ -920,42 +993,42 @@ msgid "Empty Trash"
 msgstr "Hustu zakarrontzia"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
-msgid "Examine..."
+msgid "Examine…"
 msgstr "Aztertu..."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
 msgid "Ignore"
 msgstr "Ezikusi egin"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
 #, c-format
 msgid "Removing item %lu of %lu"
 msgstr "Elementua kentzen: %lu / %lu"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:117
 #, c-format
-msgid "<i>Removing: %s</i>"
-msgstr "<i>Kentzen: %s</i>"
+msgid "Removing: %s"
+msgstr "Kentzen: %s"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:247
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
 msgid "Emptying the trash"
 msgstr "Zakarrontzia husten"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
-msgid "Preparing to empty trash..."
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:272
+msgid "Preparing to empty trash…"
 msgstr "Zakarrontzia hustutzeko prestatzen..."
 
 #. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:299
 msgid "From: "
 msgstr "Hemendik:"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
 msgid "Empty all of the items from the trash?"
 msgstr "Zakarrontziko elementu guztiak betiko ezabatu?"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:363
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
@@ -963,7 +1036,7 @@ msgstr ""
 "Zakarrontzia hustutzen baduzu, elementuak betirako ezabatuko dira. Kontutan "
 "izan bakoitza banaka ezaba daitekela."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:370
 msgid "_Empty Trash"
 msgstr "Hustu _zakarrontzia"
 
@@ -1002,22 +1075,22 @@ msgstr "Teklatua"
 msgid "Keyboard plugin"
 msgstr "Teklatuaren plugina"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:114
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:137
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
 "It can happen under various circumstances:\n"
-"- a bug in libxklavier library\n"
-"- a bug in X server (xkbcomp, xmodmap utilities)\n"
-"- X server with incompatible libxkbfile implementation\n"
+" • a bug in libxklavier library\n"
+" • a bug in X server (xkbcomp, xmodmap utilities)\n"
+" • X server with incompatible libxkbfile implementation\n"
 "\n"
 "X server version data:\n"
 "%s\n"
 "%d\n"
 "%s\n"
 "If you report this situation as a bug, please include:\n"
-"- The result of <b>%s</b>\n"
-"- The result of <b>%s</b>"
+" • The result of <b>%s</b>\n"
+" • The result of <b>%s</b>"
 msgstr ""
 "Errorea XKBren konfigurazioa aktibatzean.\n"
 "Zergatia hauetariko bat izan daiteke:\n"
@@ -1034,11 +1107,11 @@ msgstr ""
 "- Honen emaitza: <b>%s</b>\n"
 "- Honen emaitza:<b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:128
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:151
 msgid ""
 "You are using XFree 4.3.0.\n"
 "There are known problems with complex XKB configurations.\n"
-"Try using a simpler configuration or taking a fresher version of XFree "
+"Try using a simpler configuration or using a later version of the XFree "
 "software."
 msgstr ""
 "XFree 4.3.0 erabiltzen ari zara.\n"
@@ -1046,25 +1119,16 @@ msgstr ""
 "Saiatu zaitez konfigurazio xumeagoa erabiltzen, \n"
 "edo eskuratu XFree softwarearen bertsio berriago bat."
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:200
-msgid "Unknown"
-msgstr "Ezezaguna"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:279
+msgid "_Layouts"
+msgstr "_Diseinuak"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:269
-#, c-format
-msgid "Keyboard Layout \"%s\""
-msgstr "\"%s\" teklatuaren diseinua"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:392
-msgid "_Groups"
-msgstr "_Taldeak"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:399
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:286
 msgid "Keyboard _Preferences"
 msgstr "Teklatuaren _hobespenak"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:405
-msgid "Show Current _Layout"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:292
+msgid "Show _Current Layout"
 msgstr "Erakutsi uneko _diseinua"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:1
@@ -1076,8 +1140,8 @@ msgid "Load modmap files"
 msgstr "Kargatu 'modmap' fitxategiak"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:3
-msgid "Would you like to load the modmap file(s)?"
-msgstr "'modmap' fitxategia(k) kargatzea nahi duzu?"
+msgid "Would you like to load the modmap files?"
+msgstr "'modmap' fitxategiak kargatzea nahi dituzu?"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:4
 msgid "_Do not show this message again"
@@ -1090,10 +1154,6 @@ msgstr "_Kargatu"
 #: ../plugins/keyboard/modmap-dialog.ui.h:6
 msgid "_Loaded files:"
 msgstr "_Kargatutako fitxategiak:"
-
-#: ../plugins/keyboard/show-layout.ui.h:1
-msgid "Keyboard Layout"
-msgstr "Teklatuaren diseinua"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:195
 msgid ""
@@ -1153,7 +1213,8 @@ msgid "Could not enable mouse accessibility features"
 msgstr "Ezin izan da saguaren erabilerraztasunaren eginbideak gaitu"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:884
-msgid "Mouse accessibility requires mousetweaks to be installed on your system."
+msgid ""
+"Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Saguaren erabilerraztasunak 'mousetweaks' sisteman instalatuta egotea "
 "eskatzen du."
@@ -1186,83 +1247,84 @@ msgstr "Konfiguratu pantailaren tamaina eta biraketa"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:222
+#: ../plugins/xrandr/gsd-xrandr-manager.c:371
 msgid "Could not switch the monitor configuration"
 msgstr "Ezin izan da pantailaren konfigurazioa aldatu"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:246
+#: ../plugins/xrandr/gsd-xrandr-manager.c:395
 msgid "Could not restore the display's configuration"
 msgstr "Ezin izan da pantailaren konfigurazioa leheneratu"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:271
+#: ../plugins/xrandr/gsd-xrandr-manager.c:420
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Ezin izan da pantailaren konfigurazioa leheneratu babeskopiatik"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:292
+#: ../plugins/xrandr/gsd-xrandr-manager.c:441
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
-msgid_plural "The display will be reset to its previous configuration in %d seconds"
+msgid_plural ""
+"The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "Pantaila bere aurreko konfiguraziora leheneratuko da segundo %dean"
 msgstr[1] "Pantaila bere aurreko konfiguraziora leheneratuko da %d segundotan"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:341
+#: ../plugins/xrandr/gsd-xrandr-manager.c:490
 msgid "Does the display look OK?"
 msgstr "Pantaila ongi ikusten da?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:347
+#: ../plugins/xrandr/gsd-xrandr-manager.c:496
 msgid "_Restore Previous Configuration"
 msgstr "_Leheneratu aurreko konfigurazioa"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:348
+#: ../plugins/xrandr/gsd-xrandr-manager.c:497
 msgid "_Keep This Configuration"
 msgstr "_Mantendu konfigurazio hau"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:429
+#: ../plugins/xrandr/gsd-xrandr-manager.c:578
 msgid "The selected configuration for displays could not be applied"
 msgstr "Hautatutako pantailen konfigurazioa ezin izan da aplikatu"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:967
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1142
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Ezin izan da pantailaren informazioa freskatu: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1146
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Hala ere, pantailaren konfigurazioa aldatzen saiatzen."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1679
-msgid "<i>Rotation not supported</i>"
-msgstr "<i>Biraketa ez dago onartuta</i>"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1877
+msgid "Rotation not supported"
+msgstr "Biraketa ez dago onartuta"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1733
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1933
 msgid "Could not save monitor configuration"
 msgstr "Ezin izan da pantailaren konfigurazioa gorde"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1751
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1951
 msgid "Normal"
 msgstr "Normala"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1752
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
 msgid "Left"
 msgstr "Ezkerrean"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1753
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
 msgid "Right"
 msgstr "Eskuinean"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1754
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
 msgid "Upside Down"
 msgstr "Buruz behera"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1874
-msgid "_Configure Display Settings ..."
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2074
+msgid "_Configure Display Settings…"
 msgstr "_Konfiguratu pantailaren ezarpenak..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1915
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2115
 msgid "Configure display settings"
 msgstr "Konfiguratu pantailaren ezarpenak"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1972
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2175
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Ezin izan da pantailen gordetako konfigurazioa aplikatu"
 
@@ -1292,3 +1354,104 @@ msgstr "Kudeatu Xen ezarpenak"
 msgid "X Settings"
 msgstr "Xen ezarpenak"
 
+#: ../plugins/smartcard/gsd-smartcard-manager.c:167
+msgid "Module Path"
+msgstr "Moduluaren bide-izena"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:168
+msgid "path to smartcard PKCS #11 driver"
+msgstr "smartcard PKCS #11 kontrolatzailearen bide-izena"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:504
+msgid "received error or hang up from event source"
+msgstr "errorea edo esekitzearen seinalea jaso da gertaeraren iturburutik"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:593
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr "Ezin izan da NSS segurtasun-sistema hasieratu"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr "ezin izan da smartcard-en kontrolatzaile egokirik aurkitu"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:682
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr "ezin izan da smartcard-en '%s' kontrolatzailea kargatu"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:771
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr "ezin izan da sarrerako txartelaren gertaerak behatu - %s"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1124
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr "ustekabeko errorea aurkitu da smartcard-aren gertaeren zain egotean"
+
+#: ../plugins/smartcard/gsd-smartcard.c:154
+msgid "Slot ID"
+msgstr "Erretenaren IDa"
+
+#: ../plugins/smartcard/gsd-smartcard.c:155
+msgid "The slot the card is in"
+msgstr "Txartela kokatuta dagoen erretena"
+
+#: ../plugins/smartcard/gsd-smartcard.c:161
+msgid "Slot Series"
+msgstr "Erretenaren serieak"
+
+#: ../plugins/smartcard/gsd-smartcard.c:162
+msgid "per-slot card identifier"
+msgstr "erreteneko txartelaren identifikatzailea"
+
+#: ../plugins/smartcard/gsd-smartcard.c:168
+#: ../plugins/smartcard/gsd-smartcard.c:169
+msgid "name"
+msgstr "izena"
+
+#: ../plugins/smartcard/gsd-smartcard.c:173
+msgid "Module"
+msgstr "Modulua"
+
+#: ../plugins/smartcard/gsd-smartcard.c:174
+msgid "smartcard driver"
+msgstr "smartcard-aren kontrolatzailea"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
+msgid "Change system time"
+msgstr "Aldatu sistemaren ordua"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
+msgid "Change system time zone"
+msgstr "Aldatu sistemaren ordu-zona"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
+msgid "Configure hardware clock"
+msgstr "Konfiguratu hardwarearen ordularia"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
+msgid "Privileges are required to change the system time zone."
+msgstr "Pribilegioak beharrezkoak dira sistemaren ordu-zona aldatzeko."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
+msgid "Privileges are required to change the system time."
+msgstr "Pribilegioak beharrezkoak dira sistemaren ordua aldatzeko."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
+msgid "Privileges are required to configure the hardware clock."
+msgstr "Pribilegioak beharrezkoak dira hardwarearen ordularia konfiguratzeko."
+
+#~ msgid "Unknown"
+#~ msgstr "Ezezaguna"
+
+#~ msgid "Keyboard Layout \"%s\""
+#~ msgstr "\"%s\" teklatuaren diseinua"
+
+#~ msgid "_Groups"
+#~ msgstr "_Taldeak"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "Teklatuaren diseinua"
