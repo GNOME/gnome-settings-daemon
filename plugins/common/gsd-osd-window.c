@@ -378,9 +378,7 @@ gsd_osd_window_real_hide (GtkWidget *widget)
 static void
 gsd_osd_window_real_realize (GtkWidget *widget)
 {
-        GtkAllocation allocation;
-        GdkBitmap *mask;
-        cairo_t *cr;
+        cairo_region_t *region;
         GdkScreen *screen;
         GdkVisual *visual;
 
@@ -396,21 +394,10 @@ gsd_osd_window_real_realize (GtkWidget *widget)
                 GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->realize (widget);
         }
 
-        gtk_widget_get_allocation (widget, &allocation);
-        mask = gdk_pixmap_new (gtk_widget_get_window (widget),
-                               allocation.width,
-                               allocation.height,
-                               1);
-        cr = gdk_cairo_create (mask);
-
-        cairo_set_source_rgba (cr, 1., 1., 1., 0.);
-        cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
-        cairo_paint (cr);
-
         /* make the whole window ignore events */
-        gdk_window_input_shape_combine_mask (gtk_widget_get_window (widget), mask, 0, 0);
-        g_object_unref (mask);
-        cairo_destroy (cr);
+        region = cairo_region_create ();
+        gtk_widget_input_shape_combine_region (widget, region);
+        cairo_region_destroy (region);
 }
 
 static void

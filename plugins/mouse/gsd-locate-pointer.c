@@ -61,7 +61,9 @@ locate_pointer_paint (GsdLocatePointerData *data,
   GtkStyle *style;
 
   progress = data->progress;
-  gdk_drawable_get_size (data->window, &width, &height);
+
+  width = gdk_window_get_width (data->window);
+  height = gdk_window_get_height (data->window);
   style = gtk_widget_get_style (data->widget);
   color = style->bg[GTK_STATE_SELECTED];
 
@@ -141,14 +143,20 @@ static void
 update_shape (GsdLocatePointerData *data)
 {
   cairo_t *cr;
-  GdkBitmap *mask;
+  cairo_region_t *region;
+  cairo_surface_t *mask;
 
-  mask = gdk_pixmap_new (data->window, WINDOW_SIZE, WINDOW_SIZE, 1);
-  cr = gdk_cairo_create (mask);
+  mask = cairo_image_surface_create (CAIRO_FORMAT_A1, WINDOW_SIZE, WINDOW_SIZE);
+  cr = cairo_create (mask);
+
+  region = gdk_cairo_region_create_from_surface (mask);
+
   locate_pointer_paint (data, cr, FALSE);
-  gdk_window_shape_combine_mask (data->window, mask, 0, 0);
-  g_object_unref (mask);
+  gdk_window_shape_combine_region (data->window, region, 0, 0);
+
+  cairo_region_destroy (region);
   cairo_destroy (cr);
+  cairo_surface_destroy (mask);
 }
 
 static void
@@ -173,7 +181,7 @@ timeline_frame_cb (GsdTimeline *timeline,
       data->progress += CIRCLES_PROGRESS_INTERVAL;
     }
 
-  screen = gdk_drawable_get_screen (data->window);
+  screen = gdk_window_get_screen (data->window);
   gdk_window_get_pointer (gdk_screen_get_root_window (screen),
 			  &cursor_x, &cursor_y, NULL);
   gdk_window_move (data->window,
@@ -184,25 +192,23 @@ timeline_frame_cb (GsdTimeline *timeline,
 static void
 set_transparent_shape (GdkWindow *window)
 {
-  GdkBitmap *mask;
-  cairo_t *cr;
+  cairo_rectangle_int_t rect;
+  cairo_region_t *region;
 
-  mask = gdk_pixmap_new (data->window, WINDOW_SIZE, WINDOW_SIZE, 1);
-  cr = gdk_cairo_create (mask);
+  rect.width = WINDOW_SIZE;
+  rect.height = WINDOW_SIZE;
+  rect.x = 0;
+  rect.y = 0;
+  region = cairo_region_create_rectangle (&rect);
 
-  cairo_set_source_rgba (cr, 1., 1., 1., 0.);
-  cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
-  cairo_paint (cr);
-
-  gdk_window_shape_combine_mask (data->window, mask, 0, 0);
-  g_object_unref (mask);
-  cairo_destroy (cr);
+  gdk_window_input_shape_combine_region (data->window, region, 0, 0);
+  cairo_region_destroy (region);
 }
 
 static void
 unset_transparent_shape (GdkWindow *window)
 {
-  gdk_window_shape_combine_mask (data->window, NULL, 0, 0);
+  gdk_window_shape_combine_region (data->window, NULL, 0, 0);
 }
 
 static void
@@ -293,8 +299,6 @@ move_locate_pointer_window (GsdLocatePointerData *data,
 			    GdkScreen            *screen)
 {
   gint cursor_x, cursor_y;
-  GdkBitmap *mask;
-  cairo_t *cr;
 
   gdk_window_get_pointer (gdk_screen_get_root_window (screen), &cursor_x, &cursor_y, NULL);
 
@@ -303,19 +307,8 @@ move_locate_pointer_window (GsdLocatePointerData *data,
                           cursor_y - WINDOW_SIZE / 2,
                           WINDOW_SIZE, WINDOW_SIZE);
 
-  mask = gdk_pixmap_new (data->window, WINDOW_SIZE, WINDOW_SIZE, 1);
-
-
-  cr = gdk_cairo_create (mask);
-  cairo_set_source_rgb (cr, 0., 0., 0.);
-  cairo_rectangle (cr, 0., 0., WINDOW_SIZE, WINDOW_SIZE);
-  cairo_fill (cr);
-  cairo_destroy (cr);
-
   /* allow events to happen through the window */
-  gdk_window_input_shape_combine_mask (data->window, mask, 0, 0);
-
-  g_object_unref (mask);
+  gdk_window_input_shape_combine_region (data->window, NULL, 0, 0);
 }
 
 void
@@ -328,7 +321,7 @@ gsd_locate_pointer (GdkScreen *screen)
   gsd_timeline_rewind (data->timeline);
 
   /* Create again the window if it is not for the current screen */
-  if (gdk_screen_get_number (screen) != gdk_screen_get_number (gdk_drawable_get_screen (data->window)))
+  if (gdk_screen_get_number (screen) != gdk_screen_get_number (gdk_window_get_screen (data->window)))
     {
       gdk_window_set_user_data (data->window, NULL);
       gdk_window_destroy (data->window);
