@@ -232,23 +232,23 @@ static void
 create_window (GsdLocatePointerData *data,
 	       GdkScreen            *screen)
 {
-  GdkColormap *colormap;
   GdkVisual *visual;
   GdkWindowAttr attributes;
   gint attributes_mask;
 
-  colormap = gdk_screen_get_rgba_colormap (screen);
   visual = gdk_screen_get_rgba_visual (screen);
+
+  if (visual == NULL)
+    visual = gdk_screen_get_system_visual (screen);
 
   attributes_mask = GDK_WA_X | GDK_WA_Y;
 
-  if (colormap)
-    attributes_mask = attributes_mask | GDK_WA_VISUAL | GDK_WA_COLORMAP;
+  if (visual != NULL)
+    attributes_mask = attributes_mask | GDK_WA_VISUAL;
 
   attributes.window_type = GDK_WINDOW_TEMP;
   attributes.wclass = GDK_INPUT_OUTPUT;
   attributes.visual = visual;
-  attributes.colormap = colormap;
   attributes.event_mask = GDK_VISIBILITY_NOTIFY_MASK | GDK_EXPOSURE_MASK;
   attributes.width = 1;
   attributes.height = 1;

@@ -378,16 +378,19 @@ gsd_osd_window_real_hide (GtkWidget *widget)
 static void
 gsd_osd_window_real_realize (GtkWidget *widget)
 {
-        GdkColormap *colormap;
         GtkAllocation allocation;
         GdkBitmap *mask;
         cairo_t *cr;
+        GdkScreen *screen;
+        GdkVisual *visual;
 
-        colormap = gdk_screen_get_rgba_colormap (gtk_widget_get_screen (widget));
-
-        if (colormap != NULL) {
-                gtk_widget_set_colormap (widget, colormap);
+        screen = gtk_widget_get_screen (widget);
+        visual = gdk_screen_get_rgba_visual (screen);
+        if (visual == NULL) {
+                visual = gdk_screen_get_system_visual (screen);
         }
+
+        gtk_widget_set_visual (widget, visual);
 
         if (GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->realize) {
                 GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->realize (widget);
