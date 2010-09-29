@@ -318,7 +318,7 @@ trash_empty_confirmation_response (GtkDialog *dialog,
         if (response_id == GTK_RESPONSE_YES)
                 trash_empty_start ();
 
-        gtk_object_destroy (GTK_OBJECT (dialog));
+        gtk_widget_destroy (GTK_WIDGET (dialog));
         trash_empty_confirm_dialog = NULL;
 }
 

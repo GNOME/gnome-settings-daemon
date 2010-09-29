@@ -209,7 +209,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
         g_object_ref (G_OBJECT (dialog));
         response = gtk_dialog_run (GTK_DIALOG (dialog));
 
-        gtk_object_destroy (GTK_OBJECT (dialog));
+        gtk_widget_destroy (GTK_WIDGET (dialog));
         dialog = NULL;
 
         switch (response) {
