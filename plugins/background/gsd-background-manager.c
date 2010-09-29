@@ -180,29 +180,29 @@ draw_background (GsdBackgroundManager *manager,
         for (i = 0; i < n_screens; ++i) {
                 GdkScreen *screen;
                 GdkWindow *root_window;
-                GdkPixmap *pixmap;
+                cairo_surface_t *surface;
 
                 screen = gdk_display_get_screen (display, i);
 
                 root_window = gdk_screen_get_root_window (screen);
 
-                pixmap = gnome_bg_create_pixmap (manager->priv->bg,
-                                                 root_window,
-                                                 gdk_screen_get_width (screen),
-                                                 gdk_screen_get_height (screen),
-                                                 TRUE);
+                surface = gnome_bg_create_surface (manager->priv->bg,
+                                                   root_window,
+                                                   gdk_screen_get_width (screen),
+                                                   gdk_screen_get_height (screen),
+                                                   TRUE);
 
                 if (use_crossfade) {
                         GnomeBGCrossfade *fade;
 
-                        fade = gnome_bg_set_pixmap_as_root_with_crossfade (screen, pixmap);
+                        fade = gnome_bg_set_surface_as_root_with_crossfade (screen, surface);
                         g_signal_connect (fade, "finished",
                                           G_CALLBACK (g_object_unref), NULL);
                 } else {
-                        gnome_bg_set_pixmap_as_root (screen, pixmap);
+                        gnome_bg_set_surface_as_root (screen, surface);
                 }
 
-                g_object_unref (pixmap);
+                cairo_surface_destroy (surface);
         }
 
         gnome_settings_profile_end (NULL);
