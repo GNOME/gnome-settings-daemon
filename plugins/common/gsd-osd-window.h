@@ -68,7 +68,7 @@ struct GsdOsdWindow {
 struct GsdOsdWindowClass {
         GtkWindowClass parent_class;
 
-        void (* expose_when_composited) (GsdOsdWindow *window, cairo_t *cr);
+        void (* draw_when_composited) (GsdOsdWindow *window, cairo_t *cr);
 };
 
 GType                 gsd_osd_window_get_type          (void);

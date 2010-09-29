@@ -645,8 +645,8 @@ draw_action_custom (GsdMediaKeysWindow *window,
 }
 
 static void
-gsd_media_keys_window_expose_when_composited (GsdOsdWindow *osd_window,
-                                              cairo_t      *cr)
+gsd_media_keys_window_draw_when_composited (GsdOsdWindow *osd_window,
+                                            cairo_t      *cr)
 {
         GsdMediaKeysWindow *window = GSD_MEDIA_KEYS_WINDOW (osd_window);
 
@@ -667,7 +667,7 @@ gsd_media_keys_window_class_init (GsdMediaKeysWindowClass *klass)
 {
         GsdOsdWindowClass *osd_window_class = GSD_OSD_WINDOW_CLASS (klass);
 
-        osd_window_class->expose_when_composited = gsd_media_keys_window_expose_when_composited;
+        osd_window_class->draw_when_composited = gsd_media_keys_window_draw_when_composited;
 
         g_type_class_add_private (klass, sizeof (GsdMediaKeysWindowPrivate));
 }

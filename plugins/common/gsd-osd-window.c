@@ -55,7 +55,7 @@ struct GsdOsdWindowPrivate
 };
 
 enum {
-        EXPOSE_WHEN_COMPOSITED,
+        DRAW_WHEN_COMPOSITED,
         LAST_SIGNAL
 };
 
@@ -221,15 +221,14 @@ gsd_osd_window_color_reverse (const GdkColor *a,
         b->blue = blue * 65535.0;
 }
 
-/* This is our expose-event handler when the window is in a compositing manager.
+/* This is our draw handler when the window is in a compositing manager.
  * We draw everything by hand, using Cairo, so that we can have a nice
  * transparent/rounded look.
  */
 static void
-expose_when_composited (GtkWidget *widget, GdkEventExpose *event)
+draw_when_composited (GtkWidget *widget, cairo_t *context)
 {
-	GsdOsdWindow    *window;
-        cairo_t         *context;
+        GsdOsdWindow    *window;
         cairo_t         *cr;
         cairo_surface_t *surface;
         int              width;
@@ -238,9 +237,7 @@ expose_when_composited (GtkWidget *widget, GdkEventExpose *event)
         GdkColor         color;
         double           r, g, b;
 
-	window = GSD_OSD_WINDOW (widget);
-
-        context = gdk_cairo_create (gtk_widget_get_window (widget));
+        window = GSD_OSD_WINDOW (widget);
 
         style = gtk_widget_get_style (widget);
         cairo_set_operator (context, CAIRO_OPERATOR_SOURCE);
@@ -280,7 +277,7 @@ expose_when_composited (GtkWidget *widget, GdkEventExpose *event)
         cairo_set_line_width (cr, 1);
         cairo_stroke (cr);
 
-        g_signal_emit (window, signals[EXPOSE_WHEN_COMPOSITED], 0, cr);
+        g_signal_emit (window, signals[DRAW_WHEN_COMPOSITED], 0, cr);
 
         cairo_destroy (cr);
 
@@ -299,52 +296,53 @@ expose_when_composited (GtkWidget *widget, GdkEventExpose *event)
         cairo_destroy (context);
 }
 
-/* This is our expose-event handler when the window is *not* in a compositing manager.
+/* This is our draw handler when the window is *not* in a compositing manager.
  * We just draw a rectangular frame by hand.  We do this with hardcoded drawing code,
  * instead of GtkFrame, to avoid changing the window's internal widget hierarchy:  in
  * either case (composited or non-composited), callers can assume that this works
  * identically to a GtkWindow without any intermediate widgetry.
  */
 static void
-expose_when_not_composited (GtkWidget *widget, GdkEventExpose *event)
+draw_when_not_composited (GtkWidget *widget, cairo_t *cr)
 {
-	GsdOsdWindow *window;
-	GtkAllocation allocation;
+        GsdOsdWindow *window;
+        int width;
+        int height;
 
-	window = GSD_OSD_WINDOW (widget);
+        window = GSD_OSD_WINDOW (widget);
 
-	gtk_widget_get_allocation (widget, &allocation);
+        width = gtk_widget_get_allocated_width (widget);
+        height = gtk_widget_get_allocated_width (widget);
 
-	gtk_paint_shadow (gtk_widget_get_style (widget),
-			  gtk_widget_get_window (widget),
-			  gtk_widget_get_state (widget),
-			  GTK_SHADOW_OUT,
-			  &event->area,
-			  widget,
-			  NULL, /* NULL detail -> themes should use the GsdOsdWindow widget name, probably */
-			  0,
-			  0,
-			  allocation.width,
-			  allocation.height);
+        gtk_paint_shadow (gtk_widget_get_style (widget),
+                          cr,
+                          gtk_widget_get_state (widget),
+                          GTK_SHADOW_OUT,
+                          widget,
+                          NULL, /* NULL detail -> themes should use the GsdOsdWindow widget name, probably */
+                          0,
+                          0,
+                          width,
+                          height);
 }
 
 static gboolean
-gsd_osd_window_expose_event (GtkWidget          *widget,
-			     GdkEventExpose     *event)
+gsd_osd_window_draw (GtkWidget *widget,
+                     cairo_t   *cr)
 {
-	GsdOsdWindow *window;
-	GtkWidget *child;
+        GsdOsdWindow *window;
+        GtkWidget *child;
 
-	window = GSD_OSD_WINDOW (widget);
+        window = GSD_OSD_WINDOW (widget);
 
-	if (window->priv->is_composited)
-		expose_when_composited (widget, event);
-	else
-		expose_when_not_composited (widget, event);
+        if (window->priv->is_composited)
+                draw_when_composited (widget, cr);
+        else
+                draw_when_not_composited (widget, cr);
 
-	child = gtk_bin_get_child (GTK_BIN (window));
-	if (child)
-		gtk_container_propagate_expose (GTK_CONTAINER (window), child, event);
+        child = gtk_bin_get_child (GTK_BIN (window));
+        if (child)
+                gtk_container_propagate_draw (GTK_CONTAINER (window), child, cr);
 
         return FALSE;
 }
@@ -420,7 +418,7 @@ gsd_osd_window_style_set (GtkWidget *widget,
         GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->style_set (widget, previous_style);
 
         /* We set our border width to 12 (per the GNOME standard), plus the
-         * thickness of the frame that we draw in our expose handler.  This will
+         * thickness of the frame that we draw in our draw handler.  This will
          * make our child be 12 pixels away from the frame.
          */
 
@@ -477,16 +475,16 @@ gsd_osd_window_class_init (GsdOsdWindowClass *klass)
         widget_class->realize = gsd_osd_window_real_realize;
         widget_class->style_set = gsd_osd_window_style_set;
         widget_class->size_request = gsd_osd_window_size_request;
-	widget_class->expose_event = gsd_osd_window_expose_event;
+        widget_class->draw = gsd_osd_window_draw;
 
-        signals[EXPOSE_WHEN_COMPOSITED] = g_signal_new ("expose-when-composited",
-                                                        G_TYPE_FROM_CLASS (gobject_class),
-                                                        G_SIGNAL_RUN_FIRST,
-                                                        G_STRUCT_OFFSET (GsdOsdWindowClass, expose_when_composited),
-                                                        NULL, NULL,
-                                                        g_cclosure_marshal_VOID__POINTER,
-                                                        G_TYPE_NONE, 1,
-                                                        G_TYPE_POINTER);
+        signals[DRAW_WHEN_COMPOSITED] = g_signal_new ("draw-when-composited",
+                                                      G_TYPE_FROM_CLASS (gobject_class),
+                                                      G_SIGNAL_RUN_FIRST,
+                                                      G_STRUCT_OFFSET (GsdOsdWindowClass, draw_when_composited),
+                                                      NULL, NULL,
+                                                      g_cclosure_marshal_VOID__POINTER,
+                                                      G_TYPE_NONE, 1,
+                                                      G_TYPE_POINTER);
 
         g_type_class_add_private (klass, sizeof (GsdOsdWindowPrivate));
 }
@@ -545,7 +543,7 @@ gsd_osd_window_init (GsdOsdWindow *window)
 
                 window->priv->fade_out_alpha = 1.0;
         } else {
-		gtk_container_set_border_width (GTK_CONTAINER (window), 12);
+                gtk_container_set_border_width (GTK_CONTAINER (window), 12);
         }
 }
 
