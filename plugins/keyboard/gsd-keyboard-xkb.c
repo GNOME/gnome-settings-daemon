@@ -234,7 +234,7 @@ popup_menu_show_layout ()
 	    gkbd_keyboard_drawing_new_dialog (xkl_state->group,
 					      group_names
 					      [xkl_state->group]);
-	g_signal_connect (GTK_OBJECT (dialog), "destroy",
+	g_signal_connect (dialog, "destroy",
 			  G_CALLBACK (show_layout_destroy),
 			  GINT_TO_POINTER (xkl_state->group));
 	g_hash_table_insert (preview_dialogs,
