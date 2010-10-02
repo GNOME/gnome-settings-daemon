@@ -294,7 +294,6 @@ draw_when_composited (GtkWidget *widget, cairo_t *context)
         if (surface != NULL) {
                 cairo_surface_destroy (surface);
         }
-        cairo_destroy (context);
 }
 
 /* This is our draw handler when the window is *not* in a compositing manager.
