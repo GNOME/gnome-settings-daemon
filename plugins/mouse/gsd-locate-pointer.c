@@ -192,15 +192,9 @@ timeline_frame_cb (GsdTimeline *timeline,
 static void
 set_transparent_shape (GdkWindow *window)
 {
-  cairo_rectangle_int_t rect;
   cairo_region_t *region;
 
-  rect.width = WINDOW_SIZE;
-  rect.height = WINDOW_SIZE;
-  rect.x = 0;
-  rect.y = 0;
-  region = cairo_region_create_rectangle (&rect);
-
+  region = cairo_region_create ();
   gdk_window_input_shape_combine_region (data->window, region, 0, 0);
   cairo_region_destroy (region);
 }
