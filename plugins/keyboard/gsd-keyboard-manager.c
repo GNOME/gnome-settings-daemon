@@ -395,7 +395,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         /* Essential - xkb initialization should happen before */
         gsd_keyboard_xkb_set_post_activation_callback ((PostActivationCallback) gsd_load_modmap_files, NULL);
-        gsd_keyboard_xkb_init (client, manager);
+        gsd_keyboard_xkb_init (manager);
 
 #ifdef HAVE_X11_EXTENSIONS_XKB_H
         numlock_xkb_init (manager);

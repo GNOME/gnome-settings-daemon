@@ -29,7 +29,6 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
 
 #include <libgnomekbd/gkbd-status.h>
 #include <libgnomekbd/gkbd-keyboard-drawing.h>
@@ -57,8 +56,8 @@ static GkbdKeyboardConfig initial_sys_kbd_config;
 
 static gboolean inited_ok = FALSE;
 
-static guint notify_desktop = 0;
-static guint notify_keyboard = 0;
+static GSettings *settings_desktop = NULL;
+static GSettings *settings_keyboard = NULL;
 
 static PostActivationCallback pa_callback = NULL;
 static void *pa_callback_user_data = NULL;
@@ -116,8 +115,12 @@ gsd_keyboard_log_appender (const char file[],
 static void
 activation_error (void)
 {
-	char const *vendor = ServerVendor (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
-	int release = VendorRelease (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
+	char const *vendor =
+	    ServerVendor (GDK_DISPLAY_XDISPLAY
+			  (gdk_display_get_default ()));
+	int release =
+	    VendorRelease (GDK_DISPLAY_XDISPLAY
+			   (gdk_display_get_default ()));
 	GtkWidget *dialog;
 	gboolean badXFree430Release;
 
@@ -169,7 +172,7 @@ apply_desktop_settings (void)
 		return;
 
 	gsd_keyboard_manager_apply_settings (manager);
-	gkbd_desktop_config_load_from_gconf (&current_config);
+	gkbd_desktop_config_load (&current_config);
 	/* again, probably it would be nice to compare things
 	   before activating them */
 	gkbd_desktop_config_activate (&current_config);
@@ -212,7 +215,9 @@ static void
 popup_menu_show_layout ()
 {
 	GtkWidget *dialog;
-	XklEngine *engine = xkl_engine_get_instance (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
+	XklEngine *engine =
+	    xkl_engine_get_instance (GDK_DISPLAY_XDISPLAY
+				     (gdk_display_get_default ()));
 	XklState *xkl_state = xkl_engine_get_current_state (engine);
 	gpointer p = g_hash_table_lookup (preview_dialogs,
 					  GINT_TO_POINTER
@@ -332,7 +337,7 @@ status_icon_popup_menu_cb (GtkStatusIcon * icon, guint button, guint time)
 static void
 show_hide_icon ()
 {
-	if (g_slist_length (current_kbd_config.layouts_variants) > 1) {
+	if (g_strv_length (current_kbd_config.layouts_variants) > 1) {
 		if (icon == NULL) {
 			GConfClient *conf_client =
 			    gconf_client_get_default ();
@@ -387,8 +392,7 @@ filter_xkb_config (void)
 	XklConfigItem *item;
 	gchar *lname;
 	gchar *vname;
-	GSList *lv;
-	GSList *filtered;
+	gchar **lv;
 	gboolean any_change = FALSE;
 
 	xkl_debug (100, "Filtering configuration against the registry\n");
@@ -404,23 +408,19 @@ filter_xkb_config (void)
 	}
 	lv = current_kbd_config.layouts_variants;
 	item = xkl_config_item_new ();
-	while (lv) {
-		xkl_debug (100, "Checking [%s]\n", lv->data);
-		if (gkbd_keyboard_config_split_items
-		    (lv->data, &lname, &vname)) {
+	while (*lv) {
+		xkl_debug (100, "Checking [%s]\n", *lv);
+		if (gkbd_keyboard_config_split_items (*lv, &lname, &vname)) {
 			g_snprintf (item->name, sizeof (item->name), "%s",
 				    lname);
 			if (!xkl_config_registry_find_layout
 			    (xkl_registry, item)) {
 				xkl_debug (100, "Bad layout [%s]\n",
 					   lname);
-				filtered = lv;
-				lv = lv->next;
-				g_free (filtered->data);
-				current_kbd_config.layouts_variants =
-				    g_slist_delete_link
-				    (current_kbd_config.layouts_variants,
-				     filtered);
+				g_free (*lv);
+				memmove (lv, lv + 1,
+					 g_strv_length (lv) *
+					 sizeof (gchar *));
 				any_change = TRUE;
 				continue;
 			}
@@ -433,20 +433,16 @@ filter_xkb_config (void)
 					xkl_debug (100,
 						   "Bad variant [%s(%s)]\n",
 						   lname, vname);
-					filtered = lv;
-					lv = lv->next;
-					g_free (filtered->data);
-					current_kbd_config.layouts_variants
-					    =
-					    g_slist_delete_link
-					    (current_kbd_config.layouts_variants,
-					     filtered);
+					g_free (*lv);
+					memmove (lv, lv + 1,
+						 g_strv_length (lv) *
+						 sizeof (gchar *));
 					any_change = TRUE;
 					continue;
 				}
 			}
 		}
-		lv = lv->next;
+		lv++;
 	}
 	g_object_unref (item);
 	return any_change;
@@ -484,32 +480,35 @@ apply_xkb_settings (void)
 	}
 
 	if (gdm_layout != NULL) {
-		GSList *layouts;
-		GSList *found_node;
+		gchar **layouts;
+		gboolean found_node;
 		int max_groups;
+		gchar **i;
 
 		max_groups =
 		    MAX (xkl_engine_get_max_num_groups (xkl_engine), 1);
 		layouts =
-		    gconf_client_get_list (conf_client,
-					   GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
-					   GCONF_VALUE_STRING, NULL);
+		    g_settings_get_strv (settings_keyboard,
+					 GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS);
 
 		/* Use system layouts as a default if we do not have
 		 * user configuration */
 		if (layouts == NULL) {
-			GSList *i;
 			int len;
 
-			for (i = initial_sys_kbd_config.layouts_variants;
-			     i; i = g_slist_next (i)) {
-				s = g_strdup (i->data);
+			i = layouts =
+			    g_strdupv (initial_sys_kbd_config.
+				       layouts_variants);
+			if (i != NULL) {
+				while (*i != NULL) {
+					s = *i;
 
-				/* chop off empty variants to avoid duplicates */
-				len = strlen (s);
-				if (s[len - 1] == '\t')
-					s[len - 1] = '\0';
-				layouts = g_slist_append (layouts, s);
+					/* chop off empty variants to avoid duplicates */
+					len = strlen (s);
+					if (s[len - 1] == '\t')
+						s[len - 1] = '\0';
+					i++;
+				}
 			}
 		}
 
@@ -519,45 +518,48 @@ apply_xkb_settings (void)
 		 * prevents the list from becoming full if the user has a habit
 		 * of selecting many different keyboard layouts in GDM. */
 
-		found_node =
-		    g_slist_find_custom (layouts, gdm_layout,
-					 (GCompareFunc) g_strcmp0);
+		found_node = FALSE;
+		i = layouts;
+		if (i != NULL) {
+			while (*i != NULL) {
+				if (!g_strcmp0 (*i, gdm_layout)) {
+					found_node = TRUE;
+					break;
+				}
+				i++;
+			}
+		}
 
 		if (!found_node) {
 			/* Insert at the last valid place, or at the end of
 			 * list, whichever comes first */
-			layouts =
-			    g_slist_insert (layouts, g_strdup (gdm_layout),
-					    max_groups - 1);
-			if (g_slist_length (layouts) > max_groups) {
-				GSList *last;
-				GSList *free_layouts;
-
-				last =
-				    g_slist_nth (layouts, max_groups - 1);
-				free_layouts = last->next;
-				last->next = NULL;
-
-				g_slist_foreach (free_layouts,
-						 (GFunc) g_free, NULL);
-				g_slist_free (free_layouts);
+			gint old_length = g_strv_length (layouts);
+			if (old_length >= max_groups) {
+				layouts[max_groups - 1] =
+				    g_strdup (gdm_layout);
+			} else {
+				gchar **nl =
+				    g_new0 (gchar *, old_length + 2);
+				memcpy (nl, layouts,
+					old_length * sizeof (gchar *));
+				nl[old_length] = g_strdup (gdm_layout);
+				g_free (layouts);
+				layouts = nl;
 			}
 
-			gconf_client_set_list (conf_client,
-					       GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
-					       GCONF_VALUE_STRING, layouts,
-					       NULL);
+			g_settings_set_strv (settings_keyboard,
+					     GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
+					     (const gchar *
+					      const *) layouts);
 		}
 
-		g_slist_foreach (layouts, (GFunc) g_free, NULL);
-		g_slist_free (layouts);
+		g_strfreev (layouts);
 	}
 
-	gkbd_keyboard_config_init (&current_sys_kbd_config,
-				   conf_client, xkl_engine);
+	gkbd_keyboard_config_init (&current_sys_kbd_config, xkl_engine);
 
-	gkbd_keyboard_config_load_from_gconf (&current_kbd_config,
-					      &initial_sys_kbd_config);
+	gkbd_keyboard_config_load (&current_kbd_config,
+				   &initial_sys_kbd_config);
 
 	gkbd_keyboard_config_load_from_x_current (&current_sys_kbd_config,
 						  NULL);
@@ -583,16 +585,22 @@ apply_xkb_settings (void)
 		/* If there are multiple layouts,
 		 * try to find the one closest to the gdm layout
 		 */
-		GSList *l;
+		gchar **l;
 		int i;
 		size_t len = strlen (gdm_layout);
-		for (i = 0, l = current_kbd_config.layouts_variants; l;
-		     i++, l = l->next) {
-			char *lv = l->data;
-			if (strncmp (lv, gdm_layout, len) == 0
-			    && (lv[len] == '\0' || lv[len] == '\t')) {
-				group_to_activate = i;
-				break;
+		l = current_kbd_config.layouts_variants;
+		if (l != NULL) {
+			i = 0;
+			while (*l != NULL) {
+				char *lv = *l;
+				if (strncmp (lv, gdm_layout, len) == 0
+				    && (lv[len] == '\0'
+					|| lv[len] == '\t')) {
+					group_to_activate = i;
+					break;
+				}
+				i++;
+				l++;
 			}
 		}
 	}
@@ -609,17 +617,12 @@ apply_xkb_settings (void)
 static void
 gsd_keyboard_xkb_analyze_sysconfig (void)
 {
-	GConfClient *conf_client;
-
 	if (!inited_ok)
 		return;
 
-	conf_client = gconf_client_get_default ();
-	gkbd_keyboard_config_init (&initial_sys_kbd_config,
-				   conf_client, xkl_engine);
+	gkbd_keyboard_config_init (&initial_sys_kbd_config, xkl_engine);
 	gkbd_keyboard_config_load_from_x_initial (&initial_sys_kbd_config,
 						  NULL);
-	g_object_unref (conf_client);
 }
 
 static gboolean
@@ -715,16 +718,6 @@ gsd_keyboard_xkb_evt_filter (GdkXEvent * xev, GdkEvent * event)
 	return GDK_FILTER_CONTINUE;
 }
 
-static guint
-register_config_callback (GConfClient * client,
-			  const char *path, GConfClientNotifyFunc func)
-{
-	gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_ONELEVEL,
-			      NULL);
-	return gconf_client_notify_add (client, path, func, NULL, NULL,
-					NULL);
-}
-
 /* When new Keyboard is plugged in - reload the settings */
 static void
 gsd_keyboard_new_device (XklEngine * engine)
@@ -738,9 +731,10 @@ gsd_keyboard_update_indicator_icons ()
 {
 	Bool state;
 	int new_state, i;
-	Display *display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-	XkbGetNamedIndicator (display, caps_lock, NULL, &state,
-			      NULL, NULL);
+	Display *display =
+	    GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+	XkbGetNamedIndicator (display, caps_lock, NULL, &state, NULL,
+			      NULL);
 	new_state = state ? 1 : 0;
 	XkbGetNamedIndicator (display, num_lock, NULL, &state, NULL, NULL);
 	new_state <<= 1;
@@ -777,11 +771,11 @@ gsd_keyboard_state_changed (XklEngine * engine, XklEngineStateChange type,
 }
 
 void
-gsd_keyboard_xkb_init (GConfClient * client,
-		       GsdKeyboardManager * kbd_manager)
+gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 {
 	int i;
-	Display *display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+	Display *display =
+	    GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 	gnome_settings_profile_start (NULL);
 
 	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
@@ -815,10 +809,9 @@ gsd_keyboard_xkb_init (GConfClient * client,
 
 		gdm_keyboard_layout = g_getenv ("GDM_KEYBOARD_LAYOUT");
 
-		gkbd_desktop_config_init (&current_config,
-					  client, xkl_engine);
+		gkbd_desktop_config_init (&current_config, xkl_engine);
 		gkbd_keyboard_config_init (&current_kbd_config,
-					   client, xkl_engine);
+					   xkl_engine);
 		xkl_engine_backup_names_prop (xkl_engine);
 		gsd_keyboard_xkb_analyze_sysconfig ();
 		gnome_settings_profile_start
@@ -827,17 +820,13 @@ gsd_keyboard_xkb_init (GConfClient * client,
 		gnome_settings_profile_end
 		    ("gsd_keyboard_xkb_chk_lcl_xmm");
 
-		notify_desktop =
-		    register_config_callback (client,
-					      GKBD_DESKTOP_CONFIG_DIR,
-					      (GConfClientNotifyFunc)
-					      apply_desktop_settings);
-
-		notify_keyboard =
-		    register_config_callback (client,
-					      GKBD_KEYBOARD_CONFIG_DIR,
-					      (GConfClientNotifyFunc)
-					      apply_xkb_settings);
+		settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
+		settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
+		g_signal_connect (settings_desktop, "changed",
+				  (GCallback) apply_desktop_settings,
+				  NULL);
+		g_signal_connect (settings_keyboard, "changed",
+				  (GCallback) apply_xkb_settings, NULL);
 
 		gdk_window_add_filter (NULL, (GdkFilterFunc)
 				       gsd_keyboard_xkb_evt_filter, NULL);
@@ -872,7 +861,6 @@ gsd_keyboard_xkb_init (GConfClient * client,
 void
 gsd_keyboard_xkb_shutdown (void)
 {
-	GConfClient *client;
 	int i;
 
 	pa_callback = NULL;
@@ -897,27 +885,15 @@ gsd_keyboard_xkb_shutdown (void)
 	gdk_window_remove_filter (NULL, (GdkFilterFunc)
 				  gsd_keyboard_xkb_evt_filter, NULL);
 
-	client = gconf_client_get_default ();
-
-	if (notify_desktop != 0) {
-		gconf_client_remove_dir (client, GKBD_DESKTOP_CONFIG_DIR,
-					 NULL);
-		gconf_client_notify_remove (client, notify_desktop);
-		notify_desktop = 0;
-	}
-
-	if (notify_keyboard != 0) {
-		gconf_client_remove_dir (client, GKBD_KEYBOARD_CONFIG_DIR,
-					 NULL);
-		gconf_client_notify_remove (client, notify_keyboard);
-		notify_keyboard = 0;
-	}
+	g_object_unref (settings_desktop);
+	settings_desktop = NULL;
+	g_object_unref (settings_keyboard);
+	settings_keyboard = NULL;
 
 	if (xkl_registry) {
 		g_object_unref (xkl_registry);
 	}
 
-	g_object_unref (client);
 	g_object_unref (xkl_engine);
 
 	xkl_engine = NULL;

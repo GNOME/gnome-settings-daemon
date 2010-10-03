@@ -30,7 +30,7 @@
 #include <libxklavier/xklavier.h>
 #include "gsd-keyboard-manager.h"
 
-void gsd_keyboard_xkb_init (GConfClient *client, GsdKeyboardManager *manager);
+void gsd_keyboard_xkb_init (GsdKeyboardManager *manager);
 void gsd_keyboard_xkb_shutdown (void);
 
 typedef void (*PostActivationCallback) (void *userData);
