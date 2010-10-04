@@ -411,20 +411,15 @@ filter_xkb_config (void)
 	while (*lv) {
 		xkl_debug (100, "Checking [%s]\n", *lv);
 		if (gkbd_keyboard_config_split_items (*lv, &lname, &vname)) {
+			gboolean should_be_dropped = FALSE;
 			g_snprintf (item->name, sizeof (item->name), "%s",
 				    lname);
 			if (!xkl_config_registry_find_layout
 			    (xkl_registry, item)) {
 				xkl_debug (100, "Bad layout [%s]\n",
 					   lname);
-				g_free (*lv);
-				memmove (lv, lv + 1,
-					 g_strv_length (lv) *
-					 sizeof (gchar *));
-				any_change = TRUE;
-				continue;
-			}
-			if (vname) {
+				should_be_dropped = TRUE;
+			} else if (vname) {
 				g_snprintf (item->name,
 					    sizeof (item->name), "%s",
 					    vname);
@@ -433,13 +428,13 @@ filter_xkb_config (void)
 					xkl_debug (100,
 						   "Bad variant [%s(%s)]\n",
 						   lname, vname);
-					g_free (*lv);
-					memmove (lv, lv + 1,
-						 g_strv_length (lv) *
-						 sizeof (gchar *));
-					any_change = TRUE;
-					continue;
+					should_be_dropped = TRUE;
 				}
+			}
+			if (should_be_dropped) {
+				gkbd_strv_behead (lv);
+				any_change = TRUE;
+				continue;
 			}
 		}
 		lv++;
@@ -451,7 +446,6 @@ filter_xkb_config (void)
 static void
 apply_xkb_settings (void)
 {
-	GConfClient *conf_client;
 	GkbdKeyboardConfig current_sys_kbd_config;
 	int group_to_activate = -1;
 	char *gdm_layout;
@@ -460,18 +454,16 @@ apply_xkb_settings (void)
 	if (!inited_ok)
 		return;
 
-	conf_client = gconf_client_get_default ();
-
 	/* With GDM the user can already set a layout from the login
 	 * screen. Try to keep that setting.
 	 * We clear gdm_keyboard_layout early, so we don't risk
-	 * recursion from gconf notification.
+	 * recursion from conf notification.
 	 */
 	gdm_layout = g_strdup (gdm_keyboard_layout);
 	gdm_keyboard_layout = NULL;
 
 	/* gdm's configuration and $GDM_KEYBOARD_LAYOUT separates layout and
-	 * variant with a space, but gconf uses tabs; so convert to be robust
+	 * variant with a space, but gsettings use tabs; so convert to be robust
 	 * with both */
 	for (s = gdm_layout; s && *s; ++s) {
 		if (*s == ' ') {
@@ -497,8 +489,8 @@ apply_xkb_settings (void)
 			int len;
 
 			i = layouts =
-			    g_strdupv (initial_sys_kbd_config.
-				       layouts_variants);
+			    g_strdupv
+			    (initial_sys_kbd_config.layouts_variants);
 			if (i != NULL) {
 				while (*i != NULL) {
 					s = *i;
@@ -538,13 +530,10 @@ apply_xkb_settings (void)
 				layouts[max_groups - 1] =
 				    g_strdup (gdm_layout);
 			} else {
-				gchar **nl =
-				    g_new0 (gchar *, old_length + 2);
-				memcpy (nl, layouts,
-					old_length * sizeof (gchar *));
-				nl[old_length] = g_strdup (gdm_layout);
-				g_free (layouts);
-				layouts = nl;
+				layouts =
+				    gkbd_strv_append (layouts,
+						      g_strdup
+						      (gdm_layout));
 			}
 
 			g_settings_set_strv (settings_keyboard,
