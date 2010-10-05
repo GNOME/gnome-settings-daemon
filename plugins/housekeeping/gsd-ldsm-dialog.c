@@ -18,11 +18,11 @@
  */
 
 #include <glib/gi18n.h>
-#include <gconf/gconf-client.h>
+#include <gio/gio.h>
 
 #include "gsd-ldsm-dialog.h"
 
-#define GCONF_CLIENT_IGNORE_PATHS "/apps/gnome_settings_daemon/plugins/housekeeping/ignore_paths"
+#define SETTINGS_HOUSEKEEPING_DIR     "org.gnome.settings-daemon.plugins.housekeeping"
 
 enum
 {
@@ -149,44 +149,46 @@ ignore_check_button_toggled_cb (GtkToggleButton *button,
                                 gpointer user_data)
 {
         GsdLdsmDialog *dialog = (GsdLdsmDialog *)user_data;
-        GConfClient *client;
-        GSList *ignore_paths;
-        GError *error = NULL;
-        gboolean ignore, ret, updated;
+        GSettings *settings;
+        gchar **settings_list;
+        gboolean ignore, updated;
         
-        client = gconf_client_get_default ();
-        if (client != NULL) {
-                ignore_paths = gconf_client_get_list (client,
-                                                      GCONF_CLIENT_IGNORE_PATHS,
-                                                      GCONF_VALUE_STRING, &error);
-                if (error != NULL) {
-                        g_warning ("Cannot change ignore preference - failed to read existing configuration: %s",
-                                   error->message ? error->message : "Unkown error");
-                        g_clear_error (&error);
-                        return;
-                } else {
-                        ignore = gtk_toggle_button_get_active (button);
-                        updated = update_ignore_paths (&ignore_paths, dialog->priv->mount_path, ignore); 
+        settings = g_settings_new (SETTINGS_HOUSEKEEPING_DIR);
+        if (settings != NULL) {
+                gint i;
+                GSList *ignore_paths = NULL;
+
+                settings_list = g_settings_get_strv (settings, "ignore-paths");
+
+                for (i = 0; i < G_N_ELEMENTS (settings_list); i++) {
+                        if (settings_list[i] != NULL)
+                                ignore_paths = g_slist_append (ignore_paths, g_strdup (settings_list[i]));
                 }
+
+                ignore = gtk_toggle_button_get_active (button);
+                updated = update_ignore_paths (&ignore_paths, dialog->priv->mount_path, ignore);
+
+                g_strfreev (settings_list);
                 
-                if (!updated)
-                        return;
-                
-                ret = gconf_client_set_list (client,
-                                             GCONF_CLIENT_IGNORE_PATHS,
-                                             GCONF_VALUE_STRING,
-                                             ignore_paths, &error);
-                if (!ret || error != NULL) {
-                        g_warning ("Cannot change ignore preference - failed to commit changes: %s",
-                                   error->message ? error->message : "Unkown error");
-                        g_clear_error (&error);
+                if (updated) {
+                        GSList *l;
+                        GPtrArray *array = g_ptr_array_new ();
+
+                        for (l = ignore_paths; l != NULL; l = l->next)
+                                g_ptr_array_add (array, l->data);
+
+                        if (!g_settings_set_strv (settings, "ignore-paths", (const gchar **) array->pdata)) {
+                                g_warning ("Cannot change ignore preference - failed to commit changes");
+                        }
+
+                        g_ptr_array_free (array, FALSE);
                 }
-                
+
                 g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
                 g_slist_free (ignore_paths);
-                g_object_unref (client);
+                g_object_unref (settings);
         } else {
-                g_warning ("Cannot change ignore preference - failed to get GConfClient");
+                g_warning ("Cannot change ignore preference - failed to get settings client");
         }     
 }
 
@@ -228,7 +230,7 @@ gsd_ldsm_dialog_init (GsdLdsmDialog *dialog)
         /* Create the check button to ignore future warnings */
         dialog->priv->ignore_check_button = gtk_check_button_new ();
         /* The button should be inactive if the dialog was just called.
-         * I suppose it could be possible for the user to manually edit the GConf key between
+         * I suppose it could be possible for the user to manually edit the GSettings key between
          * the mount being checked and the dialog appearing, but I don't think it matters
          * too much */
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->ignore_check_button), FALSE);

@@ -52,8 +52,7 @@ GType            gnome_settings_plugin_info_get_type           (void) G_GNUC_CON
 
 GnomeSettingsPluginInfo *gnome_settings_plugin_info_new_from_file (const char *filename);
 
-void             gnome_settings_plugin_info_set_enabled_key_name (GnomeSettingsPluginInfo *info,
-                                                                  const char              *key_name);
+void             gnome_settings_plugin_info_set_settings_prefix (GnomeSettingsPluginInfo *info, const char *settings_prefix);
 gboolean         gnome_settings_plugin_info_activate        (GnomeSettingsPluginInfo *info);
 gboolean         gnome_settings_plugin_info_deactivate      (GnomeSettingsPluginInfo *info);
 

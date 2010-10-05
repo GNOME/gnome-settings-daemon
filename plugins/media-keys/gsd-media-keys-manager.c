@@ -33,10 +33,10 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
 
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
@@ -60,7 +60,7 @@
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"
 
-#define TOUCHPAD_ENABLED_KEY "/desktop/gnome/peripherals/touchpad/touchpad_enabled"
+#define TOUCHPAD_ENABLED_KEY "touchpad-enabled"
 
 #define VOLUME_STEP 6           /* percents for one volume button press */
 #define MAX_VOLUME 65536.0
@@ -80,7 +80,7 @@ struct GsdMediaKeysManagerPrivate
         GvcMixerStream  *stream;
 #endif /* HAVE_PULSE */
         GtkWidget       *dialog;
-        GConfClient     *conf_client;
+        GSettings       *settings;
         GVolumeMonitor  *volume_monitor;
 
         /* Multihead stuff */
@@ -90,7 +90,6 @@ struct GsdMediaKeysManagerPrivate
         GList           *media_players;
 
         DBusGConnection *connection;
-        guint            notify[HANDLED_KEYS];
 };
 
 enum {
@@ -154,13 +153,14 @@ get_term_command (GsdMediaKeysManager *manager)
 {
         char *cmd_term;
         char *cmd = NULL;
+        GSettings *settings;
 
-        cmd_term = gconf_client_get_string (manager->priv->conf_client,
-                                            "/desktop/gnome/applications/terminal/exec", NULL);
+        settings = g_settings_new ("org.gnome.desktop.applications.terminal");
+        cmd_term = g_settings_get_string (settings, "exec");
         if ((cmd_term != NULL) && (strcmp (cmd_term, "") != 0)) {
                 char *cmd_args;
-                cmd_args = gconf_client_get_string (manager->priv->conf_client,
-                                                    "/desktop/gnome/applications/terminal/exec_arg", NULL);
+
+                cmd_args = g_settings_get_string (settings, "exec-arg");
                 if ((cmd_args != NULL) && (strcmp (cmd_term, "") != 0)) {
                         cmd = g_strdup_printf ("%s %s -e", cmd_term, cmd_args);
                 } else {
@@ -171,6 +171,7 @@ get_term_command (GsdMediaKeysManager *manager)
         }
 
         g_free (cmd_term);
+        g_object_unref (settings);
 
         return cmd;
 }
@@ -270,21 +271,20 @@ is_valid_shortcut (const char *string)
 }
 
 static void
-update_kbd_cb (GConfClient         *client,
-               guint                id,
-               GConfEntry          *entry,
+update_kbd_cb (GSettings           *settings,
+               const gchar         *key,
                GsdMediaKeysManager *manager)
 {
         int      i;
         gboolean need_flush = TRUE;
 
-        g_return_if_fail (entry->key != NULL);
+        g_return_if_fail (key != NULL);
 
         gdk_error_trap_push ();
 
         /* Find the key that was modified */
         for (i = 0; i < HANDLED_KEYS; i++) {
-                if (strcmp (entry->key, keys[i].gconf_key) == 0) {
+                if (strcmp (key, keys[i].settings_key) == 0) {
                         char *tmp;
                         Key  *key;
 
@@ -296,9 +296,7 @@ update_kbd_cb (GConfClient         *client,
                         g_free (keys[i].key);
                         keys[i].key = NULL;
 
-                        tmp = gconf_client_get_string (manager->priv->conf_client,
-                                                       keys[i].gconf_key, NULL);
-
+                        tmp = g_settings_get_string (manager->priv->settings, keys[i].settings_key);
                         if (is_valid_shortcut (tmp) == FALSE) {
                                 g_free (tmp);
                                 break;
@@ -341,18 +339,7 @@ init_kbd (GsdMediaKeysManager *manager)
                 char *tmp;
                 Key  *key;
 
-                manager->priv->notify[i] =
-                        gconf_client_notify_add (manager->priv->conf_client,
-                                                 keys[i].gconf_key,
-                                                 (GConfClientNotifyFunc) update_kbd_cb,
-                                                 manager,
-                                                 NULL,
-                                                 NULL);
-
-                tmp = gconf_client_get_string (manager->priv->conf_client,
-                                               keys[i].gconf_key,
-                                               NULL);
-
+                tmp = g_settings_get_string (manager->priv->settings, keys[i].settings_key);
                 if (!is_valid_shortcut (tmp)) {
                         g_debug ("Not a valid shortcut: '%s'", tmp);
                         g_free (tmp);
@@ -456,12 +443,12 @@ do_unknown_action (GsdMediaKeysManager *manager,
                    const char          *url)
 {
         char *string;
+        GSettings *settings;
 
         g_return_if_fail (url != NULL);
 
-        string = gconf_client_get_string (manager->priv->conf_client,
-                                          "/desktop/gnome/url-handlers/unknown/command",
-                                          NULL);
+        settings = g_settings_new ("org.gnome.desktop.url-handlers.unknown");
+        string = g_settings_get_string (settings, "command");
 
         if ((string != NULL) && (strcmp (string, "") != 0)) {
                 char *cmd;
@@ -469,17 +456,19 @@ do_unknown_action (GsdMediaKeysManager *manager,
                 execute (manager, cmd, FALSE, FALSE);
                 g_free (cmd);
         }
+
         g_free (string);
+        g_object_unref (settings);
 }
 
 static void
 do_help_action (GsdMediaKeysManager *manager)
 {
         char *string;
+        GSettings *settings;
 
-        string = gconf_client_get_string (manager->priv->conf_client,
-                                          "/desktop/gnome/url-handlers/ghelp/command",
-                                          NULL);
+        settings = g_settings_new ("org.gnome.desktop.url-handlers.ghelp");
+        string = g_settings_get_string (settings, "command");
 
         if ((string != NULL) && (strcmp (string, "") != 0)) {
                 char *cmd;
@@ -491,16 +480,17 @@ do_help_action (GsdMediaKeysManager *manager)
         }
 
         g_free (string);
+        g_object_unref (settings);
 }
 
 static void
 do_mail_action (GsdMediaKeysManager *manager)
 {
         char *string;
+        GSettings *settings;
 
-        string = gconf_client_get_string (manager->priv->conf_client,
-                                          "/desktop/gnome/url-handlers/mailto/command",
-                                          NULL);
+        settings = g_settings_new ("org.gnome.desktop.url-handlers.mailto");
+        string = g_settings_get_string (settings, "command");
 
         if ((string != NULL) && (strcmp (string, "") != 0)) {
                 char *cmd;
@@ -508,28 +498,31 @@ do_mail_action (GsdMediaKeysManager *manager)
                 execute (manager,
                          cmd,
                          FALSE,
-                         gconf_client_get_bool (manager->priv->conf_client,
-                                                "/desktop/gnome/url-handlers/mailto/needs_terminal", NULL));
+                         g_settings_get_boolean (settings, "needs-terminal"));
                 g_free (cmd);
         }
+
         g_free (string);
+        g_object_unref (settings);
 }
 
 static void
 do_media_action (GsdMediaKeysManager *manager)
 {
         char *command;
+        GSettings *settings;
 
-        command = gconf_client_get_string (manager->priv->conf_client,
-                                           "/desktop/gnome/applications/media/exec", NULL);
+        settings = g_settings_new ("org.gnome.desktop.applications.media");
+        command = g_settings_get_string (settings, "exec");
         if ((command != NULL) && (strcmp (command, "") != 0)) {
                 execute (manager,
                          command,
                          FALSE,
-                         gconf_client_get_bool (manager->priv->conf_client,
-                                                "/desktop/gnome/applications/media/needs_term", NULL));
+                         g_settings_get_boolean (settings, "needs-terminal"));
         }
+
         g_free (command);
+        g_object_unref (settings);
 }
 
 static void
@@ -537,10 +530,10 @@ do_www_action (GsdMediaKeysManager *manager,
                const char          *url)
 {
         char *string;
+        GSettings *settings;
 
-        string = gconf_client_get_string (manager->priv->conf_client,
-                                          "/desktop/gnome/url-handlers/http/command",
-                                          NULL);
+        settings = g_settings_new ("org.gnome.desktop.url-handlers.http");
+        string = g_settings_get_string (settings, "command");
 
         if ((string != NULL) && (strcmp (string, "") != 0)) {
                 gchar *cmd;
@@ -554,13 +547,14 @@ do_www_action (GsdMediaKeysManager *manager,
                 execute (manager,
                          cmd,
                          FALSE,
-                         gconf_client_get_bool (manager->priv->conf_client,
-                                                "/desktop/gnome/url-handlers/http/needs_terminal", NULL));
+                         g_settings_get_boolean (settings, "needs-terminal"));
                 g_free (cmd);
         } else {
                 do_unknown_action (manager, url ? url : "");
         }
+
         g_free (string);
+        g_object_unref (settings);
 }
 
 static void
@@ -638,8 +632,11 @@ do_eject_action (GsdMediaKeysManager *manager)
 static void
 do_touchpad_action (GsdMediaKeysManager *manager)
 {
-        GConfClient *client = manager->priv->conf_client;
-        gboolean state = gconf_client_get_bool (client, TOUCHPAD_ENABLED_KEY, NULL);
+        GSettings *settings;
+        gboolean state;
+
+        settings = g_settings_new ("org.gnome.desktop.peripherals.touchpad");
+        state = g_settings_get_boolean (settings, TOUCHPAD_ENABLED_KEY);
 
         dialog_init (manager);
         gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
@@ -647,7 +644,8 @@ do_touchpad_action (GsdMediaKeysManager *manager)
                                                  FALSE);
         dialog_show (manager);
 
-        gconf_client_set_bool (client, TOUCHPAD_ENABLED_KEY, !state, NULL);
+        g_settings_set_boolean (settings, TOUCHPAD_ENABLED_KEY, !state);
+        g_object_unref (settings);
 }
 
 #ifdef HAVE_PULSE
@@ -684,13 +682,14 @@ do_sound_action (GsdMediaKeysManager *manager,
         guint vol, norm_vol_step;
         int vol_step;
         gboolean sound_changed;
+        GSettings *settings;
 
         if (manager->priv->stream == NULL)
                 return;
 
-        vol_step = gconf_client_get_int (manager->priv->conf_client,
-                                         GCONF_MISC_DIR "/volume_step",
-                                         NULL);
+        settings = g_settings_new (SETTINGS_MISC_DIR);
+        /* FIXME: why is this key under org.gnome.settings-daemon?? */
+        vol_step = g_settings_get_int (settings, "volume_step");
 
         if (vol_step <= 0 || vol_step > 100)
                 vol_step = VOLUME_STEP;
@@ -1065,12 +1064,9 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         g_debug ("Starting media_keys manager");
         gnome_settings_profile_start (NULL);
         manager->priv->volume_monitor = g_volume_monitor_get ();
-        manager->priv->conf_client = gconf_client_get_default ();
-
-        gconf_client_add_dir (manager->priv->conf_client,
-                              GCONF_BINDING_DIR,
-                              GCONF_CLIENT_PRELOAD_ONELEVEL,
-                              NULL);
+        manager->priv->settings = g_settings_new (SETTINGS_BINDING_DIR);
+        g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
+                          G_CALLBACK (update_kbd_cb), manager);
 
         init_screens (manager);
         init_kbd (manager);
@@ -1147,20 +1143,9 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                                           manager);
         }
 
-        if (priv->conf_client) {
-                gconf_client_remove_dir (priv->conf_client,
-                                         GCONF_BINDING_DIR,
-                                         NULL);
-
-                for (i = 0; i < HANDLED_KEYS; ++i) {
-                        if (priv->notify[i] != 0) {
-                                gconf_client_notify_remove (priv->conf_client, priv->notify[i]);
-                                priv->notify[i] = 0;
-                        }
-                }
-
-                g_object_unref (priv->conf_client);
-                priv->conf_client = NULL;
+        if (priv->settings) {
+                g_object_unref (priv->settings);
+                priv->settings = NULL;
         }
 
         if (priv->volume_monitor != NULL) {

@@ -28,10 +28,10 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
+#include <gio/gio.h>
 #define DBUS_API_SUBJECT_TO_CHANGE
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
-#include <gconf/gconf-client.h>
 
 #include "gnome-settings-plugin-info.h"
 #include "gnome-settings-manager.h"
@@ -40,7 +40,7 @@
 
 #define GSD_MANAGER_DBUS_PATH "/org/gnome/SettingsDaemon"
 
-#define DEFAULT_SETTINGS_PREFIX "/apps/gnome_settings_daemon/plugins"
+#define DEFAULT_SETTINGS_PREFIX "org.gnome.settings-daemon"
 
 #define PLUGIN_EXT ".gnome-settings-plugin"
 
@@ -49,7 +49,7 @@
 struct GnomeSettingsManagerPrivate
 {
         DBusGConnection            *connection;
-        GConfClient                *gconf_client;
+        GSettings                  *settings;
         char                       *settings_prefix;
         GSList                     *plugins;
 };
@@ -159,7 +159,6 @@ _load_file (GnomeSettingsManager *manager,
         GnomeSettingsPluginInfo *info;
         char                    *key_name;
         int                      priority;
-        GError                  *error;
         GSList                  *l;
 
         g_debug ("Loading plugin: %s", filename);
@@ -185,24 +184,10 @@ _load_file (GnomeSettingsManager *manager,
         g_signal_connect (info, "deactivated",
                           G_CALLBACK (on_plugin_deactivated), manager);
 
-        key_name = g_strdup_printf ("%s/%s/active",
+        key_name = g_strdup_printf ("%s.plugins.%s",
                                     manager->priv->settings_prefix,
                                     gnome_settings_plugin_info_get_location (info));
-        gnome_settings_plugin_info_set_enabled_key_name (info, key_name);
-        g_free (key_name);
-
-        key_name = g_strdup_printf ("%s/%s/priority",
-                                    manager->priv->settings_prefix,
-                                    gnome_settings_plugin_info_get_location (info));
-        error = NULL;
-        priority = gconf_client_get_int (manager->priv->gconf_client, key_name, &error);
-        if (error == NULL) {
-                if (priority > 0) {
-                        gnome_settings_plugin_info_set_priority (info, priority);
-                }
-        } else {
-                g_error_free (error);
-        }
+        gnome_settings_plugin_info_set_settings_prefix (info, key_name);
         g_free (key_name);
 
  out:
@@ -337,16 +322,11 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
                 goto out;
         }
 
-        manager->priv->gconf_client = gconf_client_get_default ();
-
-        gnome_settings_profile_start ("preloading gconf keys");
-        gconf_client_add_dir (manager->priv->gconf_client,
-                              manager->priv->settings_prefix,
-                              GCONF_CLIENT_PRELOAD_RECURSIVE,
-                              NULL);
-        gnome_settings_profile_end ("preloading gconf keys");
+        gnome_settings_profile_start ("initializing plugins");
+        manager->priv->settings = g_settings_new (manager->priv->settings_prefix);
 
         _load_all (manager);
+        gnome_settings_profile_end ("initializing plugins");
 
         ret = TRUE;
  out:
@@ -381,11 +361,8 @@ gnome_settings_manager_stop (GnomeSettingsManager *manager)
 
         _unload_all (manager);
 
-        gconf_client_remove_dir (manager->priv->gconf_client,
-                                 manager->priv->settings_prefix,
-                                 NULL);
-        g_object_unref (manager->priv->gconf_client);
-        manager->priv->gconf_client = NULL;
+        g_object_unref (manager->priv->settings);
+        manager->priv->settings = NULL;
 }
 
 static void

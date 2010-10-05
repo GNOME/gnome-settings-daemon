@@ -25,7 +25,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gmodule.h>
-#include <gconf/gconf-client.h>
+#include <gio/gio.h>
 
 #include "gnome-settings-plugin-info.h"
 #include "gnome-settings-module.h"
@@ -48,7 +48,7 @@ typedef enum
 struct GnomeSettingsPluginInfoPrivate
 {
         char                    *file;
-        GConfClient             *client;
+        GSettings               *settings;
 
         char                    *location;
         GnomeSettingsPluginLoader  loader;
@@ -69,8 +69,6 @@ struct GnomeSettingsPluginInfoPrivate
            due to an error loading the plugin module (e.g. for Python plugins
            when the interpreter has not been correctly initializated) */
         int                      available : 1;
-
-        guint                    enabled_notification_id;
 
         /* Priority determines the order in which plugins are started and
          * stopped. A lower number means higher priority. */
@@ -117,14 +115,7 @@ gnome_settings_plugin_info_finalize (GObject *object)
         g_free (info->priv->copyright);
         g_strfreev (info->priv->authors);
 
-        if (info->priv->enabled_notification_id != 0) {
-                gconf_client_notify_remove (info->priv->client,
-                                            info->priv->enabled_notification_id);
-
-                info->priv->enabled_notification_id = 0;
-        }
-
-        g_object_unref (info->priv->client);
+        g_object_unref (info->priv->settings);
 
         G_OBJECT_CLASS (gnome_settings_plugin_info_parent_class)->finalize (object);
 }
@@ -164,7 +155,6 @@ static void
 gnome_settings_plugin_info_init (GnomeSettingsPluginInfo *info)
 {
         info->priv = GNOME_SETTINGS_PLUGIN_INFO_GET_PRIVATE (info);
-        info->priv->client = gconf_client_get_default ();
 }
 
 static void
@@ -295,33 +285,6 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
         return ret;
 }
 
-static void
-plugin_enabled_cb (GConfClient             *client,
-                   guint                    cnxn_id,
-                   GConfEntry              *entry,
-                   GnomeSettingsPluginInfo *info)
-{
-        if (gconf_value_get_bool (entry->value)) {
-                gnome_settings_plugin_info_activate (info);
-        } else {
-                gnome_settings_plugin_info_deactivate (info);
-        }
-}
-
-void
-gnome_settings_plugin_info_set_enabled_key_name (GnomeSettingsPluginInfo *info,
-                                                 const char              *key_name)
-{
-        info->priv->enabled_notification_id = gconf_client_notify_add (info->priv->client,
-                                                                       key_name,
-                                                                       (GConfClientNotifyFunc)plugin_enabled_cb,
-                                                                       info,
-                                                                       NULL,
-                                                                       NULL);
-
-        info->priv->enabled = gconf_client_get_bool (info->priv->client, key_name, NULL);
-}
-
 GnomeSettingsPluginInfo *
 gnome_settings_plugin_info_new_from_file (const char *filename)
 {
@@ -337,6 +300,29 @@ gnome_settings_plugin_info_new_from_file (const char *filename)
         }
 
         return info;
+}
+
+static void
+plugin_enabled_cb (GSettings               *settings,
+                   const gchar             *key,
+                   GnomeSettingsPluginInfo *info)
+{
+        if (g_strcmp0 (key, "active") == 0) {
+                if (g_settings_get_boolean (settings, "active"))
+                        gnome_settings_plugin_info_activate (info);
+                else 
+                        gnome_settings_plugin_info_deactivate (info);
+        }
+}
+
+void
+gnome_settings_plugin_info_set_settings_prefix (GnomeSettingsPluginInfo *info,
+                                                const char              *settings_prefix)
+{
+        info->priv->settings = g_settings_new (settings_prefix);
+        info->priv->enabled = g_settings_get_boolean (info->priv->settings, "active");
+        g_signal_connect (G_OBJECT (info->priv->settings), "changed",
+                          G_CALLBACK (plugin_enabled_cb), info);
 }
 
 static void

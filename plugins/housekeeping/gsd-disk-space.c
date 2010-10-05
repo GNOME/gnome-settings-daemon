@@ -35,7 +35,6 @@
 #include <gio/gunixmounts.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
 
 #include "gsd-disk-space.h"
 #include "gsd-ldsm-dialog.h"
@@ -48,12 +47,12 @@
 
 #define DISK_SPACE_ANALYZER        "baobab"
 
-#define GCONF_HOUSEKEEPING_DIR     "/apps/gnome_settings_daemon/plugins/housekeeping"
-#define GCONF_FREE_PC_NOTIFY_KEY   "free_percent_notify"
-#define GCONF_FREE_PC_NOTIFY_AGAIN_KEY "free_percent_notify_again"
-#define GCONF_FREE_SIZE_NO_NOTIFY  "free_size_gb_no_notify"
-#define GCONF_MIN_NOTIFY_PERIOD    "min_notify_period"
-#define GCONF_IGNORE_PATHS         "ignore_paths"
+#define SETTINGS_HOUSEKEEPING_DIR     "org.gnome.settings-daemon.plugins.housekeeping"
+#define SETTINGS_FREE_PC_NOTIFY_KEY   "free-percent-notify"
+#define SETTINGS_FREE_PC_NOTIFY_AGAIN_KEY "free-percent-notify-again"
+#define SETTINGS_FREE_SIZE_NO_NOTIFY  "free-size-gb-no-notify"
+#define SETTINGS_MIN_NOTIFY_PERIOD    "min-notify-period"
+#define SETTINGS_IGNORE_PATHS         "ignore-paths"
 
 typedef struct
 {
@@ -70,8 +69,7 @@ static double             free_percent_notify_again = 0.01;
 static unsigned int       free_size_gb_no_notify = 2;
 static unsigned int       min_notify_period = 10;
 static GSList            *ignore_paths = NULL;
-static unsigned int       gconf_notify_id;
-static GConfClient       *client = NULL;
+static GSettings         *settings = NULL;
 static GsdLdsmDialog     *dialog = NULL;
 static guint64           *time_read;
 
@@ -568,70 +566,48 @@ ldsm_is_hash_item_in_ignore_paths (gpointer key,
 static void
 gsd_ldsm_get_config ()
 {
-        GError *error = NULL;
+        gchar **settings_list;
 
-        free_percent_notify = gconf_client_get_float (client,
-                                                      GCONF_HOUSEKEEPING_DIR "/" GCONF_FREE_PC_NOTIFY_KEY,
-                                                      &error);
-        if (error != NULL) {
-                g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unknown error");
-                g_clear_error (&error);
-        }
+        free_percent_notify = g_settings_get_double (settings, SETTINGS_FREE_PC_NOTIFY_KEY);
         if (free_percent_notify >= 1 || free_percent_notify < 0) {
                 g_warning ("Invalid configuration of free_percent_notify: %f\n" \
                            "Using sensible default", free_percent_notify);
                 free_percent_notify = 0.05;
         }
 
-        free_percent_notify_again = gconf_client_get_float (client,
-                                                            GCONF_HOUSEKEEPING_DIR "/" GCONF_FREE_PC_NOTIFY_AGAIN_KEY,
-                                                            &error);
-        if (error != NULL) {
-                g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unknown error");
-                g_clear_error (&error);
-        }
+        free_percent_notify_again = g_settings_get_double (settings, SETTINGS_FREE_PC_NOTIFY_AGAIN_KEY);
         if (free_percent_notify_again >= 1 || free_percent_notify_again < 0) {
                 g_warning ("Invalid configuration of free_percent_notify_again: %f\n" \
                            "Using sensible default\n", free_percent_notify_again);
                 free_percent_notify_again = 0.01;
         }
 
-        free_size_gb_no_notify = gconf_client_get_int (client,
-                                                       GCONF_HOUSEKEEPING_DIR "/" GCONF_FREE_SIZE_NO_NOTIFY,
-                                                       &error);
-        if (error != NULL) {
-                g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unknown error");
-                g_clear_error (&error);
-        }
-         min_notify_period = gconf_client_get_int (client,
-                                                   GCONF_HOUSEKEEPING_DIR "/" GCONF_MIN_NOTIFY_PERIOD,
-                                                   &error);
-         if (error != NULL) {
-                 g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unkown error");
-                 g_clear_error (&error);
-         }
+        free_size_gb_no_notify = g_settings_get_int (settings, SETTINGS_FREE_SIZE_NO_NOTIFY);
+        min_notify_period = g_settings_get_int (settings, SETTINGS_MIN_NOTIFY_PERIOD);
 
-         if (ignore_paths != NULL) {
+        if (ignore_paths != NULL) {
                 g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
                 g_slist_free (ignore_paths);
-         }
-         ignore_paths = gconf_client_get_list (client,
-                                               GCONF_HOUSEKEEPING_DIR "/" GCONF_IGNORE_PATHS,
-                                               GCONF_VALUE_STRING, &error);
-         if (error != NULL) {
-                 g_warning ("Error reading configuration from GConf: %s", error->message ? error->message : "Unkown error");
-                 g_clear_error (&error);
-         } else {
+        }
+
+        settings_list = g_settings_get_strv (settings, SETTINGS_IGNORE_PATHS);
+        if (settings_list != NULL) {
+                gint i;
+
+                for (i = 0; i < G_N_ELEMENTS (settings_list); i++) {
+                        if (settings_list[i] != NULL)
+                                ignore_paths = g_slist_append (ignore_paths, settings_list[i]);
+                }
+
                 /* Make sure we dont leave stale entries in ldsm_notified_hash */
-                 g_hash_table_foreach_remove (ldsm_notified_hash,
-                                              ldsm_is_hash_item_in_ignore_paths, NULL);
-         }
+                g_hash_table_foreach_remove (ldsm_notified_hash,
+                                             ldsm_is_hash_item_in_ignore_paths, NULL);
+        }
 }
 
 static void
-gsd_ldsm_update_config (GConfClient *client,
-                        guint cnxn_id,
-                        GConfEntry *entry,
+gsd_ldsm_update_config (GSettings *settings,
+                        const gchar *key,
                         gpointer user_data)
 {
         gsd_ldsm_get_config ();
@@ -640,8 +616,6 @@ gsd_ldsm_update_config (GConfClient *client,
 void
 gsd_ldsm_setup (gboolean check_now)
 {
-        GError          *error = NULL;
-
         if (ldsm_notified_hash || ldsm_timeout_id || ldsm_monitor) {
                 g_warning ("Low disk space monitor already initialized.");
                 return;
@@ -651,19 +625,13 @@ gsd_ldsm_setup (gboolean check_now)
                                                     g_free,
                                                     ldsm_free_mount_info);
 
-        client = gconf_client_get_default ();
-        if (client != NULL) {
+        settings = g_settings_new (SETTINGS_HOUSEKEEPING_DIR);
+        if (settings != NULL) {
                 gsd_ldsm_get_config ();
-                gconf_notify_id = gconf_client_notify_add (client,
-                                                           GCONF_HOUSEKEEPING_DIR,
-                                                           (GConfClientNotifyFunc) gsd_ldsm_update_config,
-                                                           NULL, NULL, &error);
-                if (error != NULL) {
-                        g_warning ("Cannot register callback for GConf notification");
-                        g_clear_error (&error);
-                }
+                g_signal_connect (G_OBJECT (settings), "changed",
+                                  G_CALLBACK (gsd_ldsm_update_config), NULL);
         } else {
-                g_warning ("Failed to get default client");
+                g_warning ("Failed to get settings client");
         }
 
         ldsm_monitor = g_unix_mount_monitor_new ();
@@ -694,9 +662,8 @@ gsd_ldsm_clean (void)
                 g_object_unref (ldsm_monitor);
         ldsm_monitor = NULL;
 
-        if (client) {
-                gconf_client_notify_remove (client, gconf_notify_id);
-                g_object_unref (client);
+        if (settings != NULL) {
+                g_object_unref (settings);
         }
 
         if (dialog) {

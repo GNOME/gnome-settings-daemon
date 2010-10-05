@@ -34,10 +34,10 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
 #include <dbus/dbus-glib.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
@@ -59,11 +59,11 @@
 
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
-#define CONF_DIR "/apps/gnome_settings_daemon/xrandr"
-#define CONF_KEY_SHOW_NOTIFICATION_ICON (CONF_DIR "/show_notification_icon")
-#define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP	(CONF_DIR "/turn_on_external_monitors_at_startup")
-#define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP	(CONF_DIR "/turn_on_laptop_monitor_at_startup")
-#define CONF_KEY_DEFAULT_CONFIGURATION_FILE             (CONF_DIR "/default_configuration_file")
+#define CONF_DIR "org.gnome.settings-daemon.xrandr"
+#define CONF_KEY_SHOW_NOTIFICATION_ICON ("show-notification-icon")
+#define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP	("turn-on-external-monitors-at-startup")
+#define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP	("turn-on-laptop-monitor-at-startup")
+#define CONF_KEY_DEFAULT_CONFIGURATION_FILE             ("default-configuration-file")
 
 #define VIDEO_KEYSYM    "XF86Display"
 #define ROTATE_KEYSYM   "XF86RotateWindows"
@@ -101,8 +101,7 @@ struct GsdXrandrManagerPrivate
         GtkWidget *popup_menu;
         GnomeRRConfig *configuration;
         GnomeRRLabeler *labeler;
-        GConfClient *client;
-        int notify_id;
+        GSettings *settings;
 
         /* fn-F7 status */
         int             current_fn_f7_config;             /* -1 if no configs */
@@ -2143,21 +2142,19 @@ status_icon_stop (GsdXrandrManager *manager)
 static void
 start_or_stop_icon (GsdXrandrManager *manager)
 {
-        if (gconf_client_get_bool (manager->priv->client, CONF_KEY_SHOW_NOTIFICATION_ICON, NULL)) {
+        if (g_settings_get_boolean (manager->priv->settings, CONF_KEY_SHOW_NOTIFICATION_ICON)) {
                 status_icon_start (manager);
-        }
-        else {
+        } else {
                 status_icon_stop (manager);
         }
 }
 
 static void
-on_config_changed (GConfClient          *client,
-                   guint                 cnxn_id,
-                   GConfEntry           *entry,
+on_config_changed (GSettings            *settings,
+                   const gchar          *key,
                    GsdXrandrManager *manager)
 {
-        if (strcmp (entry->key, CONF_KEY_SHOW_NOTIFICATION_ICON) == 0)
+        if (strcmp (key, CONF_KEY_SHOW_NOTIFICATION_ICON) == 0)
                 start_or_stop_icon (manager);
 }
 
@@ -2190,9 +2187,9 @@ apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
    	gboolean turn_on_external, turn_on_laptop;
 
         turn_on_external =
-                gconf_client_get_bool (mgr->priv->client, CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP, NULL);
+                g_settings_get_boolean (mgr->priv->settings, CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP);
         turn_on_laptop =
-                gconf_client_get_bool (mgr->priv->client, CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP, NULL);
+                g_settings_get_boolean (mgr->priv->settings, CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP);
 
 	if (turn_on_external && turn_on_laptop)
 		config = make_clone_setup (screen);
@@ -2273,7 +2270,7 @@ apply_default_configuration_from_file (GsdXrandrManager *manager, guint32 timest
         char *default_config_filename;
         gboolean result;
 
-        default_config_filename = gconf_client_get_string (priv->client, CONF_KEY_DEFAULT_CONFIGURATION_FILE, NULL);
+        default_config_filename = g_settings_get_string (priv->settings, CONF_KEY_DEFAULT_CONFIGURATION_FILE);
         if (!default_config_filename)
                 return FALSE;
 
@@ -2308,19 +2305,9 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         log_screen (manager->priv->rw_screen);
 
         manager->priv->running = TRUE;
-        manager->priv->client = gconf_client_get_default ();
-
-        g_assert (manager->priv->notify_id == 0);
-
-        gconf_client_add_dir (manager->priv->client, CONF_DIR,
-                              GCONF_CLIENT_PRELOAD_ONELEVEL,
-                              NULL);
-
-        manager->priv->notify_id =
-                gconf_client_notify_add (
-                        manager->priv->client, CONF_DIR,
-                        (GConfClientNotifyFunc)on_config_changed,
-                        manager, NULL, NULL);
+        manager->priv->settings = g_settings_new (CONF_DIR);
+        g_signal_connect (manager->priv->settings, "changed",
+                          G_CALLBACK (on_config_changed), manager);
 
         if (manager->priv->switch_video_mode_keycode) {
                 gdk_error_trap_push ();
@@ -2398,17 +2385,9 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                                   (GdkFilterFunc) event_filter,
                                   manager);
 
-        if (manager->priv->notify_id != 0) {
-                gconf_client_remove_dir (manager->priv->client,
-                                         CONF_DIR, NULL);
-                gconf_client_notify_remove (manager->priv->client,
-                                            manager->priv->notify_id);
-                manager->priv->notify_id = 0;
-        }
-
-        if (manager->priv->client != NULL) {
-                g_object_unref (manager->priv->client);
-                manager->priv->client = NULL;
+        if (manager->priv->settings != NULL) {
+                g_object_unref (manager->priv->settings);
+                manager->priv->settings = NULL;
         }
 
         if (manager->priv->rw_screen != NULL) {
