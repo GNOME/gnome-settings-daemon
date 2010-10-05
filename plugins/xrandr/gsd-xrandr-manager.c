@@ -61,6 +61,7 @@
 
 #define CONF_DIR "/apps/gnome_settings_daemon/xrandr"
 #define CONF_KEY_SHOW_NOTIFICATION_ICON (CONF_DIR "/show_notification_icon")
+#define CONF_KEY_USE_XORG_MONITOR_SETTINGS		(CONF_DIR "/use_xorg_monitor_settings")
 #define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP	(CONF_DIR "/turn_on_external_monitors_at_startup")
 #define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP	(CONF_DIR "/turn_on_laptop_monitor_at_startup")
 #define CONF_KEY_DEFAULT_CONFIGURATION_FILE             (CONF_DIR "/default_configuration_file")
@@ -2350,7 +2351,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         show_timestamps_dialog (manager, "Startup");
         if (!apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME)) /* we don't have a real timestamp at startup anyway */
                 if (!apply_default_configuration_from_file (manager, GDK_CURRENT_TIME))
-                        apply_default_boot_configuration (manager, GDK_CURRENT_TIME);
+                        if (!gconf_client_get_bool (manager->priv->client, CONF_KEY_USE_XORG_MONITOR_SETTINGS, NULL))
+                                apply_default_boot_configuration (manager, GDK_CURRENT_TIME);
 
         log_msg ("State of screen after initial configuration:\n");
         log_screen (manager->priv->rw_screen);

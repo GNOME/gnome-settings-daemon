@@ -15,6 +15,25 @@
             </locale>
         </schema>
 	<schema>
+	    <key>/schemas/apps/gnome_settings_daemon/xrandr/use_xorg_monitor_settings</key>
+	    <applyto>/apps/gnome_settings_daemon/xrandr/use_xorg_monitor_settings</applyto>
+            <owner>gnome</owner>
+	    <type>bool</type>
+            <default>false</default>
+            <locale name="C">
+	        <short>Do not touch monitor configuration</short>
+		<long>Usually, gnome-settings-daemon configures internal and
+		    external monitors according to the
+		    turn_on_external_monitors_at_startup and
+		    turn_on_laptop_monitor_at_startup settings and determines
+		    an appropriate cloning/side-by-side mode. Setting this key
+		    to True disables this, and the monitor settings are not
+		    touched at all (unless there is an explicit user
+		    configuration).
+		</long>
+            </locale>
+        </schema>
+	<schema>
 	    <key>/schemas/apps/gnome_settings_daemon/xrandr/turn_on_external_monitors_at_startup</key>
 	    <applyto>/apps/gnome_settings_daemon/xrandr/turn_on_external_monitors_at_startup</applyto>
             <owner>gnome</owner>
