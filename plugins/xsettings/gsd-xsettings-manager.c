@@ -56,11 +56,11 @@
 #define GTK_MODULES_DIR        "/apps/gnome_settings_daemon/gtk-modules"
 
 #ifdef HAVE_FONTCONFIG
-#define FONT_RENDER_DIR "/desktop/gnome/font_rendering"
-#define FONT_ANTIALIASING_KEY FONT_RENDER_DIR "/antialiasing"
-#define FONT_HINTING_KEY      FONT_RENDER_DIR "/hinting"
-#define FONT_RGBA_ORDER_KEY   FONT_RENDER_DIR "/rgba_order"
-#define FONT_DPI_KEY          FONT_RENDER_DIR "/dpi"
+#define FONT_RENDER_DIR "org.gnome.desktop.font-rendering"
+#define FONT_ANTIALIASING_KEY "antialiasing"
+#define FONT_HINTING_KEY      "hinting"
+#define FONT_RGBA_ORDER_KEY   "rgba_order"
+#define FONT_DPI_KEY          "dpi"
 
 /* X servers sometimes lie about the screen's physical dimensions, so we cannot
  * compute an accurate DPI value.  When this happens, the user gets fonts that
@@ -95,6 +95,7 @@ struct GnomeXSettingsManagerPrivate
 {
         XSettingsManager **managers;
         guint              notify[6];
+        GSettings         *font_settings;
 #ifdef HAVE_FONTCONFIG
         fontconfig_monitor_handle_t *fontconfig_handle;
 #endif /* HAVE_FONTCONFIG */
@@ -265,25 +266,11 @@ get_dpi_from_x_server (void)
 }
 
 static double
-get_dpi_from_gconf_or_x_server (GConfClient *client)
+get_dpi_from_gconf_or_x_server (GnomeXSettingsManager *manager)
 {
-        GConfValue *value;
         double      dpi;
 
-        value = gconf_client_get_without_default (client, FONT_DPI_KEY, NULL);
-
-        /* If the user has ever set the DPI preference in GConf, we use that.
-         * Otherwise, we see if the X server reports a reasonable DPI value:  some X
-         * servers report completely bogus values, and the user gets huge or tiny
-         * fonts which are unusable.
-         */
-
-        if (value != NULL) {
-                dpi = gconf_value_get_float (value);
-                gconf_value_free (value);
-        } else {
-                dpi = get_dpi_from_x_server ();
-        }
+        dpi = g_settings_get_double (manager->priv->font_settings, FONT_DPI_KEY);
 
         return dpi;
 }
@@ -303,18 +290,18 @@ static const char *rgba_types[] = { "rgb", "bgr", "vbgr", "vrgb" };
  * This probably could be done a bit more cleanly with gconf_string_to_enum
  */
 static void
-xft_settings_get (GConfClient      *client,
-                  GnomeXftSettings *settings)
+xft_settings_get (GnomeXSettingsManager *manager,
+                  GnomeXftSettings      *settings)
 {
         char  *antialiasing;
         char  *hinting;
         char  *rgba_order;
         double dpi;
 
-        antialiasing = gconf_client_get_string (client, FONT_ANTIALIASING_KEY, NULL);
-        hinting = gconf_client_get_string (client, FONT_HINTING_KEY, NULL);
-        rgba_order = gconf_client_get_string (client, FONT_RGBA_ORDER_KEY, NULL);
-        dpi = get_dpi_from_gconf_or_x_server (client);
+        antialiasing = g_settings_get_string (manager->priv->font_settings, FONT_ANTIALIASING_KEY);
+        hinting = g_settings_get_string (manager->priv->font_settings, FONT_HINTING_KEY);
+        rgba_order = g_settings_get_string (manager->priv->font_settings, FONT_RGBA_ORDER_KEY);
+        dpi = get_dpi_from_gconf_or_x_server (manager);
 
         settings->antialias = TRUE;
         settings->hinting = TRUE;
@@ -461,7 +448,7 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
 
         /* Set the new X property */
         XChangeProperty(dpy, RootWindow (dpy, 0),
-                XA_RESOURCE_MANAGER, XA_STRING, 8, PropModeReplace, add_string->str, add_string->len);
+                        XA_RESOURCE_MANAGER, XA_STRING, 8, PropModeReplace, add_string->str, add_string->len);
         XCloseDisplay (dpy);
 
         g_string_free (add_string, TRUE);
@@ -473,14 +460,13 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
  * X resources
  */
 static void
-update_xft_settings (GnomeXSettingsManager *manager,
-                     GConfClient           *client)
+update_xft_settings (GnomeXSettingsManager *manager)
 {
         GnomeXftSettings settings;
 
         gnome_settings_profile_start (NULL);
 
-        xft_settings_get (client, &settings);
+        xft_settings_get (manager, &settings);
         xft_settings_set_xsettings (manager, &settings);
         xft_settings_set_xresources (&settings);
 
@@ -488,14 +474,13 @@ update_xft_settings (GnomeXSettingsManager *manager,
 }
 
 static void
-xft_callback (GConfClient           *client,
-              guint                  cnxn_id,
-              GConfEntry            *entry,
+xft_callback (GSettings             *settings,
+              const gchar           *key,
               GnomeXSettingsManager *manager)
 {
         int i;
 
-        update_xft_settings (manager, client);
+        update_xft_settings (manager);
 
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_notify (manager->priv->managers [i]);
@@ -808,6 +793,7 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                 return FALSE;
         }
 
+        manager->priv->font_settings = g_settings_new (FONT_RENDER_DIR);
         client = gconf_client_get_default ();
 
         gconf_client_add_dir (client, MOUSE_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
@@ -815,7 +801,6 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         gconf_client_add_dir (client, INTERFACE_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
         gconf_client_add_dir (client, SOUND_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
         gconf_client_add_dir (client, GTK_MODULES_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-        gconf_client_add_dir (client, FONT_RENDER_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
 
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
                 GConfValue *val;
@@ -863,11 +848,9 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         gtk_modules_callback (client, 0, NULL, manager);
 
 #ifdef HAVE_FONTCONFIG
-        manager->priv->notify[5] =
-                register_config_callback (manager, client,
-                                          FONT_RENDER_DIR,
-                                          (GConfClientNotifyFunc) xft_callback);
-        update_xft_settings (manager, client);
+        g_signal_connect (manager->priv->font_settings, "changed",
+                          G_CALLBACK (xft_callback), manager);
+        update_xft_settings (manager);
 
         start_fontconfig_monitor (manager);
 #endif /* HAVE_FONTCONFIG */
@@ -914,7 +897,6 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
         gconf_client_remove_dir (client, SOUND_SETTINGS_DIR, NULL);
         gconf_client_remove_dir (client, GTK_MODULES_DIR, NULL);
 #ifdef HAVE_FONTCONFIG
-        gconf_client_remove_dir (client, FONT_RENDER_DIR, NULL);
 
         stop_fontconfig_monitor (manager);
 #endif /* HAVE_FONTCONFIG */
@@ -927,6 +909,7 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
         }
 
         g_object_unref (client);
+        g_object_unref (manager->priv->font_settings);
 }
 
 static void
