@@ -602,6 +602,8 @@ gsd_ldsm_get_config ()
                 /* Make sure we dont leave stale entries in ldsm_notified_hash */
                 g_hash_table_foreach_remove (ldsm_notified_hash,
                                              ldsm_is_hash_item_in_ignore_paths, NULL);
+
+                g_strfreev (settings_list);
         }
 }
 
