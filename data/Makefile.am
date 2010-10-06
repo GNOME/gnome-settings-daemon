@@ -1,20 +1,17 @@
 NULL =
 
-@INTLTOOL_SCHEMAS_RULE@
+gsettings_SCHEMAS =							\
+	org.gnome.desktop.font-renderin.gschema.xml			\
+	org.gnome.desktop.keybindings.gschema.xml			\
+	org.gnome.settings-daemon.plugins.housekeeping.gschema.xml	\
+	org.gnome.settings-daemon.plugins.xrandr.gschema.xml
 
-schemasdir = $(GCONF_SCHEMA_FILE_DIR)
-schemas_in_files = 						\
-	gnome-settings-daemon.schemas.in			\
-	apps_gnome_settings_daemon_housekeeping.schemas.in	\
-	apps_gnome_settings_daemon_keybindings.schemas.in	\
-	desktop_gnome_font_rendering.schemas.in			\
-	desktop_gnome_keybindings.schemas.in			\
-	apps_gnome_settings_daemon_xrandr.schemas.in		\
-	desktop_gnome_peripherals_touchpad.schemas.in		\
-	desktop_gnome_peripherals_smartcard.schemas.in		\
-	$(NULL)
+@INTLTOOL_XML_NOMERGE_RULE@
 
-schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
+@GSETTINGS_RULES@
+
+convertdir = $(datadir)/GConf/gsettings
+convert_DATA = gnome-settings-daemon.convert
 
 @INTLTOOL_DESKTOP_RULE@
 desktopdir = $(sysconfdir)/xdg/autostart
@@ -37,16 +34,16 @@ xmldir = @GNOME_KEYBINDINGS_KEYSDIR@
 xml_in_files = 50-accessibility.xml.in
 xml_DATA = $(xml_in_files:.xml.in=.xml)
 
-EXTRA_DIST = 				\
-	$(schemas_in_files)		\
-	$(service_in_files)		\
-	$(desktop_in_files)		\
-	$(xml_in_files)			\
-	gnome-settings-daemon.pc.in	\
+EXTRA_DIST = 					\
+	$(gsettings_SCHEMAS:.xml=.xml.in.in	\
+	$(service_in_files)			\
+	$(desktop_in_files)			\
+	$(xml_in_files)				\
+	gnome-settings-daemon.pc.in		\
 	$(NULL)
 
 DISTCLEANFILES = 			\
-	$(schemas_DATA)			\
+	$(gsettings_SCHEMAS)		\
 	$(service_DATA)			\
 	$(desktop_DATA)			\
 	$(xml_DATA)			\
@@ -54,16 +51,5 @@ DISTCLEANFILES = 			\
 
 MAINTAINERCLEANFILES =			\
 	*~				\
-	Makefile.in
-
-if GCONF_SCHEMAS_INSTALL
-# don't do this if we are building in eg. rpm
-install-data-local: $(schemas_DATA)
-	if test -z "$(DESTDIR)" ; then \
-		for p in $(schemas_DATA) ; do \
-			GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_builddir)/data/$$p 2>&1 > /dev/null; \
-		done \
-	fi
-else
-install-data-local:
-endif
+	Makefile.in			\
+	$(gsettings_SCHEMAS:.xml=.valid)

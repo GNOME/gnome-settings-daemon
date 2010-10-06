@@ -66,6 +66,7 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
         gmodule-2.0
         gthread-2.0
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
+	gsettings-desktop-schemas
 )
 
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
@@ -88,6 +89,12 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 AC_PATH_PROG(GCONFTOOL, gconftool-2)
 
 AM_GCONF_SOURCE_2
+
+dnl ================================================================
+dnl GSettings stuff
+dnl ================================================================
+
+GLIB_GSETTINGS
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for gnome-desktop
@@ -457,6 +464,10 @@ data/Makefile
 data/gnome-settings-daemon.desktop.in
 data/gnome-settings-daemon.pc
 data/gnome-settings-daemon-uninstalled.pc
+data/org.gnome.desktop.font-rendering.gschame.xml.in
+data/org.gnome.desktop.keybindings.gschema.xml.in
+data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in
+data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in
 po/Makefile.in
 ])
 
