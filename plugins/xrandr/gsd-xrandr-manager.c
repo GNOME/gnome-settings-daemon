@@ -59,7 +59,7 @@
 
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
-#define CONF_DIR "org.gnome.settings-daemon.xrandr"
+#define CONF_DIR "org.gnome.settings-daemon.plugins.xrandr"
 #define CONF_KEY_SHOW_NOTIFICATION_ICON ("show-notification-icon")
 #define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP	("turn-on-external-monitors-at-startup")
 #define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP	("turn-on-laptop-monitor-at-startup")

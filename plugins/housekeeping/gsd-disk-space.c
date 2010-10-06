@@ -628,13 +628,9 @@ gsd_ldsm_setup (gboolean check_now)
                                                     ldsm_free_mount_info);
 
         settings = g_settings_new (SETTINGS_HOUSEKEEPING_DIR);
-        if (settings != NULL) {
-                gsd_ldsm_get_config ();
-                g_signal_connect (G_OBJECT (settings), "changed",
-                                  G_CALLBACK (gsd_ldsm_update_config), NULL);
-        } else {
-                g_warning ("Failed to get settings client");
-        }
+        gsd_ldsm_get_config ();
+        g_signal_connect (G_OBJECT (settings), "changed",
+                          G_CALLBACK (gsd_ldsm_update_config), NULL);
 
         ldsm_monitor = g_unix_mount_monitor_new ();
         g_unix_mount_monitor_set_rate_limit (ldsm_monitor, 1000);

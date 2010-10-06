@@ -151,25 +151,21 @@ acme_error (char * msg)
 static char *
 get_term_command (GsdMediaKeysManager *manager)
 {
-        char *cmd_term;
+        char *cmd_term, *cmd_args;;
         char *cmd = NULL;
         GSettings *settings;
 
         settings = g_settings_new ("org.gnome.desktop.applications.terminal");
         cmd_term = g_settings_get_string (settings, "exec");
-        if ((cmd_term != NULL) && (strcmp (cmd_term, "") != 0)) {
-                char *cmd_args;
 
-                cmd_args = g_settings_get_string (settings, "exec-arg");
-                if ((cmd_args != NULL) && (strcmp (cmd_term, "") != 0)) {
-                        cmd = g_strdup_printf ("%s %s -e", cmd_term, cmd_args);
-                } else {
-                        cmd = g_strdup_printf ("%s -e", cmd_term);
-                }
-
-                g_free (cmd_args);
+        cmd_args = g_settings_get_string (settings, "exec-arg");
+        if (strcmp (cmd_term, "") != 0) {
+                cmd = g_strdup_printf ("%s %s -e", cmd_term, cmd_args);
+        } else {
+                cmd = g_strdup_printf ("%s -e", cmd_term);
         }
 
+        g_free (cmd_args);
         g_free (cmd_term);
         g_object_unref (settings);
 
@@ -446,7 +442,14 @@ do_url_action (GsdMediaKeysManager *manager,
 
         app_info = g_app_info_get_default_for_uri_scheme (scheme);
         if (app_info != NULL) {
-                execute (manager, g_app_info_get_commandline (app_info), FALSE, /* FIXME */ FALSE);
+                GError *error = NULL;
+
+                if (!g_app_info_launch (app_info, NULL, NULL, &error)) {
+                        g_warning ("Could not launch '%s': %s",
+                                   g_app_info_get_commandline (app_info),
+                                   error->message);
+                        g_error_free (error);
+                }
         } else {
                 g_warning ("Could not find default application for '%s' scheme", scheme);
         }
