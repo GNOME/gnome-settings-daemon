@@ -24,7 +24,6 @@
 #include "gsd-keygrab.h"
 
 #define SETTINGS_BINDING_DIR "org.gnome.desktop.keybindings"
-#define SETTINGS_MISC_DIR "org.gnome.settings-daemon"
 
 enum {
         TOUCHPAD_KEY,

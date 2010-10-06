@@ -157,6 +157,8 @@ get_term_command (GsdMediaKeysManager *manager)
 
         settings = g_settings_new ("org.gnome.desktop.applications.terminal");
         cmd_term = g_settings_get_string (settings, "exec");
+        if (strcmp (cmd_term, "") == 0)
+                cmd_term = g_strdup ("gnome-terminal");
 
         cmd_args = g_settings_get_string (settings, "exec-arg");
         if (strcmp (cmd_term, "") != 0) {
@@ -599,17 +601,11 @@ do_sound_action (GsdMediaKeysManager *manager,
         guint vol, norm_vol_step;
         int vol_step;
         gboolean sound_changed;
-        GSettings *settings;
 
         if (manager->priv->stream == NULL)
                 return;
 
-        settings = g_settings_new (SETTINGS_MISC_DIR);
-        /* FIXME: why is this key under org.gnome.settings-daemon?? */
-        vol_step = g_settings_get_int (settings, "volume_step");
-
-        if (vol_step <= 0 || vol_step > 100)
-                vol_step = VOLUME_STEP;
+        vol_step = VOLUME_STEP;
 
         norm_vol_step = PA_VOLUME_NORM * vol_step / 100;
 
