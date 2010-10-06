@@ -25,10 +25,9 @@
 
 #include <glib.h>
 #include <glib-object.h>
+#include <gio/gio.h>
 
 #include <dbus/dbus-glib.h>
-
-#include <gconf/gconf-client.h>
 
 #include "gnome-settings-plugin.h"
 #include "gsd-smartcard-plugin.h"
@@ -57,8 +56,7 @@ typedef enum
 #define SM_DBUS_INTERFACE "org.gnome.SessionManager"
 #define SM_LOGOUT_MODE_FORCE 2
 
-#define GSD_SMARTCARD_KEY "/desktop/gnome/peripherals/smartcard"
-#define KEY_REMOVE_ACTION GSD_SMARTCARD_KEY "/removal_action"
+#define KEY_REMOVE_ACTION "removal_action"
 
 #define GSD_SMARTCARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_SMARTCARD_PLUGIN, GsdSmartcardPluginPrivate))
 
@@ -182,13 +180,12 @@ user_logged_in_with_smartcard (void)
 static GsdSmartcardRemoveAction
 get_configured_remove_action (GsdSmartcardPlugin *plugin)
 {
-        GConfClient *client;
+        GSettings *settings;
         char *remove_action_string;
         GsdSmartcardRemoveAction remove_action;
 
-        client = gconf_client_get_default ();
-        remove_action_string = gconf_client_get_string (client,
-                                                        KEY_REMOVE_ACTION, NULL);
+        settings = g_settings_new ("org.gnome.desktop.peripherals.smartcard");
+        remove_action_string = g_settings_get_string (settings, KEY_REMOVE_ACTION);
 
         if (remove_action_string == NULL) {
                 g_warning ("GsdSmartcardPlugin unable to get smartcard remove action");
@@ -204,7 +201,7 @@ get_configured_remove_action (GsdSmartcardPlugin *plugin)
                 remove_action = GSD_SMARTCARD_REMOVE_ACTION_NONE;
         }
 
-        g_object_unref (client);
+        g_object_unref (settings);
 
         return remove_action;
 }

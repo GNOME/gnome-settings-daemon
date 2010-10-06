@@ -33,6 +33,7 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
@@ -54,7 +55,7 @@
 
 #define GCONF_MOUSE_DIR         "/desktop/gnome/peripherals/mouse"
 #define GCONF_MOUSE_A11Y_DIR    "/desktop/gnome/accessibility/mouse"
-#define GCONF_TOUCHPAD_DIR      "/desktop/gnome/peripherals/touchpad"
+#define SETTINGS_TOUCHPAD_DIR      "org.gnome.desktop.peripherals.touchpad"
 
 #define KEY_LEFT_HANDED         GCONF_MOUSE_DIR "/left_handed"
 #define KEY_MOTION_ACCELERATION GCONF_MOUSE_DIR "/motion_acceleration"
@@ -62,19 +63,19 @@
 #define KEY_LOCATE_POINTER      GCONF_MOUSE_DIR "/locate_pointer"
 #define KEY_DWELL_ENABLE        GCONF_MOUSE_A11Y_DIR "/dwell_enable"
 #define KEY_DELAY_ENABLE        GCONF_MOUSE_A11Y_DIR "/delay_enable"
-#define KEY_TOUCHPAD_DISABLE_W_TYPING    GCONF_TOUCHPAD_DIR "/disable_while_typing"
+#define KEY_TOUCHPAD_DISABLE_W_TYPING    "disable_while_typing"
 #ifdef HAVE_X11_EXTENSIONS_XINPUT_H
-#define KEY_TAP_TO_CLICK        GCONF_TOUCHPAD_DIR "/tap_to_click"
-#define KEY_SCROLL_METHOD       GCONF_TOUCHPAD_DIR "/scroll_method"
-#define KEY_PAD_HORIZ_SCROLL    GCONF_TOUCHPAD_DIR "/horiz_scroll_enabled"
-#define KEY_TOUCHPAD_ENABLED    GCONF_TOUCHPAD_DIR "/touchpad_enabled"
+#define KEY_TAP_TO_CLICK        "tap_to_click"
+#define KEY_SCROLL_METHOD       "scroll_method"
+#define KEY_PAD_HORIZ_SCROLL    "horiz_scroll_enabled"
+#define KEY_TOUCHPAD_ENABLED    "touchpad_enabled"
 #endif
 
 struct GsdMouseManagerPrivate
 {
+        GSettings *touchpad_settings;
         guint notify;
         guint notify_a11y;
-        guint notify_touchpad;
 
         gboolean mousetweaks_daemon_running;
         gboolean syndaemon_spawned;
@@ -297,7 +298,7 @@ touchpad_has_single_button (XDevice *device)
 
 
 static void
-set_xinput_devices_left_handed (gboolean left_handed)
+set_xinput_devices_left_handed (GsdMouseManager *manager, gboolean left_handed)
 {
         XDeviceInfo *device_info;
         gint n_devices;
@@ -327,7 +328,7 @@ set_xinput_devices_left_handed (gboolean left_handed)
                 device = device_is_touchpad (device_info[i]);
                 if (device != NULL) {
                         GConfClient *client = gconf_client_get_default ();
-                        gboolean tap = gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL);
+                        gboolean tap = g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK);
                         gboolean single_button = touchpad_has_single_button (device);
 
                         if (tap && !single_button)
@@ -429,7 +430,7 @@ set_left_handed (GsdMouseManager *manager,
                 /* When XInput support is available, never set the
                  * button ordering on the core pointer as that would
                  * revert the changes we make on the devices themselves */
-                set_xinput_devices_left_handed (left_handed);
+                set_xinput_devices_left_handed (manager, left_handed);
                 return;
         }
 #endif
@@ -572,7 +573,7 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
                 if (error) {
                         GConfClient *client;
                         client = gconf_client_get_default ();
-                        gconf_client_set_bool (client, KEY_TOUCHPAD_DISABLE_W_TYPING, FALSE, NULL);
+                        g_settings_set_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING, FALSE);
                         g_object_unref (client);
                         g_error_free (error);
                 }
@@ -906,12 +907,12 @@ set_mouse_settings (GsdMouseManager *manager)
         set_motion_acceleration (manager, gconf_client_get_float (client, KEY_MOTION_ACCELERATION , NULL));
         set_motion_threshold (manager, gconf_client_get_int (client, KEY_MOTION_THRESHOLD, NULL));
 
-        set_disable_w_typing (manager, gconf_client_get_bool (client, KEY_TOUCHPAD_DISABLE_W_TYPING, NULL));
+        set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
 #ifdef HAVE_X11_EXTENSIONS_XINPUT_H
-        set_tap_to_click (gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL), left_handed);
-        set_edge_scroll (gconf_client_get_int (client, KEY_SCROLL_METHOD, NULL));
-        set_horiz_scroll (gconf_client_get_bool (client, KEY_PAD_HORIZ_SCROLL, NULL));
-        set_touchpad_enabled (gconf_client_get_bool (client, KEY_TOUCHPAD_ENABLED, NULL));
+        set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), left_handed);
+        set_edge_scroll (g_settings_get_int (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
+        set_horiz_scroll (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
+        set_touchpad_enabled (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED));
 #endif
 
         g_object_unref (client);
@@ -935,34 +936,10 @@ mouse_callback (GConfClient        *client,
                 if (entry->value->type == GCONF_VALUE_INT) {
                         set_motion_threshold (manager, gconf_value_get_int (entry->value));
                 }
-        } else if (! strcmp (entry->key, KEY_TOUCHPAD_DISABLE_W_TYPING)) {
-                if (entry->value->type == GCONF_VALUE_BOOL)
-                        set_disable_w_typing (manager, gconf_value_get_bool (entry->value));
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
-        } else if (! strcmp (entry->key, KEY_TAP_TO_CLICK)) {
-                if (entry->value->type == GCONF_VALUE_BOOL) {
-                        set_tap_to_click (gconf_value_get_bool (entry->value),
-                                          gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
-                }
-        } else if (! strcmp (entry->key, KEY_SCROLL_METHOD)) {
-                if (entry->value->type == GCONF_VALUE_INT) {
-                        set_edge_scroll (gconf_value_get_int (entry->value));
-                        set_horiz_scroll (gconf_client_get_bool (client, KEY_PAD_HORIZ_SCROLL, NULL));
-                }
-        } else if (! strcmp (entry->key, KEY_PAD_HORIZ_SCROLL)) {
-                if (entry->value->type == GCONF_VALUE_BOOL)
-                        set_horiz_scroll (gconf_value_get_bool (entry->value));
-#endif
         } else if (! strcmp (entry->key, KEY_LOCATE_POINTER)) {
                 if (entry->value->type == GCONF_VALUE_BOOL) {
                         set_locate_pointer (manager, gconf_value_get_bool (entry->value));
                 }
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
-        } else if (! strcmp (entry->key, KEY_TOUCHPAD_ENABLED)) {
-                if (entry->value->type == GCONF_VALUE_BOOL) {
-                    set_touchpad_enabled (gconf_value_get_bool (entry->value));
-                }
-#endif
         } else if (! strcmp (entry->key, KEY_DWELL_ENABLE)) {
                 if (entry->value->type == GCONF_VALUE_BOOL) {
                         set_mousetweaks_daemon (manager,
@@ -976,6 +953,33 @@ mouse_callback (GConfClient        *client,
                                                 gconf_value_get_bool (entry->value));
                 }
         }
+}
+
+static void
+touchpad_callback (GSettings       *settings,
+                   const gchar     *key,
+                   GsdMouseManager *manager)
+{
+        GConfClient *client = gconf_client_get_default ();
+
+        if (! strcmp (key, KEY_TOUCHPAD_DISABLE_W_TYPING)) {
+                set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, key));
+#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
+        } else if (! strcmp (key, KEY_TAP_TO_CLICK)) {
+                set_tap_to_click (g_settings_get_boolean (settings, key),
+                                  gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
+        } else if (! strcmp (key, KEY_SCROLL_METHOD)) {
+                set_edge_scroll (g_settings_get_int (settings, key));
+                set_horiz_scroll (g_settings_get_boolean (settings, KEY_PAD_HORIZ_SCROLL));
+        } else if (! strcmp (key, KEY_PAD_HORIZ_SCROLL)) {
+                set_horiz_scroll (g_settings_get_boolean (settings, key));
+        } else if (! strcmp (key, KEY_TOUCHPAD_ENABLED)) {
+                set_touchpad_enabled (g_settings_get_boolean (settings, key));
+        }
+#endif
+
+        g_object_unref (client);
+                
 }
 
 static guint
@@ -1013,11 +1017,11 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                                           client,
                                           GCONF_MOUSE_A11Y_DIR,
                                           (GConfClientNotifyFunc) mouse_callback);
-        manager->priv->notify_touchpad =
-                register_config_callback (manager,
-                                          client,
-                                          GCONF_TOUCHPAD_DIR,
-                                          (GConfClientNotifyFunc) mouse_callback);
+
+        manager->priv->touchpad_settings = g_settings_new (SETTINGS_TOUCHPAD_DIR);
+        g_signal_connect (manager->priv->touchpad_settings, "changed",
+                          G_CALLBACK (touchpad_callback), manager);
+
         manager->priv->syndaemon_spawned = FALSE;
 
 #ifdef HAVE_X11_EXTENSIONS_XINPUT_H
@@ -1029,13 +1033,13 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                                 gconf_client_get_bool (client, KEY_DWELL_ENABLE, NULL),
                                 gconf_client_get_bool (client, KEY_DELAY_ENABLE, NULL));
 
-        set_disable_w_typing (manager, gconf_client_get_bool (client, KEY_TOUCHPAD_DISABLE_W_TYPING, NULL));
+        set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
 #ifdef HAVE_X11_EXTENSIONS_XINPUT_H
-        set_tap_to_click (gconf_client_get_bool (client, KEY_TAP_TO_CLICK, NULL),
+        set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK),
                           gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
-        set_edge_scroll (gconf_client_get_int (client, KEY_SCROLL_METHOD, NULL));
-        set_horiz_scroll (gconf_client_get_bool (client, KEY_PAD_HORIZ_SCROLL, NULL));
-        set_touchpad_enabled (gconf_client_get_bool (client, KEY_TOUCHPAD_ENABLED, NULL));
+        set_edge_scroll (g_settings_get_int (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
+        set_horiz_scroll (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
+        set_touchpad_enabled (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED));
 #endif
 
         g_object_unref (client);
@@ -1080,13 +1084,8 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
                 p->notify_a11y = 0;
         }
 
-        if (p->notify_touchpad != 0) {
-                gconf_client_remove_dir (client, GCONF_TOUCHPAD_DIR, NULL);
-                gconf_client_notify_remove (client, p->notify_touchpad);
-                p->notify_touchpad = 0;
-        }
-
         g_object_unref (client);
+        g_object_unref (manager->priv->touchpad_settings);
 
         set_locate_pointer (manager, FALSE);
 
@@ -1106,6 +1105,11 @@ gsd_mouse_manager_finalize (GObject *object)
         mouse_manager = GSD_MOUSE_MANAGER (object);
 
         g_return_if_fail (mouse_manager->priv != NULL);
+
+        if (mouse_manager->priv->touchpad_settings != NULL)
+                g_object_unref (mouse_manager->priv->touchpad_settings);
+
+        g_free (mouse_manager->priv);
 
         G_OBJECT_CLASS (gsd_mouse_manager_parent_class)->finalize (object);
 }

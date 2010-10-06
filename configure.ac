@@ -466,6 +466,7 @@ data/gnome-settings-daemon.pc
 data/gnome-settings-daemon-uninstalled.pc
 data/org.gnome.desktop.font-rendering.gschema.xml.in
 data/org.gnome.desktop.keybindings.gschema.xml.in
+data/org.gnome.desktop.peripherals.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in
 po/Makefile.in

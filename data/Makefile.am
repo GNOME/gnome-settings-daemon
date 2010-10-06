@@ -3,6 +3,7 @@ NULL =
 gsettings_SCHEMAS =							\
 	org.gnome.desktop.font-rendering.gschema.xml			\
 	org.gnome.desktop.keybindings.gschema.xml			\
+	org.gnome.desktop.peripherals.gschema.xml			\
 	org.gnome.settings-daemon.plugins.housekeeping.gschema.xml	\
 	org.gnome.settings-daemon.plugins.xrandr.gschema.xml
 
