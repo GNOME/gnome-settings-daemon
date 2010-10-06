@@ -28,11 +28,12 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
 
-#include <dbus/dbus-glib.h>
-
 #include <gconf/gconf-client.h>
+
+#include <dbus/dbus-glib.h>
 
 #include "gsd-a11y-preferences-dialog.h"
 
@@ -56,8 +57,8 @@
 #define KEY_AT_SCREEN_MAGNIFIER_ENABLED KEY_AT_DIR "/screen_magnifier_enabled"
 #define KEY_AT_SCREEN_READER_ENABLED    KEY_AT_DIR "/screen_reader_enabled"
 
-#define FONT_RENDER_DIR        "/desktop/gnome/font_rendering"
-#define KEY_FONT_DPI           FONT_RENDER_DIR "/dpi"
+#define FONT_RENDER_DIR        "org.gnome.desktop.font-rendering"
+#define KEY_FONT_DPI           "dpi"
 /* X servers sometimes lie about the screen's physical dimensions, so we cannot
  * compute an accurate DPI value.  When this happens, the user gets fonts that
  * are too huge or too tiny.  So, we see what the server returns:  if it reports
@@ -274,24 +275,15 @@ static gboolean
 config_get_large_print (gboolean *is_writable)
 {
         gboolean     ret;
-        GConfClient *client;
-        GConfValue  *value;
+        GSettings   *settings;
         gdouble      x_dpi;
         gdouble      u_dpi;
 
-        client = gconf_client_get_default ();
-        value = gconf_client_get_without_default (client, KEY_FONT_DPI, NULL);
-
-        if (value != NULL) {
-                u_dpi = gconf_value_get_float (value);
-                gconf_value_free (value);
-        } else {
-                u_dpi = DPI_DEFAULT;
-        }
-
+        settings = g_settings_new ("org.gnome.desktop.font-rendering");
+        u_dpi = g_settings_get_double (settings, KEY_FONT_DPI);
         x_dpi = get_dpi_from_x_server ();
 
-        g_object_unref (client);
+        g_object_unref (settings);
 
         g_debug ("GsdA11yPreferences: got x-dpi=%f user-dpi=%f", x_dpi, u_dpi);
 
@@ -303,9 +295,9 @@ config_get_large_print (gboolean *is_writable)
 static void
 config_set_large_print (gboolean enabled)
 {
-        GConfClient *client;
+        GSettings *settings;
 
-        client = gconf_client_get_default ();
+        settings = g_settings_new ("org.gnome.desktop.font-rendering");
 
         if (enabled) {
                 gdouble x_dpi;
@@ -316,12 +308,12 @@ config_set_large_print (gboolean enabled)
 
                 g_debug ("GsdA11yPreferences: setting x-dpi=%f user-dpi=%f", x_dpi, u_dpi);
 
-                gconf_client_set_float (client, KEY_FONT_DPI, u_dpi, NULL);
+                g_settings_set_double (settings, KEY_FONT_DPI, u_dpi);
         } else {
-                gconf_client_unset (client, KEY_FONT_DPI, NULL);
+                g_settings_reset (settings, KEY_FONT_DPI);
         }
 
-        g_object_unref (client);
+        g_object_unref (settings);
 }
 
 static gboolean
