@@ -439,71 +439,17 @@ dialog_show (GsdMediaKeysManager *manager)
 }
 
 static void
-do_unknown_action (GsdMediaKeysManager *manager,
-                   const char          *url)
+do_url_action (GsdMediaKeysManager *manager,
+               const char          *scheme)
 {
-        char *string;
-        GSettings *settings;
+        GAppInfo *app_info;
 
-        g_return_if_fail (url != NULL);
-
-        settings = g_settings_new ("org.gnome.desktop.url-handlers.unknown");
-        string = g_settings_get_string (settings, "command");
-
-        if ((string != NULL) && (strcmp (string, "") != 0)) {
-                char *cmd;
-                cmd = g_strdup_printf (string, url);
-                execute (manager, cmd, FALSE, FALSE);
-                g_free (cmd);
-        }
-
-        g_free (string);
-        g_object_unref (settings);
-}
-
-static void
-do_help_action (GsdMediaKeysManager *manager)
-{
-        char *string;
-        GSettings *settings;
-
-        settings = g_settings_new ("org.gnome.desktop.url-handlers.ghelp");
-        string = g_settings_get_string (settings, "command");
-
-        if ((string != NULL) && (strcmp (string, "") != 0)) {
-                char *cmd;
-                cmd = g_strdup_printf (string, "");
-                execute (manager, cmd, FALSE, FALSE);
-                g_free (cmd);
+        app_info = g_app_info_get_default_for_uri_scheme (scheme);
+        if (app_info != NULL) {
+                execute (manager, g_app_info_get_commandline (app_info), FALSE, /* FIXME */ FALSE);
         } else {
-                do_unknown_action (manager, "ghelp:");
+                g_warning ("Could not find default application for '%s' scheme", scheme);
         }
-
-        g_free (string);
-        g_object_unref (settings);
-}
-
-static void
-do_mail_action (GsdMediaKeysManager *manager)
-{
-        char *string;
-        GSettings *settings;
-
-        settings = g_settings_new ("org.gnome.desktop.url-handlers.mailto");
-        string = g_settings_get_string (settings, "command");
-
-        if ((string != NULL) && (strcmp (string, "") != 0)) {
-                char *cmd;
-                cmd = g_strdup_printf (string, "");
-                execute (manager,
-                         cmd,
-                         FALSE,
-                         g_settings_get_boolean (settings, "needs-terminal"));
-                g_free (cmd);
-        }
-
-        g_free (string);
-        g_object_unref (settings);
 }
 
 static void
@@ -522,38 +468,6 @@ do_media_action (GsdMediaKeysManager *manager)
         }
 
         g_free (command);
-        g_object_unref (settings);
-}
-
-static void
-do_www_action (GsdMediaKeysManager *manager,
-               const char          *url)
-{
-        char *string;
-        GSettings *settings;
-
-        settings = g_settings_new ("org.gnome.desktop.url-handlers.http");
-        string = g_settings_get_string (settings, "command");
-
-        if ((string != NULL) && (strcmp (string, "") != 0)) {
-                gchar *cmd;
-
-                if (url == NULL) {
-                        cmd = g_strdup_printf (string, "");
-                } else {
-                        cmd = g_strdup_printf (string, url);
-                }
-
-                execute (manager,
-                         cmd,
-                         FALSE,
-                         g_settings_get_boolean (settings, "needs-terminal"));
-                g_free (cmd);
-        } else {
-                do_unknown_action (manager, url ? url : "");
-        }
-
-        g_free (string);
         g_object_unref (settings);
 }
 
@@ -947,7 +861,7 @@ do_action (GsdMediaKeysManager *manager,
                 g_free (cmd);
                 break;
         case EMAIL_KEY:
-                do_mail_action (manager);
+                do_url_action (manager, "mailto");
                 break;
         case SCREENSAVER_KEY:
                 if ((cmd = g_find_program_in_path ("gnome-screensaver-command"))) {
@@ -959,10 +873,10 @@ do_action (GsdMediaKeysManager *manager,
                 g_free (cmd);
                 break;
         case HELP_KEY:
-                do_help_action (manager);
+                do_url_action (manager, "ghelp");
                 break;
         case WWW_KEY:
-                do_www_action (manager, NULL);
+                do_url_action (manager, "http");
                 break;
         case MEDIA_KEY:
                 do_media_action (manager);
