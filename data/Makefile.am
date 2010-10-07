@@ -36,7 +36,7 @@ xml_in_files = 50-accessibility.xml.in
 xml_DATA = $(xml_in_files:.xml.in=.xml)
 
 EXTRA_DIST = 					\
-	$(gsettings_SCHEMAS:.xml=.xml.in.in	\
+	$(gsettings_SCHEMAS:.xml=.xml.in.in)	\
 	$(service_in_files)			\
 	$(desktop_in_files)			\
 	$(xml_in_files)				\
