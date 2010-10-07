@@ -1,11 +1,5 @@
 AC_PREREQ([2.60])
 
-m4_define([gsd_api_version_major],[3])
-m4_define([gsd_api_version_minor],[0])
-m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])
-GSD_API_VERSION="gsd_api_version"
-AC_SUBST(GSD_API_VERSION)
-
 AC_INIT([gnome-settings-daemon],
         [2.91.0],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
@@ -15,6 +9,12 @@ AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
 AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-bzip2 tar-ustar])
 
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+
+m4_define([gsd_api_version_major],[3])
+m4_define([gsd_api_version_minor],[0])
+m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])
+GSD_API_VERSION="gsd_api_version"
+AC_SUBST(GSD_API_VERSION)
 
 AC_STDC_HEADERS
 AC_PROG_CXX
