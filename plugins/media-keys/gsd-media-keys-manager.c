@@ -157,7 +157,7 @@ get_term_command (GsdMediaKeysManager *manager)
 
         settings = g_settings_new ("org.gnome.desktop.applications.terminal");
         cmd_term = g_settings_get_string (settings, "exec");
-        if (strcmp (cmd_term, "") == 0)
+        if (cmd_term[0] == '\0')
                 cmd_term = g_strdup ("gnome-terminal");
 
         cmd_args = g_settings_get_string (settings, "exec-arg");

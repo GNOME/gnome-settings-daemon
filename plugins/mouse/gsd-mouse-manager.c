@@ -924,29 +924,29 @@ mouse_callback (GConfClient        *client,
                 GConfEntry         *entry,
                 GsdMouseManager    *manager)
 {
-        if (! strcmp (entry->key, KEY_LEFT_HANDED)) {
+        if (g_str_equal (entry->key, KEY_LEFT_HANDED)) {
                 if (entry->value->type == GCONF_VALUE_BOOL) {
                         set_left_handed (manager, gconf_value_get_bool (entry->value));
                 }
-        } else if (! strcmp (entry->key, KEY_MOTION_ACCELERATION)) {
+        } else if (g_str_equal (entry->key, KEY_MOTION_ACCELERATION)) {
                 if (entry->value->type == GCONF_VALUE_FLOAT) {
                         set_motion_acceleration (manager, gconf_value_get_float (entry->value));
                 }
-        } else if (! strcmp (entry->key, KEY_MOTION_THRESHOLD)) {
+        } else if (g_str_equal (entry->key, KEY_MOTION_THRESHOLD)) {
                 if (entry->value->type == GCONF_VALUE_INT) {
                         set_motion_threshold (manager, gconf_value_get_int (entry->value));
                 }
-        } else if (! strcmp (entry->key, KEY_LOCATE_POINTER)) {
+        } else if (g_str_equal (entry->key, KEY_LOCATE_POINTER)) {
                 if (entry->value->type == GCONF_VALUE_BOOL) {
                         set_locate_pointer (manager, gconf_value_get_bool (entry->value));
                 }
-        } else if (! strcmp (entry->key, KEY_DWELL_ENABLE)) {
+        } else if (g_str_equal (entry->key, KEY_DWELL_ENABLE)) {
                 if (entry->value->type == GCONF_VALUE_BOOL) {
                         set_mousetweaks_daemon (manager,
                                                 gconf_value_get_bool (entry->value),
                                                 gconf_client_get_bool (client, KEY_DELAY_ENABLE, NULL));
                 }
-        } else if (! strcmp (entry->key, KEY_DELAY_ENABLE)) {
+        } else if (g_str_equal (entry->key, KEY_DELAY_ENABLE)) {
                 if (entry->value->type == GCONF_VALUE_BOOL) {
                         set_mousetweaks_daemon (manager,
                                                 gconf_client_get_bool (client, KEY_DWELL_ENABLE, NULL),
@@ -962,18 +962,18 @@ touchpad_callback (GSettings       *settings,
 {
         GConfClient *client = gconf_client_get_default ();
 
-        if (! strcmp (key, KEY_TOUCHPAD_DISABLE_W_TYPING)) {
+        if (g_str_equal (key, KEY_TOUCHPAD_DISABLE_W_TYPING)) {
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, key));
 #ifdef HAVE_X11_EXTENSIONS_XINPUT_H
-        } else if (! strcmp (key, KEY_TAP_TO_CLICK)) {
+        } else if (g_str_equal (key, KEY_TAP_TO_CLICK)) {
                 set_tap_to_click (g_settings_get_boolean (settings, key),
                                   gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
-        } else if (! strcmp (key, KEY_SCROLL_METHOD)) {
+        } else if (g_str_equal (key, KEY_SCROLL_METHOD)) {
                 set_edge_scroll (g_settings_get_int (settings, key));
                 set_horiz_scroll (g_settings_get_boolean (settings, KEY_PAD_HORIZ_SCROLL));
-        } else if (! strcmp (key, KEY_PAD_HORIZ_SCROLL)) {
+        } else if (g_str_equal (key, KEY_PAD_HORIZ_SCROLL)) {
                 set_horiz_scroll (g_settings_get_boolean (settings, key));
-        } else if (! strcmp (key, KEY_TOUCHPAD_ENABLED)) {
+        } else if (g_str_equal (key, KEY_TOUCHPAD_ENABLED)) {
                 set_touchpad_enabled (g_settings_get_boolean (settings, key));
         }
 #endif
@@ -1086,6 +1086,7 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
 
         g_object_unref (client);
         g_object_unref (manager->priv->touchpad_settings);
+        manager->priv->touchpad_settings = NULL;
 
         set_locate_pointer (manager, FALSE);
 

@@ -152,44 +152,40 @@ ignore_check_button_toggled_cb (GtkToggleButton *button,
         GSettings *settings;
         gchar **settings_list;
         gboolean ignore, updated;
-        
+        gint i;
+        GSList *ignore_paths = NULL;
+
         settings = g_settings_new (SETTINGS_HOUSEKEEPING_DIR);
-        if (settings != NULL) {
-                gint i;
-                GSList *ignore_paths = NULL;
 
-                settings_list = g_settings_get_strv (settings, "ignore-paths");
+        settings_list = g_settings_get_strv (settings, "ignore-paths");
 
-                for (i = 0; i < G_N_ELEMENTS (settings_list); i++) {
-                        if (settings_list[i] != NULL)
-                                ignore_paths = g_slist_append (ignore_paths, g_strdup (settings_list[i]));
+        for (i = 0; i < G_N_ELEMENTS (settings_list); i++) {
+                if (settings_list[i] != NULL)
+                        ignore_paths = g_slist_append (ignore_paths, g_strdup (settings_list[i]));
+        }
+
+        ignore = gtk_toggle_button_get_active (button);
+        updated = update_ignore_paths (&ignore_paths, dialog->priv->mount_path, ignore);
+
+        g_strfreev (settings_list);
+
+        if (updated) {
+                GSList *l;
+                GPtrArray *array = g_ptr_array_new ();
+
+                for (l = ignore_paths; l != NULL; l = l->next)
+                        g_ptr_array_add (array, l->data);
+
+                if (!g_settings_set_strv (settings, "ignore-paths", (const gchar **) array->pdata)) {
+                        g_warning ("Cannot change ignore preference - failed to commit changes");
                 }
 
-                ignore = gtk_toggle_button_get_active (button);
-                updated = update_ignore_paths (&ignore_paths, dialog->priv->mount_path, ignore);
+                g_ptr_array_free (array, FALSE);
+        }
 
-                g_strfreev (settings_list);
-                
-                if (updated) {
-                        GSList *l;
-                        GPtrArray *array = g_ptr_array_new ();
-
-                        for (l = ignore_paths; l != NULL; l = l->next)
-                                g_ptr_array_add (array, l->data);
-
-                        if (!g_settings_set_strv (settings, "ignore-paths", (const gchar **) array->pdata)) {
-                                g_warning ("Cannot change ignore preference - failed to commit changes");
-                        }
-
-                        g_ptr_array_free (array, FALSE);
-                }
-
-                g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
-                g_slist_free (ignore_paths);
-                g_object_unref (settings);
-        } else {
-                g_warning ("Cannot change ignore preference - failed to get settings client");
-        }     
+        g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
+        g_slist_free (ignore_paths);
+        g_object_unref (settings);
 }
 
 static void

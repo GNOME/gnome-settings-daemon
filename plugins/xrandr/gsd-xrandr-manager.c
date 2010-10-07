@@ -2154,7 +2154,7 @@ on_config_changed (GSettings            *settings,
                    const gchar          *key,
                    GsdXrandrManager *manager)
 {
-        if (strcmp (key, CONF_KEY_SHOW_NOTIFICATION_ICON) == 0)
+        if (g_str_equal (key, CONF_KEY_SHOW_NOTIFICATION_ICON))
                 start_or_stop_icon (manager);
 }
 
