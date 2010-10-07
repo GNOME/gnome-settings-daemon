@@ -415,7 +415,7 @@ get_exec_environment (XEvent *xevent)
         GdkWindow *window = gdk_xid_table_lookup (xevent->xkey.root);
 
         if (window) {
-                screen = gdk_drawable_get_screen (GDK_DRAWABLE (window));
+                screen = gdk_window_get_screen (window);
         }
 
         g_return_val_if_fail (GDK_IS_SCREEN (screen), NULL);
