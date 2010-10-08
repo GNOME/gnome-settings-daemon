@@ -1,7 +1,10 @@
 NULL =
 
+apidir = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings-daemon
+api_DATA = gsd-enums.h
+
 gsettings_ENUM_NAMESPACE = org.gnome.desktop
-gsettings_ENUM_FILES = gsd-enums.h
+gsettings_ENUM_FILES = $(api_DATA)
 
 gsettings_SCHEMAS =							\
 	org.gnome.desktop.font-rendering.gschema.xml			\
