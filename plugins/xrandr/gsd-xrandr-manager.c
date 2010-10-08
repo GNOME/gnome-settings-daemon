@@ -61,8 +61,8 @@
 
 #define CONF_DIR "org.gnome.settings-daemon.plugins.xrandr"
 #define CONF_KEY_SHOW_NOTIFICATION_ICON ("show-notification-icon")
-#define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP	("turn-on-external-monitors-at-startup")
-#define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP	("turn-on-laptop-monitor-at-startup")
+#define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP	("turn-on-external-monitors")
+#define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP	("turn-on-laptop-monitor")
 #define CONF_KEY_DEFAULT_CONFIGURATION_FILE             ("default-configuration-file")
 
 #define VIDEO_KEYSYM    "XF86Display"
