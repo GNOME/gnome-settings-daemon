@@ -1,11 +1,11 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.housekeeping" path="/apps/gnome-settings-daemon/plugins/housekeeping/">
-    <key name="free-percent-notify" type="f">
+    <key name="free-percent-notify" type="d">
       <default>0.05</default>
       <_summary>Free percentage notify threshold</_summary>
       <_description>Percentage free space threshold for initial warning of low disk space. If the percentage free space drops below this, a warning will be shown.</_description>
     </key>
-    <key name="free-percent-notify-again" type="f">
+    <key name="free-percent-notify-again" type="d">
       <default>0.01</default>
       <_summary>Subsequent free percentage notify threshold</_summary>
       <_description>Specify the percentage that the free disk space should reduce by before issuing a subsequent warning.</_description>
