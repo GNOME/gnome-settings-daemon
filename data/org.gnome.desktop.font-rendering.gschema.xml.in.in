@@ -6,9 +6,9 @@
       <_description>The type of antialiasing to use when rendering fonts. Possible values are: "none" for no antialiasing, "grayscale" for standard grayscale antialiasing, and "rgba" for subpixel antialiasing (LCD screens only).</_description>
     </key>
     <key name="dpi" type="d">
-      <default>96.0</default>
+      <default>0.0</default>
       <_summary>DPI</_summary>
-      <_description>The resolution used for converting font sizes to pixel sizes, in dots per inch.</_description>
+      <_description>The resolution used for converting font sizes to pixel sizes, in dots per inch. 0.0 DPI means that the X server's DPI will be used.</_description>
     </key>
     <key name="hinting" enum="org.gnome.desktop.GsdFontHinting">
       <default>'medium'</default>

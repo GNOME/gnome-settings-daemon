@@ -41,6 +41,7 @@
 #include <gconf/gconf-client.h>
 
 #include "gnome-settings-profile.h"
+#include "gsd-enums.h"
 #include "gsd-xsettings-manager.h"
 #include "xsettings-manager.h"
 #ifdef HAVE_FONTCONFIG
@@ -271,6 +272,8 @@ get_dpi_from_gconf_or_x_server (GnomeXSettingsManager *manager)
         double      dpi;
 
         dpi = g_settings_get_double (manager->priv->font_settings, FONT_DPI_KEY);
+        if (dpi == 0.0)
+		dpi = get_dpi_from_x_server ();
 
         return dpi;
 }
@@ -284,90 +287,59 @@ typedef struct
         const char *hintstyle;
 } GnomeXftSettings;
 
-static const char *rgba_types[] = { "rgb", "bgr", "vbgr", "vrgb" };
-
-/* Read GConf settings and determine the appropriate Xft settings based on them
- * This probably could be done a bit more cleanly with gconf_string_to_enum
- */
+/* Read GSettings and determine the appropriate Xft settings based on them. */
 static void
 xft_settings_get (GnomeXSettingsManager *manager,
                   GnomeXftSettings      *settings)
 {
-        char  *antialiasing;
-        char  *hinting;
-        char  *rgba_order;
+	GsdFontAntialiasingMode antialiasing;
+	GsdFontHinting hinting;
+	GsdFontRgbaOrder rgba_order;
         double dpi;
+	gboolean use_rgba = FALSE;
 
-        antialiasing = g_settings_get_string (manager->priv->font_settings, FONT_ANTIALIASING_KEY);
-        hinting = g_settings_get_string (manager->priv->font_settings, FONT_HINTING_KEY);
-        rgba_order = g_settings_get_string (manager->priv->font_settings, FONT_RGBA_ORDER_KEY);
+
+        antialiasing = g_settings_get_enum (manager->priv->font_settings, FONT_ANTIALIASING_KEY);
+        hinting = g_settings_get_enum (manager->priv->font_settings, FONT_HINTING_KEY);
+        rgba_order = g_settings_get_enum (manager->priv->font_settings, FONT_RGBA_ORDER_KEY);
         dpi = get_dpi_from_gconf_or_x_server (manager);
 
-        settings->antialias = TRUE;
-        settings->hinting = TRUE;
-        settings->hintstyle = "hintfull";
+        settings->antialias = (antialiasing != GSD_FONT_ANTIALIASING_MODE_NONE);
+        settings->hinting = (hinting != GSD_FONT_HINTING_NONE);
         settings->dpi = dpi * 1024; /* Xft wants 1/1024ths of an inch */
         settings->rgba = "rgb";
+        settings->hintstyle = "hintfull";
 
-        if (rgba_order) {
-                int i;
-                gboolean found = FALSE;
-
-                for (i = 0; i < G_N_ELEMENTS (rgba_types) && !found; i++) {
-                        if (strcmp (rgba_order, rgba_types[i]) == 0) {
-                                settings->rgba = rgba_types[i];
-                                found = TRUE;
-                        }
-                }
-
-                if (!found) {
-                        g_warning ("Invalid value for " FONT_RGBA_ORDER_KEY ": '%s'",
-                                   rgba_order);
-                }
+	switch (hinting) {
+	case GSD_FONT_HINTING_NONE:
+		settings->hintstyle = "hintnone";
+		break;
+	case GSD_FONT_HINTING_SLIGHT:
+		settings->hintstyle = "hintslight";
+		break;
+	case GSD_FONT_HINTING_MEDIUM:
+		settings->hintstyle = "hintmedium";
+		break;
+	case GSD_FONT_HINTING_FULL:
+		settings->hintstyle = "hintfull";
+		break;
         }
 
-        if (hinting) {
-                if (strcmp (hinting, "none") == 0) {
-                        settings->hinting = 0;
-                        settings->hintstyle = "hintnone";
-                } else if (strcmp (hinting, "slight") == 0) {
-                        settings->hinting = 1;
-                        settings->hintstyle = "hintslight";
-                } else if (strcmp (hinting, "medium") == 0) {
-                        settings->hinting = 1;
-                        settings->hintstyle = "hintmedium";
-                } else if (strcmp (hinting, "full") == 0) {
-                        settings->hinting = 1;
-                        settings->hintstyle = "hintfull";
-                } else {
-                        g_warning ("Invalid value for " FONT_HINTING_KEY ": '%s'",
-                                   hinting);
-                }
-        }
+	switch (antialiasing) {
+	case GSD_FONT_ANTIALIASING_MODE_NONE:
+		settings->antialias = 0;
+		break;
+	case GSD_FONT_ANTIALIASING_MODE_GRAYSCALE:
+		settings->antialias = 1;
+		break;
+	case GSD_FONT_ANTIALIASING_MODE_RGBA:
+		settings->antialias = 1;
+		use_rgba = TRUE;
+	}
 
-        if (antialiasing) {
-                gboolean use_rgba = FALSE;
-
-                if (strcmp (antialiasing, "none") == 0) {
-                        settings->antialias = 0;
-                } else if (strcmp (antialiasing, "grayscale") == 0) {
-                        settings->antialias = 1;
-                } else if (strcmp (antialiasing, "rgba") == 0) {
-                        settings->antialias = 1;
-                        use_rgba = TRUE;
-                } else {
-                        g_warning ("Invalid value for " FONT_ANTIALIASING_KEY " : '%s'",
-                                   antialiasing);
-                }
-
-                if (!use_rgba) {
-                        settings->rgba = "none";
-                }
-        }
-
-        g_free (rgba_order);
-        g_free (hinting);
-        g_free (antialiasing);
+	if (!use_rgba) {
+		settings->rgba = "none";
+	}
 }
 
 static void
@@ -448,7 +420,7 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
 
         /* Set the new X property */
         XChangeProperty(dpy, RootWindow (dpy, 0),
-                        XA_RESOURCE_MANAGER, XA_STRING, 8, PropModeReplace, add_string->str, add_string->len);
+                        XA_RESOURCE_MANAGER, XA_STRING, 8, PropModeReplace, (const unsigned char *) add_string->str, add_string->len);
         XCloseDisplay (dpy);
 
         g_string_free (add_string, TRUE);
