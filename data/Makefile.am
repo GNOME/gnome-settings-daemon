@@ -1,5 +1,8 @@
 NULL =
 
+gsettings_ENUM_NAMESPACE = org.gnome.desktop
+gsettings_ENUM_FILES = gsd-enums.h
+
 gsettings_SCHEMAS =							\
 	org.gnome.desktop.font-rendering.gschema.xml			\
 	org.gnome.desktop.keybindings.gschema.xml			\
@@ -40,6 +43,7 @@ EXTRA_DIST = 					\
 	$(service_in_files)			\
 	$(desktop_in_files)			\
 	$(xml_in_files)				\
+	$(gsettings_ENUM_FILES)			\
 	gnome-settings-daemon.pc.in		\
 	$(NULL)
 
