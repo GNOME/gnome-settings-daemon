@@ -8,6 +8,7 @@ libmouse_la_SOURCES = 		\
 
 libmouse_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/data/				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" \
 	$(AM_CPPFLAGS)

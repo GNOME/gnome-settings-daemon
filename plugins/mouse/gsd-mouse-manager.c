@@ -50,6 +50,7 @@
 
 #include "gnome-settings-profile.h"
 #include "gsd-mouse-manager.h"
+#include "gsd-enums.h"
 
 #define GSD_MOUSE_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerPrivate))
 
@@ -66,7 +67,7 @@
 #define KEY_TOUCHPAD_DISABLE_W_TYPING    "disable_while_typing"
 #ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 #define KEY_TAP_TO_CLICK        "tap_to_click"
-#define KEY_SCROLL_METHOD       "scroll_method"
+#define KEY_SCROLL_METHOD       "scroll-method"
 #define KEY_PAD_HORIZ_SCROLL    "horiz_scroll_enabled"
 #define KEY_TOUCHPAD_ENABLED    "touchpad_enabled"
 #endif
@@ -706,7 +707,7 @@ set_horiz_scroll (gboolean state)
  * scrolling
  */
 static int
-set_edge_scroll (int method)
+set_edge_scroll (GsdTouchpadScrollMethod method)
 {
         int numdevices, i, rc;
         XDeviceInfo *devicelist = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &numdevices);
@@ -734,7 +735,7 @@ set_edge_scroll (int method)
                                                 &bytes_after, &data);
                         if (rc == Success && act_type == XA_INTEGER &&
                                 act_format == 8 && nitems >= 2) {
-                                data[0] = (method == 1) ? 1 : 0;
+                                data[0] = (method == GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING) ? 1 : 0;
                                 XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
                                                         prop_edge, XA_INTEGER, 8,
                                                         PropModeReplace, data, nitems);
@@ -748,7 +749,7 @@ set_edge_scroll (int method)
                                                 &bytes_after, &data);
                         if (rc == Success && act_type == XA_INTEGER &&
                                 act_format == 8 && nitems >= 2) {
-                                data[0] = (method == 2) ? 1 : 0;
+                                data[0] = (method == GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) ? 1 : 0;
                                 XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
                                                         prop_twofinger, XA_INTEGER, 8,
                                                         PropModeReplace, data, nitems);
@@ -910,7 +911,7 @@ set_mouse_settings (GsdMouseManager *manager)
         set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
 #ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), left_handed);
-        set_edge_scroll (g_settings_get_int (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
+        set_edge_scroll (g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
         set_horiz_scroll (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
         set_touchpad_enabled (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED));
 #endif
@@ -969,7 +970,7 @@ touchpad_callback (GSettings       *settings,
                 set_tap_to_click (g_settings_get_boolean (settings, key),
                                   gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
         } else if (g_str_equal (key, KEY_SCROLL_METHOD)) {
-                set_edge_scroll (g_settings_get_int (settings, key));
+                set_edge_scroll (g_settings_get_enum (settings, key));
                 set_horiz_scroll (g_settings_get_boolean (settings, KEY_PAD_HORIZ_SCROLL));
         } else if (g_str_equal (key, KEY_PAD_HORIZ_SCROLL)) {
                 set_horiz_scroll (g_settings_get_boolean (settings, key));
@@ -979,7 +980,6 @@ touchpad_callback (GSettings       *settings,
 #endif
 
         g_object_unref (client);
-                
 }
 
 static guint
