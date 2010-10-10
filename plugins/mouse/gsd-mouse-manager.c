@@ -64,12 +64,12 @@
 #define KEY_LOCATE_POINTER      GCONF_MOUSE_DIR "/locate_pointer"
 #define KEY_DWELL_ENABLE        GCONF_MOUSE_A11Y_DIR "/dwell_enable"
 #define KEY_DELAY_ENABLE        GCONF_MOUSE_A11Y_DIR "/delay_enable"
-#define KEY_TOUCHPAD_DISABLE_W_TYPING    "disable_while_typing"
+#define KEY_TOUCHPAD_DISABLE_W_TYPING    "disable-while-typing"
 #ifdef HAVE_X11_EXTENSIONS_XINPUT_H
-#define KEY_TAP_TO_CLICK        "tap_to_click"
+#define KEY_TAP_TO_CLICK        "tap-to-click"
 #define KEY_SCROLL_METHOD       "scroll-method"
-#define KEY_PAD_HORIZ_SCROLL    "horiz_scroll_enabled"
-#define KEY_TOUCHPAD_ENABLED    "touchpad_enabled"
+#define KEY_PAD_HORIZ_SCROLL    "horiz-scroll-enabled"
+#define KEY_TOUCHPAD_ENABLED    "touchpad-enabled"
 #endif
 
 struct GsdMouseManagerPrivate
