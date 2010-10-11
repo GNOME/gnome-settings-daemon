@@ -3,13 +3,13 @@ NULL =
 apidir = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings-daemon
 api_DATA = gsd-enums.h
 
-gsettings_ENUM_NAMESPACE = org.gnome.desktop
+gsettings_ENUM_NAMESPACE = org.gnome.settings-daemon
 gsettings_ENUM_FILES = $(api_DATA)
 
 gsettings_SCHEMAS =							\
-	org.gnome.desktop.font-rendering.gschema.xml			\
 	org.gnome.desktop.keybindings.gschema.xml			\
 	org.gnome.desktop.peripherals.gschema.xml			\
+	org.gnome.settings-daemon.plugins.xsettings.gschema.xml		\
 	org.gnome.settings-daemon.plugins.housekeeping.gschema.xml	\
 	org.gnome.settings-daemon.plugins.xrandr.gschema.xml
 

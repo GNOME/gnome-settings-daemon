@@ -57,7 +57,7 @@
 #define GTK_MODULES_DIR        "/apps/gnome_settings_daemon/gtk-modules"
 
 #ifdef HAVE_FONTCONFIG
-#define FONT_RENDER_DIR "org.gnome.desktop.font-rendering"
+#define FONT_RENDER_DIR "org.gnome.settings-daemon.plugins.xsettings"
 #define FONT_ANTIALIASING_KEY "antialiasing"
 #define FONT_HINTING_KEY      "hinting"
 #define FONT_RGBA_ORDER_KEY   "rgba_order"

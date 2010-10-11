@@ -4,7 +4,7 @@
     <child name="touchpad" schema="org.gnome.desktop.peripherals.touchpad"/>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.desktop.peripherals.smartcard" path="/desktop/gnome/peripherals/smartcard/">
-    <key name="removal-action" enum="org.gnome.desktop.GsdSmartcardRemovalAction">
+    <key name="removal-action" enum="org.gnome.settings-daemon.GsdSmartcardRemovalAction">
       <default>'none'</default>
       <_summary>Smartcard removal action</_summary>
       <_description>Set this to one of "none", "lock-screen", or "force-logout". The action will get performed when the smartcard used for log in is removed.</_description>
@@ -21,7 +21,7 @@
       <_summary>Enable horizontal scrolling</_summary>
       <_description>Set this to TRUE to allow horizontal scrolling by the same method selected with the scroll_method key.</_description>
     </key>
-    <key name="scroll-method" enum="org.gnome.desktop.GsdTouchpadScrollMethod">
+    <key name="scroll-method" enum="org.gnome.settings-daemon.GsdTouchpadScrollMethod">
       <default>'edge-scrolling'</default>
       <_summary>Select the touchpad scroll method</_summary>
       <_description>Select the touchpad scroll method. Supported values are: "disabled", "edge-scrolling", "two-finger-scrolling".</_description>
