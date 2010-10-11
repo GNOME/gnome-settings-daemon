@@ -1,5 +1,10 @@
 <schemalist>
-	<schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.xsettings" path="/apps/gnome-settings-daemon/plugins/xsettings/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.xsettings" path="/apps/gnome-settings-daemon/plugins/xsettings/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
     <key name="antialiasing" enum="org.gnome.settings-daemon.GsdFontAntialiasingMode">
       <default>'grayscale'</default>
       <_summary>Antialiasing</_summary>
@@ -14,6 +19,11 @@
       <default>'medium'</default>
       <_summary>Hinting</_summary>
       <_description>The type of hinting to use when rendering fonts. Possible values are: "none" for no hinting, "slight" for basic, "medium" for moderate, and "full" for maximum hinting (may cause distortion of letter forms).</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>2</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
     <key name="rgba-order" enum="org.gnome.settings-daemon.GsdFontRgbaOrder">
       <default>'rgb'</default>
