@@ -70,7 +70,7 @@
  * DPI_HIGH_REASONABLE_VALUE], then we assume that it is lying and we use
  * DPI_FALLBACK instead.
  *
- * See get_dpi_from_gconf_or_server() below, and also
+ * See get_dpi_from_gsettings_or_x_server() below, and also
  * https://bugzilla.novell.com/show_bug.cgi?id=217790
  */
 #define DPI_FALLBACK 96
@@ -267,7 +267,7 @@ get_dpi_from_x_server (void)
 }
 
 static double
-get_dpi_from_gconf_or_x_server (GnomeXSettingsManager *manager)
+get_dpi_from_gsettings_or_x_server (GnomeXSettingsManager *manager)
 {
         double      dpi;
 
@@ -302,7 +302,7 @@ xft_settings_get (GnomeXSettingsManager *manager,
         antialiasing = g_settings_get_enum (manager->priv->font_settings, FONT_ANTIALIASING_KEY);
         hinting = g_settings_get_enum (manager->priv->font_settings, FONT_HINTING_KEY);
         rgba_order = g_settings_get_enum (manager->priv->font_settings, FONT_RGBA_ORDER_KEY);
-        dpi = get_dpi_from_gconf_or_x_server (manager);
+        dpi = get_dpi_from_gsettings_or_x_server (manager);
 
         settings->antialias = (antialiasing != GSD_FONT_ANTIALIASING_MODE_NONE);
         settings->hinting = (hinting != GSD_FONT_HINTING_NONE);
