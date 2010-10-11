@@ -554,7 +554,7 @@ do_touchpad_action (GsdMediaKeysManager *manager)
         GSettings *settings;
         gboolean state;
 
-        settings = g_settings_new ("org.gnome.desktop.peripherals.touchpad");
+        settings = g_settings_new ("org.gnome.settings-daemon.peripherals.touchpad");
         state = g_settings_get_boolean (settings, TOUCHPAD_ENABLED_KEY);
 
         dialog_init (manager);

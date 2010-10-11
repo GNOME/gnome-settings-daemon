@@ -56,7 +56,7 @@
 
 #define GCONF_MOUSE_DIR         "/desktop/gnome/peripherals/mouse"
 #define GCONF_MOUSE_A11Y_DIR    "/desktop/gnome/accessibility/mouse"
-#define SETTINGS_TOUCHPAD_DIR      "org.gnome.desktop.peripherals.touchpad"
+#define SETTINGS_TOUCHPAD_DIR      "org.gnome.settings-daemon.peripherals.touchpad"
 
 #define KEY_LEFT_HANDED         GCONF_MOUSE_DIR "/left_handed"
 #define KEY_MOTION_ACCELERATION GCONF_MOUSE_DIR "/motion_acceleration"

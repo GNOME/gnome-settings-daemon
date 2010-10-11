@@ -184,7 +184,7 @@ get_configured_remove_action (GsdSmartcardPlugin *plugin)
         char *remove_action_string;
         GsdSmartcardRemoveAction remove_action;
 
-        settings = g_settings_new ("org.gnome.desktop.peripherals.smartcard");
+        settings = g_settings_new ("org.gnome.settings-daemon.peripherals.smartcard");
         remove_action_string = g_settings_get_string (settings, KEY_REMOVE_ACTION);
 
         if (remove_action_string == NULL) {
