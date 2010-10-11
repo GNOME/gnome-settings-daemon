@@ -7,8 +7,8 @@ gsettings_ENUM_NAMESPACE = org.gnome.settings-daemon
 gsettings_ENUM_FILES = $(api_DATA)
 
 gsettings_SCHEMAS =							\
-	org.gnome.desktop.keybindings.gschema.xml			\
 	org.gnome.desktop.peripherals.gschema.xml			\
+	org.gnome.settings-daemon.plugins.media-keys.gschema.xml	\
 	org.gnome.settings-daemon.plugins.xsettings.gschema.xml		\
 	org.gnome.settings-daemon.plugins.housekeeping.gschema.xml	\
 	org.gnome.settings-daemon.plugins.xrandr.gschema.xml

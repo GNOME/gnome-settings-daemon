@@ -23,7 +23,7 @@
 
 #include "gsd-keygrab.h"
 
-#define SETTINGS_BINDING_DIR "org.gnome.desktop.keybindings"
+#define SETTINGS_BINDING_DIR "org.gnome.settings-daemon.plugins.media-keys"
 
 enum {
         TOUCHPAD_KEY,
