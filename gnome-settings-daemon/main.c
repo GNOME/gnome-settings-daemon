@@ -44,7 +44,7 @@
 #define GNOME_SESSION_DBUS_OBJECT    "/org/gnome/SessionManager"
 #define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
 
-static char      *gconf_prefix = NULL;
+static char      *settings_prefix = NULL;
 static gboolean   no_daemon    = FALSE;
 static gboolean   debug        = FALSE;
 static gboolean   do_timed_exit = FALSE;
@@ -54,7 +54,7 @@ static int        term_signal_pipe_fds[2];
 static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL },
         {"no-daemon", 0, 0, G_OPTION_ARG_NONE, &no_daemon, N_("Don't become a daemon"), NULL },
-        {"gconf-prefix", 0, 0, G_OPTION_ARG_STRING, &gconf_prefix, N_("GConf prefix from which to load plugin settings"), NULL},
+        {"settings-prefix", 0, 0, G_OPTION_ARG_STRING, &settings_prefix, N_("Settings prefix from which to load plugin settings"), NULL},
         { "timed-exit", 0, 0, G_OPTION_ARG_NONE, &do_timed_exit, N_("Exit after a time (for debugging)"), NULL },
         {NULL}
 };
@@ -481,8 +481,8 @@ main (int argc, char *argv[])
            automatically.  Otherwise, wait for an Awake etc. */
         if (g_getenv ("DBUS_STARTER_BUS_TYPE") == NULL) {
                 error = NULL;
-                if (gconf_prefix != NULL) {
-                        res = gnome_settings_manager_start_with_settings_prefix (manager, gconf_prefix, &error);
+                if (settings_prefix != NULL) {
+                        res = gnome_settings_manager_start_with_settings_prefix (manager, settings_prefix, &error);
                 } else {
                         res = gnome_settings_manager_start (manager, &error);
                 }
@@ -502,7 +502,7 @@ main (int argc, char *argv[])
         gtk_main ();
 
  out:
-        g_free (gconf_prefix);
+        g_free (settings_prefix);
 
         if (bus != NULL) {
                 dbus_g_connection_unref (bus);
