@@ -31,7 +31,8 @@ libkeyboard_la_SOURCES = 	\
 
 libkeyboard_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DDATADIR=\""$(pkgdatadir)"\"	\
+	-I$(top_srcdir)/data				\
+	-DDATADIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 

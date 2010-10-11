@@ -61,4 +61,11 @@ typedef enum
   GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING
 } GsdTouchpadScrollMethod;
 
+typedef enum
+{
+  GSD_BELL_MODE_ON,
+  GSD_BELL_MODE_OFF,
+  GSD_BELL_MODE_CUSTOM
+} GsdBellMode;
+
 #endif /* __gsd_enums_h__ */
