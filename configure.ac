@@ -318,7 +318,7 @@ AC_SUBST(NSS_DATABASE)
 # PolicyKit
 # ---------------------------------------------------------------------------
 
-POLKIT_REQUIRED=0.91
+POLKIT_REQUIRED=0.97
 DBUS_GLIB_REQUIRED=0.71
 DBUS_REQUIRED=1.1.2
 NETWORK_MANAGER_REQUIRED=0.6
