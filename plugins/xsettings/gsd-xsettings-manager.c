@@ -60,7 +60,7 @@
 #define FONT_RENDER_DIR "org.gnome.settings-daemon.plugins.xsettings"
 #define FONT_ANTIALIASING_KEY "antialiasing"
 #define FONT_HINTING_KEY      "hinting"
-#define FONT_RGBA_ORDER_KEY   "rgba_order"
+#define FONT_RGBA_ORDER_KEY   "rgba-order"
 #define FONT_DPI_KEY          "dpi"
 
 /* X servers sometimes lie about the screen's physical dimensions, so we cannot
