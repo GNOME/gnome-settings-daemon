@@ -1,16 +1,16 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals" path="/desktop/gnome/peripherals/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals" path="/apps/gnome-settings-daemon/peripherals/">
     <child name="smartcard" schema="org.gnome.settings-daemon.peripherals.smartcard"/>
     <child name="touchpad" schema="org.gnome.settings-daemon.peripherals.touchpad"/>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.smartcard" path="/desktop/gnome/peripherals/smartcard/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.smartcard" path="/apps/gnome-settings-daemon/peripherals/smartcard/">
     <key name="removal-action" enum="org.gnome.settings-daemon.GsdSmartcardRemovalAction">
       <default>'none'</default>
       <_summary>Smartcard removal action</_summary>
       <_description>Set this to one of "none", "lock-screen", or "force-logout". The action will get performed when the smartcard used for log in is removed.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.touchpad" path="/desktop/gnome/peripherals/touchpad/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.touchpad" path="/apps/gnome-settings-daemon/peripherals/touchpad/">
     <key name="disable-while-typing" type="b">
       <default>false</default>
       <_summary>Disable touchpad while typing</_summary>
