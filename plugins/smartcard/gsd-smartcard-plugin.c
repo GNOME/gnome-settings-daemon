@@ -56,7 +56,7 @@ typedef enum
 #define SM_DBUS_INTERFACE "org.gnome.SessionManager"
 #define SM_LOGOUT_MODE_FORCE 2
 
-#define KEY_REMOVE_ACTION "removal_action"
+#define KEY_REMOVE_ACTION "removal-action"
 
 #define GSD_SMARTCARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_SMARTCARD_PLUGIN, GsdSmartcardPluginPrivate))
 
