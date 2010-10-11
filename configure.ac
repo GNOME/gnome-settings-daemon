@@ -319,9 +319,7 @@ AC_SUBST(NSS_DATABASE)
 # ---------------------------------------------------------------------------
 
 POLKIT_REQUIRED=0.97
-DBUS_GLIB_REQUIRED=0.71
 DBUS_REQUIRED=1.1.2
-NETWORK_MANAGER_REQUIRED=0.6
 
 # PolicyKit detection; defaults to 'auto' (use it if it's available)
 #
