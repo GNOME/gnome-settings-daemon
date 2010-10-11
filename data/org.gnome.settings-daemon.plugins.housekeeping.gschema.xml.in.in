@@ -1,5 +1,15 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.housekeeping" path="/apps/gnome-settings-daemon/plugins/housekeeping/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
+    <key name="ignore-paths" type="as">
+      <default>[]</default>
+      <_summary>Mount paths to ignore</_summary>
+      <_description>Specify a list of mount paths to ignore when they run low on space.</_description>
+    </key>
     <key name="free-percent-notify" type="d">
       <default>0.05</default>
       <_summary>Free percentage notify threshold</_summary>
@@ -20,10 +30,10 @@
       <_summary>Minimum notify period for repeated warnings</_summary>
       <_description>Specify a time in minutes. Subsequent warnings for a volume will not appear more often than this period.</_description>
     </key>
-    <key name="ignore-paths" type="as">
-      <default>[]</default>
-      <_summary>Mount paths to ignore</_summary>
-      <_description>Specify a list of mount paths to ignore when they run low on space.</_description>
+    <key name="priority" type="i">
+      <default>300</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
   </schema>
 </schemalist>
