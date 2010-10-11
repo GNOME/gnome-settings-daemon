@@ -453,7 +453,6 @@ plugins/media-keys/cut-n-paste/Makefile
 plugins/mouse/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
-plugins/typing-break/Makefile
 plugins/xrandr/Makefile
 plugins/xrdb/Makefile
 plugins/xrdb/data/Makefile
