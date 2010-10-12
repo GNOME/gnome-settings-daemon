@@ -1084,16 +1084,9 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
 
         g_assert (error_to_display == NULL || secondary_text == NULL);
 
-        if (priv->status_icon)
-                notification = notify_notification_new_with_status_icon (primary_text,
-                                                                         error_to_display ? error_to_display->message : secondary_text,
-                                                                         GSD_XRANDR_ICON_NAME,
-                                                                         priv->status_icon);
-        else
-                notification = notify_notification_new (primary_text,
-                                                        error_to_display ? error_to_display->message : secondary_text,
-                                                        GSD_XRANDR_ICON_NAME,
-                                                        NULL);
+        notification = notify_notification_new (primary_text,
+                                                error_to_display ? error_to_display->message : secondary_text,
+                                                GSD_XRANDR_ICON_NAME);
 
         notify_notification_show (notification, NULL); /* NULL-GError */
 #else
