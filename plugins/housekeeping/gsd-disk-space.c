@@ -304,25 +304,41 @@ ldsm_mount_should_ignore (GUnixMountEntry *mount)
          * expose this in a way that allows it to be used for this
          * purpose
          */
+         
+         /* We also ignore network filesystems */
                  
         const gchar *ignore_fs[] = {
+                "adfs",
+                "afs",
                 "auto",
                 "autofs",
+                "autofs4",
+                "cifs",
+                "cxfs",
                 "devfs",
                 "devpts",
                 "ecryptfs",
+                "gfs",
+                "gfs2",
                 "kernfs",
                 "linprocfs",
+                "linsysfs",
+                "lustre",
+                "lustre_lite",
+                "ncpfs",
+                "nfs",
+                "nfs4",
+                "nfsd",
+                "ocfs2",
                 "proc",
                 "procfs",
                 "ptyfs",
+                "rpc_pipefs",
                 "selinuxfs",
-                "linsysfs",
+                "smbfs",
                 "sysfs",
                 "tmpfs",
                 "usbfs",
-                "nfsd",
-                "rpc_pipefs",
                 "zfs",
                 NULL
         };
