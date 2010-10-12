@@ -41,10 +41,8 @@
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKBstr.h>
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XIproto.h>
-#endif
 
 #ifdef HAVE_LIBNOTIFY
 #include <libnotify/notify.h>
@@ -95,7 +93,6 @@ static gpointer manager_object = NULL;
 #define d(str)          do { } while (0)
 #endif
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 static GdkFilterReturn
 devicepresence_filter (GdkXEvent *xevent,
                        GdkEvent  *event,
@@ -158,7 +155,6 @@ set_devicepresence_handler (GsdA11yKeyboardManager *manager)
         if (!gdk_error_trap_pop ())
                 gdk_window_add_filter (NULL, devicepresence_filter, manager);
 }
-#endif
 
 static gboolean
 xkb_enabled (GsdA11yKeyboardManager *manager)
@@ -1064,18 +1060,14 @@ start_a11y_keyboard_idle_cb (GsdA11yKeyboardManager *manager)
                                   (GConfClientNotifyFunc) keyboard_callback,
                                   &manager->priv->gconf_notify);
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 	set_devicepresence_handler (manager);
-#endif
 
         /* Save current xkb state so we can restore it on exit
          */
         manager->priv->original_xkb_desc = get_xkb_desc_rec (manager);
 
         event_mask = XkbControlsNotifyMask;
-#ifdef DEBUG_ACCESSIBILITY
         event_mask |= XkbAccessXNotifyMask; /* make default when AXN_AXKWarning works */
-#endif
 
         /* be sure to init before starting to monitor the server */
         set_server_from_gconf (manager, client);
@@ -1144,9 +1136,7 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
 
         g_debug ("Stopping a11y_keyboard manager");
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         gdk_window_remove_filter (NULL, devicepresence_filter, manager);
-#endif
 
         if (p->status_icon)
                 gtk_status_icon_set_visible (p->status_icon, FALSE);

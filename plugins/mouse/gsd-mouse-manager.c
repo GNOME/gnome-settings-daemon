@@ -41,10 +41,9 @@
 #include <X11/keysym.h>
 #include <X11/Xatom.h>
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XIproto.h>
-#endif
+
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 
@@ -65,12 +64,10 @@
 #define KEY_DWELL_ENABLE        GCONF_MOUSE_A11Y_DIR "/dwell_enable"
 #define KEY_DELAY_ENABLE        GCONF_MOUSE_A11Y_DIR "/delay_enable"
 #define KEY_TOUCHPAD_DISABLE_W_TYPING    "disable-while-typing"
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 #define KEY_TAP_TO_CLICK        "tap-to-click"
 #define KEY_SCROLL_METHOD       "scroll-method"
 #define KEY_PAD_HORIZ_SCROLL    "horiz-scroll-enabled"
 #define KEY_TOUCHPAD_ENABLED    "touchpad-enabled"
-#endif
 
 struct GsdMouseManagerPrivate
 {
@@ -89,10 +86,8 @@ static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
 static void     gsd_mouse_manager_init        (GsdMouseManager      *mouse_manager);
 static void     gsd_mouse_manager_finalize    (GObject             *object);
 static void     set_mouse_settings            (GsdMouseManager      *manager);
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 static int      set_tap_to_click              (gboolean state, gboolean left_handed);
 static XDevice* device_is_touchpad            (XDeviceInfo deviceinfo);
-#endif
 
 G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
 
@@ -174,7 +169,6 @@ gsd_mouse_manager_class_init (GsdMouseManagerClass *klass)
 }
 
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 static gboolean
 supports_xinput_devices (void)
 {
@@ -186,7 +180,6 @@ supports_xinput_devices (void)
                                 &event,
                                 &error);
 }
-#endif
 
 static void
 configure_button_layout (guchar   *buttons,
@@ -245,7 +238,6 @@ configure_button_layout (guchar   *buttons,
         }
 }
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 static gboolean
 xinput_device_has_buttons (XDeviceInfo *device_info)
 {
@@ -414,7 +406,6 @@ set_devicepresence_handler (GsdMouseManager *manager)
         if (!gdk_error_trap_pop ())
                 gdk_window_add_filter (NULL, devicepresence_filter, manager);
 }
-#endif
 
 static void
 set_left_handed (GsdMouseManager *manager,
@@ -424,7 +415,6 @@ set_left_handed (GsdMouseManager *manager,
         gsize buttons_capacity = 16;
         gint n_buttons, i;
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         if (supports_xinput_devices ()) {
                 /* When XInput support is available, never set the
                  * button ordering on the core pointer as that would
@@ -432,7 +422,6 @@ set_left_handed (GsdMouseManager *manager,
                 set_xinput_devices_left_handed (manager, left_handed);
                 return;
         }
-#endif
 
         buttons = g_new (guchar, buttons_capacity);
         n_buttons = XGetPointerMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
@@ -506,7 +495,6 @@ set_motion_threshold (GsdMouseManager *manager,
                                0, 0, motion_threshold);
 }
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 static XDevice*
 device_is_touchpad (XDeviceInfo deviceinfo)
 {
@@ -541,7 +529,6 @@ device_is_touchpad (XDeviceInfo deviceinfo)
         XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
         return NULL;
 }
-#endif
 
 static int
 set_disable_w_typing (GsdMouseManager *manager, gboolean state)
@@ -584,7 +571,6 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
         return 0;
 }
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
 static int
 set_tap_to_click (gboolean state, gboolean left_handed)
 {
@@ -800,7 +786,6 @@ set_touchpad_enabled (gboolean state)
         XFreeDeviceList (devicelist);
         return 0;
 }
-#endif
 
 static void
 set_locate_pointer (GsdMouseManager *manager,
@@ -904,12 +889,10 @@ set_mouse_settings (GsdMouseManager *manager)
         set_motion_threshold (manager, gconf_client_get_int (client, KEY_MOTION_THRESHOLD, NULL));
 
         set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), left_handed);
         set_edge_scroll (g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
         set_horiz_scroll (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
         set_touchpad_enabled (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED));
-#endif
 
         g_object_unref (client);
 }
@@ -960,7 +943,6 @@ touchpad_callback (GSettings       *settings,
 
         if (g_str_equal (key, KEY_TOUCHPAD_DISABLE_W_TYPING)) {
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, key));
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         } else if (g_str_equal (key, KEY_TAP_TO_CLICK)) {
                 set_tap_to_click (g_settings_get_boolean (settings, key),
                                   gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
@@ -972,7 +954,6 @@ touchpad_callback (GSettings       *settings,
         } else if (g_str_equal (key, KEY_TOUCHPAD_ENABLED)) {
                 set_touchpad_enabled (g_settings_get_boolean (settings, key));
         }
-#endif
 
         g_object_unref (client);
 }
@@ -1019,9 +1000,7 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 
         manager->priv->syndaemon_spawned = FALSE;
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         set_devicepresence_handler (manager);
-#endif
         set_mouse_settings (manager);
         set_locate_pointer (manager, gconf_client_get_bool (client, KEY_LOCATE_POINTER, NULL));
         set_mousetweaks_daemon (manager,
@@ -1029,13 +1008,11 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                                 gconf_client_get_bool (client, KEY_DELAY_ENABLE, NULL));
 
         set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK),
                           gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
         set_edge_scroll (g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
         set_horiz_scroll (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
         set_touchpad_enabled (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED));
-#endif
 
         g_object_unref (client);
 
@@ -1085,9 +1062,7 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
 
         set_locate_pointer (manager, FALSE);
 
-#ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         gdk_window_remove_filter (NULL, devicepresence_filter, manager);
-#endif
 }
 
 static void
