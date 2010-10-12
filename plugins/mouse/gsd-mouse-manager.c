@@ -1037,7 +1037,7 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 #ifdef HAVE_X11_EXTENSIONS_XINPUT_H
         set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK),
                           gconf_client_get_bool (client, KEY_LEFT_HANDED, NULL));
-        set_edge_scroll (g_settings_get_int (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
+        set_edge_scroll (g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
         set_horiz_scroll (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
         set_touchpad_enabled (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED));
 #endif
