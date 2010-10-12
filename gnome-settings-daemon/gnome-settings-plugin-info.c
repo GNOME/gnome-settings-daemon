@@ -310,7 +310,7 @@ plugin_enabled_cb (GSettings               *settings,
         if (g_strcmp0 (key, "active") == 0) {
                 if (g_settings_get_boolean (settings, "active"))
                         gnome_settings_plugin_info_activate (info);
-                else 
+                else
                         gnome_settings_plugin_info_deactivate (info);
         }
 }

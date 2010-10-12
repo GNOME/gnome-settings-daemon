@@ -4,9 +4,6 @@
     <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="gnome_settings_manager"/>
     <method name="Awake"/>
     <method name="Start"/>
-    <method name="StartWithSettingsPrefix">
-      <arg name="settings_prefix" direction="in" type="s"/>
-    </method>
     <signal name="PluginActivated">
       <arg name="name" type="s"/>
     </signal>

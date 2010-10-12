@@ -61,10 +61,6 @@ GQuark                 gnome_settings_manager_error_quark         (void);
 GType                  gnome_settings_manager_get_type   (void);
 
 GnomeSettingsManager * gnome_settings_manager_new        (void);
-gboolean               gnome_settings_manager_start_with_settings_prefix
-                                                         (GnomeSettingsManager *manager,
-                                                          const char           *settings_prefix,
-                                                          GError              **error);
 gboolean               gnome_settings_manager_start      (GnomeSettingsManager *manager,
                                                           GError              **error);
 void                   gnome_settings_manager_stop       (GnomeSettingsManager *manager);
