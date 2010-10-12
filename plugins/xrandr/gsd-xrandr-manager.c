@@ -56,7 +56,6 @@
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
 #define CONF_DIR "org.gnome.settings-daemon.plugins.xrandr"
-#define CONF_KEY_SHOW_NOTIFICATION_ICON ("show-notification-icon")
 #define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP	("turn-on-external-monitors")
 #define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP	("turn-on-laptop-monitor")
 #define CONF_KEY_DEFAULT_CONFIGURATION_FILE             ("default-configuration-file")
@@ -71,9 +70,6 @@
 
 /* name of the icon files (gsd-xrandr.svg, etc.) */
 #define GSD_XRANDR_ICON_NAME "gsd-xrandr"
-
-/* executable of the control center's display configuration capplet */
-#define GSD_XRANDR_DISPLAY_CAPPLET "gnome-control-center display"
 
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
@@ -93,10 +89,6 @@ struct GsdXrandrManagerPrivate
         GnomeRRScreen *rw_screen;
         gboolean running;
 
-        GtkStatusIcon *status_icon;
-        GtkWidget *popup_menu;
-        GnomeRRConfig *configuration;
-        GnomeRRLabeler *labeler;
         GSettings *settings;
 
         /* fn-F7 status */
@@ -121,8 +113,6 @@ static void     gsd_xrandr_manager_finalize    (GObject             *object);
 
 static void error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text);
 
-static void status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp);
-static void run_display_capplet (GtkWidget *widget);
 static void get_allowed_rotations_for_output (GnomeRRConfig *config,
                                               GnomeRRScreen *rr_screen,
                                               GnomeOutputInfo *output,
@@ -1217,7 +1207,6 @@ get_laptop_output_info (GnomeRRScreen *screen, GnomeRRConfig *config)
         }
 
         return NULL;
-
 }
 
 static GnomeRRRotation
@@ -1335,17 +1324,6 @@ event_filter (GdkXEvent           *xevent,
         }
 
         return GDK_FILTER_CONTINUE;
-}
-
-static void
-refresh_tray_icon_menu_if_active (GsdXrandrManager *manager, guint32 timestamp)
-{
-        GsdXrandrManagerPrivate *priv = manager->priv;
-
-        if (priv->popup_menu) {
-                gtk_menu_shell_cancel (GTK_MENU_SHELL (priv->popup_menu)); /* status_icon_popup_menu_selection_done_cb() will free everything */
-                status_icon_popup_menu (manager, 0, timestamp);
-        }
 }
 
 static void
@@ -1471,29 +1449,6 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 
         g_list_free (just_turned_on);
         gnome_rr_config_free (config);
-
-        /* Finally, even though we did a best-effort job in sanitizing the
-         * outputs, we don't know the physical layout of the monitors.  We'll
-         * start the display capplet so that the user can tweak things to his
-         * liking.
-         */
-
-#if 0
-        /* FIXME: This is disabled for now.  The capplet is not a single-instance application.
-         * If you do this:
-         *
-         *   1. Start the display capplet
-         *
-         *   2. Plug an extra monitor
-         *
-         *   3. Hit the "Detect displays" button
-         *
-         * Then we will get a RANDR event because X re-probes the outputs.  We don't want to
-         * start up a second display capplet right there!
-         */
-
-        run_display_capplet (NULL);
-#endif
 }
 
 static void
@@ -1592,224 +1547,7 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
         /* poke gnome-color-manager */
         apply_color_profiles ();
 
-        refresh_tray_icon_menu_if_active (manager, MAX (change_timestamp, config_timestamp));
-
         log_close ();
-}
-
-static void
-run_display_capplet (GtkWidget *widget)
-{
-        GdkScreen *screen;
-        GError *error;
-
-        if (widget)
-                screen = gtk_widget_get_screen (widget);
-        else
-                screen = gdk_screen_get_default ();
-
-        error = NULL;
-        if (!gdk_spawn_command_line_on_screen (screen, GSD_XRANDR_DISPLAY_CAPPLET, &error)) {
-		GtkWidget *dialog;
-
-		dialog = gtk_message_dialog_new_with_markup (NULL, 0, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
-                                                             "<span weight=\"bold\" size=\"larger\">"
-                                                             "Display configuration could not be run"
-                                                             "</span>\n\n"
-                                                             "%s", error->message);
-		gtk_dialog_run (GTK_DIALOG (dialog));
-		gtk_widget_destroy (dialog);
-
-		g_error_free (error);
-        }
-}
-
-static void
-popup_menu_configure_display_cb (GtkMenuItem *item, gpointer data)
-{
-        run_display_capplet (GTK_WIDGET (item));
-}
-
-static void
-status_icon_popup_menu_selection_done_cb (GtkMenuShell *menu_shell, gpointer data)
-{
-        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-
-        gtk_widget_destroy (priv->popup_menu);
-        priv->popup_menu = NULL;
-
-        gnome_rr_labeler_hide (priv->labeler);
-        g_object_unref (priv->labeler);
-        priv->labeler = NULL;
-
-        gnome_rr_config_free (priv->configuration);
-        priv->configuration = NULL;
-}
-
-#define OUTPUT_TITLE_ITEM_BORDER 2
-#define OUTPUT_TITLE_ITEM_PADDING 4
-
-/* This is an expose-event hander for the title label for each GnomeRROutput.
- * We want each title to have a colored background, so we paint that background, then
- * return FALSE to let GtkLabel expose itself (i.e. paint the label's text), and then
- * we have a signal_connect_after handler as well.  See the comments below
- * to see why that "after" handler is needed.
- */
-static gboolean
-output_title_label_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
-{
-        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-        GnomeOutputInfo *output;
-        GdkColor color;
-        cairo_t *cr;
-        GtkAllocation allocation;
-
-        g_assert (GTK_IS_LABEL (widget));
-
-        output = g_object_get_data (G_OBJECT (widget), "output");
-        g_assert (output != NULL);
-
-        g_assert (priv->labeler != NULL);
-
-        /* Draw a black rectangular border, filled with the color that corresponds to this output */
-
-        gnome_rr_labeler_get_color_for_output (priv->labeler, output, &color);
-
-        cr = gdk_cairo_create (gtk_widget_get_window (widget));
-
-        cairo_set_source_rgb (cr, 0, 0, 0);
-        cairo_set_line_width (cr, OUTPUT_TITLE_ITEM_BORDER);
-        gtk_widget_get_allocation (widget, &allocation);
-        cairo_rectangle (cr,
-                         allocation.x + OUTPUT_TITLE_ITEM_BORDER / 2.0,
-                         allocation.y + OUTPUT_TITLE_ITEM_BORDER / 2.0,
-                         allocation.width - OUTPUT_TITLE_ITEM_BORDER,
-                         allocation.height - OUTPUT_TITLE_ITEM_BORDER);
-        cairo_stroke (cr);
-
-        gdk_cairo_set_source_color (cr, &color);
-        cairo_rectangle (cr,
-                         allocation.x + OUTPUT_TITLE_ITEM_BORDER,
-                         allocation.y + OUTPUT_TITLE_ITEM_BORDER,
-                         allocation.width - 2 * OUTPUT_TITLE_ITEM_BORDER,
-                         allocation.height - 2 * OUTPUT_TITLE_ITEM_BORDER);
-
-        cairo_fill (cr);
-
-        /* We want the label to always show up as if it were sensitive
-         * ("style->fg[GTK_STATE_NORMAL]"), even though the label is insensitive
-         * due to being inside an insensitive menu item.  So, here we have a
-         * HACK in which we frob the label's state directly.  GtkLabel's expose
-         * handler will be run after this function, so it will think that the
-         * label is in GTK_STATE_NORMAL.  We reset the label's state back to
-         * insensitive in output_title_label_after_expose_event_cb().
-         *
-         * Yay for fucking with GTK+'s internals.
-         */
-
-        gtk_widget_set_state (widget, GTK_STATE_NORMAL);
-
-        return FALSE;
-}
-
-/* See the comment in output_title_event_box_expose_event_cb() about this funny label widget */
-static gboolean
-output_title_label_after_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
-{
-        g_assert (GTK_IS_LABEL (widget));
-        gtk_widget_set_state (widget, GTK_STATE_INSENSITIVE);
-
-        return FALSE;
-}
-
-static void
-title_item_size_allocate_cb (GtkWidget *widget, GtkAllocation *allocation, gpointer data)
-{
-        /* When GtkMenu does size_request on its items, it asks them for their "toggle size",
-         * which will be non-zero when there are check/radio items.  GtkMenu remembers
-         * the largest of those sizes.  During the size_allocate pass, GtkMenu calls
-         * gtk_menu_item_toggle_size_allocate() with that value, to tell the menu item
-         * that it should later paint its child a bit to the right of its edge.
-         *
-         * However, we want the "title" menu items for each RANDR output to span the *whole*
-         * allocation of the menu item, not just the "allocation minus toggle" area.
-         *
-         * So, we let the menu item size_allocate itself as usual, but this
-         * callback gets run afterward.  Here we hack a toggle size of 0 into
-         * the menu item, and size_allocate it by hand *again*.  We also need to
-         * avoid recursing into this function.
-         */
-
-        g_assert (GTK_IS_MENU_ITEM (widget));
-
-        gtk_menu_item_toggle_size_allocate (GTK_MENU_ITEM (widget), 0);
-
-        g_signal_handlers_block_by_func (widget, title_item_size_allocate_cb, NULL);
-
-        /* Sigh. There is no way to turn on GTK_ALLOC_NEEDED outside of GTK+
-         * itself; also, since calling size_allocate on a widget with the same
-         * allcation is a no-op, we need to allocate with a "different" size
-         * first.
-         */
-
-        allocation->width++;
-        gtk_widget_size_allocate (widget, allocation);
-
-        allocation->width--;
-        gtk_widget_size_allocate (widget, allocation);
-
-        g_signal_handlers_unblock_by_func (widget, title_item_size_allocate_cb, NULL);
-}
-
-static GtkWidget *
-make_menu_item_for_output_title (GsdXrandrManager *manager, GnomeOutputInfo *output)
-{
-        GtkWidget *item;
-        GtkWidget *label;
-        char *str;
-	GdkColor black = { 0, 0, 0, 0 };
-
-        item = gtk_menu_item_new ();
-
-        g_signal_connect (item, "size-allocate",
-                          G_CALLBACK (title_item_size_allocate_cb), NULL);
-
-        str = g_markup_printf_escaped ("<b>%s</b>", output->display_name);
-        label = gtk_label_new (NULL);
-        gtk_label_set_markup (GTK_LABEL (label), str);
-        g_free (str);
-
-	/* Make the label explicitly black.  We don't want it to follow the
-	 * theme's colors, since the label is always shown against a light
-	 * pastel background.  See bgo#556050
-	 */
-	gtk_widget_modify_fg (label, gtk_widget_get_state (label), &black);
-
-        /* Add padding around the label to fit the box that we'll draw for color-coding */
-        gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-        gtk_misc_set_padding (GTK_MISC (label),
-                              OUTPUT_TITLE_ITEM_BORDER + OUTPUT_TITLE_ITEM_PADDING,
-                              OUTPUT_TITLE_ITEM_BORDER + OUTPUT_TITLE_ITEM_PADDING);
-
-        gtk_container_add (GTK_CONTAINER (item), label);
-
-        /* We want to paint a colored box as the background of the label, so we connect
-         * to its expose-event signal.  See the comment in *** to see why need to connect
-         * to the label both 'before' and 'after'.
-         */
-        g_signal_connect (label, "expose-event",
-                          G_CALLBACK (output_title_label_expose_event_cb), manager);
-        g_signal_connect_after (label, "expose-event",
-                                G_CALLBACK (output_title_label_after_expose_event_cb), manager);
-
-        g_object_set_data (G_OBJECT (label), "output", output);
-
-        gtk_widget_set_sensitive (item, FALSE); /* the title is not selectable */
-        gtk_widget_show_all (item);
-
-        return item;
 }
 
 static void
@@ -1851,302 +1589,6 @@ get_allowed_rotations_for_output (GnomeRRConfig *config,
         }
 }
 
-static void
-add_unsupported_rotation_item (GsdXrandrManager *manager)
-{
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-        GtkWidget *item;
-        GtkWidget *label;
-        gchar *markup;
-
-        item = gtk_menu_item_new ();
-
-        label = gtk_label_new (NULL);
-        markup = g_strdup_printf ("<i>%s</i>", _("Rotation not supported"));
-        gtk_label_set_markup (GTK_LABEL (label), markup);
-        g_free (markup);
-        gtk_container_add (GTK_CONTAINER (item), label);
-
-        gtk_widget_show_all (item);
-        gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
-}
-
-static void
-ensure_current_configuration_is_saved (void)
-{
-        GnomeRRScreen *rr_screen;
-        GnomeRRConfig *rr_config;
-
-        /* Normally, gnome_rr_config_save() creates a backup file based on the
-         * old monitors.xml.  However, if *that* file didn't exist, there is
-         * nothing from which to create a backup.  So, here we'll save the
-         * current/unchanged configuration and then let our caller call
-         * gnome_rr_config_save() again with the new/changed configuration, so
-         * that there *will* be a backup file in the end.
-         */
-
-        rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), NULL, NULL, NULL); /* NULL-GError */
-        if (!rr_screen)
-                return;
-
-        rr_config = gnome_rr_config_new_current (rr_screen);
-        gnome_rr_config_save (rr_config, NULL); /* NULL-GError */
-
-        gnome_rr_config_free (rr_config);
-        gnome_rr_screen_destroy (rr_screen);
-}
-
-static void
-output_rotation_item_activate_cb (GtkCheckMenuItem *item, gpointer data)
-{
-        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-        GnomeOutputInfo *output;
-        GnomeRRRotation rotation;
-        GError *error;
-
-	/* Not interested in deselected items */
-	if (!gtk_check_menu_item_get_active (item))
-		return;
-
-        ensure_current_configuration_is_saved ();
-
-        output = g_object_get_data (G_OBJECT (item), "output");
-        rotation = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "rotation"));
-
-        output->rotation = rotation;
-
-        error = NULL;
-        if (!gnome_rr_config_save (priv->configuration, &error)) {
-                error_message (manager, _("Could not save monitor configuration"), error, NULL);
-                if (error)
-                        g_error_free (error);
-
-                return;
-        }
-
-        try_to_apply_intended_configuration (manager, NULL, gtk_get_current_event_time (), NULL); /* NULL-GError */
-}
-
-static void
-add_items_for_rotations (GsdXrandrManager *manager, GnomeOutputInfo *output, GnomeRRRotation allowed_rotations)
-{
-        typedef struct {
-                GnomeRRRotation	rotation;
-                const char *	name;
-        } RotationInfo;
-        static const RotationInfo rotations[] = {
-                { GNOME_RR_ROTATION_0, N_("Normal") },
-                { GNOME_RR_ROTATION_90, N_("Left") },
-                { GNOME_RR_ROTATION_270, N_("Right") },
-                { GNOME_RR_ROTATION_180, N_("Upside Down") },
-                /* We don't allow REFLECT_X or REFLECT_Y for now, as gnome-display-properties doesn't allow them, either */
-        };
-
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-        int i;
-        GSList *group;
-        GtkWidget *active_item;
-        gulong active_item_activate_id;
-
-        group = NULL;
-        active_item = NULL;
-        active_item_activate_id = 0;
-
-        for (i = 0; i < G_N_ELEMENTS (rotations); i++) {
-                GnomeRRRotation rot;
-                GtkWidget *item;
-                gulong activate_id;
-
-                rot = rotations[i].rotation;
-
-                if ((allowed_rotations & rot) == 0) {
-                        /* don't display items for rotations which are
-                         * unavailable.  Their availability is not under the
-                         * user's control, anyway.
-                         */
-                        continue;
-                }
-
-                item = gtk_radio_menu_item_new_with_label (group, _(rotations[i].name));
-                gtk_widget_show_all (item);
-                gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
-
-                g_object_set_data (G_OBJECT (item), "output", output);
-                g_object_set_data (G_OBJECT (item), "rotation", GINT_TO_POINTER (rot));
-
-                activate_id = g_signal_connect (item, "activate",
-                                                G_CALLBACK (output_rotation_item_activate_cb), manager);
-
-                group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
-
-                if (rot == output->rotation) {
-                        active_item = item;
-                        active_item_activate_id = activate_id;
-                }
-        }
-
-        if (active_item) {
-                /* Block the signal temporarily so our callback won't be called;
-                 * we are just setting up the UI.
-                 */
-                g_signal_handler_block (active_item, active_item_activate_id);
-
-                gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (active_item), TRUE);
-
-                g_signal_handler_unblock (active_item, active_item_activate_id);
-        }
-
-}
-
-static void
-add_rotation_items_for_output (GsdXrandrManager *manager, GnomeOutputInfo *output)
-{
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-        int num_rotations;
-        GnomeRRRotation rotations;
-
-        get_allowed_rotations_for_output (priv->configuration, priv->rw_screen, output, &num_rotations, &rotations);
-
-        if (num_rotations == 1)
-                add_unsupported_rotation_item (manager);
-        else
-                add_items_for_rotations (manager, output, rotations);
-}
-
-static void
-add_menu_items_for_output (GsdXrandrManager *manager, GnomeOutputInfo *output)
-{
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-        GtkWidget *item;
-
-        item = make_menu_item_for_output_title (manager, output);
-        gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
-
-        add_rotation_items_for_output (manager, output);
-}
-
-static void
-add_menu_items_for_outputs (GsdXrandrManager *manager)
-{
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-        int i;
-
-        for (i = 0; priv->configuration->outputs[i] != NULL; i++) {
-                if (priv->configuration->outputs[i]->connected)
-                        add_menu_items_for_output (manager, priv->configuration->outputs[i]);
-        }
-}
-
-static void
-status_icon_popup_menu (GsdXrandrManager *manager, guint button, guint32 timestamp)
-{
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-        GtkWidget *item;
-
-        g_assert (priv->configuration == NULL);
-        priv->configuration = gnome_rr_config_new_current (priv->rw_screen);
-
-        g_assert (priv->labeler == NULL);
-        priv->labeler = gnome_rr_labeler_new (priv->configuration);
-
-        g_assert (priv->popup_menu == NULL);
-        priv->popup_menu = gtk_menu_new ();
-
-        add_menu_items_for_outputs (manager);
-
-        item = gtk_separator_menu_item_new ();
-        gtk_widget_show (item);
-        gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
-
-        item = gtk_menu_item_new_with_mnemonic (_("_Configure Display Settings…"));
-        g_signal_connect (item, "activate",
-                          G_CALLBACK (popup_menu_configure_display_cb), manager);
-        gtk_widget_show (item);
-        gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), item);
-
-        g_signal_connect (priv->popup_menu, "selection-done",
-                          G_CALLBACK (status_icon_popup_menu_selection_done_cb), manager);
-
-        gtk_menu_popup (GTK_MENU (priv->popup_menu), NULL, NULL,
-                        gtk_status_icon_position_menu,
-                        priv->status_icon, button, timestamp);
-}
-
-static void
-status_icon_activate_cb (GtkStatusIcon *status_icon, gpointer data)
-{
-        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
-
-        /* Suck; we don't get a proper button/timestamp */
-        status_icon_popup_menu (manager, 0, gtk_get_current_event_time ());
-}
-
-static void
-status_icon_popup_menu_cb (GtkStatusIcon *status_icon, guint button, guint32 timestamp, gpointer data)
-{
-        GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
-
-        status_icon_popup_menu (manager, button, timestamp);
-}
-
-static void
-status_icon_start (GsdXrandrManager *manager)
-{
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-
-        /* Ideally, we should detect if we are on a tablet and only display
-         * the icon in that case.
-         */
-        if (!priv->status_icon) {
-                priv->status_icon = gtk_status_icon_new_from_icon_name (GSD_XRANDR_ICON_NAME);
-                gtk_status_icon_set_tooltip_text (priv->status_icon, _("Configure display settings"));
-
-                g_signal_connect (priv->status_icon, "activate",
-                                  G_CALLBACK (status_icon_activate_cb), manager);
-                g_signal_connect (priv->status_icon, "popup-menu",
-                                  G_CALLBACK (status_icon_popup_menu_cb), manager);
-        }
-}
-
-static void
-status_icon_stop (GsdXrandrManager *manager)
-{
-        struct GsdXrandrManagerPrivate *priv = manager->priv;
-
-        if (priv->status_icon) {
-                g_signal_handlers_disconnect_by_func (
-                        priv->status_icon, G_CALLBACK (status_icon_activate_cb), manager);
-                g_signal_handlers_disconnect_by_func (
-                        priv->status_icon, G_CALLBACK (status_icon_popup_menu_cb), manager);
-
-                /* hide the icon before unreffing it; otherwise we will leak
-                   whitespace in the notification area due to a bug in there */
-                gtk_status_icon_set_visible (priv->status_icon, FALSE);
-                g_object_unref (priv->status_icon);
-                priv->status_icon = NULL;
-        }
-}
-
-static void
-start_or_stop_icon (GsdXrandrManager *manager)
-{
-        if (g_settings_get_boolean (manager->priv->settings, CONF_KEY_SHOW_NOTIFICATION_ICON)) {
-                status_icon_start (manager);
-        } else {
-                status_icon_stop (manager);
-        }
-}
-
-static void
-on_config_changed (GSettings            *settings,
-                   const gchar          *key,
-                   GsdXrandrManager *manager)
-{
-        if (g_str_equal (key, CONF_KEY_SHOW_NOTIFICATION_ICON))
-                start_or_stop_icon (manager);
-}
-
 static gboolean
 apply_intended_configuration (GsdXrandrManager *manager, const char *intended_filename, guint32 timestamp)
 {
@@ -2172,8 +1614,8 @@ apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
 {
 	GsdXrandrManagerPrivate *priv = mgr->priv;
 	GnomeRRScreen *screen = priv->rw_screen;
-   	GnomeRRConfig *config;
-   	gboolean turn_on_external, turn_on_laptop;
+	GnomeRRConfig *config;
+	gboolean turn_on_external, turn_on_laptop;
 
         turn_on_external =
                 g_settings_get_boolean (mgr->priv->settings, CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP);
@@ -2295,8 +1737,6 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
 
         manager->priv->running = TRUE;
         manager->priv->settings = g_settings_new (CONF_DIR);
-        g_signal_connect (manager->priv->settings, "changed",
-                          G_CALLBACK (on_config_changed), manager);
 
         if (manager->priv->switch_video_mode_keycode) {
                 gdk_error_trap_push ();
@@ -2333,8 +1773,6 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         gdk_window_add_filter (gdk_get_default_root_window(),
                                (GdkFilterFunc)event_filter,
                                manager);
-
-        start_or_stop_icon (manager);
 
         log_close ();
 
@@ -2388,8 +1826,6 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                 dbus_g_connection_unref (manager->priv->dbus_connection);
                 manager->priv->dbus_connection = NULL;
         }
-
-        status_icon_stop (manager);
 
         log_open ();
         log_msg ("STOPPING XRANDR PLUGIN\n------------------------------------------------------------\n");
