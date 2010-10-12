@@ -53,10 +53,6 @@
 #include "gnome-settings-profile.h"
 #include "gsd-xrandr-manager.h"
 
-#ifndef HOST_NAME_MAX
-#define HOST_NAME_MAX   255
-#endif
-
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
 #define CONF_DIR "org.gnome.settings-daemon.plugins.xrandr"
