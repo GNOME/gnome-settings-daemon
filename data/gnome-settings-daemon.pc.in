@@ -3,7 +3,7 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 libexecdir=@libexecdir@
-plugindir=${libdir}/gnome-settings-daemon-@gsd_api_version@
+plugindir=${libdir}/gnome-settings-daemon-@GSD_API_VERSION@
 binary=${libexecdir}/gnome-settings-daemon
 
 Name: gnome-settings-daemon
@@ -11,4 +11,4 @@ Description: Utility library for accessing gnome-settings-daemon over DBUS
 Requires: glib-2.0 dbus-1 dbus-glib-1
 Version: @VERSION@
 Libs: -L${libdir}
-Cflags: -I${includedir}/gnome-settings-daemon-@gsd_api_version@
+Cflags: -I${includedir}/gnome-settings-daemon-@GSD_API_VERSION@
