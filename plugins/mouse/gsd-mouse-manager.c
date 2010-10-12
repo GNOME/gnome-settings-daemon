@@ -328,14 +328,12 @@ set_xinput_devices_left_handed (GsdMouseManager *manager, gboolean left_handed)
                  * around too, otherwise a tap would be a right-click */
                 device = device_is_touchpad (device_info[i]);
                 if (device != NULL) {
-                        GConfClient *client = gconf_client_get_default ();
                         gboolean tap = g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK);
                         gboolean single_button = touchpad_has_single_button (device);
 
                         if (tap && !single_button)
                                 set_tap_to_click (tap, left_handed);
                         XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
-                        g_object_unref (client);
 
                         if (single_button)
                             continue;
@@ -572,10 +570,7 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
                 manager->priv->syndaemon_spawned = (error == NULL);
 
                 if (error) {
-                        GConfClient *client;
-                        client = gconf_client_get_default ();
                         g_settings_set_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING, FALSE);
-                        g_object_unref (client);
                         g_error_free (error);
                 }
 
