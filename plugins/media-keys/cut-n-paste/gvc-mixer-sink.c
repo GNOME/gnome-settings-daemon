@@ -25,7 +25,7 @@
 #include <unistd.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #include <pulse/pulseaudio.h>
 
@@ -48,11 +48,11 @@ G_DEFINE_TYPE (GvcMixerSink, gvc_mixer_sink, GVC_TYPE_MIXER_STREAM)
 static gboolean
 gvc_mixer_sink_push_volume (GvcMixerStream *stream, gpointer *op)
 {
-        pa_operation      *o;
-        guint              index;
-        GvcChannelMap     *map;
-        pa_context        *context;
-        const pa_cvolume  *cv;
+        pa_operation        *o;
+        guint                index;
+        const GvcChannelMap *map;
+        pa_context          *context;
+        const pa_cvolume    *cv;
 
         index = gvc_mixer_stream_get_index (stream);
 
@@ -133,7 +133,7 @@ gvc_mixer_sink_change_port (GvcMixerStream *stream,
 
         return TRUE;
 #else
-	return FALSE;
+        return FALSE;
 #endif /* PA_MICRO > 15 */
 }
 

@@ -54,6 +54,7 @@ typedef struct
         char *human_profile;
         char *status;
         guint priority;
+        guint n_sinks, n_sources;
 } GvcMixerCardProfile;
 
 GType                 gvc_mixer_card_get_type          (void);

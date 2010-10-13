@@ -25,7 +25,7 @@
 #include <unistd.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #include <pulse/pulseaudio.h>
 
@@ -40,6 +40,7 @@ struct GvcMixerStreamPrivate
         pa_context    *pa_context;
         guint          id;
         guint          index;
+        gint           card_index;
         GvcChannelMap *channel_map;
         char          *name;
         char          *description;
@@ -73,6 +74,7 @@ enum
         PROP_CAN_DECIBEL,
         PROP_IS_EVENT_STREAM,
         PROP_IS_VIRTUAL,
+        PROP_CARD_INDEX,
         PROP_PORT,
 };
 
@@ -117,7 +119,7 @@ gvc_mixer_stream_get_id (GvcMixerStream *stream)
         return stream->priv->id;
 }
 
-GvcChannelMap *
+const GvcChannelMap *
 gvc_mixer_stream_get_channel_map (GvcMixerStream *stream)
 {
         g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), NULL);
@@ -403,7 +405,7 @@ gvc_mixer_stream_set_base_volume (GvcMixerStream *stream,
         return TRUE;
 }
 
-GvcMixerStreamPort *
+const GvcMixerStreamPort *
 gvc_mixer_stream_get_port (GvcMixerStream *stream)
 {
         GList *l;
@@ -489,6 +491,25 @@ gvc_mixer_stream_set_ports (GvcMixerStream *stream,
         return TRUE;
 }
 
+gint
+gvc_mixer_stream_get_card_index (GvcMixerStream *stream)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), PA_INVALID_INDEX);
+        return stream->priv->card_index;
+}
+
+gboolean
+gvc_mixer_stream_set_card_index (GvcMixerStream *stream,
+                                 gint            card_index)
+{
+        g_return_val_if_fail (GVC_IS_MIXER_STREAM (stream), FALSE);
+
+        stream->priv->card_index = card_index;
+        g_object_notify (G_OBJECT (stream), "card-index");
+
+        return TRUE;
+}
+
 static void
 gvc_mixer_stream_set_property (GObject       *object,
                                guint          prop_id,
@@ -542,6 +563,9 @@ gvc_mixer_stream_set_property (GObject       *object,
                 break;
         case PROP_PORT:
                 gvc_mixer_stream_set_port (self, g_value_get_string (value));
+                break;
+        case PROP_CARD_INDEX:
+                self->priv->card_index = g_value_get_long (value);
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -604,6 +628,9 @@ gvc_mixer_stream_get_property (GObject     *object,
                 break;
         case PROP_PORT:
                 g_value_set_string (value, self->priv->port);
+                break;
+        case PROP_CARD_INDEX:
+                g_value_set_long (value, self->priv->card_index);
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -815,6 +842,13 @@ gvc_mixer_stream_class_init (GvcMixerStreamClass *klass)
                                                               "The name of the current port for this stream",
                                                               NULL,
                                                               G_PARAM_READWRITE));
+        g_object_class_install_property (gobject_class,
+                                         PROP_CARD_INDEX,
+                                         g_param_spec_long ("card-index",
+                                                             "Card index",
+                                                             "The index of the card for this stream",
+                                                             PA_INVALID_INDEX, G_MAXLONG, PA_INVALID_INDEX,
+                                                             G_PARAM_READWRITE|G_PARAM_CONSTRUCT));
         g_type_class_add_private (klass, sizeof (GvcMixerStreamPrivate));
 }
 
@@ -843,6 +877,9 @@ gvc_mixer_stream_finalize (GObject *object)
         mixer_stream = GVC_MIXER_STREAM (object);
 
         g_return_if_fail (mixer_stream->priv != NULL);
+
+        g_object_unref (mixer_stream->priv->channel_map);
+        mixer_stream->priv->channel_map = NULL;
 
         g_free (mixer_stream->priv->name);
         mixer_stream->priv->name = NULL;

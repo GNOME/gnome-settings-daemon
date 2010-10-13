@@ -25,7 +25,7 @@
 #include <unistd.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #include <pulse/pulseaudio.h>
 #include <pulse/ext-stream-restore.h>
@@ -58,7 +58,7 @@ update_settings (GvcMixerEventRole *role,
 {
         pa_operation              *o;
         guint                      index;
-        GvcChannelMap     *map;
+        const GvcChannelMap       *map;
         pa_context                *context;
         pa_ext_stream_restore_info info;
 
@@ -87,8 +87,8 @@ update_settings (GvcMixerEventRole *role,
                 return FALSE;
         }
 
-	if (op != NULL)
-		*op = o;
+        if (op != NULL)
+                *op = o;
 
         return TRUE;
 }

@@ -27,7 +27,7 @@
 #include <unistd.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #include <pulse/pulseaudio.h>
 #include <pulse/glib-mainloop.h>
@@ -448,6 +448,10 @@ _set_default_source (GvcMixerControl *control,
         if (stream == NULL) {
                 control->priv->default_source_id = 0;
                 control->priv->default_source_is_set = FALSE;
+                g_signal_emit (control,
+                               signals[DEFAULT_SOURCE_CHANGED],
+                               0,
+                               PA_INVALID_INDEX);
                 return;
         }
 
@@ -470,8 +474,16 @@ _set_default_sink (GvcMixerControl *control,
         guint new_id;
 
         if (stream == NULL) {
+                /* Don't tell front-ends about an unset default
+                 * sink if it's already unset */
+                if (control->priv->default_sink_is_set == FALSE)
+                        return;
                 control->priv->default_sink_id = 0;
                 control->priv->default_sink_is_set = FALSE;
+                g_signal_emit (control,
+                               signals[DEFAULT_SINK_CHANGED],
+                               0,
+                               PA_INVALID_INDEX);
                 return;
         }
 
@@ -480,7 +492,6 @@ _set_default_sink (GvcMixerControl *control,
         if (control->priv->default_sink_id != new_id) {
                 control->priv->default_sink_id = new_id;
                 control->priv->default_sink_is_set = TRUE;
-
                 g_signal_emit (control,
                                signals[DEFAULT_SINK_CHANGED],
                                0,
@@ -672,11 +683,13 @@ update_sink (GvcMixerControl    *control,
 
         max_volume = pa_cvolume_max (&info->volume);
         gvc_mixer_stream_set_name (stream, info->name);
+        gvc_mixer_stream_set_card_index (stream, info->card);
         gvc_mixer_stream_set_description (stream, info->description);
         gvc_mixer_stream_set_icon_name (stream, "audio-card");
         gvc_mixer_stream_set_volume (stream, (guint)max_volume);
         gvc_mixer_stream_set_is_muted (stream, info->mute);
         gvc_mixer_stream_set_can_decibel (stream, !!(info->flags & PA_SINK_DECIBEL_VOLUME));
+        gvc_mixer_stream_set_base_volume (stream, (guint32) info->base_volume);
 #if PA_MICRO > 15
         if (info->active_port != NULL)
                 gvc_mixer_stream_set_port (stream, info->active_port->name);
@@ -696,7 +709,7 @@ update_sink (GvcMixerControl    *control,
         }
 
         if (map == NULL)
-                map = gvc_mixer_stream_get_channel_map (stream);
+                map = (GvcChannelMap *) gvc_mixer_stream_get_channel_map (stream);
         gvc_channel_map_volume_changed (map, &info->volume, FALSE);
 }
 
@@ -759,6 +772,7 @@ update_source (GvcMixerControl      *control,
         max_volume = pa_cvolume_max (&info->volume);
 
         gvc_mixer_stream_set_name (stream, info->name);
+        gvc_mixer_stream_set_card_index (stream, info->card);
         gvc_mixer_stream_set_description (stream, info->description);
         gvc_mixer_stream_set_icon_name (stream, "audio-input-microphone");
         gvc_mixer_stream_set_volume (stream, (guint)max_volume);
@@ -1064,6 +1078,8 @@ update_card (GvcMixerControl      *control,
                         profile->profile = g_strdup (pi.name);
                         profile->human_profile = g_strdup (pi.description);
                         profile->status = card_num_streams_to_status (pi.n_sinks, pi.n_sources);
+                        profile->n_sinks = pi.n_sinks;
+                        profile->n_sources = pi.n_sources;
                         profile->priority = pi.priority;
                         list = g_list_prepend (list, profile);
                 }
@@ -1328,6 +1344,17 @@ _pa_ext_stream_restore_read_cb (pa_context                       *context,
 
         if (eol > 0) {
                 dec_outstanding (control);
+                /* If we don't have an event stream to restore, then
+                 * set one up with a default 100% volume */
+                if (!control->priv->event_sink_input_is_set) {
+                        pa_ext_stream_restore_info info;
+
+                        memset (&info, 0, sizeof(info));
+                        info.name = "sink-input-by-media-role:event";
+                        info.volume.channels = 1;
+                        info.volume.values[0] = PA_VOLUME_NORM;
+                        update_event_role_stream (control, &info);
+                }
                 return;
         }
 

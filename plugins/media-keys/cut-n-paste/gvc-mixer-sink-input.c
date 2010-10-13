@@ -25,7 +25,7 @@
 #include <unistd.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #include <pulse/pulseaudio.h>
 
@@ -48,12 +48,12 @@ G_DEFINE_TYPE (GvcMixerSinkInput, gvc_mixer_sink_input, GVC_TYPE_MIXER_STREAM)
 static gboolean
 gvc_mixer_sink_input_push_volume (GvcMixerStream *stream, gpointer *op)
 {
-        pa_operation      *o;
-        guint              index;
-        GvcChannelMap     *map;
-        pa_context        *context;
-        const pa_cvolume  *cv;
-        guint              num_channels;
+        pa_operation        *o;
+        guint                index;
+        const GvcChannelMap *map;
+        pa_context          *context;
+        const pa_cvolume    *cv;
+        guint                num_channels;
 
         index = gvc_mixer_stream_get_index (stream);
 

@@ -26,7 +26,7 @@
 #include <unistd.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #include <pulse/pulseaudio.h>
 
@@ -47,6 +47,7 @@ struct GvcMixerCardPrivate
         char          *target_profile;
         char          *human_profile;
         GList         *profiles;
+        pa_operation  *profile_op;
 };
 
 enum
@@ -209,6 +210,9 @@ _pa_context_set_card_profile_by_index_cb (pa_context                       *cont
         }
         g_free (card->priv->target_profile);
         card->priv->target_profile = NULL;
+
+        pa_operation_unref (card->priv->profile_op);
+        card->priv->profile_op = NULL;
 }
 
 gboolean
@@ -223,25 +227,26 @@ gvc_mixer_card_change_profile (GvcMixerCard *card,
                 return TRUE;
         if (g_strcmp0 (profile, card->priv->target_profile) == 0)
                 return TRUE;
+        if (card->priv->profile_op != NULL) {
+                pa_operation_cancel (card->priv->profile_op);
+                pa_operation_unref (card->priv->profile_op);
+                card->priv->profile_op = NULL;
+        }
 
         if (card->priv->profile != NULL) {
-                pa_operation *o;
-
                 g_free (card->priv->target_profile);
                 card->priv->target_profile = g_strdup (profile);
 
-                o = pa_context_set_card_profile_by_index (card->priv->pa_context,
-                                                          card->priv->index,
-                                                          card->priv->target_profile,
-                                                          _pa_context_set_card_profile_by_index_cb,
-                                                          card);
+                card->priv->profile_op = pa_context_set_card_profile_by_index (card->priv->pa_context,
+                                                                               card->priv->index,
+                                                                               card->priv->target_profile,
+                                                                               _pa_context_set_card_profile_by_index_cb,
+                                                                               card);
 
-                if (o == NULL) {
+                if (card->priv->profile_op == NULL) {
                         g_warning ("pa_context_set_card_profile_by_index() failed");
                         return FALSE;
                 }
-
-                pa_operation_unref (o);
         } else {
                 g_assert (card->priv->human_profile == NULL);
                 card->priv->profile = g_strdup (profile);
