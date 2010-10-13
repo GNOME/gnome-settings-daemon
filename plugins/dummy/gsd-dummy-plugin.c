@@ -102,3 +102,9 @@ gsd_dummy_plugin_class_init (GsdDummyPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdDummyPluginPrivate));
 }
+
+static void
+gsd_dummy_plugin_class_finalize (GsdDummyPluginClass *klass)
+{
+}
+

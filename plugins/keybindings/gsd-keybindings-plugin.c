@@ -102,3 +102,9 @@ gsd_keybindings_plugin_class_init (GsdKeybindingsPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdKeybindingsPluginPrivate));
 }
+
+static void
+gsd_keybindings_plugin_class_finalize (GsdKeybindingsPluginClass *klass)
+{
+}
+

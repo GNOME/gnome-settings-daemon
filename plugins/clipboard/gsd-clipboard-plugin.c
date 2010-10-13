@@ -102,3 +102,9 @@ gsd_clipboard_plugin_class_init (GsdClipboardPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdClipboardPluginPrivate));
 }
+
+static void
+gsd_clipboard_plugin_class_finalize (GsdClipboardPluginClass *klass)
+{
+}
+

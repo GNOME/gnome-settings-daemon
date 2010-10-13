@@ -335,3 +335,9 @@ gsd_smartcard_plugin_class_init (GsdSmartcardPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdSmartcardPluginPrivate));
 }
+
+static void
+gsd_smartcard_plugin_class_finalize (GsdSmartcardPluginClass *klass)
+{
+}
+

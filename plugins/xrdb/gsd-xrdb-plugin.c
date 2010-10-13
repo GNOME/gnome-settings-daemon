@@ -102,3 +102,9 @@ gsd_xrdb_plugin_class_init (GsdXrdbPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdXrdbPluginPrivate));
 }
+
+static void
+gsd_xrdb_plugin_class_finalize (GsdXrdbPluginClass *klass)
+{
+}
+

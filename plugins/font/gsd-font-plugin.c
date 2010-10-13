@@ -102,3 +102,9 @@ gsd_font_plugin_class_init (GsdFontPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdFontPluginPrivate));
 }
+
+static void
+gsd_font_plugin_class_finalize (GsdFontPluginClass *klass)
+{
+}
+

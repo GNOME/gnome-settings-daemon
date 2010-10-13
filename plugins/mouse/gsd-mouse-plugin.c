@@ -102,3 +102,9 @@ gsd_mouse_plugin_class_init (GsdMousePluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdMousePluginPrivate));
 }
+
+static void
+gsd_mouse_plugin_class_finalize (GsdMousePluginClass *klass)
+{
+}
+

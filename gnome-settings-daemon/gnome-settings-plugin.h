@@ -57,122 +57,18 @@ void             gnome_settings_plugin_deactivate         (GnomeSettingsPlugin *
  *
  * use: GNOME_SETTINGS_PLUGIN_REGISTER (PluginName, plugin_name)
  */
-#define GNOME_SETTINGS_PLUGIN_REGISTER(PluginName, plugin_name)                   \
-                                                                                \
-static GType plugin_name##_type = 0;                                            \
-static GTypeModule *plugin_module_type = 0;                                     \
-                                                                                \
-GType                                                                           \
-plugin_name##_get_type (void)                                                   \
-{                                                                               \
-        return plugin_name##_type;                                              \
-}                                                                               \
-                                                                                \
-static void     plugin_name##_init              (PluginName        *self);      \
-static void     plugin_name##_class_init        (PluginName##Class *klass);     \
-static gpointer plugin_name##_parent_class = NULL;                              \
-static void     plugin_name##_class_intern_init (gpointer klass)                \
-{                                                                               \
-        plugin_name##_parent_class = g_type_class_peek_parent (klass);          \
-        plugin_name##_class_init ((PluginName##Class *) klass);                 \
-}                                                                               \
-                                                                                \
-G_MODULE_EXPORT GType                                                           \
-register_gnome_settings_plugin (GTypeModule *module)                              \
-{                                                                               \
-        static const GTypeInfo our_info =                                       \
-        {                                                                       \
-                sizeof (PluginName##Class),                                     \
-                NULL, /* base_init */                                           \
-                NULL, /* base_finalize */                                       \
-                (GClassInitFunc) plugin_name##_class_intern_init,               \
-                NULL,                                                           \
-                NULL, /* class_data */                                          \
-                sizeof (PluginName),                                            \
-                0, /* n_preallocs */                                            \
-                (GInstanceInitFunc) plugin_name##_init                          \
-        };                                                                      \
-                                                                                \
-        g_debug ("Registering " #PluginName);                                   \
-                                                                                \
-        /* Initialise the i18n stuff */                                         \
-        bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);               \
-        bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");                     \
-                                                                                \
-        plugin_module_type = module;                                            \
-        plugin_name##_type = g_type_module_register_type (module,               \
-                                            GNOME_TYPE_SETTINGS_PLUGIN,           \
-                                            #PluginName,                        \
-                                            &our_info,                          \
-                                            0);                                 \
-                                                                                \
-        return plugin_name##_type;                                              \
+#define GNOME_SETTINGS_PLUGIN_REGISTER(PluginName, plugin_name)                \
+        G_DEFINE_DYNAMIC_TYPE (PluginName,                                     \
+                               plugin_name,                                    \
+                               GNOME_TYPE_SETTINGS_PLUGIN)                     \
+                                                                               \
+G_MODULE_EXPORT GType                                                          \
+register_gnome_settings_plugin (GTypeModule *type_module)                      \
+{                                                                              \
+        plugin_name##_register_type (type_module);                             \
+                                                                               \
+        return plugin_name##_get_type();                                       \
 }
-
-/*
- * Utility macro used to register gobject types in plugins with additional code
- *
- * use: GNOME_SETTINGS_PLUGIN_DEFINE_TYPE_WITH_CODE(ObjectName, object_name, PARENT_TYPE, CODE)
- */
-#define GNOME_SETTINGS_PLUGIN_DEFINE_TYPE_WITH_CODE(ObjectName, object_name, PARENT_TYPE, CODE)   \
-static void     object_name##_init              (ObjectName        *self);      \
-static void     object_name##_class_init        (ObjectName##Class *klass);     \
-static gpointer object_name##_parent_class = ((void *)0);                       \
-static GType    ojbect_name##_type_id = 0;                                      \
-                                                                                \
-static void     object_name##_class_intern_init (gpointer klass)                \
-{                                                                               \
-        object_name##_parent_class = g_type_class_peek_parent (klass);          \
-        object_name##_class_init ((ObjectName##Class *) klass);                 \
-}                                                                               \
-                                                                                \
-                                                                                \
-GType                                                                           \
-object_name##_get_type (void)                                                   \
-{                                                                               \
-        g_assert (object_name##_type_id != 0);                                  \
-                                                                                \
-        return object_name##_type_id;                                           \
-}                                                                               \
-                                                                                \
-GType                                                                           \
-object_name##_register_type (GTypeModule *module)                               \
-{                                                                               \
-        if ((object_name##_type_id == 0)) {                                     \
-                const GTypeInfo g_define_type_info = {                          \
-                        sizeof (ObjectName##Class),                             \
-                        (GBaseInitFunc) ((void *)0),                            \
-                        (GBaseFinalizeFunc) ((void *)0),                        \
-                        (GClassInitFunc) object_name##_class_intern_init,       \
-                        (GClassFinalizeFunc) ((void *)0),                       \
-                        ((void *)0),                                            \
-                        sizeof (ObjectName),                                    \
-                        0,                                                      \
-                        (GInstanceInitFunc) object_name##_init,                 \
-                        ((void *)0)                                             \
-                };                                                              \
-                object_name##_type_id =                                         \
-                        g_type_module_register_type (module,                    \
-                                                     PARENT_TYPE,               \
-                                                     #ObjectName,               \
-                                                     &g_define_type_info,       \
-                                                     (GTypeFlags) 0);           \
-        }                                                                       \
-                                                                                \
-        g_debug ("Registering " #ObjectName);                                   \
-                                                                                \
-        CODE                                                                    \
-                                                                                \
-        return type_name##_type_id;                                             \
-}
-
-/*
- * Utility macro used to register gobject types in plugins
- *
- * use: GNOME_SETTINGS_PLUGIN_DEFINE_TYPE(ObjectName, object_name, PARENT_TYPE)
- */
-#define GNOME_SETTINGS_PLUGIN_DEFINE_TYPE(ObjectName, object_name, PARENT_TYPE)           \
-        GNOME_SETTINGS_PLUGIN_DEFINE_TYPE_WITH_CODE(ObjectName, object_name, PARENT_TYPE, ;)
 
 G_END_DECLS
 
