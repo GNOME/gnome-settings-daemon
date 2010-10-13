@@ -460,20 +460,19 @@ do_url_action (GsdMediaKeysManager *manager,
 static void
 do_media_action (GsdMediaKeysManager *manager)
 {
-        char *command;
-        GSettings *settings;
+        GAppInfo *app_info;
 
-        settings = g_settings_new ("org.gnome.desktop.default-applications.media");
-        command = g_settings_get_string (settings, "exec");
-        if ((command != NULL) && (strcmp (command, "") != 0)) {
-                execute (manager,
-                         command,
-                         FALSE,
-                         g_settings_get_boolean (settings, "needs-terminal"));
+        app_info = g_app_info_get_default_for_type ("audio/ogg", FALSE);
+        if (app_info != NULL) {
+                GError *error = NULL;
+
+                if (!g_app_info_launch (app_info, NULL, NULL, &error)) {
+                        g_warning ("Could not launch '%s': %s",
+                                   g_app_info_get_commandline (app_info),
+                                   error->message);
+                        g_error_free (error);
+                }
         }
-
-        g_free (command);
-        g_object_unref (settings);
 }
 
 static void
