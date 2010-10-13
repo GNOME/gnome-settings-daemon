@@ -319,8 +319,15 @@ void
 gnome_settings_plugin_info_set_settings_prefix (GnomeSettingsPluginInfo *info,
                                                 const char              *settings_prefix)
 {
+        int priority;
+
         info->priv->settings = g_settings_new (settings_prefix);
         info->priv->enabled = g_settings_get_boolean (info->priv->settings, "active");
+
+        priority = g_settings_get_int (info->priv->settings, "priority");
+        if (priority > 0)
+                info->priv->priority = g_settings_get_int (info->priv->settings, "priority");
+
         g_signal_connect (G_OBJECT (info->priv->settings), "changed",
                           G_CALLBACK (plugin_enabled_cb), info);
 }

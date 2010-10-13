@@ -152,7 +152,6 @@ _load_file (GnomeSettingsManager *manager,
 {
         GnomeSettingsPluginInfo *info;
         char                    *key_name;
-        int                      priority;
         GSList                  *l;
 
         g_debug ("Loading plugin: %s", filename);
@@ -182,6 +181,7 @@ _load_file (GnomeSettingsManager *manager,
                                     DEFAULT_SETTINGS_PREFIX,
                                     gnome_settings_plugin_info_get_location (info));
         gnome_settings_plugin_info_set_settings_prefix (info, key_name);
+        /* Priority is set in the call above */
         g_free (key_name);
 
  out:
