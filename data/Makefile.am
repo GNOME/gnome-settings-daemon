@@ -42,6 +42,8 @@ xmldir = @GNOME_KEYBINDINGS_KEYSDIR@
 xml_in_files = 50-accessibility.xml.in
 xml_DATA = $(xml_in_files:.xml.in=.xml)
 
+man_MANS = gnome-settings-daemon.1
+
 EXTRA_DIST = 					\
 	$(gsettings_SCHEMAS:.xml=.xml.in.in)	\
 	$(service_in_files)			\
