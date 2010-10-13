@@ -155,7 +155,7 @@ get_term_command (GsdMediaKeysManager *manager)
         char *cmd = NULL;
         GSettings *settings;
 
-        settings = g_settings_new ("org.gnome.desktop.applications.terminal");
+        settings = g_settings_new ("org.gnome.desktop.default-applications.terminal");
         cmd_term = g_settings_get_string (settings, "exec");
         if (cmd_term[0] == '\0')
                 cmd_term = g_strdup ("gnome-terminal");
@@ -463,7 +463,7 @@ do_media_action (GsdMediaKeysManager *manager)
         char *command;
         GSettings *settings;
 
-        settings = g_settings_new ("org.gnome.desktop.applications.media");
+        settings = g_settings_new ("org.gnome.desktop.default-applications.media");
         command = g_settings_get_string (settings, "exec");
         if ((command != NULL) && (strcmp (command, "") != 0)) {
                 execute (manager,
