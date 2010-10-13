@@ -21,5 +21,5 @@ which gnome-autogen.sh || {
     echo "You need to install gnome-common from the GNOME SVN"
     exit 1
 }
-#USE_GNOME2_MACROS=1 . gnome-autogen.sh
+
 . gnome-autogen.sh
