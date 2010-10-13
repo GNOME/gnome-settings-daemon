@@ -50,7 +50,6 @@
 #include "gsd-enums.h"
 
 #include "gsd-keyboard-xkb.h"
-#include "gsd-xmodmap.h"
 
 #define GSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerPrivate))
 
@@ -371,7 +370,6 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         manager->priv->settings = g_settings_new (GSD_KEYBOARD_DIR);
 
         /* Essential - xkb initialization should happen before */
-        gsd_keyboard_xkb_set_post_activation_callback ((PostActivationCallback) gsd_load_modmap_files, NULL);
         gsd_keyboard_xkb_init (manager);
 
 #ifdef HAVE_X11_EXTENSIONS_XKB_H

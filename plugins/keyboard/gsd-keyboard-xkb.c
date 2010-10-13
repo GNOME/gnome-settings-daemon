@@ -36,7 +36,6 @@
 #include <libgnomekbd/gkbd-keyboard-config.h>
 #include <libgnomekbd/gkbd-util.h>
 
-#include "gsd-xmodmap.h"
 #include "gsd-keyboard-xkb.h"
 #include "delayed-dialog.h"
 #include "gnome-settings-profile.h"
@@ -614,83 +613,6 @@ gsd_keyboard_xkb_analyze_sysconfig (void)
 						  NULL);
 }
 
-static gboolean
-gsd_chk_file_list (void)
-{
-	GDir *home_dir;
-	const char *fname;
-	GSList *file_list = NULL;
-	GSList *last_login_file_list = NULL;
-	GSList *tmp = NULL;
-	GSList *tmp_l = NULL;
-	gboolean new_file_exist = FALSE;
-	GConfClient *conf_client;
-
-	home_dir = g_dir_open (g_get_home_dir (), 0, NULL);
-	while ((fname = g_dir_read_name (home_dir)) != NULL) {
-		if (g_strrstr (fname, "modmap")) {
-			file_list =
-			    g_slist_append (file_list, g_strdup (fname));
-		}
-	}
-	g_dir_close (home_dir);
-
-	conf_client = gconf_client_get_default ();
-
-	last_login_file_list = gconf_client_get_list (conf_client,
-						      KNOWN_FILES_KEY,
-						      GCONF_VALUE_STRING,
-						      NULL);
-
-	/* Compare between the two file list, currently available modmap files
-	   and the files available in the last log in */
-	tmp = file_list;
-	while (tmp != NULL) {
-		tmp_l = last_login_file_list;
-		new_file_exist = TRUE;
-		while (tmp_l != NULL) {
-			if (strcmp (tmp->data, tmp_l->data) == 0) {
-				new_file_exist = FALSE;
-				break;
-			} else {
-				tmp_l = tmp_l->next;
-			}
-		}
-		if (new_file_exist) {
-			break;
-		} else {
-			tmp = tmp->next;
-		}
-	}
-
-	if (new_file_exist) {
-		gconf_client_set_list (conf_client,
-				       KNOWN_FILES_KEY,
-				       GCONF_VALUE_STRING,
-				       file_list, NULL);
-	}
-
-	g_object_unref (conf_client);
-
-	g_slist_foreach (file_list, (GFunc) g_free, NULL);
-	g_slist_free (file_list);
-
-	g_slist_foreach (last_login_file_list, (GFunc) g_free, NULL);
-	g_slist_free (last_login_file_list);
-
-	return new_file_exist;
-
-}
-
-static void
-gsd_keyboard_xkb_chk_lcl_xmm (void)
-{
-	if (gsd_chk_file_list ()) {
-		gsd_modmap_dialog_call ();
-	}
-	gsd_load_modmap_files ();
-}
-
 void
 gsd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
 					       void *user_data)
@@ -803,11 +725,6 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 					   xkl_engine);
 		xkl_engine_backup_names_prop (xkl_engine);
 		gsd_keyboard_xkb_analyze_sysconfig ();
-		gnome_settings_profile_start
-		    ("gsd_keyboard_xkb_chk_lcl_xmm");
-		gsd_keyboard_xkb_chk_lcl_xmm ();
-		gnome_settings_profile_end
-		    ("gsd_keyboard_xkb_chk_lcl_xmm");
 
 		settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
 		settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
