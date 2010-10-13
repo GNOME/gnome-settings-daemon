@@ -6,7 +6,6 @@ enabled_plugins =	\
 	clipboard	\
 	datetime	\
 	dummy		\
-	font		\
 	housekeeping    \
 	keybindings	\
 	keyboard	\
