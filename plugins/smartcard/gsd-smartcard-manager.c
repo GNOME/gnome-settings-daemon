@@ -1321,7 +1321,7 @@ on_device_removed (GsdSmartcardManager *manager,
         } else {
                 g_print ("disabling manager for 2 seconds\n");
                 gsd_smartcard_manager_stop (manager);
-                g_timeout_add (2000, (GSourceFunc) on_timeout, manager);
+                g_timeout_add_seconds (2, (GSourceFunc) on_timeout, manager);
         }
 }
 
