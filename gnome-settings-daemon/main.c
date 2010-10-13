@@ -400,7 +400,7 @@ main (int argc, char *argv[])
         }
 
         if (do_timed_exit) {
-                g_timeout_add (1000 * 30, (GSourceFunc) timed_exit_cb, NULL);
+                g_timeout_add_seconds (30, (GSourceFunc) timed_exit_cb, NULL);
         }
 
         gtk_main ();
