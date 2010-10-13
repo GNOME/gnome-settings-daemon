@@ -61,9 +61,6 @@ static GSettings *settings_keyboard = NULL;
 static PostActivationCallback pa_callback = NULL;
 static void *pa_callback_user_data = NULL;
 
-static const char KNOWN_FILES_KEY[] =
-    "/desktop/gnome/peripherals/keyboard/general/known_file_list";
-
 static const char DISABLE_INDICATOR_KEY[] =
     "/desktop/gnome/peripherals/keyboard/general/disable_indicator";
 
