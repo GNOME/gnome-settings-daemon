@@ -41,9 +41,6 @@
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKBstr.h>
 
-#include <X11/extensions/XInput.h>
-#include <X11/extensions/XIproto.h>
-
 #ifdef HAVE_LIBNOTIFY
 #include <libnotify/notify.h>
 #endif /* HAVE_LIBNOTIFY */
@@ -59,14 +56,15 @@
 
 struct GsdA11yKeyboardManagerPrivate
 {
-        int        xkbEventBase;
-        gboolean   stickykeys_shortcut_val;
-        gboolean   slowkeys_shortcut_val;
-        GtkWidget *stickykeys_alert;
-        GtkWidget *slowkeys_alert;
-        GtkWidget *preferences_dialog;
-        GtkStatusIcon *status_icon;
-        XkbDescRec *original_xkb_desc;
+        int               xkbEventBase;
+        GdkDeviceManager *device_manager;
+        gboolean          stickykeys_shortcut_val;
+        gboolean          slowkeys_shortcut_val;
+        GtkWidget        *stickykeys_alert;
+        GtkWidget        *slowkeys_alert;
+        GtkWidget        *preferences_dialog;
+        GtkStatusIcon    *status_icon;
+        XkbDescRec       *original_xkb_desc;
 
         guint      gconf_notify;
 
@@ -93,67 +91,33 @@ static gpointer manager_object = NULL;
 #define d(str)          do { } while (0)
 #endif
 
-static GdkFilterReturn
-devicepresence_filter (GdkXEvent *xevent,
-                       GdkEvent  *event,
-                       gpointer   data)
+static void
+device_added_cb (GdkDeviceManager *device_manager,
+		 GdkDevice        *device,
+		 gpointer          user_data)
 {
-        XEvent *xev = (XEvent *) xevent;
-        XEventClass class_presence;
-        int xi_presence;
+	if (gdk_device_get_source (device) == GDK_SOURCE_KEYBOARD) {
+		GConfClient *client;
 
-        DevicePresence (gdk_x11_get_default_xdisplay (), xi_presence, class_presence);
-
-        if (xev->type == xi_presence)
-        {
-            XDevicePresenceNotifyEvent *dpn = (XDevicePresenceNotifyEvent *) xev;
-            if (dpn->devchange == DeviceEnabled) {
-                GConfClient *client;
 		client = gconf_client_get_default ();
-		set_server_from_gconf (data, client);
-                g_object_unref (client);
-	    }
-        }
-        return GDK_FILTER_CONTINUE;
-}
+		set_server_from_gconf (user_data, client);
 
-static gboolean
-supports_xinput_devices (void)
-{
-        gint op_code, event, error;
-
-        return XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                "XInputExtension",
-                                &op_code,
-                                &event,
-                                &error);
+		g_object_unref (client);
+	}
 }
 
 static void
 set_devicepresence_handler (GsdA11yKeyboardManager *manager)
 {
-        Display *display;
-        XEventClass class_presence;
-        int xi_presence;
+	GdkDeviceManager *device_manager;
 
-        if (!supports_xinput_devices ())
-                return;
+	device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+	if (device_manager == NULL)
+		return;
 
-        display = gdk_x11_get_default_xdisplay ();
-
-        gdk_error_trap_push ();
-        DevicePresence (display, xi_presence, class_presence);
-        /* FIXME:
-         * Note that this might overwrite other events, see:
-         * https://bugzilla.gnome.org/show_bug.cgi?id=610245#c2
-         **/
-        XSelectExtensionEvent (display,
-                               RootWindow (display, DefaultScreen (display)),
-                               &class_presence, 1);
-
-        gdk_flush ();
-        if (!gdk_error_trap_pop ())
-                gdk_window_add_filter (NULL, devicepresence_filter, manager);
+	g_signal_connect (G_OBJECT (device_manager), "device-added",
+			  G_CALLBACK (device_added_cb), manager);
+	manager->priv->device_manager = device_manager;
 }
 
 static gboolean
@@ -1136,7 +1100,10 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
 
         g_debug ("Stopping a11y_keyboard manager");
 
-        gdk_window_remove_filter (NULL, devicepresence_filter, manager);
+	if (p->device_manager != NULL) {
+		g_object_unref (p->device_manager);
+		p->device_manager = NULL;
+	}
 
         if (p->status_icon)
                 gtk_status_icon_set_visible (p->status_icon, FALSE);

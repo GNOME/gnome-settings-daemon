@@ -72,6 +72,7 @@
 struct GsdMouseManagerPrivate
 {
         GSettings *touchpad_settings;
+        GdkDeviceManager *device_manager;
         guint notify;
         guint notify_a11y;
 
@@ -364,47 +365,27 @@ set_xinput_devices_left_handed (GsdMouseManager *manager, gboolean left_handed)
                 XFreeDeviceList (device_info);
 }
 
-static GdkFilterReturn
-devicepresence_filter (GdkXEvent *xevent,
-                       GdkEvent  *event,
-                       gpointer   data)
+static void
+device_added_cb (GdkDeviceManager *device_manager,
+		 GdkDevice        *device,
+		 gpointer          user_data)
 {
-        XEvent *xev = (XEvent *) xevent;
-        XEventClass class_presence;
-        int xi_presence;
-
-        DevicePresence (gdk_x11_get_default_xdisplay (), xi_presence, class_presence);
-
-        if (xev->type == xi_presence)
-        {
-            XDevicePresenceNotifyEvent *dpn = (XDevicePresenceNotifyEvent *) xev;
-            if (dpn->devchange == DeviceEnabled)
-                set_mouse_settings ((GsdMouseManager *) data);
-        }
-        return GDK_FILTER_CONTINUE;
+	if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE)
+		set_mouse_settings ((GsdMouseManager *) user_data);
 }
 
 static void
 set_devicepresence_handler (GsdMouseManager *manager)
 {
-        Display *display;
-        XEventClass class_presence;
-        int xi_presence;
+	GdkDeviceManager *device_manager;
 
-        if (!supports_xinput_devices ())
-                return;
+	device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+	if (device_manager == NULL)
+		return;
 
-        display = gdk_x11_get_default_xdisplay ();
-
-        gdk_error_trap_push ();
-        DevicePresence (display, xi_presence, class_presence);
-        XSelectExtensionEvent (display,
-                               RootWindow (display, DefaultScreen (display)),
-                               &class_presence, 1);
-
-        gdk_flush ();
-        if (!gdk_error_trap_pop ())
-                gdk_window_add_filter (NULL, devicepresence_filter, manager);
+	g_signal_connect (G_OBJECT (device_manager), "device-added",
+			  G_CALLBACK (device_added_cb), manager);
+	manager->priv->device_manager = device_manager;
 }
 
 static void
@@ -1056,13 +1037,16 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
                 p->notify_a11y = 0;
         }
 
+        if (p->device_manager != NULL) {
+		g_object_unref (p->device_manager);
+		p->device_manager = NULL;
+	}
+
         g_object_unref (client);
         g_object_unref (manager->priv->touchpad_settings);
         manager->priv->touchpad_settings = NULL;
 
         set_locate_pointer (manager, FALSE);
-
-        gdk_window_remove_filter (NULL, devicepresence_filter, manager);
 }
 
 static void
