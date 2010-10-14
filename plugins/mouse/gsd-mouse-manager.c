@@ -1064,8 +1064,6 @@ gsd_mouse_manager_finalize (GObject *object)
         if (mouse_manager->priv->touchpad_settings != NULL)
                 g_object_unref (mouse_manager->priv->touchpad_settings);
 
-        g_free (mouse_manager->priv);
-
         G_OBJECT_CLASS (gsd_mouse_manager_parent_class)->finalize (object);
 }
 
