@@ -79,8 +79,8 @@ struct GsdMouseManagerPrivate
         gboolean mousetweaks_daemon_running;
         gboolean syndaemon_spawned;
         GPid syndaemon_pid;
-	gboolean locate_pointer_spawned;
-	GPid locate_pointer_pid;
+        gboolean locate_pointer_spawned;
+        GPid locate_pointer_pid;
 };
 
 static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
@@ -367,25 +367,25 @@ set_xinput_devices_left_handed (GsdMouseManager *manager, gboolean left_handed)
 
 static void
 device_added_cb (GdkDeviceManager *device_manager,
-		 GdkDevice        *device,
-		 gpointer          user_data)
+                 GdkDevice        *device,
+                 gpointer          user_data)
 {
-	if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE)
-		set_mouse_settings ((GsdMouseManager *) user_data);
+        if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE)
+                set_mouse_settings ((GsdMouseManager *) user_data);
 }
 
 static void
 set_devicepresence_handler (GsdMouseManager *manager)
 {
-	GdkDeviceManager *device_manager;
+        GdkDeviceManager *device_manager;
 
-	device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
-	if (device_manager == NULL)
-		return;
+        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+        if (device_manager == NULL)
+                return;
 
-	g_signal_connect (G_OBJECT (device_manager), "device-added",
-			  G_CALLBACK (device_added_cb), manager);
-	manager->priv->device_manager = device_manager;
+        g_signal_connect (G_OBJECT (device_manager), "device-added",
+                          G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_manager = device_manager;
 }
 
 static void
@@ -511,11 +511,31 @@ device_is_touchpad (XDeviceInfo deviceinfo)
         return NULL;
 }
 
+static gboolean
+touchpad_is_present (void)
+{
+        gboolean touchpad_present = FALSE;
+        int numdevices, i;
+        XDeviceInfo *devicelist = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &numdevices);
+        XDevice *device;
+
+        if (devicelist == NULL)
+                return 0;
+
+        for (i = 0; i < numdevices; i++) {
+                if ((device = device_is_touchpad (devicelist[i]))) {
+                        touchpad_present = TRUE;
+                        break;
+                }
+        }
+
+        return touchpad_present;
+}
+
 static int
 set_disable_w_typing (GsdMouseManager *manager, gboolean state)
 {
-
-        if (state) {
+        if (state && touchpad_is_present ()) {
                 GError *error = NULL;
                 char *args[5];
 
@@ -541,9 +561,7 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
                         g_settings_set_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING, FALSE);
                         g_error_free (error);
                 }
-
-        } else if (manager->priv->syndaemon_spawned)
-        {
+        } else if (manager->priv->syndaemon_spawned) {
                 kill (manager->priv->syndaemon_pid, SIGHUP);
                 g_spawn_close_pid (manager->priv->syndaemon_pid);
                 manager->priv->syndaemon_spawned = FALSE;
@@ -664,10 +682,6 @@ set_horiz_scroll (gboolean state)
 }
 
 
-/**
- * Scroll methods are: 0 - disabled, 1 - edge scrolling, 2 - twofinger
- * scrolling
- */
 static int
 set_edge_scroll (GsdTouchpadScrollMethod method)
 {
@@ -797,7 +811,7 @@ set_locate_pointer (GsdMouseManager *manager,
                 }
 
         }
-	else if (manager->priv->locate_pointer_spawned) {
+        else if (manager->priv->locate_pointer_spawned) {
                 kill (manager->priv->locate_pointer_pid, SIGHUP);
                 g_spawn_close_pid (manager->priv->locate_pointer_pid);
                 manager->priv->locate_pointer_spawned = FALSE;
@@ -1038,9 +1052,9 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
         }
 
         if (p->device_manager != NULL) {
-		g_object_unref (p->device_manager);
-		p->device_manager = NULL;
-	}
+                g_object_unref (p->device_manager);
+                p->device_manager = NULL;
+        }
 
         g_object_unref (client);
         g_object_unref (manager->priv->touchpad_settings);
