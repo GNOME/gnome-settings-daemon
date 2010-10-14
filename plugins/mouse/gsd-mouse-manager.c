@@ -60,14 +60,14 @@
 #define KEY_LEFT_HANDED         GCONF_MOUSE_DIR "/left_handed"
 #define KEY_MOTION_ACCELERATION GCONF_MOUSE_DIR "/motion_acceleration"
 #define KEY_MOTION_THRESHOLD    GCONF_MOUSE_DIR "/motion_threshold"
-#define KEY_LOCATE_POINTER      GCONF_MOUSE_DIR "/locate_pointer"
+#define KEY_LOCATE_POINTER               "locate-pointer"
 #define KEY_DWELL_CLICK_ENABLED          "dwell-click-enabled"
 #define KEY_SECONDARY_CLICK_ENABLED      "secondary-click-enabled"
 #define KEY_TOUCHPAD_DISABLE_W_TYPING    "disable-while-typing"
-#define KEY_TAP_TO_CLICK        "tap-to-click"
-#define KEY_SCROLL_METHOD       "scroll-method"
-#define KEY_PAD_HORIZ_SCROLL    "horiz-scroll-enabled"
-#define KEY_TOUCHPAD_ENABLED    "touchpad-enabled"
+#define KEY_TAP_TO_CLICK                 "tap-to-click"
+#define KEY_SCROLL_METHOD                "scroll-method"
+#define KEY_PAD_HORIZ_SCROLL             "horiz-scroll-enabled"
+#define KEY_TOUCHPAD_ENABLED             "touchpad-enabled"
 
 struct GsdMouseManagerPrivate
 {
@@ -803,10 +803,7 @@ set_locate_pointer (GsdMouseManager *manager,
                 manager->priv->locate_pointer_spawned = (error == NULL);
 
                 if (error) {
-                        GConfClient *client;
-                        client = gconf_client_get_default ();
-                        gconf_client_set_bool (client, KEY_LOCATE_POINTER, FALSE, NULL);
-                        g_object_unref (client);
+                        g_settings_set_boolean (manager->priv->mouse_settings, KEY_LOCATE_POINTER, FALSE);
                         g_error_free (error);
                 }
 
@@ -903,10 +900,6 @@ __mouse_callback (GConfClient        *client,
                 if (entry->value->type == GCONF_VALUE_INT) {
                         set_motion_threshold (manager, gconf_value_get_int (entry->value));
                 }
-        } else if (g_str_equal (entry->key, KEY_LOCATE_POINTER)) {
-                if (entry->value->type == GCONF_VALUE_BOOL) {
-                        set_locate_pointer (manager, gconf_value_get_bool (entry->value));
-                }
         }
 }
 
@@ -920,6 +913,8 @@ mouse_callback (GSettings       *settings,
                 set_mousetweaks_daemon (manager,
                                         g_settings_get_boolean (settings, KEY_DWELL_CLICK_ENABLED),
                                         g_settings_get_boolean (settings, KEY_SECONDARY_CLICK_ENABLED));
+        } else if (g_str_equal (key, KEY_LOCATE_POINTER)) {
+                set_locate_pointer (manager, g_settings_get_boolean (settings, KEY_LOCATE_POINTER));
         }
 }
 
@@ -990,7 +985,7 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 
         set_devicepresence_handler (manager);
         set_mouse_settings (manager);
-        set_locate_pointer (manager, gconf_client_get_bool (client, KEY_LOCATE_POINTER, NULL));
+        set_locate_pointer (manager, g_settings_get_boolean (manager->priv->mouse_settings, KEY_LOCATE_POINTER));
         set_mousetweaks_daemon (manager,
                                 g_settings_get_boolean (manager->priv->mouse_settings, KEY_DWELL_CLICK_ENABLED),
                                 g_settings_get_boolean (manager->priv->mouse_settings, KEY_SECONDARY_CLICK_ENABLED));
