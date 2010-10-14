@@ -323,7 +323,7 @@ trash_empty_confirmation_response (GtkDialog *dialog,
 }
 
 static gboolean
-trash_empty_require_confirmation ()
+trash_empty_require_confirmation (void)
 {
         GConfClient *client;
         gboolean require_confirmation = TRUE;
