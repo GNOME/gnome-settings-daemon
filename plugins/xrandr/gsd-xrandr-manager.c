@@ -56,8 +56,8 @@
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
 #define CONF_DIR "org.gnome.settings-daemon.plugins.xrandr"
-#define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP	("turn-on-external-monitors")
-#define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP	("turn-on-laptop-monitor")
+#define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP   ("turn-on-external-monitors")
+#define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP      ("turn-on-laptop-monitor")
 #define CONF_KEY_DEFAULT_CONFIGURATION_FILE             ("default-configuration-file")
 
 #define VIDEO_KEYSYM    "XF86Display"
@@ -1079,7 +1079,7 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
 #else
         GtkWidget *dialog;
 
-	dialog = gtk_message_dialog_new (NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+        dialog = gtk_message_dialog_new (NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
                                          "%s", primary_text);
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s",
                                                   error_to_display ? error_to_display->message : secondary_text);
@@ -1594,7 +1594,7 @@ static gboolean
 apply_intended_configuration (GsdXrandrManager *manager, const char *intended_filename, guint32 timestamp)
 {
         GError *my_error;
-	gboolean result;
+        gboolean result;
 
         my_error = NULL;
         result = apply_configuration_from_filename (manager, intended_filename, FALSE, timestamp, &my_error);
@@ -1613,24 +1613,24 @@ apply_intended_configuration (GsdXrandrManager *manager, const char *intended_fi
 static void
 apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
 {
-	GsdXrandrManagerPrivate *priv = mgr->priv;
-	GnomeRRScreen *screen = priv->rw_screen;
-	GnomeRRConfig *config;
-	gboolean turn_on_external, turn_on_laptop;
+        GsdXrandrManagerPrivate *priv = mgr->priv;
+        GnomeRRScreen *screen = priv->rw_screen;
+        GnomeRRConfig *config;
+        gboolean turn_on_external, turn_on_laptop;
 
         turn_on_external =
                 g_settings_get_boolean (mgr->priv->settings, CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP);
         turn_on_laptop =
                 g_settings_get_boolean (mgr->priv->settings, CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP);
 
-	if (turn_on_external && turn_on_laptop)
-		config = make_clone_setup (screen);
-	else if (!turn_on_external && turn_on_laptop)
-		config = make_laptop_setup (screen);
-	else if (turn_on_external && !turn_on_laptop)
-		config = make_other_setup (screen);
-	else
-		config = make_laptop_setup (screen);
+        if (turn_on_external && turn_on_laptop)
+                config = make_clone_setup (screen);
+        else if (!turn_on_external && turn_on_laptop)
+                config = make_laptop_setup (screen);
+        else if (turn_on_external && !turn_on_laptop)
+                config = make_other_setup (screen);
+        else
+                config = make_laptop_setup (screen);
 
         if (config) {
                 apply_configuration_and_display_error (mgr, config, timestamp);
