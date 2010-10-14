@@ -3,6 +3,7 @@
     <child name="smartcard" schema="org.gnome.settings-daemon.peripherals.smartcard"/>
     <child name="touchpad" schema="org.gnome.settings-daemon.peripherals.touchpad"/>
     <child name="keyboard" schema="org.gnome.settings-daemon.peripherals.keyboard"/>
+    <child name="mouse" schema="org.gnome.settings-daemon.peripherals.mouse"/>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.smartcard" path="/apps/gnome-settings-daemon/peripherals/smartcard/">
     <key name="removal-action" enum="org.gnome.settings-daemon.GsdSmartcardRemovalAction">
@@ -73,6 +74,16 @@
       <default>true</default>
       <summary>Remember NumLock state</summary>
       <description>When set to true, GNOME will remember the state of the NumLock LED between sessions.</description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.mouse" path="/apps/gnome-settings-daemon/peripherals/mouse/">
+    <key name="dwell-click-enabled" type="b">
+      <default>false</default>
+      <_summary>Enable dwell clicks</_summary>
+    </key>
+    <key name="secondary-click-enabled" type="b">
+      <default>false</default>
+      <_summary>Enable simulated secondary clicks</_summary>
     </key>
   </schema>
 </schemalist>

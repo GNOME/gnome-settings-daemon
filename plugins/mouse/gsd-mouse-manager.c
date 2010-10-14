@@ -54,15 +54,15 @@
 #define GSD_MOUSE_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerPrivate))
 
 #define GCONF_MOUSE_DIR         "/desktop/gnome/peripherals/mouse"
-#define GCONF_MOUSE_A11Y_DIR    "/desktop/gnome/accessibility/mouse"
+#define SETTINGS_MOUSE_DIR         "org.gnome.settings-daemon.peripherals.mouse"
 #define SETTINGS_TOUCHPAD_DIR      "org.gnome.settings-daemon.peripherals.touchpad"
 
 #define KEY_LEFT_HANDED         GCONF_MOUSE_DIR "/left_handed"
 #define KEY_MOTION_ACCELERATION GCONF_MOUSE_DIR "/motion_acceleration"
 #define KEY_MOTION_THRESHOLD    GCONF_MOUSE_DIR "/motion_threshold"
 #define KEY_LOCATE_POINTER      GCONF_MOUSE_DIR "/locate_pointer"
-#define KEY_DWELL_ENABLE        GCONF_MOUSE_A11Y_DIR "/dwell_enable"
-#define KEY_DELAY_ENABLE        GCONF_MOUSE_A11Y_DIR "/delay_enable"
+#define KEY_DWELL_CLICK_ENABLED          "dwell-click-enabled"
+#define KEY_SECONDARY_CLICK_ENABLED      "secondary-click-enabled"
 #define KEY_TOUCHPAD_DISABLE_W_TYPING    "disable-while-typing"
 #define KEY_TAP_TO_CLICK        "tap-to-click"
 #define KEY_SCROLL_METHOD       "scroll-method"
@@ -72,9 +72,9 @@
 struct GsdMouseManagerPrivate
 {
         GSettings *touchpad_settings;
+        GSettings *mouse_settings;
         GdkDeviceManager *device_manager;
         guint notify;
-        guint notify_a11y;
 
         gboolean mousetweaks_daemon_running;
         gboolean syndaemon_spawned;
@@ -820,12 +820,12 @@ set_locate_pointer (GsdMouseManager *manager,
 
 static void
 set_mousetweaks_daemon (GsdMouseManager *manager,
-                        gboolean         dwell_enable,
-                        gboolean         delay_enable)
+                        gboolean         dwell_click_enabled,
+                        gboolean         secondary_click_enabled)
 {
         GError *error = NULL;
         gchar *comm;
-        gboolean run_daemon = dwell_enable || delay_enable;
+        gboolean run_daemon = dwell_click_enabled || secondary_click_enabled;
 
         if (run_daemon || manager->priv->mousetweaks_daemon_running)
                 comm = g_strdup_printf ("mousetweaks %s",
@@ -836,23 +836,17 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
         if (run_daemon)
                 manager->priv->mousetweaks_daemon_running = TRUE;
 
-
         if (! g_spawn_command_line_async (comm, &error)) {
-                if (error->code == G_SPAWN_ERROR_NOENT &&
-                    (dwell_enable || delay_enable)) {
+                if (error->code == G_SPAWN_ERROR_NOENT && run_daemon) {
                         GtkWidget *dialog;
-                        GConfClient *client;
 
-                        client = gconf_client_get_default ();
-                        if (dwell_enable)
-                                gconf_client_set_bool (client,
-                                                       KEY_DWELL_ENABLE,
-                                                       FALSE, NULL);
-                        else if (delay_enable)
-                                gconf_client_set_bool (client,
-                                                       KEY_DELAY_ENABLE,
-                                                       FALSE, NULL);
-                        g_object_unref (client);
+                        if (dwell_click_enabled) {
+                                g_settings_set_boolean (manager->priv->mouse_settings,
+                                                        KEY_DWELL_CLICK_ENABLED, FALSE);
+                        } else if (secondary_click_enabled) {
+                                g_settings_set_boolean (manager->priv->mouse_settings,
+                                                        KEY_SECONDARY_CLICK_ENABLED, FALSE);
+                        }
 
                         dialog = gtk_message_dialog_new (NULL, 0,
                                                          GTK_MESSAGE_WARNING,
@@ -861,10 +855,9 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
                         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
                                                                   _("Mouse accessibility requires Mousetweaks "
                                                                     "to be installed on your system."));
-                        gtk_window_set_title (GTK_WINDOW (dialog),
-                                              _("Mouse Preferences"));
+                        gtk_window_set_title (GTK_WINDOW (dialog), _("Universal Access"));
                         gtk_window_set_icon_name (GTK_WINDOW (dialog),
-                                                  "input-mouse");
+                                                  "preferences-desktop-accessibility");
                         gtk_dialog_run (GTK_DIALOG (dialog));
                         gtk_widget_destroy (dialog);
                 }
@@ -893,10 +886,10 @@ set_mouse_settings (GsdMouseManager *manager)
 }
 
 static void
-mouse_callback (GConfClient        *client,
-                guint               cnxn_id,
-                GConfEntry         *entry,
-                GsdMouseManager    *manager)
+__mouse_callback (GConfClient        *client,
+                  guint               cnxn_id,
+                  GConfEntry         *entry,
+                  GsdMouseManager    *manager)
 {
         if (g_str_equal (entry->key, KEY_LEFT_HANDED)) {
                 if (entry->value->type == GCONF_VALUE_BOOL) {
@@ -914,18 +907,19 @@ mouse_callback (GConfClient        *client,
                 if (entry->value->type == GCONF_VALUE_BOOL) {
                         set_locate_pointer (manager, gconf_value_get_bool (entry->value));
                 }
-        } else if (g_str_equal (entry->key, KEY_DWELL_ENABLE)) {
-                if (entry->value->type == GCONF_VALUE_BOOL) {
-                        set_mousetweaks_daemon (manager,
-                                                gconf_value_get_bool (entry->value),
-                                                gconf_client_get_bool (client, KEY_DELAY_ENABLE, NULL));
-                }
-        } else if (g_str_equal (entry->key, KEY_DELAY_ENABLE)) {
-                if (entry->value->type == GCONF_VALUE_BOOL) {
-                        set_mousetweaks_daemon (manager,
-                                                gconf_client_get_bool (client, KEY_DWELL_ENABLE, NULL),
-                                                gconf_value_get_bool (entry->value));
-                }
+        }
+}
+
+static void
+mouse_callback (GSettings       *settings,
+                const gchar     *key,
+                GsdMouseManager *manager)
+{
+        if (g_str_equal (key, KEY_DWELL_CLICK_ENABLED) ||
+            g_str_equal (key, KEY_SECONDARY_CLICK_ENABLED)) {
+                set_mousetweaks_daemon (manager,
+                                        g_settings_get_boolean (settings, KEY_DWELL_CLICK_ENABLED),
+                                        g_settings_get_boolean (settings, KEY_SECONDARY_CLICK_ENABLED));
         }
 }
 
@@ -982,12 +976,11 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                 register_config_callback (manager,
                                           client,
                                           GCONF_MOUSE_DIR,
-                                          (GConfClientNotifyFunc) mouse_callback);
-        manager->priv->notify_a11y =
-                register_config_callback (manager,
-                                          client,
-                                          GCONF_MOUSE_A11Y_DIR,
-                                          (GConfClientNotifyFunc) mouse_callback);
+                                          (GConfClientNotifyFunc) __mouse_callback);
+
+        manager->priv->mouse_settings = g_settings_new (SETTINGS_MOUSE_DIR);
+        g_signal_connect (manager->priv->mouse_settings, "changed",
+                          G_CALLBACK (mouse_callback), manager);
 
         manager->priv->touchpad_settings = g_settings_new (SETTINGS_TOUCHPAD_DIR);
         g_signal_connect (manager->priv->touchpad_settings, "changed",
@@ -999,8 +992,8 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
         set_mouse_settings (manager);
         set_locate_pointer (manager, gconf_client_get_bool (client, KEY_LOCATE_POINTER, NULL));
         set_mousetweaks_daemon (manager,
-                                gconf_client_get_bool (client, KEY_DWELL_ENABLE, NULL),
-                                gconf_client_get_bool (client, KEY_DELAY_ENABLE, NULL));
+                                g_settings_get_boolean (manager->priv->mouse_settings, KEY_DWELL_CLICK_ENABLED),
+                                g_settings_get_boolean (manager->priv->mouse_settings, KEY_SECONDARY_CLICK_ENABLED));
 
         set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
         set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK),
@@ -1045,20 +1038,18 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
                 p->notify = 0;
         }
 
-        if (p->notify_a11y != 0) {
-                gconf_client_remove_dir (client, GCONF_MOUSE_A11Y_DIR, NULL);
-                gconf_client_notify_remove (client, p->notify_a11y);
-                p->notify_a11y = 0;
-        }
-
         if (p->device_manager != NULL) {
                 g_object_unref (p->device_manager);
                 p->device_manager = NULL;
         }
 
         g_object_unref (client);
-        g_object_unref (manager->priv->touchpad_settings);
-        manager->priv->touchpad_settings = NULL;
+
+        g_object_unref (p->mouse_settings);
+        p->mouse_settings = NULL;
+
+        g_object_unref (p->touchpad_settings);
+        p->touchpad_settings = NULL;
 
         set_locate_pointer (manager, FALSE);
 }
@@ -1074,6 +1065,9 @@ gsd_mouse_manager_finalize (GObject *object)
         mouse_manager = GSD_MOUSE_MANAGER (object);
 
         g_return_if_fail (mouse_manager->priv != NULL);
+
+        if (mouse_manager->priv->mouse_settings != NULL)
+                g_object_unref (mouse_manager->priv->mouse_settings);
 
         if (mouse_manager->priv->touchpad_settings != NULL)
                 g_object_unref (mouse_manager->priv->touchpad_settings);
