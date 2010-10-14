@@ -77,10 +77,10 @@
 #define DPI_FACTOR_LARGEST 2.0
 #define DPI_DEFAULT        96
 
-#define KEY_GTK_THEME          "/desktop/gnome/interface/gtk_theme"
+#define KEY_GTK_THEME          "gtk-theme"
 #define KEY_COLOR_SCHEME       "/desktop/gnome/interface/gtk_color_scheme"
 #define KEY_METACITY_THEME     "/apps/metacity/general/theme"
-#define KEY_ICON_THEME         "/desktop/gnome/interface/icon_theme"
+#define KEY_ICON_THEME         "icon-theme"
 
 #define HIGH_CONTRAST_THEME    "HighContrast"
 
@@ -179,28 +179,6 @@ on_response (GsdA11yPreferencesDialog *dialog,
         default:
                 break;
         }
-}
-
-static char *
-config_get_string (const char *key,
-                   gboolean   *is_writable)
-{
-        char        *str;
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-
-        if (is_writable) {
-                *is_writable = gconf_client_key_is_writable (client,
-                                                             key,
-                                                             NULL);
-        }
-
-        str = gconf_client_get_string (client, key, NULL);
-
-        g_object_unref (client);
-
-        return str;
 }
 
 static gboolean
@@ -321,14 +299,20 @@ config_get_high_contrast (gboolean *is_writable)
 {
         gboolean ret;
         char    *gtk_theme;
+        GSettings *settings;
 
         ret = FALSE;
 
-        gtk_theme = config_get_string (KEY_GTK_THEME, is_writable);
+        settings = g_settings_new ("org.gnome.desktop.interface");
+        gtk_theme = g_settings_get_string (settings, KEY_GTK_THEME);
         if (gtk_theme != NULL && strcmp (gtk_theme, HIGH_CONTRAST_THEME) == 0) {
                 ret = TRUE;
         }
+
         g_free (gtk_theme);
+        g_object_unref (settings);
+
+        *is_writable = TRUE; /* FIXME: how to know a key is writable or not? */
 
         return ret;
 }
@@ -337,20 +321,23 @@ static void
 config_set_high_contrast (gboolean enabled)
 {
         GConfClient *client;
+        GSettings *settings;
 
         client = gconf_client_get_default ();
+        settings = g_settings_new ("org.gnome.desktop.interface");
 
         if (enabled) {
-                gconf_client_set_string (client, KEY_GTK_THEME, HIGH_CONTRAST_THEME, NULL);
-                gconf_client_set_string (client, KEY_ICON_THEME, HIGH_CONTRAST_THEME, NULL);
+                g_settings_set_string (settings, KEY_GTK_THEME, HIGH_CONTRAST_THEME);
+                g_settings_set_string (settings, KEY_ICON_THEME, HIGH_CONTRAST_THEME);
                 /* there isn't a high contrast metacity theme afaik */
         } else {
-                gconf_client_unset (client, KEY_GTK_THEME, NULL);
-                gconf_client_unset (client, KEY_ICON_THEME, NULL);
+                g_settings_reset (settings, KEY_GTK_THEME);
+                g_settings_reset (settings, KEY_ICON_THEME);
                 gconf_client_unset (client, KEY_METACITY_THEME, NULL);
         }
 
         g_object_unref (client);
+        g_object_unref (settings);
 }
 
 static gboolean
