@@ -39,7 +39,7 @@
 #define THUMB_SIZE_KEY "maximum-size"
 
 struct GsdHousekeepingManagerPrivate {
-	GSettings *settings;
+        GSettings *settings;
         guint long_term_cb;
         guint short_term_cb;
 };
@@ -80,7 +80,6 @@ thumb_data_free (gpointer data)
                 g_free (info);
         }
 }
-
 
 static GList *
 read_dir_for_purge (const char *path, GList *files)
@@ -131,7 +130,6 @@ read_dir_for_purge (const char *path, GList *files)
         return files;
 }
 
-
 static void
 purge_old_thumbnails (ThumbData *info, PurgeData *purge_data)
 {
@@ -143,45 +141,61 @@ purge_old_thumbnails (ThumbData *info, PurgeData *purge_data)
         }
 }
 
-
 static int
 sort_file_mtime (ThumbData *file1, ThumbData *file2)
 {
         return file1->mtime - file2->mtime;
 }
 
-static void
-purge_thumbnail_cache (GsdHousekeepingManager *manager)
+static char **
+get_thumbnail_dirs (void)
 {
+        GPtrArray *array;
+        char *path;
 
-        char      *path;
-        GList     *files;
-        PurgeData  purge_data;
-        GTimeVal   current_time;
-
-        g_debug ("housekeeping: checking thumbnail cache size and freshness");
+        array = g_ptr_array_new ();
 
         path = g_build_filename (g_get_home_dir (),
                                  ".thumbnails",
                                  "normal",
                                  NULL);
-        files = read_dir_for_purge (path, NULL);
-        g_free (path);
+        g_ptr_array_add (array, path);
 
         path = g_build_filename (g_get_home_dir (),
                                  ".thumbnails",
                                  "large",
                                  NULL);
-        files = read_dir_for_purge (path, files);
-        g_free (path);
+        g_ptr_array_add (array, path);
 
         path = g_build_filename (g_get_home_dir (),
                                  ".thumbnails",
                                  "fail",
                                  "gnome-thumbnail-factory",
                                  NULL);
-        files = read_dir_for_purge (path, files);
-        g_free (path);
+        g_ptr_array_add (array, path);
+
+        g_ptr_array_add (array, NULL);
+
+        return (char **) g_ptr_array_free (array, FALSE);
+}
+
+static void
+purge_thumbnail_cache (GsdHousekeepingManager *manager)
+{
+
+        char     **paths;
+        GList     *files;
+        PurgeData  purge_data;
+        GTimeVal   current_time;
+        guint      i;
+
+        g_debug ("housekeeping: checking thumbnail cache size and freshness");
+
+        paths = get_thumbnail_dirs ();
+        files = NULL;
+        for (i = 0; paths[i] != NULL; i++)
+                files = read_dir_for_purge (paths[i], files);
+        g_strfreev (paths);
 
         g_get_current_time (&current_time);
 
@@ -207,14 +221,12 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
         g_list_free (files);
 }
 
-
 static gboolean
 do_cleanup (GsdHousekeepingManager *manager)
 {
         purge_thumbnail_cache (manager);
         return TRUE;
 }
-
 
 static gboolean
 do_cleanup_once (GsdHousekeepingManager *manager)
@@ -223,7 +235,6 @@ do_cleanup_once (GsdHousekeepingManager *manager)
         manager->priv->short_term_cb = 0;
         return FALSE;
 }
-
 
 static void
 do_cleanup_soon (GsdHousekeepingManager *manager)
@@ -236,11 +247,10 @@ do_cleanup_soon (GsdHousekeepingManager *manager)
         }
 }
 
-
 static void
 settings_changed_callback (GSettings              *settings,
-			   const char             *key,
-			   GsdHousekeepingManager *manager)
+                           const char             *key,
+                           GsdHousekeepingManager *manager)
 {
         do_cleanup_soon (manager);
 }
@@ -255,8 +265,8 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
         gsd_ldsm_setup (FALSE);
 
         manager->priv->settings = g_settings_new (THUMB_PREFIX);
-	g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
-			  G_CALLBACK (settings_changed_callback), manager);
+        g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
+                          G_CALLBACK (settings_changed_callback), manager);
 
         /* Clean once, a few minutes after start-up */
         do_cleanup_soon (manager);
@@ -301,20 +311,17 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
         gsd_ldsm_clean ();
 }
 
-
 static void
 gsd_housekeeping_manager_class_init (GsdHousekeepingManagerClass *klass)
 {
         g_type_class_add_private (klass, sizeof (GsdHousekeepingManagerPrivate));
 }
 
-
 static void
 gsd_housekeeping_manager_init (GsdHousekeepingManager *manager)
 {
         manager->priv = GSD_HOUSEKEEPING_MANAGER_GET_PRIVATE (manager);
 }
-
 
 GsdHousekeepingManager *
 gsd_housekeeping_manager_new (void)
