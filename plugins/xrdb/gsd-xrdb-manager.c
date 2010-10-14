@@ -48,8 +48,6 @@
 #define USER_X_RESOURCES ".Xresources"
 #define USER_X_DEFAULTS  ".Xdefaults"
 
-#define GTK_THEME_KEY "/desktop/gnome/interface/gtk_theme"
-
 struct GsdXrdbManagerPrivate
 {
         GtkWidget *widget;
