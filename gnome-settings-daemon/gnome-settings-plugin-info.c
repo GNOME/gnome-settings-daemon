@@ -115,7 +115,9 @@ gnome_settings_plugin_info_finalize (GObject *object)
         g_free (info->priv->copyright);
         g_strfreev (info->priv->authors);
 
-        g_object_unref (info->priv->settings);
+        if (info->priv->settings != NULL) {
+                g_object_unref (info->priv->settings);
+        }
 
         G_OBJECT_CLASS (gnome_settings_plugin_info_parent_class)->finalize (object);
 }
@@ -328,8 +330,10 @@ gnome_settings_plugin_info_set_settings_prefix (GnomeSettingsPluginInfo *info,
         if (priority > 0)
                 info->priv->priority = priority;
 
-        g_signal_connect (G_OBJECT (info->priv->settings), "changed",
-                          G_CALLBACK (plugin_enabled_cb), info);
+        g_signal_connect (G_OBJECT (info->priv->settings),
+                          "changed",
+                          G_CALLBACK (plugin_enabled_cb),
+                          info);
 }
 
 static void

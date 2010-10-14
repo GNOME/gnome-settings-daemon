@@ -146,6 +146,26 @@ on_plugin_deactivated (GnomeSettingsPluginInfo *info,
         g_signal_emit (manager, signals [PLUGIN_DEACTIVATED], 0, name);
 }
 
+static gboolean
+contained (const char * const *items,
+           const char         *item)
+{
+        while (*items) {
+                if (g_strcmp0 (*items++, item) == 0) {
+                        return TRUE;
+                }
+        }
+
+        return FALSE;
+}
+
+static gboolean
+is_schema (const char *schema)
+{
+        return contained (g_settings_list_schemas (), schema);
+}
+
+
 static void
 _load_file (GnomeSettingsManager *manager,
             const char           *filename)
@@ -169,18 +189,25 @@ _load_file (GnomeSettingsManager *manager,
                 goto out;
         }
 
-        manager->priv->plugins = g_slist_prepend (manager->priv->plugins,
-                                                  g_object_ref (info));
-
-        g_signal_connect (info, "activated",
-                          G_CALLBACK (on_plugin_activated), manager);
-        g_signal_connect (info, "deactivated",
-                          G_CALLBACK (on_plugin_deactivated), manager);
-
         key_name = g_strdup_printf ("%s.plugins.%s",
                                     DEFAULT_SETTINGS_PREFIX,
                                     gnome_settings_plugin_info_get_location (info));
-        gnome_settings_plugin_info_set_settings_prefix (info, key_name);
+
+        /* Ignore unknown schemas or else we'll assert */
+        if (is_schema (key_name)) {
+                manager->priv->plugins = g_slist_prepend (manager->priv->plugins,
+                                                          g_object_ref (info));
+
+                g_signal_connect (info, "activated",
+                                  G_CALLBACK (on_plugin_activated), manager);
+                g_signal_connect (info, "deactivated",
+                                  G_CALLBACK (on_plugin_deactivated), manager);
+
+                gnome_settings_plugin_info_set_settings_prefix (info, key_name);
+        } else {
+                g_warning ("Ignoring unknown module '%s'", key_name);
+        }
+
         /* Priority is set in the call above */
         g_free (key_name);
 
