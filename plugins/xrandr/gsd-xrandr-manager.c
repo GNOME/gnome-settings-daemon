@@ -478,6 +478,7 @@ user_says_things_are_ok (GsdXrandrManager *manager, GdkWindow *parent_window)
 
         print_countdown_text (&timeout);
 
+        gtk_window_set_icon_name (GTK_WINDOW (timeout.dialog), "preferences-desktop-display");
         gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("_Restore Previous Configuration"), GTK_RESPONSE_CANCEL);
         gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("_Keep This Configuration"), GTK_RESPONSE_ACCEPT);
         gtk_dialog_set_default_response (GTK_DIALOG (timeout.dialog), GTK_RESPONSE_ACCEPT); /* ah, the optimism */
