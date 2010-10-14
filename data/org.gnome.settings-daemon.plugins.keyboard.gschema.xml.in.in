@@ -1,0 +1,14 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.keyboard" path="/apps/gnome-settings-daemon/plugins/keyboard/">
+    <key name="disable-indicator" type="b">
+      <default>false</default>
+      <_summary>Never show indicator</_summary>
+      <_description>Disable the keyboard layout indicator unconditionally, do not show it even if number of layouts is more than one</_description>
+    </key>
+    <key name="duplicate-leds" type="b">
+      <default>false</default>
+      <_summary>Display keyboard indicators on the panel</_summary>
+      <_description>Display pseudo-leds for keyboards that do not have physical LEDs for CapsLock, NumLock, ScrollLock</_description>
+    </key>
+  </schema>
+</schemalist>

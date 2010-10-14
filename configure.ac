@@ -452,6 +452,7 @@ data/gnome-settings-daemon.pc
 data/gnome-settings-daemon-uninstalled.pc
 data/org.gnome.settings-daemon.plugins.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in
+data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in

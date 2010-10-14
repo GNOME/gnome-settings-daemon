@@ -41,6 +41,7 @@
 #include "gnome-settings-profile.h"
 
 #define GTK_RESPONSE_PRINT 2
+#define SETTINGS_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.mouse"
 
 static GsdKeyboardManager *manager = NULL;
 
@@ -55,17 +56,16 @@ static GkbdKeyboardConfig initial_sys_kbd_config;
 
 static gboolean inited_ok = FALSE;
 
+static GSettings *settings_plugin = NULL;
 static GSettings *settings_desktop = NULL;
 static GSettings *settings_keyboard = NULL;
 
 static PostActivationCallback pa_callback = NULL;
 static void *pa_callback_user_data = NULL;
 
-static const char DISABLE_INDICATOR_KEY[] =
-    "/desktop/gnome/peripherals/keyboard/general/disable_indicator";
+static const char DISABLE_INDICATOR_KEY[] = "disable-indicator";
 
-static const char DUPLICATE_LEDS_KEY[] =
-    "/desktop/gnome/peripherals/keyboard/general/duplicate_leds";
+static const char DUPLICATE_LEDS_KEY[] = "duplicate-leds";
 
 static const char *gdm_keyboard_layout = NULL;
 
@@ -161,7 +161,6 @@ activation_error (void)
 static void
 apply_desktop_settings (void)
 {
-	GConfClient *conf_client;
 	gboolean show_leds;
 	int i;
 	if (!inited_ok)
@@ -173,10 +172,8 @@ apply_desktop_settings (void)
 	   before activating them */
 	gkbd_desktop_config_activate (&current_config);
 
-	conf_client = gconf_client_get_default ();
 	show_leds =
-	    gconf_client_get_bool (conf_client, DUPLICATE_LEDS_KEY, NULL);
-	g_object_unref (conf_client);
+	    g_settings_get_boolean (settings_plugin, DUPLICATE_LEDS_KEY);
 	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
 	     --i >= 0;) {
 		gtk_status_icon_set_visible (indicator_icons[i],
@@ -335,13 +332,9 @@ show_hide_icon ()
 {
 	if (g_strv_length (current_kbd_config.layouts_variants) > 1) {
 		if (icon == NULL) {
-			GConfClient *conf_client =
-			    gconf_client_get_default ();
 			gboolean disable =
-			    gconf_client_get_bool (conf_client,
-						   DISABLE_INDICATOR_KEY,
-						   NULL);
-			g_object_unref (conf_client);
+			    g_settings_get_boolean (settings_plugin,
+						    DISABLE_INDICATOR_KEY);
 			if (disable)
 				return;
 
@@ -686,6 +679,8 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 	    GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 	gnome_settings_profile_start (NULL);
 
+	settings_plugin = g_settings_new (SETTINGS_KEYBOARD_DIR);
+
 	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
 					   DATADIR G_DIR_SEPARATOR_S
 					   "icons");
@@ -792,6 +787,8 @@ gsd_keyboard_xkb_shutdown (void)
 	settings_desktop = NULL;
 	g_object_unref (settings_keyboard);
 	settings_keyboard = NULL;
+	g_object_unref (settings_plugin);
+	settings_plugin = NULL;
 
 	if (xkl_registry) {
 		g_object_unref (xkl_registry);

@@ -24,9 +24,6 @@
 #ifndef __GSD_KEYBOARD_XKB_H
 #define __GSD_KEYBOARD_XKB_H
 
-#include <gconf/gconf.h>
-#include <gconf/gconf-client.h>
-
 #include <libxklavier/xklavier.h>
 #include "gsd-keyboard-manager.h"
 
