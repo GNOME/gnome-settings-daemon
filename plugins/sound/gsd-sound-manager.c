@@ -33,7 +33,6 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <gconf/gconf-client.h>
 #include <gtk/gtk.h>
 
 #ifdef HAVE_PULSE
@@ -47,9 +46,9 @@
 
 struct GsdSoundManagerPrivate
 {
-        guint gconf_notify;
-        GList* monitors;
-        guint timeout;
+        GSettings *settings;
+        GList     *monitors;
+        guint      timeout;
 };
 
 #define GCONF_SOUND_DIR "/desktop/gnome/sound"
@@ -205,33 +204,19 @@ trigger_flush (GsdSoundManager *manager)
 }
 
 static void
-gconf_client_notify_cb (GConfClient *client,
-                        guint cnxn_id,
-                        GConfEntry *entry,
-                        GsdSoundManager *manager)
+settings_changed_cb (GSettings       *settings,
+		     const char      *key,
+		     GsdSoundManager *manager)
 {
         trigger_flush (manager);
 }
 
-static gboolean
-register_config_callback (GsdSoundManager *manager, GError **error)
+static void
+register_config_callback (GsdSoundManager *manager)
 {
-        GConfClient *client;
-        gboolean succ;
-
-        client = gconf_client_get_default ();
-
-        gconf_client_add_dir (client, GCONF_SOUND_DIR, GCONF_CLIENT_PRELOAD_NONE, error);
-        succ = !error || !*error;
-
-        if (!error) {
-                manager->priv->gconf_notify = gconf_client_notify_add (client, GCONF_SOUND_DIR, (GConfClientNotifyFunc) gconf_client_notify_cb, manager, NULL, error);
-                succ = !error || !*error;
-        }
-
-        g_object_unref (client);
-
-        return succ;
+	manager->priv->settings = g_settings_new ("org.gnome.desktop.sound");
+	g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
+			  G_CALLBACK (settings_changed_cb), manager);
 }
 
 static void
@@ -291,7 +276,7 @@ gsd_sound_manager_start (GsdSoundManager *manager,
 #ifdef HAVE_PULSE
 
         /* We listen for change of the selected theme ... */
-        register_config_callback (manager, NULL);
+        register_config_callback (manager);
 
         /* ... and we listen to changes of the theme base directories
          * in $HOME ...*/
@@ -331,16 +316,10 @@ gsd_sound_manager_stop (GsdSoundManager *manager)
         g_debug ("Stopping sound manager");
 
 #ifdef HAVE_PULSE
-        if (manager->priv->gconf_notify != 0) {
-                GConfClient *client = gconf_client_get_default ();
-
-                gconf_client_remove_dir (client, GCONF_SOUND_DIR, NULL);
-
-                gconf_client_notify_remove (client, manager->priv->gconf_notify);
-                manager->priv->gconf_notify = 0;
-
-                g_object_unref (client);
-        }
+	if (manager->priv->settings != NULL) {
+		g_object_unref (manager->priv->settings);
+		manager->priv->settings = NULL;
+	}
 
         if (manager->priv->timeout) {
                 g_source_remove (manager->priv->timeout);
