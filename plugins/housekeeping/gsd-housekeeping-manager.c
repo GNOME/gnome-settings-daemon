@@ -19,7 +19,6 @@
 
 #include "config.h"
 
-#include <gconf/gconf-client.h>
 #include <gio/gio.h>
 #include <glib/gstdio.h>
 #include <string.h>
@@ -33,19 +32,16 @@
 #define INTERVAL_ONCE_A_DAY 24*60*60
 #define INTERVAL_TWO_MINUTES 2*60
 
-
 /* Thumbnail cleaner */
-#define GCONF_THUMB_AGE "/desktop/gnome/thumbnail_cache/maximum_age"
-#define DEFAULT_MAX_AGE_IN_DAYS 180
-#define GCONF_THUMB_SIZE "/desktop/gnome/thumbnail_cache/maximum_size"
-#define DEFAULT_MAX_SIZE_IN_MB 512
-#define GCONF_THUMB_BINDING_DIR "/desktop/gnome/thumbnail_cache"
+#define THUMB_PREFIX "org.gnome.desktop.thumbnail-cache"
 
+#define THUMB_AGE_KEY "maximum-age"
+#define THUMB_SIZE_KEY "maximum-size"
 
 struct GsdHousekeepingManagerPrivate {
+	GSettings *settings;
         guint long_term_cb;
         guint short_term_cb;
-        guint gconf_notify;
 };
 
 
@@ -154,36 +150,8 @@ sort_file_mtime (ThumbData *file1, ThumbData *file2)
         return file1->mtime - file2->mtime;
 }
 
-
-static int
-get_gconf_int_with_default (char *key, int default_value)
-{
-        /* If the key is unset, we use a non-zero default value.
-           A zero value corresponds to an extra-paranoid level
-           of cleaning - it deletes all files. We don't want that
-           as a default condition. */
-
-        GConfValue  *value;
-        GConfClient *client;
-        int          res;
-
-        client = gconf_client_get_default ();
-        value = gconf_client_get (client, key, NULL);
-        g_object_unref (client);
-
-        if (value == NULL || value->type != GCONF_VALUE_INT) {
-                res = default_value;
-        } else {
-                res = gconf_value_get_int (value);
-                gconf_value_free (value);
-        }
-
-        return res;
-}
-
-
 static void
-purge_thumbnail_cache (void)
+purge_thumbnail_cache (GsdHousekeepingManager *manager)
 {
 
         char      *path;
@@ -218,8 +186,8 @@ purge_thumbnail_cache (void)
         g_get_current_time (&current_time);
 
         purge_data.now = current_time.tv_sec;
-        purge_data.max_age = get_gconf_int_with_default (GCONF_THUMB_AGE, DEFAULT_MAX_AGE_IN_DAYS) * 24 * 60 * 60;
-        purge_data.max_size = get_gconf_int_with_default (GCONF_THUMB_SIZE, DEFAULT_MAX_SIZE_IN_MB) * 1024 * 1024;
+        purge_data.max_age = g_settings_get_int (manager->priv->settings, THUMB_AGE_KEY) * 24 * 60 * 60;
+        purge_data.max_size = g_settings_get_int (manager->priv->settings, THUMB_SIZE_KEY) * 1024 * 1024;
         purge_data.total_size = 0;
 
         if (purge_data.max_age >= 0)
@@ -243,7 +211,7 @@ purge_thumbnail_cache (void)
 static gboolean
 do_cleanup (GsdHousekeepingManager *manager)
 {
-        purge_thumbnail_cache ();
+        purge_thumbnail_cache (manager);
         return TRUE;
 }
 
@@ -270,31 +238,12 @@ do_cleanup_soon (GsdHousekeepingManager *manager)
 
 
 static void
-bindings_callback (GConfClient            *client,
-                   guint                   cnxn_id,
-                   GConfEntry             *entry,
-                   GsdHousekeepingManager *manager)
+settings_changed_callback (GSettings              *settings,
+			   const char             *key,
+			   GsdHousekeepingManager *manager)
 {
         do_cleanup_soon (manager);
 }
-
-
-static guint
-register_config_callback (GsdHousekeepingManager *manager,
-                          const char             *path,
-                          GConfClientNotifyFunc   func)
-{
-        GConfClient *client = gconf_client_get_default ();
-        guint notify;
-
-        gconf_client_add_dir (client, path, GCONF_CLIENT_PRELOAD_NONE, NULL);
-        notify = gconf_client_notify_add (client, path, func, manager, NULL, NULL);
-
-        g_object_unref (client);
-
-        return notify;
-}
-
 
 gboolean
 gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
@@ -305,9 +254,9 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
 
         gsd_ldsm_setup (FALSE);
 
-        manager->priv->gconf_notify = register_config_callback (manager,
-                                      GCONF_THUMB_BINDING_DIR,
-                                      (GConfClientNotifyFunc) bindings_callback);
+        manager->priv->settings = g_settings_new (THUMB_PREFIX);
+	g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
+			  G_CALLBACK (settings_changed_callback), manager);
 
         /* Clean once, a few minutes after start-up */
         do_cleanup_soon (manager);
@@ -316,11 +265,11 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
         manager->priv->long_term_cb = g_timeout_add_seconds (INTERVAL_ONCE_A_DAY,
                                       (GSourceFunc) do_cleanup,
                                       manager);
+
         gnome_settings_profile_end (NULL);
 
         return TRUE;
 }
-
 
 void
 gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
@@ -328,16 +277,6 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
         GsdHousekeepingManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping housekeeping manager");
-
-        if (p->gconf_notify != 0) {
-                GConfClient *client = gconf_client_get_default ();
-
-                gconf_client_remove_dir (client, GCONF_THUMB_BINDING_DIR, NULL);
-                gconf_client_notify_remove (client, p->gconf_notify);
-
-                g_object_unref (client);
-                p->gconf_notify = 0;
-        }
 
         if (p->short_term_cb) {
                 g_source_remove (p->short_term_cb);
@@ -350,10 +289,13 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
 
                 /* Do a clean-up on shutdown if and only if the size or age
                    limits have been set to paranoid levels (zero) */
-                if ((get_gconf_int_with_default (GCONF_THUMB_AGE, DEFAULT_MAX_AGE_IN_DAYS) == 0) ||
-                    (get_gconf_int_with_default (GCONF_THUMB_SIZE, DEFAULT_MAX_SIZE_IN_MB) == 0)) {
+                if ((g_settings_get_int (p->settings, THUMB_AGE_KEY) == 0) ||
+                    (g_settings_get_int (p->settings, THUMB_SIZE_KEY) == 0)) {
                         do_cleanup (manager);
                 }
+
+                g_object_unref (p->settings);
+                p->settings = NULL;
         }
 
         gsd_ldsm_clean ();
