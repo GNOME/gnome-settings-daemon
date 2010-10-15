@@ -5,7 +5,6 @@
     <child name="clipboard" schema="org.gnome.settings-daemon.plugins.clipboard"/>
     <child name="font" schema="org.gnome.settings-daemon.plugins.font"/>
     <child name="keybindings" schema="org.gnome.settings-daemon.plugins.keybindings"/>
-    <child name="keyboard" schema="org.gnome.settings-daemon.plugins.keyboard"/>
     <child name="mouse" schema="org.gnome.settings-daemon.plugins.mouse"/>
     <child name="smartcard" schema="org.gnome.settings-daemon.plugins.smartcard"/>
     <child name="sound" schema="org.gnome.settings-daemon.plugins.sound"/>
@@ -67,18 +66,6 @@
     </key>
     <key name="priority" type="i">
       <default>20</default>
-      <_summary>Priority to use for this plugin</_summary>
-      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.keyboard" path="/apps/gnome-settings-daemon/plugins/keyboard/">
-    <key name="active" type="b">
-      <default>true</default>
-      <_summary>Activation of this plugin</_summary>
-      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
-    </key>
-    <key name="priority" type="i">
-      <default>6</default>
       <_summary>Priority to use for this plugin</_summary>
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
