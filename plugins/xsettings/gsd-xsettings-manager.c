@@ -357,6 +357,8 @@ xft_settings_set_xsettings (GnomeXSettingsManager *manager,
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/HintStyle", settings->hintstyle);
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/DPI", settings->dpi);
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/RGBA", settings->rgba);
+                xsettings_manager_set_string (manager->priv->managers [i], "Xft/lcdfilter",
+                                              g_str_equal (settings->rgba, "rgb") ? "lcddefault" : "none");
         }
         gnome_settings_profile_end (NULL);
 }
@@ -416,6 +418,8 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
                                 settings->hintstyle);
         update_property (add_string, "Xft.rgba",
                                 settings->rgba);
+        update_property (add_string, "Xft.lcdfilter",
+                         g_str_equal (settings->rgba, "rgb") ? "lcddefault" : "none");
 
         g_debug("xft_settings_set_xresources: new res '%s'", add_string->str);
 
