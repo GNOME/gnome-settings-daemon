@@ -1,15 +1,18 @@
 # Files with translatable strings.
 # Please keep this file in alphabetical order.
 data/50-accessibility.xml.in
-data/apps_gnome_settings_daemon_housekeeping.schemas.in
-data/apps_gnome_settings_daemon_keybindings.schemas.in
-data/apps_gnome_settings_daemon_xrandr.schemas.in
-data/desktop_gnome_font_rendering.schemas.in
-data/desktop_gnome_keybindings.schemas.in
-data/desktop_gnome_peripherals_touchpad.schemas.in
 data/gnome-settings-daemon.desktop.in.in
 data/gnome-settings-daemon.schemas.in
-data/desktop_gnome_peripherals_smartcard.schemas.in
+data/org.gnome.desktop.font-rendering.gschema.xml.in
+data/org.gnome.desktop.keybindings.gschema.xml.in
+data/org.gnome.desktop.peripherals.gschema.xml.in
+data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in
 gnome-settings-daemon/main.c
 [type: gettext/ini]plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in
 plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
@@ -18,8 +21,6 @@ plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c
 [type: gettext/ini]plugins/background/background.gnome-settings-plugin.in
 [type: gettext/ini]plugins/clipboard/clipboard.gnome-settings-plugin.in
 [type: gettext/ini]plugins/dummy/dummy.gnome-settings-plugin.in
-[type: gettext/ini]plugins/font/font.gnome-settings-plugin.in
-plugins/font/gsd-font-manager.c
 plugins/housekeeping/gsd-disk-space.c
 plugins/housekeeping/gsd-ldsm-dialog.c
 plugins/housekeeping/gsd-ldsm-trash-empty.c
@@ -27,13 +28,11 @@ plugins/keybindings/gsd-keybindings-manager.c
 [type: gettext/ini]plugins/keybindings/keybindings.gnome-settings-plugin.in
 [type: gettext/ini]plugins/keyboard/keyboard.gnome-settings-plugin.in
 plugins/keyboard/gsd-keyboard-xkb.c
-[type: gettext/glade]plugins/keyboard/modmap-dialog.ui
 plugins/media-keys/gsd-media-keys-manager.c
 plugins/media-keys/cut-n-paste/gvc-mixer-control.c
 [type: gettext/ini]plugins/media-keys/media-keys.gnome-settings-plugin.in
 plugins/mouse/gsd-mouse-manager.c
 [type: gettext/ini]plugins/mouse/mouse.gnome-settings-plugin.in
-[type: gettext/ini]plugins/typing-break/typing-break.gnome-settings-plugin.in
 [type: gettext/ini]plugins/xrandr/xrandr.gnome-settings-plugin.in
 plugins/xrandr/gsd-xrandr-manager.c
 plugins/xrdb/gsd-xrdb-manager.c
