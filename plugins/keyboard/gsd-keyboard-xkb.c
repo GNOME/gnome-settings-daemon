@@ -41,7 +41,7 @@
 #include "gnome-settings-profile.h"
 
 #define GTK_RESPONSE_PRINT 2
-#define SETTINGS_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.mouse"
+#define SETTINGS_KEYBOARD_DIR "org.gnome.settings-daemon.plugins.keyboard"
 
 static GsdKeyboardManager *manager = NULL;
 
