@@ -38,6 +38,21 @@
       <_summary>Enable touchpad</_summary>
       <_description>Set this to TRUE to enable all touchpads.</_description>
     </key>
+    <key name="left-handed" type="b">
+      <default>false</default>
+      <summary>Mouse button orientation</summary>
+      <description>Swap left and right mouse buttons for left-handed mice.</description>
+    </key>
+    <key name="motion-acceleration" type="d">
+      <default>-1</default>
+      <summary>Single Click</summary>
+      <description>Acceleration multiplier for mouse motion. A value of -1 is the system default.</description>
+    </key>
+    <key name="motion-threshold" type="i">
+      <default>-1</default>
+      <summary>Motion Threshold</summary>
+      <description>Distance in pixels the pointer must move before accelerated mouse motion is activated. A value of -1 is the system default.</description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.keyboard" path="/apps/gnome-settings-daemon/peripherals/keyboard/">
     <key name="repeat" type="b">
@@ -88,6 +103,21 @@
     <key name="locate-pointer" type="b">
       <default>false</default>
       <_summary>Highlights the current location of the pointer when the Control key is pressed and released.</_summary>
+    </key>
+    <key name="left-handed" type="b">
+      <default>false</default>
+      <summary>Mouse button orientation</summary>
+      <description>Swap left and right mouse buttons for left-handed mice.</description>
+    </key>
+    <key name="motion-acceleration" type="d">
+      <default>-1</default>
+      <summary>Single Click</summary>
+      <description>Acceleration multiplier for mouse motion. A value of -1 is the system default.</description>
+    </key>
+    <key name="motion-threshold" type="i">
+      <default>-1</default>
+      <summary>Motion Threshold</summary>
+      <description>Distance in pixels the pointer must move before accelerated mouse motion is activated. A value of -1 is the system default.</description>
     </key>
   </schema>
 </schemalist>
