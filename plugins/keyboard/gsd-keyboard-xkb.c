@@ -110,18 +110,12 @@ gsd_keyboard_log_appender (const char file[],
 static void
 activation_error (void)
 {
-	char const *vendor =
-	    ServerVendor (GDK_DISPLAY_XDISPLAY
-			  (gdk_display_get_default ()));
-	int release =
-	    VendorRelease (GDK_DISPLAY_XDISPLAY
-			   (gdk_display_get_default ()));
+	char const *vendor;
+	int release;
 	GtkWidget *dialog;
-	gboolean badXFree430Release;
 
-	badXFree430Release = (vendor != NULL)
-	    && (0 == strcmp (vendor, "The XFree86 Project, Inc"))
-	    && (release / 100000 == 403);
+	vendor = ServerVendor (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
+	release = VendorRelease (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
 
 	/* VNC viewers will not work, do not barrage them with warnings */
 	if (NULL != vendor && NULL != strstr (vendor, "VNC"))
@@ -137,19 +131,12 @@ activation_error (void)
 						      " • a bug in libxklavier library\n"
 						      " • a bug in X server (xkbcomp, xmodmap utilities)\n"
 						      " • X server with incompatible libxkbfile implementation\n\n"
-						      "X server version data:\n%s\n%d\n%s\n"
+						      "X server version data:\n%s\n%d\n"
 						      "If you report this situation as a bug, please include:\n"
 						      " • The result of <b>%s</b>\n"
 						      " • The result of <b>%s</b>"),
 						     vendor,
 						     release,
-						     badXFree430Release
-						     ?
-						     _
-						     ("You are using XFree 4.3.0.\n"
-						      "There are known problems with complex XKB configurations.\n"
-						      "Try using a simpler configuration or using a later version of the XFree software.")
-						     : "",
 						     "xprop -root | grep XKB",
 						     "gconftool-2 -R /desktop/gnome/peripherals/keyboard/kbd");
 	g_signal_connect (dialog, "response",
