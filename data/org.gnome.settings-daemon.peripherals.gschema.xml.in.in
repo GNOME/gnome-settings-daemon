@@ -38,10 +38,10 @@
       <_summary>Enable touchpad</_summary>
       <_description>Set this to TRUE to enable all touchpads.</_description>
     </key>
-    <key name="left-handed" type="b">
-      <default>false</default>
-      <summary>Mouse button orientation</summary>
-      <description>Swap left and right mouse buttons for left-handed mice.</description>
+    <key name="left-handed" enum="org.gnome.settings-daemon.GsdTouchpadHandedness">
+      <default>'mouse'</default>
+      <summary>Touchpad button orientation</summary>
+      <description>Swap left and right mouse buttons for left-handed mice with 'left', 'right' for right-handed, 'mouse' to follow the mouse setting.</description>
     </key>
     <key name="motion-acceleration" type="d">
       <default>-1</default>

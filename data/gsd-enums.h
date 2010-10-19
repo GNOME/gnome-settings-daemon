@@ -68,4 +68,11 @@ typedef enum
   GSD_BELL_MODE_CUSTOM
 } GsdBellMode;
 
+typedef enum
+{
+  GSD_TOUCHPAD_HANDEDNESS_RIGHT,
+  GSD_TOUCHPAD_HANDEDNESS_LEFT,
+  GSD_TOUCHPAD_HANDEDNESS_MOUSE
+} GsdTouchpadHandedness;
+
 #endif /* __gsd_enums_h__ */
