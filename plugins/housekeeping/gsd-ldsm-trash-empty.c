@@ -322,12 +322,21 @@ trash_empty_confirmation_response (GtkDialog *dialog,
 static gboolean
 trash_empty_require_confirmation (void)
 {
-        GSettings *settings;
         gboolean require_confirmation = TRUE;
+        const char * const *schemas;
+        guint i;
 
-        settings = g_settings_new ("org.gnome.nautilus.preferences");
-        require_confirmation = g_settings_get_boolean (settings, "confirm-trash");
-        g_object_unref (settings);
+        schemas = g_settings_list_schemas ();
+        for (i = 0; schemas[i] != NULL; i++) {
+                if (g_str_equal (schemas[i], "org.gnome.nautilus.preferences")) {
+                        GSettings *settings;
+
+                        settings = g_settings_new ("org.gnome.nautilus.preferences");
+                        require_confirmation = g_settings_get_boolean (settings, "confirm-trash");
+                        g_object_unref (settings);
+                        break;
+                }
+        }
 
         return require_confirmation;
 }
