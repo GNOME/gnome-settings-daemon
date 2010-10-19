@@ -44,7 +44,7 @@
 #define SETTINGS_KEYBOARD_DIR "org.gnome.settings-daemon.plugins.keyboard"
 
 #define DISABLE_INDICATOR_KEY "disable-indicator"
-#define DUPLICATE_LEDS_KEY "duplicate-leds"
+#define SHOW_KEYBOARD_LEDS_INDICATOR_KEY "show-keyboard-leds-indicator"
 
 static GsdKeyboardManager *manager = NULL;
 
@@ -171,7 +171,7 @@ apply_desktop_settings (void)
 	   before activating them */
 	gkbd_desktop_config_activate (&current_config);
 
-	show_leds = g_settings_get_boolean (settings_plugin, DUPLICATE_LEDS_KEY);
+	show_leds = g_settings_get_boolean (settings_plugin, SHOW_KEYBOARD_LEDS_INDICATOR_KEY);
 	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
 	     --i >= 0;) {
 		gtk_status_icon_set_visible (indicator_icons[i],
