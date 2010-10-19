@@ -88,24 +88,6 @@ static const gchar *indicator_off_icon_names[] = {
 	"kbd-capslock-off"
 };
 
-#define noGSDKX
-
-#ifdef GSDKX
-static FILE *logfile;
-
-static void
-gsd_keyboard_log_appender (const char file[],
-			   const char function[],
-			   int level, const char format[], va_list args)
-{
-	time_t now = time (NULL);
-	fprintf (logfile, "[%08ld,%03d,%s:%s/] \t", now,
-		 level, file, function);
-	vfprintf (logfile, format, args);
-	fflush (logfile);
-}
-#endif
-
 static void
 activation_error (void)
 {
@@ -682,11 +664,6 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 
 	gsd_keyboard_update_indicator_icons ();
 
-#ifdef GSDKX
-	xkl_set_debug_level (200);
-	logfile = fopen ("/tmp/gsdkx.log", "a");
-	xkl_set_log_appender (gsd_keyboard_log_appender);
-#endif
 	manager = kbd_manager;
 	gnome_settings_profile_start ("xkl_engine_get_instance");
 	xkl_engine = xkl_engine_get_instance (display);
