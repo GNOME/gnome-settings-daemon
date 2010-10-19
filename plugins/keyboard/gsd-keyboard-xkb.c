@@ -40,7 +40,6 @@
 #include "delayed-dialog.h"
 #include "gnome-settings-profile.h"
 
-#define GTK_RESPONSE_PRINT 2
 #define SETTINGS_KEYBOARD_DIR "org.gnome.settings-daemon.plugins.keyboard"
 
 #define DISABLE_INDICATOR_KEY "disable-indicator"
