@@ -92,11 +92,9 @@ static void
 activation_error (void)
 {
 	char const *vendor;
-	int release;
 	GtkWidget *dialog;
 
 	vendor = ServerVendor (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
-	release = VendorRelease (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
 
 	/* VNC viewers will not work, do not barrage them with warnings */
 	if (NULL != vendor && NULL != strstr (vendor, "VNC"))
@@ -108,18 +106,16 @@ activation_error (void)
 						     GTK_BUTTONS_CLOSE,
 						     _
 						     ("Error activating XKB configuration.\n"
-						      "It can happen under various circumstances:\n"
-						      " • a bug in libxklavier library\n"
-						      " • a bug in X server (xkbcomp, xmodmap utilities)\n"
-						      " • X server with incompatible libxkbfile implementation\n\n"
-						      "X server version data:\n%s\n%d\n"
-						      "If you report this situation as a bug, please include:\n"
-						      " • The result of <b>%s</b>\n"
-						      " • The result of <b>%s</b>"),
-						     vendor,
-						     release,
+						      "There can be various reasons for that.\n\n"
+						      "If you report this situation as a bug, include the results of\n"
+						      " • <b>%s</b>\n"
+						      " • <b>%s</b>\n"
+						      " • <b>%s</b>\n"
+						      " • <b>%s</b>"),
 						     "xprop -root | grep XKB",
-						     "gconftool-2 -R /desktop/gnome/peripherals/keyboard/kbd");
+						     "gsettings get org.gnome.libgnomekbd.keyboard model",
+						     "gsettings get org.gnome.libgnomekbd.keyboard layouts",
+						     "gsettings get org.gnome.libgnomekbd.keyboard options");
 	g_signal_connect (dialog, "response",
 			  G_CALLBACK (gtk_widget_destroy), NULL);
 	gsd_delayed_show_dialog (dialog);
