@@ -43,6 +43,9 @@
 #define GTK_RESPONSE_PRINT 2
 #define SETTINGS_KEYBOARD_DIR "org.gnome.settings-daemon.plugins.keyboard"
 
+#define DISABLE_INDICATOR_KEY "disable-indicator"
+#define DUPLICATE_LEDS_KEY "duplicate-leds"
+
 static GsdKeyboardManager *manager = NULL;
 
 static XklEngine *xkl_engine;
@@ -62,10 +65,6 @@ static GSettings *settings_keyboard = NULL;
 
 static PostActivationCallback pa_callback = NULL;
 static void *pa_callback_user_data = NULL;
-
-static const char DISABLE_INDICATOR_KEY[] = "disable-indicator";
-
-static const char DUPLICATE_LEDS_KEY[] = "duplicate-leds";
 
 static const char *gdm_keyboard_layout = NULL;
 
@@ -172,8 +171,7 @@ apply_desktop_settings (void)
 	   before activating them */
 	gkbd_desktop_config_activate (&current_config);
 
-	show_leds =
-	    g_settings_get_boolean (settings_plugin, DUPLICATE_LEDS_KEY);
+	show_leds = g_settings_get_boolean (settings_plugin, DUPLICATE_LEDS_KEY);
 	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
 	     --i >= 0;) {
 		gtk_status_icon_set_visible (indicator_icons[i],
