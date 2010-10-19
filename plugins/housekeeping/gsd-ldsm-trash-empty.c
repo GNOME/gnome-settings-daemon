@@ -18,13 +18,10 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gconf/gconf-client.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
 #include "gsd-ldsm-trash-empty.h"
-
-#define NAUTILUS_CONFIRM_TRASH_KEY "/apps/nautilus/preferences/confirm_trash"
 
 /* Some of this code has been borrowed from the trash-applet, courtesy of Ryan Lortie */
 
@@ -325,21 +322,12 @@ trash_empty_confirmation_response (GtkDialog *dialog,
 static gboolean
 trash_empty_require_confirmation (void)
 {
-        GConfClient *client;
+        GSettings *settings;
         gboolean require_confirmation = TRUE;
-        GError *error = NULL;
 
-        client = gconf_client_get_default ();
-        if (client) {
-                require_confirmation = gconf_client_get_bool (client, NAUTILUS_CONFIRM_TRASH_KEY, &error);
-                if (error) {
-                        g_warning ("Failed to read confirm_trash key from GConf: %s", error->message ? error->message : "Unknown error");
-                        /* It's safest to assume that confirmation is required here */
-                        require_confirmation = TRUE;
-                        g_error_free (error);
-                }
-                g_object_unref (client);
-        }
+        settings = g_settings_new ("org.gnome.nautilus.preferences");
+        require_confirmation = g_settings_get_boolean (settings, "confirm-trash");
+        g_object_unref (settings);
 
         return require_confirmation;
 }
