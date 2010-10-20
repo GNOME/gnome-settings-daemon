@@ -46,6 +46,8 @@ xml_DATA = $(xml_in_files:.xml.in=.xml)
 man_MANS = gnome-settings-daemon.1
 
 EXTRA_DIST = 					\
+	$(man_MANS)				\
+	$(convert_DATA)				\
 	$(gsettings_SCHEMAS:.xml=.xml.in.in)	\
 	$(service_in_files)			\
 	$(desktop_in_files)			\
