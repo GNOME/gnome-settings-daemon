@@ -46,16 +46,17 @@
 
 #define GTKBUILDER_UI_FILE "gsd-a11y-preferences-dialog.ui"
 
-#define KEY_A11Y_DIR              "/desktop/gnome/accessibility"
-#define KEY_STICKY_KEYS_ENABLED   KEY_A11Y_DIR "/keyboard/stickykeys_enable"
-#define KEY_BOUNCE_KEYS_ENABLED   KEY_A11Y_DIR "/keyboard/bouncekeys_enable"
-#define KEY_SLOW_KEYS_ENABLED     KEY_A11Y_DIR "/keyboard/slowkeys_enable"
-#define KEY_MOUSE_KEYS_ENABLED    KEY_A11Y_DIR "/keyboard/mousekeys_enable"
+#define INTERFACE_SCHEMA          "org.gnome.desktop.interface"
 
-#define KEY_AT_DIR                "/desktop/gnome/applications/at"
-#define KEY_AT_SCREEN_KEYBOARD_ENABLED  KEY_AT_DIR "/screen_keyboard_enabled"
-#define KEY_AT_SCREEN_MAGNIFIER_ENABLED KEY_AT_DIR "/screen_magnifier_enabled"
-#define KEY_AT_SCREEN_READER_ENABLED    KEY_AT_DIR "/screen_reader_enabled"
+#define KEYBOARD_A11Y_SCHEMA      "org.gnome.desktop.a11y.keyboard"
+#define KEY_STICKY_KEYS_ENABLED   "stickykeys-enable"
+#define KEY_BOUNCE_KEYS_ENABLED   "bouncekeys-enable"
+#define KEY_SLOW_KEYS_ENABLED     "slowkeys-enable"
+
+#define KEY_AT_SCHEMA                "org.gnome.desktop.a11y.applications"
+#define KEY_AT_SCREEN_KEYBOARD_ENABLED  "screen-keyboard-enabled"
+#define KEY_AT_SCREEN_MAGNIFIER_ENABLED "screen-magnifier-enabled"
+#define KEY_AT_SCREEN_READER_ENABLED    "screen-reader-enabled"
 
 #define FONT_RENDER_DIR        "org.gnome.desktop.font-rendering"
 #define KEY_FONT_DPI           "dpi"
@@ -78,7 +79,6 @@
 #define DPI_DEFAULT        96
 
 #define KEY_GTK_THEME          "gtk-theme"
-#define KEY_COLOR_SCHEME       "/desktop/gnome/interface/gtk_color_scheme"
 #define KEY_METACITY_THEME     "/apps/metacity/general/theme"
 #define KEY_ICON_THEME         "icon-theme"
 
@@ -86,19 +86,12 @@
 
 struct GsdA11yPreferencesDialogPrivate
 {
-        GtkWidget *sticky_keys_checkbutton;
-        GtkWidget *slow_keys_checkbutton;
-        GtkWidget *bounce_keys_checkbutton;
-
         GtkWidget *large_print_checkbutton;
         GtkWidget *high_contrast_checkbutton;
 
-        GtkWidget *screen_reader_checkbutton;
-        GtkWidget *screen_keyboard_checkbutton;
-        GtkWidget *screen_magnifier_checkbutton;
-
-        guint      a11y_dir_cnxn;
-        guint      gsd_a11y_dir_cnxn;
+        GSettings *a11y_settings;
+        GSettings *interface_settings;
+        GSettings *apps_settings;
 };
 
 enum {
@@ -181,28 +174,6 @@ on_response (GsdA11yPreferencesDialog *dialog,
         }
 }
 
-static gboolean
-config_get_bool (const char *key,
-                 gboolean   *is_writable)
-{
-        int          enabled;
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-
-        if (is_writable) {
-                *is_writable = gconf_client_key_is_writable (client,
-                                                             key,
-                                                             NULL);
-        }
-
-        enabled = gconf_client_get_bool (client, key, NULL);
-
-        g_object_unref (client);
-
-        return enabled;
-}
-
 static double
 dpi_from_pixels_and_mm (int pixels,
                         int mm)
@@ -267,6 +238,8 @@ config_get_large_print (gboolean *is_writable)
 
         ret = (((double)DPI_FACTOR_LARGE * x_dpi) < u_dpi);
 
+        *is_writable = TRUE; /* FIXME */
+
         return ret;
 }
 
@@ -295,24 +268,19 @@ config_set_large_print (gboolean enabled)
 }
 
 static gboolean
-config_get_high_contrast (gboolean *is_writable)
+config_get_high_contrast (GsdA11yPreferencesDialog *dialog)
 {
         gboolean ret;
         char    *gtk_theme;
-        GSettings *settings;
 
         ret = FALSE;
 
-        settings = g_settings_new ("org.gnome.desktop.interface");
-        gtk_theme = g_settings_get_string (settings, KEY_GTK_THEME);
-        if (gtk_theme != NULL && strcmp (gtk_theme, HIGH_CONTRAST_THEME) == 0) {
+        gtk_theme = g_settings_get_string (dialog->priv->interface_settings, KEY_GTK_THEME);
+        if (gtk_theme != NULL && g_str_equal (gtk_theme, HIGH_CONTRAST_THEME)) {
                 ret = TRUE;
         }
 
         g_free (gtk_theme);
-        g_object_unref (settings);
-
-        *is_writable = TRUE; /* FIXME: how to know a key is writable or not? */
 
         return ret;
 }
@@ -341,55 +309,7 @@ config_set_high_contrast (gboolean enabled)
 }
 
 static gboolean
-config_get_sticky_keys (gboolean *is_writable)
-{
-        return config_get_bool (KEY_STICKY_KEYS_ENABLED, is_writable);
-}
-
-static void
-config_set_sticky_keys (gboolean enabled)
-{
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-        gconf_client_set_bool (client, KEY_STICKY_KEYS_ENABLED, enabled, NULL);
-        g_object_unref (client);
-}
-
-static gboolean
-config_get_bounce_keys (gboolean *is_writable)
-{
-        return config_get_bool (KEY_BOUNCE_KEYS_ENABLED, is_writable);
-}
-
-static void
-config_set_bounce_keys (gboolean enabled)
-{
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-        gconf_client_set_bool (client, KEY_BOUNCE_KEYS_ENABLED, enabled, NULL);
-        g_object_unref (client);
-}
-
-static gboolean
-config_get_slow_keys (gboolean *is_writable)
-{
-        return config_get_bool (KEY_SLOW_KEYS_ENABLED, is_writable);
-}
-
-static void
-config_set_slow_keys (gboolean enabled)
-{
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-        gconf_client_set_bool (client, KEY_SLOW_KEYS_ENABLED, enabled, NULL);
-        g_object_unref (client);
-}
-
-static gboolean
-config_have_at_gconf_condition (const char *condition)
+config_have_at_gsettings_condition (const char *condition)
 {
         DBusGProxy      *sm_proxy;
         DBusGConnection *connection;
@@ -430,75 +350,6 @@ config_have_at_gconf_condition (const char *condition)
         return is_handled;
 }
 
-static gboolean
-config_get_at_screen_reader (gboolean *is_writable)
-{
-        return config_get_bool (KEY_AT_SCREEN_READER_ENABLED, is_writable);
-}
-
-static gboolean
-config_get_at_screen_keyboard (gboolean *is_writable)
-{
-        return config_get_bool (KEY_AT_SCREEN_KEYBOARD_ENABLED, is_writable);
-}
-
-static gboolean
-config_get_at_screen_magnifier (gboolean *is_writable)
-{
-        return config_get_bool (KEY_AT_SCREEN_MAGNIFIER_ENABLED, is_writable);
-}
-
-static void
-config_set_at_screen_reader (gboolean enabled)
-{
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-        gconf_client_set_bool (client, KEY_AT_SCREEN_READER_ENABLED, enabled, NULL);
-        g_object_unref (client);
-}
-
-static void
-config_set_at_screen_keyboard (gboolean enabled)
-{
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-        gconf_client_set_bool (client, KEY_AT_SCREEN_KEYBOARD_ENABLED, enabled, NULL);
-        g_object_unref (client);
-}
-
-static void
-config_set_at_screen_magnifier (gboolean enabled)
-{
-        GConfClient *client;
-
-        client = gconf_client_get_default ();
-        gconf_client_set_bool (client, KEY_AT_SCREEN_MAGNIFIER_ENABLED, enabled, NULL);
-        g_object_unref (client);
-}
-
-static void
-on_sticky_keys_checkbutton_toggled (GtkToggleButton          *button,
-                                    GsdA11yPreferencesDialog *dialog)
-{
-        config_set_sticky_keys (gtk_toggle_button_get_active (button));
-}
-
-static void
-on_bounce_keys_checkbutton_toggled (GtkToggleButton          *button,
-                                 GsdA11yPreferencesDialog *dialog)
-{
-        config_set_bounce_keys (gtk_toggle_button_get_active (button));
-}
-
-static void
-on_slow_keys_checkbutton_toggled (GtkToggleButton          *button,
-                                  GsdA11yPreferencesDialog *dialog)
-{
-        config_set_slow_keys (gtk_toggle_button_get_active (button));
-}
-
 static void
 on_high_contrast_checkbutton_toggled (GtkToggleButton          *button,
                                       GsdA11yPreferencesDialog *dialog)
@@ -507,67 +358,10 @@ on_high_contrast_checkbutton_toggled (GtkToggleButton          *button,
 }
 
 static void
-on_at_screen_reader_checkbutton_toggled (GtkToggleButton          *button,
-                                         GsdA11yPreferencesDialog *dialog)
-{
-        config_set_at_screen_reader (gtk_toggle_button_get_active (button));
-}
-
-static void
-on_at_screen_keyboard_checkbutton_toggled (GtkToggleButton          *button,
-                                           GsdA11yPreferencesDialog *dialog)
-{
-        config_set_at_screen_keyboard (gtk_toggle_button_get_active (button));
-}
-
-static void
-on_at_screen_magnifier_checkbutton_toggled (GtkToggleButton          *button,
-                                            GsdA11yPreferencesDialog *dialog)
-{
-        config_set_at_screen_magnifier (gtk_toggle_button_get_active (button));
-}
-
-static void
 on_large_print_checkbutton_toggled (GtkToggleButton          *button,
                                     GsdA11yPreferencesDialog *dialog)
 {
         config_set_large_print (gtk_toggle_button_get_active (button));
-}
-
-static void
-ui_set_sticky_keys (GsdA11yPreferencesDialog *dialog,
-                    gboolean                  enabled)
-{
-        gboolean active;
-
-        active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->sticky_keys_checkbutton));
-        if (active != enabled) {
-                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->sticky_keys_checkbutton), enabled);
-        }
-}
-
-static void
-ui_set_bounce_keys (GsdA11yPreferencesDialog *dialog,
-                    gboolean                  enabled)
-{
-        gboolean active;
-
-        active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->bounce_keys_checkbutton));
-        if (active != enabled) {
-                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->bounce_keys_checkbutton), enabled);
-        }
-}
-
-static void
-ui_set_slow_keys (GsdA11yPreferencesDialog *dialog,
-                  gboolean                  enabled)
-{
-        gboolean active;
-
-        active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->slow_keys_checkbutton));
-        if (active != enabled) {
-                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->slow_keys_checkbutton), enabled);
-        }
 }
 
 static void
@@ -579,42 +373,6 @@ ui_set_high_contrast (GsdA11yPreferencesDialog *dialog,
         active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->high_contrast_checkbutton));
         if (active != enabled) {
                 gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->high_contrast_checkbutton), enabled);
-        }
-}
-
-static void
-ui_set_at_screen_reader (GsdA11yPreferencesDialog *dialog,
-                         gboolean                  enabled)
-{
-        gboolean active;
-
-        active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->screen_reader_checkbutton));
-        if (active != enabled) {
-                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->screen_reader_checkbutton), enabled);
-        }
-}
-
-static void
-ui_set_at_screen_keyboard (GsdA11yPreferencesDialog *dialog,
-                           gboolean                  enabled)
-{
-        gboolean active;
-
-        active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->screen_keyboard_checkbutton));
-        if (active != enabled) {
-                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->screen_keyboard_checkbutton), enabled);
-        }
-}
-
-static void
-ui_set_at_screen_magnifier (GsdA11yPreferencesDialog *dialog,
-                            gboolean                  enabled)
-{
-        gboolean active;
-
-        active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->screen_magnifier_checkbutton));
-        if (active != enabled) {
-                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->screen_magnifier_checkbutton), enabled);
         }
 }
 
@@ -631,200 +389,94 @@ ui_set_large_print (GsdA11yPreferencesDialog *dialog,
 }
 
 static void
-key_changed_cb (GConfClient              *client,
-                guint                     cnxn_id,
-                GConfEntry               *entry,
-                GsdA11yPreferencesDialog *dialog)
-{
-        const char *key;
-        GConfValue *value;
-
-        key = gconf_entry_get_key (entry);
-        value = gconf_entry_get_value (entry);
-
-        if (strcmp (key, KEY_STICKY_KEYS_ENABLED) == 0) {
-                if (value->type == GCONF_VALUE_BOOL) {
-                        gboolean enabled;
-
-                        enabled = gconf_value_get_bool (value);
-                        ui_set_sticky_keys (dialog, enabled);
-                } else {
-                        g_warning ("Error retrieving configuration key '%s': Invalid type",
-                                   key);
-                }
-        } else if (strcmp (key, KEY_BOUNCE_KEYS_ENABLED) == 0) {
-                if (value->type == GCONF_VALUE_BOOL) {
-                        gboolean enabled;
-
-                        enabled = gconf_value_get_bool (value);
-                        ui_set_bounce_keys (dialog, enabled);
-                } else {
-                        g_warning ("Error retrieving configuration key '%s': Invalid type",
-                                   key);
-                }
-        } else if (strcmp (key, KEY_SLOW_KEYS_ENABLED) == 0) {
-                if (value->type == GCONF_VALUE_BOOL) {
-                        gboolean enabled;
-
-                        enabled = gconf_value_get_bool (value);
-                        ui_set_slow_keys (dialog, enabled);
-                } else {
-                        g_warning ("Error retrieving configuration key '%s': Invalid type",
-                                   key);
-                }
-        } else if (strcmp (key, KEY_AT_SCREEN_READER_ENABLED) == 0) {
-                if (value->type == GCONF_VALUE_BOOL) {
-                        gboolean enabled;
-
-                        enabled = gconf_value_get_bool (value);
-                        ui_set_at_screen_reader (dialog, enabled);
-                } else {
-                        g_warning ("Error retrieving configuration key '%s': Invalid type",
-                                   key);
-                }
-        } else if (strcmp (key, KEY_AT_SCREEN_KEYBOARD_ENABLED) == 0) {
-                if (value->type == GCONF_VALUE_BOOL) {
-                        gboolean enabled;
-
-                        enabled = gconf_value_get_bool (value);
-                        ui_set_at_screen_keyboard (dialog, enabled);
-                } else {
-                        g_warning ("Error retrieving configuration key '%s': Invalid type",
-                                   key);
-                }
-        } else if (strcmp (key, KEY_AT_SCREEN_MAGNIFIER_ENABLED) == 0) {
-                if (value->type == GCONF_VALUE_BOOL) {
-                        gboolean enabled;
-
-                        enabled = gconf_value_get_bool (value);
-                        ui_set_at_screen_magnifier (dialog, enabled);
-                } else {
-                        g_warning ("Error retrieving configuration key '%s': Invalid type",
-                                   key);
-                }
-        } else {
-                g_debug ("Config key not handled: %s", key);
-        }
-}
-
-static void
 setup_dialog (GsdA11yPreferencesDialog *dialog,
               GtkBuilder               *builder)
 {
         GtkWidget   *widget;
         gboolean     enabled;
         gboolean     is_writable;
-        GConfClient *client;
+        GSettings   *settings;
 
-        widget = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                     "sticky_keys_checkbutton"));
-        dialog->priv->sticky_keys_checkbutton = widget;
-        g_signal_connect (widget,
-                          "toggled",
-                          G_CALLBACK (on_sticky_keys_checkbutton_toggled),
-                          NULL);
-        enabled = config_get_sticky_keys (&is_writable);
-        ui_set_sticky_keys (dialog, enabled);
-        if (! is_writable) {
-                gtk_widget_set_sensitive (widget, FALSE);
-        }
+        dialog->priv->a11y_settings = g_settings_new (KEYBOARD_A11Y_SCHEMA);
+        settings = dialog->priv->a11y_settings;
 
-        widget = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                     "bounce_keys_checkbutton"));
-        dialog->priv->bounce_keys_checkbutton = widget;
-        g_signal_connect (widget,
-                          "toggled",
-                          G_CALLBACK (on_bounce_keys_checkbutton_toggled),
-                          NULL);
-        enabled = config_get_bounce_keys (&is_writable);
-        ui_set_bounce_keys (dialog, enabled);
-        if (! is_writable) {
-                gtk_widget_set_sensitive (widget, FALSE);
-        }
+        dialog->priv->interface_settings = g_settings_new (INTERFACE_SCHEMA);
+        dialog->priv->apps_settings = g_settings_new (KEY_AT_SCHEMA);
 
-        widget = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                     "slow_keys_checkbutton"));
-        dialog->priv->slow_keys_checkbutton = widget;
-        g_signal_connect (widget,
-                          "toggled",
-                          G_CALLBACK (on_slow_keys_checkbutton_toggled),
-                          NULL);
-        enabled = config_get_slow_keys (&is_writable);
-        ui_set_slow_keys (dialog, enabled);
-        if (! is_writable) {
-                gtk_widget_set_sensitive (widget, FALSE);
-        }
+        /* Sticky keys */
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "sticky_keys_checkbutton"));
+        g_settings_bind (settings, KEY_STICKY_KEYS_ENABLED,
+                         G_OBJECT (widget), "active", G_SETTINGS_BIND_DEFAULT);
+        g_settings_bind_writable (settings, KEY_STICKY_KEYS_ENABLED,
+                                  G_OBJECT (widget), "sensitive", TRUE);
 
+        /* Bounce keys */
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "bounce_keys_checkbutton"));
+        g_settings_bind (settings, KEY_BOUNCE_KEYS_ENABLED,
+                         G_OBJECT (widget), "active", G_SETTINGS_BIND_DEFAULT);
+        g_settings_bind_writable (settings, KEY_BOUNCE_KEYS_ENABLED,
+                                  G_OBJECT (widget), "sensitive", TRUE);
+
+        /* Slow keys */
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "slow_keys_checkbutton"));
+        g_settings_bind (settings, KEY_SLOW_KEYS_ENABLED,
+                         G_OBJECT (widget), "active", G_SETTINGS_BIND_DEFAULT);
+        g_settings_bind_writable (settings, KEY_SLOW_KEYS_ENABLED,
+                                  G_OBJECT (widget), "sensitive", TRUE);
+
+        /* High contrast */
         widget = GTK_WIDGET (gtk_builder_get_object (builder,
                                                      "high_contrast_checkbutton"));
+        g_settings_bind_writable (dialog->priv->interface_settings, KEY_GTK_THEME,
+                                  G_OBJECT (widget), "sensitive", TRUE);
         dialog->priv->high_contrast_checkbutton = widget;
         g_signal_connect (widget,
                           "toggled",
                           G_CALLBACK (on_high_contrast_checkbutton_toggled),
                           NULL);
-        enabled = config_get_high_contrast (&is_writable);
+        enabled = config_get_high_contrast (dialog);
         ui_set_high_contrast (dialog, enabled);
-        if (! is_writable) {
-                gtk_widget_set_sensitive (widget, FALSE);
-        }
 
-        widget = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                     "at_screen_keyboard_checkbutton"));
-        dialog->priv->screen_keyboard_checkbutton = widget;
-        g_signal_connect (widget,
-                          "toggled",
-                          G_CALLBACK (on_at_screen_keyboard_checkbutton_toggled),
-                          NULL);
-        enabled = config_get_at_screen_keyboard (&is_writable);
-        ui_set_at_screen_keyboard (dialog, enabled);
-        if (! is_writable) {
-                gtk_widget_set_sensitive (widget, FALSE);
-        }
+        /* On-screen keyboard */
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "at_screen_keyboard_checkbutton"));
+        g_settings_bind (dialog->priv->apps_settings, KEY_AT_SCREEN_KEYBOARD_ENABLED,
+                         G_OBJECT (widget), "active", G_SETTINGS_BIND_DEFAULT);
+        g_settings_bind_writable (dialog->priv->apps_settings, KEY_AT_SCREEN_KEYBOARD_ENABLED,
+                                  G_OBJECT (widget), "sensitive", TRUE);
         gtk_widget_set_no_show_all (widget, TRUE);
-        if (config_have_at_gconf_condition ("GNOME " KEY_AT_SCREEN_KEYBOARD_ENABLED)) {
+        if (config_have_at_gsettings_condition ("GSettings " KEYBOARD_A11Y_SCHEMA " " KEY_AT_SCREEN_KEYBOARD_ENABLED)) {
                 gtk_widget_show_all (widget);
         } else {
                 gtk_widget_hide (widget);
         }
 
-        widget = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                     "at_screen_reader_checkbutton"));
-        dialog->priv->screen_reader_checkbutton = widget;
-        g_signal_connect (widget,
-                          "toggled",
-                          G_CALLBACK (on_at_screen_reader_checkbutton_toggled),
-                          NULL);
-        enabled = config_get_at_screen_reader (&is_writable);
-        ui_set_at_screen_reader (dialog, enabled);
-        if (! is_writable) {
-                gtk_widget_set_sensitive (widget, FALSE);
-        }
+        /* Screen reader */
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "at_screen_reader_checkbutton"));
+        g_settings_bind (dialog->priv->apps_settings, KEY_AT_SCREEN_READER_ENABLED,
+                         G_OBJECT (widget), "active", G_SETTINGS_BIND_DEFAULT);
+        g_settings_bind_writable (dialog->priv->apps_settings, KEY_AT_SCREEN_READER_ENABLED,
+                                  G_OBJECT (widget), "sensitive", TRUE);
         gtk_widget_set_no_show_all (widget, TRUE);
-        if (config_have_at_gconf_condition ("GNOME " KEY_AT_SCREEN_READER_ENABLED)) {
+        if (config_have_at_gsettings_condition ("GSettings " KEYBOARD_A11Y_SCHEMA " " KEY_AT_SCREEN_READER_ENABLED)) {
                 gtk_widget_show_all (widget);
         } else {
                 gtk_widget_hide (widget);
         }
 
-        widget = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                     "at_screen_magnifier_checkbutton"));
-        dialog->priv->screen_magnifier_checkbutton = widget;
-        g_signal_connect (widget,
-                          "toggled",
-                          G_CALLBACK (on_at_screen_magnifier_checkbutton_toggled),
-                          NULL);
-        enabled = config_get_at_screen_magnifier (&is_writable);
-        ui_set_at_screen_magnifier (dialog, enabled);
-        if (! is_writable) {
-                gtk_widget_set_sensitive (widget, FALSE);
-        }
+        /* Screen magnifier */
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "at_screen_magnifier_checkbutton"));
+        g_settings_bind (dialog->priv->apps_settings, KEY_AT_SCREEN_MAGNIFIER_ENABLED,
+                         G_OBJECT (widget), "active", G_SETTINGS_BIND_DEFAULT);
+        g_settings_bind_writable (dialog->priv->apps_settings, KEY_AT_SCREEN_MAGNIFIER_ENABLED,
+                                  G_OBJECT (widget), "sensitive", TRUE);
         gtk_widget_set_no_show_all (widget, TRUE);
-        if (config_have_at_gconf_condition ("GNOME " KEY_AT_SCREEN_MAGNIFIER_ENABLED)) {
+        if (config_have_at_gsettings_condition ("GSettings " KEYBOARD_A11Y_SCHEMA " " KEY_AT_SCREEN_MAGNIFIER_ENABLED)) {
                 gtk_widget_show_all (widget);
         } else {
                 gtk_widget_hide (widget);
         }
 
+        /* Large print */
         widget = GTK_WIDGET (gtk_builder_get_object (builder,
                                                      "large_print_checkbutton"));
         dialog->priv->large_print_checkbutton = widget;
@@ -837,32 +489,6 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
         if (! is_writable) {
                 gtk_widget_set_sensitive (widget, FALSE);
         }
-
-
-        client = gconf_client_get_default ();
-        gconf_client_add_dir (client,
-                              KEY_A11Y_DIR,
-                              GCONF_CLIENT_PRELOAD_ONELEVEL,
-                              NULL);
-        dialog->priv->a11y_dir_cnxn = gconf_client_notify_add (client,
-                                                               KEY_A11Y_DIR,
-                                                               (GConfClientNotifyFunc)key_changed_cb,
-                                                               dialog,
-                                                               NULL,
-                                                               NULL);
-
-        gconf_client_add_dir (client,
-                              KEY_AT_DIR,
-                              GCONF_CLIENT_PRELOAD_ONELEVEL,
-                              NULL);
-        dialog->priv->gsd_a11y_dir_cnxn = gconf_client_notify_add (client,
-                                                                   KEY_AT_DIR,
-                                                                   (GConfClientNotifyFunc)key_changed_cb,
-                                                                   dialog,
-                                                                   NULL,
-                                                                   NULL);
-
-        g_object_unref (client);
 }
 
 static void
@@ -918,7 +544,6 @@ static void
 gsd_a11y_preferences_dialog_finalize (GObject *object)
 {
         GsdA11yPreferencesDialog *dialog;
-        GConfClient              *client;
 
         g_return_if_fail (object != NULL);
         g_return_if_fail (GSD_IS_A11Y_PREFERENCES_DIALOG (object));
@@ -927,16 +552,9 @@ gsd_a11y_preferences_dialog_finalize (GObject *object)
 
         g_return_if_fail (dialog->priv != NULL);
 
-        client = gconf_client_get_default ();
-
-        if (dialog->priv->a11y_dir_cnxn > 0) {
-                gconf_client_notify_remove (client, dialog->priv->a11y_dir_cnxn);
-        }
-        if (dialog->priv->gsd_a11y_dir_cnxn > 0) {
-                gconf_client_notify_remove (client, dialog->priv->gsd_a11y_dir_cnxn);
-        }
-
-        g_object_unref (client);
+        g_object_unref (dialog->priv->a11y_settings);
+        g_object_unref (dialog->priv->interface_settings);
+        g_object_unref (dialog->priv->apps_settings);
 
         G_OBJECT_CLASS (gsd_a11y_preferences_dialog_parent_class)->finalize (object);
 }
