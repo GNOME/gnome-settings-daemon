@@ -44,9 +44,7 @@
 #include "gsd-enums.h"
 #include "gsd-xsettings-manager.h"
 #include "xsettings-manager.h"
-#ifdef HAVE_FONTCONFIG
 #include "fontconfig-monitor.h"
-#endif /* HAVE_FONTCONFIG */
 
 #define GNOME_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerPrivate))
 
@@ -56,7 +54,6 @@
 
 #define GTK_MODULES_DIR        "/apps/gnome_settings_daemon/gtk-modules"
 
-#ifdef HAVE_FONTCONFIG
 #define FONT_RENDER_DIR "org.gnome.settings-daemon.plugins.xsettings"
 #define FONT_ANTIALIASING_KEY "antialiasing"
 #define FONT_HINTING_KEY      "hinting"
@@ -76,8 +73,6 @@
 #define DPI_FALLBACK 96
 #define DPI_LOW_REASONABLE_VALUE 50
 #define DPI_HIGH_REASONABLE_VALUE 500
-
-#endif /* HAVE_FONTCONFIG */
 
 typedef struct _TranslationEntry TranslationEntry;
 typedef void (* TranslationFunc) (GnomeXSettingsManager *manager,
@@ -99,9 +94,7 @@ struct GnomeXSettingsManagerPrivate
         guint              gtk_modules_notify;
 
         GSettings         *font_settings;
-#ifdef HAVE_FONTCONFIG
         fontconfig_monitor_handle_t *fontconfig_handle;
-#endif /* HAVE_FONTCONFIG */
 };
 
 #define GSD_XSETTINGS_ERROR gsd_xsettings_error_quark ()
@@ -221,7 +214,6 @@ static TranslationEntry translations [] = {
         { "org.gnome.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int }
 };
 
-#ifdef HAVE_FONTCONFIG
 static double
 dpi_from_pixels_and_mm (int pixels,
                         int mm)
@@ -509,7 +501,6 @@ stop_fontconfig_monitor (GnomeXSettingsManager  *manager)
                 manager->priv->fontconfig_handle = NULL;
         }
 }
-#endif /* HAVE_FONTCONFIG */
 
 static const char *
 type_to_string (GConfValueType type)
@@ -799,14 +790,12 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
 
         g_object_unref (client);
 
-#ifdef HAVE_FONTCONFIG
         manager->priv->font_settings = g_settings_new (FONT_RENDER_DIR);
         g_signal_connect (manager->priv->font_settings, "changed",
                           G_CALLBACK (xft_callback), manager);
         update_xft_settings (manager);
 
         start_fontconfig_monitor (manager);
-#endif /* HAVE_FONTCONFIG */
 
         for (i = 0; manager->priv->managers [i]; i++)
                 xsettings_manager_set_string (manager->priv->managers [i],
@@ -840,10 +829,8 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
                 p->managers = NULL;
         }
 
-#ifdef HAVE_FONTCONFIG
         g_object_unref (manager->priv->font_settings);
         stop_fontconfig_monitor (manager);
-#endif /* HAVE_FONTCONFIG */
 
         /* Stopping GTK+ modules */
         client = gconf_client_get_default ();

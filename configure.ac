@@ -197,12 +197,7 @@ dnl ---------------------------------------------------------------------------
 dnl - Fontconfig
 dnl ---------------------------------------------------------------------------
 
-have_fontconfig=no
-PKG_CHECK_MODULES(FONTCONFIG, fontconfig,
-		  [AC_DEFINE(HAVE_FONTCONFIG, 1, [Define if Fontconfig functionality is available])
-		   have_fontconfig=yes],
-		  [have_fontconfig=no])
-AM_CONDITIONAL(HAVE_FONTCONFIG, test x"$have_fontconfig" = "xyes")
+PKG_CHECK_MODULES(FONTCONFIG, fontconfig)
 
 dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
