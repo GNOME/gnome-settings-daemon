@@ -50,10 +50,10 @@
 
 #define GNOME_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerPrivate))
 
-#define MOUSE_SETTINGS_DIR     "/desktop/gnome/peripherals/mouse"
-#define GTK_SETTINGS_DIR       "/desktop/gtk"
-#define INTERFACE_SETTINGS_DIR "/desktop/gnome/interface"
-#define SOUND_SETTINGS_DIR     "/desktop/gnome/sound"
+#define MOUSE_SETTINGS_SCHEMA     "org.gnome.settings-daemon.peripherals.mouse"
+#define INTERFACE_SETTINGS_SCHEMA "org.gnome.desktop.interface"
+#define SOUND_SETTINGS_SCHEMA     "org.gnome.desktop.sound"
+
 #define GTK_MODULES_DIR        "/apps/gnome_settings_daemon/gtk-modules"
 
 #ifdef HAVE_FONTCONFIG
@@ -82,20 +82,22 @@
 typedef struct _TranslationEntry TranslationEntry;
 typedef void (* TranslationFunc) (GnomeXSettingsManager *manager,
                                   TranslationEntry      *trans,
-                                  GConfValue            *value);
+                                  GVariant              *value);
 
 struct _TranslationEntry {
-        const char     *gconf_key;
+        const char     *gsettings_schema;
+        const char     *gsettings_key;
         const char     *xsetting_name;
 
-        GConfValueType  gconf_type;
         TranslationFunc translate;
 };
 
 struct GnomeXSettingsManagerPrivate
 {
         XSettingsManager **managers;
-        guint              notify[6];
+        GHashTable        *settings;
+        guint              gtk_modules_notify;
+
         GSettings         *font_settings;
 #ifdef HAVE_FONTCONFIG
         fontconfig_monitor_handle_t *fontconfig_handle;
@@ -125,63 +127,55 @@ gsd_xsettings_error_quark (void)
 static void
 translate_bool_int (GnomeXSettingsManager *manager,
                     TranslationEntry      *trans,
-                    GConfValue            *value)
+                    GVariant              *value)
 {
         int i;
 
-        g_assert (value->type == trans->gconf_type);
-
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_int (manager->priv->managers [i], trans->xsetting_name,
-                                           gconf_value_get_bool (value));
+                                           g_variant_get_boolean (value));
         }
 }
 
 static void
 translate_int_int (GnomeXSettingsManager *manager,
                    TranslationEntry      *trans,
-                   GConfValue            *value)
+                   GVariant              *value)
 {
         int i;
 
-        g_assert (value->type == trans->gconf_type);
-
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_int (manager->priv->managers [i], trans->xsetting_name,
-                                           gconf_value_get_int (value));
+                                           g_variant_get_int32 (value));
         }
 }
 
 static void
 translate_string_string (GnomeXSettingsManager *manager,
                          TranslationEntry      *trans,
-                         GConfValue            *value)
+                         GVariant              *value)
 {
         int i;
-
-        g_assert (value->type == trans->gconf_type);
 
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_string (manager->priv->managers [i],
                                               trans->xsetting_name,
-                                              gconf_value_get_string (value));
+                                              g_variant_get_string (value, NULL));
         }
 }
 
 static void
 translate_string_string_toolbar (GnomeXSettingsManager *manager,
                                  TranslationEntry      *trans,
-                                 GConfValue            *value)
+                                 GVariant              *value)
 {
         int         i;
         const char *tmp;
 
-        g_assert (value->type == trans->gconf_type);
-
         /* This is kind of a workaround since GNOME expects the key value to be
          * "both_horiz" and gtk+ wants the XSetting to be "both-horiz".
          */
-        tmp = gconf_value_get_string (value);
+        tmp = g_variant_get_string (value, NULL);
         if (tmp && strcmp (tmp, "both_horiz") == 0) {
                 tmp = "both-horiz";
         }
@@ -194,34 +188,37 @@ translate_string_string_toolbar (GnomeXSettingsManager *manager,
 }
 
 static TranslationEntry translations [] = {
-        { "/desktop/gnome/peripherals/mouse/double_click",   "Net/DoubleClickTime",     GCONF_VALUE_INT,      translate_int_int },
-        { "/desktop/gnome/peripherals/mouse/drag_threshold", "Net/DndDragThreshold",    GCONF_VALUE_INT,      translate_int_int },
-        { "/desktop/gnome/gtk-color-palette",                "Gtk/ColorPalette",        GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/font_name",              "Gtk/FontName",            GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/gtk_key_theme",          "Gtk/KeyThemeName",        GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/toolbar_style",          "Gtk/ToolbarStyle",        GCONF_VALUE_STRING,   translate_string_string_toolbar },
-        { "/desktop/gnome/interface/toolbar_icons_size",     "Gtk/ToolbarIconSize",     GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/can_change_accels",      "Gtk/CanChangeAccels",     GCONF_VALUE_BOOL,     translate_bool_int },
-        { "/desktop/gnome/interface/cursor_blink",           "Net/CursorBlink",         GCONF_VALUE_BOOL,     translate_bool_int },
-        { "/desktop/gnome/interface/cursor_blink_time",      "Net/CursorBlinkTime",     GCONF_VALUE_INT,      translate_int_int },
-        { "/desktop/gnome/interface/gtk_theme",              "Net/ThemeName",           GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/gtk_color_scheme",       "Gtk/ColorScheme",         GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/gtk-im-preedit-style",   "Gtk/IMPreeditStyle",      GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/gtk-im-status-style",    "Gtk/IMStatusStyle",       GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/gtk-im-module",          "Gtk/IMModule",            GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/icon_theme",             "Net/IconThemeName",       GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/file_chooser_backend",   "Gtk/FileChooserBackend",  GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/menus_have_icons",       "Gtk/MenuImages",          GCONF_VALUE_BOOL,     translate_bool_int },
-        { "/desktop/gnome/interface/buttons_have_icons",     "Gtk/ButtonImages",          GCONF_VALUE_BOOL,     translate_bool_int },
-        { "/desktop/gnome/interface/menubar_accel",          "Gtk/MenuBarAccel",        GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/interface/enable_animations",      "Gtk/EnableAnimations",    GCONF_VALUE_BOOL,     translate_bool_int },
-        { "/desktop/gnome/peripherals/mouse/cursor_theme",   "Gtk/CursorThemeName",     GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/peripherals/mouse/cursor_size",    "Gtk/CursorThemeSize",     GCONF_VALUE_INT,      translate_int_int },
-        { "/desktop/gnome/interface/show_input_method_menu", "Gtk/ShowInputMethodMenu", GCONF_VALUE_BOOL,     translate_bool_int },
-        { "/desktop/gnome/interface/show_unicode_menu",      "Gtk/ShowUnicodeMenu",     GCONF_VALUE_BOOL,     translate_bool_int },
-        { "/desktop/gnome/sound/theme_name",                 "Net/SoundThemeName",      GCONF_VALUE_STRING,   translate_string_string },
-        { "/desktop/gnome/sound/event_sounds",               "Net/EnableEventSounds" ,  GCONF_VALUE_BOOL,     translate_bool_int },
-        { "/desktop/gnome/sound/input_feedback_sounds",      "Net/EnableInputFeedbackSounds", GCONF_VALUE_BOOL, translate_bool_int }
+        { "org.gnome.settings-daemon.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
+        { "org.gnome.settings-daemon.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
+
+        { "org.gnome.desktop.interface", "gtk-color-palette",      "Gtk/ColorPalette",        translate_string_string },
+        { "org.gnome.desktop.interface", "font-name",              "Gtk/FontName",            translate_string_string },
+        { "org.gnome.desktop.interface", "gtk-key-theme",          "Gtk/KeyThemeName",        translate_string_string },
+        { "org.gnome.desktop.interface", "toolbar-style",          "Gtk/ToolbarStyle",        translate_string_string_toolbar },
+        { "org.gnome.desktop.interface", "toolbar-icons-size",     "Gtk/ToolbarIconSize",     translate_string_string },
+        { "org.gnome.desktop.interface", "can-change-accels",      "Gtk/CanChangeAccels",     translate_bool_int },
+        { "org.gnome.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
+        { "org.gnome.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
+        { "org.gnome.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
+        { "org.gnome.desktop.interface", "gtk-timeout-initial",    "Gtk/TimeoutInitial",      translate_int_int },
+        { "org.gnome.desktop.interface", "gtk-timeout-repeat",     "Gtk/TimeoutRepeat",       translate_int_int },
+        { "org.gnome.desktop.interface", "gtk-color-scheme",       "Gtk/ColorScheme",         translate_string_string },
+        { "org.gnome.desktop.interface", "gtk-im-preedit-style",   "Gtk/IMPreeditStyle",      translate_string_string },
+        { "org.gnome.desktop.interface", "gtk-im-status-style",    "Gtk/IMStatusStyle",       translate_string_string },
+        { "org.gnome.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
+        { "org.gnome.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
+        { "org.gnome.desktop.interface", "menus-have-icons",       "Gtk/MenuImages",          translate_bool_int },
+        { "org.gnome.desktop.interface", "buttons-have-icons",     "Gtk/ButtonImages",        translate_bool_int },
+        { "org.gnome.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
+        { "org.gnome.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
+        { "org.gnome.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
+        { "org.gnome.desktop.interface", "cursor-size",            "Gtk/CursorThemeSize",     translate_int_int },
+        { "org.gnome.desktop.interface", "show-input-method-menu", "Gtk/ShowInputMethodMenu", translate_bool_int },
+        { "org.gnome.desktop.interface", "show-unicode-menu",      "Gtk/ShowUnicodeMenu",     translate_bool_int },
+
+        { "org.gnome.desktop.sound", "theme-name",                 "Net/SoundThemeName",            translate_string_string },
+        { "org.gnome.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
+        { "org.gnome.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int }
 };
 
 #ifdef HAVE_FONTCONFIG
@@ -274,7 +271,7 @@ get_dpi_from_gsettings_or_x_server (GnomeXSettingsManager *manager)
 
         dpi = g_settings_get_double (manager->priv->font_settings, FONT_DPI_KEY);
         if (dpi == 0.0)
-		dpi = get_dpi_from_x_server ();
+                dpi = get_dpi_from_x_server ();
 
         return dpi;
 }
@@ -293,11 +290,11 @@ static void
 xft_settings_get (GnomeXSettingsManager *manager,
                   GnomeXftSettings      *settings)
 {
-	GsdFontAntialiasingMode antialiasing;
-	GsdFontHinting hinting;
-	GsdFontRgbaOrder rgba_order;
+        GsdFontAntialiasingMode antialiasing;
+        GsdFontHinting hinting;
+        GsdFontRgbaOrder rgba_order;
         double dpi;
-	gboolean use_rgba = FALSE;
+        gboolean use_rgba = FALSE;
 
 
         antialiasing = g_settings_get_enum (manager->priv->font_settings, FONT_ANTIALIASING_KEY);
@@ -311,36 +308,36 @@ xft_settings_get (GnomeXSettingsManager *manager,
         settings->rgba = "rgb";
         settings->hintstyle = "hintfull";
 
-	switch (hinting) {
-	case GSD_FONT_HINTING_NONE:
-		settings->hintstyle = "hintnone";
-		break;
-	case GSD_FONT_HINTING_SLIGHT:
-		settings->hintstyle = "hintslight";
-		break;
-	case GSD_FONT_HINTING_MEDIUM:
-		settings->hintstyle = "hintmedium";
-		break;
-	case GSD_FONT_HINTING_FULL:
-		settings->hintstyle = "hintfull";
-		break;
+        switch (hinting) {
+        case GSD_FONT_HINTING_NONE:
+                settings->hintstyle = "hintnone";
+                break;
+        case GSD_FONT_HINTING_SLIGHT:
+                settings->hintstyle = "hintslight";
+                break;
+        case GSD_FONT_HINTING_MEDIUM:
+                settings->hintstyle = "hintmedium";
+                break;
+        case GSD_FONT_HINTING_FULL:
+                settings->hintstyle = "hintfull";
+                break;
         }
 
-	switch (antialiasing) {
-	case GSD_FONT_ANTIALIASING_MODE_NONE:
-		settings->antialias = 0;
-		break;
-	case GSD_FONT_ANTIALIASING_MODE_GRAYSCALE:
-		settings->antialias = 1;
-		break;
-	case GSD_FONT_ANTIALIASING_MODE_RGBA:
-		settings->antialias = 1;
-		use_rgba = TRUE;
-	}
+        switch (antialiasing) {
+        case GSD_FONT_ANTIALIASING_MODE_NONE:
+                settings->antialias = 0;
+                break;
+        case GSD_FONT_ANTIALIASING_MODE_GRAYSCALE:
+                settings->antialias = 1;
+                break;
+        case GSD_FONT_ANTIALIASING_MODE_RGBA:
+                settings->antialias = 1;
+                use_rgba = TRUE;
+        }
 
-	if (!use_rgba) {
-		settings->rgba = "none";
-	}
+        if (!use_rgba) {
+                settings->rgba = "none";
+        }
 }
 
 static void
@@ -543,55 +540,51 @@ type_to_string (GConfValueType type)
 static void
 process_value (GnomeXSettingsManager *manager,
                TranslationEntry      *trans,
-               GConfValue            *val)
+               GVariant              *value)
 {
-        if (val == NULL) {
-                int i;
-
-                for (i = 0; manager->priv->managers [i]; i++) {
-                        xsettings_manager_delete_setting (manager->priv->managers [i], trans->xsetting_name);
-                }
-        } else {
-                if (val->type == trans->gconf_type) {
-                        (* trans->translate) (manager, trans, val);
-                } else {
-                        g_warning (_("GConf key %s set to type %s but its expected type was %s\n"),
-                                   trans->gconf_key,
-                                   type_to_string (val->type),
-                                   type_to_string (trans->gconf_type));
-                }
-        }
+        (* trans->translate) (manager, trans, value);
 }
 
 static TranslationEntry *
-find_translation_entry (const char *gconf_key)
+find_translation_entry (GSettings *settings, const char *key)
 {
-        int i;
+        guint i;
+        char *schema;
 
-        for (i = 0; i < G_N_ELEMENTS (translations); ++i) {
-                if (strcmp (translations[i].gconf_key, gconf_key) == 0) {
+        g_object_get (settings, "schema", &schema, NULL);
+
+        for (i = 0; i < G_N_ELEMENTS (translations); i++) {
+                if (g_str_equal (schema, translations[i].gsettings_schema) &&
+                    g_str_equal (key, translations[i].gsettings_key)) {
+                            g_free (schema);
                         return &translations[i];
                 }
         }
+
+        g_free (schema);
 
         return NULL;
 }
 
 static void
-xsettings_callback (GConfClient           *client,
-                    guint                  cnxn_id,
-                    GConfEntry            *entry,
+xsettings_callback (GSettings             *settings,
+                    const char            *key,
                     GnomeXSettingsManager *manager)
 {
         TranslationEntry *trans;
-        int               i;
+        guint             i;
+        GVariant         *value;
 
-        trans = find_translation_entry (entry->key);
+        trans = find_translation_entry (settings, key);
         if (trans == NULL) {
                 return;
         }
 
-        process_value (manager, trans, entry->value);
+        value = g_settings_get_value (settings, key);
+
+        process_value (manager, trans, value);
+
+        g_object_unref (value);
 
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_string (manager->priv->managers [i],
@@ -690,15 +683,6 @@ gtk_modules_callback (GConfClient           *client,
         }
 }
 
-static guint
-register_config_callback (GnomeXSettingsManager  *manager,
-                          GConfClient            *client,
-                          const char             *path,
-                          GConfClientNotifyFunc   func)
-{
-        return gconf_client_notify_add (client, path, func, manager, NULL, NULL);
-}
-
 static void
 terminate_cb (void *data)
 {
@@ -758,7 +742,8 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                GError               **error)
 {
         GConfClient *client;
-        int          i;
+        guint        i;
+        GList       *list, *l;
 
         g_debug ("Starting xsettings manager");
         gnome_settings_profile_start (NULL);
@@ -770,69 +755,58 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                 return FALSE;
         }
 
-        manager->priv->font_settings = g_settings_new (FONT_RENDER_DIR);
-        client = gconf_client_get_default ();
+        manager->priv->settings = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                                         NULL, (GDestroyNotify) g_object_unref);
 
-        gconf_client_add_dir (client, MOUSE_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-        gconf_client_add_dir (client, GTK_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-        gconf_client_add_dir (client, INTERFACE_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-        gconf_client_add_dir (client, SOUND_SETTINGS_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-        gconf_client_add_dir (client, GTK_MODULES_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+        g_hash_table_insert (manager->priv->settings,
+                             MOUSE_SETTINGS_SCHEMA, g_settings_new (MOUSE_SETTINGS_SCHEMA));
+        g_hash_table_insert (manager->priv->settings,
+                             INTERFACE_SETTINGS_SCHEMA, g_settings_new (INTERFACE_SETTINGS_SCHEMA));
+        g_hash_table_insert (manager->priv->settings,
+                             SOUND_SETTINGS_SCHEMA, g_settings_new (SOUND_SETTINGS_SCHEMA));
 
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
-                GConfValue *val;
-                GError     *err;
+                GVariant *val;
+                GSettings *settings;
 
-                err = NULL;
-                val = gconf_client_get (client,
-                                        translations[i].gconf_key,
-                                        &err);
-
-                if (err != NULL) {
-                        g_warning ("Error getting value for %s: %s",
-                                   translations[i].gconf_key,
-                                   err->message);
-                        g_error_free (err);
-                } else {
-                        process_value (manager, &translations[i], val);
-                        if (val != NULL) {
-                                gconf_value_free (val);
-                        }
+                settings = g_hash_table_lookup (manager->priv->settings,
+                                                translations[i].gsettings_schema);
+                if (settings == NULL) {
+                        g_warning ("Schemas '%s' has not been setup", translations[i].gsettings_schema);
+                        continue;
                 }
+
+                val = g_settings_get_value (settings, translations[i].gsettings_key);
+
+                process_value (manager, &translations[i], val);
         }
 
-        manager->priv->notify[0] =
-                register_config_callback (manager, client,
-                                          MOUSE_SETTINGS_DIR,
-                                          (GConfClientNotifyFunc) xsettings_callback);
-        manager->priv->notify[1] =
-                register_config_callback (manager, client,
-                                          GTK_SETTINGS_DIR,
-                                          (GConfClientNotifyFunc) xsettings_callback);
-        manager->priv->notify[2] =
-                register_config_callback (manager, client,
-                                          INTERFACE_SETTINGS_DIR,
-                                          (GConfClientNotifyFunc) xsettings_callback);
-        manager->priv->notify[3] =
-                register_config_callback (manager, client,
-                                          SOUND_SETTINGS_DIR,
-                                          (GConfClientNotifyFunc) xsettings_callback);
+        list = g_hash_table_get_values (manager->priv->settings);
+        for (l = list; list != NULL; list = list->next) {
+                g_signal_connect (G_OBJECT (l->data), "changed",
+                                  G_CALLBACK (xsettings_callback), manager);
+        }
+        g_list_free (list);
 
-        manager->priv->notify[4] =
-                register_config_callback (manager, client,
-                                          GTK_MODULES_DIR,
-                                          (GConfClientNotifyFunc) gtk_modules_callback);
+        /* Set up the GTK modules */
+        client = gconf_client_get_default ();
+        gconf_client_add_dir (client, GTK_MODULES_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+        manager->priv->gtk_modules_notify = gconf_client_notify_add (client, GTK_MODULES_DIR,
+                                                                     (GConfClientNotifyFunc) gtk_modules_callback,
+                                                                     manager, NULL, NULL);
+
         gtk_modules_callback (client, 0, NULL, manager);
 
+        g_object_unref (client);
+
 #ifdef HAVE_FONTCONFIG
+        manager->priv->font_settings = g_settings_new (FONT_RENDER_DIR);
         g_signal_connect (manager->priv->font_settings, "changed",
                           G_CALLBACK (xft_callback), manager);
         update_xft_settings (manager);
 
         start_fontconfig_monitor (manager);
 #endif /* HAVE_FONTCONFIG */
-
-        g_object_unref (client);
 
         for (i = 0; manager->priv->managers [i]; i++)
                 xsettings_manager_set_string (manager->priv->managers [i],
@@ -866,27 +840,19 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
                 p->managers = NULL;
         }
 
-        client = gconf_client_get_default ();
-
-        gconf_client_remove_dir (client, MOUSE_SETTINGS_DIR, NULL);
-        gconf_client_remove_dir (client, GTK_SETTINGS_DIR, NULL);
-        gconf_client_remove_dir (client, INTERFACE_SETTINGS_DIR, NULL);
-        gconf_client_remove_dir (client, SOUND_SETTINGS_DIR, NULL);
-        gconf_client_remove_dir (client, GTK_MODULES_DIR, NULL);
 #ifdef HAVE_FONTCONFIG
-
+        g_object_unref (manager->priv->font_settings);
         stop_fontconfig_monitor (manager);
 #endif /* HAVE_FONTCONFIG */
 
-        for (i = 0; i < G_N_ELEMENTS (p->notify); ++i) {
-                if (p->notify[i] != 0) {
-                        gconf_client_notify_remove (client, p->notify[i]);
-                        p->notify[i] = 0;
-                }
-        }
+        /* Stopping GTK+ modules */
+        client = gconf_client_get_default ();
+        gconf_client_remove_dir (client, GTK_MODULES_DIR, NULL);
+        gconf_client_notify_remove (client, p->gtk_modules_notify);
+        p->gtk_modules_notify = 0;
 
-        g_object_unref (client);
-        g_object_unref (manager->priv->font_settings);
+        g_hash_table_destroy (p->settings);
+        p->settings = NULL;
 }
 
 static void
