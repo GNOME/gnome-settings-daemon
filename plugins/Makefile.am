@@ -23,7 +23,7 @@ if BUILD_GCONF_BRIDGE
 enabled_plugins += gconf
 else
 disabled_plugins += gconf
-fi
+endif
 
 if SMARTCARD_SUPPORT
 enabled_plugins += smartcard

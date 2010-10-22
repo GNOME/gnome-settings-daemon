@@ -61,7 +61,6 @@ EXTRA_COMPILE_WARNINGS(yes)
 PKG_CHECK_MODULES(SETTINGS_DAEMON,
         glib-2.0 >= $GLIB_REQUIRED_VERSION
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
-        gconf-2.0 >= $GCONF_REQUIRED_VERSION
 	gio-2.0 >= $GIO_REQUIRED_VERSION
         gmodule-2.0
         gthread-2.0
@@ -225,8 +224,9 @@ AC_SUBST(GIOUNIX_CFLAGS)
 AC_SUBST(GIOUNIX_LIBS)
 
 dnl ---------------------------------------------------------------------------
-dnl - GConf<->Gsettings bridge
+dnl - GConf<->GSettings bridge
 dnl ---------------------------------------------------------------------------
+
 build_gconf_bridge=false
 AC_ARG_ENABLE(gconf-bridge,
   AC_HELP_STRING([--disable-gconf-bridge],
@@ -235,17 +235,16 @@ AC_ARG_ENABLE(gconf-bridge,
               yes) WANT_GCONF_BRIDGE=yes ;;
 	      no) WANT_GCONF_BRIDGE=no ;;
 	      *) AC_MSG_ERROR(bad value ${enableval} for --disable-gconf-bridge) ;;
-      [esac],
+      esac],
       [WANT_GCONF_BRIDGE=no]) dnl Default value
 
 if test x$WANT_GCONF_BRIDGE = xyes; then
-      GCONF_REQUIRED_VERSION=2.6.1
-      PKG_CHECK_MODULES(GCONF, gconf-2.0 >= $GCONF_REQUIRED_VERSION,
-            [have_gconf=true
+      PKG_CHECK_MODULES(GCONF, gconf-2.0 >= 2.6.1,
+            [build_gconf_bridge=true
              AC_DEFINE(BUILD_GCONF_BRIDGE, 1, [Define if GConf bridge should be built])],
-	    [have_gconf=false])
+	    [build_gconf_bridge=false])
 fi
-AM_CONDITIONAL(BUILD_GCONF_BRIDGE, test "x$have_gconf" = "xtrue")
+AM_CONDITIONAL(BUILD_GCONF_BRIDGE, test "x$build_gconf_bridge" = "xtrue")
 
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
@@ -511,7 +510,7 @@ echo "
         Libnotify support:        ${have_libnotify}
         PulseAudio support:       ${have_pulse}
         Smartcard support:        ${have_smartcard_support}
-	GConf bridge support:     ${have_gconf}
+	GConf bridge support:     ${build_gconf_bridge}
 ${NSS_DATABASE:+\
         System nssdb:             ${NSS_DATABASE}
 }\

@@ -25,7 +25,7 @@ libgconf_la_LIBADD =		\
 
 plugin_in_files = gconf.gnome-settings-plugin.in
 
-plugins_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 EXTRA_DIST = $(plugin_in_files)
 CLEANFILES = $(plugin_DATA)

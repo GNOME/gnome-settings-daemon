@@ -17,3 +17,65 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  */
+
+#include "config.h"
+#include "gsd-gconf-manager.h"
+
+#define GSD_GCONF_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_GCONF_MANAGER, GsdGconfManagerPrivate))
+
+struct GsdGconfManagerPrivate {
+};
+
+GsdGconfManager *manager_object = NULL;
+
+G_DEFINE_TYPE(GsdGconfManager, gsd_gconf_manager, G_TYPE_OBJECT)
+
+static void
+gsd_gconf_manager_finalize (GObject *object)
+{
+	GsdGconfManager *manager = GSD_GCONF_MANAGER (object);
+
+	g_return_if_fail (manager->priv != NULL);
+
+	G_OBJECT_CLASS (gsd_gconf_manager_parent_class)->finalize (object);
+}
+
+static void
+gsd_gconf_manager_class_init (GsdGconfManagerClass *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+	object_class->finalize = gsd_gconf_manager_finalize;
+
+	g_type_class_add_private (klass, sizeof (GsdGconfManagerPrivate));
+}
+
+static void
+gsd_gconf_manager_init (GsdGconfManager *manager)
+{
+	manager->priv = GSD_GCONF_MANAGER_GET_PRIVATE (manager);
+}
+
+GsdGconfManager *
+gsd_gconf_manager_new (void)
+{
+	if (manager_object != NULL) {
+		g_object_ref (manager_object);
+	} else {
+		manager_object = g_object_new (GSD_TYPE_GCONF_MANAGER, NULL);
+		g_object_add_weak_pointer (manager_object,
+					   (gpointer *) &manager_object);
+	}
+
+	return manager_object;
+}
+
+gboolean
+gsd_gconf_manager_start (GsdGconfManager *manager, GError **error)
+{
+}
+
+void
+gsd_gconf_manager_stop (GsdGconfManager *manager)
+{
+}
