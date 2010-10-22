@@ -36,7 +36,7 @@ typedef struct GsdGconfManagerPrivate GsdGconfManagerPrivate;
 
 typedef struct
 {
-        GObject                     parent;
+        GObject                 parent;
         GsdGconfManagerPrivate *priv;
 } GsdGconfManager;
 
