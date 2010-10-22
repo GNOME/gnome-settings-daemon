@@ -224,6 +224,32 @@ PKG_CHECK_MODULES(GIOUNIX, [gio-unix-2.0])
 AC_SUBST(GIOUNIX_CFLAGS)
 AC_SUBST(GIOUNIX_LIBS)
 
+dnl ---------------------------------------------------------------------------
+dnl - GConf<->Gsettings bridge
+dnl ---------------------------------------------------------------------------
+build_gconf_bridge=false
+AC_ARG_ENABLE(gconf-bridge,
+  AC_HELP_STRING([--disable-gconf-bridge],
+                 [turn off GConf bridge plugin]),
+      [case "${enableval}" in
+              yes) WANT_GCONF_BRIDGE=yes ;;
+	      no) WANT_GCONF_BRIDGE=no ;;
+	      *) AC_MSG_ERROR(bad value ${enableval} for --disable-gconf-bridge) ;;
+      [esac],
+      [WANT_GCONF_BRIDGE=no]) dnl Default value
+
+if test x$WANT_GCONF_BRIDGE = xyes; then
+      GCONF_REQUIRED_VERSION=2.6.1
+      PKG_CHECK_MODULES(GCONF, gconf-2.0 >= $GCONF_REQUIRED_VERSION,
+            [have_gconf=true
+             AC_DEFINE(BUILD_GCONF_BRIDGE, 1, [Define if GConf bridge should be built])],
+	    [have_gconf=false])
+fi
+AM_CONDITIONAL(BUILD_GCONF_BRIDGE, test "x$have_gconf" = "xtrue")
+
+AC_SUBST(GCONF_CFLAGS)
+AC_SUBST(GCONF_LIBS)
+
 dnl ==============================================
 dnl PulseAudio section
 dnl ==============================================
@@ -429,6 +455,7 @@ plugins/clipboard/Makefile
 plugins/common/Makefile
 plugins/datetime/Makefile
 plugins/dummy/Makefile
+plugins/gconf/Makefile
 plugins/housekeeping/Makefile
 plugins/keybindings/Makefile
 plugins/keyboard/Makefile
@@ -484,6 +511,7 @@ echo "
         Libnotify support:        ${have_libnotify}
         PulseAudio support:       ${have_pulse}
         Smartcard support:        ${have_smartcard_support}
+	GConf bridge support:     ${have_gconf}
 ${NSS_DATABASE:+\
         System nssdb:             ${NSS_DATABASE}
 }\
