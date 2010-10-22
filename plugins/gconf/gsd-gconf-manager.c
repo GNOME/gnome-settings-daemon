@@ -81,6 +81,8 @@ gsd_gconf_manager_start (GsdGconfManager *manager, GError **error)
 	GDir *convertdir;
 	gboolean result = FALSE;
 
+	manager->priv->conf_watchers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+
 	/* Read all conversion files from GCONF_SETTINGS_CONVERTDIR */
 	convertdir = g_dir_open (GCONF_SETTINGS_CONVERTDIR, 0, error);
 	if (convertdir) {

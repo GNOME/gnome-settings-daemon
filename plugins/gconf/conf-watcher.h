@@ -22,6 +22,8 @@
 #define __CONF_WATCHER_H
 
 #include <glib-object.h>
+#include <gio/gio.h>
+#include <gconf/gconf-client.h>
 
 G_BEGIN_DECLS
 
@@ -37,6 +39,10 @@ typedef struct ConfWatcherPrivate ConfWatcherPrivate;
 typedef struct
 {
         GObject parent;
+
+	/* Private data */
+	GSettings *settings;
+	GConfClient *conf_client;
 	gchar *settings_id;
 	GHashTable *keys_hash;
 } ConfWatcher;

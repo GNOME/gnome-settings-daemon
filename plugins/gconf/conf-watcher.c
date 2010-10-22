@@ -28,6 +28,12 @@ conf_watcher_finalize (GObject *object)
 {
 	ConfWatcher *watcher = CONF_WATCHER (object);
 
+	if (watcher->settings != NULL)
+		g_object_unref (watcher->settings);
+
+	if (watcher->conf_client != NULL)
+		g_object_unref (watcher->conf_client);
+
 	if (watcher->settings_id != NULL)
 		g_free (watcher->settings_id);
 
@@ -50,6 +56,76 @@ conf_watcher_init (ConfWatcher *watcher)
 {
 }
 
+static void
+settings_changed_cb (GSettings *settings,
+		     const gchar *key,
+		     ConfWatcher *watcher)
+{
+	const gchar *gconf_key_name;
+
+	gconf_key_name = g_hash_table_lookup (watcher->keys_hash, key);
+	if (gconf_key_name != NULL) {
+		GVariant *value;
+
+		value = g_settings_get_value (settings, key);
+		if (g_variant_is_of_type (value, G_VARIANT_TYPE_BOOLEAN)) {
+			gconf_client_set_bool (watcher->conf_client,
+					       gconf_key_name,
+					       g_variant_get_boolean (value),
+					       NULL);
+		} else if (g_variant_is_of_type (value, G_VARIANT_TYPE_BYTE) ||
+			   g_variant_is_of_type (value, G_VARIANT_TYPE_INT16) ||
+			   g_variant_is_of_type (value, G_VARIANT_TYPE_UINT16) ||
+			   g_variant_is_of_type (value, G_VARIANT_TYPE_INT32) ||
+			   g_variant_is_of_type (value, G_VARIANT_TYPE_UINT32) ||
+			   g_variant_is_of_type (value, G_VARIANT_TYPE_INT64) ||
+			   g_variant_is_of_type (value, G_VARIANT_TYPE_UINT64)) {
+			gconf_client_set_int (watcher->conf_client,
+					      gconf_key_name,
+					      g_settings_get_int (settings, key),
+					      NULL);
+		} else if (g_variant_is_of_type (value, G_VARIANT_TYPE_STRING)) {
+			gconf_client_set_string (watcher->conf_client,
+						 gconf_key_name,
+						 g_variant_get_string (value, NULL),
+						 NULL);
+		} else if (g_variant_is_of_type (value, G_VARIANT_TYPE_DOUBLE)) {
+			gconf_client_set_float (watcher->conf_client,
+						gconf_key_name,
+						g_variant_get_double (value),
+						NULL);
+		} else if (g_variant_is_of_type (value, G_VARIANT_TYPE_STRING_ARRAY)) {
+			const gchar **items;
+			gsize len, i;
+			GSList *gconf_list = NULL;
+
+			items = g_variant_get_strv (value, &len);
+			for (i = 0; i < len; i++) {
+				gconf_list = g_slist_append (gconf_list, (gpointer) items[i]);
+			}
+
+			gconf_client_set_list (watcher->conf_client,
+					       gconf_key_name,
+					       GCONF_VALUE_STRING,
+					       gconf_list,
+					       NULL);
+
+			g_slist_free (gconf_list);
+			g_free (items);
+		}
+	}
+}
+
+static void
+setup_watcher (ConfWatcher *watcher)
+{
+	watcher->settings = g_settings_new (watcher->settings_id);
+	g_signal_connect (watcher->settings, "changed",
+			  G_CALLBACK (settings_changed_cb), watcher);
+
+	watcher->conf_client = gconf_client_get_default ();
+}
+
 ConfWatcher *
 conf_watcher_new (const gchar *settings_id, GHashTable *keys_hash)
 {
@@ -59,6 +135,10 @@ conf_watcher_new (const gchar *settings_id, GHashTable *keys_hash)
 	g_return_val_if_fail (keys_hash != NULL, NULL);
 
 	watcher = g_object_new (TYPE_CONF_WATCHER, NULL);
+
+	watcher->settings_id = g_strdup (settings_id);
+	watcher->keys_hash = keys_hash;
+	setup_watcher (watcher);
 
 	return watcher;
 }
