@@ -53,6 +53,9 @@ struct GsdOsdWindowPrivate
         guint                    hide_timeout_id;
         guint                    fade_timeout_id;
         double                   fade_out_alpha;
+
+        gint                     screen_width;
+        gint                     screen_height;
 };
 
 enum {
@@ -703,6 +706,14 @@ gboolean
 gsd_osd_window_is_valid (GsdOsdWindow *window)
 {
         GdkScreen *screen = gtk_widget_get_screen (GTK_WIDGET (window));
+        gint width, height;
+        width = gdk_screen_get_width (screen);
+        height = gdk_screen_get_height (screen);
+
+        if (window->priv->screen_width != width ||
+            window->priv->screen_height != height)
+                return FALSE;
+
         return gdk_screen_is_composited (screen) == window->priv->is_composited;
 }
 
@@ -716,6 +727,8 @@ gsd_osd_window_init (GsdOsdWindow *window)
         screen = gtk_widget_get_screen (GTK_WIDGET (window));
 
         window->priv->is_composited = gdk_screen_is_composited (screen);
+        window->priv->screen_width = gdk_screen_get_width (screen);
+        window->priv->screen_height = gdk_screen_get_height (screen);
 
         if (window->priv->is_composited) {
                 gdouble scalew, scaleh, scale;
