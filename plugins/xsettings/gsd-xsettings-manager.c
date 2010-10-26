@@ -37,8 +37,6 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf.h>
-#include <gconf/gconf-client.h>
 
 #include "gnome-settings-profile.h"
 #include "gsd-enums.h"
