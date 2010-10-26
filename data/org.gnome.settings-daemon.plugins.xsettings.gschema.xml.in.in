@@ -30,5 +30,15 @@
       <_summary>RGBA order</_summary>
       <_description>The order of subpixel elements on an LCD screen; only used when antialiasing is set to "rgba". Possible values are: "rgb" for red on left (most common), "bgr" for blue on left, "vrgb" for red on top, "vbgr" for red on bottom.</_description>
     </key>
+    <key name="disabled-gtk-modules" type="as">
+      <default>[]</default>
+      <_summary>List of explicitly disabled GTK+ modules</_summary>
+      <_description>A list of strings representing the GTK+ modules that will not be loaded, even if enabled by default in their configuration.</_description>
+    </key>
+    <key name="enabled-gtk-modules" type="as">
+      <default>[]</default>
+      <_summary>List of explicitly enabled GTK+ modules</_summary>
+      <_description>A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones.</_description>
+    </key>
   </schema>
 </schemalist>

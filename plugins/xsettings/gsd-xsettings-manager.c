@@ -43,6 +43,7 @@
 #include "gnome-settings-profile.h"
 #include "gsd-enums.h"
 #include "gsd-xsettings-manager.h"
+#include "gsd-xsettings-gtk.h"
 #include "xsettings-manager.h"
 #include "fontconfig-monitor.h"
 
@@ -52,9 +53,11 @@
 #define INTERFACE_SETTINGS_SCHEMA "org.gnome.desktop.interface"
 #define SOUND_SETTINGS_SCHEMA     "org.gnome.desktop.sound"
 
-#define GTK_MODULES_DIR        "/apps/gnome_settings_daemon/gtk-modules"
+#define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
 
-#define FONT_RENDER_DIR "org.gnome.settings-daemon.plugins.xsettings"
+#define GTK_MODULES_DISABLED_KEY "disabled-gtk-modules"
+#define GTK_MODULES_ENABLED_KEY  "enabled-gtk-modules"
+
 #define FONT_ANTIALIASING_KEY "antialiasing"
 #define FONT_HINTING_KEY      "hinting"
 #define FONT_RGBA_ORDER_KEY   "rgba-order"
@@ -91,10 +94,11 @@ struct GnomeXSettingsManagerPrivate
 {
         XSettingsManager **managers;
         GHashTable        *settings;
-        guint              gtk_modules_notify;
 
-        GSettings         *font_settings;
+        GSettings         *plugin_settings;
         fontconfig_monitor_handle_t *fontconfig_handle;
+
+        GsdXSettingsGtk   *gtk;
 };
 
 #define GSD_XSETTINGS_ERROR gsd_xsettings_error_quark ()
@@ -261,7 +265,7 @@ get_dpi_from_gsettings_or_x_server (GnomeXSettingsManager *manager)
 {
         double      dpi;
 
-        dpi = g_settings_get_double (manager->priv->font_settings, FONT_DPI_KEY);
+        dpi = g_settings_get_double (manager->priv->plugin_settings, FONT_DPI_KEY);
         if (dpi == 0.0)
                 dpi = get_dpi_from_x_server ();
 
@@ -289,9 +293,9 @@ xft_settings_get (GnomeXSettingsManager *manager,
         gboolean use_rgba = FALSE;
 
 
-        antialiasing = g_settings_get_enum (manager->priv->font_settings, FONT_ANTIALIASING_KEY);
-        hinting = g_settings_get_enum (manager->priv->font_settings, FONT_HINTING_KEY);
-        rgba_order = g_settings_get_enum (manager->priv->font_settings, FONT_RGBA_ORDER_KEY);
+        antialiasing = g_settings_get_enum (manager->priv->plugin_settings, FONT_ANTIALIASING_KEY);
+        hinting = g_settings_get_enum (manager->priv->plugin_settings, FONT_HINTING_KEY);
+        rgba_order = g_settings_get_enum (manager->priv->plugin_settings, FONT_RGBA_ORDER_KEY);
         dpi = get_dpi_from_gsettings_or_x_server (manager);
 
         settings->antialias = (antialiasing != GSD_FONT_ANTIALIASING_MODE_NONE);
@@ -454,6 +458,45 @@ xft_callback (GSettings             *settings,
 }
 
 static void
+plugin_callback (GSettings             *settings,
+                 const char            *key,
+                 GnomeXSettingsManager *manager)
+{
+        if (g_str_equal (key, GTK_MODULES_DISABLED_KEY) ||
+            g_str_equal (key, GTK_MODULES_ENABLED_KEY)) {
+                /* Do nothing, as GsdXsettingsGtk will handle it */
+        } else {
+                xft_callback (settings, key, manager);
+        }
+}
+
+static void
+gtk_modules_callback (GsdXSettingsGtk       *gtk,
+                      GParamSpec            *spec,
+                      GnomeXSettingsManager *manager)
+{
+        const char *modules = gsd_xsettings_get_modules (manager->priv->gtk);
+        int i;
+
+        if (modules == NULL) {
+                for (i = 0; manager->priv->managers [i]; ++i) {
+                        xsettings_manager_delete_setting (manager->priv->managers [i], "Gtk/Modules");
+                }
+        } else {
+                g_debug ("Setting GTK modules '%s'", modules);
+                for (i = 0; manager->priv->managers [i]; ++i) {
+                        xsettings_manager_set_string (manager->priv->managers [i],
+                                                      "Gtk/Modules",
+                                                      modules);
+                }
+        }
+
+        for (i = 0; manager->priv->managers [i]; ++i) {
+                xsettings_manager_notify (manager->priv->managers [i]);
+        }
+}
+
+static void
 fontconfig_callback (fontconfig_monitor_handle_t *handle,
                      GnomeXSettingsManager       *manager)
 {
@@ -499,32 +542,6 @@ stop_fontconfig_monitor (GnomeXSettingsManager  *manager)
         if (manager->priv->fontconfig_handle) {
                 fontconfig_monitor_stop (manager->priv->fontconfig_handle);
                 manager->priv->fontconfig_handle = NULL;
-        }
-}
-
-static const char *
-type_to_string (GConfValueType type)
-{
-        switch (type) {
-        case GCONF_VALUE_INT:
-                return "int";
-        case GCONF_VALUE_STRING:
-                return "string";
-        case GCONF_VALUE_FLOAT:
-                return "float";
-        case GCONF_VALUE_BOOL:
-                return "bool";
-        case GCONF_VALUE_SCHEMA:
-                return "schema";
-        case GCONF_VALUE_LIST:
-                return "list";
-        case GCONF_VALUE_PAIR:
-                return "pair";
-        case GCONF_VALUE_INVALID:
-                return "*invalid*";
-        default:
-                g_assert_not_reached();
-                return NULL; /* for warnings */
         }
 }
 
@@ -588,92 +605,6 @@ xsettings_callback (GSettings             *settings,
         }
 }
 
-static gchar *
-get_gtk_modules (GConfClient *client)
-{
-        GSList *entries, *l;
-        GString *mods = g_string_new (NULL);
-
-        entries = gconf_client_all_entries (client, GTK_MODULES_DIR, NULL);
-
-        for (l = entries; l != NULL; l = g_slist_next (l)) {
-                GConfEntry *e = l->data;
-                GConfValue *v = gconf_entry_get_value (e);
-
-                if (v != NULL) {
-                        gboolean enabled = FALSE;
-                        const gchar *key;
-
-                        switch (v->type) {
-                        case GCONF_VALUE_BOOL:
-                                /* simple enabled/disabled */
-                                enabled = gconf_value_get_bool (v);
-                                break;
-
-                        /* due to limitations in GConf (or the client libraries,
-                         * anyway), it is currently impossible to monitor
-                         * arbitrary keys for changes, so these won't update at
-                         * runtime */
-                        case GCONF_VALUE_STRING:
-                                /* linked to another GConf key of type bool */
-                                key = gconf_value_get_string (v);
-                                if (key != NULL && gconf_valid_key (key, NULL)) {
-                                        enabled = gconf_client_get_bool (client, key, NULL);
-                                }
-                                break;
-
-                        default:
-                                g_warning ("GConf entry %s has invalid type %s",
-                                           gconf_entry_get_key (e), type_to_string (v->type));
-                        }
-
-                        if (enabled) {
-                                const gchar *name;
-                                name = strrchr (gconf_entry_get_key (e), '/') + 1;
-
-                                if (mods->len > 0) {
-                                        g_string_append_c (mods, ':');
-                                }
-                                g_string_append (mods, name);
-                        }
-                }
-
-                gconf_entry_free (e);
-        }
-
-        g_slist_free (entries);
-
-        return g_string_free (mods, mods->len == 0);
-}
-
-static void
-gtk_modules_callback (GConfClient           *client,
-                      guint                  cnxn_id,
-                      GConfEntry            *entry,
-                      GnomeXSettingsManager *manager)
-{
-        gchar *modules = get_gtk_modules (client);
-        int i;
-
-        if (modules == NULL) {
-                for (i = 0; manager->priv->managers [i]; ++i) {
-                        xsettings_manager_delete_setting (manager->priv->managers [i], "Gtk/Modules");
-                }
-        } else {
-                g_debug ("Setting GTK modules '%s'", modules);
-                for (i = 0; manager->priv->managers [i]; ++i) {
-                        xsettings_manager_set_string (manager->priv->managers [i],
-                                                      "Gtk/Modules",
-                                                      modules);
-                }
-                g_free (modules);
-        }
-
-        for (i = 0; manager->priv->managers [i]; ++i) {
-                xsettings_manager_notify (manager->priv->managers [i]);
-        }
-}
-
 static void
 terminate_cb (void *data)
 {
@@ -732,7 +663,6 @@ gboolean
 gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                GError               **error)
 {
-        GConfClient *client;
         guint        i;
         GList       *list, *l;
 
@@ -779,20 +709,16 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         }
         g_list_free (list);
 
-        /* Set up the GTK modules */
-        client = gconf_client_get_default ();
-        gconf_client_add_dir (client, GTK_MODULES_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-        manager->priv->gtk_modules_notify = gconf_client_notify_add (client, GTK_MODULES_DIR,
-                                                                     (GConfClientNotifyFunc) gtk_modules_callback,
-                                                                     manager, NULL, NULL);
+        /* Plugin settings (GTK modules and Xft) */
+        manager->priv->plugin_settings = g_settings_new (XSETTINGS_PLUGIN_SCHEMA);
+        g_signal_connect (manager->priv->plugin_settings, "changed",
+                          G_CALLBACK (plugin_callback), manager);
 
-        gtk_modules_callback (client, 0, NULL, manager);
+        manager->priv->gtk = gsd_xsettings_gtk_new ();
+        g_signal_connect (G_OBJECT (manager->priv->gtk), "notify::gtk-modules",
+                          G_CALLBACK (gtk_modules_callback), manager);
 
-        g_object_unref (client);
-
-        manager->priv->font_settings = g_settings_new (FONT_RENDER_DIR);
-        g_signal_connect (manager->priv->font_settings, "changed",
-                          G_CALLBACK (xft_callback), manager);
+        /* Xft settings */
         update_xft_settings (manager);
 
         start_fontconfig_monitor (manager);
@@ -816,7 +742,6 @@ void
 gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
 {
         GnomeXSettingsManagerPrivate *p = manager->priv;
-        GConfClient *client;
         int i;
 
         g_debug ("Stopping xsettings manager");
@@ -829,17 +754,14 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
                 p->managers = NULL;
         }
 
-        g_object_unref (manager->priv->font_settings);
+        g_object_unref (manager->priv->plugin_settings);
         stop_fontconfig_monitor (manager);
-
-        /* Stopping GTK+ modules */
-        client = gconf_client_get_default ();
-        gconf_client_remove_dir (client, GTK_MODULES_DIR, NULL);
-        gconf_client_notify_remove (client, p->gtk_modules_notify);
-        p->gtk_modules_notify = 0;
 
         g_hash_table_destroy (p->settings);
         p->settings = NULL;
+
+        g_object_unref (p->gtk);
+        p->gtk = NULL;
 }
 
 static void

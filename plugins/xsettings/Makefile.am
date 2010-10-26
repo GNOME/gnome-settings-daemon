@@ -1,5 +1,26 @@
 NULL =
 
+noinst_PROGRAMS = test-gtk-modules
+
+test_gtk_modules_SOURCES =	\
+	gsd-xsettings-gtk.c	\
+	gsd-xsettings-gtk.h	\
+	test-gtk-modules.c
+
+test_gtk_modules_CFLAGS =		\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
+test_gtk_modules_LDADD =		\
+	$(SETTINGS_PLUGIN_LIBS)
+
+test_gtk_modules_CPPFLAGS =				\
+	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/data/				\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\" \
+	$(AM_CPPFLAGS)
+
 plugin_LTLIBRARIES = \
 	libxsettings.la		\
 	$(NULL)
@@ -21,6 +42,7 @@ libxsettings_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/data/				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\" \
 	$(AM_CPPFLAGS)
 
 libxsettings_la_CFLAGS = \
