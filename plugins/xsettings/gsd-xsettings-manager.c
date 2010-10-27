@@ -473,7 +473,7 @@ gtk_modules_callback (GsdXSettingsGtk       *gtk,
                       GParamSpec            *spec,
                       GnomeXSettingsManager *manager)
 {
-        const char *modules = gsd_xsettings_get_modules (manager->priv->gtk);
+        const char *modules = gsd_xsettings_gtk_get_modules (manager->priv->gtk);
         int i;
 
         if (modules == NULL) {

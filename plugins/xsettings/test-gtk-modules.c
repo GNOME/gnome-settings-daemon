@@ -9,7 +9,7 @@ gtk_modules_callback (GsdXSettingsGtk       *gtk,
 {
 	const char *modules;
 
-	modules = gsd_xsettings_get_modules (gtk);
+	modules = gsd_xsettings_gtk_get_modules (gtk);
 	g_message ("GTK+ modules list changed to: %s", modules ? modules : "(empty)");
 }
 

@@ -51,7 +51,7 @@ GType   gsd_xsettings_gtk_get_type            (void) G_GNUC_CONST;
 
 GsdXSettingsGtk *gsd_xsettings_gtk_new        (void);
 
-const char * gsd_xsettings_get_modules (GsdXSettingsGtk *gtk);
+const char * gsd_xsettings_gtk_get_modules (GsdXSettingsGtk *gtk);
 
 G_END_DECLS
 

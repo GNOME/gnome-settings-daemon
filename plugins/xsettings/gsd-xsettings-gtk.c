@@ -368,7 +368,7 @@ gsd_xsettings_gtk_new (void)
 }
 
 const char *
-gsd_xsettings_get_modules (GsdXSettingsGtk *gtk)
+gsd_xsettings_gtk_get_modules (GsdXSettingsGtk *gtk)
 {
         return gtk->priv->modules;
 }
