@@ -8,6 +8,7 @@ libmouse_la_SOURCES = 		\
 
 libmouse_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/plugins/common/			\
 	-I$(top_srcdir)/data/				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" \
@@ -20,9 +21,10 @@ libmouse_la_CFLAGS = \
 libmouse_la_LDFLAGS = 		\
 	$(GSD_PLUGIN_LDFLAGS)
 
-libmouse_la_LIBADD  = 		\
-	$(SETTINGS_PLUGIN_LIBS)	\
-	$(X11_LIBS)		\
+libmouse_la_LIBADD  =							\
+	$(top_builddir)/plugins/common/libcommon.la			\
+	$(SETTINGS_PLUGIN_LIBS)						\
+	$(X11_LIBS)							\
 	$(XINPUT_LIBS)
 
 plugin_in_files = mouse.gnome-settings-plugin.in
