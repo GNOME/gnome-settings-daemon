@@ -30,6 +30,8 @@ libxsettings_la_SOURCES = 	\
 	gsd-xsettings-plugin.c	\
 	gsd-xsettings-manager.h	\
 	gsd-xsettings-manager.c	\
+	gsd-xsettings-gtk.c	\
+	gsd-xsettings-gtk.h	\
 	xsettings-common.h	\
 	xsettings-common.c	\
 	xsettings-manager.h	\
