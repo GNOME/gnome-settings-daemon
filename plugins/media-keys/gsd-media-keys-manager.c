@@ -49,6 +49,7 @@
 #include "eggaccelerators.h"
 #include "acme.h"
 #include "gsd-media-keys-window.h"
+#include "gsd-input-helper.h"
 
 #ifdef HAVE_PULSE
 #include <canberra-gtk.h>
@@ -552,6 +553,13 @@ do_touchpad_action (GsdMediaKeysManager *manager)
 {
         GSettings *settings;
         gboolean state;
+
+        if (touchpad_is_present () == FALSE) {
+                dialog_init (manager);
+                gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                         "touchpad-disabled", FALSE);
+                return;
+        }
 
         settings = g_settings_new ("org.gnome.settings-daemon.peripherals.touchpad");
         state = g_settings_get_boolean (settings, TOUCHPAD_ENABLED_KEY);
