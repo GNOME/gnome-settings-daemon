@@ -477,9 +477,9 @@ do_media_action (GsdMediaKeysManager *manager)
 }
 
 static void
-do_exit_action (GsdMediaKeysManager *manager)
+do_logout_action (GsdMediaKeysManager *manager)
 {
-        execute (manager, "gnome-session-save --shutdown-dialog", FALSE, FALSE);
+        execute (manager, "gnome-session-save --logout", FALSE, FALSE);
 }
 
 static void
@@ -842,8 +842,8 @@ do_action (GsdMediaKeysManager *manager,
                 do_sound_action (manager, type);
 #endif /* HAVE_PULSE */
                 break;
-        case POWER_KEY:
-                do_exit_action (manager);
+        case LOGOUT_KEY:
+                do_logout_action (manager);
                 break;
         case EJECT_KEY:
                 do_eject_action (manager);
