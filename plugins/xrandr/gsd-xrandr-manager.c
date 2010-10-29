@@ -1597,10 +1597,11 @@ apply_intended_configuration (GsdXrandrManager *manager, const char *intended_fi
         gboolean result;
 
         my_error = NULL;
-        result = apply_configuration_from_filename (manager, intended_filename, FALSE, timestamp, &my_error);
+        result = apply_configuration_from_filename (manager, intended_filename, TRUE, timestamp, &my_error);
         if (!result) {
                 if (my_error) {
-                        if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+                        if (!g_error_matches (my_error, G_FILE_ERROR, G_FILE_ERROR_NOENT) &&
+                            !g_error_matches (my_error, GNOME_RR_ERROR, GNOME_RR_ERROR_NO_MATCHING_CONFIG))
                                 error_message (manager, _("Could not apply the stored configuration for monitors"), my_error, NULL);
 
                         g_error_free (my_error);
