@@ -27,6 +27,8 @@
 
 enum {
         TOUCHPAD_KEY,
+        TOUCHPAD_ON_KEY,
+        TOUCHPAD_OFF_KEY,
         MUTE_KEY,
         VOLUME_DOWN_KEY,
         VOLUME_UP_KEY,
@@ -65,6 +67,8 @@ static struct {
         Key *key;
 } keys[HANDLED_KEYS] = {
         { TOUCHPAD_KEY, "touchpad", NULL, NULL },
+	{ TOUCHPAD_ON_KEY, NULL, "XF86TouchpadOn", NULL },
+	{ TOUCHPAD_OFF_KEY, NULL, "XF86TouchpadOff", NULL },
         { MUTE_KEY, "volume-mute",NULL, NULL },
         { VOLUME_DOWN_KEY, "volume-down", NULL, NULL },
         { VOLUME_UP_KEY, "volume-up", NULL, NULL },

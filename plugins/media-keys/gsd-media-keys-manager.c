@@ -592,6 +592,16 @@ do_touchpad_action (GsdMediaKeysManager *manager)
         g_object_unref (settings);
 }
 
+static void
+do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
+{
+        dialog_init (manager);
+        gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                 state ? "touchpad-enabled" : "touchpad-disabled",
+                                                 FALSE);
+        dialog_show (manager);
+}
+
 #ifdef HAVE_PULSE
 static void
 update_dialog (GsdMediaKeysManager *manager,
@@ -1070,6 +1080,12 @@ do_action (GsdMediaKeysManager *manager,
         case TOUCHPAD_KEY:
                 do_touchpad_action (manager);
                 break;
+	case TOUCHPAD_ON_KEY:
+		do_touchpad_osd_action (manager, TRUE);
+		break;
+	case TOUCHPAD_OFF_KEY:
+		do_touchpad_osd_action (manager, FALSE);
+		break;
         case MUTE_KEY:
         case VOLUME_DOWN_KEY:
         case VOLUME_UP_KEY:
