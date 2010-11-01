@@ -51,27 +51,28 @@ enum {
 static struct {
         int key_type;
         const char *settings_key;
+        const char *hard_coded;
         Key *key;
 } keys[HANDLED_KEYS] = {
-        { TOUCHPAD_KEY, "touchpad", NULL },
-        { MUTE_KEY, "volume-mute",NULL },
-        { VOLUME_DOWN_KEY, "volume-down", NULL },
-        { VOLUME_UP_KEY, "volume-up", NULL },
-        { LOGOUT_KEY, "logout", NULL },
-        { EJECT_KEY, "eject", NULL },
-        { HOME_KEY, "home", NULL },
-        { MEDIA_KEY, "media", NULL },
-        { CALCULATOR_KEY, "calculator", NULL },
-        { SEARCH_KEY, "search", NULL },
-        { EMAIL_KEY, "email", NULL },
-        { SCREENSAVER_KEY, "screensaver", NULL },
-        { HELP_KEY, "help", NULL },
-        { WWW_KEY, "www", NULL },
-        { PLAY_KEY, "play", NULL },
-        { PAUSE_KEY, "pause", NULL },
-        { STOP_KEY, "stop", NULL },
-        { PREVIOUS_KEY, "previous", NULL },
-        { NEXT_KEY, "next", NULL },
+        { TOUCHPAD_KEY, "touchpad", NULL, NULL },
+        { MUTE_KEY, "volume-mute",NULL, NULL },
+        { VOLUME_DOWN_KEY, "volume-down", NULL, NULL },
+        { VOLUME_UP_KEY, "volume-up", NULL, NULL },
+        { LOGOUT_KEY, "logout", NULL, NULL },
+        { EJECT_KEY, "eject", NULL, NULL },
+        { HOME_KEY, "home", NULL, NULL },
+        { MEDIA_KEY, "media", NULL, NULL },
+        { CALCULATOR_KEY, "calculator", NULL, NULL },
+        { SEARCH_KEY, "search", NULL, NULL },
+        { EMAIL_KEY, "email", NULL, NULL },
+        { SCREENSAVER_KEY, "screensaver", NULL, NULL },
+        { HELP_KEY, "help", NULL, NULL },
+        { WWW_KEY, "www", NULL, NULL },
+        { PLAY_KEY, "play", NULL, NULL },
+        { PAUSE_KEY, "pause", NULL, NULL },
+        { STOP_KEY, "stop", NULL, NULL },
+        { PREVIOUS_KEY, "previous", NULL, NULL },
+        { NEXT_KEY, "next", NULL, NULL },
 };
 
 #endif /* __ACME_H__ */
