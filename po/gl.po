@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-26 15:56+0200\n"
-"PO-Revision-Date: 2010-10-26 16:23+0200\n"
+"POT-Creation-Date: 2010-11-03 10:31+0100\n"
+"PO-Revision-Date: 2010-11-03 10:36+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "Language: gl\n"
@@ -134,7 +134,7 @@ msgstr "Acción ao extraer a tarxeta intelixente"
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Activation of this plugin"
 msgstr "Activación de este engadido"
 
@@ -143,7 +143,7 @@ msgstr "Activación de este engadido"
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "Priority to use for this plugin"
 msgstr "Prioridade de uso para este engadido"
 
@@ -151,7 +151,7 @@ msgstr "Prioridade de uso para este engadido"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr ""
 "Prioridade que usar para este engadido na cola de inicio de gnome-settings-"
@@ -161,7 +161,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:10
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 msgstr "Indica se gnome-settings-daemon activará este complemento ou non"
 
@@ -426,7 +426,7 @@ msgstr "Subir o volume"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 msgid "File for default configuration for RandR"
-msgstr "Ficheiro de configuración predefinido para RandR"
+msgstr "Ficheiro de configuración predeterminado para RandR"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 msgid ""
@@ -436,7 +436,7 @@ msgid ""
 "such a file, or has one that does not match the user's setup of monitors, "
 "then the file specified by this key will be used instead."
 msgstr ""
-"O engadido XRANDR buscará pola configuración predefinida no ficheiro "
+"O engadido XRANDR buscará pola configuración predeterminada no ficheiro "
 "especificado por esta chave. É similar ao ~/.config/monitors.xml que "
 "normalmente se almacena no cartafol persoal dos usuarios. Se un usuario non "
 "ten dito ficheiro ou non ten unha configuración de usuario dos monitores, "
@@ -466,23 +466,47 @@ msgstr ""
 "Acender o monitor do portátil despois de arrancar o sistema se o usuario "
 "conecta o monitor externo cando o sistema arranca."
 
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
+msgstr ""
+"Unha lista de cadeas que representan os módulos de GTK+ que se cargarán, "
+"xeralmente ademais dos condicionais e os desactivados á forza."
+
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
+msgstr ""
+"Unha lista de cadeas que representan os módulos GTK+ que non se cargarán, "
+"incluso se están desactivados na súa configuración predeterminada."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
 msgstr "Suavizado"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "DPI"
 msgstr "PPP"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "Hinting"
 msgstr "Optimización"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "Lista de módulos GTK+ desactivados explicitamente"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "Lista de módulos GTK+ activados explicitamente"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "RGBA order"
 msgstr "Orde RGBA"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -494,7 +518,7 @@ msgstr ""
 "vermello na esquerda (o máis común), \"bgr\" para o azul na esquerda, \"vrgb"
 "\" para o vermello arriba, \"vbgr\" para o vermello abaixo."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The resolution used for converting font sizes to pixel sizes, in dots per "
 "inch. 0.0 DPI means that the X server's DPI will be used."
@@ -502,7 +526,7 @@ msgstr ""
 "A resolución que se usa para converter os tamaños dos tipos de letra en "
 "puntos por polgada. 0.0 DPI significa que se usará o DPI do servidor X."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -513,7 +537,7 @@ msgstr ""
 "suavizado estándar de escala de grises e \"rgba\" para o suavizado de "
 "subpíxeles (só para pantallas LCD)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:15
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -561,9 +585,9 @@ msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
-"Acaba de manter pulsada a tecla Maiús durante 8 segundos. Este é o atallo de "
-"teclado para a opción Teclas lentas que afecta á forma en que funciona o seu "
-"teclado."
+"Acaba de manter pulsada a tecla Maiús durante 8 segundos.  Este é o atallo "
+"de teclado para a opción Teclas lentas que afecta á forma en que funciona o "
+"seu teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
@@ -625,7 +649,7 @@ msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
-"Acaba de premer a tecla Maiús 5 veces seguidas. Este é o atallo de teclado "
+"Acaba de premer a tecla Maiús 5 veces seguidas.  Este é o atallo de teclado "
 "para a opción Teclas persistentes que afecta á forma en que funciona o seu "
 "teclado."
 
@@ -637,7 +661,7 @@ msgid ""
 "keyboard works."
 msgstr ""
 "Acaba de premer dúas teclas ao mesmo tempo ou premeu a tecla Maiús cinco "
-"veces seguidas. Isto desactivará a opción Teclas persistentes que afecta á "
+"veces seguidas.  Isto desactivará a opción Teclas persistentes que afecta á "
 "forma en que funciona o seu teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
@@ -881,15 +905,15 @@ msgstr "Preferencias do _teclado"
 msgid "Show _Current Layout"
 msgstr "Mostrar a _disposición actual"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:194
+#: ../plugins/media-keys/gsd-media-keys-manager.c:195
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
 msgstr ""
-"Non foi posíbel obter a terminal predefinida. Verifique que a orde da súa "
-"terminal predefinida está definida e que apunta a un aplicativo válido."
+"Non foi posíbel obter a terminal predeterminada. Verifique que a orde da súa "
+"terminal predeterminada está definida e que apunta a un aplicativo válido."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:234
+#: ../plugins/media-keys/gsd-media-keys-manager.c:235
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -934,17 +958,17 @@ msgstr "Teclas multimedia"
 msgid "Media keys plugin"
 msgstr "Engadido das teclas multimedia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:863
+#: ../plugins/mouse/gsd-mouse-manager.c:807
 msgid "Could not enable mouse accessibility features"
 msgstr "Non foi posíbel activar as opcións de accesibilidade do rato"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:865
+#: ../plugins/mouse/gsd-mouse-manager.c:809
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "A accesibilidade de rato require ter instalado mousetweaks no seu sistema."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:867
+#: ../plugins/mouse/gsd-mouse-manager.c:811
 msgid "Universal Access"
 msgstr "Acceso universal"
 
@@ -1011,7 +1035,7 @@ msgstr "Non foi posíbel actualizar a información de pantalla: %s"
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Tentando mudar a configuración da pantalla de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1604
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1605
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Non foi posíbel aplicarlle a configuración almacenada aos monitores"
 
@@ -1128,361 +1152,3 @@ msgstr "Requírense privilexios para cambiar o hora do sistema."
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
 msgid "Privileges are required to configure the hardware clock."
 msgstr "Requírense privilexios para cambiar o reloxo do sistema."
-
-#~ msgid "Volume step"
-#~ msgstr "Paso de volume"
-
-#~ msgid "Volume step as percentage of volume."
-#~ msgstr "Paso de volume como porcentaxe de volume."
-
-#~ msgid "Show Displays in Notification Area"
-#~ msgstr "Mostrar as pantallas na área de notificación"
-
-#~ msgid ""
-#~ "Whether a notification icon with display-related things should be shown "
-#~ "in the panel."
-#~ msgstr ""
-#~ "Indica se se debería mostrar no panel unha icona de notificación con "
-#~ "elementos relacionados coa pantalla."
-
-#~ msgid "Binding to toggle the magnifier."
-#~ msgstr "Combinación para alternar a lupa."
-
-#~ msgid "Binding to toggle the on-screen keyboard."
-#~ msgstr "Combinación para alternar o teclado en pantalla."
-
-#~ msgid "Binding to toggle the screen reader."
-#~ msgstr "Combinación para alternar o lector de pantalla."
-
-#~ msgid "Bounce keys"
-#~ msgstr "Teclas de rebote"
-
-#~ msgid "Command used to turn the magnifier on or off."
-#~ msgstr "Orde usada para activar ou desactivar a lupa."
-
-#~ msgid "Command used to turn the on-screen keyboard on or off."
-#~ msgstr "Orde usada para activar ou desactivar o teclado en pantalla."
-
-#~ msgid "Command used to turn the screen reader on or off."
-#~ msgstr "Orde usada para activar ou desactivar o lector de pantalla."
-
-#~ msgid "Enable XRandR plugin"
-#~ msgstr "Activar o engadido de XRandR"
-
-#~ msgid "Enable accessibility keyboard plugin"
-#~ msgstr "Activar o engadido de accesibilidade do teclado"
-
-#~ msgid "Enable background plugin"
-#~ msgstr "Activar o engadido do fondo"
-
-#~ msgid "Enable clipboard plugin"
-#~ msgstr "Activar o engadido do portapapeis"
-
-#~ msgid "Enable font plugin"
-#~ msgstr "Activar o engadido do tipo de letra"
-
-#~ msgid "Enable housekeeping plugin"
-#~ msgstr "Activar o engadido de limpeza Housekeeping"
-
-#~ msgid "Enable keybindings plugin"
-#~ msgstr "Activar o engadido das combinacións de teclas"
-
-#~ msgid "Enable keyboard plugin"
-#~ msgstr "Activar o engadido do teclado"
-
-#~ msgid "Enable media keys plugin"
-#~ msgstr "Activar o engadido das teclas multimedia"
-
-#~ msgid "Enable mouse plugin"
-#~ msgstr "Activar o engadido do rato"
-
-#~ msgid "Enable smartcard plugin"
-#~ msgstr "Activar o engadido de tarxeta intelixente"
-
-#~ msgid "Enable sound plugin"
-#~ msgstr "Activar o engadido do son"
-
-#~ msgid "Enable typing breaks plugin"
-#~ msgstr "Activar o engadido de descanso de escritura"
-
-#~ msgid "Enable xrdb plugin"
-#~ msgstr "Activar o engadido xrdb"
-
-#~ msgid "Enable xsettings plugin"
-#~ msgstr "Activar o engadido xsettings"
-
-#~ msgid "Mouse keys"
-#~ msgstr "Teclas do rato"
-
-#~ msgid "On-screen keyboard"
-#~ msgstr "Teclado en pantalla"
-
-#~ msgid "Screen magnifier"
-#~ msgstr "Lupa de pantalla"
-
-#~ msgid "Screen reader"
-#~ msgstr "Lector de pantalla"
-
-#~ msgid ""
-#~ "Set to True to enable the housekeeping plugin, to prune transient file "
-#~ "caches."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido de limpeza, para limpar a caché "
-#~ "dos ficheiros temporais."
-
-#~ msgid "Set to True to enable the plugin to manage XRandR settings."
-#~ msgstr ""
-#~ "Definir como verdadeira para activar o engadido para xestionar as "
-#~ "configuracións XRandR."
-
-#~ msgid "Set to True to enable the plugin to manage clipboard settings."
-#~ msgstr ""
-#~ "Definir como true para activar o engadido para xestionar as "
-#~ "configuracións do portapapeis."
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage desktop background settings."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido para xestionar as "
-#~ "configuracións do fondo de escritorio."
-
-#~ msgid "Set to True to enable the plugin to manage font settings."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido para xestionar as "
-#~ "configuracións dos tipos de letra."
-
-#~ msgid "Set to True to enable the plugin to manage keyboard settings."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido para xestionar as "
-#~ "configuracións do teclado."
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage locking the screen on "
-#~ "smartcard removal."
-#~ msgstr ""
-#~ "Definir como verdadeiro para activar o engadido para xestionar o bloqueo "
-#~ "da pantalla ao extraer a tarxeta intelixente."
-
-#~ msgid "Set to True to enable the plugin to manage mouse settings."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido para xestionar as "
-#~ "configuracións do rato."
-
-#~ msgid "Set to True to enable the plugin to manage multimedia keys settings."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido para xestionar as "
-#~ "configuracións das chaves multimedia."
-
-#~ msgid "Set to True to enable the plugin to manage sound sample caches."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido para xestionar as cachés de "
-#~ "mostras de son."
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage the accessibility keyboard "
-#~ "settings."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido para xestionar as "
-#~ "configuracións de accesibilidade do teclado."
-
-#~ msgid "Set to True to enable the plugin to manage the keybindings."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido para xestionar as "
-#~ "configuracións das combinacións de teclas."
-
-#~ msgid "Set to True to enable the plugin to manage typing breaks."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido para xestionar as "
-#~ "configuracións dos descansos de escritura."
-
-#~ msgid "Set to True to enable the plugin to manage xrdb settings."
-#~ msgstr ""
-#~ "Definir como True para activar o engadido para xestionar as "
-#~ "configuracións xrdb."
-
-#~ msgid "Set to True to enable the plugin to manage xsettings."
-#~ msgstr "Definir como True para activar o engadido para xestionar xsettings."
-
-#~ msgid "Slow keys"
-#~ msgstr "Teclas lentas"
-
-#~ msgid "Sticky keys"
-#~ msgstr "Teclas persistentes"
-
-#~ msgid "The name of the keyboard shortcut to toggle the magnifier"
-#~ msgstr "O nome do atallo de teclado para alternar a lupa"
-
-#~ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
-#~ msgstr "O nome do atallo de teclado para alternar o teclado en pantalla"
-
-#~ msgid "The name of the keyboard shortcut to toggle the screen reader"
-#~ msgstr "O nome do atallo de teclado para alternar o lector de pantalla"
-
-#~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the magnifier. This "
-#~ "name will be shown in the keyboard shortcut preferences dialog."
-#~ msgstr ""
-#~ "Este é nome do atallo de teclado para alternar a lupa. Este nome "
-#~ "mostrarase no diálogo de preferencias de atallos de teclado."
-
-#~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the on-screen "
-#~ "keyboard. This name will be shown in the keyboard shortcut preferences "
-#~ "dialog."
-#~ msgstr ""
-#~ "Este é nome do atallo de teclado para alternar o teclado en pantalla. "
-#~ "Este nome mostrarase no diálogo de preferencias de atallos de teclado."
-
-#~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the screen reader. "
-#~ "This name will be shown in the keyboard shortcut preferences dialog."
-#~ msgstr ""
-#~ "Este é o nome do atallo de teclado para alternar o lector de pantalla. "
-#~ "Este nome mostrarase no diálogo de preferencias de atallos de teclado."
-
-#~ msgid "Toggle magnifier"
-#~ msgstr "Alternar a lupa"
-
-#~ msgid "Toggle on-screen keyboard"
-#~ msgstr "Alternar o teclado en pantalla"
-
-#~ msgid "Toggle screen reader"
-#~ msgstr "Alternar o lector de pantalla"
-
-#~ msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-#~ msgstr ""
-#~ "Indica se está activada a función de accesibilidade do teclado de teclas "
-#~ "de rebote."
-
-#~ msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-#~ msgstr ""
-#~ "Indica se está activada a función de accesibilidade do teclado de teclas "
-#~ "de rato."
-
-#~ msgid "Whether the on-screen keyboard is turned on."
-#~ msgstr "Indica se está activado o teclado en pantalla."
-
-#~ msgid "Whether the screen magnifier is turned on."
-#~ msgstr "Indica se está activada a lupa da pantalla."
-
-#~ msgid "Whether the screen reader is turned on."
-#~ msgstr "Indica se está activado o lector de pantalla."
-
-#~ msgid "Whether the slow keys keyboard accessibility feature is turned on."
-#~ msgstr ""
-#~ "Indica se está activada a función de accesibilidade do teclado de teclas "
-#~ "lentas."
-
-#~ msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-#~ msgstr ""
-#~ "Indica se está activada a función de accesibilidade do teclado de teclas "
-#~ "persistentes."
-
-#~ msgid "Don't become a daemon"
-#~ msgstr "Non converter nun daemon"
-
-#~ msgid "GConf prefix from which to load plugin settings"
-#~ msgstr "Prefixo GConf desde o que cargar as configuracións do engadido"
-
-#~ msgid "Font"
-#~ msgstr "Tipo de letra"
-
-#~ msgid "Font plugin"
-#~ msgstr "Engadido de tipo de letra"
-
-#~ msgid ""
-#~ "Error activating XKB configuration.\n"
-#~ "It can happen under various circumstances:\n"
-#~ " • a bug in libxklavier library\n"
-#~ " • a bug in X server (xkbcomp, xmodmap utilities)\n"
-#~ " • X server with incompatible libxkbfile implementation\n"
-#~ "\n"
-#~ "X server version data:\n"
-#~ "%s\n"
-#~ "%d\n"
-#~ "%s\n"
-#~ "If you report this situation as a bug, please include:\n"
-#~ " • The result of <b>%s</b>\n"
-#~ " • The result of <b>%s</b>"
-#~ msgstr ""
-#~ "Produciuse un erro ao activar a configuración.\n"
-#~ "Isto puido acontecer por varios motivos:\n"
-#~ " • un erro na biblioteca libxklavier\n"
-#~ " • un erro no servidor X (xkbcomp, utilidades xmodmap)\n"
-#~ " • servidor X con unha implementación de libxkbfile\n"
-#~ "\n"
-#~ "Datos da versión do servidor X:\n"
-#~ "%s\n"
-#~ "%d\n"
-#~ "%s\n"
-#~ "Se informa esta situación como un erro, inclúa:\n"
-#~ " • O resultado de <b>%s</b>\n"
-#~ " • O resultado de <b>%s</b>"
-
-#~ msgid ""
-#~ "You are using XFree 4.3.0.\n"
-#~ "There are known problems with complex XKB configurations.\n"
-#~ "Try using a simpler configuration or using a later version of the XFree "
-#~ "software."
-#~ msgstr ""
-#~ "Está usando XFree 4.3.0.\n"
-#~ "Hai problemas coñecidos con configuracións de XKB complexas.\n"
-#~ "Tente usar unha configuración máis sinxela ou use unha versión máis "
-#~ "actualizada do software XFree."
-
-# (pofilter) accelerators: accelerator _ is missing from translation
-#~ msgid "A_vailable files:"
-#~ msgstr "Ficheiros dispoñí_beis:"
-
-#~ msgid "Load modmap files"
-#~ msgstr "Cargar os ficheiros modmap"
-
-#~ msgid "Would you like to load the modmap files?"
-#~ msgstr "Quere cargar os ficheiros modmap?"
-
-#~ msgid "_Do not show this message again"
-#~ msgstr "N_on mostrar esta mensaxe outra vez"
-
-#~ msgid "_Load"
-#~ msgstr "_Cargar"
-
-#~ msgid "_Loaded files:"
-#~ msgstr "Ficheiros c_argados:"
-
-#~ msgid "Mouse Preferences"
-#~ msgstr "Preferencias do rato"
-
-#~ msgid "Typing Break"
-#~ msgstr "Descanso de escritura"
-
-#~ msgid "Typing break plugin"
-#~ msgstr "Engadido do descanso de escritura"
-
-#~ msgid "Rotation not supported"
-#~ msgstr "A rotación non está permitida"
-
-#~ msgid "Could not save monitor configuration"
-#~ msgstr "Non foi posíbel gardar a configuración do monitor"
-
-#~ msgid "Normal"
-#~ msgstr "Normal"
-
-#~ msgid "Left"
-#~ msgstr "Esquerda"
-
-#~ msgid "Right"
-#~ msgstr "Dereita"
-
-#~ msgid "Upside Down"
-#~ msgstr "Inverter"
-
-#~ msgid "_Configure Display Settings…"
-#~ msgstr "_Configurar as opcións da pantalla …"
-
-#~ msgid "Configure display settings"
-#~ msgstr "Configurar as características da pantalla"
-
-#~ msgid "GConf key %s set to type %s but its expected type was %s\n"
-#~ msgstr ""
-#~ "A chave GConf %s está definida como de tipo %s, mais o tipo esperado era "
-#~ "%s\n"
