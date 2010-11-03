@@ -701,7 +701,7 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         }
 
         list = g_hash_table_get_values (manager->priv->settings);
-        for (l = list; list != NULL; list = list->next) {
+        for (l = list; l != NULL; l = l->next) {
                 g_signal_connect (G_OBJECT (l->data), "changed",
                                   G_CALLBACK (xsettings_callback), manager);
         }
