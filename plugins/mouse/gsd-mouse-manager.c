@@ -70,6 +70,7 @@
 #define KEY_LOCATE_POINTER               "locate-pointer"
 #define KEY_DWELL_CLICK_ENABLED          "dwell-click-enabled"
 #define KEY_SECONDARY_CLICK_ENABLED      "secondary-click-enabled"
+#define KEY_MIDDLE_BUTTON_EMULATION      "middle-button-enabled"
 
 struct GsdMouseManagerPrivate
 {
@@ -488,6 +489,67 @@ set_motion_threshold (GsdMouseManager *manager,
                                0, 0, motion_threshold);
 }
 
+static void
+set_middle_button (GsdMouseManager *manager,
+                   gboolean         middle_button)
+{
+        XDeviceInfo *device_info;
+        gint n_devices;
+        gint i;
+        Atom prop;
+
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                            "Evdev Middle Button Emulation", True);
+
+        if (!prop) /* no evdev devices */
+                return;
+
+        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
+
+        for (i = 0; i < n_devices; i++) {
+                XDevice *device = NULL;
+                Atom type;
+                int format;
+                unsigned long nitems, bytes_after;
+                unsigned char *data;
+
+                gdk_error_trap_push ();
+
+                device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
+
+                if ((gdk_error_trap_pop () != 0) ||
+                    (device == NULL))
+                        continue;
+
+                gdk_error_trap_push ();
+
+                XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                    device, prop, 0, 1, False, XA_INTEGER, &type, &format,
+                                    &nitems, &bytes_after, &data);
+
+                if ((gdk_error_trap_pop () != 0)) {
+                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+                        continue;
+                }
+
+                if (format == 8 && type == XA_INTEGER && nitems == 1) {
+                        data[0] = middle_button ? 1 : 0;
+
+                        gdk_error_trap_push ();
+                        XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                               device, prop, type, format, PropModeReplace, data, nitems);
+
+                        gdk_error_trap_pop ();
+                }
+
+                XFree (data);
+                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+        }
+
+        if (device_info != NULL)
+                XFreeDeviceList (device_info);
+}
+
 static int
 set_disable_w_typing (GsdMouseManager *manager, gboolean state)
 {
@@ -844,6 +906,7 @@ set_mouse_settings (GsdMouseManager *manager)
 
         set_motion_acceleration (manager, g_settings_get_double (manager->priv->mouse_settings, KEY_MOTION_ACCELERATION));
         set_motion_threshold (manager, g_settings_get_int (manager->priv->mouse_settings, KEY_MOTION_THRESHOLD));
+        set_middle_button (manager, g_settings_get_boolean (manager->priv->mouse_settings, KEY_MIDDLE_BUTTON_EMULATION));
 
         set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
         set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
@@ -872,6 +935,8 @@ mouse_callback (GSettings       *settings,
                 set_motion_acceleration (manager, g_settings_get_double (settings, KEY_MOTION_ACCELERATION));
         } else if (g_str_equal (key, KEY_MOTION_THRESHOLD)) {
                 set_motion_threshold (manager, g_settings_get_int (settings, KEY_MOTION_THRESHOLD));
+        } else if (g_str_equal (key, KEY_MIDDLE_BUTTON_EMULATION)) {
+                set_middle_button (manager, g_settings_get_boolean (settings, KEY_MIDDLE_BUTTON_EMULATION));
         }
 }
 
