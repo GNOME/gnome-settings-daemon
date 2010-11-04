@@ -17,7 +17,7 @@ libxrdb_la_SOURCES = 		\
 
 libxrdb_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DDATADIR=\""$(pkgdatadir)"\"	\
+	-DSYSCONFDIR=\""$(sysconfdir)"\"	\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 

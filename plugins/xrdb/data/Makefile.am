@@ -1,6 +1,6 @@
 NULL =
 
-xrdbdir = $(pkgdatadir)/xrdb
+xrdbdir = $(sysconfdir)/xrdb
 xrdb_DATA =		\
 	General.ad	\
 	Editres.ad	\

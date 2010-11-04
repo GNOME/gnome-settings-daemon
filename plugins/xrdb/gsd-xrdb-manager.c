@@ -42,7 +42,7 @@
 
 #define GSD_XRDB_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRDB_MANAGER, GsdXrdbManagerPrivate))
 
-#define SYSTEM_AD_DIR    DATADIR "/xrdb"
+#define SYSTEM_AD_DIR    SYSCONFDIR "/xrdb"
 #define GENERAL_AD       SYSTEM_AD_DIR "/General.ad"
 #define USER_AD_DIR      ".gnome2/xrdb"
 #define USER_X_RESOURCES ".Xresources"
