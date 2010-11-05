@@ -127,7 +127,7 @@ static void error_message (GsdXrandrManager *mgr, const char *primary_text, GErr
 
 static void get_allowed_rotations_for_output (GnomeRRConfig *config,
                                               GnomeRRScreen *rr_screen,
-                                              GnomeOutputInfo *output,
+                                              GnomeRROutputInfo *output,
                                               int *out_num_rotations,
                                               GnomeRRRotation *out_rotations);
 static void handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp);
@@ -187,27 +187,32 @@ log_msg (const char *format, ...)
 }
 
 static void
-log_output (GnomeOutputInfo *output)
+log_output (GnomeRROutputInfo *output)
 {
-        log_msg ("        %s: ", output->name ? output->name : "unknown");
+        gchar *name = gnome_rr_output_info_get_name (output);
+        gchar *display_name = gnome_rr_output_info_get_display_name (output);
 
-        if (output->connected) {
-                if (output->on) {
+        log_msg ("        %s: ", name ? name : "unknown");
+
+        if (gnome_rr_output_info_get_connected (output)) {
+                if (gnome_rr_output_info_get_active (output)) {
+                        int x, y, width, height;
+                        gnome_rr_output_info_get_geometry (output, &x, &y, &width, &height);
                         log_msg ("%dx%d@%d +%d+%d",
-                                 output->width,
-                                 output->height,
-                                 output->rate,
-                                 output->x,
-                                 output->y);
+                                 width,
+                                 height,
+                                 gnome_rr_output_info_get_refresh_rate (output),
+                                 x,
+                                 y);
                 } else
                         log_msg ("off");
         } else
                 log_msg ("disconnected");
 
-        if (output->display_name)
-                log_msg (" (%s)", output->display_name);
+        if (display_name)
+                log_msg (" (%s)", display_name);
 
-        if (output->primary)
+        if (gnome_rr_output_info_get_primary (output))
                 log_msg (" (primary output)");
 
         log_msg ("\n");
@@ -217,11 +222,12 @@ static void
 log_configuration (GnomeRRConfig *config)
 {
         int i;
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (config);
 
-        log_msg ("        cloned: %s\n", config->clone ? "yes" : "no");
+        log_msg ("        cloned: %s\n", gnome_rr_config_get_clone (config) ? "yes" : "no");
 
-        for (i = 0; config->outputs[i] != NULL; i++)
-                log_output (config->outputs[i]);
+        for (i = 0; outputs[i] != NULL; i++)
+                log_output (outputs[i]);
 
         if (i == 0)
                 log_msg ("        no outputs!\n");
@@ -248,7 +254,7 @@ log_screen (GnomeRRScreen *screen)
         if (!log_file)
                 return;
 
-        config = gnome_rr_config_new_current (screen);
+        config = gnome_rr_config_new_current (screen, NULL);
 
         gnome_rr_screen_get_ranges (screen, &min_w, &max_w, &min_h, &max_h);
         gnome_rr_screen_get_timestamps (screen, &change_timestamp, &config_timestamp);
@@ -261,7 +267,7 @@ log_screen (GnomeRRScreen *screen)
                  config_timestamp);
 
         log_configuration (config);
-        gnome_rr_config_free (config);
+        g_object_unref (config);
 }
 
 static void
@@ -309,21 +315,26 @@ show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
 }
 
 static void
-print_output (GnomeOutputInfo *info)
+print_output (GnomeRROutputInfo *info)
 {
-        g_print ("  Output: %s attached to %s\n", info->display_name, info->name);
-        g_print ("     status: %s\n", info->on ? "on" : "off");
-        g_print ("     width: %d\n", info->width);
-        g_print ("     height: %d\n", info->height);
-        g_print ("     rate: %d\n", info->rate);
-        g_print ("     primary: %s\n", info->primary ? "true" : "false");
-        g_print ("     position: %d %d\n", info->x, info->y);
+        int x, y, width, height;
+
+        g_print ("  Output: %s attached to %s\n", gnome_rr_output_info_get_display_name (info), gnome_rr_output_info_get_name (info));
+        g_print ("     status: %s\n", gnome_rr_output_info_get_active (info) ? "on" : "off");
+
+        gnome_rr_output_info_get_geometry (info, &x, &y, &width, &height);
+        g_print ("     width: %d\n", width);
+        g_print ("     height: %d\n", height);
+        g_print ("     rate: %d\n", gnome_rr_output_info_get_refresh_rate (info));
+        g_print ("     primary: %s\n", gnome_rr_output_info_get_primary (info) ? "true" : "false");
+        g_print ("     position: %d %d\n", x, y);
 }
 
 static void
 print_configuration (GnomeRRConfig *config, const char *header)
 {
         int i;
+        GnomeRROutputInfo **outputs;
 
         g_print ("=== %s Configuration ===\n", header);
         if (!config) {
@@ -331,10 +342,11 @@ print_configuration (GnomeRRConfig *config, const char *header)
                 return;
         }
 
-        g_print ("  Clone: %s\n", config->clone ? "true" : "false");
+        g_print ("  Clone: %s\n", gnome_rr_config_get_clone (config) ? "true" : "false");
 
-        for (i = 0; config->outputs[i] != NULL; ++i)
-                print_output (config->outputs[i]);
+        outputs = gnome_rr_config_get_outputs (config);
+        for (i = 0; outputs[i] != NULL; ++i)
+                print_output (outputs[i]);
 }
 
 /* This function centralizes the use of gnome_rr_config_apply_from_filename_with_time().
@@ -672,11 +684,11 @@ gsd_xrandr_manager_2_rotate (GsdXrandrManager *manager,
 }
 
 static gboolean
-is_laptop (GnomeRRScreen *screen, GnomeOutputInfo *output)
+is_laptop (GnomeRRScreen *screen, GnomeRROutputInfo *output)
 {
         GnomeRROutput *rr_output;
 
-        rr_output = gnome_rr_screen_get_output_by_name (screen, output->name);
+        rr_output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (output));
         return gnome_rr_output_is_laptop (rr_output);
 }
 
@@ -719,9 +731,12 @@ static gboolean
 config_is_all_off (GnomeRRConfig *config)
 {
         int j;
+        GnomeRROutputInfo **outputs;
 
-        for (j = 0; config->outputs[j] != NULL; ++j) {
-                if (config->outputs[j]->on) {
+        outputs = gnome_rr_config_get_outputs (config);
+
+        for (j = 0; outputs[j] != NULL; ++j) {
+                if (gnome_rr_output_info_get_active (outputs[j])) {
                         return FALSE;
                 }
         }
@@ -733,21 +748,23 @@ static GnomeRRConfig *
 make_clone_setup (GnomeRRScreen *screen)
 {
         GnomeRRConfig *result;
+        GnomeRROutputInfo **outputs;
         int width, height;
         int i;
 
         if (!get_clone_size (screen, &width, &height))
                 return NULL;
 
-        result = gnome_rr_config_new_current (screen);
+        result = gnome_rr_config_new_current (screen, NULL);
+        outputs = gnome_rr_config_get_outputs (result);
 
-        for (i = 0; result->outputs[i] != NULL; ++i) {
-                GnomeOutputInfo *info = result->outputs[i];
+        for (i = 0; outputs[i] != NULL; ++i) {
+                GnomeRROutputInfo *info = outputs[i];
 
-                info->on = FALSE;
-                if (info->connected) {
+                gnome_rr_output_info_set_active (info, FALSE);
+                if (gnome_rr_output_info_get_connected (info)) {
                         GnomeRROutput *output =
-                                gnome_rr_screen_get_output_by_name (screen, info->name);
+                                gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (info));
                         GnomeRRMode **modes = gnome_rr_output_list_modes (output);
                         int j;
                         int best_rate = 0;
@@ -767,19 +784,16 @@ make_clone_setup (GnomeRRScreen *screen)
                         }
 
                         if (best_rate > 0) {
-                                info->on = TRUE;
-                                info->width = width;
-                                info->height = height;
-                                info->rate = best_rate;
-                                info->rotation = GNOME_RR_ROTATION_0;
-                                info->x = 0;
-                                info->y = 0;
+                                gnome_rr_output_info_set_active (info, TRUE);
+                                gnome_rr_output_info_set_rotation (info, GNOME_RR_ROTATION_0);
+                                gnome_rr_output_info_set_refresh_rate (info, best_rate);
+                                gnome_rr_output_info_set_geometry (info, 0, 0, width, height);
                         }
                 }
         }
 
         if (config_is_all_off (result)) {
-                gnome_rr_config_free (result);
+                g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
 
@@ -838,20 +852,17 @@ find_best_mode (GnomeRROutput *output)
 
 static gboolean
 turn_on (GnomeRRScreen *screen,
-         GnomeOutputInfo *info,
+         GnomeRROutputInfo *info,
          int x, int y)
 {
-        GnomeRROutput *output = gnome_rr_screen_get_output_by_name (screen, info->name);
+        GnomeRROutput *output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (info));
         GnomeRRMode *mode = find_best_mode (output);
 
         if (mode) {
-                info->on = TRUE;
-                info->x = x;
-                info->y = y;
-                info->width = gnome_rr_mode_get_width (mode);
-                info->height = gnome_rr_mode_get_height (mode);
-                info->rotation = GNOME_RR_ROTATION_0;
-                info->rate = gnome_rr_mode_get_freq (mode);
+                gnome_rr_output_info_set_active (info, TRUE);
+                gnome_rr_output_info_set_geometry (info, x, y, gnome_rr_mode_get_width (mode), gnome_rr_mode_get_height (mode));
+                gnome_rr_output_info_set_rotation (info, GNOME_RR_ROTATION_0);
+                gnome_rr_output_info_set_refresh_rate (info, gnome_rr_mode_get_freq (mode));
 
                 return TRUE;
         }
@@ -863,26 +874,27 @@ static GnomeRRConfig *
 make_laptop_setup (GnomeRRScreen *screen)
 {
         /* Turn on the laptop, disable everything else */
-        GnomeRRConfig *result = gnome_rr_config_new_current (screen);
+        GnomeRRConfig *result = gnome_rr_config_new_current (screen, NULL);
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
         int i;
 
-        for (i = 0; result->outputs[i] != NULL; ++i) {
-                GnomeOutputInfo *info = result->outputs[i];
+        for (i = 0; outputs[i] != NULL; ++i) {
+                GnomeRROutputInfo *info = outputs[i];
 
                 if (is_laptop (screen, info)) {
                         if (!turn_on (screen, info, 0, 0)) {
-                                gnome_rr_config_free (result);
+                                g_object_unref (G_OBJECT (result));
                                 result = NULL;
                                 break;
                         }
                 }
                 else {
-                        info->on = FALSE;
+                        gnome_rr_output_info_set_active (info, FALSE);
                 }
         }
 
         if (config_is_all_off (result)) {
-                gnome_rr_config_free (result);
+                g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
 
@@ -896,10 +908,13 @@ make_laptop_setup (GnomeRRScreen *screen)
 }
 
 static int
-turn_on_and_get_rightmost_offset (GnomeRRScreen *screen, GnomeOutputInfo *info, int x)
+turn_on_and_get_rightmost_offset (GnomeRRScreen *screen, GnomeRROutputInfo *info, int x)
 {
-        if (turn_on (screen, info, x, 0))
-                x += info->width;
+        if (turn_on (screen, info, x, 0)) {
+                int width;
+                gnome_rr_output_info_get_geometry (info, NULL, NULL, &width, NULL);
+                x += width;
+        }
 
         return x;
 }
@@ -910,27 +925,28 @@ make_xinerama_setup (GnomeRRScreen *screen)
         /* Turn on everything that has a preferred mode, and
          * position it from left to right
          */
-        GnomeRRConfig *result = gnome_rr_config_new_current (screen);
+        GnomeRRConfig *result = gnome_rr_config_new_current (screen, NULL);
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
         int i;
         int x;
 
         x = 0;
-        for (i = 0; result->outputs[i] != NULL; ++i) {
-                GnomeOutputInfo *info = result->outputs[i];
+        for (i = 0; outputs[i] != NULL; ++i) {
+                GnomeRROutputInfo *info = outputs[i];
 
                 if (is_laptop (screen, info))
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
-        for (i = 0; result->outputs[i] != NULL; ++i) {
-                GnomeOutputInfo *info = result->outputs[i];
+        for (i = 0; outputs[i] != NULL; ++i) {
+                GnomeRROutputInfo *info = outputs[i];
 
-                if (info->connected && !is_laptop (screen, info))
+                if (gnome_rr_output_info_get_connected (info) && !is_laptop (screen, info))
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
         if (config_is_all_off (result)) {
-                gnome_rr_config_free (result);
+                g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
 
@@ -946,23 +962,24 @@ make_other_setup (GnomeRRScreen *screen)
          * from (0, 0)
          */
 
-        GnomeRRConfig *result = gnome_rr_config_new_current (screen);
+        GnomeRRConfig *result = gnome_rr_config_new_current (screen, NULL);
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
         int i;
 
-        for (i = 0; result->outputs[i] != NULL; ++i) {
-                GnomeOutputInfo *info = result->outputs[i];
+        for (i = 0; outputs[i] != NULL; ++i) {
+                GnomeRROutputInfo *info = outputs[i];
 
                 if (is_laptop (screen, info)) {
-                        info->on = FALSE;
+                        gnome_rr_output_info_set_active (info, FALSE);
                 }
                 else {
-                        if (info->connected)
+                        if (gnome_rr_output_info_get_connected (info))
                                 turn_on (screen, info, 0, 0);
                }
         }
 
         if (config_is_all_off (result)) {
-                gnome_rr_config_free (result);
+                g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
 
@@ -998,7 +1015,7 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
 
                         if (this && other && gnome_rr_config_equal (this, other)) {
                                 g_debug ("removing duplicate configuration");
-                                gnome_rr_config_free (this);
+                                g_object_unref (this);
                                 array->pdata[j] = NULL;
                                 break;
                         }
@@ -1010,7 +1027,7 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
 
                 if (config && config_is_all_off (config)) {
                         g_debug ("removing configuration as all outputs are off");
-                        gnome_rr_config_free (array->pdata[i]);
+                        g_object_unref (array->pdata[i]);
                         array->pdata[i] = NULL;
                 }
         }
@@ -1030,7 +1047,7 @@ sanitize (GsdXrandrManager *manager, GPtrArray *array)
                                 g_debug ("removing configuration which is not applicable because %s", error->message);
                                 g_error_free (error);
 
-                                gnome_rr_config_free (config);
+                                g_object_unref (config);
                                 array->pdata[i] = NULL;
                         }
                 }
@@ -1071,14 +1088,14 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
                 int i;
 
                 for (i = 0; mgr->priv->fn_f7_configs[i] != NULL; ++i)
-                        gnome_rr_config_free (mgr->priv->fn_f7_configs[i]);
+                        g_object_unref (mgr->priv->fn_f7_configs[i]);
                 g_free (mgr->priv->fn_f7_configs);
 
                 mgr->priv->fn_f7_configs = NULL;
                 mgr->priv->current_fn_f7_config = -1;
         }
 
-        g_ptr_array_add (array, gnome_rr_config_new_current (screen));
+        g_ptr_array_add (array, gnome_rr_config_new_current (screen, NULL));
         g_ptr_array_add (array, make_clone_setup (screen));
         g_ptr_array_add (array, make_xinerama_setup (screen));
         g_ptr_array_add (array, make_laptop_setup (screen));
@@ -1161,7 +1178,7 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                 log_configurations (priv->fn_f7_configs);
         }
 
-        current = gnome_rr_config_new_current (screen);
+        current = gnome_rr_config_new_current (screen, NULL);
 
         if (priv->fn_f7_configs &&
             (!gnome_rr_config_match (current, priv->fn_f7_configs[0]) ||
@@ -1174,7 +1191,7 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                     log_configurations (priv->fn_f7_configs);
             }
 
-        gnome_rr_config_free (current);
+        g_object_unref (current);
 
         if (priv->fn_f7_configs) {
                 guint32 server_timestamp;
@@ -1223,17 +1240,15 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
         g_debug ("done handling fn-f7");
 }
 
-static GnomeOutputInfo *
+static GnomeRROutputInfo *
 get_laptop_output_info (GnomeRRScreen *screen, GnomeRRConfig *config)
 {
         int i;
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (config);
 
-        for (i = 0; config->outputs[i] != NULL; i++) {
-                GnomeOutputInfo *info;
-
-                info = config->outputs[i];
-                if (is_laptop (screen, info))
-                        return info;
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (is_laptop (screen, outputs[i]))
+                        return outputs[i];
         }
 
         return NULL;
@@ -1292,7 +1307,7 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
         GsdXrandrManagerPrivate *priv = mgr->priv;
         GnomeRRScreen *screen = priv->rw_screen;
         GnomeRRConfig *current;
-        GnomeOutputInfo *rotatable_output_info;
+        GnomeRROutputInfo *rotatable_output_info;
         int num_allowed_rotations;
         GnomeRRRotation allowed_rotations;
         GnomeRRRotation next_rotation;
@@ -1301,7 +1316,7 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
 
         /* Which output? */
 
-        current = gnome_rr_config_new_current (screen);
+        current = gnome_rr_config_new_current (screen, NULL);
 
         rotatable_output_info = get_laptop_output_info (screen, current);
         if (rotatable_output_info == NULL) {
@@ -1312,21 +1327,21 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
         /* Which rotation? */
 
         get_allowed_rotations_for_output (current, priv->rw_screen, rotatable_output_info, &num_allowed_rotations, &allowed_rotations);
-        next_rotation = get_next_rotation (allowed_rotations, rotatable_output_info->rotation);
+        next_rotation = get_next_rotation (allowed_rotations, gnome_rr_output_info_get_rotation (rotatable_output_info));
 
-        if (next_rotation == rotatable_output_info->rotation) {
+        if (next_rotation == gnome_rr_output_info_get_rotation (rotatable_output_info)) {
                 g_debug ("No rotations are supported other than the current one; XF86RotateWindows key will do nothing");
                 goto out;
         }
 
         /* Rotate */
 
-        rotatable_output_info->rotation = next_rotation;
+        gnome_rr_output_info_set_rotation (rotatable_output_info, next_rotation);
 
         apply_configuration_and_display_error (mgr, current, timestamp);
 
 out:
-        gnome_rr_config_free (current);
+        g_object_unref (current);
 }
 
 static void
@@ -1334,6 +1349,7 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
         GnomeRRConfig *config;
+        GnomeRROutputInfo **outputs;
         int i;
         GList *just_turned_on;
         GList *l;
@@ -1341,7 +1357,7 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         GError *error;
         gboolean applicable;
 
-        config = gnome_rr_config_new_current (priv->rw_screen);
+        config = gnome_rr_config_new_current (priv->rw_screen, NULL);
 
         /* For outputs that are connected and on (i.e. they have a CRTC assigned
          * to them, so they are getting a signal), we leave them as they are
@@ -1356,16 +1372,17 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
          */
 
         just_turned_on = NULL;
+        outputs = gnome_rr_config_get_outputs (config);
 
-        for (i = 0; config->outputs[i] != NULL; i++) {
-                GnomeOutputInfo *output = config->outputs[i];
+        for (i = 0; outputs[i] != NULL; i++) {
+                GnomeRROutputInfo *output = outputs[i];
 
-                if (output->connected && !output->on) {
-                        output->on = TRUE;
-                        output->rotation = GNOME_RR_ROTATION_0;
+                if (gnome_rr_output_info_get_connected (output) && !gnome_rr_output_info_get_active (output)) {
+                        gnome_rr_output_info_set_active (output, TRUE);
+                        gnome_rr_output_info_set_rotation (output, GNOME_RR_ROTATION_0);
                         just_turned_on = g_list_prepend (just_turned_on, GINT_TO_POINTER (i));
-                } else if (!output->connected && output->on)
-                        output->on = FALSE;
+                } else if (!gnome_rr_output_info_get_connected (output) && gnome_rr_output_info_get_active (output))
+                        gnome_rr_output_info_set_active (output, FALSE);
         }
 
         /* Now, lay out the outputs from left to right.  Put first the outputs
@@ -1376,40 +1393,38 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 
         /* First, outputs that remained on */
 
-        for (i = 0; config->outputs[i] != NULL; i++) {
-                GnomeOutputInfo *output = config->outputs[i];
+        for (i = 0; outputs[i] != NULL; i++) {
+                GnomeRROutputInfo *output = outputs[i];
 
                 if (g_list_find (just_turned_on, GINT_TO_POINTER (i)))
                         continue;
 
-                if (output->on) {
-                        g_assert (output->connected);
+                if (gnome_rr_output_info_get_active (output)) {
+                        int width, height;
+                        g_assert (gnome_rr_output_info_get_connected (output));
 
-                        output->x = x;
-                        output->y = 0;
-
-                        x += output->width;
+                        gnome_rr_output_info_get_geometry (output, NULL, NULL, &width, &height);
+                        gnome_rr_output_info_set_geometry (output, x, 0, width, height);
+                        x += width;
                 }
         }
 
         /* Second, outputs that were newly-turned on */
 
         for (l = just_turned_on; l; l = l->next) {
-                GnomeOutputInfo *output;
+                GnomeRROutputInfo *output;
+                int width;
 
                 i = GPOINTER_TO_INT (l->data);
-                output = config->outputs[i];
+                output = outputs[i];
 
-                g_assert (output->on && output->connected);
-
-                output->x = x;
-                output->y = 0;
+                g_assert (gnome_rr_output_info_get_active (output) && gnome_rr_output_info_get_connected (output));
 
                 /* since the output was off, use its preferred width/height (it doesn't have a real width/height yet) */
-                output->width = output->pref_width;
-                output->height = output->pref_height;
+                width = gnome_rr_output_info_get_preferred_width (output);
+                gnome_rr_output_info_set_geometry (output, x, 0, width, gnome_rr_output_info_get_preferred_height (output));
 
-                x += output->width;
+                x += width;
         }
 
         /* Check if we have a large enough framebuffer size.  If not, turn off
@@ -1420,7 +1435,7 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 
         l = just_turned_on;
         while (1) {
-                GnomeOutputInfo *output;
+                GnomeRROutputInfo *output;
                 gboolean is_bounds_error;
 
                 error = NULL;
@@ -1439,8 +1454,8 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
                         i = GPOINTER_TO_INT (l->data);
                         l = l->next;
 
-                        output = config->outputs[i];
-                        output->on = FALSE;
+                        output = outputs[i];
+                        gnome_rr_output_info_set_active (output, FALSE);
                 } else
                         break;
         }
@@ -1456,7 +1471,7 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         }
 
         g_list_free (just_turned_on);
-        gnome_rr_config_free (config);
+        g_object_unref (config);
 }
 
 static void
@@ -1506,7 +1521,7 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  */
 
                 /* Check if we need to update the primary */
-                rr_config = gnome_rr_config_new_current (priv->rw_screen);
+                rr_config = gnome_rr_config_new_current (priv->rw_screen, NULL);
                 if (gnome_rr_config_ensure_primary (rr_config)) {
                         if (gnome_rr_config_applicable (rr_config, priv->rw_screen, NULL)) {
                                 print_configuration (rr_config, "Updating for primary");
@@ -1514,7 +1529,7 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                                 gnome_rr_config_apply_with_time (rr_config, priv->rw_screen, config_timestamp, NULL);
                         }
                 }
-                gnome_rr_config_free (rr_config);
+                g_object_unref (rr_config);
 
                 show_timestamps_dialog (manager, "ignoring since change > config");
                 log_msg ("  Ignoring event since change >= config\n");
@@ -1575,7 +1590,7 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
 static void
 get_allowed_rotations_for_output (GnomeRRConfig *config,
                                   GnomeRRScreen *rr_screen,
-                                  GnomeOutputInfo *output,
+                                  GnomeRROutputInfo *output,
                                   int *out_num_rotations,
                                   GnomeRRRotation *out_rotations)
 {
@@ -1585,7 +1600,7 @@ get_allowed_rotations_for_output (GnomeRRConfig *config,
         *out_num_rotations = 0;
         *out_rotations = 0;
 
-        current_rotation = output->rotation;
+        current_rotation = gnome_rr_output_info_get_rotation (output);
 
         /* Yay for brute force */
 
@@ -1594,7 +1609,7 @@ get_allowed_rotations_for_output (GnomeRRConfig *config,
 
                 rotation_to_test = possible_rotations[i];
 
-                output->rotation = rotation_to_test;
+                gnome_rr_output_info_set_rotation (output, rotation_to_test);
 
                 if (gnome_rr_config_applicable (config, rr_screen, NULL)) { /* NULL-GError */
                         (*out_num_rotations)++;
@@ -1602,12 +1617,12 @@ get_allowed_rotations_for_output (GnomeRRConfig *config,
                 }
         }
 
-        output->rotation = current_rotation;
+        gnome_rr_output_info_set_rotation (output, current_rotation);
 
         if (*out_num_rotations == 0 || *out_rotations == 0) {
                 g_warning ("Huh, output %p says it doesn't support any rotations, and yet it has a current rotation?", output);
                 *out_num_rotations = 1;
-                *out_rotations = output->rotation;
+                *out_rotations = gnome_rr_output_info_get_rotation (output);
         }
 }
 
@@ -1657,7 +1672,7 @@ apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
 
         if (config) {
                 apply_configuration_and_display_error (mgr, config, timestamp);
-                gnome_rr_config_free (config);
+                g_object_unref (config);
         }
 }
 
