@@ -270,8 +270,7 @@ get_dpi_from_gsettings_or_x_server (GnomeXSettingsManager *manager)
         return dpi;
 }
 
-typedef struct
-{
+typedef struct {
         gboolean    antialias;
         gboolean    hinting;
         int         dpi;
@@ -289,7 +288,6 @@ xft_settings_get (GnomeXSettingsManager *manager,
         GsdFontRgbaOrder rgba_order;
         double dpi;
         gboolean use_rgba = FALSE;
-
 
         antialiasing = g_settings_get_enum (manager->priv->plugin_settings, FONT_ANTIALIASING_KEY);
         hinting = g_settings_get_enum (manager->priv->plugin_settings, FONT_HINTING_KEY);
