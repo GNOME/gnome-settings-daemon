@@ -12,7 +12,6 @@ plugin_LTLIBRARIES += libmedia-keys.la
 endif
 
 BUILT_SOURCES = 			\
-	gsd-media-keys-manager-glue.h	\
 	gsd-marshal.h			\
 	gsd-marshal.c			\
 	$(NULL)
@@ -59,11 +58,6 @@ uninstall-local:
 	rm -f $(DESTDIR)$(icondir)/24x24/$(context)/touchpad-disabled.png
 	rm -f $(DESTDIR)$(icondir)/32x32/$(context)/touchpad-disabled.png
 	rm -f $(DESTDIR)$(icondir)/scalable/$(context)/touchpad-disabled.svg
-
-gsd-media-keys-manager-glue.h: gsd-media-keys-manager.xml Makefile
-	$(AM_V_GEN) dbus-binding-tool --prefix=gsd_media_keys_manager --mode=glib-server $< > xgen-$(@F) \
-	&& ( cmp -s xgen-$(@F) $@ || cp xgen-$(@F) $@ ) \
-	&& rm -f xgen-$(@F)
 
 gsd-marshal.c: gsd-marshal.list
 	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --body --internal > $@
@@ -188,7 +182,6 @@ gtkbuilder_DATA =	\
 DIST_SUBDIRS = cut-n-paste
 
 EXTRA_DIST = 				\
-	gsd-media-keys-manager.xml	\
 	gsd-marshal.list		\
 	$(plugin_in_files)		\
 	$(gtkbuilder_DATA)		\

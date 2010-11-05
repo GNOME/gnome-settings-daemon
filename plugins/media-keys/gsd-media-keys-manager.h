@@ -55,13 +55,6 @@ gboolean              gsd_media_keys_manager_start                     (GsdMedia
                                                                         GError             **error);
 void                  gsd_media_keys_manager_stop                      (GsdMediaKeysManager *manager);
 
-gboolean              gsd_media_keys_manager_grab_media_player_keys    (GsdMediaKeysManager *manager,
-                                                                        const char          *application,
-                                                                        guint32              time,
-                                                                        GError             **error);
-gboolean              gsd_media_keys_manager_release_media_player_keys (GsdMediaKeysManager *manager,
-                                                                        const char          *application,
-                                                                        GError             **error);
 
 G_END_DECLS
 

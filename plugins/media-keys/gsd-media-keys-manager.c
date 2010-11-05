@@ -38,13 +38,9 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include <dbus/dbus-glib.h>
-#include <dbus/dbus-glib-lowlevel.h>
-
 #include "gnome-settings-profile.h"
 #include "gsd-marshal.h"
 #include "gsd-media-keys-manager.h"
-#include "gsd-media-keys-manager-glue.h"
 
 #include "eggaccelerators.h"
 #include "acme.h"
@@ -61,6 +57,21 @@
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"
 
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.gnome.SettingsDaemon.MediaKeys'>"
+"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_media_keys_manager'/>"
+"    <method name='GrabMediaPlayerKeys'>"
+"      <arg name='application' direction='in' type='s'/>"
+"      <arg name='time' direction='in' type='u'/>"
+"    </method>"
+"    <method name='ReleaseMediaPlayerKeys'>"
+"      <arg name='application' direction='in' type='s'/>"
+"    </method>"
+"    <signal name='MediaPlayerKeyPressed'/>"
+"  </interface>"
+"</node>";
+
 #define TOUCHPAD_ENABLED_KEY "touchpad-enabled"
 
 #define VOLUME_STEP 6           /* percents for one volume button press */
@@ -70,7 +81,9 @@
 
 typedef struct {
         char   *application;
+        char   *name;
         guint32 time;
+        guint   watch_id;
 } MediaPlayer;
 
 struct GsdMediaKeysManagerPrivate
@@ -90,15 +103,10 @@ struct GsdMediaKeysManagerPrivate
 
         GList           *media_players;
 
-        DBusGConnection *connection;
+        guint            owner_id;
+        GDBusNodeInfo   *introspection_data;
+        GDBusConnection *connection;
 };
-
-enum {
-        MEDIA_PLAYER_KEY_PRESSED,
-        LAST_SIGNAL
-};
-
-static guint signals[LAST_SIGNAL] = { 0 };
 
 static void     gsd_media_keys_manager_class_init  (GsdMediaKeysManagerClass *klass);
 static void     gsd_media_keys_manager_init        (GsdMediaKeysManager      *media_keys_manager);
@@ -295,8 +303,8 @@ update_kbd_cb (GSettings           *settings,
                         g_free (keys[i].key);
                         keys[i].key = NULL;
 
-			/* We can't have a change in a hard-coded key */
-			g_assert (keys[i].settings_key != NULL);
+                        /* We can't have a change in a hard-coded key */
+                        g_assert (keys[i].settings_key != NULL);
 
                         tmp = g_settings_get_string (manager->priv->settings, keys[i].settings_key);
                         if (is_valid_shortcut (tmp) == FALSE) {
@@ -341,11 +349,11 @@ init_kbd (GsdMediaKeysManager *manager)
                 char *tmp;
                 Key  *key;
 
-		if (keys[i].settings_key != NULL) {
-			tmp = g_settings_get_string (manager->priv->settings, keys[i].settings_key);
-		} else {
-			tmp = g_strdup (keys[i].hard_coded);
-		}
+                if (keys[i].settings_key != NULL) {
+                        tmp = g_settings_get_string (manager->priv->settings, keys[i].settings_key);
+                } else {
+                        tmp = g_strdup (keys[i].hard_coded);
+                }
 
                 if (!is_valid_shortcut (tmp)) {
                         g_debug ("Not a valid shortcut: '%s'", tmp);
@@ -723,11 +731,30 @@ on_control_default_sink_changed (GvcMixerControl     *control,
 
 #endif /* HAVE_PULSE */
 
+static void
+free_media_player (MediaPlayer *player)
+{
+        if (player->watch_id > 0) {
+                g_bus_unwatch_name (player->watch_id);
+                player->watch_id = 0;
+        }
+        g_free (player->application);
+        g_free (player->name);
+        g_free (player);
+}
+
 static gint
 find_by_application (gconstpointer a,
                      gconstpointer b)
 {
         return strcmp (((MediaPlayer *)a)->application, b);
+}
+
+static gint
+find_by_name (gconstpointer a,
+              gconstpointer b)
+{
+        return strcmp (((MediaPlayer *)a)->name, b);
 }
 
 static gint
@@ -737,6 +764,27 @@ find_by_time (gconstpointer a,
         return ((MediaPlayer *)a)->time < ((MediaPlayer *)b)->time;
 }
 
+static void
+name_vanished_handler (GDBusConnection     *connection,
+                       const gchar         *name,
+                       GsdMediaKeysManager *manager)
+{
+        GList *iter;
+
+        iter = g_list_find_custom (manager->priv->media_players,
+                                   name,
+                                   find_by_name);
+
+        if (iter != NULL) {
+                MediaPlayer *player;
+
+                player = iter->data;
+                g_debug ("Deregistering vanished %s (name: %s)", player->application, player->name);
+                free_media_player (player);
+                manager->priv->media_players = g_list_delete_link (manager->priv->media_players, iter);
+        }
+}
+
 /*
  * Register a new media player. Most applications will want to call
  * this with time = GDK_CURRENT_TIME. This way, the last registered
@@ -744,14 +792,15 @@ find_by_time (gconstpointer a,
  * may want to register with a lower priority (usually 1), to grab
  * events only nobody is interested.
  */
-gboolean
+static void
 gsd_media_keys_manager_grab_media_player_keys (GsdMediaKeysManager *manager,
                                                const char          *application,
-                                               guint32              time,
-                                               GError             **error)
+                                               const char          *name,
+                                               guint32              time)
 {
         GList       *iter;
         MediaPlayer *media_player;
+        guint        watch_id;
 
         if (time == GDK_CURRENT_TIME) {
                 GTimeVal tv;
@@ -766,45 +815,63 @@ gsd_media_keys_manager_grab_media_player_keys (GsdMediaKeysManager *manager,
 
         if (iter != NULL) {
                 if (((MediaPlayer *)iter->data)->time < time) {
-                        g_free (((MediaPlayer *)iter->data)->application);
-                        g_free (iter->data);
+                        MediaPlayer *player = iter->data;
+                        free_media_player (player);
                         manager->priv->media_players = g_list_delete_link (manager->priv->media_players, iter);
                 } else {
-                        return TRUE;
+                        return;
                 }
         }
+
+        watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                     name,
+                                     G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                     NULL,
+                                     (GBusNameVanishedCallback) name_vanished_handler,
+                                     manager,
+                                     NULL);
 
         g_debug ("Registering %s at %u", application, time);
         media_player = g_new0 (MediaPlayer, 1);
         media_player->application = g_strdup (application);
+        media_player->name = g_strdup (name);
         media_player->time = time;
+        media_player->watch_id = watch_id;
 
         manager->priv->media_players = g_list_insert_sorted (manager->priv->media_players,
                                                              media_player,
                                                              find_by_time);
-
-        return TRUE;
 }
 
-gboolean
+static void
 gsd_media_keys_manager_release_media_player_keys (GsdMediaKeysManager *manager,
                                                   const char          *application,
-                                                  GError             **error)
+                                                  const char          *name)
 {
-        GList *iter;
+        GList *iter = NULL;
 
-        iter = g_list_find_custom (manager->priv->media_players,
-                                   application,
-                                   find_by_application);
+        g_return_if_fail (application != NULL || name != NULL);
 
-        if (iter != NULL) {
-                g_debug ("Deregistering %s", application);
-                g_free (((MediaPlayer *)iter->data)->application);
-                g_free (iter->data);
-                manager->priv->media_players = g_list_delete_link (manager->priv->media_players, iter);
+        if (application != NULL) {
+                iter = g_list_find_custom (manager->priv->media_players,
+                                           application,
+                                           find_by_application);
         }
 
-        return TRUE;
+        if (iter == NULL && name != NULL) {
+                iter = g_list_find_custom (manager->priv->media_players,
+                                           name,
+                                           find_by_name);
+        }
+
+        if (iter != NULL) {
+                MediaPlayer *player;
+
+                player = iter->data;
+                g_debug ("Deregistering %s (name: %s)", application, player->name);
+                free_media_player (player);
+                manager->priv->media_players = g_list_delete_link (manager->priv->media_players, iter);
+        }
 }
 
 static gboolean
@@ -813,6 +880,9 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
 {
         const char *application = NULL;
         gboolean    have_listeners;
+        GError     *error = NULL;
+
+        g_debug ("Media key '%s' pressed", key);
 
         have_listeners = (manager->priv->media_players != NULL);
 
@@ -820,10 +890,56 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
                 application = ((MediaPlayer *)manager->priv->media_players->data)->application;
         }
 
-        g_signal_emit (manager, signals[MEDIA_PLAYER_KEY_PRESSED], 0, application, key);
+        if (g_dbus_connection_emit_signal (manager->priv->connection,
+                                           NULL,
+                                           GSD_MEDIA_KEYS_DBUS_PATH,
+                                           GSD_MEDIA_KEYS_DBUS_NAME,
+                                           "MediaPlayerKeyPressed",
+                                           g_variant_new ("(ss)", application, key),
+                                           &error) == FALSE) {
+                g_debug ("Error emitting signal: %s", error->message);
+                g_error_free (error);
+        }
 
         return !have_listeners;
 }
+
+static void
+handle_method_call (GDBusConnection       *connection,
+                    const gchar           *sender,
+                    const gchar           *object_path,
+                    const gchar           *interface_name,
+                    const gchar           *method_name,
+                    GVariant              *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer               user_data)
+{
+        GsdMediaKeysManager *manager = (GsdMediaKeysManager *) user_data;
+
+        g_debug ("Calling method '%s' for media-keys", method_name);
+
+        if (g_strcmp0 (method_name, "ReleaseMediaPlayerKeys") == 0) {
+                const char *app_name;
+
+                g_variant_get (parameters, "(&s)", &app_name);
+                gsd_media_keys_manager_release_media_player_keys (manager, app_name, sender);
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        } else if (g_strcmp0 (method_name, "GrabMediaPlayerKeys") == 0) {
+                const char *app_name;
+                guint32 time;
+
+                g_variant_get (parameters, "(&su)", &app_name, &time);
+                gsd_media_keys_manager_grab_media_player_keys (manager, app_name, sender, time);
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        }
+}
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+        handle_method_call,
+        NULL, /* Get Property */
+        NULL, /* Set Property */
+};
 
 static gboolean
 do_multimedia_player_action (GsdMediaKeysManager *manager,
@@ -1081,10 +1197,17 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->volume_monitor = NULL;
         }
 
-        if (priv->connection != NULL) {
-                dbus_g_connection_unref (priv->connection);
-                priv->connection = NULL;
+        if (priv->owner_id > 0) {
+                g_bus_unown_name (priv->owner_id);
+                priv->owner_id = 0;
         }
+
+        if (priv->introspection_data) {
+                g_dbus_node_info_unref (priv->introspection_data);
+                priv->introspection_data = NULL;
+        }
+
+        priv->connection = NULL;
 
         need_flush = FALSE;
         gdk_error_trap_push ();
@@ -1205,21 +1328,6 @@ gsd_media_keys_manager_class_init (GsdMediaKeysManagerClass *klass)
         object_class->dispose = gsd_media_keys_manager_dispose;
         object_class->finalize = gsd_media_keys_manager_finalize;
 
-       signals[MEDIA_PLAYER_KEY_PRESSED] =
-               g_signal_new ("media-player-key-pressed",
-                             G_OBJECT_CLASS_TYPE (klass),
-                             G_SIGNAL_RUN_LAST,
-                             G_STRUCT_OFFSET (GsdMediaKeysManagerClass, media_player_key_pressed),
-                             NULL,
-                             NULL,
-                             gsd_marshal_VOID__STRING_STRING,
-                             G_TYPE_NONE,
-                             2,
-                             G_TYPE_STRING,
-                             G_TYPE_STRING);
-
-        dbus_g_object_type_install_info (GSD_TYPE_MEDIA_KEYS_MANAGER, &dbus_glib_gsd_media_keys_manager_object_info);
-
         g_type_class_add_private (klass, sizeof (GsdMediaKeysManagerPrivate));
 }
 
@@ -1245,23 +1353,38 @@ gsd_media_keys_manager_finalize (GObject *object)
         G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->finalize (object);
 }
 
-static gboolean
+static void
+on_bus_acquired (GDBusConnection     *connection,
+                 const gchar         *name,
+                 GsdMediaKeysManager *manager)
+{
+        guint registration_id;
+
+        registration_id = g_dbus_connection_register_object (connection,
+                                                             GSD_MEDIA_KEYS_DBUS_PATH,
+                                                             manager->priv->introspection_data->interfaces[0],
+                                                             &interface_vtable,
+                                                             manager,
+                                                             NULL,
+                                                             NULL);
+        if (registration_id > 0)
+                manager->priv->connection = connection;
+}
+
+static void
 register_manager (GsdMediaKeysManager *manager)
 {
-        GError *error = NULL;
+        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->priv->introspection_data != NULL);
 
-        manager->priv->connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
-        if (manager->priv->connection == NULL) {
-                if (error != NULL) {
-                        g_error ("Error getting session bus: %s", error->message);
-                        g_error_free (error);
-                }
-                return FALSE;
-        }
-
-        dbus_g_connection_register_g_object (manager->priv->connection, GSD_MEDIA_KEYS_DBUS_PATH, G_OBJECT (manager));
-
-        return TRUE;
+        manager->priv->owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
+                                                  GSD_DBUS_NAME,
+                                                  G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                  (GBusAcquiredCallback) on_bus_acquired,
+                                                  NULL,
+                                                  NULL,
+                                                  manager,
+                                                  NULL);
 }
 
 GsdMediaKeysManager *
@@ -1270,16 +1393,10 @@ gsd_media_keys_manager_new (void)
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                gboolean res;
-
                 manager_object = g_object_new (GSD_TYPE_MEDIA_KEYS_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
-                res = register_manager (manager_object);
-                if (! res) {
-                        g_object_unref (manager_object);
-                        return NULL;
-                }
+                register_manager (manager_object);
         }
 
         return GSD_MEDIA_KEYS_MANAGER (manager_object);
