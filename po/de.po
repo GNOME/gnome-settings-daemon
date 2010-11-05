@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-06-29 11:24+0000\n"
-"PO-Revision-Date: 2010-07-18 20:54+0100\n"
+"POT-Creation-Date: 2010-11-05 16:02+0000\n"
+"PO-Revision-Date: 2010-11-05 19:22+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -253,14 +253,18 @@ msgid "Volume up"
 msgstr "Lauter"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid "Do not touch monitor configuration"
+msgstr "Bildschirmkonfiguration nicht ändern"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "File for default configuration for RandR"
 msgstr "Datei mit der Vorgabekonfiguration für RandR"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
 msgid "Show Displays in Notification Area"
 msgstr "Bildschirme im Benachrichtigungsfeld anzeigen"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
 msgid ""
 "The XRandR plugin will look for a default configuration in the file specified "
 "by this key. This is similar to the ~/.config/monitors.xml that normally gets "
@@ -275,11 +279,11 @@ msgstr ""
 "Konfiguration nicht zu den vorhandenen Bildschirmen passt, wird die in diesem "
 "Schlüssel angegebene Datei stattdessen verwendet."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
 msgid "Turn on external monitor after system boot"
 msgstr "Externen Bildschirm nach Systemstart einschalten"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
 msgid ""
 "Turn on external monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -287,11 +291,11 @@ msgstr ""
 "Externen Bildschirm nach Systemstart einschalten, falls der Benutzer den "
 "externen Bildschirm beim Systemstart anschließt."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
 msgid "Turn on laptop monitor after system boot"
 msgstr "Laptop-Bildschirm nach Systemstart einschalten"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
 msgid ""
 "Turn on laptop monitor after system boot if user plugs in external monitor on "
 "system boot."
@@ -299,7 +303,24 @@ msgstr ""
 "Laptop-Bildschirm nach Systemstart einschalten, falls der Benutzer den "
 "externen Bildschirm beim Systemstart anschließt."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:9
+msgid ""
+"Usually, gnome-settings-daemon configures internal and external monitors "
+"according to the turn_on_external_monitors_at_startup and "
+"turn_on_laptop_monitor_at_startup settings and determines an appropriate "
+"cloning/side-by-side mode. Setting this key to True disables this, and the "
+"monitor settings are not touched at all (unless there is an explicit user "
+"configuration)."
+msgstr ""
+"Üblicherweise konfiguriert der GNOME-Einstellungsdienst interne und externe "
+"Bildschirme anhand der Werte in turn_on_external_monitors_at_startup und "
+"turn_on_laptop_monitor_at_startup. Dabei werden passende Werte für Klonen "
+"oder Nebeneinanderdarstellung ermittelt. Wenn dieser Schlüssel auf »wahr« "
+"gesetzt ist, wird dies deaktiviert und die Bildschirmeinstellungen werden "
+"nicht beeinflusst, es sei denn, es existiert eine explizite "
+"Benutzerkonfiguration."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:10
 msgid ""
 "Whether a notification icon with display-related things should be shown in "
 "the panel."
@@ -361,9 +382,9 @@ msgid ""
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 "Die Art des Hinting, welches beim Darstellen von Schriften verwendet wird. "
-"Mögliche Werte sind: »none« für kein Hinting, »slight« für minimales, »medium« "
-"für normales und »full« für maximales Hinting (letzteres kann zum Entstellen "
-"der Buchstabenformen führen),"
+"Mögliche Werte sind: »none« für kein Hinting, »slight« für minimales, "
+"»medium« für normales und »full« für maximales Hinting (letzteres kann zum "
+"Entstellen der Buchstabenformen führen),"
 
 #: ../data/desktop_gnome_keybindings.schemas.in.h:1
 msgid "Allowed keys"
@@ -593,8 +614,8 @@ msgstr ""
 #: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr ""
-"Auf »WAHR« setzen, um das Plugin zur Verwaltung des Audio-Zwischenspeichers zu "
-"aktivieren."
+"Auf »WAHR« setzen, um das Plugin zur Verwaltung des Audio-Zwischenspeichers "
+"zu aktivieren."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid ""
@@ -722,8 +743,8 @@ msgid ""
 "will get performed when the smartcard used for log in is removed."
 msgstr ""
 "Setzen Sie dies auf »none« (nichts tun), »lock_screen« (Bildschirm sperren) "
-"oder »force_logout« (Abmelden erzwingen). Die Aktion wird ausgeführt, wenn die "
-"zum Anmelden benutzte Smartcard entfernt wird."
+"oder »force_logout« (Abmelden erzwingen). Die Aktion wird ausgeführt, wenn "
+"die zum Anmelden benutzte Smartcard entfernt wird."
 
 #: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:2
 msgid "Smartcard removal action"
@@ -753,23 +774,23 @@ msgstr "Barrierefreie Tastatur"
 msgid "Accessibility keyboard plugin"
 msgstr "Modul für barrierefreie Tastatur"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:460
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Fehler beim Anzeigen der Hilfe: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:591
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:657
 msgid "Do you want to activate Slow Keys?"
 msgstr "Wollen Sie die Tastenverzögerung aktivieren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:592
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Wollen Sie die Tastenverzögerung deaktivieren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:659
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for the "
 "Slow Keys feature, which affects the way your keyboard works."
@@ -778,62 +799,62 @@ msgstr ""
 "Tastenkombination für die Tastenverzögerungsfunktion, die das Verhalten Ihrer "
 "Tastatur beeinflusst."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
 msgid "Don't activate"
 msgstr "Nicht aktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
 msgid "Don't deactivate"
 msgstr "Nicht deaktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Activate"
 msgstr "Aktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Deactivate"
 msgstr "Deaktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
 msgid "Do_n't activate"
 msgstr "_Nicht aktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
 msgid "Do_n't deactivate"
 msgstr "_Nicht deaktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
 msgid "_Activate"
 msgstr "_Aktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
 msgid "_Deactivate"
 msgstr "_Deaktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:687
 msgid "Slow Keys Alert"
 msgstr "Tastenverzögerungsalarm"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:727
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:795
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Wollen Sie klebrige Tasten aktivieren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:796
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Wollen Sie klebrige Tasten deaktivieren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:730
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:798
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -842,8 +863,8 @@ msgstr ""
 "Tastenkombination für die Funktion »klebrige Tasten«, die das Verhalten Ihrer "
 "Tastatur beeinflusst."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:732
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:800
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -853,7 +874,7 @@ msgstr ""
 "gedrückt. Dies ist die Tastenkombination für die Funktion »klebrige Tasten«, "
 "die das Verhalten Ihrer Tastatur beeinflusst."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:828
 msgid "Sticky Keys Alert"
 msgstr "Klebrige Tasten-Alarm"
 
@@ -1245,21 +1266,21 @@ msgstr "Bildschirmgröße und -rotation einstellen"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:225
+#: ../plugins/xrandr/gsd-xrandr-manager.c:372
 msgid "Could not switch the monitor configuration"
 msgstr "Bildschirmkonfiguration konnte nicht geändert werden"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:249
+#: ../plugins/xrandr/gsd-xrandr-manager.c:396
 msgid "Could not restore the display's configuration"
 msgstr "Bildschirmkonfiguration konnte nicht wiederhergestellt werden"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:274
+#: ../plugins/xrandr/gsd-xrandr-manager.c:421
 msgid "Could not restore the display's configuration from a backup"
 msgstr ""
 "Bildschirmkonfiguration konnte nicht aus einer Sicherungsdatei "
 "wiederhergestellt werden"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:295
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1269,64 +1290,64 @@ msgstr[0] ""
 msgstr[1] ""
 "Diese Anzeige wird in %d Sekunden auf die vorherige Einstellung zurückgesetzt"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:344
+#: ../plugins/xrandr/gsd-xrandr-manager.c:491
 msgid "Does the display look OK?"
 msgstr "Ist die Bildschirmanzeige in Ordnung?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:350
+#: ../plugins/xrandr/gsd-xrandr-manager.c:497
 msgid "_Restore Previous Configuration"
 msgstr "_Vorherige Einstellungen wiederherstellen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:351
+#: ../plugins/xrandr/gsd-xrandr-manager.c:498
 msgid "_Keep This Configuration"
 msgstr "_Diese Einstellungen beibehalten"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:432
+#: ../plugins/xrandr/gsd-xrandr-manager.c:579
 msgid "The selected configuration for displays could not be applied"
 msgstr "Die gewählte Bildschirmkonfiguration konnte nicht angewendet werden"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1143
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Bildschirminformationen konnten nicht aktualisiert werden: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:973
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1147
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Es wird trotzdem versucht, die Bildschirmkonfiguration zu ändern."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1703
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1878
 msgid "Rotation not supported"
 msgstr "Rotation wird nicht unterstützt"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1759
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1934
 msgid "Could not save monitor configuration"
 msgstr "Bildschirmkonfiguration konnte nicht gespeichert werden"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1777
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
 msgid "Normal"
 msgstr "Normal"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1778
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
 msgid "Left"
 msgstr "Links"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1779
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
 msgid "Right"
 msgstr "Rechts"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1780
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1955
 msgid "Upside Down"
 msgstr "Kopfüber"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1900
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2075
 msgid "_Configure Display Settings…"
 msgstr "_Bildschirmeinstellungen …"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1941
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2116
 msgid "Configure display settings"
 msgstr "Bildschirmeinstellungen festlegen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2001
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2177
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Die gespeicherte Bildschirmkonfiguration konnte nicht angewendet werden"
 
@@ -1601,8 +1622,8 @@ msgstr ""
 #~ "Set to True to keep the handlers for text/plain and text/* MIME types "
 #~ "synchronized."
 #~ msgstr ""
-#~ "Setzen Sie diesen Wert auf »True«, um die MIME-Typ-Handler für »text/plain« "
-#~ "und »text/*« synchron zu halten."
+#~ "Setzen Sie diesen Wert auf »True«, um die MIME-Typ-Handler für »text/"
+#~ "plain« und »text/*« synchron zu halten."
 
 #~ msgid "Sync text/plain and text/* handlers"
 #~ msgstr "»text/plain« und »text/*«-Handler synchronisieren"
@@ -1613,8 +1634,8 @@ msgstr ""
 #~ msgid ""
 #~ "Set to True to enable the plugin to manage the default text editor setting."
 #~ msgstr ""
-#~ "Setzen Sie diesen Werten auf »True«, um das Modul für die Einstellungen für "
-#~ "den Standard-Text-Editor zu aktivieren."
+#~ "Setzen Sie diesen Werten auf »True«, um das Modul für die Einstellungen "
+#~ "für den Standard-Text-Editor zu aktivieren."
 
 #~ msgid "Key Binding (%s) has its action defined multiple times\n"
 #~ msgstr "Für Tastenkombination (%s) sind mehrere Aktionen erfasst\n"
