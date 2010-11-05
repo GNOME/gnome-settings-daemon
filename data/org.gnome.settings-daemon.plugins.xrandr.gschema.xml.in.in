@@ -25,5 +25,10 @@
       <_summary>Turn on laptop monitor after system boot</_summary>
       <_description>Turn on laptop monitor after system boot if user plugs in external monitor on system boot.</_description>
     </key>
+    <key name="use-xorg-monitor-settings" type="b">
+      <default>false</default>
+      <_summary>Do not touch monitor configuration</_summary>
+      <_description>Usually, gnome-settings-daemon configures internal and external monitors according to the turn_on_external_monitors_at_startup and turn_on_laptop_monitor_at_startup settings and determines an appropriate cloning/side-by-side mode. Setting this key to True disables this, and the monitor settings are not touched at all (unless there is an explicit user configuration).</_description>
+    </key>
   </schema>
 </schemalist>
