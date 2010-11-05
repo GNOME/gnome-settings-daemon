@@ -48,6 +48,7 @@ libxrandr_la_SOURCES = 		\
 
 libxrandr_la_CPPFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/data/					\
 	-DBINDIR=\"$(bindir)\"					\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)

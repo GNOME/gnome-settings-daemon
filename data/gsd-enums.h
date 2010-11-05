@@ -75,4 +75,11 @@ typedef enum
   GSD_TOUCHPAD_HANDEDNESS_MOUSE
 } GsdTouchpadHandedness;
 
+typedef enum
+{
+  GSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING,
+  GSD_XRANDR_BOOT_BEHAVIOUR_CLONE,
+  GSD_XRANDR_BOOT_BEHAVIOUR_DOCK
+} GsdXrandrBootBehaviour;
+
 #endif /* __gsd_enums_h__ */

@@ -50,16 +50,15 @@
 #include <libnotify/notify.h>
 #endif
 
+#include "gsd-enums.h"
 #include "gnome-settings-profile.h"
 #include "gsd-xrandr-manager.h"
 
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
 #define CONF_DIR "org.gnome.settings-daemon.plugins.xrandr"
-#define CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP   "turn-on-external-monitors"
-#define CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP      "turn-on-laptop-monitor"
-#define CONF_KEY_DEFAULT_CONFIGURATION_FILE             "default-configuration-file"
-#define CONF_KEY_USE_XORG_MONITOR_SETTINGS              "use-xorg-monitor-settings"
+#define CONF_KEY_DEFAULT_MONITORS_SETUP   "default-monitors-setup"
+#define CONF_KEY_DEFAULT_CONFIGURATION_FILE   "default-configuration-file"
 
 #define VIDEO_KEYSYM    "XF86Display"
 #define ROTATE_KEYSYM   "XF86RotateWindows"
@@ -1083,7 +1082,6 @@ static void
 error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text)
 {
 #ifdef HAVE_LIBNOTIFY
-        GsdXrandrManagerPrivate *priv = mgr->priv;
         NotifyNotification *notification;
 
         g_assert (error_to_display == NULL || secondary_text == NULL);
@@ -1607,26 +1605,27 @@ apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
         GsdXrandrManagerPrivate *priv = mgr->priv;
         GnomeRRScreen *screen = priv->rw_screen;
         GnomeRRConfig *config;
-        gboolean turn_on_external, turn_on_laptop;
+        GsdXrandrBootBehaviour boot;
 
-        turn_on_external =
-                g_settings_get_boolean (mgr->priv->settings, CONF_KEY_TURN_ON_EXTERNAL_MONITORS_AT_STARTUP);
-        turn_on_laptop =
-                g_settings_get_boolean (mgr->priv->settings, CONF_KEY_TURN_ON_LAPTOP_MONITOR_AT_STARTUP);
+        boot = g_settings_get_enum (priv->settings, CONF_KEY_DEFAULT_MONITORS_SETUP);
 
-        if (turn_on_external && turn_on_laptop)
-                config = make_clone_setup (screen);
-        else if (!turn_on_external && turn_on_laptop)
-                config = make_laptop_setup (screen);
-        else if (turn_on_external && !turn_on_laptop)
-                config = make_other_setup (screen);
-        else
-                config = make_laptop_setup (screen);
+        switch (boot) {
+	case GSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING:
+		return;
+	case GSD_XRANDR_BOOT_BEHAVIOUR_CLONE:
+		config = make_clone_setup (screen);
+		break;
+	case GSD_XRANDR_BOOT_BEHAVIOUR_DOCK:
+		config = make_other_setup (screen);
+		break;
+	default:
+		g_assert_not_reached ();
+	}
 
-        if (config) {
-                apply_configuration_and_display_error (mgr, config, timestamp);
-                gnome_rr_config_free (config);
-        }
+	if (config) {
+		apply_configuration_and_display_error (mgr, config, timestamp);
+		gnome_rr_config_free (config);
+	}
 }
 
 static gboolean
@@ -1733,8 +1732,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         show_timestamps_dialog (manager, "Startup");
         if (!apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME)) /* we don't have a real timestamp at startup anyway */
                 if (!apply_default_configuration_from_file (manager, GDK_CURRENT_TIME))
-                        if (!g_settings_get_boolean (manager->priv->settings, CONF_KEY_USE_XORG_MONITOR_SETTINGS))
-                                apply_default_boot_configuration (manager, GDK_CURRENT_TIME);
+			apply_default_boot_configuration (manager, GDK_CURRENT_TIME);
 
         log_msg ("State of screen after initial configuration:\n");
         log_screen (manager->priv->rw_screen);
