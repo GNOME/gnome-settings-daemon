@@ -181,7 +181,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
         gboolean has_trash;
         gboolean has_disk_analyzer;
         gboolean retval = TRUE;
-        const gchar *path;
+        gchar *path;
 
         /* Don't show a dialog if one is already displayed */
         if (dialog)
@@ -190,7 +190,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
         name = g_unix_mount_guess_name (mount->mount);
         free_space = (gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail;
         has_trash = ldsm_mount_has_trash (mount);
-        path = g_unix_mount_get_mount_path (mount->mount);
+        path = g_strdup (g_unix_mount_get_mount_path (mount->mount));
 
         program = g_find_program_in_path (DISK_SPACE_ANALYZER);
         has_disk_analyzer = (program != NULL);
@@ -218,7 +218,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                 break;
         case GSD_LDSM_DIALOG_RESPONSE_ANALYZE:
                 retval = FALSE;
-                ldsm_analyze_path (g_unix_mount_get_mount_path (mount->mount));
+                ldsm_analyze_path (path);
                 break;
         case GSD_LDSM_DIALOG_RESPONSE_EMPTY_TRASH:
                 retval = TRUE;
@@ -231,6 +231,8 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
         default:
                 g_assert_not_reached ();
         }
+
+        g_free (path);
 
         return retval;
 }
