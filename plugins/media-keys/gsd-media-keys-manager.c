@@ -1016,19 +1016,22 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case PLAY_KEY:
                 return do_multimedia_player_action (manager, "Play");
-                break;
         case PAUSE_KEY:
                 return do_multimedia_player_action (manager, "Pause");
-                break;
         case STOP_KEY:
                 return do_multimedia_player_action (manager, "Stop");
-                break;
         case PREVIOUS_KEY:
                 return do_multimedia_player_action (manager, "Previous");
-                break;
         case NEXT_KEY:
                 return do_multimedia_player_action (manager, "Next");
-                break;
+        case REWIND_KEY:
+                return do_multimedia_player_action (manager, "Rewind");
+        case FORWARD_KEY:
+                return do_multimedia_player_action (manager, "FastForward");
+        case REPEAT_KEY:
+                return do_multimedia_player_action (manager, "Repeat");
+        case RANDOM_KEY:
+                return do_multimedia_player_action (manager, "Shuffle");
         default:
                 g_assert_not_reached ();
         }

@@ -45,6 +45,10 @@ enum {
         STOP_KEY,
         PREVIOUS_KEY,
         NEXT_KEY,
+        REWIND_KEY,
+        FORWARD_KEY,
+        REPEAT_KEY,
+        RANDOM_KEY,
         HANDLED_KEYS
 };
 
@@ -73,6 +77,10 @@ static struct {
         { STOP_KEY, "stop", NULL, NULL },
         { PREVIOUS_KEY, "previous", NULL, NULL },
         { NEXT_KEY, "next", NULL, NULL },
+        { REWIND_KEY, "rewind", "XF86AudioRewind", NULL },
+        { FORWARD_KEY, "forward", "XF86AudioForward", NULL },
+        { REPEAT_KEY, "repeat", "XF86AudioRepeat", NULL },
+        { RANDOM_KEY, "random", "XF86AudioRandomPlay", NULL}
 };
 
 #endif /* __ACME_H__ */
