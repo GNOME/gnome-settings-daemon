@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-10-26 14:55+0000\n"
-"PO-Revision-Date: 2010-10-27 10:59+0200\n"
+"POT-Creation-Date: 2010-11-05 18:27+0000\n"
+"PO-Revision-Date: 2010-11-06 10:50+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -142,7 +142,7 @@ msgstr "Activación de este complemento"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "Priority to use for this plugin"
 msgstr "Prioridad de uso para este complemento"
@@ -150,7 +150,7 @@ msgstr "Prioridad de uso para este complemento"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr ""
@@ -160,7 +160,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:12
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 msgstr "Indica si gnome-settings-daemon activará este complemento o no"
@@ -424,10 +424,15 @@ msgid "Volume up"
 msgstr "Subir volumen"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#| msgid "Could not switch the monitor configuration"
+msgid "Do not touch monitor configuration"
+msgstr "No cambiar la configuración del monitor"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
 msgstr "Archivo para la configuración predeterminada de RandR"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -442,11 +447,11 @@ msgstr ""
 "la configuración de monitores del usuario, entonces se usa en su lugar el "
 "archivo especificado por esta clave."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 msgid "Turn on external monitor after system boot"
 msgstr "Encender el monitor externo después de arrancar el sistema"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid ""
 "Turn on external monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -454,17 +459,33 @@ msgstr ""
 "Encender el monitor externo después de arrancar el sistema si el usuario "
 "conectó el monitor externo al arrancar el sistema."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:9
 msgid "Turn on laptop monitor after system boot"
 msgstr "Encender el monitor del portátil después de arrancar el sistema"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:10
 msgid ""
 "Turn on laptop monitor after system boot if user plugs in external monitor "
 "on system boot."
 msgstr ""
 "Encender el monitor del portátil después de arrancar el sistema si el "
 "usuario conectó el monitor externo al arrancar el sistema."
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:11
+msgid ""
+"Usually, gnome-settings-daemon configures internal and external monitors "
+"according to the turn_on_external_monitors_at_startup and "
+"turn_on_laptop_monitor_at_startup settings and determines an appropriate "
+"cloning/side-by-side mode. Setting this key to True disables this, and the "
+"monitor settings are not touched at all (unless there is an explicit user "
+"configuration)."
+msgstr ""
+"Generalmente gnome-settings-daemon configura los monitores internos y "
+"externos según los ajustes de «turn_on_external_monitors_at_startup» y "
+"«turn_on_laptop_monitor_at_startup» y determina un modo apropiado de clonado "
+"o lado a lado. Establecer esta clave a cierta lo desactiva y no se cambiarán "
+"los ajustes del monitor (a menos que exista una configuración explícita del "
+"usuario)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid ""
@@ -905,7 +926,7 @@ msgstr "Prefere_ncias del teclado"
 msgid "Show _Current Layout"
 msgstr "Mostrar distribución _actual"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:194
+#: ../plugins/media-keys/gsd-media-keys-manager.c:195
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -914,7 +935,7 @@ msgstr ""
 "predeterminado del terminal está configurado y apunta a una aplicación "
 "válida."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:234
+#: ../plugins/media-keys/gsd-media-keys-manager.c:235
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -959,18 +980,18 @@ msgstr "Teclas multimedia"
 msgid "Media keys plugin"
 msgstr "Complemento de teclas multimedia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:863
+#: ../plugins/mouse/gsd-mouse-manager.c:806
 msgid "Could not enable mouse accessibility features"
 msgstr "No se pudieron activar las características de accesibilidad del ratón"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:865
+#: ../plugins/mouse/gsd-mouse-manager.c:808
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "La accesibilidad del ratón requiere que los ajustes finos del ratón estén "
 "instalados en su sistema."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:867
+#: ../plugins/mouse/gsd-mouse-manager.c:810
 msgid "Universal Access"
 msgstr "Acceso universal"
 
@@ -990,19 +1011,19 @@ msgstr "Establecer los ajustes de tamaño y rotación de la pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:356
+#: ../plugins/xrandr/gsd-xrandr-manager.c:357
 msgid "Could not switch the monitor configuration"
 msgstr "No se pudo cambiar la configuración del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:380
+#: ../plugins/xrandr/gsd-xrandr-manager.c:381
 msgid "Could not restore the display's configuration"
 msgstr "No se pudo restaurar la configuración del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:405
+#: ../plugins/xrandr/gsd-xrandr-manager.c:406
 msgid "Could not restore the display's configuration from a backup"
 msgstr "No se pudo restaurar la configuración del monitor desde un respaldo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:426
+#: ../plugins/xrandr/gsd-xrandr-manager.c:427
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1011,32 +1032,32 @@ msgstr[0] "La pantalla se reiniciará a su configuración anterior en %d segundo
 msgstr[1] ""
 "La pantalla se reiniciará a su configuración anterior en %d segundos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:475
+#: ../plugins/xrandr/gsd-xrandr-manager.c:476
 msgid "Does the display look OK?"
 msgstr "¿Se ve bien la pantalla?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:482
+#: ../plugins/xrandr/gsd-xrandr-manager.c:483
 msgid "_Restore Previous Configuration"
 msgstr "_Restaurar la configuración anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
+#: ../plugins/xrandr/gsd-xrandr-manager.c:484
 msgid "_Keep This Configuration"
 msgstr "_Mantener esta configuración"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:564
+#: ../plugins/xrandr/gsd-xrandr-manager.c:565
 msgid "The selected configuration for displays could not be applied"
 msgstr "No se pudo aplicar la configuración seleccionada para las pantallas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1121
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1122
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "No se pudo refrescar la información de la pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1125
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1126
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Intentando cambiar la configuración del monitor de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1604
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1606
 msgid "Could not apply the stored configuration for monitors"
 msgstr "No se pudo aplicar la configuración almacenada para los monitores"
 
