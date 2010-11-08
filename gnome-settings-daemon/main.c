@@ -31,9 +31,7 @@
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
-
-#include <dbus/dbus-glib.h>
-#include <dbus/dbus-glib-lowlevel.h>
+#include <gio/gio.h>
 
 #include "gnome-settings-manager.h"
 #include "gnome-settings-profile.h"
@@ -47,6 +45,8 @@
 static gboolean   debug        = FALSE;
 static gboolean   do_timed_exit = FALSE;
 static int        term_signal_pipe_fds[2];
+static guint      name_id      = 0;
+static GnomeSettingsManager *manager = NULL;
 
 static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL },
@@ -61,152 +61,35 @@ timed_exit_cb (void)
         return FALSE;
 }
 
-static DBusGProxy *
-get_bus_proxy (DBusGConnection *connection)
+static void
+on_session_over (GDBusProxy *proxy,
+                 gchar      *sender_name,
+                 gchar      *signal_name,
+                 GVariant   *parameters,
+                 gpointer    user_data)
 {
-        DBusGProxy *bus_proxy;
-
-        bus_proxy = dbus_g_proxy_new_for_name (connection,
-                                               DBUS_SERVICE_DBUS,
-                                               DBUS_PATH_DBUS,
-                                               DBUS_INTERFACE_DBUS);
-        return bus_proxy;
-}
-
-static gboolean
-acquire_name_on_proxy (DBusGProxy *bus_proxy)
-{
-        GError     *error;
-        guint       result;
-        gboolean    res;
-        gboolean    ret;
-
-        ret = FALSE;
-
-        error = NULL;
-        res = dbus_g_proxy_call (bus_proxy,
-                                 "RequestName",
-                                 &error,
-                                 G_TYPE_STRING, GSD_DBUS_NAME,
-                                 G_TYPE_UINT, 0,
-                                 G_TYPE_INVALID,
-                                 G_TYPE_UINT, &result,
-                                 G_TYPE_INVALID);
-        if (! res) {
-                if (error != NULL) {
-                        g_warning ("Failed to acquire %s: %s", GSD_DBUS_NAME, error->message);
-                        g_error_free (error);
-                } else {
-                        g_warning ("Failed to acquire %s", GSD_DBUS_NAME);
-                }
-                goto out;
-        }
-
-        if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER) {
-                if (error != NULL) {
-                        g_warning ("Failed to acquire %s: %s", GSD_DBUS_NAME, error->message);
-                        g_error_free (error);
-                } else {
-                        g_warning ("Failed to acquire %s", GSD_DBUS_NAME);
-                }
-                goto out;
-        }
-
-        ret = TRUE;
-
- out:
-        return ret;
-}
-
-static DBusHandlerResult
-bus_message_handler (DBusConnection *connection,
-                     DBusMessage    *message,
-                     void           *user_data)
-{
-        if (dbus_message_is_signal (message,
-                                    DBUS_INTERFACE_LOCAL,
-                                    "Disconnected")) {
+        if (g_strcmp0 (signal_name, "SessionOver") == 0) {
+                gnome_settings_manager_stop (manager);
                 gtk_main_quit ();
-                return DBUS_HANDLER_RESULT_HANDLED;
         }
-
-        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
 
-static DBusGConnection *
-get_session_bus (void)
+static void
+got_session_proxy (GObject *source_object,
+                   GAsyncResult *res,
+                   gpointer user_data)
 {
-        GError          *error;
-        DBusGConnection *bus;
-        DBusConnection  *connection;
+        GDBusProxy *proxy;
+        GError *error = NULL;
 
-        error = NULL;
-        bus = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
-        if (bus == NULL) {
-                g_warning ("Couldn't connect to session bus: %s",
-                           error->message);
+        proxy = g_dbus_proxy_new_finish (res, &error);
+        if (proxy == NULL) {
+                g_debug ("Could not connect to the Session manager: %s", error->message);
                 g_error_free (error);
-                goto out;
+        } else {
+                g_signal_connect (G_OBJECT (proxy), "g-signal",
+                                  G_CALLBACK (on_session_over), NULL);
         }
-
-        connection = dbus_g_connection_get_connection (bus);
-        dbus_connection_add_filter (connection,
-                                    (DBusHandleMessageFunction)
-                                    bus_message_handler,
-                                    NULL, NULL);
-
-        dbus_connection_set_exit_on_disconnect (connection, FALSE);
-
- out:
-        return bus;
-}
-
-static gboolean
-bus_register (DBusGConnection *bus)
-{
-        DBusGProxy      *bus_proxy;
-        gboolean         ret;
-
-        gnome_settings_profile_start (NULL);
-
-        ret = FALSE;
-
-        bus_proxy = get_bus_proxy (bus);
-
-        if (bus_proxy == NULL) {
-                g_warning ("Could not construct bus_proxy object");
-                goto out;
-        }
-
-        ret = acquire_name_on_proxy (bus_proxy);
-        g_object_unref (bus_proxy);
-
-        if (!ret) {
-                g_warning ("Could not acquire name");
-                goto out;
-        }
-
-        g_debug ("Successfully connected to D-Bus");
-
- out:
-        gnome_settings_profile_end (NULL);
-
-        return ret;
-}
-
-static void
-on_session_over (DBusGProxy *proxy, GnomeSettingsManager *manager)
-{
-        gnome_settings_manager_stop (manager);
-        gtk_main_quit ();
-}
-
-static void
-on_term_signal (int signal)
-{
-        /* Wake up main loop to tell it to shutdown */
-        close (term_signal_pipe_fds[1]);
-        term_signal_pipe_fds[1] = -1;
 }
 
 static gboolean
@@ -225,6 +108,14 @@ on_term_signal_pipe_closed (GIOChannel *source,
         gtk_main_quit ();
 
         return FALSE;
+}
+
+static void
+on_term_signal (int signal)
+{
+        /* Wake up main loop to tell it to shutdown */
+        close (term_signal_pipe_fds[1]);
+        term_signal_pipe_fds[1] = -1;
 }
 
 static void
@@ -249,37 +140,51 @@ watch_for_term_signal (GnomeSettingsManager *manager)
 }
 
 static void
-set_session_over_handler (DBusGConnection *bus, GnomeSettingsManager *manager)
+set_session_over_handler (GDBusConnection *bus)
 {
-        DBusGProxy *session_proxy;
-
         g_assert (bus != NULL);
 
-        gnome_settings_profile_start (NULL);
-
-        session_proxy =
-                 dbus_g_proxy_new_for_name (bus,
-                                            GNOME_SESSION_DBUS_NAME,
-                                            GNOME_SESSION_DBUS_OBJECT,
-                                            GNOME_SESSION_DBUS_INTERFACE);
-
-        dbus_g_object_register_marshaller (
-                g_cclosure_marshal_VOID__VOID,
-                G_TYPE_NONE,
-                G_TYPE_INVALID);
-
-        dbus_g_proxy_add_signal (session_proxy,
-                                 "SessionOver",
-                                 G_TYPE_INVALID);
-
-        dbus_g_proxy_connect_signal (session_proxy,
-                                     "SessionOver",
-                                     G_CALLBACK (on_session_over),
-                                     manager,
-                                     NULL);
+        g_dbus_proxy_new (bus,
+                          G_DBUS_PROXY_FLAGS_NONE,
+                          NULL,
+                          GNOME_SESSION_DBUS_NAME,
+                          GNOME_SESSION_DBUS_OBJECT,
+                          GNOME_SESSION_DBUS_INTERFACE,
+                          NULL,
+                          (GAsyncReadyCallback) got_session_proxy,
+                          NULL);
 
         watch_for_term_signal (manager);
-        gnome_settings_profile_end (NULL);
+}
+
+static void
+name_acquired_handler (GDBusConnection *connection,
+                       const gchar *name,
+                       gpointer user_data)
+{
+        set_session_over_handler (connection);
+}
+
+static void
+name_lost_handler (GDBusConnection *connection,
+                   const gchar *name,
+                   gpointer user_data)
+{
+        /* Name was already taken, or the bus went away */
+        gtk_main_quit ();
+}
+
+static void
+bus_register (void)
+{
+        name_id = g_bus_own_name (G_BUS_TYPE_SESSION,
+                                  GSD_DBUS_NAME,
+                                  G_BUS_NAME_OWNER_FLAGS_NONE,
+                                  NULL,
+                                  (GBusNameAcquiredCallback) name_acquired_handler,
+                                  (GBusNameLostCallback) name_lost_handler,
+                                  NULL,
+                                  NULL);
 }
 
 static void
@@ -299,7 +204,6 @@ gsd_log_default_handler (const gchar   *log_domain,
                                message,
                                unused_data);
 }
-
 
 static void
 parse_args (int *argc, char ***argv)
@@ -334,8 +238,7 @@ parse_args (int *argc, char ***argv)
 int
 main (int argc, char *argv[])
 {
-        GnomeSettingsManager *manager;
-        DBusGConnection      *bus;
+
         gboolean              res;
         GError               *error;
 
@@ -367,15 +270,7 @@ main (int argc, char *argv[])
 
         g_log_set_default_handler (gsd_log_default_handler, NULL);
 
-        bus = get_session_bus ();
-        if (bus == NULL) {
-                g_warning ("Could not get a connection to the bus");
-                goto out;
-        }
-
-        if (! bus_register (bus)) {
-                goto out;
-        }
+        bus_register ();
 
         gnome_settings_profile_start ("gnome_settings_manager_new");
         manager = gnome_settings_manager_new ();
@@ -384,8 +279,6 @@ main (int argc, char *argv[])
                 g_warning ("Unable to register object");
                 goto out;
         }
-
-        set_session_over_handler (bus, manager);
 
         /* If we aren't started by dbus then load the plugins
            automatically.  Otherwise, wait for an Awake etc. */
@@ -405,9 +298,10 @@ main (int argc, char *argv[])
 
         gtk_main ();
 
- out:
-        if (bus != NULL) {
-                dbus_g_connection_unref (bus);
+out:
+        if (name_id > 0) {
+                g_bus_unown_name (name_id);
+                name_id = 0;
         }
 
         if (manager != NULL) {
