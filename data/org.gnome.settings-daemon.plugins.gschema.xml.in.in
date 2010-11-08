@@ -1,5 +1,5 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins" path="/apps/gnome-settings-daemon/plugins/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins" path="/org/gnome/settings-daemon/plugins/">
     <child name="a11-keyboard" schema="org.gnome.settings-daemon.plugins.a11y-keyboard"/>
     <child name="background" schema="org.gnome.settings-daemon.plugins.background"/>
     <child name="clipboard" schema="org.gnome.settings-daemon.plugins.clipboard"/>
@@ -10,7 +10,7 @@
     <child name="sound" schema="org.gnome.settings-daemon.plugins.sound"/>
     <child name="xrdb" schema="org.gnome.settings-daemon.plugins.xrdb"/>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.a11y-keyboard" path="/apps/gnome-settings-daemon/plugins/a11y-keyboard/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.a11y-keyboard" path="/org/gnome/settings-daemon/plugins/a11y-keyboard/">
     <key name="active" type="b">
       <default>false</default>
       <_summary>Activation of this plugin</_summary>
@@ -22,7 +22,7 @@
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.background" path="/apps/gnome-settings-daemon/plugins/background/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.background" path="/org/gnome/settings-daemon/plugins/background/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -34,7 +34,7 @@
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.clipboard" path="/apps/gnome-settings-daemon/plugins/clipboard/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.clipboard" path="/org/gnome/settings-daemon/plugins/clipboard/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -46,7 +46,7 @@
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.font" path="/apps/gnome-settings-daemon/plugins/font/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.font" path="/org/gnome/settings-daemon/plugins/font/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -58,7 +58,7 @@
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.keybindings" path="/apps/gnome-settings-daemon/plugins/keybindings/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.keybindings" path="/org/gnome/settings-daemon/plugins/keybindings/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -70,7 +70,7 @@
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.mouse" path="/apps/gnome-settings-daemon/plugins/mouse/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.mouse" path="/org/gnome/settings-daemon/plugins/mouse/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -82,7 +82,7 @@
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.smartcard" path="/apps/gnome-settings-daemon/plugins/smartcard/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.smartcard" path="/org/gnome/settings-daemon/plugins/smartcard/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -94,7 +94,7 @@
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.sound" path="/apps/gnome-settings-daemon/plugins/sound/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.sound" path="/org/gnome/settings-daemon/plugins/sound/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -106,7 +106,7 @@
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.xrdb" path="/apps/gnome-settings-daemon/plugins/xrdb/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.xrdb" path="/org/gnome/settings-daemon/plugins/xrdb/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
