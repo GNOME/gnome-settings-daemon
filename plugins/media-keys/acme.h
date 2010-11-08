@@ -80,10 +80,11 @@ static struct {
         { STOP_KEY, "stop", NULL, NULL },
         { PREVIOUS_KEY, "previous", NULL, NULL },
         { NEXT_KEY, "next", NULL, NULL },
-        { REWIND_KEY, "rewind", "XF86AudioRewind", NULL },
-        { FORWARD_KEY, "forward", "XF86AudioForward", NULL },
-        { REPEAT_KEY, "repeat", "XF86AudioRepeat", NULL },
-        { RANDOM_KEY, "random", "XF86AudioRandomPlay", NULL},
+        /* Those are not configurable in the UI */
+        { REWIND_KEY, NULL, "XF86AudioRewind", NULL },
+        { FORWARD_KEY, NULL, "XF86AudioForward", NULL },
+        { REPEAT_KEY, NULL, "XF86AudioRepeat", NULL },
+        { RANDOM_KEY, NULL, "XF86AudioRandomPlay", NULL},
         { VIDEO_OUT_KEY, NULL, "<Super>p", NULL },
         /* Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.) */
         { VIDEO_OUT2_KEY, NULL, "XF86Display", NULL },
