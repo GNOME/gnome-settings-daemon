@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-11-05 18:27+0000\n"
-"PO-Revision-Date: 2010-11-06 10:50+0100\n"
+"POT-Creation-Date: 2010-11-08 21:03+0000\n"
+"PO-Revision-Date: 2010-11-09 10:24+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -65,21 +65,33 @@ msgstr "Activar el touchpad"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Activa la emulación del botón central del ratón a través de una pulsación "
+"simultánea del botón izquierdo y derecho."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
 msgstr ""
 "Resalta la posición actual del puntero cuando se pulsa y se suelta la tecla "
 "Control."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid "Length of a double click in milliseconds."
 msgstr "Duración en milisegundos de una pulsación doble."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid "Middle button emulation"
+msgstr "Emulación del botón central"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Select the touchpad scroll method"
 msgstr "Seleccionar el método de desplazamiento del touchpad"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid ""
 "Select the touchpad scroll method. Supported values are: \"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\"."
@@ -88,7 +100,7 @@ msgstr ""
 "soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento "
 "en el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -96,7 +108,7 @@ msgstr ""
 "Establecer esto a verdadero si tiene problemas tocando accidentalmente el "
 "touchpad al escribir."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -104,18 +116,18 @@ msgstr ""
 "Establecer esto a verdadero para permitir desplazamiento horizontal con el "
 "mismo método seleccionado en la clave scroll_method."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "Establecer esto a verdadero para poder enviar pulsaciones del ratón pulsando "
 "sobre el touchpad."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Establecer esto a verdadero para activar todos los touchpad."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
 "action will get performed when the smartcard used for log in is removed."
@@ -125,7 +137,7 @@ msgstr ""
 "acción se realizará cuando se quite la tarjeta inteligente usada para "
 "iniciar sesión."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
 msgid "Smartcard removal action"
 msgstr "Acción al quitar la tarjeta inteligente"
 
@@ -133,7 +145,7 @@ msgstr "Acción al quitar la tarjeta inteligente"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Activation of this plugin"
 msgstr "Activación de este complemento"
@@ -160,7 +172,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 msgstr "Indica si gnome-settings-daemon activará este complemento o no"
@@ -423,10 +435,16 @@ msgstr "Silenciar"
 msgid "Volume up"
 msgstr "Subir volumen"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#| msgid "Could not switch the monitor configuration"
-msgid "Do not touch monitor configuration"
-msgstr "No cambiar la configuración del monitor"
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+msgid ""
+"'clone' will display the same thing on all monitors, 'dock' will switch off "
+"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
+"(extend the desktop in recent versions)"
+msgstr ""
+"«clone» (clonar) mostrará lo mismo en todos los monitores, «dock» (anclar) "
+"apagará el monitor interno, «do-nothing» (no hacer nada) usará el "
+"comportamiento predeterminado de Xorg (en versiones recientes extenderá el "
+"escritorio)"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
@@ -447,45 +465,9 @@ msgstr ""
 "la configuración de monitores del usuario, entonces se usa en su lugar el "
 "archivo especificado por esta clave."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
-msgid "Turn on external monitor after system boot"
-msgstr "Encender el monitor externo después de arrancar el sistema"
-
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
-msgid ""
-"Turn on external monitor after system boot if user plugs in external monitor "
-"on system boot."
-msgstr ""
-"Encender el monitor externo después de arrancar el sistema si el usuario "
-"conectó el monitor externo al arrancar el sistema."
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:9
-msgid "Turn on laptop monitor after system boot"
-msgstr "Encender el monitor del portátil después de arrancar el sistema"
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:10
-msgid ""
-"Turn on laptop monitor after system boot if user plugs in external monitor "
-"on system boot."
-msgstr ""
-"Encender el monitor del portátil después de arrancar el sistema si el "
-"usuario conectó el monitor externo al arrancar el sistema."
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:11
-msgid ""
-"Usually, gnome-settings-daemon configures internal and external monitors "
-"according to the turn_on_external_monitors_at_startup and "
-"turn_on_laptop_monitor_at_startup settings and determines an appropriate "
-"cloning/side-by-side mode. Setting this key to True disables this, and the "
-"monitor settings are not touched at all (unless there is an explicit user "
-"configuration)."
-msgstr ""
-"Generalmente gnome-settings-daemon configura los monitores internos y "
-"externos según los ajustes de «turn_on_external_monitors_at_startup» y "
-"«turn_on_laptop_monitor_at_startup» y determina un modo apropiado de clonado "
-"o lado a lado. Establecer esta clave a cierta lo desactiva y no se cambiarán "
-"los ajustes del monitor (a menos que exista una configuración explícita del "
-"usuario)."
+msgid "Whether to turn off specific monitors after boot"
+msgstr "Indica si apagar determinados monitores después de iniciar el equipo"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid ""
@@ -926,7 +908,7 @@ msgstr "Prefere_ncias del teclado"
 msgid "Show _Current Layout"
 msgstr "Mostrar distribución _actual"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:195
+#: ../plugins/media-keys/gsd-media-keys-manager.c:205
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -935,7 +917,7 @@ msgstr ""
 "predeterminado del terminal está configurado y apunta a una aplicación "
 "válida."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:235
+#: ../plugins/media-keys/gsd-media-keys-manager.c:245
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -980,18 +962,18 @@ msgstr "Teclas multimedia"
 msgid "Media keys plugin"
 msgstr "Complemento de teclas multimedia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:806
+#: ../plugins/mouse/gsd-mouse-manager.c:868
 msgid "Could not enable mouse accessibility features"
 msgstr "No se pudieron activar las características de accesibilidad del ratón"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:808
+#: ../plugins/mouse/gsd-mouse-manager.c:870
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "La accesibilidad del ratón requiere que los ajustes finos del ratón estén "
 "instalados en su sistema."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:810
+#: ../plugins/mouse/gsd-mouse-manager.c:872
 msgid "Universal Access"
 msgstr "Acceso universal"
 
@@ -1011,19 +993,19 @@ msgstr "Establecer los ajustes de tamaño y rotación de la pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:357
+#: ../plugins/xrandr/gsd-xrandr-manager.c:352
 msgid "Could not switch the monitor configuration"
 msgstr "No se pudo cambiar la configuración del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:381
+#: ../plugins/xrandr/gsd-xrandr-manager.c:376
 msgid "Could not restore the display's configuration"
 msgstr "No se pudo restaurar la configuración del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:406
+#: ../plugins/xrandr/gsd-xrandr-manager.c:401
 msgid "Could not restore the display's configuration from a backup"
 msgstr "No se pudo restaurar la configuración del monitor desde un respaldo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:427
+#: ../plugins/xrandr/gsd-xrandr-manager.c:422
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1032,32 +1014,32 @@ msgstr[0] "La pantalla se reiniciará a su configuración anterior en %d segundo
 msgstr[1] ""
 "La pantalla se reiniciará a su configuración anterior en %d segundos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:476
+#: ../plugins/xrandr/gsd-xrandr-manager.c:471
 msgid "Does the display look OK?"
 msgstr "¿Se ve bien la pantalla?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
+#: ../plugins/xrandr/gsd-xrandr-manager.c:478
 msgid "_Restore Previous Configuration"
 msgstr "_Restaurar la configuración anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:484
+#: ../plugins/xrandr/gsd-xrandr-manager.c:479
 msgid "_Keep This Configuration"
 msgstr "_Mantener esta configuración"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:565
+#: ../plugins/xrandr/gsd-xrandr-manager.c:560
 msgid "The selected configuration for displays could not be applied"
 msgstr "No se pudo aplicar la configuración seleccionada para las pantallas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1122
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1136
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "No se pudo refrescar la información de la pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1126
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1140
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Intentando cambiar la configuración del monitor de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1606
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1593
 msgid "Could not apply the stored configuration for monitors"
 msgstr "No se pudo aplicar la configuración almacenada para los monitores"
 
@@ -1173,6 +1155,45 @@ msgstr "Se requieren privilegios para cambiar la hora del sistema."
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
 msgid "Privileges are required to configure the hardware clock."
 msgstr "Se requieren privilegios para cambiar el reloj hardware."
+
+#~| msgid "Could not switch the monitor configuration"
+#~ msgid "Do not touch monitor configuration"
+#~ msgstr "No cambiar la configuración del monitor"
+
+#~ msgid "Turn on external monitor after system boot"
+#~ msgstr "Encender el monitor externo después de arrancar el sistema"
+
+#~ msgid ""
+#~ "Turn on external monitor after system boot if user plugs in external "
+#~ "monitor on system boot."
+#~ msgstr ""
+#~ "Encender el monitor externo después de arrancar el sistema si el usuario "
+#~ "conectó el monitor externo al arrancar el sistema."
+
+#~ msgid "Turn on laptop monitor after system boot"
+#~ msgstr "Encender el monitor del portátil después de arrancar el sistema"
+
+#~ msgid ""
+#~ "Turn on laptop monitor after system boot if user plugs in external "
+#~ "monitor on system boot."
+#~ msgstr ""
+#~ "Encender el monitor del portátil después de arrancar el sistema si el "
+#~ "usuario conectó el monitor externo al arrancar el sistema."
+
+#~ msgid ""
+#~ "Usually, gnome-settings-daemon configures internal and external monitors "
+#~ "according to the turn_on_external_monitors_at_startup and "
+#~ "turn_on_laptop_monitor_at_startup settings and determines an appropriate "
+#~ "cloning/side-by-side mode. Setting this key to True disables this, and "
+#~ "the monitor settings are not touched at all (unless there is an explicit "
+#~ "user configuration)."
+#~ msgstr ""
+#~ "Generalmente gnome-settings-daemon configura los monitores internos y "
+#~ "externos según los ajustes de «turn_on_external_monitors_at_startup» y "
+#~ "«turn_on_laptop_monitor_at_startup» y determina un modo apropiado de "
+#~ "clonado o lado a lado. Establecer esta clave a cierta lo desactiva y no "
+#~ "se cambiarán los ajustes del monitor (a menos que exista una "
+#~ "configuración explícita del usuario)."
 
 #~ msgid "Enable dwell clicks"
 #~ msgstr "Activar pulsación al posarse"
