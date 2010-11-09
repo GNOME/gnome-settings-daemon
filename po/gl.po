@@ -17,14 +17,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-20 12:58+0200\n"
-"PO-Revision-Date: 2010-07-20 12:58+0200\n"
+"POT-Creation-Date: 2010-11-09 11:59+0100\n"
+"PO-Revision-Date: 2010-11-09 12:02+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -38,7 +38,7 @@ msgstr "Limiar de notificación de porcentaxe libre"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
 msgid "Free space no notify threshold"
-msgstr "LImiar de non notificación de espazo libre"
+msgstr "Limiar de non notificación de espazo libre"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
 msgid "Minimum notify period for repeated warnings"
@@ -254,14 +254,18 @@ msgid "Volume up"
 msgstr "Subir o volume"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid "Do not touch monitor configuration"
+msgstr "Non cambiar a configuración do monitor"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "File for default configuration for RandR"
 msgstr "Ficheiro de configuración predefinido para RandR"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
 msgid "Show Displays in Notification Area"
 msgstr "Mostrar as pantallas na área de notificación"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -275,11 +279,11 @@ msgstr ""
 "ten dito ficheiro ou non ten unha configuración de usuario dos monitores, "
 "usarase no seu lugar o ficheiro especificado nesta chave."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
 msgid "Turn on external monitor after system boot"
 msgstr "Acenda o monitor externo despois de arrancar o sistema"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
 msgid ""
 "Turn on external monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -287,11 +291,11 @@ msgstr ""
 "Acender o monitor externo despois de arrancar o sistema se o usuario conecta "
 "o monitor externo cando o sistema arranca."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
 msgid "Turn on laptop monitor after system boot"
 msgstr "Encenda o monitor do portátil despois de arrancar o sistema"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
 msgid ""
 "Turn on laptop monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -299,7 +303,23 @@ msgstr ""
 "Acender o monitor do portátil despois de arrancar o sistema se o usuario "
 "conecta o monitor externo cando o sistema arranca."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:9
+msgid ""
+"Usually, gnome-settings-daemon configures internal and external monitors "
+"according to the turn_on_external_monitors_at_startup and "
+"turn_on_laptop_monitor_at_startup settings and determines an appropriate "
+"cloning/side-by-side mode. Setting this key to True disables this, and the "
+"monitor settings are not touched at all (unless there is an explicit user "
+"configuration)."
+msgstr ""
+"Xeralmente gnome-settings-daemon configura os monitores internos e externos "
+"segundo os axustes de «turn_on_external_monitors_at_startup» e "
+"«turn_on_laptop_monitor_at_startup» e determina un modo axeitado de clonado "
+"ou lado a lado. Estebelecer esta chave a certa desactívao e non se cambiarán "
+"os axustes do monitor (a menos que exista unha configuración explícita do "
+"usuario)."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:10
 msgid ""
 "Whether a notification icon with display-related things should be shown in "
 "the panel."
@@ -1251,21 +1271,21 @@ msgstr "Definir o tamaño da pantalla e as configuracións de rotación"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:225
+#: ../plugins/xrandr/gsd-xrandr-manager.c:372
 msgid "Could not switch the monitor configuration"
 msgstr "Non foi posíbel cambiar a configuración da pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:249
+#: ../plugins/xrandr/gsd-xrandr-manager.c:396
 msgid "Could not restore the display's configuration"
 msgstr "Non foi posíbel restaurar a configuración de pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:274
+#: ../plugins/xrandr/gsd-xrandr-manager.c:421
 msgid "Could not restore the display's configuration from a backup"
 msgstr ""
 "Non foi posíbel restaurar a configuración de pantalla desde a copia de "
 "seguranza"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:295
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1273,64 +1293,64 @@ msgid_plural ""
 msgstr[0] "Restabelecerase a configuración de pantalla anterior en %d segundo"
 msgstr[1] "Restabelecerase a configuración de pantalla anterior en %d segundos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:344
+#: ../plugins/xrandr/gsd-xrandr-manager.c:491
 msgid "Does the display look OK?"
 msgstr "Vese correctamente a pantalla?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:350
+#: ../plugins/xrandr/gsd-xrandr-manager.c:497
 msgid "_Restore Previous Configuration"
 msgstr "_Restabelecer a configuración anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:351
+#: ../plugins/xrandr/gsd-xrandr-manager.c:498
 msgid "_Keep This Configuration"
 msgstr "_Manter esta configuración"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:432
+#: ../plugins/xrandr/gsd-xrandr-manager.c:579
 msgid "The selected configuration for displays could not be applied"
 msgstr "Non é posíbel aplicar a configuración seleccionada para as pantallas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1143
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Non foi posíbel actualizar a información de pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:973
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1147
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Tentando mudar a configuración da pantalla de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1703
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1878
 msgid "Rotation not supported"
 msgstr "A rotación non está permitida"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1759
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1934
 msgid "Could not save monitor configuration"
 msgstr "Non foi posíbel gardar a configuración do monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1777
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
 msgid "Normal"
 msgstr "Normal"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1778
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
 msgid "Left"
 msgstr "Esquerda"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1779
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
 msgid "Right"
 msgstr "Dereita"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1780
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1955
 msgid "Upside Down"
 msgstr "Inverter"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1900
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2075
 msgid "_Configure Display Settings…"
 msgstr "_Configurar as opcións da pantalla …"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1941
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2116
 msgid "Configure display settings"
 msgstr "Configurar as características da pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2001
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2177
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Non se lles puido aplicar a configuración almacenada aos monitores"
 
