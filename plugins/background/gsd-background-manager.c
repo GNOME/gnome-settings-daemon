@@ -38,7 +38,6 @@
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
-#include <gconf/gconf-client.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnomeui/gnome-bg.h>
@@ -47,15 +46,12 @@
 #include "gnome-settings-profile.h"
 #include "gsd-background-manager.h"
 
-#define NAUTILUS_SHOW_DESKTOP_KEY "/apps/nautilus/preferences/show_desktop"
-
 #define GSD_BACKGROUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_BACKGROUND_MANAGER, GsdBackgroundManagerPrivate))
 
 struct GsdBackgroundManagerPrivate
 {
-        GConfClient *client;
+        GSettings   *settings;
         GnomeBG     *bg;
-        guint        bg_notify_id;
         guint        timeout_id;
 
         DBusConnection *dbus_connection;
@@ -64,6 +60,8 @@ struct GsdBackgroundManagerPrivate
 static void     gsd_background_manager_class_init  (GsdBackgroundManagerClass *klass);
 static void     gsd_background_manager_init        (GsdBackgroundManager      *background_manager);
 static void     gsd_background_manager_finalize    (GObject             *object);
+
+static void setup_bg (GsdBackgroundManager *manager);
 
 G_DEFINE_TYPE (GsdBackgroundManager, gsd_background_manager, G_TYPE_OBJECT)
 
@@ -209,13 +207,6 @@ draw_background (GsdBackgroundManager *manager,
 }
 
 static void
-on_bg_changed (GnomeBG              *bg,
-               GsdBackgroundManager *manager)
-{
-        draw_background (manager, TRUE);
-}
-
-static void
 on_bg_transitioned (GnomeBG              *bg,
                     GsdBackgroundManager *manager)
 {
@@ -223,30 +214,48 @@ on_bg_transitioned (GnomeBG              *bg,
 }
 
 static void
-gconf_changed_callback (GConfClient          *client,
-                        guint                 cnxn_id,
-                        GConfEntry           *entry,
+background_changed (GsdBackgroundManager *manager,
+                    gboolean              use_crossfade)
+{
+        gboolean show_desktop_icons;
+
+        show_desktop_icons = g_settings_get_boolean (manager->priv->settings,
+                                                     "show-desktop-icons");
+
+        if (!nautilus_is_running () || !show_desktop_icons) {
+                if (manager->priv->bg == NULL) {
+                        setup_bg (manager);
+                }
+                gnome_bg_load_from_preferences (manager->priv->bg,
+                                                manager->priv->settings);
+                draw_background (manager, use_crossfade);
+        }
+}
+
+static gboolean
+settings_change_event_cb (GSettings            *settings,
+                          gpointer              keys,
+                          gint                  n_keys,
+                          GsdBackgroundManager *manager)
+{
+        background_changed (manager, TRUE);
+        return FALSE;
+}
+
+static void
+on_screen_size_changed (GdkScreen            *screen,
                         GsdBackgroundManager *manager)
 {
-        gnome_bg_load_from_preferences (manager->priv->bg,
-                                        manager->priv->client);
+        background_changed (manager, FALSE);
 }
 
 static void
 watch_bg_preferences (GsdBackgroundManager *manager)
 {
-        g_assert (manager->priv->bg_notify_id == 0);
-
-        gconf_client_add_dir (manager->priv->client,
-                              GNOME_BG_KEY_DIR,
-                              GCONF_CLIENT_PRELOAD_NONE,
-                              NULL);
-        manager->priv->bg_notify_id = gconf_client_notify_add (manager->priv->client,
-                                                               GNOME_BG_KEY_DIR,
-                                                               (GConfClientNotifyFunc)gconf_changed_callback,
-                                                               manager,
-                                                               NULL,
-                                                               NULL);
+        g_signal_connect (manager->priv->settings,
+                          "change-event",
+                          G_CALLBACK (settings_change_event_cb),
+                          manager);
 }
 
 static void
@@ -257,18 +266,13 @@ setup_bg (GsdBackgroundManager *manager)
         manager->priv->bg = gnome_bg_new ();
 
         g_signal_connect (manager->priv->bg,
-                          "changed",
-                          G_CALLBACK (on_bg_changed),
-                          manager);
-
-        g_signal_connect (manager->priv->bg,
                           "transitioned",
                           G_CALLBACK (on_bg_transitioned),
                           manager);
 
         watch_bg_preferences (manager);
         gnome_bg_load_from_preferences (manager->priv->bg,
-                                        manager->priv->client);
+                                        manager->priv->settings);
 }
 
 static gboolean
@@ -332,23 +336,6 @@ draw_background_after_session_loads (GsdBackgroundManager *manager)
         manager->priv->dbus_connection = connection;
 }
 
-static void
-on_screen_size_changed (GdkScreen            *screen,
-                        GsdBackgroundManager *manager)
-{
-        gboolean nautilus_show_desktop;
-
-        nautilus_show_desktop = gconf_client_get_bool (manager->priv->client,
-                                                       NAUTILUS_SHOW_DESKTOP_KEY,
-                                                       NULL);
-
-        if (!nautilus_is_running () || !nautilus_show_desktop) {
-                if (manager->priv->bg == NULL) {
-                        setup_bg (manager);
-                }
-                draw_background (manager, FALSE);
-        }
-}
 
 static void
 disconnect_screen_signals (GsdBackgroundManager *manager)
@@ -397,12 +384,12 @@ gboolean
 gsd_background_manager_start (GsdBackgroundManager *manager,
                               GError              **error)
 {
-        gboolean nautilus_show_desktop;
+        gboolean show_desktop_icons;
 
         g_debug ("Starting background manager");
         gnome_settings_profile_start (NULL);
 
-        manager->priv->client = gconf_client_get_default ();
+        manager->priv->settings = g_settings_new ("org.gnome.desktop.background");
 
         /* If this is set, nautilus will draw the background and is
 	 * almost definitely in our session.  however, it may not be
@@ -411,11 +398,10 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
 	 * don't waste time setting the background only to have
 	 * nautilus overwrite it.
 	 */
-        nautilus_show_desktop = gconf_client_get_bool (manager->priv->client,
-                                                       NAUTILUS_SHOW_DESKTOP_KEY,
-                                                       NULL);
+        show_desktop_icons = g_settings_get_boolean (manager->priv->settings,
+                                                     "show-desktop-icons");
 
-        if (!nautilus_show_desktop) {
+        if (!show_desktop_icons) {
                 setup_bg (manager);
         } else {
                 draw_background_after_session_loads (manager);
@@ -443,18 +429,13 @@ gsd_background_manager_stop (GsdBackgroundManager *manager)
                                                manager);
         }
 
-        if (manager->priv->bg_notify_id != 0) {
-                gconf_client_remove_dir (manager->priv->client,
-                                         GNOME_BG_KEY_DIR,
-                                         NULL);
-                gconf_client_notify_remove (manager->priv->client,
-                                            manager->priv->bg_notify_id);
-                manager->priv->bg_notify_id = 0;
-        }
+        g_signal_handlers_disconnect_by_func (manager->priv->settings,
+                                              settings_change_event_cb,
+                                              manager);
 
-        if (p->client != NULL) {
-                g_object_unref (p->client);
-                p->client = NULL;
+        if (p->settings != NULL) {
+                g_object_unref (p->settings);
+                p->settings = NULL;
         }
 
         if (p->timeout_id != 0) {

@@ -74,6 +74,7 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gconf-2.0 >= $GCONF_REQUIRED_VERSION
         gio-2.0 >= $GIO_REQUIRED_VERSION
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
+        gsettings-desktop-schemas
 )
 
 GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
