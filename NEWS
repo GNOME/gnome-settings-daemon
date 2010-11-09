@@ -1,4 +1,74 @@
 ==============
+Version 2.91.2
+==============
+
+- Migration to GSettings (Bastien Nocera, Rodrigo Moya, Gerd Kohlberger,
+  Carlos García Campos)
+- Use MIME types for URL handlers (Rodrigo Moya)
+- Fix the GSD_API_VERSION definition in configure.ac (Matthias Clasen)
+- Update PolicyKit minimum requirement (Bastien Nocera)
+- Remove typing break plugin (Bastien Nocera)
+- Update the required version of gnome-desktop3/GTK3 (Bastien Nocera)
+- Require libnotify 0.6.0 (William Jon McCann)
+- KEY_SCROLL_METHOD is an enum not an int (Alban Browaeys) (#631963)
+- Don't use gdk_drawable_get_screen (Alban Browaeys) (#631931)
+- Fix version substitution in pkg-config file (Bastien Nocera) (#631866)
+- Remove status icon for monitors (Bastien Nocera) (#631995)
+- Make XInput a hard requirement (Bastien Nocera)
+- Use canberra-gtk for GTK3 (Bastien Nocera)
+- More network filesystems not to monitor (Josselin Mouette) (#606421)
+- Fix loading plugins information (Bastien Nocera) (#631933)
+- For media key, use the default application for audio/ogg (Rodrigo Moya)
+- Set priority for plugins based on settings (Bastien Nocera)
+- Never daemonise the "daemon" (Bastien Nocera)
+- Use Gdk to get events about input devices being added (Bastien Nocera)
+- Cleanup macro magic in plugin.h (Paolo Borelli) (#591798)
+- Update gnome-media cut'n'paste code (Bastien Nocera) (#612024)
+- Add gnome-settings-daemon man page (Joshua Cummings) (#588716)
+- Remove horrible xmodmap fallback code (Bastien Nocera) (#150542)
+- Remove outdated plugin (Bastien Nocera)
+- Use g_timeout_add_seconds (Bastien Nocera) (#582703)
+- Keyboard plugin improvements (Sergey V. Udaltsov)
+- Don't choke if there are old plugins laying around (William Jon McCann)
+- Check for touchpad before running syndaemon (Hernando Torque) (#632122)
+- Add icon to the "Keep settings" dialogue (Bastien Nocera) (#579021)
+- Add support for the enable-animation setting (Bastien Nocera) (#630535)
+- Export Xft.lcdfilter for OO.o's benefit (Chris Coleman) (#631924)
+- Remove XFree86 4.3.0 check (Bastien Nocera) (#632569)
+- Make fontconfig a hard dependency (Bastien Nocera)
+- Add GConf<->GSettings bridge plugin (Rodrigo Moya)
+- Show a touchpad-disabled if no touchpad (Bastien Nocera)
+- Make the "log out" key really do that (Bastien Nocera)
+- If the stored configuration fails at startup, use the fallback configurations
+  (Gary Lin)
+- Add ability to hard-code media keys (Bastien Nocera) (#623223)
+- Use $(sysconfigdir) for .ad files, since they are settings (Rodrigo Moya)
+- Enable maintainer mode (Rodrigo Moya)
+- Don't display the gnome-settings-daemon autostart in the startup applications
+  list (Rodrigo Moya)
+- Add settings key for disabling boot time configuration (Martin Pitt, Rodrigo
+  Moya) (#631388)
+- Don't access free'd memory if a volume is unmounted whilst the dialog is
+  running (Rodrigo Moya)
+- Port to GDBus (Bastien Nocera)
+- Add support for more multimedia keys (Bastien Nocera)
+- Handle video out keys in media-keys (Ray Strode) (#623223)
+- Use virtual modifier <Super> for the Windows key (Ray Strode)
+- Simplify the default XRandR behaviour (Bastien Nocera) (#634092)
+- Add middle-button-enabled key (Bastien Nocera) (#633863)
+- Prepare for the demise of size_request (Matthias Clasen) (#633320)
+- Translations:
+  - ca (Carles Ferrando)
+  - de (Mario Blättermann)
+  - es (Jorge González)
+  - gl (Fran Diéguez)
+  - he (Yaron Shahrabani)
+  - ja (Takayuki KUSANO)
+  - ko (Changwoo Ryu)
+  - nb (Kjartan Maraas)
+  - pa (A S Alam )
+
+==============
 Version 2.91.0
 ==============
 
