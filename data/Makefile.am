@@ -4,7 +4,7 @@ apidir = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings-d
 api_DATA = gsd-enums.h
 
 gsettings_ENUM_NAMESPACE = org.gnome.settings-daemon
-gsettings_ENUM_FILES = $(api_DATA)
+gsettings_ENUM_FILES = $(top_srcdir)/data/$(api_DATA)
 
 gsettings_SCHEMAS =							\
 	org.gnome.settings-daemon.peripherals.gschema.xml		\
@@ -54,6 +54,7 @@ EXTRA_DIST = 					\
 	$(xml_in_files)				\
 	$(gsettings_ENUM_FILES)			\
 	gnome-settings-daemon.pc.in		\
+	$(api_DATA)				\
 	$(NULL)
 
 DISTCLEANFILES = 			\
