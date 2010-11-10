@@ -87,10 +87,6 @@ AC_SUBST([GSD_PLUGIN_LDFLAGS])
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
-AC_PATH_PROG(GCONFTOOL, gconftool-2)
-
-AM_GCONF_SOURCE_2
-
 dnl ================================================================
 dnl GSettings stuff
 dnl ================================================================
