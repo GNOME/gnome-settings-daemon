@@ -52,6 +52,9 @@ enum {
         VIDEO_OUT_KEY,
         VIDEO_OUT2_KEY,
         ROTATE_VIDEO_KEY,
+        MAGNIFIER_KEY,
+        SCREENREADER_KEY,
+        ON_SCREEN_KEYBOARD_KEY,
         HANDLED_KEYS
 };
 
@@ -90,6 +93,9 @@ static struct {
         { VIDEO_OUT2_KEY, NULL, "XF86Display", NULL },
         /* Key code of the XF86RotateWindows key (present on some tablets) */
         { ROTATE_VIDEO_KEY, NULL, "XF86RotateWindows", NULL },
+	{ MAGNIFIER_KEY, "magnifier", NULL, NULL },
+	{ SCREENREADER_KEY, "screenreader", NULL, NULL },
+	{ ON_SCREEN_KEYBOARD_KEY, "on-screen-keyboard", NULL, NULL },
 };
 
 #endif /* __ACME_H__ */

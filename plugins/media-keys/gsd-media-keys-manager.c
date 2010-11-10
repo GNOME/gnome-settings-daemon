@@ -1026,6 +1026,36 @@ do_video_rotate_action (GsdMediaKeysManager *manager,
         return FALSE;
 }
 
+static void
+do_toggle_accessibility_key (const char *key)
+{
+	GSettings *settings;
+	gboolean state;
+
+	settings = g_settings_new ("org.gnome.desktop.a11y.applications");
+	state = g_settings_get_boolean (settings, key);
+	g_settings_set_boolean (settings, key, !state);
+	g_object_unref (settings);
+}
+
+static void
+do_magnifier_action (GsdMediaKeysManager *manager)
+{
+	do_toggle_accessibility_key ("screen-magnifier-enabled");
+}
+
+static void
+do_screenreader_action (GsdMediaKeysManager *manager)
+{
+	do_toggle_accessibility_key ("screen-reader-enabled");
+}
+
+static void
+do_on_screen_keyboard_action (GsdMediaKeysManager *manager)
+{
+	do_toggle_accessibility_key ("screen-keyboard-enabled");
+}
+
 static gboolean
 do_action (GsdMediaKeysManager *manager,
            int                  type,
@@ -1117,6 +1147,15 @@ do_action (GsdMediaKeysManager *manager,
                 break;
 	case ROTATE_VIDEO_KEY:
 		do_video_rotate_action (manager, timestamp);
+		break;
+	case MAGNIFIER_KEY:
+		do_magnifier_action (manager);
+		break;
+	case SCREENREADER_KEY:
+		do_screenreader_action (manager);
+		break;
+	case ON_SCREEN_KEYBOARD_KEY:
+		do_on_screen_keyboard_action (manager);
 		break;
         case HANDLED_KEYS:
                 g_assert_not_reached ();
