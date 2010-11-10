@@ -8,7 +8,6 @@
     <child name="mouse" schema="org.gnome.settings-daemon.plugins.mouse"/>
     <child name="smartcard" schema="org.gnome.settings-daemon.plugins.smartcard"/>
     <child name="sound" schema="org.gnome.settings-daemon.plugins.sound"/>
-    <child name="xrdb" schema="org.gnome.settings-daemon.plugins.xrdb"/>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.a11y-keyboard" path="/org/gnome/settings-daemon/plugins/a11y-keyboard/">
     <key name="active" type="b">
@@ -102,18 +101,6 @@
     </key>
     <key name="priority" type="i">
       <default>5</default>
-      <_summary>Priority to use for this plugin</_summary>
-      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.xrdb" path="/org/gnome/settings-daemon/plugins/xrdb/">
-    <key name="active" type="b">
-      <default>true</default>
-      <_summary>Activation of this plugin</_summary>
-      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
-    </key>
-    <key name="priority" type="i">
-      <default>90</default>
       <_summary>Priority to use for this plugin</_summary>
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>

@@ -13,7 +13,6 @@ enabled_plugins =	\
 	mouse		\
 	sound		\
 	xrandr		\
-	xrdb		\
 	xsettings	\
 	$(NULL)
 

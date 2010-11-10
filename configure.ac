@@ -466,8 +466,6 @@ plugins/mouse/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
 plugins/xrandr/Makefile
-plugins/xrdb/Makefile
-plugins/xrdb/data/Makefile
 plugins/xsettings/Makefile
 data/Makefile
 data/gnome-settings-daemon.desktop.in
