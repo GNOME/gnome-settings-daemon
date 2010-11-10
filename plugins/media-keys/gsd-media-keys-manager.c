@@ -654,7 +654,7 @@ do_sound_action (GsdMediaKeysManager *manager,
                                 gvc_mixer_stream_push_volume (manager->priv->stream);
                                 sound_changed = TRUE;
                         }
-                } else if (!muted) {
+                } else {
                         vol = vol - norm_vol_step;
                         if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE) {
                                 gvc_mixer_stream_push_volume (manager->priv->stream);
