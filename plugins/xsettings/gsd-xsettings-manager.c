@@ -194,8 +194,7 @@ static TranslationEntry translations [] = {
         { "org.gnome.desktop.interface", "can-change-accels",      "Gtk/CanChangeAccels",     translate_bool_int },
         { "org.gnome.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
         { "org.gnome.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
-/* Disabled on account of bug https://bugzilla.gnome.org/show_bug.cgi?id=634639
-        { "org.gnome.desktop.interface", "cursor-blink-timeout",   "Net/CursorBlinkTime",     translate_int_int }, */
+        { "org.gnome.desktop.interface", "cursor-blink-timeout",   "Gtk/CursorBlinkTimeout",  translate_int_int },
         { "org.gnome.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
         { "org.gnome.desktop.interface", "gtk-timeout-initial",    "Gtk/TimeoutInitial",      translate_int_int },
         { "org.gnome.desktop.interface", "gtk-timeout-repeat",     "Gtk/TimeoutRepeat",       translate_int_int },
