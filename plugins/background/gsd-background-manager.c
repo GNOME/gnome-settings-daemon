@@ -40,7 +40,7 @@
 #include <gdk/gdkx.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnomeui/gnome-bg.h>
+#include <libgnome-desktop/gnome-bg.h>
 #include <X11/Xatom.h>
 
 #include "gnome-settings-profile.h"
