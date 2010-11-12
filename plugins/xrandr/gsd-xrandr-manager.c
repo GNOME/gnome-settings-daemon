@@ -60,9 +60,6 @@
 #define CONF_KEY_DEFAULT_MONITORS_SETUP   "default-monitors-setup"
 #define CONF_KEY_DEFAULT_CONFIGURATION_FILE   "default-configuration-file"
 
-#define VIDEO_KEYSYM    "XF86Display"
-#define ROTATE_KEYSYM   "XF86RotateWindows"
-
 /* Number of seconds that the confirmation dialog will last before it resets the
  * RANDR configuration to its old state.
  */
