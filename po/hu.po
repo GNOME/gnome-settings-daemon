@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-29 16:31+0200\n"
-"PO-Revision-Date: 2010-08-29 16:31+0200\n"
+"POT-Creation-Date: 2010-11-13 13:26+0100\n"
+"PO-Revision-Date: 2010-11-13 16:20+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "MIME-Version: 1.0\n"
@@ -157,8 +157,7 @@ msgstr "Billentyűparancs az előző számra ugráshoz."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
 msgid "Binding to start playback (or toggle play/pause)."
-msgstr ""
-"Billentyűparancs a lejátszás indításához (vagy a lejátszás/szünet váltáshoz)."
+msgstr "Billentyűparancs a lejátszás indításához (vagy a lejátszás/szünet váltáshoz)."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
 msgid "Binding to stop playback."
@@ -249,14 +248,18 @@ msgid "Volume up"
 msgstr "Hangosítás"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid "Do not touch monitor configuration"
+msgstr "Ne módosítsa a monitor beállításait"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "File for default configuration for RandR"
 msgstr "A RandR alapértelmezett beállításához használt fájl"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
 msgid "Show Displays in Notification Area"
 msgstr "Kijelzők megjelenítése az értesítési területen"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -270,11 +273,11 @@ msgstr ""
 "nem nem felel meg a felhasználó monitorainak, akkor az itt megadott fájl "
 "kerül felhasználásra."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
 msgid "Turn on external monitor after system boot"
 msgstr "Külső monitor bekapcsolása rendszerindítás után"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
 msgid ""
 "Turn on external monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -282,11 +285,11 @@ msgstr ""
 "Külső monitor bekapcsolása rendszerindítás után, ha a felhasználó külső "
 "monitort csatlakoztat a rendszerindításkor."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
 msgid "Turn on laptop monitor after system boot"
 msgstr "Laptopmonitor bekapcsolása rendszerindítás után"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
 msgid ""
 "Turn on laptop monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -294,7 +297,17 @@ msgstr ""
 "Laptopmonitor bekapcsolása rendszerindítás után, ha a felhasználó külső "
 "monitort csatlakoztat a rendszerindításkor."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:9
+msgid ""
+"Usually, gnome-settings-daemon configures internal and external monitors "
+"according to the turn_on_external_monitors_at_startup and "
+"turn_on_laptop_monitor_at_startup settings and determines an appropriate "
+"cloning/side-by-side mode. Setting this key to True disables this, and the "
+"monitor settings are not touched at all (unless there is an explicit user "
+"configuration)."
+msgstr "Általában a gnome-settings-daemon a belső és külső monitorokat a turn_on_external_monitors_at_startup és turn_on_laptop_monitor_at_startup beállításoknak megfelelően konfigurálja, és határozza meg a megfelelő klónozási/egymás melletti módot. Ezen kulcs igazra állítása kikapcsolja ezt, és a monitor beállításai egyáltalán nem módosulnak (hacsak nincs explicit felhasználói beállítás)."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:10
 msgid ""
 "Whether a notification icon with display-related things should be shown in "
 "the panel."
@@ -413,15 +426,12 @@ msgstr ""
 "kulcsban kiválasztott módon."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:9
-msgid ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
-msgstr ""
-"Állítsa igazra egérkattintások küldéséhez az érintőtáblára koppintással."
+msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr "Állítsa igazra egérkattintások küldéséhez az érintőtáblára koppintással."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
 msgid "Set this to TRUE to enable all touchpads."
-msgstr ""
-"Állítsa igazra egérkattintások küldéséhez az érintőtáblára koppintással."
+msgstr "Állítsa igazra egérkattintások küldéséhez az érintőtáblára koppintással."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -541,28 +551,23 @@ msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage XRandR settings."
-msgstr ""
-"Állítsa igazra az XRandR beállításait kezelő bővítmény engedélyezéséhez."
+msgstr "Állítsa igazra az XRandR beállításait kezelő bővítmény engedélyezéséhez."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage clipboard settings."
-msgstr ""
-"Állítsa igazra a vágólap beállításait kezelő bővítmény engedélyezéséhez."
+msgstr "Állítsa igazra a vágólap beállításait kezelő bővítmény engedélyezéséhez."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage desktop background settings."
-msgstr ""
-"Állítsa igazra az asztal háttérképét kezelő bővítmény engedélyezéséhez."
+msgstr "Állítsa igazra az asztal háttérképét kezelő bővítmény engedélyezéséhez."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage font settings."
-msgstr ""
-"Állítsa igazra a betűkészlet beállításait kezelő bővítmény engedélyezéséhez."
+msgstr "Állítsa igazra a betűkészlet beállításait kezelő bővítmény engedélyezéséhez."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage keyboard settings."
-msgstr ""
-"Állítsa igazra a billentyűzet beállításait kezelő bővítmény engedélyezéséhez."
+msgstr "Állítsa igazra a billentyűzet beállításait kezelő bővítmény engedélyezéséhez."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid ""
@@ -584,8 +589,7 @@ msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr ""
-"Állítsa igazra a hangminta-gyorsítótárakat kezelő bővítmény engedélyezéséhez."
+msgstr "Állítsa igazra a hangminta-gyorsítótárakat kezelő bővítmény engedélyezéséhez."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid ""
@@ -597,13 +601,11 @@ msgstr ""
 
 #: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage the keybindings."
-msgstr ""
-"Állítsa igazra a billentyűparancsokat kezelő bővítmény engedélyezéséhez."
+msgstr "Állítsa igazra a billentyűparancsokat kezelő bővítmény engedélyezéséhez."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage typing breaks."
-msgstr ""
-"Állítsa igazra a gépelési szüneteket kezelő bővítmény engedélyezéséhez."
+msgstr "Állítsa igazra a gépelési szüneteket kezelő bővítmény engedélyezéséhez."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
@@ -611,8 +613,7 @@ msgstr "Állítsa igazra az xrdb beállításait kezelő bővítmény engedélye
 
 #: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
-msgstr ""
-"Állítsa igazra az xsettings beállításait kezelő bővítmény engedélyezéséhez."
+msgstr "Állítsa igazra az xsettings beállításait kezelő bővítmény engedélyezéséhez."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "Slow keys"
@@ -1195,10 +1196,8 @@ msgid "Could not enable mouse accessibility features"
 msgstr "A billentyűzet akadálymentesítési szolgáltatásai nem engedélyezhetők"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:884
-msgid ""
-"Mouse accessibility requires Mousetweaks to be installed on your system."
-msgstr ""
-"Az egér akadálymentesítése megköveteli a Mousetweaks jelenlétét a rendszeren."
+msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
+msgstr "Az egér akadálymentesítése megköveteli a Mousetweaks jelenlétét a rendszeren."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:887
 msgid "Mouse Preferences"
@@ -1228,84 +1227,83 @@ msgstr "A képernyőméret és -forgatás beállítása"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:225
+#: ../plugins/xrandr/gsd-xrandr-manager.c:372
 msgid "Could not switch the monitor configuration"
 msgstr "A monitor beállításai nem válthatók át"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:249
+#: ../plugins/xrandr/gsd-xrandr-manager.c:396
 msgid "Could not restore the display's configuration"
 msgstr "A kijelző beállításai nem állíthatók vissza"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:274
+#: ../plugins/xrandr/gsd-xrandr-manager.c:421
 msgid "Could not restore the display's configuration from a backup"
 msgstr "A kijelző beállításai nem állíthatók vissza a mentésből"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:295
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
-msgid_plural ""
-"The display will be reset to its previous configuration in %d seconds"
+msgid_plural "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "A kijelző visszaáll a korábbi beállításaira %d másodpercen belül"
 msgstr[1] "A kijelző visszaáll a korábbi beállításaira %d másodpercen belül"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:344
+#: ../plugins/xrandr/gsd-xrandr-manager.c:491
 msgid "Does the display look OK?"
 msgstr "Megfelelően jelenik meg a kép?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:350
+#: ../plugins/xrandr/gsd-xrandr-manager.c:497
 msgid "_Restore Previous Configuration"
 msgstr "A korábbi beállítások _visszaállítása"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:351
+#: ../plugins/xrandr/gsd-xrandr-manager.c:498
 msgid "_Keep This Configuration"
 msgstr "Ezen beállítások _megtartása"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:432
+#: ../plugins/xrandr/gsd-xrandr-manager.c:579
 msgid "The selected configuration for displays could not be applied"
 msgstr "A kiválasztott kijelzőbeállítás nem alkalmazható"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1143
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "A kijelzőinformációk nem frissíthetők: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:973
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1147
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Kísérlet a monitor beállításainak átváltására mindenképp."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1703
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1878
 msgid "Rotation not supported"
 msgstr "A forgatás nem támogatott"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1759
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1934
 msgid "Could not save monitor configuration"
 msgstr "A monitor beállításai nem menthetők"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1777
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
 msgid "Normal"
 msgstr "Normál"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1778
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
 msgid "Left"
 msgstr "Balra"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1779
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
 msgid "Right"
 msgstr "Jobbra"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1780
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1955
 msgid "Upside Down"
 msgstr "Fejjel lefelé"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1900
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2075
 msgid "_Configure Display Settings…"
 msgstr "Ké_pernyő beállítása…"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1941
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2116
 msgid "Configure display settings"
 msgstr "Kijelző beállítása"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2001
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2177
 msgid "Could not apply the stored configuration for monitors"
 msgstr "A tárolt beállítás nem alkalmazható a monitorokra"
 
@@ -1370,8 +1368,7 @@ msgstr "Nem figyelhetők a bejövő kártyaeseményeket - %s"
 #: ../plugins/smartcard/gsd-smartcard-manager.c:1124
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
-msgstr ""
-"Váratlan hiba történt az intelligenskártya-eseményekre várakozás közben"
+msgstr "Váratlan hiba történt az intelligenskártya-eseményekre várakozás közben"
 
 #: ../plugins/smartcard/gsd-smartcard.c:154
 msgid "Slot ID"
@@ -1425,3 +1422,4 @@ msgstr "Hitelesítés szükséges a rendszeridő módosításához."
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
 msgid "Privileges are required to configure the hardware clock."
 msgstr "Hitelesítés szükséges a hardveróra módosításához."
+
