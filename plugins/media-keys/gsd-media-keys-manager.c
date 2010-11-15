@@ -884,6 +884,8 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
         gboolean    have_listeners;
         GError     *error = NULL;
 
+        g_return_val_if_fail (key != NULL, FALSE);
+
         g_debug ("Media key '%s' pressed", key);
 
         have_listeners = (manager->priv->media_players != NULL);
@@ -897,7 +899,7 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
                                            GSD_MEDIA_KEYS_DBUS_PATH,
                                            GSD_MEDIA_KEYS_DBUS_NAME,
                                            "MediaPlayerKeyPressed",
-                                           g_variant_new ("(ss)", application, key),
+                                           g_variant_new ("(ss)", application ? application : "", key),
                                            &error) == FALSE) {
                 g_debug ("Error emitting signal: %s", error->message);
                 g_error_free (error);
