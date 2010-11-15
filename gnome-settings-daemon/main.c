@@ -32,6 +32,7 @@
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
+#include <libnotify/notify.h>
 
 #include "gnome-settings-manager.h"
 #include "gnome-settings-profile.h"
@@ -269,6 +270,8 @@ main (int argc, char *argv[])
         gnome_settings_profile_end ("opening gtk display");
 
         g_log_set_default_handler (gsd_log_default_handler, NULL);
+
+        notify_init ("gnome-settings-daemon");
 
         bus_register ();
 
