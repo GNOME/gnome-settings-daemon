@@ -1184,10 +1184,6 @@ static void
 gsd_a11y_keyboard_manager_init (GsdA11yKeyboardManager *manager)
 {
         manager->priv = GSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE (manager);
-
-#ifdef HAVE_LIBNOTIFY
-        notify_init ("gnome-settings-daemon");
-#endif /* HAVE_LIBNOTIFY */
 }
 
 static void
