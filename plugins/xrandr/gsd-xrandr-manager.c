@@ -46,9 +46,7 @@
 #include <libgnome-desktop/gnome-rr.h>
 #include <libgnome-desktop/gnome-rr-labeler.h>
 
-#ifdef HAVE_LIBNOTIFY
 #include <libnotify/notify.h>
-#endif
 
 #include "gsd-enums.h"
 #include "gnome-settings-profile.h"
@@ -1078,7 +1076,7 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
 static void
 error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text)
 {
-#ifdef HAVE_LIBNOTIFY
+#if 1
         NotifyNotification *notification;
 
         g_assert (error_to_display == NULL || secondary_text == NULL);
@@ -1098,7 +1096,7 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
 
         gtk_dialog_run (GTK_DIALOG (dialog));
         gtk_widget_destroy (dialog);
-#endif /* HAVE_LIBNOTIFY */
+#endif /* 1 */
 }
 
 static void

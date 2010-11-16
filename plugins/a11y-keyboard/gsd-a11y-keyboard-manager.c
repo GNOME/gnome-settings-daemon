@@ -36,13 +36,10 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <libnotify/notify.h>
 
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKBstr.h>
-
-#ifdef HAVE_LIBNOTIFY
-#include <libnotify/notify.h>
-#endif /* HAVE_LIBNOTIFY */
 
 #include "gnome-settings-profile.h"
 #include "gsd-a11y-keyboard-manager.h"
@@ -67,9 +64,7 @@ struct GsdA11yKeyboardManagerPrivate
 
         GSettings        *settings;
 
-#ifdef HAVE_LIBNOTIFY
         NotifyNotification *notification;
-#endif /* HAVE_LIBNOTIFY */
 };
 
 static void     gsd_a11y_keyboard_manager_class_init  (GsdA11yKeyboardManagerClass *klass);
@@ -446,7 +441,6 @@ maybe_show_status_icon (GsdA11yKeyboardManager *manager)
         gtk_status_icon_set_visible (manager->priv->status_icon, show);
 }
 
-#ifdef HAVE_LIBNOTIFY
 static void
 on_notification_closed (NotifyNotification     *notification,
                         GsdA11yKeyboardManager *manager)
@@ -507,13 +501,11 @@ on_sticky_keys_action (NotifyNotification     *notification,
         }
 }
 
-#endif /* HAVE_LIBNOTIFY */
-
 static gboolean
 ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                                  gboolean                enabled)
 {
-#ifdef HAVE_LIBNOTIFY
+#if 1
         gboolean    res;
         const char *title;
         const char *message;
@@ -570,9 +562,7 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         }
 
         return res;
-#else
-        return FALSE;
-#endif /* HAVE_LIBNOTIFY */
+#endif /* 1 */
 }
 
 
@@ -647,7 +637,7 @@ static gboolean
 ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                                    gboolean                enabled)
 {
-#ifdef HAVE_LIBNOTIFY
+#if 1
         gboolean    res;
         const char *title;
         const char *message;
@@ -707,9 +697,7 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         }
 
         return res;
-#else
-        return FALSE;
-#endif /* HAVE_LIBNOTIFY */
+#endif /* 1 */
 }
 
 static void
