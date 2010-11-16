@@ -32,7 +32,10 @@
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
+
+#ifdef HAVE_LIBNOTIFY
 #include <libnotify/notify.h>
+#endif /* HAVE_LIBNOTIFY */
 
 #include "gnome-settings-manager.h"
 #include "gnome-settings-profile.h"
@@ -271,7 +274,9 @@ main (int argc, char *argv[])
 
         g_log_set_default_handler (gsd_log_default_handler, NULL);
 
+#ifdef HAVE_LIBNOTIFY
         notify_init ("gnome-settings-daemon");
+#endif /* HAVE_LIBNOTIFY */
 
         bus_register ();
 
