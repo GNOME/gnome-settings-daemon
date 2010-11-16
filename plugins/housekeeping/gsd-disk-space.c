@@ -21,8 +21,6 @@
  *
  */
 
-/* gcc -DHAVE_LIBNOTIFY -DTEST -Wall `pkg-config --cflags --libs gobject-2.0 gio-unix-2.0 glib-2.0 gtk+-2.0 libnotify` -o gsd-disk-space-test gsd-disk-space.c */
-
 #include "config.h"
 
 #include <sys/statvfs.h>
@@ -837,24 +835,3 @@ gsd_ldsm_clean (void)
         }
 }
 
-#ifdef TEST
-int
-main (int    argc,
-      char **argv)
-{
-        GMainLoop *loop;
-
-        gtk_init (&argc, &argv);
-
-        loop = g_main_loop_new (NULL, FALSE);
-
-        gsd_ldsm_setup (TRUE);
-
-        g_main_loop_run (loop);
-
-        gsd_ldsm_clean ();
-        g_main_loop_unref (loop);
-
-        return 0;
-}
-#endif /* TEST */
