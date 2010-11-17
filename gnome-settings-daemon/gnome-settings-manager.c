@@ -446,6 +446,11 @@ gnome_settings_manager_stop (GnomeSettingsManager *manager)
 
         _unload_all (manager);
 
+        if (manager->priv->owner_id > 0) {
+                g_bus_unown_name (manager->priv->owner_id);
+                manager->priv->owner_id = 0;
+        }
+
         g_object_unref (manager->priv->settings);
         manager->priv->settings = NULL;
 }
