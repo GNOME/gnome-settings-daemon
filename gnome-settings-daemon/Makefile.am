@@ -41,12 +41,10 @@ gsd_PROGRAMS = \
 	gnome-settings-daemon
 
 BUILT_SOURCES = 			\
-	gnome-settings-client.h		\
 	$(NULL)
 
 apidir   = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings-daemon
 api_DATA = 				\
-	gnome-settings-client.h		\
 	gnome-settings-plugin.h
 
 gnome_settings_daemon_SOURCES =		\
