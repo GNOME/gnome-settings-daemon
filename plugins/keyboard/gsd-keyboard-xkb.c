@@ -125,7 +125,7 @@ static void
 apply_desktop_settings (void)
 {
 	gboolean show_leds;
-	int i;
+	guint i;
 	if (!inited_ok)
 		return;
 
@@ -136,8 +136,7 @@ apply_desktop_settings (void)
 	gkbd_desktop_config_activate (&current_config);
 
 	show_leds = g_settings_get_boolean (settings_plugin, SHOW_KEYBOARD_LEDS_INDICATOR_KEY);
-	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
-	     --i >= 0;) {
+	for (i = 0; i < G_N_ELEMENTS (indicator_icons); i++) {
 		gtk_status_icon_set_visible (indicator_icons[i],
 					     show_leds);
 	}
@@ -593,7 +592,8 @@ static void
 gsd_keyboard_update_indicator_icons ()
 {
 	Bool state;
-	int new_state, i;
+	int new_state;
+	guint i;
 	Display *display =
 	    GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 	XkbGetNamedIndicator (display, caps_lock, NULL, &state, NULL,
@@ -608,9 +608,7 @@ gsd_keyboard_update_indicator_icons ()
 	new_state |= (state ? 1 : 0);
 	xkl_debug (160, "Indicators state: %d\n", new_state);
 
-
-	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
-	     --i >= 0;) {
+	for (i = 0; i < G_N_ELEMENTS (indicator_icons); i++) {
 		gtk_status_icon_set_from_icon_name (indicator_icons[i],
 						    (new_state & (1 << i))
 						    ?
@@ -636,7 +634,7 @@ gsd_keyboard_state_changed (XklEngine * engine, XklEngineStateChange type,
 void
 gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 {
-	int i;
+	guint i;
 	Display *display =
 	    GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 	gnome_settings_profile_start (NULL);
@@ -651,8 +649,7 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 	num_lock = XInternAtom (display, "Num Lock", False);
 	scroll_lock = XInternAtom (display, "Scroll Lock", False);
 
-	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
-	     --i >= 0;) {
+	for (i = 0; i < G_N_ELEMENTS (indicator_icons); i++) {
 		indicator_icons[i] =
 		    gtk_status_icon_new_from_icon_name
 		    (indicator_off_icon_names[i]);
@@ -716,16 +713,17 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 void
 gsd_keyboard_xkb_shutdown (void)
 {
-	int i;
+	guint i;
 
 	pa_callback = NULL;
 	pa_callback_user_data = NULL;
 	manager = NULL;
 
-	for (i = sizeof (indicator_icons) / sizeof (indicator_icons[0]);
-	     --i >= 0;) {
-		g_object_unref (G_OBJECT (indicator_icons[i]));
-		indicator_icons[i] = NULL;
+	for (i = 0; i < G_N_ELEMENTS (indicator_icons); i++) {
+		if (indicator_icons[i] != NULL) {
+			g_object_unref (G_OBJECT (indicator_icons[i]));
+			indicator_icons[i] = NULL;
+		}
 	}
 
 	g_hash_table_destroy (preview_dialogs);
