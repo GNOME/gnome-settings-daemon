@@ -29,16 +29,13 @@
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gio/gio.h>
-#define DBUS_API_SUBJECT_TO_CHANGE
-#include <dbus/dbus-glib.h>
-#include <dbus/dbus-glib-lowlevel.h>
 
 #include "gnome-settings-plugin-info.h"
 #include "gnome-settings-manager.h"
-#include "gnome-settings-manager-glue.h"
 #include "gnome-settings-profile.h"
 
 #define GSD_MANAGER_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_MANAGER_DBUS_NAME "org.gnome.SettingsDaemon"
 
 #define DEFAULT_SETTINGS_PREFIX "org.gnome.settings-daemon"
 
@@ -46,20 +43,29 @@
 
 #define GNOME_SETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_SETTINGS_MANAGER, GnomeSettingsManagerPrivate))
 
+static const gchar introspection_xml[] =
+"<node name='/org/gnome/SettingsDaemon'>"
+"  <interface name='org.gnome.SettingsDaemon'>"
+"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gnome_settings_manager'/>"
+"    <method name='Awake'/>"
+"    <method name='Start'/>"
+"    <signal name='PluginActivated'>"
+"      <arg name='name' type='s'/>"
+"    </signal>"
+"    <signal name='PluginDeactivated'>"
+"      <arg name='name' type='s'/>"
+"    </signal>"
+"  </interface>"
+"</node>";
+
 struct GnomeSettingsManagerPrivate
 {
-        DBusGConnection            *connection;
+        guint                       owner_id;
+        GDBusNodeInfo              *introspection_data;
+        GDBusConnection            *connection;
         GSettings                  *settings;
         GSList                     *plugins;
 };
-
-enum {
-        PLUGIN_ACTIVATED,
-        PLUGIN_DEACTIVATED,
-        LAST_SIGNAL
-};
-
-static guint signals [LAST_SIGNAL] = { 0, };
 
 static void     gnome_settings_manager_class_init  (GnomeSettingsManagerClass *klass);
 static void     gnome_settings_manager_init        (GnomeSettingsManager      *settings_manager);
@@ -127,13 +133,39 @@ compare_priority (GnomeSettingsPluginInfo *a,
 }
 
 static void
+emit_signal (GnomeSettingsManager    *manager,
+             const char              *signal,
+             const char              *name)
+{
+        GError *error = NULL;
+
+        /* FIXME: maybe we should queue those up until the D-Bus
+         * connection is available... */
+        if (manager->priv->connection == NULL)
+                return;
+
+        if (g_dbus_connection_emit_signal (manager->priv->connection,
+                                           NULL,
+                                           GSD_MANAGER_DBUS_PATH,
+                                           GSD_MANAGER_DBUS_NAME,
+                                           "PluginActivated",
+                                           g_variant_new ("(s)", name),
+                                           &error) == FALSE) {
+                g_debug ("Error emitting signal: %s", error->message);
+                g_error_free (error);
+        }
+
+}
+
+static void
 on_plugin_activated (GnomeSettingsPluginInfo *info,
                      GnomeSettingsManager    *manager)
 {
         const char *name;
+
         name = gnome_settings_plugin_info_get_location (info);
         g_debug ("GnomeSettingsManager: emitting plugin-activated %s", name);
-        g_signal_emit (manager, signals [PLUGIN_ACTIVATED], 0, name);
+        emit_signal (manager, "PluginActivated", name);
 }
 
 static void
@@ -141,9 +173,10 @@ on_plugin_deactivated (GnomeSettingsPluginInfo *info,
                        GnomeSettingsManager    *manager)
 {
         const char *name;
+
         name = gnome_settings_plugin_info_get_location (info);
         g_debug ("GnomeSettingsManager: emitting plugin-deactivated %s", name);
-        g_signal_emit (manager, signals [PLUGIN_DEACTIVATED], 0, name);
+        emit_signal (manager, "PluginDeactivated", name);
 }
 
 static gboolean
@@ -302,23 +335,73 @@ gnome_settings_manager_awake (GnomeSettingsManager *manager,
         return gnome_settings_manager_start (manager, error);
 }
 
-static gboolean
-register_manager (GnomeSettingsManager *manager)
+static void
+handle_method_call (GDBusConnection       *connection,
+                    const gchar           *sender,
+                    const gchar           *object_path,
+                    const gchar           *interface_name,
+                    const gchar           *method_name,
+                    GVariant              *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer               user_data)
 {
+        GnomeSettingsManager *manager = (GnomeSettingsManager *) user_data;
         GError *error = NULL;
 
-        manager->priv->connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
-        if (manager->priv->connection == NULL) {
-                if (error != NULL) {
-                        g_critical ("error getting system bus: %s", error->message);
-                        g_error_free (error);
-                }
-                return FALSE;
+        g_debug ("Calling method '%s' for settings daemon", method_name);
+
+        if (g_strcmp0 (method_name, "Awake") == 0) {
+                if (gnome_settings_manager_awake (manager, &error) == FALSE)
+                        g_dbus_method_invocation_return_gerror (invocation, error);
+                else
+                        g_dbus_method_invocation_return_value (invocation, NULL);
+        } else if (g_strcmp0 (method_name, "Start") == 0) {
+                if (gnome_settings_manager_start (manager, &error) == FALSE)
+                        g_dbus_method_invocation_return_gerror (invocation, error);
+                else
+                        g_dbus_method_invocation_return_value (invocation, NULL);
         }
+}
 
-        dbus_g_connection_register_g_object (manager->priv->connection, GSD_MANAGER_DBUS_PATH, G_OBJECT (manager));
+static const GDBusInterfaceVTable interface_vtable =
+{
+        handle_method_call,
+        NULL, /* Get Property */
+        NULL, /* Set Property */
+};
 
-        return TRUE;
+static void
+on_bus_acquired (GDBusConnection      *connection,
+                 const gchar          *name,
+                 GnomeSettingsManager *manager)
+{
+        guint registration_id;
+
+        registration_id = g_dbus_connection_register_object (connection,
+                                                             GSD_MANAGER_DBUS_PATH,
+                                                             manager->priv->introspection_data->interfaces[0],
+                                                             &interface_vtable,
+                                                             manager,
+                                                             NULL,
+                                                             NULL);
+        if (registration_id > 0)
+                manager->priv->connection = connection;
+}
+
+static void
+register_manager (GnomeSettingsManager *manager)
+{
+        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->priv->introspection_data != NULL);
+
+        manager->priv->owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
+                                                  GSD_MANAGER_DBUS_NAME,
+                                                  G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                  (GBusAcquiredCallback) on_bus_acquired,
+                                                  NULL,
+                                                  NULL,
+                                                  manager,
+                                                  NULL);
 }
 
 gboolean
@@ -414,30 +497,7 @@ gnome_settings_manager_class_init (GnomeSettingsManagerClass *klass)
         object_class->dispose = gnome_settings_manager_dispose;
         object_class->finalize = gnome_settings_manager_finalize;
 
-        signals [PLUGIN_ACTIVATED] =
-                g_signal_new ("plugin-activated",
-                              G_TYPE_FROM_CLASS (object_class),
-                              G_SIGNAL_RUN_LAST,
-                              G_STRUCT_OFFSET (GnomeSettingsManagerClass, plugin_activated),
-                              NULL,
-                              NULL,
-                              g_cclosure_marshal_VOID__STRING,
-                              G_TYPE_NONE,
-                              1, G_TYPE_STRING);
-        signals [PLUGIN_DEACTIVATED] =
-                g_signal_new ("plugin-deactivated",
-                              G_TYPE_FROM_CLASS (object_class),
-                              G_SIGNAL_RUN_LAST,
-                              G_STRUCT_OFFSET (GnomeSettingsManagerClass, plugin_deactivated),
-                              NULL,
-                              NULL,
-                              g_cclosure_marshal_VOID__STRING,
-                              G_TYPE_NONE,
-                              1, G_TYPE_STRING);
-
         g_type_class_add_private (klass, sizeof (GnomeSettingsManagerPrivate));
-
-        dbus_g_object_type_install_info (GNOME_TYPE_SETTINGS_MANAGER, &dbus_glib_gnome_settings_manager_object_info);
 }
 
 static void
@@ -468,17 +528,11 @@ gnome_settings_manager_new (void)
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                gboolean res;
-
                 manager_object = g_object_new (GNOME_TYPE_SETTINGS_MANAGER,
                                                NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
-                res = register_manager (manager_object);
-                if (! res) {
-                        g_object_unref (manager_object);
-                        return NULL;
-                }
+                register_manager (manager_object);
         }
 
         return GNOME_SETTINGS_MANAGER (manager_object);
