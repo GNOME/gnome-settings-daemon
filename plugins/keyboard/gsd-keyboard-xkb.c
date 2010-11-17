@@ -726,7 +726,8 @@ gsd_keyboard_xkb_shutdown (void)
 		}
 	}
 
-	g_hash_table_destroy (preview_dialogs);
+	if (preview_dialogs != NULL)
+		g_hash_table_destroy (preview_dialogs);
 
 	if (!inited_ok)
 		return;
