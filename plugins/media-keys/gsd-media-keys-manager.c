@@ -497,7 +497,7 @@ do_media_action (GsdMediaKeysManager *manager)
 static void
 do_logout_action (GsdMediaKeysManager *manager)
 {
-        execute (manager, "gnome-session-save --logout", FALSE, FALSE);
+        execute (manager, "gnome-session-save --kill", FALSE, FALSE);
 }
 
 static void
