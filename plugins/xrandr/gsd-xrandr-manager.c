@@ -38,7 +38,6 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <dbus/dbus-glib.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 
@@ -71,14 +70,38 @@
 #define GSD_XRANDR_DBUS_PATH GSD_DBUS_PATH "/XRANDR"
 #define GSD_XRANDR_DBUS_NAME GSD_DBUS_NAME ".XRANDR"
 
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.gnome.SettingsDaemon.XRANDR_2'>"
+"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_xrandr_manager_2'/>"
+"    <method name='ApplyConfiguration'>"
+"      <!-- transient-parent window for the confirmation dialog; use 0"
+"      for no parent -->"
+"      <arg name='parent_window_id' type='x' direction='in'/>"
+""
+"      <!-- Timestamp used to present the confirmation dialog and (in"
+"      the future) for the RANDR calls themselves -->"
+"      <arg name='timestamp' type='x' direction='in'/>"
+"    </method>"
+"    <method name='VideoModeSwitch'>"
+"       <!-- Timestamp for the RANDR call itself -->"
+"       <arg name='timestamp' type='x' direction='in'/>"
+"    </method>"
+"    <method name='Rotate'>"
+"       <!-- Timestamp for the RANDR call itself -->"
+"       <arg name='timestamp' type='x' direction='in'/>"
+"    </method>"
+"  </interface>"
+"</node>";
+
 struct GsdXrandrManagerPrivate
 {
-        DBusGConnection *dbus_connection;
-
         GnomeRRScreen *rw_screen;
         gboolean running;
 
-        GSettings *settings;
+        GSettings       *settings;
+        GDBusNodeInfo   *introspection_data;
+        guint            owner_id;
 
         /* fn-F7 status */
         int             current_fn_f7_config;             /* -1 if no configs */
@@ -572,14 +595,6 @@ out:
         return result;
 }
 
-/* DBus method for org.gnome.SettingsDaemon.XRANDR ApplyConfiguration; see gsd-xrandr-manager.xml for the interface definition */
-static gboolean
-gsd_xrandr_manager_apply_configuration (GsdXrandrManager *manager,
-                                        GError          **error)
-{
-        return try_to_apply_intended_configuration (manager, NULL, GDK_CURRENT_TIME, error);
-}
-
 /* DBus method for org.gnome.SettingsDaemon.XRANDR_2 ApplyConfiguration; see gsd-xrandr-manager.xml for the interface definition */
 static gboolean
 gsd_xrandr_manager_2_apply_configuration (GsdXrandrManager *manager,
@@ -606,25 +621,22 @@ gsd_xrandr_manager_2_apply_configuration (GsdXrandrManager *manager,
 /* DBus method for org.gnome.SettingsDaemon.XRANDR_2 VideoModeSwitch; see gsd-xrandr-manager.xml for the interface definition */
 static gboolean
 gsd_xrandr_manager_2_video_mode_switch (GsdXrandrManager *manager,
-					guint32           timestamp,
-					GError          **error)
+                                        guint32           timestamp,
+                                        GError          **error)
 {
-	handle_fn_f7 (manager, timestamp);
-	return TRUE;
+        handle_fn_f7 (manager, timestamp);
+        return TRUE;
 }
 
 /* DBus method for org.gnome.SettingsDaemon.XRANDR_2 Rotate; see gsd-xrandr-manager.xml for the interface definition */
 static gboolean
 gsd_xrandr_manager_2_rotate (GsdXrandrManager *manager,
-			     guint32           timestamp,
-			     GError          **error)
+                             guint32           timestamp,
+                             GError          **error)
 {
-	handle_rotate_windows (manager, timestamp);
-	return TRUE;
+        handle_rotate_windows (manager, timestamp);
+        return TRUE;
 }
-
-/* We include this after the definition of gsd_xrandr_manager_* D-Bus methods so the prototype will already exist */
-#include "gsd-xrandr-manager-glue.h"
 
 static gboolean
 is_laptop (GnomeRRScreen *screen, GnomeOutputInfo *output)
@@ -1605,22 +1617,22 @@ apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
         boot = g_settings_get_enum (priv->settings, CONF_KEY_DEFAULT_MONITORS_SETUP);
 
         switch (boot) {
-	case GSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING:
-		return;
-	case GSD_XRANDR_BOOT_BEHAVIOUR_CLONE:
-		config = make_clone_setup (screen);
-		break;
-	case GSD_XRANDR_BOOT_BEHAVIOUR_DOCK:
-		config = make_other_setup (screen);
-		break;
-	default:
-		g_assert_not_reached ();
-	}
+        case GSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING:
+                return;
+        case GSD_XRANDR_BOOT_BEHAVIOUR_CLONE:
+                config = make_clone_setup (screen);
+                break;
+        case GSD_XRANDR_BOOT_BEHAVIOUR_DOCK:
+                config = make_other_setup (screen);
+                break;
+        default:
+                g_assert_not_reached ();
+        }
 
-	if (config) {
-		apply_configuration_and_display_error (mgr, config, timestamp);
-		gnome_rr_config_free (config);
-	}
+        if (config) {
+                apply_configuration_and_display_error (mgr, config, timestamp);
+                gnome_rr_config_free (config);
+        }
 }
 
 static gboolean
@@ -1727,7 +1739,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         show_timestamps_dialog (manager, "Startup");
         if (!apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME)) /* we don't have a real timestamp at startup anyway */
                 if (!apply_default_configuration_from_file (manager, GDK_CURRENT_TIME))
-			apply_default_boot_configuration (manager, GDK_CURRENT_TIME);
+                        apply_default_boot_configuration (manager, GDK_CURRENT_TIME);
 
         log_msg ("State of screen after initial configuration:\n");
         log_screen (manager->priv->rw_screen);
@@ -1754,11 +1766,6 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         if (manager->priv->rw_screen != NULL) {
                 gnome_rr_screen_destroy (manager->priv->rw_screen);
                 manager->priv->rw_screen = NULL;
-        }
-
-        if (manager->priv->dbus_connection != NULL) {
-                dbus_g_connection_unref (manager->priv->dbus_connection);
-                manager->priv->dbus_connection = NULL;
         }
 
         log_open ();
@@ -1838,8 +1845,6 @@ gsd_xrandr_manager_class_init (GsdXrandrManagerClass *klass)
         object_class->dispose = gsd_xrandr_manager_dispose;
         object_class->finalize = gsd_xrandr_manager_finalize;
 
-        dbus_g_object_type_install_info (GSD_TYPE_XRANDR_MANAGER, &dbus_glib_gsd_xrandr_manager_object_info);
-
         g_type_class_add_private (klass, sizeof (GsdXrandrManagerPrivate));
 }
 
@@ -1864,27 +1869,87 @@ gsd_xrandr_manager_finalize (GObject *object)
 
         g_return_if_fail (xrandr_manager->priv != NULL);
 
+        if (xrandr_manager->priv->owner_id > 0)
+                g_bus_unown_name (xrandr_manager->priv->owner_id);
+
         G_OBJECT_CLASS (gsd_xrandr_manager_parent_class)->finalize (object);
 }
 
-static gboolean
-register_manager_dbus (GsdXrandrManager *manager)
+static void
+handle_method_call (GDBusConnection       *connection,
+                    const gchar           *sender,
+                    const gchar           *object_path,
+                    const gchar           *interface_name,
+                    const gchar           *method_name,
+                    GVariant              *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer               user_data) 
 {
+        GsdXrandrManager *manager = (GsdXrandrManager *) user_data;
+        gint64 timestamp;
         GError *error = NULL;
 
-        manager->priv->dbus_connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
-        if (manager->priv->dbus_connection == NULL) {
-                if (error != NULL) {
-                        g_warning ("Error getting session bus: %s", error->message);
-                        g_error_free (error);
+        g_debug ("Calling method '%s' for XRandR", method_name);
+
+        if (g_strcmp0 (method_name, "ApplyConfiguration") == 0) {
+                gint64 parent_window_id;
+
+                g_variant_get (parameters, "(xx)", &parent_window_id, &timestamp);
+                if (gsd_xrandr_manager_2_apply_configuration (manager, parent_window_id,
+                                                              timestamp, &error) == FALSE) {
+                        g_dbus_method_invocation_return_gerror (invocation, error);
+                } else {
+                        g_dbus_method_invocation_return_value (invocation, NULL);
                 }
-                return FALSE;
+        } else if (g_strcmp0 (method_name, "VideoModeSwitch") == 0) {
+                g_variant_get (parameters, "(x)", &timestamp);
+                gsd_xrandr_manager_2_video_mode_switch (manager, timestamp, NULL);
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        } else if (g_strcmp0 (method_name, "Rotate") == 0) {
+                g_variant_get (parameters, "(x)", &timestamp);
+                gsd_xrandr_manager_2_rotate (manager, timestamp, NULL);
+                g_dbus_method_invocation_return_value (invocation, NULL);
         }
+}
 
-        /* Hmm, should we do this in gsd_xrandr_manager_start()? */
-        dbus_g_connection_register_g_object (manager->priv->dbus_connection, GSD_XRANDR_DBUS_PATH, G_OBJECT (manager));
 
-        return TRUE;
+static const GDBusInterfaceVTable interface_vtable =
+{
+        handle_method_call,
+        NULL, /* Get Property */
+        NULL, /* Set Property */
+};
+
+static void
+on_bus_acquired (GDBusConnection     *connection,
+                 const gchar         *name,
+                 GsdXrandrManager    *manager)
+{
+        guint registration_id;
+
+        registration_id = g_dbus_connection_register_object (connection,
+                                                             GSD_XRANDR_DBUS_PATH,
+                                                             manager->priv->introspection_data->interfaces[0],
+                                                             &interface_vtable,
+                                                             manager,
+                                                             NULL,
+                                                             NULL);
+}
+
+static void
+register_manager_dbus (GsdXrandrManager *manager)
+{
+        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->priv->introspection_data != NULL);
+
+        manager->priv->owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
+                                                  GSD_DBUS_NAME,
+                                                  G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                  (GBusAcquiredCallback) on_bus_acquired,
+                                                  NULL,
+                                                  NULL,
+                                                  manager,
+                                                  NULL);
 }
 
 GsdXrandrManager *
@@ -1897,10 +1962,7 @@ gsd_xrandr_manager_new (void)
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
 
-                if (!register_manager_dbus (manager_object)) {
-                        g_object_unref (manager_object);
-                        return NULL;
-                }
+                register_manager_dbus (manager_object);
         }
 
         return GSD_XRANDR_MANAGER (manager_object);
