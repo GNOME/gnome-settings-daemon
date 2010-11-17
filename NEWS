@@ -1,3 +1,23 @@
+==============
+Version 2.91.3
+==============
+
+- Remove xrdb plugin (Bastien Nocera)
+- Remove outdated GConf schemas (BN)
+- Handle a11y toggle shortcut keys in media-keys (BN)
+- Make volume down work when muted (BN)
+- Export the "cursor-blink-timeout" XSetting
+- Add test-system-timezone test program
+- Fix possible crasher in media-keys (William Jon McCann)
+- Make media-keys not crash when there are no listeners (BN)
+- Use a notification for the low space waring in housekeeping (WJMcC)
+- Make libnotify a hard-dependency (BN)
+- Add a real test application for housekeeping (BN)
+- Port daemon and xrandr plugin to GDBus (BN)
+- Fix possible warnings in keyboard plugin (BN)
+- Fix logout key shortcut not asking for a confirmation (BN)
+- Don't warn about low space when over 1GB is free (BN)
+
 ================
 Version 2.91.2.1
 ================

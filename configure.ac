@@ -1,7 +1,7 @@
 AC_PREREQ([2.60])
 
 AC_INIT([gnome-settings-daemon],
-        [2.91.2.1],
+        [2.91.3],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
@@ -66,7 +66,7 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
         gmodule-2.0
         gthread-2.0
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
-	gsettings-desktop-schemas >= 0.0.2
+	gsettings-desktop-schemas >= 0.1.1
 )
 
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,

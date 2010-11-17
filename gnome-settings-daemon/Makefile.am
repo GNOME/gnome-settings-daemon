@@ -77,7 +77,6 @@ gnome_settings_daemon_LDADD = 		\
 
 EXTRA_DIST = 				\
 	$(Dbusapi_DATA)			\
-	gnome-settings-manager.xml	\
 	$(NULL)
 
 CLEANFILES = 				\
