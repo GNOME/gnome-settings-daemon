@@ -94,35 +94,6 @@ G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-static void
-gsd_wacom_manager_set_property (GObject        *object,
-                                guint           prop_id,
-                                const GValue   *value,
-                                GParamSpec     *pspec)
-{
-        GsdWacomManager *self;
-
-        self = GSD_WACOM_MANAGER (object);
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-}
-
-static void
-gsd_wacom_manager_get_property (GObject        *object,
-                               guint            prop_id,
-                               GValue          *value,
-                               GParamSpec      *pspec)
-{
-        GsdWacomManager *self;
-
-        self = GSD_WACOM_MANAGER (object);
-
-        switch (prop_id) {
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
-        }
-}
-
 static GObject *
 gsd_wacom_manager_constructor (GType                     type,
                               guint                      n_construct_properties,
@@ -155,8 +126,6 @@ gsd_wacom_manager_class_init (GsdWacomManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->get_property = gsd_wacom_manager_get_property;
-        object_class->set_property = gsd_wacom_manager_set_property;
         object_class->constructor = gsd_wacom_manager_constructor;
         object_class->dispose = gsd_wacom_manager_dispose;
         object_class->finalize = gsd_wacom_manager_finalize;
