@@ -1,4 +1,12 @@
 <schemalist>
+  <enum id="org.gnome.settings-daemon.plugins.power.ActionType">
+    <value nick="blank" value="0"/>
+    <value nick="suspend" value="1"/>
+    <value nick="shutdown" value="2"/>
+    <value nick="hibernate" value="3"/>
+    <value nick="interactive" value="4"/>
+    <value nick="nothing" value="5"/>
+  </enum>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.power" path="/org/gnome/settings-daemon/plugins/power/">
     <key name="active" type="b">
       <default>false</default><!-- g-p-m is not a GSD plugin, yet -->
@@ -40,25 +48,70 @@
       <summary>Sleep timeout display when on battery</summary>
       <description>The amount of time in seconds before the display turns off when the computer is on battery power.</description>
     </key>
-    <key name="sleep-inactive-battery" type="b">
-      <default>true</default>
-      <summary>Enable the inactive computer sleep when on battery power</summary>
-      <description>Whether to put the computer to sleep when inactive on battery power.</description>
-    </key>
     <key name="sleep-inactive-ac" type="b">
       <default>true</default>
       <summary>Enable the inactive computer sleep when on AC power</summary>
       <description>Whether to put the computer to sleep when inactive on AC power.</description>
+    </key>
+    <key name="sleep-inactive-ac-timeout" type="i">
+      <default>1800</default>
+      <summary>Sleep timeout computer when on AC</summary>
+      <description>The amount of time in seconds the computer on AC power needs to be inactive before it goes to sleep.</description>
+    </key>
+    <key name="sleep-inactive-ac-type" enum="org.gnome.settings-daemon.plugins.power.ActionType">
+      <default>'suspend'</default>
+      <summary>Whether to hibernate, suspend or do nothing when inactive</summary>
+      <description>The type of sleeping that should be performed when the computer is inactive.</description>
+    </key>
+    <key name="sleep-inactive-battery" type="b">
+      <default>true</default>
+      <summary>Enable the inactive computer sleep when on battery power</summary>
+      <description>Whether to put the computer to sleep when inactive on battery power.</description>
     </key>
     <key name="sleep-inactive-battery-timeout" type="i">
       <default>600</default>
       <summary>Sleep timeout computer when on battery</summary>
       <description>The amount of time in seconds the computer on battery power needs to be inactive before it goes to sleep.</description>
     </key>
-    <key name="sleep-inactive-ac-timeout" type="i">
-      <default>1800</default>
-      <summary>Sleep timeout computer when on AC</summary>
-      <description>The amount of time in seconds the computer on AC power needs to be inactive before it goes to sleep.</description>
+    <key name="sleep-inactive-battery-type" enum="org.gnome.settings-daemon.plugins.power.ActionType">
+      <default>'hibernate'</default>
+      <summary>Whether to hibernate, suspend or do nothing when inactive</summary>
+      <description>The type of sleeping that should be performed when the computer is inactive.</description>
+    </key>
+    <key name="button-suspend" enum="org.gnome.settings-daemon.plugins.power.ActionType">
+      <default>'suspend'</default>
+      <summary>Suspend button action</summary>
+      <description>The action to take when the system suspend button is pressed.</description>
+    </key>
+    <key name="button-hibernate" enum="org.gnome.settings-daemon.plugins.power.ActionType">
+      <default>'hibernate'</default>
+      <summary>Hibernate button action</summary>
+      <description>The action to take when the system hibernate button is pressed.</description>
+    </key>
+    <key name="button-sleep" enum="org.gnome.settings-daemon.plugins.power.ActionType">
+      <default>'hibernate'</default>
+      <summary>Sleep button action</summary>
+      <description>The action to take when the system sleep (non-specific type) button is pressed.</description>
+    </key>
+    <key name="button-power" enum="org.gnome.settings-daemon.plugins.power.ActionType">
+      <default>'interactive'</default>
+      <summary>Power button action</summary>
+      <description>The action to take when the system power button is pressed.</description>
+    </key>
+    <key name="lid-close-battery-action" enum="org.gnome.settings-daemon.plugins.power.ActionType">
+      <default>'hibernate'</default>
+      <summary>Laptop lid close action on battery</summary>
+      <description>The action to take when the laptop lid is closed and the laptop is on battery power.</description>
+    </key>
+    <key name="lid-close-ac-action" enum="org.gnome.settings-daemon.plugins.power.ActionType">
+      <default>'suspend'</default>
+      <summary>Laptop lid close action when on AC</summary>
+      <description>The action to take when the laptop lid is closed and the laptop is on AC power.</description>
+    </key>
+    <key name="critical-battery-action" enum="org.gnome.settings-daemon.plugins.power.ActionType">
+      <default>'hibernate'</default>
+      <summary>Battery critical low action</summary>
+      <description>The action to take when the battery is critically low.</description>
     </key>
   </schema>
 </schemalist>
