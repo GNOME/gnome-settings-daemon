@@ -90,4 +90,14 @@ typedef enum
   GSD_WACOM_ROTATION_HALF
 } GsdWacomRotation;
 
+typedef enum
+{
+  GSD_POWER_ACTION_BLANK,
+  GSD_POWER_ACTION_SUSPEND,
+  GSD_POWER_ACTION_SHUTDOWN,
+  GSD_POWER_ACTION_HIBERNATE,
+  GSD_POWER_ACTION_INTERACTIVE,
+  GSD_POWER_ACTION_NOTHING
+} GsdPowerActionType;
+
 #endif /* __gsd_enums_h__ */
