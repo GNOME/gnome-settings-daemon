@@ -715,6 +715,9 @@ gsd_keyboard_xkb_shutdown (void)
 {
 	guint i;
 
+	if (!inited_ok)
+		return;
+
 	pa_callback = NULL;
 	pa_callback_user_data = NULL;
 	manager = NULL;

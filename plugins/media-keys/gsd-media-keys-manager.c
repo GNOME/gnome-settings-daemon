@@ -1344,11 +1344,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->volume_monitor = NULL;
         }
 
-	if (priv->cancellable != NULL) {
-		g_cancellable_cancel (priv->cancellable);
-		g_object_unref (priv->cancellable);
-		priv->cancellable = NULL;
-	}
+        if (priv->cancellable != NULL) {
+                g_cancellable_cancel (priv->cancellable);
+                g_object_unref (priv->cancellable);
+                priv->cancellable = NULL;
+        }
 
         if (priv->owner_id > 0) {
                 g_bus_unown_name (priv->owner_id);
@@ -1380,8 +1380,10 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 gdk_flush ();
         gdk_error_trap_pop ();
 
-        g_slist_free (priv->screens);
-        priv->screens = NULL;
+        if (priv->screens != NULL) {
+                g_slist_free (priv->screens);
+                priv->screens = NULL;
+        }
 
 #ifdef HAVE_PULSE
         if (priv->stream) {
@@ -1400,13 +1402,15 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->dialog = NULL;
         }
 
-        for (l = priv->media_players; l; l = l->next) {
-                MediaPlayer *mp = l->data;
-                g_free (mp->application);
-                g_free (mp);
+        if (priv->media_players != NULL) {
+                for (l = priv->media_players; l; l = l->next) {
+                        MediaPlayer *mp = l->data;
+                        g_free (mp->application);
+                        g_free (mp);
+                }
+                g_list_free (priv->media_players);
+                priv->media_players = NULL;
         }
-        g_list_free (priv->media_players);
-        priv->media_players = NULL;
 }
 
 static void

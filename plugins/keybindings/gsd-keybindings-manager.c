@@ -635,17 +635,17 @@ gsd_keybindings_manager_stop (GsdKeybindingsManager *manager)
                 p->screens = NULL;
         }
 
-        for (l = p->binding_list; l; l = l->next) {
-                Binding *b = l->data;
-                g_free (b->binding_str);
-                g_free (b->action);
-                g_free (b->gconf_key);
-                g_free (b->previous_key.keycodes);
-                g_free (b->key.keycodes);
-                g_free (b);
-        }
-
         if (p->binding_list != NULL) {
+                for (l = p->binding_list; l; l = l->next) {
+                        Binding *b = l->data;
+                        g_free (b->binding_str);
+                        g_free (b->action);
+                        g_free (b->gconf_key);
+                        g_free (b->previous_key.keycodes);
+                        g_free (b->key.keycodes);
+                        g_free (b);
+                }
+
                 g_slist_free (p->binding_list);
                 p->binding_list = NULL;
         }

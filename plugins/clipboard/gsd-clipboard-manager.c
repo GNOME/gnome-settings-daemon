@@ -941,18 +941,27 @@ gsd_clipboard_manager_stop (GsdClipboardManager *manager)
 {
         g_debug ("Stopping clipboard manager");
 
-        clipboard_manager_watch_cb (manager,
-                                    manager->priv->window,
-                                    FALSE,
-                                    0,
-                                    NULL);
-        XDestroyWindow (manager->priv->display, manager->priv->window);
+        if (manager->priv->window != None) {
+                clipboard_manager_watch_cb (manager,
+                                            manager->priv->window,
+                                            FALSE,
+                                            0,
+                                            NULL);
+                XDestroyWindow (manager->priv->display, manager->priv->window);
+                manager->priv->window = None;
+        }
 
-        list_foreach (manager->priv->conversions, (Callback) conversion_free, NULL);
-        list_free (manager->priv->conversions);
+        if (manager->priv->conversions != NULL) {
+                list_foreach (manager->priv->conversions, (Callback) conversion_free, NULL);
+                list_free (manager->priv->conversions);
+                manager->priv->conversions = NULL;
+        }
 
-        list_foreach (manager->priv->contents, (Callback) target_data_unref, NULL);
-        list_free (manager->priv->contents);
+        if (manager->priv->contents != NULL) {
+                list_foreach (manager->priv->contents, (Callback) target_data_unref, NULL);
+                list_free (manager->priv->contents);
+                manager->priv->contents = NULL;
+        }
 }
 
 static void

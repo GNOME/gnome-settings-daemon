@@ -984,6 +984,9 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
 static void
 restore_server_xkb_config (GsdA11yKeyboardManager *manager)
 {
+        if (manager->priv->original_xkb_desc == NULL) {
+                return;
+        }
         gdk_error_trap_push ();
         XkbSetControls (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                         XkbSlowKeysMask         |
@@ -1018,8 +1021,10 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
                 p->device_manager = NULL;
         }
 
-        if (p->status_icon)
+        if (p->status_icon) {
                 gtk_status_icon_set_visible (p->status_icon, FALSE);
+                p->status_icon = NULL;
+        }
 
         if (p->settings != NULL) {
                 g_object_unref (p->settings);
@@ -1034,11 +1039,15 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
          */
         restore_server_xkb_config (manager);
 
-        if (p->slowkeys_alert != NULL)
+        if (p->slowkeys_alert != NULL) {
                 gtk_widget_destroy (p->slowkeys_alert);
+                p->slowkeys_alert = NULL;
+        }
 
-        if (p->stickykeys_alert != NULL)
+        if (p->stickykeys_alert != NULL) {
                 gtk_widget_destroy (p->stickykeys_alert);
+                p->stickykeys_alert = NULL;
+        }
 
         p->slowkeys_shortcut_val = FALSE;
         p->stickykeys_shortcut_val = FALSE;
