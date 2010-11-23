@@ -101,7 +101,7 @@ struct GsdXrandrManagerPrivate
 
         GSettings       *settings;
         GDBusNodeInfo   *introspection_data;
-        guint            owner_id;
+        GDBusConnection *connection;
 
         /* fn-F7 status */
         int             current_fn_f7_config;             /* -1 if no configs */
@@ -1794,6 +1794,11 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                 manager->priv->rw_screen = NULL;
         }
 
+        if (manager->priv->connection != NULL) {
+                g_object_unref (manager->priv->connection);
+                manager->priv->connection = NULL;
+        }
+
         log_open ();
         log_msg ("STOPPING XRANDR PLUGIN\n------------------------------------------------------------\n");
         log_close ();
@@ -1895,9 +1900,6 @@ gsd_xrandr_manager_finalize (GObject *object)
 
         g_return_if_fail (xrandr_manager->priv != NULL);
 
-        if (xrandr_manager->priv->owner_id > 0)
-                g_bus_unown_name (xrandr_manager->priv->owner_id);
-
         G_OBJECT_CLASS (gsd_xrandr_manager_parent_class)->finalize (object);
 }
 
@@ -1947,11 +1949,21 @@ static const GDBusInterfaceVTable interface_vtable =
 };
 
 static void
-on_bus_acquired (GDBusConnection     *connection,
-                 const gchar         *name,
-                 GsdXrandrManager    *manager)
+on_bus_gotten (GObject             *source_object,
+               GAsyncResult        *res,
+               GsdXrandrManager    *manager)
 {
+        GDBusConnection *connection;
         guint registration_id;
+        GError *error = NULL;
+
+        connection = g_bus_get_finish (res, &error);
+        if (connection == NULL) {
+                g_warning ("Could not get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        manager->priv->connection = connection;
 
         registration_id = g_dbus_connection_register_object (connection,
                                                              GSD_XRANDR_DBUS_PATH,
@@ -1968,14 +1980,10 @@ register_manager_dbus (GsdXrandrManager *manager)
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
         g_assert (manager->priv->introspection_data != NULL);
 
-        manager->priv->owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-                                                  GSD_DBUS_NAME,
-                                                  G_BUS_NAME_OWNER_FLAGS_NONE,
-                                                  (GBusAcquiredCallback) on_bus_acquired,
-                                                  NULL,
-                                                  NULL,
-                                                  manager,
-                                                  NULL);
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   NULL,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   manager);
 }
 
 GsdXrandrManager *

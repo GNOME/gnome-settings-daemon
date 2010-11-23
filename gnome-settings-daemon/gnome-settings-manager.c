@@ -371,11 +371,21 @@ static const GDBusInterfaceVTable interface_vtable =
 };
 
 static void
-on_bus_acquired (GDBusConnection      *connection,
-                 const gchar          *name,
-                 GnomeSettingsManager *manager)
+on_bus_gotten (GObject             *source_object,
+               GAsyncResult        *res,
+               GnomeSettingsManager *manager)
 {
+        GDBusConnection *connection;
         guint registration_id;
+        GError *error = NULL;
+
+        connection = g_bus_get_finish (res, &error);
+        if (connection == NULL) {
+                g_warning ("Could not get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        manager->priv->connection = connection;
 
         registration_id = g_dbus_connection_register_object (connection,
                                                              GSD_MANAGER_DBUS_PATH,
@@ -384,8 +394,6 @@ on_bus_acquired (GDBusConnection      *connection,
                                                              manager,
                                                              NULL,
                                                              NULL);
-        if (registration_id > 0)
-                manager->priv->connection = connection;
 }
 
 static void
@@ -394,14 +402,10 @@ register_manager (GnomeSettingsManager *manager)
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
         g_assert (manager->priv->introspection_data != NULL);
 
-        manager->priv->owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-                                                  GSD_MANAGER_DBUS_NAME,
-                                                  G_BUS_NAME_OWNER_FLAGS_NONE,
-                                                  (GBusAcquiredCallback) on_bus_acquired,
-                                                  NULL,
-                                                  NULL,
-                                                  manager,
-                                                  NULL);
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   NULL,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   manager);
 }
 
 gboolean
