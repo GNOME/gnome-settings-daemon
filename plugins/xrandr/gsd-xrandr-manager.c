@@ -308,6 +308,35 @@ show_timestamps_dialog (GsdXrandrManager *manager, const char *msg)
 #endif
 }
 
+static void
+print_output (GnomeOutputInfo *info)
+{
+        g_print ("  Output: %s attached to %s\n", info->display_name, info->name);
+        g_print ("     status: %s\n", info->on ? "on" : "off");
+        g_print ("     width: %d\n", info->width);
+        g_print ("     height: %d\n", info->height);
+        g_print ("     rate: %d\n", info->rate);
+        g_print ("     primary: %s\n", info->primary ? "true" : "false");
+        g_print ("     position: %d %d\n", info->x, info->y);
+}
+
+static void
+print_configuration (GnomeRRConfig *config, const char *header)
+{
+        int i;
+
+        g_print ("=== %s Configuration ===\n", header);
+        if (!config) {
+                g_print ("  none\n");
+                return;
+        }
+
+        g_print ("  Clone: %s\n", config->clone ? "true" : "false");
+
+        for (i = 0; config->outputs[i] != NULL; ++i)
+                print_output (config->outputs[i]);
+}
+
 /* This function centralizes the use of gnome_rr_config_apply_from_filename_with_time().
  *
  * Optionally filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from
@@ -361,6 +390,10 @@ apply_configuration_and_display_error (GsdXrandrManager *manager, GnomeRRConfig 
         GsdXrandrManagerPrivate *priv = manager->priv;
         GError *error;
         gboolean success;
+
+        gnome_rr_config_ensure_primary (config);
+
+        print_configuration (config, "Applying Configuration");
 
         error = NULL;
         success = gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, &error);
@@ -680,32 +713,6 @@ get_clone_size (GnomeRRScreen *screen, int *width, int *height)
         }
 
         return FALSE;
-}
-
-static void
-print_output (GnomeOutputInfo *info)
-{
-        g_print ("  Output: %s attached to %s\n", info->display_name, info->name);
-        g_print ("     status: %s\n", info->on ? "on" : "off");
-        g_print ("     width: %d\n", info->width);
-        g_print ("     height: %d\n", info->height);
-        g_print ("     rate: %d\n", info->rate);
-        g_print ("     position: %d %d\n", info->x, info->y);
-}
-
-static void
-print_configuration (GnomeRRConfig *config, const char *header)
-{
-        int i;
-
-        g_print ("=== %s Configuration ===\n", header);
-        if (!config) {
-                g_print ("  none\n");
-                return;
-        }
-
-        for (i = 0; config->outputs[i] != NULL; ++i)
-                print_output (config->outputs[i]);
 }
 
 static gboolean
@@ -1440,8 +1447,13 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 
         /* Apply the configuration! */
 
-        if (applicable)
+        if (applicable) {
+                print_configuration (config, "auto configure");
+
                 apply_configuration_and_display_error (manager, config, timestamp);
+        } else {
+                g_debug ("Not an applicable config");
+        }
 
         g_list_free (just_turned_on);
         gnome_rr_config_free (config);
@@ -1483,6 +1495,8 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  config_timestamp);
 
         if (change_timestamp >= config_timestamp) {
+                GnomeRRConfig *rr_config;
+
                 /* The event is due to an explicit configuration change.
                  *
                  * If the change was performed by us, then we need to do nothing.
@@ -1490,6 +1504,18 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  * If the change was done by some other X client, we don't need
                  * to do anything, either; the screen is already configured.
                  */
+
+                /* Check if we need to update the primary */
+                rr_config = gnome_rr_config_new_current (priv->rw_screen);
+                if (gnome_rr_config_ensure_primary (rr_config)) {
+                        if (gnome_rr_config_applicable (rr_config, priv->rw_screen, NULL)) {
+                                print_configuration (rr_config, "Updating for primary");
+                                priv->last_config_timestamp = config_timestamp;
+                                gnome_rr_config_apply_with_time (rr_config, priv->rw_screen, config_timestamp, NULL);
+                        }
+                }
+                gnome_rr_config_free (rr_config);
+
                 show_timestamps_dialog (manager, "ignoring since change > config");
                 log_msg ("  Ignoring event since change >= config\n");
         } else {
