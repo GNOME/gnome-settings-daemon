@@ -608,20 +608,30 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
                 p->device_manager = NULL;
         }
 
-        g_object_unref (p->wacom_settings);
-        p->wacom_settings = NULL;
+        if (p->wacom_settings != NULL) {
+                g_object_unref (p->wacom_settings);
+                p->wacom_settings = NULL;
+        }
 
-        g_object_unref (p->stylus_settings);
-        p->stylus_settings = NULL;
+        if (p->stylus_settings != NULL) {
+                g_object_unref (p->stylus_settings);
+                p->stylus_settings = NULL;
+        }
 
-        g_object_unref (p->eraser_settings);
-        p->eraser_settings = NULL;
+        if (p->eraser_settings != NULL) {
+                g_object_unref (p->eraser_settings);
+                p->eraser_settings = NULL;
+        }
 
-        g_object_unref (p->cursor_settings);
-        p->cursor_settings = NULL;
+        if (p->cursor_settings != NULL) {
+                g_object_unref (p->cursor_settings);
+                p->cursor_settings = NULL;
+        }
 
-        g_object_unref (p->pad_settings);
-        p->pad_settings = NULL;
+        if (p->pad_settings != NULL) {
+                g_object_unref (p->pad_settings);
+                p->pad_settings = NULL;
+        }
 }
 
 static void
