@@ -78,9 +78,26 @@ on_session_over (GDBusProxy *proxy,
 }
 
 static void
-got_session_proxy (GObject *source_object,
+on_client_registered (GObject             *source_object,
+                      GAsyncResult        *res,
+                      gpointer             user_data)
+{
+        GVariant *variant;
+        GError *error = NULL;
+
+        variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
+        if (error != NULL) {
+                g_warning ("Unable to register client: %s", error->message);
+                g_error_free (error);
+        } else {
+                g_variant_unref (variant);
+        }
+}
+
+static void
+got_session_proxy (GObject      *source_object,
                    GAsyncResult *res,
-                   gpointer user_data)
+                   gpointer      user_data)
 {
         GDBusProxy *proxy;
         GError *error = NULL;
@@ -90,8 +107,19 @@ got_session_proxy (GObject *source_object,
                 g_debug ("Could not connect to the Session manager: %s", error->message);
                 g_error_free (error);
         } else {
+                const char *startup_id;
+
                 g_signal_connect (G_OBJECT (proxy), "g-signal",
                                   G_CALLBACK (on_session_over), NULL);
+                startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
+                g_dbus_proxy_call (proxy,
+                                   "RegisterClient",
+                                   g_variant_new ("(ss)", "gnome-settings-daemon", startup_id),
+                                   G_DBUS_CALL_FLAGS_NONE,
+                                   -1,
+                                   NULL,
+                                   (GAsyncReadyCallback) on_client_registered,
+                                   manager);
         }
 }
 
