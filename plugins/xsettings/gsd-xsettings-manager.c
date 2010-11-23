@@ -751,14 +751,22 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
                 p->managers = NULL;
         }
 
-        g_object_unref (manager->priv->plugin_settings);
+        if (p->plugin_settings != NULL) {
+                g_object_unref (p->plugin_settings);
+                p->plugin_settings = NULL;
+        }
+
         stop_fontconfig_monitor (manager);
 
-        g_hash_table_destroy (p->settings);
-        p->settings = NULL;
+        if (p->settings != NULL) {
+                g_hash_table_destroy (p->settings);
+                p->settings = NULL;
+        }
 
-        g_object_unref (p->gtk);
-        p->gtk = NULL;
+        if (p->gtk != NULL) {
+                g_object_unref (p->gtk);
+                p->gtk = NULL;
+        }
 }
 
 static void

@@ -1021,8 +1021,10 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
         if (p->status_icon)
                 gtk_status_icon_set_visible (p->status_icon, FALSE);
 
-        g_object_unref (p->settings);
-        p->settings = NULL;
+        if (p->settings != NULL) {
+                g_object_unref (p->settings);
+                p->settings = NULL;
+        }
 
         gdk_window_remove_filter (NULL,
                                   (GdkFilterFunc) cb_xkb_event_filter,

@@ -316,10 +316,10 @@ gsd_sound_manager_stop (GsdSoundManager *manager)
         g_debug ("Stopping sound manager");
 
 #ifdef HAVE_PULSE
-	if (manager->priv->settings != NULL) {
-		g_object_unref (manager->priv->settings);
-		manager->priv->settings = NULL;
-	}
+        if (manager->priv->settings != NULL) {
+                g_object_unref (manager->priv->settings);
+                manager->priv->settings = NULL;
+        }
 
         if (manager->priv->timeout) {
                 g_source_remove (manager->priv->timeout);

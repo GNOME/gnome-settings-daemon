@@ -630,8 +630,10 @@ gsd_keybindings_manager_stop (GsdKeybindingsManager *manager)
 
         binding_unregister_keys (manager);
 
-        g_slist_free (p->screens);
-        p->screens = NULL;
+        if (p->screens != NULL) {
+                g_slist_free (p->screens);
+                p->screens = NULL;
+        }
 
         for (l = p->binding_list; l; l = l->next) {
                 Binding *b = l->data;
@@ -642,8 +644,11 @@ gsd_keybindings_manager_stop (GsdKeybindingsManager *manager)
                 g_free (b->key.keycodes);
                 g_free (b);
         }
-        g_slist_free (p->binding_list);
-        p->binding_list = NULL;
+
+        if (p->binding_list != NULL) {
+                g_slist_free (p->binding_list);
+                p->binding_list = NULL;
+        }
 }
 
 static void

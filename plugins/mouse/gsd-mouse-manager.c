@@ -1030,11 +1030,15 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
                 p->device_manager = NULL;
         }
 
-        g_object_unref (p->mouse_settings);
-        p->mouse_settings = NULL;
+        if (p->mouse_settings != NULL) {
+                g_object_unref (p->mouse_settings);
+                p->mouse_settings = NULL;
+        }
 
-        g_object_unref (p->touchpad_settings);
-        p->touchpad_settings = NULL;
+        if (p->touchpad_settings != NULL) {
+                g_object_unref (p->touchpad_settings);
+                p->touchpad_settings = NULL;
+        }
 
         set_locate_pointer (manager, FALSE);
 }
