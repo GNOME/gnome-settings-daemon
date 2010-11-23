@@ -612,7 +612,7 @@ terminate_cb (void *data)
         }
 
         *terminated = TRUE;
-
+        g_warning ("X Settings Manager is terminating");
         gtk_main_quit ();
 }
 
