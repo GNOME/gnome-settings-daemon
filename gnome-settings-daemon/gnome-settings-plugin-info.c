@@ -39,19 +39,12 @@
 #define PLUGIN_PRIORITY_MAX 1
 #define PLUGIN_PRIORITY_DEFAULT 100
 
-typedef enum
-{
-        GNOME_SETTINGS_PLUGIN_LOADER_C,
-        GNOME_SETTINGS_PLUGIN_LOADER_PY
-} GnomeSettingsPluginLoader;
-
 struct GnomeSettingsPluginInfoPrivate
 {
         char                    *file;
         GSettings               *settings;
 
         char                    *location;
-        GnomeSettingsPluginLoader  loader;
         GTypeModule             *module;
 
         char                    *name;
@@ -211,20 +204,6 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
                 goto out;
         }
 
-        /* Get the loader for this plugin */
-        str = g_key_file_get_string (plugin_file, PLUGIN_GROUP, "Loader", NULL);
-        if (str != NULL && strcmp (str, "python") == 0) {
-                info->priv->loader = GNOME_SETTINGS_PLUGIN_LOADER_PY;
-#ifndef ENABLE_PYTHON
-                g_warning ("Cannot load Python plugin '%s' since gnome_settings was not "
-                           "compiled with Python support.", filename);
-                goto out;
-#endif
-        } else {
-                info->priv->loader = GNOME_SETTINGS_PLUGIN_LOADER_C;
-        }
-        g_free (str);
-
         /* Get Name */
         str = g_key_file_get_locale_string (plugin_file, PLUGIN_GROUP, "Name", NULL, NULL);
         if (str != NULL) {
@@ -378,70 +357,20 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
 
         gnome_settings_profile_start ("%s", info->priv->location);
 
-        switch (info->priv->loader) {
-                case GNOME_SETTINGS_PLUGIN_LOADER_C:
-                        dirname = g_path_get_dirname (info->priv->file);
-                        g_return_val_if_fail (dirname != NULL, FALSE);
+        dirname = g_path_get_dirname (info->priv->file);
+        g_return_val_if_fail (dirname != NULL, FALSE);
 
-                        path = g_module_build_path (dirname, info->priv->location);
-                        g_free (dirname);
-                        g_return_val_if_fail (path != NULL, FALSE);
+        path = g_module_build_path (dirname, info->priv->location);
+        g_free (dirname);
+        g_return_val_if_fail (path != NULL, FALSE);
 
-                        info->priv->module = G_TYPE_MODULE (gnome_settings_module_new (path));
-                        g_free (path);
-
-                        break;
-
-#ifdef ENABLE_PYTHON
-                case GNOME_SETTINGS_PLUGIN_LOADER_PY:
-                {
-                        char *dir;
-
-                        if (!gnome_settings_python_init ()) {
-                                /* Mark plugin as unavailable and fails */
-                                info->priv->available = FALSE;
-
-                                g_warning ("Cannot load Python plugin '%s' since gnome_settings "
-                                           "was not able to initialize the Python interpreter.",
-                                           info->priv->name);
-
-                                goto out;
-                        }
-
-                        dir = g_path_get_dirname (info->priv->file);
-
-                        g_return_val_if_fail ((info->priv->location != NULL) &&
-                                              (info->priv->location[0] != '\0'),
-                                              FALSE);
-
-                        info->priv->module = G_TYPE_MODULE (
-                                        gnome_settings_python_module_new (dir, info->priv->location));
-
-                        g_free (dir);
-                        break;
-                }
-#endif
-                default:
-                        g_return_val_if_reached (FALSE);
-        }
+        info->priv->module = G_TYPE_MODULE (gnome_settings_module_new (path));
+        g_free (path);
 
         if (!g_type_module_use (info->priv->module)) {
-                switch (info->priv->loader) {
-                        case GNOME_SETTINGS_PLUGIN_LOADER_C:
-                                g_warning ("Cannot load plugin '%s' since file '%s' cannot be read.",
-                                           info->priv->name,
-                                           gnome_settings_module_get_path (GNOME_SETTINGS_MODULE (info->priv->module)));
-                                break;
-
-                        case GNOME_SETTINGS_PLUGIN_LOADER_PY:
-                                g_warning ("Cannot load Python plugin '%s' since file '%s' cannot be read.",
-                                           info->priv->name,
-                                           info->priv->location);
-                                break;
-
-                        default:
-                                g_return_val_if_reached (FALSE);
-                }
+                g_warning ("Cannot load plugin '%s' since file '%s' cannot be read.",
+                           info->priv->name,
+                           gnome_settings_module_get_path (GNOME_SETTINGS_MODULE (info->priv->module)));
 
                 g_object_unref (G_OBJECT (info->priv->module));
                 info->priv->module = NULL;
@@ -452,22 +381,7 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
                 goto out;
         }
 
-        switch (info->priv->loader) {
-                case GNOME_SETTINGS_PLUGIN_LOADER_C:
-                        info->priv->plugin =
-                                GNOME_SETTINGS_PLUGIN (gnome_settings_module_new_object (GNOME_SETTINGS_MODULE (info->priv->module)));
-                        break;
-
-#ifdef ENABLE_PYTHON
-                case GNOME_SETTINGS_PLUGIN_LOADER_PY:
-                        info->priv->plugin =
-                                GNOME_SETTINGS_PLUGIN (gnome_settings_python_module_new_object (GNOME_SETTINGS_PYTHON_MODULE (info->priv->module)));
-                        break;
-#endif
-
-                default:
-                        g_return_val_if_reached (FALSE);
-        }
+        info->priv->plugin = GNOME_SETTINGS_PLUGIN (gnome_settings_module_new_object (GNOME_SETTINGS_MODULE (info->priv->module)));
 
         g_type_module_unuse (info->priv->module);
         ret = TRUE;
