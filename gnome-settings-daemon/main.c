@@ -175,7 +175,8 @@ name_lost_handler (GDBusConnection *connection,
                    gpointer user_data)
 {
         /* Name was already taken, or the bus went away */
-        g_debug ("Name taken or bus went away - shutting down");
+
+        g_warning ("Name taken or bus went away - shutting down");
         gtk_main_quit ();
 }
 
