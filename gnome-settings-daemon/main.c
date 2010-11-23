@@ -58,6 +58,7 @@ static GOptionEntry entries[] = {
 static gboolean
 timed_exit_cb (void)
 {
+        g_debug ("Doing timed exit");
         gtk_main_quit ();
         return FALSE;
 }
@@ -70,6 +71,7 @@ on_session_over (GDBusProxy *proxy,
                  gpointer    user_data)
 {
         if (g_strcmp0 (signal_name, "SessionOver") == 0) {
+                g_debug ("Got a SessionOver signal - stopping");
                 gnome_settings_manager_stop (manager);
                 gtk_main_quit ();
         }
@@ -104,6 +106,7 @@ on_term_signal_pipe_closed (GIOChannel *source,
 
         term_signal_pipe_fds[0] = -1;
 
+        g_debug ("Received SIGTERM - shutting down");
         /* Got SIGTERM, time to clean up and get out
          */
         gtk_main_quit ();
@@ -172,6 +175,7 @@ name_lost_handler (GDBusConnection *connection,
                    gpointer user_data)
 {
         /* Name was already taken, or the bus went away */
+        g_debug ("Name taken or bus went away - shutting down");
         gtk_main_quit ();
 }
 
@@ -300,6 +304,8 @@ main (int argc, char *argv[])
         }
 
         gtk_main ();
+
+        g_debug ("Shutting down");
 
 out:
         if (name_id > 0) {
