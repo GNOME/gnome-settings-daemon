@@ -1,6 +1,7 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins" path="/org/gnome/settings-daemon/plugins/">
     <child name="a11-keyboard" schema="org.gnome.settings-daemon.plugins.a11y-keyboard"/>
+    <child name="automount" schema="org.gnome.settings-daemon.plugins.automount"/>
     <child name="background" schema="org.gnome.settings-daemon.plugins.background"/>
     <child name="clipboard" schema="org.gnome.settings-daemon.plugins.clipboard"/>
     <child name="font" schema="org.gnome.settings-daemon.plugins.font"/>
@@ -17,6 +18,18 @@
     </key>
     <key name="priority" type="i">
       <default>7</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.automount" path="/org/gnome/settings-daemon/plugins/automount/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>97</default>
       <_summary>Priority to use for this plugin</_summary>
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>

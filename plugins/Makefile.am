@@ -2,6 +2,7 @@ NULL =
 
 enabled_plugins =	\
 	a11y-keyboard	\
+	automount	\
 	background	\
 	clipboard	\
 	datetime	\

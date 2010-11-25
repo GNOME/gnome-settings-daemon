@@ -439,6 +439,7 @@ Makefile
 gnome-settings-daemon/Makefile
 plugins/Makefile
 plugins/a11y-keyboard/Makefile
+plugins/automount/Makefile
 plugins/background/Makefile
 plugins/clipboard/Makefile
 plugins/common/Makefile
