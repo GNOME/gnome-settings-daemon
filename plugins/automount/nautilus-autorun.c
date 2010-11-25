@@ -151,8 +151,6 @@ render_icon (GIcon *icon, gint icon_size)
 				                       icon_size,
 				                       0);
 
-		g_print ("render_icon: info = %p\n", info);
-
 		if (info) {
 			pixbuf = gtk_icon_info_load_icon (info, NULL);
 		        gtk_icon_info_free (info);
@@ -165,8 +163,6 @@ render_icon (GIcon *icon, gint icon_size)
 							   icon_size,
 							   0, NULL);
 		}
-
-		g_print ("render_icon: pixbuf = %p, icon_size = %d\n", pixbuf, icon_size);
 	}
 	else
 	if (G_IS_FILE_ICON (icon)) {
@@ -200,7 +196,6 @@ nautilus_autorun_get_preferences (const char *x_content_type,
 	g_return_if_fail (pref_ignore != NULL);
 	g_return_if_fail (pref_open_folder != NULL);
 
-	/*  FIXME: this is suboptimal, bind to some global object instead */
         settings = g_settings_new ("org.gnome.media-handling");
 
 	*pref_start_app = FALSE;
@@ -282,7 +277,6 @@ nautilus_autorun_set_preferences (const char *x_content_type,
 
 	g_assert (x_content_type != NULL);
 
-	/*  FIXME: this is suboptimal, bind to some global object instead */
 	settings = g_settings_new ("org.gnome.media-handling");
 
 	x_content_start_app = g_settings_get_strv (settings, "autorun-x-content-start-app");
@@ -464,7 +458,6 @@ combo_box_changed (GtkComboBox *combo_box,
 
 	case AUTORUN_APP:
 		if (data->changed_cb != NULL) {
-			/* TODO TODO?? */
 			data->changed_cb (TRUE, FALSE, FALSE, app_info, data->user_data);
 		}
 		if (data->update_settings) {
@@ -1091,8 +1084,6 @@ do_autorun_for_content_type (GMount *mount, const char *x_content_type, Nautilus
 	ret = FALSE;
 	mount_name = NULL;
 
-	g_print ("do_autorun_for_content_type: x_content_type = '%s'\n", x_content_type);
-
 	if (g_content_type_is_a (x_content_type, "x-content/win32-software")) {
 		/* don't pop up the dialog anyway if the content type says
  		 * windows software.
@@ -1138,17 +1129,13 @@ show_dialog:
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 12);
 
 	icon = g_mount_get_icon (mount);
-	g_print ("icon = %p\n", icon);
 	icon_size = get_icon_size_for_stock_size (GTK_ICON_SIZE_DIALOG);
-	g_print ("icon_size = %d\n", icon_size);
 	image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_DIALOG);
 	pixbuf = render_icon (icon, icon_size);
-	g_print ("pixbuf = %p\n", pixbuf);
 	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
 	gtk_box_pack_start (GTK_BOX (hbox), image, TRUE, TRUE, 0);
 	/* also use the icon on the dialog */
 	gtk_window_set_title (GTK_WINDOW (dialog), mount_name);
-	/* FIXME: icon is not shown for unknown reason */
 	gtk_window_set_icon (GTK_WINDOW (dialog), pixbuf);
 	gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
 	g_object_unref (icon);
@@ -1304,7 +1291,6 @@ autorun_guessed_content_type_callback (GObject *source_object,
 		g_warning ("Unable to guess content type for mount: %s", error->message);
 		g_error_free (error);
 	} else {
-		g_print ("guessed_content_type = %p\n", guessed_content_type);
 		if (guessed_content_type != NULL && g_strv_length (guessed_content_type) > 0) {
 			int n;
 			for (n = 0; guessed_content_type[n] != NULL; n++) {
@@ -1338,7 +1324,6 @@ nautilus_autorun (GMount *mount, GSettings *settings, NautilusAutorunOpenWindow 
 
 	if (!should_autorun_mount (mount) ||
 	    g_settings_get_boolean (settings, "autorun-never")) {
-		g_print ("Shouldn't automount || autorun-never!\n");
 		return;
 	}
 

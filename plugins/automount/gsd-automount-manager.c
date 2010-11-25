@@ -152,8 +152,6 @@ volume_added_callback (GVolumeMonitor *monitor,
 		       GVolume *volume,
 		       GsdAutomountManager *manager)
 {
-	g_print ("volume_added_callback\n");
-
 	if (g_settings_get_boolean (manager->priv->settings, "automount") &&
 	    g_volume_should_automount (volume) &&
 	    g_volume_can_mount (volume)) {
@@ -179,8 +177,6 @@ autorun_show_window (GMount *mount, gpointer user_data)
 	location = g_mount_get_root (mount);
         uri = g_file_get_uri (location);
 
-	g_print ("-- mount OK, show window\n");
-
         error = NULL;
 	/* use default folder handler */
         if (! gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, &error)) {
@@ -203,8 +199,6 @@ mount_added_callback (GVolumeMonitor *monitor,
 		      GMount *mount,
 		      GsdAutomountManager *manager)
 {
-	g_print ("mount_added_callback\n");
-
 	nautilus_autorun (mount, manager->priv->settings, autorun_show_window, manager);
 }
 
