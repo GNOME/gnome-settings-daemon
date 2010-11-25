@@ -43,6 +43,7 @@ enum
 	AUTORUN_SEP,
 	AUTORUN_OTHER_APP,
 };
+
 enum
 {
 	COLUMN_AUTORUN_GICON,
@@ -50,6 +51,12 @@ enum
 	COLUMN_AUTORUN_APP_INFO,
 	COLUMN_AUTORUN_X_CONTENT_TYPE,
 	COLUMN_AUTORUN_ITEM_TYPE,
+};
+
+enum {
+        COMBO_ITEM_ASK_OR_LABEL = 0,
+        COMBO_ITEM_DO_NOTHING,
+        COMBO_ITEM_OPEN_FOLDER
 };
 
 static gboolean should_autorun_mount (GMount *mount);
@@ -718,20 +725,20 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 	gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (combo_box), combo_box_separator_func, NULL, NULL);
 
 	if (num_apps == 0) {
-		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), 0);
+		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), COMBO_ITEM_ASK_OR_LABEL);
 		gtk_widget_set_sensitive (combo_box, FALSE);
 	} else {
 		gtk_widget_set_sensitive (combo_box, TRUE);
 		if (pref_ask && include_ask) {
-			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), 0);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), COMBO_ITEM_ASK_OR_LABEL);
 		} else if (pref_ignore) {
-			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), include_ask ? 1 : 0);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), include_ask ? COMBO_ITEM_DO_NOTHING : COMBO_ITEM_ASK_OR_LABEL);
 		} else if (pref_open_folder) {
-			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), include_ask ? 2 : 1);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), include_ask ? COMBO_ITEM_OPEN_FOLDER : COMBO_ITEM_DO_NOTHING);
 		} else if (set_active != -1) {
 			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), set_active);
 		} else {
-			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), include_ask ? 1 : 0);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), include_ask ? COMBO_ITEM_DO_NOTHING : COMBO_ITEM_ASK_OR_LABEL);
 		}
 
 		/* See if we have an old data around */
