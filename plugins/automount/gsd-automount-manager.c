@@ -44,7 +44,6 @@ struct GsdAutomountManagerPrivate
 
 static void     gsd_automount_manager_class_init  (GsdAutomountManagerClass *klass);
 static void     gsd_automount_manager_init        (GsdAutomountManager      *gsd_automount_manager);
-static void     gsd_automount_manager_finalize    (GObject             *object);
 
 G_DEFINE_TYPE (GsdAutomountManager, gsd_automount_manager, G_TYPE_OBJECT)
 
@@ -250,77 +249,8 @@ gsd_automount_manager_stop (GsdAutomountManager *manager)
 }
 
 static void
-gsd_automount_manager_set_property (GObject        *object,
-                                     guint           prop_id,
-                                     const GValue   *value,
-                                     GParamSpec     *pspec)
-{
-        GsdAutomountManager *self;
-
-        self = GSD_AUTOMOUNT_MANAGER (object);
-
-        switch (prop_id) {
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
-        }
-}
-
-static void
-gsd_automount_manager_get_property (GObject        *object,
-                                     guint           prop_id,
-                                     GValue         *value,
-                                     GParamSpec     *pspec)
-{
-        GsdAutomountManager *self;
-
-        self = GSD_AUTOMOUNT_MANAGER (object);
-
-        switch (prop_id) {
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
-        }
-}
-
-static GObject *
-gsd_automount_manager_constructor (GType                  type,
-                                    guint                  n_construct_properties,
-                                    GObjectConstructParam *construct_properties)
-{
-        GsdAutomountManager      *gsd_automount_manager;
-        GsdAutomountManagerClass *klass;
-
-        klass = GSD_AUTOMOUNT_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_AUTOMOUNT_MANAGER));
-
-        gsd_automount_manager = GSD_AUTOMOUNT_MANAGER (G_OBJECT_CLASS (gsd_automount_manager_parent_class)->constructor (type,
-                                                                                                                        n_construct_properties,
-                                                                                                                        construct_properties));
-
-        return G_OBJECT (gsd_automount_manager);
-}
-
-static void
-gsd_automount_manager_dispose (GObject *object)
-{
-        GsdAutomountManager *gsd_automount_manager;
-
-        gsd_automount_manager = GSD_AUTOMOUNT_MANAGER (object);
-
-        G_OBJECT_CLASS (gsd_automount_manager_parent_class)->dispose (object);
-}
-
-static void
 gsd_automount_manager_class_init (GsdAutomountManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
-
-        object_class->get_property = gsd_automount_manager_get_property;
-        object_class->set_property = gsd_automount_manager_set_property;
-        object_class->constructor = gsd_automount_manager_constructor;
-        object_class->dispose = gsd_automount_manager_dispose;
-        object_class->finalize = gsd_automount_manager_finalize;
-
         g_type_class_add_private (klass, sizeof (GsdAutomountManagerPrivate));
 }
 
@@ -328,21 +258,6 @@ static void
 gsd_automount_manager_init (GsdAutomountManager *manager)
 {
         manager->priv = GSD_AUTOMOUNT_MANAGER_GET_PRIVATE (manager);
-}
-
-static void
-gsd_automount_manager_finalize (GObject *object)
-{
-        GsdAutomountManager *gsd_automount_manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_AUTOMOUNT_MANAGER (object));
-
-        gsd_automount_manager = GSD_AUTOMOUNT_MANAGER (object);
-
-        g_return_if_fail (gsd_automount_manager->priv != NULL);
-
-        G_OBJECT_CLASS (gsd_automount_manager_parent_class)->finalize (object);
 }
 
 GsdAutomountManager *
