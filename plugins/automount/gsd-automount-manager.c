@@ -131,18 +131,14 @@ volume_mount_cb (GObject *source_object,
 }
 
 static void
-nautilus_file_operations_mount_volume (GtkWindow *parent_window,
-				       GVolume *volume,
-				       gboolean allow_autorun)
+do_mount_volume (GVolume *volume)
 {
 	GMountOperation *mount_op;
 
-	mount_op = gtk_mount_operation_new (parent_window);
+	mount_op = gtk_mount_operation_new (NULL);
 	g_mount_operation_set_password_save (mount_op, G_PASSWORD_SAVE_FOR_SESSION);
 
-	if (allow_autorun) {
-		nautilus_allow_autorun_for_volume (volume);
-	}
+	nautilus_allow_autorun_for_volume (volume);
 	g_volume_mount (volume, 0, mount_op, NULL, volume_mount_cb, mount_op);
 }
 
@@ -154,7 +150,7 @@ volume_added_callback (GVolumeMonitor *monitor,
 	if (g_settings_get_boolean (manager->priv->settings, "automount") &&
 	    g_volume_should_automount (volume) &&
 	    g_volume_can_mount (volume)) {
-		nautilus_file_operations_mount_volume (NULL, volume, TRUE);
+	    do_mount_volume (volume);
 	} else {
 		/* Allow nautilus_autorun() to run. When the mount is later
 		 * added programmatically (i.e. for a blank CD),
