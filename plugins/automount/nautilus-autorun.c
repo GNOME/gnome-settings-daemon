@@ -45,7 +45,7 @@ enum
 };
 enum
 {
-	COLUMN_AUTORUN_PIXBUF,
+	COLUMN_AUTORUN_GICON,
 	COLUMN_AUTORUN_NAME,
 	COLUMN_AUTORUN_APP_INFO,
 	COLUMN_AUTORUN_X_CONTENT_TYPE,
@@ -544,8 +544,7 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 	GAppInfo *default_app_info;
 	GtkListStore *list_store;
 	GtkTreeIter iter;
-	GdkPixbuf *pixbuf;
-	int icon_size;
+	GIcon *icon;
 	int set_active;
 	int n;
 	int num_apps;
@@ -560,8 +559,6 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 	nautilus_autorun_get_preferences (x_content_type, &pref_start_app, &pref_ignore, &pref_open_folder);
 	pref_ask = !pref_start_app && !pref_ignore && !pref_open_folder;
 
-	icon_size = get_icon_size_for_stock_size (GTK_ICON_SIZE_MENU);
-
 	set_active = -1;
 	data = NULL;
 	new_data = TRUE;
@@ -571,7 +568,7 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 	num_apps = g_list_length (app_info_list);
 
 	list_store = gtk_list_store_new (5,
-					 GDK_TYPE_PIXBUF,
+					 G_TYPE_ICON,
 					 G_TYPE_STRING,
 					 G_TYPE_APP_INFO,
 					 G_TYPE_STRING,
@@ -580,82 +577,64 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 	/* no apps installed */
 	if (num_apps == 0) {
 		gtk_list_store_append (list_store, &iter);
-		pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-						   GTK_STOCK_DIALOG_ERROR,
-						   icon_size,
-						   0,
-						   NULL);
+		icon = g_themed_icon_new (GTK_STOCK_DIALOG_ERROR);
 
 		/* TODO: integrate with PackageKit-gnome to find applications */
 
-		gtk_list_store_set (list_store, &iter, 
-				    COLUMN_AUTORUN_PIXBUF, pixbuf, 
-				    COLUMN_AUTORUN_NAME, _("No applications found"), 
+		gtk_list_store_set (list_store, &iter,
+				    COLUMN_AUTORUN_GICON, icon,
+				    COLUMN_AUTORUN_NAME, _("No applications found"),
 				    COLUMN_AUTORUN_APP_INFO, NULL, 
 				    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
 				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_ASK,
 				    -1);
-		g_object_unref (pixbuf);
-	} else {	
+		g_object_unref (icon);
+	} else {
 		if (include_ask) {
 			gtk_list_store_append (list_store, &iter);
-			pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-							   GTK_STOCK_DIALOG_QUESTION,
-							   icon_size,
-							   0,
-							   NULL);
-			gtk_list_store_set (list_store, &iter, 
-					    COLUMN_AUTORUN_PIXBUF, pixbuf, 
-					    COLUMN_AUTORUN_NAME, _("Ask what to do"), 
-					    COLUMN_AUTORUN_APP_INFO, NULL, 
+			icon = g_themed_icon_new (GTK_STOCK_DIALOG_QUESTION);
+			gtk_list_store_set (list_store, &iter,
+					    COLUMN_AUTORUN_GICON, icon,
+					    COLUMN_AUTORUN_NAME, _("Ask what to do"),
+					    COLUMN_AUTORUN_APP_INFO, NULL,
 					    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
 					    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_ASK,
 					    -1);
-			g_object_unref (pixbuf);
+			g_object_unref (icon);
 		}
 		
 		gtk_list_store_append (list_store, &iter);
-		pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-						   GTK_STOCK_CLOSE,
-						   icon_size,
-						   0,
-						   NULL);
-		gtk_list_store_set (list_store, &iter, 
-				    COLUMN_AUTORUN_PIXBUF, pixbuf, 
-				    COLUMN_AUTORUN_NAME, _("Do Nothing"), 
-				    COLUMN_AUTORUN_APP_INFO, NULL, 
+		icon = g_themed_icon_new (GTK_STOCK_CLOSE);
+		gtk_list_store_set (list_store, &iter,
+				    COLUMN_AUTORUN_GICON, icon,
+				    COLUMN_AUTORUN_NAME, _("Do Nothing"),
+				    COLUMN_AUTORUN_APP_INFO, NULL,
 				    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
 				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_IGNORE,
 				    -1);
-		g_object_unref (pixbuf);		
+		g_object_unref (icon);
 
 		gtk_list_store_append (list_store, &iter);
-		pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-						   "folder-open",
-						   icon_size,
-						   0,
-						   NULL);
-		gtk_list_store_set (list_store, &iter, 
-				    COLUMN_AUTORUN_PIXBUF, pixbuf, 
-				    COLUMN_AUTORUN_NAME, _("Open Folder"), 
-				    COLUMN_AUTORUN_APP_INFO, NULL, 
+		icon = g_themed_icon_new ("folder-open");
+		gtk_list_store_set (list_store, &iter,
+				    COLUMN_AUTORUN_GICON, icon,
+				    COLUMN_AUTORUN_NAME, _("Open Folder"),
+				    COLUMN_AUTORUN_APP_INFO, NULL,
 				    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
 				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_OPEN_FOLDER,
 				    -1);
-		g_object_unref (pixbuf);		
+		g_object_unref (icon);
 
 		gtk_list_store_append (list_store, &iter);
-		gtk_list_store_set (list_store, &iter, 
-				    COLUMN_AUTORUN_PIXBUF, NULL, 
-				    COLUMN_AUTORUN_NAME, NULL, 
-				    COLUMN_AUTORUN_APP_INFO, NULL, 
+		gtk_list_store_set (list_store, &iter,
+				    COLUMN_AUTORUN_GICON, NULL,
+				    COLUMN_AUTORUN_NAME, NULL,
+				    COLUMN_AUTORUN_APP_INFO, NULL,
 				    COLUMN_AUTORUN_X_CONTENT_TYPE, NULL,
 				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_SEP,
 				    -1);
 
 		for (l = app_info_list, n = include_ask ? 4 : 3; l != NULL; l = l->next, n++) {
-			GIcon *icon;
-			
 			char *open_string;
 			GAppInfo *app_info = l->data;
 			
@@ -665,21 +644,17 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 			 */
 			
 			icon = g_app_info_get_icon (app_info);
-			pixbuf = render_icon (icon, icon_size);
 			
 			open_string = g_strdup_printf (_("Open %s"), g_app_info_get_display_name (app_info));
 
 			gtk_list_store_append (list_store, &iter);
 			gtk_list_store_set (list_store, &iter,
-					    COLUMN_AUTORUN_PIXBUF, pixbuf,
+					    COLUMN_AUTORUN_GICON, icon,
 					    COLUMN_AUTORUN_NAME, open_string,
 					    COLUMN_AUTORUN_APP_INFO, app_info,
 					    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
 					    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_APP,
 					    -1);
-			if (pixbuf != NULL) {
-				g_object_unref (pixbuf);
-			}
 			g_free (open_string);
 			
 			if (g_app_info_equal (app_info, default_app_info)) {
@@ -691,7 +666,7 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 	if (include_open_with_other_app) {
 		gtk_list_store_append (list_store, &iter);
 		gtk_list_store_set (list_store, &iter,
-				    COLUMN_AUTORUN_PIXBUF, NULL,
+				    COLUMN_AUTORUN_GICON, NULL,
 				    COLUMN_AUTORUN_NAME, NULL,
 				    COLUMN_AUTORUN_APP_INFO, NULL,
 				    COLUMN_AUTORUN_X_CONTENT_TYPE, NULL,
@@ -699,19 +674,15 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 				    -1);
 
 		gtk_list_store_append (list_store, &iter);
-		pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-						   "application-x-executable",
-						   icon_size,
-						   0,
-						   NULL);
+		icon = g_themed_icon_new ("application-x-executable");
 		gtk_list_store_set (list_store, &iter,
-				    COLUMN_AUTORUN_PIXBUF, pixbuf,
+				    COLUMN_AUTORUN_GICON, icon,
 				    COLUMN_AUTORUN_NAME, _("Open with other Application..."),
 				    COLUMN_AUTORUN_APP_INFO, NULL,
 				    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
 				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_OTHER_APP,
 				    -1);
-		g_object_unref (pixbuf);
+		g_object_unref (icon);
 	}
 
 	if (default_app_info != NULL) {
@@ -728,7 +699,7 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 	renderer = gtk_cell_renderer_pixbuf_new ();
 	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo_box), renderer, FALSE);
 	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (combo_box), renderer,
-					"pixbuf", COLUMN_AUTORUN_PIXBUF,
+					"gicon", COLUMN_AUTORUN_GICON,
 					NULL);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo_box), renderer, TRUE);
