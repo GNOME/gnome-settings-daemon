@@ -43,33 +43,9 @@
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 
-typedef void (*NautilusAutorunComboBoxChanged) (gboolean selected_ask,
-						gboolean selected_ignore,
-						gboolean selected_open_folder,
-						GAppInfo *selected_app,
-						gpointer user_data);
-
 typedef void (*NautilusAutorunOpenWindow) (GMount *mount, gpointer user_data);
-typedef void (*NautilusAutorunGetContent) (char **content, gpointer user_data);
-
-void nautilus_autorun_prepare_combo_box (GtkWidget *combo_box, 
-					 const char *x_content_type, 
-					 gboolean include_ask,
-					 gboolean include_open_with_other_app,
-					 gboolean update_settings,
-					 NautilusAutorunComboBoxChanged changed_cb,
-					 gpointer user_data);
 
 void nautilus_autorun (GMount *mount, GSettings *settings, NautilusAutorunOpenWindow open_window_func, gpointer user_data);
-
-char **nautilus_autorun_get_cached_x_content_types_for_mount (GMount       *mount);
-
-void nautilus_autorun_get_x_content_types_for_mount_async (GMount *mount,
-							   NautilusAutorunGetContent callback,
-							   GCancellable *cancellable,
-							   gpointer user_data);
-
-void nautilus_autorun_launch_for_mount (GMount *mount, GAppInfo *app_info);
 
 void nautilus_allow_autorun_for_volume (GVolume *volume);
 void nautilus_allow_autorun_for_volume_finish (GVolume *volume);

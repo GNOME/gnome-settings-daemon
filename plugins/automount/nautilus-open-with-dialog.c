@@ -1059,14 +1059,3 @@ nautilus_add_application_dialog_new (const char *uri,
 	return GTK_WIDGET (dialog);
 }
 
-GtkWidget * 
-nautilus_add_application_dialog_new_for_multiple_files (const char *extension,
-							const char *mime_type)
-{
-	NautilusOpenWithDialog *dialog;
-	
-	dialog = NAUTILUS_OPEN_WITH_DIALOG (real_nautilus_open_with_dialog_new (NULL, mime_type, extension, TRUE));
-	
-	return GTK_WIDGET (dialog);
-}
-

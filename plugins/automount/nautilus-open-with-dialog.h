@@ -56,9 +56,6 @@ GtkWidget* nautilus_open_with_dialog_new      (const char *uri,
 					       const char *extension);
 GtkWidget* nautilus_add_application_dialog_new (const char *uri,
 						const char *mime_type);
-GtkWidget* nautilus_add_application_dialog_new_for_multiple_files (const char *extension,
-								   const char *mime_type);
-
 
 
 #endif /* NAUTILUS_OPEN_WITH_DIALOG_H */

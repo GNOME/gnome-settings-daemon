@@ -315,6 +315,12 @@ combo_box_separator_func (GtkTreeModel *model,
 	return TRUE;
 }
 
+typedef void (*NautilusAutorunComboBoxChanged) (gboolean selected_ask,
+                                                gboolean selected_ignore,
+                                                gboolean selected_open_folder,
+                                                GAppInfo *selected_app,
+                                                gpointer user_data);
+
 typedef struct
 {
 	guint changed_signal_id;
@@ -484,29 +490,6 @@ out:
 	g_free (x_content_type);
 }
 
-static void
-nautilus_autorun_rebuild_combo_box (GtkWidget *combo_box)
-{
-	NautilusAutorunComboBoxData *data;
-	char *x_content_type;
-
-	data = g_object_get_data (G_OBJECT (combo_box), "nautilus_autorun_combobox_data");
-	if (data == NULL) {
-		g_warning ("no 'nautilus_autorun_combobox_data' data!");
-		return;
-	}
-
-	x_content_type = g_strdup (data->x_content_type);
-	nautilus_autorun_prepare_combo_box (combo_box,
-					    x_content_type,
-					    data->include_ask,
-					    data->include_open_with_other_app,
-					    data->update_settings,
-					    data->changed_cb,
-					    data->user_data);
-	g_free (x_content_type);
-}
-
 /* TODO: we need some kind of way to remove user-defined associations,
  * e.g. the result of "Open with other Application...".
  *
@@ -547,7 +530,7 @@ nautilus_autorun_rebuild_combo_box (GtkWidget *combo_box)
  * GAppInfo instances that are deletable.
  */
 
-void
+static void
 nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 				    const char *x_content_type,
 				    gboolean include_ask,
@@ -803,6 +786,29 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 	}
 }
 
+static void
+nautilus_autorun_rebuild_combo_box (GtkWidget *combo_box)
+{
+        NautilusAutorunComboBoxData *data;
+        char *x_content_type;
+
+        data = g_object_get_data (G_OBJECT (combo_box), "nautilus_autorun_combobox_data");
+        if (data == NULL) {
+                g_warning ("no 'nautilus_autorun_combobox_data' data!");
+                return;
+        }
+
+        x_content_type = g_strdup (data->x_content_type);
+        nautilus_autorun_prepare_combo_box (combo_box,
+                                            x_content_type,
+                                            data->include_ask,
+                                            data->include_open_with_other_app,
+                                            data->update_settings,
+                                            data->changed_cb,
+                                            data->user_data);
+        g_free (x_content_type);
+}
+
 static gboolean
 is_shift_pressed (void)
 {
@@ -848,7 +854,7 @@ typedef struct
 } AutorunDialogData;
 
 
-void
+static void
 nautilus_autorun_launch_for_mount (GMount *mount, GAppInfo *app_info)
 {
 	GFile *root;
@@ -1366,87 +1372,6 @@ nautilus_autorun (GMount *mount, GSettings *settings, NautilusAutorunOpenWindow 
 				    NULL,
 				    autorun_guessed_content_type_callback,
 				    data);
-}
-
-typedef struct {
-	NautilusAutorunGetContent callback;
-	gpointer user_data;
-} GetContentTypesData;
-
-static void
-get_types_cb (GObject *source_object,
-	      GAsyncResult *res,
-	      gpointer user_data)
-{
-	GetContentTypesData *data;
-	char **types;
-
-	data = user_data;
-	types = g_mount_guess_content_type_finish (G_MOUNT (source_object), res, NULL);
-
-	g_object_set_data_full (source_object,
-				"nautilus-content-type-cache",
-				g_strdupv (types),
-				(GDestroyNotify)g_strfreev);
-
-	if (data->callback) {
-		data->callback (types, data->user_data);
-	}
-	g_strfreev (types);
-	g_free (data);
-}
-
-void
-nautilus_autorun_get_x_content_types_for_mount_async (GMount *mount,
-						      NautilusAutorunGetContent callback,
-						      GCancellable *cancellable,
-						      gpointer user_data)
-{
-	char **cached;
-	GetContentTypesData *data;
-	
-	if (mount == NULL) {
-		if (callback) {
-			callback (NULL, user_data);
-		}
-		return;
-	}
-
-	cached = g_object_get_data (G_OBJECT (mount), "nautilus-content-type-cache");
-	if (cached != NULL) {
-		if (callback) {
-			callback (cached, user_data);
-		}
-		return;
-	}
-
-	data = g_new (GetContentTypesData, 1);
-	data->callback = callback;
-	data->user_data = user_data;
-
-	g_mount_guess_content_type (mount,
-				    FALSE,
-				    cancellable,
-				    get_types_cb,
-				    data);
-}
-
-
-char **
-nautilus_autorun_get_cached_x_content_types_for_mount (GMount      *mount)
-{
-	char **cached;
-	
-	if (mount == NULL) {
-		return NULL;
-	}
-
-	cached = g_object_get_data (G_OBJECT (mount), "nautilus-content-type-cache");
-	if (cached != NULL) {
-		return g_strdupv (cached);
-	}
-
-	return NULL;
 }
 
 static gboolean
