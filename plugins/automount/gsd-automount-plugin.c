@@ -32,7 +32,7 @@ struct GsdAutomountPluginPrivate {
         GsdAutomountManager *manager;
 };
 
-#define GSD_AUTOMOUNT_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_GSD_AUTOMOUNT_PLUGIN, GsdAutomountPluginPrivate))
+#define GSD_AUTOMOUNT_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_AUTOMOUNT_PLUGIN, GsdAutomountPluginPrivate))
 
 GNOME_SETTINGS_PLUGIN_REGISTER (GsdAutomountPlugin, gsd_automount_plugin)
 
