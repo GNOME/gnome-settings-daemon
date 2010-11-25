@@ -692,7 +692,7 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 	g_list_free (app_info_list);
 
 	gtk_combo_box_set_model (GTK_COMBO_BOX (combo_box), GTK_TREE_MODEL (list_store));
-	g_object_unref (G_OBJECT (list_store));
+	g_object_unref (list_store);
 
 	gtk_cell_layout_clear (GTK_CELL_LAYOUT (combo_box));
 
@@ -742,7 +742,7 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 		data->user_data = user_data;
 		data->combo_box = combo_box;
 		if (data->changed_signal_id == 0) {
-			data->changed_signal_id = g_signal_connect (G_OBJECT (combo_box),
+			data->changed_signal_id = g_signal_connect (combo_box,
 								    "changed",
 								    G_CALLBACK (combo_box_changed),
 								    data);
