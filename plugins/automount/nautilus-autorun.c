@@ -1231,13 +1231,7 @@ show_dialog:
 	if (g_mount_can_eject (mount)) {
 		GtkWidget *eject_image;
 		eject_button = gtk_button_new_with_mnemonic (_("_Eject"));
-		pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-						   "media-eject",
-						   get_icon_size_for_stock_size (GTK_ICON_SIZE_BUTTON),
-						   0,
-						   NULL);
-		eject_image = gtk_image_new_from_pixbuf (pixbuf);
-		g_object_unref (pixbuf);
+		eject_image = gtk_image_new_from_icon_name ("media-eject", GTK_ICON_SIZE_BUTTON);
 		gtk_button_set_image (GTK_BUTTON (eject_button), eject_image);
 		data->should_eject = TRUE;
 	} else {
