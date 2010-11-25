@@ -88,7 +88,7 @@ show_error_dialog (const char *primary_text,
 
 
 /**
- * eel_g_strv_find
+ * nautilus_autorun_g_strv_find
  *
  * Get index of string in array of strings.
  *
@@ -99,9 +99,9 @@ show_error_dialog (const char *primary_text,
  * matches @find_me, or -1 if no matching entry.
  */
 static int
-eel_g_strv_find (char **strv, const char *find_me)
+nautilus_autorun_g_strv_find (char **strv, const char *find_me)
 {
-	int index;
+	guint index;
 
 	g_return_val_if_fail (find_me != NULL, -1);
 
@@ -203,13 +203,13 @@ nautilus_autorun_get_preferences (const char *x_content_type,
 	x_content_ignore = g_settings_get_strv (settings, "autorun-x-content-ignore");
 	x_content_open_folder = g_settings_get_strv (settings, "autorun-x-content-open-folder");
 	if (x_content_start_app != NULL) {
-		*pref_start_app = eel_g_strv_find (x_content_start_app, x_content_type) != -1;
+		*pref_start_app = nautilus_autorun_g_strv_find (x_content_start_app, x_content_type) != -1;
 	}
 	if (x_content_ignore != NULL) {
-		*pref_ignore = eel_g_strv_find (x_content_ignore, x_content_type) != -1;
+		*pref_ignore = nautilus_autorun_g_strv_find (x_content_ignore, x_content_type) != -1;
 	}
 	if (x_content_open_folder != NULL) {
-		*pref_open_folder = eel_g_strv_find (x_content_open_folder, x_content_type) != -1;
+		*pref_open_folder = nautilus_autorun_g_strv_find (x_content_open_folder, x_content_type) != -1;
 	}
 	g_strfreev (x_content_ignore);
 	g_strfreev (x_content_start_app);
