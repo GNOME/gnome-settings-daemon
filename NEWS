@@ -1,4 +1,18 @@
 ==============
+Version 2.91.4
+==============
+
+- Add Wacom configuration plugin (Peter Hutterer)
+- Add support for the XF86TouchpadOn/Off keys (Bastien Nocera)
+- Move some gnome-power-manager settings, so it can
+  be used in the control center (Richard Hughes)
+- Only ever call g_bus_own_name() once for the main D-Bus name (BN)
+- Register with gnome-session to avoid timeouts, and transition
+  problems on login (BN)
+- Fix possible warnings or crashers when _stop() is called without
+  _start() having been completed (William Jon McCann)
+
+==============
 Version 2.91.3
 ==============
 

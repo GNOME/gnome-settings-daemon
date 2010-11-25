@@ -1,7 +1,7 @@
 AC_PREREQ([2.60])
 
 AC_INIT([gnome-settings-daemon],
-        [2.91.3],
+        [2.91.4],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
@@ -54,7 +54,7 @@ GLIB_REQUIRED_VERSION=2.17.3
 GTK_REQUIRED_VERSION=2.91.0
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.17.3
-GNOME_DESKTOP_REQUIRED_VERSION=2.91.2
+GNOME_DESKTOP_REQUIRED_VERSION=2.91.3
 LIBNOTIFY_REQUIRED_VERSION=0.6.1
 
 EXTRA_COMPILE_WARNINGS(yes)
