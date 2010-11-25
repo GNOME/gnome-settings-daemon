@@ -217,42 +217,50 @@ nautilus_autorun_get_preferences (const char *x_content_type,
         g_object_unref (settings);
 }
 
-static void
-remove_elem_from_str_array (char **v, const char *s)
+static char **
+remove_elem_from_str_array (char **v,
+                            const char *s)
 {
-	int n, m;
+        GPtrArray *array;
+        guint idx;
 
-	if (v == NULL) {
-		return;
-	}
+        array = g_ptr_array_new ();
 
-	for (n = 0; v[n] != NULL; n++) {
-		if (strcmp (v[n], s) == 0) {
-			for (m = n + 1; v[m] != NULL; m++) {
-				v[m - 1] = v[m];
-			}
-			v[m - 1] = NULL;
-			n--;
-		}
-	}
+        for (idx = 0; v[idx] != NULL; idx++) {
+                if (g_strcmp0 (v[idx], s) == 0) {
+                        continue;
+                }
+
+                g_ptr_array_add (array, v[idx]);
+        }
+
+        g_ptr_array_add (array, NULL);
+
+        g_free (v);
+
+        return (char **) g_ptr_array_free (array, FALSE);
 }
 
 static char **
-add_elem_to_str_array (char **v, const char *s)
+add_elem_to_str_array (char **v,
+                       const char *s)
 {
-	guint len;
-	char **r;
+        GPtrArray *array;
+        guint idx;
 
-	len = v != NULL ? g_strv_length (v) : 0;
-	r = g_new0 (char *, len + 2);
-	memcpy (r, v, len * sizeof (char *));
-	r[len] = g_strdup (s);
-	r[len+1] = NULL;
-	g_free (v);
+        array = g_ptr_array_new ();
 
-	return r;
+        for (idx = 0; v[idx] != NULL; idx++) {
+                g_ptr_array_add (array, v[idx]);
+        }
+
+        g_ptr_array_add (array, g_strdup (s));
+        g_ptr_array_add (array, NULL);
+
+        g_free (v);
+
+        return (char **) g_ptr_array_free (array, FALSE);
 }
-
 
 static void
 nautilus_autorun_set_preferences (const char *x_content_type,
@@ -274,19 +282,19 @@ nautilus_autorun_set_preferences (const char *x_content_type,
 	x_content_ignore = g_settings_get_strv (settings, "autorun-x-content-ignore");
 	x_content_open_folder = g_settings_get_strv (settings, "autorun-x-content-open-folder");
 
-	remove_elem_from_str_array (x_content_start_app, x_content_type);
+	x_content_start_app = remove_elem_from_str_array (x_content_start_app, x_content_type);
 	if (pref_start_app) {
 		x_content_start_app = add_elem_to_str_array (x_content_start_app, x_content_type);
 	}
 	g_settings_set_strv (settings, "autorun-x-content-start-app", (const gchar * const*) x_content_start_app);
 
-	remove_elem_from_str_array (x_content_ignore, x_content_type);
+	x_content_ignore = remove_elem_from_str_array (x_content_ignore, x_content_type);
 	if (pref_ignore) {
 		x_content_ignore = add_elem_to_str_array (x_content_ignore, x_content_type);
 	}
 	g_settings_set_strv (settings, "autorun-x-content-ignore", (const gchar * const*) x_content_ignore);
 
-	remove_elem_from_str_array (x_content_open_folder, x_content_type);
+	x_content_open_folder = remove_elem_from_str_array (x_content_open_folder, x_content_type);
 	if (pref_open_folder) {
 		x_content_open_folder = add_elem_to_str_array (x_content_open_folder, x_content_type);
 	}
