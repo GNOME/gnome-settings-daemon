@@ -86,8 +86,7 @@ automount_all_volumes (GsdAutomountManager *manager)
 			/* pass NULL as GMountOperation to avoid user interaction */
 			g_volume_mount (volume, 0, NULL, NULL, startup_volume_mount_cb, NULL);
 		}
-		g_list_foreach (volumes, (GFunc) g_object_unref, NULL);
-		g_list_free (volumes);
+		g_list_free_full (volumes, g_object_unref);
 	}
 }
 

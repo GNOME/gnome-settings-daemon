@@ -259,8 +259,7 @@ add_or_find_application (NautilusOpenWithDialog *dialog)
 		}
 
 		if (applications != NULL) {
-			g_list_foreach (applications, (GFunc) g_object_unref, NULL);
-			g_list_free (applications);
+		        g_list_free_full (applications, g_object_unref);
 		}
 	}
 

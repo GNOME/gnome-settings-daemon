@@ -697,8 +697,7 @@ nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
 	if (default_app_info != NULL) {
 		g_object_unref (default_app_info);
 	}
-	g_list_foreach (app_info_list, (GFunc) g_object_unref, NULL);
-	g_list_free (app_info_list);
+	g_list_free_full (app_info_list, g_object_unref);
 
 	gtk_combo_box_set_model (GTK_COMBO_BOX (combo_box), GTK_TREE_MODEL (list_store));
 	g_object_unref (list_store);
