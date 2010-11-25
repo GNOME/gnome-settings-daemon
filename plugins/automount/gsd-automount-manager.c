@@ -201,9 +201,9 @@ static void
 setup_automounter (GsdAutomountManager *manager)
 {
 	manager->priv->volume_monitor = g_volume_monitor_get ();
-	g_signal_connect_object (manager->priv->volume_monitor, "mount_added",
+	g_signal_connect_object (manager->priv->volume_monitor, "mount-added",
 				 G_CALLBACK (mount_added_callback), manager, 0);
-	g_signal_connect_object (manager->priv->volume_monitor, "volume_added",
+	g_signal_connect_object (manager->priv->volume_monitor, "volume-added",
 				 G_CALLBACK (volume_added_callback), manager, 0);
 
 	manager->priv->automount_idle_id =
