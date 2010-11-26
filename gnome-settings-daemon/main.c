@@ -114,7 +114,7 @@ got_session_proxy (GObject      *source_object,
                 startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
                 g_dbus_proxy_call (proxy,
                                    "RegisterClient",
-                                   g_variant_new ("(ss)", "gnome-settings-daemon", startup_id),
+                                   g_variant_new ("(ss)", "gnome-settings-daemon", startup_id ? startup_id : ""),
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1,
                                    NULL,
