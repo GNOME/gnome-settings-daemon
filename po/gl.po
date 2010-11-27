@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-20 01:30+0100\n"
-"PO-Revision-Date: 2010-11-20 01:33+0100\n"
+"POT-Creation-Date: 2010-11-27 02:25+0100\n"
+"PO-Revision-Date: 2010-11-27 02:36+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "Language: gl\n"
@@ -149,6 +149,7 @@ msgstr "Acción ao extraer a tarxeta intelixente"
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr "Activación de este engadido"
 
@@ -159,6 +160,7 @@ msgstr "Activación de este engadido"
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "Prioridade de uso para este engadido"
 
@@ -266,12 +268,14 @@ msgid "Never show layout indicator"
 msgstr "Non mostrar nunca o indicador de distribución"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
 msgstr ""
 "Prioridade que usar para este engadido na cola de inicio de gnome-settings-"
 "daemon."
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr "Indica se gnome-settings-daemon activará este engadido ou non."
 
@@ -580,6 +584,144 @@ msgstr ""
 "básico, \"medium\" para o moderado e \"full\" para o suavizado máximo (pode "
 "distorsionar as formas das letras)."
 
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr "Active isto para mover só o cursor cando o usuario toca a tableta."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+msgid ""
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+msgid ""
+"Set this to the pressure value at which a stylus click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
+msgstr "Modo absoluto do cursor da Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
+msgstr "Posicionamento do botón do cursor da Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
+msgstr "Área do cursor da tableta Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
+msgstr "Modo absoluto da «goma» da Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
+msgstr "Posicionamento do botón da «goma» da Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
+msgstr "Curva de presión da «goma» da Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
+msgstr "Límite de presión da «goma» da Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
+msgstr "Área da «goma» da tableta Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr "Característica táctil da Wacom"
+
 #: ../gnome-settings-daemon/main.c:53
 msgid "Enable debugging code"
 msgstr "Activar o código de depuración"
@@ -737,6 +879,258 @@ msgstr "_Ignorar a pulsación duplicada de teclas (teclas de rebote)"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr ""
 "_Premer os atallos de teclado unha tecla de cada vez (teclas persistentes)"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr "Automontaxe"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+msgid "Automounter plugin"
+msgstr "Engadido de automontaxe"
+
+#: ../plugins/automount/gsd-automount-manager.c:118
+#, c-format
+msgid "Unable to mount %s"
+msgstr "Non foi posíbel montar %s"
+
+#: ../plugins/automount/gsd-automount-manager.c:177
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr "Non foi posíbel abrir un cartafol para %s"
+
+#: ../plugins/automount/nautilus-autorun.c:595
+msgid "No applications found"
+msgstr "Non se encontraron aplicativos"
+
+#: ../plugins/automount/nautilus-autorun.c:607
+msgid "Ask what to do"
+msgstr "Preguntarme que facer"
+
+#: ../plugins/automount/nautilus-autorun.c:619
+msgid "Do Nothing"
+msgstr "Non facer nada"
+
+#: ../plugins/automount/nautilus-autorun.c:630
+msgid "Open Folder"
+msgstr "Abrir cartafol"
+
+#: ../plugins/automount/nautilus-autorun.c:657
+#, c-format
+msgid "Open %s"
+msgstr "Abrir %s"
+
+#: ../plugins/automount/nautilus-autorun.c:689
+msgid "Open with other Application..."
+msgstr "Abrir con outro aplicativo..."
+
+#: ../plugins/automount/nautilus-autorun.c:932
+#, c-format
+msgid "Unable to eject %p"
+msgstr "Non foi posíbel extraer %p"
+
+#: ../plugins/automount/nautilus-autorun.c:934
+#, c-format
+msgid "Unable to unmount %p"
+msgstr "Non foi posíbel desmontar %p"
+
+#: ../plugins/automount/nautilus-autorun.c:1152
+msgid "You have just inserted an Audio CD."
+msgstr "Acaba de inserir un CD de son."
+
+#: ../plugins/automount/nautilus-autorun.c:1154
+msgid "You have just inserted an Audio DVD."
+msgstr "Acaba de inserir un DVD de son."
+
+#: ../plugins/automount/nautilus-autorun.c:1156
+msgid "You have just inserted a Video DVD."
+msgstr "Acaba de inserir un DVD de vídeo."
+
+#: ../plugins/automount/nautilus-autorun.c:1158
+msgid "You have just inserted a Video CD."
+msgstr "Acaba de inserir un CD de vídeo."
+
+#: ../plugins/automount/nautilus-autorun.c:1160
+msgid "You have just inserted a Super Video CD."
+msgstr "Acaba de inserir un Super Video CD."
+
+#: ../plugins/automount/nautilus-autorun.c:1162
+msgid "You have just inserted a blank CD."
+msgstr "Acaba de inserir un CD en branco."
+
+#: ../plugins/automount/nautilus-autorun.c:1164
+msgid "You have just inserted a blank DVD."
+msgstr "Acaba de inserir un DVD en branco."
+
+#: ../plugins/automount/nautilus-autorun.c:1166
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "Acaba de inserir un disco Blu-Ray en branco."
+
+#: ../plugins/automount/nautilus-autorun.c:1168
+msgid "You have just inserted a blank HD DVD."
+msgstr "Acaba de inserir un HD DVD en branco."
+
+#: ../plugins/automount/nautilus-autorun.c:1170
+msgid "You have just inserted a Photo CD."
+msgstr "Acaba de inserir un Photo CD."
+
+#: ../plugins/automount/nautilus-autorun.c:1172
+msgid "You have just inserted a Picture CD."
+msgstr "Acaba de inserir un Picture CD."
+
+#: ../plugins/automount/nautilus-autorun.c:1174
+msgid "You have just inserted a medium with digital photos."
+msgstr "Acaba de inserir un soporte con fotos dixitais."
+
+#: ../plugins/automount/nautilus-autorun.c:1176
+msgid "You have just inserted a digital audio player."
+msgstr "Acaba de inserir un reprodutor multimedia."
+
+#: ../plugins/automount/nautilus-autorun.c:1178
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr ""
+"Acaba de inserir un soporte con software que tenta iniciarse automaticamente."
+
+#. fallback to generic greeting
+#: ../plugins/automount/nautilus-autorun.c:1181
+msgid "You have just inserted a medium."
+msgstr "Acaba de inserir un soporte."
+
+#: ../plugins/automount/nautilus-autorun.c:1183
+msgid "Choose what application to launch."
+msgstr "Seleccionar que aplicativo iniciar."
+
+#: ../plugins/automount/nautilus-autorun.c:1192
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr ""
+
+#: ../plugins/automount/nautilus-autorun.c:1219
+msgid "_Always perform this action"
+msgstr "Levar _sempre a cabo esta acción"
+
+#: ../plugins/automount/nautilus-autorun.c:1235
+msgid "_Eject"
+msgstr "_Expulsar"
+
+#: ../plugins/automount/nautilus-autorun.c:1240
+msgid "_Unmount"
+msgstr "_Desmontar"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:138
+msgid "Could not run application"
+msgstr "Non foi posíbel iniciar o aplicativo"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:150
+#, c-format
+msgid "Could not find '%s'"
+msgstr "Non foi posíbel encontrar «%s»"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:153
+msgid "Could not find application"
+msgstr "Non foi posíbel encontrar o aplicativo"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:228
+#, c-format
+msgid "Could not add application to the application database: %s"
+msgstr ""
+"Non foi posíbel engadir o aplicativo á base de datos de aplicativos: %s"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:229
+msgid "Could not add application"
+msgstr "Non foi posíbel engadir o aplicativo"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:267
+#, c-format
+msgid "Could not set application as the default: %s"
+msgstr "Non foi posíbel estabelecer o aplicativo como predeterminado: %s"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:268
+msgid "Could not set as default application"
+msgstr "Non foi posíbel estabelecer como aplicativo predeterminado"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:405
+msgid "Select an Application"
+msgstr "Seleccionar un aplicativo"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:764
+msgid "Open With"
+msgstr "Abrir con"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:800
+msgid "Select an application to view its description."
+msgstr "Seleccione un aplicativo para ver a súa descrición."
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:825
+msgid "_Use a custom command"
+msgstr "_Usar unha orde personalizada"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:842
+msgid "_Browse..."
+msgstr "_Examinar..."
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:878
+msgid "_Open"
+msgstr "_Abrir"
+
+#. first %s is a filename and second %s is a file extension
+#: ../plugins/automount/nautilus-open-with-dialog.c:958
+#, c-format
+msgid "Open %s and other %s document with:"
+msgstr "Abrir %s e outros documentos %s con:"
+
+#. the %s here is a file name
+#. %s is a filename
+#: ../plugins/automount/nautilus-open-with-dialog.c:962
+#: ../plugins/automount/nautilus-open-with-dialog.c:993
+#, c-format
+msgid "Open %s with:"
+msgstr "Abrir %s con:"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:963
+#, c-format
+msgid "_Remember this application for %s documents"
+msgstr "_Lembrar este aplicativo para os documentos %s"
+
+#. Only in add mode - the %s here is a file extension
+#: ../plugins/automount/nautilus-open-with-dialog.c:972
+#, c-format
+msgid "Open all %s documents with:"
+msgstr "Abrir todos os documentos %s con:"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:981
+msgid "Unknown"
+msgstr "Descoñecido"
+
+#. First %s is a filename, second is a description
+#. * of the type, eg "plain text document"
+#: ../plugins/automount/nautilus-open-with-dialog.c:989
+#, c-format
+msgid "Open %s and other \"%s\" files with:"
+msgstr "Abrir %s e outros ficheiros «%s» con:"
+
+#. %s is a file type description
+#: ../plugins/automount/nautilus-open-with-dialog.c:995
+#, c-format
+msgid "_Remember this application for \"%s\" files"
+msgstr "_Lembrar este aplicativo para os ficheiros «%s»"
+
+#. Only in add mode
+#: ../plugins/automount/nautilus-open-with-dialog.c:1004
+#, c-format
+msgid "Open all \"%s\" files with:"
+msgstr "Abrir todos os ficheiros «%s» con:"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:1015
+msgid "_Add"
+msgstr "_Engadir"
+
+#: ../plugins/automount/nautilus-open-with-dialog.c:1016
+msgid "Add Application"
+msgstr "Engadir aplicativo"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -969,7 +1363,7 @@ msgstr "Preferencias do _teclado"
 msgid "Show _Current Layout"
 msgstr "Mostrar a _disposición actual"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:205
+#: ../plugins/media-keys/gsd-media-keys-manager.c:204
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -977,7 +1371,7 @@ msgstr ""
 "Non foi posíbel obter a terminal predeterminada. Verifique que a orde da súa "
 "terminal predeterminada está definida e que apunta a un aplicativo válido."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:245
+#: ../plugins/media-keys/gsd-media-keys-manager.c:244
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1052,21 +1446,21 @@ msgstr "Definir o tamaño da pantalla e as configuracións de rotación"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:370
+#: ../plugins/xrandr/gsd-xrandr-manager.c:403
 msgid "Could not switch the monitor configuration"
 msgstr "Non foi posíbel cambiar a configuración da pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:394
+#: ../plugins/xrandr/gsd-xrandr-manager.c:427
 msgid "Could not restore the display's configuration"
 msgstr "Non foi posíbel restaurar a configuración de pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+#: ../plugins/xrandr/gsd-xrandr-manager.c:452
 msgid "Could not restore the display's configuration from a backup"
 msgstr ""
 "Non foi posíbel restaurar a configuración de pantalla desde a copia de "
 "seguranza"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:440
+#: ../plugins/xrandr/gsd-xrandr-manager.c:473
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1074,32 +1468,32 @@ msgid_plural ""
 msgstr[0] "Restabelecerase a configuración de pantalla anterior en %d segundo"
 msgstr[1] "Restabelecerase a configuración de pantalla anterior en %d segundos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:489
+#: ../plugins/xrandr/gsd-xrandr-manager.c:522
 msgid "Does the display look OK?"
 msgstr "Vese correctamente a pantalla?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:496
+#: ../plugins/xrandr/gsd-xrandr-manager.c:529
 msgid "_Restore Previous Configuration"
 msgstr "_Restabelecer a configuración anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:497
+#: ../plugins/xrandr/gsd-xrandr-manager.c:530
 msgid "_Keep This Configuration"
 msgstr "_Manter esta configuración"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:578
+#: ../plugins/xrandr/gsd-xrandr-manager.c:611
 msgid "The selected configuration for displays could not be applied"
 msgstr "Non é posíbel aplicar a configuración seleccionada para as pantallas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1143
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1150
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Non foi posíbel actualizar a información de pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1147
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1154
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Tentando mudar a configuración da pantalla de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1600
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1626
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Non foi posíbel aplicarlle a configuración almacenada aos monitores"
 
