@@ -30,7 +30,7 @@
 
 #include "gnome-settings-profile.h"
 #include "gsd-automount-manager.h"
-#include "nautilus-autorun.h"
+#include "gsd-autorun.h"
 
 #define GSD_AUTOMOUNT_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_AUTOMOUNT_MANAGER, GsdAutomountManagerPrivate))
 
@@ -49,6 +49,33 @@ G_DEFINE_TYPE (GsdAutomountManager, gsd_automount_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+static GtkDialog *
+show_error_dialog (const char *primary_text,
+		   const char *secondary_text,
+		   GtkWindow *parent)
+{
+	GtkWidget *dialog;
+
+	dialog = gtk_message_dialog_new (parent,
+					 0,
+					 GTK_MESSAGE_ERROR,
+					 GTK_BUTTONS_OK,
+					 NULL);
+
+	g_object_set (dialog,
+		      "text", primary_text,
+		      "secondary-text", secondary_text,
+		      NULL);
+
+	gtk_widget_show (GTK_WIDGET (dialog));
+
+	g_signal_connect (dialog, "response",
+			  G_CALLBACK (gtk_widget_destroy), NULL);
+
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+	return GTK_DIALOG (dialog);
+}
 
 static void
 startup_volume_mount_cb (GObject *source_object,
@@ -111,7 +138,7 @@ volume_mount_cb (GObject *source_object,
 	char *name;
 
 	error = NULL;
-	nautilus_allow_autorun_for_volume_finish (G_VOLUME (source_object));
+	gsd_allow_autorun_for_volume_finish (G_VOLUME (source_object));
 	if (!g_volume_mount_finish (G_VOLUME (source_object), res, &error)) {
 		if (error->code != G_IO_ERROR_FAILED_HANDLED) {
 			name = g_volume_get_name (G_VOLUME (source_object));
@@ -136,7 +163,7 @@ do_mount_volume (GVolume *volume)
 	mount_op = gtk_mount_operation_new (NULL);
 	g_mount_operation_set_password_save (mount_op, G_PASSWORD_SAVE_FOR_SESSION);
 
-	nautilus_allow_autorun_for_volume (volume);
+	gsd_allow_autorun_for_volume (volume);
 	g_volume_mount (volume, 0, mount_op, NULL, volume_mount_cb, mount_op);
 }
 
@@ -150,11 +177,11 @@ volume_added_callback (GVolumeMonitor *monitor,
 	    g_volume_can_mount (volume)) {
 	    do_mount_volume (volume);
 	} else {
-		/* Allow nautilus_autorun() to run. When the mount is later
+		/* Allow gsd_autorun() to run. When the mount is later
 		 * added programmatically (i.e. for a blank CD),
-		 * nautilus_autorun() will be called by mount_added_callback(). */
-		nautilus_allow_autorun_for_volume (volume);
-		nautilus_allow_autorun_for_volume_finish (volume);
+		 * gsd_autorun() will be called by mount_added_callback(). */
+		gsd_allow_autorun_for_volume (volume);
+		gsd_allow_autorun_for_volume_finish (volume);
 	}
 }
 
@@ -192,7 +219,7 @@ mount_added_callback (GVolumeMonitor *monitor,
 		      GMount *mount,
 		      GsdAutomountManager *manager)
 {
-	nautilus_autorun (mount, manager->priv->settings, autorun_show_window, manager);
+	gsd_autorun (mount, manager->priv->settings, autorun_show_window, manager);
 }
 
 static void

@@ -1,7 +1,9 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*- */
+
 /*
- * Nautilus
+ * gsd-automount.c: helpers for automounting hotplugged volumes
  *
- * Copyright (C) 2008 Red Hat, Inc.
+ * Copyright (C) 2008, 2010 Red Hat, Inc.
  *
  * Nautilus is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +19,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * Author: David Zeuthen <davidz@redhat.com>
+ * Authors: David Zeuthen <davidz@redhat.com>
+ *          Cosimo Cecchi <cosimoc@redhat.com>
  */
  
 #include <config.h>
@@ -29,7 +32,7 @@
 #include <X11/XKBlib.h>
 #include <gdk/gdkkeysyms.h>
 
-#include "nautilus-autorun.h"
+#include "gsd-autorun.h"
 
 static gboolean should_autorun_mount (GMount *mount);
 
@@ -52,52 +55,12 @@ typedef struct
 
 	char *x_content_type;
 
-	NautilusAutorunOpenWindow open_window_func;
+	GsdAutorunOpenWindow open_window_func;
 	gpointer user_data;
 } AutorunDialogData;
 
-GtkDialog *
-show_error_dialog (const char *primary_text,
-		   const char *secondary_text,
-		   GtkWindow *parent)
-{
-	GtkWidget *dialog;
-
-	dialog = gtk_message_dialog_new (parent,
-					 0,
-					 GTK_MESSAGE_ERROR,
-					 GTK_BUTTONS_OK,
-					 NULL);
-
-	g_object_set (dialog,
-		      "text", primary_text,
-		      "secondary-text", secondary_text,
-		      NULL);
-
-	gtk_widget_show (GTK_WIDGET (dialog));
-
-	g_signal_connect (dialog, "response",
-			  G_CALLBACK (gtk_widget_destroy), NULL);
-
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-
-	return GTK_DIALOG (dialog);
-}
-
-
-/**
- * nautilus_autorun_g_strv_find
- *
- * Get index of string in array of strings.
- *
- * @strv: NULL-terminated array of strings.
- * @find_me: string to search for
- *
- * Return value: index of array entry in @strv that
- * matches @find_me, or -1 if no matching entry.
- */
 static int
-nautilus_autorun_g_strv_find (char **strv, const char *find_me)
+gsd_autorun_g_strv_find (char **strv, const char *find_me)
 {
 	guint index;
 
@@ -173,10 +136,10 @@ render_icon (GIcon *icon, gint icon_size)
 }
 
 static void
-nautilus_autorun_get_preferences (const char *x_content_type,
-				  gboolean *pref_start_app,
-				  gboolean *pref_ignore,
-				  gboolean *pref_open_folder)
+gsd_autorun_get_preferences (const char *x_content_type,
+                             gboolean *pref_start_app,
+                             gboolean *pref_ignore,
+                             gboolean *pref_open_folder)
 {
         GSettings *settings;
 	char **x_content_start_app;
@@ -196,13 +159,13 @@ nautilus_autorun_get_preferences (const char *x_content_type,
 	x_content_ignore = g_settings_get_strv (settings, "autorun-x-content-ignore");
 	x_content_open_folder = g_settings_get_strv (settings, "autorun-x-content-open-folder");
 	if (x_content_start_app != NULL) {
-		*pref_start_app = nautilus_autorun_g_strv_find (x_content_start_app, x_content_type) != -1;
+		*pref_start_app = gsd_autorun_g_strv_find (x_content_start_app, x_content_type) != -1;
 	}
 	if (x_content_ignore != NULL) {
-		*pref_ignore = nautilus_autorun_g_strv_find (x_content_ignore, x_content_type) != -1;
+		*pref_ignore = gsd_autorun_g_strv_find (x_content_ignore, x_content_type) != -1;
 	}
 	if (x_content_open_folder != NULL) {
-		*pref_open_folder = nautilus_autorun_g_strv_find (x_content_open_folder, x_content_type) != -1;
+		*pref_open_folder = gsd_autorun_g_strv_find (x_content_open_folder, x_content_type) != -1;
 	}
 	g_strfreev (x_content_ignore);
 	g_strfreev (x_content_start_app);
@@ -256,10 +219,10 @@ add_elem_to_str_array (char **v,
 }
 
 static void
-nautilus_autorun_set_preferences (const char *x_content_type,
-				  gboolean pref_start_app,
-				  gboolean pref_ignore,
-				  gboolean pref_open_folder)
+gsd_autorun_set_preferences (const char *x_content_type,
+                             gboolean pref_start_app,
+                             gboolean pref_ignore,
+                             gboolean pref_open_folder)
 {
         GSettings *settings;
 	char **x_content_start_app;
@@ -303,109 +266,109 @@ custom_item_activated_cb (GtkAppChooserButton *button,
                           const gchar *item,
                           gpointer user_data)
 {
-  gchar *content_type;
-  AutorunDialogData *data = user_data;
+        gchar *content_type;
+        AutorunDialogData *data = user_data;
 
-  content_type = gtk_app_chooser_get_content_type (GTK_APP_CHOOSER (button));
+        content_type = gtk_app_chooser_get_content_type (GTK_APP_CHOOSER (button));
 
-  if (g_strcmp0 (item, CUSTOM_ITEM_ASK) == 0) {
-    nautilus_autorun_set_preferences (content_type,
-				      FALSE, FALSE, FALSE);
-    data->selected_open_folder = FALSE;
-    data->selected_ignore = FALSE;
-  } else if (g_strcmp0 (item, CUSTOM_ITEM_OPEN_FOLDER) == 0) {
-    nautilus_autorun_set_preferences (content_type,
-				      FALSE, FALSE, TRUE);
-    data->selected_open_folder = TRUE;
-    data->selected_ignore = FALSE;
-  } else if (g_strcmp0 (item, CUSTOM_ITEM_DO_NOTHING) == 0) {
-    nautilus_autorun_set_preferences (content_type,
-				      FALSE, TRUE, FALSE);
-    data->selected_open_folder = FALSE;
-    data->selected_ignore = TRUE;
-  }
+        if (g_strcmp0 (item, CUSTOM_ITEM_ASK) == 0) {
+                gsd_autorun_set_preferences (content_type,
+                                             FALSE, FALSE, FALSE);
+                data->selected_open_folder = FALSE;
+                data->selected_ignore = FALSE;
+        } else if (g_strcmp0 (item, CUSTOM_ITEM_OPEN_FOLDER) == 0) {
+                gsd_autorun_set_preferences (content_type,
+                                             FALSE, FALSE, TRUE);
+                data->selected_open_folder = TRUE;
+                data->selected_ignore = FALSE;
+        } else if (g_strcmp0 (item, CUSTOM_ITEM_DO_NOTHING) == 0) {
+                gsd_autorun_set_preferences (content_type,
+                                             FALSE, TRUE, FALSE);
+                data->selected_open_folder = FALSE;
+                data->selected_ignore = TRUE;
+        }
 
-  g_free (content_type);
+        g_free (content_type);
 }
 
 static void 
 combo_box_changed_cb (GtkComboBox *combo_box,
                       gpointer user_data)
 {
-  GAppInfo *info;
-  AutorunDialogData *data = user_data;
+        GAppInfo *info;
+        AutorunDialogData *data = user_data;
 
-  info = gtk_app_chooser_get_app_info (GTK_APP_CHOOSER (combo_box));
+        info = gtk_app_chooser_get_app_info (GTK_APP_CHOOSER (combo_box));
 
-  if (info == NULL)
-    return;
+        if (info == NULL)
+                return;
 
-  g_clear_object (&data->selected_app);
-  data->selected_app = info;
+        g_clear_object (&data->selected_app);
+        data->selected_app = info;
 }
 
 static void
 prepare_combo_box (GtkWidget *combo_box,
 		   AutorunDialogData *data)
 {
-  GtkAppChooserButton *app_chooser = GTK_APP_CHOOSER_BUTTON (combo_box);
-  GIcon *icon;
-  gboolean pref_ask;
-  gboolean pref_start_app;
-  gboolean pref_ignore;
-  gboolean pref_open_folder;
-  GAppInfo *info;
-  gchar *content_type;
+        GtkAppChooserButton *app_chooser = GTK_APP_CHOOSER_BUTTON (combo_box);
+        GIcon *icon;
+        gboolean pref_ask;
+        gboolean pref_start_app;
+        gboolean pref_ignore;
+        gboolean pref_open_folder;
+        GAppInfo *info;
+        gchar *content_type;
 
-  content_type = gtk_app_chooser_get_content_type (GTK_APP_CHOOSER (app_chooser));
+        content_type = gtk_app_chooser_get_content_type (GTK_APP_CHOOSER (app_chooser));
 
-  /* fetch preferences for this content type */
-  nautilus_autorun_get_preferences (content_type,
-				    &pref_start_app, &pref_ignore, &pref_open_folder);
-  pref_ask = !pref_start_app && !pref_ignore && !pref_open_folder;
+        /* fetch preferences for this content type */
+        gsd_autorun_get_preferences (content_type,
+                                     &pref_start_app, &pref_ignore, &pref_open_folder);
+        pref_ask = !pref_start_app && !pref_ignore && !pref_open_folder;
 
-  info = gtk_app_chooser_get_app_info (GTK_APP_CHOOSER (combo_box));
+        info = gtk_app_chooser_get_app_info (GTK_APP_CHOOSER (combo_box));
 
-  /* append the separator only if we have >= 1 apps in the chooser */
-  if (info != NULL) {
-    gtk_app_chooser_button_append_separator (app_chooser);
-    g_object_unref (info);
-  }
+        /* append the separator only if we have >= 1 apps in the chooser */
+        if (info != NULL) {
+                gtk_app_chooser_button_append_separator (app_chooser);
+                g_object_unref (info);
+        }
 
-  icon = g_themed_icon_new (GTK_STOCK_DIALOG_QUESTION);
-  gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_ASK,
-                                             _("Ask what to do"),
-                                             icon);
-  g_object_unref (icon);
+        icon = g_themed_icon_new (GTK_STOCK_DIALOG_QUESTION);
+        gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_ASK,
+                                                   _("Ask what to do"),
+                                                   icon);
+        g_object_unref (icon);
 
-  icon = g_themed_icon_new (GTK_STOCK_CLOSE);
-  gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_DO_NOTHING,
-                                             _("Do Nothing"),
-                                             icon);
-  g_object_unref (icon);
+        icon = g_themed_icon_new (GTK_STOCK_CLOSE);
+        gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_DO_NOTHING,
+                                                   _("Do Nothing"),
+                                                   icon);
+        g_object_unref (icon);
 
-  icon = g_themed_icon_new ("folder-open");
-  gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_OPEN_FOLDER,
-                                             _("Open Folder"),
-                                             icon);
-  g_object_unref (icon);
+        icon = g_themed_icon_new ("folder-open");
+        gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_OPEN_FOLDER,
+                                                   _("Open Folder"),
+                                                   icon);
+        g_object_unref (icon);
 
-  gtk_app_chooser_button_set_show_dialog_item (app_chooser, TRUE);
+        gtk_app_chooser_button_set_show_dialog_item (app_chooser, TRUE);
 
-  if (pref_ask) {
-    gtk_app_chooser_button_set_active_custom_item (app_chooser, CUSTOM_ITEM_ASK);
-  } else if (pref_ignore) {
-    gtk_app_chooser_button_set_active_custom_item (app_chooser, CUSTOM_ITEM_DO_NOTHING);
-  } else if (pref_open_folder) {
-    gtk_app_chooser_button_set_active_custom_item (app_chooser, CUSTOM_ITEM_OPEN_FOLDER);
-  }
+        if (pref_ask) {
+                gtk_app_chooser_button_set_active_custom_item (app_chooser, CUSTOM_ITEM_ASK);
+        } else if (pref_ignore) {
+                gtk_app_chooser_button_set_active_custom_item (app_chooser, CUSTOM_ITEM_DO_NOTHING);
+        } else if (pref_open_folder) {
+                gtk_app_chooser_button_set_active_custom_item (app_chooser, CUSTOM_ITEM_OPEN_FOLDER);
+        }
 
-  g_signal_connect (app_chooser, "changed",
-                    G_CALLBACK (combo_box_changed_cb), data);
-  g_signal_connect (app_chooser, "custom-item-activated",
-                    G_CALLBACK (custom_item_activated_cb), data);
+        g_signal_connect (app_chooser, "changed",
+                          G_CALLBACK (combo_box_changed_cb), data);
+        g_signal_connect (app_chooser, "custom-item-activated",
+                          G_CALLBACK (custom_item_activated_cb), data);
 
-  g_free (content_type);
+        g_free (content_type);
 }
 
 static gboolean
@@ -434,7 +397,7 @@ enum {
 };
 
 static void
-nautilus_autorun_launch_for_mount (GMount *mount, GAppInfo *app_info)
+gsd_autorun_launch_for_mount (GMount *mount, GAppInfo *app_info)
 {
 	GFile *root;
 	GdkAppLaunchContext *launch_context;
@@ -596,7 +559,7 @@ autorun_dialog_response (GtkDialog *dialog, gint response, AutorunDialogData *da
 
 		if (data->remember) {
 			/* make sure we don't ask again */
-			nautilus_autorun_set_preferences (data->x_content_type, TRUE, data->selected_ignore, data->selected_open_folder);
+			gsd_autorun_set_preferences (data->x_content_type, TRUE, data->selected_ignore, data->selected_open_folder);
 			if (!data->selected_ignore && !data->selected_open_folder && data->selected_app != NULL) {
 				g_app_info_set_as_default_for_type (data->selected_app,
 								    data->x_content_type,
@@ -604,11 +567,11 @@ autorun_dialog_response (GtkDialog *dialog, gint response, AutorunDialogData *da
 			}
 		} else {
 			/* make sure we do ask again */
-			nautilus_autorun_set_preferences (data->x_content_type, FALSE, FALSE, FALSE);
+			gsd_autorun_set_preferences (data->x_content_type, FALSE, FALSE, FALSE);
 		}
 
 		if (!data->selected_ignore && !data->selected_open_folder && data->selected_app != NULL) {
-			nautilus_autorun_launch_for_mount (data->mount, data->selected_app);
+			gsd_autorun_launch_for_mount (data->mount, data->selected_app);
 		} else if (!data->selected_ignore && data->selected_open_folder) {
 			if (data->open_window_func != NULL)
 				data->open_window_func (data->mount, data->user_data);
@@ -637,7 +600,10 @@ combo_box_enter_ok (GtkWidget *togglebutton, GdkEventKey *event, GtkDialog *dial
 
 /* returns TRUE if a folder window should be opened */
 static gboolean
-do_autorun_for_content_type (GMount *mount, const char *x_content_type, NautilusAutorunOpenWindow open_window_func, gpointer user_data)
+do_autorun_for_content_type (GMount *mount,
+                             const char *x_content_type,
+                             GsdAutorunOpenWindow open_window_func,
+                             gpointer user_data)
 {
 	AutorunDialogData *data;
 	GtkWidget *dialog;
@@ -674,7 +640,7 @@ do_autorun_for_content_type (GMount *mount, const char *x_content_type, Nautilus
 
 	user_forced_dialog = is_shift_pressed ();
 
-	nautilus_autorun_get_preferences (x_content_type, &pref_start_app, &pref_ignore, &pref_open_folder);
+	gsd_autorun_get_preferences (x_content_type, &pref_start_app, &pref_ignore, &pref_open_folder);
 	pref_ask = !pref_start_app && !pref_ignore && !pref_open_folder;
 
 	if (user_forced_dialog) {
@@ -685,7 +651,7 @@ do_autorun_for_content_type (GMount *mount, const char *x_content_type, Nautilus
 		GAppInfo *app_info;
 		app_info = g_app_info_get_default_for_type (x_content_type, FALSE);
 		if (app_info != NULL) {
-			nautilus_autorun_launch_for_mount (mount, app_info);
+			gsd_autorun_launch_for_mount (mount, app_info);
 		}
 		goto out;
 	}
@@ -845,7 +811,7 @@ out:
 
 typedef struct {
 	GMount *mount;
-	NautilusAutorunOpenWindow open_window_func;
+	GsdAutorunOpenWindow open_window_func;
 	gpointer user_data;
 	GSettings *settings;
 } AutorunData;
@@ -865,7 +831,7 @@ autorun_guessed_content_type_callback (GObject *source_object,
 	error = NULL;
 	guessed_content_type = g_mount_guess_content_type_finish (G_MOUNT (source_object), res, &error);
 	g_object_set_data_full (source_object,
-				"nautilus-content-type-cache",
+				"gsd-content-type-cache",
 				g_strdupv (guessed_content_type),
 				(GDestroyNotify)g_strfreev);
 	if (error != NULL) {
@@ -899,7 +865,10 @@ autorun_guessed_content_type_callback (GObject *source_object,
 }
 
 void
-nautilus_autorun (GMount *mount, GSettings *settings, NautilusAutorunOpenWindow open_window_func, gpointer user_data)
+gsd_autorun (GMount *mount,
+             GSettings *settings,
+             GsdAutorunOpenWindow open_window_func,
+             gpointer user_data)
 {
 	AutorunData *data;
 
@@ -926,22 +895,22 @@ remove_allow_volume (gpointer data)
 {
 	GVolume *volume = data;
 
-	g_object_set_data (G_OBJECT (volume), "nautilus-allow-autorun", NULL);
+	g_object_set_data (G_OBJECT (volume), "gsd-allow-autorun", NULL);
 	return FALSE;
 }
 
 void
-nautilus_allow_autorun_for_volume (GVolume *volume)
+gsd_allow_autorun_for_volume (GVolume *volume)
 {
-	g_object_set_data (G_OBJECT (volume), "nautilus-allow-autorun", GINT_TO_POINTER (1));
+	g_object_set_data (G_OBJECT (volume), "gsd-allow-autorun", GINT_TO_POINTER (1));
 }
 
 #define INHIBIT_AUTORUN_SECONDS 10
 
 void
-nautilus_allow_autorun_for_volume_finish (GVolume *volume)
+gsd_allow_autorun_for_volume_finish (GVolume *volume)
 {
-	if (g_object_get_data (G_OBJECT (volume), "nautilus-allow-autorun") != NULL) {
+	if (g_object_get_data (G_OBJECT (volume), "gsd-allow-autorun") != NULL) {
 		g_timeout_add_seconds_full (0,
 					    INHIBIT_AUTORUN_SECONDS,
 					    remove_allow_volume,
@@ -974,9 +943,9 @@ should_autorun_mount (GMount *mount)
 	ignore_autorun = TRUE;
 	enclosing_volume = g_mount_get_volume (mount);
 	if (enclosing_volume != NULL) {
-		if (g_object_get_data (G_OBJECT (enclosing_volume), "nautilus-allow-autorun") != NULL) {
+		if (g_object_get_data (G_OBJECT (enclosing_volume), "gsd-allow-autorun") != NULL) {
 			ignore_autorun = FALSE;
-			g_object_set_data (G_OBJECT (enclosing_volume), "nautilus-allow-autorun", NULL);
+			g_object_set_data (G_OBJECT (enclosing_volume), "gsd-allow-autorun", NULL);
 		}
 	}
 

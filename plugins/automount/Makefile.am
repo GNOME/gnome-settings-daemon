@@ -8,8 +8,8 @@ test_automount_SOURCES = 		\
 	test-automount.c		\
 	gsd-automount-manager.h		\
 	gsd-automount-manager.c		\
-	nautilus-autorun.c		\
-	nautilus-autorun.h		\
+	gsd-autorun.c		\
+	gsd-autorun.h		\
 	$(NULL)
 
 test_automount_CPPFLAGS = \
@@ -36,10 +36,8 @@ libautomount_la_SOURCES =		\
 	gsd-automount-plugin.c		\
 	gsd-automount-manager.h		\
 	gsd-automount-manager.c		\
-	nautilus-autorun.c		\
-	nautilus-autorun.h		\
-	nautilus-open-with-dialog.c	\
-	nautilus-open-with-dialog.h	\
+	gsd-autorun.c		\
+	gsd-autorun.h		\
 	$(NULL)
 
 libautomount_la_CPPFLAGS = \
