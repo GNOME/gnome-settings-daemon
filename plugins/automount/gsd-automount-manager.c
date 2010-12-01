@@ -217,7 +217,7 @@ gsd_automount_manager_start (GsdAutomountManager *manager,
         g_debug ("Starting automounting manager");
         gnome_settings_profile_start (NULL);
 
-        manager->priv->settings = g_settings_new ("org.gnome.media-handling");
+        manager->priv->settings = g_settings_new ("org.gnome.desktop.media-handling");
         setup_automounter (manager);
 
         gnome_settings_profile_end (NULL);
