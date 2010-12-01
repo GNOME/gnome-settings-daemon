@@ -36,9 +36,9 @@
 
 static gboolean should_autorun_mount (GMount *mount);
 
-#define CUSTOM_ITEM_ASK "cc-item-ask"
-#define CUSTOM_ITEM_DO_NOTHING "cc-item-do-nothing"
-#define CUSTOM_ITEM_OPEN_FOLDER "cc-item-open-folder"
+#define CUSTOM_ITEM_ASK "gsd-item-ask"
+#define CUSTOM_ITEM_DO_NOTHING "gsd-item-do-nothing"
+#define CUSTOM_ITEM_OPEN_FOLDER "gsd-item-open-folder"
 
 typedef struct
 {
