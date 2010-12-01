@@ -10,8 +10,6 @@ test_automount_SOURCES = 		\
 	gsd-automount-manager.c		\
 	nautilus-autorun.c		\
 	nautilus-autorun.h		\
-	nautilus-open-with-dialog.c	\
-	nautilus-open-with-dialog.h	\
 	$(NULL)
 
 test_automount_CPPFLAGS = \

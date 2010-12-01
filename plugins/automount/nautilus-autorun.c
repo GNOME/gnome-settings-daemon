@@ -30,7 +30,6 @@
 #include <gdk/gdkkeysyms.h>
 
 #include "nautilus-autorun.h"
-#include "nautilus-open-with-dialog.h"
 
 static gboolean should_autorun_mount (GMount *mount);
 
