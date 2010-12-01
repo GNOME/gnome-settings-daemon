@@ -1,5 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
-
 /*
  * Nautilus
  *
@@ -34,36 +32,30 @@
 #include "nautilus-autorun.h"
 #include "nautilus-open-with-dialog.h"
 
-enum
-{
-	AUTORUN_ASK,
-	AUTORUN_IGNORE,
-	AUTORUN_APP,
-	AUTORUN_OPEN_FOLDER,
-	AUTORUN_SEP,
-	AUTORUN_OTHER_APP,
-};
-
-enum
-{
-	COLUMN_AUTORUN_GICON,
-	COLUMN_AUTORUN_NAME,
-	COLUMN_AUTORUN_APP_INFO,
-	COLUMN_AUTORUN_X_CONTENT_TYPE,
-	COLUMN_AUTORUN_ITEM_TYPE,
-};
-
-enum {
-        COMBO_ITEM_ASK_OR_LABEL = 0,
-        COMBO_ITEM_DO_NOTHING,
-        COMBO_ITEM_OPEN_FOLDER
-};
-
 static gboolean should_autorun_mount (GMount *mount);
 
-static void nautilus_autorun_rebuild_combo_box (GtkWidget *combo_box);
+#define CUSTOM_ITEM_ASK "cc-item-ask"
+#define CUSTOM_ITEM_DO_NOTHING "cc-item-do-nothing"
+#define CUSTOM_ITEM_OPEN_FOLDER "cc-item-open-folder"
 
+typedef struct
+{
+	GtkWidget *dialog;
 
+	GMount *mount;
+	gboolean should_eject;
+
+	gboolean selected_ignore;
+	gboolean selected_open_folder;
+	GAppInfo *selected_app;
+
+	gboolean remember;
+
+	char *x_content_type;
+
+	NautilusAutorunOpenWindow open_window_func;
+	gpointer user_data;
+} AutorunDialogData;
 
 GtkDialog *
 show_error_dialog (const char *primary_text,
@@ -307,485 +299,114 @@ nautilus_autorun_set_preferences (const char *x_content_type,
         g_object_unref (settings);
 }
 
-static gboolean
-combo_box_separator_func (GtkTreeModel *model,
-                          GtkTreeIter *iter,
-                          gpointer data)
-{
-	char *str;
-
-	gtk_tree_model_get (model, iter,
-			    1, &str,
-			    -1);
-	if (str != NULL) {
-		g_free (str);
-		return FALSE;
-	}
-	return TRUE;
-}
-
-typedef void (*NautilusAutorunComboBoxChanged) (gboolean selected_ask,
-                                                gboolean selected_ignore,
-                                                gboolean selected_open_folder,
-                                                GAppInfo *selected_app,
-                                                gpointer user_data);
-
-typedef struct
-{
-	guint changed_signal_id;
-	GtkWidget *combo_box;
-
-	char *x_content_type;
-	gboolean include_ask;
-	gboolean include_open_with_other_app;
-
-	gboolean update_settings;
-	NautilusAutorunComboBoxChanged changed_cb;
-	gpointer user_data;
-
-	gboolean other_application_selected;
-} NautilusAutorunComboBoxData;
-
-static void 
-nautilus_autorun_combobox_data_destroy (NautilusAutorunComboBoxData *data)
-{
-	/* signal handler may be automatically disconnected by destroying the widget */
-	if (g_signal_handler_is_connected (G_OBJECT (data->combo_box), data->changed_signal_id)) {
-		g_signal_handler_disconnect (G_OBJECT (data->combo_box), data->changed_signal_id);
-	}
-	g_free (data->x_content_type);
-	g_free (data);
-}
-
 static void
-other_application_selected (NautilusOpenWithDialog *dialog,
-			    GAppInfo *app_info,
-			    NautilusAutorunComboBoxData *data)
+custom_item_activated_cb (GtkAppChooserButton *button,
+                          const gchar *item,
+                          gpointer user_data)
 {
-	if (data->changed_cb != NULL) {
-		data->changed_cb (TRUE, FALSE, FALSE, app_info, data->user_data);
-	}
-	if (data->update_settings) {
-		nautilus_autorun_set_preferences (data->x_content_type, TRUE, FALSE, FALSE);
-		g_app_info_set_as_default_for_type (app_info,
-						    data->x_content_type,
-						    NULL);
-		data->other_application_selected = TRUE;
-	}
+  gchar *content_type;
+  AutorunDialogData *data = user_data;
 
-	/* rebuild so we include and select the new application in the list */
-	nautilus_autorun_rebuild_combo_box (data->combo_box);
-}
+  content_type = gtk_app_chooser_get_content_type (GTK_APP_CHOOSER (button));
 
-static void
-handle_dialog_closure (NautilusAutorunComboBoxData *data)
-{
-	if (!data->other_application_selected) {
-		/* reset combo box so we don't linger on "Open with other Application..." */
-		nautilus_autorun_rebuild_combo_box (data->combo_box);
-	}
-}
+  if (g_strcmp0 (item, CUSTOM_ITEM_ASK) == 0) {
+    nautilus_autorun_set_preferences (content_type,
+				      FALSE, FALSE, FALSE);
+    data->selected_open_folder = FALSE;
+    data->selected_ignore = FALSE;
+  } else if (g_strcmp0 (item, CUSTOM_ITEM_OPEN_FOLDER) == 0) {
+    nautilus_autorun_set_preferences (content_type,
+				      FALSE, FALSE, TRUE);
+    data->selected_open_folder = TRUE;
+    data->selected_ignore = FALSE;
+  } else if (g_strcmp0 (item, CUSTOM_ITEM_DO_NOTHING) == 0) {
+    nautilus_autorun_set_preferences (content_type,
+				      FALSE, TRUE, FALSE);
+    data->selected_open_folder = FALSE;
+    data->selected_ignore = TRUE;
+  }
 
-static void
-dialog_response_cb (GtkDialog *dialog,
-                    gint response,
-                    NautilusAutorunComboBoxData *data)
-{
-	handle_dialog_closure (data);
-}
-
-static void
-dialog_destroy_cb (GtkWidget *object,
-                   NautilusAutorunComboBoxData *data)
-{
-	handle_dialog_closure (data);
+  g_free (content_type);
 }
 
 static void 
-combo_box_changed (GtkComboBox *combo_box,
-                   NautilusAutorunComboBoxData *data)
+combo_box_changed_cb (GtkComboBox *combo_box,
+                      gpointer user_data)
 {
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	GAppInfo *app_info;
-	char *x_content_type;
-	int type;
+  GAppInfo *info;
+  AutorunDialogData *data = user_data;
 
-	model = NULL;
-	app_info = NULL;
-	x_content_type = NULL;
+  info = gtk_app_chooser_get_app_info (GTK_APP_CHOOSER (combo_box));
 
-	if (!gtk_combo_box_get_active_iter (combo_box, &iter)) {
-		goto out;
-	}
+  if (info == NULL)
+    return;
 
-	model = gtk_combo_box_get_model (combo_box);
-	if (model == NULL) {
-		goto out;
-	}
-
-	gtk_tree_model_get (model, &iter, 
-			    COLUMN_AUTORUN_APP_INFO, &app_info,
-			    COLUMN_AUTORUN_X_CONTENT_TYPE, &x_content_type,
-			    COLUMN_AUTORUN_ITEM_TYPE, &type,
-			    -1);
-
-	switch (type) {
-	case AUTORUN_ASK:
-		if (data->changed_cb != NULL) {
-			data->changed_cb (TRUE, FALSE, FALSE, NULL, data->user_data);
-		}
-		if (data->update_settings) {
-			nautilus_autorun_set_preferences (x_content_type, FALSE, FALSE, FALSE);
-		}
-		break;
-	case AUTORUN_IGNORE:
-		if (data->changed_cb != NULL) {
-			data->changed_cb (FALSE, TRUE, FALSE, NULL, data->user_data);
-		}
-		if (data->update_settings) {
-			nautilus_autorun_set_preferences (x_content_type, FALSE, TRUE, FALSE);
-		}
-		break;
-	case AUTORUN_OPEN_FOLDER:
-		if (data->changed_cb != NULL) {
-			data->changed_cb (FALSE, FALSE, TRUE, NULL, data->user_data);
-		}
-		if (data->update_settings) {
-			nautilus_autorun_set_preferences (x_content_type, FALSE, FALSE, TRUE);
-		}
-		break;
-
-	case AUTORUN_APP:
-		if (data->changed_cb != NULL) {
-			data->changed_cb (TRUE, FALSE, FALSE, app_info, data->user_data);
-		}
-		if (data->update_settings) {
-			nautilus_autorun_set_preferences (x_content_type, TRUE, FALSE, FALSE);
-			g_app_info_set_as_default_for_type (app_info,
-							    x_content_type,
-							    NULL);
-		}
-		break;
-
-	case AUTORUN_OTHER_APP:
-	{
-		GtkWidget *dialog;
-
-		data->other_application_selected = FALSE;
-
-		dialog = nautilus_add_application_dialog_new (NULL, x_content_type);
-		gtk_window_set_transient_for (GTK_WINDOW (dialog),
-					      GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (combo_box))));
-		gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
-		g_signal_connect (dialog, "application_selected",
-				  G_CALLBACK (other_application_selected),
-				  data);
-		g_signal_connect (dialog, "response",
-				  G_CALLBACK (dialog_response_cb), data);
-		g_signal_connect (dialog, "destroy",
-				  G_CALLBACK (dialog_destroy_cb), data);
-		gtk_widget_show (GTK_WIDGET (dialog));
-
-		break;
-	}
-
-	}
- 
-out:
-	if (app_info != NULL) {
-		g_object_unref (app_info);
-	}
-	g_free (x_content_type);
-}
-
-/* TODO: we need some kind of way to remove user-defined associations,
- * e.g. the result of "Open with other Application...".
- *
- * However, this is a bit hard as
- * g_app_info_can_remove_supports_type() will always return TRUE
- * because we now have [Removed Applications] in the file
- * ~/.local/share/applications/mimeapps.list.
- *
- * We need the API outlined in
- *
- *  http://bugzilla.gnome.org/show_bug.cgi?id=545350
- *
- * to do this.
- *
- * Now, there's also the question about what the UI would look like
- * given this API. Ideally we'd include a small button on the right
- * side of the combo box that the user can press to delete an
- * association, e.g.:
- *
- *  +-------------------------------------+
- *  | Ask what to do                      |
- *  | Do Nothing                          |
- *  | Open Folder                         |
- *  +-------------------------------------+
- *  | Open Rhythmbox Music Player         |
- *  | Open Audio CD Extractor             |
- *  | Open Banshee Media Player           |
- *  | Open Frobnicator App            [x] |
- *  +-------------------------------------+
- *  | Open with other Application...      |
- *  +-------------------------------------+
- *
- * where "Frobnicator App" have been set up using "Open with other
- * Application...". However this is not accessible (which is a
- * GTK+ issue) but probably not a big deal.
- *
- * And we only want show these buttons (e.g. [x]) for associations with
- * GAppInfo instances that are deletable.
- */
-
-static void
-nautilus_autorun_prepare_combo_box (GtkWidget *combo_box,
-				    const char *x_content_type,
-				    gboolean include_ask,
-				    gboolean include_open_with_other_app,
-				    gboolean update_settings,
-				    NautilusAutorunComboBoxChanged changed_cb,
-				    gpointer user_data)
-{
-	GList *l;
-	GList *app_info_list;
-	GAppInfo *default_app_info;
-	GtkListStore *list_store;
-	GtkTreeIter iter;
-	GIcon *icon;
-	int set_active;
-	int n;
-	int num_apps;
-	gboolean pref_ask;
-	gboolean pref_start_app;
-	gboolean pref_ignore;
-	gboolean pref_open_folder;
-	NautilusAutorunComboBoxData *data;
-	GtkCellRenderer *renderer;
-	gboolean new_data;
-
-	nautilus_autorun_get_preferences (x_content_type, &pref_start_app, &pref_ignore, &pref_open_folder);
-	pref_ask = !pref_start_app && !pref_ignore && !pref_open_folder;
-
-	set_active = -1;
-	data = NULL;
-	new_data = TRUE;
-
-	app_info_list = g_app_info_get_all_for_type (x_content_type);
-	default_app_info = g_app_info_get_default_for_type (x_content_type, FALSE);
-	num_apps = g_list_length (app_info_list);
-
-	list_store = gtk_list_store_new (5,
-					 G_TYPE_ICON,
-					 G_TYPE_STRING,
-					 G_TYPE_APP_INFO,
-					 G_TYPE_STRING,
-					 G_TYPE_INT);
-
-	/* no apps installed */
-	if (num_apps == 0) {
-		gtk_list_store_append (list_store, &iter);
-		icon = g_themed_icon_new (GTK_STOCK_DIALOG_ERROR);
-
-		/* TODO: integrate with PackageKit-gnome to find applications */
-
-		gtk_list_store_set (list_store, &iter,
-				    COLUMN_AUTORUN_GICON, icon,
-				    COLUMN_AUTORUN_NAME, _("No applications found"),
-				    COLUMN_AUTORUN_APP_INFO, NULL, 
-				    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
-				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_ASK,
-				    -1);
-		g_object_unref (icon);
-	} else {
-		if (include_ask) {
-			gtk_list_store_append (list_store, &iter);
-			icon = g_themed_icon_new (GTK_STOCK_DIALOG_QUESTION);
-			gtk_list_store_set (list_store, &iter,
-					    COLUMN_AUTORUN_GICON, icon,
-					    COLUMN_AUTORUN_NAME, _("Ask what to do"),
-					    COLUMN_AUTORUN_APP_INFO, NULL,
-					    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
-					    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_ASK,
-					    -1);
-			g_object_unref (icon);
-		}
-		
-		gtk_list_store_append (list_store, &iter);
-		icon = g_themed_icon_new (GTK_STOCK_CLOSE);
-		gtk_list_store_set (list_store, &iter,
-				    COLUMN_AUTORUN_GICON, icon,
-				    COLUMN_AUTORUN_NAME, _("Do Nothing"),
-				    COLUMN_AUTORUN_APP_INFO, NULL,
-				    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
-				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_IGNORE,
-				    -1);
-		g_object_unref (icon);
-
-		gtk_list_store_append (list_store, &iter);
-		icon = g_themed_icon_new ("folder-open");
-		gtk_list_store_set (list_store, &iter,
-				    COLUMN_AUTORUN_GICON, icon,
-				    COLUMN_AUTORUN_NAME, _("Open Folder"),
-				    COLUMN_AUTORUN_APP_INFO, NULL,
-				    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
-				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_OPEN_FOLDER,
-				    -1);
-		g_object_unref (icon);
-
-		gtk_list_store_append (list_store, &iter);
-		gtk_list_store_set (list_store, &iter,
-				    COLUMN_AUTORUN_GICON, NULL,
-				    COLUMN_AUTORUN_NAME, NULL,
-				    COLUMN_AUTORUN_APP_INFO, NULL,
-				    COLUMN_AUTORUN_X_CONTENT_TYPE, NULL,
-				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_SEP,
-				    -1);
-
-		for (l = app_info_list, n = include_ask ? 4 : 3; l != NULL; l = l->next, n++) {
-			char *open_string;
-			GAppInfo *app_info = l->data;
-			
-			/* we deliberately ignore should_show because some apps might want
-			 * to install special handlers that should be hidden in the regular
-			 * application launcher menus
-			 */
-			
-			icon = g_app_info_get_icon (app_info);
-			
-			open_string = g_strdup_printf (_("Open %s"), g_app_info_get_display_name (app_info));
-
-			gtk_list_store_append (list_store, &iter);
-			gtk_list_store_set (list_store, &iter,
-					    COLUMN_AUTORUN_GICON, icon,
-					    COLUMN_AUTORUN_NAME, open_string,
-					    COLUMN_AUTORUN_APP_INFO, app_info,
-					    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
-					    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_APP,
-					    -1);
-			g_free (open_string);
-			
-			if (g_app_info_equal (app_info, default_app_info)) {
-				set_active = n;
-			}
-		}
-	}
-
-	if (include_open_with_other_app) {
-		gtk_list_store_append (list_store, &iter);
-		gtk_list_store_set (list_store, &iter,
-				    COLUMN_AUTORUN_GICON, NULL,
-				    COLUMN_AUTORUN_NAME, NULL,
-				    COLUMN_AUTORUN_APP_INFO, NULL,
-				    COLUMN_AUTORUN_X_CONTENT_TYPE, NULL,
-				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_SEP,
-				    -1);
-
-		gtk_list_store_append (list_store, &iter);
-		icon = g_themed_icon_new ("application-x-executable");
-		gtk_list_store_set (list_store, &iter,
-				    COLUMN_AUTORUN_GICON, icon,
-				    COLUMN_AUTORUN_NAME, _("Open with other Application..."),
-				    COLUMN_AUTORUN_APP_INFO, NULL,
-				    COLUMN_AUTORUN_X_CONTENT_TYPE, x_content_type,
-				    COLUMN_AUTORUN_ITEM_TYPE, AUTORUN_OTHER_APP,
-				    -1);
-		g_object_unref (icon);
-	}
-
-	if (default_app_info != NULL) {
-		g_object_unref (default_app_info);
-	}
-	g_list_free_full (app_info_list, g_object_unref);
-
-	gtk_combo_box_set_model (GTK_COMBO_BOX (combo_box), GTK_TREE_MODEL (list_store));
-	g_object_unref (list_store);
-
-	gtk_cell_layout_clear (GTK_CELL_LAYOUT (combo_box));
-
-	renderer = gtk_cell_renderer_pixbuf_new ();
-	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo_box), renderer, FALSE);
-	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (combo_box), renderer,
-					"gicon", COLUMN_AUTORUN_GICON,
-					NULL);
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo_box), renderer, TRUE);
-	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (combo_box), renderer,
-					"text", COLUMN_AUTORUN_NAME,
-					NULL);
-	gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (combo_box), combo_box_separator_func, NULL, NULL);
-
-	if (num_apps == 0) {
-		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), COMBO_ITEM_ASK_OR_LABEL);
-		gtk_widget_set_sensitive (combo_box, FALSE);
-	} else {
-		gtk_widget_set_sensitive (combo_box, TRUE);
-		if (pref_ask && include_ask) {
-			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), COMBO_ITEM_ASK_OR_LABEL);
-		} else if (pref_ignore) {
-			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), include_ask ? COMBO_ITEM_DO_NOTHING : COMBO_ITEM_ASK_OR_LABEL);
-		} else if (pref_open_folder) {
-			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), include_ask ? COMBO_ITEM_OPEN_FOLDER : COMBO_ITEM_DO_NOTHING);
-		} else if (set_active != -1) {
-			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), set_active);
-		} else {
-			gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), include_ask ? COMBO_ITEM_DO_NOTHING : COMBO_ITEM_ASK_OR_LABEL);
-		}
-
-		/* See if we have an old data around */
-		data = g_object_get_data (G_OBJECT (combo_box), "nautilus_autorun_combobox_data");
-		if (data) {
-			new_data = FALSE;
-			g_free (data->x_content_type);
-		} else {
-			data = g_new0 (NautilusAutorunComboBoxData, 1);
-		}
-	
-		data->x_content_type = g_strdup (x_content_type);
-		data->include_ask = include_ask;
-		data->include_open_with_other_app = include_open_with_other_app;
-		data->update_settings = update_settings;
-		data->changed_cb = changed_cb;
-		data->user_data = user_data;
-		data->combo_box = combo_box;
-		if (data->changed_signal_id == 0) {
-			data->changed_signal_id = g_signal_connect (combo_box,
-								    "changed",
-								    G_CALLBACK (combo_box_changed),
-								    data);
-		}
-	}
-
-	if (new_data) {
-		g_object_set_data_full (G_OBJECT (combo_box),
-					"nautilus_autorun_combobox_data",
-					data,
-					(GDestroyNotify) nautilus_autorun_combobox_data_destroy);
-	}
+  g_clear_object (&data->selected_app);
+  data->selected_app = info;
 }
 
 static void
-nautilus_autorun_rebuild_combo_box (GtkWidget *combo_box)
+prepare_combo_box (GtkWidget *combo_box,
+		   AutorunDialogData *data)
 {
-        NautilusAutorunComboBoxData *data;
-        char *x_content_type;
+  GtkAppChooserButton *app_chooser = GTK_APP_CHOOSER_BUTTON (combo_box);
+  GIcon *icon;
+  gboolean pref_ask;
+  gboolean pref_start_app;
+  gboolean pref_ignore;
+  gboolean pref_open_folder;
+  GAppInfo *info;
+  gchar *content_type;
 
-        data = g_object_get_data (G_OBJECT (combo_box), "nautilus_autorun_combobox_data");
-        if (data == NULL) {
-                g_warning ("no 'nautilus_autorun_combobox_data' data!");
-                return;
-        }
+  content_type = gtk_app_chooser_get_content_type (GTK_APP_CHOOSER (app_chooser));
 
-        x_content_type = g_strdup (data->x_content_type);
-        nautilus_autorun_prepare_combo_box (combo_box,
-                                            x_content_type,
-                                            data->include_ask,
-                                            data->include_open_with_other_app,
-                                            data->update_settings,
-                                            data->changed_cb,
-                                            data->user_data);
-        g_free (x_content_type);
+  /* fetch preferences for this content type */
+  nautilus_autorun_get_preferences (content_type,
+				    &pref_start_app, &pref_ignore, &pref_open_folder);
+  pref_ask = !pref_start_app && !pref_ignore && !pref_open_folder;
+
+  info = gtk_app_chooser_get_app_info (GTK_APP_CHOOSER (combo_box));
+
+  /* append the separator only if we have >= 1 apps in the chooser */
+  if (info != NULL) {
+    gtk_app_chooser_button_append_separator (app_chooser);
+    g_object_unref (info);
+  }
+
+  icon = g_themed_icon_new (GTK_STOCK_DIALOG_QUESTION);
+  gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_ASK,
+                                             _("Ask what to do"),
+                                             icon);
+  g_object_unref (icon);
+
+  icon = g_themed_icon_new (GTK_STOCK_CLOSE);
+  gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_DO_NOTHING,
+                                             _("Do Nothing"),
+                                             icon);
+  g_object_unref (icon);
+
+  icon = g_themed_icon_new ("folder-open");
+  gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_OPEN_FOLDER,
+                                             _("Open Folder"),
+                                             icon);
+  g_object_unref (icon);
+
+  gtk_app_chooser_button_set_show_dialog_item (app_chooser, TRUE);
+
+  if (pref_ask) {
+    gtk_app_chooser_button_set_active_custom_item (app_chooser, CUSTOM_ITEM_ASK);
+  } else if (pref_ignore) {
+    gtk_app_chooser_button_set_active_custom_item (app_chooser, CUSTOM_ITEM_DO_NOTHING);
+  } else if (pref_open_folder) {
+    gtk_app_chooser_button_set_active_custom_item (app_chooser, CUSTOM_ITEM_OPEN_FOLDER);
+  }
+
+  g_signal_connect (app_chooser, "changed",
+                    G_CALLBACK (combo_box_changed_cb), data);
+  g_signal_connect (app_chooser, "custom-item-activated",
+                    G_CALLBACK (custom_item_activated_cb), data);
+
+  g_free (content_type);
 }
 
 static gboolean
@@ -812,26 +433,6 @@ is_shift_pressed (void)
 enum {
 	AUTORUN_DIALOG_RESPONSE_EJECT = 0
 };
-
-typedef struct
-{
-	GtkWidget *dialog;
-
-	GMount *mount;
-	gboolean should_eject;
-
-	gboolean selected_ignore;
-	gboolean selected_open_folder;
-	GAppInfo *selected_app;
-
-	gboolean remember;
-
-	char *x_content_type;
-
-	NautilusAutorunOpenWindow open_window_func;
-	gpointer user_data;
-} AutorunDialogData;
-
 
 static void
 nautilus_autorun_launch_for_mount (GMount *mount, GAppInfo *app_info)
@@ -1020,24 +621,6 @@ autorun_dialog_response (GtkDialog *dialog, gint response, AutorunDialogData *da
 }
 
 static void
-autorun_combo_changed (gboolean selected_ask,
-		       gboolean selected_ignore,
-		       gboolean selected_open_folder,
-		       GAppInfo *selected_app,
-		       gpointer user_data)
-{
-	AutorunDialogData *data = user_data;
-
-	if (data->selected_app != NULL) {
-		g_object_unref (data->selected_app);
-	}
-	data->selected_app = selected_app != NULL ? g_object_ref (selected_app) : NULL;
-	data->selected_ignore = selected_ignore;
-	data->selected_open_folder = selected_open_folder;
-}
-
-
-static void
 autorun_always_toggled (GtkToggleButton *togglebutton, AutorunDialogData *data)
 {
 	data->remember = gtk_toggle_button_get_active (togglebutton);
@@ -1207,8 +790,8 @@ show_dialog:
 	data->open_window_func = open_window_func;
 	data->user_data = user_data;
 
-	combo_box = gtk_combo_box_new ();
-	nautilus_autorun_prepare_combo_box (combo_box, x_content_type, FALSE, TRUE, FALSE, autorun_combo_changed, data);
+	combo_box = gtk_app_chooser_button_new (x_content_type);
+	prepare_combo_box (combo_box, data);
 	g_signal_connect (G_OBJECT (combo_box),
 			  "key-press-event",
 			  G_CALLBACK (combo_box_enter_ok),
