@@ -32,10 +32,9 @@
 
 #include <locale.h>
 
-#include <dbus/dbus.h>
-
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 
@@ -54,7 +53,8 @@ struct GsdBackgroundManagerPrivate
         GnomeBG     *bg;
         guint        timeout_id;
 
-        DBusConnection *dbus_connection;
+        GDBusProxy  *proxy;
+        guint        proxy_signal_id;
 };
 
 static void     gsd_background_manager_class_init  (GsdBackgroundManagerClass *klass);
@@ -287,53 +287,77 @@ queue_draw_background (GsdBackgroundManager *manager)
         return FALSE;
 }
 
-static DBusHandlerResult
-on_bus_message (DBusConnection *connection,
-                DBusMessage    *message,
-                void           *user_data)
+static void
+queue_timeout (GsdBackgroundManager *manager)
 {
-        GsdBackgroundManager *manager = user_data;
+        if (manager->priv->timeout_id > 0)
+                return;
 
-        if (dbus_message_is_signal (message,
-                                    "org.gnome.SessionManager",
-                                    "SessionRunning")) {
-                /* If the session finishes then check if nautilus is
-                 * running and if not, set the background.
-                 *
-                 * We wait a few seconds after the session is up
-                 * because nautilus tells the session manager that its
-                 * ready before it sets the background.
-                 */
-                manager->priv->timeout_id = g_timeout_add_seconds (8,
-                                                                   (GSourceFunc)
-                                                                   queue_draw_background,
-                                                                   manager);
-                dbus_connection_remove_filter (connection,
-                                               on_bus_message,
-                                               manager);
+        /* If the session finishes then check if nautilus is
+         * running and if not, set the background.
+         *
+         * We wait a few seconds after the session is up
+         * because nautilus tells the session manager that its
+         * ready before it sets the background.
+         */
+        manager->priv->timeout_id = g_timeout_add_seconds (8,
+                                                           (GSourceFunc)
+                                                           queue_draw_background,
+                                                           manager);
+}
 
-                manager->priv->dbus_connection = NULL;
+static void
+disconnect_session_manager_listener (GsdBackgroundManager *manager)
+{
+        if (manager->priv->proxy && manager->priv->proxy_signal_id) {
+                g_signal_handler_disconnect (manager->priv->proxy,
+                                             manager->priv->proxy_signal_id);
+                manager->priv->proxy_signal_id = 0;
         }
+}
 
-        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+static void
+on_session_manager_signal (GDBusProxy   *proxy,
+                           const gchar  *sender_name,
+                           const gchar  *signal_name,
+                           GVariant     *parameters,
+                           gpointer      user_data)
+{
+        GsdBackgroundManager *manager = GSD_BACKGROUND_MANAGER (user_data);
+
+        if (g_strcmp0 (signal_name, "SessionRunning") == 0) {
+                queue_timeout (manager);
+                disconnect_session_manager_listener (manager);
+        }
 }
 
 static void
 draw_background_after_session_loads (GsdBackgroundManager *manager)
 {
-        DBusConnection *connection;
+        GError *error = NULL;
+        GDBusProxyFlags flags;
 
-        connection = dbus_bus_get (DBUS_BUS_SESSION, NULL);
-
-        if (connection == NULL) {
+        flags = G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
+                G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START;
+        manager->priv->proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                                              flags,
+                                                              NULL, /* GDBusInterfaceInfo */
+                                                              "org.gnome.SessionManager",
+                                                              "/org/gnome/SessionManager",
+                                                              "org.gnome.SessionManager",
+                                                              NULL, /* GCancellable */
+                                                              &error);
+        if (manager->priv->proxy == NULL) {
+                g_warning ("Could not listen to session manager: %s",
+                           error->message);
+                g_error_free (error);
                 return;
         }
 
-        if (!dbus_connection_add_filter (connection, on_bus_message, manager, NULL)) {
-                return;
-        };
-
-        manager->priv->dbus_connection = connection;
+        manager->priv->proxy_signal_id = g_signal_connect (manager->priv->proxy,
+                                                           "g-signal",
+                                                           G_CALLBACK (on_session_manager_signal),
+                                                           manager);
 }
 
 
@@ -423,10 +447,9 @@ gsd_background_manager_stop (GsdBackgroundManager *manager)
 
         disconnect_screen_signals (manager);
 
-        if (manager->priv->dbus_connection != NULL) {
-                dbus_connection_remove_filter (manager->priv->dbus_connection,
-                                               on_bus_message,
-                                               manager);
+        if (manager->priv->proxy) {
+                disconnect_session_manager_listener (manager);
+                g_object_unref (manager->priv->proxy);
         }
 
         g_signal_handlers_disconnect_by_func (manager->priv->settings,
