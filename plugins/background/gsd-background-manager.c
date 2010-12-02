@@ -225,9 +225,10 @@ background_changed (GsdBackgroundManager *manager,
         if (!nautilus_is_running () || !show_desktop_icons) {
                 if (manager->priv->bg == NULL) {
                         setup_bg (manager);
+                } else {
+                        gnome_bg_load_from_preferences (manager->priv->bg,
+                                                        manager->priv->settings);
                 }
-                gnome_bg_load_from_preferences (manager->priv->bg,
-                                                manager->priv->settings);
                 draw_background (manager, use_crossfade);
         }
 }
