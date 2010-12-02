@@ -421,7 +421,7 @@ set_locate_pointer (void)
                   Window xroot;
 
                   screen = gdk_display_get_screen (display, j);
-                  xroot = gdk_x11_drawable_get_xid (gdk_screen_get_root_window (screen));
+                  xroot = gdk_x11_window_get_xid (gdk_screen_get_root_window (screen));
 
                   XGrabKey (GDK_DISPLAY_XDISPLAY (display),
                             keys[i].keycode,
