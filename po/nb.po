@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.91.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-20 14:34+0100\n"
-"PO-Revision-Date: 2010-11-20 14:37+0100\n"
+"POT-Creation-Date: 2010-12-06 18:57+0100\n"
+"PO-Revision-Date: 2010-12-06 19:03+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -122,6 +122,7 @@ msgstr "Handling når smartkort fjernes"
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr "Aktivering av dette tillegget"
 
@@ -132,6 +133,7 @@ msgstr "Aktivering av dette tillegget"
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "Prioritet som skal brukes for dette tilegget"
 
@@ -223,11 +225,13 @@ msgid "Never show layout indicator"
 msgstr "Aldri vis indikator for utforming"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 #, fuzzy
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
 msgstr "Prioritet som skal brukes for dette tilegget"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr ""
 
@@ -518,11 +522,149 @@ msgstr ""
 "«none» for ingen hinting, «slight» for grunnleggende, «medium» for moderat, "
 "og «full» for maksimal hinting (kan forårsake forvrenging av bokstavformer)."
 
-#: ../gnome-settings-daemon/main.c:53
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+msgid ""
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+msgid ""
+"Set this to the pressure value at which a stylus click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr ""
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Aktiver kode for feilsøking"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Avslutt etter oppgitt tid (for feilsøking)"
 
@@ -673,6 +815,132 @@ msgstr "_Ignorer dupliserte tastetrykk"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Utfør tastatursnarveier med en tast om gangen (klebrige taster)"
 
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr "Automatisk montering"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+msgid "Automounter plugin"
+msgstr "Tillegg for automatisk montering"
+
+#: ../plugins/automount/gsd-automount-manager.c:145
+#, c-format
+msgid "Unable to mount %s"
+msgstr "Kan ikke montere %s"
+
+#: ../plugins/automount/gsd-automount-manager.c:204
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr "Kan ikke åpne en mappe for %s"
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr "Spør hva som skal gjøres"
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr "Ikke gjør noe"
+
+#: ../plugins/automount/gsd-autorun.c:352
+msgid "Open Folder"
+msgstr "Åpne mappe"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, c-format
+msgid "Unable to eject %p"
+msgstr "Kan ikke løse ut %p"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr "Kan ikke avmontere %p"
+
+#: ../plugins/automount/gsd-autorun.c:700
+msgid "You have just inserted an Audio CD."
+msgstr "Du har satt inn en lyd-CD."
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio DVD."
+msgstr "Du har satt inn en lyd-DVD."
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted a Video DVD."
+msgstr "Du har satt inn en video-DVD."
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video CD."
+msgstr "Du har satt inn en video-CD."
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Super Video CD."
+msgstr "Du har satt inn en Super Video-CD."
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a blank CD."
+msgstr "Du har satt inn en tom CD."
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank DVD."
+msgstr "Du har satt inn en tom DVD."
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "Du har satt inn en tom Blu-Ray-plate."
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank HD DVD."
+msgstr "Du har satt inn en tom HD DVD."
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a Photo CD."
+msgstr "Du har satt inn en foto-CD."
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Picture CD."
+msgstr "Du har satt inn en bilde-CD."
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a medium with digital photos."
+msgstr "Du har satt inn et medie med digitale fotografier."
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a digital audio player."
+msgstr "Du har satt inn en digital musikkavspiller."
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr "Du har satt inn et medie med programvare som kan startes automatisk."
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:729
+msgid "You have just inserted a medium."
+msgstr "Du har satt inn et medie."
+
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "Choose what application to launch."
+msgstr "Velg program som skal startes."
+
+#: ../plugins/automount/gsd-autorun.c:740
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr "Velg hvordan «%s» skal åpnes og om denne handlingen skal utføres for andre medier av type «%s» i fremtiden."
+
+#: ../plugins/automount/gsd-autorun.c:767
+msgid "_Always perform this action"
+msgstr "_Alltid utfør denne handlingen"
+
+#: ../plugins/automount/gsd-autorun.c:783
+msgid "_Eject"
+msgstr "_Løs ut"
+
+#: ../plugins/automount/gsd-autorun.c:788
+msgid "_Unmount"
+msgstr "A_vmonter"
+
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Bakgrunn"
@@ -707,7 +975,9 @@ msgstr "Lite diskplass på «%s»"
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
-msgstr "Volumet «%s» har kun %s gjenværende plass. Du kan frigjøre plass ved å tømme papirkurven."
+msgstr ""
+"Volumet «%s» har kun %s gjenværende plass. Du kan frigjøre plass ved å tømme "
+"papirkurven."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:277
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
@@ -726,7 +996,9 @@ msgstr "Lite diskplass"
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
 "by emptying the trash."
-msgstr "Denne datamaskinen har kun %s gjenværende diskplass. Du kan frigjøre noe plass ved å tømme papirkurven."
+msgstr ""
+"Denne datamaskinen har kun %s gjenværende diskplass. Du kan frigjøre noe "
+"plass ved å tømme papirkurven."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:287
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
@@ -892,7 +1164,7 @@ msgstr "Brukervalg for _tastatur"
 msgid "Show _Current Layout"
 msgstr "Vis a_ktiv utforming"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:205
+#: ../plugins/media-keys/gsd-media-keys-manager.c:204
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -900,7 +1172,7 @@ msgstr ""
 "Kunne ikke finne forvalgt terminal. Sjekk at kommando for forvalgt terminal "
 "er satt og peker til et gyldig program."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:245
+#: ../plugins/media-keys/gsd-media-keys-manager.c:244
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -975,19 +1247,19 @@ msgstr "Rediger innstillinger for skjermstørrelse og rotasjon"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:370
+#: ../plugins/xrandr/gsd-xrandr-manager.c:403
 msgid "Could not switch the monitor configuration"
 msgstr "Kunne ikke bytte skjermkonfigurasjon"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:394
+#: ../plugins/xrandr/gsd-xrandr-manager.c:427
 msgid "Could not restore the display's configuration"
 msgstr "Kunne ikke gjenopprette skjermkonfigurasjon"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:419
+#: ../plugins/xrandr/gsd-xrandr-manager.c:452
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Kunne ikke gjenopprette skjermkonfigurasjonen fra sikkerhetskopi"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:440
+#: ../plugins/xrandr/gsd-xrandr-manager.c:473
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -997,32 +1269,32 @@ msgstr[0] ""
 msgstr[1] ""
 "Skjermen vil bli satt tilbake til forrige konfigurasjon om %d sekunder"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:489
+#: ../plugins/xrandr/gsd-xrandr-manager.c:522
 msgid "Does the display look OK?"
 msgstr "Ser dette bra ut?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:496
+#: ../plugins/xrandr/gsd-xrandr-manager.c:529
 msgid "_Restore Previous Configuration"
 msgstr "Gjenopp_rett forrige konfigurasjon"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:497
+#: ../plugins/xrandr/gsd-xrandr-manager.c:530
 msgid "_Keep This Configuration"
 msgstr "_Behold denne konfigurasjonen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:578
+#: ../plugins/xrandr/gsd-xrandr-manager.c:611
 msgid "The selected configuration for displays could not be applied"
 msgstr "Valgt konfigurasjon for skjermer kunne ikke brukes"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1143
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1150
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Kunne ikke oppdatere informasjon om skjermen: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1147
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1154
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Prøver å bytte skjermkonfigurasjon likevel."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1600
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1626
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kunne ikke bruke lagret konfigurasjon for skjermer"
 
@@ -1034,69 +1306,69 @@ msgstr "Håndter innstillinger for X"
 msgid "X Settings"
 msgstr "Innstillinger for X"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:167
+#: ../plugins/smartcard/gsd-smartcard-manager.c:187
 msgid "Module Path"
 msgstr "Sti til moduler"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:168
+#: ../plugins/smartcard/gsd-smartcard-manager.c:188
 msgid "path to smartcard PKCS #11 driver"
 msgstr "sti til PKCS #11-driver for smartkort"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:504
+#: ../plugins/smartcard/gsd-smartcard-manager.c:531
 msgid "received error or hang up from event source"
 msgstr "fikk en feil fra, eller så la hendelseskilden på"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:593
+#: ../plugins/smartcard/gsd-smartcard-manager.c:665
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "NSS-sikkerhetssystemet kunne ikke initieres"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#: ../plugins/smartcard/gsd-smartcard-manager.c:793
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr "fant ingen passende driver for smartkort"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:682
+#: ../plugins/smartcard/gsd-smartcard-manager.c:807
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "kunne ikke laste smartkortdriver «%s»"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:771
+#: ../plugins/smartcard/gsd-smartcard-manager.c:880
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "kunne ikke se etter innkommende hendelser fra kort - %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1124
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1283
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "fikk en uventet feil ved venting på smartkorthendelser"
 
-#: ../plugins/smartcard/gsd-smartcard.c:154
+#: ../plugins/smartcard/gsd-smartcard.c:156
 msgid "Slot ID"
 msgstr "Spor-ID"
 
-#: ../plugins/smartcard/gsd-smartcard.c:155
+#: ../plugins/smartcard/gsd-smartcard.c:157
 msgid "The slot the card is in"
 msgstr "Sporet kortet står i"
 
-#: ../plugins/smartcard/gsd-smartcard.c:161
+#: ../plugins/smartcard/gsd-smartcard.c:163
 msgid "Slot Series"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:162
+#: ../plugins/smartcard/gsd-smartcard.c:164
 msgid "per-slot card identifier"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:168
-#: ../plugins/smartcard/gsd-smartcard.c:169
+#: ../plugins/smartcard/gsd-smartcard.c:170
+#: ../plugins/smartcard/gsd-smartcard.c:171
 msgid "name"
 msgstr "navn"
 
-#: ../plugins/smartcard/gsd-smartcard.c:173
+#: ../plugins/smartcard/gsd-smartcard.c:175
 msgid "Module"
 msgstr "Modul"
 
-#: ../plugins/smartcard/gsd-smartcard.c:174
+#: ../plugins/smartcard/gsd-smartcard.c:176
 msgid "smartcard driver"
 msgstr "smartkortdriver"
 
