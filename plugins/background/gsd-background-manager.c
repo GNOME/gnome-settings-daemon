@@ -221,22 +221,14 @@ on_bg_transitioned (GnomeBG              *bg,
         draw_background (manager, FALSE);
 }
 
-static void
-background_changed (GsdBackgroundManager *manager,
-                    gboolean              use_crossfade)
-{
-        gnome_bg_load_from_preferences (manager->priv->bg,
-                                        manager->priv->settings);
-        draw_background (manager, use_crossfade);
-}
-
 static gboolean
 settings_change_event_cb (GSettings            *settings,
                           gpointer              keys,
                           gint                  n_keys,
                           GsdBackgroundManager *manager)
 {
-        background_changed (manager, TRUE);
+        gnome_bg_load_from_preferences (manager->priv->bg,
+                                        manager->priv->settings);
         return FALSE;
 }
 
@@ -244,7 +236,7 @@ static void
 on_screen_size_changed (GdkScreen            *screen,
                         GsdBackgroundManager *manager)
 {
-        background_changed (manager, FALSE);
+        draw_background (manager, FALSE);
 }
 
 static void
@@ -257,11 +249,23 @@ watch_bg_preferences (GsdBackgroundManager *manager)
 }
 
 static void
+on_bg_changed (GnomeBG              *bg,
+               GsdBackgroundManager *manager)
+{
+        draw_background (manager, TRUE);
+}
+
+static void
 setup_bg (GsdBackgroundManager *manager)
 {
         g_return_if_fail (manager->priv->bg == NULL);
 
         manager->priv->bg = gnome_bg_new ();
+
+        g_signal_connect (manager->priv->bg,
+                          "changed",
+                          G_CALLBACK (on_bg_changed),
+                          manager);
 
         g_signal_connect (manager->priv->bg,
                           "transitioned",
