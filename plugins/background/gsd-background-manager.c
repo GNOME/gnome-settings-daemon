@@ -68,7 +68,7 @@ G_DEFINE_TYPE (GsdBackgroundManager, gsd_background_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 static gboolean
-nautilus_is_running (void)
+nautilus_is_drawing_background (GsdBackgroundManager *manager)
 {
        Atom           window_id_atom;
        Window         nautilus_xid;
@@ -81,6 +81,13 @@ nautilus_is_running (void)
        Atom           wmclass_atom;
        gboolean       running;
        gint           error;
+       gboolean       show_desktop_icons;
+
+       show_desktop_icons = g_settings_get_boolean (manager->priv->settings,
+                                                     "show-desktop-icons");
+       if (! show_desktop_icons) {
+               return FALSE;
+       }
 
        window_id_atom = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                      "NAUTILUS_DESKTOP_WINDOW_ID", True);
@@ -166,7 +173,8 @@ draw_background (GsdBackgroundManager *manager,
         int         n_screens;
         int         i;
 
-        if (nautilus_is_running ()) {
+
+        if (nautilus_is_drawing_background (manager)) {
                 return;
         }
 
@@ -217,20 +225,9 @@ static void
 background_changed (GsdBackgroundManager *manager,
                     gboolean              use_crossfade)
 {
-        gboolean show_desktop_icons;
-
-        show_desktop_icons = g_settings_get_boolean (manager->priv->settings,
-                                                     "show-desktop-icons");
-
-        if (!nautilus_is_running () || !show_desktop_icons) {
-                if (manager->priv->bg == NULL) {
-                        setup_bg (manager);
-                } else {
-                        gnome_bg_load_from_preferences (manager->priv->bg,
-                                                        manager->priv->settings);
-                }
-                draw_background (manager, use_crossfade);
-        }
+        gnome_bg_load_from_preferences (manager->priv->bg,
+                                        manager->priv->settings);
+        draw_background (manager, use_crossfade);
 }
 
 static gboolean
@@ -280,11 +277,10 @@ static gboolean
 queue_draw_background (GsdBackgroundManager *manager)
 {
         manager->priv->timeout_id = 0;
-        if (nautilus_is_running ()) {
-                return FALSE;
-        }
+
         setup_bg (manager);
         draw_background (manager, FALSE);
+
         return FALSE;
 }
 
