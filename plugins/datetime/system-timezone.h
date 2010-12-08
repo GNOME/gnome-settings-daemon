@@ -49,9 +49,6 @@ typedef struct
 typedef struct
 {
         GObjectClass g_object_class;
-
-	void (* changed) (SystemTimezone *systz,
-			  const char     *tz);
 } SystemTimezoneClass;
 
 GType system_timezone_get_type (void);

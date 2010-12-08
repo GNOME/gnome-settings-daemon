@@ -54,8 +54,7 @@
 
 #include "system-timezone.h"
 
-/* Files that we look at and that should be monitored */
-#define CHECK_NB 5
+/* Files that we look at */
 #define ETC_TIMEZONE        "/etc/timezone"
 #define ETC_TIMEZONE_MAJ    "/etc/TIMEZONE"
 #define ETC_RC_CONF         "/etc/rc.conf"
@@ -66,14 +65,6 @@
 /* The first 4 characters in a timezone file, from tzfile.h */
 #define TZ_MAGIC "TZif"
 
-static char *files_to_check[CHECK_NB] = {
-        ETC_TIMEZONE,
-        ETC_TIMEZONE_MAJ,
-        ETC_SYSCONFIG_CLOCK,
-        ETC_CONF_D_CLOCK,
-        ETC_LOCALTIME
-};
-
 static GObject *systz_singleton = NULL;
 
 G_DEFINE_TYPE (SystemTimezone, system_timezone, G_TYPE_OBJECT)
@@ -81,26 +72,12 @@ G_DEFINE_TYPE (SystemTimezone, system_timezone, G_TYPE_OBJECT)
 typedef struct {
         char *tz;
         char *env_tz;
-        GFileMonitor *monitors[CHECK_NB];
 } SystemTimezonePrivate;
-
-enum {
-	CHANGED,
-	LAST_SIGNAL
-};
-
-static guint system_timezone_signals[LAST_SIGNAL] = { 0 };
 
 static GObject *system_timezone_constructor (GType                  type,
                                              guint                  n_construct_properties,
                                              GObjectConstructParam *construct_properties);
 static void system_timezone_finalize (GObject *obj);
-
-static void system_timezone_monitor_changed (GFileMonitor *handle,
-                                             GFile *file,
-                                             GFile *other_file,
-                                             GFileMonitorEvent event,
-                                             gpointer user_data);
 
 #define PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), SYSTEM_TIMEZONE_TYPE, SystemTimezonePrivate))
 
@@ -140,28 +117,16 @@ system_timezone_class_init (SystemTimezoneClass *class)
         g_obj_class->constructor = system_timezone_constructor;
         g_obj_class->finalize = system_timezone_finalize;
 
-        system_timezone_signals[CHANGED] =
-		g_signal_new ("changed",
-			      G_OBJECT_CLASS_TYPE (g_obj_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (SystemTimezoneClass, changed),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__STRING,
-			      G_TYPE_NONE, 1, G_TYPE_STRING);
-
         g_type_class_add_private (class, sizeof (SystemTimezonePrivate));
 }
 
 static void
 system_timezone_init (SystemTimezone *systz)
 {
-        int i;
         SystemTimezonePrivate *priv = PRIVATE (systz);
 
         priv->tz = NULL;
         priv->env_tz = NULL;
-        for (i = 0; i < CHECK_NB; i++) 
-                priv->monitors[i] = NULL;
 }
 
 static GObject *
@@ -171,7 +136,6 @@ system_timezone_constructor (GType                  type,
 {
         GObject *obj;
         SystemTimezonePrivate *priv;
-        int i;
 
         /* This is a singleton, we don't need to have it per-applet */
         if (systz_singleton)
@@ -188,37 +152,6 @@ system_timezone_constructor (GType                  type,
 
         priv->env_tz = g_strdup (g_getenv ("TZ"));
 
-        for (i = 0; i < CHECK_NB; i++) {
-                GFile     *file;
-                GFile     *parent;
-                GFileType  parent_type;
-
-                file = g_file_new_for_path (files_to_check[i]);
-
-                parent = g_file_get_parent (file);
-                parent_type = g_file_query_file_type (parent, G_FILE_QUERY_INFO_NONE, NULL);
-                g_object_unref (parent);
-
-                /* We don't try to monitor the file if the parent directory
-                 * doesn't exist: this means we're on a system where this file
-                 * is not useful to determine the system timezone.
-                 * Since gio does not monitor file in non-existing directories
-                 * in a clever way (as of gio 2.22, it just polls every other
-                 * seconds to see if the directory now exists), this avoids
-                 * unnecessary wakeups. */
-                if (parent_type == G_FILE_TYPE_DIRECTORY)
-                        priv->monitors[i] = g_file_monitor_file (file,
-                                                                 G_FILE_MONITOR_NONE,
-                                                                 NULL, NULL);
-                g_object_unref (file);
-
-                if (priv->monitors[i])
-                        g_signal_connect (G_OBJECT (priv->monitors[i]),
-                                          "changed", 
-                                          G_CALLBACK (system_timezone_monitor_changed),
-                                          obj);
-        }
-
         systz_singleton = obj;
 
         return systz_singleton;
@@ -227,7 +160,6 @@ system_timezone_constructor (GType                  type,
 static void
 system_timezone_finalize (GObject *obj)
 {
-        int i;
         SystemTimezonePrivate *priv = PRIVATE (obj);
 
         if (priv->tz) {
@@ -240,50 +172,12 @@ system_timezone_finalize (GObject *obj)
                 priv->env_tz = NULL;
         }
 
-        for (i = 0; i < CHECK_NB; i++) {
-                if (priv->monitors[i])
-                        g_object_unref (priv->monitors[i]);
-                priv->monitors[i] = NULL;
-        }
-
         G_OBJECT_CLASS (system_timezone_parent_class)->finalize (obj);
 
         g_assert (obj == systz_singleton);
 
         systz_singleton = NULL;
 }
-
-static void
-system_timezone_monitor_changed (GFileMonitor *handle,
-                                 GFile *file,
-                                 GFile *other_file,
-                                 GFileMonitorEvent event,
-                                 gpointer user_data)
-{
-        SystemTimezonePrivate *priv = PRIVATE (user_data);
-        char *new_tz;
-
-        if (event != G_FILE_MONITOR_EVENT_CHANGED &&
-            event != G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT &&
-            event != G_FILE_MONITOR_EVENT_DELETED &&
-            event != G_FILE_MONITOR_EVENT_CREATED)
-                return;
-
-        new_tz = system_timezone_find ();
-
-        g_assert (priv->tz != NULL && new_tz != NULL);
-
-        if (strcmp (priv->tz, new_tz) != 0) {
-                g_free (priv->tz);
-                priv->tz = new_tz;
-
-                g_signal_emit (G_OBJECT (user_data),
-                               system_timezone_signals[CHANGED],
-                               0, priv->tz);
-        } else
-                g_free (new_tz);
-}
-
 
 /*
  * Code to deal with the system timezone on all distros.

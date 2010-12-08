@@ -55,23 +55,6 @@ timezone_changed (SystemTimezone *systz,
 	g_print ("Timezone changed to: %s\n", new_tz);
 }
 
-static void
-timezone_monitor (void)
-{
-	SystemTimezone *systz;
-	GMainLoop      *mainloop;
-
-	systz = system_timezone_new ();
-	g_signal_connect (systz, "changed",
-			  G_CALLBACK (timezone_changed), NULL);
-
-	mainloop = g_main_loop_new (NULL, FALSE);
-	g_main_loop_run (mainloop);
-	g_main_loop_unref (mainloop);
-
-	g_object_unref (systz);
-}
-
 int
 main (int    argc,
       char **argv)
@@ -87,7 +70,6 @@ main (int    argc,
         GOptionEntry options[] = {
                 { "get", 'g', 0, G_OPTION_ARG_NONE, &get, "Get the current timezone", NULL },
                 { "set", 's', 0, G_OPTION_ARG_STRING, &tz_set, "Set the timezone to TIMEZONE", "TIMEZONE" },
-                { "monitor", 'm', 0, G_OPTION_ARG_NONE, &monitor, "Monitor timezone changes", NULL },
                 { NULL, 0, 0, 0, NULL, NULL, NULL }
         };
 
@@ -109,12 +91,10 @@ main (int    argc,
 
 	g_option_context_free (context);
 
-	if (get || (!tz_set && !monitor))
+	if (get || (!tz_set))
 		timezone_print ();
 	else if (tz_set)
 		retval = timezone_set (tz_set);
-	else if (monitor)
-		timezone_monitor ();
 	else
 		g_assert_not_reached ();
 
