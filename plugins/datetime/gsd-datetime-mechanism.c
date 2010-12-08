@@ -273,29 +273,14 @@ _check_polkit_for_action (GsdDatetimeMechanism *mechanism, DBusGMethodInvocation
         return TRUE;
 }
 
-
 static gboolean
-_set_time (GsdDatetimeMechanism  *mechanism,
-           const struct timeval  *tv,
-           DBusGMethodInvocation *context)
+_sync_hwclock (DBusGMethodInvocation *context)
 {
         GError *error;
 
-        if (!_check_polkit_for_action (mechanism, context, "org.gnome.settingsdaemon.datetimemechanism.settime"))
-                return FALSE;
+        error = NULL;
 
-        if (settimeofday (tv, NULL) != 0) {
-                error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
-                                     GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                     "Error calling settimeofday({%lld,%lld}): %s", 
-                                     (gint64) tv->tv_sec, (gint64) tv->tv_usec,
-                                     strerror (errno));
-                dbus_g_method_return_error (context, error);
-                g_error_free (error);
-                return FALSE;
-        }
-
-        if (g_file_test ("/sbin/hwclock", 
+        if (g_file_test ("/sbin/hwclock",
                          G_FILE_TEST_EXISTS | G_FILE_TEST_IS_REGULAR | G_FILE_TEST_IS_EXECUTABLE)) {
                 int exit_status;
                 if (!g_spawn_command_line_sync ("/sbin/hwclock --systohc", NULL, NULL, &exit_status, &error)) {
@@ -318,6 +303,33 @@ _set_time (GsdDatetimeMechanism  *mechanism,
                 }
         }
 
+        return TRUE;
+}
+
+static gboolean
+_set_time (GsdDatetimeMechanism  *mechanism,
+           const struct timeval  *tv,
+           DBusGMethodInvocation *context)
+{
+        GError *error;
+
+        if (!_check_polkit_for_action (mechanism, context, "org.gnome.settingsdaemon.datetimemechanism.settime"))
+                return FALSE;
+
+        if (settimeofday (tv, NULL) != 0) {
+                error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
+                                     GSD_DATETIME_MECHANISM_ERROR_GENERAL,
+                                     "Error calling settimeofday({%lld,%lld}): %s",
+                                     (gint64) tv->tv_sec, (gint64) tv->tv_usec,
+                                     strerror (errno));
+                dbus_g_method_return_error (context, error);
+                g_error_free (error);
+                return FALSE;
+        }
+
+        if (!_sync_hwclock (context))
+                return FALSE;
+
         dbus_g_method_return (context);
         return TRUE;
 }
@@ -333,7 +345,7 @@ _rh_update_etc_sysconfig_clock (DBusGMethodInvocation *context, const char *key,
                 char *data;
                 gsize len;
                 GError *error;
-                
+
                 error = NULL;
 
                 if (!g_file_get_contents ("/etc/sysconfig/clock", &data, &len, &error)) {
@@ -430,33 +442,33 @@ gsd_datetime_mechanism_adjust_time (GsdDatetimeMechanism  *mechanism,
 
 static gboolean
 gsd_datetime_check_tz_name (const char *tz,
-			    GError    **error)
+                            GError    **error)
 {
-	GFile *file;
-	char *tz_path, *actual_path;
-	gboolean retval;
+        GFile *file;
+        char *tz_path, *actual_path;
+        gboolean retval;
 
-	retval = TRUE;
-	tz_path = g_build_filename (SYSTEM_ZONEINFODIR, tz, NULL);
+        retval = TRUE;
+        tz_path = g_build_filename (SYSTEM_ZONEINFODIR, tz, NULL);
 
-	/* Get the actual resolved path */
-	file = g_file_new_for_path (tz);
-	actual_path = g_file_get_path (file);
-	g_object_unref (file);
+        /* Get the actual resolved path */
+        file = g_file_new_for_path (tz);
+        actual_path = g_file_get_path (file);
+        g_object_unref (file);
 
-	/* The tz name passed had relative paths in it */
-	if (g_strcmp0 (tz_path, actual_path) != 0) {
+        /* The tz name passed had relative paths in it */
+        if (g_strcmp0 (tz_path, actual_path) != 0) {
                 g_set_error (error, GSD_DATETIME_MECHANISM_ERROR,
                              GSD_DATETIME_MECHANISM_ERROR_INVALID_TIMEZONE_FILE,
                              "Timezone file '%s' was invalid.",
                              tz);
-		retval = FALSE;
-	}
+                retval = FALSE;
+        }
 
-	g_free (tz_path);
-	g_free (actual_path);
+        g_free (tz_path);
+        g_free (actual_path);
 
-	return retval;
+        return retval;
 }
 
 gboolean
