@@ -428,6 +428,36 @@ gsd_datetime_mechanism_adjust_time (GsdDatetimeMechanism  *mechanism,
         return _set_time (mechanism, &tv, context);        
 }
 
+static gboolean
+gsd_datetime_check_tz_name (const char *tz,
+			    GError    **error)
+{
+	GFile *file;
+	char *tz_path, *actual_path;
+	gboolean retval;
+
+	retval = TRUE;
+	tz_path = g_build_filename (SYSTEM_ZONEINFODIR, tz, NULL);
+
+	/* Get the actual resolved path */
+	file = g_file_new_for_path (tz);
+	actual_path = g_file_get_path (file);
+	g_object_unref (file);
+
+	/* The tz name passed had relative paths in it */
+	if (g_strcmp0 (tz_path, actual_path) != 0) {
+                g_set_error (error, GSD_DATETIME_MECHANISM_ERROR,
+                             GSD_DATETIME_MECHANISM_ERROR_INVALID_TIMEZONE_FILE,
+                             "Timezone file '%s' was invalid.",
+                             tz);
+		retval = FALSE;
+	}
+
+	g_free (tz_path);
+	g_free (actual_path);
+
+	return retval;
+}
 
 gboolean
 gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism  *mechanism,
@@ -443,6 +473,9 @@ gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism  *mechanism,
                 return FALSE;
 
         error = NULL;
+
+        if (!gsd_datetime_check_tz_name (tz, &error))
+                return FALSE;
 
         if (!system_timezone_set (tz, &error)) {
                 GError *error2;
