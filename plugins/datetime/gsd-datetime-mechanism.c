@@ -335,6 +335,57 @@ _set_time (GsdDatetimeMechanism  *mechanism,
 }
 
 static gboolean
+_set_date (GsdDatetimeMechanism  *mechanism,
+           guint                  day,
+           guint                  month,
+           guint                  year,
+           DBusGMethodInvocation *context)
+{
+        GDateTime *time;
+        char *date_str, *time_str;
+        char *date_cmd;
+        int exit_status;
+        GError *error;
+
+        date_str = g_strdup_printf ("%02d/%02d/%d", month, day, year);
+        error = NULL;
+
+        time = g_date_time_new_now_local ();
+        time_str = g_date_time_format (time, "%R:%S");
+        g_date_time_unref (time);
+
+        date_cmd = g_strdup_printf ("/bin/date -s \"%s %s\" +\"%%D %%R:%%S\"", date_str, time_str);
+        g_free (date_str);
+        g_free (time_str);
+
+        if (!g_spawn_command_line_sync (date_cmd, NULL, NULL, &exit_status, &error)) {
+                GError *error2;
+                error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
+                                      GSD_DATETIME_MECHANISM_ERROR_GENERAL,
+                                      "Error spawning /bin/date: %s", error->message);
+                g_error_free (error);
+                dbus_g_method_return_error (context, error2);
+                g_error_free (error2);
+                g_free (date_cmd);
+                return FALSE;
+        }
+        g_free (date_cmd);
+        if (WEXITSTATUS (exit_status) != 0) {
+                error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
+                                     GSD_DATETIME_MECHANISM_ERROR_GENERAL,
+                                     "/bin/date returned %d", exit_status);
+                dbus_g_method_return_error (context, error);
+                g_error_free (error);
+                return FALSE;
+        }
+
+        if (!_sync_hwclock (context))
+                return FALSE;
+
+        return TRUE;
+}
+
+static gboolean
 _rh_update_etc_sysconfig_clock (DBusGMethodInvocation *context, const char *key, const char *value)
 {
         /* On Red Hat / Fedora, the /etc/sysconfig/clock file needs to be kept in sync */
@@ -417,6 +468,19 @@ gsd_datetime_mechanism_set_time (GsdDatetimeMechanism  *mechanism,
 }
 
 gboolean
+gsd_datetime_mechanism_set_date (GsdDatetimeMechanism  *mechanism,
+                                 guint                  day,
+                                 guint                  month,
+                                 guint                  year,
+                                 DBusGMethodInvocation *context)
+{
+        reset_killtimer ();
+        g_debug ("SetDate(%d, %d, %d) called", day, month, year);
+
+        return _set_date (mechanism, day, month, year, context);
+}
+
+gboolean
 gsd_datetime_mechanism_adjust_time (GsdDatetimeMechanism  *mechanism,
                                     gint64                 seconds_to_add,
                                     DBusGMethodInvocation *context)
@@ -437,7 +501,7 @@ gsd_datetime_mechanism_adjust_time (GsdDatetimeMechanism  *mechanism,
         }
 
         tv.tv_sec += (time_t) seconds_to_add;
-        return _set_time (mechanism, &tv, context);        
+        return _set_time (mechanism, &tv, context);
 }
 
 static gboolean

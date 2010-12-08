@@ -38,6 +38,12 @@
         </doc:doc>
       </arg>
     </method>
+    <method name="SetDate">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg name="day" direction="in" type="u"/>
+      <arg name="month" direction="in" type="u"/>
+      <arg name="year" direction="in" type="u"/>
+    </method>
     <method name="SetTime">
       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
       <arg name="seconds_since_epoch" direction="in" type="x"/>

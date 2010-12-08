@@ -78,6 +78,12 @@ gboolean            gsd_datetime_mechanism_set_time     (GsdDatetimeMechanism  *
                                                          gint64                 seconds_since_epoch,
                                                          DBusGMethodInvocation *context);
 
+gboolean             gsd_datetime_mechanism_set_date     (GsdDatetimeMechanism  *mechanism,
+                                                          guint                  day,
+                                                          guint                  month,
+                                                          guint                  year,
+                                                          DBusGMethodInvocation *context);
+
 gboolean            gsd_datetime_mechanism_can_set_time (GsdDatetimeMechanism  *mechanism,
                                                          DBusGMethodInvocation *context);
 
