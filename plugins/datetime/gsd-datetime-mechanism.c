@@ -397,7 +397,7 @@ gsd_datetime_mechanism_set_time (GsdDatetimeMechanism  *mechanism,
         struct timeval tv;
 
         reset_killtimer ();
-        g_debug ("SetTime(%lld) called", seconds_since_epoch);
+        g_debug ("SetTime(%" G_GINT64_FORMAT ") called", seconds_since_epoch);
 
         tv.tv_sec = (time_t) seconds_since_epoch;
         tv.tv_usec = 0;
@@ -412,7 +412,7 @@ gsd_datetime_mechanism_adjust_time (GsdDatetimeMechanism  *mechanism,
         struct timeval tv;
 
         reset_killtimer ();
-        g_debug ("AdjustTime(%lld) called", seconds_to_add);
+        g_debug ("AdjustTime(%" G_GINT64_FORMAT " ) called", seconds_to_add);
 
         if (gettimeofday (&tv, NULL) != 0) {
                 GError *error;
@@ -431,26 +431,26 @@ gsd_datetime_mechanism_adjust_time (GsdDatetimeMechanism  *mechanism,
 
 gboolean
 gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism  *mechanism,
-                                     const char            *zone_file,
+                                     const char            *tz,
                                      DBusGMethodInvocation *context)
 {
         GError *error;
 
         reset_killtimer ();
-        g_debug ("SetTimezone('%s') called", zone_file);
+        g_debug ("SetTimezone('%s') called", tz);
 
         if (!_check_polkit_for_action (mechanism, context, "org.gnome.settingsdaemon.datetimemechanism.settimezone"))
                 return FALSE;
 
         error = NULL;
 
-        if (!system_timezone_set_from_file (zone_file, &error)) {
+        if (!system_timezone_set (tz, &error)) {
                 GError *error2;
                 int     code;
 
                 if (error->code == SYSTEM_TIMEZONE_ERROR_INVALID_TIMEZONE_FILE)
                         code = GSD_DATETIME_MECHANISM_ERROR_INVALID_TIMEZONE_FILE;
-                else 
+                else
                         code = GSD_DATETIME_MECHANISM_ERROR_GENERAL;
 
                 error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,

@@ -998,22 +998,6 @@ system_timezone_update_config (const char  *tz,
 }
 
 gboolean
-system_timezone_set_from_file (const char  *zone_file,
-                               GError     **error)
-{
-        const char *tz;
-
-        g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-        tz = zone_file + strlen (SYSTEM_ZONEINFODIR"/");
-
-        /* FIXME: is it right to return FALSE even when /etc/localtime was
-         * changed but not the config files? */
-        return (system_timezone_set_etc_timezone (zone_file, error) &&
-                system_timezone_update_config (tz, error));
-}
-
-gboolean
 system_timezone_set (const char  *tz,
                      GError     **error)
 {

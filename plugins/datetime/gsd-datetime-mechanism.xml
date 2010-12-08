@@ -3,7 +3,7 @@
   <interface name="org.gnome.SettingsDaemon.DateTimeMechanism">
     <method name="SetTimezone">
       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
-      <arg name="zonefile" direction="in" type="s"/>
+      <arg name="tz" direction="in" type="s"/>
     </method>
 
     <method name="GetTimezone">
