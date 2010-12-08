@@ -98,6 +98,15 @@ gboolean            gsd_datetime_mechanism_set_hardware_clock_using_utc  (GsdDat
                                                                           gboolean               using_utc,
                                                                           DBusGMethodInvocation *context);
 
+gboolean            gsd_datetime_mechanism_get_using_ntp  (GsdDatetimeMechanism    *mechanism,
+                                                           DBusGMethodInvocation   *context);
+
+gboolean            gsd_datetime_mechanism_set_using_ntp  (GsdDatetimeMechanism    *mechanism,
+                                                           gboolean                 using_ntp,
+                                                           DBusGMethodInvocation   *context);
+
+gboolean            gsd_datetime_mechanism_can_set_using_ntp (GsdDatetimeMechanism  *mechanism,
+                                                              DBusGMethodInvocation *context);
 G_END_DECLS
 
 #endif /* GSD_DATETIME_MECHANISM_H */

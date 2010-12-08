@@ -89,5 +89,41 @@
       <arg name="is_using_utc" direction="in" type="b"/>
     </method>
 
+    <method name="GetUsingNtp">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg name="can_use_ntp" direction="out" type="b"/>
+      <arg name="is_using_ntp" direction="out" type="b"/>
+    </method>
+    <method name="SetUsingNtp">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg name="is_using_ntp" direction="in" type="b"/>
+    </method>
+    <method name="CanSetUsingNtp">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg name="value" direction="out" type="i">
+        <doc:doc>
+          <doc:summary>Whether the caller can set the "use NTP" setting</doc:summary>
+          <doc:description>
+            <doc:para>
+              The return value is not a boolean, but an integer with the following meaning:
+              <doc:list>
+                <doc:item>
+                  <doc:term>0</doc:term>
+                  <doc:definition>the caller cannot change the "use NTP" setting</doc:definition>
+                </doc:item>
+                <doc:item>
+                  <doc:term>1</doc:term>
+                  <doc:definition>the caller will be challenged before being able to change "use NTP" setting</doc:definition>
+                </doc:item>
+                <doc:item>
+                  <doc:term>2</doc:term>
+                  <doc:definition>the caller is authorized to change the "use NTP" setting</doc:definition>
+                </doc:item>
+              </doc:list>
+            </doc:para>
+          </doc:description>
+        </doc:doc>
+      </arg>
+    </method>
   </interface>
 </node>

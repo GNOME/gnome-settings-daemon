@@ -694,6 +694,92 @@ gsd_datetime_mechanism_set_hardware_clock_using_utc (GsdDatetimeMechanism  *mech
         return TRUE;
 }
 
+gboolean
+gsd_datetime_mechanism_get_using_ntp  (GsdDatetimeMechanism    *mechanism,
+                                       DBusGMethodInvocation   *context)
+{
+        int exit_status;
+        GError *error = NULL;
+        gboolean can_use_ntp;
+        gboolean is_using_ntp;
+
+        if (g_file_test ("/etc/ntp.conf", G_FILE_TEST_EXISTS)) {
+                can_use_ntp = TRUE;
+                if (!g_spawn_command_line_sync ("/sbin/service ntpd status",
+                                                NULL, NULL, &exit_status, &error)) {
+                        GError *error2;
+                        error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
+                                              GSD_DATETIME_MECHANISM_ERROR_GENERAL,
+                                              "Error spawning /sbin/service: %s", error->message);
+                        g_error_free (error);
+                        dbus_g_method_return_error (context, error2);
+                        g_error_free (error2);
+                        return FALSE;
+                }
+                if (exit_status == 0)
+                        is_using_ntp = TRUE;
+                else
+                        is_using_ntp = FALSE;
+        }
+        else {
+                can_use_ntp = FALSE;
+                is_using_ntp = FALSE;
+        }
+
+        dbus_g_method_return (context, can_use_ntp, is_using_ntp);
+        return TRUE;
+}
+
+gboolean
+gsd_datetime_mechanism_set_using_ntp  (GsdDatetimeMechanism    *mechanism,
+                                       gboolean                 using_ntp,
+                                       DBusGMethodInvocation   *context)
+{
+        GError *error;
+        int exit_status;
+        char *cmd;
+
+        error = NULL;
+
+        if (!_check_polkit_for_action (mechanism, context, "org.gnome.clockapplet.mechanism.configurentp"))
+                return FALSE;
+
+        cmd = g_strconcat ("/sbin/chkconfig --level 2345 ntpd ", using_ntp ? "on" : "off", NULL);
+        if (!g_spawn_command_line_sync (cmd,
+                                        NULL, NULL, &exit_status, &error)) {
+                GError *error2;
+                error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
+                                      GSD_DATETIME_MECHANISM_ERROR_GENERAL,
+                                      "Error spawning /sbin/chkconfig: %s", error->message);
+                g_error_free (error);
+                dbus_g_method_return_error (context, error2);
+                g_error_free (error2);
+                g_free (cmd);
+                return FALSE;
+        }
+
+        g_free (cmd);
+
+        cmd = g_strconcat ("/sbin/service ntpd ", using_ntp ? "restart" : "stop", NULL);
+        if (!g_spawn_command_line_sync (cmd,
+                                        NULL, NULL, &exit_status, &error)) {
+                GError *error2;
+                error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
+                                      GSD_DATETIME_MECHANISM_ERROR_GENERAL,
+                                      "Error spawning /sbin/service: %s", error->message);
+                g_error_free (error);
+                dbus_g_method_return_error (context, error2);
+                g_error_free (error2);
+                g_free (cmd);
+                return FALSE;
+        }
+
+        g_free (cmd);
+
+        dbus_g_method_return (context);
+        return TRUE;
+}
+
 static void
 check_can_do (GsdDatetimeMechanism  *mechanism,
               const char            *action,
@@ -755,6 +841,17 @@ gsd_datetime_mechanism_can_set_timezone (GsdDatetimeMechanism  *mechanism,
 {
         check_can_do (mechanism,
                       "org.gnome.settingsdaemon.datetimemechanism.settimezone",
+                      context);
+
+        return TRUE;
+}
+
+gboolean
+gsd_datetime_mechanism_can_set_using_ntp (GsdDatetimeMechanism  *mechanism,
+                                          DBusGMethodInvocation *context)
+{
+        check_can_do (mechanism,
+                      "org.gnome.settingsdaemon.datetimemechanism.configurentp",
                       context);
 
         return TRUE;
