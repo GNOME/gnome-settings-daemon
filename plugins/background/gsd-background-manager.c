@@ -62,6 +62,7 @@ static void     gsd_background_manager_init        (GsdBackgroundManager      *b
 static void     gsd_background_manager_finalize    (GObject             *object);
 
 static void setup_bg (GsdBackgroundManager *manager);
+static void connect_screen_signals (GsdBackgroundManager *manager);
 
 G_DEFINE_TYPE (GsdBackgroundManager, gsd_background_manager, G_TYPE_OBJECT)
 
@@ -272,6 +273,7 @@ setup_bg (GsdBackgroundManager *manager)
                           G_CALLBACK (on_bg_transitioned),
                           manager);
 
+        connect_screen_signals (manager);
         watch_bg_preferences (manager);
         gnome_bg_load_from_preferences (manager->priv->bg,
                                         manager->priv->settings);
@@ -431,8 +433,6 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
         } else {
                 draw_background_after_session_loads (manager);
         }
-
-        connect_screen_signals (manager);
 
         gnome_settings_profile_end (NULL);
 
