@@ -9,20 +9,21 @@
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
 # Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2010.
 # Noritada Kobayashi <noritadak@gmail.com>, 2010.
+# Jiro Matsuzawa <matsuzawa.jr@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-10-21 20:28+0000\n"
-"PO-Revision-Date: 2010-10-22 01:07+0900\n"
-"Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
+"POT-Creation-Date: 2010-12-11 20:20+0000\n"
+"PO-Revision-Date: 2010-12-12 23:01+0900\n"
+"Last-Translator: Jiro Matsuzawa <matsuzawa.jr@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/50-accessibility.xml.in.h:1
@@ -63,28 +64,38 @@ msgstr "タッチパッドを有効にする"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
 msgstr ""
 "コントロールキーが押されて、離された時、ポインタの現在位置をハイライトする"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid "Length of a double click in milliseconds."
 msgstr "ダブルクリックの長さ(ミリ秒単位)。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid "Middle button emulation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Select the touchpad scroll method"
 msgstr "タッチ・パッドでのスクロールの方法の選択"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid ""
 "Select the touchpad scroll method. Supported values are: \"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
-"タッチ・パッドでのスクロール方法を選択します。指定できる値は次のとおり。"
-"\"disabled\"、\"edge-scrolling\"、\"two-finger-scrolling\""
+"タッチ・パッドでのスクロール方法を選択します。指定できる値は次のとお"
+"り。\"disabled\"、\"edge-scrolling\"、\"two-finger-scrolling\""
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -92,7 +103,7 @@ msgstr ""
 "タイプ中に誤ってタッチ・パッドを押してしまう問題があるのであれば、TRUE に設定"
 "してください。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -100,18 +111,18 @@ msgstr ""
 "この値を TRUE にすると、scroll_method キーで選択したのと同じ方法で、水平スク"
 "ロールを許可します。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "この値を TRUE にすると、タッチ・パッドをタップすることで、マウス・クリックと"
 "同じ動作できるようにします。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "この値を TRUE にすると、すべてのタッチ・パッドを有効にします。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
 "action will get performed when the smartcard used for log in is removed."
@@ -120,42 +131,49 @@ msgstr ""
 "す。スマートカードがログインに使用されたり、取り出された場合にそのアクション"
 "が実行されます。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
 msgid "Smartcard removal action"
 msgstr "スマートカードを抜いた時のアクション"
 
+#. g-p-m is not a GSD plugin, yet
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr "このプラグインをアクティベーション"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "このプラグインの優先度"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr ""
 "gnome-settings-daemon の起動時のキューで、このプラグインが使用される優先度"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:10
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 msgstr ""
 "このプラグインが gnome-settings-daemon でアクティベーションされるかどうか"
@@ -241,11 +259,13 @@ msgid "Never show layout indicator"
 msgstr "レイアウトの通知を表示しない"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
 msgstr ""
 "gnome-settings-daemon の起動時のキューで、このプラグインが使用される優先度。"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr ""
 "このプラグインが gnome-settings-daemon でアクティベーションされるかどうか。"
@@ -315,32 +335,47 @@ msgid "Binding to raise the system volume."
 msgstr "システムの音量を高くするキー・バインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#, fuzzy
+msgid "Binding to show the on-screen keyboard"
+msgstr "オンスクリーン・キーボードの切り替えに使用するキーバインディングです。"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#, fuzzy
+msgid "Binding to show the screen magnifier"
+msgstr "拡大鏡の切り替えに使用するキーバインディングです。"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to skip to next track."
 msgstr "次のトラックにスキップするキー・バインディングです。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to skip to previous track."
 msgstr "前のトラックにスキップするキー・バインディングです。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr ""
 "再生を開始する (または再生と一時停止を切り替える) するキー・バインディングで"
 "す。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#, fuzzy
+msgid "Binding to start the screen reader"
+msgstr "スクリーン・リーダの切り替えに使用するキーバインディングです。"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to stop playback."
 msgstr "再生を停止するキー・バインディングです。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Eject"
 msgstr "メディアを取り出す"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Home folder"
 msgstr "ホーム・フォルダを開く"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid ""
 "If non-empty, keybindings will be ignored unless their settings directory is "
 "in the list. This is useful for lockdown."
@@ -348,79 +383,98 @@ msgstr ""
 "空でない場合、設定ディレクトリがこのリストになければ、キーバインディングは無"
 "視されます。これは主にロックダウンで有用です。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Launch calculator"
 msgstr "電卓を起動する"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Launch email client"
 msgstr "E-メール・クライアントを起動する"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Launch help browser"
 msgstr "ヘルプ・ブラウザを起動する"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Launch media player"
 msgstr "メディア・プレイヤーを起動する"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Launch web browser"
 msgstr "ウェブ・ブラウザを起動する"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Lock screen"
 msgstr "画面をロックする"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Log out"
 msgstr "ログアウトする"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Next track"
 msgstr "次のトラックに進む"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Pause playback"
 msgstr "再生を一時停止する"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Play (or play/pause)"
 msgstr "再生する (または再生/一時停止する)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Previous track"
 msgstr "前のトラックに戻る"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Search"
 msgstr "検索する"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Stop playback"
 msgstr "再生を停止する"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Toggle magnifier"
+msgstr "拡大鏡を起動または停止する"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+msgid "Toggle on-screen keyboard"
+msgstr "オンスクリーン・キーボードを起動または停止する"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+msgid "Toggle screen reader"
+msgstr "スクリーン・リーダの切り替え"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Toggle touchpad"
 msgstr "タッチパッドを切り替える"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Volume down"
 msgstr "音量を下げる"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 msgid "Volume mute"
 msgstr "ミュートにする"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Volume up"
 msgstr "音量を上げる"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+msgid ""
+"'clone' will display the same thing on all monitors, 'dock' will switch off "
+"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
+"(extend the desktop in recent versions)"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
 msgstr "RanR の初期設定ファイル"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -434,47 +488,47 @@ msgstr ""
 "いはあったとしてもモニタの設定に合わない場合、このキーで指定されたファイルが"
 "代わりに使われます。"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
-msgid "Turn on external monitor after system boot"
-msgstr "システムの起動後に外部モニタを有効にする"
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
-msgid ""
-"Turn on external monitor after system boot if user plugs in external monitor "
-"on system boot."
-msgstr ""
-"システムのブート時に外部モニタが接続されている時、システムのブート後に外部モ"
-"ニタ有効にする。"
-
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
-msgid "Turn on laptop monitor after system boot"
-msgstr "システムのブート後にラップトップのモニタを有効にする"
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:9
-msgid ""
-"Turn on laptop monitor after system boot if user plugs in external monitor "
-"on system boot."
+msgid "Whether to turn off specific monitors after boot"
 msgstr ""
-"システムのブート時に外部モニタが接続されている時、システムのブート後にラップ"
-"トップのモニタを有効にする。"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
+msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
 msgstr "アンチエイリアス"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "DPI"
 msgstr "DPI"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "Hinting"
 msgstr "ヒンティング"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "List of explicitly disabled GTK+ modules"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+msgid "List of explicitly enabled GTK+ modules"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "RGBA order"
 msgstr "RGBA の順番"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -486,7 +540,7 @@ msgstr ""
 "色 (最も一般的)、\"bgr\" は左端が青色、\"vrgb\" は上端が赤色、\"vbgr\" は下端"
 "が赤色"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The resolution used for converting font sizes to pixel sizes, in dots per "
 "inch. 0.0 DPI means that the X server's DPI will be used."
@@ -495,7 +549,7 @@ msgstr ""
 "インチ (DPI) 単位で表したものです。0.0 DPI ならば、X サーバの DPI が使われま"
 "す。"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -506,7 +560,7 @@ msgstr ""
 "ケールのアンチエイリアス、\"rgba\" はサブピクセルをアンチエイリアスする (LCD "
 "画面の場合のみ)"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:15
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -517,11 +571,149 @@ msgstr ""
 "ヒンティングのみ、\"medium\" は穏やかなヒンテイング、\"full\" は最大限のヒン"
 "テイング (文字の形状に歪みが発生する可能性あり)"
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+msgid ""
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+msgid ""
+"Set this to the pressure value at which a stylus click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr ""
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "デバッグ情報を有効にする"
 
-#: ../gnome-settings-daemon/main.c:53
+#: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "しばらくしてから終了する (デバッグ用)"
 
@@ -533,23 +725,23 @@ msgstr "アクセシビリティ・キーボード"
 msgid "Accessibility keyboard plugin"
 msgstr "アクセシビリティ・キーボードのプラグイン"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:420
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:390
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "ヘルプを表示する際にエラーが発生しました: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:551
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:577
 msgid "Do you want to activate Slow Keys?"
 msgstr "スロー・キーを有効にしますか?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:616
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:516
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:578
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "スロー・キーを無効にしますか?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:553
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:617
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -557,62 +749,62 @@ msgstr ""
 "[SHIFT] キーを8秒間押下しました。これはスロー・キー機能のショートカットとし"
 "て、キーボード操作に影響を与えるものです。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:576
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
 msgid "Don't activate"
 msgstr "有効にしない"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:576
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
 msgid "Don't deactivate"
 msgstr "無効にしない"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:582
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:719
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:681
 msgid "Activate"
 msgstr "有効にする"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:582
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:719
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:681
 msgid "Deactivate"
 msgstr "無効にする"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:638
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:777
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do_n't activate"
 msgstr "有効にしない(_N)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:638
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:777
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do_n't deactivate"
 msgstr "無効にしない(_N)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:641
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:780
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "_Activate"
 msgstr "有効にする(_A)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:641
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:780
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "_Deactivate"
 msgstr "無効にする(_D)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:645
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:607
 msgid "Slow Keys Alert"
 msgstr "スロー・キーの警告"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:751
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:647
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:711
 msgid "Do you want to activate Sticky Keys?"
 msgstr "スティッキー・キーを有効にしますか?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:686
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:648
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:712
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "スティッキー・キーを無効にしますか?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:688
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:754
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -620,22 +812,22 @@ msgstr ""
 "[SHIFT] キーを連続して5回押下しました。これはスティッキー・キー機能のショート"
 "カットとして、キーボード操作に影響を与えるものです。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:690
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
-"キーを一度に2回押下したか、あるいは [SHIFT] キーを連続して 5回押下しました。"
-"これはスティッキー・キー機能を無効にし、キーボード操作に影響を与えるもので"
-"す。"
+"同時に2つのキーを押下したか、あるいは [SHIFT] キーを連続して 5回押下しまし"
+"た。これはスティッキー・キー機能を無効にし、キーボード操作に影響を与えるもの"
+"です。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:784
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
 msgid "Sticky Keys Alert"
 msgstr "スティッキー・キーの警告"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:898
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:524
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "ユニバーサル・アクセスの設定"
@@ -672,6 +864,135 @@ msgstr "キーを素早く押下したり押し続けた場合は無視する(_I
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "ステッキー・キーを有効にする(_P)"
 
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr ""
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+#, fuzzy
+msgid "Automounter plugin"
+msgstr "フォントのプラグイン"
+
+#: ../plugins/automount/gsd-automount-manager.c:145
+#, c-format
+msgid "Unable to mount %s"
+msgstr ""
+
+#: ../plugins/automount/gsd-automount-manager.c:204
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:352
+#, fuzzy
+msgid "Open Folder"
+msgstr "ホーム・フォルダを開く"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, fuzzy, c-format
+msgid "Unable to eject %p"
+msgstr "タッチパッドを有効にする"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:700
+msgid "You have just inserted an Audio CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted a Video DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Super Video CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a blank CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank HD DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a Photo CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Picture CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a medium with digital photos."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a digital audio player."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr ""
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:729
+msgid "You have just inserted a medium."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "Choose what application to launch."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:740
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:767
+msgid "_Always perform this action"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:783
+#, fuzzy
+msgid "_Eject"
+msgstr "メディアを取り出す"
+
+#: ../plugins/automount/gsd-autorun.c:788
+msgid "_Unmount"
+msgstr ""
+
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
 msgstr "背景"
@@ -696,6 +1017,58 @@ msgstr "ダミー"
 msgid "Dummy plugin"
 msgstr "ダミーのプラグイン"
 
+#: ../plugins/housekeeping/gsd-disk-space.c:271
+#, fuzzy, c-format
+msgid "Low Disk Space on \"%s\""
+msgstr "ディスクの空き容量が少ないです"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:273
+#, fuzzy, c-format
+msgid ""
+"The volume \"%s\" has only %s disk space remaining.  You may free up some "
+"space by emptying the trash."
+msgstr "ボリューム \"%s\" にはディスクの残りが %s しかありません。"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:277
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "ボリューム \"%s\" にはディスクの残りが %s しかありません。"
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-disk-space.c:282
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:202
+msgid "Low Disk Space"
+msgstr "ディスクの空き容量が少ないです"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:284
+#, fuzzy, c-format
+msgid ""
+"This computer has only %s disk space remaining.  You may free up some space "
+"by emptying the trash."
+msgstr "このコンピュータにはディスクの残りが %s しかありません。"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:287
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "このコンピュータにはディスクの残りが %s しかありません。"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:308
+#, fuzzy
+msgid "Examine"
+msgstr "調査中…"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:316
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
+msgid "Empty Trash"
+msgstr "ゴミ箱を空にする"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:323
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
+msgid "Ignore"
+msgstr "無視"
+
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
 msgid "Don't show any warnings again for this file system"
 msgstr "このファイルシステムの警告は一切表示しない"
@@ -703,16 +1076,6 @@ msgstr "このファイルシステムの警告は一切表示しない"
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again"
 msgstr "警告を一切表示しない"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
-#, c-format
-msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr "ボリューム \"%s\" にはディスクの残りが %s しかありません。"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
-#, c-format
-msgid "This computer has only %s disk space remaining."
-msgstr "このコンピュータにはディスクの残りが %s しかありません。"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
 msgid ""
@@ -747,22 +1110,9 @@ msgstr ""
 "使っていないプログラムやファイルを削除したり、外付けディスクにファイルを移動"
 "することで、ディスクの空き容量を増やせます。"
 
-#. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:202
-msgid "Low Disk Space"
-msgstr "ディスクの空き容量が少ないです"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
-msgid "Empty Trash"
-msgstr "ゴミ箱を空にする"
-
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:442
 msgid "Examine…"
 msgstr "調査中…"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
-msgid "Ignore"
-msgstr "無視"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:94
 #, c-format
@@ -860,19 +1210,19 @@ msgstr ""
 "・<b>%s</b>\n"
 "・<b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:239
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:238
 msgid "_Layouts"
 msgstr "レイアウト(_L)"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:246
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:245
 msgid "Keyboard _Preferences"
 msgstr "キーボードの設定(_P)"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:252
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:251
 msgid "Show _Current Layout"
 msgstr "現在のレイアウトを表示(_C)"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:194
+#: ../plugins/media-keys/gsd-media-keys-manager.c:204
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -881,7 +1231,7 @@ msgstr ""
 "指定され、それに対応するアプリケーションがインストールされているか確認してく"
 "ださい。"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:234
+#: ../plugins/media-keys/gsd-media-keys-manager.c:244
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -924,18 +1274,18 @@ msgstr "メディア・キー"
 msgid "Media keys plugin"
 msgstr "メディア・キーのプラグイン"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:863
+#: ../plugins/mouse/gsd-mouse-manager.c:868
 msgid "Could not enable mouse accessibility features"
 msgstr "マウスの操作性に関する機能を有効にできませんでした"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:865
+#: ../plugins/mouse/gsd-mouse-manager.c:870
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "マウスのアクセシビリティに関する機能を有効にするには mousetweak がインストー"
 "ルされている必要があります。"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:867
+#: ../plugins/mouse/gsd-mouse-manager.c:872
 msgid "Universal Access"
 msgstr "ユニバーサル・アクセス"
 
@@ -955,67 +1305,53 @@ msgstr "画面の大きさや回転といった設定を管理します"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:356
+#: ../plugins/xrandr/gsd-xrandr-manager.c:403
 msgid "Could not switch the monitor configuration"
 msgstr "モニタの設定に切り替えることができませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:380
+#: ../plugins/xrandr/gsd-xrandr-manager.c:427
 msgid "Could not restore the display's configuration"
 msgstr "ディスプレイの設定を元に戻せませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:405
+#: ../plugins/xrandr/gsd-xrandr-manager.c:452
 msgid "Could not restore the display's configuration from a backup"
 msgstr "バックアップしたディスプレイの設定に戻せませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:426
+#: ../plugins/xrandr/gsd-xrandr-manager.c:473
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] " %d秒後に元のディスプレイの設定に戻ります"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:475
+#: ../plugins/xrandr/gsd-xrandr-manager.c:522
 msgid "Does the display look OK?"
 msgstr "ディスプレイの設定に問題はありませんか?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:482
+#: ../plugins/xrandr/gsd-xrandr-manager.c:529
 msgid "_Restore Previous Configuration"
 msgstr "前の設定に戻す(_R)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
+#: ../plugins/xrandr/gsd-xrandr-manager.c:530
 msgid "_Keep This Configuration"
 msgstr "この設定のままにする(_K)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:564
+#: ../plugins/xrandr/gsd-xrandr-manager.c:611
 msgid "The selected configuration for displays could not be applied"
 msgstr "選択したディスプレイの設定を適用できませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1121
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1150
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "スクリーンの情報を更新できませんでした: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1125
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1154
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "いずれにせよ、モニタの設定を切り替えてみます"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1604
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1626
 msgid "Could not apply the stored configuration for monitors"
 msgstr "保存したモニタの設定を適用できませんでした"
-
-#: ../plugins/xrdb/gsd-xrdb-manager.c:253
-#: ../plugins/xrdb/gsd-xrdb-manager.c:322
-msgid "Cannot determine user's home directory"
-msgstr "ユーザのホーム・フォルダを確定できません"
-
-# 'X' という1文字は固有名詞のため大文字にする
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
-msgid "Manage the X resource database"
-msgstr "Xのリソース・データベースを管理します"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
-msgid "X Resource Database"
-msgstr "Xリソース・データベース"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
 msgid "Manage X Settings"
@@ -1025,69 +1361,69 @@ msgstr "X の設定を管理します"
 msgid "X Settings"
 msgstr "X の設定"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:167
+#: ../plugins/smartcard/gsd-smartcard-manager.c:187
 msgid "Module Path"
 msgstr "モジュールのパス"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:168
+#: ../plugins/smartcard/gsd-smartcard-manager.c:188
 msgid "path to smartcard PKCS #11 driver"
 msgstr "スマートカードの PKCS #11 ドライバへのパス"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:504
+#: ../plugins/smartcard/gsd-smartcard-manager.c:531
 msgid "received error or hang up from event source"
 msgstr "イベントの発生源からエラーを受け取ったか、ハングアップしました"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:593
+#: ../plugins/smartcard/gsd-smartcard-manager.c:665
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "NSS セキュリティシステムをインストールできませんでした"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#: ../plugins/smartcard/gsd-smartcard-manager.c:793
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr "適切なスマートカードのドライバを発見できませんでした"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:682
+#: ../plugins/smartcard/gsd-smartcard-manager.c:807
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "スマートカードのドライバ '%s' を読み込めませんでした"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:771
+#: ../plugins/smartcard/gsd-smartcard-manager.c:880
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "カードから受け取ったイベントを確認できませんでした - %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1124
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1283
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "スマートカードのイベントを待機中に想定外のエラーに遭遇しました"
 
-#: ../plugins/smartcard/gsd-smartcard.c:154
+#: ../plugins/smartcard/gsd-smartcard.c:156
 msgid "Slot ID"
 msgstr "スロットID"
 
-#: ../plugins/smartcard/gsd-smartcard.c:155
+#: ../plugins/smartcard/gsd-smartcard.c:157
 msgid "The slot the card is in"
 msgstr "カードの入っているスロット"
 
-#: ../plugins/smartcard/gsd-smartcard.c:161
+#: ../plugins/smartcard/gsd-smartcard.c:163
 msgid "Slot Series"
 msgstr "スロットシリーズ"
 
-#: ../plugins/smartcard/gsd-smartcard.c:162
+#: ../plugins/smartcard/gsd-smartcard.c:164
 msgid "per-slot card identifier"
 msgstr "スロットごとのカードの識別子"
 
-#: ../plugins/smartcard/gsd-smartcard.c:168
-#: ../plugins/smartcard/gsd-smartcard.c:169
+#: ../plugins/smartcard/gsd-smartcard.c:170
+#: ../plugins/smartcard/gsd-smartcard.c:171
 msgid "name"
 msgstr "名前"
 
-#: ../plugins/smartcard/gsd-smartcard.c:173
+#: ../plugins/smartcard/gsd-smartcard.c:175
 msgid "Module"
 msgstr "モジュール"
 
-#: ../plugins/smartcard/gsd-smartcard.c:174
+#: ../plugins/smartcard/gsd-smartcard.c:176
 msgid "smartcard driver"
 msgstr "スマートカードドライバ"
 
@@ -1115,367 +1451,3 @@ msgstr "システムの時刻を変更するには権限が必要です。"
 msgid "Privileges are required to configure the hardware clock."
 msgstr "ハードウェアの時計を変更するには権限が必要です。"
 
-#~ msgid "Enable dwell clicks"
-#~ msgstr "自動クリックを有効にする"
-
-#~ msgid "Enable simulated secondary clicks"
-#~ msgstr "2番目のクリックをシミュレーションする"
-
-#~ msgid ""
-#~ "Error activating XKB configuration.\n"
-#~ "It can happen under various circumstances:\n"
-#~ " • a bug in libxklavier library\n"
-#~ " • a bug in X server (xkbcomp, xmodmap utilities)\n"
-#~ " • X server with incompatible libxkbfile implementation\n"
-#~ "\n"
-#~ "X server version data:\n"
-#~ "%s\n"
-#~ "%d\n"
-#~ "If you report this situation as a bug, please include:\n"
-#~ " • The result of <b>%s</b>\n"
-#~ " • The result of <b>%s</b>"
-#~ msgstr ""
-#~ "XKB 設定を有効にする際にエラーが発生しました。\n"
-#~ "以下のような様々な条件下で発生する可能性があります:\n"
-#~ " ・ libxklavier ライブラリのバグ\n"
-#~ " ・ X サーバのバグ (xkbcomp、xmodmap ユーティリティ)\n"
-#~ " ・ X サーバと互換性が無い libxkbfile の実装\n"
-#~ "\n"
-#~ "X サーバ バージョンデータ:\n"
-#~ "%s\n"
-#~ "%d\n"
-#~ "この状況をバグとして報告する場合は、以下を含めてください:\n"
-#~ " ・ <b>%s</b> の結果\n"
-#~ " ・ <b>%s</b> の結果"
-
-#~ msgid "GConf key %s set to type %s but its expected type was %s\n"
-#~ msgstr ""
-#~ "GConf キーの %s が %s という型になっています (%s という型を期待していた)\n"
-
-#~ msgid "Volume step"
-#~ msgstr "音量の割合を変更する"
-
-#~ msgid "Volume step as percentage of volume."
-#~ msgstr "音量の割合を設定するキー・バインディングです。"
-
-#~ msgid "Show Displays in Notification Area"
-#~ msgstr "通知領域に通知アイコンを表示するかどうか"
-
-#~ msgid ""
-#~ "Whether a notification icon with display-related things should be shown "
-#~ "in the panel."
-#~ msgstr "表示関連の通知アイコンをパネルに表示するかどうかです。"
-
-#~ msgid "Binding to toggle the magnifier."
-#~ msgstr "拡大鏡の切り替えに使用するキーバインディングです。"
-
-#~ msgid "Binding to toggle the on-screen keyboard."
-#~ msgstr ""
-#~ "オンスクリーン・キーボードの切り替えに使用するキーバインディングです。"
-
-#~ msgid "Binding to toggle the screen reader."
-#~ msgstr "スクリーン・リーダの切り替えに使用するキーバインディングです。"
-
-#~ msgid "Bounce keys"
-#~ msgstr "バウンス・キー"
-
-#~ msgid "Command used to turn the magnifier on or off."
-#~ msgstr "拡大鏡の有効/無効を切り替える際に使用するコマンドです。"
-
-#~ msgid "Command used to turn the on-screen keyboard on or off."
-#~ msgstr ""
-#~ "オンスクリーン・キーボードの有効/無効を切り替える際に使用するコマンドで"
-#~ "す。"
-
-#~ msgid "Command used to turn the screen reader on or off."
-#~ msgstr "スクリーン・リーダを起動したり停止する際に使用するコマンドです。"
-
-#~ msgid "Enable XRandR plugin"
-#~ msgstr "XRandR のプラグインを有効にするかどうか"
-
-#~ msgid "Enable accessibility keyboard plugin"
-#~ msgstr ""
-#~ "キーボード操作性 (アクセシビリティ) のプラグインを有効にするかどうか"
-
-#~ msgid "Enable background plugin"
-#~ msgstr "背景のプラグインを有効にするかどうか"
-
-#~ msgid "Enable clipboard plugin"
-#~ msgstr "クリップボードのプラグインを有効にするかどうか"
-
-#~ msgid "Enable font plugin"
-#~ msgstr "フォントのプラグインを有効にするかどうか"
-
-#~ msgid "Enable housekeeping plugin"
-#~ msgstr "メンテナンス用プラグインを有効にするかどうか"
-
-#~ msgid "Enable keybindings plugin"
-#~ msgstr "キーバインディングのプラグインを有効にするかどうか"
-
-#~ msgid "Enable keyboard plugin"
-#~ msgstr "キーボードのプラグインを有効にするかどうか"
-
-#~ msgid "Enable media keys plugin"
-#~ msgstr "メディア・キーのプラグインを有効にするかどうか"
-
-#~ msgid "Enable mouse plugin"
-#~ msgstr "マウスのプラグインを有効にするかどうか"
-
-#~ msgid "Enable sound plugin"
-#~ msgstr "サウンドのプラグインを有効にするかどうか"
-
-#~ msgid "Enable typing breaks plugin"
-#~ msgstr "一休みのプラグインを有効にするかどうか"
-
-#~ msgid "Enable xrdb plugin"
-#~ msgstr "Xrdb のプラグインを有効にするかどうか"
-
-#~ msgid "Enable xsettings plugin"
-#~ msgstr "Xsettings のプラグインを有効にするかどうか"
-
-#~ msgid "Mouse keys"
-#~ msgstr "マウス・キー"
-
-#~ msgid "On-screen keyboard"
-#~ msgstr "オンスクリーン・キーボードを有効にするかどうか"
-
-#~ msgid "Screen magnifier"
-#~ msgstr "スクリーンの拡大鏡を有効にするかどうか"
-
-#~ msgid "Screen reader"
-#~ msgstr "スクリーン・リーダを有効にするかどうか"
-
-#~ msgid ""
-#~ "Set to True to enable the housekeeping plugin, to prune transient file "
-#~ "caches."
-#~ msgstr ""
-#~ "TRUE にすると、メンテナンス用のプラグインを有効にします (作業ファイルの"
-#~ "キャッシュを減らす際に使用します)。"
-
-#~ msgid "Set to True to enable the plugin to manage XRandR settings."
-#~ msgstr "TRUE にすると、XRandR 設定を管理するプラグインを有効にします。"
-
-#~ msgid "Set to True to enable the plugin to manage clipboard settings."
-#~ msgstr ""
-#~ "TRUE にすると、クリップボードの設定を管理するプラグインを有効にします。"
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage desktop background settings."
-#~ msgstr ""
-#~ "TRUE にすると、デスクトップの背景を管理するプラグインを有効にします。"
-
-#~ msgid "Set to True to enable the plugin to manage font settings."
-#~ msgstr "TRUE にすると、フォントの設定を管理するプラグインを有効にします。"
-
-#~ msgid "Set to True to enable the plugin to manage keyboard settings."
-#~ msgstr "TRUE にすると、キーボードの設定を管理するプラグインを有効にします。"
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage locking the screen on "
-#~ "smartcard removal."
-#~ msgstr ""
-#~ "TRUE にすると、スマートカードを抜くと画面をロックするよう管理するプラグイ"
-#~ "ンを有効にします。"
-
-#~ msgid "Set to True to enable the plugin to manage mouse settings."
-#~ msgstr "TRUE にすると、マウスの設定を管理するプラグインを有効にします。"
-
-#~ msgid "Set to True to enable the plugin to manage multimedia keys settings."
-#~ msgstr ""
-#~ "TRUE にすると、マルチメディア・キーの設定を管理するプラグインを有効にしま"
-#~ "す。"
-
-#~ msgid "Set to True to enable the plugin to manage sound sample caches."
-#~ msgstr ""
-#~ "TRUE にすると、サウンドのサンプル・キャッシュを管理するプラグインを有効に"
-#~ "します。"
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage the accessibility keyboard "
-#~ "settings."
-#~ msgstr ""
-#~ "TRUE にすると、アクセシビリティに関係するキーボードの操作性を管理するプラ"
-#~ "グインを有効にします。"
-
-#~ msgid "Set to True to enable the plugin to manage the keybindings."
-#~ msgstr ""
-#~ "TRUE にすると、キーバインディングの設定を管理するプラグインを有効にしま"
-#~ "す。"
-
-#~ msgid "Set to True to enable the plugin to manage typing breaks."
-#~ msgstr ""
-#~ "TRUE にすると、キーボードを使って一休みするプラグインを有効にします。"
-
-#~ msgid "Set to True to enable the plugin to manage xrdb settings."
-#~ msgstr "TRUE にすると、Xrdb の設定を管理するプラグインを有効にします。"
-
-#~ msgid "Set to True to enable the plugin to manage xsettings."
-#~ msgstr "TRUE にすると、Xsettings の設定を管理するプラグインを有効にします。"
-
-#~ msgid "Slow keys"
-#~ msgstr "スロー・キーを有効にするかどうか"
-
-#~ msgid "Sticky keys"
-#~ msgstr "スティッキー・キーを有効にするかどうか"
-
-#~ msgid "The name of the keyboard shortcut to toggle the magnifier"
-#~ msgstr "キーボード・ショートカットの変更ダイアログで表示する項目名"
-
-#~ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
-#~ msgstr "キーボード・ショートカットの変更ダイアログで表示する項目名"
-
-#~ msgid "The name of the keyboard shortcut to toggle the screen reader"
-#~ msgstr "スクリーン・リーダを切り替えるキーボード・ショートカットの名前"
-
-#~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the magnifier. This "
-#~ "name will be shown in the keyboard shortcut preferences dialog."
-#~ msgstr ""
-#~ "キーボード・ショートカットの設定ダイアログで、拡大鏡を起動したり停止する"
-#~ "キー・バインディングの項目に表示する名称です。"
-
-#~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the on-screen "
-#~ "keyboard. This name will be shown in the keyboard shortcut preferences "
-#~ "dialog."
-#~ msgstr ""
-#~ "キーボード・ショートカットの設定ダイアログで、オンスクリーン・キーボードを"
-#~ "起動したり停止するキー・バインディングの項目に表示する名称です。"
-
-#~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the screen reader. "
-#~ "This name will be shown in the keyboard shortcut preferences dialog."
-#~ msgstr ""
-#~ "これは、スクリーン・リーダを切り替えるキーボード・ショートカットの名前で"
-#~ "す。キーボード・ショートカットの設定ダイアログに表示されます。"
-
-#~ msgid "Toggle magnifier"
-#~ msgstr "拡大鏡を起動または停止する"
-
-#~ msgid "Toggle on-screen keyboard"
-#~ msgstr "オンスクリーン・キーボードを起動または停止する"
-
-#~ msgid "Toggle screen reader"
-#~ msgstr "スクリーン・リーダの切り替え"
-
-#~ msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-#~ msgstr ""
-#~ "バウンス・キーによるキーボード・アクセシビリティの機能を有効にするかどうか"
-#~ "です。"
-
-#~ msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-#~ msgstr ""
-#~ "マウス・キーによるキーボード・アクセシビリティの機能を有効にするかどうかで"
-#~ "す。"
-
-#~ msgid "Whether the on-screen keyboard is turned on."
-#~ msgstr "オンスクリーン・キーボードを有効にするかどうかです。"
-
-#~ msgid "Whether the screen magnifier is turned on."
-#~ msgstr "スクリーンの拡大鏡を有効にするかどうかです。"
-
-#~ msgid "Whether the screen reader is turned on."
-#~ msgstr "スクリーン・リーダを有効にするかどうかです。"
-
-#~ msgid "Whether the slow keys keyboard accessibility feature is turned on."
-#~ msgstr ""
-#~ "スロー・キーによるによるキーボード・アクセシビリティの機能を有効にするかど"
-#~ "うかです。"
-
-#~ msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-#~ msgstr ""
-#~ "スティッキー・キーによるキーボード・アクセシビリティの機能を有効にするかど"
-#~ "うかです。"
-
-#~ msgid "Don't become a daemon"
-#~ msgstr "デーモン化しない"
-
-#~ msgid "GConf prefix from which to load plugin settings"
-#~ msgstr "読み込むプラグインを GConf の接頭子で指定する"
-
-#~ msgid "Font"
-#~ msgstr "フォント"
-
-#~ msgid "Font plugin"
-#~ msgstr "フォントのプラグイン"
-
-#~ msgid ""
-#~ "You are using XFree 4.3.0.\n"
-#~ "There are known problems with complex XKB configurations.\n"
-#~ "Try using a simpler configuration or using a later version of the XFree "
-#~ "software."
-#~ msgstr ""
-#~ "XFree 4.3.0 を利用しています。\n"
-#~ "複雑な XKB 設定を行っている際に問題が起こることが知られています。\n"
-#~ "もっと単純な設定にしてみるか、もっと新しいバージョンの XFree を使ってみて"
-#~ "ください。"
-
-#~ msgid "A_vailable files:"
-#~ msgstr "利用可能なファイル(_V):"
-
-#~ msgid "Load modmap files"
-#~ msgstr "modmap ファイルの読み込み"
-
-#~ msgid "Would you like to load the modmap files?"
-#~ msgstr "modmap ファイルを読み込みますか?"
-
-#~ msgid "_Do not show this message again"
-#~ msgstr "次回からこのメッセージを表示しない(_D)"
-
-#~ msgid "_Load"
-#~ msgstr "読み込む(_L)"
-
-#~ msgid "_Loaded files:"
-#~ msgstr "読み込んだファイル(_L):"
-
-#~ msgid "Mouse Preferences"
-#~ msgstr "マウスの設定"
-
-#~ msgid "Typing Break"
-#~ msgstr "一休み"
-
-#~ msgid "Typing break plugin"
-#~ msgstr "一休みのプラグイン"
-
-#~ msgid "Rotation not supported"
-#~ msgstr "回転はサポートしていません"
-
-#~ msgid "Could not save monitor configuration"
-#~ msgstr "モニタの設定を保存できませんでした"
-
-#~ msgid "Normal"
-#~ msgstr "標準"
-
-#~ msgid "Left"
-#~ msgstr "左"
-
-#~ msgid "Right"
-#~ msgstr "右"
-
-#~ msgid "Upside Down"
-#~ msgstr "逆さま"
-
-#~ msgid "_Configure Display Settings…"
-#~ msgstr "ディスプレイの設定(_C)…"
-
-#~ msgid "Configure display settings"
-#~ msgstr "ディスプレイの設定を変更します"
-
-#~ msgid "Unknown"
-#~ msgstr "不明"
-
-#~ msgid "Keyboard Layout \"%s\""
-#~ msgstr "キーボード配置 \"%s\""
-
-#~ msgid "_Groups"
-#~ msgstr "グループ(_G)"
-
-#~ msgid "Keyboard Layout"
-#~ msgstr "キーボード配置"
-
-#~ msgid ""
-#~ "Couldn't put the machine to sleep.\n"
-#~ "Verify that the machine is correctly configured."
-#~ msgstr ""
-#~ "お使いのシステムをスリープできませんでした。\n"
-#~ "お使いのシステムが正しく設定されているか確認してください。"
