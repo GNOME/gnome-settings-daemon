@@ -348,8 +348,6 @@ main (int argc, char *argv[])
 
         manager = NULL;
 
-        gdk_enable_multidevice ();
-
         if (!g_thread_supported ()) {
                 g_thread_init (NULL);
         }
