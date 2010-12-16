@@ -784,7 +784,9 @@ set_gsettings_from_server (GsdA11yKeyboardManager *manager)
                 return;
         }
 
-        settings = manager->priv->settings;
+	/* Create a new one, so that only those settings
+	 * are delayed */
+        settings = g_settings_new (KEYBOARD_A11Y_SCHEMA);
         g_settings_delay (settings);
 
         /*
@@ -885,6 +887,7 @@ set_gsettings_from_server (GsdA11yKeyboardManager *manager)
         XkbFreeKeyboard (desc, XkbAllComponentsMask, True);
 
         g_settings_apply (settings);
+        g_object_unref (settings);
 }
 
 static GdkFilterReturn
