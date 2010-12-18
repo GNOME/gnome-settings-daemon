@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-12-13 12:10+0000\n"
-"PO-Revision-Date: 2010-12-18 15:22+0100\n"
+"POT-Creation-Date: 2010-12-18 14:23+0000\n"
+"PO-Revision-Date: 2010-12-18 20:06+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -598,7 +598,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 msgid "Enable this to set the cursor to absolute mode."
-msgstr ""
+msgstr "Activar esto para establecer el cursor en el modo absoluto."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Enable this to set the eraser to absolute mode."
@@ -888,7 +888,6 @@ msgid "Automount"
 msgstr "Automontar"
 
 #: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
-#| msgid "Font plugin"
 msgid "Automounter plugin"
 msgstr "Complemento de automontado"
 
@@ -911,13 +910,11 @@ msgid "Do Nothing"
 msgstr "No hacer nada"
 
 #: ../plugins/automount/gsd-autorun.c:352
-#| msgid "Home folder"
 msgid "Open Folder"
 msgstr "Abrir carpeta"
 
 #: ../plugins/automount/gsd-autorun.c:495
 #, c-format
-#| msgid "Enable touchpad"
 msgid "Unable to eject %p"
 msgstr "No se pudo expulsar %p"
 
@@ -928,70 +925,72 @@ msgstr "No se pudo desmontar %p"
 
 #: ../plugins/automount/gsd-autorun.c:700
 msgid "You have just inserted an Audio CD."
-msgstr ""
+msgstr "Ha introducido un CD de sonido."
 
 #: ../plugins/automount/gsd-autorun.c:702
 msgid "You have just inserted an Audio DVD."
-msgstr ""
+msgstr "Ha introducido un DVD de sonido."
 
 #: ../plugins/automount/gsd-autorun.c:704
 msgid "You have just inserted a Video DVD."
-msgstr ""
+msgstr "Ha introducido un DVD de vídeo."
 
 #: ../plugins/automount/gsd-autorun.c:706
 msgid "You have just inserted a Video CD."
-msgstr ""
+msgstr "Ha introducido un Video CD."
 
 #: ../plugins/automount/gsd-autorun.c:708
 msgid "You have just inserted a Super Video CD."
-msgstr ""
+msgstr "Ha introducido un CD de Super Video."
 
 #: ../plugins/automount/gsd-autorun.c:710
 msgid "You have just inserted a blank CD."
-msgstr ""
+msgstr "Ha introducido un CD virgen."
 
 #: ../plugins/automount/gsd-autorun.c:712
 msgid "You have just inserted a blank DVD."
-msgstr ""
+msgstr "Ha introducido un DVD virgen."
 
 #: ../plugins/automount/gsd-autorun.c:714
 msgid "You have just inserted a blank Blu-Ray disc."
-msgstr ""
+msgstr "Ha introducido un disco Blu-Ray virgen."
 
 #: ../plugins/automount/gsd-autorun.c:716
 msgid "You have just inserted a blank HD DVD."
-msgstr ""
+msgstr "Ha introducido un HD DVD virgen."
 
 #: ../plugins/automount/gsd-autorun.c:718
 msgid "You have just inserted a Photo CD."
-msgstr ""
+msgstr "Ha introducido un disco de fotos Photo CD."
 
 #: ../plugins/automount/gsd-autorun.c:720
 msgid "You have just inserted a Picture CD."
-msgstr ""
+msgstr "Ha introducido un disco de fotos Picture CD."
 
 #: ../plugins/automount/gsd-autorun.c:722
 msgid "You have just inserted a medium with digital photos."
-msgstr ""
+msgstr "Ha introducido un soporte con fotos digitales."
 
 #: ../plugins/automount/gsd-autorun.c:724
 msgid "You have just inserted a digital audio player."
-msgstr ""
+msgstr "Ha introducido un reproductor de sonido digital."
 
 #: ../plugins/automount/gsd-autorun.c:726
 msgid ""
 "You have just inserted a medium with software intended to be automatically "
 "started."
 msgstr ""
+"Ha introducido un soporte con software previsto para que se ejecute "
+"automáticamente."
 
 #. fallback to generic greeting
 #: ../plugins/automount/gsd-autorun.c:729
 msgid "You have just inserted a medium."
-msgstr ""
+msgstr "Ha introducido un soporte."
 
 #: ../plugins/automount/gsd-autorun.c:731
 msgid "Choose what application to launch."
-msgstr ""
+msgstr "Elija qué aplicación lanzar."
 
 #: ../plugins/automount/gsd-autorun.c:740
 #, c-format
@@ -999,13 +998,14 @@ msgid ""
 "Select how to open \"%s\" and whether to perform this action in the future "
 "for other media of type \"%s\"."
 msgstr ""
+"Seleccione cómo abrir «%s» y si se realizará esta acción en el futuro para "
+"otros soportes del tipo «%s»."
 
 #: ../plugins/automount/gsd-autorun.c:767
 msgid "_Always perform this action"
-msgstr ""
+msgstr "_Siempre realizar esta acción"
 
 #: ../plugins/automount/gsd-autorun.c:783
-#| msgid "Eject"
 msgid "_Eject"
 msgstr "E_xpulsar"
 
@@ -1469,7 +1469,7 @@ msgstr "Configurar el reloj hardware"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
 msgid "Configure network time"
-msgstr ""
+msgstr "Configurar la hora de red"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
 msgid "Privileges are required to change the system time zone."
@@ -1480,7 +1480,6 @@ msgid "Privileges are required to change the system time."
 msgstr "Se requieren privilegios para cambiar la hora del sistema."
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:7
-#| msgid "Privileges are required to change the system time."
 msgid "Privileges are required to configure network time."
 msgstr "Se requieren privilegios para configurar la hora de red."
 
