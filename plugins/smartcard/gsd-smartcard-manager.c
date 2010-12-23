@@ -1401,7 +1401,6 @@ gsd_smartcard_manager_worker_run (GsdSmartcardManagerWorker *worker)
                 g_error_free (error);
         }
 
-out:
         gsd_smartcard_manager_worker_free (worker);
 }
 
