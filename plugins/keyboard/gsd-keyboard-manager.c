@@ -350,7 +350,7 @@ apply_settings (GSettings          *settings,
 #endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
-        gdk_error_trap_pop ();
+        gdk_error_trap_pop_ignored ();
 }
 
 void

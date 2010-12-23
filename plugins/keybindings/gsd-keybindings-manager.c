@@ -315,7 +315,7 @@ binding_unregister_keys (GsdKeybindingsManager *manager)
 
         if (need_flush)
                 gdk_flush ();
-        gdk_error_trap_pop ();
+        gdk_error_trap_pop_ignored ();
 }
 
 static void

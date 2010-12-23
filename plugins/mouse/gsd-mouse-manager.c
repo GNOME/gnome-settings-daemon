@@ -288,7 +288,7 @@ touchpad_has_single_button (XDevice *device)
         if (rc == Success)
                 XFree (data);
 
-        gdk_error_trap_pop ();
+        gdk_error_trap_pop_ignored ();
 
         return is_single_button;
 }
@@ -539,7 +539,7 @@ set_middle_button (GsdMouseManager *manager,
                         XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                                device, prop, type, format, PropModeReplace, data, nitems);
 
-                        gdk_error_trap_pop ();
+                        gdk_error_trap_pop_ignored ();
                 }
 
                 XFree (data);

@@ -1375,7 +1375,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 
         if (need_flush)
                 gdk_flush ();
-        gdk_error_trap_pop ();
+        gdk_error_trap_pop_ignored ();
 
         if (priv->screens != NULL) {
                 g_slist_free (priv->screens);
