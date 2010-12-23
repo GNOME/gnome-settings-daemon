@@ -145,11 +145,21 @@ apply_desktop_settings (void)
 static void
 popup_menu_launch_capplet ()
 {
+	GAppInfo *info;
+	GdkAppLaunchContext *ctx;
 	GError *error = NULL;
 
-	gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
-					  "gnome-keyboard-properties",
-					  &error);
+	info = g_app_info_create_from_commandline ("gnome-keyboard-properties", NULL, 0, &error);
+
+	if (info != NULL) {
+		ctx = gdk_display_get_app_launch_context (gdk_display_get_default ());
+
+		g_app_info_launch (info, NULL,
+				   G_APP_LAUNCH_CONTEXT (ctx), &error);
+
+		g_object_unref (info);
+		g_object_unref (ctx);
+	}
 
 	if (error != NULL) {
 		g_warning
