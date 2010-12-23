@@ -825,11 +825,11 @@ clipboard_manager_watch_cb (GsdClipboardManager *manager,
         GdkDisplay *display;
 
         display = gdk_display_get_default ();
-        gdkwin = gdk_window_lookup_for_display (display, window);
+        gdkwin = gdk_x11_window_lookup_for_display (display, window);
 
         if (is_start) {
                 if (gdkwin == NULL) {
-                        gdkwin = gdk_window_foreign_new_for_display (display, window);
+                        gdkwin = gdk_x11_window_foreign_new_for_display (display, window);
                 } else {
                         g_object_ref (gdkwin);
                 }

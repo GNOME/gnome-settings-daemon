@@ -412,7 +412,7 @@ get_exec_environment (XEvent *xevent)
         int        i;
         int        display_index = -1;
         GdkScreen *screen = NULL;
-        GdkWindow *window = gdk_xid_table_lookup (xevent->xkey.root);
+        GdkWindow *window = gdk_x11_window_lookup_for_display (gdk_display_get_default (), xevent->xkey.root);
 
         if (window) {
                 screen = gdk_window_get_screen (window);
