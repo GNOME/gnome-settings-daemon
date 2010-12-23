@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-11-16 17:53+0000\n"
+"POT-Creation-Date: 2010-12-13 12:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Gheyret Kenji<gheyret@yahoo.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -32,11 +32,11 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid "Distance before a drag is started."
-msgstr "سۆرەشنى باشلىغۇچە بولغان ئارىلىق。"
+msgstr "سۆرەشنى باشلىغۇچە بولغان ئارىلىق."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Double click time"
-msgstr ""
+msgstr "قوش چېكىش ۋاقتى"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid "Drag threshold"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Enable touchpad"
-msgstr ""
+msgstr "سېزىمچان ئېكراننى قوزغات"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid ""
@@ -115,26 +115,32 @@ msgstr ""
 msgid "Smartcard removal action"
 msgstr ""
 
+#. g-p-m is not a GSD plugin, yet
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr "بۇ قىستۇرمىنى ئاكتىپلاش"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
@@ -143,6 +149,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
@@ -163,7 +170,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
-msgstr ""
+msgstr "پەرۋا قىلمايدىغان ئېگەرلەش يولى"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
@@ -205,7 +212,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
 msgid "Display keyboard LEDs on the panel"
-msgstr ""
+msgstr "ھەرپتاختىنىڭ LED سىنى تاختايدا كۆرسەت"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 msgid ""
@@ -218,10 +225,12 @@ msgid "Never show layout indicator"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr ""
 
@@ -323,7 +332,7 @@ msgstr "قاڭقىت"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Home folder"
-msgstr ""
+msgstr "ماكان مۇندەرىجە"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid ""
@@ -333,23 +342,23 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Launch calculator"
-msgstr ""
+msgstr "ھېسابلىغۇچنى قوزغات"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Launch email client"
-msgstr ""
+msgstr "ئەخلەت ئوقۇغۇنى قوزغات"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Launch help browser"
-msgstr ""
+msgstr "ياردەم قوزغاتقۇنى قوزغات"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Launch media player"
-msgstr ""
+msgstr "ۋاسىتە قويغۇنى قوزغات"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Launch web browser"
-msgstr ""
+msgstr "توركۆرگۈنى قوزغات"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Lock screen"
@@ -357,7 +366,7 @@ msgstr "ئېكراننى قۇلۇپلا"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Log out"
-msgstr "چىقىش"
+msgstr "تىزىمدىن چىق"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Next track"
@@ -449,11 +458,11 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
-msgstr ""
+msgstr "ھەرە چىشىغا قارشى"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "DPI"
-msgstr ""
+msgstr "DPI"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "Hinting"
@@ -469,7 +478,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "RGBA order"
-msgstr ""
+msgstr "RGBA تەرتىپى"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
@@ -499,11 +508,149 @@ msgid ""
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:53
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+msgid ""
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+msgid ""
+"Set this to the pressure value at which a stylus click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr ""
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "سازلاش كودىنى قوزغات"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "بىردەمدىن كېيىن چېكىن - سازلاش ئۈچۈن"
 
@@ -523,12 +670,12 @@ msgstr "ياردەم كۆرسىتىشتە خاتالىق كۆرۈلدى: %s"
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:577
 msgid "Do you want to activate Slow Keys?"
-msgstr ""
+msgstr "Slow Keys نى ئاكتىپلامسىز؟"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:516
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:578
 msgid "Do you want to deactivate Slow Keys?"
-msgstr ""
+msgstr "Slow Keys نى ئاكتىپسىزلامسىز؟"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
@@ -540,12 +687,12 @@ msgstr ""
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
 msgid "Don't activate"
-msgstr ""
+msgstr "ئاكتىپلىما"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
 msgid "Don't deactivate"
-msgstr ""
+msgstr "ئاكتىپسىزلىما"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:681
@@ -560,12 +707,12 @@ msgstr "ياپ"
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do_n't activate"
-msgstr ""
+msgstr "ئاكتىپلىما(_n)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do_n't deactivate"
-msgstr ""
+msgstr "ئاكتىپسىزلىما(_n)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
@@ -584,12 +731,12 @@ msgstr ""
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:647
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:711
 msgid "Do you want to activate Sticky Keys?"
-msgstr ""
+msgstr "Sticky Keys نى ئاكتىپلامسىز؟"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:648
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:712
 msgid "Do you want to deactivate Sticky Keys?"
-msgstr ""
+msgstr "Sticky Keys نى ئاكتىپسىزلامسىز؟"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
@@ -647,6 +794,133 @@ msgstr ""
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr ""
 
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr ""
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+msgid "Automounter plugin"
+msgstr ""
+
+#: ../plugins/automount/gsd-automount-manager.c:145
+#, c-format
+msgid "Unable to mount %s"
+msgstr "%s نى ئېگەرلىگىلى بولمىدى"
+
+#: ../plugins/automount/gsd-automount-manager.c:204
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr "مەشغۇلاتنى سورا"
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr "ھېچقانداق قىلما"
+
+#: ../plugins/automount/gsd-autorun.c:352
+msgid "Open Folder"
+msgstr "قىسقۇچ ئاچ"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, c-format
+msgid "Unable to eject %p"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:700
+msgid "You have just inserted an Audio CD."
+msgstr "سىز بايا ئۈن CD دىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio DVD."
+msgstr "سىز بايا ئۈن DVD دىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted a Video DVD."
+msgstr "سىز بايا سىن DVD دىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video CD."
+msgstr "سىز بايا VCD دىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Super Video CD."
+msgstr "سىز بايا ئالىي VCD دىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a blank CD."
+msgstr "سىز بايا بوش CD دىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank DVD."
+msgstr "سىز بايا بوش DVD دىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "سىز بايا بوش كۆك نۇر دىسكىدىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank HD DVD."
+msgstr "سىز بايا بوش HD DVD دىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a Photo CD."
+msgstr "سىز بايا سۈرەت CD دىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Picture CD."
+msgstr "سىز بايا رەسىم CD دىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a medium with digital photos."
+msgstr "سىز بايا ئوتتۇراھال رەقەملىك سۈرەت ۋاسىتىسى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a digital audio player."
+msgstr "سىز بايا رەقەملىك ئۈنقويغۇدىن بىرنى قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr "سىز بايا ئۆزلۈكىدىن يۇمشاق دېتال قوزغىتىدىغان ۋاسىتە قىستۇردىڭىز."
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:729
+msgid "You have just inserted a medium."
+msgstr "سىز بايا ۋاسىتە قىستۇردىڭىز."
+
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "Choose what application to launch."
+msgstr "ئىجرا قىلىدىغان پروگراممىنى تاللاڭ."
+
+#: ../plugins/automount/gsd-autorun.c:740
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr "\"%s\" قانداق ئېچىشنى تاللاڭ، ھەمدە بۇندىن كېيىن باشقا \"%s\" مۇ بۇ مەشغۇلاتنى ئىجرا قىلالامدۇ يوق."
+
+#: ../plugins/automount/gsd-autorun.c:767
+msgid "_Always perform this action"
+msgstr "ھەمىشە بۇ مەشغۇلاتنى ئىجرا قىل(_A)"
+
+#: ../plugins/automount/gsd-autorun.c:783
+#| msgid "Eject"
+msgid "_Eject"
+msgstr "دىسكىنى چىقىرىش(_E)"
+
+#: ../plugins/automount/gsd-autorun.c:788
+msgid "_Unmount"
+msgstr "ئېگەرسىزلە(_U)"
+
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
 msgstr "تەگلىك"
@@ -673,7 +947,6 @@ msgstr ""
 
 #: ../plugins/housekeeping/gsd-disk-space.c:271
 #, c-format
-#| msgid "Low Disk Space"
 msgid "Low Disk Space on \"%s\""
 msgstr ""
 
@@ -725,11 +998,11 @@ msgstr "پەرۋا قىلما"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
 msgid "Don't show any warnings again for this file system"
-msgstr ""
+msgstr "بۇ ھۆججەت سىستېمىسىغا نىسبەتەن، ئەمدى ھېچقانداق ئاگاھلاندۇرۇش چىقارما"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again"
-msgstr ""
+msgstr "ئەمدى ھېچقانداق ئاگاھلاندۇرۇش چىقارما"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
 msgid ""
@@ -772,7 +1045,7 @@ msgstr "ئۆچۈرۈۋاتىدۇ: %s"
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
 msgid "Emptying the trash"
-msgstr ""
+msgstr "ئەخلەتخانىنى قۇرۇقداۋاتىدۇ"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
 msgid "Preparing to empty trash…"
@@ -828,7 +1101,7 @@ msgstr "ھەرپتاختا"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
 msgid "Keyboard plugin"
-msgstr ""
+msgstr "ھەرپتاختا قىستۇرمىسى"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:108
 #, c-format
@@ -843,30 +1116,31 @@ msgid ""
 " • <b>%s</b>"
 msgstr ""
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:239
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:238
 msgid "_Layouts"
 msgstr ""
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:246
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:245
 msgid "Keyboard _Preferences"
-msgstr ""
+msgstr "ھەرپتاختا خاسلىقى(_P)"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:252
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:251
 msgid "Show _Current Layout"
 msgstr ""
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:205
+#: ../plugins/media-keys/gsd-media-keys-manager.c:204
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
 msgstr ""
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:245
+#: ../plugins/media-keys/gsd-media-keys-manager.c:244
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
 "Verify that this is a valid command."
-msgstr ""
+msgstr "بۇيرۇقنى ئىجرا قىلالمىدى: %s\n"
+"بۇ ئىناۋەتلىك بۇيرۇقمۇ تەكشۈرۈڭ."
 
 #. translators:
 #. * The device has been disabled
@@ -880,7 +1154,7 @@ msgstr "چەكلەنگەن"
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
-msgstr[0] "%u چىقار"
+msgstr[0] "%u چىقىرىلما"
 
 #. translators:
 #. * The number of sound inputs on a particular device
@@ -888,7 +1162,7 @@ msgstr[0] "%u چىقار"
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
-msgstr[0] "%u كىرگۈز"
+msgstr[0] "%u كىرگۈزۈلمە"
 
 #: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1320
 msgid "System Sounds"
@@ -921,7 +1195,7 @@ msgstr "چاشقىنەك"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
-msgstr ""
+msgstr "چاشقىنەك قىستۇرمىسى:"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -931,51 +1205,51 @@ msgstr ""
 msgid "XRandR"
 msgstr ""
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:347
+#: ../plugins/xrandr/gsd-xrandr-manager.c:403
 msgid "Could not switch the monitor configuration"
 msgstr ""
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:371
+#: ../plugins/xrandr/gsd-xrandr-manager.c:427
 msgid "Could not restore the display's configuration"
-msgstr ""
+msgstr "ئېكراننىڭ سەپلىمىسىنى ئەسلىگە كەلتۈرەلمىدى"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:396
+#: ../plugins/xrandr/gsd-xrandr-manager.c:452
 msgid "Could not restore the display's configuration from a backup"
-msgstr ""
+msgstr "زاپاستىن ئېكراننىڭ سەپلىمىسىنى ئەسلىگە كەلتۈرەلمىدى"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:417
+#: ../plugins/xrandr/gsd-xrandr-manager.c:473
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] ""
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:466
+#: ../plugins/xrandr/gsd-xrandr-manager.c:522
 msgid "Does the display look OK?"
-msgstr ""
+msgstr "ئېكراننىڭ كۆرۈنۈشى نورمالمۇ؟"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:473
+#: ../plugins/xrandr/gsd-xrandr-manager.c:529
 msgid "_Restore Previous Configuration"
 msgstr ""
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:474
+#: ../plugins/xrandr/gsd-xrandr-manager.c:530
 msgid "_Keep This Configuration"
 msgstr ""
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:555
+#: ../plugins/xrandr/gsd-xrandr-manager.c:611
 msgid "The selected configuration for displays could not be applied"
 msgstr ""
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1131
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1150
 #, c-format
 msgid "Could not refresh the screen information: %s"
-msgstr ""
+msgstr "ئېكران ئۇچۇرلىرىنى يېڭىلىيالمىدى: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1135
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1154
 msgid "Trying to switch the monitor configuration anyway."
 msgstr ""
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1588
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1626
 msgid "Could not apply the stored configuration for monitors"
 msgstr ""
 
@@ -987,69 +1261,69 @@ msgstr ""
 msgid "X Settings"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:167
+#: ../plugins/smartcard/gsd-smartcard-manager.c:187
 msgid "Module Path"
-msgstr "Module يولى"
+msgstr "بۆلەك يولى"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:168
+#: ../plugins/smartcard/gsd-smartcard-manager.c:188
 msgid "path to smartcard PKCS #11 driver"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:504
+#: ../plugins/smartcard/gsd-smartcard-manager.c:531
 msgid "received error or hang up from event source"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:593
+#: ../plugins/smartcard/gsd-smartcard-manager.c:665
 #, c-format
 msgid "NSS security system could not be initialized"
-msgstr ""
+msgstr "NSS بىخەتەرلىك سىستېمىسىنى دەسلەپلەشتۈرگىلى بولمىدى"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#: ../plugins/smartcard/gsd-smartcard-manager.c:793
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:682
+#: ../plugins/smartcard/gsd-smartcard-manager.c:807
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:771
+#: ../plugins/smartcard/gsd-smartcard-manager.c:880
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1124
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1283
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:154
+#: ../plugins/smartcard/gsd-smartcard.c:156
 msgid "Slot ID"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:155
+#: ../plugins/smartcard/gsd-smartcard.c:157
 msgid "The slot the card is in"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:161
+#: ../plugins/smartcard/gsd-smartcard.c:163
 msgid "Slot Series"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:162
+#: ../plugins/smartcard/gsd-smartcard.c:164
 msgid "per-slot card identifier"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:168
-#: ../plugins/smartcard/gsd-smartcard.c:169
+#: ../plugins/smartcard/gsd-smartcard.c:170
+#: ../plugins/smartcard/gsd-smartcard.c:171
 msgid "name"
 msgstr "ئاتى"
 
-#: ../plugins/smartcard/gsd-smartcard.c:173
+#: ../plugins/smartcard/gsd-smartcard.c:175
 msgid "Module"
 msgstr "بۆلەك"
 
-#: ../plugins/smartcard/gsd-smartcard.c:174
+#: ../plugins/smartcard/gsd-smartcard.c:176
 msgid "smartcard driver"
 msgstr ""
 
@@ -1066,13 +1340,22 @@ msgid "Configure hardware clock"
 msgstr "قاتتىق دېتال سائەت سەپلىمىسى"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
+msgid "Configure network time"
+msgstr ""
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
 msgid "Privileges are required to change the system time zone."
 msgstr "سىستېما ۋاقىت رايونىنى ئۆزگەرتىشكە ئالاھىدە ئىمتىياز كېرەك."
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
 msgid "Privileges are required to change the system time."
 msgstr "سىستېما ۋاقتىنى ئۆزگەرتىشكە ئالاھىدە ئىمتىياز كېرەك."
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:7
+#| msgid "Privileges are required to change the system time."
+msgid "Privileges are required to configure network time."
+msgstr ""
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:8
 msgid "Privileges are required to configure the hardware clock."
 msgstr "قاتتىق دېتال سائىتىنى ئۆزگەرتىشكە ئالاھىدە ئىمتىياز كېرەك."
