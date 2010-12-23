@@ -91,7 +91,7 @@ trash_empty_update_dialog (gpointer user_data)
                 gchar *markup;
                 GFile *parent;
 
-                text = g_strdup_printf (_("Removing item %lu of %lu"),
+                text = g_strdup_printf (_("Removing item %"G_GSIZE_FORMAT" of %"G_GSIZE_FORMAT),
                                         deleted, total);
                 gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progressbar), text);
 

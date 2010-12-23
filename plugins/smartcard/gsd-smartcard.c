@@ -72,7 +72,6 @@ static PK11SlotInfo *gsd_smartcard_find_slot_from_id (GsdSmartcard *card,
 
 static PK11SlotInfo *gsd_smartcard_find_slot_from_card_name (GsdSmartcard *card,
                                                             const char  *card_name);
-static gboolean gsd_smartcard_fetch_certificates (GsdSmartcard *card);
 
 #ifndef GSD_SMARTCARD_DEFAULT_SLOT_ID
 #define GSD_SMARTCARD_DEFAULT_SLOT_ID ((gulong) -1)

@@ -47,14 +47,6 @@ timezone_set (const char *new_tz)
 	return 0;
 }
 
-static void
-timezone_changed (SystemTimezone *systz,
-		  const char     *new_tz,
-		  gpointer        data)
-{
-	g_print ("Timezone changed to: %s\n", new_tz);
-}
-
 int
 main (int    argc,
       char **argv)
@@ -62,7 +54,6 @@ main (int    argc,
 	int      retval;
 
 	gboolean  get = FALSE;
-	gboolean  monitor = FALSE;
 	char     *tz_set = NULL;
 
 	GError         *error;
