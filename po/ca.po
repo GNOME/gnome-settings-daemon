@@ -12,10 +12,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-29 23:34+0200\n"
-"PO-Revision-Date: 2010-09-29 00:37+0200\n"
+"POT-Creation-Date: 2010-12-26 19:43+0100\n"
+"PO-Revision-Date: 2010-12-22 00:40+0100\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -248,14 +249,18 @@ msgid "Volume up"
 msgstr "Apuja el volum"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid "Do not touch monitor configuration"
+msgstr "No toqueu la configuració del monitor"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "File for default configuration for RandR"
 msgstr "Fitxer per a la configuració predeterminada del RandR"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
 msgid "Show Displays in Notification Area"
 msgstr "Mostra les pantalles a l'àrea de notificació"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -270,11 +275,11 @@ msgstr ""
 "de l'usuari, llavors en lloc seu s'utilitzarà el fitxer especificat per "
 "aquesta clau."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
 msgid "Turn on external monitor after system boot"
 msgstr "Engega el monitor extern després d'arrencar el sistema"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
 msgid ""
 "Turn on external monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -282,11 +287,11 @@ msgstr ""
 "Engega el monitor extern després d'arrencar el sistema si l'usuari connecta "
 "un monitor extern en arrencar el sistema."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
 msgid "Turn on laptop monitor after system boot"
 msgstr "Engega el monitor del portàtil després d'arrencar el sistema"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
 msgid ""
 "Turn on laptop monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -294,7 +299,23 @@ msgstr ""
 "Engega el monitor del portàtil després d'arrencar el sistema si l'usuari "
 "connecta un monitor extern en arrencar el sistema."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:9
+msgid ""
+"Usually, gnome-settings-daemon configures internal and external monitors "
+"according to the turn_on_external_monitors_at_startup and "
+"turn_on_laptop_monitor_at_startup settings and determines an appropriate "
+"cloning/side-by-side mode. Setting this key to True disables this, and the "
+"monitor settings are not touched at all (unless there is an explicit user "
+"configuration)."
+msgstr ""
+"Normalment el gnome-settings-daemon configura el monitor intern i extern "
+"d'acord amb els paràmetres «turn_on_external_monitors_at_startup» i "
+"«turn_on_laptop_monitor_at_startup» i determina el mode de clonació/costat-a-"
+"costat. Si establiu aquesta clau a «True» (cert) ho inhabilitareu, de manera "
+"que no es tocarà la configuració (si no es que hi ha una configuració "
+"explícita per part de l'usuari)."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:10
 msgid ""
 "Whether a notification icon with display-related things should be shown in "
 "the panel."
@@ -347,8 +368,8 @@ msgid ""
 msgstr ""
 "El tipus de suavitzat que s'utilitzarà per mostrar els tipus de lletra. Els "
 "valors possibles són: «none» (cap) per no aplicar cap suavitzat, "
-"«grayscale» (escala de grisos) per a suavitzat d'escala de grisos estàndard i "
-"«RGBA» per a suavitzat de subpíxel (només per a pantalles LCD)."
+"«grayscale» (escala de grisos) per a suavitzat d'escala de grisos estàndard "
+"i «RGBA» per a suavitzat de subpíxel (només per a pantalles LCD)."
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:8
 msgid ""
@@ -357,9 +378,9 @@ msgid ""
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 "El tipus de contorn que s'utilitzarà per mostrar els tipus de lletra. Els "
-"valors possibles són: «none» (cap) cap contorn, «slight» (lleu) contorn petit, "
-"«medium» (mitjà) contorn moderat i «full» (complet) màxim contorn (pot produir "
-"distorsió en les formes de les lletres)."
+"valors possibles són: «none» (cap) cap contorn, «slight» (lleu) contorn "
+"petit, «medium» (mitjà) contorn moderat i «full» (complet) màxim contorn "
+"(pot produir distorsió en les formes de les lletres)."
 
 #: ../data/desktop_gnome_keybindings.schemas.in.h:1
 msgid "Allowed keys"
@@ -597,8 +618,8 @@ msgstr ""
 #: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr ""
-"Establiu-ho a «True» (cert) per permetre que el connector gestioni la memòria "
-"cau de les mostres de so."
+"Establiu-ho a «True» (cert) per permetre que el connector gestioni la "
+"memòria cau de les mostres de so."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid ""
@@ -1246,21 +1267,21 @@ msgstr "Configura la mida de la pantalla i els paràmetres de rotació"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:371
+#: ../plugins/xrandr/gsd-xrandr-manager.c:372
 msgid "Could not switch the monitor configuration"
 msgstr "No s'ha pogut commutar la configuració del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:395
+#: ../plugins/xrandr/gsd-xrandr-manager.c:396
 msgid "Could not restore the display's configuration"
 msgstr "No s'ha pogut restaurar la configuració de la pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:420
+#: ../plugins/xrandr/gsd-xrandr-manager.c:421
 msgid "Could not restore the display's configuration from a backup"
 msgstr ""
 "No s'ha pogut restaurar la configuració de la pantalla des d'una còpia de "
 "seguretat"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:441
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1270,65 +1291,65 @@ msgstr[0] ""
 msgstr[1] ""
 "Es reiniciarà la pantalla a la configuració anterior d'aquí %d segons"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:490
+#: ../plugins/xrandr/gsd-xrandr-manager.c:491
 msgid "Does the display look OK?"
 msgstr "Es visualitza correctament la pantalla?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:496
+#: ../plugins/xrandr/gsd-xrandr-manager.c:497
 msgid "_Restore Previous Configuration"
 msgstr "_Restaura la configuració anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:497
+#: ../plugins/xrandr/gsd-xrandr-manager.c:498
 msgid "_Keep This Configuration"
 msgstr "_Manté aquesta configuració"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:578
+#: ../plugins/xrandr/gsd-xrandr-manager.c:579
 msgid "The selected configuration for displays could not be applied"
 msgstr "No s'ha pogut aplicar la configuració seleccionada per a pantalles"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1142
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1143
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "No s'ha pogut refrescar la informació de la pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1146
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1147
 msgid "Trying to switch the monitor configuration anyway."
 msgstr ""
 "S'està intentant commutar la configuració del monitor de totes maneres."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1877
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1878
 msgid "Rotation not supported"
 msgstr "No es pot rotar"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1933
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1934
 msgid "Could not save monitor configuration"
 msgstr "No s'ha pogut desar la configuració del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1951
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
 msgid "Normal"
 msgstr "Normal"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
 msgid "Left"
 msgstr "Esquerra"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
 msgid "Right"
 msgstr "Dreta"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1955
 msgid "Upside Down"
 msgstr "Cara avall"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2074
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2075
 msgid "_Configure Display Settings…"
 msgstr "_Configura els paràmetres de la pantalla…"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2115
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2116
 msgid "Configure display settings"
 msgstr "Configura els paràmetres de la pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2175
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2177
 msgid "Could not apply the stored configuration for monitors"
 msgstr "No s'ha pogut aplicar la configuració emmagatzemada per als monitors"
 
@@ -1485,7 +1506,8 @@ msgstr "Calen privilegis per configurar el rellotge del maquinari."
 
 #~ msgid "Set to True to run the screensaver at login."
 #~ msgstr ""
-#~ "Establiu-lo a «True» (cert) per executar l'estalvi de pantalla a l'entrada."
+#~ "Establiu-lo a «True» (cert) per executar l'estalvi de pantalla a "
+#~ "l'entrada."
 
 #~ msgid "Show startup errors"
 #~ msgstr "Mostra els errors de l'inici"
