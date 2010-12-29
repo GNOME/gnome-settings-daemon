@@ -13,10 +13,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-28 13:09+0100\n"
-"PO-Revision-Date: 2010-02-28 13:13+0100\n"
+"POT-Creation-Date: 2010-12-29 17:27+0100\n"
+"PO-Revision-Date: 2010-12-29 17:33+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,542 +27,593 @@ msgstr ""
 msgid "Accessibility"
 msgstr "Hjälpmedel"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
-msgid "Free percentage notify threshold"
-msgstr "Tröskelvärde för notifiering om ledigt utrymme (procent)"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
-msgid "Free space no notify threshold"
-msgstr "Tröskelvärde för notifiering om ledigt utrymme (utrymme)"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
-msgid "Minimum notify period for repeated warnings"
-msgstr "Minsta notifieringsperioden för upprepade varningar"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
-msgid "Mount paths to ignore"
-msgstr "Monteringssökvägar att ignorera"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
-msgid "Percentage free space threshold for initial warning of low disk space. If the percentage free space drops below this, a warning will be shown"
-msgstr "Tröskelvärde för ledigt utrymme (procent) för initial varning för lågt diskutrymme. Om procentandelen ledigt utrymme sjunker under detta värde så kommer en varning att visas"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
-msgid "Specify a list of mount paths to ignore when they run low on space."
-msgstr "Ange en lista över monteringssökvägar att ignorera när de får lågt diskutrymme."
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
-msgid "Specify a time in minutes. Subsequent warnings for a volume will not appear more often than this period."
-msgstr "Ange en tid i minuter. Efterföljande varningar för en volym kommer inte att visas oftare än denna tidsperiod."
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
-msgid "Specify an amount in GB. If the amount of free space is more than this, no warning will be shown"
-msgstr "Ange en mängd i GB. Om mängden ledigt utrymme är mer än detta så kommer ingen varning att visas"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
-msgid "Specify the percentage that the free disk space should reduce by before issuing a subsequent warning"
-msgstr "Ange procentandelen som det lediga diskutrymme ska minskas med innan en efterföljande varning ska visas"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
-msgid "Subsequent free percentage notify threshold"
-msgstr "Tröskelvärde för efterföljande varning om lågt diskutrymme (procent)"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-msgid "Binding to eject an optical disk."
-msgstr "Bindning för att mata ut en optisk skiva."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
-msgid "Binding to enable or disable the touchpad."
-msgstr "Bindning för att aktivera eller inaktivera pekplattan."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
-msgid "Binding to launch the calculator."
-msgstr "Bindning för att starta miniräknaren."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
-msgid "Binding to launch the email client."
-msgstr "Bindning för att starta e-postklienten."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
-msgid "Binding to launch the help browser."
-msgstr "Bindning för att starta hjälpvisaren."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
-msgid "Binding to launch the media player."
-msgstr "Bindning för att starta mediaspelaren."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
-msgid "Binding to launch the search tool."
-msgstr "Bindning för att starta sökverktyget."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
-msgid "Binding to launch the web browser."
-msgstr "Bindning för att starta webbläsaren."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
-msgid "Binding to lock the screen."
-msgstr "Bindning för att låsa skärmen."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
-msgid "Binding to log out."
-msgstr "Bindning för att logga ut."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
-msgid "Binding to lower the system volume."
-msgstr "Bindning för att sänka ljudvolymen."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
-msgid "Binding to mute the system volume."
-msgstr "Bindning för att tysta ner ljudet."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
-msgid "Binding to open the Home folder."
-msgstr "Bindning för att öppna hemmappen."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
-msgid "Binding to pause playback."
-msgstr "Bindning för att göra paus i uppspelningen."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
-msgid "Binding to raise the system volume."
-msgstr "Bindning för att höja ljudvolymen."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
-msgid "Binding to skip to next track."
-msgstr "Bindning för att hoppa till nästa spår."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
-msgid "Binding to skip to previous track."
-msgstr "Bindning för att hoppa till föregående spår."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
-msgid "Binding to start playback (or toggle play/pause)."
-msgstr "Bindning för att starta uppspelningen (eller växla spela/pausa)."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
-msgid "Binding to stop playback."
-msgstr "Bindning för att stoppa uppspelningen."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:20
-msgid "Eject"
-msgstr "Mata ut"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:21
-msgid "Home folder"
-msgstr "Hemmapp"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
-msgid "Launch calculator"
-msgstr "Starta miniräknare"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:23
-msgid "Launch email client"
-msgstr "Starta e-postklient"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:24
-msgid "Launch help browser"
-msgstr "Starta hjälpvisare"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:25
-msgid "Launch media player"
-msgstr "Starta mediaspelare"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:26
-msgid "Launch web browser"
-msgstr "Starta webbläsare"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:27
-msgid "Lock screen"
-msgstr "Lås skärmen"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:28
-msgid "Log out"
-msgstr "Logga ut"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:29
-msgid "Next track"
-msgstr "Nästa spår"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:30
-msgid "Pause playback"
-msgstr "Gör paus i uppspelning"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:31
-msgid "Play (or play/pause)"
-msgstr "Spela (eller spela/gör paus)"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:32
-msgid "Previous track"
-msgstr "Föregående spår"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:33
-msgid "Search"
-msgstr "Sök"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:34
-msgid "Stop playback"
-msgstr "Stoppa uppspelning"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:35
-msgid "Toggle touchpad"
-msgstr "Växla pekplatta"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:36
-msgid "Volume down"
-msgstr "Volym ned"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:37
-msgid "Volume mute"
-msgstr "Tysta volym"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:38
-msgid "Volume step"
-msgstr "Volymsteg"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:39
-msgid "Volume step as percentage of volume."
-msgstr "Volymsteg som procentandel av volymen."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:40
-msgid "Volume up"
-msgstr "Volym upp"
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
-msgid "If a notification icon with display related things should be shown in the panel."
-msgstr "Om en notifieringsikon med skärmrelaterade saker ska visas i panelen."
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
-msgid "Show Displays in Notification Area"
-msgstr "Visa skärmar i notifieringsytan"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:1
-msgid "Antialiasing"
-msgstr "Kantutjämning"
-
-# Punkter per tum
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:2
-msgid "DPI"
-msgstr "PPT"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:3
-msgid "Hinting"
-msgstr "Hintning"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:4
-msgid "RGBA order"
-msgstr "RGBA-ordning"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:5
-msgid "The order of subpixel elements on an LCD screen; only used when antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red on bottom."
-msgstr "Ordningen för underbildpunktselementen på en LCD-skärm; används endast när kantutjämning är inställd till \"rgba\". Möjliga värden är: \"rgb\" - röd till vänster (vanligast), \"bgr\" - blå till vänster. \"vrgb\" - röd överst. \"vbgr\" - röd nederst."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:6
-msgid "The resolution used for converting font sizes to pixel sizes, in dots per inch."
-msgstr "Upplösning som används för konvertering av typsnittsstorlekar till bildpunktsstorlekar, i punkter per tum."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:7
-msgid "The type of antialiasing to use when rendering fonts. Possible values are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
-msgstr "Typen av kantutjämning att använda när typsnitt ritas ut. Möjliga värden är: \"none\" för ingen kantutjämning, \"grayscale\" för standardkantutjämning med gråskala samt \"rgba\" för underbildpunktsutjämning (endast LCD-skärmar)."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:8
-msgid "The type of hinting to use when rendering fonts. Possible values are: \"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum hinting (may cause distortion of letter forms)."
-msgstr "Typen av hintning att använda när typsnitt ritas ut. Möjliga värden är: \"none\" för ingen hintning, \"slight\" för grundläggande, \"medium\" för medel samt \"full\" för maximal hintning (kan orsaka distortion av bokstavsformer)."
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:1
-msgid "Allowed keys"
-msgstr "Tillåtna tangenter"
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:2
-msgid "If non-empty, keybindings will be ignored unless their GConf directory is in the list. This is useful for lockdown."
-msgstr "Om icke-tom kommer tangentbindningar att ignoreras såvida inte deras GConf-katalog finns i listan. Detta är användbart för nedlåsning."
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
-msgid "Disable touchpad while typing"
-msgstr "Inaktivera pekplatta under skrivning"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
-msgid "Enable horizontal scrolling"
-msgstr "Aktivera horisontell rullning"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
-msgid "Enable mouse clicks with touchpad"
-msgstr "Aktivera musklick med pekplatta"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
-msgid "Enable touchpad"
-msgstr "Aktivera pekplatta"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
-msgid "Select the touchpad scroll method"
-msgstr "Välj rullningsmetod för pekplattan"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
-msgid "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - edge scrolling, 2 - two-finger scrolling"
-msgstr "Välj rullningsmetod för pekplattan. Värden som stöds är: 0 - inaktiverad, 1 - kantrullning, 2 - tvåfingersrullning"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
-msgid "Set this to TRUE if you have problems with accidentally hitting the touchpad while typing."
-msgstr "Ställ in denna till TRUE om du har problem med oavsiktliga tryck på pekplattan när du skriver."
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
-msgid "Set this to TRUE to allow horizontal scrolling by the same method selected with the scroll_method key."
-msgstr "Ställ in denna till TRUE för att tillåta horisontell rullning med samma metod som valts med nyckeln scroll_method."
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:9
-msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
-msgstr "Ställ in denna till TRUE för att kunna skicka musklick genom att trycka på pekplattan."
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
-msgid "Set this to TRUE to enable all touchpads."
-msgstr "Ställ in denna till TRUE för att aktivera alla pekplattor."
-
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
 msgstr "GNOME-inställningsdemon"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:1
-msgid "Binding to toggle the magnifier."
-msgstr "Bindning för att växla förstoraren."
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Disable touchpad while typing"
+msgstr "Inaktivera pekplatta under skrivning"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
-msgid "Binding to toggle the on-screen keyboard."
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid "Distance before a drag is started."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Double click time"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Drag threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "Enable horizontal scrolling"
+msgstr "Aktivera horisontell rullning"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Enable mouse clicks with touchpad"
+msgstr "Aktivera musklick med pekplatta"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid "Enable touchpad"
+msgstr "Aktivera pekplatta"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "Enables middle mouse button emulation through simultaneous left and right button click."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "Highlights the current location of the pointer when the Control key is pressed and released."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+msgid "Length of a double click in milliseconds."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid "Middle button emulation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+msgid "Select the touchpad scroll method"
+msgstr "Välj rullningsmetod för pekplattan"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#, fuzzy
+msgid "Select the touchpad scroll method. Supported values are: \"disabled\", \"edge-scrolling\", \"two-finger-scrolling\"."
+msgstr "Välj rullningsmetod för pekplattan. Värden som stöds är: 0 - inaktiverad, 1 - kantrullning, 2 - tvåfingersrullning"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+msgid "Set this to TRUE if you have problems with accidentally hitting the touchpad while typing."
+msgstr "Ställ in denna till TRUE om du har problem med oavsiktliga tryck på pekplattan när du skriver."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+msgid "Set this to TRUE to allow horizontal scrolling by the same method selected with the scroll_method key."
+msgstr "Ställ in denna till TRUE för att tillåta horisontell rullning med samma metod som valts med nyckeln scroll_method."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr "Ställ in denna till TRUE för att kunna skicka musklick genom att trycka på pekplattan."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Ställ in denna till TRUE för att aktivera alla pekplattor."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The action will get performed when the smartcard used for log in is removed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid "Smartcard removal action"
+msgstr ""
+
+#. g-p-m is not a GSD plugin, yet
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+msgid "Activation of this plugin"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+msgid "Priority to use for this plugin"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+msgid "Free percentage notify threshold"
+msgstr "Tröskelvärde för notifiering om ledigt utrymme (procent)"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+#, fuzzy
+msgid "Free space notify threshold"
+msgstr "Tröskelvärde för notifiering om ledigt utrymme (utrymme)"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+msgid "Minimum notify period for repeated warnings"
+msgstr "Minsta notifieringsperioden för upprepade varningar"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+msgid "Mount paths to ignore"
+msgstr "Monteringssökvägar att ignorera"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+#, fuzzy
+msgid "Percentage free space threshold for initial warning of low disk space. If the percentage free space drops below this, a warning will be shown."
+msgstr "Tröskelvärde för ledigt utrymme (procent) för initial varning för lågt diskutrymme. Om procentandelen ledigt utrymme sjunker under detta värde så kommer en varning att visas"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr "Ange en lista över monteringssökvägar att ignorera när de får lågt diskutrymme."
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+msgid "Specify a time in minutes. Subsequent warnings for a volume will not appear more often than this period."
+msgstr "Ange en tid i minuter. Efterföljande varningar för en volym kommer inte att visas oftare än denna tidsperiod."
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+#, fuzzy
+msgid "Specify an amount in GB. If the amount of free space is more than this, no warning will be shown."
+msgstr "Ange en mängd i GB. Om mängden ledigt utrymme är mer än detta så kommer ingen varning att visas"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+#, fuzzy
+msgid "Specify the percentage that the free disk space should reduce by before issuing a subsequent warning."
+msgstr "Ange procentandelen som det lediga diskutrymme ska minskas med innan en efterföljande varning ska visas"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#, fuzzy
+msgid "Subsequent free space percentage notify threshold"
+msgstr "Tröskelvärde för efterföljande varning om lågt diskutrymme (procent)"
+
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+msgid "Disable the keyboard layout indicator unconditionally, do not show it even if number of layouts is more than one."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+msgid "Display keyboard LEDs on the panel"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+msgid "Display pseudo-leds for keyboards that do not have physical LEDs for CapsLock, NumLock, and ScrollLock."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:5
+msgid "Never show layout indicator"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+msgid "Allowed keys"
+msgstr "Tillåtna tangenter"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+#, fuzzy
+msgid "Binding to eject an optical disc."
+msgstr "Bindning för att mata ut en optisk skiva."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+msgid "Binding to enable or disable the touchpad."
+msgstr "Bindning för att aktivera eller inaktivera pekplattan."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+msgid "Binding to launch the calculator."
+msgstr "Bindning för att starta miniräknaren."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+msgid "Binding to launch the email client."
+msgstr "Bindning för att starta e-postklienten."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+msgid "Binding to launch the help browser."
+msgstr "Bindning för att starta hjälpvisaren."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+msgid "Binding to launch the media player."
+msgstr "Bindning för att starta mediaspelaren."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+msgid "Binding to launch the search tool."
+msgstr "Bindning för att starta sökverktyget."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+msgid "Binding to launch the web browser."
+msgstr "Bindning för att starta webbläsaren."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+msgid "Binding to lock the screen."
+msgstr "Bindning för att låsa skärmen."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+msgid "Binding to log out."
+msgstr "Bindning för att logga ut."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+msgid "Binding to lower the system volume."
+msgstr "Bindning för att sänka ljudvolymen."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+msgid "Binding to mute the system volume."
+msgstr "Bindning för att tysta ner ljudet."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+msgid "Binding to open the Home folder."
+msgstr "Bindning för att öppna hemmappen."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+msgid "Binding to pause playback."
+msgstr "Bindning för att göra paus i uppspelningen."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+msgid "Binding to raise the system volume."
+msgstr "Bindning för att höja ljudvolymen."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#, fuzzy
+msgid "Binding to show the on-screen keyboard"
 msgstr "Bindning för att växla skärmtangentbordet."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
-msgid "Binding to toggle the screen reader."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#, fuzzy
+msgid "Binding to show the screen magnifier"
+msgstr "Bindning för att växla förstoraren."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+msgid "Binding to skip to next track."
+msgstr "Bindning för att hoppa till nästa spår."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+msgid "Binding to skip to previous track."
+msgstr "Bindning för att hoppa till föregående spår."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+msgid "Binding to start playback (or toggle play/pause)."
+msgstr "Bindning för att starta uppspelningen (eller växla spela/pausa)."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#, fuzzy
+msgid "Binding to start the screen reader"
 msgstr "Bindning för att växla skärmläsaren."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Bounce keys"
-msgstr "Studsande tangenter"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+msgid "Binding to stop playback."
+msgstr "Bindning för att stoppa uppspelningen."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
-msgid "Command used to turn the magnifier on or off."
-msgstr "Kommando som används för att aktivera/inaktivera förstoraren."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+msgid "Eject"
+msgstr "Mata ut"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
-msgid "Command used to turn the on-screen keyboard on or off."
-msgstr "Kommando som används för att aktivera/inaktivera skärmtangentbordet."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+msgid "Home folder"
+msgstr "Hemmapp"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
-msgid "Command used to turn the screen reader on or off."
-msgstr "Kommando för att aktivera/inaktivera skärmläsaren."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#, fuzzy
+msgid "If non-empty, keybindings will be ignored unless their settings directory is in the list. This is useful for lockdown."
+msgstr "Om icke-tom kommer tangentbindningar att ignoreras såvida inte deras GConf-katalog finns i listan. Detta är användbart för nedlåsning."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
-msgid "Enable accessibility keyboard plugin"
-msgstr "Aktivera insticksmodulen för hjälpmedelstangentbord"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+msgid "Launch calculator"
+msgstr "Starta miniräknare"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
-msgid "Enable background plugin"
-msgstr "Aktivera insticksmodulen för bakgrunder"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+msgid "Launch email client"
+msgstr "Starta e-postklient"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
-msgid "Enable clipboard plugin"
-msgstr "Aktivera insticksmodulen för urklipp"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+msgid "Launch help browser"
+msgstr "Starta hjälpvisare"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
-msgid "Enable font plugin"
-msgstr "Aktivera insticksmodulen för typsnitt"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+msgid "Launch media player"
+msgstr "Starta mediaspelare"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
-msgid "Enable housekeeping plugin"
-msgstr "Aktivera insticksmodulen för uppstädning"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+msgid "Launch web browser"
+msgstr "Starta webbläsare"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
-msgid "Enable keybindings plugin"
-msgstr "Aktivera insticksmodulen för tangentbindningar"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+msgid "Lock screen"
+msgstr "Lås skärmen"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
-msgid "Enable keyboard plugin"
-msgstr "Aktivera insticksmodulen för tangentbord"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+msgid "Log out"
+msgstr "Logga ut"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
-msgid "Enable media keys plugin"
-msgstr "Aktivera insticksmodulen för mediatangenter"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+msgid "Next track"
+msgstr "Nästa spår"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid "Enable mouse plugin"
-msgstr "Aktivera insticksmodulen för möss"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+msgid "Pause playback"
+msgstr "Gör paus i uppspelning"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable sound plugin"
-msgstr "Aktivera insticksmodulen för ljud"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+msgid "Play (or play/pause)"
+msgstr "Spela (eller spela/gör paus)"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
-msgid "Enable typing breaks plugin"
-msgstr "Aktivera insticksmodulen för paus i skrivande"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+msgid "Previous track"
+msgstr "Föregående spår"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Enable xrandr plugin"
-msgstr "Aktivera insticksmodulen xrandr"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+msgid "Search"
+msgstr "Sök"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
-msgid "Enable xrdb plugin"
-msgstr "Aktivera insticksmodulen xrdb"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Stop playback"
+msgstr "Stoppa uppspelning"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
-msgid "Enable xsettings plugin"
-msgstr "Aktivera insticksmodulen xsettings"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:22
-msgid "Mouse keys"
-msgstr "Mustangenter"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-msgid "On-screen keyboard"
-msgstr "Skärmtangentbord"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "Screen magnifier"
-msgstr "Skärmförstorare"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid "Screen reader"
-msgstr "Skärmläsare"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:26
-msgid "Set to True to enable the housekeeping plugin, to prune transient file caches."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för uppstädning för att kasta gamla tillfälliga, mellanlagrade filer."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:27
-msgid "Set to True to enable the plugin to manage clipboard settings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av urklippsinställningar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:28
-msgid "Set to True to enable the plugin to manage desktop background settings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av bakgrundsinställningar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:29
-msgid "Set to True to enable the plugin to manage font settings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av typsnittsinställningar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:30
-msgid "Set to True to enable the plugin to manage keyboard settings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av tangentbordsinställningar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:31
-msgid "Set to True to enable the plugin to manage mouse settings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av musinställningar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:32
-msgid "Set to True to enable the plugin to manage multimedia keys settings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av multimediatangenter."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:33
-msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av ljudsamplingscache."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid "Set to True to enable the plugin to manage the accessibility keyboard settings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av hjälpmedelstangentbord."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
-msgid "Set to True to enable the plugin to manage the keybindings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av tangentbindningar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:36
-msgid "Set to True to enable the plugin to manage typing breaks."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av paus i skrivande."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:37
-msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av xrandr-inställningar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:38
-msgid "Set to True to enable the plugin to manage xrdb settings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av xrdb-inställningar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:39
-msgid "Set to True to enable the plugin to manage xsettings."
-msgstr "Ställ in till sant för att aktivera insticksmodulen för hantering av xsettings."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:40
-msgid "Slow keys"
-msgstr "Tröga tangenter"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:41
-msgid "Sticky keys"
-msgstr "Klistriga tangenter"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:42
-msgid "The name of the keyboard shortcut to toggle the magnifier"
-msgstr "Namnet på tangentbordsgenvägen för att växla förstoraren"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:43
-msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
-msgstr "Namnet på tangentbordsgenvägen för att växla skärmtangentbordet"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:44
-msgid "The name of the keyboard shortcut to toggle the screen reader"
-msgstr "Namnet på tangentbordsgenvägen för att växla skärmläsaren"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:45
-msgid "This is the name of the keyboard shortcut to toggle the magnifier. This name will be shown in the keyboard shortcut preferences dialog."
-msgstr "Detta är namnet på tangentbordsgenvägen för att växla förstoraren. Detta namn kommer att visas i inställningsdialogen för tangentbordsgenvägar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "This is the name of the keyboard shortcut to toggle the on-screen keyboard. This name will be shown in the keyboard shortcut preferences dialog."
-msgstr "Detta är namnet på tangentbordsgenvägen för att växla skärmtangentbordet. Detta namn kommer att visas i inställningsdialogen för tangentbordsgenvägar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:47
-msgid "This is the name of the keyboard shortcut to toggle the screen reader. This name will be shown in the keyboard shortcut preferences dialog."
-msgstr "Detta är namnet på tangentbordsgenvägen för att växla skärmläsaren. Detta namn kommer att visas i inställningsdialogen för tangentbordsgenvägar."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Toggle magnifier"
 msgstr "Växla förstorare"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Toggle on-screen keyboard"
 msgstr "Växla skärmtangentbord"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Toggle screen reader"
 msgstr "Växla skärmläsare"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
-msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-msgstr "Huruvida hjälpmedelsfunktionen Studsande tangenter är påslagen."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+msgid "Toggle touchpad"
+msgstr "Växla pekplatta"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
-msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-msgstr "Huruvida hjälpmedelsfunktionen Mustangenter är påslagen."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+msgid "Volume down"
+msgstr "Volym ned"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Whether the on-screen keyboard is turned on."
-msgstr "Huruvida hjälpmedelsfunktionen Skärmtangentbord är påslagen."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+msgid "Volume mute"
+msgstr "Tysta volym"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
-msgid "Whether the screen magnifier is turned on."
-msgstr "Huruvida hjälpmedelsfunktionen Skärmförstorare är påslagen."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+msgid "Volume up"
+msgstr "Volym upp"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
-msgid "Whether the screen reader is turned on."
-msgstr "Huruvida hjälpmedelsfunktionen Skärmläsare är påslagen."
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+msgid "'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions)"
+msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
-msgid "Whether the slow keys keyboard accessibility feature is turned on."
-msgstr "Huruvida hjälpmedelsfunktionen Tröga tangenter är påslagen."
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+msgid "File for default configuration for RandR"
+msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
-msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-msgstr "Huruvida hjälpmedelsfunktionen Klistriga tangenter är påslagen."
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+msgid "The XRandR plugin will look for a default configuration in the file specified by this key. This is similar to the ~/.config/monitors.xml that normally gets stored in users' home directories. If a user does not have such a file, or has one that does not match the user's setup of monitors, then the file specified by this key will be used instead."
+msgstr ""
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+msgid "Whether to turn off specific monitors after boot"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+msgid "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+msgid "A list of strings representing the GTK+ modules that will not be loaded, even if enabled by default in their configuration."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+msgid "Antialiasing"
+msgstr "Kantutjämning"
+
+# Punkter per tum
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+msgid "DPI"
+msgstr "PPT"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+msgid "Hinting"
+msgstr "Hintning"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "List of explicitly disabled GTK+ modules"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+msgid "List of explicitly enabled GTK+ modules"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+msgid "RGBA order"
+msgstr "RGBA-ordning"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+msgid "The order of subpixel elements on an LCD screen; only used when antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red on bottom."
+msgstr "Ordningen för underbildpunktselementen på en LCD-skärm; används endast när kantutjämning är inställd till \"rgba\". Möjliga värden är: \"rgb\" - röd till vänster (vanligast), \"bgr\" - blå till vänster. \"vrgb\" - röd överst. \"vbgr\" - röd nederst."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+#, fuzzy
+msgid "The resolution used for converting font sizes to pixel sizes, in dots per inch. 0.0 DPI means that the X server's DPI will be used."
+msgstr "Upplösning som används för konvertering av typsnittsstorlekar till bildpunktsstorlekar, i punkter per tum."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+msgid "The type of antialiasing to use when rendering fonts. Possible values are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+msgstr "Typen av kantutjämning att använda när typsnitt ritas ut. Möjliga värden är: \"none\" för ingen kantutjämning, \"grayscale\" för standardkantutjämning med gråskala samt \"rgba\" för underbildpunktsutjämning (endast LCD-skärmar)."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:15
+msgid "The type of hinting to use when rendering fonts. Possible values are: \"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum hinting (may cause distortion of letter forms)."
+msgstr "Typen av hintning att använda när typsnitt ritas ut. Möjliga värden är: \"none\" för ingen hintning, \"slight\" för grundläggande, \"medium\" för medel samt \"full\" för maximal hintning (kan orsaka distortion av bokstavsformer)."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+msgid "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and 'ccw' for 90 degree counterclockwise."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+msgid "Set this to the pressure value at which a stylus click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+msgid "Set this to the pressure value at which an eraser click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr ""
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Aktivera felsökningskod"
 
-#: ../gnome-settings-daemon/main.c:56
-msgid "Don't become a daemon"
-msgstr "Bli inte en demonprocess"
-
-#: ../gnome-settings-daemon/main.c:57
-msgid "GConf prefix from which to load plugin settings"
-msgstr "GConf-prefix från vilket inställningar för insticksmoduler ska läsas in"
-
-#: ../gnome-settings-daemon/main.c:58
-msgid "Exit after a time - for debugging"
-msgstr "Avsluta efter en stund - för felsökning"
+#: ../gnome-settings-daemon/main.c:55
+msgid "Exit after a time (for debugging)"
+msgstr "Avsluta efter en stund (för felsökning)"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -571,95 +623,95 @@ msgstr "Hjälpmedelstangentbord"
 msgid "Accessibility keyboard plugin"
 msgstr "Insticksmodul för hjälpmedelstangentbord"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:390
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Ett fel inträffade vid visning av hjälp: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:577
 msgid "Do you want to activate Slow Keys?"
 msgstr "Vill du aktivera tröga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:516
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:578
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Vill du inaktivera tröga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
 msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for the Slow Keys feature, which affects the way your keyboard works."
 msgstr "Du höll precis ned skifttangenten under 8 sekunder. Detta är genvägen för funktionen tröga tangenter, som påverkar hur ditt tangentbord fungerar."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
 msgid "Don't activate"
 msgstr "Aktivera inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
 msgid "Don't deactivate"
 msgstr "Inaktivera inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:681
 msgid "Activate"
 msgstr "Aktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:681
 msgid "Deactivate"
 msgstr "Inaktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do_n't activate"
 msgstr "Aktivera _inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
 msgid "Do_n't deactivate"
 msgstr "Inaktivera _inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "_Activate"
 msgstr "_Aktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "_Deactivate"
 msgstr "_Inaktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:607
 msgid "Slow Keys Alert"
 msgstr "Varning för tröga tangenter"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:647
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:711
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Vill du aktivera klistriga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:648
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:712
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Vill du inaktivera klistriga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid "You just pressed the Shift key 5 times in a row.  This is the shortcut for the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "Du tryckte precis ned skifttangenten 5 gånger i följd. Detta är genvägen för funktionen klistriga tangenter, som påverkar hur ditt tangentbord fungerar."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
 msgid "You just pressed two keys at once, or pressed the Shift key 5 times in a row.  This turns off the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "Du tryckte precis ned två tangenter samtidigt, eller tryckte ned skifttangenten 5 gånger i följd. Detta stänger av funktionen tröga tangenter, som påverkar hur ditt tangentbord fungerar."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
 msgid "Sticky Keys Alert"
 msgstr "Larm från Klistriga tangenter"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:524
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Inställningar för Universell åtkomst"
@@ -696,6 +748,129 @@ msgstr "_Ignorera dubletta tangenttryckningar (Studsande tangenter)"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Tryck tangentbordsgenvägar en tangent åt gången (Klistriga tangenter)"
 
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr "Montera automatiskt"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+#, fuzzy
+msgid "Automounter plugin"
+msgstr "Insticksmodul för typsnitt"
+
+#: ../plugins/automount/gsd-automount-manager.c:145
+#, c-format
+msgid "Unable to mount %s"
+msgstr "Kunde inte montera %s"
+
+#: ../plugins/automount/gsd-automount-manager.c:204
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr "Kunde inte öppna en mapp för %s"
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr "Fråga mig vad som ska göras"
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr "Gör ingenting"
+
+#: ../plugins/automount/gsd-autorun.c:352
+msgid "Open Folder"
+msgstr "Öppna mapp"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, c-format
+msgid "Unable to eject %p"
+msgstr "Kunde inte mata ut %p"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr "Kunde inte avmontera %p"
+
+#: ../plugins/automount/gsd-autorun.c:700
+msgid "You have just inserted an Audio CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted a Video DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Super Video CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a blank CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank HD DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a Photo CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Picture CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a medium with digital photos."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a digital audio player."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid "You have just inserted a medium with software intended to be automatically started."
+msgstr ""
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:729
+msgid "You have just inserted a medium."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "Choose what application to launch."
+msgstr "Välj vilket program som ska startas."
+
+#: ../plugins/automount/gsd-autorun.c:740
+#, c-format
+msgid "Select how to open \"%s\" and whether to perform this action in the future for other media of type \"%s\"."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:767
+msgid "_Always perform this action"
+msgstr "_Genomför alltid denna åtgärd"
+
+#: ../plugins/automount/gsd-autorun.c:783
+msgid "_Eject"
+msgstr "Mata _ut"
+
+#: ../plugins/automount/gsd-autorun.c:788
+msgid "_Unmount"
+msgstr "_Avmontera"
+
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Bakgrund"
@@ -720,31 +895,60 @@ msgstr "Dummy"
 msgid "Dummy plugin"
 msgstr "Insticksmodul för dummy"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
-msgid "Font"
-msgstr "Typsnitt"
+#: ../plugins/housekeeping/gsd-disk-space.c:271
+#, c-format
+msgid "Low Disk Space on \"%s\""
+msgstr "Lågt diskutrymme på \"%s\""
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
-msgid "Font plugin"
-msgstr "Insticksmodul för typsnitt"
+#: ../plugins/housekeeping/gsd-disk-space.c:273
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining.  You may free up some space by emptying the trash."
+msgstr "Volymen \"%s\" har endast %s diskutrymme ledigt. Du kan frigöra utrymme genom att tömma papperskorgen."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-msgid "Don't show any warnings again for this filesystem"
-msgstr "Visa inte några varningar igen för detta filsystem"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-msgid "Don't show any warnings again"
-msgstr "Visa inte några varningar igen"
-
+#: ../plugins/housekeeping/gsd-disk-space.c:277
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "Volymen \"%s\" har endast %s diskutrymme kvar."
 
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-disk-space.c:282
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:202
+msgid "Low Disk Space"
+msgstr "Lågt diskutrymme"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:284
+#, c-format
+msgid "This computer has only %s disk space remaining.  You may free up some space by emptying the trash."
+msgstr "Denna dator har endast %s diskutrymme ledigt. Du kan frigöra utrymme genom att tömma papperskorgen."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:287
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Denna dator har endast %s diskutrymme kvar."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:308
+msgid "Examine"
+msgstr "Undersök"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:316
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
+msgid "Empty Trash"
+msgstr "Töm papperskorgen"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:323
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
+msgid "Ignore"
+msgstr "Ignorera"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+msgid "Don't show any warnings again for this file system"
+msgstr "Visa inte några varningar igen för detta filsystem"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+msgid "Don't show any warnings again"
+msgstr "Visa inte några varningar igen"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
 msgid "You can free up disk space by emptying the Trash, removing unused programs or files, or moving files to another disk or partition."
@@ -762,32 +966,18 @@ msgstr "Du kan frigöra diskutrymme genom att tömma papperskorgen, ta bort oanv
 msgid "You can free up disk space by removing unused programs or files, or by moving files to an external disk."
 msgstr "Du kan frigöra diskutrymme genom att ta bort oanvända program eller filer, eller flytta filer till en extern disk."
 
-#. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
-msgid "Low Disk Space"
-msgstr "Lågt diskutrymme"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
-msgid "Empty Trash"
-msgstr "Töm papperskorgen"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
-msgid "Examine..."
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:442
+msgid "Examine…"
 msgstr "Undersök..."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
-msgid "Ignore"
-msgstr "Ignorera"
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:94
+msgid "Removing item %"
+msgstr "Tar bort objekt %"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:114
 #, c-format
-msgid "Removing item %lu of %lu"
-msgstr "Tar bort objekt %lu av %lu"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
-#, c-format
-msgid "<i>Removing: %s</i>"
-msgstr "<i>Tar bort: %s</i>"
+msgid "Removing: %s"
+msgstr "Tar bort: %s"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
@@ -795,22 +985,23 @@ msgid "Emptying the trash"
 msgstr "Tömmer papperskorgen"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
-msgid "Preparing to empty trash..."
+msgid "Preparing to empty trash…"
 msgstr "Förbereder att tömma papperskorgen..."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
+#. Translators: "Emptying trash from <device>"
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
 msgid "From: "
 msgstr "Från: "
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
 msgid "Empty all of the items from the trash?"
 msgstr "Töm alla objekt i papperskorgen?"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
 msgid "If you choose to empty the trash, all items in it will be permanently lost. Please note that you can also delete them separately."
 msgstr "Om du väljer att tömma papperskorgen så kommer alla objekt i den att gå förlorade. Observera att du även kan ta bort dem individuellt."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
 msgid "_Empty Trash"
 msgstr "Töm _papperskorgen"
 
@@ -849,101 +1040,36 @@ msgstr "Tangentbord"
 msgid "Keyboard plugin"
 msgstr "Insticksmodul för tangentbord"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:112
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:108
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
-"It can happen under various circumstances:\n"
-"- a bug in libxklavier library\n"
-"- a bug in X server (xkbcomp, xmodmap utilities)\n"
-"- X server with incompatible libxkbfile implementation\n"
+"There can be various reasons for that.\n"
 "\n"
-"X server version data:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"If you report this situation as a bug, please include:\n"
-"- The result of <b>%s</b>\n"
-"- The result of <b>%s</b>"
+"If you report this situation as a bug, include the results of\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 msgstr ""
-"Fel vid aktivering av XKB-konfiguration.\n"
-"Detta kan hända under olika situationer:\n"
-"- ett fel i biblioteket libxklavier\n"
-"- ett fel i X-server (verktygen xkbcomp, xmodmap)\n"
-"- X-server med inkompatibel implementation av libxkbfile\n"
-"\n"
-"Versionsdata för X-server:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"Om du rapporterar denna situation som ett fel så inkludera:\n"
-"- Resultatet av <b>%s</b>\n"
-"- Resultatet av <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:126
-msgid ""
-"You are using XFree 4.3.0.\n"
-"There are known problems with complex XKB configurations.\n"
-"Try using a simpler configuration or taking a fresher version of XFree software."
-msgstr ""
-"Du använder XFree 4.3.0.\n"
-"Det finns kända problem med komplexa XKB-konfigurationer.\n"
-"Prova med en enklare konfiguration eller använd en senare version av XFree-programvaran."
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:248
+msgid "_Layouts"
+msgstr "_Layouter"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:197
-msgid "Unknown"
-msgstr "Okänd"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:266
-#, c-format
-msgid "Keyboard Layout \"%s\""
-msgstr "Tangentbordslayout \"%s\""
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:389
-msgid "_Groups"
-msgstr "_Grupper"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:396
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:255
 msgid "Keyboard _Preferences"
 msgstr "Tangentbordsins_tällningar"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
-msgid "Show Current _Layout"
-msgstr "Visa aktuell _layout"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:261
+msgid "Show _Current Layout"
+msgstr "Visa a_ktuell layout"
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:1
-msgid "A_vailable files:"
-msgstr "_Tillgängliga filer:"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:2
-msgid "Load modmap files"
-msgstr "Läs in modmap-filer"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:3
-msgid "Would you like to load the modmap file(s)?"
-msgstr "Vill du läsa in modmap-filerna?"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:4
-msgid "_Do not show this message again"
-msgstr "_Visa inte detta meddelande igen"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:5
-msgid "_Load"
-msgstr "_Läs in"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:6
-msgid "_Loaded files:"
-msgstr "_Inlästa filer:"
-
-#: ../plugins/keyboard/show-layout.ui.h:1
-msgid "Keyboard Layout"
-msgstr "Tangentbordslayout"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
+#: ../plugins/media-keys/gsd-media-keys-manager.c:204
 msgid "Could not get default terminal. Verify that your default terminal command is set and points to a valid application."
 msgstr "Kunde inte hitta standardterminalen. Verifiera att kommandot för din standardterminal är inställt och pekar på ett giltigt program."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:244
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -952,23 +1078,15 @@ msgstr ""
 "Kunde inte köra kommandot: %s\n"
 "Verifiera att det här är ett giltigt kommando."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
-msgid ""
-"Couldn't put the machine to sleep.\n"
-"Verify that the machine is correctly configured."
-msgstr ""
-"Kunde inte få denna maskin att sova.\n"
-"Kontrollera att maskinen är korrekt konfigurerad."
-
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1005
 msgid "Disabled"
 msgstr "Inaktiverad"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1012
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -977,14 +1095,14 @@ msgstr[1] "%u utgångar"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1022
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
 msgstr[0] "%u ingång"
 msgstr[1] "%u ingångar"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1320
 msgid "System Sounds"
 msgstr "Systemljud"
 
@@ -996,17 +1114,17 @@ msgstr "Mediatangenter"
 msgid "Media keys plugin"
 msgstr "Insticksmodul för mediatangenter"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:874
+#: ../plugins/mouse/gsd-mouse-manager.c:868
 msgid "Could not enable mouse accessibility features"
 msgstr "Kunde inte aktivera mushjälpmedelsfunktioner"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:876
-msgid "Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr "Mushjälpmedel kräver att mousetweaks (Musjusteringar) är installerat på ditt system."
+#: ../plugins/mouse/gsd-mouse-manager.c:870
+msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
+msgstr "Mushjälpmedel kräver att Mousetweaks (Musjusteringar) är installerat på ditt system."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:879
-msgid "Mouse Preferences"
-msgstr "Musinställningar"
+#: ../plugins/mouse/gsd-mouse-manager.c:872
+msgid "Universal Access"
+msgstr "Universell åtkomst"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
@@ -1016,14 +1134,6 @@ msgstr "Mus"
 msgid "Mouse plugin"
 msgstr "Insticksmodul för mus"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
-msgid "Typing Break"
-msgstr "Paus i skrivande"
-
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
-msgid "Typing break plugin"
-msgstr "Insticksmodul för paus i skrivande"
-
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "Konfigurera skärmstorlek och roteringsinställningar"
@@ -1032,103 +1142,53 @@ msgstr "Konfigurera skärmstorlek och roteringsinställningar"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:222
+#: ../plugins/xrandr/gsd-xrandr-manager.c:403
 msgid "Could not switch the monitor configuration"
 msgstr "Kunde inte växla till skärmkonfigurationen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:246
+#: ../plugins/xrandr/gsd-xrandr-manager.c:427
 msgid "Could not restore the display's configuration"
 msgstr "Kunde inte återställa skärmens konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:271
+#: ../plugins/xrandr/gsd-xrandr-manager.c:452
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Kunde inte återställa skärmens konfiguration från en säkerhetskopia"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:292
+#: ../plugins/xrandr/gsd-xrandr-manager.c:473
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "Skärmen kommer att återställas till dess tidigare konfiguration om %d sekund"
 msgstr[1] "Skärmen kommer att återställas till dess tidigare konfiguration om %d sekunder"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:341
+#: ../plugins/xrandr/gsd-xrandr-manager.c:522
 msgid "Does the display look OK?"
 msgstr "Ser skärmen bra ut?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:347
+#: ../plugins/xrandr/gsd-xrandr-manager.c:529
 msgid "_Restore Previous Configuration"
 msgstr "_Återställ tidigare konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:348
+#: ../plugins/xrandr/gsd-xrandr-manager.c:530
 msgid "_Keep This Configuration"
 msgstr "_Behåll denna konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:429
+#: ../plugins/xrandr/gsd-xrandr-manager.c:611
 msgid "The selected configuration for displays could not be applied"
 msgstr "Den valda konfigurationen för skärmar kunde inte tillämpas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:967
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1150
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Kunde inte uppdatera skärminformationen: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1154
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Försöker att växla till skärmkonfigurationen ändå."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1679
-msgid "<i>Rotation not supported</i>"
-msgstr "<i>Rotering stöds inte</i>"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1733
-msgid "Could not save monitor configuration"
-msgstr "Kunde inte spara skärmkonfigurationen"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1751
-msgid "Normal"
-msgstr "Normal"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1752
-msgid "Left"
-msgstr "Vänster"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1753
-msgid "Right"
-msgstr "Höger"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1754
-msgid "Upside Down"
-msgstr "Upp och ner"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1874
-msgid "_Configure Display Settings ..."
-msgstr "_Konfigurera skärminställningar ..."
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1915
-msgid "Configure display settings"
-msgstr "Konfigurera skärminställningar"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1972
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1626
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kunde inte tillämpa lagrad konfiguration för skärmar"
-
-#: ../plugins/xrdb/gsd-xrdb-manager.c:255
-#: ../plugins/xrdb/gsd-xrdb-manager.c:324
-msgid "Cannot determine user's home directory"
-msgstr "Kan inte avgöra användarens hemkatalog"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
-msgid "Manage the X resource database"
-msgstr "Hantera X-resursdatabasen"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
-msgid "X Resource Database"
-msgstr "X-resursdatabas"
-
-#: ../plugins/xsettings/gsd-xsettings-manager.c:644
-#, c-format
-msgid "GConf key %s set to type %s but its expected type was %s\n"
-msgstr "GConf-nyckeln %s är satt till typen %s men dess förväntade typ var %s\n"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
 msgid "Manage X Settings"
@@ -1138,6 +1198,367 @@ msgstr "Hantera X-inställningar"
 msgid "X Settings"
 msgstr "X-inställningar"
 
+#: ../plugins/smartcard/gsd-smartcard-manager.c:187
+msgid "Module Path"
+msgstr "Modulsökväg"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:188
+msgid "path to smartcard PKCS #11 driver"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:531
+msgid "received error or hang up from event source"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:665
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:793
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:807
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:880
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1283
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:155
+msgid "Slot ID"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:156
+msgid "The slot the card is in"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:162
+msgid "Slot Series"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:163
+msgid "per-slot card identifier"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:169
+#: ../plugins/smartcard/gsd-smartcard.c:170
+msgid "name"
+msgstr "namn"
+
+#: ../plugins/smartcard/gsd-smartcard.c:174
+msgid "Module"
+msgstr "Modul"
+
+#: ../plugins/smartcard/gsd-smartcard.c:175
+msgid "smartcard driver"
+msgstr ""
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
+msgid "Change system time"
+msgstr "Ändra systemtiden"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
+msgid "Change system time zone"
+msgstr "Ändra systemets tidszon"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
+msgid "Configure hardware clock"
+msgstr "Konfigurera maskinvaruklockan"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
+msgid "Configure network time"
+msgstr "Konfigurera nätverkstiden"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
+msgid "Privileges are required to change the system time zone."
+msgstr "Privilegier krävs för att ändra systemets tidszon."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
+msgid "Privileges are required to change the system time."
+msgstr "Privilegier krävs för att ändra systemtiden."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:7
+msgid "Privileges are required to configure network time."
+msgstr "Privilegier krävs för att konfigurera nätverkstiden."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:8
+msgid "Privileges are required to configure the hardware clock."
+msgstr "Privilegier krävs för att konfigurera maskinvaruklockan."
+
+#~ msgid "Volume step"
+#~ msgstr "Volymsteg"
+#~ msgid "Volume step as percentage of volume."
+#~ msgstr "Volymsteg som procentandel av volymen."
+#~ msgid ""
+#~ "If a notification icon with display related things should be shown in the "
+#~ "panel."
+#~ msgstr ""
+#~ "Om en notifieringsikon med skärmrelaterade saker ska visas i panelen."
+#~ msgid "Show Displays in Notification Area"
+#~ msgstr "Visa skärmar i notifieringsytan"
+#~ msgid "Bounce keys"
+#~ msgstr "Studsande tangenter"
+#~ msgid "Command used to turn the magnifier on or off."
+#~ msgstr "Kommando som används för att aktivera/inaktivera förstoraren."
+#~ msgid "Command used to turn the on-screen keyboard on or off."
+#~ msgstr ""
+#~ "Kommando som används för att aktivera/inaktivera skärmtangentbordet."
+#~ msgid "Command used to turn the screen reader on or off."
+#~ msgstr "Kommando för att aktivera/inaktivera skärmläsaren."
+#~ msgid "Enable accessibility keyboard plugin"
+#~ msgstr "Aktivera insticksmodulen för hjälpmedelstangentbord"
+#~ msgid "Enable background plugin"
+#~ msgstr "Aktivera insticksmodulen för bakgrunder"
+#~ msgid "Enable clipboard plugin"
+#~ msgstr "Aktivera insticksmodulen för urklipp"
+#~ msgid "Enable font plugin"
+#~ msgstr "Aktivera insticksmodulen för typsnitt"
+#~ msgid "Enable housekeeping plugin"
+#~ msgstr "Aktivera insticksmodulen för uppstädning"
+#~ msgid "Enable keybindings plugin"
+#~ msgstr "Aktivera insticksmodulen för tangentbindningar"
+#~ msgid "Enable keyboard plugin"
+#~ msgstr "Aktivera insticksmodulen för tangentbord"
+#~ msgid "Enable media keys plugin"
+#~ msgstr "Aktivera insticksmodulen för mediatangenter"
+#~ msgid "Enable mouse plugin"
+#~ msgstr "Aktivera insticksmodulen för möss"
+#~ msgid "Enable sound plugin"
+#~ msgstr "Aktivera insticksmodulen för ljud"
+#~ msgid "Enable typing breaks plugin"
+#~ msgstr "Aktivera insticksmodulen för paus i skrivande"
+#~ msgid "Enable xrandr plugin"
+#~ msgstr "Aktivera insticksmodulen xrandr"
+#~ msgid "Enable xrdb plugin"
+#~ msgstr "Aktivera insticksmodulen xrdb"
+#~ msgid "Enable xsettings plugin"
+#~ msgstr "Aktivera insticksmodulen xsettings"
+#~ msgid "Mouse keys"
+#~ msgstr "Mustangenter"
+#~ msgid "On-screen keyboard"
+#~ msgstr "Skärmtangentbord"
+#~ msgid "Screen magnifier"
+#~ msgstr "Skärmförstorare"
+#~ msgid "Screen reader"
+#~ msgstr "Skärmläsare"
+#~ msgid ""
+#~ "Set to True to enable the housekeeping plugin, to prune transient file "
+#~ "caches."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för uppstädning för "
+#~ "att kasta gamla tillfälliga, mellanlagrade filer."
+#~ msgid "Set to True to enable the plugin to manage clipboard settings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "urklippsinställningar."
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage desktop background settings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "bakgrundsinställningar."
+#~ msgid "Set to True to enable the plugin to manage font settings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "typsnittsinställningar."
+#~ msgid "Set to True to enable the plugin to manage keyboard settings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "tangentbordsinställningar."
+#~ msgid "Set to True to enable the plugin to manage mouse settings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "musinställningar."
+#~ msgid "Set to True to enable the plugin to manage multimedia keys settings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "multimediatangenter."
+#~ msgid "Set to True to enable the plugin to manage sound sample caches."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "ljudsamplingscache."
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage the accessibility keyboard "
+#~ "settings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "hjälpmedelstangentbord."
+#~ msgid "Set to True to enable the plugin to manage the keybindings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "tangentbindningar."
+#~ msgid "Set to True to enable the plugin to manage typing breaks."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av paus "
+#~ "i skrivande."
+#~ msgid "Set to True to enable the plugin to manage xrandr settings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "xrandr-inställningar."
+#~ msgid "Set to True to enable the plugin to manage xrdb settings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av xrdb-"
+#~ "inställningar."
+#~ msgid "Set to True to enable the plugin to manage xsettings."
+#~ msgstr ""
+#~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
+#~ "xsettings."
+#~ msgid "Slow keys"
+#~ msgstr "Tröga tangenter"
+#~ msgid "Sticky keys"
+#~ msgstr "Klistriga tangenter"
+#~ msgid "The name of the keyboard shortcut to toggle the magnifier"
+#~ msgstr "Namnet på tangentbordsgenvägen för att växla förstoraren"
+#~ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+#~ msgstr "Namnet på tangentbordsgenvägen för att växla skärmtangentbordet"
+#~ msgid "The name of the keyboard shortcut to toggle the screen reader"
+#~ msgstr "Namnet på tangentbordsgenvägen för att växla skärmläsaren"
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the magnifier. This "
+#~ "name will be shown in the keyboard shortcut preferences dialog."
+#~ msgstr ""
+#~ "Detta är namnet på tangentbordsgenvägen för att växla förstoraren. Detta "
+#~ "namn kommer att visas i inställningsdialogen för tangentbordsgenvägar."
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the on-screen "
+#~ "keyboard. This name will be shown in the keyboard shortcut preferences "
+#~ "dialog."
+#~ msgstr ""
+#~ "Detta är namnet på tangentbordsgenvägen för att växla skärmtangentbordet. "
+#~ "Detta namn kommer att visas i inställningsdialogen för "
+#~ "tangentbordsgenvägar."
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the screen reader. "
+#~ "This name will be shown in the keyboard shortcut preferences dialog."
+#~ msgstr ""
+#~ "Detta är namnet på tangentbordsgenvägen för att växla skärmläsaren. Detta "
+#~ "namn kommer att visas i inställningsdialogen för tangentbordsgenvägar."
+#~ msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+#~ msgstr "Huruvida hjälpmedelsfunktionen Studsande tangenter är påslagen."
+#~ msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+#~ msgstr "Huruvida hjälpmedelsfunktionen Mustangenter är påslagen."
+#~ msgid "Whether the on-screen keyboard is turned on."
+#~ msgstr "Huruvida hjälpmedelsfunktionen Skärmtangentbord är påslagen."
+#~ msgid "Whether the screen magnifier is turned on."
+#~ msgstr "Huruvida hjälpmedelsfunktionen Skärmförstorare är påslagen."
+#~ msgid "Whether the screen reader is turned on."
+#~ msgstr "Huruvida hjälpmedelsfunktionen Skärmläsare är påslagen."
+#~ msgid "Whether the slow keys keyboard accessibility feature is turned on."
+#~ msgstr "Huruvida hjälpmedelsfunktionen Tröga tangenter är påslagen."
+#~ msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+#~ msgstr "Huruvida hjälpmedelsfunktionen Klistriga tangenter är påslagen."
+#~ msgid "Don't become a daemon"
+#~ msgstr "Bli inte en demonprocess"
+#~ msgid "GConf prefix from which to load plugin settings"
+#~ msgstr ""
+#~ "GConf-prefix från vilket inställningar för insticksmoduler ska läsas in"
+#~ msgid "Font"
+#~ msgstr "Typsnitt"
+#~ msgid ""
+#~ "Error activating XKB configuration.\n"
+#~ "It can happen under various circumstances:\n"
+#~ "- a bug in libxklavier library\n"
+#~ "- a bug in X server (xkbcomp, xmodmap utilities)\n"
+#~ "- X server with incompatible libxkbfile implementation\n"
+#~ "\n"
+#~ "X server version data:\n"
+#~ "%s\n"
+#~ "%d\n"
+#~ "%s\n"
+#~ "If you report this situation as a bug, please include:\n"
+#~ "- The result of <b>%s</b>\n"
+#~ "- The result of <b>%s</b>"
+#~ msgstr ""
+#~ "Fel vid aktivering av XKB-konfiguration.\n"
+#~ "Detta kan hända under olika situationer:\n"
+#~ "- ett fel i biblioteket libxklavier\n"
+#~ "- ett fel i X-server (verktygen xkbcomp, xmodmap)\n"
+#~ "- X-server med inkompatibel implementation av libxkbfile\n"
+#~ "\n"
+#~ "Versionsdata för X-server:\n"
+#~ "%s\n"
+#~ "%d\n"
+#~ "%s\n"
+#~ "Om du rapporterar denna situation som ett fel så inkludera:\n"
+#~ "- Resultatet av <b>%s</b>\n"
+#~ "- Resultatet av <b>%s</b>"
+#~ msgid ""
+#~ "You are using XFree 4.3.0.\n"
+#~ "There are known problems with complex XKB configurations.\n"
+#~ "Try using a simpler configuration or taking a fresher version of XFree "
+#~ "software."
+#~ msgstr ""
+#~ "Du använder XFree 4.3.0.\n"
+#~ "Det finns kända problem med komplexa XKB-konfigurationer.\n"
+#~ "Prova med en enklare konfiguration eller använd en senare version av "
+#~ "XFree-programvaran."
+#~ msgid "Unknown"
+#~ msgstr "Okänd"
+#~ msgid "Keyboard Layout \"%s\""
+#~ msgstr "Tangentbordslayout \"%s\""
+#~ msgid "_Groups"
+#~ msgstr "_Grupper"
+#~ msgid "A_vailable files:"
+#~ msgstr "_Tillgängliga filer:"
+#~ msgid "Load modmap files"
+#~ msgstr "Läs in modmap-filer"
+#~ msgid "Would you like to load the modmap file(s)?"
+#~ msgstr "Vill du läsa in modmap-filerna?"
+#~ msgid "_Do not show this message again"
+#~ msgstr "_Visa inte detta meddelande igen"
+#~ msgid "_Load"
+#~ msgstr "_Läs in"
+#~ msgid "_Loaded files:"
+#~ msgstr "_Inlästa filer:"
+#~ msgid "Keyboard Layout"
+#~ msgstr "Tangentbordslayout"
+#~ msgid ""
+#~ "Couldn't put the machine to sleep.\n"
+#~ "Verify that the machine is correctly configured."
+#~ msgstr ""
+#~ "Kunde inte få denna maskin att sova.\n"
+#~ "Kontrollera att maskinen är korrekt konfigurerad."
+#~ msgid "Mouse Preferences"
+#~ msgstr "Musinställningar"
+#~ msgid "Typing Break"
+#~ msgstr "Paus i skrivande"
+#~ msgid "Typing break plugin"
+#~ msgstr "Insticksmodul för paus i skrivande"
+#~ msgid "<i>Rotation not supported</i>"
+#~ msgstr "<i>Rotering stöds inte</i>"
+#~ msgid "Could not save monitor configuration"
+#~ msgstr "Kunde inte spara skärmkonfigurationen"
+#~ msgid "Normal"
+#~ msgstr "Normal"
+#~ msgid "Left"
+#~ msgstr "Vänster"
+#~ msgid "Right"
+#~ msgstr "Höger"
+#~ msgid "Upside Down"
+#~ msgstr "Upp och ner"
+#~ msgid "_Configure Display Settings ..."
+#~ msgstr "_Konfigurera skärminställningar ..."
+#~ msgid "Configure display settings"
+#~ msgstr "Konfigurera skärminställningar"
+#~ msgid "Cannot determine user's home directory"
+#~ msgstr "Kan inte avgöra användarens hemkatalog"
+#~ msgid "Manage the X resource database"
+#~ msgstr "Hantera X-resursdatabasen"
+#~ msgid "X Resource Database"
+#~ msgstr "X-resursdatabas"
+#~ msgid "GConf key %s set to type %s but its expected type was %s\n"
+#~ msgstr ""
+#~ "GConf-nyckeln %s är satt till typen %s men dess förväntade typ var %s\n"
 #~ msgid "Binding to suspend the computer."
 #~ msgstr "Bindning för att försätta datorn i vänteläge."
 #~ msgid "Suspend"
@@ -1435,8 +1856,6 @@ msgstr "X-inställningar"
 #~ msgstr ""
 #~ "Det inträffade ett fel vid försöket att hämta adressboksinformationen\n"
 #~ "Evolution Data Server kan inte hantera protokollet"
-#~ msgid "Unable to open address book"
-#~ msgstr "Kan inte öppna adressboken"
 #~ msgid "Unknown login ID, the user database might be corrupted"
 #~ msgstr "Okänt inloggningsid, användardatabasen kan vara trasig"
 #~ msgid "About %s"
