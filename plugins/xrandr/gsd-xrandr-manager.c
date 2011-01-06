@@ -66,9 +66,7 @@
 #define GSD_XRANDR_ICON_NAME "gsd-xrandr"
 
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
-#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_XRANDR_DBUS_PATH GSD_DBUS_PATH "/XRANDR"
-#define GSD_XRANDR_DBUS_NAME GSD_DBUS_NAME ".XRANDR"
 
 static const gchar introspection_xml[] =
 "<node>"
