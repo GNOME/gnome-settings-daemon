@@ -12,14 +12,14 @@
 # Aron Xu <happyaron.xu@gmail.com>, 2009, 2010.
 # vicwjb <vicwjb@gmail.com>, 2010.
 # Tao Wang <dancefire@gmail.com>, 2010.
-#
+# 指冷玉笙寒 (dhyang) <dhyang555@gmail.com>, 2010
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-11-23 14:34+0000\n"
-"PO-Revision-Date: 2010-11-25 00:30+0800\n"
+"POT-Creation-Date: 2011-01-06 20:01+0000\n"
+"PO-Revision-Date: 2011-01-15 15:48+0800\n"
 "Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
 "Language-Team: Chinese Simplified <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -137,6 +137,7 @@ msgstr "智能卡移除动作"
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr "激活该插件"
 
@@ -147,6 +148,7 @@ msgstr "激活该插件"
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "使用该插件的优先程度"
 
@@ -241,10 +243,12 @@ msgid "Never show layout indicator"
 msgstr "不显示布局指示器"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
 msgstr "在 gnome-settings-daemon 启动队列中使用该插件的优先程度"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr "是否该插件应被 gnome-settings-daemon 激活。"
 
@@ -440,6 +444,8 @@ msgid ""
 "the internal monitor, 'do-nothing' will use the default Xorg behaviour "
 "(extend the desktop in recent versions)"
 msgstr ""
+"'clone' 将在所有显示器中显示相同画面；'dock'将关闭内部显示器；'do-nothing'将使用默"
+"认的 Xorg 行为(在近期版本中是拉伸桌面)"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
@@ -535,11 +541,149 @@ msgstr ""
 "绘制字形时使用微调的类型。可能的设定有：“无” - 无微调，“轻微”，“中等”以及“完"
 "全” - 尽量多地进行微调(可能会引起字形扭曲)。"
 
-#: ../gnome-settings-daemon/main.c:53
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr "启用此项仅在用户碰到触摸板时移动光标。"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr "启用此项以将光标设置为绝对模式。"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+msgid ""
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+msgid ""
+"Set this to the pressure value at which a stylus click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr ""
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "启用调试代码"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "一段时间后退出(调试用)"
 
@@ -689,6 +833,132 @@ msgstr "忽略快速重复按键(回键)(_I)"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "请一次一个的按下键盘快捷键(粘滞键)(_P)"
 
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr "自动挂载"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+msgid "Automounter plugin"
+msgstr "自动挂载插件"
+
+#: ../plugins/automount/gsd-automount-manager.c:145
+#, c-format
+msgid "Unable to mount %s"
+msgstr "不能挂载 %s"
+
+#: ../plugins/automount/gsd-automount-manager.c:204
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr "不能为 %s 打开文件夹"
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr "询问操作"
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr "无动作"
+
+#: ../plugins/automount/gsd-autorun.c:352
+msgid "Open Folder"
+msgstr "打开文件夹"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, c-format
+msgid "Unable to eject %p"
+msgstr "无法弹出 %p"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr "无法卸载 %p"
+
+#: ../plugins/automount/gsd-autorun.c:700
+msgid "You have just inserted an Audio CD."
+msgstr "您刚才已插入一张音频 CD"
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio DVD."
+msgstr "您刚才已插入一张音频 DVD"
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted a Video DVD."
+msgstr "您刚才已插入一张视频 DVD"
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video CD."
+msgstr "您刚才已插入一张视频 CD"
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Super Video CD."
+msgstr "您刚才已插入一张超级视频 CD"
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a blank CD."
+msgstr "您刚才已插入一张空白 CD"
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank DVD."
+msgstr "您刚才已插入一张空白 DVD"
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "您刚才已插入一张空白蓝光盘片"
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank HD DVD."
+msgstr "您刚才已插入一张空白 HD DVD"
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a Photo CD."
+msgstr "您刚才已插入一张照片 CD"
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Picture CD."
+msgstr "您刚才已插入一张图片 CD"
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a medium with digital photos."
+msgstr "您刚才已插入一个数字照片媒体"
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a digital audio player."
+msgstr "您刚才已插入一个数字音频播放器"
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr "您刚才已插入一个带有软件自动启动的媒体"
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:729
+msgid "You have just inserted a medium."
+msgstr "您刚才已插入一个媒体"
+
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "Choose what application to launch."
+msgstr "选择待启动的应用程序"
+
+#: ../plugins/automount/gsd-autorun.c:740
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr "选择如何打开 %s 及将来是否为 %s 类型的其他媒体执行此动作。"
+
+#: ../plugins/automount/gsd-autorun.c:767
+msgid "_Always perform this action"
+msgstr "总是执行此动作(_A)"
+
+#: ../plugins/automount/gsd-autorun.c:783
+msgid "_Eject"
+msgstr "弹出(_E)"
+
+#: ../plugins/automount/gsd-autorun.c:788
+msgid "_Unmount"
+msgstr "卸载(_U)"
+
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
 msgstr "背景"
@@ -716,39 +986,39 @@ msgstr "傻瓜插件"
 #: ../plugins/housekeeping/gsd-disk-space.c:271
 #, c-format
 msgid "Low Disk Space on \"%s\""
-msgstr "“%s”上的磁盘空间低"
+msgstr "%s 上的磁盘空间不足"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:273
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
-msgstr ""
+msgstr "巻 %s 仅剩余 %s 的磁盘空间，请清空回收站释放一部分空间。"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:277
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr "卷 \"%s\" 仅剩余 %s 硬盘空间。"
+msgstr "卷 %s 仅剩余 %s 的硬盘空间。"
 
 #. Set up all the window stuff here
 #: ../plugins/housekeeping/gsd-disk-space.c:282
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:202
 msgid "Low Disk Space"
-msgstr "磁盘空间小"
+msgstr "磁盘空间不足"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:284
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
 "by emptying the trash."
-msgstr ""
+msgstr "此计算机仅剩余 %s 的磁盘空间，请清空回收站释放一部分空间"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:287
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
 #, c-format
 msgid "This computer has only %s disk space remaining."
-msgstr "本计算机仅剩余 %s 硬盘空间。"
+msgstr "此计算机仅剩余 %s 的硬盘空间。"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:308
 msgid "Examine"
@@ -799,16 +1069,15 @@ msgstr ""
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
-msgstr "您可以通过删除无用程序或文件，或者移动文件到外部的磁盘来增加磁盘空间。"
+msgstr "您可以通过删除无用程序或文件，或者移动文件到外部磁盘来增加磁盘空间。"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:442
 msgid "Examine…"
 msgstr "分析..."
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:94
-#, c-format
-msgid "Removing item %lu of %lu"
-msgstr "正在删除 %lu 项目，共 %lu"
+msgid "Removing item %"
+msgstr "正在删除项目 %"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:114
 #, c-format
@@ -901,15 +1170,15 @@ msgstr ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:238
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:248
 msgid "_Layouts"
 msgstr "布局(_L)"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:245
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:255
 msgid "Keyboard _Preferences"
 msgstr "键盘首选项(_P)"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:251
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:261
 msgid "Show _Current Layout"
 msgstr "显示当前布局(_C)"
 
@@ -991,51 +1260,51 @@ msgstr "设置屏幕尺寸及旋转"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:403
+#: ../plugins/xrandr/gsd-xrandr-manager.c:413
 msgid "Could not switch the monitor configuration"
 msgstr "无法改变显示器配置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:427
+#: ../plugins/xrandr/gsd-xrandr-manager.c:437
 msgid "Could not restore the display's configuration"
 msgstr "无法恢复显示配置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:452
+#: ../plugins/xrandr/gsd-xrandr-manager.c:462
 msgid "Could not restore the display's configuration from a backup"
 msgstr "无法从备份中恢复显示配置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:473
+#: ../plugins/xrandr/gsd-xrandr-manager.c:483
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "显示将会在 %d 秒内恢复之前的配置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:522
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Does the display look OK?"
 msgstr "显示是否正常？"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:529
+#: ../plugins/xrandr/gsd-xrandr-manager.c:539
 msgid "_Restore Previous Configuration"
 msgstr "恢复之前的配置(_R)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:530
+#: ../plugins/xrandr/gsd-xrandr-manager.c:540
 msgid "_Keep This Configuration"
 msgstr "保持当前配置(_K)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:611
+#: ../plugins/xrandr/gsd-xrandr-manager.c:621
 msgid "The selected configuration for displays could not be applied"
 msgstr "无法为显示应用选定的配置"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1150
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "无法刷新屏幕信息：%s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1154
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "正在尝试改变显示器配置。"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1626
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
 msgstr "无法应用原保存的显示器配置。"
 
@@ -1047,69 +1316,69 @@ msgstr "管理 X 设置"
 msgid "X Settings"
 msgstr "X 设置"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:167
+#: ../plugins/smartcard/gsd-smartcard-manager.c:187
 msgid "Module Path"
 msgstr "模块路径"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:168
+#: ../plugins/smartcard/gsd-smartcard-manager.c:188
 msgid "path to smartcard PKCS #11 driver"
 msgstr "智能卡 PKCS #11 驱动程序路径"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:504
+#: ../plugins/smartcard/gsd-smartcard-manager.c:531
 msgid "received error or hang up from event source"
 msgstr "从事件源收到错误或挂断"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:593
+#: ../plugins/smartcard/gsd-smartcard-manager.c:665
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "NSS 安全系统不能被初始化"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#: ../plugins/smartcard/gsd-smartcard-manager.c:793
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr "找不到合适的智能卡驱动"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:682
+#: ../plugins/smartcard/gsd-smartcard-manager.c:807
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "智能卡驱动 %s 不能被加载"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:771
+#: ../plugins/smartcard/gsd-smartcard-manager.c:880
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "不能监视卡插入事件 - %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1124
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1283
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "等待智能卡事件时遇到意外错误"
 
-#: ../plugins/smartcard/gsd-smartcard.c:154
+#: ../plugins/smartcard/gsd-smartcard.c:155
 msgid "Slot ID"
 msgstr "插槽 ID"
 
-#: ../plugins/smartcard/gsd-smartcard.c:155
+#: ../plugins/smartcard/gsd-smartcard.c:156
 msgid "The slot the card is in"
 msgstr "卡在插槽中"
 
-#: ../plugins/smartcard/gsd-smartcard.c:161
+#: ../plugins/smartcard/gsd-smartcard.c:162
 msgid "Slot Series"
 msgstr "插槽序列"
 
-#: ../plugins/smartcard/gsd-smartcard.c:162
+#: ../plugins/smartcard/gsd-smartcard.c:163
 msgid "per-slot card identifier"
 msgstr "每个插槽的卡的标识符"
 
-#: ../plugins/smartcard/gsd-smartcard.c:168
 #: ../plugins/smartcard/gsd-smartcard.c:169
+#: ../plugins/smartcard/gsd-smartcard.c:170
 msgid "name"
 msgstr "名称"
 
-#: ../plugins/smartcard/gsd-smartcard.c:173
+#: ../plugins/smartcard/gsd-smartcard.c:174
 msgid "Module"
 msgstr "模块"
 
-#: ../plugins/smartcard/gsd-smartcard.c:174
+#: ../plugins/smartcard/gsd-smartcard.c:175
 msgid "smartcard driver"
 msgstr "智能卡驱动程序"
 
@@ -1126,14 +1395,22 @@ msgid "Configure hardware clock"
 msgstr "配置硬件时钟"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
+msgid "Configure network time"
+msgstr "配置网络时间"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
 msgid "Privileges are required to change the system time zone."
 msgstr "更改系统时区需要的权限"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
 msgid "Privileges are required to change the system time."
 msgstr "更改系统时间需要的权限"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:7
+msgid "Privileges are required to configure network time."
+msgstr "更改网络时间需要的权限"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:8
 msgid "Privileges are required to configure the hardware clock."
 msgstr "配置硬件时钟需要权限"
 
@@ -1380,9 +1657,6 @@ msgstr "配置硬件时钟需要权限"
 
 #~ msgid "Font"
 #~ msgstr "字体"
-
-#~ msgid "Font plugin"
-#~ msgstr "字体插件"
 
 #~ msgid ""
 #~ "Error activating XKB configuration.\n"
