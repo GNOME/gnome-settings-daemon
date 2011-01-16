@@ -457,6 +457,7 @@ ldsm_mount_should_ignore (GUnixMountEntry *mount)
                 "devfs",
                 "devpts",
                 "ecryptfs",
+                "fdescfs",
                 "gfs",
                 "gfs2",
                 "kernfs",
