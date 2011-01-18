@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.91.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-15 12:37+0100\n"
-"PO-Revision-Date: 2011-01-15 12:41+0100\n"
+"POT-Creation-Date: 2011-01-18 10:48+0100\n"
+"PO-Revision-Date: 2011-01-18 10:49+0100\n"
 "Last-Translator: Torstein Adolf Winterseth <kvikende@fsfe.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -20,8 +20,9 @@ msgstr ""
 "X-Generator: Lokalize 1.1\n"
 
 #: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "Tilgjengelighet"
+#: ../plugins/mouse/gsd-mouse-manager.c:872
+msgid "Universal Access"
+msgstr "Universell tilgang"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -228,12 +229,15 @@ msgstr "Aldri vis indikator for utforming"
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
-msgstr "Prioritet som skal brukes for dette tilegget i oppstartskøen for gnome-settings-daemon"
+msgstr ""
+"Prioritet som skal brukes for dette tilegget i oppstartskøen for gnome-"
+"settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
-msgstr "Hvorvidt dette tillegget skal slås på av gnome-settings-daemon eller ikke."
+msgstr ""
+"Hvorvidt dette tillegget skal slås på av gnome-settings-daemon eller ikke."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 msgid "Allowed keys"
@@ -497,7 +501,9 @@ msgstr ""
 msgid ""
 "The resolution used for converting font sizes to pixel sizes, in dots per "
 "inch. 0.0 DPI means that the X server's DPI will be used."
-msgstr "Oppløsing som brukes for å konvertere skriftstørrelser til pikselstørrelser i punkter per tomme. 0.0 DPI betyr at X-tjenerens DPI vil brukes."
+msgstr ""
+"Oppløsing som brukes for å konvertere skriftstørrelser til pikselstørrelser "
+"i punkter per tomme. 0.0 DPI betyr at X-tjenerens DPI vil brukes."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid ""
@@ -1063,34 +1069,35 @@ msgstr ""
 msgid "Examine…"
 msgstr "Undersøk …"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:94
-msgid "Removing item %"
-msgstr "Fjerner oppføring %"
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
+#, c-format
+msgid "Removing item %s of %s"
+msgstr "Fjerner oppføring %s av %s"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:114
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:119
 #, c-format
 msgid "Removing: %s"
 msgstr "Fjerner: %s"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:249
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:298
 msgid "Emptying the trash"
 msgstr "Tømmer papirkurven"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:274
 msgid "Preparing to empty trash…"
 msgstr "Forbereder tømming av papirkurven …"
 
 #. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:301
 msgid "From: "
 msgstr "Fra: "
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:362
 msgid "Empty all of the items from the trash?"
 msgstr "Tøm alle oppføringer fra papirkurven?"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:365
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
@@ -1098,7 +1105,7 @@ msgstr ""
 "Hvis du velger å tømme papirkurven vil alle oppføringer i den gå tapt "
 "permanent. Merk at du også kan slette dem hver for seg."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:372
 msgid "_Empty Trash"
 msgstr "_Tøm papirkurv"
 
@@ -1224,10 +1231,6 @@ msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Tilgjengelighet for mus krever at Mousetweaks er installert på systemet."
-
-#: ../plugins/mouse/gsd-mouse-manager.c:872
-msgid "Universal Access"
-msgstr "Universell tilgang"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
