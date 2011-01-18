@@ -63,7 +63,7 @@ update_state (GtkWidget *window)
                 break;
         case 4:
                 gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
-                                                         "media-eject",
+                                                         "media-eject-symbolic",
                                                          FALSE);
 
                 gtk_widget_show (window);

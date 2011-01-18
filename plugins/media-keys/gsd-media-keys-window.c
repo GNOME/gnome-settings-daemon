@@ -83,9 +83,9 @@ action_changed (GsdMediaKeysWindow *window)
                         volume_controls_set_visible (window, TRUE);
 
                         if (window->priv->volume_muted) {
-                                window_set_icon_name (window, "audio-volume-muted");
+                                window_set_icon_name (window, "audio-volume-muted-symbolic");
                         } else {
-                                window_set_icon_name (window, "audio-volume-high");
+                                window_set_icon_name (window, "audio-volume-high-symbolic");
                         }
 
                         break;
@@ -124,9 +124,9 @@ volume_muted_changed (GsdMediaKeysWindow *window)
 
         if (!gsd_osd_window_is_composited (GSD_OSD_WINDOW (window))) {
                 if (window->priv->volume_muted) {
-                        window_set_icon_name (window, "audio-volume-muted");
+                        window_set_icon_name (window, "audio-volume-muted-symbolic");
                 } else {
-                        window_set_icon_name (window, "audio-volume-high");
+                        window_set_icon_name (window, "audio-volume-high-symbolic");
                 }
         }
 }
@@ -208,7 +208,7 @@ load_pixbuf (GsdMediaKeysWindow *window,
         pixbuf = gtk_icon_theme_load_icon (theme,
                                            name,
                                            icon_size,
-                                           GTK_ICON_LOOKUP_FORCE_SIZE,
+                                           GTK_ICON_LOOKUP_FORCE_SIZE | GTK_ICON_LOOKUP_GENERIC_FALLBACK,
                                            NULL);
 
         return pixbuf;
@@ -357,10 +357,10 @@ render_speaker (GsdMediaKeysWindow *window,
         int                icon_size;
         int                n;
         static const char *icon_names[] = {
-                "audio-volume-muted",
-                "audio-volume-low",
-                "audio-volume-medium",
-                "audio-volume-high",
+                "audio-volume-muted-symbolic",
+                "audio-volume-low-symbolic",
+                "audio-volume-medium-symbolic",
+                "audio-volume-high-symbolic",
                 NULL
         };
 
@@ -625,7 +625,7 @@ draw_action_custom (GsdMediaKeysWindow *window,
                              cr,
                              icon_box_x0, icon_box_y0,
                              icon_box_width, icon_box_height);
-        if (! res && g_strcmp0 (window->priv->icon_name, "media-eject") == 0) {
+        if (! res && g_str_has_prefix (window->priv->icon_name, "media-eject")) {
                 /* draw eject symbol */
                 draw_eject (cr,
                             icon_box_x0, icon_box_y0,
@@ -693,6 +693,7 @@ gsd_media_keys_window_init (GsdMediaKeysWindow *window)
                                                    NULL);
 
                 window->priv->image = GTK_IMAGE (gtk_builder_get_object (builder, "acme_image"));
+                g_object_set (G_OBJECT (window->priv->image), "use-fallback", TRUE, NULL);
                 window->priv->progress = GTK_WIDGET (gtk_builder_get_object (builder, "acme_volume_progressbar"));
                 box = GTK_WIDGET (gtk_builder_get_object (builder, "acme_box"));
 
