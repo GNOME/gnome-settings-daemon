@@ -89,13 +89,18 @@ trash_empty_update_dialog (gpointer user_data)
                 gchar *text;
                 gchar *tmp;
                 gchar *markup;
+		gchar *deleted_str, *total_str;
                 GFile *parent;
 
-                text = g_strdup_printf (_("Removing item %"G_GSIZE_FORMAT" of %"G_GSIZE_FORMAT),
-                                        deleted, total);
+		deleted_str = g_strdup_printf ("%"G_GSIZE_FORMAT, deleted);
+		total_str = g_strdup_printf ("%"G_GSIZE_FORMAT, total);
+                text = g_strdup_printf (_("Removing item %s of %s"),
+                                        deleted_str, total_str);
                 gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progressbar), text);
 
                 g_free (text);
+		g_free (deleted_str);
+		g_free (total_str);
 
                 if (deleted > total)
                         gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progressbar), 1.0);
