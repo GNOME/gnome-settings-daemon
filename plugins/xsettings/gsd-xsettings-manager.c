@@ -714,6 +714,7 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         manager->priv->gtk = gsd_xsettings_gtk_new ();
         g_signal_connect (G_OBJECT (manager->priv->gtk), "notify::gtk-modules",
                           G_CALLBACK (gtk_modules_callback), manager);
+        gtk_modules_callback (manager->priv->gtk, NULL, manager);
 
         /* Xft settings */
         update_xft_settings (manager);
