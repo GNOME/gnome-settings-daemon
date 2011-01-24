@@ -94,7 +94,9 @@ activation_error (void)
 	char const *vendor;
 	GtkWidget *dialog;
 
-	vendor = ServerVendor (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
+	vendor =
+	    ServerVendor (GDK_DISPLAY_XDISPLAY
+			  (gdk_display_get_default ()));
 
 	/* VNC viewers will not work, do not barrage them with warnings */
 	if (NULL != vendor && NULL != strstr (vendor, "VNC"))
@@ -121,6 +123,39 @@ activation_error (void)
 	gsd_delayed_show_dialog (dialog);
 }
 
+static gboolean
+is_gnome_shell_env ()
+{
+	gboolean retval = FALSE;
+
+	GDBusConnection *bus =
+	    g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+	if (bus != NULL) {
+		GVariant *result;
+		result = g_dbus_connection_call_sync (bus,
+						      "org.freedesktop.DBus",
+						      "/org/freedesktop/DBus",
+						      "org.freedesktop.DBus",
+						      "GetNameOwner",
+						      g_variant_new ("(s)",
+								     "org.gnome.Shell"),
+						      G_VARIANT_TYPE
+						      ("(s)"),
+						      G_DBUS_CALL_FLAGS_NONE,
+						      -1, NULL, NULL);
+		if (result != NULL) {
+			xkl_debug (20, "GNOME Shell is running\n");
+			retval = TRUE;
+			g_variant_unref (result);
+		} else {
+			xkl_debug (20, "GNOME Shell isn't running\n");
+			retval = FALSE;
+		}
+		g_object_unref (bus);
+	}
+	return retval;
+}
+
 static void
 apply_desktop_settings (void)
 {
@@ -135,7 +170,14 @@ apply_desktop_settings (void)
 	   before activating them */
 	gkbd_desktop_config_activate (&current_config);
 
-	show_leds = g_settings_get_boolean (settings_plugin, SHOW_KEYBOARD_LEDS_INDICATOR_KEY);
+	if (is_gnome_shell_env ()) {
+		xkl_debug (150, "Do not show kbd LEDs while running in gnome-shell session\n");
+		return;
+	}
+
+	show_leds =
+	    g_settings_get_boolean (settings_plugin,
+				    SHOW_KEYBOARD_LEDS_INDICATOR_KEY);
 	for (i = 0; i < G_N_ELEMENTS (indicator_icons); i++) {
 		gtk_status_icon_set_visible (indicator_icons[i],
 					     show_leds);
@@ -149,10 +191,14 @@ popup_menu_launch_capplet ()
 	GdkAppLaunchContext *ctx;
 	GError *error = NULL;
 
-	info = g_app_info_create_from_commandline ("gnome-keyboard-properties", NULL, 0, &error);
+	info =
+	    g_app_info_create_from_commandline
+	    ("gnome-keyboard-properties", NULL, 0, &error);
 
 	if (info != NULL) {
-		ctx = gdk_display_get_app_launch_context (gdk_display_get_default ());
+		ctx =
+		    gdk_display_get_app_launch_context
+		    (gdk_display_get_default ());
 
 		g_app_info_launch (info, NULL,
 				   G_APP_LAUNCH_CONTEXT (ctx), &error);
@@ -303,13 +349,21 @@ show_hide_icon ()
 {
 	if (g_strv_length (current_kbd_config.layouts_variants) > 1) {
 		if (icon == NULL) {
-			gboolean disable =
-			    g_settings_get_boolean (settings_plugin,
-						    DISABLE_INDICATOR_KEY);
-			if (disable)
+			if (g_settings_get_boolean (settings_plugin,
+						    DISABLE_INDICATOR_KEY))
+			{
+				xkl_debug (150,
+					   "Not creating keyboard status icon: disabled in GSettings\n");
 				return;
+			}
 
-			xkl_debug (150, "Creating new icon\n");
+			if (is_gnome_shell_env ()) {
+				xkl_debug (150,
+					   "Not creating keyboard status icon: running in gnome-shell session\n");
+				return;
+			}
+
+			xkl_debug (150, "Creating keyboard status icon\n");
 			icon = gkbd_status_new ();
 			gtk_status_icon_set_name (icon, "keyboard");
 			g_signal_connect (icon, "popup-menu",
