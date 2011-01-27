@@ -65,8 +65,6 @@ static GSettings *settings_keyboard = NULL;
 static PostActivationCallback pa_callback = NULL;
 static void *pa_callback_user_data = NULL;
 
-static const char *gdm_keyboard_layout = NULL;
-
 static GtkStatusIcon *icon = NULL;
 
 static GHashTable *preview_dialogs = NULL;
@@ -462,102 +460,9 @@ apply_xkb_settings (void)
 {
 	GkbdKeyboardConfig current_sys_kbd_config;
 	int group_to_activate = -1;
-	char *gdm_layout;
-	char *s;
 
 	if (!inited_ok)
 		return;
-
-	/* With GDM the user can already set a layout from the login
-	 * screen. Try to keep that setting.
-	 * We clear gdm_keyboard_layout early, so we don't risk
-	 * recursion from conf notification.
-	 */
-	gdm_layout = g_strdup (gdm_keyboard_layout);
-	gdm_keyboard_layout = NULL;
-
-	/* gdm's configuration and $GDM_KEYBOARD_LAYOUT separates layout and
-	 * variant with a space, but gsettings use tabs; so convert to be robust
-	 * with both */
-	for (s = gdm_layout; s && *s; ++s) {
-		if (*s == ' ') {
-			*s = '\t';
-		}
-	}
-
-	if (gdm_layout != NULL) {
-		gchar **layouts;
-		gboolean found_node;
-		int max_groups;
-		gchar **i;
-
-		max_groups =
-		    MAX (xkl_engine_get_max_num_groups (xkl_engine), 1);
-		layouts =
-		    g_settings_get_strv (settings_keyboard,
-					 GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS);
-
-		/* Use system layouts as a default if we do not have
-		 * user configuration */
-		if (layouts == NULL) {
-			int len;
-
-			i = layouts =
-			    g_strdupv
-			    (initial_sys_kbd_config.layouts_variants);
-			if (i != NULL) {
-				while (*i != NULL) {
-					s = *i;
-
-					/* chop off empty variants to avoid duplicates */
-					len = strlen (s);
-					if (s[len - 1] == '\t')
-						s[len - 1] = '\0';
-					i++;
-				}
-			}
-		}
-
-		/* Add the layout if it doesn't already exist. XKB limits the
-		 * total number of layouts. If we already have the maximum
-		 * number of layouts configured, we replace the last one. This
-		 * prevents the list from becoming full if the user has a habit
-		 * of selecting many different keyboard layouts in GDM. */
-
-		found_node = FALSE;
-		i = layouts;
-		if (i != NULL) {
-			while (*i != NULL) {
-				if (!g_strcmp0 (*i, gdm_layout)) {
-					found_node = TRUE;
-					break;
-				}
-				i++;
-			}
-		}
-
-		if (!found_node) {
-			/* Insert at the last valid place, or at the end of
-			 * list, whichever comes first */
-			gint old_length = g_strv_length (layouts);
-			if (old_length >= max_groups) {
-				layouts[max_groups - 1] =
-				    g_strdup (gdm_layout);
-			} else {
-				layouts =
-				    gkbd_strv_append (layouts,
-						      g_strdup
-						      (gdm_layout));
-			}
-
-			g_settings_set_strv (settings_keyboard,
-					     GKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
-					     (const gchar *
-					      const *) layouts);
-		}
-
-		g_strfreev (layouts);
-	}
 
 	gkbd_keyboard_config_init (&current_sys_kbd_config, xkl_engine);
 
@@ -583,32 +488,6 @@ apply_xkb_settings (void)
 	} else
 		xkl_debug (100,
 			   "Actual KBD configuration was not changed: redundant notification\n");
-
-	if (gdm_layout != NULL) {
-		/* If there are multiple layouts,
-		 * try to find the one closest to the gdm layout
-		 */
-		gchar **l;
-		int i;
-		size_t len = strlen (gdm_layout);
-		l = current_kbd_config.layouts_variants;
-		if (l != NULL) {
-			i = 0;
-			while (*l != NULL) {
-				char *lv = *l;
-				if (strncmp (lv, gdm_layout, len) == 0
-				    && (lv[len] == '\0'
-					|| lv[len] == '\t')) {
-					group_to_activate = i;
-					break;
-				}
-				i++;
-				l++;
-			}
-		}
-	}
-
-	g_free (gdm_layout);
 
 	if (group_to_activate != -1)
 		xkl_engine_lock_group (current_config.engine,
@@ -727,8 +606,6 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 	gnome_settings_profile_end ("xkl_engine_get_instance");
 	if (xkl_engine) {
 		inited_ok = TRUE;
-
-		gdm_keyboard_layout = g_getenv ("GDM_KEYBOARD_LAYOUT");
 
 		gkbd_desktop_config_init (&current_config, xkl_engine);
 		gkbd_keyboard_config_init (&current_kbd_config,
