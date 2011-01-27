@@ -11,15 +11,16 @@
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2005, 2006.
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2011-01-02 10:18+0000\n"
-"PO-Revision-Date: 2011-01-08 12:23+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2011-01-18 01:22+0000\n"
+"PO-Revision-Date: 2011-01-27 11:40+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,8 +29,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "Accesibilidad"
+#: ../plugins/mouse/gsd-mouse-manager.c:872
+msgid "Universal Access"
+msgstr "Acceso universal"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -97,8 +99,8 @@ msgid ""
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
 "Seleccionar el método de desplazamiento del «touchpad». Los valores "
-"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento "
-"en el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
+"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento en "
+"el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid ""
@@ -624,37 +626,42 @@ msgstr "Establecer esto para el mapeado lógico de botones."
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
+"Establecer esto al valor de presión en el que se genera un evento de estilo."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
+"Establecer esto al valor de presión en el que se genera un evento de borrado."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
-msgstr ""
+msgstr "Establecer esto a x1, y1 y x2, y2 del área usable por el cursor."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
-msgstr ""
+msgstr "Establecer esto a x1, y1 y x2, y2 del área usable por el borrado."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
-msgstr ""
+msgstr "Establecer esto a x1, y1 y x2, y2 del área usable por la tableta."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
-msgstr ""
+msgstr "Establecer esto a x1, y1 y x2, y2 del área usable por el estilo."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
+"Establecer esto a x1, y1 y x2, y2 del la curva de presión aplicada al "
+"borrado."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
+"Establecer esto a x1, y1 y x2, y2 del la curva de presión aplicada al estilo."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom cursor absolute mode"
@@ -690,27 +697,27 @@ msgstr "Wacom: área de borrado de la tableta"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom pad button mapping"
-msgstr ""
+msgstr "Wacom: mapeado de botones de la tableta"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom pad tablet area"
-msgstr ""
+msgstr "Wacom: área de la tableta"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Wacom stylus absolute mode"
-msgstr ""
+msgstr "Wacom: modo de estilo absoluto"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom stylus button mapping"
-msgstr ""
+msgstr "Wacom: mapeado de botones de estilo"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "Wacom stylus pressure curve"
-msgstr ""
+msgstr "Wacom: curva de presión de estilo"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Wacom stylus pressure threshold"
-msgstr ""
+msgstr "Wacom: umbral de presión de estilo"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid "Wacom stylus tablet area"
@@ -726,7 +733,7 @@ msgstr "Wacom: rotación de la tableta"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
 msgid "Wacom touch feature"
-msgstr ""
+msgstr "Wacomo: característica de toque"
 
 #: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
@@ -830,8 +837,8 @@ msgid ""
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Acaba de pulsar la tecla «Mayúsculas» 5 veces. Este es el acceso rápido para "
-"la característica «Teclas persistentes», que afecta la manera en que "
-"funciona el teclado."
+"la característica «Teclas persistentes», que afecta la manera en que funciona "
+"el teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
@@ -841,8 +848,8 @@ msgid ""
 "keyboard works."
 msgstr ""
 "Acaba de pulsar dos teclas a la vez, o ha pulsado la tecla «Mayúsculas» 5 "
-"veces seguidas. Esto desactiva la característica de «Teclas persistentes», "
-"lo cual afecta a la forma en que funciona su teclado."
+"veces seguidas. Esto desactiva la característica de «Teclas persistentes», lo "
+"cual afecta a la forma en que funciona su teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
 msgid "Sticky Keys Alert"
@@ -1138,35 +1145,36 @@ msgstr ""
 msgid "Examine…"
 msgstr "Examinar…"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:94
-#| msgid "Removing item %lu of %lu"
-msgid "Removing item %"
-msgstr "Quitando elemento %"
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
+#, c-format
+#| msgid "Removing item %"
+msgid "Removing item %s of %s"
+msgstr "Quitando el elemento %s de %s"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:114
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:119
 #, c-format
 msgid "Removing: %s"
 msgstr "Eliminando: %s"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:249
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:298
 msgid "Emptying the trash"
 msgstr "Vaciando la papelera"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:274
 msgid "Preparing to empty trash…"
 msgstr "Preparándose para vaciar la papelera…"
 
 #. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:301
 msgid "From: "
 msgstr "Desde:"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:362
 msgid "Empty all of the items from the trash?"
 msgstr "¿Vaciar todos los elementos de la papelera?"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:365
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
@@ -1174,7 +1182,7 @@ msgstr ""
 "Si elige vaciar la papelera se borrarán permanentemente todos los elementos "
 "en ella. Note que también puede borrarlos separadamente."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:372
 msgid "_Empty Trash"
 msgstr "_Vaciar papelera"
 
@@ -1311,10 +1319,6 @@ msgstr ""
 "La accesibilidad del ratón requiere que los ajustes finos del ratón estén "
 "instalados en su sistema."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:872
-msgid "Universal Access"
-msgstr "Acceso universal"
-
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "Ratón"
@@ -1331,19 +1335,19 @@ msgstr "Establecer los ajustes de tamaño y rotación de la pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:403
+#: ../plugins/xrandr/gsd-xrandr-manager.c:413
 msgid "Could not switch the monitor configuration"
 msgstr "No se pudo cambiar la configuración del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:427
+#: ../plugins/xrandr/gsd-xrandr-manager.c:437
 msgid "Could not restore the display's configuration"
 msgstr "No se pudo restaurar la configuración del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:452
+#: ../plugins/xrandr/gsd-xrandr-manager.c:462
 msgid "Could not restore the display's configuration from a backup"
 msgstr "No se pudo restaurar la configuración del monitor desde un respaldo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:473
+#: ../plugins/xrandr/gsd-xrandr-manager.c:483
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1352,32 +1356,32 @@ msgstr[0] "La pantalla se reiniciará a su configuración anterior en %d segundo
 msgstr[1] ""
 "La pantalla se reiniciará a su configuración anterior en %d segundos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:522
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Does the display look OK?"
 msgstr "¿Se ve bien la pantalla?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:529
+#: ../plugins/xrandr/gsd-xrandr-manager.c:539
 msgid "_Restore Previous Configuration"
 msgstr "_Restaurar la configuración anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:530
+#: ../plugins/xrandr/gsd-xrandr-manager.c:540
 msgid "_Keep This Configuration"
 msgstr "_Mantener esta configuración"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:611
+#: ../plugins/xrandr/gsd-xrandr-manager.c:621
 msgid "The selected configuration for displays could not be applied"
 msgstr "No se pudo aplicar la configuración seleccionada para las pantallas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1150
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "No se pudo refrescar la información de la pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1154
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Intentando cambiar la configuración del monitor de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1626
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
 msgstr "No se pudo aplicar la configuración almacenada para los monitores"
 
@@ -1488,6 +1492,9 @@ msgstr "Se requieren privilegios para configurar la hora de red."
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:8
 msgid "Privileges are required to configure the hardware clock."
 msgstr "Se requieren privilegios para cambiar el reloj hardware."
+
+#~ msgid "Accessibility"
+#~ msgstr "Accesibilidad"
 
 #~ msgid "Cannot determine user's home directory"
 #~ msgstr "No se puede determinar el directorio personal del usuario"
