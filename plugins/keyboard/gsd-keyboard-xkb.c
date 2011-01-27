@@ -191,7 +191,7 @@ popup_menu_launch_capplet ()
 
 	info =
 	    g_app_info_create_from_commandline
-	    ("gnome-keyboard-properties", NULL, 0, &error);
+	    ("gnome-control-center region", NULL, 0, &error);
 
 	if (info != NULL) {
 		ctx =
