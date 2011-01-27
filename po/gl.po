@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-14 16:23+0100\n"
-"PO-Revision-Date: 2011-01-09 17:14+0100\n"
+"POT-Creation-Date: 2011-01-27 03:34+0100\n"
+"PO-Revision-Date: 2011-01-26 15:15+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "Language: gl\n"
@@ -29,8 +29,9 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "Accesibilidade"
+#: ../plugins/mouse/gsd-mouse-manager.c:872
+msgid "Universal Access"
+msgstr "Acceso universal"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -198,7 +199,7 @@ msgstr "Período mínimo de notificación para avisos repetidos"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
-msgstr "Puntos de montaxe a ignorar"
+msgstr "Rutas de montaxe a ignorar"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
@@ -212,7 +213,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
-"Especificar unha lista de puntos de montaxe para ignorar cando estean baixos "
+"Especificar unha lista de rutas de montaxe para ignorar cando estean baixos "
 "de espazo."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
@@ -516,7 +517,7 @@ msgid ""
 "even if enabled by default in their configuration."
 msgstr ""
 "Unha lista de cadeas que representan os módulos GTK+ que non se cargarán, "
-"incluso se están desactivados na súa configuración predeterminada."
+"incluso se están activados de forma predefinida na súa configuración."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
@@ -1143,34 +1144,35 @@ msgstr ""
 msgid "Examine…"
 msgstr "Examinar…"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:94
-msgid "Removing item %"
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
+#, fuzzy, c-format
+msgid "Removing item %s of %s"
 msgstr "Eliminando o elemento %"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:114
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:119
 #, c-format
 msgid "Removing: %s"
 msgstr "Eliminando: %s"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:249
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:298
 msgid "Emptying the trash"
 msgstr "Baleirando a papeleira"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:274
 msgid "Preparing to empty trash…"
 msgstr "Preparándoos para baleirar o lixo…"
 
 #. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:301
 msgid "From: "
-msgstr "Dende: "
+msgstr "Desde: "
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:362
 msgid "Empty all of the items from the trash?"
 msgstr "Desexa eliminar todos os elementos da papeleira?"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:365
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
@@ -1178,7 +1180,7 @@ msgstr ""
 "Se escolle baleirar a papeleira, todos os elementos nela perderánse de forma "
 "permanente. Teña en conta que tamén pode eliminalos por separado."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:372
 msgid "_Empty Trash"
 msgstr "_Baleirar a papeleira"
 
@@ -1313,10 +1315,6 @@ msgid ""
 msgstr ""
 "A accesibilidade de rato require ter instalado mousetweaks no seu sistema."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:872
-msgid "Universal Access"
-msgstr "Acceso universal"
-
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "Rato"
@@ -1378,7 +1376,7 @@ msgstr "Non foi posíbel actualizar a información de pantalla: %s"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
-msgstr "Tentando mudar a configuración da pantalla de todas formas."
+msgstr "Tentando cambiar a configuración da pantalla de todas formas."
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
@@ -1394,11 +1392,11 @@ msgstr "Configuracións de X"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:187
 msgid "Module Path"
-msgstr "Camiño ao módulo"
+msgstr "Ruta ao módulo"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:188
 msgid "path to smartcard PKCS #11 driver"
-msgstr "camiño ao controlador PKCS #11 da tarxeta intelixente"
+msgstr "ruta ao controlador PKCS #11 da tarxeta intelixente"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:531
 msgid "received error or hang up from event source"
@@ -1413,7 +1411,7 @@ msgstr "Non foi posíbel inicializar o sistema de seguranza NSS"
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr ""
-"non foi posíbel encontrar o controlador da tarxeta intelixente axeitado"
+"non foi posíbel atopar un controlador axeitado para a tarxeta intelixente"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:807
 #, c-format
@@ -1492,6 +1490,9 @@ msgstr "Requírense privilexios para cambiar o hora de rede."
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:8
 msgid "Privileges are required to configure the hardware clock."
 msgstr "Requírense privilexios para cambiar o reloxo do sistema."
+
+#~ msgid "Accessibility"
+#~ msgstr "Accesibilidade"
 
 #~ msgid "No applications found"
 #~ msgstr "Non se encontraron aplicativos"
