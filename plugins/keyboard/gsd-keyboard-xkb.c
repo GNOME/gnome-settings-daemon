@@ -315,17 +315,10 @@ show_hide_icon ()
 {
 	if (g_strv_length (current_kbd_config.layouts_variants) > 1) {
 		if (icon == NULL) {
-			if (g_settings_get_boolean (settings_plugin,
-						    DISABLE_INDICATOR_KEY))
+			if (g_settings_get_boolean (settings_plugin, DISABLE_INDICATOR_KEY))
 			{
 				xkl_debug (150,
 					   "Not creating keyboard status icon: disabled in GSettings\n");
-				return;
-			}
-
-			if (is_gnome_shell_env ()) {
-				xkl_debug (150,
-					   "Not creating keyboard status icon: running in gnome-shell session\n");
 				return;
 			}
 
