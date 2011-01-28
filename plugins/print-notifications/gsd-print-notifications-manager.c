@@ -76,7 +76,6 @@ on_cups_notification (GDBusConnection *connection,
                       gpointer         user_data)
 {
         GsdPrintNotificationsManager *manager = GSD_PRINT_NOTIFICATIONS_MANAGER (user_data);
-        NotifyNotification          *notification;
         cups_job_t                  *jobs;
         GSList                      *actual = NULL;
         GSList                      *tmp = NULL;
@@ -218,9 +217,12 @@ on_cups_notification (GDBusConnection *connection,
         }
 
         if (primary_text) {
+                NotifyNotification *notification;
                 notification = notify_notification_new (primary_text,
                                                         secondary_text,
                                                         NULL);
+                notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
+
                 notify_notification_show (notification, NULL);
         }
 }
