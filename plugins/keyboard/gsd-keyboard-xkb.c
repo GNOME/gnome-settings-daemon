@@ -86,6 +86,12 @@ static const gchar *indicator_off_icon_names[] = {
 	"kbd-capslock-off"
 };
 
+static const gchar *indicator_icon_names[] = {
+	"kbd-scrolllock",
+	"kbd-numlock",
+	"kbd-capslock"
+};
+
 static void
 activation_error (void)
 {
@@ -596,6 +602,7 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 		indicator_icons[i] =
 		    gtk_status_icon_new_from_icon_name
 		    (indicator_off_icon_names[i]);
+		gtk_status_icon_set_name (indicator_icons[i], indicator_icon_names[i]);
 	}
 
 	gsd_keyboard_update_indicator_icons ();
