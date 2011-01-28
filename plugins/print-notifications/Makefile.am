@@ -1,0 +1,40 @@
+plugin_LTLIBRARIES = \
+	libprint-notifications.la
+
+libprint_notifications_la_SOURCES = 		\
+	gsd-print-notifications-manager.c	\
+	gsd-print-notifications-manager.h	\
+	gsd-print-notifications-plugin.c	\
+	gsd-print-notifications-plugin.h
+
+libprint_notifications_la_CPPFLAGS = \
+	-I$(top_srcdir)/gnome-settings-daemon		\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
+
+libprint_notifications_la_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
+libprint_notifications_la_LDFLAGS = 		\
+	$(GSD_PLUGIN_LDFLAGS)
+
+libprint_notifications_la_LIBADD  = 		\
+	$(CUPS_LIBS)			\
+	$(SETTINGS_PLUGIN_LIBS)
+
+plugin_in_files = 		\
+	print-notifications.gnome-settings-plugin.in
+
+plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+
+EXTRA_DIST = 			\
+	$(plugin_in_files)
+
+CLEANFILES = 			\
+	$(plugin_DATA)
+
+DISTCLEANFILES =		\
+	$(plugin_DATA)
+
+@GSD_INTLTOOL_PLUGIN_RULE@

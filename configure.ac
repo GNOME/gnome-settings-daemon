@@ -350,6 +350,19 @@ AC_SUBST(POLKIT_CFLAGS)
 AC_SUBST(POLKIT_LIBS)
 
 
+# ---------------------------------------------------------------------------
+# CUPS
+# ---------------------------------------------------------------------------
+
+AC_CHECK_HEADERS([cups/cups.h cups/http.h cups/ipp.h], have_cups=yes, have_cups=no)
+if test x$have_cups = xyes ; then
+  CUPS_LIBS=-lcups
+  AC_SUBST(CUPS_LIBS)
+else
+  AC_MSG_WARN(*** Print-notifications plugin will not be built (CUPS header files not found) ***)
+fi
+AM_CONDITIONAL(BUILD_PRINT_NOTIFICATIONS, [test x$have_cups = xyes])
+
 
 # ---------------------------------------------------------------------------
 # Enable Profiling
@@ -452,6 +465,7 @@ plugins/keyboard/Makefile
 plugins/media-keys/Makefile
 plugins/media-keys/cut-n-paste/Makefile
 plugins/mouse/Makefile
+plugins/print-notifications/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
 plugins/wacom/Makefile
@@ -470,6 +484,7 @@ data/org.gnome.settings-daemon.peripherals.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in
+data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in
 po/Makefile.in
 ])
 
