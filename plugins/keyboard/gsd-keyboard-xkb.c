@@ -603,6 +603,7 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 		    gtk_status_icon_new_from_icon_name
 		    (indicator_off_icon_names[i]);
 		gtk_status_icon_set_name (indicator_icons[i], indicator_icon_names[i]);
+		gtk_status_icon_set_visible (indicator_icons[i], FALSE);
 	}
 
 	gsd_keyboard_update_indicator_icons ();
