@@ -127,39 +127,6 @@ activation_error (void)
 	gsd_delayed_show_dialog (dialog);
 }
 
-static gboolean
-is_gnome_shell_env ()
-{
-	gboolean retval = FALSE;
-
-	GDBusConnection *bus =
-	    g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
-	if (bus != NULL) {
-		GVariant *result;
-		result = g_dbus_connection_call_sync (bus,
-						      "org.freedesktop.DBus",
-						      "/org/freedesktop/DBus",
-						      "org.freedesktop.DBus",
-						      "GetNameOwner",
-						      g_variant_new ("(s)",
-								     "org.gnome.Shell"),
-						      G_VARIANT_TYPE
-						      ("(s)"),
-						      G_DBUS_CALL_FLAGS_NONE,
-						      -1, NULL, NULL);
-		if (result != NULL) {
-			xkl_debug (20, "GNOME Shell is running\n");
-			retval = TRUE;
-			g_variant_unref (result);
-		} else {
-			xkl_debug (20, "GNOME Shell isn't running\n");
-			retval = FALSE;
-		}
-		g_object_unref (bus);
-	}
-	return retval;
-}
-
 static void
 apply_desktop_settings (void)
 {
@@ -173,11 +140,6 @@ apply_desktop_settings (void)
 	/* again, probably it would be nice to compare things
 	   before activating them */
 	gkbd_desktop_config_activate (&current_config);
-
-	if (is_gnome_shell_env ()) {
-		xkl_debug (150, "Do not show kbd LEDs while running in gnome-shell session\n");
-		return;
-	}
 
 	show_leds =
 	    g_settings_get_boolean (settings_plugin,
