@@ -1173,6 +1173,7 @@ gsd_a11y_keyboard_manager_ensure_status_icon (GsdA11yKeyboardManager *manager)
         if (!manager->priv->status_icon) {
 
                 manager->priv->status_icon = gtk_status_icon_new_from_icon_name ("preferences-desktop-accessibility");
+                gtk_status_icon_set_name (manager->priv->status_icon, "a11y-keyboard");
                 g_signal_connect (manager->priv->status_icon,
                                   "activate",
                                   G_CALLBACK (on_status_icon_activate),
