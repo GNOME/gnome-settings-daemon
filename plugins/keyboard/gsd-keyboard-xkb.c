@@ -290,7 +290,6 @@ show_hide_icon ()
 
 			xkl_debug (150, "Creating keyboard status icon\n");
 			icon = gkbd_status_new ();
-			gtk_status_icon_set_name (icon, "keyboard");
 			g_signal_connect (icon, "popup-menu",
 					  G_CALLBACK
 					  (status_icon_popup_menu_cb),
