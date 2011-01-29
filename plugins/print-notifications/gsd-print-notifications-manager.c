@@ -90,7 +90,7 @@ on_cups_notification (GDBusConnection *connection,
 
         if (g_strcmp0 (signal_name, "PrinterAdded") == 0) {
                 /* Translators: New printer has been added */
-                primary_text = g_strdup (_("New printer"));
+                primary_text = g_strdup (_("Printer added"));
                 if (g_variant_n_children (parameters) == 1) {
                         g_variant_get (parameters, "(&s)", &printer_name);
                         secondary_text = g_strdup_printf ("%s", printer_name);
@@ -122,28 +122,28 @@ on_cups_notification (GDBusConnection *connection,
                                                         break;
                                                 case IPP_JOB_STOPPED:
                                                         /* Translators: A print job has been stopped */
-                                                        primary_text = g_strdup (_("Print job stopped"));
+                                                        primary_text = g_strdup (_("Printing stopped"));
                                                         /* Translators: "print-job xy" on a printer */
                                                         secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, jobs[i].dest);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 case IPP_JOB_CANCELED:
                                                         /* Translators: A print job has been canceled */
-                                                        primary_text = g_strdup (_("Print job canceled"));
+                                                        primary_text = g_strdup (_("Printing canceled"));
                                                         /* Translators: "print-job xy" on a printer */
                                                         secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, jobs[i].dest);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 case IPP_JOB_ABORTED:
                                                         /* Translators: A print job has been aborted */
-                                                        primary_text = g_strdup (_("Print job aborted"));
+                                                        primary_text = g_strdup (_("Printing aborted"));
                                                         /* Translators: "print-job xy" on a printer */
                                                         secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, jobs[i].dest);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 case IPP_JOB_COMPLETED:
                                                         /* Translators: A print job has been completed */
-                                                        primary_text = g_strdup (_("Print job completed"));
+                                                        primary_text = g_strdup (_("Printing completed"));
                                                         /* Translators: "print-job xy" on a printer */
                                                         secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, jobs[i].dest);
                                                         actual->data = GINT_TO_POINTER (-1);
@@ -179,10 +179,7 @@ on_cups_notification (GDBusConnection *connection,
                                         index = i;
 
                         if (index >= 0) {
-                                /* Translators: Somebody sent something to printer */
-                                primary_text = g_strdup (_("New print job"));
-                                /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[index].title, jobs[index].dest);
+                                /* Only display a notification if there is some problem */
                         }
 
                         manager->priv->actual_jobs =
