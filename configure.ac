@@ -496,8 +496,8 @@ echo "
                     gnome-settings-daemon $VERSION
                     =============================
 
-	prefix:                   ${prefix}
-	exec_prefix:              ${exec_prefix}
+        prefix:                   ${prefix}
+        exec_prefix:              ${exec_prefix}
         libdir:                   ${libdir}
         bindir:                   ${bindir}
         sbindir:                  ${sbindir}
@@ -506,9 +506,9 @@ echo "
         localstatedir:            ${localstatedir}
         plugindir:                ${plugindir}
         datadir:                  ${datadir}
-	source code location:	  ${srcdir}
-	compiler:		  ${CC}
-	cflags:		          ${CFLAGS}
+        source code location:     ${srcdir}
+        compiler:                 ${CC}
+        cflags:                   ${CFLAGS}
         Maintainer mode:          ${USE_MAINTAINER_MODE}
 
         dbus-1 system.d dir:      ${DBUS_SYS_DIR}
@@ -517,7 +517,8 @@ echo "
         Libnotify support:        ${have_libnotify}
         PulseAudio support:       ${have_pulse}
         Smartcard support:        ${have_smartcard_support}
-	GConf bridge support:     ${build_gconf_bridge}
+        GConf bridge support:     ${build_gconf_bridge}
+        Cups support:             ${have_cups}
 ${NSS_DATABASE:+\
         System nssdb:             ${NSS_DATABASE}
 }\
