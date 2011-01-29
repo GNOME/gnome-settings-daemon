@@ -229,8 +229,9 @@ gsd_datetime_mechanism_new (void)
 }
 
 static gboolean
-_check_polkit_for_action (GsdDatetimeMechanism *mechanism, DBusGMethodInvocation *context, const char *action)
+_check_polkit_for_action (GsdDatetimeMechanism *mechanism, DBusGMethodInvocation *context)
 {
+        const char *action = "org.gnome.settingsdaemon.datetimemechanism.configure";
         const char *sender;
         GError *error;
         PolkitSubject *subject;
@@ -313,7 +314,7 @@ _set_time (GsdDatetimeMechanism  *mechanism,
 {
         GError *error;
 
-        if (!_check_polkit_for_action (mechanism, context, "org.gnome.settingsdaemon.datetimemechanism.settime"))
+        if (!_check_polkit_for_action (mechanism, context))
                 return FALSE;
 
         if (settimeofday (tv, NULL) != 0) {
@@ -545,7 +546,7 @@ gsd_datetime_mechanism_set_timezone (GsdDatetimeMechanism  *mechanism,
         reset_killtimer ();
         g_debug ("SetTimezone('%s') called", tz);
 
-        if (!_check_polkit_for_action (mechanism, context, "org.gnome.settingsdaemon.datetimemechanism.settimezone"))
+        if (!_check_polkit_for_action (mechanism, context))
                 return FALSE;
 
         error = NULL;
@@ -656,8 +657,7 @@ gsd_datetime_mechanism_set_hardware_clock_using_utc (GsdDatetimeMechanism  *mech
 
         error = NULL;
 
-        if (!_check_polkit_for_action (mechanism, context,
-                                       "org.gnome.settingsdaemon.datetimemechanism.configurehwclock"))
+        if (!_check_polkit_for_action (mechanism, context))
                 return FALSE;
 
         if (g_file_test ("/sbin/hwclock", 
@@ -741,7 +741,7 @@ gsd_datetime_mechanism_set_using_ntp  (GsdDatetimeMechanism    *mechanism,
 
         error = NULL;
 
-        if (!_check_polkit_for_action (mechanism, context, "org.gnome.clockapplet.mechanism.configurentp"))
+        if (!_check_polkit_for_action (mechanism, context))
                 return FALSE;
 
         cmd = g_strconcat ("/sbin/chkconfig --level 2345 ntpd ", using_ntp ? "on" : "off", NULL);
