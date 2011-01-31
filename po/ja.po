@@ -9,15 +9,16 @@
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
 # Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2010.
 # Noritada Kobayashi <noritadak@gmail.com>, 2010.
+# Jiro Matsuzawa <matsuzawa.jr@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon gnome-2-32\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-10-12 13:54+0000\n"
-"PO-Revision-Date: 2010-10-18 23:10+0900\n"
-"Last-Translator: Noritada Kobayashi <noritadak@gmail.com>\n"
+"POT-Creation-Date: 2010-11-15 09:59+0000\n"
+"PO-Revision-Date: 2010-12-12 22:55+0900\n"
+"Last-Translator: Jiro Matsuzawa <matsuzawa.jr@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -248,14 +249,18 @@ msgid "Volume up"
 msgstr "音量を上げる"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid "Do not touch monitor configuration"
+msgstr "モニタの設定を変更しない"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "File for default configuration for RandR"
 msgstr "RanR の初期設定ファイル"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
 msgid "Show Displays in Notification Area"
 msgstr "通知領域に通知アイコンを表示するかどうか"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -269,11 +274,11 @@ msgstr ""
 "いはあったとしてもモニタの設定に合わない場合、このキーで指定されたファイルが"
 "代わりに使われます。"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
 msgid "Turn on external monitor after system boot"
 msgstr "システムの起動後に外部モニタを有効にする"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
 msgid ""
 "Turn on external monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -281,11 +286,11 @@ msgstr ""
 "システムのブート時に外部モニタが接続されている時、システムのブート後に外部モ"
 "ニタ有効にする。"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
 msgid "Turn on laptop monitor after system boot"
 msgstr "システムのブート後にラップトップのモニタを有効にする"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
 msgid ""
 "Turn on laptop monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -293,7 +298,22 @@ msgstr ""
 "システムのブート時に外部モニタが接続されている時、システムのブート後にラップ"
 "トップのモニタを有効にする。"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:9
+msgid ""
+"Usually, gnome-settings-daemon configures internal and external monitors "
+"according to the turn_on_external_monitors_at_startup and "
+"turn_on_laptop_monitor_at_startup settings and determines an appropriate "
+"cloning/side-by-side mode. Setting this key to True disables this, and the "
+"monitor settings are not touched at all (unless there is an explicit user "
+"configuration)."
+msgstr ""
+"通常、gnome-settings-daemon は内蔵や外部のモニタを "
+"turn_on_external_monitors_at_startup と turn_on_laptop_monitor_at_startup の"
+"内容に従って設定し、クローン表示モードかマルチモードに適切に設定します。この"
+"キーを True にすると、この挙動を止め、モニタの設定は一切変更されません (ユー"
+"ザによる明示的な設定がない場合)。"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:10
 msgid ""
 "Whether a notification icon with display-related things should be shown in "
 "the panel."
@@ -833,9 +853,9 @@ msgid ""
 "row.  This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
-"キーを一度に2回押下したか、あるいは [SHIFT] キーを連続して 5回押下しました。"
-"これはスティッキー・キー機能を無効にし、キーボード操作に影響を与えるもので"
-"す。"
+"同時に2つのキーを押下したか、あるいは [SHIFT] キーを連続して 5回押下しまし"
+"た。これはスティッキー・キー機能を無効にし、キーボード操作に影響を与えるもの"
+"です。"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:828
 msgid "Sticky Keys Alert"
@@ -1223,83 +1243,83 @@ msgstr "画面の大きさや回転といった設定を管理します"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:371
+#: ../plugins/xrandr/gsd-xrandr-manager.c:372
 msgid "Could not switch the monitor configuration"
 msgstr "モニタの設定に切り替えることができませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:395
+#: ../plugins/xrandr/gsd-xrandr-manager.c:396
 msgid "Could not restore the display's configuration"
 msgstr "ディスプレイの設定を元に戻せませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:420
+#: ../plugins/xrandr/gsd-xrandr-manager.c:421
 msgid "Could not restore the display's configuration from a backup"
 msgstr "バックアップしたディスプレイの設定に戻せませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:441
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] " %d秒後に元のディスプレイの設定に戻ります"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:490
+#: ../plugins/xrandr/gsd-xrandr-manager.c:491
 msgid "Does the display look OK?"
 msgstr "ディスプレイの設定に問題はありませんか?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:496
+#: ../plugins/xrandr/gsd-xrandr-manager.c:497
 msgid "_Restore Previous Configuration"
 msgstr "前の設定に戻す(_R)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:497
+#: ../plugins/xrandr/gsd-xrandr-manager.c:498
 msgid "_Keep This Configuration"
 msgstr "この設定のままにする(_K)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:578
+#: ../plugins/xrandr/gsd-xrandr-manager.c:579
 msgid "The selected configuration for displays could not be applied"
 msgstr "選択したディスプレイの設定を適用できませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1142
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1143
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "スクリーンの情報を更新できませんでした: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1146
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1147
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "いずれにせよ、モニタの設定を切り替えてみます"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1877
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1878
 msgid "Rotation not supported"
 msgstr "回転はサポートしていません"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1933
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1934
 msgid "Could not save monitor configuration"
 msgstr "モニタの設定を保存できませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1951
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
 msgid "Normal"
 msgstr "標準"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
 msgid "Left"
 msgstr "左"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
 msgid "Right"
 msgstr "右"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1955
 msgid "Upside Down"
 msgstr "逆さま"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2074
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2075
 msgid "_Configure Display Settings…"
 msgstr "ディスプレイの設定(_C)…"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2115
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2116
 msgid "Configure display settings"
 msgstr "ディスプレイの設定を変更します"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2175
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2177
 msgid "Could not apply the stored configuration for monitors"
 msgstr "保存したモニタの設定を適用できませんでした"
 
