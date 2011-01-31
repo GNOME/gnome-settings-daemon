@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-12-11 20:20+0000\n"
-"PO-Revision-Date: 2010-12-12 23:01+0900\n"
+"POT-Creation-Date: 2011-01-31 00:43+0000\n"
+"PO-Revision-Date: 2011-01-31 23:17+0900\n"
 "Last-Translator: Jiro Matsuzawa <matsuzawa.jr@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -27,8 +27,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "アクセシビリティ"
+#: ../plugins/mouse/gsd-mouse-manager.c:872
+msgid "Universal Access"
+msgstr "ユニバーサル・アクセス"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -141,6 +142,7 @@ msgstr "スマートカードを抜いた時のアクション"
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
@@ -149,9 +151,10 @@ msgstr "このプラグインをアクティベーション"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
@@ -162,6 +165,7 @@ msgstr "このプラグインの優先度"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
@@ -172,6 +176,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
@@ -243,28 +248,16 @@ msgstr ""
 "ても表示しません。"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-msgid "Display keyboard LEDs on the panel"
-msgstr "キーボードの LED をパネルに表示する"
-
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-msgid ""
-"Display pseudo-leds for keyboards that do not have physical LEDs for "
-"CapsLock, NumLock, and ScrollLock."
-msgstr ""
-"物理的な LED を持たない CapsLock、NumLock、ScrollLock の擬似 LED を表示しま"
-"す。"
-
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:5
 msgid "Never show layout indicator"
 msgstr "レイアウトの通知を表示しない"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
 msgstr ""
 "gnome-settings-daemon の起動時のキューで、このプラグインが使用される優先度。"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr ""
@@ -985,9 +978,8 @@ msgid "_Always perform this action"
 msgstr ""
 
 #: ../plugins/automount/gsd-autorun.c:783
-#, fuzzy
 msgid "_Eject"
-msgstr "メディアを取り出す"
+msgstr "取り出す(_E)"
 
 #: ../plugins/automount/gsd-autorun.c:788
 msgid "_Unmount"
@@ -1114,35 +1106,35 @@ msgstr ""
 msgid "Examine…"
 msgstr "調査中…"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:94
-#, c-format
-msgid "Removing item %lu of %lu"
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
+#, fuzzy, c-format
+msgid "Removing item %s of %s"
 msgstr "%lu 番目のアイテムを削除中 (%lu 個中)"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:114
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:119
 #, c-format
 msgid "Removing: %s"
 msgstr "削除中: %s"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:249
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:298
 msgid "Emptying the trash"
 msgstr "ゴミ箱を空にしています"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:274
 msgid "Preparing to empty trash…"
 msgstr "ゴミ箱を空にする準備中…"
 
 #. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:301
 msgid "From: "
 msgstr "From: "
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:362
 msgid "Empty all of the items from the trash?"
 msgstr "ゴミ箱の中のすべてのアイテムを空にしますか?"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:365
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
@@ -1150,7 +1142,7 @@ msgstr ""
 "ゴミ箱を空にすることを選択すると、すべてのアイテムは永遠に失なわれます。別"
 "途、それらを削除できることに留意してください。"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:372
 msgid "_Empty Trash"
 msgstr "ゴミ箱を空にする(_E)"
 
@@ -1189,7 +1181,7 @@ msgstr "キーボード"
 msgid "Keyboard plugin"
 msgstr "キーボードのプラグイン"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:108
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:90
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
@@ -1210,15 +1202,15 @@ msgstr ""
 "・<b>%s</b>\n"
 "・<b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:238
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:226
 msgid "_Layouts"
 msgstr "レイアウト(_L)"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:245
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:233
 msgid "Keyboard _Preferences"
 msgstr "キーボードの設定(_P)"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:251
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:239
 msgid "Show _Current Layout"
 msgstr "現在のレイアウトを表示(_C)"
 
@@ -1285,10 +1277,6 @@ msgstr ""
 "マウスのアクセシビリティに関する機能を有効にするには mousetweak がインストー"
 "ルされている必要があります。"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:872
-msgid "Universal Access"
-msgstr "ユニバーサル・アクセス"
-
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "マウス"
@@ -1296,6 +1284,60 @@ msgstr "マウス"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "マウスのプラグイン"
+
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+msgid "Print-notifications"
+msgstr ""
+
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+msgid "Print-notifications plugin"
+msgstr ""
+
+#. Translators: New printer has been added
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:93
+msgid "Printer added"
+msgstr ""
+
+#. Translators: A printer has been removed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:100
+msgid "Printer removed"
+msgstr ""
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:125
+msgid "Printing stopped"
+msgstr ""
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:127
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:134
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:141
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:148
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#, c-format
+msgid "\"%s\" on printer %s"
+msgstr ""
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:132
+msgid "Printing canceled"
+msgstr ""
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:139
+msgid "Printing aborted"
+msgstr ""
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:146
+msgid "Printing completed"
+msgstr ""
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+#, fuzzy
+msgid "Printing job"
+msgstr "ヒンティング"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1305,51 +1347,51 @@ msgstr "画面の大きさや回転といった設定を管理します"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:403
+#: ../plugins/xrandr/gsd-xrandr-manager.c:413
 msgid "Could not switch the monitor configuration"
 msgstr "モニタの設定に切り替えることができませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:427
+#: ../plugins/xrandr/gsd-xrandr-manager.c:437
 msgid "Could not restore the display's configuration"
 msgstr "ディスプレイの設定を元に戻せませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:452
+#: ../plugins/xrandr/gsd-xrandr-manager.c:462
 msgid "Could not restore the display's configuration from a backup"
 msgstr "バックアップしたディスプレイの設定に戻せませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:473
+#: ../plugins/xrandr/gsd-xrandr-manager.c:483
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] " %d秒後に元のディスプレイの設定に戻ります"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:522
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Does the display look OK?"
 msgstr "ディスプレイの設定に問題はありませんか?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:529
+#: ../plugins/xrandr/gsd-xrandr-manager.c:539
 msgid "_Restore Previous Configuration"
 msgstr "前の設定に戻す(_R)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:530
+#: ../plugins/xrandr/gsd-xrandr-manager.c:540
 msgid "_Keep This Configuration"
 msgstr "この設定のままにする(_K)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:611
+#: ../plugins/xrandr/gsd-xrandr-manager.c:621
 msgid "The selected configuration for displays could not be applied"
 msgstr "選択したディスプレイの設定を適用できませんでした"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1150
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "スクリーンの情報を更新できませんでした: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1154
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "いずれにせよ、モニタの設定を切り替えてみます"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1626
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
 msgstr "保存したモニタの設定を適用できませんでした"
 
@@ -1398,32 +1440,32 @@ msgstr "カードから受け取ったイベントを確認できませんでし
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "スマートカードのイベントを待機中に想定外のエラーに遭遇しました"
 
-#: ../plugins/smartcard/gsd-smartcard.c:156
+#: ../plugins/smartcard/gsd-smartcard.c:155
 msgid "Slot ID"
 msgstr "スロットID"
 
-#: ../plugins/smartcard/gsd-smartcard.c:157
+#: ../plugins/smartcard/gsd-smartcard.c:156
 msgid "The slot the card is in"
 msgstr "カードの入っているスロット"
 
-#: ../plugins/smartcard/gsd-smartcard.c:163
+#: ../plugins/smartcard/gsd-smartcard.c:162
 msgid "Slot Series"
 msgstr "スロットシリーズ"
 
-#: ../plugins/smartcard/gsd-smartcard.c:164
+#: ../plugins/smartcard/gsd-smartcard.c:163
 msgid "per-slot card identifier"
 msgstr "スロットごとのカードの識別子"
 
+#: ../plugins/smartcard/gsd-smartcard.c:169
 #: ../plugins/smartcard/gsd-smartcard.c:170
-#: ../plugins/smartcard/gsd-smartcard.c:171
 msgid "name"
 msgstr "名前"
 
-#: ../plugins/smartcard/gsd-smartcard.c:175
+#: ../plugins/smartcard/gsd-smartcard.c:174
 msgid "Module"
 msgstr "モジュール"
 
-#: ../plugins/smartcard/gsd-smartcard.c:176
+#: ../plugins/smartcard/gsd-smartcard.c:175
 msgid "smartcard driver"
 msgstr "スマートカードドライバ"
 
@@ -1440,14 +1482,35 @@ msgid "Configure hardware clock"
 msgstr "ハードウェアの時計の変更"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
+msgid "Configure network time"
+msgstr ""
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
 msgid "Privileges are required to change the system time zone."
 msgstr "システムのタイムゾーンを変更するには権限が必要です。"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
 msgid "Privileges are required to change the system time."
 msgstr "システムの時刻を変更するには権限が必要です。"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:7
+#, fuzzy
+msgid "Privileges are required to configure network time."
+msgstr "システムの時刻を変更するには権限が必要です。"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:8
 msgid "Privileges are required to configure the hardware clock."
 msgstr "ハードウェアの時計を変更するには権限が必要です。"
 
+#~ msgid "Accessibility"
+#~ msgstr "アクセシビリティ"
+
+#~ msgid "Display keyboard LEDs on the panel"
+#~ msgstr "キーボードの LED をパネルに表示する"
+
+#~ msgid ""
+#~ "Display pseudo-leds for keyboards that do not have physical LEDs for "
+#~ "CapsLock, NumLock, and ScrollLock."
+#~ msgstr ""
+#~ "物理的な LED を持たない CapsLock、NumLock、ScrollLock の擬似 LED を表示し"
+#~ "ます。"
