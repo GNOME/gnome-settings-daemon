@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-27 03:34+0100\n"
-"PO-Revision-Date: 2011-01-26 15:15+0100\n"
+"POT-Creation-Date: 2011-02-01 02:45+0100\n"
+"PO-Revision-Date: 2011-02-01 02:48+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "Language: gl\n"
@@ -148,6 +148,7 @@ msgstr "Acción ao extraer a tarxeta intelixente"
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
@@ -156,9 +157,10 @@ msgstr "Activación de este engadido"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
@@ -169,6 +171,7 @@ msgstr "Prioridade de uso para este engadido"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
@@ -180,6 +183,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
@@ -253,29 +257,17 @@ msgstr ""
 "mostralo incluso se o número de distribucións é maior que unha."
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-msgid "Display keyboard LEDs on the panel"
-msgstr "Mostrar os LED do teclado no panel"
-
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-msgid ""
-"Display pseudo-leds for keyboards that do not have physical LEDs for "
-"CapsLock, NumLock, and ScrollLock."
-msgstr ""
-"Mostrar pseudo-LED para teclados que non teñen LED físicos para Bloq Maiús, "
-"Bloq Num e Bloq Despl."
-
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:5
 msgid "Never show layout indicator"
 msgstr "Non mostrar nunca o indicador de distribución"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
 msgstr ""
 "Prioridade que usar para este engadido na cola de inicio de gnome-settings-"
 "daemon."
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr "Indica se gnome-settings-daemon activará este engadido ou non."
@@ -1145,9 +1137,9 @@ msgid "Examine…"
 msgstr "Examinar…"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
-#, fuzzy, c-format
+#, c-format
 msgid "Removing item %s of %s"
-msgstr "Eliminando o elemento %"
+msgstr "Quitando o elemento %s de %s"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:119
 #, c-format
@@ -1219,7 +1211,7 @@ msgstr "Teclado"
 msgid "Keyboard plugin"
 msgstr "Engadido do teclado"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:108
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:90
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
@@ -1240,15 +1232,15 @@ msgstr ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:248
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:226
 msgid "_Layouts"
 msgstr "_Disposicións"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:255
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:233
 msgid "Keyboard _Preferences"
 msgstr "Preferencias do _teclado"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:261
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:239
 msgid "Show _Current Layout"
 msgstr "Mostrar a _disposición actual"
 
@@ -1322,6 +1314,59 @@ msgstr "Rato"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Engadido do rato"
+
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+msgid "Print-notifications"
+msgstr "Notificacións da impresora"
+
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+msgid "Print-notifications plugin"
+msgstr "Engadido de notificacións da impresora"
+
+#. Translators: New printer has been added
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:93
+msgid "Printer added"
+msgstr "Impresora engadida"
+
+#. Translators: A printer has been removed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:100
+msgid "Printer removed"
+msgstr "Impresora quitada"
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:125
+msgid "Printing stopped"
+msgstr "Impresión detida"
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:127
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:134
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:141
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:148
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#, c-format
+msgid "\"%s\" on printer %s"
+msgstr "\"%s\" na impresora %s"
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:132
+msgid "Printing canceled"
+msgstr "Impresión cancelada"
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:139
+msgid "Printing aborted"
+msgstr "Impresión cancelada"
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:146
+msgid "Printing completed"
+msgstr "Impresión completa"
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+msgid "Printing job"
+msgstr "Imprimindo traballo"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1460,36 +1505,40 @@ msgid "smartcard driver"
 msgstr "controlador da tarxeta intelixente"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
-msgid "Change system time"
-msgstr "Cambiar a hora do sistema"
+msgid "Change system time and date settings"
+msgstr "Cambiar as opcións de data e hora do sistema"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Change system time zone"
-msgstr "Cambiar o fuso horario do sistema"
+msgid "Privileges are required to configure time and date settings."
+msgstr "Requírense privilexios para configurar as opcións de data e hora."
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
-msgid "Configure hardware clock"
-msgstr "Configurar o reloxo do sistema"
+#~ msgid "Display keyboard LEDs on the panel"
+#~ msgstr "Mostrar os LED do teclado no panel"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
-msgid "Configure network time"
-msgstr "Configurar a hora da rede"
+#~ msgid ""
+#~ "Display pseudo-leds for keyboards that do not have physical LEDs for "
+#~ "CapsLock, NumLock, and ScrollLock."
+#~ msgstr ""
+#~ "Mostrar pseudo-LED para teclados que non teñen LED físicos para Bloq "
+#~ "Maiús, Bloq Num e Bloq Despl."
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
-msgid "Privileges are required to change the system time zone."
-msgstr "Requírense privilexios para cambiar o fuso horario do sistema."
+#~ msgid "Change system time"
+#~ msgstr "Cambiar a hora do sistema"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
-msgid "Privileges are required to change the system time."
-msgstr "Requírense privilexios para cambiar o hora do sistema."
+#~ msgid "Configure hardware clock"
+#~ msgstr "Configurar o reloxo do sistema"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:7
-msgid "Privileges are required to configure network time."
-msgstr "Requírense privilexios para cambiar o hora de rede."
+#~ msgid "Configure network time"
+#~ msgstr "Configurar a hora da rede"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:8
-msgid "Privileges are required to configure the hardware clock."
-msgstr "Requírense privilexios para cambiar o reloxo do sistema."
+#~ msgid "Privileges are required to change the system time zone."
+#~ msgstr "Requírense privilexios para cambiar o fuso horario do sistema."
+
+#~ msgid "Privileges are required to change the system time."
+#~ msgstr "Requírense privilexios para cambiar o hora do sistema."
+
+#~ msgid "Privileges are required to configure network time."
+#~ msgstr "Requírense privilexios para cambiar o hora de rede."
 
 #~ msgid "Accessibility"
 #~ msgstr "Accesibilidade"
