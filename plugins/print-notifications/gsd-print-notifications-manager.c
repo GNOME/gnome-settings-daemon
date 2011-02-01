@@ -285,7 +285,7 @@ on_cups_notification (GDBusConnection *connection,
                 NotifyNotification *notification;
                 notification = notify_notification_new (primary_text,
                                                         secondary_text,
-                                                        NULL);
+                                                        "printer-symbolic");
                 notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
 
                 notify_notification_show (notification, NULL);
