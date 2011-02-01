@@ -17,9 +17,9 @@ msgstr ""
 "Project-Id-Version: GNOME Settings Daemon MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-12-23 18:56+0000\n"
-"PO-Revision-Date: 2011-01-07 11:08+0300\n"
-"Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
+"POT-Creation-Date: 2011-01-31 15:57+0000\n"
+"PO-Revision-Date: 2011-02-01 19:26+0200\n"
+"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,8 +27,8 @@ msgstr ""
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Accessibility"
-msgstr "Hõlbustused"
+msgid "Universal Access"
+msgstr "Universaalne ligipääs"
 
 msgid "GNOME Settings Daemon"
 msgstr "GNOME sätetedeemon"
@@ -178,16 +178,6 @@ msgid ""
 "Disable the keyboard layout indicator unconditionally, do not show it even "
 "if number of layouts is more than one."
 msgstr ""
-
-msgid "Display keyboard LEDs on the panel"
-msgstr "Klaviatuuritulukeste kuvamine paneelil"
-
-msgid ""
-"Display pseudo-leds for keyboards that do not have physical LEDs for "
-"CapsLock, NumLock, and ScrollLock."
-msgstr ""
-"Pseudotulukeste kuvamine ilma füüsiliste tulukesteta (CapsLock, NumLock ja "
-"ScrollLock) klaviatuuride jaoks."
 
 msgid "Never show layout indicator"
 msgstr ""
@@ -716,19 +706,20 @@ msgid "You have just inserted a Picture CD."
 msgstr "Sa sisestasid pildi-CD."
 
 msgid "You have just inserted a medium with digital photos."
-msgstr ""
+msgstr "Sa sisestasid digifotosid sisaldava meediumi."
 
 msgid "You have just inserted a digital audio player."
-msgstr ""
+msgstr "Sa sisestasid digitaalse audioesitaja."
 
 msgid ""
 "You have just inserted a medium with software intended to be automatically "
 "started."
 msgstr ""
+"Sa sisestasid meediumi, mis sisaldab automaatkäivituseks määratud tarkvara."
 
 #. fallback to generic greeting
 msgid "You have just inserted a medium."
-msgstr ""
+msgstr "Sa sisestasid meediumi."
 
 msgid "Choose what application to launch."
 msgstr ""
@@ -847,8 +838,9 @@ msgstr ""
 msgid "Examine…"
 msgstr "Uuri olukorda…"
 
-msgid "Removing item %"
-msgstr "Kirje % eemaldamine"
+#, c-format
+msgid "Removing item %s of %s"
+msgstr "Kirje %s eemaldamine (%s-st)"
 
 #, c-format
 msgid "Removing: %s"
@@ -987,14 +979,50 @@ msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Hiirehõlbustuste kasutamiseks peab Mousetweaks olema paigaldatud."
 
-msgid "Universal Access"
-msgstr "Universaalne ligipääs"
-
 msgid "Mouse"
 msgstr "Hiir"
 
 msgid "Mouse plugin"
 msgstr "Hiireplugin"
+
+msgid "Print-notifications"
+msgstr ""
+
+msgid "Print-notifications plugin"
+msgstr ""
+
+#. Translators: New printer has been added
+msgid "Printer added"
+msgstr ""
+
+#. Translators: A printer has been removed
+msgid "Printer removed"
+msgstr ""
+
+#. Translators: A print job has been stopped
+msgid "Printing stopped"
+msgstr ""
+
+#. Translators: "print-job xy" on a printer
+#, c-format
+msgid "\"%s\" on printer %s"
+msgstr ""
+
+#. Translators: A print job has been canceled
+msgid "Printing canceled"
+msgstr ""
+
+#. Translators: A print job has been aborted
+msgid "Printing aborted"
+msgstr ""
+
+#. Translators: A print job has been completed
+msgid "Printing completed"
+msgstr ""
+
+#. Translators: A job is printing
+msgid "Printing job"
+msgstr ""
 
 msgid "Set up screen size and rotation settings"
 msgstr "Ekraani suuruse ja pööramise sätete määramine"
@@ -1096,29 +1124,36 @@ msgstr "Moodul"
 msgid "smartcard driver"
 msgstr "smartcardi lugeja draiver"
 
-msgid "Change system time"
-msgstr "Muuda süsteemi kella"
+msgid "Change system time and date settings"
+msgstr "Süsteemi kuupäeva- ja ajasätete muutmine"
 
-msgid "Change system time zone"
-msgstr "Muuda süsteemi ajavööndit"
+msgid "Privileges are required to configure time and date settings."
+msgstr "Kuupäeva ja ajasätete muutmiseks on vaja eriõiguseid."
 
-msgid "Configure hardware clock"
-msgstr "Muuda raudvaralist kella"
+#~ msgid "Accessibility"
+#~ msgstr "Hõlbustused"
 
-msgid "Configure network time"
-msgstr "Võrguaja seadistamine"
+#~ msgid "Display keyboard LEDs on the panel"
+#~ msgstr "Klaviatuuritulukeste kuvamine paneelil"
 
-msgid "Privileges are required to change the system time zone."
-msgstr "Süsteemi ajavööndi muutmiseks on vaja eriõiguseid."
+#~ msgid ""
+#~ "Display pseudo-leds for keyboards that do not have physical LEDs for "
+#~ "CapsLock, NumLock, and ScrollLock."
+#~ msgstr ""
+#~ "Pseudotulukeste kuvamine ilma füüsiliste tulukesteta (CapsLock, NumLock "
+#~ "ja ScrollLock) klaviatuuride jaoks."
 
-msgid "Privileges are required to change the system time."
-msgstr "Süsteemi kella muutmiseks on vaja eriõiguseid."
+#~ msgid "Configure network time"
+#~ msgstr "Võrguaja seadistamine"
 
-msgid "Privileges are required to configure network time."
-msgstr "Võrguaja seadistamiseks on vaja eriõiguseid."
+#~ msgid "Privileges are required to change the system time zone."
+#~ msgstr "Süsteemi ajavööndi muutmiseks on vaja eriõiguseid."
 
-msgid "Privileges are required to configure the hardware clock."
-msgstr "Raudvaralise kella seadistamiseks on vaja eriõiguseid."
+#~ msgid "Privileges are required to change the system time."
+#~ msgstr "Süsteemi kella muutmiseks on vaja eriõiguseid."
+
+#~ msgid "Privileges are required to configure network time."
+#~ msgstr "Võrguaja seadistamiseks on vaja eriõiguseid."
 
 #~ msgid "Cannot determine user's home directory"
 #~ msgstr "Kasutaja kodukataloogi pole võimalik tuvastada"
