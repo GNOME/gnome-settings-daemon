@@ -46,7 +46,6 @@ gsd_delayed_show_dialog (GtkWidget *dialog)
         GdkDisplay *display = gtk_widget_get_display (dialog);
         Display *xdisplay = GDK_DISPLAY_XDISPLAY (display);
         GdkScreen *screen = gtk_widget_get_screen (dialog);
-        GdkAtom manager_atom;
         char selection_name[10];
         Atom selection_atom;
 
@@ -64,9 +63,7 @@ gsd_delayed_show_dialog (GtkWidget *dialog)
 
         dialogs = g_slist_prepend (dialogs, dialog);
 
-        manager_atom = gdk_atom_intern ("MANAGER", FALSE);
-        gdk_display_add_client_message_filter (display, manager_atom,
-                                               message_filter, NULL);
+        gdk_window_add_filter (NULL, message_filter, NULL);
 
         g_timeout_add (5000, delayed_show_timeout, NULL);
 }
@@ -89,13 +86,20 @@ delayed_show_timeout (gpointer data)
 static GdkFilterReturn
 message_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
 {
-        XClientMessageEvent *evt = (XClientMessageEvent *)xevent;
-        char *selection_name = XGetAtomName (evt->display, evt->data.l[1]);
+        XClientMessageEvent *evt;
+        char *selection_name;
         int screen;
         GSList *l, *next;
 
-        if (!dialogs)
-                return GDK_FILTER_CONTINUE;
+        if (((XEvent *)xevent)->type != ClientMessage)
+          return GDK_FILTER_CONTINUE;
+
+        evt = (XClientMessageEvent *)xevent;
+
+        if (evt->message_type != XInternAtom (evt->display, "MANAGER", FALSE))
+          return GDK_FILTER_CONTINUE;
+
+        selection_name = XGetAtomName (evt->display, evt->data.l[1]);
 
         if (strncmp (selection_name, "WM_S", 4) != 0) {
                 XFree (selection_name);
@@ -115,8 +119,10 @@ message_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
         }
 
         if (!dialogs) {
-                /* FIXME: There's no gdk_display_remove_client_message_filter */
+                gdk_window_remove_filter (NULL, message_filter, NULL);
         }
+
+        XFree (selection_name);
 
         return GDK_FILTER_CONTINUE;
 }
