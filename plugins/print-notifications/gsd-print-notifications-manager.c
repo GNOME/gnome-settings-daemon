@@ -65,6 +65,44 @@ G_DEFINE_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, G_
 
 static gpointer manager_object = NULL;
 
+static gboolean
+is_local_dest (const char *name)
+{
+        cups_dest_t *dests;
+        int          num_dests;
+        cups_dest_t *dest;
+        const char  *type_str;
+        cups_ptype_t type;
+        gboolean     is_remote;
+
+        is_remote = TRUE;
+
+        num_dests = cupsGetDests (&dests);
+        if (num_dests < 1) {
+                g_debug ("Unable to get printer destinations");
+                return FALSE;
+        }
+
+        dest = cupsGetDest (name, NULL, num_dests, dests);
+        if (dest == NULL) {
+                g_debug ("Unable to find a printer named '%s'", name);
+                goto out;
+        }
+
+        type_str = cupsGetOption ("printer-type", dest->num_options, dest->options);
+        if (type_str == NULL) {
+                g_debug ("Unable to get printer type for '%s'", name);
+                goto out;
+        }
+
+        type = atoi (type_str);
+        is_remote = type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_IMPLICIT);
+
+ out:
+        cupsFreeDests (num_dests, dests);
+
+        return !is_remote;
+}
 
 static void
 on_cups_notification (GDBusConnection *connection,
@@ -90,17 +128,21 @@ on_cups_notification (GDBusConnection *connection,
 
         if (g_strcmp0 (signal_name, "PrinterAdded") == 0) {
                 /* Translators: New printer has been added */
-                primary_text = g_strdup (_("Printer added"));
                 if (g_variant_n_children (parameters) == 1) {
                         g_variant_get (parameters, "(&s)", &printer_name);
-                        secondary_text = g_strdup_printf ("%s", printer_name);
+                        if (is_local_dest (printer_name)) {
+                                primary_text = g_strdup (_("Printer added"));
+                                secondary_text = g_strdup_printf ("%s", printer_name);
+                        }
                 }
         } else if (g_strcmp0 (signal_name, "PrinterRemoved") == 0) {
                 /* Translators: A printer has been removed */
-                primary_text = g_strdup (_("Printer removed"));
                 if (g_variant_n_children (parameters) == 1) {
                         g_variant_get (parameters, "(&s)", &printer_name);
-                        secondary_text = g_strdup_printf ("%s", printer_name);
+                        if (is_local_dest (printer_name)) {
+                                primary_text = g_strdup (_("Printer removed"));
+                                secondary_text = g_strdup_printf ("%s", printer_name);
+                        }
                 }
         } else if (g_strcmp0 (signal_name, "QueueChanged") == 0) {
                 if (g_variant_n_children (parameters) == 1 ||
