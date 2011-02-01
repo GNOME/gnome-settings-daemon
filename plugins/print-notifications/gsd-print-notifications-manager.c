@@ -190,28 +190,28 @@ on_cups_notification (GDBusConnection *connection,
                                                         /* Translators: A print job has been stopped */
                                                         primary_text = g_strdup (_("Printing stopped"));
                                                         /* Translators: "print-job xy" on a printer */
-                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, display_name);
+                                                        secondary_text = g_strdup_printf (_("\"%s\" on %s"), jobs[i].title, display_name);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 case IPP_JOB_CANCELED:
                                                         /* Translators: A print job has been canceled */
                                                         primary_text = g_strdup (_("Printing canceled"));
                                                         /* Translators: "print-job xy" on a printer */
-                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, display_name);
+                                                        secondary_text = g_strdup_printf (_("\"%s\" on %s"), jobs[i].title, display_name);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 case IPP_JOB_ABORTED:
                                                         /* Translators: A print job has been aborted */
                                                         primary_text = g_strdup (_("Printing aborted"));
                                                         /* Translators: "print-job xy" on a printer */
-                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, display_name);
+                                                        secondary_text = g_strdup_printf (_("\"%s\" on %s"), jobs[i].title, display_name);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 case IPP_JOB_COMPLETED:
                                                         /* Translators: A print job has been completed */
                                                         primary_text = g_strdup (_("Printing completed"));
                                                         /* Translators: "print-job xy" on a printer */
-                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, display_name);
+                                                        secondary_text = g_strdup_printf (_("\"%s\" on %s"), jobs[i].title, display_name);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 }
@@ -270,9 +270,9 @@ on_cups_notification (GDBusConnection *connection,
 
                                         if (index >= 0) {
                                                 /* Translators: A job is printing */
-                                                primary_text = g_strdup (_("Printing job"));
+                                                primary_text = g_strdup (_("Printing"));
                                                 /* Translators: "print-job xy" on a printer */
-                                                secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[index].title, display_name);
+                                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), jobs[index].title, display_name);
                                         }
 
                                         cupsFreeJobs (num_jobs, jobs);
