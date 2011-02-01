@@ -65,42 +65,63 @@ G_DEFINE_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, G_
 
 static gpointer manager_object = NULL;
 
-static gboolean
-is_local_dest (const char *name)
+static char *
+get_dest_attr (const char *dest_name,
+               const char *attr)
 {
         cups_dest_t *dests;
         int          num_dests;
         cups_dest_t *dest;
-        const char  *type_str;
+        const char  *value;
+        char        *ret;
+
+        if (dest_name == NULL)
+                return NULL;
+
+        ret = NULL;
+
+        num_dests = cupsGetDests (&dests);
+        if (num_dests < 1) {
+                g_debug ("Unable to get printer destinations");
+                return NULL;
+        }
+
+        dest = cupsGetDest (dest_name, NULL, num_dests, dests);
+        if (dest == NULL) {
+                g_debug ("Unable to find a printer named '%s'", dest_name);
+                goto out;
+        }
+
+        value = cupsGetOption (attr, dest->num_options, dest->options);
+        if (value == NULL) {
+                g_debug ("Unable to get %s for '%s'", attr, dest_name);
+                goto out;
+        }
+        ret = g_strdup (value);
+ out:
+        cupsFreeDests (num_dests, dests);
+
+        return ret;
+}
+
+static gboolean
+is_local_dest (const char *name)
+{
+        char        *type_str;
         cups_ptype_t type;
         gboolean     is_remote;
 
         is_remote = TRUE;
 
-        num_dests = cupsGetDests (&dests);
-        if (num_dests < 1) {
-                g_debug ("Unable to get printer destinations");
-                return FALSE;
-        }
-
-        dest = cupsGetDest (name, NULL, num_dests, dests);
-        if (dest == NULL) {
-                g_debug ("Unable to find a printer named '%s'", name);
-                goto out;
-        }
-
-        type_str = cupsGetOption ("printer-type", dest->num_options, dest->options);
+        type_str = get_dest_attr (name, "printer-type");
         if (type_str == NULL) {
-                g_debug ("Unable to get printer type for '%s'", name);
                 goto out;
         }
 
         type = atoi (type_str);
         is_remote = type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_IMPLICIT);
-
+        g_free (type_str);
  out:
-        cupsFreeDests (num_dests, dests);
-
         return !is_remote;
 }
 
@@ -118,6 +139,7 @@ on_cups_notification (GDBusConnection *connection,
         GSList                      *actual = NULL;
         GSList                      *tmp = NULL;
         gchar                       *printer_name = NULL;
+        gchar                       *display_name = NULL;
         gchar                       *user_name = NULL;
         gchar                       *primary_text = NULL;
         gchar                       *secondary_text = NULL;
@@ -132,7 +154,7 @@ on_cups_notification (GDBusConnection *connection,
                         g_variant_get (parameters, "(&s)", &printer_name);
                         if (is_local_dest (printer_name)) {
                                 primary_text = g_strdup (_("Printer added"));
-                                secondary_text = g_strdup_printf ("%s", printer_name);
+                                secondary_text = get_dest_attr (printer_name, "printer-info");
                         }
                 }
         } else if (g_strcmp0 (signal_name, "PrinterRemoved") == 0) {
@@ -141,7 +163,7 @@ on_cups_notification (GDBusConnection *connection,
                         g_variant_get (parameters, "(&s)", &printer_name);
                         if (is_local_dest (printer_name)) {
                                 primary_text = g_strdup (_("Printer removed"));
-                                secondary_text = g_strdup_printf ("%s", printer_name);
+                                secondary_text = get_dest_attr (printer_name, "printer-info");
                         }
                 }
         } else if (g_strcmp0 (signal_name, "QueueChanged") == 0) {
@@ -149,6 +171,8 @@ on_cups_notification (GDBusConnection *connection,
                     g_variant_n_children (parameters) == 3) {
                         g_variant_get (parameters, "(&s)", &printer_name);
                 }
+
+                display_name = get_dest_attr (printer_name, "printer-info");
 
                 if (manager->priv->actual_jobs != NULL) {
                         num_jobs = cupsGetJobs (&jobs, printer_name, 1, CUPS_WHICHJOBS_ALL);
@@ -166,28 +190,28 @@ on_cups_notification (GDBusConnection *connection,
                                                         /* Translators: A print job has been stopped */
                                                         primary_text = g_strdup (_("Printing stopped"));
                                                         /* Translators: "print-job xy" on a printer */
-                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, jobs[i].dest);
+                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, display_name);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 case IPP_JOB_CANCELED:
                                                         /* Translators: A print job has been canceled */
                                                         primary_text = g_strdup (_("Printing canceled"));
                                                         /* Translators: "print-job xy" on a printer */
-                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, jobs[i].dest);
+                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, display_name);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 case IPP_JOB_ABORTED:
                                                         /* Translators: A print job has been aborted */
                                                         primary_text = g_strdup (_("Printing aborted"));
                                                         /* Translators: "print-job xy" on a printer */
-                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, jobs[i].dest);
+                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, display_name);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 case IPP_JOB_COMPLETED:
                                                         /* Translators: A print job has been completed */
                                                         primary_text = g_strdup (_("Printing completed"));
                                                         /* Translators: "print-job xy" on a printer */
-                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, jobs[i].dest);
+                                                        secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[i].title, display_name);
                                                         actual->data = GINT_TO_POINTER (-1);
                                                         break;
                                                 }
@@ -233,6 +257,8 @@ on_cups_notification (GDBusConnection *connection,
                 if (g_variant_n_children (parameters) == 3) {
                         g_variant_get (parameters, "(&su&s)", &printer_name, &job_id, &user_name);
 
+                        display_name = get_dest_attr (printer_name, "printer-info");
+
                         for (actual = manager->priv->actual_jobs; actual; actual = actual->next) {
                                 if (GPOINTER_TO_INT (actual->data) == job_id) {
                                         num_jobs = cupsGetJobs (&jobs, printer_name, 1, CUPS_WHICHJOBS_ALL);
@@ -246,7 +272,7 @@ on_cups_notification (GDBusConnection *connection,
                                                 /* Translators: A job is printing */
                                                 primary_text = g_strdup (_("Printing job"));
                                                 /* Translators: "print-job xy" on a printer */
-                                                secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[index].title, jobs[index].dest);
+                                                secondary_text = g_strdup_printf (_("\"%s\" on printer %s"), jobs[index].title, display_name);
                                         }
 
                                         cupsFreeJobs (num_jobs, jobs);
