@@ -154,7 +154,7 @@ on_cups_notification (GDBusConnection *connection,
                         g_variant_get (parameters, "(&s)", &printer_name);
                         if (is_local_dest (printer_name)) {
                                 primary_text = g_strdup (_("Printer added"));
-                                secondary_text = get_dest_attr (printer_name, "printer-info");
+                                secondary_text = g_strdup (printer_name);
                         }
                 }
         } else if (g_strcmp0 (signal_name, "PrinterRemoved") == 0) {
@@ -163,7 +163,7 @@ on_cups_notification (GDBusConnection *connection,
                         g_variant_get (parameters, "(&s)", &printer_name);
                         if (is_local_dest (printer_name)) {
                                 primary_text = g_strdup (_("Printer removed"));
-                                secondary_text = get_dest_attr (printer_name, "printer-info");
+                                secondary_text = g_strdup (printer_name);
                         }
                 }
         } else if (g_strcmp0 (signal_name, "QueueChanged") == 0) {
@@ -172,7 +172,8 @@ on_cups_notification (GDBusConnection *connection,
                         g_variant_get (parameters, "(&s)", &printer_name);
                 }
 
-                display_name = get_dest_attr (printer_name, "printer-info");
+                /* FIXME: get a better human readable name */
+                display_name = g_strdup (printer_name);
 
                 if (manager->priv->actual_jobs != NULL) {
                         num_jobs = cupsGetJobs (&jobs, printer_name, 1, CUPS_WHICHJOBS_ALL);
@@ -280,6 +281,8 @@ on_cups_notification (GDBusConnection *connection,
                         }
                 }
         }
+
+        g_free (display_name);
 
         if (primary_text) {
                 NotifyNotification *notification;
