@@ -7,6 +7,9 @@ SUBDIRS = 			\
 	po 			\
 	$(NULL)
 
+# Honor aclocal flags
+ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
+
 EXTRA_DIST = \
 	MAINTAINERS		\
 	ChangeLog		\
