@@ -177,10 +177,9 @@ popup_menu_show_layout ()
 		return;
 	}
 
-	dialog =
-	    gkbd_keyboard_drawing_new_dialog (xkl_state->group,
-					      group_names
-					      [xkl_state->group]);
+	dialog = gkbd_keyboard_drawing_dialog_new ();
+	gkbd_keyboard_drawing_dialog_set_group (dialog, xkl_state->group);
+
 	g_signal_connect (dialog, "destroy",
 			  G_CALLBACK (show_layout_destroy),
 			  GINT_TO_POINTER (xkl_state->group));
