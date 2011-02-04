@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-30 23:07+0200\n"
-"PO-Revision-Date: 2011-01-30 23:12+0200\n"
+"POT-Creation-Date: 2011-02-04 09:11+0200\n"
+"PO-Revision-Date: 2011-02-04 09:12+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <kde-il@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -1206,15 +1206,15 @@ msgstr ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:226
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:225
 msgid "_Layouts"
 msgstr "_פריסות"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:233
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:232
 msgid "Keyboard _Preferences"
 msgstr "העדפות ה_מקלדת"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:239
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:238
 msgid "Show _Current Layout"
 msgstr "הצגת הפריסה ה_נוכחית"
 
@@ -1296,50 +1296,48 @@ msgstr "התרעות ההדפסה"
 msgid "Print-notifications plugin"
 msgstr "תוסף התרעות ההדפסה"
 
-#. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:93
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:156
 msgid "Printer added"
 msgstr "נוספה מדפסת"
 
-#. Translators: A printer has been removed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:100
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:165
 msgid "Printer removed"
 msgstr "המדפסת הוסרה"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:125
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
 msgid "Printing stopped"
 msgstr "ההדפסה נעצרה"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:127
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:134
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:141
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:148
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:276
 #, c-format
-msgid "\"%s\" on printer %s"
+msgid "\"%s\" on %s"
 msgstr "\"%s\" במדפסת %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:132
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:199
 msgid "Printing canceled"
 msgstr "ההדפסה בוטלה"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:139
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
 msgid "Printing aborted"
 msgstr "ההדפסה התבטלה"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:146
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:213
 msgid "Printing completed"
 msgstr "ההדפסה הושלמה"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
-msgid "Printing job"
-msgstr "המשימה מודפסת"
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:274
+msgid "Printing"
+msgstr "בהדפסה"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1473,36 +1471,33 @@ msgid "smartcard driver"
 msgstr "מנהל התקן הכרטיס החכם"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
-msgid "Change system time"
-msgstr "שינוי שעת המערכת"
+msgid "Change system time and date settings"
+msgstr "שינוי תצורת השעה והתאריך של המערכת"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Change system time zone"
-msgstr "החלפת אזור הזמן של המערכת"
+msgid "Privileges are required to configure time and date settings."
+msgstr "נדרשות הרשאות כדי להגדיר את תצורת השעה והתאריך."
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
-msgid "Configure hardware clock"
-msgstr "הגדרת שעון החומרה"
+#~ msgid "Printing job"
+#~ msgstr "המשימה מודפסת"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
-msgid "Configure network time"
-msgstr "הגדרת שעת הרשת"
+#~ msgid "Change system time"
+#~ msgstr "שינוי שעת המערכת"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
-msgid "Privileges are required to change the system time zone."
-msgstr "נדרשות הרשאות כדי להחליף את אזור הזמן של המערכת."
+#~ msgid "Configure hardware clock"
+#~ msgstr "הגדרת שעון החומרה"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
-msgid "Privileges are required to change the system time."
-msgstr "נדרשות הרשאות כדי לשנות את שעת המערכת."
+#~ msgid "Configure network time"
+#~ msgstr "הגדרת שעת הרשת"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:7
-msgid "Privileges are required to configure network time."
-msgstr "נדרשות הרשאות כדי להגדיר את שעת הרשת."
+#~ msgid "Privileges are required to change the system time zone."
+#~ msgstr "נדרשות הרשאות כדי להחליף את אזור הזמן של המערכת."
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:8
-msgid "Privileges are required to configure the hardware clock."
-msgstr "נדרשות הרשאות כדי להגדיר את שעון החומרה."
+#~ msgid "Privileges are required to change the system time."
+#~ msgstr "נדרשות הרשאות כדי לשנות את שעת המערכת."
+
+#~ msgid "Privileges are required to configure network time."
+#~ msgstr "נדרשות הרשאות כדי להגדיר את שעת הרשת."
 
 #~ msgid "Display keyboard LEDs on the panel"
 #~ msgstr "Display keyboard LEDs on the panel"
