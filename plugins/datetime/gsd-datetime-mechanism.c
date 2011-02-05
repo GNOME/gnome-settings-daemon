@@ -744,13 +744,26 @@ gsd_datetime_mechanism_set_using_ntp  (GsdDatetimeMechanism    *mechanism,
         if (!_check_polkit_for_action (mechanism, context))
                 return FALSE;
 
-        cmd = g_strconcat ("/sbin/chkconfig --level 2345 ntpd ", using_ntp ? "on" : "off", NULL);
+        if (g_file_test ("/sbin/chkconfig", G_FILE_TEST_EXISTS)) /* Fedora */
+                cmd = g_strconcat ("/sbin/chkconfig --level 2345 ntpd ", using_ntp ? "on" : "off", NULL);
+        else if (g_file_test ("/usr/sbin/update-rc.d", G_FILE_TEST_EXISTS)) /* Debian */
+                cmd = g_strconcat ("/usr/sbin/update-rc.d ntp ", using_ntp ? "enable" : "disable", NULL);
+        else {
+                error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
+                                     GSD_DATETIME_MECHANISM_ERROR_GENERAL,
+                                     "Error enabling NTP init script: "
+                                     "neither /sbin/chkconfig nor /usr/sbin/update-rc.d are present");
+                dbus_g_method_return_error (context, error);
+                g_error_free (error);
+                return FALSE;
+        }
+
         if (!g_spawn_command_line_sync (cmd,
                                         NULL, NULL, &exit_status, &error)) {
                 GError *error2;
                 error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
                                       GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                      "Error spawning /sbin/chkconfig: %s", error->message);
+                                      "Error spawning '%s': %s", cmd, error->message);
                 g_error_free (error);
                 dbus_g_method_return_error (context, error2);
                 g_error_free (error2);
@@ -760,13 +773,40 @@ gsd_datetime_mechanism_set_using_ntp  (GsdDatetimeMechanism    *mechanism,
 
         g_free (cmd);
 
-        cmd = g_strconcat ("/sbin/service ntpd ", using_ntp ? "restart" : "stop", NULL);
+        if (g_file_test ("/sbin/service", G_FILE_TEST_EXISTS))
+                cmd = "/sbin/service";
+        else if (g_file_test ("/usr/sbin/service", G_FILE_TEST_EXISTS))
+                cmd = "/usr/sbin/service";
+        else {
+                error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
+                                     GSD_DATETIME_MECHANISM_ERROR_GENERAL,
+                                     "Error spawning 'service': "
+                                     "command was not found in /sbin/ nor /usr/sbin/");
+                dbus_g_method_return_error (context, error);
+                g_error_free (error);
+                return FALSE;
+        }
+
+        if (g_file_test ("/etc/init.d/ntpd", G_FILE_TEST_EXISTS)) /* Fedora */
+                g_strconcat (cmd, " ntpd ", using_ntp ? "restart" : "stop", NULL);
+        else if (g_file_test ("/etc/init.d/ntp", G_FILE_TEST_EXISTS)) /* Debian */
+                cmd = g_strconcat (cmd, " ntp ", using_ntp ? "restart" : "stop", NULL);
+        else {
+                 error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
+                                     GSD_DATETIME_MECHANISM_ERROR_GENERAL,
+                                     "Error spawning 'service': "
+                                     "NTP init script not found at /etc/init.d/ntpd nor /etc/init.d/ntp");
+                dbus_g_method_return_error (context, error);
+                g_error_free (error);
+                return FALSE;
+        }
+
         if (!g_spawn_command_line_sync (cmd,
                                         NULL, NULL, &exit_status, &error)) {
                 GError *error2;
                 error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
                                       GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                      "Error spawning /sbin/service: %s", error->message);
+                                      "Error spawning '%s': %s", cmd, error->message);
                 g_error_free (error);
                 dbus_g_method_return_error (context, error2);
                 g_error_free (error2);
