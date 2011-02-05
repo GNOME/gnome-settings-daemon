@@ -182,6 +182,7 @@ popup_menu_show_layout ()
 			  GINT_TO_POINTER (xkl_state->group));
 	g_hash_table_insert (preview_dialogs,
 			     GINT_TO_POINTER (xkl_state->group), dialog);
+	gtk_widget_show_all (dialog);
 }
 
 static void
