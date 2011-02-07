@@ -53,6 +53,8 @@ struct GsdBackgroundManagerPrivate
         GnomeBG     *bg;
         guint        timeout_id;
 
+        GnomeBGCrossfade *fade;
+
         GDBusProxy  *proxy;
         guint        proxy_signal_id;
 };
@@ -167,6 +169,13 @@ nautilus_is_drawing_background (GsdBackgroundManager *manager)
 }
 
 static void
+on_crossfade_finished (GsdBackgroundManager *manager)
+{
+        g_object_unref (manager->priv->fade);
+        manager->priv->fade = NULL;
+}
+
+static void
 draw_background (GsdBackgroundManager *manager,
                  gboolean              use_crossfade)
 {
@@ -200,11 +209,15 @@ draw_background (GsdBackgroundManager *manager,
                                                    TRUE);
 
                 if (use_crossfade) {
-                        GnomeBGCrossfade *fade;
 
-                        fade = gnome_bg_set_surface_as_root_with_crossfade (screen, surface);
-                        g_signal_connect (fade, "finished",
-                                          G_CALLBACK (g_object_unref), NULL);
+                        if (manager->priv->fade != NULL) {
+                                g_object_unref (manager->priv->fade);
+                        }
+
+                        manager->priv->fade = gnome_bg_set_surface_as_root_with_crossfade (screen, surface);
+                        g_signal_connect_swapped (manager->priv->fade, "finished",
+                                                  G_CALLBACK (on_crossfade_finished),
+                                                  manager);
                 } else {
                         gnome_bg_set_surface_as_root (screen, surface);
                 }
