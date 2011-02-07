@@ -376,7 +376,6 @@ on_bus_gotten (GObject             *source_object,
                GnomeSettingsManager *manager)
 {
         GDBusConnection *connection;
-        guint registration_id;
         GError *error = NULL;
 
         connection = g_bus_get_finish (res, &error);
@@ -387,13 +386,13 @@ on_bus_gotten (GObject             *source_object,
         }
         manager->priv->connection = connection;
 
-        registration_id = g_dbus_connection_register_object (connection,
-                                                             GSD_MANAGER_DBUS_PATH,
-                                                             manager->priv->introspection_data->interfaces[0],
-                                                             &interface_vtable,
-                                                             manager,
-                                                             NULL,
-                                                             NULL);
+        g_dbus_connection_register_object (connection,
+                                           GSD_MANAGER_DBUS_PATH,
+                                           manager->priv->introspection_data->interfaces[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
 }
 
 static void
@@ -459,23 +458,6 @@ gnome_settings_manager_stop (GnomeSettingsManager *manager)
         manager->priv->settings = NULL;
 }
 
-static GObject *
-gnome_settings_manager_constructor (GType                  type,
-                                    guint                  n_construct_properties,
-                                    GObjectConstructParam *construct_properties)
-{
-        GnomeSettingsManager      *manager;
-        GnomeSettingsManagerClass *klass;
-
-        klass = GNOME_SETTINGS_MANAGER_CLASS (g_type_class_peek (GNOME_TYPE_SETTINGS_MANAGER));
-
-        manager = GNOME_SETTINGS_MANAGER (G_OBJECT_CLASS (gnome_settings_manager_parent_class)->constructor (type,
-                                                                                                         n_construct_properties,
-                                                                                                         construct_properties));
-
-        return G_OBJECT (manager);
-}
-
 static void
 gnome_settings_manager_dispose (GObject *object)
 {
@@ -493,7 +475,6 @@ gnome_settings_manager_class_init (GnomeSettingsManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gnome_settings_manager_constructor;
         object_class->dispose = gnome_settings_manager_dispose;
         object_class->finalize = gnome_settings_manager_finalize;
 

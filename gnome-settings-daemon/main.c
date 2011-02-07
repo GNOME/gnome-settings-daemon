@@ -198,10 +198,6 @@ on_term_signal_pipe_closed (GIOChannel *source,
                             GIOCondition condition,
                             gpointer data)
 {
-        GnomeSettingsManager *manager;
-
-        manager = GNOME_SETTINGS_MANAGER (data);
-
         term_signal_pipe_fds[0] = -1;
 
         g_debug ("Received SIGTERM - shutting down");
