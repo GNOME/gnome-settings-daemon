@@ -517,7 +517,7 @@ gsd_datetime_check_tz_name (const char *tz,
         tz_path = g_build_filename (SYSTEM_ZONEINFODIR, tz, NULL);
 
         /* Get the actual resolved path */
-        file = g_file_new_for_path (tz);
+        file = g_file_new_for_path (tz_path);
         actual_path = g_file_get_path (file);
         g_object_unref (file);
 
