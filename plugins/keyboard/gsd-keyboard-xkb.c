@@ -42,8 +42,6 @@
 
 #define SETTINGS_KEYBOARD_DIR "org.gnome.settings-daemon.plugins.keyboard"
 
-#define DISABLE_INDICATOR_KEY "disable-indicator"
-
 static GsdKeyboardManager *manager = NULL;
 
 static XklEngine *xkl_engine;
@@ -57,7 +55,6 @@ static GkbdKeyboardConfig initial_sys_kbd_config;
 
 static gboolean inited_ok = FALSE;
 
-static GSettings *settings_plugin = NULL;
 static GSettings *settings_desktop = NULL;
 static GSettings *settings_keyboard = NULL;
 
@@ -280,13 +277,6 @@ show_hide_icon ()
 {
 	if (g_strv_length (current_kbd_config.layouts_variants) > 1) {
 		if (icon == NULL) {
-			if (g_settings_get_boolean (settings_plugin, DISABLE_INDICATOR_KEY))
-			{
-				xkl_debug (150,
-					   "Not creating keyboard status icon: disabled in GSettings\n");
-				return;
-			}
-
 			xkl_debug (150, "Creating keyboard status icon\n");
 			icon = gkbd_status_new ();
 			g_signal_connect (icon, "popup-menu",
@@ -463,8 +453,6 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 	    GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 	gnome_settings_profile_start (NULL);
 
-	settings_plugin = g_settings_new (SETTINGS_KEYBOARD_DIR);
-
 	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
 					   DATADIR G_DIR_SEPARATOR_S
 					   "icons");
@@ -544,8 +532,6 @@ gsd_keyboard_xkb_shutdown (void)
 	settings_desktop = NULL;
 	g_object_unref (settings_keyboard);
 	settings_keyboard = NULL;
-	g_object_unref (settings_plugin);
-	settings_plugin = NULL;
 
 	if (xkl_registry) {
 		g_object_unref (xkl_registry);
