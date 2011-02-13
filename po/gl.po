@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-01 02:45+0100\n"
-"PO-Revision-Date: 2011-02-01 02:48+0100\n"
+"POT-Creation-Date: 2011-02-13 14:44+0100\n"
+"PO-Revision-Date: 2011-02-13 14:45+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "Language: gl\n"
@@ -157,7 +157,7 @@ msgstr "Activación de este engadido"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
@@ -248,26 +248,14 @@ msgstr ""
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Limiares de notificación de espazo libre subsecuentes"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-msgid ""
-"Disable the keyboard layout indicator unconditionally, do not show it even "
-"if number of layouts is more than one."
-msgstr ""
-"Desactivar o indicador de distribución de teclado incondicionalmente, non "
-"mostralo incluso se o número de distribucións é maior que unha."
-
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-msgid "Never show layout indicator"
-msgstr "Non mostrar nunca o indicador de distribución"
-
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
 msgstr ""
 "Prioridade que usar para este engadido na cola de inicio de gnome-settings-"
 "daemon."
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr "Indica se gnome-settings-daemon activará este engadido ou non."
@@ -635,7 +623,7 @@ msgstr "Active isto a x1, y1 e x2, y2 da área usábel polo borrador."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
-msgstr ""
+msgstr "Estabelecer isto a x1, y1 y x2, y2 do área usábel pola tableta."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
@@ -688,11 +676,11 @@ msgstr "Área de borrado da tableta Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom pad button mapping"
-msgstr ""
+msgstr "Wacom: asignacións de botóns  da tableta"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom pad tablet area"
-msgstr ""
+msgstr "Wacom: área da tableta"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Wacom stylus absolute mode"
@@ -1211,7 +1199,7 @@ msgstr "Teclado"
 msgid "Keyboard plugin"
 msgstr "Engadido do teclado"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:90
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:87
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
@@ -1232,15 +1220,15 @@ msgstr ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:226
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
 msgid "_Layouts"
 msgstr "_Disposicións"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:233
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
 msgid "Keyboard _Preferences"
 msgstr "Preferencias do _teclado"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:239
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
 msgid "Show _Current Layout"
 msgstr "Mostrar a _disposición actual"
 
@@ -1323,50 +1311,48 @@ msgstr "Notificacións da impresora"
 msgid "Print-notifications plugin"
 msgstr "Engadido de notificacións da impresora"
 
-#. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:93
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:156
 msgid "Printer added"
 msgstr "Impresora engadida"
 
-#. Translators: A printer has been removed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:100
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:165
 msgid "Printer removed"
 msgstr "Impresora quitada"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:125
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
 msgid "Printing stopped"
 msgstr "Impresión detida"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:127
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:134
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:141
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:148
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:276
 #, c-format
-msgid "\"%s\" on printer %s"
-msgstr "\"%s\" na impresora %s"
+msgid "\"%s\" on %s"
+msgstr "«%s» en %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:132
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:199
 msgid "Printing canceled"
 msgstr "Impresión cancelada"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:139
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
 msgid "Printing aborted"
 msgstr "Impresión cancelada"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:146
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:213
 msgid "Printing completed"
 msgstr "Impresión completa"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
-msgid "Printing job"
-msgstr "Imprimindo traballo"
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:274
+msgid "Printing"
+msgstr "Imprimindo"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1511,6 +1497,16 @@ msgstr "Cambiar as opcións de data e hora do sistema"
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
 msgid "Privileges are required to configure time and date settings."
 msgstr "Requírense privilexios para configurar as opcións de data e hora."
+
+#~ msgid ""
+#~ "Disable the keyboard layout indicator unconditionally, do not show it "
+#~ "even if number of layouts is more than one."
+#~ msgstr ""
+#~ "Desactivar o indicador de distribución de teclado incondicionalmente, non "
+#~ "mostralo incluso se o número de distribucións é maior que unha."
+
+#~ msgid "Never show layout indicator"
+#~ msgstr "Non mostrar nunca o indicador de distribución"
 
 #~ msgid "Display keyboard LEDs on the panel"
 #~ msgstr "Mostrar os LED do teclado no panel"
