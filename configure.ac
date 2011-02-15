@@ -269,6 +269,34 @@ AC_SUBST(PULSE_LIBS)
 
 
 dnl ==============================================
+dnl PackageKit section
+dnl ==============================================
+
+have_packagekit=true
+AC_ARG_ENABLE(packagekit,
+  AC_HELP_STRING([--disable-packagekit],
+                 [turn off PackageKit support]),
+       [case "${enableval}" in
+               yes) WANT_PACKAGEKIT=yes ;;
+               no)  WANT_PACKAGEKIT=no ;;
+               *) AC_MSG_ERROR(bad value ${enableval} for --disable-packagekit) ;;
+       esac],
+       [WANT_PACKAGEKIT=yes]) dnl Default value
+
+if test x$WANT_PACKAGEKIT = xyes ; then
+       PK_REQUIRED_VERSION=0.6.4
+       PKG_CHECK_MODULES(PACKAGEKIT, glib-2.0 packagekit-glib2 >= $PK_REQUIRED_VERSION,
+             [have_packagekit=true
+              AC_DEFINE(HAVE_PACKAGEKIT, 1, [Define if PackageKit should be used])],
+             [have_packagekit=false])
+fi
+AM_CONDITIONAL(HAVE_PACKAGEKIT, test "x$have_packagekit" = "xtrue")
+
+AC_SUBST(PACKAGEKIT_CFLAGS)
+AC_SUBST(PACKAGEKIT_LIBS)
+
+
+dnl ==============================================
 dnl smartcard section
 dnl ==============================================
 have_smartcard_support=false
@@ -486,6 +514,7 @@ plugins/mouse/Makefile
 plugins/print-notifications/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
+plugins/updates/Makefile
 plugins/wacom/Makefile
 plugins/xrandr/Makefile
 plugins/xsettings/Makefile
@@ -500,6 +529,7 @@ data/org.gnome.settings-daemon.plugins.power.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in
+data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in
@@ -534,6 +564,7 @@ echo "
 
         Libnotify support:        ${have_libnotify}
         PulseAudio support:       ${have_pulse}
+        PackageKit support:       ${have_packagekit}
         Smartcard support:        ${have_smartcard_support}
         GConf bridge support:     ${build_gconf_bridge}
         Cups support:             ${have_cups}

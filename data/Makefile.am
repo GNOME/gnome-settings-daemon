@@ -18,6 +18,10 @@ gsettings_SCHEMAS =							\
 	org.gnome.settings-daemon.peripherals.wacom.gschema.xml		\
 	org.gnome.settings-daemon.plugins.xrandr.gschema.xml
 
+if HAVE_PACKAGEKIT
+gsettings_SCHEMAS += org.gnome.settings-daemon.plugins.updates.gschema.xml
+endif
+
 @INTLTOOL_XML_NOMERGE_RULE@
 
 @GSETTINGS_RULES@
