@@ -39,6 +39,7 @@ struct GsdUpdatesManagerPrivate
 {
         GSettings *settings_http;
         GSettings *settings_ftp;
+        GSettings *settings_gsd;
         PkControl *control;
         guint      timeout;
 };
@@ -171,11 +172,55 @@ reload_proxy_settings (GsdUpdatesManager *manager)
 }
 
 static void
+set_install_root_cb (GObject *object, GAsyncResult *res, gpointer user_data)
+{
+        gboolean ret;
+        GError *error = NULL;
+        PkControl *control = PK_CONTROL (object);
+
+        /* get the result */
+        ret = pk_control_set_root_finish (control, res, &error);
+        if (!ret) {
+                g_warning ("failed to set install root: %s", error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+set_install_root (GsdUpdatesManager *manager)
+{
+        gchar *root;
+
+        /* get install root */
+        root = g_settings_get_string (manager->priv->settings_gsd,
+                                      "install-root");
+        if (root == NULL) {
+                g_warning ("could not read install root");
+                goto out;
+        }
+
+        pk_control_set_root_async (manager->priv->control,
+                                   root,
+                                   NULL,
+                                   set_install_root_cb, manager);
+out:
+        g_free (root);
+}
+
+static void
 settings_changed_cb (GSettings         *settings,
                      const char        *key,
                      GsdUpdatesManager *manager)
 {
         reload_proxy_settings (manager);
+}
+
+static void
+settings_gsd_changed_cb (GSettings         *settings,
+                         const char        *key,
+                         GsdUpdatesManager *manager)
+{
+        set_install_root (manager);
 }
 
 gboolean
@@ -196,8 +241,14 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         g_signal_connect (manager->priv->settings_ftp, "changed",
                           G_CALLBACK (settings_changed_cb), manager);
 
+        /* get ftp settings */
+        manager->priv->settings_gsd = g_settings_new ("org.gnome.settings-daemon.plugins.updates");
+        g_signal_connect (manager->priv->settings_gsd, "changed",
+                          G_CALLBACK (settings_gsd_changed_cb), manager);
+
         /* coldplug */
         reload_proxy_settings (manager);
+        set_install_root (manager);
 
         g_debug ("Starting updates manager");
 
@@ -216,6 +267,10 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
         if (manager->priv->settings_ftp != NULL) {
                 g_object_unref (manager->priv->settings_ftp);
                 manager->priv->settings_ftp = NULL;
+        }
+        if (manager->priv->settings_gsd != NULL) {
+                g_object_unref (manager->priv->settings_gsd);
+                manager->priv->settings_gsd = NULL;
         }
         if (manager->priv->control != NULL) {
                 g_object_unref (manager->priv->control);
