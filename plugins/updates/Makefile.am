@@ -6,6 +6,8 @@ libupdates_la_SOURCES = \
 	gsd-updates-plugin.c \
 	gsd-updates-refresh.h \
 	gsd-updates-refresh.c \
+	gsd-updates-firmware.h \
+	gsd-updates-firmware.c \
 	gsd-updates-manager.h \
 	gsd-updates-manager.c
 

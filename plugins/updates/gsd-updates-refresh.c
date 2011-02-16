@@ -25,6 +25,7 @@
 #include <packagekit-glib2/packagekit.h>
 #include <libupower-glib/upower.h>
 
+#include "gsd-updates-common.h"
 #include "gsd-updates-refresh.h"
 
 static void     gsd_updates_refresh_finalize    (GObject            *object);

@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2007-2011 Richard Hughes <richard@hughsie.com>
  *
@@ -19,35 +19,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef __GSD_UPDATES_REFRESH_H
-#define __GSD_UPDATES_REFRESH_H
+#ifndef __GSD_UPDATES_FIRMWARE_H
+#define __GSD_UPDATES_FIRMWARE_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_UPDATES_REFRESH        (gsd_updates_refresh_get_type ())
-#define GSD_UPDATES_REFRESH(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_UPDATES_REFRESH, GsdUpdatesRefresh))
-#define GSD_UPDATES_REFRESH_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_UPDATES_REFRESH, GsdUpdatesRefreshClass))
-#define GSD_IS_UPDATES_REFRESH(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_UPDATES_REFRESH))
+#define GSD_UPDATES_TYPE_FIRMWARE               (gsd_updates_firmware_get_type ())
+#define GSD_UPDATES_FIRMWARE(o)                 (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_UPDATES_TYPE_FIRMWARE, GsdUpdatesFirmware))
+#define GSD_UPDATES_FIRMWARE_CLASS(k)           (G_TYPE_CHECK_CLASS_CAST((k), GSD_UPDATES_TYPE_FIRMWARE, GsdUpdatesFirmwareClass))
+#define GSD_UPDATES_IS_FIRMWARE(o)              (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_UPDATES_TYPE_FIRMWARE))
 
-typedef struct GsdUpdatesRefreshPrivate GsdUpdatesRefreshPrivate;
+typedef struct GsdUpdatesFirmwarePrivate GsdUpdatesFirmwarePrivate;
 
 typedef struct
 {
          GObject                         parent;
-         GsdUpdatesRefreshPrivate       *priv;
-} GsdUpdatesRefresh;
+         GsdUpdatesFirmwarePrivate      *priv;
+} GsdUpdatesFirmware;
 
 typedef struct
 {
         GObjectClass    parent_class;
-} GsdUpdatesRefreshClass;
+} GsdUpdatesFirmwareClass;
 
-GType                    gsd_updates_refresh_get_type           (void);
-GsdUpdatesRefresh       *gsd_updates_refresh_new                (void);
-gboolean                 gsd_updates_refresh_get_on_battery     (GsdUpdatesRefresh *refresh);
+GType                    gsd_updates_firmware_get_type          (void);
+GsdUpdatesFirmware      *gsd_updates_firmware_new               (void);
 
 G_END_DECLS
 
-#endif /* __GSD_UPDATES_REFRESH_H */
+#endif /* __GSD_UPDATES_FIRMWARE_H */

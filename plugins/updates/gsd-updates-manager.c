@@ -30,7 +30,9 @@
 
 #include "gsd-enums.h"
 #include "gsd-updates-manager.h"
+#include "gsd-updates-firmware.h"
 #include "gsd-updates-refresh.h"
+#include "gsd-updates-common.h"
 #include "gnome-settings-profile.h"
 
 #define GSD_UPDATES_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_UPDATES_MANAGER, GsdUpdatesManagerPrivate))
@@ -39,6 +41,7 @@ struct GsdUpdatesManagerPrivate
 {
         GCancellable            *cancellable;
         GsdUpdatesRefresh       *refresh;
+        GsdUpdatesFirmware      *firmware;
         GSettings               *settings_ftp;
         GSettings               *settings_gsd;
         GSettings               *settings_http;
@@ -911,6 +914,9 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
                       "interactive", FALSE,
                       NULL);
 
+        /* watch UDev for missing firmware */
+        manager->priv->firmware = gsd_updates_firmware_new ();
+
         /* get automatic callbacks about when we should check for
          * updates, refresh-caches and upgrades */
         manager->priv->refresh = gsd_updates_refresh_new ();
@@ -973,6 +979,10 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
         if (manager->priv->refresh != NULL) {
                 g_object_unref (manager->priv->refresh);
                 manager->priv->refresh = NULL;
+        }
+        if (manager->priv->firmware != NULL) {
+                g_object_unref (manager->priv->firmware);
+                manager->priv->firmware = NULL;
         }
         if (manager->priv->cancellable != NULL) {
                 g_object_unref (manager->priv->cancellable);
