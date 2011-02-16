@@ -268,7 +268,7 @@ dnl ==============================================
 dnl PackageKit section
 dnl ==============================================
 
-have_packagekit=true
+have_packagekit=false
 AC_ARG_ENABLE(packagekit,
   AC_HELP_STRING([--disable-packagekit],
                  [turn off PackageKit support]),
