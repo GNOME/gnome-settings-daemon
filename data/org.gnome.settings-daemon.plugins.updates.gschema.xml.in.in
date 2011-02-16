@@ -15,5 +15,80 @@
       <_summary>The install root to use when adding and removing packages</_summary>
       <_description>The install root to use when processing packages, which is changed when using LTSP or when testing.</_description>
     </key>
+    <key name="connection-use-mobile" type="b">
+      <default>false</default>
+      <_summary>Use mobile broadband connections</_summary>
+      <_description>Use mobile broadband connections such as GSM and CDMA to check for updates.</_description>
+    </key>
+    <key name="connection-use-wifi" type="b">
+      <default>true</default>
+      <_summary>Use WiFi connections</_summary>
+      <_description>Use WiFi (wireless LAN) connections to check for updates. It may be faster to download packages when on a wired connection, and the VPN or proxy required may also only be available on wired connections.</_description>
+    </key>
+    <key name="auto-update-type" enum="org.gnome.settings-daemon.GsdUpdateType">
+      <default>'security'</default>
+      <_summary>Automatically update these types of updates</_summary>
+      <_description>Automatically update these types of updates.</_description>
+    </key>
+    <key name="force-get-updates-login" type="b">
+      <default>false</default>
+      <_summary>Get the update list when the session starts</_summary>
+      <_description>Get the update list when the session starts, even if not scheduled to. This ensures the user has up to date and valid data in the tray at startup.</_description>
+    </key>
+    <key name="frequency-get-updates" type="i">
+      <default>86400</default>
+      <_summary>How often to check for updates</_summary>
+      <_description>How often to check for updates. Value is in seconds.</_description>
+    </key>
+    <key name="frequency-get-upgrades" type="i">
+      <default>604800</default>
+      <_summary>How often to check for distribution upgrades</_summary>
+      <_description>How often to check for distribution upgrades. Value is in seconds.</_description>
+    </key>
+    <key name="frequency-refresh-cache" type="i">
+      <default>86400</default>
+      <_summary>How often to refresh the package cache</_summary>
+      <_description>How often to refresh the package cache. Value is in seconds.</_description>
+    </key>
+    <key name="session-startup-timeout" type="i">
+      <default>300</default>
+      <_summary>The number of seconds at session startup to wait before checking for updates</_summary>
+      <_description>The number of seconds at session startup to wait before checking for updates. Value is in seconds.</_description>
+    </key>
+    <key name="update-battery" type="b">
+      <default>false</default>
+      <_summary>Install updates automatically when running on battery power</_summary>
+      <_description>Install updates automatically when running on battery power.</_description>
+    </key>
+    <key name="notify-distro-upgrades" type="b">
+      <default>true</default>
+      <_summary>Notify the user when distribution upgrades are available</_summary>
+      <_description>Notify the user when distribution upgrades are available.</_description>
+    </key>
+    <key name="notify-update-complete" type="b">
+      <default>false</default>
+      <_summary>Notify the user for completed updates</_summary>
+      <_description>Notify the user for completed updates. This may be a useful notification for some users as installing updates prevents shutdown.</_description>
+    </key>
+    <key name="notify-update-complete-restart" type="b">
+      <default>true</default>
+      <_summary>Notify the user for completed updates where the user needs to restart</_summary>
+      <_description>Notify the user for completed updates where the user needs to restart.</_description>
+    </key>
+    <key name="notify-update-not-battery" type="b">
+      <default>false</default>
+      <_summary>Notify the user when the automatic update was not started on battery power</_summary>
+      <_description>Notify the user when the update was not automatically started because the machine is running on battery power.</_description>
+    </key>
+    <key name="notify-update-started" type="b">
+      <default>true</default>
+      <_summary>Notify the user when the update was started</_summary>
+      <_description>Notify the user when the update was started.</_description>
+    </key>
+    <key name="notify-update-type" enum="org.gnome.settings-daemon.GsdUpdateType">
+      <default>'security'</default>
+      <_summary>Notify the user when the update type is available</_summary>
+      <_description>Notify the user when updates are available of a certain type and not auto-installed.</_description>
+    </key>
   </schema>
 </schemalist>

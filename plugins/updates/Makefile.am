@@ -4,6 +4,8 @@ plugin_LTLIBRARIES = \
 libupdates_la_SOURCES = \
 	gsd-updates-plugin.h \
 	gsd-updates-plugin.c \
+	gsd-updates-refresh.h \
+	gsd-updates-refresh.c \
 	gsd-updates-manager.h \
 	gsd-updates-manager.c
 
@@ -17,6 +19,9 @@ libupdates_la_CFLAGS = \
 	$(GNOME_CFLAGS)	\
 	$(PACKAGEKIT_CFLAGS) \
 	-DI_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE \
+	-DDATADIR=\"$(datadir)\" \
+	-DBINDIR=\"$(bindir)\" \
+	-I$(top_srcdir)/data \
 	$(AM_CFLAGS)
 
 libupdates_la_LDFLAGS = \

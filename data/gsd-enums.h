@@ -100,4 +100,11 @@ typedef enum
   GSD_POWER_ACTION_NOTHING
 } GsdPowerActionType;
 
+typedef enum
+{
+  GSD_UPDATE_TYPE_ALL,
+  GSD_UPDATE_TYPE_SECURITY,
+  GSD_UPDATE_TYPE_NONE
+} GsdUpdateType;
+
 #endif /* __gsd_enums_h__ */
