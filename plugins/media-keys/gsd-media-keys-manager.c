@@ -292,6 +292,9 @@ update_kbd_cb (GSettings           *settings,
 
         /* Find the key that was modified */
         for (i = 0; i < HANDLED_KEYS; i++) {
+                /* Skip over hard-coded keys */
+                if (keys[i].settings_key == NULL)
+                        continue;
                 if (strcmp (key, keys[i].settings_key) == 0) {
                         char *tmp;
                         Key  *key;
