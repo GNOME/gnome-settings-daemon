@@ -46,10 +46,6 @@ pkgconfig_DATA = gnome-settings-daemon.pc
 
 @INTLTOOL_XML_NOMERGE_RULE@
 
-xmldir = @GNOME_KEYBINDINGS_KEYSDIR@
-xml_in_files = 50-accessibility.xml.in
-xml_DATA = $(xml_in_files:.xml.in=.xml)
-
 man_MANS = gnome-settings-daemon.1
 
 EXTRA_DIST = 					\
@@ -58,7 +54,6 @@ EXTRA_DIST = 					\
 	$(gsettings_SCHEMAS:.xml=.xml.in.in)	\
 	$(service_in_files)			\
 	$(desktop_in_files)			\
-	$(xml_in_files)				\
 	$(gsettings_ENUM_FILES)			\
 	gnome-settings-daemon.pc.in		\
 	$(api_DATA)				\
@@ -68,7 +63,6 @@ DISTCLEANFILES = 			\
 	$(gsettings_SCHEMAS)		\
 	$(service_DATA)			\
 	$(desktop_DATA)			\
-	$(xml_DATA)			\
 	$(NULL)
 
 MAINTAINERCLEANFILES =			\
