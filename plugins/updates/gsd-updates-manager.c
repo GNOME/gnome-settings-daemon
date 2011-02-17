@@ -37,6 +37,8 @@
 
 #define GSD_UPDATES_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_UPDATES_MANAGER, GsdUpdatesManagerPrivate))
 
+#define MAX_FAILED_GET_UPDATES              10 /* the maximum number of tries */
+
 struct GsdUpdatesManagerPrivate
 {
         GCancellable            *cancellable;
@@ -54,6 +56,7 @@ struct GsdUpdatesManagerPrivate
         GDBusProxy              *proxy_session;
         guint                    update_viewer_watcher_id;
         GVolumeMonitor          *volume_monitor;
+        guint                    failed_get_updates_count;
 };
 
 static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
@@ -599,7 +602,58 @@ out:
 }
 
 static void
-get_updates_finished_cb (GObject *object, GAsyncResult *res, GsdUpdatesManager *manager)
+notify_failed_get_updates_maybe (GsdUpdatesManager *manager)
+{
+        const gchar *button;
+        const gchar *message;
+        const gchar *title;
+        gboolean ret;
+        GError *error = NULL;
+        NotifyNotification *notification;
+
+        /* give the user a break */
+        if (manager->priv->failed_get_updates_count++ < MAX_FAILED_GET_UPDATES) {
+                g_debug ("failed GetUpdates, but will retry %i more times before notification",
+                         MAX_FAILED_GET_UPDATES - manager->priv->failed_get_updates_count);
+                goto out;
+        }
+
+        /* TRANSLATORS: the updates mechanism */
+        title = _("Updates");
+
+        /* TRANSLATORS: we failed to get the updates multiple times,
+         * and now we need to inform the user that something might be wrong */
+        message = _("Unable to access software updates");
+
+        /* TRANSLATORS: try again, this time launching the update viewer */
+        button = _("Try again");
+
+        notification = notify_notification_new (title, message, NULL);
+        if (notification == NULL) {
+                g_warning ("failed to create notification");
+                goto out;
+        }
+        notify_notification_set_timeout (notification, 120*1000);
+        notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
+        notify_notification_add_action (notification, "show-update-viewer",
+                                        button,
+                                        libnotify_action_cb,
+                                        manager, NULL);
+        ret = notify_notification_show (notification, &error);
+        if (!ret) {
+                g_warning ("failed to show notification: %s",
+                           error->message);
+                g_error_free (error);
+        }
+out:
+        /* reset, even if the message failed */
+        manager->priv->failed_get_updates_count = 0;
+}
+
+static void
+get_updates_finished_cb (GObject *object,
+                         GAsyncResult *res,
+                         GsdUpdatesManager *manager)
 {
         PkClient *client = PK_CLIENT(object);
         PkResults *results;
@@ -616,8 +670,10 @@ get_updates_finished_cb (GObject *object, GAsyncResult *res, GsdUpdatesManager *
         /* get the results */
         results = pk_client_generic_finish (PK_CLIENT(client), res, &error);
         if (results == NULL) {
-                g_warning ("failed to get updates: %s", error->message);
+                g_warning ("failed to get updates: %s",
+                           error->message);
                 g_error_free (error);
+                notify_failed_get_updates_maybe (manager);
                 goto out;
         }
 
@@ -627,8 +683,12 @@ get_updates_finished_cb (GObject *object, GAsyncResult *res, GsdUpdatesManager *
                 g_warning ("failed to get updates: %s, %s",
                            pk_error_enum_to_text (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
+                notify_failed_get_updates_maybe (manager);
                 goto out;
         }
+
+        /* we succeeded, so clear the count */
+        manager->priv->failed_get_updates_count = 0;
 
         /* get data */
         array = pk_results_get_package_array (results);
