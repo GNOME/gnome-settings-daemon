@@ -52,6 +52,7 @@ struct GsdUpdatesManagerPrivate
         PkTask                  *task;
         guint                    inhibit_cookie;
         GDBusProxy              *proxy_session;
+        guint                    update_viewer_watcher_id;
 };
 
 static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
@@ -992,6 +993,22 @@ notify_locked_cb (PkControl *control,
         }
 }
 
+static void
+update_viewer_appeared_cb (GDBusConnection *connection,
+                           const gchar *name,
+                           const gchar *name_owner,
+                           gpointer user_data)
+{
+        GsdUpdatesManager *manager = GSD_UPDATES_MANAGER (user_data);
+
+        /* close any existing notification */
+        if (manager->priv->notification_updates_available != NULL) {
+                g_debug ("update viewer on the bus, clearing bubble");
+                notify_notification_close (manager->priv->notification_updates_available, NULL);
+                manager->priv->notification_updates_available = NULL;
+        }
+}
+
 gboolean
 gsd_updates_manager_start (GsdUpdatesManager *manager,
                            GError **error)
@@ -1052,6 +1069,16 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         if (manager->priv->proxy_session == NULL)
                 goto out;
 
+        /* if the update viewer is started, then hide the notification */
+        manager->priv->update_viewer_watcher_id =
+                g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                  "org.freedesktop.PackageKit.UpdateViewer",
+                                  G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                  update_viewer_appeared_cb,
+                                  NULL,
+                                  manager,
+                                  NULL);
+
         /* coldplug */
         reload_proxy_settings (manager);
         set_install_root (manager);
@@ -1103,6 +1130,10 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
         if (manager->priv->cancellable != NULL) {
                 g_object_unref (manager->priv->cancellable);
                 manager->priv->cancellable = NULL;
+        }
+        if (manager->priv->update_viewer_watcher_id != 0) {
+                g_bus_unwatch_name (manager->priv->update_viewer_watcher_id);
+                manager->priv->update_viewer_watcher_id = 0;
         }
 
         if (manager->priv->timeout) {
