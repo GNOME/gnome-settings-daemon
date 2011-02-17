@@ -105,5 +105,10 @@
       <_summary>Devices that should be ignored</_summary>
       <_description>Devices that should be ignored, separated by commas. These can include '*' and '?' characters.</_description>
     </key>
+    <key name="media-repo-filenames" type="s">
+      <default>'media.repo,.discinfo'</default>
+      <_summary>The filenames on removable media that designate it a software source.</_summary>
+      <_description>When removable media is inserted, it is checked to see if it contains any important filenames in the root directory. If the filename matches, then an updates check is performed. This allows post-install disks to be used to update running systems.</_description>
+    </key>
   </schema>
 </schemalist>

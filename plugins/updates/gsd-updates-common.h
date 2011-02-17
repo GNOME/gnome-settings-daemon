@@ -42,6 +42,7 @@ G_BEGIN_DECLS
 #define GSD_SETTINGS_SCHEMA                             "org.gnome.settings-daemon.plugins.updates"
 #define GSD_SETTINGS_SESSION_STARTUP_TIMEOUT            "session-startup-timeout"
 #define GSD_SETTINGS_UPDATE_BATTERY                     "update-battery"
+#define GSD_SETTINGS_MEDIA_REPO_FILENAMES               "media-repo-filenames"
 
 G_END_DECLS
 

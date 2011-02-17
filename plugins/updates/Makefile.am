@@ -2,6 +2,7 @@ plugin_LTLIBRARIES = \
 	libupdates.la
 
 libupdates_la_SOURCES = \
+	gsd-updates-common.h \
 	gsd-updates-plugin.h \
 	gsd-updates-plugin.c \
 	gsd-updates-refresh.h \

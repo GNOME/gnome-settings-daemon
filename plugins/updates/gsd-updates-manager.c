@@ -53,6 +53,7 @@ struct GsdUpdatesManagerPrivate
         guint                    inhibit_cookie;
         GDBusProxy              *proxy_session;
         guint                    update_viewer_watcher_id;
+        GVolumeMonitor          *volume_monitor;
 };
 
 static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
@@ -717,7 +718,7 @@ out:
 }
 
 static void
-due_get_updates_cb (GsdUpdatesRefresh *refresh, GsdUpdatesManager *manager)
+query_updates (GsdUpdatesManager *manager)
 {
         /* optimize the amount of downloaded data by setting the cache age */
         pk_client_set_cache_age (PK_CLIENT(manager->priv->task),
@@ -731,6 +732,12 @@ due_get_updates_cb (GsdUpdatesRefresh *refresh, GsdUpdatesManager *manager)
                                      NULL, NULL,
                                      (GAsyncReadyCallback) get_updates_finished_cb,
                                      manager);
+}
+
+static void
+due_get_updates_cb (GsdUpdatesRefresh *refresh, GsdUpdatesManager *manager)
+{
+        query_updates (manager);
 }
 
 static gchar *
@@ -1009,6 +1016,69 @@ update_viewer_appeared_cb (GDBusConnection *connection,
         }
 }
 
+static gboolean
+file_exists_in_root (const gchar *root, const gchar *filename)
+{
+        gboolean ret;
+        GFile *source;
+        gchar *source_path;
+
+        source_path = g_build_filename (root, filename, NULL);
+        source = g_file_new_for_path (source_path);
+
+        /* an interesting file exists */
+        ret = g_file_query_exists (source, NULL);
+        g_debug ("checking for %s: %s", source_path, ret ? "yes" : "no");
+        if (!ret)
+                goto out;
+out:
+        g_free (source_path);
+        g_object_unref (source);
+        return ret;
+}
+
+static void
+mount_added_cb (GVolumeMonitor *volume_monitor,
+                GMount *mount,
+                GsdUpdatesManager *manager)
+{
+        gboolean ret = FALSE;
+        gchar **filenames = NULL;
+        gchar *media_repo_filenames;
+        gchar *root_path;
+        GFile *root;
+        guint i;
+
+        /* check if any installed media is an install disk */
+        root = g_mount_get_root (mount);
+        root_path = g_file_get_path (root);
+
+        /* use settings */
+        media_repo_filenames = g_settings_get_string (manager->priv->settings_gsd,
+                                                      GSD_SETTINGS_MEDIA_REPO_FILENAMES);
+        if (media_repo_filenames == NULL) {
+                g_warning ("failed to get media repo filenames");
+                goto out;
+        }
+
+        /* search each possible filename */
+        filenames = g_strsplit (media_repo_filenames, ",", -1);
+        for (i=0; filenames[i] != NULL; i++) {
+                ret = file_exists_in_root (root_path, filenames[i]);
+                if (ret)
+                        break;
+        }
+
+        /* do an updates check with the new media */
+        if (ret)
+                query_updates (manager);
+out:
+        g_strfreev (filenames);
+        g_free (media_repo_filenames);
+        g_free (root_path);
+        g_object_unref (root);
+}
+
 gboolean
 gsd_updates_manager_start (GsdUpdatesManager *manager,
                            GError **error)
@@ -1079,6 +1149,11 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
                                   manager,
                                   NULL);
 
+        /* get a volume monitor so we can watch media */
+        manager->priv->volume_monitor = g_volume_monitor_get ();
+        g_signal_connect (manager->priv->volume_monitor, "mount-added",
+                          G_CALLBACK (mount_added_cb), manager);
+
         /* coldplug */
         reload_proxy_settings (manager);
         set_install_root (manager);
@@ -1126,6 +1201,10 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
         if (manager->priv->proxy_session != NULL) {
                 g_object_unref (manager->priv->proxy_session);
                 manager->priv->proxy_session = NULL;
+        }
+        if (manager->priv->volume_monitor != NULL) {
+                g_object_unref (manager->priv->volume_monitor);
+                manager->priv->volume_monitor = NULL;
         }
         if (manager->priv->cancellable != NULL) {
                 g_object_unref (manager->priv->cancellable);
