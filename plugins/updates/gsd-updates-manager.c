@@ -50,6 +50,8 @@ struct GsdUpdatesManagerPrivate
         NotifyNotification      *notification_updates_available;
         PkControl               *control;
         PkTask                  *task;
+        guint                    inhibit_cookie;
+        GDBusProxy              *proxy_session;
 };
 
 static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
@@ -901,13 +903,108 @@ settings_gsd_changed_cb (GSettings         *settings,
         set_install_root (manager);
 }
 
+static void
+session_inhibit (GsdUpdatesManager *manager)
+{
+        const gchar *reason;
+        GError *error = NULL;
+        GVariant *retval;
+
+        /* state invalid somehow */
+        if (manager->priv->inhibit_cookie != 0) {
+                g_warning ("already locked");
+                goto out;
+        }
+
+        /* TRANSLATORS: the reason why we've inhibited it */
+        reason = _("A transaction that cannot be interrupted is running");
+        retval = g_dbus_proxy_call_sync (manager->priv->proxy_session,
+                                         "Inhibit",
+                                         g_variant_new ("(susu)",
+                                                        "gnome-settings-daemon", /* app-id */
+                                                        0, /* xid */
+                                                        reason, /* reason */
+                                                        4 /* flags */),
+                                         G_DBUS_CALL_FLAGS_NONE,
+                                         -1,
+                                         manager->priv->cancellable,
+                                         &error);
+        if (retval == NULL) {
+                g_warning ("failed to inhibit gnome-session: %s",
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        /* get cookie */
+        g_variant_get (retval, "(u)",
+                       &manager->priv->inhibit_cookie);
+out:
+        return;
+}
+
+static void
+session_uninhibit (GsdUpdatesManager *manager)
+{
+        GError *error = NULL;
+        GVariant *retval;
+
+        /* state invalid somehow */
+        if (manager->priv->inhibit_cookie == 0) {
+                g_warning ("not locked");
+                goto out;
+        }
+        retval = g_dbus_proxy_call_sync (manager->priv->proxy_session,
+                                         "Uninhibit",
+                                         g_variant_new ("(u)",
+                                                        manager->priv->inhibit_cookie),
+                                         G_DBUS_CALL_FLAGS_NONE,
+                                         -1,
+                                         manager->priv->cancellable,
+                                         &error);
+        if (retval == NULL) {
+                g_warning ("failed to uninhibit gnome-session: %s",
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
+out:
+        manager->priv->inhibit_cookie = 0;
+        return;
+}
+
+static void
+notify_locked_cb (PkControl *control,
+                  GParamSpec *pspec,
+                  GsdUpdatesManager *manager)
+{
+        gboolean locked;
+
+        g_object_get (control, "locked", &locked, NULL);
+
+        /* TODO: locked is a bit harsh, we can probably still allow
+         * reboot when packages are downloading or the transaction is
+         * depsolving */
+        if (locked) {
+                session_inhibit (manager);
+        } else {
+                session_uninhibit (manager);
+        }
+}
+
 gboolean
 gsd_updates_manager_start (GsdUpdatesManager *manager,
                            GError **error)
 {
+        gboolean ret = FALSE;
+
+        g_debug ("Starting updates manager");
+
         /* use PackageKit */
         manager->priv->cancellable = g_cancellable_new ();
         manager->priv->control = pk_control_new ();
+        g_signal_connect (manager->priv->control, "notify::locked",
+                          G_CALLBACK (notify_locked_cb), manager);
         manager->priv->task = pk_task_new ();
         g_object_set (manager->priv->task,
                       "background", TRUE,
@@ -942,13 +1039,28 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         g_signal_connect (manager->priv->settings_gsd, "changed",
                           G_CALLBACK (settings_gsd_changed_cb), manager);
 
+        /* use gnome-session for the idle detection */
+        manager->priv->proxy_session =
+                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                               G_DBUS_PROXY_FLAGS_NONE,
+                                               NULL, /* GDBusInterfaceInfo */
+                                               "org.gnome.SessionManager",
+                                               "/org/gnome/SessionManager",
+                                               "org.gnome.SessionManager",
+                                               manager->priv->cancellable,
+                                               error);
+        if (manager->priv->proxy_session == NULL)
+                goto out;
+
         /* coldplug */
         reload_proxy_settings (manager);
         set_install_root (manager);
 
-        g_debug ("Starting updates manager");
-
-        return TRUE;
+        /* success */
+        ret = TRUE;
+        g_debug ("Started updates manager");
+out:
+        return ret;
 }
 
 void
@@ -983,6 +1095,10 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
         if (manager->priv->firmware != NULL) {
                 g_object_unref (manager->priv->firmware);
                 manager->priv->firmware = NULL;
+        }
+        if (manager->priv->proxy_session != NULL) {
+                g_object_unref (manager->priv->proxy_session);
+                manager->priv->proxy_session = NULL;
         }
         if (manager->priv->cancellable != NULL) {
                 g_object_unref (manager->priv->cancellable);
