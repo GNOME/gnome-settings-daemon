@@ -1,6 +1,7 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins" path="/org/gnome/settings-daemon/plugins/">
     <child name="a11y-keyboard" schema="org.gnome.settings-daemon.plugins.a11y-keyboard"/>
+    <child name="a11y-settings" schema="org.gnome.settings-daemon.plugins.a11y-settings"/>
     <child name="automount" schema="org.gnome.settings-daemon.plugins.automount"/>
     <child name="background" schema="org.gnome.settings-daemon.plugins.background"/>
     <child name="clipboard" schema="org.gnome.settings-daemon.plugins.clipboard"/>
@@ -12,6 +13,18 @@
     <child name="sound" schema="org.gnome.settings-daemon.plugins.sound"/>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.a11y-keyboard" path="/org/gnome/settings-daemon/plugins/a11y-keyboard/">
+    <key name="active" type="b">
+      <default>false</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>7</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.a11y-settings" path="/org/gnome/settings-daemon/plugins/a11y-settings/">
     <key name="active" type="b">
       <default>false</default>
       <_summary>Activation of this plugin</_summary>
