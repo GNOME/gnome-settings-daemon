@@ -564,44 +564,6 @@ out:
 }
 
 static void
-notify_doing_updates (GsdUpdatesManager *manager)
-{
-        gboolean ret;
-        GError *error = NULL;
-        GsdUpdateType update_type;
-        NotifyNotification *notification;
-
-        /* in GSettings? */
-        update_type = g_settings_get_enum (manager->priv->settings_gsd,
-                                           GSD_SETTINGS_NOTIFY_UPDATE_TYPE);
-        if (update_type == GSD_UPDATE_TYPE_SECURITY ||
-            update_type == GSD_UPDATE_TYPE_NONE) {
-                g_debug ("ignoring due to GSettings");
-                goto out;
-        }
-
-        /* TRANSLATORS: title: notification when we scheduled an automatic update */
-        notification = notify_notification_new (_("Updates are being installed"),
-                                                /* TRANSLATORS: tell the user why the hard disk is grinding... */
-                                                _("Updates are being automatically installed on your computer"),
-                                                "software-update-urgent");
-        notify_notification_set_timeout (notification, 15000);
-        notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
-        /* TRANSLATORS: button: cancel the update system */
-        notify_notification_add_action (notification, "cancel",
-                                        _("Cancel update"),
-                                        libnotify_action_cb,
-                                        manager, NULL);
-        ret = notify_notification_show (notification, &error);
-        if (!ret) {
-                g_warning ("error: %s", error->message);
-                g_error_free (error);
-        }
-out:
-        return;
-}
-
-static void
 notify_failed_get_updates_maybe (GsdUpdatesManager *manager)
 {
         const gchar *button;
@@ -747,7 +709,6 @@ get_updates_finished_cb (GObject *object,
                                                manager->priv->cancellable,
                                                NULL, NULL,
                                                (GAsyncReadyCallback) update_packages_finished_cb, manager);
-                notify_doing_updates (manager);
                 g_strfreev (package_ids);
                 goto out;
         }
@@ -760,7 +721,6 @@ get_updates_finished_cb (GObject *object,
                                              NULL, NULL,
                                              (GAsyncReadyCallback) update_packages_finished_cb,
                                              manager);
-                notify_doing_updates (manager);
                 goto out;
         }
 
