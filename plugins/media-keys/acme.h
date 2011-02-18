@@ -25,7 +25,7 @@
 
 #define SETTINGS_BINDING_DIR "org.gnome.settings-daemon.plugins.media-keys"
 
-enum {
+typedef enum {
         TOUCHPAD_KEY,
         TOUCHPAD_ON_KEY,
         TOUCHPAD_OFF_KEY,
@@ -57,8 +57,11 @@ enum {
         MAGNIFIER_KEY,
         SCREENREADER_KEY,
         ON_SCREEN_KEYBOARD_KEY,
+        INCREASE_TEXT_KEY,
+        DECREASE_TEXT_KEY,
+        TOGGLE_CONTRAST_KEY,
         HANDLED_KEYS
-};
+} MediaKeyType;
 
 static struct {
         int key_type;
@@ -100,6 +103,9 @@ static struct {
 	{ MAGNIFIER_KEY, "magnifier", NULL, NULL },
 	{ SCREENREADER_KEY, "screenreader", NULL, NULL },
 	{ ON_SCREEN_KEYBOARD_KEY, "on-screen-keyboard", NULL, NULL },
+	{ INCREASE_TEXT_KEY, "increase-text-size", NULL, NULL },
+	{ DECREASE_TEXT_KEY, "decrease-text-size", NULL, NULL },
+	{ TOGGLE_CONTRAST_KEY, "toggle-contrast", NULL, NULL },
 };
 
 #endif /* __ACME_H__ */

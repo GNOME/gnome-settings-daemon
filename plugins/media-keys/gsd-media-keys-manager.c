@@ -72,7 +72,11 @@ static const gchar introspection_xml[] =
 "  </interface>"
 "</node>";
 
+#define SETTINGS_INTERFACE_DIR "org.gnome.desktop.interface"
+#define SETTINGS_XSETTINGS_DIR "org.gnome.settings-daemon.plugins.xsettings"
+#define SETTINGS_TOUCHPAD_DIR "org.gnome.settings-daemon.peripherals.touchpad"
 #define TOUCHPAD_ENABLED_KEY "touchpad-enabled"
+#define HIGH_CONTRAST "HighContrast"
 
 #define VOLUME_STEP 6           /* percents for one volume button press */
 #define MAX_VOLUME 65536.0
@@ -95,7 +99,11 @@ struct GsdMediaKeysManagerPrivate
 #endif /* HAVE_PULSE */
         GtkWidget       *dialog;
         GSettings       *settings;
-        GVolumeMonitor  *volume_monitor;
+
+        /* HighContrast theme settings */
+        GSettings       *interface_settings;
+        char            *icon_theme;
+        char            *gtk_theme;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -519,11 +527,15 @@ do_eject_action (GsdMediaKeysManager *manager)
         GList *drives, *l;
         GDrive *fav_drive;
         guint score;
+        GVolumeMonitor *volume_monitor;
+
+        volume_monitor = g_volume_monitor_get ();
+
 
         /* Find the best drive to eject */
         fav_drive = NULL;
         score = NO_SCORE;
-        drives = g_volume_monitor_get_connected_drives (manager->priv->volume_monitor);
+        drives = g_volume_monitor_get_connected_drives (volume_monitor);
         for (l = drives; l != NULL; l = l->next) {
                 GDrive *drive = l->data;
 
@@ -566,6 +578,7 @@ do_eject_action (GsdMediaKeysManager *manager)
                                       (GAsyncReadyCallback) do_eject_action_cb,
                                       manager);
         g_object_unref (fav_drive);
+        g_object_unref (volume_monitor);
 }
 
 static void
@@ -581,7 +594,7 @@ do_touchpad_action (GsdMediaKeysManager *manager)
                 return;
         }
 
-        settings = g_settings_new ("org.gnome.settings-daemon.peripherals.touchpad");
+        settings = g_settings_new (SETTINGS_TOUCHPAD_DIR);
         state = g_settings_get_boolean (settings, TOUCHPAD_ENABLED_KEY);
 
         dialog_init (manager);
@@ -1073,9 +1086,124 @@ do_on_screen_keyboard_action (GsdMediaKeysManager *manager)
         do_toggle_accessibility_key ("screen-keyboard-enabled");
 }
 
+/* The following two functions taken from gsd-a11y-preferences-dialog.c
+ *
+ * Copyright (C)  2008 William Jon McCann <jmccann@redhat.com>
+ *
+ * Licensed under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ */
+/* X servers sometimes lie about the screen's physical dimensions, so we cannot
+ * compute an accurate DPI value.  When this happens, the user gets fonts that
+ * are too huge or too tiny.  So, we see what the server returns:  if it reports
+ * something outside of the range [DPI_LOW_REASONABLE_VALUE,
+ * DPI_HIGH_REASONABLE_VALUE], then we assume that it is lying and we use
+ * DPI_FALLBACK instead.
+ *
+ * See get_dpi_from_x_server() below, and also
+ * https://bugzilla.novell.com/show_bug.cgi?id=217790
+ */
+#define DPI_LOW_REASONABLE_VALUE 50
+#define DPI_HIGH_REASONABLE_VALUE 500
+#define DPI_DEFAULT        96
+
+static gdouble
+dpi_from_pixels_and_mm (gint pixels,
+			gint mm)
+{
+	if (mm >= 1)
+		return pixels / (mm / 25.4);
+	else
+		return 0;
+}
+
+static gdouble
+get_dpi_from_x_server (GdkScreen *screen)
+{
+	gdouble dpi;
+
+	if (screen) {
+		gdouble width_dpi, height_dpi;
+
+		width_dpi = dpi_from_pixels_and_mm (gdk_screen_get_width (screen),
+						    gdk_screen_get_width_mm (screen));
+		height_dpi = dpi_from_pixels_and_mm (gdk_screen_get_height (screen),
+						     gdk_screen_get_height_mm (screen));
+
+		if (width_dpi < DPI_LOW_REASONABLE_VALUE
+		    || width_dpi > DPI_HIGH_REASONABLE_VALUE
+		    || height_dpi < DPI_LOW_REASONABLE_VALUE
+		    || height_dpi > DPI_HIGH_REASONABLE_VALUE) {
+			dpi = DPI_DEFAULT;
+		} else {
+			dpi = (width_dpi + height_dpi) / 2.0;
+		}
+	} else {
+		dpi = DPI_DEFAULT;
+	}
+
+	return dpi;
+}
+
+static void
+do_text_size_action (GsdMediaKeysManager *manager,
+		     MediaKeyType         type)
+{
+	GSettings *font_settings;
+	gdouble x_dpi, u_dpi, factor;
+
+	font_settings = g_settings_new (SETTINGS_XSETTINGS_DIR);
+
+	/* Figure out the current DPI scaling factor */
+	u_dpi = g_settings_get_double (font_settings, "dpi");
+	x_dpi = get_dpi_from_x_server (manager->priv->current_screen);
+	if (u_dpi == 0.0)
+		factor = 1.0;
+	else
+		factor = u_dpi / x_dpi;
+
+	/* Increasing text size means increasing the DPI */
+	factor += (type == INCREASE_TEXT_KEY ? 0.25 : -0.25);
+
+	/* Same values used in the Seeing tab of the Universal Access panel */
+	if (fabs (factor - 1.0)  < 1e6 ||
+	    factor < 1.0) {
+		g_settings_reset (font_settings, "dpi");
+	} else if (factor > 1.0 && factor <= 1.25) {
+		g_settings_set_double (font_settings, "dpi", 1.25);
+	} else {
+		g_settings_set_double (font_settings, "dpi", 1.5);
+	}
+	g_object_unref (font_settings);
+}
+
+static void
+do_toggle_contrast_action (GsdMediaKeysManager *manager)
+{
+	gboolean high_contrast;
+	char *theme;
+
+	/* Are we using HighContrast now? */
+	theme = g_settings_get_string (manager->priv->interface_settings, "gtk-theme");
+	high_contrast = g_str_equal (theme, HIGH_CONTRAST);
+	g_free (theme);
+
+	if (high_contrast != FALSE) {
+		if (manager->priv->gtk_theme == NULL)
+			g_settings_reset (manager->priv->interface_settings, "gtk-theme");
+		else
+			g_settings_set (manager->priv->interface_settings, "gtk-theme", manager->priv->gtk_theme);
+		g_settings_set (manager->priv->interface_settings, "icon-theme", manager->priv->icon_theme);
+	} else {
+		g_settings_set (manager->priv->interface_settings, "gtk-theme", HIGH_CONTRAST);
+		g_settings_set (manager->priv->interface_settings, "icon-theme", HIGH_CONTRAST);
+	}
+}
+
 static gboolean
 do_action (GsdMediaKeysManager *manager,
-           int                  type,
+           MediaKeyType         type,
            gint64               timestamp)
 {
         char *cmd;
@@ -1180,6 +1308,13 @@ do_action (GsdMediaKeysManager *manager,
         case ON_SCREEN_KEYBOARD_KEY:
                 do_on_screen_keyboard_action (manager);
                 break;
+	case INCREASE_TEXT_KEY:
+	case DECREASE_TEXT_KEY:
+		do_text_size_action (manager, type);
+		break;
+	case TOGGLE_CONTRAST_KEY:
+		do_toggle_contrast_action (manager);
+		break;
         case HANDLED_KEYS:
                 g_assert_not_reached ();
         /* Note, no default so compiler catches missing keys */
@@ -1252,6 +1387,27 @@ acme_filter_events (GdkXEvent           *xevent,
         return GDK_FILTER_CONTINUE;
 }
 
+static void
+update_theme_settings (GSettings           *settings,
+		       const char          *key,
+		       GsdMediaKeysManager *manager)
+{
+	char *theme;
+
+	theme = g_settings_get_string (manager->priv->interface_settings, key);
+	if (g_str_equal (theme, HIGH_CONTRAST)) {
+		g_free (theme);
+	} else {
+		if (g_str_equal (key, "gtk-theme")) {
+			g_free (manager->priv->gtk_theme);
+			manager->priv->gtk_theme = theme;
+		} else {
+			g_free (manager->priv->icon_theme);
+			manager->priv->icon_theme = theme;
+		}
+	}
+}
+
 static gboolean
 start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 {
@@ -1259,10 +1415,22 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 
         g_debug ("Starting media_keys manager");
         gnome_settings_profile_start (NULL);
-        manager->priv->volume_monitor = g_volume_monitor_get ();
         manager->priv->settings = g_settings_new (SETTINGS_BINDING_DIR);
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (update_kbd_cb), manager);
+
+        /* Logic from http://git.gnome.org/browse/gnome-shell/tree/js/ui/status/accessibility.js#n163 */
+        manager->priv->interface_settings = g_settings_new (SETTINGS_INTERFACE_DIR);
+        g_signal_connect (G_OBJECT (manager->priv->interface_settings), "changed::gtk-theme",
+			  G_CALLBACK (update_theme_settings), manager);
+        g_signal_connect (G_OBJECT (manager->priv->interface_settings), "changed::icon-theme",
+			  G_CALLBACK (update_theme_settings), manager);
+	manager->priv->gtk_theme = g_settings_get_string (manager->priv->interface_settings, "gtk-theme");
+	if (g_str_equal (manager->priv->gtk_theme, HIGH_CONTRAST)) {
+		g_free (manager->priv->gtk_theme);
+		manager->priv->gtk_theme = NULL;
+	}
+	manager->priv->icon_theme = g_settings_get_string (manager->priv->interface_settings, "icon-theme");
 
         init_screens (manager);
         init_kbd (manager);
@@ -1342,11 +1510,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         if (priv->settings) {
                 g_object_unref (priv->settings);
                 priv->settings = NULL;
-        }
-
-        if (priv->volume_monitor != NULL) {
-                g_object_unref (priv->volume_monitor);
-                priv->volume_monitor = NULL;
         }
 
         if (priv->cancellable != NULL) {
