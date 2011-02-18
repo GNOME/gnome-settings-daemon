@@ -33,16 +33,17 @@ G_BEGIN_DECLS
 #define GSD_SETTINGS_FREQUENCY_GET_UPDATES              "frequency-get-updates"
 #define GSD_SETTINGS_FREQUENCY_GET_UPGRADES             "frequency-get-upgrades"
 #define GSD_SETTINGS_FREQUENCY_REFRESH_CACHE            "frequency-refresh-cache"
+#define GSD_SETTINGS_FREQUENCY_UPDATES_NOTIFICATION     "frequency-updates-notification"
 #define GSD_SETTINGS_IGNORED_DEVICES                    "ignored-devices"
+#define GSD_SETTINGS_LAST_UPDATES_NOTIFICATION          "last-updates-notification"
+#define GSD_SETTINGS_MEDIA_REPO_FILENAMES               "media-repo-filenames"
 #define GSD_SETTINGS_NOTIFY_DISTRO_UPGRADES             "notify-distro-upgrades"
 #define GSD_SETTINGS_NOTIFY_UPDATE_COMPLETE             "notify-update-complete"
 #define GSD_SETTINGS_NOTIFY_UPDATE_COMPLETE_RESTART     "notify-update-complete-restart"
 #define GSD_SETTINGS_NOTIFY_UPDATE_NOT_BATTERY          "notify-update-not-battery"
-#define GSD_SETTINGS_NOTIFY_UPDATE_TYPE                 "notify-update-type"
 #define GSD_SETTINGS_SCHEMA                             "org.gnome.settings-daemon.plugins.updates"
 #define GSD_SETTINGS_SESSION_STARTUP_TIMEOUT            "session-startup-timeout"
 #define GSD_SETTINGS_UPDATE_BATTERY                     "update-battery"
-#define GSD_SETTINGS_MEDIA_REPO_FILENAMES               "media-repo-filenames"
 
 G_END_DECLS
 

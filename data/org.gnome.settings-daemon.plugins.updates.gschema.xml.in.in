@@ -33,12 +33,22 @@
     <key name="force-get-updates-login" type="b">
       <default>false</default>
       <_summary>Get the update list when the session starts</_summary>
-      <_description>Get the update list when the session starts, even if not scheduled to. This ensures the user has up to date and valid data in the tray at startup.</_description>
+      <_description>Get the update list when the session starts, even if not scheduled to.</_description>
     </key>
     <key name="frequency-get-updates" type="i">
       <default>86400</default>
       <_summary>How often to check for updates</_summary>
-      <_description>How often to check for updates. Value is in seconds.</_description>
+      <_description>How often to check for updates. Value is in seconds. This is a maximum amount of time that can pass between a security update being published, and the update being automatically installed or the user notified.</_description>
+    </key>
+    <key name="frequency-updates-notification" type="i">
+      <default>604800</default>
+      <_summary>How often to notify the user that non-critical updates are available</_summary>
+      <_description>How often to tell the user there are non-critical updates. Value is in seconds. Security update notifications are always shown after the check for updates, but non-critical notifications should be shown a lot less frequently.</_description>
+    </key>
+    <key name="last-updates-notification" type="t">
+      <default>0</default>
+      <_summary>The last time we told the user about non-critical notifications</_summary>
+      <_description>The last time we notified the user about non-critical updates. Value is in seconds since the epoch, or zero for never.</_description>
     </key>
     <key name="frequency-get-upgrades" type="i">
       <default>604800</default>
@@ -84,11 +94,6 @@
       <default>true</default>
       <_summary>Notify the user when the update was started</_summary>
       <_description>Notify the user when the update was started.</_description>
-    </key>
-    <key name="notify-update-type" enum="org.gnome.settings-daemon.GsdUpdateType">
-      <default>'security'</default>
-      <_summary>Notify the user when the update type is available</_summary>
-      <_description>Notify the user when updates are available of a certain type and not auto-installed.</_description>
     </key>
     <key name="enable-check-firmware" type="b">
       <default>true</default>

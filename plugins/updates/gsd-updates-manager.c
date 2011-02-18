@@ -49,7 +49,7 @@ struct GsdUpdatesManagerPrivate
         GSettings               *settings_http;
         guint                    number_updates_critical_last_shown;
         guint                    timeout;
-        NotifyNotification      *notification_updates_available;
+        NotifyNotification      *notification_updates;
         PkControl               *control;
         PkTask                  *task;
         guint                    inhibit_cookie;
@@ -286,16 +286,7 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
         const gchar *title;
         gboolean ret;
         GError *error = NULL;
-        GsdUpdateType update_type;
         NotifyNotification *notification;
-
-        /* do we do the notification? */
-        update_type = g_settings_get_enum (manager->priv->settings_gsd,
-                                           GSD_SETTINGS_NOTIFY_UPDATE_TYPE);
-        if (update_type == GSD_UPDATE_TYPE_NONE) {
-                g_debug ("ignoring due to GSettings");
-                return;
-        }
 
         /* if the number of critical updates is the same as the last notification,
          * then skip the notifcation as we don't want to bombard the user every hour */
@@ -308,16 +299,16 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
         manager->priv->number_updates_critical_last_shown = array->len;
 
         /* TRANSLATORS: title in the libnotify popup */
-        title = ngettext ("Security update available", "Security updates available", array->len);
+        title = ngettext ("Update", "Updates", array->len);
 
         /* TRANSLATORS: message when there are security updates */
-        message = ngettext ("An important update is available for your computer:",
-                            "Important updates are available for your computer:", array->len);
+        message = ngettext ("An important software update is available",
+                            "Important software updates are available", array->len);
 
         /* close any existing notification */
-        if (manager->priv->notification_updates_available != NULL) {
-                notify_notification_close (manager->priv->notification_updates_available, NULL);
-                manager->priv->notification_updates_available = NULL;
+        if (manager->priv->notification_updates != NULL) {
+                notify_notification_close (manager->priv->notification_updates, NULL);
+                manager->priv->notification_updates = NULL;
         }
 
         /* do the bubble */
@@ -338,7 +329,72 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
                 g_error_free (error);
         }
         /* track so we can prevent doubled notifications */
-        manager->priv->notification_updates_available = notification;
+        manager->priv->notification_updates = notification;
+}
+
+static void
+notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
+{
+        const gchar *message;
+        const gchar *title;
+        gboolean ret;
+        GError *error = NULL;
+        guint64 time_last_notify;
+        guint64 time_now;
+        guint freq_updates_notify;
+        NotifyNotification *notification;
+
+        /* find out if enough time has passed since the last notification */
+        time_now = g_get_real_time ();
+        freq_updates_notify = g_settings_get_int (manager->priv->settings_gsd,
+                                                  GSD_SETTINGS_FREQUENCY_UPDATES_NOTIFICATION);
+        g_settings_get (manager->priv->settings_gsd,
+                        GSD_SETTINGS_LAST_UPDATES_NOTIFICATION,
+                        "t", &time_last_notify);
+        if ((guint64) freq_updates_notify < time_now - time_last_notify) {
+                g_debug ("not showing non-critical notification as already shown %i days ago",
+                        (guint) (time_now - time_last_notify) / (24 * 60 * 60));
+                return;
+        }
+
+        /* TRANSLATORS: title in the libnotify popup */
+        title = ngettext ("Update", "Updates", array->len);
+
+        /* TRANSLATORS: message when there are non-security updates */
+        message = ngettext ("A software update is available.",
+                            "Software updates are available.", array->len);
+
+        /* close any existing notification */
+        if (manager->priv->notification_updates != NULL) {
+                notify_notification_close (manager->priv->notification_updates, NULL);
+                manager->priv->notification_updates = NULL;
+        }
+
+        /* do the bubble */
+        g_debug ("title=%s, message=%s", title, message);
+        notification = notify_notification_new (title, message, NULL);
+        if (notification == NULL) {
+                g_warning ("failed to get bubble");
+                return;
+        }
+        notify_notification_set_timeout (notification, 15000);
+        notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
+        notify_notification_add_action (notification, "show-update-viewer",
+                                        /* TRANSLATORS: button: open the update viewer to install updates*/
+                                        _("Install updates"), libnotify_action_cb, manager, NULL);
+        ret = notify_notification_show (notification, &error);
+        if (!ret) {
+                g_warning ("error: %s", error->message);
+                g_error_free (error);
+        }
+
+        /* reset notification time */
+        g_settings_set (manager->priv->settings_gsd,
+                        GSD_SETTINGS_LAST_UPDATES_NOTIFICATION,
+                        "t", time_now);
+
+        /* track so we can prevent doubled notifications */
+        manager->priv->notification_updates = notification;
 }
 
 static gboolean
@@ -682,6 +738,8 @@ get_updates_finished_cb (GObject *object,
                 /* do we warn the user? */
                 if (security_array->len > 0)
                         notify_critical_updates (manager, security_array);
+                else
+                        notify_normal_updates_maybe (manager, array);
                 goto out;
         }
 
@@ -1029,10 +1087,10 @@ update_viewer_appeared_cb (GDBusConnection *connection,
         GsdUpdatesManager *manager = GSD_UPDATES_MANAGER (user_data);
 
         /* close any existing notification */
-        if (manager->priv->notification_updates_available != NULL) {
+        if (manager->priv->notification_updates != NULL) {
                 g_debug ("update viewer on the bus, clearing bubble");
-                notify_notification_close (manager->priv->notification_updates_available, NULL);
-                manager->priv->notification_updates_available = NULL;
+                notify_notification_close (manager->priv->notification_updates, NULL);
+                manager->priv->notification_updates = NULL;
         }
 }
 
