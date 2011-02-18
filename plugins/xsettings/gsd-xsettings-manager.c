@@ -590,7 +590,7 @@ xsettings_callback (GSettings             *settings,
 
         process_value (manager, trans, value);
 
-        g_object_unref (value);
+        g_variant_unref (value);
 
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_string (manager->priv->managers [i],
