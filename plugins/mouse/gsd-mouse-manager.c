@@ -563,7 +563,7 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
                 args[0] = "syndaemon";
                 args[1] = "-i";
                 args[2] = "2.0";
-                args[3] = "-k";
+                args[3] = "-K";
                 args[4] = "-R";
                 args[5] = NULL;
 
