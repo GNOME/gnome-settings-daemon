@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.91.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-17 14:09+0100\n"
-"PO-Revision-Date: 2011-02-17 14:41+0100\n"
+"POT-Creation-Date: 2011-02-20 12:13+0100\n"
+"PO-Revision-Date: 2011-02-20 12:18+0100\n"
 "Last-Translator: Torstein Adolf Winterseth <kvikende@fsfe.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -130,7 +130,7 @@ msgstr "Aktivering av dette tillegget"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
@@ -142,7 +142,7 @@ msgstr "Prioritet som skal brukes for dette tilegget"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
@@ -153,9 +153,9 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
@@ -227,184 +227,209 @@ msgid "Allowed keys"
 msgstr "Tillatte taster"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+msgid "Binding to decrease the text size"
+msgstr "Binding for å minske tekststørrelsen"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
 msgid "Binding to eject an optical disc."
 msgstr "Binding for å løse ut en optisk plate."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
 msgid "Binding to enable or disable the touchpad."
 msgstr "Binding for å slå av eller på pekeplaten."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+msgid "Binding to increase the text size"
+msgstr "Binding for å øke tekststørrelsen"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Binding to launch the calculator."
 msgstr "Binding for å starte kalkulator."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the email client."
 msgstr "Binding for å starte e-postklient."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the help browser."
 msgstr "Binding for å starte hjelpleser."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the media player."
 msgstr "Binding for å starte mediespiller."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the search tool."
 msgstr "Binding for å starte søkeverktøy."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the web browser."
 msgstr "Binding for å starte nettleser."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to lock the screen."
 msgstr "Binding for å låse skjermen."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to log out."
 msgstr "Binding for å logge ut."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lower the system volume."
 msgstr "Binding for å senke volumet."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to mute the system volume."
 msgstr "Binding for å dempe volumet."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to open the Home folder."
 msgstr "Binding for å åpne hjemmemappen."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to pause playback."
 msgstr "Binding for å sette avspilling på pause."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to raise the system volume."
 msgstr "Binding for å øke volumet."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to show the on-screen keyboard"
 msgstr "Binding for å vise tastatur på skjermen."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to show the screen magnifier"
 msgstr "Binding for å vise forstørrelsesglass"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to skip to next track."
 msgstr "Binding for å hoppe til neste spor."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Binding to skip to previous track."
 msgstr "Binding for å hoppe til forrige spor."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Binding for å starte avspilling (eller bytte mellom avspilling/pause)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to start the screen reader"
 msgstr "Binding for å slå på skjermleser"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to stop playback."
 msgstr "Binding for å stoppe avspilling."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#, fuzzy
+msgid "Binding to toggle the interface contrast"
+msgstr "Binding for å starte e-postklient."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+msgid "Decrease text size"
+msgstr "Mindre tekststørrelse"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Eject"
 msgstr "Løs ut"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Home folder"
 msgstr "Hjemmemappe"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid ""
 "If non-empty, keybindings will be ignored unless their settings directory is "
 "in the list. This is useful for lockdown."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+msgid "Increase text size"
+msgstr "Større tekststørrelse"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Launch calculator"
 msgstr "Start kalkulator"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Launch email client"
 msgstr "Start e-postklient"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch help browser"
 msgstr "Start hjelpleser"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch media player"
 msgstr "Start medieavspiller"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch web browser"
 msgstr "Start nettleser"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Lock screen"
 msgstr "Lås skjerm"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Log out"
 msgstr "Logg ut"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Next track"
 msgstr "Neste spor"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Pause playback"
 msgstr "Pause avspilling"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Play (or play/pause)"
 msgstr "Spill av (eller spill av/pause)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Previous track"
 msgstr "Forrige spor"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Search"
 msgstr "Søk"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Stop playback"
 msgstr "Stopp avspilling"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+msgid "Toggle contrast"
+msgstr "Slå av/på kontrast"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Toggle magnifier"
 msgstr "Slå av/på forstørrelsesglass"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Toggle on-screen keyboard"
 msgstr "Slå av/på tastatur på skjermen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Toggle screen reader"
 msgstr "Slå av/på skjermleser"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Toggle touchpad"
 msgstr "Slå av/på pekeplaten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Volume down"
 msgstr "Volum ned"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Volume mute"
 msgstr "Demp volum"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Volume up"
 msgstr "Volum opp"
 
@@ -427,7 +452,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid "Devices that should be ignored"
-msgstr ""
+msgstr "Enheter som skal ignoreres"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid ""
@@ -450,9 +475,7 @@ msgid "Get the update list when the session starts"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
-msgid ""
-"Get the update list when the session starts, even if not scheduled to. This "
-"ensures the user has up to date and valid data in the tray at startup."
+msgid "Get the update list when the session starts, even if not scheduled to."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
@@ -468,78 +491,83 @@ msgid "How often to check for updates"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
-msgid "How often to check for updates. Value is in seconds."
+msgid ""
+"How often to check for updates. Value is in seconds. This is a maximum "
+"amount of time that can pass between a security update being published, and "
+"the update being automatically installed or the user notified."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
-msgid "How often to refresh the package cache"
+msgid "How often to notify the user that non-critical updates are available"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
-msgid "How often to refresh the package cache. Value is in seconds."
+msgid "How often to refresh the package cache"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
-msgid "Install updates automatically when running on battery power"
+msgid "How often to refresh the package cache. Value is in seconds."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
-msgid "Install updates automatically when running on battery power."
+msgid ""
+"How often to tell the user there are non-critical updates. Value is in "
+"seconds. Security update notifications are always shown after the check for "
+"updates, but non-critical notifications should be shown a lot less "
+"frequently."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
-msgid "Notify the user for completed updates"
+msgid "Install updates automatically when running on battery power"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
-msgid "Notify the user for completed updates where the user needs to restart"
+msgid "Install updates automatically when running on battery power."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
-msgid "Notify the user for completed updates where the user needs to restart."
+msgid "Notify the user for completed updates"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+msgid "Notify the user for completed updates where the user needs to restart"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+msgid "Notify the user for completed updates where the user needs to restart."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid ""
 "Notify the user for completed updates. This may be a useful notification for "
 "some users as installing updates prevents shutdown."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid "Notify the user when distribution upgrades are available"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid "Notify the user when distribution upgrades are available."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid ""
 "Notify the user when the automatic update was not started on battery power"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
-msgid "Notify the user when the update type is available"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid ""
 "Notify the user when the update was not automatically started because the "
 "machine is running on battery power."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid "Notify the user when the update was started"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
-msgid "Notify the user when the update was started."
-msgstr ""
-
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
-msgid ""
-"Notify the user when updates are available of a certain type and not auto-"
-"installed."
+msgid "Notify the user when the update was started."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
@@ -558,36 +586,46 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
 msgid ""
-"The number of seconds at session startup to wait before checking for updates"
+"The last time we notified the user about non-critical updates. Value is in "
+"seconds since the epoch, or zero for never."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+msgid "The last time we told the user about non-critical notifications"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+msgid ""
+"The number of seconds at session startup to wait before checking for updates"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
 msgid ""
 "The number of seconds at session startup to wait before checking for "
 "updates. Value is in seconds."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
 msgid ""
 "Use WiFi (wireless LAN) connections to check for updates. It may be faster "
 "to download packages when on a wired connection, and the VPN or proxy "
 "required may also only be available on wired connections."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
 msgid "Use WiFi connections"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
 msgid "Use mobile broadband connections"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
 msgid ""
 "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -988,6 +1026,14 @@ msgstr "_Ignorer dupliserte tastetrykk"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Utfør tastatursnarveier med en tast om gangen (klebrige taster)"
 
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+msgid "Accessibility settings"
+msgstr "Innstillinger for tilgjengelighet"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+msgid "Accessibility settings plugin"
+msgstr "Tillegg for innstillinger for tilgjengelighet"
+
 #: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
 msgid "Automount"
 msgstr "Automatisk montering"
@@ -1326,6 +1372,14 @@ msgid ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 msgstr ""
+"Feil under aktivering av XKB-konfigurasjon.\n"
+"Det kan være flere grunner for dette.\n"
+"\n"
+"Hvis du rapporterer dette som en feil må du ta med data fra\n"
+" · <b>%s</b>\n"
+" · <b>%s</b>\n"
+" · <b>%s</b>\n"
+" · <b>%s</b>"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:223
 msgid "_Layouts"
@@ -1339,7 +1393,7 @@ msgstr "Brukervalg for _tastatur"
 msgid "Show _Current Layout"
 msgstr "Vis a_ktiv utforming"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:204
+#: ../plugins/media-keys/gsd-media-keys-manager.c:212
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1347,7 +1401,7 @@ msgstr ""
 "Kunne ikke finne forvalgt terminal. Sjekk at kommando for forvalgt terminal "
 "er satt og peker til et gyldig program."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:244
+#: ../plugins/media-keys/gsd-media-keys-manager.c:252
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1392,17 +1446,17 @@ msgstr "Medietaster"
 msgid "Media keys plugin"
 msgstr "Tillegg for medietaster"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:868
+#: ../plugins/mouse/gsd-mouse-manager.c:869
 msgid "Could not enable mouse accessibility features"
 msgstr "Kunne ikke aktivere tilgjengelighetsfunksjoner for mus"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:870
+#: ../plugins/mouse/gsd-mouse-manager.c:871
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Tilgjengelighet for mus krever at Mousetweaks er installert på systemet."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:872
+#: ../plugins/mouse/gsd-mouse-manager.c:873
 msgid "Universal Access"
 msgstr "Universell tilgang"
 
@@ -1416,11 +1470,11 @@ msgstr "Tillegg for mus"
 
 #: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
 msgid "Print-notifications"
-msgstr ""
+msgstr "Utskriftsvarsling"
 
 #: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
-msgstr ""
+msgstr "Tillegg for varsling av utskrift"
 
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:156
 msgid "Printer added"
@@ -1617,114 +1671,110 @@ msgid "More information"
 msgstr "Mer informasjon"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:311
-msgid "Security update available"
-msgid_plural "Security updates available"
-msgstr[0] "Sikkerhetsoppdatering tilgjengelig"
-msgstr[1] "Sikkerhetsoppdateringer tilgjengelig"
+#: ../plugins/updates/gsd-updates-manager.c:302
+#: ../plugins/updates/gsd-updates-manager.c:361
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] "Oppdatering"
+msgstr[1] "Oppdateringer"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:314
-msgid "An important update is available for your computer:"
-msgid_plural "Important updates are available for your computer:"
-msgstr[0] "En viktig oppdatering er tilgjengelig for din datamaskin:"
-msgstr[1] "Viktige oppdateringer er tilgjengelige for din datamaskin:"
+#: ../plugins/updates/gsd-updates-manager.c:305
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] "En viktig programvareoppdatering er tilgjengelig"
+msgstr[1] "Viktige programvareoppdateringer er tilgjengelige"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:334
+#: ../plugins/updates/gsd-updates-manager.c:325
+#: ../plugins/updates/gsd-updates-manager.c:384
 msgid "Install updates"
 msgstr "Installer oppdateringer"
 
+#. TRANSLATORS: message when there are non-security updates
+#: ../plugins/updates/gsd-updates-manager.c:364
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] "En programvareoppdatering er tilgjengelig."
+msgstr[1] "Programvareoppdateringer er tilgjengelige."
+
 #. TRANSLATORS: policy says update, but we are on battery and so prompt
-#: ../plugins/updates/gsd-updates-manager.c:374
+#: ../plugins/updates/gsd-updates-manager.c:430
 msgid ""
 "Automatic updates are not being installed as the computer is running on "
 "battery power"
-msgstr "Automatisk oppdatering kjøres ikke da datamaskinen kjører på batteristrøm"
+msgstr ""
+"Automatisk oppdatering kjøres ikke da datamaskinen kjører på batteristrøm"
 
 #. TRANSLATORS: informs user will not install by default
-#: ../plugins/updates/gsd-updates-manager.c:376
+#: ../plugins/updates/gsd-updates-manager.c:432
 msgid "Updates not installed"
 msgstr "Oppdateringer ble ikke installert"
 
 #. TRANSLATORS: to hell with my battery life, just do it
-#: ../plugins/updates/gsd-updates-manager.c:382
+#: ../plugins/updates/gsd-updates-manager.c:438
 msgid "Install the updates anyway"
 msgstr "Installer oppdateringene likevel"
 
-#: ../plugins/updates/gsd-updates-manager.c:398
+#: ../plugins/updates/gsd-updates-manager.c:454
 msgid "No restart is required."
 msgstr "Ingen omstart kreves."
 
-#: ../plugins/updates/gsd-updates-manager.c:401
+#: ../plugins/updates/gsd-updates-manager.c:457
 msgid "A restart is required."
 msgstr "En omstart kreves."
 
-#: ../plugins/updates/gsd-updates-manager.c:404
+#: ../plugins/updates/gsd-updates-manager.c:460
 msgid "You need to log out and log back in."
 msgstr "Du må logge ut og inn igjen."
 
-#: ../plugins/updates/gsd-updates-manager.c:407
+#: ../plugins/updates/gsd-updates-manager.c:463
 msgid "You need to restart the application."
 msgstr "Du må starte programmet på nytt."
 
-#: ../plugins/updates/gsd-updates-manager.c:410
+#: ../plugins/updates/gsd-updates-manager.c:466
 msgid "You need to log out and log back in to remain secure."
 msgstr "Du må logge ut og inn igjen for å ivareta sikkerheten."
 
-#: ../plugins/updates/gsd-updates-manager.c:413
+#: ../plugins/updates/gsd-updates-manager.c:469
 msgid "A restart is required to remain secure."
 msgstr "En omstart kreves for å ivareta sikkerheten."
 
 #. TRANSLATORS: we did the update, but some updates were skipped and not applied
-#: ../plugins/updates/gsd-updates-manager.c:474
+#: ../plugins/updates/gsd-updates-manager.c:530
 msgid "One package was skipped:"
 msgid_plural "Some packages were skipped:"
 msgstr[0] "Hoppet over en pakke:"
 msgstr[1] "Hoppet over noen pakker:"
 
 #. TRANSLATORS: title: system update completed all okay
-#: ../plugins/updates/gsd-updates-manager.c:506
+#: ../plugins/updates/gsd-updates-manager.c:562
 msgid "The system update has completed"
 msgstr "Hoppet over noen pakker:"
 
 #. TRANSLATORS: restart computer as system packages need update
-#: ../plugins/updates/gsd-updates-manager.c:513
+#: ../plugins/updates/gsd-updates-manager.c:569
 msgid "Restart computer now"
 msgstr "Start datamaskinen på nytt nå"
 
-#. TRANSLATORS: title: notification when we scheduled an automatic update
-#: ../plugins/updates/gsd-updates-manager.c:584
-msgid "Updates are being installed"
-msgstr "Oppdateringer installeres"
-
-#. TRANSLATORS: tell the user why the hard disk is grinding...
-#: ../plugins/updates/gsd-updates-manager.c:586
-msgid "Updates are being automatically installed on your computer"
-msgstr "Oppdateringer blir installert automatisk på din datamaskin"
-
-#: ../plugins/updates/gsd-updates-manager.c:592
-msgid "Cancel update"
-msgstr "Avbryt oppdatering"
-
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:622
+#: ../plugins/updates/gsd-updates-manager.c:640
 msgid "Updates"
 msgstr "Oppdateringer"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:626
+#: ../plugins/updates/gsd-updates-manager.c:644
 msgid "Unable to access software updates"
 msgstr "Kan ikke aksessere programvareoppdateringer"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:629
+#: ../plugins/updates/gsd-updates-manager.c:647
 msgid "Try again"
 msgstr "Prøv igjen"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:988
+#: ../plugins/updates/gsd-updates-manager.c:1006
 msgid "A transaction that cannot be interrupted is running"
 msgstr "En transaksjon som ikke kan avbytes kjører"
 
@@ -1733,7 +1783,8 @@ msgstr "En transaksjon som ikke kan avbytes kjører"
 msgid ""
 "You will need to restart this computer before the hardware will work "
 "correctly."
-msgstr "Du må starte denne datamaskinen på nytt før maskinvaren vil fungere korrekt."
+msgstr ""
+"Du må starte denne datamaskinen på nytt før maskinvaren vil fungere korrekt."
 
 #. TRANSLATORS: title of libnotify bubble
 #: ../plugins/updates/gsd-updates-firmware.c:243
@@ -1759,7 +1810,9 @@ msgstr "Maskinvaren er satt opp og klar til bruk."
 msgid ""
 "Additional firmware is required to make hardware in this computer function "
 "correctly."
-msgstr "Ekstra fastvare kreves for å få maskinvaren i denne datamaskinen til å fungere korrekt."
+msgstr ""
+"Ekstra fastvare kreves for å få maskinvaren i denne datamaskinen til å "
+"fungere korrekt."
 
 #. TRANSLATORS: title of libnotify bubble
 #: ../plugins/updates/gsd-updates-firmware.c:580
