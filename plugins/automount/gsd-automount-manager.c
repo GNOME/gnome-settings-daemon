@@ -43,6 +43,12 @@ struct GsdAutomountManagerPrivate
 
         gboolean session_is_active;
         GDBusProxy *ck_proxy;
+
+        gboolean screensaver_active;
+        guint ss_watch_id;
+        GDBusProxy *ss_proxy;
+
+        GList *volume_queue;
 };
 
 static void     gsd_automount_manager_class_init  (GsdAutomountManagerClass *klass);
@@ -171,6 +177,60 @@ do_mount_volume (GVolume *volume)
 }
 
 static void
+check_volume_queue (GsdAutomountManager *manager)
+{
+        GList *l, *next;
+        GVolume *volume;
+
+        l = manager->priv->volume_queue;
+
+        if (!manager->priv->screensaver_active) {
+                g_assert (l == NULL);
+        }
+
+        while (l != NULL) {
+                volume = l->data;
+                next = l->next;
+
+                do_mount_volume (volume);
+                manager->priv->volume_queue =
+                        g_list_remove (manager->priv->volume_queue, volume);
+
+                g_object_unref (volume);
+                l = next;
+        }
+
+        manager->priv->volume_queue = NULL;
+}
+
+static void
+check_screen_lock_and_mount (GsdAutomountManager *manager,
+                             GVolume *volume)
+{
+        if (manager->priv->screensaver_active) {
+                /* queue the volume, to mount it after the screensaver state changed */
+                g_debug ("Queuing volume %p", volume);
+                manager->priv->volume_queue = g_list_prepend (manager->priv->volume_queue,
+                                                              g_object_ref (volume));
+        } else {
+                /* mount it immediately */
+                do_mount_volume (volume);
+        }       
+}
+
+static void
+volume_removed_callback (GVolumeMonitor *monitor,
+                         GVolume *volume,
+                         GsdAutomountManager *manager)
+{
+        g_debug ("Volume %p removed, removing from the queue", volume);
+
+        /* clear it from the queue, if present */
+        manager->priv->volume_queue =
+                g_list_remove (manager->priv->volume_queue, volume);
+}
+
+static void
 volume_added_callback (GVolumeMonitor *monitor,
 		       GVolume *volume,
 		       GsdAutomountManager *manager)
@@ -178,7 +238,7 @@ volume_added_callback (GVolumeMonitor *monitor,
 	if (g_settings_get_boolean (manager->priv->settings, "automount") &&
 	    g_volume_should_automount (volume) &&
 	    g_volume_can_mount (volume)) {
-	    do_mount_volume (volume);
+                check_screen_lock_and_mount (manager, volume);
 	} else {
 		/* Allow gsd_autorun() to run. When the mount is later
 		 * added programmatically (i.e. for a blank CD),
@@ -380,16 +440,163 @@ do_initialize_consolekit (GsdAutomountManager *manager)
         g_object_unref (connection);
 }
 
+#define SCREENSAVER_NAME "org.gnome.ScreenSaver"
+#define SCREENSAVER_PATH "/org/gnome/ScreenSaver"
+#define SCREENSAVER_INTERFACE "org.gnome.ScreenSaver"
+
+static void
+screensaver_signal_callback (GDBusProxy *proxy,
+                             const gchar *sender_name,
+                             const gchar *signal_name,
+                             GVariant *parameters,
+                             gpointer user_data)
+{
+        GsdAutomountManager *manager = user_data;
+
+        if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
+                g_variant_get (parameters, "(b)", &manager->priv->screensaver_active);
+                g_debug ("Screensaver active changed to %d", manager->priv->screensaver_active);
+
+                check_volume_queue (manager);
+        }
+}
+
+static void
+screensaver_get_active_ready_cb (GObject *source,
+                                 GAsyncResult *res,
+                                 gpointer user_data)
+{
+        GsdAutomountManager *manager = user_data;
+        GDBusProxy *proxy = manager->priv->ss_proxy;
+        GVariant *result;
+        GError *error = NULL;
+
+        result = g_dbus_proxy_call_finish (proxy,
+                                           res,
+                                           &error);
+
+        if (error != NULL) {
+                g_warning ("Can't call GetActive() on the ScreenSaver object: %s",
+                           error->message);
+                g_error_free (error);
+
+                return;
+        }
+
+        g_variant_get (result, "(b)", &manager->priv->screensaver_active);
+        g_variant_unref (result);
+
+        g_debug ("Screensaver GetActive() returned %d", manager->priv->screensaver_active);
+}
+
+static void
+screensaver_proxy_ready_cb (GObject *source,
+                            GAsyncResult *res,
+                            gpointer user_data)
+{
+        GsdAutomountManager *manager = user_data;
+        GError *error = NULL;
+        GDBusProxy *ss_proxy;
+        
+        ss_proxy = g_dbus_proxy_new_finish (res, &error);
+
+        if (error != NULL) {
+                g_warning ("Can't get proxy for the ScreenSaver object: %s",
+                           error->message);
+                g_error_free (error);
+
+                return;
+        }
+
+        g_debug ("ScreenSaver proxy ready");
+
+        manager->priv->ss_proxy = ss_proxy;
+
+        g_signal_connect (ss_proxy, "g-signal",
+                          G_CALLBACK (screensaver_signal_callback), manager);
+
+        g_dbus_proxy_call (ss_proxy,
+                           "GetActive",
+                           NULL,
+                           G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                           -1,
+                           NULL,
+                           screensaver_get_active_ready_cb,
+                           manager);
+}
+
+static void
+screensaver_appeared_callback (GDBusConnection *connection,
+                               const gchar *name,
+                               const gchar *name_owner,
+                               gpointer user_data)
+{
+        GsdAutomountManager *manager = user_data;
+
+        g_debug ("ScreenSaver name appeared");
+
+        manager->priv->screensaver_active = FALSE;
+
+        g_dbus_proxy_new (connection,
+                          G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+                          NULL,
+                          name,
+                          SCREENSAVER_PATH,
+                          SCREENSAVER_INTERFACE,
+                          NULL,
+                          screensaver_proxy_ready_cb,
+                          manager);
+}
+
+static void
+screensaver_vanished_callback (GDBusConnection *connection,
+                               const gchar *name,
+                               gpointer user_data)
+{
+        GsdAutomountManager *manager = user_data;
+
+        g_debug ("ScreenSaver name vanished");
+
+        manager->priv->screensaver_active = FALSE;
+        g_clear_object (&manager->priv->ss_proxy);
+
+        /* in this case force a clear of the volume queue, without
+         * mounting them.
+         */
+        if (manager->priv->volume_queue != NULL) {
+                g_list_free_full (manager->priv->volume_queue, g_object_unref);
+                manager->priv->volume_queue = NULL;
+        }
+}
+
+static void
+do_initialize_screensaver (GsdAutomountManager *manager)
+{
+        GsdAutomountManagerPrivate *p = manager->priv;
+
+        p->ss_watch_id =
+                g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                  SCREENSAVER_NAME,
+                                  G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                  screensaver_appeared_callback,
+                                  screensaver_vanished_callback,
+                                  manager,
+                                  NULL);
+}
+
 static void
 setup_automounter (GsdAutomountManager *manager)
 {
         do_initialize_consolekit (manager);
+        do_initialize_screensaver (manager);
         
 	manager->priv->volume_monitor = g_volume_monitor_get ();
 	g_signal_connect_object (manager->priv->volume_monitor, "mount-added",
 				 G_CALLBACK (mount_added_callback), manager, 0);
 	g_signal_connect_object (manager->priv->volume_monitor, "volume-added",
 				 G_CALLBACK (volume_added_callback), manager, 0);
+	g_signal_connect_object (manager->priv->volume_monitor, "volume-removed",
+				 G_CALLBACK (volume_removed_callback), manager, 0);
 
 	manager->priv->automount_idle_id =
 		g_idle_add_full (G_PRIORITY_LOW,
@@ -422,6 +629,14 @@ gsd_automount_manager_stop (GsdAutomountManager *manager)
         g_clear_object (&p->ck_proxy);
         g_clear_object (&p->volume_monitor);
         g_clear_object (&p->settings);
+        g_clear_object (&p->ss_proxy);
+
+        g_bus_unwatch_name (p->ss_watch_id);
+
+        if (p->volume_queue != NULL) {
+                g_list_free_full (p->volume_queue, g_object_unref);
+                p->volume_queue = NULL;
+        }
 
         if (p->automount_idle_id != 0) {
                 g_source_remove (p->automount_idle_id);
