@@ -1,3 +1,56 @@
+===============
+Version 2.91.90
+===============
+
+A11Y Settings:
+- Add new plugin (Bastien Nocera)
+
+Automount:
+- Look if the session is active before automounting new volumes (Cosimo Cecchi)
+- Disable automounting while screen is locked (Martin Pitt, Cosimo Cecchi)
+
+Background:
+- Stop pending fades if new ones initiated (Ray Strode)
+
+Date & Time:
+- Add Debian support to NTP service activation (Milan Bouchet-Valat) (#641598)
+- Fix gsd_datetime_check_tz_name() never working (Bastien Nocera) (#674999)
+
+Keyboard:
+- Update for new libgnomekbd API (Sergey V. Udaltsov)
+- Match shell behaviour for visibility (Bastien Nocera)
+- Explicitly calling gtk_widget_show_all for kbd layout (Sergey V. Udaltsov)
+
+Media keys:
+- Fix crash when keybindings change (Bastien Nocera)
+- Add more Universal Access keybindings (Bastien Nocera) (#641279)
+
+Mouse:
+- Use event driven mode for syndaemon (Pauli Nieminen) (#639623)
+- Use syndaemon -K to ignore Ctrl+C and other combos  (Peter Hutterer) (#639487)
+
+Print notification:
+- Go back to using name in notifications (William Jon McCann)
+- Check that cups is recent enough (Marek Kasik)
+
+Updates:
+- Add an updates plugin to integrate with PackageKit (Richard Hughes)
+
+XSettings:
+- Fix memleak, using wrong unref function (Bastien Nocera)
+
+Translations:
+- ar (Khaled Hosny)
+- es (Daniel Mustieles, Jorge González)
+- gl (Fran Diéguez)
+- he (Yaron Shahrabani)
+- it (Luca Ferretti)
+- ko (Changwoo Ryu)
+- nb (Kjartan Maraas)
+- pa (A S Alam)
+- zh_HK (Chao-Hsiung Liao)
+- zh_TW (Chao-Hsiung Liao)
+
 ==============
 Version 2.91.9
 ==============
@@ -17,7 +70,7 @@ Keybindings:
 - Rename Accessibility keybindings to 'Universal Access' (William Jon McCann)
 - Mark Accessibility keybindings as system (William Jon McCann)
 
-- Keyboard:
+Keyboard:
 - Don't create kbd indicators in the shell (Sergey V. Udaltsov)
 - Remove $GDM_KEYBOARD_LAYOUT handling (Bastien Nocera)
 - Fix control-center invocation (Yanko Kaneti)
