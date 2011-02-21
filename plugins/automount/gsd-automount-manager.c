@@ -40,6 +40,9 @@ struct GsdAutomountManagerPrivate
 
 	GVolumeMonitor *volume_monitor;
 	unsigned int automount_idle_id;
+
+        gboolean session_is_active;
+        GDBusProxy *ck_proxy;
 };
 
 static void     gsd_automount_manager_class_init  (GsdAutomountManagerClass *klass);
@@ -219,12 +222,169 @@ mount_added_callback (GVolumeMonitor *monitor,
 		      GMount *mount,
 		      GsdAutomountManager *manager)
 {
+        /* don't autorun if the session is not active */
+        if (!manager->priv->session_is_active) {
+                return;
+        }
+
 	gsd_autorun (mount, manager->priv->settings, autorun_show_window, manager);
+}
+
+
+#define CK_NAME       "org.freedesktop.ConsoleKit"
+#define CK_PATH       "/org/freedesktop/ConsoleKit"
+#define CK_INTERFACE  "org.freedesktop.ConsoleKit"
+
+static void
+ck_session_proxy_signal_cb (GDBusProxy *proxy,
+			    const char *sender_name,
+			    const char *signal_name,
+			    GVariant   *parameters,
+			    gpointer    user_data)
+{
+	GsdAutomountManager *manager = user_data;
+        GsdAutomountManagerPrivate *p = manager->priv;
+
+	if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
+		g_variant_get (parameters, "(b)", &p->session_is_active);
+		g_debug ("ConsoleKit session is active %d", p->session_is_active);
+	}
+}
+
+static void
+ck_call_is_active_cb (GDBusProxy   *proxy,
+		      GAsyncResult *result,
+		      gpointer      user_data)
+{
+	GsdAutomountManager *manager = user_data;
+        GsdAutomountManagerPrivate *p = manager->priv;
+	GVariant *variant;
+	GError *error = NULL;
+
+	variant = g_dbus_proxy_call_finish (proxy, result, &error);
+
+	if (variant == NULL) {
+		g_warning ("Error when calling IsActive(): %s\n", error->message);
+		p->session_is_active = TRUE;
+
+		g_error_free (error);
+		return;
+	}
+
+	g_variant_get (variant, "(b)", &p->session_is_active);
+	g_debug ("ConsoleKit session is active %d", p->session_is_active);
+
+	g_variant_unref (variant);
+}
+
+static void
+session_proxy_appeared (GObject       *source,
+                        GAsyncResult *res,
+                        gpointer      user_data)
+{
+	GsdAutomountManager *manager = user_data;
+        GsdAutomountManagerPrivate *p = manager->priv;
+        GDBusProxy *proxy;
+	GError *error = NULL;
+
+        proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+
+	if (error != NULL) {
+		g_warning ("Failed to get the current CK session: %s", error->message);
+		g_error_free (error);
+
+		p->session_is_active = TRUE;
+		return;
+	}
+
+	g_signal_connect (proxy, "g-signal",
+			  G_CALLBACK (ck_session_proxy_signal_cb),
+			  manager);
+
+	g_dbus_proxy_call (proxy,
+			   "IsActive",
+			   g_variant_new ("()"),
+			   G_DBUS_CALL_FLAGS_NONE,
+			   -1,
+			   NULL,
+			   (GAsyncReadyCallback) ck_call_is_active_cb,
+			   manager);
+
+        p->ck_proxy = proxy;
+}
+
+static void
+ck_get_current_session_cb (GDBusConnection *connection,
+			   GAsyncResult    *result,
+			   gpointer         user_data)
+{
+	GsdAutomountManager *manager = user_data;
+        GsdAutomountManagerPrivate *p = manager->priv;
+	GVariant *variant;
+	const char *session_path = NULL;
+	GError *error = NULL;
+
+	variant = g_dbus_connection_call_finish (connection, result, &error);
+
+	if (variant == NULL) {
+		g_warning ("Failed to get the current CK session: %s", error->message);
+		g_error_free (error);
+
+		p->session_is_active = TRUE;
+		return;
+	}
+
+	g_variant_get (variant, "(&o)", &session_path);
+
+	g_debug ("Found ConsoleKit session at path %s", session_path);
+
+	g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+				  G_DBUS_PROXY_FLAGS_NONE,
+				  NULL,
+				  CK_NAME,
+				  session_path,
+				  CK_INTERFACE ".Session",
+				  NULL,
+				  session_proxy_appeared,
+				  manager);
+
+	g_variant_unref (variant);
+}
+
+static void
+do_initialize_consolekit (GsdAutomountManager *manager)
+{
+        GDBusConnection *connection;
+        GsdAutomountManagerPrivate *p = manager->priv;
+
+        connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
+
+        if (connection == NULL) {
+                p->session_is_active = TRUE;
+                return;
+        }
+
+        g_dbus_connection_call (connection,
+                                CK_NAME,
+                                CK_PATH "/Manager",
+                                CK_INTERFACE ".Manager",
+                                "GetCurrentSession",
+                                g_variant_new ("()"),
+                                G_VARIANT_TYPE ("(o)"),
+                                G_DBUS_CALL_FLAGS_NONE,
+                                -1,
+                                NULL,
+                                (GAsyncReadyCallback) ck_get_current_session_cb,
+                                manager);
+
+        g_object_unref (connection);
 }
 
 static void
 setup_automounter (GsdAutomountManager *manager)
 {
+        do_initialize_consolekit (manager);
+        
 	manager->priv->volume_monitor = g_volume_monitor_get ();
 	g_signal_connect_object (manager->priv->volume_monitor, "mount-added",
 				 G_CALLBACK (mount_added_callback), manager, 0);
@@ -259,19 +419,13 @@ gsd_automount_manager_stop (GsdAutomountManager *manager)
 
         g_debug ("Stopping automounting manager");
 
-	if (p->volume_monitor) {
-		g_object_unref (p->volume_monitor);
-		p->volume_monitor = NULL;
-	}
+        g_clear_object (&p->ck_proxy);
+        g_clear_object (&p->volume_monitor);
+        g_clear_object (&p->settings);
 
-	if (p->automount_idle_id != 0) {
-		g_source_remove (p->automount_idle_id);
-		p->automount_idle_id = 0;
-	}
-
-        if (p->settings != NULL) {
-                g_object_unref (p->settings);
-                p->settings = NULL;
+        if (p->automount_idle_id != 0) {
+                g_source_remove (p->automount_idle_id);
+                p->automount_idle_id = 0;
         }
 }
 
