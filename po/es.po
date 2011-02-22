@@ -10,17 +10,17 @@
 # Pablo Gonzalo del Campo <pablodc@bigfoot.com>, 2002,2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2005, 2006.
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2011-02-19 12:04+0000\n"
-"PO-Revision-Date: 2011-02-20 18:00+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2011-02-20 17:01+0000\n"
+"PO-Revision-Date: 2011-02-22 16:47+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,8 +94,8 @@ msgid ""
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
 "Seleccionar el método de desplazamiento del «touchpad». Los valores "
-"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento "
-"en el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
+"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento en "
+"el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid ""
@@ -547,6 +547,10 @@ msgid ""
 "amount of time that can pass between a security update being published, and "
 "the update being automatically installed or the user notified."
 msgstr ""
+"Con qué frecuencia se comprueba si hay actualizaciones. El valor es en "
+"segundos. Esta es el la cantidad máxima de tiempo que puede pasar entre que "
+"se publica una actualización de seguridad, y se instala automáticamente o se "
+"notifica al usuario."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to notify the user that non-critical updates are available"
@@ -571,6 +575,11 @@ msgid ""
 "updates, but non-critical notifications should be shown a lot less "
 "frequently."
 msgstr ""
+"Con qué frecuencia se avisa al usuario de que hay actualizaciones no "
+"críticas. El valor es en segundos. Las notificaciones de actualizaciones de "
+"seguridad se muestran siempre después de comprobar si hay actualizaciones, "
+"pero las notificaciones de las actualizaciones no críticas se deberían "
+"mostrar con menos frecuencia."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "Install updates automatically when running on battery power"
@@ -663,6 +672,8 @@ msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
 msgstr ""
+"La última vez que se notificó al usuario sobre actualizaciones no críticas. "
+"El valor es en segundos desde la época, o cero para «nunca»."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
 msgid "The last time we told the user about non-critical notifications"
@@ -681,6 +692,8 @@ msgid ""
 "The number of seconds at session startup to wait before checking for "
 "updates. Value is in seconds."
 msgstr ""
+"El número de segundos que esperar al inicio de la sesión para comprobar si "
+"hay actualizaciones. El valor es en segundos."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
 msgid ""
@@ -688,6 +701,9 @@ msgid ""
 "to download packages when on a wired connection, and the VPN or proxy "
 "required may also only be available on wired connections."
 msgstr ""
+"Usar conexión WiFi (LAN inalámbrica) para comprobar si hay actualizaciones. "
+"Una red cableada puede ser más rápida para bajar paquetes, y la VPN o el "
+"proxy requeridos puede estar disponibles sólo para conexiones cableadas."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
 msgid "Use WiFi connections"
@@ -1083,8 +1099,8 @@ msgid ""
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Acaba de pulsar la tecla «Mayúsculas» 5 veces. Este es el acceso rápido para "
-"la característica «Teclas persistentes», que afecta la manera en que "
-"funciona el teclado."
+"la característica «Teclas persistentes», que afecta la manera en que funciona "
+"el teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
@@ -1094,8 +1110,8 @@ msgid ""
 "keyboard works."
 msgstr ""
 "Acaba de pulsar dos teclas a la vez, o ha pulsado la tecla «Mayúsculas» 5 "
-"veces seguidas. Esto desactiva la característica de «Teclas persistentes», "
-"lo cual afecta a la forma en que funciona su teclado."
+"veces seguidas. Esto desactiva la característica de «Teclas persistentes», lo "
+"cual afecta a la forma en que funciona su teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
 msgid "Sticky Keys Alert"
