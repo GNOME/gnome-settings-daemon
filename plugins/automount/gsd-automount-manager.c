@@ -184,8 +184,8 @@ check_volume_queue (GsdAutomountManager *manager)
 
         l = manager->priv->volume_queue;
 
-        if (!manager->priv->screensaver_active) {
-                g_assert (l == NULL);
+        if (manager->priv->screensaver_active) {
+                return;
         }
 
         while (l != NULL) {
