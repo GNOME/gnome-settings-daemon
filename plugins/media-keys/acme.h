@@ -60,6 +60,8 @@ typedef enum {
         INCREASE_TEXT_KEY,
         DECREASE_TEXT_KEY,
         TOGGLE_CONTRAST_KEY,
+        MAGNIFIER_ZOOM_IN_KEY,
+        MAGNIFIER_ZOOM_OUT_KEY,
         HANDLED_KEYS
 } MediaKeyType;
 
@@ -106,6 +108,8 @@ static struct {
 	{ INCREASE_TEXT_KEY, "increase-text-size", NULL, NULL },
 	{ DECREASE_TEXT_KEY, "decrease-text-size", NULL, NULL },
 	{ TOGGLE_CONTRAST_KEY, "toggle-contrast", NULL, NULL },
+	{ MAGNIFIER_ZOOM_IN_KEY, "magnifier-zoom-in", NULL, NULL },
+	{ MAGNIFIER_ZOOM_OUT_KEY, "magnifier-zoom-out", NULL, NULL },
 };
 
 #endif /* __ACME_H__ */

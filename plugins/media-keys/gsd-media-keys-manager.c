@@ -1179,6 +1179,26 @@ do_text_size_action (GsdMediaKeysManager *manager,
 }
 
 static void
+do_magnifier_zoom_action (GsdMediaKeysManager *manager,
+			  MediaKeyType         type)
+{
+	GSettings *settings;
+	gdouble offset, value;
+
+	if (type == MAGNIFIER_ZOOM_IN_KEY)
+		offset = 1.0;
+	else
+		offset = -1.0;
+
+	settings = g_settings_new ("org.gnome.desktop.a11y.magnifier");
+	value = g_settings_get_double (settings, "mag-factor");
+	value += offset;
+	value = roundl (value);
+	g_settings_set_double (settings, "mag-factor", value);
+	g_object_unref (settings);
+}
+
+static void
 do_toggle_contrast_action (GsdMediaKeysManager *manager)
 {
 	gboolean high_contrast;
@@ -1311,6 +1331,10 @@ do_action (GsdMediaKeysManager *manager,
 	case INCREASE_TEXT_KEY:
 	case DECREASE_TEXT_KEY:
 		do_text_size_action (manager, type);
+		break;
+	case MAGNIFIER_ZOOM_IN_KEY:
+	case MAGNIFIER_ZOOM_OUT_KEY:
+		do_magnifier_zoom_action (manager, type);
 		break;
 	case TOGGLE_CONTRAST_KEY:
 		do_toggle_contrast_action (manager);
