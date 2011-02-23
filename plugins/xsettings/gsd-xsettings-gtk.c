@@ -94,7 +94,8 @@ process_desktop_file (const char      *path,
 
         retval = NULL;
 
-        if (g_str_has_suffix (path, ".desktop") == FALSE)
+        if (g_str_has_suffix (path, ".desktop") == FALSE &&
+            g_str_has_suffix (path, ".gtk-module") == FALSE)
                 return retval;
 
         keyfile = g_key_file_new ();
