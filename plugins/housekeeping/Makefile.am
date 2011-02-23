@@ -1,18 +1,26 @@
 COMMON_FILES =				\
 	gsd-disk-space.c		\
 	gsd-disk-space.h		\
-	gsd-ldsm-trash-empty.c		\
-	gsd-ldsm-trash-empty.h		\
 	gsd-ldsm-dialog.c		\
 	gsd-ldsm-dialog.h
 
-noinst_PROGRAMS = gsd-disk-space-test
+noinst_PROGRAMS = gsd-disk-space-test gsd-empty-trash-test
 
 gsd_disk_space_test_SOURCES =		\
 	gsd-disk-space-test.c		\
 	$(COMMON_FILES)
 gsd_disk_space_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
 gsd_disk_space_test_CFLAGS =		\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(GIOUNIX_CFLAGS)		\
+	$(LIBNOTIFY_CFLAGS)		\
+	$(AM_CFLAGS)
+
+gsd_empty_trash_test_SOURCES =		\
+	gsd-empty-trash-test.c		\
+	$(COMMON_FILES)
+gsd_empty_trash_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
+gsd_empty_trash_test_CFLAGS =		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GIOUNIX_CFLAGS)		\
 	$(LIBNOTIFY_CFLAGS)		\

@@ -37,8 +37,6 @@
 
 #include "gsd-disk-space.h"
 #include "gsd-ldsm-dialog.h"
-#include "gsd-ldsm-trash-empty.h"
-
 
 #define GIGABYTE                   1024 * 1024 * 1024
 
@@ -217,13 +215,76 @@ examine_callback (NotifyNotification *n,
 }
 
 static void
+nautilus_empty_trash_cb (GObject *object,
+                         GAsyncResult *res,
+                         gpointer _unused)
+{
+        GDBusProxy *proxy = G_DBUS_PROXY (object);
+        GError *error = NULL;
+
+        g_dbus_proxy_call_finish (proxy, res, &error);
+
+        if (error != NULL) {
+                g_warning ("Unable to call EmptyTrash() on the Nautilus DBus interface: %s",
+                           error->message);
+                g_error_free (error);
+        }
+
+        /* clean up the proxy object */
+        g_object_unref (proxy);
+}
+
+static void
+nautilus_proxy_ready_cb (GObject *object,
+                         GAsyncResult *res,
+                         gpointer _unused)
+{
+        GDBusProxy *proxy = NULL;
+        GError *error = NULL;
+
+        proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+
+        if (proxy == NULL) {
+                g_warning ("Unable to create a proxy object for the Nautilus DBus interface: %s",
+                           error->message);
+                g_error_free (error);
+
+                return;
+        }
+
+        g_dbus_proxy_call (proxy,
+                           "EmptyTrash",
+                           NULL,
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           NULL,
+                           nautilus_empty_trash_cb,
+                           NULL);
+}
+
+void
+gsd_ldsm_show_empty_trash (void)
+{
+        /* prepare the Nautilus proxy object */
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  "org.gnome.Nautilus",
+                                  "/org/gnome/Nautilus",
+                                  "org.gnome.Nautilus.FileOperations",
+                                  NULL,
+                                  nautilus_proxy_ready_cb,
+                                  NULL);
+}
+
+static void
 empty_trash_callback (NotifyNotification *n,
                       const char         *action)
 {
         g_assert (action != NULL);
         g_assert (strcmp (action, "empty-trash") == 0);
 
-        gsd_ldsm_trash_empty ();
+        gsd_ldsm_show_empty_trash ();
 
         notify_notification_close (n, NULL);
 }
@@ -355,7 +416,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                         break;
                 case GSD_LDSM_DIALOG_RESPONSE_EMPTY_TRASH:
                         retval = TRUE;
-                        gsd_ldsm_trash_empty ();
+                        gsd_ldsm_show_empty_trash ();
                         break;
                 case GTK_RESPONSE_NONE:
                 case GTK_RESPONSE_DELETE_EVENT:
@@ -798,7 +859,6 @@ gsd_ldsm_setup (gboolean check_now)
 
         ldsm_timeout_id = g_timeout_add_seconds (CHECK_EVERY_X_SECONDS,
                                                  ldsm_check_all_mounts, NULL);
-
 }
 
 void

@@ -1,9 +1,9 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  * vim: set et sw=8 ts=8:
  *
- * Copyright (c) 2008, Novell, Inc.
+ * Copyright (c) 2011, Red Hat, Inc.
  *
- * Authors: Vincent Untz <vuntz@gnome.org>
+ * Authors: Cosimo Cecchi <cosimoc@redhat.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,19 +21,25 @@
  *
  */
 
-#ifndef __GSD_DISK_SPACE_H
-#define __GSD_DISK_SPACE_H
+#include "config.h"
+#include <gtk/gtk.h>
+#include "gsd-disk-space.h"
 
-#include <glib.h>
+int
+main (int    argc,
+      char **argv)
+{
+        GMainLoop *loop;
 
-G_BEGIN_DECLS
+        gtk_init (&argc, &argv);
 
-void gsd_ldsm_setup (gboolean check_now);
-void gsd_ldsm_clean (void);
+        loop = g_main_loop_new (NULL, FALSE);
 
-/* for the test */
-void gsd_ldsm_show_empty_trash (void);
+        gsd_ldsm_show_empty_trash ();
+        g_main_loop_run (loop);
 
-G_END_DECLS
+        g_main_loop_unref (loop);
 
-#endif /* __GSD_DISK_SPACE_H */
+        return 0;
+}
+
