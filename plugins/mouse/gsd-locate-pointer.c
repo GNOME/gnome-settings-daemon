@@ -52,20 +52,20 @@ static GsdLocatePointerData *data = NULL;
 
 static void
 locate_pointer_paint (GsdLocatePointerData *data,
-		      cairo_t              *cr,
-		      gboolean              composite)
+                      cairo_t              *cr,
+                      gboolean              composite)
 {
-  GdkColor color;
+  GdkRGBA color;
   gdouble progress, circle_progress;
   gint width, height, i;
-  GtkStyle *style;
+  GtkStyleContext *context;
 
   progress = data->progress;
 
   width = gdk_window_get_width (data->window);
   height = gdk_window_get_height (data->window);
-  style = gtk_widget_get_style (data->widget);
-  color = style->bg[GTK_STATE_SELECTED];
+  context = gtk_widget_get_style_context (data->widget);
+  gtk_style_context_get_background_color (context, GTK_STATE_FLAG_SELECTED, &color);
 
   cairo_set_source_rgba (cr, 1., 1., 1., 0.);
   cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
@@ -74,67 +74,62 @@ locate_pointer_paint (GsdLocatePointerData *data,
   for (i = 0; i <= N_CIRCLES; i++)
     {
       if (progress < 0.)
-	break;
+        break;
 
       circle_progress = MIN (1., (progress * 2));
       progress -= CIRCLES_PROGRESS_INTERVAL;
 
       if (circle_progress >= 1.)
-	continue;
+        continue;
 
       if (composite)
-	{
-	  cairo_set_source_rgba (cr,
-				 color.red / 65535.,
-				 color.green / 65535.,
-				 color.blue / 65535.,
-				 1 - circle_progress);
-	  cairo_arc (cr,
-		     width / 2,
-		     height / 2,
-		     circle_progress * width / 2,
-		     0, 2 * G_PI);
+        {
+          cairo_set_source_rgba (cr,
+                                 color.red,
+                                 color.green,
+                                 color.blue,
+                                 1 - circle_progress);
+          cairo_arc (cr,
+                     width / 2,
+                     height / 2,
+                     circle_progress * width / 2,
+                     0, 2 * G_PI);
 
-	  cairo_fill (cr);
-	  cairo_stroke (cr);
-	}
+          cairo_fill (cr);
+          cairo_stroke (cr);
+        }
       else
-	{
-	  cairo_set_source_rgb (cr, 0., 0., 0.);
-	  cairo_set_line_width (cr, 3.);
-	  cairo_arc (cr,
-		     width / 2,
-		     height / 2,
-		     circle_progress * width / 2,
-		     0, 2 * G_PI);
-	  cairo_stroke (cr);
+        {
+          cairo_set_source_rgb (cr, 0., 0., 0.);
+          cairo_set_line_width (cr, 3.);
+          cairo_arc (cr,
+                     width / 2,
+                     height / 2,
+                     circle_progress * width / 2,
+                     0, 2 * G_PI);
+          cairo_stroke (cr);
 
-	  cairo_set_source_rgb (cr, 1., 1., 1.);
-	  cairo_set_line_width (cr, 1.);
-	  cairo_arc (cr,
-		     width / 2,
-		     height / 2,
-		     circle_progress * width / 2,
-		     0, 2 * G_PI);
-	  cairo_stroke (cr);
-	}
+          cairo_set_source_rgb (cr, 1., 1., 1.);
+          cairo_set_line_width (cr, 1.);
+          cairo_arc (cr,
+                     width / 2,
+                     height / 2,
+                     circle_progress * width / 2,
+                     0, 2 * G_PI);
+          cairo_stroke (cr);
+        }
     }
 }
 
 static gboolean
-locate_pointer_expose (GtkWidget      *widget,
-		       GdkEventExpose *event,
-		       gpointer        user_data)
+locate_pointer_draw (GtkWidget      *widget,
+                     cairo_t        *cr,
+                     gpointer        user_data)
 {
   GsdLocatePointerData *data = (GsdLocatePointerData *) user_data;
-  cairo_t *cr;
 
-  if (event->window != data->window)
-    return FALSE;
-
-  cr = gdk_cairo_create (data->window);
-  locate_pointer_paint (data, cr, gtk_widget_is_composited (data->widget));
-  cairo_destroy (cr);
+  if (gtk_cairo_should_draw_window (cr, data->window))
+    locate_pointer_paint (data, cr, gtk_widget_is_composited (data->widget));
 
   return TRUE;
 }
@@ -161,8 +156,8 @@ update_shape (GsdLocatePointerData *data)
 
 static void
 timeline_frame_cb (GsdTimeline *timeline,
-		   gdouble      progress,
-		   gpointer     user_data)
+                   gdouble      progress,
+                   gpointer     user_data)
 {
   GsdLocatePointerData *data = (GsdLocatePointerData *) user_data;
   GdkScreen *screen;
@@ -183,7 +178,7 @@ timeline_frame_cb (GsdTimeline *timeline,
 
   screen = gdk_window_get_screen (data->window);
   gdk_window_get_pointer (gdk_screen_get_root_window (screen),
-			  &cursor_x, &cursor_y, NULL);
+                          &cursor_x, &cursor_y, NULL);
   gdk_window_move (data->window,
                    cursor_x - WINDOW_SIZE / 2,
                    cursor_y - WINDOW_SIZE / 2);
@@ -217,7 +212,7 @@ composited_changed (GtkWidget            *widget,
 
 static void
 timeline_finished_cb (GsdTimeline *timeline,
-		      gpointer     user_data)
+                      gpointer     user_data)
 {
   GsdLocatePointerData *data = (GsdLocatePointerData *) user_data;
 
@@ -225,12 +220,13 @@ timeline_finished_cb (GsdTimeline *timeline,
   if (!gtk_widget_is_composited (data->widget))
     set_transparent_shape (data->window);
 
+  gtk_widget_hide (data->widget);
   gdk_window_hide (data->window);
 }
 
 static void
 create_window (GsdLocatePointerData *data,
-	       GdkScreen            *screen)
+               GdkScreen            *screen)
 {
   GdkVisual *visual;
   GdkWindowAttr attributes;
@@ -254,8 +250,8 @@ create_window (GsdLocatePointerData *data,
   attributes.height = 1;
 
   data->window = gdk_window_new (gdk_screen_get_root_window (screen),
-				 &attributes,
-				 attributes_mask);
+                                 &attributes,
+                                 attributes_mask);
 
   gdk_window_set_user_data (data->window, data->widget);
 }
@@ -270,18 +266,18 @@ gsd_locate_pointer_data_new (GdkScreen *screen)
   /* this widget will never be shown, it's
    * mainly used to get signals/events from
    */
-  data->widget = gtk_window_new (GTK_WINDOW_POPUP);
+  data->widget = gtk_invisible_new ();
   gtk_widget_realize (data->widget);
 
-  g_signal_connect (G_OBJECT (data->widget), "expose_event",
-                    G_CALLBACK (locate_pointer_expose),
+  g_signal_connect (G_OBJECT (data->widget), "draw",
+                    G_CALLBACK (locate_pointer_draw),
                     data);
 
   data->timeline = gsd_timeline_new (ANIMATION_LENGTH);
   g_signal_connect (data->timeline, "frame",
-		    G_CALLBACK (timeline_frame_cb), data);
+                    G_CALLBACK (timeline_frame_cb), data);
   g_signal_connect (data->timeline, "finished",
-		    G_CALLBACK (timeline_finished_cb), data);
+                    G_CALLBACK (timeline_finished_cb), data);
 
   create_window (data, screen);
 
@@ -290,7 +286,7 @@ gsd_locate_pointer_data_new (GdkScreen *screen)
 
 static void
 move_locate_pointer_window (GsdLocatePointerData *data,
-			    GdkScreen            *screen)
+                            GdkScreen            *screen)
 {
   gint cursor_x, cursor_y;
 
@@ -331,6 +327,7 @@ gsd_locate_pointer (GdkScreen *screen)
   move_locate_pointer_window (data, screen);
   composited_changed (data->widget, data);
   gdk_window_show (data->window);
+  gtk_widget_show (data->widget);
 
   gsd_timeline_start (data->timeline);
 }
@@ -415,13 +412,15 @@ set_locate_pointer (void)
           gint i, j;
           for (i = 0; i < n_keys; i++)
             {
-              for (j=0; j< n_screens; j++)
+              for (j = 0; j < n_screens; j++)
                 {
                   GdkScreen *screen;
                   Window xroot;
 
                   screen = gdk_display_get_screen (display, j);
                   xroot = gdk_x11_window_get_xid (gdk_screen_get_root_window (screen));
+
+                  gdk_x11_display_error_trap_push (display);
 
                   XGrabKey (GDK_DISPLAY_XDISPLAY (display),
                             keys[i].keycode,
@@ -451,6 +450,8 @@ set_locate_pointer (void)
                             False,
                             GrabModeAsync,
                             GrabModeSync);
+
+                  gdk_x11_display_error_trap_pop_ignored (display);
                 }
             }
 
@@ -473,6 +474,8 @@ set_locate_pointer (void)
 int
 main (int argc, char *argv[])
 {
+  gdk_disable_multidevice ();
+
   gtk_init (&argc, &argv);
 
   set_locate_pointer ();
