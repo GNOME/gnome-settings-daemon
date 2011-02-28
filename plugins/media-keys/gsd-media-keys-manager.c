@@ -1151,7 +1151,17 @@ do_text_size_action (GsdMediaKeysManager *manager,
 		     MediaKeyType         type)
 {
 	GSettings *font_settings;
-	gdouble x_dpi, u_dpi, factor;
+	gdouble x_dpi, u_dpi;
+	gdouble factor, best, distance;
+	guint i;
+
+	/* Same values used in the Seeing tab of the Universal Access panel */
+	static gdouble factors[] = {
+		0.75,
+		1.0,
+		1.25,
+		1.5
+	};
 
 	font_settings = g_settings_new (SETTINGS_XSETTINGS_DIR);
 
@@ -1166,15 +1176,23 @@ do_text_size_action (GsdMediaKeysManager *manager,
 	/* Increasing text size means increasing the DPI */
 	factor += (type == INCREASE_TEXT_KEY ? 0.25 : -0.25);
 
-	/* Same values used in the Seeing tab of the Universal Access panel */
-	if (fabs (factor - 1.0)  < 1e6 ||
-	    factor < 1.0) {
-		g_settings_reset (font_settings, "dpi");
-	} else if (factor > 1.0 && factor <= 1.25) {
-		g_settings_set_double (font_settings, "dpi", 1.25);
-	} else {
-		g_settings_set_double (font_settings, "dpi", 1.5);
+	/* Try to find a matching value */
+	distance = 1e6;
+	best = 1.0;
+	for (i = 0; i < G_N_ELEMENTS(factors); i++) {
+		gdouble d;
+		d = fabs (factor - factors[i]);
+		if (d < distance) {
+			best = factors[i];
+			distance = d;
+		}
 	}
+
+	if (best == 1.0)
+		g_settings_reset (font_settings, "dpi");
+	else
+		g_settings_set_double (font_settings, "dpi", best);
+
 	g_object_unref (font_settings);
 }
 
