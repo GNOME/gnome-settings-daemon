@@ -970,10 +970,6 @@ gsd_clipboard_manager_set_property (GObject        *object,
                                     const GValue   *value,
                                     GParamSpec     *pspec)
 {
-        GsdClipboardManager *self;
-
-        self = GSD_CLIPBOARD_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -987,10 +983,6 @@ gsd_clipboard_manager_get_property (GObject        *object,
                                     GValue         *value,
                                     GParamSpec     *pspec)
 {
-        GsdClipboardManager *self;
-
-        self = GSD_CLIPBOARD_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1004,9 +996,6 @@ gsd_clipboard_manager_constructor (GType                  type,
                                    GObjectConstructParam *construct_properties)
 {
         GsdClipboardManager      *clipboard_manager;
-        GsdClipboardManagerClass *klass;
-
-        klass = GSD_CLIPBOARD_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_CLIPBOARD_MANAGER));
 
         clipboard_manager = GSD_CLIPBOARD_MANAGER (G_OBJECT_CLASS (gsd_clipboard_manager_parent_class)->constructor (type,
                                                                                                       n_construct_properties,
@@ -1018,10 +1007,6 @@ gsd_clipboard_manager_constructor (GType                  type,
 static void
 gsd_clipboard_manager_dispose (GObject *object)
 {
-        GsdClipboardManager *clipboard_manager;
-
-        clipboard_manager = GSD_CLIPBOARD_MANAGER (object);
-
         G_OBJECT_CLASS (gsd_clipboard_manager_parent_class)->dispose (object);
 }
 
