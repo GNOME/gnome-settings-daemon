@@ -36,7 +36,6 @@ main (int    argc,
       char **argv)
 {
         GError  *error;
-        gboolean res;
 
 #ifdef ENABLE_NLS
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
@@ -56,7 +55,7 @@ main (int    argc,
         manager = gsd_media_keys_manager_new ();
 
         error = NULL;
-        res = gsd_media_keys_manager_start (manager, &error);
+        gsd_media_keys_manager_start (manager, &error);
 
         gtk_main ();
 

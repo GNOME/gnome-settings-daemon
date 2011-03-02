@@ -1627,10 +1627,6 @@ gsd_media_keys_manager_set_property (GObject        *object,
                                const GValue   *value,
                                GParamSpec     *pspec)
 {
-        GsdMediaKeysManager *self;
-
-        self = GSD_MEDIA_KEYS_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1644,10 +1640,6 @@ gsd_media_keys_manager_get_property (GObject        *object,
                                GValue         *value,
                                GParamSpec     *pspec)
 {
-        GsdMediaKeysManager *self;
-
-        self = GSD_MEDIA_KEYS_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1661,9 +1653,6 @@ gsd_media_keys_manager_constructor (GType                  type,
                               GObjectConstructParam *construct_properties)
 {
         GsdMediaKeysManager      *media_keys_manager;
-        GsdMediaKeysManagerClass *klass;
-
-        klass = GSD_MEDIA_KEYS_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_MEDIA_KEYS_MANAGER));
 
         media_keys_manager = GSD_MEDIA_KEYS_MANAGER (G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->constructor (type,
                                                                                                       n_construct_properties,
@@ -1726,7 +1715,6 @@ on_bus_gotten (GObject             *source_object,
                GsdMediaKeysManager *manager)
 {
         GDBusConnection *connection;
-        guint registration_id;
         GError *error = NULL;
 
         connection = g_bus_get_finish (res, &error);
@@ -1737,13 +1725,13 @@ on_bus_gotten (GObject             *source_object,
         }
         manager->priv->connection = connection;
 
-        registration_id = g_dbus_connection_register_object (connection,
-                                                             GSD_MEDIA_KEYS_DBUS_PATH,
-                                                             manager->priv->introspection_data->interfaces[0],
-                                                             &interface_vtable,
-                                                             manager,
-                                                             NULL,
-                                                             NULL);
+        g_dbus_connection_register_object (connection,
+                                           GSD_MEDIA_KEYS_DBUS_PATH,
+                                           manager->priv->introspection_data->interfaces[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
 
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
