@@ -80,7 +80,6 @@ nautilus_is_drawing_background (GsdBackgroundManager *manager)
        unsigned long  nitems;
        unsigned long  bytes_after;
        unsigned char *data;
-       int            retval;
        Atom           wmclass_atom;
        gboolean       running;
        gint           error;
@@ -99,18 +98,18 @@ nautilus_is_drawing_background (GsdBackgroundManager *manager)
                return FALSE;
        }
 
-       retval = XGetWindowProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                    GDK_ROOT_WINDOW (),
-                                    window_id_atom,
-                                    0,
-                                    1,
-                                    False,
-                                    XA_WINDOW,
-                                    &actual_type,
-                                    &actual_format,
-                                    &nitems,
-                                    &bytes_after,
-                                    &data);
+       XGetWindowProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                           GDK_ROOT_WINDOW (),
+                           window_id_atom,
+                           0,
+                           1,
+                           False,
+                           XA_WINDOW,
+                           &actual_type,
+                           &actual_format,
+                           &nitems,
+                           &bytes_after,
+                           &data);
 
        if (data != NULL) {
                nautilus_xid = *(Window *) data;
@@ -130,18 +129,18 @@ nautilus_is_drawing_background (GsdBackgroundManager *manager)
 
        gdk_error_trap_push ();
 
-       retval = XGetWindowProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                    nautilus_xid,
-                                    wmclass_atom,
-                                    0,
-                                    24,
-                                    False,
-                                    XA_STRING,
-                                    &actual_type,
-                                    &actual_format,
-                                    &nitems,
-                                    &bytes_after,
-                                    &data);
+       XGetWindowProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                           nautilus_xid,
+                           wmclass_atom,
+                           0,
+                           24,
+                           False,
+                           XA_STRING,
+                           &actual_type,
+                           &actual_format,
+                           &nitems,
+                           &bytes_after,
+                           &data);
 
        error = gdk_error_trap_pop ();
 
@@ -492,10 +491,6 @@ gsd_background_manager_set_property (GObject        *object,
                                      const GValue   *value,
                                      GParamSpec     *pspec)
 {
-        GsdBackgroundManager *self;
-
-        self = GSD_BACKGROUND_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -509,10 +504,6 @@ gsd_background_manager_get_property (GObject        *object,
                                      GValue         *value,
                                      GParamSpec     *pspec)
 {
-        GsdBackgroundManager *self;
-
-        self = GSD_BACKGROUND_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -526,9 +517,6 @@ gsd_background_manager_constructor (GType                  type,
                                     GObjectConstructParam *construct_properties)
 {
         GsdBackgroundManager      *background_manager;
-        GsdBackgroundManagerClass *klass;
-
-        klass = GSD_BACKGROUND_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_BACKGROUND_MANAGER));
 
         background_manager = GSD_BACKGROUND_MANAGER (G_OBJECT_CLASS (gsd_background_manager_parent_class)->constructor (type,
                                                                                                                         n_construct_properties,
@@ -540,10 +528,6 @@ gsd_background_manager_constructor (GType                  type,
 static void
 gsd_background_manager_dispose (GObject *object)
 {
-        GsdBackgroundManager *background_manager;
-
-        background_manager = GSD_BACKGROUND_MANAGER (object);
-
         G_OBJECT_CLASS (gsd_background_manager_parent_class)->dispose (object);
 }
 
