@@ -100,9 +100,6 @@ gsd_wacom_manager_constructor (GType                     type,
                               GObjectConstructParam     *construct_properties)
 {
         GsdWacomManager      *wacom_manager;
-        GsdWacomManagerClass *klass;
-
-        klass = GSD_WACOM_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_WACOM_MANAGER));
 
         wacom_manager = GSD_WACOM_MANAGER (G_OBJECT_CLASS (gsd_wacom_manager_parent_class)->constructor (type,
                                                                                                          n_construct_properties,
@@ -114,10 +111,6 @@ gsd_wacom_manager_constructor (GType                     type,
 static void
 gsd_wacom_manager_dispose (GObject *object)
 {
-        GsdWacomManager *wacom_manager;
-
-        wacom_manager = GSD_WACOM_MANAGER (object);
-
         G_OBJECT_CLASS (gsd_wacom_manager_parent_class)->dispose (object);
 }
 
