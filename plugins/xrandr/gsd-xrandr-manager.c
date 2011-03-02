@@ -1823,10 +1823,6 @@ gsd_xrandr_manager_set_property (GObject        *object,
                                const GValue   *value,
                                GParamSpec     *pspec)
 {
-        GsdXrandrManager *self;
-
-        self = GSD_XRANDR_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1840,10 +1836,6 @@ gsd_xrandr_manager_get_property (GObject        *object,
                                GValue         *value,
                                GParamSpec     *pspec)
 {
-        GsdXrandrManager *self;
-
-        self = GSD_XRANDR_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1857,9 +1849,6 @@ gsd_xrandr_manager_constructor (GType                  type,
                               GObjectConstructParam *construct_properties)
 {
         GsdXrandrManager      *xrandr_manager;
-        GsdXrandrManagerClass *klass;
-
-        klass = GSD_XRANDR_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_XRANDR_MANAGER));
 
         xrandr_manager = GSD_XRANDR_MANAGER (G_OBJECT_CLASS (gsd_xrandr_manager_parent_class)->constructor (type,
                                                                                                       n_construct_properties,
@@ -1871,10 +1860,6 @@ gsd_xrandr_manager_constructor (GType                  type,
 static void
 gsd_xrandr_manager_dispose (GObject *object)
 {
-        GsdXrandrManager *xrandr_manager;
-
-        xrandr_manager = GSD_XRANDR_MANAGER (object);
-
         G_OBJECT_CLASS (gsd_xrandr_manager_parent_class)->dispose (object);
 }
 
@@ -1967,7 +1952,6 @@ on_bus_gotten (GObject             *source_object,
                GsdXrandrManager    *manager)
 {
         GDBusConnection *connection;
-        guint registration_id;
         GError *error = NULL;
 
         connection = g_bus_get_finish (res, &error);
@@ -1978,13 +1962,13 @@ on_bus_gotten (GObject             *source_object,
         }
         manager->priv->connection = connection;
 
-        registration_id = g_dbus_connection_register_object (connection,
-                                                             GSD_XRANDR_DBUS_PATH,
-                                                             manager->priv->introspection_data->interfaces[0],
-                                                             &interface_vtable,
-                                                             manager,
-                                                             NULL,
-                                                             NULL);
+        g_dbus_connection_register_object (connection,
+                                           GSD_XRANDR_DBUS_PATH,
+                                           manager->priv->introspection_data->interfaces[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
 }
 
 static void
