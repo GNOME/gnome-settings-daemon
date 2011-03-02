@@ -432,9 +432,6 @@ static void
 gsd_smartcard_manager_emit_smartcard_removed (GsdSmartcardManager *manager,
                                               GsdSmartcard        *card)
 {
-        GsdSmartcardManagerState old_state;
-
-        old_state = manager->priv->state;
         manager->priv->is_unstoppable = TRUE;
         g_signal_emit (manager, gsd_smartcard_manager_signals[SMARTCARD_REMOVED], 0,
                        card);
@@ -868,7 +865,6 @@ start_worker (GsdSmartcardManager  *manager,
 {
         GIOChannel *io_channel;
         GSource *source;
-        GIOFlags channel_flags;
         GsdSmartcardManagerWorker *worker;
 
         worker = gsd_smartcard_manager_create_worker (manager, module);
@@ -884,8 +880,6 @@ start_worker (GsdSmartcardManager  *manager,
         }
 
         io_channel = g_io_channel_unix_new (worker->manager_fd);
-
-        channel_flags = g_io_channel_get_flags (io_channel);
 
         source = g_io_create_watch (io_channel, G_IO_IN | G_IO_HUP);
         g_io_channel_unref (io_channel);
@@ -1227,9 +1221,6 @@ gsd_smartcard_manager_worker_emit_smartcard_inserted (GsdSmartcardManagerWorker 
                                                       GsdSmartcard               *card,
                                                       GError                    **error)
 {
-        GError *write_error;
-
-        write_error = NULL;
         g_debug ("card '%s' inserted!", gsd_smartcard_get_name (card));
         if (!write_bytes (worker->fd, "I", 1)) {
                 goto error_out;
@@ -1253,7 +1244,7 @@ gsd_smartcard_manager_worker_watch_for_and_process_event (GsdSmartcardManagerWor
                                                           GError                    **error)
 {
         PK11SlotInfo *slot;
-        CK_SLOT_ID slot_id, *key;
+        CK_SLOT_ID slot_id, *key = NULL;
         int slot_series, card_slot_series;
         GsdSmartcard *card;
         GError *processing_error;
