@@ -657,10 +657,6 @@ gsd_keybindings_manager_set_property (GObject        *object,
                                const GValue   *value,
                                GParamSpec     *pspec)
 {
-        GsdKeybindingsManager *self;
-
-        self = GSD_KEYBINDINGS_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -674,10 +670,6 @@ gsd_keybindings_manager_get_property (GObject        *object,
                                GValue         *value,
                                GParamSpec     *pspec)
 {
-        GsdKeybindingsManager *self;
-
-        self = GSD_KEYBINDINGS_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -691,9 +683,6 @@ gsd_keybindings_manager_constructor (GType                  type,
                               GObjectConstructParam *construct_properties)
 {
         GsdKeybindingsManager      *keybindings_manager;
-        GsdKeybindingsManagerClass *klass;
-
-        klass = GSD_KEYBINDINGS_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_KEYBINDINGS_MANAGER));
 
         keybindings_manager = GSD_KEYBINDINGS_MANAGER (G_OBJECT_CLASS (gsd_keybindings_manager_parent_class)->constructor (type,
                                                                                                       n_construct_properties,
@@ -705,10 +694,6 @@ gsd_keybindings_manager_constructor (GType                  type,
 static void
 gsd_keybindings_manager_dispose (GObject *object)
 {
-        GsdKeybindingsManager *keybindings_manager;
-
-        keybindings_manager = GSD_KEYBINDINGS_MANAGER (object);
-
         G_OBJECT_CLASS (gsd_keybindings_manager_parent_class)->dispose (object);
 }
 
