@@ -1306,9 +1306,6 @@ gsd_updates_manager_constructor (
                 GObjectConstructParam *construct_properties)
 {
         GsdUpdatesManager *m;
-        GsdUpdatesManagerClass *klass;
-
-        klass = GSD_UPDATES_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_UPDATES_MANAGER));
 
         m = GSD_UPDATES_MANAGER (G_OBJECT_CLASS (gsd_updates_manager_parent_class)->constructor (
                                                            type,
