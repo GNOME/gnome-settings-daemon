@@ -287,13 +287,11 @@ xft_settings_get (GnomeXSettingsManager *manager,
 {
         GsdFontAntialiasingMode antialiasing;
         GsdFontHinting hinting;
-        GsdFontRgbaOrder rgba_order;
         double dpi;
         gboolean use_rgba = FALSE;
 
         antialiasing = g_settings_get_enum (manager->priv->plugin_settings, FONT_ANTIALIASING_KEY);
         hinting = g_settings_get_enum (manager->priv->plugin_settings, FONT_HINTING_KEY);
-        rgba_order = g_settings_get_enum (manager->priv->plugin_settings, FONT_RGBA_ORDER_KEY);
         dpi = get_dpi_from_gsettings_or_x_server (manager);
 
         settings->antialias = (antialiasing != GSD_FONT_ANTIALIASING_MODE_NONE);
@@ -773,10 +771,6 @@ gnome_xsettings_manager_set_property (GObject        *object,
                                       const GValue   *value,
                                       GParamSpec     *pspec)
 {
-        GnomeXSettingsManager *self;
-
-        self = GNOME_XSETTINGS_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -790,10 +784,6 @@ gnome_xsettings_manager_get_property (GObject        *object,
                                       GValue         *value,
                                       GParamSpec     *pspec)
 {
-        GnomeXSettingsManager *self;
-
-        self = GNOME_XSETTINGS_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -807,9 +797,6 @@ gnome_xsettings_manager_constructor (GType                  type,
                                      GObjectConstructParam *construct_properties)
 {
         GnomeXSettingsManager      *xsettings_manager;
-        GnomeXSettingsManagerClass *klass;
-
-        klass = GNOME_XSETTINGS_MANAGER_CLASS (g_type_class_peek (GNOME_TYPE_XSETTINGS_MANAGER));
 
         xsettings_manager = GNOME_XSETTINGS_MANAGER (G_OBJECT_CLASS (gnome_xsettings_manager_parent_class)->constructor (type,
                                                                                                                   n_construct_properties,
@@ -821,10 +808,6 @@ gnome_xsettings_manager_constructor (GType                  type,
 static void
 gnome_xsettings_manager_dispose (GObject *object)
 {
-        GnomeXSettingsManager *xsettings_manager;
-
-        xsettings_manager = GNOME_XSETTINGS_MANAGER (object);
-
         G_OBJECT_CLASS (gnome_xsettings_manager_parent_class)->dispose (object);
 }
 
