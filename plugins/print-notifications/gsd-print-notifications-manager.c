@@ -422,10 +422,6 @@ gsd_print_notifications_manager_set_property (GObject        *object,
                                               const GValue   *value,
                                               GParamSpec     *pspec)
 {
-        GsdPrintNotificationsManager *self;
-
-        self = GSD_PRINT_NOTIFICATIONS_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -439,10 +435,6 @@ gsd_print_notifications_manager_get_property (GObject        *object,
                                               GValue         *value,
                                               GParamSpec     *pspec)
 {
-        GsdPrintNotificationsManager *self;
-
-        self = GSD_PRINT_NOTIFICATIONS_MANAGER (object);
-
         switch (prop_id) {
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -456,9 +448,6 @@ gsd_print_notifications_manager_constructor (GType                  type,
                                              GObjectConstructParam *construct_properties)
 {
         GsdPrintNotificationsManager      *print_notifications_manager;
-        GsdPrintNotificationsManagerClass *klass;
-
-        klass = GSD_PRINT_NOTIFICATIONS_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER));
 
         print_notifications_manager = GSD_PRINT_NOTIFICATIONS_MANAGER (G_OBJECT_CLASS (gsd_print_notifications_manager_parent_class)->constructor (type,
                                                                                                                                                    n_construct_properties,
@@ -470,10 +459,6 @@ gsd_print_notifications_manager_constructor (GType                  type,
 static void
 gsd_print_notifications_manager_dispose (GObject *object)
 {
-        GsdPrintNotificationsManager *print_notifications_manager;
-
-        print_notifications_manager = GSD_PRINT_NOTIFICATIONS_MANAGER (object);
-
         G_OBJECT_CLASS (gsd_print_notifications_manager_parent_class)->dispose (object);
 }
 
