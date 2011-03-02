@@ -341,9 +341,6 @@ gsd_sound_manager_constructor (
                 GObjectConstructParam *construct_properties)
 {
         GsdSoundManager *m;
-        GsdSoundManagerClass *klass;
-
-        klass = GSD_SOUND_MANAGER_CLASS (g_type_class_peek (GSD_TYPE_SOUND_MANAGER));
 
         m = GSD_SOUND_MANAGER (G_OBJECT_CLASS (gsd_sound_manager_parent_class)->constructor (
                                                            type,
