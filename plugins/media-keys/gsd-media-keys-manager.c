@@ -1086,71 +1086,10 @@ do_on_screen_keyboard_action (GsdMediaKeysManager *manager)
         do_toggle_accessibility_key ("screen-keyboard-enabled");
 }
 
-/* The following two functions taken from gsd-a11y-preferences-dialog.c
- *
- * Copyright (C)  2008 William Jon McCann <jmccann@redhat.com>
- *
- * Licensed under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- */
-/* X servers sometimes lie about the screen's physical dimensions, so we cannot
- * compute an accurate DPI value.  When this happens, the user gets fonts that
- * are too huge or too tiny.  So, we see what the server returns:  if it reports
- * something outside of the range [DPI_LOW_REASONABLE_VALUE,
- * DPI_HIGH_REASONABLE_VALUE], then we assume that it is lying and we use
- * DPI_FALLBACK instead.
- *
- * See get_dpi_from_x_server() below, and also
- * https://bugzilla.novell.com/show_bug.cgi?id=217790
- */
-#define DPI_LOW_REASONABLE_VALUE 50
-#define DPI_HIGH_REASONABLE_VALUE 500
-#define DPI_DEFAULT        96
-
-static gdouble
-dpi_from_pixels_and_mm (gint pixels,
-			gint mm)
-{
-	if (mm >= 1)
-		return pixels / (mm / 25.4);
-	else
-		return 0;
-}
-
-static gdouble
-get_dpi_from_x_server (GdkScreen *screen)
-{
-	gdouble dpi;
-
-	if (screen) {
-		gdouble width_dpi, height_dpi;
-
-		width_dpi = dpi_from_pixels_and_mm (gdk_screen_get_width (screen),
-						    gdk_screen_get_width_mm (screen));
-		height_dpi = dpi_from_pixels_and_mm (gdk_screen_get_height (screen),
-						     gdk_screen_get_height_mm (screen));
-
-		if (width_dpi < DPI_LOW_REASONABLE_VALUE
-		    || width_dpi > DPI_HIGH_REASONABLE_VALUE
-		    || height_dpi < DPI_LOW_REASONABLE_VALUE
-		    || height_dpi > DPI_HIGH_REASONABLE_VALUE) {
-			dpi = DPI_DEFAULT;
-		} else {
-			dpi = (width_dpi + height_dpi) / 2.0;
-		}
-	} else {
-		dpi = DPI_DEFAULT;
-	}
-
-	return dpi;
-}
-
 static void
 do_text_size_action (GsdMediaKeysManager *manager,
 		     MediaKeyType         type)
 {
-	GSettings *font_settings;
 	gdouble x_dpi, u_dpi;
 	gdouble factor, best, distance;
 	guint i;
@@ -1163,17 +1102,8 @@ do_text_size_action (GsdMediaKeysManager *manager,
 		1.5
 	};
 
-	font_settings = g_settings_new (SETTINGS_XSETTINGS_DIR);
-
 	/* Figure out the current DPI scaling factor */
-	u_dpi = g_settings_get_double (font_settings, "dpi");
-	x_dpi = get_dpi_from_x_server (manager->priv->current_screen);
-	if (u_dpi == 0.0)
-		factor = 1.0;
-	else
-		factor = u_dpi / x_dpi;
-
-	/* Increasing text size means increasing the DPI */
+	factor = g_settings_get_double (manager->priv->interface_settings, "text-scaling-factor");
 	factor += (type == INCREASE_TEXT_KEY ? 0.25 : -0.25);
 
 	/* Try to find a matching value */
@@ -1189,11 +1119,9 @@ do_text_size_action (GsdMediaKeysManager *manager,
 	}
 
 	if (best == 1.0)
-		g_settings_reset (font_settings, "dpi");
+		g_settings_reset (manager->priv->interface_settings, "text-scaling-factor");
 	else
-		g_settings_set_double (font_settings, "dpi", best);
-
-	g_object_unref (font_settings);
+		g_settings_set_double (manager->priv->interface_settings, "text-scaling-factor", best);
 }
 
 static void

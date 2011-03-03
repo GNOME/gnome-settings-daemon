@@ -47,6 +47,7 @@
 #define GTKBUILDER_UI_FILE "gsd-a11y-preferences-dialog.ui"
 
 #define INTERFACE_SCHEMA          "org.gnome.desktop.interface"
+#define KEY_TEXT_SCALING_FACTOR   "text-scaling-factor"
 
 #define KEYBOARD_A11Y_SCHEMA      "org.gnome.desktop.a11y.keyboard"
 #define KEY_STICKY_KEYS_ENABLED   "stickykeys-enable"
@@ -58,25 +59,9 @@
 #define KEY_AT_SCREEN_MAGNIFIER_ENABLED "screen-magnifier-enabled"
 #define KEY_AT_SCREEN_READER_ENABLED    "screen-reader-enabled"
 
-#define FONT_RENDER_DIR        "org.gnome.desktop.font-rendering"
-#define KEY_FONT_DPI           "dpi"
-/* X servers sometimes lie about the screen's physical dimensions, so we cannot
- * compute an accurate DPI value.  When this happens, the user gets fonts that
- * are too huge or too tiny.  So, we see what the server returns:  if it reports
- * something outside of the range [DPI_LOW_REASONABLE_VALUE,
- * DPI_HIGH_REASONABLE_VALUE], then we assume that it is lying and we use
- * DPI_FALLBACK instead.
- *
- * See get_dpi_from_gconf_or_server() below, and also
- * https://bugzilla.novell.com/show_bug.cgi?id=217790
- */
-#define DPI_LOW_REASONABLE_VALUE 50
-#define DPI_HIGH_REASONABLE_VALUE 500
-
 #define DPI_FACTOR_LARGE   1.25
 #define DPI_FACTOR_LARGER  1.5
 #define DPI_FACTOR_LARGEST 2.0
-#define DPI_DEFAULT        96
 
 #define KEY_GTK_THEME          "gtk-theme"
 #define KEY_METACITY_THEME     "/apps/metacity/general/theme"
@@ -174,97 +159,30 @@ on_response (GsdA11yPreferencesDialog *dialog,
         }
 }
 
-static double
-dpi_from_pixels_and_mm (int pixels,
-                        int mm)
-{
-        double dpi;
-
-        if (mm >= 1) {
-                dpi = pixels / (mm / 25.4);
-        } else {
-                dpi = 0;
-        }
-
-        return dpi;
-}
-
-static double
-get_dpi_from_x_server (void)
-{
-        GdkScreen *screen;
-        double     dpi;
-
-        screen = gdk_screen_get_default ();
-        if (screen != NULL) {
-                double width_dpi;
-                double height_dpi;
-
-                width_dpi = dpi_from_pixels_and_mm (gdk_screen_get_width (screen),
-                                                    gdk_screen_get_width_mm (screen));
-                height_dpi = dpi_from_pixels_and_mm (gdk_screen_get_height (screen),
-                                                     gdk_screen_get_height_mm (screen));
-                if (width_dpi < DPI_LOW_REASONABLE_VALUE
-                    || width_dpi > DPI_HIGH_REASONABLE_VALUE
-                    || height_dpi < DPI_LOW_REASONABLE_VALUE
-                    || height_dpi > DPI_HIGH_REASONABLE_VALUE) {
-                        dpi = DPI_DEFAULT;
-                } else {
-                        dpi = (width_dpi + height_dpi) / 2.0;
-                }
-        } else {
-                /* Huh!?  No screen? */
-                dpi = DPI_DEFAULT;
-        }
-
-        return dpi;
-}
-
 static gboolean
-config_get_large_print (gboolean *is_writable)
+config_get_large_print (GsdA11yPreferencesDialog *dialog,
+			gboolean                 *is_writable)
 {
         gboolean     ret;
-        GSettings   *settings;
-        gdouble      x_dpi;
-        gdouble      u_dpi;
+        gdouble      factor;
 
-        settings = g_settings_new ("org.gnome.desktop.font-rendering");
-        u_dpi = g_settings_get_double (settings, KEY_FONT_DPI);
-        x_dpi = get_dpi_from_x_server ();
+        factor = g_settings_get_double (dialog->priv->interface_settings, KEY_TEXT_SCALING_FACTOR);
 
-        g_object_unref (settings);
+        ret = (factor > 1.0);
 
-        g_debug ("GsdA11yPreferences: got x-dpi=%f user-dpi=%f", x_dpi, u_dpi);
-
-        ret = (((double)DPI_FACTOR_LARGE * x_dpi) < u_dpi);
-
-        *is_writable = TRUE; /* FIXME */
+        *is_writable = g_settings_is_writable (dialog->priv->interface_settings, KEY_TEXT_SCALING_FACTOR);
 
         return ret;
 }
 
 static void
-config_set_large_print (gboolean enabled)
+config_set_large_print (GsdA11yPreferencesDialog *dialog,
+			gboolean                  enabled)
 {
-        GSettings *settings;
-
-        settings = g_settings_new ("org.gnome.desktop.font-rendering");
-
-        if (enabled) {
-                gdouble x_dpi;
-                gdouble u_dpi;
-
-                x_dpi = get_dpi_from_x_server ();
-                u_dpi = (double)DPI_FACTOR_LARGER * x_dpi;
-
-                g_debug ("GsdA11yPreferences: setting x-dpi=%f user-dpi=%f", x_dpi, u_dpi);
-
-                g_settings_set_double (settings, KEY_FONT_DPI, u_dpi);
-        } else {
-                g_settings_reset (settings, KEY_FONT_DPI);
-        }
-
-        g_object_unref (settings);
+        if (enabled)
+                g_settings_set_double (dialog->priv->interface_settings, KEY_TEXT_SCALING_FACTOR, DPI_FACTOR_LARGER);
+        else
+                g_settings_reset (dialog->priv->interface_settings, KEY_TEXT_SCALING_FACTOR);
 }
 
 static gboolean
@@ -361,7 +279,7 @@ static void
 on_large_print_checkbutton_toggled (GtkToggleButton          *button,
                                     GsdA11yPreferencesDialog *dialog)
 {
-        config_set_large_print (gtk_toggle_button_get_active (button));
+        config_set_large_print (dialog, gtk_toggle_button_get_active (button));
 }
 
 static void
@@ -484,7 +402,7 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
                           "toggled",
                           G_CALLBACK (on_large_print_checkbutton_toggled),
                           NULL);
-        enabled = config_get_large_print (&is_writable);
+        enabled = config_get_large_print (dialog, &is_writable);
         ui_set_large_print (dialog, enabled);
         if (! is_writable) {
                 gtk_widget_set_sensitive (widget, FALSE);

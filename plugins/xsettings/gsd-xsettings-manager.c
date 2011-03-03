@@ -56,10 +56,11 @@
 #define GTK_MODULES_DISABLED_KEY "disabled-gtk-modules"
 #define GTK_MODULES_ENABLED_KEY  "enabled-gtk-modules"
 
+#define TEXT_SCALING_FACTOR_KEY "text-scaling-factor"
+
 #define FONT_ANTIALIASING_KEY "antialiasing"
 #define FONT_HINTING_KEY      "hinting"
 #define FONT_RGBA_ORDER_KEY   "rgba-order"
-#define FONT_DPI_KEY          "dpi"
 
 /* X servers sometimes lie about the screen's physical dimensions, so we cannot
  * compute an accurate DPI value.  When this happens, the user gets fonts that
@@ -261,15 +262,18 @@ get_dpi_from_x_server (void)
 }
 
 static double
-get_dpi_from_gsettings_or_x_server (GnomeXSettingsManager *manager)
+get_dpi_from_gsettings (GnomeXSettingsManager *manager)
 {
+	GSettings  *interface_settings;
         double      dpi;
+        double      factor;
 
-        dpi = g_settings_get_double (manager->priv->plugin_settings, FONT_DPI_KEY);
-        if (dpi == 0.0)
-                dpi = get_dpi_from_x_server ();
+	interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
+        factor = g_settings_get_double (interface_settings, TEXT_SCALING_FACTOR_KEY);
 
-        return dpi;
+	dpi = get_dpi_from_x_server ();
+
+        return dpi * factor;
 }
 
 typedef struct {
@@ -292,7 +296,7 @@ xft_settings_get (GnomeXSettingsManager *manager,
 
         antialiasing = g_settings_get_enum (manager->priv->plugin_settings, FONT_ANTIALIASING_KEY);
         hinting = g_settings_get_enum (manager->priv->plugin_settings, FONT_HINTING_KEY);
-        dpi = get_dpi_from_gsettings_or_x_server (manager);
+        dpi = get_dpi_from_gsettings (manager);
 
         settings->antialias = (antialiasing != GSD_FONT_ANTIALIASING_MODE_NONE);
         settings->hinting = (hinting != GSD_FONT_HINTING_NONE);
@@ -574,6 +578,11 @@ xsettings_callback (GSettings             *settings,
         TranslationEntry *trans;
         guint             i;
         GVariant         *value;
+
+        if (g_str_equal (key, TEXT_SCALING_FACTOR_KEY)) {
+        	xft_callback (NULL, key, manager);
+        	return;
+	}
 
         trans = find_translation_entry (settings, key);
         if (trans == NULL) {
