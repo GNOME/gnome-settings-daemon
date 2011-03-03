@@ -25,6 +25,11 @@
       <_summary>Use WiFi connections</_summary>
       <_description>Use WiFi (wireless LAN) connections to check for updates. It may be faster to download packages when on a wired connection, and the VPN or proxy required may also only be available on wired connections.</_description>
     </key>
+    <key name="auto-download-updates" type="b">
+      <default>false</default>
+      <_summary>Automatically download updates in the background without confirmation</_summary>
+      <_description>Automatically download updates in the background without confirmation. Updates will be auto-downloaded when using wired network connnections, and also WiFi if 'connection-use-wifi' is enabled and mobile broadband if 'connection-use-mobile' is enabled.</_description>
+    </key>
     <key name="auto-update-type" enum="org.gnome.settings-daemon.GsdUpdateType">
       <default>'security'</default>
       <_summary>Automatically update these types of updates</_summary>

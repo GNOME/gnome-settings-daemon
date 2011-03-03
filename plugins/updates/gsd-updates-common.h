@@ -44,6 +44,7 @@ G_BEGIN_DECLS
 #define GSD_SETTINGS_SCHEMA                             "org.gnome.settings-daemon.plugins.updates"
 #define GSD_SETTINGS_SESSION_STARTUP_TIMEOUT            "session-startup-timeout"
 #define GSD_SETTINGS_UPDATE_BATTERY                     "update-battery"
+#define GSD_SETTINGS_AUTO_DOWNLOAD_UPDATES              "auto-download-updates"
 
 G_END_DECLS
 

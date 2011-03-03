@@ -57,12 +57,17 @@ struct GsdUpdatesManagerPrivate
         guint                    update_viewer_watcher_id;
         GVolumeMonitor          *volume_monitor;
         guint                    failed_get_updates_count;
+        gboolean                 pending_updates;
+        GDBusConnection         *connection;
+        guint                    owner_id;
+        GDBusNodeInfo           *introspection;
 };
 
 static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
 static void gsd_updates_manager_init (GsdUpdatesManager *updates_manager);
 static void gsd_updates_manager_finalize (GObject *object);
 static void update_packages_finished_cb (PkTask *task, GAsyncResult *res, GsdUpdatesManager *manager);
+static void emit_changed (GsdUpdatesManager *manager);
 
 G_DEFINE_TYPE (GsdUpdatesManager, gsd_updates_manager, G_TYPE_OBJECT)
 
@@ -669,6 +674,72 @@ out:
 }
 
 static void
+package_download_finished_cb (GObject *object,
+                              GAsyncResult *res,
+                              GsdUpdatesManager *manager)
+{
+        PkClient *client = PK_CLIENT(object);
+        PkResults *results;
+        GError *error = NULL;
+        PkError *error_code = NULL;
+
+        /* get the results */
+        results = pk_client_generic_finish (PK_CLIENT(client), res, &error);
+        if (results == NULL) {
+                g_warning ("failed to download: %s",
+                           error->message);
+                g_error_free (error);
+                notify_failed_get_updates_maybe (manager);
+                goto out;
+        }
+
+        /* check error code */
+        error_code = pk_results_get_error_code (results);
+        if (error_code != NULL) {
+                g_warning ("failed to download: %s, %s",
+                           pk_error_enum_to_text (pk_error_get_code (error_code)),
+                           pk_error_get_details (error_code));
+                notify_failed_get_updates_maybe (manager);
+                goto out;
+        }
+
+        /* we succeeded, so allow the shell to query us */
+        manager->priv->pending_updates = TRUE;
+        emit_changed (manager);
+out:
+        if (error_code != NULL)
+                g_object_unref (error_code);
+        if (results != NULL)
+                g_object_unref (results);
+}
+
+static void
+auto_download_updates (GsdUpdatesManager *manager,
+                       GPtrArray *array)
+{
+        gchar **package_ids;
+        guint i;
+        PkPackage *pkg;
+
+        /* download each package */
+        package_ids = g_new0 (gchar *, array->len + 1);
+        for (i=0; i<array->len; i++) {
+                pkg = g_ptr_array_index (array, i);
+                package_ids[i] = g_strdup (pk_package_get_id (pkg));
+        }
+
+        /* download them all */
+        pk_client_download_packages_async (PK_CLIENT(manager->priv->task),
+                                           package_ids,
+                                           NULL, /* this means system cache */
+                                           manager->priv->cancellable,
+                                           NULL, NULL,
+                                           (GAsyncReadyCallback) package_download_finished_cb,
+                                           manager);
+        g_strfreev (package_ids);
+}
+
+static void
 get_updates_finished_cb (GObject *object,
                          GAsyncResult *res,
                          GsdUpdatesManager *manager)
@@ -740,6 +811,12 @@ get_updates_finished_cb (GObject *object,
                         notify_critical_updates (manager, security_array);
                 else
                         notify_normal_updates_maybe (manager, array);
+
+                /* should we auto-download other updates? */
+                ret = g_settings_get_boolean (manager->priv->settings_gsd,
+                                              GSD_SETTINGS_AUTO_DOWNLOAD_UPDATES);
+                if (ret)
+                        auto_download_updates (manager, array);
                 goto out;
         }
 
@@ -761,6 +838,9 @@ get_updates_finished_cb (GObject *object,
                         goto out;
                 }
 
+                /* even if this is TRUE, we're doing something about it */
+                manager->priv->pending_updates = FALSE;
+
                 /* convert */
                 package_ids = pk_ptr_array_to_strv (security_array);
                 pk_task_update_packages_async (manager->priv->task, package_ids,
@@ -773,6 +853,10 @@ get_updates_finished_cb (GObject *object,
 
         /* just do everything */
         if (update == GSD_UPDATE_TYPE_ALL) {
+
+                /* even if this is TRUE, we're doing something about it */
+                manager->priv->pending_updates = FALSE;
+
                 g_debug ("we should do the update automatically!");
                 pk_task_update_system_async (manager->priv->task,
                                              manager->priv->cancellable,
@@ -1157,11 +1241,95 @@ out:
         g_object_unref (root);
 }
 
+static void
+handle_method_call (GDBusConnection *connection_, const gchar *sender,
+                    const gchar *object_path, const gchar *interface_name,
+                    const gchar *method_name, GVariant *parameters,
+                    GDBusMethodInvocation *invocation, gpointer user_data)
+{
+        return;
+}
+
+static GVariant *
+handle_get_property (GDBusConnection *connection_, const gchar *sender,
+                     const gchar *object_path, const gchar *interface_name,
+                     const gchar *property_name, GError **error,
+                     gpointer user_data)
+{
+        GVariant *retval = NULL;
+        GsdUpdatesManager *manager = GSD_UPDATES_MANAGER(user_data);
+
+        if (g_strcmp0 (property_name, "PendingUpdates") == 0) {
+                retval = g_variant_new_boolean (manager->priv->pending_updates);
+        }
+
+        return retval;
+}
+
+static void
+on_bus_acquired (GDBusConnection *connection_, const gchar *name, gpointer user_data)
+{
+        guint registration_id;
+        GsdUpdatesManager *manager = GSD_UPDATES_MANAGER(user_data);
+        static const GDBusInterfaceVTable interface_vtable = {
+                handle_method_call,
+                handle_get_property,
+                NULL
+        };
+
+        registration_id = g_dbus_connection_register_object (connection_,
+                                                             "/",
+                                                             manager->priv->introspection->interfaces[0],
+                                                             &interface_vtable,
+                                                             NULL,  /* user_data */
+                                                             NULL,  /* user_data_free_func */
+                                                             NULL); /* GError** */
+        g_assert (registration_id > 0);
+}
+
+static void
+on_name_acquired (GDBusConnection *connection, const gchar *name, gpointer user_data)
+{
+        g_debug ("acquired name: %s", name);
+}
+
+static void
+on_name_lost (GDBusConnection *connection, const gchar *name, gpointer user_data)
+{
+        g_debug ("lost name: %s", name);
+}
+
+static void
+emit_changed (GsdUpdatesManager *manager)
+{
+        gboolean ret;
+        GError *error = NULL;
+
+        /* check we are connected */
+        if (manager->priv->connection == NULL)
+                return;
+
+        /* just emit signal */
+        ret = g_dbus_connection_emit_signal (manager->priv->connection,
+                                             NULL,
+                                             "/",
+                                             "org.gnome.SettingsDaemonUpdates",
+                                             "Changed",
+                                             NULL,
+                                             &error);
+        if (!ret) {
+                g_warning ("failed to emit signal: %s", error->message);
+                g_error_free (error);
+        }
+}
+
 gboolean
 gsd_updates_manager_start (GsdUpdatesManager *manager,
                            GError **error)
 {
         gboolean ret = FALSE;
+        gchar *introspection_data = NULL;
+        GFile *file = NULL;
 
         g_debug ("Starting updates manager");
 
@@ -1236,10 +1404,31 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         reload_proxy_settings (manager);
         set_install_root (manager);
 
+        /* load introspection from file */
+        file = g_file_new_for_path (DATADIR "/dbus-1/interfaces/org.gnome.ColorManager.xml");
+        ret = g_file_load_contents (file, NULL, &introspection_data, NULL, NULL, error);
+        if (!ret)
+                goto out;
+
+        /* build introspection from XML */
+        manager->priv->introspection = g_dbus_node_info_new_for_xml (introspection_data, error);
+        if (manager->priv->introspection == NULL)
+                goto out;
+
+        /* own the object */
+        manager->priv->owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
+                                                  "org.gnome.SettingsDaemonUpdates",
+                                                  G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                  on_bus_acquired,
+                                                  on_name_acquired,
+                                                  on_name_lost,
+                                                  manager, NULL);
+
         /* success */
         ret = TRUE;
         g_debug ("Started updates manager");
 out:
+        g_free (introspection_data);
         return ret;
 }
 
@@ -1288,11 +1477,18 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
                 g_object_unref (manager->priv->cancellable);
                 manager->priv->cancellable = NULL;
         }
+        if (manager->priv->introspection != NULL) {
+                g_dbus_node_info_unref (manager->priv->introspection);
+                manager->priv->introspection = NULL;
+        }
         if (manager->priv->update_viewer_watcher_id != 0) {
                 g_bus_unwatch_name (manager->priv->update_viewer_watcher_id);
                 manager->priv->update_viewer_watcher_id = 0;
         }
-
+        if (manager->priv->owner_id > 0) {
+                g_bus_unown_name (manager->priv->owner_id);
+                manager->priv->owner_id = 0;
+        }
         if (manager->priv->timeout) {
                 g_source_remove (manager->priv->timeout);
                 manager->priv->timeout = 0;
