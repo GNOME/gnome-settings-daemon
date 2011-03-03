@@ -62,19 +62,15 @@
 #define FONT_HINTING_KEY      "hinting"
 #define FONT_RGBA_ORDER_KEY   "rgba-order"
 
-/* X servers sometimes lie about the screen's physical dimensions, so we cannot
- * compute an accurate DPI value.  When this happens, the user gets fonts that
- * are too huge or too tiny.  So, we see what the server returns:  if it reports
- * something outside of the range [DPI_LOW_REASONABLE_VALUE,
- * DPI_HIGH_REASONABLE_VALUE], then we assume that it is lying and we use
- * DPI_FALLBACK instead.
+/* As we cannot rely on the X server giving us good DPI information, and
+ * that we don't want multi-monitor screens to have different DPIs (thus
+ * different text sizes), we'll hard-code the value of the DPI
  *
- * See get_dpi_from_gsettings_or_x_server() below, and also
- * https://bugzilla.novell.com/show_bug.cgi?id=217790
+ * See also:
+ * https://bugzilla.novell.com/show_bug.cgi?id=217790•
+ * https://bugzilla.gnome.org/show_bug.cgi?id=643704
  */
 #define DPI_FALLBACK 96
-#define DPI_LOW_REASONABLE_VALUE 50
-#define DPI_HIGH_REASONABLE_VALUE 500
 
 typedef struct _TranslationEntry TranslationEntry;
 typedef void (* TranslationFunc) (GnomeXSettingsManager *manager,
@@ -220,48 +216,6 @@ static TranslationEntry translations [] = {
 };
 
 static double
-dpi_from_pixels_and_mm (int pixels,
-                        int mm)
-{
-        double dpi;
-
-        if (mm >= 1)
-                dpi = pixels / (mm / 25.4);
-        else
-                dpi = 0;
-
-        return dpi;
-}
-
-static double
-get_dpi_from_x_server (void)
-{
-        GdkScreen *screen;
-        double     dpi;
-
-        screen = gdk_screen_get_default ();
-        if (screen != NULL) {
-                double width_dpi, height_dpi;
-
-                width_dpi = dpi_from_pixels_and_mm (gdk_screen_get_width (screen), gdk_screen_get_width_mm (screen));
-                height_dpi = dpi_from_pixels_and_mm (gdk_screen_get_height (screen), gdk_screen_get_height_mm (screen));
-
-                if (width_dpi < DPI_LOW_REASONABLE_VALUE || width_dpi > DPI_HIGH_REASONABLE_VALUE
-                    || height_dpi < DPI_LOW_REASONABLE_VALUE || height_dpi > DPI_HIGH_REASONABLE_VALUE) {
-                        dpi = DPI_FALLBACK;
-                } else {
-                        dpi = (width_dpi + height_dpi) / 2.0;
-                }
-        } else {
-                /* Huh!?  No screen? */
-
-                dpi = DPI_FALLBACK;
-        }
-
-        return dpi;
-}
-
-static double
 get_dpi_from_gsettings (GnomeXSettingsManager *manager)
 {
 	GSettings  *interface_settings;
@@ -271,7 +225,7 @@ get_dpi_from_gsettings (GnomeXSettingsManager *manager)
 	interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
         factor = g_settings_get_double (interface_settings, TEXT_SCALING_FACTOR_KEY);
 
-	dpi = get_dpi_from_x_server ();
+	dpi = DPI_FALLBACK;
 
         return dpi * factor;
 }
@@ -291,16 +245,14 @@ xft_settings_get (GnomeXSettingsManager *manager,
 {
         GsdFontAntialiasingMode antialiasing;
         GsdFontHinting hinting;
-        double dpi;
         gboolean use_rgba = FALSE;
 
         antialiasing = g_settings_get_enum (manager->priv->plugin_settings, FONT_ANTIALIASING_KEY);
         hinting = g_settings_get_enum (manager->priv->plugin_settings, FONT_HINTING_KEY);
-        dpi = get_dpi_from_gsettings (manager);
 
         settings->antialias = (antialiasing != GSD_FONT_ANTIALIASING_MODE_NONE);
         settings->hinting = (hinting != GSD_FONT_HINTING_NONE);
-        settings->dpi = dpi * 1024; /* Xft wants 1/1024ths of an inch */
+        settings->dpi = get_dpi_from_gsettings (manager) * 1024; /* Xft wants 1/1024ths of an inch */
         settings->rgba = "rgb";
         settings->hintstyle = "hintfull";
 
