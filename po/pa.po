@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
 "cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2011-02-18 13:53+0000\n"
-"PO-Revision-Date: 2011-02-19 12:31+0530\n"
+"POT-Creation-Date: 2011-03-02 16:05+0000\n"
+"PO-Revision-Date: 2011-03-03 08:33+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
@@ -155,7 +155,7 @@ msgstr "ਇਹ ਪਲੱਗਇਨ ਦੀ ਐਕਟੀਵੇਸ਼ਨ"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
@@ -167,7 +167,7 @@ msgstr "ਇਹ ਪਲੱਗਇਨ ਵਰਤਣ ਲਈ ਤਰਜੀਹ"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
@@ -178,7 +178,7 @@ msgstr "gnome-settings-daemon ਸ਼ੁਰੂਆਤ ਕਤਾਰ ਵਿੱਚ �
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
@@ -257,121 +257,128 @@ msgid "Allowed keys"
 msgstr "ਮਨਜ਼ੂਰ ਸਵਿੱਚਾਂ"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
-#| msgid "Binding to raise the system volume."
+#| msgid "Binding to show the screen magnifier"
+msgid "Binding for the magnifier to zoom in"
+msgstr "ਜ਼ੂਮ ਇਨ ਕਰਨ ਵਾਸਤੇ ਵੱਡਦਰਸ਼ੀ ਲਈ ਬਾਈਡਿੰਗ।"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#| msgid "Binding to show the screen magnifier"
+msgid "Binding for the magnifier to zoom out"
+msgstr "ਜ਼ੂਮ ਆਉਟ ਕਰਨ ਵਾਸਤੇ ਵੱਡਦਰਸ਼ੀ ਲਈ ਬਾਈਡਿੰਗ।"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
 msgid "Binding to decrease the text size"
 msgstr "ਟੈਕਸਟ ਆਕਾਰ ਘਟਾਉਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 msgid "Binding to eject an optical disc."
 msgstr "ਓਪਟੀਕਲ ਡਿਸਕ ਬਾਹਰ ਕੱਢਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Binding to enable or disable the touchpad."
 msgstr "ਟੱਚਪੈਂਡ ਨਾਲ ਸਬੰਧ ਚਾਲੂ ਜਾਂ ਬੰਦ ਕਰੋ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
-#| msgid "Binding to raise the system volume."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to increase the text size"
 msgstr "ਟੈਕਸਟ ਅਕਾਰ ਵਧਾਉਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
 msgstr "ਕੈਲਕੂਲੇਟਰ ਲਾਂਚ ਕਰਨ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "ਈਮੇਲ ਕਲਾਇਟ ਲਾਂਚ ਕਰਨ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the help browser."
 msgstr "ਮੱਦਦ ਬਰਾਊਜ਼ਰ ਲਾਂਚ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the media player."
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਲਾਂਚ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the search tool."
 msgstr "ਖੋਜ ਟੂਲ ਲਾਂਚ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the web browser."
 msgstr "ਵੈਬ ਬਰਾਊਜ਼ਰ ਲਾਂਚ ਕਰਨ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lock the screen."
 msgstr "ਸਕਰੀਨ ਲਾਕ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to log out."
 msgstr "ਲਾਗਆਉਟ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to lower the system volume."
 msgstr "ਸਿਸਟਮ ਵਾਲੀਅਮ ਘੱਟ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to mute the system volume."
 msgstr "ਸਿਸਟਮ ਵਾਲੀਅਮ ਚੁੱਪ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to open the Home folder."
 msgstr "ਘਰ ਫੋਲਡਰ ਖੋਲ੍ਹਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "ਪਲੇਅਬੈਕ ਪੌਜ਼ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to raise the system volume."
 msgstr "ਸਿਸਟਮ ਵਾਲੀਅਮ ਵਧਾਉਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to show the on-screen keyboard"
 msgstr "ਆਨਸਕਰੀਨ ਕੀਬੋਰਡ ਵੇਖਾਉਣ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Binding to show the screen magnifier"
 msgstr "ਵੱਡਦਰਸ਼ੀ ਵੇਖਾਉਣ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
 msgstr "ਅਗਲਾ ਟਰੈਕ ਉੱਤੇ ਜਾਣ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to skip to previous track."
 msgstr "ਪਿਛਲੇ ਟਰੈਕ ਉੱਤੇ ਜਾਣ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "ਪਲੇਅਬੈਕ ਸਟਾਰਟ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ (ਜਾਂ ਪਲੇਅ/ਪੌਜ਼ ਬਦਲਣ ਵਾਸਤੇ)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Binding to start the screen reader"
 msgstr "ਸਕਰੀਨ ਰੀਡਰ ਸ਼ੁਰੂ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to stop playback."
 msgstr "ਪਲੇਅਬੈਕ ਰੋਕਣ ਵਾਸਤੇ ਡਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
-#| msgid "Binding to launch the email client."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Binding to toggle the interface contrast"
 msgstr "ਇੰਟਰਫੇਸ ਕਨਟਰਾਸਟ ਬਦਲਣ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Decrease text size"
 msgstr "ਟੈਕਸਟ ਆਕਾਰ ਘਟਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Eject"
 msgstr "ਬਾਹਰ ਕੱਢੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Home folder"
 msgstr "ਘਰ ਫੋਲਡਰ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid ""
 "If non-empty, keybindings will be ignored unless their settings directory is "
 "in the list. This is useful for lockdown."
@@ -380,92 +387,99 @@ msgstr ""
 "ਦੀ ਸੈਟਿੰਗ "
 "ਡਾਇਰੈਕਟਰੀ ਲਿਸਟ ਵਿੱਚ ਨਾ ਹੋਵੇ। ਇਹ ਲਾਕ-ਕਰਨ ਲਈ ਫਾਇਦੇਮੰਦ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Increase text size"
 msgstr "ਟੈਕਸਟ ਅਕਾਰ ਵਧਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch calculator"
 msgstr "ਕੈਲਕੂਲੇਟਰ ਲਾਂਚ ਕਰੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch email client"
 msgstr "ਈਮੇਲ ਕਲਾਇਟ ਲਾਂਚ ਕਰੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch help browser"
 msgstr "ਮੱਦਦ-ਝਲਕਾਰਾ ਚਲਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch media player"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਲਾਂਚ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Launch web browser"
 msgstr "ਵੈਬ-ਝਲਕਾਰਾ ਚਲਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Lock screen"
 msgstr "ਪਰਦੇ ਨੂੰ ਤਾਲਾ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Log out"
 msgstr "ਲਾਗਆਉਟ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Magnifier zoom in"
+msgstr "ਵੱਡਦਰਸ਼ੀ ਜ਼ੂਮ ਇਨ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Magnifier zoom out"
+msgstr "ਵੱਡਦਰਸ਼ੀ ਜ਼ੂਮ ਆਉਟ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
 msgstr "ਅਗਲਾ ਟਰੈਕ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Pause playback"
 msgstr "ਪਲੇਅਬੈਕ ਪੌਜ਼"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Play (or play/pause)"
 msgstr "ਚਲਾਓ (ਜਾਂ ਚਲਾਓ/ਵਿਰਾਮ)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Previous track"
 msgstr "ਪਿਛਲਾ ਟਰੈਕ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Search"
 msgstr "ਖੋਜ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Stop playback"
 msgstr "ਪਲੇਅਬੈਕ ਰੋਕੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
-#| msgid "Toggle screenreader"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Toggle contrast"
 msgstr "ਕਨਟਰਾਸਟ ਬਦਲੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle magnifier"
 msgstr "ਵੱਡਦਰਸ਼ੀ ਬਦਲੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Toggle on-screen keyboard"
 msgstr "ਆਨ-ਸਕਰੀਨ ਕੀਬੋਰਡ ਬਦਲੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle screen reader"
 msgstr "ਸਕਰੀਨ ਰੀਡਰ ਬਦਲੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Toggle touchpad"
 msgstr "ਟੱਚਪੈਡ ਬਦਲੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume down"
 msgstr "ਆਵਾਜ਼ ਘਟਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Volume mute"
 msgstr "ਆਵਾਜ਼ ਚੁੱਪ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Volume up"
 msgstr "ਆਵਾਜ਼ ਵਧਾਓ"
 
@@ -540,10 +554,10 @@ msgid ""
 "the update being automatically installed or the user notified."
 msgstr ""
 "ਅੱਪਡੇਟ ਲਈ ਕਿੰਨੀ ਕੁ ਵਾਰ ਚੈੱਕ ਕਰਨਾ ਹੈ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ। ਇਹ ਸਮੇਂ ਦਾ ਵੱਧ ਤੋਂ "
-"ਵੱਧ ਅੰਤਰਾਲ ਹੈ, "
-"ਜੋ ਕਿ ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਪਬਲਿਸ਼ ਕਰਨ ਅਤੇ ਅੱਪਡੇਟ ਨੂੰ ਆਟੋਮੈਟਿਕ ਹੀ ਇੰਸਟਾਲ ਕਰਨ ਜਾਂ "
-"ਯੂਜ਼ਰ ਸੂਚਨਾ "
-"ਦੇਣ ਦੇ ਵਿੱਚ ਲੰਘਾਇਆ ਜਾਂਦਾ ਹੈ।"
+"ਵੱਧ ਅੰਤਰਾਲ ਹੈ, ਜੋ ਕਿ "
+"ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਪਬਲਿਸ਼ ਕਰਨ ਅਤੇ ਅੱਪਡੇਟ ਨੂੰ ਆਟੋਮੈਟਿਕ ਹੀ ਇੰਸਟਾਲ ਕਰਨ ਜਾਂ ਯੂਜ਼ਰ "
+"ਸੂਚਨਾ ਦੇਣ ਦੇ ਵਿੱਚ "
+"ਲੰਘਾਇਆ ਜਾਂਦਾ ਹੈ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to notify the user that non-critical updates are available"
@@ -567,9 +581,9 @@ msgid ""
 "frequently."
 msgstr ""
 "ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਅੱਪਡੇਟ ਲਈ ਯੂਜ਼ਰ ਨੂੰ ਕਿੰਨੀ ਕੁ ਵਾਰ ਦੱਸਣਾ ਹੈ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ। "
-"ਸੁਰੱਖਿਆ "
-"ਅੱਪਡੇਟ ਨੂੰ ਅੱਪਡੇਟ ਚੈੱਕ ਕਰਨ ਦੇ ਤੁਰੰਤ ਬਾਅਦ ਵੇਖਾਇਆ ਜਾਂਦਾ ਹੈ, ਪਰ ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਲਈ "
-"ਸੂਚਨਾ ਅਕਸਰ ਨਹੀਂ ਵੇਖਾਈ ਜਾਂਦੀ।"
+"ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਨੂੰ ਅੱਪਡੇਟ "
+"ਚੈੱਕ ਕਰਨ ਦੇ ਤੁਰੰਤ ਬਾਅਦ ਵੇਖਾਇਆ ਜਾਂਦਾ ਹੈ, ਪਰ ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਲਈ ਸੂਚਨਾ ਅਕਸਰ ਨਹੀਂ "
+"ਵੇਖਾਈ ਜਾਂਦੀ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "Install updates automatically when running on battery power"
@@ -647,8 +661,8 @@ msgid ""
 "using LTSP or when testing."
 msgstr ""
 "ਵਰਤਣ ਲਈ ਇੰਸਟਾਲ root, ਜਦੋਂ ਪੈਕੇਜ ਉੱਤੇ ਕਾਰਵਾਈ ਕਰਨੀ ਹੋਵੇ, ਜੋ ਕਿ LTSP ਵਰਤਦੇ ਹੋਣ "
-"ਜਾਂ "
-"ਟੈਸਟ ਕਰਨ ਹੋਣ।"
+"ਜਾਂ ਟੈਸਟ ਕਰਨ "
+"ਹੋਣ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
 msgid ""
@@ -656,8 +670,8 @@ msgid ""
 "seconds since the epoch, or zero for never."
 msgstr ""
 "ਆਖਰੀ ਵਾਰ, ਜਦੋਂ ਅਸੀਂ ਯੂਜ਼ਰ ਨੂੰ ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਸੂਚਨਾ ਦਿੱਤੀ ਸੀ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ "
-"ਹੈ, ਈਪੋਚ ਤੋਂ ਜਾਂ "
-"ਕਦੇ ਲਈ ਨਹੀਂ ਵਾਸਤੇ ਸਿਫ਼ਰ।"
+"ਹੈ, ਈਪੋਚ ਤੋਂ ਜਾਂ ਕਦੇ ਲਈ "
+"ਨਹੀਂ ਵਾਸਤੇ ਸਿਫ਼ਰ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
 msgid "The last time we told the user about non-critical notifications"
@@ -676,8 +690,8 @@ msgid ""
 "updates. Value is in seconds."
 msgstr ""
 "ਸ਼ੈਸ਼ਨ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਸਕਿੰਟਾਂ ਦੀ ਗਿਣਤੀ, ਜਿਸ ਦੇ ਬਾਅਦ ਅੱਪਡੇਟ ਲਈ ਚੈੱਕ ਕੀਤਾ "
-"ਜਾਵੇ। ਮੁੱਲ "
-"ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ।"
+"ਜਾਵੇ। ਮੁੱਲ ਸਕਿੰਟਾਂ "
+"ਵਿੱਚ ਹੈ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
 msgid ""
@@ -686,10 +700,10 @@ msgid ""
 "required may also only be available on wired connections."
 msgstr ""
 "ਅੱਪਡੇਟ ਚੈੱਕ ਕਰਨ ਲਈ ਵਾਈ-ਫਾਈ (ਵਾਇਰਲੈਸ ਲੈਨ) ਕੁਨੈਕਸ਼ਨ ਨੂੰ ਵਰਤੋਂ। ਜਦੋਂ ਤਾਰ ਨਾਲ "
-"ਕੁਨੈਕਸ਼ਨ ਮਿਲੇ "
-"ਤਾਂ ਉਹ ਪੈਕੇਜ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਤੇਜ਼ ਹੋ ਸਕਦਾ ਹੈ ਅਤੇ VPN ਜਾਂ ਪਰਾਕਸੀ ਕੇਵਲ ਤਾਰ ਵਾਲੇ "
-"ਕੁਨੈਕਸ਼ਨ "
-"ਰਾਹੀਂ ਹੀ ਸੰਭਵ ਹੋ ਸਕਦਾ ਹੈ।"
+"ਕੁਨੈਕਸ਼ਨ ਮਿਲੇ ਤਾਂ ਉਹ "
+"ਪੈਕੇਜ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਤੇਜ਼ ਹੋ ਸਕਦਾ ਹੈ ਅਤੇ VPN ਜਾਂ ਪਰਾਕਸੀ ਕੇਵਲ ਤਾਰ ਵਾਲੇ "
+"ਕੁਨੈਕਸ਼ਨ ਰਾਹੀਂ ਹੀ ਸੰਭਵ "
+"ਹੋ ਸਕਦਾ ਹੈ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
 msgid "Use WiFi connections"
@@ -712,12 +726,12 @@ msgid ""
 "update running systems."
 msgstr ""
 "ਜਦੋਂ ਹਟਾਉਣਯੋਗ ਮੀਡਿਆ ਪਾਇਆ ਜਾਵੇ ਤਾਂ ਇਹ ਚੈੱਕ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਕਿ ਕਿਤੇ ਇਹ ਰੂਟ "
-"ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ "
-"ਕੋਈ ਖਾਸ ਫਾਇਲ-ਨਾਂ ਤਾਂ ਨਹੀਂ ਰੱਖਦਾ। ਜੇ ਫਾਇਲ-ਨਾਂ ਮਿਲ ਜਾਵੇ ਤਾਂ ਅੱਪਡੇਟ ਚੈੱਕ ਕੀਤਾ "
-"ਜਾਂਦਾ ਹੈ। "
-"ਇਸ ਨਾਲ ਚੱਲਦੇ ਸਿਸਟਮਾਂ ਨੂੰ ਇੰਸਟਾਲ ਦੇ ਬਾਅਦ ਡਿਸਕ (ਪੋਸਟ-ਇੰਸਟਾਲ ਡਿਸਕ) ਦੀ ਵਰਤੋਂ ਨਾਲ "
-"ਅੱਪਡੇਟ "
-"ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।"
+"ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਕੋਈ "
+"ਖਾਸ ਫਾਇਲ-ਨਾਂ ਤਾਂ ਨਹੀਂ ਰੱਖਦਾ। ਜੇ ਫਾਇਲ-ਨਾਂ ਮਿਲ ਜਾਵੇ ਤਾਂ ਅੱਪਡੇਟ ਚੈੱਕ ਕੀਤਾ ਜਾਂਦਾ "
+"ਹੈ। ਇਸ ਨਾਲ "
+"ਚੱਲਦੇ ਸਿਸਟਮਾਂ ਨੂੰ ਇੰਸਟਾਲ ਦੇ ਬਾਅਦ ਡਿਸਕ (ਪੋਸਟ-ਇੰਸਟਾਲ ਡਿਸਕ) ਦੀ ਵਰਤੋਂ ਨਾਲ ਅੱਪਡੇਟ "
+"ਕੀਤਾ ਜਾ ਸਕਦਾ "
+"ਹੈ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 msgid ""
@@ -1142,12 +1156,10 @@ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਇੱਕ ਸਮੇਂ ਇੱਕ ਸਵਿੱਚ ਹੀ ਦੱਬੋ (ਸਟਿੱਕੀ ਸਵਿੱਚਾਂ)(_P)"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
-#| msgid "Accessibility"
 msgid "Accessibility settings"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਸੈਟਿੰਗ"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
-#| msgid "Accessibility keyboard plugin"
 msgid "Accessibility settings plugin"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਸੈਟਿੰਗ ਪਲੱਗਇਨ"
 
@@ -1159,12 +1171,12 @@ msgstr "ਆਟੋ-ਮਾਊਂਟ"
 msgid "Automounter plugin"
 msgstr "ਆਟੋਮਾਊਂਟਰ ਪਲੱਗਇਨ"
 
-#: ../plugins/automount/gsd-automount-manager.c:145
+#: ../plugins/automount/gsd-automount-manager.c:154
 #, c-format
 msgid "Unable to mount %s"
 msgstr "%s ਮਾਊਂਟ ਕਰਨ ਲਈ ਅਸਮਰੱਥ"
 
-#: ../plugins/automount/gsd-automount-manager.c:204
+#: ../plugins/automount/gsd-automount-manager.c:267
 #, c-format
 msgid "Unable to open a folder for %s"
 msgstr "%s ਲਈ ਫੋਲਡਰ ਖੋਲ੍ਹਣ ਲਈ ਅਸਮਰੱਥ"
@@ -1305,12 +1317,12 @@ msgstr "ਡੰਮੀ"
 msgid "Dummy plugin"
 msgstr "ਡੰਮੀ ਪਲੱਗਇਨ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:271
+#: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "\"%s\" ਉੱਤੇ ਘੱਟ ਥਾਂ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:273
+#: ../plugins/housekeeping/gsd-disk-space.c:334
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
@@ -1320,19 +1332,19 @@ msgstr ""
 "ਹੋਰ ਥਾਂ "
 "ਵਿਹਲੀ ਕਰ ਸਕਦੇ ਹੋ।"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:277
+#: ../plugins/housekeeping/gsd-disk-space.c:338
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "ਵਾਲੀਅਮ \"%s\" ਉੱਤੇ ਕੇਵਲ %s ਡਿਸਕ ਥਾਂ ਖਾਲੀ ਰਹਿ ਗਈ ਹੈ।"
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:282
+#: ../plugins/housekeeping/gsd-disk-space.c:343
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:202
 msgid "Low Disk Space"
 msgstr "ਘੱਟ ਡਿਸਕ ਥਾਂ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:284
+#: ../plugins/housekeeping/gsd-disk-space.c:345
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1342,22 +1354,22 @@ msgstr ""
 "ਹੋਰ ਥਾਂ ਵਿਹਲੀ "
 "ਕਰ ਸਕਦੇ ਹੋ।"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:287
+#: ../plugins/housekeeping/gsd-disk-space.c:348
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "ਇਹ ਕੰਪਿਊਟਰ ਉੱਤੇ ਕੇਵਲ %s ਡਿਸਕ ਥਾਂ ਬਾਕੀ ਰਹਿ ਗਈ ਹੈ।"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:308
+#: ../plugins/housekeeping/gsd-disk-space.c:369
 msgid "Examine"
 msgstr "ਜਾਂਚ ਕਰੋ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:316
+#: ../plugins/housekeeping/gsd-disk-space.c:377
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
 msgid "Empty Trash"
 msgstr "ਰੱਦੀ ਖਾਲੀ ਕਰੋ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:323
+#: ../plugins/housekeeping/gsd-disk-space.c:384
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
 msgid "Ignore"
 msgstr "ਅਣਡਿੱਠਾ"
@@ -1409,48 +1421,6 @@ msgstr ""
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:442
 msgid "Examine…"
 msgstr "ਜਾਂਚ ਕਰੋ…"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
-#, c-format
-#| msgid "Removing item %"
-msgid "Removing item %s of %s"
-msgstr "%2$s ਵਿੱਚੋਂ %1$s ਆਈਟਮ ਹਟਾਈ ਜਾ ਰਹੀ ਹੈ"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:119
-#, c-format
-msgid "Removing: %s"
-msgstr "ਹਟਾਈ ਜਾ ਰਹੀ ਹੈ: %s"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:249
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:298
-msgid "Emptying the trash"
-msgstr "ਰੱਦੀ ਖਾਲੀ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:274
-msgid "Preparing to empty trash…"
-msgstr "ਰੱਦੀ ਖਾਲੀ ਕਰਨ ਦੀ ਤਿਆਰੀ ਜਾਰੀ…"
-
-#. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:301
-msgid "From: "
-msgstr "ਤੋਂ: "
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:362
-msgid "Empty all of the items from the trash?"
-msgstr "ਕੀ ਸਭ ਆਈਟਮਾਂ ਨੂੰ ਰੱਦੀ ਵਿੱਚ ਖਾਲੀ ਕਰ ਦੇਣਾ ਹੈ?"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:365
-msgid ""
-"If you choose to empty the trash, all items in it will be permanently lost. "
-"Please note that you can also delete them separately."
-msgstr ""
-"ਜੇ ਤੁਸੀਂ ਰੱਦੀ ਨੂੰ ਖਾਲੀ ਕਰਨ ਦੀ ਚੋਣ ਕੀਤੀ ਤਾਂ ਇਸ ਵਿਚਲੀਆਂ ਸਭ ਆਈਟਮਾਂ ਪੱਕੇ ਤੌਰ ਉੱਤੇ "
-"ਹਟਾਈਆਂ ਜਾਣਗੀਆਂ। "
-"ਯਾਦ ਰੱਖੋ ਕਿ ਤੁਸੀਂ ਉਹਨਾਂ ਨੂੰ ਅੱਡ ਅੱਡ ਵੀ ਹਟਾ ਸਕਦੇ ਹੋ।"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:372
-msgid "_Empty Trash"
-msgstr "ਰੱਦੀ ਖਾਲੀ ਕਰੋ(_E)"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -1604,47 +1574,48 @@ msgstr "ਪਰਿੰਟ-ਨੋਟੀਫਿਕੇਸ਼ਨ"
 msgid "Print-notifications plugin"
 msgstr "ਪਰਿੰਟ-ਨੋਟੀਫਿਕੇਸ਼ਨ ਪਲੱਗਇਨ"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:156
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
 msgid "Printer added"
 msgstr "ਪਰਿੰਟਰ ਸ਼ਾਮਲ ਕੀਤਾ"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:165
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
 msgid "Printer removed"
 msgstr "ਪਰਿੰਟਰ ਹਟਾਇਆ ਗਿਆ"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:239
 msgid "Printing stopped"
 msgstr "ਪਰਿੰਟ ਕਰਨਾ ਰੋਕਿਆ"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:276
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:241
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:247
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:253
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:259
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:270
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:282
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "%2$s ਉੱਤੇ \"%1$s\""
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:199
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:245
 msgid "Printing canceled"
 msgstr "ਪਰਿੰਟ ਕਰਨਾ ਰੱਦ ਕੀਤਾ"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:251
 msgid "Printing aborted"
 msgstr "ਪਰਿੰਟ ਕਰਨਾ ਅਧੂਰਾ ਛੱਡਿਆ"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:213
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:257
 msgid "Printing completed"
 msgstr "ਪਰਿੰਟ ਕਾਰਵਾਈ ਪੂਰੀ ਹੋਈ"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:274
-#| msgid "Hinting"
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:268
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:280
 msgid "Printing"
 msgstr "ਪਰਿੰਟਿੰਗ"
 
@@ -1780,12 +1751,10 @@ msgid "smartcard driver"
 msgstr "ਸਮਾਰਟਕਾਰਡ ਡਰਾਇਵਰ"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
-#| msgid "Change system time zone"
 msgid "Change system time and date settings"
 msgstr "ਸਿਸਟਮ ਸਮਾਂ ਤੇ ਮਿਤੀ ਸੈਟਿੰਗ ਬਦਲੋ"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-#| msgid "Privileges are required to configure the hardware clock."
 msgid "Privileges are required to configure time and date settings."
 msgstr "ਸਮਾਂ ਅਤੇ ਮਿਤੀ ਸੈਟਿੰਗ ਦੀ ਸੰਰਚਨਾ ਵਾਸਤੇ ਅਧਿਕਾਰਾਂ ਦੀ ਲੋੜ ਹੈ"
 
@@ -1954,9 +1923,37 @@ msgstr "ਫਾਇਰਮਵੇਅਰ ਇੰਸਟਾਲ"
 
 #. TRANSLATORS: we should ignore this device and not ask anymore
 #: ../plugins/updates/gsd-updates-firmware.c:588
-#| msgid "Ignore"
 msgid "Ignore devices"
 msgstr "ਜੰਤਰ ਅਣਡਿੱਠੇ"
+
+#~| msgid "Removing item %"
+#~ msgid "Removing item %s of %s"
+#~ msgstr "%2$s ਵਿੱਚੋਂ %1$s ਆਈਟਮ ਹਟਾਈ ਜਾ ਰਹੀ ਹੈ"
+
+#~ msgid "Removing: %s"
+#~ msgstr "ਹਟਾਈ ਜਾ ਰਹੀ ਹੈ: %s"
+
+#~ msgid "Emptying the trash"
+#~ msgstr "ਰੱਦੀ ਖਾਲੀ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
+
+#~ msgid "Preparing to empty trash…"
+#~ msgstr "ਰੱਦੀ ਖਾਲੀ ਕਰਨ ਦੀ ਤਿਆਰੀ ਜਾਰੀ…"
+
+#~ msgid "From: "
+#~ msgstr "ਤੋਂ: "
+
+#~ msgid "Empty all of the items from the trash?"
+#~ msgstr "ਕੀ ਸਭ ਆਈਟਮਾਂ ਨੂੰ ਰੱਦੀ ਵਿੱਚ ਖਾਲੀ ਕਰ ਦੇਣਾ ਹੈ?"
+
+#~ msgid ""
+#~ "If you choose to empty the trash, all items in it will be permanently "
+#~ "lost. Please note that you can also delete them separately."
+#~ msgstr ""
+#~ "ਜੇ ਤੁਸੀਂ ਰੱਦੀ ਨੂੰ ਖਾਲੀ ਕਰਨ ਦੀ ਚੋਣ ਕੀਤੀ ਤਾਂ ਇਸ ਵਿਚਲੀਆਂ ਸਭ ਆਈਟਮਾਂ ਪੱਕੇ ਤੌਰ ਉੱਤੇ ਹਟਾਈਆਂ "
+#~ "ਜਾਣਗੀਆਂ। ਯਾਦ ਰੱਖੋ ਕਿ ਤੁਸੀਂ ਉਹਨਾਂ ਨੂੰ ਅੱਡ ਅੱਡ ਵੀ ਹਟਾ ਸਕਦੇ ਹੋ।"
+
+#~ msgid "_Empty Trash"
+#~ msgstr "ਰੱਦੀ ਖਾਲੀ ਕਰੋ(_E)"
 
 #~ msgid ""
 #~ "Disable the keyboard layout indicator unconditionally, do not show it "
