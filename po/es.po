@@ -10,17 +10,17 @@
 # Pablo Gonzalo del Campo <pablodc@bigfoot.com>, 2002,2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2005, 2006.
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2011-03-02 19:40+0000\n"
-"PO-Revision-Date: 2011-03-04 10:46+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2011-03-05 10:40+0000\n"
+"PO-Revision-Date: 2011-03-05 14:11+0100\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,8 +94,8 @@ msgid ""
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
 "Seleccionar el método de desplazamiento del «touchpad». Los valores "
-"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento en "
-"el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
+"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento "
+"en el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid ""
@@ -158,9 +158,9 @@ msgstr "Activación de este complemento"
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "Prioridad de uso para este complemento"
@@ -170,9 +170,9 @@ msgstr "Prioridad de uso para este complemento"
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr ""
 "Prioridad que usar para este complemento en la cola de inicio de gnome-"
@@ -183,9 +183,9 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 msgstr "Indica si gnome-settings-daemon activará este complemento o no"
 
@@ -501,18 +501,35 @@ msgstr ""
 "disponible"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+msgid "Automatically download updates in the background without confirmation"
+msgstr ""
+"Descargar automáticamente actualizaciones en segundo plano sin confirmación"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+"'connection-use-mobile' is enabled."
+msgstr ""
+"Descargar automáticamente actualizaciones en segundo plano sin confirmación. "
+"Las actualizaciones se descargarán automáticamente al usar conexiones "
+"cableadas, y WiFi en el caso de que «connection-use-wifi» esté activada, y "
+"conexiones móviles de banda ancha si «connection-use-mobile» está activada."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid "Automatically update these types of updates"
 msgstr "Actualizar automáticamente estos tipos de actualizaciones"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically update these types of updates."
 msgstr "Actualizar automáticamente estos tipos de actualizaciones."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
 msgstr "Dispositivos que se deben ignorar"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
@@ -520,11 +537,11 @@ msgstr ""
 "Dispositivos que se deben ignorar, separados por comas. Pueden incluir los "
 "caracteres «*» y «?»."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid "Firmware files that should not be searched for"
 msgstr "Archivos de firmware que no se deben buscar"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
@@ -532,32 +549,32 @@ msgstr ""
 "Archivos de firmware que no se deben buscar, separados por comas. Se pueden "
 "incluir los caracteres «*» y «?»."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid "Get the update list when the session starts"
 msgstr "Obtener la lista de actualizaciones al iniciar la sesión"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "Get the update list when the session starts, even if not scheduled to."
 msgstr ""
 "Obtener la lista de actualizaciones al iniciar la sesión, incluso si no está "
 "programado."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid "How often to check for distribution upgrades"
 msgstr ""
 "Con qué frecuencia se deben comprobar las actualizaciones de la distribución"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr ""
 "Con qué frecuencia se debe comprobar si hay actualizaciones de la "
 "distribución. Valor en segundos."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for updates"
 msgstr "Con qué frecuencia deben comprobarse las actualizaciones"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid ""
 "How often to check for updates. Value is in seconds. This is a maximum "
 "amount of time that can pass between a security update being published, and "
@@ -568,23 +585,23 @@ msgstr ""
 "se publica una actualización de seguridad, y se instala automáticamente o se "
 "notifica al usuario."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to notify the user that non-critical updates are available"
 msgstr ""
 "Con qué frecuencia se debe avisar al usuario que existen actualizaciones no "
 "críticas disponibles"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
 msgid "How often to refresh the package cache"
 msgstr "Con qué frecuencia se debe comprobar la caché de paquetes"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr ""
 "Con qué frecuencia se debe actualizar la caché de paquetes. Valor en "
 "segundos."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
@@ -597,33 +614,33 @@ msgstr ""
 "pero las notificaciones de las actualizaciones no críticas se deberían "
 "mostrar con menos frecuencia."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Install updates automatically when running on battery power"
 msgstr ""
 "Instalar las actualizaciones automáticamente cuando esté en modo batería"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Install updates automatically when running on battery power."
 msgstr ""
 "Instalar las actualizaciones automáticamente cuando esté en modo batería."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid "Notify the user for completed updates"
 msgstr "Avisar al usuario cuando se completen las actualizaciones"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Notify the user for completed updates where the user needs to restart"
 msgstr ""
 "Avisar al usuario cuando se haya completado una actualización y se necesite "
 "reiniciar"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid "Notify the user for completed updates where the user needs to restart."
 msgstr ""
 "Avisar al usuario cuando se haya completado una actualización y se necesite "
 "reiniciar."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid ""
 "Notify the user for completed updates. This may be a useful notification for "
 "some users as installing updates prevents shutdown."
@@ -632,24 +649,24 @@ msgstr ""
 "un aviso útil para algunos usuarios ya que la instalación de paquetes "
 "previene el apagado."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid "Notify the user when distribution upgrades are available"
 msgstr ""
 "Avisar al usuario cuando haya actualizaciones de la distribución disponibles"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "Notify the user when distribution upgrades are available."
 msgstr ""
 "Avisar al usuario cuando haya actualizaciones de la distribución disponibles"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
 "Notify the user when the automatic update was not started on battery power"
 msgstr ""
 "Avisar al usuario cuando no se haya iniciado una actualización automática en "
 "modo batería"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
 msgid ""
 "Notify the user when the update was not automatically started because the "
 "machine is running on battery power."
@@ -657,25 +674,25 @@ msgstr ""
 "Avisar al usuario cuando no se inicie automáticamente la actualización "
 "porque el equipo está funcionando con batería baja."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
 msgid "Notify the user when the update was started"
 msgstr "Avisar al usuario cuando se inicie la actualización"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
 msgid "Notify the user when the update was started."
 msgstr "Avisar al usuario cuando se inicie la actualización."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
 msgid "The filenames on removable media that designate it a software source."
 msgstr ""
 "Los nombres de archivos en dispositivos extraíbles que lo designan como una "
 "fuente de software."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
 msgid "The install root to use when adding and removing packages"
 msgstr "La raíz de instalación que usar al añadir y quitar paquetes"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
 msgid ""
 "The install root to use when processing packages, which is changed when "
 "using LTSP or when testing."
@@ -683,7 +700,7 @@ msgstr ""
 "La raíz de instalación que usar al añadir y quitar paquetes, cambiada al "
 "usar LTSP o en pruebas."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
@@ -691,19 +708,19 @@ msgstr ""
 "La última vez que se notificó al usuario sobre actualizaciones no críticas. "
 "El valor es en segundos desde la época, o cero para «nunca»."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
 msgid "The last time we told the user about non-critical notifications"
 msgstr ""
 "La última vez que se preguntó al usuario acerca de los avisos no críticos"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
 msgid ""
 "The number of seconds at session startup to wait before checking for updates"
 msgstr ""
 "El número de segundos que se debe esperar al inicio de la sesión para "
 "comprobar si hay actualizaciones"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
 msgid ""
 "The number of seconds at session startup to wait before checking for "
 "updates. Value is in seconds."
@@ -711,7 +728,7 @@ msgstr ""
 "El número de segundos que esperar al inicio de la sesión para comprobar si "
 "hay actualizaciones. El valor es en segundos."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
 msgid ""
 "Use WiFi (wireless LAN) connections to check for updates. It may be faster "
 "to download packages when on a wired connection, and the VPN or proxy "
@@ -721,22 +738,22 @@ msgstr ""
 "Una red cableada puede ser más rápida para bajar paquetes, y la VPN o el "
 "proxy requeridos puede estar disponibles sólo para conexiones cableadas."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
 msgid "Use WiFi connections"
 msgstr "Usar conexiones WiFi"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
 msgid "Use mobile broadband connections"
 msgstr "Usar conexiones de banda ancha móvil"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
 msgid ""
 "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
 "Usar conexiones móviles de banda ancha como GSM o CDMA para buscar "
 "actualizaciones."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -803,26 +820,22 @@ msgid "Antialiasing"
 msgstr "Antialias"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
-msgid "DPI"
-msgstr "DPI"
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "Hinting"
 msgstr "Contorno"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "Lista de módulos GTK+ explícitamente desactivados"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "Lista de módulos GTK+ explícitamente activados"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
 msgstr "Orden RGBA"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -834,16 +847,7 @@ msgstr ""
 "para rojo a la izquierda (el más común), \"bgr\" para azul a la izquierda, "
 "\"vrgb\" para rojo arriba y \"vbgr\" para rojo abajo."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch. 0.0 DPI means that the X server's DPI will be used."
-msgstr ""
-"La resolución usada para convertir tamaños de tipografías a tamaños de "
-"píxel, en puntos por pulgada. 0.0 DPI significa que se usará el DPI del "
-"servidor X."
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -854,7 +858,7 @@ msgstr ""
 "grises antialias estándar, \"rgba\" para antialias de subpíxel (sólo para "
 "pantallas LCD)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -1115,8 +1119,8 @@ msgid ""
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Acaba de pulsar la tecla «Mayúsculas» 5 veces. Este es el acceso rápido para "
-"la característica «Teclas persistentes», que afecta la manera en que funciona "
-"el teclado."
+"la característica «Teclas persistentes», que afecta la manera en que "
+"funciona el teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
@@ -1126,14 +1130,14 @@ msgid ""
 "keyboard works."
 msgstr ""
 "Acaba de pulsar dos teclas a la vez, o ha pulsado la tecla «Mayúsculas» 5 "
-"veces seguidas. Esto desactiva la característica de «Teclas persistentes», lo "
-"cual afecta a la forma en que funciona su teclado."
+"veces seguidas. Esto desactiva la característica de «Teclas persistentes», "
+"lo cual afecta a la forma en que funciona su teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
 msgid "Sticky Keys Alert"
 msgstr "Alerta de teclas persistentes"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:524
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Preferencias de acceso universal"
@@ -1772,45 +1776,45 @@ msgid "Privileges are required to configure time and date settings."
 msgstr "Se requieren privilegios para configurar la fecha y la hora."
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:189
+#: ../plugins/updates/gsd-updates-manager.c:194
 msgid "Distribution upgrades available"
 msgstr "Existen actualizaciones para la distribución"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:199
+#: ../plugins/updates/gsd-updates-manager.c:204
 msgid "More information"
 msgstr "Más información"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:302
-#: ../plugins/updates/gsd-updates-manager.c:361
+#: ../plugins/updates/gsd-updates-manager.c:307
+#: ../plugins/updates/gsd-updates-manager.c:366
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Actualización"
 msgstr[1] "Actualizaciones"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:305
+#: ../plugins/updates/gsd-updates-manager.c:310
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Existe una importante actualización de software disponible"
 msgstr[1] "Existen importantes actualizaciones de software disponibles"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:325
-#: ../plugins/updates/gsd-updates-manager.c:384
+#: ../plugins/updates/gsd-updates-manager.c:330
+#: ../plugins/updates/gsd-updates-manager.c:389
 msgid "Install updates"
 msgstr "Instalar actualizaciones"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:364
+#: ../plugins/updates/gsd-updates-manager.c:369
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Existe una actualización de software disponible"
 msgstr[1] "Existen actualizaciones de software disponibles"
 
 #. TRANSLATORS: policy says update, but we are on battery and so prompt
-#: ../plugins/updates/gsd-updates-manager.c:430
+#: ../plugins/updates/gsd-updates-manager.c:435
 msgid ""
 "Automatic updates are not being installed as the computer is running on "
 "battery power"
@@ -1819,75 +1823,75 @@ msgstr ""
 "en modo batería"
 
 #. TRANSLATORS: informs user will not install by default
-#: ../plugins/updates/gsd-updates-manager.c:432
+#: ../plugins/updates/gsd-updates-manager.c:437
 msgid "Updates not installed"
 msgstr "Actualizaciones no instaladas"
 
 #. TRANSLATORS: to hell with my battery life, just do it
-#: ../plugins/updates/gsd-updates-manager.c:438
+#: ../plugins/updates/gsd-updates-manager.c:443
 msgid "Install the updates anyway"
 msgstr "Instalar las actualizaciones de todos modos"
 
-#: ../plugins/updates/gsd-updates-manager.c:454
+#: ../plugins/updates/gsd-updates-manager.c:459
 msgid "No restart is required."
 msgstr "No es necesario reiniciar."
 
-#: ../plugins/updates/gsd-updates-manager.c:457
+#: ../plugins/updates/gsd-updates-manager.c:462
 msgid "A restart is required."
 msgstr "Es necesario reiniciar."
 
-#: ../plugins/updates/gsd-updates-manager.c:460
+#: ../plugins/updates/gsd-updates-manager.c:465
 msgid "You need to log out and log back in."
 msgstr "Debe cerrar la sesión e iniciarla de nuevo."
 
-#: ../plugins/updates/gsd-updates-manager.c:463
+#: ../plugins/updates/gsd-updates-manager.c:468
 msgid "You need to restart the application."
 msgstr "Debe reiniciar la aplicación."
 
-#: ../plugins/updates/gsd-updates-manager.c:466
+#: ../plugins/updates/gsd-updates-manager.c:471
 msgid "You need to log out and log back in to remain secure."
 msgstr ""
 "Debe salir de la sesión e iniciar sesión de nuevo para mantener la seguridad."
 
-#: ../plugins/updates/gsd-updates-manager.c:469
+#: ../plugins/updates/gsd-updates-manager.c:474
 msgid "A restart is required to remain secure."
 msgstr "Será necesario reiniciar para mantener la seguridad."
 
 #. TRANSLATORS: we did the update, but some updates were skipped and not applied
-#: ../plugins/updates/gsd-updates-manager.c:530
+#: ../plugins/updates/gsd-updates-manager.c:535
 msgid "One package was skipped:"
 msgid_plural "Some packages were skipped:"
 msgstr[0] "Se ha omitido un paquete:"
 msgstr[1] "Se han omitido algunos paquetes:"
 
 #. TRANSLATORS: title: system update completed all okay
-#: ../plugins/updates/gsd-updates-manager.c:562
+#: ../plugins/updates/gsd-updates-manager.c:567
 msgid "The system update has completed"
 msgstr "Se ha completado la actualización del sistema"
 
 #. TRANSLATORS: restart computer as system packages need update
-#: ../plugins/updates/gsd-updates-manager.c:569
+#: ../plugins/updates/gsd-updates-manager.c:574
 msgid "Restart computer now"
 msgstr "Reiniciar el equipo ahora"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:640
+#: ../plugins/updates/gsd-updates-manager.c:645
 msgid "Updates"
 msgstr "Actualizaciones"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:644
+#: ../plugins/updates/gsd-updates-manager.c:649
 msgid "Unable to access software updates"
 msgstr "No se pudo acceder a las actualizaciones de software"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:647
+#: ../plugins/updates/gsd-updates-manager.c:652
 msgid "Try again"
 msgstr "Intentarlo de nuevo"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1006
+#: ../plugins/updates/gsd-updates-manager.c:1090
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Se está ejecutando una transacción que no se puede interrumpir"
 
@@ -1943,6 +1947,17 @@ msgstr "Instalar firmware"
 #: ../plugins/updates/gsd-updates-firmware.c:588
 msgid "Ignore devices"
 msgstr "Ignorar dispositivos"
+
+#~ msgid "DPI"
+#~ msgstr "DPI"
+
+#~ msgid ""
+#~ "The resolution used for converting font sizes to pixel sizes, in dots per "
+#~ "inch. 0.0 DPI means that the X server's DPI will be used."
+#~ msgstr ""
+#~ "La resolución usada para convertir tamaños de tipografías a tamaños de "
+#~ "píxel, en puntos por pulgada. 0.0 DPI significa que se usará el DPI del "
+#~ "servidor X."
 
 #~ msgid "Removing item %s of %s"
 #~ msgstr "Quitando el elemento %s de %s"
