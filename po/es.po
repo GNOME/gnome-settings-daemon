@@ -10,17 +10,17 @@
 # Pablo Gonzalo del Campo <pablodc@bigfoot.com>, 2002,2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2005, 2006.
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2011-03-02 16:05+0000\n"
-"PO-Revision-Date: 2011-03-02 20:38+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2011-03-02 19:40+0000\n"
+"PO-Revision-Date: 2011-03-04 10:46+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,8 +94,8 @@ msgid ""
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
 "Seleccionar el método de desplazamiento del «touchpad». Los valores "
-"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento "
-"en el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
+"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento en "
+"el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid ""
@@ -265,12 +265,10 @@ msgid "Allowed keys"
 msgstr "Teclas permitidas"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
-#| msgid "Binding to show the screen magnifier"
 msgid "Binding for the magnifier to zoom in"
 msgstr "Vínculo para que el magnificador amplíe"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
-#| msgid "Binding to show the screen magnifier"
 msgid "Binding for the magnifier to zoom out"
 msgstr "Vínculo para que el magnificador reduzca"
 
@@ -429,11 +427,11 @@ msgstr "Salir de la sesión"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Magnifier zoom in"
-msgstr ""
+msgstr "Ampliación de la magnificación"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Magnifier zoom out"
-msgstr ""
+msgstr "Reducción de la magnificación"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
@@ -1117,8 +1115,8 @@ msgid ""
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Acaba de pulsar la tecla «Mayúsculas» 5 veces. Este es el acceso rápido para "
-"la característica «Teclas persistentes», que afecta la manera en que "
-"funciona el teclado."
+"la característica «Teclas persistentes», que afecta la manera en que funciona "
+"el teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
@@ -1128,8 +1126,8 @@ msgid ""
 "keyboard works."
 msgstr ""
 "Acaba de pulsar dos teclas a la vez, o ha pulsado la tecla «Mayúsculas» 5 "
-"veces seguidas. Esto desactiva la característica de «Teclas persistentes», "
-"lo cual afecta a la forma en que funciona su teclado."
+"veces seguidas. Esto desactiva la característica de «Teclas persistentes», lo "
+"cual afecta a la forma en que funciona su teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
 msgid "Sticky Keys Alert"
@@ -1555,18 +1553,18 @@ msgstr "Teclas multimedia"
 msgid "Media keys plugin"
 msgstr "Complemento de teclas multimedia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:869
+#: ../plugins/mouse/gsd-mouse-manager.c:854
 msgid "Could not enable mouse accessibility features"
 msgstr "No se pudieron activar las características de accesibilidad del ratón"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:871
+#: ../plugins/mouse/gsd-mouse-manager.c:856
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "La accesibilidad del ratón requiere que los ajustes finos del ratón estén "
 "instalados en su sistema."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:873
+#: ../plugins/mouse/gsd-mouse-manager.c:858
 msgid "Universal Access"
 msgstr "Acceso universal"
 
@@ -1705,31 +1703,31 @@ msgstr "Ruta del módulo"
 msgid "path to smartcard PKCS #11 driver"
 msgstr "ruta al controlador de tarjetas inteligentes PKCS #11"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:531
+#: ../plugins/smartcard/gsd-smartcard-manager.c:528
 msgid "received error or hang up from event source"
 msgstr "se recibió un error o un cuelgue desde el origen de eventos"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:665
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "No se pudo inicializar el sistema de seguridad NSS"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:793
+#: ../plugins/smartcard/gsd-smartcard-manager.c:790
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr "no se pudo encontrar un controlador de tarjeta inteligente adecuado"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:807
+#: ../plugins/smartcard/gsd-smartcard-manager.c:804
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "no se pudo cargar el controlador de tarjeta inteligente «%s»"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:880
+#: ../plugins/smartcard/gsd-smartcard-manager.c:876
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "no se pudo vigilar los eventos entrantes de la tarjeta: %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1283
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr ""
