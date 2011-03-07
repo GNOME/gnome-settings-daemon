@@ -207,6 +207,10 @@ static void
 check_screen_lock_and_mount (GsdAutomountManager *manager,
                              GVolume *volume)
 {
+        if (!manager->priv->session_is_active) {
+                return;
+        }
+
         if (manager->priv->screensaver_active) {
                 /* queue the volume, to mount it after the screensaver state changed */
                 g_debug ("Queuing volume %p", volume);
@@ -308,6 +312,13 @@ ck_session_proxy_signal_cb (GDBusProxy *proxy,
 	if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
 		g_variant_get (parameters, "(b)", &p->session_is_active);
 		g_debug ("ConsoleKit session is active %d", p->session_is_active);
+
+                if (!p->session_is_active) {
+                        if (manager->priv->volume_queue != NULL) {
+                                g_list_free_full (manager->priv->volume_queue, g_object_unref);
+                                manager->priv->volume_queue = NULL;
+                        }
+                }
 	}
 }
 
