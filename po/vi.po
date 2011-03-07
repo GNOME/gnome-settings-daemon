@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.25.90\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-12-23 18:56+0000\n"
+"POT-Creation-Date: 2011-03-03 17:19+0000\n"
 "PO-Revision-Date: 2011-01-03 16:44+0900\n"
 "Last-Translator: Nguyen Vu Hung <vuhung16plus@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -17,10 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: LocFactoryEditor 1.8\n"
-
-#: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "Khả năng Truy cập"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -51,7 +47,6 @@ msgid "Enable mouse clicks with touchpad"
 msgstr "Bật nhấn chuột bằng touchpad"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
-#| msgid "Enable mouse clicks with touchpad"
 msgid "Enable touchpad"
 msgstr "Bật touchpad"
 
@@ -60,8 +55,7 @@ msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 msgstr ""
-"Kích hoạt mô phỏng nút chuột giữa qua việc nhấn đồng thời nút trái và "
-"phải."
+"Kích hoạt mô phỏng nút chuột giữa qua việc nhấn đồng thời nút trái và phải."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid ""
@@ -82,9 +76,6 @@ msgid "Select the touchpad scroll method"
 msgstr "Chọn cách cuộn bằng touchpad"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
-#| msgid ""
-#| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
-#| "- edge scrolling, 2 - two-finger scrolling"
 msgid ""
 "Select the touchpad scroll method. Supported values are: \"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\"."
@@ -112,9 +103,6 @@ msgid ""
 msgstr "Đặt là TRUE để có thể gửi phím nhấn chuột bằng cách gõ vào touchpad."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
-#| msgid ""
-#| "Set this to TRUE to be able to send mouse clicks by tapping on the "
-#| "touchpad."
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Đặt là TRUE để kích hoạt tất cả touchpad."
 
@@ -134,6 +122,8 @@ msgstr "Hành động tháo smartcard"
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
@@ -142,11 +132,13 @@ msgstr "Kích hoạt phần bổ sung này"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "Độ ưu tiên của phần bổ sung này"
@@ -154,18 +146,23 @@ msgstr "Độ ưu tiên của phần bổ sung này"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Độ ưu tiên của phần bổ sung này trong chuỗi khởi động gnome-settings-daemon"
+msgstr ""
+"Độ ưu tiên của phần bổ sung này trong chuỗi khởi động gnome-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 msgstr "Có kích hoạt phần bổ sung này trong gnome-settings-daemon hay không"
 
@@ -174,7 +171,6 @@ msgid "Free percentage notify threshold"
 msgstr "Ngưỡng thông báo phần trăm vùng trống"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
-#| msgid "Free space no notify threshold"
 msgid "Free space notify threshold"
 msgstr "Ngưỡng thông báo về chỗ trống"
 
@@ -187,9 +183,6 @@ msgid "Mount paths to ignore"
 msgstr "Đường kết nối cần bỏ qua"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
-#| msgid ""
-#| "Percentage free space threshold for initial warning of low disk space. If "
-#| "the percentage free space drops below this, a warning will be shown"
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
@@ -211,9 +204,6 @@ msgstr ""
 "không xuất hiện thường xuyên hơn khoảng đợi này."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
-#| msgid ""
-#| "Specify an amount in GB. If the amount of free space is more than this, "
-#| "no warning will be shown"
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
@@ -222,9 +212,6 @@ msgstr ""
 "con số này."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
-#| msgid ""
-#| "Specify the percentage that the free disk space should reduce by before "
-#| "issuing a subsequent warning"
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
@@ -232,40 +219,17 @@ msgstr ""
 "Xác định phần trăm vùng trống cần giảm trước khi phát cảnh báo lần nữa."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
-#| msgid "Subsequent free percentage notify threshold"
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Ngưỡng thông báo phần trăm vùng trống lần sau"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-msgid ""
-"Disable the keyboard layout indicator unconditionally, do not show it even "
-"if number of layouts is more than one."
-msgstr ""
-"Vô hiệu hóa hoàn toàn chỉ báo bố trí kiểu bàn phím. Không hiện ngay cả khi có nhiều hơn "
-"một bố trí bàn phím."
-
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-msgid "Display keyboard LEDs on the panel"
-msgstr "Hiện LED của bàn phím trong bảng"
-
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-msgid ""
-"Display pseudo-leds for keyboards that do not have physical LEDs for "
-"CapsLock, NumLock, and ScrollLock."
-msgstr ""
-"Hiển thị led giả lập của bàn phím không có LED vật lý (LED thật) cho phím "
-"CapsLock, NumLock và ScrollLock."
-
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:5
-msgid "Never show layout indicator"
-msgstr "Không bao giờ hiện chỉ báo bố trí"
-
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
-msgstr "Thứ tự ưu tiên cho phần bổ sung này trong cho64i khởi động gnome-settings-daemon."
+msgstr ""
+"Thứ tự ưu tiên cho phần bổ sung này trong cho64i khởi động gnome-settings-"
+"daemon."
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr "Có bật phần bổ sung này bằng gnome-settings-daemon hay không"
@@ -275,110 +239,136 @@ msgid "Allowed keys"
 msgstr "Phím được phép"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
-#| msgid "Binding to eject an optical disk."
+#, fuzzy
+#| msgid "Binding to show the screen magnifier"
+msgid "Binding for the magnifier to zoom in"
+msgstr "Tổ hợp phím để bật/tắt kính lúp"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#, fuzzy
+#| msgid "Binding to show the screen magnifier"
+msgid "Binding for the magnifier to zoom out"
+msgstr "Tổ hợp phím để bật/tắt kính lúp"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#, fuzzy
+#| msgid "Binding to raise the system volume."
+msgid "Binding to decrease the text size"
+msgstr "Tổ hợp để tăng âm lượng của hệ thống."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 msgid "Binding to eject an optical disc."
 msgstr "Phím tổ hợp đẩy đĩa quang ra."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
-#| msgid "Binding to raise the system volume."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Binding to enable or disable the touchpad."
 msgstr "Tổ hợp phím bật/tắt touchpad."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#, fuzzy
+#| msgid "Binding to raise the system volume."
+msgid "Binding to increase the text size"
+msgstr "Tổ hợp để tăng âm lượng của hệ thống."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
 msgstr "Tổ hợp để khởi chạy bàn tính."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "Tổ hợp để khởi chạy trình khách thư."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the help browser."
 msgstr "Tổ hợp để khởi chạy bộ duyệt trợ giúp."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the media player."
 msgstr "Tổ hợp để khởi chạy bộ phát nhạc/phim."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the search tool."
 msgstr "Tổ hợp để khởi chạy công cụ tìm kiếm."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the web browser."
 msgstr "Tổ hợp để khởi chạy bộ duyệt Web."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lock the screen."
 msgstr "Tổ hợp để khoá màn hình."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to log out."
 msgstr "Tổ hợp để đăng xuất."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to lower the system volume."
 msgstr "Tổ hợp để giảm âm lượng của hệ thống."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to mute the system volume."
 msgstr "Tổ hợp để câm âm lượng của hệ thống."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to open the Home folder."
 msgstr "Tổ hợp để mở thư mục Nhà."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "Tổ hợp để tạm dừng phát lại. "
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to raise the system volume."
 msgstr "Tổ hợp để tăng âm lượng của hệ thống."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
-#| msgid "Binding to toggle the on-screen keyboard."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to show the on-screen keyboard"
 msgstr "Tổ hợp phím để bật/tắt bàn phím trên màn hình"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
-#| msgid "Binding to toggle the magnifier."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Binding to show the screen magnifier"
 msgstr "Tổ hợp phím để bật/tắt kính lúp"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
 msgstr "Tổ hợp để nhảy tới rãnh kế tiếp."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to skip to previous track."
 msgstr "Tổ hợp để nhảy về rãnh trước."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Tổ hợp để bắt đầu phát lại (hoặc bật/tắt phát/tạm dừng)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
-#| msgid "Binding to toggle the screen reader."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Binding to start the screen reader"
 msgstr "Tổ hợp phím để bật/tắt công cụ đọc màn hình"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to stop playback."
 msgstr "Tổ hợp để dừng phát lại."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#, fuzzy
+#| msgid "Binding to launch the email client."
+msgid "Binding to toggle the interface contrast"
+msgstr "Tổ hợp để khởi chạy trình khách thư."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+msgid "Decrease text size"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Eject"
 msgstr "Đẩy ra"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Home folder"
 msgstr "Thư mục cá nhân (HOME)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
-#| msgid ""
-#| "If non-empty, keybindings will be ignored unless their GConf directory is "
-#| "in the list. This is useful for lockdown."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid ""
 "If non-empty, keybindings will be ignored unless their settings directory is "
 "in the list. This is useful for lockdown."
@@ -386,85 +376,315 @@ msgstr ""
 "Nếu không trống thì tổ hợp phím bị bỏ qua trừ khi thư mục thiết lập của nó "
 "có trong danh sách. Tổ hợp này hữu dụng cho việc khóa máy tính."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+msgid "Increase text size"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch calculator"
 msgstr "Khởi chạy bàn tính"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch email client"
 msgstr "Khởi chạy trình khách thư"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch help browser"
 msgstr "Khởi chạy bộ duyệt trợ giúp"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch media player"
 msgstr "Khởi chạy bộ Phát Nhạc/Phim"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Launch web browser"
 msgstr "Khởi chạy bộ duyệt Web"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Lock screen"
 msgstr "Khoá màn hình"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Log out"
 msgstr "Đăng xuất"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Magnifier zoom in"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Magnifier zoom out"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
 msgstr "Rãnh sau"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Pause playback"
 msgstr "Tạm dừng phát lại"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Play (or play/pause)"
 msgstr "Phát (hay phát/tạm dừng)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Previous track"
 msgstr "Rãnh trước"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Stop playback"
 msgstr "Dừng phát lại"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#, fuzzy
+#| msgid "Toggle screen reader"
+msgid "Toggle contrast"
+msgstr "Bật/tắt bộ đọc màn hình"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle magnifier"
 msgstr "Bật/tắt kính lúp"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Toggle on-screen keyboard"
 msgstr "Bật/tắt bàn phím trên màn hình"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle screen reader"
 msgstr "Bật/tắt bộ đọc màn hình"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Toggle touchpad"
 msgstr "Bật/tắt touchpad"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume down"
 msgstr "Giảm âm"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Volume mute"
 msgstr "Câm âm"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Volume up"
 msgstr "Tăng âm"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+msgid "Ask the user if additional firmware should be installed"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+msgid ""
+"Ask the user if additional firmware should be installed if it is available."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+msgid "Automatically download updates in the background without confirmation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+"'connection-use-mobile' is enabled."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+msgid "Automatically update these types of updates"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+msgid "Automatically update these types of updates."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+msgid "Devices that should be ignored"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+msgid ""
+"Devices that should be ignored, separated by commas. These can include '*' "
+"and '?' characters."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+msgid "Firmware files that should not be searched for"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+msgid ""
+"Firmware files that should not be searched for, separated by commas. These "
+"can include '*' and '?' characters."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+msgid "Get the update list when the session starts"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+msgid "Get the update list when the session starts, even if not scheduled to."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+msgid "How often to check for distribution upgrades"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+msgid "How often to check for distribution upgrades. Value is in seconds."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+msgid "How often to check for updates"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+msgid ""
+"How often to check for updates. Value is in seconds. This is a maximum "
+"amount of time that can pass between a security update being published, and "
+"the update being automatically installed or the user notified."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+msgid "How often to notify the user that non-critical updates are available"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+msgid "How often to refresh the package cache"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+msgid "How often to refresh the package cache. Value is in seconds."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+msgid ""
+"How often to tell the user there are non-critical updates. Value is in "
+"seconds. Security update notifications are always shown after the check for "
+"updates, but non-critical notifications should be shown a lot less "
+"frequently."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+msgid "Install updates automatically when running on battery power"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+msgid "Install updates automatically when running on battery power."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+msgid "Notify the user for completed updates"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+msgid "Notify the user for completed updates where the user needs to restart"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+msgid "Notify the user for completed updates where the user needs to restart."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+msgid ""
+"Notify the user for completed updates. This may be a useful notification for "
+"some users as installing updates prevents shutdown."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+msgid "Notify the user when distribution upgrades are available"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+msgid "Notify the user when distribution upgrades are available."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+msgid ""
+"Notify the user when the automatic update was not started on battery power"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+msgid ""
+"Notify the user when the update was not automatically started because the "
+"machine is running on battery power."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+msgid "Notify the user when the update was started"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+msgid "Notify the user when the update was started."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+msgid "The filenames on removable media that designate it a software source."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+msgid "The install root to use when adding and removing packages"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+msgid ""
+"The install root to use when processing packages, which is changed when "
+"using LTSP or when testing."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+msgid ""
+"The last time we notified the user about non-critical updates. Value is in "
+"seconds since the epoch, or zero for never."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+msgid "The last time we told the user about non-critical notifications"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+msgid ""
+"The number of seconds at session startup to wait before checking for updates"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+msgid ""
+"The number of seconds at session startup to wait before checking for "
+"updates. Value is in seconds."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+msgid ""
+"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
+"to download packages when on a wired connection, and the VPN or proxy "
+"required may also only be available on wired connections."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+msgid "Use WiFi connections"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+msgid "Use mobile broadband connections"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+msgid ""
+"Use mobile broadband connections such as GSM and CDMA to check for updates."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+msgid ""
+"When removable media is inserted, it is checked to see if it contains any "
+"important filenames in the root directory. If the filename matches, then an "
+"updates check is performed. This allows post-install disks to be used to "
+"update running systems."
+msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 msgid ""
@@ -488,9 +708,9 @@ msgid ""
 "such a file, or has one that does not match the user's setup of monitors, "
 "then the file specified by this key will be used instead."
 msgstr ""
-"Phần bổ sung XRandR sẽ tìm cấu hình mặc định trong tệp đã chỉ định bằng khóa này "
-"tương tự như ~/.config/monitors.xml thông thường được lưu trong thư mục HOME "
-"của người dùng.Nếu người dùng không có tệp đó hay tệp đó không khớp với "
+"Phần bổ sung XRandR sẽ tìm cấu hình mặc định trong tệp đã chỉ định bằng khóa "
+"này tương tự như ~/.config/monitors.xml thông thường được lưu trong thư mục "
+"HOME của người dùng.Nếu người dùng không có tệp đó hay tệp đó không khớp với "
 "thiết lập của màn hình thì tệp được chỉ định với khóa đó sẽ được dùng thay "
 "thế."
 
@@ -519,26 +739,22 @@ msgid "Antialiasing"
 msgstr "Làm trơn"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
-msgid "DPI"
-msgstr "DPI"
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "Hinting"
 msgstr "Tinh chỉnh phông"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "Danh sách GTK mô đun bị vô hiệu hóa"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "Danh sách GTK+ module được bật"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
 msgstr "Thứ tự RGBA"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -552,18 +768,7 @@ msgstr ""
 " • vrgb\tmàu đỏ bên trên\n"
 " • vbgr\tmàu đỏ bên dưới."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
-#| msgid ""
-#| "The resolution used for converting font sizes to pixel sizes, in dots per "
-#| "inch."
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch. 0.0 DPI means that the X server's DPI will be used."
-msgstr ""
-"Độ phân giải được dùng để chuyển đổi kích cỡ phông chữ sang kích cỡ điểm "
-"ảnh, theo chấm mỗi inch. 0.0 DPI nghĩa là DPI mà máy chủ X dùng."
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -574,7 +779,7 @@ msgstr ""
 " • grayscale\tlàm trơn ở mức xám tiêu chuẩn\n"
 " • rgba\t\tlàm trơn ở mức điểm ảnh phụ (chỉ cho màn hình LCD)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -611,8 +816,8 @@ msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
 msgstr ""
-"Đặt là 'none', 'cw' nếu quay 90 độ theo chiều kim đồng hồ, 'half' nếu "
-"quay 180 độ, và 'ccw' nếu quay 90 độ ngược chiều kim đồng hồ."
+"Đặt là 'none', 'cw' nếu quay 90 độ theo chiều kim đồng hồ, 'half' nếu quay "
+"180 độ, và 'ccw' nếu quay 90 độ ngược chiều kim đồng hồ."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid "Set this to the logical button mapping."
@@ -843,7 +1048,7 @@ msgstr ""
 msgid "Sticky Keys Alert"
 msgstr "Báo động Phím Dính"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:524
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Tùy thích truy cập chung"
@@ -880,21 +1085,32 @@ msgstr "_Bỏ qua phím nhấn bị trùng (Phím nảy)"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Nhấn phím tắt bàn phím mỗi lần một phím (Phím dính)"
 
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#, fuzzy
+#| msgid "Accessibility"
+msgid "Accessibility settings"
+msgstr "Khả năng Truy cập"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#, fuzzy
+#| msgid "Accessibility keyboard plugin"
+msgid "Accessibility settings plugin"
+msgstr "Phần mở rộng bàn phím khả năng truy cập"
+
 #: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
 msgid "Automount"
 msgstr "Tự động gắn kết"
 
 #: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
-#| msgid "Font plugin"
 msgid "Automounter plugin"
 msgstr "Phần mở rộng tự động gắn kết"
 
-#: ../plugins/automount/gsd-automount-manager.c:145
+#: ../plugins/automount/gsd-automount-manager.c:154
 #, c-format
 msgid "Unable to mount %s"
 msgstr "Không thể gắn kết %s"
 
-#: ../plugins/automount/gsd-automount-manager.c:204
+#: ../plugins/automount/gsd-automount-manager.c:267
 #, c-format
 msgid "Unable to open a folder for %s"
 msgstr "Không thể mở thư mục cho %s"
@@ -908,7 +1124,6 @@ msgid "Do Nothing"
 msgstr "Không làm gì"
 
 #: ../plugins/automount/gsd-autorun.c:352
-#| msgid "Home folder"
 msgid "Open Folder"
 msgstr "Mở thư mục"
 
@@ -1002,7 +1217,6 @@ msgid "_Always perform this action"
 msgstr "_Luôn thực hiện hành động này"
 
 #: ../plugins/automount/gsd-autorun.c:783
-#| msgid "Eject"
 msgid "_Eject"
 msgstr "Đẩy _ra"
 
@@ -1034,67 +1248,62 @@ msgstr "Giả"
 msgid "Dummy plugin"
 msgstr "Phần mở rộng giả"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:271
+#: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
-#| msgid "Low Disk Space"
 msgid "Low Disk Space on \"%s\""
 msgstr "Còn ít vùng trống trên \"%s\""
 
-#: ../plugins/housekeeping/gsd-disk-space.c:273
+#: ../plugins/housekeeping/gsd-disk-space.c:334
 #, c-format
-#| msgid "The volume \"%s\" has only %s disk space remaining."
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
 msgstr ""
-"Khối \"%s\" chỉ còn %s vùng đĩa trống. Bạn cần xóa tập tin không cần thiết và "
-"làm rỗng sọt rác."
+"Khối \"%s\" chỉ còn %s vùng đĩa trống. Bạn cần xóa tập tin không cần thiết "
+"và làm rỗng sọt rác."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:277
+#: ../plugins/housekeeping/gsd-disk-space.c:338
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "Khối \"%s\" chỉ còn %s vùng đĩa trống."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:282
+#: ../plugins/housekeeping/gsd-disk-space.c:343
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:202
 msgid "Low Disk Space"
 msgstr "Ít chỗ đĩa"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:284
+#: ../plugins/housekeeping/gsd-disk-space.c:345
 #, c-format
-#| msgid "This computer has only %s disk space remaining."
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
 "by emptying the trash."
 msgstr ""
-"Máy này chỉ còn %s vùng đĩa trống. Bạn cần xóa tập tin không cần thiết và làm "
-"rỗng sọt rác."
+"Máy này chỉ còn %s vùng đĩa trống. Bạn cần xóa tập tin không cần thiết và "
+"làm rỗng sọt rác."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:287
+#: ../plugins/housekeeping/gsd-disk-space.c:348
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Máy này chỉ còn %s vùng đĩa trống."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:308
-#| msgid "Examine..."
+#: ../plugins/housekeeping/gsd-disk-space.c:369
 msgid "Examine"
 msgstr "Kiểm tra..."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:316
+#: ../plugins/housekeeping/gsd-disk-space.c:377
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
 msgid "Empty Trash"
 msgstr "Đổ sọt rác"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:323
+#: ../plugins/housekeeping/gsd-disk-space.c:384
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
 msgid "Ignore"
 msgstr "Bỏ qua"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-#| msgid "Don't show any warnings again for this filesystem"
 msgid "Don't show any warnings again for this file system"
 msgstr "Đừng hiện bất kỳ cảnh báo nào lần nữa đối với hệ tập tin này"
 
@@ -1136,51 +1345,8 @@ msgstr ""
 "tin không dùng, hoặc chuyển tập tin sang đĩa ở ngoài."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:442
-#| msgid "Examine..."
 msgid "Examine…"
 msgstr "Kiểm tra..."
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:94
-#| msgid "Removing item %lu of %lu"
-msgid "Removing item %"
-msgstr "Đang loại bỏ %"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:114
-#, c-format
-#| msgid "<i>Removing: %s</i>"
-msgid "Removing: %s"
-msgstr "Đang loại bỏ: %s"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
-msgid "Emptying the trash"
-msgstr "Đang đổ rác"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
-#| msgid "Preparing to empty trash..."
-msgid "Preparing to empty trash…"
-msgstr "Chuẩn bị đổ rác..."
-
-#. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
-msgid "From: "
-msgstr "Từ: "
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
-msgid "Empty all of the items from the trash?"
-msgstr "Bỏ tất cả các mục trong sọt rác chứ?"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
-msgid ""
-"If you choose to empty the trash, all items in it will be permanently lost. "
-"Please note that you can also delete them separately."
-msgstr ""
-"Nếu bạn chọn làm sạch sọt rác, mọi mục trong đó sẽ mất mãi mãi. Nhớ rằng bạn "
-"có thể xoá chúng riêng từng cái nếu muốn."
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
-msgid "_Empty Trash"
-msgstr "Đổ _sọt rác"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -1217,7 +1383,7 @@ msgstr "Bàn phím"
 msgid "Keyboard plugin"
 msgstr "Phần mở rộng bàn phím"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:108
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:87
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
@@ -1238,20 +1404,19 @@ msgstr ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:248
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
 msgid "_Layouts"
 msgstr "_Bố trí"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:255
-#| msgid "Mouse Preferences"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
 msgid "Keyboard _Preferences"
 msgstr "_Tùy thích bàn phím"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:261
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
 msgid "Show _Current Layout"
 msgstr "Hiện bố trí _hiện tại"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:204
+#: ../plugins/media-keys/gsd-media-keys-manager.c:212
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1259,7 +1424,7 @@ msgstr ""
 "Không thể lấy thiết bị cuối mặc định. Hãy kiểm tra xem câu lệnh thiết bị "
 "cuối mặc định đã được đặt và chỉ tới một ứng dụng hợp lệ."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:244
+#: ../plugins/media-keys/gsd-media-keys-manager.c:252
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1302,19 +1467,16 @@ msgstr "Phím nhạc/phim"
 msgid "Media keys plugin"
 msgstr "Phần mở rộng phím nhạc/phim"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:868
+#: ../plugins/mouse/gsd-mouse-manager.c:854
 msgid "Could not enable mouse accessibility features"
 msgstr "Không thể hiệu lực các tính năng khả năng truy cập bàn phím"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:870
-#| msgid ""
-#| "Mouse accessibility requires mousetweaks to be installed on your system."
+#: ../plugins/mouse/gsd-mouse-manager.c:856
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Khả năng truy cập chuột cần Mousetweaks được cài đặt trước."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:872
-#| msgid "Universal Access Preferences"
+#: ../plugins/mouse/gsd-mouse-manager.c:858
 msgid "Universal Access"
 msgstr "Hỗ trợ truy cập"
 
@@ -1326,6 +1488,61 @@ msgstr "Chuột"
 msgid "Mouse plugin"
 msgstr "Phần mở rộng chuột"
 
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+msgid "Print-notifications"
+msgstr ""
+
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+msgid "Print-notifications plugin"
+msgstr ""
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
+msgid "Printer added"
+msgstr ""
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
+msgid "Printer removed"
+msgstr ""
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:239
+msgid "Printing stopped"
+msgstr ""
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:241
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:247
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:253
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:259
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:270
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:282
+#, c-format
+msgid "\"%s\" on %s"
+msgstr ""
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:245
+msgid "Printing canceled"
+msgstr ""
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:251
+msgid "Printing aborted"
+msgstr ""
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:257
+msgid "Printing completed"
+msgstr ""
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:268
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:280
+#, fuzzy
+#| msgid "Hinting"
+msgid "Printing"
+msgstr "Tinh chỉnh phông"
+
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "Thiết lập kích cỡ màn hình và chức năng xoay"
@@ -1334,51 +1551,51 @@ msgstr "Thiết lập kích cỡ màn hình và chức năng xoay"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:403
+#: ../plugins/xrandr/gsd-xrandr-manager.c:413
 msgid "Could not switch the monitor configuration"
 msgstr "Không thể chuyển đổi cấu hình của thiết bị hiển thị"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:427
+#: ../plugins/xrandr/gsd-xrandr-manager.c:437
 msgid "Could not restore the display's configuration"
 msgstr "Không thể phục hồi cấu hình của bộ trình bày"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:452
+#: ../plugins/xrandr/gsd-xrandr-manager.c:462
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Không thể phục hồi cấu hình của bộ trình bày từ bản sao lưu"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:473
+#: ../plugins/xrandr/gsd-xrandr-manager.c:483
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "Bộ trình bày sẽ bị đặt lại về cấu hình trước đó sau %d giây"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:522
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Does the display look OK?"
 msgstr "Bộ trình bày đẹp chưa?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:529
+#: ../plugins/xrandr/gsd-xrandr-manager.c:539
 msgid "_Restore Previous Configuration"
 msgstr "_Phục hồi cấu hình trước"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:530
+#: ../plugins/xrandr/gsd-xrandr-manager.c:540
 msgid "_Keep This Configuration"
 msgstr "_Giữ cấu hình này"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:611
+#: ../plugins/xrandr/gsd-xrandr-manager.c:621
 msgid "The selected configuration for displays could not be applied"
 msgstr "Không thể áp dụng cấu hình đã chọn cho bộ trình bày"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1150
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Không thể cập nhật thông tin màn hình: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1154
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Vẫn đang thử chuyển đổi cấu hình của thiết bị hiển thị."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1626
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Không thể áp dụng cấu hình đã lưu cho thiết bị hiển thị"
 
@@ -1398,31 +1615,31 @@ msgstr "Đường dẫn mô đun"
 msgid "path to smartcard PKCS #11 driver"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:531
+#: ../plugins/smartcard/gsd-smartcard-manager.c:528
 msgid "received error or hang up from event source"
 msgstr "có lỗi hay mất kết nối từ nguồn sự kiện"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:665
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "Không khởi tạo được hệ thống an ninh NSS"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:793
+#: ../plugins/smartcard/gsd-smartcard-manager.c:790
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr "không tìm thấy trình điều khiển cho smartcard tương ứng"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:807
+#: ../plugins/smartcard/gsd-smartcard-manager.c:804
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "Không thể tải được trình điều khiển cho smartcard '%s'"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:880
+#: ../plugins/smartcard/gsd-smartcard-manager.c:876
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "Không thể theo dõi sự kiện thẻ nhận được - %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1283
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr ""
@@ -1436,7 +1653,6 @@ msgid "The slot the card is in"
 msgstr "Khe mà thẻ đặt vào"
 
 #: ../plugins/smartcard/gsd-smartcard.c:162
-#| msgid "Slow keys"
 msgid "Slot Series"
 msgstr "Chuỗi khe"
 
@@ -1450,7 +1666,6 @@ msgid "name"
 msgstr "tên"
 
 #: ../plugins/smartcard/gsd-smartcard.c:174
-#| msgid "Mouse"
 msgid "Module"
 msgstr "Mô đun"
 
@@ -1459,36 +1674,261 @@ msgid "smartcard driver"
 msgstr "trình điều khiển smartcard"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
-msgid "Change system time"
-msgstr "Thay đổi thời gian hệ thống"
-
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Change system time zone"
+#, fuzzy
+#| msgid "Change system time zone"
+msgid "Change system time and date settings"
 msgstr "Thay đổi múi giờ hệ thống"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
-msgid "Configure hardware clock"
-msgstr "Cấu hình đồng hồ phần cứng"
-
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
-msgid "Configure network time"
-msgstr "Cấu hình thời gian mạng"
-
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
-msgid "Privileges are required to change the system time zone."
-msgstr "Cần quyền để thay đổi múi giờ hệ thống."
-
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
-msgid "Privileges are required to change the system time."
-msgstr "Cần quyền để thay đổi thời gian hệ thống."
-
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:7
-msgid "Privileges are required to configure network time."
-msgstr "Cần quyền để thay đổi cấu hình mạng."
-
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:8
-msgid "Privileges are required to configure the hardware clock."
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
+#, fuzzy
+#| msgid "Privileges are required to configure the hardware clock."
+msgid "Privileges are required to configure time and date settings."
 msgstr "Cần quyền để thay đổi đồng hồ phần cứng."
+
+#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
+#: ../plugins/updates/gsd-updates-manager.c:194
+msgid "Distribution upgrades available"
+msgstr ""
+
+#. TRANSLATORS: provides more information about the upgrade
+#: ../plugins/updates/gsd-updates-manager.c:204
+msgid "More information"
+msgstr ""
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:307
+#: ../plugins/updates/gsd-updates-manager.c:366
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] ""
+
+#. TRANSLATORS: message when there are security updates
+#: ../plugins/updates/gsd-updates-manager.c:310
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] ""
+
+#. TRANSLATORS: button: open the update viewer to install updates
+#: ../plugins/updates/gsd-updates-manager.c:330
+#: ../plugins/updates/gsd-updates-manager.c:389
+msgid "Install updates"
+msgstr ""
+
+#. TRANSLATORS: message when there are non-security updates
+#: ../plugins/updates/gsd-updates-manager.c:369
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] ""
+
+#. TRANSLATORS: policy says update, but we are on battery and so prompt
+#: ../plugins/updates/gsd-updates-manager.c:435
+msgid ""
+"Automatic updates are not being installed as the computer is running on "
+"battery power"
+msgstr ""
+
+#. TRANSLATORS: informs user will not install by default
+#: ../plugins/updates/gsd-updates-manager.c:437
+msgid "Updates not installed"
+msgstr ""
+
+#. TRANSLATORS: to hell with my battery life, just do it
+#: ../plugins/updates/gsd-updates-manager.c:443
+msgid "Install the updates anyway"
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:459
+msgid "No restart is required."
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:462
+msgid "A restart is required."
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:465
+msgid "You need to log out and log back in."
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:468
+msgid "You need to restart the application."
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:471
+msgid "You need to log out and log back in to remain secure."
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:474
+msgid "A restart is required to remain secure."
+msgstr ""
+
+#. TRANSLATORS: we did the update, but some updates were skipped and not applied
+#: ../plugins/updates/gsd-updates-manager.c:535
+msgid "One package was skipped:"
+msgid_plural "Some packages were skipped:"
+msgstr[0] ""
+
+#. TRANSLATORS: title: system update completed all okay
+#: ../plugins/updates/gsd-updates-manager.c:567
+msgid "The system update has completed"
+msgstr ""
+
+#. TRANSLATORS: restart computer as system packages need update
+#: ../plugins/updates/gsd-updates-manager.c:574
+msgid "Restart computer now"
+msgstr ""
+
+#. TRANSLATORS: the updates mechanism
+#: ../plugins/updates/gsd-updates-manager.c:645
+msgid "Updates"
+msgstr ""
+
+#. TRANSLATORS: we failed to get the updates multiple times,
+#. * and now we need to inform the user that something might be wrong
+#: ../plugins/updates/gsd-updates-manager.c:649
+msgid "Unable to access software updates"
+msgstr ""
+
+#. TRANSLATORS: try again, this time launching the update viewer
+#: ../plugins/updates/gsd-updates-manager.c:652
+msgid "Try again"
+msgstr ""
+
+#. TRANSLATORS: the reason why we've inhibited it
+#: ../plugins/updates/gsd-updates-manager.c:1090
+msgid "A transaction that cannot be interrupted is running"
+msgstr ""
+
+#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:240
+msgid ""
+"You will need to restart this computer before the hardware will work "
+"correctly."
+msgstr ""
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:243
+#: ../plugins/updates/gsd-updates-firmware.c:267
+#: ../plugins/updates/gsd-updates-firmware.c:291
+msgid "Additional software was installed"
+msgstr ""
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:264
+msgid ""
+"You will need to remove and then reinsert the hardware before it will work "
+"correctly."
+msgstr ""
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:288
+msgid "Your hardware has been set up and is now ready to use."
+msgstr ""
+
+#. TRANSLATORS: we need another package to keep udev quiet
+#: ../plugins/updates/gsd-updates-firmware.c:566
+msgid ""
+"Additional firmware is required to make hardware in this computer function "
+"correctly."
+msgstr ""
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:580
+msgid "Additional firmware required"
+msgstr ""
+
+#. TRANSLATORS: button label
+#: ../plugins/updates/gsd-updates-firmware.c:585
+msgid "Install firmware"
+msgstr ""
+
+#. TRANSLATORS: we should ignore this device and not ask anymore
+#: ../plugins/updates/gsd-updates-firmware.c:588
+#, fuzzy
+#| msgid "Ignore"
+msgid "Ignore devices"
+msgstr "Bỏ qua"
+
+#~ msgid ""
+#~ "Disable the keyboard layout indicator unconditionally, do not show it "
+#~ "even if number of layouts is more than one."
+#~ msgstr ""
+#~ "Vô hiệu hóa hoàn toàn chỉ báo bố trí kiểu bàn phím. Không hiện ngay cả "
+#~ "khi có nhiều hơn một bố trí bàn phím."
+
+#~ msgid "Display keyboard LEDs on the panel"
+#~ msgstr "Hiện LED của bàn phím trong bảng"
+
+#~ msgid ""
+#~ "Display pseudo-leds for keyboards that do not have physical LEDs for "
+#~ "CapsLock, NumLock, and ScrollLock."
+#~ msgstr ""
+#~ "Hiển thị led giả lập của bàn phím không có LED vật lý (LED thật) cho phím "
+#~ "CapsLock, NumLock và ScrollLock."
+
+#~ msgid "Never show layout indicator"
+#~ msgstr "Không bao giờ hiện chỉ báo bố trí"
+
+#~ msgid "DPI"
+#~ msgstr "DPI"
+
+#~| msgid ""
+#~| "The resolution used for converting font sizes to pixel sizes, in dots "
+#~| "per inch."
+#~ msgid ""
+#~ "The resolution used for converting font sizes to pixel sizes, in dots per "
+#~ "inch. 0.0 DPI means that the X server's DPI will be used."
+#~ msgstr ""
+#~ "Độ phân giải được dùng để chuyển đổi kích cỡ phông chữ sang kích cỡ điểm "
+#~ "ảnh, theo chấm mỗi inch. 0.0 DPI nghĩa là DPI mà máy chủ X dùng."
+
+#~| msgid "Removing item %lu of %lu"
+#~ msgid "Removing item %"
+#~ msgstr "Đang loại bỏ %"
+
+#~| msgid "<i>Removing: %s</i>"
+#~ msgid "Removing: %s"
+#~ msgstr "Đang loại bỏ: %s"
+
+#~ msgid "Emptying the trash"
+#~ msgstr "Đang đổ rác"
+
+#~| msgid "Preparing to empty trash..."
+#~ msgid "Preparing to empty trash…"
+#~ msgstr "Chuẩn bị đổ rác..."
+
+#~ msgid "From: "
+#~ msgstr "Từ: "
+
+#~ msgid "Empty all of the items from the trash?"
+#~ msgstr "Bỏ tất cả các mục trong sọt rác chứ?"
+
+#~ msgid ""
+#~ "If you choose to empty the trash, all items in it will be permanently "
+#~ "lost. Please note that you can also delete them separately."
+#~ msgstr ""
+#~ "Nếu bạn chọn làm sạch sọt rác, mọi mục trong đó sẽ mất mãi mãi. Nhớ rằng "
+#~ "bạn có thể xoá chúng riêng từng cái nếu muốn."
+
+#~ msgid "_Empty Trash"
+#~ msgstr "Đổ _sọt rác"
+
+#~ msgid "Change system time"
+#~ msgstr "Thay đổi thời gian hệ thống"
+
+#~ msgid "Configure hardware clock"
+#~ msgstr "Cấu hình đồng hồ phần cứng"
+
+#~ msgid "Configure network time"
+#~ msgstr "Cấu hình thời gian mạng"
+
+#~ msgid "Privileges are required to change the system time zone."
+#~ msgstr "Cần quyền để thay đổi múi giờ hệ thống."
+
+#~ msgid "Privileges are required to change the system time."
+#~ msgstr "Cần quyền để thay đổi thời gian hệ thống."
+
+#~ msgid "Privileges are required to configure network time."
+#~ msgstr "Cần quyền để thay đổi cấu hình mạng."
 
 #~ msgid "Volume step"
 #~ msgstr "Mức âm"
