@@ -134,7 +134,6 @@ on_cups_notification (GDBusConnection *connection,
                       GVariant        *parameters,
                       gpointer         user_data)
 {
-        GsdPrintNotificationsManager *manager = GSD_PRINT_NOTIFICATIONS_MANAGER (user_data);
         gboolean                     printer_is_accepting_jobs;
         gboolean                     my_job = FALSE;
         http_t                      *http;

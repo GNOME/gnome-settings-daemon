@@ -1090,7 +1090,6 @@ static void
 do_text_size_action (GsdMediaKeysManager *manager,
 		     MediaKeyType         type)
 {
-	gdouble x_dpi, u_dpi;
 	gdouble factor, best, distance;
 	guint i;
 
