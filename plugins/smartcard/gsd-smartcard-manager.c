@@ -1405,7 +1405,7 @@ gsd_smartcard_manager_create_worker (GsdSmartcardManager  *manager,
         write_fd = -1;
         read_fd = -1;
         if (!open_pipe (&write_fd, &read_fd)) {
-                return FALSE;
+                return NULL;
         }
 
         worker = gsd_smartcard_manager_worker_new (manager,
@@ -1441,7 +1441,7 @@ on_timeout (GsdSmartcardManager *manager)
                 g_warning ("could not start smartcard manager - %s",
                            error->message);
                 g_error_free (error);
-                return 1;
+                return TRUE;
         }
         g_print ("Please re-insert smartcard\n");
 
