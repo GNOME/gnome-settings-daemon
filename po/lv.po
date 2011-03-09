@@ -5,24 +5,24 @@
 # Artis Trops <hornet@navigators.lv>, 2001.
 # Raivis Dejus <orvils@gmail.com>, 2006, 2007.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2010.
+# Rudolfs <rudolfs.mazurs@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
 "cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-04-07 07:37+0000\n"
-"PO-Revision-Date: 2010-06-13 19:52+0300\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
-"Language-Team: Latviešu <kde-i18n-doc@kde.org>\n"
+"POT-Creation-Date: 2010-11-05 16:02+0000\n"
+"PO-Revision-Date: 2011-03-07 15:04+0200\n"
+"Last-Translator: Rudolfs <rudolfs.mazurs@gmail.com>\n"
+"Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
 #: ../data/50-accessibility.xml.in.h:1
-#| msgid "_Accessibility..."
 msgid "Accessibility"
 msgstr "Pieejamība"
 
@@ -43,9 +43,12 @@ msgid "Mount paths to ignore"
 msgstr "Montēšanas ceļi, kurus ignorēt"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+#| msgid ""
+#| "Percentage free space threshold for initial warning of low disk space. If "
+#| "the percentage free space drops below this, a warning will be shown"
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown"
+"the percentage free space drops below this, a warning will be shown."
 msgstr ""
 "Brīvās vietas slieksnis procentos pirmajam brīdinājumam par to, ka atlicis "
 "maz brīvās vietas. Brīvās vietas apjoms procentos nokritīs zem šīs vērtības, "
@@ -66,27 +69,34 @@ msgstr ""
 "norādītajā periodā."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+#| msgid ""
+#| "Specify an amount in GB. If the amount of free space is more than this, "
+#| "no warning will be shown"
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown"
+"warning will be shown."
 msgstr ""
 "Norādiet apjomu GB. Ja brīvās vietas apjoms ir lielāks par šo, brīdinājums "
 "netiks rādīts."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+#| msgid ""
+#| "Specify the percentage that the free disk space should reduce by before "
+#| "issuing a subsequent warning"
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
-"issuing a subsequent warning"
+"issuing a subsequent warning."
 msgstr ""
 "Norādiet diska brīvās vietas samazināšanos procentos, pirms dot sekojošus "
-"brīdinājumus"
+"brīdinājumus."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
 msgid "Subsequent free percentage notify threshold"
 msgstr "Sekojošo paziņojumu slieksnis brīvās vietas procentos "
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-msgid "Binding to eject an optical disk."
+#| msgid "Binding to eject an optical disk."
+msgid "Binding to eject an optical disc."
 msgstr "Sasaiste, lai izgrūstu optisko disku."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
@@ -246,16 +256,86 @@ msgid "Volume up"
 msgstr "Palielināt skaņu"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+#| msgid "Could not switch the monitor configuration"
+msgid "Do not touch monitor configuration"
+msgstr "Neaiztikt monitora konfigurāciju"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+msgid "File for default configuration for RandR"
+msgstr "RandR noklusētās konfigurācijas fails"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+msgid "Show Displays in Notification Area"
+msgstr "Rādīt displejus paziņojumu laukā"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
 msgid ""
-"If a notification icon with display related things should be shown in the "
-"panel."
+"The XRandR plugin will look for a default configuration in the file "
+"specified by this key. This is similar to the ~/.config/monitors.xml that "
+"normally gets stored in users' home directories. If a user does not have "
+"such a file, or has one that does not match the user's setup of monitors, "
+"then the file specified by this key will be used instead."
+msgstr ""
+"XRandR spraudnis meklēs noklusēto konfigurāciju failā, kurš ir norādīts "
+"šajā atslēgā. Tas ir līdzīgs ~/.config/monitors.xml, kurš parasti tiek "
+"glabāts "
+"lietotāju mājas mapēs. Ja lietotājam nav šāda faila, vai arī tas neatbilst "
+"lietotāja "
+"monitoru uzstādījumam, tad tiks izmantots fails, kurš ir norādīts šajā "
+"atslēgā."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+msgid "Turn on external monitor after system boot"
+msgstr "Ieslēgt ārējo monitoru pēc sistēmas palaišanas"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
+msgid ""
+"Turn on external monitor after system boot if user plugs in external monitor "
+"on system boot."
+msgstr ""
+"Ieslēgt ārējo monitoru pēc sistēmas palaišanas, ja, palaižot sistēmu, "
+"lietotājs pieslēdz ārējo monitoru."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+msgid "Turn on laptop monitor after system boot"
+msgstr "Ieslēgt klēpjdatora monitoru pēc sistēmas palaišanas"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
+msgid ""
+"Turn on laptop monitor after system boot if user plugs in external monitor "
+"on system boot."
+msgstr ""
+"Ieslēgt klēpjdatora monitoru pēc sistēmas palaišanas, ja, palaižot sistēmu, "
+"lietotājs pieslēdz ārējo monitoru."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:9
+msgid ""
+"Usually, gnome-settings-daemon configures internal and external monitors "
+"according to the turn_on_external_monitors_at_startup and "
+"turn_on_laptop_monitor_at_startup settings and determines an appropriate "
+"cloning/side-by-side mode. Setting this key to True disables this, and the "
+"monitor settings are not touched at all (unless there is an explicit user "
+"configuration)."
+msgstr ""
+"Parasti gnome-settings-daemon konfigurē iekšējos un ārējos monitorus "
+"atbilstoši turn_on_external_monitors_at_startup un "
+"turn_on_laptop_monitor_at_startup iestatījumiem un nosaka atbilstošo "
+"klonēšanas/'sānu pie sāna' režīmu. Iestatot šo atslēgu uz Patiess, deaktivēs "
+"to,  "
+"un monitora iestatījumi vispār netiks aiztikti (izņemto, ja ir lietotāja "
+"eksplicīta "
+"konfigurācija)."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:10
+#| msgid ""
+#| "If a notification icon with display related things should be shown in the "
+#| "panel."
+msgid ""
+"Whether a notification icon with display-related things should be shown in "
+"the panel."
 msgstr ""
 "Vai paziņojumu ikonai ar displeja saistītām lietām vajadzētu būt redzamai "
 "panelī."
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
-msgid "Show Displays in Notification Area"
-msgstr "Rādīt displejus paziņojumu laukā"
 
 #: ../data/desktop_gnome_font_rendering.schemas.in.h:1
 msgid "Antialiasing"
@@ -311,8 +391,8 @@ msgid ""
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 "Kāda veida norādīšanu izmantot, kad renderē fontus. Iespējamās vērtības ir "
-"\"none\" – bez norādīšanas, \"slight\" vienkāršai, \"medium\" vidējai, "
-"\"full\" maksimālai norādīšanai (var radīt kropļojumus burtu formās)."
+"\"none\" – bez norādīšanas, \"slight\" vienkāršai, \"medium\" vidējai, \"full"
+"\" maksimālai norādīšanai (var radīt kropļojumus burtu formās)."
 
 #: ../data/desktop_gnome_keybindings.schemas.in.h:1
 msgid "Allowed keys"
@@ -324,8 +404,7 @@ msgid ""
 "the list. This is useful for lockdown."
 msgstr ""
 "Ja netukšs, taustiņu sasaite tiks ignorēta, ja vien GConf mape ir sarakstā. "
-"Tas ir noderīgi "
-"noslēgšanai."
+"Tas ir noderīgi noslēgšanai."
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
 msgid "Disable touchpad while typing"
@@ -340,7 +419,6 @@ msgid "Enable mouse clicks with touchpad"
 msgstr "Ieslēgt peles klikšķus ar skārienpaliktni"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
-#| msgid "Unable to launch backend"
 msgid "Enable touchpad"
 msgstr "Ieslēgt skārienpaliktni"
 
@@ -349,12 +427,15 @@ msgid "Select the touchpad scroll method"
 msgstr "Izvēlieties skārienpaliktņa ritināšanas metodi"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+#| msgid ""
+#| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
+#| "- edge scrolling, 2 - two-finger scrolling"
 msgid ""
-"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
-"edge scrolling, 2 - two-finger scrolling"
+"Select the touchpad scroll method. Supported values are: 0: disabled, 1: "
+"edge scrolling, and 2: two-finger scrolling"
 msgstr ""
-"Izvēlieties skārienpaliktņa ritināšanas metodi. Atbalstītās vērtības ir: 0 - "
-"atslēgts, 1 - malas ritināšana, 2 - divu pirkstu ritināšana"
+"Izvēlieties skārienpaliktņa ritināšanas metodi. Atbalstītās vērtības ir: 0: "
+"atslēgts, 1: malas ritināšana un 2: divu pirkstu ritināšana"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
 msgid ""
@@ -384,7 +465,6 @@ msgid "Set this to TRUE to enable all touchpads."
 msgstr "Iestatiet šo uz PATIESS, lai ieslēgtu visus skārienpaliktņus."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
-#| msgid "Keep GNOME settings"
 msgid "GNOME Settings Daemon"
 msgstr "GNOME iestatījumu dēmons"
 
@@ -401,7 +481,6 @@ msgid "Binding to toggle the screen reader."
 msgstr "Sasaiste, lai ieslēgtu/izslēgtu ekrāna lasītāju."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:4
-#| msgid "Mouse Keys"
 msgid "Bounce keys"
 msgstr "Atlecošie taustiņi"
 
@@ -418,81 +497,84 @@ msgid "Command used to turn the screen reader on or off."
 msgstr "Komanda, kuru izmantot, lai ieslēgtu/izslēgtu ekrāna lasītāju."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:8
+#| msgid "Enable xrandr plugin"
+msgid "Enable XRandR plugin"
+msgstr "Ieslēgt XRandR spraudni"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:9
 msgid "Enable accessibility keyboard plugin"
 msgstr "Aktivizēt tastatūras pieejamības spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/gnome-settings-daemon.schemas.in.h:10
 msgid "Enable background plugin"
 msgstr "Ieslēgt fona spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/gnome-settings-daemon.schemas.in.h:11
 msgid "Enable clipboard plugin"
 msgstr "Ieslēgt starpliktuves spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/gnome-settings-daemon.schemas.in.h:12
 msgid "Enable font plugin"
 msgstr "Ieslēgt fontu spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/gnome-settings-daemon.schemas.in.h:13
 msgid "Enable housekeeping plugin"
 msgstr "Ieslēgt uzkopšanas spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/gnome-settings-daemon.schemas.in.h:14
 msgid "Enable keybindings plugin"
 msgstr "Ieslēgt taustiņu sasaistes spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/gnome-settings-daemon.schemas.in.h:15
 msgid "Enable keyboard plugin"
 msgstr "Ieslēgt tastatūras spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/gnome-settings-daemon.schemas.in.h:16
 msgid "Enable media keys plugin"
 msgstr "Ieslēgt mediju taustiņu spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/gnome-settings-daemon.schemas.in.h:17
 msgid "Enable mouse plugin"
 msgstr "Ieslēgt peles spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/gnome-settings-daemon.schemas.in.h:18
+#| msgid "Enable xrandr plugin"
+msgid "Enable smartcard plugin"
+msgstr "Ieslēgt viedkaršu spraudni"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable sound plugin"
 msgstr "Ieslēgt skaņas spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable typing breaks plugin"
 msgstr "Ieslēgt rakstīšanas pārtraukšanas spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Enable xrandr plugin"
-msgstr "Ieslēgt xrandr spraudni"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "Ieslēgt xrdb spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "Ieslēgt xsettings spraudni"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
-#| msgid "Mouse Keys"
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Mouse keys"
 msgstr "Peles taustiņi"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-#| msgid "_On-screen keyboard"
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "On-screen keyboard"
 msgstr "Ekrāna tastatūra"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen magnifier"
 msgstr "Ekrāna palielinātājs"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-#| msgid "_Screenreader"
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Screen reader"
 msgstr "Ekrāna lasītājs"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -500,48 +582,64 @@ msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu uzkopšanas spraudni, lai iztīrītu pagaidu "
 "failus."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:28
+#| msgid "Set to True to enable the plugin to manage xrandr settings."
+msgid "Set to True to enable the plugin to manage XRandR settings."
+msgstr ""
+"Iestatiet uz patiess, lai ieslēgtu spraudni, lai pārvaldītu XRandR "
+"iestatījumus."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, pārvaldītu starpliktuves "
 "iestatījumus."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, lai pārvaldītu darbvirsmas fona "
 "iestatījumus."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, pārvaldītu fonta iestatījumus."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, lai pārvaldītu tastatūras "
 "iestatījumus."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:33
+#| msgid "Set to True to enable the plugin to manage font settings."
+msgid ""
+"Set to True to enable the plugin to manage locking the screen on smartcard "
+"removal."
+msgstr ""
+"Iestatiet uz patiess, lai ieslēgtu spraudni, pārvaldītu ekrāna slēgšanu ar "
+"viedkartes izņemšanu."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, lai pārvaldītu peles "
 "iestatījumus."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, multimediju taustiņu "
 "iestatījumus."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, lai pārvaldītu skaņas paraugu "
 "kešatmiņu."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -549,59 +647,51 @@ msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, lai pārvaldītu tastatūras "
 "pieejamības iestatījumus."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, lai pārvaldītu taustiņu "
 "sasaistes."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, lai pārvaldītu rakstīšanas "
 "pārtraukumus."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
-msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr ""
-"Iestatiet uz Patiess, lai ieslēgtu spraudni, lai pārvaldītu xrandr "
-"iestatījumus."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr ""
 "Iestatiet uz Patiess, lai ieslēgtu spraudni, lai pārvaldītu xrdb "
 "iestatījumus."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Iestatiet uz Patiess, lai ieslēgtu spraudni, lai pārvaldītu xsettings."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
-#| msgid "Slow Keys Alert"
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "Slow keys"
 msgstr "Lēnie taustiņi"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
-#| msgid "Sticky Keys Alert"
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "Sticky keys"
 msgstr "Lipīgie taustiņi"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/gnome-settings-daemon.schemas.in.h:44
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "Nosaukums tastatūras saīsinājumam, lai ieslēgtu/izslēgtu palielinātāju"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr ""
 "Nosaukums tastatūras saīsinājumam, lai ieslēgtu/izslēgtu ekrāna tastatūru"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr ""
 "Nosaukums tastatūras saīsinājumam, lai ieslēgtu/izslēgtu ekrāna lasītāju"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
@@ -609,7 +699,7 @@ msgstr ""
 "Šis ir nosaukums tastatūras saīsinājumam, lai ieslēgtu/izslēgtu "
 "palielinātāju. Šis nosaukums parādīsies tastatūru īsinājumtaustiņu dialogā."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
@@ -617,7 +707,7 @@ msgstr ""
 "Šis ir nosaukums tastatūras saīsinājumam, lai ieslēgtu/izslēgtu ekrāna "
 "tastatūru. Šis nosaukums parādīsies tastatūru īsinājumtaustiņu dialogā."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid ""
 "This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
@@ -625,54 +715,60 @@ msgstr ""
 "Šis ir nosaukums tastatūras saīsinājumam, lai ieslēgtu/izslēgtu ekrāna "
 "lasītāju. Šis nosaukums parādīsies tastatūru īsinājumtaustiņu dialogā."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
-#| msgid "_Magnifier"
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle magnifier"
 msgstr "Ieslēgt/izslēgt palielinātāju"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
-#| msgid "_On-screen keyboard"
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Toggle on-screen keyboard"
 msgstr "Ieslēgt/izslēgt ekrāna tastatūru"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
-#| msgid "_Screenreader"
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Toggle screen reader"
 msgstr "Ieslēgt/izslēgt ekrāna lasītāju"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
-#| msgid "Set your keyboard accessibility preferences"
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr ""
 "Vai atlecošo taustiņu tastatūras pieejamības iespējai būtu jābūt ieslēgtai."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
-#| msgid "Set your keyboard accessibility preferences"
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr ""
 "Vai peles taustiņu tastatūras pieejamības iespējai būtu jābūt ieslēgtai."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "Vai ekrāna tastatūra ir ieslēgta."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the screen magnifier is turned on."
 msgstr "Vai ekrāna palielinātājs ir ieslēgts."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen reader is turned on."
 msgstr "Vai ekrāna lasītājs ir ieslēgts."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
-#| msgid "Set your keyboard accessibility preferences"
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "Vai lēno taustiņu tastatūras pieejamības iespēja ir ieslēgta."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
-#| msgid "Set your keyboard accessibility preferences"
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Vai lipīgo taustiņu tastatūras pieejamības iespēja ir ieslēgta."
+
+#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:1
+msgid ""
+"Set this to one of \"none\", \"lock_screen\", or \"force_logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+"Iestatiet šo uz \"none\", \"lock_screen\" vai \"force_logout\". Šī darbība "
+"tiks veikta, "
+"ja tiks izņemta viedkarte, kura tika izmantota, lai pieteiktos."
+
+#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:2
+msgid "Smartcard removal action"
+msgstr "Viedkartes izņemšanas darbība"
 
 #: ../gnome-settings-daemon/main.c:55
 msgid "Enable debugging code"
@@ -687,8 +783,9 @@ msgid "GConf prefix from which to load plugin settings"
 msgstr "GConf prefiks, no kura ielādēt spraudņa iestatījumus"
 
 #: ../gnome-settings-daemon/main.c:58
-msgid "Exit after a time - for debugging"
-msgstr "Iziet pēc laika - atkļūdošanai"
+#| msgid "Exit after a time - for debugging"
+msgid "Exit after a time (for debugging)"
+msgstr "Iziet pēc laika (atkļūdošanai)"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -698,23 +795,23 @@ msgstr "Pieejamības tastatūra"
 msgid "Accessibility keyboard plugin"
 msgstr "Pieejamības tastatūras spraudnis"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:460
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Kļūda, parādot palīdzību: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:591
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:657
 msgid "Do you want to activate Slow Keys?"
 msgstr "Vai vēlaties aktivizēt lēnos taustiņus?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:592
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Vai vēlaties deaktivizēt lēnos taustiņus?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:659
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -723,66 +820,62 @@ msgstr ""
 "tastatūras lēno taustiņu funkcijas saīsne, kas ietekmē to, kā darbojas jūsu "
 "tastatūra."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
-#| msgid "Do_n't activate"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
 msgid "Don't activate"
 msgstr "Neaktivizēt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
-#| msgid "Do_n't deactivate"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
 msgid "Don't deactivate"
 msgstr "Nedeaktivizēt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
-#| msgid "_Activate"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Activate"
 msgstr "Aktivizēt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
-#| msgid "_Deactivate"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
 msgid "Deactivate"
 msgstr "Deaktivizēt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
 msgid "Do_n't activate"
 msgstr "N_eaktivizēt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
 msgid "Do_n't deactivate"
 msgstr "N_edeaktivizēt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
 msgid "_Activate"
 msgstr "_Aktivizēt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
 msgid "_Deactivate"
 msgstr "_Deaktivizēt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:687
 msgid "Slow Keys Alert"
 msgstr "Lēno taustiņu brīdinājums"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:727
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:795
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Vai vēlaties aktivizēt lipīgo taustiņu funkciju?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:796
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Vai vēlaties deaktivizēt lipīgo taustiņu funkciju?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:730
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:798
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -790,8 +883,8 @@ msgstr ""
 "Jūs tikko piespiedāt Shift taustiņu 5 reizes pēc kārtas.  Tā ir klaviatūras "
 "Lipīgo taustiņu funkcijas saīsne, kas ietekmē to kā darbojas jūsu klaviatūra."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:732
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:800
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -801,13 +894,12 @@ msgstr ""
 "pēc kārtas.  Tas atslēdz klaviatūras lipīgo taustiņu funkciju, kas ietekmē "
 "to kā darbojas jūsu klaviatūra."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:828
 msgid "Sticky Keys Alert"
 msgstr "Lipīgo taustiņu brīdinājums"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
-#| msgid "Mouse Preferences"
 msgid "Universal Access Preferences"
 msgstr "Universālās pieejas iestatījumi"
 
@@ -824,7 +916,6 @@ msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Spiediet un _turiet taustiņus, lai tos pieņemtu (lēnie taustiņi)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
-#| msgid "_On-screen keyboard"
 msgid "Use on-screen _keyboard"
 msgstr "Lietot e_krāna tastatūru"
 
@@ -833,12 +924,10 @@ msgid "Use screen _magnifier"
 msgstr "Lietot ekrāna _palielinātāju"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
-#| msgid "_Screenreader"
 msgid "Use screen _reader"
 msgstr "Lietot ek_rāna lasītāju"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
-#| msgid "I_gnore duplicate keypresses within:"
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
 msgstr "_Ignorēt dubultu taustiņu nospiešanu (atlecošie taustiņi):"
 
@@ -879,12 +968,11 @@ msgid "Font plugin"
 msgstr "Fonta spraudnis"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-#| msgid "Do _not show this warning again"
-msgid "Don't show any warnings again for this filesystem"
+#| msgid "Don't show any warnings again for this filesystem"
+msgid "Don't show any warnings again for this file system"
 msgstr "Vairs nerādīt brīdinājumus no šīs failsistēmas"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-#| msgid "Do _not show this warning again"
 msgid "Don't show any warnings again"
 msgstr "Vairs nerādīt brīdinājumus"
 
@@ -940,46 +1028,45 @@ msgid "Empty Trash"
 msgstr "Iztukšot miskasti"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
-#| msgid "Rename..."
-msgid "Examine..."
-msgstr "Izpētīt..."
+#| msgid "Examine..."
+msgid "Examine…"
+msgstr "Izpētīt…"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
 msgid "Ignore"
 msgstr "Ignorēt"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
 #, c-format
-#| msgid "Copying file: %u of %u"
 msgid "Removing item %lu of %lu"
 msgstr "Noņem vienību %lu no %lu"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:117
 #, c-format
-#| msgid "<i>High</i>"
-msgid "<i>Removing: %s</i>"
-msgstr "<i>Noņem: %s</i>"
+#| msgid "<i>Removing: %s</i>"
+msgid "Removing: %s"
+msgstr "Izņem: %s"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:247
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
 msgid "Emptying the trash"
 msgstr "Iztukšo miskasti"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
-msgid "Preparing to empty trash..."
-msgstr "Gatavojas iztukšot miskasti..."
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:272
+#| msgid "Preparing to empty trash..."
+msgid "Preparing to empty trash…"
+msgstr "Gatavojas iztukšot miskasti…"
 
 #. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
-#| msgid "From URI"
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:299
 msgid "From: "
 msgstr "No:"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
 msgid "Empty all of the items from the trash?"
 msgstr "Iztukšot visu miskasti?"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:363
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
@@ -987,19 +1074,17 @@ msgstr ""
 "Ja izvēlēsieties iztukšot miskasti, visas vienības tajā tiks neatgriezeniski "
 "zaudētas. Atcerieties, ka tās iespējams dzēst atsevišķi."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
+#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:370
 msgid "_Empty Trash"
 msgstr "_Iztukšot miskasti"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
-#| msgid "Key Binding (%s) is invalid\n"
 msgid "Key binding (%s) is invalid"
 msgstr "Taustiņu sasaiste (%s) ir nederīga"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:197
 #, c-format
-#| msgid "Key Binding (%s) is incomplete\n"
 msgid "Key binding (%s) is incomplete"
 msgstr "Taustiņu sasaiste (%s) ir nepilnīga"
 
@@ -1028,28 +1113,42 @@ msgstr "Tastatūra"
 msgid "Keyboard plugin"
 msgstr "Tastatūras spraudnis"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:117
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:137
 #, c-format
+#| msgid ""
+#| "Error activating XKB configuration.\n"
+#| "It can happen under various circumstances:\n"
+#| "- a bug in libxklavier library\n"
+#| "- a bug in X server (xkbcomp, xmodmap utilities)\n"
+#| "- X server with incompatible libxkbfile implementation\n"
+#| "\n"
+#| "X server version data:\n"
+#| "%s\n"
+#| "%d\n"
+#| "%s\n"
+#| "If you report this situation as a bug, please include:\n"
+#| "- The result of <b>%s</b>\n"
+#| "- The result of <b>%s</b>"
 msgid ""
 "Error activating XKB configuration.\n"
 "It can happen under various circumstances:\n"
-"- a bug in libxklavier library\n"
-"- a bug in X server (xkbcomp, xmodmap utilities)\n"
-"- X server with incompatible libxkbfile implementation\n"
+" • a bug in libxklavier library\n"
+" • a bug in X server (xkbcomp, xmodmap utilities)\n"
+" • X server with incompatible libxkbfile implementation\n"
 "\n"
 "X server version data:\n"
 "%s\n"
 "%d\n"
 "%s\n"
 "If you report this situation as a bug, please include:\n"
-"- The result of <b>%s</b>\n"
-"- The result of <b>%s</b>"
+" • The result of <b>%s</b>\n"
+" • The result of <b>%s</b>"
 msgstr ""
 "Kļūda aktivējot XKB konfigurāciju.\n"
 "Tas var notikt daudzu apstākļu dēļ:\n"
-"-kļūda libxklavier bibliotēkā\n"
-"-kļūda X serverī (xkbcomp, xmodmap utilītprogrammās)\n"
-"-X serveris ar nesavienojamu libxkbfile izpildīšanu\n"
+" • kļūda libxklavier bibliotēkā\n"
+" • kļūda X serverī (xkbcomp, xmodmap utilītprogrammās)\n"
+" • X serveris ar nesavienojamu libxkbfile izpildīšanu\n"
 "\n"
 "X servera versijas dati:\n"
 "%s\n"
@@ -1057,43 +1156,38 @@ msgstr ""
 "%s\n"
 "Ja jūs par šo situāciju paziņosiet kā kļūdu, lūdzu, iekļaujiet "
 "sekojošo:\n"
-"-<b>%s</b> iznākumu\n"
-"-<b>%s</b> iznākumu"
+" • <b>%s</b> iznākumu\n"
+" • <b>%s</b> iznākumu"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:131
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:151
+#| msgid ""
+#| "You are using XFree 4.3.0.\n"
+#| "There are known problems with complex XKB configurations.\n"
+#| "Try using a simpler configuration or taking a fresher version of XFree "
+#| "software."
 msgid ""
 "You are using XFree 4.3.0.\n"
 "There are known problems with complex XKB configurations.\n"
-"Try using a simpler configuration or taking a fresher version of XFree "
+"Try using a simpler configuration or using a later version of the XFree "
 "software."
 msgstr ""
 "Jūs lietojat XFree 4.3.0.\n"
 "Ir zināmas problēmas ar kompleksa XKB konfigurāciju.\n"
-"Pamēģiniet izmantot vienkāršāku konfigurāciju vai arī svaigāku XFree "
+"Pamēģiniet izmantot vienkāršāku konfigurāciju vai arī jaunāku XFree "
 "versijas programmatūru."
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:203
-msgid "Unknown"
-msgstr "Nezināms"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:279
+#| msgid "Layouts"
+msgid "_Layouts"
+msgstr "_Izkārtojumi"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:272
-#, c-format
-#| msgid "Keyboard Shortcuts"
-msgid "Keyboard Layout \"%s\""
-msgstr "Tastatūras izkārtojums \"%s\""
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:395
-#| msgid "Groups"
-msgid "_Groups"
-msgstr "_Grupas"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
-#| msgid "Keyboard Preferences"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:286
 msgid "Keyboard _Preferences"
 msgstr "Tastatūras _iestatījumi"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:408
-msgid "Show Current _Layout"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:292
+#| msgid "Show Current _Layout"
+msgid "Show _Current Layout"
 msgstr "Rādīt _pašreizējo izkārtojumu"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:1
@@ -1105,8 +1199,9 @@ msgid "Load modmap files"
 msgstr "Ielādēt modmap failus"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:3
-msgid "Would you like to load the modmap file(s)?"
-msgstr "Vai vēlaties ielādēt modmap failu(-s)?"
+#| msgid "Would you like to load the modmap file(s)?"
+msgid "Would you like to load the modmap files?"
+msgstr "Vai vēlaties ielādēt modmap failus?"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:4
 msgid "_Do not show this message again"
@@ -1120,19 +1215,13 @@ msgstr "Ie_lādēt"
 msgid "_Loaded files:"
 msgstr "Ie_lādētie faili:"
 
-#: ../plugins/keyboard/show-layout.ui.h:1
-#| msgid "Keyboard Shortcuts"
-msgid "Keyboard Layout"
-msgstr "Tastatūras izkārtojums"
-
 #: ../plugins/media-keys/gsd-media-keys-manager.c:195
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
 msgstr ""
 "Nevarēja iegūt noklusēto termināli. Pārliecinieties, ka jūsu noklusētā "
-"termināļa komanda "
-"ir iestatīta un norāda uz derīgu lietotni."
+"termināļa komanda ir iestatīta un norāda uz derīgu lietotni."
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:235
 #, c-format
@@ -1186,9 +1275,11 @@ msgid "Could not enable mouse accessibility features"
 msgstr "Nevarēja aktivizēt peles pieejamības iespējas"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:884
+#| msgid ""
+#| "Mouse accessibility requires mousetweaks to be installed on your system."
 msgid ""
-"Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr "Peles pieejamībai ir nepieciešams uzinstalēts mousetweaks."
+"Mouse accessibility requires Mousetweaks to be installed on your system."
+msgstr "Peles pieejamībai ir nepieciešams uzinstalēts Mousetweaks."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:887
 msgid "Mouse Preferences"
@@ -1218,19 +1309,19 @@ msgstr "Iestatiet ekrāna izmēra un pagriešanas iestatījumus"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:222
+#: ../plugins/xrandr/gsd-xrandr-manager.c:372
 msgid "Could not switch the monitor configuration"
 msgstr "Nevarēja pārslēgt monitora konfigurāciju"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:246
+#: ../plugins/xrandr/gsd-xrandr-manager.c:396
 msgid "Could not restore the display's configuration"
 msgstr "Nevarēja atjaunot displeja konfigurāciju"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:271
+#: ../plugins/xrandr/gsd-xrandr-manager.c:421
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Nevarēja atjaunot displeja konfigurāciju no rezerves kopijas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:292
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1239,67 +1330,66 @@ msgstr[0] "Ekrāns tiks atstatīts uz iepriekšējo konfigurāciju pēc %d sekun
 msgstr[1] "Ekrāns tiks atstatīts uz iepriekšējo konfigurāciju pēc %d sekundēm"
 msgstr[2] "Ekrāns tiks atstatīts uz iepriekšējo konfigurāciju pēc %d sekundēm"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:341
+#: ../plugins/xrandr/gsd-xrandr-manager.c:491
 msgid "Does the display look OK?"
 msgstr "Vai ekrāns izskatās labi?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:347
-#| msgid "Proxy Configuration"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:497
 msgid "_Restore Previous Configuration"
 msgstr "Atjaunot iep_riekšējo konfigurāciju"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:348
-#| msgid "Advanced Configuration"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:498
 msgid "_Keep This Configuration"
 msgstr "Paturēt šo _konfigurāciju"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:429
+#: ../plugins/xrandr/gsd-xrandr-manager.c:579
 msgid "The selected configuration for displays could not be applied"
 msgstr "Izvēlēto ekrānu konfigurāciju nevarēja pielietot"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:967
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1143
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Nevar atsvaidzināt ekrāna informāciju: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1147
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Mēģina tāpat pārslēgt monitora konfigurāciju."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1679
-msgid "<i>Rotation not supported</i>"
-msgstr "<i>Pagriešana nav atbalstīta</i>"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1878
+#| msgid "<i>Rotation not supported</i>"
+msgid "Rotation not supported"
+msgstr "Pagriešana nav atbalstīta"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1733
-#| msgid "Error saving configuration: %s"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1934
 msgid "Could not save monitor configuration"
 msgstr "Nevar saglabāt monitora konfigurāciju"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1751
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
 msgid "Normal"
 msgstr "Normāls"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1752
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
 msgid "Left"
 msgstr "Pa kreisi"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1753
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
 msgid "Right"
 msgstr "Pa labi"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1754
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1955
 msgid "Upside Down"
 msgstr "Apgriezt otrādi"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1874
-msgid "_Configure Display Settings ..."
-msgstr "_Konfigurēt ekrāna iestatījumus..."
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2075
+#| msgid "_Configure Display Settings ..."
+msgid "_Configure Display Settings…"
+msgstr "_Konfigurēt ekrāna iestatījumus…"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1915
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2116
 msgid "Configure display settings"
 msgstr "Konfigurēt ekrāna iestatījumus..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1972
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2177
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Nevarēja piemērot monitoriem saglabāto konfigurāciju"
 
@@ -1329,6 +1419,117 @@ msgstr "Pārvaldīt X iestatījumus"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X iestatījumi"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:167
+msgid "Module Path"
+msgstr "Moduļa ceļš"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:168
+msgid "path to smartcard PKCS #11 driver"
+msgstr "ceļš uz viedkartes  PKCS #11 draiveri"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:504
+msgid "received error or hang up from event source"
+msgstr "saņēma kļūdu vai atteikumu no notikumu avota"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:593
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr "nevarēja inicializēt NSS drošības sistēmu"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr "nevarēja atrast piemērotu viedkaršu draiveri"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:682
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr "nevarēja ielādēt viedkartes dzini '%s'"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:771
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr "nevarēja novērto ienākošos kartes notikumus - %s"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1124
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr "gadījās negaidīta kļūda, gaidot viedkartes notikumus"
+
+#: ../plugins/smartcard/gsd-smartcard.c:154
+msgid "Slot ID"
+msgstr "Slota ID"
+
+#: ../plugins/smartcard/gsd-smartcard.c:155
+msgid "The slot the card is in"
+msgstr "Slots, kurā ir karte"
+
+#: ../plugins/smartcard/gsd-smartcard.c:161
+#| msgid "Slow keys"
+msgid "Slot Series"
+msgstr "Slota sērija"
+
+#: ../plugins/smartcard/gsd-smartcard.c:162
+msgid "per-slot card identifier"
+msgstr "karšu identifikators katram slotam"
+
+#: ../plugins/smartcard/gsd-smartcard.c:168
+#: ../plugins/smartcard/gsd-smartcard.c:169
+#| msgid "filename"
+msgid "name"
+msgstr "nosaukums"
+
+#: ../plugins/smartcard/gsd-smartcard.c:173
+#| msgid "Mouse"
+msgid "Module"
+msgstr "Modulis"
+
+#: ../plugins/smartcard/gsd-smartcard.c:174
+msgid "smartcard driver"
+msgstr "viedkartes draiveris"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
+#| msgid "Change set"
+msgid "Change system time"
+msgstr "Mainīt sistēmas laiku"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
+#| msgid "Change set"
+msgid "Change system time zone"
+msgstr "Mainīt laika joslu"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
+msgid "Configure hardware clock"
+msgstr "Konfigurēt aparatūras pulksteni"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
+msgid "Privileges are required to change the system time zone."
+msgstr "Lai mainītu sistēmas laika zonu, nepieciešamas lielākas privilēģijas."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
+msgid "Privileges are required to change the system time."
+msgstr "Lai mainītu sistēmas laiku, nepieciešamas lielākas privilēģijas."
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
+msgid "Privileges are required to configure the hardware clock."
+msgstr ""
+"Lai konfigurētu aparatūras pulksteni, nepieciešamas lielākas privilēģijas."
+
+#~ msgid "Unknown"
+#~ msgstr "Nezināms"
+
+#~| msgid "Keyboard Shortcuts"
+#~ msgid "Keyboard Layout \"%s\""
+#~ msgstr "Tastatūras izkārtojums \"%s\""
+
+#~| msgid "Groups"
+#~ msgid "_Groups"
+#~ msgstr "_Grupas"
+
+#~| msgid "Keyboard Shortcuts"
+#~ msgid "Keyboard Layout"
+#~ msgstr "Tastatūras izkārtojums"
 
 #, fuzzy
 #~ msgid ""
@@ -2119,9 +2320,6 @@ msgstr "X iestatījumi"
 #~ msgstr ""
 #~ "Izdot šo atsaukumu, kad vērtība, kas asociēta ar atslēgu, tiek izmainīta"
 
-#~ msgid "Change set"
-#~ msgstr "Mainīt kopu"
-
 #~ msgid ""
 #~ "GConf change set containing data to be forwarded to the gconf client on "
 #~ "apply"
@@ -2761,9 +2959,6 @@ msgstr "X iestatījumi"
 #~ msgid "Layout Options"
 #~ msgstr "Novietojuma opcijas"
 
-#~ msgid "Layouts"
-#~ msgstr "Novietojumi"
-
 #~ msgid ""
 #~ "Lock screen after a certain duration to help prevent repetitive keyboard "
 #~ "use injuries"
@@ -3201,9 +3396,6 @@ msgstr "X iestatījumi"
 
 #~ msgid "Specify the filename of a theme to install"
 #~ msgstr "Norādiet uzstādāmās tēmas faila atrašanās vieta"
-
-#~ msgid "filename"
-#~ msgstr "faila vārds"
 
 #~ msgid ""
 #~ "The default theme schemas could not be found on your system.  This means "
