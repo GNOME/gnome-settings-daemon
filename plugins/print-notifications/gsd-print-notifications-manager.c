@@ -51,6 +51,8 @@ struct GsdPrintNotificationsManagerPrivate
         GDBusProxy                   *cups_proxy;
         GDBusConnection              *bus_connection;
         gint                          subscription_id;
+        cups_dest_t                  *dests;
+        gint                          num_dests;
 };
 
 enum {
@@ -67,10 +69,10 @@ static gpointer manager_object = NULL;
 
 static char *
 get_dest_attr (const char *dest_name,
-               const char *attr)
+               const char *attr,
+               cups_dest_t *dests,
+               int          num_dests)
 {
-        cups_dest_t *dests;
-        int          num_dests;
         cups_dest_t *dest;
         const char  *value;
         char        *ret;
@@ -79,12 +81,6 @@ get_dest_attr (const char *dest_name,
                 return NULL;
 
         ret = NULL;
-
-        num_dests = cupsGetDests (&dests);
-        if (num_dests < 1) {
-                g_debug ("Unable to get printer destinations");
-                return NULL;
-        }
 
         dest = cupsGetDest (dest_name, NULL, num_dests, dests);
         if (dest == NULL) {
@@ -99,13 +95,13 @@ get_dest_attr (const char *dest_name,
         }
         ret = g_strdup (value);
  out:
-        cupsFreeDests (num_dests, dests);
-
         return ret;
 }
 
 static gboolean
-is_local_dest (const char *name)
+is_local_dest (const char  *name,
+               cups_dest_t *dests,
+               int          num_dests)
 {
         char        *type_str;
         cups_ptype_t type;
@@ -113,7 +109,7 @@ is_local_dest (const char *name)
 
         is_remote = TRUE;
 
-        type_str = get_dest_attr (name, "printer-type");
+        type_str = get_dest_attr (name, "printer-type", dests, num_dests);
         if (type_str == NULL) {
                 goto out;
         }
@@ -125,6 +121,12 @@ is_local_dest (const char *name)
         return !is_remote;
 }
 
+static int
+strcmp0(const void *a, const void *b)
+{
+        return g_strcmp0 (*((gchar **) a), *((gchar **) b));
+}
+
 static void
 on_cups_notification (GDBusConnection *connection,
                       const char      *sender_name,
@@ -134,6 +136,7 @@ on_cups_notification (GDBusConnection *connection,
                       GVariant        *parameters,
                       gpointer         user_data)
 {
+        GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
         gboolean                     printer_is_accepting_jobs;
         gboolean                     my_job = FALSE;
         http_t                      *http;
@@ -152,9 +155,76 @@ on_cups_notification (GDBusConnection *connection,
         gint                         printer_state;
         gint                         job_state;
         gint                         job_impressions_completed;
+        static const char * const reasons[] = {
+                "toner-low",
+                "toner-empty",
+                "connecting-to-device",
+                "cover-open",
+                "cups-missing-filter",
+                "door-open",
+                "marker-supply-low",
+                "marker-supply-empty",
+                "media-low",
+                "media-empty",
+                "offline",
+                "other"};
+
+        static const char * statuses_first[] = {
+                /* Translators: The printer is low on toner (same as in system-config-printer) */
+                N_("Toner low"),
+                /* Translators: The printer has no toner left (same as in system-config-printer) */
+                N_("Toner empty"),
+                /* Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer) */
+                N_("Not connected?"),
+                /* Translators: One or more covers on the printer are open (same as in system-config-printer) */
+                N_("Cover open"),
+                /* Trnaslators: A filter or backend is not installed (same as in system-config-printer) */
+                N_("Printer configuration error"),
+                /* Translators: One or more doors on the printer are open (same as in system-config-printer) */
+                N_("Door open"),
+                /* Translators: "marker" is one color bin of the printer */
+                N_("Marker supply low"),
+                /* Translators: "marker" is one color bin of the printer */
+                N_("Out of a marker supply"),
+                /* Translators: At least one input tray is low on media (same as in system-config-printer) */
+                N_("Paper low"),
+                /* Translators: At least one input tray is empty (same as in system-config-printer) */
+                N_("Out of paper"),
+                /* Translators: The printer is offline (same as in system-config-printer) */
+                N_("Printer off-line"),
+                /* Translators: The printer has detected an error (same as in system-config-printer) */
+                N_("Printer error") };
+
+        static const char * statuses_second[] = {
+                /* Translators: The printer is low on toner (same as in system-config-printer) */
+                N_("Printer '%s' is low on toner."),
+                /* Translators: The printer has no toner left (same as in system-config-printer) */
+                N_("Printer '%s' has no toner left."),
+                /* Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer) */
+                N_("Printer '%s' may not be connected."),
+                /* Translators: One or more covers on the printer are open (same as in system-config-printer) */
+                N_("The cover is open on printer '%s'."),
+                /* Trnaslators: A filter or backend is not installed (same as in system-config-printer) */
+                N_("There is a missing print filter for "
+                   "printer '%s'."),
+                /* Translators: One or more doors on the printer are open (same as in system-config-printer) */
+                N_("The door is open on printer '%s'."),
+                /* Translators: "marker" is one color bin of the printer */
+                N_("Printer '%s' is low on a marker supply."),
+                /* Translators: "marker" is one color bin of the printer */
+                N_("Printer '%s' is out of a marker supply."),
+                /* Translators: At least one input tray is low on media (same as in system-config-printer) */
+                N_("Printer '%s' is low on paper."),
+                /* Translators: At least one input tray is empty (same as in system-config-printer) */
+                N_("Printer '%s' is out of paper."),
+                /* Translators: The printer is offline (same as in system-config-printer) */
+                N_("Printer '%s' is currently off-line."),
+                /* Translators: The printer has detected an error (same as in system-config-printer) */
+                N_("There is a problem on printer '%s'.") };
 
         if (g_strcmp0 (signal_name, "PrinterAdded") != 0 &&
             g_strcmp0 (signal_name, "PrinterDeleted") != 0 &&
+            g_strcmp0 (signal_name, "PrinterStateChanged") != 0 &&
             g_strcmp0 (signal_name, "JobCompleted") != 0 &&
             g_strcmp0 (signal_name, "JobState") != 0 &&
             g_strcmp0 (signal_name, "JobCreated") != 0)
@@ -213,17 +283,27 @@ on_cups_notification (GDBusConnection *connection,
         }
 
         if (g_strcmp0 (signal_name, "PrinterAdded") == 0) {
+                cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
+                manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+
                 /* Translators: New printer has been added */
-                if (is_local_dest (printer_name)) {
+                if (is_local_dest (printer_name,
+                                   manager->priv->dests,
+                                   manager->priv->num_dests)) {
                         primary_text = g_strdup (_("Printer added"));
                         secondary_text = g_strdup (printer_name);
                 }
         } else if (g_strcmp0 (signal_name, "PrinterDeleted") == 0) {
                 /* Translators: A printer has been removed */
-                if (is_local_dest (printer_name)) {
+                if (is_local_dest (printer_name,
+                                   manager->priv->dests,
+                                   manager->priv->num_dests)) {
                         primary_text = g_strdup (_("Printer removed"));
                         secondary_text = g_strdup (printer_name);
                 }
+
+                cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
+                manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
         } else if (g_strcmp0 (signal_name, "JobCompleted") == 0 && my_job) {
                 /* FIXME: get a better human readable name */
                 display_name = g_strdup (printer_name);
@@ -259,7 +339,10 @@ on_cups_notification (GDBusConnection *connection,
                                 break;
                 }
         } else if (g_strcmp0 (signal_name, "JobState") == 0 && my_job) {
-                display_name = get_dest_attr (printer_name, "printer-info");
+                display_name = get_dest_attr (printer_name,
+                                              "printer-info",
+                                              manager->priv->dests,
+                                              manager->priv->num_dests);
 
                 switch (job_state) {
                         case IPP_JOB_PROCESSING:
@@ -272,7 +355,10 @@ on_cups_notification (GDBusConnection *connection,
                                 break;
                 }
         } else if (g_strcmp0 (signal_name, "JobCreated") == 0 && my_job) {
-                display_name = get_dest_attr (printer_name, "printer-info");
+                display_name = get_dest_attr (printer_name,
+                                              "printer-info",
+                                              manager->priv->dests,
+                                              manager->priv->num_dests);
 
                 if (job_state == IPP_JOB_PROCESSING) {
                         /* Translators: A job is printing */
@@ -280,6 +366,99 @@ on_cups_notification (GDBusConnection *connection,
                         /* Translators: "print-job xy" on a printer */
                         secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, display_name);
                 }
+        } else if (g_strcmp0 (signal_name, "PrinterStateChanged") == 0) {
+                cups_dest_t  *dest = NULL;
+                const gchar  *tmp_printer_state_reasons = NULL;
+                GSList       *added_reasons = NULL;
+                GSList       *tmp_list = NULL;
+                gchar       **old_state_reasons = NULL;
+                gchar       **new_state_reasons = NULL;
+                gint          i, j;
+
+                /* FIXME: get a better human readable name */
+                display_name = g_strdup (printer_name);
+
+                dest = cupsGetDest (printer_name,
+                                    NULL,
+                                    manager->priv->num_dests,
+                                    manager->priv->dests);
+                if (dest)
+                        tmp_printer_state_reasons = cupsGetOption ("printer-state-reasons",
+                                                                   dest->num_options,
+                                                                   dest->options);
+
+                if (tmp_printer_state_reasons)
+                        old_state_reasons = g_strsplit (tmp_printer_state_reasons, ",", -1);
+
+                cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
+                manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+
+                dest = cupsGetDest (printer_name,
+                                    NULL,
+                                    manager->priv->num_dests,
+                                    manager->priv->dests);
+                if (dest)
+                        tmp_printer_state_reasons = cupsGetOption ("printer-state-reasons",
+                                                                   dest->num_options,
+                                                                   dest->options);
+
+                if (tmp_printer_state_reasons)
+                        new_state_reasons = g_strsplit (tmp_printer_state_reasons, ",", -1);
+
+                if (new_state_reasons)
+                        qsort (new_state_reasons,
+                               g_strv_length (new_state_reasons),
+                               sizeof (gchar *),
+                               strcmp0);
+
+                if (old_state_reasons) {
+                        qsort (old_state_reasons,
+                               g_strv_length (old_state_reasons),
+                               sizeof (gchar *),
+                               strcmp0);
+
+                        j = 0;
+                        for (i = 0; i < g_strv_length (new_state_reasons); i++) {
+                                while (old_state_reasons[j] &&
+                                       g_strcmp0 (old_state_reasons[j], new_state_reasons[i]) < 0)
+                                        j++;
+
+                                if (old_state_reasons[j] == NULL ||
+                                    g_strcmp0 (old_state_reasons[j], new_state_reasons[i]) != 0)
+                                        added_reasons = g_slist_append (added_reasons,
+                                                                        new_state_reasons[i]);
+                        }
+                }
+                else {
+                        for (i = 0; i < g_strv_length (new_state_reasons); i++) {
+                                added_reasons = g_slist_append (added_reasons,
+                                                                new_state_reasons[i]);
+                        }
+                }
+
+                for (tmp_list = added_reasons; tmp_list; tmp_list = tmp_list->next) {
+                        gchar *data = (gchar *) tmp_list->data;
+                        for (j = 0; j < G_N_ELEMENTS (reasons); j++) {
+                                if (strncmp (data,
+                                             reasons[j],
+                                             strlen (reasons[j])) == 0) {
+                                        NotifyNotification *notification;
+                                        gchar *second_row = g_strdup_printf (statuses_second[j], printer_name);
+
+                                        notification = notify_notification_new (statuses_first[j],
+                                                                                second_row,
+                                                                                "printer-symbolic");
+                                        notify_notification_set_hint (notification,
+                                                                      "transient",
+                                                                      g_variant_new_boolean (TRUE));
+                                        notify_notification_show (notification, NULL);
+
+                                        g_object_unref (notification);
+                                        g_free (second_row);
+                                }
+                        }
+                }
+                g_slist_free (added_reasons);
         }
 
         g_free (display_name);
@@ -293,6 +472,9 @@ on_cups_notification (GDBusConnection *connection,
                 notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
 
                 notify_notification_show (notification, NULL);
+                g_object_unref (notification);
+                g_free (primary_text);
+                g_free (secondary_text);
         }
 }
 
@@ -303,14 +485,15 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         GError     *lerror;
         ipp_t      *request, *response;
         http_t     *http;
-        gint        num_events = 6;
+        gint        num_events = 7;
         static const char * const events[] = {
                 "job-created",
                 "job-completed",
                 "job-state-changed",
                 "job-state",
                 "printer-added",
-                "printer-deleted"};
+                "printer-deleted",
+                "printer-state-changed"};
         ipp_attribute_t *attr = NULL;
 
         g_debug ("Starting print-notifications manager");
@@ -318,6 +501,8 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         gnome_settings_profile_start (NULL);
 
         manager->priv->subscription_id = -1;
+        manager->priv->dests = NULL;
+        manager->priv->num_dests = 0;
 
         if ((http = httpConnectEncrypt (cupsServer (), ippPort (),
                                         cupsEncryption ())) == NULL) {
@@ -352,6 +537,8 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
 
                 httpClose(http);
         }
+
+        manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
 
         lerror = NULL;
         manager->priv->cups_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
@@ -393,6 +580,10 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
         http_t     *http;
 
         g_debug ("Stopping print-notifications manager");
+
+        cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
+        manager->priv->num_dests = 0;
+        manager->priv->dests = NULL;
 
         if (manager->priv->subscription_id >= 0 &&
             ((http = httpConnectEncrypt(cupsServer(), ippPort(),
