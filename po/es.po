@@ -10,17 +10,17 @@
 # Pablo Gonzalo del Campo <pablodc@bigfoot.com>, 2002,2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2005, 2006.
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&component=general\n"
-"POT-Creation-Date: 2011-03-05 10:40+0000\n"
-"PO-Revision-Date: 2011-03-05 14:11+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2011-03-09 15:05+0000\n"
+"PO-Revision-Date: 2011-03-10 11:58+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,8 +94,8 @@ msgid ""
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
 "Seleccionar el método de desplazamiento del «touchpad». Los valores "
-"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento "
-"en el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
+"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento en "
+"el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid ""
@@ -1119,8 +1119,8 @@ msgid ""
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Acaba de pulsar la tecla «Mayúsculas» 5 veces. Este es el acceso rápido para "
-"la característica «Teclas persistentes», que afecta la manera en que "
-"funciona el teclado."
+"la característica «Teclas persistentes», que afecta la manera en que funciona "
+"el teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
@@ -1130,8 +1130,8 @@ msgid ""
 "keyboard works."
 msgstr ""
 "Acaba de pulsar dos teclas a la vez, o ha pulsado la tecla «Mayúsculas» 5 "
-"veces seguidas. Esto desactiva la característica de «Teclas persistentes», "
-"lo cual afecta a la forma en que funciona su teclado."
+"veces seguidas. Esto desactiva la característica de «Teclas persistentes», lo "
+"cual afecta a la forma en que funciona su teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
 msgid "Sticky Keys Alert"
@@ -1195,7 +1195,7 @@ msgstr "Complemento de automontado"
 msgid "Unable to mount %s"
 msgstr "No se pudo montar %s"
 
-#: ../plugins/automount/gsd-automount-manager.c:267
+#: ../plugins/automount/gsd-automount-manager.c:271
 #, c-format
 msgid "Unable to open a folder for %s"
 msgstr "No se pudo montar una carpeta para %s"
@@ -1588,48 +1588,182 @@ msgstr "Notificaciones de la impresora"
 msgid "Print-notifications plugin"
 msgstr "Complemento de notificaciones de la impresora"
 
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:174
+msgid "Toner low"
+msgstr "Nivel de tóner bajo"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:176
+msgid "Toner empty"
+msgstr "Tóner vacío"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
+msgid "Not connected?"
+msgstr "¿No está conectada?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
+msgid "Cover open"
+msgstr "Tapa abierta"
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
+msgid "Printer configuration error"
+msgstr "Error de configuración de la impresora"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
+msgid "Door open"
+msgstr "Puerta abierta"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
+msgid "Marker supply low"
+msgstr ""
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
+msgid "Out of a marker supply"
+msgstr ""
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
+msgid "Paper low"
+msgstr "Nivel de papel bajo"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
+msgid "Out of paper"
+msgstr "Papel agotado"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
+#| msgid "Printer removed"
+msgid "Printer off-line"
+msgstr "Impresora desconectada"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
+#| msgid "Printer removed"
+msgid "Printer error"
+msgstr "Error en la impresora"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr "A la impresora «%s» le queda poco tóner."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:202
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr "A la impresora «%s» no le queda tóner."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr "Puede que la impresora «%s» no esté conectada."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr "La tapa de la impresora «%s» está abierta."
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr "No se encuentra un filtro para la impresora «%s»."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:211
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr "La puerta de la impresora «%s» está abierta."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:213
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr ""
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr ""
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr "La impresora «%s» tiene poco papel."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr "La impresora «%s» no tiene papel."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr "La impresora «%s» está actualmente desconectada."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr "Existe un problema con la impresora «%s»."
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:293
 msgid "Printer added"
 msgstr "Impresora añadida"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:301
 msgid "Printer removed"
 msgstr "Impresora quitada"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:239
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:318
 msgid "Printing stopped"
 msgstr "Impresión detenida"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:241
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:247
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:253
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:259
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:270
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:282
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:320
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:326
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:332
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:338
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "«%s» en %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:245
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
 msgid "Printing canceled"
 msgstr "Impresión cancelada"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:251
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
 msgid "Printing aborted"
 msgstr "Impresión abortada"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:257
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
 msgid "Printing completed"
 msgstr "Impresión completa"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:268
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:280
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:365
 msgid "Printing"
 msgstr "Imprimiendo"
 
