@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-03 22:08+0200\n"
-"PO-Revision-Date: 2011-03-03 22:08+0200\n"
+"POT-Creation-Date: 2011-03-10 19:09+0200\n"
+"PO-Revision-Date: 2011-03-10 19:14+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <kde-il@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -1142,7 +1142,7 @@ msgstr "תוסף העיגון האוטומטי"
 msgid "Unable to mount %s"
 msgstr "לא ניתן לעגן את %s"
 
-#: ../plugins/automount/gsd-automount-manager.c:267
+#: ../plugins/automount/gsd-automount-manager.c:271
 #, c-format
 msgid "Unable to open a folder for %s"
 msgstr "לא ניתן לפתוח את התיקייה לצורך %s"
@@ -1531,48 +1531,180 @@ msgstr "התרעות ההדפסה"
 msgid "Print-notifications plugin"
 msgstr "תוסף התרעות ההדפסה"
 
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:174
+msgid "Toner low"
+msgstr "הטונר עומד להסתיים"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:176
+msgid "Toner empty"
+msgstr "הטונר ריק"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
+msgid "Not connected?"
+msgstr "לא מחוברת?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
+msgid "Cover open"
+msgstr "המכסה פתוח"
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
+msgid "Printer configuration error"
+msgstr "שגיאה בתצורת המדפסת"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
+msgid "Door open"
+msgstr "הדלת פתוחה"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
+msgid "Marker supply low"
+msgstr "אספקת הדיו נמוכה"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
+msgid "Out of a marker supply"
+msgstr "נגמרה אספקת הדיו"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
+msgid "Paper low"
+msgstr "נותרו מעט דפים"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
+msgid "Out of paper"
+msgstr "נגמרו הדפים"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
+msgid "Printer off-line"
+msgstr "המדפסת אינה מקוונת"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
+msgid "Printer error"
+msgstr "שגיאת מדפסת"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr "הטונר במדפסת '%s' כמעט נגמר."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:202
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr "הטונר במדפסת '%s' אזל לחלוטין."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr "יתכן כי המדפסת '%s' אינה מחוברת."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr "המכסה פתוח במדפסת '%s'."
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr "ישנו מסנן הדפסה חסר עבור המדפסת '%s'."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:211
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr "הדלת במדפסת '%s' פתוחה."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:213
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr "הדיו במדפסת '%s' כמעט נגמר."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr "הדיו במדפסת '%s' אזל לחלוטין."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr "נותרו מעט דפים במדפסת '%s'."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr "נגמרו הדפים במדפסת '%s'."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr "המדפסת '%s' אינה מקוונת כעת."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr "ישנה בעיה במדפסת '%s'."
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:293
 msgid "Printer added"
 msgstr "נוספה מדפסת"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:301
 msgid "Printer removed"
 msgstr "המדפסת הוסרה"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:239
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:318
 msgid "Printing stopped"
 msgstr "ההדפסה נעצרה"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:241
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:247
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:253
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:259
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:270
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:282
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:320
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:326
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:332
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:338
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "\"%s\" במדפסת %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:245
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
 msgid "Printing canceled"
 msgstr "ההדפסה בוטלה"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:251
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
 msgid "Printing aborted"
 msgstr "ההדפסה התבטלה"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:257
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
 msgid "Printing completed"
 msgstr "ההדפסה הושלמה"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:268
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:280
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:365
 msgid "Printing"
 msgstr "בהדפסה"
 
