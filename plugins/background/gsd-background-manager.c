@@ -427,6 +427,15 @@ connect_screen_signals (GsdBackgroundManager *manager)
         }
 }
 
+static void
+draw_background_changed (GSettings            *settings,
+                         const char           *key,
+                         GsdBackgroundManager *manager)
+{
+        if (dont_draw_background (manager) == FALSE)
+                queue_timeout (manager);
+}
+
 gboolean
 gsd_background_manager_start (GsdBackgroundManager *manager,
                               GError              **error)
@@ -437,6 +446,8 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
         gnome_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new ("org.gnome.desktop.background");
+        g_signal_connect (manager->priv->settings, "changed::draw-background",
+                          G_CALLBACK (draw_background_changed), manager);
 
         /* If this is set, nautilus will draw the background and is
 	 * almost definitely in our session.  however, it may not be
