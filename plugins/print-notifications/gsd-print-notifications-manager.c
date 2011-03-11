@@ -35,7 +35,6 @@
 
 #include <cups/cups.h>
 #include <libnotify/notify.h>
-#include <libnotify/notify.h>
 
 #include "gnome-settings-profile.h"
 #include "gsd-print-notifications-manager.h"
@@ -49,10 +48,12 @@
 struct GsdPrintNotificationsManagerPrivate
 {
         GDBusProxy                   *cups_proxy;
-        GDBusConnection              *bus_connection;
+        GDBusConnection              *cups_bus_connection;
         gint                          subscription_id;
         cups_dest_t                  *dests;
         gint                          num_dests;
+        gboolean                      scp_handler_spawned;
+        GPid                          scp_handler_pid;
 };
 
 enum {
@@ -478,6 +479,39 @@ on_cups_notification (GDBusConnection *connection,
         }
 }
 
+static void
+scp_handler (GsdPrintNotificationsManager *manager,
+             gboolean                      start)
+{
+        if (start) {
+                GError *error = NULL;
+                char *args[2];
+
+                if (manager->priv->scp_handler_spawned)
+                        return;
+
+                args[0] = LIBEXECDIR "/gsd-printer";
+                args[1] = NULL;
+
+                g_spawn_async (NULL, args, NULL,
+                               0, NULL, NULL,
+                               &manager->priv->scp_handler_pid, &error);
+
+                manager->priv->scp_handler_spawned = (error == NULL);
+
+                if (error) {
+                        g_warning ("Could not execute system-config-printer-udev handler: %s",
+                                   error->message);
+                        g_error_free (error);
+                }
+        }
+        else if (manager->priv->scp_handler_spawned) {
+                kill (manager->priv->scp_handler_pid, SIGHUP);
+                g_spawn_close_pid (manager->priv->scp_handler_pid);
+                manager->priv->scp_handler_spawned = FALSE;
+        }
+}
+
 gboolean
 gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
                                        GError                      **error)
@@ -503,6 +537,7 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         manager->priv->subscription_id = -1;
         manager->priv->dests = NULL;
         manager->priv->num_dests = 0;
+        manager->priv->scp_handler_spawned = FALSE;
 
         if ((http = httpConnectEncrypt (cupsServer (), ippPort (),
                                         cupsEncryption ())) == NULL) {
@@ -555,9 +590,9 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
                 return FALSE;
         }
 
-        manager->priv->bus_connection = g_dbus_proxy_get_connection (manager->priv->cups_proxy);
+        manager->priv->cups_bus_connection = g_dbus_proxy_get_connection (manager->priv->cups_proxy);
 
-        g_dbus_connection_signal_subscribe (manager->priv->bus_connection,
+        g_dbus_connection_signal_subscribe (manager->priv->cups_bus_connection,
                                             NULL,
                                             CUPS_DBUS_INTERFACE,
                                             NULL,
@@ -567,6 +602,8 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
                                             on_cups_notification,
                                             manager,
                                             NULL);
+
+        scp_handler (manager, TRUE);
 
         gnome_settings_profile_end (NULL);
 
@@ -598,12 +635,14 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
                 ippDelete(cupsDoRequest(http, request, "/"));
         }
 
-        manager->priv->bus_connection = NULL;
+        manager->priv->cups_bus_connection = NULL;
 
         if (manager->priv->cups_proxy != NULL) {
                 g_object_unref (manager->priv->cups_proxy);
                 manager->priv->cups_proxy = NULL;
         }
+
+        scp_handler (manager, FALSE);
 }
 
 static void

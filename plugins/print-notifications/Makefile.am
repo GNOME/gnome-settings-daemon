@@ -10,6 +10,7 @@ libprint_notifications_la_SOURCES = 		\
 libprint_notifications_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DLIBEXECDIR=\""$(libexecdir)"\" \
 	$(AM_CPPFLAGS)
 
 libprint_notifications_la_CFLAGS = \
@@ -27,6 +28,20 @@ plugin_in_files = 		\
 	print-notifications.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+
+libexec_PROGRAMS = gsd-printer
+
+gsd_printer_SOURCES = 	\
+	gsd-printer.c
+
+gsd_printer_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(LIBNOTIFY_CFLAGS)		\
+	$(AM_CFLAGS)
+
+gsd_printer_LDADD  = 		\
+	$(SETTINGS_PLUGIN_LIBS)	\
+	$(LIBNOTIFY_LIBS)
 
 EXTRA_DIST = 			\
 	$(plugin_in_files)
