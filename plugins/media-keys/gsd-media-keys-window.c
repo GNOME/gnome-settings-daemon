@@ -196,8 +196,11 @@ load_pixbuf (GsdMediaKeysWindow *window,
              const char         *name,
              int                 icon_size)
 {
-        GtkIconTheme *theme;
-        GdkPixbuf    *pixbuf;
+        GtkIconTheme    *theme;
+        GtkIconInfo     *info;
+        GdkPixbuf       *pixbuf;
+        GtkStyleContext *context;
+        GdkRGBA          color;
 
         if (window != NULL && gtk_widget_has_screen (GTK_WIDGET (window))) {
                 theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (window)));
@@ -205,11 +208,26 @@ load_pixbuf (GsdMediaKeysWindow *window,
                 theme = gtk_icon_theme_get_default ();
         }
 
-        pixbuf = gtk_icon_theme_load_icon (theme,
+        context = gtk_widget_get_style_context (GTK_WIDGET (window));
+        gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &color);
+        info = gtk_icon_theme_lookup_icon (theme,
                                            name,
                                            icon_size,
-                                           GTK_ICON_LOOKUP_FORCE_SIZE | GTK_ICON_LOOKUP_GENERIC_FALLBACK,
-                                           NULL);
+                                           GTK_ICON_LOOKUP_FORCE_SIZE | GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+
+        if (info == NULL) {
+                g_warning ("Failed to load '%s'", name);
+                return NULL;
+        }
+
+        pixbuf = gtk_icon_info_load_symbolic (info,
+                                              &color,
+                                              NULL,
+                                              NULL,
+                                              NULL,
+                                              NULL,
+                                              NULL);
+        gtk_icon_info_free (info);
 
         return pixbuf;
 }
