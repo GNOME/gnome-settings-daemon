@@ -51,7 +51,6 @@ struct GsdBackgroundManagerPrivate
 {
         GSettings   *settings;
         GnomeBG     *bg;
-        guint        timeout_id;
 
         GnomeBGCrossfade *fade;
 
@@ -299,34 +298,11 @@ setup_bg (GsdBackgroundManager *manager)
                                         manager->priv->settings);
 }
 
-static gboolean
-queue_draw_background (GsdBackgroundManager *manager)
+static void
+setup_bg_and_draw_background (GsdBackgroundManager *manager)
 {
-        manager->priv->timeout_id = 0;
-
         setup_bg (manager);
         draw_background (manager, FALSE);
-
-        return FALSE;
-}
-
-static void
-queue_timeout (GsdBackgroundManager *manager)
-{
-        if (manager->priv->timeout_id > 0)
-                return;
-
-        /* If the session finishes then check if nautilus is
-         * running and if not, set the background.
-         *
-         * We wait a few seconds after the session is up
-         * because nautilus tells the session manager that its
-         * ready before it sets the background.
-         */
-        manager->priv->timeout_id = g_timeout_add_seconds (8,
-                                                           (GSourceFunc)
-                                                           queue_draw_background,
-                                                           manager);
 }
 
 static void
@@ -349,7 +325,7 @@ on_session_manager_signal (GDBusProxy   *proxy,
         GsdBackgroundManager *manager = GSD_BACKGROUND_MANAGER (user_data);
 
         if (g_strcmp0 (signal_name, "SessionRunning") == 0) {
-                queue_timeout (manager);
+                setup_bg_and_draw_background (manager);
                 disconnect_session_manager_listener (manager);
         }
 }
@@ -433,7 +409,7 @@ draw_background_changed (GSettings            *settings,
                          GsdBackgroundManager *manager)
 {
         if (dont_draw_background (manager) == FALSE)
-                queue_timeout (manager);
+                setup_bg_and_draw_background (manager);
 }
 
 gboolean
@@ -491,11 +467,6 @@ gsd_background_manager_stop (GsdBackgroundManager *manager)
         if (p->settings != NULL) {
                 g_object_unref (p->settings);
                 p->settings = NULL;
-        }
-
-        if (p->timeout_id != 0) {
-                g_source_remove (p->timeout_id);
-                p->timeout_id = 0;
         }
 
         if (p->bg != NULL) {
