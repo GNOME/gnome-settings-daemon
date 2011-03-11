@@ -72,7 +72,7 @@ update_state (GtkWidget *window)
                 gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (window),
                                                         0);
                 gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
-                                                         "gpm-brightness-lcd",
+                                                         "display-brightness-symbolic",
                                                          TRUE);
 
                 gtk_widget_show (window);
@@ -81,7 +81,7 @@ update_state (GtkWidget *window)
                 gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (window),
                                                         50);
                 gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
-                                                         "gpm-brightness-lcd",
+                                                         "display-brightness-symbolic",
                                                          TRUE);
 
                 gtk_widget_show (window);
@@ -90,7 +90,7 @@ update_state (GtkWidget *window)
                 gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (window),
                                                         100);
                 gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
-                                                         "gpm-brightness-lcd",
+                                                         "display-brightness-symbolic",
                                                          TRUE);
 
                 gtk_widget_show (window);
