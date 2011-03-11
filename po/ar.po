@@ -13,14 +13,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-21 00:07+0200\n"
-"PO-Revision-Date: 2011-02-21 00:21+0300\n"
+"POT-Creation-Date: 2011-03-11 18:26+0200\n"
+"PO-Revision-Date: 2011-03-11 18:26+0300\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
-"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Virtaal 0.6.1\n"
@@ -136,11 +136,11 @@ msgstr "فعِّل هذه الملحقة"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr ""
@@ -148,22 +148,22 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 msgstr ""
 
@@ -231,211 +231,229 @@ msgstr "المفاتيح المسموح بها"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
 #, fuzzy
+msgid "Binding for the magnifier to zoom in"
+msgstr "ارتباط عرض مكبّرة الشاشة"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#, fuzzy
+msgid "Binding for the magnifier to zoom out"
+msgstr "ارتباط عرض مكبّرة الشاشة"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#, fuzzy
 msgid "Binding to decrease the text size"
 msgstr "ارتباط رفع صوت النظام."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 msgid "Binding to eject an optical disc."
 msgstr "ارتباط إخراج قرص ضوئي."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Binding to enable or disable the touchpad."
 msgstr "ارتباط تفعيل أو تعطيل لوحة اللمس."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 #, fuzzy
 msgid "Binding to increase the text size"
 msgstr "ارتباط رفع صوت النظام."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
 msgstr "ارتباط إطلاق الحاسبة."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "ارتباط إطلاق عميل البريد الإكتروني."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the help browser."
 msgstr "ارتباط إطلاق متصفّح المساعدة."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the media player."
 msgstr "ارتباط إطلاق مشغل الوسائط."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the search tool."
 msgstr "ارتباط إطلاق أداة البحث."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the web browser."
 msgstr "ارتباط إطلاق متصفّح الوِب."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lock the screen."
 msgstr "ارتباط إقفال الشاشة."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to log out."
 msgstr "ارتباط الخروج."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to lower the system volume."
 msgstr "ارتباط خفض صوت النظام."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to mute the system volume."
 msgstr "ارتباط إسكات صوت النظام."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to open the Home folder."
 msgstr "ارتباط فتح مجلد المنزل."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "ارتباط إلباث التشغيل."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to raise the system volume."
 msgstr "ارتباط رفع صوت النظام."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to show the on-screen keyboard"
 msgstr "ارتباط عرض لوحة مفاتيح على الشاشة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Binding to show the screen magnifier"
 msgstr "ارتباط عرض مكبّرة الشاشة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
 msgstr "ارتباط التخطّي إلى المقطوعة التّالية."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to skip to previous track."
 msgstr "ارتباط التخطّي إلى المقطوعة السّابقة."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "ارتباط بدء التشغيل (أو تبديل شغّل/ألبث)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Binding to start the screen reader"
 msgstr "ارتباط بدء قارئ الشاشة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to stop playback."
 msgstr "ارتباط إيقاف التشغيل."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 #, fuzzy
 msgid "Binding to toggle the interface contrast"
 msgstr "ارتباط إطلاق عميل البريد الإكتروني."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Decrease text size"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Eject"
 msgstr "أخرِج"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Home folder"
 msgstr "مجلّد المنزل"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid ""
 "If non-empty, keybindings will be ignored unless their settings directory is "
 "in the list. This is useful for lockdown."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Increase text size"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch calculator"
 msgstr "ابدأ الحاسبة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch email client"
 msgstr "ابدأ عميل البريد الإلكتروني"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch help browser"
 msgstr "ابدأ متصفّح المساعدة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch media player"
 msgstr "ابدأ مشغل الوسائط"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Launch web browser"
 msgstr "ابدأ متصفّح الوِب"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Lock screen"
 msgstr "أقفل الشاشة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Log out"
 msgstr "اخرج"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Magnifier zoom in"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Magnifier zoom out"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
 msgstr "المقطوعة التالية"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Pause playback"
 msgstr "ألبِث التشغيل"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Play (or play/pause)"
 msgstr "شغّل (أو شغّل/ألبِث)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Previous track"
 msgstr "المقطوعة السّابقة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Search"
 msgstr "ابحث"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Stop playback"
 msgstr "أوقف التشغيل"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 #, fuzzy
 msgid "Toggle contrast"
 msgstr "بدّل قارئ الشاشة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle magnifier"
 msgstr "بدّل المكبرة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Toggle on-screen keyboard"
 msgstr "بدّل لوحة المفاتيح الموجودة على الشاشة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle screen reader"
 msgstr "بدّل قارئ الشاشة"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Toggle touchpad"
 msgstr "بدّل لوحة اللمس"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume down"
 msgstr "اخفض الصوت"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Volume mute"
 msgstr "أسكِت الصوت"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Volume up"
 msgstr "ارفع الصوت"
 
@@ -449,73 +467,85 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
-msgid "Automatically update these types of updates"
+msgid "Automatically download updates in the background without confirmation"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
-msgid "Automatically update these types of updates."
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+"'connection-use-mobile' is enabled."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid "Devices that should be ignored"
+msgid "Automatically update these types of updates"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+msgid "Automatically update these types of updates."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+msgid "Devices that should be ignored"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid "Firmware files that should not be searched for"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid "Get the update list when the session starts"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "Get the update list when the session starts, even if not scheduled to."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid "How often to check for distribution upgrades"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for updates"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid ""
 "How often to check for updates. Value is in seconds. This is a maximum "
 "amount of time that can pass between a security update being published, and "
 "the update being automatically installed or the user notified."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to notify the user that non-critical updates are available"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
 msgid "How often to refresh the package cache"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
@@ -523,115 +553,115 @@ msgid ""
 "frequently."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Install updates automatically when running on battery power"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Install updates automatically when running on battery power."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid "Notify the user for completed updates"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Notify the user for completed updates where the user needs to restart"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid "Notify the user for completed updates where the user needs to restart."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid ""
 "Notify the user for completed updates. This may be a useful notification for "
 "some users as installing updates prevents shutdown."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid "Notify the user when distribution upgrades are available"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "Notify the user when distribution upgrades are available."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
 "Notify the user when the automatic update was not started on battery power"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
 msgid ""
 "Notify the user when the update was not automatically started because the "
 "machine is running on battery power."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
 msgid "Notify the user when the update was started"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
 msgid "Notify the user when the update was started."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
 msgid "The filenames on removable media that designate it a software source."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
 msgid "The install root to use when adding and removing packages"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
 msgid ""
 "The install root to use when processing packages, which is changed when "
 "using LTSP or when testing."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
 msgid "The last time we told the user about non-critical notifications"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
 msgid ""
 "The number of seconds at session startup to wait before checking for updates"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
 msgid ""
 "The number of seconds at session startup to wait before checking for "
 "updates. Value is in seconds."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
 msgid ""
 "Use WiFi (wireless LAN) connections to check for updates. It may be faster "
 "to download packages when on a wired connection, and the VPN or proxy "
 "required may also only be available on wired connections."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
 msgid "Use WiFi connections"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
 msgid "Use mobile broadband connections"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
 msgid ""
 "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -680,26 +710,22 @@ msgid "Antialiasing"
 msgstr "التنعيم"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
-msgid "DPI"
-msgstr "نقطة في البوصة"
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "Hinting"
 msgstr "التلميحات"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "List of explicitly disabled GTK+ modules"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly enabled GTK+ modules"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
 msgstr "ترتيب RGBA"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -710,14 +736,7 @@ msgstr ""
 "\". القيم الممكنة هي : \"rgb\" أحمر على اليسار (الأكثر انتشارا)، \"bgr\" "
 "أزرق على اليسار، \"vrgb\" أحمر على الأعلى، \"vbgr\" أحمر على الأسفل."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
-#, fuzzy
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch. 0.0 DPI means that the X server's DPI will be used."
-msgstr "الميز المستعمل لتحويل حجم الخطوط إلى حجم بكسل، بعدد النقط في البوصة."
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -727,7 +746,7 @@ msgstr ""
 "تنعيم، \"grayscale\" تنعيم متدرج رمادي، و \"rgba\" لإزالة التسنن على مستوى "
 "جزء البكسل (فقط لشاشات LCD )."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -992,7 +1011,7 @@ msgstr ""
 msgid "Sticky Keys Alert"
 msgstr "تنبيه المفاتيح اللاصقة"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:524
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "تفضيلات الإتاحة العالمية"
@@ -1045,12 +1064,12 @@ msgstr "الوصْل التلقائي"
 msgid "Automounter plugin"
 msgstr "ملحق الوصْل التلقائي"
 
-#: ../plugins/automount/gsd-automount-manager.c:145
+#: ../plugins/automount/gsd-automount-manager.c:154
 #, c-format
 msgid "Unable to mount %s"
 msgstr "تعذّر وصْل %s"
 
-#: ../plugins/automount/gsd-automount-manager.c:204
+#: ../plugins/automount/gsd-automount-manager.c:271
 #, c-format
 msgid "Unable to open a folder for %s"
 msgstr "تعذّر فتح مجلد ل %s"
@@ -1189,12 +1208,12 @@ msgstr "لا شيء"
 msgid "Dummy plugin"
 msgstr "ملحق لا شيء"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:271
+#: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "المساحة المتوفرة على \"%s\" قليلة"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:273
+#: ../plugins/housekeeping/gsd-disk-space.c:334
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
@@ -1203,19 +1222,19 @@ msgstr ""
 "يحتوي الجزء \"%s\" على %s فقط من المساحة الخالية. قد تُخلي بعض المساحة بإفراغ "
 "المهملات."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:277
+#: ../plugins/housekeeping/gsd-disk-space.c:338
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "يحتوي الجزء \"%s\" على %s فقط من المساحة الخالية."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:282
+#: ../plugins/housekeeping/gsd-disk-space.c:343
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:202
 msgid "Low Disk Space"
 msgstr "المساحة المتوفرة قليلة"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:284
+#: ../plugins/housekeeping/gsd-disk-space.c:345
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1224,22 +1243,22 @@ msgstr ""
 "يحتوي الحاسوب على %s فقط من المساحة الخالية. قد تُخلي بعض المساحة بإفراغ "
 "المهملات."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:287
+#: ../plugins/housekeeping/gsd-disk-space.c:348
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "يحتوي الحاسوب على %s فقط من المساحة الخالية."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:308
+#: ../plugins/housekeeping/gsd-disk-space.c:369
 msgid "Examine"
 msgstr "افحص"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:316
+#: ../plugins/housekeeping/gsd-disk-space.c:377
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
 msgid "Empty Trash"
 msgstr "أفرغ المهملات"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:323
+#: ../plugins/housekeeping/gsd-disk-space.c:384
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
 msgid "Ignore"
 msgstr "تجاهل"
@@ -1287,46 +1306,6 @@ msgstr ""
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:442
 msgid "Examine…"
 msgstr "افحص…"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
-#, c-format
-msgid "Removing item %s of %s"
-msgstr "يحذف العنصر %s من %s"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:119
-#, c-format
-msgid "Removing: %s"
-msgstr "يحذف: %s"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:249
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:298
-msgid "Emptying the trash"
-msgstr "يفرغ المهملات"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:274
-msgid "Preparing to empty trash…"
-msgstr "يحضّر لإفراغ المهملات…"
-
-#. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:301
-msgid "From: "
-msgstr "من:"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:362
-msgid "Empty all of the items from the trash?"
-msgstr "أأحذف كل العناصر من المهملات؟"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:365
-msgid ""
-"If you choose to empty the trash, all items in it will be permanently lost. "
-"Please note that you can also delete them separately."
-msgstr ""
-"إذا اخترت إفراغ المهملات، ستضيع محتوياتها نهائيا. لاحظ أيضا أنه يمكن حذفها "
-"منفصلة."
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:372
-msgid "_Empty Trash"
-msgstr "أ_فرغ المهملات"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -1456,16 +1435,16 @@ msgstr "مفاتيح الوسائط"
 msgid "Media keys plugin"
 msgstr "ملحق مفاتيح الوسائط"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:869
+#: ../plugins/mouse/gsd-mouse-manager.c:854
 msgid "Could not enable mouse accessibility features"
 msgstr "تعذّر تفعيل ميزات إتاحة الفأرة"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:871
+#: ../plugins/mouse/gsd-mouse-manager.c:856
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "إتاحة الفأرة تتطلب تثبيت Mousetweaks على نظامك."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:873
+#: ../plugins/mouse/gsd-mouse-manager.c:858
 msgid "Universal Access"
 msgstr "الإتاحة"
 
@@ -1485,46 +1464,180 @@ msgstr "تنبيهات الطباعة"
 msgid "Print-notifications plugin"
 msgstr "ملحقة تنبيهات الطباعة"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:156
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:174
+msgid "Toner low"
+msgstr "الحبر منخفض"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:176
+msgid "Toner empty"
+msgstr "نفد الحبر"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
+msgid "Not connected?"
+msgstr "غير متصلة؟"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
+msgid "Cover open"
+msgstr "الغطاء مفتوح"
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
+msgid "Printer configuration error"
+msgstr "عُطل في إعداد الطابعة"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
+msgid "Door open"
+msgstr "الباب مفتوح"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
+msgid "Marker supply low"
+msgstr "إمداد حبر الأقلام منخفض"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
+msgid "Out of a marker supply"
+msgstr "نفد إمداد حبر الأقلام"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
+msgid "Paper low"
+msgstr "الورق قليل"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
+msgid "Out of paper"
+msgstr "نفد الورق"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
+msgid "Printer off-line"
+msgstr "الطابعة غير متصلة"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
+msgid "Printer error"
+msgstr "عُطل في الطبعة"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr "حبر الطابعة '%s' منخفض."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:202
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr "نفد الحبر من الطابعة '%s'."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr "قد تكون الطابعة '%s' غير متصلة."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr "غطاء الطابعة '%s' مفتوح."
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr "هناك مرشِّح ناقص للطابعة '%s'."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:211
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr "باب الطابعة '%s' مفتوح."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:213
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr "نقص حبر أقلام الطابعة '%s'."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr "نفد حبر أقلام الطابعة '%s'."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr "ورق الطابعة '%s' قليل."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr "نفد الورق من الطابعة '%s'."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr "الطابعة '%s' غير متصلة حاليا."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr "هناك مشكلة في الطابعة '%s'."
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:293
 msgid "Printer added"
 msgstr "أُضيفت الطابعة"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:165
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:301
 msgid "Printer removed"
 msgstr "حُذِفت الطابعة"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:318
 msgid "Printing stopped"
 msgstr "أُوقِفت الطباعة"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:276
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:320
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:326
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:332
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:338
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "‏\"%s\"في %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:199
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
 msgid "Printing canceled"
 msgstr "أُلغِيت الطباعة"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
 msgid "Printing aborted"
 msgstr "أُجهِضت الطباعة"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:213
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
 msgid "Printing completed"
 msgstr "تمت الطباعة"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:274
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:365
 msgid "Printing"
 msgstr "تُطبَع"
 
@@ -1605,31 +1718,31 @@ msgstr "مسار الوحدة"
 msgid "path to smartcard PKCS #11 driver"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:531
+#: ../plugins/smartcard/gsd-smartcard-manager.c:528
 msgid "received error or hang up from event source"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:665
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:793
+#: ../plugins/smartcard/gsd-smartcard-manager.c:790
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:807
+#: ../plugins/smartcard/gsd-smartcard-manager.c:804
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:880
+#: ../plugins/smartcard/gsd-smartcard-manager.c:876
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1283
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr ""
@@ -1643,9 +1756,8 @@ msgid "The slot the card is in"
 msgstr ""
 
 #: ../plugins/smartcard/gsd-smartcard.c:162
-#, fuzzy
 msgid "Slot Series"
-msgstr "مفاتيح بطيئة"
+msgstr ""
 
 #: ../plugins/smartcard/gsd-smartcard.c:163
 msgid "per-slot card identifier"
@@ -1673,18 +1785,18 @@ msgid "Privileges are required to configure time and date settings."
 msgstr "الصلاحيات مطلوبة لتغيير إعدادات وقت وتأريخ النظام."
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:189
+#: ../plugins/updates/gsd-updates-manager.c:194
 msgid "Distribution upgrades available"
 msgstr "تتوفر ترقية للتوزيعة"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:199
+#: ../plugins/updates/gsd-updates-manager.c:204
 msgid "More information"
 msgstr "مزيد من المعلومات"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:302
-#: ../plugins/updates/gsd-updates-manager.c:361
+#: ../plugins/updates/gsd-updates-manager.c:307
+#: ../plugins/updates/gsd-updates-manager.c:366
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "تحديث"
@@ -1695,7 +1807,7 @@ msgstr[4] "تحديثات"
 msgstr[5] "تحديثات"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:305
+#: ../plugins/updates/gsd-updates-manager.c:310
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "لا توجد تحديثات مهمة"
@@ -1706,13 +1818,13 @@ msgstr[4] "يوجد تحديثات برمجي مهمة"
 msgstr[5] "يوجد تحديثات برمجي مهمة"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:325
-#: ../plugins/updates/gsd-updates-manager.c:384
+#: ../plugins/updates/gsd-updates-manager.c:330
+#: ../plugins/updates/gsd-updates-manager.c:389
 msgid "Install updates"
 msgstr "ثبّت التحديثات"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:364
+#: ../plugins/updates/gsd-updates-manager.c:369
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "لا توجد تحديثا"
@@ -1723,48 +1835,48 @@ msgstr[4] "يوجد تحديثات"
 msgstr[5] "يوجد تحديثات"
 
 #. TRANSLATORS: policy says update, but we are on battery and so prompt
-#: ../plugins/updates/gsd-updates-manager.c:430
+#: ../plugins/updates/gsd-updates-manager.c:435
 msgid ""
 "Automatic updates are not being installed as the computer is running on "
 "battery power"
 msgstr "لن تثبت التحديثات التلقائية لأن الحاسوب يعمل على طاقة البطارية"
 
 #. TRANSLATORS: informs user will not install by default
-#: ../plugins/updates/gsd-updates-manager.c:432
+#: ../plugins/updates/gsd-updates-manager.c:437
 msgid "Updates not installed"
 msgstr "لم تُثبّت التحديثات"
 
 #. TRANSLATORS: to hell with my battery life, just do it
-#: ../plugins/updates/gsd-updates-manager.c:438
+#: ../plugins/updates/gsd-updates-manager.c:443
 msgid "Install the updates anyway"
 msgstr "ثبّت التحديثات على أي حال"
 
-#: ../plugins/updates/gsd-updates-manager.c:454
+#: ../plugins/updates/gsd-updates-manager.c:459
 msgid "No restart is required."
 msgstr "لا حاجة لإعادة التشغيل."
 
-#: ../plugins/updates/gsd-updates-manager.c:457
+#: ../plugins/updates/gsd-updates-manager.c:462
 msgid "A restart is required."
 msgstr "من الضروري إعادة التشغيل."
 
-#: ../plugins/updates/gsd-updates-manager.c:460
+#: ../plugins/updates/gsd-updates-manager.c:465
 msgid "You need to log out and log back in."
 msgstr "عليك الخروج ثم الولوج مرة أخرى."
 
-#: ../plugins/updates/gsd-updates-manager.c:463
+#: ../plugins/updates/gsd-updates-manager.c:468
 msgid "You need to restart the application."
 msgstr "تحتاج لإعادة تشغيل البرنامج."
 
-#: ../plugins/updates/gsd-updates-manager.c:466
+#: ../plugins/updates/gsd-updates-manager.c:471
 msgid "You need to log out and log back in to remain secure."
 msgstr "عليك الخروج ثم الولوج مرة أخرى لتظل بأمان."
 
-#: ../plugins/updates/gsd-updates-manager.c:469
+#: ../plugins/updates/gsd-updates-manager.c:474
 msgid "A restart is required to remain secure."
 msgstr "من الضروري إعادة التشغيل لتظل بأمان."
 
 #. TRANSLATORS: we did the update, but some updates were skipped and not applied
-#: ../plugins/updates/gsd-updates-manager.c:530
+#: ../plugins/updates/gsd-updates-manager.c:535
 msgid "One package was skipped:"
 msgid_plural "Some packages were skipped:"
 msgstr[0] "لم تتخطى أي حزم:"
@@ -1775,33 +1887,33 @@ msgstr[4] "تُخُطيت بعض الحزم:"
 msgstr[5] "تُخُطيت بعض الحزم:"
 
 #. TRANSLATORS: title: system update completed all okay
-#: ../plugins/updates/gsd-updates-manager.c:562
+#: ../plugins/updates/gsd-updates-manager.c:567
 msgid "The system update has completed"
 msgstr "اكتمل تحديث النّظام"
 
 #. TRANSLATORS: restart computer as system packages need update
-#: ../plugins/updates/gsd-updates-manager.c:569
+#: ../plugins/updates/gsd-updates-manager.c:574
 msgid "Restart computer now"
 msgstr "أعد تشغيل الحاسوب الآن"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:640
+#: ../plugins/updates/gsd-updates-manager.c:645
 msgid "Updates"
 msgstr "تحديثات"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:644
+#: ../plugins/updates/gsd-updates-manager.c:649
 msgid "Unable to access software updates"
 msgstr "تعذّر الوصول إلى تحديثات البرمجيات"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:647
+#: ../plugins/updates/gsd-updates-manager.c:652
 msgid "Try again"
 msgstr "أعِد المحاولة"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1006
+#: ../plugins/updates/gsd-updates-manager.c:1090
 msgid "A transaction that cannot be interrupted is running"
 msgstr ""
 
@@ -1852,6 +1964,44 @@ msgstr "ثبت البرمجيات المضمنة"
 #: ../plugins/updates/gsd-updates-firmware.c:588
 msgid "Ignore devices"
 msgstr "تجاهل الأجهزة"
+
+#~ msgid "DPI"
+#~ msgstr "نقطة في البوصة"
+
+#, fuzzy
+#~ msgid ""
+#~ "The resolution used for converting font sizes to pixel sizes, in dots per "
+#~ "inch. 0.0 DPI means that the X server's DPI will be used."
+#~ msgstr ""
+#~ "الميز المستعمل لتحويل حجم الخطوط إلى حجم بكسل، بعدد النقط في البوصة."
+
+#~ msgid "Removing item %s of %s"
+#~ msgstr "يحذف العنصر %s من %s"
+
+#~ msgid "Removing: %s"
+#~ msgstr "يحذف: %s"
+
+#~ msgid "Emptying the trash"
+#~ msgstr "يفرغ المهملات"
+
+#~ msgid "Preparing to empty trash…"
+#~ msgstr "يحضّر لإفراغ المهملات…"
+
+#~ msgid "From: "
+#~ msgstr "من:"
+
+#~ msgid "Empty all of the items from the trash?"
+#~ msgstr "أأحذف كل العناصر من المهملات؟"
+
+#~ msgid ""
+#~ "If you choose to empty the trash, all items in it will be permanently "
+#~ "lost. Please note that you can also delete them separately."
+#~ msgstr ""
+#~ "إذا اخترت إفراغ المهملات، ستضيع محتوياتها نهائيا. لاحظ أيضا أنه يمكن "
+#~ "حذفها منفصلة."
+
+#~ msgid "_Empty Trash"
+#~ msgstr "أ_فرغ المهملات"
 
 #~ msgid "Change system time"
 #~ msgstr "غيّر وقت النظام"
