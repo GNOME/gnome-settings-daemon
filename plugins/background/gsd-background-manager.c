@@ -71,6 +71,13 @@ G_DEFINE_TYPE (GsdBackgroundManager, gsd_background_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 static gboolean
+dont_draw_background (GsdBackgroundManager *manager)
+{
+        return !g_settings_get_boolean (manager->priv->settings,
+                                        "draw-background");
+}
+
+static gboolean
 nautilus_is_drawing_background (GsdBackgroundManager *manager)
 {
        Atom           window_id_atom;
@@ -183,7 +190,8 @@ draw_background (GsdBackgroundManager *manager,
         int         i;
 
 
-        if (nautilus_is_drawing_background (manager)) {
+        if (nautilus_is_drawing_background (manager) ||
+            dont_draw_background (manager)) {
                 return;
         }
 
