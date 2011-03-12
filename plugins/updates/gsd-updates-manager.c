@@ -1405,7 +1405,7 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         set_install_root (manager);
 
         /* load introspection from file */
-        file = g_file_new_for_path (DATADIR "/dbus-1/interfaces/org.gnome.ColorManager.xml");
+        file = g_file_new_for_path (DATADIR "/dbus-1/interfaces/org.gnome.SettingsDaemonUpdates.xml");
         ret = g_file_load_contents (file, NULL, &introspection_data, NULL, NULL, error);
         if (!ret)
                 goto out;
