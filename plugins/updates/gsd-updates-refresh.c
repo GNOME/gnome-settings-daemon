@@ -506,8 +506,8 @@ session_presence_signal_cb (GDBusProxy *proxy,
         if (g_strcmp0 (signal_name, "StatusChanged") != 0)
                 return;
 
-        /* map stauts code into boolean */
-        g_variant_get (parameters, "(u)", &status);
+        /* map status code into boolean */
+        g_variant_get (parameters, "u", &status);
         refresh->priv->session_idle = (status == PRESENCE_STATUS_IDLE);
         g_debug ("setting is_idle %i",
                  refresh->priv->session_idle);
