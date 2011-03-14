@@ -652,8 +652,8 @@ static void
 do_sound_action (GsdMediaKeysManager *manager,
                  int                  type)
 {
-        gboolean muted;
-        guint vol, max_vol, norm_vol_step;
+        gboolean old_muted, new_muted;
+        guint old_vol, new_vol, max_vol, norm_vol_step;
         gboolean sound_changed;
 
         if (manager->priv->stream == NULL)
@@ -663,64 +663,41 @@ do_sound_action (GsdMediaKeysManager *manager,
         norm_vol_step = max_vol * VOLUME_STEP / 100;
 
         /* FIXME: this is racy */
-        vol = gvc_mixer_stream_get_volume (manager->priv->stream);
-        muted = gvc_mixer_stream_get_is_muted (manager->priv->stream);
+        new_vol = old_vol = gvc_mixer_stream_get_volume (manager->priv->stream);
+        new_muted = old_muted = gvc_mixer_stream_get_is_muted (manager->priv->stream);
         sound_changed = FALSE;
 
         switch (type) {
         case MUTE_KEY:
-                muted = !muted;
+                new_muted = !old_muted;
                 gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
-                sound_changed = TRUE;
                 break;
         case VOLUME_DOWN_KEY:
-                if (!muted && (vol <= norm_vol_step)) {
-                        muted = !muted;
-                        vol = 0;
-                        gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
-                        if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE) {
-                                gvc_mixer_stream_push_volume (manager->priv->stream);
-                                sound_changed = TRUE;
-                        }
+                if (old_vol <= norm_vol_step) {
+                        new_vol = 0;
+                        new_muted = TRUE;
                 } else {
-                        if (vol <= norm_vol_step)
-                                vol = 0;
-                        else
-                                vol = vol - norm_vol_step;
-                        if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE) {
-                                gvc_mixer_stream_push_volume (manager->priv->stream);
-                                sound_changed = TRUE;
-                        }
+                        new_vol = old_vol - norm_vol_step;
                 }
                 break;
         case VOLUME_UP_KEY:
-                if (muted) {
-                        muted = !muted;
-                        if (vol == 0) {
-                               vol = vol + norm_vol_step;
-                               gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
-                               if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE) {
-                                        gvc_mixer_stream_push_volume (manager->priv->stream);
-                                        sound_changed = TRUE;
-                               }
-                        } else {
-                                gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
-                                sound_changed = TRUE;
-                        }
-                } else {
-                        if (vol < max_vol) {
-                                if (vol + norm_vol_step >= max_vol) {
-                                        vol = max_vol;
-                                } else {
-                                        vol = vol + norm_vol_step;
-                                }
-                                if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE) {
-                                        gvc_mixer_stream_push_volume (manager->priv->stream);
-                                        sound_changed = TRUE;
-                                }
-                        }
-                }
+                new_muted = FALSE;
+                /* When coming out of mute only increase the volume if it was 0 */
+                if (!old_muted || old_vol == 0)
+                        new_vol = MIN (old_vol + norm_vol_step, MAX_VOLUME);
                 break;
+        }
+
+        if (old_muted != new_muted) {
+                gvc_mixer_stream_change_is_muted (manager->priv->stream, new_muted);
+                sound_changed = TRUE;
+        }
+
+        if (old_vol != new_vol) {
+                if (gvc_mixer_stream_set_volume (manager->priv->stream, new_vol) != FALSE) {
+                        gvc_mixer_stream_push_volume (manager->priv->stream);
+                        sound_changed = TRUE;
+                }
         }
 
         update_dialog (manager, vol, max_vol, muted, sound_changed);
