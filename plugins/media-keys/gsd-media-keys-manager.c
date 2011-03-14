@@ -670,7 +670,6 @@ do_sound_action (GsdMediaKeysManager *manager,
         switch (type) {
         case MUTE_KEY:
                 new_muted = !old_muted;
-                gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
                 break;
         case VOLUME_DOWN_KEY:
                 if (old_vol <= norm_vol_step) {
@@ -684,7 +683,7 @@ do_sound_action (GsdMediaKeysManager *manager,
                 new_muted = FALSE;
                 /* When coming out of mute only increase the volume if it was 0 */
                 if (!old_muted || old_vol == 0)
-                        new_vol = MIN (old_vol + norm_vol_step, MAX_VOLUME);
+                        new_vol = MIN (old_vol + norm_vol_step, max_vol);
                 break;
         }
 
@@ -700,7 +699,7 @@ do_sound_action (GsdMediaKeysManager *manager,
                 }
         }
 
-        update_dialog (manager, vol, max_vol, muted, sound_changed);
+        update_dialog (manager, new_vol, max_vol, new_muted, sound_changed);
 }
 
 static void
