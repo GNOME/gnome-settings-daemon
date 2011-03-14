@@ -80,7 +80,10 @@ static const gchar introspection_xml[] =
 #define HIGH_CONTRAST "HighContrast"
 
 #define VOLUME_STEP 6           /* percents for one volume button press */
-#define MAX_VOLUME 65536.0
+/* FIXME: Remove when PA 0.9.23 is used */
+#ifndef PA_VOLUME_UI_MAX
+#define PA_VOLUME_UI_MAX pa_sw_volume_from_dB(+11.0)
+#endif
 
 #define GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MEDIA_KEYS_MANAGER, GsdMediaKeysManagerPrivate))
 
@@ -622,10 +625,11 @@ do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
 static void
 update_dialog (GsdMediaKeysManager *manager,
                guint vol,
+               guint max_vol,
                gboolean muted,
                gboolean sound_changed)
 {
-        vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
+        vol = (int) (100 * (double) vol / (double) max_vol);
         vol = CLAMP (vol, 0, 100);
 
         dialog_init (manager);
@@ -649,16 +653,14 @@ do_sound_action (GsdMediaKeysManager *manager,
                  int                  type)
 {
         gboolean muted;
-        guint vol, norm_vol_step;
-        int vol_step;
+        guint vol, max_vol, norm_vol_step;
         gboolean sound_changed;
 
         if (manager->priv->stream == NULL)
                 return;
 
-        vol_step = VOLUME_STEP;
-
-        norm_vol_step = PA_VOLUME_NORM * vol_step / 100;
+        max_vol = gvc_mixer_stream_get_can_decibel (manager->priv->stream) ? PA_VOLUME_UI_MAX : PA_VOLUME_NORM;
+        norm_vol_step = max_vol * VOLUME_STEP / 100;
 
         /* FIXME: this is racy */
         vol = gvc_mixer_stream_get_volume (manager->priv->stream);
@@ -706,9 +708,9 @@ do_sound_action (GsdMediaKeysManager *manager,
                                 sound_changed = TRUE;
                         }
                 } else {
-                        if (vol < MAX_VOLUME) {
-                                if (vol + norm_vol_step >= MAX_VOLUME) {
-                                        vol = MAX_VOLUME;
+                        if (vol < max_vol) {
+                                if (vol + norm_vol_step >= max_vol) {
+                                        vol = max_vol;
                                 } else {
                                         vol = vol + norm_vol_step;
                                 }
@@ -721,7 +723,7 @@ do_sound_action (GsdMediaKeysManager *manager,
                 break;
         }
 
-        update_dialog (manager, vol, muted, sound_changed);
+        update_dialog (manager, vol, max_vol, muted, sound_changed);
 }
 
 static void
