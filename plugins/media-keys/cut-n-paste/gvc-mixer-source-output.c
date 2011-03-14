@@ -95,6 +95,15 @@ gvc_mixer_source_output_finalize (GObject *object)
         G_OBJECT_CLASS (gvc_mixer_source_output_parent_class)->finalize (object);
 }
 
+/**
+ * gvc_mixer_source_output_new: (skip)
+ *
+ * @context:
+ * @index:
+ * @channel_map:
+ *
+ * Returns:
+ */
 GvcMixerStream *
 gvc_mixer_source_output_new (pa_context    *context,
                              guint          index,

@@ -30,6 +30,8 @@
 #include <pulse/pulseaudio.h>
 
 #include "gvc-mixer-sink-input.h"
+#include "gvc-mixer-stream-private.h"
+#include "gvc-channel-map-private.h"
 
 #define GVC_MIXER_SINK_INPUT_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GVC_TYPE_MIXER_SINK_INPUT, GvcMixerSinkInputPrivate))
 
@@ -138,6 +140,15 @@ gvc_mixer_sink_input_finalize (GObject *object)
         G_OBJECT_CLASS (gvc_mixer_sink_input_parent_class)->finalize (object);
 }
 
+/**
+ * gvc_mixer_sink_input_new: (skip)
+ *
+ * @context:
+ * @index:
+ * @channel_map:
+ *
+ * Returns:
+ */
 GvcMixerStream *
 gvc_mixer_sink_input_new (pa_context    *context,
                           guint          index,

@@ -253,7 +253,7 @@ AC_ARG_ENABLE(pulse,
 
 if test x$WANT_PULSE = xyes ; then
        PA_REQUIRED_VERSION=0.9.16
-       PKG_CHECK_MODULES(PULSE, glib-2.0 libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra-gtk3,
+       PKG_CHECK_MODULES(PULSE, glib-2.0 gio-2.0 libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra-gtk3,
              [have_pulse=true
               AC_DEFINE(HAVE_PULSE, 1, [Define if PULSE sound server should be used])],
              [have_pulse=false])

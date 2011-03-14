@@ -31,6 +31,7 @@
 #include <pulse/pulseaudio.h>
 
 #include "gvc-mixer-card.h"
+#include "gvc-mixer-card-private.h"
 
 #define GVC_MIXER_CARD_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GVC_TYPE_MIXER_CARD, GvcMixerCardPrivate))
 
@@ -143,6 +144,13 @@ gvc_mixer_card_set_icon_name (GvcMixerCard *card,
         return TRUE;
 }
 
+/**
+ * gvc_mixer_card_get_profile: (skip)
+ *
+ * @card:
+ *
+ * Returns:
+ */
 GvcMixerCardProfile *
 gvc_mixer_card_get_profile (GvcMixerCard *card)
 {

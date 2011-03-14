@@ -22,7 +22,6 @@
 #define __GVC_MIXER_CONTROL_H
 
 #include <glib-object.h>
-#include <pulse/pulseaudio.h>
 #include "gvc-mixer-stream.h"
 #include "gvc-mixer-card.h"
 
@@ -71,7 +70,6 @@ gboolean            gvc_mixer_control_open                (GvcMixerControl *cont
 gboolean            gvc_mixer_control_close               (GvcMixerControl *control);
 gboolean            gvc_mixer_control_is_ready            (GvcMixerControl *control);
 
-pa_context *        gvc_mixer_control_get_pa_context      (GvcMixerControl *control);
 GSList *            gvc_mixer_control_get_cards           (GvcMixerControl *control);
 GSList *            gvc_mixer_control_get_streams         (GvcMixerControl *control);
 GSList *            gvc_mixer_control_get_sinks           (GvcMixerControl *control);
@@ -92,6 +90,9 @@ gboolean            gvc_mixer_control_set_default_sink     (GvcMixerControl *con
                                                             GvcMixerStream  *stream);
 gboolean            gvc_mixer_control_set_default_source   (GvcMixerControl *control,
                                                             GvcMixerStream  *stream);
+
+gdouble             gvc_mixer_control_get_vol_max_norm      (GvcMixerControl *control);
+gdouble             gvc_mixer_control_get_vol_max_amplified (GvcMixerControl *control);
 
 G_END_DECLS
 

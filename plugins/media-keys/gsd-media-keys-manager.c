@@ -49,6 +49,7 @@
 
 #ifdef HAVE_PULSE
 #include <canberra-gtk.h>
+#include <pulse/pulseaudio.h>
 #include "gvc-mixer-control.h"
 #endif /* HAVE_PULSE */
 

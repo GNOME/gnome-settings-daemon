@@ -31,6 +31,8 @@
 #include <pulse/ext-stream-restore.h>
 
 #include "gvc-mixer-event-role.h"
+#include "gvc-mixer-stream-private.h"
+#include "gvc-channel-map-private.h"
 
 #define GVC_MIXER_EVENT_ROLE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GVC_TYPE_MIXER_EVENT_ROLE, GvcMixerEventRolePrivate))
 
@@ -202,6 +204,15 @@ gvc_mixer_event_role_finalize (GObject *object)
         G_OBJECT_CLASS (gvc_mixer_event_role_parent_class)->finalize (object);
 }
 
+/**
+ * gvc_mixer_event_role_new: (skip)
+ *
+ * @context:
+ * @index:
+ * @channel_map:
+ *
+ * Returns:
+ */
 GvcMixerStream *
 gvc_mixer_event_role_new (pa_context *context,
                           const char *device,

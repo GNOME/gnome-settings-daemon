@@ -30,6 +30,7 @@
 #include <pulse/pulseaudio.h>
 
 #include "gvc-channel-map.h"
+#include "gvc-channel-map-private.h"
 
 #define GVC_CHANNEL_MAP_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GVC_TYPE_CHANNEL_MAP, GvcChannelMapPrivate))
 
@@ -119,6 +120,14 @@ gvc_channel_map_get_mapping (const GvcChannelMap  *map)
         return pa_channel_map_to_pretty_name (&map->priv->pa_map);
 }
 
+/**
+ * gvc_channel_map_has_position: (skip)
+ *
+ * @map:
+ * @position:
+ *
+ * Returns:
+ */
 gboolean
 gvc_channel_map_has_position (const GvcChannelMap  *map,
                               pa_channel_position_t position)

@@ -30,6 +30,8 @@
 #include <pulse/pulseaudio.h>
 
 #include "gvc-mixer-source.h"
+#include "gvc-mixer-stream-private.h"
+#include "gvc-channel-map-private.h"
 
 #define GVC_MIXER_SOURCE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GVC_TYPE_MIXER_SOURCE, GvcMixerSourcePrivate))
 
@@ -171,6 +173,15 @@ gvc_mixer_source_finalize (GObject *object)
         G_OBJECT_CLASS (gvc_mixer_source_parent_class)->finalize (object);
 }
 
+/**
+ * gvc_mixer_source_new: (skip)
+ *
+ * @context:
+ * @index:
+ * @channel_map:
+ *
+ * Returns:
+ */
 GvcMixerStream *
 gvc_mixer_source_new (pa_context    *context,
                       guint          index,

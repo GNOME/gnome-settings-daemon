@@ -22,7 +22,6 @@
 #define __GVC_MIXER_CARD_H
 
 #include <glib-object.h>
-#include <pulse/pulseaudio.h>
 
 G_BEGIN_DECLS
 
@@ -58,8 +57,6 @@ typedef struct
 } GvcMixerCardProfile;
 
 GType                 gvc_mixer_card_get_type          (void);
-GvcMixerCard *        gvc_mixer_card_new               (pa_context   *context,
-                                                        guint         index);
 
 guint                 gvc_mixer_card_get_id            (GvcMixerCard *card);
 guint                 gvc_mixer_card_get_index         (GvcMixerCard *card);
@@ -68,7 +65,6 @@ const char *          gvc_mixer_card_get_icon_name     (GvcMixerCard *card);
 GvcMixerCardProfile * gvc_mixer_card_get_profile       (GvcMixerCard *card);
 const GList *         gvc_mixer_card_get_profiles      (GvcMixerCard *card);
 
-pa_context *          gvc_mixer_card_get_pa_context    (GvcMixerCard *card);
 gboolean              gvc_mixer_card_change_profile    (GvcMixerCard *card,
                                                         const char *profile);
 

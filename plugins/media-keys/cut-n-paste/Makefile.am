@@ -16,10 +16,13 @@ libgvc_la_LIBADD =		\
 libgvc_la_SOURCES =			\
 	gvc-mixer-stream.h		\
 	gvc-mixer-stream.c		\
+	gvc-mixer-stream-private.h	\
 	gvc-channel-map.h		\
 	gvc-channel-map.c		\
+	gvc-channel-map-private.h	\
 	gvc-mixer-card.c		\
 	gvc-mixer-card.h		\
+	gvc-mixer-card-private.h	\
 	gvc-mixer-sink.h		\
 	gvc-mixer-sink.c		\
 	gvc-mixer-source.h		\
@@ -32,6 +35,8 @@ libgvc_la_SOURCES =			\
 	gvc-mixer-event-role.c		\
 	gvc-mixer-control.h		\
 	gvc-mixer-control.c		\
+	gvc-mixer-control-private.h	\
+	gvc-pulseaudio-fake.h		\
 	$(NULL)
 
 MAINTAINERCLEANFILES =                  \

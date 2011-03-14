@@ -22,7 +22,7 @@
 #define __GVC_CHANNEL_MAP_H
 
 #include <glib-object.h>
-#include <pulse/pulseaudio.h>
+#include <gvc-pulseaudio-fake.h>
 
 G_BEGIN_DECLS
 
@@ -52,14 +52,12 @@ enum {
         BALANCE,
         FADE,
         LFE,
+        NUM_TYPES
 };
-
-#define NUM_TYPES LFE + 1
 
 GType                   gvc_channel_map_get_type                (void);
 
 GvcChannelMap *         gvc_channel_map_new                     (void);
-GvcChannelMap *         gvc_channel_map_new_from_pa_channel_map (const pa_channel_map *map);
 guint                   gvc_channel_map_get_num_channels        (const GvcChannelMap  *map);
 const gdouble *         gvc_channel_map_get_volume              (GvcChannelMap  *map);
 gboolean                gvc_channel_map_can_balance             (const GvcChannelMap  *map);
@@ -68,14 +66,8 @@ gboolean                gvc_channel_map_has_position            (const GvcChanne
                                                                  pa_channel_position_t position);
 #define                 gvc_channel_map_has_lfe(x)              gvc_channel_map_has_position (x, PA_CHANNEL_POSITION_LFE)
 
-void                    gvc_channel_map_volume_changed          (GvcChannelMap    *map,
-                                                                 const pa_cvolume *cv,
-                                                                 gboolean          set);
 const char *            gvc_channel_map_get_mapping             (const GvcChannelMap  *map);
 
-/* private */
-const pa_cvolume *      gvc_channel_map_get_cvolume             (const GvcChannelMap  *map);
-const pa_channel_map *  gvc_channel_map_get_pa_channel_map      (const GvcChannelMap  *map);
 G_END_DECLS
 
 #endif /* __GVC_CHANNEL_MAP_H */
