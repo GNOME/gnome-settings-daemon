@@ -507,7 +507,7 @@ session_presence_signal_cb (GDBusProxy *proxy,
                 return;
 
         /* map status code into boolean */
-        g_variant_get (parameters, "u", &status);
+        g_variant_get (parameters, "(u)", &status);
         refresh->priv->session_idle = (status == PRESENCE_STATUS_IDLE);
         g_debug ("setting is_idle %i",
                  refresh->priv->session_idle);
@@ -578,7 +578,7 @@ gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
                                   refresh);
                 status = g_dbus_proxy_get_cached_property (refresh->priv->proxy_session,
                                                            "status");
-                g_variant_get (status, "(u)", &status_code);
+                g_variant_get (status, "u", &status_code);
                 refresh->priv->session_idle = (status_code == PRESENCE_STATUS_IDLE);
                 g_variant_unref (status);
         }
