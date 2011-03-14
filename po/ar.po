@@ -13,14 +13,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-11 18:26+0200\n"
-"PO-Revision-Date: 2011-03-11 18:26+0300\n"
+"POT-Creation-Date: 2011-03-14 14:16+0200\n"
+"PO-Revision-Date: 2011-03-14 14:19+0300\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Virtaal 0.6.1\n"
@@ -1223,14 +1223,14 @@ msgstr ""
 "المهملات."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:338
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "يحتوي الجزء \"%s\" على %s فقط من المساحة الخالية."
 
 #. Set up all the window stuff here
 #: ../plugins/housekeeping/gsd-disk-space.c:343
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:202
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
 msgstr "المساحة المتوفرة قليلة"
 
@@ -1244,7 +1244,7 @@ msgstr ""
 "المهملات."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:348
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "يحتوي الحاسوب على %s فقط من المساحة الخالية."
@@ -1254,24 +1254,24 @@ msgid "Examine"
 msgstr "افحص"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:377
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
 msgid "Empty Trash"
 msgstr "أفرغ المهملات"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:384
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "تجاهل"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again for this file system"
 msgstr "لا تظهر أي تحذيرات مجددًا لنظام الملفات هذا"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
 msgid "Don't show any warnings again"
 msgstr "لا تظهر أي تحذيرات مجددًا"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
@@ -1279,7 +1279,7 @@ msgstr ""
 "يمكنك إخلاء بعض المساحة بإفراغ المهملات، أو حذف البرامج أو الملفات غير "
 "المُستخدمة أو نقل الملفات إلى قرص أو قسم آخر."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
@@ -1287,7 +1287,7 @@ msgstr ""
 "يمكنك إخلاء بعض المساحة بحذف البرامج أو الملفات غير المُستخدمة أو نقل الملفات "
 "إلى قرص أو قسم آخر."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
@@ -1295,7 +1295,7 @@ msgstr ""
 "يمكنك إخلاء بعض المساحة بإفراغ المهملات، أو حذف البرامج أو الملفات غير "
 "المُستخدمة أو نقل الملفات إلى قرص خارجي."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
@@ -1303,7 +1303,7 @@ msgstr ""
 "يمكنك إخلاء بعض المساحة بحذف البرامج أو الملفات غير المُستخدمة أو نقل الملفات "
 "إلى قرص خارجي."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:442
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:444
 msgid "Examine…"
 msgstr "افحص…"
 
@@ -1465,181 +1465,210 @@ msgid "Print-notifications plugin"
 msgstr "ملحقة تنبيهات الطباعة"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:174
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
 msgid "Toner low"
 msgstr "الحبر منخفض"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:176
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
 msgid "Toner empty"
 msgstr "نفد الحبر"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
 msgid "Not connected?"
 msgstr "غير متصلة؟"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
 msgid "Cover open"
 msgstr "الغطاء مفتوح"
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
 msgid "Printer configuration error"
 msgstr "عُطل في إعداد الطابعة"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
 msgid "Door open"
 msgstr "الباب مفتوح"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
 msgid "Marker supply low"
 msgstr "إمداد حبر الأقلام منخفض"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
 msgid "Out of a marker supply"
 msgstr "نفد إمداد حبر الأقلام"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
 msgid "Paper low"
 msgstr "الورق قليل"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
 msgid "Out of paper"
 msgstr "نفد الورق"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
 msgid "Printer off-line"
 msgstr "الطابعة غير متصلة"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
 msgid "Printer error"
 msgstr "عُطل في الطبعة"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "حبر الطابعة '%s' منخفض."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:202
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "نفد الحبر من الطابعة '%s'."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "قد تكون الطابعة '%s' غير متصلة."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "غطاء الطابعة '%s' مفتوح."
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "هناك مرشِّح ناقص للطابعة '%s'."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:211
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "باب الطابعة '%s' مفتوح."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:213
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "نقص حبر أقلام الطابعة '%s'."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "نفد حبر أقلام الطابعة '%s'."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "ورق الطابعة '%s' قليل."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "نفد الورق من الطابعة '%s'."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "الطابعة '%s' غير متصلة حاليا."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "هناك مشكلة في الطابعة '%s'."
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:293
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
 msgid "Printer added"
 msgstr "أُضيفت الطابعة"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:301
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
 msgid "Printer removed"
 msgstr "حُذِفت الطابعة"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:318
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
 msgid "Printing stopped"
 msgstr "أُوقِفت الطباعة"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:320
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:326
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:332
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:338
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "‏\"%s\"في %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
 msgid "Printing canceled"
 msgstr "أُلغِيت الطباعة"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
 msgid "Printing aborted"
 msgstr "أُجهِضت الطباعة"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
 msgid "Printing completed"
 msgstr "تمت الطباعة"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:365
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 msgid "Printing"
 msgstr "تُطبَع"
+
+#. Translators: We are configuring new printer
+#: ../plugins/print-notifications/gsd-printer.c:91
+msgid "Configuring new printer"
+msgstr "تُضبط الطابعة الجديدة"
+
+#. Translators: Just wait
+#: ../plugins/print-notifications/gsd-printer.c:93
+msgid "Please wait..."
+msgstr "انتظر من فضلك..."
+
+#. name is a URI, no queue was generated, because no suitable
+#. * driver was found
+#.
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:114
+msgid "Missing printer driver"
+msgstr "مشغّل الطابعة مفقود"
+
+#. Translators: We have no driver installed for the device
+#: ../plugins/print-notifications/gsd-printer.c:123
+#, c-format
+msgid "No printer driver for %s."
+msgstr "لا مشغّل للطابعة %s."
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:128
+msgid "No driver for this printer."
+msgstr "لا مُشغّل لهذه الطابعة"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1747,32 +1776,32 @@ msgstr ""
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:155
+#: ../plugins/smartcard/gsd-smartcard.c:158
 msgid "Slot ID"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:156
+#: ../plugins/smartcard/gsd-smartcard.c:159
 msgid "The slot the card is in"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:162
+#: ../plugins/smartcard/gsd-smartcard.c:165
 msgid "Slot Series"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:163
+#: ../plugins/smartcard/gsd-smartcard.c:166
 msgid "per-slot card identifier"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:169
-#: ../plugins/smartcard/gsd-smartcard.c:170
+#: ../plugins/smartcard/gsd-smartcard.c:172
+#: ../plugins/smartcard/gsd-smartcard.c:173
 msgid "name"
 msgstr "الاسم"
 
-#: ../plugins/smartcard/gsd-smartcard.c:174
+#: ../plugins/smartcard/gsd-smartcard.c:177
 msgid "Module"
 msgstr "الوِحدة"
 
-#: ../plugins/smartcard/gsd-smartcard.c:175
+#: ../plugins/smartcard/gsd-smartcard.c:178
 msgid "smartcard driver"
 msgstr "مشغل البطاقة الذكية"
 
@@ -2008,9 +2037,6 @@ msgstr "تجاهل الأجهزة"
 
 #~ msgid "Configure hardware clock"
 #~ msgstr "اضبط ساعة العتاد"
-
-#~ msgid "Configure network time"
-#~ msgstr "ضبط وقت الشبكة"
 
 #~ msgid "Privileges are required to change the system time zone."
 #~ msgstr "الصلاحيات مطلوبة لتغيير منطقة النظام الزمنية."
