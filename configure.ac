@@ -55,10 +55,13 @@ LIBNOTIFY_REQUIRED_VERSION=0.6.1
 
 EXTRA_COMPILE_WARNINGS(yes)
 
+dnl FIXME we link against gconf-2.0 until all the plugins are ported
+dnl to GSettings, or we could get crashes on startup
 PKG_CHECK_MODULES(SETTINGS_DAEMON,
         glib-2.0 >= $GLIB_REQUIRED_VERSION
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
-	gio-2.0 >= $GIO_REQUIRED_VERSION
+        gio-2.0 >= $GIO_REQUIRED_VERSION
+        gconf-2.0 >= $GCONF_REQUIRED_VERSION
         gmodule-2.0
         gthread-2.0
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
