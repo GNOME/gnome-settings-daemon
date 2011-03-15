@@ -16,19 +16,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME Settings Daemon MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&component=general\n"
-"POT-Creation-Date: 2011-01-31 15:57+0000\n"
-"PO-Revision-Date: 2011-02-01 19:26+0200\n"
-"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
+"settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-03-13 23:47+0000\n"
+"PO-Revision-Date: 2011-03-14 19:34+0300\n"
+"Last-Translator: Mattias Põldaru <mahfiaz@gmail.com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Universal Access"
-msgstr "Universaalne ligipääs"
 
 msgid "GNOME Settings Daemon"
 msgstr "GNOME sätetedeemon"
@@ -65,6 +62,8 @@ msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
 msgstr ""
+"Näitab hiirekursori asukohta, kui Control klahv alla vajutatakse ning "
+"vabastatakse."
 
 msgid "Length of a double click in milliseconds."
 msgstr "Topeltklõpsu kestus millisekundites."
@@ -120,11 +119,12 @@ msgstr "Smartcardi eemaldamise tegevus"
 msgid "Activation of this plugin"
 msgstr "Selle plugina aktiveerimine"
 
+#, fuzzy
 msgid "Priority to use for this plugin"
-msgstr ""
+msgstr "Selle plugina kasutamise prioriteet"
 
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr ""
+msgstr "Selle plugina olulisus gnome-settings-daemon'i käivitusjärjekorras"
 
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 msgstr "Kas see plugin aktiveeritakse GNOME sätetedeemoni poolt või mitte"
@@ -174,28 +174,32 @@ msgstr ""
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Vaba kettaruumi protsendi muutus enne kordushoiatust"
 
-msgid ""
-"Disable the keyboard layout indicator unconditionally, do not show it even "
-"if number of layouts is more than one."
-msgstr ""
-
-msgid "Never show layout indicator"
-msgstr ""
-
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
-msgstr ""
+msgstr "Selle plugina olulisus gnome-settings-daemon'i käivitusjärjekorras."
 
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
-msgstr ""
+msgstr "Kas gnome-settings-daemon peaks aktiveerima selle plugina või mitte."
 
 msgid "Allowed keys"
 msgstr "Lubatud klahvid"
+
+msgid "Binding for the magnifier to zoom in"
+msgstr "Klahviseos ekraaniluubi suurenduse suurendamiseks"
+
+msgid "Binding for the magnifier to zoom out"
+msgstr "Klahviseos ekraaniluubi suurenduse vähendamiseks"
+
+msgid "Binding to decrease the text size"
+msgstr "Klahviseos teksti suuruse vähendamiseks"
 
 msgid "Binding to eject an optical disc."
 msgstr "Klahviseos optilise ketta väljastamiseks."
 
 msgid "Binding to enable or disable the touchpad."
 msgstr "Klahviseos puuteplaatide lubamiseks ja keelamiseks."
+
+msgid "Binding to increase the text size"
+msgstr "Klahviseos teksti suuruse suurendamiseks"
 
 msgid "Binding to launch the calculator."
 msgstr "Klahviseos kalkulaatori käivitamiseks."
@@ -257,6 +261,12 @@ msgstr "Klahviseos ekraanilugeja käivitamiseks"
 msgid "Binding to stop playback."
 msgstr "Klahviseos meediaesituse seiskamiseks."
 
+msgid "Binding to toggle the interface contrast"
+msgstr "Klahviseos kasutajaliidese kontrastsuse lülitamiseks"
+
+msgid "Decrease text size"
+msgstr "Teksti vähendamine"
+
 msgid "Eject"
 msgstr "Sahtli lahtilükkamine"
 
@@ -269,6 +279,9 @@ msgid ""
 msgstr ""
 "Mittetühja väärtuse korral eiratakse neid kiirklahve, mille sätetekataloogi "
 "pole nimekirjas. See on kasulik lukustamiseks."
+
+msgid "Increase text size"
+msgstr "Teksti suurendamine"
 
 msgid "Launch calculator"
 msgstr "Kalkulaatori käivitamine"
@@ -291,6 +304,12 @@ msgstr "Ekraani lukustamine"
 msgid "Log out"
 msgstr "Väljalogimine"
 
+msgid "Magnifier zoom in"
+msgstr "Luubi suurendus suuremaks"
+
+msgid "Magnifier zoom out"
+msgstr "Luubi suurendus väiksemaks"
+
 msgid "Next track"
 msgstr "Järgmisele loole hüppamine"
 
@@ -308,6 +327,9 @@ msgstr "Otsing"
 
 msgid "Stop playback"
 msgstr "Esitamise lõpetamine"
+
+msgid "Toggle contrast"
+msgstr "Kontrastsuse lülitamine"
 
 msgid "Toggle magnifier"
 msgstr "Ekraaniluup sisse/välja"
@@ -330,11 +352,223 @@ msgstr "Heli tummaks"
 msgid "Volume up"
 msgstr "Heli valjemaks"
 
+msgid "Ask the user if additional firmware should be installed"
+msgstr "Küsi kasutajalt, kas paigaldada lisapüsivara"
+
+msgid ""
+"Ask the user if additional firmware should be installed if it is available."
+msgstr "Küsi kasutajalt, kas paigaldada lisapüsivara, kui see on saadaval."
+
+msgid "Automatically download updates in the background without confirmation"
+msgstr "Uuendused laaditakse alla taustal ilma küsimata"
+
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+"'connection-use-mobile' is enabled."
+msgstr ""
+"Uuendused laaditakse alla taustal ilma küsimata. Uuendusi laaditakse alla "
+"juhtmega ühenduse kaudu, lisaks WiFi kaudu, kui 'connection-use-wifi' on "
+"märgitud, ning mobiiliühenduse kaudu, kui 'connection-use-mobile' on "
+"märgitud."
+
+msgid "Automatically update these types of updates"
+msgstr "Seda liiki uuenduste automaatne paigaldamine"
+
+msgid "Automatically update these types of updates."
+msgstr "Seda liiki uuenduste automaatne paigaldamine."
+
+msgid "Devices that should be ignored"
+msgstr "Seadmed, mida eiratakse"
+
+msgid ""
+"Devices that should be ignored, separated by commas. These can include '*' "
+"and '?' characters."
+msgstr ""
+"Seadmed, mida eiratakse, komadega eraldatult. Võivad sisaldada '*' ja '?' "
+"märke."
+
+msgid "Firmware files that should not be searched for"
+msgstr "Püsivara failid, mida ei otsita"
+
+msgid ""
+"Firmware files that should not be searched for, separated by commas. These "
+"can include '*' and '?' characters."
+msgstr ""
+"Püsivara failid, mida ei otsita, komadega eraldatult. Võivad sisaldada '*' "
+"ja '?' märke."
+
+msgid "Get the update list when the session starts"
+msgstr "Seansi käivitamisel hangitakse uuenduste loetelu"
+
+msgid "Get the update list when the session starts, even if not scheduled to."
+msgstr ""
+"Seansi käivitamisel hangitakse uuenduste loetelu, isegi kui see polnud "
+"plaanis."
+
+msgid "How often to check for distribution upgrades"
+msgstr "Kui tihti kontrollitakse distributsiooniuuendusi"
+
+msgid "How often to check for distribution upgrades. Value is in seconds."
+msgstr "Kui tihti kontrollitakse distributsiooniuuendusi. Väärtus sekundites."
+
+msgid "How often to check for updates"
+msgstr "Kui tihti kontrollitakse uuendusi"
+
+msgid ""
+"How often to check for updates. Value is in seconds. This is a maximum "
+"amount of time that can pass between a security update being published, and "
+"the update being automatically installed or the user notified."
+msgstr ""
+"Kui tihti kontrollitakse uuendusi. Väärtus sekundites. See on suurim "
+"ajavahemik, mis võib mööduda turvauuenduse avaldamisest selle paigaldamiseni "
+"või kasutajale teatamiseni."
+
+msgid "How often to notify the user that non-critical updates are available"
+msgstr ""
+"Kui tihti teatatakse kasutajale saadaolevatest mittekriitilistest uuendustest"
+
+msgid "How often to refresh the package cache"
+msgstr "Kui tihti värskendatakse pakipuhvrit"
+
+msgid "How often to refresh the package cache. Value is in seconds."
+msgstr "Kui tihti värskendatakse pakipuhvrit. Väärtus sekundites."
+
+msgid ""
+"How often to tell the user there are non-critical updates. Value is in "
+"seconds. Security update notifications are always shown after the check for "
+"updates, but non-critical notifications should be shown a lot less "
+"frequently."
+msgstr ""
+"Kui tihti kasutajale teatatakse mittekriitilistest uuendustest. Väärtus on "
+"sekundites. Turvauuendusi näidatakse alati pärast uuenduste kontrollimist, "
+"kuid mittekriitilistest uuendustest teatatakse harvem."
+
+msgid "Install updates automatically when running on battery power"
+msgstr "Uuendused paigaldatakse automaatselt ka akutoitel töötades"
+
+msgid "Install updates automatically when running on battery power."
+msgstr "Uuendused paigaldatakse automaatselt ka akutoitel töötades."
+
+msgid "Notify the user for completed updates"
+msgstr "Kasutajale teatatakse lõpetatud uuendamisest"
+
+msgid "Notify the user for completed updates where the user needs to restart"
+msgstr ""
+"Kasutajale teatatakse lõpetatud uuendamisest, kui selle järel peab kasutaja "
+"arvuti taaskäivitama"
+
+msgid "Notify the user for completed updates where the user needs to restart."
+msgstr ""
+"Kasutajale teatatakse lõpetatud uuendamisest, kui selle järel peab kasutaja "
+"arvuti taaskäivitama."
+
+msgid ""
+"Notify the user for completed updates. This may be a useful notification for "
+"some users as installing updates prevents shutdown."
+msgstr ""
+"Kasutajale teatatakse lõpetatud uuendamisest. See võib olla kasulik, kuna "
+"uuenduste paigaldamine takistab arvuti väljalülitamist."
+
+msgid "Notify the user when distribution upgrades are available"
+msgstr "Kasutajale teatakse saadaolevatest distributsiooniuuendustest"
+
+msgid "Notify the user when distribution upgrades are available."
+msgstr "Kasutajale teatakse saadaolevatest distributsiooniuuendustest."
+
+msgid ""
+"Notify the user when the automatic update was not started on battery power"
+msgstr ""
+"Kasutajale teatatakse, kui automaatset uuendust ei alustatud, kuna arvuti on "
+"akutoitel"
+
+msgid ""
+"Notify the user when the update was not automatically started because the "
+"machine is running on battery power."
+msgstr ""
+"Kasutajale teatatakse, kui automaatset uuendust ei alustatud, kuna arvuti on "
+"akutoitel."
+
+msgid "Notify the user when the update was started"
+msgstr "Kasutajale teatatakse, kui uuendamist alustati"
+
+msgid "Notify the user when the update was started."
+msgstr "Kasutajale teatatakse, kui uuendamist alustati."
+
+msgid "The filenames on removable media that designate it a software source."
+msgstr ""
+"Failinimed eemaldatavatel andmekandjatel, mis teevad sellest tarkvaraallika."
+
+msgid "The install root to use when adding and removing packages"
+msgstr "Paigalduskataloog, mida kasutatakse pakkide lisamisel ja eemaldamisel"
+
+msgid ""
+"The install root to use when processing packages, which is changed when "
+"using LTSP or when testing."
+msgstr ""
+"Paigalduskataloog, mida kasutatakse pakkide töötlemisel, mida muudetakse "
+"LTSP kasutamisel või testimisel."
+
+msgid ""
+"The last time we notified the user about non-critical updates. Value is in "
+"seconds since the epoch, or zero for never."
+msgstr ""
+"Viimane kord, kui kasutajat teavitati mittekriitilistest uuendustest. "
+"Väärtus sekundites alates epohhist, 0 on mitte kunagi."
+
+msgid "The last time we told the user about non-critical notifications"
+msgstr "Viimane kord, kui kasutajale edastati mittekriitiline teade"
+
+msgid ""
+"The number of seconds at session startup to wait before checking for updates"
+msgstr ""
+"Sekundite arv pärast seansi käivitamist, enne kui uuendusi kontrollitakse"
+
+msgid ""
+"The number of seconds at session startup to wait before checking for "
+"updates. Value is in seconds."
+msgstr ""
+"Sekundite arv pärast seansi käivitamist, enne kui uuendusi kontrollitakse."
+
+msgid ""
+"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
+"to download packages when on a wired connection, and the VPN or proxy "
+"required may also only be available on wired connections."
+msgstr ""
+"WiFi (traadita LAN) ühendusi kasutatakse uuenduste kontrollimiseks. Pakkide "
+"allalaadimine võib minna kiiremini juhtmega ühenduse kaudu, samuti võivad "
+"vajalikud VPN või proksi ühendused olla saadaval ainult juhtme otsas."
+
+msgid "Use WiFi connections"
+msgstr "Kasutatakse WiFi ühendusi"
+
+msgid "Use mobile broadband connections"
+msgstr "Kasutatakse mobiiliühendusi"
+
+msgid ""
+"Use mobile broadband connections such as GSM and CDMA to check for updates."
+msgstr "Uuendamiseks kasutatakse mobiiliühendusi nagu näiteks GSM ja CDMA."
+
+msgid ""
+"When removable media is inserted, it is checked to see if it contains any "
+"important filenames in the root directory. If the filename matches, then an "
+"updates check is performed. This allows post-install disks to be used to "
+"update running systems."
+msgstr ""
+"Kui sisestatakse eemaldatav andmekandja, kontrollitakse, kas selle "
+"juurkataloogis leidub olulisi failinimesid. Kui mõni failinimi sobib, "
+"kontrollitakse uuendusi. See võimaldab pärast-paigaldust ketastega uuendada "
+"töötavaid süsteeme."
+
 msgid ""
 "'clone' will display the same thing on all monitors, 'dock' will switch off "
 "the internal monitor, 'do-nothing' will use the default Xorg behaviour "
 "(extend the desktop in recent versions)"
 msgstr ""
+"'clone' kuvab sama pilti kõigil monitoridel, 'dock' lülitab välja sisemise "
+"monitori, 'do-nothing' tähendab Xorg-i vaikimisi käitumist (viimastes "
+"versioonides laiendab töölauda)"
 
 msgid "File for default configuration for RandR"
 msgstr "RandR vaikesätete fail"
@@ -352,32 +586,34 @@ msgstr ""
 "arvuga, kasutatakse hoopis käesoleva võtmega määratud faili."
 
 msgid "Whether to turn off specific monitors after boot"
-msgstr ""
+msgstr "Kas pärast alglaadimist lülitada välja mõned monitorid"
 
+#, fuzzy
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
 msgstr ""
+"Sõnede loend GTK+ moodulitest, mis laaditakse, tavaliselt lisaks "
+"tingimuslikult ning selgesõnaliselt keelatud moodulitele."
 
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
 msgstr ""
+"Sõnede loend GTK+ moodulitest, mida ei laadita, isegi kui need on "
+"seadistuses vaikimisi lubatud."
 
 msgid "Antialiasing"
 msgstr "Sakisilumine"
-
-msgid "DPI"
-msgstr "DPI"
 
 msgid "Hinting"
 msgstr "Varjundamine"
 
 msgid "List of explicitly disabled GTK+ modules"
-msgstr ""
+msgstr "Loend selgesõnaliselt keelatud GTK+ moodulitest"
 
 msgid "List of explicitly enabled GTK+ modules"
-msgstr ""
+msgstr "Loend selgesõnaliselt lubatud GTK+ moodulitest"
 
 msgid "RGBA order"
 msgstr "RGBA järjestus"
@@ -392,14 +628,6 @@ msgstr ""
 "kui sakisilumise väärtuseks on määratud \"rgba\". Võimalikud väärtused: \"rgb"
 "\" - punane on vasakul (enimkasutatav), \"bgr\" - sinine on vasakul, \"vrgb"
 "\" - punane on üleval, \"vbgr\" - punane on all."
-
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch. 0.0 DPI means that the X server's DPI will be used."
-msgstr ""
-"Eraldusvõime, mida kasutatakse kirjasuuruste pikslitesse teisendamisel. Ühik "
-"punkti tollile. Väärtus 0.0 punkti tollile tähendab, et kasutatakse X-"
-"serveri vastavat väärtust."
 
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
@@ -423,18 +651,20 @@ msgstr ""
 
 msgid "Enable this to only move the cursor when the user touches the tablet."
 msgstr ""
+"See võib liigutada kursorit ainult siis, kui kasutaja puudutab graafikalauda."
 
 msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr ""
+"See võib saata krihvlilt sündmuseid ainult siis, kui ots on sisse vajutatud."
 
 msgid "Enable this to set the cursor to absolute mode."
-msgstr ""
+msgstr "Märgi see, et määrata kursor absoluutrežiimi."
 
 msgid "Enable this to set the eraser to absolute mode."
-msgstr ""
+msgstr "Märgi see, et määrata kustukumm absoluutrežiimi."
 
 msgid "Enable this to set the stylus to absolute mode."
-msgstr ""
+msgstr "Märgi see, et määrata krihvel absoluutrežiimi."
 
 msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
@@ -444,89 +674,97 @@ msgstr ""
 "või 'ccw' (90 kraadi vastupäeva)."
 
 msgid "Set this to the logical button mapping."
-msgstr ""
+msgstr "Selle määramine loogilisele nupupaigutusele."
 
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
-msgstr ""
+msgstr "Vajutuse tugevuse määramine, mille juures krihvel teeb hiireklõpsu."
 
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
-msgstr ""
+msgstr "Vajutuse tugevuse määramine, mille juures kustukumm teeb hiireklõpsu."
 
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
 msgstr ""
+"Määra selle väärtuseks kursori kasutatava ala x1, y1 ja x2, y2 koordinaadid."
 
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
 msgstr ""
+"Määra selle väärtuseks kustukummi kasutatava ala x1, y1 ja x2, y2 "
+"koordinaadid."
 
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
 msgstr ""
+"Määra selle väärtuseks laua kasutatava ala x1, y1 ja x2, y2 koordinaadid."
 
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
 msgstr ""
+"Määra selle väärtuseks krihvli kasutatava ala x1, y1 ja x2, y2 koordinaadid."
 
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
+"Määra selle väärtuseks kustukummi tugevuskõvera x1, y1 ja x2, y2 "
+"koordinaadid."
 
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
+"Määra selle väärtuseks krihvli tugevuskõvera x1, y1 ja x2, y2 koordinaadid."
 
 msgid "Wacom cursor absolute mode"
-msgstr ""
+msgstr "Wacomi kursori absoluutrežiim"
 
 msgid "Wacom cursor button mapping"
-msgstr ""
+msgstr "Wacomi kursori nuppude paigutus"
 
 msgid "Wacom cursor tablet area"
-msgstr ""
+msgstr "Wacomi kursori graafikaala"
 
 msgid "Wacom eraser absolute mode"
-msgstr ""
+msgstr "Wacomi kustukummi absoluutrežiim"
 
 msgid "Wacom eraser button mapping"
-msgstr ""
+msgstr "Wacomi kustukummi nuppude paigutus"
 
 msgid "Wacom eraser pressure curve"
-msgstr ""
+msgstr "Wacomi kustukummi tugevuskõver"
 
 msgid "Wacom eraser pressure threshold"
-msgstr ""
+msgstr "Wacomi kustukummi tugevuse lävi"
 
 msgid "Wacom eraser tablet area"
-msgstr ""
+msgstr "Wacomi kustukummi graafikaala"
 
 msgid "Wacom pad button mapping"
-msgstr ""
+msgstr "Wacomi laua nuppude paigutus"
 
 msgid "Wacom pad tablet area"
-msgstr ""
+msgstr "Wacomi laua graafikaala"
 
 msgid "Wacom stylus absolute mode"
-msgstr ""
+msgstr "Wacomi krihvli absoluutrežiim"
 
 msgid "Wacom stylus button mapping"
-msgstr ""
+msgstr "Wacomi krihvli nuppude paigutus"
 
 msgid "Wacom stylus pressure curve"
-msgstr ""
+msgstr "Wacomi krihvli tugevuskõver"
 
 msgid "Wacom stylus pressure threshold"
-msgstr ""
+msgstr "Wacomi krihvli tugevuse lävi"
 
 msgid "Wacom stylus tablet area"
-msgstr ""
+msgstr "Wacomi krihvli graafikaala"
 
 msgid "Wacom tablet PC feature"
-msgstr ""
+msgstr "Wacomi tahvelarvuti võimalused"
 
 msgid "Wacom tablet rotation"
 msgstr "Wacom graafikalaua pööramine"
 
 msgid "Wacom touch feature"
-msgstr ""
+msgstr "Wacomi puutevõimalused"
 
 msgid "Enable debugging code"
 msgstr "Silumiskoodi lubamine"
@@ -641,6 +879,12 @@ msgstr ""
 "_Kiirklahvide kombinatsioone on võimalik valida klahvhaaval (kleepuvad "
 "klahvid)"
 
+msgid "Accessibility settings"
+msgstr "Hõlbustuste sätted"
+
+msgid "Accessibility settings plugin"
+msgstr "Hõlbustuste sätete plugin"
+
 msgid "Automount"
 msgstr "Automaatühendaja"
 
@@ -649,14 +893,14 @@ msgstr "Automaatühendamise plugin"
 
 #, c-format
 msgid "Unable to mount %s"
-msgstr ""
+msgstr "%s haakimine pole võimalik"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Unable to open a folder for %s"
-msgstr ""
+msgstr "%s kataloogi avamine pole võimalik"
 
 msgid "Ask what to do"
-msgstr ""
+msgstr "Küsitakse, mida teha"
 
 msgid "Do Nothing"
 msgstr "Ära tee midagi"
@@ -722,16 +966,18 @@ msgid "You have just inserted a medium."
 msgstr "Sa sisestasid meediumi."
 
 msgid "Choose what application to launch."
-msgstr ""
+msgstr "Vali, milline rakedus käivitada."
 
 #, c-format
 msgid ""
 "Select how to open \"%s\" and whether to perform this action in the future "
 "for other media of type \"%s\"."
 msgstr ""
+"Vali, kuidas avada \"%s\" ning kas tulevikus kasutada seda toimingut sama "
+"liiki (%s) meedia jaoks."
 
 msgid "_Always perform this action"
-msgstr ""
+msgstr "_Alati tehakse nii"
 
 msgid "_Eject"
 msgstr "_Väljasta"
@@ -837,37 +1083,6 @@ msgstr ""
 
 msgid "Examine…"
 msgstr "Uuri olukorda…"
-
-#, c-format
-msgid "Removing item %s of %s"
-msgstr "Kirje %s eemaldamine (%s-st)"
-
-#, c-format
-msgid "Removing: %s"
-msgstr "Eemaldamine: %s"
-
-msgid "Emptying the trash"
-msgstr "Prügikasti tühjendamine"
-
-msgid "Preparing to empty trash…"
-msgstr "Ettevalmistused prügikasti tühjendamiseks…"
-
-#. Translators: "Emptying trash from <device>"
-msgid "From: "
-msgstr "Kust:"
-
-msgid "Empty all of the items from the trash?"
-msgstr "Kas tühjendada kogu prügikast?"
-
-msgid ""
-"If you choose to empty the trash, all items in it will be permanently lost. "
-"Please note that you can also delete them separately."
-msgstr ""
-"Kui sa valid prügikasti tühjendamise, siis kõik seal asuvad asjad visatakse "
-"jäädavalt minema. Vajadusel saab neid asju ka ükshaaval minema visata."
-
-msgid "_Empty Trash"
-msgstr "_Tühjenda prügikast"
 
 #, c-format
 msgid "Key binding (%s) is invalid"
@@ -979,6 +1194,9 @@ msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Hiirehõlbustuste kasutamiseks peab Mousetweaks olema paigaldatud."
 
+msgid "Universal Access"
+msgstr "Universaalne ligipääs"
+
 msgid "Mouse"
 msgstr "Hiir"
 
@@ -986,43 +1204,173 @@ msgid "Mouse plugin"
 msgstr "Hiireplugin"
 
 msgid "Print-notifications"
-msgstr ""
+msgstr "Printimise teated"
 
 msgid "Print-notifications plugin"
-msgstr ""
+msgstr "Printimise teadete plugin"
 
-#. Translators: New printer has been added
+#. Translators: The printer is low on toner (same as in system-config-printer)
+msgid "Toner low"
+msgstr "Toonerit on vähe"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+msgid "Toner empty"
+msgstr "Tooner on tühi"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+msgid "Not connected?"
+msgstr "Pole ühendatud?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+msgid "Cover open"
+msgstr "Kaas on lahti"
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+msgid "Printer configuration error"
+msgstr "Printeri seadistuse viga"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+msgid "Door open"
+msgstr "Uks on lahti"
+
+#. Translators: "marker" is one color bin of the printer
+msgid "Marker supply low"
+msgstr "Värvi on vähe"
+
+#. Translators: "marker" is one color bin of the printer
+msgid "Out of a marker supply"
+msgstr "Värv on otsas"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+msgid "Paper low"
+msgstr "Paberit on vähe"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+msgid "Out of paper"
+msgstr "Paber on otsas"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+msgid "Printer off-line"
+msgstr "Printer pole võrgus"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+msgid "Printer error"
+msgstr "Printeri viga"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr "Printeril '%s' on toonerit vähe."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr "Printeril '%s' on tooner otsas."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr "Võib-olla pole printer '%s' ühendatud."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr "Printeri '%s' kaas on lahti."
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#, fuzzy, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr "Printerile '%s' puudub printimise filter."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr "Printeri '%s' uks on lahti."
+
+#. Translators: "marker" is one color bin of the printer
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr "Printeril '%s' on ühte värvi vähe."
+
+#. Translators: "marker" is one color bin of the printer
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr "Printeril '%s' on üks värv otsas."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr "Printeril '%s' on vähe paberit."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr "Printeril '%s' on paber otsas."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr "Printer '%s' pole praegu võrgus."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr "Printeriga '%s' on probleem."
+
 msgid "Printer added"
-msgstr ""
+msgstr "Printer on lisatud"
 
-#. Translators: A printer has been removed
 msgid "Printer removed"
-msgstr ""
+msgstr "Printer eemaldati"
 
 #. Translators: A print job has been stopped
 msgid "Printing stopped"
-msgstr ""
+msgstr "Printer on peatatud"
 
 #. Translators: "print-job xy" on a printer
 #, c-format
-msgid "\"%s\" on printer %s"
-msgstr ""
+msgid "\"%s\" on %s"
+msgstr "\"%s\" printeris %s"
 
 #. Translators: A print job has been canceled
 msgid "Printing canceled"
-msgstr ""
+msgstr "Printimisest loobuti"
 
 #. Translators: A print job has been aborted
 msgid "Printing aborted"
-msgstr ""
+msgstr "Printimine katkestati"
 
 #. Translators: A print job has been completed
 msgid "Printing completed"
-msgstr ""
+msgstr "Printimine lõpetatud"
 
 #. Translators: A job is printing
-msgid "Printing job"
-msgstr ""
+msgid "Printing"
+msgstr "Printimine"
+
+#. Translators: We are configuring new printer
+msgid "Configuring new printer"
+msgstr "Uue printeri seadistamine"
+
+#. Translators: Just wait
+msgid "Please wait..."
+msgstr "Palun oota..."
+
+#. name is a URI, no queue was generated, because no suitable
+#. * driver was found
+#.
+#. Translators: We have no driver installed for this printer
+msgid "Missing printer driver"
+msgstr "Puudub printeri draiver"
+
+#. Translators: We have no driver installed for the device
+#, c-format
+msgid "No printer driver for %s."
+msgstr "%s jaoks pole printeri draiverit."
+
+#. Translators: We have no driver installed for this printer
+msgid "No driver for this printer."
+msgstr "Selle printeri jaoks puudub draiver."
 
 msgid "Set up screen size and rotation settings"
 msgstr "Ekraani suuruse ja pööramise sätete määramine"
@@ -1130,8 +1478,181 @@ msgstr "Süsteemi kuupäeva- ja ajasätete muutmine"
 msgid "Privileges are required to configure time and date settings."
 msgstr "Kuupäeva ja ajasätete muutmiseks on vaja eriõiguseid."
 
-#~ msgid "Accessibility"
-#~ msgstr "Hõlbustused"
+#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
+msgid "Distribution upgrades available"
+msgstr "Saadaval on distributsiooniuuendused"
+
+#. TRANSLATORS: provides more information about the upgrade
+msgid "More information"
+msgstr "Lähem teave"
+
+#. TRANSLATORS: title in the libnotify popup
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] "Uuendus"
+msgstr[1] "Uuendused"
+
+#. TRANSLATORS: message when there are security updates
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] "Saadaval on oluline tarkvarauuendus"
+msgstr[1] "Saadaval on olulised tarkvarauuendused"
+
+#. TRANSLATORS: button: open the update viewer to install updates
+msgid "Install updates"
+msgstr "Paigalda uuendused"
+
+#. TRANSLATORS: message when there are non-security updates
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] "Saadaval on tarkvarauuendus."
+msgstr[1] "Saadaval on tarkvarauuendused."
+
+#. TRANSLATORS: policy says update, but we are on battery and so prompt
+msgid ""
+"Automatic updates are not being installed as the computer is running on "
+"battery power"
+msgstr "Automaatseid uuendusi ei paigaldata, kuna arvuti töötab akutoitel"
+
+#. TRANSLATORS: informs user will not install by default
+msgid "Updates not installed"
+msgstr "Uuendusi ei paigaldata"
+
+#. TRANSLATORS: to hell with my battery life, just do it
+msgid "Install the updates anyway"
+msgstr "Paigalda sellest hoolimata uuendused"
+
+msgid "No restart is required."
+msgstr "Taaskäivitamine pole vajalik."
+
+msgid "A restart is required."
+msgstr "Vajalik on taaskäivitamine."
+
+msgid "You need to log out and log back in."
+msgstr "Pead logima välja ja uuesti sisse."
+
+msgid "You need to restart the application."
+msgstr "Pead rakenduse uuesti käivitama."
+
+msgid "You need to log out and log back in to remain secure."
+msgstr "Turvalisuse tagamiseks pead logima välja ja uuesti sisse."
+
+msgid "A restart is required to remain secure."
+msgstr "Turvalisuse tagamiseks on vajalik taaskäivitamine."
+
+#. TRANSLATORS: we did the update, but some updates were skipped and not applied
+msgid "One package was skipped:"
+msgid_plural "Some packages were skipped:"
+msgstr[0] "Üks pakk jäeti vahele:"
+msgstr[1] "Mõned pakid jäeti vahele:"
+
+#. TRANSLATORS: title: system update completed all okay
+msgid "The system update has completed"
+msgstr "Süsteemi uuendamine lõpetati"
+
+#. TRANSLATORS: restart computer as system packages need update
+msgid "Restart computer now"
+msgstr "Taaskäivita arvuti kohe"
+
+#. TRANSLATORS: the updates mechanism
+msgid "Updates"
+msgstr "Uuendused"
+
+#. TRANSLATORS: we failed to get the updates multiple times,
+#. * and now we need to inform the user that something might be wrong
+msgid "Unable to access software updates"
+msgstr "Tarkvarauuendustele puudub ligipääs"
+
+#. TRANSLATORS: try again, this time launching the update viewer
+msgid "Try again"
+msgstr "Proovi uuesti"
+
+#. TRANSLATORS: the reason why we've inhibited it
+#, fuzzy
+msgid "A transaction that cannot be interrupted is running"
+msgstr "Käib tegevus, mida pole võimalik katkestada"
+
+#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
+msgid ""
+"You will need to restart this computer before the hardware will work "
+"correctly."
+msgstr "Seadme toimimiseks tuleb see arvuti taaskäivitada."
+
+#. TRANSLATORS: title of libnotify bubble
+msgid "Additional software was installed"
+msgstr "Paigaldati lisatarkvara"
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+msgid ""
+"You will need to remove and then reinsert the hardware before it will work "
+"correctly."
+msgstr "Et seade tööle hakkaks, pead selle eemaldama ja uuesti ühendama."
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+msgid "Your hardware has been set up and is now ready to use."
+msgstr "Sinu seade on häälestatud ning kasutamiseks valmis."
+
+#. TRANSLATORS: we need another package to keep udev quiet
+#, fuzzy
+msgid ""
+"Additional firmware is required to make hardware in this computer function "
+"correctly."
+msgstr ""
+"Selle seadme korrektseks toimimiseks selles arvutis tuleb paigaldada "
+"lisapüsivara."
+
+#. TRANSLATORS: title of libnotify bubble
+#, fuzzy
+msgid "Additional firmware required"
+msgstr "Vajalik on lisapüsivara"
+
+#. TRANSLATORS: button label
+msgid "Install firmware"
+msgstr "Paigalda püsivara"
+
+#. TRANSLATORS: we should ignore this device and not ask anymore
+msgid "Ignore devices"
+msgstr "Eira seadmeid"
+
+#~ msgid "DPI"
+#~ msgstr "DPI"
+
+#~ msgid ""
+#~ "The resolution used for converting font sizes to pixel sizes, in dots per "
+#~ "inch. 0.0 DPI means that the X server's DPI will be used."
+#~ msgstr ""
+#~ "Eraldusvõime, mida kasutatakse kirjasuuruste pikslitesse teisendamisel. "
+#~ "Ühik punkti tollile. Väärtus 0.0 punkti tollile tähendab, et kasutatakse "
+#~ "X-serveri vastavat väärtust."
+
+#~ msgid "Removing item %s of %s"
+#~ msgstr "Kirje %s eemaldamine (%s-st)"
+
+#~ msgid "Removing: %s"
+#~ msgstr "Eemaldamine: %s"
+
+#~ msgid "Emptying the trash"
+#~ msgstr "Prügikasti tühjendamine"
+
+#~ msgid "Preparing to empty trash…"
+#~ msgstr "Ettevalmistused prügikasti tühjendamiseks…"
+
+#~ msgid "From: "
+#~ msgstr "Kust:"
+
+#~ msgid "Empty all of the items from the trash?"
+#~ msgstr "Kas tühjendada kogu prügikast?"
+
+#~ msgid ""
+#~ "If you choose to empty the trash, all items in it will be permanently "
+#~ "lost. Please note that you can also delete them separately."
+#~ msgstr ""
+#~ "Kui sa valid prügikasti tühjendamise, siis kõik seal asuvad asjad "
+#~ "visatakse jäädavalt minema. Vajadusel saab neid asju ka ükshaaval minema "
+#~ "visata."
+
+#~ msgid "_Empty Trash"
+#~ msgstr "_Tühjenda prügikast"
 
 #~ msgid "Display keyboard LEDs on the panel"
 #~ msgstr "Klaviatuuritulukeste kuvamine paneelil"
@@ -1142,9 +1663,6 @@ msgstr "Kuupäeva ja ajasätete muutmiseks on vaja eriõiguseid."
 #~ msgstr ""
 #~ "Pseudotulukeste kuvamine ilma füüsiliste tulukesteta (CapsLock, NumLock "
 #~ "ja ScrollLock) klaviatuuride jaoks."
-
-#~ msgid "Configure network time"
-#~ msgstr "Võrguaja seadistamine"
 
 #~ msgid "Privileges are required to change the system time zone."
 #~ msgstr "Süsteemi ajavööndi muutmiseks on vaja eriõiguseid."
