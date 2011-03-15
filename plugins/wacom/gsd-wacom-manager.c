@@ -596,11 +596,6 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
 
         g_debug ("Stopping wacom manager");
 
-        if (p->device_manager != NULL) {
-                g_object_unref (p->device_manager);
-                p->device_manager = NULL;
-        }
-
         if (p->wacom_settings != NULL) {
                 g_object_unref (p->wacom_settings);
                 p->wacom_settings = NULL;

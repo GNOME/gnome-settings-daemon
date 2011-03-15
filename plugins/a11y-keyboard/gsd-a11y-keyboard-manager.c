@@ -1019,11 +1019,6 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
 
         g_debug ("Stopping a11y_keyboard manager");
 
-        if (p->device_manager != NULL) {
-                g_object_unref (p->device_manager);
-                p->device_manager = NULL;
-        }
-
         if (p->status_icon) {
                 gtk_status_icon_set_visible (p->status_icon, FALSE);
                 p->status_icon = NULL;
