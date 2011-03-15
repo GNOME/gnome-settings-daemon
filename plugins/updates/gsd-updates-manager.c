@@ -836,6 +836,7 @@ get_updates_finished_cb (GObject *object,
         if (update == GSD_UPDATE_TYPE_SECURITY) {
                 if (security_array->len == 0) {
                         g_debug ("policy security, but none available");
+                        notify_normal_updates_maybe (manager, array);
                         goto out;
                 }
 
