@@ -356,9 +356,10 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
         g_settings_get (manager->priv->settings_gsd,
                         GSD_SETTINGS_LAST_UPDATES_NOTIFICATION,
                         "t", &time_last_notify);
-        if ((guint64) freq_updates_notify < time_now - time_last_notify) {
-                g_debug ("not showing non-critical notification as already shown %i days ago",
-                        (guint) (time_now - time_last_notify) / (24 * 60 * 60));
+        if (time_last_notify > 0 &&
+            (guint64) freq_updates_notify > time_now - time_last_notify) {
+                g_debug ("not showing non-critical notification as already shown %i hours ago",
+                        (guint) (time_now - time_last_notify) / (60 * 60));
                 return;
         }
 
