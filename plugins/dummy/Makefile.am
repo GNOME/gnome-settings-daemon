@@ -1,3 +1,5 @@
+plugin_name = dummy
+
 plugin_LTLIBRARIES = \
 	libdummy.la
 
@@ -13,6 +15,7 @@ libdummy_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libdummy_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 

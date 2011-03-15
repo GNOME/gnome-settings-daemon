@@ -1,3 +1,5 @@
+plugin_name = ally-settings
+
 plugin_LTLIBRARIES = \
 	liba11y-settings.la
 
@@ -13,6 +15,7 @@ liba11y_settings_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 liba11y_settings_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 

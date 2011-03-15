@@ -1,3 +1,5 @@
+plugin_name = wacom
+
 plugin_LTLIBRARIES = libwacom.la
 
 libwacom_la_SOURCES = 		\
@@ -15,6 +17,7 @@ libwacom_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libwacom_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 

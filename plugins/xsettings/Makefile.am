@@ -1,5 +1,7 @@
 NULL =
 
+plugin_name = xsettings
+
 noinst_PROGRAMS = test-gtk-modules
 
 test_gtk_modules_SOURCES =	\
@@ -8,6 +10,7 @@ test_gtk_modules_SOURCES =	\
 	test-gtk-modules.c
 
 test_gtk_modules_CFLAGS =		\
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 

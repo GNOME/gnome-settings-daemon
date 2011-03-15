@@ -1,3 +1,4 @@
+plugin_name = common
 
 noinst_LTLIBRARIES = libcommon.la
 
@@ -15,6 +16,7 @@ libcommon_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libcommon_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(XINPUT_CFLAGS)		\
 	$(AM_CFLAGS)

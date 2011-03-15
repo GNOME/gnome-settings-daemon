@@ -449,6 +449,9 @@ fi
 plugindir='$(libdir)/gnome-settings-daemon-gsd_api_version'
 AC_SUBST([plugindir])
 
+PLUGIN_CFLAGS="-DG_LOG_DOMAIN=\"\\\"\$(plugin_name)-plugin\\\"\""
+AC_SUBST(PLUGIN_CFLAGS)
+
 dnl ---------------------------------------------------------------------------
 dnl - Finish
 dnl ---------------------------------------------------------------------------

@@ -1,3 +1,5 @@
+plugin_name = gconf
+
 plugin_LTLIBRARIES = libgconf.la
 
 libgconf_la_SOURCES =		\
@@ -16,6 +18,7 @@ libgconf_la_CPPFLAGS =							\
         $(AM_CPPFLAGS)
 
 libgconf_la_CFLAGS =			\
+	$(PLUGIN_CFLAGS)		\
 	$(GCONF_CFLAGS)			\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)

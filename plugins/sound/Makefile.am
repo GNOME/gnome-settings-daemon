@@ -1,3 +1,5 @@
+plugin_name = sound
+
 plugin_LTLIBRARIES = \
 	libsound.la
 
@@ -13,6 +15,7 @@ libsound_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libsound_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS) \
 	$(GNOME_CFLAGS)	\
 	$(PULSE_CFLAGS)	\

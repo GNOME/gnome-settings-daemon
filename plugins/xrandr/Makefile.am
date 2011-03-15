@@ -1,3 +1,5 @@
+plugin_name = xrandr
+
 icondir = $(datadir)/icons/hicolor
 context = apps
 
@@ -45,6 +47,7 @@ libxrandr_la_CPPFLAGS =						\
 	$(AM_CPPFLAGS)
 
 libxrandr_la_CFLAGS =			\
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(LIBNOTIFY_CFLAGS)		\
 	$(GNOME_DESKTOP_CFLAGS)		\

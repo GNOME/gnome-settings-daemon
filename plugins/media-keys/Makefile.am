@@ -1,6 +1,8 @@
 icondir = $(datadir)/icons/hicolor
 context = actions
 
+plugin_name = media-keys
+
 NULL =
 
 SUBDIRS =
@@ -86,6 +88,7 @@ libmedia_keys_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libmedia_keys_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 

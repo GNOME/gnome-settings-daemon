@@ -1,3 +1,5 @@
+plugin_name = print-notifications
+
 plugin_LTLIBRARIES = \
 	libprint-notifications.la
 
@@ -14,6 +16,7 @@ libprint_notifications_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libprint_notifications_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 

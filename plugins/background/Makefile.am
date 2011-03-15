@@ -1,5 +1,7 @@
 NULL =
 
+plugin_name = background
+
 noinst_PROGRAMS = 			\
 	test-background			\
 	$(NULL)
@@ -16,6 +18,7 @@ test_background_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 test_background_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GNOME_DESKTOP_CFLAGS)		\
 	$(AM_CFLAGS)

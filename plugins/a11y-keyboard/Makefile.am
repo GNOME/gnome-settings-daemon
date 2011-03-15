@@ -1,5 +1,7 @@
 NULL =
 
+plugin_name = keyboard
+
 gtkbuilderdir = $(pkgdatadir)
 gtkbuilder_DATA = 			\
 	gsd-a11y-preferences-dialog.ui	\
@@ -23,6 +25,7 @@ test_a11y_preferences_dialog_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 test_a11y_preferences_dialog_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 

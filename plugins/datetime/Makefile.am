@@ -1,3 +1,5 @@
+plugin_name = datetime
+
 dbus_servicesdir = $(datadir)/dbus-1/system-services
 dbus_confdir = $(sysconfdir)/dbus-1/system.d
 polkitdir = $(datadir)/polkit-1/actions
@@ -29,7 +31,7 @@ if HAVE_POLKIT
 BUILT_SOURCES = gsd-datetime-mechanism-glue.h
 endif
 
-AM_CFLAGS = $(SETTINGS_PLUGIN_CFLAGS) $(POLKIT_CFLAGS)
+AM_CFLAGS = $(PLUGIN_CFLAGS) $(SETTINGS_PLUGIN_CFLAGS) $(POLKIT_CFLAGS)
 gsd_datetime_mechanism_LDADD = $(POLKIT_LIBS) $(SETTINGS_PLUGIN_LIBS)
 
 test_system_timezone_SOURCES = test-system-timezone.c system-timezone.c system-timezone.h

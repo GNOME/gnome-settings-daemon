@@ -1,5 +1,7 @@
 NULL =
 
+plugin_name = automount
+
 noinst_PROGRAMS = 			\
 	test-automount			\
 	$(NULL)
@@ -18,6 +20,7 @@ test_automount_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 test_automount_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 

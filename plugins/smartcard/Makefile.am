@@ -1,3 +1,5 @@
+plugin_name = smartcard
+
 plugin_LTLIBRARIES = \
 	libsmartcard.la
 
@@ -18,6 +20,7 @@ libsmartcard_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libsmartcard_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)	\
 	$(SETTINGS_PLUGIN_CFLAGS) \
 	$(GNOME_CFLAGS)	\
 	$(NSS_CFLAGS)	\

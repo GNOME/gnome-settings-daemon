@@ -1,5 +1,7 @@
 NULL =
 
+plugin_name = clipboard
+
 plugin_LTLIBRARIES = \
 	libclipboard.la		\
 	$(NULL)
@@ -16,6 +18,7 @@ libclipboard_la_SOURCES = 	\
 	$(NULL)
 
 libclipboard_la_CPPFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)

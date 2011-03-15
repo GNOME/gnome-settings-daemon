@@ -1,5 +1,7 @@
 NULL =
 
+plugin_name = keybindings
+
 plugin_LTLIBRARIES = \
 	libkeybindings.la		\
 	$(NULL)
@@ -18,6 +20,7 @@ libkeybindings_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libkeybindings_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 

@@ -1,5 +1,7 @@
 NULL =
 
+plugin_name = keyboard
+
 plugin_LTLIBRARIES = \
 	libkeyboard.la		\
 	$(NULL)
@@ -32,6 +34,7 @@ libkeyboard_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libkeyboard_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(LIBGNOMEKBDUI_CFLAGS)		\
 	$(AM_CFLAGS)

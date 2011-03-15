@@ -1,3 +1,5 @@
+plugin_name = mouse
+
 plugin_LTLIBRARIES = libmouse.la
 
 libmouse_la_SOURCES = 		\
@@ -15,6 +17,7 @@ libmouse_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 libmouse_la_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 

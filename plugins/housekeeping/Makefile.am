@@ -1,3 +1,5 @@
+plugin_name = housekeeping
+
 COMMON_FILES =				\
 	gsd-disk-space.c		\
 	gsd-disk-space.h		\
@@ -41,6 +43,7 @@ libhousekeeping_la_CPPFLAGS = 					\
 	$(AM_CPPFLAGS)
 
 libhousekeeping_la_CFLAGS = 		\
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GIOUNIX_CFLAGS)		\
 	$(LIBNOTIFY_CFLAGS)		\
