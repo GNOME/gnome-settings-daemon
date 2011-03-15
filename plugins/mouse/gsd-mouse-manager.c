@@ -76,9 +76,9 @@ struct GsdMouseManagerPrivate
 {
         GSettings *touchpad_settings;
         GSettings *mouse_settings;
-	GSettings *mouse_a11y_settings;
+        GSettings *mouse_a11y_settings;
         GdkDeviceManager *device_manager;
-        guint notify;
+        guint device_added_id;
 
         gboolean mousetweaks_daemon_running;
         gboolean syndaemon_spawned;
@@ -378,8 +378,8 @@ set_devicepresence_handler (GsdMouseManager *manager)
         if (device_manager == NULL)
                 return;
 
-        g_signal_connect (G_OBJECT (device_manager), "device-added",
-                          G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
+                                                           G_CALLBACK (device_added_cb), manager);
         manager->priv->device_manager = device_manager;
 }
 
@@ -1010,6 +1010,11 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
         GsdMouseManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping mouse manager");
+
+        if (p->device_manager != NULL) {
+                g_signal_handler_disconnect (p->device_manager, p->device_added_id);
+                p->device_manager = NULL;
+        }
 
         if (p->mouse_settings != NULL) {
                 g_object_unref (p->mouse_settings);

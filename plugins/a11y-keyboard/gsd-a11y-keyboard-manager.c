@@ -54,6 +54,7 @@ struct GsdA11yKeyboardManagerPrivate
 {
         int               xkbEventBase;
         GdkDeviceManager *device_manager;
+        guint             device_added_id;
         gboolean          stickykeys_shortcut_val;
         gboolean          slowkeys_shortcut_val;
         GtkWidget        *stickykeys_alert;
@@ -103,8 +104,8 @@ set_devicepresence_handler (GsdA11yKeyboardManager *manager)
                 return;
 
         manager->priv->device_manager = device_manager;
-        g_signal_connect (G_OBJECT (device_manager), "device-added",
-                          G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
+                                                           G_CALLBACK (device_added_cb), manager);
 }
 
 static gboolean
@@ -1018,6 +1019,11 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
         GsdA11yKeyboardManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping a11y_keyboard manager");
+
+        if (p->device_manager != NULL) {
+                g_signal_handler_disconnect (p->device_manager, p->device_added_id);
+                p->device_manager = NULL;
+        }
 
         if (p->status_icon) {
                 gtk_status_icon_set_visible (p->status_icon, FALSE);

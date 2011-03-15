@@ -81,6 +81,7 @@ struct GsdWacomManagerPrivate
         GSettings *cursor_settings;
         GSettings *pad_settings;
         GdkDeviceManager *device_manager;
+        guint device_added_id;
 };
 
 static void     gsd_wacom_manager_class_init  (GsdWacomManagerClass *klass);
@@ -143,8 +144,8 @@ set_devicepresence_handler (GsdWacomManager *manager)
         if (device_manager == NULL)
                 return;
 
-        g_signal_connect (G_OBJECT (device_manager), "device-added",
-                          G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
+                                                           G_CALLBACK (device_added_cb), manager);
         manager->priv->device_manager = device_manager;
 }
 
@@ -595,6 +596,11 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
         GsdWacomManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping wacom manager");
+
+        if (p->device_manager != NULL) {
+                g_signal_handler_disconnect (p->device_manager, p->device_added_id);
+                p->device_manager = NULL;
+        }
 
         if (p->wacom_settings != NULL) {
                 g_object_unref (p->wacom_settings);
