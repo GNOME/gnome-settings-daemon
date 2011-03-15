@@ -350,7 +350,7 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
         NotifyNotification *notification;
 
         /* find out if enough time has passed since the last notification */
-        time_now = g_get_real_time ();
+        time_now = g_get_real_time () / 1000000;
         freq_updates_notify = g_settings_get_int (manager->priv->settings_gsd,
                                                   GSD_SETTINGS_FREQUENCY_UPDATES_NOTIFICATION);
         g_settings_get (manager->priv->settings_gsd,
