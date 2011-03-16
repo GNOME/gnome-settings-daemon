@@ -96,7 +96,6 @@ locate_pointer_paint (GsdLocatePointerData *data,
                      0, 2 * G_PI);
 
           cairo_fill (cr);
-          cairo_stroke (cr);
         }
       else
         {
@@ -144,9 +143,9 @@ update_shape (GsdLocatePointerData *data)
   mask = cairo_image_surface_create (CAIRO_FORMAT_A1, WINDOW_SIZE, WINDOW_SIZE);
   cr = cairo_create (mask);
 
-  region = gdk_cairo_region_create_from_surface (mask);
-
   locate_pointer_paint (data, cr, FALSE);
+
+  region = gdk_cairo_region_create_from_surface (mask);
   gdk_window_shape_combine_region (data->window, region, 0, 0);
 
   cairo_region_destroy (region);
@@ -190,7 +189,7 @@ set_transparent_shape (GdkWindow *window)
   cairo_region_t *region;
 
   region = cairo_region_create ();
-  gdk_window_input_shape_combine_region (data->window, region, 0, 0);
+  gdk_window_shape_combine_region (data->window, region, 0, 0);
   cairo_region_destroy (region);
 }
 
@@ -288,6 +287,7 @@ static void
 move_locate_pointer_window (GsdLocatePointerData *data,
                             GdkScreen            *screen)
 {
+  cairo_region_t *region;
   gint cursor_x, cursor_y;
 
   gdk_window_get_pointer (gdk_screen_get_root_window (screen), &cursor_x, &cursor_y, NULL);
@@ -298,7 +298,9 @@ move_locate_pointer_window (GsdLocatePointerData *data,
                           WINDOW_SIZE, WINDOW_SIZE);
 
   /* allow events to happen through the window */
-  gdk_window_input_shape_combine_region (data->window, NULL, 0, 0);
+  region = cairo_region_create ();
+  gdk_window_input_shape_combine_region (data->window, region, 0, 0);
+  cairo_region_destroy (region);
 }
 
 void
