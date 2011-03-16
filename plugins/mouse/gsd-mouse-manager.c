@@ -1016,6 +1016,11 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
                 p->device_manager = NULL;
         }
 
+        if (p->mouse_a11y_settings != NULL) {
+                g_object_unref (p->mouse_a11y_settings);
+                p->mouse_a11y_settings = NULL;
+        }
+
         if (p->mouse_settings != NULL) {
                 g_object_unref (p->mouse_settings);
                 p->mouse_settings = NULL;
@@ -1040,6 +1045,9 @@ gsd_mouse_manager_finalize (GObject *object)
         mouse_manager = GSD_MOUSE_MANAGER (object);
 
         g_return_if_fail (mouse_manager->priv != NULL);
+
+        if (mouse_manager->priv->device_manager != NULL)
+                g_signal_handler_disconnect (mouse_manager->priv->device_manager, mouse_manager->priv->device_added_id);
 
         if (mouse_manager->priv->mouse_settings != NULL)
                 g_object_unref (mouse_manager->priv->mouse_settings);
