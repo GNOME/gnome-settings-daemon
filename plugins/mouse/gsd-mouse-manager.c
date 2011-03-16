@@ -74,6 +74,7 @@
 
 struct GsdMouseManagerPrivate
 {
+	guint start_idle_id;
         GSettings *touchpad_settings;
         GSettings *mouse_settings;
         GSettings *mouse_a11y_settings;
@@ -988,6 +989,8 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 
         gnome_settings_profile_end (NULL);
 
+        manager->priv->start_idle_id = 0;
+
         return FALSE;
 }
 
@@ -997,7 +1000,7 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
-        g_idle_add ((GSourceFunc) gsd_mouse_manager_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_mouse_manager_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -1045,6 +1048,9 @@ gsd_mouse_manager_finalize (GObject *object)
         mouse_manager = GSD_MOUSE_MANAGER (object);
 
         g_return_if_fail (mouse_manager->priv != NULL);
+
+        if (mouse_manager->priv->start_idle_id != 0)
+                g_source_remove (mouse_manager->priv->start_idle_id);
 
         if (mouse_manager->priv->device_manager != NULL)
                 g_signal_handler_disconnect (mouse_manager->priv->device_manager, mouse_manager->priv->device_added_id);

@@ -52,6 +52,7 @@
 
 struct GsdA11yKeyboardManagerPrivate
 {
+        guint             start_idle_id;
         int               xkbEventBase;
         GdkDeviceManager *device_manager;
         guint             device_added_id;
@@ -968,9 +969,10 @@ start_a11y_keyboard_idle_cb (GsdA11yKeyboardManager *manager)
  out:
         gnome_settings_profile_end (NULL);
 
+        manager->priv->start_idle_id = 0;
+
         return FALSE;
 }
-
 
 gboolean
 gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
@@ -978,7 +980,7 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
-        g_idle_add ((GSourceFunc) start_a11y_keyboard_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_a11y_keyboard_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -1186,6 +1188,9 @@ gsd_a11y_keyboard_manager_finalize (GObject *object)
         a11y_keyboard_manager = GSD_A11Y_KEYBOARD_MANAGER (object);
 
         g_return_if_fail (a11y_keyboard_manager->priv != NULL);
+
+        if (a11y_keyboard_manager->priv->start_idle_id != 0)
+                g_source_remove (a11y_keyboard_manager->priv->start_idle_id);
 
         G_OBJECT_CLASS (gsd_a11y_keyboard_manager_parent_class)->finalize (object);
 }

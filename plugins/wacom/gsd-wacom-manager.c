@@ -75,6 +75,7 @@
 
 struct GsdWacomManagerPrivate
 {
+	guint start_idle_id;
         GSettings *wacom_settings;
         GSettings *stylus_settings;
         GSettings *eraser_settings;
@@ -574,6 +575,8 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 
         gnome_settings_profile_end (NULL);
 
+        manager->priv->start_idle_id = 0;
+
         return FALSE;
 }
 
@@ -583,7 +586,7 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
-        g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -639,6 +642,9 @@ gsd_wacom_manager_finalize (GObject *object)
         wacom_manager = GSD_WACOM_MANAGER (object);
 
         g_return_if_fail (wacom_manager->priv != NULL);
+
+        if (wacom_manager->priv->start_idle_id != 0)
+                g_source_remove (wacom_manager->priv->start_idle_id);
 
         G_OBJECT_CLASS (gsd_wacom_manager_parent_class)->finalize (object);
 }

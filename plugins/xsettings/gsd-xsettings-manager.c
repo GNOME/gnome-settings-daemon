@@ -87,6 +87,7 @@ struct _TranslationEntry {
 
 struct GnomeXSettingsManagerPrivate
 {
+        guint              start_idle_id;
         XSettingsManager **managers;
         GHashTable        *settings;
 
@@ -469,6 +470,8 @@ start_fontconfig_monitor_idle_cb (GnomeXSettingsManager *manager)
 
         gnome_settings_profile_end (NULL);
 
+        manager->priv->start_idle_id = 0;
+
         return FALSE;
 }
 
@@ -479,7 +482,7 @@ start_fontconfig_monitor (GnomeXSettingsManager  *manager)
 
         fontconfig_cache_init ();
 
-        g_idle_add ((GSourceFunc) start_fontconfig_monitor_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_fontconfig_monitor_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 }
@@ -803,6 +806,9 @@ gnome_xsettings_manager_finalize (GObject *object)
         xsettings_manager = GNOME_XSETTINGS_MANAGER (object);
 
         g_return_if_fail (xsettings_manager->priv != NULL);
+
+        if (xsettings_manager->priv->start_idle_id != 0)
+                g_source_remove (xsettings_manager->priv->start_idle_id);
 
         G_OBJECT_CLASS (gnome_xsettings_manager_parent_class)->finalize (object);
 }

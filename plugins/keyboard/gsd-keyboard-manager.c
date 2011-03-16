@@ -72,6 +72,7 @@
 
 struct GsdKeyboardManagerPrivate
 {
+	guint      start_idle_id;
         GSettings *settings;
         gboolean   have_xkb;
         gint       xkb_event_base;
@@ -388,6 +389,8 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         gnome_settings_profile_end (NULL);
 
+        manager->priv->start_idle_id = 0;
+
         return FALSE;
 }
 
@@ -397,7 +400,7 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
-        g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -504,6 +507,9 @@ gsd_keyboard_manager_finalize (GObject *object)
         keyboard_manager = GSD_KEYBOARD_MANAGER (object);
 
         g_return_if_fail (keyboard_manager->priv != NULL);
+
+        if (keyboard_manager->priv->start_idle_id != 0)
+                g_source_remove (keyboard_manager->priv->start_idle_id);
 
         G_OBJECT_CLASS (gsd_keyboard_manager_parent_class)->finalize (object);
 }

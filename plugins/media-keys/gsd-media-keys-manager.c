@@ -119,6 +119,8 @@ struct GsdMediaKeysManagerPrivate
         GDBusConnection *connection;
         GDBusProxy      *xrandr_proxy;
         GCancellable    *cancellable;
+
+        guint            start_idle_id;
 };
 
 static void     gsd_media_keys_manager_class_init  (GsdMediaKeysManagerClass *klass);
@@ -1398,6 +1400,8 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 
         gnome_settings_profile_end (NULL);
 
+        manager->priv->start_idle_id = 0;
+
         return FALSE;
 }
 
@@ -1431,7 +1435,7 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
 
         gnome_settings_profile_end ("gvc_mixer_control_new");
 #endif /* HAVE_PULSE */
-        g_idle_add ((GSourceFunc) start_media_keys_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_media_keys_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -1597,6 +1601,9 @@ gsd_media_keys_manager_finalize (GObject *object)
         media_keys_manager = GSD_MEDIA_KEYS_MANAGER (object);
 
         g_return_if_fail (media_keys_manager->priv != NULL);
+
+        if (media_keys_manager->priv->start_idle_id != 0)
+                g_source_remove (media_keys_manager->priv->start_idle_id);
 
         G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->finalize (object);
 }

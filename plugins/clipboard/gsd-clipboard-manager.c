@@ -51,6 +51,7 @@
 
 struct GsdClipboardManagerPrivate
 {
+        guint    start_idle_id;
         Display *display;
         Window   window;
         Time     timestamp;
@@ -920,6 +921,8 @@ start_clipboard_idle_cb (GsdClipboardManager *manager)
 
         gnome_settings_profile_end (NULL);
 
+        manager->priv->start_idle_id = 0;
+
         return FALSE;
 }
 
@@ -929,7 +932,7 @@ gsd_clipboard_manager_start (GsdClipboardManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
-        g_idle_add ((GSourceFunc) start_clipboard_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_clipboard_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -1044,6 +1047,9 @@ gsd_clipboard_manager_finalize (GObject *object)
         clipboard_manager = GSD_CLIPBOARD_MANAGER (object);
 
         g_return_if_fail (clipboard_manager->priv != NULL);
+
+        if (clipboard_manager->priv->start_idle_id !=0)
+                g_source_remove (clipboard_manager->priv->start_idle_id);
 
         G_OBJECT_CLASS (gsd_clipboard_manager_parent_class)->finalize (object);
 }
