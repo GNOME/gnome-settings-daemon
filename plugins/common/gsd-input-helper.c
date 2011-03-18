@@ -40,7 +40,7 @@ supports_xinput_devices (void)
                                 &error);
 }
 
-XDevice*
+XDevice *
 device_is_touchpad (XDeviceInfo deviceinfo)
 {
         XDevice *device;
@@ -101,8 +101,7 @@ touchpad_is_present (void)
                         break;
                 }
         }
-        if (device_info != NULL)
-                XFreeDeviceList (device_info);
+        XFreeDeviceList (device_info);
 
         return retval;
 }
