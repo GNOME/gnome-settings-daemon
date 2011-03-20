@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-16 07:50+0100\n"
-"PO-Revision-Date: 2011-03-16 08:03+0100\n"
+"POT-Creation-Date: 2011-03-20 23:33+0100\n"
+"PO-Revision-Date: 2011-03-20 23:52+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -69,16 +69,15 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid "Middle button emulation"
-msgstr ""
+msgstr "Emulering av mittenknapp"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Select the touchpad scroll method"
 msgstr "Välj rullningsmetod för pekplattan"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
-#, fuzzy
 msgid "Select the touchpad scroll method. Supported values are: \"disabled\", \"edge-scrolling\", \"two-finger-scrolling\"."
-msgstr "Välj rullningsmetod för pekplattan. Värden som stöds är: 0 - inaktiverad, 1 - kantrullning, 2 - tvåfingersrullning"
+msgstr "Välj rullningsmetod för pekplattan. Värden som stöds är: \"disabled\", \"edge-scrolling\", \"two-finger-scrolling\"."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Set this to TRUE if you have problems with accidentally hitting the touchpad while typing."
@@ -158,9 +157,8 @@ msgid "Free percentage notify threshold"
 msgstr "Tröskelvärde för notifiering om ledigt utrymme (procent)"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
-#, fuzzy
 msgid "Free space notify threshold"
-msgstr "Tröskelvärde för notifiering om ledigt utrymme (utrymme)"
+msgstr "Tröskelvärde för notifiering om ledigt utrymme"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Minimum notify period for repeated warnings"
@@ -171,9 +169,8 @@ msgid "Mount paths to ignore"
 msgstr "Monteringssökvägar att ignorera"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
-#, fuzzy
 msgid "Percentage free space threshold for initial warning of low disk space. If the percentage free space drops below this, a warning will be shown."
-msgstr "Tröskelvärde för ledigt utrymme (procent) för initial varning för lågt diskutrymme. Om procentandelen ledigt utrymme sjunker under detta värde så kommer en varning att visas"
+msgstr "Tröskelvärde för ledigt utrymme (procent) för initial varning om lågt diskutrymme. Om procentandelen ledigt utrymme sjunker under detta värde så kommer en varning att visas."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Specify a list of mount paths to ignore when they run low on space."
@@ -184,17 +181,14 @@ msgid "Specify a time in minutes. Subsequent warnings for a volume will not appe
 msgstr "Ange en tid i minuter. Efterföljande varningar för en volym kommer inte att visas oftare än denna tidsperiod."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
-#, fuzzy
 msgid "Specify an amount in GB. If the amount of free space is more than this, no warning will be shown."
-msgstr "Ange en mängd i GB. Om mängden ledigt utrymme är mer än detta så kommer ingen varning att visas"
+msgstr "Ange en mängd i GB. Om mängden ledigt utrymme är mer än detta så kommer ingen varning att visas."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
-#, fuzzy
 msgid "Specify the percentage that the free disk space should reduce by before issuing a subsequent warning."
-msgstr "Ange procentandelen som det lediga diskutrymme ska minskas med innan en efterföljande varning ska visas"
+msgstr "Ange procentandelen som det lediga diskutrymme ska minskas med innan en efterföljande varning ska visas."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
-#, fuzzy
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Tröskelvärde för efterföljande varning om lågt diskutrymme (procent)"
 
@@ -213,22 +207,18 @@ msgid "Allowed keys"
 msgstr "Tillåtna tangenter"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
-#, fuzzy
 msgid "Binding for the magnifier to zoom in"
-msgstr "Bindning för att växla förstoraren."
+msgstr "Bindning för att förstoraren ska zooma in"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
-#, fuzzy
 msgid "Binding for the magnifier to zoom out"
-msgstr "Bindning för att växla förstoraren."
+msgstr "Bindning för att förstoraren ska zooma ut"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
-#, fuzzy
 msgid "Binding to decrease the text size"
-msgstr "Bindning för att höja ljudvolymen."
+msgstr "Bindning för att minska textstorleken"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
-#, fuzzy
 msgid "Binding to eject an optical disc."
 msgstr "Bindning för att mata ut en optisk skiva."
 
@@ -237,9 +227,8 @@ msgid "Binding to enable or disable the touchpad."
 msgstr "Bindning för att aktivera eller inaktivera pekplattan."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
-#, fuzzy
 msgid "Binding to increase the text size"
-msgstr "Bindning för att höja ljudvolymen."
+msgstr "Bindning för att öka textstorleken."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
@@ -294,14 +283,12 @@ msgid "Binding to raise the system volume."
 msgstr "Bindning för att höja ljudvolymen."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
-#, fuzzy
 msgid "Binding to show the on-screen keyboard"
-msgstr "Bindning för att växla skärmtangentbordet."
+msgstr "Bindning för att visa skärmtangentbordet"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
-#, fuzzy
 msgid "Binding to show the screen magnifier"
-msgstr "Bindning för att växla förstoraren."
+msgstr "Bindning för att visa skärmförstoraren"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
@@ -316,18 +303,16 @@ msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Bindning för att starta uppspelningen (eller växla spela/pausa)."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
-#, fuzzy
 msgid "Binding to start the screen reader"
-msgstr "Bindning för att växla skärmläsaren."
+msgstr "Bindning för att starta skärmläsaren"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to stop playback."
 msgstr "Bindning för att stoppa uppspelningen."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
-#, fuzzy
 msgid "Binding to toggle the interface contrast"
-msgstr "Bindning för att starta e-postklienten."
+msgstr "Bindning för att växla gränssnittets kontrast"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Decrease text size"
@@ -342,9 +327,8 @@ msgid "Home folder"
 msgstr "Hemmapp"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
-#, fuzzy
 msgid "If non-empty, keybindings will be ignored unless their settings directory is in the list. This is useful for lockdown."
-msgstr "Om icke-tom kommer tangentbindningar att ignoreras såvida inte deras GConf-katalog finns i listan. Detta är användbart för nedlåsning."
+msgstr "Om icke-tom kommer tangentbindningar att ignoreras såvida inte deras inställningskatalog finns i listan. Detta är användbart för nedlåsning."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Increase text size"
@@ -380,11 +364,11 @@ msgstr "Logga ut"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Magnifier zoom in"
-msgstr ""
+msgstr "Förstorare zooma in"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Magnifier zoom out"
-msgstr ""
+msgstr "Förstorare zooma ut"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
@@ -444,43 +428,43 @@ msgstr "Volym upp"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 msgid "Ask the user if additional firmware should be installed"
-msgstr ""
+msgstr "Fråga användaren om ytterligare fast programvara ska installeras"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
 msgid "Ask the user if additional firmware should be installed if it is available."
-msgstr ""
+msgstr "Fråga användaren om ytterligare fast programvara ska installeras om den finns tillgänglig."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 msgid "Automatically download updates in the background without confirmation"
-msgstr ""
+msgstr "Hämta automatiskt uppdateringar i bakgrunden utan bekräftelse"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
 msgid "Automatically download updates in the background without confirmation. Updates will be auto-downloaded when using wired network connnections, and also WiFi if 'connection-use-wifi' is enabled and mobile broadband if 'connection-use-mobile' is enabled."
-msgstr ""
+msgstr "Hämta automatiskt uppdateringar i bakgrunden utan bekräftelse. Uppdateringar kommer att hämtas automatiskt när ett trådat nätverk används men även trådlöst nätverk om \"connection-use-wifi\" är aktiverat samt mobilt bredband om \"connection-use-mobile\" är aktiverat."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid "Automatically update these types of updates"
-msgstr ""
+msgstr "Uppdatera automatiskt dessa typer av uppdateringar"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically update these types of updates."
-msgstr ""
+msgstr "Uppdatera automatiskt dessa typer av uppdateringar."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
-msgstr ""
+msgstr "Enheter som ska ignoreras"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "Devices that should be ignored, separated by commas. These can include '*' and '?' characters."
-msgstr ""
+msgstr "Enheter som ska ignoreras, separerade med kommatecken. Dessa kan inkludera tecknen \"*\" och \"?\"."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid "Firmware files that should not be searched for"
-msgstr ""
+msgstr "Fast programvara som inte ska letas efter"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid "Firmware files that should not be searched for, separated by commas. These can include '*' and '?' characters."
-msgstr ""
+msgstr "Fast programvara som inte ska letas efter, separerade med kommatecken. Dessa kan inkludera tecknen \"*\" och \"?\"."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid "Get the update list when the session starts"
@@ -492,19 +476,19 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid "How often to check for distribution upgrades"
-msgstr ""
+msgstr "Hur ofta som distributionsuppgraderingar ska letas efter"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades. Value is in seconds."
-msgstr ""
+msgstr "Hur ofta som distributionsuppgraderingar ska letas efter. Värdet är i sekunder."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for updates"
-msgstr ""
+msgstr "Hur ofta uppdateringar ska letas efter"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid "How often to check for updates. Value is in seconds. This is a maximum amount of time that can pass between a security update being published, and the update being automatically installed or the user notified."
-msgstr ""
+msgstr "Hur ofta uppdateringar ska letas efter. Värdet är i sekunder. Detta är en maximal mängd tid som kan passera mellan en säkerhetsuppdateringar som publiceras och uppdateringen blir installerad automatiskt eller användaren notifierad."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to notify the user that non-critical updates are available"
@@ -512,11 +496,11 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
 msgid "How often to refresh the package cache"
-msgstr ""
+msgstr "Hur ofta paketcachen ska uppdateras"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "How often to refresh the package cache. Value is in seconds."
-msgstr ""
+msgstr "Hur ofta paketcachen ska uppdateras. Värdet är i sekunder."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid "How often to tell the user there are non-critical updates. Value is in seconds. Security update notifications are always shown after the check for updates, but non-critical notifications should be shown a lot less frequently."
@@ -524,59 +508,59 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Install updates automatically when running on battery power"
-msgstr ""
+msgstr "Installera automatiskt uppdateringar när datorn körs på batteriström"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Install updates automatically when running on battery power."
-msgstr ""
+msgstr "Installera automatiskt uppdateringar när datorn körs på batteriström."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid "Notify the user for completed updates"
-msgstr ""
+msgstr "Notifiera användaren om färdigställda uppdateringar"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Notify the user for completed updates where the user needs to restart"
-msgstr ""
+msgstr "Notifiera användaren om färdigställda uppdateringar där användaren behöver starta om"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid "Notify the user for completed updates where the user needs to restart."
-msgstr ""
+msgstr "Notifiera användaren om färdigställda uppdateringar där användaren behöver starta om."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid "Notify the user for completed updates. This may be a useful notification for some users as installing updates prevents shutdown."
-msgstr ""
+msgstr "Notifiera användaren om färdigställda uppdateringar. Detta kan vara en användbar notifiering för vissa användare eftersom installation av uppdateringar förhindrar avstängning."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid "Notify the user when distribution upgrades are available"
-msgstr ""
+msgstr "Notifiera användaren när distributionsuppgraderingar finns tillgängliga"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "Notify the user when distribution upgrades are available."
-msgstr ""
+msgstr "Notifiera användaren när distributionsuppgraderingar finns tillgängliga."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid "Notify the user when the automatic update was not started on battery power"
-msgstr ""
+msgstr "Notifiera användaren när automatiska uppdateringen inte startades när datorn körs på batteriström"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
 msgid "Notify the user when the update was not automatically started because the machine is running on battery power."
-msgstr ""
+msgstr "Notifiera användaren när uppdateringen inte startades automatiskt därför att datorn körs på batteriström."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
 msgid "Notify the user when the update was started"
-msgstr ""
+msgstr "Notifiera användaren när uppdateringen startade"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
 msgid "Notify the user when the update was started."
-msgstr ""
+msgstr "Notifiera användaren när uppdateringen startade."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
 msgid "The filenames on removable media that designate it a software source."
-msgstr ""
+msgstr "Filnamnen på flyttbara media som bestämmer att det är en programkälla."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
 msgid "The install root to use when adding and removing packages"
-msgstr ""
+msgstr "Installationsroten att använda när paket läggs till och tas bort"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
 msgid "The install root to use when processing packages, which is changed when using LTSP or when testing."
@@ -624,7 +608,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
-msgstr ""
+msgstr "Fil för standardkonfiguration för RandR"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid "The XRandR plugin will look for a default configuration in the file specified by this key. This is similar to the ~/.config/monitors.xml that normally gets stored in users' home directories. If a user does not have such a file, or has one that does not match the user's setup of monitors, then the file specified by this key will be used instead."
@@ -652,11 +636,11 @@ msgstr "Hintning"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "List of explicitly disabled GTK+ modules"
-msgstr ""
+msgstr "Lista över uttryckligen inaktiverade GTK+-moduler"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly enabled GTK+ modules"
-msgstr ""
+msgstr "Lista över uttryckligen aktiverade GTK+-moduler"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
@@ -736,35 +720,35 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom cursor absolute mode"
-msgstr ""
+msgstr "Absolut läge för Wacom-pekare"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid "Wacom cursor button mapping"
-msgstr ""
+msgstr "Knappmappning för Wacom-pekare"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom cursor tablet area"
-msgstr ""
+msgstr "Pekyta för Wacom-pekare"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Wacom eraser absolute mode"
-msgstr ""
+msgstr "Absolut läge för Wacom-raderare"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom eraser button mapping"
-msgstr ""
+msgstr "Knappmappning för Wacom-raderare"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Wacom eraser pressure curve"
-msgstr ""
+msgstr "Tryckkurva för Wacom-raderare"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser pressure threshold"
-msgstr ""
+msgstr "Tryckvärde för Wacom-raderare"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid "Wacom eraser tablet area"
-msgstr ""
+msgstr "Pekyta för Wacom-raderare"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom pad button mapping"
@@ -822,91 +806,91 @@ msgstr "Hjälpmedelstangentbord"
 msgid "Accessibility keyboard plugin"
 msgstr "Insticksmodul för hjälpmedelstangentbord"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:391
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:392
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Ett fel inträffade vid visning av hjälp: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:516
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:578
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
 msgid "Do you want to activate Slow Keys?"
 msgstr "Vill du aktivera tröga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Vill du inaktivera tröga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
 msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for the Slow Keys feature, which affects the way your keyboard works."
 msgstr "Du höll precis ned skifttangenten under 8 sekunder. Detta är genvägen för funktionen tröga tangenter, som påverkar hur ditt tangentbord fungerar."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:541
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:676
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't activate"
 msgstr "Aktivera inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:541
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:676
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't deactivate"
 msgstr "Inaktivera inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:547
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:682
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Activate"
 msgstr "Aktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:547
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:682
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Deactivate"
 msgstr "Inaktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:601
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't activate"
 msgstr "Aktivera _inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:601
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't deactivate"
 msgstr "Inaktivera _inte"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:604
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Activate"
 msgstr "_Aktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:604
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Deactivate"
 msgstr "_Inaktivera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
 msgid "Slow Keys Alert"
 msgstr "Varning för tröga tangenter"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:648
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:712
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Vill du aktivera klistriga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Vill du inaktivera klistriga tangenter?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:651
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:715
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
 msgid "You just pressed the Shift key 5 times in a row.  This is the shortcut for the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "Du tryckte precis ned skifttangenten 5 gånger i följd. Detta är genvägen för funktionen klistriga tangenter, som påverkar hur ditt tangentbord fungerar."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:653
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:717
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
 msgid "You just pressed two keys at once, or pressed the Shift key 5 times in a row.  This turns off the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "Du tryckte precis ned två tangenter samtidigt, eller tryckte ned skifttangenten 5 gånger i följd. Detta stänger av funktionen tröga tangenter, som påverkar hur ditt tangentbord fungerar."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
 msgid "Sticky Keys Alert"
 msgstr "Larm från Klistriga tangenter"
 
@@ -948,23 +932,20 @@ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Tryck tangentbordsgenvägar en tangent åt gången (Klistriga tangenter)"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
-#, fuzzy
 msgid "Accessibility settings"
-msgstr "Hjälpmedel"
+msgstr "Hjälpmedelsinställningar"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Accessibility settings plugin"
-msgstr "Insticksmodul för hjälpmedelstangentbord"
+msgstr "Insticksmodul för hjälpmedelsinställningar"
 
 #: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
 msgid "Automount"
 msgstr "Montera automatiskt"
 
 #: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Automounter plugin"
-msgstr "Insticksmodul för typsnitt"
+msgstr "Insticksmodul för automatisk montering"
 
 #: ../plugins/automount/gsd-automount-manager.c:154
 #, c-format
@@ -1226,6 +1207,14 @@ msgid ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 msgstr ""
+"Fel vid aktivering av XKB-konfiguration.\n"
+"Det kan finnas olika anledningar för detta.\n"
+"\n"
+"Om du rapporterar detta problem som ett fel så bör du inkludera\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:223
 msgid "_Layouts"
@@ -1239,11 +1228,11 @@ msgstr "Tangentbordsins_tällningar"
 msgid "Show _Current Layout"
 msgstr "Visa a_ktuell layout"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:216
+#: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid "Could not get default terminal. Verify that your default terminal command is set and points to a valid application."
 msgstr "Kunde inte hitta standardterminalen. Verifiera att kommandot för din standardterminal är inställt och pekar på ett giltigt program."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
+#: ../plugins/media-keys/gsd-media-keys-manager.c:258
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1288,15 +1277,15 @@ msgstr "Mediatangenter"
 msgid "Media keys plugin"
 msgstr "Insticksmodul för mediatangenter"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:854
+#: ../plugins/mouse/gsd-mouse-manager.c:924
 msgid "Could not enable mouse accessibility features"
 msgstr "Kunde inte aktivera mushjälpmedelsfunktioner"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:856
+#: ../plugins/mouse/gsd-mouse-manager.c:926
 msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Mushjälpmedel kräver att Mousetweaks (Musjusteringar) är installerat på ditt system."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:858
+#: ../plugins/mouse/gsd-mouse-manager.c:928
 msgid "Universal Access"
 msgstr "Universell åtkomst"
 
@@ -1339,12 +1328,12 @@ msgstr "Luckan är öppen"
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
 msgid "Printer configuration error"
-msgstr ""
+msgstr "Fel i skrivarkonfiguration"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
 msgid "Door open"
-msgstr ""
+msgstr "Dörren är öppen"
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
@@ -1404,13 +1393,13 @@ msgstr "Luckan är öppnad på skrivaren \"%s\"."
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
-msgstr ""
+msgstr "Det saknas ett utskriftsfilter för skrivaren \"%s\"."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
 #, c-format
 msgid "The door is open on printer '%s'."
-msgstr ""
+msgstr "Dörren är öppen på skrivaren \"%s\"."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
@@ -1592,7 +1581,7 @@ msgstr "Modulsökväg"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:188
 msgid "path to smartcard PKCS #11 driver"
-msgstr ""
+msgstr "sökväg till PKCS #11-drivrutin för smartkort"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:528
 msgid "received error or hang up from event source"
@@ -1601,17 +1590,17 @@ msgstr ""
 #: ../plugins/smartcard/gsd-smartcard-manager.c:662
 #, c-format
 msgid "NSS security system could not be initialized"
-msgstr ""
+msgstr "NSS-säkerhetssystem kunde inte initieras"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:790
 #, c-format
 msgid "no suitable smartcard driver could be found"
-msgstr ""
+msgstr "ingen lämplig drivrutin för smartkort kunde hittas"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:804
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
-msgstr ""
+msgstr "drivrutinen \"%s\" för smartkort kunde inte läsas in"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:876
 #, c-format
@@ -1629,7 +1618,7 @@ msgstr ""
 
 #: ../plugins/smartcard/gsd-smartcard.c:159
 msgid "The slot the card is in"
-msgstr ""
+msgstr "Platsen som kortet finns i"
 
 #: ../plugins/smartcard/gsd-smartcard.c:165
 msgid "Slot Series"
@@ -1650,7 +1639,7 @@ msgstr "Modul"
 
 #: ../plugins/smartcard/gsd-smartcard.c:178
 msgid "smartcard driver"
-msgstr ""
+msgstr "drivrutin för smartkort"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
 msgid "Change system time and date settings"
