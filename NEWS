@@ -1,4 +1,64 @@
 ===============
+Version 2.91.92
+===============
+
+Common:
+- Update priority of a few plugins (Bastien Nocera)
+- gdk_display_get_device_manager() retval handling (Bastien Nocera) (#685020)
+- Improve CUPS detection (Saleem Abdulrasool) (#644063)
+- Make sure G_LOG_DOMAIN is set to the plugin name for each plugin (Richard Hughes)
+- Make sure we mop up stray idle handlers (Bastien Nocera)
+- Simplify input helper (Bastien Nocera)
+- Launch a custom script on input devices (Peter Hutterer) (#635486)
+
+Daemon:
+- Fix possible crasher on exit (Bastien Nocera) (#639347)
+
+Media keys:
+- Update gvc copy/paste from control-center (Bastien Nocera)
+- Make volume go up to 11 (Bastien Nocera) (#631030)
+- Simplify volume keys handling (Sjoerd Simons) (#640963)
+
+Mouse:
+- Fix possible memory leak (Bastien Nocera)
+- Implement touchpad motion settings (Bastien Nocera) (#642474)
+- Fix shape handling in locate-pointer (Gerd Kohlberger) (#645092)
+- Handle touchpad handedness changing (Bastien Nocera)
+- Don't apply any settings if XInput isn't present (Bastien Nocera)
+- Separate device dependent calls (Bastien Nocera)
+- Remove duplicated calls on start (Bastien Nocera)
+- Remove unused supports_xinput_devices() call (Bastien Nocera)
+- Make sure syndaemon is killed when touchpad disappears (Bastien Nocera)
+- Hook up input device customisation script (Bastien Nocera)
+- Fix double-free when handling one-button touchpad (Bastien Nocera)
+- Fix crash in GHashTable usage (Bastien Nocera)
+
+Power:
+- Set the default display off time to be same as session idle time (William Jon McCann)
+
+Updates:
+- g_get_real_time() returns microseconds, not seconds since the epoch (Richard Hughes)
+- Ensure te user gets the updates notification if it's never been shown (Richard Hughes)
+- Ensure the user gets notified of normal updates at the correct interval (Richard Hughes)
+
+Translations:
+- ar (Khaled Hosny)
+- de (Mario Blättermann)
+- el (Γιώργος Στεφανάνης)
+- et (Mattias Põldaru)
+- fr (Cyril Arnaud, Gérard Baylard, Alain Lojewski and Claude Paroz)
+- gl (Fran Diéguez)
+- he (Yaron Shahrabani)
+- hu (Gabor Kelemen)
+- lt (Gintautas Miliauskas)
+- lv (Rudolfs Mazurs)
+- pl (Piotr Drąg)
+- ro (Lucian Adrian Grijincu)
+- sl (Matej Urbančič, Andrej Žnidaršič)
+- sr (Miroslav Nikolić)
+- sv (Daniel Nylander)
+
+===============
 Version 2.91.91
 ===============
 
