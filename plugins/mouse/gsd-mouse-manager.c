@@ -92,7 +92,9 @@ struct GsdMouseManagerPrivate
 static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
 static void     gsd_mouse_manager_init        (GsdMouseManager      *mouse_manager);
 static void     gsd_mouse_manager_finalize    (GObject             *object);
-static int      set_tap_to_click              (gboolean state, gboolean left_handed);
+static void     set_tap_to_click              (GdkDevice           *device,
+                                               gboolean             state,
+                                               gboolean             left_handed);
 
 G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
 
@@ -158,6 +160,24 @@ gsd_mouse_manager_class_init (GsdMouseManagerClass *klass)
         g_type_class_add_private (klass, sizeof (GsdMouseManagerPrivate));
 }
 
+static XDevice *
+open_gdk_device (GdkDevice *device)
+{
+        XDevice *xdevice;
+        int id;
+
+        g_object_get (G_OBJECT (device), "device-id", &id, NULL);
+
+        gdk_error_trap_push ();
+
+        xdevice = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), id);
+
+        if (gdk_error_trap_pop () != 0)
+                return NULL;
+
+        return xdevice;
+}
+
 static void
 configure_button_layout (guchar   *buttons,
                          gint      n_buttons,
@@ -216,24 +236,52 @@ configure_button_layout (guchar   *buttons,
 }
 
 static gboolean
-xinput_device_has_buttons (XDeviceInfo *device_info)
+xinput_device_has_buttons (GdkDevice *device)
 {
         int i;
         XAnyClassInfo *class_info;
 
-        class_info = device_info->inputclassinfo;
-        for (i = 0; i < device_info->num_classes; i++) {
+        /* FIXME can we use the XDevice's classes here instead? */
+        XDeviceInfo *device_info, *info;
+        gint n_devices;
+        int id;
+
+        /* Find the XDeviceInfo for the GdkDevice */
+        g_object_get (G_OBJECT (device), "device-id", &id, NULL);
+
+        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
+        if (device_info == NULL)
+                return FALSE;
+
+        info = NULL;
+        for (i = 0; i < n_devices; i++) {
+                if (device_info[i].id == id) {
+                        info = &device_info[i];
+                        break;
+                }
+        }
+        if (info == NULL)
+                goto bail;
+
+        class_info = info->inputclassinfo;
+        for (i = 0; i < info->num_classes; i++) {
                 if (class_info->class == ButtonClass) {
                         XButtonInfo *button_info;
 
                         button_info = (XButtonInfo *) class_info;
-                        if (button_info->num_buttons > 0)
+                        if (button_info->num_buttons > 0) {
+                                XFreeDeviceList (device_info);
                                 return TRUE;
+                        }
                 }
 
                 class_info = (XAnyClassInfo *) (((guchar *) class_info) +
                                                 class_info->length);
         }
+
+bail:
+        XFreeDeviceList (device_info);
+
         return FALSE;
 }
 
@@ -268,96 +316,75 @@ touchpad_has_single_button (XDevice *device)
 
 static void
 set_left_handed (GsdMouseManager *manager,
+                 GdkDevice       *device,
                  gboolean mouse_left_handed,
                  gboolean touchpad_left_handed)
 {
-        XDeviceInfo *device_info;
-        gint n_devices;
+        XDevice *xdevice;
         guchar *buttons;
         gsize buttons_capacity = 16;
+        gboolean left_handed;
         gint n_buttons;
-        gint i;
+        const char *name;
 
-        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
+        buttons = g_new (guchar, buttons_capacity);
 
-        if (n_devices > 0)
-                buttons = g_new (guchar, buttons_capacity);
-        else
-                buttons = NULL;
+        name = gdk_device_get_name (device);
+        if (name != NULL && g_str_equal ("Virtual core XTEST pointer", name))
+                return;
+        if (!xinput_device_has_buttons (device))
+                return;
 
-        for (i = 0; i < n_devices; i++) {
-                XDevice *device = NULL;
-                gboolean left_handed;
+        xdevice = open_gdk_device (device);
+        if (!xdevice)
+                return;
 
-                if ((device_info[i].use == IsXPointer) ||
-                    (device_info[i].use == IsXKeyboard) ||
-                    (device_info[i].name != NULL && g_str_equal ("Virtual core XTEST pointer", device_info[i].name)) ||
-                    (!xinput_device_has_buttons (&device_info[i])))
-                        continue;
+        /* If the device is a touchpad, swap tap buttons
+         * around too, otherwise a tap would be a right-click */
+        if (device_is_touchpad (xdevice)) {
+                gboolean tap = g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK);
+                gboolean single_button = touchpad_has_single_button (xdevice);
 
-                /* If the device is a touchpad, swap tap buttons
-                 * around too, otherwise a tap would be a right-click */
-                device = device_is_touchpad (device_info[i]);
-                if (device != NULL) {
-                        gboolean tap = g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK);
-                        gboolean single_button = touchpad_has_single_button (device);
+                left_handed = touchpad_left_handed;
 
-                        left_handed = touchpad_left_handed;
+                if (tap && !single_button)
+                        set_tap_to_click (device, tap, left_handed);
+                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 
-                        if (tap && !single_button)
-                                set_tap_to_click (tap, left_handed);
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+                if (single_button)
+                        goto out;
+        } else {
+                left_handed = mouse_left_handed;
+        }
 
-                        if (single_button)
-                                continue;
-                } else {
-                        left_handed = mouse_left_handed;
-                }
+        n_buttons = XGetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                             buttons,
+                                             buttons_capacity);
 
-                gdk_error_trap_push ();
+        while (n_buttons > buttons_capacity) {
+                buttons_capacity = n_buttons;
+                buttons = (guchar *) g_realloc (buttons,
+                                                buttons_capacity * sizeof (guchar));
 
-                device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
-
-                if ((gdk_error_trap_pop () != 0) ||
-                    (device == NULL))
-                        continue;
-
-                n_buttons = XGetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
+                n_buttons = XGetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                                      buttons,
                                                      buttons_capacity);
-
-                while (n_buttons > buttons_capacity) {
-                        buttons_capacity = n_buttons;
-                        buttons = (guchar *) g_realloc (buttons,
-                                                        buttons_capacity * sizeof (guchar));
-
-                        n_buttons = XGetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
-                                                             buttons,
-                                                             buttons_capacity);
-                }
-
-                configure_button_layout (buttons, n_buttons, left_handed);
-
-                XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device, buttons, n_buttons);
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
         }
+
+        configure_button_layout (buttons, n_buttons, left_handed);
+
+        XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, buttons, n_buttons);
+
+out:
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
         g_free (buttons);
-
-        if (device_info != NULL)
-                XFreeDeviceList (device_info);
-}
-
-static XDevice *
-device_open (XDeviceInfo deviceinfo)
-{
-        return XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), deviceinfo.id);
 }
 
 static void
-set_motion_for_device (GsdMouseManager *manager,
-                      XDeviceInfo      deviceinfo)
+set_motion (GsdMouseManager *manager,
+            GdkDevice       *device)
 {
-        XDevice *device;
+        XDevice *xdevice;
         XPtrFeedbackControl feedback;
         XFeedbackState *states, *state;
         int num_feedbacks;
@@ -367,16 +394,13 @@ set_motion_for_device (GsdMouseManager *manager,
         GSettings *settings;
         guint i;
 
-        device = NULL;
-        if (deviceinfo.type == XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XI_TOUCHPAD, False)) {
-                device = device_is_touchpad (deviceinfo);
+        xdevice = open_gdk_device (device);
+        if (device_is_touchpad (xdevice))
                 settings = manager->priv->touchpad_settings;
-        } else {
-                device = device_open (deviceinfo);
+        else
                 settings = manager->priv->mouse_settings;
-        }
 
-        if (device == NULL)
+        if (xdevice == NULL)
                 return;
 
         /* Calculate acceleration */
@@ -411,7 +435,7 @@ set_motion_for_device (GsdMouseManager *manager,
         motion_threshold = g_settings_get_int (settings, KEY_MOTION_THRESHOLD);
 
         /* Get the list of feedbacks for the device */
-        states = XGetFeedbackControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device, &num_feedbacks);
+        states = XGetFeedbackControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, &num_feedbacks);
         state = (XFeedbackState *) states;
         for (i = 0; i < num_feedbacks; i++) {
                 if (state->class == PtrFeedbackClass) {
@@ -424,10 +448,10 @@ set_motion_for_device (GsdMouseManager *manager,
                         feedback.accelDenom = denominator;
 
                         g_debug ("Setting accel %d/%d, threshold %d for device '%s'",
-                                 numerator, denominator, motion_threshold, deviceinfo.name);
+                                 numerator, denominator, motion_threshold, gdk_device_get_name (device));
 
                         XChangeFeedbackControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                                device,
+                                                xdevice,
                                                 DvAccelNum | DvAccelDenom | DvThreshold,
                                                 (XFeedbackControl *) &feedback);
 
@@ -436,34 +460,20 @@ set_motion_for_device (GsdMouseManager *manager,
                 state = (XFeedbackState *) ((char *) state + state->length);
         }
 
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
-}
-
-static void
-set_motion (GsdMouseManager *manager)
-{
-        XDeviceInfo *device_info;
-        gint n_devices;
-        guint i;
-
-        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
-        if (device_info == NULL)
-                return;
-
-        for (i = 0; i < n_devices; i++)
-                set_motion_for_device (manager, device_info[i]);
-
-        XFreeDeviceList (device_info);
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
 
 static void
 set_middle_button (GsdMouseManager *manager,
+                   GdkDevice       *device,
                    gboolean         middle_button)
 {
-        XDeviceInfo *device_info;
-        gint n_devices;
-        gint i;
         Atom prop;
+        XDevice *xdevice;
+        Atom type;
+        int format;
+        unsigned long nitems, bytes_after;
+        unsigned char *data;
 
         prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                             "Evdev Middle Button Emulation", True);
@@ -471,50 +481,33 @@ set_middle_button (GsdMouseManager *manager,
         if (!prop) /* no evdev devices */
                 return;
 
-        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
 
-        for (i = 0; i < n_devices; i++) {
-                XDevice *device = NULL;
-                Atom type;
-                int format;
-                unsigned long nitems, bytes_after;
-                unsigned char *data;
+        gdk_error_trap_push ();
 
-                gdk_error_trap_push ();
+        XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                            xdevice, prop, 0, 1, False, XA_INTEGER, &type, &format,
+                            &nitems, &bytes_after, &data);
 
-                device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
-
-                if ((gdk_error_trap_pop () != 0) ||
-                    (device == NULL))
-                        continue;
-
-                gdk_error_trap_push ();
-
-                XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                    device, prop, 0, 1, False, XA_INTEGER, &type, &format,
-                                    &nitems, &bytes_after, &data);
-
-                if ((gdk_error_trap_pop () != 0)) {
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
-                        continue;
-                }
-
-                if (format == 8 && type == XA_INTEGER && nitems == 1) {
-                        data[0] = middle_button ? 1 : 0;
-
-                        gdk_error_trap_push ();
-                        XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                               device, prop, type, format, PropModeReplace, data, nitems);
-
-                        gdk_error_trap_pop_ignored ();
-                }
-
-                XFree (data);
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+        if ((gdk_error_trap_pop () != 0)) {
+                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                return;
         }
 
-        if (device_info != NULL)
-                XFreeDeviceList (device_info);
+        if (format == 8 && type == XA_INTEGER && nitems == 1) {
+                data[0] = middle_button ? 1 : 0;
+
+                gdk_error_trap_push ();
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                       xdevice, prop, type, format, PropModeReplace, data, nitems);
+
+                gdk_error_trap_pop_ignored ();
+        }
+
+        XFree (data);
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
 
 static int
@@ -556,214 +549,198 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
         return 0;
 }
 
-static int
-set_tap_to_click (gboolean state, gboolean left_handed)
+static void
+set_tap_to_click (GdkDevice *device,
+                  gboolean   state,
+                  gboolean   left_handed)
 {
-        int numdevices, i, format, rc;
+        int format, rc;
         unsigned long nitems, bytes_after;
-        XDeviceInfo *devicelist = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &numdevices);
-        XDevice * device;
+        XDevice *xdevice;
         unsigned char* data;
         Atom prop, type;
 
-        if (devicelist == NULL)
-                return 0;
-
         prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Tap Action", False);
-
         if (!prop)
-                return 0;
+                return;
 
-        for (i = 0; i < numdevices; i++) {
-                if ((device = device_is_touchpad (devicelist[i]))) {
-                        gdk_error_trap_push ();
-                        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device, prop, 0, 2,
-                                                False, XA_INTEGER, &type, &format, &nitems,
-                                                &bytes_after, &data);
+        xdevice = open_gdk_device (device);
 
-                        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 7) {
-                                /* Set RLM mapping for 1/2/3 fingers*/
-                                data[4] = (state) ? ((left_handed) ? 3 : 1) : 0;
-                                data[5] = (state) ? ((left_handed) ? 1 : 3) : 0;
-                                data[6] = (state) ? 2 : 0;
-                                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device, prop, XA_INTEGER, 8,
-                                                        PropModeReplace, data, nitems);
-                        }
-
-                        if (rc == Success)
-                                XFree (data);
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
-                        if (gdk_error_trap_pop ()) {
-                                g_warning ("Error in setting tap to click on \"%s\"", devicelist[i].name);
-                                continue;
-                        }
-                }
+        if (!device_is_touchpad (xdevice)) {
+                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                return;
         }
 
-        XFreeDeviceList (devicelist);
-        return 0;
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
+                                 False, XA_INTEGER, &type, &format, &nitems,
+                                 &bytes_after, &data);
+
+        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 7) {
+                /* Set RLM mapping for 1/2/3 fingers*/
+                data[4] = (state) ? ((left_handed) ? 3 : 1) : 0;
+                data[5] = (state) ? ((left_handed) ? 1 : 3) : 0;
+                data[6] = (state) ? 2 : 0;
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, XA_INTEGER, 8,
+                                       PropModeReplace, data, nitems);
+        }
+
+        if (rc == Success)
+                XFree (data);
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        if (gdk_error_trap_pop ()) {
+                g_warning ("Error in setting tap to click on \"%s\"", gdk_device_get_name (device));
+        }
 }
 
-static int
-set_horiz_scroll (gboolean state)
+static void
+set_horiz_scroll (GdkDevice *device,
+                  gboolean   state)
 {
-        int numdevices, i, rc;
-        XDeviceInfo *devicelist = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &numdevices);
-        XDevice *device;
+        int rc;
+        XDevice *xdevice;
         Atom act_type, prop_edge, prop_twofinger;
         int act_format;
         unsigned long nitems, bytes_after;
         unsigned char *data;
 
-        if (devicelist == NULL)
-                return 0;
-
         prop_edge = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Edge Scrolling", False);
         prop_twofinger = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Two-Finger Scrolling", False);
 
         if (!prop_edge || !prop_twofinger)
-                return 0;
+                return;
 
-        for (i = 0; i < numdevices; i++) {
-                if ((device = device_is_touchpad (devicelist[i]))) {
-                        gdk_error_trap_push ();
-                        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
-                                                prop_edge, 0, 1, False,
-                                                XA_INTEGER, &act_type, &act_format, &nitems,
-                                                &bytes_after, &data);
-                        if (rc == Success && act_type == XA_INTEGER &&
-                                act_format == 8 && nitems >= 2) {
-                                data[1] = (state && data[0]);
-                                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
-                                                        prop_edge, XA_INTEGER, 8,
-                                                        PropModeReplace, data, nitems);
-                        }
+        xdevice = open_gdk_device (device);
 
-                        XFree (data);
-
-                        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
-                                                prop_twofinger, 0, 1, False,
-                                                XA_INTEGER, &act_type, &act_format, &nitems,
-                                                &bytes_after, &data);
-                        if (rc == Success && act_type == XA_INTEGER &&
-                                act_format == 8 && nitems >= 2) {
-                                data[1] = (state && data[0]);
-                                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
-                                                        prop_twofinger, XA_INTEGER, 8,
-                                                        PropModeReplace, data, nitems);
-                        }
-
-                        XFree (data);
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
-                        if (gdk_error_trap_pop ()) {
-                                g_warning ("Error in setting horiz scroll on \"%s\"", devicelist[i].name);
-                                continue;
-                        }
-                }
+        if (!device_is_touchpad (xdevice)) {
+                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                return;
         }
 
-        XFreeDeviceList (devicelist);
-        return 0;
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                 prop_edge, 0, 1, False,
+                                 XA_INTEGER, &act_type, &act_format, &nitems,
+                                 &bytes_after, &data);
+        if (rc == Success && act_type == XA_INTEGER &&
+            act_format == 8 && nitems >= 2) {
+                data[1] = (state && data[0]);
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                       prop_edge, XA_INTEGER, 8,
+                                       PropModeReplace, data, nitems);
+        }
+
+        XFree (data);
+
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                 prop_twofinger, 0, 1, False,
+                                 XA_INTEGER, &act_type, &act_format, &nitems,
+                                 &bytes_after, &data);
+        if (rc == Success && act_type == XA_INTEGER &&
+            act_format == 8 && nitems >= 2) {
+                data[1] = (state && data[0]);
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                       prop_twofinger, XA_INTEGER, 8,
+                                       PropModeReplace, data, nitems);
+        }
+
+        XFree (data);
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+
+        if (gdk_error_trap_pop ())
+                g_warning ("Error in setting horiz scroll on \"%s\"", gdk_device_get_name (device));
 }
 
-static int
-set_edge_scroll (GsdTouchpadScrollMethod method)
+static void
+set_edge_scroll (GdkDevice               *device,
+                 GsdTouchpadScrollMethod  method)
 {
-        int numdevices, i, rc;
-        XDeviceInfo *devicelist = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &numdevices);
-        XDevice *device;
+        int rc;
+        XDevice *xdevice;
         Atom act_type, prop_edge, prop_twofinger;
         int act_format;
         unsigned long nitems, bytes_after;
         unsigned char *data;
 
-        if (devicelist == NULL)
-                return 0;
-
         prop_edge = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Edge Scrolling", False);
         prop_twofinger = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Two-Finger Scrolling", False);
 
         if (!prop_edge || !prop_twofinger)
-                return 0;
+                return;
 
-        for (i = 0; i < numdevices; i++) {
-                if ((device = device_is_touchpad (devicelist[i]))) {
-                        gdk_error_trap_push ();
-                        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
-                                                prop_edge, 0, 1, False,
-                                                XA_INTEGER, &act_type, &act_format, &nitems,
-                                                &bytes_after, &data);
-                        if (rc == Success && act_type == XA_INTEGER &&
-                                act_format == 8 && nitems >= 2) {
-                                data[0] = (method == GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING) ? 1 : 0;
-                                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
-                                                        prop_edge, XA_INTEGER, 8,
-                                                        PropModeReplace, data, nitems);
-                        }
+        xdevice = open_gdk_device (device);
 
-                        XFree (data);
-
-                        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
-                                                prop_twofinger, 0, 1, False,
-                                                XA_INTEGER, &act_type, &act_format, &nitems,
-                                                &bytes_after, &data);
-                        if (rc == Success && act_type == XA_INTEGER &&
-                                act_format == 8 && nitems >= 2) {
-                                data[0] = (method == GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) ? 1 : 0;
-                                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
-                                                        prop_twofinger, XA_INTEGER, 8,
-                                                        PropModeReplace, data, nitems);
-                        }
-
-                        XFree (data);
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
-                        if (gdk_error_trap_pop ()) {
-                                g_warning ("Error in setting edge scroll on \"%s\"", devicelist[i].name);
-                                continue;
-                        }
-                }
+        if (!device_is_touchpad (xdevice)) {
+                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                return;
         }
 
-        XFreeDeviceList (devicelist);
-        return 0;
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                 prop_edge, 0, 1, False,
+                                 XA_INTEGER, &act_type, &act_format, &nitems,
+                                 &bytes_after, &data);
+        if (rc == Success && act_type == XA_INTEGER &&
+            act_format == 8 && nitems >= 2) {
+                data[0] = (method == GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING) ? 1 : 0;
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                       prop_edge, XA_INTEGER, 8,
+                                       PropModeReplace, data, nitems);
+        }
+
+        XFree (data);
+
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                 prop_twofinger, 0, 1, False,
+                                 XA_INTEGER, &act_type, &act_format, &nitems,
+                                 &bytes_after, &data);
+        if (rc == Success && act_type == XA_INTEGER &&
+            act_format == 8 && nitems >= 2) {
+                data[0] = (method == GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) ? 1 : 0;
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                       prop_twofinger, XA_INTEGER, 8,
+                                       PropModeReplace, data, nitems);
+        }
+
+        XFree (data);
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+
+        if (gdk_error_trap_pop ())
+                g_warning ("Error in setting edge scroll on \"%s\"", gdk_device_get_name (device));
 }
 
-static int
-set_touchpad_enabled (gboolean state)
+static void
+set_touchpad_enabled (GdkDevice *device,
+                      gboolean   state)
 {
-        int numdevices, i;
-        XDeviceInfo *devicelist = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &numdevices);
-        XDevice *device;
+        XDevice *xdevice;
         Atom prop_enabled;
-
-        if (devicelist == NULL)
-                return 0;
+        unsigned char data = state;
 
         prop_enabled = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Device Enabled", False);
 
         if (!prop_enabled)
-		return 0;
+                return;
 
-        for (i = 0; i < numdevices; i++) {
-                if ((device = device_is_touchpad (devicelist[i]))) {
-                        unsigned char data = state;
-                        gdk_error_trap_push ();
-                        XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device,
-                                               prop_enabled, XA_INTEGER, 8,
-                                               PropModeReplace, &data, 1);
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
-                        gdk_flush ();
-                        if (gdk_error_trap_pop ()) {
-                                g_warning ("Error %s device \"%s\"",
-                                           (state) ? "enabling" : "disabling",
-                                           devicelist[i].name);
-                                continue;
-                        }
-                }
+        xdevice = open_gdk_device (device);
+
+        if (!device_is_touchpad (xdevice)) {
+                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                return;
         }
 
-        XFreeDeviceList (devicelist);
-        return 0;
+        gdk_error_trap_push ();
+        XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                               prop_enabled, XA_INTEGER, 8,
+                               PropModeReplace, &data, 1);
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        gdk_flush ();
+
+        if (gdk_error_trap_pop ()) {
+                g_warning ("Error %s device \"%s\"",
+                           (state) ? "enabling" : "disabling",
+                           gdk_device_get_name (device));
+        }
 }
 
 static void
@@ -862,21 +839,22 @@ get_touchpad_handedness (GsdMouseManager *manager, gboolean mouse_left_handed)
 }
 
 static void
-set_mouse_settings (GsdMouseManager *manager)
+set_mouse_settings (GsdMouseManager *manager,
+                    GdkDevice       *device)
 {
         gboolean mouse_left_handed, touchpad_left_handed;
 
         mouse_left_handed = g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED);
         touchpad_left_handed = get_touchpad_handedness (manager, mouse_left_handed);
-        set_left_handed (manager, mouse_left_handed, touchpad_left_handed);
+        set_left_handed (manager, device, mouse_left_handed, touchpad_left_handed);
 
-        set_motion (manager);
-        set_middle_button (manager, g_settings_get_boolean (manager->priv->mouse_settings, KEY_MIDDLE_BUTTON_EMULATION));
+        set_motion (manager, device);
+        set_middle_button (manager, device, g_settings_get_boolean (manager->priv->mouse_settings, KEY_MIDDLE_BUTTON_EMULATION));
 
-        set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
-        set_edge_scroll (g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
-        set_horiz_scroll (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
-        set_touchpad_enabled (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED));
+        set_tap_to_click (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
+        set_edge_scroll (device, g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
+        set_horiz_scroll (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
+        set_touchpad_enabled (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED));
 }
 
 static void
@@ -884,23 +862,36 @@ mouse_callback (GSettings       *settings,
                 const gchar     *key,
                 GsdMouseManager *manager)
 {
+        GList *devices, *l;
+
         if (g_str_equal (key, KEY_DWELL_CLICK_ENABLED) ||
             g_str_equal (key, KEY_SECONDARY_CLICK_ENABLED)) {
                 set_mousetweaks_daemon (manager,
                                         g_settings_get_boolean (settings, KEY_DWELL_CLICK_ENABLED),
                                         g_settings_get_boolean (settings, KEY_SECONDARY_CLICK_ENABLED));
+                return;
         } else if (g_str_equal (key, KEY_LOCATE_POINTER)) {
                 set_locate_pointer (manager, g_settings_get_boolean (settings, KEY_LOCATE_POINTER));
-        } else if (g_str_equal (key, KEY_LEFT_HANDED)) {
-                gboolean mouse_left_handed;
-                mouse_left_handed = g_settings_get_boolean (settings, KEY_LEFT_HANDED);
-                set_left_handed (manager, mouse_left_handed, get_touchpad_handedness (manager, mouse_left_handed));
-        } else if (g_str_equal (key, KEY_MOTION_ACCELERATION) ||
-                   g_str_equal (key, KEY_MOTION_THRESHOLD)) {
-                set_motion (manager);
-        } else if (g_str_equal (key, KEY_MIDDLE_BUTTON_EMULATION)) {
-                set_middle_button (manager, g_settings_get_boolean (settings, KEY_MIDDLE_BUTTON_EMULATION));
+                return;
         }
+
+        devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
+
+        for (l = devices; l != NULL; l = l->next) {
+                GdkDevice *device = l->data;
+
+                if (g_str_equal (key, KEY_LEFT_HANDED)) {
+                        gboolean mouse_left_handed;
+                        mouse_left_handed = g_settings_get_boolean (settings, KEY_LEFT_HANDED);
+                        set_left_handed (manager, device, mouse_left_handed, get_touchpad_handedness (manager, mouse_left_handed));
+                } else if (g_str_equal (key, KEY_MOTION_ACCELERATION) ||
+                           g_str_equal (key, KEY_MOTION_THRESHOLD)) {
+                        set_motion (manager, device);
+                } else if (g_str_equal (key, KEY_MIDDLE_BUTTON_EMULATION)) {
+                        set_middle_button (manager, device, g_settings_get_boolean (settings, KEY_MIDDLE_BUTTON_EMULATION));
+                }
+        }
+        g_list_free (devices);
 }
 
 static void
@@ -908,26 +899,38 @@ touchpad_callback (GSettings       *settings,
                    const gchar     *key,
                    GsdMouseManager *manager)
 {
+        GList *devices, *l;
+
         if (g_str_equal (key, KEY_TOUCHPAD_DISABLE_W_TYPING)) {
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, key));
-        } else if (g_str_equal (key, KEY_TAP_TO_CLICK)) {
-                set_tap_to_click (g_settings_get_boolean (settings, key),
-                                  g_settings_get_boolean (manager->priv->touchpad_settings, KEY_LEFT_HANDED));
-        } else if (g_str_equal (key, KEY_SCROLL_METHOD)) {
-                set_edge_scroll (g_settings_get_enum (settings, key));
-                set_horiz_scroll (g_settings_get_boolean (settings, KEY_PAD_HORIZ_SCROLL));
-        } else if (g_str_equal (key, KEY_PAD_HORIZ_SCROLL)) {
-                set_horiz_scroll (g_settings_get_boolean (settings, key));
-        } else if (g_str_equal (key, KEY_TOUCHPAD_ENABLED)) {
-                set_touchpad_enabled (g_settings_get_boolean (settings, key));
-        } else if (g_str_equal (key, KEY_MOTION_ACCELERATION) ||
-                   g_str_equal (key, KEY_MOTION_THRESHOLD)) {
-                set_motion (manager);
-        } else if (g_str_equal (key, KEY_LEFT_HANDED)) {
-                gboolean mouse_left_handed;
-                mouse_left_handed = g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED);
-                set_left_handed (manager, mouse_left_handed, get_touchpad_handedness (manager, mouse_left_handed));
+                return;
         }
+
+        devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
+
+        for (l = devices; l != NULL; l = l->next) {
+                GdkDevice *device = l->data;
+
+                if (g_str_equal (key, KEY_TAP_TO_CLICK)) {
+                        set_tap_to_click (device, g_settings_get_boolean (settings, key),
+                                          g_settings_get_boolean (manager->priv->touchpad_settings, KEY_LEFT_HANDED));
+                } else if (g_str_equal (key, KEY_SCROLL_METHOD)) {
+                        set_edge_scroll (device, g_settings_get_enum (settings, key));
+                        set_horiz_scroll (device, g_settings_get_boolean (settings, KEY_PAD_HORIZ_SCROLL));
+                } else if (g_str_equal (key, KEY_PAD_HORIZ_SCROLL)) {
+                        set_horiz_scroll (device, g_settings_get_boolean (settings, key));
+                } else if (g_str_equal (key, KEY_TOUCHPAD_ENABLED)) {
+                        set_touchpad_enabled (device, g_settings_get_boolean (settings, key));
+                } else if (g_str_equal (key, KEY_MOTION_ACCELERATION) ||
+                           g_str_equal (key, KEY_MOTION_THRESHOLD)) {
+                        set_motion (manager, device);
+                } else if (g_str_equal (key, KEY_LEFT_HANDED)) {
+                        gboolean mouse_left_handed;
+                        mouse_left_handed = g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED);
+                        set_left_handed (manager, device, mouse_left_handed, get_touchpad_handedness (manager, mouse_left_handed));
+                }
+        }
+        g_list_free (devices);
 }
 
 static void
@@ -936,7 +939,7 @@ device_added_cb (GdkDeviceManager *device_manager,
                  GsdMouseManager  *manager)
 {
         if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
-                set_mouse_settings (manager);
+                set_mouse_settings (manager, device);
 
                 /* If a touchpad was to appear... */
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
@@ -945,8 +948,8 @@ device_added_cb (GdkDeviceManager *device_manager,
 
 static void
 device_removed_cb (GdkDeviceManager *device_manager,
-		   GdkDevice        *device,
-		   GsdMouseManager  *manager)
+                   GdkDevice        *device,
+                   GsdMouseManager  *manager)
 {
         if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
                 /* If a touchpad was to disappear... */
@@ -960,8 +963,6 @@ set_devicepresence_handler (GsdMouseManager *manager)
         GdkDeviceManager *device_manager;
 
         device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
-        if (device_manager == NULL)
-                return;
 
         manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                            G_CALLBACK (device_added_cb), manager);
@@ -979,7 +980,11 @@ gsd_mouse_manager_init (GsdMouseManager *manager)
 static gboolean
 gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 {
+        GList *devices, *l;
+
         gnome_settings_profile_start (NULL);
+
+        set_devicepresence_handler (manager);
 
         manager->priv->mouse_settings = g_settings_new (SETTINGS_MOUSE_DIR);
         g_signal_connect (manager->priv->mouse_settings, "changed",
@@ -995,14 +1000,19 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 
         manager->priv->syndaemon_spawned = FALSE;
 
-        set_devicepresence_handler (manager);
         set_locate_pointer (manager, g_settings_get_boolean (manager->priv->mouse_settings, KEY_LOCATE_POINTER));
         set_mousetweaks_daemon (manager,
                                 g_settings_get_boolean (manager->priv->mouse_a11y_settings, KEY_DWELL_CLICK_ENABLED),
                                 g_settings_get_boolean (manager->priv->mouse_a11y_settings, KEY_SECONDARY_CLICK_ENABLED));
         set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
 
-        set_mouse_settings (manager);
+        devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
+        for (l = devices; l != NULL; l = l->next) {
+                GdkDevice *device = l->data;
+
+                set_mouse_settings (manager, device);
+        }
+        g_list_free (devices);
 
         gnome_settings_profile_end (NULL);
 
