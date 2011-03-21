@@ -903,7 +903,6 @@ set_mouse_settings (GsdMouseManager *manager)
         set_motion (manager);
         set_middle_button (manager, g_settings_get_boolean (manager->priv->mouse_settings, KEY_MIDDLE_BUTTON_EMULATION));
 
-        set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
         set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
         set_edge_scroll (g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
         set_horiz_scroll (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
@@ -986,7 +985,6 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 
         manager->priv->syndaemon_spawned = FALSE;
 
-	/* Device independent */
         set_devicepresence_handler (manager);
         set_locate_pointer (manager, g_settings_get_boolean (manager->priv->mouse_settings, KEY_LOCATE_POINTER));
         set_mousetweaks_daemon (manager,
@@ -994,14 +992,7 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                                 g_settings_get_boolean (manager->priv->mouse_a11y_settings, KEY_SECONDARY_CLICK_ENABLED));
         set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
 
-	/* Per-device */
         set_mouse_settings (manager);
-
-        set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK),
-                          g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED));
-        set_edge_scroll (g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
-        set_horiz_scroll (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
-        set_touchpad_enabled (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED));
 
         gnome_settings_profile_end (NULL);
 
