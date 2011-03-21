@@ -1001,7 +1001,7 @@ static void
 gsd_mouse_manager_init (GsdMouseManager *manager)
 {
         manager->priv = GSD_MOUSE_MANAGER_GET_PRIVATE (manager);
-        manager->priv->blacklist = g_hash_table_new (g_int_hash, g_int_equal);
+        manager->priv->blacklist = g_hash_table_new (g_direct_hash, g_direct_equal);
 }
 
 static gboolean
