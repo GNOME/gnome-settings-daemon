@@ -81,6 +81,7 @@ struct GsdMouseManagerPrivate
         GdkDeviceManager *device_manager;
         guint device_added_id;
         guint device_removed_id;
+        GHashTable *blacklist;
 
         gboolean mousetweaks_daemon_running;
         gboolean syndaemon_spawned;
@@ -176,6 +177,17 @@ open_gdk_device (GdkDevice *device)
                 return NULL;
 
         return xdevice;
+}
+
+static gboolean
+device_is_blacklisted (GsdMouseManager *manager,
+                       GdkDevice       *device)
+{
+        int id;
+        g_object_get (G_OBJECT (device), "device-id", &id, NULL);
+        if (g_hash_table_lookup (manager->priv->blacklist, GINT_TO_POINTER (id)) != NULL)
+                return TRUE;
+        return FALSE;
 }
 
 static void
@@ -880,6 +892,9 @@ mouse_callback (GSettings       *settings,
         for (l = devices; l != NULL; l = l->next) {
                 GdkDevice *device = l->data;
 
+                if (device_is_blacklisted (manager, device))
+                        return;
+
                 if (g_str_equal (key, KEY_LEFT_HANDED)) {
                         gboolean mouse_left_handed;
                         mouse_left_handed = g_settings_get_boolean (settings, KEY_LEFT_HANDED);
@@ -911,6 +926,9 @@ touchpad_callback (GSettings       *settings,
         for (l = devices; l != NULL; l = l->next) {
                 GdkDevice *device = l->data;
 
+                if (device_is_blacklisted (manager, device))
+                        return;
+
                 if (g_str_equal (key, KEY_TAP_TO_CLICK)) {
                         set_tap_to_click (device, g_settings_get_boolean (settings, key),
                                           g_settings_get_boolean (manager->priv->touchpad_settings, KEY_LEFT_HANDED));
@@ -939,7 +957,14 @@ device_added_cb (GdkDeviceManager *device_manager,
                  GsdMouseManager  *manager)
 {
         if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
-                set_mouse_settings (manager, device);
+                if (run_custom_command (device, COMMAND_DEVICE_ADDED) == FALSE) {
+                        set_mouse_settings (manager, device);
+                } else {
+                        int id;
+                        g_object_get (G_OBJECT (device), "device-id", &id, NULL);
+                        g_hash_table_insert (manager->priv->blacklist,
+                                             GINT_TO_POINTER (id), GINT_TO_POINTER (1));
+                }
 
                 /* If a touchpad was to appear... */
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
@@ -952,6 +977,8 @@ device_removed_cb (GdkDeviceManager *device_manager,
                    GsdMouseManager  *manager)
 {
         if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
+                run_custom_command (device, COMMAND_DEVICE_REMOVED);
+
                 /* If a touchpad was to disappear... */
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
         }
@@ -975,6 +1002,7 @@ static void
 gsd_mouse_manager_init (GsdMouseManager *manager)
 {
         manager->priv = GSD_MOUSE_MANAGER_GET_PRIVATE (manager);
+        manager->priv->blacklist = g_hash_table_new (g_int_hash, g_int_equal);
 }
 
 static gboolean
@@ -1010,7 +1038,14 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
         for (l = devices; l != NULL; l = l->next) {
                 GdkDevice *device = l->data;
 
-                set_mouse_settings (manager, device);
+                if (run_custom_command (device, COMMAND_DEVICE_PRESENT) == FALSE) {
+                        set_mouse_settings (manager, device);
+                } else {
+                        int id;
+                        g_object_get (G_OBJECT (device), "device-id", &id, NULL);
+                        g_hash_table_insert (manager->priv->blacklist,
+                                             GINT_TO_POINTER (id), GINT_TO_POINTER (1));
+                }
         }
         g_list_free (devices);
 
@@ -1081,6 +1116,9 @@ gsd_mouse_manager_finalize (GObject *object)
         mouse_manager = GSD_MOUSE_MANAGER (object);
 
         g_return_if_fail (mouse_manager->priv != NULL);
+
+        if (mouse_manager->priv->blacklist != NULL)
+                g_hash_table_destroy (mouse_manager->priv->blacklist);
 
         if (mouse_manager->priv->start_idle_id != 0)
                 g_source_remove (mouse_manager->priv->start_idle_id);
