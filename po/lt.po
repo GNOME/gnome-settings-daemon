@@ -9,44 +9,193 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon gnome-2-32\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-08-02 23:45+0000\n"
-"PO-Revision-Date: 2010-09-19 01:23+0300\n"
-"Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-21 10:34+0100\n"
+"PO-Revision-Date: 2011-03-19 22:28+0300\n"
+"Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Virtaal 0.6.1\n"
 
-#: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "Pritaikymas neįgaliesiems"
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "GNOME nustatymų tarnyba"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Disable touchpad while typing"
+msgstr "Išjungti jutiklinį kilimėlį spausdinimo metu"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid "Distance before a drag is started."
+msgstr "Atstumas prieš pradedant tempimą."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Double click time"
+msgstr "Dvigubo paspaudimo laikas"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Drag threshold"
+msgstr "Tempimo slenkstis"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "Enable horizontal scrolling"
+msgstr "Įjungti horizontalų slinkimą"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Enable mouse clicks with touchpad"
+msgstr "Įjungti pelės spustelėjimus naudojant jutiklinį kilimėlį"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid "Enable touchpad"
+msgstr "Įjungti jutiklinį kilimėlį"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Įjungia vidurinio pelės klavišo emuliavimą per vienalaikį kairiojo ir "
+"dešiniojo klavišų paspaudimą."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid ""
+"Highlights the current location of the pointer when the Control key is "
+"pressed and released."
+msgstr ""
+"Pažymi esamą žymeklio vietą kai Valdymo klavišas yra nuspaudžiamas ir "
+"atlaidžiamas."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+msgid "Length of a double click in milliseconds."
+msgstr "Dvigubo paspaudimo trukmė milisekundėmis."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid "Middle button emulation"
+msgstr "Vidurinio klavišo emuliavimas"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+msgid "Select the touchpad scroll method"
+msgstr "Pasirinkite jutiklinio kilimėlio slinkties metodą"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+msgid ""
+"Select the touchpad scroll method. Supported values are: \"disabled\", "
+"\"edge-scrolling\", \"two-finger-scrolling\"."
+msgstr ""
+"Pasirinkite jutiklinio kilimėlio slinkties metodą. Galimos reikšmės: "
+"„disabled“, „edge-scrolling“, „two-finger-scrolling“"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Nustatykite teigiamą, jei kartais rašydami tekstą netyčia kliudote jutiklinį "
+"kilimėlį."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Nustatykite teigiamą, jei norite leisti horizontalią slinktį tuo pačiu "
+"metodu, kaip ir scroll_method rakte."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Nustatykite teigiamą, jei norite atlikti spragtelėjimus trumpai paliesdami "
+"jutiklinį kilimėlį."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Nustatykite teigiamą, jei norite įjungti visas paliesties lenteles."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid ""
+"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+"Galimos reikšmės: „none“, „lock-screen“ ir „force-logout“. Šis veiksmas bus "
+"vykdomas išėmus prisijungimui naudojamą lustinę kortelę."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid "Smartcard removal action"
+msgstr "Lustinės kortelės išėmimo veiksmas"
+
+#. g-p-m is not a GSD plugin, yet
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+msgid "Activation of this plugin"
+msgstr "Šio įskiepio aktyvavimas"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+msgid "Priority to use for this plugin"
+msgstr "Šio įskiepio naudojimo prioritetas"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgstr ""
+"Šio įskiepio naudojimo prioritetas gnome-settings-daemon startavimo eilėje"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgstr "Ar gnome-settings-daemon aktyvuos šį įskiepį, ar ne"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
 msgstr "Laisvos vietos nuošimčių pranešimo slenkstis"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
-msgid "Free space no notify threshold"
-msgstr "Laisvos vietos nuošimčių nepranešinėjimo slenkstis"
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+msgid "Free space notify threshold"
+msgstr "Laisvos vietos pranešimo slenkstis"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Minimum notify period for repeated warnings"
 msgstr "Mažiausias pranešimų periodas kartojamiems įspėjimams"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
 msgstr "Nepaisytini prijungimo keliai"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
-#| msgid ""
-#| "Percentage free space threshold for initial warning of low disk space. If "
-#| "the percentage free space drops below this, a warning will be shown"
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
@@ -54,13 +203,13 @@ msgstr ""
 "Laisvos vietos nuošimčių slenkstis pradiniam įspėjimui apie vietos trūkumą "
 "diske. Jei laisvos vietos bus mažiau negu nurodyta, bus parodytas įspėjimas."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
 "Nurodykite skirsnių kelius, kuriuose laisvos vietos trūkumas turėtų būti "
 "ignoruojamas."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
@@ -68,10 +217,7 @@ msgstr ""
 "Nurodykite laiką minutėmis. Tolesni pranešimai skirsniui bus rodomi ne "
 "dažniau kaip tokiu periodu."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
-#| msgid ""
-#| "Specify an amount in GB. If the amount of free space is more than this, "
-#| "no warning will be shown"
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
@@ -79,10 +225,7 @@ msgstr ""
 "Nurodykite kiekį gigabaitais. Jei laisvos vietos skaičius didesnis, "
 "pranešimas nebus rodomas."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
-#| msgid ""
-#| "Specify the percentage that the free disk space should reduce by before "
-#| "issuing a subsequent warning"
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
@@ -90,180 +233,523 @@ msgstr ""
 "Nurodykite procentais, kiek turi sumažėti laisva disko vieta prieš parodant "
 "tolesnį įspėjimą."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
-msgid "Subsequent free percentage notify threshold"
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+msgid "Subsequent free space percentage notify threshold"
 msgstr "Tolesnė laisvos vietos nuošimčių pranešimo riba"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-#| msgid "Binding to eject an optical disk."
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
+msgstr ""
+"Šio įskiepio naudojimo prioritetas gnome-settings-daemon startavimo eilėje."
+
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+msgstr "Ar gnome-settings-daemon aktyvuos šį įskiepį, ar ne."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+msgid "Allowed keys"
+msgstr "Leidžiami klavišai"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+msgid "Binding for the magnifier to zoom in"
+msgstr "Priskyrimas lupai padidinti."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+msgid "Binding for the magnifier to zoom out"
+msgstr "Priskyrimas lupai sumažinti."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+msgid "Binding to decrease the text size"
+msgstr "Priskyrimas teksto dydžiui sumažinti."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 msgid "Binding to eject an optical disc."
 msgstr "Priskyrimas optiniam diskui išstumti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Binding to enable or disable the touchpad."
 msgstr "Priskyrimas jutikliniam kilimėliui įjungti/išjungti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+msgid "Binding to increase the text size"
+msgstr "Priskyrimas teksto dydžiui padidinti."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
 msgstr "Priskyrimas skaičiuotuvui paleisti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "Priskyrimas elektroninio pašto programai paleisti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the help browser."
 msgstr "Priskyrimas pagalbos žinynui paleisti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the media player."
 msgstr "Priskyrimas medijos leistuvui paleisti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the search tool."
 msgstr "Priskyrimas paieškos priemonei paleisti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the web browser."
 msgstr "Priskyrimas žiniatinklio naršyklei paleisti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lock the screen."
 msgstr "Priskyrimas ekranui užrakinti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to log out."
 msgstr "Priskyrimas atsijungti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to lower the system volume."
 msgstr "Priskyrimas sistemos garsų garsumui sumažinti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to mute the system volume."
 msgstr "Priskyrimas sistemos garsams nutildyti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to open the Home folder."
 msgstr "Priskyrimas namų aplankui atverti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "Priskyrimas grojimui pristabdyti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to raise the system volume."
 msgstr "Priskyrimas sistemos garsų garsumui padidinti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+msgid "Binding to show the on-screen keyboard"
+msgstr "Priskyrimas klaviatūrai ekrane parodyti."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+msgid "Binding to show the screen magnifier"
+msgstr "Priskyrimas lupai parodyti."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
 msgstr "Priskyrimas pereiti prie kito takelio."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to skip to previous track."
 msgstr "Priskyrimas pereiti prie ankstesnio takelio."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Priskyrimas grojimui pradėti (ar grojimui/pristabdymui perjungti)."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+msgid "Binding to start the screen reader"
+msgstr "Priskyrimas ekrano skaityklei paleisti."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to stop playback."
 msgstr "Priskyrimas grojimui sustabdyti."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+msgid "Binding to toggle the interface contrast"
+msgstr "Priskyrimas perjungti sąsajos kontrastui."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+msgid "Decrease text size"
+msgstr "Sumažinti teksto dydį"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Eject"
 msgstr "Išstumti"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Home folder"
 msgstr "Namų aplankas"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+msgid ""
+"If non-empty, keybindings will be ignored unless their settings directory is "
+"in the list. This is useful for lockdown."
+msgstr ""
+"Jei netuščias, klavišų susiejimų bus nepaisoma, nebent jų nustatymų aplankas "
+"būtų sąraše. Ši parinktis naudinga funkcijoms riboti."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+msgid "Increase text size"
+msgstr "Padidinti teksto dydį"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch calculator"
 msgstr "Paleisti skaičiuotuvą"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch email client"
 msgstr "Paleisti elektroninio pašto programą"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch help browser"
 msgstr "Paleisti žinyno naršyklę"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch media player"
 msgstr "Paleisti medijos leistuvą"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Launch web browser"
 msgstr "Paleisti žiniatinklio naršyklę"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Lock screen"
 msgstr "Užrakinti ekraną"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Log out"
 msgstr "Atsijungti"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Magnifier zoom in"
+msgstr "Lūpos mastelio didinimas"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Magnifier zoom out"
+msgstr "Lūpos mastelio mažinimas"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
 msgstr "Kitas takelis"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Pause playback"
 msgstr "Pristabdyti grojimą"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Play (or play/pause)"
 msgstr "Groti (arba groti/pauzė)"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Previous track"
 msgstr "Ankstesnis takelis"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Search"
 msgstr "Ieškoti"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Stop playback"
 msgstr "Sustabdyti grojimą"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+msgid "Toggle contrast"
+msgstr "Perjungti kontrastą"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+msgid "Toggle magnifier"
+msgstr "Įjungti/išjungti lupą"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+msgid "Toggle on-screen keyboard"
+msgstr "Naudoti klaviatūrą ekrane"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+msgid "Toggle screen reader"
+msgstr "Jungti ekrano _skaityklę"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Toggle touchpad"
 msgstr "Įjungti/išjungti jutiklinį kilimėlį"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume down"
 msgstr "Sumažinti garsumą"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Volume mute"
 msgstr "Nutildyti"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:38
-msgid "Volume step"
-msgstr "Garsumo žingnis"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:39
-msgid "Volume step as percentage of volume."
-msgstr "Garsumo žingsnelis procentine garsumo dalimi."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Volume up"
 msgstr "Padidinti garsumą"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+msgid "Ask the user if additional firmware should be installed"
+msgstr "Klausti naudotojo, ar įdiegti papildomą aparatinę programinę įrangą"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+msgid ""
+"Ask the user if additional firmware should be installed if it is available."
+msgstr ""
+"Klausti naudotojo, ar įdiegti papildomą aparatinę programinę įrangą, jei ji "
+"prieinama."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+msgid "Automatically download updates in the background without confirmation"
+msgstr "Automatiškai parsiūsti atnaujinimus fone be patvirtinimo"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+"'connection-use-mobile' is enabled."
+msgstr ""
+"Automatiškai parsiūsti atnaujinimus fone be patvirtinimo. Atnaujinimai bus "
+"automatiškai parsiūsti kai naudojami laidinio tinklo ryšiai, taip pat WiFi, "
+"jei „connection-use-wifi“ yra įjungta, bei mobilieji plačiajuosčiai, jei "
+"„connection-use-mobile“ yra įjungta."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+msgid "Automatically update these types of updates"
+msgstr "Automatiškai parsiūsti šių tipų atnaujinimus"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+msgid "Automatically update these types of updates."
+msgstr "Automatiškai atnaujinti šių tipų atnaujinimus."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+msgid "Devices that should be ignored"
+msgstr "Įrenginiai, kurių reikia nepaisyti"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+msgid ""
+"Devices that should be ignored, separated by commas. These can include '*' "
+"and '?' characters."
+msgstr ""
+"Įrenginiai, kurių reikia nepaisyti, skiriami kableliais. Gali turėti "
+"simbolius „*“ ir „?“."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+msgid "Firmware files that should not be searched for"
+msgstr "Aparatinė programinė įranga, kurios neieškoti"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+msgid ""
+"Firmware files that should not be searched for, separated by commas. These "
+"can include '*' and '?' characters."
+msgstr ""
+"Aparatinė programinė įranga, kurios neieškoti, skiriama kableliais. Gali "
+"turėti simbolius „*“ ir „?“."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+msgid "Get the update list when the session starts"
+msgstr "Gauti atnaujinimų sąrašą sesijos pradžioje"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+msgid "Get the update list when the session starts, even if not scheduled to."
+msgstr "Gauti atnaujinimų sąrašą sesijos pradžioje, net jei neatėjo laikas."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+msgid "How often to check for distribution upgrades"
+msgstr "Kaip dažnai tikrinti, ar nėra distribucijos atnaujinimų"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+msgid "How often to check for distribution upgrades. Value is in seconds."
+msgstr ""
+"Kaip dažnai tikrinti, ar nėra distribucijos atnaujinimų. Reišmė sekundėmis."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+msgid "How often to check for updates"
+msgstr "Kaip dažnai tikrinti, ar nėra atnaujinimų"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+msgid ""
+"How often to check for updates. Value is in seconds. This is a maximum "
+"amount of time that can pass between a security update being published, and "
+"the update being automatically installed or the user notified."
+msgstr ""
+"Kaip dažnai tikrinti, ar nėra atnaujinimų. Reikšmė sekundėmis. Tai yra "
+"didžiausias laiko tarpas, koks gali praeiti tarp saugumo atnaujinimų "
+"paskelbimo, ir atnaujinimas yra automatiškai įdiegiamas arba naudotojas "
+"įspėjamas."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+msgid "How often to notify the user that non-critical updates are available"
+msgstr "Kaip dažnai įspėji naudotoją apie nekritinių atnaujinimų buvimą"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+msgid "How often to refresh the package cache"
+msgstr "Kaip dažnai atnaujinti paketų podėlį"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+msgid "How often to refresh the package cache. Value is in seconds."
+msgstr "Kaip dažnai atnaujinti paketų podėlį. Laikas sekundėmis."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+msgid ""
+"How often to tell the user there are non-critical updates. Value is in "
+"seconds. Security update notifications are always shown after the check for "
+"updates, but non-critical notifications should be shown a lot less "
+"frequently."
+msgstr ""
+"Kaip dažnai pranešti naudotojui apie nekritinius atnaujinimus. Reikšmė "
+"sekundėmis. Įspėjimai apie saugumo atnaujinimus yra visuomet parodomi po "
+"patikrinimo, bet nekritiniai įspėjimai turėtų būti rodomi rečiau."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+msgid "Install updates automatically when running on battery power"
+msgstr "Automatiškai įdiegti atnaujinimu, jei naudojama baterijos energija"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+msgid "Install updates automatically when running on battery power."
+msgstr "Automatiškai įdiegti atnaujinimu, jei naudojama baterijos energija."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+msgid "Notify the user for completed updates"
+msgstr "Įspėji naudotoją apie baigtus atnaujinimus"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+msgid "Notify the user for completed updates where the user needs to restart"
+msgstr ""
+"Įspėji naudotoją apie baigtus atnaujinimus, kai reikia įkelti sistemą iš "
+"naujo"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+msgid "Notify the user for completed updates where the user needs to restart."
+msgstr ""
+"Įspėji naudotoją apie baigtus atnaujinimus, kai reikia įkelti sistemą iš "
+"naujo."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+msgid ""
+"Notify the user for completed updates. This may be a useful notification for "
+"some users as installing updates prevents shutdown."
+msgstr ""
+"Įspėti naudotoją apie baigtus atnaujinimus. Tai gali būti naudingas "
+"įspėjimas kai kuriems naudotojams, nes atnaujinimų diegimas neleidžia "
+"išjungimo."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+msgid "Notify the user when distribution upgrades are available"
+msgstr "Įspėti naudotoją, kai yra prieinami distribucijos  atnaujinimai"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+msgid "Notify the user when distribution upgrades are available."
+msgstr "Įspėti naudotoją, kai yra prieinami distribucijos  atnaujinimai."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+msgid ""
+"Notify the user when the automatic update was not started on battery power"
+msgstr ""
+"Įspėti naudotoją, kai automatinis atnaujinimas nebuvo pradėtas dėl beterijos "
+"energijos naudojimo"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+msgid ""
+"Notify the user when the update was not automatically started because the "
+"machine is running on battery power."
+msgstr ""
+"Įspėti naudotoją, kai automatinis atnaujinimas nebuvo pradėtas nes sistema "
+"naudoja beterijos energiją."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+msgid "Notify the user when the update was started"
+msgstr "Įspėti naudotoją, kai pradedamas atnaujinimas"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+msgid "Notify the user when the update was started."
+msgstr "Įspėti naudotoją, kai pradedamas atnaujinimas."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+msgid "The filenames on removable media that designate it a software source."
+msgstr ""
+"Failų pavadinimai išimamose laikmenose, kurie ją pažymi kaip programinės "
+"įrangos šaltinį."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+msgid "The install root to use when adding and removing packages"
+msgstr "Įdiegimo šaknis, naudotina pridedant arba šalinant paketus"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+msgid ""
+"The install root to use when processing packages, which is changed when "
+"using LTSP or when testing."
+msgstr ""
+"Įdiegimo šaknis, naudotina pridedant arba šalinant paketus, kuri yra "
+"pakeičiama kai naudojama LTSP arba testuojama."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+msgid ""
+"The last time we notified the user about non-critical updates. Value is in "
+"seconds since the epoch, or zero for never."
+msgstr ""
+"Paskutinis kartas, kai buvo pranešta apie nekritinius atnaujinimus. Reišmė "
+"sekundėmis nuo epochos pradžios arba nulis, jei niekada."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+msgid "The last time we told the user about non-critical notifications"
+msgstr "Paskutinis kartas, kai buvo pranešta apie nekritinius atnaujinimus."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+msgid ""
+"The number of seconds at session startup to wait before checking for updates"
+msgstr ""
+"Kiek sekundžių palaukti sesijos pradžioje prie tikrinant, ar nėra atnaujinimų"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+msgid ""
+"The number of seconds at session startup to wait before checking for "
+"updates. Value is in seconds."
+msgstr ""
+"Kiek sekundžių palaukti sesijos pradžioje prie tikrinant, ar nėra "
+"atnaujinimų. Reikšmė sekundėmis."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+msgid ""
+"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
+"to download packages when on a wired connection, and the VPN or proxy "
+"required may also only be available on wired connections."
+msgstr ""
+"Nauto WiFi (belaidžio LAN) ryšius atnaujinimų tikrinimui. Paketų "
+"parsiuntimas gali būti greitesnis naudojant laidinį ryšį, be to reikiamas "
+"VPN arba proxy gali būti pasiekiamas tik laidiniuose ryšiuose."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+msgid "Use WiFi connections"
+msgstr "Naudoti WiFi ryšius"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+msgid "Use mobile broadband connections"
+msgstr "Naudoti mobilius plačiajuosčius ryšius"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+msgid ""
+"Use mobile broadband connections such as GSM and CDMA to check for updates."
+msgstr ""
+"Naudoti mobilius plačiajuosčius ryšius, tokius kaip GSM CDMA atnaujinimų "
+"tikrinimui."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+msgid ""
+"When removable media is inserted, it is checked to see if it contains any "
+"important filenames in the root directory. If the filename matches, then an "
+"updates check is performed. This allows post-install disks to be used to "
+"update running systems."
+msgstr ""
+"Kai įdedama išimama laikmena, ji yra tikrinama, ar turi svarbių failų "
+"šakniniame kataloge. Jei failų vardai sutampa, vykdomas atnaujinimo "
+"tikrinimas. Tai leidžia naudoti po-diegimo diskus veikiančių sistemų "
+"atnaujinimui."
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+msgid ""
+"'clone' will display the same thing on all monitors, 'dock' will switch off "
+"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
+"(extend the desktop in recent versions)"
+msgstr ""
+"„clone“ rodys tą patį visuose monitoriuose, „dock“ išjungs vidinį monitorių, "
+"„do-nothing“ naudos numatytąją Xorg elgseną (vėliausiose versijose - "
+"išplėstinį darbastalį)"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
 msgstr "Numatytųjų RandR nustatymų failas"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
-msgid "Show Displays in Notification Area"
-msgstr "Rodyti ekranus pranešimų srityje"
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -277,57 +763,47 @@ msgstr ""
 "failas nesutampa su naudotojo vaizduoklių sąranka, tuomet vietoje to bus "
 "naudojamas šio rakto nurodytas failas."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
-msgid "Turn on external monitor after system boot"
-msgstr "Įjungti išorinį vaizduoklį įkėlus sistemą"
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+msgid "Whether to turn off specific monitors after boot"
+msgstr "Ar išjungti specifinius monitorius po įkėlimo"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid ""
-"Turn on external monitor after system boot if user plugs in external monitor "
-"on system boot."
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
 msgstr ""
-"Įjungti išorinį vaizduoklį įkėlus sistemą, jei naudotojas prijungia išorinį "
-"vaizduoklį sistemos įkelties metu."
+"Eilučių sąrašas, nurodanti GTK+ modulius, kurie bus pakrauti, dažniausiai "
+"papildomai prie sąlyginių ir išoriškai uždraustų."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
-msgid "Turn on laptop monitor after system boot"
-msgstr "Įjungti nešiojamojo kompiuterio ekraną įkėlus sistemą"
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
-"Turn on laptop monitor after system boot if user plugs in external monitor "
-"on system boot."
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
 msgstr ""
-"Įjungti nešiojamojo kompiuterio ekraną įkėlus sistemą, jei naudotojas "
-"prijungia išorinį vaizduoklį sistemos įkelties metu."
+"Eilučių sąrašas, nurodanti GTK+ modulius, kurie nebus pakrauti, net jeigu "
+"numatytai įjungti jų konfigūracijoje."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
-#| msgid ""
-#| "If a notification icon with display related things should be shown in the "
-#| "panel."
-msgid ""
-"Whether a notification icon with display-related things should be shown in "
-"the panel."
-msgstr ""
-"Ar skydelyje rodyti pranešimų piktogramą, susijusią su ekrano nustatymais."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
 msgstr "Glotninimas"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:2
-msgid "DPI"
-msgstr "DPI"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "Taškinė korekcija"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "Išreikštinai išjungtų GTK+ modulių"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "Išreikštinai įjungtų GTK+ modulių"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
 msgstr "RGBA tvarka"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -339,14 +815,7 @@ msgstr ""
 "(dažniausiai pasitaikantis tipas), „bgr“ – mėlyna kairėje, „vrgb“ – raudona "
 "viršuje, ir „vbgr“ – raudona apačioje."
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:6
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch."
-msgstr ""
-"Raiška, naudojama verčiant šriftų dydį į dydį pikseliais, taškais į colį."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -356,7 +825,7 @@ msgstr ""
 "neglodinti, „grayscale“ – standartinis glodinimas, „rgba“ – popikselinis "
 "glotninimas (tik skystųjų kristalų vaizduokliams)."
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -366,378 +835,159 @@ msgstr ""
 "netaikyti taškinės korekcijos, „slight“ – bazinė, „medium“ – vidutinė ir "
 "„full“ – didžiausia galima (gali iškraipyti kai kurių raidžių formą)."
 
-#: ../data/desktop_gnome_keybindings.schemas.in.h:1
-msgid "Allowed keys"
-msgstr "Leidžiami klavišai"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr ""
+"Įjunkite šį, kad žymeklis būtų judinamas tik kai naudotojas liedžia "
+"planšetinį kompiuterį."
 
-#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr ""
+"Įjunkite šį, kad būtų pranešama apie adatėlės įvykius tik kai viršūnėlė "
+"paspaudžiama."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr "Įjunkite šį, kad žymeklis būtų absoliučioje veiksenoje."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr "Įjunkite šį, kad trintukas būtų absoliučioje veiksenoje."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr "Įjunkite šį, kad adatėlė būtų absoliučioje veiksenoje."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid ""
-"If non-empty, keybindings will be ignored unless their GConf directory is in "
-"the list. This is useful for lockdown."
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
 msgstr ""
-"Jei netuščias, klavišų susiejimų bus nepaisoma, nebent jų GConf aplankas "
-"būtų sąraše. Ši parinktis naudinga funkcijoms riboti."
+"Nustatykite į „none“, „cw“ 90-iai laipsnių pagal laikrodžio rodyklę, „half“ "
+"180 laipsnių kampui ir „ccw“ 90 laipsnių prieš laikrodžio rodyklę."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
-msgid "Disable touchpad while typing"
-msgstr "Išjungti jutiklinį kilimėlį spausdinimo metu"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr "Nustatykite loginiam mygtukų susiejimui."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
-msgid "Enable horizontal scrolling"
-msgstr "Įjungti horizontalų slinkimą"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
-msgid "Enable mouse clicks with touchpad"
-msgstr "Įjungti pelės spustelėjimus naudojant jutiklinį kilimėlį"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
-msgid "Enable touchpad"
-msgstr "Įjungti jutiklinį kilimėlį"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
-msgid "Select the touchpad scroll method"
-msgstr "Pasirinkite jutiklinio kilimėlio slinkties metodą"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
-#| msgid ""
-#| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
-#| "- edge scrolling, 2 - two-finger scrolling"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid ""
-"Select the touchpad scroll method. Supported values are: 0: disabled, 1: "
-"edge scrolling, and 2: two-finger scrolling"
+"Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
-"Pasirinkite jutiklinio kilimėlio slinkties metodą. Galimos reikšmės: 0 – "
-"išjungta, 1 – slinkimas krašte, 2 – slinkimas dviem pirštais"
+"Nustatykite spaudimo reikšmę, kada adatėlės paspaudimo įvykis yra "
+"generuojamas."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
-"Set this to TRUE if you have problems with accidentally hitting the touchpad "
-"while typing."
+"Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
-"Nustatykite teigiamą, jei kartais rašydami tekstą netyčia kliudote jutiklinį "
-"kilimėlį."
+"Nustatykite spaudimo reikšmę, kada trintuko paspaudimo įvykis yra "
+"generuojamas."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr "Nustatykite į x1, y1 ir x2, y2 sritį, naudojamą naudotojo."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr "Nustatykite į x1, y1 ir x2, y2 sritį, naudojamą trintuko."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr "Nustatykite į x1, y1 ir x2, y2 sritį, naudojamą pagrindo."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr "Nustatykite į x1, y1 ir x2, y2 sritį, naudojamą adatėlės."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
-"Set this to TRUE to allow horizontal scrolling by the same method selected "
-"with the scroll_method key."
-msgstr ""
-"Nustatykite teigiamą, jei norite leisti horizontalią slinktį tuo pačiu "
-"metodu, kaip ir scroll_method rakte."
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr "Nustatykite į x1, y1 ir x2, y2 spaudimo kreivėje, taikomą trintukui."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
-msgstr ""
-"Nustatykite teigiamą, jei norite atlikti spragtelėjimus trumpai paliesdami "
-"jutiklinį kilimėlį."
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
-msgid "Set this to TRUE to enable all touchpads."
-msgstr "Nustatykite teigiamą, jei norite įjungti visas paliesties lenteles."
-
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
-msgstr "GNOME nustatymų tarnyba"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:1
-msgid "Binding to toggle the magnifier."
-msgstr "Priskyrimas lupai įjungti/išjungti."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:2
-msgid "Binding to toggle the on-screen keyboard."
-msgstr "Priskyrimas klaviatūrai ekrane."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:3
-msgid "Binding to toggle the screen reader."
-msgstr "Priskyrimas ekrano skaityklei."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Bounce keys"
-msgstr "Šoklūs klavišai"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:5
-msgid "Command used to turn the magnifier on or off."
-msgstr "Komanda lupai įjungti/išjungti."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:6
-msgid "Command used to turn the on-screen keyboard on or off."
-msgstr "Komanda klaviatūrai ekrane įjungti/išjungti."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:7
-msgid "Command used to turn the screen reader on or off."
-msgstr "Komanda ekrano skaityklei įjungti/išjungti."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:8
-#| msgid "Enable xrandr plugin"
-msgid "Enable XRandR plugin"
-msgstr "Įjungti XRandR įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:9
-msgid "Enable accessibility keyboard plugin"
-msgstr "Įjungti klaviatūros pritaikymo neįgaliesiems įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:10
-msgid "Enable background plugin"
-msgstr "Įjungti darbalaukio fono įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:11
-msgid "Enable clipboard plugin"
-msgstr "Įjungti iškarpinės įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:12
-msgid "Enable font plugin"
-msgstr "Įjungti šriftų įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:13
-msgid "Enable housekeeping plugin"
-msgstr "Įjungti priežiūros įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:14
-msgid "Enable keybindings plugin"
-msgstr "Įjungti klavišų susiejimų įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:15
-msgid "Enable keyboard plugin"
-msgstr "Įjungti klaviatūros įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid "Enable media keys plugin"
-msgstr "Įjungti multimedijos klavišų įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable mouse plugin"
-msgstr "Įjungti pelės įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
-#| msgid "Enable xrandr plugin"
-msgid "Enable smartcard plugin"
-msgstr "Įjungti smartcard įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Enable sound plugin"
-msgstr "Įjungti garso įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:20
-msgid "Enable typing breaks plugin"
-msgstr "Įjungti spausdinimo pertraukėlių įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:21
-msgid "Enable xrdb plugin"
-msgstr "Įjungti xrdb įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:22
-msgid "Enable xsettings plugin"
-msgstr "Įjungti xsettings įskiepį"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-msgid "Mouse keys"
-msgstr "Pelės klavišai"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "On-screen keyboard"
-msgstr "Klaviatūra ekrane"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid "Screen magnifier"
-msgstr "Ekrano lupa"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:26
-msgid "Screen reader"
-msgstr "Ekrano skaityklė"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:27
-msgid ""
-"Set to True to enable the housekeeping plugin, to prune transient file "
-"caches."
-msgstr ""
-"Nustatykite teigiamą, norėdami įjungti priežiūros įskiepį, valantį failų "
-"podėlius."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:28
-#| msgid "Set to True to enable the plugin to manage xrandr settings."
-msgid "Set to True to enable the plugin to manage XRandR settings."
-msgstr ""
-"Nustatykite teigiamą, jei norite įjungti įskiepį XRandR parametrams valdyti."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:29
-msgid "Set to True to enable the plugin to manage clipboard settings."
-msgstr "Nustatykite teigiamą, norėdami įjungti iškarpinės nustatymų įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:30
-msgid "Set to True to enable the plugin to manage desktop background settings."
-msgstr ""
-"Nustatykite teigiamą, norėdami įjungti darbalaukio fono nustatymų įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:31
-msgid "Set to True to enable the plugin to manage font settings."
-msgstr ""
-"Nustatykite teigiamą, norėdami įjungti įskiepį šriftų parametrams valdyti."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:32
-msgid "Set to True to enable the plugin to manage keyboard settings."
-msgstr "Nustatykite teigiamą, norėdami įjungti klaviatūros nustatymų įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:33
-#| msgid "Set to True to enable the plugin to manage screensaver settings."
-msgid ""
-"Set to True to enable the plugin to manage locking the screen on smartcard "
-"removal."
-msgstr ""
-"Nustatykite teigiamą, norėdami įjungti įskiepį ekrano užrakinimui išimant "
-"lustinę kortelę valdyti."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid "Set to True to enable the plugin to manage mouse settings."
-msgstr "Nustatykite teigiamą, norėdami įjungti pelės nustatymų įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
-msgid "Set to True to enable the plugin to manage multimedia keys settings."
-msgstr ""
-"Nustatykite teigiamą, norėdami įjungti multimedijos klavišų nustatymų "
-"įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:36
-msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr ""
-"Nustatykite teigiamą, norėdami įjungti garso elementų podėlių valdymo "
-"įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:37
-msgid ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
-msgstr ""
-"Nustatykite teigiamą, norėdami įjungti klaviatūros pritaikymo neįgaliesiems "
-"nustatymų įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:38
-msgid "Set to True to enable the plugin to manage the keybindings."
-msgstr "Nustatykite teigiamą, norėdami įjungti klavišų susiejimų įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:39
-msgid "Set to True to enable the plugin to manage typing breaks."
-msgstr ""
-"Nustatykite teigiamą, norėdami įjungti spausdinimo pertraukėlių įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:40
-msgid "Set to True to enable the plugin to manage xrdb settings."
-msgstr "Nustatykite teigiamą, norėdami įjungti xrdb nustatymų įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:41
-msgid "Set to True to enable the plugin to manage xsettings."
-msgstr "Nustatykite teigiamą, norėdami įjungti xsettings nustatymų įskiepį."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:42
-msgid "Slow keys"
-msgstr "Lėtieji klavišai"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:43
-msgid "Sticky keys"
-msgstr "Kibieji klavišai"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:44
-msgid "The name of the keyboard shortcut to toggle the magnifier"
-msgstr "Klaviatūros susiejimas lupos įjungimui/išjungimui"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:45
-msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
-msgstr "Klaviatūros susiejimas klaviatūros ekrane įjungimui/išjungimui"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "The name of the keyboard shortcut to toggle the screen reader"
-msgstr "Klaviatūros susiejimas skaityklės įjungimui/išjungimui"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:47
-msgid ""
-"This is the name of the keyboard shortcut to toggle the magnifier. This name "
-"will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Tai klaviatūros trumpinio lupai įjungti/išjungti vardas. Šis vardas bus "
-"rodomas klaviatūros trumpinių nustatymų dialoge."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:48
-msgid ""
-"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
-"This name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Tai klaviatūros trumpinio klaviatūrai ekrane įjungti/išjungti vardas. Šis "
-"vardas bus rodomas klaviatūros trumpinių nustatymų dialoge."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:49
-msgid ""
-"This is the name of the keyboard shortcut to toggle the screen reader. This "
-"name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Tai klaviatūros trumpinio ekrano skaityklei įjungti/išjungti vardas. Šis "
-"vardas bus rodomas klaviatūros trumpinių nustatymų dialoge."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:50
-msgid "Toggle magnifier"
-msgstr "Įjungti/išjungti lupą"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:51
-msgid "Toggle on-screen keyboard"
-msgstr "Naudoti klaviatūrą ekrane"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:52
-msgid "Toggle screen reader"
-msgstr "Jungti ekrano _skaityklę"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-msgstr "Ar šoklių klavišų funkcija įjungta."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
-msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-msgstr "Ar pelės klavišų funkcija įjungta."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:55
-msgid "Whether the on-screen keyboard is turned on."
-msgstr "Ar klaviatūra ekrane įjungta."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:56
-msgid "Whether the screen magnifier is turned on."
-msgstr "Ar ekrano lupa įjungta."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:57
-msgid "Whether the screen reader is turned on."
-msgstr "Ar ekrano skaityklė įjungta."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:58
-msgid "Whether the slow keys keyboard accessibility feature is turned on."
-msgstr "Ar įjungta lėtų klavišų funkcija."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:59
-msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-msgstr "Ar įjungta kibių klavišų funkcija."
-
-#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:1
-msgid ""
-"Set this to one of \"none\", \"lock_screen\", or \"force_logout\". The "
-"action will get performed when the smartcard used for log in is removed."
-msgstr ""
-"Galimos reikšmės: „none“, „lock_screen“ ir „force_logout“. Šis veiksmas bus "
-"vykdomas išėmus prisijungimui naudojamą lustinę kortelę."
-
-#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:2
-msgid "Smartcard removal action"
-msgstr "Lustinės kortelės išėmimo veiksmas"
-
-#: ../gnome-settings-daemon/main.c:55
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr "Nustatykite į x1, y1 ir x2, y2 spaudimo kreivėje, taikomą adatėlei."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
+msgstr "Wacom žymeklio absoliuti veiksena"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
+msgstr "Wacom žymeklio mygtukų susiejimas"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
+msgstr "Wacom žymeklio planšetės sritis"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
+msgstr "Wacom trintuko absoliuti veiksena"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
+msgstr "Wacom trintuko mygtukų susiejimas"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
+msgstr "Wacom trintuko spaudimo kreivė"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
+msgstr "Wacom trintuko spaudimo slenkstis"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
+msgstr "Wacom trintuko planšetės sritis"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr "Wacom pagrindo mygtukų susiejimas"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr "Wacom pagrindo planšetės sritis"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr "Wacom adatėlės absoliuti veiksena"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr "Wacom adatėlės mygtukų susiejimas"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr "Wacom adatėlės spaudimo kreivė"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr "Wacom adatėlės spaudimo slenkstis"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr "Wacom adatėlės planšetės sritis"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr "Wacom planšetinio kompiuterio savybė"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr "Wacom planšetinio kompiuterio pasukimas"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr "Wacom lietimo savybė"
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Įjungti derinimo kodą"
 
-#: ../gnome-settings-daemon/main.c:56
-msgid "Don't become a daemon"
-msgstr "Neveikti kaip tarnyba"
-
-#: ../gnome-settings-daemon/main.c:57
-msgid "GConf prefix from which to load plugin settings"
-msgstr "GConf priešdėlis, iš kur įkelti įskiepių nustatymus"
-
-#: ../gnome-settings-daemon/main.c:58
-#| msgid "Exit after a time - for debugging"
+#: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Išeiti po tam tikro laiko (derinimui)"
 
@@ -749,96 +999,95 @@ msgstr "Klaviatūros pritaikymas neįgaliesiems"
 msgid "Accessibility keyboard plugin"
 msgstr "Klaviatūros pritaikymo neįgaliesiems įskiepis"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:460
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:392
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Įvyko klaida bandant parodyti žinyną: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:591
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:657
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
 msgid "Do you want to activate Slow Keys?"
 msgstr "Ar norite įjungti lėtuosius klavišus?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:592
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Ar norite išjungti lėtuosius klavišus?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:659
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
-"Jūs laikėte nuspaudę Shift klavišą 8 sekundes. Tai yra šaukinys lėtųjų "
-"klavišų funkcijai, pakeičiančiai jūsų klaviatūros veikimą, įjungti."
+"Laikėte nuspaudę Shift klavišą 8 sekundes. Tai yra šaukinys lėtųjų klavišų "
+"funkcijai, pakeičiančiai klaviatūros veikimą, įjungti."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't activate"
 msgstr "Neįjungti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't deactivate"
 msgstr "Neišjungti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Activate"
 msgstr "Įjungti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Deactivate"
 msgstr "Išjungti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't activate"
 msgstr "_Neįjungti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't deactivate"
 msgstr "_Neišjungti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Activate"
 msgstr "Įj_ungti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Deactivate"
 msgstr "_Išjungti"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:687
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
 msgid "Slow Keys Alert"
 msgstr "Lėtųjų klavišų įspėjimas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:727
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:795
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Ar norite įjungti kibiuosius klavišus?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:796
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Ar norite išjungti kibiuosius klavišus?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:730
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:798
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Ką tik paspaudėte Shift klavišą 5 kartus iš eilės.  Tai yra kibiųjų klavišų "
-"funkcijos šaukinys. Kibieji klavišai leidžia jums kitaip naudotis "
-"klaviatūra."
+"funkcijos šaukinys. Kibieji klavišai leidžia jums kitaip naudotis klaviatūra."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:732
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:800
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -848,11 +1097,11 @@ msgstr ""
 "eilės. Tai išjungia kibiųjų klavišų funkciją, leidžiančią jums kitaip "
 "naudotis klaviatūra."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:828
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
 msgid "Sticky Keys Alert"
 msgstr "Kibiųjų klavišų įspėjimas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Universaliosios prieigos nustatymai"
@@ -889,6 +1138,144 @@ msgstr "_Nepaisyti pasikartojančių paspaudimų (šoklieji klavišai)"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Nuspausti sparčiuosius klavišus po vieną (kibieji klavišai)"
 
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+msgid "Accessibility settings"
+msgstr "Pritaikymo neįgaliesiems nustatymai"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+msgid "Accessibility settings plugin"
+msgstr "Pritaikymo neįgaliesiems įskiepis"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr "Automatinis prijungimas"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+msgid "Automounter plugin"
+msgstr "Automatinio prijungimo įskiepis"
+
+#: ../plugins/automount/gsd-automount-manager.c:154
+#, c-format
+msgid "Unable to mount %s"
+msgstr "Nepavyko prijungti %s"
+
+#: ../plugins/automount/gsd-automount-manager.c:271
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr "Nepavyko atverti katalogo %s"
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr "Klausti, ką daryti"
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr "Nieko nedaryti"
+
+#: ../plugins/automount/gsd-autorun.c:352
+msgid "Open Folder"
+msgstr "Atverti aplanką"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, c-format
+msgid "Unable to eject %p"
+msgstr "Nepavyko išstumti %p"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr "Nepavyko prijungti %p"
+
+#: ../plugins/automount/gsd-autorun.c:700
+msgid "You have just inserted an Audio CD."
+msgstr "Ką tik įdėjote garso CD."
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio DVD."
+msgstr "Ką tik įdėjote garso DVD."
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted a Video DVD."
+msgstr "Ką tik įdėjote vaizdo DVD."
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video CD."
+msgstr "Ką tik įdėjote vaizdo CD."
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Super Video CD."
+msgstr "Ką tik įdėjote super vaizdo CD."
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a blank CD."
+msgstr "Ką tik įdėjote tuščią CD."
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank DVD."
+msgstr "Ką tik įdėjote tuščią DVD."
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "Ką tik įdėjote tuščią Blu-Ray diską."
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank HD DVD."
+msgstr "Ką tik įdėjote tuščią HD DVD."
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a Photo CD."
+msgstr "Ką tik įdėjote fotografijų CD."
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Picture CD."
+msgstr "Ką tik įdėjote paveikslėlių CD."
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a medium with digital photos."
+msgstr "Ką tik įdėjote laikmeną su skaitmeninėmis fotografijomis."
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a digital audio player."
+msgstr "Ką tik įdėjote skaitmeninį garso grotuvą."
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr ""
+"Ką tik įdėjote laikmeną su programine įranga, kurią reikėtų automatiškai "
+"paleisti."
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:729
+msgid "You have just inserted a medium."
+msgstr "Ką tik įdėjote laikmeną."
+
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "Choose what application to launch."
+msgstr "Pasirinkite, kurią programą paleisti."
+
+#: ../plugins/automount/gsd-autorun.c:740
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr ""
+"Pasirinkite, kaip atverti „%s“ ir ar ateityje vykdyti šį veiksmą kitoms „%s“ "
+"tipo laikmenoms."
+
+#: ../plugins/automount/gsd-autorun.c:767
+msgid "_Always perform this action"
+msgstr "_Visada vykdyti šį veiksmą"
+
+#: ../plugins/automount/gsd-autorun.c:783
+msgid "_Eject"
+msgstr "Iš_stumti"
+
+#: ../plugins/automount/gsd-autorun.c:788
+msgid "_Unmount"
+msgstr "_Atjungti"
+
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Fonas"
@@ -913,34 +1300,70 @@ msgstr "Butaforinis"
 msgid "Dummy plugin"
 msgstr "Butaforinis įskiepis"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
-msgid "Font"
-msgstr "Šriftai"
+#: ../plugins/housekeeping/gsd-disk-space.c:332
+#, c-format
+msgid "Low Disk Space on \"%s\""
+msgstr "Baigiasi vieta diske „%s“"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
-msgid "Font plugin"
-msgstr "Šriftų įskiepis"
+#: ../plugins/housekeeping/gsd-disk-space.c:334
+#, c-format
+msgid ""
+"The volume \"%s\" has only %s disk space remaining.  You may free up some "
+"space by emptying the trash."
+msgstr ""
+"Tome „%s“ liko tik %s vietos. Galite atlaisvinti šiek tiek vietos išvalydami "
+"šiukšlinę."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-#| msgid "Don't show any warnings again for this filesystem"
-msgid "Don't show any warnings again for this file system"
-msgstr "Daugiau nerodyti jokių įspėjimų šiai failų sistemai"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-msgid "Don't show any warnings again"
-msgstr "Daugiau nerodyti jokių įspėjimų"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#: ../plugins/housekeeping/gsd-disk-space.c:338
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "Diske „%s“ liko tik %s vietos."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-disk-space.c:343
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
+msgid "Low Disk Space"
+msgstr "Baigiasi vieta diske"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:345
+#, c-format
+msgid ""
+"This computer has only %s disk space remaining.  You may free up some space "
+"by emptying the trash."
+msgstr ""
+"kompiuteryje liko tik %s vietos diske. Galite atlaisvinti šiek tiek vietos "
+"išvalydami šiukšlinę."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:348
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Kompiuteryje liko tik %s vietos."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+#: ../plugins/housekeeping/gsd-disk-space.c:369
+msgid "Examine"
+msgstr "Ištirti"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:377
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
+msgid "Empty Trash"
+msgstr "Išvalyti šiukšlinę"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:384
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
+msgid "Ignore"
+msgstr "Nepaisyti"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+msgid "Don't show any warnings again for this file system"
+msgstr "Daugiau nerodyti jokių įspėjimų šiai failų sistemai"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
+msgid "Don't show any warnings again"
+msgstr "Daugiau nerodyti jokių įspėjimų"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
@@ -949,7 +1372,7 @@ msgstr ""
 "nenaudojamas programas ir failus arba perkeldami failus į kitą kaupiklį ar "
 "skirsnį."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
@@ -957,7 +1380,7 @@ msgstr ""
 "Galite atlaisvinti vietos ištrindami nenaudojamas programas ir failus arba "
 "perkeldami failus į kitą kaupiklį ar skirsnį."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
@@ -965,7 +1388,7 @@ msgstr ""
 "Galite atlaisvinti vietos diske išvalydami šiukšlinę, ištrindami "
 "nenaudojamas programas ir failus arba perkeldami failus į išorinį kaupiklį."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
@@ -973,65 +1396,9 @@ msgstr ""
 "Galite atlaisvinti vietos diske ištrindami nenaudojamas programas ir failus "
 "arba perkeldami failus į išorinį kaupiklį."
 
-#. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
-msgid "Low Disk Space"
-msgstr "Baigiasi vieta diske"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
-msgid "Empty Trash"
-msgstr "Išvalyti šiukšlinę"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
-#| msgid "Examine..."
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:444
 msgid "Examine…"
 msgstr "Ištirti…"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
-msgid "Ignore"
-msgstr "Nepaisyti"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
-#, c-format
-msgid "Removing item %lu of %lu"
-msgstr "Šalinama %lu elementas iš %lu"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:117
-#, c-format
-#| msgid "<i>Removing: %s</i>"
-msgid "Removing: %s"
-msgstr "Šalinama: %s"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:247
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
-msgid "Emptying the trash"
-msgstr "Valoma šiukšlinė"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:272
-#| msgid "Preparing to empty trash..."
-msgid "Preparing to empty trash…"
-msgstr "Ruošiamasi išvalyti šiukšlinę…"
-
-#. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:299
-msgid "From: "
-msgstr "Nuo:"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
-msgid "Empty all of the items from the trash?"
-msgstr "Išvalyti visus failus iš šiukšlinės?"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:363
-msgid ""
-"If you choose to empty the trash, all items in it will be permanently lost. "
-"Please note that you can also delete them separately."
-msgstr ""
-"Jei išvalysite šiukšlinę, visi joje esantys duomenys bus prarasti. Beje, "
-"juos galite ištrinti atskirai."
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:370
-msgid "_Empty Trash"
-msgstr "_Išvalyti šiukšlinę"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -1068,116 +1435,49 @@ msgstr "Klaviatūra"
 msgid "Keyboard plugin"
 msgstr "Klaviatūros įskiepis"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:137
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:87
 #, c-format
-#| msgid ""
-#| "Error activating XKB configuration.\n"
-#| "It can happen under various circumstances:\n"
-#| "- a bug in libxklavier library\n"
-#| "- a bug in X server (xkbcomp, xmodmap utilities)\n"
-#| "- X server with incompatible libxkbfile implementation\n"
-#| "\n"
-#| "X server version data:\n"
-#| "%s\n"
-#| "%d\n"
-#| "%s\n"
-#| "If you report this situation as a bug, please include:\n"
-#| "- The result of <b>%s</b>\n"
-#| "- The result of <b>%s</b>"
 msgid ""
 "Error activating XKB configuration.\n"
-"It can happen under various circumstances:\n"
-" • a bug in libxklavier library\n"
-" • a bug in X server (xkbcomp, xmodmap utilities)\n"
-" • X server with incompatible libxkbfile implementation\n"
+"There can be various reasons for that.\n"
 "\n"
-"X server version data:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"If you report this situation as a bug, please include:\n"
-" • The result of <b>%s</b>\n"
-" • The result of <b>%s</b>"
+"If you report this situation as a bug, include the results of\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 msgstr ""
-"Klaida įjungiant XKB konfigūraciją.\n"
-"Tai gali nutikti įvairiomis aplinkybėmis:\n"
-" • klaida libxklavier bibliotekoje\n"
-" • klaida X serveryje (xkbcomp, xmodmap programose)\n"
-" • X serveris su nesuderinama libxkbfile realizacija\n"
+"Klaida aktyvuojant XKB konfigūraciją.\n"
+"Tam gali būti įvarių priežasčių.\n"
 "\n"
-"\n"
-"X serverio versijos duomenys:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"Jei pranešite apie šią klaidą, pateikit šią informaciją:\n"
-" • <b>%s</b> rezultatą\n"
-" • <b>%s</b> rezultatą"
+"Jei pranešite apie šią situaciją kaip apie klaidą, įtraukite šiuos "
+"rezultatus\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:151
-#| msgid ""
-#| "You are using XFree 4.3.0.\n"
-#| "There are known problems with complex XKB configurations.\n"
-#| "Try using a simpler configuration or taking a fresher version of XFree "
-#| "software."
-msgid ""
-"You are using XFree 4.3.0.\n"
-"There are known problems with complex XKB configurations.\n"
-"Try using a simpler configuration or using a later version of the XFree "
-"software."
-msgstr ""
-"Naudojate XFree 4.3.0.\n"
-"Yra žinomų problemų su sudėtingomis XKB konfigūracijomis.\n"
-"Pabandykite naudoti paprastesnę konfigūraciją arba naujesnę XFree "
-"programinės įrangos versiją."
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:279
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
 msgid "_Layouts"
 msgstr "_Išdėstymai"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:286
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
 msgid "Keyboard _Preferences"
 msgstr "Klaviatūros _nustatymai"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:292
-#| msgid "Show Current _Layout"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
 msgid "Show _Current Layout"
 msgstr "Rodyti _dabartinį išdėstymą"
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:1
-msgid "A_vailable files:"
-msgstr "P_rieinami failai:"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:2
-msgid "Load modmap files"
-msgstr "Įkelti modmap failus"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:3
-#| msgid "Would you like to load the modmap file(s)?"
-msgid "Would you like to load the modmap files?"
-msgstr "Ar norite įkelti modmap failus?"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:4
-msgid "_Do not show this message again"
-msgstr "_Daugiau nerodyti šio pranešimo"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:5
-msgid "_Load"
-msgstr "Į_kelti"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:6
-msgid "_Loaded files:"
-msgstr "Į_kelti failai:"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:195
+#: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
 msgstr ""
-"Nepavyko gauti numatytojo teminalo. Patikrinkite, ar jūsų numatytojo "
-"terminalo komanda yra nustatyta ir nurodo tinkamą programą."
+"Nepavyko gauti numatytojo teminalo. Patikrinkite, ar numatytojo terminalo "
+"komanda yra nustatyta ir nurodo tinkamą programą."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:235
+#: ../plugins/media-keys/gsd-media-keys-manager.c:258
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1188,13 +1488,13 @@ msgstr ""
 
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1091
 msgid "Disabled"
 msgstr "Išjungta"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1098
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1204,7 +1504,7 @@ msgstr[2] "%u išvesčių"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1108
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
@@ -1212,7 +1512,7 @@ msgstr[0] "%u įvestis"
 msgstr[1] "%u įvestys"
 msgstr[2] "%u įvesčių"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1406
 msgid "System Sounds"
 msgstr "Sistemos garsai"
 
@@ -1224,22 +1524,20 @@ msgstr "Multimedijos klavišai"
 msgid "Media keys plugin"
 msgstr "Multimedijos klavišų įskiepis"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:882
+#: ../plugins/mouse/gsd-mouse-manager.c:924
 msgid "Could not enable mouse accessibility features"
 msgstr "Nepavyko įjungti pelės pritaikymo neįgaliesiems ypatybių"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:884
-#| msgid ""
-#| "Mouse accessibility requires mousetweaks to be installed on your system."
+#: ../plugins/mouse/gsd-mouse-manager.c:926
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Norint pritaikyti pelę neįgaliesiems, sistemoje turi būti įdiegta "
 "Mousetweaks programa."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:887
-msgid "Mouse Preferences"
-msgstr "Pelės nustatymai"
+#: ../plugins/mouse/gsd-mouse-manager.c:928
+msgid "Universal Access"
+msgstr "Universalioji prieiga"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
@@ -1249,13 +1547,219 @@ msgstr "Pelė"
 msgid "Mouse plugin"
 msgstr "Pelės įskiepis"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
-msgid "Typing Break"
-msgstr "Spausdinimo pertraukėlė"
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+msgid "Print-notifications"
+msgstr "Spausdinimo įspėjimai"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
-msgid "Typing break plugin"
-msgstr "Spausdinimo pertraukėlių įskiepis"
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+msgid "Print-notifications plugin"
+msgstr "Spausdinimo įspėjimų įskiepis"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
+msgid "Toner low"
+msgstr "Baigiasi dažai"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
+msgid "Toner empty"
+msgstr "Nebėra dažų"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
+msgid "Not connected?"
+msgstr "Neprijungtas?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
+msgid "Cover open"
+msgstr "Atvertas dangtis"
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
+msgid "Printer configuration error"
+msgstr "Spausdintuvo konfigūracijos klaida"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
+msgid "Door open"
+msgstr "Atvertos durys"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
+msgid "Marker supply low"
+msgstr "Silpnas spalvos tiekimas"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
+msgid "Out of a marker supply"
+msgstr "Baigėsi spalvos tiekimas"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
+msgid "Paper low"
+msgstr "Baigiasi popierius"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
+msgid "Out of paper"
+msgstr "Baigėsi popierius"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
+msgid "Printer off-line"
+msgstr "Spausdintuvas nepasiekiamas"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
+msgid "Printer error"
+msgstr "Spausdintuvo klaida"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr "Spausdintuvui „%s“ baigiasi dažai."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr "Spausdintuvui „%s“ baigėsi dažai."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr "Spausdintuvas „%s“ gali būti neprijungtas."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr "Atvertas spausdintuvo „%s“ dangtis."
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr "Trūksta spausdinimo filtro spausdintuvui „%s“."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr "Atvertos spausdintuvo „%s“ durys."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr "Spausdintuvui „%s“ baigiasi spalvos tiekimas."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr "Spausdintuvui „%s“ baigėsi spalvos tiekimas."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr "Spausdintuvui „%s“ baigiasi popierius."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr "Spausdintuvui „%s“ baigėsi popierius."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr "Spausdintuvui „%s“ nepasiekiamas."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr "Yra problema spausdintuve „%s“."
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
+msgid "Printer added"
+msgstr "Spausdintuvas pridėtas"
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
+msgid "Printer removed"
+msgstr "Spausdintuvas pašalintas"
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+msgid "Printing stopped"
+msgstr "Spausdinimas sustabdytas"
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#, c-format
+msgid "\"%s\" on %s"
+msgstr "„%s“ spausdintuve %s"
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+msgid "Printing canceled"
+msgstr "Spausdinimas atšauktas"
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+msgid "Printing aborted"
+msgstr "Spausdinimas nutrauktas"
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+msgid "Printing completed"
+msgstr "Spausdinimas baigtas"
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+msgid "Printing"
+msgstr "Spausdinimas"
+
+#. Translators: We are configuring new printer
+#: ../plugins/print-notifications/gsd-printer.c:91
+msgid "Configuring new printer"
+msgstr "Naujo spausdintuvo konfigūravimas"
+
+#. Translators: Just wait
+#: ../plugins/print-notifications/gsd-printer.c:93
+msgid "Please wait..."
+msgstr "Palaukite..."
+
+#. name is a URI, no queue was generated, because no suitable
+#. * driver was found
+#.
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:114
+msgid "Missing printer driver"
+msgstr "Trūksta spausdintuvo tvarkyklės"
+
+#. Translators: We have no driver installed for the device
+#: ../plugins/print-notifications/gsd-printer.c:123
+#, c-format
+msgid "No printer driver for %s."
+msgstr "Nėra spausdintuvo %s tvarkyklės."
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:128
+msgid "No driver for this printer."
+msgstr "Nėra tvarkyklės šiam spausdintuvui."
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1265,19 +1769,19 @@ msgstr "Nustatyti ekrano dydį ir pasukimą"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:225
+#: ../plugins/xrandr/gsd-xrandr-manager.c:413
 msgid "Could not switch the monitor configuration"
 msgstr "Nepavyko pakeisti vaizduoklio nustatymų"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:249
+#: ../plugins/xrandr/gsd-xrandr-manager.c:437
 msgid "Could not restore the display's configuration"
 msgstr "Nepavyko atkurti ekrano nustatymų"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:274
+#: ../plugins/xrandr/gsd-xrandr-manager.c:462
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Nepavyko atkurti ekrano nustatymų iš atsarginės kopijos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:295
+#: ../plugins/xrandr/gsd-xrandr-manager.c:483
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1286,86 +1790,34 @@ msgstr[0] "Ankstesni ekrano nustatymai bus grąžinti už %d sekundės"
 msgstr[1] "Ankstesni ekrano nustatymai bus grąžinti už %d sekundžių"
 msgstr[2] "Ankstesni ekrano nustatymai bus grąžinti už %d sekundžių"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:344
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Does the display look OK?"
 msgstr "Ar ekrane vaizdas atrodo gerai?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:350
+#: ../plugins/xrandr/gsd-xrandr-manager.c:539
 msgid "_Restore Previous Configuration"
 msgstr "_Atkurti ankstesnius nustatymus"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:351
+#: ../plugins/xrandr/gsd-xrandr-manager.c:540
 msgid "_Keep This Configuration"
 msgstr "_Palikti šiuos nustatymus"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:432
+#: ../plugins/xrandr/gsd-xrandr-manager.c:621
 msgid "The selected configuration for displays could not be applied"
 msgstr "Nepavyko pritaikyti pasirinktų ekranų nustatymų"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Nepavyko atnaujinti ekrano informacijos: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:973
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Vis vien bandoma pakeisti vaizduoklio nustatymus."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1703
-#| msgid "<i>Rotation not supported</i>"
-msgid "Rotation not supported"
-msgstr "Pasukimas nepalaikomas"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1759
-msgid "Could not save monitor configuration"
-msgstr "Nepavyko įrašyti vaizduoklio nustatymų"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1777
-msgid "Normal"
-msgstr "Normalus"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1778
-msgid "Left"
-msgstr "Kairė"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1779
-msgid "Right"
-msgstr "Dešinė"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1780
-msgid "Upside Down"
-msgstr "Apverstas"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1900
-#| msgid "_Configure Display Settings ..."
-msgid "_Configure Display Settings…"
-msgstr "_Keisti ekranų nustatymus…"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1941
-msgid "Configure display settings"
-msgstr "Keisti ekranų nustatymus"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2001
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Nepavyko pritaikyti įrašytų vaizduoklių nustatymų"
-
-#: ../plugins/xrdb/gsd-xrdb-manager.c:255
-#: ../plugins/xrdb/gsd-xrdb-manager.c:324
-msgid "Cannot determine user's home directory"
-msgstr "Nepavyko nustatyti naudotojo namų aplanko"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
-msgid "Manage the X resource database"
-msgstr "Tvarkyti X resursų duomenų bazę"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
-msgid "X Resource Database"
-msgstr "X resursų duomenų bazė"
-
-#: ../plugins/xsettings/gsd-xsettings-manager.c:596
-#, c-format
-msgid "GConf key %s set to type %s but its expected type was %s\n"
-msgstr "GConf rakto %s tipas %s, bet jo tipas turėtų būti %s\n"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
 msgid "Manage X Settings"
@@ -1375,276 +1827,278 @@ msgstr "Tvarkyti X serverio nustatymus"
 msgid "X Settings"
 msgstr "X serverio nustatymai"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:167
+#: ../plugins/smartcard/gsd-smartcard-manager.c:187
 msgid "Module Path"
 msgstr "Modulio kelias"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:168
+#: ../plugins/smartcard/gsd-smartcard-manager.c:188
 msgid "path to smartcard PKCS #11 driver"
 msgstr "kelias iki lustinės kortelės PKCS #11 tvarkyklės"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:504
+#: ../plugins/smartcard/gsd-smartcard-manager.c:528
 msgid "received error or hang up from event source"
 msgstr "gauta klaida arba strigtis iš įvykio šaltinio"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:593
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "Nepavyko inicijuoti NSS saugumo sistemos"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#: ../plugins/smartcard/gsd-smartcard-manager.c:790
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr "nepavyko rasti tinkamos lustinės kortelės tvarkyklės"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:682
+#: ../plugins/smartcard/gsd-smartcard-manager.c:804
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "nepavyko įkelti lustinės kortelės tvarkyklės „%s“"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:771
+#: ../plugins/smartcard/gsd-smartcard-manager.c:876
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "nepavyko stebėti gaunamų kortelės įvykių – %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1124
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "laukiant lustinės kortelės įvykių aptikta netikėta klaida"
 
-#: ../plugins/smartcard/gsd-smartcard.c:154
+#: ../plugins/smartcard/gsd-smartcard.c:158
 msgid "Slot ID"
 msgstr "Lizdo ID"
 
-#: ../plugins/smartcard/gsd-smartcard.c:155
+#: ../plugins/smartcard/gsd-smartcard.c:159
 msgid "The slot the card is in"
 msgstr "Lizdas, kuriame yra kortelė"
 
-#: ../plugins/smartcard/gsd-smartcard.c:161
-#| msgid "Slow keys"
+#: ../plugins/smartcard/gsd-smartcard.c:165
 msgid "Slot Series"
 msgstr "Lizdų serija"
 
-#: ../plugins/smartcard/gsd-smartcard.c:162
+#: ../plugins/smartcard/gsd-smartcard.c:166
 msgid "per-slot card identifier"
 msgstr "lizdų kortelių identifikatorius"
 
-#: ../plugins/smartcard/gsd-smartcard.c:168
-#: ../plugins/smartcard/gsd-smartcard.c:169
+#: ../plugins/smartcard/gsd-smartcard.c:172
+#: ../plugins/smartcard/gsd-smartcard.c:173
 msgid "name"
 msgstr "pavadinimas"
 
-#: ../plugins/smartcard/gsd-smartcard.c:173
-#| msgid "Mouse"
+#: ../plugins/smartcard/gsd-smartcard.c:177
 msgid "Module"
 msgstr "Modulis"
 
-#: ../plugins/smartcard/gsd-smartcard.c:174
+#: ../plugins/smartcard/gsd-smartcard.c:178
 msgid "smartcard driver"
 msgstr "lustinės kortelės tvarkyklė"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
-msgid "Change system time"
-msgstr "Keisti sistemos laiką"
+msgid "Change system time and date settings"
+msgstr "Keisti sistemos laiko ir datos nustatymus"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Change system time zone"
-msgstr "Keisti sistemos laiko juostą"
+msgid "Privileges are required to configure time and date settings."
+msgstr "Norint keisti datos ir laiko nustatymus, reikia teisių."
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
-msgid "Configure hardware clock"
-msgstr "Konfigūruoti aparatinį laikrodį"
+#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
+#: ../plugins/updates/gsd-updates-manager.c:194
+msgid "Distribution upgrades available"
+msgstr "Yra distribucijos atnaujinimai"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
-msgid "Privileges are required to change the system time zone."
-msgstr "Norint pakeisti sistemos laiko juostą, reikia administratoriaus teisių."
+#. TRANSLATORS: provides more information about the upgrade
+#: ../plugins/updates/gsd-updates-manager.c:204
+msgid "More information"
+msgstr "Daugiau informacijos"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
-msgid "Privileges are required to change the system time."
-msgstr "Norint pakeisti sistemos laiką, reikia administratoriaus teisių."
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:307
+#: ../plugins/updates/gsd-updates-manager.c:367
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] "Atnaujinimas"
+msgstr[1] "Atnaujinimai"
+msgstr[2] "Atnaujinimų"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
-msgid "Privileges are required to configure the hardware clock."
+#. TRANSLATORS: message when there are security updates
+#: ../plugins/updates/gsd-updates-manager.c:310
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] "Yra prieinamas svarbus programinės įrangos atnaujinimas"
+msgstr[1] "Yra prieinami svarbūs programinės įrangos atnaujinimai"
+msgstr[2] "Yra prieinama svarbių programinės įrangos atnaujinimų"
+
+#. TRANSLATORS: button: open the update viewer to install updates
+#: ../plugins/updates/gsd-updates-manager.c:330
+#: ../plugins/updates/gsd-updates-manager.c:390
+msgid "Install updates"
+msgstr "Įdiegti atnaujinimus"
+
+#. TRANSLATORS: message when there are non-security updates
+#: ../plugins/updates/gsd-updates-manager.c:370
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] "Yra prieinamas programinės įrangos atnaujinimas"
+msgstr[1] "Yra prieinami programinės įrangos atnaujinimai"
+msgstr[2] "Yra prieinama programinės įrangos atnaujinimų"
+
+#. TRANSLATORS: policy says update, but we are on battery and so prompt
+#: ../plugins/updates/gsd-updates-manager.c:436
+msgid ""
+"Automatic updates are not being installed as the computer is running on "
+"battery power"
 msgstr ""
-"Norint konfigūruoti aparatinį laikrodį, reikia administratoriaus teisių."
+"Automatiniai atnaujinimai nėra diegiami, nes kompiuteris naudoja baterijos "
+"energiją"
 
-#~ msgid "Unknown"
-#~ msgstr "Nežinomas"
+#. TRANSLATORS: informs user will not install by default
+#: ../plugins/updates/gsd-updates-manager.c:438
+msgid "Updates not installed"
+msgstr "Atnaujinimai neįdiegti"
 
-#~ msgid "Keyboard Layout \"%s\""
-#~ msgstr "Klaviatūros išdėstymas „%s“"
+#. TRANSLATORS: to hell with my battery life, just do it
+#: ../plugins/updates/gsd-updates-manager.c:444
+msgid "Install the updates anyway"
+msgstr "Vistiek įdiegti atnaujinimus"
 
-#~ msgid "_Groups"
-#~ msgstr "_Grupės"
+#: ../plugins/updates/gsd-updates-manager.c:460
+msgid "No restart is required."
+msgstr "Įkėlimas iš naujo nebūtinas."
 
-#~ msgid "Keyboard Layout"
-#~ msgstr "Klaviatūros išdėstymas"
+#: ../plugins/updates/gsd-updates-manager.c:463
+msgid "A restart is required."
+msgstr "Įkėlimas iš naujo būtinas."
 
-#~ msgid "Binding to suspend the computer."
-#~ msgstr "Priskyrimas užmigdyti kompiuterį."
+#: ../plugins/updates/gsd-updates-manager.c:466
+msgid "You need to log out and log back in."
+msgstr "Reikia atsijungti ir vėl prisijungti."
 
-#~ msgid "Suspend"
-#~ msgstr "Užmigdyti"
+#: ../plugins/updates/gsd-updates-manager.c:469
+msgid "You need to restart the application."
+msgstr "Reikia iš naujo paleisti programą."
 
-#~ msgid ""
-#~ "Couldn't put the machine to sleep.\n"
-#~ "Verify that the machine is correctly configured."
-#~ msgstr ""
-#~ "Nepavyko užmigdyti kompiuterio.\n"
-#~ "Įsitikinkite, kad kompiuteris sukonfigūruotas teisingai."
+#: ../plugins/updates/gsd-updates-manager.c:472
+msgid "You need to log out and log back in to remain secure."
+msgstr "Reikia atsijungti ir vėl prisijungti, kad išliktumėte saugus."
 
-#~ msgid ""
-#~ "Set to True to display a dialog when there are errors running the "
-#~ "screensaver."
-#~ msgstr ""
-#~ "Nustatykite tiesa, jei norite rodyti pranešimo dialogą apie ekrano "
-#~ "užsklandos klaidas."
+#: ../plugins/updates/gsd-updates-manager.c:475
+msgid "A restart is required to remain secure."
+msgstr "Įkėlimas iš naujo būtinas norint išlikti saugiam."
 
-#~ msgid "Set to True to run the screensaver at login."
-#~ msgstr ""
-#~ "Nustatykite tiesa, jei norite prisijungimo metu paleisti ekrano užsklandą."
+#. TRANSLATORS: we did the update, but some updates were skipped and not applied
+#: ../plugins/updates/gsd-updates-manager.c:536
+msgid "One package was skipped:"
+msgid_plural "Some packages were skipped:"
+msgstr[0] "Vienas paketas buvo praleistas:"
+msgstr[1] "Kai kurie paketai buvo praleisti:"
+msgstr[2] "Kai kurie paketai buvo praleisti:"
 
-#~ msgid "Show startup errors"
-#~ msgstr "Rodyti paleidimo klaidas"
+#. TRANSLATORS: title: system update completed all okay
+#: ../plugins/updates/gsd-updates-manager.c:568
+msgid "The system update has completed"
+msgstr "Sistemos atnaujinimas baigtas"
 
-#~ msgid "Start screensaver"
-#~ msgstr "Paleisti ekrano užsklandą"
+#. TRANSLATORS: restart computer as system packages need update
+#: ../plugins/updates/gsd-updates-manager.c:575
+msgid "Restart computer now"
+msgstr "Įkelti iš naujo dabar"
 
-#~ msgid "Enable screensaver plugin"
-#~ msgstr "Įjungti ekrano užsklandos įskiepį"
+#. TRANSLATORS: the updates mechanism
+#: ../plugins/updates/gsd-updates-manager.c:646
+msgid "Updates"
+msgstr "Atnaujinimai"
 
-#~ msgid "Toggle screenreader"
-#~ msgstr "Jungti ekrano _skaityklę"
+#. TRANSLATORS: we failed to get the updates multiple times,
+#. * and now we need to inform the user that something might be wrong
+#: ../plugins/updates/gsd-updates-manager.c:650
+msgid "Unable to access software updates"
+msgstr "Nepavyksta pasiekti programinės įrangos atnaujinimų"
 
-#~ msgid "%d%% of the disk space on `%s' is in use"
-#~ msgstr "Naudojama %d%% disko „%s“ vietos"
+#. TRANSLATORS: try again, this time launching the update viewer
+#: ../plugins/updates/gsd-updates-manager.c:653
+msgid "Try again"
+msgstr "Bandyti vėl"
 
-#~ msgid "Analyze"
-#~ msgstr "Analizuoti"
+#. TRANSLATORS: the reason why we've inhibited it
+#: ../plugins/updates/gsd-updates-manager.c:1092
+msgid "A transaction that cannot be interrupted is running"
+msgstr "Vykdoma transakcija, kuri negali būti pertraukta"
 
-#~ msgid "GNOME Volume Control"
-#~ msgstr "GNOME garsumo valdymas"
+#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:240
+msgid ""
+"You will need to restart this computer before the hardware will work "
+"correctly."
+msgstr "Reikės paleisti kompiuterį iš naujo, kad įranga veiktų tvarkingai."
 
-#~ msgid ""
-#~ "There was an error starting up the screensaver:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Screensaver functionality will not work in this session."
-#~ msgstr ""
-#~ "Įvyko klaida paleidžiant ekrano užsklandą:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Ekrano užsklanda šioje sesijoje neveiks."
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:243
+#: ../plugins/updates/gsd-updates-firmware.c:267
+#: ../plugins/updates/gsd-updates-firmware.c:291
+msgid "Additional software was installed"
+msgstr "Buvo įdiegta papildoma programinė įranga"
 
-#~ msgid "Screensaver"
-#~ msgstr "Ekrano užsklanda"
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:264
+msgid ""
+"You will need to remove and then reinsert the hardware before it will work "
+"correctly."
+msgstr "Reikės išimti ir vėl įdėti įrangą, kad ji veiktų tvarkingai."
 
-#~ msgid "Screensaver plugin"
-#~ msgstr "Ekrano užsklandos įskiepis"
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:288
+msgid "Your hardware has been set up and is now ready to use."
+msgstr "Įranga nustatyta ir paruošta naudojimui."
 
-#~ msgid ""
-#~ "Cannot create the directory \"%s\".\n"
-#~ "This is needed to allow changing the mouse pointer theme."
-#~ msgstr ""
-#~ "Nepavyko sukurti aplanko „%s“.\n"
-#~ "To reikia norint leisti pakeisti žymeklių temą."
+#. TRANSLATORS: we need another package to keep udev quiet
+#: ../plugins/updates/gsd-updates-firmware.c:566
+msgid ""
+"Additional firmware is required to make hardware in this computer function "
+"correctly."
+msgstr ""
+"Papildoma aparatinė programinė įranga yra reikalinga, kad įranga šiame "
+"kompiuteryje veiktų tvarkingai."
 
-#~ msgid ""
-#~ "Cannot create the directory \"%s\".\n"
-#~ "This is needed to allow changing cursors."
-#~ msgstr ""
-#~ "Nepavyko sukurti aplanko „%s“.\n"
-#~ "To reikia norint leisti pakeisti žymeklius."
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:580
+msgid "Additional firmware required"
+msgstr "Reikalinga papildoma aparatinė programinė įranga"
 
-#~ msgid "Couldn't load sound file %s as sample %s"
-#~ msgstr "Nepavyko įkelti garso failo %s kaip pavyzdžio %s"
+#. TRANSLATORS: button label
+#: ../plugins/updates/gsd-updates-firmware.c:585
+msgid "Install firmware"
+msgstr "Įdiegti ap. prog. įrangą"
 
-#~ msgid "Login"
-#~ msgstr "Prisijungti"
+#. TRANSLATORS: we should ignore this device and not ask anymore
+#: ../plugins/updates/gsd-updates-firmware.c:588
+msgid "Ignore devices"
+msgstr "Nepaisyti įrenginių"
 
-#~ msgid "Logout"
-#~ msgstr "Atsijungti"
+#~ msgid "Volume step"
+#~ msgstr "Garsumo žingnis"
 
-#~ msgid "Boing"
-#~ msgstr "Trinkt"
+#~ msgid "Volume step as percentage of volume."
+#~ msgstr "Garsumo žingsnelis procentine garsumo dalimi."
 
-#~ msgid "Siren"
-#~ msgstr "Sirena"
+#~ msgid "Show Displays in Notification Area"
+#~ msgstr "Rodyti ekranus pranešimų srityje"
 
-#~ msgid "Clink"
-#~ msgstr "Cinkt"
-
-#~ msgid "Beep"
-#~ msgstr "Pypt"
-
-#~ msgid "No sound"
-#~ msgstr "Jokio garso"
-
-#~ msgid "Sound not set for this event."
-#~ msgstr "Šiam įvykiui nėra nustatyto garso."
-
-#~ msgid ""
-#~ "The sound file for this event does not exist.\n"
-#~ "You may want to install the gnome-audio package for a set of default "
-#~ "sounds."
-#~ msgstr ""
-#~ "Šiam įvykiui priskirtas garsinis failas neegzistuoja.\n"
-#~ "Galbūt norite įdiegti gnome-audio paketą, kuriame yra numatytieji garsai."
-
-#~ msgid "The sound file for this event does not exist."
-#~ msgstr "Šiam įvykiui skirtas garso failas neegzistuoja."
-
-#~ msgid "Select Sound File"
-#~ msgstr "Pasirinkite garso failą"
-
-#~ msgid "The file %s is not a valid wav file"
-#~ msgstr "Failas %s nėra tinkamas wav failas"
-
-#~ msgid "Select sound file..."
-#~ msgstr "Pasirinkite garso failą..."
-
-#~ msgid "Sound"
-#~ msgstr "Garsas"
-
-#~ msgid "Sound plugin"
-#~ msgstr "Garso įskiepis"
-
-#~ msgid "An error occurred while configuring the screen"
-#~ msgstr "Konfigūruojant ekraną įvyko klaida"
-
-#~ msgid "Key Binding (%s) has its action defined multiple times\n"
-#~ msgstr "Klavišų susiejimo (%s) veiksmas yra nustatytas per daug kartų\n"
-
-#~ msgid "Key Binding (%s) has its binding defined multiple times\n"
-#~ msgstr "Klavišų susiejimas (%s) yra panaudotas kelis kartus\n"
-
-#~ msgid "It seems that another application already has access to key '%u'."
-#~ msgstr "Panašu, kad kita programa jau turi prieigą prie klavišo „%u“."
-
-#~ msgid "Key Binding (%s) is already in use\n"
-#~ msgstr "Klavišų susiejimas (%s) jau yra panaudotas\n"
-
-#~ msgid "Volume"
-#~ msgstr "Garsumas"
+#~ msgid "Turn on external monitor after system boot"
+#~ msgstr "Įjungti išorinį vaizduoklį įkėlus sistemą"
 
 #~ msgid ""
-#~ "Set to True to keep the handlers for text/plain and text/* MIME types "
-#~ "synchronized."
+#~ "Turn on external monitor after system boot if user plugs in external "
+#~ "monitor on system boot."
 #~ msgstr ""
-#~ "Nustatykite tiesa, jei norite išlaikyti text/plain ir text/* tvarkykles "
-#~ "sinchronizuotas."
+#~ "Įjungti išorinį vaizduoklį įkėlus sistemą, jei naudotojas prijungia "
+#~ "išorinį vaizduoklį sistemos įkelties metu."
 
-#~ msgid "Sync text/plain and text/* handlers"
-#~ msgstr "Sinchronizuoti text/plain ir text/* tvarkykles"
-
-#~ msgid "Enable default editor plugin"
-#~ msgstr "Įjungti numatytojo redaktoriaus įskiepį"
+#~ msgid "Turn on laptop monitor after system boot"
+#~ msgstr "Įjungti nešiojamojo kompiuterio ekraną įkėlus sistemą"
 
 #~ msgid ""
-#~ "Set to True to enable the plugin to manage the default text editor "
-#~ "setting."
+#~ "Turn on laptop monitor after system boot if user plugs in external "
+#~ "monitor on system boot."
 #~ msgstr ""
-#~ "Nustatykite tiesa, norėdami įjungti numatytojo teksto redaktoriaus "
-#~ "nustatymų įskiepį."
+#~ "Įjungti nešiojamojo kompiuterio ekraną įkėlus sistemą, jei naudotojas "
+#~ "prijungia išorinį vaizduoklį sistemos įkelties metu."
