@@ -31,7 +31,7 @@
 #define INPUT_DEVICES_SCHEMA "org.gnome.settings-daemon.peripherals.input-devices"
 #define KEY_HOTPLUG_COMMAND  "hotplug-command"
 
-static gboolean
+gboolean
 supports_xinput_devices (void)
 {
         gint op_code, event, error;

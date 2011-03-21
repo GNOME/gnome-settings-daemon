@@ -158,19 +158,6 @@ gsd_mouse_manager_class_init (GsdMouseManagerClass *klass)
         g_type_class_add_private (klass, sizeof (GsdMouseManagerPrivate));
 }
 
-
-static gboolean
-supports_xinput_devices (void)
-{
-        gint op_code, event, error;
-
-        return XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                "XInputExtension",
-                                &op_code,
-                                &event,
-                                &error);
-}
-
 static void
 configure_button_layout (guchar   *buttons,
                          gint      n_buttons,
@@ -281,9 +268,9 @@ touchpad_has_single_button (XDevice *device)
 
 
 static void
-set_xinput_devices_left_handed (GsdMouseManager *manager,
-                                gboolean mouse_left_handed,
-                                gboolean touchpad_left_handed)
+set_left_handed (GsdMouseManager *manager,
+                 gboolean mouse_left_handed,
+                 gboolean touchpad_left_handed)
 {
         XDeviceInfo *device_info;
         gint n_devices;
@@ -382,53 +369,6 @@ set_devicepresence_handler (GsdMouseManager *manager)
         manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                            G_CALLBACK (device_added_cb), manager);
         manager->priv->device_manager = device_manager;
-}
-
-static void
-set_left_handed (GsdMouseManager *manager,
-                 gboolean         mouse_left_handed,
-                 gboolean         touchpad_left_handed)
-{
-        guchar *buttons ;
-        gsize buttons_capacity = 16;
-        gint n_buttons, i;
-
-        if (supports_xinput_devices ()) {
-                /* When XInput support is available, never set the
-                 * button ordering on the core pointer as that would
-                 * revert the changes we make on the devices themselves */
-                set_xinput_devices_left_handed (manager,
-                                                mouse_left_handed,
-                                                touchpad_left_handed);
-                return;
-        }
-
-        buttons = g_new (guchar, buttons_capacity);
-        n_buttons = XGetPointerMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                        buttons,
-                                        (gint) buttons_capacity);
-        while (n_buttons > buttons_capacity) {
-                buttons_capacity = n_buttons;
-                buttons = (guchar *) g_realloc (buttons,
-                                                buttons_capacity * sizeof (guchar));
-
-                n_buttons = XGetPointerMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                                buttons,
-                                                (gint) buttons_capacity);
-        }
-
-        configure_button_layout (buttons, n_buttons, mouse_left_handed);
-
-        /* X refuses to change the mapping while buttons are engaged,
-         * so if this is the case we'll retry a few times
-         */
-        for (i = 0;
-             i < 20 && XSetPointerMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), buttons, n_buttons) == MappingBusy;
-             ++i) {
-                g_usleep (300);
-        }
-
-        g_free (buttons);
 }
 
 static XDevice *
@@ -1072,6 +1012,11 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
                          GError         **error)
 {
         gnome_settings_profile_start (NULL);
+
+        if (!supports_xinput_devices ()) {
+                g_debug ("XInput is not supported, not applying any settings");
+                return TRUE;
+        }
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_mouse_manager_idle_cb, manager);
 

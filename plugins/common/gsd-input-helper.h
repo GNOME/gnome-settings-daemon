@@ -33,11 +33,12 @@ typedef enum {
 	COMMAND_DEVICE_PRESENT
 } CustomCommand;
 
-XDevice * device_is_touchpad  (XDeviceInfo deviceinfo);
-gboolean  touchpad_is_present (void);
+gboolean  supports_xinput_devices (void);
+XDevice  *device_is_touchpad      (XDeviceInfo deviceinfo);
+gboolean  touchpad_is_present     (void);
 
-gboolean  run_custom_command  (GdkDevice              *device,
-			       CustomCommand           command);
+gboolean  run_custom_command      (GdkDevice              *device,
+			           CustomCommand           command);
 
 G_END_DECLS
 
