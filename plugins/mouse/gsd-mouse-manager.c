@@ -771,7 +771,7 @@ set_touchpad_enabled (gboolean state)
         prop_enabled = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Device Enabled", False);
 
         if (!prop_enabled)
-            return 0;
+		return 0;
 
         for (i = 0; i < numdevices; i++) {
                 if ((device = device_is_touchpad (devicelist[i]))) {
@@ -986,14 +986,17 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 
         manager->priv->syndaemon_spawned = FALSE;
 
+	/* Device independent */
         set_devicepresence_handler (manager);
-        set_mouse_settings (manager);
         set_locate_pointer (manager, g_settings_get_boolean (manager->priv->mouse_settings, KEY_LOCATE_POINTER));
         set_mousetweaks_daemon (manager,
                                 g_settings_get_boolean (manager->priv->mouse_a11y_settings, KEY_DWELL_CLICK_ENABLED),
                                 g_settings_get_boolean (manager->priv->mouse_a11y_settings, KEY_SECONDARY_CLICK_ENABLED));
-
         set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
+
+	/* Per-device */
+        set_mouse_settings (manager);
+
         set_tap_to_click (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK),
                           g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED));
         set_edge_scroll (g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
