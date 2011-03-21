@@ -266,7 +266,6 @@ touchpad_has_single_button (XDevice *device)
         return is_single_button;
 }
 
-
 static void
 set_left_handed (GsdMouseManager *manager,
                  gboolean mouse_left_handed,
@@ -470,9 +469,6 @@ set_motion (GsdMouseManager *manager)
         gint n_devices;
         guint i;
 
-        if (supports_xinput_devices () == FALSE)
-                return;
-
         device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
         if (device_info == NULL)
                 return;
@@ -481,7 +477,6 @@ set_motion (GsdMouseManager *manager)
                 set_motion_for_device (manager, device_info[i]);
 
         XFreeDeviceList (device_info);
-
 }
 
 static void
