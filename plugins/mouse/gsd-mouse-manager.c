@@ -80,6 +80,7 @@ struct GsdMouseManagerPrivate
         GSettings *mouse_a11y_settings;
         GdkDeviceManager *device_manager;
         guint device_added_id;
+        guint device_removed_id;
 
         gboolean mousetweaks_daemon_running;
         gboolean syndaemon_spawned;
@@ -352,8 +353,23 @@ device_added_cb (GdkDeviceManager *device_manager,
                  GdkDevice        *device,
                  gpointer          user_data)
 {
-        if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE)
+        if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
                 set_mouse_settings ((GsdMouseManager *) user_data);
+
+                /* If a touchpad was to appear... */
+                set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, key));
+        }
+}
+
+static void
+device_removed_cb (GdkDeviceManager *device_manager,
+		   GdkDevice        *device,
+		   gpointer          user_data)
+{
+        if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
+                /* If a touchpad was to disappear... */
+                set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, key));
+        }
 }
 
 static void
@@ -367,6 +383,8 @@ set_devicepresence_handler (GsdMouseManager *manager)
 
         manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                            G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
+                                                             G_CALLBACK (device_removed_cb), manager);
         manager->priv->device_manager = device_manager;
 }
 
@@ -1023,6 +1041,7 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
 
         if (p->device_manager != NULL) {
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
+                g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
                 p->device_manager = NULL;
         }
 
@@ -1059,8 +1078,10 @@ gsd_mouse_manager_finalize (GObject *object)
         if (mouse_manager->priv->start_idle_id != 0)
                 g_source_remove (mouse_manager->priv->start_idle_id);
 
-        if (mouse_manager->priv->device_manager != NULL)
+        if (mouse_manager->priv->device_manager != NULL) {
                 g_signal_handler_disconnect (mouse_manager->priv->device_manager, mouse_manager->priv->device_added_id);
+                g_signal_handler_disconnect (mouse_manager->priv->device_manager, mouse_manager->priv->device_removed_id);
+        }
 
         if (mouse_manager->priv->mouse_settings != NULL)
                 g_object_unref (mouse_manager->priv->mouse_settings);
