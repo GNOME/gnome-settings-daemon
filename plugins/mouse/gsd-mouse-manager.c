@@ -92,7 +92,6 @@ struct GsdMouseManagerPrivate
 static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
 static void     gsd_mouse_manager_init        (GsdMouseManager      *mouse_manager);
 static void     gsd_mouse_manager_finalize    (GObject             *object);
-static void     set_mouse_settings            (GsdMouseManager      *manager);
 static int      set_tap_to_click              (gboolean state, gboolean left_handed);
 
 G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
@@ -346,46 +345,6 @@ set_left_handed (GsdMouseManager *manager,
 
         if (device_info != NULL)
                 XFreeDeviceList (device_info);
-}
-
-static void
-device_added_cb (GdkDeviceManager *device_manager,
-                 GdkDevice        *device,
-                 gpointer          user_data)
-{
-        if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
-                set_mouse_settings ((GsdMouseManager *) user_data);
-
-                /* If a touchpad was to appear... */
-                set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, key));
-        }
-}
-
-static void
-device_removed_cb (GdkDeviceManager *device_manager,
-		   GdkDevice        *device,
-		   gpointer          user_data)
-{
-        if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
-                /* If a touchpad was to disappear... */
-                set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, key));
-        }
-}
-
-static void
-set_devicepresence_handler (GsdMouseManager *manager)
-{
-        GdkDeviceManager *device_manager;
-
-        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
-        if (device_manager == NULL)
-                return;
-
-        manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
-                                                           G_CALLBACK (device_added_cb), manager);
-        manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
-                                                             G_CALLBACK (device_removed_cb), manager);
-        manager->priv->device_manager = device_manager;
 }
 
 static XDevice *
@@ -969,6 +928,46 @@ touchpad_callback (GSettings       *settings,
                 mouse_left_handed = g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED);
                 set_left_handed (manager, mouse_left_handed, get_touchpad_handedness (manager, mouse_left_handed));
         }
+}
+
+static void
+device_added_cb (GdkDeviceManager *device_manager,
+                 GdkDevice        *device,
+                 GsdMouseManager  *manager)
+{
+        if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
+                set_mouse_settings (manager);
+
+                /* If a touchpad was to appear... */
+                set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
+        }
+}
+
+static void
+device_removed_cb (GdkDeviceManager *device_manager,
+		   GdkDevice        *device,
+		   GsdMouseManager  *manager)
+{
+        if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
+                /* If a touchpad was to disappear... */
+                set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
+        }
+}
+
+static void
+set_devicepresence_handler (GsdMouseManager *manager)
+{
+        GdkDeviceManager *device_manager;
+
+        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+        if (device_manager == NULL)
+                return;
+
+        manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
+                                                           G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
+                                                             G_CALLBACK (device_removed_cb), manager);
+        manager->priv->device_manager = device_manager;
 }
 
 static void
