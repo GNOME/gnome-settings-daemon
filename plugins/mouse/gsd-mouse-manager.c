@@ -707,7 +707,6 @@ set_horiz_scroll (gboolean state)
         return 0;
 }
 
-
 static int
 set_edge_scroll (GsdTouchpadScrollMethod method)
 {
@@ -833,8 +832,7 @@ set_locate_pointer (GsdMouseManager *manager,
                         g_error_free (error);
                 }
 
-        }
-        else if (manager->priv->locate_pointer_spawned) {
+        } else if (manager->priv->locate_pointer_spawned) {
                 kill (manager->priv->locate_pointer_pid, SIGHUP);
                 g_spawn_close_pid (manager->priv->locate_pointer_pid);
                 manager->priv->locate_pointer_spawned = FALSE;
