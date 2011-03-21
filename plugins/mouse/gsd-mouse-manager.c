@@ -1014,8 +1014,11 @@ touchpad_callback (GSettings       *settings,
         } else if (g_str_equal (key, KEY_MOTION_ACCELERATION) ||
                    g_str_equal (key, KEY_MOTION_THRESHOLD)) {
                 set_motion (manager);
+        } else if (g_str_equal (key, KEY_LEFT_HANDED)) {
+                gboolean mouse_left_handed;
+                mouse_left_handed = g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED);
+                set_left_handed (manager, mouse_left_handed, get_touchpad_handedness (manager, mouse_left_handed));
         }
-        /* FIXME handle KEY_LEFT_HANDED */
 }
 
 static void
