@@ -4,6 +4,7 @@
     <child name="touchpad" schema="org.gnome.settings-daemon.peripherals.touchpad"/>
     <child name="keyboard" schema="org.gnome.settings-daemon.peripherals.keyboard"/>
     <child name="mouse" schema="org.gnome.settings-daemon.peripherals.mouse"/>
+    <child name="input-devices" schema="org.gnome.settings-daemon.peripherals.input-devices"/>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.smartcard" path="/org/gnome/settings-daemon/peripherals/smartcard/">
     <key name="removal-action" enum="org.gnome.settings-daemon.GsdSmartcardRemovalAction">
@@ -129,6 +130,13 @@
       <default>false</default>
       <_summary>Middle button emulation</_summary>
       <_description>Enables middle mouse button emulation through simultaneous left and right button click.</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.input-devices" path="/org/gnome/settings-daemon/peripherals/input-devices/">
+    <key name="hotplug-command" type="s">
+      <default>''</default>
+      <_summary>Device hotplug custom command</_summary>
+      <_description>Command to be run when a device is added or removed.</_description>
     </key>
   </schema>
 </schemalist>

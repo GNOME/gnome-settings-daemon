@@ -27,3 +27,8 @@ libcommon_la_LDFLAGS = \
 libcommon_la_LIBADD  = \
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(XINPUT_LIBS)
+
+scriptsdir = $(datadir)/gnome-settings-daemon-@GSD_API_VERSION@
+scripts_DATA = input-device-example.sh
+
+EXTRA_DIST = $(scripts_DATA)
