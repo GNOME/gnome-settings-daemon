@@ -361,7 +361,6 @@ set_left_handed (GsdMouseManager *manager,
 
                 if (tap && !single_button)
                         set_tap_to_click (device, tap, left_handed);
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 
                 if (single_button)
                         goto out;
