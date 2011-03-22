@@ -18,8 +18,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-03-13 23:47+0000\n"
-"PO-Revision-Date: 2011-03-14 19:34+0300\n"
-"Last-Translator: Mattias Põldaru <mahfiaz@gmail.com>\n"
+"PO-Revision-Date: 2011-03-18 08:08+0200\n"
+"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
@@ -119,7 +119,6 @@ msgstr "Smartcardi eemaldamise tegevus"
 msgid "Activation of this plugin"
 msgstr "Selle plugina aktiveerimine"
 
-#, fuzzy
 msgid "Priority to use for this plugin"
 msgstr "Selle plugina kasutamise prioriteet"
 
@@ -588,12 +587,11 @@ msgstr ""
 msgid "Whether to turn off specific monitors after boot"
 msgstr "Kas pärast alglaadimist lülitada välja mõned monitorid"
 
-#, fuzzy
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
 msgstr ""
-"Sõnede loend GTK+ moodulitest, mis laaditakse, tavaliselt lisaks "
+"Sõnede loend GTK+ laaditavatest moodulitest. Tavaliselt lisaks "
 "tingimuslikult ning selgesõnaliselt keelatud moodulitele."
 
 msgid ""
@@ -895,9 +893,9 @@ msgstr "Automaatühendamise plugin"
 msgid "Unable to mount %s"
 msgstr "%s haakimine pole võimalik"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open a folder for %s"
-msgstr "%s kataloogi avamine pole võimalik"
+msgstr "%s jaoks kataloogi avamine pole võimalik"
 
 msgid "Ask what to do"
 msgstr "Küsitakse, mida teha"
@@ -1278,9 +1276,9 @@ msgid "The cover is open on printer '%s'."
 msgstr "Printeri '%s' kaas on lahti."
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#, fuzzy, c-format
+#, c-format
 msgid "There is a missing print filter for printer '%s'."
-msgstr "Printerile '%s' puudub printimise filter."
+msgstr "Printeril '%s' puudub printimisfilter."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #, c-format
@@ -1568,9 +1566,8 @@ msgid "Try again"
 msgstr "Proovi uuesti"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#, fuzzy
 msgid "A transaction that cannot be interrupted is running"
-msgstr "Käib tegevus, mida pole võimalik katkestada"
+msgstr "Transaktsioon, mida pole võimalik katkestada"
 
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 msgid ""
@@ -1593,18 +1590,15 @@ msgid "Your hardware has been set up and is now ready to use."
 msgstr "Sinu seade on häälestatud ning kasutamiseks valmis."
 
 #. TRANSLATORS: we need another package to keep udev quiet
-#, fuzzy
 msgid ""
 "Additional firmware is required to make hardware in this computer function "
 "correctly."
 msgstr ""
-"Selle seadme korrektseks toimimiseks selles arvutis tuleb paigaldada "
-"lisapüsivara."
+"Selle arvuti riistvara õigeks toimimiseks läheb tarvis täiendavat püsivara."
 
 #. TRANSLATORS: title of libnotify bubble
-#, fuzzy
 msgid "Additional firmware required"
-msgstr "Vajalik on lisapüsivara"
+msgstr "Vajadus täiendava püsivara järele"
 
 #. TRANSLATORS: button label
 msgid "Install firmware"
@@ -1613,17 +1607,6 @@ msgstr "Paigalda püsivara"
 #. TRANSLATORS: we should ignore this device and not ask anymore
 msgid "Ignore devices"
 msgstr "Eira seadmeid"
-
-#~ msgid "DPI"
-#~ msgstr "DPI"
-
-#~ msgid ""
-#~ "The resolution used for converting font sizes to pixel sizes, in dots per "
-#~ "inch. 0.0 DPI means that the X server's DPI will be used."
-#~ msgstr ""
-#~ "Eraldusvõime, mida kasutatakse kirjasuuruste pikslitesse teisendamisel. "
-#~ "Ühik punkti tollile. Väärtus 0.0 punkti tollile tähendab, et kasutatakse "
-#~ "X-serveri vastavat väärtust."
 
 #~ msgid "Removing item %s of %s"
 #~ msgstr "Kirje %s eemaldamine (%s-st)"
@@ -1915,45 +1898,6 @@ msgstr "Eira seadmeid"
 #~ msgid "Font"
 #~ msgstr "Kirjatüüp"
 
-#~ msgid ""
-#~ "Error activating XKB configuration.\n"
-#~ "It can happen under various circumstances:\n"
-#~ " • a bug in libxklavier library\n"
-#~ " • a bug in X server (xkbcomp, xmodmap utilities)\n"
-#~ " • X server with incompatible libxkbfile implementation\n"
-#~ "\n"
-#~ "X server version data:\n"
-#~ "%s\n"
-#~ "%d\n"
-#~ "%s\n"
-#~ "If you report this situation as a bug, please include:\n"
-#~ " • The result of <b>%s</b>\n"
-#~ " • The result of <b>%s</b>"
-#~ msgstr ""
-#~ "Viga XKB sätete aktiveerimisel.\n"
-#~ "See võib juhtuda mitmetel asjaoludel:\n"
-#~ " • vea tõttu libxklavier teegis\n"
-#~ " • vea tõttu X-serveris (utiliidid xkbcomp ja xmodmap)\n"
-#~ " • ühildamatusega libxkbfile ja X-serveri vahel\n"
-#~ "\n"
-#~ "X-serveri versiooniandmed:\n"
-#~ "%s\n"
-#~ "%d\n"
-#~ "%s\n"
-#~ "Kui sa plaanid olukorra kohta vearaporti saata, siis lisa sinna ka:\n"
-#~ " • <b>%s</b> tulemus\n"
-#~ " • <b>%s</b> tulemus"
-
-#~ msgid ""
-#~ "You are using XFree 4.3.0.\n"
-#~ "There are known problems with complex XKB configurations.\n"
-#~ "Try using a simpler configuration or using a later version of the XFree "
-#~ "software."
-#~ msgstr ""
-#~ "Sa kasutad XFree versiooni 4.3.0.\n"
-#~ "Sellel on teadaolevalt probleeme kompleksete XKB sätetega.\n"
-#~ "Proovi kasutada lihtsamaid sätteid või kasuta värskemat XFree tarkvara."
-
 #~ msgid "A_vailable files:"
 #~ msgstr "_Saadaolevad failid:"
 
@@ -2004,6 +1948,3 @@ msgstr "Eira seadmeid"
 
 #~ msgid "Configure display settings"
 #~ msgstr "Kuva seadistamine"
-
-#~ msgid "GConf key %s set to type %s but its expected type was %s\n"
-#~ msgstr "GConf võti %s on tüübiga %s, eeldatakse tüüpi %s\n"
