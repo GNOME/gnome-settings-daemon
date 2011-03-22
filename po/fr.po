@@ -8,15 +8,16 @@
 # Laurent Coudeur <laurentc@iol.ie>, 2009-2010
 # Gérard Baylard <Geodebay@gmail.com>, 2011
 # Alain Lojewski <allomervan@gmail.com>, 2011
+# Bruno Brouard <annoa.b@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-18 18:56+0000\n"
-"PO-Revision-Date: 2011-03-19 13:49+0100\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"POT-Creation-Date: 2011-03-21 10:21+0000\n"
+"PO-Revision-Date: 2011-03-21 21:21+0100\n"
+"Last-Translator: Bruno Brouard <annoa.b@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,34 +29,42 @@ msgid "GNOME Settings Daemon"
 msgstr "Service des paramètres GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Command to be run when a device is added or removed."
+msgstr "Commande à lancer lorsqu'un périphérique est ajouté ou retiré."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid "Device hotplug custom command"
+msgstr "Commande personnalisée pour les connexions à chaud de périphériques"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
 msgstr "Désactiver le pavé tactile lors de la frappe au clavier"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid "Distance before a drag is started."
 msgstr "Distance avant qu'un glisser-déposer soit initié."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "Double click time"
 msgstr "Durée d'un double-clic"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
 msgid "Drag threshold"
 msgstr "Seuil de déplacement"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Enable horizontal scrolling"
 msgstr "Activer le défilement horizontal"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "Enable mouse clicks with touchpad"
 msgstr "Activer les clics de souris avec le pavé tactile"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable touchpad"
 msgstr "Activer le pavé tactile"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
@@ -63,7 +72,7 @@ msgstr ""
 "Active la simulation du bouton central de la souris par un clic simultané "
 "sur les boutons droit et gauche."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
@@ -71,19 +80,19 @@ msgstr ""
 "Met en évidence la position du pointeur de la souris lorsque la touche Ctrl "
 "est pressée puis relâchée."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Length of a double click in milliseconds."
 msgstr "Durée d'un double-clic en millisecondes."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid "Middle button emulation"
 msgstr "Émulation du bouton central de la souris"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Select the touchpad scroll method"
 msgstr "Méthode de défilement avec le pavé tactile"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid ""
 "Select the touchpad scroll method. Supported values are: \"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\"."
@@ -92,7 +101,7 @@ msgstr ""
 "admises sont : « disabled » (désactivé), « edge-scrolling » (défilement sur "
 "les bords), « two-finger-scrolling » (défilement à deux doigts)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -100,7 +109,7 @@ msgstr ""
 "Activez cette clé s'il vous arrive d'appuyer accidentellement sur le pavé "
 "tactile lorsque vous tapez au clavier."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -108,18 +117,18 @@ msgstr ""
 "Activez cette clé pour permettre le défilement horizontal selon la méthode "
 "sélectionnée avec la clé « scroll_method » (méthode de défilement)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "Activez cette clé pour pouvoir effectuer des clics de souris en pressant sur "
 "le pavé tactile."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Activez cette clé pour activer tous les pavés tactiles."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
 "action will get performed when the smartcard used for log in is removed."
@@ -129,7 +138,7 @@ msgstr ""
 "déconnexion). Cette action est effectuée lorsque la carte à puce utilisée "
 "pour se connecter est retirée."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Smartcard removal action"
 msgstr "Action quand la carte à puce est retirée"
 
@@ -384,8 +393,8 @@ msgid ""
 "If non-empty, keybindings will be ignored unless their settings directory is "
 "in the list. This is useful for lockdown."
 msgstr ""
-"Si renseigné, les raccourcis sont ignorés tant que leur répertoire de paramètres "
-"n'est pas dans la liste. Utile pour le verrouillage."
+"Si renseigné, les raccourcis sont ignorés tant que leur répertoire de "
+"paramètres n'est pas dans la liste. Utile pour le verrouillage."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Increase text size"
@@ -597,8 +606,8 @@ msgstr "Fréquence de rafraîchissement du cache des paquets"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr ""
-"Fréquence de rafraîchissement du cache des paquets. La valeur est exprimée en "
-"secondes."
+"Fréquence de rafraîchissement du cache des paquets. La valeur est exprimée "
+"en secondes."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid ""
@@ -741,8 +750,8 @@ msgid ""
 msgstr ""
 "Utilisation d'une connexion WiFi (LAN sans fil) pour vérifier s'il y a des "
 "mises à jour. Il peut être plus rapide d'utiliser une connexion filaire pour "
-"télécharger des paquets. Il se peut aussi que le VPN ou le serveur mandataire "
-"requis ne soit accessible que via une connexion filaire."
+"télécharger des paquets. Il se peut aussi que le VPN ou le serveur "
+"mandataire requis ne soit accessible que via une connexion filaire."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
 msgid "Use WiFi connections"
@@ -778,9 +787,9 @@ msgid ""
 "the internal monitor, 'do-nothing' will use the default Xorg behaviour "
 "(extend the desktop in recent versions)"
 msgstr ""
-"« clone » affiche la même chose sur tous les écrans, « dock » éteint "
-"l'écran interne, « do-nothing » utilise le comportement Xorg par défaut "
-"(étendre le bureau dans les versions récentes)"
+"« clone » affiche la même chose sur tous les écrans, « dock » éteint l'écran "
+"interne, « do-nothing » utilise le comportement Xorg par défaut (étendre le "
+"bureau dans les versions récentes)"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
@@ -916,8 +925,8 @@ msgstr "Définissez ceci à la cartographie des boutons logiques."
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
-"Définissez ici la valeur de pression pour laquelle un évènement clic du stylet "
-"est généré."
+"Définissez ici la valeur de pression pour laquelle un évènement clic du "
+"stylet est généré."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
@@ -929,26 +938,26 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
 msgstr ""
-"Définissez ici les coordonnées x1, y1 et x2, y2 de la surface utilisable par le "
-"curseur."
+"Définissez ici les coordonnées x1, y1 et x2, y2 de la surface utilisable par "
+"le curseur."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
 msgstr ""
-"Définissez ici les coordonnées x1, y1 et x2, y2 de la surface utilisable par la "
-"gomme."
+"Définissez ici les coordonnées x1, y1 et x2, y2 de la surface utilisable par "
+"la gomme."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
 msgstr ""
-"Définissez ici les coordonnées x1, y1 et x2, y2 de la surface utilisable par le "
-"pavé."
+"Définissez ici les coordonnées x1, y1 et x2, y2 de la surface utilisable par "
+"le pavé."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
 msgstr ""
-"Définissez ici les coordonnées x1, y1 et x2, y2 de la surface utilisable par le "
-"stylet."
+"Définissez ici les coordonnées x1, y1 et x2, y2 de la surface utilisable par "
+"le stylet."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
@@ -1581,18 +1590,18 @@ msgstr "Touches multimédia"
 msgid "Media keys plugin"
 msgstr "Greffon des touches multimédia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:924
+#: ../plugins/mouse/gsd-mouse-manager.c:864
 msgid "Could not enable mouse accessibility features"
 msgstr "Impossible d'activer les fonctions d'accessibilité pour la souris"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:926
+#: ../plugins/mouse/gsd-mouse-manager.c:866
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Pour activer les fonctions d'accessibilité pour la souris, Mousetweaks doit "
 "être installé sur votre système."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:928
+#: ../plugins/mouse/gsd-mouse-manager.c:868
 msgid "Universal Access"
 msgstr "Accès universel"
 
