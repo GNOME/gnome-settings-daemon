@@ -1,15 +1,16 @@
 # gnome-settings-daemon's Portuguese Translation
-# Copyright © 1999, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 gnome-settings-daemon
+# Copyright © 1999, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 gnome-settings-daemon
 # Distributed under the same licence as the gnome-control-center package
-# Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010.
+# Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
 # Nuno Ferreira <nmrf@rnl.ist.utl.pt>, 1999.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 2.32\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-04 22:38+0100\n"
-"PO-Revision-Date: 2010-09-04 22:25+0000\n"
+"Project-Id-Version: 3.0\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-03-21 10:21+0000\n"
+"PO-Revision-Date: 2011-03-23 00:30+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,42 +18,202 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "Acessibilidade"
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "Daemon de Definições do GNOME"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Command to be run when a device is added or removed."
+msgstr "Comando a ser executado quando se adiciona ou remove um dispositivo."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid "Device hotplug custom command"
+msgstr "Comando personalizado de ligação de dispositivos"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Disable touchpad while typing"
+msgstr "Desactivar o touchpad enquanto utiliza o teclado"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Distance before a drag is started."
+msgstr "Distância a percorrer antes de iniciar um arrasto."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "Double click time"
+msgstr "Tempo de clique-duplo"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Drag threshold"
+msgstr "Tolerância ao arrastar"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid "Enable horizontal scrolling"
+msgstr "Activar o rolamento horizontal"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "Enable mouse clicks with touchpad"
+msgstr "Activar os cliques de rato com o touchpad"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "Enable touchpad"
+msgstr "Activar o touchpad"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Activa a emulação de botão do meio do rato através do clique simultaneo nos "
+"botões esquerdo e direito."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid ""
+"Highlights the current location of the pointer when the Control key is "
+"pressed and released."
+msgstr ""
+"Realça a localização actual do ponteiro quando a tecla de Control é premida "
+"e largada."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+msgid "Length of a double click in milliseconds."
+msgstr "Duração de um clique-duplo em milissegundos."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+msgid "Middle button emulation"
+msgstr "Emulação do botão do meio do rato"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+msgid "Select the touchpad scroll method"
+msgstr "Seleccione o método de rolamento do touchpad"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+msgid ""
+"Select the touchpad scroll method. Supported values are: \"disabled\", "
+"\"edge-scrolling\", \"two-finger-scrolling\"."
+msgstr ""
+"Seleccione o método de rolamento do touchpad. Valores suportados são: "
+"\"disabled\", \"edge-scrolling\" e \"two-finger-scrolling\"."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Defina como VERDADEIRO caso tenha problemas por tocar acidentalmente no "
+"touchpad enquanto utiliza o teclado."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Defina como VERDADEIRO para permitir rolamento horizontal com o mesmo método "
+"seleccionado com a chave scroll_method."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Defina como VERDADEIRO para ser possível enviar cliques do rato tocando no "
+"touchpad."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Defina como VERDADEIRO para activar todos os touchpads."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+msgid ""
+"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+"Definir como um de \"none\", \"lock-screen\", ou \"force-logout\". A acção "
+"será realizada quando o smartcard utilizado para iniciar sessão for removido."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid "Smartcard removal action"
+msgstr "Acção ao remover o smartcard"
+
+#. g-p-m is not a GSD plugin, yet
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+msgid "Activation of this plugin"
+msgstr "Activação deste plugin"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+msgid "Priority to use for this plugin"
+msgstr "Prioridade de utilização deste plugin"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgstr "Prioridade de utilização deste plugin na fila de arranque do gnome-settings-daemon"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgstr "Se este plugin seria activado pelo gnome-settings-daemon ou não"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
-msgstr "Tolerância de notificação de percentagem livre"
+msgstr "Tolerância de notificação de percentagem disponível"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
-msgid "Free space no notify threshold"
-msgstr "Tolerância de notificação de espaço livre"
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+msgid "Free space notify threshold"
+msgstr "Tolerância de notificação de espaço disponível"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Minimum notify period for repeated warnings"
 msgstr "Período mínimo de notificação para avisos repetidos"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
 msgstr "Caminhos de montagem a ignorar"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
 msgstr ""
-"Tolerância de percentagem de espaço livre para o aviso inicial de pouco "
-"espaço disponível. Se a percentagem de espaço livre descer abaixo desta, "
-"será apresentado um aviso."
+"Tolerância de percentagem de espaço disponível para o aviso inicial de pouco "
+"espaço disponível. Se a percentagem de espaço disponível descer abaixo "
+"desta, será apresentado um aviso."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
 "Especifique uma lista de caminhos de montagem a ignorar caso fiquem com "
-"pouco espaço livre."
+"pouco espaço disponível."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
@@ -60,195 +221,548 @@ msgstr ""
 "Especifique um período em minutos. Avisos subsequentes para uma unidade não "
 "serão apresentados mais frequentemente do que este período."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
 msgstr ""
-"Especifique uma quantidade em GB. Se a quantidade de espaço livre for "
+"Especifique uma quantidade em GB. Se a quantidade de espaço disponível for "
 "superior a esta, não será apresentado qualquer aviso."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
 msgstr ""
-"Especifique a percentagem que deverá diminuir de espaço livre para que seja "
-"emitido novo aviso."
+"Especifique a percentagem que deverá diminuir de espaço disponível para que "
+"seja emitido novo aviso."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
-msgid "Subsequent free percentage notify threshold"
-msgstr "Tolerância de notificação subsequente de percentagem livre"
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+msgid "Subsequent free space percentage notify threshold"
+msgstr "Tolerância de notificação subsequente de percentagem disponível"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
+msgstr "Prioridade de utilização deste plugin na fila de arranque do gnome-settings-daemon."
+
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+msgstr "Se este plugin deverá ser activado pelo gnome-settings-daemon ou não."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+msgid "Allowed keys"
+msgstr "Teclas permitidas"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+msgid "Binding for the magnifier to zoom in"
+msgstr "Atalho para ampliar o ecrã"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+msgid "Binding for the magnifier to zoom out"
+msgstr "Atalho para reduzir a ampliação do ecrã"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+msgid "Binding to decrease the text size"
+msgstr "Atalho para reduzir o tamanho da fonte do texto"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 msgid "Binding to eject an optical disc."
 msgstr "Atalho para ejectar um disco óptico."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Binding to enable or disable the touchpad."
 msgstr "Atalho para activar ou desactivar o touchpad."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+msgid "Binding to increase the text size"
+msgstr "Atalho para aumentar o tamanho da fonte do texto"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
 msgstr "Atalho para iniciar a calculadora."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "Atalho para iniciar o cliente de email."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the help browser."
 msgstr "Atalho para iniciar o navegador de ajuda."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the media player."
 msgstr "Atalho para iniciar o reprodutor de media."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the search tool."
 msgstr "Atalho para iniciar a ferramenta de procura."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the web browser."
 msgstr "Atalho para iniciar o navegador web."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lock the screen."
 msgstr "Atalho para trancar o ecrã."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to log out."
 msgstr "Atalho para terminar a sessão."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to lower the system volume."
 msgstr "Atalho para reduzir o volume do sistema."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to mute the system volume."
 msgstr "Atalho para silenciar o volume do sistema."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to open the Home folder."
 msgstr "Atalho para abrir a Pasta Pessoal."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "Atalho para pausar a reprodução."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to raise the system volume."
 msgstr "Atalho para aumentar o volume do sistema."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+msgid "Binding to show the on-screen keyboard"
+msgstr "Atalho para apresentar o teclado no ecrã"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+msgid "Binding to show the screen magnifier"
+msgstr "Atalho para apresentar a ampliação de ecrã"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
 msgstr "Atalho para ir para a faixa seguinte."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to skip to previous track."
 msgstr "Atalho para ir para a faixa anterior."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Atalho para iniciar a reprodução (ou alternar reprodução/pausa)."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+msgid "Binding to start the screen reader"
+msgstr "Atalho para iniciar o leitor de ecrã"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to stop playback."
 msgstr "Atalho para parar a reprodução."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+msgid "Binding to toggle the interface contrast"
+msgstr "Atalho para alternar o contraste do interface"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+msgid "Decrease text size"
+msgstr "Reduzir o tamanho da fonte do texto"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Eject"
 msgstr "Ejectar"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Home folder"
 msgstr "Pasta pessoal"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+msgid ""
+"If non-empty, keybindings will be ignored unless their settings directory is "
+"in the list. This is useful for lockdown."
+msgstr ""
+"Se não-vazio, atalhos de teclado serão ignorados excepto se o seu directório "
+"de definições estiver na lista. Esta funcionalidade é útil para trancar a "
+"configuração."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+msgid "Increase text size"
+msgstr "Aumentar o tamanho da fonte do texto"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch calculator"
 msgstr "Iniciar a calculadora"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch email client"
 msgstr "Iniciar o cliente de email"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch help browser"
 msgstr "Iniciar o navegador de ajuda"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch media player"
 msgstr "Iniciar o reprodutor de media"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Launch web browser"
 msgstr "Iniciar o navegador web"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Lock screen"
 msgstr "Trancar o ecrã"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Log out"
 msgstr "Terminar a sessão"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Magnifier zoom in"
+msgstr "Ampliar o ecrã"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Magnifier zoom out"
+msgstr "Reduzir a ampliação do ecrã"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
 msgstr "Faixa seguinte"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Pause playback"
 msgstr "Pausar a reprodução"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Play (or play/pause)"
 msgstr "Reproduzir (ou reproduzir/pausar)"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Previous track"
 msgstr "Faixa anterior"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Search"
 msgstr "Procurar"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Stop playback"
 msgstr "Parar a reprodução"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+msgid "Toggle contrast"
+msgstr "Alternar o contraste"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+msgid "Toggle magnifier"
+msgstr "Alternar a ampliação"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+msgid "Toggle on-screen keyboard"
+msgstr "Alternar o teclado no ecrã"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+msgid "Toggle screen reader"
+msgstr "Alternar o leitor de ecrã"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Toggle touchpad"
 msgstr "Alternar o touchpad"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume down"
 msgstr "Reduzir o volume"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Volume mute"
 msgstr "Silenciar o volume"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:38
-msgid "Volume step"
-msgstr "Incremento de volume"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:39
-msgid "Volume step as percentage of volume."
-msgstr "Incremento de volume como uma percentagem de volume."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Volume up"
 msgstr "Aumentar o volume"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+msgid "Ask the user if additional firmware should be installed"
+msgstr "Perguntar ao utilizador se deve ser instalado firmware adicional"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+msgid ""
+"Ask the user if additional firmware should be installed if it is available."
+msgstr ""
+"Perguntar ao utilizador se deve ser instalado firmware adicional, caso esteja disponível."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+msgid "Automatically download updates in the background without confirmation"
+msgstr "Realizar downloads automaticamente por trás sem pedir confirmação"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+"'connection-use-mobile' is enabled."
+msgstr ""
+"Realizar downloads automaticamente por trás sem pedir confirmação. As "
+"actualizações serão obtidas automaticamente quando estiver a ser utilizada "
+"uma ligação com fios, uma ligação WiFi caso 'connection-use-wifi' esteja "
+"activado e banda larga móvel caso 'connection-use-mobile' esteja activado."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+msgid "Automatically update these types of updates"
+msgstr "Actualizar automaticamente estes tipos de actualizações"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+msgid "Automatically update these types of updates."
+msgstr "Actualizar automaticamente estes tipos de actualizações."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+msgid "Devices that should be ignored"
+msgstr "Dispositivos que devem ser ignorados"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+msgid ""
+"Devices that should be ignored, separated by commas. These can include '*' "
+"and '?' characters."
+msgstr ""
+"Dispositivos que devem ser ignorados, separados por vírgulas. Estes podem "
+"incluir os caracteres '*' e '?'."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+msgid "Firmware files that should not be searched for"
+msgstr "Ficheiros de firmware que não devem ser procurados"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+msgid ""
+"Firmware files that should not be searched for, separated by commas. These "
+"can include '*' and '?' characters."
+msgstr ""
+"Ficheiros de firmware que não devem ser procurados, separados por vírgulas. "
+"Estes podem incluir os caracteres '*' e '?'."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+msgid "Get the update list when the session starts"
+msgstr "Obter a lista de actualizações quando é iniciada a sessão"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+msgid "Get the update list when the session starts, even if not scheduled to."
+msgstr ""
+"Obter a lista de actualizações quando é iniciada a sessão, mesmo que tal não "
+"esteja calendarizado."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+msgid "How often to check for distribution upgrades"
+msgstr "Frequência de verificação de actualizações de distribuição"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+msgid "How often to check for distribution upgrades. Value is in seconds."
+msgstr ""
+"Frequência de verificação de actualizações de distribuição. Valor em "
+"segundos."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+msgid "How often to check for updates"
+msgstr "Frequência de verificação de actualizações"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+msgid ""
+"How often to check for updates. Value is in seconds. This is a maximum "
+"amount of time that can pass between a security update being published, and "
+"the update being automatically installed or the user notified."
+msgstr ""
+"Frequência de verificação de actualizações. Valor em segundos. Esta é a "
+"quantidade máxima de tempo que poderá decorrer entre ser publicada uma "
+"actualização de segurança e esta ser automaticamente instalada ou o "
+"utilizador ser notificado."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+msgid "How often to notify the user that non-critical updates are available"
+msgstr ""
+"Frequência de notificação ao utilizador da disponibilidade de actualizações "
+"não-críticas"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+msgid "How often to refresh the package cache"
+msgstr "Frequência de actualização da cache de pacotes"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+msgid "How often to refresh the package cache. Value is in seconds."
+msgstr "Frequência de actualização da cache de pacotes. Valor em segundos."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+msgid ""
+"How often to tell the user there are non-critical updates. Value is in "
+"seconds. Security update notifications are always shown after the check for "
+"updates, but non-critical notifications should be shown a lot less "
+"frequently."
+msgstr ""
+"Quão frequentemente informar o utilizador da existência de actualizações não-"
+"críticas. Valor em segundos. A notificação de actualizações de segurança é "
+"sempre realizada após serem procuradas actualizações, mas as notificações "
+"não-críticas deverão ser apresentadas com muito menor frequência."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+msgid "Install updates automatically when running on battery power"
+msgstr ""
+"Instalar actualizações automaticamente quando a utilizar energia da bateria"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+msgid "Install updates automatically when running on battery power."
+msgstr ""
+"Instalar actualizações automaticamente quando a utilizar energia da bateria."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+msgid "Notify the user for completed updates"
+msgstr "Notificar o utilizador de actualizações terminadas"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+msgid "Notify the user for completed updates where the user needs to restart"
+msgstr ""
+"Notificar o utilizador para actualizações terminadas que necessitam que o "
+"utilizador reinicie o computador"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+msgid "Notify the user for completed updates where the user needs to restart."
+msgstr ""
+"Notificar o utilizador para actualizações terminadas que necessitam que o "
+"utilizador reinicie o computador."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+msgid ""
+"Notify the user for completed updates. This may be a useful notification for "
+"some users as installing updates prevents shutdown."
+msgstr ""
+"Notificar o utilizador sobre actualizações concluídas. Esta notificação "
+"poderá ser útil para alguns utilizadores pois instalar actualizações impede "
+"que se desligue o sistema."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+msgid "Notify the user when distribution upgrades are available"
+msgstr ""
+"Notificar o utilizador quando estão disponíveis novas versões de distribuição"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+msgid "Notify the user when distribution upgrades are available."
+msgstr ""
+"Notificar o utilizador quando estão disponíveis novas versões de distribuição."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+msgid ""
+"Notify the user when the automatic update was not started on battery power"
+msgstr ""
+"Notificar o utilizador quando a actualização automática não foi iniciada "
+"com energia da bateria"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+msgid ""
+"Notify the user when the update was not automatically started because the "
+"machine is running on battery power."
+msgstr ""
+"Notificar o utilizador quando a actualização não foi iniciada "
+"automaticamente por a máquina estar a utilizar energia da bateria."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+msgid "Notify the user when the update was started"
+msgstr "Notificar o utilizador quando a actualização foi iniciada"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+msgid "Notify the user when the update was started."
+msgstr "Notificar o utilizador quando a actualização foi iniciada."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+msgid "The filenames on removable media that designate it a software source."
+msgstr "Os ficheiros num media removível que o definem como fonte de aplicações."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+msgid "The install root to use when adding and removing packages"
+msgstr "A raiz de instalação a utilizar ao adicionar e remover pacotes"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+msgid ""
+"The install root to use when processing packages, which is changed when "
+"using LTSP or when testing."
+msgstr ""
+"A raiz de instalação a utilizar ao processar pacotes, que é alterada ao "
+"utilizar LTSP ou ao testar."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+msgid ""
+"The last time we notified the user about non-critical updates. Value is in "
+"seconds since the epoch, or zero for never."
+msgstr ""
+"A última vez que o utilizador foi notificado sobre actualizações não-críticas. "
+"Valor em segundos desda a epoch, ou zero para nunca."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+msgid "The last time we told the user about non-critical notifications"
+msgstr ""
+"A última vez que o utilizador foi notificado sobre actualizações não-críticas"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+msgid ""
+"The number of seconds at session startup to wait before checking for updates"
+msgstr ""
+"O número de segundos no início da sessão a esperar antes de verificar por "
+"actualizações"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+msgid ""
+"The number of seconds at session startup to wait before checking for "
+"updates. Value is in seconds."
+msgstr ""
+"O número de segundos no início da sessão a esperar antes de verificar por "
+"actualizações. Valor em segundos."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+msgid ""
+"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
+"to download packages when on a wired connection, and the VPN or proxy "
+"required may also only be available on wired connections."
+msgstr ""
+"Utilizar ligações WiFi (LAN sem fios) para verificar por actualizações. "
+"Poderá ser mais rápido realizar o download de pacotes numa rede com fios e a "
+"VPN ou proxy necessária poderá apenas estar disponível em ligações com fios."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+msgid "Use WiFi connections"
+msgstr "Utilizar ligações WiFi"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+msgid "Use mobile broadband connections"
+msgstr "Utilizar ligações de banda larga móvel"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+msgid ""
+"Use mobile broadband connections such as GSM and CDMA to check for updates."
+msgstr ""
+"Utilizar ligações de banda larga móvel tais como GSM e CDMA para verificar "
+"por actualizações."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+msgid ""
+"When removable media is inserted, it is checked to see if it contains any "
+"important filenames in the root directory. If the filename matches, then an "
+"updates check is performed. This allows post-install disks to be used to "
+"update running systems."
+msgstr ""
+"Quando é inserida média removível, é verificado se contém quaisquer "
+"ficheiros importantes na raiz. Se os nomes dos ficheiros coincidirem, é "
+"realizada uma verificação de actualizações. Isto permite a utilização de "
+"discos pós-instalação para actualizar sistemas em funcionamento."
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+msgid ""
+"'clone' will display the same thing on all monitors, 'dock' will switch off "
+"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
+"(extend the desktop in recent versions)"
+msgstr ""
+"'clone' irá apresentar as mesmas coisas em todos os monitores, 'dock' irá "
+"desligar o monitor interno, 'do-nothing' irá utilizar o comportamento Xorg "
+"por omissão (estender o ambiente de trabalho, nas versões mais recentes)"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
 msgstr "Ficheiro com a configuração por omissão do RandR"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
-msgid "Show Displays in Notification Area"
-msgstr "Apresentar Ecrãs na Área de Notificação"
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -263,55 +777,47 @@ msgstr ""
 "configuração de monitores do utilizador, então será utilizado o ficheiro "
 "definido por esta chave."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
-msgid "Turn on external monitor after system boot"
-msgstr "Ligar monitor externo após arranque de sistema"
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+msgid "Whether to turn off specific monitors after boot"
+msgstr "Se desligar ou não monitores específicos após arrancar"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid ""
-"Turn on external monitor after system boot if user plugs in external monitor "
-"on system boot."
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
 msgstr ""
-"Ligar monitor externo após arranque de sistema se o utilizador conectar um "
-"monitor externo ao arrancar o sistema."
+"Uma lista de expressões que representam os módulos GTK+ que serão lidos, "
+"normalmente para além dos condicionais e desactivados."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
-msgid "Turn on laptop monitor after system boot"
-msgstr "Ligar o monitor do portátil após arranque de sistema"
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
-"Turn on laptop monitor after system boot if user plugs in external monitor "
-"on system boot."
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
 msgstr ""
-"Ligar monitor do portátil após arranque de sistema se o utilizador conectar "
-"um monitor externo ao arrancar o sistema."
+"Uma lista de expressões que representam os módulos GTK+ que não serão lidos, "
+"mesmo que activados por omissão na sua configuração."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
-msgid ""
-"Whether a notification icon with display-related things should be shown in "
-"the panel."
-msgstr ""
-"Se deverá ou não ser apresentado no painel um ícone de notificação com "
-"informação relacionada com os monitores."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
 msgstr "Antialiasing"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:2
-msgid "DPI"
-msgstr "DPI"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "Dicas de Fonte"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "Lista de módulos GTK+ explicitamente desactivados"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "Lista de módulos GTK+ explicitamente activados"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
 msgstr "Ordem RGBA"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -323,15 +829,7 @@ msgstr ""
 "para vermelho à esquerda (mais comum), \"bgr\" para azul à esquerda, \"vrgb"
 "\" para vermelho no topo, \"vbgr\" para vermelho no fundo."
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:6
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch."
-msgstr ""
-"A resolução utilizada para converter os tamanhos das fontes em tamanhos de "
-"pixel, em pontos por polegada."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -341,7 +839,7 @@ msgstr ""
 "são: \"none\" nenhum antialiasing, \"grayscale\" para antialiasing padrão "
 "cinza e \"rgba\" para antialiasing de subpixel (apenas ecrãs LCD)."
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -352,395 +850,155 @@ msgstr ""
 "moderadas, e \"full\" para dicas máximas (poderá causar distorção na forma "
 "das letras)."
 
-#: ../data/desktop_gnome_keybindings.schemas.in.h:1
-msgid "Allowed keys"
-msgstr "Teclas permitidas"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr "Activar para apenas mover o cursor quando o utilizador toca na tablet."
 
-#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr "Activar para apenas reportar eventos da caneta quando a ponta é premida."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr "Activar para definir o cursor para modo absoluto."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr "Activar para definir a borracha para modo absoluto."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr "Activar para definir a caneta para modo absoluto."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid ""
-"If non-empty, keybindings will be ignored unless their GConf directory is in "
-"the list. This is useful for lockdown."
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
 msgstr ""
-"Se não-vazio, atalhos de teclado serão ignorados excepto se o seu directório "
-"GConf estiver na lista. Esta funcionalidade é útil para trancar a "
-"configuração."
+"Definir como 'none', 'cw' para 90 graus no sentido dos ponteiros, 'half' "
+"para 180 graus e 'ccw' para 90 graus no sentido oposto aos ponteiros."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
-msgid "Disable touchpad while typing"
-msgstr "Desactivar o touchpad enquanto utiliza o teclado"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr "Definir com o mapeamento lógico de botões."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
-msgid "Enable horizontal scrolling"
-msgstr "Activar o rolamento horizontal"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
-msgid "Enable mouse clicks with touchpad"
-msgstr "Activar os cliques de rato com o touchpad"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
-msgid "Enable touchpad"
-msgstr "Activar o touchpad"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
-msgid "Select the touchpad scroll method"
-msgstr "Seleccione o método de rolamento do touchpad"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid ""
-"Select the touchpad scroll method. Supported values are: 0: disabled, 1: "
-"edge scrolling, and 2: two-finger scrolling"
+"Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
-"Seleccione o método de rolamento do touchpad. Valores suportados são: 0: "
-"desactivado, 1: rolamento na margem, 2: rolamento com dois dedos"
+"Definir com o valor de pressão no qual é gerado um evento de clique da caneta."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
-"Set this to TRUE if you have problems with accidentally hitting the touchpad "
-"while typing."
+"Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
-"Defina como VERDADEIRO caso tenha problemas por tocar acidentalmente no "
-"touchpad enquanto utiliza o teclado."
+"Definir com o valor de pressão no qual é gerado um evento de borracha."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr "Definir com o x1, y1 e x2, y2 da área utilizável pelo cursor."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr "Definir com o x1, y1 e x2, y2 da área utilizável pela borracha."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr "Definir com o x1, y1 e x2, y2 da área utilizável pelo touchpad."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr "Definir com o x1, y1 e x2, y2 da área utilizável pela caneta."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
-"Set this to TRUE to allow horizontal scrolling by the same method selected "
-"with the scroll_method key."
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
-"Defina como VERDADEIRO para permitir rolamento horizontal com o mesmo método "
-"seleccionado com a chave scroll_method."
+"Definir com o x1, y1 e x2, y2 da curva de pressão aplicada à borracha."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
-"Defina como VERDADEIRO para ser possível enviar cliques do rato tocando no "
-"touchpad."
+"Definir com o x1, y1 e x2, y2 da curva de pressão aplicada à caneta."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
-msgid "Set this to TRUE to enable all touchpads."
-msgstr "Defina como VERDADEIRO para activar todos os touchpads."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
+msgstr "Modo absoluto de cursor wacom"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
-msgstr "Daemon de Definições GNOME"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
+msgstr "Mapeamento do botão de cursor wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:1
-msgid "Binding to toggle the magnifier."
-msgstr "Atalho para alternar a ampliação."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
+msgstr "Área da tabled do cursor wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
-msgid "Binding to toggle the on-screen keyboard."
-msgstr "Atalho para alternar o teclado no ecrã."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
+msgstr "Modo absoluto de borracha wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
-msgid "Binding to toggle the screen reader."
-msgstr "Atalho para alternar o leitor de ecrã."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
+msgstr "Mapeamento do botão de borracha wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Bounce keys"
-msgstr "Teclas saltantes"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
+msgstr "Curva de pressão da borracha wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
-msgid "Command used to turn the magnifier on or off."
-msgstr "Comando utilizado para activar ou desactivar a ampliação."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
+msgstr "Tolerância de pressão da borracha wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
-msgid "Command used to turn the on-screen keyboard on or off."
-msgstr "Comando utilizado para activar ou desactivar o teclado no ecrã."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
+msgstr "Área da tablet da borracha wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
-msgid "Command used to turn the screen reader on or off."
-msgstr "Comando utilizado para activar ou desactivar o leitor de ecrã."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr "Mapeamento do botão de touchpad wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
-msgid "Enable XRandR plugin"
-msgstr "Activar o plugin XRandR"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr "Área da tablet do touchpad wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
-msgid "Enable accessibility keyboard plugin"
-msgstr "Activar o plugin de acessibilidade de teclado"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr "Modo absoluto da caneta wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
-msgid "Enable background plugin"
-msgstr "Activar o plugin de imagem de fundo"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr "Mapeamento do botão de caneta wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
-msgid "Enable clipboard plugin"
-msgstr "Activar o plugin de área de transferência"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr "Curva de pressão da caneta wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
-msgid "Enable font plugin"
-msgstr "Activar o plugin de fontes"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr "Tolerância de pressão da caneta wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
-msgid "Enable housekeeping plugin"
-msgstr "Activar o plugin de limpeza"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr "Área da tablet da caneta wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
-msgid "Enable keybindings plugin"
-msgstr "Activar o plugin de atalhos de teclado"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr "Funcionalidade PC da tablet wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
-msgid "Enable keyboard plugin"
-msgstr "Activar o plugin de teclado"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr "Rotação da tablet wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid "Enable media keys plugin"
-msgstr "Activar o plugin de teclas de media"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr "Funcionalidade de toque wacom"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable mouse plugin"
-msgstr "Activar o plugin de rato"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
-msgid "Enable smartcard plugin"
-msgstr "Activar o plugin smartcard"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Enable sound plugin"
-msgstr "Activar o plugin de som"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:20
-msgid "Enable typing breaks plugin"
-msgstr "Activar o plugin de pausas de utilização"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:21
-msgid "Enable xrdb plugin"
-msgstr "Activar o plugin xrdb"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:22
-msgid "Enable xsettings plugin"
-msgstr "Activar o plugin xsettings"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-msgid "Mouse keys"
-msgstr "Teclas de rato"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "On-screen keyboard"
-msgstr "Teclado no ecrã"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid "Screen magnifier"
-msgstr "Ampliação de ecrã"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:26
-msgid "Screen reader"
-msgstr "Leitor de ecrã"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:27
-msgid ""
-"Set to True to enable the housekeeping plugin, to prune transient file "
-"caches."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin de limpeza, para esvaziar "
-"caches temporárias de ficheiros."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:28
-msgid "Set to True to enable the plugin to manage XRandR settings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"XRandR."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:29
-msgid "Set to True to enable the plugin to manage clipboard settings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"área de transferência."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:30
-msgid "Set to True to enable the plugin to manage desktop background settings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"fundo."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:31
-msgid "Set to True to enable the plugin to manage font settings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"fonte."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:32
-msgid "Set to True to enable the plugin to manage keyboard settings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"teclado."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:33
-msgid ""
-"Set to True to enable the plugin to manage locking the screen on smartcard "
-"removal."
-msgstr ""
-"Definir como Verdadeiro para permitir que o plugin tranque o ecrã ao ser "
-"removido o smartcard."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid "Set to True to enable the plugin to manage mouse settings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"rato."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
-msgid "Set to True to enable the plugin to manage multimedia keys settings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"teclas multimedia."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:36
-msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as caches de "
-"amostras de som."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:37
-msgid ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"acessibilidade do teclado."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:38
-msgid "Set to True to enable the plugin to manage the keybindings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"atalhos de teclado."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:39
-msgid "Set to True to enable the plugin to manage typing breaks."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"pausas de utilização."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:40
-msgid "Set to True to enable the plugin to manage xrdb settings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"xrdb."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:41
-msgid "Set to True to enable the plugin to manage xsettings."
-msgstr ""
-"Definir como Verdadeiro para activar o plugin para gerir as definições de "
-"xsettings."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:42
-msgid "Slow keys"
-msgstr "Teclas lentas"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:43
-msgid "Sticky keys"
-msgstr "Teclas coladas"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:44
-msgid "The name of the keyboard shortcut to toggle the magnifier"
-msgstr "O nome do atalho de teclado para alternar a ampliação de ecrã"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:45
-msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
-msgstr "O nome do atalho de teclado para alternar o teclado no ecrã"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid "The name of the keyboard shortcut to toggle the screen reader"
-msgstr "O nome do atalho de teclado para alternar o leitor de ecrã"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:47
-msgid ""
-"This is the name of the keyboard shortcut to toggle the magnifier. This name "
-"will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Este é o nome do atalho de teclado para alternar a ampliação de ecrã. Este "
-"nome será apresentado no diálogo de preferências de atalhos de teclado."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:48
-msgid ""
-"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
-"This name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Este é o nome do atalho de teclado para alternar o teclado no ecrã. Este "
-"nome será apresentado no diálogo de preferências de atalhos de teclado."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:49
-msgid ""
-"This is the name of the keyboard shortcut to toggle the screen reader. This "
-"name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Este é o nome do atalho de teclado para alternar o leitor de ecrã. Este nome "
-"será apresentado no diálogo de preferências de atalhos de teclado."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:50
-msgid "Toggle magnifier"
-msgstr "Alternar a ampliação"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:51
-msgid "Toggle on-screen keyboard"
-msgstr "Alternar o teclado no ecrã"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:52
-msgid "Toggle screen reader"
-msgstr "Alternar o leitor de ecrã"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-msgstr ""
-"Se a funcionalidade de acessibilidade de teclado \"teclas saltantes\" está "
-"activa ou não."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
-msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-msgstr ""
-"Se a funcionalidade de acessibilidade de teclado \"teclas de rato\" está "
-"activa ou não."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:55
-msgid "Whether the on-screen keyboard is turned on."
-msgstr "Se o teclado no ecrã está activo ou não."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:56
-msgid "Whether the screen magnifier is turned on."
-msgstr "Se a ampliação de ecrã está activa ou não."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:57
-msgid "Whether the screen reader is turned on."
-msgstr "Se o leitor de ecrã está activo ou não."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:58
-msgid "Whether the slow keys keyboard accessibility feature is turned on."
-msgstr ""
-"Se a funcionalidade de acessibilidade de teclado \"teclas lentas\" está "
-"activa ou não."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:59
-msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-msgstr ""
-"Se a funcionalidade de acessibilidade de teclado \"teclas coladas\" está "
-"activa ou não."
-
-#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:1
-msgid ""
-"Set this to one of \"none\", \"lock_screen\", or \"force_logout\". The "
-"action will get performed when the smartcard used for log in is removed."
-msgstr ""
-"Definir como um de \"none\", \"lock_screen\", ou \"force_logout\". A acção "
-"será realizada quando o smartcard utilizado para iniciar sessão for removido."
-
-#: ../data/desktop_gnome_peripherals_smartcard.schemas.in.h:2
-msgid "Smartcard removal action"
-msgstr "Acção ao remover o smartcard"
+#: ../gnome-settings-daemon/main.c:54
+msgid "Enable debugging code"
+msgstr "Activar código de depuração"
 
 #: ../gnome-settings-daemon/main.c:55
-msgid "Enable debugging code"
-msgstr "Activar o código de depuração"
-
-#: ../gnome-settings-daemon/main.c:56
-msgid "Don't become a daemon"
-msgstr "Não se tornar num daemon"
-
-#: ../gnome-settings-daemon/main.c:57
-msgid "GConf prefix from which to load plugin settings"
-msgstr "Prefixo GConf do qual ler as definições de plugins"
-
-#: ../gnome-settings-daemon/main.c:58
 msgid "Exit after a time (for debugging)"
 msgstr "Terminar após algum tempo (para depuração)"
 
@@ -752,23 +1010,23 @@ msgstr "Acessibilidade do Teclado"
 msgid "Accessibility keyboard plugin"
 msgstr "Plugin de acessibilidade do teclado"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:460
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:392
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Ocorreu um erro ao apresentar a ajuda: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:591
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:657
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
 msgid "Do you want to activate Slow Keys?"
 msgstr "Deseja activar as Teclas Lentas?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:592
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Deseja desactivar as Teclas Lentas?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:659
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -777,62 +1035,62 @@ msgstr ""
 "para a funcionalidade de Teclas Lentas, que afecta a forma como o seu "
 "teclado funciona."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't activate"
 msgstr "Não activar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:757
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't deactivate"
 msgstr "Não desactivar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Activate"
 msgstr "Activar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:624
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:763
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Deactivate"
 msgstr "Desactivar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't activate"
 msgstr "_Não activar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:821
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't deactivate"
 msgstr "_Não desactivar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Activate"
 msgstr "_Activar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:824
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Deactivate"
 msgstr "_Desactivar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:687
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
 msgid "Slow Keys Alert"
 msgstr "Alerta de Teclas Lentas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:727
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:795
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Deseja activar as Teclas Coladas?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:796
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Deseja desactivar as Teclas Coladas?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:730
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:798
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -841,8 +1099,8 @@ msgstr ""
 "funcionalidade de Teclas Coladas, que afecta a forma como o seu teclado "
 "funciona."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:732
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:800
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -852,11 +1110,11 @@ msgstr ""
 "seguidas.  Isto desactiva a funcionalidade de Teclas Coladas, que afecta a "
 "forma como o seu teclado funciona."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:828
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
 msgid "Sticky Keys Alert"
 msgstr "Alerta de Teclas Coladas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Preferências de Acesso Universal"
@@ -887,11 +1145,149 @@ msgstr "Utilizar locução de ec_rã"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "_Ignorar pressões de tecla duplicadas (Teclas Saltantes)"
+msgstr "_Ignorar pressões duplicadas de teclas (Teclas Saltantes)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Premir atalhos de teclado uma tecla de cada vez (Teclas Coladas)"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+msgid "Accessibility settings"
+msgstr "Definições de acessibilidade"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+msgid "Accessibility settings plugin"
+msgstr "Plugin de definições de acessibilidade"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr "Montar Automaticamente"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+msgid "Automounter plugin"
+msgstr "Plugin para montar automaticamente"
+
+#: ../plugins/automount/gsd-automount-manager.c:154
+#, c-format
+msgid "Unable to mount %s"
+msgstr "Incapaz de montar %s"
+
+#: ../plugins/automount/gsd-automount-manager.c:271
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr "Incapaz de abrir uma pasta de %s"
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr "Perguntar o que fazer"
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr "Não Fazer Nada"
+
+#: ../plugins/automount/gsd-autorun.c:352
+msgid "Open Folder"
+msgstr "Abrir a Pasta"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, c-format
+msgid "Unable to eject %p"
+msgstr "Incapaz de ejectar %p"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr "Incapaz de desmontar %p"
+
+#: ../plugins/automount/gsd-autorun.c:700
+msgid "You have just inserted an Audio CD."
+msgstr "Acabou de inserir um CD de Audio."
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio DVD."
+msgstr "Acabou de inserir um DVD de Audio."
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted a Video DVD."
+msgstr "Acabou de inserir um DVD de Vídeo."
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video CD."
+msgstr "Acabou de inserir um CD de Vídeo."
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Super Video CD."
+msgstr "Acabou de inserir um CD de Super Vídeo."
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a blank CD."
+msgstr "Acabou de inserir um CD virgem."
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank DVD."
+msgstr "Acabou de inserir um DVD virgem."
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "Acabou de inserir um disco Blu-Ray virgem."
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank HD DVD."
+msgstr "Acabou de inserir um HD DVD virgem."
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a Photo CD."
+msgstr "Acabou de inserir um Photo CD."
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Picture CD."
+msgstr "Acabou de inserir um CD de Imagens."
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a medium with digital photos."
+msgstr "Acabou de inserir um media com fotografias digitais."
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a digital audio player."
+msgstr "Acabou de inserir um reprodutor de audio digital."
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr ""
+"Acabou de inserir um media com aplicações cujo propósito é serem iniciadas "
+"automaticamente."
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:729
+msgid "You have just inserted a medium."
+msgstr "Acabou de inserir um media."
+
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "Choose what application to launch."
+msgstr "Seleccione que aplicação iniciar."
+
+#: ../plugins/automount/gsd-autorun.c:740
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr ""
+"Seleccione como abrir \"%s\" e se realizar esta acção no futuro para outro "
+"media do tipo \"%s\"."
+
+#: ../plugins/automount/gsd-autorun.c:767
+msgid "_Always perform this action"
+msgstr "Realizar sempre esta _acção"
+
+#: ../plugins/automount/gsd-autorun.c:783
+msgid "_Eject"
+msgstr "_Ejectar"
+
+#: ../plugins/automount/gsd-autorun.c:788
+msgid "_Unmount"
+msgstr "_Desmontar"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -917,33 +1313,70 @@ msgstr "Teste"
 msgid "Dummy plugin"
 msgstr "Plugin de teste"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
-msgid "Font"
-msgstr "Fonte"
+#: ../plugins/housekeeping/gsd-disk-space.c:332
+#, c-format
+msgid "Low Disk Space on \"%s\""
+msgstr "Pouco Espaço Disponível no Disco \"%s\""
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
-msgid "Font plugin"
-msgstr "Plugin de fonte"
+#: ../plugins/housekeeping/gsd-disk-space.c:334
+#, c-format
+msgid ""
+"The volume \"%s\" has only %s disk space remaining.  You may free up some "
+"space by emptying the trash."
+msgstr ""
+"A unidade \"%s\" apenas tem %s de espaço disponível. Poderá libertar algum "
+"espaço esvaziando o lixo."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
+#: ../plugins/housekeeping/gsd-disk-space.c:338
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "A unidade \"%s\" apenas tem %s de espaço disponível."
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-disk-space.c:343
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
+msgid "Low Disk Space"
+msgstr "Pouco Espaço Disponível em Disco"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:345
+#, c-format
+msgid ""
+"This computer has only %s disk space remaining.  You may free up some space "
+"by emptying the trash."
+msgstr ""
+"Este computador apenas tem %s de espaço disponível. Poderá libertar algum "
+"espaço esvaziando o lixo."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:348
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "Este computador apenas tem %s de espaço disponível."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:369
+msgid "Examine"
+msgstr "Examinar"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:377
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
+msgid "Empty Trash"
+msgstr "Esvaziar o Lixo"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:384
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
+msgid "Ignore"
+msgstr "Ignorar"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again for this file system"
 msgstr "Não apresentar mais avisos para este sistema de ficheiros"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
 msgid "Don't show any warnings again"
 msgstr "Não voltar a apresentar avisos"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
-#, c-format
-msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr "A unidade \"%s\" apenas tem %s de espaço livre."
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
-#, c-format
-msgid "This computer has only %s disk space remaining."
-msgstr "Este computador apenas tem %s de espaço livre."
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
@@ -952,7 +1385,7 @@ msgstr ""
 "ficheiros que já não utiliza ou movendo ficheiros para outro disco ou "
 "partição."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
@@ -960,7 +1393,7 @@ msgstr ""
 "Pode libertar espaço em disco removendo aplicações ou ficheiros que já não "
 "utiliza ou movendo ficheiros para outro disco ou partição."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
@@ -968,7 +1401,7 @@ msgstr ""
 "Pode libertar espaço em disco esvaziando o Lixo, removendo aplicações ou "
 "ficheiros que já não utiliza ou movendo ficheiros para um disco externo."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
@@ -976,62 +1409,9 @@ msgstr ""
 "Pode libertar espaço em disco removendo aplicações ou ficheiros que já não "
 "utiliza ou movendo ficheiros para um disco externo."
 
-#. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
-msgid "Low Disk Space"
-msgstr "Pouco Espaço em Disco"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
-msgid "Empty Trash"
-msgstr "Esvaziar o Lixo"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:444
 msgid "Examine…"
 msgstr "Examinar…"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
-msgid "Ignore"
-msgstr "Ignorar"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:97
-#, c-format
-msgid "Removing item %lu of %lu"
-msgstr "A remover o item %lu de %lu"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:117
-#, c-format
-msgid "Removing: %s"
-msgstr "A Remover: %s"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:247
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
-msgid "Emptying the trash"
-msgstr "A esvaziar o lixo"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:272
-msgid "Preparing to empty trash…"
-msgstr "A preparar-se para esvaziar o lixo…"
-
-#. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:299
-msgid "From: "
-msgstr "De: "
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
-msgid "Empty all of the items from the trash?"
-msgstr "Esvaziar todos os itens do lixo?"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:363
-msgid ""
-"If you choose to empty the trash, all items in it will be permanently lost. "
-"Please note that you can also delete them separately."
-msgstr ""
-"Caso escolha esvaziar o lixo, todos os itens nele contidos serão "
-"definitivamente perdidos. Note que também os poderá apagar isoladamente."
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:370
-msgid "_Empty Trash"
-msgstr "_Esvaziar o Lixo"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -1068,86 +1448,40 @@ msgstr "Teclado"
 msgid "Keyboard plugin"
 msgstr "Plugin de teclado"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:137
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:87
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
-"It can happen under various circumstances:\n"
-" • a bug in libxklavier library\n"
-" • a bug in X server (xkbcomp, xmodmap utilities)\n"
-" • X server with incompatible libxkbfile implementation\n"
+"There can be various reasons for that.\n"
 "\n"
-"X server version data:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"If you report this situation as a bug, please include:\n"
-" • The result of <b>%s</b>\n"
-" • The result of <b>%s</b>"
+"If you report this situation as a bug, include the results of\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 msgstr ""
 "Erro ao activar a configuração XKB.\n"
-"Pode acontecer devido a vários motivos:\n"
-" • um erro de desenvolvimento na biblioteca libxklavier\n"
-" • um erro de desenvolvimento no servidor X (xkbcomp, utilitários xmodmap)\n"
-" • servidor X com uma implementação incompatível da libxkbfile\n"
+"Poderão existir várias razões para tal.\n"
 "\n"
-"Dados da versão do servidor X:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"Se relatar esta situação como um erro de desenvolvimento, inclua:\n"
-" • O resultado de <b>%s</b>\n"
-" • O resultado de <b>%s</b>"
+"Caso relate esta situação como um erro, inclua os resultados de\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:151
-msgid ""
-"You are using XFree 4.3.0.\n"
-"There are known problems with complex XKB configurations.\n"
-"Try using a simpler configuration or using a later version of the XFree "
-"software."
-msgstr ""
-"Está a utilizar o XFree 4.3.0.\n"
-"Existem problemas conhecidos com configurações complexas do XKB.\n"
-"Tente utilizar uma configuração mais simples ou utilizar uma versão mais "
-"recente do XFree."
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:279
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
 msgid "_Layouts"
 msgstr "_Disposições"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:286
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
 msgid "Keyboard _Preferences"
 msgstr "_Preferências do Teclado"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:292
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
 msgid "Show _Current Layout"
 msgstr "Apresentar a _Disposição Actual"
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:1
-msgid "A_vailable files:"
-msgstr "Ficheiros disponí_veis:"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:2
-msgid "Load modmap files"
-msgstr "Ler os ficheiros modmap"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:3
-msgid "Would you like to load the modmap files?"
-msgstr "Deseja ler os ficheiros modmap?"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:4
-msgid "_Do not show this message again"
-msgstr "_Não apresentar novamente esta mensagem"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:5
-msgid "_Load"
-msgstr "_Ler"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:6
-msgid "_Loaded files:"
-msgstr "Ficheiros _lidos:"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:195
+#: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1155,7 +1489,7 @@ msgstr ""
 "Incapaz de obter consola por omissão. Certifique-se de que o comando de "
 "consola por omissão está definido e aponta para uma aplicação válida."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:235
+#: ../plugins/media-keys/gsd-media-keys-manager.c:258
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1166,13 +1500,13 @@ msgstr ""
 
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1091
 msgid "Disabled"
-msgstr "Desactivado"
+msgstr "Inactivo"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1098
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1181,14 +1515,14 @@ msgstr[1] "%u Saídas"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1108
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
 msgstr[0] "%u Entrada"
 msgstr[1] "%u Entradas"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1406
 msgid "System Sounds"
 msgstr "Sons de Sistema"
 
@@ -1200,20 +1534,20 @@ msgstr "Teclas de Media"
 msgid "Media keys plugin"
 msgstr "Plugin de teclas de media"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:882
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Could not enable mouse accessibility features"
 msgstr "Incapaz de activar as funcionalidades de acessibilidade do rato"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:884
+#: ../plugins/mouse/gsd-mouse-manager.c:824
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "A acessibilidade de rato necessita que o Mousetweaks esteja instalado no seu "
 "sistema."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:887
-msgid "Mouse Preferences"
-msgstr "Preferências de Rato"
+#: ../plugins/mouse/gsd-mouse-manager.c:826
+msgid "Universal Access"
+msgstr "Acesso Universal"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
@@ -1223,13 +1557,219 @@ msgstr "Rato"
 msgid "Mouse plugin"
 msgstr "Plugin de rato"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
-msgid "Typing Break"
-msgstr "Intervalo de Utilização"
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+msgid "Print-notifications"
+msgstr "Notificações de Impressão"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
-msgid "Typing break plugin"
-msgstr "Plugin de intervalo de utilização"
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+msgid "Print-notifications plugin"
+msgstr "Plugin de notificações de impressão"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
+msgid "Toner low"
+msgstr "Toner fraco"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
+msgid "Toner empty"
+msgstr "Toner esgotado"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
+msgid "Not connected?"
+msgstr "Desligado?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
+msgid "Cover open"
+msgstr "Tampa aberta"
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
+msgid "Printer configuration error"
+msgstr "Erro de configuração da impressora"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
+msgid "Door open"
+msgstr "Alimentador aberto"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
+msgid "Marker supply low"
+msgstr "Tinteiro de uma das cores fraco"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
+msgid "Out of a marker supply"
+msgstr "Tinteiro de uma das cores esgotado"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
+msgid "Paper low"
+msgstr "Pouco papel"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
+msgid "Out of paper"
+msgstr "Sem papel"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
+msgid "Printer off-line"
+msgstr "Impressora desligada"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
+msgid "Printer error"
+msgstr "Erro de impressão"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr "A impressora '%s' tem o nível de toner em baixo."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr "A impressora '%s' está sem toner."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr "A impressora '%s' poderá não estar ligada."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr "A impressora '%s' tem a tampa aberta."
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr "Falta um filtro de impressão para a impressora '%s'."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr "A impressora '%s' tem o alimentador aberto."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr "A impressora '%s' tem o nível de um depósito de cor em baixo."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr "A impressora '%s' tem um depósito de cor esgotado."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr "A impressora '%s' está com o nível de papel em baixo."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr "A impressora '%s' está sem papel."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr "A impressora '%s' está actualmente inacessível."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr "Existe um problema com a impressora '%s'."
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
+msgid "Printer added"
+msgstr "Impressora adicionada"
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
+msgid "Printer removed"
+msgstr "Impressora removida"
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+msgid "Printing stopped"
+msgstr "Impressão parada"
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#, c-format
+msgid "\"%s\" on %s"
+msgstr "\"%s\" em %s"
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+msgid "Printing canceled"
+msgstr "Impressão cancelada"
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+msgid "Printing aborted"
+msgstr "Impressão abortada"
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+msgid "Printing completed"
+msgstr "Impressão terminada"
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+msgid "Printing"
+msgstr "A Imprimir"
+
+#. Translators: We are configuring new printer
+#: ../plugins/print-notifications/gsd-printer.c:91
+msgid "Configuring new printer"
+msgstr "A configurar nova impressora"
+
+#. Translators: Just wait
+#: ../plugins/print-notifications/gsd-printer.c:93
+msgid "Please wait..."
+msgstr "Aguarde..."
+
+#. name is a URI, no queue was generated, because no suitable
+#. * driver was found
+#.
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:114
+msgid "Missing printer driver"
+msgstr "Falta o controlador da impressora"
+
+#. Translators: We have no driver installed for the device
+#: ../plugins/print-notifications/gsd-printer.c:123
+#, c-format
+msgid "No printer driver for %s."
+msgstr "Nenhum controlador para a impressora %s."
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:128
+msgid "No driver for this printer."
+msgstr "Nenhum controlador para esta impressora."
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1239,21 +1779,21 @@ msgstr "Definir um tamanho de ecrã e definições de rotação"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:225
+#: ../plugins/xrandr/gsd-xrandr-manager.c:413
 msgid "Could not switch the monitor configuration"
 msgstr "Incapaz de alterar a configuração do monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:249
+#: ../plugins/xrandr/gsd-xrandr-manager.c:437
 msgid "Could not restore the display's configuration"
 msgstr "Incapaz de restaurar a configuração do ecrã"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:274
+#: ../plugins/xrandr/gsd-xrandr-manager.c:462
 msgid "Could not restore the display's configuration from a backup"
 msgstr ""
 "Incapaz de restaurar a configuração do ecrã a partir de uma cópia de "
 "segurança"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:295
+#: ../plugins/xrandr/gsd-xrandr-manager.c:483
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1263,85 +1803,34 @@ msgstr[0] ""
 msgstr[1] ""
 "O ecrã será reposto na sua configuração anterior dentro de %d segundos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:344
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Does the display look OK?"
 msgstr "O ecrã está nítido?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:350
+#: ../plugins/xrandr/gsd-xrandr-manager.c:539
 msgid "_Restore Previous Configuration"
 msgstr "_Restaurar a Configuração Anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:351
+#: ../plugins/xrandr/gsd-xrandr-manager.c:540
 msgid "_Keep This Configuration"
 msgstr "_Manter Esta Configuração"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:432
+#: ../plugins/xrandr/gsd-xrandr-manager.c:621
 msgid "The selected configuration for displays could not be applied"
 msgstr "Incapaz de aplicar a configuração seleccionada para os ecrãs"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:993
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Incapaz de actualizar a informação do ecrã: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:996
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Ainda assim a tentar alterar a configuração do monitor."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1726
-msgid "Rotation not supported"
-msgstr "Rotação não suportada"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1782
-msgid "Could not save monitor configuration"
-msgstr "Incapaz de gravar a configuração do monitor"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1800
-msgid "Normal"
-msgstr "Normal"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1801
-msgid "Left"
-msgstr "Esquerda"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1802
-msgid "Right"
-msgstr "Direita"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1803
-msgid "Upside Down"
-msgstr "Invertido"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1923
-msgid "_Configure Display Settings…"
-msgstr "_Configurar as Definições de Ecrã…"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1964
-msgid "Configure display settings"
-msgstr "Configurar as definições de ecrã"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2024
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Incapaz de aplicar a configuração armazenada aos monitores"
-
-#: ../plugins/xrdb/gsd-xrdb-manager.c:255
-#: ../plugins/xrdb/gsd-xrdb-manager.c:324
-msgid "Cannot determine user's home directory"
-msgstr "Incapaz de determinar directório pessoal do utilizador"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
-msgid "Manage the X resource database"
-msgstr "Gerir a base de dados de recursos X"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
-msgid "X Resource Database"
-msgstr "Base de Dados de Recursos X"
-
-#: ../plugins/xsettings/gsd-xsettings-manager.c:596
-#, c-format
-msgid "GConf key %s set to type %s but its expected type was %s\n"
-msgstr ""
-"Chave GConf %s definida como do tipo %s mas o seu tipo esperado era %s\n"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
 msgid "Manage X Settings"
@@ -1351,98 +1840,676 @@ msgstr "Gerir as Definições X"
 msgid "X Settings"
 msgstr "Definições X"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:167
+#: ../plugins/smartcard/gsd-smartcard-manager.c:187
 msgid "Module Path"
 msgstr "Caminho do Módulo"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:168
+#: ../plugins/smartcard/gsd-smartcard-manager.c:188
 msgid "path to smartcard PKCS #11 driver"
 msgstr "caminho para o controlador PKCS #11 do smartcard"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:504
+#: ../plugins/smartcard/gsd-smartcard-manager.c:528
 msgid "received error or hang up from event source"
 msgstr "recebido um erro ou corte de ligação da origem de eventos"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:593
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "Incapaz de inicializar o sistema de segurança NSS"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#: ../plugins/smartcard/gsd-smartcard-manager.c:790
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr "incapaz de encontrar um controlador de smartcard adequado"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:682
+#: ../plugins/smartcard/gsd-smartcard-manager.c:804
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "incapaz de ler o controlador de smartcard '%s'"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:771
+#: ../plugins/smartcard/gsd-smartcard-manager.c:876
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "incapaz de observar a recepção de eventos de cartão - %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1124
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "ocorreu um erro inesperado ao aguardar por eventos de smartcard"
 
-#: ../plugins/smartcard/gsd-smartcard.c:154
+#: ../plugins/smartcard/gsd-smartcard.c:158
 msgid "Slot ID"
 msgstr "ID do Slot"
 
-#: ../plugins/smartcard/gsd-smartcard.c:155
+#: ../plugins/smartcard/gsd-smartcard.c:159
 msgid "The slot the card is in"
 msgstr "O slot em que o cartão se encontra"
 
-#: ../plugins/smartcard/gsd-smartcard.c:161
+#: ../plugins/smartcard/gsd-smartcard.c:165
 msgid "Slot Series"
 msgstr "Série de Slot"
 
-#: ../plugins/smartcard/gsd-smartcard.c:162
+#: ../plugins/smartcard/gsd-smartcard.c:166
 msgid "per-slot card identifier"
 msgstr "identificador de cartão por slot"
 
-#: ../plugins/smartcard/gsd-smartcard.c:168
-#: ../plugins/smartcard/gsd-smartcard.c:169
+#: ../plugins/smartcard/gsd-smartcard.c:172
+#: ../plugins/smartcard/gsd-smartcard.c:173
 msgid "name"
 msgstr "nome"
 
-#: ../plugins/smartcard/gsd-smartcard.c:173
+#: ../plugins/smartcard/gsd-smartcard.c:177
 msgid "Module"
 msgstr "Módulo"
 
-#: ../plugins/smartcard/gsd-smartcard.c:174
+#: ../plugins/smartcard/gsd-smartcard.c:178
 msgid "smartcard driver"
 msgstr "controlador de smartcard"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
-msgid "Change system time"
-msgstr "Alterar a hora do sistema"
+msgid "Change system time and date settings"
+msgstr "Alterar as definições de data e hora do sistema"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Change system time zone"
-msgstr "Alterar o fuso-horário do sistema"
+msgid "Privileges are required to configure time and date settings."
+msgstr ""
+"São necessários privilégios para configurar as definições de data e hora."
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:3
-msgid "Configure hardware clock"
-msgstr "Configurar o relógio de hardware"
+#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
+#: ../plugins/updates/gsd-updates-manager.c:194
+msgid "Distribution upgrades available"
+msgstr "Estão disponíveis novas versões de distribuição"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:4
-msgid "Privileges are required to change the system time zone."
-msgstr "São necessários privilégios para alterar o fuso-horário do sistema."
+#. TRANSLATORS: provides more information about the upgrade
+#: ../plugins/updates/gsd-updates-manager.c:204
+msgid "More information"
+msgstr "Mais informações"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:5
-msgid "Privileges are required to change the system time."
-msgstr "São necessários privilégios para alterar a hora do sistema."
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:307
+#: ../plugins/updates/gsd-updates-manager.c:367
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] "Actualização"
+msgstr[1] "Actualizações"
 
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:6
-msgid "Privileges are required to configure the hardware clock."
-msgstr "São necessários privilégios para configurar o relógio de hardware."
+#. TRANSLATORS: message when there are security updates
+#: ../plugins/updates/gsd-updates-manager.c:310
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] "Está disponível uma actualização aplicacional importante"
+msgstr[1] "Estão disponíveis actualizações aplicacionais importantes"
+
+#. TRANSLATORS: button: open the update viewer to install updates
+#: ../plugins/updates/gsd-updates-manager.c:330
+#: ../plugins/updates/gsd-updates-manager.c:390
+msgid "Install updates"
+msgstr "Instalar actualizações"
+
+#. TRANSLATORS: message when there are non-security updates
+#: ../plugins/updates/gsd-updates-manager.c:370
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] "Está disponível uma actualização aplicacional."
+msgstr[1] "Estão disponíveis actualizações aplicacionais."
+
+#. TRANSLATORS: policy says update, but we are on battery and so prompt
+#: ../plugins/updates/gsd-updates-manager.c:436
+msgid ""
+"Automatic updates are not being installed as the computer is running on "
+"battery power"
+msgstr ""
+"As actualizações automáticas não estão a ser instaladas porque o computador "
+"está a utilizar energia da bateria"
+
+#. TRANSLATORS: informs user will not install by default
+#: ../plugins/updates/gsd-updates-manager.c:438
+msgid "Updates not installed"
+msgstr "Actualizações não instaladas"
+
+#. TRANSLATORS: to hell with my battery life, just do it
+#: ../plugins/updates/gsd-updates-manager.c:444
+msgid "Install the updates anyway"
+msgstr "Ainda assim instalar actualizações"
+
+#: ../plugins/updates/gsd-updates-manager.c:460
+msgid "No restart is required."
+msgstr "Não é necessário reiniciar."
+
+#: ../plugins/updates/gsd-updates-manager.c:463
+msgid "A restart is required."
+msgstr "É necessário reiniciar."
+
+#: ../plugins/updates/gsd-updates-manager.c:466
+msgid "You need to log out and log back in."
+msgstr "Irá ser necessário terminar a sessão e iniciar sessão novamente."
+
+#: ../plugins/updates/gsd-updates-manager.c:469
+msgid "You need to restart the application."
+msgstr "É necessário reiniciar a aplicação."
+
+#: ../plugins/updates/gsd-updates-manager.c:472
+msgid "You need to log out and log back in to remain secure."
+msgstr ""
+"Irá ser necessário terminar a sessão e iniciar sessão para manter a "
+"segurança."
+
+#: ../plugins/updates/gsd-updates-manager.c:475
+msgid "A restart is required to remain secure."
+msgstr "Será necessário reiniciar para manter a segurança."
+
+#. TRANSLATORS: we did the update, but some updates were skipped and not applied
+#: ../plugins/updates/gsd-updates-manager.c:536
+msgid "One package was skipped:"
+msgid_plural "Some packages were skipped:"
+msgstr[0] "Um pacote foi ignorado:"
+msgstr[1] "Alguns pacotes foram ignorados:"
+
+#. TRANSLATORS: title: system update completed all okay
+#: ../plugins/updates/gsd-updates-manager.c:568
+msgid "The system update has completed"
+msgstr "A actualização de sistema terminou"
+
+#. TRANSLATORS: restart computer as system packages need update
+#: ../plugins/updates/gsd-updates-manager.c:575
+msgid "Restart computer now"
+msgstr "Reiniciar o computador agora"
+
+#. TRANSLATORS: the updates mechanism
+#: ../plugins/updates/gsd-updates-manager.c:646
+msgid "Updates"
+msgstr "Actualizações"
+
+#. TRANSLATORS: we failed to get the updates multiple times,
+#. * and now we need to inform the user that something might be wrong
+#: ../plugins/updates/gsd-updates-manager.c:650
+msgid "Unable to access software updates"
+msgstr "Incapaz de aceder às actualizações aplicacionais"
+
+#. TRANSLATORS: try again, this time launching the update viewer
+#: ../plugins/updates/gsd-updates-manager.c:653
+msgid "Try again"
+msgstr "Tentar novamente"
+
+#. TRANSLATORS: the reason why we've inhibited it
+#: ../plugins/updates/gsd-updates-manager.c:1092
+msgid "A transaction that cannot be interrupted is running"
+msgstr "Está a ser executada uma transacção que não pode se interrompida"
+
+#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:240
+msgid ""
+"You will need to restart this computer before the hardware will work "
+"correctly."
+msgstr ""
+"terá de reiniciar o computador para que o equipamento funcione correctamente."
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:243
+#: ../plugins/updates/gsd-updates-firmware.c:267
+#: ../plugins/updates/gsd-updates-firmware.c:291
+msgid "Additional software was installed"
+msgstr "Foi instalado software adicional"
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:264
+msgid ""
+"You will need to remove and then reinsert the hardware before it will work "
+"correctly."
+msgstr ""
+"Irá ser necessário remover e depois reinserir o hardware antes que este "
+"possa funcionar correctamente."
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:288
+msgid "Your hardware has been set up and is now ready to use."
+msgstr "O seu hardware foi configurado e está agora pronto a ser utilizado."
+
+#. TRANSLATORS: we need another package to keep udev quiet
+#: ../plugins/updates/gsd-updates-firmware.c:566
+msgid ""
+"Additional firmware is required to make hardware in this computer function "
+"correctly."
+msgstr ""
+"É necessário firmware adicional para que o hardware deste computador "
+"funcione correctamente."
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:580
+msgid "Additional firmware required"
+msgstr "É necessário firmware adicional"
+
+#. TRANSLATORS: button label
+#: ../plugins/updates/gsd-updates-firmware.c:585
+msgid "Install firmware"
+msgstr "Instalar firmware"
+
+#. TRANSLATORS: we should ignore this device and not ask anymore
+#: ../plugins/updates/gsd-updates-firmware.c:588
+msgid "Ignore devices"
+msgstr "Ignorar dispositivos"
+
+#~ msgid "Volume step"
+#~ msgstr "Incremento/decremento de Volume"
+
+#~ msgid "Volume step as percentage of volume."
+#~ msgstr "Incremento de volume como uma percentagem de volume."
+
+#~ msgid "Show Displays in Notification Area"
+#~ msgstr "Apresentar Ecrãs na Área de Notificação"
+
+#~ msgid "Turn on external monitor after system boot"
+#~ msgstr "Ligar monitor externo após arranque de sistema"
+
+#~ msgid ""
+#~ "Turn on external monitor after system boot if user plugs in external "
+#~ "monitor on system boot."
+#~ msgstr ""
+#~ "Ligar monitor externo após arranque de sistema se o utilizador conectar "
+#~ "um monitor externo ao arrancar o sistema."
+
+#~ msgid "Turn on laptop monitor after system boot"
+#~ msgstr "Ligar o monitor do portátil após arranque de sistema"
+
+#~ msgid ""
+#~ "Turn on laptop monitor after system boot if user plugs in external "
+#~ "monitor on system boot."
+#~ msgstr ""
+#~ "Ligar monitor do portátil após arranque de sistema se o utilizador "
+#~ "conectar um monitor externo ao arrancar o sistema."
+
+#~ msgid ""
+#~ "Whether a notification icon with display-related things should be shown "
+#~ "in the panel."
+#~ msgstr ""
+#~ "Se deverá ou não ser apresentado no painel um ícone de notificação com "
+#~ "informação relacionada com os monitores."
+
+#~ msgid "DPI"
+#~ msgstr "DPI"
+
+#~ msgid ""
+#~ "The resolution used for converting font sizes to pixel sizes, in dots per "
+#~ "inch."
+#~ msgstr ""
+#~ "A resolução utilizada para converter os tamanhos das fontes em tamanhos "
+#~ "de pixel, em pontos por polegada."
+
+#~ msgid "Bounce keys"
+#~ msgstr "Teclas saltantes"
+
+#~ msgid "Command used to turn the magnifier on or off."
+#~ msgstr "Comando utilizado para activar ou desactivar a ampliação."
+
+#~ msgid "Command used to turn the on-screen keyboard on or off."
+#~ msgstr "Comando utilizado para activar ou desactivar o teclado no ecrã."
+
+#~ msgid "Command used to turn the screen reader on or off."
+#~ msgstr "Comando utilizado para activar ou desactivar o leitor de ecrã."
+
+#~ msgid "Enable XRandR plugin"
+#~ msgstr "Activar o plugin XRandR"
+
+#~ msgid "Enable accessibility keyboard plugin"
+#~ msgstr "Activar o plugin de acessibilidade de teclado"
+
+#~ msgid "Enable background plugin"
+#~ msgstr "Activar o plugin de imagem de fundo"
+
+#~ msgid "Enable clipboard plugin"
+#~ msgstr "Activar o plugin de área de transferência"
+
+#~ msgid "Enable font plugin"
+#~ msgstr "Activar o plugin de fontes"
+
+#~ msgid "Enable housekeeping plugin"
+#~ msgstr "Activar o plugin de limpeza"
+
+#~ msgid "Enable keybindings plugin"
+#~ msgstr "Activar o plugin de atalhos de teclado"
+
+#~ msgid "Enable keyboard plugin"
+#~ msgstr "Activar o plugin de teclado"
+
+#~ msgid "Enable media keys plugin"
+#~ msgstr "Activar o plugin de teclas de media"
+
+#~ msgid "Enable mouse plugin"
+#~ msgstr "Activar o plugin de rato"
+
+#~ msgid "Enable smartcard plugin"
+#~ msgstr "Activar o plugin smartcard"
+
+#~ msgid "Enable sound plugin"
+#~ msgstr "Activar o plugin de som"
+
+#~ msgid "Enable typing breaks plugin"
+#~ msgstr "Activar o plugin de pausas de utilização"
+
+#~ msgid "Enable xrdb plugin"
+#~ msgstr "Activar o plugin xrdb"
+
+#~ msgid "Enable xsettings plugin"
+#~ msgstr "Activar o plugin xsettings"
+
+#~ msgid "Mouse keys"
+#~ msgstr "Teclas de rato"
+
+#~ msgid "On-screen keyboard"
+#~ msgstr "Teclado no ecrã"
+
+#~ msgid "Screen magnifier"
+#~ msgstr "Ampliação de ecrã"
+
+#~ msgid "Screen reader"
+#~ msgstr "Leitor de ecrã"
+
+#~ msgid ""
+#~ "Set to True to enable the housekeeping plugin, to prune transient file "
+#~ "caches."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin de limpeza, para esvaziar "
+#~ "caches temporárias de ficheiros."
+
+#~ msgid "Set to True to enable the plugin to manage XRandR settings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "XRandR."
+
+#~ msgid "Set to True to enable the plugin to manage clipboard settings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "área de transferência."
+
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage desktop background settings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "fundo."
+
+#~ msgid "Set to True to enable the plugin to manage font settings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "fonte."
+
+#~ msgid "Set to True to enable the plugin to manage keyboard settings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "teclado."
+
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage locking the screen on "
+#~ "smartcard removal."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para permitir que o plugin tranque o ecrã ao ser "
+#~ "removido o smartcard."
+
+#~ msgid "Set to True to enable the plugin to manage mouse settings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "rato."
+
+#~ msgid "Set to True to enable the plugin to manage multimedia keys settings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "teclas multimedia."
+
+#~ msgid "Set to True to enable the plugin to manage sound sample caches."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as caches de "
+#~ "amostras de som."
+
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage the accessibility keyboard "
+#~ "settings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "acessibilidade do teclado."
+
+#~ msgid "Set to True to enable the plugin to manage the keybindings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "atalhos de teclado."
+
+#~ msgid "Set to True to enable the plugin to manage typing breaks."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "pausas de utilização."
+
+#~ msgid "Set to True to enable the plugin to manage xrdb settings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "xrdb."
+
+#~ msgid "Set to True to enable the plugin to manage xsettings."
+#~ msgstr ""
+#~ "Definir como Verdadeiro para activar o plugin para gerir as definições de "
+#~ "xsettings."
+
+#~ msgid "Slow keys"
+#~ msgstr "Teclas lentas"
+
+#~ msgid "Sticky keys"
+#~ msgstr "Teclas coladas"
+
+#~ msgid "The name of the keyboard shortcut to toggle the magnifier"
+#~ msgstr "O nome do atalho de teclado para alternar a ampliação de ecrã"
+
+#~ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+#~ msgstr "O nome do atalho de teclado para alternar o teclado no ecrã"
+
+#~ msgid "The name of the keyboard shortcut to toggle the screen reader"
+#~ msgstr "O nome do atalho de teclado para alternar o leitor de ecrã"
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the magnifier. This "
+#~ "name will be shown in the keyboard shortcut preferences dialog."
+#~ msgstr ""
+#~ "Este é o nome do atalho de teclado para alternar a ampliação de ecrã. "
+#~ "Este nome será apresentado no diálogo de preferências de atalhos de "
+#~ "teclado."
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the on-screen "
+#~ "keyboard. This name will be shown in the keyboard shortcut preferences "
+#~ "dialog."
+#~ msgstr ""
+#~ "Este é o nome do atalho de teclado para alternar o teclado no ecrã. Este "
+#~ "nome será apresentado no diálogo de preferências de atalhos de teclado."
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the screen reader. "
+#~ "This name will be shown in the keyboard shortcut preferences dialog."
+#~ msgstr ""
+#~ "Este é o nome do atalho de teclado para alternar o leitor de ecrã. Este "
+#~ "nome será apresentado no diálogo de preferências de atalhos de teclado."
+
+#~ msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Se a funcionalidade de acessibilidade de teclado \"teclas saltantes\" "
+#~ "está activa ou não."
+
+#~ msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Se a funcionalidade de acessibilidade de teclado \"teclas de rato\" está "
+#~ "activa ou não."
+
+#~ msgid "Whether the on-screen keyboard is turned on."
+#~ msgstr "Se o teclado no ecrã está activo ou não."
+
+#~ msgid "Whether the screen magnifier is turned on."
+#~ msgstr "Se a ampliação de ecrã está activa ou não."
+
+#~ msgid "Whether the screen reader is turned on."
+#~ msgstr "Se o leitor de ecrã está activo ou não."
+
+#~ msgid "Whether the slow keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Se a funcionalidade de acessibilidade de teclado \"teclas lentas\" está "
+#~ "activa ou não."
+
+#~ msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Se a funcionalidade de acessibilidade de teclado \"teclas coladas\" está "
+#~ "activa ou não."
+
+#~ msgid "Don't become a daemon"
+#~ msgstr "Não executar como daemon"
+
+#~ msgid "GConf prefix from which to load plugin settings"
+#~ msgstr "Prefixo GConf do qual ler as definições de plugins"
+
+#~ msgid "Font"
+#~ msgstr "Fonte"
+
+#~ msgid "Removing item %lu of %lu"
+#~ msgstr "A remover o item %lu de %lu"
+
+#~ msgid "Removing: %s"
+#~ msgstr "A Remover: %s"
+
+#~ msgid "Emptying the trash"
+#~ msgstr "A esvaziar o lixo"
+
+#~ msgid "Preparing to empty trash…"
+#~ msgstr "A preparar-se para esvaziar o lixo…"
+
+#~ msgid "From: "
+#~ msgstr "De: "
+
+#~ msgid "Empty all of the items from the trash?"
+#~ msgstr "Esvaziar todos os itens do lixo?"
+
+#~ msgid ""
+#~ "If you choose to empty the trash, all items in it will be permanently "
+#~ "lost. Please note that you can also delete them separately."
+#~ msgstr ""
+#~ "Se seleccionar esvaziar o lixo, todos os itens aí contidos serão "
+#~ "definitivamente eliminados. Note que também os pode apagar "
+#~ "individualmente."
+
+#~ msgid "_Empty Trash"
+#~ msgstr "_Esvaziar o Lixo"
+
+#~ msgid ""
+#~ "Error activating XKB configuration.\n"
+#~ "It can happen under various circumstances:\n"
+#~ " • a bug in libxklavier library\n"
+#~ " • a bug in X server (xkbcomp, xmodmap utilities)\n"
+#~ " • X server with incompatible libxkbfile implementation\n"
+#~ "\n"
+#~ "X server version data:\n"
+#~ "%s\n"
+#~ "%d\n"
+#~ "%s\n"
+#~ "If you report this situation as a bug, please include:\n"
+#~ " • The result of <b>%s</b>\n"
+#~ " • The result of <b>%s</b>"
+#~ msgstr ""
+#~ "Erro ao activar a configuração XKB.\n"
+#~ "Pode acontecer devido a vários motivos:\n"
+#~ " • um erro de desenvolvimento na biblioteca libxklavier\n"
+#~ " • um erro de desenvolvimento no servidor X (xkbcomp, utilitários "
+#~ "xmodmap)\n"
+#~ " • servidor X com uma implementação incompatível da libxkbfile\n"
+#~ "\n"
+#~ "Dados da versão do servidor X:\n"
+#~ "%s\n"
+#~ "%d\n"
+#~ "%s\n"
+#~ "Se relatar esta situação como um erro de desenvolvimento, inclua:\n"
+#~ " • O resultado de <b>%s</b>\n"
+#~ " • O resultado de <b>%s</b>"
+
+#~ msgid ""
+#~ "You are using XFree 4.3.0.\n"
+#~ "There are known problems with complex XKB configurations.\n"
+#~ "Try using a simpler configuration or using a later version of the XFree "
+#~ "software."
+#~ msgstr ""
+#~ "Está a utilizar o XFree 4.3.0.\n"
+#~ "Existem problemas conhecidos com configurações complexas do XKB.\n"
+#~ "Tente utilizar uma configuração mais simples ou utilizar uma versão mais "
+#~ "recente do XFree."
+
+#~ msgid "A_vailable files:"
+#~ msgstr "Ficheiros disponí_veis:"
+
+#~ msgid "Load modmap files"
+#~ msgstr "Ler os ficheiros modmap"
+
+#~ msgid "Would you like to load the modmap files?"
+#~ msgstr "Deseja ler os ficheiros modmap?"
+
+#~ msgid "_Do not show this message again"
+#~ msgstr "_Não apresentar esta mensagem novamente"
+
+#~ msgid "_Load"
+#~ msgstr "_Ler"
+
+#~ msgid "_Loaded files:"
+#~ msgstr "Ficheiros _lidos:"
+
+#~ msgid "Mouse Preferences"
+#~ msgstr "Preferências de Rato"
+
+#~ msgid "Typing Break"
+#~ msgstr "Intervalo de Utilização"
+
+#~ msgid "Typing break plugin"
+#~ msgstr "Plugin de intervalo de utilização"
+
+#~ msgid "Rotation not supported"
+#~ msgstr "Rotação não suportada"
+
+#~ msgid "Could not save monitor configuration"
+#~ msgstr "Incapaz de gravar a configuração do monitor"
+
+#~ msgid "Normal"
+#~ msgstr "Normal"
+
+#~ msgid "Left"
+#~ msgstr "Esquerda"
+
+#~ msgid "Right"
+#~ msgstr "Direita"
+
+#~ msgid "Upside Down"
+#~ msgstr "_Invertida"
+
+#~ msgid "_Configure Display Settings…"
+#~ msgstr "_Configurar as Definições de Ecrã…"
+
+#~ msgid "Configure display settings"
+#~ msgstr "Configurar as definições de ecrã"
+
+#~ msgid "Cannot determine user's home directory"
+#~ msgstr "Incapaz de determinar directório pessoal do utilizador"
+
+#~ msgid "Manage the X resource database"
+#~ msgstr "Gerir a base de dados de recursos X"
+
+#~ msgid "X Resource Database"
+#~ msgstr "Base de Dados de Recursos X"
+
+#~ msgid "GConf key %s set to type %s but its expected type was %s\n"
+#~ msgstr ""
+#~ "Chave GConf %s definida como do tipo %s mas o seu tipo esperado era %s\n"
+
+#~ msgid "Change system time"
+#~ msgstr "Alterar a hora do sistema"
+
+#~ msgid "Configure hardware clock"
+#~ msgstr "Configurar o relógio físico (hardware)"
+
+#~ msgid "Privileges are required to change the system time zone."
+#~ msgstr "São necessários privilégios para alterar o fuso-horário do sistema."
+
+#~ msgid "Privileges are required to change the system time."
+#~ msgstr "São necessários privilégios para alterar a hora do sistema."
 
 #~ msgid "Unknown"
-#~ msgstr "Desconhecida"
+#~ msgstr "Desconhecido"
 
 #~ msgid "Keyboard Layout \"%s\""
 #~ msgstr "Disposição do Teclado \"%s\""
@@ -1451,7 +2518,7 @@ msgstr "São necessários privilégios para configurar o relógio de hardware."
 #~ msgstr "_Grupos"
 
 #~ msgid "Keyboard Layout"
-#~ msgstr "Disposição de Teclado"
+#~ msgstr "Disposição do Teclado"
 
 #~ msgid ""
 #~ "Couldn't put the machine to sleep.\n"
@@ -1487,9 +2554,6 @@ msgstr "São necessários privilégios para configurar o relógio de hardware."
 #~ msgid "Enable screensaver plugin"
 #~ msgstr "Activar o plugin de protecção de ecrã"
 
-#~ msgid "Toggle screenreader"
-#~ msgstr "Alternar o leitor de ecrã"
-
 #~ msgid "%d%% of the disk space on `%s' is in use"
 #~ msgstr "%d%% do espaço do disco `%s' está ocupado"
 
@@ -1513,7 +2577,7 @@ msgstr "São necessários privilégios para configurar o relógio de hardware."
 #~ "O protector de ecrã não funcionará nesta sessão."
 
 #~ msgid "Screensaver"
-#~ msgstr "Protector de Ecrã"
+#~ msgstr "Protecção de Ecrã"
 
 #~ msgid "Screensaver plugin"
 #~ msgstr "Plugin de protecção de ecrã"
@@ -1536,7 +2600,7 @@ msgstr "São necessários privilégios para configurar o relógio de hardware."
 #~ msgstr "Incapaz de ler ficheiro de som %s como amostra %s"
 
 #~ msgid "Login"
-#~ msgstr "Iniciar Sessão"
+#~ msgstr "Sessão"
 
 #~ msgid "Logout"
 #~ msgstr "Terminar Sessão"
@@ -1572,7 +2636,7 @@ msgstr "São necessários privilégios para configurar o relógio de hardware."
 #~ msgstr "O ficheiro de som para este evento não existe."
 
 #~ msgid "Select Sound File"
-#~ msgstr "Seleccione um Ficheiro de Som"
+#~ msgstr "Seleccione Ficheiro de Som"
 
 #~ msgid "The file %s is not a valid wav file"
 #~ msgstr "O ficheiro %s não é um ficheiro wav válido"
@@ -1590,7 +2654,7 @@ msgstr "São necessários privilégios para configurar o relógio de hardware."
 #~ msgstr "Ocorreu um erro ao configurar o ecrã"
 
 #~ msgid "gtk-close"
-#~ msgstr "gtk-fechar"
+#~ msgstr "gtk-close"
 
 #~ msgid "Screen Rotation"
 #~ msgstr "Rotação de Ecrã"
