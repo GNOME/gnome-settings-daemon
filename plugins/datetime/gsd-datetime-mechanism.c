@@ -869,7 +869,7 @@ gsd_datetime_mechanism_can_set_time (GsdDatetimeMechanism  *mechanism,
                                      DBusGMethodInvocation *context)
 {
         check_can_do (mechanism,
-                      "org.gnome.settingsdaemon.datetimemechanism.settime",
+                      "org.gnome.settingsdaemon.datetimemechanism.configure",
                       context);
 
         return TRUE;
@@ -880,7 +880,7 @@ gsd_datetime_mechanism_can_set_timezone (GsdDatetimeMechanism  *mechanism,
                                          DBusGMethodInvocation *context)
 {
         check_can_do (mechanism,
-                      "org.gnome.settingsdaemon.datetimemechanism.settimezone",
+                      "org.gnome.settingsdaemon.datetimemechanism.configure",
                       context);
 
         return TRUE;
@@ -891,7 +891,7 @@ gsd_datetime_mechanism_can_set_using_ntp (GsdDatetimeMechanism  *mechanism,
                                           DBusGMethodInvocation *context)
 {
         check_can_do (mechanism,
-                      "org.gnome.settingsdaemon.datetimemechanism.configurentp",
+                      "org.gnome.settingsdaemon.datetimemechanism.configure",
                       context);
 
         return TRUE;
