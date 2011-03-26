@@ -410,7 +410,7 @@ ck_get_current_session_cb (GDBusConnection *connection,
 	g_debug ("Found ConsoleKit session at path %s", session_path);
 
 	g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-				  G_DBUS_PROXY_FLAGS_NONE,
+				  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
 				  NULL,
 				  CK_NAME,
 				  session_path,
