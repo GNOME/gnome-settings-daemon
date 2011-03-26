@@ -13,661 +13,834 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-24 10:42+0200\n"
-"PO-Revision-Date: 2010-02-24 10:42+0200\n"
-"Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-03-21 14:31+0000\n"
+"PO-Revision-Date: 2011-03-26 11:13+0400\n"
+"Last-Translator: Yuri Myaseodov <omerta13@yandex.ru>\n"
+"Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
-
-#: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "Вспомогательные технологии"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
-msgid "Free percentage notify threshold"
-msgstr "Процент свободного места для предупреждения"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
-msgid "Free space no notify threshold"
-msgstr "Объем свободного места для предупреждения"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
-msgid "Minimum notify period for repeated warnings"
-msgstr "Период между повторением оповещений"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
-msgid "Mount paths to ignore"
-msgstr "Игнорируемые точки монтирования"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
-msgid ""
-"Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown"
-msgstr ""
-"Порог, в процентах, для отображения первого оповещения о нехватке свободного "
-"места. Если процент свободного места на диске опускается ниже этого "
-"значения, то будет показано предупреждение"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
-msgid "Specify a list of mount paths to ignore when they run low on space."
-msgstr ""
-"Список точек монтирования, которые не будут отслеживаться на нехватку "
-"свободного места."
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
-msgid ""
-"Specify a time in minutes. Subsequent warnings for a volume will not appear "
-"more often than this period."
-msgstr ""
-"Укажите время в минутах. Последующие предупреждения об объёме свободного "
-"места для раздела не будут отображаться чаще чем один раз в этот период."
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
-msgid ""
-"Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown"
-msgstr ""
-"Укажите объем в ГБ. Если объем свободного места больше, то предупреждение не "
-"будет показано"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
-msgid ""
-"Specify the percentage that the free disk space should reduce by before "
-"issuing a subsequent warning"
-msgstr ""
-"Укажите процент свободного места, при преодолении которого нужно отобразить "
-"повторное предупреждение"
-
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
-msgid "Subsequent free percentage notify threshold"
-msgstr "Процент свободного места для повторного оповещения"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-msgid "Binding to eject an optical disk."
-msgstr "Комбинация клавиш для извлечения оптического диска."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
-msgid "Binding to enable or disable the touchpad."
-msgstr "Комбинация клавиш для включения или выключения сенсорной панели."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
-msgid "Binding to launch the calculator."
-msgstr "Комбинация клавиш для запуска калькулятора."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
-msgid "Binding to launch the email client."
-msgstr "Комбинация клавиш для запуска почтового клиента."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
-msgid "Binding to launch the help browser."
-msgstr "Комбинация клавиш для запуска справочной системы."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
-msgid "Binding to launch the media player."
-msgstr "Комбинация клавиш для запуска мультимедийного проигрывателя."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
-msgid "Binding to launch the search tool."
-msgstr "Комбинация клавиш для запуска утилиты поиска."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
-msgid "Binding to launch the web browser."
-msgstr "Комбинация клавиш для запуска веб-браузера."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
-msgid "Binding to lock the screen."
-msgstr "Комбинация клавиш для блокирования экрана."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
-msgid "Binding to log out."
-msgstr "Комбинация клавиш для выхода из системы."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
-msgid "Binding to lower the system volume."
-msgstr "Комбинация клавиш для уменьшения системной громкости."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
-msgid "Binding to mute the system volume."
-msgstr "Комбинация клавиш для приглушения системной громкости."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
-msgid "Binding to open the Home folder."
-msgstr "Комбинация клавиш для открытия домашней папки."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
-msgid "Binding to pause playback."
-msgstr "Комбинация клавиш для приостановки воспроизведения."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
-msgid "Binding to raise the system volume."
-msgstr "Комбинация клавиш для увеличения системной громкости."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
-msgid "Binding to skip to next track."
-msgstr "Комбинация клавиш для перехода к следующей дорожке."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
-msgid "Binding to skip to previous track."
-msgstr "Комбинация клавиш для перехода к предыдущей дорожке."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
-msgid "Binding to start playback (or toggle play/pause)."
-msgstr ""
-"Комбинация клавиш для запуска воспроизведения (или переключения "
-"воспроизведение/пауза)."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
-msgid "Binding to stop playback."
-msgstr "Комбинация клавиш для остановки воспроизведения."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:20
-msgid "Eject"
-msgstr "Извлечь"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:21
-msgid "Home folder"
-msgstr "Домашняя папка"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
-msgid "Launch calculator"
-msgstr "Запустить калькулятор"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:23
-msgid "Launch email client"
-msgstr "Запустить клиент электронной почты"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:24
-msgid "Launch help browser"
-msgstr "Запустить просмотр справки"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:25
-msgid "Launch media player"
-msgstr "Запустить мультимедийный проигрыватель"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:26
-msgid "Launch web browser"
-msgstr "Запустить веб-браузер"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:27
-msgid "Lock screen"
-msgstr "Заблокировать экран"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:28
-msgid "Log out"
-msgstr "Завершить сеанс"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:29
-msgid "Next track"
-msgstr "Следующая дорожка"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:30
-msgid "Pause playback"
-msgstr "Приостановить воспроизведение"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:31
-msgid "Play (or play/pause)"
-msgstr "Воспроизведение (или воспроизведение/пауза)"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:32
-msgid "Previous track"
-msgstr "Предыдущая дорожка"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:33
-msgid "Search"
-msgstr "Найти"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:34
-msgid "Stop playback"
-msgstr "Остановить воспроизведение"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:35
-msgid "Toggle touchpad"
-msgstr "Переключить сенсорную панель"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:36
-msgid "Volume down"
-msgstr "Уменьшить громкость"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:37
-msgid "Volume mute"
-msgstr "Отключить звук"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:38
-msgid "Volume step"
-msgstr "Шаг изменения громкости"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:39
-msgid "Volume step as percentage of volume."
-msgstr "Шаг изменения громкости в процентах."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:40
-msgid "Volume up"
-msgstr "Увеличить громкость"
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
-msgid ""
-"If a notification icon with display related things should be shown in the "
-"panel."
-msgstr "Показывать значок управления монитором в области уведомлений."
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
-msgid "Show Displays in Notification Area"
-msgstr "Показывать мониторы в области уведомлений"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:1
-msgid "Antialiasing"
-msgstr "Сглаживание"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:2
-msgid "DPI"
-msgstr "DPI"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:3
-msgid "Hinting"
-msgstr "Хинтинг"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:4
-msgid "RGBA order"
-msgstr "Порядок RGBA"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:5
-msgid ""
-"The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
-msgstr ""
-"Порядок субпиксельных элементов на ЖК экране; только если установлен тип "
-"сглаживания «rgba». Возможные значения: «rgb» (красный слева, наиболее часто), "
-"«bgr» (синий слева), «vrgb» (красный сверху), «vbgr» (красный снизу)."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:6
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch."
-msgstr ""
-"Разрешение, используемое для преобразования размеров шрифтов в количество "
-"пикселов, в точках на дюйм."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:7
-msgid ""
-"The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
-msgstr ""
-"Тип сглаживания, используемый при растеризации шрифтов. Возможные значения: "
-"«none» - без сглаживания, «grayscale» - стандартное черно-белое сглаживание, "
-"«rgba» - субпиксельное сглаживание (только для ЖК-мониторов)."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:8
-msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
-msgstr ""
-"Тип хинтинга, используемый при растеризации шрифтов. Возможные значения: "
-"«none» — без хинтинга, «slight» — базовый, «medium» - умеренный, «full» — "
-"максимальный хинтинг (может вызвать искажение формы символов)."
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:1
-msgid "Allowed keys"
-msgstr "Разрешённые клавиши"
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:2
-msgid ""
-"If non-empty, keybindings will be ignored unless their GConf directory is in "
-"the list. This is useful for lockdown."
-msgstr ""
-"Если список не пуст, то привязки комбинаций клавиш будут игнорироваться если "
-"их каталог GConf не будет присутствовать в этом списке. Это полезно для их "
-"блокировки."
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
-msgid "Disable touchpad while typing"
-msgstr "Отключать сенсорную панель при наборе"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
-msgid "Enable horizontal scrolling"
-msgstr "Использовать горизонтальную прокрутку"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
-msgid "Enable mouse clicks with touchpad"
-msgstr "Использовать щелчки мышью через сенсорную панель"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
-msgid "Enable touchpad"
-msgstr "Включить сенсорную панель"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
-msgid "Select the touchpad scroll method"
-msgstr "Выберите способ прокрутки"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
-msgid ""
-"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
-"edge scrolling, 2 - two-finger scrolling"
-msgstr ""
-"Выберите способ прокрутки. Допустимые значения: 0 — отключена, 1 — прокрутка "
-"по краю, 2 — прокрутка двумя пальцами"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
-msgid ""
-"Set this to TRUE if you have problems with accidentally hitting the touchpad "
-"while typing."
-msgstr ""
-"Установите в TRUE если у вас проблемы со срабатыванием touchpad'а при наборе "
-"текста."
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
-msgid ""
-"Set this to TRUE to allow horizontal scrolling by the same method selected "
-"with the scroll_method key."
-msgstr ""
-"Установите в TRUE чтобы включить горизонтальную прокрутку по методу "
-"установленному ключем scroll_method"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:9
-msgid ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
-msgstr ""
-"Установите в TRUE чтобы посылать щелчки мышки короткими прикосновениями к "
-"сенсорной панели."
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
-msgid "Set this to TRUE to enable all touchpads."
-msgstr "Установите в TRUE, чтобы разрешить все сенсорные панели."
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
-msgstr "Демон параметров GNOME"
+msgstr "Служба параметров GNOME"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:1
-msgid "Binding to toggle the magnifier."
-msgstr "Комбинация клавиш для включения экранного увеличителя."
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Command to be run when a device is added or removed."
+msgstr "Команда, выполняемая при подключении и отключении устройства."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
-msgid "Binding to toggle the on-screen keyboard."
-msgstr "Комбинация клавиш для включения экранной клавиатуры."
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid "Device hotplug custom command"
+msgstr "Команда автоматического подключения устройства"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
-msgid "Binding to toggle the screen reader."
-msgstr "Комбинация клавиш для включения чтения с экрана."
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Disable touchpad while typing"
+msgstr "Отключать сенсорную панель при наборе"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Bounce keys"
-msgstr "Скачущие клавиши"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Distance before a drag is started."
+msgstr "Пороговое значение расстояния для начала перетаскивания."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
-msgid "Command used to turn the magnifier on or off."
-msgstr "Команда для выключения и включения экранного увеличителя."
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "Double click time"
+msgstr "Время двойного щелчка"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
-msgid "Command used to turn the on-screen keyboard on or off."
-msgstr "Команда для выключения и включения экранной клавиатуры."
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Drag threshold"
+msgstr "Порог перетаскивания"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
-msgid "Command used to turn the screen reader on or off."
-msgstr "Команда для выключения и включения экранного чтения."
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid "Enable horizontal scrolling"
+msgstr "Включить горизонтальную прокрутку"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
-msgid "Enable accessibility keyboard plugin"
-msgstr "Включить модуль специальных возможностей клавиатуры"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "Enable mouse clicks with touchpad"
+msgstr "Включить щелчки мышью через сенсорную панель"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
-msgid "Enable background plugin"
-msgstr "Включить модуль фона рабочего стола"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "Enable touchpad"
+msgstr "Включить сенсорную панель"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
-msgid "Enable clipboard plugin"
-msgstr "Включить модуль буфера обмена"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+msgid "Enables middle mouse button emulation through simultaneous left and right button click."
+msgstr "Включает эмуляцию средней кнопки мыши через одновременное нажатие левой и правой кнопки."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
-msgid "Enable font plugin"
-msgstr "Включить модуль шрифта"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid "Highlights the current location of the pointer when the Control key is pressed and released."
+msgstr "Подсвечивает текущее положение указателя при нажатие клавиши Ctrl."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
-msgid "Enable housekeeping plugin"
-msgstr "Включить модуль housekeeping"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+msgid "Length of a double click in milliseconds."
+msgstr "Длительность двойного щелчка в миллисекундах."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
-msgid "Enable keybindings plugin"
-msgstr "Включить модуль комбинаций клавиш клавиатуры"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+msgid "Middle button emulation"
+msgstr "Эмуляция средней кнопки"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
-msgid "Enable keyboard plugin"
-msgstr "Включить модуль клавиатуры"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+msgid "Select the touchpad scroll method"
+msgstr "Выберите способ прокрутки"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
-msgid "Enable media keys plugin"
-msgstr "Включить модуль мультимедийных клавиш"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#| msgid ""
+#| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
+#| "- edge scrolling, 2 - two-finger scrolling"
+msgid "Select the touchpad scroll method. Supported values are: \"disabled\", \"edge-scrolling\", \"two-finger-scrolling\"."
+msgstr "Выберите способ прокрутки для сенсорной панели. Допустимые значения: «disabled» — отключить прокрутку, «edge-scrolling» — прокрутка по краю, «two-finger-scrolling» — прокрутка двумя пальцами."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid "Enable mouse plugin"
-msgstr "Включить модуль мыши"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid "Set this to TRUE if you have problems with accidentally hitting the touchpad while typing."
+msgstr "Установите в TRUE, если сенсорная панель регистрирует случайные нажатия при наборе текста."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable sound plugin"
-msgstr "Включить модуль звука"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid "Set this to TRUE to allow horizontal scrolling by the same method selected with the scroll_method key."
+msgstr "Установите в TRUE, чтобы включить горизонтальную прокрутку по методу, установленному ключом scroll_method."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
-msgid "Enable typing breaks plugin"
-msgstr "Включить модуль перерыва в работе"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr "Установите в TRUE, чтобы регистрировать щелчки мыши при быстром касании сенсорной панели."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Enable xrandr plugin"
-msgstr "Включить модуль xrandr"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Установите в TRUE, чтобы включить все сенсорные панели."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
-msgid "Enable xrdb plugin"
-msgstr "Включить модуль xrdb"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+msgid "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The action will get performed when the smartcard used for log in is removed."
+msgstr "Установите значение «none», «lock-screen» или «force-logout». Действие будет выполнено при извлечении смарт-карты, используемой для входа в систему."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
-msgid "Enable xsettings plugin"
-msgstr "Включить модуль xsettings"
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid "Smartcard removal action"
+msgstr "Действие при удалении смарт-карты"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
-msgid "Mouse keys"
-msgstr "Клавиши мыши"
+#. g-p-m is not a GSD plugin, yet
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+msgid "Activation of this plugin"
+msgstr "Включение этого модуля"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-msgid "On-screen keyboard"
-msgstr "Экранная клавиатура"
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+msgid "Priority to use for this plugin"
+msgstr "Приоритет использования этого модуля"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "Screen magnifier"
-msgstr "Увеличитель экрана"
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgstr "Приоритет использования этого модуля в очереди gnome-settings-daemon"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid "Screen reader"
-msgstr "Чтение с экрана"
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgstr "Должен ли этот модуль включаться gnome-settings-daemon или нет"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
-msgid ""
-"Set to True to enable the housekeeping plugin, to prune transient file "
-"caches."
-msgstr ""
-"Установите в True, чтобы включить модуль периодического сброса файловых "
-"кэшей."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+msgid "Free percentage notify threshold"
+msgstr "Пороговый процент свободного места для уведомления"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
-msgid "Set to True to enable the plugin to manage clipboard settings."
-msgstr ""
-"Установите в True, чтобы разрешить модулю управлять параметрами буфера "
-"обмена."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+#| msgid "Free space no notify threshold"
+msgid "Free space notify threshold"
+msgstr "Пороговое значение свободного места для уведомления"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
-msgid "Set to True to enable the plugin to manage desktop background settings."
-msgstr ""
-"Установите в True, чтобы разрешить модулю управлять параметрами фона "
-"рабочего стола."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+msgid "Minimum notify period for repeated warnings"
+msgstr "Минимальное время между повторяющимися предупреждениями"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
-msgid "Set to True to enable the plugin to manage font settings."
-msgstr ""
-"Установите в True, чтобы разрешить модулю управлять параметрами шрифта."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+msgid "Mount paths to ignore"
+msgstr "Игнорируемые точки монтирования"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
-msgid "Set to True to enable the plugin to manage keyboard settings."
-msgstr ""
-"Установите в True, чтобы разрешить модулю управлять параметрами клавиатуры."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+#| msgid ""
+#| "Percentage free space threshold for initial warning of low disk space. If "
+#| "the percentage free space drops below this, a warning will be shown"
+msgid "Percentage free space threshold for initial warning of low disk space. If the percentage free space drops below this, a warning will be shown."
+msgstr "Пороговый процент свободного места, необходимый для включения предупреждения о нехватке свободного места. Если процент свободного места будет ниже этого значения, будет получено предупреждение."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
-msgid "Set to True to enable the plugin to manage mouse settings."
-msgstr "Установите в True, чтобы разрешить модулю управлять параметрами мыши."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr "Список точек монтирования, которые не будут отслеживаться на нехватку свободного места."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
-msgid "Set to True to enable the plugin to manage multimedia keys settings."
-msgstr ""
-"Установите в True, чтобы разрешить модулю управлять параметрами "
-"мультимедийных клавиш."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+msgid "Specify a time in minutes. Subsequent warnings for a volume will not appear more often than this period."
+msgstr "Укажите время в минутах. Последующие предупреждения об объёме свободного места для раздела не будут отображаться чаще, чем один раз в этот период."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
-msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr ""
-"Установите в True, чтобы включить модуль управления кэшированием звуков."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+#| msgid ""
+#| "Specify an amount in GB. If the amount of free space is more than this, "
+#| "no warning will be shown"
+msgid "Specify an amount in GB. If the amount of free space is more than this, no warning will be shown."
+msgstr "Укажите объём в ГБ. Если объём свободного места больше этого значения, будет получено предупреждение."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
-msgstr ""
-"Установите в True, чтобы включить модуль управления специальными "
-"возможностями клавиатуры."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+#| msgid ""
+#| "Specify the percentage that the free disk space should reduce by before "
+#| "issuing a subsequent warning"
+msgid "Specify the percentage that the free disk space should reduce by before issuing a subsequent warning."
+msgstr "Укажите процент свободного места, при превышении которого будет получено повторное предупреждение."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:35
-msgid "Set to True to enable the plugin to manage the keybindings."
-msgstr ""
-"Установите в True, чтобы разрешить модулю управлять комбинациями клавиш "
-"клавиатуры."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#| msgid "Subsequent free percentage notify threshold"
+msgid "Subsequent free space percentage notify threshold"
+msgstr "Пороговый процент свободного места для повторного уведомления"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
-msgid "Set to True to enable the plugin to manage typing breaks."
-msgstr ""
-"Установите в True, чтобы разрешить модулю управлять перерывами в работе."
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
+msgstr "Приоритет использования этого модуля в очереди gnome-settings-daemon."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
-msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr ""
-"Установите в True, чтобы разрешить модулю управлять параметрами xrandr."
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+msgstr "Должен ли этот модуль включаться gnome-settings-daemon или нет."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
-msgid "Set to True to enable the plugin to manage xrdb settings."
-msgstr "Установите в True, чтобы разрешить модулю управлять параметрами xrdb."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+msgid "Allowed keys"
+msgstr "Разрешённые клавиши"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
-msgid "Set to True to enable the plugin to manage xsettings."
-msgstr ""
-"Установите в True, чтобы разрешить модулю управлять параметрами xsettings."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding for the magnifier to zoom in"
+msgstr "Комбинация клавиш для приближения экранного увеличителя"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
-msgid "Slow keys"
-msgstr "Медленные клавиши"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding for the magnifier to zoom out"
+msgstr "Комбинация клавиш для отдаления экранного увеличителя"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
-msgid "Sticky keys"
-msgstr "Залипающие клавиши"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#| msgid "Binding to raise the system volume."
+msgid "Binding to decrease the text size"
+msgstr "Комбинация клавиш для уменьшения размера текста"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
-msgid "The name of the keyboard shortcut to toggle the magnifier"
-msgstr "Комбинация клавиш для включения экранного увеличителя"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#| msgid "Binding to eject an optical disk."
+msgid "Binding to eject an optical disc."
+msgstr "Комбинация клавиш для извлечения оптического диска."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
-msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+msgid "Binding to enable or disable the touchpad."
+msgstr "Комбинация клавиш для включения или выключения сенсорной панели."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#| msgid "Binding to raise the system volume."
+msgid "Binding to increase the text size"
+msgstr "Комбинация клавиш для увеличения размера текста"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+msgid "Binding to launch the calculator."
+msgstr "Комбинация клавиш для запуска калькулятора."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+msgid "Binding to launch the email client."
+msgstr "Комбинация клавиш для запуска почтового клиента."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+msgid "Binding to launch the help browser."
+msgstr "Комбинация клавиш для запуска справочной системы."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+msgid "Binding to launch the media player."
+msgstr "Комбинация клавиш для запуска мультимедийного проигрывателя."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+msgid "Binding to launch the search tool."
+msgstr "Комбинация клавиш для запуска инструмента поиска."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+msgid "Binding to launch the web browser."
+msgstr "Комбинация клавиш для запуска веб-браузера."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+msgid "Binding to lock the screen."
+msgstr "Комбинация клавиш для блокирования экрана."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+msgid "Binding to log out."
+msgstr "Комбинация клавиш для выхода из системы."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+msgid "Binding to lower the system volume."
+msgstr "Комбинация клавиш для уменьшения громкости."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+msgid "Binding to mute the system volume."
+msgstr "Комбинация клавиш для приглушения громкости."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+msgid "Binding to open the Home folder."
+msgstr "Комбинация клавиш для открытия домашней папки."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+msgid "Binding to pause playback."
+msgstr "Комбинация клавиш для приостановки воспроизведения."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+msgid "Binding to raise the system volume."
+msgstr "Комбинация клавиш для увеличения громкости."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#| msgid "Binding to toggle the on-screen keyboard."
+msgid "Binding to show the on-screen keyboard"
 msgstr "Комбинация клавиш для включения экранной клавиатуры"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
-msgid "The name of the keyboard shortcut to toggle the screen reader"
-msgstr "Комбинация клавиш для включения системы чтения с экрана"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to show the screen magnifier"
+msgstr "Комбинация клавиш для включения экранного увеличителя"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
-msgid ""
-"This is the name of the keyboard shortcut to toggle the magnifier. This name "
-"will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Комбинация клавиш для включения увеличителя экрана.Она может быть изменена в "
-"диалоге настройки комбинаций клавиш."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+msgid "Binding to skip to next track."
+msgstr "Комбинация клавиш для перехода к следующей дорожке."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid ""
-"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
-"This name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Комбинация клавиш для включения экранной клавиатуры. Эта настройка может "
-"быть изменена в диалоге настройки комбинаций клавиш."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+msgid "Binding to skip to previous track."
+msgstr "Комбинация клавиш для перехода к предыдущей дорожке."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
-msgid ""
-"This is the name of the keyboard shortcut to toggle the screen reader. This "
-"name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Комбинация клавиш для включения системы чтения с экрана. Эта настройка может "
-"быть изменена в диалоге настройки комбинаций клавиш."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+msgid "Binding to start playback (or toggle play/pause)."
+msgstr "Комбинация клавиш для запуска воспроизведения (или переключения воспроизведение/пауза)."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#| msgid "Binding to toggle the screen reader."
+msgid "Binding to start the screen reader"
+msgstr "Комбинация клавиш для включения чтения с экрана"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+msgid "Binding to stop playback."
+msgstr "Комбинация клавиш для остановки воспроизведения."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to toggle the interface contrast"
+msgstr "Комбинация клавиш для включения контрастности"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+msgid "Decrease text size"
+msgstr "Уменьшить размер текста"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+msgid "Eject"
+msgstr "Извлечь"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+msgid "Home folder"
+msgstr "Домашняя папка"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#| msgid ""
+#| "If non-empty, keybindings will be ignored unless their GConf directory is "
+#| "in the list. This is useful for lockdown."
+msgid "If non-empty, keybindings will be ignored unless their settings directory is in the list. This is useful for lockdown."
+msgstr "Если список не пуст, то комбинации клавиш будут игнорироваться, если их каталог параметров не будет находиться в этом списке. Это полезно для блокировки."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+msgid "Increase text size"
+msgstr "Увеличить размер текста"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+msgid "Launch calculator"
+msgstr "Запустить калькулятор"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+msgid "Launch email client"
+msgstr "Запустить клиент электронной почты"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+msgid "Launch help browser"
+msgstr "Запустить справочную систему"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+msgid "Launch media player"
+msgstr "Запустить мультимедийный проигрыватель"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+msgid "Launch web browser"
+msgstr "Запустить веб-браузер"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+msgid "Lock screen"
+msgstr "Заблокировать экран"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+msgid "Log out"
+msgstr "Завершить сеанс"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Magnifier zoom in"
+msgstr "Приблизить увеличитель"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Magnifier zoom out"
+msgstr "Отдалить увеличитель"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+msgid "Next track"
+msgstr "Следующая дорожка"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+msgid "Pause playback"
+msgstr "Приостановить воспроизведение"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+msgid "Play (or play/pause)"
+msgstr "Воспроизведение (или воспроизведение/пауза)"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+msgid "Previous track"
+msgstr "Предыдущая дорожка"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+msgid "Search"
+msgstr "Найти"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+msgid "Stop playback"
+msgstr "Остановить воспроизведение"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#| msgid "Toggle screen reader"
+msgid "Toggle contrast"
+msgstr "Включить или выключить контрастность"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle magnifier"
-msgstr "Включить экранный увеличитель"
+msgstr "Включить или выключить экранный увеличитель"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Toggle on-screen keyboard"
-msgstr "Включить экранную клавиатуру"
+msgstr "Включить или выключить экранную клавиатуру"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle screen reader"
-msgstr "Включить чтение с экрана"
+msgstr "Включить или выключить чтение с экрана"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
-msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-msgstr ""
-"Включена ли поддержка скачущих клавиш системы вспомогательных технологий."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+msgid "Toggle touchpad"
+msgstr "Включить или выключить сенсорную панель"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
-msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-msgstr ""
-"Включена ли поддержка работы с мышью системы вспомогательных технологий."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+msgid "Volume down"
+msgstr "Уменьшить громкость"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Whether the on-screen keyboard is turned on."
-msgstr "Включена ли экранная клавиатура."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+msgid "Volume mute"
+msgstr "Приглушить звук"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
-msgid "Whether the screen magnifier is turned on."
-msgstr "Включён ли увеличитель экрана."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+msgid "Volume up"
+msgstr "Увеличить громкость"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
-msgid "Whether the screen reader is turned on."
-msgstr "Включена ли система чтения с экрана."
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+msgid "Ask the user if additional firmware should be installed"
+msgstr "Спрашивать пользователя об установке дополнительных прошивок"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
-msgid "Whether the slow keys keyboard accessibility feature is turned on."
-msgstr ""
-"Включена ли поддержка медленных клавиш системы вспомогательных технологий."
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+msgid "Ask the user if additional firmware should be installed if it is available."
+msgstr "Спрашивать пользователя об установке доступных дополнительных прошивок."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
-msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-msgstr ""
-"Включена ли поддержка залипающих клавиш системы вспомогательных технологий."
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+msgid "Automatically download updates in the background without confirmation"
+msgstr "Загружать обновления в фоне без подтверждения"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+msgid "Automatically download updates in the background without confirmation. Updates will be auto-downloaded when using wired network connnections, and also WiFi if 'connection-use-wifi' is enabled and mobile broadband if 'connection-use-mobile' is enabled."
+msgstr "Загружать обновления в фоне без подтверждения. При использовании проводного подключения обновления загружаются автоматически, для беспроводного и мобильного подключения необходимо установить параметры «connection-use-wifi» и «connection-use-mobile» соответственно."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+msgid "Automatically update these types of updates"
+msgstr "Автоматически обновлять эти типы обновлений"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+msgid "Automatically update these types of updates."
+msgstr "Автоматически обновлять эти типы обновлений."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+msgid "Devices that should be ignored"
+msgstr "Игнорировать устройства"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+msgid "Devices that should be ignored, separated by commas. These can include '*' and '?' characters."
+msgstr "Игнорируемые устройства через запятую. Можно использовать символы «*» и «?»."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+msgid "Firmware files that should not be searched for"
+msgstr "Не искать файлы прошивок"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+msgid "Firmware files that should not be searched for, separated by commas. These can include '*' and '?' characters."
+msgstr "Файлы прошивок через запятую, которые не нужно искать. Можно использовать символы «*» и «?»."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+msgid "Get the update list when the session starts"
+msgstr "Получать список обновлений в начале сеанса"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+msgid "Get the update list when the session starts, even if not scheduled to."
+msgstr "Получать список обновлений в начале сеанса, даже если это не было запланировано."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+msgid "How often to check for distribution upgrades"
+msgstr "Как часто проверять обновления для дистрибутива"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+msgid "How often to check for distribution upgrades. Value is in seconds."
+msgstr "Как часто проверять обновления для дистрибутива. Значение в секундах."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+msgid "How often to check for updates"
+msgstr "Как часто проверять обновления"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+msgid "How often to check for updates. Value is in seconds. This is a maximum amount of time that can pass between a security update being published, and the update being automatically installed or the user notified."
+msgstr "Как часто проверять обновления. Значение в секундах. Максимальное количество времени, которое может пройти между выпуском обновления по безопасности и обновлением, которое может быть установлено автоматически."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+msgid "How often to notify the user that non-critical updates are available"
+msgstr "Как часто уведомлять пользователя о наличии некритических обновлений"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+msgid "How often to refresh the package cache"
+msgstr "Как часто обновлять кэш пакетов"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+msgid "How often to refresh the package cache. Value is in seconds."
+msgstr "Как часто обновлять кэш пакетов. Значение в секундах."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+msgid "How often to tell the user there are non-critical updates. Value is in seconds. Security update notifications are always shown after the check for updates, but non-critical notifications should be shown a lot less frequently."
+msgstr "Как часто сообщать пользователя о некритических обновлениях. Значение в секундах. Обновления по безопасности всего показываются после проверки обновлений, но некритические обновления должны показываться значительно реже."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+msgid "Install updates automatically when running on battery power"
+msgstr "Автоматически устанавливать обновления при работе от батареи"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+msgid "Install updates automatically when running on battery power."
+msgstr "Автоматически устанавливать обновления при работе от батареи."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+msgid "Notify the user for completed updates"
+msgstr "Уведомлять пользователя о завершении установки обновлений"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+msgid "Notify the user for completed updates where the user needs to restart"
+msgstr "Уведомлять пользователя о завершении установки обновлений, когда требуется перезагрузка"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+msgid "Notify the user for completed updates where the user needs to restart."
+msgstr "Уведомлять пользователя о завершении установки обновлений, когда требуется перезагрузка."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+msgid "Notify the user for completed updates. This may be a useful notification for some users as installing updates prevents shutdown."
+msgstr "Уведомлять пользователя о завершении установки обновлений. Это может быть полезным для некоторых пользователей, т. к. установка обновлений блокирует выключение."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+msgid "Notify the user when distribution upgrades are available"
+msgstr "Уведомлять пользователя о наличии обновлений для дистриубтива"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+msgid "Notify the user when distribution upgrades are available."
+msgstr "Уведомлять пользователя о наличии обновлений для дистриубтива."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+msgid "Notify the user when the automatic update was not started on battery power"
+msgstr "Уведомлять пользователя, когда автоматическое обновление было запущено при работе от батареи"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+msgid "Notify the user when the update was not automatically started because the machine is running on battery power."
+msgstr "Уведомлять пользователя, когда обновление не было запущено из-за того, что компьютер работает от батареи."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+msgid "Notify the user when the update was started"
+msgstr "Уведомлять пользователя, когда запускается обновление"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+msgid "Notify the user when the update was started."
+msgstr "Уведомлять пользователя, когда запускается обновление."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+msgid "The filenames on removable media that designate it a software source."
+msgstr "Имена файлов на съёмном носителе, которые считают носитель источником ПО."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+msgid "The install root to use when adding and removing packages"
+msgstr "Корень установки, используемый при добавлении и удалении пакетов"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+msgid "The install root to use when processing packages, which is changed when using LTSP or when testing."
+msgstr "Корень установки, используемый при обработке пакетов, который меняется при использовании LTSP или тестировании."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+msgid "The last time we notified the user about non-critical updates. Value is in seconds since the epoch, or zero for never."
+msgstr "Время последнего уведомления пользователя о наличии некритических обновлений. Время в секундах от начала компьютерной эпохи; 0 — никогда."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+msgid "The last time we told the user about non-critical notifications"
+msgstr "Последнее сообщение пользователю о некритических уведомлениях"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+msgid "The number of seconds at session startup to wait before checking for updates"
+msgstr "Время ожидания в секундах для проверки наличия обновлений после запуска сеанса"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+msgid "The number of seconds at session startup to wait before checking for updates. Value is in seconds."
+msgstr "Время ожидания в секундах для проверки наличия обновлений после запуска сеанса. Значение в секундах."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+msgid "Use WiFi (wireless LAN) connections to check for updates. It may be faster to download packages when on a wired connection, and the VPN or proxy required may also only be available on wired connections."
+msgstr "Использовать соединения WiFi (беспроводную сеть) для проверки обновлений. Загрузка пакетов по проводному поключению может быть быстрее, VPN или прокси также могут быть доступными только через проводное подключение."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+msgid "Use WiFi connections"
+msgstr "Использовать соединения WiFi"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+msgid "Use mobile broadband connections"
+msgstr "Использовать мобильные соединения"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+msgid "Use mobile broadband connections such as GSM and CDMA to check for updates."
+msgstr "Использовать мобильные соединения для проверки обновлений, например GSM и CDMA."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+msgid "When removable media is inserted, it is checked to see if it contains any important filenames in the root directory. If the filename matches, then an updates check is performed. This allows post-install disks to be used to update running systems."
+msgstr "При подключении съёмного носителя он будет проверен на наличие важных файлов в корневом каталоге. Если имя файла совпадает, тогда будет выполнена проверка на наличие обновлений. Это позволяет использовать послеустановочные диски для обновления запущенных систем."
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+msgid "'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions)"
+msgstr "«clone» — показать тоже самое на всех мониторах; «dock» — отключить внутренний монитор; «do-nothing» — использовать поведение Xorg по умолчанию (в последних версиях — растянуть рабочий стол)"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+#| msgid "File for default configuration for RANDR"
+msgid "File for default configuration for RandR"
+msgstr "Файл для настроек по умолчанию для RandR"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#| msgid ""
+#| "The XRANDR plugin will look for a default configuration in the file "
+#| "specified by this key. This is similar to the ~/.config/monitors.xml that "
+#| "normally gets stored in users' home directories. If a user does not have "
+#| "such a file, or has one that does not match the user's setup of monitors, "
+#| "then the file specified by this key will be used instead."
+msgid "The XRandR plugin will look for a default configuration in the file specified by this key. This is similar to the ~/.config/monitors.xml that normally gets stored in users' home directories. If a user does not have such a file, or has one that does not match the user's setup of monitors, then the file specified by this key will be used instead."
+msgstr "Модуль XRandR будет искать настройки по умолчанию в файле, определённым этим ключом. Это похоже на файл ~/.config/monitors.xml, который обычно хранится в домашних каталогах пользователей. Если у пользователя нет такого файла, или файл не соответствует настройке мониторов пользователя, вместо него будет использоваться файл, определённый этим ключом."
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+msgid "Whether to turn off specific monitors after boot"
+msgstr "Выключать ли определённые мониторы после перезагрузки"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+msgid "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
+msgstr "Список модулей GTK+, которые будут загружаться в дополнение к условно или намеренно отключенным модулям."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+msgid "A list of strings representing the GTK+ modules that will not be loaded, even if enabled by default in their configuration."
+msgstr "Список модулей GTK+, которые не будут загружаться даже в том случае, если они включены по умолчанию в настройках."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+msgid "Antialiasing"
+msgstr "Сглаживание"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+msgid "Hinting"
+msgstr "Хинтинг"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "Список отключенных модулей GTK+"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "Список включенных модулей GTK+"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+msgid "RGBA order"
+msgstr "Порядок RGBA"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+msgid "The order of subpixel elements on an LCD screen; only used when antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red on bottom."
+msgstr "Порядок субпиксельных элементов на ЖК экране; только если установлен тип сглаживания «rgba». Возможные значения: «rgb» (красный слева, наиболее часто), «bgr» (синий слева), «vrgb» (красный сверху), «vbgr» (красный снизу)."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+msgid "The type of antialiasing to use when rendering fonts. Possible values are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+msgstr "Тип сглаживания, используемый для отрисовки шрифтов. Возможные значения: «none» — без сглаживания; «grayscale» — стандартное чёрно-белое сглаживание; «rgba» — субпиксельное сглаживание (только для ЖК-мониторов)."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+msgid "The type of hinting to use when rendering fonts. Possible values are: \"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum hinting (may cause distortion of letter forms)."
+msgstr "Тип хинтинга, используемый для отрисовки шрифтов. Возможные значения: «none» — без хинтинга; «slight» — базовый; «medium» — умеренный; «full» — максимальный хинтинг (может приводить к искажению формы символов)."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr "Включите, чтобы только перемещать курсор при касании планшета."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr "Включите, чтобы только сообщать о событиях стилуса при нажатии кончиком."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr "Включить, чтобы установить курсор в абсолютный режим."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr "Включить, чтобы установить ластик в абсолютный режим."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr "Включить, чтобы установить стилус в абсолютный режим."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+msgid "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and 'ccw' for 90 degree counterclockwise."
+msgstr "Установите в значение «none», «cw» (на 90 градусов по часовой стрелке), «half» (на 180 градусов), «ccw» (на 90 градусов против часовой стрелки)."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr "Установите значение для соответствия кнопок."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+msgid "Set this to the pressure value at which a stylus click event is generated."
+msgstr "Установите значение силы нажатия, при котором создаётся событие нажатия стилуса."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+msgid "Set this to the pressure value at which an eraser click event is generated."
+msgstr "Установите значение силы нажатия, при котором создаётся событие нажатия ластика."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr "Установите точки x1, y1 и x2, y2 области, в которой можно пользоваться курсором."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr "Установите точки x1, y1 и x2, y2 области, в которой можно пользоваться ластиком."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr "Установите точки x1, y1 и x2, y2 области, в которой можно пользоваться дополнительными кнопками."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr "Установите точки x1, y1 и x2, y2 области, в которой можно пользоваться стилусом."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr "Установите точки x1, y1 и x2, y2 кривой силы нажатия; кривая применяется к ластику."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr "Установите точки x1, y1 и x2, y2 кривой силы нажатия; кривая применяется к стилусу."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
+msgstr "Абсолютный режим курсора Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
+msgstr "Соответствие кнопок для курсора Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
+msgstr "Область курсора Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
+msgstr "Абсолютный режим ластика Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
+msgstr "Соответствие кнопок для ластика Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
+msgstr "Кривая нажатия ластика Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
+msgstr "Порог нажатия ластика Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
+msgstr "Область ластика Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr "Соответствие дополнительных кнопок Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr "Область дополнительных кнопок Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr "Абсолютный режим стилуса Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr "Соответствие кнопок для стилуса Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr "Кривая нажатия стилуса Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr "Порог нажатия стилуса Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr "Область стилуса Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr "Режим планшетного ПК"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr "Вращение планшета Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr "Режим сенсора"
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Включить отладочный код"
 
-#: ../gnome-settings-daemon/main.c:56
-msgid "Don't become a daemon"
-msgstr "Не становиться демоном"
-
-#: ../gnome-settings-daemon/main.c:57
-msgid "GConf prefix from which to load plugin settings"
-msgstr "Префикс GConf для загрузки параметров модуля"
-
-#: ../gnome-settings-daemon/main.c:58
-msgid "Exit after a time - for debugging"
-msgstr "Выйти через время - для отладки"
+#: ../gnome-settings-daemon/main.c:55
+#| msgid "Exit after a time - for debugging"
+msgid "Exit after a time (for debugging)"
+msgstr "Выйти через заданное время (для отладки)"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -677,113 +850,98 @@ msgstr "Вспомогательные технологии клавиатуры
 msgid "Accessibility keyboard plugin"
 msgstr "Модуль вспомогательных технологий клавиатуры"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:392
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Произошла ошибка при отображении справки: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
 msgid "Do you want to activate Slow Keys?"
-msgstr "Активировать функцию «Медленные клавиши»?"
+msgstr "Хотите включить «медленные» клавиши?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
 msgid "Do you want to deactivate Slow Keys?"
-msgstr "Отключить функцию «Медленные клавиши»?"
+msgstr "Хотите отключить «медленные» клавиши?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
-msgid ""
-"You just held down the Shift key for 8 seconds.  This is the shortcut for "
-"the Slow Keys feature, which affects the way your keyboard works."
-msgstr ""
-"Вы только что удержали клавишу Shift нажатой 8 секунд.  Это комбинация для "
-"функции «Медленные клавиши», которая влияет на способ работы вашей клавиатуры."
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
+msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for the Slow Keys feature, which affects the way your keyboard works."
+msgstr "Вы только что удержали клавишу Shift нажатой 8 секунд. Это — комбинация для функции «медленные» клавиши, которая влияет на способ работы с клавиатурой."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't activate"
-msgstr "Не запускать"
+msgstr "Не включать"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't deactivate"
 msgstr "Не выключать"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Activate"
 msgstr "Включить"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Deactivate"
 msgstr "Выключить"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't activate"
-msgstr "Не _запускать"
+msgstr "_Не включать"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't deactivate"
 msgstr "_Не выключать"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Activate"
-msgstr "_Включить"
+msgstr "В_ключить"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Deactivate"
 msgstr "В_ыключить"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
 msgid "Slow Keys Alert"
-msgstr "Предупреждение функции «Медленные клавиши»"
+msgstr "Предупреждение о «медленных» клавишах"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
 msgid "Do you want to activate Sticky Keys?"
-msgstr "Активировать функцию «Залипающие клавиши»?"
+msgstr "Хотите включить «залипающие» клавиши?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid "Do you want to deactivate Sticky Keys?"
-msgstr "Отключить функцию «Залипающие клавиши»?"
+msgstr "Отключить функцию «залипающие» клавиши?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
-msgid ""
-"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
-"the Sticky Keys feature, which affects the way your keyboard works."
-msgstr ""
-"Вы только что нажали клавишу «Shift» 5 раз подряд.  Это комбинация для "
-"включения функции «Залипающие клавиши», которая влияет на способ работы "
-"клавиатуры."
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
+msgid "You just pressed the Shift key 5 times in a row.  This is the shortcut for the Sticky Keys feature, which affects the way your keyboard works."
+msgstr "Вы только что нажали клавишу Shift 5 раз подряд. Это — комбинация для включения функции «залипающие» клавиши, которая влияет на способ работы клавиатуры."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
-msgid ""
-"You just pressed two keys at once, or pressed the Shift key 5 times in a "
-"row.  This turns off the Sticky Keys feature, which affects the way your "
-"keyboard works."
-msgstr ""
-"Вы только что нажали две клавиши одновременно, или нажали клавишу Shift 5 "
-"раз подряд.  Это включает функцию «Залипающие клавиши«», которая влияет на "
-"способ работы вашей клавиатуры."
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
+msgid "You just pressed two keys at once, or pressed the Shift key 5 times in a row.  This turns off the Sticky Keys feature, which affects the way your keyboard works."
+msgstr "Вы только что нажали две клавиши одновременно, или нажали клавишу Shift 5 раз подряд.  Это включает функцию «залипающие» клавиши, которая влияет на способ работы с клавиатурой."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
 msgid "Sticky Keys Alert"
-msgstr "Предупреждение функции «Залипающие клавиши»"
+msgstr "Предупреждение о «залипающих» клавишах"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
-msgstr "Параметры вспомогательных технологий"
+msgstr "Настройки универсального доступа"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Enhance _contrast in colors"
@@ -791,11 +949,11 @@ msgstr "Делать цвета более _контрастными"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
 msgid "Make _text larger and easier to read"
-msgstr "Увеличивать размер _текста, чтобы облегчить чтение"
+msgstr "Увеличивать размер _текста, чтобы упростить чтение"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
-msgstr "Нажимать и _удерживать клавиши (медленные клавиши)"
+msgstr "Нажимать и _удерживать клавиши («медленные» клавиши)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
@@ -811,12 +969,147 @@ msgstr "Использовать _чтение с экрана"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "_Пропускать повторные нажатия (скачущие клавиши)"
+msgstr "_Пропускать повторные нажатия («отскакивающие» клавиши)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr ""
-"_Нажимать клавиатурные комбинации по одной клавиши (залипающие клавиши)"
+msgstr "_Нажимать клавиатурные комбинации по одной клавише («залипающие» клавиши)"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#| msgid "Accessibility"
+msgid "Accessibility settings"
+msgstr "Параметры вспомогательных технологий"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#| msgid "Accessibility keyboard plugin"
+msgid "Accessibility settings plugin"
+msgstr "Модуль параметров вспомогательных технологий"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr "Автоматическое монтирование"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+#| msgid "Font plugin"
+msgid "Automounter plugin"
+msgstr "Модуль автомонтирования"
+
+#: ../plugins/automount/gsd-automount-manager.c:154
+#, c-format
+msgid "Unable to mount %s"
+msgstr "Не удалось примонтировать %s"
+
+#: ../plugins/automount/gsd-automount-manager.c:271
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr "Не удалось открыть папку для %s"
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr "Спрашивать, что делать"
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr "Ничего не делать"
+
+#: ../plugins/automount/gsd-autorun.c:352
+#| msgid "Home folder"
+msgid "Open Folder"
+msgstr "Открыть папку"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, c-format
+#| msgid "Enable touchpad"
+msgid "Unable to eject %p"
+msgstr "Не удалось извлечь %p"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr "Не удалось отмонтировать %p"
+
+#: ../plugins/automount/gsd-autorun.c:700
+msgid "You have just inserted an Audio CD."
+msgstr "Вы только что вставили звуковой компакт-диск."
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio DVD."
+msgstr "Вы только что вставили звуковой DVD."
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted a Video DVD."
+msgstr "Вы только что вставили видео-DVD."
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video CD."
+msgstr "Вы только что вставили видеодиск VCD."
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Super Video CD."
+msgstr "Вы только что вставили компакт-диск Super Video."
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a blank CD."
+msgstr "Вы только что вставили чистый компакт-диск."
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank DVD."
+msgstr "Вы только что вставили чистый диск DVD."
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "Вы только что вставили чистый диск Blu-ray."
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank HD DVD."
+msgstr "Вы только что вставили чистый диск HD DVD."
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a Photo CD."
+msgstr "Вы только что вставили Photo CD."
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Picture CD."
+msgstr "Вы только что вставили Picture CD."
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a medium with digital photos."
+msgstr "Вы только что вставили носитель с цифровыми фотографиями."
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a digital audio player."
+msgstr "Вы только что вставили цифровой медиапроигрыватель."
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid "You have just inserted a medium with software intended to be automatically started."
+msgstr "Вы только что вставили носитель с ПО, предназначенным для автозапуска."
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:729
+msgid "You have just inserted a medium."
+msgstr "Вы только что вставили носитель."
+
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "Choose what application to launch."
+msgstr "Выберите приложение для запуска."
+
+#: ../plugins/automount/gsd-autorun.c:740
+#, c-format
+msgid "Select how to open \"%s\" and whether to perform this action in the future for other media of type \"%s\"."
+msgstr "Выберите, как открывать «%s» и выполнять ли это действие в будущем для других носителей типа «%s»."
+
+#: ../plugins/automount/gsd-autorun.c:767
+msgid "_Always perform this action"
+msgstr "_Всегда выполнять это действие"
+
+#: ../plugins/automount/gsd-autorun.c:783
+#| msgid "Eject"
+msgid "_Eject"
+msgstr "_Извлечь"
+
+#: ../plugins/automount/gsd-autorun.c:788
+msgid "_Unmount"
+msgstr "_Отмонтировать"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -842,130 +1135,96 @@ msgstr "Заглушка"
 msgid "Dummy plugin"
 msgstr "Модуль-заглушка"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
-msgid "Font"
-msgstr "Шрифт"
+#: ../plugins/housekeeping/gsd-disk-space.c:332
+#, c-format
+#| msgid "Low Disk Space"
+msgid "Low Disk Space on \"%s\""
+msgstr "Мало свободного места на диске «%s»"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
-msgid "Font plugin"
-msgstr "Модуль шрифта"
+#: ../plugins/housekeeping/gsd-disk-space.c:334
+#, c-format
+#| msgid "The volume \"%s\" has only %s disk space remaining."
+msgid "The volume \"%s\" has only %s disk space remaining.  You may free up some space by emptying the trash."
+msgstr "На разделе «%s» осталось всего %s свободного места. Можно освободить место, очистив корзину."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-msgid "Don't show any warnings again for this filesystem"
-msgstr "Не показывать для этой файловой системы"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-msgid "Don't show any warnings again"
-msgstr "Не показывать больше это сообщение"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#: ../plugins/housekeeping/gsd-disk-space.c:338
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr "На разделе \"%s\" осталось всего %s свободного места."
+msgstr "На разделе «%s» осталось всего %s свободного места."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-disk-space.c:343
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
+msgid "Low Disk Space"
+msgstr "Мало места на диске"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:345
+#, c-format
+#| msgid "This computer has only %s disk space remaining."
+msgid "This computer has only %s disk space remaining.  You may free up some space by emptying the trash."
+msgstr "На компьютере осталось всего %s свободного места. Можно освободить место, очистив корзину."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:348
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "На компьютере осталось всего %s свободного места."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
-msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs "
-"or files, or moving files to another disk or partition."
-msgstr ""
-"Можно освободить дисковое пространство очистив корзину, удалив "
-"неиспользуемые приложения или файлы, или переместив файлы на другой диск или "
-"раздел."
+#: ../plugins/housekeeping/gsd-disk-space.c:369
+#| msgid "Examine..."
+msgid "Examine"
+msgstr "Проверить"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
-msgid ""
-"You can free up disk space by removing unused programs or files, or by "
-"moving files to another disk or partition."
-msgstr ""
-"Можно освободить дисковое пространство удалив неиспользуемые приложения или "
-"файлы, или переместив файлы на другой диск или раздел."
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
-msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs "
-"or files, or moving files to an external disk."
-msgstr ""
-"Можно освободить дисковое пространство очистив корзину, удалив "
-"неиспользуемые приложения или файлы, или переместив файлы на внешний диск."
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
-msgid ""
-"You can free up disk space by removing unused programs or files, or by "
-"moving files to an external disk."
-msgstr ""
-"Можно освободить дисковое пространство удалив неиспользуемые приложения или "
-"файлы, или переместив файлы на внешний диск."
-
-#. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
-msgid "Low Disk Space"
-msgstr "Недостаточно места на диске"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
+#: ../plugins/housekeeping/gsd-disk-space.c:377
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
 msgid "Empty Trash"
 msgstr "Очистить корзину"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
-msgid "Examine..."
-msgstr "Запустить анализатор использования дисков"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
+#: ../plugins/housekeeping/gsd-disk-space.c:384
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "Игнорировать"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
-#, c-format
-msgid "Removing item %lu of %lu"
-msgstr "Удаляется файл %lu из %lu"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+#| msgid "Don't show any warnings again for this filesystem"
+msgid "Don't show any warnings again for this file system"
+msgstr "Не показывать больше предупреждения для этой файловой системы"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
-#, c-format
-msgid "<i>Removing: %s</i>"
-msgstr "<i>Удаляется: %s</i>"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
+msgid "Don't show any warnings again"
+msgstr "Не показывать больше предупреждения"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
-msgid "Emptying the trash"
-msgstr "Очистка корзины"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
+msgid "You can free up disk space by emptying the Trash, removing unused programs or files, or moving files to another disk or partition."
+msgstr "Можно освободить дисковое пространство, очистив корзину, удалив неиспользуемые приложения или файлы, или переместив файлы на другой диск или раздел."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
-msgid "Preparing to empty trash..."
-msgstr "Подготовка к очистке корзины..."
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
+msgid "You can free up disk space by removing unused programs or files, or by moving files to another disk or partition."
+msgstr "Можно освободить дисковое пространство, удалив неиспользуемые приложения или файлы, или переместив файлы на другой диск или раздел."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
-msgid "From: "
-msgstr "Из: "
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
+msgid "You can free up disk space by emptying the Trash, removing unused programs or files, or moving files to an external disk."
+msgstr "Можно освободить дисковое пространство, очистив корзину, удалив неиспользуемые приложения или файлы, или переместив файлы на внешний диск."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
-msgid "Empty all of the items from the trash?"
-msgstr "Удалить все файлы из корзины?"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
+msgid "You can free up disk space by removing unused programs or files, or by moving files to an external disk."
+msgstr "Можно освободить дисковое пространство, удалив неиспользуемые приложения или файлы, или переместив файлы на внешний диск."
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
-msgid ""
-"If you choose to empty the trash, all items in it will be permanently lost. "
-"Please note that you can also delete them separately."
-msgstr ""
-"Если вы выберете освободить корзину, все файлы в ней будут безвозвратно "
-"удалены. Обратите внимание на то, что можно удалять их по отдельности."
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
-msgid "_Empty Trash"
-msgstr "_Очистить корзину"
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:444
+#| msgid "Examine..."
+msgid "Examine…"
+msgstr "Проверить…"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
-msgstr "Комбинация клавиш (%s) недопустима"
+msgstr "Недопустимая комбинация клавиш (%s)"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:197
 #, c-format
 msgid "Key binding (%s) is incomplete"
-msgstr "Комбинация клавиш (%s) не полна"
+msgstr "Неполная комбинация клавиш (%s)"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:493
 #, c-format
@@ -978,11 +1237,11 @@ msgstr ""
 
 #: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
 msgid "Keybindings"
-msgstr "Комбинации клавиш клавиатуры"
+msgstr "Комбинации клавиш"
 
 #: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
 msgid "Keybindings plugin"
-msgstr "Модуль комбинаций клавиш клавиатуры"
+msgstr "Модуль комбинаций клавиш"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
 msgid "Keyboard"
@@ -992,132 +1251,62 @@ msgstr "Клавиатура"
 msgid "Keyboard plugin"
 msgstr "Модуль клавиатуры"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:112
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:87
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
-"It can happen under various circumstances:\n"
-"- a bug in libxklavier library\n"
-"- a bug in X server (xkbcomp, xmodmap utilities)\n"
-"- X server with incompatible libxkbfile implementation\n"
+"There can be various reasons for that.\n"
 "\n"
-"X server version data:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"If you report this situation as a bug, please include:\n"
-"- The result of <b>%s</b>\n"
-"- The result of <b>%s</b>"
+"If you report this situation as a bug, include the results of\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 msgstr ""
-"Ошибка при активировании расширения XKB.\n"
-"Это может произойти при различных обстоятельствах:\n"
-"- ошибка в библиотеке libxklavier\n"
-"- ошибка в X-сервере (утилиты xkbcomp, xmodmap)\n"
-"- X-сервер с несовместимой реализацией libxkbfile\n"
+"Ошибка включения настройки XKB.\n"
+"Это могло произойти по различным причинам.\n"
 "\n"
-"Данные о версии X-сервера:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"Если вы сообщаете об этой ситуации, включите, пожалуйста:\n"
-"- Результат <b>%s</b>\n"
-"- Результат <b>%s</b>"
+"Если вы составляете отчёт об ошибке, включите результаты\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:126
-msgid ""
-"You are using XFree 4.3.0.\n"
-"There are known problems with complex XKB configurations.\n"
-"Try using a simpler configuration or taking a fresher version of XFree "
-"software."
-msgstr ""
-"Вы используете XFree 4.3.0.\n"
-"Существуют известные проблемы с конфигурацией XKB.\n"
-"Попробуйте использовать более простую конфигурацию или установить более "
-"свежую версию XFree."
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
+msgid "_Layouts"
+msgstr "_Раскладки"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:197
-msgid "Unknown"
-msgstr "Неизвестно"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:266
-#, c-format
-msgid "Keyboard Layout \"%s\""
-msgstr "Раскладка клавиатуры «%s»"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:389
-msgid "_Groups"
-msgstr "_Группы"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:396
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
 msgid "Keyboard _Preferences"
-msgstr "_Параметры клавиатуры"
+msgstr "_Настройки клавиатуры"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
-msgid "Show Current _Layout"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
+#| msgid "Show Current _Layout"
+msgid "Show _Current Layout"
 msgstr "Показать текущую _раскладку"
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:1
-msgid "A_vailable files:"
-msgstr "_Доступные файлы:"
+#: ../plugins/media-keys/gsd-media-keys-manager.c:218
+msgid "Could not get default terminal. Verify that your default terminal command is set and points to a valid application."
+msgstr "Не удалось запустить терминал по умолчанию. Проверьте, что команда для терминала по умолчанию установлена и указывает на исправное приложение."
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:2
-msgid "Load modmap files"
-msgstr "Загрузка файлов modmap"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:3
-msgid "Would you like to load the modmap file(s)?"
-msgstr "Загрузить файл(ы) modmap?"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:4
-msgid "_Do not show this message again"
-msgstr "_Не показывать больше это сообщение"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:5
-msgid "_Load"
-msgstr "_Загрузить"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:6
-msgid "_Loaded files:"
-msgstr "_Загруженные файлы:"
-
-#: ../plugins/keyboard/show-layout.ui.h:1
-msgid "Keyboard Layout"
-msgstr "Раскладка клавиатуры"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
-msgid ""
-"Could not get default terminal. Verify that your default terminal command is "
-"set and points to a valid application."
-msgstr ""
-"Не удалось установить команду запуска терминала по умолчанию. Проверьте, что "
-"терминал по умолчанию выбран и является исправным приложением."
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#: ../plugins/media-keys/gsd-media-keys-manager.c:258
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
 "Verify that this is a valid command."
 msgstr ""
 "Не удалось выполнить команду: %s\n"
-"Убедитесь, что это правильная команда."
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
-msgid ""
-"Couldn't put the machine to sleep.\n"
-"Verify that the machine is correctly configured."
-msgstr ""
-"Не удалось перевести машину в спящий режим.\n"
-"Убедитесь, что машина правильно настроена."
+"Убедитесь, что команда правильная."
 
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1091
 msgid "Disabled"
 msgstr "Отключено"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1098
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1127,7 +1316,7 @@ msgstr[2] "%u выходов"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1108
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
@@ -1135,9 +1324,9 @@ msgstr[0] "%u вход"
 msgstr[1] "%u входа"
 msgstr[2] "%u входов"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1406
 msgid "System Sounds"
-msgstr "Звуки системы"
+msgstr "Системные звуки"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -1147,20 +1336,20 @@ msgstr "Мультимедийные клавиши"
 msgid "Media keys plugin"
 msgstr "Модуль мультимедийных клавиш"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:874
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Could not enable mouse accessibility features"
-msgstr "Не удаётся включить специальные возможности мыши"
+msgstr "Не удалось включить возможности вспомогательных технологий мыши"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:876
-msgid ""
-"Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr ""
-"Чтобы активировать специальные возможности мыши, необходимо установить "
-"службу mousetweaks."
+#: ../plugins/mouse/gsd-mouse-manager.c:824
+#| msgid ""
+#| "Mouse accessibility requires mousetweaks to be installed on your system."
+msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
+msgstr "Вспомогательным технологиям мыши требуется наличие установленного пакета Mousetweaks."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:879
-msgid "Mouse Preferences"
-msgstr "Параметры мыши"
+#: ../plugins/mouse/gsd-mouse-manager.c:826
+#| msgid "Universal Access Preferences"
+msgid "Universal Access"
+msgstr "Универсальный доступ"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
@@ -1170,13 +1359,220 @@ msgstr "Мышь"
 msgid "Mouse plugin"
 msgstr "Модуль мыши"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
-msgid "Typing Break"
-msgstr "Перерыв в работе"
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+msgid "Print-notifications"
+msgstr "Print-notifications"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
-msgid "Typing break plugin"
-msgstr "Модуль перерыва в работе"
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+msgid "Print-notifications plugin"
+msgstr "Модуль print-notifications"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
+msgid "Toner low"
+msgstr "Мало тонера"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
+msgid "Toner empty"
+msgstr "Тонер закончился"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
+msgid "Not connected?"
+msgstr "Не подключен?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
+msgid "Cover open"
+msgstr "Открыта крышка"
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
+msgid "Printer configuration error"
+msgstr "Ошибка настройки принтера"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
+msgid "Door open"
+msgstr "Открыта дверца"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
+msgid "Marker supply low"
+msgstr "Низкий ресурс маркера"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
+msgid "Out of a marker supply"
+msgstr "Ресурсы маркера закончились"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
+msgid "Paper low"
+msgstr "Мало бумаги"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
+msgid "Out of paper"
+msgstr "Кончилась бумага"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
+msgid "Printer off-line"
+msgstr "Принтер не подключен"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
+msgid "Printer error"
+msgstr "Ошибка принтера"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr "В принтере «%s» мало тонера."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr "В принтере «%s» закончился тонер."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr "Принтер «%s» может быть не подключен."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr "Крышка принтера «%s» открыта."
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr "Для принтера «%s» отсутствует фильтр."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr "Дверца принтера «%s» открыта."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr "Низкий ресурс маркера принтера «%s»."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr "Ресурсы маркера принтера «%s» закончились."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr "В принтере «%s» мало бумаги."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr "В принтере «%s» закончилась бумага."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr "Принтер «%s» не подключен."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr "Произошла ошибка принтера «%s»."
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
+msgid "Printer added"
+msgstr "Принтер добавлен"
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
+msgid "Printer removed"
+msgstr "Принтер удалён"
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+msgid "Printing stopped"
+msgstr "Принтер остановлен"
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#, c-format
+msgid "\"%s\" on %s"
+msgstr "«%s» в %s"
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+msgid "Printing canceled"
+msgstr "Печать отменена"
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+msgid "Printing aborted"
+msgstr "Печать прервана"
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+msgid "Printing completed"
+msgstr "Печать завершена"
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#| msgid "Hinting"
+msgid "Printing"
+msgstr "Печать"
+
+#. Translators: We are configuring new printer
+#: ../plugins/print-notifications/gsd-printer.c:91
+msgid "Configuring new printer"
+msgstr "Настройка нового принтера"
+
+#. Translators: Just wait
+#: ../plugins/print-notifications/gsd-printer.c:93
+msgid "Please wait..."
+msgstr "Подождите…"
+
+#. name is a URI, no queue was generated, because no suitable
+#. * driver was found
+#.
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:114
+msgid "Missing printer driver"
+msgstr "Отсутствует драйвер принтера"
+
+#. Translators: We have no driver installed for the device
+#: ../plugins/print-notifications/gsd-printer.c:123
+#, c-format
+msgid "No printer driver for %s."
+msgstr "Нет драйвера принтера для %s."
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:128
+msgid "No driver for this printer."
+msgstr "Для этого принтера нет драйвера."
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1186,105 +1582,54 @@ msgstr "Установить размер экрана и параметры п�
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:222
+#: ../plugins/xrandr/gsd-xrandr-manager.c:413
 msgid "Could not switch the monitor configuration"
 msgstr "Не удалось изменить конфигурацию мониторов"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:246
+#: ../plugins/xrandr/gsd-xrandr-manager.c:437
 msgid "Could not restore the display's configuration"
 msgstr "Не удалось восстановить конфигурацию мониторов"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:271
+#: ../plugins/xrandr/gsd-xrandr-manager.c:462
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Не удалось воcстановить конфигурацию мониторов из резервной копии"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:292
+#: ../plugins/xrandr/gsd-xrandr-manager.c:483
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
-msgid_plural ""
-"The display will be reset to its previous configuration in %d seconds"
+msgid_plural "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "Конфигурация мониторов будет восстановлена через %d секунду"
 msgstr[1] "Конфигурация мониторов будет восстановлена через %d секунды"
 msgstr[2] "Конфигурация мониторов будет восстановлена через %d секунд"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:341
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Does the display look OK?"
-msgstr "Вас устраивает текущая конфигурация?"
+msgstr "Монитор настроен правильно?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:347
+#: ../plugins/xrandr/gsd-xrandr-manager.c:539
 msgid "_Restore Previous Configuration"
 msgstr "_Восстановить предыдущую конфигурацию"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:348
+#: ../plugins/xrandr/gsd-xrandr-manager.c:540
 msgid "_Keep This Configuration"
-msgstr "_Применить текущую конфигурацию"
+msgstr "_Оставить эту конфигурацию"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:429
+#: ../plugins/xrandr/gsd-xrandr-manager.c:621
 msgid "The selected configuration for displays could not be applied"
 msgstr "Не удалось применить выбранную конфигурацию мониторов"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:967
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Не удалось обновить информацию об экране: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
-msgstr "Конфигурация мониторов применяется принудительно."
+msgstr "Принудительная попытка применения конфигурации мониторов."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1679
-msgid "<i>Rotation not supported</i>"
-msgstr "<i>Поворот экрана не поддерживается</i>"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1733
-msgid "Could not save monitor configuration"
-msgstr "Не удалось сохранить конфигурацию мониторов"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1751
-msgid "Normal"
-msgstr "Обычная"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1752
-msgid "Left"
-msgstr "Влево"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1753
-msgid "Right"
-msgstr "Вправо"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1754
-msgid "Upside Down"
-msgstr "Перевернуть"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1874
-msgid "_Configure Display Settings ..."
-msgstr "_Настроить параметры монитора ..."
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1915
-msgid "Configure display settings"
-msgstr "Настроить параметры "
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1972
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Не удалось применить сохранённую конфигурацию мониторов"
-
-#: ../plugins/xrdb/gsd-xrdb-manager.c:255
-#: ../plugins/xrdb/gsd-xrdb-manager.c:324
-msgid "Cannot determine user's home directory"
-msgstr "Не удалось определить домашний каталог пользователя"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
-msgid "Manage the X resource database"
-msgstr "Управление базой данных ресурсов X"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
-msgid "X Resource Database"
-msgstr "База данных ресурсов X"
-
-#: ../plugins/xsettings/gsd-xsettings-manager.c:644
-#, c-format
-msgid "GConf key %s set to type %s but its expected type was %s\n"
-msgstr "Ключ «%s» системы GConf установлен в тип %s, а ожидаемый тип был %s\n"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
 msgid "Manage X Settings"
@@ -1293,3 +1638,243 @@ msgstr "Управление параметрами системы X Window"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Параметры системы X Window"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:187
+msgid "Module Path"
+msgstr "Путь к модулю"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:188
+msgid "path to smartcard PKCS #11 driver"
+msgstr "путь к драйверу смарт-карт PKCS #11"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:528
+msgid "received error or hang up from event source"
+msgstr "получена ошибка или отбой со стороны источника событий"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr "не удалось инициализировать систему безопасности NSS"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:790
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr "не удалось найти подходящий драйвер смарт-карт"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:804
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr "не удалось загрузить драйвер смарт-карт «%s»"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:876
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr "не удаётся следить за входящими событиями — %s"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr "во время ожидания событий смарт-карты произошла неожиданная ошибка"
+
+#: ../plugins/smartcard/gsd-smartcard.c:158
+msgid "Slot ID"
+msgstr "Идентификатор слота"
+
+#: ../plugins/smartcard/gsd-smartcard.c:159
+msgid "The slot the card is in"
+msgstr "Слот, в котором находится карта"
+
+#: ../plugins/smartcard/gsd-smartcard.c:165
+#| msgid "Slow keys"
+msgid "Slot Series"
+msgstr "Ряд слотов"
+
+#: ../plugins/smartcard/gsd-smartcard.c:166
+msgid "per-slot card identifier"
+msgstr "Идентификатор карты"
+
+#: ../plugins/smartcard/gsd-smartcard.c:172
+#: ../plugins/smartcard/gsd-smartcard.c:173
+msgid "name"
+msgstr "имя"
+
+#: ../plugins/smartcard/gsd-smartcard.c:177
+#| msgid "Mouse"
+msgid "Module"
+msgstr "Модуль"
+
+#: ../plugins/smartcard/gsd-smartcard.c:178
+msgid "smartcard driver"
+msgstr "драйвер смарт-карт"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
+#| msgid "Set up screen size and rotation settings"
+msgid "Change system time and date settings"
+msgstr "Изменить системную дату и время"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
+msgid "Privileges are required to configure time and date settings."
+msgstr "Привилегии, необходимые для настройки даты и времени."
+
+#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
+#: ../plugins/updates/gsd-updates-manager.c:194
+msgid "Distribution upgrades available"
+msgstr "Доступны обновления для дистрибутива"
+
+#. TRANSLATORS: provides more information about the upgrade
+#: ../plugins/updates/gsd-updates-manager.c:204
+msgid "More information"
+msgstr "Дополнительная информация"
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:307
+#: ../plugins/updates/gsd-updates-manager.c:367
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] "Обновление"
+msgstr[1] "Обновления"
+msgstr[2] "Обновления"
+
+#. TRANSLATORS: message when there are security updates
+#: ../plugins/updates/gsd-updates-manager.c:310
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] "Доступно важное обновление программного обеспечения"
+msgstr[1] "Доступны важные обновления программного обеспечения"
+msgstr[2] "Доступны важные обновления программного обеспечения"
+
+#. TRANSLATORS: button: open the update viewer to install updates
+#: ../plugins/updates/gsd-updates-manager.c:330
+#: ../plugins/updates/gsd-updates-manager.c:390
+msgid "Install updates"
+msgstr "Установить обновления"
+
+#. TRANSLATORS: message when there are non-security updates
+#: ../plugins/updates/gsd-updates-manager.c:370
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] "Доступно обновление программного обеспечения."
+msgstr[1] "Доступны обновления программного обеспечения."
+msgstr[2] "Доступны обновления программного обеспечения."
+
+#. TRANSLATORS: policy says update, but we are on battery and so prompt
+#: ../plugins/updates/gsd-updates-manager.c:436
+msgid "Automatic updates are not being installed as the computer is running on battery power"
+msgstr "Автоматические обновления не были установлены, т. к. компьютер работает от батареи"
+
+#. TRANSLATORS: informs user will not install by default
+#: ../plugins/updates/gsd-updates-manager.c:438
+msgid "Updates not installed"
+msgstr "Обновления не установлены"
+
+#. TRANSLATORS: to hell with my battery life, just do it
+#: ../plugins/updates/gsd-updates-manager.c:444
+msgid "Install the updates anyway"
+msgstr "Всё равно установить обновления"
+
+#: ../plugins/updates/gsd-updates-manager.c:460
+msgid "No restart is required."
+msgstr "Перезагрузка не требуется."
+
+#: ../plugins/updates/gsd-updates-manager.c:463
+msgid "A restart is required."
+msgstr "Требуется перезагрузка."
+
+#: ../plugins/updates/gsd-updates-manager.c:466
+msgid "You need to log out and log back in."
+msgstr "Необходимо выйти из системы и войти в неё снова."
+
+#: ../plugins/updates/gsd-updates-manager.c:469
+msgid "You need to restart the application."
+msgstr "Необходимо перезапустить приложение."
+
+#: ../plugins/updates/gsd-updates-manager.c:472
+msgid "You need to log out and log back in to remain secure."
+msgstr "Для сохранения безопасности необходимо выйти из системы и войти в неё снова."
+
+#: ../plugins/updates/gsd-updates-manager.c:475
+msgid "A restart is required to remain secure."
+msgstr "Для сохранения безопасности необходим перезапуск."
+
+#. TRANSLATORS: we did the update, but some updates were skipped and not applied
+#: ../plugins/updates/gsd-updates-manager.c:536
+msgid "One package was skipped:"
+msgid_plural "Some packages were skipped:"
+msgstr[0] "Пропущен один пакет:"
+msgstr[1] "Пропущено несколько пакетов:"
+msgstr[2] "Пропущено несколько пакетов:"
+
+#. TRANSLATORS: title: system update completed all okay
+#: ../plugins/updates/gsd-updates-manager.c:568
+msgid "The system update has completed"
+msgstr "Обновление системы завершено"
+
+#. TRANSLATORS: restart computer as system packages need update
+#: ../plugins/updates/gsd-updates-manager.c:575
+msgid "Restart computer now"
+msgstr "Перезагрузить компьютер сейчас"
+
+#. TRANSLATORS: the updates mechanism
+#: ../plugins/updates/gsd-updates-manager.c:646
+msgid "Updates"
+msgstr "Обновления"
+
+#. TRANSLATORS: we failed to get the updates multiple times,
+#. * and now we need to inform the user that something might be wrong
+#: ../plugins/updates/gsd-updates-manager.c:650
+msgid "Unable to access software updates"
+msgstr "Не удалось получить доступ к обновлениям"
+
+#. TRANSLATORS: try again, this time launching the update viewer
+#: ../plugins/updates/gsd-updates-manager.c:653
+msgid "Try again"
+msgstr "Попробовать ещё раз"
+
+#. TRANSLATORS: the reason why we've inhibited it
+#: ../plugins/updates/gsd-updates-manager.c:1092
+msgid "A transaction that cannot be interrupted is running"
+msgstr "Запущенную транзакцию нельзя прервать"
+
+#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:240
+msgid "You will need to restart this computer before the hardware will work correctly."
+msgstr "Для правильной работы оборудования необходимо перезагрузить компьютер."
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:243
+#: ../plugins/updates/gsd-updates-firmware.c:267
+#: ../plugins/updates/gsd-updates-firmware.c:291
+msgid "Additional software was installed"
+msgstr "Установлена дополнительная прошивка"
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:264
+msgid "You will need to remove and then reinsert the hardware before it will work correctly."
+msgstr "Для правильной работы оборудования его необходимо отключить и снова подключить к компьютеру."
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:288
+msgid "Your hardware has been set up and is now ready to use."
+msgstr "Оборудование настроено и готово к использованию."
+
+#. TRANSLATORS: we need another package to keep udev quiet
+#: ../plugins/updates/gsd-updates-firmware.c:566
+msgid "Additional firmware is required to make hardware in this computer function correctly."
+msgstr "Для правильной работы оборудования требуется дополнительная прошивка."
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:580
+msgid "Additional firmware required"
+msgstr "Требуется дополнительная прошивка"
+
+#. TRANSLATORS: button label
+#: ../plugins/updates/gsd-updates-firmware.c:585
+msgid "Install firmware"
+msgstr "Установить прошивку"
+
+#. TRANSLATORS: we should ignore this device and not ask anymore
+#: ../plugins/updates/gsd-updates-firmware.c:588
+#| msgid "Ignore"
+msgid "Ignore devices"
+msgstr "Игнорировать устройства"
+
