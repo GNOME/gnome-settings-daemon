@@ -23,12 +23,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-16 11:46+0000\n"
-"PO-Revision-Date: 2011-03-17 14:36+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-29 00:35+0200\n"
+"PO-Revision-Date: 2011-03-28 00:04+0200\n"
+"Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -39,34 +39,43 @@ msgid "GNOME Settings Daemon"
 msgstr "GNOME-Einstellungsdienst"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Command to be run when a device is added or removed."
+msgstr "Auszuführender Befehl, wenn ein Gerät hinzugefügt oder entfernt wird."
+
+# Vielleicht noch zu lang für einen GConf-Schlüssel.
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid "Device hotplug custom command"
+msgstr "Benutzerdefinierter Befehl bei Geräteanschluss"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
 msgstr "Touchpad während des Tippens deaktivieren"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid "Distance before a drag is started."
 msgstr "Distanz bevor das Ziehen einsetzt."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "Double click time"
 msgstr "Doppelklick-Zeit"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
 msgid "Drag threshold"
 msgstr "Ziehschwellwert"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Enable horizontal scrolling"
 msgstr "Horizontales Rollen aktivieren"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "Enable mouse clicks with touchpad"
 msgstr "Mausklicks mit dem Touchpad aktivieren"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable touchpad"
 msgstr "Touchpad aktivieren"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
@@ -74,7 +83,7 @@ msgstr ""
 "Aktiviert Emulation der mittleren Maustaste durch gleichzeitiges Drücken der "
 "linken und rechten Maustaste."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
@@ -82,28 +91,28 @@ msgstr ""
 "Hebt die aktuelle Position des Mauszeigers hervor, wenn die Strg-Taste "
 "gedrückt und wieder losgelassen wird."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Length of a double click in milliseconds."
 msgstr "Die Länge des Doppelklicks in Millisekunden."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid "Middle button emulation"
 msgstr "Emulation der mittleren Maustaste"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Select the touchpad scroll method"
 msgstr "Rollmethode für Touchpad auswählen"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid ""
-"Select the touchpad scroll method. Supported values are: \"disabled\", \"edge-"
-"scrolling\", \"two-finger-scrolling\"."
+"Select the touchpad scroll method. Supported values are: \"disabled\", "
+"\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
 "Wählen Sie die Rollmethode für das Touchpad aus. Mögliche Werte sind: "
 "»disabled« - deaktiviert, »edge-scrolling« - Kantenrollen, »two-finger-"
 "scrolling« - Rollen mit zwei Fingern"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -111,7 +120,7 @@ msgstr ""
 "Setzen Sie dies auf »WAHR«, falls Sie Probleme mit unbeabsichtigtem Berühren "
 "des Touchpads während des Tippens haben."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -119,26 +128,27 @@ msgstr ""
 "Setzen Sie dies auf »WAHR«, um horizontales Rollen mit der Methode zu "
 "erlauben, die im Schlüssel »scroll_method« festgelegt ist."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
-"Setzen Sie dies auf »WAHR«, um Mausklicks mit dem Touchpad auslösen zu können."
+"Setzen Sie dies auf »WAHR«, um Mausklicks mit dem Touchpad auslösen zu "
+"können."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Setzen Sie dies auf »WAHR«, um alle Touchpads zu aktivieren."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid ""
-"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The action "
-"will get performed when the smartcard used for log in is removed."
+"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
+"action will get performed when the smartcard used for log in is removed."
 msgstr ""
 "Setzen Sie dies auf »none« (nichts tun), »lock-screen« (Bildschirm sperren) "
 "oder »force-logout« (Abmelden erzwingen). Die Aktion wird ausgeführt, wenn "
 "die zum Anmelden benutzte Smartcard entfernt wird."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Smartcard removal action"
 msgstr "Smartcard-Entfernung"
 
@@ -213,8 +223,8 @@ msgstr "Zu ignorierende Einhängepfade"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
-"Percentage free space threshold for initial warning of low disk space. If the "
-"percentage free space drops below this, a warning will be shown."
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown."
 msgstr ""
 "Prozentsatz des freien Plattenplatzes als Auslöseschwelle für die erstmalige "
 "Warnung. Falls der Prozentsatz des freien Platzes unter diesen Wert fällt, "
@@ -367,8 +377,8 @@ msgstr "Tastenkürzel um zum vorherigen Titel zu springen."
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr ""
-"Tastenkürzel um die Wiedergabe zu starten (oder zwischen Wiedergabe und Pause "
-"umzuschalten)."
+"Tastenkürzel um die Wiedergabe zu starten (oder zwischen Wiedergabe und "
+"Pause umzuschalten)."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Binding to start the screen reader"
@@ -582,9 +592,9 @@ msgstr "Abfrageintervall für Aktualisierungen"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid ""
-"How often to check for updates. Value is in seconds. This is a maximum amount "
-"of time that can pass between a security update being published, and the "
-"update being automatically installed or the user notified."
+"How often to check for updates. Value is in seconds. This is a maximum "
+"amount of time that can pass between a security update being published, and "
+"the update being automatically installed or the user notified."
 msgstr ""
 "Abfrageintervall für Distributionsaktualisierungen, in Sekunden angegeben. "
 "Dies ist der maximale Zeitraum zwischen der Veröffentlichung einer "
@@ -610,7 +620,8 @@ msgstr ""
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
-"updates, but non-critical notifications should be shown a lot less frequently."
+"updates, but non-critical notifications should be shown a lot less "
+"frequently."
 msgstr ""
 "Legt fest, wie oft der Benutzer über nicht-kritische Aktualisierungen "
 "informiert werden soll. Sicherheitsaktualisierungen werden immer unmittelbar "
@@ -698,8 +709,8 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
 msgid ""
-"The install root to use when processing packages, which is changed when using "
-"LTSP or when testing."
+"The install root to use when processing packages, which is changed when "
+"using LTSP or when testing."
 msgstr ""
 "Der beim Verarbeiten von Paketen zu verwendende Basisordner, der geändert "
 "wird, wenn LTSP verwendet wird oder für Testzwecke."
@@ -727,17 +738,17 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
 msgid ""
-"The number of seconds at session startup to wait before checking for updates. "
-"Value is in seconds."
+"The number of seconds at session startup to wait before checking for "
+"updates. Value is in seconds."
 msgstr ""
 "Wartezeit beim Start der Sitzung, bevor nach neuen Aktualisierungen gesucht "
 "werden soll, angegeben in Sekunden."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
 msgid ""
-"Use WiFi (wireless LAN) connections to check for updates. It may be faster to "
-"download packages when on a wired connection, and the VPN or proxy required "
-"may also only be available on wired connections."
+"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
+"to download packages when on a wired connection, and the VPN or proxy "
+"required may also only be available on wired connections."
 msgstr ""
 "Drahtlose Verbindungen zum Prüfen auf neue Aktualisierungen verwenden. Das "
 "Herunterladen über kabelgebundene Verbindungen könnte schneller sein und das "
@@ -778,10 +789,10 @@ msgid ""
 "the internal monitor, 'do-nothing' will use the default Xorg behaviour "
 "(extend the desktop in recent versions)"
 msgstr ""
-"»clone« (duplizieren) zeigt das selbe auf allen Monitoren an, »dock« (Docking-"
-"Station) schaltet den internen Monitor ab, »do-nothing« (nichts tun) nutzt "
-"die Standardeinstellungen von Xorg (erweitert die Arbeitsfläche in aktuellen "
-"Versionen)"
+"»clone« (duplizieren) zeigt das selbe auf allen Monitoren an, "
+"»dock« (Docking-Station) schaltet den internen Monitor ab, »do-"
+"nothing« (nichts tun) nutzt die Standardeinstellungen von Xorg (erweitert "
+"die Arbeitsfläche in aktuellen Versionen)"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
@@ -789,18 +800,18 @@ msgstr "Datei mit der Vorgabekonfiguration für RandR"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid ""
-"The XRandR plugin will look for a default configuration in the file specified "
-"by this key. This is similar to the ~/.config/monitors.xml that normally gets "
-"stored in users' home directories. If a user does not have such a file, or "
-"has one that does not match the user's setup of monitors, then the file "
-"specified by this key will be used instead."
+"The XRandR plugin will look for a default configuration in the file "
+"specified by this key. This is similar to the ~/.config/monitors.xml that "
+"normally gets stored in users' home directories. If a user does not have "
+"such a file, or has one that does not match the user's setup of monitors, "
+"then the file specified by this key will be used instead."
 msgstr ""
 "Das XRandR-Plugin sucht in der durch diesen Schlüssel angegebenen Datei nach "
 "einer Vorgabekonfiguration. Dies verhält sich ähnlich wie ~/.config/monitors."
 "xml, die normalerweise in den persönlichen Ordnern der Benutzer gespeichert "
 "wird. Falls ein Benutzer nicht über solch eine Datei verfügt oder seine "
-"Konfiguration nicht zu den vorhandenen Bildschirmen passt, wird die in diesem "
-"Schlüssel angegebene Datei stattdessen verwendet."
+"Konfiguration nicht zu den vorhandenen Bildschirmen passt, wird die in "
+"diesem Schlüssel angegebene Datei stattdessen verwendet."
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid "Whether to turn off specific monitors after boot"
@@ -814,13 +825,13 @@ msgid ""
 "in addition to conditional and forcibly disabled ones."
 msgstr ""
 "Eine Liste von Zeichenketten für GTK+-Module, die geladen werden sollen, "
-"üblicherweise zusätzlich zu denjenigen, die unter bestimmten Bedingungen oder "
-"in jedem Fall deaktiviert sind."
+"üblicherweise zusätzlich zu denjenigen, die unter bestimmten Bedingungen "
+"oder in jedem Fall deaktiviert sind."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
-"A list of strings representing the GTK+ modules that will not be loaded, even "
-"if enabled by default in their configuration."
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
 msgstr ""
 "Eine Liste von Zeichenketten für GTK+-Module, die nicht geladen werden "
 "sollen, selbst wenn sie in der Standardkonfiguration aktiviert sein sollten."
@@ -921,7 +932,8 @@ msgstr "Legen Sie hier die logische Tastenabbildung fest."
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
-"Legen Sie hier den Druck fest, ab dem ein Stylus-Klickereignis ausgelöst wird."
+"Legen Sie hier den Druck fest, ab dem ein Stylus-Klickereignis ausgelöst "
+"wird."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
@@ -1054,97 +1066,97 @@ msgstr "Barrierefreie Tastatur"
 msgid "Accessibility keyboard plugin"
 msgstr "Modul für barrierefreie Tastatur"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:391
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:392
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Fehler beim Anzeigen der Hilfe: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:516
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:578
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
 msgid "Do you want to activate Slow Keys?"
 msgstr "Wollen Sie die Tastenverzögerung aktivieren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Wollen Sie die Tastenverzögerung deaktivieren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
 msgid ""
-"You just held down the Shift key for 8 seconds.  This is the shortcut for the "
-"Slow Keys feature, which affects the way your keyboard works."
+"You just held down the Shift key for 8 seconds.  This is the shortcut for "
+"the Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Sie haben die Umschalttaste 8 Sekunden lang gedrückt. Dies ist die "
-"Tastenkombination für die Tastenverzögerungsfunktion, die das Verhalten Ihrer "
-"Tastatur beeinflusst."
+"Tastenkombination für die Tastenverzögerungsfunktion, die das Verhalten "
+"Ihrer Tastatur beeinflusst."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:541
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:676
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't activate"
 msgstr "Nicht aktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:541
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:676
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't deactivate"
 msgstr "Nicht deaktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:547
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:682
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Activate"
 msgstr "Aktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:547
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:682
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Deactivate"
 msgstr "Deaktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:601
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't activate"
 msgstr "_Nicht aktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:601
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:738
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't deactivate"
 msgstr "_Nicht deaktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:604
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Activate"
 msgstr "_Aktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:604
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:741
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Deactivate"
 msgstr "_Deaktivieren"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
 msgid "Slow Keys Alert"
 msgstr "Tastenverzögerungsalarm"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:648
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:712
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Wollen Sie klebrige Tasten aktivieren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Wollen Sie klebrige Tasten deaktivieren?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:651
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:715
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Sie haben die Umschalttaste 5 Mal in Folge gedrückt. Dies ist die "
-"Tastenkombination für die Funktion »klebrige Tasten«, die das Verhalten Ihrer "
-"Tastatur beeinflusst."
+"Tastenkombination für die Funktion »klebrige Tasten«, die das Verhalten "
+"Ihrer Tastatur beeinflusst."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:653
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:717
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1154,7 +1166,7 @@ msgstr ""
 "gedrückt. Dies ist die Tastenkombination für die Funktion »klebrige Tasten«, "
 "die das Verhalten Ihrer Tastatur beeinflusst."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
 msgid "Sticky Keys Alert"
 msgstr "Klebrige Tasten-Alarm"
 
@@ -1424,8 +1436,8 @@ msgstr "Keine Warnungen mehr anzeigen"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
 msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs or "
-"files, or moving files to another disk or partition."
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
 msgstr ""
 "Sie können Plattenplatz frei machen, indem Sie den Müll leeren, ungenutzte "
 "Programme oder Dateien löschen oder Dateien auf eine andere Festplatte oder "
@@ -1433,8 +1445,8 @@ msgstr ""
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
 msgid ""
-"You can free up disk space by removing unused programs or files, or by moving "
-"files to another disk or partition."
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
 msgstr ""
 "Sie können Plattenplatz frei machen, indem Sie ungenutzte Programme oder "
 "Dateien löschen oder Dateien auf eine andere Festplatte oder eine andere "
@@ -1442,8 +1454,8 @@ msgstr ""
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
 msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs or "
-"files, or moving files to an external disk."
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
 msgstr ""
 "Sie können Plattenplatz frei machen, indem Sie den Müll leeren, ungenutzte "
 "Programme oder Dateien löschen oder Dateien auf einen externen Datenträger "
@@ -1451,8 +1463,8 @@ msgstr ""
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
 msgid ""
-"You can free up disk space by removing unused programs or files, or by moving "
-"files to an external disk."
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
 msgstr ""
 "Sie können Plattenplatz frei machen, indem Sie ungenutzte Programme oder "
 "Dateien löschen oder Dateien auf einen externen Datenträger verschieben."
@@ -1530,7 +1542,7 @@ msgstr "_Tastatureinstellungen"
 msgid "Show _Current Layout"
 msgstr "Aktuelle _Belegung anzeigen"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:216
+#: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1539,7 +1551,7 @@ msgstr ""
 "der Befehl für \n"
 "den Vorgabeterminal gesetzt ist und auf eine installierte Anwendung verweist."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
+#: ../plugins/media-keys/gsd-media-keys-manager.c:258
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1584,17 +1596,18 @@ msgstr "Medientasten"
 msgid "Media keys plugin"
 msgstr "Medientastenmodul"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:854
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Could not enable mouse accessibility features"
 msgstr "Barrierefreie Maushilfen konnten nicht aktiviert werden"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:856
-msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
+#: ../plugins/mouse/gsd-mouse-manager.c:824
+msgid ""
+"Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Eine barrierefreie Maus setzt das Programm »Mousetweaks« auf Ihrem System "
 "voraus."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:858
+#: ../plugins/mouse/gsd-mouse-manager.c:826
 msgid "Universal Access"
 msgstr "Barrierefreiheit"
 
@@ -1879,7 +1892,8 @@ msgstr "Es wird trotzdem versucht, die Bildschirmkonfiguration zu ändern."
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
-msgstr "Die gespeicherte Bildschirmkonfiguration konnte nicht angewendet werden"
+msgstr ""
+"Die gespeicherte Bildschirmkonfiguration konnte nicht angewendet werden"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
 msgid "Manage X Settings"
@@ -2010,8 +2024,8 @@ msgid ""
 "Automatic updates are not being installed as the computer is running on "
 "battery power"
 msgstr ""
-"Aktualisierungen werden nicht automatisch installiert, da der Rechner sich im "
-"Akkubetrieb befindet"
+"Aktualisierungen werden nicht automatisch installiert, da der Rechner sich "
+"im Akkubetrieb befindet"
 
 #. TRANSLATORS: informs user will not install by default
 #: ../plugins/updates/gsd-updates-manager.c:438
@@ -2138,4 +2152,3 @@ msgstr "Firmware installieren"
 #: ../plugins/updates/gsd-updates-firmware.c:588
 msgid "Ignore devices"
 msgstr "Geräte ignorieren"
-
