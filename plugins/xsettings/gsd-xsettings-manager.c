@@ -583,12 +583,20 @@ setup_xsettings_managers (GnomeXSettingsManager *manager)
         int         n_screens;
         gboolean    res;
         gboolean    terminated;
+        gint        tries = 0;
 
         display = gdk_display_get_default ();
         n_screens = gdk_display_get_n_screens (display);
 
-        res = xsettings_manager_check_running (gdk_x11_display_get_xdisplay (display),
-                                               gdk_screen_get_number (gdk_screen_get_default ()));
+        do {
+                res = xsettings_manager_check_running (gdk_x11_display_get_xdisplay (display),
+                                                       gdk_screen_get_number (gdk_screen_get_default ()));
+                if (res) {
+                        g_usleep (100000);
+                        tries++;
+                }
+        } while (res && tries <= 20);
+
         if (res) {
                 g_warning ("You can only run one xsettings manager at a time; exiting");
                 return FALSE;
