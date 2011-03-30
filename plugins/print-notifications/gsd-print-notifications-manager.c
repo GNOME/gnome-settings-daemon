@@ -631,7 +631,7 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
                 ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
                              NULL, cupsUser ());
                 ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-                              "notify-subscription-ids", manager->priv->subscription_id);
+                              "notify-subscription-id", manager->priv->subscription_id);
                 ippDelete(cupsDoRequest(http, request, "/"));
         }
 
