@@ -45,6 +45,9 @@
 #define CUPS_DBUS_PATH      "/org/cups/cupsd/Notifier"
 #define CUPS_DBUS_INTERFACE "org.cups.cupsd.Notifier"
 
+#define RENEW_INTERVAL        3500
+#define SUBSCRIPTION_DURATION 3600
+
 struct GsdPrintNotificationsManagerPrivate
 {
         GDBusProxy                   *cups_proxy;
@@ -512,14 +515,35 @@ scp_handler (GsdPrintNotificationsManager *manager,
         }
 }
 
-gboolean
-gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
-                                       GError                      **error)
+static void
+cancel_subscription (gint id)
 {
-        GError     *lerror;
-        ipp_t      *request, *response;
-        http_t     *http;
-        gint        num_events = 7;
+        http_t *http;
+        ipp_t  *request;
+
+        if (id >= 0 &&
+            ((http = httpConnectEncrypt (cupsServer (), ippPort (),
+                                        cupsEncryption ())) != NULL)) {
+                request = ippNewRequest (IPP_CANCEL_SUBSCRIPTION);
+                ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
+                             "printer-uri", NULL, "/");
+                ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_NAME,
+                             "requesting-user-name", NULL, cupsUser ());
+                ippAddInteger (request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
+                              "notify-subscription-id", id);
+                ippDelete (cupsDoRequest (http, request, "/"));
+        }
+}
+
+static gboolean
+renew_subscription (gpointer data)
+{
+        GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) data;
+        ipp_attribute_t              *attr = NULL;
+        http_t                       *http;
+        ipp_t                        *request;
+        ipp_t                        *response;
+        gint                          num_events = 7;
         static const char * const events[] = {
                 "job-created",
                 "job-completed",
@@ -528,7 +552,163 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
                 "printer-added",
                 "printer-deleted",
                 "printer-state-changed"};
-        ipp_attribute_t *attr = NULL;
+
+        if ((http = httpConnectEncrypt (cupsServer (), ippPort (),
+                                        cupsEncryption ())) == NULL) {
+                g_debug ("Connection to CUPS server \'%s\' failed.", cupsServer ());
+        }
+        else {
+                if (manager->priv->subscription_id >= 0) {
+                        request = ippNewRequest (IPP_RENEW_SUBSCRIPTION);
+                        ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
+                                     "printer-uri", NULL, "/");
+                        ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_NAME,
+                                     "requesting-user-name", NULL, cupsUser ());
+                        ippAddInteger (request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
+                                      "notify-subscription-id", manager->priv->subscription_id);
+                        ippAddInteger (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
+                                      "notify-lease-duration", SUBSCRIPTION_DURATION);
+                        ippDelete (cupsDoRequest (http, request, "/"));
+                }
+                else {
+                        request = ippNewRequest (IPP_CREATE_PRINTER_SUBSCRIPTION);
+                        ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
+                                      "printer-uri", NULL,
+                                      "/");
+                        ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_NAME,
+                                      "requesting-user-name", NULL, cupsUser ());
+                        ippAddStrings (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_KEYWORD,
+                                       "notify-events", num_events, NULL, events);
+                        ippAddString (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_KEYWORD,
+                                      "notify-pull-method", NULL, "ippget");
+                        ippAddString (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_URI,
+                                      "notify-recipient-uri", NULL, "dbus://");
+                        ippAddInteger (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
+                                       "notify-lease-duration", SUBSCRIPTION_DURATION);
+                        response = cupsDoRequest (http, request, "/");
+
+                        if (response != NULL && response->request.status.status_code <= IPP_OK_CONFLICT) {
+                                if ((attr = ippFindAttribute (response, "notify-subscription-id",
+                                                              IPP_TAG_INTEGER)) == NULL)
+                                        g_debug ("No notify-subscription-id in response!\n");
+                                else
+                                        manager->priv->subscription_id = attr->values[0].integer;
+                        }
+
+                        if (response)
+                                ippDelete (response);
+                }
+                httpClose (http);
+        }
+        return TRUE;
+}
+
+static void
+cancel_old_subscriptions ()
+{
+        http_t *http;
+        ipp_t  *request;
+        ipp_t  *response;
+        static const char * const old_events[] = {
+                "printer-state-changed",
+                "printer-restarted",
+                "printer-shutdown",
+                "printer-stopped",
+                "printer-added",
+                "printer-deleted",
+                "job-state-changed",
+                "job-created",
+                "job-completed",
+                "job-stopped" };
+
+        if ((http = httpConnectEncrypt (cupsServer (), ippPort (),
+                                        cupsEncryption ())) == NULL) {
+                g_debug ("Connection to CUPS server \'%s\' failed.", cupsServer ());
+        }
+        else {
+                request = ippNewRequest (IPP_GET_SUBSCRIPTIONS);
+                ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
+                              "printer-uri", NULL, "/");
+                ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
+                              NULL, cupsUser ());
+                ippAddBoolean (request, IPP_TAG_SUBSCRIPTION, "my-subscriptions", 1);
+                response = cupsDoRequest (http, request, "/");
+
+                if (response != NULL && response->request.status.status_code <= IPP_OK_CONFLICT) {
+                        ipp_attribute_t *events;
+                        ipp_attribute_t *attr;
+                        gchar           *recipient_uri;
+                        gint             lease_duration;
+                        gint             id;
+                        gint             i, j;
+
+                        for (attr = response->attrs; attr; attr = attr->next) {
+                                recipient_uri = NULL;
+                                events = NULL;
+                                id = -1;
+                                lease_duration = -1;
+
+                                while (attr && attr->group_tag != IPP_TAG_SUBSCRIPTION)
+                                        attr = attr->next;
+
+                                while (attr && attr->group_tag == IPP_TAG_SUBSCRIPTION) {
+                                        if (g_strcmp0 (attr->name, "notify-subscription-id") == 0)
+                                                id = attr->values[0].integer;
+                                        else if (g_strcmp0 (attr->name, "notify-recipient-uri") == 0)
+                                                recipient_uri = attr->values[0].string.text;
+                                        else if (g_strcmp0 (attr->name, "notify-lease-duration") == 0)
+                                                lease_duration = attr->values[0].integer;
+                                        else if (g_strcmp0 (attr->name, "notify-events") == 0)
+                                                events = attr;
+                                        attr = attr->next;
+                                }
+
+                                if (recipient_uri && events && id >= 0 && lease_duration >=0) {
+                                        gboolean remove = TRUE;
+                                        gboolean have;
+                                        gint length = 0;
+
+                                        if (lease_duration != 0)
+                                                remove = FALSE;
+
+                                        if (g_strcmp0 (recipient_uri, "dbus://") != 0)
+                                                remove = FALSE;
+
+                                        length = G_N_ELEMENTS (old_events);
+                                        if (events->num_values != G_N_ELEMENTS (old_events))
+                                                remove = FALSE;
+                                        else
+                                                for (i = 0; i < events->num_values; i++) {
+                                                        have = FALSE;
+                                                        for (j = 0; j < length; j++) {
+                                                                if (g_strcmp0 (events->values[i].string.text, old_events[j]) == 0)
+                                                                        have = TRUE;
+                                                        }
+                                                        if (!have)
+                                                                remove = FALSE;
+                                                }
+
+                                        if (remove)
+                                                cancel_subscription (id);
+                                }
+
+                                if (!attr)
+                                        break;
+                        }
+                }
+
+                if (response) {
+                        ippDelete (response);
+                        response = NULL;
+                }
+        }
+}
+
+gboolean
+gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
+                                       GError                      **error)
+{
+        GError     *lerror;
 
         g_debug ("Starting print-notifications manager");
 
@@ -539,39 +719,10 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         manager->priv->num_dests = 0;
         manager->priv->scp_handler_spawned = FALSE;
 
-        if ((http = httpConnectEncrypt (cupsServer (), ippPort (),
-                                        cupsEncryption ())) == NULL) {
-                g_debug ("Connection to CUPS server \'%s\' failed.", cupsServer ());
-        }
-        else {
-                request = ippNewRequest(IPP_CREATE_PRINTER_SUBSCRIPTION);
-                ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
-                             "/");
-                ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-                             NULL, cupsUser ());
-                ippAddStrings(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_KEYWORD, "notify-events",
-                              num_events, NULL, events);
-                ippAddString(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_KEYWORD,
-                             "notify-pull-method", NULL, "ippget");
-                ippAddString(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_URI, "notify-recipient-uri",
-                             NULL, "dbus://");
-                ippAddInteger(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
-                              "notify-lease-duration", 0);
-                response = cupsDoRequest(http, request, "/");
+        cancel_old_subscriptions ();
 
-                if (response != NULL && response->request.status.status_code <= IPP_OK_CONFLICT) {
-                        if ((attr = ippFindAttribute(response, "notify-subscription-id",
-                                                     IPP_TAG_INTEGER)) == NULL)
-                                g_debug ("No notify-subscription-id in response!\n");
-                        else
-                                manager->priv->subscription_id = attr->values[0].integer;
-                }
-
-                if (response)
-                  ippDelete(response);
-
-                httpClose(http);
-        }
+        renew_subscription (manager);
+        g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription, manager);
 
         manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
 
@@ -613,27 +764,14 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
 void
 gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
 {
-        ipp_t      *request;
-        http_t     *http;
-
         g_debug ("Stopping print-notifications manager");
 
         cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
         manager->priv->num_dests = 0;
         manager->priv->dests = NULL;
 
-        if (manager->priv->subscription_id >= 0 &&
-            ((http = httpConnectEncrypt(cupsServer(), ippPort(),
-                                       cupsEncryption())) != NULL)) {
-                request = ippNewRequest(IPP_CANCEL_SUBSCRIPTION);
-                ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
-                             "/");
-                ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-                             NULL, cupsUser ());
-                ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-                              "notify-subscription-id", manager->priv->subscription_id);
-                ippDelete(cupsDoRequest(http, request, "/"));
-        }
+        if (manager->priv->subscription_id >= 0)
+                cancel_subscription (manager->priv->subscription_id);
 
         manager->priv->cups_bus_connection = NULL;
 
