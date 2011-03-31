@@ -3,6 +3,7 @@
 # Copyright (C) 2003, 2004, 2005, 2006 Miloslav Trmac <mitr@volny.cz>.
 # Copyright (C) 2006 Lukas Novotny <lukasnov@cvs.gnome.org>.
 # This file is distributed under the same license as the gnome-settings-daemon package.
+#
 # David Šauer <davids@penguin.cz>, 1999.
 # Jiří Lebl <jirka@5z.cz>, 2002.
 # Michal Bukovjan <bukm@centrum.cz>, 2002, 2003.
@@ -12,18 +13,21 @@
 # Lukas Novotny <lukasnov@cvs.gnome.org>, 2006.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009, 2010, 2011.
 # Ondřej Kopka <ondrej.kopka@gmail.com>, 2011.
+# Marek Černocký <marek@manet.cz>, 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-13 20:15+0100\n"
-"PO-Revision-Date: 2011-03-10 19:09+0100\n"
-"Last-Translator: Ondřej Kopka <ondrej.kopka@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-03-24 18:25+0000\n"
+"PO-Revision-Date: 2011-03-31 12:10+0200\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
@@ -31,34 +35,42 @@ msgid "GNOME Settings Daemon"
 msgstr "Démon nastavení GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Command to be run when a device is added or removed."
+msgstr "Příkaz, který se má spustit, když je přidáno nebo odebráno zařízení"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid "Device hotplug custom command"
+msgstr "Vlastní příkaz při připojení zařízení za provozu"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
 msgstr "Vypnout touchpad během psaní"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
-msgid "Distance before a drag is started."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
-msgid "Double click time"
-msgstr "Délka dvojitého kliknutí"
-
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
-msgid "Drag threshold"
-msgstr ""
+msgid "Distance before a drag is started."
+msgstr "Vzdálenost, při které započne tažení."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "Double click time"
+msgstr "Doba dvojitého kliknutí"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Drag threshold"
+msgstr "Práh táhnutí"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Enable horizontal scrolling"
 msgstr "Povolit vodorovné posunování"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "Enable mouse clicks with touchpad"
 msgstr "Povolit kliknutí myší pomocí zařízení touchpad"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable touchpad"
 msgstr "Zapnout zařízení touchpad"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
@@ -66,69 +78,68 @@ msgstr ""
 "Aktivuje emulaci prostředního tlačítka současným stisknutím levého a pravého "
 "tlačítka myši."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
-msgstr "Zvýrazní současnou pozici kurzoru myši při stisknutí klávesy Ctrl."
+msgstr ""
+"Zvýrazní současnou pozici ukazatele myši při stisknutí a uvolnění klávesy "
+"Ctrl."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Length of a double click in milliseconds."
 msgstr "Délka dvojitého kliknutí v milisekundách."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid "Middle button emulation"
 msgstr "Emulace prostředního tlačítka"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Select the touchpad scroll method"
-msgstr "Zvolte metodu posunování zařízení touchpad"
+msgstr "Zvolte metodu posunování zařízením touchpad"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
-#, fuzzy
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid ""
 "Select the touchpad scroll method. Supported values are: \"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
-"Zvolte metodu posunování zařízení touchpad. Podporované hodnoty jsou: 0: "
-"vypnuto, 1: posunování při okraji, 2: posunování dvěma prsty"
+"Zvolte metodu posunování zařízením touchpad. Podporované hodnoty jsou: "
+"„disabled“ (vypnuto), „edge-scrolling“ (posunování při okraji), „two-finger-"
+"scrolling“ (posunování dvěma prsty)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
-msgstr ""
-"Nastavte na \"TRUE\", pokud občas při psaní omylem zavadíte o touchpad."
+msgstr "Zapněte, pokud občas při psaní omylem zavadíte o touchpad."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
 msgstr ""
-"Nastavte na \"TRUE\", chcete-li povolit vodorovné posunování stejnou "
-"metodou, jaká byla vybrána se scroll_method key."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
-msgid ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
-msgstr ""
-"Nastavte na \"TRUE\", chcete-li odeslat kliknutí myší poklepáním prsty na "
-"touchpad."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
-msgid "Set this to TRUE to enable all touchpads."
-msgstr "Nastavte na \"TRUE\", chcete-li zapnout všechna zařízení touchpad."
+"Zapněte, chcete-li povolit vodorovné posunování stejnou metodou, jaká byla "
+"vybrána v klíči scroll_method."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
-#, fuzzy
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr "Zapněte, chcete-li odeslat kliknutí myší poklepáním prsty na touchpad."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Zapněte, chcete-li povolit všechna zařízení touchpad."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
 "action will get performed when the smartcard used for log in is removed."
 msgstr ""
-"Nastavte buď na \"none\", \"lock_screen\", nebo \"force_logout\". Činnost "
-"bude vykonána při odstranění čipové karty použité k přihlášení."
+"Nastavte buď na „none“ (nic), „lock_screen“ (zamknout obrazovku) nebo "
+"„force_logout“ (bez ptaní odhlásit). Činnost bude vykonána při odstranění "
+"čipové karty použité k přihlášení."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Smartcard removal action"
 msgstr "Činnost při odstranění čipové karty"
 
@@ -169,6 +180,8 @@ msgstr "Priorita použití tohoto zásuvného modulu"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr ""
+"Priorita použití tohoto zásuvného modulu ve spouštěcí frontě gnome-settings-"
+"daemon"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
@@ -179,20 +192,19 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr ""
+msgstr "Zda má gnome-settings-daemon aktivovat tento zásuvný modul nebo ne"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
 msgstr "Práh upozorňování na procenta volného"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
-#, fuzzy
 msgid "Free space notify threshold"
-msgstr "Práh neupozorňování na volné místo"
+msgstr "Práh upozorňování na volné místo"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Minimum notify period for repeated warnings"
-msgstr "Minimální doba upozorňování u opakovaných varování"
+msgstr "Minimální doba mezi upozorněním u opakovaných varování"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
@@ -210,7 +222,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
-"Zadejte seznam cest připojení, které se mají ignorovat, pokud jim dochází "
+"Určuje seznam cest připojení, které se mají ignorovat, pokud jim dochází "
 "místo."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
@@ -218,7 +230,7 @@ msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
 msgstr ""
-"Zadejte čas v minutách. Následná varování u svazku se nezobrazí dříve než po "
+"Určuje čas v minutách. Následná varování u svazku se nezobrazí dříve než po "
 "této době."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
@@ -226,7 +238,7 @@ msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
 msgstr ""
-"Zadejte velikost v GB. Je-li množství volného místa větší než tato hodnota, "
+"Určuje velikost v GB. Je-li množství volného místa větší než tato hodnota, "
 "nebude zobrazeno žádné varování."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
@@ -238,139 +250,133 @@ msgstr ""
 "disku před vysláním následného varování."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
-#, fuzzy
 msgid "Subsequent free space percentage notify threshold"
-msgstr "Práh upozorňování na procenta volného místa"
+msgstr "Následný práh upozorňování na procenta volného místa"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
 msgstr ""
+"Priorita, která se má použít pro tento zásuvný modul ve spouštěcí frontě "
+"gnome-settings-daemon."
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
-msgstr ""
+msgstr "Zda má nebo nemá gnome-settings-damon aktivovat tento zásuvný modul."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 msgid "Allowed keys"
 msgstr "Povolené klávesy"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
-#, fuzzy
 msgid "Binding for the magnifier to zoom in"
-msgstr "Zkratka k přepnutí lupy."
+msgstr "Zkratka pro zvětšení lupou"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
-#, fuzzy
 msgid "Binding for the magnifier to zoom out"
-msgstr "Zkratka k přepnutí lupy."
+msgstr "Zkratka pro zmenšení lupou"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
-#, fuzzy
 msgid "Binding to decrease the text size"
-msgstr "Zkratka ke zvýšení systémové hlasitosti."
+msgstr "Zkratka pro zmenšení velikosti textu"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 msgid "Binding to eject an optical disc."
-msgstr "Zkratka k vysunutí optického disku."
+msgstr "Zkratka pro vysunutí optického disku."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Binding to enable or disable the touchpad."
-msgstr "Zkratka k zapnutí nebo vypnutí zařízení touchpad."
+msgstr "Zkratka pro zapnutí nebo vypnutí zařízení touchpad."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
-#, fuzzy
 msgid "Binding to increase the text size"
-msgstr "Zkratka ke zvýšení systémové hlasitosti."
+msgstr "Zkratka pro zvětšení velikosti textu"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
-msgstr "Zkratka ke spuštění kalkulačky."
+msgstr "Zkratka pro spuštění kalkulačky."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
-msgstr "Zkratka ke spuštění poštovního klienta."
+msgstr "Zkratka pro spuštění poštovního klienta."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the help browser."
-msgstr "Zkratka ke spuštění prohlížeče nápovědy."
+msgstr "Zkratka pro spuštění prohlížeče nápovědy."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the media player."
-msgstr "Zkratka ke spuštění multimediálního přehrávače."
+msgstr "Zkratka pro spuštění multimediálního přehrávače."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the search tool."
-msgstr "Zkratka ke spuštění vyhledávacího nástroje."
+msgstr "Zkratka pro spuštění vyhledávacího nástroje."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the web browser."
-msgstr "Zkratka ke spuštění prohlížeče WWW."
+msgstr "Zkratka pro spuštění webového prohlížeče."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lock the screen."
-msgstr "Zkratka k uzamčení obrazovky."
+msgstr "Zkratka pro uzamčení obrazovky."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to log out."
-msgstr "Zkratka k odhlášení se."
+msgstr "Zkratka pro odhlášení se."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to lower the system volume."
-msgstr "Zkratka ke snížení systémové hlasitosti."
+msgstr "Zkratka pro snížení systémové hlasitosti."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to mute the system volume."
-msgstr "Zkratka ke ztlumení systémové hlasitosti."
+msgstr "Zkratka pro úplné ztlumení systémové hlasitosti."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to open the Home folder."
-msgstr "Zkratka k otevření domovské složky."
+msgstr "Zkratka pro otevření domovské složky."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
-msgstr "Zkratka k pozastavení přehrávání."
+msgstr "Zkratka pro pozastavení přehrávání."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to raise the system volume."
-msgstr "Zkratka ke zvýšení systémové hlasitosti."
+msgstr "Zkratka pro zvýšení systémové hlasitosti."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
-#, fuzzy
 msgid "Binding to show the on-screen keyboard"
-msgstr "Zkratka k přepnutí klávesnice na obrazovce."
+msgstr "Zkratka pro zobrazení klávesnice na obrazovce"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
-#, fuzzy
 msgid "Binding to show the screen magnifier"
-msgstr "Zkratka k přepnutí lupy."
+msgstr "Zkratka pro zobrazení lupy obrazovky."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
-msgstr "Zkratka k přeskočení na následující stopu."
+msgstr "Zkratka pro přeskočení na následující stopu."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to skip to previous track."
-msgstr "Zkratka k přeskočení na předchozí stopu."
+msgstr "Zkratka pro přeskočení na předchozí stopu."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
-msgstr "Zkratka ke spuštění přehrávání (nebo přepnutí přehrávání/pozastavení)."
+msgstr ""
+"Zkratka pro spuštění přehrávání (nebo přepnutí přehrávání/pozastavení)."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
-#, fuzzy
 msgid "Binding to start the screen reader"
-msgstr "Zkratka k přepnutí čtení obrazovky."
+msgstr "Zkratka pro spuštění čtení obrazovky."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to stop playback."
-msgstr "Zkratka k zastavení přehrávání."
+msgstr "Zkratka pro zastavení přehrávání."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
-#, fuzzy
 msgid "Binding to toggle the interface contrast"
-msgstr "Zkratka k přepnutí lupy."
+msgstr "Zkratka pro přepnutí kontrastu rozhraní"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Decrease text size"
@@ -385,13 +391,12 @@ msgid "Home folder"
 msgstr "Domovská složka"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
-#, fuzzy
 msgid ""
 "If non-empty, keybindings will be ignored unless their settings directory is "
 "in the list. This is useful for lockdown."
 msgstr ""
 "Pokud není prázdné, klávesové zkratky budou ignorovány, není-li tedy jejich "
-"adresář GConf v seznamu. Užitečné pro omezení práv."
+"složka s nastavením v seznamu. Užitečné pro omezení práv."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Increase text size"
@@ -403,7 +408,7 @@ msgstr "Spustit kalkulačku"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch email client"
-msgstr "Spustit poštovní klient"
+msgstr "Spustit poštovního klienta"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch help browser"
@@ -411,11 +416,11 @@ msgstr "Spustit prohlížeč nápovědy"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch media player"
-msgstr "Spustit přehrávač multimédií"
+msgstr "Spustit multimediální přehrávač"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Launch web browser"
-msgstr "Spustit prohlížeč WWW"
+msgstr "Spustit webový prohlížeč"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Lock screen"
@@ -427,11 +432,11 @@ msgstr "Odhlásit se"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Magnifier zoom in"
-msgstr ""
+msgstr "Zvětšit lupou"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Magnifier zoom out"
-msgstr ""
+msgstr "Zmenšit lupou"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
@@ -458,9 +463,8 @@ msgid "Stop playback"
 msgstr "Zastavit přehrávání"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
-#, fuzzy
 msgid "Toggle contrast"
-msgstr "Přepnout čtení obrazovky"
+msgstr "Přepnout kontrast"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle magnifier"
@@ -476,7 +480,7 @@ msgstr "Přepnout čtení obrazovky"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Toggle touchpad"
-msgstr "Přepnout stav zařízení touchpad"
+msgstr "Přepnout zařízení touchpad"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume down"
@@ -512,6 +516,10 @@ msgid ""
 "also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
 "'connection-use-mobile' is enabled."
 msgstr ""
+"Automaticky stahovat aktualizace na pozadí bez dotazování. Aktualizace budou "
+"automaticky staženy, když používáte drátové připojení k síti a nebo WiFi, za "
+"předpokladu, že je zapnuto „connection-use-wifi“, případně mobilní "
+"připojení, za předpokladu, že je zapnuto „connection-use-mobile“."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid "Automatically update these types of updates"
@@ -530,18 +538,20 @@ msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
 msgstr ""
-"Zařízení, která mají být ignorována, oddělena čárkou. Mohou obsahovat znaky "
-"'*' a '?'."
+"Zařízení, která mají být ignorována, oddělená čárkou. Může obsahovat znaky "
+"„*“ a „?“."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid "Firmware files that should not be searched for"
-msgstr ""
+msgstr "Soubory s firmwarem, které by neměly být vyhledávány"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
 msgstr ""
+"Soubory s firmwarem, které by neměly být vyhledávány, oddělené čárkou. Může "
+"obsahovat znaky „*“ a „?“."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid "Get the update list when the session starts"
@@ -555,13 +565,12 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid "How often to check for distribution upgrades"
-msgstr "Jak často kontrolovat dostupnost distribučních aktualizací"
+msgstr "Jak často kontrolovat dostupnost povýšení distribuce"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr ""
-"Jak často kontrolovat dostupnost distribučních aktualizací. Hodnota v "
-"sekundách."
+"Jak často kontrolovat dostupnost povýšení distribuce. Hodnota je v sekundách."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for updates"
@@ -573,6 +582,10 @@ msgid ""
 "amount of time that can pass between a security update being published, and "
 "the update being automatically installed or the user notified."
 msgstr ""
+"Jak často kontrolovat dostupnost aktualizací. Hodnota je v sekundách. Jedná "
+"se o nejdelší čas, který může uběhnout mezi tím, co byla zveřejněna "
+"bezpečnostní aktualizace a tím, kdy byla automaticky nainstalována nebo byl "
+"uvědoměn uživatel."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to notify the user that non-critical updates are available"
@@ -580,11 +593,11 @@ msgstr "Jak často informovat uživatele o dostupnosti nekritických aktualizac�
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
 msgid "How often to refresh the package cache"
-msgstr "Jak často obnovovat mezipaměť balíčků"
+msgstr "Jak často občerstvovat mezipaměť balíčků"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "How often to refresh the package cache. Value is in seconds."
-msgstr "Jak často obnovovat mezipaměť balíčků. Hodnota v sekundách."
+msgstr "Jak často občerstvovat mezipaměť balíčků. Hodnota je v sekundách."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid ""
@@ -593,6 +606,10 @@ msgid ""
 "updates, but non-critical notifications should be shown a lot less "
 "frequently."
 msgstr ""
+"Jak často říkat uživateli o nekritických aktualizacích. Hodnota je v "
+"sekundách. Upozornění na bezpečnostní aktualizace jsou zobrazena vždy po "
+"kontrole dostupnosti aktualizací, ale upozornění na nekritické by měla být "
+"zobrazována méně často."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Install updates automatically when running on battery power"
@@ -623,25 +640,32 @@ msgid ""
 "Notify the user for completed updates. This may be a useful notification for "
 "some users as installing updates prevents shutdown."
 msgstr ""
+"Informovat uživatele o dokončených aktualizacích. Pro některé uživatele to "
+"může být užitečná informace, protože při instalaci aktualizací je bráněno "
+"vypnutí."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid "Notify the user when distribution upgrades are available"
-msgstr "Informovat uživatele o dostupných distribučních aktualizacích"
+msgstr "Informovat uživatele o dostupných povýšeních distribuce"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "Notify the user when distribution upgrades are available."
-msgstr "Informovat uživatele o dostupných distribučních aktualizacích."
+msgstr "Informovat uživatele, když jsou dostupná povýšení distribuce."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
 "Notify the user when the automatic update was not started on battery power"
 msgstr ""
+"Informovat uživatele o nespuštění automatické aktualizace kvůli běhu na "
+"baterie"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
 msgid ""
 "Notify the user when the update was not automatically started because the "
 "machine is running on battery power."
 msgstr ""
+"Informovat uživatele, když se aktualizace nespustí automaticky, protože "
+"počítač běží s napájením z baterie."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
 msgid "Notify the user when the update was started"
@@ -649,42 +673,50 @@ msgstr "Informovat uživatele při spuštění aktualizace"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
 msgid "Notify the user when the update was started."
-msgstr "Informovat uživatele při spuštění aktualizace."
+msgstr "Informovat uživatele, když se spustí aktualizace."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
 msgid "The filenames on removable media that designate it a software source."
 msgstr ""
+"Názvy souborů nebo výměnná média, která jsou označena jako zdroje softwaru."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
 msgid "The install root to use when adding and removing packages"
-msgstr ""
+msgstr "Instalační kořen použitý při přidávání nebo odebírání balíčků"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
 msgid ""
 "The install root to use when processing packages, which is changed when "
 "using LTSP or when testing."
 msgstr ""
+"Instalační kořen, který se má použít při zpracování balíčků, a který je "
+"měněn, když se používá LTSP nebo při testování."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
 msgstr ""
+"Poslední čas, kdy byl uživatel informován o nekritických aktualizacích. "
+"Hodnota je v sekundách od začátku epochy nebo nula, pokud nebyl zatím nikdy "
+"informován."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
 msgid "The last time we told the user about non-critical notifications"
-msgstr ""
+msgstr "Poslední čas, kdy byl uživatel informován a nekritických aktualizacích"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
 msgid ""
 "The number of seconds at session startup to wait before checking for updates"
-msgstr ""
+msgstr "Počet sekund čekání od spuštění sezení do kontroly aktualizací"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
 msgid ""
 "The number of seconds at session startup to wait before checking for "
 "updates. Value is in seconds."
 msgstr ""
+"Počet sekund od spuštění sezení, po které se má čekat, než se provede "
+"kontrola aktualizací. Hodnota je v sekundách."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
 msgid ""
@@ -692,19 +724,24 @@ msgid ""
 "to download packages when on a wired connection, and the VPN or proxy "
 "required may also only be available on wired connections."
 msgstr ""
+"Použít připojení WiFi (bezdrátovou síť) ke kontrole aktualizací. Stahování "
+"balíčků může být rychlejší na drátovém připojení a případně požadovaná VPN "
+"nebo proxy mohou být také dostupné jen při drátovém připojení."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
 msgid "Use WiFi connections"
-msgstr ""
+msgstr "Použít připojení WiFi"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
 msgid "Use mobile broadband connections"
-msgstr ""
+msgstr "Použít mobilní připojení"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
 msgid ""
 "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
+"Použít mobilní širokopásmové připojení, jako je GSM a CDMA, ke kontrole "
+"aktualizací."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
 msgid ""
@@ -713,6 +750,10 @@ msgid ""
 "updates check is performed. This allows post-install disks to be used to "
 "update running systems."
 msgstr ""
+"Když je vloženo výměnné médium, zkontroluje se, jestli neobsahuje v kořenové "
+"složce nějaké důležité názvy souborů. Pokud jsou takové nalezeny, provede se "
+"kontrola aktualizací. Díky tomu lze používat poinstalační disky k "
+"aktualizaci běžícího systému."
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 msgid ""
@@ -720,10 +761,13 @@ msgid ""
 "the internal monitor, 'do-nothing' will use the default Xorg behaviour "
 "(extend the desktop in recent versions)"
 msgstr ""
+"„clone“ zobrazí ten samý obsah na všech monitorech, „dock“ vypne interní "
+"monitor, „do-nothing“ využije výchozí chování Xorg (v posledních verzích to "
+"je rozšíření plochy přes všechny monitory)"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
-msgstr "Soubor výchozí konfigurace RandR"
+msgstr "Soubor výchozího nastavení RandR"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid ""
@@ -733,27 +777,31 @@ msgid ""
 "such a file, or has one that does not match the user's setup of monitors, "
 "then the file specified by this key will be used instead."
 msgstr ""
-"Zásuvný modul XRandR bude hledat výchozí konfiguraci v souboru určeném tímto "
+"Zásuvný modul XRandR bude hledat výchozí nastavení v souboru určeném tímto "
 "klíčem. Je to podobné jako ~/.config/monitors.xml, který je běžně uložen v "
-"domovských adresářích uživatelů. Nemá-li uživatel takovýto soubor, nebo má-"
-"li takový, který neodpovídá uživatelskému natavení monitorů, pak bude místo "
+"domovských složkách uživatelů. Nemá-li uživatel takovýto soubor, nebo má-li "
+"takový, který neodpovídá uživatelskému natavení monitorů, pak bude místo "
 "toho použit soubor určený tímto klíčem."
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid "Whether to turn off specific monitors after boot"
-msgstr ""
+msgstr "Zda po zavedení systému vypnout uvedené monitory"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
 msgstr ""
+"Seznam řetězců představujících moduly GTK+, které budou načteny, obvykle "
+"navíc k těm podmíněně a výslovně vypnutým."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
 msgstr ""
+"Seznam řetězců představujících moduly GTK+, které nebudou načteny, i když "
+"jsou ve svém nastavení standardně zapnuté."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
@@ -765,11 +813,11 @@ msgstr "Hinting"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "List of explicitly disabled GTK+ modules"
-msgstr ""
+msgstr "Seznam výslovně vypnutých modulů GTK+"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly enabled GTK+ modules"
-msgstr ""
+msgstr "Seznam výslovně zapnutých modulů GTK+"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
@@ -783,9 +831,9 @@ msgid ""
 "on bottom."
 msgstr ""
 "Pořadí subpixelových prvků na obrazovce LCD; užito pouze při vyhlazování "
-"nastaveném na \"rgba\". Možnými hodnotami jsou: \"rgb\" značí červenou vlevo "
-"(nejběžnější), \"bgr\" značí modrou vlevo, \"vrgb\" značí červenou nahoře, "
-"\"vbgr\" značí červenou dole."
+"nastaveném na „rgba“. Možnými hodnotami jsou: „rgb“ značí červenou vlevo "
+"(nejběžnější), „bgr“ značí modrou vlevo, „vrgb“ značí červenou nahoře, "
+"„vbgr“ značí červenou dole."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
@@ -793,10 +841,9 @@ msgid ""
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
 "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgstr ""
-"Typ vyhlazování užitý při vykreslování písem. Možnými hodnotami jsou: \"none"
-"\" značí žádné vyhlazování, \"grayscale\" značí standardní vyhlazování v "
-"odstínech šedi a \"rgba\" značí subpixelové vyhlazování (pouze obrazovky "
-"LCD)."
+"Typ vyhlazování užitý při vykreslování písem. Možnými hodnotami jsou: „none“ "
+"značí žádné vyhlazování, „grayscale“ značí standardní vyhlazování v "
+"odstínech šedi „rgba“ značí subpixelové vyhlazování (pouze obrazovky LCD)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
@@ -804,148 +851,165 @@ msgid ""
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
-"Typ hintingu užitý při vykreslování písem. Možnými hodnotami jsou: \"none\" "
-"značí žádný hinting, \"slight\" značí základní, \"medium\" značí střední a "
-"\"full\" značí maximální hinting (může způsobit zkreslení jednotlivých "
-"písmen)."
+"Typ hintingu užitý při vykreslování písem. Možnými hodnotami jsou: „none“ "
+"značí žádný hinting, „slight“ značí základní, „medium“ značí střední a "
+"„full“ značí maximální hinting (může způsobit zkreslení jednotlivých písmen)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
 msgid "Enable this to only move the cursor when the user touches the tablet."
 msgstr ""
+"Zapnutím povolíte posun ukazovátka, jen když se uživatel dotýká tabletu."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr ""
+"Zapnutím povolíte zasílání událostí pera, jen když je zmáčknuta jeho špička."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 msgid "Enable this to set the cursor to absolute mode."
-msgstr ""
+msgstr "Zapnutím nastavíte ukazovátko (cursor) do absolutního režimu."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Enable this to set the eraser to absolute mode."
-msgstr ""
+msgstr "Zapnutím nastavíte gumu (eraser) do absolutního režimu."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
 msgid "Enable this to set the stylus to absolute mode."
-msgstr ""
+msgstr "Zapnutím nastavíte pero (stylus) do absolutního režimu."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
 msgstr ""
+"Nastavte na „none“ (nic), „cw“ pro 90 stupňů po směru hodinových ručiček, "
+"„half“ pro 180 stupňů nebo „ccw“ pro 90 stupňů proti směru hodinových "
+"ručiček."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid "Set this to the logical button mapping."
-msgstr ""
+msgstr "Nastavte na logické mapování tlačítek."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
+"Nastavte na hodnotu přítlaku, při kterém je generována událost kliknutí "
+"perem (stylus)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
+"Nastavte na hodnotu přítlaku, při kterém je generována událost kliknutí "
+"gumou (eraser)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
 msgstr ""
+"Nastavte na souřadnice x1, y1 a x2, y2 oblasti použitelné ukazovátkem "
+"(cursor)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
 msgstr ""
+"Nastavte na souřadnice x1, y1 a x2, y2 oblasti použitelné gumou (eraser)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
 msgstr ""
+"Nastavte na souřadnice x1, y1 a x2, y2 oblasti použitelné panelem (pad)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
 msgstr ""
+"Nastavte na souřadnice x1, y1 a x2, y2 oblasti použitelné perem (stylus)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
+"Nastavte na souřadnice x1, y1 a x2, y2 přítlakové křivky použité gumou "
+"(eraser)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
+"Nastavte na souřadnice x1, y1 a x2, y2 přítlakové křivky použité perem "
+"(stylus)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom cursor absolute mode"
-msgstr ""
+msgstr "Absolutní režim ukazovátka Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid "Wacom cursor button mapping"
-msgstr ""
+msgstr "Mapování tlačítek ukazovátka Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom cursor tablet area"
-msgstr ""
+msgstr "Oblast ukazovátka na tabletu Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Wacom eraser absolute mode"
-msgstr ""
+msgstr "Absolutní režim gumy Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom eraser button mapping"
-msgstr ""
+msgstr "Mapování tlačítek gumy Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Wacom eraser pressure curve"
-msgstr ""
+msgstr "Přítlaková křivka gumy Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser pressure threshold"
-msgstr ""
+msgstr "Tlakový práh gumy Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid "Wacom eraser tablet area"
-msgstr ""
+msgstr "Oblast gumy na tabletu Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom pad button mapping"
-msgstr ""
+msgstr "Mapování tlačítek panelu Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom pad tablet area"
-msgstr ""
+msgstr "Oblast panelu tabletu Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Wacom stylus absolute mode"
-msgstr ""
+msgstr "Absolutní režim pera Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom stylus button mapping"
-msgstr ""
+msgstr "Mapování tlačítek pera Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "Wacom stylus pressure curve"
-msgstr ""
+msgstr "Přítlaková křivka pera Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Wacom stylus pressure threshold"
-msgstr ""
+msgstr "Tlakový práh pera Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid "Wacom stylus tablet area"
-msgstr ""
+msgstr "Oblast pera na tabletu Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 msgid "Wacom tablet PC feature"
-msgstr ""
+msgstr "Funkce „Tablet PC“ Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid "Wacom tablet rotation"
-msgstr ""
+msgstr "Otočení tabletu Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
 msgid "Wacom touch feature"
-msgstr ""
+msgstr "Dotyková funkce Wacom"
 
 #: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
@@ -963,23 +1027,23 @@ msgstr "Zpřístupnění klávesnice"
 msgid "Accessibility keyboard plugin"
 msgstr "Zásuvný modul zpřístupnění klávesnice"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:390
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:392
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Při zobrazování nápovědy došlo k chybě: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:577
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
 msgid "Do you want to activate Slow Keys?"
 msgstr "Chcete aktivovat Pomalé klávesy?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:516
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:578
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Chcete deaktivovat Pomalé klávesy?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -987,88 +1051,89 @@ msgstr ""
 "Právě jste na 8 sekund podrželi klávesu Shift. To je zkratka funkce Pomalé "
 "klávesy, která má vliv na způsob fungování vaší klávesnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't activate"
 msgstr "Neaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't deactivate"
 msgstr "Nedeaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:681
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Activate"
 msgstr "Aktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:681
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Deactivate"
 msgstr "Deaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't activate"
 msgstr "_Neaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:600
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't deactivate"
 msgstr "_Nedeaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Activate"
 msgstr "_Aktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Deactivate"
 msgstr "_Deaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:607
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
 msgid "Slow Keys Alert"
 msgstr "Upozornění na Pomalé klávesy"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:647
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:711
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
 msgid "Do you want to activate Sticky Keys?"
-msgstr "Chcete aktivovat Lepící klávesy?"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:648
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:712
-msgid "Do you want to deactivate Sticky Keys?"
-msgstr "Chcete deaktivovat Lepící klávesy?"
+msgstr "Chcete aktivovat Kombinace kláves jedním prstem?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
+msgid "Do you want to deactivate Sticky Keys?"
+msgstr "Chcete deaktivovat Kombinace kláves jedním prstem?"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Právě jste pětkrát za sebou stiskli klávesu Shift. To je zkratka funkce "
-"Lepící klávesy, která má vliv na způsob fungování vaší klávesnice."
+"Kombinace kláves jedním prstem, která má vliv na způsob fungování vaší "
+"klávesnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
 "Právě jste stiskli dvě klávesy zároveň, nebo jste pětkrát za sebou stiskli "
-"klávesu Shift. To vypíná funkci Lepící klávesy, která má vliv na způsob "
-"fungování vaší klávesnice."
+"klávesu Shift. Tím se vypíná funkce Kombinace kláves jedním prstem, která má "
+"vliv na způsob fungování vaší klávesnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:744
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
 msgid "Sticky Keys Alert"
-msgstr "Lepící klávesy"
+msgstr "Upozornění na Kombinace kláves jedním prstem"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
-msgstr "Předvolby zpřístupnění"
+msgstr "Předvolby univerzálního přístupu"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Enhance _contrast in colors"
@@ -1081,7 +1146,7 @@ msgstr "Zvětšit _text a zvýšit jeho čitelnost"
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr ""
-"_Stisknutím a podržením kláves dojde k jejich přijmutí (pomalé klávesy)"
+"Zmáčknutím a po_držením kláves dojde k jejich přijmutí (pomalé klávesy)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
@@ -1097,131 +1162,128 @@ msgstr "P_oužívat čtení obrazovky"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "_Ignorovat vícenásobné stisky kláves"
+msgstr "_Ignorovat vícenásobné zmáčknutí kláves"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr ""
-"Za_dávat klávesové zkratky postupným stisknutím kláves (lepící klávesy)"
+"Za_dávat klávesové zkratky postupným zmáčknutím kláves (lepící klávesy)"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
-#, fuzzy
 msgid "Accessibility settings"
-msgstr "Zpřístupnění"
+msgstr "Nastavení zpřístupnění"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Accessibility settings plugin"
-msgstr "Zásuvný modul zpřístupnění klávesnice"
+msgstr "Zásuvný modul nastavení zpřístupnění"
 
 #: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
 msgid "Automount"
-msgstr ""
+msgstr "Automatické připojování"
 
 #: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Automounter plugin"
-msgstr "Zásuvný modul písem"
+msgstr "Zásuvný modul automatického připojování"
 
 #: ../plugins/automount/gsd-automount-manager.c:154
 #, c-format
 msgid "Unable to mount %s"
-msgstr ""
+msgstr "Nelze připojit %s"
 
 #: ../plugins/automount/gsd-automount-manager.c:271
 #, c-format
 msgid "Unable to open a folder for %s"
-msgstr ""
+msgstr "Nelze otevřít složku pro %s"
 
 #: ../plugins/automount/gsd-autorun.c:340
 msgid "Ask what to do"
-msgstr ""
+msgstr "Zeptat se, co dál"
 
 #: ../plugins/automount/gsd-autorun.c:346
 msgid "Do Nothing"
-msgstr ""
+msgstr "Nedělat nic"
 
 #: ../plugins/automount/gsd-autorun.c:352
-#, fuzzy
 msgid "Open Folder"
-msgstr "Domovská složka"
+msgstr "Otevřít složku"
 
 #: ../plugins/automount/gsd-autorun.c:495
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to eject %p"
-msgstr "Zapnout zařízení touchpad"
+msgstr "Nelze vysunout %p"
 
 #: ../plugins/automount/gsd-autorun.c:497
 #, c-format
 msgid "Unable to unmount %p"
-msgstr ""
+msgstr "Nelze odpojit %p"
 
 #: ../plugins/automount/gsd-autorun.c:700
 msgid "You have just inserted an Audio CD."
-msgstr ""
+msgstr "Právě jste vložili zvukové Audio CD"
 
 #: ../plugins/automount/gsd-autorun.c:702
 msgid "You have just inserted an Audio DVD."
-msgstr ""
+msgstr "Právě jste vložili zvukové Audio DVD"
 
 #: ../plugins/automount/gsd-autorun.c:704
 msgid "You have just inserted a Video DVD."
-msgstr ""
+msgstr "Právě jste vložili Video DVD."
 
 #: ../plugins/automount/gsd-autorun.c:706
 msgid "You have just inserted a Video CD."
-msgstr ""
+msgstr "Právě jste vložili Video CD."
 
 #: ../plugins/automount/gsd-autorun.c:708
 msgid "You have just inserted a Super Video CD."
-msgstr ""
+msgstr "Právě jste vložili Super Video CD."
 
 #: ../plugins/automount/gsd-autorun.c:710
 msgid "You have just inserted a blank CD."
-msgstr ""
+msgstr "Právě jste vložili prázdné CD."
 
 #: ../plugins/automount/gsd-autorun.c:712
 msgid "You have just inserted a blank DVD."
-msgstr ""
+msgstr "Právě jste vložili prázdné DVD."
 
 #: ../plugins/automount/gsd-autorun.c:714
 msgid "You have just inserted a blank Blu-Ray disc."
-msgstr ""
+msgstr "Právě jste vložili prázdný disk Blu-Ray."
 
 #: ../plugins/automount/gsd-autorun.c:716
 msgid "You have just inserted a blank HD DVD."
-msgstr ""
+msgstr "Právě jste vložili prázdné HD DVD."
 
 #: ../plugins/automount/gsd-autorun.c:718
 msgid "You have just inserted a Photo CD."
-msgstr ""
+msgstr "Právě jste vložili Photo CD s fotografiemi."
 
 #: ../plugins/automount/gsd-autorun.c:720
 msgid "You have just inserted a Picture CD."
-msgstr ""
+msgstr "Právě jste vložili Picture CD s obrázky."
 
 #: ../plugins/automount/gsd-autorun.c:722
 msgid "You have just inserted a medium with digital photos."
-msgstr ""
+msgstr "Právě jste vložili médium s digitálními fotografiemi."
 
 #: ../plugins/automount/gsd-autorun.c:724
 msgid "You have just inserted a digital audio player."
-msgstr ""
+msgstr "Právě jste vložili digitální hudební přehrávač."
 
 #: ../plugins/automount/gsd-autorun.c:726
 msgid ""
 "You have just inserted a medium with software intended to be automatically "
 "started."
 msgstr ""
+"Právě jste vložili médium se softwarem určeným k automatickému spuštění."
 
 #. fallback to generic greeting
 #: ../plugins/automount/gsd-autorun.c:729
 msgid "You have just inserted a medium."
-msgstr ""
+msgstr "Právě jste vložili médium."
 
 #: ../plugins/automount/gsd-autorun.c:731
 msgid "Choose what application to launch."
-msgstr ""
+msgstr "Zvolte, která aplikace se má spustit."
 
 #: ../plugins/automount/gsd-autorun.c:740
 #, c-format
@@ -1229,19 +1291,20 @@ msgid ""
 "Select how to open \"%s\" and whether to perform this action in the future "
 "for other media of type \"%s\"."
 msgstr ""
+"Vyberte, jak se má otevřít „%s“ a zda se má tato akce provádět v budoucnu i "
+"pro další média typu „%s“."
 
 #: ../plugins/automount/gsd-autorun.c:767
 msgid "_Always perform this action"
-msgstr ""
+msgstr "Vždy provést tuto _akci"
 
 #: ../plugins/automount/gsd-autorun.c:783
-#, fuzzy
 msgid "_Eject"
-msgstr "Vysunout"
+msgstr "_Vysunout"
 
 #: ../plugins/automount/gsd-autorun.c:788
 msgid "_Unmount"
-msgstr ""
+msgstr "_Odpojit"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -1261,29 +1324,31 @@ msgstr "Zásuvný modul schránky"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
-msgstr "Prázdné"
+msgstr "Prázdný"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Prázdný zásuvný modul"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:332
-#, fuzzy, c-format
+#, c-format
 msgid "Low Disk Space on \"%s\""
-msgstr "Nedostatek místa na disku"
+msgstr "Nedostatek místa na disku „%s“"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:334
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
-msgstr "Svazku \"%s\" zbývá pouze %s volného místa."
+msgstr ""
+"Na svazku „%s“ zbývá pouze %s volného místa. Nějaké místo můžete uvolnit "
+"vyprázdněním koše."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:338
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr "Svazku \"%s\" zbývá pouze %s volného místa."
+msgstr "Na svazku „%s“ zbývá pouze %s volného místa."
 
 #. Set up all the window stuff here
 #: ../plugins/housekeeping/gsd-disk-space.c:343
@@ -1292,22 +1357,23 @@ msgid "Low Disk Space"
 msgstr "Nedostatek místa na disku"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:345
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
 "by emptying the trash."
-msgstr "Počítači zbývá pouze %s volného místa na disku."
+msgstr ""
+"U tohoto počítače zbývá pouze %s volného místa na disku. Nějaké místo můžete "
+"uvolnit vyprázdněním koše."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:348
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
-msgstr "Počítači zbývá pouze %s volného místa na disku."
+msgstr "U tohoto počítače zbývá pouze %s volného místa na disku."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:369
-#, fuzzy
 msgid "Examine"
-msgstr "Zkontrolovat..."
+msgstr "Prozkoumat"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:377
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
@@ -1321,7 +1387,7 @@ msgstr "Ignorovat"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again for this file system"
-msgstr "U tohoto systému souborů nezobrazovat znovu žádná varování"
+msgstr "U tohoto souborového systému nezobrazovat znovu žádná varování"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
 msgid "Don't show any warnings again"
@@ -1332,7 +1398,7 @@ msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
 msgstr ""
-"Místo na disku můžete uvolnit vyprázdněním koše, odstraněním nepotřebných "
+"Místo na disku můžete uvolnit vyprázdněním koše, odstraněním nepoužívaných "
 "programů nebo souborů, či přesunutím souborů na jiný disk nebo oddíl."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
@@ -1340,7 +1406,7 @@ msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
 msgstr ""
-"Místo na disku můžete uvolnit odstraněním nepotřebných programů nebo "
+"Místo na disku můžete uvolnit odstraněním nepoužívaných programů nebo "
 "souborů, či přesunutím souborů na jiný disk nebo oddíl."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
@@ -1348,7 +1414,7 @@ msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
 msgstr ""
-"Místo na disku můžete uvolnit vyprázdněním koše, odstraněním nepotřebných "
+"Místo na disku můžete uvolnit vyprázdněním koše, odstraněním nepoužívaných "
 "programů nebo souborů, či přesunutím souborů na externí disk."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
@@ -1356,22 +1422,22 @@ msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
 msgstr ""
-"Místo na disku můžete uvolnit odstraněním nepotřebných programů nebo "
+"Místo na disku můžete uvolnit odstraněním nepoužívaných programů nebo "
 "souborů, či přesunutím souborů na externí disk."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:444
 msgid "Examine…"
-msgstr "Zkontrolovat…"
+msgstr "Prozkoumat…"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid"
-msgstr "Svázání s klávesami (%s) není platné"
+msgstr "Klávesová zkratka (%s) není platná"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:197
 #, c-format
 msgid "Key binding (%s) is incomplete"
-msgstr "Svázání s klávesami (%s) není úplné"
+msgstr "Klávesová zkratka (%s) není úplná"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:493
 #, c-format
@@ -1380,7 +1446,7 @@ msgid ""
 "which is linked to the key (%s)"
 msgstr ""
 "Chyba při pokusu o spuštění (%s),\n"
-"což je svázáno s klávesou (%s)"
+"což je navázáno na klávesu (%s)"
 
 #: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
 msgid "Keybindings"
@@ -1410,6 +1476,14 @@ msgid ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 msgstr ""
+"Chyba aktivace nastavení XKB.\n"
+"To může nastat z různých důvodů.\n"
+"\n"
+"Pokud chcete tuto situaci nahlásit jako chybu, nezapomeňte uvést výsledky\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:223
 msgid "_Layouts"
@@ -1421,34 +1495,34 @@ msgstr "Př_edvolby klávesnice"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:236
 msgid "Show _Current Layout"
-msgstr "Ukázat _aktuální rozložení"
+msgstr "Zobrazit _aktuální rozložení"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:212
+#: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
 msgstr ""
 "Nelze nalézt výchozí terminál. Ověřte prosím, zda je zadán příkaz výchozího "
-"terminálu a zda směřuje k platné aplikaci."
+"terminálu a zda ukazuje na platnou aplikaci."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:252
+#: ../plugins/media-keys/gsd-media-keys-manager.c:258
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
 "Verify that this is a valid command."
 msgstr ""
-"Nelze spustit příkaz: %s\n"
+"Nelze provést příkaz: %s\n"
 "Ověřte prosím platnost příkazu."
 
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1005
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1091
 msgid "Disabled"
 msgstr "Zakázáno"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1012
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1098
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1458,7 +1532,7 @@ msgstr[2] "%u výstupů"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1022
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1108
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
@@ -1466,7 +1540,7 @@ msgstr[0] "%u vstup"
 msgstr[1] "%u vstupy"
 msgstr[2] "%u vstupů"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1320
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1406
 msgid "System Sounds"
 msgstr "Systémové zvuky"
 
@@ -1478,21 +1552,20 @@ msgstr "Multimediální klávesy"
 msgid "Media keys plugin"
 msgstr "Zásuvný modul multimediálních kláves"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:854
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Could not enable mouse accessibility features"
-msgstr "Nezdařilo se povolení vlastností zpřístupnění myši"
+msgstr "Nezdařilo se zapnutí funkcí zpřístupnění myši"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:856
+#: ../plugins/mouse/gsd-mouse-manager.c:824
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Zpřístupnění myši vyžaduje, aby byla v systému nainstalována aplikace "
 "Mousetweaks."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:858
-#, fuzzy
+#: ../plugins/mouse/gsd-mouse-manager.c:826
 msgid "Universal Access"
-msgstr "Předvolby zpřístupnění"
+msgstr "Univerzální přístup"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
@@ -1504,156 +1577,156 @@ msgstr "Zásuvný modul myši"
 
 #: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
 msgid "Print-notifications"
-msgstr ""
+msgstr "Oznamování tisku"
 
 #: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
-msgstr ""
+msgstr "Zásuvný modul oznamování tisku"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
 msgid "Toner low"
-msgstr ""
+msgstr "Dochází toner"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
 msgid "Toner empty"
-msgstr ""
+msgstr "Došel toner"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
 msgid "Not connected?"
-msgstr ""
+msgstr "Nepřipojeno?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
 msgid "Cover open"
-msgstr ""
+msgstr "Otevřen kryt"
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
 msgid "Printer configuration error"
-msgstr ""
+msgstr "Chyba nastavení tisku"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
 msgid "Door open"
-msgstr ""
+msgstr "Otevřena dvířka"
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
 msgid "Marker supply low"
-msgstr ""
+msgstr "Končí životnost zásobníku"
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
 msgid "Out of a marker supply"
-msgstr ""
+msgstr "Opotřebený zásobník"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
 msgid "Paper low"
-msgstr ""
+msgstr "Dochází papír"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
 msgid "Out of paper"
-msgstr ""
+msgstr "Došel papír"
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
 msgid "Printer off-line"
-msgstr ""
+msgstr "Tiskárna je off-line"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
 msgid "Printer error"
-msgstr ""
+msgstr "Chyba tiskárny"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
 #, c-format
 msgid "Printer '%s' is low on toner."
-msgstr ""
+msgstr "V tiskárně „%s“ dochází toner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
 #, c-format
 msgid "Printer '%s' has no toner left."
-msgstr ""
+msgstr "V tiskárně „%s“ došel toner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
 #, c-format
 msgid "Printer '%s' may not be connected."
-msgstr ""
+msgstr "Tiskárna „%s“ možná není připojená."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
 #, c-format
 msgid "The cover is open on printer '%s'."
-msgstr ""
+msgstr "U tiskárny „%s“ je otevřený kryt."
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
-msgstr ""
+msgstr "Schází tiskový filtr pro tiskárnu „%s“."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
 #, c-format
 msgid "The door is open on printer '%s'."
-msgstr ""
+msgstr "U tiskárny „%s“ jsou otevřená dvířka."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
-msgstr ""
+msgstr "V tiskárně „%s“ končí životnost zásobníku."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
-msgstr ""
+msgstr "V tiskárně „%s“ je opotřebovaný zásobník."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
 #, c-format
 msgid "Printer '%s' is low on paper."
-msgstr ""
+msgstr "V tiskárně „%s“ dochází papír."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
 #, c-format
 msgid "Printer '%s' is out of paper."
-msgstr ""
+msgstr "V tiskárně „%s“ došel papír."
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
 #, c-format
 msgid "Printer '%s' is currently off-line."
-msgstr ""
+msgstr "Tiskárna „%s“ je momentálně off-line."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
 #, c-format
 msgid "There is a problem on printer '%s'."
-msgstr ""
+msgstr "U tiskárny „%s“ byl zjištěn problém."
 
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
 msgid "Printer added"
-msgstr ""
+msgstr "Tiskárna přidána"
 
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
 msgid "Printer removed"
-msgstr ""
+msgstr "Tiskárna odstraněna"
 
 #. Translators: A print job has been stopped
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
 msgid "Printing stopped"
-msgstr ""
+msgstr "Tiskárna zastavena"
 
 #. Translators: "print-job xy" on a printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
@@ -1664,39 +1737,38 @@ msgstr ""
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
 #, c-format
 msgid "\"%s\" on %s"
-msgstr ""
+msgstr "„%s“ na tiskárně „%s“"
 
 #. Translators: A print job has been canceled
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
 msgid "Printing canceled"
-msgstr ""
+msgstr "Tisk zrušen"
 
 #. Translators: A print job has been aborted
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
 msgid "Printing aborted"
-msgstr ""
+msgstr "Tisk přerušen"
 
 #. Translators: A print job has been completed
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
 msgid "Printing completed"
-msgstr ""
+msgstr "Tisk dokončen"
 
 #. Translators: A job is printing
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
-#, fuzzy
 msgid "Printing"
-msgstr "Hinting"
+msgstr "Tiskne se"
 
 #. Translators: We are configuring new printer
 #: ../plugins/print-notifications/gsd-printer.c:91
 msgid "Configuring new printer"
-msgstr ""
+msgstr "Nastavuje se nová tiskárna"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:93
 msgid "Please wait..."
-msgstr ""
+msgstr "Čekejte prosím…"
 
 #. name is a URI, no queue was generated, because no suitable
 #. * driver was found
@@ -1704,18 +1776,18 @@ msgstr ""
 #. Translators: We have no driver installed for this printer
 #: ../plugins/print-notifications/gsd-printer.c:114
 msgid "Missing printer driver"
-msgstr ""
+msgstr "Schází ovladač tiskárny"
 
 #. Translators: We have no driver installed for the device
 #: ../plugins/print-notifications/gsd-printer.c:123
 #, c-format
 msgid "No printer driver for %s."
-msgstr ""
+msgstr "Pro %s není tiskový ovladač"
 
 #. Translators: We have no driver installed for this printer
 #: ../plugins/print-notifications/gsd-printer.c:128
 msgid "No driver for this printer."
-msgstr ""
+msgstr "Pro tuto tiskárnu není žádný tiskový ovladač."
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1742,12 +1814,9 @@ msgstr "Ze zálohy nelze obnovit nastavení displeje"
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
-msgstr[0] ""
-"Nastavení displeje bude resetováno na původní konfiguraci za %d sekundu"
-msgstr[1] ""
-"Nastavení displeje bude resetováno na původní konfiguraci za %d sekundy"
-msgstr[2] ""
-"Nastavení displeje bude resetováno na původní konfiguraci za %d sekund"
+msgstr[0] "Nastavení displeje bude vráceno na původní nastavení za %d sekundu"
+msgstr[1] "Nastavení displeje bude vráceno na původní nastavení za %d sekundy"
+msgstr[2] "Nastavení displeje bude vráceno na původní nastavení za %d sekund"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Does the display look OK?"
@@ -1763,12 +1832,12 @@ msgstr "Z_achovat toto nastavení"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:621
 msgid "The selected configuration for displays could not be applied"
-msgstr "Vybrané nastavení displejů nemůže být použito"
+msgstr "Vybrané nastavení displejů nelze použít"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:1165
 #, c-format
 msgid "Could not refresh the screen information: %s"
-msgstr "Nelze obnovit informace o obrazovce: %s"
+msgstr "Nelze občerstvit informace o obrazovce: %s"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
@@ -1811,12 +1880,12 @@ msgstr "nenalezen žádný použitelný ovladač čipové karty"
 #: ../plugins/smartcard/gsd-smartcard-manager.c:804
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
-msgstr "ovladač čipové karty \"%s\" nelze načíst"
+msgstr "ovladač čipové karty „%s“ nelze načíst"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:876
 #, c-format
 msgid "could not watch for incoming card events - %s"
-msgstr "nelze sledovat příchozí události karty - %s"
+msgstr "nelze sledovat příchozí události karty – %s"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:1274
 #, c-format
@@ -1853,135 +1922,135 @@ msgid "smartcard driver"
 msgstr "ovladač čipové karty"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
-#, fuzzy
 msgid "Change system time and date settings"
-msgstr "Změnit systémové časové pásmo"
+msgstr "Změnit nastavení systémového času a data"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-#, fuzzy
 msgid "Privileges are required to configure time and date settings."
-msgstr "K nastavení hardwarových hodin jsou zapotřebí oprávnění."
+msgstr "K nastavení času a data je zapotřebí oprávnění."
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
 #: ../plugins/updates/gsd-updates-manager.c:194
 msgid "Distribution upgrades available"
-msgstr ""
+msgstr "Je dostupné povýšení distribuce"
 
 #. TRANSLATORS: provides more information about the upgrade
 #: ../plugins/updates/gsd-updates-manager.c:204
 msgid "More information"
-msgstr ""
+msgstr "Více informací"
 
 #. TRANSLATORS: title in the libnotify popup
 #: ../plugins/updates/gsd-updates-manager.c:307
-#: ../plugins/updates/gsd-updates-manager.c:366
+#: ../plugins/updates/gsd-updates-manager.c:367
 msgid "Update"
 msgid_plural "Updates"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Aktualizace"
+msgstr[1] "Aktualizace"
+msgstr[2] "Aktualizace"
 
 #. TRANSLATORS: message when there are security updates
 #: ../plugins/updates/gsd-updates-manager.c:310
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Je dostupná důležitá aktualizace softwaru"
+msgstr[1] "Jsou dostupné důležité aktualizace softwaru"
+msgstr[2] "Jsou dostupné důležité aktualizace softwaru"
 
 #. TRANSLATORS: button: open the update viewer to install updates
 #: ../plugins/updates/gsd-updates-manager.c:330
-#: ../plugins/updates/gsd-updates-manager.c:389
+#: ../plugins/updates/gsd-updates-manager.c:390
 msgid "Install updates"
-msgstr ""
+msgstr "Instalovat aktualizace"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:369
+#: ../plugins/updates/gsd-updates-manager.c:370
 msgid "A software update is available."
 msgid_plural "Software updates are available."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Je dostupná aktualizace softwaru"
+msgstr[1] "Jsou dostupné aktualizace softwaru"
+msgstr[2] "Jsou dostupné aktualizace softwaru"
 
 #. TRANSLATORS: policy says update, but we are on battery and so prompt
-#: ../plugins/updates/gsd-updates-manager.c:435
+#: ../plugins/updates/gsd-updates-manager.c:436
 msgid ""
 "Automatic updates are not being installed as the computer is running on "
 "battery power"
 msgstr ""
+"Automatické aktualizace nebudou nainstalovány, protože počítač běží na "
+"baterie"
 
 #. TRANSLATORS: informs user will not install by default
-#: ../plugins/updates/gsd-updates-manager.c:437
+#: ../plugins/updates/gsd-updates-manager.c:438
 msgid "Updates not installed"
-msgstr ""
+msgstr "Aktualizace nejsou nainstalované"
 
 #. TRANSLATORS: to hell with my battery life, just do it
-#: ../plugins/updates/gsd-updates-manager.c:443
+#: ../plugins/updates/gsd-updates-manager.c:444
 msgid "Install the updates anyway"
-msgstr ""
+msgstr "Přesto aktualizace nainstalovat"
 
-#: ../plugins/updates/gsd-updates-manager.c:459
+#: ../plugins/updates/gsd-updates-manager.c:460
 msgid "No restart is required."
-msgstr ""
+msgstr "Restart není vyžadován."
 
-#: ../plugins/updates/gsd-updates-manager.c:462
+#: ../plugins/updates/gsd-updates-manager.c:463
 msgid "A restart is required."
-msgstr ""
+msgstr "Je vyžadován restart."
 
-#: ../plugins/updates/gsd-updates-manager.c:465
+#: ../plugins/updates/gsd-updates-manager.c:466
 msgid "You need to log out and log back in."
-msgstr ""
+msgstr "Musíte se odhlásit a znovu zpět přihlásit."
 
-#: ../plugins/updates/gsd-updates-manager.c:468
+#: ../plugins/updates/gsd-updates-manager.c:469
 msgid "You need to restart the application."
-msgstr ""
+msgstr "Musíte restartovat aplikaci."
 
-#: ../plugins/updates/gsd-updates-manager.c:471
+#: ../plugins/updates/gsd-updates-manager.c:472
 msgid "You need to log out and log back in to remain secure."
-msgstr ""
+msgstr "Kvůli zachování bezpečnosti se musíte odhlásit a znovu zpět přihlásit."
 
-#: ../plugins/updates/gsd-updates-manager.c:474
+#: ../plugins/updates/gsd-updates-manager.c:475
 msgid "A restart is required to remain secure."
-msgstr ""
+msgstr "Kvůli zachování bezpečnosti je požadován restart."
 
 #. TRANSLATORS: we did the update, but some updates were skipped and not applied
-#: ../plugins/updates/gsd-updates-manager.c:535
+#: ../plugins/updates/gsd-updates-manager.c:536
 msgid "One package was skipped:"
 msgid_plural "Some packages were skipped:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Jeden balíček byl přeskočen."
+msgstr[1] "Několik balíčků bylo přeskočeno."
+msgstr[2] "Několik balíčků bylo přeskočeno."
 
 #. TRANSLATORS: title: system update completed all okay
-#: ../plugins/updates/gsd-updates-manager.c:567
+#: ../plugins/updates/gsd-updates-manager.c:568
 msgid "The system update has completed"
-msgstr ""
+msgstr "Aktualizace systému byla dokončena"
 
 #. TRANSLATORS: restart computer as system packages need update
-#: ../plugins/updates/gsd-updates-manager.c:574
+#: ../plugins/updates/gsd-updates-manager.c:575
 msgid "Restart computer now"
-msgstr ""
+msgstr "Restartovat počítač ihned"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:645
+#: ../plugins/updates/gsd-updates-manager.c:646
 msgid "Updates"
-msgstr ""
+msgstr "Aktualizace"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:649
+#: ../plugins/updates/gsd-updates-manager.c:650
 msgid "Unable to access software updates"
-msgstr ""
+msgstr "Nelze získat přístup k aktualizacím softwaru"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:652
+#: ../plugins/updates/gsd-updates-manager.c:653
 msgid "Try again"
-msgstr ""
+msgstr "Zkusit znovu"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1090
+#: ../plugins/updates/gsd-updates-manager.c:1092
 msgid "A transaction that cannot be interrupted is running"
-msgstr ""
+msgstr "Běží transakce, kterou nelze přerušit"
 
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:240
@@ -1989,13 +2058,14 @@ msgid ""
 "You will need to restart this computer before the hardware will work "
 "correctly."
 msgstr ""
+"Aby začal hardware správně pracovat je zapotřebí tento počítač restartovat."
 
 #. TRANSLATORS: title of libnotify bubble
 #: ../plugins/updates/gsd-updates-firmware.c:243
 #: ../plugins/updates/gsd-updates-firmware.c:267
 #: ../plugins/updates/gsd-updates-firmware.c:291
 msgid "Additional software was installed"
-msgstr ""
+msgstr "Byl nainstalován dodatečný software"
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:264
@@ -2003,11 +2073,13 @@ msgid ""
 "You will need to remove and then reinsert the hardware before it will work "
 "correctly."
 msgstr ""
+"Aby začal hardware správně pracovat, je zapotřebí jej odpojit a znovu "
+"připojit."
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:288
 msgid "Your hardware has been set up and is now ready to use."
-msgstr ""
+msgstr "Váš hardware byl nastaven a nyní je připraven k použití."
 
 #. TRANSLATORS: we need another package to keep udev quiet
 #: ../plugins/updates/gsd-updates-firmware.c:566
@@ -2015,464 +2087,20 @@ msgid ""
 "Additional firmware is required to make hardware in this computer function "
 "correctly."
 msgstr ""
+"Aby mohl hardware v tomto počítači správně fungovat, je požadován dodatečný "
+"firmware."
 
 #. TRANSLATORS: title of libnotify bubble
 #: ../plugins/updates/gsd-updates-firmware.c:580
 msgid "Additional firmware required"
-msgstr ""
+msgstr "Požadován dodatečný firmware"
 
 #. TRANSLATORS: button label
 #: ../plugins/updates/gsd-updates-firmware.c:585
 msgid "Install firmware"
-msgstr ""
+msgstr "Instalovat firmware"
 
 #. TRANSLATORS: we should ignore this device and not ask anymore
 #: ../plugins/updates/gsd-updates-firmware.c:588
-#, fuzzy
 msgid "Ignore devices"
-msgstr "Ignorovat"
-
-#~ msgid "Volume step"
-#~ msgstr "Krok hlasitosti"
-
-#~ msgid "Volume step as percentage of volume."
-#~ msgstr "Krok hlasitosti v procentech."
-
-#~ msgid "Do not touch monitor configuration"
-#~ msgstr "Neměnit nastavení monitoru"
-
-#~ msgid "Show Displays in Notification Area"
-#~ msgstr "Zobrazit displeje v oznamovací oblasti"
-
-#~ msgid "Turn on external monitor after system boot"
-#~ msgstr "Zapnout po spuštění systému externí monitor"
-
-#~ msgid ""
-#~ "Turn on external monitor after system boot if user plugs in external "
-#~ "monitor on system boot."
-#~ msgstr ""
-#~ "Zapnout po spuštění systému externí monitor, zapojí-li uživatel externí "
-#~ "monitor při spuštění systému."
-
-#~ msgid "Turn on laptop monitor after system boot"
-#~ msgstr "Zapnout po spuštění systému monitor notebooku"
-
-#~ msgid ""
-#~ "Turn on laptop monitor after system boot if user plugs in external "
-#~ "monitor on system boot."
-#~ msgstr ""
-#~ "Zapnout po spuštění systému monitor notebooku, zapojí-li uživatel externí "
-#~ "monitor při spuštění systému."
-
-#~ msgid ""
-#~ "Usually, gnome-settings-daemon configures internal and external monitors "
-#~ "according to the turn_on_external_monitors_at_startup and "
-#~ "turn_on_laptop_monitor_at_startup settings and determines an appropriate "
-#~ "cloning/side-by-side mode. Setting this key to True disables this, and "
-#~ "the monitor settings are not touched at all (unless there is an explicit "
-#~ "user configuration)."
-#~ msgstr ""
-#~ "gnome-settings-daemon obvykle nastavuje interní a externí monitory podle "
-#~ "nastavení turn_on_external_monitors_at_startup a "
-#~ "turn_on_laptop_monitor_at_startup settings a určí vhodný režim klonování "
-#~ "či obrazovek vedle sebe. Nastavením tohoto klíče na \"true\" tomu "
-#~ "zamezíte a nastavení monitoru nebudou nijak měněna (nebude-li k dispozici "
-#~ "přímá změna nastavení uživatelem)."
-
-#~ msgid ""
-#~ "Whether a notification icon with display-related things should be shown "
-#~ "in the panel."
-#~ msgstr ""
-#~ "Zda by měla být na panelu zobrazena oznamovací ikona s vlastnostmi "
-#~ "týkajícími se displeje."
-
-#~ msgid "DPI"
-#~ msgstr "DPI"
-
-#~ msgid ""
-#~ "The resolution used for converting font sizes to pixel sizes, in dots per "
-#~ "inch."
-#~ msgstr ""
-#~ "Rozlišení užité při konverzi velikosti písem na velikost pixelů, v "
-#~ "obrazových bodech na palec."
-
-#~ msgid "Bounce keys"
-#~ msgstr "Vícenásobné stisky kláves"
-
-#~ msgid "Command used to turn the magnifier on or off."
-#~ msgstr "Příkaz užitý k zapnutí nebo vypnutí lupy obrazovky."
-
-#~ msgid "Command used to turn the on-screen keyboard on or off."
-#~ msgstr "Příkaz užitý k zapnutí nebo vypnutí klávesnice na obrazovce."
-
-#~ msgid "Command used to turn the screen reader on or off."
-#~ msgstr "Příkaz užitý k zapnutí nebo vypnutí čtení obrazovky."
-
-#~ msgid "Enable XRandR plugin"
-#~ msgstr "Povolit zásuvný modul XRandR"
-
-#~ msgid "Enable accessibility keyboard plugin"
-#~ msgstr "Povolit zásuvný modul zpřístupnění klávesnice"
-
-#~ msgid "Enable background plugin"
-#~ msgstr "Povolit zásuvný modul pozadí"
-
-#~ msgid "Enable clipboard plugin"
-#~ msgstr "Povolit zásuvný modul schránky"
-
-#~ msgid "Enable font plugin"
-#~ msgstr "Povolit zásuvný modul písem"
-
-#~ msgid "Enable housekeeping plugin"
-#~ msgstr "Povolit zásuvný modul údržby"
-
-#~ msgid "Enable keybindings plugin"
-#~ msgstr "Povolit zásuvný modul klávesových zkratek"
-
-#~ msgid "Enable keyboard plugin"
-#~ msgstr "Povolit zásuvný modul klávesnice"
-
-#~ msgid "Enable media keys plugin"
-#~ msgstr "Povolit zásuvný modul multimediálních kláves"
-
-#~ msgid "Enable mouse plugin"
-#~ msgstr "Povolit zásuvný modul myši"
-
-#~ msgid "Enable smartcard plugin"
-#~ msgstr "Povolit zásuvný modul čipových karet"
-
-#~ msgid "Enable sound plugin"
-#~ msgstr "Povolit zásuvný modul zvuku"
-
-#~ msgid "Enable typing breaks plugin"
-#~ msgstr "Povolit zásuvný modul přestávky ve psaní"
-
-#~ msgid "Enable xrdb plugin"
-#~ msgstr "Povolit zásuvný modul xrdb"
-
-#~ msgid "Enable xsettings plugin"
-#~ msgstr "Povolit zásuvný modul xsettings"
-
-#~ msgid "Mouse keys"
-#~ msgstr "Myš klávesnicí"
-
-#~ msgid "On-screen keyboard"
-#~ msgstr "Klávesnice na obrazovce"
-
-#~ msgid "Screen magnifier"
-#~ msgstr "Lupa obrazovky"
-
-#~ msgid "Screen reader"
-#~ msgstr "Čtení obrazovky"
-
-#~ msgid ""
-#~ "Set to True to enable the housekeeping plugin, to prune transient file "
-#~ "caches."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li zapnout zásuvný modul údržby určený k "
-#~ "pročištění vyrovnávacích pamětí dočasných souborů."
-
-#~ msgid "Set to True to enable the plugin to manage XRandR settings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat nastavení "
-#~ "XRandR."
-
-#~ msgid "Set to True to enable the plugin to manage clipboard settings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat nastavení "
-#~ "schránky."
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage desktop background settings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat nastavení "
-#~ "pozadí pracovní plochy."
-
-#~ msgid "Set to True to enable the plugin to manage font settings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat nastavení "
-#~ "písem."
-
-#~ msgid "Set to True to enable the plugin to manage keyboard settings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat nastavení "
-#~ "klávesnice."
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage locking the screen on "
-#~ "smartcard removal."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat uzamykání "
-#~ "obrazovky při odstranění čipové karty."
-
-#~ msgid "Set to True to enable the plugin to manage mouse settings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat nastavení "
-#~ "myši."
-
-#~ msgid "Set to True to enable the plugin to manage multimedia keys settings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat nastavení "
-#~ "multimediálních kláves."
-
-#~ msgid "Set to True to enable the plugin to manage sound sample caches."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li povolit zásuvnému modulu spravovat "
-#~ "vyrovnávací paměť vzorků zvuku."
-
-#~ msgid ""
-#~ "Set to True to enable the plugin to manage the accessibility keyboard "
-#~ "settings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat nastavení "
-#~ "zpřístupnění klávesnice."
-
-#~ msgid "Set to True to enable the plugin to manage the keybindings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat klávesové "
-#~ "zkratky."
-
-#~ msgid "Set to True to enable the plugin to manage typing breaks."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat přestávky "
-#~ "ve spání."
-
-#~ msgid "Set to True to enable the plugin to manage xrdb settings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat nastavení "
-#~ "xrdb."
-
-#~ msgid "Set to True to enable the plugin to manage xsettings."
-#~ msgstr ""
-#~ "Nastavte na \"true\", chcete-li nechat zásuvný modul spravovat xsettings."
-
-#~ msgid "Slow keys"
-#~ msgstr "Pomalé klávesy"
-
-#~ msgid "Sticky keys"
-#~ msgstr "Lepící klávesy"
-
-#~ msgid "The name of the keyboard shortcut to toggle the magnifier"
-#~ msgstr "Název klávesové zkratky určené k přepnutí lupy"
-
-#~ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
-#~ msgstr "Název klávesové zkratky určené k přepnutí klávesnice na obrazovce"
-
-#~ msgid "The name of the keyboard shortcut to toggle the screen reader"
-#~ msgstr "Název klávesové zkratky určené k přepnutí čtení obrazovky"
-
-#~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the magnifier. This "
-#~ "name will be shown in the keyboard shortcut preferences dialog."
-#~ msgstr ""
-#~ "Název klávesové zkratky určené k přepnutí lupy. Tento název bude zobrazen "
-#~ "v dialogu předvoleb klávesových zkratek."
-
-#~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the on-screen "
-#~ "keyboard. This name will be shown in the keyboard shortcut preferences "
-#~ "dialog."
-#~ msgstr ""
-#~ "Název klávesové zkratky určené k přepnutí klávesnice na obrazovce. Tento "
-#~ "název bude zobrazen v dialogu předvoleb klávesových zkratek."
-
-#~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the screen reader. "
-#~ "This name will be shown in the keyboard shortcut preferences dialog."
-#~ msgstr ""
-#~ "Název klávesové zkratky určené k přepnutí čtení obrazovky. Tento název "
-#~ "bude zobrazen v dialogu předvoleb klávesových zkratek."
-
-#~ msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-#~ msgstr ""
-#~ "Jestli je zapnuta vlastnost zpřístupnění klávesnice vícenásobné stisky "
-#~ "kláves."
-
-#~ msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-#~ msgstr "Jestli je zapnuta vlastnost zpřístupnění klávesnice myš klávesnicí."
-
-#~ msgid "Whether the on-screen keyboard is turned on."
-#~ msgstr "Jestli je zapnuta klávesnice na obrazovce."
-
-#~ msgid "Whether the screen magnifier is turned on."
-#~ msgstr "Jestli je zapnuta lupa obrazovky."
-
-#~ msgid "Whether the screen reader is turned on."
-#~ msgstr "Jestli je zapnuto čtení obrazovky."
-
-#~ msgid "Whether the slow keys keyboard accessibility feature is turned on."
-#~ msgstr "Jestli je zapnuta vlastnost zpřístupnění klávesnice pomalé klávesy."
-
-#~ msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-#~ msgstr "Jestli je zapnuta vlastnost zpřístupnění klávesnice lepící klávesy."
-
-#~ msgid "Don't become a daemon"
-#~ msgstr "Nestát se démonem"
-
-#~ msgid "GConf prefix from which to load plugin settings"
-#~ msgstr "Předpona GConf, ze které se mají nahrát nastavení zásuvného modulu"
-
-#~ msgid "Font"
-#~ msgstr "Písmo"
-
-#~ msgid "Removing item %lu of %lu"
-#~ msgstr "Odstraňování položky %lu z %lu"
-
-#~ msgid "Removing: %s"
-#~ msgstr "Odstraňování: %s"
-
-#~ msgid "Emptying the trash"
-#~ msgstr "Vyprazdňování koše"
-
-#~ msgid "Preparing to empty trash…"
-#~ msgstr "Připravuje se vyprázdnění koše..."
-
-#~ msgid "From: "
-#~ msgstr "Z: "
-
-#~ msgid "Empty all of the items from the trash?"
-#~ msgstr "Odstranit všechny položky z koše?"
-
-#~ msgid ""
-#~ "If you choose to empty the trash, all items in it will be permanently "
-#~ "lost. Please note that you can also delete them separately."
-#~ msgstr ""
-#~ "Pokud se rozhodnete vyprázdnit koš, budou položky natrvalo odstraněny. "
-#~ "Všimněte si, že je také můžete odstranit po jedné."
-
-#~ msgid "_Empty Trash"
-#~ msgstr "Vyprázdnit _koš"
-
-#~ msgid ""
-#~ "Error activating XKB configuration.\n"
-#~ "It can happen under various circumstances:\n"
-#~ " • a bug in libxklavier library\n"
-#~ " • a bug in X server (xkbcomp, xmodmap utilities)\n"
-#~ " • X server with incompatible libxkbfile implementation\n"
-#~ "\n"
-#~ "X server version data:\n"
-#~ "%s\n"
-#~ "%d\n"
-#~ "%s\n"
-#~ "If you report this situation as a bug, please include:\n"
-#~ " • The result of <b>%s</b>\n"
-#~ " • The result of <b>%s</b>"
-#~ msgstr ""
-#~ "Chyba při aktivaci konfigurace XKB.\n"
-#~ "Může se jednat o důsledek mnoha okolností:\n"
-#~ " • chyba v knihovně libxklavier\n"
-#~ " • chyba v serveru X (nástroje xkbcomp, xmodmap)\n"
-#~ " • server X s nekompatibilní implementací libxkbfile\n"
-#~ "\n"
-#~ "Data verze serveru X:\n"
-#~ "%s\n"
-#~ "%d\n"
-#~ "%s\n"
-#~ "Nahlásíte-li tuto skutečnost jako chybu, přiložte prosím:\n"
-#~ " • Výstup <b>%s</b>\n"
-#~ " • Výstup <b>%s</b>"
-
-#~ msgid ""
-#~ "You are using XFree 4.3.0.\n"
-#~ "There are known problems with complex XKB configurations.\n"
-#~ "Try using a simpler configuration or using a later version of the XFree "
-#~ "software."
-#~ msgstr ""
-#~ "Používáte XFree 4.3.0.\n"
-#~ "U složitých konfigurací XKB se vyskytují známé problémy.\n"
-#~ "Zkuste použít jednodušší konfiguraci, nebo si opatřete aktuálnější verzi "
-#~ "XFree."
-
-#~ msgid "A_vailable files:"
-#~ msgstr "_Dostupné soubory:"
-
-#~ msgid "Load modmap files"
-#~ msgstr "Načíst soubory modmap"
-
-#~ msgid "Would you like to load the modmap files?"
-#~ msgstr "Chcete načíst soubory modmap?"
-
-#~ msgid "_Do not show this message again"
-#~ msgstr "Příště už tuto zprávu _neukazovat"
-
-#~ msgid "_Load"
-#~ msgstr "_Načíst"
-
-#~ msgid "_Loaded files:"
-#~ msgstr "_Načtené soubory:"
-
-#~ msgid "Mouse Preferences"
-#~ msgstr "Předvolby myši"
-
-#~ msgid "Typing Break"
-#~ msgstr "Přestávka ve psaní"
-
-#~ msgid "Typing break plugin"
-#~ msgstr "Zásuvný modul přestávky ve psaní"
-
-#~ msgid "Rotation not supported"
-#~ msgstr "Otáčení nepodporováno"
-
-#~ msgid "Could not save monitor configuration"
-#~ msgstr "Nelze uložit nastavení monitoru"
-
-#~ msgid "Normal"
-#~ msgstr "Běžné"
-
-#~ msgid "Left"
-#~ msgstr "Vlevo"
-
-#~ msgid "Right"
-#~ msgstr "Vpravo"
-
-#~ msgid "Upside Down"
-#~ msgstr "Převrátit"
-
-#~ msgid "_Configure Display Settings…"
-#~ msgstr "_Konfigurovat nastavení displeje..."
-
-#~ msgid "Configure display settings"
-#~ msgstr "Konfigurovat nastavení displeje"
-
-#~ msgid "Cannot determine user's home directory"
-#~ msgstr "Nelze určit domovský adresář uživatele"
-
-#~ msgid "Manage the X resource database"
-#~ msgstr "Spravovat databázi zdrojů X"
-
-#~ msgid "X Resource Database"
-#~ msgstr "Databáze zdrojů X"
-
-#~ msgid "GConf key %s set to type %s but its expected type was %s\n"
-#~ msgstr "Klíč systému GConf %s je typu %s, ale byl očekáván typ %s\n"
-
-#~ msgid "Change system time"
-#~ msgstr "Změnit systémový čas"
-
-#~ msgid "Configure hardware clock"
-#~ msgstr "Nastavit hardwarové hodiny"
-
-#~ msgid "Privileges are required to change the system time zone."
-#~ msgstr "Ke změně systémového časového pásma jsou zapotřebí oprávnění."
-
-#~ msgid "Privileges are required to change the system time."
-#~ msgstr "Ke změně systémového času jsou zapotřebí oprávnění."
-
-#~ msgid "Unknown"
-#~ msgstr "Neznámé"
-
-#~ msgid "Keyboard Layout \"%s\""
-#~ msgstr "Rozložení klávesnice \"%s\""
-
-#~ msgid "_Groups"
-#~ msgstr "_Skupiny"
-
-#~ msgid "Keyboard Layout"
-#~ msgstr "Rozložení klávesnice"
-
-#~ msgid ""
-#~ "Couldn't put the machine to sleep.\n"
-#~ "Verify that the machine is correctly configured."
-#~ msgstr ""
-#~ "Nelze uspat počítač.\n"
-#~ "Ověřte prosím, že je počítač správně nastaven."
+msgstr "Ignorovat zařízení"
