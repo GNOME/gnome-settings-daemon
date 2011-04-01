@@ -620,6 +620,13 @@ cancel_old_subscriptions ()
                 "job-created",
                 "job-completed",
                 "job-stopped" };
+        static const char * const older_events[] = {
+                "printer-added",
+                "printer-deleted",
+                "job-state-changed",
+                "job-created",
+                "job-completed",
+                "job-stopped" };
 
         if ((http = httpConnectEncrypt (cupsServer (), ippPort (),
                                         cupsEncryption ())) == NULL) {
@@ -667,6 +674,7 @@ cancel_old_subscriptions ()
                                         gboolean remove = TRUE;
                                         gboolean have;
                                         gint length = 0;
+                                        gint length2 = 0;
 
                                         if (lease_duration != 0)
                                                 remove = FALSE;
@@ -675,18 +683,33 @@ cancel_old_subscriptions ()
                                                 remove = FALSE;
 
                                         length = G_N_ELEMENTS (old_events);
-                                        if (events->num_values != G_N_ELEMENTS (old_events))
+                                        length2 = G_N_ELEMENTS (older_events);
+                                        if (events->num_values != length &&
+                                            events->num_values != length2)
                                                 remove = FALSE;
-                                        else
-                                                for (i = 0; i < events->num_values; i++) {
-                                                        have = FALSE;
-                                                        for (j = 0; j < length; j++) {
-                                                                if (g_strcmp0 (events->values[i].string.text, old_events[j]) == 0)
-                                                                        have = TRUE;
+                                        else {
+                                                if (events->num_values == length)
+                                                        for (i = 0; i < events->num_values; i++) {
+                                                                have = FALSE;
+                                                                for (j = 0; j < length; j++) {
+                                                                        if (g_strcmp0 (events->values[i].string.text, old_events[j]) == 0)
+                                                                                have = TRUE;
+                                                                }
+                                                                if (!have)
+                                                                        remove = FALSE;
                                                         }
-                                                        if (!have)
-                                                                remove = FALSE;
-                                                }
+
+                                                if (events->num_values == length2)
+                                                        for (i = 0; i < events->num_values; i++) {
+                                                                have = FALSE;
+                                                                for (j = 0; j < length2; j++) {
+                                                                        if (g_strcmp0 (events->values[i].string.text, older_events[j]) == 0)
+                                                                                have = TRUE;
+                                                                }
+                                                                if (!have)
+                                                                        remove = FALSE;
+                                                        }
+                                        }
 
                                         if (remove)
                                                 cancel_subscription (id);
