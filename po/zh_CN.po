@@ -9,26 +9,27 @@
 # 甘露(Gan Lu) <rhythm.gan@gmail.com>, 2009, 2010.
 # Deng Xiyue <manphiz@gmail.com>, 2009.
 # Tao Wei <weitao1979@gmail.com>, 2009.
-# Aron Xu <happyaron.xu@gmail.com>, 2009, 2010.
+# Aron Xu <happyaron.xu@gmail.com>, 2009, 2010, 2011.
 # vicwjb <vicwjb@gmail.com>, 2010.
 # Tao Wang <dancefire@gmail.com>, 2010.
 # 指冷玉笙寒 (dhyang) <dhyang555@gmail.com>, 2010
 # Lele Long <schemacs@gmail.com>, 2011.
 # YunQiang Su <wzssyqa@gmail.com>, 2011.
+# liuzhen1191 <liuzhen1191@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-24 10:14+0000\n"
-"PO-Revision-Date: 2011-03-24 00:18+0800\n"
-"Last-Translator: YunQiang Su <wzssyqa@gmail.com>\n"
+"POT-Creation-Date: 2011-04-01 17:18+0000\n"
+"PO-Revision-Date: 2011-04-02 11:48+0800\n"
+"Last-Translator: liu zhen <liuzhen1191@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
@@ -789,24 +790,23 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
 msgid "Enable this to only move the cursor when the user touches the tablet."
-msgstr "启用此项仅在用户碰到触摸板时移动光标。"
+msgstr "启用此项仅在用户碰到数位板时移动光标。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
-msgstr ""
+msgstr "当手写笔尖端按下时启用此活动报告"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
-#, fuzzy
 msgid "Enable this to set the cursor to absolute mode."
-msgstr "启用此项以将光标设置为绝对模式。"
+msgstr "启用此光标设置的绝对模式。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Enable this to set the eraser to absolute mode."
-msgstr ""
+msgstr "启用此设置为擦写绝对模式"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
 msgid "Enable this to set the stylus to absolute mode."
-msgstr ""
+msgstr "启用此设置为手写笔绝对模式"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid ""
@@ -822,12 +822,12 @@ msgstr "逻辑按键映射设置。"
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
-msgstr ""
+msgstr "当手写笔触摸活动发生时设置这个压力值"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
-msgstr ""
+msgstr "将此设置到压力值"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
@@ -835,115 +835,97 @@ msgstr "设置为光标可用区域的 x1，y1 和 x2，y2。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
-msgstr ""
+msgstr "将此值设置到  x1, y1 和 x2, y2 适用于可用的擦写区域"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
-msgstr ""
+msgstr "将此值设置到  x1, y1 和 x2, y2  适用于垫可用区域。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
-msgstr ""
+msgstr "将此值设置到  x1, y1 和 x2, y2 适用于手写笔区域。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
-msgstr ""
+msgstr "将此值设置到  x1, y1 和 x2, y2 适用于擦写压力曲线。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
-msgstr ""
+msgstr "将此值设置到 x1，y1 和 x2，y2 适用于手写笔压力曲线。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
-#, fuzzy
 msgid "Wacom cursor absolute mode"
-msgstr "Wacom 光标理想模式。"
+msgstr "Wacom 光标绝对模式"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
-#, fuzzy
 msgid "Wacom cursor button mapping"
-msgstr "Wacom 光标按钮映射。"
+msgstr "Wacom 光标按钮映射"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
-#, fuzzy
 msgid "Wacom cursor tablet area"
-msgstr "Wacom 平板光标区域"
+msgstr "Wacom 光标数位板区域"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
-#, fuzzy
 msgid "Wacom eraser absolute mode"
-msgstr "Wacom 擦写理想模式。"
+msgstr "Wacom 擦写绝对模式"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
-#, fuzzy
 msgid "Wacom eraser button mapping"
-msgstr "Wacom 擦写按钮映射。"
+msgstr "Wacom 擦写按钮映射"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
-#, fuzzy
 msgid "Wacom eraser pressure curve"
-msgstr "Wacom 擦写压力曲线。"
+msgstr "Wacom 擦写压力曲线"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
-#, fuzzy
 msgid "Wacom eraser pressure threshold"
-msgstr "Wacom 擦写压力临界值。"
+msgstr "Wacom 擦写压力临界值"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
-#, fuzzy
 msgid "Wacom eraser tablet area"
-msgstr "Wacom 平板电脑擦写区域"
+msgstr "Wacom 数位板擦写区域"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
-#, fuzzy
 msgid "Wacom pad button mapping"
-msgstr "Wacom 按钮垫映射"
+msgstr "Wacom 垫按钮映射"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
-#, fuzzy
 msgid "Wacom pad tablet area"
-msgstr "Wacom 平板电脑垫区域"
+msgstr "Wacom 数位板垫区域"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
-#, fuzzy
 msgid "Wacom stylus absolute mode"
-msgstr "Wacom 手写笔理想模式"
+msgstr "Wacom  手写笔绝对模式"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
-#, fuzzy
 msgid "Wacom stylus button mapping"
-msgstr "Wacom 手写笔按钮映射"
+msgstr "Wacom  手写笔按钮映射"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
-#, fuzzy
 msgid "Wacom stylus pressure curve"
 msgstr "Wacom 手写笔压力曲线"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
-#, fuzzy
 msgid "Wacom stylus pressure threshold"
 msgstr "Wacom 手写笔压力临界值"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
-#, fuzzy
 msgid "Wacom stylus tablet area"
 msgstr "Wacom 手写笔区域"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
-#, fuzzy
 msgid "Wacom tablet PC feature"
-msgstr "Wacom 笔记本电脑特点"
+msgstr "Wacom 平板电脑的功能"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
-#, fuzzy
 msgid "Wacom tablet rotation"
-msgstr "Wacom 平板电脑旋转"
+msgstr "Wacom 的数位板旋转"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
-#, fuzzy
 msgid "Wacom touch feature"
-msgstr "Wacom 触摸装置特点"
+msgstr "Wacom 的触控功能"
 
 #: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
@@ -1496,194 +1478,191 @@ msgid "Print-notifications plugin"
 msgstr " 打印提醒插件"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
 msgid "Toner low"
 msgstr "墨已不多"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
 msgid "Toner empty"
 msgstr "缺墨"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
 msgid "Not connected?"
 msgstr "没有连接？"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
 msgid "Cover open"
 msgstr "有机盖打开"
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
 msgid "Printer configuration error"
 msgstr "打印机配置错误"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
 msgid "Door open"
 msgstr "仓门打开"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
-#, fuzzy
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
 msgid "Marker supply low"
-msgstr "边界范围过低"
+msgstr "标记墨量低"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
-#, fuzzy
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
 msgid "Out of a marker supply"
-msgstr "超出边界范围。"
+msgstr "标记墨已用完"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
 msgid "Paper low"
-msgstr "纸过少"
+msgstr "纸张量少"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
 msgid "Out of paper"
-msgstr "纸已用完"
+msgstr "缺纸"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:198
 msgid "Printer off-line"
 msgstr "没有连接打印机"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
 msgid "Printer error"
 msgstr "打印机错误"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "打印机“%s”墨已不多。"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "打印机“%s”已经无墨。"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "打印机“%s”可能没有连接。"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:210
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "打印机“%s”机盖处于打开状态。"
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
-#, fuzzy, c-format
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#, c-format
 msgid "There is a missing print filter for printer '%s'."
-msgstr "打印机'%s'打印过滤功能丢失。"
+msgstr "打印机 “%s” 打印过滤功能缺失。"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "打印机“%s”机盖处于打开状态。"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
-#, fuzzy, c-format
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
+#, c-format
 msgid "Printer '%s' is low on a marker supply."
-msgstr "打印机“%s”边界过低"
+msgstr "打印机“%s”的标记墨量少。"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
-#, fuzzy, c-format
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
+#, c-format
 msgid "Printer '%s' is out of a marker supply."
-msgstr "打印机“%s”超出边界范围"
+msgstr "打印机“%s”标记墨已用完。"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
 #, c-format
 msgid "Printer '%s' is low on paper."
-msgstr "打印机“%s”纸已不多。"
+msgstr "打印机“%s”纸张量少。"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
 #, c-format
 msgid "Printer '%s' is out of paper."
-msgstr "打印机“%s”缺纸"
+msgstr "打印机“%s”缺纸。"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
 #, c-format
 msgid "Printer '%s' is currently off-line."
-msgstr "打印机“%s”当前已脱机"
+msgstr "打印机“%s”当前离线。"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:227
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "打印机“%s”上有错误。"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:297
 msgid "Printer added"
 msgstr "打印机已添加"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
 msgid "Printer removed"
 msgstr "打印机已移除"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:322
 msgid "Printing stopped"
 msgstr "打印已暂停"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "%2$s 上的“%1$s”"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:328
 msgid "Printing canceled"
 msgstr "打印已取消"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:334
 msgid "Printing aborted"
 msgstr "打印中止"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
 msgid "Printing completed"
 msgstr "打印完成"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printing"
 msgstr "正在打印"
 
 #. Translators: We are configuring new printer
 #: ../plugins/print-notifications/gsd-printer.c:91
-#, fuzzy
 msgid "Configuring new printer"
-msgstr "配置网络时间"
+msgstr "配置新的打印机"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:93
 msgid "Please wait..."
-msgstr ""
+msgstr "请稍候..."
 
 #. name is a URI, no queue was generated, because no suitable
 #. * driver was found
@@ -1691,18 +1670,18 @@ msgstr ""
 #. Translators: We have no driver installed for this printer
 #: ../plugins/print-notifications/gsd-printer.c:114
 msgid "Missing printer driver"
-msgstr ""
+msgstr "打印机驱动丢失"
 
 #. Translators: We have no driver installed for the device
 #: ../plugins/print-notifications/gsd-printer.c:123
 #, c-format
 msgid "No printer driver for %s."
-msgstr ""
+msgstr "找不到 %s 的打印驱动。"
 
 #. Translators: We have no driver installed for this printer
 #: ../plugins/print-notifications/gsd-printer.c:128
 msgid "No driver for this printer."
-msgstr ""
+msgstr "找不到打印机的驱动。"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
