@@ -2,57 +2,219 @@
 # Copyright (C) 1999 Free Software Foundation, Inc.
 # Yuri Syrota <rasta@renome.rovno.ua>, 1999.
 # Maxim Dzumanenko <dziumanenko@gmail.com>, 2002-2009
-#
+# Korostil Daniel <ted.korostiled@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-26 18:09+0200\n"
-"PO-Revision-Date: 2010-01-05 23:09+0300\n"
-"Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
-"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"POT-Creation-Date: 2011-04-02 23:50+0300\n"
+"PO-Revision-Date: 2011-04-05 00:22+0300\n"
+"Last-Translator: Korostil Daniel <ted.korostiled@gmail.com>\n"
+"Language-Team: translation@linux.org.ua\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Virtaal 0.6.1\n"
 
-#: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "Технології доступності"
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "Служба параметрів GNOME"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Command to be run when a device is added or removed."
+msgstr "Команда, яка запускається при додаванні чи вилученні пристрою."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid "Device hotplug custom command"
+msgstr "Власна команда пристрою hotplug"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Disable touchpad while typing"
+msgstr "Вимикати сенсорний пристрій при наборі на клавіатурі"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Distance before a drag is started."
+msgstr "Відстань перед початком перетягування."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "Double click time"
+msgstr "Час подвійного клацання"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Drag threshold"
+msgstr "Поріг перетягування"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid "Enable horizontal scrolling"
+msgstr "Увімкнути горизонтальну прокрутку"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "Enable mouse clicks with touchpad"
+msgstr "Увімкнути клацання миші на сенсорному пристрої"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "Enable touchpad"
+msgstr "Увімкнути сенсорну панель"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Вмикає емулятор середньої кнопки миші через одночасне натиснення правої і "
+"лівої кнопки."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid ""
+"Highlights the current location of the pointer when the Control key is "
+"pressed and released."
+msgstr ""
+"Підсвічує поточну адресу вказівника, коли клавішу Ctrl натиснуто чи "
+"відпущено."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+msgid "Length of a double click in milliseconds."
+msgstr "Довжина подвійного клацання у мілісекундах."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+msgid "Middle button emulation"
+msgstr "Емулятор середньої кнопки"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+msgid "Select the touchpad scroll method"
+msgstr "Виберіть для сенсорного пристрою спосіб прокручування"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+msgid ""
+"Select the touchpad scroll method. Supported values are: \"disabled\", "
+"\"edge-scrolling\", \"two-finger-scrolling\"."
+msgstr ""
+"Виберіть спосіб прокручування сенсорного пристрою. Підтримувані значення: "
+"«disabled», «edge-scrolling», «two-finger-scrolling»."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Відмітьте цей параметр, якщо у вас виникають проблеми з випадковим "
+"натисканням на топад при наборі тексту на клавіатурі."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Відмітьте цей параметр, щоб дозволити горизонтальну прокрутку обраним у "
+"ключі scroll_method методом."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Відмітьте цей параметр, щоб мати змогу виконувати клацання мишею на "
+"сенсорному пристрої."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Вкажіть цей параметр, щоб увімкнути усі сенсорні пристрої."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+msgid ""
+"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+"Вкажіть щось з «none», «lock-screen» або «force-logout». Дія виконається, "
+"коли вилучено смарткартку для входу в систему."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid "Smartcard removal action"
+msgstr "Вилучення смарткартки"
+
+#. g-p-m is not a GSD plugin, yet
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+msgid "Activation of this plugin"
+msgstr "Увімкнення цього додатка"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+msgid "Priority to use for this plugin"
+msgstr "Пріоритет цього додатка"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgstr "Пріоритет цього додатка у черзі запуску gnome-settings-daemon"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgstr "Чи цей додаток буде увімкнено через gnome-settings-daemon, чи ні"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
 msgstr "Поріг у відсотках сповіщення про брак вільного місця"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
-msgid "Free space no notify threshold"
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+msgid "Free space notify threshold"
 msgstr "Поріг сповіщення про брак вільного місця"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Minimum notify period for repeated warnings"
 msgstr "Мінімальний період попереджень про брак вільного місця"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
 msgstr "Точки монтування, що ігноруються"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown"
+"the percentage free space drops below this, a warning will be shown."
 msgstr ""
-"Поріг у відсотках сповіщення для першого повідомлення про брак вільного "
-"місця. Якщо відсоток вільного місця стає нижче цього значення, виводиться "
-"попередження"
+"Поріг у відсотках попередження для першого повідомлення про брак вільного "
+"місця. Якщо відсоток вільного місця стає нижче за це значення, показується "
+"попередження."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
 "Вкажіть список точок монтування, що ігноруються у попередженні про брак "
 "вільного місця."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
@@ -60,235 +222,576 @@ msgstr ""
 "Вкажіть час у хвилинах. Подальші попередження про заповнення тому не "
 "виводитимуться частіше ніж цей період."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown"
+"warning will be shown."
 msgstr ""
-"Вкажіть величину у гігабайтах. Якщо вільного простору на більше ніж це "
-"значення, попередження про брак вільного місця не виводитиметься"
+"Вкажіть величину у гігабайтах. Якщо вільного простору більше ніж це "
+"значення, попередження про брак вільного місця не показуватиметься."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
-"issuing a subsequent warning"
+"issuing a subsequent warning."
 msgstr ""
-"Вкажіть на скільки відсотків має зменшитися вільне місце, перед виводом "
-"наступного попередження"
+"Вкажіть на скільки відсотків має зменшитися вільне місце, перед виведенням "
+"наступного попередження."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
-msgid "Subsequent free percentage notify threshold"
-msgstr "Поріг у відсотках для сповіщення про брак вільного місця"
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+msgid "Subsequent free space percentage notify threshold"
+msgstr "Подальший поріг у відсотках для сповіщення про брак вільного місця"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-msgid "Binding to eject an optical disk."
-msgstr "Прив'язка для витягування оптичного диску."
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
+msgstr "Пріоритет цього додатка в черзі при запуску gnome-settings-daemon."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+msgstr "Чи цей додаток увімкнути за допомогою gnome-settings-daemon, чи ні."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+msgid "Allowed keys"
+msgstr "Дозволені клавіші"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+msgid "Binding for the magnifier to zoom in"
+msgstr "Прив'язка лупи для збільшення"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+msgid "Binding for the magnifier to zoom out"
+msgstr "Прив'язка лупи для зменшення"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+msgid "Binding to decrease the text size"
+msgstr "Прив'язка для зменшення розміру тексту"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+msgid "Binding to eject an optical disc."
+msgstr "Прив'язка для витягування оптичного диска."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Binding to enable or disable the touchpad."
 msgstr "Комбінація клавіш для вмикання та вимикання сенсорної панелі."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+msgid "Binding to increase the text size"
+msgstr "Прив'язка для збільшення розміру тексту"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
 msgstr "Прив'язка для запуску калькулятора."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "Прив'язка для запуску поштового клієнта."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the help browser."
 msgstr "Прив'язка для запуску довідникової системи."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the media player."
 msgstr "Прив'язка для запуску мультимедійного програвача."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the search tool."
 msgstr "Прив'язка для запуску утиліти пошуку."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the web browser."
 msgstr "Прив'язка для запуску веб-переглядача."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lock the screen."
 msgstr "Прив'язка для блокування екрану."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to log out."
 msgstr "Прив'язка для виходу з системи."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to lower the system volume."
 msgstr "Прив'язка для зменшення системної гучності."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to mute the system volume."
 msgstr "Прив'язка для приглушення системної гучності."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to open the Home folder."
 msgstr "Прив'язка для відкриття домашньої теки."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "Прив'язка для призупинення відтворення."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to raise the system volume."
 msgstr "Прив'язка для збільшення системної гучності."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+msgid "Binding to show the on-screen keyboard"
+msgstr "Прив'язка для показу екранної клавіатури"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+msgid "Binding to show the screen magnifier"
+msgstr "Прив'язка для показу екранної лупи"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
 msgstr "Прив'язка для переходу до наступної доріжки."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to skip to previous track."
 msgstr "Прив'язка для переходу до попередньої доріжки."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Прив'язка для запуску відтворення (чи перемикання відтворення/пауза)"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
-msgid "Binding to stop playback."
-msgstr "При'вязка для зупинки відтворення"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+msgid "Binding to start the screen reader"
+msgstr "Прив'язка для запуску екранного читача"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+msgid "Binding to stop playback."
+msgstr "Прив'язка для зупинки відтворення"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+msgid "Binding to toggle the interface contrast"
+msgstr "Прив'язка для перемикання контрасту інтерфейсу "
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+msgid "Decrease text size"
+msgstr "Зменшити розмір тексту"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Eject"
 msgstr "Витягування"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Home folder"
 msgstr "Домашня тека"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+msgid ""
+"If non-empty, keybindings will be ignored unless their settings directory is "
+"in the list. This is useful for lockdown."
+msgstr ""
+"Якщо список не порожній, прив'язки клавіш будуть ігноруватися, поки їхній "
+"каталог налаштувань не буде в цьому списку. Це зручно для блокування."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+msgid "Increase text size"
+msgstr "Збільшити розмір тексту"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch calculator"
 msgstr "Запустити калькулятор"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch email client"
 msgstr "Запустити клієнт електронної пошти"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch help browser"
 msgstr "Запуск переглядача довідки"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch media player"
 msgstr "Запустити мультимедійний програвач"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Launch web browser"
 msgstr "Запуск переглядача Інтернет"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Lock screen"
 msgstr "Блокування екрану"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Log out"
 msgstr "Завершення роботи"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Magnifier zoom in"
+msgstr "Лупа збільшення"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Magnifier zoom out"
+msgstr "Лупа зменшення"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
 msgstr "Наступна доріжка"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Pause playback"
 msgstr "Призупинити відтворення"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Play (or play/pause)"
 msgstr "Програвання (або Програвання/Пауза)"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Previous track"
 msgstr "Попередня доріжка"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Search"
 msgstr "Пошук"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Stop playback"
 msgstr "Зупинити відтворення"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+msgid "Toggle contrast"
+msgstr "Змінити контраст"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+msgid "Toggle magnifier"
+msgstr "Увімкнути екранний збільшувач"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+msgid "Toggle on-screen keyboard"
+msgstr "Увімкнути екранну клавіатуру"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+msgid "Toggle screen reader"
+msgstr "Увімкнути читання екрану"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Toggle touchpad"
 msgstr "Перемикнути сенсорну панель"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume down"
 msgstr "Зменшення гучності."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Volume mute"
 msgstr "Вимкнення звуку"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:38
-msgid "Volume step"
-msgstr "Крок гучності"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:39
-msgid "Volume step as percentage of volume."
-msgstr "Крок зміни гучності у відсотках."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Volume up"
 msgstr "Збільшення гучності"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+msgid "Ask the user if additional firmware should be installed"
+msgstr "Питати користувача, чи потрібно встановлювати додаткові мікропрограми"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
 msgid ""
-"If a notification icon with display related things should be shown in the "
-"panel."
+"Ask the user if additional firmware should be installed if it is available."
 msgstr ""
-"Чи показувати у панелі значок сповіщення з параметрами, що відносяться до "
-"дисплею."
+"Питати користувача, чи встановлювати додаткові мікропрограми, якщо ті "
+"доступні."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
-msgid "Show Displays in Notification Area"
-msgstr "Показувати дисплеї у області сповіщення"
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+msgid "Automatically download updates in the background without confirmation"
+msgstr ""
+"Автоматично звантажувати оновлення у фоновому режимі без усілякого відома"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+"'connection-use-mobile' is enabled."
+msgstr ""
+"Автоматично звантажувати оновлення у фоновому режимі без усілякого відома. "
+"Оновлення буде автоматично звантажено при використанні дротового з'єднання "
+"до мережі, також WiFi при увімкненні «connection-use-wifi» і мобільної "
+"радіомережі при увімкненні «connection-use-mobile»."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+msgid "Automatically update these types of updates"
+msgstr "Автоматично оновлювати ці типи оновлень"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+msgid "Automatically update these types of updates."
+msgstr "Автоматично оновлювати ці типи оновлень."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+msgid "Devices that should be ignored"
+msgstr "Пристрої, які слід ігнорувати"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+msgid ""
+"Devices that should be ignored, separated by commas. These can include '*' "
+"and '?' characters."
+msgstr ""
+"Пристрої, які слід ігнорувати, розділені комами. Може містити символи «*» і "
+"«?»."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+msgid "Firmware files that should not be searched for"
+msgstr "Файли мікропрограм, які не варто шукати"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+msgid ""
+"Firmware files that should not be searched for, separated by commas. These "
+"can include '*' and '?' characters."
+msgstr ""
+"Файли мікропрограм, які не варто шукати, розділені комами. Може містити "
+"символи «*» і «?»."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+msgid "Get the update list when the session starts"
+msgstr "Одержати перелік оновлень при запуску сеансу"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+msgid "Get the update list when the session starts, even if not scheduled to."
+msgstr ""
+"Одержати перелік оновлень при запуску сеансу, навіть якщо цього не "
+"заплановано."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+msgid "How often to check for distribution upgrades"
+msgstr "Як часто перевіряти оновлення дистрибутива"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+msgid "How often to check for distribution upgrades. Value is in seconds."
+msgstr "Як часто перевіряти оновлення дистрибутива. У секундах."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+msgid "How often to check for updates"
+msgstr "Як часто перевіряти на оновлення"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+msgid ""
+"How often to check for updates. Value is in seconds. This is a maximum "
+"amount of time that can pass between a security update being published, and "
+"the update being automatically installed or the user notified."
+msgstr ""
+"Як часто перевіряти на оновлення. В секундах. Це максимальне обсяг часу, "
+"який допустиме між оприлюдненням оновлень безпеки, й автоматичним "
+"установленням оновлення або сповіщенням користувача."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+msgid "How often to notify the user that non-critical updates are available"
+msgstr "Як часто сповіщати користувача про доступність некритичних оновлень"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+msgid "How often to refresh the package cache"
+msgstr "Як часто очищувати кеш пакунків"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+msgid "How often to refresh the package cache. Value is in seconds."
+msgstr "Як часто очищувати кеш пакунків. У секундах."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+msgid ""
+"How often to tell the user there are non-critical updates. Value is in "
+"seconds. Security update notifications are always shown after the check for "
+"updates, but non-critical notifications should be shown a lot less "
+"frequently."
+msgstr ""
+"Як часто повідомляти користувача про некритичні оновлення. В секундах. "
+"Сповіщення оновлень безпеки — завжди показується після перевіряння на "
+"оновлення, але некритичні сповіщення слід показувати не так часто."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+msgid "Install updates automatically when running on battery power"
+msgstr "Встановлювати оновлення автоматично, коли запущено живлення з батареї"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+msgid "Install updates automatically when running on battery power."
+msgstr "Встановлювати оновлення автоматично, коли запущено живлення з батареї."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+msgid "Notify the user for completed updates"
+msgstr "Сповіщати користувача про завершення оновлень"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+msgid "Notify the user for completed updates where the user needs to restart"
+msgstr ""
+"Сповіщати користувача про завершення оновлень, коли користувачу потрібно "
+"перезавантажитись"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+msgid "Notify the user for completed updates where the user needs to restart."
+msgstr ""
+"Сповіщати користувача про завершення оновлень, коли користувачу потрібно "
+"перезавантажитись."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+msgid ""
+"Notify the user for completed updates. This may be a useful notification for "
+"some users as installing updates prevents shutdown."
+msgstr ""
+"Сповіщати користувача про завершення оновлень. Це сповіщення може бути "
+"корисне для деяких користувачі, які запобігають вимкненню комп'ютера."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+msgid "Notify the user when distribution upgrades are available"
+msgstr "Сповіщати користувача, коли доступні оновлення дистрибутива"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+msgid "Notify the user when distribution upgrades are available."
+msgstr "Сповіщати користувача, коли доступні оновлення дистрибутива."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+msgid ""
+"Notify the user when the automatic update was not started on battery power"
+msgstr ""
+"Сповіщати користувача, коли автоматичне оновлення не почато при живленні з "
+"батареї"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+msgid ""
+"Notify the user when the update was not automatically started because the "
+"machine is running on battery power."
+msgstr ""
+"Сповіщати користувача, коли автоматичне оновлення не почато через те, що "
+"комп'ютер працює на живленні з батареї."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+msgid "Notify the user when the update was started"
+msgstr "Сповіщати користувача, коли оновлення почалось"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+msgid "Notify the user when the update was started."
+msgstr "Сповіщати користувача, коли оновлення почалось."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+msgid "The filenames on removable media that designate it a software source."
+msgstr "Назва файлів на змінних носіях, які визначають джерело програм."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+msgid "The install root to use when adding and removing packages"
+msgstr "Встановити корінь для додавання і вилучення пакунків"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+msgid ""
+"The install root to use when processing packages, which is changed when "
+"using LTSP or when testing."
+msgstr ""
+"Встановити корінь для опрацювання пакунків, які змінено при використанні "
+"LTSP або при випробуванні."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+msgid ""
+"The last time we notified the user about non-critical updates. Value is in "
+"seconds since the epoch, or zero for never."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+msgid "The last time we told the user about non-critical notifications"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+msgid ""
+"The number of seconds at session startup to wait before checking for updates"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+msgid ""
+"The number of seconds at session startup to wait before checking for "
+"updates. Value is in seconds."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+msgid ""
+"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
+"to download packages when on a wired connection, and the VPN or proxy "
+"required may also only be available on wired connections."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+msgid "Use WiFi connections"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+msgid "Use mobile broadband connections"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+msgid ""
+"Use mobile broadband connections such as GSM and CDMA to check for updates."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+msgid ""
+"When removable media is inserted, it is checked to see if it contains any "
+"important filenames in the root directory. If the filename matches, then an "
+"updates check is performed. This allows post-install disks to be used to "
+"update running systems."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+msgid ""
+"'clone' will display the same thing on all monitors, 'dock' will switch off "
+"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
+"(extend the desktop in recent versions)"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+msgid "File for default configuration for RandR"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+msgid ""
+"The XRandR plugin will look for a default configuration in the file "
+"specified by this key. This is similar to the ~/.config/monitors.xml that "
+"normally gets stored in users' home directories. If a user does not have "
+"such a file, or has one that does not match the user's setup of monitors, "
+"then the file specified by this key will be used instead."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+msgid "Whether to turn off specific monitors after boot"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
 msgstr "Згладжування"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:2
-msgid "DPI"
-msgstr "DPI"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "Хінтінг"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+msgid "List of explicitly disabled GTK+ modules"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "List of explicitly enabled GTK+ modules"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
 msgstr "Порядок RGBA"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
 "common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
 "on bottom."
 msgstr ""
-"Порядок субпіксельних елементів на ЖК екрані; лише якщо встановлено тип "
+"Порядок субпіксельних елементів на екрані LCD; лише якщо встановлено тип "
 "згладжування \"rgba\". Можливі значення: \"rgb\" (червоний ліворуч, "
 "найчастіше), \"bgr\" (синій ліворуч), \"vrgb\" (красний згори), \"vbgr"
 "\" (красний знизу)."
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:6
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch."
-msgstr ""
-"Роздільна здатність, що використовується для перетворення розмірів шрифтів "
-"на кількість пікселів, у точках на дюйм."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -296,9 +799,9 @@ msgid ""
 msgstr ""
 "Тип згладжування, що використовується при растеризації шрифтів. Можливі "
 "значення: \"none\" - без згладжування, \"grayscale\" - стандартне чорно-біле "
-"згладжування, \"rgba\" - субпіксельне згладжування (лише для ЖК-дисплеїв)."
+"згладжування, \"rgba\" - субпіксельне згладжування (лише екрани LCD)."
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -308,343 +811,151 @@ msgstr ""
 "\"none\" - без хінтінгу, \"slight\" - базовий, \"medium\" - помірний, \"full"
 "\" - максимальний хінтінг (може призводити до викривлення форми символів)."
 
-#: ../data/desktop_gnome_keybindings.schemas.in.h:1
-msgid "Allowed keys"
-msgstr "Дозволені клавіші"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr ""
 
-#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid ""
-"If non-empty, keybindings will be ignored unless their GConf directory is in "
-"the list. This is useful for lockdown."
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
 msgstr ""
-"Якщо список не порожній, прив'язки клавіш будуть ігноруватися, якщо їх "
-"каталог GConf не буде присутній у цьому списку. Це використовується для "
-"блокування функцій робочого столу."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
-msgid "Disable touchpad while typing"
-msgstr "Вимикати точпад при наборі на клавіатурі"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr ""
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
-msgid "Enable horizontal scrolling"
-msgstr "Увімкнути горизонтальну прокрутку"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
-msgid "Enable mouse clicks with touchpad"
-msgstr "Увімкнути клацання миші на точпаді"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
-msgid "Enable touchpad"
-msgstr "Увімкнути сенсорну панель"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
-msgid "Select the touchpad scroll method"
-msgstr "Виберіть для точпаду метод прокрутки"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid ""
-"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
-"edge scrolling, 2 - two-finger scrolling"
+"Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
-"Виберіть метод прокрутки при використанні точпаду. Підтримувані значення: 0 "
-"- вимкнено, 1 - прокрутка на межі точпаду, 2 - прокрутка двома пальцями"
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
-"Set this to TRUE if you have problems with accidentally hitting the touchpad "
-"while typing."
+"Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
-"Відмітьте цей параметр, якщо у вас виникають проблеми з випадковим "
-"натисканням на топад при наборі тексту на клавіатурі."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
-"Set this to TRUE to allow horizontal scrolling by the same method selected "
-"with the scroll_method key."
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
-"Відмітьте цей параметр, щоб дозволити горизонтальну прокрутку обраним у "
-"ключі scroll_method методом."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
-"Відмітьте цей параметр, щоб мати змогу виконувати клацання мишею на "
-"постукуючи на точпаді."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
-msgid "Set this to TRUE to enable all touchpads."
-msgstr "Відмітьте цей параметр, щоб увімкнути усі точпади."
-
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
-msgstr "Служба параметрів GNOME"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:1
-msgid "Binding to toggle the magnifier."
-msgstr "Прив'язка для вмикання збільшення екрану."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:2
-msgid "Binding to toggle the on-screen keyboard."
-msgstr "Прив'язка для вмикання екранної клавіатури."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:3
-msgid "Binding to toggle the screen reader."
-msgstr "Прив'язка для вмикання читання з екрану."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Bounce keys"
-msgstr "Пружні клавіші"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:5
-msgid "Command used to turn the magnifier on or off."
-msgstr "Команда для вимикання та вмикання збільшення екрану."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:6
-msgid "Command used to turn the on-screen keyboard on or off."
-msgstr "Команда для вимикання та вмикання екранної клавіатури."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:7
-msgid "Command used to turn the screen reader on or off."
-msgstr "Команда для вимикання та вмикання читання з екрану."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:8
-msgid "Enable accessibility keyboard plugin"
-msgstr "Увімкнути модуль спеціальних можливостей клавіатури"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:9
-msgid "Enable background plugin"
-msgstr "Увімкнути тло робочого столу"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:10
-msgid "Enable clipboard plugin"
-msgstr "Увімкнути модуль буферу обміну"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:11
-msgid "Enable font plugin"
-msgstr "Увімкнути модуль шрифту"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:12
-msgid "Enable housekeeping plugin"
-msgstr "Увімкнути модуль housekeeping"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:13
-msgid "Enable keybindings plugin"
-msgstr "Увімкнути модуль прив'язки клавіш"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:14
-msgid "Enable keyboard plugin"
-msgstr "Увімкнути модуль клавіатури"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:15
-msgid "Enable media keys plugin"
-msgstr "Увімкнути модуль мультимедійних клавіш"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid "Enable mouse plugin"
-msgstr "Увімкнути модуль мишки"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable sound plugin"
-msgstr "Увімкнути модуль звуку"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
-msgid "Enable typing breaks plugin"
-msgstr "Увімкнути модуль перерви у роботі"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Enable xrandr plugin"
-msgstr "Увімкнути модуль xrandr"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:20
-msgid "Enable xrdb plugin"
-msgstr "Увімкнути модуль xrdb"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:21
-msgid "Enable xsettings plugin"
-msgstr "Увімкнути модуль xsettings"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:22
-msgid "Mouse keys"
-msgstr "Клавіші миші"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-msgid "On-screen keyboard"
-msgstr "Екранна клавіатура"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "Screen magnifier"
-msgstr "Збільшувач екрану"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid "Screen reader"
-msgstr "Читання екрану"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:26
-msgid ""
-"Set to True to enable the housekeeping plugin, to prune transient file "
-"caches."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
 msgstr ""
-"Встановіть у True, щоб увімкнути модуль housekeeping, для скорочення "
-"тимчасового файлу."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
-msgid "Set to True to enable the plugin to manage clipboard settings."
-msgstr "Встановіть, щоб дозволити модулю керувати параметрами буферу обміну."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:28
-msgid "Set to True to enable the plugin to manage desktop background settings."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
 msgstr ""
-"Встановіть, щоб дозволити модулю керувати параметрами тла робочого столу."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
-msgid "Set to True to enable the plugin to manage font settings."
-msgstr "Встановіть, щоб дозволити модулю керувати параметрами шрифту."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:30
-msgid "Set to True to enable the plugin to manage keyboard settings."
-msgstr "Встановіть, щоб дозволити модулю керувати параметрами клавіатури."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:31
-msgid "Set to True to enable the plugin to manage mouse settings."
-msgstr "Встановіть, щоб дозволити модулю керувати параметрами миші."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:32
-msgid "Set to True to enable the plugin to manage multimedia keys settings."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
 msgstr ""
-"Встановіть, щоб дозволити модулю керувати параметрами мультимедійних клавіш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
-msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr "Встановіть, щоб увімкнути модуль керування кешуванням звуків."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
 msgstr ""
-"Встановіть, щоб увімкнути модуль керування спеціальними можливостями "
-"клавіатури."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:35
-msgid "Set to True to enable the plugin to manage the keybindings."
-msgstr "Встановіть, щоб дозволити модулю керувати прив'язками клавіатури."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:36
-msgid "Set to True to enable the plugin to manage typing breaks."
-msgstr "Встановіть, щоб дозволити модулю керувати перервами у роботі"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:37
-msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr "Встановіть, щоб дозволити модулю керувати параметрами xrandr."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:38
-msgid "Set to True to enable the plugin to manage xrdb settings."
-msgstr "Встановіть, щоб дозволити модулю керувати параметрами xrdb."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:39
-msgid "Set to True to enable the plugin to manage xsettings."
-msgstr "Встановіть, щоб дозволити модулю керувати параметрами xsettings."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:40
-msgid "Slow keys"
-msgstr "Повільні клавіші"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:41
-msgid "Sticky keys"
-msgstr "Липкі клавіші"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:42
-msgid "The name of the keyboard shortcut to toggle the magnifier"
-msgstr "Комбінація клавіш для вмикання екранного збільшувача"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:43
-msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
-msgstr "Комбінація клавіш для вмикання екранної клавіатури"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:44
-msgid "The name of the keyboard shortcut to toggle the screen reader"
-msgstr "Комбінація клавіш для вмикання екранного читання екрану"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:45
-msgid ""
-"This is the name of the keyboard shortcut to toggle the magnifier. This name "
-"will be shown in the keyboard shortcut preferences dialog."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
 msgstr ""
-"Комбінація клавіш для вмикання збільшувача екрану. Цей параметр можна "
-"змінити у діалозі налаштовування комбінацій клавіш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid ""
-"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
-"This name will be shown in the keyboard shortcut preferences dialog."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
 msgstr ""
-"Комбінація клавіш для вмикання екранної клавіатури екрану. Цей параметр "
-"можна змінити у діалозі налаштовування комбінацій клавіш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
-msgid ""
-"This is the name of the keyboard shortcut to toggle the screen reader. This "
-"name will be shown in the keyboard shortcut preferences dialog."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
 msgstr ""
-"Комбінація клавіш для вмикання читання екрану. Цей параметр можна змінити у "
-"діалозі налаштовування комбінацій клавіш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
-msgid "Toggle magnifier"
-msgstr "Увімкнути екранний збільшувач"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:49
-msgid "Toggle on-screen keyboard"
-msgstr "Увімнкути екранну клавіатуру"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:50
-msgid "Toggle screen reader"
-msgstr "Увімкнути читання екрану"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:51
-msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-msgstr "Чи увімкнено підтримку пружних клавіш системи технологій доступності."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:52
-msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-msgstr "Чи увімкнено підтримку роботи з мишею системи технологій доступності."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Whether the on-screen keyboard is turned on."
-msgstr "Чи увімкнено екранну клавіатуру."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
-msgid "Whether the screen magnifier is turned on."
-msgstr "Чи увімкнено збільшувач екрану."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:55
-msgid "Whether the screen reader is turned on."
-msgstr "Чи увімкнено систему читання з екрану."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:56
-msgid "Whether the slow keys keyboard accessibility feature is turned on."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
 msgstr ""
-"Чи увімкнено підтримку повільних клавіш системи технологій доступності."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
-msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-msgstr "Чи увімкнено підтримку липких клавіш системи технологій доступності."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr ""
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr ""
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Увімкнути налагоджувальний код"
 
-#: ../gnome-settings-daemon/main.c:56
-msgid "Don't become a daemon"
-msgstr "Не переходити у режим служби"
-
-#: ../gnome-settings-daemon/main.c:57
-msgid "GConf prefix from which to load plugin settings"
-msgstr "Префікс GConf для завантаження параметрів модуля"
-
-#: ../gnome-settings-daemon/main.c:58
-msgid "Exit after a time - for debugging"
+#: ../gnome-settings-daemon/main.c:55
+#, fuzzy
+msgid "Exit after a time (for debugging)"
 msgstr "Вийти через час - для налагодження"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
@@ -655,23 +966,23 @@ msgstr "Технології доступності"
 msgid "Accessibility keyboard plugin"
 msgstr "Модуль технологій доступності клавіатури"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:392
 #, c-format
 msgid "There was an error displaying help: %s"
-msgstr "Помилка відображення довідки: %s"
+msgstr "Помилка показу довідки: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
 msgid "Do you want to activate Slow Keys?"
 msgstr "Бажаєте ввімкнути режим \"Повільні клавіші\"?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Бажаєте вимкнути режим \"Повільні клавіші\"?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -680,62 +991,62 @@ msgstr ""
 "для ввімкнення режиму \"Повільні клавіші\", який впливає на роботу "
 "клавіатури."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't activate"
 msgstr "Не активувати"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't deactivate"
-msgstr "Не деактивувати"
+msgstr "Не вимикати"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Activate"
-msgstr "Активувати"
+msgstr "Увімкнути"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Deactivate"
-msgstr "Деактивувати"
+msgstr "Вимкнути"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't activate"
 msgstr "Н_е запускати"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't deactivate"
 msgstr "_Не вимикати"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Activate"
 msgstr "_Увімкнути"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Deactivate"
 msgstr "_Вимкнути"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
 msgid "Slow Keys Alert"
 msgstr "Сповіщення про режим \"Повільні клавіші\""
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Бажаєте ввімкнути режим \"Липкі клавіші\"?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Бажаєте вимкнути режим \"Повільні клавіші\"?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -743,8 +1054,8 @@ msgstr ""
 "Ви щойно утримували натиснутою клавішу Shift протягом 5 секунд. Це сигнал "
 "для ввімкнення режиму \"Липкі клавіші\", який впливає на роботу клавіатури."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -754,11 +1065,11 @@ msgstr ""
 "Shift протягом 5 секунд. Це сигнал для вимкнення режиму \"Липкі клавіші\", "
 "який впливає на роботу клавіатури."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
 msgid "Sticky Keys Alert"
 msgstr "Сповіщення про режим \"Липкі клавіші\""
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Параметри універсального доступу"
@@ -796,6 +1107,145 @@ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr ""
 "Вводити комбінації клавіш _почерговим натисканням клавіш (Липкі клавіші)"
 
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#, fuzzy
+msgid "Accessibility settings"
+msgstr "Технології доступності"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#, fuzzy
+msgid "Accessibility settings plugin"
+msgstr "Модуль технологій доступності клавіатури"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr ""
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+#, fuzzy
+msgid "Automounter plugin"
+msgstr "Модуль шрифту"
+
+#: ../plugins/automount/gsd-automount-manager.c:154
+#, c-format
+msgid "Unable to mount %s"
+msgstr ""
+
+#: ../plugins/automount/gsd-automount-manager.c:271
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:352
+#, fuzzy
+msgid "Open Folder"
+msgstr "Домашня тека"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, fuzzy, c-format
+msgid "Unable to eject %p"
+msgstr "Увімкнути сенсорну панель"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:700
+msgid "You have just inserted an Audio CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted a Video DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Super Video CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a blank CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank HD DVD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a Photo CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Picture CD."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a medium with digital photos."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a digital audio player."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr ""
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:729
+msgid "You have just inserted a medium."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "Choose what application to launch."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:740
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:767
+msgid "_Always perform this action"
+msgstr ""
+
+#: ../plugins/automount/gsd-autorun.c:783
+#, fuzzy
+msgid "_Eject"
+msgstr "Витягування"
+
+#: ../plugins/automount/gsd-autorun.c:788
+msgid "_Unmount"
+msgstr ""
+
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Тло"
@@ -820,41 +1270,76 @@ msgstr "Заглушка"
 msgid "Dummy plugin"
 msgstr "Модуль-заглушка"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
-msgid "Font"
-msgstr "Шрифт"
+#: ../plugins/housekeeping/gsd-disk-space.c:332
+#, fuzzy, c-format
+msgid "Low Disk Space on \"%s\""
+msgstr "Мало місця на файловій системі"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
-msgid "Font plugin"
-msgstr "Модуль шрифту"
+#: ../plugins/housekeeping/gsd-disk-space.c:334
+#, fuzzy, c-format
+msgid ""
+"The volume \"%s\" has only %s disk space remaining.  You may free up some "
+"space by emptying the trash."
+msgstr "На томі \"%s\" залишилось лише %s дискового простору."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-msgid "Don't show any warnings again for this filesystem"
-msgstr "Не показувати  будь-які попередження для цієї файлової системи"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-msgid "Don't show any warnings again"
-msgstr "Не показувати більше це повідомлення"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#: ../plugins/housekeeping/gsd-disk-space.c:338
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "На томі \"%s\" залишилось лише %s дискового простору."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-disk-space.c:343
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
+msgid "Low Disk Space"
+msgstr "Мало місця на файловій системі"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:345
+#, fuzzy, c-format
+msgid ""
+"This computer has only %s disk space remaining.  You may free up some space "
+"by emptying the trash."
+msgstr "На комп'ютері залишилось лише %s дискового простору."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:348
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "На комп'ютері залишилось лише %s дискового простору."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+#: ../plugins/housekeeping/gsd-disk-space.c:369
+#, fuzzy
+msgid "Examine"
+msgstr "Аналізувати..."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:377
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
+msgid "Empty Trash"
+msgstr "Очистити смітник"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:384
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
+msgid "Ignore"
+msgstr "Ігнорувати"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+#, fuzzy
+msgid "Don't show any warnings again for this file system"
+msgstr "Не показувати  будь-які попередження для цієї файлової системи"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
+msgid "Don't show any warnings again"
+msgstr "Не показувати більше це повідомлення"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
 msgstr ""
-"Ви можете звільнити дисковий простір очищаючи Смітник, видаляючи зайві "
+"Ви можете звільнити дисковий простір очищаючи Смітник, вилучаючи зайві "
 "програми чи файли, або переміщенням файлів на інший диск чи розділ."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
@@ -862,15 +1347,15 @@ msgstr ""
 "Ви можете звільнити дисковий простір видаленням зайвих програми чи файлів, "
 "або переміщенням файлів на інший диск чи розділ."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
 msgstr ""
-"Ви можете звільнити дисковий простір очищаючи Смітник, видаляючи зайві "
+"Ви можете звільнити дисковий простір очищаючи Смітник, вилучаючи зайві "
 "програми чи файли, або переміщенням файлів на зовнішній диск."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
@@ -878,62 +1363,10 @@ msgstr ""
 "Ви можете звільнити дисковий простір видаленням зайвих програми чи файлів, "
 "або переміщенням файлів на зовнішній диск."
 
-#. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
-msgid "Low Disk Space"
-msgstr "Мало місця на файловій системі"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
-msgid "Empty Trash"
-msgstr "Очистити смітник"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
-msgid "Examine..."
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:444
+#, fuzzy
+msgid "Examine…"
 msgstr "Аналізувати..."
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
-msgid "Ignore"
-msgstr "Ігнорувати"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
-#, c-format
-msgid "Removing item %lu of %lu"
-msgstr "Видалення елементу %lu з %lu"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
-#, c-format
-msgid "<i>Removing: %s</i>"
-msgstr "<i>Видалення: %s</i>"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
-msgid "Emptying the trash"
-msgstr "Очищується смітник"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
-msgid "Preparing to empty trash..."
-msgstr "Підготовка до очищення смітника..."
-
-#. Translators: "Emptying trash from <device>"
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:296
-msgid "From: "
-msgstr "З:"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:357
-msgid "Empty all of the items from the trash?"
-msgstr "Видалити весь вміст смітника?"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:360
-msgid ""
-"If you choose to empty the trash, all items in it will be permanently lost. "
-"Please note that you can also delete them separately."
-msgstr ""
-"Якщо ви очистите смітник, весь його вміст буде остаточно втрачено. Зверніть "
-"увагу, ви також можете видалити їх окремо."
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:367
-msgid "_Empty Trash"
-msgstr "О_чистити смітник"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -970,99 +1403,33 @@ msgstr "Клавіатура"
 msgid "Keyboard plugin"
 msgstr "Модуль клавіатури"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:114
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:87
 #, c-format
 msgid ""
 "Error activating XKB configuration.\n"
-"It can happen under various circumstances:\n"
-"- a bug in libxklavier library\n"
-"- a bug in X server (xkbcomp, xmodmap utilities)\n"
-"- X server with incompatible libxkbfile implementation\n"
+"There can be various reasons for that.\n"
 "\n"
-"X server version data:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"If you report this situation as a bug, please include:\n"
-"- The result of <b>%s</b>\n"
-"- The result of <b>%s</b>"
+"If you report this situation as a bug, include the results of\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 msgstr ""
-"Помилка при активації розширення XKB.\n"
-"Це буває за таких обставин:\n"
-"- помилка у бібліотеці libxklavier\n"
-"- помилка у X-сервері (утиліти xkbcomp, xmodmap)\n"
-"- X-сервер з несумісною реалізацією libxkbfile\n"
-"\n"
-"Дані про версію X-сервера:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"Якщо ви повідомляєте про цю ситуацію, будь ласка, увімкніть:\n"
-"- Результат <b>%s</b>\n"
-"- Результат <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:128
-msgid ""
-"You are using XFree 4.3.0.\n"
-"There are known problems with complex XKB configurations.\n"
-"Try using a simpler configuration or taking a fresher version of XFree "
-"software."
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
+msgid "_Layouts"
 msgstr ""
-"Ви користуєтесь XFree 4.3.0.\n"
-"Є відомі проблеми з конфігурацією XKB.\n"
-"Попробуйте використати більше просту конфігурацію або встановити свіжішу "
-"версію XFree."
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:200
-msgid "Unknown"
-msgstr "Невідомо"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:269
-#, c-format
-msgid "Keyboard Layout \"%s\""
-msgstr "Розкладка клавіатури \"%s\""
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:392
-msgid "_Groups"
-msgstr "_Групи"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:399
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
 msgid "Keyboard _Preferences"
 msgstr "Параметри _клавіатури"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:405
-msgid "Show Current _Layout"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
+#, fuzzy
+msgid "Show _Current Layout"
 msgstr "Показати поточну _розкладу"
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:1
-msgid "A_vailable files:"
-msgstr "_Наявні файли:"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:2
-msgid "Load modmap files"
-msgstr "Завантаження файлів modmap"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:3
-msgid "Would you like to load the modmap file(s)?"
-msgstr "Бажаєте завантажити файл(и) modmap?"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:4
-msgid "_Do not show this message again"
-msgstr "Більше _не показувати цього повідомлення"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:5
-msgid "_Load"
-msgstr "_Завантажити"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:6
-msgid "_Loaded files:"
-msgstr "_Завантажено файлів:"
-
-#: ../plugins/keyboard/show-layout.ui.h:1
-msgid "Keyboard Layout"
-msgstr "Розкладка клавіатури"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:195
+#: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1070,7 +1437,7 @@ msgstr ""
 "Не вдається отримати типовий термінал. Перевірте, що обрана вами типова "
 "термінальна програма справді вказує типову програму."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:235
+#: ../plugins/media-keys/gsd-media-keys-manager.c:258
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1081,13 +1448,13 @@ msgstr ""
 
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1091
 msgid "Disabled"
 msgstr "Вимкнено"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1098
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1097,7 +1464,7 @@ msgstr[2] "%u виходів"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1108
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
@@ -1105,7 +1472,7 @@ msgstr[0] "%u вхід"
 msgstr[1] "%u входи"
 msgstr[2] "%u входів"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1406
 msgid "System Sounds"
 msgstr "Системні звуки"
 
@@ -1117,20 +1484,22 @@ msgstr "Мультимедійний клавіші"
 msgid "Media keys plugin"
 msgstr "Модуль мультимедійних клавіш"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:882
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Could not enable mouse accessibility features"
 msgstr "Не вдається увімкнути спеціальні можливості миші"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:884
+#: ../plugins/mouse/gsd-mouse-manager.c:824
+#, fuzzy
 msgid ""
-"Mouse accessibility requires mousetweaks to be installed on your system."
+"Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Щоб активувати спеціальні можливості миші, треба встановити у систему службу "
 "mousetweaks."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:887
-msgid "Mouse Preferences"
-msgstr "Параметри миші"
+#: ../plugins/mouse/gsd-mouse-manager.c:826
+#, fuzzy
+msgid "Universal Access"
+msgstr "Параметри універсального доступу"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
@@ -1140,13 +1509,219 @@ msgstr "Миша"
 msgid "Mouse plugin"
 msgstr "Модуль миші"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
-msgid "Typing Break"
-msgstr "Перерва у роботі"
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+msgid "Print-notifications"
+msgstr ""
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
-msgid "Typing break plugin"
-msgstr "Модуль перерви у роботі"
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+msgid "Print-notifications plugin"
+msgstr ""
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
+msgid "Toner low"
+msgstr ""
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
+msgid "Toner empty"
+msgstr ""
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
+msgid "Not connected?"
+msgstr ""
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
+msgid "Cover open"
+msgstr ""
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
+msgid "Printer configuration error"
+msgstr ""
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
+msgid "Door open"
+msgstr ""
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
+msgid "Marker supply low"
+msgstr ""
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
+msgid "Out of a marker supply"
+msgstr ""
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
+msgid "Paper low"
+msgstr ""
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
+msgid "Out of paper"
+msgstr ""
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:198
+msgid "Printer off-line"
+msgstr ""
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
+msgid "Printer error"
+msgstr ""
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr ""
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr ""
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr ""
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:210
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr ""
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr ""
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr ""
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr ""
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr ""
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr ""
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr ""
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr ""
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:227
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr ""
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:297
+msgid "Printer added"
+msgstr "Принтер додано"
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
+msgid "Printer removed"
+msgstr "Принтер вилучено"
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:322
+msgid "Printing stopped"
+msgstr "Принтер зупинено"
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
+#, c-format
+msgid "\"%s\" on %s"
+msgstr "«%s» на %s"
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:328
+msgid "Printing canceled"
+msgstr "Друкування скасовано"
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:334
+msgid "Printing aborted"
+msgstr "Друкування перервано"
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
+msgid "Printing completed"
+msgstr "Друкування завершено"
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
+msgid "Printing"
+msgstr "Друкування"
+
+#. Translators: We are configuring new printer
+#: ../plugins/print-notifications/gsd-printer.c:91
+msgid "Configuring new printer"
+msgstr "Налаштування нового принтера"
+
+#. Translators: Just wait
+#: ../plugins/print-notifications/gsd-printer.c:93
+msgid "Please wait..."
+msgstr "Будь ласка, зачекайте…"
+
+#. name is a URI, no queue was generated, because no suitable
+#. * driver was found
+#.
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:114
+msgid "Missing printer driver"
+msgstr "Бракує драйвері до принтера"
+
+#. Translators: We have no driver installed for the device
+#: ../plugins/print-notifications/gsd-printer.c:123
+#, c-format
+msgid "No printer driver for %s."
+msgstr "Немає драйверів для принтера %s."
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:128
+msgid "No driver for this printer."
+msgstr "Немає драйверів для цього принтера."
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1156,19 +1731,19 @@ msgstr "Встановити розмір екрану та параметри �
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:222
+#: ../plugins/xrandr/gsd-xrandr-manager.c:413
 msgid "Could not switch the monitor configuration"
 msgstr "Не вдається застосувати конфігурацію моніторів"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:246
+#: ../plugins/xrandr/gsd-xrandr-manager.c:437
 msgid "Could not restore the display's configuration"
 msgstr "Не вдається відновити конфігурацію моніторів"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:271
+#: ../plugins/xrandr/gsd-xrandr-manager.c:462
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Не вдається відновити конфігурацію моніторів з резервної копії"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:292
+#: ../plugins/xrandr/gsd-xrandr-manager.c:483
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1177,84 +1752,34 @@ msgstr[0] "Попередню конфігурацію дисплею буде �
 msgstr[1] "Попередню конфігурацію дисплею буде повернуто через %d секунди"
 msgstr[2] "Попередню конфігурацію дисплею буде повернуто через %d секунд"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:341
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Does the display look OK?"
 msgstr "Конфігурація влаштовує?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:347
+#: ../plugins/xrandr/gsd-xrandr-manager.c:539
 msgid "_Restore Previous Configuration"
 msgstr "_Відновити попередню конфігурацію"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:348
+#: ../plugins/xrandr/gsd-xrandr-manager.c:540
 msgid "_Keep This Configuration"
 msgstr "_Застосувати поточну конфігурацію"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:429
+#: ../plugins/xrandr/gsd-xrandr-manager.c:621
 msgid "The selected configuration for displays could not be applied"
 msgstr "Не вдається застосувати обрану конфігурацію моніторів"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:967
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Не вдається оновити інформацію про екран: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Конфігурація моніторів застосовується примусово."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1679
-msgid "<i>Rotation not supported</i>"
-msgstr "<i>Обертання не підтримується</i>"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1733
-msgid "Could not save monitor configuration"
-msgstr "Не вдається зберегти конфігурацію мониторів"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1751
-msgid "Normal"
-msgstr "Звичайне"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1752
-msgid "Left"
-msgstr "Ліворуч"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1753
-msgid "Right"
-msgstr "Праворуч"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1754
-msgid "Upside Down"
-msgstr "Догори ногами"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1874
-msgid "_Configure Display Settings ..."
-msgstr "_Налаштувати параметри екрану ..."
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1915
-msgid "Configure display settings"
-msgstr "Налаштувати параметри екрану"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1972
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Не вдається застосувати збережену конфігурацію моніторів"
-
-#: ../plugins/xrdb/gsd-xrdb-manager.c:255
-#: ../plugins/xrdb/gsd-xrdb-manager.c:324
-msgid "Cannot determine user's home directory"
-msgstr "Не вдається визначити домашній каталог користувача"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
-msgid "Manage the X resource database"
-msgstr "Керування базою даних ресурсів X"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
-msgid "X Resource Database"
-msgstr "База даних ресурсів X"
-
-#: ../plugins/xsettings/gsd-xsettings-manager.c:596
-#, c-format
-msgid "GConf key %s set to type %s but its expected type was %s\n"
-msgstr "Ключ GConf %s встановлено в тип %s, а очікувався тип %s\n"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
 msgid "Manage X Settings"
@@ -1263,6 +1788,611 @@ msgstr "Керування параметрами X Window"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Параметри X Window"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:187
+msgid "Module Path"
+msgstr "Шлях до модуля"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:188
+msgid "path to smartcard PKCS #11 driver"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:528
+msgid "received error or hang up from event source"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:790
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:804
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:876
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:158
+msgid "Slot ID"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:159
+msgid "The slot the card is in"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:165
+msgid "Slot Series"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:166
+msgid "per-slot card identifier"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:172
+#: ../plugins/smartcard/gsd-smartcard.c:173
+msgid "name"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:177
+msgid "Module"
+msgstr ""
+
+#: ../plugins/smartcard/gsd-smartcard.c:178
+msgid "smartcard driver"
+msgstr ""
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
+#, fuzzy
+msgid "Change system time and date settings"
+msgstr "Встановити розмір екрану та параметри повороту"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
+msgid "Privileges are required to configure time and date settings."
+msgstr ""
+
+#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
+#: ../plugins/updates/gsd-updates-manager.c:194
+msgid "Distribution upgrades available"
+msgstr ""
+
+#. TRANSLATORS: provides more information about the upgrade
+#: ../plugins/updates/gsd-updates-manager.c:204
+msgid "More information"
+msgstr "Докладніше"
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:307
+#: ../plugins/updates/gsd-updates-manager.c:367
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] "Оновлення"
+msgstr[1] "Оновлення"
+msgstr[2] "Оновлення"
+
+#. TRANSLATORS: message when there are security updates
+#: ../plugins/updates/gsd-updates-manager.c:310
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#. TRANSLATORS: button: open the update viewer to install updates
+#: ../plugins/updates/gsd-updates-manager.c:330
+#: ../plugins/updates/gsd-updates-manager.c:390
+msgid "Install updates"
+msgstr ""
+
+#. TRANSLATORS: message when there are non-security updates
+#: ../plugins/updates/gsd-updates-manager.c:370
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#. TRANSLATORS: policy says update, but we are on battery and so prompt
+#: ../plugins/updates/gsd-updates-manager.c:436
+msgid ""
+"Automatic updates are not being installed as the computer is running on "
+"battery power"
+msgstr ""
+
+#. TRANSLATORS: informs user will not install by default
+#: ../plugins/updates/gsd-updates-manager.c:438
+msgid "Updates not installed"
+msgstr ""
+
+#. TRANSLATORS: to hell with my battery life, just do it
+#: ../plugins/updates/gsd-updates-manager.c:444
+msgid "Install the updates anyway"
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:460
+msgid "No restart is required."
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:463
+msgid "A restart is required."
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:466
+msgid "You need to log out and log back in."
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:469
+msgid "You need to restart the application."
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:472
+msgid "You need to log out and log back in to remain secure."
+msgstr ""
+
+#: ../plugins/updates/gsd-updates-manager.c:475
+msgid "A restart is required to remain secure."
+msgstr ""
+
+#. TRANSLATORS: we did the update, but some updates were skipped and not applied
+#: ../plugins/updates/gsd-updates-manager.c:536
+msgid "One package was skipped:"
+msgid_plural "Some packages were skipped:"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#. TRANSLATORS: title: system update completed all okay
+#: ../plugins/updates/gsd-updates-manager.c:568
+msgid "The system update has completed"
+msgstr ""
+
+#. TRANSLATORS: restart computer as system packages need update
+#: ../plugins/updates/gsd-updates-manager.c:575
+msgid "Restart computer now"
+msgstr ""
+
+#. TRANSLATORS: the updates mechanism
+#: ../plugins/updates/gsd-updates-manager.c:646
+msgid "Updates"
+msgstr ""
+
+#. TRANSLATORS: we failed to get the updates multiple times,
+#. * and now we need to inform the user that something might be wrong
+#: ../plugins/updates/gsd-updates-manager.c:650
+msgid "Unable to access software updates"
+msgstr ""
+
+#. TRANSLATORS: try again, this time launching the update viewer
+#: ../plugins/updates/gsd-updates-manager.c:653
+msgid "Try again"
+msgstr ""
+
+#. TRANSLATORS: the reason why we've inhibited it
+#: ../plugins/updates/gsd-updates-manager.c:1092
+msgid "A transaction that cannot be interrupted is running"
+msgstr ""
+
+#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:240
+msgid ""
+"You will need to restart this computer before the hardware will work "
+"correctly."
+msgstr ""
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:243
+#: ../plugins/updates/gsd-updates-firmware.c:267
+#: ../plugins/updates/gsd-updates-firmware.c:291
+msgid "Additional software was installed"
+msgstr ""
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:264
+msgid ""
+"You will need to remove and then reinsert the hardware before it will work "
+"correctly."
+msgstr ""
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:288
+msgid "Your hardware has been set up and is now ready to use."
+msgstr ""
+
+#. TRANSLATORS: we need another package to keep udev quiet
+#: ../plugins/updates/gsd-updates-firmware.c:566
+msgid ""
+"Additional firmware is required to make hardware in this computer function "
+"correctly."
+msgstr ""
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:580
+msgid "Additional firmware required"
+msgstr ""
+
+#. TRANSLATORS: button label
+#: ../plugins/updates/gsd-updates-firmware.c:585
+msgid "Install firmware"
+msgstr "Встановити мікропрограму"
+
+#. TRANSLATORS: we should ignore this device and not ask anymore
+#: ../plugins/updates/gsd-updates-firmware.c:588
+msgid "Ignore devices"
+msgstr "Ігнорувати пристрій"
+
+#~ msgid "Volume step"
+#~ msgstr "Крок гучності"
+
+#~ msgid "Volume step as percentage of volume."
+#~ msgstr "Крок зміни гучності у відсотках."
+
+#~ msgid ""
+#~ "If a notification icon with display related things should be shown in the "
+#~ "panel."
+#~ msgstr ""
+#~ "Чи показувати у панелі значок сповіщення з параметрами, що відносяться до "
+#~ "дисплею."
+
+#~ msgid "Show Displays in Notification Area"
+#~ msgstr "Показувати дисплеї у області сповіщення"
+
+#~ msgid "DPI"
+#~ msgstr "DPI"
+
+#~ msgid ""
+#~ "The resolution used for converting font sizes to pixel sizes, in dots per "
+#~ "inch."
+#~ msgstr ""
+#~ "Роздільна здатність, що використовується для перетворення розмірів "
+#~ "шрифтів на кількість пікселів, у точках на дюйм."
+
+#~ msgid "Bounce keys"
+#~ msgstr "Пружні клавіші"
+
+#~ msgid "Command used to turn the magnifier on or off."
+#~ msgstr "Команда для вимикання та вмикання збільшення екрану."
+
+#~ msgid "Command used to turn the on-screen keyboard on or off."
+#~ msgstr "Команда для вимикання та вмикання екранної клавіатури."
+
+#~ msgid "Command used to turn the screen reader on or off."
+#~ msgstr "Команда для вимикання та вмикання читання з екрану."
+
+#~ msgid "Enable accessibility keyboard plugin"
+#~ msgstr "Увімкнути модуль спеціальних можливостей клавіатури"
+
+#~ msgid "Enable background plugin"
+#~ msgstr "Увімкнути тло робочого столу"
+
+#~ msgid "Enable clipboard plugin"
+#~ msgstr "Увімкнути модуль буферу обміну"
+
+#~ msgid "Enable font plugin"
+#~ msgstr "Увімкнути модуль шрифту"
+
+#~ msgid "Enable housekeeping plugin"
+#~ msgstr "Увімкнути модуль housekeeping"
+
+#~ msgid "Enable keybindings plugin"
+#~ msgstr "Увімкнути модуль прив'язки клавіш"
+
+#~ msgid "Enable keyboard plugin"
+#~ msgstr "Увімкнути модуль клавіатури"
+
+#~ msgid "Enable media keys plugin"
+#~ msgstr "Увімкнути модуль мультимедійних клавіш"
+
+#~ msgid "Enable mouse plugin"
+#~ msgstr "Увімкнути модуль мишки"
+
+#~ msgid "Enable sound plugin"
+#~ msgstr "Увімкнути модуль звуку"
+
+#~ msgid "Enable typing breaks plugin"
+#~ msgstr "Увімкнути модуль перерви у роботі"
+
+#~ msgid "Enable xrandr plugin"
+#~ msgstr "Увімкнути модуль xrandr"
+
+#~ msgid "Enable xrdb plugin"
+#~ msgstr "Увімкнути модуль xrdb"
+
+#~ msgid "Enable xsettings plugin"
+#~ msgstr "Увімкнути модуль xsettings"
+
+#~ msgid "Mouse keys"
+#~ msgstr "Клавіші миші"
+
+#~ msgid "On-screen keyboard"
+#~ msgstr "Екранна клавіатура"
+
+#~ msgid "Screen magnifier"
+#~ msgstr "Збільшувач екрану"
+
+#~ msgid "Screen reader"
+#~ msgstr "Читання екрану"
+
+#~ msgid ""
+#~ "Set to True to enable the housekeeping plugin, to prune transient file "
+#~ "caches."
+#~ msgstr ""
+#~ "Встановіть у True, щоб увімкнути модуль housekeeping, для скорочення "
+#~ "тимчасового файлу."
+
+#~ msgid "Set to True to enable the plugin to manage clipboard settings."
+#~ msgstr ""
+#~ "Встановіть, щоб дозволити модулю керувати параметрами буферу обміну."
+
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage desktop background settings."
+#~ msgstr ""
+#~ "Встановіть, щоб дозволити модулю керувати параметрами тла робочого столу."
+
+#~ msgid "Set to True to enable the plugin to manage font settings."
+#~ msgstr "Встановіть, щоб дозволити модулю керувати параметрами шрифту."
+
+#~ msgid "Set to True to enable the plugin to manage keyboard settings."
+#~ msgstr "Встановіть, щоб дозволити модулю керувати параметрами клавіатури."
+
+#~ msgid "Set to True to enable the plugin to manage mouse settings."
+#~ msgstr "Встановіть, щоб дозволити модулю керувати параметрами миші."
+
+#~ msgid "Set to True to enable the plugin to manage multimedia keys settings."
+#~ msgstr ""
+#~ "Встановіть, щоб дозволити модулю керувати параметрами мультимедійних "
+#~ "клавіш."
+
+#~ msgid "Set to True to enable the plugin to manage sound sample caches."
+#~ msgstr "Встановіть, щоб увімкнути модуль керування кешуванням звуків."
+
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage the accessibility keyboard "
+#~ "settings."
+#~ msgstr ""
+#~ "Встановіть, щоб увімкнути модуль керування спеціальними можливостями "
+#~ "клавіатури."
+
+#~ msgid "Set to True to enable the plugin to manage the keybindings."
+#~ msgstr "Встановіть, щоб дозволити модулю керувати прив'язками клавіатури."
+
+#~ msgid "Set to True to enable the plugin to manage typing breaks."
+#~ msgstr "Встановіть, щоб дозволити модулю керувати перервами у роботі"
+
+#~ msgid "Set to True to enable the plugin to manage xrandr settings."
+#~ msgstr "Встановіть, щоб дозволити модулю керувати параметрами xrandr."
+
+#~ msgid "Set to True to enable the plugin to manage xrdb settings."
+#~ msgstr "Встановіть, щоб дозволити модулю керувати параметрами xrdb."
+
+#~ msgid "Set to True to enable the plugin to manage xsettings."
+#~ msgstr "Встановіть, щоб дозволити модулю керувати параметрами xsettings."
+
+#~ msgid "Slow keys"
+#~ msgstr "Повільні клавіші"
+
+#~ msgid "Sticky keys"
+#~ msgstr "Липкі клавіші"
+
+#~ msgid "The name of the keyboard shortcut to toggle the magnifier"
+#~ msgstr "Комбінація клавіш для вмикання екранного збільшувача"
+
+#~ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+#~ msgstr "Комбінація клавіш для вмикання екранної клавіатури"
+
+#~ msgid "The name of the keyboard shortcut to toggle the screen reader"
+#~ msgstr "Комбінація клавіш для вмикання екранного читання екрану"
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the magnifier. This "
+#~ "name will be shown in the keyboard shortcut preferences dialog."
+#~ msgstr ""
+#~ "Комбінація клавіш для вмикання збільшувача екрану. Цей параметр можна "
+#~ "змінити у діалозі налаштовування комбінацій клавіш."
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the on-screen "
+#~ "keyboard. This name will be shown in the keyboard shortcut preferences "
+#~ "dialog."
+#~ msgstr ""
+#~ "Комбінація клавіш для вмикання екранної клавіатури екрану. Цей параметр "
+#~ "можна змінити у діалозі налаштовування комбінацій клавіш."
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the screen reader. "
+#~ "This name will be shown in the keyboard shortcut preferences dialog."
+#~ msgstr ""
+#~ "Комбінація клавіш для вмикання читання екрану. Цей параметр можна змінити "
+#~ "у діалозі налаштовування комбінацій клавіш."
+
+#~ msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Чи увімкнено підтримку пружних клавіш системи технологій доступності."
+
+#~ msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Чи увімкнено підтримку роботи з мишею системи технологій доступності."
+
+#~ msgid "Whether the on-screen keyboard is turned on."
+#~ msgstr "Чи увімкнено екранну клавіатуру."
+
+#~ msgid "Whether the screen magnifier is turned on."
+#~ msgstr "Чи увімкнено збільшувач екрану."
+
+#~ msgid "Whether the screen reader is turned on."
+#~ msgstr "Чи увімкнено систему читання з екрану."
+
+#~ msgid "Whether the slow keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Чи увімкнено підтримку повільних клавіш системи технологій доступності."
+
+#~ msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+#~ msgstr ""
+#~ "Чи увімкнено підтримку липких клавіш системи технологій доступності."
+
+#~ msgid "Don't become a daemon"
+#~ msgstr "Не переходити у режим служби"
+
+#~ msgid "GConf prefix from which to load plugin settings"
+#~ msgstr "Префікс GConf для завантаження параметрів модуля"
+
+#~ msgid "Font"
+#~ msgstr "Шрифт"
+
+#~ msgid "Removing item %lu of %lu"
+#~ msgstr "Видалення елементу %lu з %lu"
+
+#~ msgid "<i>Removing: %s</i>"
+#~ msgstr "<i>Видалення: %s</i>"
+
+#~ msgid "Emptying the trash"
+#~ msgstr "Очищується смітник"
+
+#~ msgid "Preparing to empty trash..."
+#~ msgstr "Підготовка до очищення смітника..."
+
+#~ msgid "From: "
+#~ msgstr "З:"
+
+#~ msgid "Empty all of the items from the trash?"
+#~ msgstr "Видалити весь вміст смітника?"
+
+#~ msgid ""
+#~ "If you choose to empty the trash, all items in it will be permanently "
+#~ "lost. Please note that you can also delete them separately."
+#~ msgstr ""
+#~ "Якщо ви очистите смітник, весь його вміст буде остаточно втрачено. "
+#~ "Зверніть увагу, ви також можете видалити їх окремо."
+
+#~ msgid "_Empty Trash"
+#~ msgstr "О_чистити смітник"
+
+#~ msgid ""
+#~ "Error activating XKB configuration.\n"
+#~ "It can happen under various circumstances:\n"
+#~ "- a bug in libxklavier library\n"
+#~ "- a bug in X server (xkbcomp, xmodmap utilities)\n"
+#~ "- X server with incompatible libxkbfile implementation\n"
+#~ "\n"
+#~ "X server version data:\n"
+#~ "%s\n"
+#~ "%d\n"
+#~ "%s\n"
+#~ "If you report this situation as a bug, please include:\n"
+#~ "- The result of <b>%s</b>\n"
+#~ "- The result of <b>%s</b>"
+#~ msgstr ""
+#~ "Помилка при активації розширення XKB.\n"
+#~ "Це буває за таких обставин:\n"
+#~ "- помилка у бібліотеці libxklavier\n"
+#~ "- помилка у X-сервері (утиліти xkbcomp, xmodmap)\n"
+#~ "- X-сервер з несумісною реалізацією libxkbfile\n"
+#~ "\n"
+#~ "Дані про версію X-сервера:\n"
+#~ "%s\n"
+#~ "%d\n"
+#~ "%s\n"
+#~ "Якщо ви повідомляєте про цю ситуацію, будь ласка, увімкніть:\n"
+#~ "- Результат <b>%s</b>\n"
+#~ "- Результат <b>%s</b>"
+
+#~ msgid ""
+#~ "You are using XFree 4.3.0.\n"
+#~ "There are known problems with complex XKB configurations.\n"
+#~ "Try using a simpler configuration or taking a fresher version of XFree "
+#~ "software."
+#~ msgstr ""
+#~ "Ви користуєтесь XFree 4.3.0.\n"
+#~ "Є відомі проблеми з конфігурацією XKB.\n"
+#~ "Попробуйте використати більше просту конфігурацію або встановити свіжішу "
+#~ "версію XFree."
+
+#~ msgid "Unknown"
+#~ msgstr "Невідомо"
+
+#~ msgid "Keyboard Layout \"%s\""
+#~ msgstr "Розкладка клавіатури \"%s\""
+
+#~ msgid "_Groups"
+#~ msgstr "_Групи"
+
+#~ msgid "A_vailable files:"
+#~ msgstr "_Наявні файли:"
+
+#~ msgid "Load modmap files"
+#~ msgstr "Завантаження файлів modmap"
+
+#~ msgid "Would you like to load the modmap file(s)?"
+#~ msgstr "Бажаєте завантажити файл(и) modmap?"
+
+#~ msgid "_Do not show this message again"
+#~ msgstr "Більше _не показувати цього повідомлення"
+
+#~ msgid "_Load"
+#~ msgstr "_Завантажити"
+
+#~ msgid "_Loaded files:"
+#~ msgstr "_Завантажено файлів:"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "Розкладка клавіатури"
+
+#~ msgid "Mouse Preferences"
+#~ msgstr "Параметри миші"
+
+#~ msgid "Typing Break"
+#~ msgstr "Перерва у роботі"
+
+#~ msgid "Typing break plugin"
+#~ msgstr "Модуль перерви у роботі"
+
+#~ msgid "<i>Rotation not supported</i>"
+#~ msgstr "<i>Обертання не підтримується</i>"
+
+#~ msgid "Could not save monitor configuration"
+#~ msgstr "Не вдається зберегти конфігурацію мониторів"
+
+#~ msgid "Normal"
+#~ msgstr "Звичайне"
+
+#~ msgid "Left"
+#~ msgstr "Ліворуч"
+
+#~ msgid "Right"
+#~ msgstr "Праворуч"
+
+#~ msgid "Upside Down"
+#~ msgstr "Догори ногами"
+
+#~ msgid "_Configure Display Settings ..."
+#~ msgstr "_Налаштувати параметри екрану ..."
+
+#~ msgid "Configure display settings"
+#~ msgstr "Налаштувати параметри екрану"
+
+#~ msgid "Cannot determine user's home directory"
+#~ msgstr "Не вдається визначити домашній каталог користувача"
+
+#~ msgid "Manage the X resource database"
+#~ msgstr "Керування базою даних ресурсів X"
+
+#~ msgid "X Resource Database"
+#~ msgstr "База даних ресурсів X"
+
+#~ msgid "GConf key %s set to type %s but its expected type was %s\n"
+#~ msgstr "Ключ GConf %s встановлено в тип %s, а очікувався тип %s\n"
 
 #~ msgid ""
 #~ "Couldn't put the machine to sleep.\n"
