@@ -100,6 +100,23 @@ activation_error (void)
 	gsd_delayed_show_dialog (dialog);
 }
 
+static gboolean
+ensure_xkl_registry (void)
+{
+	if (!xkl_registry) {
+		xkl_registry =
+		    xkl_config_registry_get_instance (xkl_engine);
+		/* load all materials, unconditionally! */
+		if (!xkl_config_registry_load (xkl_registry, TRUE)) {
+			g_object_unref (xkl_registry);
+			xkl_registry = NULL;
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
 static void
 apply_desktop_settings (void)
 {
@@ -173,6 +190,9 @@ popup_menu_show_layout ()
 		gtk_window_present (GTK_WINDOW (p));
 		return;
 	}
+
+	if (!ensure_xkl_registry ())
+		return;
 
 	dialog = gkbd_keyboard_drawing_dialog_new ();
 	gkbd_keyboard_drawing_dialog_set_group (dialog, xkl_registry, xkl_state->group);
@@ -324,16 +344,9 @@ filter_xkb_config (void)
 	gboolean any_change = FALSE;
 
 	xkl_debug (100, "Filtering configuration against the registry\n");
-	if (!xkl_registry) {
-		xkl_registry =
-		    xkl_config_registry_get_instance (xkl_engine);
-		/* load all materials, unconditionally! */
-		if (!xkl_config_registry_load (xkl_registry, TRUE)) {
-			g_object_unref (xkl_registry);
-			xkl_registry = NULL;
-			return FALSE;
-		}
-	}
+	if (!ensure_xkl_registry ())
+		return FALSE;
+
 	lv = current_kbd_config.layouts_variants;
 	item = xkl_config_item_new ();
 	while (*lv) {
