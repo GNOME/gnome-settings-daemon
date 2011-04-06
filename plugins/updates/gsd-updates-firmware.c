@@ -48,7 +48,7 @@
 static void     gsd_updates_firmware_finalize   (GObject          *object);
 
 #define GSD_UPDATES_FIRMWARE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_UPDATES_TYPE_FIRMWARE, GsdUpdatesFirmwarePrivate))
-#define GSD_UPDATES_FIRMWARE_MISSING_DIR                "/dev/.udev/firmware-missing"
+#define GSD_UPDATES_FIRMWARE_MISSING_DIR                "/run/udev/firmware-missing"
 #define GSD_UPDATES_FIRMWARE_LOADING_DIR                "/lib/firmware"
 #define GSD_UPDATES_FIRMWARE_LOGIN_DELAY                10 /* seconds */
 #define GSD_UPDATES_FIRMWARE_PROCESS_DELAY              2 /* seconds */
