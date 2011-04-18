@@ -976,7 +976,13 @@ device_removed_cb (GdkDeviceManager *device_manager,
                    GsdMouseManager  *manager)
 {
         if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
+                int id;
+
                 run_custom_command (device, COMMAND_DEVICE_REMOVED);
+
+                g_object_get (G_OBJECT (device), "device-id", &id, NULL);
+                g_hash_table_remove (manager->priv->blacklist,
+                                     GINT_TO_POINTER (id));
 
                 /* If a touchpad was to disappear... */
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
