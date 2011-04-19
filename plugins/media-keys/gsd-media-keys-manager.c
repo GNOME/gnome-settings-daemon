@@ -740,6 +740,19 @@ on_control_default_sink_changed (GvcMixerControl     *control,
         update_default_sink (manager);
 }
 
+static void
+on_control_stream_removed (GvcMixerControl     *control,
+                           guint                id,
+                           GsdMediaKeysManager *manager)
+{
+        if (manager->priv->stream != NULL) {
+		if (gvc_mixer_stream_get_id (manager->priv->stream) == id) {
+	                g_object_unref (manager->priv->stream);
+			manager->priv->stream = NULL;
+		}
+        }
+}
+
 #endif /* HAVE_PULSE */
 
 static void
@@ -1429,6 +1442,10 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         g_signal_connect (manager->priv->volume,
                           "default-sink-changed",
                           G_CALLBACK (on_control_default_sink_changed),
+                          manager);
+        g_signal_connect (manager->priv->volume,
+                          "stream-removed",
+                          G_CALLBACK (on_control_stream_removed),
                           manager);
 
         gvc_mixer_control_open (manager->priv->volume);
