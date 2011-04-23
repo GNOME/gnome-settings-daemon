@@ -1,57 +1,227 @@
 # Turkish translation of gnome-control-center.
-# Copyright (C) 2000-2003, 2004, 2005, 2008 Free Software Foundation, Inc.
+# Copyright (C) 2000-2003, 2004, 2005, 2008, 2009, 2011 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gnome-control-center package.
 #
 # Nilgün Belma Bugüner <nilgun@fide.org>, 2001.
 # Fatih Demir <kabalak@gtranslator.org>, 2000.
 # Baris Cicek <baris@teamforce.name.tr>, 2004, 2005, 2008, 2009.
+# Mustafa Arici <me@mustafaarici.info>, 2011.
+# Muhammet Kara <muhammet.k@gmail.com>, 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-30 21:28+0300\n"
-"PO-Revision-Date: 2009-08-30 21:25+0300\n"
-"Last-Translator: Baris Cicek <baris@teamforce.name.tr>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-08 13:59+0000\n"
+"PO-Revision-Date: 2011-04-23 03:13+0300\n"
+"Last-Translator: Muhammet Kara <muhammet.k@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 1.1\n"
 
-#: ../data/50-accessibility.xml.in.h:1
-msgid "Accessibility"
-msgstr "Erişilebilirlik"
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "GNOME Ayarlar Servisi"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Command to be run when a device is added or removed."
+msgstr "Bir aygıt eklendiğinde veya çıkartıldığında çalıştırılacak komut."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid "Device hotplug custom command"
+msgstr "Cihaz takıldığında çalıştırılacak özelleştirilmiş komut"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Disable touchpad while typing"
+msgstr "Yazarken touchpad'i devre dışı bırak"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Distance before a drag is started."
+msgstr "Bir sürükleme başlamadan önceki mesafe."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "Double click time"
+msgstr "Çift tıklama süresi"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Drag threshold"
+msgstr "Sürükleme eşiği"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid "Enable horizontal scrolling"
+msgstr "Yatay kaydırmayı etkinleştir"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "Enable mouse clicks with touchpad"
+msgstr "Touchpad ile fare tıklamasını etkinleştir"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "Enable touchpad"
+msgstr "Touchpad'i etkinleştir"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Hızlı sol ve sağ tıklama ile orta tıklanmış gibi davranmayı aktif hale "
+"getirir"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid ""
+"Highlights the current location of the pointer when the Control key is "
+"pressed and released."
+msgstr "Ctrl tuşuna basılıp bırakıldığında imlecin yerini gösterir"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+msgid "Length of a double click in milliseconds."
+msgstr "Milisaniye cinsinden çift tıklama süresi."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+msgid "Middle button emulation"
+msgstr "Orta tık öykünümü"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+msgid "Select the touchpad scroll method"
+msgstr "Touchpad kaydırma yönetimini seçin"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+msgid ""
+"Select the touchpad scroll method. Supported values are: \"disabled\", "
+"\"edge-scrolling\", \"two-finger-scrolling\"."
+msgstr ""
+"Touchpad kaydırma yöntemini seçin. Desteklenen değerler: \"disabled"
+"\" (kapalı), \"edge-scrolling\" (kenar kaydırması), \"two-finger-scrolling"
+"\" (iki parmak kaydırması)."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Eğer yazarken touchpad'e dokunma sorunu yaşıyorsanız bunu doğru olarak "
+"atayın."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Eğer scroll_method anahtarında seçili yöntemle aynı şekilde yatay kaydırma "
+"istiyorsanız bunu doğru olarak atayın."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Touchpad üzerine vurarak fare tıklamaları göndermek istiyorsanız bunu doğru "
+"olarak atayın."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Tüm touchpadleri etkinleştirmek için bunu TRUE olarak ayarlayın."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+msgid ""
+"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+"Bunu \"hiçbiri\", \"ekranı kilitle\" veya \"çıkmaya zorla\" seçeneklerinden "
+"birine ayarlayın. Giriş için kullanılan akıllı kart çıkartıldığında "
+"seçtiğiniz eylem gerçekleşecektir."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid "Smartcard removal action"
+msgstr "Akıllı kart çıkartıldığında uygulanacak eylem"
+
+#. g-p-m is not a GSD plugin, yet
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+msgid "Activation of this plugin"
+msgstr "Bu eklentinin aktifleştirilmesi"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+msgid "Priority to use for this plugin"
+msgstr "Bu eklenti için kullanım önceliği"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgstr ""
+"Bu eklentinin gnome ayarlar servisinin başlangıç kuyruğundaki kullanım "
+"önceliği"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgstr ""
+"Bu eklentinin gnome ayarlar servisi tarafından aktifleştirilip "
+"aktifleştirilmeyeceği"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
 msgstr "Boş yüzdesi bildirme eşiği"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
-msgid "Free space no notify threshold"
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+msgid "Free space notify threshold"
 msgstr "Boş alan bildirim eşiği"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Minimum notify period for repeated warnings"
 msgstr "Tekrarlanan uyarılar için azami süre"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
 msgstr "Yok sayılacak bağlama yolları"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown"
+"the percentage free space drops below this, a warning will be shown."
 msgstr ""
-"İlk düşük disk alanı uyarısı boş alan yüzdesi eşiği. Eğer boş alan aşağıdaki "
-"yüzdeden daha aşağıya düşerse, bir uyarı gösterilir"
+"İlk düşük disk alanı uyarısı için boş alan oranı (yüzde) eşiği. Eğer boş "
+"alan yüzdesi bu değerin altına düşerse, bir uyarı gösterilir."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
 "Boş alanı düşük olduğunda gözardı edilecek bağlama yollarının listesini "
 "belirtin."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
@@ -59,213 +229,630 @@ msgstr ""
 "Dakika olarak bir süre belirleyin. Bir birim için birbirini izleyen uyarılar "
 "bu dönemden daha sık gösterilmeyecek."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown"
+"warning will be shown."
 msgstr ""
-"Miktarı GB olarak belirtin. Eğer boş alan bu miktardan daha fazla ise, "
-"hiçbir uyarı gösterilmeyecek"
+"GB cinsinden bir miktar belirtin. Eğer boş alan miktarı bu değerden daha "
+"fazla ise, hiçbir uyarı gösterilmez."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+#| msgid ""
+#| "Specify the percentage that the free disk space should reduce by before "
+#| "issuing a subsequent warning"
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
-"issuing a subsequent warning"
+"issuing a subsequent warning."
+msgstr "Bir sonraki uyarı öncesi boş alanın azalması gereken yüzdeyi belirtin."
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#| msgid "Subsequent free percentage notify threshold"
+msgid "Subsequent free space percentage notify threshold"
+msgstr "Ardışık boş alan yüzdesi bildirim eşiği"
+
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
 msgstr ""
-"Bir sonraki uyarı öncesi boş alanın azaltılması gereken yüzdeyi belirtin"
+"Bu eklentinin gnome ayarlar yöneticisi servisinin başlangıç kuyruğundaki "
+"kullanım önceliği"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
-msgid "Subsequent free percentage notify threshold"
-msgstr "Ard arda boş yüzdesi bildirim eşiği"
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+msgstr ""
+"Bu eklentinin gnome ayarlar servisi tarafından aktifleştirilip "
+"aktifleştirilmeyeceği."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-msgid "Binding to eject an optical disk."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+msgid "Allowed keys"
+msgstr "İzin verilen tuşlar"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+#, fuzzy
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding for the magnifier to zoom in"
+msgstr "Büyütece geçiş yapmak için bağ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#, fuzzy
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding for the magnifier to zoom out"
+msgstr "Büyütece geçiş yapmak için bağ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#, fuzzy
+#| msgid "Binding to raise the system volume."
+msgid "Binding to decrease the text size"
+msgstr "Sistem sesini arttırmak için bağ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#, fuzzy
+#| msgid "Binding to eject an optical disk."
+msgid "Binding to eject an optical disc."
 msgstr "Bir optik diskin çıkartılması için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#, fuzzy
+#| msgid "Binding to raise the system volume."
+msgid "Binding to enable or disable the touchpad."
+msgstr "Sistem sesini arttırmak için bağ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#, fuzzy
+#| msgid "Binding to raise the system volume."
+msgid "Binding to increase the text size"
+msgstr "Sistem sesini arttırmak için bağ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
 msgstr "Hesap makinesinin başlatılması için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "E-posta istemcisi başlatmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the help browser."
 msgstr "Yardım tarayıcısı başlatmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the media player."
 msgstr "Ortam yürütücüsü başlatmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the search tool."
 msgstr "Arama aracını başlatmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the web browser."
 msgstr "Web tarayıcı başlatmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lock the screen."
 msgstr "Ekranı kilitlemek için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to log out."
 msgstr "Çıkış için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to lower the system volume."
 msgstr "Sistem sesini azaltmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to mute the system volume."
 msgstr "Sistem sesini kesmek için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to open the Home folder."
 msgstr "Başlangıç klasörünü açmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "Ses çalmayı duraklatmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to raise the system volume."
 msgstr "Sistem sesini arttırmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#, fuzzy
+#| msgid "Binding to toggle the on-screen keyboard."
+msgid "Binding to show the on-screen keyboard"
+msgstr "Ekran klavyesine geçiş yapmak için bağ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#, fuzzy
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to show the screen magnifier"
+msgstr "Büyütece geçiş yapmak için bağ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
 msgstr "Sonraki parçaya geçmek için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to skip to previous track."
 msgstr "Önceki parçaya geçmek için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Çaldırmayı başlatmak için bağ (ya da çaldırma/duraklatma geçisi)."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#, fuzzy
+#| msgid "Binding to toggle the screen reader."
+msgid "Binding to start the screen reader"
+msgstr "Ekran okuyucuya geçiş yapmak için bağ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to stop playback."
 msgstr "Çaldırmayı durdurmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
-msgid "Binding to suspend the computer."
-msgstr "Bilgisayarı beklemeye almak için bağ."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#, fuzzy
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to toggle the interface contrast"
+msgstr "Büyütece geçiş yapmak için bağ."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+msgid "Decrease text size"
+msgstr "Metin boyutunu küçült"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Eject"
 msgstr "Çıkart"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Home folder"
 msgstr "Başlangıç klasörü"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#, fuzzy
+#| msgid ""
+#| "If non-empty, keybindings will be ignored unless their GConf directory is "
+#| "in the list. This is useful for lockdown."
+msgid ""
+"If non-empty, keybindings will be ignored unless their settings directory is "
+"in the list. This is useful for lockdown."
+msgstr ""
+"Eğer boş değilse, kendi GConf  dizini listede olmadığı sürece tuş bağı yok "
+"sayılır. Bu kilitleme için kullanışlıdır."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+msgid "Increase text size"
+msgstr "Metin boyutunu büyüt"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch calculator"
 msgstr "Hesap makinesini başlat"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch email client"
 msgstr "E-posta istemcisini başlat"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch help browser"
 msgstr "Yardım tarayıcı aç"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch media player"
 msgstr "Ortam yürütücüsünü başlat"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Launch web browser"
 msgstr "Web tarayıcı aç"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Lock screen"
 msgstr "Ekranı kilitle"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Log out"
 msgstr "Çıkış"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Magnifier zoom in"
+msgstr "Büyüteci yakınlaştır"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Magnifier zoom out"
+msgstr "Büyüteci uzaklaştır"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
 msgstr "Diğer parça"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Pause playback"
 msgstr "Çaldırmayı duraklat"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Play (or play/pause)"
 msgstr "Çal (veya çal/duraklat)"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Previous track"
 msgstr "Önceki parça"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Search"
 msgstr "Arama"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Stop playback"
 msgstr "Çaldırmayı durdur"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:35
-msgid "Suspend"
-msgstr "Bekleme"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+msgid "Toggle contrast"
+msgstr "Zıtlığı değiştir"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+msgid "Toggle magnifier"
+msgstr "Büyüteci seç"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+msgid "Toggle on-screen keyboard"
+msgstr "Ekran klavyesini seç"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+msgid "Toggle screen reader"
+msgstr "Ekran okuyucusunu seç"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+msgid "Toggle touchpad"
+msgstr "Touchpadi aktifleştir"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume down"
 msgstr "Sesi azalt"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Volume mute"
 msgstr "Sesi kes"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:38
-msgid "Volume step"
-msgstr "Ses basamağı"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:39
-msgid "Volume step as percentage of volume."
-msgstr "Yüzde olarak ses basamağı."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Volume up"
 msgstr "Sesi arttır"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+msgid "Ask the user if additional firmware should be installed"
+msgstr "Ek aygıt yazılımlarının yüklenilip yüklenilmeyeceğini kullanıcıya sor"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
 msgid ""
-"If a notification icon with display related things should be shown in the "
-"panel."
+"Ask the user if additional firmware should be installed if it is available."
 msgstr ""
-"Ekran ile ilgili şeyler için bir uyarı simgesinin panelde gösterilmesi."
+"Eğer kullanılabilir durumdaysa, ek aygıt yazılımlarının yüklenilip "
+"yüklenilmeyeceğini kullanıcıya sor."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
-msgid "Show Displays in Notification Area"
-msgstr "Uyarı Alanında Ekranlar Göster"
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+msgid "Automatically download updates in the background without confirmation"
+msgstr "Güncellemeleri onay almadan arka planda otomatik olarak indir"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+"'connection-use-mobile' is enabled."
+msgstr ""
+"Güncellemeleri onay almaksızın arkaplanda otomatik olarak indir. "
+"Güncellemeler, kablolu bağlantıda, eğer 'connection-use-wifi' aktifse, WiFi "
+"üzerinden, eğer 'connection-use-mobile' aktifse, mobil genişbant hizmeti "
+"üzerinden otomatik olarak indirilecektir."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+msgid "Automatically update these types of updates"
+msgstr "Bu çeşit güncellemeleri otomatik olarak yap"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+msgid "Automatically update these types of updates."
+msgstr "Bu çeşit güncellemeleri otomatik olarak yap."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+msgid "Devices that should be ignored"
+msgstr "Gözardı edilmesi gereken aygıtlar"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+msgid ""
+"Devices that should be ignored, separated by commas. These can include '*' "
+"and '?' characters."
+msgstr ""
+"Gözardı edilmesi gereken aygıtlar, virgülle ayrılmış olarak. Bunlar '*' ve "
+"'?' karakterlerini de içerebilir."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+msgid "Firmware files that should not be searched for"
+msgstr "Aranması gerekmeyen aygıt yazılımı dosyaları"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+msgid ""
+"Firmware files that should not be searched for, separated by commas. These "
+"can include '*' and '?' characters."
+msgstr ""
+"Aranması gerekmeyen aygıt yazılımı dosyaları, virgülle ayrılmış olarak. "
+"Bunlar '*' ve '?' karakterlerini de içerebilir."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+msgid "Get the update list when the session starts"
+msgstr "Oturum başladığında güncelleme listesini al"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+msgid "Get the update list when the session starts, even if not scheduled to."
+msgstr ""
+"Oturum başladığında güncelleme listesini al, buna zamanlanmış olmasa bile."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+msgid "How often to check for distribution upgrades"
+msgstr "Dağıtım güncellemelerinin ne sıklıkla kontrol edileceği"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+msgid "How often to check for distribution upgrades. Value is in seconds."
+msgstr ""
+"Dağıtım güncellemelerinin saniye cinsinden ne sıklıkla kontrol edileceği."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+msgid "How often to check for updates"
+msgstr "Güncellemeler ne sıklıkla kontrol edilsin"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+msgid ""
+"How often to check for updates. Value is in seconds. This is a maximum "
+"amount of time that can pass between a security update being published, and "
+"the update being automatically installed or the user notified."
+msgstr ""
+"Dağıtım güncellemelerinin saniye cinsinden ne sıklıkla kontrol edileceği. "
+"Bu, bir güvenlik güncellemesinin çıkması ile bu güncellemenin otomatik "
+"olarak yüklenmesı veya kullanıcının bu güncellemeden haberdar edilmesi "
+"arasında geçebilecek maksimum zamandır."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+msgid "How often to notify the user that non-critical updates are available"
+msgstr ""
+"Kullanıcının kritik olmayan güncellemelerden ne sıklıkla haberdar edileceği"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+msgid "How often to refresh the package cache"
+msgstr "Paket önbelleğinin ne sıklıkla yenileneceği"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+msgid "How often to refresh the package cache. Value is in seconds."
+msgstr "Paket önbelleğinin saniye cinsinden ne sıklıkla yenileneceği."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+msgid ""
+"How often to tell the user there are non-critical updates. Value is in "
+"seconds. Security update notifications are always shown after the check for "
+"updates, but non-critical notifications should be shown a lot less "
+"frequently."
+msgstr ""
+"Kullanıcıya kritik-güncelleme olmadığının saniye cinsinden ne sıklıkla "
+"söyleneceği. Güvenlik güncellemeleri uyarıları her zaman güncelleme kontrol "
+"edildikten sonra gösterilir, fakat kritik olmayan uyarılar bundan biraz daha "
+"az sıklıkla gösterilmelidir."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+msgid "Install updates automatically when running on battery power"
+msgstr "Pil devredeyken güncellemeleri otomatik olarak yükle"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+msgid "Install updates automatically when running on battery power."
+msgstr "Pil devredeyken güncellemeleri otomatik olarak yükle"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+msgid "Notify the user for completed updates"
+msgstr "Kullanıcıyı tamamlanmış güncellemelerden haberdar et"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+msgid "Notify the user for completed updates where the user needs to restart"
+msgstr ""
+"Kuullanıcıyı yeniden başlatma gerektirecek  tamamlanmış güncellemelerden "
+"haberdar et"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+msgid "Notify the user for completed updates where the user needs to restart."
+msgstr ""
+"Kuullanıcıyı yeniden başlatma gerektirecek  tamamlanmış güncellemelerden "
+"haberdar et"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+msgid ""
+"Notify the user for completed updates. This may be a useful notification for "
+"some users as installing updates prevents shutdown."
+msgstr ""
+"Tamamlanmış güncellemelerden kullanıcıyı haberdar et. Güncellemeleri "
+"yüklemek bilgisayarı kapatmayı engellediğinden bu kullanışlı bir uyarı "
+"olabilir."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+msgid "Notify the user when distribution upgrades are available"
+msgstr "Dağıtım güncellemeleri çıktığında kullanıcıyı haberdar et"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+msgid "Notify the user when distribution upgrades are available."
+msgstr "Dağıtım güncellemeleri çıktığında kullanıcıyı haberdar et"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+msgid ""
+"Notify the user when the automatic update was not started on battery power"
+msgstr ""
+"Pil gücü kullanılıyorken otomatik güncelleme başlatılamadığında kullanıcıyı "
+"uyar"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+msgid ""
+"Notify the user when the update was not automatically started because the "
+"machine is running on battery power."
+msgstr ""
+"Makine pil gücünde çalıştığı için güncellemeler otomatik olarak "
+"başlatılamadığında kullanıcıyı uyar."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+msgid "Notify the user when the update was started"
+msgstr "Güncelleme başlatılamadığında kullanıcıyı uyar"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+msgid "Notify the user when the update was started."
+msgstr "Güncelleme başlatılamadığında kullanıcıyı uyar"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+msgid "The filenames on removable media that designate it a software source."
+msgstr ""
+"Yazılım kaynağı olarak tayin edilmiş, çıkarılabilir ortam üzerindeki dosya "
+"isimleri."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+msgid "The install root to use when adding and removing packages"
+msgstr "Paket eklerken ve çıkartırkenki kök yükleme yolu"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+msgid ""
+"The install root to use when processing packages, which is changed when "
+"using LTSP or when testing."
+msgstr ""
+"Paket işlemleri yapılırken, ITSP kullanırken veya test yaparken değişebilen, "
+"kullanılacak kök yol."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+msgid ""
+"The last time we notified the user about non-critical updates. Value is in "
+"seconds since the epoch, or zero for never."
+msgstr ""
+"Saniye cinsinden, en son kullanıcının kritik olmayan güncellemelerden ne "
+"zaman haberdar edildiği. Hiçbir zaman için bu değer sıfırdır."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+msgid "The last time we told the user about non-critical notifications"
+msgstr ""
+"Kritik olmayan uyarılardan en son ne zaman kullanıcının haberdar edildiği."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+msgid ""
+"The number of seconds at session startup to wait before checking for updates"
+msgstr ""
+"Güncellemeleri kontrol etmek için oturum başlangıcında kaç saniye "
+"bekleneceği."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+msgid ""
+"The number of seconds at session startup to wait before checking for "
+"updates. Value is in seconds."
+msgstr ""
+"Güncellemeleri kontrol etmek için oturum başlangıcında saniye cinsinden ne "
+"kadar süre bekleneceği."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+msgid ""
+"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
+"to download packages when on a wired connection, and the VPN or proxy "
+"required may also only be available on wired connections."
+msgstr ""
+"Güncellemeleri kontrol etmek için WiFi (kablosuz ağ) kullan. Kablolu "
+"bağlantı kullanmak paketleri indirirken daha hızlı olabilir. Ayrıca gereken "
+"VPN veya proxy sadece kablolu bağlantı ile mevcut olabilir."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+msgid "Use WiFi connections"
+msgstr "WiFi bağlantısı kullan"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+msgid "Use mobile broadband connections"
+msgstr "Mobil genişbant bağlantısı kullan"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+msgid ""
+"Use mobile broadband connections such as GSM and CDMA to check for updates."
+msgstr ""
+"Güncellemeleri kontrol etmek için GSM veya CDMA gibi mobil genişbant "
+"bağlantılarını kullan."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+msgid ""
+"When removable media is inserted, it is checked to see if it contains any "
+"important filenames in the root directory. If the filename matches, then an "
+"updates check is performed. This allows post-install disks to be used to "
+"update running systems."
+msgstr ""
+"Bilgisayara bir çıkarılabilir ortam takıldığında, bunun kök klasörünün "
+"içindeki dosyalarda önemli dosya isimleri olup olmadığı kontrol edilir. Eğer "
+"varsa, bir güncelleme kontrolü yapılır. Bu yükleme sonrası diskleri ile "
+"mevcut sistemi güncellemek için kullanılır."
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+#, fuzzy
+msgid ""
+"'clone' will display the same thing on all monitors, 'dock' will switch off "
+"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
+"(extend the desktop in recent versions)"
+msgstr ""
+"'clone' tüm monitörlerde aynı şeyi göstermeye yarar, 'dock' dahili monitörü "
+"kapatacaktır, 'do-nothing' öntanımlı Xorg davranışlarını kullanır (yeni "
+"versiyonlarda masaüstünü uzat)"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+msgid "File for default configuration for RandR"
+msgstr "RandR için öntanımlı yapılandırma dosyası"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+msgid ""
+"The XRandR plugin will look for a default configuration in the file "
+"specified by this key. This is similar to the ~/.config/monitors.xml that "
+"normally gets stored in users' home directories. If a user does not have "
+"such a file, or has one that does not match the user's setup of monitors, "
+"then the file specified by this key will be used instead."
+msgstr ""
+"XRandR eklentisi bu anahtar ile belirlenmiş dosyanın içinde öntanımlı "
+"yapılandırmaları arayacaktır. Bu ~/.config/monitors.xml gibi normalde "
+"kullanıcının ev klasöründe saklanır. Eğer kullanıcı böyle bir dosyaya sahip "
+"değilse, veya monitör kurulumuyla eşleşmeyen bir tanesi ne sahipse, o zaman "
+"bu anahtar ile belirlenmiş dosya diğerinin yerine kullanılacaktır."
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+msgid "Whether to turn off specific monitors after boot"
+msgstr ""
+"Sistemi başlattıktan sonra belirli monitörlerin kapatılıp kapatılmayacağı"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
+msgstr ""
+"Yüklenecek GTK+ modüllerini temsil eden karakter katarlarını tutan liste; "
+"Genellikle ek olarak durumsal veya zorla kapatılmış olanları."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
+msgstr ""
+"Yüklenmeyecek GTK+ modüllerini temsil eden karakter katarlarını tutan liste; "
+"kendi yapılandırmalarında öntanımlı olarak etkin hale getirilecek olsalar "
+"bile."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
 msgstr "Yumuşatma"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:2
-msgid "DPI"
-msgstr "DPI"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "Düzeltme"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "Alenen devredışı bırakılmış GTK+ modüllerinin listesi"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "Alenen etkinleştirilmiş GTK+ modüllerinin listesi"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
 msgstr "RGBA sırası"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -277,15 +864,7 @@ msgstr ""
 "solda (en yaygın), \"bgr\" - mavi solda. \"vrgb\"- kırmızı yukarıda. \"vbgr"
 "\" - kırmızı aşağıda."
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:6
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch."
-msgstr ""
-"Yazıtipi boyutlarını piksel boyutlarına çevirmek için kullanılan çözünürlük, "
-"inç başına nokta olarak."
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -295,7 +874,7 @@ msgstr ""
 "\" - yumuşatma yok. \"grayscale\" - standart gri ölçek yumuşatma ve \"rgba"
 "\"  - alt piksel yumuşatma (sadece LCD ekranlar)."
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -305,351 +884,171 @@ msgstr ""
 "düzeltme yok, \"slight\", \"medium\", ve \"full\" - mümkün olduğunca çok "
 "düzeltme (harf biçimlerinde bozulmalara sebep olabilir)."
 
-#: ../data/desktop_gnome_keybindings.schemas.in.h:1
-msgid "Allowed keys"
-msgstr "İzin verilen tuşlar"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid "Enable this to only move the cursor when the user touches the tablet."
+msgstr ""
+"Kullanıcı tablete dokunduğunda sadece imleci hareket ettirmek için bunu "
+"etkinleştirin."
 
-#: ../data/desktop_gnome_keybindings.schemas.in.h:2
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr ""
+"Stylus kalemin ucu ile dokunulduğunda, sadece stylus olaylarını bildirmek "
+"için bunu etkinleştirin."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to set the cursor to absolute mode."
+msgstr "İmleci, göreli olmayan moda almak için bunu etkinleştirin"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the eraser to absolute mode."
+msgstr "Silgiyi göreli olmayan moda almak için bunu etkinleştirin."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the stylus to absolute mode."
+msgstr "Stylusu göreli olmayan moda almak için bunu etkinleştirin."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid ""
-"If non-empty, keybindings will be ignored unless their GConf directory is in "
-"the list. This is useful for lockdown."
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
 msgstr ""
-"Eğer boş değilse, kendi GConf  dizini listede olmadığı sürece tuş bağı yok "
-"sayılır. Bu kilitleme için kullanışlıdır."
+"Bunu 'hiçbiri', saat yönünde 90 derece için 'cw', 180 derece için 'half' ve "
+"saat yönünün tersinde 90 derece için 'ccw' olarak işaretleyin."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
-msgid "Disable touchpad while typing"
-msgstr "Yazarken touchpad'i devre dışı bırak"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid "Set this to the logical button mapping."
+msgstr "Bunu mantıksal buton eşleşmesine girin."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
-msgid "Enable horizontal scrolling"
-msgstr "Yatay kaydırmayı etkinleştir"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
-msgid "Enable mouse clicks with touchpad"
-msgstr "Touchpad ile fare tıklamasını etkinleştir"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
-msgid "Select the touchpad scroll method"
-msgstr "Touchpad kaydırma yönetimini seçin"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid ""
-"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
-"edge scrolling, 2 - two-finger scrolling"
+"Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
-"Touchpad kaydırma yöntemini seçin. Desteklenen değerler: 0 - kapalı, 1 - "
-"kenar kaydırması, 2 - iki parmak kaydırması"
+"Bunu bir staylus tıklaması olayı oluşturulması için gereken basınç değeri "
+"olarak girin."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
-"Set this to TRUE if you have problems with accidentally hitting the touchpad "
-"while typing."
+"Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
-"Eğer yazarken touchpad'e dokunma sorunu yaşıyorsanız bunu doğru olarak "
-"atayın."
+"Bunu bir silgi tıklaması olayı oluşturulması için gereken basınç değeri "
+"olarak girin."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+msgstr ""
+"Bunu imleç tarafından kullanılabilen alan manasında x1,y1 ve x2,y2 olarak "
+"girin."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+msgstr ""
+"Bunu silgi tarafından kullanılabilen alan manasında x1,y1 ve x2,y2 olarak "
+"girin."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+msgstr ""
+"Bunu pad tarafından kullanılabilen alan manasında x1,y1 ve x2,y2 olarak "
+"girin."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
+msgstr ""
+"Bunu stylus tarafından kullanılabilen alan manasında x1,y1 ve x2,y2 olarak "
+"girin."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
-"Set this to TRUE to allow horizontal scrolling by the same method selected "
-"with the scroll_method key."
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
-"Eğer scroll_method anahtarında seçili yöntemle aynı şekilde yatay kaydırma "
-"istiyorsanız bunu doğru olarak atayın."
+"Bunu silgiye uygulanan basınç eğrisi manasında x1,y1 ve x2,y2 olarak girin."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
-"Touchpad üzerine vurarak fare tıklamaları göndermek istiyorsanız bunu doğru "
-"olarak atayın."
+"Bunu stylusa uygulanan basınç eğrisi manasında x1,y1 ve x2,y2 olarak girin."
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
-msgstr "GNOME Ayarlar Servisi"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom cursor absolute mode"
+msgstr "Wacom göreli olmayan imleç modu"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:1
-msgid "Binding to toggle the magnifier."
-msgstr "Büyütece geçiş yapmak için bağ."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom cursor button mapping"
+msgstr "Wacom imleç tuş eşleşmesi"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
-msgid "Binding to toggle the on-screen keyboard."
-msgstr "Ekran klavyesine geçiş yapmak için bağ"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom cursor tablet area"
+msgstr "Wacom imleç tablet alanı"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
-msgid "Binding to toggle the screen reader."
-msgstr "Ekran okuyucuya geçiş yapmak için bağ."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser absolute mode"
+msgstr "Wacom göreli olmayan silgi modu"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Bounce keys"
-msgstr "Sıçrama tuşları"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser button mapping"
+msgstr "Wacom silgi buton eşleşmesi"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
-msgid "Command used to turn the magnifier on or off."
-msgstr "Büyüteci açmak veya kapatmak için kullanılan komut."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure curve"
+msgstr "Wacom silgi basınç eğrisi"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
-msgid "Command used to turn the on-screen keyboard on or off."
-msgstr "Ekran klavyesini açmak veya kapatmak için kullanılan komut."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure threshold"
+msgstr "Wacom silgi basınç eşiği"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
-msgid "Command used to turn the screen reader on or off."
-msgstr "Ekran okuyucu açmak veya kapatmak için kullanılan komut."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom eraser tablet area"
+msgstr "Wacom silgi tablet alanı"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
-msgid "Enable accessibility keyboard plugin"
-msgstr "Erişilebilirlik klavyesi eklentisini etkinleştir"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom pad button mapping"
+msgstr "Wacom pad buton eşleşmesi "
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
-msgid "Enable background plugin"
-msgstr "Arkaplan eklentisini etkinleştir"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom pad tablet area"
+msgstr "Wacom pad tablet alanı"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
-msgid "Enable clipboard plugin"
-msgstr "Pano eklentisini etkinleştir"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom stylus absolute mode"
+msgstr "Wacom göreli olmayan stylus modu"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
-msgid "Enable font plugin"
-msgstr "Yazıtipi eklentisini etkinleştir"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom stylus button mapping"
+msgstr "Wacom stylus buton eşleşmesi"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
-msgid "Enable housekeeping plugin"
-msgstr "Ev bakımı eklentisini etkinleştir"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom stylus pressure curve"
+msgstr "Wacom stylus basınç eğrisi"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
-msgid "Enable keybindings plugin"
-msgstr "Tuş bağları eklentisini etkinleştir"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom stylus pressure threshold"
+msgstr "Wacom stylus basınç eşiği"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
-msgid "Enable keyboard plugin"
-msgstr "Klavye eklentisini etkinleştir"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid "Wacom stylus tablet area"
+msgstr "Wacom stylus tablet alanı"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
-msgid "Enable media keys plugin"
-msgstr "Ortam tuşları eklentisini etkinleştir"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Wacom tablet PC feature"
+msgstr "Wacom tablet PC özeliği"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid "Enable mouse plugin"
-msgstr "Fare eklentisini etkinleştir"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid "Wacom tablet rotation"
+msgstr "Wacom tablet rotasyonu"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable sound plugin"
-msgstr "Ses eklentisini etkinleştir"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
-msgid "Enable typing breaks plugin"
-msgstr "Yazım molası eklentisini etkinleştir"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Enable xrandr plugin"
-msgstr "Xrandr eklentisini etkinleştir"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:20
-msgid "Enable xrdb plugin"
-msgstr "Xrdb eklentisini etkinleştir"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:21
-msgid "Enable xsettings plugin"
-msgstr "Xsettings eklentisini etkinleştir"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:22
-msgid "Mouse keys"
-msgstr "Fare tuşları"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-msgid "On-screen keyboard"
-msgstr "Ekran klavyesi"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-msgid "Screen magnifier"
-msgstr "Ekran büyüteci"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-msgid "Screen reader"
-msgstr "Ekran okuyucu"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:26
-msgid ""
-"Set to True to enable the housekeeping plugin, to prune transient file "
-"caches."
-msgstr ""
-"Ev bakımı eklentisini etkinleştirmek, geçici dosya önbelleği budamak için "
-"True şekilde ayarlayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:27
-msgid "Set to True to enable the plugin to manage clipboard settings."
-msgstr ""
-"Pano ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
-"atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:28
-msgid "Set to True to enable the plugin to manage desktop background settings."
-msgstr ""
-"Arkaplan ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
-"atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:29
-msgid "Set to True to enable the plugin to manage font settings."
-msgstr ""
-"Yazıtipi ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
-"atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:30
-msgid "Set to True to enable the plugin to manage keyboard settings."
-msgstr ""
-"Klavye ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
-"atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:31
-msgid "Set to True to enable the plugin to manage mouse settings."
-msgstr ""
-"Fare ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
-"atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:32
-msgid "Set to True to enable the plugin to manage multimedia keys settings."
-msgstr ""
-"Çokluortam tuşları ayarlarını yönetmek için eklentiyi etkinleştirmek için "
-"doğru olarak atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:33
-msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr ""
-"Ses örnek önbellekleri yönetmek için eklentiyi etkinleştirmek için True "
-"şekilde ayarlayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:34
-msgid ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
-msgstr ""
-"Klavye erişebilirlik ayarlarını yönetmek için eklentiyi etkinleştirmek için "
-"doğru olarak atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:35
-msgid "Set to True to enable the plugin to manage the keybindings."
-msgstr ""
-"Tuşbağlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:36
-msgid "Set to True to enable the plugin to manage typing breaks."
-msgstr ""
-"Yazım molalarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
-"atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:37
-msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr ""
-"Xrandr ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
-"atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:38
-msgid "Set to True to enable the plugin to manage xrdb settings."
-msgstr ""
-"Xrdb ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
-"atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:39
-msgid "Set to True to enable the plugin to manage xsettings."
-msgstr ""
-"Xsettings ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru "
-"olarak atayın."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:40
-msgid "Slow keys"
-msgstr "Yavaş tuşlar"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:41
-msgid "Sticky keys"
-msgstr "Yapışkan tuşlar"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:42
-msgid "The name of the keyboard shortcut to toggle the magnifier"
-msgstr "Büyütece geçiş yapmak için klavye kısayolunun adı"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:43
-msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
-msgstr "Ekran klavyesine geçiş yapmak için klavye kısayolunun adı"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:44
-msgid "The name of the keyboard shortcut to toggle the screen reader"
-msgstr "Ekran okuyucusuna geçiş yapmak için klavye kısayolunun adı"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:45
-msgid ""
-"This is the name of the keyboard shortcut to toggle the magnifier. This name "
-"will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Bu büyütece geçiş yapmak için klavye kısayolunun adıdır. Bu isim, klavye "
-"kısayol tercihleri penceresinde gösterilir."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:46
-msgid ""
-"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
-"This name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Bu ekran klavyesine geçiş yapmak için klavye kısayolunun adıdır. Bu isim, "
-"klavye kısayol tercihleri penceresinde gösterilir."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:47
-msgid ""
-"This is the name of the keyboard shortcut to toggle the screen reader. This "
-"name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Bu ekran okuyucuya geçiş yapmak için klavye kısayolunun adıdır. Bu isim, "
-"klavye kısayol tercihleri penceresinde gösterilir."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:48
-msgid "Toggle magnifier"
-msgstr "Büyüteci seç"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:49
-msgid "Toggle on-screen keyboard"
-msgstr "Ekran klavyesini seç"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:50
-msgid "Toggle screen reader"
-msgstr "Ekran okuyucusunu seç"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:51
-msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-msgstr "Sıçrama tuşları klavye erişilebilirlik özelliğinin açık olması."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:52
-msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-msgstr "Fare tuşları klavye erişilebilirlik özelliğinin açık olması."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Whether the on-screen keyboard is turned on."
-msgstr "Ekran klavyesinin açık olması."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:54
-msgid "Whether the screen magnifier is turned on."
-msgstr "Ekran büyütecinin açık olması."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:55
-msgid "Whether the screen reader is turned on."
-msgstr "Ekran okuyucusunun açık olması."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:56
-msgid "Whether the slow keys keyboard accessibility feature is turned on."
-msgstr "Yavaş tuşların klavye erişilebilirlik özelliğinin açık olması."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:57
-msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-msgstr "Yapışkan tuşların klavye erişilebilirlik özelliğinin açık olması."
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+msgid "Wacom touch feature"
+msgstr "Wacom dokunma özelliği"
 
 #: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Hata ayıklama kodunu etkinleştir"
 
 #: ../gnome-settings-daemon/main.c:55
-msgid "Don't become a daemon"
-msgstr "Bir servis olma"
-
-#: ../gnome-settings-daemon/main.c:56
-msgid "GConf prefix from which to load plugin settings"
-msgstr "Eklenti ayarları yüklemek için GConf öneki"
+msgid "Exit after a time (for debugging)"
+msgstr "Bir süre sonra çık (hata ayıklama için)"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -659,23 +1058,23 @@ msgstr "Erişilebilirlik Klavyesi"
 msgid "Accessibility keyboard plugin"
 msgstr "Erişilebilirlik klavyesi eklentisi"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:392
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Yardım dosyasının görüntülenmesinde bir hata oluştu: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
 msgid "Do you want to activate Slow Keys?"
 msgstr "Tuş Yavaşlatmasını aktif hale getirmek istiyor musunuz?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Tuş Yavaşlatmasını kapatmak istiyor musunuz?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -683,62 +1082,62 @@ msgstr ""
 "Sadece Shift tuşunu 8 saniye basılı tutun.  Bu klavyenizin çalışma biçimini "
 "etkileyecek Tuş Yavaşlatması özelliği için bir kısayoldur."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't activate"
 msgstr "Etkinleştirme"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Don't deactivate"
 msgstr "Devre dışı bırakma"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Activate"
 msgstr "Etkinleştir"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
 msgid "Deactivate"
 msgstr "Devre dışı bırak"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't activate"
 msgstr "_Etkinleştirme"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
 msgid "Do_n't deactivate"
 msgstr "Etki_sizleştirme"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Activate"
 msgstr "_Etkinleştir"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
 msgid "_Deactivate"
 msgstr "E_tkisizleştir"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
 msgid "Slow Keys Alert"
 msgstr "Tuş Yavaşlatması Uyarısı"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Yapışkan Tuşlar özelliğini aktif hale getirmek istiyor musunuz?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Yapışkan Tuşları kapatmak istiyor musunuz?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -746,8 +1145,8 @@ msgstr ""
 "Sadece Shift tuşuna 5 kere ard arda basın.  Bu klavyenizin çalışma biçimini "
 "etkileyecek Yapışkan Tuşlar özelliği için bir kısayoldur."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -756,11 +1155,11 @@ msgstr ""
 "Aynı anda iki tuşa bastınız veya Shift tuşuna ard arda 5 kere bastınız.  Bu "
 "klavyenizin çalışma biçimini etkileyecek Yapışkan Tuşlar özelliğini kapatır."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
 msgid "Sticky Keys Alert"
 msgstr "Yapışkan Tuş Uyarısı"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Evrensel Erişim Tercihleri"
@@ -797,6 +1196,143 @@ msgstr "_Yinelenen tuşları yok say (Sıçrama Tuşları)"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Klavye kısayollarına bir kerede bir tuşa bas (Yapışken Tuşlar)"
 
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+msgid "Accessibility settings"
+msgstr "Erişilebilirlik ayarları"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+msgid "Accessibility settings plugin"
+msgstr "Erişilebilirlik ayarları eklentisi"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+msgid "Automount"
+msgstr "Otomatik Bağla"
+
+#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+msgid "Automounter plugin"
+msgstr "Otomatik bağlayıcı eklentisi"
+
+#: ../plugins/automount/gsd-automount-manager.c:154
+#, c-format
+msgid "Unable to mount %s"
+msgstr "%s bağlanamıyor"
+
+#: ../plugins/automount/gsd-automount-manager.c:271
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr "%s için bir klasör açılamıyor"
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr "Ne yapılacağını sor"
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr "Hiç Birşey Yapma"
+
+#: ../plugins/automount/gsd-autorun.c:352
+msgid "Open Folder"
+msgstr "Klasör Aç"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, c-format
+msgid "Unable to eject %p"
+msgstr "%p çıkartılamıyor"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr "%p çıkartılamıyor"
+
+#: ../plugins/automount/gsd-autorun.c:700
+msgid "You have just inserted an Audio CD."
+msgstr "Şu anda bir Ses CDsi taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio DVD."
+msgstr "Şu anda bir Ses DVDsi taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted a Video DVD."
+msgstr "Şu anda bir Video DVDsi taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video CD."
+msgstr "Şu anda bir Vidyo CDsi taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Super Video CD."
+msgstr "Şu anda bir Süper Vidyo CDsi taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a blank CD."
+msgstr "Şu anda boş bir CD taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank DVD."
+msgstr "Şu anda boş bir DVD taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "Şu anda boş bir Blu-Ray disk taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank HD DVD."
+msgstr "Şu anda boş bir HD DVD taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a Photo CD."
+msgstr "Şu anda bir Fotoğraf CDsi taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Picture CD."
+msgstr "Şu anda bir Resim CDsi taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a medium with digital photos."
+msgstr "Şu anda içinde dijital fotoğraflar olan bir ortam taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a digital audio player."
+msgstr "Şu anda bir dijital ses çalıcısı taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr ""
+"Şu anda içinde otomatik çalışmaya ayarlı bir yazılım olan bir ortam taktınız."
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:729
+msgid "You have just inserted a medium."
+msgstr "Şu anda bir ortam taktınız."
+
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "Choose what application to launch."
+msgstr "Hangi uygulamanın başlatılacağını seçin."
+
+#: ../plugins/automount/gsd-autorun.c:740
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr ""
+"\"%s\"in nasıl açılacağını seçin ve %s tipindeki diğer ortamlar için de aynı "
+"şeyin yapılıp yapılmayacağını belirleyin."
+
+#: ../plugins/automount/gsd-autorun.c:767
+msgid "_Always perform this action"
+msgstr "_Her zaman bu eylemi uygula."
+
+#: ../plugins/automount/gsd-autorun.c:783
+msgid "_Eject"
+msgstr "_Çıkart"
+
+#: ../plugins/automount/gsd-autorun.c:788
+msgid "_Unmount"
+msgstr "_Çıkart"
+
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Arkaplan"
@@ -819,35 +1355,72 @@ msgstr "Aptal"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
 msgid "Dummy plugin"
-msgstr "Aptal eklentisi"
+msgstr "Yalancı eklenti"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
-msgid "Font"
-msgstr "Yazıtipi"
+#: ../plugins/housekeeping/gsd-disk-space.c:332
+#, c-format
+msgid "Low Disk Space on \"%s\""
+msgstr "\"%s\" üzerinde Düşük Disk Alanı"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
-msgid "Font plugin"
-msgstr "Yazıtipi eklentisi"
+#: ../plugins/housekeeping/gsd-disk-space.c:334
+#, c-format
+msgid ""
+"The volume \"%s\" has only %s disk space remaining.  You may free up some "
+"space by emptying the trash."
+msgstr ""
+"Birim \"%s\" üzerinde sadece %s disk alanı kaldı.  Çöpü boşaltarak biraz yer "
+"açabilirsiniz."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-msgid "Don't show any warnings again for this filesystem"
-msgstr "Bu dosya sistemi için hiçbir uyarı gösterme"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-msgid "Don't show any warnings again"
-msgstr "_Bir daha hiçbir uyarı gösterme"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#: ../plugins/housekeeping/gsd-disk-space.c:338
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "Birim \"%s\" üzerinde sadece %s disk alanı kaldı."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-disk-space.c:343
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
+msgid "Low Disk Space"
+msgstr "Düşük Disk Alanı"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:345
+#, c-format
+msgid ""
+"This computer has only %s disk space remaining.  You may free up some space "
+"by emptying the trash."
+msgstr ""
+"Bu bilgisayarda sadece %s disk alanı kaldı.  Çöpü boşaltarak biraz yer "
+"açabilirsiniz."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:348
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Bu bilgisayarda sadece %s disk alanı kaldı."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+#: ../plugins/housekeeping/gsd-disk-space.c:369
+msgid "Examine"
+msgstr "İncele"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:377
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
+msgid "Empty Trash"
+msgstr "Çöpü Boşalt"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:384
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
+msgid "Ignore"
+msgstr "Yoksay"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+msgid "Don't show any warnings again for this file system"
+msgstr "Bu dosya sistemi için bir daha uyarı gösterme"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
+msgid "Don't show any warnings again"
+msgstr "_Bir daha hiçbir uyarı gösterme"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
@@ -856,7 +1429,7 @@ msgstr ""
 "dosyaları başka bir diske veya bölümlemeye taşıyarak disk boş alanınızı "
 "arttırabilirsiniz."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
@@ -864,7 +1437,7 @@ msgstr ""
 "Kullanmadığınız programları ya da dosyaları silerek ya da dosyaları başka "
 "bir diske veya bölümlemeye taşıyarak disk boş alanınızı arttırabilirsiniz."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
@@ -873,7 +1446,7 @@ msgstr ""
 "dosyaları başka bir harici diske taşıyarak disk boş alanınızı "
 "arttırabilirsiniz."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
@@ -881,61 +1454,9 @@ msgstr ""
 "Kullanmadığınız programları ya da dosyaları silerek ya da dosyaları başka "
 "bir harici diske taşıyarak disk boş alanınızı arttırabilirsiniz."
 
-#. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
-msgid "Low Disk Space"
-msgstr "Düşük Disk Alanı"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
-msgid "Empty Trash"
-msgstr "Çöpü Boşalt"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
-msgid "Examine..."
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:444
+msgid "Examine…"
 msgstr "İncele..."
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
-msgid "Ignore"
-msgstr "Yoksay"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
-#, c-format
-msgid "Removing item %lu of %lu"
-msgstr "Silinen öğe %lu / %lu"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
-#, c-format
-msgid "<i>Removing: %s</i>"
-msgstr "<i>Siliniyor: %s</i>"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
-msgid "Emptying the trash"
-msgstr "Çöp boşaltılıyor"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
-msgid "Preparing to empty trash..."
-msgstr "Çöp boşaltmaya hazırlanıyor..."
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
-msgid "From: "
-msgstr "Kaynak:"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
-msgid "Empty all of the items from the trash?"
-msgstr "Çöpten tüm öğeler boşaltılsın mı?"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
-msgid ""
-"If you choose to empty the trash, all items in it will be permanently lost. "
-"Please note that you can also delete them separately."
-msgstr ""
-"Eğer çöpü boşaltmayı seçerseniz, içindeki tüm öğeler kalıcı olarak "
-"silinecek. Lütfen onları ayrı ayrı da silebileceğinizi unutmayın."
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
-msgid "_Empty Trash"
-msgstr "Çöpü _Boşalt"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
@@ -972,31 +1493,41 @@ msgstr "Klavye"
 msgid "Keyboard plugin"
 msgstr "Klavye eklentisi"
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:1
-msgid "A_vailable files:"
-msgstr "_Geçerli dosyalar:"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:87
+#, c-format
+msgid ""
+"Error activating XKB configuration.\n"
+"There can be various reasons for that.\n"
+"\n"
+"If you report this situation as a bug, include the results of\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
+msgstr ""
+"XKB yapılandırmasını aktive ederken hata oluştu.\n"
+"Bunun birden fazla nedeni olabilir.\n"
+"\n"
+"Eğer bunu hata raporu olarak gönderecekseniz, şunların sonuçlarını da "
+"ekleyin\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:2
-msgid "Load modmap files"
-msgstr "Modmap dosyalarını yükle"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:243
+msgid "_Layouts"
+msgstr "_Düzenler"
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:3
-msgid "Would you like to load the modmap file(s)?"
-msgstr "Modmap dosyalarını yüklemek ister misiniz?"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
+msgid "Keyboard _Preferences"
+msgstr "Klavye _Tercihleri"
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:4
-msgid "_Do not show this message again"
-msgstr "_Bu mesajı bir daha gösterme"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:256
+msgid "Show _Current Layout"
+msgstr "_Mevcut Düzeni Göster"
 
-#: ../plugins/keyboard/modmap-dialog.ui.h:5
-msgid "_Load"
-msgstr "_Yükle"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:6
-msgid "_Loaded files:"
-msgstr "_Yüklenen dosyalar:"
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:203
+#: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1004,7 +1535,7 @@ msgstr ""
 "Öntanımlı uçbirim alınamadı. Öntanımlı uçbirim komutunuzun atandığını ve "
 "geçerli bir uygulamayı işaret ettiğini kontrol edin."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:243
+#: ../plugins/media-keys/gsd-media-keys-manager.c:258
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1013,23 +1544,15 @@ msgstr ""
 "Komut çalıştırılamadı: %s\n"
 "Bu komutun geçerli olup olmadığını kontrol edin."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:259
-msgid ""
-"Couldn't put the machine to sleep.\n"
-"Verify that the machine is correctly configured."
-msgstr ""
-"Makine uyku kipine konulamadı.\n"
-"Makinenin doğru ayarlanıp ayarlanmadığını kontrol edin."
-
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1091
 msgid "Disabled"
 msgstr "Devre Dışı"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1098
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1037,13 +1560,13 @@ msgstr[0] "%u Çıkış"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1108
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
 msgstr[0] "%u Giriş"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1406
 msgid "System Sounds"
 msgstr "Sistem Sesleri"
 
@@ -1055,19 +1578,19 @@ msgstr "Ortam tuşları"
 msgid "Media keys plugin"
 msgstr "Ortam tuşları eklentisi"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:891
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Could not enable mouse accessibility features"
 msgstr "Klavye erişilebilirlik özelliklerini etkinleştirilemedi"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:893
+#: ../plugins/mouse/gsd-mouse-manager.c:824
 msgid ""
-"Mouse accessibility requires mousetweaks to be installed on your system."
+"Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
-"Fare erişilebilirliği mousetweaks'in sisteminizde yüklü olmasını gerektirir."
+"Fare erişilebilirliği, Mousetweaks'in sisteminizde yüklü olmasını gerektirir."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:896
-msgid "Mouse Preferences"
-msgstr "Fare Tercihleri"
+#: ../plugins/mouse/gsd-mouse-manager.c:826
+msgid "Universal Access"
+msgstr "Evrensel Erişim"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
@@ -1077,13 +1600,219 @@ msgstr "Fare"
 msgid "Mouse plugin"
 msgstr "Fare eklentisi"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
-msgid "Typing Break"
-msgstr "Yazım Molası"
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+msgid "Print-notifications"
+msgstr "Yazdırma-uyarıları"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
-msgid "Typing break plugin"
-msgstr "Yazım molası eklentisi"
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+msgid "Print-notifications plugin"
+msgstr "Yazdırma-uyarıları eklentisi"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
+msgid "Toner low"
+msgstr "Düşük toner"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
+msgid "Toner empty"
+msgstr "Toner boş"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
+msgid "Not connected?"
+msgstr "Bağlanmadı mı?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
+msgid "Cover open"
+msgstr "Kapak açık"
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
+msgid "Printer configuration error"
+msgstr "Yazıcı yapılandırma hatası"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
+msgid "Door open"
+msgstr "Kapı açık"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
+msgid "Marker supply low"
+msgstr "Marker kaynağı az"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
+msgid "Out of a marker supply"
+msgstr "Marker kaynağı tükenmiş"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
+msgid "Paper low"
+msgstr "Kağıt az"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
+msgid "Out of paper"
+msgstr "Kağıt tükenmiş"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:198
+msgid "Printer off-line"
+msgstr "Yazıcı çevrimdışı"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
+msgid "Printer error"
+msgstr "Yazıcı hatası"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr "Yazıcı '%s' de toner az kalmış."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr "'%s' yazıcısının toneri tükenmiş."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr "Yazıcı '%s' bağlı olmayabilir."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:210
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr "'%s' yazıcısının kapağı açık. "
+
+#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr "'%s' yazıcısı için bir yazdırma filitresi eksik."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr "'%s' yazıcısının kapısı açık."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr "'%s' yazıcısının marker kaynaklarından biri azalmış."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr "'%s' yazıcısının marker kaynaklarından biri tükenmiş."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr "'%s' yazıcısında kağıt azalmış."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr "'%s' yazıcısında kağıt tükenmiş"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr "'%s' yazıcısı şu anda çevrim dışı."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:227
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr "'%s' yazıcısında bir problem var."
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:297
+msgid "Printer added"
+msgstr "Yazıcı eklendi"
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
+msgid "Printer removed"
+msgstr "Yazıcı çıkartıldı"
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:322
+msgid "Printing stopped"
+msgstr "Yazıcı durdu"
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
+#, c-format
+msgid "\"%s\" on %s"
+msgstr "\"%s\" şunda %s"
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:328
+msgid "Printing canceled"
+msgstr "Yazdırma iptal edildi"
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:334
+msgid "Printing aborted"
+msgstr "Yazdırma durduruldu"
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
+msgid "Printing completed"
+msgstr "Yazdırma tamamlandı"
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
+msgid "Printing"
+msgstr "Yazdırılıyor"
+
+#. Translators: We are configuring new printer
+#: ../plugins/print-notifications/gsd-printer.c:91
+msgid "Configuring new printer"
+msgstr "Yeni yazıcı yapılandırılıyor"
+
+#. Translators: Just wait
+#: ../plugins/print-notifications/gsd-printer.c:93
+msgid "Please wait..."
+msgstr "Lütfen bekleyiniz..."
+
+#. name is a URI, no queue was generated, because no suitable
+#. * driver was found
+#.
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:114
+msgid "Missing printer driver"
+msgstr "Yazıcı sürücüsü bulunamadı"
+
+#. Translators: We have no driver installed for the device
+#: ../plugins/print-notifications/gsd-printer.c:123
+#, c-format
+msgid "No printer driver for %s."
+msgstr "%s için yazıcı sürücüsü yok."
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:128
+msgid "No driver for this printer."
+msgstr "Bu yazıcı için yazıcı sürücüsü yok."
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
@@ -1093,104 +1822,53 @@ msgstr "Ekran boyutu ve döndürme çevirimi ayarlarını ata"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:208
+#: ../plugins/xrandr/gsd-xrandr-manager.c:413
+msgid "Could not switch the monitor configuration"
+msgstr "Ekran yapılandırması değiştirilemedi"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:437
 msgid "Could not restore the display's configuration"
 msgstr "Ekran yapılandırması geri yüklenemedi"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:233
+#: ../plugins/xrandr/gsd-xrandr-manager.c:462
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Ekran yapılandırması bir yedekten geri yüklenemedi"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:254
+#: ../plugins/xrandr/gsd-xrandr-manager.c:483
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "Ekran bir önceki yapılandırmasına %d saniye içinde sıfırlanacak"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:303
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Does the display look OK?"
 msgstr "Ekran görünümü tamam mı?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:309
+#: ../plugins/xrandr/gsd-xrandr-manager.c:539
 msgid "_Restore Previous Configuration"
 msgstr "Önceki _Yapılandırmaya Geri Dön"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:310
+#: ../plugins/xrandr/gsd-xrandr-manager.c:540
 msgid "_Keep This Configuration"
 msgstr "Bu _Yapılandırmayı Tut"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:391
+#: ../plugins/xrandr/gsd-xrandr-manager.c:621
 msgid "The selected configuration for displays could not be applied"
 msgstr "Ekranlar için seçilen yapılandırma uygulanamadı"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:945
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Ekran bilgilerini yenilenemedi: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:948
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Gene de ekran yapılandırmasına geçmeye çalışılıyor."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:982
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1148
-msgid "Could not switch the monitor configuration"
-msgstr "Ekran yapılandırması değiştirilemedi"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1541
-msgid "<i>Rotation not supported</i>"
-msgstr "<i>Devir desteklenmiyor</i>"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1595
-msgid "Could not save monitor configuration"
-msgstr "Ekran yapılandırması kaydedilemedi"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1613
-msgid "Normal"
-msgstr "Normal"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1614
-msgid "Left"
-msgstr "Sol"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1615
-msgid "Right"
-msgstr "Sağ"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1616
-msgid "Upside Down"
-msgstr "Yukarıdan Aşağı"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1735
-msgid "_Configure Display Settings ..."
-msgstr "_Ekran Ayarları Yapılandır..."
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1776
-msgid "Configure display settings"
-msgstr "Ekran ayarlarını yapılandır"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1830
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Ekranlar için kayıtlı yapılandırma uygulanamadı"
-
-#: ../plugins/xrdb/gsd-xrdb-manager.c:255
-#: ../plugins/xrdb/gsd-xrdb-manager.c:324
-msgid "Cannot determine user's home directory"
-msgstr "Kullanıcı'nın ana dizini belirlenemedi"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
-msgid "Manage the X resource database"
-msgstr "X kaynak veritabanını yönet"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
-msgid "X Resource Database"
-msgstr "X Kaynak Veritabanı"
-
-#: ../plugins/xsettings/gsd-xsettings-manager.c:644
-#, c-format
-msgid "GConf key %s set to type %s but its expected type was %s\n"
-msgstr "GConf anahtarı %s, %s türüne ayarlanmış, fakat olması gereken tür %s\n"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
 msgid "Manage X Settings"
@@ -1199,3 +1877,580 @@ msgstr "X Ayarlarını Yönet"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X Ayarları"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:187
+msgid "Module Path"
+msgstr "Modül Yolu"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:188
+msgid "path to smartcard PKCS #11 driver"
+msgstr "PKCS #11 sürücüsünün yolu"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:528
+msgid "received error or hang up from event source"
+msgstr "olay kaynağından, hata alındı veya olay kaynağı kapattı"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr "NSS güvenlik sistemi başlatılamadı"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:790
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr "uygun akıllı kart sürücüsü bulunamadı"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:804
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr "'%s' akıllı kart sürücüsü yüklenemedi"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:876
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr "gelen kart olayları izlenemedi - %s"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr ""
+"akıllı kart olayları için bekleniyorken, beklenmeyen bir hata ile "
+"karşılaşıldı"
+
+#: ../plugins/smartcard/gsd-smartcard.c:158
+msgid "Slot ID"
+msgstr "Yuva Kimliği"
+
+#: ../plugins/smartcard/gsd-smartcard.c:159
+msgid "The slot the card is in"
+msgstr "Kartın bulunduğu yuva"
+
+#: ../plugins/smartcard/gsd-smartcard.c:165
+msgid "Slot Series"
+msgstr "Yuva Dizisi"
+
+#: ../plugins/smartcard/gsd-smartcard.c:166
+msgid "per-slot card identifier"
+msgstr "yuva başına kart tanımlayıcısı"
+
+#: ../plugins/smartcard/gsd-smartcard.c:172
+#: ../plugins/smartcard/gsd-smartcard.c:173
+msgid "name"
+msgstr "isim"
+
+#: ../plugins/smartcard/gsd-smartcard.c:177
+msgid "Module"
+msgstr "Modül"
+
+#: ../plugins/smartcard/gsd-smartcard.c:178
+msgid "smartcard driver"
+msgstr "akıllı kart sürücüsü"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
+msgid "Change system time and date settings"
+msgstr "Sistem saat ve tarih ayarlarını değiştir"
+
+#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
+msgid "Privileges are required to configure time and date settings."
+msgstr "Zaman ve tarih ayarlarını yapılandırabilmek için yetkiler gerekiyor."
+
+#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
+#: ../plugins/updates/gsd-updates-manager.c:194
+msgid "Distribution upgrades available"
+msgstr "Dağıtım güncellemeleri mevcut"
+
+#. TRANSLATORS: provides more information about the upgrade
+#: ../plugins/updates/gsd-updates-manager.c:204
+msgid "More information"
+msgstr "Daha fazla bilgi"
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:307
+#: ../plugins/updates/gsd-updates-manager.c:367
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] "Güncellemeler"
+
+#. TRANSLATORS: message when there are security updates
+#: ../plugins/updates/gsd-updates-manager.c:310
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] "Önemli güncellemeler mevcut"
+
+#. TRANSLATORS: button: open the update viewer to install updates
+#: ../plugins/updates/gsd-updates-manager.c:330
+#: ../plugins/updates/gsd-updates-manager.c:390
+msgid "Install updates"
+msgstr "Güncellemeleri yükle"
+
+#. TRANSLATORS: message when there are non-security updates
+#: ../plugins/updates/gsd-updates-manager.c:370
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] "Yazılım güncellemeleri mevcut"
+
+#. TRANSLATORS: policy says update, but we are on battery and so prompt
+#: ../plugins/updates/gsd-updates-manager.c:436
+msgid ""
+"Automatic updates are not being installed as the computer is running on "
+"battery power"
+msgstr ""
+"Otomatik güncellemeler bilgisayar batarya gücünden beslendiği için "
+"yüklenemedi"
+
+#. TRANSLATORS: informs user will not install by default
+#: ../plugins/updates/gsd-updates-manager.c:438
+msgid "Updates not installed"
+msgstr "Güncellemeler yüklenmedi"
+
+#. TRANSLATORS: to hell with my battery life, just do it
+#: ../plugins/updates/gsd-updates-manager.c:444
+msgid "Install the updates anyway"
+msgstr "Güncellemeleri yine de yükle"
+
+#: ../plugins/updates/gsd-updates-manager.c:460
+msgid "No restart is required."
+msgstr "Yeniden başlatılmasına gerek yok."
+
+#: ../plugins/updates/gsd-updates-manager.c:463
+msgid "A restart is required."
+msgstr "Bir yeniden başlatma gerekli."
+
+#: ../plugins/updates/gsd-updates-manager.c:466
+msgid "You need to log out and log back in."
+msgstr "Oturumdan çıkıp tekrar oturuma girmeniz gerekiyor."
+
+#: ../plugins/updates/gsd-updates-manager.c:469
+msgid "You need to restart the application."
+msgstr "Uygulamayı yeniden başlatmanız gerekiyor."
+
+#: ../plugins/updates/gsd-updates-manager.c:472
+msgid "You need to log out and log back in to remain secure."
+msgstr ""
+"Güvenli kalmak için, oturumu terk edip oturuma tekrar girmeniz gerekiyor."
+
+#: ../plugins/updates/gsd-updates-manager.c:475
+msgid "A restart is required to remain secure."
+msgstr "Güvenli kalmak için yeniden başlatmanız gerekiyor."
+
+#. TRANSLATORS: we did the update, but some updates were skipped and not applied
+#: ../plugins/updates/gsd-updates-manager.c:536
+msgid "One package was skipped:"
+msgid_plural "Some packages were skipped:"
+msgstr[0] "Bazı paketler atlandı:"
+
+#. TRANSLATORS: title: system update completed all okay
+#: ../plugins/updates/gsd-updates-manager.c:568
+msgid "The system update has completed"
+msgstr "Sistem güncellemesi tamamlandı"
+
+#. TRANSLATORS: restart computer as system packages need update
+#: ../plugins/updates/gsd-updates-manager.c:575
+msgid "Restart computer now"
+msgstr "Bilgisayarı şimdi yeniden başlat"
+
+#. TRANSLATORS: the updates mechanism
+#: ../plugins/updates/gsd-updates-manager.c:646
+msgid "Updates"
+msgstr "Güncellemeler"
+
+#. TRANSLATORS: we failed to get the updates multiple times,
+#. * and now we need to inform the user that something might be wrong
+#: ../plugins/updates/gsd-updates-manager.c:650
+msgid "Unable to access software updates"
+msgstr "Yazılım güncellemelerine erişilemiyor"
+
+#. TRANSLATORS: try again, this time launching the update viewer
+#: ../plugins/updates/gsd-updates-manager.c:653
+msgid "Try again"
+msgstr "Tekrar deneyin"
+
+#. TRANSLATORS: the reason why we've inhibited it
+#: ../plugins/updates/gsd-updates-manager.c:1092
+msgid "A transaction that cannot be interrupted is running"
+msgstr "Kesintiye uğratılamayacak bir işlem çalışıyor"
+
+#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:240
+msgid ""
+"You will need to restart this computer before the hardware will work "
+"correctly."
+msgstr ""
+"Donanımın düzgün çalışabilmesi için bu bilgisayarı yeniden başlatmanız "
+"gerekiyor."
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:243
+#: ../plugins/updates/gsd-updates-firmware.c:267
+#: ../plugins/updates/gsd-updates-firmware.c:291
+msgid "Additional software was installed"
+msgstr "Ek yazılımlar yüklendi"
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:264
+msgid ""
+"You will need to remove and then reinsert the hardware before it will work "
+"correctly."
+msgstr ""
+"Donanımın düzgün çalışabilmesi için, çıkartıp tekrar takmanız gerekecek."
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:288
+msgid "Your hardware has been set up and is now ready to use."
+msgstr "Donanımınız yüklendi ve kullanıma hazır."
+
+#. TRANSLATORS: we need another package to keep udev quiet
+#: ../plugins/updates/gsd-updates-firmware.c:566
+msgid ""
+"Additional firmware is required to make hardware in this computer function "
+"correctly."
+msgstr ""
+"Bu bilgisayarın donanımını işler hale getirmek için ek aygıt yazılımları "
+"gerekiyor."
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:580
+msgid "Additional firmware required"
+msgstr "Ek aygıt yazılımı gerekiyor"
+
+#. TRANSLATORS: button label
+#: ../plugins/updates/gsd-updates-firmware.c:585
+msgid "Install firmware"
+msgstr "Aygıt yazılımını yükle"
+
+#. TRANSLATORS: we should ignore this device and not ask anymore
+#: ../plugins/updates/gsd-updates-firmware.c:588
+msgid "Ignore devices"
+msgstr "Aygıtları yoksay"
+
+#~ msgid "Binding to suspend the computer."
+#~ msgstr "Bilgisayarı beklemeye almak için bağ."
+
+#~ msgid "Suspend"
+#~ msgstr "Bekleme"
+
+#~ msgid "Volume step"
+#~ msgstr "Ses basamağı"
+
+#~ msgid "Volume step as percentage of volume."
+#~ msgstr "Yüzde olarak ses basamağı."
+
+#~ msgid ""
+#~ "If a notification icon with display related things should be shown in the "
+#~ "panel."
+#~ msgstr ""
+#~ "Ekran ile ilgili şeyler için bir uyarı simgesinin panelde gösterilmesi."
+
+#~ msgid "Show Displays in Notification Area"
+#~ msgstr "Uyarı Alanında Ekranlar Göster"
+
+#~ msgid "DPI"
+#~ msgstr "DPI"
+
+#~ msgid ""
+#~ "The resolution used for converting font sizes to pixel sizes, in dots per "
+#~ "inch."
+#~ msgstr ""
+#~ "Yazıtipi boyutlarını piksel boyutlarına çevirmek için kullanılan "
+#~ "çözünürlük, inç başına nokta olarak."
+
+#~ msgid "Bounce keys"
+#~ msgstr "Sıçrama tuşları"
+
+#~ msgid "Command used to turn the magnifier on or off."
+#~ msgstr "Büyüteci açmak veya kapatmak için kullanılan komut."
+
+#~ msgid "Command used to turn the on-screen keyboard on or off."
+#~ msgstr "Ekran klavyesini açmak veya kapatmak için kullanılan komut."
+
+#~ msgid "Command used to turn the screen reader on or off."
+#~ msgstr "Ekran okuyucu açmak veya kapatmak için kullanılan komut."
+
+#~ msgid "Enable accessibility keyboard plugin"
+#~ msgstr "Erişilebilirlik klavyesi eklentisini etkinleştir"
+
+#~ msgid "Enable background plugin"
+#~ msgstr "Arkaplan eklentisini etkinleştir"
+
+#~ msgid "Enable clipboard plugin"
+#~ msgstr "Pano eklentisini etkinleştir"
+
+#~ msgid "Enable font plugin"
+#~ msgstr "Yazıtipi eklentisini etkinleştir"
+
+#~ msgid "Enable housekeeping plugin"
+#~ msgstr "Ev bakımı eklentisini etkinleştir"
+
+#~ msgid "Enable keybindings plugin"
+#~ msgstr "Tuş bağları eklentisini etkinleştir"
+
+#~ msgid "Enable keyboard plugin"
+#~ msgstr "Klavye eklentisini etkinleştir"
+
+#~ msgid "Enable media keys plugin"
+#~ msgstr "Ortam tuşları eklentisini etkinleştir"
+
+#~ msgid "Enable mouse plugin"
+#~ msgstr "Fare eklentisini etkinleştir"
+
+#~ msgid "Enable sound plugin"
+#~ msgstr "Ses eklentisini etkinleştir"
+
+#~ msgid "Enable typing breaks plugin"
+#~ msgstr "Yazım molası eklentisini etkinleştir"
+
+#~ msgid "Enable xrandr plugin"
+#~ msgstr "Xrandr eklentisini etkinleştir"
+
+#~ msgid "Enable xrdb plugin"
+#~ msgstr "Xrdb eklentisini etkinleştir"
+
+#~ msgid "Enable xsettings plugin"
+#~ msgstr "Xsettings eklentisini etkinleştir"
+
+#~ msgid "Mouse keys"
+#~ msgstr "Fare tuşları"
+
+#~ msgid "On-screen keyboard"
+#~ msgstr "Ekran klavyesi"
+
+#~ msgid "Screen magnifier"
+#~ msgstr "Ekran büyüteci"
+
+#~ msgid "Screen reader"
+#~ msgstr "Ekran okuyucu"
+
+#~ msgid ""
+#~ "Set to True to enable the housekeeping plugin, to prune transient file "
+#~ "caches."
+#~ msgstr ""
+#~ "Ev bakımı eklentisini etkinleştirmek, geçici dosya önbelleği budamak için "
+#~ "True şekilde ayarlayın."
+
+#~ msgid "Set to True to enable the plugin to manage clipboard settings."
+#~ msgstr ""
+#~ "Pano ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
+#~ "atayın."
+
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage desktop background settings."
+#~ msgstr ""
+#~ "Arkaplan ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru "
+#~ "olarak atayın."
+
+#~ msgid "Set to True to enable the plugin to manage font settings."
+#~ msgstr ""
+#~ "Yazıtipi ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru "
+#~ "olarak atayın."
+
+#~ msgid "Set to True to enable the plugin to manage keyboard settings."
+#~ msgstr ""
+#~ "Klavye ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru "
+#~ "olarak atayın."
+
+#~ msgid "Set to True to enable the plugin to manage mouse settings."
+#~ msgstr ""
+#~ "Fare ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
+#~ "atayın."
+
+#~ msgid "Set to True to enable the plugin to manage multimedia keys settings."
+#~ msgstr ""
+#~ "Çokluortam tuşları ayarlarını yönetmek için eklentiyi etkinleştirmek için "
+#~ "doğru olarak atayın."
+
+#~ msgid "Set to True to enable the plugin to manage sound sample caches."
+#~ msgstr ""
+#~ "Ses örnek önbellekleri yönetmek için eklentiyi etkinleştirmek için True "
+#~ "şekilde ayarlayın."
+
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage the accessibility keyboard "
+#~ "settings."
+#~ msgstr ""
+#~ "Klavye erişebilirlik ayarlarını yönetmek için eklentiyi etkinleştirmek "
+#~ "için doğru olarak atayın."
+
+#~ msgid "Set to True to enable the plugin to manage the keybindings."
+#~ msgstr ""
+#~ "Tuşbağlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
+#~ "atayın."
+
+#~ msgid "Set to True to enable the plugin to manage typing breaks."
+#~ msgstr ""
+#~ "Yazım molalarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
+#~ "atayın."
+
+#~ msgid "Set to True to enable the plugin to manage xrandr settings."
+#~ msgstr ""
+#~ "Xrandr ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru "
+#~ "olarak atayın."
+
+#~ msgid "Set to True to enable the plugin to manage xrdb settings."
+#~ msgstr ""
+#~ "Xrdb ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru olarak "
+#~ "atayın."
+
+#~ msgid "Set to True to enable the plugin to manage xsettings."
+#~ msgstr ""
+#~ "Xsettings ayarlarını yönetmek için eklentiyi etkinleştirmek için doğru "
+#~ "olarak atayın."
+
+#~ msgid "Sticky keys"
+#~ msgstr "Yapışkan tuşlar"
+
+#~ msgid "The name of the keyboard shortcut to toggle the magnifier"
+#~ msgstr "Büyütece geçiş yapmak için klavye kısayolunun adı"
+
+#~ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+#~ msgstr "Ekran klavyesine geçiş yapmak için klavye kısayolunun adı"
+
+#~ msgid "The name of the keyboard shortcut to toggle the screen reader"
+#~ msgstr "Ekran okuyucusuna geçiş yapmak için klavye kısayolunun adı"
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the magnifier. This "
+#~ "name will be shown in the keyboard shortcut preferences dialog."
+#~ msgstr ""
+#~ "Bu büyütece geçiş yapmak için klavye kısayolunun adıdır. Bu isim, klavye "
+#~ "kısayol tercihleri penceresinde gösterilir."
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the on-screen "
+#~ "keyboard. This name will be shown in the keyboard shortcut preferences "
+#~ "dialog."
+#~ msgstr ""
+#~ "Bu ekran klavyesine geçiş yapmak için klavye kısayolunun adıdır. Bu isim, "
+#~ "klavye kısayol tercihleri penceresinde gösterilir."
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the screen reader. "
+#~ "This name will be shown in the keyboard shortcut preferences dialog."
+#~ msgstr ""
+#~ "Bu ekran okuyucuya geçiş yapmak için klavye kısayolunun adıdır. Bu isim, "
+#~ "klavye kısayol tercihleri penceresinde gösterilir."
+
+#~ msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+#~ msgstr "Sıçrama tuşları klavye erişilebilirlik özelliğinin açık olması."
+
+#~ msgid "Whether the mouse keys keyboard accessibility feature is turned on."
+#~ msgstr "Fare tuşları klavye erişilebilirlik özelliğinin açık olması."
+
+#~ msgid "Whether the on-screen keyboard is turned on."
+#~ msgstr "Ekran klavyesinin açık olması."
+
+#~ msgid "Whether the screen magnifier is turned on."
+#~ msgstr "Ekran büyütecinin açık olması."
+
+#~ msgid "Whether the screen reader is turned on."
+#~ msgstr "Ekran okuyucusunun açık olması."
+
+#~ msgid "Whether the slow keys keyboard accessibility feature is turned on."
+#~ msgstr "Yavaş tuşların klavye erişilebilirlik özelliğinin açık olması."
+
+#~ msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+#~ msgstr "Yapışkan tuşların klavye erişilebilirlik özelliğinin açık olması."
+
+#~ msgid "Don't become a daemon"
+#~ msgstr "Bir servis olma"
+
+#~ msgid "GConf prefix from which to load plugin settings"
+#~ msgstr "Eklenti ayarları yüklemek için GConf öneki"
+
+#~ msgid "Font"
+#~ msgstr "Yazıtipi"
+
+#~ msgid "Removing item %lu of %lu"
+#~ msgstr "Silinen öğe %lu / %lu"
+
+#~ msgid "<i>Removing: %s</i>"
+#~ msgstr "<i>Siliniyor: %s</i>"
+
+#~ msgid "Emptying the trash"
+#~ msgstr "Çöp boşaltılıyor"
+
+#~ msgid "Preparing to empty trash..."
+#~ msgstr "Çöp boşaltmaya hazırlanıyor..."
+
+#~ msgid "From: "
+#~ msgstr "Kaynak:"
+
+#~ msgid "Empty all of the items from the trash?"
+#~ msgstr "Çöpten tüm öğeler boşaltılsın mı?"
+
+#~ msgid ""
+#~ "If you choose to empty the trash, all items in it will be permanently "
+#~ "lost. Please note that you can also delete them separately."
+#~ msgstr ""
+#~ "Eğer çöpü boşaltmayı seçerseniz, içindeki tüm öğeler kalıcı olarak "
+#~ "silinecek. Lütfen onları ayrı ayrı da silebileceğinizi unutmayın."
+
+#~ msgid "_Empty Trash"
+#~ msgstr "Çöpü _Boşalt"
+
+#~ msgid "A_vailable files:"
+#~ msgstr "_Geçerli dosyalar:"
+
+#~ msgid "Load modmap files"
+#~ msgstr "Modmap dosyalarını yükle"
+
+#~ msgid "Would you like to load the modmap file(s)?"
+#~ msgstr "Modmap dosyalarını yüklemek ister misiniz?"
+
+#~ msgid "_Do not show this message again"
+#~ msgstr "_Bu mesajı bir daha gösterme"
+
+#~ msgid "_Load"
+#~ msgstr "_Yükle"
+
+#~ msgid "_Loaded files:"
+#~ msgstr "_Yüklenen dosyalar:"
+
+#~ msgid ""
+#~ "Couldn't put the machine to sleep.\n"
+#~ "Verify that the machine is correctly configured."
+#~ msgstr ""
+#~ "Makine uyku kipine konulamadı.\n"
+#~ "Makinenin doğru ayarlanıp ayarlanmadığını kontrol edin."
+
+#~ msgid "Typing Break"
+#~ msgstr "Yazım Molası"
+
+#~ msgid "Typing break plugin"
+#~ msgstr "Yazım molası eklentisi"
+
+#~ msgid "<i>Rotation not supported</i>"
+#~ msgstr "<i>Devir desteklenmiyor</i>"
+
+#~ msgid "Could not save monitor configuration"
+#~ msgstr "Ekran yapılandırması kaydedilemedi"
+
+#~ msgid "Normal"
+#~ msgstr "Normal"
+
+#~ msgid "Left"
+#~ msgstr "Sol"
+
+#~ msgid "Right"
+#~ msgstr "Sağ"
+
+#~ msgid "Upside Down"
+#~ msgstr "Yukarıdan Aşağı"
+
+#~ msgid "_Configure Display Settings ..."
+#~ msgstr "_Ekran Ayarları Yapılandır..."
+
+#~ msgid "Configure display settings"
+#~ msgstr "Ekran ayarlarını yapılandır"
+
+#~ msgid "Cannot determine user's home directory"
+#~ msgstr "Kullanıcı'nın ana dizini belirlenemedi"
+
+#~ msgid "Manage the X resource database"
+#~ msgstr "X kaynak veritabanını yönet"
+
+#~ msgid "X Resource Database"
+#~ msgstr "X Kaynak Veritabanı"
+
+#~ msgid "GConf key %s set to type %s but its expected type was %s\n"
+#~ msgstr ""
+#~ "GConf anahtarı %s, %s türüne ayarlanmış, fakat olması gereken tür %s\n"
