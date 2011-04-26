@@ -781,7 +781,7 @@ ldsm_is_hash_item_in_ignore_paths (gpointer key,
 }
 
 static void
-gsd_ldsm_get_config ()
+gsd_ldsm_get_config (void)
 {
         gchar **settings_list;
 
@@ -805,6 +805,7 @@ gsd_ldsm_get_config ()
         if (ignore_paths != NULL) {
                 g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
                 g_slist_free (ignore_paths);
+                ignore_paths = NULL;
         }
 
         settings_list = g_settings_get_strv (settings, SETTINGS_IGNORE_PATHS);
@@ -813,7 +814,7 @@ gsd_ldsm_get_config ()
 
                 for (i = 0; i < G_N_ELEMENTS (settings_list); i++) {
                         if (settings_list[i] != NULL)
-                                ignore_paths = g_slist_append (ignore_paths, settings_list[i]);
+                                ignore_paths = g_slist_append (ignore_paths, g_strdup (settings_list[i]));
                 }
 
                 /* Make sure we dont leave stale entries in ldsm_notified_hash */
