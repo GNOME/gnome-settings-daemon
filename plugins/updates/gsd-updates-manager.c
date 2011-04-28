@@ -1243,15 +1243,6 @@ out:
         g_object_unref (root);
 }
 
-static void
-handle_method_call (GDBusConnection *connection_, const gchar *sender,
-                    const gchar *object_path, const gchar *interface_name,
-                    const gchar *method_name, GVariant *parameters,
-                    GDBusMethodInvocation *invocation, gpointer user_data)
-{
-        return;
-}
-
 static GVariant *
 handle_get_property (GDBusConnection *connection_, const gchar *sender,
                      const gchar *object_path, const gchar *interface_name,
@@ -1266,39 +1257,6 @@ handle_get_property (GDBusConnection *connection_, const gchar *sender,
         }
 
         return retval;
-}
-
-static void
-on_bus_acquired (GDBusConnection *connection_, const gchar *name, gpointer user_data)
-{
-        guint registration_id;
-        GsdUpdatesManager *manager = GSD_UPDATES_MANAGER(user_data);
-        static const GDBusInterfaceVTable interface_vtable = {
-                handle_method_call,
-                handle_get_property,
-                NULL
-        };
-
-        registration_id = g_dbus_connection_register_object (connection_,
-                                                             "/",
-                                                             manager->priv->introspection->interfaces[0],
-                                                             &interface_vtable,
-                                                             NULL,  /* user_data */
-                                                             NULL,  /* user_data_free_func */
-                                                             NULL); /* GError** */
-        g_assert (registration_id > 0);
-}
-
-static void
-on_name_acquired (GDBusConnection *connection, const gchar *name, gpointer user_data)
-{
-        g_debug ("acquired name: %s", name);
-}
-
-static void
-on_name_lost (GDBusConnection *connection, const gchar *name, gpointer user_data)
-{
-        g_debug ("lost name: %s", name);
 }
 
 static void
@@ -1323,6 +1281,39 @@ emit_changed (GsdUpdatesManager *manager)
                 g_warning ("failed to emit signal: %s", error->message);
                 g_error_free (error);
         }
+}
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+        NULL, /* MethodCall */
+        handle_get_property, /* GetProperty */
+        NULL, /* SetProperty */
+};
+
+static void
+on_bus_gotten (GObject *source_object,
+               GAsyncResult *res,
+               GsdUpdatesManager *manager)
+{
+        GDBusConnection *connection;
+        GError *error = NULL;
+
+        connection = g_bus_get_finish (res, &error);
+        if (connection == NULL) {
+                g_warning ("Could not get session bus: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+        manager->priv->connection = connection;
+
+        g_dbus_connection_register_object (connection,
+                                           "/",
+                                           manager->priv->introspection->interfaces[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
 }
 
 gboolean
@@ -1417,14 +1408,11 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         if (manager->priv->introspection == NULL)
                 goto out;
 
-        /* own the object */
-        manager->priv->owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-                                                  "org.gnome.SettingsDaemonUpdates",
-                                                  G_BUS_NAME_OWNER_FLAGS_NONE,
-                                                  on_bus_acquired,
-                                                  on_name_acquired,
-                                                  on_name_lost,
-                                                  manager, NULL);
+        /* export the object */
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   NULL,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   manager);
 
         /* success */
         ret = TRUE;
