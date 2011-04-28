@@ -22,7 +22,11 @@ endif
 gsd_datetime_mechanism_SOURCES =		\
 	gsd-datetime-mechanism.c		\
 	gsd-datetime-mechanism.h		\
-	gsd-datetime-mechanism-main.c	\
+	gsd-datetime-mechanism-fedora.c		\
+	gsd-datetime-mechanism-fedora.h		\
+	gsd-datetime-mechanism-debian.c		\
+	gsd-datetime-mechanism-debian.h		\
+	gsd-datetime-mechanism-main.c		\
 	system-timezone.c			\
 	system-timezone.h
 

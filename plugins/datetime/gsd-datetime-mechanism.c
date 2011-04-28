@@ -44,6 +44,10 @@
 #include "gsd-datetime-mechanism.h"
 #include "gsd-datetime-mechanism-glue.h"
 
+/* NTP helper functions for various distributions */
+#include "gsd-datetime-mechanism-fedora.h"
+#include "gsd-datetime-mechanism-debian.h"
+
 static gboolean
 do_exit (gpointer user_data)
 {
@@ -386,71 +390,6 @@ _set_date (GsdDatetimeMechanism  *mechanism,
         return TRUE;
 }
 
-static gboolean
-_rh_update_etc_sysconfig_clock (DBusGMethodInvocation *context, const char *key, const char *value)
-{
-        /* On Red Hat / Fedora, the /etc/sysconfig/clock file needs to be kept in sync */
-        if (g_file_test ("/etc/sysconfig/clock", G_FILE_TEST_EXISTS | G_FILE_TEST_IS_REGULAR)) {
-                char **lines;
-                int n;
-                gboolean replaced;
-                char *data;
-                gsize len;
-                GError *error;
-
-                error = NULL;
-
-                if (!g_file_get_contents ("/etc/sysconfig/clock", &data, &len, &error)) {
-                        GError *error2;
-                        error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
-                                              GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                              "Error reading /etc/sysconfig/clock file: %s", error->message);
-                        g_error_free (error);
-                        dbus_g_method_return_error (context, error2);
-                        g_error_free (error2);
-                        return FALSE;
-                }
-                replaced = FALSE;
-                lines = g_strsplit (data, "\n", 0);
-                g_free (data);
-
-                for (n = 0; lines[n] != NULL; n++) {
-                        if (g_str_has_prefix (lines[n], key)) {
-                                g_free (lines[n]);
-                                lines[n] = g_strdup_printf ("%s%s", key, value);
-                                replaced = TRUE;
-                        }
-                }
-                if (replaced) {
-                        GString *str;
-
-                        str = g_string_new (NULL);
-                        for (n = 0; lines[n] != NULL; n++) {
-                                g_string_append (str, lines[n]);
-                                if (lines[n + 1] != NULL)
-                                        g_string_append_c (str, '\n');
-                        }
-                        data = g_string_free (str, FALSE);
-                        len = strlen (data);
-                        if (!g_file_set_contents ("/etc/sysconfig/clock", data, len, &error)) {
-                                GError *error2;
-                                error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
-                                                      GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                                      "Error updating /etc/sysconfig/clock: %s", error->message);
-                                g_error_free (error);
-                                dbus_g_method_return_error (context, error2);
-                                g_error_free (error2);
-                                g_free (data);
-                                return FALSE;
-                        }
-                        g_free (data);
-                }
-                g_strfreev (lines);
-        }
-
-        return TRUE;
-}
-
 /* exported methods */
 
 gboolean
@@ -686,9 +625,9 @@ gsd_datetime_mechanism_set_hardware_clock_using_utc (GsdDatetimeMechanism  *mech
                         return FALSE;
                 }
 
-                if (!_rh_update_etc_sysconfig_clock (context, "UTC=", using_utc ? "true" : "false"))
-                        return FALSE;
-
+                if (g_file_test ("/etc/fedora-release", G_FILE_TEST_EXISTS)) /* Fedora */
+                        if (!_update_etc_sysconfig_clock_fedora (context, "UTC=", using_utc ? "true" : "false"))
+                                return FALSE;
         }
         dbus_g_method_return (context);
         return TRUE;
@@ -698,36 +637,23 @@ gboolean
 gsd_datetime_mechanism_get_using_ntp  (GsdDatetimeMechanism    *mechanism,
                                        DBusGMethodInvocation   *context)
 {
-        int exit_status;
         GError *error = NULL;
-        gboolean can_use_ntp;
-        gboolean is_using_ntp;
+        gboolean ret;
 
-        if (g_file_test ("/etc/ntp.conf", G_FILE_TEST_EXISTS)) {
-                can_use_ntp = TRUE;
-                if (!g_spawn_command_line_sync ("/sbin/service ntpd status",
-                                                NULL, NULL, &exit_status, &error)) {
-                        GError *error2;
-                        error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
-                                              GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                              "Error spawning /sbin/service: %s", error->message);
-                        g_error_free (error);
-                        dbus_g_method_return_error (context, error2);
-                        g_error_free (error2);
-                        return FALSE;
-                }
-                if (exit_status == 0)
-                        is_using_ntp = TRUE;
-                else
-                        is_using_ntp = FALSE;
-        }
+        if (g_file_test ("/etc/fedora-release", G_FILE_TEST_EXISTS)) /* Fedora */
+                ret = _get_using_ntp_fedora (context);
+        else if (g_file_test ("/usr/sbin/update-rc.d", G_FILE_TEST_EXISTS)) /* Debian */
+                ret = _get_using_ntp_debian (context);
         else {
-                can_use_ntp = FALSE;
-                is_using_ntp = FALSE;
+                error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
+                                     GSD_DATETIME_MECHANISM_ERROR_GENERAL,
+                                     "Error enabling NTP: OS variant not supported");
+                dbus_g_method_return_error (context, error);
+                g_error_free (error);
+                return FALSE;
         }
 
-        dbus_g_method_return (context, can_use_ntp, is_using_ntp);
-        return TRUE;
+        return ret;
 }
 
 gboolean
@@ -736,88 +662,27 @@ gsd_datetime_mechanism_set_using_ntp  (GsdDatetimeMechanism    *mechanism,
                                        DBusGMethodInvocation   *context)
 {
         GError *error;
-        int exit_status;
-        char *cmd;
+        gboolean ret;
 
         error = NULL;
 
         if (!_check_polkit_for_action (mechanism, context))
                 return FALSE;
 
-        if (g_file_test ("/sbin/chkconfig", G_FILE_TEST_EXISTS)) /* Fedora */
-                cmd = g_strconcat ("/sbin/chkconfig --level 2345 ntpd ", using_ntp ? "on" : "off", NULL);
+        if (g_file_test ("/etc/fedora-release", G_FILE_TEST_EXISTS)) /* Fedora */
+                ret = _set_using_ntp_fedora (context, using_ntp);
         else if (g_file_test ("/usr/sbin/update-rc.d", G_FILE_TEST_EXISTS)) /* Debian */
-                cmd = g_strconcat ("/usr/sbin/update-rc.d ntp ", using_ntp ? "enable" : "disable", NULL);
+                ret = _set_using_ntp_debian (context, using_ntp);
         else {
                 error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
                                      GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                     "Error enabling NTP init script: "
-                                     "neither /sbin/chkconfig nor /usr/sbin/update-rc.d are present");
+                                     "Error enabling NTP: OS variant not supported");
                 dbus_g_method_return_error (context, error);
                 g_error_free (error);
                 return FALSE;
         }
 
-        if (!g_spawn_command_line_sync (cmd,
-                                        NULL, NULL, &exit_status, &error)) {
-                GError *error2;
-                error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
-                                      GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                      "Error spawning '%s': %s", cmd, error->message);
-                g_error_free (error);
-                dbus_g_method_return_error (context, error2);
-                g_error_free (error2);
-                g_free (cmd);
-                return FALSE;
-        }
-
-        g_free (cmd);
-
-        if (g_file_test ("/sbin/service", G_FILE_TEST_EXISTS))
-                cmd = "/sbin/service";
-        else if (g_file_test ("/usr/sbin/service", G_FILE_TEST_EXISTS))
-                cmd = "/usr/sbin/service";
-        else {
-                error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
-                                     GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                     "Error spawning 'service': "
-                                     "command was not found in /sbin/ nor /usr/sbin/");
-                dbus_g_method_return_error (context, error);
-                g_error_free (error);
-                return FALSE;
-        }
-
-        if (g_file_test ("/etc/init.d/ntpd", G_FILE_TEST_EXISTS)) /* Fedora */
-                g_strconcat (cmd, " ntpd ", using_ntp ? "restart" : "stop", NULL);
-        else if (g_file_test ("/etc/init.d/ntp", G_FILE_TEST_EXISTS)) /* Debian */
-                cmd = g_strconcat (cmd, " ntp ", using_ntp ? "restart" : "stop", NULL);
-        else {
-                 error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
-                                     GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                     "Error spawning 'service': "
-                                     "NTP init script not found at /etc/init.d/ntpd nor /etc/init.d/ntp");
-                dbus_g_method_return_error (context, error);
-                g_error_free (error);
-                return FALSE;
-        }
-
-        if (!g_spawn_command_line_sync (cmd,
-                                        NULL, NULL, &exit_status, &error)) {
-                GError *error2;
-                error2 = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
-                                      GSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                      "Error spawning '%s': %s", cmd, error->message);
-                g_error_free (error);
-                dbus_g_method_return_error (context, error2);
-                g_error_free (error2);
-                g_free (cmd);
-                return FALSE;
-        }
-
-        g_free (cmd);
-
-        dbus_g_method_return (context);
-        return TRUE;
+        return ret;
 }
 
 static void
