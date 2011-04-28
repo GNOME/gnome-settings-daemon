@@ -51,8 +51,6 @@ struct GsdSoundManagerPrivate
         guint      timeout;
 };
 
-#define GCONF_SOUND_DIR "/desktop/gnome/sound"
-
 static void gsd_sound_manager_class_init (GsdSoundManagerClass *klass);
 static void gsd_sound_manager_init (GsdSoundManager *sound_manager);
 static void gsd_sound_manager_finalize (GObject *object);
