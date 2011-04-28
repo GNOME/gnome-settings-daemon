@@ -73,7 +73,9 @@ _set_using_ntp_fedora  (DBusGMethodInvocation   *context,
 
         error = NULL;
 
-        cmd = g_strconcat ("/sbin/chkconfig ntpd --level 2345", using_ntp ? "on" : "off", NULL);
+        /* We omit --level 2345 so that systemd doesn't try to use the
+         * SysV init scripts */
+        cmd = g_strconcat ("/sbin/chkconfig ntpd ", using_ntp ? "on" : "off", NULL);
 
         if (!g_spawn_command_line_sync (cmd,
                                         NULL, NULL, &exit_status, &error)) {
