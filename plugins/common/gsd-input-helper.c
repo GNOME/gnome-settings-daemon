@@ -95,7 +95,7 @@ touchpad_is_present (void)
                 gdk_error_trap_push ();
                 device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
                 if (gdk_error_trap_pop () || (device == NULL))
-                        break;
+                        continue;
 
                 retval = device_is_touchpad (device);
                 if (retval) {
