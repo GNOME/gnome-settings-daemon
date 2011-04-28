@@ -745,7 +745,8 @@ gsd_datetime_mechanism_set_using_ntp  (GsdDatetimeMechanism    *mechanism,
                 return FALSE;
 
         if (g_file_test ("/sbin/chkconfig", G_FILE_TEST_EXISTS)) /* Fedora */
-                cmd = g_strconcat ("/sbin/chkconfig --level 2345 ntpd ", using_ntp ? "on" : "off", NULL);
+                /* We omit --level 2345 so that systemd doesn't try to use the SysV init scripts */
+                cmd = g_strconcat ("/sbin/chkconfig ntpd ", using_ntp ? "on" : "off", NULL);
         else if (g_file_test ("/usr/sbin/update-rc.d", G_FILE_TEST_EXISTS)) /* Debian */
                 cmd = g_strconcat ("/usr/sbin/update-rc.d ntp ", using_ntp ? "enable" : "disable", NULL);
         else {
