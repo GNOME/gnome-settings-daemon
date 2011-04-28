@@ -914,6 +914,14 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
 
         if (have_listeners) {
                 application = ((MediaPlayer *)manager->priv->media_players->data)->application;
+        } else {
+                /* Popup a dialog with an (/) icon */
+                dialog_init (manager);
+                gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                         "action-unavailable-symbolic",
+                                                         FALSE);
+                dialog_show (manager);
+                return TRUE;
         }
 
         if (g_dbus_connection_emit_signal (manager->priv->connection,
