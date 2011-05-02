@@ -560,7 +560,7 @@ gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
         /* use gnome-session for the idle detection */
         refresh->priv->proxy_session =
                 g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                               G_DBUS_PROXY_FLAGS_NONE,
+                                               G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
                                                NULL, /* GDBusInterfaceInfo */
                                                "org.gnome.SessionManager",
                                                "/org/gnome/SessionManager/Presence",
@@ -578,9 +578,14 @@ gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
                                   refresh);
                 status = g_dbus_proxy_get_cached_property (refresh->priv->proxy_session,
                                                            "status");
-                g_variant_get (status, "u", &status_code);
-                refresh->priv->session_idle = (status_code == PRESENCE_STATUS_IDLE);
-                g_variant_unref (status);
+                if (status) {
+                        g_variant_get (status, "u", &status_code);
+                        refresh->priv->session_idle = (status_code == PRESENCE_STATUS_IDLE);
+                        g_variant_unref (status);
+                }
+                else {
+                        refresh->priv->session_idle = FALSE;
+                }
         }
 
         /* we check this in case we miss one of the async signals */
