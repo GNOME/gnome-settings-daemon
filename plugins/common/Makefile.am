@@ -28,6 +28,12 @@ libcommon_la_LIBADD  = \
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(XINPUT_LIBS)
 
+noinst_PROGRAMS = test-input-helper
+
+test_input_helper_SOURCES = test-input-helper.c
+test_input_helper_LDADD = libcommon.la
+test_input_helper_CFLAGS = $(libcommon_la_CFLAGS)
+
 scriptsdir = $(datadir)/gnome-settings-daemon-@GSD_API_VERSION@
 scripts_DATA = input-device-example.sh
 
