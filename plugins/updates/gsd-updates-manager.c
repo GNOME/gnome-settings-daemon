@@ -193,10 +193,7 @@ get_distro_upgrades_finished_cb (GObject *object,
         /* TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9 */
         title = _("Distribution upgrades available");
         notification = notify_notification_new (title, string->str, NULL);
-        if (notification == NULL) {
-                g_warning ("failed to create notification");
-                goto out;
-        }
+        notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
         notify_notification_add_action (notification, "distro-upgrade-info",
@@ -319,10 +316,7 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
         /* do the bubble */
         g_debug ("title=%s, message=%s", title, message);
         notification = notify_notification_new (title, message, NULL);
-        if (notification == NULL) {
-                g_warning ("failed to get bubble");
-                return;
-        }
+        notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
         notify_notification_add_action (notification, "show-update-viewer",
@@ -379,10 +373,7 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
         /* do the bubble */
         g_debug ("title=%s, message=%s", title, message);
         notification = notify_notification_new (title, message, NULL);
-        if (notification == NULL) {
-                g_warning ("failed to get bubble");
-                return;
-        }
+        notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
         notify_notification_add_action (notification, "show-update-viewer",
@@ -437,6 +428,7 @@ update_check_on_battery (GsdUpdatesManager *manager)
         /* TRANSLATORS: informs user will not install by default */
         notification = notify_notification_new (_("Updates not installed"),
                                                 message, NULL);
+        notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
         notify_notification_add_action (notification, "update-all-packages",
@@ -567,6 +559,7 @@ notify_update_finished (GsdUpdatesManager *manager, PkResults *results)
         /* TRANSLATORS: title: system update completed all okay */
         notification = notify_notification_new (_("The system update has completed"),
                                                  message_text->str, NULL);
+        notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
         if (restart == PK_RESTART_ENUM_SYSTEM) {
@@ -653,10 +646,7 @@ notify_failed_get_updates_maybe (GsdUpdatesManager *manager)
         button = _("Try again");
 
         notification = notify_notification_new (title, message, NULL);
-        if (notification == NULL) {
-                g_warning ("failed to create notification");
-                goto out;
-        }
+        notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 120*1000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
         notify_notification_add_action (notification, "show-update-viewer",

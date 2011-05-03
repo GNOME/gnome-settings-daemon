@@ -535,6 +535,7 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         manager->priv->notification = notify_notification_new (title,
                                                                message,
                                                                "preferences-desktop-accessibility");
+        notify_notification_set_app_name (manager->priv->notification, _("Universal Access"));
         notify_notification_set_timeout (manager->priv->notification, NOTIFICATION_TIMEOUT * 1000);
 
         notify_notification_add_action (manager->priv->notification,

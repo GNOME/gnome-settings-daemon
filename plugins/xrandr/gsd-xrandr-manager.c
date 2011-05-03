@@ -1119,6 +1119,7 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
                                                 error_to_display ? error_to_display->message : secondary_text,
                                                 GSD_XRANDR_ICON_NAME);
 
+        notify_notification_set_app_name (notification, _("Displays"));
         notify_notification_show (notification, NULL); /* NULL-GError */
 #else
         GtkWidget *dialog;
