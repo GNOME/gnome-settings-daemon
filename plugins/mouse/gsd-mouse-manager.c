@@ -348,7 +348,7 @@ set_left_handed (GsdMouseManager *manager,
                 return;
 
         xdevice = open_gdk_device (device);
-        if (!xdevice)
+        if (xdevice == NULL)
                 return;
 
         /* If the device is a touchpad, swap tap buttons
@@ -485,6 +485,7 @@ set_middle_button (GsdMouseManager *manager,
         int format;
         unsigned long nitems, bytes_after;
         unsigned char *data;
+        int rc;
 
         prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                             "Evdev Middle Button Emulation", True);
@@ -498,26 +499,23 @@ set_middle_button (GsdMouseManager *manager,
 
         gdk_error_trap_push ();
 
-        XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                             xdevice, prop, 0, 1, False, XA_INTEGER, &type, &format,
                             &nitems, &bytes_after, &data);
 
-        if ((gdk_error_trap_pop () != 0)) {
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
-                return;
-        }
-
-        if (format == 8 && type == XA_INTEGER && nitems == 1) {
+        if (rc == Success && format == 8 && type == XA_INTEGER && nitems == 1) {
                 data[0] = middle_button ? 1 : 0;
 
-                gdk_error_trap_push ();
                 XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                        xdevice, prop, type, format, PropModeReplace, data, nitems);
-
-                gdk_error_trap_pop_ignored ();
         }
 
-        XFree (data);
+        if (gdk_error_trap_pop ())
+                g_warning ("Error in setting middle button emulation on \"%s\"", gdk_device_get_name (device));
+
+        if (rc == Success)
+                XFree (data);
+
         XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
 
@@ -598,10 +596,11 @@ set_tap_to_click (GdkDevice *device,
 
         if (rc == Success)
                 XFree (data);
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
-        if (gdk_error_trap_pop ()) {
+
+        if (gdk_error_trap_pop ())
                 g_warning ("Error in setting tap to click on \"%s\"", gdk_device_get_name (device));
-        }
+
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
 
 static void
@@ -655,11 +654,14 @@ set_horiz_scroll (GdkDevice *device,
                                        PropModeReplace, data, nitems);
         }
 
-        XFree (data);
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
-
         if (gdk_error_trap_pop ())
                 g_warning ("Error in setting horiz scroll on \"%s\"", gdk_device_get_name (device));
+
+        if (rc == Success)
+                XFree (data);
+
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+
 }
 
 static void
@@ -713,11 +715,13 @@ set_edge_scroll (GdkDevice               *device,
                                        PropModeReplace, data, nitems);
         }
 
-        XFree (data);
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
-
         if (gdk_error_trap_pop ())
                 g_warning ("Error in setting edge scroll on \"%s\"", gdk_device_get_name (device));
+
+        if (rc == Success)
+                XFree (data);
+
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
 
 static void
@@ -744,14 +748,11 @@ set_touchpad_enabled (GdkDevice *device,
         XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                prop_enabled, XA_INTEGER, 8,
                                PropModeReplace, &data, 1);
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
-        gdk_flush ();
 
-        if (gdk_error_trap_pop ()) {
-                g_warning ("Error %s device \"%s\"",
-                           (state) ? "enabling" : "disabling",
-                           gdk_device_get_name (device));
-        }
+        if (gdk_error_trap_pop ())
+                g_warning ("Error %s device \"%s\"", (state) ? "enabling" : "disabling", gdk_device_get_name (device));
+
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
 
 static void
