@@ -45,8 +45,6 @@
 #include <libgnome-desktop/gnome-rr.h>
 #include <libgnome-desktop/gnome-rr-labeler.h>
 
-#include <libnotify/notify.h>
-
 #include "gsd-enums.h"
 #include "gnome-settings-profile.h"
 #include "gsd-xrandr-manager.h"
@@ -1110,18 +1108,6 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
 static void
 error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text)
 {
-#if 1
-        NotifyNotification *notification;
-
-        g_assert (error_to_display == NULL || secondary_text == NULL);
-
-        notification = notify_notification_new (primary_text,
-                                                error_to_display ? error_to_display->message : secondary_text,
-                                                GSD_XRANDR_ICON_NAME);
-
-        notify_notification_set_app_name (notification, _("Displays"));
-        notify_notification_show (notification, NULL); /* NULL-GError */
-#else
         GtkWidget *dialog;
 
         dialog = gtk_message_dialog_new (NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
@@ -1131,7 +1117,6 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
 
         gtk_dialog_run (GTK_DIALOG (dialog));
         gtk_widget_destroy (dialog);
-#endif /* 1 */
 }
 
 static void
