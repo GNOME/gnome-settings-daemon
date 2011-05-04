@@ -49,7 +49,6 @@ libxrandr_la_CPPFLAGS =						\
 libxrandr_la_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(LIBNOTIFY_CFLAGS)		\
 	$(GNOME_DESKTOP_CFLAGS)		\
 	$(AM_CFLAGS)
 
@@ -58,7 +57,6 @@ libxrandr_la_LDFLAGS = 			\
 
 libxrandr_la_LIBADD  =			\
 	$(SETTINGS_PLUGIN_LIBS)		\
-	$(LIBNOTIFY_LIBS)		\
 	$(GNOME_DESKTOP_LIBS)
 
 plugin_in_files =			\
