@@ -16,7 +16,7 @@
 # ignored from future configuration.
 #
 
-args=`getopt "t:" $*`
+args=`getopt "t:i:" $*`
 
 set -- $args
 
