@@ -565,7 +565,7 @@ do_eject_action (GsdMediaKeysManager *manager)
         /* Show the dialogue */
         dialog_init (manager);
         gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                                 "media-eject",
+                                                 "media-eject-symbolic",
                                                  FALSE);
         dialog_show (manager);
 
