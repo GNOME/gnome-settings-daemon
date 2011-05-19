@@ -1,0 +1,14 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.color" path="/org/gnome/settings-daemon/plugins/color/">
+    <key name="active" type="b">
+      <default>false</default><!-- color is not a GSD plugin, yet -->
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>1</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+    </key>
+  </schema>
+</schemalist>
