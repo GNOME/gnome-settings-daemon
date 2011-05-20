@@ -18,6 +18,7 @@ libcolor_la_CPPFLAGS = \
 libcolor_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(COLORD_CFLAGS)		\
+	$(LIBCANBERRA_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
@@ -26,6 +27,7 @@ libcolor_la_LDFLAGS = 		\
 
 libcolor_la_LIBADD  = 		\
 	$(COLORD_LIBS)		\
+	$(LIBCANBERRA_LIBS)	\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = 		\

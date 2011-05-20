@@ -103,6 +103,15 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(COLORD, colord >= 0.1.8)
 
 dnl ---------------------------------------------------------------------------
+dnl - Check for libcanberra
+dnl ---------------------------------------------------------------------------
+PKG_CHECK_MODULES(LIBCANBERRA, libcanberra-gtk3,
+                  [have_libcanberra=true
+                  AC_DEFINE(HAVE_LIBCANBERRA, 1, [Define if libcanberra should be used])],
+                  [have_libcanberra=false])
+AM_CONDITIONAL(HAVE_LIBCANBERRA, test "x$have_libcanberra" = "xtrue")
+
+dnl ---------------------------------------------------------------------------
 dnl - Check for libnotify
 dnl ---------------------------------------------------------------------------
 
@@ -594,6 +603,7 @@ echo "
         PolicyKit support:        ${HAVE_POLKIT}
 
         Libnotify support:        ${have_libnotify}
+        Libcanberra support:      ${have_libcanberra}
         PulseAudio support:       ${have_pulse}
         PackageKit support:       ${have_packagekit}
         Smartcard support:        ${have_smartcard_support}

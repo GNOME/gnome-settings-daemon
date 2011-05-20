@@ -25,6 +25,10 @@
 #include <colord.h>
 #include <libnotify/notify.h>
 
+#ifdef HAVE_LIBCANBERRA
+  #include <canberra-gtk.h>
+#endif
+
 #include "gnome-settings-profile.h"
 #include "gsd-color-manager.h"
 
@@ -270,6 +274,48 @@ out:
         g_free (basename);
 }
 
+
+static void
+gcm_session_sensor_added_cb (CdClient *client,
+                             CdSensor *sensor,
+                             GsdColorManager *manager)
+{
+        gboolean ret;
+        GError *error = NULL;
+
+#ifdef HAVE_LIBCANBERRA
+        ca_context_play (ca_gtk_context_get (), 0,
+                         CA_PROP_EVENT_ID, "device-added",
+                         /* TRANSLATORS: this is the application name */
+                         CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
+                        /* TRANSLATORS: this is a sound description */
+                         CA_PROP_EVENT_DESCRIPTION, _("Color calibration device added"), NULL);
+#endif
+
+        /* open up the color prefs window */
+        ret = g_spawn_command_line_async (BINDIR "/gnome-control-center color",
+                                          &error);
+        if (!ret) {
+                g_warning ("failed to spawn: %s", error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+gcm_session_sensor_removed_cb (CdClient *client,
+                               CdSensor *sensor,
+                               GsdColorManager *manager)
+{
+#ifdef HAVE_LIBCANBERRA
+        ca_context_play (ca_gtk_context_get (), 0,
+                         CA_PROP_EVENT_ID, "device-removed",
+                         /* TRANSLATORS: this is the application name */
+                         CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
+                        /* TRANSLATORS: this is a sound description */
+                         CA_PROP_EVENT_DESCRIPTION, _("Color calibration device removed"), NULL);
+#endif
+}
+
 static void
 gsd_color_manager_set_property (GObject        *object,
                                 guint           prop_id,
@@ -325,6 +371,12 @@ gsd_color_manager_init (GsdColorManager *manager)
         priv->client = cd_client_new ();
         g_signal_connect (priv->client, "device-added",
                           G_CALLBACK (gcm_session_device_added_notify_cb),
+                          manager);
+        g_signal_connect (priv->client, "sensor-added",
+                          G_CALLBACK (gcm_session_sensor_added_cb),
+                          manager);
+        g_signal_connect (priv->client, "sensor-removed",
+                          G_CALLBACK (gcm_session_sensor_removed_cb),
                           manager);
 }
 
