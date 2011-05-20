@@ -6,6 +6,7 @@ enabled_plugins =	\
 	automount	\
 	background	\
 	clipboard	\
+	color		\
 	datetime	\
 	dummy		\
 	housekeeping    \

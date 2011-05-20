@@ -98,6 +98,11 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(GNOME_DESKTOP, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
+dnl - Check for colord
+dnl ---------------------------------------------------------------------------
+PKG_CHECK_MODULES(COLORD, colord >= 0.1.8)
+
+dnl ---------------------------------------------------------------------------
 dnl - Check for libnotify
 dnl ---------------------------------------------------------------------------
 
@@ -525,6 +530,7 @@ plugins/a11y-settings/Makefile
 plugins/automount/Makefile
 plugins/background/Makefile
 plugins/clipboard/Makefile
+plugins/color/Makefile
 plugins/common/Makefile
 plugins/datetime/Makefile
 plugins/dummy/Makefile
