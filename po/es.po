@@ -10,17 +10,17 @@
 # Pablo Gonzalo del Campo <pablodc@bigfoot.com>, 2002,2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2005, 2006.
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-03 15:54+0000\n"
-"PO-Revision-Date: 2011-05-04 09:53+0200\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2011-05-21 08:27+0000\n"
+"PO-Revision-Date: 2011-05-21 20:39+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,8 +102,8 @@ msgid ""
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
 "Seleccionar el método de desplazamiento del «touchpad». Los valores "
-"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento en "
-"el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
+"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento "
+"en el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid ""
@@ -147,10 +147,12 @@ msgid "Smartcard removal action"
 msgstr "Acción al quitar la tarjeta inteligente"
 
 #. g-p-m is not a GSD plugin, yet
+#. color is not a GSD plugin, yet
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
@@ -164,6 +166,7 @@ msgstr "Activación de este complemento"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
@@ -176,6 +179,7 @@ msgstr "Prioridad de uso para este complemento"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
@@ -189,6 +193,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
@@ -267,6 +272,42 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr "Indica si gnome-settings-daemon activará este complemento o no."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+msgid "If notifications are allowed to be shown"
+msgstr "Indica si se permite mostrar las notificaciones"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+msgid ""
+"If notifications should be shown at session start if a profile is invalid."
+msgstr ""
+"Indica si se deberían mostrar las indicaciones al inicio si un perfil no es "
+"válido."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+#| msgid "The selected configuration for displays could not be applied"
+msgid "The duration a display profile is valid"
+msgstr "La duración en la cual el perfil de pantalla es válido"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid "The duration a printer profile is valid"
+msgstr "La duración en la cual el perfil de impresora es válido"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+msgid ""
+"This is the number of days after which the display color profile is "
+"considered invalid."
+msgstr ""
+"Este es el número de días tras el que el perfil de color de pantalla no se "
+"considerará válido."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+msgid ""
+"This is the number of days after which the printer color profile is "
+"considered invalid."
+msgstr ""
+"Este es el número de días tras el que el perfil de color de impresora no se "
+"considerará válido."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 msgid "Allowed keys"
@@ -1067,7 +1108,7 @@ msgstr ""
 "forma en que funciona el teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
-#: ../plugins/mouse/gsd-mouse-manager.c:826
+#: ../plugins/mouse/gsd-mouse-manager.c:829
 msgid "Universal Access"
 msgstr "Acceso universal"
 
@@ -1132,8 +1173,8 @@ msgid ""
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Acaba de pulsar la tecla «Mayúsculas» 5 veces. Este es el acceso rápido para "
-"la característica «Teclas persistentes», que afecta la manera en que funciona "
-"el teclado."
+"la característica «Teclas persistentes», que afecta la manera en que "
+"funciona el teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:719
@@ -1143,8 +1184,8 @@ msgid ""
 "keyboard works."
 msgstr ""
 "Acaba de pulsar dos teclas a la vez, o ha pulsado la tecla «Mayúsculas» 5 "
-"veces seguidas. Esto desactiva la característica de «Teclas persistentes», lo "
-"cual afecta a la forma en que funciona su teclado."
+"veces seguidas. Esto desactiva la característica de «Teclas persistentes», "
+"lo cual afecta a la forma en que funciona su teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid "Sticky Keys Alert"
@@ -1341,6 +1382,43 @@ msgstr "Portapapeles"
 msgid "Clipboard plugin"
 msgstr "Complemento del portapapeles"
 
+#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+msgid "Color"
+msgstr "Color"
+
+#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#| msgid "Clipboard plugin"
+msgid "Color plugin"
+msgstr "Complemento de color"
+
+#: ../plugins/color/gsd-color-manager.c:145
+msgid "Recalibrate now"
+msgstr "Recalibrar ahora"
+
+#: ../plugins/color/gsd-color-manager.c:152
+#: ../plugins/housekeeping/gsd-disk-space.c:385
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
+msgid "Ignore"
+msgstr "Ignorar"
+
+#. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:194
+#| msgid "A restart is required."
+msgid "Recalibration required"
+msgstr "Se necesita recalibrar"
+
+#. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:206
+#, c-format
+msgid "The display '%s' should be recalibrated soon."
+msgstr "La pantalla «%s» se debería recalibrar pronto."
+
+#. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:215
+#, c-format
+msgid "The printer '%s' should be recalibrated soon."
+msgstr "La impresora «%s» se debería recalibrar pronto."
+
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "De prueba"
@@ -1391,7 +1469,6 @@ msgid "This computer has only %s disk space remaining."
 msgstr "Este equipo sólo tiene %s de espacio en disco libre."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:363
-#| msgid "Low Disk Space"
 msgid "Disk space"
 msgstr "Espacio en el disco"
 
@@ -1403,11 +1480,6 @@ msgstr "Examinar"
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
 msgid "Empty Trash"
 msgstr "Vacía la papelera"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:385
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
-msgid "Ignore"
-msgstr "Ignorar"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again for this file system"
@@ -1575,11 +1647,11 @@ msgstr "Teclas multimedia"
 msgid "Media keys plugin"
 msgstr "Complemento de teclas multimedia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:822
+#: ../plugins/mouse/gsd-mouse-manager.c:825
 msgid "Could not enable mouse accessibility features"
 msgstr "No se pudieron activar las características de accesibilidad del ratón"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:824
+#: ../plugins/mouse/gsd-mouse-manager.c:827
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
@@ -1782,7 +1854,6 @@ msgstr "Imprimiendo"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
 #: ../plugins/print-notifications/gsd-printer.c:203
-#| msgid "Printer error"
 msgid "Printers"
 msgstr "Impresoras"
 
@@ -1823,19 +1894,19 @@ msgstr "Establecer los ajustes de tamaño y rotación de la pantalla"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:413
+#: ../plugins/xrandr/gsd-xrandr-manager.c:411
 msgid "Could not switch the monitor configuration"
 msgstr "No se pudo cambiar la configuración del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:437
+#: ../plugins/xrandr/gsd-xrandr-manager.c:435
 msgid "Could not restore the display's configuration"
 msgstr "No se pudo restaurar la configuración del monitor"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:462
+#: ../plugins/xrandr/gsd-xrandr-manager.c:460
 msgid "Could not restore the display's configuration from a backup"
 msgstr "No se pudo restaurar la configuración del monitor desde un respaldo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1844,36 +1915,32 @@ msgstr[0] "La pantalla se reiniciará a su configuración anterior en %d segundo
 msgstr[1] ""
 "La pantalla se reiniciará a su configuración anterior en %d segundos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:530
 msgid "Does the display look OK?"
 msgstr "¿Se ve bien la pantalla?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:539
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "_Restore Previous Configuration"
 msgstr "_Restaurar la configuración anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:540
+#: ../plugins/xrandr/gsd-xrandr-manager.c:538
 msgid "_Keep This Configuration"
 msgstr "_Mantener esta configuración"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:621
+#: ../plugins/xrandr/gsd-xrandr-manager.c:619
 msgid "The selected configuration for displays could not be applied"
 msgstr "No se pudo aplicar la configuración seleccionada para las pantallas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1122
-msgid "Displays"
-msgstr "Pantallas"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1166
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1151
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "No se pudo refrescar la información de la pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1170
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1155
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Intentando cambiar la configuración del monitor de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1640
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1625
 msgid "Could not apply the stored configuration for monitors"
 msgstr "No se pudo aplicar la configuración almacenada para los monitores"
 
@@ -1976,7 +2043,6 @@ msgstr "Existen actualizaciones para la distribución"
 #: ../plugins/updates/gsd-updates-firmware.c:269
 #: ../plugins/updates/gsd-updates-firmware.c:294
 #: ../plugins/updates/gsd-updates-firmware.c:584
-#| msgid "Updates"
 msgid "Software Updates"
 msgstr "Actualizaciones de software"
 
@@ -2147,6 +2213,9 @@ msgstr "Instalar firmware"
 #: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "Ignorar dispositivos"
+
+#~ msgid "Displays"
+#~ msgstr "Pantallas"
 
 #~ msgid "DPI"
 #~ msgstr "DPI"
