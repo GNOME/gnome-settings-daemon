@@ -4,6 +4,8 @@ plugin_LTLIBRARIES = \
 	libcolor.la
 
 libcolor_la_SOURCES = 		\
+	gcm-profile-store.c	\
+	gcm-profile-store.h	\
 	gsd-color-manager.c	\
 	gsd-color-manager.h	\
 	gsd-color-plugin.c	\
@@ -19,6 +21,7 @@ libcolor_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(COLORD_CFLAGS)		\
 	$(LIBCANBERRA_CFLAGS)		\
+	$(LCMS_CFLAGS)			\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
@@ -28,6 +31,7 @@ libcolor_la_LDFLAGS = 		\
 libcolor_la_LIBADD  = 		\
 	$(COLORD_LIBS)		\
 	$(LIBCANBERRA_LIBS)	\
+	$(LCMS_LIBS)		\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = 		\

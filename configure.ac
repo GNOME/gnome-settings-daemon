@@ -112,6 +112,14 @@ PKG_CHECK_MODULES(LIBCANBERRA, libcanberra-gtk3,
 AM_CONDITIONAL(HAVE_LIBCANBERRA, test "x$have_libcanberra" = "xtrue")
 
 dnl ---------------------------------------------------------------------------
+dnl - Check for LCMS2
+dnl ---------------------------------------------------------------------------
+PKG_CHECK_MODULES(LCMS, lcms2, HAVE_LCMS="yes", HAVE_LCMS="no")
+if test "x$HAVE_LCMS" = "xyes"; then
+        AC_DEFINE(HAVE_LCMS, 1, [define if LCMS is available])
+fi
+
+dnl ---------------------------------------------------------------------------
 dnl - Check for libnotify
 dnl ---------------------------------------------------------------------------
 
@@ -601,6 +609,7 @@ echo "
 
         dbus-1 system.d dir:      ${DBUS_SYS_DIR}
         PolicyKit support:        ${HAVE_POLKIT}
+        LCMS support:             ${HAVE_LCMS}
 
         Libnotify support:        ${have_libnotify}
         Libcanberra support:      ${have_libcanberra}

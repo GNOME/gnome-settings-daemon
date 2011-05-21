@@ -29,8 +29,13 @@
 #include <canberra-gtk.h>
 #endif
 
+#ifdef HAVE_LCMS
+  #include <lcms2.h>
+#endif
+
 #include "gnome-settings-profile.h"
 #include "gsd-color-manager.h"
+#include "gcm-profile-store.h"
 
 #define GSD_COLOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerPrivate))
 
@@ -43,6 +48,7 @@ struct GsdColorManagerPrivate
 {
         CdClient        *client;
         GSettings       *settings;
+        GcmProfileStore *profile_store;
 };
 
 enum {
@@ -65,6 +71,7 @@ gcm_session_client_connect_cb (GObject *source_object,
         gboolean ret;
         GError *error = NULL;
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        GsdColorManagerPrivate *priv = manager->priv;
 
         /* connected */
         g_debug ("connected to colord");
@@ -72,7 +79,11 @@ gcm_session_client_connect_cb (GObject *source_object,
         if (!ret) {
                 g_warning ("failed to connect to colord: %s", error->message);
                 g_error_free (error);
+                return;
         }
+
+        /* add profiles */
+        gcm_profile_store_search (priv->profile_store);
 }
 
 gboolean
@@ -305,6 +316,198 @@ out:
         g_free (basename);
 }
 
+#ifdef HAVE_LCMS
+static gchar *
+gcm_session_get_precooked_md5 (cmsHPROFILE lcms_profile)
+{
+        cmsUInt8Number profile_id[16];
+        gboolean md5_precooked = FALSE;
+        guint i;
+        gchar *md5 = NULL;
+
+        /* check to see if we have a pre-cooked MD5 */
+        cmsGetHeaderProfileID (lcms_profile, profile_id);
+        for (i=0; i<16; i++) {
+                if (profile_id[i] != 0) {
+                        md5_precooked = TRUE;
+                        break;
+                }
+        }
+        if (!md5_precooked)
+                goto out;
+
+        /* convert to a hex string */
+        md5 = g_new0 (gchar, 32 + 1);
+        for (i=0; i<16; i++)
+                g_snprintf (md5 + i*2, 3, "%02x", profile_id[i]);
+out:
+        return md5;
+}
+#endif
+
+static gchar *
+gcm_session_get_md5_for_filename (const gchar *filename,
+                                  GError **error)
+{
+        gboolean ret;
+        gchar *checksum = NULL;
+        gchar *data = NULL;
+        gsize length;
+
+#ifdef HAVE_LCMS
+        cmsHPROFILE lcms_profile = NULL;
+
+        /* get the internal profile id, if it exists */
+        lcms_profile = cmsOpenProfileFromFile (filename, "r");
+        if (lcms_profile == NULL) {
+                g_set_error_literal (error, 1, 0,
+                                     "failed to load: not an ICC profile");
+                goto out;
+        }
+        checksum = gcm_session_get_precooked_md5 (lcms_profile);
+        if (checksum != NULL)
+                goto out;
+#endif
+
+        /* generate checksum */
+        ret = g_file_get_contents (filename, &data, &length, error);
+        if (!ret)
+                goto out;
+        checksum = g_compute_checksum_for_data (G_CHECKSUM_MD5,
+                                                (const guchar *) data,
+                                                length);
+out:
+        g_free (data);
+#ifdef HAVE_LCMS
+        if (lcms_profile != NULL)
+                cmsCloseProfile (lcms_profile);
+#endif
+        return checksum;
+}
+
+static void
+gcm_session_create_profile_cb (GObject *object,
+                               GAsyncResult *res,
+                               gpointer user_data)
+{
+        CdProfile *profile;
+        GError *error = NULL;
+        CdClient *client = CD_CLIENT (object);
+
+        profile = cd_client_create_profile_finish (client, res, &error);
+        if (profile == NULL) {
+                g_warning ("%s", error->message);
+                g_error_free (error);
+                return;
+        }
+        g_object_unref (profile);
+}
+
+static void
+gcm_session_profile_store_added_cb (GcmProfileStore *profile_store,
+                                    const gchar *filename,
+                                    GsdColorManager *manager)
+{
+        CdProfile *profile = NULL;
+        gchar *checksum = NULL;
+        gchar *profile_id = NULL;
+        GError *error = NULL;
+        GHashTable *profile_props = NULL;
+        GsdColorManagerPrivate *priv = manager->priv;
+
+        g_debug ("profile %s added", filename);
+
+        /* generate ID */
+        checksum = gcm_session_get_md5_for_filename (filename, &error);
+        if (checksum == NULL) {
+                g_warning ("failed to get profile checksum: %s",
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
+        profile_id = g_strdup_printf ("icc-%s", checksum);
+        profile_props = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                               NULL, NULL);
+        g_hash_table_insert (profile_props,
+                             CD_PROFILE_PROPERTY_FILENAME,
+                             (gpointer) filename);
+        g_hash_table_insert (profile_props,
+                             CD_PROFILE_METADATA_FILE_CHECKSUM,
+                             (gpointer) checksum);
+        cd_client_create_profile (priv->client,
+                                  profile_id,
+                                  CD_OBJECT_SCOPE_TEMP,
+                                  profile_props,
+                                  NULL,
+                                  gcm_session_create_profile_cb,
+                                  manager);
+out:
+        g_free (checksum);
+        g_free (profile_id);
+        if (profile_props != NULL)
+                g_hash_table_unref (profile_props);
+        if (profile != NULL)
+                g_object_unref (profile);
+}
+
+static void
+gcm_session_delete_profile_cb (GObject *object,
+                               GAsyncResult *res,
+                               gpointer user_data)
+{
+        gboolean ret;
+        GError *error = NULL;
+        CdClient *client = CD_CLIENT (object);
+
+        ret = cd_client_delete_profile_finish (client, res, &error);
+        if (!ret) {
+                g_warning ("%s", error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+gcm_session_find_profile_by_filename_cb (GObject *object,
+                                         GAsyncResult *res,
+                                         gpointer user_data)
+{
+        GError *error = NULL;
+        CdProfile *profile;
+        CdClient *client = CD_CLIENT (object);
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+
+        profile = cd_client_find_profile_by_filename_finish (client, res, &error);
+        if (profile == NULL) {
+                g_warning ("%s", error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        /* remove it from colord */
+        g_debug ("profile %s removed", cd_profile_get_id (profile));
+        cd_client_delete_profile (manager->priv->client,
+                                  cd_profile_get_id (profile),
+                                  NULL,
+                                  gcm_session_delete_profile_cb,
+                                  manager);
+out:
+        if (profile != NULL)
+                g_object_unref (profile);
+}
+
+static void
+gcm_session_profile_store_removed_cb (GcmProfileStore *profile_store,
+                                      const gchar *filename,
+                                      GsdColorManager *manager)
+{
+        /* find the ID for the filename */
+        g_debug ("filename %s removed", filename);
+        cd_client_find_profile_by_filename (manager->priv->client,
+                                            filename,
+                                            NULL,
+                                            gcm_session_find_profile_by_filename_cb,
+                                            manager);
+}
 
 static void
 gcm_session_sensor_added_cb (CdClient *client,
@@ -401,6 +604,15 @@ gsd_color_manager_init (GsdColorManager *manager)
         g_signal_connect (priv->client, "sensor-removed",
                           G_CALLBACK (gcm_session_sensor_removed_cb),
                           manager);
+
+        /* have access to all user profiles */
+        priv->profile_store = gcm_profile_store_new ();
+        g_signal_connect (priv->profile_store, "added",
+                          G_CALLBACK (gcm_session_profile_store_added_cb),
+                          manager);
+        g_signal_connect (priv->profile_store, "removed",
+                          G_CALLBACK (gcm_session_profile_store_removed_cb),
+                          manager);
 }
 
 static void
@@ -417,6 +629,7 @@ gsd_color_manager_finalize (GObject *object)
 
         g_object_unref (manager->priv->settings);
         g_object_unref (manager->priv->client);
+        g_object_unref (manager->priv->profile_store);
 
         G_OBJECT_CLASS (gsd_color_manager_parent_class)->finalize (object);
 }
