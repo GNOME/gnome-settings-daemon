@@ -32,6 +32,33 @@ Translations:
 - ug (Abduxukur Abdurixit)
 
 =============
+Version 3.0.2
+=============
+
+Common:
+- Fix syndaemon never getting started (Edward Sheldrake) (#648885)
+- Fix example input device script (Bastien Nocera)
+- Don't try to convert show-keyboard-leds-indicator in gnome-settings-daemon.convert (Chris Coulson)
+
+Date & Time:
+- Fix setting NTP on Fedora 15 (Bastien Nocera) (#648556)
+
+Media keys:
+- Use symbolic icon for Eject action (Bastien Nocera) (#649523)
+
+Mouse:
+- Don't pass NULL to device_is_touchpad (Matthias Clasen) (#649214)
+- Clean up error handling (Bastien Nocera)
+- Don't crash if mouse has no FeedbackStates (Bastien Nocera) (#649539)
+
+XRandr:
+- Never use a notification for errors (Bastien Nocera) (#648303)
+
+Translations:
+- fa (Arash Mousavi)
+- ug (Abduxukur Abdurixit)
+
+=============
 Version 3.0.1
 =============
 
