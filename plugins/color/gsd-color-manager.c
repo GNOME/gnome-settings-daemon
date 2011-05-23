@@ -100,12 +100,48 @@ gsd_color_manager_stop (GsdColorManager *manager)
 }
 
 static void
+gcm_session_exec_control_center (GsdColorManager *manager)
+{
+        gboolean ret;
+        GError *error = NULL;
+        GAppInfo *app_info;
+        GdkAppLaunchContext *launch_context;
+
+        /* setup the launch context so the startup notification is correct */
+        launch_context = gdk_app_launch_context_new ();
+        app_info = g_app_info_create_from_commandline (BINDIR "/gnome-control-center color",
+                                                       "gnome-control-center",
+                                                       G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
+                                                       &error);
+        if (app_info == NULL) {
+                g_warning ("failed to create application info: %s",
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        /* launch gnome-control-center */
+        ret = g_app_info_launch (app_info,
+                                 NULL,
+                                 G_APP_LAUNCH_CONTEXT (launch_context),
+                                 &error);
+        if (!ret) {
+                g_warning ("failed to launch gnome-control-center: %s",
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
+out:
+        g_object_unref (launch_context);
+        if (app_info != NULL)
+                g_object_unref (app_info);
+}
+
+static void
 gcm_session_notify_cb (NotifyNotification *notification,
                        gchar *action,
                        gpointer user_data)
 {
-        gboolean ret;
-        GError *error = NULL;
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
         GsdColorManagerPrivate *priv = manager->priv;
 
@@ -118,12 +154,7 @@ gcm_session_notify_cb (NotifyNotification *notification,
                                      GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD,
                                      0);
         } else if (g_strcmp0 (action, "recalibrate") == 0) {
-                ret = g_spawn_command_line_async (BINDIR "/gnome-control-center color",
-                                                  &error);
-                if (!ret) {
-                        g_warning ("failed to spawn: %s", error->message);
-                        g_error_free (error);
-                }
+                gcm_session_exec_control_center (manager);
         }
 }
 
@@ -280,9 +311,6 @@ gcm_session_sensor_added_cb (CdClient *client,
                              CdSensor *sensor,
                              GsdColorManager *manager)
 {
-        gboolean ret;
-        GError *error = NULL;
-
 #ifdef HAVE_LIBCANBERRA
         ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "device-added",
@@ -293,12 +321,7 @@ gcm_session_sensor_added_cb (CdClient *client,
 #endif
 
         /* open up the color prefs window */
-        ret = g_spawn_command_line_async (BINDIR "/gnome-control-center color",
-                                          &error);
-        if (!ret) {
-                g_warning ("failed to spawn: %s", error->message);
-                g_error_free (error);
-        }
+        gcm_session_exec_control_center (manager);
 }
 
 static void
