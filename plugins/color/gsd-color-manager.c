@@ -26,7 +26,7 @@
 #include <libnotify/notify.h>
 
 #ifdef HAVE_LIBCANBERRA
-  #include <canberra-gtk.h>
+#include <canberra-gtk.h>
 #endif
 
 #include "gnome-settings-profile.h"
