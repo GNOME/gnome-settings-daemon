@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-21 08:27+0000\n"
+"POT-Creation-Date: 2011-05-23 09:59+0000\n"
 "PO-Revision-Date: 2011-05-21 20:39+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -102,8 +102,8 @@ msgid ""
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
 "Seleccionar el método de desplazamiento del «touchpad». Los valores "
-"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento "
-"en el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
+"soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento en "
+"el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid ""
@@ -285,7 +285,6 @@ msgstr ""
 "válido."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
-#| msgid "The selected configuration for displays could not be applied"
 msgid "The duration a display profile is valid"
 msgstr "La duración en la cual el perfil de pantalla es válido"
 
@@ -1173,8 +1172,8 @@ msgid ""
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Acaba de pulsar la tecla «Mayúsculas» 5 veces. Este es el acceso rápido para "
-"la característica «Teclas persistentes», que afecta la manera en que "
-"funciona el teclado."
+"la característica «Teclas persistentes», que afecta la manera en que funciona "
+"el teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:719
@@ -1184,8 +1183,8 @@ msgid ""
 "keyboard works."
 msgstr ""
 "Acaba de pulsar dos teclas a la vez, o ha pulsado la tecla «Mayúsculas» 5 "
-"veces seguidas. Esto desactiva la característica de «Teclas persistentes», "
-"lo cual afecta a la forma en que funciona su teclado."
+"veces seguidas. Esto desactiva la característica de «Teclas persistentes», lo "
+"cual afecta a la forma en que funciona su teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid "Sticky Keys Alert"
@@ -1387,37 +1386,54 @@ msgid "Color"
 msgstr "Color"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:2
-#| msgid "Clipboard plugin"
 msgid "Color plugin"
 msgstr "Complemento de color"
 
-#: ../plugins/color/gsd-color-manager.c:145
+#: ../plugins/color/gsd-color-manager.c:149
 msgid "Recalibrate now"
 msgstr "Recalibrar ahora"
 
-#: ../plugins/color/gsd-color-manager.c:152
+#: ../plugins/color/gsd-color-manager.c:156
 #: ../plugins/housekeeping/gsd-disk-space.c:385
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "Ignorar"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:194
-#| msgid "A restart is required."
+#: ../plugins/color/gsd-color-manager.c:198
 msgid "Recalibration required"
 msgstr "Se necesita recalibrar"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:206
+#: ../plugins/color/gsd-color-manager.c:210
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "La pantalla «%s» se debería recalibrar pronto."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:215
+#: ../plugins/color/gsd-color-manager.c:219
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "La impresora «%s» se debería recalibrar pronto."
+
+#. TRANSLATORS: this is the application name
+#: ../plugins/color/gsd-color-manager.c:290
+#: ../plugins/color/gsd-color-manager.c:313
+#| msgid "GNOME Settings Daemon"
+msgid "GNOME Settings Daemon Color Plugin"
+msgstr "Complemento de color del administrador de preferencias de GNOME"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:292
+#| msgid "Recalibration required"
+msgid "Color calibration device added"
+msgstr "Dispositivo de calibración de color añadido"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:315
+#| msgid "Recalibration required"
+msgid "Color calibration device removed"
+msgstr "Dispositivo de calibración de color quitado"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
