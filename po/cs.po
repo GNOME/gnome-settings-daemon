@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-24 18:25+0000\n"
-"PO-Revision-Date: 2011-03-31 12:10+0200\n"
+"POT-Creation-Date: 2011-05-25 10:43+0000\n"
+"PO-Revision-Date: 2011-05-26 21:59+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -144,10 +144,12 @@ msgid "Smartcard removal action"
 msgstr "Činnost při odstranění čipové karty"
 
 #. g-p-m is not a GSD plugin, yet
+#. color is not a GSD plugin, yet
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
@@ -161,6 +163,7 @@ msgstr "Aktivace tohoto zásuvného modulu"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
@@ -173,6 +176,7 @@ msgstr "Priorita použití tohoto zásuvného modulu"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
@@ -186,6 +190,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
@@ -264,6 +269,41 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr "Zda má nebo nemá gnome-settings-damon aktivovat tento zásuvný modul."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+msgid "If notifications are allowed to be shown"
+msgstr "Zda je povoleno zobrazování upozornění"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+msgid ""
+"If notifications should be shown at session start if a profile is invalid."
+msgstr ""
+"Zda má být po spuštění sezení zobrazováno upozornění na neplatnost profilu."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+#| msgid "The selected configuration for displays could not be applied"
+msgid "The duration a display profile is valid"
+msgstr "Doba platnosti barevného profilu obrazovky"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid "The duration a printer profile is valid"
+msgstr "Doba platnosti barevného profilu tiskárny"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+msgid ""
+"This is the number of days after which the display color profile is "
+"considered invalid."
+msgstr ""
+"Jedná se o počet dní, po kterém je barevný profil obrazovky považován za "
+"neplatný."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+msgid ""
+"This is the number of days after which the printer color profile is "
+"considered invalid."
+msgstr ""
+"Jedná se o počet dní, po kterém je barevný profil tiskárny považován za "
+"neplatný."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 msgid "Allowed keys"
@@ -856,9 +896,12 @@ msgstr ""
 "„full“ značí maximální hinting (může způsobit zkreslení jednotlivých písmen)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-msgid "Enable this to only move the cursor when the user touches the tablet."
+#| msgid ""
+#| "Enable this to only move the cursor when the user touches the tablet."
+msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr ""
-"Zapnutím povolíte posun ukazovátka, jen když se uživatel dotýká tabletu."
+"Zapnutím povolíte přesun ukazovátka (cursor), když se uživatel dotýká "
+"tabletu."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
@@ -1033,17 +1076,17 @@ msgid "There was an error displaying help: %s"
 msgstr "Při zobrazování nápovědy došlo k chybě: %s"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
 msgid "Do you want to activate Slow Keys?"
 msgstr "Chcete aktivovat Pomalé klávesy?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Chcete deaktivovat Pomalé klávesy?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:582
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -1051,62 +1094,67 @@ msgstr ""
 "Právě jste na 8 sekund podrželi klávesu Shift. To je zkratka funkce Pomalé "
 "klávesy, která má vliv na způsob fungování vaší klávesnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
+#: ../plugins/mouse/gsd-mouse-manager.c:829
+msgid "Universal Access"
+msgstr "Univerzální přístup"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:543
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:678
 msgid "Don't activate"
 msgstr "Neaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:543
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:678
 msgid "Don't deactivate"
 msgstr "Nedeaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:549
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:684
 msgid "Activate"
 msgstr "Aktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:549
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:684
 msgid "Deactivate"
 msgstr "Deaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "Do_n't activate"
 msgstr "_Neaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "Do_n't deactivate"
 msgstr "_Nedeaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:606
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "_Activate"
 msgstr "_Aktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:606
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "_Deactivate"
 msgstr "_Deaktivovat"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:610
 msgid "Slow Keys Alert"
 msgstr "Upozornění na Pomalé klávesy"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Chcete aktivovat Kombinace kláves jedním prstem?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:651
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:715
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Chcete deaktivovat Kombinace kláves jedním prstem?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:653
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:717
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -1115,8 +1163,8 @@ msgstr ""
 "Kombinace kláves jedním prstem, která má vliv na způsob fungování vaší "
 "klávesnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:719
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1126,7 +1174,7 @@ msgstr ""
 "klávesu Shift. Tím se vypíná funkce Kombinace kláves jedním prstem, která má "
 "vliv na způsob fungování vaší klávesnice."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid "Sticky Keys Alert"
 msgstr "Upozornění na Kombinace kláves jedním prstem"
 
@@ -1322,6 +1370,60 @@ msgstr "Schránka"
 msgid "Clipboard plugin"
 msgstr "Zásuvný modul schránky"
 
+#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+msgid "Color"
+msgstr "Barva"
+
+#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#| msgid "Clipboard plugin"
+msgid "Color plugin"
+msgstr "Zásuvný modul barev"
+
+#: ../plugins/color/gsd-color-manager.c:149
+msgid "Recalibrate now"
+msgstr "Překalibrovat nyní"
+
+#: ../plugins/color/gsd-color-manager.c:156
+#: ../plugins/housekeeping/gsd-disk-space.c:385
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
+msgid "Ignore"
+msgstr "Ignorovat"
+
+#. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:198
+#| msgid "A restart is required."
+msgid "Recalibration required"
+msgstr "Vyžadováno překlalibrování"
+
+#. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:210
+#, c-format
+msgid "The display '%s' should be recalibrated soon."
+msgstr "Obrazovka „%s“ by měla být v dohledné době překalibrována."
+
+#. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:219
+#, c-format
+msgid "The printer '%s' should be recalibrated soon."
+msgstr "Tiskárna „%s“ by měla být v dohledné době překalibrována."
+
+#. TRANSLATORS: this is the application name
+#: ../plugins/color/gsd-color-manager.c:290
+#: ../plugins/color/gsd-color-manager.c:313
+#| msgid "GNOME Settings Daemon"
+msgid "GNOME Settings Daemon Color Plugin"
+msgstr "Zásuvný modul barev pro démona nastavení GNOME"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:292
+msgid "Color calibration device added"
+msgstr "Zařízení pro kalibraci barev přidáno"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:315
+msgid "Color calibration device removed"
+msgstr "Zařízení pro kalibraci barev odebráno"
+
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Prázdný"
@@ -1371,19 +1473,19 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "U tohoto počítače zbývá pouze %s volného místa na disku."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:369
+#: ../plugins/housekeeping/gsd-disk-space.c:363
+#| msgid "Low Disk Space"
+msgid "Disk space"
+msgstr "Místo na disku"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:370
 msgid "Examine"
 msgstr "Prozkoumat"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:377
+#: ../plugins/housekeeping/gsd-disk-space.c:378
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
 msgid "Empty Trash"
 msgstr "Vyprázdnit koš"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:384
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
-msgid "Ignore"
-msgstr "Ignorovat"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again for this file system"
@@ -1485,15 +1587,15 @@ msgstr ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:243
 msgid "_Layouts"
 msgstr "Roz_ložení"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
 msgid "Keyboard _Preferences"
 msgstr "Př_edvolby klávesnice"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:256
 msgid "Show _Current Layout"
 msgstr "Zobrazit _aktuální rozložení"
 
@@ -1552,20 +1654,16 @@ msgstr "Multimediální klávesy"
 msgid "Media keys plugin"
 msgstr "Zásuvný modul multimediálních kláves"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:822
+#: ../plugins/mouse/gsd-mouse-manager.c:825
 msgid "Could not enable mouse accessibility features"
 msgstr "Nezdařilo se zapnutí funkcí zpřístupnění myši"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:824
+#: ../plugins/mouse/gsd-mouse-manager.c:827
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Zpřístupnění myši vyžaduje, aby byla v systému nainstalována aplikace "
 "Mousetweaks."
-
-#: ../plugins/mouse/gsd-mouse-manager.c:826
-msgid "Universal Access"
-msgstr "Univerzální přístup"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
@@ -1584,181 +1682,188 @@ msgid "Print-notifications plugin"
 msgstr "Zásuvný modul oznamování tisku"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
 msgid "Toner low"
 msgstr "Dochází toner"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
 msgid "Toner empty"
 msgstr "Došel toner"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
 msgid "Not connected?"
 msgstr "Nepřipojeno?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
 msgid "Cover open"
 msgstr "Otevřen kryt"
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
 msgid "Printer configuration error"
 msgstr "Chyba nastavení tisku"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
 msgid "Door open"
 msgstr "Otevřena dvířka"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
 msgid "Marker supply low"
 msgstr "Končí životnost zásobníku"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
 msgid "Out of a marker supply"
 msgstr "Opotřebený zásobník"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
 msgid "Paper low"
 msgstr "Dochází papír"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
 msgid "Out of paper"
 msgstr "Došel papír"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:198
 msgid "Printer off-line"
 msgstr "Tiskárna je off-line"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
 msgid "Printer error"
 msgstr "Chyba tiskárny"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "V tiskárně „%s“ dochází toner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "V tiskárně „%s“ došel toner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Tiskárna „%s“ možná není připojená."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:210
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "U tiskárny „%s“ je otevřený kryt."
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "Schází tiskový filtr pro tiskárnu „%s“."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "U tiskárny „%s“ jsou otevřená dvířka."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "V tiskárně „%s“ končí životnost zásobníku."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "V tiskárně „%s“ je opotřebovaný zásobník."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "V tiskárně „%s“ dochází papír."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "V tiskárně „%s“ došel papír."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "Tiskárna „%s“ je momentálně off-line."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:227
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "U tiskárny „%s“ byl zjištěn problém."
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:297
 msgid "Printer added"
 msgstr "Tiskárna přidána"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
 msgid "Printer removed"
 msgstr "Tiskárna odstraněna"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:322
 msgid "Printing stopped"
 msgstr "Tiskárna zastavena"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "„%s“ na tiskárně „%s“"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:328
 msgid "Printing canceled"
 msgstr "Tisk zrušen"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:334
 msgid "Printing aborted"
 msgstr "Tisk přerušen"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
 msgid "Printing completed"
 msgstr "Tisk dokončen"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printing"
 msgstr "Tiskne se"
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
+#: ../plugins/print-notifications/gsd-printer.c:203
+#| msgid "Printer error"
+msgid "Printers"
+msgstr "Tiskárny"
 
 #. Translators: We are configuring new printer
 #: ../plugins/print-notifications/gsd-printer.c:91
@@ -1797,19 +1902,19 @@ msgstr "Zvolit velikost obrazovky a nastavení otočení"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:413
+#: ../plugins/xrandr/gsd-xrandr-manager.c:411
 msgid "Could not switch the monitor configuration"
 msgstr "Nelze přepnout nastavení monitoru"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:437
+#: ../plugins/xrandr/gsd-xrandr-manager.c:435
 msgid "Could not restore the display's configuration"
 msgstr "Nelze obnovit nastavení displeje"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:462
+#: ../plugins/xrandr/gsd-xrandr-manager.c:460
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Ze zálohy nelze obnovit nastavení displeje"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1818,32 +1923,32 @@ msgstr[0] "Nastavení displeje bude vráceno na původní nastavení za %d sekun
 msgstr[1] "Nastavení displeje bude vráceno na původní nastavení za %d sekundy"
 msgstr[2] "Nastavení displeje bude vráceno na původní nastavení za %d sekund"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:530
 msgid "Does the display look OK?"
 msgstr "Vypadá displej v pořádku?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:539
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "_Restore Previous Configuration"
 msgstr "_Obnovit předchozí nastavení"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:540
+#: ../plugins/xrandr/gsd-xrandr-manager.c:538
 msgid "_Keep This Configuration"
 msgstr "Z_achovat toto nastavení"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:621
+#: ../plugins/xrandr/gsd-xrandr-manager.c:619
 msgid "The selected configuration for displays could not be applied"
 msgstr "Vybrané nastavení displejů nelze použít"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1151
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Nelze občerstvit informace o obrazovce: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1155
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Přesto probíhá pokus o přepnutí nastavení monitoru."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1625
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Nelze použít uložené nastavení monitorů"
 
@@ -1934,14 +2039,28 @@ msgstr "K nastavení času a data je zapotřebí oprávnění."
 msgid "Distribution upgrades available"
 msgstr "Je dostupné povýšení distribuce"
 
+#: ../plugins/updates/gsd-updates-manager.c:196
+#: ../plugins/updates/gsd-updates-manager.c:319
+#: ../plugins/updates/gsd-updates-manager.c:376
+#: ../plugins/updates/gsd-updates-manager.c:431
+#: ../plugins/updates/gsd-updates-manager.c:562
+#: ../plugins/updates/gsd-updates-manager.c:649
+#: ../plugins/updates/gsd-updates-firmware.c:244
+#: ../plugins/updates/gsd-updates-firmware.c:269
+#: ../plugins/updates/gsd-updates-firmware.c:294
+#: ../plugins/updates/gsd-updates-firmware.c:584
+#| msgid "Updates"
+msgid "Software Updates"
+msgstr "Aktualizace softwaru"
+
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:204
+#: ../plugins/updates/gsd-updates-manager.c:201
 msgid "More information"
 msgstr "Více informací"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:307
-#: ../plugins/updates/gsd-updates-manager.c:367
+#: ../plugins/updates/gsd-updates-manager.c:304
+#: ../plugins/updates/gsd-updates-manager.c:361
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Aktualizace"
@@ -1949,7 +2068,7 @@ msgstr[1] "Aktualizace"
 msgstr[2] "Aktualizace"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:310
+#: ../plugins/updates/gsd-updates-manager.c:307
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Je dostupná důležitá aktualizace softwaru"
@@ -1957,13 +2076,13 @@ msgstr[1] "Jsou dostupné důležité aktualizace softwaru"
 msgstr[2] "Jsou dostupné důležité aktualizace softwaru"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:330
-#: ../plugins/updates/gsd-updates-manager.c:390
+#: ../plugins/updates/gsd-updates-manager.c:324
+#: ../plugins/updates/gsd-updates-manager.c:381
 msgid "Install updates"
 msgstr "Instalovat aktualizace"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:370
+#: ../plugins/updates/gsd-updates-manager.c:364
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Je dostupná aktualizace softwaru"
@@ -1971,7 +2090,7 @@ msgstr[1] "Jsou dostupné aktualizace softwaru"
 msgstr[2] "Jsou dostupné aktualizace softwaru"
 
 #. TRANSLATORS: policy says update, but we are on battery and so prompt
-#: ../plugins/updates/gsd-updates-manager.c:436
+#: ../plugins/updates/gsd-updates-manager.c:427
 msgid ""
 "Automatic updates are not being installed as the computer is running on "
 "battery power"
@@ -1980,41 +2099,41 @@ msgstr ""
 "baterie"
 
 #. TRANSLATORS: informs user will not install by default
-#: ../plugins/updates/gsd-updates-manager.c:438
+#: ../plugins/updates/gsd-updates-manager.c:429
 msgid "Updates not installed"
 msgstr "Aktualizace nejsou nainstalované"
 
 #. TRANSLATORS: to hell with my battery life, just do it
-#: ../plugins/updates/gsd-updates-manager.c:444
+#: ../plugins/updates/gsd-updates-manager.c:436
 msgid "Install the updates anyway"
 msgstr "Přesto aktualizace nainstalovat"
 
-#: ../plugins/updates/gsd-updates-manager.c:460
+#: ../plugins/updates/gsd-updates-manager.c:452
 msgid "No restart is required."
 msgstr "Restart není vyžadován."
 
-#: ../plugins/updates/gsd-updates-manager.c:463
+#: ../plugins/updates/gsd-updates-manager.c:455
 msgid "A restart is required."
 msgstr "Je vyžadován restart."
 
-#: ../plugins/updates/gsd-updates-manager.c:466
+#: ../plugins/updates/gsd-updates-manager.c:458
 msgid "You need to log out and log back in."
 msgstr "Musíte se odhlásit a znovu zpět přihlásit."
 
-#: ../plugins/updates/gsd-updates-manager.c:469
+#: ../plugins/updates/gsd-updates-manager.c:461
 msgid "You need to restart the application."
 msgstr "Musíte restartovat aplikaci."
 
-#: ../plugins/updates/gsd-updates-manager.c:472
+#: ../plugins/updates/gsd-updates-manager.c:464
 msgid "You need to log out and log back in to remain secure."
 msgstr "Kvůli zachování bezpečnosti se musíte odhlásit a znovu zpět přihlásit."
 
-#: ../plugins/updates/gsd-updates-manager.c:475
+#: ../plugins/updates/gsd-updates-manager.c:467
 msgid "A restart is required to remain secure."
 msgstr "Kvůli zachování bezpečnosti je požadován restart."
 
 #. TRANSLATORS: we did the update, but some updates were skipped and not applied
-#: ../plugins/updates/gsd-updates-manager.c:536
+#: ../plugins/updates/gsd-updates-manager.c:528
 msgid "One package was skipped:"
 msgid_plural "Some packages were skipped:"
 msgstr[0] "Jeden balíček byl přeskočen."
@@ -2022,33 +2141,33 @@ msgstr[1] "Několik balíčků bylo přeskočeno."
 msgstr[2] "Několik balíčků bylo přeskočeno."
 
 #. TRANSLATORS: title: system update completed all okay
-#: ../plugins/updates/gsd-updates-manager.c:568
+#: ../plugins/updates/gsd-updates-manager.c:560
 msgid "The system update has completed"
 msgstr "Aktualizace systému byla dokončena"
 
 #. TRANSLATORS: restart computer as system packages need update
-#: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/gsd-updates-manager.c:568
 msgid "Restart computer now"
 msgstr "Restartovat počítač ihned"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:646
+#: ../plugins/updates/gsd-updates-manager.c:639
 msgid "Updates"
 msgstr "Aktualizace"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:650
+#: ../plugins/updates/gsd-updates-manager.c:643
 msgid "Unable to access software updates"
 msgstr "Nelze získat přístup k aktualizacím softwaru"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:653
+#: ../plugins/updates/gsd-updates-manager.c:646
 msgid "Try again"
 msgstr "Zkusit znovu"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1092
+#: ../plugins/updates/gsd-updates-manager.c:1082
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Běží transakce, kterou nelze přerušit"
 
@@ -2062,13 +2181,13 @@ msgstr ""
 
 #. TRANSLATORS: title of libnotify bubble
 #: ../plugins/updates/gsd-updates-firmware.c:243
-#: ../plugins/updates/gsd-updates-firmware.c:267
-#: ../plugins/updates/gsd-updates-firmware.c:291
+#: ../plugins/updates/gsd-updates-firmware.c:268
+#: ../plugins/updates/gsd-updates-firmware.c:293
 msgid "Additional software was installed"
 msgstr "Byl nainstalován dodatečný software"
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:264
+#: ../plugins/updates/gsd-updates-firmware.c:265
 msgid ""
 "You will need to remove and then reinsert the hardware before it will work "
 "correctly."
@@ -2077,12 +2196,12 @@ msgstr ""
 "připojit."
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:288
+#: ../plugins/updates/gsd-updates-firmware.c:290
 msgid "Your hardware has been set up and is now ready to use."
 msgstr "Váš hardware byl nastaven a nyní je připraven k použití."
 
 #. TRANSLATORS: we need another package to keep udev quiet
-#: ../plugins/updates/gsd-updates-firmware.c:566
+#: ../plugins/updates/gsd-updates-firmware.c:569
 msgid ""
 "Additional firmware is required to make hardware in this computer function "
 "correctly."
@@ -2091,16 +2210,16 @@ msgstr ""
 "firmware."
 
 #. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:580
+#: ../plugins/updates/gsd-updates-firmware.c:583
 msgid "Additional firmware required"
 msgstr "Požadován dodatečný firmware"
 
 #. TRANSLATORS: button label
-#: ../plugins/updates/gsd-updates-firmware.c:585
+#: ../plugins/updates/gsd-updates-firmware.c:589
 msgid "Install firmware"
 msgstr "Instalovat firmware"
 
 #. TRANSLATORS: we should ignore this device and not ask anymore
-#: ../plugins/updates/gsd-updates-firmware.c:588
+#: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "Ignorovat zařízení"
