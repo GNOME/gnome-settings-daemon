@@ -17,11 +17,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
+"Project-Id-Version: gnome-settings-daemon gnome-3-0\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-24 18:25+0000\n"
-"PO-Revision-Date: 2011-03-31 12:10+0200\n"
+"POT-Creation-Date: 2011-05-25 10:41+0000\n"
+"PO-Revision-Date: 2011-05-26 21:41+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -856,9 +856,12 @@ msgstr ""
 "„full“ značí maximální hinting (může způsobit zkreslení jednotlivých písmen)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-msgid "Enable this to only move the cursor when the user touches the tablet."
+#| msgid ""
+#| "Enable this to only move the cursor when the user touches the tablet."
+msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr ""
-"Zapnutím povolíte posun ukazovátka, jen když se uživatel dotýká tabletu."
+"Zapnutím povolíte přesun ukazovátka (cursor), když se uživatel dotýká "
+"tabletu."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
@@ -1485,15 +1488,15 @@ msgstr ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:243
 msgid "_Layouts"
 msgstr "Roz_ložení"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
 msgid "Keyboard _Preferences"
 msgstr "Př_edvolby klávesnice"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:256
 msgid "Show _Current Layout"
 msgstr "Zobrazit _aktuální rozložení"
 
@@ -1552,18 +1555,18 @@ msgstr "Multimediální klávesy"
 msgid "Media keys plugin"
 msgstr "Zásuvný modul multimediálních kláves"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:822
+#: ../plugins/mouse/gsd-mouse-manager.c:833
 msgid "Could not enable mouse accessibility features"
 msgstr "Nezdařilo se zapnutí funkcí zpřístupnění myši"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:824
+#: ../plugins/mouse/gsd-mouse-manager.c:835
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Zpřístupnění myši vyžaduje, aby byla v systému nainstalována aplikace "
 "Mousetweaks."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:826
+#: ../plugins/mouse/gsd-mouse-manager.c:837
 msgid "Universal Access"
 msgstr "Univerzální přístup"
 
@@ -1584,179 +1587,179 @@ msgid "Print-notifications plugin"
 msgstr "Zásuvný modul oznamování tisku"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
 msgid "Toner low"
 msgstr "Dochází toner"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
 msgid "Toner empty"
 msgstr "Došel toner"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
 msgid "Not connected?"
 msgstr "Nepřipojeno?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
 msgid "Cover open"
 msgstr "Otevřen kryt"
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
 msgid "Printer configuration error"
 msgstr "Chyba nastavení tisku"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
 msgid "Door open"
 msgstr "Otevřena dvířka"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
 msgid "Marker supply low"
 msgstr "Končí životnost zásobníku"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
 msgid "Out of a marker supply"
 msgstr "Opotřebený zásobník"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
 msgid "Paper low"
 msgstr "Dochází papír"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
 msgid "Out of paper"
 msgstr "Došel papír"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:198
 msgid "Printer off-line"
 msgstr "Tiskárna je off-line"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
 msgid "Printer error"
 msgstr "Chyba tiskárny"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "V tiskárně „%s“ dochází toner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "V tiskárně „%s“ došel toner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Tiskárna „%s“ možná není připojená."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:210
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "U tiskárny „%s“ je otevřený kryt."
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "Schází tiskový filtr pro tiskárnu „%s“."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "U tiskárny „%s“ jsou otevřená dvířka."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "V tiskárně „%s“ končí životnost zásobníku."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "V tiskárně „%s“ je opotřebovaný zásobník."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "V tiskárně „%s“ dochází papír."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "V tiskárně „%s“ došel papír."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "Tiskárna „%s“ je momentálně off-line."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:227
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "U tiskárny „%s“ byl zjištěn problém."
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:297
 msgid "Printer added"
 msgstr "Tiskárna přidána"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
 msgid "Printer removed"
 msgstr "Tiskárna odstraněna"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:322
 msgid "Printing stopped"
 msgstr "Tiskárna zastavena"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "„%s“ na tiskárně „%s“"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:328
 msgid "Printing canceled"
 msgstr "Tisk zrušen"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:334
 msgid "Printing aborted"
 msgstr "Tisk přerušen"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
 msgid "Printing completed"
 msgstr "Tisk dokončen"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printing"
 msgstr "Tiskne se"
 
@@ -1797,19 +1800,19 @@ msgstr "Zvolit velikost obrazovky a nastavení otočení"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:413
+#: ../plugins/xrandr/gsd-xrandr-manager.c:411
 msgid "Could not switch the monitor configuration"
 msgstr "Nelze přepnout nastavení monitoru"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:437
+#: ../plugins/xrandr/gsd-xrandr-manager.c:435
 msgid "Could not restore the display's configuration"
 msgstr "Nelze obnovit nastavení displeje"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:462
+#: ../plugins/xrandr/gsd-xrandr-manager.c:460
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Ze zálohy nelze obnovit nastavení displeje"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1818,32 +1821,32 @@ msgstr[0] "Nastavení displeje bude vráceno na původní nastavení za %d sekun
 msgstr[1] "Nastavení displeje bude vráceno na původní nastavení za %d sekundy"
 msgstr[2] "Nastavení displeje bude vráceno na původní nastavení za %d sekund"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:530
 msgid "Does the display look OK?"
 msgstr "Vypadá displej v pořádku?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:539
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "_Restore Previous Configuration"
 msgstr "_Obnovit předchozí nastavení"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:540
+#: ../plugins/xrandr/gsd-xrandr-manager.c:538
 msgid "_Keep This Configuration"
 msgstr "Z_achovat toto nastavení"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:621
+#: ../plugins/xrandr/gsd-xrandr-manager.c:619
 msgid "The selected configuration for displays could not be applied"
 msgstr "Vybrané nastavení displejů nelze použít"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1151
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Nelze občerstvit informace o obrazovce: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1155
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Přesto probíhá pokus o přepnutí nastavení monitoru."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1625
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Nelze použít uložené nastavení monitorů"
 
