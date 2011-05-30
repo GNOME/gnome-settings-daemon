@@ -280,7 +280,20 @@ gcm_session_device_added_notify_cb (CdClient *client,
         const gchar *filename;
         gchar *basename = NULL;
         gboolean allow_notifications;
+        gboolean ret;
+        GError *error = NULL;
         GsdColorManagerPrivate *priv = manager->priv;
+
+        /* connect to the device */
+        ret = cd_device_connect_sync (device,
+                                      NULL,
+                                      &error);
+        if (!ret) {
+                g_warning ("failed to connect to device: %s",
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
 
         /* check we care */
         kind = cd_device_get_kind (device);
@@ -292,6 +305,17 @@ gcm_session_device_added_notify_cb (CdClient *client,
         profile = cd_device_get_default_profile (device);
         if (profile == NULL) {
                 g_debug ("no profile set for %s", cd_device_get_id (device));
+                goto out;
+        }
+
+        /* connect to the profile */
+        ret = cd_profile_connect_sync (profile,
+                                       NULL,
+                                       &error);
+        if (!ret) {
+                g_warning ("failed to connect to profile: %s",
+                           error->message);
+                g_error_free (error);
                 goto out;
         }
 
@@ -486,7 +510,7 @@ gcm_session_find_profile_by_filename_cb (GObject *object,
         /* remove it from colord */
         g_debug ("profile %s removed", cd_profile_get_id (profile));
         cd_client_delete_profile (manager->priv->client,
-                                  cd_profile_get_id (profile),
+                                  profile,
                                   NULL,
                                   gcm_session_delete_profile_cb,
                                   manager);
