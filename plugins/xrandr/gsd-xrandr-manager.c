@@ -46,14 +46,18 @@
 #include <libgnome-desktop/gnome-rr-labeler.h>
 
 #include "gsd-enums.h"
+#include "gsd-input-helper.h"
 #include "gnome-settings-profile.h"
 #include "gsd-xrandr-manager.h"
 
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
 
-#define CONF_DIR "org.gnome.settings-daemon.plugins.xrandr"
+#define CONF_SCHEMA "org.gnome.settings-daemon.plugins.xrandr"
 #define CONF_KEY_DEFAULT_MONITORS_SETUP   "default-monitors-setup"
 #define CONF_KEY_DEFAULT_CONFIGURATION_FILE   "default-configuration-file"
+
+#define WACOM_SCHEMA "org.gnome.settings-daemon.peripherals.wacom"
+#define WACOM_ROTATION_KEY "rotation"
 
 /* Number of seconds that the confirmation dialog will last before it resets the
  * RANDR configuration to its old state.
@@ -87,6 +91,11 @@ static const gchar introspection_xml[] =
 "       <!-- Timestamp for the RANDR call itself -->"
 "       <arg name='timestamp' type='x' direction='in'/>"
 "    </method>"
+"    <method name='RotateTo'>"
+"       <arg name='rotation' type='i' direction='in'/>"
+"       <!-- Timestamp for the RANDR call itself -->"
+"       <arg name='timestamp' type='x' direction='in'/>"
+"    </method>"
 "  </interface>"
 "</node>";
 
@@ -96,6 +105,7 @@ struct GsdXrandrManagerPrivate
         gboolean running;
 
         GSettings       *settings;
+        GSettings       *wacom_settings;
         GDBusNodeInfo   *introspection_data;
         GDBusConnection *connection;
 
@@ -127,7 +137,7 @@ static void get_allowed_rotations_for_output (GnomeRRConfig *config,
                                               int *out_num_rotations,
                                               GnomeRRRotation *out_rotations);
 static void handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp);
-static void handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp);
+static void handle_rotate_windows (GsdXrandrManager *mgr, GnomeRRRotation rotation, guint32 timestamp);
 
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
@@ -393,7 +403,7 @@ fail:
  * We just return whether setting the configuration succeeded.
  */
 static gboolean
-apply_configuration_and_display_error (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp)
+apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp, gboolean show_error)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
         GError *error;
@@ -408,7 +418,8 @@ apply_configuration_and_display_error (GsdXrandrManager *manager, GnomeRRConfig 
         if (!success) {
                 log_msg ("Could not switch to the following configuration (timestamp %u): %s\n", timestamp, error->message);
                 log_configuration (config);
-                error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
+                if (show_error)
+                        error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
                 g_error_free (error);
         }
 
@@ -675,7 +686,34 @@ gsd_xrandr_manager_2_rotate (GsdXrandrManager *manager,
                              guint32           timestamp,
                              GError          **error)
 {
-        handle_rotate_windows (manager, timestamp);
+        handle_rotate_windows (manager, -1, timestamp);
+        return TRUE;
+}
+
+/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 RotateTo; see gsd-xrandr-manager.xml for the interface definition */
+static gboolean
+gsd_xrandr_manager_2_rotate_to (GsdXrandrManager *manager,
+                                GnomeRRRotation   rotation,
+                                guint32           timestamp,
+                                GError          **error)
+{
+        guint i;
+        gboolean found;
+
+        found = FALSE;
+        for (i = 0; i < G_N_ELEMENTS (possible_rotations); i++) {
+                if (rotation == possible_rotations[i]) {
+                        found = TRUE;
+                        break;
+                }
+        }
+
+        if (found == FALSE) {
+                g_debug ("Not setting out of bounds rotation '%d'", rotation);
+                return FALSE;
+        }
+
+        handle_rotate_windows (manager, rotation, timestamp);
         return TRUE;
 }
 
@@ -685,6 +723,7 @@ is_laptop (GnomeRRScreen *screen, GnomeRROutputInfo *output)
         GnomeRROutput *rr_output;
 
         rr_output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (output));
+
         return gnome_rr_output_is_laptop (rr_output);
 }
 
@@ -1208,7 +1247,7 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                 if (timestamp < server_timestamp)
                         timestamp = server_timestamp;
 
-                success = apply_configuration_and_display_error (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp);
+                success = apply_configuration (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp, TRUE);
 
                 if (success) {
                         log_msg ("Successfully switched to configuration (timestamp %u):\n", timestamp);
@@ -1281,12 +1320,109 @@ get_next_rotation (GnomeRRRotation allowed_rotations, GnomeRRRotation current_ro
         }
 }
 
-/* We use this when the XF86RotateWindows key is pressed.  That key is present
+struct {
+        GnomeRRRotation rotation;
+        /* evdev */
+        gboolean x_axis_inversion;
+        gboolean y_axis_inversion;
+        gboolean axes_swap;
+        /* wacom */
+        GsdWacomRotation wacom_rot;
+} evdev_rotations[] = {
+        { GNOME_RR_ROTATION_0, 0, 0, 0, GSD_WACOM_ROTATION_NONE },
+        { GNOME_RR_ROTATION_90, 1, 0, 1, GSD_WACOM_ROTATION_CW },
+        { GNOME_RR_ROTATION_180, 1, 1, 0, GSD_WACOM_ROTATION_HALF },
+        { GNOME_RR_ROTATION_270, 0, 1, 1, GSD_WACOM_ROTATION_CCW }
+};
+
+static guint
+get_rotation_index (GnomeRRRotation rotation)
+{
+        guint i;
+
+        for (i = 0; i < G_N_ELEMENTS (evdev_rotations); i++) {
+                if (evdev_rotations[i].rotation == rotation)
+                        return i;
+        }
+        g_assert_not_reached ();
+}
+
+static void
+rotate_touchscreens (GsdXrandrManager *mgr,
+                     GnomeRRRotation   rotation)
+{
+        XDeviceInfo *device_info;
+        gint n_devices;
+        guint i, rot_idx;
+
+        if (!supports_xinput_devices ())
+                return;
+
+        g_debug ("Rotating touchscreen devices");
+
+        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
+        if (device_info == NULL)
+                return;
+
+        rot_idx = get_rotation_index (rotation);
+
+        for (i = 0; i < n_devices; i++) {
+                if (device_info_is_touchscreen (&device_info[i])) {
+                        XDevice *device;
+                        char c = evdev_rotations[rot_idx].axes_swap;
+                        PropertyHelper axes_swap = {
+                                .name = "Evdev Axes Swap",
+                                .nitems = 1,
+                                .format = 8,
+                                .data.c = &c,
+                        };
+
+                        g_debug ("About to rotate '%s'", device_info[i].name);
+
+                        gdk_error_trap_push ();
+                        device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
+                        if (gdk_error_trap_pop () || (device == NULL))
+                                continue;
+
+                        if (device_set_property (device, device_info[i].name, &axes_swap) == FALSE) {
+                                /* Set up Wacom devices */
+                                g_settings_set_enum (mgr->priv->wacom_settings, WACOM_ROTATION_KEY, evdev_rotations[rot_idx].wacom_rot);
+                        } else {
+                                char axis[] = {
+                                        evdev_rotations[rot_idx].x_axis_inversion,
+                                        evdev_rotations[rot_idx].y_axis_inversion
+                                };
+                                PropertyHelper axis_invert = {
+                                        .name = "Evdev Axis Inversion",
+                                        .nitems = 2,
+                                        .format = 8,
+                                        .data.c = axis,
+                                };
+
+                                device_set_property (device, device_info[i].name, &axis_invert);
+
+                                g_debug ("Rotated '%s' to configuration '%d, %d, %d'",
+                                         device_info[i].name,
+                                         evdev_rotations[rot_idx].x_axis_inversion,
+                                         evdev_rotations[rot_idx].y_axis_inversion,
+                                         evdev_rotations[rot_idx].axes_swap);
+                        }
+
+                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+                }
+        }
+        XFreeDeviceList (device_info);
+}
+
+/* We use this when the XF86RotateWindows key is pressed, or the
+ * orientation of a tablet changes. The key is present
  * on some tablet PCs; they use it so that the user can rotate the tablet
- * easily.
+ * easily. Some other tablet PCs will have an accelerometer instead.
  */
 static void
-handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
+handle_rotate_windows (GsdXrandrManager *mgr,
+                       GnomeRRRotation rotation,
+                       guint32 timestamp)
 {
         GsdXrandrManagerPrivate *priv = mgr->priv;
         GnomeRRScreen *screen = priv->rw_screen;
@@ -1295,6 +1431,7 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
         int num_allowed_rotations;
         GnomeRRRotation allowed_rotations;
         GnomeRRRotation next_rotation;
+        gboolean success, show_error;
 
         g_debug ("Handling XF86RotateWindows");
 
@@ -1308,21 +1445,29 @@ handle_rotate_windows (GsdXrandrManager *mgr, guint32 timestamp)
                 goto out;
         }
 
-        /* Which rotation? */
+        if (rotation < 0) {
+                /* Which rotation? */
 
-        get_allowed_rotations_for_output (current, priv->rw_screen, rotatable_output_info, &num_allowed_rotations, &allowed_rotations);
-        next_rotation = get_next_rotation (allowed_rotations, gnome_rr_output_info_get_rotation (rotatable_output_info));
+                get_allowed_rotations_for_output (current, priv->rw_screen, rotatable_output_info, &num_allowed_rotations, &allowed_rotations);
+                next_rotation = get_next_rotation (allowed_rotations, gnome_rr_output_info_get_rotation (rotatable_output_info));
 
-        if (next_rotation == gnome_rr_output_info_get_rotation (rotatable_output_info)) {
-                g_debug ("No rotations are supported other than the current one; XF86RotateWindows key will do nothing");
-                goto out;
+                if (next_rotation == gnome_rr_output_info_get_rotation (rotatable_output_info)) {
+                        g_debug ("No rotations are supported other than the current one; XF86RotateWindows key will do nothing");
+                        goto out;
+                }
+                show_error = TRUE;
+        } else {
+                next_rotation = rotation;
+                show_error = FALSE;
         }
 
         /* Rotate */
 
         gnome_rr_output_info_set_rotation (rotatable_output_info, next_rotation);
 
-        apply_configuration_and_display_error (mgr, current, timestamp);
+        success = apply_configuration (mgr, current, timestamp, show_error);
+        if (success)
+                rotate_touchscreens (mgr, next_rotation);
 
 out:
         g_object_unref (current);
@@ -1449,7 +1594,7 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         if (applicable) {
                 print_configuration (config, "auto configure");
 
-                apply_configuration_and_display_error (manager, config, timestamp);
+                apply_configuration (manager, config, timestamp, TRUE);
         } else {
                 g_debug ("Not an applicable config");
         }
@@ -1655,7 +1800,7 @@ apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
         }
 
         if (config) {
-                apply_configuration_and_display_error (mgr, config, timestamp);
+                apply_configuration (mgr, config, timestamp, TRUE);
                 g_object_unref (config);
         }
 }
@@ -1759,7 +1904,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         log_screen (manager->priv->rw_screen);
 
         manager->priv->running = TRUE;
-        manager->priv->settings = g_settings_new (CONF_DIR);
+        manager->priv->settings = g_settings_new (CONF_SCHEMA);
+        manager->priv->wacom_settings = g_settings_new (WACOM_SCHEMA);
 
         show_timestamps_dialog (manager, "Startup");
         if (!apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME)) /* we don't have a real timestamp at startup anyway */
@@ -1786,6 +1932,11 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         if (manager->priv->settings != NULL) {
                 g_object_unref (manager->priv->settings);
                 manager->priv->settings = NULL;
+        }
+
+        if (manager->priv->wacom_settings != NULL) {
+                g_object_unref (manager->priv->wacom_settings);
+                manager->priv->wacom_settings = NULL;
         }
 
         if (manager->priv->rw_screen != NULL) {
@@ -1920,6 +2071,11 @@ handle_method_call (GDBusConnection       *connection,
         } else if (g_strcmp0 (method_name, "Rotate") == 0) {
                 g_variant_get (parameters, "(x)", &timestamp);
                 gsd_xrandr_manager_2_rotate (manager, timestamp, NULL);
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        } else if (g_strcmp0 (method_name, "RotateTo") == 0) {
+                GnomeRRRotation rotation;
+                g_variant_get (parameters, "(ix)", &rotation, &timestamp);
+                gsd_xrandr_manager_2_rotate_to (manager, rotation, timestamp, NULL);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         }
 }

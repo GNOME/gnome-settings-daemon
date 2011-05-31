@@ -42,6 +42,7 @@ libxrandr_la_SOURCES = 		\
 libxrandr_la_CPPFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/data/					\
+	-I$(top_srcdir)/plugins/common/				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
@@ -55,8 +56,9 @@ libxrandr_la_CFLAGS =			\
 libxrandr_la_LDFLAGS = 			\
 	$(GSD_PLUGIN_LDFLAGS)
 
-libxrandr_la_LIBADD  =			\
-	$(SETTINGS_PLUGIN_LIBS)		\
+libxrandr_la_LIBADD  =					\
+	$(top_builddir)/plugins/common/libcommon.la	\
+	$(SETTINGS_PLUGIN_LIBS)				\
 	$(GNOME_DESKTOP_LIBS)
 
 plugin_in_files =			\
