@@ -28,10 +28,25 @@ G_BEGIN_DECLS
 #include <X11/extensions/XIproto.h>
 
 typedef enum {
-	COMMAND_DEVICE_ADDED,
-	COMMAND_DEVICE_REMOVED,
-	COMMAND_DEVICE_PRESENT
+        COMMAND_DEVICE_ADDED,
+        COMMAND_DEVICE_REMOVED,
+        COMMAND_DEVICE_PRESENT
 } CustomCommand;
+
+/* Generic property setting code. Fill up the struct property with the property
+ * data and pass it into device_set_property together with the device to be
+ * changed.  Note: doesn't cater for non-zero offsets yet, but we don't have
+ * any settings that require that.
+ */
+typedef struct {
+        const char *name;       /* property name */
+        gint nitems;            /* number of items in data */
+        gint format;            /* CARD8 or CARD32 sized-items */
+        union {
+                const gchar *c; /* 8 bit data */
+                const gint *i;  /* 32 bit data */
+        } data;
+} PropertyHelper;
 
 gboolean  supports_xinput_devices (void);
 gboolean  device_is_touchpad      (XDevice                *xdevice);
@@ -42,8 +57,12 @@ gboolean  device_info_is_touchscreen (XDeviceInfo         *device_info);
 gboolean  touchpad_is_present     (void);
 gboolean  touchscreen_is_present  (void);
 
+gboolean  device_set_property     (XDevice                *xdevice,
+                                   const char             *device_name,
+                                   PropertyHelper         *property);
+
 gboolean  run_custom_command      (GdkDevice              *device,
-			           CustomCommand           command);
+                                   CustomCommand           command);
 
 G_END_DECLS
 

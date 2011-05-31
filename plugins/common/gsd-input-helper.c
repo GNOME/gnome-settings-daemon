@@ -35,6 +35,57 @@ typedef gboolean (* InfoIdentifyFunc) (XDeviceInfo *device_info);
 typedef gboolean (* DeviceIdentifyFunc) (XDevice *xdevice);
 
 gboolean
+device_set_property (XDevice        *xdevice,
+                     const char     *device_name,
+                     PropertyHelper *property)
+{
+        int rc;
+        Atom prop;
+        Atom realtype;
+        int realformat;
+        unsigned long nitems, bytes_after;
+        unsigned char *data;
+
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                            property->name, False);
+        if (!prop)
+                return FALSE;
+
+        gdk_error_trap_push ();
+
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                 xdevice, prop, 0, property->nitems, False,
+                                 XA_INTEGER, &realtype, &realformat, &nitems,
+                                 &bytes_after, &data);
+
+        if (rc == Success && realtype == XA_INTEGER &&
+            realformat == property->format && nitems >= property->nitems) {
+                int i;
+                for (i = 0; i < nitems; i++) {
+                        switch (property->format) {
+                                case 8:
+                                        data[i] = property->data.c[i];
+                                        break;
+                                case 32:
+                                        ((long*)data)[i] = property->data.i[i];
+                                        break;
+                        }
+                }
+
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                       xdevice, prop, XA_INTEGER, realformat,
+                                       PropModeReplace, data, nitems);
+        }
+
+        if (gdk_error_trap_pop ()) {
+                g_warning ("Error in setting \"%s\" for \"%s\"", property->name, device_name);
+                return FALSE;
+        }
+
+        return TRUE;
+}
+
+gboolean
 supports_xinput_devices (void)
 {
         gint op_code, event, error;
