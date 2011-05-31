@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-27 23:49+0200\n"
-"PO-Revision-Date: 2011-03-27 23:56+0100\n"
+"POT-Creation-Date: 2011-05-31 07:36+0200\n"
+"PO-Revision-Date: 2011-05-31 07:37+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -667,8 +667,8 @@ msgid "The type of hinting to use when rendering fonts. Possible values are: \"n
 msgstr "Typen av hintning att använda när typsnitt ritas ut. Möjliga värden är: \"none\" för ingen hintning, \"slight\" för grundläggande, \"medium\" för medel samt \"full\" för maximal hintning (kan orsaka distortion av bokstavsformer)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-msgid "Enable this to only move the cursor when the user touches the tablet."
-msgstr "Aktivera denna för att endast flytta pekaren när användaren rör ritplattan."
+msgid "Enable this to move the cursor when the user touches the tablet."
+msgstr "Aktivera denna för att flytta pekaren när användaren rör ritplattan."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
@@ -1224,15 +1224,15 @@ msgstr ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:243
 msgid "_Layouts"
 msgstr "_Layouter"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
 msgid "Keyboard _Preferences"
 msgstr "Tangentbordsins_tällningar"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:256
 msgid "Show _Current Layout"
 msgstr "Visa a_ktuell layout"
 
@@ -1285,15 +1285,15 @@ msgstr "Mediatangenter"
 msgid "Media keys plugin"
 msgstr "Insticksmodul för mediatangenter"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:822
+#: ../plugins/mouse/gsd-mouse-manager.c:833
 msgid "Could not enable mouse accessibility features"
 msgstr "Kunde inte aktivera mushjälpmedelsfunktioner"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:824
+#: ../plugins/mouse/gsd-mouse-manager.c:835
 msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Mushjälpmedel kräver att Mousetweaks (Musjusteringar) är installerat på ditt system."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:826
+#: ../plugins/mouse/gsd-mouse-manager.c:837
 msgid "Universal Access"
 msgstr "Universell åtkomst"
 
@@ -1314,179 +1314,179 @@ msgid "Print-notifications plugin"
 msgstr "Insticksmodulen Utskriftsnotifieringar"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
 msgid "Toner low"
 msgstr "Nästan slut på toner"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
 msgid "Toner empty"
 msgstr "Tonerkassetten är tom"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
 msgid "Not connected?"
 msgstr "Inte ansluten?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
 msgid "Cover open"
 msgstr "Luckan är öppen"
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
 msgid "Printer configuration error"
 msgstr "Fel i skrivarkonfiguration"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
 msgid "Door open"
 msgstr "Dörren är öppen"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
 msgid "Marker supply low"
 msgstr "Nästan slut på en färg"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
 msgid "Out of a marker supply"
 msgstr "Slut på en färg"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
 msgid "Paper low"
 msgstr "Nästan slut på papper"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
 msgid "Out of paper"
 msgstr "Slut på papper"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:198
 msgid "Printer off-line"
 msgstr "Skrivaren är frånkopplad"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
 msgid "Printer error"
 msgstr "Skrivarfel"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "Skrivaren \"%s\" har nästan slut på toner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "Skrivaren \"%s\" har slut på toner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Skrivaren \"%s\" kanske inte är ansluten."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:210
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "Luckan är öppnad på skrivaren \"%s\"."
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "Det saknas ett utskriftsfilter för skrivaren \"%s\"."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "Dörren är öppen på skrivaren \"%s\"."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "Skrivaren \"%s\" har nästan slut på en färg."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "Skrivaren \"%s\" har slut på en färg."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "Skrivaren \"%s\" har nästan slut på papper."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "Skrivaren \"%s\" har slut på papper."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "Skrivaren \"%s\" är för närvarande frånkopplad."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:227
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "Det har uppstått ett problem på skrivaren \"%s\"."
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:297
 msgid "Printer added"
 msgstr "Skrivaren lades till"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
 msgid "Printer removed"
 msgstr "Skrivaren togs bort"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:322
 msgid "Printing stopped"
 msgstr "Utskrifter har stoppats"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "\"%s\" på %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:328
 msgid "Printing canceled"
 msgstr "Utskriften avbröts"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:334
 msgid "Printing aborted"
 msgstr "Utskriften avbröts"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
 msgid "Printing completed"
 msgstr "Utskriften är färdig"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printing"
 msgstr "Skriver ut"
 
@@ -1527,51 +1527,51 @@ msgstr "Konfigurera skärmstorlek och roteringsinställningar"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:413
+#: ../plugins/xrandr/gsd-xrandr-manager.c:411
 msgid "Could not switch the monitor configuration"
 msgstr "Kunde inte växla till skärmkonfigurationen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:437
+#: ../plugins/xrandr/gsd-xrandr-manager.c:435
 msgid "Could not restore the display's configuration"
 msgstr "Kunde inte återställa skärmens konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:462
+#: ../plugins/xrandr/gsd-xrandr-manager.c:460
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Kunde inte återställa skärmens konfiguration från en säkerhetskopia"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "Skärmen kommer att återställas till dess tidigare konfiguration om %d sekund"
 msgstr[1] "Skärmen kommer att återställas till dess tidigare konfiguration om %d sekunder"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:530
 msgid "Does the display look OK?"
 msgstr "Ser skärmen bra ut?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:539
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "_Restore Previous Configuration"
 msgstr "_Återställ tidigare konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:540
+#: ../plugins/xrandr/gsd-xrandr-manager.c:538
 msgid "_Keep This Configuration"
 msgstr "_Behåll denna konfiguration"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:621
+#: ../plugins/xrandr/gsd-xrandr-manager.c:619
 msgid "The selected configuration for displays could not be applied"
 msgstr "Den valda konfigurationen för skärmar kunde inte tillämpas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1151
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Kunde inte uppdatera skärminformationen: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1155
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Försöker att växla till skärmkonfigurationen ändå."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1625
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kunde inte tillämpa lagrad konfiguration för skärmar"
 
@@ -1824,169 +1824,229 @@ msgstr "Ignorera enheter"
 #~ msgstr ""
 #~ "Upplösning som används för konvertering av typsnittsstorlekar till "
 #~ "bildpunktsstorlekar, i punkter per tum."
+
 #~ msgid "Removing item %"
 #~ msgstr "Tar bort objekt %"
+
 #~ msgid "Removing: %s"
 #~ msgstr "Tar bort: %s"
+
 #~ msgid "Emptying the trash"
 #~ msgstr "Tömmer papperskorgen"
+
 #~ msgid "Preparing to empty trash…"
 #~ msgstr "Förbereder att tömma papperskorgen..."
+
 #~ msgid "From: "
 #~ msgstr "Från: "
+
 #~ msgid "Empty all of the items from the trash?"
 #~ msgstr "Töm alla objekt i papperskorgen?"
+
 #~ msgid ""
 #~ "If you choose to empty the trash, all items in it will be permanently "
 #~ "lost. Please note that you can also delete them separately."
 #~ msgstr ""
 #~ "Om du väljer att tömma papperskorgen så kommer alla objekt i den att gå "
 #~ "förlorade. Observera att du även kan ta bort dem individuellt."
+
 #~ msgid "_Empty Trash"
 #~ msgstr "Töm _papperskorgen"
+
 #~ msgid "Change system time"
 #~ msgstr "Ändra systemtiden"
+
 #~ msgid "Configure hardware clock"
 #~ msgstr "Konfigurera maskinvaruklockan"
+
 #~ msgid "Privileges are required to change the system time zone."
 #~ msgstr "Privilegier krävs för att ändra systemets tidszon."
+
 #~ msgid "Privileges are required to change the system time."
 #~ msgstr "Privilegier krävs för att ändra systemtiden."
+
 #~ msgid "Privileges are required to configure network time."
 #~ msgstr "Privilegier krävs för att konfigurera nätverkstiden."
+
 #~ msgid "Volume step"
 #~ msgstr "Volymsteg"
+
 #~ msgid "Volume step as percentage of volume."
 #~ msgstr "Volymsteg som procentandel av volymen."
+
 #~ msgid ""
 #~ "If a notification icon with display related things should be shown in the "
 #~ "panel."
 #~ msgstr ""
 #~ "Om en notifieringsikon med skärmrelaterade saker ska visas i panelen."
+
 #~ msgid "Show Displays in Notification Area"
 #~ msgstr "Visa skärmar i notifieringsytan"
+
 #~ msgid "Bounce keys"
 #~ msgstr "Studsande tangenter"
+
 #~ msgid "Command used to turn the magnifier on or off."
 #~ msgstr "Kommando som används för att aktivera/inaktivera förstoraren."
+
 #~ msgid "Command used to turn the on-screen keyboard on or off."
 #~ msgstr ""
 #~ "Kommando som används för att aktivera/inaktivera skärmtangentbordet."
+
 #~ msgid "Command used to turn the screen reader on or off."
 #~ msgstr "Kommando för att aktivera/inaktivera skärmläsaren."
+
 #~ msgid "Enable accessibility keyboard plugin"
 #~ msgstr "Aktivera insticksmodulen för hjälpmedelstangentbord"
+
 #~ msgid "Enable background plugin"
 #~ msgstr "Aktivera insticksmodulen för bakgrunder"
+
 #~ msgid "Enable clipboard plugin"
 #~ msgstr "Aktivera insticksmodulen för urklipp"
+
 #~ msgid "Enable font plugin"
 #~ msgstr "Aktivera insticksmodulen för typsnitt"
+
 #~ msgid "Enable housekeeping plugin"
 #~ msgstr "Aktivera insticksmodulen för uppstädning"
+
 #~ msgid "Enable keybindings plugin"
 #~ msgstr "Aktivera insticksmodulen för tangentbindningar"
+
 #~ msgid "Enable keyboard plugin"
 #~ msgstr "Aktivera insticksmodulen för tangentbord"
+
 #~ msgid "Enable media keys plugin"
 #~ msgstr "Aktivera insticksmodulen för mediatangenter"
+
 #~ msgid "Enable mouse plugin"
 #~ msgstr "Aktivera insticksmodulen för möss"
+
 #~ msgid "Enable sound plugin"
 #~ msgstr "Aktivera insticksmodulen för ljud"
+
 #~ msgid "Enable typing breaks plugin"
 #~ msgstr "Aktivera insticksmodulen för paus i skrivande"
+
 #~ msgid "Enable xrandr plugin"
 #~ msgstr "Aktivera insticksmodulen xrandr"
+
 #~ msgid "Enable xrdb plugin"
 #~ msgstr "Aktivera insticksmodulen xrdb"
+
 #~ msgid "Enable xsettings plugin"
 #~ msgstr "Aktivera insticksmodulen xsettings"
+
 #~ msgid "Mouse keys"
 #~ msgstr "Mustangenter"
+
 #~ msgid "On-screen keyboard"
 #~ msgstr "Skärmtangentbord"
+
 #~ msgid "Screen magnifier"
 #~ msgstr "Skärmförstorare"
+
 #~ msgid "Screen reader"
 #~ msgstr "Skärmläsare"
+
 #~ msgid ""
 #~ "Set to True to enable the housekeeping plugin, to prune transient file "
 #~ "caches."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för uppstädning för "
 #~ "att kasta gamla tillfälliga, mellanlagrade filer."
+
 #~ msgid "Set to True to enable the plugin to manage clipboard settings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "urklippsinställningar."
+
 #~ msgid ""
 #~ "Set to True to enable the plugin to manage desktop background settings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "bakgrundsinställningar."
+
 #~ msgid "Set to True to enable the plugin to manage font settings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "typsnittsinställningar."
+
 #~ msgid "Set to True to enable the plugin to manage keyboard settings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "tangentbordsinställningar."
+
 #~ msgid "Set to True to enable the plugin to manage mouse settings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "musinställningar."
+
 #~ msgid "Set to True to enable the plugin to manage multimedia keys settings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "multimediatangenter."
+
 #~ msgid "Set to True to enable the plugin to manage sound sample caches."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "ljudsamplingscache."
+
 #~ msgid ""
 #~ "Set to True to enable the plugin to manage the accessibility keyboard "
 #~ "settings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "hjälpmedelstangentbord."
+
 #~ msgid "Set to True to enable the plugin to manage the keybindings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "tangentbindningar."
+
 #~ msgid "Set to True to enable the plugin to manage typing breaks."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av paus "
 #~ "i skrivande."
+
 #~ msgid "Set to True to enable the plugin to manage xrandr settings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "xrandr-inställningar."
+
 #~ msgid "Set to True to enable the plugin to manage xrdb settings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av xrdb-"
 #~ "inställningar."
+
 #~ msgid "Set to True to enable the plugin to manage xsettings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "xsettings."
+
 #~ msgid "Slow keys"
 #~ msgstr "Tröga tangenter"
+
 #~ msgid "Sticky keys"
 #~ msgstr "Klistriga tangenter"
+
 #~ msgid "The name of the keyboard shortcut to toggle the magnifier"
 #~ msgstr "Namnet på tangentbordsgenvägen för att växla förstoraren"
+
 #~ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 #~ msgstr "Namnet på tangentbordsgenvägen för att växla skärmtangentbordet"
+
 #~ msgid "The name of the keyboard shortcut to toggle the screen reader"
 #~ msgstr "Namnet på tangentbordsgenvägen för att växla skärmläsaren"
+
 #~ msgid ""
 #~ "This is the name of the keyboard shortcut to toggle the magnifier. This "
 #~ "name will be shown in the keyboard shortcut preferences dialog."
 #~ msgstr ""
 #~ "Detta är namnet på tangentbordsgenvägen för att växla förstoraren. Detta "
 #~ "namn kommer att visas i inställningsdialogen för tangentbordsgenvägar."
+
 #~ msgid ""
 #~ "This is the name of the keyboard shortcut to toggle the on-screen "
 #~ "keyboard. This name will be shown in the keyboard shortcut preferences "
@@ -1995,33 +2055,45 @@ msgstr "Ignorera enheter"
 #~ "Detta är namnet på tangentbordsgenvägen för att växla skärmtangentbordet. "
 #~ "Detta namn kommer att visas i inställningsdialogen för "
 #~ "tangentbordsgenvägar."
+
 #~ msgid ""
 #~ "This is the name of the keyboard shortcut to toggle the screen reader. "
 #~ "This name will be shown in the keyboard shortcut preferences dialog."
 #~ msgstr ""
 #~ "Detta är namnet på tangentbordsgenvägen för att växla skärmläsaren. Detta "
 #~ "namn kommer att visas i inställningsdialogen för tangentbordsgenvägar."
+
 #~ msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 #~ msgstr "Huruvida hjälpmedelsfunktionen Studsande tangenter är påslagen."
+
 #~ msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 #~ msgstr "Huruvida hjälpmedelsfunktionen Mustangenter är påslagen."
+
 #~ msgid "Whether the on-screen keyboard is turned on."
 #~ msgstr "Huruvida hjälpmedelsfunktionen Skärmtangentbord är påslagen."
+
 #~ msgid "Whether the screen magnifier is turned on."
 #~ msgstr "Huruvida hjälpmedelsfunktionen Skärmförstorare är påslagen."
+
 #~ msgid "Whether the screen reader is turned on."
 #~ msgstr "Huruvida hjälpmedelsfunktionen Skärmläsare är påslagen."
+
 #~ msgid "Whether the slow keys keyboard accessibility feature is turned on."
 #~ msgstr "Huruvida hjälpmedelsfunktionen Tröga tangenter är påslagen."
+
 #~ msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 #~ msgstr "Huruvida hjälpmedelsfunktionen Klistriga tangenter är påslagen."
+
 #~ msgid "Don't become a daemon"
 #~ msgstr "Bli inte en demonprocess"
+
 #~ msgid "GConf prefix from which to load plugin settings"
 #~ msgstr ""
 #~ "GConf-prefix från vilket inställningar för insticksmoduler ska läsas in"
+
 #~ msgid "Font"
 #~ msgstr "Typsnitt"
+
 #~ msgid ""
 #~ "Error activating XKB configuration.\n"
 #~ "It can happen under various circumstances:\n"
@@ -2050,6 +2122,7 @@ msgstr "Ignorera enheter"
 #~ "Om du rapporterar denna situation som ett fel så inkludera:\n"
 #~ "- Resultatet av <b>%s</b>\n"
 #~ "- Resultatet av <b>%s</b>"
+
 #~ msgid ""
 #~ "You are using XFree 4.3.0.\n"
 #~ "There are known problems with complex XKB configurations.\n"
@@ -2060,91 +2133,129 @@ msgstr "Ignorera enheter"
 #~ "Det finns kända problem med komplexa XKB-konfigurationer.\n"
 #~ "Prova med en enklare konfiguration eller använd en senare version av "
 #~ "XFree-programvaran."
+
 #~ msgid "Unknown"
 #~ msgstr "Okänd"
+
 #~ msgid "Keyboard Layout \"%s\""
 #~ msgstr "Tangentbordslayout \"%s\""
+
 #~ msgid "_Groups"
 #~ msgstr "_Grupper"
+
 #~ msgid "A_vailable files:"
 #~ msgstr "_Tillgängliga filer:"
+
 #~ msgid "Load modmap files"
 #~ msgstr "Läs in modmap-filer"
+
 #~ msgid "Would you like to load the modmap file(s)?"
 #~ msgstr "Vill du läsa in modmap-filerna?"
+
 #~ msgid "_Do not show this message again"
 #~ msgstr "_Visa inte detta meddelande igen"
+
 #~ msgid "_Load"
 #~ msgstr "_Läs in"
+
 #~ msgid "_Loaded files:"
 #~ msgstr "_Inlästa filer:"
+
 #~ msgid "Keyboard Layout"
 #~ msgstr "Tangentbordslayout"
+
 #~ msgid ""
 #~ "Couldn't put the machine to sleep.\n"
 #~ "Verify that the machine is correctly configured."
 #~ msgstr ""
 #~ "Kunde inte få denna maskin att sova.\n"
 #~ "Kontrollera att maskinen är korrekt konfigurerad."
+
 #~ msgid "Mouse Preferences"
 #~ msgstr "Musinställningar"
+
 #~ msgid "Typing Break"
 #~ msgstr "Paus i skrivande"
+
 #~ msgid "Typing break plugin"
 #~ msgstr "Insticksmodul för paus i skrivande"
+
 #~ msgid "<i>Rotation not supported</i>"
 #~ msgstr "<i>Rotering stöds inte</i>"
+
 #~ msgid "Could not save monitor configuration"
 #~ msgstr "Kunde inte spara skärmkonfigurationen"
+
 #~ msgid "Normal"
 #~ msgstr "Normal"
+
 #~ msgid "Left"
 #~ msgstr "Vänster"
+
 #~ msgid "Right"
 #~ msgstr "Höger"
+
 #~ msgid "Upside Down"
 #~ msgstr "Upp och ner"
+
 #~ msgid "_Configure Display Settings ..."
 #~ msgstr "_Konfigurera skärminställningar ..."
+
 #~ msgid "Configure display settings"
 #~ msgstr "Konfigurera skärminställningar"
+
 #~ msgid "Cannot determine user's home directory"
 #~ msgstr "Kan inte avgöra användarens hemkatalog"
+
 #~ msgid "Manage the X resource database"
 #~ msgstr "Hantera X-resursdatabasen"
+
 #~ msgid "X Resource Database"
 #~ msgstr "X-resursdatabas"
+
 #~ msgid "GConf key %s set to type %s but its expected type was %s\n"
 #~ msgstr ""
 #~ "GConf-nyckeln %s är satt till typen %s men dess förväntade typ var %s\n"
+
 #~ msgid "Binding to suspend the computer."
 #~ msgstr "Bindning för att försätta datorn i vänteläge."
+
 #~ msgid "Suspend"
 #~ msgstr "Vänteläge"
+
 #~ msgid "GNOME Volume Control"
 #~ msgstr "GNOME-volymkontroll"
+
 #~ msgid ""
 #~ "Set to True to display a dialog when there are errors running the "
 #~ "screensaver."
 #~ msgstr ""
 #~ "Ställ in till sant för att visa ett dialogfönster när det uppstår fel vid "
 #~ "körandet av skärmsläckaren."
+
 #~ msgid "Set to True to run the screensaver at login."
 #~ msgstr "Ställ in till sant för att köra skärmsläckaren vid inloggning."
+
 #~ msgid "Show startup errors"
 #~ msgstr "Visa uppstartsfel"
+
 #~ msgid "Start screensaver"
 #~ msgstr "Starta skärmsläckaren"
+
 #~ msgid "Enable screensaver plugin"
 #~ msgstr "Aktivera insticksmodulen för skärmsläckare"
+
 #~ msgid "Set to True to enable the plugin to manage screensaver settings."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "skärmsläckarinställningar."
+
 #~ msgid "%d%% of the disk space on `%s' is in use"
 #~ msgstr "%d %% av diskutrymmet på \"%s\" används"
+
 #~ msgid "Analyze"
 #~ msgstr "Analysera"
+
 #~ msgid ""
 #~ "There was an error starting up the screensaver:\n"
 #~ "\n"
@@ -2157,44 +2268,60 @@ msgstr "Ignorera enheter"
 #~ "%s\n"
 #~ "\n"
 #~ "Skärmsläckarfunktionen kommer inte att fungera under denna session."
+
 #~ msgid "Screensaver"
 #~ msgstr "Skärmsläckare"
+
 #~ msgid "Screensaver plugin"
 #~ msgstr "Insticksmodul för skärmsläckare"
+
 #~ msgid "Sound"
 #~ msgstr "Ljud"
+
 #~ msgid "Sound Sample Cache plugin"
 #~ msgstr "Insticksmodul för ljudsamplingscache"
+
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
 #~ "This is needed to allow changing the mouse pointer theme."
 #~ msgstr ""
 #~ "Kan inte skapa katalogen \"%s\".\n"
 #~ "Detta krävs för att möjliggöra ändring av muspekartemat."
+
 #~ msgid ""
 #~ "Cannot create the directory \"%s\".\n"
 #~ "This is needed to allow changing cursors."
 #~ msgstr ""
 #~ "Kan inte skapa katalogen \"%s\".\n"
 #~ "Detta krävs för att möjliggöra ändring av muspekare."
+
 #~ msgid "Couldn't load sound file %s as sample %s"
 #~ msgstr "Kunde inte läsa in ljudfilen %s som prov %s"
+
 #~ msgid "Login"
 #~ msgstr "Logga in"
+
 #~ msgid "Logout"
 #~ msgstr "Logga ut"
+
 #~ msgid "Boing"
 #~ msgstr "Boing"
+
 #~ msgid "Siren"
 #~ msgstr "Siren"
+
 #~ msgid "Clink"
 #~ msgstr "Klink"
+
 #~ msgid "Beep"
 #~ msgstr "Pip"
+
 #~ msgid "No sound"
 #~ msgstr "Inget ljud"
+
 #~ msgid "Sound not set for this event."
 #~ msgstr "Inget ljud är inställt för den här händelsen."
+
 #~ msgid ""
 #~ "The sound file for this event does not exist.\n"
 #~ "You may want to install the gnome-audio package for a set of default "
@@ -2203,290 +2330,404 @@ msgstr "Ignorera enheter"
 #~ "Ljudfilen för denna händelse existerar inte.\n"
 #~ "Du kanske vill installera paketet gnome-audio för att få en uppsättning "
 #~ "med standardljud."
+
 #~ msgid "The sound file for this event does not exist."
 #~ msgstr "Ljudfilen för denna händelse finns inte."
+
 #~ msgid "Select Sound File"
 #~ msgstr "Välj ljudfil"
+
 #~ msgid "The file %s is not a valid wav file"
 #~ msgstr "Filen %s är inte en giltig wav-fil"
+
 #~ msgid "Select sound file..."
 #~ msgstr "Välj ljudfil..."
+
 #~ msgid "An error occurred while configuring the screen"
 #~ msgstr "Ett fel inträffade vid konfigurering av skärmen"
+
 #~ msgid ""
 #~ "Set to True to keep the handlers for text/plain and text/* MIME types "
 #~ "synchronized."
 #~ msgstr ""
 #~ "Ställ in till sant för att MIME-hanterarna för text/plain och text/* att "
 #~ "hållas synkroniserade."
+
 #~ msgid "Sync text/plain and text/* handlers"
 #~ msgstr "Synkronisera text/plain- och /text/*-hanterare"
+
 #~ msgid "Enable default editor plugin"
 #~ msgstr "Aktivera insticksmodulen för standardredigerare"
+
 #~ msgid ""
 #~ "Set to True to enable the plugin to manage the default text editor "
 #~ "setting."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "standardredigerare."
+
 #~ msgid "Key Binding (%s) has its action defined multiple times\n"
 #~ msgstr "Tangentbindningen (%s) har dess åtgärd definierad flera gånger\n"
+
 #~ msgid "Key Binding (%s) has its binding defined multiple times\n"
 #~ msgstr "Tangentbindningen (%s) har dess bindning definierad flera gånger\n"
+
 #~ msgid "It seems that another application already has access to key '%u'."
 #~ msgstr ""
 #~ "Det verkar som om ett annat program redan har tillgång till nyckeln \"%u"
 #~ "\"."
+
 #~ msgid "Key Binding (%s) is already in use\n"
 #~ msgstr "Tangentbindningen (%s) används redan\n"
+
 #~ msgid "Volume"
 #~ msgstr "Volym"
+
 #~ msgid "Default Editor"
 #~ msgstr "Standardredigerare"
+
 #~ msgid "Default editor plugin"
 #~ msgstr "Insticksmodul för standardredigerare"
+
 #~ msgid "Eject's shortcut."
 #~ msgstr "Genvägen för mata ut."
+
 #~ msgid "Home folder's shortcut."
 #~ msgstr "Genvägen till hemmappen."
+
 #~ msgid "Launch calculator's shortcut"
 #~ msgstr "Genvägen för starta miniräknare"
+
 #~ msgid "Launch help browser's shortcut."
 #~ msgstr "Genvägen för starta hjälpläsare."
+
 #~ msgid "Launch web browser's shortcut."
 #~ msgstr "Genvägen för starta webbläsare."
+
 #~ msgid "Lock screen's shortcut."
 #~ msgstr "Genvägen för lås skärmen."
+
 #~ msgid "Log out's shortcut."
 #~ msgstr "Genvägen för logga ut."
+
 #~ msgid "Media player key's shortcut."
 #~ msgstr "Genvägen för mediaspelarens tangent."
+
 #~ msgid "Next track key's shortcut."
 #~ msgstr "Genvägen för tangenten nästa spår."
+
 #~ msgid "Pause"
 #~ msgstr "Gör paus"
+
 #~ msgid "Pause key's shortcut."
 #~ msgstr "Genvägen för tangenten gör paus."
+
 #~ msgid "Play (or play/pause) key's shortcut."
 #~ msgstr "Genvägen för tangenten spela (eller spela/gör paus)."
+
 #~ msgid "Previous track key's shortcut."
 #~ msgstr "Genvägen för tangenten föregående spår."
+
 #~ msgid "Search's shortcut."
 #~ msgstr "Genvägen för sök."
+
 #~ msgid "Sleep"
 #~ msgstr "Sov"
+
 #~ msgid "Sleep's shortcut."
 #~ msgstr "Genvägen för sov."
+
 #~ msgid "Stop playback key's shortcut."
 #~ msgstr "Genvägen för tangenten stoppa uppspelning."
+
 #~ msgid "Volume down's shortcut."
 #~ msgstr "Genvägen för volym ned."
+
 #~ msgid "Volume mute's shortcut."
 #~ msgstr "Genvägen för att tysta volymen."
+
 #~ msgid "Volume up's shortcut."
 #~ msgstr "Genvägen för volym upp."
+
 #~ msgid "Run screensaver at login"
 #~ msgstr "Kör skärmsläckaren vid inloggning"
+
 #~ msgid "Set to True to enable the font settings manager plugin."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "typsnittsinställningar."
+
 #~ msgid "Set to True to enable the keybindings settings manager plugin."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "tangentbindningar."
+
 #~ msgid "Set to True to enable the mouse settings manager plugin."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "musinställningar."
+
 #~ msgid "Set to True to enable the typing break settings manager plugin."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "skrivandepauser."
+
 #~ msgid "Set to True to enable the xrandr settings manager plugin."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "xrandr-inställningar."
+
 #~ msgid "Set to True to enable the xrdb settings manager plugin."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av xrdb-"
 #~ "inställningar."
+
 #~ msgid "Set to True to enable the xsettings settings manager plugin."
 #~ msgstr ""
 #~ "Ställ in till sant för att aktivera insticksmodulen för hantering av "
 #~ "xsettings-inställningar."
+
 #~ msgid ""
 #~ "True if the accessibility keyboard settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av tillgänglighetstangentbord är "
 #~ "aktiverad."
+
 #~ msgid "True if the background settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av bakgrundsinställningar är "
 #~ "aktiverad."
+
 #~ msgid "True if the clipboard settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av urklippsinställningar är "
 #~ "aktiverad."
+
 #~ msgid "True if the default editor settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av standardredigerare är aktiverad."
+
 #~ msgid "True if the font settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av typsnittsinställningar är "
 #~ "aktiverad."
+
 #~ msgid "True if the keybindings settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av tangentbindningar är aktiverad."
+
 #~ msgid "True if the keyboard settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av tangentbordsinställningar är "
 #~ "aktiverad."
+
 #~ msgid "True if the media keys settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av mediatangenter är aktiverad."
+
 #~ msgid "True if the mouse settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av musinställningar är aktiverad."
+
 #~ msgid "True if the screensaver settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av skärmsläckarinställningar är "
 #~ "aktiverad."
+
 #~ msgid "True if the sound settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av ljudinställningar är aktiverad."
+
 #~ msgid "True if the typing break settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av skrivandepauser är aktiverad."
+
 #~ msgid "True if the xrandr settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av xrandr-inställningar är "
 #~ "aktiverad."
+
 #~ msgid "True if the xrdb settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av xrdb-inställningar är aktiverad."
+
 #~ msgid "True if the xsettings settings manager plugin is enabled."
 #~ msgstr ""
 #~ "Sant om insticksmodulen för hantering av xsettings-inställningar är "
 #~ "aktiverad."
+
 #~ msgid "E-mail"
 #~ msgstr "E-post"
+
 #~ msgid "E-mail's shortcut."
 #~ msgstr "Genvägen för e-post."
+
 #~ msgid ""
 #~ "<i>Region and language changes take effect the next time you log in.</i>"
 #~ msgstr ""
 #~ "<i>Ändringar av region och språk blir aktiverade nästa gång du loggar in."
 #~ "</i>"
+
 #~ msgid "Localization Preferences"
 #~ msgstr "Inställningar för lokalanpassning"
+
 #~ msgid "Region:"
 #~ msgstr "Region:"
+
 #~ msgid "Selected languages:"
 #~ msgstr "Valda språk:"
+
 #~ msgid "Image/label border"
 #~ msgstr "Bild-/etikettkant"
+
 #~ msgid "Width of border around the label and image in the alert dialog"
 #~ msgstr "Bredd på ramen runt etiketten och bilden i varningsdialogen"
+
 #~ msgid "Alert Type"
 #~ msgstr "Varningstyp"
+
 #~ msgid "The type of alert"
 #~ msgstr "Typen av varning"
+
 #~ msgid "Alert Buttons"
 #~ msgstr "Varningsknappar"
+
 #~ msgid "The buttons shown in the alert dialog"
 #~ msgstr "Knapparna som visas i varningsdialogen"
+
 #~ msgid "Show more _details"
 #~ msgstr "Visa fler _detaljer"
+
 #~ msgid "Select Image"
 #~ msgstr "Välj bild"
+
 #~ msgid "No Image"
 #~ msgstr "Ingen bild"
+
 #~ msgid "Images"
 #~ msgstr "Bilder"
+
 #~ msgid "All Files"
 #~ msgstr "Alla filer"
+
 #~ msgid ""
 #~ "There was an error while trying to get the addressbook information\n"
 #~ "Evolution Data Server can't handle the protocol"
 #~ msgstr ""
 #~ "Det inträffade ett fel vid försöket att hämta adressboksinformationen\n"
 #~ "Evolution Data Server kan inte hantera protokollet"
+
 #~ msgid "Unknown login ID, the user database might be corrupted"
 #~ msgstr "Okänt inloggningsid, användardatabasen kan vara trasig"
+
 #~ msgid "About %s"
 #~ msgstr "Om %s"
+
 #~ msgid "About Me"
 #~ msgstr "Om mig"
+
 #~ msgid "<b>Email</b>"
 #~ msgstr "<b>E-post</b>"
+
 #~ msgid "<b>Home</b>"
 #~ msgstr "<b>Hem</b>"
+
 #~ msgid "<b>Instant Messaging</b>"
 #~ msgstr "<b>Snabbmeddelande</b>"
+
 #~ msgid "<b>Job</b>"
 #~ msgstr "<b>Arbete</b>"
+
 #~ msgid "<b>Telephone</b>"
 #~ msgstr "<b>Telefon</b>"
+
 #~ msgid "<b>Web</b>"
 #~ msgstr "<b>Webb</b>"
+
 #~ msgid "<b>Work</b>"
 #~ msgstr "<b>Arbete</b>"
+
 #~ msgid "<span size=\"larger\" weight=\"bold\">Change your password</span>"
 #~ msgstr "<span size=\"larger\" weight=\"bold\">Byt ditt lösenord</span>"
+
 #~ msgid "A_IM/iChat:"
 #~ msgstr "A_IM/iChat:"
+
 #~ msgid "A_ddress:"
 #~ msgstr "A_dress:"
+
 #~ msgid "A_ssistant:"
 #~ msgstr "A_ssistent:"
+
 #~ msgid "Address"
 #~ msgstr "Adress"
+
 #~ msgid "C_ity:"
 #~ msgstr "_Ort:"
+
 #~ msgid "C_ompany:"
 #~ msgstr "F_öretag:"
+
 #~ msgid "Cale_ndar:"
 #~ msgstr "Kale_nder:"
+
 #~ msgid "Change Passwo_rd..."
 #~ msgstr "Byt löseno_rd..."
+
 #~ msgid "Change pa_ssword"
 #~ msgstr "Byt lö_senord"
+
 #~ msgid "Change password"
 #~ msgstr "Byt lösenord"
+
 #~ msgid "Ci_ty:"
 #~ msgstr "_Ort:"
+
 #~ msgid "Co_untry:"
 #~ msgstr "_Land:"
+
 #~ msgid "Contact"
 #~ msgstr "Kontakt"
+
 #~ msgid "Cou_ntry:"
 #~ msgstr "_Land:"
+
 #~ msgid "Current _password:"
 #~ msgstr "Aktuellt _lösenord:"
+
 #~ msgid "Full Name"
 #~ msgstr "Fullständigt namn"
+
 #~ msgid "Hom_e:"
 #~ msgstr "_Hem:"
+
 #~ msgid "IC_Q:"
 #~ msgstr "IC_Q:"
+
 #~ msgid "M_SN:"
 #~ msgstr "M_SN:"
+
 #~ msgid "P.O. _box:"
 #~ msgstr "Bo_x:"
+
 #~ msgid "P._O. box:"
 #~ msgstr "Bo_x:"
+
 #~ msgid "Personal Info"
 #~ msgstr "Personlig information"
+
 #~ msgid ""
 #~ "Please type your password again in the <b>Retype new password</b> field."
 #~ msgstr ""
 #~ "Skriv in ditt lösenord igen i fältet <b>Skriv in ditt nya lösenord igen</"
 #~ "b>."
+
 #~ msgid "Select your photo"
 #~ msgstr "Välj ditt fotografi"
+
 #~ msgid "State/Pro_vince:"
 #~ msgstr "_Delstat/Provins:"
+
 #~ msgid ""
 #~ "To change your password, enter your current password in the field below "
 #~ "and click <b>Authenticate</b>.\n"
@@ -2497,26 +2738,36 @@ msgstr "Ignorera enheter"
 #~ "och klicka på <b>Autentisera</b>.\n"
 #~ "Efter att du har blivit autentiserad, ange ditt nya lösenord, skriv in "
 #~ "det igen för validering och klicka på <b>Byt lösenord</b>."
+
 #~ msgid "User name:"
 #~ msgstr "Användarnamn:"
+
 #~ msgid "Web _log:"
 #~ msgstr "Webb_logg:"
+
 #~ msgid "Wor_k:"
 #~ msgstr "A_rbete:"
+
 #~ msgid "Work _fax:"
 #~ msgstr "Arbets_fax:"
+
 #~ msgid "Zip/_Postal code:"
 #~ msgstr "_Postnummer:"
+
 #~ msgid "_Address:"
 #~ msgstr "_Adress:"
+
 #~ msgid "_Authenticate"
 #~ msgstr "_Autentisera"
+
 #~ msgid "_Department:"
 #~ msgstr "_Avdelning:"
+
 #~ msgid "_Home page:"
 #~ msgstr "_Hemsida:"
+
 #~ msgid "_Home:"
 #~ msgstr "_Hem:"
+
 #~ msgid "_Jabber:"
 #~ msgstr "_Jabber:"
-
