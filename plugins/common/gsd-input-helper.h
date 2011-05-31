@@ -35,7 +35,12 @@ typedef enum {
 
 gboolean  supports_xinput_devices (void);
 gboolean  device_is_touchpad      (XDevice                *xdevice);
+
+gboolean  device_info_is_touchpad    (XDeviceInfo         *device_info);
+gboolean  device_info_is_touchscreen (XDeviceInfo         *device_info);
+
 gboolean  touchpad_is_present     (void);
+gboolean  touchscreen_is_present  (void);
 
 gboolean  run_custom_command      (GdkDevice              *device,
 			           CustomCommand           command);

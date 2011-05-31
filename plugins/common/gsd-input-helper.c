@@ -31,6 +31,9 @@
 #define INPUT_DEVICES_SCHEMA "org.gnome.settings-daemon.peripherals.input-devices"
 #define KEY_HOTPLUG_COMMAND  "hotplug-command"
 
+typedef gboolean (* InfoIdentifyFunc) (XDeviceInfo *device_info);
+typedef gboolean (* DeviceIdentifyFunc) (XDevice *xdevice);
+
 gboolean
 supports_xinput_devices (void)
 {
@@ -51,9 +54,8 @@ device_is_touchpad (XDevice *xdevice)
         unsigned long nitems, bytes_after;
         unsigned char *data;
 
-	/* FIXME
-	 * we don't check on the type being XI_TOUCHPAD, but having a "Synaptics Off"
-	 * property should be enough */
+        /* we don't check on the type being XI_TOUCHPAD here,
+         * but having a "Synaptics Off" property should be enough */
 
         prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Off", False);
         if (!prop)
@@ -73,7 +75,20 @@ device_is_touchpad (XDevice *xdevice)
 }
 
 gboolean
-touchpad_is_present (void)
+device_info_is_touchpad (XDeviceInfo *device_info)
+{
+        return (device_info->type == XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XI_TOUCHPAD, False));
+}
+
+gboolean
+device_info_is_touchscreen (XDeviceInfo *device_info)
+{
+        return (device_info->type == XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XI_TOUCHSCREEN, False));
+}
+
+static gboolean
+device_type_is_present (InfoIdentifyFunc info_func,
+                        DeviceIdentifyFunc device_func)
 {
         XDeviceInfo *device_info;
         gint n_devices;
@@ -92,12 +107,21 @@ touchpad_is_present (void)
         for (i = 0; i < n_devices; i++) {
                 XDevice *device;
 
+                /* Check with the device info first */
+                retval = (info_func) (&device_info[i]);
+                if (retval == FALSE)
+                        continue;
+
+                /* If we only have an info func, we're done checking */
+                if (device_func == NULL)
+                        break;
+
                 gdk_error_trap_push ();
                 device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
                 if (gdk_error_trap_pop () || (device == NULL))
                         continue;
 
-                retval = device_is_touchpad (device);
+                retval = (device_func) (device);
                 if (retval) {
                         XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
                         break;
@@ -108,6 +132,20 @@ touchpad_is_present (void)
         XFreeDeviceList (device_info);
 
         return retval;
+}
+
+gboolean
+touchscreen_is_present (void)
+{
+        return device_type_is_present (device_info_is_touchscreen,
+                                       NULL);
+}
+
+gboolean
+touchpad_is_present (void)
+{
+        return device_type_is_present (device_info_is_touchpad,
+                                       device_is_touchpad);
 }
 
 static const char *
