@@ -24,6 +24,7 @@
 #include <glib/gi18n.h>
 #include <colord.h>
 #include <libnotify/notify.h>
+#include <gdk/gdk.h>
 
 #ifdef HAVE_LIBCANBERRA
 #include <canberra-gtk.h>
@@ -119,7 +120,7 @@ gcm_session_exec_control_center (GsdColorManager *manager)
         GdkAppLaunchContext *launch_context;
 
         /* setup the launch context so the startup notification is correct */
-        launch_context = gdk_app_launch_context_new ();
+        launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
         app_info = g_app_info_create_from_commandline (BINDIR "/gnome-control-center color",
                                                        "gnome-control-center",
                                                        G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
