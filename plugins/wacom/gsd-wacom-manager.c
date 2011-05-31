@@ -40,6 +40,7 @@
 #include <X11/extensions/XInput.h>
 
 #include "gsd-enums.h"
+#include "gsd-input-helper.h"
 #include "gnome-settings-profile.h"
 #include "gsd-wacom-manager.h"
 
@@ -225,71 +226,9 @@ device_is_wacom (const gint type,
         return device;
 }
 
-/* Generic property setting code. Fill up the struct property with the property
- * data and pass it into device_set_property together with the device to be
- * changed.  Note: doesn't cater for non-zero offsets yet, but we don't have
- * any settings that require that.
- */
-struct property {
-        const gchar *name;      /* property name */
-        gint nitems;            /* number of items in data */
-        gint format;            /* 8 or 32 */
-        union {
-                const gchar *c; /* 8 bit data */
-                const gint *i;  /* 32 bit data */
-        } data;
-};
-
-static void
-device_set_property (XDevice            *device,
-                     const char         *device_name,
-                     struct property    *property)
-{
-        int rc;
-        Atom prop;
-        Atom realtype;
-        int realformat;
-        unsigned long nitems, bytes_after;
-        unsigned char *data;
-
-        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                            property->name, False);
-        if (!prop)
-                return;
-
-        gdk_error_trap_push ();
-
-        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                 device, prop, 0, property->nitems, False,
-                                 XA_INTEGER, &realtype, &realformat, &nitems,
-                                 &bytes_after, &data);
-
-        if (rc == Success && realtype == XA_INTEGER &&
-            realformat == property->format && nitems >= property->nitems) {
-                int i;
-                for (i = 0; i < nitems; i++) {
-                        switch (property->format) {
-                                case 8:
-                                        data[i] = property->data.c[i];
-                                        break;
-                                case 32:
-                                        ((long*)data)[i] = property->data.i[i];
-                                        break;
-                        }
-                }
-
-                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                       device, prop, XA_INTEGER, realformat,
-                                       PropModeReplace, data, nitems);
-        }
-
-        if (gdk_error_trap_pop ())
-                g_warning ("Error in setting \"%s\" for \"%s\"", property->name, device_name);
-}
-
 static void
 wacom_set_property (gint wacom_type,
-                    struct property *property)
+                    PropertyHelper *property)
 {
         XDeviceInfo *device_info;
         gint n_devices;
@@ -317,7 +256,7 @@ static void
 set_rotation (GsdWacomRotation rotation)
 {
         gchar rot = rotation;
-        struct property property = {
+        PropertyHelper property = {
                 .name = "Wacom Rotation",
                 .nitems = 1,
                 .format = 8,
@@ -331,7 +270,7 @@ static void
 set_pressurecurve (const gint    wacom_type,
                    GVariant      *value)
 {
-        struct property property = {
+        PropertyHelper property = {
                 .name = "Wacom Pressurecurve",
                 .nitems = 4,
                 .format = 32,
@@ -355,7 +294,7 @@ static void
 set_area (const gint      wacom_type,
           GVariant        *value)
 {
-        struct property property = {
+        PropertyHelper property = {
                 .name = "Wacom Tablet Area",
                 .nitems = 4,
                 .format = 32,
@@ -451,7 +390,7 @@ static void
 set_touch (gboolean touch)
 {
         gchar data = touch;
-        struct property property = {
+        PropertyHelper property = {
                 .name = "Wacom Enable Touch",
                 .nitems = 1,
                 .format = 8,
@@ -465,7 +404,7 @@ static void
 set_tpcbutton (gboolean tpcbutton)
 {
         gchar data = tpcbutton;
-        struct property property = {
+        PropertyHelper property = {
                 .name = "Wacom Hover Click",
                 .nitems = 1,
                 .format = 8,
@@ -478,7 +417,7 @@ set_tpcbutton (gboolean tpcbutton)
 static void
 set_pressurethreshold (const gint wacom_type, gint threshold)
 {
-        struct property property = {
+        PropertyHelper property = {
                 .name = "Wacom Pressure Threshold",
                 .nitems = 1,
                 .format = 32,
