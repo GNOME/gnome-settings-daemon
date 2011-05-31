@@ -32,7 +32,7 @@
 int main (int argc, char **argv)
 {
 	gboolean supports_xinput;
-	gboolean has_touchpad;
+	gboolean has_touchpad, has_touchscreen;
         XDeviceInfo *device_info;
         gint n_devices;
         guint i;
@@ -42,31 +42,41 @@ int main (int argc, char **argv)
 
 	supports_xinput = supports_xinput_devices ();
 	if (supports_xinput) {
-		g_print ("Supports XInput:\tyes\n");
+		g_print ("Supports XInput:\t\t\tyes\n");
 	} else {
-		g_print ("Supports XInput:\tno\n");
+		g_print ("Supports XInput:\t\t\tno\n");
 		return 0;
 	}
 
 	has_touchpad = touchpad_is_present ();
-	g_print ("Has touchpad:\t\t%s\n", has_touchpad ? "yes" : "no");
+	g_print ("Has touchpad:\t\t\t\t%s\n", has_touchpad ? "yes" : "no");
+
+	has_touchscreen = touchscreen_is_present ();
+	g_print ("Has touchscreen:\t\t\t%s\n", has_touchscreen ? "yes" : "no");
 
         device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
         if (device_info == NULL) {
-        	g_warning ("Has no input devices");
+		g_warning ("Has no input devices");
                 return 1;
 	}
 
         for (i = 0; i < n_devices; i++) {
                 XDevice *device;
 
+		if (device_info_is_touchscreen (&device_info[i])) {
+			g_print ("Device %d is touchscreen:\t\t%s\n", (int) device_info[i].id, "yes");
+			continue;
+		}
+
                 gdk_error_trap_push ();
                 device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
                 if (gdk_error_trap_pop () || (device == NULL))
                         continue;
 
-                retval = device_is_touchpad (device);
-                g_print ("Device %d is touchpad:\t%s\n", (int) device_info[i].id, retval ? "yes" : "no");
+                if (device_is_touchpad (device))
+			g_print ("Device %d is touchpad:\t\t%s\n", (int) device_info[i].id, "yes");
+		else
+			g_print ("Device %d is touchpad/touchscreen:\t%s\n", (int) device_info[i].id, "no");
 
                 XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
         }
