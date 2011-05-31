@@ -47,11 +47,13 @@
 /* Maximum number of buttons map-able. */
 #define WACOM_MAX_BUTTONS 32
 /* Device types to apply a setting to */
-#define WACOM_TYPE_STYLUS       (1 << 1)
-#define WACOM_TYPE_ERASER       (1 << 2)
-#define WACOM_TYPE_CURSOR       (1 << 3)
-#define WACOM_TYPE_PAD          (1 << 4)
-#define WACOM_TYPE_ALL          WACOM_TYPE_STYLUS | WACOM_TYPE_ERASER | WACOM_TYPE_CURSOR | WACOM_TYPE_PAD
+typedef enum {
+        WACOM_TYPE_STYLUS =     (1 << 1),
+        WACOM_TYPE_ERASER =     (1 << 2),
+        WACOM_TYPE_CURSOR =     (1 << 3),
+        WACOM_TYPE_PAD    =     (1 << 4),
+        WACOM_TYPE_ALL    =     WACOM_TYPE_STYLUS | WACOM_TYPE_ERASER | WACOM_TYPE_CURSOR | WACOM_TYPE_PAD
+} WacomType;
 
 #define GSD_WACOM_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerPrivate))
 
@@ -76,7 +78,7 @@
 
 struct GsdWacomManagerPrivate
 {
-	guint start_idle_id;
+        guint start_idle_id;
         GSettings *wacom_settings;
         GSettings *stylus_settings;
         GSettings *eraser_settings;
@@ -90,7 +92,7 @@ static void     gsd_wacom_manager_class_init  (GsdWacomManagerClass *klass);
 static void     gsd_wacom_manager_init        (GsdWacomManager      *wacom_manager);
 static void     gsd_wacom_manager_finalize    (GObject              *object);
 static void     set_wacom_settings            (GsdWacomManager      *manager);
-static XDevice* device_is_wacom               (const gint            type,
+static XDevice* device_is_wacom               (WacomType         type,
                                                const XDeviceInfo deviceinfo);
 
 G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_OBJECT)
@@ -99,8 +101,8 @@ static gpointer manager_object = NULL;
 
 static GObject *
 gsd_wacom_manager_constructor (GType                     type,
-                              guint                      n_construct_properties,
-                              GObjectConstructParam     *construct_properties)
+                               guint                      n_construct_properties,
+                               GObjectConstructParam     *construct_properties)
 {
         GsdWacomManager      *wacom_manager;
 
@@ -152,7 +154,7 @@ set_devicepresence_handler (GsdWacomManager *manager)
 }
 
 static gboolean
-device_is_type (const gint type,
+device_is_type (WacomType          type,
                 const XDeviceInfo *dev)
 {
         static Atom stylus, cursor, eraser, pad;
@@ -182,7 +184,7 @@ device_is_type (const gint type,
 }
 
 static XDevice*
-device_is_wacom (const gint type,
+device_is_wacom (WacomType         type,
                  const XDeviceInfo deviceinfo)
 {
         XDevice *device;
@@ -227,7 +229,7 @@ device_is_wacom (const gint type,
 }
 
 static void
-wacom_set_property (gint wacom_type,
+wacom_set_property (WacomType wacom_type,
                     PropertyHelper *property)
 {
         XDeviceInfo *device_info;
@@ -267,7 +269,7 @@ set_rotation (GsdWacomRotation rotation)
 }
 
 static void
-set_pressurecurve (const gint    wacom_type,
+set_pressurecurve (WacomType      wacom_type,
                    GVariant      *value)
 {
         PropertyHelper property = {
@@ -291,7 +293,7 @@ set_pressurecurve (const gint    wacom_type,
  * usable area of the physical device to the given area (in device coords)
  */
 static void
-set_area (const gint      wacom_type,
+set_area (WacomType        wacom_type,
           GVariant        *value)
 {
         PropertyHelper property = {
@@ -312,7 +314,8 @@ set_area (const gint      wacom_type,
 }
 
 static void
-set_absolute (const gint wacom_type, gint is_absolute)
+set_absolute (WacomType wacom_type,
+              gint      is_absolute)
 {
         XDeviceInfo *device_info;
         gint n_devices;
@@ -341,8 +344,8 @@ set_absolute (const gint wacom_type, gint is_absolute)
 }
 
 static void
-set_device_buttonmap (gint wacom_type,
-                      GVariant *value)
+set_device_buttonmap (WacomType  wacom_type,
+                      GVariant  *value)
 {
         XDeviceInfo *device_info;
         gint n_devices;
@@ -415,7 +418,8 @@ set_tpcbutton (gboolean tpcbutton)
 }
 
 static void
-set_pressurethreshold (const gint wacom_type, gint threshold)
+set_pressurethreshold (WacomType wacom_type,
+                       gint      threshold)
 {
         PropertyHelper property = {
                 .name = "Wacom Pressure Threshold",
