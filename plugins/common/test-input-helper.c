@@ -34,9 +34,10 @@ int main (int argc, char **argv)
 	gboolean supports_xinput;
 	gboolean has_touchpad, has_touchscreen;
         XDeviceInfo *device_info;
+        char *dev_node;
+        int devid;
         gint n_devices;
         guint i;
-        gboolean retval;
 
 	gtk_init (&argc, &argv);
 
@@ -47,12 +48,26 @@ int main (int argc, char **argv)
 		g_print ("Supports XInput:\t\t\tno\n");
 		return 0;
 	}
+	supports_xinput = supports_xinput2_devices ();
+	if (supports_xinput) {
+		g_print ("Supports XInput2:\t\t\tyes\n");
+	} else {
+		g_print ("Supports XInput2:\t\t\tno\n");
+		return 0;
+	}
 
 	has_touchpad = touchpad_is_present ();
 	g_print ("Has touchpad:\t\t\t\t%s\n", has_touchpad ? "yes" : "no");
 
 	has_touchscreen = touchscreen_is_present ();
 	g_print ("Has touchscreen:\t\t\t%s\n", has_touchscreen ? "yes" : "no");
+
+	if (accelerometer_is_present (&dev_node, &devid)) {
+		g_print ("Has accelerometer:\t\t\t%s (%d)\n", dev_node, devid);
+		g_free (dev_node);
+	} else {
+		g_print ("Has accelerometer:\t\t\t%s\n", "no");
+	}
 
         device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
         if (device_info == NULL) {
