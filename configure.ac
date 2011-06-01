@@ -21,6 +21,7 @@ AC_STDC_HEADERS
 AC_PROG_CXX
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
+AC_PATH_PNPIDS
 
 AC_HEADER_STDC
 
@@ -100,7 +101,7 @@ PKG_CHECK_MODULES(GNOME_DESKTOP, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VE
 dnl ---------------------------------------------------------------------------
 dnl - Check for colord
 dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(COLORD, colord >= 0.1.8)
+PKG_CHECK_MODULES(COLORD, colord >= 0.1.9)
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for libcanberra
@@ -114,10 +115,17 @@ AM_CONDITIONAL(HAVE_LIBCANBERRA, test "x$have_libcanberra" = "xtrue")
 dnl ---------------------------------------------------------------------------
 dnl - Check for LCMS2
 dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(LCMS, lcms2, HAVE_LCMS="yes", HAVE_LCMS="no")
-if test "x$HAVE_LCMS" = "xyes"; then
+PKG_CHECK_MODULES(LCMS, lcms2 >= 2.2, have_new_lcms=yes, have_new_lcms=no)
+if test x$have_new_lcms = xyes; then
+        have_lcms="yes"
+        AC_DEFINE(HAVE_NEW_LCMS,1,[Got new lcms2])
+else
+        PKG_CHECK_MODULES(LCMS, lcms2, have_lcms="yes", have_lcms="no")
+fi
+if test "x$have_lcms" = "xyes"; then
         AC_DEFINE(HAVE_LCMS, 1, [define if LCMS is available])
 fi
+
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for libnotify
@@ -618,7 +626,8 @@ echo "
 
         dbus-1 system.d dir:      ${DBUS_SYS_DIR}
         PolicyKit support:        ${HAVE_POLKIT}
-        LCMS support:             ${HAVE_LCMS}
+        LCMS support:             ${have_lcms}
+        LCMS DICT support:        ${have_new_lcms}
 
         Libnotify support:        ${have_libnotify}
         Libcanberra support:      ${have_libcanberra}
@@ -631,4 +640,5 @@ ${NSS_DATABASE:+\
         System nssdb:             ${NSS_DATABASE}
 }\
         Profiling support:        ${enable_profiling}
+        pnp.ids filename:         ${ac_with_pnpids}
 "

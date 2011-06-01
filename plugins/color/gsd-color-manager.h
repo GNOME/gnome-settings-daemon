@@ -32,6 +32,7 @@ G_BEGIN_DECLS
 #define GSD_IS_COLOR_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_COLOR_MANAGER))
 #define GSD_IS_COLOR_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_COLOR_MANAGER))
 #define GSD_COLOR_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerClass))
+#define GSD_COLOR_MANAGER_ERROR        (gsd_color_manager_error_quark ())
 
 typedef struct GsdColorManagerPrivate GsdColorManagerPrivate;
 
@@ -46,7 +47,13 @@ typedef struct
         GObjectClass   parent_class;
 } GsdColorManagerClass;
 
+enum
+{
+        GSD_COLOR_MANAGER_ERROR_FAILED
+};
+
 GType                   gsd_color_manager_get_type            (void);
+GQuark                  gsd_color_manager_error_quark         (void);
 
 GsdColorManager *       gsd_color_manager_new                 (void);
 gboolean                gsd_color_manager_start               (GsdColorManager *manager,
