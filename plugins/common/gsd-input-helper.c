@@ -25,6 +25,7 @@
 
 #include <sys/types.h>
 #include <X11/Xatom.h>
+#include <X11/extensions/XInput2.h>
 
 #include "gsd-input-helper.h"
 
@@ -95,6 +96,31 @@ supports_xinput_devices (void)
                                 &op_code,
                                 &event,
                                 &error);
+}
+
+gboolean
+supports_xinput2_devices (void)
+{
+        int major, minor;
+
+        if (supports_xinput_devices () == FALSE)
+                return FALSE;
+
+        gdk_error_trap_push ();
+
+        major = XI_2_Major;
+        minor = XI_2_Minor;
+
+        if (XIQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor) != Success) {
+                gdk_error_trap_pop_ignored ();
+                return FALSE;
+        }
+        gdk_error_trap_pop_ignored ();
+
+        if ((major * 1000 + minor) < (XI_2_Major * 1000 + XI_2_Minor))
+                return FALSE;
+
+        return TRUE;
 }
 
 gboolean
@@ -197,6 +223,121 @@ touchpad_is_present (void)
 {
         return device_type_is_present (device_info_is_touchpad,
                                        device_is_touchpad);
+}
+
+static char *
+get_device_node (int deviceid)
+{
+        Atom prop;
+        Atom                act_type;
+        int                 act_format;
+        unsigned long       nitems, bytes_after;
+        unsigned char       *data;
+        char *ret;
+
+        gdk_display_sync (gdk_display_get_default ());
+
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Device Node", False);
+        if (!prop)
+                return NULL;
+
+        gdk_error_trap_push ();
+
+        if (!XIGetProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                            deviceid, prop, 0, 1000, False,
+                            AnyPropertyType, &act_type, &act_format,
+                            &nitems, &bytes_after, &data) == Success) {
+                gdk_error_trap_pop_ignored ();
+                return NULL;
+        }
+        if (gdk_error_trap_pop ())
+                goto out;
+
+        if (nitems == 0)
+                goto out;
+
+        if (act_type != XA_STRING)
+                goto out;
+
+        /* Unknown string format */
+        if (act_format != 8)
+                goto out;
+
+        ret = g_strdup ((char *) data);
+
+        XFree (data);
+        return ret;
+
+out:
+        XFree (data);
+        return NULL;
+}
+
+gboolean
+accelerometer_is_present (char **device_node,
+                          int   *device_id)
+{
+        XIDeviceInfo *device_info;
+        gint n_devices;
+        guint i;
+        gboolean retval;
+
+        if (supports_xinput2_devices () == FALSE)
+                return FALSE;
+
+        /* Find the accelerometer device,
+         * Floating, and with 3 axis */
+        device_info = XIQueryDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XIAllDevices, &n_devices);
+
+        if (device_info == NULL)
+                return FALSE;
+
+        retval = FALSE;
+
+        for (i = 0; i < n_devices; i++) {
+                XIDeviceInfo *device;
+                gboolean all_vals;
+                guint j;
+                char *node;
+
+                device = &device_info[i];
+
+                /* Check for a floating device */
+                if (device->use != XIFloatingSlave)
+                        continue;
+
+                /* Not 3 classes? Probably not an accelerometer */
+                if (device->num_classes != 3)
+                        continue;
+
+                /* Check for a valuator class */
+                all_vals = TRUE;
+                for (j = 0; j < device->num_classes; j++) {
+                        if (device->classes[j]->type != XIValuatorClass) {
+                                all_vals = FALSE;
+                                break;
+                        }
+                }
+                if (all_vals == FALSE)
+                        continue;
+
+                /* Look for the "Device Node" property */
+                node = get_device_node (device->deviceid);
+                if (device_node != NULL)
+                        *device_node = node;
+                else
+                        g_free (node);
+                if (device_id != NULL)
+                        *device_id = device->deviceid;
+
+                retval = TRUE;
+
+                break;
+        }
+
+        XIFreeDeviceInfo (device_info);
+
+        return retval;
 }
 
 static const char *

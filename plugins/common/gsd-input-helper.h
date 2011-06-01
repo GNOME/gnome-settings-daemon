@@ -48,8 +48,13 @@ typedef struct {
         } data;
 } PropertyHelper;
 
-gboolean  supports_xinput_devices (void);
-gboolean  device_is_touchpad      (XDevice                *xdevice);
+gboolean  supports_xinput_devices  (void);
+gboolean  supports_xinput2_devices (void);
+
+gboolean accelerometer_is_present (char **device_node,
+                                   int   *device_id);
+
+gboolean  device_is_touchpad       (XDevice                *xdevice);
 
 gboolean  device_info_is_touchpad    (XDeviceInfo         *device_info);
 gboolean  device_info_is_touchscreen (XDeviceInfo         *device_info);
