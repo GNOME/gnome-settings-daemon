@@ -558,6 +558,7 @@ plugins/keyboard/Makefile
 plugins/media-keys/Makefile
 plugins/media-keys/cut-n-paste/Makefile
 plugins/mouse/Makefile
+plugins/orientation/Makefile
 plugins/print-notifications/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile

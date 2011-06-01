@@ -19,8 +19,18 @@ gsettings_SCHEMAS =							\
 	org.gnome.settings-daemon.peripherals.wacom.gschema.xml		\
 	org.gnome.settings-daemon.plugins.xrandr.gschema.xml
 
+all_schemas = $(gsettings_SCHEMAS)
+
 if HAVE_PACKAGEKIT
 gsettings_SCHEMAS += org.gnome.settings-daemon.plugins.updates.gschema.xml
+else
+all_schemas += org.gnome.settings-daemon.plugins.updates.gschema.xml
+endif
+
+if HAVE_GUDEV
+gsettings_SCHEMAS += org.gnome.settings-daemon.plugins.orientation.gschema.xml
+else
+all_schemas += org.gnome.settings-daemon.plugins.orientation.gschema.xml
 endif
 
 @INTLTOOL_XML_NOMERGE_RULE@
@@ -52,7 +62,7 @@ man_MANS = gnome-settings-daemon.1
 EXTRA_DIST = 					\
 	$(man_MANS)				\
 	$(convert_DATA)				\
-	$(gsettings_SCHEMAS:.xml=.xml.in.in)	\
+	$(all_schemas:.xml=.xml.in.in)		\
 	$(service_in_files)			\
 	$(desktop_in_files)			\
 	$(gsettings_ENUM_FILES)			\
@@ -61,7 +71,7 @@ EXTRA_DIST = 					\
 	$(NULL)
 
 DISTCLEANFILES = 			\
-	$(gsettings_SCHEMAS)		\
+	$(all_schemas)			\
 	$(service_DATA)			\
 	$(desktop_DATA)			\
 	$(NULL)
@@ -69,4 +79,4 @@ DISTCLEANFILES = 			\
 MAINTAINERCLEANFILES =			\
 	*~				\
 	Makefile.in			\
-	$(gsettings_SCHEMAS:.xml=.valid)
+	$(all_schemas:.xml=.valid)
