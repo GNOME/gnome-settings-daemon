@@ -20,25 +20,6 @@ struct {
 	{ -954, -90, -36, ORIENTATION_LEFT_UP }
 };
 
-static const char *
-orientation_to_string (OrientationUp o)
-{
-	switch (o) {
-	case ORIENTATION_UNDEFINED:
-		return "undefined";
-	case ORIENTATION_NORMAL:
-		return "normal";
-	case ORIENTATION_BOTTOM_UP:
-		return "bottom up";
-	case ORIENTATION_LEFT_UP:
-		return "left up";
-	case ORIENTATION_RIGHT_UP:
-		return "right up";
-	default:
-		g_assert_not_reached ();
-	}
-}
-
 static void
 test_no_prev (void)
 {
@@ -49,8 +30,8 @@ test_no_prev (void)
 		const char *got, *expected;
 
 		calculated = gsd_orientation_calc (ORIENTATION_UNDEFINED, tests[i].x, tests[i].y, tests[i].z);
-		got = orientation_to_string (calculated);
-		expected = orientation_to_string (tests[i].o);
+		got = gsd_orientation_to_string (calculated);
+		expected = gsd_orientation_to_string (tests[i].o);
 
 		g_assert_cmpstr (got, ==, expected);
 	}
