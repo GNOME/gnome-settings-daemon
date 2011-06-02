@@ -26,11 +26,14 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
+#include <gdk/gdkx.h>
 #include <gudev/gudev.h>
+#include <X11/extensions/XInput2.h>
 
 #include "gsd-input-helper.h"
 #include "gnome-settings-profile.h"
 #include "gsd-orientation-manager.h"
+#include "gsd-orientation-calc.h"
 
 #define GSD_ORIENTATION_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_ORIENTATION_MANAGER, GsdOrientationManagerPrivate))
 
@@ -39,6 +42,7 @@ struct GsdOrientationManagerPrivate
         guint start_idle_id;
         char *device_node;
         int device_id;
+        OrientationUp prev_orientation;
         GUdevClient *client;
 };
 
@@ -88,13 +92,50 @@ gsd_orientation_manager_init (GsdOrientationManager *manager)
         manager->priv = GSD_ORIENTATION_MANAGER_GET_PRIVATE (manager);
 }
 
+static gboolean
+get_current_values (GsdOrientationManager *manager,
+                    int                   *x,
+                    int                   *y,
+                    int                   *z)
+{
+        int n_devices;
+        XIDeviceInfo *info;
+        XIValuatorClassInfo *v;
+
+        gdk_error_trap_push ();
+
+        info = XIQueryDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), manager->priv->device_id, &n_devices);
+        if (info == NULL) {
+                gdk_error_trap_pop_ignored ();
+                return FALSE;
+        }
+        gdk_error_trap_pop_ignored ();
+
+        /* Should be XIValuatorClass type
+         * as we already detected that */
+        v = (XIValuatorClassInfo *) info->classes[0];
+        *x = v->value;
+
+        v = (XIValuatorClassInfo *) info->classes[1];
+        *y = v->value;
+
+        v = (XIValuatorClassInfo *) info->classes[2];
+        *z = v->value;
+
+        XIFreeDeviceInfo (info);
+
+        return TRUE;
+}
+
 static void
 client_uevent_cb (GUdevClient           *client,
                   gchar                 *action,
                   GUdevDevice           *device,
                   GsdOrientationManager *manager)
 {
+        OrientationUp orientation;
         const char *device_node;
+        int x, y, z;
 
         device_node = g_udev_device_get_device_file (device);
         g_debug ("Received uevent '%s' from '%s'", action, device_node);
@@ -107,14 +148,33 @@ client_uevent_cb (GUdevClient           *client,
 
         g_debug ("Received an event from the accelerometer");
 
-	set_device_enabled (manager->priv->device_id, TRUE);
+        if (set_device_enabled (manager->priv->device_id, TRUE) == FALSE) {
+                g_warning ("Failed to re-enabled device '%d'", manager->priv->device_id);
+                return;
+        }
 
-        /* FIXME
-         * open and read the device's orientation
-         * with XISelectEvent(dpy, DefaultRootWindow(dpy), { event mask with XI_RawMotion })
-         */
+        if (get_current_values (manager, &x, &y, &z) == FALSE) {
+                g_warning ("Failed to get X/Y/Z values from device '%d'", manager->priv->device_id);
+                goto out;
+        }
+        g_debug ("Got values: %d, %d, %d", x, y, z);
 
-	set_device_enabled (manager->priv->device_id, FALSE);
+        orientation = gsd_orientation_calc (manager->priv->prev_orientation,
+                                            x, y, z);
+        g_debug ("New orientation: %s (prev: %s)",
+                 gsd_orientation_to_string (orientation),
+                 gsd_orientation_to_string (manager->priv->prev_orientation));
+
+        if (orientation != manager->priv->prev_orientation) {
+                manager->priv->prev_orientation = orientation;
+
+                g_debug ("Orientation changed to '%s', switching screen rotation",
+                         gsd_orientation_to_string (manager->priv->prev_orientation));
+                /* FIXME: call into XRandR plugin */
+        }
+
+out:
+        set_device_enabled (manager->priv->device_id, FALSE);
 }
 
 static gboolean
@@ -123,6 +183,8 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
         const char * const subsystems[] = { "input", NULL };
 
         gnome_settings_profile_start (NULL);
+
+        manager->priv->prev_orientation = ORIENTATION_UNDEFINED;
 
         if (!accelerometer_is_present (&manager->priv->device_node,
                                        &manager->priv->device_id)) {
@@ -133,7 +195,7 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
                  manager->priv->device_node,
                  manager->priv->device_id);
 
-	set_device_enabled (manager->priv->device_id, FALSE);
+        set_device_enabled (manager->priv->device_id, FALSE);
 
         manager->priv->client = g_udev_client_new (subsystems);
         g_signal_connect (G_OBJECT (manager->priv->client), "uevent",
