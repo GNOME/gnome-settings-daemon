@@ -91,6 +91,7 @@ gsd_orientation_manager_init (GsdOrientationManager *manager)
 {
         manager->priv = GSD_ORIENTATION_MANAGER_GET_PRIVATE (manager);
         manager->priv->prev_orientation = ORIENTATION_UNDEFINED;
+        manager->priv->device_id = -1;
 }
 
 static gboolean
@@ -275,7 +276,10 @@ gsd_orientation_manager_stop (GsdOrientationManager *manager)
                 p->sysfs_path = NULL;
         }
 
-        p->device_id = -1;
+	if (p->device_id > 0) {
+		set_device_enabled (p->device_id, TRUE);
+		p->device_id = -1;
+	}
 
         if (p->client) {
                 g_object_unref (p->client);
