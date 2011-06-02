@@ -90,6 +90,7 @@ static void
 gsd_orientation_manager_init (GsdOrientationManager *manager)
 {
         manager->priv = GSD_ORIENTATION_MANAGER_GET_PRIVATE (manager);
+        manager->priv->prev_orientation = ORIENTATION_UNDEFINED;
 }
 
 static gboolean
@@ -127,15 +128,42 @@ get_current_values (GsdOrientationManager *manager,
         return TRUE;
 }
 
+static gboolean
+update_current_orientation (GsdOrientationManager *manager)
+{
+        OrientationUp orientation;
+        int x, y, z;
+
+        if (get_current_values (manager, &x, &y, &z) == FALSE) {
+                g_warning ("Failed to get X/Y/Z values from device '%d'", manager->priv->device_id);
+                return FALSE;
+        }
+        g_debug ("Got values: %d, %d, %d", x, y, z);
+
+        orientation = gsd_orientation_calc (manager->priv->prev_orientation,
+                                            x, y, z);
+        g_debug ("New orientation: %s (prev: %s)",
+                 gsd_orientation_to_string (orientation),
+                 gsd_orientation_to_string (manager->priv->prev_orientation));
+
+        if (orientation == manager->priv->prev_orientation)
+                return FALSE;
+
+        manager->priv->prev_orientation = orientation;
+
+        g_debug ("Orientation changed to '%s', switching screen rotation",
+                 gsd_orientation_to_string (manager->priv->prev_orientation));
+
+        return TRUE;
+}
+
 static void
 client_uevent_cb (GUdevClient           *client,
                   gchar                 *action,
                   GUdevDevice           *device,
                   GsdOrientationManager *manager)
 {
-        OrientationUp orientation;
         const char *device_node;
-        int x, y, z;
 
         device_node = g_udev_device_get_device_file (device);
         g_debug ("Received uevent '%s' from '%s'", action, device_node);
@@ -153,27 +181,10 @@ client_uevent_cb (GUdevClient           *client,
                 return;
         }
 
-        if (get_current_values (manager, &x, &y, &z) == FALSE) {
-                g_warning ("Failed to get X/Y/Z values from device '%d'", manager->priv->device_id);
-                goto out;
-        }
-        g_debug ("Got values: %d, %d, %d", x, y, z);
-
-        orientation = gsd_orientation_calc (manager->priv->prev_orientation,
-                                            x, y, z);
-        g_debug ("New orientation: %s (prev: %s)",
-                 gsd_orientation_to_string (orientation),
-                 gsd_orientation_to_string (manager->priv->prev_orientation));
-
-        if (orientation != manager->priv->prev_orientation) {
-                manager->priv->prev_orientation = orientation;
-
-                g_debug ("Orientation changed to '%s', switching screen rotation",
-                         gsd_orientation_to_string (manager->priv->prev_orientation));
+        if (update_current_orientation (manager)) {
                 /* FIXME: call into XRandR plugin */
         }
 
-out:
         set_device_enabled (manager->priv->device_id, FALSE);
 }
 
@@ -184,8 +195,6 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
 
         gnome_settings_profile_start (NULL);
 
-        manager->priv->prev_orientation = ORIENTATION_UNDEFINED;
-
         if (!accelerometer_is_present (&manager->priv->device_node,
                                        &manager->priv->device_id)) {
                 g_debug ("Did not find an accelerometer");
@@ -194,6 +203,8 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
         g_debug ("Found accelerometer at '%s' (%d)",
                  manager->priv->device_node,
                  manager->priv->device_id);
+
+        update_current_orientation (manager);
 
         set_device_enabled (manager->priv->device_id, FALSE);
 
