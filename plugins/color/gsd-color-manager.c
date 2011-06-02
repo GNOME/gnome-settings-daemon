@@ -339,9 +339,9 @@ gcm_session_device_connect_cb (GObject *object,
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
         GsdColorManagerDeviceHelper *helper;
 
-        ret = cd_device_connect_sync (device,
-                                      NULL,
-                                      &error);
+        ret = cd_device_connect_finish (device,
+                                        res,
+                                        &error);
         if (!ret) {
                 g_warning ("failed to connect to device: %s",
                            error->message);
