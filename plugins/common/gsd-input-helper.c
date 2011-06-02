@@ -228,12 +228,12 @@ touchpad_is_present (void)
 static char *
 get_device_node (int deviceid)
 {
-        Atom prop;
-        Atom                act_type;
-        int                 act_format;
-        unsigned long       nitems, bytes_after;
-        unsigned char       *data;
-        char *ret;
+        Atom           prop;
+        Atom           act_type;
+        int            act_format;
+        unsigned long  nitems, bytes_after;
+        unsigned char *data;
+        char          *ret;
 
         gdk_display_sync (gdk_display_get_default ());
 
@@ -338,6 +338,29 @@ accelerometer_is_present (char **device_node,
         XIFreeDeviceInfo (device_info);
 
         return retval;
+}
+
+gboolean
+set_device_enabled (int device_id,
+                    gboolean enabled)
+{
+        Atom prop;
+        guchar value;
+
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Device Enabled", False);
+        if (!prop)
+                return FALSE;
+
+        gdk_error_trap_push ();
+
+        value = enabled;
+        XIChangeProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                          device_id, prop, XA_INTEGER, 8, PropModeReplace, &value, 1);
+
+        if (gdk_error_trap_pop ())
+                return FALSE;
+
+        return TRUE;
 }
 
 static const char *

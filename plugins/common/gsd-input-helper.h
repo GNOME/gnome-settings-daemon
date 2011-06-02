@@ -53,6 +53,8 @@ gboolean  supports_xinput2_devices (void);
 
 gboolean accelerometer_is_present (char **device_node,
                                    int   *device_id);
+gboolean set_device_enabled       (int device_id,
+                                   gboolean enabled);
 
 gboolean  device_is_touchpad       (XDevice                *xdevice);
 
