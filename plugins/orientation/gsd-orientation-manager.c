@@ -40,7 +40,7 @@
 struct GsdOrientationManagerPrivate
 {
         guint start_idle_id;
-        char *device_node;
+        char *sysfs_path;
         int device_id;
         OrientationUp prev_orientation;
         GUdevClient *client;
@@ -163,15 +163,15 @@ client_uevent_cb (GUdevClient           *client,
                   GUdevDevice           *device,
                   GsdOrientationManager *manager)
 {
-        const char *device_node;
+        const char *sysfs_path;
 
-        device_node = g_udev_device_get_device_file (device);
-        g_debug ("Received uevent '%s' from '%s'", action, device_node);
+        sysfs_path = g_udev_device_get_sysfs_path (device);
+        g_debug ("Received uevent '%s' from '%s'", action, sysfs_path);
 
         if (g_str_equal (action, "change") == FALSE)
                 return;
 
-        if (g_strcmp0 (manager->priv->device_node, device_node) != 0)
+        if (g_strcmp0 (manager->priv->sysfs_path, sysfs_path) != 0)
                 return;
 
         g_debug ("Received an event from the accelerometer");
@@ -188,27 +188,62 @@ client_uevent_cb (GUdevClient           *client,
         set_device_enabled (manager->priv->device_id, FALSE);
 }
 
+static char *
+get_sysfs_path (GsdOrientationManager *manager,
+                const char            *device_node)
+{
+        GUdevDevice *device, *parent;
+        char *sysfs_path;
+
+        device = g_udev_client_query_by_device_file (manager->priv->client,
+                                                     device_node);
+        if (device == NULL)
+                return NULL;
+
+        parent = g_udev_device_get_parent (device);
+        g_object_unref (device);
+        if (parent == NULL)
+		return NULL;
+
+        sysfs_path = g_strdup (g_udev_device_get_sysfs_path (parent));
+        g_object_unref (parent);
+
+        return sysfs_path;
+}
+
 static gboolean
 gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
 {
         const char * const subsystems[] = { "input", NULL };
+        char *device_node;
 
         gnome_settings_profile_start (NULL);
 
-        if (!accelerometer_is_present (&manager->priv->device_node,
+        if (!accelerometer_is_present (&device_node,
                                        &manager->priv->device_id)) {
                 g_debug ("Did not find an accelerometer");
                 return FALSE;
         }
         g_debug ("Found accelerometer at '%s' (%d)",
-                 manager->priv->device_node,
+                 device_node,
                  manager->priv->device_id);
+
+        manager->priv->client = g_udev_client_new (subsystems);
+
+        manager->priv->sysfs_path = get_sysfs_path (manager, device_node);
+
+        if (manager->priv->sysfs_path == NULL) {
+                g_debug ("Could not find sysfs path for '%s'", device_node);
+                g_free (device_node);
+                return FALSE;
+        }
+        g_debug ("Found accelerometer at sysfs path '%s'", manager->priv->sysfs_path);
+        g_free (device_node);
 
         update_current_orientation (manager);
 
         set_device_enabled (manager->priv->device_id, FALSE);
 
-        manager->priv->client = g_udev_client_new (subsystems);
         g_signal_connect (G_OBJECT (manager->priv->client), "uevent",
                           G_CALLBACK (client_uevent_cb), manager);
 
@@ -235,9 +270,9 @@ gsd_orientation_manager_stop (GsdOrientationManager *manager)
 
         g_debug ("Stopping orientation manager");
 
-        if (p->device_node) {
-                g_free (p->device_node);
-                p->device_node = NULL;
+        if (p->sysfs_path) {
+                g_free (p->sysfs_path);
+                p->sysfs_path = NULL;
         }
 
         p->device_id = -1;
