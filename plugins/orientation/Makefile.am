@@ -1,6 +1,6 @@
 plugin_name = orientation
 
-noinst_PROGRAMS = test-orientation-calculation
+noinst_PROGRAMS = test-orientation-calculation test-orientation
 
 test_orientation_calculation_SOURCES =	\
 	gsd-orientation-calc.c		\
@@ -13,6 +13,29 @@ test_orientation_calculation_CFLAGS =	\
 	$(AM_CFLAGS)
 
 test_orientation_calculation_LDADD =	\
+	$(SETTINGS_PLUGIN_LIBS)
+
+test_orientation_SOURCES =		\
+	gsd-orientation-manager.h	\
+	gsd-orientation-manager.c	\
+	gsd-orientation-calc.c		\
+	gsd-orientation-calc.h		\
+	test-orientation.c
+
+test_orientation_CFLAGS =					\
+	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/plugins/common				\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	$(GUDEV_CFLAGS)						\
+	$(XINPUT_CFLAGS)					\
+	$(PLUGIN_CFLAGS)					\
+	$(SETTINGS_PLUGIN_CFLAGS)				\
+	$(AM_CFLAGS)
+
+test_orientation_LDADD =				\
+	$(top_builddir)/plugins/common/libcommon.la	\
+	$(GUDEV_LIBS)					\
+	$(XINPUT_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_LTLIBRARIES = liborientation.la
