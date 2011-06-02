@@ -138,7 +138,7 @@ parse_binding (Binding *binding)
         if (ret != EGG_PARSE_ERROR_NONE)
             g_warning (_("Key binding (%s) is invalid (%d)"), binding->gconf_key, ret);
 
-        return success;
+        return (ret == EGG_PARSE_ERROR_NONE);
 }
 
 static gint
