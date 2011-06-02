@@ -241,8 +241,8 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
         g_debug ("Found accelerometer at sysfs path '%s'", manager->priv->sysfs_path);
         g_free (device_node);
 
+        set_device_enabled (manager->priv->device_id, TRUE);
         update_current_orientation (manager);
-
         set_device_enabled (manager->priv->device_id, FALSE);
 
         g_signal_connect (G_OBJECT (manager->priv->client), "uevent",
