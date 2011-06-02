@@ -28,11 +28,15 @@ libcommon_la_LIBADD  = \
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(XINPUT_LIBS)
 
-noinst_PROGRAMS = test-input-helper
+noinst_PROGRAMS = test-input-helper test-egg-key-parsing
 
 test_input_helper_SOURCES = test-input-helper.c
 test_input_helper_LDADD = libcommon.la
 test_input_helper_CFLAGS = $(libcommon_la_CFLAGS)
+
+test_egg_key_parsing_SOURCES = test-egg-key-parsing.c
+test_egg_key_parsing_LDADD = libcommon.la
+test_egg_key_parsing_CFLAGS = $(libcommon_la_CFLAGS)
 
 scriptsdir = $(datadir)/gnome-settings-daemon-@GSD_API_VERSION@
 scripts_DATA = input-device-example.sh
