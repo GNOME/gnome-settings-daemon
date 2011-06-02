@@ -36,8 +36,9 @@ typedef enum {
 
 #define ORIENTATION_UP_UP ORIENTATION_NORMAL
 
-OrientationUp gsd_orientation_calc (OrientationUp prev,
-				    int x, int y, int z);
+const char *  gsd_orientation_to_string (OrientationUp orientation);
+OrientationUp gsd_orientation_calc      (OrientationUp prev,
+					 int x, int y, int z);
 
 G_END_DECLS
 

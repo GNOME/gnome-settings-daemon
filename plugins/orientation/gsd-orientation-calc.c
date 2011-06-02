@@ -40,6 +40,25 @@
 #define THRESHOLD_LANDSCAPE  25
 #define THRESHOLD_PORTRAIT  20
 
+const char *
+gsd_orientation_to_string (OrientationUp o)
+{
+	switch (o) {
+	case ORIENTATION_UNDEFINED:
+		return "undefined";
+	case ORIENTATION_NORMAL:
+		return "normal";
+	case ORIENTATION_BOTTOM_UP:
+		return "bottom up";
+	case ORIENTATION_LEFT_UP:
+		return "left up";
+	case ORIENTATION_RIGHT_UP:
+		return "right up";
+	default:
+		g_assert_not_reached ();
+	}
+}
+
 OrientationUp gsd_orientation_calc (OrientationUp prev,
 				    int x, int y, int z)
 {
