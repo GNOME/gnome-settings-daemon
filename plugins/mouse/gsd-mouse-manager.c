@@ -730,31 +730,11 @@ static void
 set_touchpad_enabled (GdkDevice *device,
                       gboolean   state)
 {
-        XDevice *xdevice;
-        Atom prop_enabled;
-        unsigned char data = state;
+        int id;
 
-        prop_enabled = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Device Enabled", False);
-
-        if (!prop_enabled)
-                return;
-
-        xdevice = open_gdk_device (device);
-
-        if (!device_is_touchpad (xdevice)) {
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
-                return;
-        }
-
-        gdk_error_trap_push ();
-        XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                               prop_enabled, XA_INTEGER, 8,
-                               PropModeReplace, &data, 1);
-
-        if (gdk_error_trap_pop ())
+        g_object_get (G_OBJECT (device), "device-id", &id, NULL);
+        if (set_device_enabled (id, state) == FALSE)
                 g_warning ("Error %s device \"%s\"", (state) ? "enabling" : "disabling", gdk_device_get_name (device));
-
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
 
 static void
