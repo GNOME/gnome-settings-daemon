@@ -107,10 +107,14 @@ client_uevent_cb (GUdevClient           *client,
 
         g_debug ("Received an event from the accelerometer");
 
+	set_device_enabled (manager->priv->device_id, TRUE);
+
         /* FIXME
-         * re-enabled the device, open it and read its orientation
+         * open and read the device's orientation
          * with XISelectEvent(dpy, DefaultRootWindow(dpy), { event mask with XI_RawMotion })
          */
+
+	set_device_enabled (manager->priv->device_id, FALSE);
 }
 
 static gboolean
@@ -129,7 +133,7 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
                  manager->priv->device_node,
                  manager->priv->device_id);
 
-        /* FIXME disable accelerometer now with "Device Enabled" */
+	set_device_enabled (manager->priv->device_id, FALSE);
 
         manager->priv->client = g_udev_client_new (subsystems);
         g_signal_connect (G_OBJECT (manager->priv->client), "uevent",
