@@ -331,7 +331,7 @@ update_kbd_cb (GSettings           *settings,
                         }
 
                         key = g_new0 (Key, 1);
-                        if (!egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state)) {
+                        if (egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state) != EGG_PARSE_ERROR_NONE) {
                                 g_free (tmp);
                                 g_free (key);
                                 break;
@@ -366,6 +366,7 @@ init_kbd (GsdMediaKeysManager *manager)
         for (i = 0; i < HANDLED_KEYS; i++) {
                 char *tmp;
                 Key  *key;
+                EggParseError ret;
 
                 if (keys[i].settings_key != NULL) {
                         tmp = g_settings_get_string (manager->priv->settings, keys[i].settings_key);
@@ -374,14 +375,19 @@ init_kbd (GsdMediaKeysManager *manager)
                 }
 
                 if (!is_valid_shortcut (tmp)) {
-                        g_debug ("Not a valid shortcut: '%s'", tmp);
+                        if (*tmp != '\0')
+                                g_debug ("Not a valid shortcut: '%s'", tmp);
                         g_free (tmp);
                         continue;
                 }
 
                 key = g_new0 (Key, 1);
-                if (!egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state)) {
-                        g_debug ("Unable to parse: '%s'", tmp);
+                ret = egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state);
+                if (ret != EGG_PARSE_ERROR_NONE) {
+                        if (keys[i].settings_key != NULL)
+                                g_debug ("Unable to parse key '%s' for GSettings entry '%s' (%d)", tmp, keys[i].settings_key, ret);
+                        else
+                                g_debug ("Unable to parse hard-coded key '%s' (%d)", keys[i].hard_coded, ret);
                         g_free (tmp);
                         g_free (key);
                         continue;
