@@ -1468,6 +1468,8 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
 #endif /* HAVE_PULSE */
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_media_keys_idle_cb, manager);
 
+        register_manager (manager_object);
+
         gnome_settings_profile_end (NULL);
 
         return TRUE;
@@ -1709,7 +1711,6 @@ gsd_media_keys_manager_new (void)
                 manager_object = g_object_new (GSD_TYPE_MEDIA_KEYS_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
-                register_manager (manager_object);
         }
 
         return GSD_MEDIA_KEYS_MANAGER (manager_object);
