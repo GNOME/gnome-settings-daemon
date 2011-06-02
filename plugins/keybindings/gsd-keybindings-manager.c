@@ -115,7 +115,7 @@ entry_get_string (GConfEntry *entry)
 static gboolean
 parse_binding (Binding *binding)
 {
-        gboolean success;
+        EggParseError ret;
 
         g_return_val_if_fail (binding != NULL, FALSE);
 
@@ -130,13 +130,13 @@ parse_binding (Binding *binding)
                 return FALSE;
         }
 
-        success = egg_accelerator_parse_virtual (binding->binding_str,
-                                                 &binding->key.keysym,
-                                                 &binding->key.keycodes,
-                                                 &binding->key.state);
+        ret = egg_accelerator_parse_virtual (binding->binding_str,
+                                             &binding->key.keysym,
+                                             &binding->key.keycodes,
+                                             &binding->key.state);
 
-        if (!success)
-            g_warning (_("Key binding (%s) is invalid"), binding->gconf_key);
+        if (ret != EGG_PARSE_ERROR_NONE)
+            g_warning (_("Key binding (%s) is invalid (%d)"), binding->gconf_key, ret);
 
         return success;
 }
