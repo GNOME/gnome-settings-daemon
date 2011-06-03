@@ -1176,6 +1176,8 @@ do_action (GsdMediaKeysManager *manager,
         char *cmd;
         char *path;
 
+        g_debug ("Launching action for key type '%d'", type);
+
         switch (type) {
         case TOUCHPAD_KEY:
                 do_touchpad_action (manager);
