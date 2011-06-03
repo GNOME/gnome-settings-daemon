@@ -30,6 +30,9 @@
 #include <gudev/gudev.h>
 #include <X11/extensions/XInput2.h>
 
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#include <libgnome-desktop/gnome-rr.h>
+
 #include "gsd-input-helper.h"
 #include "gnome-settings-profile.h"
 #include "gsd-orientation-manager.h"
@@ -99,6 +102,23 @@ gsd_orientation_manager_init (GsdOrientationManager *manager)
         manager->priv = GSD_ORIENTATION_MANAGER_GET_PRIVATE (manager);
         manager->priv->prev_orientation = ORIENTATION_UNDEFINED;
         manager->priv->device_id = -1;
+}
+
+static GnomeRRRotation
+orientation_to_rotation (OrientationUp    orientation)
+{
+        switch (orientation) {
+        case ORIENTATION_NORMAL:
+                return GNOME_RR_ROTATION_0;
+        case ORIENTATION_BOTTOM_UP:
+                return GNOME_RR_ROTATION_180;
+        case ORIENTATION_LEFT_UP:
+                return GNOME_RR_ROTATION_90;
+        case ORIENTATION_RIGHT_UP:
+                return GNOME_RR_ROTATION_270;
+        default:
+                g_assert_not_reached ();
+        }
 }
 
 static gboolean
@@ -180,6 +200,9 @@ check_value_change_cb (GsdOrientationManager *manager)
 
                 /* We have updated values */
                 if (update_current_orientation (manager, x, y, z)) {
+                        GnomeRRRotation rotation;
+
+                        rotation = orientation_to_rotation (manager->priv->prev_orientation);
                         /* FIXME: call into XRandR plugin */
                 }
 

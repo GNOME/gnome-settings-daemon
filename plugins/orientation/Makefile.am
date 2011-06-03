@@ -26,6 +26,7 @@ test_orientation_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	$(GNOME_DESKTOP_CFLAGS)					\
 	$(GUDEV_CFLAGS)						\
 	$(XINPUT_CFLAGS)					\
 	$(PLUGIN_CFLAGS)					\
@@ -59,6 +60,7 @@ liborientation_la_CPPFLAGS = \
 liborientation_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(GUDEV_CFLAGS)			\
+	$(GNOME_DESKTOP_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
