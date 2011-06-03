@@ -1944,6 +1944,11 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                 manager->priv->rw_screen = NULL;
         }
 
+        if (manager->priv->introspection_data) {
+                g_dbus_node_info_unref (manager->priv->introspection_data);
+                manager->priv->introspection_data = NULL;
+        }
+
         if (manager->priv->connection != NULL) {
                 g_object_unref (manager->priv->connection);
                 manager->priv->connection = NULL;
