@@ -68,8 +68,9 @@ liborientation_la_CFLAGS = \
 liborientation_la_LDFLAGS = 		\
 	$(GSD_PLUGIN_LDFLAGS)
 
-liborientation_la_LIBADD  = 							\
+liborientation_la_LIBADD  =						\
 	$(top_builddir)/plugins/common/libcommon.la			\
+	$(GUDEV_LIBS)							\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	$(X11_LIBS)							\
 	$(XINPUT_LIBS)
