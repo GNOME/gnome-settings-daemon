@@ -48,6 +48,12 @@ struct GsdOrientationManagerPrivate
         char *sysfs_path;
         int device_id;
 
+        /* DBus */
+        GDBusNodeInfo   *introspection_data;
+        GDBusConnection *connection;
+        GDBusProxy      *xrandr_proxy;
+        GCancellable    *cancellable;
+
         /* Notifications */
         GUdevClient *client;
         GSettings *settings;
@@ -66,6 +72,16 @@ struct GsdOrientationManagerPrivate
 
 #define CONF_SCHEMA "org.gnome.settings-daemon.peripherals.touchscreen"
 #define ORIENTATION_LOCK_KEY "orientation-lock"
+
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_ORIENTATION_DBUS_PATH GSD_DBUS_PATH "/Orientation"
+
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.gnome.SettingsDaemon.Orientation'>"
+"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_orientation_manager'/>"
+"  </interface>"
+"</node>";
 
 static void     gsd_orientation_manager_class_init  (GsdOrientationManagerClass *klass);
 static void     gsd_orientation_manager_init        (GsdOrientationManager      *orientation_manager);
@@ -130,6 +146,60 @@ orientation_to_rotation (OrientationUp    orientation)
         default:
                 g_assert_not_reached ();
         }
+}
+
+static void
+on_xrandr_action_call_finished (GObject               *source_object,
+                                GAsyncResult          *res,
+                                GsdOrientationManager *manager)
+{
+        GError *error = NULL;
+        GVariant *variant;
+
+        variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
+
+        g_object_unref (manager->priv->cancellable);
+        manager->priv->cancellable = NULL;
+
+        if (error != NULL) {
+                g_warning ("Unable to call 'RotateTo': %s", error->message);
+                g_error_free (error);
+        } else {
+                g_variant_unref (variant);
+        }
+}
+
+static void
+do_xrandr_action (GsdOrientationManager *manager,
+                  GnomeRRRotation        rotation)
+{
+        GsdOrientationManagerPrivate *priv = manager->priv;
+	GTimeVal tv;
+	gint64 timestamp;
+
+        if (priv->connection == NULL || priv->xrandr_proxy == NULL) {
+                g_warning ("No existing D-Bus connection trying to handle XRANDR keys");
+                return;
+        }
+
+        if (priv->cancellable != NULL) {
+                g_debug ("xrandr action already in flight");
+                return;
+        }
+
+	g_get_current_time (&tv);
+	timestamp = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+
+        priv->cancellable = g_cancellable_new ();
+
+        g_dbus_proxy_call (priv->xrandr_proxy,
+                           "RotateTo",
+                           g_variant_new ("(ix)", rotation, timestamp),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           priv->cancellable,
+                           (GAsyncReadyCallback) on_xrandr_action_call_finished,
+                           manager);
 }
 
 static gboolean
@@ -203,7 +273,8 @@ do_rotation (GsdOrientationManager *manager)
         }
 
         rotation = orientation_to_rotation (manager->priv->prev_orientation);
-        /* FIXME: call into XRandR plugin */
+
+        do_xrandr_action (manager, rotation);
 }
 
 static gboolean
@@ -331,6 +402,55 @@ orientation_lock_changed_cb (GSettings             *settings,
         }
 }
 
+static void
+xrandr_ready_cb (GObject               *source_object,
+                 GAsyncResult          *res,
+                 GsdOrientationManager *manager)
+{
+        GError *error = NULL;
+
+        manager->priv->xrandr_proxy = g_dbus_proxy_new_finish (res, &error);
+        if (manager->priv->xrandr_proxy == NULL) {
+                g_warning ("Failed to get proxy for XRandR operations: %s", error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+on_bus_gotten (GObject               *source_object,
+               GAsyncResult          *res,
+               GsdOrientationManager *manager)
+{
+        GDBusConnection *connection;
+        GError *error = NULL;
+
+        connection = g_bus_get_finish (res, &error);
+        if (connection == NULL) {
+                g_warning ("Could not get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        manager->priv->connection = connection;
+
+        g_dbus_connection_register_object (connection,
+                                           GSD_ORIENTATION_DBUS_PATH,
+                                           manager->priv->introspection_data->interfaces[0],
+                                           NULL,
+                                           NULL,
+                                           NULL,
+                                           NULL);
+
+        g_dbus_proxy_new (manager->priv->connection,
+                          G_DBUS_PROXY_FLAGS_NONE,
+                          NULL,
+                          "org.gnome.SettingsDaemon",
+                          "/org/gnome/SettingsDaemon/XRANDR",
+                          "org.gnome.SettingsDaemon.XRANDR_2",
+                          NULL,
+                          (GAsyncReadyCallback) xrandr_ready_cb,
+                          manager);
+}
+
 static gboolean
 gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
 {
@@ -352,6 +472,12 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
         g_debug ("Found accelerometer at '%s' (%d)",
                  device_node,
                  manager->priv->device_id);
+
+	/* Start process of owning a D-Bus name */
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   NULL,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   manager);
 
         manager->priv->client = g_udev_client_new (subsystems);
 
@@ -380,6 +506,9 @@ gsd_orientation_manager_start (GsdOrientationManager *manager,
         gnome_settings_profile_start (NULL);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_orientation_manager_idle_cb, manager);
+
+        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->priv->introspection_data != NULL);
 
         gnome_settings_profile_end (NULL);
 
@@ -411,6 +540,11 @@ gsd_orientation_manager_stop (GsdOrientationManager *manager)
         if (p->device_id > 0) {
                 set_device_enabled (p->device_id, TRUE);
                 p->device_id = -1;
+        }
+
+        if (p->introspection_data) {
+                g_dbus_node_info_unref (p->introspection_data);
+                p->introspection_data = NULL;
         }
 
         if (p->client) {
