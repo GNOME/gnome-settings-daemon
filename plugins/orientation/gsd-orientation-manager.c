@@ -339,7 +339,7 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
 
         gnome_settings_profile_start (NULL);
 
-        manager->priv->settings = g_settings_new (ORIENTATION_LOCK_KEY);
+        manager->priv->settings = g_settings_new (CONF_SCHEMA);
         manager->priv->orientation_lock = g_settings_get_boolean (manager->priv->settings, ORIENTATION_LOCK_KEY);
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed::orientation-lock",
                           G_CALLBACK (orientation_lock_changed_cb), manager);
