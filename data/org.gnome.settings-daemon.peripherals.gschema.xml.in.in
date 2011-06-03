@@ -4,6 +4,7 @@
     <child name="touchpad" schema="org.gnome.settings-daemon.peripherals.touchpad"/>
     <child name="keyboard" schema="org.gnome.settings-daemon.peripherals.keyboard"/>
     <child name="mouse" schema="org.gnome.settings-daemon.peripherals.mouse"/>
+    <child name="touchscreen" schema="org.gnome.settings-daemon.peripherals.touchscreen"/>
     <child name="input-devices" schema="org.gnome.settings-daemon.peripherals.input-devices"/>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.smartcard" path="/org/gnome/settings-daemon/peripherals/smartcard/">
@@ -130,6 +131,12 @@
       <default>false</default>
       <_summary>Middle button emulation</_summary>
       <_description>Enables middle mouse button emulation through simultaneous left and right button click.</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.touchscreen" path="/org/gnome/settings-daemon/peripherals/touchscreen/">
+    <key name="orientation-lock" type="b">
+      <default>false</default>
+      <_summary>Whether the tablet's orientation is locked, or rotated automatically.</_summary>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.input-devices" path="/org/gnome/settings-daemon/peripherals/input-devices/">

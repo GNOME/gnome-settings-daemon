@@ -43,11 +43,19 @@
 struct GsdOrientationManagerPrivate
 {
         guint start_idle_id;
+
+        /* Accelerometer */
         char *sysfs_path;
         int device_id;
+
+        /* Notifications */
         GUdevClient *client;
+        GSettings *settings;
+        gboolean orientation_lock;
+
         OrientationUp prev_orientation;
         int prev_x, prev_y, prev_z;
+
         guint orient_timeout_id;
         guint num_checks;
 };
@@ -55,6 +63,9 @@ struct GsdOrientationManagerPrivate
 /* The maximum number of times we'll poll the X/Y/Z values
  * to check for changes */
 #define MAX_CHECKS 5
+
+#define CONF_SCHEMA "org.gnome.settings-daemon.peripherals.touchscreen"
+#define ORIENTATION_LOCK_KEY "orientation-lock"
 
 static void     gsd_orientation_manager_class_init  (GsdOrientationManagerClass *klass);
 static void     gsd_orientation_manager_init        (GsdOrientationManager      *orientation_manager);
@@ -181,6 +192,20 @@ update_current_orientation (GsdOrientationManager *manager,
         return TRUE;
 }
 
+static void
+do_rotation (GsdOrientationManager *manager)
+{
+        GnomeRRRotation rotation;
+
+        if (manager->priv->orientation_lock) {
+                g_debug ("Orientation changed, but we are locked");
+                return;
+        }
+
+        rotation = orientation_to_rotation (manager->priv->prev_orientation);
+        /* FIXME: call into XRandR plugin */
+}
+
 static gboolean
 check_value_change_cb (GsdOrientationManager *manager)
 {
@@ -200,10 +225,7 @@ check_value_change_cb (GsdOrientationManager *manager)
 
                 /* We have updated values */
                 if (update_current_orientation (manager, x, y, z)) {
-                        GnomeRRRotation rotation;
-
-                        rotation = orientation_to_rotation (manager->priv->prev_orientation);
-                        /* FIXME: call into XRandR plugin */
+                        do_rotation (manager);
                 }
 
                 set_device_enabled (manager->priv->device_id, FALSE);
@@ -234,6 +256,9 @@ client_uevent_cb (GUdevClient           *client,
 
         sysfs_path = g_udev_device_get_sysfs_path (device);
         g_debug ("Received uevent '%s' from '%s'", action, sysfs_path);
+
+        if (manager->priv->orientation_lock)
+                return;
 
         if (g_str_equal (action, "change") == FALSE)
                 return;
@@ -286,6 +311,26 @@ get_sysfs_path (GsdOrientationManager *manager,
         return sysfs_path;
 }
 
+static void
+orientation_lock_changed_cb (GSettings             *settings,
+                             gchar                 *key,
+                             GsdOrientationManager *manager)
+{
+        gboolean new;
+
+        new = g_settings_get_boolean (settings, key);
+        if (new == manager->priv->orientation_lock)
+                return;
+
+        manager->priv->orientation_lock = new;
+
+        if (new == FALSE) {
+                /* Handle the rotations that could have occurred while
+                 * we were locked */
+                do_rotation (manager);
+        }
+}
+
 static gboolean
 gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
 {
@@ -293,6 +338,11 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
         char *device_node;
 
         gnome_settings_profile_start (NULL);
+
+        manager->priv->settings = g_settings_new (ORIENTATION_LOCK_KEY);
+        manager->priv->orientation_lock = g_settings_get_boolean (manager->priv->settings, ORIENTATION_LOCK_KEY);
+        g_signal_connect (G_OBJECT (manager->priv->settings), "changed::orientation-lock",
+                          G_CALLBACK (orientation_lock_changed_cb), manager);
 
         if (!accelerometer_is_present (&device_node,
                                        &manager->priv->device_id)) {
@@ -346,6 +396,11 @@ gsd_orientation_manager_stop (GsdOrientationManager *manager)
         if (p->orient_timeout_id > 0) {
                 g_source_remove (p->orient_timeout_id);
                 p->orient_timeout_id = 0;
+        }
+
+        if (p->settings) {
+                g_object_unref (p->settings);
+                p->settings = NULL;
         }
 
         if (p->sysfs_path) {
