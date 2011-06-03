@@ -42,9 +42,16 @@ struct GsdOrientationManagerPrivate
         guint start_idle_id;
         char *sysfs_path;
         int device_id;
-        OrientationUp prev_orientation;
         GUdevClient *client;
+        OrientationUp prev_orientation;
+        int prev_x, prev_y, prev_z;
+        guint orient_timeout_id;
+        guint num_checks;
 };
+
+/* The maximum number of times we'll poll the X/Y/Z values
+ * to check for changes */
+#define MAX_CHECKS 5
 
 static void     gsd_orientation_manager_class_init  (GsdOrientationManagerClass *klass);
 static void     gsd_orientation_manager_init        (GsdOrientationManager      *orientation_manager);
@@ -130,15 +137,11 @@ get_current_values (GsdOrientationManager *manager,
 }
 
 static gboolean
-update_current_orientation (GsdOrientationManager *manager)
+update_current_orientation (GsdOrientationManager *manager,
+                            int x, int y, int z)
 {
         OrientationUp orientation;
-        int x, y, z;
 
-        if (get_current_values (manager, &x, &y, &z) == FALSE) {
-                g_warning ("Failed to get X/Y/Z values from device '%d'", manager->priv->device_id);
-                return FALSE;
-        }
         g_debug ("Got values: %d, %d, %d", x, y, z);
 
         orientation = gsd_orientation_calc (manager->priv->prev_orientation,
@@ -154,6 +157,46 @@ update_current_orientation (GsdOrientationManager *manager)
 
         g_debug ("Orientation changed to '%s', switching screen rotation",
                  gsd_orientation_to_string (manager->priv->prev_orientation));
+
+        return TRUE;
+}
+
+static gboolean
+check_value_change_cb (GsdOrientationManager *manager)
+{
+        int x, y, z;
+
+        g_debug ("checking for changed X/Y/Z, %d/%d", manager->priv->num_checks, MAX_CHECKS);
+
+        if (get_current_values (manager, &x, &y, &z) == FALSE) {
+                g_warning ("Failed to get X/Y/Z values from device '%d'", manager->priv->device_id);
+                return FALSE;
+        }
+
+        if (x != manager->priv->prev_x ||
+            y != manager->priv->prev_y ||
+            z != manager->priv->prev_z) {
+                manager->priv->num_checks = 0;
+
+                /* We have updated values */
+                if (update_current_orientation (manager, x, y, z)) {
+                        /* FIXME: call into XRandR plugin */
+                }
+
+                set_device_enabled (manager->priv->device_id, FALSE);
+
+                return FALSE;
+        }
+
+        /* If we've already checked the device MAX_CHECKS
+         * times, then we don't really want to keep spinning */
+        if (manager->priv->num_checks > MAX_CHECKS) {
+                manager->priv->num_checks = 0;
+                set_device_enabled (manager->priv->device_id, FALSE);
+                return FALSE;
+        }
+
+        manager->priv->num_checks++;
 
         return TRUE;
 }
@@ -177,16 +220,24 @@ client_uevent_cb (GUdevClient           *client,
 
         g_debug ("Received an event from the accelerometer");
 
+        if (manager->priv->orient_timeout_id > 0)
+                return;
+
+        /* Save the current value */
+        if (get_current_values (manager,
+                                &manager->priv->prev_x,
+                                &manager->priv->prev_y,
+                                &manager->priv->prev_z) == FALSE) {
+                g_warning ("Failed to get current values");
+                return;
+        }
+
         if (set_device_enabled (manager->priv->device_id, TRUE) == FALSE) {
                 g_warning ("Failed to re-enabled device '%d'", manager->priv->device_id);
                 return;
         }
 
-        if (update_current_orientation (manager)) {
-                /* FIXME: call into XRandR plugin */
-        }
-
-        set_device_enabled (manager->priv->device_id, FALSE);
+        g_timeout_add (150, (GSourceFunc) check_value_change_cb, manager);
 }
 
 static char *
@@ -204,7 +255,7 @@ get_sysfs_path (GsdOrientationManager *manager,
         parent = g_udev_device_get_parent (device);
         g_object_unref (device);
         if (parent == NULL)
-		return NULL;
+                return NULL;
 
         sysfs_path = g_strdup (g_udev_device_get_sysfs_path (parent));
         g_object_unref (parent);
@@ -241,8 +292,6 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
         g_debug ("Found accelerometer at sysfs path '%s'", manager->priv->sysfs_path);
         g_free (device_node);
 
-        set_device_enabled (manager->priv->device_id, TRUE);
-        update_current_orientation (manager);
         set_device_enabled (manager->priv->device_id, FALSE);
 
         g_signal_connect (G_OBJECT (manager->priv->client), "uevent",
@@ -271,15 +320,20 @@ gsd_orientation_manager_stop (GsdOrientationManager *manager)
 
         g_debug ("Stopping orientation manager");
 
+        if (p->orient_timeout_id > 0) {
+                g_source_remove (p->orient_timeout_id);
+                p->orient_timeout_id = 0;
+        }
+
         if (p->sysfs_path) {
                 g_free (p->sysfs_path);
                 p->sysfs_path = NULL;
         }
 
-	if (p->device_id > 0) {
-		set_device_enabled (p->device_id, TRUE);
-		p->device_id = -1;
-	}
+        if (p->device_id > 0) {
+                set_device_enabled (p->device_id, TRUE);
+                p->device_id = -1;
+        }
 
         if (p->client) {
                 g_object_unref (p->client);
