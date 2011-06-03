@@ -271,6 +271,10 @@ do_rotation (GsdOrientationManager *manager)
                 g_debug ("Orientation changed, but we are locked");
                 return;
         }
+        if (manager->priv->prev_orientation == ORIENTATION_UNDEFINED) {
+                g_debug ("Not trying to rotate, orientation is undefined");
+                return;
+        }
 
         rotation = orientation_to_rotation (manager->priv->prev_orientation);
 
@@ -286,6 +290,7 @@ check_value_change_cb (GsdOrientationManager *manager)
 
         if (get_current_values (manager, &x, &y, &z) == FALSE) {
                 g_warning ("Failed to get X/Y/Z values from device '%d'", manager->priv->device_id);
+                manager->priv->orient_timeout_id = 0;
                 return FALSE;
         }
 
@@ -301,6 +306,8 @@ check_value_change_cb (GsdOrientationManager *manager)
 
                 set_device_enabled (manager->priv->device_id, FALSE);
 
+                manager->priv->orient_timeout_id = 0;
+
                 return FALSE;
         }
 
@@ -309,6 +316,7 @@ check_value_change_cb (GsdOrientationManager *manager)
         if (manager->priv->num_checks > MAX_CHECKS) {
                 manager->priv->num_checks = 0;
                 set_device_enabled (manager->priv->device_id, FALSE);
+                manager->priv->orient_timeout_id = 0;
                 return FALSE;
         }
 
@@ -356,7 +364,8 @@ client_uevent_cb (GUdevClient           *client,
                 return;
         }
 
-        g_timeout_add (150, (GSourceFunc) check_value_change_cb, manager);
+        manager->priv->orient_timeout_id = g_timeout_add
+                (150, (GSourceFunc) check_value_change_cb, manager);
 }
 
 static char *
