@@ -71,7 +71,7 @@ static struct {
         const char *hard_coded;
         Key *key;
 } keys[HANDLED_KEYS] = {
-        { TOUCHPAD_KEY, "touchpad", NULL, NULL },
+        { TOUCHPAD_KEY, NULL, "XF86TouchpadToggle", NULL },
 	{ TOUCHPAD_ON_KEY, NULL, "XF86TouchpadOn", NULL },
 	{ TOUCHPAD_OFF_KEY, NULL, "XF86TouchpadOff", NULL },
         { MUTE_KEY, "volume-mute",NULL, NULL },
