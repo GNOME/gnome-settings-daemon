@@ -126,7 +126,7 @@ struct GsdMediaKeysManagerPrivate
 static void     gsd_media_keys_manager_class_init  (GsdMediaKeysManagerClass *klass);
 static void     gsd_media_keys_manager_init        (GsdMediaKeysManager      *media_keys_manager);
 static void     gsd_media_keys_manager_finalize    (GObject                  *object);
-
+static void     register_manager                   (GsdMediaKeysManager      *manager);
 G_DEFINE_TYPE (GsdMediaKeysManager, gsd_media_keys_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
@@ -594,6 +594,16 @@ do_eject_action (GsdMediaKeysManager *manager)
 }
 
 static void
+do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
+{
+        dialog_init (manager);
+        gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                 state ? "touchpad-enabled" : "touchpad-disabled",
+                                                 FALSE);
+        dialog_show (manager);
+}
+
+static void
 do_touchpad_action (GsdMediaKeysManager *manager)
 {
         GSettings *settings;
@@ -611,16 +621,6 @@ do_touchpad_action (GsdMediaKeysManager *manager)
 
         g_settings_set_boolean (settings, TOUCHPAD_ENABLED_KEY, !state);
         g_object_unref (settings);
-}
-
-static void
-do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
-{
-        dialog_init (manager);
-        gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                                 state ? "touchpad-enabled" : "touchpad-disabled",
-                                                 FALSE);
-        dialog_show (manager);
 }
 
 #ifdef HAVE_PULSE
