@@ -33,10 +33,11 @@ test_orientation_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-test_orientation_LDADD =				\
-	$(top_builddir)/plugins/common/libcommon.la	\
-	$(GUDEV_LIBS)					\
-	$(XINPUT_LIBS)					\
+test_orientation_LDADD =						\
+	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
+	$(top_builddir)/plugins/common/libcommon.la			\
+	$(GUDEV_LIBS)							\
+	$(XINPUT_LIBS)							\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_LTLIBRARIES = liborientation.la
