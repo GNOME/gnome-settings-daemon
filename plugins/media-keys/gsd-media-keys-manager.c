@@ -600,20 +600,14 @@ do_touchpad_action (GsdMediaKeysManager *manager)
         gboolean state;
 
         if (touchpad_is_present () == FALSE) {
-                dialog_init (manager);
-                gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                                         "touchpad-disabled", FALSE);
+                do_touchpad_osd_action (manager, FALSE);
                 return;
         }
 
         settings = g_settings_new (SETTINGS_TOUCHPAD_DIR);
         state = g_settings_get_boolean (settings, TOUCHPAD_ENABLED_KEY);
 
-        dialog_init (manager);
-        gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                                 (!state) ? "touchpad-enabled" : "touchpad-disabled",
-                                                 FALSE);
-        dialog_show (manager);
+        do_touchpad_osd_action (manager, !state);
 
         g_settings_set_boolean (settings, TOUCHPAD_ENABLED_KEY, !state);
         g_object_unref (settings);
