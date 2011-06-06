@@ -13,13 +13,14 @@
 # Suso Baleato <suso.baleato@xunta.es>, 2009.
 # Antón Méixome <meixome@mancomun.org>, 2009.
 # Fran Diéguez <frandieguez@gnome.org>,2009, 2010, 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-22 00:54+0100\n"
-"PO-Revision-Date: 2011-03-22 00:55+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2011-06-06 13:10+0200\n"
+"PO-Revision-Date: 2011-06-06 13:10+0200\n"
+"Last-Translator: Fran Diéguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
@@ -876,8 +877,8 @@ msgstr ""
 "distorsionar as formas das letras)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-msgid "Enable this to only move the cursor when the user touches the tablet."
-msgstr "Active isto para mover só o cursor cando o usuario toca a tableta."
+msgid "Enable this to move the cursor when the user touches the tablet."
+msgstr "Active isto para mover o cursor só cando o usuario toca a tableta."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
@@ -937,8 +938,7 @@ msgstr "Estabelecer isto a x1, y1 y x2, y2 do área usábel pola tableta."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
-msgstr ""
-"Estabelecer isto a x1, y1 e x2, y2 da área usábel polo lapis dixital."
+msgstr "Estabelecer isto a x1, y1 e x2, y2 da área usábel polo lapis dixital."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
@@ -1499,15 +1499,15 @@ msgstr ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:243
 msgid "_Layouts"
 msgstr "_Disposicións"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
 msgid "Keyboard _Preferences"
 msgstr "Preferencias do _teclado"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:256
 msgid "Show _Current Layout"
 msgstr "Mostrar a _disposición actual"
 
@@ -1564,17 +1564,17 @@ msgstr "Teclas multimedia"
 msgid "Media keys plugin"
 msgstr "Engadido das teclas multimedia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:822
+#: ../plugins/mouse/gsd-mouse-manager.c:833
 msgid "Could not enable mouse accessibility features"
 msgstr "Non foi posíbel activar as opcións de accesibilidade do rato"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:824
+#: ../plugins/mouse/gsd-mouse-manager.c:835
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "A accesibilidade de rato require ter instalado mousetweaks no seu sistema."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:826
+#: ../plugins/mouse/gsd-mouse-manager.c:837
 msgid "Universal Access"
 msgstr "Acceso universal"
 
@@ -1595,179 +1595,179 @@ msgid "Print-notifications plugin"
 msgstr "Engadido de notificacións da impresora"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
 msgid "Toner low"
 msgstr "Nivel de tóner baixo"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
 msgid "Toner empty"
 msgstr "Tóner baleiro"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
 msgid "Not connected?"
 msgstr "Non está conectada?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
 msgid "Cover open"
 msgstr "Tapa aberta"
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
 msgid "Printer configuration error"
 msgstr "Erro de configuración da impresora"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
 msgid "Door open"
 msgstr "Porta aberta"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
 msgid "Marker supply low"
 msgstr "Nivel de marcador baixo"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
 msgid "Out of a marker supply"
 msgstr "Marcador esgotado"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
 msgid "Paper low"
 msgstr "Nivel de papel baixo"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
 msgid "Out of paper"
 msgstr "Papel esgotado"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:198
 msgid "Printer off-line"
 msgstr "Impresora desconectada"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
 msgid "Printer error"
 msgstr "Erro na impresora"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "Á impresora «%s» quédalle pouco tóner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "Á impresora «%s» non lle queda tóner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Pode que a impresora «%s» non estea conectada."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:210
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "A tapa da impresora «%s» está aberta."
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "Non foi posíbel atopar un filtro para impresora «%s»."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "A porta da impresora «%s» está aberta."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "A impresora «%s» ten pouco marcador."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "A impresora «%s» non ten marcador."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "A impresora «%s» ten pouco papel."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "A impresora «%s» non ten papel."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "A impresora «%s» está actualmente desconectada."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:227
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "Hai un problema coa impresora «%s»."
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:297
 msgid "Printer added"
 msgstr "Impresora engadida"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
 msgid "Printer removed"
 msgstr "Impresora quitada"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:322
 msgid "Printing stopped"
 msgstr "Impresión detida"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "«%s» en %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:328
 msgid "Printing canceled"
 msgstr "Impresión cancelada"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:334
 msgid "Printing aborted"
 msgstr "Impresión cancelada"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
 msgid "Printing completed"
 msgstr "Impresión completa"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printing"
 msgstr "Imprimindo"
 
@@ -1808,21 +1808,21 @@ msgstr "Definir o tamaño da pantalla e as configuracións de rotación"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:413
+#: ../plugins/xrandr/gsd-xrandr-manager.c:411
 msgid "Could not switch the monitor configuration"
 msgstr "Non foi posíbel cambiar a configuración da pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:437
+#: ../plugins/xrandr/gsd-xrandr-manager.c:435
 msgid "Could not restore the display's configuration"
 msgstr "Non foi posíbel restaurar a configuración de pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:462
+#: ../plugins/xrandr/gsd-xrandr-manager.c:460
 msgid "Could not restore the display's configuration from a backup"
 msgstr ""
 "Non foi posíbel restaurar a configuración de pantalla desde a copia de "
 "seguranza"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
+#: ../plugins/xrandr/gsd-xrandr-manager.c:481
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1830,32 +1830,32 @@ msgid_plural ""
 msgstr[0] "Restabelecerase a configuración de pantalla anterior en %d segundo"
 msgstr[1] "Restabelecerase a configuración de pantalla anterior en %d segundos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:530
 msgid "Does the display look OK?"
 msgstr "Vese correctamente a pantalla?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:539
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "_Restore Previous Configuration"
 msgstr "_Restabelecer a configuración anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:540
+#: ../plugins/xrandr/gsd-xrandr-manager.c:538
 msgid "_Keep This Configuration"
 msgstr "_Manter esta configuración"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:621
+#: ../plugins/xrandr/gsd-xrandr-manager.c:619
 msgid "The selected configuration for displays could not be applied"
 msgstr "Non é posíbel aplicar a configuración seleccionada para as pantallas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1151
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Non foi posíbel actualizar a información de pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1155
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Tentando cambiar a configuración da pantalla de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1625
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Non foi posíbel aplicarlle a configuración almacenada aos monitores"
 
