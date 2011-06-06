@@ -51,8 +51,6 @@ typedef struct {
 gboolean  supports_xinput_devices  (void);
 gboolean  supports_xinput2_devices (void);
 
-gboolean accelerometer_is_present (char **device_node,
-                                   int   *device_id);
 gboolean set_device_enabled       (int device_id,
                                    gboolean enabled);
 
