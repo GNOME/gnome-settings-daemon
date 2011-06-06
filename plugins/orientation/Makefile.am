@@ -1,25 +1,10 @@
 plugin_name = orientation
 
-noinst_PROGRAMS = test-orientation-calculation test-orientation
-
-test_orientation_calculation_SOURCES =	\
-	gsd-orientation-calc.c		\
-	gsd-orientation-calc.h		\
-	test-orientation-calculation.c
-
-test_orientation_calculation_CFLAGS =	\
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-test_orientation_calculation_LDADD =	\
-	$(SETTINGS_PLUGIN_LIBS)
+noinst_PROGRAMS = test-orientation
 
 test_orientation_SOURCES =		\
 	gsd-orientation-manager.h	\
 	gsd-orientation-manager.c	\
-	gsd-orientation-calc.c		\
-	gsd-orientation-calc.h		\
 	test-orientation.c
 
 test_orientation_CFLAGS =					\
@@ -46,9 +31,7 @@ liborientation_la_SOURCES = 		\
 	gsd-orientation-plugin.h	\
 	gsd-orientation-plugin.c	\
 	gsd-orientation-manager.h	\
-	gsd-orientation-manager.c	\
-	gsd-orientation-calc.c		\
-	gsd-orientation-calc.h
+	gsd-orientation-manager.c
 
 liborientation_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
