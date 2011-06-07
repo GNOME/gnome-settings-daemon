@@ -425,6 +425,7 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
         dev = get_accelerometer (manager->priv->client);
         if (dev == NULL) {
                 g_debug ("Did not find an accelerometer");
+                gnome_settings_profile_end (NULL);
                 return FALSE;
         }
         manager->priv->sysfs_path = g_strdup (g_udev_device_get_sysfs_path (dev));
@@ -441,6 +442,8 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
 
         g_signal_connect (G_OBJECT (manager->priv->client), "uevent",
                           G_CALLBACK (client_uevent_cb), manager);
+
+        gnome_settings_profile_end (NULL);
 
         return FALSE;
 }
