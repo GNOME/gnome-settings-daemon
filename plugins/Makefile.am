@@ -7,6 +7,7 @@ enabled_plugins =	\
 	background	\
 	clipboard	\
 	color		\
+	cursor		\
 	datetime	\
 	dummy		\
 	housekeeping    \

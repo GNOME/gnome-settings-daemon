@@ -204,6 +204,12 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(XINPUT, xi)
 
 dnl ---------------------------------------------------------------------------
+dnl - XFixes
+dnl ---------------------------------------------------------------------------
+
+PKG_CHECK_MODULES(XINPUT, xfixes)
+
+dnl ---------------------------------------------------------------------------
 dnl - Fontconfig
 dnl ---------------------------------------------------------------------------
 
@@ -549,6 +555,7 @@ plugins/background/Makefile
 plugins/clipboard/Makefile
 plugins/color/Makefile
 plugins/common/Makefile
+plugins/cursor/Makefile
 plugins/datetime/Makefile
 plugins/dummy/Makefile
 plugins/gconf/Makefile

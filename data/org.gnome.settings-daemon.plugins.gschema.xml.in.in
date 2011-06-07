@@ -5,6 +5,7 @@
     <child name="automount" schema="org.gnome.settings-daemon.plugins.automount"/>
     <child name="background" schema="org.gnome.settings-daemon.plugins.background"/>
     <child name="clipboard" schema="org.gnome.settings-daemon.plugins.clipboard"/>
+    <child name="cursor" schema="org.gnome.settings-daemon.plugins.cursor"/>
     <child name="font" schema="org.gnome.settings-daemon.plugins.font"/>
     <child name="keybindings" schema="org.gnome.settings-daemon.plugins.keybindings"/>
     <child name="mouse" schema="org.gnome.settings-daemon.plugins.mouse"/>
@@ -61,6 +62,18 @@
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.clipboard" path="/org/gnome/settings-daemon/plugins/clipboard/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>99</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.cursor" path="/org/gnome/settings-daemon/plugins/cursor/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
