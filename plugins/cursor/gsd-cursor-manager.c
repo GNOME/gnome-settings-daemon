@@ -309,6 +309,10 @@ gsd_cursor_manager_stop (GsdCursorManager *manager)
                 g_signal_handler_disconnect (G_OBJECT (device_manager), manager->priv->removed_id);
                 manager->priv->removed_id = 0;
         }
+
+        if (manager->priv->cursor_shown == FALSE) {
+                set_cursor_visibility (manager, TRUE);
+        }
 }
 
 static void
