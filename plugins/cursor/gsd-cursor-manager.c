@@ -125,6 +125,12 @@ set_cursor_visibility (GsdCursorManager *manager,
         manager->priv->cursor_shown = visible;
 }
 
+static gboolean
+device_info_is_ps2_mouse (XDeviceInfo *info)
+{
+	return (g_strcmp0 (info->name, "ImPS/2 Generic Wheel Mouse") == 0);
+}
+
 static void
 update_cursor_for_current (GsdCursorManager *manager)
 {
@@ -151,6 +157,9 @@ update_cursor_for_current (GsdCursorManager *manager)
                         return;
 
                 if (device_info_is_touchscreen (&device_info[i]))
+                        continue;
+
+                if (device_info_is_ps2_mouse (&device_info[i]))
                         continue;
 
                 gdk_error_trap_push ();
