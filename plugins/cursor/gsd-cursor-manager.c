@@ -154,7 +154,7 @@ update_cursor_for_current (GsdCursorManager *manager)
                 XDevice *device;
 
                 if (device_info[i].use != IsXExtensionPointer)
-                        return;
+                        continue;
 
                 if (device_info_is_touchscreen (&device_info[i]))
                         continue;
