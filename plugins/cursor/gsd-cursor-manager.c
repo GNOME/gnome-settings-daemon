@@ -100,6 +100,8 @@ set_cursor_visibility (GsdCursorManager *manager,
         guint n_screens;
         guint i;
 
+        g_debug ("Attempting to %s the cursor", visible ? "show" : "hide");
+
         display = gdk_display_get_default ();
         xdisplay = GDK_DISPLAY_XDISPLAY (display);
 
@@ -186,7 +188,7 @@ update_cursor_for_current (GsdCursorManager *manager)
                 }
         } else {
                 g_debug ("No mice present");
-                if (manager->priv->cursor_shown == FALSE) {
+                if (manager->priv->cursor_shown != FALSE) {
                         set_cursor_visibility (manager, FALSE);
                 }
         }
