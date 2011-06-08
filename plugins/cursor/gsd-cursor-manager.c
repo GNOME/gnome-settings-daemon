@@ -42,6 +42,8 @@
 #include "gsd-cursor-manager.h"
 #include "gsd-input-helper.h"
 
+#define XFIXES_CURSOR_HIDING_MAJOR 4
+
 #define GSD_CURSOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_CURSOR_MANAGER, GsdCursorManagerPrivate))
 
 struct GsdCursorManagerPrivate
@@ -217,8 +219,8 @@ supports_xfixes (void)
 static gboolean
 supports_cursor_xfixes (void)
 {
-        int major = XFIXES_MAJOR;
-        int minor = XFIXES_MINOR;
+        int major = XFIXES_CURSOR_HIDING_MAJOR;
+        int minor = 0;
 
         gdk_error_trap_push ();
 
@@ -227,13 +229,13 @@ supports_cursor_xfixes (void)
                 return FALSE;
         }
 
-        if (XFixesQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor) != Success) {
+        if (!XFixesQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor)) {
                 gdk_error_trap_pop_ignored ();
                 return FALSE;
         }
         gdk_error_trap_pop_ignored ();
 
-        if (major >= 4)
+        if (major >= XFIXES_CURSOR_HIDING_MAJOR)
                 return TRUE;
 
         return FALSE;
