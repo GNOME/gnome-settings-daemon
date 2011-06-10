@@ -42,63 +42,41 @@ struct GsdMediaKeysWindowPrivate
 
         guint                    volume_muted : 1;
         int                      volume_level;
-
-        GtkImage                *image;
-        GtkWidget               *progress;
 };
 
 G_DEFINE_TYPE (GsdMediaKeysWindow, gsd_media_keys_window, GSD_TYPE_OSD_WINDOW)
 
-static void
-volume_controls_set_visible (GsdMediaKeysWindow *window,
-                             gboolean            visible)
+static const char *
+get_image_name_for_volume (gboolean muted,
+			   int volume)
 {
-        if (window->priv->progress == NULL)
-                return;
+        static const char *icon_names[] = {
+                "audio-volume-muted-symbolic",
+                "audio-volume-low-symbolic",
+                "audio-volume-medium-symbolic",
+                "audio-volume-high-symbolic",
+                NULL
+        };
+        int n;
 
-        if (visible) {
-                gtk_widget_show (window->priv->progress);
+        if (muted) {
+                n = 0;
         } else {
-                gtk_widget_hide (window->priv->progress);
+                /* select image */
+                n = 3 * volume / 100 + 1;
+                if (n < 1) {
+                        n = 1;
+                } else if (n > 3) {
+                        n = 3;
+                }
         }
-}
 
-static void
-window_set_icon_name (GsdMediaKeysWindow *window,
-                      const char         *name)
-{
-        if (window->priv->image == NULL)
-                return;
-
-        gtk_image_set_from_icon_name (window->priv->image,
-                                      name, GTK_ICON_SIZE_DIALOG);
+	return icon_names[n];
 }
 
 static void
 action_changed (GsdMediaKeysWindow *window)
 {
-        if (!gsd_osd_window_is_composited (GSD_OSD_WINDOW (window))) {
-                switch (window->priv->action) {
-                case GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME:
-                        volume_controls_set_visible (window, TRUE);
-
-                        if (window->priv->volume_muted) {
-                                window_set_icon_name (window, "audio-volume-muted-symbolic");
-                        } else {
-                                window_set_icon_name (window, "audio-volume-high-symbolic");
-                        }
-
-                        break;
-                case GSD_MEDIA_KEYS_WINDOW_ACTION_CUSTOM:
-                        volume_controls_set_visible (window, window->priv->show_level);
-                        window_set_icon_name (window, window->priv->icon_name);
-                        break;
-                default:
-                        g_assert_not_reached ();
-                        break;
-                }
-        }
-
         gsd_osd_window_update_and_hide (GSD_OSD_WINDOW (window));
 }
 
@@ -106,29 +84,12 @@ static void
 volume_level_changed (GsdMediaKeysWindow *window)
 {
         gsd_osd_window_update_and_hide (GSD_OSD_WINDOW (window));
-
-        if (!gsd_osd_window_is_composited (GSD_OSD_WINDOW (window)) && window->priv->progress != NULL) {
-                double fraction;
-
-                fraction = (double) window->priv->volume_level / 100.0;
-
-                gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (window->priv->progress),
-                                               fraction);
-        }
 }
 
 static void
 volume_muted_changed (GsdMediaKeysWindow *window)
 {
         gsd_osd_window_update_and_hide (GSD_OSD_WINDOW (window));
-
-        if (!gsd_osd_window_is_composited (GSD_OSD_WINDOW (window))) {
-                if (window->priv->volume_muted) {
-                        window_set_icon_name (window, "audio-volume-muted-symbolic");
-                } else {
-                        window_set_icon_name (window, "audio-volume-high-symbolic");
-                }
-        }
 }
 
 void
@@ -372,31 +333,15 @@ render_speaker (GsdMediaKeysWindow *window,
                 double              height)
 {
         GdkPixbuf         *pixbuf;
+        const char        *icon_name;
         int                icon_size;
-        int                n;
-        static const char *icon_names[] = {
-                "audio-volume-muted-symbolic",
-                "audio-volume-low-symbolic",
-                "audio-volume-medium-symbolic",
-                "audio-volume-high-symbolic",
-                NULL
-        };
 
-        if (window->priv->volume_muted) {
-                n = 0;
-        } else {
-                /* select image */
-                n = 3 * window->priv->volume_level / 100 + 1;
-                if (n < 1) {
-                        n = 1;
-                } else if (n > 3) {
-                        n = 3;
-                }
-        }
+	icon_name = get_image_name_for_volume (window->priv->volume_muted,
+					       window->priv->volume_level);
 
         icon_size = (int)width;
 
-        pixbuf = load_pixbuf (window, icon_names[n], icon_size);
+        pixbuf = load_pixbuf (window, icon_name, icon_size);
 
         if (pixbuf == NULL) {
                 return FALSE;
@@ -694,32 +639,6 @@ static void
 gsd_media_keys_window_init (GsdMediaKeysWindow *window)
 {
         window->priv = GSD_MEDIA_KEYS_WINDOW_GET_PRIVATE (window);
-
-        if (!gsd_osd_window_is_composited (GSD_OSD_WINDOW (window))) {
-                GtkBuilder *builder;
-                const gchar *objects[] = {"acme_box", NULL};
-                GtkWidget *box;
-
-                builder = gtk_builder_new ();
-                gtk_builder_add_objects_from_file (builder,
-                                                   GTKBUILDERDIR "/acme.ui",
-                                                   (char **) objects,
-                                                   NULL);
-
-                window->priv->image = GTK_IMAGE (gtk_builder_get_object (builder, "acme_image"));
-                g_object_set (G_OBJECT (window->priv->image), "use-fallback", TRUE, NULL);
-                window->priv->progress = GTK_WIDGET (gtk_builder_get_object (builder, "acme_volume_progressbar"));
-                box = GTK_WIDGET (gtk_builder_get_object (builder, "acme_box"));
-
-                if (box != NULL) {
-                        gtk_container_add (GTK_CONTAINER (window), box);
-                        gtk_widget_show_all (box);
-                }
-
-                /* The builder needs to stay alive until the window
-                   takes ownership of the box (and its children)  */
-                g_object_unref (builder);
-        }
 }
 
 GtkWidget *

@@ -183,17 +183,11 @@ if HAVE_PULSE
 test_media_keys_LDADD += $(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la
 endif
 
-gtkbuilderdir = $(pkgdatadir)
-gtkbuilder_DATA =	\
-	acme.ui		\
-	$(NULL)
-
 DIST_SUBDIRS = cut-n-paste
 
 EXTRA_DIST = 				\
 	gsd-marshal.list		\
 	$(plugin_in_files)		\
-	$(gtkbuilder_DATA)		\
 	$(pixmaps_DATA)			\
 	touchpad-enabled-template.svg	\
 	touchpad-disabled-template.svg	\

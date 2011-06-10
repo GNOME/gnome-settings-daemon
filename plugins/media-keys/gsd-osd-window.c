@@ -422,6 +422,7 @@ draw_when_composited (GtkWidget *widget, cairo_t *orig_cr)
         int              height;
         GtkStyleContext *context;
         GdkRGBA          acolor;
+        gdouble          corner_radius;
 
         window = GSD_OSD_WINDOW (widget);
 
@@ -447,7 +448,11 @@ draw_when_composited (GtkWidget *widget, cairo_t *orig_cr)
         cairo_paint (cr);
 
         /* draw a box */
-        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.5, 0.5, height / 10, width-1, height-1);
+        if (window->priv->is_composited)
+                corner_radius = height / 10;
+        else
+                corner_radius = 0.0;
+        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.5, 0.5, corner_radius, width-1, height-1);
         gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &acolor);
         gsd_osd_window_color_reverse (&acolor);
         acolor.alpha = BG_ALPHA;
@@ -480,32 +485,6 @@ draw_when_composited (GtkWidget *widget, cairo_t *orig_cr)
         }
 }
 
-/* This is our draw handler when the window is *not* in a compositing manager.
- * We just draw a rectangular frame by hand.  We do this with hardcoded drawing code,
- * instead of GtkFrame, to avoid changing the window's internal widget hierarchy:  in
- * either case (composited or non-composited), callers can assume that this works
- * identically to a GtkWindow without any intermediate widgetry.
- */
-static void
-draw_when_not_composited (GtkWidget *widget, cairo_t *cr)
-{
-        GtkStyleContext *context;
-        int width;
-        int height;
-
-        width = gtk_widget_get_allocated_width (widget);
-        height = gtk_widget_get_allocated_width (widget);
-        context = gtk_widget_get_style_context (widget);
-
-        gtk_style_context_set_state (context, GTK_STATE_FLAG_ACTIVE);
-        gtk_render_frame (context,
-                          cr,
-                          0,
-                          0,
-                          width,
-                          height);
-}
-
 static gboolean
 gsd_osd_window_draw (GtkWidget *widget,
                      cairo_t   *cr)
@@ -515,10 +494,7 @@ gsd_osd_window_draw (GtkWidget *widget,
 
         window = GSD_OSD_WINDOW (widget);
 
-        if (window->priv->is_composited)
-                draw_when_composited (widget, cr);
-        else
-                draw_when_not_composited (widget, cr);
+        draw_when_composited (widget, cr);
 
         child = gtk_bin_get_child (GTK_BIN (window));
         if (child)
@@ -721,6 +697,8 @@ static void
 gsd_osd_window_init (GsdOsdWindow *window)
 {
         GdkScreen *screen;
+        gdouble scalew, scaleh, scale;
+        gint size;
 
         window->priv = GSD_OSD_WINDOW_GET_PRIVATE (window);
 
@@ -730,25 +708,18 @@ gsd_osd_window_init (GsdOsdWindow *window)
         window->priv->screen_width = gdk_screen_get_width (screen);
         window->priv->screen_height = gdk_screen_get_height (screen);
 
-        if (window->priv->is_composited) {
-                gdouble scalew, scaleh, scale;
-                gint size;
+        gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
+        gtk_widget_set_app_paintable (GTK_WIDGET (window), TRUE);
 
-                gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
-                gtk_widget_set_app_paintable (GTK_WIDGET (window), TRUE);
+        /* assume 130x130 on a 640x480 display and scale from there */
+        scalew = gdk_screen_get_width (screen) / 640.0;
+        scaleh = gdk_screen_get_height (screen) / 480.0;
+        scale = MIN (scalew, scaleh);
+        size = 130 * MAX (1, scale);
 
-                /* assume 130x130 on a 640x480 display and scale from there */
-                scalew = gdk_screen_get_width (screen) / 640.0;
-                scaleh = gdk_screen_get_height (screen) / 480.0;
-                scale = MIN (scalew, scaleh);
-                size = 130 * MAX (1, scale);
+        gtk_window_set_default_size (GTK_WINDOW (window), size, size);
 
-                gtk_window_set_default_size (GTK_WINDOW (window), size, size);
-
-                window->priv->fade_out_alpha = 1.0;
-        } else {
-                gtk_container_set_border_width (GTK_CONTAINER (window), 12);
-        }
+        window->priv->fade_out_alpha = 1.0;
 }
 
 GtkWidget *
