@@ -418,10 +418,7 @@ dialog_show (GsdMediaKeysManager *manager)
         int            screen_h;
         int            x;
         int            y;
-        int            pointer_x;
-        int            pointer_y;
         GtkRequisition win_req;
-        GdkScreen     *pointer_screen;
         GdkRectangle   geometry;
         int            monitor;
 
@@ -436,29 +433,12 @@ dialog_show (GsdMediaKeysManager *manager)
         gtk_window_get_default_size (GTK_WINDOW (manager->priv->dialog), &orig_w, &orig_h);
         gtk_widget_size_request (manager->priv->dialog, &win_req);
 
-        if (win_req.width > orig_w) {
+        if (win_req.width > orig_w)
                 orig_w = win_req.width;
-        }
-        if (win_req.height > orig_h) {
+        if (win_req.height > orig_h)
                 orig_h = win_req.height;
-        }
 
-        pointer_screen = NULL;
-        gdk_display_get_pointer (gdk_screen_get_display (manager->priv->current_screen),
-                                 &pointer_screen,
-                                 &pointer_x,
-                                 &pointer_y,
-                                 NULL);
-        if (pointer_screen != manager->priv->current_screen) {
-                /* The pointer isn't on the current screen, so just
-                 * assume the default monitor
-                 */
-                monitor = 0;
-        } else {
-                monitor = gdk_screen_get_monitor_at_point (manager->priv->current_screen,
-                                                           pointer_x,
-                                                           pointer_y);
-        }
+        monitor = gdk_screen_get_primary_monitor (manager->priv->current_screen);
 
         gdk_screen_get_monitor_geometry (manager->priv->current_screen,
                                          monitor,

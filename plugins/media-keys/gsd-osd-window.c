@@ -56,6 +56,7 @@ struct GsdOsdWindowPrivate
 
         gint                     screen_width;
         gint                     screen_height;
+        gint                     monitor;
 };
 
 enum {
@@ -682,12 +683,17 @@ gboolean
 gsd_osd_window_is_valid (GsdOsdWindow *window)
 {
         GdkScreen *screen = gtk_widget_get_screen (GTK_WIDGET (window));
-        gint width, height;
-        width = gdk_screen_get_width (screen);
-        height = gdk_screen_get_height (screen);
+        gint monitor;
+        GdkRectangle mon_rect;
 
-        if (window->priv->screen_width != width ||
-            window->priv->screen_height != height)
+	monitor = gdk_screen_get_primary_monitor (screen);
+	if (monitor != window->priv->monitor)
+		return FALSE;
+
+	gdk_screen_get_monitor_geometry (screen, monitor, &mon_rect);
+
+        if (window->priv->screen_width != mon_rect.width ||
+            window->priv->screen_height != mon_rect.height)
                 return FALSE;
 
         return gdk_screen_is_composited (screen) == window->priv->is_composited;
@@ -698,6 +704,7 @@ gsd_osd_window_init (GsdOsdWindow *window)
 {
         GdkScreen *screen;
         gdouble scalew, scaleh, scale;
+        GdkRectangle monitor;
         gint size;
 
         window->priv = GSD_OSD_WINDOW_GET_PRIVATE (window);
@@ -705,18 +712,19 @@ gsd_osd_window_init (GsdOsdWindow *window)
         screen = gtk_widget_get_screen (GTK_WIDGET (window));
 
         window->priv->is_composited = gdk_screen_is_composited (screen);
-        window->priv->screen_width = gdk_screen_get_width (screen);
-        window->priv->screen_height = gdk_screen_get_height (screen);
+        window->priv->monitor = gdk_screen_get_primary_monitor (screen);
+        gdk_screen_get_monitor_geometry (screen, window->priv->monitor, &monitor);
+        window->priv->screen_width = monitor.width;
+        window->priv->screen_height = monitor.height;
 
         gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
         gtk_widget_set_app_paintable (GTK_WIDGET (window), TRUE);
 
         /* assume 130x130 on a 640x480 display and scale from there */
-        scalew = gdk_screen_get_width (screen) / 640.0;
-        scaleh = gdk_screen_get_height (screen) / 480.0;
+        scalew = monitor.width / 640.0;
+        scaleh = monitor.height / 480.0;
         scale = MIN (scalew, scaleh);
         size = 130 * MAX (1, scale);
-
         gtk_window_set_default_size (GTK_WINDOW (window), size, size);
 
         window->priv->fade_out_alpha = 1.0;
