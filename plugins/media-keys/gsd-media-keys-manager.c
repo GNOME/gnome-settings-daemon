@@ -609,7 +609,8 @@ update_dialog (GsdMediaKeysManager *manager,
                guint vol,
                guint max_vol,
                gboolean muted,
-               gboolean sound_changed)
+               gboolean sound_changed,
+               gboolean quiet)
 {
         vol = (int) (100 * (double) vol / (double) max_vol);
         vol = CLAMP (vol, 0, 100);
@@ -622,7 +623,7 @@ update_dialog (GsdMediaKeysManager *manager,
                                           GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME);
         dialog_show (manager);
 
-        if (sound_changed != FALSE && muted == FALSE)
+        if (quiet == FALSE && sound_changed != FALSE && muted == FALSE)
                 ca_gtk_play_for_widget (manager->priv->dialog, 0,
                                         CA_PROP_EVENT_ID, "audio-volume-change",
                                         CA_PROP_EVENT_DESCRIPTION, "volume changed through key press",
@@ -632,7 +633,8 @@ update_dialog (GsdMediaKeysManager *manager,
 
 static void
 do_sound_action (GsdMediaKeysManager *manager,
-                 int                  type)
+                 int                  type,
+                 gboolean             quiet)
 {
         gboolean old_muted, new_muted;
         guint old_vol, new_vol, max_vol, norm_vol_step;
@@ -681,7 +683,7 @@ do_sound_action (GsdMediaKeysManager *manager,
                 }
         }
 
-        update_dialog (manager, new_vol, max_vol, new_muted, sound_changed);
+        update_dialog (manager, new_vol, max_vol, new_muted, sound_changed, quiet);
 }
 
 static void
@@ -1172,7 +1174,22 @@ do_action (GsdMediaKeysManager *manager,
         case VOLUME_DOWN_KEY:
         case VOLUME_UP_KEY:
 #ifdef HAVE_PULSE
-                do_sound_action (manager, type);
+                do_sound_action (manager, type, FALSE);
+#endif /* HAVE_PULSE */
+                break;
+        case MUTE_QUIET_KEY:
+#ifdef HAVE_PULSE
+                do_sound_action (manager, MUTE_KEY, TRUE);
+#endif /* HAVE_PULSE */
+                break;
+        case VOLUME_DOWN_QUIET_KEY:
+#ifdef HAVE_PULSE
+                do_sound_action (manager, VOLUME_DOWN_KEY, TRUE);
+#endif /* HAVE_PULSE */
+                break;
+        case VOLUME_UP_QUIET_KEY:
+#ifdef HAVE_PULSE
+                do_sound_action (manager, VOLUME_UP_KEY, TRUE);
 #endif /* HAVE_PULSE */
                 break;
         case LOGOUT_KEY:
@@ -1316,6 +1333,8 @@ acme_filter_events (GdkXEvent           *xevent,
                         switch (keys[i].key_type) {
                         case VOLUME_DOWN_KEY:
                         case VOLUME_UP_KEY:
+                        case VOLUME_DOWN_QUIET_KEY:
+                        case VOLUME_UP_QUIET_KEY:
                                 /* auto-repeatable keys */
                                 if (xev->type != KeyPress) {
                                         return GDK_FILTER_CONTINUE;
