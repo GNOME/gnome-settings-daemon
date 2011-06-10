@@ -290,9 +290,9 @@ gcm_session_profile_connect_cb (GObject *object,
         GsdColorManagerDeviceHelper *helper = (GsdColorManagerDeviceHelper *) user_data;
         GsdColorManager *manager = GSD_COLOR_MANAGER (helper->manager);
 
-        ret = cd_profile_connect_sync (profile,
-                                       NULL,
-                                       &error);
+        ret = cd_profile_connect_finish (profile,
+                                         res,
+                                         &error);
         if (!ret) {
                 g_warning ("failed to connect to profile: %s",
                            error->message);
