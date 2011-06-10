@@ -56,9 +56,6 @@
 #define CONF_KEY_DEFAULT_MONITORS_SETUP   "default-monitors-setup"
 #define CONF_KEY_DEFAULT_CONFIGURATION_FILE   "default-configuration-file"
 
-#define WACOM_SCHEMA "org.gnome.settings-daemon.peripherals.wacom"
-#define WACOM_ROTATION_KEY "rotation"
-
 /* Number of seconds that the confirmation dialog will last before it resets the
  * RANDR configuration to its old state.
  */
@@ -105,7 +102,6 @@ struct GsdXrandrManagerPrivate
         gboolean running;
 
         GSettings       *settings;
-        GSettings       *wacom_settings;
         GDBusNodeInfo   *introspection_data;
         GDBusConnection *connection;
 
@@ -1326,13 +1322,11 @@ struct {
         gboolean x_axis_inversion;
         gboolean y_axis_inversion;
         gboolean axes_swap;
-        /* wacom */
-        GsdWacomRotation wacom_rot;
 } evdev_rotations[] = {
-        { GNOME_RR_ROTATION_0, 0, 0, 0, GSD_WACOM_ROTATION_NONE },
-        { GNOME_RR_ROTATION_90, 1, 0, 1, GSD_WACOM_ROTATION_CW },
-        { GNOME_RR_ROTATION_180, 1, 1, 0, GSD_WACOM_ROTATION_HALF },
-        { GNOME_RR_ROTATION_270, 0, 1, 1, GSD_WACOM_ROTATION_CCW }
+        { GNOME_RR_ROTATION_0, 0, 0, 0 },
+        { GNOME_RR_ROTATION_90, 1, 0, 1 },
+        { GNOME_RR_ROTATION_180, 1, 1, 0 },
+        { GNOME_RR_ROTATION_270, 0, 1, 1 }
 };
 
 static guint
@@ -1384,10 +1378,7 @@ rotate_touchscreens (GsdXrandrManager *mgr,
                         if (gdk_error_trap_pop () || (device == NULL))
                                 continue;
 
-                        if (device_set_property (device, device_info[i].name, &axes_swap) == FALSE) {
-                                /* Set up Wacom devices */
-                                g_settings_set_enum (mgr->priv->wacom_settings, WACOM_ROTATION_KEY, evdev_rotations[rot_idx].wacom_rot);
-                        } else {
+                        if (device_set_property (device, device_info[i].name, &axes_swap) != FALSE) {
                                 char axis[] = {
                                         evdev_rotations[rot_idx].x_axis_inversion,
                                         evdev_rotations[rot_idx].y_axis_inversion
@@ -1885,7 +1876,6 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
 
         manager->priv->running = TRUE;
         manager->priv->settings = g_settings_new (CONF_SCHEMA);
-        manager->priv->wacom_settings = g_settings_new (WACOM_SCHEMA);
 
         show_timestamps_dialog (manager, "Startup");
         if (!apply_stored_configuration_at_startup (manager, GDK_CURRENT_TIME)) /* we don't have a real timestamp at startup anyway */
@@ -1912,11 +1902,6 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         if (manager->priv->settings != NULL) {
                 g_object_unref (manager->priv->settings);
                 manager->priv->settings = NULL;
-        }
-
-        if (manager->priv->wacom_settings != NULL) {
-                g_object_unref (manager->priv->wacom_settings);
-                manager->priv->wacom_settings = NULL;
         }
 
         if (manager->priv->rw_screen != NULL) {
