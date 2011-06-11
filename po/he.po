@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-04 13:54+0300\n"
-"PO-Revision-Date: 2011-06-04 13:58+0200\n"
+"POT-Creation-Date: 2011-06-11 11:39+0300\n"
+"PO-Revision-Date: 2011-06-11 11:40+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <kde-il@yahoogroups.com>\n"
 "Language: he\n"
@@ -546,12 +546,12 @@ msgstr ""
 "'connection-use-mobile' is enabled."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid "Automatically update these types of updates"
-msgstr "Automatically update these types of updates"
+msgid "Automatically install these types of updates"
+msgstr "Automatically install these types of updates"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically update these types of updates."
-msgstr "Automatically update these types of updates."
+msgid "Automatically install these types of updates."
+msgstr "Automatically install these types of updates."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
@@ -1330,46 +1330,50 @@ msgstr "צבע"
 msgid "Color plugin"
 msgstr "תוסף צבע"
 
-#: ../plugins/color/gsd-color-manager.c:192
+#: ../plugins/color/gsd-color-manager.c:598
+msgid "Default"
+msgstr "בררת מחדל"
+
+#: ../plugins/color/gsd-color-manager.c:1452
 msgid "Recalibrate now"
 msgstr "כיול מחדש כעת"
 
-#: ../plugins/color/gsd-color-manager.c:199
+#: ../plugins/color/gsd-color-manager.c:1459
 #: ../plugins/housekeeping/gsd-disk-space.c:385
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "התעלמות"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:241
+#: ../plugins/color/gsd-color-manager.c:1501
 msgid "Recalibration required"
 msgstr "נדרש כיול מחדש"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:253
+#: ../plugins/color/gsd-color-manager.c:1513
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "יש לכייל את התצוגה '%s' מחדש בהקדם האפשרי."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:262
+#: ../plugins/color/gsd-color-manager.c:1522
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "יש לכייל את המדפסת '%s' מחדש בהקדם האפשרי."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:592
-#: ../plugins/color/gsd-color-manager.c:610
+#: ../plugins/color/gsd-color-manager.c:1847
+#: ../plugins/color/gsd-color-manager.c:1865
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "תוסף הצבע של מנוע ההגדרות של GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:594
+#: ../plugins/color/gsd-color-manager.c:1849
 msgid "Color calibration device added"
 msgstr "נוסף התקן כיול צבע"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:612
+#: ../plugins/color/gsd-color-manager.c:1867
 msgid "Color calibration device removed"
 msgstr "התקן כיול צבע הוסר"
 
@@ -1846,19 +1850,19 @@ msgstr "הגדרות גודל וסיבוב מסך"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:422
+#: ../plugins/xrandr/gsd-xrandr-manager.c:418
 msgid "Could not switch the monitor configuration"
 msgstr "לא ניתן להחליף את תצורת הצג"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:446
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 msgid "Could not restore the display's configuration"
 msgstr "לא ניתן לשחזר את תצורת התצוגה"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:471
+#: ../plugins/xrandr/gsd-xrandr-manager.c:467
 msgid "Could not restore the display's configuration from a backup"
 msgstr "לא ניתן לשחזר את תצורת התצוגה מגיבוי"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:492
+#: ../plugins/xrandr/gsd-xrandr-manager.c:488
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1866,32 +1870,32 @@ msgid_plural ""
 msgstr[0] "התצוגה תאופס לתצורה הקודמת בעוד שניה אחת"
 msgstr[1] "התצוגה תאופס לתצורה הקודמת בעוד %d שניות"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:541
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "Does the display look OK?"
 msgstr "האם התצוגה נראית בסדר?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:548
+#: ../plugins/xrandr/gsd-xrandr-manager.c:544
 msgid "_Restore Previous Configuration"
 msgstr "ש_חזור התצורה הקודמת"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:549
+#: ../plugins/xrandr/gsd-xrandr-manager.c:545
 msgid "_Keep This Configuration"
 msgstr "_שמירת תצורה זו"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:630
+#: ../plugins/xrandr/gsd-xrandr-manager.c:626
 msgid "The selected configuration for displays could not be applied"
 msgstr "לא ניתן להחיל את תצורת התצוגות הנבחרת"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1186
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "לא ניתן לרענן את פרטי המסך: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1194
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "מתבצע נסיון להחלפת תצורת הצג בכל אופן"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1750
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1741
 msgid "Could not apply the stored configuration for monitors"
 msgstr "לא ניתן להחיל את התצורה השמורה על הצגים"
 
@@ -2768,9 +2772,6 @@ msgstr "התעלמות מהתקנים"
 
 #~ msgid "Volume"
 #~ msgstr "עוצמה"
-
-#~ msgid "Default Editor"
-#~ msgstr "עורך ברירת מחדל"
 
 #~ msgid "Default editor plugin"
 #~ msgstr "תוסף עורך ברירת מחדל"
