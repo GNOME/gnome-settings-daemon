@@ -1245,11 +1245,12 @@ gnome_rr_screen_output_removed_cb (GnomeRRScreen *screen,
 {
         g_debug ("output %s removed",
                  gnome_rr_output_get_name (output));
-        cd_client_find_device (manager->priv->client,
-                               gnome_rr_output_get_name (output),
-                               NULL,
-                               gcm_session_screen_removed_find_device_cb,
-                               manager);
+        cd_client_find_device_by_property (manager->priv->client,
+                                           CD_DEVICE_METADATA_XRANDR_NAME,
+                                           gnome_rr_output_get_name (output),
+                                           NULL,
+                                           gcm_session_screen_removed_find_device_cb,
+                                           manager);
 }
 
 static void
