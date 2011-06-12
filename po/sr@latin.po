@@ -1,27 +1,27 @@
 # Serbian translation of gnome-control-center
 # Courtesy of Prevod.org team (http://prevod.org/) -- 2003 - 2009.
-#
 # This file is distributed under the same license as the gnome-control-center package.
-#
 # Maintainer: Veljko M. Stanojević <veljko@vms.homelinux.net>
 # Reviewed on 2005-03-03 by: Danilo Šegan <danilo@gnome.org>
 # Translated on 2006-03-11 by: Slobodan D. Sredojević <slobo@akrep.be>
 # Miloš Popović <gpopac@gmail.com>, 2010.
-#
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-08-02 23:45+0000\n"
-"PO-Revision-Date: 2010-08-23 22:12+0200\n"
-"Last-Translator: Miloš Popović <gpopac@gmail.com>\n"
+"settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-23 00:22+0000\n"
+"PO-Revision-Date: 2011-05-31 10:31+0200\n"
+"Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: Serbian (sr)\n"
 "Plural-Forms: nplurals=4;    plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 :    n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Virtaal 0.5.2\n"
 
 #: ../data/50-accessibility.xml.in.h:1
 msgid "Accessibility"
@@ -44,9 +44,6 @@ msgid "Mount paths to ignore"
 msgstr "Putanje za montiranje koje treba zanemariti"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
-#| msgid ""
-#| "Percentage free space threshold for initial warning of low disk space. If "
-#| "the percentage free space drops below this, a warning will be shown"
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
@@ -70,9 +67,6 @@ msgstr ""
 "isteka ovog vremena."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
-#| msgid ""
-#| "Specify an amount in GB. If the amount of free space is more than this, "
-#| "no warning will be shown"
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
@@ -81,9 +75,6 @@ msgstr ""
 "slobodan prostor veći od ove vrednosti."
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
-#| msgid ""
-#| "Specify the percentage that the free disk space should reduce by before "
-#| "issuing a subsequent warning"
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
@@ -96,7 +87,6 @@ msgid "Subsequent free percentage notify threshold"
 msgstr "Prag za ponovnog obaveštenja o procentu slobodnog prostora"
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-#| msgid "Binding to eject an optical disk."
 msgid "Binding to eject an optical disc."
 msgstr "Vezujem za izbacivanje optičkog diska."
 
@@ -257,14 +247,18 @@ msgid "Volume up"
 msgstr "Pojačavanje zvuka"
 
 #: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+msgid "Do not touch monitor configuration"
+msgstr "Ne dira podešavanja monitora"
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
 msgid "File for default configuration for RandR"
 msgstr "Datoteka za podrazumevana RandR podešavanja"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
 msgid "Show Displays in Notification Area"
 msgstr "Prikaži ekrane u obaveštajnoj zoni"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:3
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -277,22 +271,22 @@ msgstr ""
 "direktorijumu korisnika. Datoteka iz ovog ključa se koristi ukoliko nema "
 "takve datoteke, ili se ona ne poklapa sa podešavanjima ekrana."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:4
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
 msgid "Turn on external monitor after system boot"
 msgstr "Uključi spoljni ekran nakon pokretanja"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:5
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
 msgid ""
 "Turn on external monitor after system boot if user plugs in external monitor "
 "on system boot."
 msgstr ""
 "Uključuje spoljni ekran pri podizanju sistema ukoliko ga korisnik priključi."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:6
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
 msgid "Turn on laptop monitor after system boot"
 msgstr "Uključi ekran prenosnog računara nakon pokretanja"
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:7
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
 msgid ""
 "Turn on laptop monitor after system boot if user plugs in external monitor "
 "on system boot."
@@ -300,10 +294,24 @@ msgstr ""
 "Uključuje ekran prenosnog računara pri podizanju sistema ukoliko korisnik "
 "priključi spoljni ekran."
 
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:8
-#| msgid ""
-#| "If a notification icon with display related things should be shown in the "
-#| "panel."
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:9
+msgid ""
+"Usually, gnome-settings-daemon configures internal and external monitors "
+"according to the turn_on_external_monitors_at_startup and "
+"turn_on_laptop_monitor_at_startup settings and determines an appropriate "
+"cloning/side-by-side mode. Setting this key to True disables this, and the "
+"monitor settings are not touched at all (unless there is an explicit user "
+"configuration)."
+msgstr ""
+"Obično, gnomov demon podešavanja podešava unutrašnje i spoljne monitore prema "
+"podešavanjima "
+"„turn_on_external_monitors_at_startup“ (uključi_spoljne_monitore_prilikom_pokretanja) "
+"i „turn_on_laptop_monitor_at_startup“ — (uključi_monitor_prenosnog-"
+"računara_prilikom_pokretanja) i određuje odgovarajući režim kloniranje/jedan-"
+"do-drugog. Postavljanje ovog ključa isključuje ovo, a podešavanja  monitora se "
+"uopšte ne diraju (osim ako ne postoji posebno korisničko podešavanje)."
+
+#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:10
 msgid ""
 "Whether a notification icon with display-related things should be shown in "
 "the panel."
@@ -407,9 +415,6 @@ msgid "Select the touchpad scroll method"
 msgstr "Izaberite režim klizanja preko dodirne table"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
-#| msgid ""
-#| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
-#| "- edge scrolling, 2 - two-finger scrolling"
 msgid ""
 "Select the touchpad scroll method. Supported values are: 0: disabled, 1: "
 "edge scrolling, and 2: two-finger scrolling"
@@ -478,7 +483,6 @@ msgid "Command used to turn the screen reader on or off."
 msgstr "Naredba za uključivanje ili isključivanje čitača ekrana."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:8
-#| msgid "Enable xrandr plugin"
 msgid "Enable XRandR plugin"
 msgstr "Uključi IksRandR dodatak"
 
@@ -519,7 +523,6 @@ msgid "Enable mouse plugin"
 msgstr "Uključi dodatak za miša"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:18
-#| msgid "Enable xrandr plugin"
 msgid "Enable smartcard plugin"
 msgstr "Uključi dodatak za pametne kartice"
 
@@ -564,7 +567,6 @@ msgstr ""
 "datoteke."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:28
-#| msgid "Set to True to enable the plugin to manage xrandr settings."
 msgid "Set to True to enable the plugin to manage XRandR settings."
 msgstr ""
 "Postavite na „True“ (tačno) kako bo dodatak upravljao IksRandR podešavanjima."
@@ -586,7 +588,6 @@ msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Uključite za pokretanje dodatka koji podešava tastaturu."
 
 #: ../data/gnome-settings-daemon.schemas.in.h:33
-#| msgid "Set to True to enable the plugin to manage screensaver settings."
 msgid ""
 "Set to True to enable the plugin to manage locking the screen on smartcard "
 "removal."
@@ -740,7 +741,6 @@ msgid "GConf prefix from which to load plugin settings"
 msgstr "Gkonfov prefiks iz koga se čitaju podešavanja za dodatke"
 
 #: ../gnome-settings-daemon/main.c:58
-#| msgid "Exit after a time - for debugging"
 msgid "Exit after a time (for debugging)"
 msgstr "Izađi nakon određenog vremena (za traženje grešaka)"
 
@@ -926,7 +926,6 @@ msgid "Font plugin"
 msgstr "Dodatak za font"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-#| msgid "Don't show any warnings again for this filesystem"
 msgid "Don't show any warnings again for this file system"
 msgstr "Ne prikazuj upozorenja za ovaj sistem datoteka"
 
@@ -986,7 +985,6 @@ msgid "Empty Trash"
 msgstr "Izbaci smeće"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
-#| msgid "Examine..."
 msgid "Examine…"
 msgstr "Ispitaj…"
 
@@ -1001,7 +999,6 @@ msgstr "Uklanjam %lu stavku od %lu"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:117
 #, c-format
-#| msgid "<i>Removing: %s</i>"
 msgid "Removing: %s"
 msgstr "Uklanjam: %s"
 
@@ -1011,7 +1008,6 @@ msgid "Emptying the trash"
 msgstr "Izbacujem smeće"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:272
-#| msgid "Preparing to empty trash..."
 msgid "Preparing to empty trash…"
 msgstr "Pripremam se da izbacim smeće…"
 
@@ -1073,20 +1069,6 @@ msgstr "Dodatak za tastaturu"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:137
 #, c-format
-#| msgid ""
-#| "Error activating XKB configuration.\n"
-#| "It can happen under various circumstances:\n"
-#| "- a bug in libxklavier library\n"
-#| "- a bug in X server (xkbcomp, xmodmap utilities)\n"
-#| "- X server with incompatible libxkbfile implementation\n"
-#| "\n"
-#| "X server version data:\n"
-#| "%s\n"
-#| "%d\n"
-#| "%s\n"
-#| "If you report this situation as a bug, please include:\n"
-#| "- The result of <b>%s</b>\n"
-#| "- The result of <b>%s</b>"
 msgid ""
 "Error activating XKB configuration.\n"
 "It can happen under various circumstances:\n"
@@ -1117,11 +1099,6 @@ msgstr ""
 " • Rezultat <b>%s</b>"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:151
-#| msgid ""
-#| "You are using XFree 4.3.0.\n"
-#| "There are known problems with complex XKB configurations.\n"
-#| "Try using a simpler configuration or taking a fresher version of XFree "
-#| "software."
 msgid ""
 "You are using XFree 4.3.0.\n"
 "There are known problems with complex XKB configurations.\n"
@@ -1141,7 +1118,6 @@ msgid "Keyboard _Preferences"
 msgstr "_Postavke tastature"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:292
-#| msgid "Show Current _Layout"
 msgid "Show _Current Layout"
 msgstr "Prika_ži trenutni raspored"
 
@@ -1154,7 +1130,6 @@ msgid "Load modmap files"
 msgstr "Učitaj modmap datoteke"
 
 #: ../plugins/keyboard/modmap-dialog.ui.h:3
-#| msgid "Would you like to load the modmap file(s)?"
 msgid "Would you like to load the modmap files?"
 msgstr "Da li želite da učitate modmap datoteke?"
 
@@ -1232,12 +1207,11 @@ msgid "Could not enable mouse accessibility features"
 msgstr "Ne mogu da uključim pristupačnost miša"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:884
-#, fuzzy
-#| msgid ""
-#| "Mouse accessibility requires mousetweaks to be installed on your system."
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
-msgstr "Za pristupačnost miša morate da instalirate Mousetweaks program."
+msgstr ""
+"Za pristupačnost miša morate da instalirate program Doterivanje miša "
+"(Mousetweaks)."
 
 #: ../plugins/mouse/gsd-mouse-manager.c:887
 msgid "Mouse Preferences"
@@ -1267,19 +1241,19 @@ msgstr "Podešavanje veličine i rotacije ekrana"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:225
+#: ../plugins/xrandr/gsd-xrandr-manager.c:372
 msgid "Could not switch the monitor configuration"
 msgstr "Ne mogu da učitam podešavanja monitora"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:249
+#: ../plugins/xrandr/gsd-xrandr-manager.c:396
 msgid "Could not restore the display's configuration"
 msgstr "Ne mogu da vratim podešavanja ekrana"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:274
+#: ../plugins/xrandr/gsd-xrandr-manager.c:421
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Ne mogu da vratim podešavanja ekrana iz rezervnih podešavanja"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:295
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1289,66 +1263,64 @@ msgstr[1] "Podešavanja ekrana će biti vraćena na prethodna za %d sekunde"
 msgstr[2] "Podešavanja ekrana će biti vraćena na prethodna za %d sekundi"
 msgstr[3] "Podešavanja ekrana će biti vraćena na prethodna za %d sekundu"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:344
+#: ../plugins/xrandr/gsd-xrandr-manager.c:491
 msgid "Does the display look OK?"
 msgstr "Da li ekran izgleda kako treba?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:350
+#: ../plugins/xrandr/gsd-xrandr-manager.c:497
 msgid "_Restore Previous Configuration"
 msgstr "_Vrati prethodna podešavanja"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:351
+#: ../plugins/xrandr/gsd-xrandr-manager.c:498
 msgid "_Keep This Configuration"
 msgstr "_Zadrži ova podešavanja"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:432
+#: ../plugins/xrandr/gsd-xrandr-manager.c:579
 msgid "The selected configuration for displays could not be applied"
 msgstr "Ne mogu da primenim izabrana podešavanja ekrana"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1143
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Ne mogu da osvežim podatke o ekranu: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:973
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1147
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Pokušavam da ipak učitam podešavanja monitora."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1703
-#| msgid "<i>Rotation not supported</i>"
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1878
 msgid "Rotation not supported"
 msgstr "Nije podržano rotiranje"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1759
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1934
 msgid "Could not save monitor configuration"
 msgstr "Ne mogu da sačuvam podešavanja monitora"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1777
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1952
 msgid "Normal"
 msgstr "Obično"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1778
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1953
 msgid "Left"
 msgstr "Levo"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1779
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1954
 msgid "Right"
 msgstr "Desno"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1780
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1955
 msgid "Upside Down"
 msgstr "Naopačke"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1900
-#| msgid "_Configure Display Settings ..."
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2075
 msgid "_Configure Display Settings…"
 msgstr "Podesi _ekrane…"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1941
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2116
 msgid "Configure display settings"
 msgstr "Podesi ekran"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:2001
+#: ../plugins/xrandr/gsd-xrandr-manager.c:2177
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Ne mogu da primenim sačuvana podešavanja ekrana"
 
@@ -1424,7 +1396,6 @@ msgid "The slot the card is in"
 msgstr "Slot u kome je kartica"
 
 #: ../plugins/smartcard/gsd-smartcard.c:161
-#| msgid "Slow keys"
 msgid "Slot Series"
 msgstr "Niz slotova"
 
@@ -1438,7 +1409,6 @@ msgid "name"
 msgstr "ime"
 
 #: ../plugins/smartcard/gsd-smartcard.c:173
-#| msgid "Mouse"
 msgid "Module"
 msgstr "Modul"
 
@@ -1478,70 +1448,3 @@ msgstr "Potrebna su ovlašćenja za podešavanje sata na računaru."
 
 #~ msgid "_Groups"
 #~ msgstr "_Grupe"
-
-#~| msgid "Keyboard"
-#~ msgid "Keyboard Layout"
-#~ msgstr "Raspored tastature"
-
-#~ msgid "Binding to suspend the computer."
-#~ msgstr "Vezujem za obustavljanje računara."
-
-#~ msgid "Suspend"
-#~ msgstr "Obustavi"
-
-#~ msgid ""
-#~ "Couldn't put the machine to sleep.\n"
-#~ "Verify that the machine is correctly configured."
-#~ msgstr ""
-#~ "Ne mogu da uspavam računar.\n"
-#~ "Proverite da li je računar ispravno podešen."
-
-#~ msgid ""
-#~ "Set to True to display a dialog when there are errors running the "
-#~ "screensaver."
-#~ msgstr ""
-#~ "Uključite radi prikaza prozorčića kada se jave greške pri pokretanju čuvara "
-#~ "ekrana."
-
-#~ msgid "Set to True to run the screensaver at login."
-#~ msgstr "Uključite za pokretanje čuvara ekrana po prijavi."
-
-#~ msgid "Show startup errors"
-#~ msgstr "Prikaži greške pri pokretanju"
-
-#~ msgid "Start screensaver"
-#~ msgstr "Pokreni čuvara ekrana"
-
-#~ msgid "Enable screensaver plugin"
-#~ msgstr "Uključi dodatak za čuvanje ekrana"
-
-#~ msgid "Toggle screenreader"
-#~ msgstr "Prikaz čitača ekrana"
-
-#~ msgid "%d%% of the disk space on `%s' is in use"
-#~ msgstr "Upotrebljeno je %d%% prostora na disku „%s“"
-
-#~ msgid "Analyze"
-#~ msgstr "Analiza"
-
-#~ msgid "GNOME Volume Control"
-#~ msgstr "Upravljanje jačinom zvuka za Gnom"
-
-#~ msgid ""
-#~ "There was an error starting up the screensaver:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Screensaver functionality will not work in this session."
-#~ msgstr ""
-#~ "Greška pri pokretanju čuvara ekrana:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Čuvar ekrana neće biti aktivan tokom ove seanse."
-
-#~ msgid "Screensaver"
-#~ msgstr "Čuvar ekrana"
-
-#~ msgid "Screensaver plugin"
-#~ msgstr "Dodatak za čuvara ekrana"
