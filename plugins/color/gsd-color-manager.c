@@ -265,7 +265,7 @@ typedef struct {
         GsdColorManager         *manager;
         CdProfile               *profile;
         CdDevice                *device;
-        GnomeRROutput           *output;
+        guint32                  output_id;
 } GcmSessionAsyncHelper;
 
 static void
@@ -871,6 +871,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         const gchar *filename;
         gboolean ret;
         GError *error = NULL;
+        GnomeRROutput *output;
         GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
         GsdColorManager *manager = GSD_COLOR_MANAGER (helper->manager);
 
@@ -887,8 +888,15 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         filename = cd_profile_get_filename (profile);
         g_assert (filename != NULL);
 
+        /* get the output (can't save in helper as GnomeRROutput isn't
+         * a GObject, just a pointer */
+        output = gnome_rr_screen_get_output_by_id (manager->priv->x11_screen,
+                                                   helper->output_id);
+        if (output == NULL)
+                goto out;
+
         /* set the _ICC_PROFILE atom */
-        if (gnome_rr_output_get_is_primary (helper->output)) {
+        if (gnome_rr_output_get_is_primary (output)) {
                 ret = gcm_session_screen_set_icc_profile (manager,
                                                           filename,
                                                           &error);
@@ -902,7 +910,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         /* create a vcgt for this icc file */
         ret = cd_profile_get_has_vcgt (profile);
         if (ret) {
-                ret = gcm_session_device_set_gamma (helper->output,
+                ret = gcm_session_device_set_gamma (output,
                                                     profile,
                                                     &error);
                 if (!ret) {
@@ -913,7 +921,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
                         goto out;
                 }
         } else {
-                ret = gcm_session_device_reset_gamma (helper->output,
+                ret = gcm_session_device_reset_gamma (output,
                                                       &error);
                 if (!ret) {
                         g_warning ("failed to reset %s gamma tables: %s",
@@ -1037,7 +1045,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
 
         /* get properties */
         helper = g_new0 (GcmSessionAsyncHelper, 1);
-        helper->output = output;
+        helper->output_id = gnome_rr_output_get_id (output);
         helper->manager = g_object_ref (manager);
         helper->device = g_object_ref (device);
         cd_profile_connect (profile,
