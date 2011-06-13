@@ -1854,7 +1854,6 @@ gcm_session_find_profile_by_filename_cb (GObject *object,
         }
 
         /* remove it from colord */
-        g_debug ("profile %s removed", cd_profile_get_id (profile));
         cd_client_delete_profile (manager->priv->client,
                                   profile,
                                   NULL,
