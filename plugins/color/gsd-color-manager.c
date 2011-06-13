@@ -1240,11 +1240,13 @@ gcm_session_screen_removed_find_device_cb (GObject *object, GAsyncResult *res, g
 
 static void
 gnome_rr_screen_output_removed_cb (GnomeRRScreen *screen,
-                                  GnomeRROutput *output,
-                                  GsdColorManager *manager)
+                                   GnomeRROutput *output,
+                                   GsdColorManager *manager)
 {
         g_debug ("output %s removed",
                  gnome_rr_output_get_name (output));
+        g_hash_table_remove (manager->priv->edid_cache,
+                             gnome_rr_output_get_name (output));
         cd_client_find_device_by_property (manager->priv->client,
                                            CD_DEVICE_METADATA_XRANDR_NAME,
                                            gnome_rr_output_get_name (output),
