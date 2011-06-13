@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-deamon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-09 07:34+0000\n"
-"PO-Revision-Date: 2011-05-09 12:33+0100\n"
+"POT-Creation-Date: 2011-06-12 12:55+0000\n"
+"PO-Revision-Date: 2011-06-13 08:19+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -112,12 +112,18 @@ msgstr "Določiti je treba možnost \"none\" (brez), \"lock_screen\" (zakleni za
 msgid "Smartcard removal action"
 msgstr "Dejanje odstranjevanja pametne kartice"
 
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+msgid "Whether the tablet's orientation is locked, or rotated automatically."
+msgstr ""
+
 #. g-p-m is not a GSD plugin, yet
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
@@ -130,7 +136,9 @@ msgstr "Omogočitev tega vstavka"
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
@@ -142,7 +150,9 @@ msgstr "Prednost, ki jo uporablja ta vstavek"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
@@ -153,7 +163,9 @@ msgstr "Prednost za uporabo tega vstavka v čakalni vrsti zagona gnome-settings-
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
@@ -211,6 +223,32 @@ msgstr "Prednost za uporabo tega vstavka v čakalni vrsti zagona gnome-settings-
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr "Ali naj gnome-settings-daemon ta vstavek omogoči ali ne."
 
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+msgid "If notifications are allowed to be shown"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+msgid "If notifications should be shown at session start if a profile is invalid."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+#, fuzzy
+msgid "The duration a display profile is valid"
+msgstr "Datoteka \"%s\" ni veljavna datoteka profila."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+#, fuzzy
+msgid "The duration a printer profile is valid"
+msgstr "Datoteka \"%s\" ni veljavna datoteka profila."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid "This is the number of days after which the display color profile is considered invalid."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+msgid "This is the number of days after which the printer color profile is considered invalid."
+msgstr ""
+
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 msgid "Allowed keys"
 msgstr "Dovoljene tipke"
@@ -232,206 +270,198 @@ msgid "Binding to eject an optical disc."
 msgstr "Bližnjica za izmet optičnega diska."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
-msgid "Binding to enable or disable the touchpad."
-msgstr "Bližnjica za preklop dejavnosti sledilne ploščice."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to increase the text size"
 msgstr "Bližnjica za povečanje velikosti besedila"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the calculator."
 msgstr "Bližnjica za zagon računala."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the email client."
 msgstr "Bližnjica za zagon poštnega odjemalca."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the help browser."
 msgstr "Bližnjica za zagon brskalnika pomoči"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the media player."
 msgstr "Bližnjica za zagon predvajalnika posnetkov."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the search tool."
 msgstr "Bližnjica za zagon orodja za iskanje."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the web browser."
 msgstr "Bližnjica za zagon spletnega brskalnika"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to lock the screen."
 msgstr "Bližnjica za zaklepanje zaslona."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to log out."
 msgstr "Bližnjica za odjavo."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to lower the system volume."
 msgstr "Bližnjica za znižanje glasnosti sistema."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to mute the system volume."
 msgstr "Bližnjica za utišanje zvoka."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to open the Home folder."
 msgstr "Bližnjica za odpiranje domače mape."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to pause playback."
 msgstr "Bližnjica za premor predvajanja."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to raise the system volume."
 msgstr "Bližnjica za zvišanje glasnosti sistema."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to show the on-screen keyboard"
 msgstr "Bližnjica za prikaz zaslonske tipkovnice."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to show the screen magnifier"
 msgstr "Bližnjica za prikaz zaslonskega povečevala"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Binding to skip to next track."
 msgstr "Bližnjica za skok na naslednjo sled"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to previous track."
 msgstr "Bližnjica za skok na predhodno sled"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Bližnjica za začetek predvajanja (preklop med premorom in predvajanjem)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start the screen reader"
 msgstr "Bližnjica za zagon zaslonskega bralnika."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Binding to stop playback."
 msgstr "Bližnjica za zaustavitev predvajanja"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to toggle the interface contrast"
 msgstr "Bližnjica za preklop kontrasta vmesnika"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Decrease text size"
 msgstr "Zmanjšaj velikost besedila"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Eject"
 msgstr "Izvrzi"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Home folder"
 msgstr "Domača mapa"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "If non-empty, keybindings will be ignored unless their settings directory is in the list. This is useful for lockdown."
 msgstr "V primeru, da so navedene, bodo tipkovne bližnjice prezrte, razen je mapa njihovih nastavitev na seznamu. Nastavitev je koristna za zaklepanje."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Increase text size"
 msgstr "Povečaj velikost besedila"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Launch calculator"
 msgstr "Zagon računala"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch email client"
 msgstr "Zagon poštnega odjemalca"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch help browser"
 msgstr "Zaženi brskalnik pomoči"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch media player"
 msgstr "Zagon predvajalnika posnetkov"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch web browser"
 msgstr "Zaženi spletni brskalnik"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Lock screen"
 msgstr "Zakleni zaslon"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Log out"
 msgstr "Odjava"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Magnifier zoom in"
 msgstr "Približaj vsebino"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Magnifier zoom out"
 msgstr "Oddalji vsebino"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Next track"
 msgstr "Naslednja sled"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Pause playback"
 msgstr "Premor predvajanja"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Play (or play/pause)"
 msgstr "Predvajanje (ali predvajanje/premor)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Previous track"
 msgstr "Predhodna sled"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Search"
 msgstr "Iskanje"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Stop playback"
 msgstr "Zaustavi predvajanje"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Toggle contrast"
 msgstr "Preklop kontrasta"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Toggle magnifier"
 msgstr "Preklop povečevala"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle on-screen keyboard"
 msgstr "Preklopi zaslonsko tipkovnico"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Toggle screen reader"
 msgstr "Preklopi zaslonski bralnik"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
-msgid "Toggle touchpad"
-msgstr "Preklop sledilne ploščice"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Volume down"
 msgstr "Zmanjšaj glasnost"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Volume mute"
 msgstr "Tišina"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume up"
 msgstr "Po_večaj glasnost"
 
@@ -452,12 +482,14 @@ msgid "Automatically download updates in the background without confirmation. Up
 msgstr "Samodejno prejme posodobitve v ozadju brez potrdila. Posodobitve bodo bile samodejno prejete pri uporabi žičnih omrežnih povezav in tudi pri uporabi WiFi, če je 'connection-use-wifi' omogočen in pri uporabi mobilnega širokopasovnega omrežja, če je if 'connection-use-mobile' uporabljen."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid "Automatically update these types of updates"
+#, fuzzy
+msgid "Automatically install these types of updates"
 msgstr "Samodejno posodobi to vrsto posodobitev"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically update these types of updates."
-msgstr "Samodejno posodobi to vrsto posodobitev."
+#, fuzzy
+msgid "Automatically install these types of updates."
+msgstr "Samodejno posodobi to vrsto posodobitev"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
@@ -668,8 +700,8 @@ msgid "The type of hinting to use when rendering fonts. Possible values are: \"n
 msgstr "Vrsta prilagoditve pisave uporabljena med izrisovanjem pisav. Mogoče vrednosti so  \"brez\" za prezrto prilagoditev, \"delno\" za osnovno, \"srednje\" za srednje in \"polno\" za napredno prilagajanje (lahko zamegli videz črk)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-msgid "Enable this to only move the cursor when the user touches the tablet."
-msgstr "Omogočite to za premik kazalke, ko se uporabnik dotakne tabilce"
+msgid "Enable this to move the cursor when the user touches the tablet."
+msgstr "Omogočite to za premik kazalke, ko se uporabnik dotakne tabilce."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
@@ -836,7 +868,7 @@ msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for
 msgstr "Držite tipko Shift pritisnjeno 8 sekund. To je bližnjica za možnost počasnih tipk, ki se nanaša na delovanje vaše tipkovnice."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
-#: ../plugins/mouse/gsd-mouse-manager.c:829
+#: ../plugins/mouse/gsd-mouse-manager.c:809
 msgid "Universal Access"
 msgstr "Splošni dostop"
 
@@ -1091,6 +1123,61 @@ msgstr "Odložišče"
 msgid "Clipboard plugin"
 msgstr "Vstavek odložišča"
 
+#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+msgid "Color"
+msgstr "Barva"
+
+#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+msgid "Color plugin"
+msgstr "Vstavek barv"
+
+#: ../plugins/color/gsd-color-manager.c:598
+msgid "Default"
+msgstr "Privzeto"
+
+#: ../plugins/color/gsd-color-manager.c:1461
+msgid "Recalibrate now"
+msgstr "Ponovno umeri takoj"
+
+#: ../plugins/color/gsd-color-manager.c:1468
+#: ../plugins/housekeeping/gsd-disk-space.c:385
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
+msgid "Ignore"
+msgstr "Prezri"
+
+#. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1510
+msgid "Recalibration required"
+msgstr "Zahtevano je ponovno umerjanje"
+
+#. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1522
+#, c-format
+msgid "The display '%s' should be recalibrated soon."
+msgstr "Zaslon '%s' bo treba kmalu ponovno umeriti."
+
+#. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1531
+#, c-format
+msgid "The printer '%s' should be recalibrated soon."
+msgstr "Tiskalnik '%s' bo treba kmalu ponovno umeriti."
+
+#. TRANSLATORS: this is the application name
+#: ../plugins/color/gsd-color-manager.c:1856
+#: ../plugins/color/gsd-color-manager.c:1874
+msgid "GNOME Settings Daemon Color Plugin"
+msgstr "Vstavek barve ozadnjega programa GNOME nastavitev"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:1858
+msgid "Color calibration device added"
+msgstr "Naprava za umerjanje barve je dodana"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:1876
+msgid "Color calibration device removed"
+msgstr "Naprava za umerjanje barve je bila odstranjena"
+
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Poskusno"
@@ -1145,11 +1232,6 @@ msgstr "Preišči"
 msgid "Empty Trash"
 msgstr "Izprazni smeti"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:385
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
-msgid "Ignore"
-msgstr "Prezri"
-
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again for this file system"
 msgstr "Ne pokaži več opozoril za ta datotečni sistem"
@@ -1180,8 +1262,8 @@ msgstr "Preišči ..."
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
-msgid "Key binding (%s) is invalid"
-msgstr "Tipkovna povezava (%s) ni veljavna"
+msgid "Key binding (%s) is invalid (%d)"
+msgstr "Tipkovna povezava (%s) ni veljavna (%d)"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:197
 #, c-format
@@ -1299,11 +1381,11 @@ msgstr "Večpredstavnostne tipke"
 msgid "Media keys plugin"
 msgstr "Vstavek večpredstavnostnih tipk"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:825
+#: ../plugins/mouse/gsd-mouse-manager.c:805
 msgid "Could not enable mouse accessibility features"
 msgstr "Ni mogoče zagnati možnosti dostopnosti miške"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:827
+#: ../plugins/mouse/gsd-mouse-manager.c:807
 msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Dostopnost miške zahteva namestitev programa Mousetweaks v sistem."
 
@@ -1543,19 +1625,19 @@ msgstr "Nastavitev velikosti in obračanja zaslona"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:411
+#: ../plugins/xrandr/gsd-xrandr-manager.c:418
 msgid "Could not switch the monitor configuration"
 msgstr "Ni mogoče preklopiti nastavitve zaslona"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:435
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 msgid "Could not restore the display's configuration"
 msgstr "Ni mogoče obnoviti nastavitev zaslona"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:460
+#: ../plugins/xrandr/gsd-xrandr-manager.c:467
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Ni mogoče obnoviti nastavitve zaslona iz varnostne kopije"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+#: ../plugins/xrandr/gsd-xrandr-manager.c:488
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural "The display will be reset to its previous configuration in %d seconds"
@@ -1564,32 +1646,32 @@ msgstr[1] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundi"
 msgstr[2] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
 msgstr[3] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:530
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "Does the display look OK?"
 msgstr "Ali je slika na zaslonu videti v redu?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:537
+#: ../plugins/xrandr/gsd-xrandr-manager.c:544
 msgid "_Restore Previous Configuration"
 msgstr "_Obnovi predhodne nastavitve"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:538
+#: ../plugins/xrandr/gsd-xrandr-manager.c:545
 msgid "_Keep This Configuration"
 msgstr "_Ohrani nastavitve"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:619
+#: ../plugins/xrandr/gsd-xrandr-manager.c:626
 msgid "The selected configuration for displays could not be applied"
 msgstr "Izbranih nastavitev zaslona ni mogoče uporabiti"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1151
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1186
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Ni mogoče posodobiti podrobnosti zaslona: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1155
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Poskus preklopa nastavitev zaslona."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1625
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1741
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Ni mogoče uporabiti shranjenih nastavitev za zaslone."
 
@@ -1852,6 +1934,12 @@ msgstr "Namesti strojno programsko opremo"
 #: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "Prezri naprave"
+
+#~ msgid "Binding to enable or disable the touchpad."
+#~ msgstr "Bližnjica za preklop dejavnosti sledilne ploščice."
+
+#~ msgid "Toggle touchpad"
+#~ msgstr "Preklop sledilne ploščice"
 
 #~ msgid "DPI"
 #~ msgstr "DPI"
