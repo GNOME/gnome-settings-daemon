@@ -660,6 +660,16 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         data = gcm_edid_get_vendor_name (edid);
         if (data != NULL)
                 _cmsDictAddEntryAscii (dict, "EDID_manufacturer", data);
+
+        /* write new tag */
+        ret = cmsWriteTag (lcms_profile, cmsSigMetaTag, dict);
+        if (!ret) {
+                g_set_error_literal (error,
+                                     GSD_COLOR_MANAGER_ERROR,
+                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     "failed to write profile metadata");
+                goto out;
+        }
 #endif /* HAVE_NEW_LCMS */
 
         /* write profile id */
