@@ -626,6 +626,17 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         /* just create a new dict */
         dict = cmsDictAlloc (NULL);
 
+        /* set the framework creator metadata */
+        _cmsDictAddEntryAscii (dict,
+                               CD_PROFILE_METADATA_CMF_PRODUCT,
+                               PACKAGE_NAME);
+        _cmsDictAddEntryAscii (dict,
+                               CD_PROFILE_METADATA_CMF_BINARY,
+                               PACKAGE_NAME);
+        _cmsDictAddEntryAscii (dict,
+                               CD_PROFILE_METADATA_CMF_VERSION,
+                               PACKAGE_VERSION);
+
         /* set the data source so we don't ever prompt the user to
          * recalibrate (as the EDID data won't have changed) */
         _cmsDictAddEntryAscii (dict,
