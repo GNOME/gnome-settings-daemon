@@ -1,4 +1,77 @@
 =============
+Version 3.1.2
+=============
+
+Common:
+- Don't try to convert show-keyboard-leds-indicator in gnome-settings-daemon.convert
+  (Chris Coulson)
+- Add touchscreen detection (Bastien Nocera)
+- Add X property setting helper (Bastien Nocera)
+- Add code to detect accelerometers (Bastien Nocera)
+- Add better error reporting for egg key parsing (Bastien Nocera)
+- Add code to allow disabling input devices (Bastien Nocera)
+
+Color:
+- Add new color plugin (Richard Hughes)
+
+Cursor:
+- Hide cursor on tablets with only a touchscreen (Bastien Nocera) (#650604)
+- Show the cursor again on exit (Bastien Nocera)
+- Fix XFixes version checking (Bastien Nocera)
+- Ignore PS/2 mice as well (Bastien Nocera)
+- Fix checking for extension pointer (Bastien Nocera)
+
+Datetime:
+- Fix ntp logic on Debian to include ntpdate as well as ntpd (Michael Terry) (#644821)
+
+GConf:
+- Add missing schema for org.gnome.settings-daemon.plugins.gconf (Rodrigo Moya) (#652200)
+
+Keybindings:
+- Complete update to egg key parsing change (Florian Müllner)
+
+Media keys:
+- Only start D-Bus when _start() is called (Bastien Nocera)
+- Simplify touchpad OSD (Bastien Nocera)
+- Hardcode the "toggle touchpad" button (Bastien Nocera)
+- Remove old-style OSD (Bastien Nocera)
+- Always use the primary monitor for display (Bastien Nocera) (#650159)
+- Make sound changes quiet with Alt (Bastien Nocera) (#651704)
+
+Mouse:
+- Use new disable/enable device code (Bastien Nocera)
+
+Orientation:
+- Add orientation plugin (Bastien Nocera)
+
+Updates:
+- Fix a string that is hard to translate (Richard Hughes) (#645749)
+
+Wacom:
+- Enable wacom touch key by default (Peter Hutterer)
+- Use property settings helper in common/ (Bastien Nocera)
+- Typedef the Wacom device types (Bastien Nocera)
+
+Xrandr:
+- Switch touchscreen rotation as wel (Bastien Nocera)
+- Fix small memory leak on shutdown (Bastien Nocera)
+- Remove the functionality to call gcm-apply when outputs change (Richard Hughes)
+- Remove rotation handling for wacom tablets (Bastien Nocera)
+
+Translations:
+- bg (Alexander Shopov)
+- ca@valencia (Carles Ferrando)
+- cz (Marek Černocký)
+- de (Mario Blättermann)
+- es (Jorge González, Daniel Mustieles)
+- fa (Arash Mousavi)
+- gl (Fran Diéguez)
+- he (Yaron Shahrabani)
+- nb (Kjartan Maraas)
+- pl (Piotr Drąg)
+- sl (Matej Urbančič)
+
+=============
 Version 3.1.1
 =============
 
