@@ -76,8 +76,10 @@ plugin_in_files = 			\
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-EXTRA_DIST = 				\
-	$(plugin_in_files)
+EXTRA_DIST = 					\
+	$(plugin_in_files)			\
+	test-data/Lenovo-T61-Internal.bin	\
+	test-data/LG-L225W-External.bin
 
 CLEANFILES = 				\
 	$(plugin_DATA)
