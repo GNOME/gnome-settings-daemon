@@ -476,7 +476,10 @@ gcm_utils_mkdir_for_filename (const gchar *filename, GError **error)
                 goto out;
         }
 
-        /* ensure desination exists */
+        /* ensure desination does not already exist */
+        ret = g_file_query_exists (parent_dir, NULL);
+        if (ret)
+                goto out;
         ret = g_file_make_directory_with_parents (parent_dir, NULL, error);
         if (!ret)
                 goto out;
