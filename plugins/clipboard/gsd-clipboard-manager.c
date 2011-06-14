@@ -390,6 +390,12 @@ send_incrementally (GsdClipboardManager *manager,
                          data, items);
 
         if (length == 0) {
+                clipboard_manager_watch_cb (manager,
+                                            rdata->requestor,
+                                            False,
+                                            PropertyChangeMask,
+                                            NULL);
+
                 manager->priv->conversions = list_remove (manager->priv->conversions, rdata);
                 conversion_free (rdata);
         }
@@ -545,6 +551,13 @@ convert_clipboard_target (IncrConversion      *rdata,
                         gdk_error_trap_push ();
 
                         XGetWindowAttributes (manager->priv->display, rdata->requestor, &atts);
+
+                        clipboard_manager_watch_cb (manager,
+                                                    rdata->requestor,
+                                                    True,
+                                                    PropertyChangeMask,
+                                                    NULL);
+
                         XSelectInput (manager->priv->display, rdata->requestor,
                                       atts.your_event_mask | PropertyChangeMask);
 
