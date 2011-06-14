@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-deamon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-06-12 12:55+0000\n"
-"PO-Revision-Date: 2011-06-13 08:19+0100\n"
+"POT-Creation-Date: 2011-06-13 15:55+0000\n"
+"PO-Revision-Date: 2011-06-14 08:18+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgstr "Dejanje odstranjevanja pametne kartice"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
-msgstr ""
+msgstr "Ali je usmerjenost tablice zakljenjena oziroma samodejno obrnjena."
 
 #. g-p-m is not a GSD plugin, yet
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
@@ -225,29 +225,27 @@ msgstr "Ali naj gnome-settings-daemon ta vstavek omogoči ali ne."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
 msgid "If notifications are allowed to be shown"
-msgstr ""
+msgstr "Ali je obvestila dovoljeno prikazati"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
 msgid "If notifications should be shown at session start if a profile is invalid."
-msgstr ""
+msgstr "Ali naj bodo obvestila prikazana ob zagonu seje, v kolikor je profil neveljaven."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
-#, fuzzy
 msgid "The duration a display profile is valid"
-msgstr "Datoteka \"%s\" ni veljavna datoteka profila."
+msgstr "Trajanje veljavnosti profila zaslona"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
-#, fuzzy
 msgid "The duration a printer profile is valid"
-msgstr "Datoteka \"%s\" ni veljavna datoteka profila."
+msgstr "Trajanje veljavnosti profila tiskalnika"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid "This is the number of days after which the display color profile is considered invalid."
-msgstr ""
+msgstr "Možnost določa število dni veljavnosti barvnega profila zaslona."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
 msgid "This is the number of days after which the printer color profile is considered invalid."
-msgstr ""
+msgstr "Možnost določa število dni veljavnosti barvnega profila tiskalnika."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 msgid "Allowed keys"
@@ -482,14 +480,12 @@ msgid "Automatically download updates in the background without confirmation. Up
 msgstr "Samodejno prejme posodobitve v ozadju brez potrdila. Posodobitve bodo bile samodejno prejete pri uporabi žičnih omrežnih povezav in tudi pri uporabi WiFi, če je 'connection-use-wifi' omogočen in pri uporabi mobilnega širokopasovnega omrežja, če je if 'connection-use-mobile' uporabljen."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-#, fuzzy
 msgid "Automatically install these types of updates"
-msgstr "Samodejno posodobi to vrsto posodobitev"
+msgstr "Samodejno namesti to vrsto posodobitev"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-#, fuzzy
 msgid "Automatically install these types of updates."
-msgstr "Samodejno posodobi to vrsto posodobitev"
+msgstr "Samodejno namesti to vrsto posodobitev."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
@@ -1131,50 +1127,50 @@ msgstr "Barva"
 msgid "Color plugin"
 msgstr "Vstavek barv"
 
-#: ../plugins/color/gsd-color-manager.c:598
+#: ../plugins/color/gsd-color-manager.c:601
 msgid "Default"
 msgstr "Privzeto"
 
-#: ../plugins/color/gsd-color-manager.c:1461
+#: ../plugins/color/gsd-color-manager.c:1493
 msgid "Recalibrate now"
 msgstr "Ponovno umeri takoj"
 
-#: ../plugins/color/gsd-color-manager.c:1468
+#: ../plugins/color/gsd-color-manager.c:1500
 #: ../plugins/housekeeping/gsd-disk-space.c:385
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "Prezri"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1510
+#: ../plugins/color/gsd-color-manager.c:1542
 msgid "Recalibration required"
 msgstr "Zahtevano je ponovno umerjanje"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1522
+#: ../plugins/color/gsd-color-manager.c:1554
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Zaslon '%s' bo treba kmalu ponovno umeriti."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1531
+#: ../plugins/color/gsd-color-manager.c:1563
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Tiskalnik '%s' bo treba kmalu ponovno umeriti."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:1856
-#: ../plugins/color/gsd-color-manager.c:1874
+#: ../plugins/color/gsd-color-manager.c:1903
+#: ../plugins/color/gsd-color-manager.c:1921
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Vstavek barve ozadnjega programa GNOME nastavitev"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1858
+#: ../plugins/color/gsd-color-manager.c:1905
 msgid "Color calibration device added"
 msgstr "Naprava za umerjanje barve je dodana"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1876
+#: ../plugins/color/gsd-color-manager.c:1923
 msgid "Color calibration device removed"
 msgstr "Naprava za umerjanje barve je bila odstranjena"
 
