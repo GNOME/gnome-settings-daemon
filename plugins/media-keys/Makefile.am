@@ -81,9 +81,11 @@ libmedia_keys_la_SOURCES = 		\
 	$(NULL)
 
 libmedia_keys_la_CPPFLAGS = \
+	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
+	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -92,6 +94,7 @@ libmedia_keys_la_CPPFLAGS = \
 libmedia_keys_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(UPOWER_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libmedia_keys_la_LDFLAGS = 		\
@@ -100,6 +103,7 @@ libmedia_keys_la_LDFLAGS = 		\
 libmedia_keys_la_LIBADD  = 		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
+	$(UPOWER_LIBS)							\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	$(XF86MISC_LIBS)						\
 	-lm
@@ -125,6 +129,7 @@ test_media_window_SOURCES =			\
 	$(NULL)
 
 test_media_window_CPPFLAGS = \
+	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
@@ -158,9 +163,11 @@ test_media_keys_SOURCES =			\
 	$(NULL)
 
 test_media_keys_CPPFLAGS = \
+	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
+	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -175,6 +182,7 @@ test_media_keys_LDADD = \
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
+	$(UPOWER_LIBS)				\
 	$(XF86MISC_LIBS)			\
 	$(GST_LIBS)				\
 	-lm

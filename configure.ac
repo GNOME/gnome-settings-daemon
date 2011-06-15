@@ -395,6 +395,15 @@ fi
 AC_SUBST(NSS_DATABASE)
 
 
+dnl ==============================================
+dnl power section
+dnl ==============================================
+
+# ---------------------------------------------------------------------------
+# UPower
+# ---------------------------------------------------------------------------
+PKG_CHECK_MODULES(UPOWER, upower-glib >= 0.9.1)
+
 # ---------------------------------------------------------------------------
 # PolicyKit
 # ---------------------------------------------------------------------------
@@ -464,7 +473,6 @@ if test x"$enable_cups" != x"no" ; then
 fi
 
 AM_CONDITIONAL(BUILD_PRINT_NOTIFICATIONS, [test x"$enable_cups" = x"yes"])
-
 
 # ---------------------------------------------------------------------------
 # Enable Profiling
@@ -566,6 +574,7 @@ plugins/common/Makefile
 plugins/cursor/Makefile
 plugins/datetime/Makefile
 plugins/dummy/Makefile
+plugins/power/Makefile
 plugins/gconf/Makefile
 plugins/housekeeping/Makefile
 plugins/keybindings/Makefile

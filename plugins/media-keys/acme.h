@@ -43,6 +43,7 @@ typedef enum {
         SEARCH_KEY,
         EMAIL_KEY,
         SCREENSAVER_KEY,
+        SCREENSAVER2_KEY,
         HELP_KEY,
         WWW_KEY,
         PLAY_KEY,
@@ -65,6 +66,16 @@ typedef enum {
         TOGGLE_CONTRAST_KEY,
         MAGNIFIER_ZOOM_IN_KEY,
         MAGNIFIER_ZOOM_OUT_KEY,
+        POWER_KEY,
+        SLEEP_KEY,
+        SUSPEND_KEY,
+        HIBERNATE_KEY,
+        SCREEN_BRIGHTNESS_UP_KEY,
+        SCREEN_BRIGHTNESS_DOWN_KEY,
+        KEYBOARD_BRIGHTNESS_UP_KEY,
+        KEYBOARD_BRIGHTNESS_DOWN_KEY,
+        KEYBOARD_BRIGHTNESS_TOGGLE_KEY,
+        BATTERY_KEY,
         HANDLED_KEYS
 } MediaKeyType;
 
@@ -91,6 +102,7 @@ static struct {
         { SEARCH_KEY, "search", NULL, NULL },
         { EMAIL_KEY, "email", NULL, NULL },
         { SCREENSAVER_KEY, "screensaver", NULL, NULL },
+        { SCREENSAVER2_KEY, NULL, "XF86ScreenSaver", NULL },
         { HELP_KEY, "help", NULL, NULL },
         { WWW_KEY, "www", NULL, NULL },
         { PLAY_KEY, "play", NULL, NULL },
@@ -116,6 +128,17 @@ static struct {
 	{ TOGGLE_CONTRAST_KEY, "toggle-contrast", NULL, NULL },
 	{ MAGNIFIER_ZOOM_IN_KEY, "magnifier-zoom-in", NULL, NULL },
 	{ MAGNIFIER_ZOOM_OUT_KEY, "magnifier-zoom-out", NULL, NULL },
+        { POWER_KEY, NULL, "XF86PowerOff", NULL },
+        /* the kernel / Xorg names really are like this... */
+        { SLEEP_KEY, NULL, "XF86Suspend", NULL },
+        { SUSPEND_KEY, NULL, "XF86Sleep", NULL },
+        { HIBERNATE_KEY, NULL, "XF86Hibernate", NULL },
+        { SCREEN_BRIGHTNESS_UP_KEY, NULL, "XF86MonBrightnessUp", NULL },
+        { SCREEN_BRIGHTNESS_DOWN_KEY, NULL, "XF86MonBrightnessDown", NULL },
+        { KEYBOARD_BRIGHTNESS_UP_KEY, NULL, "XF86KbdBrightnessUp", NULL },
+        { KEYBOARD_BRIGHTNESS_DOWN_KEY, NULL, "XF86KbdBrightnessDown", NULL },
+        { KEYBOARD_BRIGHTNESS_TOGGLE_KEY, NULL, "XF86KbdLightOnOff", NULL },
+        { BATTERY_KEY, NULL, "XF86Battery", NULL },
 };
 
 #endif /* __ACME_H__ */

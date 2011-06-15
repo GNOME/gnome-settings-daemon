@@ -46,6 +46,7 @@
 #include "acme.h"
 #include "gsd-media-keys-window.h"
 #include "gsd-input-helper.h"
+#include "gsd-enums.h"
 
 #ifdef HAVE_PULSE
 #include <canberra-gtk.h>
@@ -53,10 +54,16 @@
 #include "gvc-mixer-control.h"
 #endif /* HAVE_PULSE */
 
+#include <libupower-glib/upower.h>
+
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"
+
+#define GNOME_SESSION_DBUS_NAME "org.gnome.SessionManager"
+#define GNOME_SESSION_DBUS_PATH "/org/gnome/SessionManager"
+#define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -74,6 +81,7 @@ static const gchar introspection_xml[] =
 "</node>";
 
 #define SETTINGS_INTERFACE_DIR "org.gnome.desktop.interface"
+#define SETTINGS_POWER_DIR "org.gnome.settings-daemon.plugins.power"
 #define SETTINGS_XSETTINGS_DIR "org.gnome.settings-daemon.plugins.xsettings"
 #define SETTINGS_TOUCHPAD_DIR "org.gnome.settings-daemon.peripherals.touchpad"
 #define TOUCHPAD_ENABLED_KEY "touchpad-enabled"
@@ -108,6 +116,12 @@ struct GsdMediaKeysManagerPrivate
         GSettings       *interface_settings;
         char            *icon_theme;
         char            *gtk_theme;
+
+        /* Power stuff */
+        GSettings       *power_settings;
+        UpClient        *up_client;
+        GDBusProxy      *power_screen_proxy;
+        GDBusProxy      *power_keyboard_proxy;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -1150,6 +1164,239 @@ do_toggle_contrast_action (GsdMediaKeysManager *manager)
 	}
 }
 
+static void
+gnome_session_shutdown_cb (GObject *source_object,
+                           GAsyncResult *res,
+                           gpointer user_data)
+{
+        GVariant *result;
+        GError *error = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL) {
+                g_warning ("couldn't shutdown using gnome-session: %s",
+                           error->message);
+                g_error_free (error);
+        } else {
+                g_variant_unref (result);
+        }
+}
+
+static void
+gnome_session_shutdown (void)
+{
+        GError *error = NULL;
+        GDBusProxy *proxy;
+
+        /* ask gnome-session to show the shutdown dialog with a timeout */
+        proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                               G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                               NULL,
+                                               GNOME_SESSION_DBUS_NAME,
+                                               GNOME_SESSION_DBUS_PATH,
+                                               GNOME_SESSION_DBUS_INTERFACE,
+                                               NULL, &error);
+        if (proxy == NULL) {
+                g_warning ("cannot connect to gnome-session: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+        g_dbus_proxy_call (proxy,
+                           "Shutdown",
+                           NULL,
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1, NULL,
+                           gnome_session_shutdown_cb, NULL);
+        g_object_unref (proxy);
+}
+
+static void
+do_config_power_action (GsdMediaKeysManager *manager,
+                        const gchar *config_key)
+{
+        gboolean ret;
+        GError *error = NULL;
+        GsdPowerActionType action_type;
+
+        action_type = g_settings_get_enum (manager->priv->power_settings,
+                                           config_key);
+        switch (action_type) {
+        case GSD_POWER_ACTION_SUSPEND:
+                ret = up_client_suspend_sync (manager->priv->up_client,
+                                              NULL, &error);
+                if (!ret) {
+                        g_warning ("failed to suspend: %s",
+                                   error->message);
+                        g_error_free (error);
+                }
+                break;
+        case GSD_POWER_ACTION_INTERACTIVE:
+                gnome_session_shutdown ();
+                break;
+        case GSD_POWER_ACTION_HIBERNATE:
+                ret = up_client_hibernate_sync (manager->priv->up_client,
+                                                NULL, &error);
+                if (!ret) {
+                        g_warning ("failed to suspend: %s",
+                                   error->message);
+                        g_error_free (error);
+                }
+                break;
+        case GSD_POWER_ACTION_SHUTDOWN:
+        case GSD_POWER_ACTION_BLANK:
+        case GSD_POWER_ACTION_NOTHING:
+                /* these actions cannot be handled by media-keys and
+                 * are not used in this context */
+                g_assert_not_reached ();
+                break;
+        }
+}
+
+static void
+update_screen_cb (GObject             *source_object,
+                  GAsyncResult        *res,
+                  gpointer             user_data)
+{
+        GError *error = NULL;
+        guint percentage;
+        GVariant *new_percentage;
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+
+        new_percentage = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                                   res, &error);
+        if (new_percentage == NULL) {
+                g_warning ("Failed to set new screen percentage: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+
+        /* update the dialog with the new value */
+        g_variant_get (new_percentage, "(u)", &percentage);
+        dialog_init (manager);
+        gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                 "display-brightness-symbolic",
+                                                 TRUE);
+        gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                percentage);
+        dialog_show (manager);
+        g_variant_unref (new_percentage);
+}
+
+static void
+do_screen_brightness_action (GsdMediaKeysManager *manager,
+                             MediaKeyType type)
+{
+        if (manager->priv->connection == NULL ||
+            manager->priv->power_screen_proxy == NULL) {
+                g_warning ("No existing D-Bus connection trying to handle power keys");
+                return;
+        }
+
+        /* call into the power plugin */
+        g_dbus_proxy_call (manager->priv->power_screen_proxy,
+                           type == SCREEN_BRIGHTNESS_UP_KEY ? "StepUp" : "StepDown",
+                           NULL,
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           NULL,
+                           update_screen_cb,
+                           manager);
+}
+
+static void
+update_keyboard_cb (GObject             *source_object,
+                    GAsyncResult        *res,
+                    gpointer             user_data)
+{
+        GError *error = NULL;
+        guint percentage;
+        GVariant *new_percentage;
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+
+        new_percentage = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                                   res, &error);
+        if (new_percentage == NULL) {
+                g_warning ("Failed to set new keyboard percentage: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+
+        /* update the dialog with the new value */
+        g_variant_get (new_percentage, "(u)", &percentage);
+        dialog_init (manager);
+        gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                 "keyboard-brightness-symbolic",
+                                                 TRUE);
+        gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
+                                                percentage);
+        dialog_show (manager);
+        g_variant_unref (new_percentage);
+}
+
+static void
+do_keyboard_brightness_action (GsdMediaKeysManager *manager,
+                               MediaKeyType type)
+{
+        if (manager->priv->connection == NULL ||
+            manager->priv->power_keyboard_proxy == NULL) {
+                g_warning ("No existing D-Bus connection trying to handle power keys");
+                return;
+        }
+
+        /* call into the power plugin */
+        g_dbus_proxy_call (manager->priv->power_keyboard_proxy,
+                           type == SCREEN_BRIGHTNESS_UP_KEY ? "StepUp" : "StepDown",
+                           NULL,
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           NULL,
+                           update_keyboard_cb,
+                           manager);
+}
+
+static void
+exec_battery_info (GsdMediaKeysManager *manager)
+{
+        gboolean ret;
+        GError *error = NULL;
+        GAppInfo *app_info;
+        GdkAppLaunchContext *launch_context;
+
+        /* setup the launch context so the startup notification is correct */
+        launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
+        app_info = g_app_info_create_from_commandline (BINDIR "/gnome-power-statistics",
+                                                       "gnome-power-statistics",
+                                                       G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
+                                                       &error);
+        if (app_info == NULL) {
+                g_warning ("failed to create application info: %s",
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        /* launch gnome-control-center */
+        ret = g_app_info_launch (app_info,
+                                 NULL,
+                                 G_APP_LAUNCH_CONTEXT (launch_context),
+                                 &error);
+        if (!ret) {
+                g_warning ("failed to launch gnome-power-statistics: %s",
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
+out:
+        g_object_unref (launch_context);
+        if (app_info != NULL)
+                g_object_unref (app_info);
+}
+
 static gboolean
 do_action (GsdMediaKeysManager *manager,
            MediaKeyType         type,
@@ -1220,6 +1467,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_url_action (manager, "mailto");
                 break;
         case SCREENSAVER_KEY:
+        case SCREENSAVER2_KEY:
                 if ((cmd = g_find_program_in_path ("gnome-screensaver-command"))) {
                         execute (manager, "gnome-screensaver-command --lock", FALSE, FALSE);
                 } else {
@@ -1285,6 +1533,30 @@ do_action (GsdMediaKeysManager *manager,
 	case TOGGLE_CONTRAST_KEY:
 		do_toggle_contrast_action (manager);
 		break;
+        case POWER_KEY:
+                do_config_power_action (manager, "button-power");
+                break;
+        case SLEEP_KEY:
+                do_config_power_action (manager, "button-sleep");
+                break;
+        case SUSPEND_KEY:
+                do_config_power_action (manager, "button-suspend");
+                break;
+        case HIBERNATE_KEY:
+                do_config_power_action (manager, "button-hibernate");
+                break;
+        case SCREEN_BRIGHTNESS_UP_KEY:
+        case SCREEN_BRIGHTNESS_DOWN_KEY:
+                do_screen_brightness_action (manager, type);
+                break;
+        case KEYBOARD_BRIGHTNESS_UP_KEY:
+        case KEYBOARD_BRIGHTNESS_DOWN_KEY:
+        case KEYBOARD_BRIGHTNESS_TOGGLE_KEY:
+                do_keyboard_brightness_action (manager, type);
+                break;
+        case BATTERY_KEY:
+                exec_battery_info (manager);
+                break;
         case HANDLED_KEYS:
                 g_assert_not_reached ();
         /* Note, no default so compiler catches missing keys */
@@ -1391,6 +1663,10 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (update_kbd_cb), manager);
 
+        /* for the power plugin interface code */
+        manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
+        manager->priv->up_client = up_client_new ();
+
         /* Logic from http://git.gnome.org/browse/gnome-shell/tree/js/ui/status/accessibility.js#n163 */
         manager->priv->interface_settings = g_settings_new (SETTINGS_INTERFACE_DIR);
         g_signal_connect (G_OBJECT (manager->priv->interface_settings), "changed::gtk-theme",
@@ -1490,6 +1766,26 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         if (priv->settings) {
                 g_object_unref (priv->settings);
                 priv->settings = NULL;
+        }
+
+        if (priv->power_settings) {
+                g_object_unref (priv->power_settings);
+                priv->power_settings = NULL;
+        }
+
+        if (priv->power_screen_proxy) {
+                g_object_unref (priv->power_screen_proxy);
+                priv->power_screen_proxy = NULL;
+        }
+
+        if (priv->power_keyboard_proxy) {
+                g_object_unref (priv->power_keyboard_proxy);
+                priv->power_keyboard_proxy = NULL;
+        }
+
+        if (priv->up_client) {
+                g_object_unref (priv->up_client);
+                priv->up_client = NULL;
         }
 
         if (priv->cancellable != NULL) {
@@ -1651,6 +1947,36 @@ xrandr_ready_cb (GObject             *source_object,
 }
 
 static void
+power_screen_ready_cb (GObject             *source_object,
+                       GAsyncResult        *res,
+                       GsdMediaKeysManager *manager)
+{
+        GError *error = NULL;
+
+        manager->priv->power_screen_proxy = g_dbus_proxy_new_finish (res, &error);
+        if (manager->priv->power_screen_proxy == NULL) {
+                g_warning ("Failed to get proxy for power (screen): %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+power_keyboard_ready_cb (GObject             *source_object,
+                         GAsyncResult        *res,
+                         GsdMediaKeysManager *manager)
+{
+        GError *error = NULL;
+
+        manager->priv->power_keyboard_proxy = g_dbus_proxy_new_finish (res, &error);
+        if (manager->priv->power_keyboard_proxy == NULL) {
+                g_warning ("Failed to get proxy for power (keyboard): %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
 on_bus_gotten (GObject             *source_object,
                GAsyncResult        *res,
                GsdMediaKeysManager *manager)
@@ -1682,6 +2008,26 @@ on_bus_gotten (GObject             *source_object,
                           "org.gnome.SettingsDaemon.XRANDR_2",
                           NULL,
                           (GAsyncReadyCallback) xrandr_ready_cb,
+                          manager);
+
+        g_dbus_proxy_new (manager->priv->connection,
+                          G_DBUS_PROXY_FLAGS_NONE,
+                          NULL,
+                          "org.gnome.SettingsDaemon",
+                          "/org/gnome/SettingsDaemon/Power",
+                          "org.gnome.SettingsDaemon.Power.Screen",
+                          NULL,
+                          (GAsyncReadyCallback) power_screen_ready_cb,
+                          manager);
+
+        g_dbus_proxy_new (manager->priv->connection,
+                          G_DBUS_PROXY_FLAGS_NONE,
+                          NULL,
+                          "org.gnome.SettingsDaemon",
+                          "/org/gnome/SettingsDaemon/Power",
+                          "org.gnome.SettingsDaemon.Power.Keyboard",
+                          NULL,
+                          (GAsyncReadyCallback) power_keyboard_ready_cb,
                           manager);
 }
 
