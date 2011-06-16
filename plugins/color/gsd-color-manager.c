@@ -22,7 +22,7 @@
 #include "config.h"
 
 #include <glib/gi18n.h>
-#include <libcolord/colord.h>
+#include <colord.h>
 #include <libnotify/notify.h>
 #include <gdk/gdk.h>
 #include <stdlib.h>
