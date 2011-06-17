@@ -10,6 +10,7 @@ enabled_plugins =	\
 	cursor		\
 	datetime	\
 	dummy		\
+	power		\
 	housekeeping    \
 	keybindings	\
 	keyboard	\
