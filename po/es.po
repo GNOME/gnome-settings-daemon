@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-06-11 07:00+0000\n"
-"PO-Revision-Date: 2011-06-11 11:31+0200\n"
+"POT-Creation-Date: 2011-06-20 09:27+0000\n"
+"PO-Revision-Date: 2011-06-20 19:43+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -567,12 +567,10 @@ msgstr ""
 "conexiones móviles de banda ancha si «connection-use-mobile» está activada."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-#| msgid "Automatically update these types of updates"
 msgid "Automatically install these types of updates"
 msgstr "Instalar automáticamente estos tipos de actualizaciones"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-#| msgid "Automatically update these types of updates."
 msgid "Automatically install these types of updates."
 msgstr "Instalar automáticamente estos tipos de actualizaciones."
 
@@ -1391,50 +1389,50 @@ msgstr "Color"
 msgid "Color plugin"
 msgstr "Complemento de color"
 
-#: ../plugins/color/gsd-color-manager.c:598
+#: ../plugins/color/gsd-color-manager.c:601
 msgid "Default"
 msgstr "Predeterminado"
 
-#: ../plugins/color/gsd-color-manager.c:1452
+#: ../plugins/color/gsd-color-manager.c:1493
 msgid "Recalibrate now"
 msgstr "Recalibrar ahora"
 
-#: ../plugins/color/gsd-color-manager.c:1459
+#: ../plugins/color/gsd-color-manager.c:1500
 #: ../plugins/housekeeping/gsd-disk-space.c:385
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "Ignorar"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1501
+#: ../plugins/color/gsd-color-manager.c:1542
 msgid "Recalibration required"
 msgstr "Se necesita recalibrar"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1513
+#: ../plugins/color/gsd-color-manager.c:1554
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "La pantalla «%s» se debería recalibrar pronto."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1522
+#: ../plugins/color/gsd-color-manager.c:1563
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "La impresora «%s» se debería recalibrar pronto."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:1847
-#: ../plugins/color/gsd-color-manager.c:1865
+#: ../plugins/color/gsd-color-manager.c:1903
+#: ../plugins/color/gsd-color-manager.c:1921
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Complemento de color del administrador de preferencias de GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1849
+#: ../plugins/color/gsd-color-manager.c:1905
 msgid "Color calibration device added"
 msgstr "Dispositivo de calibración de color añadido"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1867
+#: ../plugins/color/gsd-color-manager.c:1923
 msgid "Color calibration device removed"
 msgstr "Dispositivo de calibración de color quitado"
 
@@ -1604,13 +1602,17 @@ msgstr ""
 msgid "_Layouts"
 msgstr "_Distribuciones"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
-msgid "Keyboard _Preferences"
-msgstr "Prefere_ncias del teclado"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:249
+#| msgid "Keyboard Layout"
+msgid "Show _Keyboard Layout..."
+msgstr "Mostrar la _distribución del teclado…"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:256
-msgid "Show _Current Layout"
-msgstr "Mostrar distribución _actual"
+#. translators note:
+#. * This is the name of the gnome-control-center "region" panel
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:257
+#| msgid "Manage X Settings"
+msgid "Region and Language Settings"
+msgstr "Configuración regional y de idioma"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid ""
@@ -2233,6 +2235,12 @@ msgstr "Instalar firmware"
 msgid "Ignore devices"
 msgstr "Ignorar dispositivos"
 
+#~ msgid "Keyboard _Preferences"
+#~ msgstr "Prefere_ncias del teclado"
+
+#~ msgid "Show _Current Layout"
+#~ msgstr "Mostrar distribución _actual"
+
 #~ msgid "Binding to enable or disable the touchpad."
 #~ msgstr "Vínculo para activar o desactivar el touchpad."
 
@@ -2740,9 +2748,6 @@ msgstr "Ignorar dispositivos"
 
 #~ msgid "Keyboard Layout \"%s\""
 #~ msgstr "Distribución del teclado «%s»"
-
-#~ msgid "Keyboard Layout"
-#~ msgstr "Distribución del teclado"
 
 #~ msgid "_Groups"
 #~ msgstr "_Grupos"
