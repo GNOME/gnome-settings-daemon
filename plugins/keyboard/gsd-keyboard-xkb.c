@@ -254,7 +254,7 @@ status_icon_popup_menu_cb (GtkStatusIcon * icon, guint button, guint time)
 
 	/* translators note:
 	 * This is the name of the gnome-control-center "region" panel */
-	item = gtk_menu_item_new_with_mnemonic (_("Region and Language"));
+	item = gtk_menu_item_new_with_mnemonic (_("Region and Language Settings"));
 	gtk_widget_show (item);
 	g_signal_connect (item, "activate", popup_menu_show_layout, NULL);
 	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
