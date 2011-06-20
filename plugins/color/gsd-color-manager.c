@@ -87,10 +87,10 @@ typedef struct {
 GQuark
 gsd_color_manager_error_quark (void)
 {
-	static GQuark quark = 0;
-	if (!quark)
-		quark = g_quark_from_static_string ("gsd_color_manager_error");
-	return quark;
+        static GQuark quark = 0;
+        if (!quark)
+                quark = g_quark_from_static_string ("gsd_color_manager_error");
+        return quark;
 }
 
 static GcmEdid *
@@ -492,17 +492,46 @@ out:
 }
 
 #ifdef HAVE_NEW_LCMS
+static wchar_t *
+utf8_to_wchar_t (const char *src)
+{
+        gsize len;
+        gsize converted;
+        wchar_t *buf = NULL;
+
+        len = mbstowcs (NULL, src, 0);
+        if (len < 0) {
+                g_warning ("Invalid UTF-8 in string %s", src);
+                goto out;
+        }
+        len += 1;
+        buf = g_malloc (sizeof (wchar_t) * len);
+        converted = mbstowcs (buf, src, len - 1);
+        g_assert (converted != -1);
+        buf[converted] = '\0';
+out:
+        return buf;
+}
+
 static cmsBool
 _cmsDictAddEntryAscii (cmsHANDLE dict,
                        const gchar *key,
                        const gchar *value)
 {
-        cmsBool ret;
-        wchar_t mb_key[1024];
-        wchar_t mb_value[1024];
-        mbstowcs (mb_key, key, sizeof (mb_key));
-        mbstowcs (mb_value, value, sizeof (mb_value));
+        cmsBool ret = FALSE;
+        wchar_t *mb_key = NULL;
+        wchar_t *mb_value = NULL;
+
+        mb_key = utf8_to_wchar_t (key);
+        if (mb_key == NULL)
+                goto out;
+        mb_value = utf8_to_wchar_t (value);
+        if (mb_value == NULL)
+                goto out;
         ret = cmsDictAddEntry (dict, mb_key, mb_value, NULL, NULL);
+out:
+        g_free (mb_key);
+        g_free (mb_value);
         return ret;
 }
 #endif /* HAVE_NEW_LCMS */
