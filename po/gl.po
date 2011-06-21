@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-06 00:14+0200\n"
-"PO-Revision-Date: 2011-06-06 00:19+0200\n"
+"POT-Creation-Date: 2011-06-21 14:26+0200\n"
+"PO-Revision-Date: 2011-06-21 14:28+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -570,12 +570,12 @@ msgstr ""
 "activada."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid "Automatically update these types of updates"
-msgstr "Actualizar automaticamente estes tipos de actualizacións"
+msgid "Automatically install these types of updates"
+msgstr "Instalar automaticamente estes tipos de actualizacións"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically update these types of updates."
-msgstr "Actualizar automaticamente estes tipos de actualizacións"
+msgid "Automatically install these types of updates."
+msgstr "Instalar automaticamente estes tipos de actualizacións."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
@@ -1390,46 +1390,50 @@ msgstr "Cor"
 msgid "Color plugin"
 msgstr "Engadido de cor"
 
-#: ../plugins/color/gsd-color-manager.c:192
+#: ../plugins/color/gsd-color-manager.c:630
+msgid "Default"
+msgstr "Predeterminado"
+
+#: ../plugins/color/gsd-color-manager.c:1522
 msgid "Recalibrate now"
 msgstr "Recalibrar agora"
 
-#: ../plugins/color/gsd-color-manager.c:199
+#: ../plugins/color/gsd-color-manager.c:1529
 #: ../plugins/housekeeping/gsd-disk-space.c:385
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "Ignorar"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:241
+#: ../plugins/color/gsd-color-manager.c:1571
 msgid "Recalibration required"
 msgstr "É preciso recalibrar"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:253
+#: ../plugins/color/gsd-color-manager.c:1583
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "A pantalla «%s» deberíase recalibrar pronto."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:262
+#: ../plugins/color/gsd-color-manager.c:1592
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "A impresora «%s» deberíase recalibrar pronto."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:592
-#: ../plugins/color/gsd-color-manager.c:610
+#: ../plugins/color/gsd-color-manager.c:1932
+#: ../plugins/color/gsd-color-manager.c:1950
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Complemento de cor do administrador de preferencias de GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:594
+#: ../plugins/color/gsd-color-manager.c:1934
 msgid "Color calibration device added"
 msgstr "Dispositivo de calibración de cor engadido"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:612
+#: ../plugins/color/gsd-color-manager.c:1952
 msgid "Color calibration device removed"
 msgstr "Dispositivo de calibración de cor quitado"
 
@@ -1599,13 +1603,15 @@ msgstr ""
 msgid "_Layouts"
 msgstr "_Disposicións"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
-msgid "Keyboard _Preferences"
-msgstr "Preferencias do _teclado"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:249
+msgid "Show _Keyboard Layout..."
+msgstr "Mostrar a _distribución do teclado…"
 
+#. translators note:
+#. * This is the name of the gnome-control-center "region" panel
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:256
-msgid "Show _Current Layout"
-msgstr "Mostrar a _disposición actual"
+msgid "Region and Language Settings"
+msgstr "Configuración rexional e de idioma"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid ""
@@ -1906,21 +1912,21 @@ msgstr "Definir o tamaño da pantalla e as configuracións de rotación"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:422
+#: ../plugins/xrandr/gsd-xrandr-manager.c:418
 msgid "Could not switch the monitor configuration"
 msgstr "Non foi posíbel cambiar a configuración da pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:446
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 msgid "Could not restore the display's configuration"
 msgstr "Non foi posíbel restaurar a configuración de pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:471
+#: ../plugins/xrandr/gsd-xrandr-manager.c:467
 msgid "Could not restore the display's configuration from a backup"
 msgstr ""
 "Non foi posíbel restaurar a configuración de pantalla desde a copia de "
 "seguranza"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:492
+#: ../plugins/xrandr/gsd-xrandr-manager.c:488
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1928,32 +1934,32 @@ msgid_plural ""
 msgstr[0] "Restabelecerase a configuración de pantalla anterior en %d segundo"
 msgstr[1] "Restabelecerase a configuración de pantalla anterior en %d segundos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:541
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "Does the display look OK?"
 msgstr "Vese correctamente a pantalla?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:548
+#: ../plugins/xrandr/gsd-xrandr-manager.c:544
 msgid "_Restore Previous Configuration"
 msgstr "_Restabelecer a configuración anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:549
+#: ../plugins/xrandr/gsd-xrandr-manager.c:545
 msgid "_Keep This Configuration"
 msgstr "_Manter esta configuración"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:630
+#: ../plugins/xrandr/gsd-xrandr-manager.c:626
 msgid "The selected configuration for displays could not be applied"
 msgstr "Non é posíbel aplicar a configuración seleccionada para as pantallas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1186
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Non foi posíbel actualizar a información de pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1194
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Tentando cambiar a configuración da pantalla de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1750
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1741
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Non foi posíbel aplicarlle a configuración almacenada aos monitores"
 
@@ -2225,6 +2231,9 @@ msgstr "Instalar firmware"
 #: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "Ignorar dispositivos"
+
+#~ msgid "Keyboard _Preferences"
+#~ msgstr "Preferencias do _teclado"
 
 #~ msgid "Binding to enable or disable the touchpad."
 #~ msgstr "Combinación para activar ou desactivar o touchpad."
