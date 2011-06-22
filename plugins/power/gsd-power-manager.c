@@ -42,6 +42,24 @@
 
 #define GSD_POWER_SETTINGS_SCHEMA               "org.gnome.settings-daemon.plugins.power"
 
+#define GSD_DBUS_PATH                           "/org/gnome/SettingsDaemon"
+#define GSD_POWER_DBUS_PATH                     GSD_DBUS_PATH "/Power"
+#define GSD_POWER_DBUS_INTERFACE_SCREEN         "org.gnome.SettingsDaemon.Power.Screen"
+#define GSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.gnome.SettingsDaemon.Power.Keyboard"
+
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.gnome.SettingsDaemon.Power.Screen'>"
+"    <method name='StepUp'/>"
+"    <method name='StepDown'/>"
+"  </interface>"
+"  <interface name='org.gnome.SettingsDaemon.Power.Keyboard'>"
+"    <method name='StepUp'/>"
+"    <method name='StepDown'/>"
+"    <method name='Toggle'/>"
+"  </interface>"
+"</node>";
+
 #define GSD_POWER_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_POWER_MANAGER, GsdPowerManagerPrivate))
 
 struct GsdPowerManagerPrivate
@@ -49,6 +67,8 @@ struct GsdPowerManagerPrivate
         gboolean                 lid_is_closed;
         GSettings               *settings;
         UpClient                *up_client;
+        GDBusNodeInfo           *introspection_data;
+        GDBusConnection         *connection;
 };
 
 enum {
@@ -298,6 +318,16 @@ void
 gsd_power_manager_stop (GsdPowerManager *manager)
 {
         g_debug ("Stopping power manager");
+
+        if (manager->priv->introspection_data) {
+                g_dbus_node_info_unref (manager->priv->introspection_data);
+                manager->priv->introspection_data = NULL;
+        }
+
+        if (manager->priv->connection != NULL) {
+                g_object_unref (manager->priv->connection);
+                manager->priv->connection = NULL;
+        }
 }
 
 static void
@@ -340,6 +370,118 @@ gsd_power_manager_finalize (GObject *object)
         G_OBJECT_CLASS (gsd_power_manager_parent_class)->finalize (object);
 }
 
+static gboolean
+handle_method_call_keyboard (GsdPowerManager *manager,
+                             const gchar *method_name,
+                             GError **error)
+{
+        if (g_strcmp0 (method_name, "StepUp") == 0)
+                g_debug ("keyboard step up");
+        if (g_strcmp0 (method_name, "StepDown") == 0)
+                g_debug ("keyboard step down");
+        if (g_strcmp0 (method_name, "Toggle") == 0)
+                g_debug ("keyboard toggle");
+        return TRUE;
+}
+
+static gboolean
+handle_method_call_screen (GsdPowerManager *manager,
+                           const gchar *method_name,
+                           GError **error)
+{
+        if (g_strcmp0 (method_name, "StepUp") == 0)
+                g_debug ("screen step up");
+        if (g_strcmp0 (method_name, "StepDown") == 0)
+                g_debug ("screen step down");
+        return TRUE;
+}
+
+static void
+handle_method_call (GDBusConnection       *connection,
+                    const gchar           *sender,
+                    const gchar           *object_path,
+                    const gchar           *interface_name,
+                    const gchar           *method_name,
+                    GVariant              *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer               user_data)
+{
+        GsdPowerManager *manager = (GsdPowerManager *) user_data;
+        GError *error = NULL;
+        gboolean ret;
+
+        g_debug ("Calling method '%s.%s' for Power",
+                 interface_name, method_name);
+
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
+                ret = handle_method_call_screen (manager, method_name, &error);
+                if (!ret) {
+                        g_dbus_method_invocation_return_gerror (invocation,
+                                                                error);
+                } else {
+                        g_dbus_method_invocation_return_value (invocation, NULL);
+                }
+        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
+                ret = handle_method_call_keyboard (manager, method_name, &error);
+                if (!ret) {
+                        g_dbus_method_invocation_return_gerror (invocation,
+                                                                error);
+                } else {
+                        g_dbus_method_invocation_return_value (invocation, NULL);
+                }
+        } else {
+                g_warning ("not recognised interface: %s", interface_name);
+        }
+}
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+        handle_method_call,
+        NULL, /* GetProperty */
+        NULL, /* SetProperty */
+};
+
+static void
+on_bus_gotten (GObject             *source_object,
+               GAsyncResult        *res,
+               GsdPowerManager     *manager)
+{
+        GDBusConnection *connection;
+        GDBusInterfaceInfo **infos;
+        GError *error = NULL;
+        guint i;
+
+        connection = g_bus_get_finish (res, &error);
+        if (connection == NULL) {
+                g_warning ("Could not get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        manager->priv->connection = connection;
+        infos = manager->priv->introspection_data->interfaces;
+        for (i = 0; infos[i] != NULL; i++) {
+                g_dbus_connection_register_object (connection,
+                                                   GSD_POWER_DBUS_PATH,
+                                                   infos[i],
+                                                   &interface_vtable,
+                                                   manager,
+                                                   NULL,
+                                                   NULL);
+        }
+}
+
+static void
+register_manager_dbus (GsdPowerManager *manager)
+{
+        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->priv->introspection_data != NULL);
+
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   NULL,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   manager);
+}
+
 GsdPowerManager *
 gsd_power_manager_new (void)
 {
@@ -349,6 +491,7 @@ gsd_power_manager_new (void)
                 manager_object = g_object_new (GSD_TYPE_POWER_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
+                register_manager_dbus (manager_object);
         }
         return GSD_POWER_MANAGER (manager_object);
 }
