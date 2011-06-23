@@ -94,6 +94,15 @@ G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+GQuark
+gsd_power_manager_error_quark (void)
+{
+        static GQuark quark = 0;
+        if (!quark)
+                quark = g_quark_from_static_string ("gsd_power_manager_error");
+        return quark;
+}
+
 static void
 gnome_session_shutdown_cb (GObject *source_object,
                            GAsyncResult *res,
