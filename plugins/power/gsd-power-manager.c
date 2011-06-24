@@ -31,6 +31,7 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
 
+#include "gpm-common.h"
 #include "gnome-settings-profile.h"
 #include "gsd-enums.h"
 #include "gsd-power-manager.h"
@@ -51,11 +52,26 @@
 
 #define GSD_DBUS_PATH                           "/org/gnome/SettingsDaemon"
 #define GSD_POWER_DBUS_PATH                     GSD_DBUS_PATH "/Power"
+#define GSD_POWER_DBUS_INTERFACE                "org.gnome.SettingsDaemon.Power"
 #define GSD_POWER_DBUS_INTERFACE_SCREEN         "org.gnome.SettingsDaemon.Power.Screen"
 #define GSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.gnome.SettingsDaemon.Power.Keyboard"
 
 static const gchar introspection_xml[] =
 "<node>"
+  "<interface name='org.gnome.SettingsDaemon.Power'>"
+    "<property name='Icon' type='s' access='read'>"
+    "</property>"
+    "<property name='Tooltip' type='s' access='read'>"
+    "</property>"
+    "<signal name='Changed'>"
+    "</signal>"
+    "<method name='GetPrimaryDevice'>"
+      "<arg name='device' type='(susdut)' direction='out' />"
+    "</method>"
+    "<method name='GetDevices'>"
+      "<arg name='devices' type='a(susdut)' direction='out' />"
+    "</method>"
+  "</interface>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Screen'>"
 "    <method name='StepUp'>"
 "      <arg type='u' name='new_percentage' direction='out'/>"
@@ -674,6 +690,109 @@ out:
         }
 }
 
+static GVariant *
+device_to_variant_blob (UpDevice *device)
+{
+        const gchar *object_path;
+        gchar *device_icon;
+        gdouble percentage;
+        GIcon *icon;
+        guint64 time_empty, time_full;
+        guint64 time_state = 0;
+        GVariant *value;
+        UpDeviceKind kind;
+        UpDeviceState state;
+
+        icon = gpm_upower_get_device_icon (device, TRUE);
+        device_icon = g_icon_to_string (icon);
+        g_object_get (device,
+                      "kind", &kind,
+                      "percentage", &percentage,
+                      "state", &state,
+                      "time-to-empty", &time_empty,
+                      "time-to-full", &time_full,
+                      NULL);
+
+        /* only return time for these simple states */
+        if (state == UP_DEVICE_STATE_DISCHARGING)
+                time_state = time_empty;
+        else if (state == UP_DEVICE_STATE_CHARGING)
+                time_state = time_full;
+
+        /* get an object path, even for the composite device */
+        object_path = up_device_get_object_path (device);
+        if (object_path == NULL)
+                object_path = GSD_DBUS_PATH;
+
+        /* format complex object */
+        value = g_variant_new ("(susdut)",
+                               object_path,
+                               kind,
+                               device_icon,
+                               percentage,
+                               state,
+                               time_state);
+        g_free (device_icon);
+        return value;
+}
+
+static void
+handle_method_call_main (GsdPowerManager *manager,
+                         const gchar *method_name,
+                         GVariant *parameters,
+                         GDBusMethodInvocation *invocation)
+{
+        GPtrArray *array = NULL;
+        guint i;
+        GVariantBuilder *builder;
+        GVariant *tuple = NULL;
+        GVariant *value = NULL;
+        UpDevice *device;
+
+        /* return object */
+        if (g_strcmp0 (method_name, "GetPrimaryDevice") == 0) {
+
+                /* get the virtual device */
+                device = NULL;
+                if (device == NULL) {
+                        g_dbus_method_invocation_return_dbus_error (invocation,
+                                                                    "org.gnome.SettingsDaemon.Power.Failed",
+                                                                    "There is no primary device.");
+                        goto out;
+                }
+
+                /* return the value */
+                value = device_to_variant_blob (device);
+                tuple = g_variant_new_tuple (&value, 1);
+                g_dbus_method_invocation_return_value (invocation, tuple);
+                goto out;
+        }
+
+        /* return array */
+        if (g_strcmp0 (method_name, "GetDevices") == 0) {
+
+                /* create builder */
+                builder = g_variant_builder_new (G_VARIANT_TYPE("a(susdut)"));
+
+                /* add each tuple to the array */
+                array = g_ptr_array_new ();
+                for (i=0; i<array->len; i++) {
+                        device = g_ptr_array_index (array, i);
+                        value = device_to_variant_blob (device);
+                        g_variant_builder_add_value (builder, value);
+                }
+
+                /* return the value */
+                value = g_variant_builder_end (builder);
+                tuple = g_variant_new_tuple (&value, 1);
+                g_dbus_method_invocation_return_value (invocation, tuple);
+                g_variant_builder_unref (builder);
+        }
+out:
+        if (array != NULL)
+                g_ptr_array_unref (array);
+}
+
 static void
 handle_method_call (GDBusConnection       *connection,
                     const gchar           *sender,
@@ -684,12 +803,17 @@ handle_method_call (GDBusConnection       *connection,
                     GDBusMethodInvocation *invocation,
                     gpointer               user_data)
 {
-        GsdPowerManager *manager = (GsdPowerManager *) user_data;
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
 
         g_debug ("Calling method '%s.%s' for Power",
                  interface_name, method_name);
 
-        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE) == 0) {
+                handle_method_call_main (manager,
+                                         method_name,
+                                         parameters,
+                                         invocation);
+        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
                 handle_method_call_screen (manager,
                                            method_name,
                                            parameters,
@@ -704,10 +828,32 @@ handle_method_call (GDBusConnection       *connection,
         }
 }
 
+static GVariant *
+handle_get_property (GDBusConnection *connection,
+                     const gchar *sender,
+                     const gchar *object_path,
+                     const gchar *interface_name,
+                     const gchar *property_name,
+                     GError **error, gpointer user_data)
+{
+        GVariant *retval = NULL;
+
+        if (g_strcmp0 (property_name, "Icon") == 0) {
+                retval = g_variant_new_string ("");
+                goto out;
+        }
+        if (g_strcmp0 (property_name, "Tooltip") == 0) {
+                retval = g_variant_new_string ("");
+                goto out;
+        }
+out:
+        return retval;
+}
+
 static const GDBusInterfaceVTable interface_vtable =
 {
         handle_method_call,
-        NULL, /* GetProperty */
+        handle_get_property,
         NULL, /* SetProperty */
 };
 
