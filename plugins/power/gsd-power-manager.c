@@ -57,18 +57,39 @@
 static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Screen'>"
-"    <method name='StepUp'/>"
-"    <method name='StepDown'/>"
+"    <method name='StepUp'>"
+"      <arg type='u' name='new_percentage' direction='out'/>"
+"    </method>"
+"    <method name='StepDown'>"
+"      <arg type='u' name='new_percentage' direction='out'/>"
+"    </method>"
+"    <method name='GetPercentage'>"
+"      <arg type='u' name='percentage' direction='out'/>"
+"    </method>"
+"    <method name='SetPercentage'>"
+"      <arg type='u' name='percentage' direction='in'/>"
+"      <arg type='u' name='new_percentage' direction='out'/>"
+"    </method>"
 "  </interface>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Keyboard'>"
-"    <method name='StepUp'/>"
-"    <method name='StepDown'/>"
-"    <method name='Toggle'/>"
+"    <method name='StepUp'>"
+"      <arg type='u' name='new_percentage' direction='out'/>"
+"    </method>"
+"    <method name='StepDown'>"
+"      <arg type='u' name='new_percentage' direction='out'/>"
+"    </method>"
+"    <method name='Toggle'>"
+"      <arg type='u' name='new_percentage' direction='out'/>"
+"    </method>"
 "  </interface>"
 "</node>";
 
 /* on ACPI machines we have 4-16 levels, on others it's ~150 */
 #define BRIGHTNESS_STEP_AMOUNT(max) (max < 20 ? 1 : max / 20)
+
+/* take a discrete value with offset and convert to percentage */
+#define ABS_TO_PERCENTAGE(min, max, value) (((value - min) * 100) / (max - min))
+#define PERCENTAGE_TO_ABS(min, max, value) (min + (((max - min) * value) / 100))
 
 #define GSD_POWER_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_POWER_MANAGER, GsdPowerManagerPrivate))
 
@@ -492,42 +513,63 @@ upower_kbd_set_brightness (GsdPowerManager *manager, guint value, GError **error
         return TRUE;
 }
 
-static gboolean
+/* returns new level */
+static void
 handle_method_call_keyboard (GsdPowerManager *manager,
                              const gchar *method_name,
-                             GError **error)
+                             GVariant *parameters,
+                             GDBusMethodInvocation *invocation)
 {
         guint step;
-        guint value;
+        gint value = -1;
         gboolean ret;
+        guint percentage;
+        GError *error = NULL;
 
         if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("keyboard step up");
                 step = BRIGHTNESS_STEP_AMOUNT (manager->priv->kbd_brightness_max);
                 value = MIN (manager->priv->kbd_brightness_now + step,
                              manager->priv->kbd_brightness_max);
-                ret = upower_kbd_set_brightness (manager, value, error);
+                ret = upower_kbd_set_brightness (manager, value, &error);
+
         } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("keyboard step down");
                 step = BRIGHTNESS_STEP_AMOUNT (manager->priv->kbd_brightness_max);
                 value = MAX (manager->priv->kbd_brightness_now - step, 0);
-                ret = upower_kbd_set_brightness (manager, value, error);
+                ret = upower_kbd_set_brightness (manager, value, &error);
+
         } else if (g_strcmp0 (method_name, "Toggle") == 0) {
                 if (manager->priv->kbd_brightness_old >= 0) {
                         g_debug ("keyboard toggle off");
                         ret = upower_kbd_set_brightness (manager,
                                                          manager->priv->kbd_brightness_old,
-                                                         error);
-                        manager->priv->kbd_brightness_old = -1;
+                                                         &error);
+                        if (ret)
+                                manager->priv->kbd_brightness_old = -1;
                 } else {
                         g_debug ("keyboard toggle on");
-                        ret = upower_kbd_set_brightness (manager, 0, error);
-                        manager->priv->kbd_brightness_old = manager->priv->kbd_brightness_now;
+                        ret = upower_kbd_set_brightness (manager, 0, &error);
+                        if (ret)
+                                manager->priv->kbd_brightness_old = manager->priv->kbd_brightness_now;
                 }
         } else {
                 g_assert_not_reached ();
         }
-        return ret;
+
+        /* return value */
+        if (!ret) {
+                g_dbus_method_invocation_return_gerror (invocation,
+                                                        error);
+                g_error_free (error);
+        } else {
+                percentage = ABS_TO_PERCENTAGE (0,
+                                                manager->priv->kbd_brightness_max,
+                                                value);
+                g_dbus_method_invocation_return_value (invocation,
+                                                       g_variant_new ("(u)",
+                                                                      percentage));
+        }
 }
 
 static GnomeRROutput *
@@ -553,56 +595,83 @@ out:
         return output;
 }
 
-static gboolean
+static void
 handle_method_call_screen (GsdPowerManager *manager,
                            const gchar *method_name,
-                           GError **error)
+                           GVariant *parameters,
+                           GDBusMethodInvocation *invocation)
 {
         gboolean ret = FALSE;
         gint min, max, now;
         guint step;
         gint value = -1;
+        guint value_tmp;
+        guint percentage;
         GnomeRROutput *output;
+        GError *error = NULL;
 
         /* get the laptop screen only */
         output = get_primary_output (manager);
         if (output == NULL) {
-                g_set_error_literal (error,
-                                     GSD_POWER_MANAGER_ERROR,
-                                     GSD_POWER_MANAGER_ERROR_FAILED,
-                                     "no laptop screen to control");
+                g_dbus_method_invocation_return_error (invocation,
+                                                       GSD_POWER_MANAGER_ERROR,
+                                                       GSD_POWER_MANAGER_ERROR_FAILED,
+                                                       "no laptop screen to control");
+                return;
         }
 
         /* get capabilities (cached) */
         min = gnome_rr_output_get_backlight_min (output);
         max = gnome_rr_output_get_backlight_max (output);
         if (min < 0 || max < 0) {
-                g_set_error_literal (error,
-                                     GSD_POWER_MANAGER_ERROR,
-                                     GSD_POWER_MANAGER_ERROR_FAILED,
-                                     "no xrandr backlight capability");
+                g_dbus_method_invocation_return_error (invocation,
+                                                       GSD_POWER_MANAGER_ERROR,
+                                                       GSD_POWER_MANAGER_ERROR_FAILED,
+                                                       "no xrandr backlight capability");
+                return;
         }
 
         /* get what we are now */
-        now = gnome_rr_output_get_backlight (output, error);
+        now = gnome_rr_output_get_backlight (output, &error);
         if (now < 0)
                goto out;
 
         step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
-        if (g_strcmp0 (method_name, "StepUp") == 0) {
+        if (g_strcmp0 (method_name, "GetPercentage") == 0) {
+                g_debug ("screen get percentage");
+                value = gnome_rr_output_get_backlight (output, &error);
+                if (value >= 0)
+                        ret = TRUE;
+
+        } else if (g_strcmp0 (method_name, "SetPercentage") == 0) {
+                g_debug ("screen set percentage");
+                g_variant_get (parameters, "(u)", &value_tmp);
+                value = PERCENTAGE_TO_ABS (min, max, value_tmp);
+                ret = gnome_rr_output_set_backlight (output, value, &error);
+
+        } else if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("screen step up");
                 value = MIN (now + step, max);
+                ret = gnome_rr_output_set_backlight (output, value, &error);
         } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("screen step down");
                 value = MAX (now - step, 0);
+                ret = gnome_rr_output_set_backlight (output, value, &error);
         } else {
                 g_assert_not_reached ();
         }
-
-        /* set new value */
-        ret = gnome_rr_output_set_backlight (output, value, error);
 out:
-        return ret;
+        /* return value */
+        if (!ret) {
+                g_dbus_method_invocation_return_gerror (invocation,
+                                                        error);
+                g_error_free (error);
+        } else {
+                percentage = ABS_TO_PERCENTAGE (min, max, value);
+                g_dbus_method_invocation_return_value (invocation,
+                                                       g_variant_new ("(u)",
+                                                                      percentage));
+        }
 }
 
 static void
@@ -616,28 +685,20 @@ handle_method_call (GDBusConnection       *connection,
                     gpointer               user_data)
 {
         GsdPowerManager *manager = (GsdPowerManager *) user_data;
-        GError *error = NULL;
-        gboolean ret;
 
         g_debug ("Calling method '%s.%s' for Power",
                  interface_name, method_name);
 
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
-                ret = handle_method_call_screen (manager, method_name, &error);
-                if (!ret) {
-                        g_dbus_method_invocation_return_gerror (invocation,
-                                                                error);
-                } else {
-                        g_dbus_method_invocation_return_value (invocation, NULL);
-                }
+                handle_method_call_screen (manager,
+                                           method_name,
+                                           parameters,
+                                           invocation);
         } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
-                ret = handle_method_call_keyboard (manager, method_name, &error);
-                if (!ret) {
-                        g_dbus_method_invocation_return_gerror (invocation,
-                                                                error);
-                } else {
-                        g_dbus_method_invocation_return_value (invocation, NULL);
-                }
+                handle_method_call_keyboard (manager,
+                                             method_name,
+                                             parameters,
+                                             invocation);
         } else {
                 g_warning ("not recognised interface: %s", interface_name);
         }
