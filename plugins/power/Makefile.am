@@ -23,6 +23,7 @@ libpower_la_CFLAGS = \
 	$(KEYRING_CFLAGS)				\
 	$(PULSE_CFLAGS)					\
 	$(UPOWER_CFLAGS)				\
+	$(GNOME_DESKTOP_CFLAGS)				\
 	$(SETTINGS_PLUGIN_CFLAGS)			\
 	$(AM_CFLAGS)
 
@@ -33,6 +34,7 @@ libpower_la_LIBADD  = 					\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(UPOWER_LIBS)					\
 	$(PULSE_LIBS)					\
+	$(GNOME_DESKTOP_LIBS)				\
 	$(KEYRING_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 

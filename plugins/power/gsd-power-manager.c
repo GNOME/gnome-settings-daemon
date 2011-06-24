@@ -28,6 +28,9 @@
 #include <canberra-gtk.h>
 #include <libupower-glib/upower.h>
 
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#include <libgnome-desktop/gnome-rr.h>
+
 #include "gnome-settings-profile.h"
 #include "gsd-enums.h"
 #include "gsd-power-manager.h"
@@ -80,6 +83,7 @@ struct GsdPowerManagerPrivate
         gint                     kbd_brightness_now;
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
+        GnomeRRScreen           *x11_screen;
 };
 
 enum {
@@ -330,6 +334,11 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
 
+        /* coldplug the list of screens */
+        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+        if (manager->priv->x11_screen == NULL)
+                return FALSE;
+
         gnome_settings_profile_end (NULL);
         return TRUE;
 }
@@ -451,6 +460,8 @@ gsd_power_manager_finalize (GObject *object)
 
         g_object_unref (manager->priv->settings);
         g_object_unref (manager->priv->up_client);
+        if (manager->priv->x11_screen != NULL);
+                g_object_unref (manager->priv->x11_screen);
 
         G_OBJECT_CLASS (gsd_power_manager_parent_class)->finalize (object);
 }
@@ -519,16 +530,79 @@ handle_method_call_keyboard (GsdPowerManager *manager,
         return ret;
 }
 
+static GnomeRROutput *
+get_primary_output (GsdPowerManager *manager)
+{
+        GnomeRROutput *output = NULL;
+        GnomeRROutput **outputs;
+        guint i;
+
+        /* search all X11 outputs for the device id */
+        outputs = gnome_rr_screen_list_outputs (manager->priv->x11_screen);
+        if (outputs == NULL)
+                goto out;
+
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (gnome_rr_output_is_connected (outputs[i]) &&
+                    gnome_rr_output_is_laptop (outputs[i])) {
+                        output = outputs[i];
+                        break;
+                }
+        }
+out:
+        return output;
+}
+
 static gboolean
 handle_method_call_screen (GsdPowerManager *manager,
                            const gchar *method_name,
                            GError **error)
 {
-        if (g_strcmp0 (method_name, "StepUp") == 0)
+        gboolean ret = FALSE;
+        gint min, max, now;
+        guint step;
+        gint value = -1;
+        GnomeRROutput *output;
+
+        /* get the laptop screen only */
+        output = get_primary_output (manager);
+        if (output == NULL) {
+                g_set_error_literal (error,
+                                     GSD_POWER_MANAGER_ERROR,
+                                     GSD_POWER_MANAGER_ERROR_FAILED,
+                                     "no laptop screen to control");
+        }
+
+        /* get capabilities (cached) */
+        min = gnome_rr_output_get_backlight_min (output);
+        max = gnome_rr_output_get_backlight_max (output);
+        if (min < 0 || max < 0) {
+                g_set_error_literal (error,
+                                     GSD_POWER_MANAGER_ERROR,
+                                     GSD_POWER_MANAGER_ERROR_FAILED,
+                                     "no xrandr backlight capability");
+        }
+
+        /* get what we are now */
+        now = gnome_rr_output_get_backlight (output, error);
+        if (now < 0)
+               goto out;
+
+        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+        if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("screen step up");
-        if (g_strcmp0 (method_name, "StepDown") == 0)
+                value = MIN (now + step, max);
+        } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("screen step down");
-        return TRUE;
+                value = MAX (now - step, 0);
+        } else {
+                g_assert_not_reached ();
+        }
+
+        /* set new value */
+        ret = gnome_rr_output_set_backlight (output, value, error);
+out:
+        return ret;
 }
 
 static void
