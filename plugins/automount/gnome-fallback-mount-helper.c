@@ -21,40 +21,42 @@
 
 #include "config.h"
 
-#include <stdlib.h>
-#include <locale.h>
-#include <string.h>
+#include <glib.h>
 #include <unistd.h>
-
-#include <glib/gi18n.h>
-#include <gtk/gtk.h>
 
 #include "gsd-automount-manager.h"
 
-static gboolean
-idle (GsdAutomountManager *manager)
-{
-        gsd_automount_manager_start (manager, NULL);
-        return FALSE;
-}
-
 int
-main (int argc, char *argv[])
+main (int argc,
+      char **argv)
 {
+        GMainLoop *loop;
         GsdAutomountManager *manager;
+        GError *error = NULL;
 
-        bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
-        bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-        textdomain (GETTEXT_PACKAGE);
-
-        setlocale (LC_ALL, "");
-
+        g_type_init ();
         gtk_init (&argc, &argv);
 
-        manager = gsd_automount_manager_new ();
-        g_idle_add ((GSourceFunc)idle, manager);
+        bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
+        textdomain (GETTEXT_PACKAGE);
 
-        gtk_main ();
+        loop = g_main_loop_new (NULL, FALSE);
+        manager = gsd_automount_manager_new ();
+
+        gsd_automount_manager_start (manager, &error);
+
+        if (error != NULL) {
+                g_printerr ("Unable to start the mount manager: %s",
+                            error->message);
+
+                g_error_free (error);
+                _exit (1);
+        }
+
+        g_main_loop_run (loop);
+
+        gsd_automount_manager_stop (manager);
+        g_main_loop_unref (loop);
 
         return 0;
 }

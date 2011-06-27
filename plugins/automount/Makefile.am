@@ -1,81 +1,34 @@
-NULL =
+libexec_PROGRAMS = gnome-fallback-mount-helper
 
-plugin_name = automount
+gnome_fallback_mount_helper_SOURCES = \
+	gnome-fallback-mount-helper.c \
+	gsd-automount-manager.c \
+	gsd-automount-manager.h \
+	gsd-autorun.c \
+	gsd-autorun.h
 
-noinst_PROGRAMS = 			\
-	test-automount			\
-	$(NULL)
-
-test_automount_SOURCES = 		\
-	test-automount.c		\
-	gsd-automount-manager.h		\
-	gsd-automount-manager.c		\
-	gsd-autorun.c		\
-	gsd-autorun.h		\
-	$(NULL)
-
-test_automount_CPPFLAGS = \
+gnome_fallback_mount_helper_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
-test_automount_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
+gnome_fallback_mount_helper_CFLAGS = \
+	$(SETTINGS_PLUGIN_CFLAGS)
 
-test_automount_LDADD =			\
-	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la	\
-	$(SETTINGS_PLUGIN_LIBS)		\
-	$(X11_LIBS)			\
-	$(NULL)
+gnome_fallback_mount_helper_LDADD = \
+	$(SETTINGS_PLUGIN_LIBS) \
+	$(X11_LIBS)
 
-plugin_LTLIBRARIES = \
-	libautomount.la		\
-	$(NULL)
+autostartdir = $(sysconfdir)/xdg/autostart
+autostart_in_files = gnome-fallback-mount-helper.desktop.in
+autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 
-libautomount_la_SOURCES =		\
-	gsd-automount-plugin.h		\
-	gsd-automount-plugin.c		\
-	gsd-automount-manager.h		\
-	gsd-automount-manager.c		\
-	gsd-autorun.c		\
-	gsd-autorun.h		\
-	$(NULL)
+gnome-fallback-mount-helper.desktop.in: gnome-fallback-mount-helper.desktop.in.in
+	@sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
 
-libautomount_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	$(AM_CPPFLAGS)
+@INTLTOOL_DESKTOP_RULE@
 
-libautomount_la_CFLAGS = \
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
+EXTRA_DIST = $(autostart_in_files)
 
-libautomount_la_LDFLAGS =		\
-	$(GSD_PLUGIN_LDFLAGS)		\
-	$(NULL)
-
-libautomount_la_LIBADD  =		\
-	$(SETTINGS_PLUGIN_LIBS)		\
-	$(NULL)
-
-plugin_in_files =		\
-	automount.gnome-settings-plugin.in	\
-	$(NULL)
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
-EXTRA_DIST = 			\
-	$(plugin_in_files)	\
-	$(NULL)
-
-CLEANFILES = 			\
-	$(plugin_DATA)		\
-	$(NULL)
-
-DISTCLEANFILES =		\
-	$(plugin_DATA)		\
-	$(NULL)
-
-@GSD_INTLTOOL_PLUGIN_RULE@
+CLEANFILES = $(autostart_DATA) \
+	gnome-fallback-mount-helper.desktop.in
