@@ -731,10 +731,23 @@ set_touchpad_enabled (GdkDevice *device,
                       gboolean   state)
 {
         int id;
+        XDevice *xdevice;
 
         g_object_get (G_OBJECT (device), "device-id", &id, NULL);
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
+
+        if (!device_is_touchpad (xdevice)) {
+                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                return;
+        }
+
         if (set_device_enabled (id, state) == FALSE)
                 g_warning ("Error %s device \"%s\"", (state) ? "enabling" : "disabling", gdk_device_get_name (device));
+
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
 
 static void
