@@ -42,8 +42,10 @@ static GdkModifierType gsd_ignored_mods = 0;
 static GdkModifierType gsd_used_mods = 0;
 
 /* Taken from a comment in XF86keysym.h */
-static guint gsd_unmodified_keysym_min = 0x10080001;
-static guint gsd_unmodified_keysym_max = 0x1008FFFF;
+#define XF86KEYS_RANGE_MIN 0x10080001
+#define XF86KEYS_RANGE_MAX 0x1008FFFF
+
+#define IN_RANGE(x, min, max) (x >= min && x <= max)
 
 static void
 setup_modifiers (void)
@@ -141,8 +143,7 @@ grab_key_unsafe (Key                 *key,
          * a modifier).
          */
         if ((modifiers & gsd_used_mods) == 0 &&
-            ((key->keysym < gsd_unmodified_keysym_min) ||
-             (key->keysym > gsd_unmodified_keysym_max))) {
+            (IN_RANGE(key->keysym, XF86KEYS_RANGE_MIN, XF86KEYS_RANGE_MAX))) {
                 GString *keycodes;
 
                 keycodes = g_string_new ("");
