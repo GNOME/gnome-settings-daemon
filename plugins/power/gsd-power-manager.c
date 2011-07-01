@@ -60,6 +60,9 @@
 #define GSD_POWER_DBUS_INTERFACE_SCREEN         "org.gnome.SettingsDaemon.Power.Screen"
 #define GSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.gnome.SettingsDaemon.Power.Keyboard"
 
+#define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_SHORT          10 * 1000 /* ms */
+#define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG           30 * 1000 /* ms */
+
 static const gchar introspection_xml[] =
 "<node>"
   "<interface name='org.gnome.SettingsDaemon.Power'>"
@@ -179,6 +182,24 @@ notify_close_if_showing (NotifyNotification *notification)
                            error->message);
                 g_error_free (error);
         }
+}
+
+static const gchar *
+get_first_themed_icon_name (GIcon *icon)
+{
+        const gchar* const *icon_names;
+        const gchar *icon_name = NULL;
+
+        /* no icon */
+        if (icon == NULL)
+                goto out;
+
+        /* just use the first icon */
+        icon_names = g_themed_icon_get_names (G_THEMED_ICON (icon));
+        if (icon_names != NULL)
+                icon_name = icon_names[0];
+out:
+        return icon_name;
 }
 
 typedef enum {
@@ -843,6 +864,78 @@ engine_device_removed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
 }
 
 static void
+engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
+{
+        const gchar *title;
+        gboolean ret;
+        gchar *remaining_text = NULL;
+        gdouble percentage;
+        GError *error = NULL;
+        GIcon *icon = NULL;
+        gint64 time_to_empty;
+        GString *message;
+        UpDeviceKind kind;
+
+        /* get device properties */
+        g_object_get (device,
+                      "kind", &kind,
+                      "percentage", &percentage,
+                      "time-to-empty", &time_to_empty,
+                      NULL);
+
+        if (kind != UP_DEVICE_KIND_UPS)
+                return;
+
+        /* only show text if there is a valid time */
+        if (time_to_empty > 0)
+                remaining_text = gpm_get_timestring (time_to_empty);
+
+        /* TRANSLATORS: UPS is now discharging */
+        title = _("UPS Discharging");
+
+        message = g_string_new ("");
+        if (remaining_text != NULL) {
+                /* TRANSLATORS: tell the user how much time they have got */
+                g_string_append_printf (message, _("%s of UPS backup power remaining"),
+                                        remaining_text);
+        } else {
+                g_string_append (message, gpm_device_to_localised_string (device));
+        }
+        g_string_append_printf (message, " (%.0f%%)", percentage);
+
+        icon = gpm_upower_get_device_icon (device, TRUE);
+
+        /* close any existing notification of this class */
+        notify_close_if_showing (manager->priv->notification_discharging);
+
+        /* create a new notification */
+        manager->priv->notification_discharging = notify_notification_new (title,
+                                                                           message->str,
+                                                                           get_first_themed_icon_name (icon));
+        notify_notification_set_timeout (manager->priv->notification_discharging,
+                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
+        notify_notification_set_urgency (manager->priv->notification_discharging,
+                                         NOTIFY_URGENCY_NORMAL);
+        /* TRANSLATORS: this is the notification application name */
+        notify_notification_set_app_name (manager->priv->notification_discharging, _("Power"));
+        g_object_add_weak_pointer (G_OBJECT (manager->priv->notification_discharging),
+                                   (gpointer) &manager->priv->notification_discharging);
+
+        /* try to show */
+        ret = notify_notification_show (manager->priv->notification_discharging,
+                                        &error);
+        if (!ret) {
+                g_warning ("failed to show notification: %s", error->message);
+                g_error_free (error);
+                g_object_unref (manager->priv->notification_discharging);
+        }
+        g_string_free (message, TRUE);
+        if (icon != NULL)
+                g_object_unref (icon);
+        g_free (remaining_text);
+}
+
+static void
 engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *manager)
 {
         UpDeviceKind kind;
@@ -873,7 +966,8 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
         state_old = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(device), "engine-state-old"));
         if (state_old != state) {
                 if (state == UP_DEVICE_STATE_DISCHARGING) {
-                        g_debug ("** EMIT: discharging");
+                        g_debug ("discharging");
+                        engine_ups_discharging (manager, device);
                 } else if (state == UP_DEVICE_STATE_FULLY_CHARGED) {
                         g_debug ("fully charged, hiding notifications if any");
                         notify_close_if_showing (manager->priv->notification_warning_low);
