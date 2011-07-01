@@ -374,8 +374,6 @@ draw_volume_boxes (GsdMediaKeysWindow *window,
         GtkStyleContext *context;
         GdkRGBA  acolor;
 
-        _x0 += 0.5;
-        _y0 += 0.5;
         height = round (height) - 1;
         width = round (width) - 1;
         x1 = round ((width - 1) * percentage);
@@ -389,15 +387,6 @@ draw_volume_boxes (GsdMediaKeysWindow *window,
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, width, height);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill_preserve (cr);
-
-        /* bar border */
-        gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &acolor);
-        gsd_osd_window_color_shade (&acolor, LIGHTNESS_MULT);
-        gsd_osd_window_color_reverse (&acolor);
-        acolor.alpha = GSD_OSD_WINDOW_FG_ALPHA / 2;
-        gdk_cairo_set_source_rgba (cr, &acolor);
-        cairo_set_line_width (cr, 1);
-        cairo_stroke (cr);
 
         /* bar progress */
         if (percentage < 0.01)
