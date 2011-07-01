@@ -28,6 +28,7 @@
 #include <gtk/gtk.h>
 #include <canberra-gtk.h>
 #include <libupower-glib/upower.h>
+#include <libnotify/notify.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -136,6 +137,8 @@ struct GsdPowerManagerPrivate
         guint                    low_percentage;
         guint                    low_time;
         UpDevice                *device_composite;
+        NotifyNotification      *notification_discharging;
+        NotifyNotification      *notification_warning_low;
 };
 
 enum {
@@ -160,6 +163,22 @@ gsd_power_manager_error_quark (void)
         if (!quark)
                 quark = g_quark_from_static_string ("gsd_power_manager_error");
         return quark;
+}
+
+static void
+notify_close_if_showing (NotifyNotification *notification)
+{
+        gboolean ret;
+        GError *error = NULL;
+
+        if (notification == NULL)
+                return;
+        ret = notify_notification_close (notification, &error);
+        if (!ret) {
+                g_warning ("failed to close notification: %s",
+                           error->message);
+                g_error_free (error);
+        }
 }
 
 typedef enum {
@@ -856,7 +875,9 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
                 if (state == UP_DEVICE_STATE_DISCHARGING) {
                         g_debug ("** EMIT: discharging");
                 } else if (state == UP_DEVICE_STATE_FULLY_CHARGED) {
-                        g_debug ("** EMIT: fully charged");
+                        g_debug ("fully charged, hiding notifications if any");
+                        notify_close_if_showing (manager->priv->notification_warning_low);
+                        notify_close_if_showing (manager->priv->notification_discharging);
                 }
 
                 /* save new state */
