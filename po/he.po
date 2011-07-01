@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 11:39+0300\n"
-"PO-Revision-Date: 2011-06-11 11:40+0200\n"
+"POT-Creation-Date: 2011-07-01 19:59+0300\n"
+"PO-Revision-Date: 2011-07-01 19:59+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <kde-il@yahoogroups.com>\n"
 "Language: he\n"
@@ -1052,7 +1052,7 @@ msgstr ""
 "המשפיעה על אופן פעולת המקלדת."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
-#: ../plugins/mouse/gsd-mouse-manager.c:809
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Universal Access"
 msgstr "גישה אוניברסלית"
 
@@ -1330,50 +1330,50 @@ msgstr "צבע"
 msgid "Color plugin"
 msgstr "תוסף צבע"
 
-#: ../plugins/color/gsd-color-manager.c:598
+#: ../plugins/color/gsd-color-manager.c:630
 msgid "Default"
 msgstr "בררת מחדל"
 
-#: ../plugins/color/gsd-color-manager.c:1452
+#: ../plugins/color/gsd-color-manager.c:1522
 msgid "Recalibrate now"
 msgstr "כיול מחדש כעת"
 
-#: ../plugins/color/gsd-color-manager.c:1459
+#: ../plugins/color/gsd-color-manager.c:1529
 #: ../plugins/housekeeping/gsd-disk-space.c:385
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "התעלמות"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1501
+#: ../plugins/color/gsd-color-manager.c:1571
 msgid "Recalibration required"
 msgstr "נדרש כיול מחדש"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1513
+#: ../plugins/color/gsd-color-manager.c:1583
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "יש לכייל את התצוגה '%s' מחדש בהקדם האפשרי."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1522
+#: ../plugins/color/gsd-color-manager.c:1592
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "יש לכייל את המדפסת '%s' מחדש בהקדם האפשרי."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:1847
-#: ../plugins/color/gsd-color-manager.c:1865
+#: ../plugins/color/gsd-color-manager.c:1932
+#: ../plugins/color/gsd-color-manager.c:1950
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "תוסף הצבע של מנוע ההגדרות של GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1849
+#: ../plugins/color/gsd-color-manager.c:1934
 msgid "Color calibration device added"
 msgstr "נוסף התקן כיול צבע"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1867
+#: ../plugins/color/gsd-color-manager.c:1952
 msgid "Color calibration device removed"
 msgstr "התקן כיול צבע הוסר"
 
@@ -1544,13 +1544,15 @@ msgstr ""
 msgid "_Layouts"
 msgstr "_פריסות"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
-msgid "Keyboard _Preferences"
-msgstr "העדפות ה_מקלדת"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:249
+msgid "Show _Keyboard Layout..."
+msgstr "הצגת _פריסת המקלדת..."
 
+#. translators note:
+#. * This is the name of the gnome-control-center "region" panel
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:256
-msgid "Show _Current Layout"
-msgstr "הצגת הפריסה ה_נוכחית"
+msgid "Region and Language Settings"
+msgstr "הגדרות אזוריות ושפה"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid ""
@@ -1605,11 +1607,11 @@ msgstr "מקשי מדיה"
 msgid "Media keys plugin"
 msgstr "תוסף מקשי מדיה"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:805
+#: ../plugins/mouse/gsd-mouse-manager.c:818
 msgid "Could not enable mouse accessibility features"
 msgstr "לא ניתן להפעיל את אפשרויות נגישות העכבר"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:807
+#: ../plugins/mouse/gsd-mouse-manager.c:820
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "נגישות עכבר דורשת ש־mousetweaks תהיה מותקנת במערכת."
@@ -2159,6 +2161,12 @@ msgstr "התקנת קושחה"
 msgid "Ignore devices"
 msgstr "התעלמות מהתקנים"
 
+#~ msgid "Keyboard _Preferences"
+#~ msgstr "העדפות ה_מקלדת"
+
+#~ msgid "Show _Current Layout"
+#~ msgstr "הצגת הפריסה ה_נוכחית"
+
 #~ msgid "Binding to enable or disable the touchpad."
 #~ msgstr "Binding to enable or disable the touchpad."
 
@@ -2605,9 +2613,6 @@ msgstr "התעלמות מהתקנים"
 
 #~ msgid "Keyboard Layout \"%s\""
 #~ msgstr "פריסת המקלדת \"%s\""
-
-#~ msgid "Keyboard Layout"
-#~ msgstr "פריסת המקלדת"
 
 #~ msgid ""
 #~ "Couldn't put the machine to sleep.\n"
