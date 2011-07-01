@@ -60,8 +60,11 @@
 #define GSD_POWER_DBUS_INTERFACE_SCREEN         "org.gnome.SettingsDaemon.Power.Screen"
 #define GSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.gnome.SettingsDaemon.Power.Keyboard"
 
+#define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER          0 /* ms */
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_SHORT          10 * 1000 /* ms */
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG           30 * 1000 /* ms */
+
+#define GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT        5 /* seconds */
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -141,7 +144,10 @@ struct GsdPowerManagerPrivate
         guint                    low_time;
         UpDevice                *device_composite;
         NotifyNotification      *notification_discharging;
-        NotifyNotification      *notification_warning_low;
+        NotifyNotification      *notification_low;
+        ca_context              *canberra_context;
+        ca_proplist             *critical_alert_loop_props;
+        guint32                  critical_alert_timeout_id;
 };
 
 enum {
@@ -166,6 +172,79 @@ gsd_power_manager_error_quark (void)
         if (!quark)
                 quark = g_quark_from_static_string ("gsd_power_manager_error");
         return quark;
+}
+
+
+static gboolean
+play_loop_timeout_cb (GsdPowerManager *manager)
+{
+        ca_context *context;
+        context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
+        ca_context_play_full (context, 0,
+                              manager->priv->critical_alert_loop_props,
+                              NULL,
+                              NULL);
+        return TRUE;
+}
+
+static gboolean
+play_loop_stop (GsdPowerManager *manager)
+{
+        if (manager->priv->critical_alert_timeout_id == 0) {
+                g_warning ("no sound loop present to stop");
+                return FALSE;
+        }
+
+        g_source_remove (manager->priv->critical_alert_timeout_id);
+        ca_proplist_destroy (manager->priv->critical_alert_loop_props);
+
+        manager->priv->critical_alert_loop_props = NULL;
+        manager->priv->critical_alert_timeout_id = 0;
+
+        return TRUE;
+}
+
+static gboolean
+play_loop_start (GsdPowerManager *manager,
+                 const gchar *id,
+                 const gchar *desc,
+                 gboolean force,
+                 guint timeout)
+{
+        gint retval;
+        ca_context *context;
+
+        if (timeout == 0) {
+                g_warning ("received invalid timeout");
+                return FALSE;
+        }
+
+        /* if a sound loop is already running, stop the existing loop */
+        if (manager->priv->critical_alert_timeout_id != 0) {
+                g_warning ("was instructed to play a sound loop with one already playing");
+                play_loop_stop (manager);
+        }
+
+        ca_proplist_create (&(manager->priv->critical_alert_loop_props));
+        ca_proplist_sets (manager->priv->critical_alert_loop_props,
+                          CA_PROP_EVENT_ID, id);
+        ca_proplist_sets (manager->priv->critical_alert_loop_props,
+                          CA_PROP_EVENT_DESCRIPTION, desc);
+
+        manager->priv->critical_alert_timeout_id = g_timeout_add_seconds (timeout,
+                                                                          (GSourceFunc) play_loop_timeout_cb,
+                                                                          manager);
+        g_source_set_name_by_id (manager->priv->critical_alert_timeout_id,
+                                 "[GsdPowerManager] play-loop");
+
+        /* play the sound, using sounds from the naming spec */
+        context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
+        retval = ca_context_play (context, 0,
+                                  CA_PROP_EVENT_ID, id,
+                                  CA_PROP_EVENT_DESCRIPTION, desc, NULL);
+        if (retval < 0)
+                g_warning ("failed to play %s: %s", id, ca_strerror (retval));
+        return TRUE;
 }
 
 static void
@@ -935,6 +1014,517 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         g_free (remaining_text);
 }
 
+static gboolean
+manager_critical_action_do (GsdPowerManager *manager)
+{
+        /* stop playing the alert as it's too late to do anything now */
+        if (manager->priv->critical_alert_timeout_id > 0)
+                play_loop_stop (manager);
+
+        return FALSE;
+}
+
+static gboolean
+engine_just_laptop_battery (GsdPowerManager *manager)
+{
+        UpDevice *device;
+        UpDeviceKind kind;
+        GPtrArray *array;
+        gboolean ret = TRUE;
+        guint i;
+
+        /* find if there are any other device types that mean we have to
+         * be more specific in our wording */
+        array = manager->priv->devices_array;
+        for (i=0; i<array->len; i++) {
+                device = g_ptr_array_index (array, i);
+                g_object_get (device, "kind", &kind, NULL);
+                if (kind != UP_DEVICE_KIND_BATTERY) {
+                        ret = FALSE;
+                        break;
+                }
+        }
+        return ret;
+}
+
+static void
+engine_charge_low (GsdPowerManager *manager, UpDevice *device)
+{
+        const gchar *title = NULL;
+        gboolean ret;
+        gchar *message = NULL;
+        gchar *remaining_text;
+        gdouble percentage;
+        GIcon *icon = NULL;
+        gint64 time_to_empty;
+        gint retval;
+        UpDeviceKind kind;
+        GError *error = NULL;
+
+        /* get device properties */
+        g_object_get (device,
+                      "kind", &kind,
+                      "percentage", &percentage,
+                      "time-to-empty", &time_to_empty,
+                      NULL);
+
+        /* check to see if the batteries have not noticed we are on AC */
+        if (kind == UP_DEVICE_KIND_BATTERY) {
+                if (!up_client_get_on_battery (manager->priv->up_client)) {
+                        g_warning ("ignoring low message as we are not on battery power");
+                        goto out;
+                }
+        }
+
+        if (kind == UP_DEVICE_KIND_BATTERY) {
+
+                /* if the user has no other batteries, drop the "Laptop" wording */
+                ret = engine_just_laptop_battery (manager);
+                if (ret) {
+                        /* TRANSLATORS: laptop battery low, and we only have one battery */
+                        title = _("Battery low");
+                } else {
+                        /* TRANSLATORS: laptop battery low, and we have more than one kind of battery */
+                        title = _("Laptop battery low");
+                }
+
+                remaining_text = gpm_get_timestring (time_to_empty);
+
+                /* TRANSLATORS: tell the user how much time they have got */
+                message = g_strdup_printf (_("Approximately <b>%s</b> remaining (%.0f%%)"), remaining_text, percentage);
+
+        } else if (kind == UP_DEVICE_KIND_UPS) {
+                /* TRANSLATORS: UPS is starting to get a little low */
+                title = _("UPS low");
+                remaining_text = gpm_get_timestring (time_to_empty);
+
+                /* TRANSLATORS: tell the user how much time they have got */
+                message = g_strdup_printf (_("Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"),
+                                           remaining_text, percentage);
+        } else if (kind == UP_DEVICE_KIND_MOUSE) {
+                /* TRANSLATORS: mouse is getting a little low */
+                title = _("Mouse battery low");
+
+                /* TRANSLATORS: tell user more details */
+                message = g_strdup_printf (_("Wireless mouse is low in power (%.0f%%)"), percentage);
+
+        } else if (kind == UP_DEVICE_KIND_KEYBOARD) {
+                /* TRANSLATORS: keyboard is getting a little low */
+                title = _("Keyboard battery low");
+
+                /* TRANSLATORS: tell user more details */
+                message = g_strdup_printf (_("Wireless keyboard is low in power (%.0f%%)"), percentage);
+
+        } else if (kind == UP_DEVICE_KIND_PDA) {
+                /* TRANSLATORS: PDA is getting a little low */
+                title = _("PDA battery low");
+
+                /* TRANSLATORS: tell user more details */
+                message = g_strdup_printf (_("PDA is low in power (%.0f%%)"), percentage);
+
+        } else if (kind == UP_DEVICE_KIND_PHONE) {
+                /* TRANSLATORS: cell phone (mobile) is getting a little low */
+                title = _("Cell phone battery low");
+
+                /* TRANSLATORS: tell user more details */
+                message = g_strdup_printf (_("Cell phone is low in power (%.0f%%)"), percentage);
+
+#if UP_CHECK_VERSION(0,9,5)
+        } else if (kind == UP_DEVICE_KIND_MEDIA_PLAYER) {
+                /* TRANSLATORS: media player, e.g. mp3 is getting a little low */
+                title = _("Media player battery low");
+
+                /* TRANSLATORS: tell user more details */
+                message = g_strdup_printf (_("Media player is low in power (%.0f%%)"), percentage);
+
+        } else if (kind == UP_DEVICE_KIND_TABLET) {
+                /* TRANSLATORS: graphics tablet, e.g. wacom is getting a little low */
+                title = _("Tablet battery low");
+
+                /* TRANSLATORS: tell user more details */
+                message = g_strdup_printf (_("Tablet is low in power (%.0f%%)"), percentage);
+
+        } else if (kind == UP_DEVICE_KIND_COMPUTER) {
+                /* TRANSLATORS: computer, e.g. ipad is getting a little low */
+                title = _("Attached computer battery low");
+
+                /* TRANSLATORS: tell user more details */
+                message = g_strdup_printf (_("Attached computer is low in power (%.0f%%)"), percentage);
+#endif
+        }
+
+        /* get correct icon */
+        icon = gpm_upower_get_device_icon (device, TRUE);
+
+        /* close any existing notification of this class */
+        notify_close_if_showing (manager->priv->notification_low);
+
+        /* create a new notification */
+        manager->priv->notification_low = notify_notification_new (title,
+                                                                   message,
+                                                                   get_first_themed_icon_name (icon));
+        notify_notification_set_timeout (manager->priv->notification_low,
+                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
+        notify_notification_set_urgency (manager->priv->notification_low,
+                                         NOTIFY_URGENCY_NORMAL);
+        notify_notification_set_app_name (manager->priv->notification_low, _("Power"));
+        g_object_add_weak_pointer (G_OBJECT (manager->priv->notification_low),
+                                   (gpointer) &manager->priv->notification_low);
+
+        /* try to show */
+        ret = notify_notification_show (manager->priv->notification_low,
+                                        &error);
+        if (!ret) {
+                g_warning ("failed to show notification: %s", error->message);
+                g_error_free (error);
+                g_object_unref (manager->priv->notification_low);
+        }
+
+        /* play the sound, using sounds from the naming spec */
+        retval = ca_context_play (manager->priv->canberra_context, 0,
+                                  CA_PROP_EVENT_ID, "battery-low",
+                                  /* TRANSLATORS: this is the sound description */
+                                  CA_PROP_EVENT_DESCRIPTION, _("Battery is low"), NULL);
+        if (retval < 0)
+                g_warning ("failed to play: %s", ca_strerror (retval));
+out:
+        if (icon != NULL)
+                g_object_unref (icon);
+        g_free (message);
+}
+
+static void
+engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
+{
+        const gchar *title = NULL;
+        gboolean ret;
+        gchar *message = NULL;
+        gdouble percentage;
+        GIcon *icon = NULL;
+        gint64 time_to_empty;
+        gint retval;
+        GsdPowerActionType policy;
+        UpDeviceKind kind;
+        GError *error = NULL;
+
+        /* get device properties */
+        g_object_get (device,
+                      "kind", &kind,
+                      "percentage", &percentage,
+                      "time-to-empty", &time_to_empty,
+                      NULL);
+
+        /* check to see if the batteries have not noticed we are on AC */
+        if (kind == UP_DEVICE_KIND_BATTERY) {
+                if (!up_client_get_on_battery (manager->priv->up_client)) {
+                        g_warning ("ignoring critically low message as we are not on battery power");
+                        goto out;
+                }
+        }
+
+        if (kind == UP_DEVICE_KIND_BATTERY) {
+
+                /* if the user has no other batteries, drop the "Laptop" wording */
+                ret = engine_just_laptop_battery (manager);
+                if (ret) {
+                        /* TRANSLATORS: laptop battery critically low, and only have one kind of battery */
+                        title = _("Battery critically low");
+                } else {
+                        /* TRANSLATORS: laptop battery critically low, and we have more than one type of battery */
+                        title = _("Laptop battery critically low");
+                }
+
+                /* we have to do different warnings depending on the policy */
+                policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
+
+                /* use different text for different actions */
+                if (policy == GSD_POWER_ACTION_NOTHING) {
+                        /* TRANSLATORS: tell the use to insert the plug, as we're not going to do anything */
+                        message = g_strdup (_("Plug in your AC adapter to avoid losing data."));
+
+                } else if (policy == GSD_POWER_ACTION_SUSPEND) {
+                        /* TRANSLATORS: give the user a ultimatum */
+                        message = g_strdup_printf (_("Computer will suspend very soon unless it is plugged in."));
+
+                } else if (policy == GSD_POWER_ACTION_HIBERNATE) {
+                        /* TRANSLATORS: give the user a ultimatum */
+                        message = g_strdup_printf (_("Computer will hibernate very soon unless it is plugged in."));
+
+                } else if (policy == GSD_POWER_ACTION_SHUTDOWN) {
+                        /* TRANSLATORS: give the user a ultimatum */
+                        message = g_strdup_printf (_("Computer will shutdown very soon unless it is plugged in."));
+                }
+
+        } else if (kind == UP_DEVICE_KIND_UPS) {
+                gchar *remaining_text;
+
+                /* TRANSLATORS: the UPS is very low */
+                title = _("UPS critically low");
+                remaining_text = gpm_get_timestring (time_to_empty);
+
+                /* TRANSLATORS: give the user a ultimatum */
+                message = g_strdup_printf (_("Approximately <b>%s</b> of remaining UPS power (%.0f%%). "
+                                             "Restore AC power to your computer to avoid losing data."),
+                                           remaining_text, percentage);
+                g_free (remaining_text);
+        } else if (kind == UP_DEVICE_KIND_MOUSE) {
+                /* TRANSLATORS: the mouse battery is very low */
+                title = _("Mouse battery low");
+
+                /* TRANSLATORS: the device is just going to stop working */
+                message = g_strdup_printf (_("Wireless mouse is very low in power (%.0f%%). "
+                                             "This device will soon stop functioning if not charged."),
+                                           percentage);
+        } else if (kind == UP_DEVICE_KIND_KEYBOARD) {
+                /* TRANSLATORS: the keyboard battery is very low */
+                title = _("Keyboard battery low");
+
+                /* TRANSLATORS: the device is just going to stop working */
+                message = g_strdup_printf (_("Wireless keyboard is very low in power (%.0f%%). "
+                                             "This device will soon stop functioning if not charged."),
+                                           percentage);
+        } else if (kind == UP_DEVICE_KIND_PDA) {
+
+                /* TRANSLATORS: the PDA battery is very low */
+                title = _("PDA battery low");
+
+                /* TRANSLATORS: the device is just going to stop working */
+                message = g_strdup_printf (_("PDA is very low in power (%.0f%%). "
+                                             "This device will soon stop functioning if not charged."),
+                                           percentage);
+
+        } else if (kind == UP_DEVICE_KIND_PHONE) {
+
+                /* TRANSLATORS: the cell battery is very low */
+                title = _("Cell phone battery low");
+
+                /* TRANSLATORS: the device is just going to stop working */
+                message = g_strdup_printf (_("Cell phone is very low in power (%.0f%%). "
+                                             "This device will soon stop functioning if not charged."),
+                                           percentage);
+
+#if UP_CHECK_VERSION(0,9,5)
+        } else if (kind == UP_DEVICE_KIND_MEDIA_PLAYER) {
+
+                /* TRANSLATORS: the cell battery is very low */
+                title = _("Cell phone battery low");
+
+                /* TRANSLATORS: the device is just going to stop working */
+                message = g_strdup_printf (_("Media player is very low in power (%.0f%%). "
+                                             "This device will soon stop functioning if not charged."),
+                                           percentage);
+        } else if (kind == UP_DEVICE_KIND_TABLET) {
+
+                /* TRANSLATORS: the cell battery is very low */
+                title = _("Tablet battery low");
+
+                /* TRANSLATORS: the device is just going to stop working */
+                message = g_strdup_printf (_("Tablet is very low in power (%.0f%%). "
+                                             "This device will soon stop functioning if not charged."),
+                                           percentage);
+        } else if (kind == UP_DEVICE_KIND_COMPUTER) {
+
+                /* TRANSLATORS: the cell battery is very low */
+                title = _("Attached computer battery low");
+
+                /* TRANSLATORS: the device is just going to stop working */
+                message = g_strdup_printf (_("Attached computer is very low in power (%.0f%%). "
+                                             "The device will soon shutdown if not charged."),
+                                           percentage);
+#endif
+        }
+
+        /* get correct icon */
+        icon = gpm_upower_get_device_icon (device, TRUE);
+
+        /* close any existing notification of this class */
+        notify_close_if_showing (manager->priv->notification_low);
+
+        /* create a new notification */
+        manager->priv->notification_low = notify_notification_new (title,
+                                                                   message,
+                                                                   get_first_themed_icon_name (icon));
+        notify_notification_set_timeout (manager->priv->notification_low,
+                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
+        notify_notification_set_urgency (manager->priv->notification_low,
+                                         NOTIFY_URGENCY_CRITICAL);
+        notify_notification_set_app_name (manager->priv->notification_low, _("Power"));
+        g_object_add_weak_pointer (G_OBJECT (manager->priv->notification_low),
+                                   (gpointer) &manager->priv->notification_low);
+
+        /* try to show */
+        ret = notify_notification_show (manager->priv->notification_low,
+                                        &error);
+        if (!ret) {
+                g_warning ("failed to show notification: %s", error->message);
+                g_error_free (error);
+                g_object_unref (manager->priv->notification_low);
+        }
+
+        switch (kind) {
+
+        case UP_DEVICE_KIND_BATTERY:
+        case UP_DEVICE_KIND_UPS:
+                g_debug ("critical charge level reached, starting sound loop");
+                play_loop_start (manager,
+                                 "battery-caution",
+                                 _("Battery is critically low"),
+                                 TRUE,
+                                 GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT);
+                break;
+
+        default:
+                /* play the sound, using sounds from the naming spec */
+                        retval = ca_context_play (manager->priv->canberra_context, 0,
+                                          CA_PROP_EVENT_ID, "battery-caution",
+                                          /* TRANSLATORS: this is the sound description */
+                                          CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
+                if (retval < 0)
+                        g_warning ("failed to play: %s", ca_strerror (retval));
+        }
+out:
+        if (icon != NULL)
+                g_object_unref (icon);
+        g_free (message);
+}
+
+static void
+engine_charge_action (GsdPowerManager *manager, UpDevice *device)
+{
+        const gchar *title = NULL;
+        gboolean ret;
+        gchar *message = NULL;
+        GError *error = NULL;
+        GIcon *icon = NULL;
+        gint retval;
+        GsdPowerActionType policy;
+        guint timer_id;
+        UpDeviceKind kind;
+
+        /* get device properties */
+        g_object_get (device,
+                      "kind", &kind,
+                      NULL);
+
+        /* check to see if the batteries have not noticed we are on AC */
+        if (kind == UP_DEVICE_KIND_BATTERY) {
+                if (!up_client_get_on_battery (manager->priv->up_client)) {
+                        g_warning ("ignoring critically low message as we are not on battery power");
+                        goto out;
+                }
+        }
+
+        if (kind == UP_DEVICE_KIND_BATTERY) {
+
+                /* TRANSLATORS: laptop battery is really, really, low */
+                title = _("Laptop battery critically low");
+
+                /* we have to do different warnings depending on the policy */
+                policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
+
+                /* use different text for different actions */
+                if (policy == GSD_POWER_ACTION_NOTHING) {
+                        /* TRANSLATORS: computer will shutdown without saving data */
+                        message = g_strdup (_("The battery is below the critical level and "
+                                              "this computer will <b>power-off</b> when the "
+                                              "battery becomes completely empty."));
+
+                } else if (policy == GSD_POWER_ACTION_SUSPEND) {
+                        /* TRANSLATORS: computer will suspend */
+                        message = g_strdup (_("The battery is below the critical level and "
+                                              "this computer is about to suspend.<br>"
+                                              "<b>NOTE:</b> A small amount of power is required "
+                                              "to keep your computer in a suspended state."));
+
+                } else if (policy == GSD_POWER_ACTION_HIBERNATE) {
+                        /* TRANSLATORS: computer will hibernate */
+                        message = g_strdup (_("The battery is below the critical level and "
+                                              "this computer is about to hibernate."));
+
+                } else if (policy == GSD_POWER_ACTION_SHUTDOWN) {
+                        /* TRANSLATORS: computer will just shutdown */
+                        message = g_strdup (_("The battery is below the critical level and "
+                                              "this computer is about to shutdown."));
+                }
+
+                /* wait 20 seconds for user-panic */
+                timer_id = g_timeout_add_seconds (20, (GSourceFunc) manager_critical_action_do, manager);
+                g_source_set_name_by_id (timer_id, "[GsdPowerManager] battery critical-action");
+
+        } else if (kind == UP_DEVICE_KIND_UPS) {
+                /* TRANSLATORS: UPS is really, really, low */
+                title = _("UPS critically low");
+
+                /* we have to do different warnings depending on the policy */
+                policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
+
+                /* use different text for different actions */
+                if (policy == GSD_POWER_ACTION_NOTHING) {
+                        /* TRANSLATORS: computer will shutdown without saving data */
+                        message = g_strdup (_("UPS is below the critical level and "
+                                              "this computer will <b>power-off</b> when the "
+                                              "UPS becomes completely empty."));
+
+                } else if (policy == GSD_POWER_ACTION_HIBERNATE) {
+                        /* TRANSLATORS: computer will hibernate */
+                        message = g_strdup (_("UPS is below the critical level and "
+                                              "this computer is about to hibernate."));
+
+                } else if (policy == GSD_POWER_ACTION_SHUTDOWN) {
+                        /* TRANSLATORS: computer will just shutdown */
+                        message = g_strdup (_("UPS is below the critical level and "
+                                              "this computer is about to shutdown."));
+                }
+
+                /* wait 20 seconds for user-panic */
+                timer_id = g_timeout_add_seconds (20, (GSourceFunc) manager_critical_action_do, manager);
+                g_source_set_name_by_id (timer_id, "[GsdPowerManager] ups critical-action");
+        }
+
+        /* not all types have actions */
+        if (title == NULL)
+                return;
+
+        /* get correct icon */
+        icon = gpm_upower_get_device_icon (device, TRUE);
+
+        /* close any existing notification of this class */
+        notify_close_if_showing (manager->priv->notification_low);
+
+        /* create a new notification */
+        manager->priv->notification_low = notify_notification_new (title,
+                                                                   message,
+                                                                   get_first_themed_icon_name (icon));
+        notify_notification_set_timeout (manager->priv->notification_low,
+                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
+        notify_notification_set_urgency (manager->priv->notification_low,
+                                         NOTIFY_URGENCY_CRITICAL);
+        notify_notification_set_app_name (manager->priv->notification_low, _("Power"));
+        g_object_add_weak_pointer (G_OBJECT (manager->priv->notification_low),
+                                   (gpointer) &manager->priv->notification_low);
+
+        /* try to show */
+        ret = notify_notification_show (manager->priv->notification_low,
+                                        &error);
+        if (!ret) {
+                g_warning ("failed to show notification: %s", error->message);
+                g_error_free (error);
+                g_object_unref (manager->priv->notification_low);
+        }
+
+        /* play the sound, using sounds from the naming spec */
+        retval = ca_context_play (manager->priv->canberra_context, 0,
+                                  CA_PROP_EVENT_ID, "battery-caution",
+                                  /* TRANSLATORS: this is the sound description */
+                                  CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
+        if (retval < 0)
+                g_warning ("failed to play: %s", ca_strerror (retval));
+out:
+        if (icon != NULL)
+                g_object_unref (icon);
+        g_free (message);
+}
+
 static void
 engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *manager)
 {
@@ -970,7 +1560,7 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
                         engine_ups_discharging (manager, device);
                 } else if (state == UP_DEVICE_STATE_FULLY_CHARGED) {
                         g_debug ("fully charged, hiding notifications if any");
-                        notify_close_if_showing (manager->priv->notification_warning_low);
+                        notify_close_if_showing (manager->priv->notification_low);
                         notify_close_if_showing (manager->priv->notification_discharging);
                 }
 
@@ -984,10 +1574,13 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
         if (warning != warning_old) {
                 if (warning == WARNING_LOW) {
                         g_debug ("** EMIT: charge-low");
+                        engine_charge_low (manager, device);
                 } else if (warning == WARNING_CRITICAL) {
                         g_debug ("** EMIT: charge-critical");
+                        engine_charge_critical (manager, device);
                 } else if (warning == WARNING_ACTION) {
-                        g_debug ("** EMIT: charge-action");
+                        g_debug ("charge-action");
+                        engine_charge_action (manager, device);
                 }
                 /* save new state */
                 g_object_set_data (G_OBJECT(device), "engine-warning-old", GUINT_TO_POINTER(warning));
@@ -1261,11 +1854,9 @@ static void
 do_lid_open_action (GsdPowerManager *manager)
 {
         gint retval;
-        ca_context *context;
 
         /* play a sound, using sounds from the naming spec */
-        context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
-        retval = ca_context_play (context, 0,
+        retval = ca_context_play (manager->priv->canberra_context, 0,
                                   CA_PROP_EVENT_ID, "lid-open",
                                   /* TRANSLATORS: this is the sound description */
                                   CA_PROP_EVENT_DESCRIPTION, _("Lid has been opened"),
@@ -1278,12 +1869,10 @@ static void
 do_lid_closed_action (GsdPowerManager *manager)
 {
         gint retval;
-        ca_context *context;
         GsdPowerActionType action_type;
 
         /* play a sound, using sounds from the naming spec */
-        context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
-        retval = ca_context_play (context, 0,
+        retval = ca_context_play (manager->priv->canberra_context, 0,
                                   CA_PROP_EVENT_ID, "lid-close",
                                   /* TRANSLATORS: this is the sound description */
                                   CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
@@ -1331,6 +1920,14 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
         if (manager->priv->lid_is_closed == tmp)
                 return;
         manager->priv->lid_is_closed = tmp;
+
+
+        /* if we are playing a critical charge sound loop on AC, stop it */
+        if (!up_client_get_on_battery (client) &&
+            manager->priv->critical_alert_timeout_id > 0) {
+                g_debug ("stopping alert loop due to ac being present");
+                play_loop_stop (manager);
+        }
 
         /* fake a keypress */
         if (tmp)
@@ -1469,6 +2066,7 @@ gsd_power_manager_init (GsdPowerManager *manager)
                                   manager);
 
         manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
+        manager->priv->canberra_context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
 
         manager->priv->phone = gpm_phone_new ();
         g_signal_connect (manager->priv->phone, "device-added",
@@ -1533,6 +2131,9 @@ gsd_power_manager_finalize (GObject *object)
         if (manager->priv->previous_icon != NULL)
                 g_object_unref (manager->priv->previous_icon);
         g_free (manager->priv->previous_summary);
+
+        if (manager->priv->critical_alert_timeout_id > 0)
+                g_source_remove (manager->priv->critical_alert_timeout_id);
 
         G_OBJECT_CLASS (gsd_power_manager_parent_class)->finalize (object);
 }
