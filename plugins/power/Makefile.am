@@ -6,6 +6,8 @@ plugin_LTLIBRARIES =					\
 libpower_la_SOURCES = 					\
 	gpm-common.c					\
 	gpm-common.h					\
+	gpm-phone.c					\
+	gpm-phone.h					\
 	gsd-power-manager.c				\
 	gsd-power-manager.h				\
 	gsd-power-plugin.c				\
