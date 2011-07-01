@@ -453,20 +453,12 @@ draw_when_composited (GtkWidget *widget, cairo_t *orig_cr)
                 corner_radius = height / 10;
         else
                 corner_radius = 0.0;
-        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.5, 0.5, corner_radius, width-1, height-1);
+        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.0, 0.0, corner_radius, width-1, height-1);
         gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &acolor);
         gsd_osd_window_color_reverse (&acolor);
         acolor.alpha = BG_ALPHA;
         gdk_cairo_set_source_rgba (cr, &acolor);
-        cairo_fill_preserve (cr);
-
-        /* FIXME use &style->text_aa[GTK_STATE_NORMAL] instead? */
-        gtk_style_context_get_color (context, GTK_STATE_NORMAL, &acolor);
-        gsd_osd_window_color_reverse (&acolor);
-        acolor.alpha = BG_ALPHA / 2;
-        gdk_cairo_set_source_rgba (cr, &acolor);
-        cairo_set_line_width (cr, 1);
-        cairo_stroke (cr);
+        cairo_fill (cr);
 
         g_signal_emit (window, signals[DRAW_WHEN_COMPOSITED], 0, cr);
 
