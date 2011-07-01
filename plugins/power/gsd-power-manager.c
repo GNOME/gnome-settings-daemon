@@ -160,6 +160,7 @@ static void     gsd_power_manager_finalize    (GObject              *object);
 
 static UpDevice *engine_get_composite_device (GsdPowerManager *manager, UpDevice *original_device);
 static UpDevice *engine_update_composite_device (GsdPowerManager *manager, UpDevice *original_device);
+static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -1017,9 +1018,15 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
 static gboolean
 manager_critical_action_do (GsdPowerManager *manager)
 {
+        GsdPowerActionType action_type;
+
         /* stop playing the alert as it's too late to do anything now */
         if (manager->priv->critical_alert_timeout_id > 0)
                 play_loop_stop (manager);
+
+        action_type = g_settings_get_enum (manager->priv->settings,
+                                           "critical-battery-action");
+        do_power_action_type (manager, action_type);
 
         return FALSE;
 }
