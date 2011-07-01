@@ -45,6 +45,9 @@ static GdkModifierType gsd_used_mods = 0;
 #define XF86KEYS_RANGE_MIN 0x10080001
 #define XF86KEYS_RANGE_MAX 0x1008FFFF
 
+#define FKEYS_RANGE_MIN GDK_KEY_F1
+#define FKEYS_RANGE_MAX GDK_KEY_F35
+
 #define IN_RANGE(x, min, max) (x >= min && x <= max)
 
 static void
@@ -139,11 +142,12 @@ grab_key_unsafe (Key                 *key,
         /* If key doesn't have a usable modifier, we don't want
          * to grab it, since the user might lose a useful key.
          *
-         * The exception is the XFree86 keys (which are useful to grab without
-         * a modifier).
+         * The exception is the XFree86 keys and the Function keys
+         * (which are useful to grab without a modifier).
          */
         if ((modifiers & gsd_used_mods) == 0 &&
-            (IN_RANGE(key->keysym, XF86KEYS_RANGE_MIN, XF86KEYS_RANGE_MAX))) {
+            IN_RANGE(key->keysym, XF86KEYS_RANGE_MIN, XF86KEYS_RANGE_MAX) &&
+            IN_RANGE(key->keysym, FKEYS_RANGE_MIN, FKEYS_RANGE_MAX)) {
                 GString *keycodes;
 
                 keycodes = g_string_new ("");
