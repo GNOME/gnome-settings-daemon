@@ -106,5 +106,40 @@
       <summary>Battery critical low action</summary>
       <description>The action to take when the battery is critically low.</description>
     </key>
+    <key name="percentage-low" type="i">
+      <default>10</default>
+      <_summary>Percentage considered low</_summary>
+      <_description>The percentage of the battery when it is considered low. Only valid when use-time-for-policy is false.</_description>
+    </key>
+    <key name="percentage-critical" type="i">
+      <default>3</default>
+      <_summary>Percentage considered critical</_summary>
+      <_description>The percentage of the battery when it is considered critical. Only valid when use-time-for-policy is false.</_description>
+    </key>
+    <key name="percentage-action" type="i">
+      <default>2</default>
+      <_summary>Percentage action is taken</_summary>
+      <_description>The percentage of the battery when the critical action is performed. Only valid when use-time-for-policy is false.</_description>
+    </key>
+    <key name="time-low" type="i">
+      <default>1200</default>
+      <_summary>The time remaining when low</_summary>
+      <_description>The time remaining in seconds of the battery when it is considered low. Only valid when use-time-for-policy is true.</_description>
+    </key>
+    <key name="time-critical" type="i">
+      <default>300</default>
+      <_summary>The time remaining when critical</_summary>
+      <_description>The time remaining in seconds of the battery when it is considered critical. Only valid when use-time-for-policy is true.</_description>
+    </key>
+    <key name="time-action" type="i">
+      <default>120</default>
+      <_summary>The time remaining when action is taken</_summary>
+      <_description>The time remaining in seconds of the battery when critical action is taken. Only valid when use-time-for-policy is true.</_description>
+    </key>
+    <key name="use-time-for-policy" type="b">
+      <default>true</default>
+      <_summary>Whether to use time-based notifications</_summary>
+      <_description>If time based notifications should be used. If set to false, then the percentage change is used instead, which may fix a broken ACPI BIOS.</_description>
+    </key>
   </schema>
 </schemalist>
