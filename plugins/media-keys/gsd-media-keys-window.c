@@ -35,7 +35,7 @@
 #define GSD_MEDIA_KEYS_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MEDIA_KEYS_WINDOW, GsdMediaKeysWindowPrivate))
 
 /* The size of the icon compared to the whole OSD */
-#define ICON_SCALE 0.65
+#define ICON_SCALE 0.50
 
 struct GsdMediaKeysWindowPrivate
 {
