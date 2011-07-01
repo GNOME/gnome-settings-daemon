@@ -146,8 +146,8 @@ grab_key_unsafe (Key                 *key,
          * (which are useful to grab without a modifier).
          */
         if ((modifiers & gsd_used_mods) == 0 &&
-            IN_RANGE(key->keysym, XF86KEYS_RANGE_MIN, XF86KEYS_RANGE_MAX) &&
-            IN_RANGE(key->keysym, FKEYS_RANGE_MIN, FKEYS_RANGE_MAX)) {
+            (IN_RANGE(key->keysym, XF86KEYS_RANGE_MIN, XF86KEYS_RANGE_MAX) ||
+             IN_RANGE(key->keysym, FKEYS_RANGE_MIN, FKEYS_RANGE_MAX))) {
                 GString *keycodes;
 
                 keycodes = g_string_new ("");
