@@ -6,10 +6,10 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 2.91.x\n"
+"Project-Id-Version: gnome-settings-daemon 3.1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-07 12:06+0200\n"
-"PO-Revision-Date: 2011-06-07 12:08+0200\n"
+"POT-Creation-Date: 2011-07-02 11:42+0200\n"
+"PO-Revision-Date: 2011-07-02 11:46+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -252,13 +252,12 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
-#, fuzzy
 msgid "The duration a display profile is valid"
-msgstr "Valgt konfigurasjon for skjermer kunne ikke brukes"
+msgstr "Hvor lenge en skjermprofil er gyldig"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
 msgid "The duration a printer profile is valid"
-msgstr ""
+msgstr "Hvor lenge en skriverprofil er gyldig"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid ""
@@ -513,12 +512,12 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid "Automatically update these types of updates"
-msgstr "Utfør denne type oppdateringer automatisk"
+msgid "Automatically install these types of updates"
+msgstr "Installer denne type oppdateringer automatisk"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically update these types of updates."
-msgstr "Utfør denne type oppdateringer automatisk."
+msgid "Automatically install these types of updates."
+msgstr "Installer denne type oppdateringer automatisk."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
@@ -970,7 +969,7 @@ msgstr ""
 "funksjonen trege taster som påvirker hvordan tastaturet ditt virker."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
-#: ../plugins/mouse/gsd-mouse-manager.c:809
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Universal Access"
 msgstr "Universell tilgang"
 
@@ -1249,46 +1248,50 @@ msgstr "Farger"
 msgid "Color plugin"
 msgstr "Tillegg for farger"
 
-#: ../plugins/color/gsd-color-manager.c:192
+#: ../plugins/color/gsd-color-manager.c:630
+msgid "Default"
+msgstr "Forvalgt"
+
+#: ../plugins/color/gsd-color-manager.c:1522
 msgid "Recalibrate now"
 msgstr "Kalibrer på nytt nå"
 
-#: ../plugins/color/gsd-color-manager.c:199
+#: ../plugins/color/gsd-color-manager.c:1529
 #: ../plugins/housekeeping/gsd-disk-space.c:385
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "Overse"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:241
+#: ../plugins/color/gsd-color-manager.c:1571
 msgid "Recalibration required"
 msgstr "Ny kalibrering kreves"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:253
+#: ../plugins/color/gsd-color-manager.c:1583
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Skjermen «%s» bør kalibreres på nytt snart."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:262
+#: ../plugins/color/gsd-color-manager.c:1592
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Skriver «%s» bør kalibreres på nytt snart."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:592
-#: ../plugins/color/gsd-color-manager.c:610
+#: ../plugins/color/gsd-color-manager.c:1932
+#: ../plugins/color/gsd-color-manager.c:1950
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Fargetillegg for GNOME konfigurasjonstjeneste"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:594
+#: ../plugins/color/gsd-color-manager.c:1934
 msgid "Color calibration device added"
 msgstr "Enhet for kalibrering av farger ble lagt til"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:612
+#: ../plugins/color/gsd-color-manager.c:1952
 msgid "Color calibration device removed"
 msgstr "Enhet for kalibrering av farger ble fjernet"
 
@@ -1458,13 +1461,15 @@ msgstr ""
 msgid "_Layouts"
 msgstr "_Utforminger"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
-msgid "Keyboard _Preferences"
-msgstr "Brukervalg for _tastatur"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:249
+msgid "Show _Keyboard Layout..."
+msgstr "Vis tastat_urutforming …"
 
+#. translators note:
+#. * This is the name of the gnome-control-center "region" panel
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:256
-msgid "Show _Current Layout"
-msgstr "Vis a_ktiv utforming"
+msgid "Region and Language Settings"
+msgstr "Innstillinger for region og språk"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:218
 msgid ""
@@ -1519,11 +1524,11 @@ msgstr "Medietaster"
 msgid "Media keys plugin"
 msgstr "Tillegg for medietaster"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:805
+#: ../plugins/mouse/gsd-mouse-manager.c:818
 msgid "Could not enable mouse accessibility features"
 msgstr "Kunne ikke aktivere tilgjengelighetsfunksjoner for mus"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:807
+#: ../plugins/mouse/gsd-mouse-manager.c:820
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
@@ -1765,19 +1770,19 @@ msgstr "Rediger innstillinger for skjermstørrelse og rotasjon"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:422
+#: ../plugins/xrandr/gsd-xrandr-manager.c:418
 msgid "Could not switch the monitor configuration"
 msgstr "Kunne ikke bytte skjermkonfigurasjon"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:446
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 msgid "Could not restore the display's configuration"
 msgstr "Kunne ikke gjenopprette skjermkonfigurasjon"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:471
+#: ../plugins/xrandr/gsd-xrandr-manager.c:467
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Kunne ikke gjenopprette skjermkonfigurasjonen fra sikkerhetskopi"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:492
+#: ../plugins/xrandr/gsd-xrandr-manager.c:488
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1787,32 +1792,32 @@ msgstr[0] ""
 msgstr[1] ""
 "Skjermen vil bli satt tilbake til forrige konfigurasjon om %d sekunder"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:541
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "Does the display look OK?"
 msgstr "Ser dette bra ut?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:548
+#: ../plugins/xrandr/gsd-xrandr-manager.c:544
 msgid "_Restore Previous Configuration"
 msgstr "Gjenopp_rett forrige konfigurasjon"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:549
+#: ../plugins/xrandr/gsd-xrandr-manager.c:545
 msgid "_Keep This Configuration"
 msgstr "_Behold denne konfigurasjonen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:630
+#: ../plugins/xrandr/gsd-xrandr-manager.c:626
 msgid "The selected configuration for displays could not be applied"
 msgstr "Valgt konfigurasjon for skjermer kunne ikke brukes"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1186
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Kunne ikke oppdatere informasjon om skjermen: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1194
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Prøver å bytte skjermkonfigurasjon likevel."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1750
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1741
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kunne ikke bruke lagret konfigurasjon for skjermer"
 
@@ -2079,9 +2084,3 @@ msgstr "Installer fastvare"
 #: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "Overse enheter"
-
-#~ msgid "Binding to enable or disable the touchpad."
-#~ msgstr "Binding for å slå av eller på pekeplaten."
-
-#~ msgid "Toggle touchpad"
-#~ msgstr "Slå av/på pekeplaten"
