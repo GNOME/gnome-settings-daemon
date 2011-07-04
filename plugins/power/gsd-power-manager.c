@@ -41,7 +41,9 @@
 
 #define GNOME_SESSION_DBUS_NAME                 "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_PATH                 "/org/gnome/SessionManager"
+#define GNOME_SESSION_DBUS_PATH_PRESENCE        "/org/gnome/SessionManager/Presence"
 #define GNOME_SESSION_DBUS_INTERFACE            "org.gnome.SessionManager"
+#define GNOME_SESSION_DBUS_INTERFACE_PRESENCE   "org.gnome.SessionManager.Presence"
 
 #define CONSOLEKIT_DBUS_NAME                    "org.freedesktop.ConsoleKit"
 #define CONSOLEKIT_DBUS_PATH_MANAGER            "/org/freedesktop/ConsoleKit/Manager"
@@ -155,6 +157,8 @@ struct GsdPowerManagerPrivate
         ca_proplist             *critical_alert_loop_props;
         guint32                  critical_alert_timeout_id;
         GDBusProxy              *screensaver_proxy;
+        GDBusProxy              *session_proxy;
+        GDBusProxy              *session_presence_proxy;
 };
 
 enum {
@@ -2168,6 +2172,38 @@ screensaver_proxy_ready_cb (GObject *source_object,
 }
 
 static void
+session_proxy_ready_cb (GObject *source_object,
+                        GAsyncResult *res,
+                        gpointer user_data)
+{
+        GError *error = NULL;
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        manager->priv->session_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (manager->priv->session_proxy == NULL) {
+                g_warning ("Could not connect to gnome-sesson: %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+session_presence_proxy_ready_cb (GObject *source_object,
+                                 GAsyncResult *res,
+                                 gpointer user_data)
+{
+        GError *error = NULL;
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        manager->priv->session_presence_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (manager->priv->session_presence_proxy == NULL) {
+                g_warning ("Could not connect to gnome-sesson: %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
 power_keyboard_proxy_ready_cb (GObject             *source_object,
                                GAsyncResult        *res,
                                gpointer             user_data)
@@ -2322,6 +2358,26 @@ gsd_power_manager_init (GsdPowerManager *manager)
                                   screensaver_proxy_ready_cb,
                                   manager);
 
+        /* connect to the session */
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                  NULL,
+                                  GNOME_SESSION_DBUS_NAME,
+                                  GNOME_SESSION_DBUS_PATH,
+                                  GNOME_SESSION_DBUS_INTERFACE,
+                                  NULL,
+                                  session_proxy_ready_cb,
+                                  manager);
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                  NULL,
+                                  GNOME_SESSION_DBUS_NAME,
+                                  GNOME_SESSION_DBUS_PATH_PRESENCE,
+                                  GNOME_SESSION_DBUS_INTERFACE_PRESENCE,
+                                  NULL,
+                                  session_presence_proxy_ready_cb,
+                                  manager);
+
         manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
         manager->priv->canberra_context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
 
@@ -2389,6 +2445,11 @@ gsd_power_manager_finalize (GObject *object)
         if (manager->priv->previous_icon != NULL)
                 g_object_unref (manager->priv->previous_icon);
         g_free (manager->priv->previous_summary);
+
+        if (manager->priv->session_proxy != NULL)
+                g_object_unref (manager->priv->session_proxy);
+        if (manager->priv->session_presence_proxy != NULL)
+                g_object_unref (manager->priv->session_presence_proxy);
 
         if (manager->priv->critical_alert_timeout_id > 0)
                 g_source_remove (manager->priv->critical_alert_timeout_id);
