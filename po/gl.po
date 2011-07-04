@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-21 14:26+0200\n"
-"PO-Revision-Date: 2011-06-21 14:28+0200\n"
+"POT-Creation-Date: 2011-07-04 19:25+0200\n"
+"PO-Revision-Date: 2011-07-04 19:31+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -152,11 +152,10 @@ msgstr ""
 "Indica se a orientación da tableta está bloqueada, ou se se rota "
 "automaticamente."
 
-#. g-p-m is not a GSD plugin, yet
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
@@ -171,7 +170,7 @@ msgstr "Activación de este engadido"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
@@ -185,7 +184,7 @@ msgstr "Prioridade de uso para este engadido"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
@@ -200,7 +199,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
@@ -281,6 +280,91 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr "Indica se gnome-settings-daemon activará este engadido ou non."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid ""
+"If time based notifications should be used. If set to false, then the "
+"percentage change is used instead, which may fix a broken ACPI BIOS."
+msgstr ""
+"Indica se se deben usar ou non as notificacións baseadas no tempo. Se se "
+"desactiva, entón úsase a porcentaxe de cambio, o cal pode solucionar "
+"problemas con algunhas BIOS ACPI defectuosas."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "Percentage action is taken"
+msgstr "Porcentaxe cando se toma a acción"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid "Percentage considered critical"
+msgstr "Porcentaxe considerado crítico"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Percentage considered low"
+msgstr "Porcentaxe considerado baixo"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+msgid ""
+"The percentage of the battery when it is considered critical. Only valid "
+"when use-time-for-policy is false."
+msgstr ""
+"A porcentaxe de batería considerado como crítico. Só é valido cando «use-"
+"time-for-policy» está desactivado."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+msgid ""
+"The percentage of the battery when it is considered low. Only valid when use-"
+"time-for-policy is false."
+msgstr ""
+"A porcentaxe de batería considerado como baixo. Só é valido cando «use-time-"
+"for-policy» está desactivado."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The percentage of the battery when the critical action is performed. Only "
+"valid when use-time-for-policy is false."
+msgstr ""
+"A porcentaxe de batería cando se realiza a acción crítica. Só é valido cando "
+"«use-time-for-policy» está desactivado."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid ""
+"The time remaining in seconds of the battery when critical action is taken. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+"O tempo restante, en segundos, de batería cando se realiza a acción crítica. "
+"Só é válido cando «use-time-for-policy» está activado."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+msgid ""
+"The time remaining in seconds of the battery when it is considered critical. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+"O tempo restante, en segundos, de batería cando se realiza a acción crítica. "
+"Só é válido cando «use-time-for-policy» está activado."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+msgid ""
+"The time remaining in seconds of the battery when it is considered low. Only "
+"valid when use-time-for-policy is true."
+msgstr ""
+"O tempo restante, en segundos, de batería considerado baixo. Só é válido "
+"cando «use-time-for-policy» está activado."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid "The time remaining when action is taken"
+msgstr "O tempo restante cando se toma a acción"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+msgid "The time remaining when critical"
+msgstr "O tempo restante considerado crítico"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+msgid "The time remaining when low"
+msgstr "O tempo restante considerado baixo"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+msgid "Whether to use time-based notifications"
+msgstr "Indica se se deben usar as notificacións baseadas en tempo"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
 msgid "If notifications are allowed to be shown"
@@ -1108,7 +1192,7 @@ msgstr ""
 "seu teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
-#: ../plugins/mouse/gsd-mouse-manager.c:809
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Universal Access"
 msgstr "Acceso universal"
 
@@ -1445,6 +1529,353 @@ msgstr "Simulación"
 msgid "Dummy plugin"
 msgstr "Engadido de simulación"
 
+#. TRANSLATORS: this is the notification application name
+#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gsd-power-manager.c:1000
+#: ../plugins/power/gsd-power-manager.c:1177
+#: ../plugins/power/gsd-power-manager.c:1358
+#: ../plugins/power/gsd-power-manager.c:1509
+msgid "Power"
+msgstr "Enerxía"
+
+#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+msgid "Power plugin"
+msgstr "Engadido de enerxía"
+
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:974
+msgid "UPS Discharging"
+msgstr "SAI descargándose"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:979
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr "%s de enerxía do SAI restante"
+
+#. TRANSLATORS: laptop battery low, and we only have one battery
+#: ../plugins/power/gsd-power-manager.c:1092
+msgid "Battery low"
+msgstr "Batería baixa"
+
+#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1095
+msgid "Laptop battery low"
+msgstr "Batería do portátil baixa"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1101
+#, c-format
+msgid "Approximately <b>%s</b> remaining (%.0f%%)"
+msgstr "Quédalle aproximadamente <b>%s</b> de batería (%.0f%%)"
+
+#. TRANSLATORS: UPS is starting to get a little low
+#: ../plugins/power/gsd-power-manager.c:1105
+msgid "UPS low"
+msgstr "SAI baixo"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1109
+#, c-format
+msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
+msgstr ""
+"Quédanlle aproximadamente <b>%s</b> de enerxía de reserva no SAI (%.0f%%)"
+
+#. TRANSLATORS: mouse is getting a little low
+#. TRANSLATORS: the mouse battery is very low
+#: ../plugins/power/gsd-power-manager.c:1113
+#: ../plugins/power/gsd-power-manager.c:1279
+msgid "Mouse battery low"
+msgstr "Batería do rato baixa"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1116
+#, c-format
+msgid "Wireless mouse is low in power (%.0f%%)"
+msgstr "O rato sen fíos estase quedando sen enerxía (%.0f%%)"
+
+#. TRANSLATORS: keyboard is getting a little low
+#. TRANSLATORS: the keyboard battery is very low
+#: ../plugins/power/gsd-power-manager.c:1120
+#: ../plugins/power/gsd-power-manager.c:1287
+msgid "Keyboard battery low"
+msgstr "Batería do teclado baixa"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1123
+#, c-format
+msgid "Wireless keyboard is low in power (%.0f%%)"
+msgstr "O teclado sen fíos estase quedando sen enerxía (%.0f%%)"
+
+#. TRANSLATORS: PDA is getting a little low
+#. TRANSLATORS: the PDA battery is very low
+#: ../plugins/power/gsd-power-manager.c:1127
+#: ../plugins/power/gsd-power-manager.c:1296
+msgid "PDA battery low"
+msgstr "Batería da PDA baixa"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1130
+#, c-format
+msgid "PDA is low in power (%.0f%%)"
+msgstr "A PDA estase quedando sen enerxía (%.0f%%)"
+
+#. TRANSLATORS: cell phone (mobile) is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1134
+#: ../plugins/power/gsd-power-manager.c:1306
+#: ../plugins/power/gsd-power-manager.c:1317
+msgid "Cell phone battery low"
+msgstr "Batería do teléfono baixa"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1137
+#, c-format
+msgid "Cell phone is low in power (%.0f%%)"
+msgstr "O teléfono móbil estase quedando sen enerxía (%.0f%%)"
+
+#. TRANSLATORS: media player, e.g. mp3 is getting a little low
+#: ../plugins/power/gsd-power-manager.c:1142
+msgid "Media player battery low"
+msgstr "A batería do reprodutor multimedia está baixa"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1145
+#, c-format
+msgid "Media player is low in power (%.0f%%)"
+msgstr "O reprodutor multimedia estase quedando sen enerxía (%.0f%%)"
+
+#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1149
+#: ../plugins/power/gsd-power-manager.c:1326
+msgid "Tablet battery low"
+msgstr "Batería do «tablet» baixa"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1152
+#, c-format
+msgid "Tablet is low in power (%.0f%%)"
+msgstr "O «tablet» estase quedando sen enerxía (%.0f%%)"
+
+#. TRANSLATORS: computer, e.g. ipad is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1156
+#: ../plugins/power/gsd-power-manager.c:1335
+msgid "Attached computer battery low"
+msgstr "Batería do computador conectado baixa"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1159
+#, c-format
+msgid "Attached computer is low in power (%.0f%%)"
+msgstr "O equipo conectado estase quedando sen carga (%.0f%%)"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1194
+msgid "Battery is low"
+msgstr "A batería está baixa"
+
+#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1238
+msgid "Battery critically low"
+msgstr "Batería criticamente baixa"
+
+#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
+#. TRANSLATORS: laptop battery is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1241
+#: ../plugins/power/gsd-power-manager.c:1427
+msgid "Laptop battery critically low"
+msgstr "A batería do portátil está baixísima"
+
+#. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
+#: ../plugins/power/gsd-power-manager.c:1250
+msgid "Plug in your AC adapter to avoid losing data."
+msgstr "Enchufe o seu adaptador de corrente para evitar perder datos."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1254
+#, c-format
+msgid "Computer will suspend very soon unless it is plugged in."
+msgstr "O computador pasará a suspensión moi pronto a menos que o conecte."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1258
+#, c-format
+msgid "Computer will hibernate very soon unless it is plugged in."
+msgstr ""
+"Este computador pasará a hibernar moi pronto a menos que estea conectado."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1262
+#, c-format
+msgid "Computer will shutdown very soon unless it is plugged in."
+msgstr "Este computador apagarase en moi pronto a menos que o conecte."
+
+#. TRANSLATORS: the UPS is very low
+#. TRANSLATORS: UPS is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1269
+#: ../plugins/power/gsd-power-manager.c:1463
+msgid "UPS critically low"
+msgstr "SAI excesivamente baixo"
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1273
+#, c-format
+msgid ""
+"Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
+"your computer to avoid losing data."
+msgstr ""
+"Quédanlle aproximadamente <b>%s</b> de enerxía do SAI (%.0f%%). Enchufe o "
+"seu adaptador de corrente para evitar a perda de datos."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1282
+#, c-format
+msgid ""
+"Wireless mouse is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"O teléfono móbil está quedando sen enerxía (%.0f%%). Este dispositivo pronto "
+"deixará de funcionar se non se carga."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1290
+#, c-format
+msgid ""
+"Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"O teléfono móbil está quedando sen enerxía (%.0f%%). Este dispositivo pronto "
+"deixará de funcionar se non se carga."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1299
+#, c-format
+msgid ""
+"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"O teléfono móbil está quedando sen enerxía (%.0f%%). Este dispositivo pronto "
+"deixará de funcionar se non se carga."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1309
+#, c-format
+msgid ""
+"Cell phone is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"O teléfono móbil está quedando sen enerxía (%.0f%%). Este dispositivo pronto "
+"deixará de funcionar se non se carga."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1320
+#, c-format
+msgid ""
+"Media player is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"O reprodutor multimedia está quedando sen enerxía (%.0f%%). Este dispositivo "
+"pronto deixará de funcionar se non se carga."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1329
+#, c-format
+msgid ""
+"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"O «tablet» móbil está quedando sen enerxía (%.0f%%). Este dispositivo pronto "
+"deixará de funcionar se non se carga."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1338
+#, c-format
+msgid ""
+"Attached computer is very low in power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"O computador conectado está quedando sen enerxía (%.0f%%). Este dispositivo "
+"pronto deixará de funcionar se non se carga."
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1378
+#: ../plugins/power/gsd-power-manager.c:1388
+#: ../plugins/power/gsd-power-manager.c:1526
+msgid "Battery is critically low"
+msgstr "Batería moi baixa"
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1435
+msgid ""
+"The battery is below the critical level and this computer will <b>power-off</"
+"b> when the battery becomes completely empty."
+msgstr ""
+"A batería está por debaixo dun nivel crítico e este computador <b>apagarase</"
+"b> cando esta se baleire completamente."
+
+#. TRANSLATORS: computer will suspend
+#: ../plugins/power/gsd-power-manager.c:1441
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"suspend.<br><b>NOTE:</b> A small amount of power is required to keep your "
+"computer in a suspended state."
+msgstr ""
+"A batería está por debaixo dun nivel crítico e este computador está a punto "
+"de suspenderse.<br><b>NOTA:</b> Para manter o computador en estado de "
+"suspensión é necesaria unha pequena cantidade de enerxía."
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1448
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"hibernate."
+msgstr ""
+"A batería está por debaixo dun nivel crítico e este computador está a punto "
+"de entrar en estado de hibernación."
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1453
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"shutdown."
+msgstr "A batería está por debaixo dun nivel crítico e o computador apagarase."
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1471
+msgid ""
+"UPS is below the critical level and this computer will <b>power-off</b> when "
+"the UPS becomes completely empty."
+msgstr ""
+"O SAI está por debaixo dun nivel crítico e este computador <b>apagarase</b> "
+"cando o SAI estea completamente baleiro."
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1477
+msgid ""
+"UPS is below the critical level and this computer is about to hibernate."
+msgstr ""
+"O SAI está por debaixo dun nivel crítico e este computador está a piques de "
+"hibernar."
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1482
+msgid "UPS is below the critical level and this computer is about to shutdown."
+msgstr ""
+"O SAI está por debaixo dun nivel crítico e este computador está a piques de "
+"apagarase."
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1869
+msgid "Lid has been opened"
+msgstr "Abriuse a tapa"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1885
+msgid "Lid has been closed"
+msgstr "Pechouse a tapa"
+
 #: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
 msgid "Low Disk Space on \"%s\""
@@ -1613,7 +2044,7 @@ msgstr "Mostrar a _distribución do teclado…"
 msgid "Region and Language Settings"
 msgstr "Configuración rexional e de idioma"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:218
+#: ../plugins/media-keys/gsd-media-keys-manager.c:232
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1621,7 +2052,7 @@ msgstr ""
 "Non foi posíbel obter a terminal predeterminada. Verifique que a orde da súa "
 "terminal predeterminada está definida e que apunta a un aplicativo válido."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:258
+#: ../plugins/media-keys/gsd-media-keys-manager.c:272
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1666,11 +2097,11 @@ msgstr "Teclas multimedia"
 msgid "Media keys plugin"
 msgstr "Engadido das teclas multimedia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:805
+#: ../plugins/mouse/gsd-mouse-manager.c:818
 msgid "Could not enable mouse accessibility features"
 msgstr "Non foi posíbel activar as opcións de accesibilidade do rato"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:807
+#: ../plugins/mouse/gsd-mouse-manager.c:820
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
