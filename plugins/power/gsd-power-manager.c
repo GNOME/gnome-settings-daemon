@@ -127,6 +127,7 @@ struct GsdPowerManagerPrivate
 {
         gboolean                 lid_is_closed;
         GSettings               *settings;
+        GSettings               *settings_screensaver;
         UpClient                *up_client;
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
@@ -2079,6 +2080,27 @@ out:
 }
 
 static void
+upower_notify_sleep_cb (UpClient *client,
+                        UpSleepKind sleep_kind,
+                        GsdPowerManager *manager)
+{
+        gboolean do_lock;
+
+        do_lock = g_settings_get_boolean (manager->priv->settings_screensaver,
+                                          "lock-enabled");
+        if (!do_lock)
+                return;
+
+        if (manager->priv->screensaver_proxy != NULL) {
+                g_debug ("doing gnome-screensaver lock");
+                g_dbus_proxy_call (manager->priv->screensaver_proxy,
+                                   "Lock",
+                                   NULL, G_DBUS_CALL_FLAGS_NONE, -1,
+                                   NULL, NULL, NULL);
+        }
+}
+
+static void
 upower_notify_resume_cb (UpClient *client,
                          UpSleepKind sleep_kind,
                          GsdPowerManager *manager)
@@ -2121,7 +2143,10 @@ gsd_power_manager_init (GsdPowerManager *manager)
         manager->priv->settings = g_settings_new (GSD_POWER_SETTINGS_SCHEMA);
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
+        manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
         manager->priv->up_client = up_client_new ();
+        g_signal_connect (manager->priv->up_client, "notify-sleep",
+                          G_CALLBACK (upower_notify_sleep_cb), manager);
         g_signal_connect (manager->priv->up_client, "notify-resume",
                           G_CALLBACK (upower_notify_resume_cb), manager);
         manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
@@ -2211,6 +2236,7 @@ gsd_power_manager_finalize (GObject *object)
         g_return_if_fail (manager->priv != NULL);
 
         g_object_unref (manager->priv->settings);
+        g_object_unref (manager->priv->settings_screensaver);
         g_object_unref (manager->priv->up_client);
         if (manager->priv->x11_screen != NULL);
                 g_object_unref (manager->priv->x11_screen);
