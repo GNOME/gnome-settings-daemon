@@ -1841,6 +1841,15 @@ do_power_action_type (GsdPowerManager *manager,
                  * than just powering down the computer mid-write */
                 consolekit_stop ();
         case GSD_POWER_ACTION_BLANK:
+                ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                                                     GNOME_RR_DPMS_OFF,
+                                                     &error);
+                if (!ret) {
+                        g_warning ("failed to turn the panel off for policy action: %s",
+                                   error->message);
+                        g_error_free (error);
+                }
+                break;
         case GSD_POWER_ACTION_NOTHING:
                 break;
         }
