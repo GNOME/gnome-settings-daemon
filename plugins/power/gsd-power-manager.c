@@ -60,6 +60,10 @@
 #define GSD_POWER_DBUS_INTERFACE_SCREEN         "org.gnome.SettingsDaemon.Power.Screen"
 #define GSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.gnome.SettingsDaemon.Power.Keyboard"
 
+#define GS_DBUS_NAME                            "org.gnome.ScreenSaver"
+#define GS_DBUS_PATH                            "/"
+#define GS_DBUS_INTERFACE                       "org.gnome.ScreenSaver"
+
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER          0 /* ms */
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_SHORT          10 * 1000 /* ms */
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG           30 * 1000 /* ms */
@@ -148,6 +152,7 @@ struct GsdPowerManagerPrivate
         ca_context              *canberra_context;
         ca_proplist             *critical_alert_loop_props;
         guint32                  critical_alert_timeout_id;
+        GDBusProxy              *screensaver_proxy;
 };
 
 enum {
@@ -2005,6 +2010,22 @@ gsd_power_manager_class_init (GsdPowerManagerClass *klass)
 }
 
 static void
+screensaver_proxy_ready_cb (GObject *source_object,
+                            GAsyncResult *res,
+                            gpointer user_data)
+{
+        GError *error = NULL;
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        manager->priv->screensaver_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (manager->priv->screensaver_proxy == NULL) {
+                g_warning ("Could not connect to gnome-screensaver: %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
 power_keyboard_proxy_ready_cb (GObject             *source_object,
                                GAsyncResult        *res,
                                gpointer             user_data)
@@ -2065,6 +2086,16 @@ upower_notify_resume_cb (UpClient *client,
         gboolean ret;
         GError *error = NULL;
 
+        /* this displays the unlock dialogue so the user doesn't have
+         * to move the mouse or press any key before the window comes up */
+        if (manager->priv->screensaver_proxy != NULL) {
+                g_dbus_proxy_call (manager->priv->screensaver_proxy,
+                                   "SimulateUserActivity",
+                                   NULL,
+                                   G_DBUS_CALL_FLAGS_NONE,
+                                   -1, NULL, NULL, NULL);
+        }
+
         /* close existing notifications on resume, the system power
          * state is probably different now */
         notify_close_if_showing (manager->priv->notification_low);
@@ -2112,6 +2143,17 @@ gsd_power_manager_init (GsdPowerManager *manager)
                                   UPOWER_DBUS_INTERFACE_KBDBACKLIGHT,
                                   NULL,
                                   power_keyboard_proxy_ready_cb,
+                                  manager);
+
+        /* connect to the screensaver */
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                  NULL,
+                                  GS_DBUS_NAME,
+                                  GS_DBUS_PATH,
+                                  GS_DBUS_INTERFACE,
+                                  NULL,
+                                  screensaver_proxy_ready_cb,
                                   manager);
 
         manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
