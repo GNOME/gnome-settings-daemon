@@ -2065,6 +2065,11 @@ upower_notify_resume_cb (UpClient *client,
         gboolean ret;
         GError *error = NULL;
 
+        /* close existing notifications on resume, the system power
+         * state is probably different now */
+        notify_close_if_showing (manager->priv->notification_low);
+        notify_close_if_showing (manager->priv->notification_discharging);
+
         /* ensure we turn the panel back on after resume */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
                                              GNOME_RR_DPMS_ON,
