@@ -2024,6 +2024,25 @@ out:
 }
 
 static void
+upower_notify_resume_cb (UpClient *client,
+                         UpSleepKind sleep_kind,
+                         GsdPowerManager *manager)
+{
+        gboolean ret;
+        GError *error = NULL;
+
+        /* ensure we turn the panel back on after resume */
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                                             GNOME_RR_DPMS_ON,
+                                             &error);
+        if (!ret) {
+                g_warning ("failed to turn the panel on after resume: %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
 gsd_power_manager_init (GsdPowerManager *manager)
 {
         manager->priv = GSD_POWER_MANAGER_GET_PRIVATE (manager);
@@ -2033,6 +2052,8 @@ gsd_power_manager_init (GsdPowerManager *manager)
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->up_client = up_client_new ();
+        g_signal_connect (manager->priv->up_client, "notify-resume",
+                          G_CALLBACK (upower_notify_resume_cb), manager);
         manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
         g_signal_connect (manager->priv->up_client, "device-added",
                           G_CALLBACK (engine_device_added_cb), manager);
