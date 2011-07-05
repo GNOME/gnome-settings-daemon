@@ -1849,12 +1849,25 @@ do_power_action_type (GsdPowerManager *manager,
 static void
 do_lid_open_action (GsdPowerManager *manager)
 {
+        gboolean ret;
+        GError *error = NULL;
+
         /* play a sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
                          CA_PROP_EVENT_ID, "lid-open",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been opened"),
                          NULL);
+
+        /* ensure we turn the panel back on after lid open */
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                                             GNOME_RR_DPMS_ON,
+                                             &error);
+        if (!ret) {
+                g_warning ("failed to turn the panel on after lid open: %s",
+                           error->message);
+                g_error_free (error);
+        }
 }
 
 static void
