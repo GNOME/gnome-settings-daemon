@@ -212,7 +212,6 @@ play_loop_start (GsdPowerManager *manager,
                  gboolean force,
                  guint timeout)
 {
-        gint retval;
         ca_context *context;
 
         if (timeout == 0) {
@@ -240,11 +239,9 @@ play_loop_start (GsdPowerManager *manager,
 
         /* play the sound, using sounds from the naming spec */
         context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
-        retval = ca_context_play (context, 0,
-                                  CA_PROP_EVENT_ID, id,
-                                  CA_PROP_EVENT_DESCRIPTION, desc, NULL);
-        if (retval < 0)
-                g_warning ("failed to play %s: %s", id, ca_strerror (retval));
+        ca_context_play (context, 0,
+                         CA_PROP_EVENT_ID, id,
+                         CA_PROP_EVENT_DESCRIPTION, desc, NULL);
         return TRUE;
 }
 
@@ -1064,7 +1061,6 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         gdouble percentage;
         GIcon *icon = NULL;
         gint64 time_to_empty;
-        gint retval;
         UpDeviceKind kind;
         GError *error = NULL;
 
@@ -1188,12 +1184,10 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         }
 
         /* play the sound, using sounds from the naming spec */
-        retval = ca_context_play (manager->priv->canberra_context, 0,
-                                  CA_PROP_EVENT_ID, "battery-low",
-                                  /* TRANSLATORS: this is the sound description */
-                                  CA_PROP_EVENT_DESCRIPTION, _("Battery is low"), NULL);
-        if (retval < 0)
-                g_warning ("failed to play: %s", ca_strerror (retval));
+        ca_context_play (manager->priv->canberra_context, 0,
+                         CA_PROP_EVENT_ID, "battery-low",
+                         /* TRANSLATORS: this is the sound description */
+                         CA_PROP_EVENT_DESCRIPTION, _("Battery is low"), NULL);
 out:
         if (icon != NULL)
                 g_object_unref (icon);
@@ -1209,7 +1203,6 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         gdouble percentage;
         GIcon *icon = NULL;
         gint64 time_to_empty;
-        gint retval;
         GsdPowerActionType policy;
         UpDeviceKind kind;
         GError *error = NULL;
@@ -1382,12 +1375,11 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         default:
                 /* play the sound, using sounds from the naming spec */
-                        retval = ca_context_play (manager->priv->canberra_context, 0,
-                                          CA_PROP_EVENT_ID, "battery-caution",
-                                          /* TRANSLATORS: this is the sound description */
-                                          CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
-                if (retval < 0)
-                        g_warning ("failed to play: %s", ca_strerror (retval));
+                ca_context_play (manager->priv->canberra_context, 0,
+                                 CA_PROP_EVENT_ID, "battery-caution",
+                                 /* TRANSLATORS: this is the sound description */
+                                 CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
+                break;
         }
 out:
         if (icon != NULL)
@@ -1403,7 +1395,6 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
         gchar *message = NULL;
         GError *error = NULL;
         GIcon *icon = NULL;
-        gint retval;
         GsdPowerActionType policy;
         guint timer_id;
         UpDeviceKind kind;
@@ -1520,12 +1511,10 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
         }
 
         /* play the sound, using sounds from the naming spec */
-        retval = ca_context_play (manager->priv->canberra_context, 0,
-                                  CA_PROP_EVENT_ID, "battery-caution",
-                                  /* TRANSLATORS: this is the sound description */
-                                  CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
-        if (retval < 0)
-                g_warning ("failed to play: %s", ca_strerror (retval));
+        ca_context_play (manager->priv->canberra_context, 0,
+                         CA_PROP_EVENT_ID, "battery-caution",
+                         /* TRANSLATORS: this is the sound description */
+                         CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
 out:
         if (icon != NULL)
                 g_object_unref (icon);
@@ -1860,32 +1849,25 @@ do_power_action_type (GsdPowerManager *manager,
 static void
 do_lid_open_action (GsdPowerManager *manager)
 {
-        gint retval;
-
         /* play a sound, using sounds from the naming spec */
-        retval = ca_context_play (manager->priv->canberra_context, 0,
-                                  CA_PROP_EVENT_ID, "lid-open",
-                                  /* TRANSLATORS: this is the sound description */
-                                  CA_PROP_EVENT_DESCRIPTION, _("Lid has been opened"),
-                                  NULL);
-        if (retval < 0)
-                g_warning ("failed to play: %s", ca_strerror (retval));
+        ca_context_play (manager->priv->canberra_context, 0,
+                         CA_PROP_EVENT_ID, "lid-open",
+                         /* TRANSLATORS: this is the sound description */
+                         CA_PROP_EVENT_DESCRIPTION, _("Lid has been opened"),
+                         NULL);
 }
 
 static void
 do_lid_closed_action (GsdPowerManager *manager)
 {
-        gint retval;
         GsdPowerActionType action_type;
 
         /* play a sound, using sounds from the naming spec */
-        retval = ca_context_play (manager->priv->canberra_context, 0,
-                                  CA_PROP_EVENT_ID, "lid-close",
-                                  /* TRANSLATORS: this is the sound description */
-                                  CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
-                                  NULL);
-        if (retval < 0)
-                g_warning ("failed to play: %s", ca_strerror (retval));
+        ca_context_play (manager->priv->canberra_context, 0,
+                         CA_PROP_EVENT_ID, "lid-close",
+                         /* TRANSLATORS: this is the sound description */
+                         CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
+                         NULL);
 
         /* we have different settings depending on AC state */
         if (up_client_get_on_battery (manager->priv->up_client)) {
