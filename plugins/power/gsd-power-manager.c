@@ -35,6 +35,7 @@
 
 #include "gpm-common.h"
 #include "gpm-phone.h"
+#include "gpm-idletime.h"
 #include "gnome-settings-profile.h"
 #include "gsd-enums.h"
 #include "gsd-power-manager.h"
@@ -72,6 +73,8 @@
 
 #define GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT        5 /* seconds */
 #define GSD_POWER_MANAGER_RECALL_DELAY                  30 /* seconds */
+
+#define GSD_POWER_IDLETIME_ID                           1 /* counter id */
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -159,6 +162,8 @@ struct GsdPowerManagerPrivate
         GDBusProxy              *screensaver_proxy;
         GDBusProxy              *session_proxy;
         GDBusProxy              *session_presence_proxy;
+        GpmIdletime             *idletime;
+        gboolean                 x_idle;
 };
 
 enum {
@@ -2312,6 +2317,23 @@ upower_notify_resume_cb (UpClient *client,
 }
 
 static void
+idle_idletime_alarm_expired_cb (GpmIdletime *idletime,
+                                guint alarm_id,
+                                GsdPowerManager *manager)
+{
+        g_debug ("idletime alarm: %i", alarm_id);
+        manager->priv->x_idle = TRUE;
+}
+
+static void
+idle_idletime_reset_cb (GpmIdletime *idletime,
+                        GsdPowerManager *manager)
+{
+        g_debug ("idletime reset");
+        manager->priv->x_idle = FALSE;
+}
+
+static void
 gsd_power_manager_init (GsdPowerManager *manager)
 {
         manager->priv = GSD_POWER_MANAGER_GET_PRIVATE (manager);
@@ -2418,6 +2440,13 @@ gsd_power_manager_init (GsdPowerManager *manager)
         /* we can disable this if the time remaining is inaccurate or just plain wrong */
         manager->priv->use_time_primary = g_settings_get_boolean (manager->priv->settings,
                                                                   "use-time-for-policy");
+
+        /* create IDLETIME watcher */
+        manager->priv->idletime = gpm_idletime_new ();
+        g_signal_connect (manager->priv->idletime, "reset",
+                          G_CALLBACK (idle_idletime_reset_cb), manager);
+        g_signal_connect (manager->priv->idletime, "alarm-expired",
+                          G_CALLBACK (idle_idletime_alarm_expired_cb), manager);
 }
 
 static void
@@ -2453,6 +2482,10 @@ gsd_power_manager_finalize (GObject *object)
 
         if (manager->priv->critical_alert_timeout_id > 0)
                 g_source_remove (manager->priv->critical_alert_timeout_id);
+
+        gpm_idletime_alarm_remove (manager->priv->idletime,
+                                   GSD_POWER_IDLETIME_ID);
+        g_object_unref (manager->priv->idletime);
 
         G_OBJECT_CLASS (gsd_power_manager_parent_class)->finalize (object);
 }
