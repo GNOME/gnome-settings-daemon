@@ -165,6 +165,38 @@ on_client_registered (GObject             *source_object,
 }
 
 static void
+session_env_done (GObject             *source_object,
+                  GAsyncResult        *res,
+                  gpointer             user_data)
+{
+        GVariant *result;
+        GError *error = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
+        if (error != NULL) {
+                g_warning ("Setting environment variables failed: %s", error->message);
+                g_error_free (error);
+        }
+
+        g_variant_unref (result);
+}
+
+static void
+set_session_env (GDBusProxy  *proxy,
+                 const gchar *name,
+                 const gchar *value)
+{
+        g_dbus_proxy_call (proxy,
+                           "Setenv",
+                           g_variant_new ("(ss)", name, value),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           NULL,
+                           (GAsyncReadyCallback) session_env_done,
+                           NULL);
+}
+
+static void
 got_session_proxy (GObject      *source_object,
                    GAsyncResult *res,
                    gpointer      user_data)
@@ -178,7 +210,23 @@ got_session_proxy (GObject      *source_object,
                 g_error_free (error);
         } else {
                 const char *startup_id;
+                GSettings *locale_settings;
+                gchar *region;
 
+                /* Set locale environment */
+                locale_settings = g_settings_new ("org.gnome.system.locale");
+                region = g_settings_get_string (locale_settings, "region");
+                if (region && region[0]) {
+                        /* Only set the locale settings if the user has ever customized them */
+                        set_session_env (proxy, "LC_TIME", region);
+                        set_session_env (proxy, "LC_NUMERIC", region);
+                        set_session_env (proxy, "LC_MONETARY", region);
+                        set_session_env (proxy, "LC_MEASUREMENT", region);
+                }
+
+                g_object_unref (locale_settings);
+
+                /* Register the daemon with gnome-session */
                 g_signal_connect (G_OBJECT (proxy), "g-signal",
                                   G_CALLBACK (on_session_over), NULL);
                 startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
