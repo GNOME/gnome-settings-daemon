@@ -161,6 +161,7 @@ on_client_registered (GObject             *source_object,
                                           manager);
 
                 g_free (object_path);
+                g_variant_unref (variant);
         }
 }
 
