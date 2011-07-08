@@ -174,10 +174,8 @@ session_env_done (GObject             *source_object,
         GError *error = NULL;
 
         result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
-        if (error != NULL) {
-                g_warning ("Setting environment variables failed: %s", error->message);
+        if (error != NULL)
                 g_error_free (error);
-        }
 
         g_variant_unref (result);
 }
@@ -198,6 +196,26 @@ set_session_env (GDBusProxy  *proxy,
 }
 
 static void
+set_locale (GDBusProxy *proxy)
+{
+        GSettings *locale_settings;
+        gchar *region;
+
+        /* Set locale environment */
+        locale_settings = g_settings_new ("org.gnome.system.locale");
+        region = g_settings_get_string (locale_settings, "region");
+        if (region && region[0]) {
+                /* Only set the locale settings if the user has ever customized them */
+                set_session_env (proxy, "LC_TIME", region);
+                set_session_env (proxy, "LC_NUMERIC", region);
+                set_session_env (proxy, "LC_MONETARY", region);
+                set_session_env (proxy, "LC_MEASUREMENT", region);
+        }
+
+        g_object_unref (locale_settings);
+}
+
+static void
 got_session_proxy (GObject      *source_object,
                    GAsyncResult *res,
                    gpointer      user_data)
@@ -211,21 +229,10 @@ got_session_proxy (GObject      *source_object,
                 g_error_free (error);
         } else {
                 const char *startup_id;
-                GSettings *locale_settings;
-                gchar *region;
 
-                /* Set locale environment */
-                locale_settings = g_settings_new ("org.gnome.system.locale");
-                region = g_settings_get_string (locale_settings, "region");
-                if (region && region[0]) {
-                        /* Only set the locale settings if the user has ever customized them */
-                        set_session_env (proxy, "LC_TIME", region);
-                        set_session_env (proxy, "LC_NUMERIC", region);
-                        set_session_env (proxy, "LC_MONETARY", region);
-                        set_session_env (proxy, "LC_MEASUREMENT", region);
-                }
-
-                g_object_unref (locale_settings);
+                /* Always call this first, as Setenv can only be called before
+                   any client registers */
+                set_locale (proxy);
 
                 /* Register the daemon with gnome-session */
                 g_signal_connect (G_OBJECT (proxy), "g-signal",
