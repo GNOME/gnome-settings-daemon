@@ -10,23 +10,24 @@
 # Pablo Gonzalo del Campo <pablodc@bigfoot.com>, 2002,2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2004, 2005, 2006.
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# Sebi Kul <sebikul@gmail.com>, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-07-10 19:34+0000\n"
-"PO-Revision-Date: 2011-07-10 21:52+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2011-07-11 10:55+0000\n"
+"PO-Revision-Date: 2011-07-11 19:28+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
+"Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -1741,8 +1742,8 @@ msgstr[1] "SAI"
 #: ../plugins/power/gpm-common.c:577 ../plugins/power/gpm-common.c:824
 msgid "Monitor"
 msgid_plural "Monitors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Monitor"
+msgstr[1] "Monitores"
 
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
@@ -1776,7 +1777,6 @@ msgstr[1] "Teléfonos móviles"
 
 #. TRANSLATORS: media player, mp3 etc
 #: ../plugins/power/gpm-common.c:598 ../plugins/power/gpm-common.c:945
-#| msgid "Launch media player"
 msgid "Media player"
 msgid_plural "Media players"
 msgstr[0] "Reproductor multimedia"
@@ -1848,19 +1848,16 @@ msgstr "Esperando para descargar"
 
 #. TRANSLATORS: device not present
 #: ../plugins/power/gpm-common.c:765
-#| msgid "Laptop battery low"
 msgid "Laptop battery not present"
 msgstr "Falta la batería del portátil"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:769
-#| msgid "Laptop battery low"
 msgid "Laptop battery is charging"
 msgstr "La batería del portátil se está cargando"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:773
-#| msgid "Laptop battery critically low"
 msgid "Laptop battery is discharging"
 msgstr "La batería del portátil se está descargando"
 
@@ -1888,7 +1885,7 @@ msgstr "Batería del portátil críticamente baja"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:789
 msgid "Laptop battery is waiting to discharge"
-msgstr ""
+msgstr "La batería del portátil está esperando para descargarse"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:801
@@ -1997,12 +1994,12 @@ msgstr "SAI descargándose"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:904
 msgid "Cell phone is charging"
-msgstr ""
+msgstr "El teléfono móvil se está cargando"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:908
 msgid "Cell phone is discharging"
-msgstr ""
+msgstr "El teléfono móvil se está descargando"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:912
@@ -2028,7 +2025,7 @@ msgstr "Batería del reproductor multimedia baja"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:933
 msgid "Media player is discharging"
-msgstr ""
+msgstr "El reproductor multimedia se está descargando"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:937
@@ -3021,8 +3018,8 @@ msgid "Change system time and date settings"
 msgstr "Cambiar la configuración de la hora y la fecha del sistema"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Privileges are required to configure time and date settings."
-msgstr "Se requieren privilegios para configurar la fecha y la hora."
+msgid "To change time or date settings, you need to authenticate."
+msgstr ""
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
 #: ../plugins/updates/gsd-updates-manager.c:194
@@ -3209,6 +3206,9 @@ msgstr "Instalar firmware"
 #: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "Ignorar dispositivos"
+
+#~ msgid "Privileges are required to configure time and date settings."
+#~ msgstr "Se requieren privilegios para configurar la fecha y la hora."
 
 #~ msgid "Keyboard _Preferences"
 #~ msgstr "Prefere_ncias del teclado"
