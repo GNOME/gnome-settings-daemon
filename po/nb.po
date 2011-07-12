@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 3.1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-02 11:42+0200\n"
-"PO-Revision-Date: 2011-07-02 11:46+0200\n"
+"POT-Creation-Date: 2011-07-12 15:03+0200\n"
+"PO-Revision-Date: 2011-07-12 15:07+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -124,11 +124,10 @@ msgstr "Handling når smartkort fjernes"
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr ""
 
-#. g-p-m is not a GSD plugin, yet
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
@@ -143,7 +142,7 @@ msgstr "Aktivering av dette tillegget"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
@@ -157,7 +156,7 @@ msgstr "Prioritet som skal brukes for dette tilegget"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
@@ -170,7 +169,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
@@ -241,6 +240,76 @@ msgstr ""
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr ""
 "Hvorvidt dette tillegget skal slås på av gnome-settings-daemon eller ikke."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid ""
+"If time based notifications should be used. If set to false, then the "
+"percentage change is used instead, which may fix a broken ACPI BIOS."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "Percentage action is taken"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid "Percentage considered critical"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Percentage considered low"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+msgid ""
+"The percentage of the battery when it is considered critical. Only valid "
+"when use-time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+msgid ""
+"The percentage of the battery when it is considered low. Only valid when use-"
+"time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The percentage of the battery when the critical action is performed. Only "
+"valid when use-time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid ""
+"The time remaining in seconds of the battery when critical action is taken. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+msgid ""
+"The time remaining in seconds of the battery when it is considered critical. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+msgid ""
+"The time remaining in seconds of the battery when it is considered low. Only "
+"valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid "The time remaining when action is taken"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+msgid "The time remaining when critical"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+msgid "The time remaining when low"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+msgid "Whether to use time-based notifications"
+msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
 msgid "If notifications are allowed to be shown"
@@ -1303,6 +1372,832 @@ msgstr "Dummy"
 msgid "Dummy plugin"
 msgstr "Dummy-tillegg"
 
+#. TRANSLATORS: this is the notification application name
+#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gsd-power-manager.c:997
+#: ../plugins/power/gsd-power-manager.c:1173
+#: ../plugins/power/gsd-power-manager.c:1351
+#: ../plugins/power/gsd-power-manager.c:1500
+msgid "Power"
+msgstr "Strøm"
+
+#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+msgid "Power plugin"
+msgstr "Tillegg for strøm"
+
+#: ../plugins/power/gpm-common.c:47
+msgid "Unknown time"
+msgstr "Ukjent tid"
+
+#: ../plugins/power/gpm-common.c:52
+#, c-format
+msgid "%i minute"
+msgid_plural "%i minutes"
+msgstr[0] "%i minutt"
+msgstr[1] "%i minutter"
+
+#: ../plugins/power/gpm-common.c:62
+#, c-format
+msgid "%i hour"
+msgid_plural "%i hours"
+msgstr[0] "%i time"
+msgstr[1] "%i timer"
+
+#. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
+#. * Swap order with "%2$s %2$i %1$s %1$i if needed
+#: ../plugins/power/gpm-common.c:68
+#, c-format
+msgid "%i %s %i %s"
+msgstr "%i %s %i %s"
+
+#: ../plugins/power/gpm-common.c:69
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "time"
+msgstr[1] "timer"
+
+#: ../plugins/power/gpm-common.c:70
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minutt"
+msgstr[1] "minutter"
+
+#. TRANSLATORS: The laptop battery is charged, and we know a time.
+#. * The parameter is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:317
+#, c-format
+msgid "provides %s laptop runtime"
+msgstr ""
+
+#. TRANSLATORS: the device is discharging, and we have a time remaining
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:328
+#, c-format
+msgid "%s %s remaining"
+msgstr "%s %s gjenstår"
+
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage.
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:349 ../plugins/power/gpm-common.c:366
+#, c-format, fuzzy
+msgid "%s %s until charged"
+msgstr "%s %s "
+
+#. TRANSLATORS: the device is charging, and we have a time to full and empty.
+#. * The parameter is a time string, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:356
+#, c-format
+msgid "provides %s battery runtime"
+msgstr ""
+
+#. TRANSLATORS: the type of data, e.g. Laptop battery
+#: ../plugins/power/gpm-common.c:447
+msgid "Product:"
+msgstr "Produkt:"
+
+#. TRANSLATORS: device is missing
+#. TRANSLATORS: device is charged
+#. TRANSLATORS: device is charging
+#. TRANSLATORS: device is discharging
+#: ../plugins/power/gpm-common.c:451 ../plugins/power/gpm-common.c:454
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:460
+msgid "Status:"
+msgstr "Status:"
+
+#: ../plugins/power/gpm-common.c:451
+msgid "Missing"
+msgstr "Mangler"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:454 ../plugins/power/gpm-common.c:723
+msgid "Charged"
+msgstr "Ladet"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:711
+msgid "Charging"
+msgstr "Lader"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:460 ../plugins/power/gpm-common.c:715
+msgid "Discharging"
+msgstr "Lader ut"
+
+#. TRANSLATORS: percentage
+#: ../plugins/power/gpm-common.c:465
+msgid "Percentage charge:"
+msgstr ""
+
+#. TRANSLATORS: manufacturer
+#: ../plugins/power/gpm-common.c:469
+msgid "Vendor:"
+msgstr ""
+
+#. TRANSLATORS: how the battery is made, e.g. Lithium Ion
+#: ../plugins/power/gpm-common.c:474
+msgid "Technology:"
+msgstr "Teknologi:"
+
+#. TRANSLATORS: serial number of the battery
+#: ../plugins/power/gpm-common.c:478
+msgid "Serial number:"
+msgstr "Serienummer:"
+
+#. TRANSLATORS: model number of the battery
+#: ../plugins/power/gpm-common.c:482
+msgid "Model:"
+msgstr "Modell:"
+
+#. TRANSLATORS: time to fully charged
+#: ../plugins/power/gpm-common.c:487
+msgid "Charge time:"
+msgstr ""
+
+#. TRANSLATORS: time to empty
+#: ../plugins/power/gpm-common.c:493
+msgid "Discharge time:"
+msgstr ""
+
+#. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
+#: ../plugins/power/gpm-common.c:500
+msgid "Excellent"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:502
+msgid "Good"
+msgstr "God"
+
+#: ../plugins/power/gpm-common.c:504
+msgid "Fair"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:506
+msgid "Poor"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:510
+msgid "Capacity:"
+msgstr "Kapasitet:"
+
+#: ../plugins/power/gpm-common.c:516 ../plugins/power/gpm-common.c:541
+msgid "Current charge:"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:522
+msgid "Last full charge:"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:528 ../plugins/power/gpm-common.c:546
+msgid "Design charge:"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:533
+msgid "Charge rate:"
+msgstr ""
+
+#. TRANSLATORS: system power cord
+#: ../plugins/power/gpm-common.c:565 ../plugins/power/gpm-common.c:757
+msgid "AC adapter"
+msgid_plural "AC adapters"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: laptop primary battery
+#: ../plugins/power/gpm-common.c:569 ../plugins/power/gpm-common.c:793
+msgid "Laptop battery"
+msgid_plural "Laptop batteries"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: battery-backed AC power source
+#: ../plugins/power/gpm-common.c:573 ../plugins/power/gpm-common.c:817
+msgid "UPS"
+msgid_plural "UPSs"
+msgstr[0] "UPS"
+msgstr[1] ""
+
+#. TRANSLATORS: a monitor is a device to measure voltage and current
+#: ../plugins/power/gpm-common.c:577 ../plugins/power/gpm-common.c:824
+msgid "Monitor"
+msgid_plural "Monitors"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: wireless mice with internal batteries
+#: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
+#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+msgid "Mouse"
+msgid_plural "Mice"
+msgstr[0] "Mus"
+msgstr[1] "Mus"
+
+#. TRANSLATORS: wireless keyboard with internal battery
+#: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
+#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+msgid "Keyboard"
+msgid_plural "Keyboards"
+msgstr[0] "Tastatur"
+msgstr[1] "Tastatur"
+
+#. TRANSLATORS: portable device
+#: ../plugins/power/gpm-common.c:589 ../plugins/power/gpm-common.c:896
+msgid "PDA"
+msgid_plural "PDAs"
+msgstr[0] "PDA"
+msgstr[1] ""
+
+#. TRANSLATORS: cell phone (mobile...)
+#: ../plugins/power/gpm-common.c:593 ../plugins/power/gpm-common.c:920
+msgid "Cell phone"
+msgid_plural "Cell phones"
+msgstr[0] "Mobiltelefon"
+msgstr[1] "Mobiltelefoner"
+
+#. TRANSLATORS: media player, mp3 etc
+#: ../plugins/power/gpm-common.c:598 ../plugins/power/gpm-common.c:945
+msgid "Media player"
+msgid_plural "Media players"
+msgstr[0] "Medieavspiller"
+msgstr[1] "Medieavspillere"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:602 ../plugins/power/gpm-common.c:969
+msgid "Tablet"
+msgid_plural "Tablets"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:606 ../plugins/power/gpm-common.c:993
+msgid "Computer"
+msgid_plural "Computers"
+msgstr[0] "Datamaskin"
+msgstr[1] "Datamaskiner"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:670
+msgid "Lithium Ion"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:674
+msgid "Lithium Polymer"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:678
+msgid "Lithium Iron Phosphate"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:682
+msgid "Lead acid"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:686
+msgid "Nickel Cadmium"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:690
+msgid "Nickel metal hydride"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:694
+msgid "Unknown technology"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:719
+msgid "Empty"
+msgstr "Tom"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:727
+msgid "Waiting to charge"
+msgstr "Venter på å lade"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:731
+msgid "Waiting to discharge"
+msgstr "Venter på å lade ut"
+
+#. TRANSLATORS: device not present
+#: ../plugins/power/gpm-common.c:765
+msgid "Laptop battery not present"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:769
+msgid "Laptop battery is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:773
+msgid "Laptop battery is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:777
+msgid "Laptop battery is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:781
+msgid "Laptop battery is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:785
+msgid "Laptop battery is waiting to charge"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:789
+msgid "Laptop battery is waiting to discharge"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:801
+msgid "UPS is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:805
+msgid "UPS is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:809
+msgid "UPS is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:813
+msgid "UPS is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:832
+#, fuzzy
+msgid "Mouse is charging"
+msgstr "Tillegg for mus"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:836
+msgid "Mouse is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:840
+#, fuzzy
+msgid "Mouse is empty"
+msgstr "Ikke mer toner"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:844
+msgid "Mouse is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:856
+#, fuzzy
+msgid "Keyboard is charging"
+msgstr "Tillegg for tastatur"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:860
+#, fuzzy
+msgid "Keyboard is discharging"
+msgstr "Tillegg for tastatur"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:864
+#, fuzzy
+msgid "Keyboard is empty"
+msgstr "Tastatur"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:868
+msgid "Keyboard is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:880
+msgid "PDA is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:884
+msgid "PDA is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:888
+msgid "PDA is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:892
+msgid "PDA is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:904
+msgid "Cell phone is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:908
+msgid "Cell phone is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:912
+msgid "Cell phone is empty"
+msgstr "Mobiltelefonen er tom"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:916
+msgid "Cell phone is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:929
+msgid "Media player is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:933
+msgid "Media player is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:937
+msgid "Media player is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:941
+msgid "Media player is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:953
+msgid "Tablet is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:957
+msgid "Tablet is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:961
+#, fuzzy
+msgid "Tablet is empty"
+msgstr "Ikke mer toner"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:965
+msgid "Tablet is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:977
+msgid "Computer is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:981
+msgid "Computer is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:985
+#, fuzzy
+msgid "Computer is empty"
+msgstr "Ikke mer toner"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:989
+msgid "Computer is charged"
+msgstr ""
+
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:971
+msgid "UPS Discharging"
+msgstr ""
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:976
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr ""
+
+#. TRANSLATORS: laptop battery low, and we only have one battery
+#: ../plugins/power/gsd-power-manager.c:1088
+#, fuzzy
+msgid "Battery low"
+msgstr "Lite papir"
+
+#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1091
+msgid "Laptop battery low"
+msgstr ""
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1097
+#, c-format
+msgid "Approximately <b>%s</b> remaining (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: UPS is starting to get a little low
+#: ../plugins/power/gsd-power-manager.c:1101
+#, fuzzy
+msgid "UPS low"
+msgstr "Lite papir"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1105
+#, c-format
+msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: mouse is getting a little low
+#. TRANSLATORS: the mouse battery is very low
+#: ../plugins/power/gsd-power-manager.c:1109
+#: ../plugins/power/gsd-power-manager.c:1272
+msgid "Mouse battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1112
+#, c-format
+msgid "Wireless mouse is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: keyboard is getting a little low
+#. TRANSLATORS: the keyboard battery is very low
+#: ../plugins/power/gsd-power-manager.c:1116
+#: ../plugins/power/gsd-power-manager.c:1280
+msgid "Keyboard battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1119
+#, c-format
+msgid "Wireless keyboard is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: PDA is getting a little low
+#. TRANSLATORS: the PDA battery is very low
+#: ../plugins/power/gsd-power-manager.c:1123
+#: ../plugins/power/gsd-power-manager.c:1289
+#, fuzzy
+msgid "PDA battery low"
+msgstr "Lite papir"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1126
+#, c-format
+msgid "PDA is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: cell phone (mobile) is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1130
+#: ../plugins/power/gsd-power-manager.c:1299
+#: ../plugins/power/gsd-power-manager.c:1310
+msgid "Cell phone battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1133
+#, c-format
+msgid "Cell phone is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: media player, e.g. mp3 is getting a little low
+#: ../plugins/power/gsd-power-manager.c:1138
+msgid "Media player battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1141
+#, c-format
+msgid "Media player is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1145
+#: ../plugins/power/gsd-power-manager.c:1319
+msgid "Tablet battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1148
+#, c-format
+msgid "Tablet is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: computer, e.g. ipad is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1152
+#: ../plugins/power/gsd-power-manager.c:1328
+msgid "Attached computer battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1155
+#, c-format
+msgid "Attached computer is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1190
+#, fuzzy
+msgid "Battery is low"
+msgstr "Lite papir"
+
+#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1231
+msgid "Battery critically low"
+msgstr ""
+
+#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
+#. TRANSLATORS: laptop battery is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1234
+#: ../plugins/power/gsd-power-manager.c:1418
+msgid "Laptop battery critically low"
+msgstr ""
+
+#. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
+#: ../plugins/power/gsd-power-manager.c:1243
+msgid "Plug in your AC adapter to avoid losing data."
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1247
+#, c-format
+msgid "Computer will suspend very soon unless it is plugged in."
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1251
+#, c-format
+msgid "Computer will hibernate very soon unless it is plugged in."
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1255
+#, c-format
+msgid "Computer will shutdown very soon unless it is plugged in."
+msgstr ""
+
+#. TRANSLATORS: the UPS is very low
+#. TRANSLATORS: UPS is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1262
+#: ../plugins/power/gsd-power-manager.c:1454
+msgid "UPS critically low"
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1266
+#, c-format
+msgid ""
+"Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
+"your computer to avoid losing data."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1275
+#, c-format
+msgid ""
+"Wireless mouse is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1283
+#, c-format
+msgid ""
+"Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1292
+#, c-format
+msgid ""
+"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
+"not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1302
+#, c-format
+msgid ""
+"Cell phone is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1313
+#, c-format
+msgid ""
+"Media player is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1322
+#, c-format
+msgid ""
+"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1331
+#, c-format
+msgid ""
+"Attached computer is very low in power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1371
+#: ../plugins/power/gsd-power-manager.c:1381
+#: ../plugins/power/gsd-power-manager.c:1517
+msgid "Battery is critically low"
+msgstr ""
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1426
+msgid ""
+"The battery is below the critical level and this computer will <b>power-off</"
+"b> when the battery becomes completely empty."
+msgstr ""
+
+#. TRANSLATORS: computer will suspend
+#: ../plugins/power/gsd-power-manager.c:1432
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"suspend.<br><b>NOTE:</b> A small amount of power is required to keep your "
+"computer in a suspended state."
+msgstr ""
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1439
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"hibernate."
+msgstr ""
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1444
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"shutdown."
+msgstr ""
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1462
+msgid ""
+"UPS is below the critical level and this computer will <b>power-off</b> when "
+"the UPS becomes completely empty."
+msgstr ""
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1468
+msgid ""
+"UPS is below the critical level and this computer is about to hibernate."
+msgstr ""
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1473
+msgid "UPS is below the critical level and this computer is about to shutdown."
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1856
+msgid "Lid has been opened"
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1869
+msgid "Lid has been closed"
+msgstr ""
+
 #: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
 msgid "Low Disk Space on \"%s\""
@@ -1428,10 +2323,6 @@ msgstr "Tastaturbindinger"
 msgid "Keybindings plugin"
 msgstr "Tillegg for tastaturbindinger"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-msgid "Keyboard"
-msgstr "Tastatur"
-
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Tillegg for tastatur"
@@ -1471,7 +2362,7 @@ msgstr "Vis tastat_urutforming …"
 msgid "Region and Language Settings"
 msgstr "Innstillinger for region og språk"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:218
+#: ../plugins/media-keys/gsd-media-keys-manager.c:232
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1479,7 +2370,7 @@ msgstr ""
 "Kunne ikke finne forvalgt terminal. Sjekk at kommando for forvalgt terminal "
 "er satt og peker til et gyldig program."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:258
+#: ../plugins/media-keys/gsd-media-keys-manager.c:272
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1533,10 +2424,6 @@ msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Tilgjengelighet for mus krever at Mousetweaks er installert på systemet."
-
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-msgid "Mouse"
-msgstr "Mus"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
@@ -1900,8 +2787,8 @@ msgid "Change system time and date settings"
 msgstr "Endre systemets innstillinger for tid og dato"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Privileges are required to configure time and date settings."
-msgstr "Rettigheter kreves for å konfigurere innstillinger for tid og dato."
+msgid "To change time or date settings, you need to authenticate."
+msgstr ""
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
 #: ../plugins/updates/gsd-updates-manager.c:194
