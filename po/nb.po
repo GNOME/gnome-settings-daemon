@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 3.1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-12 15:03+0200\n"
-"PO-Revision-Date: 2011-07-12 15:07+0200\n"
+"POT-Creation-Date: 2011-07-13 10:22+0200\n"
+"PO-Revision-Date: 2011-07-13 11:01+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -1427,7 +1427,7 @@ msgstr[1] "minutter"
 #: ../plugins/power/gpm-common.c:317
 #, c-format
 msgid "provides %s laptop runtime"
-msgstr ""
+msgstr "gir %s kjøretid for bærbar"
 
 #. TRANSLATORS: the device is discharging, and we have a time remaining
 #. * The first parameter is the device type, e.g. "Laptop battery" and
@@ -1444,16 +1444,16 @@ msgstr "%s %s gjenstår"
 #. * The first parameter is the device type, e.g. "Laptop battery" and
 #. * the second is the time, e.g. "7 hours 6 minutes"
 #: ../plugins/power/gpm-common.c:349 ../plugins/power/gpm-common.c:366
-#, c-format, fuzzy
+#, c-format
 msgid "%s %s until charged"
-msgstr "%s %s "
+msgstr "%s %s før lading er ferdig"
 
 #. TRANSLATORS: the device is charging, and we have a time to full and empty.
 #. * The parameter is a time string, e.g. "7 hours 6 minutes"
 #: ../plugins/power/gpm-common.c:356
 #, c-format
 msgid "provides %s battery runtime"
-msgstr ""
+msgstr "gir %s batteritid"
 
 #. TRANSLATORS: the type of data, e.g. Laptop battery
 #: ../plugins/power/gpm-common.c:447
@@ -1491,12 +1491,12 @@ msgstr "Lader ut"
 #. TRANSLATORS: percentage
 #: ../plugins/power/gpm-common.c:465
 msgid "Percentage charge:"
-msgstr ""
+msgstr "Prosent ladet:"
 
 #. TRANSLATORS: manufacturer
 #: ../plugins/power/gpm-common.c:469
 msgid "Vendor:"
-msgstr ""
+msgstr "Leverandør:"
 
 #. TRANSLATORS: how the battery is made, e.g. Lithium Ion
 #: ../plugins/power/gpm-common.c:474
@@ -1516,17 +1516,17 @@ msgstr "Modell:"
 #. TRANSLATORS: time to fully charged
 #: ../plugins/power/gpm-common.c:487
 msgid "Charge time:"
-msgstr ""
+msgstr "Ladetid:"
 
 #. TRANSLATORS: time to empty
 #: ../plugins/power/gpm-common.c:493
 msgid "Discharge time:"
-msgstr ""
+msgstr "Utladingstid:"
 
 #. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
 #: ../plugins/power/gpm-common.c:500
 msgid "Excellent"
-msgstr ""
+msgstr "Utmerket"
 
 #: ../plugins/power/gpm-common.c:502
 msgid "Good"
@@ -1534,11 +1534,11 @@ msgstr "God"
 
 #: ../plugins/power/gpm-common.c:504
 msgid "Fair"
-msgstr ""
+msgstr "Bra"
 
 #: ../plugins/power/gpm-common.c:506
 msgid "Poor"
-msgstr ""
+msgstr "Dårlig"
 
 #: ../plugins/power/gpm-common.c:510
 msgid "Capacity:"
@@ -1546,47 +1546,47 @@ msgstr "Kapasitet:"
 
 #: ../plugins/power/gpm-common.c:516 ../plugins/power/gpm-common.c:541
 msgid "Current charge:"
-msgstr ""
+msgstr "Nåværende ladenivå:"
 
 #: ../plugins/power/gpm-common.c:522
 msgid "Last full charge:"
-msgstr ""
+msgstr "Sist fult ladet:"
 
 #: ../plugins/power/gpm-common.c:528 ../plugins/power/gpm-common.c:546
 msgid "Design charge:"
-msgstr ""
+msgstr "Design-ladenivå:"
 
 #: ../plugins/power/gpm-common.c:533
 msgid "Charge rate:"
-msgstr ""
+msgstr "Laderate:"
 
 #. TRANSLATORS: system power cord
 #: ../plugins/power/gpm-common.c:565 ../plugins/power/gpm-common.c:757
 msgid "AC adapter"
 msgid_plural "AC adapters"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Strømadapter"
+msgstr[1] "Strømadaptere"
 
 #. TRANSLATORS: laptop primary battery
 #: ../plugins/power/gpm-common.c:569 ../plugins/power/gpm-common.c:793
 msgid "Laptop battery"
 msgid_plural "Laptop batteries"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Batteri til bærbar"
+msgstr[1] "Batterier til bærbar"
 
 #. TRANSLATORS: battery-backed AC power source
 #: ../plugins/power/gpm-common.c:573 ../plugins/power/gpm-common.c:817
 msgid "UPS"
 msgid_plural "UPSs"
 msgstr[0] "UPS"
-msgstr[1] ""
+msgstr[1] "UPSer"
 
 #. TRANSLATORS: a monitor is a device to measure voltage and current
 #: ../plugins/power/gpm-common.c:577 ../plugins/power/gpm-common.c:824
 msgid "Monitor"
 msgid_plural "Monitors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Skjerm"
+msgstr[1] "Skjermer"
 
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
@@ -1609,7 +1609,7 @@ msgstr[1] "Tastatur"
 msgid "PDA"
 msgid_plural "PDAs"
 msgstr[0] "PDA"
-msgstr[1] ""
+msgstr[1] "PDAer"
 
 #. TRANSLATORS: cell phone (mobile...)
 #: ../plugins/power/gpm-common.c:593 ../plugins/power/gpm-common.c:920
@@ -1629,8 +1629,8 @@ msgstr[1] "Medieavspillere"
 #: ../plugins/power/gpm-common.c:602 ../plugins/power/gpm-common.c:969
 msgid "Tablet"
 msgid_plural "Tablets"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Nettbrett"
+msgstr[1] "Nettbrett"
 
 #. TRANSLATORS: tablet device
 #: ../plugins/power/gpm-common.c:606 ../plugins/power/gpm-common.c:993
@@ -1642,37 +1642,37 @@ msgstr[1] "Datamaskiner"
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:670
 msgid "Lithium Ion"
-msgstr ""
+msgstr "Litium ion"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:674
 msgid "Lithium Polymer"
-msgstr ""
+msgstr "Litium polymer"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:678
 msgid "Lithium Iron Phosphate"
-msgstr ""
+msgstr "Litium jern fosfat"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:682
 msgid "Lead acid"
-msgstr ""
+msgstr "Blysyre"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:686
 msgid "Nickel Cadmium"
-msgstr ""
+msgstr "Nikkel kadmium"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:690
 msgid "Nickel metal hydride"
-msgstr ""
+msgstr "Nikkel metall hybrid"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:694
 msgid "Unknown technology"
-msgstr ""
+msgstr "Ukjent teknologi"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:719
@@ -1692,132 +1692,127 @@ msgstr "Venter på å lade ut"
 #. TRANSLATORS: device not present
 #: ../plugins/power/gpm-common.c:765
 msgid "Laptop battery not present"
-msgstr ""
+msgstr "Batteri på bærbar er ikke tilstede"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:769
 msgid "Laptop battery is charging"
-msgstr ""
+msgstr "Batteri på bærbar lader"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:773
 msgid "Laptop battery is discharging"
-msgstr ""
+msgstr "Batteri på bærbar lader ut"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:777
 msgid "Laptop battery is empty"
-msgstr ""
+msgstr "Batteri på bærbar er tomt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:781
 msgid "Laptop battery is charged"
-msgstr ""
+msgstr "Batteri på bærbar er ladet"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:785
 msgid "Laptop battery is waiting to charge"
-msgstr ""
+msgstr "Batteri på bærbar venter på å lade"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:789
 msgid "Laptop battery is waiting to discharge"
-msgstr ""
+msgstr "Batteri på bærbar venter på å lade ut"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:801
 msgid "UPS is charging"
-msgstr ""
+msgstr "UPS lader"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:805
 msgid "UPS is discharging"
-msgstr ""
+msgstr "UPS lades ut"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:809
 msgid "UPS is empty"
-msgstr ""
+msgstr "UPS er tom"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:813
 msgid "UPS is charged"
-msgstr ""
+msgstr "UPS er ladet"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:832
-#, fuzzy
 msgid "Mouse is charging"
-msgstr "Tillegg for mus"
+msgstr "Mus lader"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:836
 msgid "Mouse is discharging"
-msgstr ""
+msgstr "Mus lades ut"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:840
-#, fuzzy
 msgid "Mouse is empty"
-msgstr "Ikke mer toner"
+msgstr "Mus er tom"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:844
 msgid "Mouse is charged"
-msgstr ""
+msgstr "Mus er ladet"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:856
-#, fuzzy
 msgid "Keyboard is charging"
-msgstr "Tillegg for tastatur"
+msgstr "Tastatur lader"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:860
-#, fuzzy
 msgid "Keyboard is discharging"
-msgstr "Tillegg for tastatur"
+msgstr "Tastatur lades ut"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:864
-#, fuzzy
 msgid "Keyboard is empty"
-msgstr "Tastatur"
+msgstr "Tastatur er tomt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:868
 msgid "Keyboard is charged"
-msgstr ""
+msgstr "Tastatur er ladet"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:880
 msgid "PDA is charging"
-msgstr ""
+msgstr "PDA lader"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:884
 msgid "PDA is discharging"
-msgstr ""
+msgstr "PDA lades ut"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:888
 msgid "PDA is empty"
-msgstr ""
+msgstr "PDA er tom"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:892
 msgid "PDA is charged"
-msgstr ""
+msgstr "PDA er ladet"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:904
 msgid "Cell phone is charging"
-msgstr ""
+msgstr "Mobiltelefon lader"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:908
 msgid "Cell phone is discharging"
-msgstr ""
+msgstr "Mobiltelefon lades ut"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:912
@@ -1827,149 +1822,144 @@ msgstr "Mobiltelefonen er tom"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:916
 msgid "Cell phone is charged"
-msgstr ""
+msgstr "Mobiltelefon er ladet"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:929
 msgid "Media player is charging"
-msgstr ""
+msgstr "Mediespiller lader"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:933
 msgid "Media player is discharging"
-msgstr ""
+msgstr "Mediespiller lades ut"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:937
 msgid "Media player is empty"
-msgstr ""
+msgstr "Mediespiller er tom"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:941
 msgid "Media player is charged"
-msgstr ""
+msgstr "Mediespiller er ladet"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:953
 msgid "Tablet is charging"
-msgstr ""
+msgstr "Nettbrett lader"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:957
 msgid "Tablet is discharging"
-msgstr ""
+msgstr "Nettbrett lades ut"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:961
-#, fuzzy
 msgid "Tablet is empty"
-msgstr "Ikke mer toner"
+msgstr "Nettbrett er tomt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:965
 msgid "Tablet is charged"
-msgstr ""
+msgstr "Nettbrett er ladet"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:977
 msgid "Computer is charging"
-msgstr ""
+msgstr "Datamaskin lader"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:981
 msgid "Computer is discharging"
-msgstr ""
+msgstr "Datamaskin lades ut"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:985
-#, fuzzy
 msgid "Computer is empty"
-msgstr "Ikke mer toner"
+msgstr "Datamaskin er tom"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:989
 msgid "Computer is charged"
-msgstr ""
+msgstr "Datamaskin er ladet"
 
 #. TRANSLATORS: UPS is now discharging
 #: ../plugins/power/gsd-power-manager.c:971
 msgid "UPS Discharging"
-msgstr ""
+msgstr "UPS lades ut"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:976
 #, c-format
 msgid "%s of UPS backup power remaining"
-msgstr ""
+msgstr "%s UPS reservestrøm gjenstår"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
 #: ../plugins/power/gsd-power-manager.c:1088
-#, fuzzy
 msgid "Battery low"
-msgstr "Lite papir"
+msgstr "Batteri har lav kapasitet"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
 #: ../plugins/power/gsd-power-manager.c:1091
 msgid "Laptop battery low"
-msgstr ""
+msgstr "Batteri på bærbar har lite strøm"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:1097
 #, c-format
 msgid "Approximately <b>%s</b> remaining (%.0f%%)"
-msgstr ""
+msgstr "Omtrent <b>%s</b> gjenstår (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
 #: ../plugins/power/gsd-power-manager.c:1101
-#, fuzzy
 msgid "UPS low"
-msgstr "Lite papir"
+msgstr "UPS har lite strøm"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:1105
 #, c-format
 msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
-msgstr ""
+msgstr "Omtrent <b>%s</b> gjenværende reservestrøm på UPS (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
 #: ../plugins/power/gsd-power-manager.c:1109
 #: ../plugins/power/gsd-power-manager.c:1272
 msgid "Mouse battery low"
-msgstr ""
+msgstr "Mus har lite strøm"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1112
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
-msgstr ""
+msgstr "Trådløs mus har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
 #: ../plugins/power/gsd-power-manager.c:1116
 #: ../plugins/power/gsd-power-manager.c:1280
 msgid "Keyboard battery low"
-msgstr ""
+msgstr "Batteri i tastatur har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1119
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
-msgstr ""
+msgstr "Trådløst tastatur har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
 #: ../plugins/power/gsd-power-manager.c:1123
 #: ../plugins/power/gsd-power-manager.c:1289
-#, fuzzy
 msgid "PDA battery low"
-msgstr "Lite papir"
+msgstr "Batteri i PDA har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1126
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
-msgstr ""
+msgstr "PDA har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -1977,98 +1967,97 @@ msgstr ""
 #: ../plugins/power/gsd-power-manager.c:1299
 #: ../plugins/power/gsd-power-manager.c:1310
 msgid "Cell phone battery low"
-msgstr ""
+msgstr "Batteri i mobiltelefon har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1133
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
-msgstr ""
+msgstr "Mobiltelefon har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
 #: ../plugins/power/gsd-power-manager.c:1138
 msgid "Media player battery low"
-msgstr ""
+msgstr "Batteri i mediespiller har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1141
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
-msgstr ""
+msgstr "Mediespiller har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:1145
 #: ../plugins/power/gsd-power-manager.c:1319
 msgid "Tablet battery low"
-msgstr ""
+msgstr "Batteri i nettbrett har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1148
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
-msgstr ""
+msgstr "Nettbrett har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:1152
 #: ../plugins/power/gsd-power-manager.c:1328
 msgid "Attached computer battery low"
-msgstr ""
+msgstr "Batteri i tilkoblet datamaskin har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1155
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
-msgstr ""
+msgstr "Tilkoblet datamaskin har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:1190
-#, fuzzy
 msgid "Battery is low"
-msgstr "Lite papir"
+msgstr "Batteri har lav kapasitet"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
 #: ../plugins/power/gsd-power-manager.c:1231
 msgid "Battery critically low"
-msgstr ""
+msgstr "Batteri har kritisk lav kapasitet"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
 #: ../plugins/power/gsd-power-manager.c:1234
 #: ../plugins/power/gsd-power-manager.c:1418
 msgid "Laptop battery critically low"
-msgstr ""
+msgstr "Batteri på bærbar har kritisk lav kapasitet"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
 #: ../plugins/power/gsd-power-manager.c:1243
 msgid "Plug in your AC adapter to avoid losing data."
-msgstr ""
+msgstr "Koble til strøm for å unngå å tape data."
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1247
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
-msgstr ""
+msgstr "Datamaskinen vil gå i hvilemodus meget snart med mindre den kobles til."
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1251
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
-msgstr ""
+msgstr "Datamaskinen vil gå i dvalemodus meget snart med mindre den kobles til."
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1255
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
-msgstr ""
+msgstr "Datamaskinen vil slås av meget snart med mindre den kobles til."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
 #: ../plugins/power/gsd-power-manager.c:1262
 #: ../plugins/power/gsd-power-manager.c:1454
 msgid "UPS critically low"
-msgstr ""
+msgstr "UPS har kritisk lav batterikapasitet"
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1266
@@ -2076,7 +2065,7 @@ msgstr ""
 msgid ""
 "Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
 "your computer to avoid losing data."
-msgstr ""
+msgstr "Omtrent <b>%s</b> gjenværende UPS-strøm (%.0f%%). Gjenopprett strømtilkobling til din datamaskin for å unngå å tape data."
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1275
@@ -2084,7 +2073,7 @@ msgstr ""
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
-msgstr ""
+msgstr "Trådløs mus har meget lite strøm (%.0f%%). Enheten vil snart slutte å virke hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1283
@@ -2092,7 +2081,7 @@ msgstr ""
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
-msgstr ""
+msgstr "Trådløst tastatur har meget lite strøm (%.0f%%). Enheten vil snart slutte å virke hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1292
@@ -2100,7 +2089,7 @@ msgstr ""
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
 "not charged."
-msgstr ""
+msgstr "PDA har meget lite strøm (%.0f%%). Enheten vil snart slutte å virke hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1302
@@ -2108,7 +2097,7 @@ msgstr ""
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
-msgstr ""
+msgstr "Mobiltelefonen har meget lite strøm (%.0f%%). Enheten vil snart slutte å virke hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1313
@@ -2116,7 +2105,7 @@ msgstr ""
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
-msgstr ""
+msgstr "Mediespiller har meget lite strøm (%.0f%%). Enheten vil snart slutte å virke hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1322
@@ -2124,7 +2113,7 @@ msgstr ""
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
 "if not charged."
-msgstr ""
+msgstr "Nettbrett har meget lite strøm (%.0f%%). Enheten vil snart slutte å virke hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1331
@@ -2132,21 +2121,21 @@ msgstr ""
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
-msgstr ""
+msgstr "Tilkoblet datamaskin har meget lite strøm (%.0f%%). Enheten vil snart slutte å virke hvis den ikke lades."
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:1371
 #: ../plugins/power/gsd-power-manager.c:1381
 #: ../plugins/power/gsd-power-manager.c:1517
 msgid "Battery is critically low"
-msgstr ""
+msgstr "Batteri har kritisk lav kapasitet"
 
 #. TRANSLATORS: computer will shutdown without saving data
 #: ../plugins/power/gsd-power-manager.c:1426
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
-msgstr ""
+msgstr "Batteriet er under kritisk nivå og denne datamaskinen vil <b>slås av</b> når batteriet blir helt tomt."
 
 #. TRANSLATORS: computer will suspend
 #: ../plugins/power/gsd-power-manager.c:1432
@@ -2154,49 +2143,49 @@ msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.<br><b>NOTE:</b> A small amount of power is required to keep your "
 "computer in a suspended state."
-msgstr ""
+msgstr "Batteriet er under kritisk nivå og denne datamaskinen er i ferd med å gå i hvilemodus.<br><b>MERK:</b> Det kreves noe strøm for å holde datamaskinen i hvilemodus."
 
 #. TRANSLATORS: computer will hibernate
 #: ../plugins/power/gsd-power-manager.c:1439
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
-msgstr ""
+msgstr "Batteriet er under kritisk nivå og denne datamaskinen er i ferd med å gå i dvalemodus."
 
 #. TRANSLATORS: computer will just shutdown
 #: ../plugins/power/gsd-power-manager.c:1444
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
-msgstr ""
+msgstr "Batteriet er under kritisk nivå og denne datamaskinen er i ferd med å slås av."
 
 #. TRANSLATORS: computer will shutdown without saving data
 #: ../plugins/power/gsd-power-manager.c:1462
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
-msgstr ""
+msgstr "UPS er under kritisk nivå og denne datamaskinen vil <b>slås av</b> når UPSen er helt tom."
 
 #. TRANSLATORS: computer will hibernate
 #: ../plugins/power/gsd-power-manager.c:1468
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
-msgstr ""
+msgstr "UPS er under kritisk nivå og denne datamaskinen er i ferd med å gå i dvalemodus."
 
 #. TRANSLATORS: computer will just shutdown
 #: ../plugins/power/gsd-power-manager.c:1473
 msgid "UPS is below the critical level and this computer is about to shutdown."
-msgstr ""
+msgstr "UPS er under kritisk nivå og denne datamaskinen er i ferd med å slås av."
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:1856
 msgid "Lid has been opened"
-msgstr ""
+msgstr "Lokket ble åpnet"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:1869
 msgid "Lid has been closed"
-msgstr ""
+msgstr "Lokket ble lukket"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
@@ -2788,7 +2777,7 @@ msgstr "Endre systemets innstillinger for tid og dato"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
 msgid "To change time or date settings, you need to authenticate."
-msgstr ""
+msgstr "Du må autentisere deg for å endre innstillinger for dato og klokkeslett."
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
 #: ../plugins/updates/gsd-updates-manager.c:194
