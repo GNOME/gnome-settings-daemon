@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-25 10:43+0000\n"
-"PO-Revision-Date: 2011-05-26 21:59+0200\n"
+"POT-Creation-Date: 2011-07-13 18:55+0000\n"
+"PO-Revision-Date: 2011-07-17 23:08+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -143,14 +143,17 @@ msgstr ""
 msgid "Smartcard removal action"
 msgstr "Činnost při odstranění čipové karty"
 
-#. g-p-m is not a GSD plugin, yet
-#. color is not a GSD plugin, yet
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+msgid "Whether the tablet's orientation is locked, or rotated automatically."
+msgstr "Zda je orientace tabletu zamčena nebo se má otáčet automaticky."
+
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
@@ -162,9 +165,10 @@ msgstr "Aktivace tohoto zásuvného modulu"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
@@ -175,9 +179,10 @@ msgstr "Priorita použití tohoto zásuvného modulu"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
@@ -189,9 +194,10 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
@@ -270,26 +276,122 @@ msgstr ""
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
 msgstr "Zda má nebo nemá gnome-settings-damon aktivovat tento zásuvný modul."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid ""
+"If time based notifications should be used. If set to false, then the "
+"percentage change is used instead, which may fix a broken ACPI BIOS."
+msgstr ""
+"Zda by se mělo použít upozorňování vycházející z časových údajů. Pokud je "
+"vypnuto, bude se místo toho vycházet z procentních údajů, což může vyřešit "
+"problémy s chybným ACPI BIOS."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "If we should show the recalled battery warning for a broken battery"
+msgstr "Zda by měla být zobrazována varování o stahování vadných baterií"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid ""
+"If we should show the recalled battery warning for a broken battery. Set "
+"this to false only if you know your battery is okay."
+msgstr ""
+"Zda by se mělo zobrazovat varování o stahování vadných baterií z trhu. "
+"Vypněte jen v případě, že jste si jistí, že je vaše baterie v pořádku."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Percentage action is taken"
+msgstr "Zbývající procenta pro provedení akce"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid "Percentage considered critical"
+msgstr "Zbývající procenta pro kritickou úroveň"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Percentage considered low"
+msgstr "Zbývající procenta pro nízkou úroveň"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The percentage of the battery when it is considered critical. Only valid "
+"when use-time-for-policy is false."
+msgstr ""
+"Úroveň nabití baterie v procentech, která je považována za kritickou. "
+"Platná je jen v případě, kdy je klíč use-time-for-policy nastaven na vypnuto."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid ""
+"The percentage of the battery when it is considered low. Only valid when use-"
+"time-for-policy is false."
+msgstr ""
+"Úroveň nabití baterie v procentech, která je považována za nízkou. Platná "
+"je jen v případě, kdy je klíč use-time-for-policy nastaven na vypnuto."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+msgid ""
+"The percentage of the battery when the critical action is performed. Only "
+"valid when use-time-for-policy is false."
+msgstr ""
+"Úroveň nabití baterie v procentech, při které je provedena krizová akce. "
+"Platná je jen v případě, kdy je klíč use-time-for-policy nastaven na vypnuto."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+msgid ""
+"The time remaining in seconds of the battery when critical action is taken. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+"Zbývající čas baterie v sekundách, při kterém je provedena krizová akce. "
+"Platný je jen v případě, kdy je klíč use-time-for-policy nastaven na zapnuto."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid ""
+"The time remaining in seconds of the battery when it is considered critical. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+"Zbývající čas baterie v sekundách, který je považován za kritickou úroveň. "
+"Platný je jen v případě, kdy je klíč use-time-for-policy nastaven na zapnuto."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+msgid ""
+"The time remaining in seconds of the battery when it is considered low. Only "
+"valid when use-time-for-policy is true."
+msgstr ""
+"Zbývající čas baterie v sekundách, který je považován za nízkou úroveň. "
+"Platný je jen v případě, kdy je klíč use-time-for-policy nastaven na zapnuto."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+msgid "The time remaining when action is taken"
+msgstr "Zbývající čas pro provedení akce"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+msgid "The time remaining when critical"
+msgstr "Zbývající čas pro kritickou úroveň"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+msgid "The time remaining when low"
+msgstr "Zbývající čas pro nízkou úroveň"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
+msgid "Whether to use time-based notifications"
+msgstr "Zda používat oznamování vycházející z časových údajů"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
 msgid "If notifications are allowed to be shown"
 msgstr "Zda je povoleno zobrazování upozornění"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
 msgid ""
 "If notifications should be shown at session start if a profile is invalid."
 msgstr ""
 "Zda má být po spuštění sezení zobrazováno upozornění na neplatnost profilu."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
-#| msgid "The selected configuration for displays could not be applied"
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 msgid "The duration a display profile is valid"
 msgstr "Doba platnosti barevného profilu obrazovky"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
 msgid "The duration a printer profile is valid"
 msgstr "Doba platnosti barevného profilu tiskárny"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid ""
 "This is the number of days after which the display color profile is "
 "considered invalid."
@@ -297,7 +399,7 @@ msgstr ""
 "Jedná se o počet dní, po kterém je barevný profil obrazovky považován za "
 "neplatný."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
 msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
@@ -326,111 +428,107 @@ msgid "Binding to eject an optical disc."
 msgstr "Zkratka pro vysunutí optického disku."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
-msgid "Binding to enable or disable the touchpad."
-msgstr "Zkratka pro zapnutí nebo vypnutí zařízení touchpad."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to increase the text size"
 msgstr "Zkratka pro zvětšení velikosti textu"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the calculator."
 msgstr "Zkratka pro spuštění kalkulačky."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the email client."
 msgstr "Zkratka pro spuštění poštovního klienta."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the help browser."
 msgstr "Zkratka pro spuštění prohlížeče nápovědy."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the media player."
 msgstr "Zkratka pro spuštění multimediálního přehrávače."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the search tool."
 msgstr "Zkratka pro spuštění vyhledávacího nástroje."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the web browser."
 msgstr "Zkratka pro spuštění webového prohlížeče."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to lock the screen."
 msgstr "Zkratka pro uzamčení obrazovky."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to log out."
 msgstr "Zkratka pro odhlášení se."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to lower the system volume."
 msgstr "Zkratka pro snížení systémové hlasitosti."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to mute the system volume."
 msgstr "Zkratka pro úplné ztlumení systémové hlasitosti."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to open the Home folder."
 msgstr "Zkratka pro otevření domovské složky."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to pause playback."
 msgstr "Zkratka pro pozastavení přehrávání."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to raise the system volume."
 msgstr "Zkratka pro zvýšení systémové hlasitosti."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to show the on-screen keyboard"
 msgstr "Zkratka pro zobrazení klávesnice na obrazovce"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to show the screen magnifier"
 msgstr "Zkratka pro zobrazení lupy obrazovky."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Binding to skip to next track."
 msgstr "Zkratka pro přeskočení na následující stopu."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to previous track."
 msgstr "Zkratka pro přeskočení na předchozí stopu."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr ""
 "Zkratka pro spuštění přehrávání (nebo přepnutí přehrávání/pozastavení)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start the screen reader"
 msgstr "Zkratka pro spuštění čtení obrazovky."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Binding to stop playback."
 msgstr "Zkratka pro zastavení přehrávání."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to toggle the interface contrast"
 msgstr "Zkratka pro přepnutí kontrastu rozhraní"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Decrease text size"
 msgstr "Zmenšit velikost textu"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Eject"
 msgstr "Vysunout"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Home folder"
 msgstr "Domovská složka"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid ""
 "If non-empty, keybindings will be ignored unless their settings directory is "
 "in the list. This is useful for lockdown."
@@ -438,99 +536,95 @@ msgstr ""
 "Pokud není prázdné, klávesové zkratky budou ignorovány, není-li tedy jejich "
 "složka s nastavením v seznamu. Užitečné pro omezení práv."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Increase text size"
 msgstr "Zvětšit velikost textu"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Launch calculator"
 msgstr "Spustit kalkulačku"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch email client"
 msgstr "Spustit poštovního klienta"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch help browser"
 msgstr "Spustit prohlížeč nápovědy"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch media player"
 msgstr "Spustit multimediální přehrávač"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch web browser"
 msgstr "Spustit webový prohlížeč"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Lock screen"
 msgstr "Zamknout obrazovku"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Log out"
 msgstr "Odhlásit se"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Magnifier zoom in"
 msgstr "Zvětšit lupou"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Magnifier zoom out"
 msgstr "Zmenšit lupou"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Next track"
 msgstr "Následující stopa"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Pause playback"
 msgstr "Pozastavit přehrávání"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Play (or play/pause)"
 msgstr "Přehrát (nebo přehrát/pozastavit)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Previous track"
 msgstr "Předchozí stopa"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Search"
 msgstr "Hledat"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Stop playback"
 msgstr "Zastavit přehrávání"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Toggle contrast"
 msgstr "Přepnout kontrast"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Toggle magnifier"
 msgstr "Přepnout lupu"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle on-screen keyboard"
 msgstr "Přepnout klávesnici na obrazovce"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Toggle screen reader"
 msgstr "Přepnout čtení obrazovky"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
-msgid "Toggle touchpad"
-msgstr "Přepnout zařízení touchpad"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Volume down"
 msgstr "Snížit hlasitost"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Volume mute"
 msgstr "Ztlumit zvuk"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume up"
 msgstr "Zvýšit hlasitost"
 
@@ -562,12 +656,14 @@ msgstr ""
 "připojení, za předpokladu, že je zapnuto „connection-use-mobile“."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid "Automatically update these types of updates"
-msgstr "Automaticky aktualizovat tyto typy aktualizací"
+#| msgid "Automatically update these types of updates"
+msgid "Automatically install these types of updates"
+msgstr "Automaticky instalovat tyto typy aktualizací"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically update these types of updates."
-msgstr "Automaticky aktualizovat tyto typy aktualizací."
+#| msgid "Automatically update these types of updates."
+msgid "Automatically install these types of updates."
+msgstr "Automaticky instalovat tyto typy aktualizací."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
@@ -896,8 +992,6 @@ msgstr ""
 "„full“ značí maximální hinting (může způsobit zkreslení jednotlivých písmen)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-#| msgid ""
-#| "Enable this to only move the cursor when the user touches the tablet."
 msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr ""
 "Zapnutím povolíte přesun ukazovátka (cursor), když se uživatel dotýká "
@@ -1095,7 +1189,7 @@ msgstr ""
 "klávesy, která má vliv na způsob fungování vaší klávesnice."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
-#: ../plugins/mouse/gsd-mouse-manager.c:829
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Universal Access"
 msgstr "Univerzální přístup"
 
@@ -1225,13 +1319,13 @@ msgstr "Nastavení zpřístupnění"
 msgid "Accessibility settings plugin"
 msgstr "Zásuvný modul nastavení zpřístupnění"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
-msgid "Automount"
-msgstr "Automatické připojování"
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
+msgid "Automount and autorun plugged devices"
+msgstr "Automatické připojování a spouštění zapojených zařízení"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
-msgid "Automounter plugin"
-msgstr "Zásuvný modul automatického připojování"
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
+msgid "Mount Helper"
+msgstr "Pomocník s připojováním"
 
 #: ../plugins/automount/gsd-automount-manager.c:154
 #, c-format
@@ -1375,52 +1469,53 @@ msgid "Color"
 msgstr "Barva"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:2
-#| msgid "Clipboard plugin"
 msgid "Color plugin"
 msgstr "Zásuvný modul barev"
 
-#: ../plugins/color/gsd-color-manager.c:149
+#: ../plugins/color/gsd-color-manager.c:630
+msgid "Default"
+msgstr "Výchozí"
+
+#: ../plugins/color/gsd-color-manager.c:1522
 msgid "Recalibrate now"
 msgstr "Překalibrovat nyní"
 
-#: ../plugins/color/gsd-color-manager.c:156
+#: ../plugins/color/gsd-color-manager.c:1529
 #: ../plugins/housekeeping/gsd-disk-space.c:385
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "Ignorovat"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:198
-#| msgid "A restart is required."
+#: ../plugins/color/gsd-color-manager.c:1571
 msgid "Recalibration required"
 msgstr "Vyžadováno překlalibrování"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:210
+#: ../plugins/color/gsd-color-manager.c:1583
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Obrazovka „%s“ by měla být v dohledné době překalibrována."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:219
+#: ../plugins/color/gsd-color-manager.c:1592
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Tiskárna „%s“ by měla být v dohledné době překalibrována."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:290
-#: ../plugins/color/gsd-color-manager.c:313
-#| msgid "GNOME Settings Daemon"
+#: ../plugins/color/gsd-color-manager.c:1932
+#: ../plugins/color/gsd-color-manager.c:1950
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Zásuvný modul barev pro démona nastavení GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:292
+#: ../plugins/color/gsd-color-manager.c:1934
 msgid "Color calibration device added"
 msgstr "Zařízení pro kalibraci barev přidáno"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:315
+#: ../plugins/color/gsd-color-manager.c:1952
 msgid "Color calibration device removed"
 msgstr "Zařízení pro kalibraci barev odebráno"
 
@@ -1431,6 +1526,916 @@ msgstr "Prázdný"
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Prázdný zásuvný modul"
+
+#. TRANSLATORS: this is the notification application name
+#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gsd-power-manager.c:1153
+#: ../plugins/power/gsd-power-manager.c:1329
+#: ../plugins/power/gsd-power-manager.c:1507
+#: ../plugins/power/gsd-power-manager.c:1656
+msgid "Power"
+msgstr "Napájení"
+
+#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#| msgid "Color plugin"
+msgid "Power plugin"
+msgstr "Zásuvný modul napájení"
+
+#: ../plugins/power/gpm-common.c:47
+msgid "Unknown time"
+msgstr "Neznámý čas"
+
+#: ../plugins/power/gpm-common.c:52
+#, c-format
+msgid "%i minute"
+msgid_plural "%i minutes"
+msgstr[0] "%i minuta"
+msgstr[1] "%i minuty"
+msgstr[2] "%i minut"
+
+#: ../plugins/power/gpm-common.c:62
+#, c-format
+msgid "%i hour"
+msgid_plural "%i hours"
+msgstr[0] "%i hodina"
+msgstr[1] "%i hodiny"
+msgstr[2] "%i hodin"
+
+#. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
+#. * Swap order with "%2$s %2$i %1$s %1$i if needed
+#: ../plugins/power/gpm-common.c:68
+#, c-format
+msgid "%i %s %i %s"
+msgstr "%i %s %i %s"
+
+#: ../plugins/power/gpm-common.c:69
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "hodina"
+msgstr[1] "hodiny"
+msgstr[2] "hodin"
+
+#: ../plugins/power/gpm-common.c:70
+#| msgid "Examine"
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minuta"
+msgstr[1] "minuty"
+msgstr[2] "minut"
+
+#. TRANSLATORS: The laptop battery is charged, and we know a time.
+#. * The parameter is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:317
+#, c-format
+msgid "provides %s laptop runtime"
+msgstr "umožňuje notebooku %s provozu"
+
+#. TRANSLATORS: the device is discharging, and we have a time remaining
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:328
+#, c-format
+msgid "%s %s remaining"
+msgstr "zbývá %2$s než se %1$s vybije"
+
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage.
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:349 ../plugins/power/gpm-common.c:366
+#, c-format
+msgid "%s %s until charged"
+msgstr "zbývá %2$s než se %1$s plně nabije"
+
+#. TRANSLATORS: the device is charging, and we have a time to full and empty.
+#. * The parameter is a time string, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:356
+#, c-format
+msgid "provides %s battery runtime"
+msgstr "poskytuje %s běhu na baterii"
+
+#. TRANSLATORS: the type of data, e.g. Laptop battery
+#: ../plugins/power/gpm-common.c:447
+msgid "Product:"
+msgstr "Produkt:"
+
+#. TRANSLATORS: device is missing
+#. TRANSLATORS: device is charged
+#. TRANSLATORS: device is charging
+#. TRANSLATORS: device is discharging
+#: ../plugins/power/gpm-common.c:451 ../plugins/power/gpm-common.c:454
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:460
+msgid "Status:"
+msgstr "Stav:"
+
+#: ../plugins/power/gpm-common.c:451
+msgid "Missing"
+msgstr "Chybí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:454 ../plugins/power/gpm-common.c:723
+msgid "Charged"
+msgstr "Plně nabito"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:711
+msgid "Charging"
+msgstr "Nabíjí se"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:460 ../plugins/power/gpm-common.c:715
+msgid "Discharging"
+msgstr "Vybíjí se"
+
+#. TRANSLATORS: percentage
+#: ../plugins/power/gpm-common.c:465
+msgid "Percentage charge:"
+msgstr "Úroveň nabití:"
+
+#. TRANSLATORS: manufacturer
+#: ../plugins/power/gpm-common.c:469
+msgid "Vendor:"
+msgstr "Výrobce:"
+
+#. TRANSLATORS: how the battery is made, e.g. Lithium Ion
+#: ../plugins/power/gpm-common.c:474
+msgid "Technology:"
+msgstr "Technologie:"
+
+#. TRANSLATORS: serial number of the battery
+#: ../plugins/power/gpm-common.c:478
+msgid "Serial number:"
+msgstr "Sériové číslo:"
+
+#. TRANSLATORS: model number of the battery
+#: ../plugins/power/gpm-common.c:482
+#| msgid "Module"
+msgid "Model:"
+msgstr "Model:"
+
+#. TRANSLATORS: time to fully charged
+#: ../plugins/power/gpm-common.c:487
+msgid "Charge time:"
+msgstr "Doba nabíjení:"
+
+#. TRANSLATORS: time to empty
+#: ../plugins/power/gpm-common.c:493
+msgid "Discharge time:"
+msgstr "Doba vybíjení:"
+
+#. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
+#: ../plugins/power/gpm-common.c:500
+msgid "Excellent"
+msgstr "Výborná"
+
+#: ../plugins/power/gpm-common.c:502
+msgid "Good"
+msgstr "Dobrá"
+
+#: ../plugins/power/gpm-common.c:504
+msgid "Fair"
+msgstr "Ucházející"
+
+#: ../plugins/power/gpm-common.c:506
+#| msgid "Color"
+msgid "Poor"
+msgstr "Ubohá"
+
+#: ../plugins/power/gpm-common.c:510
+msgid "Capacity:"
+msgstr "Kapacita:"
+
+#: ../plugins/power/gpm-common.c:516 ../plugins/power/gpm-common.c:541
+msgid "Current charge:"
+msgstr "Aktuální nabití:"
+
+#: ../plugins/power/gpm-common.c:522
+msgid "Last full charge:"
+msgstr "Poslední plné nabití:"
+
+#: ../plugins/power/gpm-common.c:528 ../plugins/power/gpm-common.c:546
+msgid "Design charge:"
+msgstr "Původní kapacita:"
+
+#: ../plugins/power/gpm-common.c:533
+msgid "Charge rate:"
+msgstr "Stupeň nabití:"
+
+#. TRANSLATORS: system power cord
+#: ../plugins/power/gpm-common.c:565 ../plugins/power/gpm-common.c:757
+msgid "AC adapter"
+msgid_plural "AC adapters"
+msgstr[0] "Napájecí zdroj"
+msgstr[1] "Napájecí zdroje"
+msgstr[2] "Napájecí zdroje"
+
+#. TRANSLATORS: laptop primary battery
+#: ../plugins/power/gpm-common.c:569 ../plugins/power/gpm-common.c:793
+msgid "Laptop battery"
+msgid_plural "Laptop batteries"
+msgstr[0] "Baterie notebooku"
+msgstr[1] "Baterie notebooku"
+msgstr[2] "Baterie notebooku"
+
+#. TRANSLATORS: battery-backed AC power source
+#: ../plugins/power/gpm-common.c:573 ../plugins/power/gpm-common.c:817
+msgid "UPS"
+msgid_plural "UPSs"
+msgstr[0] "Záložní zdroj"
+msgstr[1] "Záložní zdroje"
+msgstr[2] "Záložní zdroje"
+
+#. TRANSLATORS: a monitor is a device to measure voltage and current
+#: ../plugins/power/gpm-common.c:577 ../plugins/power/gpm-common.c:824
+msgid "Monitor"
+msgid_plural "Monitors"
+msgstr[0] "Monitorovací zařízení"
+msgstr[1] "Monitorovací zařízení"
+msgstr[2] "Monitorovací zařízení"
+
+#. TRANSLATORS: wireless mice with internal batteries
+#: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
+#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#| msgid "Mouse"
+msgid "Mouse"
+msgid_plural "Mice"
+msgstr[0] "Myš"
+msgstr[1] "Myši"
+msgstr[2] "Myši"
+
+#. TRANSLATORS: wireless keyboard with internal battery
+#: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
+#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#| msgid "Keyboard"
+msgid "Keyboard"
+msgid_plural "Keyboards"
+msgstr[0] "Klávesnice"
+msgstr[1] "Klávesnice"
+msgstr[2] "Klávesnice"
+
+#. TRANSLATORS: portable device
+#: ../plugins/power/gpm-common.c:589 ../plugins/power/gpm-common.c:896
+msgid "PDA"
+msgid_plural "PDAs"
+msgstr[0] "PDA"
+msgstr[1] "PDA"
+msgstr[2] "PDA"
+
+#. TRANSLATORS: cell phone (mobile...)
+#: ../plugins/power/gpm-common.c:593 ../plugins/power/gpm-common.c:920
+msgid "Cell phone"
+msgid_plural "Cell phones"
+msgstr[0] "Mobilní telefon"
+msgstr[1] "Mobilní telefony"
+msgstr[2] "Mobilní telefony"
+
+#. TRANSLATORS: media player, mp3 etc
+#: ../plugins/power/gpm-common.c:598 ../plugins/power/gpm-common.c:945
+#| msgid "Launch media player"
+msgid "Media player"
+msgid_plural "Media players"
+msgstr[0] "Přenosný přehrávač"
+msgstr[1] "Přenosné přehrávače"
+msgstr[2] "Přenosné přehrávače"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:602 ../plugins/power/gpm-common.c:969
+msgid "Tablet"
+msgid_plural "Tablets"
+msgstr[0] "Tablet"
+msgstr[1] "Tablety"
+msgstr[2] "Tablety"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:606 ../plugins/power/gpm-common.c:993
+msgid "Computer"
+msgid_plural "Computers"
+msgstr[0] "Počítač"
+msgstr[1] "Počítače"
+msgstr[2] "Počítače"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:670
+msgid "Lithium Ion"
+msgstr "Lithium-iontová"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:674
+msgid "Lithium Polymer"
+msgstr "Lithium-polymerová"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:678
+msgid "Lithium Iron Phosphate"
+msgstr "Lithium-železo fosfátová"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:682
+msgid "Lead acid"
+msgstr "Olověná"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:686
+msgid "Nickel Cadmium"
+msgstr "Nikl-kadmiová"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:690
+msgid "Nickel metal hydride"
+msgstr "Nikl-metal hidridová"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:694
+msgid "Unknown technology"
+msgstr "Neznámá technologie"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:719
+#| msgid "Empty Trash"
+msgid "Empty"
+msgstr "Vybitá"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:727
+msgid "Waiting to charge"
+msgstr "Čeká na nabití"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:731
+msgid "Waiting to discharge"
+msgstr "Čeká na vybití"
+
+#. TRANSLATORS: device not present
+#: ../plugins/power/gpm-common.c:765
+msgid "Laptop battery not present"
+msgstr "Baterie notebooku není přítomna"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:769
+msgid "Laptop battery is charging"
+msgstr "Baterie notebooku se nabíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:773
+msgid "Laptop battery is discharging"
+msgstr "Baterie notebooku se vybíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:777
+msgid "Laptop battery is empty"
+msgstr "Baterie notebooku je vybitá"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:781
+msgid "Laptop battery is charged"
+msgstr "Baterie notebooku je nabitá"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:785
+msgid "Laptop battery is waiting to charge"
+msgstr "Baterie notebooku čeká na nabití"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:789
+msgid "Laptop battery is waiting to discharge"
+msgstr "Baterie notebooku čeká na vybití"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:801
+msgid "UPS is charging"
+msgstr "Záložní zdroj se nabíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:805
+msgid "UPS is discharging"
+msgstr "Záložní zdroj se vybíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:809
+msgid "UPS is empty"
+msgstr "Záložní zdroj je vybitý"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:813
+msgid "UPS is charged"
+msgstr "Záložní zdroj je nabitý"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:832
+#| msgid "Mouse plugin"
+msgid "Mouse is charging"
+msgstr "Myš se nabíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:836
+msgid "Mouse is discharging"
+msgstr "Myš se vybíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:840
+#| msgid "Toner empty"
+msgid "Mouse is empty"
+msgstr "Myš je vybitá"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:844
+msgid "Mouse is charged"
+msgstr "Myš je nabitá"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:856
+#| msgid "Keyboard plugin"
+msgid "Keyboard is charging"
+msgstr "Klávesnice se nabíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:860
+#| msgid "Keyboard plugin"
+msgid "Keyboard is discharging"
+msgstr "Klávesnice se vybíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:864
+#| msgid "Keyboard"
+msgid "Keyboard is empty"
+msgstr "Klávesnice je vybitá"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:868
+msgid "Keyboard is charged"
+msgstr "Klávesnice je nabitá"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:880
+msgid "PDA is charging"
+msgstr "PDA se nabíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:884
+msgid "PDA is discharging"
+msgstr "PDA se vybíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:888
+msgid "PDA is empty"
+msgstr "PDA je vybité"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:892
+msgid "PDA is charged"
+msgstr "PDA je nabité"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:904
+msgid "Cell phone is charging"
+msgstr "Mobilní telefon se nabíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:908
+msgid "Cell phone is discharging"
+msgstr "Mobilní telefon se vybíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:912
+#| msgid "Toner empty"
+msgid "Cell phone is empty"
+msgstr "Mobilní telefon je vybitý"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:916
+msgid "Cell phone is charged"
+msgstr "Mobilní telefon je nabitý"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:929
+msgid "Media player is charging"
+msgstr "Přenosný přehrávač se nabíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:933
+msgid "Media player is discharging"
+msgstr "Přenosný přehrávač se vybíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:937
+msgid "Media player is empty"
+msgstr "Přenosný přehrávač je vybitý"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:941
+msgid "Media player is charged"
+msgstr "Přenosný přehrávač je nabitý"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:953
+msgid "Tablet is charging"
+msgstr "Tablet se nabíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:957
+msgid "Tablet is discharging"
+msgstr "Tablet se vybíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:961
+#| msgid "Toner empty"
+msgid "Tablet is empty"
+msgstr "Tablet je vybitý"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:965
+msgid "Tablet is charged"
+msgstr "Tablet je nabitý"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:977
+msgid "Computer is charging"
+msgstr "Počítač se nabíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:981
+msgid "Computer is discharging"
+msgstr "Počítač se vybíjí"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:985
+#| msgid "Toner empty"
+msgid "Computer is empty"
+msgstr "Počítač je vybitý"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:989
+msgid "Computer is charged"
+msgstr "Počítač je nabitý"
+
+#. TRANSLATORS: the battery may be recalled by it's vendor
+#: ../plugins/power/gsd-power-manager.c:897
+msgid "Battery may be recalled"
+msgstr "Baterie může být stahována z trhu"
+
+#: ../plugins/power/gsd-power-manager.c:898
+#, c-format
+msgid ""
+"A battery in your computer may have been recalled by %s and you may be at "
+"risk."
+msgstr ""
+"Baterie ve vašem počítači může být firmou %s stahována a vy můžete být "
+"vystaveni nebezpečí."
+
+#: ../plugins/power/gsd-power-manager.c:901
+msgid "For more information visit the battery recall website."
+msgstr ""
+"Více informací získáte na webových stránkách o stahování baterií z trhu."
+
+#. TRANSLATORS: button text, visit the manufacturers recall website
+#: ../plugins/power/gsd-power-manager.c:912
+msgid "Visit recall website"
+msgstr "Navštívit web stahování baterií z trhu"
+
+#. TRANSLATORS: button text, do not show this bubble again
+#: ../plugins/power/gsd-power-manager.c:916
+#| msgid "Don't show any warnings again"
+msgid "Do not show me this again"
+msgstr "Příště již nezobrazovat"
+
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:1127
+msgid "UPS Discharging"
+msgstr "Záložní zdroj se vybíjí"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1132
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr "Zbývá %s napájení ze záložního zdroje"
+
+#. TRANSLATORS: laptop battery low, and we only have one battery
+#: ../plugins/power/gsd-power-manager.c:1244
+#| msgid "Paper low"
+msgid "Battery low"
+msgstr "Baterie je téměř vybitá"
+
+#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1247
+msgid "Laptop battery low"
+msgstr "Baterie notebooku je téměř vybitá"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1253
+#, c-format
+msgid "Approximately <b>%s</b> remaining (%.0f%%)"
+msgstr "Přibližné zbývá <b>%s</b> (%.0f %%)"
+
+#. TRANSLATORS: UPS is starting to get a little low
+#: ../plugins/power/gsd-power-manager.c:1257
+#| msgid "Paper low"
+msgid "UPS low"
+msgstr "Záložní zdroj je téměř vybitý"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1261
+#, c-format
+msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
+msgstr "Přibližně zbývá <b>%s</b> napájení ze záložního zdroje (%.0f %%)"
+
+#. TRANSLATORS: mouse is getting a little low
+#. TRANSLATORS: the mouse battery is very low
+#: ../plugins/power/gsd-power-manager.c:1265
+#: ../plugins/power/gsd-power-manager.c:1428
+msgid "Mouse battery low"
+msgstr "Baterie myši je téměř vybitá"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1268
+#, c-format
+msgid "Wireless mouse is low in power (%.0f%%)"
+msgstr "Bezdrátová myš je téměř vybitá (%.0f %%)"
+
+#. TRANSLATORS: keyboard is getting a little low
+#. TRANSLATORS: the keyboard battery is very low
+#: ../plugins/power/gsd-power-manager.c:1272
+#: ../plugins/power/gsd-power-manager.c:1436
+msgid "Keyboard battery low"
+msgstr "Baterie klávesnice je téměř vybitá"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1275
+#, c-format
+msgid "Wireless keyboard is low in power (%.0f%%)"
+msgstr "Bezdrátová klávesnice je téměř vybitá (%.0f %%)"
+
+#. TRANSLATORS: PDA is getting a little low
+#. TRANSLATORS: the PDA battery is very low
+#: ../plugins/power/gsd-power-manager.c:1279
+#: ../plugins/power/gsd-power-manager.c:1445
+#| msgid "Paper low"
+msgid "PDA battery low"
+msgstr "Baterie PDA je téměř vybitá"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1282
+#, c-format
+msgid "PDA is low in power (%.0f%%)"
+msgstr "PDA je téměř vybité (%.0f %%)"
+
+#. TRANSLATORS: cell phone (mobile) is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1286
+#: ../plugins/power/gsd-power-manager.c:1455
+#: ../plugins/power/gsd-power-manager.c:1466
+msgid "Cell phone battery low"
+msgstr "Baterie mobilního telefonu je téměř vybitá"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1289
+#, c-format
+msgid "Cell phone is low in power (%.0f%%)"
+msgstr "Mobilní telefon je téměř vybitý (%.0f %%)"
+
+#. TRANSLATORS: media player, e.g. mp3 is getting a little low
+#: ../plugins/power/gsd-power-manager.c:1294
+msgid "Media player battery low"
+msgstr "Baterie přenosného přehrávače je téměř vybitá"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1297
+#, c-format
+msgid "Media player is low in power (%.0f%%)"
+msgstr "Přenosný přehrávač je téměř vybitý (%.0f %%)"
+
+#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1301
+#: ../plugins/power/gsd-power-manager.c:1475
+msgid "Tablet battery low"
+msgstr "Baterie tabletu je téměř vybitá"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1304
+#, c-format
+msgid "Tablet is low in power (%.0f%%)"
+msgstr "Tablet je téměř vybitý (%.0f %%)"
+
+#. TRANSLATORS: computer, e.g. ipad is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1308
+#: ../plugins/power/gsd-power-manager.c:1484
+msgid "Attached computer battery low"
+msgstr "Baterie připojeného počítače je téměř vybitá"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1311
+#, c-format
+msgid "Attached computer is low in power (%.0f%%)"
+msgstr "Připojený počítač je téměř vybitý (%.0f %%)"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1346
+#| msgid "Paper low"
+msgid "Battery is low"
+msgstr "Nízký stav baterie"
+
+#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1387
+msgid "Battery critically low"
+msgstr "Kriticky nízký stav baterie"
+
+#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
+#. TRANSLATORS: laptop battery is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1390
+#: ../plugins/power/gsd-power-manager.c:1574
+msgid "Laptop battery critically low"
+msgstr "Kriticky nízký stav baterie notebooku"
+
+#. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
+#: ../plugins/power/gsd-power-manager.c:1399
+msgid "Plug in your AC adapter to avoid losing data."
+msgstr "Připojte svůj napájecí adaptér, abyste předešli ztrátě dat."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1403
+#, c-format
+msgid "Computer will suspend very soon unless it is plugged in."
+msgstr "Pokud počítač velmi brzy nepřipojíte k napájení, bude uspán do paměti."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1407
+#, c-format
+msgid "Computer will hibernate very soon unless it is plugged in."
+msgstr "Pokud počítač velmi brzy nepřipojíte k napájení, bude uspán na disk."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1411
+#, c-format
+msgid "Computer will shutdown very soon unless it is plugged in."
+msgstr "Pokud počítač velmi brzy nepřipojíte k napájení, bude vypnut."
+
+#. TRANSLATORS: the UPS is very low
+#. TRANSLATORS: UPS is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1418
+#: ../plugins/power/gsd-power-manager.c:1610
+msgid "UPS critically low"
+msgstr "Kriticky nízký stav záložního zdroje"
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1422
+#, c-format
+msgid ""
+"Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
+"your computer to avoid losing data."
+msgstr ""
+"Zbývá přibližně <b>%s</b> napájení ze záložního zdroje (%.0f %%). Obnovte "
+"napájení z elektrické sítě, abyste předešli ztrátě dat."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1431
+#, c-format
+msgid ""
+"Wireless mouse is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Bezdrátová myš je téměř vybitá (%.0f %%). Jestliže ji nenabijete, přestane "
+"brzy pracovat."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1439
+#, c-format
+msgid ""
+"Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Bezdrátová klávesnice je téměř vybitá (%.0f %%). Jestliže ji nenabijete, "
+"přestane brzy pracovat."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1448
+#, c-format
+msgid ""
+"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"PDA je téměř vybité (%.0f %%). Jestliže jej nenabijete, přestane brzy "
+"pracovat."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1458
+#, c-format
+msgid ""
+"Cell phone is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Mobilní telefon je téměř vybitý (%.0f %%). Jestliže jej nenabijete, přestane "
+"brzy pracovat."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1469
+#, c-format
+msgid ""
+"Media player is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Přenosný přehrávač je téměř vybitý (%.0f %%). Jestliže jej nenabijete, "
+"přestane brzy pracovat."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1478
+#, c-format
+msgid ""
+"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"Tablet je téměř vybitý (%.0f %%). Jestliže jej nenabijete, přestane brzy "
+"pracovat."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1487
+#, c-format
+msgid ""
+"Attached computer is very low in power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"Připojený počítač je téměř vybitý (%.0f %%). Jestliže jej nenabijete, "
+"přestane brzy pracovat."
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1527
+#: ../plugins/power/gsd-power-manager.c:1537
+#: ../plugins/power/gsd-power-manager.c:1673
+msgid "Battery is critically low"
+msgstr "Úroveň nabití baterie je kritická"
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1582
+msgid ""
+"The battery is below the critical level and this computer will <b>power-off</"
+"b> when the battery becomes completely empty."
+msgstr ""
+"Úroveň nabití baterie je pod kritickou úrovní a po jejím úplném vybití bude "
+"<b>přerušeno napájení</b> počítače."
+
+#. TRANSLATORS: computer will suspend
+#: ../plugins/power/gsd-power-manager.c:1588
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"suspend.<br><b>NOTE:</b> A small amount of power is required to keep your "
+"computer in a suspended state."
+msgstr ""
+"Úroveň nabití baterie je pod kritickou úrovní a počítač bude vbrzku uspán do "
+"paměti.<br><b>UPOZORNĚNÍ:</b> I k udržení počítač uspaného v paměti je "
+"zapotřebí stálý přísun malého množství energie."
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1595
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"hibernate."
+msgstr ""
+"Úroveň nabití baterie je pod kritickou úrovní a počítač bude vbrzku uspán na "
+"disk."
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1600
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"shutdown."
+msgstr ""
+"Úroveň nabití baterie je pod kritickou úrovní a počítač bude vbrzku vypnut."
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1618
+msgid ""
+"UPS is below the critical level and this computer will <b>power-off</b> when "
+"the UPS becomes completely empty."
+msgstr ""
+"Úroveň nabití záložního zdroje je pod kritickou úrovní a po jeho úplném "
+"vybití bude <b>přerušeno napájení</b> počítače."
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1624
+msgid ""
+"UPS is below the critical level and this computer is about to hibernate."
+msgstr ""
+"Úroveň nabití záložního zdroje je pod kritickou úrovní a počítač bude vbrzku "
+"uspán na disk."
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1629
+msgid "UPS is below the critical level and this computer is about to shutdown."
+msgstr ""
+"Úroveň nabití záložního zdroje je pod kritickou úrovní a počítač bude vbrzku "
+"vypnut."
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2024
+msgid "Lid has been opened"
+msgstr "Víko bylo otevřeno"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2049
+msgid "Lid has been closed"
+msgstr "Víko bylo zavřeno"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
@@ -1474,7 +2479,6 @@ msgid "This computer has only %s disk space remaining."
 msgstr "U tohoto počítače zbývá pouze %s volného místa na disku."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:363
-#| msgid "Low Disk Space"
 msgid "Disk space"
 msgstr "Místo na disku"
 
@@ -1533,8 +2537,9 @@ msgstr "Prozkoumat…"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
-msgid "Key binding (%s) is invalid"
-msgstr "Klávesová zkratka (%s) není platná"
+#| msgid "Key binding (%s) is invalid"
+msgid "Key binding (%s) is invalid (%d)"
+msgstr "Klávesová zkratka (%s) není platná (%d)"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:197
 #, c-format
@@ -1557,10 +2562,6 @@ msgstr "Klávesové zkratky"
 #: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr "Zásuvný modul klávesových zkratek"
-
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-msgid "Keyboard"
-msgstr "Klávesnice"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
 msgid "Keyboard plugin"
@@ -1591,15 +2592,19 @@ msgstr ""
 msgid "_Layouts"
 msgstr "Roz_ložení"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
-msgid "Keyboard _Preferences"
-msgstr "Př_edvolby klávesnice"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:249
+#| msgid "Show _Current Layout"
+msgid "Show _Keyboard Layout..."
+msgstr "Zobrazit rozložení _klávesnice…"
 
+#. translators note:
+#. * This is the name of the gnome-control-center "region" panel
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:256
-msgid "Show _Current Layout"
-msgstr "Zobrazit _aktuální rozložení"
+#| msgid "Manage X Settings"
+msgid "Region and Language Settings"
+msgstr "Region a jazyková nastavení"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:218
+#: ../plugins/media-keys/gsd-media-keys-manager.c:232
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1607,7 +2612,7 @@ msgstr ""
 "Nelze nalézt výchozí terminál. Ověřte prosím, zda je zadán příkaz výchozího "
 "terminálu a zda ukazuje na platnou aplikaci."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:258
+#: ../plugins/media-keys/gsd-media-keys-manager.c:272
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1654,20 +2659,16 @@ msgstr "Multimediální klávesy"
 msgid "Media keys plugin"
 msgstr "Zásuvný modul multimediálních kláves"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:825
+#: ../plugins/mouse/gsd-mouse-manager.c:818
 msgid "Could not enable mouse accessibility features"
 msgstr "Nezdařilo se zapnutí funkcí zpřístupnění myši"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:827
+#: ../plugins/mouse/gsd-mouse-manager.c:820
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Zpřístupnění myši vyžaduje, aby byla v systému nainstalována aplikace "
 "Mousetweaks."
-
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-msgid "Mouse"
-msgstr "Myš"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
@@ -1861,7 +2862,6 @@ msgstr "Tiskne se"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
 #: ../plugins/print-notifications/gsd-printer.c:203
-#| msgid "Printer error"
 msgid "Printers"
 msgstr "Tiskárny"
 
@@ -1902,19 +2902,19 @@ msgstr "Zvolit velikost obrazovky a nastavení otočení"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:411
+#: ../plugins/xrandr/gsd-xrandr-manager.c:418
 msgid "Could not switch the monitor configuration"
 msgstr "Nelze přepnout nastavení monitoru"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:435
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 msgid "Could not restore the display's configuration"
 msgstr "Nelze obnovit nastavení displeje"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:460
+#: ../plugins/xrandr/gsd-xrandr-manager.c:467
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Ze zálohy nelze obnovit nastavení displeje"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+#: ../plugins/xrandr/gsd-xrandr-manager.c:488
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1923,32 +2923,32 @@ msgstr[0] "Nastavení displeje bude vráceno na původní nastavení za %d sekun
 msgstr[1] "Nastavení displeje bude vráceno na původní nastavení za %d sekundy"
 msgstr[2] "Nastavení displeje bude vráceno na původní nastavení za %d sekund"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:530
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "Does the display look OK?"
 msgstr "Vypadá displej v pořádku?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:537
+#: ../plugins/xrandr/gsd-xrandr-manager.c:544
 msgid "_Restore Previous Configuration"
 msgstr "_Obnovit předchozí nastavení"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:538
+#: ../plugins/xrandr/gsd-xrandr-manager.c:545
 msgid "_Keep This Configuration"
 msgstr "Z_achovat toto nastavení"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:619
+#: ../plugins/xrandr/gsd-xrandr-manager.c:626
 msgid "The selected configuration for displays could not be applied"
 msgstr "Vybrané nastavení displejů nelze použít"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1151
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1186
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Nelze občerstvit informace o obrazovce: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1155
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Přesto probíhá pokus o přepnutí nastavení monitoru."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1625
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1741
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Nelze použít uložené nastavení monitorů"
 
@@ -2031,8 +3031,8 @@ msgid "Change system time and date settings"
 msgstr "Změnit nastavení systémového času a data"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Privileges are required to configure time and date settings."
-msgstr "K nastavení času a data je zapotřebí oprávnění."
+msgid "To change time or date settings, you need to authenticate."
+msgstr "Ke změně nastavení času nebo data je zapotřebí autentizace."
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
 #: ../plugins/updates/gsd-updates-manager.c:194
@@ -2049,7 +3049,6 @@ msgstr "Je dostupné povýšení distribuce"
 #: ../plugins/updates/gsd-updates-firmware.c:269
 #: ../plugins/updates/gsd-updates-firmware.c:294
 #: ../plugins/updates/gsd-updates-firmware.c:584
-#| msgid "Updates"
 msgid "Software Updates"
 msgstr "Aktualizace softwaru"
 
@@ -2223,3 +3222,4 @@ msgstr "Instalovat firmware"
 #: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "Ignorovat zařízení"
+
