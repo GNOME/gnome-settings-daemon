@@ -26,6 +26,8 @@ gsd_datetime_mechanism_SOURCES =		\
 	gsd-datetime-mechanism-fedora.h		\
 	gsd-datetime-mechanism-debian.c		\
 	gsd-datetime-mechanism-debian.h		\
+	gsd-datetime-mechanism-suse.c		\
+	gsd-datetime-mechanism-suse.h		\
 	gsd-datetime-mechanism-main.c		\
 	system-timezone.c			\
 	system-timezone.h

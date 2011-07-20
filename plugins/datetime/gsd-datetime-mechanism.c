@@ -47,6 +47,7 @@
 /* NTP helper functions for various distributions */
 #include "gsd-datetime-mechanism-fedora.h"
 #include "gsd-datetime-mechanism-debian.h"
+#include "gsd-datetime-mechanism-suse.h"
 
 static gboolean
 do_exit (gpointer user_data)
@@ -625,9 +626,13 @@ gsd_datetime_mechanism_set_hardware_clock_using_utc (GsdDatetimeMechanism  *mech
                         return FALSE;
                 }
 
-                if (g_file_test ("/etc/fedora-release", G_FILE_TEST_EXISTS)) /* Fedora */
+                if (g_file_test ("/etc/fedora-release", G_FILE_TEST_EXISTS)) { /* Fedora */
                         if (!_update_etc_sysconfig_clock_fedora (context, "UTC=", using_utc ? "true" : "false"))
                                 return FALSE;
+		} else if (g_file_test ("/etc/SuSE-release", G_FILE_TEST_EXISTS)) { /* SUSE variant */
+                        if (!_update_etc_sysconfig_clock_suse (context, "HWCLOCK=", using_utc ? "-u" : "--localtime"))
+                                return FALSE;
+		}
         }
         dbus_g_method_return (context);
         return TRUE;
@@ -644,6 +649,8 @@ gsd_datetime_mechanism_get_using_ntp  (GsdDatetimeMechanism    *mechanism,
                 ret = _get_using_ntp_fedora (context);
         else if (g_file_test ("/usr/sbin/update-rc.d", G_FILE_TEST_EXISTS)) /* Debian */
                 ret = _get_using_ntp_debian (context);
+	else if (g_file_test ("/etc/SuSE-release", G_FILE_TEST_EXISTS)) /* SUSE variant */
+                ret = _get_using_ntp_suse (context);
         else {
                 error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
                                      GSD_DATETIME_MECHANISM_ERROR_GENERAL,
@@ -673,6 +680,8 @@ gsd_datetime_mechanism_set_using_ntp  (GsdDatetimeMechanism    *mechanism,
                 ret = _set_using_ntp_fedora (context, using_ntp);
         else if (g_file_test ("/usr/sbin/update-rc.d", G_FILE_TEST_EXISTS)) /* Debian */
                 ret = _set_using_ntp_debian (context, using_ntp);
+	else if (g_file_test ("/etc/SuSE-release", G_FILE_TEST_EXISTS)) /* SUSE variant */
+                ret = _set_using_ntp_suse (context, using_ntp);
         else {
                 error = g_error_new (GSD_DATETIME_MECHANISM_ERROR,
                                      GSD_DATETIME_MECHANISM_ERROR_GENERAL,
