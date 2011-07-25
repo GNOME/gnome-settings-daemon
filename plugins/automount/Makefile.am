@@ -28,7 +28,7 @@ gnome-fallback-mount-helper.desktop.in: gnome-fallback-mount-helper.desktop.in.i
 
 @INTLTOOL_DESKTOP_RULE@
 
-EXTRA_DIST = $(autostart_in_files)
+EXTRA_DIST = $(autostart_in_files) gnome-fallback-mount-helper.desktop.in.in
 
 CLEANFILES = $(autostart_DATA) \
 	gnome-fallback-mount-helper.desktop.in
