@@ -22,7 +22,9 @@
 #include "config.h"
 
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <unistd.h>
+#include <gtk/gtk.h>
 
 #include "gsd-automount-manager.h"
 
