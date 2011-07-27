@@ -13,14 +13,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-20 12:39+0000\n"
-"PO-Revision-Date: 2011-05-21 04:37+0330\n"
+"POT-Creation-Date: 2011-07-13 18:55+0000\n"
+"PO-Revision-Date: 2011-07-27 13:10+0330\n"
 "Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
 "Language-Team: Persian <translate@ifsug.org>\n"
-"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Translate Toolkit 1.8.0\n"
 "X-Poedit-Country: IRAN, ISLAMIC REPUBLIC OF\n"
@@ -37,8 +37,9 @@ msgid "Command to be run when a device is added or removed."
 msgstr "فرمانی که باید اجرا شود هنگامی که یک دستگاه اضافه یا حذف شده."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#, fuzzy
 msgid "Device hotplug custom command"
-msgstr ""
+msgstr "است_فاده از فرمان سفارشی برای اتصال به کارگزار"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
@@ -116,14 +117,17 @@ msgstr ""
 msgid "Smartcard removal action"
 msgstr "عمل حذف کارت هوشمند"
 
-#. g-p-m is not a GSD plugin, yet
-#. color is not a GSD plugin, yet
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+msgid "Whether the tablet's orientation is locked, or rotated automatically."
+msgstr "اینکه آیا جهت تبلت قفل شده باشد، یا به طور خودکار بچرخد یا خیر."
+
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
@@ -135,9 +139,10 @@ msgstr "فعال‌سازی این افزونه"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
@@ -148,9 +153,10 @@ msgstr "الویت برای استفاده از این افزونه"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
@@ -160,27 +166,29 @@ msgstr "الویت برای استفاده از این افزونه در صف ش
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr ""
+msgstr "اینکه آیا این افزونه توسط شبح تنظیمات گنوم فعال می‌شود یا خیر"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+#, fuzzy
 msgid "Free space notify threshold"
-msgstr ""
+msgstr "فضای آزاد ناکافی برای ذخیره پرونده"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Minimum notify period for repeated warnings"
-msgstr ""
+msgstr "حداقل دوره اعلان برای اخطارهای تکرار شده"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
@@ -213,11 +221,101 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
-msgstr ""
+msgstr "الویت برای استفاده از این افزونه در صف شروع gnome-settings-daemon."
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid "If time based notifications should be used. If set to false, then the percentage change is used instead, which may fix a broken ACPI BIOS."
+msgstr "این که اطلاع‌رسانی بر پایه‌ی زمان استفاده شود یا نه. اگر روی نادرست تنظیم شود تغییرات درصد پُری باتری به جای زمان مورد استفاده قرار خواهد گرفت که ممکن است باعث بهبود ACPI BIOS شود."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "If we should show the recalled battery warning for a broken battery"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid "If we should show the recalled battery warning for a broken battery. Set this to false only if you know your battery is okay."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Percentage action is taken"
+msgstr "درصد انجام کنش"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid "Percentage considered critical"
+msgstr "درصدی که باتری بحرانی در نظر رفته می‌شود"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Percentage considered low"
+msgstr "درصد که باتری کم در نظر گرفته می‌شود"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid "The percentage of the battery when it is considered critical. Only valid when use-time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid "The percentage of the battery when it is considered low. Only valid when use-time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+msgid "The percentage of the battery when the critical action is performed. Only valid when use-time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+msgid "The time remaining in seconds of the battery when critical action is taken. Only valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid "The time remaining in seconds of the battery when it is considered critical. Only valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+msgid "The time remaining in seconds of the battery when it is considered low. Only valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+msgid "The time remaining when action is taken"
+msgstr "زمان باقی‌مانده‌ هنگامی که کنش انجام می‌شود"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+msgid "The time remaining when critical"
+msgstr "زمان باقی‌مانده هنگام وضعیت بحرانی"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+msgid "The time remaining when low"
+msgstr "زمان باقی‌مانده هنگام باتری کم"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
+msgid "Whether to use time-based notifications"
+msgstr "این که از اطلاع‌رسانی بر مبنای زمان استفاده شود یا نه"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#| msgid "Check if breaks are allowed to be postponed"
+msgid "If notifications are allowed to be shown"
+msgstr "چناچه نمایش اعلان‌ها مجاز است"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+msgid "If notifications should be shown at session start if a profile is invalid."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+#| msgid "The selected configuration for displays could not be applied"
+msgid "The duration a display profile is valid"
+msgstr "مدت زمانی که مجموعه تنظیمات نمایشگر معتبر است"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid "The duration a printer profile is valid"
+msgstr "مدت زمانی که مجموعه تنظیمات چاپگر معتبر است"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid "This is the number of days after which the display color profile is considered invalid."
+msgstr "این تعداد روزهایی است که بعد از آن مجوعه تنظیماتِ رنگِ نمایشگر نامعتبر درنظر گرفته می‌شود."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+msgid "This is the number of days after which the printer color profile is considered invalid."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
@@ -241,206 +339,198 @@ msgid "Binding to eject an optical disc."
 msgstr "درحال مقیدسازی جهت بیرون دادن یک دیسک نوری."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
-msgid "Binding to enable or disable the touchpad."
-msgstr "درحال مقیدسازی جهت فعال یا غیرفعال کردن صفحه‌لمسی."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to increase the text size"
 msgstr "درحال مقیدسازی جهت افزایش اندازه متن"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the calculator."
 msgstr "درحال مقیدسازی جهت اجرای ماشین‌حساب."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the email client."
 msgstr "درحال مقیدسازی جهت کارگیر پست‌الکترونیکی."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the help browser."
 msgstr "درحال مقیدسازی جهت راه‌اندازی مرورگر راهنما."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the media player."
 msgstr "درحال مقیدسازی جهت راه‌اندازی پخش‌کننده رسانه."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the search tool."
 msgstr "درحال مقیدسازی جهت راه‌اندازی ابزار جستجو."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the web browser."
 msgstr "درحال مقیدسازی جهت راه‌اندازی مرورگر وب."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to lock the screen."
 msgstr "درحال مقیدسازی جهت قفل‌کردن صفحه‌نمایش."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to log out."
 msgstr "درحال مقیدسازی جهت خروج از سیستم."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to lower the system volume."
 msgstr "درحال مقیدسازی جهت کم کردن بلندی صدا سیستم."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to mute the system volume."
 msgstr "درحال مقیدسازی جهت قطع صدا سیستم."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to open the Home folder."
 msgstr "درحال مقیدسازی جهت بازکردن پوشه خانگی."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to pause playback."
 msgstr "درحال مقیدسازی جهت توقف پخش."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to raise the system volume."
 msgstr "درحال مقیدسازی جهت افزایش بلندی صدا سیستم."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to show the on-screen keyboard"
 msgstr "درحال مقیدسازی جهت نمایش صفحه‌کلید مجازی"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to show the screen magnifier"
 msgstr "درحال مقیدسازی جهت نمایش ذره‌بین صفحه‌نمایش"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Binding to skip to next track."
 msgstr "درحال مقیدسازی جهت پرش به شیار بعدی."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to previous track."
 msgstr "درحال مقیدسازی جهت پرش به شیار قبلی."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "درحال مقیدسازی جهت شروع پخش (یا تغییر حالت پخش/توقف)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start the screen reader"
 msgstr "درحال مقیدسازی جهت شروع صفحه‌نمایش‌خوان"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Binding to stop playback."
 msgstr "درحال مقیدسازی جهت توقف پخش."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to toggle the interface contrast"
 msgstr "درحال مقیدسازی جهت تغییر حالت کنتراست واسط"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Decrease text size"
 msgstr "کاهش اندازه متن"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Eject"
 msgstr "بیرون دادن"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Home folder"
 msgstr "پوشه‌ی آغازه"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "If non-empty, keybindings will be ignored unless their settings directory is in the list. This is useful for lockdown."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Increase text size"
 msgstr "افزایش اندازه متن"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Launch calculator"
 msgstr "اجرا کردن ماشین حساب"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch email client"
 msgstr "اجرا کردن کارگیر پست‌الکترونیکی"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch help browser"
 msgstr "راه‌اندازی مرورگر راهنما"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch media player"
 msgstr "اجرا کردن پخش‌کننده‌ی رسانه"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch web browser"
 msgstr "راه‌اندازی مرورگر وب"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Lock screen"
 msgstr "قفل کردن صفحه‌نمایش"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Log out"
 msgstr "خروج از سیستم"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Magnifier zoom in"
 msgstr "بزرگنمایی به داخل ذره‌بین"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Magnifier zoom out"
 msgstr "بزرگنمایی به خارج ذره‌بین"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Next track"
 msgstr "شیار بعدی"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Pause playback"
 msgstr "توقف پخش"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Play (or play/pause)"
 msgstr "پخش (یا پخش/مکث)‏"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Previous track"
 msgstr "شیار قبلی"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Search"
 msgstr "جستجو"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Stop playback"
 msgstr "توقف پخش"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Toggle contrast"
 msgstr "تغییر حالت کنتراست"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Toggle magnifier"
 msgstr "تغییر حالت ذره‌بین"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle on-screen keyboard"
 msgstr "تغییر حالت صفحه‌کلید _مجازی"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Toggle screen reader"
 msgstr "تغییر حالت صفحه‌نمایش‌خوان"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
-msgid "Toggle touchpad"
-msgstr "تغییر حالت صفحه‌لمسی"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Volume down"
 msgstr "کم کردن بلندی صدا"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Volume mute"
 msgstr "ساکت کردن صدا"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume up"
 msgstr "زیاد کردن بلندی صدا"
 
@@ -454,23 +544,23 @@ msgstr "چنانچه احتیاج به نصب میان‌افزار اضافی �
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 msgid "Automatically download updates in the background without confirmation"
-msgstr ""
+msgstr "به صورت خودکار این بروزرسانی‌ها را در پس‌زمینه بدون گرفتن تایید نصب کن"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
 msgid "Automatically download updates in the background without confirmation. Updates will be auto-downloaded when using wired network connnections, and also WiFi if 'connection-use-wifi' is enabled and mobile broadband if 'connection-use-mobile' is enabled."
-msgstr ""
+msgstr "به صورت خودکار این بروزرسانی‌ها را در پس‌زمینه بدون گرفتن تایید نصب کن. بروزرسانی‌ها به طور خودکار در هنگام استفاده از اتصال سیمی بارگیری می‌شوند، همچنین هنگام استفاده از WiFi اگر «connection-use-wifi» فعال باشد و اتصال پهن‌باند تلفن همراه اگر «connection-use-mobile» فعال باشد."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid "Automatically update these types of updates"
-msgstr ""
+msgid "Automatically install these types of updates"
+msgstr "به صورت خودکار این نوع بروزرسانی‌ها را نصب کن"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically update these types of updates."
-msgstr ""
+msgid "Automatically install these types of updates."
+msgstr "به صورت خودکار این نوع بروزرسانی‌ها را نصب کن."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
-msgstr ""
+msgstr "دستگاه‌هایی که باید نادیده گرفته شود"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "Devices that should be ignored, separated by commas. These can include '*' and '?' characters."
@@ -478,7 +568,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid "Firmware files that should not be searched for"
-msgstr ""
+msgstr "پرونده‌های میان‌افزارهایی که نباید جستجو شوند"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid "Firmware files that should not be searched for, separated by commas. These can include '*' and '?' characters."
@@ -486,7 +576,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid "Get the update list when the session starts"
-msgstr ""
+msgstr "دریافت فهرست بروزرسانی‌ها در هنگام شروع نشست"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "Get the update list when the session starts, even if not scheduled to."
@@ -502,7 +592,7 @@ msgstr "هر چند وقت یکبار امکان ارتقا توزیع بررس�
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for updates"
-msgstr ""
+msgstr "هر چند وقت یکبار امکان بروزرسانی‌ها بررسی شود"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid "How often to check for updates. Value is in seconds. This is a maximum amount of time that can pass between a security update being published, and the update being automatically installed or the user notified."
@@ -534,7 +624,7 @@ msgstr "نصب بروزرسانی‌های بصورت خودکار در زمان
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid "Notify the user for completed updates"
-msgstr "باخبر کردن کاربر از بروزرسانی‌های کامل شده"
+msgstr "با خبر کردن کاربر از بروزرسانی‌های کامل شده"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Notify the user for completed updates where the user needs to restart"
@@ -610,7 +700,7 @@ msgstr "استفاده از اتصال‌های وای‌فای"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
 msgid "Use mobile broadband connections"
-msgstr ""
+msgstr "استفاده از شبکه‌های پهن‌باند تلفن همراه"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
 msgid "Use mobile broadband connections such as GSM and CDMA to check for updates."
@@ -626,7 +716,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
-msgstr ""
+msgstr "پرونده‌ی مربوط به تنظیمات پیش‌فرض برای RandR"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid "The XRandR plugin will look for a default configuration in the file specified by this key. This is similar to the ~/.config/monitors.xml that normally gets stored in users' home directories. If a user does not have such a file, or has one that does not match the user's setup of monitors, then the file specified by this key will be used instead."
@@ -654,11 +744,11 @@ msgstr "راهنمایی"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "List of explicitly disabled GTK+ modules"
-msgstr ""
+msgstr "فهرست ماژول‌های غیرفعال شده GTK+"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly enabled GTK+ modules"
-msgstr ""
+msgstr "فهرست ماژول‌های فعال شده GTK+"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
@@ -677,7 +767,7 @@ msgid "The type of hinting to use when rendering fonts. Possible values are: \"n
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-msgid "Enable this to only move the cursor when the user touches the tablet."
+msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
@@ -745,8 +835,9 @@ msgid "Wacom cursor button mapping"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#, fuzzy
 msgid "Wacom cursor tablet area"
-msgstr ""
+msgstr "امکانات تبلت پی‌سی Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Wacom eraser absolute mode"
@@ -765,16 +856,18 @@ msgid "Wacom eraser pressure threshold"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#, fuzzy
 msgid "Wacom eraser tablet area"
-msgstr ""
+msgstr "امکانات تبلت پی‌سی Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom pad button mapping"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#, fuzzy
 msgid "Wacom pad tablet area"
-msgstr ""
+msgstr "امکانات تبلت پی‌سی Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Wacom stylus absolute mode"
@@ -793,8 +886,9 @@ msgid "Wacom stylus pressure threshold"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+#, fuzzy
 msgid "Wacom stylus tablet area"
-msgstr ""
+msgstr "امکانات تبلت پی‌سی Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 msgid "Wacom tablet PC feature"
@@ -845,7 +939,7 @@ msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for
 msgstr "شما کلید مبدل را برای ۸ ثانیه نگه داشتید.  این میانبری به امکانات کلیدهای آهسته است، که کارکرد صفحه‌کلید شما را تحت تأثیر قرار می‌دهد."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
-#: ../plugins/mouse/gsd-mouse-manager.c:829
+#: ../plugins/mouse/gsd-mouse-manager.c:822
 msgid "Universal Access"
 msgstr "دسترسی همگانی"
 
@@ -962,13 +1056,13 @@ msgstr "تنظیمات دسترسی‌پذیری"
 msgid "Accessibility settings plugin"
 msgstr "افزونه‌ی تنظیمات دسترسی‌پذیری"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
-msgid "Automount"
-msgstr "سوارکردن خودکار"
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
+msgid "Automount and autorun plugged devices"
+msgstr "سوارکردن خودکار و اجرای خودکار دستگاه‌های متصل شده"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
-msgid "Automounter plugin"
-msgstr "افزونه‌ی سوارکننده خودکار"
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
+msgid "Mount Helper"
+msgstr "راهنمای سوارکردن"
 
 #: ../plugins/automount/gsd-automount-manager.c:154
 #, c-format
@@ -1100,6 +1194,65 @@ msgstr "تخته‌گیره"
 msgid "Clipboard plugin"
 msgstr "افزونه‌ی تخته‌گیره"
 
+#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#| msgid "Solid Color"
+msgid "Color"
+msgstr "رنگ"
+
+#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#| msgid "Clipboard plugin"
+msgid "Color plugin"
+msgstr "افزونه رنگ"
+
+#: ../plugins/color/gsd-color-manager.c:630
+msgid "Default"
+msgstr "پیش‌فرض"
+
+#: ../plugins/color/gsd-color-manager.c:1522
+msgid "Recalibrate now"
+msgstr "درجه‌بندی دوباره"
+
+#: ../plugins/color/gsd-color-manager.c:1529
+#: ../plugins/housekeeping/gsd-disk-space.c:385
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
+msgid "Ignore"
+msgstr "رد کردن"
+
+#. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1571
+#| msgid "A restart is required."
+msgid "Recalibration required"
+msgstr "درجه‌بندی دوباره لازم است"
+
+#. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1583
+#, c-format
+msgid "The display '%s' should be recalibrated soon."
+msgstr "نمایشگر «%s» باید سریعا درجه‌بندی مجدد شود."
+
+#. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1592
+#, c-format
+msgid "The printer '%s' should be recalibrated soon."
+msgstr "چاپگر «%s» باید سریعا درجه‌بندی مجدد شود."
+
+#. TRANSLATORS: this is the application name
+#: ../plugins/color/gsd-color-manager.c:1932
+#: ../plugins/color/gsd-color-manager.c:1950
+#| msgid "GNOME Settings Daemon"
+msgid "GNOME Settings Daemon Color Plugin"
+msgstr "افزونه رنگ شبح تنظیمات گنوم"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:1934
+msgid "Color calibration device added"
+msgstr "دستگاه درجه‌بندی رنگ اضافه شد"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:1952
+msgid "Color calibration device removed"
+msgstr "دستگاه درجه‌بندی رنگ حذف شد"
+
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "ساختگی"
@@ -1107,6 +1260,872 @@ msgstr "ساختگی"
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "افزونه‌ی ساختگی"
+
+#. TRANSLATORS: this is the notification application name
+#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gsd-power-manager.c:1153
+#: ../plugins/power/gsd-power-manager.c:1329
+#: ../plugins/power/gsd-power-manager.c:1507
+#: ../plugins/power/gsd-power-manager.c:1656
+#| msgid "Port:"
+msgid "Power"
+msgstr "انرژی"
+
+#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#| msgid "Mouse plugin"
+msgid "Power plugin"
+msgstr "افزونه انرژی"
+
+#: ../plugins/power/gpm-common.c:47
+#| msgid "Unknown Pointer"
+msgid "Unknown time"
+msgstr "زمان نامعلوم"
+
+#: ../plugins/power/gpm-common.c:52
+#, c-format
+#| msgid "minutes"
+msgid "%i minute"
+msgid_plural "%i minutes"
+msgstr[0] "%Ii دقیقه"
+msgstr[1] "%Ii دقیقه"
+
+#: ../plugins/power/gpm-common.c:62
+#, c-format
+msgid "%i hour"
+msgid_plural "%i hours"
+msgstr[0] "%Ii ساعت"
+msgstr[1] "%Ii ساعت"
+
+#. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
+#. * Swap order with "%2$s %2$i %1$s %1$i if needed
+#: ../plugins/power/gpm-common.c:68
+#, c-format
+msgid "%i %s %i %s"
+msgstr "%Ii %s %Ii %s"
+
+#: ../plugins/power/gpm-common.c:69
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "ساعت"
+msgstr[1] "ساعت"
+
+#: ../plugins/power/gpm-common.c:70
+#| msgid "minutes"
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "دقیقه"
+msgstr[1] "دقیقه"
+
+#. TRANSLATORS: The laptop battery is charged, and we know a time.
+#. * The parameter is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:317
+#, c-format
+msgid "provides %s laptop runtime"
+msgstr "قابلیت روشن ماندن رایانه کیفی به مدت %s"
+
+#. TRANSLATORS: the device is discharging, and we have a time remaining
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:328
+#, c-format
+msgid "%s %s remaining"
+msgstr "%s %s باقی‌مانده"
+
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage.
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:349
+#: ../plugins/power/gpm-common.c:366
+#, c-format
+msgid "%s %s until charged"
+msgstr "%s %s تا پر شدن"
+
+#. TRANSLATORS: the device is charging, and we have a time to full and empty.
+#. * The parameter is a time string, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:356
+#, c-format
+msgid "provides %s battery runtime"
+msgstr "قابلیت روشن ماندن به مدت %s"
+
+#. TRANSLATORS: the type of data, e.g. Laptop battery
+#: ../plugins/power/gpm-common.c:447
+#| msgid "Port:"
+msgid "Product:"
+msgstr "محصول:"
+
+#. TRANSLATORS: device is missing
+#. TRANSLATORS: device is charged
+#. TRANSLATORS: device is charging
+#. TRANSLATORS: device is discharging
+#: ../plugins/power/gpm-common.c:451
+#: ../plugins/power/gpm-common.c:454
+#: ../plugins/power/gpm-common.c:457
+#: ../plugins/power/gpm-common.c:460
+msgid "Status:"
+msgstr "وضعیت:"
+
+#: ../plugins/power/gpm-common.c:451
+msgid "Missing"
+msgstr "ناپیدا"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:454
+#: ../plugins/power/gpm-common.c:723
+#| msgid "Large"
+msgid "Charged"
+msgstr "پُر شد"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:457
+#: ../plugins/power/gpm-common.c:711
+msgid "Charging"
+msgstr "درحال پر شدن"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:460
+#: ../plugins/power/gpm-common.c:715
+msgid "Discharging"
+msgstr "درحال خالی‌شدن"
+
+#. TRANSLATORS: percentage
+#: ../plugins/power/gpm-common.c:465
+msgid "Percentage charge:"
+msgstr "درصد پر بودن:"
+
+#. TRANSLATORS: manufacturer
+#: ../plugins/power/gpm-common.c:469
+msgid "Vendor:"
+msgstr "سازنده:"
+
+#. TRANSLATORS: how the battery is made, e.g. Lithium Ion
+#: ../plugins/power/gpm-common.c:474
+msgid "Technology:"
+msgstr "فناوری:"
+
+#. TRANSLATORS: serial number of the battery
+#: ../plugins/power/gpm-common.c:478
+msgid "Serial number:"
+msgstr "شماره سریال:"
+
+#. TRANSLATORS: model number of the battery
+#: ../plugins/power/gpm-common.c:482
+#| msgid "_Models:"
+msgid "Model:"
+msgstr "مدل:"
+
+# ../capplets/common/gconf-property-editor.:c:183
+#. TRANSLATORS: time to fully charged
+#: ../plugins/power/gpm-common.c:487
+#| msgid "Change set"
+msgid "Charge time:"
+msgstr "زمان پر شدن:"
+
+#. TRANSLATORS: time to empty
+#: ../plugins/power/gpm-common.c:493
+msgid "Discharge time:"
+msgstr "زمان خالی‌شدن:"
+
+#. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
+#: ../plugins/power/gpm-common.c:500
+msgid "Excellent"
+msgstr "عالی"
+
+#: ../plugins/power/gpm-common.c:502
+msgid "Good"
+msgstr "خوب"
+
+#: ../plugins/power/gpm-common.c:504
+msgid "Fair"
+msgstr "نسبتا خوب"
+
+#: ../plugins/power/gpm-common.c:506
+#| msgid "Port:"
+msgid "Poor"
+msgstr "ضعیف"
+
+#: ../plugins/power/gpm-common.c:510
+#| msgid "C_ity:"
+msgid "Capacity:"
+msgstr "گنجایش:"
+
+#: ../plugins/power/gpm-common.c:516
+#: ../plugins/power/gpm-common.c:541
+msgid "Current charge:"
+msgstr "میزان پربودن فعلی:"
+
+#: ../plugins/power/gpm-common.c:522
+msgid "Last full charge:"
+msgstr "آخرین بار پرشدن کامل:"
+
+#: ../plugins/power/gpm-common.c:528
+#: ../plugins/power/gpm-common.c:546
+msgid "Design charge:"
+msgstr "پرشدن طراحی شده:"
+
+# ../capplets/common/gconf-property-editor.:c:183
+#: ../plugins/power/gpm-common.c:533
+#| msgid "Change set"
+msgid "Charge rate:"
+msgstr "سرعت پرشدن:"
+
+#. TRANSLATORS: system power cord
+#: ../plugins/power/gpm-common.c:565
+#: ../plugins/power/gpm-common.c:757
+#| msgid "Add Wallpaper"
+msgid "AC adapter"
+msgid_plural "AC adapters"
+msgstr[0] "آداپتور برق شهری"
+msgstr[1] "آداپتور برق شهری"
+
+#. TRANSLATORS: laptop primary battery
+#: ../plugins/power/gpm-common.c:569
+#: ../plugins/power/gpm-common.c:793
+msgid "Laptop battery"
+msgid_plural "Laptop batteries"
+msgstr[0] "باتری رایانه کیفی"
+msgstr[1] "باتری رایانه کیفی"
+
+#. TRANSLATORS: battery-backed AC power source
+#: ../plugins/power/gpm-common.c:573
+#: ../plugins/power/gpm-common.c:817
+msgid "UPS"
+msgid_plural "UPSs"
+msgstr[0] "برق اضطراری"
+msgstr[1] "برق اضطراری"
+
+#. TRANSLATORS: a monitor is a device to measure voltage and current
+#: ../plugins/power/gpm-common.c:577
+#: ../plugins/power/gpm-common.c:824
+#| msgid "Motion"
+msgid "Monitor"
+msgid_plural "Monitors"
+msgstr[0] "صفحه‌نمایش"
+msgstr[1] "صفحه‌نمایش"
+
+#. TRANSLATORS: wireless mice with internal batteries
+#: ../plugins/power/gpm-common.c:581
+#: ../plugins/power/gpm-common.c:848
+#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#| msgid "Mouse"
+msgid "Mouse"
+msgid_plural "Mice"
+msgstr[0] "موشی"
+msgstr[1] "موشی"
+
+#. TRANSLATORS: wireless keyboard with internal battery
+#: ../plugins/power/gpm-common.c:585
+#: ../plugins/power/gpm-common.c:872
+#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#| msgid "Keyboard"
+msgid "Keyboard"
+msgid_plural "Keyboards"
+msgstr[0] "صفحه‌کلید"
+msgstr[1] "صفحه‌کلید"
+
+#. TRANSLATORS: portable device
+#: ../plugins/power/gpm-common.c:589
+#: ../plugins/power/gpm-common.c:896
+msgid "PDA"
+msgid_plural "PDAs"
+msgstr[0] "پی‌دی‌ای"
+msgstr[1] "پی‌دی‌ای"
+
+#. TRANSLATORS: cell phone (mobile...)
+#: ../plugins/power/gpm-common.c:593
+#: ../plugins/power/gpm-common.c:920
+msgid "Cell phone"
+msgid_plural "Cell phones"
+msgstr[0] "تلفن همراه"
+msgstr[1] "تلفن همراه"
+
+#. TRANSLATORS: media player, mp3 etc
+#: ../plugins/power/gpm-common.c:598
+#: ../plugins/power/gpm-common.c:945
+#| msgid "Launch media player"
+msgid "Media player"
+msgid_plural "Media players"
+msgstr[0] "پخش‌کننده صوتی تصویری"
+msgstr[1] "پخش‌کننده صوتی تصویری"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:602
+#: ../plugins/power/gpm-common.c:969
+msgid "Tablet"
+msgid_plural "Tablets"
+msgstr[0] "تبلت"
+msgstr[1] "تبلت"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:606
+#: ../plugins/power/gpm-common.c:993
+msgid "Computer"
+msgid_plural "Computers"
+msgstr[0] "رایانه"
+msgstr[1] "رایانه"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:670
+msgid "Lithium Ion"
+msgstr "یون لیتیوم"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:674
+msgid "Lithium Polymer"
+msgstr "پلیمر لیتیوم"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:678
+msgid "Lithium Iron Phosphate"
+msgstr "فسفات آهن لیتیوم"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:682
+msgid "Lead acid"
+msgstr "اسید سرب"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:686
+msgid "Nickel Cadmium"
+msgstr "نیکل کادمیوم"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:690
+msgid "Nickel metal hydride"
+msgstr "نیکل هیبریدی آهن"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:694
+#| msgid "Unknown Pointer"
+msgid "Unknown technology"
+msgstr "فناوری نامعلوم"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:719
+#| msgid "Empty Trash"
+msgid "Empty"
+msgstr "خالی"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:727
+msgid "Waiting to charge"
+msgstr "در انتظار پُر شدن"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:731
+msgid "Waiting to discharge"
+msgstr "در انتظار خالی‌شدن"
+
+#. TRANSLATORS: device not present
+#: ../plugins/power/gpm-common.c:765
+msgid "Laptop battery not present"
+msgstr "باتری رایانه کیفی دردسترس نیست"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:769
+msgid "Laptop battery is charging"
+msgstr "باتری رایانه کیفی درحال پرشدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:773
+msgid "Laptop battery is discharging"
+msgstr "باتری رایانه کیفی در حال تخلیه است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:777
+msgid "Laptop battery is empty"
+msgstr "باتری رایانه کیفی خالی است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:781
+msgid "Laptop battery is charged"
+msgstr "باتری رایانه کیفی پًر شده است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:785
+msgid "Laptop battery is waiting to charge"
+msgstr "باتری رایانه کیفی در انتظار پرشدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:789
+msgid "Laptop battery is waiting to discharge"
+msgstr "باتری رایانه کیفی در انتظار تخلیه است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:801
+msgid "UPS is charging"
+msgstr "برق اضطراری درحال پرشدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:805
+msgid "UPS is discharging"
+msgstr "برق اضطراری درحال تخلیه است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:809
+msgid "UPS is empty"
+msgstr "برق اضطراری خالی است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:813
+msgid "UPS is charged"
+msgstr "برق اضطراری پرشده است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:832
+#| msgid "Mouse plugin"
+msgid "Mouse is charging"
+msgstr "باتری موشی درحال پرشدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:836
+msgid "Mouse is discharging"
+msgstr "باتری موشی درحال تخلیه است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:840
+#| msgid "Toner empty"
+msgid "Mouse is empty"
+msgstr "باتری موشی خالی است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:844
+msgid "Mouse is charged"
+msgstr "باتری موشی پرشده است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:856
+#| msgid "Keyboard plugin"
+msgid "Keyboard is charging"
+msgstr "باتری صفحه‌کلید در حال پرشدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:860
+#| msgid "Keyboard plugin"
+msgid "Keyboard is discharging"
+msgstr "باتری صفحه‌کلید درحال تخلیه است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:864
+#| msgid "Keyboard model"
+msgid "Keyboard is empty"
+msgstr "باتری صفحه‌کلید خالی است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:868
+#| msgid "Keyboard model"
+msgid "Keyboard is charged"
+msgstr "باتری صفحه‌کلید پر شده است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:880
+msgid "PDA is charging"
+msgstr "باتری پی‌دی‌ای درحال پرشدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:884
+msgid "PDA is discharging"
+msgstr "باتری پی‌دی‌ای درحال تخلیه است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:888
+msgid "PDA is empty"
+msgstr "باتری پی‌دی‌ای خالی است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:892
+msgid "PDA is charged"
+msgstr "باتری پی‌دی‌ای پرشده است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:904
+msgid "Cell phone is charging"
+msgstr "باتری تلفن همراه درحال پرشدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:908
+msgid "Cell phone is discharging"
+msgstr "باتری تلفن همراه در حال خالی‌شدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:912
+#| msgid "Toner empty"
+msgid "Cell phone is empty"
+msgstr "باتری تلفن همراه خالی است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:916
+msgid "Cell phone is charged"
+msgstr "باتری تلفن همراه پرشده است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:929
+msgid "Media player is charging"
+msgstr "باتری پخش‌کننده صوتی و تصویری درحال پرشدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:933
+msgid "Media player is discharging"
+msgstr "باتری پخش‌کننده صوتی تصویری درحال تخلیه است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:937
+msgid "Media player is empty"
+msgstr "باتری پخش‌کننده صوتی و تصویری خالی است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:941
+msgid "Media player is charged"
+msgstr "باتری پخش‌کننده صوتی تصویری پر شده است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:953
+msgid "Tablet is charging"
+msgstr "باتری تبلت درحال پرشدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:957
+msgid "Tablet is discharging"
+msgstr "باتری تبلت درحال تخلیه است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:961
+#| msgid "Toner empty"
+msgid "Tablet is empty"
+msgstr "باتری تبلت خالی است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:965
+msgid "Tablet is charged"
+msgstr "باتری تبلت پرشده است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:977
+msgid "Computer is charging"
+msgstr "باتری رایانه در حال پرشدن است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:981
+msgid "Computer is discharging"
+msgstr "باتری رایانه درحال تخلیه است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:985
+#| msgid "Toner empty"
+msgid "Computer is empty"
+msgstr "باتری رایانه خالی است"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:989
+msgid "Computer is charged"
+msgstr "باتری رایانه پرشده است"
+
+#. TRANSLATORS: the battery may be recalled by it's vendor
+#: ../plugins/power/gsd-power-manager.c:897
+msgid "Battery may be recalled"
+msgstr "ممکن است باتری فراخوانده شده باشد"
+
+#: ../plugins/power/gsd-power-manager.c:898
+#, c-format
+msgid "A battery in your computer may have been recalled by %s and you may be at risk."
+msgstr ""
+
+#: ../plugins/power/gsd-power-manager.c:901
+msgid "For more information visit the battery recall website."
+msgstr "برای اطلاعات بیشتر پایگاه‌وب فراخوانی باتری را مشاهده کنید."
+
+#. TRANSLATORS: button text, visit the manufacturers recall website
+#: ../plugins/power/gsd-power-manager.c:912
+msgid "Visit recall website"
+msgstr "بازدید پایگاه وب فراخوانی"
+
+#. TRANSLATORS: button text, do not show this bubble again
+#: ../plugins/power/gsd-power-manager.c:916
+#| msgid "_Do not show this message again"
+msgid "Do not show me this again"
+msgstr "این مورد را دوباره به من نشان نده"
+
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:1127
+msgid "UPS Discharging"
+msgstr "برق اضطراری درحال تخلیه است"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1132
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr "میزان %s از انرژی پشتیبان باقی‌مانده است"
+
+#. TRANSLATORS: laptop battery low, and we only have one battery
+#: ../plugins/power/gsd-power-manager.c:1244
+#| msgid "Paper low"
+msgid "Battery low"
+msgstr "باتری کم است"
+
+#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1247
+msgid "Laptop battery low"
+msgstr "باتری رایانه کیفی کم است"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1253
+#, c-format
+msgid "Approximately <b>%s</b> remaining (%.0f%%)"
+msgstr "تقریبا <b>%s</b> باقی‌مانده است (٪%I.0f)"
+
+#. TRANSLATORS: UPS is starting to get a little low
+#: ../plugins/power/gsd-power-manager.c:1257
+#| msgid "Paper low"
+msgid "UPS low"
+msgstr "برق اضطراری کم است"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1261
+#, c-format
+msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
+msgstr "تقریبا <b>%s</b> از انرژی برق اضطراری باقی‌مانده است (٪%I.0f)"
+
+#. TRANSLATORS: mouse is getting a little low
+#. TRANSLATORS: the mouse battery is very low
+#: ../plugins/power/gsd-power-manager.c:1265
+#: ../plugins/power/gsd-power-manager.c:1428
+msgid "Mouse battery low"
+msgstr "باتری موشی کم است"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1268
+#, c-format
+msgid "Wireless mouse is low in power (%.0f%%)"
+msgstr "انرژی موشی بی‌سیم کم است (٪%I.0f)"
+
+#. TRANSLATORS: keyboard is getting a little low
+#. TRANSLATORS: the keyboard battery is very low
+#: ../plugins/power/gsd-power-manager.c:1272
+#: ../plugins/power/gsd-power-manager.c:1436
+#| msgid "Keyboard layout"
+msgid "Keyboard battery low"
+msgstr "باتری صفحه‌کلید کم است"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1275
+#, c-format
+msgid "Wireless keyboard is low in power (%.0f%%)"
+msgstr "صفحه‌کلید بی‌سیم باتری کمی دارد (٪%I.0f)"
+
+#. TRANSLATORS: PDA is getting a little low
+#. TRANSLATORS: the PDA battery is very low
+#: ../plugins/power/gsd-power-manager.c:1279
+#: ../plugins/power/gsd-power-manager.c:1445
+#| msgid "Paper low"
+msgid "PDA battery low"
+msgstr "باتری پی‌دی‌ای کم است"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1282
+#, c-format
+msgid "PDA is low in power (%.0f%%)"
+msgstr "باتری پی‌دی‌ای کم است (٪%I.0f)"
+
+#. TRANSLATORS: cell phone (mobile) is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1286
+#: ../plugins/power/gsd-power-manager.c:1455
+#: ../plugins/power/gsd-power-manager.c:1466
+msgid "Cell phone battery low"
+msgstr "باتری تلفن همراه کم است"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1289
+#, c-format
+msgid "Cell phone is low in power (%.0f%%)"
+msgstr "تلفن بی‌سیم باتری کمی دارد (٪%I.0f)"
+
+#. TRANSLATORS: media player, e.g. mp3 is getting a little low
+#: ../plugins/power/gsd-power-manager.c:1294
+msgid "Media player battery low"
+msgstr "باتری پخش‌کننده صوتی و تصویری کم است"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1297
+#, c-format
+msgid "Media player is low in power (%.0f%%)"
+msgstr "پخش‌کننده صوتی تصویری باتری کمی دارد (٪%I.0f)"
+
+#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1301
+#: ../plugins/power/gsd-power-manager.c:1475
+msgid "Tablet battery low"
+msgstr "باتری تبلت کم است"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1304
+#, c-format
+msgid "Tablet is low in power (%.0f%%)"
+msgstr "تبلت باتری کمی دارد (٪%I.0f)"
+
+#. TRANSLATORS: computer, e.g. ipad is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1308
+#: ../plugins/power/gsd-power-manager.c:1484
+msgid "Attached computer battery low"
+msgstr "رایانه متصل شده باتری کمی دارد"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1311
+#, c-format
+msgid "Attached computer is low in power (%.0f%%)"
+msgstr "رایانه متصل شده باتری کمی دارد (٪%I.0f)"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1346
+#| msgid "Paper low"
+msgid "Battery is low"
+msgstr "باتری کم است"
+
+#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1387
+msgid "Battery critically low"
+msgstr "باتری به طور بحرانی کم است"
+
+#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
+#. TRANSLATORS: laptop battery is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1390
+#: ../plugins/power/gsd-power-manager.c:1574
+msgid "Laptop battery critically low"
+msgstr "باتری رایانه کیفی به طرز بحرانی کم است"
+
+#. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
+#: ../plugins/power/gsd-power-manager.c:1399
+msgid "Plug in your AC adapter to avoid losing data."
+msgstr "برای از دست ندادن، اطلاعات آداپتور AC خود را متصل کنید."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1403
+#, c-format
+msgid "Computer will suspend very soon unless it is plugged in."
+msgstr "رایانه به زودی به حالت تعلیق می‌رود مگر اینکه به برق متصل شود."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1407
+#, c-format
+msgid "Computer will hibernate very soon unless it is plugged in."
+msgstr "رایانه به زودی به خواب زمستانی می‌رود مگر اینکه به برق متصل شود."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1411
+#, c-format
+msgid "Computer will shutdown very soon unless it is plugged in."
+msgstr "رایانه به زودی خاموش می‌شود مگر اینکه به برق متصل شود."
+
+#. TRANSLATORS: the UPS is very low
+#. TRANSLATORS: UPS is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1418
+#: ../plugins/power/gsd-power-manager.c:1610
+msgid "UPS critically low"
+msgstr "برق اضطراری به شکلی بحرانی ضعیف است"
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1422
+#, c-format
+msgid "Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to your computer to avoid losing data."
+msgstr "تقریبا <b>%s</b> از انرژی برق اضطراری باقی‌مانده است (٪%I.0f). جهت از دست ندادن اطلاعات، به برق شهری متصل شوید."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1431
+#, c-format
+msgid "Wireless mouse is very low in power (%.0f%%). This device will soon stop functioning if not charged."
+msgstr "باتری موشی بیسیم کم است (٪%I.0f). این دستگاه اگر پُر نشود به زودی از کار خواهد افتاد."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1439
+#, c-format
+msgid "Wireless keyboard is very low in power (%.0f%%). This device will soon stop functioning if not charged."
+msgstr "باتری صفحه‌کلید بیسیم کم است (٪%I.0f). این دستگاه اگر پر نشود به زودی از کار خواهد افتاد."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1448
+#, c-format
+msgid "PDA is very low in power (%.0f%%). This device will soon stop functioning if not charged."
+msgstr "باتری پی‌دی‌ای کم است (٪%I.0f). این دستگاه اگر پُر نشود به زودی از کار خواهد افتاد."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1458
+#, c-format
+msgid "Cell phone is very low in power (%.0f%%). This device will soon stop functioning if not charged."
+msgstr "باتری گوشی همراه کم است (٪%I.0f). این دستگاه اگر پُر نشود به زودی از کار خواهد افتاد."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1469
+#, c-format
+msgid "Media player is very low in power (%.0f%%). This device will soon stop functioning if not charged."
+msgstr "باتری پخش‌کننده صوتی تصویری کم است (٪%I.0f). این دستگاه اگر پُر نشود به زودی از کار خواهد افتاد."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1478
+#, c-format
+msgid "Tablet is very low in power (%.0f%%). This device will soon stop functioning if not charged."
+msgstr "باتری تبلت کم است (٪%I.0f). این دستگاه اگر پر نشود به زودی از کار خواهد افتاد."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1487
+#, c-format
+msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
+msgstr "باتری رایانه متصل شده کم است (٪%I.0f). این دستگاه اگر پُر نشود به زودی از کار خواهد افتاد."
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1527
+#: ../plugins/power/gsd-power-manager.c:1537
+#: ../plugins/power/gsd-power-manager.c:1673
+msgid "Battery is critically low"
+msgstr "باتری رایانه کیفی به طرز بحرانی کم است"
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1582
+msgid "The battery is below the critical level and this computer will <b>power-off</b> when the battery becomes completely empty."
+msgstr "باتری زیر سطح بحرانی است و زمانی که باتری کاملاً خالی شود برق رایانه <b>قطع</b> خواهد شد."
+
+#. TRANSLATORS: computer will suspend
+#: ../plugins/power/gsd-power-manager.c:1588
+msgid "The battery is below the critical level and this computer is about to suspend.<br><b>NOTE:</b> A small amount of power is required to keep your computer in a suspended state."
+msgstr "باتری زیر سطح بحرانی است و این رایانه در آستانه‌ی رفتن به حال تعلیق است. <br><b>تذکر:</b> مقدار کمی از باتری برای نگه داشتن رایانه در حالت تعلیق لازم است."
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1595
+msgid "The battery is below the critical level and this computer is about to hibernate."
+msgstr "باتری زیر سطح بحرانی است و این رایانه در آستانه‌ی رفتن به خواب زمستانی است. "
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1600
+msgid "The battery is below the critical level and this computer is about to shutdown."
+msgstr "باتری زیر سطح بحرانی است و این رایانه در آستانه‌ی خاموش شدن است. "
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1618
+msgid "UPS is below the critical level and this computer will <b>power-off</b> when the UPS becomes completely empty."
+msgstr "برق اضطراری زیر سطح بحرانی است و با تمام شدن برق اضطراری، این رایانه <b>خاموش<b> خواهد شد."
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1624
+msgid "UPS is below the critical level and this computer is about to hibernate."
+msgstr "برق اضطراری زیر سطح بحرانی است و این رایانه در آستانه‌ی رفتن به خواب زمستانی است."
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1629
+msgid "UPS is below the critical level and this computer is about to shutdown."
+msgstr "برق اضطراری زیر سطح بحرانی است و این رایانه در آستانه‌ی خاموش شدن است."
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2024
+msgid "Lid has been opened"
+msgstr "در باز شده است"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2049
+msgid "Lid has been closed"
+msgstr "در بسته شده است"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
@@ -1154,11 +2173,6 @@ msgstr "بررسی"
 msgid "Empty Trash"
 msgstr "خالی‌کردن سطل‌زباله"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:385
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
-msgid "Ignore"
-msgstr "رد کردن"
-
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
 msgid "Don't show any warnings again for this file system"
 msgstr "دوباره هیچ هشداری مربوط به این سیستم‌پرونده نشان نده"
@@ -1189,8 +2203,9 @@ msgstr "بررسی..."
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
-msgid "Key binding (%s) is invalid"
-msgstr "کلید مقید (%s) نامعتبر است"
+#| msgid "Key binding (%s) is invalid"
+msgid "Key binding (%s) is invalid (%d)"
+msgstr "کلید مقید (%s) نادرست است (%Id)"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:197
 #, c-format
@@ -1213,10 +2228,6 @@ msgstr "کلیدهای مقید"
 #: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr "افزونه‌ی کلیدهای مقید"
-
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-msgid "Keyboard"
-msgstr "صفحه‌کلید"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
 msgid "Keyboard plugin"
@@ -1247,19 +2258,23 @@ msgstr ""
 msgid "_Layouts"
 msgstr "_چیدمان‌ها"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:250
-msgid "Keyboard _Preferences"
-msgstr "ترجیحات _صفحه‌کلید"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:249
+#| msgid "Keyboard layout"
+msgid "Show _Keyboard Layout..."
+msgstr "نمایش چیدمان _صفحه‌کلید..."
 
+#. translators note:
+#. * This is the name of the gnome-control-center "region" panel
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:256
-msgid "Show _Current Layout"
-msgstr "نمایش چیدمان _فعلی"
+#| msgid "Manage X Settings"
+msgid "Region and Language Settings"
+msgstr "تنظیمات ناحیه و زبان"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:218
+#: ../plugins/media-keys/gsd-media-keys-manager.c:232
 msgid "Could not get default terminal. Verify that your default terminal command is set and points to a valid application."
 msgstr "نمی‌توان پایانه پیش‌فرض را دریافت کرد. بررسی کنید که پایانه پیش‌فرض شما تنظیم و به یک برنامه صحیح اشاره می‌کند."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:258
+#: ../plugins/media-keys/gsd-media-keys-manager.c:272
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1304,17 +2319,13 @@ msgstr "کلید‌های رسانه"
 msgid "Media keys plugin"
 msgstr "افزونه‌ی کلیدهای رسانه"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:825
+#: ../plugins/mouse/gsd-mouse-manager.c:818
 msgid "Could not enable mouse accessibility features"
 msgstr "نمی‌توان امکانات دسترسی‌پذیری صفحه‌کلید را به کار انداخت"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:827
+#: ../plugins/mouse/gsd-mouse-manager.c:820
 msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "امکانات دسترسی‌پذیری موشی احتیاج به نصب Mousetweaks بر روی سیستم دارد."
-
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-msgid "Mouse"
-msgstr "موشی"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
@@ -1548,51 +2559,51 @@ msgstr "برپاسازی تنظیمات اندازه و چرخش صفحه‌نم
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:411
+#: ../plugins/xrandr/gsd-xrandr-manager.c:418
 msgid "Could not switch the monitor configuration"
 msgstr "نمی‌توان پیکربندی نمایشگر رو تعویض کرد"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:435
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 msgid "Could not restore the display's configuration"
 msgstr "نمی توان پیکربندی صفحه‌نمایش را بازآوری کرد"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:460
+#: ../plugins/xrandr/gsd-xrandr-manager.c:467
 msgid "Could not restore the display's configuration from a backup"
 msgstr "نمی‌توان پیکربندی صفحه‌نمایش را از پشتیبان بازآوری کرد"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:481
+#: ../plugins/xrandr/gsd-xrandr-manager.c:488
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "صفحه‌نمایش در %Id ثانیه به پیکربندی قبلی خود باز خواهد گشت"
 msgstr[1] "صفحه‌نمایش در %Id ثانیه به پیکربندی قبلی خود باز خواهد گشت"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:530
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "Does the display look OK?"
 msgstr "آیا نمایشگر درست به نظر می‌رسد؟"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:537
+#: ../plugins/xrandr/gsd-xrandr-manager.c:544
 msgid "_Restore Previous Configuration"
 msgstr "_بازآوری پیکربندی قبلی"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:538
+#: ../plugins/xrandr/gsd-xrandr-manager.c:545
 msgid "_Keep This Configuration"
 msgstr "_نگه داشتن همین پیکر‌بندی"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:619
+#: ../plugins/xrandr/gsd-xrandr-manager.c:626
 msgid "The selected configuration for displays could not be applied"
 msgstr "پیکربندی انتخاب شده برای نمایشگرها نمی‌تواند اعمال شود"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1151
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1186
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "نمی‌توان اطلاعات صفحه‌نمایش را نوسازی کرد: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1155
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "درحال تلاش برای تعویض پیکربندی صفحه‌نمایش."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1625
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1741
 msgid "Could not apply the stored configuration for monitors"
 msgstr "نمی‌توان پیکربندی ذخیره شده برای صفحه‌نمایش‌ها را اعمال کرد"
 
@@ -1675,8 +2686,8 @@ msgid "Change system time and date settings"
 msgstr "تغییر تنظیمات زمان و تاریخ"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Privileges are required to configure time and date settings."
-msgstr "اجازه دسترسی برای پیکربندی تنظیمات تاریخ و زمان احتیاج است."
+msgid "To change time or date settings, you need to authenticate."
+msgstr "برای تغییر تنظیمات تاریخ و زمان، باید تصدیق هویت شوید."
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
 #: ../plugins/updates/gsd-updates-manager.c:194
@@ -1848,6 +2859,27 @@ msgstr "نصب میان‌افزار"
 msgid "Ignore devices"
 msgstr "رد کردن دستگاه‌ها"
 
+#~ msgid "Binding to enable or disable the touchpad."
+#~ msgstr "درحال مقیدسازی جهت فعال یا غیرفعال کردن صفحه‌لمسی."
+
+#~ msgid "Toggle touchpad"
+#~ msgstr "تغییر حالت صفحه‌لمسی"
+
+#~ msgid "Automount"
+#~ msgstr "سوارکردن خودکار"
+
+#~ msgid "Automounter plugin"
+#~ msgstr "افزونه‌ی سوارکننده خودکار"
+
+#~ msgid "Keyboard _Preferences"
+#~ msgstr "ترجیحات _صفحه‌کلید"
+
+#~ msgid "Show _Current Layout"
+#~ msgstr "نمایش چیدمان _فعلی"
+
+#~ msgid "Privileges are required to configure time and date settings."
+#~ msgstr "اجازه دسترسی برای پیکربندی تنظیمات تاریخ و زمان احتیاج است."
+
 #~ msgid "Sync text/plain and text/* handlers"
 #~ msgstr "همگام‌سازی متصدی‌های متنی/ساده و متنی/*‏"
 
@@ -1957,9 +2989,6 @@ msgstr "رد کردن دستگاه‌ها"
 #~ "‏%s\n"
 #~ "\n"
 #~ "محافظ صفحه نمایش در این نشست کار نمی‌کند."
-
-#~ msgid "_Do not show this message again"
-#~ msgstr "_این پیغام دوباره نشان داده نشود"
 
 #, fuzzy
 #~ msgid "Screensaver"
@@ -2143,9 +3172,6 @@ msgstr "رد کردن دستگاه‌ها"
 
 #~ msgid "Address"
 #~ msgstr "نشانی"
-
-#~ msgid "C_ity:"
-#~ msgstr "_شهر:"
 
 #~ msgid "C_ompany:"
 #~ msgstr "ش_رکت:"
@@ -2392,14 +3418,10 @@ msgstr "رد کردن دستگاه‌ها"
 #~ msgstr "با حفظ مقیاس"
 #~ msgid "Tiled"
 #~ msgstr "کاشی"
-#~ msgid "Solid Color"
-#~ msgstr "رنگ یکدست"
 #~ msgid "Horizontal Gradient"
 #~ msgstr "سایه‌ی افقی"
 #~ msgid "Vertical Gradient"
 #~ msgstr "سایه‌ی عمودی"
-#~ msgid "Add Wallpaper"
-#~ msgstr "اضافه کردن کاغذدیواری"
 #~ msgid "Images"
 #~ msgstr "تصویرها"
 #~ msgid "All Files"
@@ -2460,9 +3482,6 @@ msgstr "رد کردن دستگاه‌ها"
 #~ msgstr "کلید"
 #~ msgid "GConf key to which this property editor is attached"
 #~ msgstr "کلید GConf که این ویرایشگر ویژگی به آن پیوست شده است"
-# ../capplets/common/gconf-property-editor.:c:183
-#~ msgid "Change set"
-#~ msgstr "عوض کردن تنظیم"
 #~ msgid ""
 #~ "GConf change set containing data to be forwarded to the gconf client on "
 #~ "apply"
@@ -2876,8 +3895,6 @@ msgstr "رد کردن دستگاه‌ها"
 #~ msgstr "نامعلوم"
 #~ msgid "Layout"
 #~ msgstr "چیدمان"
-#~ msgid "Default"
-#~ msgstr "پیش‌فرض"
 #~ msgid "Models"
 #~ msgstr "مدل‌ها"
 #~ msgid "There was an error launching the keyboard tool: %s"
@@ -2908,8 +3925,6 @@ msgstr "رد کردن دستگاه‌ها"
 #~ msgstr "چیدمان‌های مو_جود:"
 #~ msgid "All_ow postponing of breaks"
 #~ msgstr "امکان به تعویق انداختن استراحت‌ها"
-#~ msgid "Check if breaks are allowed to be postponed"
-#~ msgstr "بررسی این که  می‌توان استراحت‌ها را به تعویق انداخت یا نه"
 #~ msgid "Choose a Keyboard Model"
 #~ msgstr "یک مدل صفحه‌کلید انتخاب کنید"
 #~ msgid "Choose a Layout"
@@ -2948,22 +3963,16 @@ msgstr "رد کردن دستگاه‌ها"
 #~ msgstr "مدت زمان ا_ستراحت:"
 #~ msgid "_Delay:"
 #~ msgstr "_تأخیر:"
-#~ msgid "_Models:"
-#~ msgstr "_مدل‌ها:"
 #~ msgid "_Selected layouts:"
 #~ msgstr "_چیدمان‌های انتخاب شده:"
 #~ msgid "_Speed:"
 #~ msgstr "_سرعت:"
 #~ msgid "_Work interval lasts:"
 #~ msgstr "مدت زمان _کار:"
-#~ msgid "minutes"
-#~ msgstr "دقیقه"
 #~ msgid "Set your keyboard preferences"
 #~ msgstr "ترجیحات صفحه‌کلید خود را تنظیم کنید"
 #~ msgid "microseconds"
 #~ msgstr "میکروثانیه"
-#~ msgid "Unknown Pointer"
-#~ msgstr "مکان‌نمای نامعلوم"
 #~ msgid "Default Pointer"
 #~ msgstr "مکان‌نمای پیش‌فرض"
 #~ msgid "Default Pointer - Current"
@@ -3012,12 +4021,8 @@ msgstr "رد کردن دستگاه‌ها"
 #~ msgstr "دکمه‌ها"
 #~ msgid "Highlight the _pointer when you press Ctrl"
 #~ msgstr "وقتی مهار را فشار دادید _نشان‌گر پررنگ شود"
-#~ msgid "Large"
-#~ msgstr "بزرگ"
 #~ msgid "Medium"
 #~ msgstr "متوسط"
-#~ msgid "Motion"
-#~ msgstr "حرکت"
 #~ msgid "Small"
 #~ msgstr "کوچک"
 #~ msgid "_Acceleration:"
@@ -3054,8 +4059,6 @@ msgstr "رد کردن دستگاه‌ها"
 #~ msgstr "پیشکار H_TTP:"
 #~ msgid "Network Proxy Preferences"
 #~ msgstr "ترجیحات پیشکار شبکه"
-#~ msgid "Port:"
-#~ msgstr "درگاه:"
 #~ msgid "S_ocks host:"
 #~ msgstr "_میزبان Socks:"
 #~ msgid "U_sername:"
@@ -3094,8 +4097,8 @@ msgstr "رد کردن دستگاه‌ها"
 #~ "installed the \"gnome-themes\" package."
 #~ msgstr ""
 #~ "هیچ تمی روی سیستم شما پیدا نمی‌شود.  احتمالاً این بدین معناست که محاوره‌ی "
-#~ "«ترجیحات تم» شما به طرز نامناسبی نصب شده است، و یا شمابسته‌ی «gnome-"
-#~ "themes» را نصب نکرده‌اید."
+#~ "«ترجیحات تم» شما به طرز نامناسبی نصب شده است، و یا شمابسته‌ی «gnome-themes» "
+#~ "را نصب نکرده‌اید."
 
 #~ msgid "This theme is not in a supported format."
 #~ msgstr "این تم، در یک قالب پشتیبانی شده نیست."
@@ -3545,12 +4548,6 @@ msgstr "رد کردن دستگاه‌ها"
 
 #~ msgid "Keyboard Update Handlers"
 #~ msgstr "متصدی‌های به هنگام‌سازی صفحه‌کلید"
-
-#~ msgid "Keyboard layout"
-#~ msgstr "چیدمان صفحه‌کلید"
-
-#~ msgid "Keyboard model"
-#~ msgstr "مدل صفحه‌کلید"
 
 #~ msgid ""
 #~ "Keyboard settings in gconf will be overridden from the system ASAP "
