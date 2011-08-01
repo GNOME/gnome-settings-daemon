@@ -421,8 +421,8 @@ draw_action_volume (GsdMediaKeysWindow *window,
         volume_box_width = icon_box_width;
         volume_box_height = round (window_height * 0.05);
 
-        icon_box_x0 = (window_width - icon_box_width) / 2;
-        icon_box_y0 = (window_height - icon_box_height - volume_box_height) / 2 - volume_box_height;
+        icon_box_x0 = round ((window_width - icon_box_width) / 2);
+        icon_box_y0 = round ((window_height - icon_box_height - volume_box_height) / 2 - volume_box_height);
         volume_box_x0 = round (icon_box_x0);
         volume_box_y0 = round (icon_box_height + icon_box_y0) + volume_box_height;
 
@@ -558,8 +558,8 @@ draw_action_custom (GsdMediaKeysWindow *window,
         bright_box_width = round (icon_box_width);
         bright_box_height = round (window_height * 0.05);
 
-        icon_box_x0 = (window_width - icon_box_width) / 2;
-        icon_box_y0 = (window_height - icon_box_height - bright_box_height) / 2 - bright_box_height;
+        icon_box_x0 = round ((window_width - icon_box_width) / 2);
+        icon_box_y0 = round ((window_height - icon_box_height - bright_box_height) / 2 - bright_box_height);
         bright_box_x0 = round (icon_box_x0);
         bright_box_y0 = round (icon_box_height + icon_box_y0) + bright_box_height;
 
