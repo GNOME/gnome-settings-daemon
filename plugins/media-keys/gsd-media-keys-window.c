@@ -386,7 +386,7 @@ draw_volume_boxes (GsdMediaKeysWindow *window,
         acolor.alpha = GSD_OSD_WINDOW_FG_ALPHA / 2;
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, width, height);
         gdk_cairo_set_source_rgba (cr, &acolor);
-        cairo_fill_preserve (cr);
+        cairo_fill (cr);
 
         /* bar progress */
         if (percentage < 0.01)
