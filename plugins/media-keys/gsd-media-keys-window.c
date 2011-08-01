@@ -393,7 +393,7 @@ draw_volume_boxes (GsdMediaKeysWindow *window,
                 return;
         gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &acolor);
         acolor.alpha = GSD_OSD_WINDOW_FG_ALPHA;
-        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0 + 0.5, _y0 + 0.5, height / 6 - 0.5, x1, height - 1);
+        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, x1, height);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
 }
