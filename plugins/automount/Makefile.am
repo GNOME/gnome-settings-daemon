@@ -22,14 +22,14 @@ gnome_fallback_mount_helper_LDADD = \
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_in_files = gnome-fallback-mount-helper.desktop.in
+autostart_in_in_files = gnome-fallback-mount-helper.desktop.in.in
 autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 
-gnome-fallback-mount-helper.desktop.in: gnome-fallback-mount-helper.desktop.in.in
+$(autostart_in_files): $(autostart_in_in_files)
 	@sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
 
 @INTLTOOL_DESKTOP_RULE@
 
-EXTRA_DIST = $(autostart_in_files) gnome-fallback-mount-helper.desktop.in.in
+EXTRA_DIST = $(autostart_in_in_files)
 
-CLEANFILES = $(autostart_DATA) \
-	gnome-fallback-mount-helper.desktop.in
+CLEANFILES = $(autostart_DATA) $(autostart_in_files)
