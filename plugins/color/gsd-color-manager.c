@@ -1360,6 +1360,15 @@ gcm_session_client_connect_cb (GObject *source_object,
                 return;
         }
 
+#if CD_CHECK_VERSION(0,1,12)
+        /* is there an available colord instance? */
+        ret = cd_client_get_has_server (manager->priv->client);
+        if (!ret) {
+                g_warning ("There is no colord server available");
+                goto out;
+        }
+#endif
+
         /* add profiles */
         gcm_profile_store_search (priv->profile_store);
 
