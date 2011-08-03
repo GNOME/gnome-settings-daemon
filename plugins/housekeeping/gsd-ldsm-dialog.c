@@ -75,7 +75,7 @@ gsd_ldsm_dialog_get_primary_text (GsdLdsmDialog *dialog)
 	
         g_return_val_if_fail (GSD_IS_LDSM_DIALOG (dialog), NULL);
 	
-        free_space = g_format_size_for_display (dialog->priv->space_remaining);
+        free_space = g_format_size (dialog->priv->space_remaining);
 	
         if (dialog->priv->other_partitions) {
                 primary_text = g_strdup_printf (_("The volume \"%s\" has only %s disk space remaining."),

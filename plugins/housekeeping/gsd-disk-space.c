@@ -326,7 +326,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                 char *summary;
                 char *body;
 
-                free_space_str = g_format_size_for_display (free_space);
+                free_space_str = g_format_size (free_space);
 
                 if (multiple_volumes) {
                         summary = g_strdup_printf (_("Low Disk Space on \"%s\""), name);
