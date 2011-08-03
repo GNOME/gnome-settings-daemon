@@ -2525,12 +2525,33 @@ idle_set_timeout_dim (GsdPowerManager *manager, guint timeout)
         return TRUE;
 }
 
+static void
+refresh_idle_dim_settings (GsdPowerManager *manager)
+{
+        gboolean ret;
+        gint timeout_dim = 0;
+
+        if (up_client_get_on_battery (manager->priv->up_client)) {
+                ret = g_settings_get_boolean (manager->priv->settings,
+                                              "idle-dim-battery");
+        } else {
+                ret = g_settings_get_boolean (manager->priv->settings,
+                                              "idle-dim-ac");
+        }
+        if (ret) {
+                timeout_dim = g_settings_get_int (manager->priv->settings,
+                                                  "idle-dim-time");
+                g_debug ("idle dim enabled with timeout %i", timeout_dim);
+        } else {
+                g_debug ("idle dim disabled");
+        }
+        idle_set_timeout_dim (manager, timeout_dim);
+}
+
 gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
 {
-        gint timeout_dim;
-
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
 
@@ -2544,9 +2565,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
         idle_evaluate (manager);
 
         /* set the initial dim time that can adapt for the user */
-        timeout_dim = g_settings_get_int (manager->priv->settings,
-                                          "idle-dim-time");
-        idle_set_timeout_dim (manager, timeout_dim);
+        refresh_idle_dim_settings (manager);
 
         gnome_settings_profile_end (NULL);
         return TRUE;
@@ -2787,15 +2806,14 @@ engine_settings_key_changed_cb (GSettings *settings,
                                 const gchar *key,
                                 GsdPowerManager *manager)
 {
-        gint idle_dim_time;
-
         if (g_strcmp0 (key, "use-time-for-policy") == 0) {
                 manager->priv->use_time_primary = g_settings_get_boolean (settings, key);
                 return;
         }
-        if (g_strcmp0 (key, "idle-dim-time") == 0) {
-                idle_dim_time = g_settings_get_int (settings, key);
-                idle_set_timeout_dim (manager, idle_dim_time);
+        if (g_strcmp0 (key, "idle-dim-time") == 0 ||
+            g_strcmp0 (key, "idle-dim-ac") == 0 ||
+            g_strcmp0 (key, "idle-dim-battery") == 0) {
+                refresh_idle_dim_settings (manager);
                 return;
         }
         if (g_str_has_prefix (key, "idle-dim") ||
