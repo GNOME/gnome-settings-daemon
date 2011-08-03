@@ -22,6 +22,7 @@ libpower_la_CPPFLAGS = \
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"		\
 	-DSBINDIR=\"$(sbindir)\"			\
+	-DLIBEXECDIR=\"$(libexecdir)\"			\
 	$(AM_CPPFLAGS)
 
 libpower_la_CFLAGS = \

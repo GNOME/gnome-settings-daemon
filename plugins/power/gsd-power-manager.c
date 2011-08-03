@@ -2182,7 +2182,9 @@ get_primary_output (GsdPowerManager *manager)
 
         for (i = 0; outputs[i] != NULL; i++) {
                 if (gnome_rr_output_is_connected (outputs[i]) &&
-                    gnome_rr_output_is_laptop (outputs[i])) {
+                    gnome_rr_output_is_laptop (outputs[i]) &&
+                    gnome_rr_output_get_backlight_min (outputs[i]) >= 0 &&
+                    gnome_rr_output_get_backlight_max (outputs[i]) > 0) {
                         output = outputs[i];
                         break;
                 }
@@ -2191,15 +2193,330 @@ out:
         return output;
 }
 
+/**
+ * backlight_helper_get_value:
+ *
+ * Gets a brightness value from the PolicyKit helper.
+ *
+ * Return value: the signed integer value from the helper, or -1
+ * for failure. If -1 then @error is set.
+ **/
+static gint
+backlight_helper_get_value (const gchar *argument, GError **error)
+{
+        gboolean ret;
+        gchar *stdout_data = NULL;
+        gint exit_status = 0;
+        guint64 value = -1;
+        gchar *command = NULL;
+        gchar *endptr = NULL;
+
+#ifndef __linux__
+        /* non-Linux platforms won't have /sys/class/backlight */
+        g_set_error_literal (error,
+                             GSD_POWER_MANAGER_ERROR,
+                             GSD_POWER_MANAGER_ERROR_FAILED,
+                             "The sysfs backlight helper is only for Linux");
+        goto out;
+#endif
+
+        /* get the data */
+        command = g_strdup_printf (LIBEXECDIR "/gsd-backlight-helper --%s",
+                                   argument);
+        ret = g_spawn_command_line_sync (command,
+                                         &stdout_data,
+                                         NULL,
+                                         &exit_status,
+                                         error);
+        if (!ret)
+                goto out;
+
+        g_debug ("executed %s retval: %i", command, exit_status);
+
+        /* parse */
+        value = g_ascii_strtoull (stdout_data, &endptr, 10);
+
+        /* parsing error */
+        if (endptr == stdout_data) {
+                g_set_error (error,
+                             GSD_POWER_MANAGER_ERROR,
+                             GSD_POWER_MANAGER_ERROR_FAILED,
+                             "failed to parse value: %s",
+                             stdout_data);
+                goto out;
+        }
+
+        /* out of range */
+        if (value > G_MAXINT) {
+                value = -1;
+                g_set_error (error,
+                             GSD_POWER_MANAGER_ERROR,
+                             GSD_POWER_MANAGER_ERROR_FAILED,
+                             "value out of range: %s",
+                             stdout_data);
+                goto out;
+        }
+
+out:
+        g_free (command);
+        g_free (stdout_data);
+        return value;
+}
+
+/**
+ * backlight_helper_set_value:
+ *
+ * Sets a brightness value using the PolicyKit helper.
+ *
+ * Return value: Success. If FALSE then @error is set.
+ **/
+static gboolean
+backlight_helper_set_value (const gchar *argument,
+                            gint value,
+                            GError **error)
+{
+        gboolean ret;
+        gint exit_status = 0;
+        gchar *command = NULL;
+
+#ifndef __linux__
+        /* non-Linux platforms won't have /sys/class/backlight */
+        g_set_error_literal (error,
+                             GSD_POWER_MANAGER_ERROR,
+                             GSD_POWER_MANAGER_ERROR_FAILED,
+                             "The sysfs backlight helper is only for Linux");
+        goto out;
+#endif
+
+        /* get the data */
+        command = g_strdup_printf ("pkexec " LIBEXECDIR "/gsd-backlight-helper --%s %i",
+                                   argument, value);
+        ret = g_spawn_command_line_sync (command,
+                                         NULL,
+                                         NULL,
+                                         &exit_status,
+                                         error);
+        if (!ret)
+                goto out;
+
+        g_debug ("executed %s retval: %i", command, exit_status);
+out:
+        g_free (command);
+        return ret;
+}
+
+static gint
+backlight_get_abs (GsdPowerManager *manager, GError **error)
+{
+        GnomeRROutput *output;
+        guint value;
+
+        /* prefer xbacklight */
+        output = get_primary_output (manager);
+        if (output != NULL) {
+                value = gnome_rr_output_get_backlight (output,
+                                                       error);
+                goto out;
+        }
+
+        /* fall back to the polkit helper */
+        value = backlight_helper_get_value ("get-brightness", error);
+out:
+        return value;
+}
+
+static gint
+backlight_get_percentage (GsdPowerManager *manager, GError **error)
+{
+        GnomeRROutput *output;
+        guint now;
+        guint value = -1;
+        gint min = 0;
+        gint max;
+
+        /* prefer xbacklight */
+        output = get_primary_output (manager);
+        if (output != NULL) {
+
+                min = gnome_rr_output_get_backlight_min (output);
+                max = gnome_rr_output_get_backlight_max (output);
+                now = gnome_rr_output_get_backlight (output, error);
+                if (now < 0)
+                        goto out;
+                value = ABS_TO_PERCENTAGE (min, max, now);
+                goto out;
+        }
+
+        /* fall back to the polkit helper */
+        max = backlight_helper_get_value ("get-max-brightness", error);
+        if (max < 0)
+                goto out;
+        now = backlight_helper_get_value ("get-brightness", error);
+        if (now < 0)
+                goto out;
+        value = ABS_TO_PERCENTAGE (min, max, now);
+out:
+        return value;
+}
+
+static gboolean
+backlight_set_percentage (GsdPowerManager *manager,
+                          guint value,
+                          GError **error)
+{
+        GnomeRROutput *output;
+        gboolean ret = FALSE;
+        gint min = 0;
+        gint max;
+        guint discrete;
+
+        /* prefer xbacklight */
+        output = get_primary_output (manager);
+        if (output != NULL) {
+                min = gnome_rr_output_get_backlight_min (output);
+                max = gnome_rr_output_get_backlight_max (output);
+                if (min < 0 || max < 0) {
+                        g_warning ("no xrandr backlight capability");
+                        goto out;
+                }
+                discrete = PERCENTAGE_TO_ABS (min, max, value);
+                ret = gnome_rr_output_set_backlight (output,
+                                                     discrete,
+                                                     error);
+                goto out;
+        }
+
+        /* fall back to the polkit helper */
+        max = backlight_helper_get_value ("get-max-brightness", error);
+        if (max < 0)
+                goto out;
+        discrete = PERCENTAGE_TO_ABS (min, max, value);
+        ret = backlight_helper_set_value ("set-brightness",
+                                          discrete,
+                                          error);
+out:
+        return ret;
+}
+
+static gboolean
+backlight_step_up (GsdPowerManager *manager, GError **error)
+{
+        GnomeRROutput *output;
+        gboolean ret = FALSE;
+        gint min = 0;
+        gint max;
+        gint now;
+        guint discrete;
+        guint step;
+
+        /* prefer xbacklight */
+        output = get_primary_output (manager);
+        if (output != NULL) {
+
+                min = gnome_rr_output_get_backlight_min (output);
+                max = gnome_rr_output_get_backlight_max (output);
+                now = gnome_rr_output_get_backlight (output, error);
+                if (now < 0)
+                       goto out;
+                step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+                discrete = MIN (now + step, max);
+                ret = gnome_rr_output_set_backlight (output,
+                                                     discrete,
+                                                     error);
+                goto out;
+        }
+
+        /* fall back to the polkit helper */
+        now = backlight_helper_get_value ("get-brightness", error);
+        if (now < 0)
+                goto out;
+        max = backlight_helper_get_value ("get-max-brightness", error);
+        if (max < 0)
+                goto out;
+        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+        discrete = MIN (now + step, max);
+        ret = backlight_helper_set_value ("set-brightness",
+                                          discrete,
+                                          error);
+out:
+        return ret;
+}
+
+static gboolean
+backlight_step_down (GsdPowerManager *manager, GError **error)
+{
+        GnomeRROutput *output;
+        gboolean ret = FALSE;
+        gint min = 0;
+        gint max;
+        gint now;
+        guint discrete;
+        guint step;
+
+        /* prefer xbacklight */
+        output = get_primary_output (manager);
+        if (output != NULL) {
+
+                min = gnome_rr_output_get_backlight_min (output);
+                max = gnome_rr_output_get_backlight_max (output);
+                now = gnome_rr_output_get_backlight (output, error);
+                if (now < 0)
+                       goto out;
+                step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+                discrete = MAX (now - step, 0);
+                ret = gnome_rr_output_set_backlight (output,
+                                                     discrete,
+                                                     error);
+                goto out;
+        }
+
+        /* fall back to the polkit helper */
+        now = backlight_helper_get_value ("get-brightness", error);
+        if (now < 0)
+                goto out;
+        max = backlight_helper_get_value ("get-max-brightness", error);
+        if (max < 0)
+                goto out;
+        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+        discrete = MAX (now - step, 0);
+        ret = backlight_helper_set_value ("set-brightness",
+                                          discrete,
+                                          error);
+out:
+        return ret;
+}
+
+static gint
+backlight_set_abs (GsdPowerManager *manager,
+                   guint value,
+                   GError **error)
+{
+        GnomeRROutput *output;
+        gboolean ret = FALSE;
+
+        /* prefer xbacklight */
+        output = get_primary_output (manager);
+        if (output != NULL) {
+                ret = gnome_rr_output_set_backlight (output,
+                                                     value,
+                                                     error);
+                goto out;
+        }
+
+        /* fall back to the polkit helper */
+        ret = backlight_helper_set_value ("set-brightness",
+                                          value,
+                                          error);
+out:
+        return ret;
+}
+
 static void
 idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 {
         gboolean ret = FALSE;
         GError *error = NULL;
         gint idle_brigntness;
-        gint min, max;
-        gint value;
-        GnomeRROutput *output;
         GsdPowerActionType action_type;
 
         if (mode == manager->priv->current_idle_mode)
@@ -2210,13 +2527,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 
         /* save current brightness, and set dim level */
         if (mode == GSD_POWER_IDLE_MODE_DIM) {
-                output = get_primary_output (manager);
-                if (output == NULL) {
-                        g_debug ("no laptop screen to control");
-                        return;
-                }
-                manager->priv->pre_dim_brightness = gnome_rr_output_get_backlight (output,
-                                                                                   &error);
+                manager->priv->pre_dim_brightness = backlight_get_abs (manager, &error);
                 if (manager->priv->pre_dim_brightness < 0) {
                         g_warning ("failed to get existing backlight: %s",
                                    error->message);
@@ -2225,16 +2536,9 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 }
                 idle_brigntness = g_settings_get_int (manager->priv->settings,
                                                       "idle-brightness");
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                if (min < 0 || max < 0) {
-                        g_warning ("no xrandr backlight capability");
-                        return;
-                }
-                value = PERCENTAGE_TO_ABS (min, max, idle_brigntness);
-                ret = gnome_rr_output_set_backlight (output,
-                                                     value,
-                                                     &error);
+                ret = backlight_set_percentage (manager,
+                                                idle_brigntness,
+                                                &error);
                 if (!ret) {
                         g_warning ("failed to set dim backlight to %i: %s",
                                    idle_brigntness,
@@ -2280,14 +2584,9 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                         g_clear_error (&error);
                 }
 
-                output = get_primary_output (manager);
-                if (output == NULL) {
-                        g_debug ("no laptop screen to control");
-                        return;
-                }
-                ret = gnome_rr_output_set_backlight (output,
-                                                     manager->priv->pre_dim_brightness,
-                                                     &error);
+                ret = backlight_set_abs (manager,
+                                         manager->priv->pre_dim_brightness,
+                                         &error);
                 if (!ret) {
                         g_warning ("failed to restore backlight to %i: %s",
                                    manager->priv->pre_dim_brightness,
@@ -3088,75 +3387,40 @@ handle_method_call_screen (GsdPowerManager *manager,
                            GDBusMethodInvocation *invocation)
 {
         gboolean ret = FALSE;
-        gint min, max, now;
-        guint step;
         gint value = -1;
         guint value_tmp;
-        guint percentage;
-        GnomeRROutput *output;
         GError *error = NULL;
 
-        /* get the laptop screen only */
-        output = get_primary_output (manager);
-        if (output == NULL) {
-                g_dbus_method_invocation_return_error (invocation,
-                                                       GSD_POWER_MANAGER_ERROR,
-                                                       GSD_POWER_MANAGER_ERROR_FAILED,
-                                                       "no laptop screen to control");
-                return;
-        }
-
-        /* get capabilities (cached) */
-        min = gnome_rr_output_get_backlight_min (output);
-        max = gnome_rr_output_get_backlight_max (output);
-        if (min < 0 || max < 0) {
-                g_dbus_method_invocation_return_error (invocation,
-                                                       GSD_POWER_MANAGER_ERROR,
-                                                       GSD_POWER_MANAGER_ERROR_FAILED,
-                                                       "no xrandr backlight capability");
-                return;
-        }
-
-        /* get what we are now */
-        now = gnome_rr_output_get_backlight (output, &error);
-        if (now < 0)
-               goto out;
-
-        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
         if (g_strcmp0 (method_name, "GetPercentage") == 0) {
                 g_debug ("screen get percentage");
-                value = gnome_rr_output_get_backlight (output, &error);
+                value = backlight_get_percentage (manager, &error);
                 if (value >= 0)
                         ret = TRUE;
 
         } else if (g_strcmp0 (method_name, "SetPercentage") == 0) {
                 g_debug ("screen set percentage");
                 g_variant_get (parameters, "(u)", &value_tmp);
-                value = PERCENTAGE_TO_ABS (min, max, value_tmp);
-                ret = gnome_rr_output_set_backlight (output, value, &error);
+                ret = backlight_set_percentage (manager, value_tmp, &error);
 
         } else if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("screen step up");
-                value = MIN (now + step, max);
-                ret = gnome_rr_output_set_backlight (output, value, &error);
+                ret = backlight_step_up (manager, &error);
         } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("screen step down");
-                value = MAX (now - step, 0);
-                ret = gnome_rr_output_set_backlight (output, value, &error);
+                ret = backlight_step_down (manager, &error);
         } else {
                 g_assert_not_reached ();
         }
-out:
+
         /* return value */
         if (!ret) {
                 g_dbus_method_invocation_return_gerror (invocation,
                                                         error);
                 g_error_free (error);
         } else {
-                percentage = ABS_TO_PERCENTAGE (min, max, value);
                 g_dbus_method_invocation_return_value (invocation,
                                                        g_variant_new ("(u)",
-                                                                      percentage));
+                                                                      value));
         }
 }
 
