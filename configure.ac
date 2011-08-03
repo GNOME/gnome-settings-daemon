@@ -319,7 +319,7 @@ AC_ARG_ENABLE(packagekit,
        [WANT_PACKAGEKIT=yes]) dnl Default value
 
 if test x$WANT_PACKAGEKIT = xyes ; then
-       PK_REQUIRED_VERSION=0.6.4
+       PK_REQUIRED_VERSION=0.6.12
        PKG_CHECK_MODULES(PACKAGEKIT, glib-2.0 packagekit-glib2 >= $PK_REQUIRED_VERSION upower-glib >= 0.9.1 gudev-1.0 libnotify >= $LIBNOTIFY_REQUIRED_VERSION,
              [have_packagekit=true
               AC_DEFINE(HAVE_PACKAGEKIT, 1, [Define if PackageKit should be used])],

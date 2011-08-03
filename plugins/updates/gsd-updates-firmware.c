@@ -330,7 +330,7 @@ install_packages_cb (GObject *object,
         error_code = pk_results_get_error_code (results);
         if (error_code != NULL) {
                 g_warning ("failed to install file: %s, %s",
-                           pk_error_enum_to_text (pk_error_get_code (error_code)),
+                           pk_error_enum_to_string (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
                 goto out;
         }
@@ -476,7 +476,7 @@ check_available (GsdUpdatesFirmware *firmware, const gchar *filename)
         error_code = pk_results_get_error_code (results);
         if (error_code != NULL) {
                 g_warning ("failed to search file: %s, %s",
-                           pk_error_enum_to_text (pk_error_get_code (error_code)),
+                           pk_error_enum_to_string (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
                 goto out;
         }

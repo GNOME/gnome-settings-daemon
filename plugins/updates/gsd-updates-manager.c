@@ -152,7 +152,7 @@ get_distro_upgrades_finished_cb (GObject *object,
         error_code = pk_results_get_error_code (results);
         if (error_code != NULL) {
                 g_warning ("failed to get upgrades: %s, %s",
-                           pk_error_enum_to_text (pk_error_get_code (error_code)),
+                           pk_error_enum_to_string (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
                 goto out;
         }
@@ -184,7 +184,7 @@ get_distro_upgrades_finished_cb (GObject *object,
                               NULL);
                 g_string_append_printf (string, "%s (%s)\n",
                                         name,
-                                        pk_distro_upgrade_enum_to_text (state));
+                                        pk_distro_upgrade_enum_to_string (state));
                 g_free (name);
         }
         if (string->len != 0)
@@ -254,7 +254,7 @@ refresh_cache_finished_cb (GObject *object, GAsyncResult *res, GsdUpdatesManager
         error_code = pk_results_get_error_code (results);
         if (error_code != NULL) {
                 g_warning ("failed to refresh the cache: %s, %s",
-                           pk_error_enum_to_text (pk_error_get_code (error_code)),
+                           pk_error_enum_to_string (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
                 goto out;
         }
@@ -510,8 +510,8 @@ notify_update_finished (GsdUpdatesManager *manager, PkResults *results)
                               NULL);
 
                 split = pk_package_id_split (package_id);
-                g_debug ("%s, %s, %s", pk_info_enum_to_text (info),
-                           split[PK_PACKAGE_ID_NAME], summary);
+                g_debug ("%s, %s, %s", pk_info_enum_to_string (info),
+                         split[PK_PACKAGE_ID_NAME], summary);
                 if (info == PK_INFO_ENUM_BLOCKED) {
                         skipped_number++;
                         g_string_append_printf (message_text, "<b>%s</b> - %s\n",
@@ -603,7 +603,7 @@ update_packages_finished_cb (PkTask *task,
         error_code = pk_results_get_error_code (results);
         if (error_code != NULL) {
                 g_warning ("failed to update system: %s, %s",
-                           pk_error_enum_to_text (pk_error_get_code (error_code)),
+                           pk_error_enum_to_string (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
                 goto out;
         }
@@ -688,7 +688,7 @@ package_download_finished_cb (GObject *object,
         error_code = pk_results_get_error_code (results);
         if (error_code != NULL) {
                 g_warning ("failed to download: %s, %s",
-                           pk_error_enum_to_text (pk_error_get_code (error_code)),
+                           pk_error_enum_to_string (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
                 notify_failed_get_updates_maybe (manager);
                 goto out;
@@ -761,7 +761,7 @@ get_updates_finished_cb (GObject *object,
         error_code = pk_results_get_error_code (results);
         if (error_code != NULL) {
                 g_warning ("failed to get updates: %s, %s",
-                           pk_error_enum_to_text (pk_error_get_code (error_code)),
+                           pk_error_enum_to_string (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
                 notify_failed_get_updates_maybe (manager);
                 goto out;
