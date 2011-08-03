@@ -175,6 +175,7 @@ struct GsdPowerManagerPrivate
         GsdPowerIdleMode         current_idle_mode;
         guint                    timeout_blank_id;
         guint                    timeout_sleep_id;
+        GtkStatusIcon           *status_icon;
 };
 
 enum {
@@ -617,6 +618,9 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
                 g_object_unref (manager->priv->previous_icon);
                 manager->priv->previous_icon = NULL;
 
+                /* set fallback icon */
+                gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
+
                 /* icon before, now none */
                 engine_emit_changed (manager);
 
@@ -625,6 +629,11 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
 
         /* no icon before, now icon */
         if (manager->priv->previous_icon == NULL) {
+
+                /* set fallback icon */
+                gtk_status_icon_set_visible (manager->priv->status_icon, TRUE);
+                gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
+
                 engine_emit_changed (manager);
                 manager->priv->previous_icon = g_object_ref (icon);
                 return TRUE;
@@ -634,6 +643,10 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
         if (!g_icon_equal (manager->priv->previous_icon, icon)) {
                 g_object_unref (manager->priv->previous_icon);
                 manager->priv->previous_icon = g_object_ref (icon);
+
+                /* set fallback icon */
+                gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
+
                 engine_emit_changed (manager);
                 return TRUE;
         }
@@ -652,6 +665,11 @@ engine_recalculate_state_summary (GsdPowerManager *manager)
         summary = engine_get_summary (manager);
         if (manager->priv->previous_summary == NULL) {
                 manager->priv->previous_summary = summary;
+
+                /* set fallback tooltip */
+                gtk_status_icon_set_tooltip_text (manager->priv->status_icon,
+                                                  summary);
+
                 engine_emit_changed (manager);
                 return TRUE;
         }
@@ -659,6 +677,11 @@ engine_recalculate_state_summary (GsdPowerManager *manager)
         if (strcmp (manager->priv->previous_summary, summary) != 0) {
                 g_free (manager->priv->previous_summary);
                 manager->priv->previous_summary = summary;
+
+                /* set fallback tooltip */
+                gtk_status_icon_set_tooltip_text (manager->priv->status_icon,
+                                                  summary);
+
                 engine_emit_changed (manager);
                 return TRUE;
         }
@@ -2808,6 +2831,15 @@ gsd_power_manager_init (GsdPowerManager *manager)
         g_signal_connect (manager->priv->up_client, "changed",
                           G_CALLBACK (up_client_changed_cb), manager);
 
+        /* use the fallback name from gnome-power-manager so the shell
+         * blocks this, and uses the power extension instead */
+        manager->priv->status_icon = gtk_status_icon_new ();
+        gtk_status_icon_set_name (manager->priv->status_icon,
+                                  "gnome-power-manager");
+        /* TRANSLATORS: this is the title of the power manager status icon
+         * that is only shown in fallback mode */
+        gtk_status_icon_set_title (manager->priv->status_icon, _("Power Manager"));
+
         /* connect to UPower for keyboard backlight control */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
@@ -2941,6 +2973,7 @@ gsd_power_manager_finalize (GObject *object)
         gpm_idletime_alarm_remove (manager->priv->idletime,
                                    GSD_POWER_IDLETIME_ID);
         g_object_unref (manager->priv->idletime);
+        g_object_unref (manager->priv->status_icon);
 
         G_OBJECT_CLASS (gsd_power_manager_parent_class)->finalize (object);
 }
