@@ -69,7 +69,7 @@ show_error_dialog (const char *primary_text,
 					 0,
 					 GTK_MESSAGE_ERROR,
 					 GTK_BUTTONS_OK,
-					 NULL);
+					 "%s", "");
 
 	g_object_set (dialog,
 		      "text", primary_text,

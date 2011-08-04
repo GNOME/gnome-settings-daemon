@@ -503,7 +503,9 @@ unmount_mount_callback (GObject *source_object,
 							 GTK_BUTTONS_OK,
 							 "%s",
 							 primary);
-			gtk_message_dialog_format_secondary_markup (GTK_MESSAGE_DIALOG (dialog), error->message);
+			gtk_message_dialog_format_secondary_markup (GTK_MESSAGE_DIALOG (dialog),
+								    "%s",
+								    error->message);
 			
 			gtk_widget_show (GTK_WIDGET (dialog));
 			g_signal_connect (dialog, "response",
