@@ -2398,16 +2398,17 @@ out:
         return ret;
 }
 
-static gboolean
+static gint
 backlight_step_up (GsdPowerManager *manager, GError **error)
 {
         GnomeRROutput *output;
-        gboolean ret = FALSE;
+        gboolean ret;
+        gint percentage_value = -1;
         gint min = 0;
         gint max;
         gint now;
+        gint step;
         guint discrete;
-        guint step;
 
         /* prefer xbacklight */
         output = get_primary_output (manager);
@@ -2423,6 +2424,8 @@ backlight_step_up (GsdPowerManager *manager, GError **error)
                 ret = gnome_rr_output_set_backlight (output,
                                                      discrete,
                                                      error);
+                if (ret)
+                        percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
                 goto out;
         }
 
@@ -2438,20 +2441,23 @@ backlight_step_up (GsdPowerManager *manager, GError **error)
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
                                           error);
+        if (ret)
+                percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
 out:
-        return ret;
+        return percentage_value;
 }
 
-static gboolean
+static gint
 backlight_step_down (GsdPowerManager *manager, GError **error)
 {
         GnomeRROutput *output;
-        gboolean ret = FALSE;
+        gboolean ret;
+        gint percentage_value = -1;
         gint min = 0;
         gint max;
         gint now;
+        gint step;
         guint discrete;
-        guint step;
 
         /* prefer xbacklight */
         output = get_primary_output (manager);
@@ -2467,6 +2473,8 @@ backlight_step_down (GsdPowerManager *manager, GError **error)
                 ret = gnome_rr_output_set_backlight (output,
                                                      discrete,
                                                      error);
+                if (ret)
+                        percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
                 goto out;
         }
 
@@ -2482,8 +2490,10 @@ backlight_step_down (GsdPowerManager *manager, GError **error)
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
                                           error);
+        if (ret)
+                percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
 out:
-        return ret;
+        return percentage_value;
 }
 
 static gint
@@ -3394,26 +3404,26 @@ handle_method_call_screen (GsdPowerManager *manager,
         if (g_strcmp0 (method_name, "GetPercentage") == 0) {
                 g_debug ("screen get percentage");
                 value = backlight_get_percentage (manager, &error);
-                if (value >= 0)
-                        ret = TRUE;
 
         } else if (g_strcmp0 (method_name, "SetPercentage") == 0) {
                 g_debug ("screen set percentage");
                 g_variant_get (parameters, "(u)", &value_tmp);
                 ret = backlight_set_percentage (manager, value_tmp, &error);
+                if (ret)
+                        value = value_tmp;
 
         } else if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("screen step up");
-                ret = backlight_step_up (manager, &error);
+                value = backlight_step_up (manager, &error);
         } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("screen step down");
-                ret = backlight_step_down (manager, &error);
+                value = backlight_step_down (manager, &error);
         } else {
                 g_assert_not_reached ();
         }
 
         /* return value */
-        if (!ret) {
+        if (value < 0) {
                 g_dbus_method_invocation_return_gerror (invocation,
                                                         error);
                 g_error_free (error);
