@@ -64,24 +64,16 @@ apps_settings_changed (GSettings              *settings,
 		       const char             *key,
 		       GsdA11ySettingsManager *manager)
 {
-	gboolean screen_reader, keyboard;
+	gboolean screen_reader;
 
-	if (g_str_equal (key, "screen-reader-enabled") == FALSE &&
-	    g_str_equal (key, "screen-keyboard-enabled") == FALSE)
+	if (g_str_equal (key, "screen-reader-enabled") == FALSE)
 		return;
 
-	g_debug ("screen reader or OSK enablement changed");
+	g_debug ("screen reader enablement changed");
 
 	screen_reader = g_settings_get_boolean (manager->priv->a11y_apps_settings, "screen-reader-enabled");
-	keyboard = g_settings_get_boolean (manager->priv->a11y_apps_settings, "screen-keyboard-enabled");
-
-	if (screen_reader || keyboard) {
-		g_debug ("Enabling toolkit-accessibility, screen reader or OSK enabled");
-		g_settings_set_boolean (manager->priv->interface_settings, "toolkit-accessibility", TRUE);
-	} else if (screen_reader == FALSE && keyboard == FALSE) {
-		g_debug ("Disabling toolkit-accessibility, screen reader and OSK disabled");
-		g_settings_set_boolean (manager->priv->interface_settings, "toolkit-accessibility", FALSE);
-	}
+	g_debug ("Enabling toolkit-accessibility, screen reader %s", screen_reader ? "enabled" : "disabled");
+	g_settings_set_boolean (manager->priv->interface_settings, "toolkit-accessibility", screen_reader);
 }
 
 gboolean
@@ -97,12 +89,11 @@ gsd_a11y_settings_manager_start (GsdA11ySettingsManager *manager,
 	g_signal_connect (G_OBJECT (manager->priv->a11y_apps_settings), "changed",
 			  G_CALLBACK (apps_settings_changed), manager);
 
-	/* If any of the screen reader or on-screen keyboard are enabled,
+	/* If the screen reader is enabled,
 	 * make sure a11y is enabled for the toolkits.
 	 * We don't do the same thing for the reverse so it's possible to
 	 * enable AT-SPI for the toolkits without using an a11y app */
-	if (g_settings_get_boolean (manager->priv->a11y_apps_settings, "screen-keyboard-enabled") ||
-	    g_settings_get_boolean (manager->priv->a11y_apps_settings, "screen-reader-enabled"))
+	if (g_settings_get_boolean (manager->priv->a11y_apps_settings, "screen-reader-enabled"))
 		g_settings_set_boolean (manager->priv->interface_settings, "toolkit-accessibility", TRUE);
 
         gnome_settings_profile_end (NULL);
