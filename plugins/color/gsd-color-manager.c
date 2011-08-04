@@ -546,7 +546,7 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         cmsCIExyYTRIPLE chroma;
         cmsCIExyY white_point;
         cmsHPROFILE lcms_profile = NULL;
-        cmsToneCurve *transfer_curve[3];
+        cmsToneCurve *transfer_curve[3] = { NULL, NULL, NULL };
         const gchar *data;
         gboolean ret = FALSE;
         gchar *title = NULL;
