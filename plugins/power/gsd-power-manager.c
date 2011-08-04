@@ -3268,7 +3268,7 @@ gsd_power_manager_finalize (GObject *object)
         g_object_unref (manager->priv->settings);
         g_object_unref (manager->priv->settings_screensaver);
         g_object_unref (manager->priv->up_client);
-        if (manager->priv->x11_screen != NULL);
+        if (manager->priv->x11_screen != NULL)
                 g_object_unref (manager->priv->x11_screen);
 
         g_ptr_array_unref (manager->priv->devices_array);
