@@ -2064,7 +2064,7 @@ gsd_color_manager_finalize (GObject *object)
         g_object_unref (manager->priv->profile_store);
         g_object_unref (manager->priv->dmi);
         g_hash_table_destroy (manager->priv->edid_cache);
-        if (manager->priv->x11_screen != NULL);
+        if (manager->priv->x11_screen != NULL)
                 g_object_unref (manager->priv->x11_screen);
 
         G_OBJECT_CLASS (gsd_color_manager_parent_class)->finalize (object);
