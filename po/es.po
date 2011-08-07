@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-08-03 09:47+0000\n"
-"PO-Revision-Date: 2011-08-04 09:26+0200\n"
+"POT-Creation-Date: 2011-08-04 16:56+0000\n"
+"PO-Revision-Date: 2011-08-07 18:23+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1492,46 +1492,46 @@ msgstr "Complemento de color"
 msgid "Default"
 msgstr "Predeterminado"
 
-#: ../plugins/color/gsd-color-manager.c:1522
+#: ../plugins/color/gsd-color-manager.c:1531
 msgid "Recalibrate now"
 msgstr "Recalibrar ahora"
 
-#: ../plugins/color/gsd-color-manager.c:1529
+#: ../plugins/color/gsd-color-manager.c:1538
 #: ../plugins/housekeeping/gsd-disk-space.c:385
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "Ignorar"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1571
+#: ../plugins/color/gsd-color-manager.c:1580
 msgid "Recalibration required"
 msgstr "Se necesita recalibrar"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1583
+#: ../plugins/color/gsd-color-manager.c:1592
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "La pantalla «%s» se debería recalibrar pronto."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1592
+#: ../plugins/color/gsd-color-manager.c:1601
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "La impresora «%s» se debería recalibrar pronto."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:1932
-#: ../plugins/color/gsd-color-manager.c:1950
+#: ../plugins/color/gsd-color-manager.c:1941
+#: ../plugins/color/gsd-color-manager.c:1959
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Complemento de color del administrador de preferencias de GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1934
+#: ../plugins/color/gsd-color-manager.c:1943
 msgid "Color calibration device added"
 msgstr "Dispositivo de calibración de color añadido"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1952
+#: ../plugins/color/gsd-color-manager.c:1961
 msgid "Color calibration device removed"
 msgstr "Dispositivo de calibración de color quitado"
 
@@ -2421,9 +2421,21 @@ msgstr "La tapa se ha cerrado"
 
 #. TRANSLATORS: this is the title of the power manager status icon
 #. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:2841
+#: ../plugins/power/gsd-power-manager.c:3158
 msgid "Power Manager"
 msgstr "Gestor de energía"
+
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:1
+msgid "Authentication is required to modify the laptop brightness"
+msgstr "Se requiere autenticación para modificar el brillo del portátil"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the backlight brightness.
+#.
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+msgid "Modify the laptop brightness"
+msgstr "Modificar el brillo del portátil"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
