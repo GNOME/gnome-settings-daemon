@@ -406,7 +406,11 @@ set_touch (gboolean touch)
 static void
 set_tpcbutton (gboolean tpcbutton)
 {
-        gchar data = tpcbutton;
+        /* Wacom's TPCButton option which this setting emulates is to enable
+         * Tablet PC stylus behaviour when on. The property "Hover Click"
+         * works the other way round, i.e. if Hover Click is enabled this
+         * is the equivalent of TPC behaviour disabled. */
+        gchar data = tpcbutton ? 0 : 1;
         PropertyHelper property = {
                 .name = "Wacom Hover Click",
                 .nitems = 1,
