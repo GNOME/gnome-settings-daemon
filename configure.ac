@@ -122,15 +122,10 @@ dnl - Check for LCMS2
 dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(LCMS, lcms2 >= 2.2, have_new_lcms=yes, have_new_lcms=no)
 if test x$have_new_lcms = xyes; then
-        have_lcms="yes"
         AC_DEFINE(HAVE_NEW_LCMS,1,[Got new lcms2])
 else
-        PKG_CHECK_MODULES(LCMS, lcms2, have_lcms="yes", have_lcms="no")
+        PKG_CHECK_MODULES(LCMS, lcms2)
 fi
-if test "x$have_lcms" = "xyes"; then
-        AC_DEFINE(HAVE_LCMS, 1, [define if LCMS is available])
-fi
-
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for libnotify
@@ -640,7 +635,6 @@ echo "
 
         dbus-1 system.d dir:      ${DBUS_SYS_DIR}
         PolicyKit support:        ${HAVE_POLKIT}
-        LCMS support:             ${have_lcms}
         LCMS DICT support:        ${have_new_lcms}
 
         Libnotify support:        ${have_libnotify}

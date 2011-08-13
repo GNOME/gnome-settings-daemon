@@ -26,13 +26,10 @@
 #include <libnotify/notify.h>
 #include <gdk/gdk.h>
 #include <stdlib.h>
+#include <lcms2.h>
 
 #ifdef HAVE_LIBCANBERRA
 #include <canberra-gtk.h>
-#endif
-
-#ifdef HAVE_LCMS
-  #include <lcms2.h>
 #endif
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
@@ -1735,7 +1732,6 @@ gcm_session_device_added_notify_cb (CdClient *client,
                            manager);
 }
 
-#ifdef HAVE_LCMS
 static gchar *
 gcm_session_get_precooked_md5 (cmsHPROFILE lcms_profile)
 {
@@ -1762,7 +1758,6 @@ gcm_session_get_precooked_md5 (cmsHPROFILE lcms_profile)
 out:
         return md5;
 }
-#endif
 
 static gchar *
 gcm_session_get_md5_for_filename (const gchar *filename,
@@ -1772,8 +1767,6 @@ gcm_session_get_md5_for_filename (const gchar *filename,
         gchar *checksum = NULL;
         gchar *data = NULL;
         gsize length;
-
-#ifdef HAVE_LCMS
         cmsHPROFILE lcms_profile = NULL;
 
         /* get the internal profile id, if it exists */
@@ -1788,7 +1781,6 @@ gcm_session_get_md5_for_filename (const gchar *filename,
         checksum = gcm_session_get_precooked_md5 (lcms_profile);
         if (checksum != NULL)
                 goto out;
-#endif
 
         /* generate checksum */
         ret = g_file_get_contents (filename, &data, &length, error);
@@ -1799,10 +1791,8 @@ gcm_session_get_md5_for_filename (const gchar *filename,
                                                 length);
 out:
         g_free (data);
-#ifdef HAVE_LCMS
         if (lcms_profile != NULL)
                 cmsCloseProfile (lcms_profile);
-#endif
         return checksum;
 }
 
