@@ -430,7 +430,7 @@ gcm_profile_store_search (GcmProfileStore *profile_store)
 {
         gchar *path;
         gboolean ret;
-        GError *error;
+        GError *error = NULL;
 
         /* get Linux per-user profiles */
         path = g_build_filename (g_get_user_data_dir (), "icc", NULL);
