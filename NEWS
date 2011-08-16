@@ -1,4 +1,57 @@
 =============
+Version 3.1.5
+=============
+
+A11y-keyboard:
+- Enable plugin by default (Rodrigo Moya) (#656287)
+
+Automount:
+- Link against the private profiler library (Cosimo Cecchi)
+- Add some missing includes (Cosimo Cecchi)
+- Don't ship the .in file, just the .in.in one (Bastien Nocera)
+- Silence two trivial -Wformat-security warnings (Richard Hughes)
+
+Color:
+- Do not show multiple warnings if colord is not available at runtime (Richard Hughes)
+- Fix a potential crash when unloading the color plugin (Richard Hughes)
+- Fix a potential crash if creating the per-user ICC directory fails (Richard Hughes)
+- Make lcms2 a hard dependency (Richard Hughes)
+
+Housekeeping:
+- Use new g_format_size() instead of g_format_size_for_display() (Javier Jardón)
+
+Media keys:
+- Don't preserve the path after filling (Cosimo Cecchi)
+- Remove the half pixel offset from the progressbar fill (Cosimo Cecchi)
+- Always round the render coordinates for media icons (Cosimo Cecchi)
+
+Power:
+- Add the idle actions (Richard Hughes)
+- Show a status icon when in fallback mode (Richard Hughes)
+- Respect the idle-dim-ac and idle-dim-battery configuration keys (Richard Hughes)
+- Add a backlight helper, as xbacklight isn't always present (Richard Hughes)
+- Fall back to the backlight helper if xbacklight is not available (Richard Hughes)
+- Fix a potential crash when unloading the power plugin (Richard Hughes)
+- Ensure we return the new percentage when changing the brightness (Richard Hughes)
+
+Updates:
+- Do not use deprecated PackageKit #defines (Richard Hughes)
+
+Wacom:
+- Invert TPCButton setting (Peter Hutterer) (#656372)
+
+Translations:
+- es (Daniel Mustieles)
+- fa (Arash Mousavi)
+- gl (Fran Dieguez)
+- he (Yaron Shahrabani)
+- ru (Yuri Kozlov)
+- sl (Andrej Žnidaršič)
+- sv (Daniel Nylander)
+- zh_HK (Chao-Hsiung Liao)
+- zh_TW (Chao-Hsiung Liao)
+
+=============
 Version 3.1.4
 =============
 
