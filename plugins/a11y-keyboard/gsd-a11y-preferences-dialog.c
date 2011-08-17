@@ -33,8 +33,6 @@
 
 #include <gconf/gconf-client.h>
 
-#include <dbus/dbus-glib.h>
-
 #include "gsd-a11y-preferences-dialog.h"
 
 #define SM_DBUS_NAME      "org.gnome.SessionManager"
@@ -229,41 +227,50 @@ config_set_high_contrast (gboolean enabled)
 static gboolean
 config_have_at_gsettings_condition (const char *condition)
 {
-        DBusGProxy      *sm_proxy;
-        DBusGConnection *connection;
+        GDBusProxy      *sm_proxy;
+        GDBusConnection *connection;
         GError          *error;
-        gboolean         res;
+        GVariant        *res;
         gboolean         is_handled;
 
         error = NULL;
-        connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
+        connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
         if (connection == NULL) {
                 g_warning ("Unable to connect to session bus: %s", error->message);
+                g_error_free (error);
                 return FALSE;
         }
-        sm_proxy = dbus_g_proxy_new_for_name (connection,
-                                              SM_DBUS_NAME,
-                                              SM_DBUS_PATH,
-                                              SM_DBUS_INTERFACE);
+        sm_proxy = g_dbus_proxy_new_sync (connection,
+                                          0, NULL,
+                                          SM_DBUS_NAME,
+                                          SM_DBUS_PATH,
+                                          SM_DBUS_INTERFACE,
+                                          NULL,
+                                          &error);
         if (sm_proxy == NULL) {
+                g_warning ("Unable to get proxy for %s: %s", SM_DBUS_NAME, error->message);
+                g_error_free (error);
                 return FALSE;
         }
 
         is_handled = FALSE;
-        res = dbus_g_proxy_call (sm_proxy,
-                                 "IsAutostartConditionHandled",
-                                 &error,
-                                 G_TYPE_STRING, condition,
-                                 G_TYPE_INVALID,
-                                 G_TYPE_BOOLEAN, &is_handled,
-                                 G_TYPE_INVALID);
+        res = g_dbus_proxy_call_sync (sm_proxy,
+                                      "IsAutostartConditionHandled",
+                                      g_variant_new ("(s)", condition),
+                                      G_DBUS_CALL_FLAGS_NONE,
+                                      -1, NULL, &error);
         if (! res) {
                 g_warning ("Unable to call IsAutostartConditionHandled (%s): %s",
                            condition,
                            error->message);
         }
 
+        if (g_variant_is_of_type (res, G_VARIANT_TYPE_BOOLEAN)) {
+                is_handled = g_variant_get_boolean (res);
+        }
+
         g_object_unref (sm_proxy);
+        g_variant_unref (res);
 
         return is_handled;
 }
