@@ -27,15 +27,13 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
-#include <dbus/dbus-glib.h>
-
 #include "gnome-settings-plugin.h"
 #include "gsd-smartcard-plugin.h"
 #include "gsd-smartcard-manager.h"
 
 struct GsdSmartcardPluginPrivate {
         GsdSmartcardManager *manager;
-        DBusGConnection     *bus_connection;
+        GDBusConnection     *bus_connection;
 
         guint32              is_active : 1;
 };
@@ -65,17 +63,20 @@ GNOME_SETTINGS_PLUGIN_REGISTER (GsdSmartcardPlugin, gsd_smartcard_plugin);
 static void
 simulate_user_activity (GsdSmartcardPlugin *plugin)
 {
-        DBusGProxy *screensaver_proxy;
+        GDBusProxy *screensaver_proxy;
 
         g_debug ("GsdSmartcardPlugin telling screensaver about smart card insertion");
-        screensaver_proxy = dbus_g_proxy_new_for_name (plugin->priv->bus_connection,
-                                                       SCREENSAVER_DBUS_NAME,
-                                                       SCREENSAVER_DBUS_PATH,
-                                                       SCREENSAVER_DBUS_INTERFACE);
+        screensaver_proxy = g_dbus_proxy_new_sync (plugin->priv->bus_connection,
+                                                   0, NULL,
+                                                   SCREENSAVER_DBUS_NAME,
+                                                   SCREENSAVER_DBUS_PATH,
+                                                   SCREENSAVER_DBUS_INTERFACE,
+                                                   NULL, NULL);
 
-        dbus_g_proxy_call_no_reply (screensaver_proxy,
-                                    "SimulateUserActivity",
-                                    G_TYPE_INVALID, G_TYPE_INVALID);
+        g_dbus_proxy_call (screensaver_proxy,
+                           "SimulateUserActivity",
+                           NULL, G_DBUS_CALL_FLAGS_NONE,
+                           -1, NULL, NULL, NULL);
 
         g_object_unref (screensaver_proxy);
 }
@@ -83,17 +84,20 @@ simulate_user_activity (GsdSmartcardPlugin *plugin)
 static void
 lock_screen (GsdSmartcardPlugin *plugin)
 {
-        DBusGProxy *screensaver_proxy;
+        GDBusProxy *screensaver_proxy;
 
         g_debug ("GsdSmartcardPlugin telling screensaver to lock screen");
-        screensaver_proxy = dbus_g_proxy_new_for_name (plugin->priv->bus_connection,
-                                                       SCREENSAVER_DBUS_NAME,
-                                                       SCREENSAVER_DBUS_PATH,
-                                                       SCREENSAVER_DBUS_INTERFACE);
+        screensaver_proxy = g_dbus_proxy_new_sync (plugin->priv->bus_connection,
+                                                   0, NULL,
+                                                   SCREENSAVER_DBUS_NAME,
+                                                   SCREENSAVER_DBUS_PATH,
+                                                   SCREENSAVER_DBUS_INTERFACE,
+                                                   NULL, NULL);
 
-        dbus_g_proxy_call_no_reply (screensaver_proxy,
-                                    "Lock",
-                                    G_TYPE_INVALID, G_TYPE_INVALID);
+        g_dbus_proxy_call (screensaver_proxy,
+                           "Lock",
+                           NULL, G_DBUS_CALL_FLAGS_NONE,
+                           -1, NULL, NULL, NULL);
 
         g_object_unref (screensaver_proxy);
 }
@@ -101,27 +105,30 @@ lock_screen (GsdSmartcardPlugin *plugin)
 static void
 force_logout (GsdSmartcardPlugin *plugin)
 {
-        DBusGProxy *sm_proxy;
+        GDBusProxy *sm_proxy;
         GError     *error;
-        gboolean    res;
+        GVariant   *res;
 
         g_debug ("GsdSmartcardPlugin telling session manager to force logout");
-        sm_proxy = dbus_g_proxy_new_for_name (plugin->priv->bus_connection,
-                                              SM_DBUS_NAME,
-                                              SM_DBUS_PATH,
-                                              SM_DBUS_INTERFACE);
+        sm_proxy = g_dbus_proxy_new_sync (plugin->priv->bus_connection,
+                                          0, NULL,
+                                          SM_DBUS_NAME,
+                                          SM_DBUS_PATH,
+                                          SM_DBUS_INTERFACE,
+                                          NULL, NULL);
 
         error = NULL;
-        res = dbus_g_proxy_call (sm_proxy,
-                                 "Logout",
-                                 &error,
-                                 G_TYPE_UINT, SM_LOGOUT_MODE_FORCE,
-                                 G_TYPE_INVALID, G_TYPE_INVALID);
+        res = g_dbus_proxy_call_sync (sm_proxy,
+                                      "Logout",
+                                      g_variant_new ("(i)", SM_LOGOUT_MODE_FORCE),
+                                      G_DBUS_CALL_FLAGS_NONE,
+                                      -1, NULL, &error);
 
         if (! res) {
                 g_warning ("GsdSmartcardPlugin Unable to force logout: %s", error->message);
                 g_error_free (error);
-        }
+        } else
+                g_variant_unref (res);
 
         g_object_unref (sm_proxy);
 }
@@ -269,7 +276,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("GsdSmartcardPlugin Activating smartcard plugin");
 
         error = NULL;
-        smartcard_plugin->priv->bus_connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
+        smartcard_plugin->priv->bus_connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
 
         if (smartcard_plugin->priv->bus_connection == NULL) {
                 g_warning ("GsdSmartcardPlugin Unable to connect to session bus: %s", error->message);
