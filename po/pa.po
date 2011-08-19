@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-07-10 12:19+0000\n"
-"PO-Revision-Date: 2011-07-10 21:47+0530\n"
+"POT-Creation-Date: 2011-08-04 16:56+0000\n"
+"PO-Revision-Date: 2011-08-19 08:31+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
@@ -167,7 +167,7 @@ msgstr "ਇਹ ਪਲੱਗਇਨ ਦੀ ਐਕਟੀਵੇਸ਼ਨ"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
@@ -181,7 +181,7 @@ msgstr "ਇਹ ਪਲੱਗਇਨ ਵਰਤਣ ਲਈ ਤਰਜੀਹ"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
@@ -194,7 +194,7 @@ msgstr "gnome-settings-daemon ਸ਼ੁਰੂਆਤ ਕਤਾਰ ਵਿੱਚ �
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
@@ -281,43 +281,58 @@ msgstr ""
 "ਜਾਵੇਗੀ, ਜੋ ਕਿ ਕੁਝ ਖਰਾਬ ACPI BIOS ਲਈ ਠੀਕ ਹੋ ਸਕਦੀ ਹੈ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "If we should show the recalled battery warning for a broken battery"
+msgstr "ਕੀ ਇੱਕ ਖਰਾਬ ਬੈਟਰੀ ਲਈ ਇੱਕ ਬੈਟਰੀ ਵਾਪਿਸ ਲੈਣ ਦੀ ਚੇਤਾਵਨੀ ਵੇਖਾਈ ਜਾਵੇ।"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid ""
+"If we should show the recalled battery warning for a broken battery. Set "
+"this to false only if you know your battery is okay."
+msgstr ""
+"ਕੀ ਇੱਕ ਖਰਾਬ ਬੈਟਰੀ ਲਈ ਬੈਟਰੀ ਵਾਪਸੀ ਲਈ ਚੇਤਾਵਨੀ ਵੇਖਾਉਣੀ ਚਾਹੀਦੀ ਹੈ। ਇਹ ਨਾ ਵਰਤੋਂ ਜੇ "
+"ਤੁਸੀਂ "
+"ਜਾਣਦੇ ਹੋ ਕਿ ਤੁਹਾਡੀ ਬੈਟਰੀ ਠੀਕ ਹੈ।"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 msgid "Percentage action is taken"
 msgstr "ਫੀ-ਸਦੀ ਕੀਤੀ ਜਾਣ ਵਾਲੀ ਕਾਰਵਾਈ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
 msgid "Percentage considered critical"
 msgstr "ਫੀ-ਸਦੀ, ਜਿਸ ਨੂੰ ਨਾਜ਼ੁਕ ਗਿਣਿਆ ਜਾਵੇ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 msgid "Percentage considered low"
 msgstr "ਫੀ-ਸਦੀ, ਜਿਸ ਨੂੰ ਘੱਟ ਗਿਣਿਆ ਜਾਵੇ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
 msgid ""
 "The percentage of the battery when it is considered critical. Only valid "
 "when use-time-for-policy is false."
 msgstr ""
 "ਬੈਟਰੀ ਲਈ ਫੀ-ਸਦੀ ਸਮਰੱਥਾ, ਜਦੋਂ ਇਸ ਨੂੰ ਨਾਜ਼ੁਕ ਮੰਨਿਆ ਜਾਵੇ। ਉਦੋਂ ਹੀ ਸੰਭਵ ਹੈ, ਜਦੋਂ "
-"use-time-for-policy ਦੀ ਵਰਤੋਂ ਨਾ ਹੋਵੇ।"
+"use-time-for-"
+"policy ਦੀ ਵਰਤੋਂ ਨਾ ਹੋਵੇ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid ""
 "The percentage of the battery when it is considered low. Only valid when use-"
 "time-for-policy is false."
 msgstr ""
 "ਬੈਟਰੀ ਲਈ ਫੀ-ਸਦੀ ਸਮਰੱਥਾ, ਜਦੋਂ ਇਸ ਨੂੰ ਘੱਟ ਮੰਨਿਆ ਜਾਵੇ। ਉਦੋਂ ਹੀ ਸੰਭਵ ਹੈ, ਜਦੋਂ "
-"use-time-for-policy ਦੀ ਵਰਤੋਂ ਨਾ ਹੋਵੇ।"
+"use-time-for-"
+"policy ਦੀ ਵਰਤੋਂ ਨਾ ਹੋਵੇ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
 msgid ""
 "The percentage of the battery when the critical action is performed. Only "
 "valid when use-time-for-policy is false."
 msgstr ""
 "ਬੈਟਰੀ ਲਈ ਫੀ-ਸਦੀ ਸਮਰੱਥਾ, ਜਦੋਂ ਨਾਜ਼ੁਕ ਹਾਲਤ ਕਾਰਵਾਈ ਕੀਤੀ ਜਾਵੇ। ਉਦੋਂ ਹੀ ਸੰਭਵ ਹੈ, "
-"ਜਦੋਂ "
-"use-time-for-policy ਦੀ ਵਰਤੋਂ ਨਾ ਹੋਵੇ।"
+"ਜਦੋਂ use-time-"
+"for-policy ਦੀ ਵਰਤੋਂ ਨਾ ਹੋਵੇ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid ""
 "The time remaining in seconds of the battery when critical action is taken. "
 "Only valid when use-time-for-policy is true."
@@ -326,37 +341,37 @@ msgstr ""
 "ਸੰਭਵ ਹੈ, ਜਦੋਂ "
 "use-time-for-policy ਹੋਵੇ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
 msgid ""
 "The time remaining in seconds of the battery when it is considered critical. "
 "Only valid when use-time-for-policy is true."
 msgstr ""
 "ਬੈਟਰੀ ਲਈ ਸਕਿੰਟਾਂ ਵਿੱਚ ਰਹਿੰਦਾ ਸਮਾਂ, ਜਦੋਂ ਇਸ ਨੂੰ ਨਾਜ਼ੁਕ ਗਿਣਿਆ ਜਾਵੇ। ਉਦੋਂ ਹੀ "
-"ਸੰਭਵ ਹੈ, ਜਦੋਂ "
-"use-time-for-policy ਹੋਵੇ।"
+"ਸੰਭਵ ਹੈ, ਜਦੋਂ use-"
+"time-for-policy ਹੋਵੇ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
 msgid ""
 "The time remaining in seconds of the battery when it is considered low. Only "
 "valid when use-time-for-policy is true."
 msgstr ""
 "ਬੈਟਰੀ ਲਈ ਸਕਿੰਟਾਂ ਵਿੱਚ ਰਹਿੰਦਾ ਸਮਾਂ, ਜਦੋਂ ਇਸ ਨੂੰ ਘੱਟ ਗਿਣਿਆ ਜਾਵੇ। ਉਦੋਂ ਹੀ ਸੰਭਵ "
-"ਹੈ, ਜਦੋਂ "
-"use-time-for-policy ਹੋਵੇ।"
+"ਹੈ, ਜਦੋਂ use-time-"
+"for-policy ਹੋਵੇ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
 msgid "The time remaining when action is taken"
 msgstr "ਬਾਕੀ ਰਹਿੰਦਾ ਸਮਾਂ, ਜਦੋਂ ਕਾਰਵਾਈ ਕਰਨੀ ਹੋਵੇ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
 msgid "The time remaining when critical"
 msgstr "ਬਾਕੀ ਰਹਿੰਦਾ ਸਮਾਂ, ਜਦੋਂ ਨਾਜ਼ੁਕ ਹੋਵੇ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
 msgid "The time remaining when low"
 msgstr "ਬਾਕੀ ਰਹਿੰਦਾ ਸਮਾਂ, ਜਦੋਂ ਘੱਟ ਹੋਵੇ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
 msgid "Whether to use time-based notifications"
 msgstr "ਕੀ ਸਮਾਂ-ਅਧਾਰਿਤ ਸੂਚਨਾ ਵਰਤਣੀ ਹੈ"
 
@@ -371,7 +386,6 @@ msgstr ""
 "ਕੀ ਸ਼ੈਸ਼ਨ ਸ਼ੁਰੂ ਕਰਨ ਸਮੇਂ ਨੋਟੀਫਿਕੇਸ਼ਨ ਵੇਖਾਉਣੇ ਹਨ, ਜੇ ਪਰੋਫਾਇਲ ਠੀਕ ਨਾ ਹੋਵੇ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
-#| msgid "The selected configuration for displays could not be applied"
 msgid "The duration a display profile is valid"
 msgstr "ਅੰਤਰਾਲ, ਜਿਸ ਲਈ ਡਿਸਪਲੇਅ ਪ੍ਰੋਫਾਇਲ ਵੈਧ ਹੈ"
 
@@ -384,12 +398,16 @@ msgid ""
 "This is the number of days after which the display color profile is "
 "considered invalid."
 msgstr ""
+"ਇਹ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਹੈ, ਜਿਸ ਦੇ ਬਾਅਦ ਡਿਸਪਲੇਅ ਰੰਗ ਪਰੋਫਾਇਲ ਨੂੰ ਅਢੁੱਕਵਾਂ ਮੰਨਿਆ "
+"ਜਾਵੇਗਾ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
 msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
 msgstr ""
+"ਇਹ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਹੈ, ਜਿਸ ਦੇ ਬਾਅਦ ਪਰਿੰਟਰ ਰੰਗ ਪਰੋਫਾਇਲ ਨੂੰ ਅਢੁੱਕਵਾਂ ਮੰਨਿਆ "
+"ਜਾਵੇਗਾ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 msgid "Allowed keys"
@@ -639,12 +657,10 @@ msgstr ""
 "ਅਤੇ ਮੋਬਾਇਲ ਬਰਾਡਬੈਂਡ ਤੋਂ ਵੀ, ਜੇ 'connection-use-mobile' ਚਾਲੂ ਹੋਵੇ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-#| msgid "Automatically update these types of updates"
 msgid "Automatically install these types of updates"
 msgstr "ਇਸ ਕਿਸਮ ਦੇ ਅੱਪਡੇਟ ਆਟੋਮੈਟਿਕ ਹੀ ਇੰਸਟਾਲ ਕਰੋ"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-#| msgid "Automatically update these types of updates."
 msgid "Automatically install these types of updates."
 msgstr "ਇਸ ਕਿਸਮ ਦੇ ਅੱਪਡੇਟ ਆਟੋਮੈਟਿਕ ਹੀ ਇੰਸਟਾਲ ਕਰੋ।"
 
@@ -992,8 +1008,6 @@ msgstr ""
 "\"full (ਪੂਰੀ)\" (ਅੱਖਰ ਬਣਨ ਸਮੇਂ ਕਰੂਪ ਹੋ ਸਕਦੇ ਹਨ)।"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-#| msgid ""
-#| "Enable this to only move the cursor when the user touches the tablet."
 msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr "ਜਦੋਂ ਯੂਜ਼ਰ ਟੈਬਲੇਟ ਨੂੰ ਟੱਚ ਕਰੇ ਤਾਂ ਕਰਸਰ ਹਿਲਾਉਣ ਲਈ ਇਹ ਯੋਗ ਕਰੋ।"
 
@@ -1305,13 +1319,13 @@ msgstr "ਅਸੈੱਸਬਿਲਟੀ ਸੈਟਿੰਗ"
 msgid "Accessibility settings plugin"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਸੈਟਿੰਗ ਪਲੱਗਇਨ"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
-msgid "Automount"
-msgstr "ਆਟੋ-ਮਾਊਂਟ"
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
+msgid "Automount and autorun plugged devices"
+msgstr "ਪਲੱਗ ਕੀਤੇ ਜੰਤਰ ਆਪੇ ਮਾਊਂਟ ਕਰੋ ਅਤੇ ਆਪੇ ਚਲਾਉ"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
-msgid "Automounter plugin"
-msgstr "ਆਟੋਮਾਊਂਟਰ ਪਲੱਗਇਨ"
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
+msgid "Mount Helper"
+msgstr "ਮਾਊਂਟ ਸਹਾਇਕ"
 
 #: ../plugins/automount/gsd-automount-manager.c:154
 #, c-format
@@ -1456,7 +1470,6 @@ msgid "Color"
 msgstr "ਰੰਗ"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:2
-#| msgid "Clipboard plugin"
 msgid "Color plugin"
 msgstr "ਰੰਗ ਪਲੱਗਇਨ"
 
@@ -1464,48 +1477,46 @@ msgstr "ਰੰਗ ਪਲੱਗਇਨ"
 msgid "Default"
 msgstr "ਡਿਫਾਲਟ"
 
-#: ../plugins/color/gsd-color-manager.c:1522
+#: ../plugins/color/gsd-color-manager.c:1531
 msgid "Recalibrate now"
 msgstr "ਹੁਣੇ ਮੁੜ-ਕੈਲੀਬਰੇਟ ਕਰੋ"
 
-#: ../plugins/color/gsd-color-manager.c:1529
+#: ../plugins/color/gsd-color-manager.c:1538
 #: ../plugins/housekeeping/gsd-disk-space.c:385
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
 msgid "Ignore"
 msgstr "ਅਣਡਿੱਠਾ"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1571
-#| msgid "A restart is required."
+#: ../plugins/color/gsd-color-manager.c:1580
 msgid "Recalibration required"
 msgstr "ਮੁੜ-ਕੈਲੀਬਰੇਟ ਕਰਨ ਦੀ ਲੋੜ"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1583
+#: ../plugins/color/gsd-color-manager.c:1592
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "ਡਿਸਪਲੇਅ '%s' ਨੂੰ ਛੇਤੀ ਹੀ ਮੁੜ-ਕੈਲੀਬਰੇਟ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ।"
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1592
+#: ../plugins/color/gsd-color-manager.c:1601
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "ਪਰਿੰਟਰ '%s' ਨੂੰ ਛੇਤੀ ਹੀ ਮੁੜ-ਕੈਲੀਬਰੇਟ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ।"
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:1932
-#: ../plugins/color/gsd-color-manager.c:1950
-#| msgid "GNOME Settings Daemon"
+#: ../plugins/color/gsd-color-manager.c:1941
+#: ../plugins/color/gsd-color-manager.c:1959
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "ਗਨੋਮ ਸੈਟਿੰਗ ਡੈਮਨ ਰੰਗ ਪਲੱਗਇਨ"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1934
+#: ../plugins/color/gsd-color-manager.c:1943
 msgid "Color calibration device added"
 msgstr "ਰੰਗ ਕੈਲੀਬਰੇਸ਼ਨ ਜੰਤਰ ਜੋੜਿਆ ਗਿਆ"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1952
+#: ../plugins/color/gsd-color-manager.c:1961
 msgid "Color calibration device removed"
 msgstr "ਰੰਗ ਕੈਲੀਬਰੇਸ਼ਨ ਜੰਤਰ ਹਟਾਇਆ ਗਿਆ"
 
@@ -1519,20 +1530,18 @@ msgstr "ਡੰਮੀ ਪਲੱਗਇਨ"
 
 #. TRANSLATORS: this is the notification application name
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gsd-power-manager.c:997
-#: ../plugins/power/gsd-power-manager.c:1173
-#: ../plugins/power/gsd-power-manager.c:1351
-#: ../plugins/power/gsd-power-manager.c:1500
+#: ../plugins/power/gsd-power-manager.c:1177
+#: ../plugins/power/gsd-power-manager.c:1353
+#: ../plugins/power/gsd-power-manager.c:1531
+#: ../plugins/power/gsd-power-manager.c:1680
 msgid "Power"
 msgstr "ਪਾਵਰ"
 
 #: ../plugins/power/power.gnome-settings-plugin.in.h:2
-#| msgid "Mouse plugin"
 msgid "Power plugin"
 msgstr "ਪਾਵਰ ਪਲੱਗਇਨ"
 
 #: ../plugins/power/gpm-common.c:47
-#| msgid "Unknown"
 msgid "Unknown time"
 msgstr "ਅਣਜਾਣ ਸਮਾਂ"
 
@@ -1564,7 +1573,6 @@ msgstr[0] "ਘੰਟਾ"
 msgstr[1] "ਘੰਟੇ"
 
 #: ../plugins/power/gpm-common.c:70
-#| msgid "Examine"
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "ਮਿੰਟ"
@@ -1658,13 +1666,11 @@ msgstr "ਸੀਰੀਅਲ ਨੰਬਰ:"
 
 #. TRANSLATORS: model number of the battery
 #: ../plugins/power/gpm-common.c:482
-#| msgid "Module"
 msgid "Model:"
 msgstr "ਮਾਡਲ:"
 
 #. TRANSLATORS: time to fully charged
 #: ../plugins/power/gpm-common.c:487
-#| msgid "Change system time"
 msgid "Charge time:"
 msgstr "ਚਾਰਜ ਸਮਾਂ:"
 
@@ -1741,7 +1747,6 @@ msgstr[1] "ਮਾਨੀਟਰ"
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-#| msgid "Mouse"
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "ਮਾਊਸ"
@@ -1750,7 +1755,6 @@ msgstr[1] "ਮਾਊਸ"
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-#| msgid "Keyboard"
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "ਕੀ-ਬੋਰਡ"
@@ -1772,7 +1776,6 @@ msgstr[1] "ਸੈੱਲ ਫੋਨ"
 
 #. TRANSLATORS: media player, mp3 etc
 #: ../plugins/power/gpm-common.c:598 ../plugins/power/gpm-common.c:945
-#| msgid "Launch media player"
 msgid "Media player"
 msgid_plural "Media players"
 msgstr[0] "ਮੀਡਿਆ ਪਲੇਅਰ"
@@ -1829,7 +1832,6 @@ msgstr "ਅਣਜਾਣ ਤਕਨਾਲੋਜੀ"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:719
-#| msgid "Empty Trash"
 msgid "Empty"
 msgstr "ਖਾਲੀ"
 
@@ -1900,7 +1902,6 @@ msgstr "UPS ਚਾਰਜ ਹੈ"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:832
-#| msgid "Mouse plugin"
 msgid "Mouse is charging"
 msgstr "ਮਾਊਸ ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
@@ -1911,7 +1912,6 @@ msgstr "ਮਾਊਸ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:840
-#| msgid "Mouse keys"
 msgid "Mouse is empty"
 msgstr "ਮਾਊਸ ਖਾਲੀ ਹੈ"
 
@@ -1922,19 +1922,16 @@ msgstr "ਮਾਊਸ ਚਾਰਜ ਹੈ"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:856
-#| msgid "Keyboard plugin"
 msgid "Keyboard is charging"
 msgstr "ਕੀਬੋਰਡ ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:860
-#| msgid "Keyboard plugin"
 msgid "Keyboard is discharging"
 msgstr "ਕੀਬੋਰਡ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:864
-#| msgid "Keyboard"
 msgid "Keyboard is empty"
 msgstr "ਕੀਬੋਰਡ ਖਾਲੀ ਹੈ"
 
@@ -1975,7 +1972,6 @@ msgstr "ਸੈੱਲ ਫੋਨ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:912
-#| msgid "Toner empty"
 msgid "Cell phone is empty"
 msgstr "ਸੈੱਲ ਫੋਨ ਖਾਲੀ ਹੈ"
 
@@ -2016,7 +2012,6 @@ msgstr "ਟੇਬਲਿਟ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:961
-#| msgid "Toner empty"
 msgid "Tablet is empty"
 msgstr "ਟੇਬਲਿਟ ਖਾਲੀ ਹੈ"
 
@@ -2037,7 +2032,6 @@ msgstr "ਕੰਪਿਊਟਰ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:985
-#| msgid "Toner empty"
 msgid "Computer is empty"
 msgstr "ਕੰਪਿਊਟਰ ਖਾਲੀ ਹੈ"
 
@@ -2046,198 +2040,223 @@ msgstr "ਕੰਪਿਊਟਰ ਖਾਲੀ ਹੈ"
 msgid "Computer is charged"
 msgstr "ਕੰਪਿਊਟਰ ਚਾਰਜ ਹੈ"
 
+#. TRANSLATORS: the battery may be recalled by it's vendor
+#: ../plugins/power/gsd-power-manager.c:921
+msgid "Battery may be recalled"
+msgstr "ਬੈਟਰੀ ਵਾਪਸ ਲਈ ਗਈ ਹੋ ਸਕਦੀ ਹੈ"
+
+#: ../plugins/power/gsd-power-manager.c:922
+#, c-format
+msgid ""
+"A battery in your computer may have been recalled by %s and you may be at "
+"risk."
+msgstr ""
+"ਤੁਹਾਡੇ ਕੰਪਿਊਟਰ ਦੀ ਬੈਟਰੀ ਨੂੰ %s ਵਲੋਂ ਵਾਪਿਸ ਲੈ ਲਿਆ ਗਿਆ ਹੈ ਅਤੇ ਤੁਹਾਨੂੰ ਖਤਰਾ ਹੋ "
+"ਸਕਦਾ ਹੈ।"
+
+#: ../plugins/power/gsd-power-manager.c:925
+msgid "For more information visit the battery recall website."
+msgstr "ਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ਬੈਟਰੀ ਰੀ-ਕਾਲ ਵੈੱਬਸਾਈਟ ਨੂੰ ਵੇਖੋ।"
+
+#. TRANSLATORS: button text, visit the manufacturers recall website
+#: ../plugins/power/gsd-power-manager.c:936
+msgid "Visit recall website"
+msgstr "ਰੀ-ਕਾਲ ਵੈੱਬਸਾਇਟ ਵੇਖੋ"
+
+#. TRANSLATORS: button text, do not show this bubble again
+#: ../plugins/power/gsd-power-manager.c:940
+#| msgid "_Do not show this message again"
+msgid "Do not show me this again"
+msgstr "ਇਹ ਮੈਨੂੰ ਮੁੜ ਨਾ ਵੇਖਾਓ"
+
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:971
+#: ../plugins/power/gsd-power-manager.c:1151
 msgid "UPS Discharging"
 msgstr "UPS ਡਿਸਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:976
+#: ../plugins/power/gsd-power-manager.c:1156
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPS ਦੀ %s ਬੈਕਅੱਪ ਊਰਜਾ ਬਾਕੀ"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1088
-#| msgid "Paper low"
+#: ../plugins/power/gsd-power-manager.c:1268
 msgid "Battery low"
 msgstr "ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1091
+#: ../plugins/power/gsd-power-manager.c:1271
 msgid "Laptop battery low"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1097
+#: ../plugins/power/gsd-power-manager.c:1277
 #, c-format
 msgid "Approximately <b>%s</b> remaining (%.0f%%)"
 msgstr "ਅੰਦਾਜ਼ਨ <b>%s</b> ਬਾਕੀ ਰਹਿ ਗਈ ਹੈ (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1101
-#| msgid "Paper low"
+#: ../plugins/power/gsd-power-manager.c:1281
 msgid "UPS low"
 msgstr "UPS ਘੱਟ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1105
+#: ../plugins/power/gsd-power-manager.c:1285
 #, c-format
 msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
 msgstr "UPS ਬੈਕਅੱਪ ਪਾਵਰ ਵਿੱਚੋਂ ਲਗਭਗ <b>%s</b> ਬਾਕੀ ਰਹਿ ਗਈ ਹੈ (%.0f%%)।"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1109
-#: ../plugins/power/gsd-power-manager.c:1272
+#: ../plugins/power/gsd-power-manager.c:1289
+#: ../plugins/power/gsd-power-manager.c:1452
 msgid "Mouse battery low"
 msgstr "ਮਾਊਸ ਬੈਟਰੀ ਘੱਟ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1112
+#: ../plugins/power/gsd-power-manager.c:1292
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "ਬੇਤਾਰ ਮਾਊਸ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1116
-#: ../plugins/power/gsd-power-manager.c:1280
-#| msgid "Keyboard Layout"
+#: ../plugins/power/gsd-power-manager.c:1296
+#: ../plugins/power/gsd-power-manager.c:1460
 msgid "Keyboard battery low"
 msgstr "ਕੀਬੋਰਡ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1119
+#: ../plugins/power/gsd-power-manager.c:1299
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "ਬੇਤਾਰ ਕੀ-ਬੋਰਡ ਵਿੱਚ ਪਾਵਰ ਘੱਟ ਹੈ (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1123
-#: ../plugins/power/gsd-power-manager.c:1289
-#| msgid "Paper low"
+#: ../plugins/power/gsd-power-manager.c:1303
+#: ../plugins/power/gsd-power-manager.c:1469
 msgid "PDA battery low"
 msgstr "PDA ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1126
+#: ../plugins/power/gsd-power-manager.c:1306
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA ਜੰਤਰ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1130
-#: ../plugins/power/gsd-power-manager.c:1299
 #: ../plugins/power/gsd-power-manager.c:1310
+#: ../plugins/power/gsd-power-manager.c:1479
+#: ../plugins/power/gsd-power-manager.c:1490
 msgid "Cell phone battery low"
 msgstr "ਸੈੱਲ ਫੋਨ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1133
+#: ../plugins/power/gsd-power-manager.c:1313
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "ਸੈੱਲ ਫੋਨ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1138
+#: ../plugins/power/gsd-power-manager.c:1318
 msgid "Media player battery low"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਦੀ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1141
+#: ../plugins/power/gsd-power-manager.c:1321
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਦੀ ਪਾਵਰ (%.1f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1145
-#: ../plugins/power/gsd-power-manager.c:1319
+#: ../plugins/power/gsd-power-manager.c:1325
+#: ../plugins/power/gsd-power-manager.c:1499
 msgid "Tablet battery low"
 msgstr "ਟੈਬਲੇਟ ਦੀ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1148
+#: ../plugins/power/gsd-power-manager.c:1328
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "ਟੈਬਲੇਟ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1152
-#: ../plugins/power/gsd-power-manager.c:1328
+#: ../plugins/power/gsd-power-manager.c:1332
+#: ../plugins/power/gsd-power-manager.c:1508
 msgid "Attached computer battery low"
 msgstr "ਜੁੜੇ ਕੰਪਿਊਟਰ ਦੀ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1155
+#: ../plugins/power/gsd-power-manager.c:1335
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "ਜੁੜੇ ਕੰਪਿਊਟਰ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1190
-#| msgid "Paper low"
+#: ../plugins/power/gsd-power-manager.c:1370
 msgid "Battery is low"
 msgstr "ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1231
+#: ../plugins/power/gsd-power-manager.c:1411
 msgid "Battery critically low"
 msgstr "ਬੈਟਰੀ ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1234
-#: ../plugins/power/gsd-power-manager.c:1418
+#: ../plugins/power/gsd-power-manager.c:1414
+#: ../plugins/power/gsd-power-manager.c:1598
 msgid "Laptop battery critically low"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1243
+#: ../plugins/power/gsd-power-manager.c:1423
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "ਡਾਟਾ ਖਰਾਬ ਹੋਣ ਤੋਂ ਬੱਚਣ ਲਈ ਆਪਣਾ AC ਐਡਪਟਰ ਲਾਓ ਜੀ।"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1247
+#: ../plugins/power/gsd-power-manager.c:1427
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "ਕੰਪਿਊਟਰ ਬਹੁਤ ਛੇਤੀ ਹੀ ਸਸਪੈਂਡ ਹੋ ਜਾਵੇਗਾ, ਜੇ ਪਲੱਗ ਨਾ ਲਾਇਆ।"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1251
+#: ../plugins/power/gsd-power-manager.c:1431
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "ਕੰਪਿਊਟਰ ਛੇਤੀ ਹੀ ਹਾਈਬਰਨੇਟ ਹੋ ਜਾਵੇਗਾ, ਜੇ ਪਲੱਗਇਨ ਨਾ ਲਾਇਆ।"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1255
+#: ../plugins/power/gsd-power-manager.c:1435
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "ਕੰਪਿਊਟਰ ਛੇਤੀ ਹੀ ਬੰਦ ਹੋ ਜਾਵੇਗਾ, ਜੇ ਪਲੱਗ ਨਾ ਲਾਇਆ।"
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1262
-#: ../plugins/power/gsd-power-manager.c:1454
+#: ../plugins/power/gsd-power-manager.c:1442
+#: ../plugins/power/gsd-power-manager.c:1634
 msgid "UPS critically low"
 msgstr "UPS ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1266
+#: ../plugins/power/gsd-power-manager.c:1446
 #, c-format
 msgid ""
 "Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
 "your computer to avoid losing data."
 msgstr ""
 "UPS ਪਾਵਰ ਵਿੱਚੋਂ <b>%s</b> ਬਾਕੀ ਰਹਿ ਗਈ ਹੈ (%.0f%%)। ਡਾਟਾ ਖਰਾਬ ਹੋਣ ਤੋਂ ਬਚਣ ਲਈ "
-"ਆਪਣੇ ਕੰਪਿਊਟਰ ਨੂੰ AC ਬਿਜਲੀ ਪਾਵਰ ਦਿਓ।"
+"ਆਪਣੇ "
+"ਕੰਪਿਊਟਰ ਨੂੰ AC ਬਿਜਲੀ ਪਾਵਰ ਦਿਓ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1275
+#: ../plugins/power/gsd-power-manager.c:1455
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -2248,7 +2267,7 @@ msgstr ""
 "ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1283
+#: ../plugins/power/gsd-power-manager.c:1463
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2259,7 +2278,7 @@ msgstr ""
 "ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1292
+#: ../plugins/power/gsd-power-manager.c:1472
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2270,7 +2289,7 @@ msgstr ""
 "ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1302
+#: ../plugins/power/gsd-power-manager.c:1482
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2281,7 +2300,7 @@ msgstr ""
 "ਨਾ ਕੀਤਾ ਗਿਆ ਹੈ, ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1313
+#: ../plugins/power/gsd-power-manager.c:1493
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2292,7 +2311,7 @@ msgstr ""
 "ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1322
+#: ../plugins/power/gsd-power-manager.c:1502
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2303,7 +2322,7 @@ msgstr ""
 "ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1331
+#: ../plugins/power/gsd-power-manager.c:1511
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2314,14 +2333,14 @@ msgstr ""
 "ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1371
-#: ../plugins/power/gsd-power-manager.c:1381
-#: ../plugins/power/gsd-power-manager.c:1517
+#: ../plugins/power/gsd-power-manager.c:1551
+#: ../plugins/power/gsd-power-manager.c:1561
+#: ../plugins/power/gsd-power-manager.c:1697
 msgid "Battery is critically low"
 msgstr "ਬੈਟਰੀ ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1426
+#: ../plugins/power/gsd-power-manager.c:1606
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
@@ -2331,7 +2350,7 @@ msgstr ""
 "<b>ਬੰਦ</b> ਹੋ ਜਾਵੇਗਾ।"
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1432
+#: ../plugins/power/gsd-power-manager.c:1612
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.<br><b>NOTE:</b> A small amount of power is required to keep your "
@@ -2344,7 +2363,7 @@ msgstr ""
 "ਹੈ।"
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1439
+#: ../plugins/power/gsd-power-manager.c:1619
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2353,7 +2372,7 @@ msgstr ""
 "ਹੋਣ ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1444
+#: ../plugins/power/gsd-power-manager.c:1624
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -2362,7 +2381,7 @@ msgstr ""
 "ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1462
+#: ../plugins/power/gsd-power-manager.c:1642
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
@@ -2372,7 +2391,7 @@ msgstr ""
 "<b>ਬੰਦ</b> ਹੋ ਜਾਵੇਗਾ।"
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1468
+#: ../plugins/power/gsd-power-manager.c:1648
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2380,21 +2399,39 @@ msgstr ""
 "ਹੋਣ ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1473
+#: ../plugins/power/gsd-power-manager.c:1653
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "UPS ਹੁਣ ਨਾਜ਼ੁਕ ਪੱਧਰ ਤੋਂ ਵੀ ਹੇਠਾਂ ਚੱਲੀ ਗਈ ਹੈ ਅਤੇ ਇਹ ਕੰਪਿਊਟਰ ਹੁਣ ਬੱਸ ਬੰਦ ਹੋਣ "
 "ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1856
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Lid has been opened"
 msgstr "Lid ਖੋਲ੍ਹਿਆ ਜਾ ਚੁੱਕਾ ਹੈ"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1869
+#: ../plugins/power/gsd-power-manager.c:2073
 msgid "Lid has been closed"
 msgstr "Lid ਬੰਦ ਕੀਤਾ ਜਾ ਚੁੱਕਾ ਹੈ"
+
+#. TRANSLATORS: this is the title of the power manager status icon
+#. * that is only shown in fallback mode
+#: ../plugins/power/gsd-power-manager.c:3158
+msgid "Power Manager"
+msgstr "ਪਾਵਰ ਮੈਨੇਜਰ"
+
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:1
+msgid "Authentication is required to modify the laptop brightness"
+msgstr "ਲੈਪਟਾਪ ਚਮਕ ਬਦਲਣ ਲਈ ਪਰਮਾਣਕਿਤਾ ਦੀ ਲੋੜ ਹੈ"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the backlight brightness.
+#.
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+msgid "Modify the laptop brightness"
+msgstr "ਲੈਪਟਾਪ ਚਮਕ ਬਦਲੋ"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
@@ -2440,7 +2477,6 @@ msgid "This computer has only %s disk space remaining."
 msgstr "ਇਹ ਕੰਪਿਊਟਰ ਉੱਤੇ ਕੇਵਲ %s ਡਿਸਕ ਥਾਂ ਬਾਕੀ ਰਹਿ ਗਈ ਹੈ।"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:363
-#| msgid "Low Disk Space"
 msgid "Disk space"
 msgstr "ਡਿਸਕ ਥਾਂ"
 
@@ -2503,7 +2539,6 @@ msgstr "ਜਾਂਚ ਕਰੋ…"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
-#| msgid "Key binding (%s) is invalid"
 msgid "Key binding (%s) is invalid (%d)"
 msgstr "ਕੀ ਬਾਈਡਿੰਗ (%s) ਗਲਤ ਹੈ (%d)"
 
@@ -2560,14 +2595,12 @@ msgid "_Layouts"
 msgstr "ਲੇਆਉਟ(_L)"
 
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:249
-#| msgid "Keyboard Layout"
 msgid "Show _Keyboard Layout..."
 msgstr "ਕੀ-ਬੋਰਡ ਲੇਆਉਟ ਵੇਖਾਓ(_K)..."
 
 #. translators note:
 #. * This is the name of the gnome-control-center "region" panel
 #: ../plugins/keyboard/gsd-keyboard-xkb.c:256
-#| msgid "Manage X Settings"
 msgid "Region and Language Settings"
 msgstr "ਖੇਤਰੀ ਅਤੇ ਭਾਸ਼ਾ ਸੈਟਿੰਗ"
 
@@ -2826,7 +2859,6 @@ msgstr "ਪਰਿੰਟਿੰਗ"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
 #: ../plugins/print-notifications/gsd-printer.c:203
-#| msgid "Printer error"
 msgid "Printers"
 msgstr "ਪਰਿੰਟਰ"
 
@@ -2995,8 +3027,8 @@ msgid "Change system time and date settings"
 msgstr "ਸਿਸਟਮ ਸਮਾਂ ਤੇ ਮਿਤੀ ਸੈਟਿੰਗ ਬਦਲੋ"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Privileges are required to configure time and date settings."
-msgstr "ਸਮਾਂ ਅਤੇ ਮਿਤੀ ਸੈਟਿੰਗ ਦੀ ਸੰਰਚਨਾ ਵਾਸਤੇ ਅਧਿਕਾਰਾਂ ਦੀ ਲੋੜ ਹੈ"
+msgid "To change time or date settings, you need to authenticate."
+msgstr "ਸਮਾਂ ਜਾਂ ਮਿਤੀ ਸੈਟਿੰਗ ਬਦਲਣ ਲਈ, ਤੁਹਾਨੂੰ ਪਰਮਾਣਿਤ ਹੋਣ ਦੀ ਲੋੜ ਹੈ।"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
 #: ../plugins/updates/gsd-updates-manager.c:194
@@ -3013,7 +3045,6 @@ msgstr "ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਗਰੇਡ ਉਪਲੱ�
 #: ../plugins/updates/gsd-updates-firmware.c:269
 #: ../plugins/updates/gsd-updates-firmware.c:294
 #: ../plugins/updates/gsd-updates-firmware.c:584
-#| msgid "Updates"
 msgid "Software Updates"
 msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ"
 
@@ -3179,6 +3210,15 @@ msgstr "ਫਾਇਰਮਵੇਅਰ ਇੰਸਟਾਲ"
 #: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "ਜੰਤਰ ਅਣਡਿੱਠੇ"
+
+#~ msgid "Automount"
+#~ msgstr "ਆਟੋ-ਮਾਊਂਟ"
+
+#~ msgid "Automounter plugin"
+#~ msgstr "ਆਟੋਮਾਊਂਟਰ ਪਲੱਗਇਨ"
+
+#~ msgid "Privileges are required to configure time and date settings."
+#~ msgstr "ਸਮਾਂ ਅਤੇ ਮਿਤੀ ਸੈਟਿੰਗ ਦੀ ਸੰਰਚਨਾ ਵਾਸਤੇ ਅਧਿਕਾਰਾਂ ਦੀ ਲੋੜ ਹੈ"
 
 #~ msgid "Binding to enable or disable the touchpad."
 #~ msgstr "ਟੱਚਪੈਂਡ ਨਾਲ ਸਬੰਧ ਚਾਲੂ ਜਾਂ ਬੰਦ ਕਰੋ।"
@@ -3566,9 +3606,6 @@ msgstr "ਜੰਤਰ ਅਣਡਿੱਠੇ"
 #~| msgid "Would you like to load the modmap file(s)?"
 #~ msgid "Would you like to load the modmap files?"
 #~ msgstr "ਕੀ ਤੁਸੀਂ modmap ਫਾਇਲਾਂ ਨੂੰ ਲੋਡ ਕਰਨਾ ਪਸੰਦ ਕਰੋਗੇ?"
-
-#~ msgid "_Do not show this message again"
-#~ msgstr "ਇਹ ਸੁਨੇਹਾ ਮੁੜ ਨਾ ਵੇਖਾਓ(_D)"
 
 #~ msgid "_Load"
 #~ msgstr "ਲੋਡ(_L)"
