@@ -51,7 +51,9 @@
 #define CONSOLEKIT_DBUS_INTERFACE_MANAGER       "org.freedesktop.ConsoleKit.Manager"
 
 #define UPOWER_DBUS_NAME                        "org.freedesktop.UPower"
+#define UPOWER_DBUS_PATH                        "/org/freedesktop/UPower"
 #define UPOWER_DBUS_PATH_KBDBACKLIGHT           "/org/freedesktop/UPower/KbdBacklight"
+#define UPOWER_DBUS_INTERFACE                   "org.freedesktop.UPower"
 #define UPOWER_DBUS_INTERFACE_KBDBACKLIGHT      "org.freedesktop.UPower.KbdBacklight"
 
 #define GSD_POWER_SETTINGS_SCHEMA               "org.gnome.settings-daemon.plugins.power"
@@ -144,6 +146,7 @@ struct GsdPowerManagerPrivate
         UpClient                *up_client;
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
+        GDBusProxy              *upower_proxy;
         GDBusProxy              *upower_kdb_proxy;
         gint                     kbd_brightness_now;
         gint                     kbd_brightness_max;
@@ -1987,6 +1990,26 @@ consolekit_stop (void)
 }
 
 static void
+upower_sleep_cb (GObject *source_object,
+                 GAsyncResult *res,
+                 gpointer user_data)
+{
+        GVariant *result;
+        GError *error = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL) {
+                g_warning ("couldn't sleep using UPower: %s",
+                           error->message);
+                g_error_free (error);
+        } else {
+                g_variant_unref (result);
+        }
+}
+
+static void
 do_power_action_type (GsdPowerManager *manager,
                       GsdPowerActionType action_type)
 {
@@ -1995,25 +2018,23 @@ do_power_action_type (GsdPowerManager *manager,
 
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
-                ret = up_client_suspend_sync (manager->priv->up_client,
-                                              NULL, &error);
-                if (!ret) {
-                        g_warning ("failed to suspend: %s",
-                                   error->message);
-                        g_error_free (error);
-                }
+                g_dbus_proxy_call (manager->priv->upower_proxy,
+                                   "Suspend",
+                                   NULL,
+                                   G_DBUS_CALL_FLAGS_NONE,
+                                   -1, NULL,
+                                   upower_sleep_cb, NULL);
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
                 gnome_session_shutdown ();
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                ret = up_client_hibernate_sync (manager->priv->up_client,
-                                                NULL, &error);
-                if (!ret) {
-                        g_warning ("failed to suspend: %s",
-                                   error->message);
-                        g_error_free (error);
-                }
+                g_dbus_proxy_call (manager->priv->upower_proxy,
+                                   "Hibernate",
+                                   NULL,
+                                   G_DBUS_CALL_FLAGS_NONE,
+                                   -1, NULL,
+                                   upower_sleep_cb, NULL);
                 break;
         case GSD_POWER_ACTION_SHUTDOWN:
                 /* this is only used on critically low battery where
@@ -2983,6 +3004,22 @@ session_presence_proxy_ready_cb (GObject *source_object,
 }
 
 static void
+power_proxy_ready_cb (GObject             *source_object,
+                      GAsyncResult        *res,
+                      gpointer             user_data)
+{
+        GError *error = NULL;
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        manager->priv->upower_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (manager->priv->upower_proxy == NULL) {
+                g_warning ("Could not connect to UPower: %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
 power_keyboard_proxy_ready_cb (GObject             *source_object,
                                GAsyncResult        *res,
                                gpointer             user_data)
@@ -3166,6 +3203,17 @@ gsd_power_manager_init (GsdPowerManager *manager)
          * that is only shown in fallback mode */
         gtk_status_icon_set_title (manager->priv->status_icon, _("Power Manager"));
 
+        /* connect to UPower for async power opertations */
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                  NULL,
+                                  UPOWER_DBUS_NAME,
+                                  UPOWER_DBUS_PATH,
+                                  UPOWER_DBUS_INTERFACE,
+                                  NULL,
+                                  power_proxy_ready_cb,
+                                  manager);
+
         /* connect to UPower for keyboard backlight control */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
@@ -3288,6 +3336,8 @@ gsd_power_manager_finalize (GObject *object)
                 g_object_unref (manager->priv->previous_icon);
         g_free (manager->priv->previous_summary);
 
+        if (manager->priv->upower_proxy != NULL)
+                g_object_unref (manager->priv->upower_proxy);
         if (manager->priv->session_proxy != NULL)
                 g_object_unref (manager->priv->session_proxy);
         if (manager->priv->session_presence_proxy != NULL)
