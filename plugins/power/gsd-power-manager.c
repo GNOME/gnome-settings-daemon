@@ -2118,19 +2118,18 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
 {
         gboolean tmp;
 
-        /* same state */
-        tmp = up_client_get_lid_is_closed (manager->priv->up_client);
-        if (manager->priv->lid_is_closed == tmp)
-                return;
-        manager->priv->lid_is_closed = tmp;
-
-
         /* if we are playing a critical charge sound loop on AC, stop it */
         if (!up_client_get_on_battery (client) &&
             manager->priv->critical_alert_timeout_id > 0) {
                 g_debug ("stopping alert loop due to ac being present");
                 play_loop_stop (manager);
         }
+
+        /* same state */
+        tmp = up_client_get_lid_is_closed (manager->priv->up_client);
+        if (manager->priv->lid_is_closed == tmp)
+                return;
+        manager->priv->lid_is_closed = tmp;
 
         /* fake a keypress */
         if (tmp)
