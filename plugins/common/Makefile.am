@@ -20,11 +20,12 @@ libcommon_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libcommon_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS) $(XINPUT_LIBS) $(X11_LIBS)
+	$(GSD_PLUGIN_LDFLAGS)
 
 libcommon_la_LIBADD  = \
 	$(SETTINGS_PLUGIN_LIBS)		\
-	$(XINPUT_LIBS)
+	$(XINPUT_LIBS)			\
+	$(X11_LIBS)
 
 noinst_PROGRAMS = test-input-helper test-egg-key-parsing
 
