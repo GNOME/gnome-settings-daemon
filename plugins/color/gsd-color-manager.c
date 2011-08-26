@@ -44,7 +44,6 @@
 #define GSD_COLOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerPrivate))
 
 #define GCM_SESSION_NOTIFY_TIMEOUT                      30000 /* ms */
-#define GCM_SETTINGS_SHOW_NOTIFICATIONS                 "show-notifications"
 #define GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD      "recalibrate-printer-threshold"
 #define GCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD      "recalibrate-display-threshold"
 
@@ -1491,17 +1490,8 @@ gcm_session_notify_cb (NotifyNotification *notification,
                        gpointer user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
 
-        if (g_strcmp0 (action, "display") == 0) {
-                g_settings_set_uint (priv->settings,
-                                     GCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD,
-                                     0);
-        } else if (g_strcmp0 (action, "printer") == 0) {
-                g_settings_set_uint (priv->settings,
-                                     GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD,
-                                     0);
-        } else if (g_strcmp0 (action, "recalibrate") == 0) {
+        if (g_strcmp0 (action, "recalibrate") == 0) {
                 gcm_session_exec_control_center (manager);
         }
 }
@@ -1526,13 +1516,6 @@ gcm_session_notify_recalibrate (GsdColorManager *manager,
         notify_notification_add_action (notification,
                                         "recalibrate",
                                         _("Recalibrate now"),
-                                        gcm_session_notify_cb,
-                                        priv, NULL);
-
-        /* TRANSLATORS: button: this is to ignore the recalibrate notifications */
-        notify_notification_add_action (notification,
-                                        cd_device_kind_to_string (kind),
-                                        _("Ignore"),
                                         gcm_session_notify_cb,
                                         priv, NULL);
 
@@ -1613,7 +1596,6 @@ gcm_session_profile_connect_cb (GObject *object,
                                 gpointer user_data)
 {
         const gchar *filename;
-        gboolean allow_notifications;
         gboolean ret;
         gchar *basename = NULL;
         const gchar *data_source;
@@ -1657,12 +1639,6 @@ gcm_session_profile_connect_cb (GObject *object,
                          cd_device_get_id (helper->device));
                 goto out;
         }
-
-        /* do we allow notifications */
-        allow_notifications = g_settings_get_boolean (manager->priv->settings,
-                                                      GCM_SETTINGS_SHOW_NOTIFICATIONS);
-        if (!allow_notifications)
-                goto out;
 
         /* handle device */
         gcm_session_notify_device (manager, helper->device);
