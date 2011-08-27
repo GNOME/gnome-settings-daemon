@@ -142,8 +142,11 @@ get_distro_upgrades_finished_cb (GObject *object,
         /* get the results */
         results = pk_client_generic_finish (PK_CLIENT(client), res, &error);
         if (results == NULL) {
-                g_warning ("failed to get upgrades: %s",
-                           error->message);
+                if (error->domain != PK_CLIENT_ERROR ||
+                    error->code != PK_CLIENT_ERROR_NOT_SUPPORTED) {
+                        g_warning ("failed to get upgrades: %s",
+                                   error->message);
+                }
                 g_error_free (error);
                 goto out;
         }
