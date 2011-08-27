@@ -406,13 +406,13 @@ set_motion (GsdMouseManager *manager,
         guint i;
 
         xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
+
         if (device_is_touchpad (xdevice))
                 settings = manager->priv->touchpad_settings;
         else
                 settings = manager->priv->mouse_settings;
-
-        if (xdevice == NULL)
-                return;
 
         /* Calculate acceleration */
         motion_acceleration = g_settings_get_double (settings, KEY_MOTION_ACCELERATION);
@@ -576,6 +576,8 @@ set_tap_to_click (GdkDevice *device,
                 return;
 
         xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
 
         if (!device_is_touchpad (xdevice)) {
                 XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
@@ -623,6 +625,8 @@ set_horiz_scroll (GdkDevice *device,
                 return;
 
         xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
 
         if (!device_is_touchpad (xdevice)) {
                 XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
@@ -684,6 +688,8 @@ set_edge_scroll (GdkDevice               *device,
                 return;
 
         xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
 
         if (!device_is_touchpad (xdevice)) {
                 XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
