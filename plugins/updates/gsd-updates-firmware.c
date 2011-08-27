@@ -856,8 +856,10 @@ scan_directory (GsdUpdatesFirmware *firmware)
         /* open the directory of requests */
         dir = g_dir_open (GSD_UPDATES_FIRMWARE_MISSING_DIR, 0, &error);
         if (dir == NULL) {
-                g_warning ("failed to open directory: %s",
-                           error->message);
+                if (error->code != G_FILE_ERROR_NOENT) {
+                        g_warning ("failed to open directory: %s",
+                                   error->message);
+                }
                 g_error_free (error);
                 return;
         }
