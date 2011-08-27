@@ -367,12 +367,20 @@ gcm_profile_store_enumerate_children_cb (GObject *source_object,
 static void
 gcm_profile_store_search_path (GcmProfileStore *profile_store, const gchar *path, guint depth)
 {
+        gboolean ret;
         GFile *file = NULL;
         GError *error = NULL;
         GcmProfileStoreDirHelper *helper;
 
-        /* add an inotify watch if not already added */
+        /* does path exist? */
         file = g_file_new_for_path (path);
+        ret = g_file_query_exists (file, NULL);
+        if (!ret) {
+                g_debug ("%s does not exist, so skipping", path);
+                goto out;
+        }
+
+        /* add an inotify watch if not already added */
         helper = gcm_profile_store_find_directory (profile_store, path);
         if (helper == NULL) {
                 helper = g_new0 (GcmProfileStoreDirHelper, 1);
