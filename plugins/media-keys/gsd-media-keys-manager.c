@@ -88,10 +88,7 @@ static const gchar introspection_xml[] =
 #define HIGH_CONTRAST "HighContrast"
 
 #define VOLUME_STEP 6           /* percents for one volume button press */
-/* FIXME: Remove when PA 0.9.23 is used */
-#ifndef PA_VOLUME_UI_MAX
-#define PA_VOLUME_UI_MAX pa_sw_volume_from_dB(+11.0)
-#endif
+#define MAX_VOLUME 65536.0
 
 #define GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MEDIA_KEYS_MANAGER, GsdMediaKeysManagerPrivate))
 
@@ -621,12 +618,11 @@ do_touchpad_action (GsdMediaKeysManager *manager)
 static void
 update_dialog (GsdMediaKeysManager *manager,
                guint vol,
-               guint max_vol,
                gboolean muted,
                gboolean sound_changed,
                gboolean quiet)
 {
-        vol = (int) (100 * (double) vol / (double) max_vol);
+        vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
         vol = CLAMP (vol, 0, 100);
 
         dialog_init (manager);
@@ -651,14 +647,13 @@ do_sound_action (GsdMediaKeysManager *manager,
                  gboolean             quiet)
 {
         gboolean old_muted, new_muted;
-        guint old_vol, new_vol, max_vol, norm_vol_step;
+        guint old_vol, new_vol, norm_vol_step;
         gboolean sound_changed;
 
         if (manager->priv->stream == NULL)
                 return;
 
-        max_vol = gvc_mixer_stream_get_can_decibel (manager->priv->stream) ? PA_VOLUME_UI_MAX : PA_VOLUME_NORM;
-        norm_vol_step = max_vol * VOLUME_STEP / 100;
+        norm_vol_step = PA_VOLUME_NORM * VOLUME_STEP / 100;
 
         /* FIXME: this is racy */
         new_vol = old_vol = gvc_mixer_stream_get_volume (manager->priv->stream);
@@ -681,7 +676,7 @@ do_sound_action (GsdMediaKeysManager *manager,
                 new_muted = FALSE;
                 /* When coming out of mute only increase the volume if it was 0 */
                 if (!old_muted || old_vol == 0)
-                        new_vol = MIN (old_vol + norm_vol_step, max_vol);
+                        new_vol = MIN (old_vol + norm_vol_step, MAX_VOLUME);
                 break;
         }
 
@@ -697,7 +692,7 @@ do_sound_action (GsdMediaKeysManager *manager,
                 }
         }
 
-        update_dialog (manager, new_vol, max_vol, new_muted, sound_changed, quiet);
+        update_dialog (manager, new_vol, new_muted, sound_changed, quiet);
 }
 
 static void
