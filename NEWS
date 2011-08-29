@@ -1,3 +1,44 @@
+==============
+Version 3.1.90
+==============
+
+A11Y-keyboard:
+- Use GIO's DBus API instead of dbus-glib's (Rodrigo Moya)
+
+Color:
+- Don't use uninitialized GErrors (Matthias Clasen)
+- Do not set an age for display and printer profiles (Richard Hughes)
+- Remove the ability to disable notifications (Richard Hughes)
+- Do not search user-icc directories if they do not exist (Richard Hughes) (#657484)
+
+Daemon:
+- Add Unity to OnlyShowIn value for autostart desktop file (Michael Terry) (#654919)
+
+Media keys:
+- Don't go up to 11 (Bastien Nocera) (#649411)
+
+Mouse:
+- Be more careful to avoid segfaults (Matthias Clasen) (#657462)
+
+Power:
+- Ensure the critical battery beep is stopped when the AC is inserted (Richard Hughes)
+- Ensure we lock the screen before suspending on lid close (Richard Hughes) (#655924)
+- Add mention of bug 652183 (Bastien Nocera)
+
+Smartcard:
+- Use GIO's DBus API instead of dbus-glib's (Rodrigo Moya)
+
+Updates:
+- Do not log a warning if the firmware-missing file does not exist (Richard Hughes)
+- Do not log a warning at startup if getting the upgrade list is not supported (Richard Hughes) (#657483)
+
+Translations:
+- bg (Alexander Shopov)
+- id (Andika Triwidada)
+- pa (A S Alam)
+- ta (Dr.T.Vasudevan)
+- zh_CN (Aron Xu)
+
 =============
 Version 3.1.5
 =============
