@@ -246,10 +246,12 @@ xft_settings_get (GnomeXSettingsManager *manager,
 {
         GsdFontAntialiasingMode antialiasing;
         GsdFontHinting hinting;
+        GsdFontRgbaOrder order;
         gboolean use_rgba = FALSE;
 
         antialiasing = g_settings_get_enum (manager->priv->plugin_settings, FONT_ANTIALIASING_KEY);
         hinting = g_settings_get_enum (manager->priv->plugin_settings, FONT_HINTING_KEY);
+        order = g_settings_get_enum (manager->priv->plugin_settings, FONT_RGBA_ORDER_KEY);
 
         settings->antialias = (antialiasing != GSD_FONT_ANTIALIASING_MODE_NONE);
         settings->hinting = (hinting != GSD_FONT_HINTING_NONE);
@@ -269,6 +271,24 @@ xft_settings_get (GnomeXSettingsManager *manager,
                 break;
         case GSD_FONT_HINTING_FULL:
                 settings->hintstyle = "hintfull";
+                break;
+        }
+
+        switch (order) {
+        case GSD_FONT_RGBA_ORDER_RGBA:
+                settings->rgba = "rgba";
+                break;
+        case GSD_FONT_RGBA_ORDER_RGB:
+                settings->rgba = "rgb";
+                break;
+        case GSD_FONT_RGBA_ORDER_BGR:
+                settings->rgba = "bgr";
+                break;
+        case GSD_FONT_RGBA_ORDER_VRGB:
+                settings->rgba = "vrgb";
+                break;
+        case GSD_FONT_RGBA_ORDER_VBGR:
+                settings->rgba = "vbgr";
                 break;
         }
 
