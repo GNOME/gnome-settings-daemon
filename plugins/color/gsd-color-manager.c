@@ -1511,6 +1511,7 @@ gcm_session_notify_recalibrate (GsdColorManager *manager,
         notification = notify_notification_new (title, message, "preferences-color");
         notify_notification_set_timeout (notification, GCM_SESSION_NOTIFY_TIMEOUT);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
+        notify_notification_set_app_name (notification, _("Color"));
 
         /* TRANSLATORS: button: this is to open GCM */
         notify_notification_add_action (notification,
