@@ -1079,7 +1079,7 @@ engine_coldplug (GsdPowerManager *manager)
         /* get devices from UPower */
         ret = up_client_enumerate_devices_sync (manager->priv->up_client, NULL, &error);
         if (!ret) {
-                g_error ("failed to get device list: %s", error->message);
+                g_warning ("failed to get device list: %s", error->message);
                 g_error_free (error);
                 goto out;
         }
