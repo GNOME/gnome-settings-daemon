@@ -76,7 +76,7 @@ cond_setting_changed (GSettings       *settings,
 
         enabled = g_settings_get_boolean (settings, key);
         if (enabled != FALSE) {
-                if (gtk->priv->dir_modules == NULL) {
+                if (gtk->priv->dir_modules == NULL)
                         gtk->priv->dir_modules = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
                 g_hash_table_insert (gtk->priv->dir_modules, g_strdup (module_name), NULL);
         } else if (gtk->priv->dir_modules != NULL) {
