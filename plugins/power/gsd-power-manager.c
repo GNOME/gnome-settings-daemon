@@ -2221,13 +2221,13 @@ out:
  * Return value: the signed integer value from the helper, or -1
  * for failure. If -1 then @error is set.
  **/
-static gint
+static gint64
 backlight_helper_get_value (const gchar *argument, GError **error)
 {
         gboolean ret;
         gchar *stdout_data = NULL;
         gint exit_status = 0;
-        guint64 value = -1;
+        gint64 value = -1;
         gchar *command = NULL;
         gchar *endptr = NULL;
 
@@ -2254,7 +2254,7 @@ backlight_helper_get_value (const gchar *argument, GError **error)
         g_debug ("executed %s retval: %i", command, exit_status);
 
         /* parse */
-        value = g_ascii_strtoull (stdout_data, &endptr, 10);
+        value = g_ascii_strtoll (stdout_data, &endptr, 10);
 
         /* parsing error */
         if (endptr == stdout_data) {
@@ -2329,28 +2329,24 @@ static gint
 backlight_get_abs (GsdPowerManager *manager, GError **error)
 {
         GnomeRROutput *output;
-        guint value;
 
         /* prefer xbacklight */
         output = get_primary_output (manager);
         if (output != NULL) {
-                value = gnome_rr_output_get_backlight (output,
-                                                       error);
-                goto out;
+                return gnome_rr_output_get_backlight (output,
+                                                      error);
         }
 
         /* fall back to the polkit helper */
-        value = backlight_helper_get_value ("get-brightness", error);
-out:
-        return value;
+        return backlight_helper_get_value ("get-brightness", error);
 }
 
 static gint
 backlight_get_percentage (GsdPowerManager *manager, GError **error)
 {
         GnomeRROutput *output;
-        guint now;
-        guint value = -1;
+        gint now;
+        gint value = -1;
         gint min = 0;
         gint max;
 
