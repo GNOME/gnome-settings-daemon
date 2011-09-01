@@ -174,8 +174,11 @@ session_env_done (GObject             *source_object,
         GError *error = NULL;
 
         result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
-        if (error != NULL)
+        if (result != NULL) {
+                g_debug ("Failed to set the environment: %s", error->message);
                 g_error_free (error);
+                return;
+        }
 
         g_variant_unref (result);
 }
