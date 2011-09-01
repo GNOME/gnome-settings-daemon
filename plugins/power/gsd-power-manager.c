@@ -2645,7 +2645,7 @@ idle_sleep_cb (GsdPowerManager *manager)
 static gboolean
 idle_is_session_idle (GsdPowerManager *manager)
 {
-        gboolean ret = FALSE;
+        gboolean ret;
         GVariant *result;
         guint status;
 
@@ -2653,19 +2653,19 @@ idle_is_session_idle (GsdPowerManager *manager)
         result = g_dbus_proxy_get_cached_property (manager->priv->session_presence_proxy,
                                                    "status");
         if (result == NULL)
-                goto out;
+                return FALSE;
 
         g_variant_get (result, "u", &status);
         ret = (status == SESSION_STATUS_CODE_IDLE);
         g_variant_unref (result);
-out:
+
         return ret;
 }
 
 static gboolean
 idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
 {
-        gboolean ret = FALSE;
+        gboolean ret;
         GVariant *retval = NULL;
         GError *error = NULL;
 
@@ -2680,14 +2680,12 @@ idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
                 /* abort as the DBUS method failed */
                 g_warning ("IsInhibited failed: %s", error->message);
                 g_error_free (error);
-                goto out;
+                return FALSE;
         }
 
-        /* success */
-        g_variant_get (retval, "(b)", &ret);
-out:
-        if (retval != NULL)
-                g_variant_unref (retval);
+        ret = g_variant_get_boolean (retval);
+        g_variant_unref (retval);
+
         return ret;
 }
 
@@ -3626,26 +3624,29 @@ handle_get_property (GDBusConnection *connection,
                      GError **error, gpointer user_data)
 {
         GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
-        gchar *tooltip = NULL;
-        GIcon *icon = NULL;
         GVariant *retval = NULL;
 
         if (g_strcmp0 (property_name, "Icon") == 0) {
+                GIcon *icon;
+
                 icon = engine_get_icon (manager);
-                if (icon != NULL)
-                        tooltip = g_icon_to_string (icon);
-                retval = g_variant_new_string (tooltip != NULL ? tooltip : "");
-                goto out;
-        }
-        if (g_strcmp0 (property_name, "Tooltip") == 0) {
+                if (icon != NULL) {
+                        char *str;
+                        str = g_icon_to_string (icon);
+                        g_object_unref (icon);
+                        retval = g_variant_new_string (str);
+                        g_free (str);
+                } else {
+                        retval = g_variant_new_string ("");
+                }
+        } else if (g_strcmp0 (property_name, "Tooltip") == 0) {
+                char *tooltip;
+
                 tooltip = engine_get_summary (manager);
                 retval = g_variant_new_string (tooltip != NULL ? tooltip : "");
-                goto out;
+                g_free (tooltip);
         }
-out:
-        if (icon != NULL)
-                g_object_unref (icon);
-        g_free (tooltip);
+
         return retval;
 }
 
