@@ -2871,45 +2871,6 @@ refresh_idle_dim_settings (GsdPowerManager *manager)
         idle_set_timeout_dim (manager, timeout_dim);
 }
 
-gboolean
-gsd_power_manager_start (GsdPowerManager *manager,
-                         GError **error)
-{
-        g_debug ("Starting power manager");
-        gnome_settings_profile_start (NULL);
-
-        /* coldplug the list of screens */
-        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        if (manager->priv->x11_screen == NULL)
-                return FALSE;
-
-        /* coldplug the engine */
-        engine_coldplug (manager);
-        idle_evaluate (manager);
-
-        /* set the initial dim time that can adapt for the user */
-        refresh_idle_dim_settings (manager);
-
-        gnome_settings_profile_end (NULL);
-        return TRUE;
-}
-
-void
-gsd_power_manager_stop (GsdPowerManager *manager)
-{
-        g_debug ("Stopping power manager");
-
-        if (manager->priv->introspection_data) {
-                g_dbus_node_info_unref (manager->priv->introspection_data);
-                manager->priv->introspection_data = NULL;
-        }
-
-        if (manager->priv->connection != NULL) {
-                g_object_unref (manager->priv->connection);
-                manager->priv->connection = NULL;
-        }
-}
-
 static void
 gsd_power_manager_class_init (GsdPowerManagerClass *klass)
 {
@@ -3162,10 +3123,12 @@ engine_settings_key_changed_cb (GSettings *settings,
         }
 }
 
-static void
-gsd_power_manager_init (GsdPowerManager *manager)
+gboolean
+gsd_power_manager_start (GsdPowerManager *manager,
+                         GError **error)
 {
-        manager->priv = GSD_POWER_MANAGER_GET_PRIVATE (manager);
+        g_debug ("Starting power manager");
+        gnome_settings_profile_start (NULL);
 
         manager->priv->kbd_brightness_old = -1;
         manager->priv->pre_dim_brightness = 100;
@@ -3297,19 +3260,37 @@ gsd_power_manager_init (GsdPowerManager *manager)
                           G_CALLBACK (idle_idletime_reset_cb), manager);
         g_signal_connect (manager->priv->idletime, "alarm-expired",
                           G_CALLBACK (idle_idletime_alarm_expired_cb), manager);
+
+        /* coldplug the list of screens */
+        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+        if (manager->priv->x11_screen == NULL)
+                return FALSE;
+
+        /* coldplug the engine */
+        engine_coldplug (manager);
+        idle_evaluate (manager);
+
+        /* set the initial dim time that can adapt for the user */
+        refresh_idle_dim_settings (manager);
+
+        gnome_settings_profile_end (NULL);
+        return TRUE;
 }
 
-static void
-gsd_power_manager_finalize (GObject *object)
+void
+gsd_power_manager_stop (GsdPowerManager *manager)
 {
-        GsdPowerManager *manager;
+        g_debug ("Stopping power manager");
 
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_POWER_MANAGER (object));
+        if (manager->priv->introspection_data) {
+                g_dbus_node_info_unref (manager->priv->introspection_data);
+                manager->priv->introspection_data = NULL;
+        }
 
-        manager = GSD_POWER_MANAGER (object);
-
-        g_return_if_fail (manager->priv != NULL);
+        if (manager->priv->connection != NULL) {
+                g_object_unref (manager->priv->connection);
+                manager->priv->connection = NULL;
+        }
 
         if (manager->priv->timeout_blank_id != 0)
                 g_source_remove (manager->priv->timeout_blank_id);
@@ -3344,6 +3325,23 @@ gsd_power_manager_finalize (GObject *object)
                                    GSD_POWER_IDLETIME_ID);
         g_object_unref (manager->priv->idletime);
         g_object_unref (manager->priv->status_icon);
+}
+
+static void
+gsd_power_manager_init (GsdPowerManager *manager)
+{
+        manager->priv = GSD_POWER_MANAGER_GET_PRIVATE (manager);
+}
+
+static void
+gsd_power_manager_finalize (GObject *object)
+{
+        GsdPowerManager *manager;
+
+        manager = GSD_POWER_MANAGER (object);
+
+        g_return_if_fail (manager->priv != NULL);
+
 
         G_OBJECT_CLASS (gsd_power_manager_parent_class)->finalize (object);
 }
