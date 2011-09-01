@@ -123,7 +123,7 @@ static const gchar introspection_xml[] =
 "</node>";
 
 /* on ACPI machines we have 4-16 levels, on others it's ~150 */
-#define BRIGHTNESS_STEP_AMOUNT(max) (max < 20 ? 1 : max / 20)
+#define BRIGHTNESS_STEP_AMOUNT(max) ((max) < 20 ? 1 : (max) / 20)
 
 /* take a discrete value with offset and convert to percentage */
 #define ABS_TO_PERCENTAGE(min, max, value) (((value - min) * 100) / (max - min))
