@@ -604,130 +604,6 @@ renew_subscription (gpointer data)
         return TRUE;
 }
 
-static void
-cancel_old_subscriptions ()
-{
-        http_t *http;
-        ipp_t  *request;
-        ipp_t  *response;
-        static const char * const old_events[] = {
-                "printer-state-changed",
-                "printer-restarted",
-                "printer-shutdown",
-                "printer-stopped",
-                "printer-added",
-                "printer-deleted",
-                "job-state-changed",
-                "job-created",
-                "job-completed",
-                "job-stopped" };
-        static const char * const older_events[] = {
-                "printer-added",
-                "printer-deleted",
-                "job-state-changed",
-                "job-created",
-                "job-completed",
-                "job-stopped" };
-
-        if ((http = httpConnectEncrypt (cupsServer (), ippPort (),
-                                        cupsEncryption ())) == NULL) {
-                g_debug ("Connection to CUPS server \'%s\' failed.", cupsServer ());
-        }
-        else {
-                request = ippNewRequest (IPP_GET_SUBSCRIPTIONS);
-                ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
-                              "printer-uri", NULL, "/");
-                ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-                              NULL, cupsUser ());
-                ippAddBoolean (request, IPP_TAG_SUBSCRIPTION, "my-subscriptions", 1);
-                response = cupsDoRequest (http, request, "/");
-
-                if (response != NULL && response->request.status.status_code <= IPP_OK_CONFLICT) {
-                        ipp_attribute_t *events;
-                        ipp_attribute_t *attr;
-                        gchar           *recipient_uri;
-                        gint             lease_duration;
-                        gint             id;
-                        gint             i, j;
-
-                        for (attr = response->attrs; attr; attr = attr->next) {
-                                recipient_uri = NULL;
-                                events = NULL;
-                                id = -1;
-                                lease_duration = -1;
-
-                                while (attr && attr->group_tag != IPP_TAG_SUBSCRIPTION)
-                                        attr = attr->next;
-
-                                while (attr && attr->group_tag == IPP_TAG_SUBSCRIPTION) {
-                                        if (g_strcmp0 (attr->name, "notify-subscription-id") == 0)
-                                                id = attr->values[0].integer;
-                                        else if (g_strcmp0 (attr->name, "notify-recipient-uri") == 0)
-                                                recipient_uri = attr->values[0].string.text;
-                                        else if (g_strcmp0 (attr->name, "notify-lease-duration") == 0)
-                                                lease_duration = attr->values[0].integer;
-                                        else if (g_strcmp0 (attr->name, "notify-events") == 0)
-                                                events = attr;
-                                        attr = attr->next;
-                                }
-
-                                if (recipient_uri && events && id >= 0 && lease_duration >=0) {
-                                        gboolean remove = TRUE;
-                                        gboolean have;
-                                        gint length = 0;
-                                        gint length2 = 0;
-
-                                        if (lease_duration != 0)
-                                                remove = FALSE;
-
-                                        if (g_strcmp0 (recipient_uri, "dbus://") != 0)
-                                                remove = FALSE;
-
-                                        length = G_N_ELEMENTS (old_events);
-                                        length2 = G_N_ELEMENTS (older_events);
-                                        if (events->num_values != length &&
-                                            events->num_values != length2)
-                                                remove = FALSE;
-                                        else {
-                                                if (events->num_values == length)
-                                                        for (i = 0; i < events->num_values; i++) {
-                                                                have = FALSE;
-                                                                for (j = 0; j < length; j++) {
-                                                                        if (g_strcmp0 (events->values[i].string.text, old_events[j]) == 0)
-                                                                                have = TRUE;
-                                                                }
-                                                                if (!have)
-                                                                        remove = FALSE;
-                                                        }
-
-                                                if (events->num_values == length2)
-                                                        for (i = 0; i < events->num_values; i++) {
-                                                                have = FALSE;
-                                                                for (j = 0; j < length2; j++) {
-                                                                        if (g_strcmp0 (events->values[i].string.text, older_events[j]) == 0)
-                                                                                have = TRUE;
-                                                                }
-                                                                if (!have)
-                                                                        remove = FALSE;
-                                                        }
-                                        }
-
-                                        if (remove)
-                                                cancel_subscription (id);
-                                }
-
-                                if (!attr)
-                                        break;
-                        }
-                }
-
-                if (response) {
-                        ippDelete (response);
-                        response = NULL;
-                }
-        }
-}
-
 gboolean
 gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
                                        GError                      **error)
@@ -742,8 +618,6 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         manager->priv->dests = NULL;
         manager->priv->num_dests = 0;
         manager->priv->scp_handler_spawned = FALSE;
-
-        cancel_old_subscriptions ();
 
         renew_subscription (manager);
         g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription, manager);
