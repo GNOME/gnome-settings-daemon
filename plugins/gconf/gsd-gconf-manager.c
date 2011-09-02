@@ -108,6 +108,9 @@ gsd_gconf_manager_start (GsdGconfManager *manager, GError **error)
                                 gsize key_len, j;
                                 GHashTable *keys_hash = NULL;
 
+                                if (!groups[i])
+                                        continue;
+
                                 keys = g_key_file_get_keys (key_file, groups[i], &key_len, error);
                                 for (j = 0; j < key_len; j++) {
                                         if (keys_hash == NULL)
@@ -120,9 +123,15 @@ gsd_gconf_manager_start (GsdGconfManager *manager, GError **error)
                                 g_strfreev (keys);
 
                                 if (keys_hash != NULL) {
-                                        g_hash_table_insert (manager->priv->conf_watchers,
-                                                             g_strdup (groups[i]),
-                                                             conf_watcher_new (groups[i], keys_hash));
+                                        ConfWatcher *watcher;
+
+                                        watcher = conf_watcher_new (groups[i], keys_hash);
+                                        if (watcher) {
+                                                g_hash_table_insert (manager->priv->conf_watchers,
+                                                                     g_strdup (groups[i]),
+                                                                     watcher);
+                                        } else
+                                                g_hash_table_destroy (keys_hash);
                                 }
                         }
 
