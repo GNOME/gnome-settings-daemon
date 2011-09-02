@@ -1584,7 +1584,7 @@ gcm_session_notify_device (GsdColorManager *manager, CdDevice *device)
         }
 
         /* check if we need to notify */
-        since = (g_get_real_time () / G_USEC_PER_SEC) - cd_device_get_modified (device);
+        since = (g_get_real_time () - cd_device_get_modified (device)) / G_USEC_PER_SEC;
         if (threshold > since)
                 gcm_session_notify_recalibrate (manager, title, message, kind);
         g_free (device_title);
