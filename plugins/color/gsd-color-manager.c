@@ -1553,7 +1553,7 @@ gcm_session_notify_device (GsdColorManager *manager, CdDevice *device)
         const gchar *title;
         gchar *device_title = NULL;
         gchar *message;
-        gint threshold;
+        guint threshold;
         glong since;
         GsdColorManagerPrivate *priv = manager->priv;
 
@@ -1566,8 +1566,8 @@ gcm_session_notify_device (GsdColorManager *manager, CdDevice *device)
         if (kind == CD_DEVICE_KIND_DISPLAY) {
 
                 /* get from GSettings */
-                threshold = g_settings_get_int (priv->settings,
-                                                GCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD);
+                threshold = g_settings_get_uint (priv->settings,
+                                                 GCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD);
 
                 /* TRANSLATORS: this is when the display has not been recalibrated in a while */
                 message = g_strdup_printf (_("The display '%s' should be recalibrated soon."),
@@ -1575,8 +1575,8 @@ gcm_session_notify_device (GsdColorManager *manager, CdDevice *device)
         } else {
 
                 /* get from GSettings */
-                threshold = g_settings_get_int (priv->settings,
-                                                GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD);
+                threshold = g_settings_get_uint (priv->settings,
+                                                 GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD);
 
                 /* TRANSLATORS: this is when the printer has not been recalibrated in a while */
                 message = g_strdup_printf (_("The printer '%s' should be recalibrated soon."),
