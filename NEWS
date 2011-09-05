@@ -1,4 +1,46 @@
 ==============
+Version 3.1.91
+==============
+
+Common:
+- Don't list XINPUT_LIBS twice, move X11_LIBS from LDFLAGS to LIBADD (Stefan Sauer)
+
+Color:
+- Ensure the 'Recalibration required' notification has a custom app name (Richard Hughes)
+- Fix a critical warning on startup (Richard Hughes)
+- Do not notify to recalibrate on every startup (Richard Hughes)
+
+Daemon:
+- Fix possible double-free outside gnome-session (Bastien Nocera)
+
+Gconf:
+- Double check stuff we add to the hash table (Rodrigo Moya) (#658055)
+
+Housekeeping:
+- NULL-terminate the ignore-paths array (Bastien Nocera) (#657849)
+
+Power:
+- Do not exit gnome-settings-daemon if upower fails to load (Richard Hughes)
+- Fix impossible to hit error paths (Bastien Nocera) (#657364)
+- Fix BRIGHTESS_STEP_AMOUNT calculation macro (Kamal Mostafa)
+- Do most of the work in _start () (Bastien Nocera) (#657924)
+- Never idle-dim the display to a higher brightness level (Richard Hughes) (#658144)
+
+Printers:
+- Remove redundant code (Marek Kasik)
+
+Xsettings:
+- Handle rgba-order key (Bastien Nocera) (#657525)
+- Don't poke at an empty hashtable (Bastien Nocera) (#657464)
+- Fix a stray brace (Owen Taylor)
+
+Translations:
+- be (Ihar Hrachyshka)
+- cz (Marek Černocký)
+- pt_BR (Og B. Maciel)
+- ta (Dr.T.Vasudevan)
+
+==============
 Version 3.1.90
 ==============
 
