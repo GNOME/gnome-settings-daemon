@@ -743,7 +743,7 @@ set_touchpad_enabled (GdkDevice *device,
 
         g_object_get (G_OBJECT (device), "device-id", &id, NULL);
 
-        g_debug ("Trying to set device enabled for %d", id);
+        g_debug ("Trying to set device %s for \"%s\" (%d)", (state) ? "enabled" : "disabled", gdk_device_get_name (device), id);
 
         xdevice = open_gdk_device (device);
         if (xdevice == NULL)
@@ -755,9 +755,9 @@ set_touchpad_enabled (GdkDevice *device,
         }
 
         if (set_device_enabled (id, state) == FALSE)
-                g_warning ("Error %s device \"%s\"", (state) ? "enabling" : "disabling", gdk_device_get_name (device));
+                g_warning ("Error %s device \"%s\" (%d)", (state) ? "enabling" : "disabling", gdk_device_get_name (device), id);
         else
-                g_debug ("%s device \"%s\"", (state) ? "Enabled" : "Disabled", gdk_device_get_name (device));
+                g_debug ("%s device \"%s\" (%d)", (state) ? "Enabled" : "Disabled", gdk_device_get_name (device), id);
 
         XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
