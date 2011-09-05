@@ -2375,6 +2375,44 @@ out:
         return value;
 }
 
+static gint
+backlight_get_min (GsdPowerManager *manager)
+{
+        GnomeRROutput *output;
+
+        /* if we have no xbacklight device, then hardcode zero as sysfs
+         * offsets everything to 0 as min */
+        output = get_primary_output (manager);
+        if (output == NULL)
+                return 0;
+
+        /* get xbacklight value, which maybe non-zero */
+        return gnome_rr_output_get_backlight_min (output);
+}
+
+static gint
+backlight_get_max (GsdPowerManager *manager, GError **error)
+{
+        gint value;
+        GnomeRROutput *output;
+
+        /* prefer xbacklight */
+        output = get_primary_output (manager);
+        if (output != NULL) {
+                value = gnome_rr_output_get_backlight_max (output);
+                if (value < 0) {
+                        g_set_error (error,
+                                     GSD_POWER_MANAGER_ERROR,
+                                     GSD_POWER_MANAGER_ERROR_FAILED,
+                                     "failed to get backlight max");
+                }
+                return value;
+        }
+
+        /* fall back to the polkit helper */
+        return  backlight_helper_get_value ("get-max-brightness", error);
+}
+
 static gboolean
 backlight_set_percentage (GsdPowerManager *manager,
                           guint value,
@@ -2542,7 +2580,11 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 {
         gboolean ret = FALSE;
         GError *error = NULL;
-        gint idle_brigntness;
+        gint idle;
+        gint idle_percentage;
+        gint min;
+        gint max;
+        gint now;
         GsdPowerActionType action_type;
 
         if (mode == manager->priv->current_idle_mode)
@@ -2553,25 +2595,46 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 
         /* save current brightness, and set dim level */
         if (mode == GSD_POWER_IDLE_MODE_DIM) {
-                manager->priv->pre_dim_brightness = backlight_get_abs (manager, &error);
-                if (manager->priv->pre_dim_brightness < 0) {
+                now = backlight_get_abs (manager, &error);
+                if (now < 0) {
                         g_warning ("failed to get existing backlight: %s",
                                    error->message);
                         g_error_free (error);
                         return;
                 }
-                idle_brigntness = g_settings_get_int (manager->priv->settings,
-                                                      "idle-brightness");
-                ret = backlight_set_percentage (manager,
-                                                idle_brigntness,
-                                                &error);
-                if (!ret) {
-                        g_warning ("failed to set dim backlight to %i: %s",
-                                   idle_brigntness,
+
+                /* is the dim brightness actually *dimmer* than the
+                 * brightness we have now? */
+                min = backlight_get_min (manager);
+                max = backlight_get_max (manager, &error);
+                if (max < 0) {
+                        g_warning ("failed to get max to dim backlight: %s",
                                    error->message);
                         g_error_free (error);
                         return;
                 }
+                idle_percentage = g_settings_get_int (manager->priv->settings,
+                                                      "idle-brightness");
+                idle = PERCENTAGE_TO_ABS (min, max, idle_percentage);
+                if (idle > now) {
+                        g_debug ("brightness already now %i/%i, so "
+                                 "ignoring dim to %i/%i",
+                                 now, max, idle, max);
+                        return;
+                }
+                ret = backlight_set_abs (manager,
+                                         idle,
+                                         &error);
+                if (!ret) {
+                        g_warning ("failed to set dim backlight to %i%%: %s",
+                                   idle_percentage,
+                                   error->message);
+                        g_error_free (error);
+                        return;
+                }
+
+                /* save for undim */
+                manager->priv->pre_dim_brightness = now;
 
         /* turn off screen */
         } else if (mode == GSD_POWER_IDLE_MODE_BLANK) {
