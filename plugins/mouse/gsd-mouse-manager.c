@@ -185,8 +185,10 @@ device_is_blacklisted (GsdMouseManager *manager,
 {
         int id;
         g_object_get (G_OBJECT (device), "device-id", &id, NULL);
-        if (g_hash_table_lookup (manager->priv->blacklist, GINT_TO_POINTER (id)) != NULL)
+        if (g_hash_table_lookup (manager->priv->blacklist, GINT_TO_POINTER (id)) != NULL) {
+                g_debug ("device %s (%d) is blacklisted", gdk_device_get_name (device), id);
                 return TRUE;
+        }
         return FALSE;
 }
 
@@ -741,6 +743,8 @@ set_touchpad_enabled (GdkDevice *device,
 
         g_object_get (G_OBJECT (device), "device-id", &id, NULL);
 
+        g_debug ("Trying to set device enabled for %d", id);
+
         xdevice = open_gdk_device (device);
         if (xdevice == NULL)
                 return;
@@ -752,6 +756,8 @@ set_touchpad_enabled (GdkDevice *device,
 
         if (set_device_enabled (id, state) == FALSE)
                 g_warning ("Error %s device \"%s\"", (state) ? "enabling" : "disabling", gdk_device_get_name (device));
+        else
+                g_debug ("%s device \"%s\"", (state) ? "Enabled" : "Disabled", gdk_device_get_name (device));
 
         XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
