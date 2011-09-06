@@ -117,7 +117,7 @@ gsd_gconf_manager_start (GsdGconfManager *manager, GError **error)
                                                 keys_hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
                                         g_hash_table_insert (keys_hash, g_strdup (keys[j]),
-                                                             g_strdup (g_key_file_get_value (key_file, groups[i], keys[j], error)));
+                                                             g_key_file_get_value (key_file, groups[i], keys[j], error));
                                 }
 
                                 g_strfreev (keys);
