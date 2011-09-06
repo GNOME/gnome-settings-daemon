@@ -735,15 +735,14 @@ set_edge_scroll (GdkDevice               *device,
 }
 
 static void
-set_touchpad_enabled (GdkDevice *device,
-                      gboolean   state)
+set_touchpad_disabled (GdkDevice *device)
 {
         int id;
         XDevice *xdevice;
 
         g_object_get (G_OBJECT (device), "device-id", &id, NULL);
 
-        g_debug ("Trying to set device %s for \"%s\" (%d)", (state) ? "enabled" : "disabled", gdk_device_get_name (device), id);
+        g_debug ("Trying to set device disabled for \"%s\" (%d)", gdk_device_get_name (device), id);
 
         xdevice = open_gdk_device (device);
         if (xdevice == NULL)
@@ -754,10 +753,35 @@ set_touchpad_enabled (GdkDevice *device,
                 return;
         }
 
-        if (set_device_enabled (id, state) == FALSE)
-                g_warning ("Error %s device \"%s\" (%d)", (state) ? "enabling" : "disabling", gdk_device_get_name (device), id);
+        if (set_device_enabled (id, FALSE) == FALSE)
+                g_warning ("Error disabling device \"%s\" (%d)", gdk_device_get_name (device), id);
         else
-                g_debug ("%s device \"%s\" (%d)", (state) ? "Enabled" : "Disabled", gdk_device_get_name (device), id);
+                g_debug ("Disabled device \"%s\" (%d)", gdk_device_get_name (device), id);
+
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+}
+
+static void
+set_touchpad_enabled (int id)
+{
+        XDevice *xdevice;
+
+        g_debug ("Trying to set device enabled for %d", id);
+
+        gdk_error_trap_push ();
+        xdevice = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), id);
+        if (gdk_error_trap_pop () != 0)
+                return;
+
+        if (!device_is_touchpad (xdevice)) {
+                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                return;
+        }
+
+        if (set_device_enabled (id, TRUE) == FALSE)
+                g_warning ("Error enabling device \"%d\"", id);
+        else
+                g_debug ("Enabled device %d", id);
 
         XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
@@ -873,7 +897,8 @@ set_mouse_settings (GsdMouseManager *manager,
         set_tap_to_click (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
         set_edge_scroll (device, g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
         set_horiz_scroll (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
-        set_touchpad_enabled (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED));
+        if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED) == FALSE)
+                set_touchpad_disabled (device);
 }
 
 static void
@@ -933,6 +958,8 @@ touchpad_callback (GSettings       *settings,
         for (l = devices; l != NULL; l = l->next) {
                 GdkDevice *device = l->data;
 
+                g_message ("checking on device %s", gdk_device_get_name (device));
+
                 if (device_is_blacklisted (manager, device))
                         return;
 
@@ -945,7 +972,10 @@ touchpad_callback (GSettings       *settings,
                 } else if (g_str_equal (key, KEY_PAD_HORIZ_SCROLL)) {
                         set_horiz_scroll (device, g_settings_get_boolean (settings, key));
                 } else if (g_str_equal (key, KEY_TOUCHPAD_ENABLED)) {
-                        set_touchpad_enabled (device, g_settings_get_boolean (settings, key));
+                        if (g_settings_get_boolean (settings, key) == FALSE)
+                                set_touchpad_disabled (device);
+                        else
+                                set_touchpad_enabled (gdk_x11_device_get_id (device));
                 } else if (g_str_equal (key, KEY_MOTION_ACCELERATION) ||
                            g_str_equal (key, KEY_MOTION_THRESHOLD)) {
                         set_motion (manager, device);
@@ -956,6 +986,18 @@ touchpad_callback (GSettings       *settings,
                 }
         }
         g_list_free (devices);
+
+        if (g_str_equal (key, KEY_TOUCHPAD_ENABLED) &&
+            g_settings_get_boolean (settings, key)) {
+                devices = get_disabled_devices (manager->priv->device_manager);
+                for (l = devices; l != NULL; l = l->next) {
+                        int device_id;
+
+                        device_id = GPOINTER_TO_INT (l->data);
+                        set_touchpad_enabled (device_id);
+                }
+                g_list_free (devices);
+        }
 }
 
 static void
@@ -1061,6 +1103,17 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                 }
         }
         g_list_free (devices);
+
+        if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED)) {
+                devices = get_disabled_devices (manager->priv->device_manager);
+                for (l = devices; l != NULL; l = l->next) {
+                        int device_id;
+
+                        device_id = GPOINTER_TO_INT (l->data);
+                        set_touchpad_enabled (device_id);
+                }
+                g_list_free (devices);
+        }
 
         gnome_settings_profile_end (NULL);
 
