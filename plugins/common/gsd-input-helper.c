@@ -238,7 +238,7 @@ set_device_enabled (int device_id,
 
         gdk_error_trap_push ();
 
-        value = enabled;
+        value = enabled ? 1 : 0;
         XIChangeProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                           device_id, prop, XA_INTEGER, 8, PropModeReplace, &value, 1);
 
@@ -319,4 +319,38 @@ run_custom_command (GdkDevice              *device,
         g_free (argv[2]);
 
         return (exit_status == 0);
+}
+
+GList *
+get_disabled_devices (GdkDeviceManager *manager)
+{
+        XDeviceInfo *device_info;
+        gint n_devices;
+        guint i;
+        GList *ret;
+
+        ret = NULL;
+
+        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
+        if (device_info == NULL)
+                return ret;
+
+        for (i = 0; i < n_devices; i++) {
+                GdkDevice *device;
+
+                /* Ignore core devices */
+                if (device_info[i].use == IsXKeyboard ||
+                    device_info[i].use == IsXPointer)
+                        continue;
+
+                /* Check whether the device is actually available */
+                device = gdk_x11_device_manager_lookup (manager, device_info[i].id);
+                g_message ("checking whether we have a device for %d: %s", device_info[i].id, device ? "yes" : "no");
+                if (device != NULL)
+                        continue;
+
+                ret = g_list_prepend (ret, GINT_TO_POINTER (device_info[i].id));
+        }
+
+        return ret;
 }

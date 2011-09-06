@@ -29,6 +29,28 @@
 
 #include "gsd-input-helper.h"
 
+static void
+print_disabled_devices (void)
+{
+	GList *devices, *l;
+	GdkDeviceManager *manager;
+
+	manager = gdk_display_get_device_manager (gdk_display_get_default ());
+
+	devices = get_disabled_devices (manager);
+	g_print ("Disabled devices:\t\t\t");
+	if (devices == NULL) {
+		g_print ("no\n");
+		return;
+	}
+
+	for (l = devices; l != NULL; l = l->next) {
+		g_print ("%d ", GPOINTER_TO_INT (l->data));
+	}
+	g_list_free (devices);
+	g_print ("\n");
+}
+
 int main (int argc, char **argv)
 {
 	gboolean supports_xinput;
@@ -65,6 +87,8 @@ int main (int argc, char **argv)
 		g_warning ("Has no input devices");
                 return 1;
 	}
+
+	print_disabled_devices ();
 
         for (i = 0; i < n_devices; i++) {
                 XDevice *device;

@@ -69,6 +69,8 @@ gboolean  device_set_property     (XDevice                *xdevice,
 gboolean  run_custom_command      (GdkDevice              *device,
                                    CustomCommand           command);
 
+GList *   get_disabled_devices    (GdkDeviceManager       *manager);
+
 G_END_DECLS
 
 #endif /* __GSD_INPUT_HELPER_H */
