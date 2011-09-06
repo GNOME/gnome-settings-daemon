@@ -138,6 +138,7 @@ gsd_gconf_manager_start (GsdGconfManager *manager, GError **error)
                         /* Free all memory */
                         g_free (path);
                         g_strfreev (groups);
+                        g_key_file_free (key_file);
 
                         result = TRUE;
                 }
