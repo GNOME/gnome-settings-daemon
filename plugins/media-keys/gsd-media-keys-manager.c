@@ -622,8 +622,12 @@ update_dialog (GsdMediaKeysManager *manager,
                gboolean sound_changed,
                gboolean quiet)
 {
-        vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
-        vol = CLAMP (vol, 0, 100);
+        if (!muted) {
+                vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
+                vol = CLAMP (vol, 0, 100);
+        } else {
+                vol = 0.0;
+        }
 
         dialog_init (manager);
         gsd_media_keys_window_set_volume_muted (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
