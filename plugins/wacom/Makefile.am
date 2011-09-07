@@ -27,7 +27,6 @@ libwacom_la_LDFLAGS = 		\
 libwacom_la_LIBADD  = 							\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_PLUGIN_LIBS)						\
-	$(X11_LIBS)							\
 	$(XINPUT_LIBS)
 
 plugin_in_files = wacom.gnome-settings-plugin.in

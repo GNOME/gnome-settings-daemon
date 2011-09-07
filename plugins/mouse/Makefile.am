@@ -19,16 +19,16 @@ libmouse_la_CPPFLAGS = \
 libmouse_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(MOUSE_CFLAGS)			\
 	$(AM_CFLAGS)
 
 libmouse_la_LDFLAGS = 		\
 	$(GSD_PLUGIN_LDFLAGS)
 
 libmouse_la_LIBADD  =							\
+	$(MOUSE_LIBS)							\
 	$(top_builddir)/plugins/common/libcommon.la			\
-	$(SETTINGS_PLUGIN_LIBS)						\
-	$(X11_LIBS)							\
-	$(XINPUT_LIBS)
+	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = mouse.gnome-settings-plugin.in
 
@@ -44,11 +44,12 @@ gsd_locate_pointer_SOURCES = 	\
 
 gsd_locate_pointer_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(MOUSE_CFLAGS)			\
 	$(AM_CFLAGS)
 
 gsd_locate_pointer_LDADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)		\
-	$(X11_LIBS)			\
+	$(MOUSE_LIBS)			\
 	-lm
 
 EXTRA_DIST = $(plugin_in_files)

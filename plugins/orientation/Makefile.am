@@ -13,7 +13,6 @@ test_orientation_CFLAGS =					\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(GNOME_DESKTOP_CFLAGS)					\
 	$(GUDEV_CFLAGS)						\
-	$(XINPUT_CFLAGS)					\
 	$(PLUGIN_CFLAGS)					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
@@ -22,7 +21,6 @@ test_orientation_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(GUDEV_LIBS)							\
-	$(XINPUT_LIBS)							\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_LTLIBRARIES = liborientation.la
@@ -54,9 +52,7 @@ liborientation_la_LDFLAGS = 		\
 liborientation_la_LIBADD  =						\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(GUDEV_LIBS)							\
-	$(SETTINGS_PLUGIN_LIBS)						\
-	$(X11_LIBS)							\
-	$(XINPUT_LIBS)
+	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = orientation.gnome-settings-plugin.in
 

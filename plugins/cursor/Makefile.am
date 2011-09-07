@@ -17,7 +17,7 @@ libcursor_la_CPPFLAGS = \
 
 libcursor_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
-	$(XFIXES_CFLAGS)		\
+	$(CURSOR_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
@@ -26,7 +26,7 @@ libcursor_la_LDFLAGS =		\
 
 libcursor_la_LIBADD  =					\
 	$(top_builddir)/plugins/common/libcommon.la	\
-	$(XFIXES_LIBS)					\
+	$(CURSOR_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = 		\

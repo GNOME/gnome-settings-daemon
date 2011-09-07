@@ -37,10 +37,8 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
 #include <X11/XKBlib.h>
 #include <X11/keysym.h>
-#endif
 
 #include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
@@ -83,7 +81,6 @@ G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
 static gboolean
 xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
 {
@@ -92,7 +89,6 @@ xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
                                      delay,
                                      interval);
 }
-#endif
 
 static char *
 gsd_keyboard_get_hostname_key (void)
@@ -121,8 +117,6 @@ gsd_keyboard_get_hostname_key (void)
 #endif
         return NULL;
 }
-
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
 
 typedef enum {
         NUMLOCK_STATE_OFF = 0,
@@ -242,8 +236,6 @@ numlock_install_xkb_callback (GsdKeyboardManager *manager)
                                manager);
 }
 
-#endif /* HAVE_X11_EXTENSIONS_XKB_H */
-
 static guint
 _gsd_settings_get_uint (GSettings  *settings,
 			const char *key)
@@ -269,9 +261,7 @@ apply_settings (GSettings          *settings,
         int              bell_pitch;
         int              bell_duration;
         GsdBellMode      bell_mode;
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
         gboolean         rnumlock;
-#endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         repeat        = g_settings_get_boolean  (settings, KEY_REPEAT);
         click         = g_settings_get_boolean  (settings, KEY_CLICK);
@@ -284,9 +274,7 @@ apply_settings (GSettings          *settings,
         bell_mode = g_settings_get_enum (settings, KEY_BELL_MODE);
         bell_volume   = (bell_mode == GSD_BELL_MODE_ON) ? 50 : 0;
 
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
         rnumlock      = g_settings_get_boolean  (settings, "remember-numlock-state");
-#endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         gdk_error_trap_push ();
         if (repeat) {
@@ -294,9 +282,8 @@ apply_settings (GSettings          *settings,
 
                 XAutoRepeatOn (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
                 /* Use XKB in preference */
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
                 rate_set = xkb_set_keyboard_autorepeat_rate (delay, interval);
-#endif
+
                 if (!rate_set)
                         g_warning ("Neither XKeyboard not Xfree86's keyboard extensions are available,\n"
                                    "no way to support keyboard autorepeat rate settings");
@@ -318,11 +305,9 @@ apply_settings (GSettings          *settings,
                                 KBKeyClickPercent | KBBellPercent | KBBellPitch | KBBellDuration,
                                 &kbdcontrol);
 
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
         if (manager->priv->have_xkb && rnumlock) {
                 numlock_set_xkb_state (numlock_get_gsettings_state (manager->priv->settings));
         }
-#endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
         gdk_error_trap_pop_ignored ();
@@ -347,9 +332,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         /* Essential - xkb initialization should happen before */
         gsd_keyboard_xkb_init (manager);
 
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
         numlock_xkb_init (manager);
-#endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         /* apply current settings before we install the callback */
         gsd_keyboard_manager_apply_settings (manager);
@@ -357,9 +340,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (apply_settings), manager);
 
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
         numlock_install_xkb_callback (manager);
-#endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         gnome_settings_profile_end (NULL);
 
@@ -393,13 +374,11 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
                 p->settings = NULL;
         }
 
-#if HAVE_X11_EXTENSIONS_XKB_H
         if (p->have_xkb) {
                 gdk_window_remove_filter (NULL,
                                           numlock_xkb_callback,
                                           manager);
         }
-#endif /* HAVE_X11_EXTENSIONS_XKB_H */
 
         gsd_keyboard_xkb_shutdown ();
 }

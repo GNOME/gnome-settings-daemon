@@ -12,12 +12,13 @@ gnome_fallback_mount_helper_CPPFLAGS = \
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
-gnome_fallback_mount_helper_CFLAGS = \
-	$(SETTINGS_PLUGIN_CFLAGS)
+gnome_fallback_mount_helper_CFLAGS =	\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AUTOMOUNT_CFLAGS)
 
-gnome_fallback_mount_helper_LDADD = \
-	$(SETTINGS_PLUGIN_LIBS) \
-	$(X11_LIBS) \
+gnome_fallback_mount_helper_LDADD =	\
+	$(SETTINGS_PLUGIN_LIBS)		\
+	$(AUTOMOUNT_LIBS)		\
 	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la
 
 autostartdir = $(sysconfdir)/xdg/autostart

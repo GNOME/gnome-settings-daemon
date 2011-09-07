@@ -16,7 +16,7 @@ libcommon_la_CPPFLAGS = \
 libcommon_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(XINPUT_CFLAGS)		\
+	$(COMMON_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libcommon_la_LDFLAGS = \
@@ -24,8 +24,7 @@ libcommon_la_LDFLAGS = \
 
 libcommon_la_LIBADD  = \
 	$(SETTINGS_PLUGIN_LIBS)		\
-	$(XINPUT_LIBS)			\
-	$(X11_LIBS)
+	$(COMMON_LIBS)
 
 noinst_PROGRAMS = test-input-helper test-egg-key-parsing
 
@@ -34,7 +33,7 @@ test_input_helper_LDADD = libcommon.la
 test_input_helper_CFLAGS = $(libcommon_la_CFLAGS)
 
 test_egg_key_parsing_SOURCES = test-egg-key-parsing.c
-test_egg_key_parsing_LDADD = libcommon.la
+test_egg_key_parsing_LDADD = libcommon.la $(COMMON_LIBS)
 test_egg_key_parsing_CFLAGS = $(libcommon_la_CFLAGS)
 
 scriptsdir = $(datadir)/gnome-settings-daemon-@GSD_API_VERSION@

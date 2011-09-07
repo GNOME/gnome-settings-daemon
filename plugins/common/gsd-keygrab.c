@@ -24,11 +24,9 @@
 
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKB.h>
 #include <gdk/gdkkeysyms.h>
-#endif
 
 #include "eggaccelerators.h"
 
@@ -211,7 +209,6 @@ have_xkb (Display *dpy)
 	static int have_xkb = -1;
 
 	if (have_xkb == -1) {
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
 		int opcode, error_base, major, minor, xkb_event_base;
 
 		have_xkb = XkbQueryExtension (dpy,
@@ -221,9 +218,6 @@ have_xkb (Display *dpy)
 					      &major,
 					      &minor)
 			&& XkbUseExtension (dpy, &major, &minor);
-#else
-		have_xkb = 0;
-#endif
 	}
 
 	return have_xkb;
@@ -255,11 +249,9 @@ match_key (Key *key, XEvent *event)
 
 	setup_modifiers ();
 
-#ifdef HAVE_X11_EXTENSIONS_XKB_H
 	if (have_xkb (event->xkey.display))
 		group = XkbGroupForCoreState (event->xkey.state);
 	else
-#endif
 		group = (event->xkey.state & GDK_KEY_Mode_switch) ? 1 : 0;
 
 	/* Check if we find a keysym that matches our current state */

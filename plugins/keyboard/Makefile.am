@@ -36,7 +36,7 @@ libkeyboard_la_CPPFLAGS = \
 libkeyboard_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(LIBGNOMEKBDUI_CFLAGS)		\
+	$(KEYBOARD_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libkeyboard_la_LDFLAGS = 	\
@@ -46,7 +46,7 @@ libkeyboard_la_LDFLAGS = 	\
 libkeyboard_la_LIBADD  = 	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(XF86MISC_LIBS)	\
-	$(LIBGNOMEKBDUI_LIBS)	\
+	$(KEYBOARD_LIBS)	\
 	$(NULL)
 
 plugin_in_files = 		\

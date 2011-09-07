@@ -20,14 +20,13 @@ test_background_CPPFLAGS = \
 test_background_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(GNOME_DESKTOP_CFLAGS)		\
+	$(BACKGROUND_CFLAGS)		\
 	$(AM_CFLAGS)
 
 test_background_LDADD =		\
 	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la	\
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(GNOME_DESKTOP_LIBS)	\
-	$(X11_LIBS) \
+	$(BACKGROUND_LIBS)	\
 	$(NULL)
 
 plugin_LTLIBRARIES = \
@@ -49,7 +48,7 @@ libbackground_la_CPPFLAGS = \
 
 libbackground_la_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(GNOME_DESKTOP_CFLAGS)		\
+	$(BACKGROUND_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libbackground_la_LDFLAGS =		\
@@ -58,7 +57,7 @@ libbackground_la_LDFLAGS =		\
 
 libbackground_la_LIBADD  =		\
 	$(SETTINGS_PLUGIN_LIBS)		\
-	$(GNOME_DESKTOP_LIBS)		\
+	$(BACKGROUND_LIBS)		\
 	$(NULL)
 
 plugin_in_files =		\

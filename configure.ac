@@ -158,64 +158,34 @@ fi
 AC_SUBST(DBUS_SYS_DIR)
 
 dnl ---------------------------------------------------------------------------
-dnl - X11 stuff
+dnl - common
 dnl ---------------------------------------------------------------------------
 
-# Like AC_CHECK_HEADERS, but it uses the already-computed -I directories.
-#
-AC_DEFUN([AC_CHECK_X_HEADERS], [
-  ac_save_CPPFLAGS="$CPPFLAGS"
-  if test \! -z "$includedir" ; then
-    CPPFLAGS="$CPPFLAGS -I$includedir"
-  fi
-  CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-  AC_CHECK_HEADERS([$1],[$2],[$3],[$4])
-  CPPFLAGS="$ac_save_CPPFLAGS"])
-
-# Like AC_CHECK_LIB, but it uses the already-computed -I and -L directories.
-# Use this sparingly; it probably doesn't work very well on X programs.
-#
-AC_DEFUN([AC_CHECK_X_LIB], [
-  ac_save_CPPFLAGS="$CPPFLAGS"
-  ac_save_LDFLAGS="$LDFLAGS"
-#  ac_save_LIBS="$LIBS"
-
-  if test \! -z "$includedir" ; then
-    CPPFLAGS="$CPPFLAGS -I$includedir"
-  fi
-  # note: $X_CFLAGS includes $x_includes
-  CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-
-  if test \! -z "$libdir" ; then
-    LDFLAGS="$LDFLAGS -L$libdir"
-  fi
-  # note: $X_LIBS includes $x_libraries
-  LDFLAGS="$LDFLAGS $ALL_X_LIBS"
-
-  AC_CHECK_LIB([$1], [$2], [$3], [$4], [$5])
-  CPPFLAGS="$ac_save_CPPFLAGS"
-  LDFLAGS="$ac_save_LDFLAGS"
-#  LIBS="$ac_save_LIBS"
-  ])
-
-AC_PATH_XTRA
-
-ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS"
-
-X11_LIBS="$ALL_X_LIBS"
-AC_SUBST(X11_LIBS)
+PKG_CHECK_MODULES(COMMON, x11 kbproto xi)
 
 dnl ---------------------------------------------------------------------------
-dnl - XInput
+dnl - automount
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(XINPUT, xi)
+PKG_CHECK_MODULES(AUTOMOUNT, x11 kbproto)
 
 dnl ---------------------------------------------------------------------------
-dnl - XFixes
+dnl - background
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(XFIXES, xfixes)
+PKG_CHECK_MODULES(BACKGROUND, x11 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
+
+dnl ---------------------------------------------------------------------------
+dnl - mouse
+dnl ---------------------------------------------------------------------------
+
+PKG_CHECK_MODULES(MOUSE, x11 xi)
+
+dnl ---------------------------------------------------------------------------
+dnl - cursor
+dnl ---------------------------------------------------------------------------
+
+PKG_CHECK_MODULES(CURSOR, xfixes)
 
 dnl ---------------------------------------------------------------------------
 dnl - Fontconfig
@@ -227,26 +197,14 @@ dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
 dnl ---------------------------------------------------------------------------
 
-AC_CHECK_X_LIB(Xxf86misc, XF86MiscQueryExtension, [
-  AC_CHECK_X_HEADERS([X11/extensions/xf86misc.h],
-      [XF86MISC_LIBS="-lXxf86misc"], :,
-      [#include <X11/Xlib.h>])], : ,
-      -lXxf86misc $x_libs)
-AC_SUBST(XF86MISC_LIBS)
-AC_CHECK_X_HEADERS([X11/extensions/XKB.h])
-
 LIBGNOMEKBD_REQUIRED=2.91.1
-PKG_CHECK_MODULES(LIBGNOMEKBDUI, [libgnomekbdui >= $LIBGNOMEKBD_REQUIRED libgnomekbd >= $LIBGNOMEKBD_REQUIRED libxklavier >= 5.0])
-AC_SUBST(LIBGNOMEKBDUI_CFLAGS)
-AC_SUBST(LIBGNOMEKBDUI_LIBS)
+PKG_CHECK_MODULES(KEYBOARD, [libgnomekbdui >= $LIBGNOMEKBD_REQUIRED libgnomekbd >= $LIBGNOMEKBD_REQUIRED libxklavier >= 5.0 kbproto])
 
 dnl ---------------------------------------------------------------------------
 dnl - Housekeeping plugin stuff
 dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(GIOUNIX, [gio-unix-2.0])
-AC_SUBST(GIOUNIX_CFLAGS)
-AC_SUBST(GIOUNIX_LIBS)
 
 dnl ---------------------------------------------------------------------------
 dnl - GConf<->GSettings bridge

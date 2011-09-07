@@ -105,7 +105,6 @@ libmedia_keys_la_LIBADD  = 		\
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(UPOWER_LIBS)							\
 	$(SETTINGS_PLUGIN_LIBS)						\
-	$(XF86MISC_LIBS)						\
 	-lm
 
 plugin_in_files = 		\
@@ -147,7 +146,6 @@ test_media_window_LDADD = \
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
-	$(XF86MISC_LIBS)			\
 	$(GST_LIBS)				\
 	-lm
 
@@ -183,7 +181,6 @@ test_media_keys_LDADD = \
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(UPOWER_LIBS)				\
-	$(XF86MISC_LIBS)			\
 	$(GST_LIBS)				\
 	-lm
 
