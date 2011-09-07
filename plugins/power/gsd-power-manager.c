@@ -2264,6 +2264,7 @@ backlight_helper_get_value (const gchar *argument, GError **error)
 
         /* parsing error */
         if (endptr == stdout_data) {
+                value = -1;
                 g_set_error (error,
                              GSD_POWER_MANAGER_ERROR,
                              GSD_POWER_MANAGER_ERROR_FAILED,
