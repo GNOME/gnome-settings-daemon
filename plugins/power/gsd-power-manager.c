@@ -126,7 +126,13 @@ static const gchar introspection_xml[] =
 #define BRIGHTNESS_STEP_AMOUNT(max) ((max) < 20 ? 1 : (max) / 20)
 
 /* take a discrete value with offset and convert to percentage */
-#define ABS_TO_PERCENTAGE(min, max, value) (((value - min) * 100) / (max - min))
+static int
+abs_to_percentage (int min, int max, int value)
+{
+	g_return_val_if_fail (max > min, -1);
+	return (((value - min) * 100) / (max - min));
+}
+#define ABS_TO_PERCENTAGE(min, max, value) abs_to_percentage(min, max, value)
 #define PERCENTAGE_TO_ABS(min, max, value) (min + (((max - min) * value) / 100))
 
 #define GSD_POWER_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_POWER_MANAGER, GsdPowerManagerPrivate))
