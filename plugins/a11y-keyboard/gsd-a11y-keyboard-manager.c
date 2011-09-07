@@ -514,8 +514,8 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         GError     *error;
 
         title = enabled ?
-                _("Do you want to activate Slow Keys?") :
-                _("Do you want to deactivate Slow Keys?");
+                _("Slow Keys Turned On") :
+                _("Slow Keys Turned Off");
         message = _("You just held down the Shift key for 8 seconds.  This is the shortcut "
                     "for the Slow Keys feature, which affects the way your keyboard works.");
 
@@ -534,19 +534,20 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         gsd_a11y_keyboard_manager_ensure_status_icon (manager);
         manager->priv->notification = notify_notification_new (title,
                                                                message,
-                                                               "preferences-desktop-accessibility");
+                                                               "preferences-desktop-accessibility-symbolic");
         notify_notification_set_app_name (manager->priv->notification, _("Universal Access"));
         notify_notification_set_timeout (manager->priv->notification, NOTIFICATION_TIMEOUT * 1000);
+        notify_notification_set_hint (manager->priv->notification, "transient", g_variant_new_boolean (TRUE));
 
         notify_notification_add_action (manager->priv->notification,
                                         "reject",
-                                        enabled ? _("Don't activate") : _("Don't deactivate"),
+                                        enabled ? _("Turn Off") : _("Turn On"),
                                         (NotifyActionCallback) on_slow_keys_action,
                                         manager,
                                         NULL);
         notify_notification_add_action (manager->priv->notification,
                                         "accept",
-                                        enabled ? _("Activate") : _("Deactivate"),
+                                        enabled ? _("Leave On") : _("Leave Off"),
                                         (NotifyActionCallback) on_slow_keys_action,
                                         manager,
                                         NULL);
@@ -577,8 +578,8 @@ ax_slowkeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
         const char *message;
 
         title = enabled ?
-                _("Do you want to activate Slow Keys?") :
-                _("Do you want to deactivate Slow Keys?");
+                _("Slow Keys Turned On") :
+                _("Slow Keys Turned Off");
         message = _("You just held down the Shift key for 8 seconds.  This is the shortcut "
                     "for the Slow Keys feature, which affects the way your keyboard works.");
 
@@ -600,16 +601,15 @@ ax_slowkeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
                                GTK_STOCK_HELP,
                                GTK_RESPONSE_HELP);
         gtk_dialog_add_button (GTK_DIALOG (manager->priv->slowkeys_alert),
-                               enabled ? _("Do_n't activate") : _("Do_n't deactivate"),
+                               enabled ? _("_Turn Off") : _("_Turn On"),
                                GTK_RESPONSE_REJECT);
         gtk_dialog_add_button (GTK_DIALOG (manager->priv->slowkeys_alert),
-                               enabled ? _("_Activate") : _("_Deactivate"),
+                               enabled ? _("_Leave On") : _("_Leave Off"),
                                GTK_RESPONSE_ACCEPT);
 
-        gtk_window_set_title (GTK_WINDOW (manager->priv->slowkeys_alert),
-                              _("Slow Keys Alert"));
+        gtk_window_set_title (GTK_WINDOW (manager->priv->slowkeys_alert), "");
         gtk_window_set_icon_name (GTK_WINDOW (manager->priv->slowkeys_alert),
-                                  "input-keyboard");
+                                  "preferences-desktop-accessibility");
         gtk_dialog_set_default_response (GTK_DIALOG (manager->priv->slowkeys_alert),
                                          GTK_RESPONSE_ACCEPT);
 
@@ -647,8 +647,8 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         GError     *error;
 
         title = enabled ?
-                _("Do you want to activate Sticky Keys?") :
-                _("Do you want to deactivate Sticky Keys?");
+                _("Sticky Keys Turned On") :
+                _("Sticky Keys Turned Off");
         message = enabled ?
                 _("You just pressed the Shift key 5 times in a row.  This is the shortcut "
                   "for the Sticky Keys feature, which affects the way your keyboard works.") :
@@ -670,18 +670,20 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         gsd_a11y_keyboard_manager_ensure_status_icon (manager);
         manager->priv->notification = notify_notification_new (title,
                                                                message,
-                                                               "preferences-desktop-accessibility");
+                                                               "preferences-desktop-accessibility-symbolic");
+        notify_notification_set_app_name (manager->priv->notification, _("Universal Access"));
         notify_notification_set_timeout (manager->priv->notification, NOTIFICATION_TIMEOUT * 1000);
+        notify_notification_set_hint (manager->priv->notification, "transient", g_variant_new_boolean (TRUE));
 
         notify_notification_add_action (manager->priv->notification,
                                         "reject",
-                                        enabled ? _("Don't activate") : _("Don't deactivate"),
+                                        enabled ? _("Turn Off") : _("Turn On"),
                                         (NotifyActionCallback) on_sticky_keys_action,
                                         manager,
                                         NULL);
         notify_notification_add_action (manager->priv->notification,
                                         "accept",
-                                        enabled ? _("Activate") : _("Deactivate"),
+                                        enabled ? _("Leave On") : _("Leave Off"),
                                         (NotifyActionCallback) on_sticky_keys_action,
                                         manager,
                                         NULL);
@@ -711,8 +713,8 @@ ax_stickykeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
         const char *message;
 
         title = enabled ?
-                _("Do you want to activate Sticky Keys?") :
-                _("Do you want to deactivate Sticky Keys?");
+                _("Sticky Keys Turned On") :
+                _("Sticky Keys Turned Off");
         message = enabled ?
                 _("You just pressed the Shift key 5 times in a row.  This is the shortcut "
                   "for the Sticky Keys feature, which affects the way your keyboard works.") :
@@ -737,16 +739,15 @@ ax_stickykeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
                                GTK_STOCK_HELP,
                                GTK_RESPONSE_HELP);
         gtk_dialog_add_button (GTK_DIALOG (manager->priv->stickykeys_alert),
-                               enabled ? _("Do_n't activate") : _("Do_n't deactivate"),
+                               enabled ? _("_Turn Off") : _("_Turn On"),
                                GTK_RESPONSE_REJECT);
         gtk_dialog_add_button (GTK_DIALOG (manager->priv->stickykeys_alert),
-                               enabled ? _("_Activate") : _("_Deactivate"),
+                               enabled ? _("_Leave On") : _("_Leave Off"),
                                GTK_RESPONSE_ACCEPT);
 
-        gtk_window_set_title (GTK_WINDOW (manager->priv->stickykeys_alert),
-                              _("Sticky Keys Alert"));
+        gtk_window_set_title (GTK_WINDOW (manager->priv->stickykeys_alert), "");
         gtk_window_set_icon_name (GTK_WINDOW (manager->priv->stickykeys_alert),
-                                  "input-keyboard");
+                                  "preferences-desktop-accessibility");
         gtk_dialog_set_default_response (GTK_DIALOG (manager->priv->stickykeys_alert),
                                          GTK_RESPONSE_ACCEPT);
 
