@@ -2256,8 +2256,17 @@ backlight_helper_get_value (const gchar *argument, GError **error)
                                          error);
         g_debug ("executed %s retval: %i", command, exit_status);
 
-        if (!ret || WEXITSTATUS (exit_status) != 0)
+        if (!ret)
                 goto out;
+
+        if (WEXITSTATUS (exit_status) != 0) {
+                 g_set_error (error,
+                             GSD_POWER_MANAGER_ERROR,
+                             GSD_POWER_MANAGER_ERROR_FAILED,
+                             "gsd-backlight-helper failed: %s",
+                             stdout_data);
+                goto out;
+        }
 
         /* parse */
         value = g_ascii_strtoll (stdout_data, &endptr, 10);
