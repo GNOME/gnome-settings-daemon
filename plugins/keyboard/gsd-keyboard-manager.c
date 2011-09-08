@@ -59,6 +59,7 @@
 #define KEY_INTERVAL       "repeat-interval"
 #define KEY_DELAY          "delay"
 #define KEY_CLICK_VOLUME   "click-volume"
+#define KEY_NUMLOCK_STATE  "numlock-state"
 
 #define KEY_BELL_VOLUME    "bell-volume"
 #define KEY_BELL_PITCH     "bell-pitch"
@@ -89,40 +90,6 @@ xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
                                      delay,
                                      interval);
 }
-
-static char *
-gsd_keyboard_get_hostname_key (void)
-{
-        /* FIXME disabled for now, as we need GSettingsList support:
-         * https://bugzilla.gnome.org/show_bug.cgi?id=622126 */
-#if 0
-        const char *hostname;
-
-        hostname = g_get_host_name ();
-
-        if (g_str_equal (hostname, "localhost") == FALSE &&
-            g_str_equal (hostname, "localhost.localdomain") == FALSE) {
-                char *escaped;
-                char *key;
-
-                /* FIXME, really escape? */
-                escaped = g_strdup (hostname);
-                key = g_strdup_printf ("host-%s-0-numlock-on", escaped);
-                g_free (escaped);
-                return key;
-        } else {
-                g_message ("NumLock remembering disabled because hostname is set to \"localhost\"");
-                return NULL;
-        }
-#endif
-        return NULL;
-}
-
-typedef enum {
-        NUMLOCK_STATE_OFF = 0,
-        NUMLOCK_STATE_ON = 1,
-        NUMLOCK_STATE_UNKNOWN = 2
-} NumLockState;
 
 static void
 numlock_xkb_init (GsdKeyboardManager *manager)
@@ -160,48 +127,14 @@ numlock_NumLock_modifier_mask (void)
 }
 
 static void
-numlock_set_xkb_state (NumLockState new_state)
+numlock_set_xkb_state (GsdNumLockState new_state)
 {
         unsigned int num_mask;
         Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        if (new_state != NUMLOCK_STATE_ON && new_state != NUMLOCK_STATE_OFF)
+        if (new_state != GSD_NUM_LOCK_STATE_ON && new_state != GSD_NUM_LOCK_STATE_OFF)
                 return;
         num_mask = numlock_NumLock_modifier_mask ();
         XkbLockModifiers (dpy, XkbUseCoreKbd, num_mask, new_state ? num_mask : 0);
-}
-
-static NumLockState
-numlock_get_gsettings_state (GSettings *settings)
-{
-        int   curr_state;
-        char *key;
-
-        key = gsd_keyboard_get_hostname_key ();
-        if (!key)
-                return NUMLOCK_STATE_UNKNOWN;
-
-        curr_state = g_settings_get_boolean (settings, key);
-
-        g_free (key);
-
-        return curr_state;
-}
-
-static void
-numlock_set_gsettings_state (GSettings   *settings,
-                             NumLockState new_state)
-{
-        char *key;
-
-        if (new_state != NUMLOCK_STATE_ON && new_state != NUMLOCK_STATE_OFF) {
-                return;
-        }
-
-        key = gsd_keyboard_get_hostname_key ();
-        if (key) {
-                g_settings_set_boolean (settings, key, new_state);
-                g_free (key);
-        }
 }
 
 static GdkFilterReturn
@@ -219,7 +152,7 @@ numlock_xkb_callback (GdkXEvent *xev_,
                         unsigned num_mask = numlock_NumLock_modifier_mask ();
                         unsigned locked_mods = xkbev->state.locked_mods;
                         int numlock_state = !! (num_mask & locked_mods);
-                        numlock_set_gsettings_state (manager->priv->settings, numlock_state);
+                        g_settings_set_enum (manager->priv->settings, KEY_NUMLOCK_STATE, numlock_state);
                 }
         }
         return GDK_FILTER_CONTINUE;
@@ -306,7 +239,7 @@ apply_settings (GSettings          *settings,
                                 &kbdcontrol);
 
         if (manager->priv->have_xkb && rnumlock) {
-                numlock_set_xkb_state (numlock_get_gsettings_state (manager->priv->settings));
+                numlock_set_xkb_state (g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE));
         }
 
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);

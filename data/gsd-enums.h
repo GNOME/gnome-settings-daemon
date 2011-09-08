@@ -107,4 +107,11 @@ typedef enum
   GSD_UPDATE_TYPE_NONE
 } GsdUpdateType;
 
+typedef enum
+{
+  GSD_NUM_LOCK_STATE_UNKNOWN,
+  GSD_NUM_LOCK_STATE_ON,
+  GSD_NUM_LOCK_STATE_OFF
+} GsdNumLockState;
+
 #endif /* __gsd_enums_h__ */
