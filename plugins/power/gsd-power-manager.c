@@ -2730,6 +2730,12 @@ idle_is_session_idle (GsdPowerManager *manager)
         GVariant *result;
         guint status;
 
+        /* not yet connected to gnome-session */
+        if (manager->priv->session_presence_proxy == NULL) {
+                g_warning ("gnome-session is not available");
+                return FALSE;
+        }
+
         /* get the session status */
         result = g_dbus_proxy_get_cached_property (manager->priv->session_presence_proxy,
                                                    "status");
@@ -2749,6 +2755,12 @@ idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
         gboolean ret;
         GVariant *retval = NULL;
         GError *error = NULL;
+
+        /* not yet connected to gnome-session */
+        if (manager->priv->session_proxy == NULL) {
+                g_warning ("gnome-session is not available");
+                return FALSE;
+        }
 
         retval = g_dbus_proxy_call_sync (manager->priv->session_proxy,
                                          "IsInhibited",
