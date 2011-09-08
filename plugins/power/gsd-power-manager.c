@@ -2264,7 +2264,7 @@ backlight_helper_get_value (const gchar *argument, GError **error)
                              GSD_POWER_MANAGER_ERROR,
                              GSD_POWER_MANAGER_ERROR_FAILED,
                              "gsd-backlight-helper failed: %s",
-                             stdout_data);
+                             stdout_data ? stdout_data : "No reason");
                 goto out;
         }
 
