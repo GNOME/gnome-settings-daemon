@@ -828,12 +828,19 @@ gcm_session_device_set_gamma (GnomeRROutput *output,
                               CdProfile *profile,
                               GError **error)
 {
-        gboolean ret;
+        gboolean ret = FALSE;
         GPtrArray *clut = NULL;
 
         /* create a lookup table */
         clut = gcm_session_generate_vcgt (profile,
                                           gnome_rr_output_get_gamma_size (output));
+        if (clut == NULL) {
+                g_set_error_literal (error,
+                                     GSD_COLOR_MANAGER_ERROR,
+                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     "failed to generate vcgt");
+                goto out;
+        }
 
         /* apply the vcgt to this output */
         ret = gcm_session_output_set_gamma (output, clut, error);
