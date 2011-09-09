@@ -44,6 +44,7 @@ gsd_printer_CFLAGS = \
 
 gsd_printer_LDADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)	\
+	$(CUPS_LIBS)		\
 	$(LIBNOTIFY_LIBS)
 
 EXTRA_DIST = 			\
