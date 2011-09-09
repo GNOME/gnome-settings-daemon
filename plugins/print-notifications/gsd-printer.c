@@ -726,7 +726,7 @@ printer_autoconfigure (gchar *printer_name)
         commands = get_dest_attr (printer_name, "printer-commands");
         commands_lowercase = g_ascii_strdown (commands, -1);
 
-        if (g_strrstr (commands_lowercase, "AutoConfigure")) {
+        if (g_strrstr (commands_lowercase, "autoconfigure")) {
                 response = execute_maintenance_command (printer_name,
                                                         "AutoConfigure",
                                                         ("Automatic configuration"));
