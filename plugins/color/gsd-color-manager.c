@@ -1784,7 +1784,9 @@ gcm_session_create_profile_cb (GObject *object,
 
         profile = cd_client_create_profile_finish (client, res, &error);
         if (profile == NULL) {
-                g_warning ("%s", error->message);
+                if (error->domain != CD_CLIENT_ERROR ||
+                    error->code != CD_CLIENT_ERROR_ALREADY_EXISTS)
+                        g_warning ("%s", error->message);
                 g_error_free (error);
                 return;
         }
