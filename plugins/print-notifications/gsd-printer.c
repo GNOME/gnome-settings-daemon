@@ -121,6 +121,8 @@ get_missing_executables (const gchar *ppd_file_name)
                                          NULL,
                                          &error);
 
+        g_variant_unref (input);
+
         if (output && g_variant_n_children (output) == 1) {
                 array = g_variant_get_child_value (output, 0);
                 if (array) {
@@ -143,7 +145,6 @@ get_missing_executables (const gchar *ppd_file_name)
                 g_error_free (error);
         }
 
-        g_variant_unref (input);
         g_object_unref (proxy);
 
         return executables;
@@ -192,6 +193,7 @@ find_packages_for_executables (GHashTable *executables)
                                                  DBUS_TIMEOUT,
                                                  NULL,
                                                  &error);
+                g_variant_unref (input);
 
                 if (output) {
                         gboolean  installed;
@@ -203,16 +205,12 @@ find_packages_for_executables (GHashTable *executables)
                                        &package);
                         if (!installed)
                                 g_hash_table_insert (packages, g_strdup (package), NULL);
-                }
 
-                if (output) {
                         g_variant_unref (output);
                 } else {
                         g_warning ("%s", error->message);
                         g_error_free (error);
-                        error = NULL;
                 }
-                g_variant_unref (input);
         }
 
         g_object_unref (proxy);
@@ -271,6 +269,8 @@ install_packages (GHashTable *packages)
                                          NULL,
                                          &error);
 
+        g_variant_unref (input);
+
         if (output) {
                 g_variant_unref (output);
         } else {
@@ -278,7 +278,6 @@ install_packages (GHashTable *packages)
                 g_error_free (error);
         }
 
-        g_variant_unref (input);
         g_object_unref (proxy);
 }
 
@@ -330,6 +329,8 @@ get_best_ppd (gchar *device_id,
                                          NULL,
                                          &error);
 
+        g_variant_unref (input);
+
         if (output && g_variant_n_children (output) >= 1) {
                 array = g_variant_get_child_value (output, 0);
                 if (array)
@@ -354,7 +355,6 @@ get_best_ppd (gchar *device_id,
                 g_error_free (error);
         }
 
-        g_variant_unref (input);
         g_object_unref (proxy);
 
         return ppd_name;
@@ -369,17 +369,19 @@ get_tag_value (const gchar *tag_string,
         gint    tag_name_length;
         gint    i;
 
-        if (tag_string && tag_name) {
-                tag_name_length = strlen (tag_name);
-                tag_string_splitted = g_strsplit (tag_string, ";", 0);
-                if (tag_string_splitted) {
-                        for (i = 0; i < g_strv_length (tag_string_splitted); i++)
-                                if (g_ascii_strncasecmp (tag_string_splitted[i], tag_name, tag_name_length) == 0)
-                                        if (strlen (tag_string_splitted[i]) > tag_name_length + 1)
-                                                tag_value = g_strdup (tag_string_splitted[i] + tag_name_length + 1);
+        if (!tag_string ||
+            !tag_name)
+                return NULL;
 
-                        g_strfreev (tag_string_splitted);
-                }
+        tag_name_length = strlen (tag_name);
+        tag_string_splitted = g_strsplit (tag_string, ";", 0);
+        if (tag_string_splitted) {
+                for (i = 0; i < g_strv_length (tag_string_splitted); i++)
+                        if (g_ascii_strncasecmp (tag_string_splitted[i], tag_name, tag_name_length) == 0)
+                                if (strlen (tag_string_splitted[i]) > tag_name_length + 1)
+                                        tag_value = g_strdup (tag_string_splitted[i] + tag_name_length + 1);
+
+                g_strfreev (tag_string_splitted);
         }
 
         return tag_value;
@@ -396,14 +398,14 @@ create_name (gchar *device_id)
         gint         name_index = 2;
         gint         j;
 
-        if (device_id) {
-                name = get_tag_value (device_id, "mdl");
-                if (!name)
-                        name = get_tag_value (device_id, "model");
+        g_return_val_if_fail (device_id != NULL, NULL);
 
-                if (name)
-                        name = g_strcanon (name, ALLOWED_CHARACTERS, '-');
-        }
+        name = get_tag_value (device_id, "mdl");
+        if (!name)
+                name = get_tag_value (device_id, "model");
+
+        if (name)
+                name = g_strcanon (name, ALLOWED_CHARACTERS, '-');
 
         num_dests = cupsGetDests (&dests);
         do {
@@ -619,7 +621,7 @@ execute_maintenance_command (const char *printer_name,
         ipp_t  *request = NULL;
         ipp_t  *response = NULL;
         gchar  *file_name = NULL;
-        char    uri[HTTP_MAX_URI + 1];
+        char   *uri;
         int     fd = -1;
 
         http = httpConnectEncrypt (cupsServer (),
@@ -631,10 +633,8 @@ execute_maintenance_command (const char *printer_name,
 
         request = ippNewRequest (IPP_PRINT_JOB);
 
-        g_snprintf (uri,
-                    sizeof (uri),
-                    "ipp://localhost/printers/%s",
-                    printer_name);
+        uri = g_strdup_printf ("ipp://localhost/printers/%s",
+                               printer_name);
 
         ippAddString (request,
                       IPP_TAG_OPERATION,
@@ -642,6 +642,8 @@ execute_maintenance_command (const char *printer_name,
                       "printer-uri",
                       NULL,
                       uri);
+
+        g_free (uri);
 
         ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_NAME, "job-name",
                       NULL, title);
