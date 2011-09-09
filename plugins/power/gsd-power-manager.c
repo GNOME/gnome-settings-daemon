@@ -3095,7 +3095,11 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                                         NULL,
                                         &error);
         if (k_now == NULL) {
-                g_warning ("Failed to get brightness: %s", error->message);
+                if (error->domain != G_DBUS_ERROR ||
+                    error->code != G_DBUS_ERROR_UNKNOWN_METHOD) {
+                        g_warning ("Failed to get brightness: %s",
+                                   error->message);
+                }
                 g_error_free (error);
                 goto out;
         }
