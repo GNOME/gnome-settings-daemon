@@ -38,6 +38,8 @@
 #define GSD_UPDATES_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_UPDATES_MANAGER, GsdUpdatesManagerPrivate))
 
 #define MAX_FAILED_GET_UPDATES              10 /* the maximum number of tries */
+#define GSD_UPDATES_ICON_NORMAL             "software-update-available-symbolic"
+#define GSD_UPDATES_ICON_URGENT             "software-update-urgent-symbolic"
 
 struct GsdUpdatesManagerPrivate
 {
@@ -195,7 +197,9 @@ get_distro_upgrades_finished_cb (GObject *object,
 
         /* TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9 */
         title = _("Distribution upgrades available");
-        notification = notify_notification_new (title, string->str, NULL);
+        notification = notify_notification_new (title,
+                                                string->str,
+                                                GSD_UPDATES_ICON_NORMAL);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
@@ -318,7 +322,9 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
 
         /* do the bubble */
         g_debug ("title=%s, message=%s", title, message);
-        notification = notify_notification_new (title, message, NULL);
+        notification = notify_notification_new (title,
+                                                message,
+                                                GSD_UPDATES_ICON_URGENT);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
@@ -375,7 +381,9 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
 
         /* do the bubble */
         g_debug ("title=%s, message=%s", title, message);
-        notification = notify_notification_new (title, message, NULL);
+        notification = notify_notification_new (title,
+                                                message,
+                                                GSD_UPDATES_ICON_NORMAL);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
@@ -430,7 +438,8 @@ update_check_on_battery (GsdUpdatesManager *manager)
         message = _("Automatic updates are not being installed as the computer is running on battery power");
         /* TRANSLATORS: informs user will not install by default */
         notification = notify_notification_new (_("Updates not installed"),
-                                                message, NULL);
+                                                message,
+                                                GSD_UPDATES_ICON_NORMAL);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
@@ -561,7 +570,8 @@ notify_update_finished (GsdUpdatesManager *manager, PkResults *results)
 
         /* TRANSLATORS: title: system update completed all okay */
         notification = notify_notification_new (_("The system update has completed"),
-                                                 message_text->str, NULL);
+                                                 message_text->str,
+                                                 GSD_UPDATES_ICON_NORMAL);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
@@ -648,7 +658,9 @@ notify_failed_get_updates_maybe (GsdUpdatesManager *manager)
         /* TRANSLATORS: try again, this time launching the update viewer */
         button = _("Try again");
 
-        notification = notify_notification_new (title, message, NULL);
+        notification = notify_notification_new (title,
+                                                message,
+                                                GSD_UPDATES_ICON_NORMAL);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 120*1000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
