@@ -1161,6 +1161,15 @@ on_status_icon_activate (GtkStatusIcon          *status_icon,
 }
 
 static void
+on_status_icon_popup_menu (GtkStatusIcon *status_icon,
+                           guint          button,
+                           guint          activate_time,
+                           GsdA11yKeyboardManager *manager)
+{
+        on_status_icon_activate (status_icon, manager);
+}
+
+static void
 gsd_a11y_keyboard_manager_ensure_status_icon (GsdA11yKeyboardManager *manager)
 {
         gnome_settings_profile_start (NULL);
@@ -1172,6 +1181,10 @@ gsd_a11y_keyboard_manager_ensure_status_icon (GsdA11yKeyboardManager *manager)
                 g_signal_connect (manager->priv->status_icon,
                                   "activate",
                                   G_CALLBACK (on_status_icon_activate),
+                                  manager);
+                g_signal_connect (manager->priv->status_icon,
+                                  "popup-menu",
+                                  G_CALLBACK (on_status_icon_popup_menu),
                                   manager);
         }
 
