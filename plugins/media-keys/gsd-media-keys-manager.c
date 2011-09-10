@@ -1349,7 +1349,7 @@ do_keyboard_brightness_action (GsdMediaKeysManager *manager,
 
         /* call into the power plugin */
         g_dbus_proxy_call (manager->priv->power_keyboard_proxy,
-                           type == SCREEN_BRIGHTNESS_UP_KEY ? "StepUp" : "StepDown",
+                           type == KEYBOARD_BRIGHTNESS_UP_KEY ? "StepUp" : "StepDown",
                            NULL,
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
