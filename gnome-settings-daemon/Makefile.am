@@ -57,6 +57,8 @@ gnome_settings_daemon_SOURCES =		\
 	gnome-settings-plugin-info.h	\
 	gnome-settings-module.c		\
 	gnome-settings-module.h		\
+	gnome-settings-session.c	\
+	gnome-settings-session.h	\
 	$(NULL)
 
 gnome_settings_daemon_CPPFLAGS = \
