@@ -36,6 +36,7 @@
 #include <libgnome-desktop/gnome-rr.h>
 
 #include "gnome-settings-profile.h"
+#include "gnome-settings-session.h"
 #include "gsd-color-manager.h"
 #include "gcm-profile-store.h"
 #include "gcm-dmi.h"
@@ -49,6 +50,7 @@
 
 struct GsdColorManagerPrivate
 {
+        GnomeSettingsSession *session;
         CdClient        *client;
         GSettings       *settings;
         GcmProfileStore *profile_store;
@@ -1944,6 +1946,28 @@ gcm_session_sensor_removed_cb (CdClient *client,
 }
 
 static void
+gcm_session_active_changed_cb (GnomeSettingsSession *session,
+                               GParamSpec *pspec,
+                               GsdColorManager *manager)
+{
+        GnomeSettingsSessionState state;
+
+        /* not yet connected to the daemon */
+        if (!cd_client_get_connected (manager->priv->client))
+                return;
+
+        /* when doing the fast-user-switch into a new account, load the
+         * new users chosen profiles */
+        state = gnome_settings_session_get_state (session);
+        if (state == GNOME_SETTINGS_SESSION_STATE_ACTIVE) {
+                g_debug ("Done switch to new account, reload devices");
+                cd_client_get_devices (manager->priv->client, NULL,
+                                       gcm_session_get_devices_cb,
+                                       manager);
+        }
+}
+
+static void
 gsd_color_manager_set_property (GObject        *object,
                                 guint           prop_id,
                                 const GValue   *value,
@@ -1993,6 +2017,12 @@ gsd_color_manager_init (GsdColorManager *manager)
 {
         GsdColorManagerPrivate *priv;
         priv = manager->priv = GSD_COLOR_MANAGER_GET_PRIVATE (manager);
+
+        /* track the active session */
+        priv->session = gnome_settings_session_new ();
+        g_signal_connect (priv->session, "notify::state",
+                          G_CALLBACK (gcm_session_active_changed_cb),
+                          manager);
 
         /* set the _ICC_PROFILE atoms on the root screen */
         priv->gdk_window = gdk_screen_get_root_window (gdk_screen_get_default ());
@@ -2044,6 +2074,7 @@ gsd_color_manager_finalize (GObject *object)
         g_object_unref (manager->priv->client);
         g_object_unref (manager->priv->profile_store);
         g_object_unref (manager->priv->dmi);
+        g_object_unref (manager->priv->session);
         g_hash_table_destroy (manager->priv->edid_cache);
         if (manager->priv->x11_screen != NULL)
                 g_object_unref (manager->priv->x11_screen);
