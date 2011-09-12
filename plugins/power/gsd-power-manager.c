@@ -37,6 +37,7 @@
 #include "gpm-phone.h"
 #include "gpm-idletime.h"
 #include "gnome-settings-profile.h"
+#include "gnome-settings-session.h"
 #include "gsd-enums.h"
 #include "gsd-power-manager.h"
 
@@ -146,6 +147,7 @@ typedef enum {
 
 struct GsdPowerManagerPrivate
 {
+        GnomeSettingsSession    *session;
         gboolean                 lid_is_closed;
         GSettings               *settings;
         GSettings               *settings_screensaver;
@@ -2604,9 +2606,18 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         gint max;
         gint now;
         GsdPowerActionType action_type;
+        GnomeSettingsSessionState state;
 
         if (mode == manager->priv->current_idle_mode)
                 return;
+
+        /* ensure we're still on an active console */
+        state = gnome_settings_session_get_state (manager->priv->session);
+        if (state == GNOME_SETTINGS_SESSION_STATE_INACTIVE) {
+                g_debug ("ignoring state transition to %s as inactive",
+                         idle_mode_to_string (mode));
+                return;
+        }
 
         manager->priv->current_idle_mode = mode;
         g_debug ("Doing a state transition: %s", idle_mode_to_string (mode));
@@ -3222,12 +3233,28 @@ engine_settings_key_changed_cb (GSettings *settings,
         }
 }
 
+static void
+engine_session_active_changed_cb (GnomeSettingsSession *session,
+                                  GParamSpec *pspec,
+                                  GsdPowerManager *manager)
+{
+        /* when doing the fast-user-switch into a new account,
+         * ensure the new account is undimmed and with the backlight on */
+        idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
+}
+
 gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
 {
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
+
+        /* track the active session */
+        manager->priv->session = gnome_settings_session_new ();
+        g_signal_connect (manager->priv->session, "notify::state",
+                          G_CALLBACK (engine_session_active_changed_cb),
+                          manager);
 
         manager->priv->kbd_brightness_old = -1;
         manager->priv->pre_dim_brightness = 100;
@@ -3396,6 +3423,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         if (manager->priv->timeout_sleep_id != 0)
                 g_source_remove (manager->priv->timeout_sleep_id);
 
+        g_object_unref (manager->priv->session);
         g_object_unref (manager->priv->settings);
         g_object_unref (manager->priv->settings_screensaver);
         g_object_unref (manager->priv->up_client);
