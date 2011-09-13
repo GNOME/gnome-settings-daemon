@@ -95,6 +95,7 @@ libmedia_keys_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(UPOWER_CFLAGS)		\
+	$(MEDIA_KEYS_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libmedia_keys_la_LDFLAGS = 		\
@@ -104,6 +105,7 @@ libmedia_keys_la_LIBADD  = 		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(UPOWER_LIBS)							\
+	$(MEDIA_KEYS_LIBS)						\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	-lm
 
@@ -173,6 +175,7 @@ test_media_keys_CPPFLAGS = \
 
 test_media_keys_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(MEDIA_KEYS_CFLAGS)		\
 	$(AM_CFLAGS)
 
 test_media_keys_LDADD = \
@@ -180,6 +183,7 @@ test_media_keys_LDADD = \
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
+	$(MEDIA_KEYS_LIBS)			\
 	$(UPOWER_LIBS)				\
 	$(GST_LIBS)				\
 	-lm

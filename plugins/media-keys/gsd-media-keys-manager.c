@@ -37,6 +37,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <gio/gdesktopappinfo.h>
 
 #include "gnome-settings-profile.h"
 #include "gsd-marshal.h"
@@ -469,41 +470,53 @@ dialog_show (GsdMediaKeysManager *manager)
 }
 
 static void
+launch_app (GAppInfo *app_info,
+	    gint64    timestamp)
+{
+	GError *error = NULL;
+        GdkAppLaunchContext *launch_context;
+
+        /* setup the launch context so the startup notification is correct */
+        launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
+        gdk_app_launch_context_set_timestamp (launch_context, timestamp);
+
+	if (!g_app_info_launch (app_info, NULL, G_APP_LAUNCH_CONTEXT (launch_context), &error)) {
+		g_warning ("Could not launch '%s': %s",
+			   g_app_info_get_commandline (app_info),
+			   error->message);
+		g_error_free (error);
+	}
+        g_object_unref (launch_context);
+}
+
+static void
 do_url_action (GsdMediaKeysManager *manager,
-               const char          *scheme)
+               const char          *scheme,
+               gint64               timestamp)
 {
         GAppInfo *app_info;
 
         app_info = g_app_info_get_default_for_uri_scheme (scheme);
         if (app_info != NULL) {
-                GError *error = NULL;
-
-                if (!g_app_info_launch (app_info, NULL, NULL, &error)) {
-                        g_warning ("Could not launch '%s': %s",
-                                   g_app_info_get_commandline (app_info),
-                                   error->message);
-                        g_error_free (error);
-                }
+                launch_app (app_info, timestamp);
+                g_object_unref (app_info);
         } else {
                 g_warning ("Could not find default application for '%s' scheme", scheme);
-        }
+	}
 }
 
 static void
-do_media_action (GsdMediaKeysManager *manager)
+do_media_action (GsdMediaKeysManager *manager,
+		 gint64               timestamp)
 {
         GAppInfo *app_info;
 
         app_info = g_app_info_get_default_for_type ("audio/x-vorbis+ogg", FALSE);
         if (app_info != NULL) {
-                GError *error = NULL;
-
-                if (!g_app_info_launch (app_info, NULL, NULL, &error)) {
-                        g_warning ("Could not launch '%s': %s",
-                                   g_app_info_get_commandline (app_info),
-                                   error->message);
-                        g_error_free (error);
-                }
+                launch_app (app_info, timestamp);
+                g_object_unref (app_info);
+        } else {
+                g_warning ("Could not find default application for '%s' mime-type", "audio/x-vorbis+ogg");
         }
 }
 
@@ -601,6 +614,22 @@ do_home_key_action (GsdMediaKeysManager *manager,
 		g_error_free (error);
 	}
 	g_free (uri);
+}
+
+static void
+do_execute_desktop (GsdMediaKeysManager *manager,
+		    const char          *desktop,
+		    gint64               timestamp)
+{
+        GDesktopAppInfo *app_info;
+
+        app_info = g_desktop_app_info_new (desktop);
+        if (app_info != NULL) {
+                launch_app (G_APP_INFO (app_info), timestamp);
+                g_object_unref (app_info);
+        } else {
+                g_warning ("Could not find application '%s'", desktop);
+	}
 }
 
 static void
@@ -1377,44 +1406,6 @@ do_keyboard_brightness_action (GsdMediaKeysManager *manager,
                            manager);
 }
 
-static void
-exec_battery_info (GsdMediaKeysManager *manager)
-{
-        gboolean ret;
-        GError *error = NULL;
-        GAppInfo *app_info;
-        GdkAppLaunchContext *launch_context;
-
-        /* setup the launch context so the startup notification is correct */
-        launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
-        app_info = g_app_info_create_from_commandline (BINDIR "/gnome-power-statistics",
-                                                       "gnome-power-statistics",
-                                                       G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
-                                                       &error);
-        if (app_info == NULL) {
-                g_warning ("failed to create application info: %s",
-                           error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        /* launch gnome-control-center */
-        ret = g_app_info_launch (app_info,
-                                 NULL,
-                                 G_APP_LAUNCH_CONTEXT (launch_context),
-                                 &error);
-        if (!ret) {
-                g_warning ("failed to launch gnome-power-statistics: %s",
-                           error->message);
-                g_error_free (error);
-                goto out;
-        }
-out:
-        g_object_unref (launch_context);
-        if (app_info != NULL)
-                g_object_unref (app_info);
-}
-
 static gboolean
 do_action (GsdMediaKeysManager *manager,
            MediaKeyType         type,
@@ -1467,15 +1458,14 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case SEARCH_KEY:
                 cmd = NULL;
-                if ((cmd = g_find_program_in_path ("tracker-search-tool"))) {
-                        execute (manager, "tracker-search-tool", FALSE, FALSE);
-                } else {
-                        execute (manager, "gnome-search-tool", FALSE, FALSE);
-                }
+                if ((cmd = g_find_program_in_path ("tracker-search-tool")))
+                        do_execute_desktop (manager, "tracker-needle.desktop", timestamp);
+                else
+                        do_execute_desktop (manager, "gnome-search-tool.desktop", timestamp);
                 g_free (cmd);
                 break;
         case EMAIL_KEY:
-                do_url_action (manager, "mailto");
+                do_url_action (manager, "mailto", timestamp);
                 break;
         case SCREENSAVER_KEY:
         case SCREENSAVER2_KEY:
@@ -1488,16 +1478,16 @@ do_action (GsdMediaKeysManager *manager,
                 g_free (cmd);
                 break;
         case HELP_KEY:
-                do_url_action (manager, "ghelp");
+                do_url_action (manager, "ghelp", timestamp);
                 break;
         case WWW_KEY:
-                do_url_action (manager, "http");
+                do_url_action (manager, "http", timestamp);
                 break;
         case MEDIA_KEY:
-                do_media_action (manager);
+                do_media_action (manager, timestamp);
                 break;
         case CALCULATOR_KEY:
-                execute (manager, "gcalctool", FALSE, FALSE);
+                do_execute_desktop (manager, "gcalctool.desktop", timestamp);
                 break;
         case PLAY_KEY:
                 return do_multimedia_player_action (manager, "Play");
@@ -1566,7 +1556,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_keyboard_brightness_action (manager, type);
                 break;
         case BATTERY_KEY:
-                exec_battery_info (manager);
+                do_execute_desktop (manager, "gnome-power-statistics.desktop", timestamp);
                 break;
         case HANDLED_KEYS:
                 g_assert_not_reached ();
