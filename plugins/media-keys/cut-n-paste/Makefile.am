@@ -4,12 +4,10 @@ noinst_LTLIBRARIES = libgvc.la
 
 INCLUDES =					\
 	$(WARN_CFLAGS)				\
-	$(VOLUME_CONTROL_CFLAGS)		\
 	$(PULSE_CFLAGS)				\
 	$(NULL)
 
 libgvc_la_LIBADD =		\
-	$(VOLUME_CONTROL_LIBS)	\
 	$(PULSE_LIBS)		\
 	$(NULL)
 
