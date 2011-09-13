@@ -1161,8 +1161,11 @@ gcm_session_create_device_cb (GObject *object,
                                                  res,
                                                  &error);
         if (device == NULL) {
-                g_warning ("failed to create device: %s",
-                           error->message);
+                if (error->domain != CD_CLIENT_ERROR ||
+                    error->code != CD_CLIENT_ERROR_ALREADY_EXISTS) {
+                        g_warning ("failed to create device: %s",
+                                   error->message);
+                }
                 g_error_free (error);
                 return;
         }
