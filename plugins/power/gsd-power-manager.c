@@ -2776,7 +2776,7 @@ idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
                 return FALSE;
         }
 
-        ret = g_variant_get_boolean (retval);
+        g_variant_get (retval, "(b)", &ret);
         g_variant_unref (retval);
 
         return ret;
