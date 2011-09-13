@@ -585,6 +585,25 @@ do_eject_action (GsdMediaKeysManager *manager)
 }
 
 static void
+do_home_key_action (GsdMediaKeysManager *manager,
+		    gint64               timestamp)
+{
+	GFile *file;
+	GError *error = NULL;
+	char *uri;
+
+	file = g_file_new_for_path (g_get_home_dir ());
+	uri = g_file_get_uri (file);
+	g_object_unref (file);
+
+	if (gtk_show_uri (NULL, uri, timestamp, &error) == FALSE) {
+		g_warning ("Failed to launch '%s': %s", uri, error->message);
+		g_error_free (error);
+	}
+	g_free (uri);
+}
+
+static void
 do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
 {
         dialog_init (manager);
@@ -1402,7 +1421,6 @@ do_action (GsdMediaKeysManager *manager,
            gint64               timestamp)
 {
         char *cmd;
-        char *path;
 
         g_debug ("Launching action for key type '%d'", type);
 
@@ -1445,11 +1463,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_eject_action (manager);
                 break;
         case HOME_KEY:
-                path = g_shell_quote (g_get_home_dir ());
-                cmd = g_strconcat ("nautilus --no-desktop ", path, NULL);
-                g_free (path);
-                execute (manager, cmd, FALSE, FALSE);
-                g_free (cmd);
+                do_home_key_action (manager, timestamp);
                 break;
         case SEARCH_KEY:
                 cmd = NULL;
