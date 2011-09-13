@@ -1453,9 +1453,7 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case SEARCH_KEY:
                 cmd = NULL;
-                if ((cmd = g_find_program_in_path ("beagle-search"))) {
-                        execute (manager, "beagle-search", FALSE, FALSE);
-                } else if ((cmd = g_find_program_in_path ("tracker-search-tool"))) {
+                if ((cmd = g_find_program_in_path ("tracker-search-tool"))) {
                         execute (manager, "tracker-search-tool", FALSE, FALSE);
                 } else {
                         execute (manager, "gnome-search-tool", FALSE, FALSE);
