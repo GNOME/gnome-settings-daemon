@@ -53,6 +53,7 @@ GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.26.0
 GNOME_DESKTOP_REQUIRED_VERSION=3.1.5
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
+UPOWER_GLIB_REQUIRED_VERSION=0.9.1
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -210,7 +211,7 @@ dnl ---------------------------------------------------------------------------
 dnl - media-keys plugin stuff
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0])
+PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 upower-glib >= $UPOWER_GLIB_REQUIRED_VERSION])
 
 dnl ---------------------------------------------------------------------------
 dnl - GConf<->GSettings bridge
