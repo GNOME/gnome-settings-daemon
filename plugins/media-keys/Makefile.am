@@ -146,7 +146,6 @@ test_media_window_LDADD = \
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
-	$(GST_LIBS)				\
 	-lm
 
 test_media_keys_SOURCES =			\
@@ -182,7 +181,6 @@ test_media_keys_LDADD = \
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(MEDIA_KEYS_LIBS)			\
-	$(GST_LIBS)				\
 	-lm
 
 if HAVE_PULSE
