@@ -494,7 +494,7 @@ do_media_action (GsdMediaKeysManager *manager)
 {
         GAppInfo *app_info;
 
-        app_info = g_app_info_get_default_for_type ("audio/ogg", FALSE);
+        app_info = g_app_info_get_default_for_type ("audio/x-vorbis+ogg", FALSE);
         if (app_info != NULL) {
                 GError *error = NULL;
 
