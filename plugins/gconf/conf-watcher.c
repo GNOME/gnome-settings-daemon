@@ -23,13 +23,19 @@
 
 G_DEFINE_TYPE(ConfWatcher, conf_watcher, G_TYPE_OBJECT)
 
+static void settings_changed_cb (GSettings *settings,
+                                 const gchar *key,
+                                 ConfWatcher *watcher);
+
 static void
 conf_watcher_finalize (GObject *object)
 {
 	ConfWatcher *watcher = CONF_WATCHER (object);
 
-	if (watcher->settings != NULL)
+	if (watcher->settings != NULL) {
+                g_signal_handlers_disconnect_by_func (watcher->settings, settings_changed_cb, watcher);
 		g_object_unref (watcher->settings);
+        }
 
 	if (watcher->conf_client != NULL)
 		g_object_unref (watcher->conf_client);
