@@ -1469,13 +1469,7 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case SCREENSAVER_KEY:
         case SCREENSAVER2_KEY:
-                if ((cmd = g_find_program_in_path ("gnome-screensaver-command"))) {
-                        execute (manager, "gnome-screensaver-command --lock", FALSE, FALSE);
-                } else {
-                        execute (manager, "xscreensaver-command -lock", FALSE, FALSE);
-                }
-
-                g_free (cmd);
+                execute (manager, "gnome-screensaver-command --lock", FALSE, FALSE);
                 break;
         case HELP_KEY:
                 do_url_action (manager, "ghelp", timestamp);
