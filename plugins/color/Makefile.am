@@ -30,6 +30,7 @@ libcolor_la_CFLAGS = \
 	$(LCMS_CFLAGS)			\
 	$(GNOME_DESKTOP_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libcolor_la_LDFLAGS = 			\
@@ -40,7 +41,8 @@ libcolor_la_LIBADD  = 			\
 	$(LIBCANBERRA_LIBS)		\
 	$(GNOME_DESKTOP_LIBS)		\
 	$(LCMS_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(SETTINGS_PLUGIN_LIBS)		\
+	$(LIBNOTIFY_LIBS)
 
 check_PROGRAMS =			\
 	gcm-self-test
