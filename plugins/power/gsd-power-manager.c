@@ -2754,8 +2754,11 @@ idle_is_session_idle (GsdPowerManager *manager)
         /* get the session status */
         result = g_dbus_proxy_get_cached_property (manager->priv->session_presence_proxy,
                                                    "status");
-        if (result == NULL)
+        if (result == NULL) {
+                g_warning ("no readable status property on %s",
+                           g_dbus_proxy_get_interface_name (manager->priv->session_presence_proxy));
                 return FALSE;
+        }
 
         g_variant_get (result, "u", &status);
         ret = (status == SESSION_STATUS_CODE_IDLE);
@@ -2894,6 +2897,8 @@ idle_evaluate (GsdPowerManager *manager)
                         g_source_set_name_by_id (manager->priv->timeout_sleep_id,
                                                  "[GsdPowerManager] sleep");
                 }
+        } else {
+                g_debug ("session is not idle");
         }
 }
 
@@ -3334,7 +3339,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                   session_proxy_ready_cb,
                                   manager);
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                  0,
                                   NULL,
                                   GNOME_SESSION_DBUS_NAME,
                                   GNOME_SESSION_DBUS_PATH_PRESENCE,
