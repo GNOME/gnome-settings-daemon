@@ -631,10 +631,6 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
 
                 /* set fallback icon */
                 gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
-
-                /* icon before, now none */
-                engine_emit_changed (manager);
-
                 return TRUE;
         }
 
@@ -644,8 +640,6 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
                 /* set fallback icon */
                 gtk_status_icon_set_visible (manager->priv->status_icon, TRUE);
                 gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
-
-                engine_emit_changed (manager);
                 manager->priv->previous_icon = icon;
                 return TRUE;
         }
@@ -657,8 +651,6 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
 
                 /* set fallback icon */
                 gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
-
-                engine_emit_changed (manager);
                 return TRUE;
         }
 
@@ -681,7 +673,6 @@ engine_recalculate_state_summary (GsdPowerManager *manager)
                 gtk_status_icon_set_tooltip_text (manager->priv->status_icon,
                                                   summary);
 
-                engine_emit_changed (manager);
                 return TRUE;
         }
 
@@ -693,7 +684,6 @@ engine_recalculate_state_summary (GsdPowerManager *manager)
                 gtk_status_icon_set_tooltip_text (manager->priv->status_icon,
                                                   summary);
 
-                engine_emit_changed (manager);
                 return TRUE;
         }
         g_debug ("no change");
@@ -705,10 +695,19 @@ engine_recalculate_state_summary (GsdPowerManager *manager)
 static void
 engine_recalculate_state (GsdPowerManager *manager)
 {
-        engine_recalculate_state_icon (manager);
-        engine_recalculate_state_summary (manager);
+        gboolean ret;
+        gboolean has_changed = FALSE;
 
-        engine_emit_changed (manager);
+        ret = engine_recalculate_state_icon (manager);
+        if (ret)
+                has_changed = TRUE;
+        ret = engine_recalculate_state_summary (manager);
+        if (ret)
+                has_changed = TRUE;
+
+        /* only emit if the icon or summary has changed */
+        if (has_changed)
+                engine_emit_changed (manager);
 }
 
 static UpDevice *
@@ -770,6 +769,7 @@ engine_update_composite_device (GsdPowerManager *manager,
         gboolean is_charging = FALSE;
         gboolean is_discharging = FALSE;
         gboolean is_fully_charged = TRUE;
+        gboolean has_changed;
         GPtrArray *array;
         UpDevice *device;
         UpDeviceState state;
@@ -854,7 +854,9 @@ engine_update_composite_device (GsdPowerManager *manager,
                       NULL);
 
         /* force update of icon */
-        engine_recalculate_state_icon (manager);
+        has_changed = engine_recalculate_state_icon (manager);
+        if (has_changed)
+                engine_emit_changed (manager);
 out:
         /* return composite device or original device */
         return device;
