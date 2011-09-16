@@ -646,14 +646,14 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
                 gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
 
                 engine_emit_changed (manager);
-                manager->priv->previous_icon = g_object_ref (icon);
+                manager->priv->previous_icon = icon;
                 return TRUE;
         }
 
         /* icon before, now different */
         if (!g_icon_equal (manager->priv->previous_icon, icon)) {
                 g_object_unref (manager->priv->previous_icon);
-                manager->priv->previous_icon = g_object_ref (icon);
+                manager->priv->previous_icon = icon;
 
                 /* set fallback icon */
                 gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
@@ -3646,6 +3646,7 @@ device_to_variant_blob (UpDevice *device)
                                state,
                                time_state);
         g_free (device_icon);
+        g_object_unref (icon);
         return value;
 }
 
