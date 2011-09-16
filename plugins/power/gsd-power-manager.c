@@ -818,7 +818,8 @@ engine_update_composite_device (GsdPowerManager *manager,
         }
 
         /* use percentage weighted for each battery capacity */
-        percentage = 100.0 * energy_total / energy_full_total;
+        if (energy_full_total > 0.0)
+                percentage = 100.0 * energy_total / energy_full_total;
 
         /* set composite state */
         if (is_charging)
