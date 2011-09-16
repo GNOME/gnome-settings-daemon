@@ -2049,6 +2049,7 @@ do_power_action_type (GsdPowerManager *manager,
                  * hibernate is not available and is marginally better
                  * than just powering down the computer mid-write */
                 consolekit_stop ();
+                break;
         case GSD_POWER_ACTION_BLANK:
                 ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
                                                      GNOME_RR_DPMS_OFF,
