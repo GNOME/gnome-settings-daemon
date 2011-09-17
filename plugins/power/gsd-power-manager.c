@@ -26,12 +26,15 @@
 #include <stdio.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <canberra-gtk.h>
 #include <libupower-glib/upower.h>
 #include <libnotify/notify.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
+
+#ifdef HAVE_LIBCANBERRA
+#include <canberra-gtk.h>
+#endif /* HAVE_LIBCANBERRA */
 
 #include "gpm-common.h"
 #include "gpm-phone.h"
@@ -175,9 +178,11 @@ struct GsdPowerManagerPrivate
         UpDevice                *device_composite;
         NotifyNotification      *notification_discharging;
         NotifyNotification      *notification_low;
+#ifdef HAVE_LIBCANBERRA
         ca_context              *canberra_context;
         ca_proplist             *critical_alert_loop_props;
         guint32                  critical_alert_timeout_id;
+#endif /* HAVE_LIBCANBERRA */
         GDBusProxy              *screensaver_proxy;
         GDBusProxy              *session_proxy;
         GDBusProxy              *session_presence_proxy;
@@ -214,7 +219,7 @@ gsd_power_manager_error_quark (void)
         return quark;
 }
 
-
+#ifdef HAVE_LIBCANBERRA
 static gboolean
 play_loop_timeout_cb (GsdPowerManager *manager)
 {
@@ -283,6 +288,7 @@ play_loop_start (GsdPowerManager *manager,
                          CA_PROP_EVENT_DESCRIPTION, desc, NULL);
         return TRUE;
 }
+#endif /* HAVE_LIBCANBERRA */
 
 static void
 notify_close_if_showing (NotifyNotification *notification)
@@ -1211,9 +1217,11 @@ manager_critical_action_do (GsdPowerManager *manager)
 {
         GsdPowerActionType action_type;
 
+#ifdef HAVE_LIBCANBERRA
         /* stop playing the alert as it's too late to do anything now */
         if (manager->priv->critical_alert_timeout_id > 0)
                 play_loop_stop (manager);
+#endif /* HAVE_LIBCANBERRA */
 
         action_type = g_settings_get_enum (manager->priv->settings,
                                            "critical-battery-action");
@@ -1377,11 +1385,14 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                 g_object_unref (manager->priv->notification_low);
         }
 
+#ifdef HAVE_LIBCANBERRA
         /* play the sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
                          CA_PROP_EVENT_ID, "battery-low",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Battery is low"), NULL);
+#endif /* HAVE_LIBCANBERRA */
+
 out:
         if (icon != NULL)
                 g_object_unref (icon);
@@ -1560,19 +1571,23 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         case UP_DEVICE_KIND_BATTERY:
         case UP_DEVICE_KIND_UPS:
                 g_debug ("critical charge level reached, starting sound loop");
+#ifdef HAVE_LIBCANBERRA
                 play_loop_start (manager,
                                  "battery-caution",
                                  _("Battery is critically low"),
                                  TRUE,
                                  GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT);
+#endif /* HAVE_LIBCANBERRA */
                 break;
 
         default:
+#ifdef HAVE_LIBCANBERRA
                 /* play the sound, using sounds from the naming spec */
                 ca_context_play (manager->priv->canberra_context, 0,
                                  CA_PROP_EVENT_ID, "battery-caution",
                                  /* TRANSLATORS: this is the sound description */
                                  CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
+#endif /* HAVE_LIBCANBERRA */
                 break;
         }
 out:
@@ -1704,11 +1719,13 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 g_object_unref (manager->priv->notification_low);
         }
 
+#ifdef HAVE_LIBCANBERRA
         /* play the sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
                          CA_PROP_EVENT_ID, "battery-caution",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
+#endif /* HAVE_LIBCANBERRA */
 out:
         if (icon != NULL)
                 g_object_unref (icon);
@@ -2074,12 +2091,14 @@ do_lid_open_action (GsdPowerManager *manager)
         gboolean ret;
         GError *error = NULL;
 
+#ifdef HAVE_LIBCANBERRA
         /* play a sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
                          CA_PROP_EVENT_ID, "lid-open",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been opened"),
                          NULL);
+#endif /* HAVE_LIBCANBERRA */
 
         /* ensure we turn the panel back on after lid open */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
@@ -2099,12 +2118,14 @@ do_lid_closed_action (GsdPowerManager *manager)
         GError *error = NULL;
         GsdPowerActionType action_type;
 
+#ifdef HAVE_LIBCANBERRA
         /* play a sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
                          CA_PROP_EVENT_ID, "lid-close",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
                          NULL);
+#endif /* HAVE_LIBCANBERRA */
 
         /* we have different settings depending on AC state */
         if (up_client_get_on_battery (manager->priv->up_client)) {
@@ -2151,12 +2172,14 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
 {
         gboolean tmp;
 
+#ifdef HAVE_LIBCANBERRA
         /* if we are playing a critical charge sound loop on AC, stop it */
         if (!up_client_get_on_battery (client) &&
             manager->priv->critical_alert_timeout_id > 0) {
                 g_debug ("stopping alert loop due to ac being present");
                 play_loop_stop (manager);
         }
+#endif /* HAVE_LIBCANBERRA */
 
         /* same state */
         tmp = up_client_get_lid_is_closed (manager->priv->up_client);
@@ -3349,7 +3372,9 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                   manager);
 
         manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
+#ifdef HAVE_LIBCANBERRA
         manager->priv->canberra_context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
+#endif /* HAVE_LIBCANBERRA */
 
         manager->priv->phone = gpm_phone_new ();
         g_signal_connect (manager->priv->phone, "device-added",
@@ -3454,8 +3479,10 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         if (manager->priv->session_presence_proxy != NULL)
                 g_object_unref (manager->priv->session_presence_proxy);
 
+#ifdef HAVE_LIBCANBERRA
         if (manager->priv->critical_alert_timeout_id > 0)
                 g_source_remove (manager->priv->critical_alert_timeout_id);
+#endif /* HAVE_LIBCANBERRA */
 
         gpm_idletime_alarm_remove (manager->priv->idletime,
                                    GSD_POWER_IDLETIME_ID);
