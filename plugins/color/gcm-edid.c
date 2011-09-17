@@ -27,9 +27,9 @@
 #include <string.h>
 #include <gio/gio.h>
 #include <stdlib.h>
+#include <libgnome-desktop/gnome-pnp-ids.h>
 
 #include "gcm-edid.h"
-#include "gcm-tables.h"
 
 static void     gcm_edid_finalize       (GObject     *object);
 
@@ -50,7 +50,7 @@ struct _GcmEdidPrivate
         CdColorYxy                      *green;
         CdColorYxy                      *blue;
         CdColorYxy                      *white;
-        GcmTables                       *tables;
+        GnomePnpIds                     *pnp_ids;
 };
 
 G_DEFINE_TYPE (GcmEdid, gcm_edid, G_TYPE_OBJECT)
@@ -92,7 +92,7 @@ gcm_edid_get_vendor_name (GcmEdid *edid)
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
 
         if (priv->vendor_name == NULL)
-                priv->vendor_name = gcm_tables_get_pnp_id (priv->tables, priv->pnp_id, NULL);
+                priv->vendor_name = gnome_pnp_ids_get_pnp_id (priv->pnp_ids, priv->pnp_id, NULL);
         return priv->vendor_name;
 }
 
@@ -418,7 +418,7 @@ static void
 gcm_edid_init (GcmEdid *edid)
 {
         edid->priv = GCM_EDID_GET_PRIVATE (edid);
-        edid->priv->tables = gcm_tables_new ();
+        edid->priv->pnp_ids = gnome_pnp_ids_new ();
         edid->priv->pnp_id = g_new0 (gchar, 4);
         edid->priv->red = cd_color_yxy_new ();
         edid->priv->green = cd_color_yxy_new ();
@@ -442,7 +442,7 @@ gcm_edid_finalize (GObject *object)
         cd_color_yxy_free (priv->red);
         cd_color_yxy_free (priv->green);
         cd_color_yxy_free (priv->blue);
-        g_object_unref (priv->tables);
+        g_object_unref (priv->pnp_ids);
 
         G_OBJECT_CLASS (gcm_edid_parent_class)->finalize (object);
 }

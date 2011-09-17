@@ -21,7 +21,6 @@ AC_STDC_HEADERS
 AC_PROG_CXX
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
-AC_PATH_PNPIDS
 
 AC_HEADER_STDC
 
@@ -104,11 +103,6 @@ dnl ---------------------------------------------------------------------------
 dnl - Check for gnome-desktop
 dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(GNOME_DESKTOP, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for colord
-dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(COLORD, colord >= 0.1.12 libcanberra-gtk3)
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for LCMS2
@@ -204,6 +198,12 @@ dnl - media-keys plugin stuff
 dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 upower-glib >= $UPOWER_GLIB_REQUIRED_VERSION libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra-gtk3])
+
+dnl ---------------------------------------------------------------------------
+dnl - color
+dnl ---------------------------------------------------------------------------
+
+PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
 
 dnl ---------------------------------------------------------------------------
 dnl - GConf<->GSettings bridge
@@ -574,5 +574,4 @@ ${NSS_DATABASE:+\
         System nssdb:             ${NSS_DATABASE}
 }\
         Profiling support:        ${enable_profiling}
-        pnp.ids filename:         ${ac_with_pnpids}
 "

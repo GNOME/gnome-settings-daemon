@@ -28,7 +28,6 @@
 #include <stdlib.h>
 
 #include "gcm-dmi.h"
-#include "gcm-tables.h"
 
 static void     gcm_dmi_finalize        (GObject     *object);
 

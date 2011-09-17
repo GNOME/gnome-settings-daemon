@@ -135,14 +135,3 @@ AC_DEFUN([AS_AC_EXPAND],
   exec_prefix=$exec_prefix_save
 ])
 
-AC_DEFUN([AC_PATH_PNPIDS], [
-        AC_ARG_WITH(pnpids,
-                   AS_HELP_STRING([--with-pnpids=PATH],[Path to the pnp.ids file @<:@auto@:>@]),
-                   [ac_with_pnpids=$withval],
-                   [ac_with_pnpids="/usr/share/hwdata/pnp.ids"])
-        AC_CHECK_FILE($ac_with_pnpids,has_pnpids=yes)
-        if test "x$has_pnpids" != "xyes"; then
-		AC_MSG_ERROR([*** Unable to find pnp.ids, use --with-pnpids to specify the path.])
-        fi
-        AC_DEFINE_UNQUOTED(PNPIDS_FILE, ["$ac_with_pnpids"], [Define the pnp.ids file path])
-])

@@ -10,8 +10,6 @@ libcolor_la_SOURCES = 			\
 	gcm-dmi.h			\
 	gcm-edid.c			\
 	gcm-edid.h			\
-	gcm-tables.c			\
-	gcm-tables.h			\
 	gsd-color-manager.c		\
 	gsd-color-manager.h		\
 	gsd-color-plugin.c		\
@@ -25,9 +23,8 @@ libcolor_la_CPPFLAGS = \
 
 libcolor_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
-	$(COLORD_CFLAGS)		\
+	$(COLOR_CFLAGS)		\
 	$(LCMS_CFLAGS)			\
-	$(GNOME_DESKTOP_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
@@ -36,8 +33,7 @@ libcolor_la_LDFLAGS = 			\
 	$(GSD_PLUGIN_LDFLAGS)
 
 libcolor_la_LIBADD  = 			\
-	$(COLORD_LIBS)			\
-	$(GNOME_DESKTOP_LIBS)		\
+	$(COLOR_LIBS)			\
 	$(LCMS_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(LIBNOTIFY_LIBS)
@@ -51,7 +47,7 @@ gcm_self_test_CPPFLAGS = \
 
 gcm_self_test_CFLAGS =			\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(COLORD_CFLAGS)		\
+	$(COLOR_CFLAGS)			\
 	$(PLUGIN_CFLAGS)		\
 	$(AM_CFLAGS)
 
@@ -65,7 +61,7 @@ gcm_self_test_SOURCES =			\
 	gcm-self-test.c
 
 gcm_self_test_LDADD =			\
-	$(COLORD_LIBS)			\
+	$(COLOR_LIBS)			\
 	$(LCMS_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)
 
