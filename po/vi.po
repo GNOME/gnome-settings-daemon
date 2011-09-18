@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon 2.25.90\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-24 18:25+0000\n"
+"POT-Creation-Date: 2011-09-15 23:28+0000\n"
 "PO-Revision-Date: 2011-03-26 16:51+0700\n"
 "Last-Translator: Nguyen Vu Hung <vuhung16plus@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -127,12 +127,17 @@ msgstr ""
 msgid "Smartcard removal action"
 msgstr "Hành động tháo smartcard"
 
-#. g-p-m is not a GSD plugin, yet
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+msgid "Whether the tablet's orientation is locked, or rotated automatically."
+msgstr ""
+
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
@@ -144,8 +149,10 @@ msgstr "Kích hoạt phần bổ sung này"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
@@ -156,24 +163,32 @@ msgstr "Độ ưu tiên của phần bổ sung này"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr ""
 "Độ ưu tiên của phần bổ sung này trong chuỗi khởi động gnome-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 msgstr "Có kích hoạt phần bổ sung này trong gnome-settings-daemon hay không"
 
@@ -233,17 +248,107 @@ msgstr ""
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Ngưỡng thông báo phần trăm vùng trống lần sau"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid ""
+"If time based notifications should be used. If set to false, then the "
+"percentage change is used instead, which may fix a broken ACPI BIOS."
 msgstr ""
-"Thứ tự ưu tiên cho phần bổ sung này trong cho64i khởi động gnome-settings-"
-"daemon."
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
-msgstr "Có bật phần bổ sung này bằng gnome-settings-daemon hay không"
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "If we should show the recalled battery warning for a broken battery"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid ""
+"If we should show the recalled battery warning for a broken battery. Set "
+"this to false only if you know your battery is okay."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Percentage action is taken"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid "Percentage considered critical"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Percentage considered low"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The percentage of the battery when it is considered critical. Only valid "
+"when use-time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid ""
+"The percentage of the battery when it is considered low. Only valid when use-"
+"time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+msgid ""
+"The percentage of the battery when the critical action is performed. Only "
+"valid when use-time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+msgid ""
+"The time remaining in seconds of the battery when critical action is taken. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid ""
+"The time remaining in seconds of the battery when it is considered critical. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+msgid ""
+"The time remaining in seconds of the battery when it is considered low. Only "
+"valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+msgid "The time remaining when action is taken"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+msgid "The time remaining when critical"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+msgid "The time remaining when low"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
+msgid "Whether to use time-based notifications"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#, fuzzy
+#| msgid "The selected configuration for displays could not be applied"
+msgid "The duration a display profile is valid"
+msgstr "Không thể áp dụng cấu hình đã chọn cho bộ trình bày"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+msgid "The duration a printer profile is valid"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+msgid ""
+"This is the number of days after which the display color profile is "
+"considered invalid."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid ""
+"This is the number of days after which the printer color profile is "
+"considered invalid."
+msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 msgid "Allowed keys"
@@ -266,110 +371,106 @@ msgid "Binding to eject an optical disc."
 msgstr "Phím tổ hợp đẩy đĩa quang ra."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
-msgid "Binding to enable or disable the touchpad."
-msgstr "Tổ hợp phím bật/tắt touchpad."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to increase the text size"
 msgstr "Tổ hợp để tăng cỡ chữ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the calculator."
 msgstr "Tổ hợp để khởi chạy bàn tính."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the email client."
 msgstr "Tổ hợp để khởi chạy trình khách thư."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the help browser."
 msgstr "Tổ hợp để khởi chạy bộ duyệt trợ giúp."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the media player."
 msgstr "Tổ hợp để khởi chạy bộ phát nhạc/phim."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the search tool."
 msgstr "Tổ hợp để khởi chạy công cụ tìm kiếm."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the web browser."
 msgstr "Tổ hợp để khởi chạy bộ duyệt Web."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to lock the screen."
 msgstr "Tổ hợp để khoá màn hình."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to log out."
 msgstr "Tổ hợp để đăng xuất."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to lower the system volume."
 msgstr "Tổ hợp để giảm âm lượng của hệ thống."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to mute the system volume."
 msgstr "Tổ hợp để câm âm lượng của hệ thống."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to open the Home folder."
 msgstr "Tổ hợp để mở thư mục Nhà."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to pause playback."
 msgstr "Tổ hợp để tạm dừng phát lại. "
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to raise the system volume."
 msgstr "Tổ hợp để tăng âm lượng của hệ thống."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to show the on-screen keyboard"
 msgstr "Tổ hợp phím để bật/tắt bàn phím trên màn hình"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to show the screen magnifier"
 msgstr "Tổ hợp phím để bật/tắt kính lúp"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Binding to skip to next track."
 msgstr "Tổ hợp để nhảy tới rãnh kế tiếp."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to previous track."
 msgstr "Tổ hợp để nhảy về rãnh trước."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Tổ hợp để bắt đầu phát lại (hoặc bật/tắt phát/tạm dừng)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start the screen reader"
 msgstr "Tổ hợp phím để bật/tắt công cụ đọc màn hình"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Binding to stop playback."
 msgstr "Tổ hợp để dừng phát lại."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to toggle the interface contrast"
 msgstr "Tổ hợp phím để bật tắt tương phản giao diện"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Decrease text size"
 msgstr "Giảm cỡ chữ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Eject"
 msgstr "Đẩy ra"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Home folder"
 msgstr "Thư mục cá nhân (HOME)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid ""
 "If non-empty, keybindings will be ignored unless their settings directory is "
 "in the list. This is useful for lockdown."
@@ -377,99 +478,95 @@ msgstr ""
 "Nếu không trống thì tổ hợp phím bị bỏ qua trừ khi thư mục thiết lập của nó "
 "có trong danh sách. Tổ hợp này hữu dụng cho việc khóa máy tính."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Increase text size"
 msgstr "Tăng cỡ chữ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Launch calculator"
 msgstr "Khởi chạy bàn tính"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch email client"
 msgstr "Khởi chạy trình khách thư"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch help browser"
 msgstr "Khởi chạy bộ duyệt trợ giúp"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch media player"
 msgstr "Khởi chạy bộ Phát Nhạc/Phim"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch web browser"
 msgstr "Khởi chạy bộ duyệt Web"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Lock screen"
 msgstr "Khoá màn hình"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Log out"
 msgstr "Đăng xuất"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Magnifier zoom in"
 msgstr "Phóng to kính lúp"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Magnifier zoom out"
 msgstr "Thu nhỏ kính lúp"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Next track"
 msgstr "Rãnh sau"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Pause playback"
 msgstr "Tạm dừng phát lại"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Play (or play/pause)"
 msgstr "Phát (hay phát/tạm dừng)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Previous track"
 msgstr "Rãnh trước"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Stop playback"
 msgstr "Dừng phát lại"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Toggle contrast"
 msgstr "Bật/tắt tương phản"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Toggle magnifier"
 msgstr "Bật/tắt kính lúp"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle on-screen keyboard"
 msgstr "Bật/tắt bàn phím trên màn hình"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Toggle screen reader"
 msgstr "Bật/tắt bộ đọc màn hình"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
-msgid "Toggle touchpad"
-msgstr "Bật/tắt touchpad"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Volume down"
 msgstr "Giảm âm"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Volume mute"
 msgstr "Câm âm"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume up"
 msgstr "Tăng âm"
 
@@ -498,11 +595,15 @@ msgstr ""
 "wifi' được bật và mạng di động nếu 'connection-use-mobile' được bật."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid "Automatically update these types of updates"
+#, fuzzy
+#| msgid "Automatically update these types of updates"
+msgid "Automatically install these types of updates"
 msgstr "Tự động tải các bản cập nhật loại này"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically update these types of updates."
+#, fuzzy
+#| msgid "Automatically update these types of updates."
+msgid "Automatically install these types of updates."
 msgstr "Tự động tải các bản cập nhật loại này."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
@@ -820,7 +921,10 @@ msgstr ""
 " • full\t\ttối đa (có thể gây ra sự méo mó trên các mẫu chữ)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-msgid "Enable this to only move the cursor when the user touches the tablet."
+#, fuzzy
+#| msgid ""
+#| "Enable this to only move the cursor when the user touches the tablet."
+msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr "Bật để chỉ di chuyển con trỏ khi người dùng chạm vào bảng."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
@@ -981,17 +1085,17 @@ msgid "There was an error displaying help: %s"
 msgstr "Gặp lỗi khi hiển thị trợ giúp: %s"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
 msgid "Do you want to activate Slow Keys?"
 msgstr "Bạn có muốn kích hoạt Phím Chậm không?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
 msgid "Do you want to deactivate Slow Keys?"
 msgstr "Bạn có muốn bỏ kích hoạt Phím Chậm không?"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:582
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -999,62 +1103,67 @@ msgstr ""
 "Bạn vừa mới ấn giữ phím Shift trong vòng 8 giây. Đây là phím tắt của tính "
 "năng Phím Chậm, mà ảnh hưởng đến hoạt động của bàn phím."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
+#: ../plugins/mouse/gsd-mouse-manager.c:858
+msgid "Universal Access"
+msgstr "Hỗ trợ truy cập"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:543
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:678
 msgid "Don't activate"
 msgstr "Không bật"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:543
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:678
 msgid "Don't deactivate"
 msgstr "Không tắt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:549
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:684
 msgid "Activate"
 msgstr "Bật"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:549
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:684
 msgid "Deactivate"
 msgstr "Tắt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "Do_n't activate"
 msgstr "Khô_ng bật"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
 msgid "Do_n't deactivate"
 msgstr "Khô_ng tắt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:606
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "_Activate"
 msgstr "_Bật"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:606
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
 msgid "_Deactivate"
 msgstr "_Tắt"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:610
 msgid "Slow Keys Alert"
 msgstr "Báo động Phím Chậm"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
 msgid "Do you want to activate Sticky Keys?"
 msgstr "Bạn có muốn kích hoạt Phím Dính không?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:651
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:715
 msgid "Do you want to deactivate Sticky Keys?"
 msgstr "Bạn có muốn bỏ kích hoạt Phím Dính không?"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:653
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:717
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -1062,8 +1171,8 @@ msgstr ""
 "Bạn vừa mới ấn phím Shift 5 lần liên tiếp. Đây là phím tắt của tính năng "
 "Phím Dính, mà ảnh hưởng đến hoạt động của bàn phím."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:719
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1072,11 +1181,11 @@ msgstr ""
 "Bạn vừa mới ấn hai phím đồng thời, hoặc ấn phím Shift 5 lần liên tiếp. Phím "
 "tắt này tắt tính năng Phím Dính, mà ảnh hưởng đến hoạt động của bàn phím"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
 msgid "Sticky Keys Alert"
 msgstr "Báo động Phím Dính"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:449
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Universal Access Preferences"
 msgstr "Tùy thích truy cập chung"
@@ -1121,13 +1230,13 @@ msgstr "Thiết lập khả năng truy cập"
 msgid "Accessibility settings plugin"
 msgstr "Phần mở rộng thiết lập khả năng truy cập"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
-msgid "Automount"
-msgstr "Tự động gắn kết"
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
+msgid "Automount and autorun plugged devices"
+msgstr ""
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
-msgid "Automounter plugin"
-msgstr "Phần mở rộng tự động gắn kết"
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
+msgid "Mount Helper"
+msgstr ""
 
 #: ../plugins/automount/gsd-automount-manager.c:154
 #, c-format
@@ -1161,74 +1270,74 @@ msgstr "Không thể đẩy %p ra"
 msgid "Unable to unmount %p"
 msgstr "Không thể gỡ gắn kết %p"
 
-#: ../plugins/automount/gsd-autorun.c:700
+#: ../plugins/automount/gsd-autorun.c:702
 msgid "You have just inserted an Audio CD."
 msgstr "Bạn vừa cho vào một Audio CD"
 
-#: ../plugins/automount/gsd-autorun.c:702
+#: ../plugins/automount/gsd-autorun.c:704
 msgid "You have just inserted an Audio DVD."
 msgstr "Bạn vừa cho vào một Audio DVD."
 
-#: ../plugins/automount/gsd-autorun.c:704
+#: ../plugins/automount/gsd-autorun.c:706
 msgid "You have just inserted a Video DVD."
 msgstr "Bạn vừa cho vào một Video DVD."
 
-#: ../plugins/automount/gsd-autorun.c:706
+#: ../plugins/automount/gsd-autorun.c:708
 msgid "You have just inserted a Video CD."
 msgstr "Bạn vừa cho vào một Video CD."
 
-#: ../plugins/automount/gsd-autorun.c:708
+#: ../plugins/automount/gsd-autorun.c:710
 msgid "You have just inserted a Super Video CD."
 msgstr "Bạn vừa cho vào một Super Video CD."
 
-#: ../plugins/automount/gsd-autorun.c:710
+#: ../plugins/automount/gsd-autorun.c:712
 msgid "You have just inserted a blank CD."
 msgstr "Bạn vừa cho vào một CD trắng."
 
-#: ../plugins/automount/gsd-autorun.c:712
+#: ../plugins/automount/gsd-autorun.c:714
 msgid "You have just inserted a blank DVD."
 msgstr "Bạn vừa cho vào một DVD trắng."
 
-#: ../plugins/automount/gsd-autorun.c:714
+#: ../plugins/automount/gsd-autorun.c:716
 msgid "You have just inserted a blank Blu-Ray disc."
 msgstr "Bạn vừa cho vào một đĩa Blu-Ray trắng."
 
-#: ../plugins/automount/gsd-autorun.c:716
+#: ../plugins/automount/gsd-autorun.c:718
 msgid "You have just inserted a blank HD DVD."
 msgstr "Bạn vừa cho vào một HD DVD trắng."
 
-#: ../plugins/automount/gsd-autorun.c:718
+#: ../plugins/automount/gsd-autorun.c:720
 msgid "You have just inserted a Photo CD."
 msgstr "Bạn vừa cho vào một CD Ảnh."
 
-#: ../plugins/automount/gsd-autorun.c:720
+#: ../plugins/automount/gsd-autorun.c:722
 msgid "You have just inserted a Picture CD."
 msgstr "Bạn vừa cho vào một CD ảnh."
 
-#: ../plugins/automount/gsd-autorun.c:722
+#: ../plugins/automount/gsd-autorun.c:724
 msgid "You have just inserted a medium with digital photos."
 msgstr "Bạn vừa cho vào một thiết bị đa phương tiện có ảnh."
 
-#: ../plugins/automount/gsd-autorun.c:724
+#: ../plugins/automount/gsd-autorun.c:726
 msgid "You have just inserted a digital audio player."
 msgstr "Bạn vừa cho vào một trình chơi nhạc."
 
-#: ../plugins/automount/gsd-autorun.c:726
+#: ../plugins/automount/gsd-autorun.c:728
 msgid ""
 "You have just inserted a medium with software intended to be automatically "
 "started."
 msgstr "Bạn vừa cho vào một phương tiện có chỉ định chạy chương trình tự động."
 
 #. fallback to generic greeting
-#: ../plugins/automount/gsd-autorun.c:729
+#: ../plugins/automount/gsd-autorun.c:731
 msgid "You have just inserted a medium."
 msgstr "Bạn vừa cho vào một phương tiện."
 
-#: ../plugins/automount/gsd-autorun.c:731
+#: ../plugins/automount/gsd-autorun.c:733
 msgid "Choose what application to launch."
 msgstr "Chọn chương trình để khởi chạy."
 
-#: ../plugins/automount/gsd-autorun.c:740
+#: ../plugins/automount/gsd-autorun.c:742
 #, c-format
 msgid ""
 "Select how to open \"%s\" and whether to perform this action in the future "
@@ -1236,15 +1345,15 @@ msgid ""
 msgstr ""
 "Chọn cách mở \"%s\" và cách mở mặc định sau này cho loại phương tiện \"%s\"."
 
-#: ../plugins/automount/gsd-autorun.c:767
+#: ../plugins/automount/gsd-autorun.c:769
 msgid "_Always perform this action"
 msgstr "_Luôn thực hiện hành động này"
 
-#: ../plugins/automount/gsd-autorun.c:783
+#: ../plugins/automount/gsd-autorun.c:785
 msgid "_Eject"
 msgstr "Đẩy _ra"
 
-#: ../plugins/automount/gsd-autorun.c:788
+#: ../plugins/automount/gsd-autorun.c:790
 msgid "_Unmount"
 msgstr "_Gỡ gắn kết"
 
@@ -1264,6 +1373,62 @@ msgstr "Bảng nháp"
 msgid "Clipboard plugin"
 msgstr "Phần mở rộng bảng nháp"
 
+#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/gsd-color-manager.c:1526
+msgid "Color"
+msgstr ""
+
+#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#, fuzzy
+#| msgid "Clipboard plugin"
+msgid "Color plugin"
+msgstr "Phần mở rộng bảng nháp"
+
+#: ../plugins/color/gsd-color-manager.c:628
+msgid "Default"
+msgstr ""
+
+#: ../plugins/color/gsd-color-manager.c:1531
+msgid "Recalibrate now"
+msgstr ""
+
+#. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1573
+#, fuzzy
+#| msgid "A restart is required."
+msgid "Recalibration required"
+msgstr "Cần khởi động lại."
+
+#. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1585
+#, c-format
+msgid "The display '%s' should be recalibrated soon."
+msgstr ""
+
+#. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1594
+#, c-format
+msgid "The printer '%s' should be recalibrated soon."
+msgstr ""
+
+#. TRANSLATORS: this is the application name
+#: ../plugins/color/gsd-color-manager.c:1924
+#: ../plugins/color/gsd-color-manager.c:1942
+#, fuzzy
+#| msgid "GNOME Settings Daemon"
+msgid "GNOME Settings Daemon Color Plugin"
+msgstr "Trình nền Thiết lập GNOME"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:1926
+msgid "Color calibration device added"
+msgstr ""
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:1944
+msgid "Color calibration device removed"
+msgstr ""
+
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Giả"
@@ -1271,6 +1436,892 @@ msgstr "Giả"
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Phần mở rộng giả"
+
+#. TRANSLATORS: this is the notification application name
+#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gsd-power-manager.c:1188
+#: ../plugins/power/gsd-power-manager.c:1364
+#: ../plugins/power/gsd-power-manager.c:1542
+#: ../plugins/power/gsd-power-manager.c:1691
+msgid "Power"
+msgstr ""
+
+#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#, fuzzy
+#| msgid "Mouse plugin"
+msgid "Power plugin"
+msgstr "Phần mở rộng chuột"
+
+#: ../plugins/power/gpm-common.c:47
+msgid "Unknown time"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:52
+#, c-format
+msgid "%i minute"
+msgid_plural "%i minutes"
+msgstr[0] ""
+
+#: ../plugins/power/gpm-common.c:62
+#, c-format
+msgid "%i hour"
+msgid_plural "%i hours"
+msgstr[0] ""
+
+#. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
+#. * Swap order with "%2$s %2$i %1$s %1$i if needed
+#: ../plugins/power/gpm-common.c:68
+#, c-format
+msgid "%i %s %i %s"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:69
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] ""
+
+#: ../plugins/power/gpm-common.c:70
+#, fuzzy
+#| msgid "Examine"
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "Kiểm tra..."
+
+#. TRANSLATORS: The laptop battery is charged, and we know a time.
+#. * The parameter is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:317
+#, c-format
+msgid "provides %s laptop runtime"
+msgstr ""
+
+#. TRANSLATORS: the device is discharging, and we have a time remaining
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:328
+#, c-format
+msgid "%s %s remaining"
+msgstr ""
+
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage.
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:349 ../plugins/power/gpm-common.c:366
+#, c-format
+msgid "%s %s until charged"
+msgstr ""
+
+#. TRANSLATORS: the device is charging, and we have a time to full and empty.
+#. * The parameter is a time string, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:356
+#, c-format
+msgid "provides %s battery runtime"
+msgstr ""
+
+#. TRANSLATORS: the type of data, e.g. Laptop battery
+#: ../plugins/power/gpm-common.c:447
+msgid "Product:"
+msgstr ""
+
+#. TRANSLATORS: device is missing
+#. TRANSLATORS: device is charged
+#. TRANSLATORS: device is charging
+#. TRANSLATORS: device is discharging
+#: ../plugins/power/gpm-common.c:451 ../plugins/power/gpm-common.c:454
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:460
+msgid "Status:"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:451
+msgid "Missing"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:454 ../plugins/power/gpm-common.c:723
+msgid "Charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:711
+msgid "Charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:460 ../plugins/power/gpm-common.c:715
+msgid "Discharging"
+msgstr ""
+
+#. TRANSLATORS: percentage
+#: ../plugins/power/gpm-common.c:465
+msgid "Percentage charge:"
+msgstr ""
+
+#. TRANSLATORS: manufacturer
+#: ../plugins/power/gpm-common.c:469
+msgid "Vendor:"
+msgstr ""
+
+#. TRANSLATORS: how the battery is made, e.g. Lithium Ion
+#: ../plugins/power/gpm-common.c:474
+msgid "Technology:"
+msgstr ""
+
+#. TRANSLATORS: serial number of the battery
+#: ../plugins/power/gpm-common.c:478
+msgid "Serial number:"
+msgstr ""
+
+#. TRANSLATORS: model number of the battery
+#: ../plugins/power/gpm-common.c:482
+#, fuzzy
+#| msgid "Module"
+msgid "Model:"
+msgstr "Mô đun"
+
+#. TRANSLATORS: time to fully charged
+#: ../plugins/power/gpm-common.c:487
+#, fuzzy
+#| msgid "Change system time"
+msgid "Charge time:"
+msgstr "Thay đổi thời gian hệ thống"
+
+#. TRANSLATORS: time to empty
+#: ../plugins/power/gpm-common.c:493
+msgid "Discharge time:"
+msgstr ""
+
+#. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
+#: ../plugins/power/gpm-common.c:500
+msgid "Excellent"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:502
+msgid "Good"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:504
+msgid "Fair"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:506
+msgid "Poor"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:510
+msgid "Capacity:"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:516 ../plugins/power/gpm-common.c:541
+msgid "Current charge:"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:522
+msgid "Last full charge:"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:528 ../plugins/power/gpm-common.c:546
+msgid "Design charge:"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:533
+msgid "Charge rate:"
+msgstr ""
+
+#. TRANSLATORS: system power cord
+#: ../plugins/power/gpm-common.c:565 ../plugins/power/gpm-common.c:757
+msgid "AC adapter"
+msgid_plural "AC adapters"
+msgstr[0] ""
+
+#. TRANSLATORS: laptop primary battery
+#: ../plugins/power/gpm-common.c:569 ../plugins/power/gpm-common.c:793
+msgid "Laptop battery"
+msgid_plural "Laptop batteries"
+msgstr[0] ""
+
+#. TRANSLATORS: battery-backed AC power source
+#: ../plugins/power/gpm-common.c:573 ../plugins/power/gpm-common.c:817
+msgid "UPS"
+msgid_plural "UPSs"
+msgstr[0] ""
+
+#. TRANSLATORS: a monitor is a device to measure voltage and current
+#: ../plugins/power/gpm-common.c:577 ../plugins/power/gpm-common.c:824
+msgid "Monitor"
+msgid_plural "Monitors"
+msgstr[0] ""
+
+#. TRANSLATORS: wireless mice with internal batteries
+#: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
+#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#, fuzzy
+#| msgid "Mouse"
+msgid "Mouse"
+msgid_plural "Mice"
+msgstr[0] "Chuột"
+
+#. TRANSLATORS: wireless keyboard with internal battery
+#: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
+#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#, fuzzy
+#| msgid "Keyboard"
+msgid "Keyboard"
+msgid_plural "Keyboards"
+msgstr[0] "Bàn phím"
+
+#. TRANSLATORS: portable device
+#: ../plugins/power/gpm-common.c:589 ../plugins/power/gpm-common.c:896
+msgid "PDA"
+msgid_plural "PDAs"
+msgstr[0] ""
+
+#. TRANSLATORS: cell phone (mobile...)
+#: ../plugins/power/gpm-common.c:593 ../plugins/power/gpm-common.c:920
+msgid "Cell phone"
+msgid_plural "Cell phones"
+msgstr[0] ""
+
+#. TRANSLATORS: media player, mp3 etc
+#: ../plugins/power/gpm-common.c:598 ../plugins/power/gpm-common.c:945
+#, fuzzy
+#| msgid "Launch media player"
+msgid "Media player"
+msgid_plural "Media players"
+msgstr[0] "Khởi chạy bộ Phát Nhạc/Phim"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:602 ../plugins/power/gpm-common.c:969
+msgid "Tablet"
+msgid_plural "Tablets"
+msgstr[0] ""
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:606 ../plugins/power/gpm-common.c:993
+msgid "Computer"
+msgid_plural "Computers"
+msgstr[0] ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:670
+msgid "Lithium Ion"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:674
+msgid "Lithium Polymer"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:678
+msgid "Lithium Iron Phosphate"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:682
+msgid "Lead acid"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:686
+msgid "Nickel Cadmium"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:690
+msgid "Nickel metal hydride"
+msgstr ""
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:694
+msgid "Unknown technology"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:719
+#, fuzzy
+#| msgid "Empty Trash"
+msgid "Empty"
+msgstr "Đổ sọt rác"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:727
+msgid "Waiting to charge"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:731
+msgid "Waiting to discharge"
+msgstr ""
+
+#. TRANSLATORS: device not present
+#: ../plugins/power/gpm-common.c:765
+msgid "Laptop battery not present"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:769
+msgid "Laptop battery is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:773
+msgid "Laptop battery is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:777
+msgid "Laptop battery is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:781
+msgid "Laptop battery is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:785
+msgid "Laptop battery is waiting to charge"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:789
+msgid "Laptop battery is waiting to discharge"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:801
+msgid "UPS is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:805
+msgid "UPS is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:809
+msgid "UPS is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:813
+msgid "UPS is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:832
+#, fuzzy
+#| msgid "Mouse plugin"
+msgid "Mouse is charging"
+msgstr "Phần mở rộng chuột"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:836
+msgid "Mouse is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:840
+#, fuzzy
+#| msgid "Mouse keys"
+msgid "Mouse is empty"
+msgstr "Phím chuột"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:844
+msgid "Mouse is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:856
+#, fuzzy
+#| msgid "Keyboard plugin"
+msgid "Keyboard is charging"
+msgstr "Phần mở rộng bàn phím"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:860
+#, fuzzy
+#| msgid "Keyboard plugin"
+msgid "Keyboard is discharging"
+msgstr "Phần mở rộng bàn phím"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:864
+#, fuzzy
+#| msgid "Keyboard"
+msgid "Keyboard is empty"
+msgstr "Bàn phím"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:868
+msgid "Keyboard is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:880
+msgid "PDA is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:884
+msgid "PDA is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:888
+msgid "PDA is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:892
+msgid "PDA is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:904
+msgid "Cell phone is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:908
+msgid "Cell phone is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:912
+#, fuzzy
+#| msgid "Toner empty"
+msgid "Cell phone is empty"
+msgstr "Toner rỗng"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:916
+msgid "Cell phone is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:929
+msgid "Media player is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:933
+msgid "Media player is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:937
+msgid "Media player is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:941
+msgid "Media player is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:953
+msgid "Tablet is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:957
+msgid "Tablet is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:961
+#, fuzzy
+#| msgid "Toner empty"
+msgid "Tablet is empty"
+msgstr "Toner rỗng"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:965
+msgid "Tablet is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:977
+msgid "Computer is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:981
+msgid "Computer is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:985
+#, fuzzy
+#| msgid "Toner empty"
+msgid "Computer is empty"
+msgstr "Toner rỗng"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:989
+msgid "Computer is charged"
+msgstr ""
+
+#. TRANSLATORS: the battery may be recalled by it's vendor
+#: ../plugins/power/gsd-power-manager.c:932
+msgid "Battery may be recalled"
+msgstr ""
+
+#: ../plugins/power/gsd-power-manager.c:933
+#, c-format
+msgid ""
+"A battery in your computer may have been recalled by %s and you may be at "
+"risk."
+msgstr ""
+
+#: ../plugins/power/gsd-power-manager.c:936
+msgid "For more information visit the battery recall website."
+msgstr ""
+
+#. TRANSLATORS: button text, visit the manufacturers recall website
+#: ../plugins/power/gsd-power-manager.c:947
+msgid "Visit recall website"
+msgstr ""
+
+#. TRANSLATORS: button text, do not show this bubble again
+#: ../plugins/power/gsd-power-manager.c:951
+#, fuzzy
+#| msgid "_Do not show this message again"
+msgid "Do not show me this again"
+msgstr "_Không hiện thông điệp này lần nữa"
+
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:1162
+msgid "UPS Discharging"
+msgstr ""
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1167
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr ""
+
+#. TRANSLATORS: laptop battery low, and we only have one battery
+#: ../plugins/power/gsd-power-manager.c:1279
+#, fuzzy
+#| msgid "Paper low"
+msgid "Battery low"
+msgstr "Ít giấy"
+
+#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1282
+msgid "Laptop battery low"
+msgstr ""
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1288
+#, c-format
+msgid "Approximately <b>%s</b> remaining (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: UPS is starting to get a little low
+#: ../plugins/power/gsd-power-manager.c:1292
+#, fuzzy
+#| msgid "Paper low"
+msgid "UPS low"
+msgstr "Ít giấy"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1296
+#, c-format
+msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: mouse is getting a little low
+#. TRANSLATORS: the mouse battery is very low
+#: ../plugins/power/gsd-power-manager.c:1300
+#: ../plugins/power/gsd-power-manager.c:1463
+msgid "Mouse battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1303
+#, c-format
+msgid "Wireless mouse is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: keyboard is getting a little low
+#. TRANSLATORS: the keyboard battery is very low
+#: ../plugins/power/gsd-power-manager.c:1307
+#: ../plugins/power/gsd-power-manager.c:1471
+msgid "Keyboard battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1310
+#, c-format
+msgid "Wireless keyboard is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: PDA is getting a little low
+#. TRANSLATORS: the PDA battery is very low
+#: ../plugins/power/gsd-power-manager.c:1314
+#: ../plugins/power/gsd-power-manager.c:1480
+#, fuzzy
+#| msgid "Paper low"
+msgid "PDA battery low"
+msgstr "Ít giấy"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1317
+#, c-format
+msgid "PDA is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: cell phone (mobile) is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1321
+#: ../plugins/power/gsd-power-manager.c:1490
+#: ../plugins/power/gsd-power-manager.c:1501
+msgid "Cell phone battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1324
+#, c-format
+msgid "Cell phone is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: media player, e.g. mp3 is getting a little low
+#: ../plugins/power/gsd-power-manager.c:1329
+msgid "Media player battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1332
+#, c-format
+msgid "Media player is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1336
+#: ../plugins/power/gsd-power-manager.c:1510
+msgid "Tablet battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1339
+#, c-format
+msgid "Tablet is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: computer, e.g. ipad is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1343
+#: ../plugins/power/gsd-power-manager.c:1519
+msgid "Attached computer battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1346
+#, c-format
+msgid "Attached computer is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1381
+#, fuzzy
+#| msgid "Paper low"
+msgid "Battery is low"
+msgstr "Ít giấy"
+
+#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1422
+msgid "Battery critically low"
+msgstr ""
+
+#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
+#. TRANSLATORS: laptop battery is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1425
+#: ../plugins/power/gsd-power-manager.c:1609
+msgid "Laptop battery critically low"
+msgstr ""
+
+#. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
+#: ../plugins/power/gsd-power-manager.c:1434
+msgid "Plug in your AC adapter to avoid losing data."
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1438
+#, c-format
+msgid "Computer will suspend very soon unless it is plugged in."
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1442
+#, c-format
+msgid "Computer will hibernate very soon unless it is plugged in."
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1446
+#, c-format
+msgid "Computer will shutdown very soon unless it is plugged in."
+msgstr ""
+
+#. TRANSLATORS: the UPS is very low
+#. TRANSLATORS: UPS is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1453
+#: ../plugins/power/gsd-power-manager.c:1645
+msgid "UPS critically low"
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1457
+#, c-format
+msgid ""
+"Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
+"your computer to avoid losing data."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1466
+#, c-format
+msgid ""
+"Wireless mouse is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1474
+#, c-format
+msgid ""
+"Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1483
+#, c-format
+msgid ""
+"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
+"not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1493
+#, c-format
+msgid ""
+"Cell phone is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1504
+#, c-format
+msgid ""
+"Media player is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1513
+#, c-format
+msgid ""
+"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1522
+#, c-format
+msgid ""
+"Attached computer is very low in power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1562
+#: ../plugins/power/gsd-power-manager.c:1572
+#: ../plugins/power/gsd-power-manager.c:1708
+msgid "Battery is critically low"
+msgstr ""
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1617
+msgid ""
+"The battery is below the critical level and this computer will <b>power-off</"
+"b> when the battery becomes completely empty."
+msgstr ""
+
+#. TRANSLATORS: computer will suspend
+#: ../plugins/power/gsd-power-manager.c:1623
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"suspend.<br><b>NOTE:</b> A small amount of power is required to keep your "
+"computer in a suspended state."
+msgstr ""
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1630
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"hibernate."
+msgstr ""
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1635
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"shutdown."
+msgstr ""
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1653
+msgid ""
+"UPS is below the critical level and this computer will <b>power-off</b> when "
+"the UPS becomes completely empty."
+msgstr ""
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1659
+msgid ""
+"UPS is below the critical level and this computer is about to hibernate."
+msgstr ""
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1664
+msgid "UPS is below the critical level and this computer is about to shutdown."
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2077
+msgid "Lid has been opened"
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2102
+msgid "Lid has been closed"
+msgstr ""
+
+#. TRANSLATORS: this is the title of the power manager status icon
+#. * that is only shown in fallback mode
+#: ../plugins/power/gsd-power-manager.c:3287
+msgid "Power Manager"
+msgstr ""
+
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:1
+msgid "Authentication is required to modify the laptop brightness"
+msgstr ""
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the backlight brightness.
+#.
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+msgid "Modify the laptop brightness"
+msgstr ""
 
 #: ../plugins/housekeeping/gsd-disk-space.c:332
 #, c-format
@@ -1294,7 +2345,7 @@ msgstr "Khối \"%s\" chỉ còn %s vùng đĩa trống."
 
 #. Set up all the window stuff here
 #: ../plugins/housekeeping/gsd-disk-space.c:343
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
 msgid "Low Disk Space"
 msgstr "Ít chỗ đĩa"
 
@@ -1313,17 +2364,23 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Máy này chỉ còn %s vùng đĩa trống."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:369
+#: ../plugins/housekeeping/gsd-disk-space.c:363
+#, fuzzy
+#| msgid "Low Disk Space"
+msgid "Disk space"
+msgstr "Ít chỗ đĩa"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:370
 msgid "Examine"
 msgstr "Kiểm tra..."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:377
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
+#: ../plugins/housekeeping/gsd-disk-space.c:378
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
 msgid "Empty Trash"
 msgstr "Đổ sọt rác"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:384
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
+#: ../plugins/housekeeping/gsd-disk-space.c:385
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:452
 msgid "Ignore"
 msgstr "Bỏ qua"
 
@@ -1368,13 +2425,14 @@ msgstr ""
 "fBạn có thể tăng vùng đĩa trống bằng cách loại bỏ những ứng dụng hoặc tập "
 "tin không dùng, hoặc chuyển tập tin sang đĩa ở ngoài."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:444
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:445
 msgid "Examine…"
 msgstr "Kiểm tra..."
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
-#, c-format
-msgid "Key binding (%s) is invalid"
+#, fuzzy, c-format
+#| msgid "Key binding (%s) is invalid"
+msgid "Key binding (%s) is invalid (%d)"
 msgstr "Tổ hợp phím (%s) không hợp lệ"
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:197
@@ -1398,10 +2456,6 @@ msgstr "Tổ hợp phím"
 #: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr "Phần mở rộng tổ hợp phím"
-
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-msgid "Keyboard"
-msgstr "Bàn phím"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
 msgid "Keyboard plugin"
@@ -1428,19 +2482,25 @@ msgstr ""
 " • <b>%s</b>\n"
 " • <b>%s</b>"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:243
 msgid "_Layouts"
 msgstr "_Bố trí"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
-msgid "Keyboard _Preferences"
-msgstr "_Tùy thích bàn phím"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
-msgid "Show _Current Layout"
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:249
+#, fuzzy
+#| msgid "Show _Current Layout"
+msgid "Show _Keyboard Layout..."
 msgstr "Hiện bố trí _hiện tại"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:218
+#. translators note:
+#. * This is the name of the gnome-control-center "region" panel
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:256
+#, fuzzy
+#| msgid "Manage X Settings"
+msgid "Region and Language Settings"
+msgstr "Quản lý thiết lập X"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:230
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -1448,7 +2508,7 @@ msgstr ""
 "Không thể lấy thiết bị cuối mặc định. Hãy kiểm tra xem câu lệnh thiết bị "
 "cuối mặc định đã được đặt và chỉ tới một ứng dụng hợp lệ."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:258
+#: ../plugins/media-keys/gsd-media-keys-manager.c:270
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -1491,22 +2551,14 @@ msgstr "Phím nhạc/phim"
 msgid "Media keys plugin"
 msgstr "Phần mở rộng phím nhạc/phim"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:822
+#: ../plugins/mouse/gsd-mouse-manager.c:854
 msgid "Could not enable mouse accessibility features"
 msgstr "Không thể hiệu lực các tính năng khả năng truy cập bàn phím"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:824
+#: ../plugins/mouse/gsd-mouse-manager.c:856
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Khả năng truy cập chuột cần Mousetweaks được cài đặt trước."
-
-#: ../plugins/mouse/gsd-mouse-manager.c:826
-msgid "Universal Access"
-msgstr "Hỗ trợ truy cập"
-
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-msgid "Mouse"
-msgstr "Chuột"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
@@ -1521,211 +2573,213 @@ msgid "Print-notifications plugin"
 msgstr "Phần mở rộng thông báo in"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:178
 msgid "Toner low"
 msgstr "Toner thấp"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:180
 msgid "Toner empty"
 msgstr "Toner rỗng"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:182
 msgid "Not connected?"
 msgstr "Chưa kết nối?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:184
 msgid "Cover open"
 msgstr "Nắp mở"
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:186
 msgid "Printer configuration error"
 msgstr "Lỗi cấu hình máy in"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:188
 msgid "Door open"
 msgstr "Cửa mở"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:190
 msgid "Marker supply low"
 msgstr "Marker thấp"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:192
 msgid "Out of a marker supply"
 msgstr "Hết marker"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:194
 msgid "Paper low"
 msgstr "Ít giấy"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:196
 msgid "Out of paper"
 msgstr "Hết giấy"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
-#| msgid "Printer removed"
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:198
 msgid "Printer off-line"
 msgstr "Máy in ngoại tuyến"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
-#| msgid "Printer removed"
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:200
 msgid "Printer error"
 msgstr "Lỗi máy in"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:204
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "Toner thấp trên máy in '%s'."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:206
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "Hết toner trên máy in '%s'."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:208
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Máy in '%s' có thể chưa kết nối."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:210
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "Nắp máy in '%s' đang mở."
 
 #. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "Thiếu bộ lọc in cho máy in '%s'."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:215
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "Cửa máy in '%s' đang mở."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:217
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "Máy in '%s' còn ít marker."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:219
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "Máy in '%s' hết marker."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "Máy in '%s' còn ít giấy."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "Máy in '%s' hết giấy."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:225
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "Máy in '%s' ngoại tuyến."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:227
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "Có vấn đề với máy in '%s'."
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:297
 msgid "Printer added"
 msgstr "Đã thêm máy in"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
 msgid "Printer removed"
 msgstr "Đã bỏ máy in"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:322
 msgid "Printing stopped"
 msgstr "Đã dừng in"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "\"%s\" trên %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:328
 msgid "Printing canceled"
 msgstr "Đã huỷ bỏ in"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:334
 msgid "Printing aborted"
 msgstr "Đã ngắt in"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
 msgid "Printing completed"
 msgstr "Đã hoàn tất in"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printing"
 msgstr "In ấn"
 
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
+#: ../plugins/print-notifications/gsd-printer.c:1077
+#, fuzzy
+#| msgid "Printer error"
+msgid "Printers"
+msgstr "Lỗi máy in"
+
 #. Translators: We are configuring new printer
-#: ../plugins/print-notifications/gsd-printer.c:91
-#| msgid "Configure network time"
+#: ../plugins/print-notifications/gsd-printer.c:931
 msgid "Configuring new printer"
 msgstr "Cấu hình máy in mới"
 
 #. Translators: Just wait
-#: ../plugins/print-notifications/gsd-printer.c:93
+#: ../plugins/print-notifications/gsd-printer.c:933
 msgid "Please wait..."
 msgstr "Vui lòng chờ..."
 
-#. name is a URI, no queue was generated, because no suitable
-#. * driver was found
-#.
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:114
+#: ../plugins/print-notifications/gsd-printer.c:960
 msgid "Missing printer driver"
 msgstr "Thiếu trình điều khiển máy in"
 
 #. Translators: We have no driver installed for the device
-#: ../plugins/print-notifications/gsd-printer.c:123
+#: ../plugins/print-notifications/gsd-printer.c:969
 #, c-format
 msgid "No printer driver for %s."
 msgstr "Không có trình điều khiển cho %s."
 
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:128
+#: ../plugins/print-notifications/gsd-printer.c:974
 msgid "No driver for this printer."
 msgstr "Không có trình điều khiển cho máy in này."
 
@@ -1737,51 +2791,51 @@ msgstr "Thiết lập kích cỡ màn hình và chức năng xoay"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:413
+#: ../plugins/xrandr/gsd-xrandr-manager.c:418
 msgid "Could not switch the monitor configuration"
 msgstr "Không thể chuyển đổi cấu hình của thiết bị hiển thị"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:437
+#: ../plugins/xrandr/gsd-xrandr-manager.c:442
 msgid "Could not restore the display's configuration"
 msgstr "Không thể phục hồi cấu hình của bộ trình bày"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:462
+#: ../plugins/xrandr/gsd-xrandr-manager.c:467
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Không thể phục hồi cấu hình của bộ trình bày từ bản sao lưu"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
+#: ../plugins/xrandr/gsd-xrandr-manager.c:488
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
 "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "Bộ trình bày sẽ bị đặt lại về cấu hình trước đó sau %d giây"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:537
 msgid "Does the display look OK?"
 msgstr "Bộ trình bày đẹp chưa?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:539
+#: ../plugins/xrandr/gsd-xrandr-manager.c:544
 msgid "_Restore Previous Configuration"
 msgstr "_Phục hồi cấu hình trước"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:540
+#: ../plugins/xrandr/gsd-xrandr-manager.c:545
 msgid "_Keep This Configuration"
 msgstr "_Giữ cấu hình này"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:621
+#: ../plugins/xrandr/gsd-xrandr-manager.c:626
 msgid "The selected configuration for displays could not be applied"
 msgstr "Không thể áp dụng cấu hình đã chọn cho bộ trình bày"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1186
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Không thể cập nhật thông tin màn hình: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Vẫn đang thử chuyển đổi cấu hình của thiết bị hiển thị."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1741
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Không thể áp dụng cấu hình đã lưu cho thiết bị hiển thị"
 
@@ -1864,119 +2918,134 @@ msgid "Change system time and date settings"
 msgstr "Thay đổi ngày giờ hệ thống"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Privileges are required to configure time and date settings."
-msgstr "Cần quyền để cấu hình ngày giờ."
+msgid "To change time or date settings, you need to authenticate."
+msgstr ""
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:194
+#: ../plugins/updates/gsd-updates-manager.c:199
 msgid "Distribution upgrades available"
 msgstr "Có cập nhật bản phân phối"
 
+#: ../plugins/updates/gsd-updates-manager.c:203
+#: ../plugins/updates/gsd-updates-manager.c:328
+#: ../plugins/updates/gsd-updates-manager.c:387
+#: ../plugins/updates/gsd-updates-manager.c:443
+#: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/gsd-updates-manager.c:664
+#: ../plugins/updates/gsd-updates-firmware.c:244
+#: ../plugins/updates/gsd-updates-firmware.c:269
+#: ../plugins/updates/gsd-updates-firmware.c:294
+#: ../plugins/updates/gsd-updates-firmware.c:584
+#, fuzzy
+#| msgid "Updates"
+msgid "Software Updates"
+msgstr "Cập nhật"
+
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:204
+#: ../plugins/updates/gsd-updates-manager.c:208
 msgid "More information"
 msgstr "Thêm thông tin"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:307
-#: ../plugins/updates/gsd-updates-manager.c:367
+#: ../plugins/updates/gsd-updates-manager.c:311
+#: ../plugins/updates/gsd-updates-manager.c:370
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Cập nhật"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:310
+#: ../plugins/updates/gsd-updates-manager.c:314
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Có một bản cập nhật quan trọng"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:330
-#: ../plugins/updates/gsd-updates-manager.c:390
+#: ../plugins/updates/gsd-updates-manager.c:333
+#: ../plugins/updates/gsd-updates-manager.c:392
 msgid "Install updates"
 msgstr "Cài bản cập nhật"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:370
+#: ../plugins/updates/gsd-updates-manager.c:373
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Có cập nhật phần mềm"
 
 #. TRANSLATORS: policy says update, but we are on battery and so prompt
-#: ../plugins/updates/gsd-updates-manager.c:436
+#: ../plugins/updates/gsd-updates-manager.c:438
 msgid ""
 "Automatic updates are not being installed as the computer is running on "
 "battery power"
 msgstr "Không tự động cài bản cập nhật khi đang dùng pin"
 
 #. TRANSLATORS: informs user will not install by default
-#: ../plugins/updates/gsd-updates-manager.c:438
+#: ../plugins/updates/gsd-updates-manager.c:440
 msgid "Updates not installed"
 msgstr "Không cài bản cập nhật"
 
 #. TRANSLATORS: to hell with my battery life, just do it
-#: ../plugins/updates/gsd-updates-manager.c:444
+#: ../plugins/updates/gsd-updates-manager.c:448
 msgid "Install the updates anyway"
 msgstr "Vẫn cài bản cập nhật"
 
-#: ../plugins/updates/gsd-updates-manager.c:460
+#: ../plugins/updates/gsd-updates-manager.c:464
 msgid "No restart is required."
 msgstr "Không cần khởi động lại."
 
-#: ../plugins/updates/gsd-updates-manager.c:463
+#: ../plugins/updates/gsd-updates-manager.c:467
 msgid "A restart is required."
 msgstr "Cần khởi động lại."
 
-#: ../plugins/updates/gsd-updates-manager.c:466
+#: ../plugins/updates/gsd-updates-manager.c:470
 msgid "You need to log out and log back in."
 msgstr "Bạn cần đăng xuất rồi đăng nhập lại."
 
-#: ../plugins/updates/gsd-updates-manager.c:469
+#: ../plugins/updates/gsd-updates-manager.c:473
 msgid "You need to restart the application."
 msgstr "Bạn cần khởi động lại ứng dụng."
 
-#: ../plugins/updates/gsd-updates-manager.c:472
+#: ../plugins/updates/gsd-updates-manager.c:476
 msgid "You need to log out and log back in to remain secure."
 msgstr "Bạn cần đăng xuất rồi đăng nhập lại cho an toàn."
 
-#: ../plugins/updates/gsd-updates-manager.c:475
+#: ../plugins/updates/gsd-updates-manager.c:479
 msgid "A restart is required to remain secure."
 msgstr "Cần khởi động lại cho an toàn."
 
 #. TRANSLATORS: we did the update, but some updates were skipped and not applied
-#: ../plugins/updates/gsd-updates-manager.c:536
+#: ../plugins/updates/gsd-updates-manager.c:540
 msgid "One package was skipped:"
 msgid_plural "Some packages were skipped:"
 msgstr[0] "Bỏ qua gói:"
 
 #. TRANSLATORS: title: system update completed all okay
-#: ../plugins/updates/gsd-updates-manager.c:568
+#: ../plugins/updates/gsd-updates-manager.c:572
 msgid "The system update has completed"
 msgstr "Hoàn tất cập nhật hệ thống"
 
 #. TRANSLATORS: restart computer as system packages need update
-#: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/gsd-updates-manager.c:581
 msgid "Restart computer now"
 msgstr "Khởi động lại bây giờ"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:646
+#: ../plugins/updates/gsd-updates-manager.c:652
 msgid "Updates"
 msgstr "Cập nhật"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:650
+#: ../plugins/updates/gsd-updates-manager.c:656
 msgid "Unable to access software updates"
 msgstr "Không thể truy xuất bản cập nhật"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:653
+#: ../plugins/updates/gsd-updates-manager.c:659
 msgid "Try again"
 msgstr "Thử lại"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1092
+#: ../plugins/updates/gsd-updates-manager.c:1097
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Giao dịch bị ngắt khi đang chạy"
 
@@ -1989,44 +3058,72 @@ msgstr "Bạn cần khởi động lại máy tính để phần cứng hoạt �
 
 #. TRANSLATORS: title of libnotify bubble
 #: ../plugins/updates/gsd-updates-firmware.c:243
-#: ../plugins/updates/gsd-updates-firmware.c:267
-#: ../plugins/updates/gsd-updates-firmware.c:291
+#: ../plugins/updates/gsd-updates-firmware.c:268
+#: ../plugins/updates/gsd-updates-firmware.c:293
 msgid "Additional software was installed"
 msgstr "Đã cài phần mềm bổ sung"
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:264
+#: ../plugins/updates/gsd-updates-firmware.c:265
 msgid ""
 "You will need to remove and then reinsert the hardware before it will work "
 "correctly."
 msgstr "Bạn cần gõ và cài lại phần cứng để nó hoạt động đúng."
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:288
+#: ../plugins/updates/gsd-updates-firmware.c:290
 msgid "Your hardware has been set up and is now ready to use."
 msgstr "Đã thiết lập phần cứng, sẵn sàng dùng."
 
 #. TRANSLATORS: we need another package to keep udev quiet
-#: ../plugins/updates/gsd-updates-firmware.c:566
+#: ../plugins/updates/gsd-updates-firmware.c:569
 msgid ""
 "Additional firmware is required to make hardware in this computer function "
 "correctly."
 msgstr "Cần firmware bổ sung để phần cứng hoạt động."
 
 #. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:580
+#: ../plugins/updates/gsd-updates-firmware.c:583
 msgid "Additional firmware required"
 msgstr "Cần firmware bổ sung"
 
 #. TRANSLATORS: button label
-#: ../plugins/updates/gsd-updates-firmware.c:585
+#: ../plugins/updates/gsd-updates-firmware.c:589
 msgid "Install firmware"
 msgstr "Cài firmware"
 
 #. TRANSLATORS: we should ignore this device and not ask anymore
-#: ../plugins/updates/gsd-updates-firmware.c:588
+#: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "Bỏ qua thiết bị"
+
+#~ msgid ""
+#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ msgstr ""
+#~ "Thứ tự ưu tiên cho phần bổ sung này trong cho64i khởi động gnome-settings-"
+#~ "daemon."
+
+#~ msgid ""
+#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+#~ msgstr "Có bật phần bổ sung này bằng gnome-settings-daemon hay không"
+
+#~ msgid "Binding to enable or disable the touchpad."
+#~ msgstr "Tổ hợp phím bật/tắt touchpad."
+
+#~ msgid "Toggle touchpad"
+#~ msgstr "Bật/tắt touchpad"
+
+#~ msgid "Automount"
+#~ msgstr "Tự động gắn kết"
+
+#~ msgid "Automounter plugin"
+#~ msgstr "Phần mở rộng tự động gắn kết"
+
+#~ msgid "Keyboard _Preferences"
+#~ msgstr "_Tùy thích bàn phím"
+
+#~ msgid "Privileges are required to configure time and date settings."
+#~ msgstr "Cần quyền để cấu hình ngày giờ."
 
 #~ msgid ""
 #~ "Disable the keyboard layout indicator unconditionally, do not show it "
@@ -2091,9 +3188,6 @@ msgstr "Bỏ qua thiết bị"
 
 #~ msgid "_Empty Trash"
 #~ msgstr "Đổ _sọt rác"
-
-#~ msgid "Change system time"
-#~ msgstr "Thay đổi thời gian hệ thống"
 
 #~ msgid "Configure hardware clock"
 #~ msgstr "Cấu hình đồng hồ phần cứng"
@@ -2176,9 +3270,6 @@ msgstr "Bỏ qua thiết bị"
 
 #~ msgid "Enable xsettings plugin"
 #~ msgstr "Bật phần mở rộng xsettings"
-
-#~ msgid "Mouse keys"
-#~ msgstr "Phím chuột"
 
 #~ msgid "On-screen keyboard"
 #~ msgstr "Bàn phím trên màn hình"
@@ -2337,9 +3428,6 @@ msgstr "Bỏ qua thiết bị"
 
 #~ msgid "Would you like to load the modmap file(s)?"
 #~ msgstr "Bạn có muốn nạp các tập tin modmap (sửa đổi sơ đồ bàn phím) không?"
-
-#~ msgid "_Do not show this message again"
-#~ msgstr "_Không hiện thông điệp này lần nữa"
 
 #~ msgid "_Load"
 #~ msgstr "_Nạp"
