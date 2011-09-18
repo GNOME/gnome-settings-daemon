@@ -30,7 +30,8 @@ ICON_FILES = 			\
 	touchpad-disabled-48.png	\
 	touchpad-enabled-48.png		\
 	touchpad-disabled.svg		\
-	touchpad-enabled.svg
+	touchpad-enabled.svg		\
+	keyboard-brightness-symbolic.svg
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(icondir)/16x16/$(context)
@@ -48,6 +49,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/touchpad-disabled-24.png $(DESTDIR)$(icondir)/24x24/$(context)/touchpad-disabled.png
 	$(INSTALL_DATA) $(srcdir)/touchpad-disabled-32.png $(DESTDIR)$(icondir)/32x32/$(context)/touchpad-disabled.png
 	$(INSTALL_DATA) $(srcdir)/touchpad-disabled.svg $(DESTDIR)$(icondir)/scalable/$(context)/touchpad-disabled.svg
+	$(INSTALL_DATA) $(srcdir)/keyboard-brightness-symbolic.svg $(DESTDIR)$(icondir)/scalable/$(context)/keyboard-brightness-symbolic.svg
 
 uninstall-local:
 	rm -f $(DESTDIR)$(icondir)/16x16/$(context)/touchpad-enabled.png
