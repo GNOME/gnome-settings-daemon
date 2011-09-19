@@ -70,7 +70,7 @@ update_state (GtkWidget *window)
                 break;
         case 5:
                 gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (window),
-                                                        0);
+                                                        50);
                 gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
                                                          "display-brightness-symbolic",
                                                          TRUE);
@@ -81,16 +81,21 @@ update_state (GtkWidget *window)
                 gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (window),
                                                         50);
                 gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
-                                                         "display-brightness-symbolic",
+                                                         "keyboard-brightness-symbolic",
                                                          TRUE);
 
                 gtk_widget_show (window);
                 break;
         case 7:
-                gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (window),
-                                                        100);
                 gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
-                                                         "display-brightness-symbolic",
+                                                         "touchpad-disabled-symbolic",
+                                                         TRUE);
+
+                gtk_widget_show (window);
+                break;
+        case 8:
+                gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
+                                                         "touchpad-enabled-symbolic",
                                                          TRUE);
 
                 gtk_widget_show (window);
