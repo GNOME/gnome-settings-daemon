@@ -50,11 +50,9 @@
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
 
-#ifdef HAVE_PULSE
 #include <canberra-gtk.h>
 #include <pulse/pulseaudio.h>
 #include "gvc-mixer-control.h"
-#endif /* HAVE_PULSE */
 
 #include <libupower-glib/upower.h>
 
@@ -103,11 +101,10 @@ typedef struct {
 
 struct GsdMediaKeysManagerPrivate
 {
-#ifdef HAVE_PULSE
         /* Volume bits */
         GvcMixerControl *volume;
         GvcMixerStream  *stream;
-#endif /* HAVE_PULSE */
+
         GtkWidget       *dialog;
         GSettings       *settings;
 
@@ -663,7 +660,6 @@ do_touchpad_action (GsdMediaKeysManager *manager)
         g_object_unref (settings);
 }
 
-#ifdef HAVE_PULSE
 static void
 update_dialog (GsdMediaKeysManager *manager,
                guint vol,
@@ -796,8 +792,6 @@ on_control_stream_removed (GvcMixerControl     *control,
 		}
         }
 }
-
-#endif /* HAVE_PULSE */
 
 static void
 free_media_player (MediaPlayer *player)
@@ -1429,24 +1423,16 @@ do_action (GsdMediaKeysManager *manager,
         case MUTE_KEY:
         case VOLUME_DOWN_KEY:
         case VOLUME_UP_KEY:
-#ifdef HAVE_PULSE
                 do_sound_action (manager, type, FALSE);
-#endif /* HAVE_PULSE */
                 break;
         case MUTE_QUIET_KEY:
-#ifdef HAVE_PULSE
                 do_sound_action (manager, MUTE_KEY, TRUE);
-#endif /* HAVE_PULSE */
                 break;
         case VOLUME_DOWN_QUIET_KEY:
-#ifdef HAVE_PULSE
                 do_sound_action (manager, VOLUME_DOWN_KEY, TRUE);
-#endif /* HAVE_PULSE */
                 break;
         case VOLUME_UP_QUIET_KEY:
-#ifdef HAVE_PULSE
                 do_sound_action (manager, VOLUME_UP_KEY, TRUE);
-#endif /* HAVE_PULSE */
                 break;
         case LOGOUT_KEY:
                 do_logout_action (manager);
@@ -1705,7 +1691,6 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
-#ifdef HAVE_PULSE
         /* initialise Volume handler
          *
          * We do this one here to force checking gstreamer cache, etc.
@@ -1732,7 +1717,7 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         gvc_mixer_control_open (manager->priv->volume);
 
         gnome_settings_profile_end ("gvc_mixer_control_new");
-#endif /* HAVE_PULSE */
+
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_media_keys_idle_cb, manager);
 
         register_manager (manager_object);
@@ -1823,7 +1808,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->screens = NULL;
         }
 
-#ifdef HAVE_PULSE
         if (priv->stream) {
                 g_object_unref (priv->stream);
                 priv->stream = NULL;
@@ -1833,7 +1817,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 g_object_unref (priv->volume);
                 priv->volume = NULL;
         }
-#endif /* HAVE_PULSE */
 
         if (priv->dialog != NULL) {
                 gtk_widget_destroy (priv->dialog);

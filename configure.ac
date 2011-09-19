@@ -202,7 +202,7 @@ dnl ---------------------------------------------------------------------------
 dnl - media-keys plugin stuff
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 upower-glib >= $UPOWER_GLIB_REQUIRED_VERSION])
+PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 upower-glib >= $UPOWER_GLIB_REQUIRED_VERSION libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra-gtk3])
 
 dnl ---------------------------------------------------------------------------
 dnl - GConf<->GSettings bridge

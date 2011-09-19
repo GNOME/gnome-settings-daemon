@@ -4,11 +4,11 @@ noinst_LTLIBRARIES = libgvc.la
 
 INCLUDES =					\
 	$(WARN_CFLAGS)				\
-	$(PULSE_CFLAGS)				\
+	$(MEDIA_KEYS_CFLAGS)			\
 	$(NULL)
 
 libgvc_la_LIBADD =		\
-	$(PULSE_LIBS)		\
+	$(MEDIA_KEYS_LIBS)	\
 	$(NULL)
 
 libgvc_la_SOURCES =			\

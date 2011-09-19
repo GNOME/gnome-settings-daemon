@@ -5,13 +5,8 @@ plugin_name = media-keys
 
 NULL =
 
-SUBDIRS =
-plugin_LTLIBRARIES =
-
-if HAVE_PULSE
-SUBDIRS += cut-n-paste
-plugin_LTLIBRARIES += libmedia-keys.la
-endif
+SUBDIRS = cut-n-paste
+plugin_LTLIBRARIES = libmedia-keys.la
 
 BUILT_SOURCES = 			\
 	gsd-marshal.h			\
@@ -67,9 +62,7 @@ libmedia_keys_la_LIBADD  = 		\
 plugin_in_files = 		\
 	media-keys.gnome-settings-plugin.in
 
-if HAVE_PULSE
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-endif
 
 noinst_PROGRAMS =				\
 	test-media-keys				\
@@ -135,16 +128,11 @@ test_media_keys_CFLAGS = \
 test_media_keys_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
+	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(MEDIA_KEYS_LIBS)			\
 	-lm
-
-if HAVE_PULSE
-test_media_keys_LDADD += $(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la
-endif
-
-DIST_SUBDIRS = cut-n-paste
 
 EXTRA_DIST = 				\
 	gsd-marshal.list		\
