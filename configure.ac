@@ -107,16 +107,7 @@ PKG_CHECK_MODULES(GNOME_DESKTOP, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VE
 dnl ---------------------------------------------------------------------------
 dnl - Check for colord
 dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(COLORD, colord >= 0.1.12)
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for libcanberra
-dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(LIBCANBERRA, libcanberra-gtk3,
-                  [have_libcanberra=true
-                  AC_DEFINE(HAVE_LIBCANBERRA, 1, [Define if libcanberra should be used])],
-                  [have_libcanberra=false])
-AM_CONDITIONAL(HAVE_LIBCANBERRA, test "x$have_libcanberra" = "xtrue")
+PKG_CHECK_MODULES(COLORD, colord >= 0.1.12 libcanberra-gtk3)
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for LCMS2

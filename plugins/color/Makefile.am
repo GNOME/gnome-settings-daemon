@@ -26,7 +26,6 @@ libcolor_la_CPPFLAGS = \
 libcolor_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(COLORD_CFLAGS)		\
-	$(LIBCANBERRA_CFLAGS)		\
 	$(LCMS_CFLAGS)			\
 	$(GNOME_DESKTOP_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
@@ -38,7 +37,6 @@ libcolor_la_LDFLAGS = 			\
 
 libcolor_la_LIBADD  = 			\
 	$(COLORD_LIBS)			\
-	$(LIBCANBERRA_LIBS)		\
 	$(GNOME_DESKTOP_LIBS)		\
 	$(LCMS_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)		\

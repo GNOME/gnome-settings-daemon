@@ -27,10 +27,7 @@
 #include <gdk/gdk.h>
 #include <stdlib.h>
 #include <lcms2.h>
-
-#ifdef HAVE_LIBCANBERRA
 #include <canberra-gtk.h>
-#endif
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -1917,14 +1914,12 @@ gcm_session_sensor_added_cb (CdClient *client,
                              CdSensor *sensor,
                              GsdColorManager *manager)
 {
-#ifdef HAVE_LIBCANBERRA
         ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "device-added",
                          /* TRANSLATORS: this is the application name */
                          CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
                         /* TRANSLATORS: this is a sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Color calibration device added"), NULL);
-#endif
 
         /* open up the color prefs window */
         gcm_session_exec_control_center (manager);
@@ -1935,14 +1930,12 @@ gcm_session_sensor_removed_cb (CdClient *client,
                                CdSensor *sensor,
                                GsdColorManager *manager)
 {
-#ifdef HAVE_LIBCANBERRA
         ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "device-removed",
                          /* TRANSLATORS: this is the application name */
                          CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
                         /* TRANSLATORS: this is a sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Color calibration device removed"), NULL);
-#endif
 }
 
 static void
