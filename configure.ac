@@ -54,6 +54,7 @@ GIO_REQUIRED_VERSION=2.26.0
 GNOME_DESKTOP_REQUIRED_VERSION=3.1.5
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
 UPOWER_GLIB_REQUIRED_VERSION=0.9.1
+PA_REQUIRED_VERSION=0.9.16
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -229,35 +230,6 @@ AM_CONDITIONAL(BUILD_GCONF_BRIDGE, test "x$build_gconf_bridge" = "xtrue")
 
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
-
-dnl ==============================================
-dnl PulseAudio section
-dnl ==============================================
-
-
-have_pulse=false
-AC_ARG_ENABLE(pulse,
-  AC_HELP_STRING([--disable-pulse],
-                 [turn off PulseAudio support]),
-       [case "${enableval}" in
-               yes) WANT_PULSE=yes ;;
-               no)  WANT_PULSE=no ;;
-               *) AC_MSG_ERROR(bad value ${enableval} for --disable-pulse) ;;
-       esac],
-       [WANT_PULSE=yes]) dnl Default value
-
-if test x$WANT_PULSE = xyes ; then
-       PA_REQUIRED_VERSION=0.9.16
-       PKG_CHECK_MODULES(PULSE, glib-2.0 gio-2.0 libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra-gtk3,
-             [have_pulse=true
-              AC_DEFINE(HAVE_PULSE, 1, [Define if PULSE sound server should be used])],
-             [have_pulse=false])
-fi
-AM_CONDITIONAL(HAVE_PULSE, test "x$have_pulse" = "xtrue")
-
-AC_SUBST(PULSE_CFLAGS)
-AC_SUBST(PULSE_LIBS)
-
 
 dnl ==============================================
 dnl PackageKit section
@@ -594,8 +566,6 @@ echo "
         LCMS DICT support:        ${have_new_lcms}
 
         Libnotify support:        ${have_libnotify}
-        Libcanberra support:      ${have_libcanberra}
-        PulseAudio support:       ${have_pulse}
         PackageKit support:       ${have_packagekit}
         Smartcard support:        ${have_smartcard_support}
         GConf bridge support:     ${build_gconf_bridge}
