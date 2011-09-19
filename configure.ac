@@ -107,7 +107,7 @@ PKG_CHECK_MODULES(GNOME_DESKTOP, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VE
 dnl ---------------------------------------------------------------------------
 dnl - Check for colord
 dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(COLORD, colord >= 0.1.9)
+PKG_CHECK_MODULES(COLORD, colord >= 0.1.12)
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for libcanberra
