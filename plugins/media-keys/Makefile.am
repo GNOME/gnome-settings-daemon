@@ -18,51 +18,6 @@ BUILT_SOURCES = 			\
 	gsd-marshal.c			\
 	$(NULL)
 
-ICON_FILES = 			\
-	touchpad-disabled-16.png	\
-	touchpad-enabled-16.png		\
-	touchpad-disabled-22.png	\
-	touchpad-enabled-22.png		\
-	touchpad-disabled-24.png	\
-	touchpad-enabled-24.png		\
-	touchpad-disabled-32.png	\
-	touchpad-enabled-32.png		\
-	touchpad-disabled-48.png	\
-	touchpad-enabled-48.png		\
-	touchpad-disabled.svg		\
-	touchpad-enabled.svg		\
-	keyboard-brightness-symbolic.svg
-
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(icondir)/16x16/$(context)
-	$(mkinstalldirs) $(DESTDIR)$(icondir)/22x22/$(context)
-	$(mkinstalldirs) $(DESTDIR)$(icondir)/24x24/$(context)
-	$(mkinstalldirs) $(DESTDIR)$(icondir)/32x32/$(context)
-	$(mkinstalldirs) $(DESTDIR)$(icondir)/scalable/$(context)
-	$(INSTALL_DATA) $(srcdir)/touchpad-enabled-16.png $(DESTDIR)$(icondir)/16x16/$(context)/touchpad-enabled.png
-	$(INSTALL_DATA) $(srcdir)/touchpad-enabled-22.png $(DESTDIR)$(icondir)/22x22/$(context)/touchpad-enabled.png
-	$(INSTALL_DATA) $(srcdir)/touchpad-enabled-24.png $(DESTDIR)$(icondir)/24x24/$(context)/touchpad-enabled.png
-	$(INSTALL_DATA) $(srcdir)/touchpad-enabled-32.png $(DESTDIR)$(icondir)/32x32/$(context)/touchpad-enabled.png
-	$(INSTALL_DATA) $(srcdir)/touchpad-enabled.svg $(DESTDIR)$(icondir)/scalable/$(context)/touchpad-enabled.svg
-	$(INSTALL_DATA) $(srcdir)/touchpad-disabled-16.png $(DESTDIR)$(icondir)/16x16/$(context)/touchpad-disabled.png
-	$(INSTALL_DATA) $(srcdir)/touchpad-disabled-22.png $(DESTDIR)$(icondir)/22x22/$(context)/touchpad-disabled.png
-	$(INSTALL_DATA) $(srcdir)/touchpad-disabled-24.png $(DESTDIR)$(icondir)/24x24/$(context)/touchpad-disabled.png
-	$(INSTALL_DATA) $(srcdir)/touchpad-disabled-32.png $(DESTDIR)$(icondir)/32x32/$(context)/touchpad-disabled.png
-	$(INSTALL_DATA) $(srcdir)/touchpad-disabled.svg $(DESTDIR)$(icondir)/scalable/$(context)/touchpad-disabled.svg
-	$(INSTALL_DATA) $(srcdir)/keyboard-brightness-symbolic.svg $(DESTDIR)$(icondir)/scalable/$(context)/keyboard-brightness-symbolic.svg
-
-uninstall-local:
-	rm -f $(DESTDIR)$(icondir)/16x16/$(context)/touchpad-enabled.png
-	rm -f $(DESTDIR)$(icondir)/22x22/$(context)/touchpad-enabled.png
-	rm -f $(DESTDIR)$(icondir)/24x24/$(context)/touchpad-enabled.png
-	rm -f $(DESTDIR)$(icondir)/32x32/$(context)/touchpad-enabled.png
-	rm -f $(DESTDIR)$(icondir)/scalable/$(context)/touchpad-enabled.svg
-	rm -f $(DESTDIR)$(icondir)/16x16/$(context)/touchpad-disabled.png
-	rm -f $(DESTDIR)$(icondir)/22x22/$(context)/touchpad-disabled.png
-	rm -f $(DESTDIR)$(icondir)/24x24/$(context)/touchpad-disabled.png
-	rm -f $(DESTDIR)$(icondir)/32x32/$(context)/touchpad-disabled.png
-	rm -f $(DESTDIR)$(icondir)/scalable/$(context)/touchpad-disabled.svg
-
 gsd-marshal.c: gsd-marshal.list
 	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --body --internal > $@
 
@@ -193,11 +148,7 @@ DIST_SUBDIRS = cut-n-paste
 
 EXTRA_DIST = 				\
 	gsd-marshal.list		\
-	$(plugin_in_files)		\
-	$(pixmaps_DATA)			\
-	touchpad-enabled-template.svg	\
-	touchpad-disabled-template.svg	\
-	$(ICON_FILES)
+	$(plugin_in_files)
 
 CLEANFILES = 			\
 	$(BUILT_SOURCES)	\
