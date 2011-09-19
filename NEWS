@@ -1,4 +1,92 @@
 ==============
+Version 3.1.92
+==============
+
+A11Y keyboard:
+- Show the a11y dialogue on right-click (Bastien Nocera) (#564171)
+
+Color:
+- Be less chatty when creating duplicate profiles (Richard Hughes)
+- Do not segfault when doing fast-user-switching into a new account (Richard Hughes) (#736846)
+- Use a username suffix on the profile ID (Richard Hughes) (#736846)
+- Do not show a warning when switching to a new user account (Richard Hughes)
+- Use the correct profiles when fast user switching (Richard Hughes)
+- Fix linking (Matthias Clasen) (#659086)
+
+Common:
+- Add helper to list disabled devices (Bastien Nocera)
+- Clean up X11 library dependencies (Bastien Nocera) (#657178)
+- Bump colord dependency (Rodrigo Moya)
+
+Datetime:
+- Allow chrony to be used on Fedora (Tomas Bzatek) (#655119)
+- Add NTP support for SUSE variants (Vincent Untz) (#654970)
+
+GConf:
+- Plug some memory leaks (Rodrigo Moya)
+- Disconnect callbacks when cleaning up (Rodrigo Moya)
+
+Keyboard:
+- Remember and apply NumLock status (Bastien Nocera) (#631989)
+
+Media keys:
+- Don't show a level when muted (Bastien Nocera) (#644537)
+- Fix keyboard brightness (Alex Murray) (#658689)
+- Use the same "Music" mime-type as g-c-c (Bastien Nocera)
+- There's no Beagle anymore (Bastien Nocera)
+- Use gtk_show_uri() to launch nautilus (Bastien Nocera)
+- Clean up app launching (Bastien Nocera) (#141379)
+- Clean up upower req (Bastien Nocera)
+- Remove unused empty LIBS linkage (Bastien Nocera)
+- Fix compile-time warning (Bastien Nocera)
+- Move keyboard brightness icon here (Bastien Nocera)
+- Remove OSD icons (Bastien Nocera)
+
+Mouse:
+- Add more debug for "touchpad disabled" (Bastien Nocera)
+- Try harder to re-enable devices (Bastien Nocera) (#656397)
+
+Power:
+- Make ABS_TO_PERCENTAGE warn on invalid input (Bastien Nocera) (#657364)
+- Correctly check for helper exit status (Bastien Nocera)
+- Avoid warnings without backlights (Bastien Nocera)
+- Do not connect to signals if we failed to connect (Richard Hughes)
+- Don't crash if we try to calculate the idle state before connected to gnome-session (Richard Hughes) (#657917)
+- Be less chatty when optional hardware is not attached (Richard Hughes) (#658613)
+- Fix a critical warning when getting the session inhibit state (Richard Hughes)
+- Do not handle the idle state transaction when the session is not active (Richard Hughes) (#658568)
+- Don't fall through the switch statement when shutting down (Richard Hughes) (#659202)
+- Do not leak the icon when getting device status (Richard Hughes) (#659213)
+- Protect against a potential SIGFE (Richard Hughes) (#659205)
+- Do not emit multiple 'Changed' signals when recalculating (Richard Hughes) (#659204)
+- Do not use G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES when we want to read properties (Richard Hughes) (#659066)
+- Fix compilation without libcanberra-gtk (Bastien Nocera)
+
+Printers:
+- Use the best PPD for new printer (Marek Kasik) (#658544)
+- Style fixes (Bastien Nocera)
+
+Updates:
+- Ignore virtual mountpoints when looking for external media (Richard Hughes) (#658282)
+- Use the correct icons in the notifications (Richard Hughes)
+
+Translations:
+- de (Mario Blättermann)
+- en_GB (Bruce Cowan)
+- es (Jorge González, Daniel Mustieles)
+- fi (Timo Jyrinki)
+- fr (Bruno Brouard)
+- he (Yaron Shahrabani)
+- it (Luca Ferretti)
+- ja (Jiro Matsuzawa)
+- lt (Aurimas Černius)
+- lv (Rudolfs Mazurs)
+- pl (Piotr Drąg)
+- pt (Duarte Loreto)
+- sl (Matej Urbančič)
+- sr (Мирослав Николић)
+
+==============
 Version 3.1.91
 ==============
 
