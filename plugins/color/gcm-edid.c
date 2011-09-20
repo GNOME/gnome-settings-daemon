@@ -92,7 +92,7 @@ gcm_edid_get_vendor_name (GcmEdid *edid)
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
 
         if (priv->vendor_name == NULL)
-                priv->vendor_name = gnome_pnp_ids_get_pnp_id (priv->pnp_ids, priv->pnp_id, NULL);
+                priv->vendor_name = gnome_pnp_ids_get_pnp_id (priv->pnp_ids, priv->pnp_id);
         return priv->vendor_name;
 }
 
