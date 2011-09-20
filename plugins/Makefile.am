@@ -24,12 +24,6 @@ enabled_plugins =	\
 
 disabled_plugins = $(NULL)
 
-if BUILD_GCONF_BRIDGE
-enabled_plugins += gconf
-else
-disabled_plugins += gconf
-endif
-
 if HAVE_PACKAGEKIT
 enabled_plugins += updates
 else

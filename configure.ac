@@ -205,32 +205,6 @@ dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
 
-dnl ---------------------------------------------------------------------------
-dnl - GConf<->GSettings bridge
-dnl ---------------------------------------------------------------------------
-
-build_gconf_bridge=false
-AC_ARG_ENABLE(gconf-bridge,
-  AC_HELP_STRING([--disable-gconf-bridge],
-                 [turn off GConf bridge plugin]),
-      [case "${enableval}" in
-              yes) WANT_GCONF_BRIDGE=yes ;;
-	      no) WANT_GCONF_BRIDGE=no ;;
-	      *) AC_MSG_ERROR(bad value ${enableval} for --disable-gconf-bridge) ;;
-      esac],
-      [WANT_GCONF_BRIDGE=no]) dnl Default value
-
-if test x$WANT_GCONF_BRIDGE = xyes; then
-      PKG_CHECK_MODULES(GCONF, gconf-2.0 >= 2.6.1,
-            [build_gconf_bridge=true
-             AC_DEFINE(BUILD_GCONF_BRIDGE, 1, [Define if GConf bridge should be built])],
-	    [build_gconf_bridge=false])
-fi
-AM_CONDITIONAL(BUILD_GCONF_BRIDGE, test "x$build_gconf_bridge" = "xtrue")
-
-AC_SUBST(GCONF_CFLAGS)
-AC_SUBST(GCONF_LIBS)
-
 dnl ==============================================
 dnl PackageKit section
 dnl ==============================================
@@ -503,7 +477,6 @@ plugins/cursor/Makefile
 plugins/datetime/Makefile
 plugins/dummy/Makefile
 plugins/power/Makefile
-plugins/gconf/Makefile
 plugins/housekeeping/Makefile
 plugins/keybindings/Makefile
 plugins/keyboard/Makefile
@@ -568,7 +541,6 @@ echo "
         Libnotify support:        ${have_libnotify}
         PackageKit support:       ${have_packagekit}
         Smartcard support:        ${have_smartcard_support}
-        GConf bridge support:     ${build_gconf_bridge}
         Cups support:             ${have_cups}
 ${NSS_DATABASE:+\
         System nssdb:             ${NSS_DATABASE}
