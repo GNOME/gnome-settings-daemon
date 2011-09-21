@@ -1861,7 +1861,6 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         log_msg ("------------------------------------------------------------\nSTARTING XRANDR PLUGIN\n");
 
         manager->priv->rw_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        g_signal_connect (manager->priv->rw_screen, "changed", G_CALLBACK (on_randr_event), manager);
 
         if (manager->priv->rw_screen == NULL) {
                 log_msg ("Could not initialize the RANDR plugin%s%s\n",
@@ -1870,6 +1869,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
                 log_close ();
                 return FALSE;
         }
+
+        g_signal_connect (manager->priv->rw_screen, "changed", G_CALLBACK (on_randr_event), manager);
 
         log_msg ("State of screen at startup:\n");
         log_screen (manager->priv->rw_screen);
