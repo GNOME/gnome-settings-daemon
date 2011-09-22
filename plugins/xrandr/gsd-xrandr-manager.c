@@ -48,6 +48,7 @@
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
 #include "gnome-settings-profile.h"
+#include "gnome-settings-session.h"
 #include "gsd-xrandr-manager.h"
 
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
@@ -1860,7 +1861,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         log_open ();
         log_msg ("------------------------------------------------------------\nSTARTING XRANDR PLUGIN\n");
 
-        manager->priv->rw_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+        manager->priv->rw_screen = gnome_settings_session_get_screen (error);
 
         if (manager->priv->rw_screen == NULL) {
                 log_msg ("Could not initialize the RANDR plugin%s%s\n",

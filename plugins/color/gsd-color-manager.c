@@ -1433,7 +1433,7 @@ gsd_color_manager_start (GsdColorManager *manager,
         gnome_settings_profile_start (NULL);
 
         /* coldplug the list of screens */
-        priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+        priv->x11_screen = gnome_settings_session_get_screen (error);
         if (priv->x11_screen == NULL)
                 goto out;
 

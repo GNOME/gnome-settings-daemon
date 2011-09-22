@@ -3397,7 +3397,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
                           G_CALLBACK (idle_idletime_alarm_expired_cb), manager);
 
         /* coldplug the list of screens */
-        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+        manager->priv->x11_screen = gnome_settings_session_get_screen (error);
         if (manager->priv->x11_screen == NULL)
                 return FALSE;
 
