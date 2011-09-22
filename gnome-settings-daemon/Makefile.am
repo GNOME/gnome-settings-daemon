@@ -8,7 +8,8 @@ INCLUDES = \
 	$(WARN_CFLAGS)						\
 	$(DISABLE_DEPRECATED_CFLAGS)				\
 	$(SETTINGS_DAEMON_CFLAGS)				\
-	$(LIBNOTIFY_CFLAGS)		\
+	$(LIBNOTIFY_CFLAGS)					\
+	$(GNOME_DESKTOP_CFLAGS)					\
 	$(NULL)
 
 noinst_LTLIBRARIES = 			\
@@ -74,6 +75,7 @@ gnome_settings_daemon_LDADD = 		\
 	libgsd-profile.la		\
 	$(SETTINGS_DAEMON_LIBS)		\
 	$(LIBNOTIFY_LIBS)		\
+	$(GNOME_DESKTOP_LIBS)		\
 	$(NULL)
 
 
