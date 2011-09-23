@@ -2706,15 +2706,18 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                         g_clear_error (&error);
                 }
 
-                ret = backlight_set_abs (manager,
-                                         manager->priv->pre_dim_brightness,
-                                         &error);
-                if (!ret) {
-                        g_warning ("failed to restore backlight to %i: %s",
-                                   manager->priv->pre_dim_brightness,
-                                   error->message);
-                        g_error_free (error);
-                        return;
+                /* reset brightness if we dimmed */
+                if (manager->priv->pre_dim_brightness >= 0) {
+                        ret = backlight_set_abs (manager,
+                                                 manager->priv->pre_dim_brightness,
+                                                 &error);
+                        if (!ret) {
+                                g_warning ("failed to restore backlight to %i: %s",
+                                           manager->priv->pre_dim_brightness,
+                                           error->message);
+                                g_error_free (error);
+                                return;
+                        }
                 }
         }
 }
@@ -3266,7 +3269,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
                           manager);
 
         manager->priv->kbd_brightness_old = -1;
-        manager->priv->pre_dim_brightness = 100;
+        manager->priv->pre_dim_brightness = -1;
         manager->priv->settings = g_settings_new (GSD_POWER_SETTINGS_SCHEMA);
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
