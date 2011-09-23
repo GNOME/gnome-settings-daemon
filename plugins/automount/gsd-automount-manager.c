@@ -56,8 +56,6 @@ static void     gsd_automount_manager_init        (GsdAutomountManager      *gsd
 
 G_DEFINE_TYPE (GsdAutomountManager, gsd_automount_manager, G_TYPE_OBJECT)
 
-static gpointer manager_object = NULL;
-
 static GtkDialog *
 show_error_dialog (const char *primary_text,
 		   const char *secondary_text,
@@ -670,13 +668,5 @@ gsd_automount_manager_init (GsdAutomountManager *manager)
 GsdAutomountManager *
 gsd_automount_manager_new (void)
 {
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_AUTOMOUNT_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_AUTOMOUNT_MANAGER (manager_object);
+        return GSD_AUTOMOUNT_MANAGER (g_object_new (GSD_TYPE_AUTOMOUNT_MANAGER, NULL));
 }
