@@ -79,13 +79,6 @@ G_DEFINE_TYPE (GsdA11yKeyboardManager, gsd_a11y_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-#undef DEBUG_ACCESSIBILITY
-#ifdef DEBUG_ACCESSIBILITY
-#define d(str)          g_debug (str)
-#else
-#define d(str)          do { } while (0)
-#endif
-
 static void
 device_added_cb (GdkDeviceManager       *device_manager,
                  GdkDevice              *device,
@@ -360,7 +353,7 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
         case GTK_RESPONSE_CANCEL:
 
                 /* we're reverting, so we invert sense of 'enabled' flag */
-                d ("cancelling AccessX request");
+                g_debug ("cancelling AccessX request");
                 if (revert_controls_mask == XkbStickyKeysMask) {
                         g_settings_set_boolean (settings,
                                                 "stickykeys-enable",
@@ -904,12 +897,12 @@ cb_xkb_event_filter (GdkXEvent              *xevent,
 
         if (xev->xany.type == (manager->priv->xkbEventBase + XkbEventCode) &&
             xkbEv->any.xkb_type == XkbControlsNotify) {
-                d ("XKB state changed");
+                g_debug ("XKB state changed");
                 set_gsettings_from_server (manager);
         } else if (xev->xany.type == (manager->priv->xkbEventBase + XkbEventCode) &&
                    xkbEv->any.xkb_type == XkbAccessXNotify) {
                 if (xkbEv->accessx.detail == XkbAXN_AXKWarning) {
-                        d ("About to turn on an AccessX feature from the keyboard!");
+                        g_debug ("About to turn on an AccessX feature from the keyboard!");
                         /*
                          * TODO: when XkbAXN_AXKWarnings start working, we need to
                          * invoke ax_keys_warning_dialog_run here instead of in
