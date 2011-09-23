@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-09 13:10+0300\n"
-"PO-Revision-Date: 2011-09-09 13:13+0200\n"
+"POT-Creation-Date: 2011-09-23 08:00+0300\n"
+"PO-Revision-Date: 2011-09-23 08:10+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <kde-il@yahoogroups.com>\n"
 "Language: he\n"
@@ -172,6 +172,7 @@ msgstr "Priority to use for this plugin"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
@@ -180,11 +181,13 @@ msgstr "Priority to use for this plugin"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr "Priority to use for this plugin in gnome-settings-daemon startup queue"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
@@ -193,6 +196,7 @@ msgstr "Priority to use for this plugin in gnome-settings-daemon startup queue"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 msgstr "Whether this plugin would be activated by gnome-settings-daemon or not"
 
@@ -251,18 +255,6 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Subsequent free space percentage notify threshold"
-
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
-msgstr ""
-"Priority to use for this plugin in gnome-settings-daemon startup queue."
-
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
-msgstr ""
-"Whether this plugin would be activated by gnome-settings-daemon or not."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 msgid ""
@@ -1118,17 +1110,17 @@ msgid "There was an error displaying help: %s"
 msgstr "ארעה שגיאה בהצגת העזרה: %s"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
-msgid "Do you want to activate Slow Keys?"
-msgstr "האם ברצונך לאפשר הפעלת מקשים אטיים?"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
+msgid "Slow Keys Turned On"
+msgstr "מקשים אטיים פעילים"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
-msgid "Do you want to deactivate Slow Keys?"
-msgstr "האם ברצונך להפסיק מקשים אטיים?"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:582
+msgid "Slow Keys Turned Off"
+msgstr "מקשים אטיים כבויים"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:582
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:583
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -1137,66 +1129,63 @@ msgstr ""
 "המשפיעה על אופן פעולת המקלדת."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:674
 #: ../plugins/mouse/gsd-mouse-manager.c:858
 msgid "Universal Access"
 msgstr "גישה אוניברסלית"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:543
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:678
-msgid "Don't activate"
-msgstr "לא לאפשר"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:543
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:678
-msgid "Don't deactivate"
-msgstr "לא לכבות"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:549
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:684
-msgid "Activate"
-msgstr "הפעלה"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:549
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:684
-msgid "Deactivate"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:544
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
+msgid "Turn Off"
 msgstr "כיבוי"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
-msgid "Do_n't activate"
-msgstr "לא ל_אפשר"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:544
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:680
+msgid "Turn On"
+msgstr "הפעלה"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
-msgid "Do_n't deactivate"
-msgstr "לא ל_כבות"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:550
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:686
+msgid "Leave On"
+msgstr "להשאיר פועל"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:606
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
-msgid "_Activate"
-msgstr "ה_פעל"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:550
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:686
+msgid "Leave Off"
+msgstr "להשאיר כבוי"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:606
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
-msgid "_Deactivate"
-msgstr "הפ_סק"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:604
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+msgid "_Turn Off"
+msgstr "_כיבוי"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:610
-msgid "Slow Keys Alert"
-msgstr "התראת מקשים אטיים"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:604
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
+msgid "_Turn On"
+msgstr "ה_פעלה"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:607
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+msgid "_Leave On"
+msgstr "להשאיר פו_על"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:607
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:745
+msgid "_Leave Off"
+msgstr "להשאיר כ_בוי"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
-msgid "Do you want to activate Sticky Keys?"
-msgstr "האם ברצונך להפעיל מקשים דביקים?"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
+msgid "Sticky Keys Turned On"
+msgstr "מקשים דביקים פעילים"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:651
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:715
-msgid "Do you want to deactivate Sticky Keys?"
-msgstr "האם ברצונך להפסיק מקשים דביקים?"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:717
+msgid "Sticky Keys Turned Off"
+msgstr "מקשים דביקים כבויים"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:653
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:717
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:719
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -1205,7 +1194,7 @@ msgstr ""
 "המשפיעה על אופן פעולת המקלדת שלך."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:719
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:721
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1213,10 +1202,6 @@ msgid ""
 msgstr ""
 "כרגע לחצת על שני מקשים יחדיו, או שלחצת על מקש ה־Shift 5 פעמים ברצף. בכך "
 "מבוטלת תכונת המקשים הדביקים, המשפיעה על אופן פעולת המקלדת שלך."
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
-msgid "Sticky Keys Alert"
-msgstr "התרעת מקשים דביקים"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:449
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
@@ -1408,7 +1393,7 @@ msgid "Clipboard plugin"
 msgstr "תוסף לוח"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1514
+#: ../plugins/color/gsd-color-manager.c:1523
 msgid "Color"
 msgstr "צבע"
 
@@ -1416,44 +1401,44 @@ msgstr "צבע"
 msgid "Color plugin"
 msgstr "תוסף צבע"
 
-#: ../plugins/color/gsd-color-manager.c:626
+#: ../plugins/color/gsd-color-manager.c:625
 msgid "Default"
 msgstr "בררת מחדל"
 
-#: ../plugins/color/gsd-color-manager.c:1519
+#: ../plugins/color/gsd-color-manager.c:1528
 msgid "Recalibrate now"
 msgstr "כיול מחדש כעת"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1561
+#: ../plugins/color/gsd-color-manager.c:1570
 msgid "Recalibration required"
 msgstr "נדרש כיול מחדש"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1573
+#: ../plugins/color/gsd-color-manager.c:1582
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "יש לכייל את התצוגה '%s' מחדש בהקדם האפשרי."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1582
+#: ../plugins/color/gsd-color-manager.c:1591
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "יש לכייל את המדפסת '%s' מחדש בהקדם האפשרי."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:1910
-#: ../plugins/color/gsd-color-manager.c:1928
+#: ../plugins/color/gsd-color-manager.c:1920
+#: ../plugins/color/gsd-color-manager.c:1936
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "תוסף הצבע של מנוע ההגדרות של GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1912
+#: ../plugins/color/gsd-color-manager.c:1922
 msgid "Color calibration device added"
 msgstr "נוסף התקן כיול צבע"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1930
+#: ../plugins/color/gsd-color-manager.c:1938
 msgid "Color calibration device removed"
 msgstr "התקן כיול צבע הוסר"
 
@@ -1467,10 +1452,10 @@ msgstr "תוסף מדומה"
 
 #. TRANSLATORS: this is the notification application name
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gsd-power-manager.c:1186
-#: ../plugins/power/gsd-power-manager.c:1362
-#: ../plugins/power/gsd-power-manager.c:1540
-#: ../plugins/power/gsd-power-manager.c:1689
+#: ../plugins/power/gsd-power-manager.c:1190
+#: ../plugins/power/gsd-power-manager.c:1366
+#: ../plugins/power/gsd-power-manager.c:1545
+#: ../plugins/power/gsd-power-manager.c:1694
 msgid "Power"
 msgstr "צריכת חשמל"
 
@@ -1978,337 +1963,352 @@ msgid "Computer is charged"
 msgstr "המחשב טעון"
 
 #. TRANSLATORS: the battery may be recalled by it's vendor
-#: ../plugins/power/gsd-power-manager.c:930
+#: ../plugins/power/gsd-power-manager.c:934
 msgid "Battery may be recalled"
 msgstr "יתכן שישנה בקשת החזרה לסוללה"
 
-#: ../plugins/power/gsd-power-manager.c:931
+#: ../plugins/power/gsd-power-manager.c:935
 #, c-format
 msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
 "risk."
 msgstr "הסוללה שבמחשב שלך נדרשה להחזרה על ידי %s ויתכן שהיא מסכנת אותך."
 
-#: ../plugins/power/gsd-power-manager.c:934
+#: ../plugins/power/gsd-power-manager.c:938
 msgid "For more information visit the battery recall website."
 msgstr "למידע נוסף יש לבקר באתר ההחזרות של הסוללה."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:945
+#: ../plugins/power/gsd-power-manager.c:949
 msgid "Visit recall website"
 msgstr "נא לבקר באתר ההחזרות"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:949
+#: ../plugins/power/gsd-power-manager.c:953
 msgid "Do not show me this again"
 msgstr "לא להציג הודעה זו שוב"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1160
+#: ../plugins/power/gsd-power-manager.c:1164
 msgid "UPS Discharging"
 msgstr "האל־פסק נפרק"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1165
+#: ../plugins/power/gsd-power-manager.c:1169
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "נותרו %s מעצמת הגיבוי של האל־פסק"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1277
+#: ../plugins/power/gsd-power-manager.c:1281
 msgid "Battery low"
 msgstr "הסוללה חלשה"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1280
+#: ../plugins/power/gsd-power-manager.c:1284
 msgid "Laptop battery low"
 msgstr "סוללת המחשב הנייד חלשה"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1286
+#: ../plugins/power/gsd-power-manager.c:1290
 #, c-format
 msgid "Approximately <b>%s</b> remaining (%.0f%%)"
 msgstr "נותרו בערך <b>%s</b>‏ (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1290
+#: ../plugins/power/gsd-power-manager.c:1294
 msgid "UPS low"
 msgstr "האל־פסק חלש"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1294
+#: ../plugins/power/gsd-power-manager.c:1298
 #, c-format
 msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
-msgstr ""
+msgstr "נותרו בערך <b>%s</b> של עצמת גיבוי באל־פסק (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1298
-#: ../plugins/power/gsd-power-manager.c:1461
+#: ../plugins/power/gsd-power-manager.c:1302
+#: ../plugins/power/gsd-power-manager.c:1466
 msgid "Mouse battery low"
 msgstr "סוללת העכבר חלשה מאוד"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1301
+#: ../plugins/power/gsd-power-manager.c:1305
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "סוללת העכבר האלחוטי חלשה (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1305
-#: ../plugins/power/gsd-power-manager.c:1469
+#: ../plugins/power/gsd-power-manager.c:1309
+#: ../plugins/power/gsd-power-manager.c:1474
 msgid "Keyboard battery low"
 msgstr "סוללת המקלדת חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1308
+#: ../plugins/power/gsd-power-manager.c:1312
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "סוללת המקלדת האלחוטית חלשה (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1312
-#: ../plugins/power/gsd-power-manager.c:1478
+#: ../plugins/power/gsd-power-manager.c:1316
+#: ../plugins/power/gsd-power-manager.c:1483
 msgid "PDA battery low"
 msgstr "סוללת מחשב כף היד חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1315
+#: ../plugins/power/gsd-power-manager.c:1319
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "סוללת מחשב כף היד חלשה (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1319
-#: ../plugins/power/gsd-power-manager.c:1488
-#: ../plugins/power/gsd-power-manager.c:1499
+#: ../plugins/power/gsd-power-manager.c:1323
+#: ../plugins/power/gsd-power-manager.c:1493
+#: ../plugins/power/gsd-power-manager.c:1504
 msgid "Cell phone battery low"
 msgstr "סוללת המכשיר הסלולרי חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1322
+#: ../plugins/power/gsd-power-manager.c:1326
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "סוללת המכשיר הסלולרי חלשה (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1327
+#: ../plugins/power/gsd-power-manager.c:1331
 msgid "Media player battery low"
 msgstr "סוללת נגן המדיה חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1330
+#: ../plugins/power/gsd-power-manager.c:1334
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "סוללת נגן המדיה חלשה (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1334
-#: ../plugins/power/gsd-power-manager.c:1508
+#: ../plugins/power/gsd-power-manager.c:1338
+#: ../plugins/power/gsd-power-manager.c:1513
 msgid "Tablet battery low"
 msgstr "סוללת מחשב הלוח חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1337
+#: ../plugins/power/gsd-power-manager.c:1341
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "סוללת מחשב הלוח חלשה (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1341
-#: ../plugins/power/gsd-power-manager.c:1517
+#: ../plugins/power/gsd-power-manager.c:1345
+#: ../plugins/power/gsd-power-manager.c:1522
 msgid "Attached computer battery low"
 msgstr "עצמת סוללת המחשב המחובר חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1344
+#: ../plugins/power/gsd-power-manager.c:1348
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "עצמת סוללת המחשב המחובר חלשה (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1379
+#: ../plugins/power/gsd-power-manager.c:1383
 msgid "Battery is low"
 msgstr "הסוללה חלשה"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1420
+#: ../plugins/power/gsd-power-manager.c:1425
 msgid "Battery critically low"
 msgstr "הסוללה חלשה באופן מהותי"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1423
-#: ../plugins/power/gsd-power-manager.c:1607
+#: ../plugins/power/gsd-power-manager.c:1428
+#: ../plugins/power/gsd-power-manager.c:1612
 msgid "Laptop battery critically low"
 msgstr "סוללת המחשב הנייד חלשה באופן מהותי"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1432
+#: ../plugins/power/gsd-power-manager.c:1437
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "יש לחבר את המתאם לרשת החשמל כדי להימנע מאיבוד נתונים."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1436
+#: ../plugins/power/gsd-power-manager.c:1441
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "המחשב יושהה ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1440
+#: ../plugins/power/gsd-power-manager.c:1445
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "המחשב ייכנס לתרדמת ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1444
+#: ../plugins/power/gsd-power-manager.c:1449
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "המחשב ייכבה ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1451
-#: ../plugins/power/gsd-power-manager.c:1643
+#: ../plugins/power/gsd-power-manager.c:1456
+#: ../plugins/power/gsd-power-manager.c:1648
 msgid "UPS critically low"
 msgstr "האל־פסק חלש באופן מהותי"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1455
+#: ../plugins/power/gsd-power-manager.c:1460
 #, c-format
 msgid ""
 "Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
 "your computer to avoid losing data."
 msgstr ""
+"נותרו בערך <b>%s</b> של עצמת גיבוי באל־פסק (%.0f%%). יש להתחבר שוב לחשמל כדי "
+"להימנע מאבדן נתונים."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1464
+#: ../plugins/power/gsd-power-manager.c:1469
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
+"עצמת העכבר האלחוטי חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1472
+#: ../plugins/power/gsd-power-manager.c:1477
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
+"עצמת המקלדת האלחוטית חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1481
+#: ../plugins/power/gsd-power-manager.c:1486
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
 "not charged."
 msgstr ""
+"עצמת מחשב כף היד חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1491
+#: ../plugins/power/gsd-power-manager.c:1496
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
+"עצמת הטלפון הנייד חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1502
+#: ../plugins/power/gsd-power-manager.c:1507
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
+"עצמת נגן המדיה חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1511
+#: ../plugins/power/gsd-power-manager.c:1516
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
 "if not charged."
 msgstr ""
+"עצמת מחשב הלוח חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1520
+#: ../plugins/power/gsd-power-manager.c:1525
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
-msgstr ""
+msgstr "עצמת המחשב המחובר חלשה (%.0f%%). ההתקן יכבה בקרוב אם לא יוטען."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1560
-#: ../plugins/power/gsd-power-manager.c:1570
-#: ../plugins/power/gsd-power-manager.c:1706
+#: ../plugins/power/gsd-power-manager.c:1565
+#: ../plugins/power/gsd-power-manager.c:1575
+#: ../plugins/power/gsd-power-manager.c:1711
 msgid "Battery is critically low"
 msgstr "הסוללה חלשה באופן מהותי"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1615
+#: ../plugins/power/gsd-power-manager.c:1620
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
 msgstr ""
+"עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה <b>יכבה</b> כאשר הסוללה תתרוקן "
+"לחלוטין."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1621
+#: ../plugins/power/gsd-power-manager.c:1626
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.<br><b>NOTE:</b> A small amount of power is required to keep your "
 "computer in a suspended state."
 msgstr ""
+"עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה עומד להיכנס למצב השהיה."
+"<br><b>לתשומת לבך:</b> כדי להשאיר את המחשב במצב השהיה ייעשה שימוש בכמות קטנה "
+"מעצמת הסוללה."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1628
-msgid ""
-"The battery is below the critical level and this computer is about to "
-"hibernate."
-msgstr ""
-
-#. TRANSLATORS: computer will just shutdown
 #: ../plugins/power/gsd-power-manager.c:1633
 msgid ""
 "The battery is below the critical level and this computer is about to "
+"hibernate."
+msgstr "עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה עומד להיכנס למצב תרדמת."
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1638
+msgid ""
+"The battery is below the critical level and this computer is about to "
 "shutdown."
-msgstr ""
+msgstr "עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה עומד לכבות."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1651
+#: ../plugins/power/gsd-power-manager.c:1656
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
 msgstr ""
+"עצמת האל־פסק נמצאת מתחת לרמה הקריטית ומחשב זה <b>יכבה</b> כאשר האל־פסק "
+"יתרוקן לחלוטין."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1657
+#: ../plugins/power/gsd-power-manager.c:1662
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr "עצמת האל־פסק היא מתחת לרמה המהותית ומחשב זה עומד לעבור למצב תרדמת."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1662
+#: ../plugins/power/gsd-power-manager.c:1667
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "עצמת האל־פסק היא מתחת לרמה המהותית ומחשב זה עומד לכבות."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2075
+#: ../plugins/power/gsd-power-manager.c:2081
 msgid "Lid has been opened"
 msgstr "מכסה המחשב נפתח"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2100
+#: ../plugins/power/gsd-power-manager.c:2106
 msgid "Lid has been closed"
 msgstr "מכסה המחשב נסגר"
 
 #. TRANSLATORS: this is the title of the power manager status icon
 #. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:3260
+#: ../plugins/power/gsd-power-manager.c:3296
 msgid "Power Manager"
 msgstr "מנהל צריכת החשמל"
 
@@ -2494,7 +2494,7 @@ msgstr "הצגת _פריסת המקלדת..."
 msgid "Region and Language Settings"
 msgstr "הגדרות אזוריות ושפה"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:229
+#: ../plugins/media-keys/gsd-media-keys-manager.c:228
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -2502,7 +2502,7 @@ msgstr ""
 "לא ניתן לקבל את מסוף בררת המחדל. יש לוודא כי פקודת מסוף בררת המחדל מוגדרת "
 "ושהיא אכן מצביעה אל יישום תקף."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:269
+#: ../plugins/media-keys/gsd-media-keys-manager.c:268
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -2747,36 +2747,33 @@ msgstr "בהדפסה"
 
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
-#: ../plugins/print-notifications/gsd-printer.c:203
+#: ../plugins/print-notifications/gsd-printer.c:1077
 msgid "Printers"
 msgstr "מדפסות"
 
 #. Translators: We are configuring new printer
-#: ../plugins/print-notifications/gsd-printer.c:91
+#: ../plugins/print-notifications/gsd-printer.c:931
 msgid "Configuring new printer"
 msgstr "המדפסת החדשה מוגדרת"
 
 #. Translators: Just wait
-#: ../plugins/print-notifications/gsd-printer.c:93
+#: ../plugins/print-notifications/gsd-printer.c:933
 msgid "Please wait..."
 msgstr "נא להמתין..."
 
-#. name is a URI, no queue was generated, because no suitable
-#. * driver was found
-#.
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:114
+#: ../plugins/print-notifications/gsd-printer.c:960
 msgid "Missing printer driver"
 msgstr "חסר מנהל התקן למדפסת"
 
 #. Translators: We have no driver installed for the device
-#: ../plugins/print-notifications/gsd-printer.c:123
+#: ../plugins/print-notifications/gsd-printer.c:969
 #, c-format
 msgid "No printer driver for %s."
 msgstr "אין מנהל התקן למדפסת %s."
 
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:128
+#: ../plugins/print-notifications/gsd-printer.c:974
 msgid "No driver for this printer."
 msgstr "אין מנהל התקן למדפסת זו."
 
@@ -2788,19 +2785,19 @@ msgstr "הגדרות גודל וסיבוב מסך"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:418
+#: ../plugins/xrandr/gsd-xrandr-manager.c:419
 msgid "Could not switch the monitor configuration"
 msgstr "לא ניתן להחליף את תצורת הצג"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:442
+#: ../plugins/xrandr/gsd-xrandr-manager.c:443
 msgid "Could not restore the display's configuration"
 msgstr "לא ניתן לשחזר את תצורת התצוגה"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:467
+#: ../plugins/xrandr/gsd-xrandr-manager.c:468
 msgid "Could not restore the display's configuration from a backup"
 msgstr "לא ניתן לשחזר את תצורת התצוגה מגיבוי"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:488
+#: ../plugins/xrandr/gsd-xrandr-manager.c:489
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -2808,32 +2805,32 @@ msgid_plural ""
 msgstr[0] "התצוגה תאופס לתצורה הקודמת בעוד שניה אחת"
 msgstr[1] "התצוגה תאופס לתצורה הקודמת בעוד %d שניות"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:537
+#: ../plugins/xrandr/gsd-xrandr-manager.c:538
 msgid "Does the display look OK?"
 msgstr "האם התצוגה נראית בסדר?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:544
+#: ../plugins/xrandr/gsd-xrandr-manager.c:545
 msgid "_Restore Previous Configuration"
 msgstr "ש_חזור התצורה הקודמת"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:545
+#: ../plugins/xrandr/gsd-xrandr-manager.c:546
 msgid "_Keep This Configuration"
 msgstr "_שמירת תצורה זו"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:626
+#: ../plugins/xrandr/gsd-xrandr-manager.c:627
 msgid "The selected configuration for displays could not be applied"
 msgstr "לא ניתן להחיל את תצורת התצוגות הנבחרת"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1186
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1187
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "לא ניתן לרענן את פרטי המסך: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1191
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "מתבצע נסיון להחלפת תצורת הצג בכל אופן"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1741
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1742
 msgid "Could not apply the stored configuration for monitors"
 msgstr "לא ניתן להחיל את התצורה השמורה על הצגים"
 
@@ -2920,16 +2917,16 @@ msgid "To change time or date settings, you need to authenticate."
 msgstr "כדי לשנות את הגדרות השעה או התאריך, עליך לבצע אימות."
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:197
+#: ../plugins/updates/gsd-updates-manager.c:199
 msgid "Distribution upgrades available"
 msgstr "ישנם עדכונים להפצה"
 
-#: ../plugins/updates/gsd-updates-manager.c:199
-#: ../plugins/updates/gsd-updates-manager.c:322
-#: ../plugins/updates/gsd-updates-manager.c:379
-#: ../plugins/updates/gsd-updates-manager.c:434
-#: ../plugins/updates/gsd-updates-manager.c:565
-#: ../plugins/updates/gsd-updates-manager.c:652
+#: ../plugins/updates/gsd-updates-manager.c:203
+#: ../plugins/updates/gsd-updates-manager.c:328
+#: ../plugins/updates/gsd-updates-manager.c:387
+#: ../plugins/updates/gsd-updates-manager.c:443
+#: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/gsd-updates-manager.c:664
 #: ../plugins/updates/gsd-updates-firmware.c:244
 #: ../plugins/updates/gsd-updates-firmware.c:269
 #: ../plugins/updates/gsd-updates-firmware.c:294
@@ -2938,114 +2935,114 @@ msgid "Software Updates"
 msgstr "עדכוני תכנה"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:204
+#: ../plugins/updates/gsd-updates-manager.c:208
 msgid "More information"
 msgstr "מידע נוסף"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:307
-#: ../plugins/updates/gsd-updates-manager.c:364
+#: ../plugins/updates/gsd-updates-manager.c:311
+#: ../plugins/updates/gsd-updates-manager.c:370
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "עדכון"
 msgstr[1] "עדכונים"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:310
+#: ../plugins/updates/gsd-updates-manager.c:314
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "ישנו עדכון תכנה חשוב הזמין להורדה"
 msgstr[1] "ישנם עדכונים תכנה חשובים הזמינים להורדה"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:327
-#: ../plugins/updates/gsd-updates-manager.c:384
+#: ../plugins/updates/gsd-updates-manager.c:333
+#: ../plugins/updates/gsd-updates-manager.c:392
 msgid "Install updates"
 msgstr "התקנת העדכונים"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:367
+#: ../plugins/updates/gsd-updates-manager.c:373
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "ישנו עדכון תכנה זמין."
 msgstr[1] "ישנם עדכוני תכנה זמינים."
 
 #. TRANSLATORS: policy says update, but we are on battery and so prompt
-#: ../plugins/updates/gsd-updates-manager.c:430
+#: ../plugins/updates/gsd-updates-manager.c:438
 msgid ""
 "Automatic updates are not being installed as the computer is running on "
 "battery power"
 msgstr "עדכונים אוטומטיים לא יותקנו בשעה שהמחשב מופעל באמצעות סוללה"
 
 #. TRANSLATORS: informs user will not install by default
-#: ../plugins/updates/gsd-updates-manager.c:432
+#: ../plugins/updates/gsd-updates-manager.c:440
 msgid "Updates not installed"
 msgstr "העדכונים לא מותקנים"
 
 #. TRANSLATORS: to hell with my battery life, just do it
-#: ../plugins/updates/gsd-updates-manager.c:439
+#: ../plugins/updates/gsd-updates-manager.c:448
 msgid "Install the updates anyway"
 msgstr "התקנת העדכונים בכל זאת"
 
-#: ../plugins/updates/gsd-updates-manager.c:455
+#: ../plugins/updates/gsd-updates-manager.c:464
 msgid "No restart is required."
 msgstr "לא נדרשת הפעלה מחדש."
 
-#: ../plugins/updates/gsd-updates-manager.c:458
+#: ../plugins/updates/gsd-updates-manager.c:467
 msgid "A restart is required."
 msgstr "נדרשת הפעלה מחדש."
 
-#: ../plugins/updates/gsd-updates-manager.c:461
+#: ../plugins/updates/gsd-updates-manager.c:470
 msgid "You need to log out and log back in."
 msgstr "עליך לצאת ולהיכנס מחדש."
 
-#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:473
 msgid "You need to restart the application."
 msgstr "עליך להפעיל מחדש את היישום."
 
-#: ../plugins/updates/gsd-updates-manager.c:467
+#: ../plugins/updates/gsd-updates-manager.c:476
 msgid "You need to log out and log back in to remain secure."
 msgstr "עליך לצאת ולהיכנס בחזרה כדי להישאר במצב בטוח."
 
-#: ../plugins/updates/gsd-updates-manager.c:470
+#: ../plugins/updates/gsd-updates-manager.c:479
 msgid "A restart is required to remain secure."
 msgstr "נדרש אתחול כדי להישאר במצב בטוח."
 
 #. TRANSLATORS: we did the update, but some updates were skipped and not applied
-#: ../plugins/updates/gsd-updates-manager.c:531
+#: ../plugins/updates/gsd-updates-manager.c:540
 msgid "One package was skipped:"
 msgid_plural "Some packages were skipped:"
 msgstr[0] "התהליך דילג על חבילה אחת:"
 msgstr[1] "התהליך דילג על מספר חבילות:"
 
 #. TRANSLATORS: title: system update completed all okay
-#: ../plugins/updates/gsd-updates-manager.c:563
+#: ../plugins/updates/gsd-updates-manager.c:572
 msgid "The system update has completed"
 msgstr "עדכון המערכת הושלם"
 
 #. TRANSLATORS: restart computer as system packages need update
-#: ../plugins/updates/gsd-updates-manager.c:571
+#: ../plugins/updates/gsd-updates-manager.c:581
 msgid "Restart computer now"
 msgstr "הפעלת המחשב מחדש כעת"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:642
+#: ../plugins/updates/gsd-updates-manager.c:652
 msgid "Updates"
 msgstr "עדכונים"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:646
+#: ../plugins/updates/gsd-updates-manager.c:656
 msgid "Unable to access software updates"
 msgstr "לא ניתן לגשת לעדכוני תכנה"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:649
+#: ../plugins/updates/gsd-updates-manager.c:659
 msgid "Try again"
 msgstr "ניסיון חוזר"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1085
+#: ../plugins/updates/gsd-updates-manager.c:1097
 msgid "A transaction that cannot be interrupted is running"
 msgstr "העברה שלא ניתן להפריע לה בזמן שהיא מתבצעת"
 
@@ -3096,6 +3093,52 @@ msgstr "התקנת קושחה"
 #: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "התעלמות מהתקנים"
+
+#~ msgid ""
+#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ msgstr ""
+#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+
+#~ msgid ""
+#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+#~ msgstr ""
+#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+
+#~ msgid "Do you want to activate Slow Keys?"
+#~ msgstr "האם ברצונך לאפשר הפעלת מקשים אטיים?"
+
+#~ msgid "Do you want to deactivate Slow Keys?"
+#~ msgstr "האם ברצונך להפסיק מקשים אטיים?"
+
+#~ msgid "Don't activate"
+#~ msgstr "לא לאפשר"
+
+#~ msgid "Don't deactivate"
+#~ msgstr "לא לכבות"
+
+#~ msgid "Activate"
+#~ msgstr "הפעלה"
+
+#~ msgid "Deactivate"
+#~ msgstr "כיבוי"
+
+#~ msgid "Do_n't activate"
+#~ msgstr "לא ל_אפשר"
+
+#~ msgid "Do_n't deactivate"
+#~ msgstr "לא ל_כבות"
+
+#~ msgid "_Activate"
+#~ msgstr "ה_פעל"
+
+#~ msgid "_Deactivate"
+#~ msgstr "הפ_סק"
+
+#~ msgid "Do you want to activate Sticky Keys?"
+#~ msgstr "האם ברצונך להפעיל מקשים דביקים?"
+
+#~ msgid "Do you want to deactivate Sticky Keys?"
+#~ msgstr "האם ברצונך להפסיק מקשים דביקים?"
 
 #~ msgid "If notifications are allowed to be shown"
 #~ msgstr "If notifications are allowed to be shown"
