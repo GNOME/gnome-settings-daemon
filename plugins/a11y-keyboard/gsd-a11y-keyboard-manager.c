@@ -162,11 +162,10 @@ set_int (GSettings      *settings,
 
         prev_val = g_settings_get_int (settings, key);
         g_settings_set_int (settings, key, val);
-#ifdef DEBUG_ACCESSIBILITY
         if (val != prev_val) {
-                g_warning ("%s changed", key);
+                g_debug ("%s changed", key);
         }
-#endif
+
         return val != prev_val;
 }
 
@@ -180,12 +179,10 @@ set_bool (GSettings      *settings,
 
         prev_val = g_settings_get_boolean (settings, key);
         g_settings_set_boolean (settings, key, bval ? TRUE : FALSE);
-#ifdef DEBUG_ACCESSIBILITY
-                if (bval != prev_val) {
-                        d ("%s changed", key);
-                        return TRUE;
-                }
-#endif
+        if (bval != prev_val) {
+                g_debug ("%s changed", key);
+                return TRUE;
+        }
         return (bval != prev_val);
 }
 
