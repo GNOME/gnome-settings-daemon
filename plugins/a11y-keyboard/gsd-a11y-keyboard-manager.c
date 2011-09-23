@@ -105,18 +105,20 @@ set_devicepresence_handler (GsdA11yKeyboardManager *manager)
 static gboolean
 xkb_enabled (GsdA11yKeyboardManager *manager)
 {
-        gboolean have_xkb;
         int opcode, errorBase, major, minor;
 
-        have_xkb = XkbQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                      &opcode,
-                                      &manager->priv->xkbEventBase,
-                                      &errorBase,
-                                      &major,
-                                      &minor)
-                && XkbUseExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor);
+        if (!XkbQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                &opcode,
+                                &manager->priv->xkbEventBase,
+                                &errorBase,
+                                &major,
+                               &minor))
+                return FALSE;
 
-        return have_xkb;
+        if (!XkbUseExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor))
+                return FALSE;
+
+        return TRUE;
 }
 
 static XkbDescRec *
