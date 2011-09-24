@@ -180,11 +180,10 @@ check_volume_queue (GsdAutomountManager *manager)
         GList *l;
         GVolume *volume;
 
-        l = manager->priv->volume_queue;
-
-        if (manager->priv->screensaver_active) {
+        if (manager->priv->screensaver_active)
                 return;
-        }
+
+        l = manager->priv->volume_queue;
 
         while (l != NULL) {
                 volume = l->data;
