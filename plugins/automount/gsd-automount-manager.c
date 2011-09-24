@@ -58,12 +58,11 @@ G_DEFINE_TYPE (GsdAutomountManager, gsd_automount_manager, G_TYPE_OBJECT)
 
 static GtkDialog *
 show_error_dialog (const char *primary_text,
-		   const char *secondary_text,
-		   GtkWindow *parent)
+		   const char *secondary_text)
 {
 	GtkWidget *dialog;
 
-	dialog = gtk_message_dialog_new (parent,
+	dialog = gtk_message_dialog_new (NULL,
 					 0,
 					 GTK_MESSAGE_ERROR,
 					 GTK_BUTTONS_OK,
@@ -152,8 +151,7 @@ volume_mount_cb (GObject *source_object,
 			primary = g_strdup_printf (_("Unable to mount %s"), name);
 			g_free (name);
 			show_error_dialog (primary,
-				           error->message,
-					   NULL);
+				           error->message);
 			g_free (primary);
 		}
 		g_error_free (error);
@@ -265,11 +263,10 @@ autorun_show_window (GMount *mount, gpointer user_data)
 		name = g_mount_get_name (mount);
 		primary = g_strdup_printf (_("Unable to open a folder for %s"), name);
 		g_free (name);
-        	show_error_dialog (primary,
-        		           error->message,
-        			   NULL);
+		show_error_dialog (primary,
+				   error->message);
 		g_free (primary);
-        	g_error_free (error);
+		g_error_free (error);
         }
 
         g_free (uri);
