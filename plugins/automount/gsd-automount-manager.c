@@ -203,9 +203,8 @@ static void
 check_screen_lock_and_mount (GsdAutomountManager *manager,
                              GVolume *volume)
 {
-        if (!manager->priv->session_is_active) {
+        if (!manager->priv->session_is_active)
                 return;
-        }
 
         if (manager->priv->screensaver_active) {
                 /* queue the volume, to mount it after the screensaver state changed */
@@ -215,7 +214,7 @@ check_screen_lock_and_mount (GsdAutomountManager *manager,
         } else {
                 /* mount it immediately */
                 do_mount_volume (volume);
-        }       
+        }
 }
 
 static void
