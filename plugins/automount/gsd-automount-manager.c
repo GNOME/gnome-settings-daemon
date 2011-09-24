@@ -177,7 +177,7 @@ do_mount_volume (GVolume *volume)
 static void
 check_volume_queue (GsdAutomountManager *manager)
 {
-        GList *l, *next;
+        GList *l;
         GVolume *volume;
 
         l = manager->priv->volume_queue;
@@ -188,14 +188,13 @@ check_volume_queue (GsdAutomountManager *manager)
 
         while (l != NULL) {
                 volume = l->data;
-                next = l->next;
 
                 do_mount_volume (volume);
                 manager->priv->volume_queue =
                         g_list_remove (manager->priv->volume_queue, volume);
 
                 g_object_unref (volume);
-                l = next;
+                l = l->next;
         }
 
         manager->priv->volume_queue = NULL;
