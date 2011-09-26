@@ -3726,6 +3726,7 @@ handle_method_call_main (GsdPowerManager *manager,
                 value = device_to_variant_blob (device);
                 tuple = g_variant_new_tuple (&value, 1);
                 g_dbus_method_invocation_return_value (invocation, tuple);
+                g_object_unref (device);
                 return;
         }
 
@@ -3736,7 +3737,7 @@ handle_method_call_main (GsdPowerManager *manager,
                 builder = g_variant_builder_new (G_VARIANT_TYPE("a(susdut)"));
 
                 /* add each tuple to the array */
-                array = g_ptr_array_ref (manager->priv->devices_array);
+                array = manager->priv->devices_array;
                 for (i=0; i<array->len; i++) {
                         device = g_ptr_array_index (array, i);
                         value = device_to_variant_blob (device);
