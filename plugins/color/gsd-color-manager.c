@@ -1395,6 +1395,69 @@ out:
 }
 
 static void
+gcm_session_profile_gamma_find_device_cb (GObject *object,
+                                          GAsyncResult *res,
+                                          gpointer user_data)
+{
+        CdClient *client = CD_CLIENT (object);
+        CdDevice *device = NULL;
+        GError *error = NULL;
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+
+        device = cd_client_find_device_by_property_finish (client,
+                                                           res,
+                                                           &error);
+        if (device == NULL) {
+                g_warning ("not found device %s: %s",
+                           cd_device_get_id (device),
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        /* get properties */
+        cd_device_connect (device,
+                           NULL,
+                           gcm_session_device_assign_connect_cb,
+                           manager);
+out:
+        if (device != NULL)
+                g_object_unref (device);
+}
+
+/* We have to reset the gamma tables each time as if the primary output
+ * has changed then different crtcs are going to be used.
+ * See https://bugzilla.gnome.org/show_bug.cgi?id=660164 for an example */
+static void
+gnome_rr_screen_output_changed_cb (GnomeRRScreen *screen,
+                                   GsdColorManager *manager)
+{
+        GnomeRROutput **outputs;
+        GsdColorManagerPrivate *priv = manager->priv;
+        guint i;
+
+        /* get X11 outputs */
+        outputs = gnome_rr_screen_list_outputs (priv->x11_screen);
+        if (outputs == NULL) {
+                g_warning ("failed to get outputs");
+                return;
+        }
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (!gnome_rr_output_is_connected (outputs[i]))
+                        continue;
+
+                /* get CdDevice for this output */
+                cd_client_find_device_by_property (manager->priv->client,
+                                                   CD_DEVICE_METADATA_XRANDR_NAME,
+                                                   gnome_rr_output_get_name (outputs[i]),
+                                                   NULL,
+                                                   gcm_session_profile_gamma_find_device_cb,
+                                                   manager);
+        }
+
+}
+
+static void
 gcm_session_client_connect_cb (GObject *source_object,
                                GAsyncResult *res,
                                gpointer user_data)
@@ -1452,6 +1515,9 @@ gcm_session_client_connect_cb (GObject *source_object,
                           manager);
         g_signal_connect (priv->x11_screen, "output-disconnected",
                           G_CALLBACK (gnome_rr_screen_output_removed_cb),
+                          manager);
+        g_signal_connect (priv->x11_screen, "changed",
+                          G_CALLBACK (gnome_rr_screen_output_changed_cb),
                           manager);
 
         g_signal_connect (priv->client, "profile-added",
