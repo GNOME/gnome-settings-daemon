@@ -345,7 +345,6 @@ get_disabled_devices (GdkDeviceManager *manager)
 
                 /* Check whether the device is actually available */
                 device = gdk_x11_device_manager_lookup (manager, device_info[i].id);
-                g_message ("checking whether we have a device for %d: %s", device_info[i].id, device ? "yes" : "no");
                 if (device != NULL)
                         continue;
 
