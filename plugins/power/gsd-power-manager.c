@@ -2733,6 +2733,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                                 g_error_free (error);
                                 return;
                         }
+                        manager->priv->pre_dim_brightness = -1;
                 }
         }
 }
