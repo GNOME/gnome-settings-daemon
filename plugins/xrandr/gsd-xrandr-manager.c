@@ -105,6 +105,7 @@ struct GsdXrandrManagerPrivate
         GSettings       *settings;
         GDBusNodeInfo   *introspection_data;
         GDBusConnection *connection;
+        GCancellable    *bus_cancellable;
 
         /* fn-F7 status */
         int             current_fn_f7_config;             /* -1 if no configs */
@@ -1901,6 +1902,12 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
 
         manager->priv->running = FALSE;
 
+        if (manager->priv->bus_cancellable != NULL) {
+                g_cancellable_cancel (manager->priv->bus_cancellable);
+                g_object_unref (manager->priv->bus_cancellable);
+                manager->priv->bus_cancellable = NULL;
+        }
+
         if (manager->priv->settings != NULL) {
                 g_object_unref (manager->priv->settings);
                 manager->priv->settings = NULL;
@@ -2068,6 +2075,12 @@ on_bus_gotten (GObject             *source_object,
         GDBusConnection *connection;
         GError *error = NULL;
 
+        if (manager->priv->bus_cancellable == NULL ||
+            g_cancellable_is_cancelled (manager->priv->bus_cancellable)) {
+                g_warning ("Operation has been cancelled, so not retrieving session bus");
+                return;
+        }
+
         connection = g_bus_get_finish (res, &error);
         if (connection == NULL) {
                 g_warning ("Could not get session bus: %s", error->message);
@@ -2089,10 +2102,11 @@ static void
 register_manager_dbus (GsdXrandrManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        manager->priv->bus_cancellable = g_cancellable_new ();
         g_assert (manager->priv->introspection_data != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
-                   NULL,
+                   manager->priv->bus_cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 }

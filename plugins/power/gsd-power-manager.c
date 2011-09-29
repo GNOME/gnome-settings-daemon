@@ -154,6 +154,7 @@ struct GsdPowerManagerPrivate
         UpClient                *up_client;
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
+        GCancellable            *bus_cancellable;
         GDBusProxy              *upower_proxy;
         GDBusProxy              *upower_kdb_proxy;
         gint                     kbd_brightness_now;
@@ -3429,6 +3430,12 @@ gsd_power_manager_stop (GsdPowerManager *manager)
 {
         g_debug ("Stopping power manager");
 
+        if (manager->priv->bus_cancellable != NULL) {
+                g_cancellable_cancel (manager->priv->bus_cancellable);
+                g_object_unref (manager->priv->bus_cancellable);
+                manager->priv->bus_cancellable = NULL;
+        }
+
         if (manager->priv->introspection_data) {
                 g_dbus_node_info_unref (manager->priv->introspection_data);
                 manager->priv->introspection_data = NULL;
@@ -3815,6 +3822,12 @@ on_bus_gotten (GObject             *source_object,
         GError *error = NULL;
         guint i;
 
+        if (manager->priv->bus_cancellable == NULL ||
+            g_cancellable_is_cancelled (manager->priv->bus_cancellable)) {
+                g_warning ("Operation has been cancelled, so not retrieving session bus");
+                return;
+        }
+
         connection = g_bus_get_finish (res, &error);
         if (connection == NULL) {
                 g_warning ("Could not get session bus: %s", error->message);
@@ -3838,10 +3851,11 @@ static void
 register_manager_dbus (GsdPowerManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        manager->priv->bus_cancellable = g_cancellable_new ();
         g_assert (manager->priv->introspection_data != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
-                   NULL,
+                   manager->priv->bus_cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 }

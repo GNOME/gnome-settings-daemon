@@ -127,6 +127,7 @@ struct GsdMediaKeysManagerPrivate
 
         GDBusNodeInfo   *introspection_data;
         GDBusConnection *connection;
+        GCancellable    *bus_cancellable;
         GDBusProxy      *xrandr_proxy;
         GCancellable    *cancellable;
 
@@ -1738,6 +1739,12 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 
         g_debug ("Stopping media_keys manager");
 
+        if (priv->bus_cancellable != NULL) {
+                g_cancellable_cancel (priv->bus_cancellable);
+                g_object_unref (priv->bus_cancellable);
+                priv->bus_cancellable = NULL;
+        }
+
         for (ls = priv->screens; ls != NULL; ls = ls->next) {
                 gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
                                           (GdkFilterFunc) acme_filter_events,
@@ -1963,6 +1970,12 @@ on_bus_gotten (GObject             *source_object,
         GDBusConnection *connection;
         GError *error = NULL;
 
+        if (manager->priv->bus_cancellable == NULL ||
+            g_cancellable_is_cancelled (manager->priv->bus_cancellable)) {
+                g_warning ("Operation has been cancelled, so not retrieving session bus");
+                return;
+        }
+
         connection = g_bus_get_finish (res, &error);
         if (connection == NULL) {
                 g_warning ("Could not get session bus: %s", error->message);
@@ -2014,10 +2027,11 @@ static void
 register_manager (GsdMediaKeysManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        manager->priv->bus_cancellable = g_cancellable_new ();
         g_assert (manager->priv->introspection_data != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
-                   NULL,
+                   manager->priv->bus_cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 }
