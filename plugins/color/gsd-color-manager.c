@@ -56,6 +56,7 @@ struct GsdColorManagerPrivate
         GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
         GnomeSettingsSessionState session_state;
+        GHashTable      *device_assign_hash;
 };
 
 enum {
@@ -1016,6 +1017,10 @@ gcm_session_device_assign_connect_cb (GObject *object,
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
         GsdColorManagerPrivate *priv = manager->priv;
 
+        /* remove from assign array */
+        g_hash_table_remove (manager->priv->device_assign_hash,
+                             cd_device_get_object_path (device));
+
         /* get properties */
         ret = cd_device_connect_finish (device, res, &error);
         if (!ret) {
@@ -1126,6 +1131,19 @@ out:
 static void
 gcm_session_device_assign (GsdColorManager *manager, CdDevice *device)
 {
+        const gchar *key;
+        gpointer found;
+
+        /* are we already assigning this device */
+        key = cd_device_get_object_path (device);
+        found = g_hash_table_lookup (manager->priv->device_assign_hash, key);
+        if (found != NULL) {
+                g_debug ("assign for %s already in progress", key);
+                return;
+        }
+        g_hash_table_insert (manager->priv->device_assign_hash,
+                             g_strdup (key),
+                             GINT_TO_POINTER (TRUE));
         cd_device_connect (device,
                            NULL,
                            gcm_session_device_assign_connect_cb,
@@ -2036,6 +2054,12 @@ gsd_color_manager_init (GsdColorManager *manager)
                                                   g_free,
                                                   g_object_unref);
 
+        /* we don't want to assign devices multiple times at startup */
+        priv->device_assign_hash = g_hash_table_new_full (g_str_hash,
+                                                          g_str_equal,
+                                                          g_free,
+                                                          NULL);
+
         /* use DMI data for internal panels */
         priv->dmi = gcm_dmi_new ();
 
@@ -2079,6 +2103,7 @@ gsd_color_manager_finalize (GObject *object)
         g_object_unref (manager->priv->dmi);
         g_object_unref (manager->priv->session);
         g_hash_table_destroy (manager->priv->edid_cache);
+        g_hash_table_destroy (manager->priv->device_assign_hash);
         if (manager->priv->x11_screen != NULL)
                 g_object_unref (manager->priv->x11_screen);
 
