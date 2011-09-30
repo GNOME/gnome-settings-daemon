@@ -1293,7 +1293,6 @@ do_config_power_action (GsdMediaKeysManager *manager,
         case GSD_POWER_ACTION_NOTHING:
                 /* these actions cannot be handled by media-keys and
                  * are not used in this context */
-                g_assert_not_reached ();
                 break;
         }
 }
