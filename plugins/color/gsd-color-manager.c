@@ -55,6 +55,7 @@ struct GsdColorManagerPrivate
         GnomeRRScreen   *x11_screen;
         GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
+        GnomeSettingsSessionState session_state;
 };
 
 enum {
@@ -1943,21 +1944,29 @@ gcm_session_active_changed_cb (GnomeSettingsSession *session,
                                GParamSpec *pspec,
                                GsdColorManager *manager)
 {
-        GnomeSettingsSessionState state;
+        GnomeSettingsSessionState state_new;
+        GsdColorManagerPrivate *priv = manager->priv;
 
         /* not yet connected to the daemon */
-        if (!cd_client_get_connected (manager->priv->client))
+        if (!cd_client_get_connected (priv->client))
                 return;
 
-        /* when doing the fast-user-switch into a new account, load the
-         * new users chosen profiles */
-        state = gnome_settings_session_get_state (session);
-        if (state == GNOME_SETTINGS_SESSION_STATE_ACTIVE) {
-                g_debug ("Done switch to new account, reload devices");
+        /* When doing the fast-user-switch into a new account, load the
+         * new users chosen profiles.
+         *
+         * If this is the first time the GnomeSettingsSession has been
+         * loaded, then we'll get a change from unknown to active
+         * and we want to avoid reprobing the devices for that.
+         */
+        state_new = gnome_settings_session_get_state (session);
+        if (priv->session_state != GNOME_SETTINGS_SESSION_STATE_UNKNOWN &&
+            state_new == GNOME_SETTINGS_SESSION_STATE_ACTIVE) {
+                g_warning ("Done switch to new account, reload devices");
                 cd_client_get_devices (manager->priv->client, NULL,
                                        gcm_session_get_devices_cb,
                                        manager);
         }
+        priv->session_state = state_new;
 }
 
 static void
@@ -2013,6 +2022,7 @@ gsd_color_manager_init (GsdColorManager *manager)
 
         /* track the active session */
         priv->session = gnome_settings_session_new ();
+        priv->session_state = gnome_settings_session_get_state (priv->session);
         g_signal_connect (priv->session, "notify::state",
                           G_CALLBACK (gcm_session_active_changed_cb),
                           manager);
