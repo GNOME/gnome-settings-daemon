@@ -52,8 +52,6 @@ gcm_self_test_CFLAGS =			\
 	$(AM_CFLAGS)
 
 gcm_self_test_SOURCES =			\
-	gcm-tables.c			\
-	gcm-tables.h			\
 	gcm-dmi.c			\
 	gcm-dmi.h			\
 	gcm-edid.c			\
@@ -63,7 +61,8 @@ gcm_self_test_SOURCES =			\
 gcm_self_test_LDADD =			\
 	$(COLOR_LIBS)			\
 	$(LCMS_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(SETTINGS_PLUGIN_LIBS)		\
+	-lm
 
 TESTS = gcm-self-test
 

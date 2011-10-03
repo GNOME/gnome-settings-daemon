@@ -27,37 +27,6 @@
 
 #include "gcm-edid.h"
 #include "gcm-dmi.h"
-#include "gcm-tables.h"
-
-static void
-gcm_test_tables_func (void)
-{
-        GcmTables *tables;
-        GError *error = NULL;
-        gchar *vendor;
-
-        tables = gcm_tables_new ();
-        g_assert (tables != NULL);
-
-        vendor = gcm_tables_get_pnp_id (tables, "IBM", &error);
-        g_assert_no_error (error);
-        g_assert (vendor != NULL);
-        g_assert_cmpstr (vendor, ==, "IBM France");
-        g_free (vendor);
-
-        vendor = gcm_tables_get_pnp_id (tables, "MIL", &error);
-        g_assert_no_error (error);
-        g_assert (vendor != NULL);
-        g_assert_cmpstr (vendor, ==, "Marconi Instruments Ltd");
-        g_free (vendor);
-
-        vendor = gcm_tables_get_pnp_id (tables, "XXX", &error);
-        g_assert_error (error, GCM_TABLES_ERROR, GCM_TABLES_ERROR_FAILED);
-        g_assert_cmpstr (vendor, ==, NULL);
-        g_error_free (error);
-
-        g_object_unref (tables);
-}
 
 static void
 gcm_test_dmi_func (void)
@@ -136,7 +105,6 @@ main (int argc, char **argv)
         gtk_init (&argc, &argv);
         g_test_init (&argc, &argv, NULL);
 
-        g_test_add_func ("/color/tables", gcm_test_tables_func);
         g_test_add_func ("/color/dmi", gcm_test_dmi_func);
         g_test_add_func ("/color/edid", gcm_test_edid_func);
 
