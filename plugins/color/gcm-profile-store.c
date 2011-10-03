@@ -254,6 +254,8 @@ gcm_profile_store_process_child (GcmProfileStore *profile_store,
 
         /* check we're not in a loop */
         helper = gcm_profile_store_find_directory (profile_store, path);
+        if (helper == NULL)
+                goto out;
         if (helper->depth > GCM_PROFILE_STORE_MAX_RECURSION_LEVELS) {
                 g_warning ("recursing more than %i levels deep is insane",
                            GCM_PROFILE_STORE_MAX_RECURSION_LEVELS);
