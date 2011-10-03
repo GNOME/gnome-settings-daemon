@@ -446,13 +446,14 @@ gcm_profile_store_search (GcmProfileStore *profile_store)
         ret = gcm_profile_store_mkdir_with_parents (path,
                                                     profile_store->priv->cancellable,
                                                     &error);
-        if (!ret) {
+        if (!ret &&
+            !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS)) {
                 g_warning ("failed to create directory on startup: %s", error->message);
-                g_error_free (error);
         } else {
                 gcm_profile_store_search_path (profile_store, path, 0);
         }
         g_free (path);
+        g_clear_error (&error);
 
         /* get per-user profiles from obsolete location */
         path = g_build_filename (g_get_home_dir (), ".color", "icc", NULL);
