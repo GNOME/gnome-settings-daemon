@@ -419,6 +419,7 @@ static gboolean
 gcm_profile_store_mkdir_with_parents (const gchar *filename, GError **error)
 {
         gboolean ret;
+        GFile *file;
 
         /* ensure destination exists */
         file = g_file_new_for_path (filename);
