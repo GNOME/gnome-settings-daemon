@@ -736,6 +736,10 @@ gcm_session_generate_vcgt (CdProfile *profile, guint size)
         const gchar *filename;
         cmsHPROFILE lcms_profile = NULL;
 
+        /* invalid size */
+        if (size == 0)
+                goto out;
+
         /* not an actual profile */
         filename = cd_profile_get_filename (profile);
         if (filename == NULL)
@@ -776,6 +780,8 @@ gnome_rr_output_get_gamma_size (GnomeRROutput *output)
         gint len = 0;
 
         crtc = gnome_rr_output_get_crtc (output);
+        if (crtc == NULL)
+                return 0;
         gnome_rr_crtc_get_gamma (crtc,
                                  &len,
                                  NULL, NULL, NULL);
@@ -818,6 +824,15 @@ gcm_session_output_set_gamma (GnomeRROutput *output,
 
         /* send to LUT */
         crtc = gnome_rr_output_get_crtc (output);
+        if (crtc == NULL) {
+                ret = FALSE;
+                g_set_error (error,
+                             GSD_COLOR_MANAGER_ERROR,
+                             GSD_COLOR_MANAGER_ERROR_FAILED,
+                             "failed to get ctrc for %s",
+                             gnome_rr_output_get_name (output));
+                goto out;
+        }
         gnome_rr_crtc_set_gamma (crtc, array->len,
                                  red, green, blue);
 out:
@@ -833,11 +848,19 @@ gcm_session_device_set_gamma (GnomeRROutput *output,
                               GError **error)
 {
         gboolean ret = FALSE;
+        guint size;
         GPtrArray *clut = NULL;
 
         /* create a lookup table */
-        clut = gcm_session_generate_vcgt (profile,
-                                          gnome_rr_output_get_gamma_size (output));
+        size = gnome_rr_output_get_gamma_size (output);
+        if (size == 0) {
+                g_set_error_literal (error,
+                                     GSD_COLOR_MANAGER_ERROR,
+                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     "gamma size is zero");
+                goto out;
+        }
+        clut = gcm_session_generate_vcgt (profile, size);
         if (clut == NULL) {
                 g_set_error_literal (error,
                                      GSD_COLOR_MANAGER_ERROR,
@@ -871,6 +894,14 @@ gcm_session_device_reset_gamma (GnomeRROutput *output,
         g_debug ("falling back to dummy ramp");
         clut = g_ptr_array_new_with_free_func (g_free);
         size = gnome_rr_output_get_gamma_size (output);
+        if (size == 0) {
+                ret = FALSE;
+                g_set_error_literal (error,
+                                     GSD_COLOR_MANAGER_ERROR,
+                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     "gamma size is zero");
+                goto out;
+        }
         for (i = 0; i < size; i++) {
                 value = (i * 0xffff) / (size - 1);
                 data = g_new0 (GnomeRROutputClutItem, 1);
