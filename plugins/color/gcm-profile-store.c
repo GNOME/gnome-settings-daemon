@@ -341,7 +341,6 @@ gcm_profile_store_enumerate_children_cb (GObject *source_object,
                                          GAsyncResult *res,
                                          gpointer user_data)
 {
-        gchar *path = NULL;
         GError *error = NULL;
         GFileEnumerator *enumerator;
         GcmProfileStore *profile_store = GCM_PROFILE_STORE (user_data);
@@ -350,9 +349,19 @@ gcm_profile_store_enumerate_children_cb (GObject *source_object,
                                                        res,
                                                        &error);
         if (enumerator == NULL) {
+                GcmProfileStoreDirHelper *helper;
+                gchar *path = NULL;
+
                 path = g_file_get_path (G_FILE (source_object));
-                g_warning ("failed to enumerate directory %s: %s",
-                           path, error->message);
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
+                        g_debug ("failed to enumerate directory %s: %s",
+                                 path, error->message);
+                else
+                        g_warning ("failed to enumerate directory %s: %s",
+                                   path, error->message);
+                helper = gcm_profile_store_find_directory (profile_store, path);
+                if (helper)
+                        g_ptr_array_remove (profile_store->priv->directory_array, helper);
                 g_error_free (error);
                 g_free (path);
                 return;
@@ -371,18 +380,11 @@ gcm_profile_store_enumerate_children_cb (GObject *source_object,
 static void
 gcm_profile_store_search_path (GcmProfileStore *profile_store, const gchar *path, guint depth)
 {
-        gboolean ret;
         GFile *file = NULL;
         GError *error = NULL;
         GcmProfileStoreDirHelper *helper;
 
-        /* does path exist? */
         file = g_file_new_for_path (path);
-        ret = g_file_query_exists (file, NULL);
-        if (!ret) {
-                g_debug ("%s does not exist, so skipping", path);
-                goto out;
-        }
 
         /* add an inotify watch if not already added */
         helper = gcm_profile_store_find_directory (profile_store, path);
@@ -413,8 +415,7 @@ gcm_profile_store_search_path (GcmProfileStore *profile_store, const gchar *path
                                          gcm_profile_store_enumerate_children_cb,
                                          profile_store);
 out:
-        if (file != NULL)
-                g_object_unref (file);
+        g_object_unref (file);
 }
 
 static gboolean
