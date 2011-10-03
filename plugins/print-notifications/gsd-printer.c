@@ -24,6 +24,7 @@
 #include <libnotify/notify.h>
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
+#include <gtk/gtk.h>
 #include <cups/cups.h>
 #include <cups/ppd.h>
 
@@ -751,9 +752,8 @@ set_default_paper_size (const gchar *printer_name,
         GVariant    *output;
         GError      *error = NULL;
         gchar      **value = NULL;
-        gchar       *paper_size;
-        char        *locale;
         gint         i, j, k;
+        const gchar *paper_size;
 
         proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                G_DBUS_PROXY_FLAGS_NONE,
@@ -770,24 +770,14 @@ set_default_paper_size (const gchar *printer_name,
                 return;
         }
 
-        /* Set default PaperSize according to the locale */
-        locale = setlocale (LC_PAPER, NULL);
-        if (!locale)
-                locale = setlocale (LC_MESSAGES, NULL);
-
-        if (!locale) {
-                g_object_unref (proxy);
-                return;
-        }
-
-        /* CLDR 2.0 alpha
-         * http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/territory_language_information.html
-         */
-        if (g_regex_match_simple ("[^_.@]{2,3}_(BZ|CA|CL|CO|CR|GT|MX|NI|PA|PH|PR|SV|US|VE)",
-                                  locale, G_REGEX_ANCHORED, G_REGEX_MATCH_ANCHORED))
-                paper_size = g_strdup ("Letter");
+        /* Set default PaperSize according to the locale
+         * FIXME: Handle more than A4 and Letter:
+         * https://bugzilla.gnome.org/show_bug.cgi?id=660769 */
+        paper_size = gtk_paper_size_get_default ();
+        if (g_str_equal (paper_size, GTK_PAPER_NAME_LETTER))
+                paper_size = "Letter";
         else
-                paper_size = g_strdup ("A4");
+                paper_size = "A4";
 
         if (ppd_file_name) {
                 ppd_file = ppdOpenFile (ppd_file_name);
@@ -842,7 +832,6 @@ set_default_paper_size (const gchar *printer_name,
                 g_strfreev (value);
         }
 
-        g_free (paper_size);
         g_object_unref (proxy);
 }
 
