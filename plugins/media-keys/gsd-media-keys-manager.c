@@ -76,7 +76,10 @@ static const gchar introspection_xml[] =
 "    <method name='ReleaseMediaPlayerKeys'>"
 "      <arg name='application' direction='in' type='s'/>"
 "    </method>"
-"    <signal name='MediaPlayerKeyPressed'/>"
+"    <signal name='MediaPlayerKeyPressed'>"
+"      <arg name='application' type='s'/>"
+"      <arg name='key' type='s'/>"
+"    </signal>"
 "  </interface>"
 "</node>";
 
