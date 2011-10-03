@@ -941,9 +941,10 @@ static gboolean
 gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
                               const char          *key)
 {
-        const char *application = NULL;
-        gboolean    have_listeners;
-        GError     *error = NULL;
+        const char  *application;
+        gboolean     have_listeners;
+        GError      *error = NULL;
+        MediaPlayer *player;
 
         g_return_val_if_fail (key != NULL, FALSE);
 
@@ -951,9 +952,7 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
 
         have_listeners = (manager->priv->media_players != NULL);
 
-        if (have_listeners) {
-                application = ((MediaPlayer *)manager->priv->media_players->data)->application;
-        } else {
+        if (!have_listeners) {
                 /* Popup a dialog with an (/) icon */
                 dialog_init (manager);
                 gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
@@ -963,8 +962,11 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
                 return TRUE;
         }
 
+        player = manager->priv->media_players->data;
+        application = player->application;
+
         if (g_dbus_connection_emit_signal (manager->priv->connection,
-                                           NULL,
+                                           player->name,
                                            GSD_MEDIA_KEYS_DBUS_PATH,
                                            GSD_MEDIA_KEYS_DBUS_NAME,
                                            "MediaPlayerKeyPressed",
