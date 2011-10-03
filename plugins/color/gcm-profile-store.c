@@ -34,6 +34,7 @@ struct _GcmProfileStorePrivate
 {
         GPtrArray                       *filename_array;
         GPtrArray                       *directory_array;
+        GCancellable                    *cancellable;
 };
 
 enum {
@@ -326,7 +327,7 @@ gcm_profile_store_next_files_cb (GObject *source_object,
         g_file_enumerator_next_files_async  (enumerator,
                                              5,
                                              G_PRIORITY_LOW,
-                                             NULL,
+                                             profile_store->priv->cancellable,
                                              gcm_profile_store_next_files_cb,
                                              user_data);
 
@@ -343,6 +344,7 @@ gcm_profile_store_enumerate_children_cb (GObject *source_object,
         gchar *path = NULL;
         GError *error = NULL;
         GFileEnumerator *enumerator;
+        GcmProfileStore *profile_store = GCM_PROFILE_STORE (user_data);
 
         enumerator = g_file_enumerate_children_finish (G_FILE (source_object),
                                                        res,
@@ -360,7 +362,7 @@ gcm_profile_store_enumerate_children_cb (GObject *source_object,
         g_file_enumerator_next_files_async (enumerator,
                                             5,
                                             G_PRIORITY_LOW,
-                                            NULL,
+                                            profile_store->priv->cancellable,
                                             gcm_profile_store_next_files_cb,
                                             user_data);
         g_object_unref (enumerator);
@@ -407,7 +409,7 @@ gcm_profile_store_search_path (GcmProfileStore *profile_store, const gchar *path
                                          G_FILE_ATTRIBUTE_STANDARD_TYPE,
                                          G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                          G_PRIORITY_LOW,
-                                         NULL,
+                                         profile_store->priv->cancellable,
                                          gcm_profile_store_enumerate_children_cb,
                                          profile_store);
 out:
@@ -416,14 +418,16 @@ out:
 }
 
 static gboolean
-gcm_profile_store_mkdir_with_parents (const gchar *filename, GError **error)
+gcm_profile_store_mkdir_with_parents (const gchar *filename,
+                                      GCancellable *cancellable,
+                                      GError **error)
 {
         gboolean ret;
         GFile *file;
 
         /* ensure destination exists */
         file = g_file_new_for_path (filename);
-        ret = g_file_make_directory_with_parents (file, NULL, error);
+        ret = g_file_make_directory_with_parents (file, cancellable, error);
         g_object_unref (file);
 
         return ret;
@@ -438,7 +442,9 @@ gcm_profile_store_search (GcmProfileStore *profile_store)
 
         /* get Linux per-user profiles */
         path = g_build_filename (g_get_user_data_dir (), "icc", NULL);
-        ret = gcm_profile_store_mkdir_with_parents (path, &error);
+        ret = gcm_profile_store_mkdir_with_parents (path,
+                                                    profile_store->priv->cancellable,
+                                                    &error);
         if (!ret) {
                 g_warning ("failed to create directory on startup: %s", error->message);
                 g_error_free (error);
@@ -480,6 +486,7 @@ static void
 gcm_profile_store_init (GcmProfileStore *profile_store)
 {
         profile_store->priv = GCM_PROFILE_STORE_GET_PRIVATE (profile_store);
+        profile_store->priv->cancellable = g_cancellable_new ();
         profile_store->priv->filename_array = g_ptr_array_new_with_free_func (g_free);
         profile_store->priv->directory_array = g_ptr_array_new_with_free_func ((GDestroyNotify) gcm_profile_store_helper_free);
 }
@@ -490,6 +497,8 @@ gcm_profile_store_finalize (GObject *object)
         GcmProfileStore *profile_store = GCM_PROFILE_STORE (object);
         GcmProfileStorePrivate *priv = profile_store->priv;
 
+        g_cancellable_cancel (profile_store->priv->cancellable);
+        g_object_unref (profile_store->priv->cancellable);
         g_ptr_array_unref (priv->filename_array);
         g_ptr_array_unref (priv->directory_array);
 
