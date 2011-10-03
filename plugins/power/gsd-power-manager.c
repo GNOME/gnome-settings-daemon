@@ -3265,6 +3265,8 @@ gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
 {
+        gboolean ret;
+
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
 
@@ -3408,6 +3410,13 @@ gsd_power_manager_start (GsdPowerManager *manager,
         /* coldplug the list of screens */
         manager->priv->x11_screen = gnome_settings_session_get_screen (error);
         if (manager->priv->x11_screen == NULL)
+                return FALSE;
+
+        /* ensure the default dpms timeouts are cleared */
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                                             GNOME_RR_DPMS_ON,
+                                             error);
+        if (!ret)
                 return FALSE;
 
         /* coldplug the engine */
