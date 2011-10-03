@@ -69,7 +69,8 @@ gcm_self_test_SOURCES =			\
 gcm_self_test_LDADD =			\
 	$(COLORD_LIBS)			\
 	$(LCMS_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(SETTINGS_PLUGIN_LIBS)		\
+	-lm
 
 TESTS = gcm-self-test
 
