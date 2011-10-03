@@ -621,6 +621,8 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
 
         /* show a different icon if we are disconnected */
         icon = engine_get_icon (manager);
+        gtk_status_icon_set_visible (manager->priv->status_icon, icon != NULL);
+
         if (icon == NULL) {
                 /* none before, now none */
                 if (manager->priv->previous_icon == NULL)
@@ -628,9 +630,6 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
 
                 g_object_unref (manager->priv->previous_icon);
                 manager->priv->previous_icon = NULL;
-
-                /* set fallback icon */
-                gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
                 return TRUE;
         }
 
@@ -638,7 +637,6 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
         if (manager->priv->previous_icon == NULL) {
 
                 /* set fallback icon */
-                gtk_status_icon_set_visible (manager->priv->status_icon, TRUE);
                 gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
                 manager->priv->previous_icon = icon;
                 return TRUE;
@@ -648,9 +646,6 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
         if (!g_icon_equal (manager->priv->previous_icon, icon)) {
                 g_object_unref (manager->priv->previous_icon);
                 manager->priv->previous_icon = icon;
-
-                /* set fallback icon */
-                gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
                 return TRUE;
         }
 
