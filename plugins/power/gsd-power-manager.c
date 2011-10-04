@@ -3774,8 +3774,10 @@ gsd_power_manager_start (GsdPowerManager *manager,
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
                                              GNOME_RR_DPMS_ON,
                                              error);
-        if (!ret)
-                return FALSE;
+        if (!ret) {
+                g_warning ("Failed set DPMS mode: %s", (*error)->message);
+                g_clear_error (error);
+        }
 
         /* coldplug the engine */
         engine_coldplug (manager);
