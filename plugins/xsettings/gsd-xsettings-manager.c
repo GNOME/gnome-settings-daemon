@@ -69,6 +69,150 @@
  * See also:
  * https://bugzilla.novell.com/show_bug.cgi?id=217790•
  * https://bugzilla.gnome.org/show_bug.cgi?id=643704
+ *
+ * http://lists.fedoraproject.org/pipermail/devel/2011-October/157671.html
+ * Why EDID is not trustworthy for DPI
+ * Adam Jackson ajax at redhat.com
+ * Tue Oct 4 17:54:57 UTC 2011
+ * 
+ *     Previous message: GNOME 3 - font point sizes now scaled?
+ *     Next message: Why EDID is not trustworthy for DPI
+ *     Messages sorted by: [ date ] [ thread ] [ subject ] [ author ]
+ * 
+ * On Tue, 2011-10-04 at 11:46 -0400, Kaleb S. KEITHLEY wrote:
+ * 
+ * > Grovelling around in the F15 xorg-server sources and reviewing the Xorg 
+ * > log file on my F15 box, I see, with _modern hardware_ at least, that we 
+ * > do have the monitor geometry available from DDC or EDIC, and obviously 
+ * > it is trivial to compute the actual, correct DPI for each screen.
+ * 
+ * I am clearly going to have to explain this one more time, forever.
+ * Let's see if I can't write it authoritatively once and simply answer
+ * with a URL from here out.  (As always, use of the second person "you"
+ * herein is plural, not singular.)
+ * 
+ * EDID does not reliably give you the size of the display.
+ * 
+ * Base EDID has at least two different places where you can give a
+ * physical size (before considering extensions that aren't widely deployed
+ * so whatever).  The first is a global property, measured in centimeters,
+ * of the physical size of the glass.  The second is attached to your (zero
+ * or more) detailed timing specifications, and reflects the size of the
+ * mode, in millimeters.
+ * 
+ * So, how does this screw you?
+ * 
+ * a) Glass size is too coarse.  On a large display that cm roundoff isn't
+ * a big deal, but on subnotebooks it's a different game.  The 11" MBA is
+ * 25.68x14.44 cm, so that gives you a range of 52.54-54.64 dpcm horizontal
+ * and 51.20-54.86 dpcm vertical (133.4-138.8 dpi h and 130.0-139.3 dpi v).
+ * Which is optimistic, because that's doing the math forward from knowing
+ * the actual size, and you as the EDID parser can't know which way the
+ * manufacturer rounded.
+ * 
+ * b) Glass size need not be non-zero.  This is in fact the usual case for
+ * projectors, which don't have a fixed display size since it's a function
+ * of how far away the wall is from the lens.
+ * 
+ * c) Glass size could be partially non-zero.  Yes, really.  EDID 1.4
+ * defines a method of using these two bytes to encode aspect ratio, where
+ * if vertical size is 0 then the aspect ratio is computed as (horizontal
+ * value + 99) / 100 in portrait mode (and the obvious reverse thing if
+ * horizontal is zero).  Admittedly, unlike every other item in this list,
+ * I've never seen this in the wild.  But it's legal.
+ * 
+ * d) Glass size could be a direct encoding of the aspect ratio.  Base EDID
+ * doesn't condone this behaviour, but the CEA spec (to which all HDMI
+ * monitors must conform) does allow-but-not-require it, which means your
+ * 1920x1080 TV could claim to be 16 "cm" by 9 "cm".  So of course that's
+ * what TV manufacturers do because that way they don't have to modify the
+ * EDID info when physical construction changes, and that's cheaper.
+ * 
+ * e) You could use mode size to get size in millimeters, but you might not
+ * have any detailed timings.
+ * 
+ * f) You could use mode size, but mode size is explicitly _not_ glass
+ * size.  It's the size that the display chooses to present that mode.
+ * Sometimes those are the same, and sometimes they're not.  You could be
+ * scaled or {letter,pillar}boxed, and that's not necessarily something you
+ * can control from the host side.
+ * 
+ * g) You could use mode size, but it could be an encoded aspect ratio, as
+ * in case d above, because CEA says that's okay.
+ * 
+ * h) You could use mode size, but it could be the aspect ratio from case d
+ * multiplied by 10 in each direction (because, of course, you gave size in
+ * centimeters and so your authoring tool just multiplied it up).
+ * 
+ * i) Any or all of the above could be complete and utter garbage, because
+ * - and I really, really need you to understand this - there is no
+ * requirements program for any commercial OS or industry standard that
+ * requires honesty here, as far as I'm aware.  There is every incentive
+ * for there to _never_ be one, because it would make the manufacturing
+ * process more expensive.
+ * 
+ * So from this point the suggestion is usually "well come up with some
+ * heuristic to make a good guess assuming there's some correlation between
+ * the various numbers you're given".  I have in fact written heuristics
+ * for this, and they're in your kernel and your X server, and they still
+ * encounter a huge number of cases where we simply _cannot_ know from EDID
+ * anything like a physical size, because - to pick only one example - the
+ * consumer electronics industry are cheap bastards, because you the
+ * consumer demanded that they be cheap.
+ * 
+ * And then your only recourse is to an external database, and now you're
+ * up the creek again because the identifying information here is a
+ * vendor/model/serial tuple, and the vendor can and does change physical
+ * construction without changing model number.  Now you get to play the
+ * guessing game of how big the serial number range is for each subvariant,
+ * assuming they bothered to encode a serial number - and they didn't.  Or,
+ * if they bothered to encode week/year of manufacturer correctly - and
+ * they didn't - which weeks meant which models.  And then you still have
+ * to go out and buy one of every TV at Fry's, and that covers you for one
+ * market, for three months.
+ * 
+ * If someone wants to write something better, please, by all means.  If
+ * it's kernel code, send it to dri-devel at lists.freedesktop.org and cc me
+ * and I will happily review it.  Likewise xorg-devel@ for X server
+ * changes.
+ * 
+ * I gently suggest that doing so is a waste of time.
+ * 
+ * But if there's one thing free software has taught me, it's that you can
+ * not tell people something is a bad idea and have any expectation they
+ * will believe you.
+ * 
+ * > Obviously in a multi-screen set-up using Xinerama this has the potential 
+ * > to be a Hard Problem if the monitors differ greatly in their DPI.
+ * > 
+ * > If the major resistance is over what to do with older hardware that 
+ * > doesn't have this data available, then yes, punt; use a hard-coded 
+ * > default. Likewise, if the two monitors really differ greatly, then punt.
+ * 
+ * I'm going to limit myself to observing that "greatly" is a matter of
+ * opinion, and that in order to be really useful you'd need some way of
+ * communicating "I punted" to the desktop.
+ * 
+ * Beyond that, sure, pick a heuristic, accept that it's going to be
+ * insufficient for someone, and then sit back and wait to get
+ * second-guessed on it over and over.
+ * 
+ * > And it wouldn't be so hard to to add something like -dpi:0, -dpi:1, 
+ * > -dpi:2 command line options to specify per-screen dpi. I kinda thought I 
+ * > did that a long, long time ago, but maybe I only thought about doing it 
+ * > and never actually got around to it.
+ * 
+ * The RANDR extension as of version 1.2 does allow you to override
+ * physical size on a per-output basis at runtime.  We even try pretty hard
+ * to set them as honestly as we can up front.  The 96dpi thing people
+ * complain about is from the per-screen info, which is simply a default
+ * because of all the tl;dr above; because you have N outputs per screen
+ * which means a single number is in general useless; and because there is
+ * no way to refresh the per-screen info at runtime, as it's only ever sent
+ * in the initial connection handshake.
+ * 
+ * - ajax
+ * 
  */
 #define DPI_FALLBACK 96
 
