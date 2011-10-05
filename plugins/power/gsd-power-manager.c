@@ -161,6 +161,7 @@ struct GsdPowerManagerPrivate
         gint                     kbd_brightness_now;
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
+        gint                     kbd_brightness_pre_dim;
         GnomeRRScreen           *x11_screen;
         gboolean                 use_time_primary;
         gchar                   *previous_summary;
@@ -2071,6 +2072,61 @@ do_power_action_type (GsdPowerManager *manager,
         }
 }
 
+static gboolean
+upower_kbd_set_brightness (GsdPowerManager *manager, guint value, GError **error)
+{
+        GVariant *retval;
+
+        /* same as before */
+        if (manager->priv->kbd_brightness_now == value)
+                return TRUE;
+
+        /* update h/w value */
+        retval = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
+                                         "SetBrightness",
+                                         g_variant_new ("(i)", (gint) value),
+                                         G_DBUS_CALL_FLAGS_NONE,
+                                         -1,
+                                         NULL,
+                                         error);
+        if (retval == NULL)
+                return FALSE;
+
+        /* save new value */
+        manager->priv->kbd_brightness_now = value;
+        g_variant_unref (retval);
+        return TRUE;
+}
+
+static gboolean
+upower_kbd_toggle (GsdPowerManager *manager,
+                   GError **error)
+{
+        gboolean ret;
+
+        if (manager->priv->kbd_brightness_old >= 0) {
+                g_debug ("keyboard toggle off");
+                ret = upower_kbd_set_brightness (manager,
+                                                 manager->priv->kbd_brightness_old,
+                                                 error);
+                if (ret) {
+                        /* succeeded, set to -1 since now no old value */
+                        manager->priv->kbd_brightness_old = -1;
+                }
+        } else {
+                g_debug ("keyboard toggle on");
+                /* save the current value to restore later when untoggling */
+                manager->priv->kbd_brightness_old = manager->priv->kbd_brightness_now;
+                ret = upower_kbd_set_brightness (manager, 0, error);
+                if (!ret) {
+                        /* failed, reset back to -1 */
+                        manager->priv->kbd_brightness_old = -1;
+                }
+        }
+
+        return ret;
+}
+
 static void
 do_lid_open_action (GsdPowerManager *manager)
 {
@@ -2091,8 +2147,20 @@ do_lid_open_action (GsdPowerManager *manager)
         if (!ret) {
                 g_warning ("failed to turn the panel on after lid open: %s",
                            error->message);
-                g_error_free (error);
+                g_clear_error (&error);
         }
+
+        /* only toggle keyboard if present and already toggled off */
+        if (manager->priv->upower_kdb_proxy != NULL &&
+            manager->priv->kbd_brightness_old != -1) {
+                ret = upower_kbd_toggle (manager, &error);
+                if (!ret) {
+                        g_warning ("failed to turn the kbd backlight on: %s",
+                                   error->message);
+                        g_error_free (error);
+                }
+        }
+
 }
 
 static void
@@ -2142,6 +2210,17 @@ do_lid_closed_action (GsdPowerManager *manager)
                 g_warning ("failed to turn the panel off after lid close: %s",
                            error->message);
                 g_error_free (error);
+        }
+
+        /* only toggle keyboard if present and not already toggled */
+        if (manager->priv->upower_kdb_proxy &&
+            manager->priv->kbd_brightness_old == -1) {
+                ret = upower_kbd_toggle (manager, &error);
+                if (!ret) {
+                        g_warning ("failed to turn the kbd backlight off: %s",
+                                   error->message);
+                        g_error_free (error);
+                }
         }
 
         /* perform policy action */
@@ -2604,16 +2683,88 @@ out:
         return ret;
 }
 
+static gboolean
+display_backlight_dim (GsdPowerManager *manager,
+                       gint idle_percentage,
+                       GError **error)
+{
+        gint min;
+        gint max;
+        gint now;
+        gint idle;
+        gboolean ret = FALSE;
+
+        now = backlight_get_abs (manager, error);
+        if (now < 0) {
+                goto out;
+        }
+
+        /* is the dim brightness actually *dimmer* than the
+         * brightness we have now? */
+        min = backlight_get_min (manager);
+        max = backlight_get_max (manager, error);
+        if (max < 0) {
+                goto out;
+        }
+        idle = PERCENTAGE_TO_ABS (min, max, idle_percentage);
+        if (idle > now) {
+                g_debug ("brightness already now %i/%i, so "
+                         "ignoring dim to %i/%i",
+                         now, max, idle, max);
+                ret = TRUE;
+                goto out;
+        }
+        ret = backlight_set_abs (manager,
+                                 idle,
+                                 error);
+        if (!ret) {
+                goto out;
+        }
+
+        /* save for undim */
+        manager->priv->pre_dim_brightness = now;
+
+out:
+        return ret;
+}
+
+static gboolean
+kbd_backlight_dim (GsdPowerManager *manager,
+                   gint idle_percentage,
+                   GError **error)
+{
+        gboolean ret;
+        gint idle;
+        gint max;
+        gint now;
+
+        if (manager->priv->upower_kdb_proxy == NULL)
+                return TRUE;
+
+        now = manager->priv->kbd_brightness_now;
+        max = manager->priv->kbd_brightness_max;
+        idle = PERCENTAGE_TO_ABS (0, max, idle_percentage);
+        if (idle > now) {
+                g_debug ("kbd brightness already now %i/%i, so "
+                         "ignoring dim to %i/%i",
+                         now, max, idle, max);
+                return TRUE;
+        }
+        ret = upower_kbd_set_brightness (manager, idle, error);
+        if (!ret)
+                return FALSE;
+
+        /* save for undim */
+        manager->priv->kbd_brightness_pre_dim = now;
+        return TRUE;
+}
+
 static void
 idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 {
         gboolean ret = FALSE;
         GError *error = NULL;
-        gint idle;
         gint idle_percentage;
-        gint min;
-        gint max;
-        gint now;
         GsdPowerActionType action_type;
         GnomeSettingsSessionState state;
 
@@ -2647,48 +2798,27 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                         return;
                 }
 
-                now = backlight_get_abs (manager, &error);
-                if (now < 0) {
-                        g_warning ("failed to get existing backlight: %s",
-                                   error->message);
-                        g_error_free (error);
-                        return;
-                }
-
-                /* is the dim brightness actually *dimmer* than the
-                 * brightness we have now? */
-                min = backlight_get_min (manager);
-                max = backlight_get_max (manager, &error);
-                if (max < 0) {
-                        g_warning ("failed to get max to dim backlight: %s",
-                                   error->message);
-                        g_error_free (error);
-                        return;
-                }
+                /* display backlight */
                 idle_percentage = g_settings_get_int (manager->priv->settings,
                                                       "idle-brightness");
-                idle = PERCENTAGE_TO_ABS (min, max, idle_percentage);
-                if (idle > now) {
-                        g_debug ("brightness already now %i/%i, so "
-                                 "ignoring dim to %i/%i",
-                                 now, max, idle, max);
-                        return;
-                }
-                ret = backlight_set_abs (manager,
-                                         idle,
-                                         &error);
+                ret = display_backlight_dim (manager, idle_percentage, &error);
                 if (!ret) {
                         g_warning ("failed to set dim backlight to %i%%: %s",
                                    idle_percentage,
                                    error->message);
-                        g_error_free (error);
-                        return;
+                        g_clear_error (&error);
                 }
 
-                /* save for undim */
-                manager->priv->pre_dim_brightness = now;
+                /* keyboard backlight */
+                ret = kbd_backlight_dim (manager, idle_percentage, &error);
+                if (!ret) {
+                        g_warning ("failed to set dim kbd backlight to %i%%: %s",
+                                   idle_percentage,
+                                   error->message);
+                        g_clear_error (&error);
+                }
 
-        /* turn off screen */
+        /* turn off screen and kbd */
         } else if (mode == GSD_POWER_IDLE_MODE_BLANK) {
 
                 ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
@@ -2698,7 +2828,17 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                         g_warning ("failed to turn the panel off: %s",
                                    error->message);
                         g_error_free (error);
-                        return;
+                }
+
+                /* only toggle keyboard if present and not already toggled */
+                if (manager->priv->upower_kdb_proxy &&
+                    manager->priv->kbd_brightness_old == -1) {
+                        ret = upower_kbd_toggle (manager, &error);
+                        if (!ret) {
+                                g_warning ("failed to turn the kbd backlight off: %s",
+                                           error->message);
+                                g_error_free (error);
+                        }
                 }
 
         /* sleep */
@@ -2735,10 +2875,36 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                                            manager->priv->pre_dim_brightness,
                                            error->message);
                                 g_error_free (error);
-                                return;
+                        } else {
+                                manager->priv->pre_dim_brightness = -1;
                         }
-                        manager->priv->pre_dim_brightness = -1;
                 }
+
+                /* only toggle keyboard if present and already toggled off */
+                if (manager->priv->upower_kdb_proxy &&
+                    manager->priv->kbd_brightness_old != -1) {
+                        ret = upower_kbd_toggle (manager, &error);
+                        if (!ret) {
+                                g_warning ("failed to turn the kbd backlight on: %s",
+                                           error->message);
+                                g_error_free (error);
+                        }
+                }
+
+                /* reset kbd brightness if we dimmed */
+                if (manager->priv->kbd_brightness_pre_dim >= 0) {
+                        ret = upower_kbd_set_brightness (manager,
+                                                         manager->priv->kbd_brightness_pre_dim,
+                                                         &error);
+                        if (!ret) {
+                                g_warning ("failed to restore kbd backlight to %i: %s",
+                                           manager->priv->kbd_brightness_pre_dim,
+                                           error->message);
+                                g_error_free (error);
+                        }
+                        manager->priv->kbd_brightness_pre_dim = -1;
+                }
+
         }
 }
 
@@ -3161,6 +3327,21 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
 
         g_variant_get (k_now, "(i)", &manager->priv->kbd_brightness_now);
         g_variant_get (k_max, "(i)", &manager->priv->kbd_brightness_max);
+
+        /* set brightness to max if not currently set so is something
+         * sensible */
+        if (manager->priv->kbd_brightness_now <= 0) {
+                gboolean ret;
+                ret = upower_kbd_set_brightness (manager,
+                                                 manager->priv->kbd_brightness_max,
+                                                 &error);
+                if (!ret) {
+                        g_warning ("failed to initialize kbd backlight to %i: %s",
+                                   manager->priv->kbd_brightness_max,
+                                   error->message);
+                        g_error_free (error);
+                }
+        }
 out:
         if (k_now != NULL)
                 g_variant_unref (k_now);
@@ -3288,6 +3469,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
                           manager);
 
         manager->priv->kbd_brightness_old = -1;
+        manager->priv->kbd_brightness_pre_dim = -1;
         manager->priv->pre_dim_brightness = -1;
         manager->priv->settings = g_settings_new (GSD_POWER_SETTINGS_SCHEMA);
         g_signal_connect (manager->priv->settings, "changed",
@@ -3517,32 +3699,6 @@ gsd_power_manager_finalize (GObject *object)
         G_OBJECT_CLASS (gsd_power_manager_parent_class)->finalize (object);
 }
 
-static gboolean
-upower_kbd_set_brightness (GsdPowerManager *manager, guint value, GError **error)
-{
-        GVariant *retval;
-
-        /* same as before */
-        if (manager->priv->kbd_brightness_now == value)
-                return TRUE;
-
-        /* update h/w value */
-        retval = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
-                                         "SetBrightness",
-                                         g_variant_new ("(i)", (gint) value),
-                                         G_DBUS_CALL_FLAGS_NONE,
-                                         -1,
-                                         NULL,
-                                         error);
-        if (retval == NULL)
-                return FALSE;
-
-        /* save new value */
-        manager->priv->kbd_brightness_now = value;
-        g_variant_unref (retval);
-        return TRUE;
-}
-
 /* returns new level */
 static void
 handle_method_call_keyboard (GsdPowerManager *manager,
@@ -3570,19 +3726,7 @@ handle_method_call_keyboard (GsdPowerManager *manager,
                 ret = upower_kbd_set_brightness (manager, value, &error);
 
         } else if (g_strcmp0 (method_name, "Toggle") == 0) {
-                if (manager->priv->kbd_brightness_old >= 0) {
-                        g_debug ("keyboard toggle off");
-                        ret = upower_kbd_set_brightness (manager,
-                                                         manager->priv->kbd_brightness_old,
-                                                         &error);
-                        if (ret)
-                                manager->priv->kbd_brightness_old = -1;
-                } else {
-                        g_debug ("keyboard toggle on");
-                        ret = upower_kbd_set_brightness (manager, 0, &error);
-                        if (ret)
-                                manager->priv->kbd_brightness_old = manager->priv->kbd_brightness_now;
-                }
+                ret = upower_kbd_toggle (manager, &error);
         } else {
                 g_assert_not_reached ();
         }
