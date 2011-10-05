@@ -2173,14 +2173,16 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
 {
         gboolean tmp;
 
+        if (!up_client_get_on_battery (client)) {
 #ifdef HAVE_LIBCANBERRA
-        /* if we are playing a critical charge sound loop on AC, stop it */
-        if (!up_client_get_on_battery (client) &&
-            manager->priv->critical_alert_timeout_id > 0) {
-                g_debug ("stopping alert loop due to ac being present");
-                play_loop_stop (manager);
-        }
+            /* if we are playing a critical charge sound loop on AC, stop it */
+            if (manager->priv->critical_alert_timeout_id > 0) {
+                 g_debug ("stopping alert loop due to ac being present");
+                 play_loop_stop (manager);
+            }
 #endif /* HAVE_LIBCANBERRA */
+            notify_close_if_showing (manager->priv->notification_low);
+        }
 
         /* same state */
         tmp = up_client_get_lid_is_closed (manager->priv->up_client);
