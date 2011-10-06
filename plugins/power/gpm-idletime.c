@@ -442,6 +442,11 @@ gpm_idletime_finalize (GObject *object)
         idletime = GPM_IDLETIME (object);
         idletime->priv = GPM_IDLETIME_GET_PRIVATE (idletime);
 
+        /* remove filter */
+        gdk_window_remove_filter (NULL,
+                                  gpm_idletime_event_filter_cb,
+                                  idletime);
+
         /* free all counters, including reset counter */
         for (i = 0; i < idletime->priv->array->len; i++) {
                 alarm_item = g_ptr_array_index (idletime->priv->array, i);
