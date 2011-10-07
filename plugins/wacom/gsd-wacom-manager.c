@@ -237,6 +237,8 @@ wacom_set_property (WacomType wacom_type,
         gint i;
 
         device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
+        if (device_info == NULL)
+                return;
 
         for (i = 0; i < n_devices; i++) {
                 XDevice *device = NULL;
