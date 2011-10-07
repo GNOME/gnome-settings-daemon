@@ -2970,6 +2970,8 @@ idle_set_timeout_dim (GsdPowerManager *manager, guint timeout)
         guint timeout_adjusted;
 
         idle_time_in_msec = gpm_idletime_get_time (manager->priv->idletime);
+        if (idle_time_in_msec == 0)
+                return FALSE;
         timeout_adjusted  = idle_adjust_timeout_dim (idle_time_in_msec / 1000, timeout);
         g_debug ("Current idle time=%lldms, timeout was %us, becomes %us after adjustment",
                    (long long int)idle_time_in_msec, timeout, timeout_adjusted);
