@@ -395,6 +395,7 @@ gpm_idletime_init (GpmIdletime *idletime)
         int ncounters;
         XSyncSystemCounter *counters;
         GpmIdletimeAlarm *alarm_item;
+        gint major, minor;
         guint i;
 
         idletime->priv = GPM_IDLETIME_GET_PRIVATE (idletime);
@@ -414,7 +415,11 @@ gpm_idletime_init (GpmIdletime *idletime)
                 return;
         }
 
-        /* gtk_init should do XSyncInitialize for us */
+        /* check XSync is compatible with the server version */
+        if (!XSyncInitialize (idletime->priv->dpy, &major, &minor)) {
+                g_warning ("Sync extension not compatible.");
+                return;
+        }
         counters = XSyncListSystemCounters (idletime->priv->dpy,
                                             &ncounters);
         for (i = 0; i < ncounters && !idletime->priv->idle_counter; i++) {
