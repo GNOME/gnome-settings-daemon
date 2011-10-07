@@ -80,13 +80,23 @@ gpm_idletime_xsyncvalue_to_int64 (XSyncValue value)
                 (guint64) XSyncValueLow32 (value);
 }
 
+/* gets the IDLETIME counter value, or 0 for invalid */
 gint64
 gpm_idletime_get_time (GpmIdletime *idletime)
 {
         XSyncValue value;
+
+        /* we don't have IDLETIME support */
+        if (!idletime->priv->idle_counter)
+                return 0;
+
+        /* NX explodes if you query the counter */
+        gdk_error_trap_push ();
         XSyncQueryCounter (idletime->priv->dpy,
                            idletime->priv->idle_counter,
                            &value);
+        if (gdk_error_trap_pop ())
+                return 0;
         return gpm_idletime_xsyncvalue_to_int64 (value);
 }
 
