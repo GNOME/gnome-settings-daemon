@@ -3308,7 +3308,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
          * that is only shown in fallback mode */
         gtk_status_icon_set_title (manager->priv->status_icon, _("Power Manager"));
 
-        /* connect to UPower for async power opertations */
+        /* connect to UPower for async power operations */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
                                   NULL,
