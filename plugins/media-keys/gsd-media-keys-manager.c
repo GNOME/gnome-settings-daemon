@@ -639,7 +639,7 @@ do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
 {
         dialog_init (manager);
         gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                                 state ? "touchpad-enabled" : "touchpad-disabled",
+                                                 state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
                                                  FALSE);
         dialog_show (manager);
 }

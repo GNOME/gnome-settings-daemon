@@ -95,7 +95,7 @@ update_state (GtkWidget *window)
                 break;
         case 8:
                 gsd_media_keys_window_set_action_custom (GSD_MEDIA_KEYS_WINDOW (window),
-                                                         "touchpad-enabled-symbolic",
+                                                         "input-touchpad-symbolic",
                                                          TRUE);
 
                 gtk_widget_show (window);
