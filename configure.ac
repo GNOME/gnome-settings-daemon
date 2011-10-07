@@ -211,7 +211,7 @@ dnl ---------------------------------------------------------------------------
 dnl - media-keys plugin stuff
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 upower-glib >= $UPOWER_GLIB_REQUIRED_VERSION])
+PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0])
 
 dnl ---------------------------------------------------------------------------
 dnl - GConf<->GSettings bridge
