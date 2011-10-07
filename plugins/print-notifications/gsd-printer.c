@@ -1136,6 +1136,11 @@ main (int argc, char *argv[])
   guint pdi_owner_id;
   GMainLoop *loop;
 
+  bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
+  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+  textdomain (GETTEXT_PACKAGE);
+  setlocale (LC_ALL, "");
+
   g_type_init ();
 
   notify_init ("gnome-settings-daemon-printer");

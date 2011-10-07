@@ -38,8 +38,9 @@ gsd_printer_SOURCES = 	\
 	gsd-printer.c
 
 gsd_printer_CFLAGS = \
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(LIBNOTIFY_CFLAGS)		\
+	$(SETTINGS_PLUGIN_CFLAGS)				\
+	$(LIBNOTIFY_CFLAGS)					\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CFLAGS)
 
 gsd_printer_LDADD  = 		\
