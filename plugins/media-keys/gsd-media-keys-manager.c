@@ -54,8 +54,6 @@
 #include <pulse/pulseaudio.h>
 #include "gvc-mixer-control.h"
 
-#include <libupower-glib/upower.h>
-
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
@@ -118,7 +116,7 @@ struct GsdMediaKeysManagerPrivate
 
         /* Power stuff */
         GSettings       *power_settings;
-        UpClient        *up_client;
+        GDBusProxy      *upower_proxy;
         GDBusProxy      *power_screen_proxy;
         GDBusProxy      *power_keyboard_proxy;
 
@@ -1262,37 +1260,53 @@ gnome_session_shutdown (void)
 }
 
 static void
+upower_sleep_cb (GObject *source_object,
+                 GAsyncResult *res,
+                 gpointer user_data)
+{
+        GVariant *result;
+        GError *error = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL) {
+                g_warning ("couldn't sleep using UPower: %s",
+                           error->message);
+                g_error_free (error);
+        } else {
+                g_variant_unref (result);
+        }
+}
+
+static void
 do_config_power_action (GsdMediaKeysManager *manager,
                         const gchar *config_key)
 {
-        gboolean ret;
-        GError *error = NULL;
         GsdPowerActionType action_type;
 
         action_type = g_settings_get_enum (manager->priv->power_settings,
                                            config_key);
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
-                ret = up_client_suspend_sync (manager->priv->up_client,
-                                              NULL, &error);
-                if (!ret) {
-                        g_warning ("failed to suspend: %s",
-                                   error->message);
-                        g_error_free (error);
-                }
+                g_dbus_proxy_call (manager->priv->upower_proxy,
+                                   "Suspend",
+                                   NULL,
+                                   G_DBUS_CALL_FLAGS_NONE,
+                                   -1, NULL,
+                                   upower_sleep_cb, NULL);
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
         case GSD_POWER_ACTION_SHUTDOWN:
                 gnome_session_shutdown ();
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                ret = up_client_hibernate_sync (manager->priv->up_client,
-                                                NULL, &error);
-                if (!ret) {
-                        g_warning ("failed to suspend: %s",
-                                   error->message);
-                        g_error_free (error);
-                }
+                g_dbus_proxy_call (manager->priv->upower_proxy,
+                                   "Hibernate",
+                                   NULL,
+                                   G_DBUS_CALL_FLAGS_NONE,
+                                   -1, NULL,
+                                   upower_sleep_cb, NULL);
                 break;
         case GSD_POWER_ACTION_BLANK:
         case GSD_POWER_ACTION_NOTHING:
@@ -1652,7 +1666,6 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
-        manager->priv->up_client = up_client_new ();
 
         /* Logic from http://git.gnome.org/browse/gnome-shell/tree/js/ui/status/accessibility.js#n163 */
         manager->priv->interface_settings = g_settings_new (SETTINGS_INTERFACE_DIR);
@@ -1775,9 +1788,9 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->power_keyboard_proxy = NULL;
         }
 
-        if (priv->up_client) {
-                g_object_unref (priv->up_client);
-                priv->up_client = NULL;
+        if (priv->upower_proxy) {
+                g_object_unref (priv->upower_proxy);
+                priv->upower_proxy = NULL;
         }
 
         if (priv->cancellable != NULL) {
@@ -1937,6 +1950,21 @@ xrandr_ready_cb (GObject             *source_object,
 }
 
 static void
+upower_ready_cb (GObject             *source_object,
+                 GAsyncResult        *res,
+                 GsdMediaKeysManager *manager)
+{
+        GError *error = NULL;
+
+        manager->priv->upower_proxy = g_dbus_proxy_new_finish (res, &error);
+        if (manager->priv->upower_proxy == NULL) {
+                g_warning ("Failed to get proxy for upower: %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
 power_screen_ready_cb (GObject             *source_object,
                        GAsyncResult        *res,
                        GsdMediaKeysManager *manager)
@@ -2024,6 +2052,16 @@ on_bus_gotten (GObject             *source_object,
                           "org.gnome.SettingsDaemon.Power.Keyboard",
                           NULL,
                           (GAsyncReadyCallback) power_keyboard_ready_cb,
+                          manager);
+
+        g_dbus_proxy_new (manager->priv->connection,
+                          G_DBUS_PROXY_FLAGS_NONE,
+                          NULL,
+                          "org.freedesktop.UPower",
+                          "/org/freedesktop/UPower",
+                          "org.freedesktop.UPower",
+                          NULL,
+                          (GAsyncReadyCallback) upower_ready_cb,
                           manager);
 }
 
