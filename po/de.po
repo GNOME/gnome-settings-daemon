@@ -25,8 +25,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-09-15 23:28+0000\n"
-"PO-Revision-Date: 2011-09-18 14:31+0100\n"
+"POT-Creation-Date: 2011-09-30 12:18+0000\n"
+"PO-Revision-Date: 2011-10-08 21:38+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1189,23 +1189,23 @@ msgstr "Barrierefreie Tastatur"
 msgid "Accessibility keyboard plugin"
 msgstr "Modul für barrierefreie Tastatur"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:392
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:384
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Fehler beim Anzeigen der Hilfe: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
-msgid "Do you want to activate Slow Keys?"
-msgstr "Wollen Sie die Tastenverzögerung aktivieren?"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:573
+msgid "Slow Keys Turned On"
+msgstr "Tastenverzögerung eingeschaltet"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
-msgid "Do you want to deactivate Slow Keys?"
-msgstr "Wollen Sie die Tastenverzögerung deaktivieren?"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:510
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:574
+msgid "Slow Keys Turned Off"
+msgstr "Tastenverzögerung ausgeschaltet"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:582
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:575
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for the "
 "Slow Keys feature, which affects the way your keyboard works."
@@ -1214,67 +1214,64 @@ msgstr ""
 "Tastenkombination für die Tastenverzögerungsfunktion, die das Verhalten Ihrer "
 "Tastatur beeinflusst."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:538
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:530
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:666
 #: ../plugins/mouse/gsd-mouse-manager.c:858
 msgid "Universal Access"
 msgstr "Barrierefreiheit"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:543
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:536
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:672
+msgid "Turn Off"
+msgstr "Abschalten"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:536
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:672
+msgid "Turn On"
+msgstr "Einschalten"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:678
-msgid "Don't activate"
-msgstr "Nicht aktivieren"
+msgid "Leave On"
+msgstr "Eingeschaltet lassen"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:543
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:678
-msgid "Don't deactivate"
-msgstr "Nicht deaktivieren"
+msgid "Leave Off"
+msgstr "Ausgeschaltet lassen"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:549
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:684
-msgid "Activate"
-msgstr "Aktivieren"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
+msgid "_Turn Off"
+msgstr "Abschal_ten"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:549
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:684
-msgid "Deactivate"
-msgstr "Deaktivieren"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
+msgid "_Turn On"
+msgstr "Einschal_ten"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
-msgid "Do_n't activate"
-msgstr "_Nicht aktivieren"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
+msgid "_Leave On"
+msgstr "Eingeschaltet _lassen"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:603
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:740
-msgid "Do_n't deactivate"
-msgstr "_Nicht deaktivieren"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:599
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:737
+msgid "_Leave Off"
+msgstr "Ausgeschaltet lassen"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:606
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
-msgid "_Activate"
-msgstr "_Aktivieren"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
+msgid "Sticky Keys Turned On"
+msgstr "Klebrige Tasten eingeschaltet"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:606
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:743
-msgid "_Deactivate"
-msgstr "_Deaktivieren"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:643
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:709
+msgid "Sticky Keys Turned Off"
+msgstr "Klebrige Tasten ausgeschaltet"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:610
-msgid "Slow Keys Alert"
-msgstr "Tastenverzögerungsalarm"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
-msgid "Do you want to activate Sticky Keys?"
-msgstr "Wollen Sie klebrige Tasten aktivieren?"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:651
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:715
-msgid "Do you want to deactivate Sticky Keys?"
-msgstr "Wollen Sie klebrige Tasten deaktivieren?"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:653
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:717
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:645
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:711
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -1283,8 +1280,8 @@ msgstr ""
 "Tastenkombination für die Funktion »klebrige Tasten«, die das Verhalten Ihrer "
 "Tastatur beeinflusst."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:719
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:647
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1293,10 +1290,6 @@ msgstr ""
 "Sie haben zwei Tasten auf einmal oder die Umschalttaste 5 Mal in Folge "
 "gedrückt. Dies ist die Tastenkombination für die Funktion »klebrige Tasten«, "
 "die das Verhalten Ihrer Tastatur beeinflusst."
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:747
-msgid "Sticky Keys Alert"
-msgstr "Klebrige Tasten-Alarm"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:449
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
@@ -1352,12 +1345,12 @@ msgstr "Angeschlossene Geräte automatisch einhängen und Programme ausführen"
 msgid "Mount Helper"
 msgstr "Einhänge-Assistent"
 
-#: ../plugins/automount/gsd-automount-manager.c:154
+#: ../plugins/automount/gsd-automount-manager.c:151
 #, c-format
 msgid "Unable to mount %s"
 msgstr "%s kann nicht eingehängt werden"
 
-#: ../plugins/automount/gsd-automount-manager.c:271
+#: ../plugins/automount/gsd-automount-manager.c:264
 #, c-format
 msgid "Unable to open a folder for %s"
 msgstr "Für »%s« kann kein Ordner geöffnet werden"
@@ -1492,7 +1485,7 @@ msgid "Clipboard plugin"
 msgstr "Zwischenablagemodul"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1526
+#: ../plugins/color/gsd-color-manager.c:1524
 msgid "Color"
 msgstr "Farbe"
 
@@ -1500,44 +1493,44 @@ msgstr "Farbe"
 msgid "Color plugin"
 msgstr "Farb-Plugin"
 
-#: ../plugins/color/gsd-color-manager.c:628
+#: ../plugins/color/gsd-color-manager.c:626
 msgid "Default"
 msgstr "Vorgabe"
 
-#: ../plugins/color/gsd-color-manager.c:1531
+#: ../plugins/color/gsd-color-manager.c:1529
 msgid "Recalibrate now"
 msgstr "Jetzt neu kalibrieren"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1573
+#: ../plugins/color/gsd-color-manager.c:1571
 msgid "Recalibration required"
 msgstr "Neukalibrierung ist erforderlich"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1585
+#: ../plugins/color/gsd-color-manager.c:1583
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Die Anzeige »%s« sollte bald neu kalibriert werden."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1594
+#: ../plugins/color/gsd-color-manager.c:1592
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Der Drucker »%s« sollte bald neu kalibriert werden."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:1924
-#: ../plugins/color/gsd-color-manager.c:1942
+#: ../plugins/color/gsd-color-manager.c:1921
+#: ../plugins/color/gsd-color-manager.c:1937
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Farb-Plugin für GNOME-Einstellungsdienst"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1926
+#: ../plugins/color/gsd-color-manager.c:1923
 msgid "Color calibration device added"
 msgstr "Farbkalibrierungsgerät wurde hinzugefügt"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1944
+#: ../plugins/color/gsd-color-manager.c:1939
 msgid "Color calibration device removed"
 msgstr "Farbkalibrierungsgerät wurde entfernt"
 
@@ -1551,10 +1544,10 @@ msgstr "Dummy-Modul"
 
 #. TRANSLATORS: this is the notification application name
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gsd-power-manager.c:1188
-#: ../plugins/power/gsd-power-manager.c:1364
-#: ../plugins/power/gsd-power-manager.c:1542
-#: ../plugins/power/gsd-power-manager.c:1691
+#: ../plugins/power/gsd-power-manager.c:1191
+#: ../plugins/power/gsd-power-manager.c:1367
+#: ../plugins/power/gsd-power-manager.c:1546
+#: ../plugins/power/gsd-power-manager.c:1695
 msgid "Power"
 msgstr "Energie"
 
@@ -2062,11 +2055,11 @@ msgid "Computer is charged"
 msgstr "Rechner ist vollständig geladen"
 
 #. TRANSLATORS: the battery may be recalled by it's vendor
-#: ../plugins/power/gsd-power-manager.c:932
+#: ../plugins/power/gsd-power-manager.c:935
 msgid "Battery may be recalled"
 msgstr "Akku wurde eventuell zurückgerufen"
 
-#: ../plugins/power/gsd-power-manager.c:933
+#: ../plugins/power/gsd-power-manager.c:936
 #, c-format
 msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
@@ -2075,172 +2068,172 @@ msgstr ""
 "Ein Akku Ihres Rechners wurde eventuell von %s zurückgerufen. Sie könnten in "
 "Gefahr sein."
 
-#: ../plugins/power/gsd-power-manager.c:936
+#: ../plugins/power/gsd-power-manager.c:939
 msgid "For more information visit the battery recall website."
 msgstr "Weitere Informationen finden Sie auf der Akku-Rückruf-Webseite."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:947
+#: ../plugins/power/gsd-power-manager.c:950
 msgid "Visit recall website"
 msgstr "Rückrufaktionsseite besuchen"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:951
+#: ../plugins/power/gsd-power-manager.c:954
 msgid "Do not show me this again"
 msgstr "Dies in Zukunft nicht mehr anzeigen"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1162
+#: ../plugins/power/gsd-power-manager.c:1165
 msgid "UPS Discharging"
 msgstr "USV wird entladen"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1167
+#: ../plugins/power/gsd-power-manager.c:1170
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s der USV-Ladung verbleibend"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1279
+#: ../plugins/power/gsd-power-manager.c:1282
 msgid "Battery low"
 msgstr "Akkuladezustand niedrig"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1282
+#: ../plugins/power/gsd-power-manager.c:1285
 msgid "Laptop battery low"
 msgstr "Laptop-Akku fast leer"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1288
+#: ../plugins/power/gsd-power-manager.c:1291
 #, c-format
 msgid "Approximately <b>%s</b> remaining (%.0f%%)"
 msgstr "Ihnen verbleiben noch ca. <b>%s</b> im Akkubetrieb (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1292
+#: ../plugins/power/gsd-power-manager.c:1295
 msgid "UPS low"
 msgstr "USV fast leer"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1296
+#: ../plugins/power/gsd-power-manager.c:1299
 #, c-format
 msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
 msgstr "Ihnen verbleiben noch ca. <b>%s</b> im Notstrombetrieb (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1300
-#: ../plugins/power/gsd-power-manager.c:1463
+#: ../plugins/power/gsd-power-manager.c:1303
+#: ../plugins/power/gsd-power-manager.c:1467
 msgid "Mouse battery low"
 msgstr "Mausakku ist fast leer"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1303
+#: ../plugins/power/gsd-power-manager.c:1306
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Kabellose Maus hat nur noch wenig Energie (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1307
-#: ../plugins/power/gsd-power-manager.c:1471
+#: ../plugins/power/gsd-power-manager.c:1310
+#: ../plugins/power/gsd-power-manager.c:1475
 msgid "Keyboard battery low"
 msgstr "Tastaturakku ist fast leer"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1310
+#: ../plugins/power/gsd-power-manager.c:1313
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Kabellose Tastatur hat nur noch wenig Energie (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1314
-#: ../plugins/power/gsd-power-manager.c:1480
+#: ../plugins/power/gsd-power-manager.c:1317
+#: ../plugins/power/gsd-power-manager.c:1484
 msgid "PDA battery low"
 msgstr "PDA-Akku ist fast leer"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1317
+#: ../plugins/power/gsd-power-manager.c:1320
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA hat nur noch wenig Energie (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1321
-#: ../plugins/power/gsd-power-manager.c:1490
-#: ../plugins/power/gsd-power-manager.c:1501
+#: ../plugins/power/gsd-power-manager.c:1324
+#: ../plugins/power/gsd-power-manager.c:1494
+#: ../plugins/power/gsd-power-manager.c:1505
 msgid "Cell phone battery low"
 msgstr "Mobiltelefon-Akku fast leer"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1324
+#: ../plugins/power/gsd-power-manager.c:1327
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Mobiltelefon hat nur noch wenig Energie (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1329
+#: ../plugins/power/gsd-power-manager.c:1332
 msgid "Media player battery low"
 msgstr "Akku des tragbaren Abspielgeräts ist fast leer"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1332
+#: ../plugins/power/gsd-power-manager.c:1335
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Medien-Abspielgerät hat nur noch wenig Energie (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1336
-#: ../plugins/power/gsd-power-manager.c:1510
+#: ../plugins/power/gsd-power-manager.c:1339
+#: ../plugins/power/gsd-power-manager.c:1514
 msgid "Tablet battery low"
 msgstr "Tablet-Akku fast leer"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1339
+#: ../plugins/power/gsd-power-manager.c:1342
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Tablet hat nur noch wenig Energie (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1343
-#: ../plugins/power/gsd-power-manager.c:1519
+#: ../plugins/power/gsd-power-manager.c:1346
+#: ../plugins/power/gsd-power-manager.c:1523
 msgid "Attached computer battery low"
 msgstr "Akku des angeschlossenen Rechners ist fast leer"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1346
+#: ../plugins/power/gsd-power-manager.c:1349
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Der angeschlossene Rechner hat nur noch wenig Energie (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1381
+#: ../plugins/power/gsd-power-manager.c:1384
 msgid "Battery is low"
 msgstr "Ladezustand des Akkus ist niedrig"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1422
+#: ../plugins/power/gsd-power-manager.c:1426
 msgid "Battery critically low"
 msgstr "Ladezustand des Akkus ist kritisch"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1425
-#: ../plugins/power/gsd-power-manager.c:1609
+#: ../plugins/power/gsd-power-manager.c:1429
+#: ../plugins/power/gsd-power-manager.c:1613
 msgid "Laptop battery critically low"
 msgstr "Kritischer Ladezustand des Laptop-Akkus"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1434
+#: ../plugins/power/gsd-power-manager.c:1438
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "Schließen Sie Ihr Netzteil an, um Datenverlust zu vermeiden."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1438
+#: ../plugins/power/gsd-power-manager.c:1442
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr ""
@@ -2248,7 +2241,7 @@ msgstr ""
 "angeschlossen."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1442
+#: ../plugins/power/gsd-power-manager.c:1446
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -2256,7 +2249,7 @@ msgstr ""
 "wird angeschlossen."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1446
+#: ../plugins/power/gsd-power-manager.c:1450
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -2265,13 +2258,13 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1453
-#: ../plugins/power/gsd-power-manager.c:1645
+#: ../plugins/power/gsd-power-manager.c:1457
+#: ../plugins/power/gsd-power-manager.c:1649
 msgid "UPS critically low"
 msgstr "Kritischer Ladezustand der Notstromversorgung"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1457
+#: ../plugins/power/gsd-power-manager.c:1461
 #, c-format
 msgid ""
 "Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
@@ -2281,7 +2274,7 @@ msgstr ""
 "Sie den Rechner an die Stromversorgung an, um Datenverlust zu verhindern."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1466
+#: ../plugins/power/gsd-power-manager.c:1470
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -2291,7 +2284,7 @@ msgstr ""
 "falls sie nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1474
+#: ../plugins/power/gsd-power-manager.c:1478
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2301,7 +2294,7 @@ msgstr ""
 "ausfallen, falls sie nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1483
+#: ../plugins/power/gsd-power-manager.c:1487
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2311,7 +2304,7 @@ msgstr ""
 "nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1493
+#: ../plugins/power/gsd-power-manager.c:1497
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2321,7 +2314,7 @@ msgstr ""
 "falls es nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1504
+#: ../plugins/power/gsd-power-manager.c:1508
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2331,7 +2324,7 @@ msgstr ""
 "ausfallen, falls es nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1513
+#: ../plugins/power/gsd-power-manager.c:1517
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2341,7 +2334,7 @@ msgstr ""
 "nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1522
+#: ../plugins/power/gsd-power-manager.c:1526
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2351,14 +2344,14 @@ msgstr ""
 "%%). Er wird herunterfahren, falls er nicht bald aufgeladen wird."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1562
-#: ../plugins/power/gsd-power-manager.c:1572
-#: ../plugins/power/gsd-power-manager.c:1708
+#: ../plugins/power/gsd-power-manager.c:1566
+#: ../plugins/power/gsd-power-manager.c:1576
+#: ../plugins/power/gsd-power-manager.c:1712
 msgid "Battery is critically low"
 msgstr "Kritischer Ladezustand des Akkus"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1617
+#: ../plugins/power/gsd-power-manager.c:1621
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
@@ -2367,7 +2360,7 @@ msgstr ""
 "ausschalten</b>, sobald der Akku vollständig entladen ist."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1623
+#: ../plugins/power/gsd-power-manager.c:1627
 msgid ""
 "The battery is below the critical level and this computer is about to suspend."
 "<br><b>NOTE:</b> A small amount of power is required to keep your computer in "
@@ -2378,7 +2371,7 @@ msgstr ""
 "auch in Bereitschaft weiterhin eine geringe Menge an Energie."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1630
+#: ../plugins/power/gsd-power-manager.c:1634
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2387,7 +2380,7 @@ msgstr ""
 "in den Ruhezustand versetzt."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1635
+#: ../plugins/power/gsd-power-manager.c:1639
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -2396,7 +2389,7 @@ msgstr ""
 "heruntergefahren."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1653
+#: ../plugins/power/gsd-power-manager.c:1657
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
@@ -2405,32 +2398,32 @@ msgstr ""
 "<b>wird sich ausschalten</b>, wenn sie vollständig entladen ist."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1659
+#: ../plugins/power/gsd-power-manager.c:1663
 msgid "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 "Der Ladezustand der Notstromversorgung ist im kritischen Bereich. Der Rechner "
 "wird deshalb nun in den Ruhezustand versetzt."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1664
+#: ../plugins/power/gsd-power-manager.c:1668
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "Der Ladezustand der Notstromversorgung ist im kritischen Bereich. Der Rechner "
 "wird deshalb nun heruntergefahren."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2077
+#: ../plugins/power/gsd-power-manager.c:2082
 msgid "Lid has been opened"
 msgstr "Klappe wurde geöffnet"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2102
+#: ../plugins/power/gsd-power-manager.c:2107
 msgid "Lid has been closed"
 msgstr "Klappe wurde geschlossen"
 
 #. TRANSLATORS: this is the title of the power manager status icon
 #. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:3287
+#: ../plugins/power/gsd-power-manager.c:3310
 msgid "Power Manager"
 msgstr "Energieverwaltung"
 
@@ -2621,7 +2614,7 @@ msgstr "Tastatur_belegung zeigen …"
 msgid "Region and Language Settings"
 msgstr "Einstellungen für Region und Sprache"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:230
+#: ../plugins/media-keys/gsd-media-keys-manager.c:229
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -2630,7 +2623,7 @@ msgstr ""
 "der Befehl für \n"
 "den Vorgabeterminal gesetzt ist und auf eine installierte Anwendung verweist."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:270
+#: ../plugins/media-keys/gsd-media-keys-manager.c:269
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -2914,21 +2907,21 @@ msgstr "Bildschirmgröße und -rotation einstellen"
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:418
+#: ../plugins/xrandr/gsd-xrandr-manager.c:420
 msgid "Could not switch the monitor configuration"
 msgstr "Bildschirmkonfiguration konnte nicht geändert werden"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:442
+#: ../plugins/xrandr/gsd-xrandr-manager.c:444
 msgid "Could not restore the display's configuration"
 msgstr "Bildschirmkonfiguration konnte nicht wiederhergestellt werden"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:467
+#: ../plugins/xrandr/gsd-xrandr-manager.c:469
 msgid "Could not restore the display's configuration from a backup"
 msgstr ""
 "Bildschirmkonfiguration konnte nicht aus einer Sicherungsdatei "
 "wiederhergestellt werden"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:488
+#: ../plugins/xrandr/gsd-xrandr-manager.c:490
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -2938,32 +2931,32 @@ msgstr[0] ""
 msgstr[1] ""
 "Diese Anzeige wird in %d Sekunden auf die vorherige Einstellung zurückgesetzt"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:537
+#: ../plugins/xrandr/gsd-xrandr-manager.c:539
 msgid "Does the display look OK?"
 msgstr "Ist die Bildschirmanzeige in Ordnung?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:544
+#: ../plugins/xrandr/gsd-xrandr-manager.c:546
 msgid "_Restore Previous Configuration"
 msgstr "_Vorherige Einstellungen wiederherstellen"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:545
+#: ../plugins/xrandr/gsd-xrandr-manager.c:547
 msgid "_Keep This Configuration"
 msgstr "_Diese Einstellungen beibehalten"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:626
+#: ../plugins/xrandr/gsd-xrandr-manager.c:628
 msgid "The selected configuration for displays could not be applied"
 msgstr "Die gewählte Bildschirmkonfiguration konnte nicht angewendet werden"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1186
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1188
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Bildschirminformationen konnten nicht aktualisiert werden: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1190
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1192
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Es wird trotzdem versucht, die Bildschirmkonfiguration zu ändern."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1741
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1743
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Die gespeicherte Bildschirmkonfiguration konnte nicht angewendet werden"
 
@@ -3236,6 +3229,42 @@ msgstr "Firmware installieren"
 #: ../plugins/updates/gsd-updates-firmware.c:592
 msgid "Ignore devices"
 msgstr "Geräte ignorieren"
+
+#~ msgid "Do you want to activate Slow Keys?"
+#~ msgstr "Wollen Sie die Tastenverzögerung aktivieren?"
+
+#~ msgid "Do you want to deactivate Slow Keys?"
+#~ msgstr "Wollen Sie die Tastenverzögerung deaktivieren?"
+
+#~ msgid "Don't activate"
+#~ msgstr "Nicht aktivieren"
+
+#~ msgid "Don't deactivate"
+#~ msgstr "Nicht deaktivieren"
+
+#~ msgid "Activate"
+#~ msgstr "Aktivieren"
+
+#~ msgid "Deactivate"
+#~ msgstr "Deaktivieren"
+
+#~ msgid "Do_n't activate"
+#~ msgstr "_Nicht aktivieren"
+
+#~ msgid "Do_n't deactivate"
+#~ msgstr "_Nicht deaktivieren"
+
+#~ msgid "_Activate"
+#~ msgstr "_Aktivieren"
+
+#~ msgid "_Deactivate"
+#~ msgstr "_Deaktivieren"
+
+#~ msgid "Do you want to activate Sticky Keys?"
+#~ msgstr "Wollen Sie klebrige Tasten aktivieren?"
+
+#~ msgid "Do you want to deactivate Sticky Keys?"
+#~ msgstr "Wollen Sie klebrige Tasten deaktivieren?"
 
 #~ msgid ""
 #~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
