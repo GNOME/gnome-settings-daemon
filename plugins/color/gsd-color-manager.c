@@ -546,7 +546,6 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         cmsToneCurve *transfer_curve[3] = { NULL, NULL, NULL };
         const gchar *data;
         gboolean ret = FALSE;
-        gchar *title = NULL;
         gfloat localgamma;
 #ifdef HAVE_NEW_LCMS
         cmsHANDLE dict = NULL;
@@ -623,12 +622,9 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         }
 
         /* write title */
-        title = g_strdup_printf ("%s, %s",
-                                 _("Default"),
-                                 data);
         ret = _cmsWriteTagTextAscii (lcms_profile,
                                      cmsSigProfileDescriptionTag,
-                                     title);
+                                     data);
         if (!ret) {
                 g_set_error_literal (error, GSD_COLOR_MANAGER_ERROR, GSD_COLOR_MANAGER_ERROR_FAILED, "failed to write description");
                 goto out;
@@ -712,7 +708,6 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         cmsSaveProfileToFile (lcms_profile, filename);
         ret = TRUE;
 out:
-        g_free (title);
 #ifdef HAVE_NEW_LCMS
         if (dict != NULL)
                 cmsDictFree (dict);
