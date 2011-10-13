@@ -55,6 +55,11 @@ static GDBusNodeInfo *pdi_introspection_data = NULL;
 #define DBUS_TIMEOUT           60000
 #define DBUS_INSTALL_TIMEOUT 3600000
 
+#define GNOME_SESSION_DBUS_NAME                 "org.gnome.SessionManager"
+#define GNOME_SESSION_DBUS_PATH                 "/org/gnome/SessionManager"
+#define GNOME_SESSION_DBUS_IFACE                "org.gnome.SessionManager"
+#define GNOME_SESSION_CLIENT_PRIVATE_DBUS_IFACE "org.gnome.SessionManager.ClientPrivate"
+
 static const gchar npn_introspection_xml[] =
   "<node name='/com/redhat/NewPrinterNotification'>"
   "  <interface name='com.redhat.NewPrinterNotification'>"
@@ -81,6 +86,8 @@ static const gchar pdi_introspection_xml[] =
   "    </method>"
   "  </interface>"
   "</node>";
+
+static GMainLoop *main_loop;
 
 static GHashTable *
 get_missing_executables (const gchar *ppd_file_name)
@@ -1126,15 +1133,122 @@ on_name_lost (GDBusConnection *connection,
               const gchar     *name,
               gpointer         user_data)
 {
-  exit (1);
+}
+
+static void
+client_signal_handler (GDBusConnection  *connection,
+                       const gchar      *sender_name,
+                       const gchar      *object_path,
+                       const gchar      *interface_name,
+                       const gchar      *signal_name,
+                       GVariant         *parameters,
+                       gpointer          user_data)
+{
+        GDBusProxy *proxy;
+        GError     *error = NULL;
+        GVariant   *output;
+
+        if (g_strcmp0 (signal_name, "QueryEndSession") == 0 ||
+            g_strcmp0 (signal_name, "EndSession") == 0) {
+                proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                                       G_DBUS_PROXY_FLAGS_NONE,
+                                                       NULL,
+                                                       sender_name,
+                                                       object_path,
+                                                       interface_name,
+                                                       NULL,
+                                                       &error);
+
+                if (proxy) {
+                        output = g_dbus_proxy_call_sync (proxy,
+                                                         "EndSessionResponse",
+                                                         g_variant_new ("(bs)", TRUE, ""),
+                                                         G_DBUS_CALL_FLAGS_NONE,
+                                                         -1,
+                                                         NULL,
+                                                         &error);
+
+                        if (output) {
+                                g_variant_unref (output);
+                        }
+                        else {
+                                g_warning ("%s", error->message);
+                                g_error_free (error);
+                        }
+
+                        g_object_unref (proxy);
+                }
+                else {
+                        g_warning ("%s", error->message);
+                        g_error_free (error);
+                }
+
+                if (g_strcmp0 (signal_name, "EndSession") == 0) {
+                        g_main_loop_quit (main_loop);
+                        g_debug ("Exiting gsd-printer");
+                }
+        }
+}
+
+static gchar *
+register_gnome_session_client (const gchar *app_id,
+                               const gchar *client_startup_id)
+{
+        GDBusProxy  *proxy;
+        GVariant    *output = NULL;
+        GError      *error = NULL;
+        const gchar *client_id = NULL;
+        gchar       *result = NULL;
+
+        proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                               G_DBUS_PROXY_FLAGS_NONE,
+                                               NULL,
+                                               GNOME_SESSION_DBUS_NAME,
+                                               GNOME_SESSION_DBUS_PATH,
+                                               GNOME_SESSION_DBUS_IFACE,
+                                               NULL,
+                                               &error);
+
+        if (proxy) {
+                output = g_dbus_proxy_call_sync (proxy,
+                                                 "RegisterClient",
+                                                 g_variant_new ("(ss)", app_id, client_startup_id),
+                                                 G_DBUS_CALL_FLAGS_NONE,
+                                                 -1,
+                                                 NULL,
+                                                 &error);
+
+                if (output) {
+                        g_variant_get (output, "(o)", &client_id);
+                        if (client_id)
+                                result = g_strdup (client_id);
+                        g_variant_unref (output);
+                }
+                else {
+                        g_warning ("%s", error->message);
+                        g_error_free (error);
+                }
+
+                g_object_unref (proxy);
+        }
+        else {
+                g_warning ("%s", error->message);
+                g_error_free (error);
+        }
+
+        return result;
 }
 
 int
 main (int argc, char *argv[])
 {
-  guint npn_owner_id;
-  guint pdi_owner_id;
-  GMainLoop *loop;
+  GDBusConnection *connection;
+  gboolean         client_signal_subscription_set = FALSE;
+  GError          *error = NULL;
+  guint            npn_owner_id;
+  guint            pdi_owner_id;
+  guint            client_signal_subscription_id;
+  gchar           *object_path;
 
   bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -1152,6 +1266,25 @@ main (int argc, char *argv[])
   pdi_introspection_data =
           g_dbus_node_info_new_for_xml (pdi_introspection_xml, NULL);
   g_assert (pdi_introspection_data != NULL);
+
+  connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+
+  object_path = register_gnome_session_client ("gsd-printer", "");
+  if (object_path) {
+          client_signal_subscription_id =
+                  g_dbus_connection_signal_subscribe (connection,
+                                                      NULL,
+                                                      GNOME_SESSION_CLIENT_PRIVATE_DBUS_IFACE,
+                                                      NULL,
+                                                      object_path,
+                                                      NULL,
+                                                      G_DBUS_SIGNAL_FLAGS_NONE,
+                                                      client_signal_handler,
+                                                      NULL,
+                                                      NULL);
+          client_signal_subscription_set = TRUE;
+  }
+
 
   npn_owner_id = g_bus_own_name (G_BUS_TYPE_SYSTEM,
                                  SCP_DBUS_NPN_NAME,
@@ -1171,11 +1304,16 @@ main (int argc, char *argv[])
                                  NULL,
                                  NULL);
 
-  loop = g_main_loop_new (NULL, FALSE);
-  g_main_loop_run (loop);
+  main_loop = g_main_loop_new (NULL, FALSE);
+  g_main_loop_run (main_loop);
 
   g_bus_unown_name (npn_owner_id);
   g_bus_unown_name (pdi_owner_id);
+
+  if (client_signal_subscription_set)
+          g_dbus_connection_signal_unsubscribe (connection, client_signal_subscription_id);
+
+  g_free (object_path);
 
   g_dbus_node_info_unref (npn_introspection_data);
   g_dbus_node_info_unref (pdi_introspection_data);
