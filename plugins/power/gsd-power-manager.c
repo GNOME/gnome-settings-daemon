@@ -336,7 +336,7 @@ engine_emit_changed (GsdPowerManager *manager)
         if (manager->priv->connection == NULL)
                 return;
         ret = g_dbus_connection_emit_signal (manager->priv->connection,
-                                             GSD_DBUS_SERVICE,
+                                             NULL,
                                              GSD_POWER_DBUS_PATH,
                                              GSD_POWER_DBUS_INTERFACE,
                                              "Changed",
