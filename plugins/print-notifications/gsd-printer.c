@@ -758,7 +758,7 @@ set_default_paper_size (const gchar *printer_name,
         GVariant    *input;
         GVariant    *output;
         GError      *error = NULL;
-        gchar      **value = NULL;
+        gchar       *value = NULL;
         gint         i, j, k;
         const gchar *paper_size;
 
@@ -798,8 +798,7 @@ set_default_paper_size (const gchar *printer_name,
                                                                                  ppd_file->groups[i].options[j].choices[k].choice,
                                                                                  strlen (paper_size)) == 0 &&
                                                             !ppd_file->groups[i].options[j].choices[k].marked) {
-                                                            value = g_new0 (gchar *, 2);
-                                                            value[0] = g_strdup (ppd_file->groups[i].options[j].choices[k].choice);
+                                                            value = g_strdup (ppd_file->groups[i].options[j].choices[k].choice);
                                                             break;
                                                         }
                                                 }
@@ -810,14 +809,15 @@ set_default_paper_size (const gchar *printer_name,
         }
 
         if (value) {
-                GVariant *array;
+                GVariantBuilder *builder;
 
-                array = g_variant_new_strv ((const gchar * const *)value, -1);
+                builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
+                g_variant_builder_add (builder, "s", value);
 
-                input = g_variant_new ("(ssv)",
+                input = g_variant_new ("(ssas)",
                                        printer_name ? printer_name : "",
-                                       "PageSize-default",
-                                       array);
+                                       "PageSize",
+                                       builder);
 
                 output = g_dbus_proxy_call_sync (proxy,
                                                  "PrinterAddOptionDefault",
@@ -834,9 +834,9 @@ set_default_paper_size (const gchar *printer_name,
                         g_error_free (error);
                 }
 
+                g_variant_builder_unref (builder);
                 g_variant_unref (input);
-                g_variant_unref (array);
-                g_strfreev (value);
+                g_free (value);
         }
 
         g_object_unref (proxy);
