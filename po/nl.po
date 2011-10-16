@@ -14,16 +14,16 @@
 # Tino Meinen <a.t.meinen@chello.nl>, 2004, 2006–2008
 # Rob van den Berg <linuxned@gmail.com>, 2010
 # Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2010–2011
-# Wouter Bolsterlee <wbolster@gnome.org>, 2006–2011, 2011.
+# Wouter Bolsterlee <wbolster@gnome.org>, 2006–2011.
 # Redmar <redmar@ubuntu-nl.org>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-16 14:59+0200\n"
-"PO-Revision-Date: 2011-09-24 09:16+0200\n"
-"Last-Translator: Redmar <redmar@ubuntu-nl.org>\n"
+"POT-Creation-Date: 2011-10-16 15:24+0200\n"
+"PO-Revision-Date: 2011-10-16 15:25+0200\n"
+"Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
 "Language-Team: Dutch <ubuntu-l10n-nl@lists.ubuntu.com>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -145,7 +145,7 @@ msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
 "action will get performed when the smartcard used for log in is removed."
 msgstr ""
-"Stel dit in op \"none\", \"lock-screen\" of \"force-logout\". De actie zal "
+"Stel dit in op ‘none’, ‘lock-screen’ of ‘force-logout’. De actie zal "
 "uitgevoerd worden wanneer de smartcard die voor het aanmelden gebruikt is "
 "verwijderd wordt."
 
@@ -155,7 +155,7 @@ msgstr "Actie bij verwijderen smartcard"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
-msgstr "Of de orientatie van de tabblet vast staat, of automatisch roteert."
+msgstr "Of de oriëntatie van de tablet vast staat of automatisch roteert."
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
@@ -201,7 +201,8 @@ msgstr "Te gebruiken prioriteit voor deze plug-in"
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr ""
-"Te gebruiken prioriteit van deze plug-in in de gnome-settings-daemon wachtrij"
+"Te gebruiken prioriteit van deze plug-in in de opstartvolgorde van gnome-"
+"settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
@@ -287,15 +288,15 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 msgid "If we should show the recalled battery warning for a broken battery"
-msgstr "Of de waarschuwing voor teruggeroepen batterijen getoond moet worden"
+msgstr "Of de waarschuwing voor teruggeroepen accuen getoond moet worden"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 msgid ""
 "If we should show the recalled battery warning for a broken battery. Set "
 "this to false only if you know your battery is okay."
 msgstr ""
-"Of de waarschuwing voor teruggeroepen batterijen getoond moet worden. Zet "
-"dit alleen op ‘false’ als u zeker weet dat er niets met uw batterij mis is."
+"Of de waarschuwing voor teruggeroepen accuen getoond moet worden. Zet dit "
+"alleen op ‘false’ als u zeker weet dat er niets met uw accu mis is."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 msgid "Percentage action is taken"
@@ -303,7 +304,7 @@ msgstr "Percentage waarbij actie ondernomen wordt"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
 msgid "Percentage considered critical"
-msgstr "Percentage dat kritiek is"
+msgstr "Percentage dat als kritiek laag beschouwd wordt"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 msgid "Percentage considered low"
@@ -314,60 +315,60 @@ msgid ""
 "The percentage of the battery when it is considered critical. Only valid "
 "when use-time-for-policy is false."
 msgstr ""
-"Het percentage van batterijlading die als kritiek wordt beschouwd. Is alleen "
-"geldig als use-time-for-policy op ‘false’ staat."
+"Het percentage van acculading die als kritiek wordt beschouwd. Alleen geldig "
+"als use-time-for-policy op ‘false’ staat."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid ""
 "The percentage of the battery when it is considered low. Only valid when use-"
 "time-for-policy is false."
 msgstr ""
-"Het percentage van batterijlading dat als laag wordt beschouwd. Alleen "
-"geldig als use-time-for-policy op ‘false’ staat."
+"Het percentage van acculading dat als laag wordt beschouwd. Alleen geldig "
+"als use-time-for-policy op ‘false’ staat."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
 msgid ""
 "The percentage of the battery when the critical action is performed. Only "
 "valid when use-time-for-policy is false."
 msgstr ""
-"Het percentage van batterijlading waarbij de kritiek-actie wordt uitgevoerd. "
-"Is alleen geldig als use-time-for-policy op ‘false’ staat."
+"Het percentage van acculading waarbij de kritiek-actie wordt uitgevoerd. "
+"Alleen geldig als use-time-for-policy op ‘false’ staat."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid ""
 "The time remaining in seconds of the battery when critical action is taken. "
 "Only valid when use-time-for-policy is true."
 msgstr ""
-"De batterijduur in seconden waarbij de kritiek-actie uitgevoerd wordt. Is "
-"alleen geldig als use-time-for-policy op ‘true’ staat."
+"De accuduur in seconden waarbij de kritiek-actie uitgevoerd wordt. Alleen "
+"geldig als use-time-for-policy op ‘true’ staat."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
 msgid ""
 "The time remaining in seconds of the battery when it is considered critical. "
 "Only valid when use-time-for-policy is true."
 msgstr ""
-"De batterijduur in seconden die als kritiek wordt beschouwd. Is alleen "
-"geldig als use-time-for-policy op ‘true’ staat."
+"De accuduur in seconden die als kritiek wordt beschouwd. Alleen geldig als "
+"use-time-for-policy op ‘true’ staat."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
 msgid ""
 "The time remaining in seconds of the battery when it is considered low. Only "
 "valid when use-time-for-policy is true."
 msgstr ""
-"De batterijduur in seconden waarbij de batterijladig als laag wordt "
-"beschouwd. Is alleen geldig als use-time-for-policy op ‘true’ staat."
+"De accuduur in seconden waarbij de acculadig als laag wordt beschouwd. "
+"Alleen geldig als use-time-for-policy op ‘true’ staat."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
 msgid "The time remaining when action is taken"
-msgstr "Batterijduur waarbij actie ondernomen wordt"
+msgstr "Accuduur waarbij actie ondernomen wordt"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
 msgid "The time remaining when critical"
-msgstr "Batterijduur die als kritiek beschouwd wordt"
+msgstr "Accuduur die als kritiek beschouwd wordt"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
 msgid "The time remaining when low"
-msgstr "Batterijduur die als laag beschouwd wordt"
+msgstr "Accuduur die als laag beschouwd wordt"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
 msgid "Whether to use time-based notifications"
@@ -407,7 +408,7 @@ msgstr "Sneltoets om het vergrootglas aan of uit te zetten"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
 msgid "Binding to decrease the text size"
-msgstr "Sneltoets om de tekstgrootte te verkleinen"
+msgstr "Sneltoets om de tekst te verkleinen"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 msgid "Binding to eject an optical disc."
@@ -415,7 +416,7 @@ msgstr "Sneltoets voor het uitwerpen van een optische schijf."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Binding to increase the text size"
-msgstr "Sneltoets om de tekstgrootte te vergroten"
+msgstr "Sneltoets om de tekst te vergroten"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the calculator."
@@ -625,7 +626,7 @@ msgstr "De gebruiker vragen of aanvullende firmware geïnstalleerd moet worden"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
 msgid ""
 "Ask the user if additional firmware should be installed if it is available."
-msgstr "De gebruiker vragen of aanvullende firmware geïnstalleerd moet worden."
+msgstr "De gebruiker vragen of aanvullende firmware geïnstalleerd moet worden"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 msgid "Automatically download updates in the background without confirmation"
@@ -648,11 +649,11 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid "Automatically install these types of updates"
-msgstr "Dit soort updates automatisch installeren"
+msgstr "Dit type updates automatisch installeren"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically install these types of updates."
-msgstr "Dit soort updates automatisch installeren."
+msgstr "Dit type updates automatisch installeren"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
@@ -676,7 +677,7 @@ msgid ""
 "can include '*' and '?' characters."
 msgstr ""
 "Firmwarebestanden waar niet naar gezocht moet worden, gescheiden door "
-"komma's. De tekens '*' en *' zijn toegestaan."
+"komma's. De tekens '*' en '?' kunnen gebruikt worden."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid "Get the update list when the session starts"
@@ -685,7 +686,7 @@ msgstr "Haal de lijst met updates op als de sessie start"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "Get the update list when the session starts, even if not scheduled to."
 msgstr ""
-"Haal de lijst met updates op als de sessie start, zelfs als dit niet geplant "
+"Haal de lijst met updates op als de sessie start, zelfs als dit niet gepland "
 "is."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
@@ -801,12 +802,12 @@ msgstr "De gebruiker notificeren wanneer de update gestart is"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
 msgid "Notify the user when the update was started."
-msgstr "De gebruiker notificeren wanneer de update gestart is."
+msgstr "De gebruiker notificeren wanneer de update gestart is"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
 msgid "The filenames on removable media that designate it a software source."
 msgstr ""
-"De bestandsnaam van externe media die aangeeft dat het een softwarebron is."
+"De bestandsnaam van externe media die aangeeft dat het een softwarebron is"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
 msgid "The install root to use when adding and removing packages"
@@ -885,7 +886,7 @@ msgstr ""
 "Als verwijderbare media in de computer geplaatst worden wordt gecontroleerd "
 "of een aantal belangrijke bestandsnamen in de root-map voorkomt. Als dit het "
 "geval is wordt de media op updates gecontroleerd. Hiermee kunt u met post-"
-"install disk actieve systemen updaten."
+"install-schijven actieve systemen updaten."
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 msgid ""
@@ -895,7 +896,7 @@ msgid ""
 msgstr ""
 "'clone' zal hetzelfde beeld op alle monitors weergeven, 'dock' zal de "
 "interne monitor uitschakelen, 'do-nothing' zal het standaard Xorg-gedrag "
-"gebruiken (bureaublad over beide monitors uitspreiden, in de laatste versies)"
+"gebruiken (bureaublad over de monitors uitspreiden, in recente versies)"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
@@ -917,7 +918,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid "Whether to turn off specific monitors after boot"
-msgstr "Of specifieke monitors na het booten uitgeschakeld moeten worden"
+msgstr "Of specifieke monitors na het opstarten uitgeschakeld moeten worden"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid ""
@@ -925,7 +926,7 @@ msgid ""
 "in addition to conditional and forcibly disabled ones."
 msgstr ""
 "Een lijst van strings die weergeeft welke GTK+-modules geladen zullen "
-"worden, naast voorwaardelijke en verboden modules."
+"worden, naast voorwaardelijke en expliciet uitgeschakelde modules."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
@@ -998,20 +999,20 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr ""
-"Schakel dit in om alleen stylu-events door te geven wanneer de punt wordt "
+"Schakel dit in om alleen stylus-events door te geven wanneer de punt wordt "
 "ingedrukt."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 msgid "Enable this to set the cursor to absolute mode."
-msgstr "Schakel dit in om de cursor op absolute-modus te zetten."
+msgstr "Schakel dit in om de cursor in de absolute modus te zetten."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Enable this to set the eraser to absolute mode."
-msgstr "Schakel dit in om de eraser op absolute-modus te zetten."
+msgstr "Schakel dit in om de eraser in de absolute modus te zetten."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
 msgid "Enable this to set the stylus to absolute mode."
-msgstr "Schakel dit in om de stylus op absolute-modus te zetten."
+msgstr "Schakel dit in om de stylus in de absolute modus te zetten."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid ""
@@ -1085,7 +1086,7 @@ msgstr "Wacom cursor button mapping"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom cursor tablet area"
-msgstr "Wacom cursor tablet gebied"
+msgstr "Wacom cursor tabletgebied"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Wacom eraser absolute mode"
@@ -1101,7 +1102,7 @@ msgstr "Wacom eraser pressure-curve"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser pressure threshold"
-msgstr "Wacom eraser pressure drempelwaarde"
+msgstr "Wacom eraser pressure-drempelwaarde"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid "Wacom eraser tablet area"
@@ -1117,7 +1118,7 @@ msgstr "Wacom pad tablet gebied"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Wacom stylus absolute mode"
-msgstr "Wacom stylus absolute-mode"
+msgstr "Wacom stylus absolute mode"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom stylus button mapping"
@@ -1129,11 +1130,11 @@ msgstr "Wacom stylus pressure curve"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Wacom stylus pressure threshold"
-msgstr "Wacom stylus pressure drempelwaarde"
+msgstr "Wacom stylus pressure-drempelwaarde"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid "Wacom stylus tablet area"
-msgstr "Wacom stylus tablet gebied"
+msgstr "Wacom stylus tabletgebied"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 msgid "Wacom tablet PC feature"
@@ -1141,7 +1142,7 @@ msgstr "Wacom tablet PC feature"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid "Wacom tablet rotation"
-msgstr "Wacom tablet rotatie"
+msgstr "Wacom tablet-rotatie"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
 msgid "Wacom touch feature"
@@ -1325,7 +1326,7 @@ msgstr "Apparaten aankoppelen en autorun uitvoeren"
 
 #: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
 msgid "Mount Helper"
-msgstr "Mount Helper"
+msgstr "Hulpmiddel voor aankoppelen"
 
 #: ../plugins/automount/gsd-automount-manager.c:154
 #, c-format
@@ -1491,20 +1492,20 @@ msgstr "Hercalibratie vereist"
 #: ../plugins/color/gsd-color-manager.c:1701
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
-msgstr "Het beeldscherm '%s' moet binnenkort gekalibreerd worden."
+msgstr "Het beeldscherm ‘%s’ moet binnenkort gekalibreerd worden."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-manager.c:1710
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
-msgstr "De printer '%s' moet binnenkort gekalibreerd worden."
+msgstr "De printer ‘%s’ moet binnenkort gekalibreerd worden."
 
 # behouden/gebruiken
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2040
 #: ../plugins/color/gsd-color-manager.c:2058
 msgid "GNOME Settings Daemon Color Plugin"
-msgstr "GNOME Settings Daemon kleur-plug-in"
+msgstr "Gnome Settings Daemon kleur-plug-in"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2042
@@ -1532,7 +1533,7 @@ msgstr "Dummy-plug-in"
 #: ../plugins/power/gsd-power-manager.c:1557
 #: ../plugins/power/gsd-power-manager.c:1710
 msgid "Power"
-msgstr "Power"
+msgstr "Energie"
 
 #: ../plugins/power/power.gnome-settings-plugin.in.h:2
 msgid "Power plugin"
@@ -1580,7 +1581,7 @@ msgstr[1] "minuten"
 #: ../plugins/power/gpm-common.c:317
 #, c-format
 msgid "provides %s laptop runtime"
-msgstr "levert %s batterijduur"
+msgstr "levert %s accuduur"
 
 #. TRANSLATORS: the device is discharging, and we have a time remaining
 #. * The first parameter is the device type, e.g. "Laptop battery" and
@@ -1606,7 +1607,7 @@ msgstr "%s %s tot opgeladen"
 #: ../plugins/power/gpm-common.c:356
 #, c-format
 msgid "provides %s battery runtime"
-msgstr "levert %s batterijduur"
+msgstr "levert %s accuduur"
 
 #. TRANSLATORS: the type of data, e.g. Laptop battery
 #: ../plugins/power/gpm-common.c:447
@@ -1679,7 +1680,7 @@ msgstr "Tijd tot leeg:"
 #. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
 #: ../plugins/power/gpm-common.c:500
 msgid "Excellent"
-msgstr "Geweldig"
+msgstr "Uitstekend"
 
 #: ../plugins/power/gpm-common.c:502
 msgid "Good"
@@ -1691,7 +1692,7 @@ msgstr "Redelijk"
 
 #: ../plugins/power/gpm-common.c:506
 msgid "Poor"
-msgstr "Slecht"
+msgstr "Matig"
 
 #: ../plugins/power/gpm-common.c:510
 msgid "Capacity:"
@@ -1724,15 +1725,15 @@ msgstr[1] "AC-adapters"
 #: ../plugins/power/gpm-common.c:569 ../plugins/power/gpm-common.c:793
 msgid "Laptop battery"
 msgid_plural "Laptop batteries"
-msgstr[0] "Laptop batterij"
-msgstr[1] "Laptop batterijen"
+msgstr[0] "Laptop-accu"
+msgstr[1] "Laptop-accu"
 
 #. TRANSLATORS: battery-backed AC power source
 #: ../plugins/power/gpm-common.c:573 ../plugins/power/gpm-common.c:817
 msgid "UPS"
 msgid_plural "UPSs"
 msgstr[0] "UPS"
-msgstr[1] "UPSs"
+msgstr[1] "UPS'en"
 
 #. TRANSLATORS: a monitor is a device to measure voltage and current
 #: ../plugins/power/gpm-common.c:577 ../plugins/power/gpm-common.c:824
@@ -1782,7 +1783,7 @@ msgstr[1] "Mediaspelers"
 #: ../plugins/power/gpm-common.c:602 ../plugins/power/gpm-common.c:969
 msgid "Tablet"
 msgid_plural "Tablets"
-msgstr[0] "Table"
+msgstr[0] "Tablet"
 msgstr[1] "Tablets"
 
 #. TRANSLATORS: tablet device
@@ -1805,22 +1806,22 @@ msgstr "Lithium-polymeer"
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:678
 msgid "Lithium Iron Phosphate"
-msgstr "Lithium Iron Phosphate"
+msgstr "Lithium-ijzerfosfaat"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:682
 msgid "Lead acid"
-msgstr "Lood-zuur"
+msgstr "Loodzuur"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:686
 msgid "Nickel Cadmium"
-msgstr "Nikkel Cadmium"
+msgstr "Nikkel-cadmium"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:690
 msgid "Nickel metal hydride"
-msgstr "Nikkel metal hydride"
+msgstr "Nikkel-metaalhydride"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:694
@@ -1835,37 +1836,37 @@ msgstr "Leeg"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:727
 msgid "Waiting to charge"
-msgstr "Wacht om op te laden"
+msgstr "Wachten op opladen"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:731
 msgid "Waiting to discharge"
-msgstr "Wacht om te ontladen"
+msgstr "Wachten op ontladen"
 
 #. TRANSLATORS: device not present
 #: ../plugins/power/gpm-common.c:765
 msgid "Laptop battery not present"
-msgstr "Laptop batterij niet aanwezig"
+msgstr "Laptopaccu niet aanwezig"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:769
 msgid "Laptop battery is charging"
-msgstr "Laptop batterij is aan het opladen"
+msgstr "Laptopaccu laadt op"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:773
 msgid "Laptop battery is discharging"
-msgstr "Laptop werkt op batterij"
+msgstr "Laptopaccu ontlaadt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:777
 msgid "Laptop battery is empty"
-msgstr "Laptop batterij is leeg"
+msgstr "Laptopaccu is leeg"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:781
 msgid "Laptop battery is charged"
-msgstr "Laptop batterij is opgeladen"
+msgstr "Laptopaccu is opgeladen"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:785
@@ -1880,7 +1881,7 @@ msgstr "De accu wacht om ontladen te worden"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:801
 msgid "UPS is charging"
-msgstr "UPS is aan het opladen"
+msgstr "UPS laadt op"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:805
@@ -1900,12 +1901,12 @@ msgstr "UPS is opgeladen"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:832
 msgid "Mouse is charging"
-msgstr "Muis is aan het opladen"
+msgstr "Muis laadt op"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:836
 msgid "Mouse is discharging"
-msgstr "Muis werkt op batterij"
+msgstr "Muis ontlaadt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:840
@@ -1920,12 +1921,12 @@ msgstr "Muis is opgeladen"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:856
 msgid "Keyboard is charging"
-msgstr "Toetsenbord is aan het opladen"
+msgstr "Toetsenbord laadt op"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:860
 msgid "Keyboard is discharging"
-msgstr "Toetsenbord werkt op batterij"
+msgstr "Toetsenbord ontlaadt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:864
@@ -1940,12 +1941,12 @@ msgstr "Toetsenbord is opgeladen"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:880
 msgid "PDA is charging"
-msgstr "PDA is opgeladen"
+msgstr "PDA laadt op"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:884
 msgid "PDA is discharging"
-msgstr "PDA werkt op batterij"
+msgstr "PDA ontlaadt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:888
@@ -1960,32 +1961,32 @@ msgstr "PDF is opgeladen"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:904
 msgid "Cell phone is charging"
-msgstr "Mobiel is aan het opladen"
+msgstr "Mobiele telefoon laadt op"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:908
 msgid "Cell phone is discharging"
-msgstr "Mobiele telefoon werkt op batterij"
+msgstr "Mobiele telefoon ontlaadt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:912
 msgid "Cell phone is empty"
-msgstr "Mobiel is leeg"
+msgstr "Mobiele telefoon is leeg"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:916
 msgid "Cell phone is charged"
-msgstr "Mobiel is opgeladen"
+msgstr "Mobiele telefoon is opgeladen"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:929
 msgid "Media player is charging"
-msgstr "MP3-speler is aan het opladen"
+msgstr "MP3-speler laadt op"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:933
 msgid "Media player is discharging"
-msgstr "MP3-speler werkt op batterij"
+msgstr "MP3-speler ontlaadt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:937
@@ -2000,12 +2001,12 @@ msgstr "MP3-speler is opgeladen"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:953
 msgid "Tablet is charging"
-msgstr "Tablet is aan het opladen"
+msgstr "Tablet laadt op"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:957
 msgid "Tablet is discharging"
-msgstr "Tablet werkt op batterij"
+msgstr "Tablet ontlaadt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:961
@@ -2020,12 +2021,12 @@ msgstr "Tablet is opgeladen"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:977
 msgid "Computer is charging"
-msgstr "Computer is aan het opladen"
+msgstr "Computer laadt op"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:981
 msgid "Computer is discharging"
-msgstr "Computer werkt op batterij"
+msgstr "Computer ontlaadt"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:985
@@ -2040,7 +2041,7 @@ msgstr "Computer is opgeladen"
 #. TRANSLATORS: the battery may be recalled by it's vendor
 #: ../plugins/power/gsd-power-manager.c:942
 msgid "Battery may be recalled"
-msgstr "Batterij is mogelijk teruggeroepen"
+msgstr "Accu is mogelijk teruggeroepen"
 
 #: ../plugins/power/gsd-power-manager.c:943
 #, c-format
@@ -2048,17 +2049,17 @@ msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
 "risk."
 msgstr ""
-"De batterij in uw computer is mogelijk door %s teruggeroepen en is niet "
-"veilig om te gebruiken."
+"De accu in uw computer is mogelijk door %s teruggeroepen en is niet veilig "
+"om te gebruiken."
 
 #: ../plugins/power/gsd-power-manager.c:946
 msgid "For more information visit the battery recall website."
-msgstr "Voor meer informatie bezoekt u de terugroep website."
+msgstr "Voor meer informatie bezoekt u de terugroepwebsite."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
 #: ../plugins/power/gsd-power-manager.c:957
 msgid "Visit recall website"
-msgstr "Terugroep website"
+msgstr "Terugroepwebsite"
 
 #. TRANSLATORS: button text, do not show this bubble again
 #: ../plugins/power/gsd-power-manager.c:961
@@ -2084,7 +2085,7 @@ msgstr "Accu bijna leeg"
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
 #: ../plugins/power/gsd-power-manager.c:1294
 msgid "Laptop battery low"
-msgstr "Laptop accu bijna leeg"
+msgstr "Laptopaccu bijna leeg"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:1300
@@ -2108,39 +2109,39 @@ msgstr "Ongeveer <b>%s</b> van de UPS backup-stroom beschikbaar(%.0f%%)"
 #: ../plugins/power/gsd-power-manager.c:1312
 #: ../plugins/power/gsd-power-manager.c:1478
 msgid "Mouse battery low"
-msgstr "Batterij muis bijna leeg"
+msgstr "Accu muis bijna leeg"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1315
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
-msgstr "De batterij van de draadloze muis is bijna leeg (%.0f%%)"
+msgstr "De accu van de draadloze muis is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
 #: ../plugins/power/gsd-power-manager.c:1319
 #: ../plugins/power/gsd-power-manager.c:1486
 msgid "Keyboard battery low"
-msgstr "Batterij van toetsenbord bijna leeg"
+msgstr "Accu van toetsenbord bijna leeg"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1322
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
-msgstr "De batterij van het draadloze toetsenbord is bijna leeg (%.0f%%)"
+msgstr "De accu van het draadloze toetsenbord is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
 #: ../plugins/power/gsd-power-manager.c:1326
 #: ../plugins/power/gsd-power-manager.c:1495
 msgid "PDA battery low"
-msgstr "Batterij PDA bijna leeg"
+msgstr "Accu PDA bijna leeg"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1329
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
-msgstr "De batterij van de PDA is bijna leeg (%.0f%%)"
+msgstr "De accu van de PDA is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -2148,67 +2149,67 @@ msgstr "De batterij van de PDA is bijna leeg (%.0f%%)"
 #: ../plugins/power/gsd-power-manager.c:1505
 #: ../plugins/power/gsd-power-manager.c:1516
 msgid "Cell phone battery low"
-msgstr "Batterij mobiel bijna leeg"
+msgstr "Accu mobiele telefoon bijna leeg"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1336
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
-msgstr "De batterij van de mobiele telefon is bijna leeg (%.0f%%)"
+msgstr "De accu van de mobiele telefon is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
 #: ../plugins/power/gsd-power-manager.c:1341
 msgid "Media player battery low"
-msgstr "Batterij MP3-speler bijna leeg"
+msgstr "Accu MP3-speler bijna leeg"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1344
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
-msgstr "De batterij van de MP3-speler is bijna leeg (%.0f%%)"
+msgstr "De accu van de MP3-speler is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:1348
 #: ../plugins/power/gsd-power-manager.c:1525
 msgid "Tablet battery low"
-msgstr "Batterij tablet bijna leeg"
+msgstr "Accu tablet bijna leeg"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1351
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
-msgstr "De batterij van de tablet is bijna leeg (%.0f%%)"
+msgstr "De accu van de tablet is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:1355
 #: ../plugins/power/gsd-power-manager.c:1534
 msgid "Attached computer battery low"
-msgstr "Batterij aangekoppelde computer bijna leeg"
+msgstr "Accu aangekoppelde computer bijna leeg"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1358
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
-msgstr "De batterij van de aangekoppelde computer is bijna leeg (%.0f%%)"
+msgstr "De accu van de aangekoppelde computer is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:1394
 msgid "Battery is low"
-msgstr "Batterij bijna leeg"
+msgstr "Accu bijna leeg"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
 #: ../plugins/power/gsd-power-manager.c:1437
 msgid "Battery critically low"
-msgstr "Batterij-lading kritiek laag"
+msgstr "Acculading kritiek laag"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
 #: ../plugins/power/gsd-power-manager.c:1440
 #: ../plugins/power/gsd-power-manager.c:1628
 msgid "Laptop battery critically low"
-msgstr "Laptop batterij kritiek laag"
+msgstr "Laptopaccu kritiek laag"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
 #: ../plugins/power/gsd-power-manager.c:1449
@@ -2220,24 +2221,24 @@ msgstr "Sluit uw laptop op netstroom aan om dataverlies te voorkomen."
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr ""
-"Uw computer zal binnenkort in pauzestand gaan als u deze niet op netstroom "
-"aansluit."
+"De computer zal binnenkort in pauzestand gaan als deze niet op de netstroom "
+"aangesloten wordt."
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1457
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
-"Uw computer zal binnenkort in slaaptstand gaan als u deze niet op netstroom "
-"aansluit."
+"De computer zal binnenkort in slaaptstand gaan als deze niet op de netstroom "
+"aangesloten wordt."
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1461
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
-"Uw computer zal binnenkort uitschakelen als u deze niet op netstroom "
-"aansluit."
+"De computer zal binnenkort uitschakelen als deze niet op de netstroom "
+"aangesloten wordt."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
@@ -2331,7 +2332,7 @@ msgstr ""
 #: ../plugins/power/gsd-power-manager.c:1590
 #: ../plugins/power/gsd-power-manager.c:1728
 msgid "Battery is critically low"
-msgstr "Batterij-lading kritiek laag"
+msgstr "Acculading kritiek laag"
 
 #. TRANSLATORS: computer will shutdown without saving data
 #: ../plugins/power/gsd-power-manager.c:1636
@@ -2359,8 +2360,8 @@ msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr ""
-"De acculading is onder het kritieke niveau en deze computer zal in "
-"slaapstand gaan."
+"De acculading is onder het kritieke niveau, De computer zal in slaapstand "
+"gaan."
 
 #. TRANSLATORS: computer will just shutdown
 #: ../plugins/power/gsd-power-manager.c:1654
@@ -2368,7 +2369,7 @@ msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr ""
-"De acculading is onder het kritieke niveau en deze computer zal uitschakelen."
+"De acculading is onder het kritieke niveau. De computer zal uitschakelen."
 
 #. TRANSLATORS: computer will shutdown without saving data
 #: ../plugins/power/gsd-power-manager.c:1672
@@ -2376,7 +2377,7 @@ msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
 msgstr ""
-"De lading van de UPS is onder het kritieke niveau en deze computer zal "
+"De lading van de UPS is onder het kritieke niveau. De computer zal "
 "<b>uitvallen</b> als de UPS volledig leeg is."
 
 #. TRANSLATORS: computer will hibernate
@@ -2384,14 +2385,14 @@ msgstr ""
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
-"De lading van de UPS is onder het kritieke niveau en deze computer zal in "
+"De lading van de UPS is onder het kritieke niveau. De computer zal in "
 "slaapstand gaan."
 
 #. TRANSLATORS: computer will just shutdown
 #: ../plugins/power/gsd-power-manager.c:1683
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
-"De lading van de UPS is onder het kritieke niveau en deze computer zal "
+"De lading van de UPS is onder het kritieke niveau. De computer zal "
 "uitschakelen."
 
 #. TRANSLATORS: this is the sound description
@@ -2531,7 +2532,7 @@ msgstr "Onderzoeken…"
 #: ../plugins/keybindings/gsd-keybindings-manager.c:139
 #, c-format
 msgid "Key binding (%s) is invalid (%d)"
-msgstr "Sneltoets (%s) is ongeldig (%d)"
+msgstr "Sneltoets (%s) is ongeldig (%d)."
 
 #: ../plugins/keybindings/gsd-keybindings-manager.c:197
 #, c-format
@@ -2689,7 +2690,7 @@ msgstr "Toner leeg"
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:238
 msgid "Not connected?"
-msgstr ""
+msgstr "Niet verbonden?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:240
@@ -2750,9 +2751,9 @@ msgstr "De printer ‘%s’ heeft geen toner meer."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:264
-#, fuzzy, c-format
+#, c-format
 msgid "Printer '%s' may not be connected."
-msgstr "De printer ‘%s’ heeft geen toner meer."
+msgstr "De printer ‘%s’ lijkt niet aangesloten te zijn."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:266
@@ -3021,7 +3022,7 @@ msgstr "Systeemdatum en -tijd instellen"
 
 #: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
 msgid "To change time or date settings, you need to authenticate."
-msgstr "Authenticatie is vereist om dat tijd of datum aan te passen."
+msgstr "Authenticatie is vereist om de tijd of datum aan te passen."
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
 #: ../plugins/updates/gsd-updates-manager.c:199
@@ -3039,7 +3040,7 @@ msgstr "Distributie-upgrade beschikbaar"
 #: ../plugins/updates/gsd-updates-firmware.c:294
 #: ../plugins/updates/gsd-updates-firmware.c:584
 msgid "Software Updates"
-msgstr "Software updates"
+msgstr "Software-updates"
 
 #. TRANSLATORS: provides more information about the upgrade
 #: ../plugins/updates/gsd-updates-manager.c:208
@@ -3058,8 +3059,8 @@ msgstr[1] "Updates"
 #: ../plugins/updates/gsd-updates-manager.c:314
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
-msgstr[0] "Er is een belangrijke software-update beschikbaar"
-msgstr[1] "Er zijn belangrijke software-updates beschikbaar"
+msgstr[0] "Er is een belangrijke software-update beschikbaar."
+msgstr[1] "Er zijn belangrijke software-updates beschikbaar."
 
 #. TRANSLATORS: button: open the update viewer to install updates
 #: ../plugins/updates/gsd-updates-manager.c:333
@@ -3081,7 +3082,7 @@ msgid ""
 "battery power"
 msgstr ""
 "Automatische updates worden niet geïnstalleerd omdat de computer op "
-"accustroom werkt"
+"accustroom werkt."
 
 #. TRANSLATORS: informs user will not install by default
 #: ../plugins/updates/gsd-updates-manager.c:440
@@ -3127,7 +3128,7 @@ msgstr[1] "Er zijn enkele pakketten overgeslagen:"
 #. TRANSLATORS: title: system update completed all okay
 #: ../plugins/updates/gsd-updates-manager.c:572
 msgid "The system update has completed"
-msgstr "De update van het systeem is voltooid"
+msgstr "De update van het systeem is voltooid."
 
 #. TRANSLATORS: restart computer as system packages need update
 #: ../plugins/updates/gsd-updates-manager.c:581
@@ -3153,7 +3154,7 @@ msgstr "Opnieuw proberen"
 #. TRANSLATORS: the reason why we've inhibited it
 #: ../plugins/updates/gsd-updates-manager.c:1097
 msgid "A transaction that cannot be interrupted is running"
-msgstr "Er is een niet-onderbreekbare transactie actief"
+msgstr "Er is een niet-onderbreekbare transactie actief."
 
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:240
@@ -3169,7 +3170,7 @@ msgstr ""
 #: ../plugins/updates/gsd-updates-firmware.c:268
 #: ../plugins/updates/gsd-updates-firmware.c:293
 msgid "Additional software was installed"
-msgstr "Er is aanvullende software geïnstalleerd"
+msgstr "Er is aanvullende software geïnstalleerd."
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:265
