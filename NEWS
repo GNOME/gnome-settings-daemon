@@ -1,4 +1,59 @@
 =============
+Version 3.2.1
+=============
+
+Common:
+- Remove left-over debug (Bastien Nocera) (#660073)
+
+Color:
+- Fix a crash if ~/.local is deleted at runtime (Richard Hughes) (#660664)
+- Do not load all the color devices twice at startup (Richard Hughes)
+- Don't assign the same device more than once at startup (Richard Hughes)
+- Fix critical warning if the user disables the internal LCD screen (Richard Hughes)
+- Reset the gamma tables when the screen configuration changes (Richard Hughes) (#660164)
+- Fix 'make check' by including -lm for powf() (Richard Hughes)
+
+Media keys:
+- Use a GCancellable for g_bus_get calls so that they can be cancelled (Rodrigo Moya)
+- Don't assert if the user sets the 'button-power' action to 'shutdown' (Richard Hughes)
+- Don't assert if the user sets the 'button-power' action to 'nothing' (Richard Hughes)
+- Fix OSD touchpad icon names (Bastien Nocera) (#661179)
+- Fix suspend button not locking the screen (Bastien Nocera) (#660267)
+
+Power:
+- Don't restore the brightness if it's never been set (Richard Hughes)
+- Fix two small reference leaks when using the D-Bus interface (Richard Hughes)
+- Use a GCancellable for g_bus_get calls so that they can be cancelled (Rodrigo Moya)
+- Do not sleep-on-idle by default (Richard Hughes) (#660395)
+- Do not revert to the pre-idle brightness if idle dimming is disabled (Richard Hughes) (#660434)
+- Ensure the DPMS state is 'on' at startup (Richard Hughes) (#660482)
+- Close low-battery notification when plugged in (Florian Müllner) (#660942)
+- Don't crash when setting the dim timeout when using NX (Richard Hughes) (#661000)
+- Call XSyncInitialize() in case GTK+ wasn't compiled with XSync support (Richard Hughes)
+- Emit 'Changed' signal to all listeners (Gary Ching-Pang Lin)
+
+Printers:
+- Fix build on systems without LC_PAPER (Bastien Nocera) (#660626)
+- Call setlocale() (Bastien Nocera) (#660632)
+- Exit gsd-printer when session ends (Marek Kasik) (#660158)
+- Correct signature when calling PrinterAddOptionDefault (Marek Kasik)
+- Don't show "Not connected?" when not needed (Marek Kasik)
+- Unown name on the system bus when session goes idle (Marek Kasik)
+
+Wacom:
+- Fix possible crasher (Bastien Nocera) (#661170)
+
+Xrandr:
+- Use a GCancellable for g_bus_get calls so that they can be cancelled (Rodrigo Moya)
+
+Translations:
+- ast (Xandru Armesto)
+- gl (Fran Dieguez)
+- nl (Redmar, Wouter Bolsterlee)
+- or (Manoj Kumar Giri)
+- vi (Nguyễn Thái Ngọc Duy)
+
+=============
 Version 3.2.0
 =============
 
