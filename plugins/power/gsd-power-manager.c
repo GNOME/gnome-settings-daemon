@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <sys/wait.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <libupower-glib/upower.h>
