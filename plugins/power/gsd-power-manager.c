@@ -3061,7 +3061,7 @@ session_proxy_ready_cb (GObject *source_object,
 
         manager->priv->session_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
         if (manager->priv->session_proxy == NULL) {
-                g_warning ("Could not connect to gnome-sesson: %s",
+                g_warning ("Could not connect to gnome-session: %s",
                            error->message);
                 g_error_free (error);
                 return;
