@@ -2053,16 +2053,6 @@ on_bus_gotten (GObject             *source_object,
                           NULL,
                           (GAsyncReadyCallback) power_keyboard_ready_cb,
                           manager);
-
-        g_dbus_proxy_new (manager->priv->connection,
-                          G_DBUS_PROXY_FLAGS_NONE,
-                          NULL,
-                          "org.freedesktop.UPower",
-                          "/org/freedesktop/UPower",
-                          "org.freedesktop.UPower",
-                          NULL,
-                          (GAsyncReadyCallback) upower_ready_cb,
-                          manager);
 }
 
 static void
@@ -2076,6 +2066,16 @@ register_manager (GsdMediaKeysManager *manager)
                    manager->priv->bus_cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  "org.freedesktop.UPower",
+                                  "/org/freedesktop/UPower",
+                                  "org.freedesktop.UPower",
+                                  NULL,
+                                  (GAsyncReadyCallback) upower_ready_cb,
+                                  manager);
 }
 
 GsdMediaKeysManager *
