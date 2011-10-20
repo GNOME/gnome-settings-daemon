@@ -197,7 +197,6 @@ gcm_profile_store_file_monitor_changed_cb (GFileMonitor *monitor,
 {
         gchar *path = NULL;
         gchar *parent_path = NULL;
-        GFile *parent = NULL;
         const gchar *tmp;
         GcmProfileStoreDirHelper *helper;
 
@@ -238,8 +237,6 @@ gcm_profile_store_file_monitor_changed_cb (GFileMonitor *monitor,
                 goto out;
         }
 out:
-        if (parent != NULL)
-                g_object_unref (parent);
         g_free (path);
         g_free (parent_path);
 }
