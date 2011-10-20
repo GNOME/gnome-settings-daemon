@@ -1918,7 +1918,6 @@ gcm_session_profile_store_added_cb (GcmProfileStore *profile_store,
                                     const gchar *filename,
                                     GsdColorManager *manager)
 {
-        CdProfile *profile = NULL;
         gchar *checksum = NULL;
         gchar *profile_id = NULL;
         GError *error = NULL;
@@ -1958,8 +1957,6 @@ out:
         g_free (profile_id);
         if (profile_props != NULL)
                 g_hash_table_unref (profile_props);
-        if (profile != NULL)
-                g_object_unref (profile);
 }
 
 static void
