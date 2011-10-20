@@ -387,7 +387,6 @@ static void
 apply_xkb_settings (void)
 {
 	GkbdKeyboardConfig current_sys_kbd_config;
-	int group_to_activate = -1;
 
 	if (!inited_ok)
 		return;
@@ -417,9 +416,6 @@ apply_xkb_settings (void)
 		xkl_debug (100,
 			   "Actual KBD configuration was not changed: redundant notification\n");
 
-	if (group_to_activate != -1)
-		xkl_engine_lock_group (current_config.engine,
-				       group_to_activate);
 	gkbd_keyboard_config_term (&current_sys_kbd_config);
 	show_hide_icon ();
 }
