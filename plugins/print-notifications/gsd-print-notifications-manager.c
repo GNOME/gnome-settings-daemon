@@ -478,7 +478,7 @@ on_cups_notification (GDBusConnection *connection,
                                strcmp0);
 
                         j = 0;
-                        for (i = 0; i < g_strv_length (new_state_reasons); i++) {
+                        for (i = 0; new_state_reasons && i < g_strv_length (new_state_reasons); i++) {
                                 while (old_state_reasons[j] &&
                                        g_strcmp0 (old_state_reasons[j], new_state_reasons[i]) < 0)
                                         j++;
@@ -490,7 +490,7 @@ on_cups_notification (GDBusConnection *connection,
                         }
                 }
                 else {
-                        for (i = 0; i < g_strv_length (new_state_reasons); i++) {
+                        for (i = 0; new_state_reasons && i < g_strv_length (new_state_reasons); i++) {
                                 added_reasons = g_slist_append (added_reasons,
                                                                 new_state_reasons[i]);
                         }
