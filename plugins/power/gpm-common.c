@@ -290,7 +290,7 @@ gpm_upower_get_device_summary (UpDevice *device)
 
         /* we care if we are on AC */
         if (kind == UP_DEVICE_KIND_PHONE) {
-                if (state == UP_DEVICE_STATE_CHARGING || !state == UP_DEVICE_STATE_DISCHARGING) {
+                if (state == UP_DEVICE_STATE_CHARGING || !(state == UP_DEVICE_STATE_DISCHARGING)) {
                         g_string_append (description, device_desc);
                         g_string_append_printf (description, " (%.0f%%)", percentage);
                         goto out;
