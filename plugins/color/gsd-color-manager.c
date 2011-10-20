@@ -492,12 +492,12 @@ out:
 static wchar_t *
 utf8_to_wchar_t (const char *src)
 {
-        gsize len;
-        gsize converted;
+        size_t len;
+        size_t converted;
         wchar_t *buf = NULL;
 
         len = mbstowcs (NULL, src, 0);
-        if (len < 0) {
+        if (len == (size_t) -1) {
                 g_warning ("Invalid UTF-8 in string %s", src);
                 goto out;
         }
