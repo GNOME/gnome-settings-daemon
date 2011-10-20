@@ -410,7 +410,7 @@ ignore_devices (GsdUpdatesFirmware *firmware)
         gchar *existing = NULL;
         GsdUpdatesFirmwareRequest *req;
         GPtrArray *array;
-        GString *string = NULL;
+        GString *string;
         guint i;
 
         /* get from settings */
@@ -439,8 +439,7 @@ ignore_devices (GsdUpdatesFirmware *firmware)
                                string->str);
 
         g_free (existing);
-        if (string != NULL)
-                g_string_free (string, TRUE);
+        g_string_free (string, TRUE);
 }
 
 static PkPackage *
