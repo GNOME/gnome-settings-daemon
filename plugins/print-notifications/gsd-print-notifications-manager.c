@@ -238,7 +238,7 @@ on_cups_notification (GDBusConnection *connection,
                 N_("Not connected?"),
                 /* Translators: One or more covers on the printer are open (same as in system-config-printer) */
                 N_("Cover open"),
-                /* Trnaslators: A filter or backend is not installed (same as in system-config-printer) */
+                /* Translators: A filter or backend is not installed (same as in system-config-printer) */
                 N_("Printer configuration error"),
                 /* Translators: One or more doors on the printer are open (same as in system-config-printer) */
                 N_("Door open"),
@@ -264,7 +264,7 @@ on_cups_notification (GDBusConnection *connection,
                 N_("Printer '%s' may not be connected."),
                 /* Translators: One or more covers on the printer are open (same as in system-config-printer) */
                 N_("The cover is open on printer '%s'."),
-                /* Trnaslators: A filter or backend is not installed (same as in system-config-printer) */
+                /* Translators: A filter or backend is not installed (same as in system-config-printer) */
                 N_("There is a missing print filter for "
                    "printer '%s'."),
                 /* Translators: One or more doors on the printer are open (same as in system-config-printer) */
