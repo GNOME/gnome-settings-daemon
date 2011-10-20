@@ -590,8 +590,7 @@ notify_update_finished (GsdUpdatesManager *manager, PkResults *results)
 out:
         if (message_text != NULL)
                 g_string_free (message_text, TRUE);
-        if (array != NULL)
-                g_ptr_array_unref (array);
+        g_ptr_array_unref (array);
 }
 
 static void
