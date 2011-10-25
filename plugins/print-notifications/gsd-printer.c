@@ -1368,7 +1368,7 @@ main (int argc, char *argv[])
   if (npn_introspection_data == NULL) {
           g_warning ("Error parsing introspection XML: %s\n", error->message);
           g_error_free (error);
-          goto Error;
+          goto error;
   }
 
   pdi_introspection_data =
@@ -1377,7 +1377,7 @@ main (int argc, char *argv[])
   if (pdi_introspection_data == NULL) {
           g_warning ("Error parsing introspection XML: %s\n", error->message);
           g_error_free (error);
-          goto Error;
+          goto error;
   }
 
   connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
@@ -1449,7 +1449,7 @@ main (int argc, char *argv[])
 
   return 0;
 
-Error:
+error:
 
   if (npn_introspection_data)
           g_dbus_node_info_unref (npn_introspection_data);
