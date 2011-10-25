@@ -1140,14 +1140,20 @@ on_npn_bus_acquired (GDBusConnection *connection,
                      const gchar     *name,
                      gpointer         user_data)
 {
+        GError *error = NULL;
+
         npn_registration_id = g_dbus_connection_register_object (connection,
                                                                  SCP_DBUS_NPN_PATH,
                                                                  npn_introspection_data->interfaces[0],
                                                                  &interface_vtable,
                                                                  NULL,
                                                                  NULL,
-                                                                 NULL);
-        g_assert (npn_registration_id > 0);
+                                                                 &error);
+
+        if (npn_registration_id == 0) {
+                g_warning ("Failed to register object: %s\n", error->message);
+                g_error_free (error);
+        }
 }
 
 static void
@@ -1155,14 +1161,20 @@ on_pdi_bus_acquired (GDBusConnection *connection,
                      const gchar     *name,
                      gpointer         user_data)
 {
+        GError *error = NULL;
+
         pdi_registration_id = g_dbus_connection_register_object (connection,
                                                                  SCP_DBUS_PDI_PATH,
-                                                                 npn_introspection_data->interfaces[0],
+                                                                 pdi_introspection_data->interfaces[0],
                                                                  &interface_vtable,
                                                                  NULL,
                                                                  NULL,
-                                                                 NULL);
-        g_assert (npn_registration_id > 0);
+                                                                 &error);
+
+        if (pdi_registration_id == 0) {
+                g_warning ("Failed to register object: %s\n", error->message);
+                g_error_free (error);
+        }
 }
 
 static void
@@ -1351,12 +1363,22 @@ main (int argc, char *argv[])
   notify_init ("gnome-settings-daemon-printer");
 
   npn_introspection_data =
-          g_dbus_node_info_new_for_xml (npn_introspection_xml, NULL);
-  g_assert (npn_introspection_data != NULL);
+          g_dbus_node_info_new_for_xml (npn_introspection_xml, &error);
+
+  if (npn_introspection_data == NULL) {
+          g_warning ("Error parsing introspection XML: %s\n", error->message);
+          g_error_free (error);
+          goto Error;
+  }
 
   pdi_introspection_data =
-          g_dbus_node_info_new_for_xml (pdi_introspection_xml, NULL);
-  g_assert (pdi_introspection_data != NULL);
+          g_dbus_node_info_new_for_xml (pdi_introspection_xml, &error);
+
+  if (pdi_introspection_data == NULL) {
+          g_warning ("Error parsing introspection XML: %s\n", error->message);
+          g_error_free (error);
+          goto Error;
+  }
 
   connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
 
@@ -1426,4 +1448,14 @@ main (int argc, char *argv[])
   g_dbus_node_info_unref (pdi_introspection_data);
 
   return 0;
+
+Error:
+
+  if (npn_introspection_data)
+          g_dbus_node_info_unref (npn_introspection_data);
+
+  if (pdi_introspection_data)
+          g_dbus_node_info_unref (pdi_introspection_data);
+
+  return 1;
 }
