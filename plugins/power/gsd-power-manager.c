@@ -1185,6 +1185,8 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
                                          NOTIFY_URGENCY_NORMAL);
         /* TRANSLATORS: this is the notification application name */
         notify_notification_set_app_name (manager->priv->notification_discharging, _("Power"));
+        notify_notification_set_hint (manager->priv->notification_discharging,
+                                      "transient", g_variant_new_boolean (TRUE));
         g_object_add_weak_pointer (G_OBJECT (manager->priv->notification_discharging),
                                    (gpointer) &manager->priv->notification_discharging);
 
@@ -1361,6 +1363,8 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         notify_notification_set_urgency (manager->priv->notification_low,
                                          NOTIFY_URGENCY_NORMAL);
         notify_notification_set_app_name (manager->priv->notification_low, _("Power"));
+        notify_notification_set_hint (manager->priv->notification_low,
+                                      "transient", g_variant_new_boolean (TRUE));
         g_object_add_weak_pointer (G_OBJECT (manager->priv->notification_low),
                                    (gpointer) &manager->priv->notification_low);
 
