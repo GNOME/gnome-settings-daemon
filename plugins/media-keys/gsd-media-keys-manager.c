@@ -689,6 +689,7 @@ update_dialog (GsdMediaKeysManager *manager,
                                         CA_PROP_EVENT_ID, "audio-volume-change",
                                         CA_PROP_EVENT_DESCRIPTION, "volume changed through key press",
                                         CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
+                                        CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
                                         NULL);
 }
 
