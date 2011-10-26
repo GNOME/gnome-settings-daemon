@@ -323,11 +323,14 @@ on_cups_notification (GDBusConnection *connection,
                 else {
                         job_uri = g_strdup_printf ("ipp://localhost/jobs/%d", job_id);
 
-                        request = ippNewRequest(IPP_GET_JOB_ATTRIBUTES);
-                        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, job_uri);
-                        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
+                        request = ippNewRequest (IPP_GET_JOB_ATTRIBUTES);
+                        ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
+                                      "job-uri", NULL, job_uri);
+                        ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_NAME,
+                                     "requesting-user-name", NULL, cupsUser ());
+                        ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                                      "requested-attributes", NULL, "job-originating-user-name");
-                        response = cupsDoRequest(http, request, "/");
+                        response = cupsDoRequest (http, request, "/");
 
                         if (response) {
                                 if (response->request.status.status_code <= IPP_OK_CONFLICT &&
