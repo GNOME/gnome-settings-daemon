@@ -396,10 +396,12 @@ init_kbd (GsdMediaKeysManager *manager)
                 key = g_new0 (Key, 1);
                 ret = egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state);
                 if (ret != EGG_PARSE_ERROR_NONE) {
-                        if (keys[i].settings_key != NULL)
-                                g_debug ("Unable to parse key '%s' for GSettings entry '%s' (%d)", tmp, keys[i].settings_key, ret);
-                        else
-                                g_debug ("Unable to parse hard-coded key '%s' (%d)", keys[i].hard_coded, ret);
+                        if (ret != EGG_PARSE_ERROR_NOT_IN_KEYMAP) {
+                                if (keys[i].settings_key != NULL)
+                                        g_debug ("Unable to parse key '%s' for GSettings entry '%s' (%d)", tmp, keys[i].settings_key, ret);
+                                else
+                                        g_debug ("Unable to parse hard-coded key '%s' (%d)", keys[i].hard_coded, ret);
+                        }
                         g_free (tmp);
                         g_free (key);
                         continue;
