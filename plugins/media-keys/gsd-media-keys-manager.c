@@ -769,8 +769,9 @@ update_default_sink (GsdMediaKeysManager *manager)
 }
 
 static void
-on_control_ready (GvcMixerControl     *control,
-                  GsdMediaKeysManager *manager)
+on_control_state_changed (GvcMixerControl     *control,
+                          GvcMixerControlState new_state,
+                          GsdMediaKeysManager *manager)
 {
         update_default_sink (manager);
 }
@@ -1721,8 +1722,8 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         manager->priv->volume = gvc_mixer_control_new ("GNOME Volume Control Media Keys");
 
         g_signal_connect (manager->priv->volume,
-                          "ready",
-                          G_CALLBACK (on_control_ready),
+                          "state-changed",
+                          G_CALLBACK (on_control_state_changed),
                           manager);
         g_signal_connect (manager->priv->volume,
                           "default-sink-changed",
