@@ -86,24 +86,35 @@ device_set_property (XDevice        *xdevice,
         return TRUE;
 }
 
-gboolean
-supports_xinput_devices (void)
+static gboolean
+supports_xinput_devices_with_opcode (int *opcode)
 {
         gint op_code, event, error;
+        gboolean retval;
 
-        return XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                "XInputExtension",
-                                &op_code,
-                                &event,
-                                &error);
+        retval = XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+				  "XInputExtension",
+				  &op_code,
+				  &event,
+				  &error);
+	if (opcode)
+		*opcode = op_code;
+
+	return retval;
 }
 
 gboolean
-supports_xinput2_devices (void)
+supports_xinput_devices (void)
+{
+	return supports_xinput_devices_with_opcode (NULL);
+}
+
+gboolean
+supports_xinput2_devices (int *opcode)
 {
         int major, minor;
 
-        if (supports_xinput_devices () == FALSE)
+        if (supports_xinput_devices_with_opcode (opcode) == FALSE)
                 return FALSE;
 
         gdk_error_trap_push ();

@@ -49,7 +49,7 @@ typedef struct {
 } PropertyHelper;
 
 gboolean  supports_xinput_devices  (void);
-gboolean  supports_xinput2_devices (void);
+gboolean  supports_xinput2_devices (int *opcode);
 
 gboolean set_device_enabled       (int device_id,
                                    gboolean enabled);
