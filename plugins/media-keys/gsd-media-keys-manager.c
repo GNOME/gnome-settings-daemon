@@ -40,6 +40,10 @@
 #include <gtk/gtk.h>
 #include <gio/gdesktopappinfo.h>
 
+#ifdef HAVE_GUDEV
+#include <gudev/gudev.h>
+#endif
+
 #include "gnome-settings-profile.h"
 #include "gsd-marshal.h"
 #include "gsd-media-keys-manager.h"
@@ -50,7 +54,7 @@
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
 
-#include <canberra-gtk.h>
+#include <canberra.h>
 #include <pulse/pulseaudio.h>
 #include "gvc-mixer-control.h"
 
@@ -105,6 +109,12 @@ struct GsdMediaKeysManagerPrivate
         /* Volume bits */
         GvcMixerControl *volume;
         GvcMixerStream  *stream;
+        ca_context      *ca;
+        GtkSettings     *gtksettings;
+#ifdef HAVE_GUDEV
+        GHashTable      *streams; /* key = X device ID, value = stream id */
+        GUdevClient     *udev_client;
+#endif /* HAVE_GUDEV */
 
         GtkWidget       *dialog;
         GSettings       *settings;
@@ -123,6 +133,7 @@ struct GsdMediaKeysManagerPrivate
         /* Multihead stuff */
         GdkScreen       *current_screen;
         GSList          *screens;
+        int              opcode;
 
         GList           *media_players;
 
@@ -666,10 +677,11 @@ do_touchpad_action (GsdMediaKeysManager *manager)
 
 static void
 update_dialog (GsdMediaKeysManager *manager,
-               guint vol,
-               gboolean muted,
-               gboolean sound_changed,
-               gboolean quiet)
+               GvcMixerStream      *stream,
+               guint                vol,
+               gboolean             muted,
+               gboolean             sound_changed,
+               gboolean             quiet)
 {
         if (!muted) {
                 vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
@@ -686,32 +698,145 @@ update_dialog (GsdMediaKeysManager *manager,
                                           GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME);
         dialog_show (manager);
 
-        if (quiet == FALSE && sound_changed != FALSE && muted == FALSE)
-                ca_gtk_play_for_widget (manager->priv->dialog, 0,
+        if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
+                ca_context_change_device (manager->priv->ca,
+                                          gvc_mixer_stream_get_name (stream));
+                ca_context_play (manager->priv->ca, 1,
                                         CA_PROP_EVENT_ID, "audio-volume-change",
                                         CA_PROP_EVENT_DESCRIPTION, "volume changed through key press",
-                                        CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
                                         CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
                                         NULL);
+        }
 }
+
+#ifdef HAVE_GUDEV
+/* PulseAudio gives us /devices/... paths, when udev
+ * expects /sys/devices/... paths. */
+static GUdevDevice *
+get_udev_device_for_sysfs_path (GsdMediaKeysManager *manager,
+				const char *sysfs_path)
+{
+	char *path;
+	GUdevDevice *dev;
+
+	path = g_strdup_printf ("/sys%s", sysfs_path);
+	dev = g_udev_client_query_by_sysfs_path (manager->priv->udev_client, path);
+	g_free (path);
+
+	return dev;
+}
+
+static GvcMixerStream *
+get_stream_for_device_id (GsdMediaKeysManager *manager,
+			  guint                deviceid)
+{
+	char *devnode;
+	gpointer id_ptr;
+	GvcMixerStream *res;
+	GUdevDevice *dev, *parent;
+	GSList *sinks, *l;
+
+	id_ptr = g_hash_table_lookup (manager->priv->streams, GUINT_TO_POINTER (deviceid));
+	if (id_ptr != NULL) {
+		if (GPOINTER_TO_UINT (id_ptr) == (guint) -1)
+			return NULL;
+		else
+			return gvc_mixer_control_lookup_stream_id (manager->priv->volume, GPOINTER_TO_UINT (id_ptr));
+	}
+
+	devnode = xdevice_get_device_node (deviceid);
+	if (devnode == NULL) {
+		g_debug ("Could not find device node for XInput device %d", deviceid);
+		return NULL;
+	}
+
+	dev = g_udev_client_query_by_device_file (manager->priv->udev_client, devnode);
+	if (dev == NULL) {
+		g_debug ("Could not find udev device for device path '%s'", devnode);
+		g_free (devnode);
+		return NULL;
+	}
+	g_free (devnode);
+
+	if (g_strcmp0 (g_udev_device_get_property (dev, "ID_BUS"), "usb") != 0) {
+		g_debug ("Not handling XInput device %d, not USB", deviceid);
+		g_hash_table_insert (manager->priv->streams,
+				     GUINT_TO_POINTER (deviceid),
+				     GUINT_TO_POINTER ((guint) -1));
+		g_object_unref (dev);
+		return NULL;
+	}
+
+	parent = g_udev_device_get_parent_with_subsystem (dev, "usb", "usb_device");
+	if (parent == NULL) {
+		g_warning ("No USB device parent for XInput device %d even though it's USB", deviceid);
+		g_object_unref (dev);
+		return NULL;
+	}
+
+	res = NULL;
+	sinks = gvc_mixer_control_get_sinks (manager->priv->volume);
+	for (l = sinks; l; l = l->next) {
+		GvcMixerStream *stream = l->data;
+		const char *sysfs_path;
+		GUdevDevice *sink_dev, *sink_parent;
+
+		sysfs_path = gvc_mixer_stream_get_sysfs_path (stream);
+		sink_dev = get_udev_device_for_sysfs_path (manager, sysfs_path);
+		if (sink_dev == NULL)
+			continue;
+		sink_parent = g_udev_device_get_parent_with_subsystem (sink_dev, "usb", "usb_device");
+		g_object_unref (sink_dev);
+		if (sink_parent == NULL)
+			continue;
+
+		if (g_strcmp0 (g_udev_device_get_sysfs_path (sink_parent),
+			       g_udev_device_get_sysfs_path (parent)) == 0) {
+			res = stream;
+		}
+		g_object_unref (sink_parent);
+		if (res != NULL)
+			break;
+	}
+
+	if (res)
+		g_hash_table_insert (manager->priv->streams,
+				     GUINT_TO_POINTER (deviceid),
+				     GUINT_TO_POINTER (gvc_mixer_stream_get_id (res)));
+	else
+		g_hash_table_insert (manager->priv->streams,
+				     GUINT_TO_POINTER (deviceid),
+				     GUINT_TO_POINTER ((guint) -1));
+
+	return res;
+}
+#endif /* HAVE_GUDEV */
 
 static void
 do_sound_action (GsdMediaKeysManager *manager,
+		 guint                deviceid,
                  int                  type,
                  gboolean             quiet)
 {
+	GvcMixerStream *stream;
         gboolean old_muted, new_muted;
         guint old_vol, new_vol, norm_vol_step;
         gboolean sound_changed;
 
-        if (manager->priv->stream == NULL)
+        /* Find the stream that corresponds to the device, if any */
+#ifdef HAVE_GUDEV
+        stream = get_stream_for_device_id (manager, deviceid);
+        if (stream == NULL)
+#endif /* HAVE_GUDEV */
+                stream = manager->priv->stream;
+        if (stream == NULL)
                 return;
 
         norm_vol_step = PA_VOLUME_NORM * VOLUME_STEP / 100;
 
         /* FIXME: this is racy */
-        new_vol = old_vol = gvc_mixer_stream_get_volume (manager->priv->stream);
-        new_muted = old_muted = gvc_mixer_stream_get_is_muted (manager->priv->stream);
+        new_vol = old_vol = gvc_mixer_stream_get_volume (stream);
+        new_muted = old_muted = gvc_mixer_stream_get_is_muted (stream);
         sound_changed = FALSE;
 
         switch (type) {
@@ -735,18 +860,31 @@ do_sound_action (GsdMediaKeysManager *manager,
         }
 
         if (old_muted != new_muted) {
-                gvc_mixer_stream_change_is_muted (manager->priv->stream, new_muted);
+                gvc_mixer_stream_change_is_muted (stream, new_muted);
                 sound_changed = TRUE;
         }
 
         if (old_vol != new_vol) {
-                if (gvc_mixer_stream_set_volume (manager->priv->stream, new_vol) != FALSE) {
-                        gvc_mixer_stream_push_volume (manager->priv->stream);
+                if (gvc_mixer_stream_set_volume (stream, new_vol) != FALSE) {
+                        gvc_mixer_stream_push_volume (stream);
                         sound_changed = TRUE;
                 }
         }
 
-        update_dialog (manager, new_vol, new_muted, sound_changed, quiet);
+        update_dialog (manager, stream, new_vol, new_muted, sound_changed, quiet);
+}
+
+static void
+sound_theme_changed (GtkSettings         *settings,
+                     GParamSpec          *pspec,
+                     GsdMediaKeysManager *manager)
+{
+        char *theme_name;
+
+        g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
+        if (theme_name)
+                ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
+        g_free (theme_name);
 }
 
 static void
@@ -786,6 +924,18 @@ on_control_default_sink_changed (GvcMixerControl     *control,
         update_default_sink (manager);
 }
 
+#ifdef HAVE_GUDEV
+static gboolean
+remove_stream (gpointer key,
+	       gpointer value,
+	       gpointer id)
+{
+	if (GPOINTER_TO_UINT (value) == GPOINTER_TO_UINT (id))
+		return TRUE;
+	return FALSE;
+}
+#endif /* HAVE_GUDEV */
+
 static void
 on_control_stream_removed (GvcMixerControl     *control,
                            guint                id,
@@ -797,6 +947,10 @@ on_control_stream_removed (GvcMixerControl     *control,
 			manager->priv->stream = NULL;
 		}
         }
+
+#ifdef HAVE_GUDEV
+	g_hash_table_foreach_remove (manager->priv->streams, (GHRFunc) remove_stream, GUINT_TO_POINTER (id));
+#endif
 }
 
 static void
@@ -1426,12 +1580,13 @@ do_keyboard_brightness_action (GsdMediaKeysManager *manager,
 
 static gboolean
 do_action (GsdMediaKeysManager *manager,
+           guint                deviceid,
            MediaKeyType         type,
            gint64               timestamp)
 {
         char *cmd;
 
-        g_debug ("Launching action for key type '%d'", type);
+        g_debug ("Launching action for key type '%d' (on device id %d)", type, deviceid);
 
         switch (type) {
         case TOUCHPAD_KEY:
@@ -1446,16 +1601,16 @@ do_action (GsdMediaKeysManager *manager,
         case MUTE_KEY:
         case VOLUME_DOWN_KEY:
         case VOLUME_UP_KEY:
-                do_sound_action (manager, type, FALSE);
+                do_sound_action (manager, deviceid, type, FALSE);
                 break;
         case MUTE_QUIET_KEY:
-                do_sound_action (manager, MUTE_KEY, TRUE);
+                do_sound_action (manager, deviceid, MUTE_KEY, TRUE);
                 break;
         case VOLUME_DOWN_QUIET_KEY:
-                do_sound_action (manager, VOLUME_DOWN_KEY, TRUE);
+                do_sound_action (manager, deviceid, VOLUME_DOWN_KEY, TRUE);
                 break;
         case VOLUME_UP_QUIET_KEY:
-                do_sound_action (manager, VOLUME_UP_KEY, TRUE);
+                do_sound_action (manager, deviceid, VOLUME_UP_KEY, TRUE);
                 break;
         case LOGOUT_KEY:
                 do_logout_action (manager);
@@ -1571,61 +1726,71 @@ do_action (GsdMediaKeysManager *manager,
 }
 
 static GdkScreen *
-acme_get_screen_from_event (GsdMediaKeysManager *manager,
-                            XAnyEvent           *xanyev)
+acme_get_screen_from_root (GsdMediaKeysManager *manager,
+                           Window               root)
 {
-        GdkWindow *window;
-        GdkScreen *screen;
         GSList    *l;
 
         /* Look for which screen we're receiving events */
         for (l = manager->priv->screens; l != NULL; l = l->next) {
-                screen = (GdkScreen *) l->data;
-                window = gdk_screen_get_root_window (screen);
+                GdkScreen *screen = (GdkScreen *) l->data;
+                GdkWindow *window = gdk_screen_get_root_window (screen);
 
-                if (GDK_WINDOW_XID (window) == xanyev->window) {
+                if (GDK_WINDOW_XID (window) == root)
                         return screen;
-                }
         }
 
         return NULL;
 }
 
 static GdkFilterReturn
-acme_filter_events (GdkXEvent           *xevent,
+acme_filter_events (XEvent              *xevent,
                     GdkEvent            *event,
                     GsdMediaKeysManager *manager)
 {
-        XEvent    *xev = (XEvent *) xevent;
-        XAnyEvent *xany = (XAnyEvent *) xevent;
-        int        i;
+	XIEvent             *xiev;
+	XIDeviceEvent       *xev;
+	XGenericEventCookie *cookie;
+        guint                i;
+	guint                deviceid;
 
         /* verify we have a key event */
-        if (xev->type != KeyPress && xev->type != KeyRelease) {
-                return GDK_FILTER_CONTINUE;
-        }
+	if (xevent->type != GenericEvent)
+		return GDK_FILTER_CONTINUE;
+	cookie = &xevent->xcookie;
+	if (cookie->extension != manager->priv->opcode)
+		return GDK_FILTER_CONTINUE;
+
+	xiev = (XIEvent *) xevent->xcookie.data;
+
+	if (xiev->evtype != XI_KeyPress &&
+	    xiev->evtype != XI_KeyRelease)
+		return GDK_FILTER_CONTINUE;
+
+	xev = (XIDeviceEvent *) xiev;
+
+	deviceid = xev->sourceid;
 
         for (i = 0; i < HANDLED_KEYS; i++) {
-                if (match_key (keys[i].key, xev)) {
+                if (match_xi2_key (keys[i].key, xev)) {
                         switch (keys[i].key_type) {
                         case VOLUME_DOWN_KEY:
                         case VOLUME_UP_KEY:
                         case VOLUME_DOWN_QUIET_KEY:
                         case VOLUME_UP_QUIET_KEY:
                                 /* auto-repeatable keys */
-                                if (xev->type != KeyPress) {
+                                if (xiev->evtype != XI_KeyPress)
                                         return GDK_FILTER_CONTINUE;
-                                }
                                 break;
                         default:
-                                if (xev->type != KeyRelease) {
+                                if (xiev->evtype != XI_KeyRelease) {
                                         return GDK_FILTER_CONTINUE;
                                 }
                         }
 
-                        manager->priv->current_screen = acme_get_screen_from_event (manager, xany);
+                        manager->priv->current_screen = acme_get_screen_from_root (manager, xev->root);
 
-                        if (do_action (manager, keys[i].key_type, xev->xkey.time) == FALSE) {
+                        if (do_action (manager, deviceid, keys[i].key_type, xev->time) == FALSE) {
                                 return GDK_FILTER_REMOVE;
                         } else {
                                 return GDK_FILTER_CONTINUE;
@@ -1661,12 +1826,27 @@ static gboolean
 start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 {
         GSList *l;
+        char *theme_name;
 
         g_debug ("Starting media_keys manager");
         gnome_settings_profile_start (NULL);
         manager->priv->settings = g_settings_new (SETTINGS_BINDING_DIR);
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (update_kbd_cb), manager);
+
+        /* Sound events */
+        ca_context_create (&manager->priv->ca);
+        ca_context_set_driver (manager->priv->ca, "pulse");
+        ca_context_change_props (manager->priv->ca, 0,
+                                 CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
+                                 NULL);
+        manager->priv->gtksettings = gtk_settings_get_for_screen (gdk_screen_get_default ());
+        g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
+        if (theme_name)
+                ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
+        g_free (theme_name);
+        g_signal_connect (manager->priv->gtksettings, "notify::gtk-sound-theme-name",
+                          G_CALLBACK (sound_theme_changed), manager);
 
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
@@ -1711,7 +1891,19 @@ gboolean
 gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
                               GError             **error)
 {
+        const char * const subsystems[] = { "input", "usb", "sound", NULL };
+
         gnome_settings_profile_start (NULL);
+
+        if (supports_xinput2_devices (&manager->priv->opcode) == FALSE) {
+                g_debug ("No Xinput2 support, disabling plugin");
+                return TRUE;
+        }
+
+#ifdef HAVE_GUDEV
+        manager->priv->streams = g_hash_table_new (g_direct_hash, g_direct_equal);
+        manager->priv->udev_client = g_udev_client_new (subsystems);
+#endif
 
         /* initialise Volume handler
          *
@@ -1771,6 +1963,25 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                                           (GdkFilterFunc) acme_filter_events,
                                           manager);
         }
+
+        g_signal_handlers_disconnect_by_func (manager->priv->gtksettings, sound_theme_changed, manager);
+        manager->priv->gtksettings = NULL;
+
+        if (manager->priv->ca) {
+                ca_context_destroy (manager->priv->ca);
+                manager->priv->ca = NULL;
+        }
+
+#ifdef HAVE_GUDEV
+        if (priv->streams) {
+                g_hash_table_destroy (priv->streams);
+                priv->streams = NULL;
+        }
+        if (priv->udev_client) {
+                g_object_unref (priv->udev_client);
+                priv->udev_client = NULL;
+        }
+#endif /* HAVE_GUDEV */
 
         if (priv->settings) {
                 g_object_unref (priv->settings);
