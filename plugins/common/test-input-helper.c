@@ -56,7 +56,7 @@ int main (int argc, char **argv)
 	gboolean supports_xinput;
 	gboolean has_touchpad, has_touchscreen;
         XDeviceInfo *device_info;
-        gint n_devices;
+        gint n_devices, opcode;
         guint i;
 
 	gtk_init (&argc, &argv);
@@ -68,9 +68,9 @@ int main (int argc, char **argv)
 		g_print ("Supports XInput:\t\t\tno\n");
 		return 0;
 	}
-	supports_xinput = supports_xinput2_devices ();
+	supports_xinput = supports_xinput2_devices (&opcode);
 	if (supports_xinput) {
-		g_print ("Supports XInput2:\t\t\tyes\n");
+		g_print ("Supports XInput2:\t\t\tyes (opcode: %d)\n", opcode);
 	} else {
 		g_print ("Supports XInput2:\t\t\tno\n");
 		return 0;
