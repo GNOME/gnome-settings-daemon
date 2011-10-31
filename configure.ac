@@ -145,6 +145,26 @@ fi
 AC_SUBST(DBUS_SYS_DIR)
 
 dnl ---------------------------------------------------------------------------
+dnl - GUdev integration (default enabled)
+dnl ---------------------------------------------------------------------------
+GUDEV_PKG=""
+AC_ARG_ENABLE(gudev, AS_HELP_STRING([--disable-gudev],[Disable GUdev support]), enable_gudev=$enableval)
+if test x$enable_gudev != xno; then
+	PKG_CHECK_MODULES(GUDEV, gudev-1.0, HAVE_GUDEV="yes", HAVE_GUDEV="no")
+	if test "x$HAVE_GUDEV" = "xyes"; then
+		AC_DEFINE(HAVE_GUDEV, 1, [define if GUdev is available])
+		GUDEV_PKG="gudev-1.0"
+	else
+		if test x$enable_gudev = xyes; then
+			AC_MSG_ERROR([GUdev enabled but not found])
+		fi
+	fi
+else
+	HAVE_GUDEV=no
+fi
+AM_CONDITIONAL(HAVE_GUDEV, test x$HAVE_GUDEV = xyes)
+
+dnl ---------------------------------------------------------------------------
 dnl - common
 dnl ---------------------------------------------------------------------------
 
@@ -231,25 +251,6 @@ AM_CONDITIONAL(HAVE_PACKAGEKIT, test "x$have_packagekit" = "xtrue")
 
 AC_SUBST(PACKAGEKIT_CFLAGS)
 AC_SUBST(PACKAGEKIT_LIBS)
-
-dnl ---------------------------------------------------------------------------
-dnl - GUdev integration (default enabled)
-dnl ---------------------------------------------------------------------------
-AC_ARG_ENABLE(gudev, AS_HELP_STRING([--disable-gudev],[Disable GUdev support]), enable_gudev=$enableval)
-if test x$enable_gudev != xno; then
-	PKG_CHECK_MODULES(GUDEV, gudev-1.0, HAVE_GUDEV="yes", HAVE_GUDEV="no")
-	if test "x$HAVE_GUDEV" = "xyes"; then
-		AC_DEFINE(HAVE_GUDEV, 1, [define if GUdev is available])
-	else
-		if test x$enable_gudev = xyes; then
-			AC_MSG_ERROR([GUdev enabled but not found])
-		fi
-	fi
-else
-	HAVE_GUDEV=no
-fi
-AM_CONDITIONAL(HAVE_GUDEV, test x$HAVE_GUDEV = xyes)
-
 
 dnl ==============================================
 dnl smartcard section
