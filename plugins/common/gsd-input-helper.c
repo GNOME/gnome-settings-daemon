@@ -236,6 +236,54 @@ touchpad_is_present (void)
                                        device_is_touchpad);
 }
 
+char *
+xdevice_get_device_node (int deviceid)
+{
+        Atom           prop;
+        Atom           act_type;
+        int            act_format;
+        unsigned long  nitems, bytes_after;
+        unsigned char *data;
+        char          *ret;
+
+        gdk_display_sync (gdk_display_get_default ());
+
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Device Node", False);
+        if (!prop)
+                return NULL;
+
+        gdk_error_trap_push ();
+
+        if (!XIGetProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                            deviceid, prop, 0, 1000, False,
+                            AnyPropertyType, &act_type, &act_format,
+                            &nitems, &bytes_after, &data) == Success) {
+                gdk_error_trap_pop_ignored ();
+                return NULL;
+        }
+        if (gdk_error_trap_pop ())
+                goto out;
+
+        if (nitems == 0)
+                goto out;
+
+        if (act_type != XA_STRING)
+                goto out;
+
+        /* Unknown string format */
+        if (act_format != 8)
+                goto out;
+
+        ret = g_strdup ((char *) data);
+
+        XFree (data);
+        return ret;
+
+out:
+        XFree (data);
+        return NULL;
+}
+
 gboolean
 set_device_enabled (int device_id,
                     gboolean enabled)
