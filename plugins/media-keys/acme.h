@@ -43,7 +43,6 @@ typedef enum {
         SEARCH_KEY,
         EMAIL_KEY,
         SCREENSAVER_KEY,
-        SCREENSAVER2_KEY,
         HELP_KEY,
         WWW_KEY,
         PLAY_KEY,
@@ -56,7 +55,6 @@ typedef enum {
         REPEAT_KEY,
         RANDOM_KEY,
         VIDEO_OUT_KEY,
-        VIDEO_OUT2_KEY,
         ROTATE_VIDEO_KEY,
         MAGNIFIER_KEY,
         SCREENREADER_KEY,
@@ -76,7 +74,6 @@ typedef enum {
         KEYBOARD_BRIGHTNESS_DOWN_KEY,
         KEYBOARD_BRIGHTNESS_TOGGLE_KEY,
         BATTERY_KEY,
-        HANDLED_KEYS
 } MediaKeyType;
 
 static struct {
@@ -84,7 +81,7 @@ static struct {
         const char *settings_key;
         const char *hard_coded;
         Key *key;
-} keys[HANDLED_KEYS] = {
+} keys[] = {
         { TOUCHPAD_KEY, NULL, "XF86TouchpadToggle", NULL },
 	{ TOUCHPAD_ON_KEY, NULL, "XF86TouchpadOn", NULL },
 	{ TOUCHPAD_OFF_KEY, NULL, "XF86TouchpadOff", NULL },
@@ -102,7 +99,7 @@ static struct {
         { SEARCH_KEY, "search", NULL, NULL },
         { EMAIL_KEY, "email", NULL, NULL },
         { SCREENSAVER_KEY, "screensaver", NULL, NULL },
-        { SCREENSAVER2_KEY, NULL, "XF86ScreenSaver", NULL },
+        { SCREENSAVER_KEY, NULL, "XF86ScreenSaver", NULL },
         { HELP_KEY, "help", NULL, NULL },
         { WWW_KEY, "www", NULL, NULL },
         { PLAY_KEY, "play", NULL, NULL },
@@ -117,7 +114,7 @@ static struct {
         { RANDOM_KEY, NULL, "XF86AudioRandomPlay", NULL},
         { VIDEO_OUT_KEY, NULL, "<Super>p", NULL },
         /* Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.) */
-        { VIDEO_OUT2_KEY, NULL, "XF86Display", NULL },
+        { VIDEO_OUT_KEY, NULL, "XF86Display", NULL },
         /* Key code of the XF86RotateWindows key (present on some tablets) */
         { ROTATE_VIDEO_KEY, NULL, "XF86RotateWindows", NULL },
 	{ MAGNIFIER_KEY, "magnifier", NULL, NULL },

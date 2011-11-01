@@ -328,7 +328,7 @@ update_kbd_cb (GSettings           *settings,
         gdk_error_trap_push ();
 
         /* Find the key that was modified */
-        for (i = 0; i < HANDLED_KEYS; i++) {
+        for (i = 0; i < G_N_ELEMENTS (keys); i++) {
                 /* Skip over hard-coded keys */
                 if (keys[i].settings_key == NULL)
                         continue;
@@ -386,7 +386,7 @@ init_kbd (GsdMediaKeysManager *manager)
 
         gdk_error_trap_push ();
 
-        for (i = 0; i < HANDLED_KEYS; i++) {
+        for (i = 0; i < G_N_ELEMENTS (keys); i++) {
                 char *tmp;
                 Key  *key;
                 EggParseError ret;
@@ -1633,7 +1633,6 @@ do_action (GsdMediaKeysManager *manager,
                 do_url_action (manager, "mailto", timestamp);
                 break;
         case SCREENSAVER_KEY:
-        case SCREENSAVER2_KEY:
                 execute (manager, "gnome-screensaver-command --lock", FALSE, FALSE);
                 break;
         case HELP_KEY:
@@ -1667,7 +1666,6 @@ do_action (GsdMediaKeysManager *manager,
         case RANDOM_KEY:
                 return do_multimedia_player_action (manager, "Shuffle");
         case VIDEO_OUT_KEY:
-        case VIDEO_OUT2_KEY:
                 do_video_out_action (manager, timestamp);
                 break;
         case ROTATE_VIDEO_KEY:
@@ -1717,8 +1715,6 @@ do_action (GsdMediaKeysManager *manager,
         case BATTERY_KEY:
                 do_execute_desktop (manager, "gnome-power-statistics.desktop", timestamp);
                 break;
-        case HANDLED_KEYS:
-                g_assert_not_reached ();
         /* Note, no default so compiler catches missing keys */
         }
 
@@ -1771,7 +1767,7 @@ acme_filter_events (XEvent              *xevent,
 
 	deviceid = xev->sourceid;
 
-        for (i = 0; i < HANDLED_KEYS; i++) {
+        for (i = 0; i < G_N_ELEMENTS (keys); i++) {
                 if (match_xi2_key (keys[i].key, xev)) {
                         switch (keys[i].key_type) {
                         case VOLUME_DOWN_KEY:
@@ -2027,7 +2023,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         need_flush = FALSE;
         gdk_error_trap_push ();
 
-        for (i = 0; i < HANDLED_KEYS; ++i) {
+        for (i = 0; i < G_N_ELEMENTS (keys); ++i) {
                 if (keys[i].key) {
                         need_flush = TRUE;
                         grab_key_unsafe (keys[i].key, FALSE, priv->screens);
