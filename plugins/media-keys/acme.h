@@ -77,7 +77,7 @@ typedef enum {
 } MediaKeyType;
 
 static struct {
-        int key_type;
+        MediaKeyType key_type;
         const char *settings_key;
         const char *hard_coded;
         Key *key;
