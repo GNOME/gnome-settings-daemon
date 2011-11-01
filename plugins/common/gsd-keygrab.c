@@ -384,3 +384,31 @@ match_key (Key *key, XEvent *event)
                 && key->state == (event->xkey.state & gsd_used_mods)
                 && key_uses_keycode (key, event->xkey.keycode));
 }
+
+Key *
+parse_key (const char    *str,
+	   EggParseError *error)
+{
+	Key *key;
+	EggParseError ret;
+
+	if (str == NULL ||
+	    *str == '\0' ||
+	    g_str_equal (str, "disabled")) {
+		if (error)
+			*error = EGG_PARSE_ERROR_NONE;
+		return NULL;
+	}
+
+	key = g_new0 (Key, 1);
+	ret = egg_accelerator_parse_virtual (str, &key->keysym, &key->keycodes, &key->state);
+	if (error != NULL)
+		*error = ret;
+
+	if (ret != EGG_PARSE_ERROR_NONE) {
+		g_free (key);
+                return NULL;
+	}
+
+	return key;
+}
