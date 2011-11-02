@@ -104,6 +104,13 @@ typedef struct {
         guint   watch_id;
 } MediaPlayer;
 
+typedef struct {
+        MediaKeyType key_type;
+        const char *settings_key;
+        const char *hard_coded;
+        Key *key;
+} MediaKey;
+
 struct GsdMediaKeysManagerPrivate
 {
         /* Volume bits */
@@ -118,6 +125,8 @@ struct GsdMediaKeysManagerPrivate
 
         GtkWidget       *dialog;
         GSettings       *settings;
+
+        GPtrArray       *keys;
 
         /* HighContrast theme settings */
         GSettings       *interface_settings;
@@ -175,6 +184,14 @@ init_screens (GsdMediaKeysManager *manager)
         manager->priv->current_screen = manager->priv->screens->data;
 }
 
+static void
+media_key_free (MediaKey *key)
+{
+        if (key == NULL)
+                return;
+        free_key (key->key);
+        g_free (key);
+}
 
 static void
 acme_error (char * msg)
@@ -302,68 +319,85 @@ dialog_init (GsdMediaKeysManager *manager)
         }
 }
 
-static gboolean
-is_valid_shortcut (const char *string)
+static void
+print_key_parse_error (MediaKey      *key,
+		       const char    *str,
+		       EggParseError  error)
 {
-        if (string == NULL || string[0] == '\0') {
-                return FALSE;
-        }
-        if (strcmp (string, "disabled") == 0) {
-                return FALSE;
-        }
+	if (error == EGG_PARSE_ERROR_NONE)
+		return;
+	if (key->settings_key != NULL)
+		g_debug ("Unable to parse key '%s' for GSettings entry '%s' (%d)", str, key->settings_key, error);
+	else
+		g_debug ("Unable to parse hard-coded key '%s' (%d)", key->hard_coded, error);
+}
 
-        return TRUE;
+static char *
+get_key_string (GsdMediaKeysManager *manager,
+		MediaKey            *key)
+{
+	if (key->settings_key != NULL)
+		return g_settings_get_string (manager->priv->settings, key->settings_key);
+	else
+		return g_strdup (key->hard_coded);
+}
+
+static gboolean
+grab_media_key (MediaKey            *key,
+		GsdMediaKeysManager *manager)
+{
+	char *tmp;
+	EggParseError ret;
+	gboolean need_flush;
+
+	need_flush = FALSE;
+
+	if (key->key != NULL) {
+		need_flush = TRUE;
+		grab_key_unsafe (key->key, FALSE, manager->priv->screens);
+	}
+
+	free_key (key->key);
+	key->key = NULL;
+
+	tmp = get_key_string (manager, key);
+
+	key->key = parse_key (tmp, &ret);
+	if (key->key == NULL) {
+		print_key_parse_error (key, tmp, ret);
+		g_free (tmp);
+		return need_flush;
+	}
+
+	grab_key_unsafe (key->key, TRUE, manager->priv->screens);
+
+	g_free (tmp);
+
+	return TRUE;
 }
 
 static void
 update_kbd_cb (GSettings           *settings,
-               const gchar         *key,
+               const gchar         *settings_key,
                GsdMediaKeysManager *manager)
 {
         int      i;
         gboolean need_flush = TRUE;
 
-        g_return_if_fail (key != NULL);
-
         gdk_error_trap_push ();
 
         /* Find the key that was modified */
-        for (i = 0; i < G_N_ELEMENTS (keys); i++) {
+        for (i = 0; i < manager->priv->keys->len; i++) {
+                MediaKey *key;
+
+                key = g_ptr_array_index (manager->priv->keys, i);
+
                 /* Skip over hard-coded keys */
-                if (keys[i].settings_key == NULL)
+                if (key->settings_key == NULL)
                         continue;
-                if (strcmp (key, keys[i].settings_key) == 0) {
-                        char *tmp;
-                        Key  *key;
-
-                        if (keys[i].key != NULL) {
+                if (strcmp (settings_key, key->settings_key) == 0) {
+                        if (grab_media_key (key, manager))
                                 need_flush = TRUE;
-                                grab_key_unsafe (keys[i].key, FALSE, manager->priv->screens);
-                        }
-
-                        g_free (keys[i].key);
-                        keys[i].key = NULL;
-
-                        tmp = g_settings_get_string (manager->priv->settings, keys[i].settings_key);
-                        if (is_valid_shortcut (tmp) == FALSE) {
-                                g_free (tmp);
-                                break;
-                        }
-
-                        key = g_new0 (Key, 1);
-                        if (egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state) != EGG_PARSE_ERROR_NONE) {
-                                g_free (tmp);
-                                g_free (key);
-                                break;
-                        }
-
-                        need_flush = TRUE;
-                        grab_key_unsafe (key, TRUE, manager->priv->screens);
-                        keys[i].key = key;
-
-                        g_free (tmp);
-
-                        break;
                 }
         }
 
@@ -383,44 +417,20 @@ init_kbd (GsdMediaKeysManager *manager)
 
         gdk_error_trap_push ();
 
-        for (i = 0; i < G_N_ELEMENTS (keys); i++) {
-                char *tmp;
-                Key  *key;
-                EggParseError ret;
+        manager->priv->keys = g_ptr_array_new_with_free_func ((GDestroyNotify) media_key_free);
 
-                if (keys[i].settings_key != NULL) {
-                        tmp = g_settings_get_string (manager->priv->settings, keys[i].settings_key);
-                } else {
-                        tmp = g_strdup (keys[i].hard_coded);
-                }
+        for (i = 0; i < G_N_ELEMENTS (media_keys); i++) {
+                MediaKey *key;
 
-                if (!is_valid_shortcut (tmp)) {
-                        if (*tmp != '\0')
-                                g_debug ("Not a valid shortcut: '%s'", tmp);
-                        g_free (tmp);
-                        continue;
-                }
+                key = g_new0 (MediaKey, 1);
+                key->key_type = media_keys[i].key_type;
+                key->settings_key = media_keys[i].settings_key;
+                key->hard_coded = media_keys[i].hard_coded;
 
-                key = g_new0 (Key, 1);
-                ret = egg_accelerator_parse_virtual (tmp, &key->keysym, &key->keycodes, &key->state);
-                if (ret != EGG_PARSE_ERROR_NONE) {
-                        if (ret != EGG_PARSE_ERROR_NOT_IN_KEYMAP) {
-                                if (keys[i].settings_key != NULL)
-                                        g_debug ("Unable to parse key '%s' for GSettings entry '%s' (%d)", tmp, keys[i].settings_key, ret);
-                                else
-                                        g_debug ("Unable to parse hard-coded key '%s' (%d)", keys[i].hard_coded, ret);
-                        }
-                        g_free (tmp);
-                        g_free (key);
-                        continue;
-                }
+                g_ptr_array_add (manager->priv->keys, key);
 
-                g_free (tmp);
-
-                keys[i].key = key;
-
-                need_flush = TRUE;
-                grab_key_unsafe (key, TRUE, manager->priv->screens);
+                if (grab_media_key (key, manager))
+                        need_flush = TRUE;
         }
 
         if (need_flush)
@@ -1764,9 +1774,13 @@ acme_filter_events (XEvent              *xevent,
 
 	deviceid = xev->sourceid;
 
-        for (i = 0; i < G_N_ELEMENTS (keys); i++) {
-                if (match_xi2_key (keys[i].key, xev)) {
-                        switch (keys[i].key_type) {
+        for (i = 0; i < manager->priv->keys->len; i++) {
+                MediaKey *key;
+
+                key = g_ptr_array_index (manager->priv->keys, i);
+
+                if (match_xi2_key (key->key, xev)) {
+                        switch (key->key_type) {
                         case VOLUME_DOWN_KEY:
                         case VOLUME_UP_KEY:
                         case VOLUME_DOWN_QUIET_KEY:
@@ -1783,7 +1797,7 @@ acme_filter_events (XEvent              *xevent,
 
                         manager->priv->current_screen = acme_get_screen_from_root (manager, xev->root);
 
-                        if (do_action (manager, deviceid, keys[i].key_type, xev->time) == FALSE) {
+                        if (do_action (manager, deviceid, key->key_type, xev->time) == FALSE) {
                                 return GDK_FILTER_REMOVE;
                         } else {
                                 return GDK_FILTER_CONTINUE;
@@ -1941,7 +1955,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         GSList *ls;
         GList *l;
         int i;
-        gboolean need_flush;
 
         g_debug ("Stopping media_keys manager");
 
@@ -2017,22 +2030,20 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->connection = NULL;
         }
 
-        need_flush = FALSE;
         gdk_error_trap_push ();
 
-        for (i = 0; i < G_N_ELEMENTS (keys); ++i) {
-                if (keys[i].key) {
-                        need_flush = TRUE;
-                        grab_key_unsafe (keys[i].key, FALSE, priv->screens);
+        for (i = 0; i < priv->keys->len; ++i) {
+                MediaKey *key;
 
-                        g_free (keys[i].key->keycodes);
-                        g_free (keys[i].key);
-                        keys[i].key = NULL;
-                }
+                key = g_ptr_array_index (manager->priv->keys, i);
+
+                if (key->key)
+                        grab_key_unsafe (key->key, FALSE, priv->screens);
         }
+        g_ptr_array_free (priv->keys, TRUE);
+        priv->keys = NULL;
 
-        if (need_flush)
-                gdk_flush ();
+        gdk_flush ();
         gdk_error_trap_pop_ignored ();
 
         if (priv->screens != NULL) {
