@@ -498,6 +498,8 @@ update_property (GString *props, const gchar* key, const gchar* value)
         } else {
                 g_string_append_printf (props, "%s:\t%s\n", key, value);
         }
+
+	g_free (needle);
 }
 
 static void
