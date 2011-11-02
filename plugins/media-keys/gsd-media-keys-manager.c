@@ -369,6 +369,7 @@ update_kbd_cb (GSettings           *settings,
                 if (strcmp (settings_key, key->settings_key) == 0) {
                         if (grab_media_key (key, manager))
                                 need_flush = TRUE;
+                        break;
                 }
         }
 
