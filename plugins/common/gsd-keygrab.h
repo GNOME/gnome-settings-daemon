@@ -48,6 +48,7 @@ gboolean        key_uses_keycode (const Key *key,
 
 Key *           parse_key        (const char    *str,
 				  EggParseError *error);
+void            free_key         (Key           *key);
 
 G_END_DECLS
 

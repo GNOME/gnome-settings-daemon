@@ -412,3 +412,12 @@ parse_key (const char    *str,
 
 	return key;
 }
+
+void
+free_key (Key *key)
+{
+	if (key == NULL)
+		return;
+	g_free (key->keycodes);
+	g_free (key);
+}
