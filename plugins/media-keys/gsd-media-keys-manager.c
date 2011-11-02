@@ -222,7 +222,6 @@ get_term_command (GsdMediaKeysManager *manager)
 static void
 execute (GsdMediaKeysManager *manager,
          char                *cmd,
-         gboolean             sync,
          gboolean             need_term)
 {
         gboolean retval;
@@ -245,27 +244,14 @@ execute (GsdMediaKeysManager *manager,
         }
 
         if (g_shell_parse_argv (exec, &argc, &argv, NULL)) {
-                if (sync != FALSE) {
-                        retval = g_spawn_sync (g_get_home_dir (),
-                                               argv,
-                                               NULL,
-                                               G_SPAWN_SEARCH_PATH,
-                                               NULL,
-                                               NULL,
-                                               NULL,
-                                               NULL,
-                                               NULL,
-                                               &error);
-                } else {
-                        retval = g_spawn_async (g_get_home_dir (),
-                                                argv,
-                                                NULL,
-                                                G_SPAWN_SEARCH_PATH,
-                                                NULL,
-                                                NULL,
-                                                NULL,
-                                                &error);
-                }
+                retval = g_spawn_async (g_get_home_dir (),
+                                        argv,
+                                        NULL,
+                                        G_SPAWN_SEARCH_PATH,
+                                        NULL,
+                                        NULL,
+                                        NULL,
+                                        &error);
                 g_strfreev (argv);
         }
 
@@ -512,7 +498,7 @@ do_media_action (GsdMediaKeysManager *manager,
 static void
 do_logout_action (GsdMediaKeysManager *manager)
 {
-        execute (manager, "gnome-session-quit --logout", FALSE, FALSE);
+        execute (manager, "gnome-session-quit --logout", FALSE);
 }
 
 static void
@@ -1616,7 +1602,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_url_action (manager, "mailto", timestamp);
                 break;
         case SCREENSAVER_KEY:
-                execute (manager, "gnome-screensaver-command --lock", FALSE, FALSE);
+                execute (manager, "gnome-screensaver-command --lock", FALSE);
                 break;
         case HELP_KEY:
                 do_url_action (manager, "ghelp", timestamp);
