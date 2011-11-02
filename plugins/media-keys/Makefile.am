@@ -28,7 +28,7 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-window.c		\
 	gsd-osd-window.c		\
 	gsd-osd-window.h		\
-	acme.h				\
+	shortcuts-list.h		\
 	$(BUILT_SOURCES)		\
 	$(NULL)
 

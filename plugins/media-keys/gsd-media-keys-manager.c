@@ -49,7 +49,7 @@
 #include "gsd-media-keys-manager.h"
 
 #include "eggaccelerators.h"
-#include "acme.h"
+#include "shortcuts-list.h"
 #include "gsd-media-keys-window.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
