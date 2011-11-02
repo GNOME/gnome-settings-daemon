@@ -259,6 +259,9 @@ update_gtk_modules (GsdXSettingsGtk *gtk)
         } else {
                 g_free (modules);
         }
+
+	g_strfreev (enabled);
+	g_strfreev (disabled);
 }
 
 static void
