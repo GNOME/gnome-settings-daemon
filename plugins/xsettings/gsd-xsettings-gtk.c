@@ -112,8 +112,8 @@ process_desktop_file (const char      *path,
                 goto bail;
 
         if (g_key_file_has_key (keyfile, "GTK Module", "X-GTK-Module-Enabled-Schema", NULL) != FALSE) {
-                const char *schema;
-                const char *key;
+                char *schema;
+                char *key;
                 gboolean enabled;
                 GSettings *settings;
                 char *signal;
@@ -132,6 +132,8 @@ process_desktop_file (const char      *path,
                 g_signal_connect (G_OBJECT (settings), signal,
                                   G_CALLBACK (cond_setting_changed), gtk);
                 g_free (signal);
+                g_free (schema);
+                g_free (key);
 
                 if (enabled != FALSE)
                         retval = g_strdup (module_name);
