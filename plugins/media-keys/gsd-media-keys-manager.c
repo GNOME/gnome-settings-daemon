@@ -1700,8 +1700,8 @@ do_action (GsdMediaKeysManager *manager,
 }
 
 static GdkScreen *
-acme_get_screen_from_root (GsdMediaKeysManager *manager,
-                           Window               root)
+get_screen_from_root (GsdMediaKeysManager *manager,
+                      Window               root)
 {
         GSList    *l;
 
@@ -1766,7 +1766,7 @@ acme_filter_events (XEvent              *xevent,
                                 }
                         }
 
-                        manager->priv->current_screen = acme_get_screen_from_root (manager, xev->root);
+                        manager->priv->current_screen = get_screen_from_root (manager, xev->root);
 
                         if (do_action (manager, deviceid, key->key_type, xev->time) == FALSE) {
                                 return GDK_FILTER_REMOVE;
