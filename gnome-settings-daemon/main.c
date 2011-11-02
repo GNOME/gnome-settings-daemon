@@ -207,7 +207,7 @@ set_locale (GDBusProxy *proxy)
         /* Set locale environment */
         locale_settings = g_settings_new ("org.gnome.system.locale");
         region = g_settings_get_string (locale_settings, "region");
-        if (region && region[0]) {
+        if (region[0]) {
                 /* Only set the locale settings if the user has ever customized them */
                 set_session_env (proxy, "LC_TIME", region);
                 set_session_env (proxy, "LC_NUMERIC", region);
