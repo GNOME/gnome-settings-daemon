@@ -382,7 +382,6 @@ static void
 init_kbd (GsdMediaKeysManager *manager)
 {
         int i;
-        gboolean need_flush = FALSE;
 
         gnome_settings_profile_start (NULL);
 
@@ -400,12 +399,10 @@ init_kbd (GsdMediaKeysManager *manager)
 
                 g_ptr_array_add (manager->priv->keys, key);
 
-                if (grab_media_key (key, manager))
-                        need_flush = TRUE;
+                grab_media_key (key, manager);
         }
 
-        if (need_flush)
-                gdk_flush ();
+        gdk_flush ();
         if (gdk_error_trap_pop ())
                 g_warning ("Grab failed for some keys, another application may already have access the them.");
 
