@@ -92,7 +92,7 @@ process_desktop_file (const char      *path,
 {
         GKeyFile *keyfile;
         char *retval;
-        const char *module_name;
+        char *module_name;
 
         retval = NULL;
 
@@ -138,6 +138,8 @@ process_desktop_file (const char      *path,
         } else {
                 retval = g_strdup (module_name);
         }
+
+	g_free (module_name);
 
 bail:
         g_key_file_free (keyfile);
