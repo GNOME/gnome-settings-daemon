@@ -410,5 +410,7 @@ get_disabled_devices (GdkDeviceManager *manager)
                 ret = g_list_prepend (ret, GINT_TO_POINTER (device_info[i].id));
         }
 
+        XFreeDeviceList (device_info);
+
         return ret;
 }
