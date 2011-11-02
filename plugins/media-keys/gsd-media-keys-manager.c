@@ -1718,9 +1718,9 @@ get_screen_from_root (GsdMediaKeysManager *manager,
 }
 
 static GdkFilterReturn
-acme_filter_events (XEvent              *xevent,
-                    GdkEvent            *event,
-                    GsdMediaKeysManager *manager)
+filter_key_events (XEvent              *xevent,
+                   GdkEvent            *event,
+                   GsdMediaKeysManager *manager)
 {
 	XIEvent             *xiev;
 	XIDeviceEvent       *xev;
@@ -1853,7 +1853,7 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
                          gdk_screen_get_number (l->data));
 
                 gdk_window_add_filter (gdk_screen_get_root_window (l->data),
-                                       (GdkFilterFunc)acme_filter_events,
+                                       (GdkFilterFunc) filter_key_events,
                                        manager);
                 gnome_settings_profile_end ("gdk_window_add_filter");
         }
@@ -1937,7 +1937,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 
         for (ls = priv->screens; ls != NULL; ls = ls->next) {
                 gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
-                                          (GdkFilterFunc) acme_filter_events,
+                                          (GdkFilterFunc) filter_key_events,
                                           manager);
         }
 
