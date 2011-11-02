@@ -193,25 +193,6 @@ media_key_free (MediaKey *key)
         g_free (key);
 }
 
-static void
-acme_error (char * msg)
-{
-        GtkWidget *error_dialog;
-
-        error_dialog = gtk_message_dialog_new (NULL,
-                                               GTK_DIALOG_MODAL,
-                                               GTK_MESSAGE_ERROR,
-                                               GTK_BUTTONS_OK,
-                                               msg, NULL);
-        gtk_dialog_set_default_response (GTK_DIALOG (error_dialog),
-                                         GTK_RESPONSE_OK);
-        gtk_widget_show (error_dialog);
-        g_signal_connect (error_dialog,
-                          "response",
-                          G_CALLBACK (gtk_widget_destroy),
-                          NULL);
-}
-
 static char *
 get_term_command (GsdMediaKeysManager *manager)
 {
@@ -249,17 +230,12 @@ execute (GsdMediaKeysManager *manager,
         int      argc;
         char    *exec;
         char    *term = NULL;
+        GError  *error = NULL;
 
         retval = FALSE;
 
-        if (need_term) {
+        if (need_term)
                 term = get_term_command (manager);
-                if (term == NULL) {
-                        acme_error (_("Could not get default terminal. Verify that your default "
-                                      "terminal command is set and points to a valid application."));
-                        return;
-                }
-        }
 
         if (term) {
                 exec = g_strdup_printf ("%s %s", term, cmd);
@@ -279,7 +255,7 @@ execute (GsdMediaKeysManager *manager,
                                                NULL,
                                                NULL,
                                                NULL,
-                                               NULL);
+                                               &error);
                 } else {
                         retval = g_spawn_async (g_get_home_dir (),
                                                 argv,
@@ -288,19 +264,14 @@ execute (GsdMediaKeysManager *manager,
                                                 NULL,
                                                 NULL,
                                                 NULL,
-                                                NULL);
+                                                &error);
                 }
                 g_strfreev (argv);
         }
 
         if (retval == FALSE) {
-                char *msg;
-                msg = g_strdup_printf (_("Couldn't execute command: %s\n"
-                                         "Verify that this is a valid command."),
-                                       exec);
-
-                acme_error (msg);
-                g_free (msg);
+                g_warning ("Couldn't execute command: %s: %s", exec, error->message);
+                g_error_free (error);
         }
         g_free (exec);
 }
