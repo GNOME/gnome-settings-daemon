@@ -12,7 +12,6 @@ enabled_plugins =	\
 	dummy		\
 	power		\
 	housekeeping    \
-	keybindings	\
 	keyboard	\
 	media-keys	\
 	mouse		\

@@ -479,7 +479,6 @@ plugins/datetime/Makefile
 plugins/dummy/Makefile
 plugins/power/Makefile
 plugins/housekeeping/Makefile
-plugins/keybindings/Makefile
 plugins/keyboard/Makefile
 plugins/media-keys/Makefile
 plugins/media-keys/cut-n-paste/Makefile
