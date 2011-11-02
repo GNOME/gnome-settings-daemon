@@ -1255,6 +1255,12 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
         if (serial == NULL)
                 serial = "unknown";
 
+        /* ensure mandatory fields are set */
+        if (model == NULL)
+                model = "unknown";
+        if (vendor == NULL)
+                vendor = "unknown";
+
         device_id = gcm_session_get_output_id (manager, output);
         g_debug ("output %s added", device_id);
         device_props = g_hash_table_new_full (g_str_hash, g_str_equal,
