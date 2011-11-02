@@ -1556,6 +1556,13 @@ do_keyboard_brightness_action (GsdMediaKeysManager *manager,
                            manager);
 }
 
+static void
+do_custom_action (GsdMediaKeysManager *manager,
+                  MediaKey            *key,
+                  gint64               timestamp)
+{
+}
+
 static gboolean
 do_action (GsdMediaKeysManager *manager,
            guint                deviceid,
@@ -1694,6 +1701,8 @@ do_action (GsdMediaKeysManager *manager,
                 do_execute_desktop (manager, "gnome-power-statistics.desktop", timestamp);
                 break;
         /* Note, no default so compiler catches missing keys */
+        case CUSTOM_KEY:
+                g_assert_not_reached ();
         }
 
         return FALSE;
@@ -1767,6 +1776,11 @@ filter_key_events (XEvent              *xevent,
                         }
 
                         manager->priv->current_screen = get_screen_from_root (manager, xev->root);
+
+                        if (key->key_type == CUSTOM_KEY) {
+                                do_custom_action (manager, key, xev->time);
+                                return GDK_FILTER_REMOVE;
+                        }
 
                         if (do_action (manager, deviceid, key->key_type, xev->time) == FALSE) {
                                 return GDK_FILTER_REMOVE;

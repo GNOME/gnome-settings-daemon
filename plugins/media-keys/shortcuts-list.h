@@ -74,6 +74,7 @@ typedef enum {
         KEYBOARD_BRIGHTNESS_DOWN_KEY,
         KEYBOARD_BRIGHTNESS_TOGGLE_KEY,
         BATTERY_KEY,
+        CUSTOM_KEY
 } MediaKeyType;
 
 static struct {
