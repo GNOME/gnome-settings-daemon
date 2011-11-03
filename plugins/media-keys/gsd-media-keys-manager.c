@@ -49,7 +49,6 @@
 #include "gsd-marshal.h"
 #include "gsd-media-keys-manager.h"
 
-#include "eggaccelerators.h"
 #include "shortcuts-list.h"
 #include "gsd-media-keys-window.h"
 #include "gsd-input-helper.h"
@@ -287,15 +286,14 @@ dialog_init (GsdMediaKeysManager *manager)
 
 static void
 print_key_parse_error (MediaKey      *key,
-		       const char    *str,
-		       EggParseError  error)
+		       const char    *str)
 {
-	if (error == EGG_PARSE_ERROR_NONE)
+	if (str == NULL || *str == '\0')
 		return;
 	if (key->settings_key != NULL)
-		g_debug ("Unable to parse key '%s' for GSettings entry '%s' (%d)", str, key->settings_key, error);
+		g_debug ("Unable to parse key '%s' for GSettings entry '%s'", str, key->settings_key);
 	else
-		g_debug ("Unable to parse hard-coded key '%s' (%d)", key->hard_coded, error);
+		g_debug ("Unable to parse hard-coded key '%s'", key->hard_coded);
 }
 
 static char *
@@ -322,7 +320,6 @@ grab_media_key (MediaKey            *key,
 		GsdMediaKeysManager *manager)
 {
 	char *tmp;
-	EggParseError ret;
 	gboolean need_flush;
 
 	need_flush = FALSE;
@@ -337,9 +334,9 @@ grab_media_key (MediaKey            *key,
 
 	tmp = get_key_string (manager, key);
 
-	key->key = parse_key (tmp, &ret);
+	key->key = parse_key (tmp);
 	if (key->key == NULL) {
-		print_key_parse_error (key, tmp, ret);
+		print_key_parse_error (key, tmp);
 		g_free (tmp);
 		return need_flush;
 	}
