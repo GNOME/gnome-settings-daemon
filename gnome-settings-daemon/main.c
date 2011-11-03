@@ -214,6 +214,7 @@ set_locale (GDBusProxy *proxy)
                 set_session_env (proxy, "LC_MONETARY", region);
                 set_session_env (proxy, "LC_MEASUREMENT", region);
         }
+        g_free (region);
 
         g_object_unref (locale_settings);
 }
