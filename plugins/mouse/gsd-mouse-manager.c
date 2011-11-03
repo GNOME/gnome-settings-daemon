@@ -450,7 +450,7 @@ set_motion (GsdMouseManager *manager,
         /* Get the list of feedbacks for the device */
         states = XGetFeedbackControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, &num_feedbacks);
         if (states == NULL)
-                num_feedbacks = 0;
+                goto out;
         state = (XFeedbackState *) states;
         for (i = 0; i < num_feedbacks; i++) {
                 if (state->class == PtrFeedbackClass) {
@@ -474,6 +474,10 @@ set_motion (GsdMouseManager *manager,
                 }
                 state = (XFeedbackState *) ((char *) state + state->length);
         }
+
+        XFreeFeedbackList (states);
+
+    out:
 
         XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
