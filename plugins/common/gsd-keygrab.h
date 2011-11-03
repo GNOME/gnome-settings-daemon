@@ -25,7 +25,6 @@ G_BEGIN_DECLS
 #include <glib.h>
 #include <X11/keysym.h>
 #include <X11/extensions/XInput2.h>
-#include <eggaccelerators.h>
 
 typedef struct {
         guint keysym;
@@ -46,8 +45,7 @@ gboolean        match_key       (Key           *key,
 gboolean        key_uses_keycode (const Key *key,
                                   guint keycode);
 
-Key *           parse_key        (const char    *str,
-				  EggParseError *error);
+Key *           parse_key        (const char    *str);
 void            free_key         (Key           *key);
 
 G_END_DECLS

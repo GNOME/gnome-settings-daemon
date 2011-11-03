@@ -25,12 +25,11 @@
 #include <string.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
+#include <gtk/gtk.h>
 #include <X11/XKBlib.h>
 #include <X11/extensions/XInput2.h>
 #include <X11/extensions/XKB.h>
 #include <gdk/gdkkeysyms.h>
-
-#include "eggaccelerators.h"
 
 #include "gsd-keygrab.h"
 
@@ -66,10 +65,7 @@ setup_modifiers (void)
 
                 /* NumLock can be assigned to varying keys so we need to
                  * resolve and ignore it specially */
-                dynmods = 0;
-                egg_keymap_resolve_virtual_modifiers (gdk_keymap_get_default (),
-                                                      EGG_VIRTUAL_NUM_LOCK_MASK,
-                                                      &dynmods);
+                dynmods = XkbKeysymToModifiers (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Num_Lock);
 
                 gsd_ignored_mods |= dynmods;
                 gsd_used_mods &= ~dynmods;
@@ -155,8 +151,8 @@ grab_key_unsafe (Key                 *key,
         mask = gsd_ignored_mods & ~key->state & GDK_MODIFIER_MASK;
 
         /* XGrabKey requires real modifiers, not virtual ones */
-        egg_keymap_resolve_virtual_modifiers (gdk_keymap_get_default (),
-					      key->state, &modifiers);
+        modifiers = key->state;
+        gdk_keymap_map_virtual_modifiers (gdk_keymap_get_default (), &modifiers);
 
         /* If key doesn't have a usable modifier, we don't want
          * to grab it, since the user might lose a useful key.
@@ -317,8 +313,8 @@ match_xi2_key (Key *key, XIDeviceEvent *event)
 
 		/* The Key structure contains virtual modifiers, whereas
 		 * the XEvent will be using the real modifier, so translate those */
-		egg_keymap_resolve_virtual_modifiers (gdk_keymap_get_default (),
-						      key->state, &mask);
+		mask = key->state;
+		gdk_keymap_map_virtual_modifiers (gdk_keymap_get_default (), &mask);
 
 		gdk_keyval_convert_case (keyval, &lower, &upper);
 
@@ -364,8 +360,8 @@ match_key (Key *key, XEvent *event)
 
 		/* The Key structure contains virtual modifiers, whereas
 		 * the XEvent will be using the real modifier, so translate those */
-		egg_keymap_resolve_virtual_modifiers (gdk_keymap_get_default (),
-						      key->state, &mask);
+		mask = key->state;
+		gdk_keymap_map_virtual_modifiers (gdk_keymap_get_default (), &mask);
 
 		gdk_keyval_convert_case (keyval, &lower, &upper);
 
@@ -386,26 +382,21 @@ match_key (Key *key, XEvent *event)
 }
 
 Key *
-parse_key (const char    *str,
-	   EggParseError *error)
+parse_key (const char *str)
 {
 	Key *key;
-	EggParseError ret;
 
 	if (str == NULL ||
 	    *str == '\0' ||
 	    g_str_equal (str, "disabled")) {
-		if (error)
-			*error = EGG_PARSE_ERROR_NONE;
 		return NULL;
 	}
 
 	key = g_new0 (Key, 1);
-	ret = egg_accelerator_parse_virtual (str, &key->keysym, &key->keycodes, &key->state);
-	if (error != NULL)
-		*error = ret;
-
-	if (ret != EGG_PARSE_ERROR_NONE) {
+	gtk_accelerator_parse_with_keycode (str, &key->keysym, &key->keycodes, &key->state);
+	if (key->keysym == 0 &&
+	    key->keycodes == NULL &&
+	    key->state == 0) {
 		g_free (key);
                 return NULL;
 	}
