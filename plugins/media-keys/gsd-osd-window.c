@@ -740,7 +740,5 @@ gsd_osd_window_update_and_hide (GsdOsdWindow *window)
         remove_hide_timeout (window);
         add_hide_timeout (window);
 
-        if (window->priv->is_composited) {
-                gtk_widget_queue_draw (GTK_WIDGET (window));
-        }
+        gtk_widget_queue_draw (GTK_WIDGET (window));
 }
