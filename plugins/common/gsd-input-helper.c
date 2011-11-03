@@ -119,8 +119,8 @@ supports_xinput2_devices (int *opcode)
 
         gdk_error_trap_push ();
 
-        major = XI_2_Major;
-        minor = XI_2_Minor;
+        major = 2;
+        minor = 0;
 
         if (XIQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor) != Success) {
                 gdk_error_trap_pop_ignored ();
@@ -128,7 +128,7 @@ supports_xinput2_devices (int *opcode)
         }
         gdk_error_trap_pop_ignored ();
 
-        if ((major * 1000 + minor) < (XI_2_Major * 1000 + XI_2_Minor))
+        if ((major * 1000 + minor) < (2000))
                 return FALSE;
 
         return TRUE;
