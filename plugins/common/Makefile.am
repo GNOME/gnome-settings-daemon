@@ -3,8 +3,6 @@ plugin_name = common
 noinst_LTLIBRARIES = libcommon.la
 
 libcommon_la_SOURCES = \
-	eggaccelerators.c	\
-	eggaccelerators.h	\
 	gsd-keygrab.c		\
 	gsd-keygrab.h		\
 	gsd-input-helper.c	\
