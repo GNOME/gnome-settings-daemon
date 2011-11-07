@@ -38,6 +38,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <libupower-glib/upower.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 
@@ -101,6 +102,8 @@ struct GsdXrandrManagerPrivate
 {
         GnomeRRScreen *rw_screen;
         gboolean running;
+
+        UpClient *upower_client;
 
         GSettings       *settings;
         GDBusNodeInfo   *introspection_data;
@@ -777,8 +780,20 @@ config_is_all_off (GnomeRRConfig *config)
         return TRUE;
 }
 
+static gboolean
+laptop_lid_is_closed (GsdXrandrManager *manager)
+{
+        return up_client_get_lid_is_closed (manager->priv->upower_client);
+}
+
+static gboolean
+is_laptop_with_closed_lid (GsdXrandrManager *manager, GnomeRRScreen *screen, GnomeRROutputInfo *info)
+{
+        return is_laptop (screen, output) && laptop_lid_is_closed (manager);
+}
+
 static GnomeRRConfig *
-make_clone_setup (GnomeRRScreen *screen)
+make_clone_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
 {
         GnomeRRConfig *result;
         GnomeRROutputInfo **outputs;
@@ -795,7 +810,7 @@ make_clone_setup (GnomeRRScreen *screen)
                 GnomeRROutputInfo *info = outputs[i];
 
                 gnome_rr_output_info_set_active (info, FALSE);
-                if (gnome_rr_output_info_is_connected (info)) {
+                if (!is_laptop_with_closed_lid (manager, screen, info) && gnome_rr_output_info_is_connected (info)) {
                         GnomeRROutput *output =
                                 gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (info));
                         GnomeRRMode **modes = gnome_rr_output_list_modes (output);
@@ -904,7 +919,7 @@ turn_on (GnomeRRScreen *screen,
 }
 
 static GnomeRRConfig *
-make_laptop_setup (GnomeRRScreen *screen)
+make_laptop_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
 {
         /* Turn on the laptop, disable everything else */
         GnomeRRConfig *result = gnome_rr_config_new_current (screen, NULL);
@@ -914,7 +929,7 @@ make_laptop_setup (GnomeRRScreen *screen)
         for (i = 0; outputs[i] != NULL; ++i) {
                 GnomeRROutputInfo *info = outputs[i];
 
-                if (is_laptop (screen, info)) {
+                if (is_laptop (screen, info) && !laptop_lid_is_closed (manager)) {
                         if (!turn_on (screen, info, 0, 0)) {
                                 g_object_unref (G_OBJECT (result));
                                 result = NULL;
@@ -953,7 +968,7 @@ turn_on_and_get_rightmost_offset (GnomeRRScreen *screen, GnomeRROutputInfo *info
 }
 
 static GnomeRRConfig *
-make_xinerama_setup (GnomeRRScreen *screen)
+make_xinerama_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
 {
         /* Turn on everything that has a preferred mode, and
          * position it from left to right
@@ -967,7 +982,7 @@ make_xinerama_setup (GnomeRRScreen *screen)
         for (i = 0; outputs[i] != NULL; ++i) {
                 GnomeRROutputInfo *info = outputs[i];
 
-                if (is_laptop (screen, info))
+                if (is_laptop (screen, info) && !laptop_lid_is_closed (manager))
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
@@ -1129,9 +1144,9 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
         }
 
         g_ptr_array_add (array, gnome_rr_config_new_current (screen, NULL));
-        g_ptr_array_add (array, make_clone_setup (screen));
-        g_ptr_array_add (array, make_xinerama_setup (screen));
-        g_ptr_array_add (array, make_laptop_setup (screen));
+        g_ptr_array_add (array, make_clone_setup (mgr, screen));
+        g_ptr_array_add (array, make_xinerama_setup (mgr, screen));
+        g_ptr_array_add (array, make_laptop_setup (mgr, screen));
         g_ptr_array_add (array, make_other_setup (screen));
 
         array = sanitize (mgr, array);
@@ -1499,7 +1514,10 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         for (i = 0; outputs[i] != NULL; i++) {
                 GnomeRROutputInfo *output = outputs[i];
 
-                if (gnome_rr_output_info_is_connected (output) && !gnome_rr_output_info_is_active (output)) {
+                if (is_laptop_with_closed_lid (manager, priv->rw_screen, output)) {
+                        gnome_rr_output_info_set_active (output, FALSE);
+                        /* FIXME: gsd-power-manager.c sets DPMS GNOME_RR_DPMS_OFF when the lid is closed.  Should we do that here instead? */
+                } else if (gnome_rr_output_info_is_connected (output) && !gnome_rr_output_info_is_active (output)) {
                         gnome_rr_output_info_set_active (output, TRUE);
                         gnome_rr_output_info_set_rotation (output, GNOME_RR_ROTATION_0);
                         just_turned_on = g_list_prepend (just_turned_on, GINT_TO_POINTER (i));
@@ -1874,6 +1892,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
 
         g_signal_connect (manager->priv->rw_screen, "changed", G_CALLBACK (on_randr_event), manager);
 
+        manager->priv->upower_client = up_client_new ();
+
         log_msg ("State of screen at startup:\n");
         log_screen (manager->priv->rw_screen);
 
@@ -1916,6 +1936,11 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         if (manager->priv->rw_screen != NULL) {
                 g_object_unref (manager->priv->rw_screen);
                 manager->priv->rw_screen = NULL;
+        }
+
+        if (manager->priv->upower_client != NULL) {
+                g_object_unref (manager->priv->upower_client);
+                manager->priv->upower_client = NULL;
         }
 
         if (manager->priv->introspection_data) {
