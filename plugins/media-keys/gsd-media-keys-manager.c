@@ -1778,6 +1778,12 @@ do_action (GsdMediaKeysManager *manager,
         case HELP_KEY:
                 do_url_action (manager, "ghelp", timestamp);
                 break;
+        case SCREENSHOT_KEY:
+                execute (manager, "gnome-screenshot", FALSE);
+                break;
+        case WINDOW_SCREENSHOT_KEY:
+                execute (manager, "gnome-screenshot --window", FALSE);
+                break;
         case WWW_KEY:
                 do_url_action (manager, "http", timestamp);
                 break;
