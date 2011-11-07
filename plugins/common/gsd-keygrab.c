@@ -163,7 +163,8 @@ grab_key_unsafe (Key                 *key,
         if ((modifiers & gsd_used_mods) == 0 &&
             !IN_RANGE(key->keysym, XF86KEYS_RANGE_MIN, XF86KEYS_RANGE_MAX) &&
             !IN_RANGE(key->keysym, FKEYS_RANGE_MIN, FKEYS_RANGE_MAX) &&
-             key->keysym != GDK_KEY_Pause) {
+             key->keysym != GDK_KEY_Pause &&
+             key->keysym != GDK_KEY_Print) {
                 GString *keycodes;
 
                 keycodes = g_string_new ("");
