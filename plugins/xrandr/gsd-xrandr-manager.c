@@ -967,6 +967,84 @@ turn_on_and_get_rightmost_offset (GnomeRRScreen *screen, GnomeRROutputInfo *info
         return x;
 }
 
+/* Used from qsort(); compares outputs based on their X position */
+static int
+compare_output_positions (const void *a, const void *b)
+{
+        GnomeRROutputInfo *oa = (GnomeRROutputInfo *) a;
+        GnomeRROutputInfo *ob = (GnomeRROutputInfo *) b;
+        int xa, xb;
+
+        gnome_rr_output_info_get_geometry (oa, &xa, NULL, NULL, NULL);
+        gnome_rr_output_info_get_geometry (ob, &xb, NULL, NULL, NULL);
+
+        return xb - xa;
+}
+
+/* A set of outputs with already-set sizes and positions may not fit in the
+ * frame buffer that is available.  Turn off outputs right-to-left until we find
+ * a size that fits.  Returns whether something applicable was found
+ * (i.e. something that fits and that does not consist of only-off outputs).
+ */
+static gboolean
+trim_rightmost_outputs_that_dont_fit_in_framebuffer (GnomeRRScreen *rr_screen, GnomeRRConfig *config)
+{
+        GnomeRROutputInfo **outputs;
+        GnomeRROutputInfo **sorted_outputs;
+        int num_on_outputs;
+        int i, j;
+        gboolean applicable;
+
+        outputs = gnome_rr_config_get_outputs (config);
+
+        /* How many are on? */
+
+        num_on_outputs = 0;
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (gnome_rr_output_info_is_active (outputs[i]))
+                        num_on_outputs++;
+        }
+
+        /* Lay them out from left to right */
+
+        sorted_outputs = g_new (GnomeRROutputInfo *, num_on_outputs);
+        j = 0;
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (gnome_rr_output_info_is_active (outputs[i])) {
+                        sorted_outputs[j] = outputs[i];
+                        j++;
+                }
+        }
+
+        qsort (sorted_outputs, num_on_outputs, sizeof (sorted_outputs[0]), compare_output_positions);
+
+        /* Trim! */
+
+        for (i = num_on_outputs - 1; i >= 0; i--) {
+                GError *error = NULL;
+                gboolean is_bounds_error;
+
+                applicable = gnome_rr_config_applicable (config, rr_screen, &error);
+                if (applicable)
+                        break;
+
+                is_bounds_error = g_error_matches (error, GNOME_RR_ERROR, GNOME_RR_ERROR_BOUNDS_ERROR);
+                g_error_free (error);
+
+                if (!is_bounds_error)
+                        break;
+
+                gnome_rr_output_info_set_active (sorted_outputs[i], FALSE);
+        }
+
+        if (config_is_all_off (config))
+                applicable = FALSE;
+
+        g_free (sorted_outputs);
+
+        return applicable;
+}
+
 static GnomeRRConfig *
 make_xinerama_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
 {
@@ -993,7 +1071,7 @@ make_xinerama_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
-        if (config_is_all_off (result)) {
+        if (!trim_rightmost_outputs_that_dont_fit_in_framebuffer (screen, result))
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
@@ -1026,7 +1104,7 @@ make_other_setup (GnomeRRScreen *screen)
                }
         }
 
-        if (config_is_all_off (result)) {
+        if (!trim_rightmost_outputs_that_dont_fit_in_framebuffer (screen, result))
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
@@ -1492,7 +1570,6 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         GList *l;
         int x;
         GError *error;
-        gboolean applicable;
 
         config = gnome_rr_config_new_current (priv->rw_screen, NULL);
 
@@ -1567,42 +1644,9 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
                 x += width;
         }
 
-        /* Check if we have a large enough framebuffer size.  If not, turn off
-         * outputs from right to left until we reach a usable size.
-         */
-
-        just_turned_on = g_list_reverse (just_turned_on); /* now the outputs here are from right to left */
-
-        l = just_turned_on;
-        while (1) {
-                GnomeRROutputInfo *output;
-                gboolean is_bounds_error;
-
-                error = NULL;
-                applicable = gnome_rr_config_applicable (config, priv->rw_screen, &error);
-
-                if (applicable)
-                        break;
-
-                is_bounds_error = g_error_matches (error, GNOME_RR_ERROR, GNOME_RR_ERROR_BOUNDS_ERROR);
-                g_error_free (error);
-
-                if (!is_bounds_error)
-                        break;
-
-                if (l) {
-                        i = GPOINTER_TO_INT (l->data);
-                        l = l->next;
-
-                        output = outputs[i];
-                        gnome_rr_output_info_set_active (output, FALSE);
-                } else
-                        break;
-        }
-
         /* Apply the configuration! */
 
-        if (applicable) {
+        if (trim_rightmost_outputs_that_dont_fit_in_framebuffer (priv->rw_screen, config)) {
                 print_configuration (config, "auto configure");
 
                 apply_configuration (manager, config, timestamp, TRUE);
