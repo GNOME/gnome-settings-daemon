@@ -50,7 +50,7 @@ static GDBusNodeInfo *pdi_introspection_data = NULL;
 
 #define MECHANISM_BUS "org.opensuse.CupsPkHelper.Mechanism"
 
-#define ALLOWED_CHARACTERS "abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_/"
+#define ALLOWED_CHARACTERS "abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_"
 
 #define DBUS_TIMEOUT           60000
 #define DBUS_INSTALL_TIMEOUT 3600000
