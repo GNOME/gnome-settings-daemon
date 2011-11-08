@@ -1,4 +1,30 @@
 =============
+Version 3.2.2
+=============
+
+Fix a number of memory leaks and static analysis bugs
+
+Media keys:
+- Fix suspend key not working
+- Fix newly captured keybindings with GTK+ 3.2.1 not working
+  ('<Primary>' key)
+- Fix OSD display problem in fallback mode
+- Allow grabbing the Print key without a modifier
+
+Power:
+- Fix possible undefined symbol
+
+Printers:
+- Fix crash on start when registering a D-Bus service
+- Fix problems getting ownership information for print jobs
+- Only show errors when the print job triggering it is ours
+- Make error notifications resident, and dismiss them when
+  the problem is resolved
+
+Wacom:
+- Set cursor devices to be in relative mode by default
+
+=============
 Version 3.2.1
 =============
 
