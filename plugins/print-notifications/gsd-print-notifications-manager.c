@@ -681,6 +681,12 @@ on_cups_notification (GDBusConnection *connection,
                         }
                         g_slist_free (added_reasons);
                 }
+
+                if (new_state_reasons)
+                        g_strfreev (new_state_reasons);
+
+                if (old_state_reasons)
+                        g_strfreev (old_state_reasons);
         }
 
         g_free (display_name);
