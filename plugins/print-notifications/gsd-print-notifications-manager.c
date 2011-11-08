@@ -48,6 +48,7 @@
 #define RENEW_INTERVAL        3500
 #define SUBSCRIPTION_DURATION 3600
 #define CONNECTING_TIMEOUT    60
+#define REASON_TIMEOUT        15000
 
 struct GsdPrintNotificationsManagerPrivate
 {
@@ -60,6 +61,7 @@ struct GsdPrintNotificationsManagerPrivate
         GPid                          scp_handler_pid;
         GList                        *timeouts;
         GHashTable                   *printing_printers;
+        GList                        *active_notifications;
 };
 
 enum {
@@ -143,6 +145,15 @@ struct
         GsdPrintNotificationsManager *manager;
 } typedef TimeoutData;
 
+struct
+{
+        gchar *printer_name;
+        gchar *reason;
+        NotifyNotification *notification;
+        gulong notification_close_id;
+        GsdPrintNotificationsManager *manager;
+} typedef ReasonData;
+
 static void
 free_timeout_data (gpointer user_data)
 {
@@ -156,11 +167,46 @@ free_timeout_data (gpointer user_data)
         }
 }
 
+static void
+free_reason_data (gpointer user_data)
+{
+        ReasonData *data = (ReasonData *) user_data;
+
+        if (data) {
+                if (data->notification_close_id > 0 &&
+                    g_signal_handler_is_connected (data->notification,
+                                                   data->notification_close_id))
+                        g_signal_handler_disconnect (data->notification, data->notification_close_id);
+
+                g_object_unref (data->notification);
+
+                g_free (data->printer_name);
+                g_free (data->reason);
+
+                g_free (data);
+        }
+}
+
+static void
+notification_closed_cb (NotifyNotification *notification,
+                        gpointer            user_data)
+{
+        ReasonData *data = (ReasonData *) user_data;
+
+        if (data) {
+                data->manager->priv->active_notifications =
+                        g_list_remove (data->manager->priv->active_notifications, data);
+
+                free_reason_data (data);
+        }
+}
+
 static gboolean
 show_notification (gpointer user_data)
 {
         NotifyNotification *notification;
         TimeoutData        *data = (TimeoutData *) user_data;
+        ReasonData         *reason_data;
         GList              *tmp;
 
         if (!data)
@@ -172,11 +218,26 @@ show_notification (gpointer user_data)
 
         notify_notification_set_app_name (notification, _("Printers"));
         notify_notification_set_hint (notification,
-                                      "transient",
+                                      "resident",
                                       g_variant_new_boolean (TRUE));
-        notify_notification_show (notification, NULL);
+        notify_notification_set_timeout (notification, REASON_TIMEOUT);
 
-        g_object_unref (notification);
+        reason_data = g_new0 (ReasonData, 1);
+        reason_data->printer_name = g_strdup (data->printer_name);
+        reason_data->reason = g_strdup ("connecting-to-device");
+        reason_data->notification = notification;
+        reason_data->manager = data->manager;
+
+        reason_data->notification_close_id =
+                g_signal_connect (notification,
+                                  "closed",
+                                  G_CALLBACK (notification_closed_cb),
+                                  reason_data);
+
+        reason_data->manager->priv->active_notifications =
+                g_list_append (reason_data->manager->priv->active_notifications, reason_data);
+
+        notify_notification_show (notification, NULL);
 
         tmp = g_list_find (data->manager->priv->timeouts, data);
         if (tmp) {
@@ -450,6 +511,7 @@ on_cups_notification (GDBusConnection *connection,
                 const gchar  *tmp_printer_state_reasons = NULL;
                 GSList       *added_reasons = NULL;
                 GSList       *tmp_list = NULL;
+                GList        *tmp;
                 gchar       **old_state_reasons = NULL;
                 gchar       **new_state_reasons = NULL;
                 gint          i, j;
@@ -460,7 +522,6 @@ on_cups_notification (GDBusConnection *connection,
                 if (printer_state_reasons == NULL ||
                     g_strrstr (printer_state_reasons, "connecting-to-device") == NULL) {
                         TimeoutData *data;
-                        GList       *tmp;
 
                         for (tmp = manager->priv->timeouts; tmp; tmp = g_list_next (tmp)) {
                                 data = (TimeoutData *) tmp->data;
@@ -470,6 +531,33 @@ on_cups_notification (GDBusConnection *connection,
                                         g_list_free_full (tmp, free_timeout_data);
                                         break;
                                 }
+                        }
+                }
+
+                for (tmp = manager->priv->active_notifications; tmp; tmp = g_list_next (tmp)) {
+                        ReasonData *reason_data = (ReasonData *) tmp->data;
+                        GList      *remove_list;
+
+                        if (printer_state_reasons == NULL ||
+                            (g_strcmp0 (printer_name, reason_data->printer_name) == 0 &&
+                             g_strrstr (printer_state_reasons, reason_data->reason) == NULL)) {
+
+                                if (reason_data->notification_close_id > 0 &&
+                                    g_signal_handler_is_connected (reason_data->notification,
+                                                                   reason_data->notification_close_id)) {
+                                        g_signal_handler_disconnect (reason_data->notification,
+                                                                     reason_data->notification_close_id);
+                                        reason_data->notification_close_id = 0;
+                                }
+
+                                notify_notification_close (reason_data->notification, NULL);
+
+                                remove_list = tmp;
+                                tmp = g_list_next (tmp);
+                                manager->priv->active_notifications =
+                                        g_list_remove_link (manager->priv->active_notifications, remove_list);
+
+                                g_list_free_full (remove_list, free_reason_data);
                         }
                 }
 
@@ -557,6 +645,7 @@ on_cups_notification (GDBusConnection *connection,
                                                         manager->priv->timeouts = g_list_append (manager->priv->timeouts, data);
                                                 }
                                                 else {
+                                                        ReasonData *reason_data;
                                                         gchar *second_row = g_strdup_printf (statuses_second[j], printer_name);
 
                                                         notification = notify_notification_new (statuses_first[j],
@@ -564,11 +653,27 @@ on_cups_notification (GDBusConnection *connection,
                                                                                                 "printer-symbolic");
                                                         notify_notification_set_app_name (notification, _("Printers"));
                                                         notify_notification_set_hint (notification,
-                                                                                      "transient",
+                                                                                      "resident",
                                                                                       g_variant_new_boolean (TRUE));
+                                                        notify_notification_set_timeout (notification, REASON_TIMEOUT);
+
+                                                        reason_data = g_new0 (ReasonData, 1);
+                                                        reason_data->printer_name = g_strdup (printer_name);
+                                                        reason_data->reason = g_strdup (reasons[j]);
+                                                        reason_data->notification = notification;
+                                                        reason_data->manager = manager;
+
+                                                        reason_data->notification_close_id =
+                                                                g_signal_connect (notification,
+                                                                                  "closed",
+                                                                                  G_CALLBACK (notification_closed_cb),
+                                                                                  reason_data);
+
+                                                        manager->priv->active_notifications =
+                                                                g_list_append (manager->priv->active_notifications, reason_data);
+
                                                         notify_notification_show (notification, NULL);
 
-                                                        g_object_unref (notification);
                                                         g_free (second_row);
                                                 }
                                         }
@@ -732,6 +837,7 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         manager->priv->scp_handler_spawned = FALSE;
         manager->priv->timeouts = NULL;
         manager->priv->printing_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+        manager->priv->active_notifications = NULL;
 
         renew_subscription (manager);
         g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription, manager);
@@ -777,6 +883,7 @@ void
 gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
 {
         TimeoutData *data;
+        ReasonData  *reason_data;
         GList       *tmp;
 
         g_debug ("Stopping print-notifications manager");
@@ -803,6 +910,22 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
                         g_source_remove (data->timeout_id);
         }
         g_list_free_full (manager->priv->timeouts, free_timeout_data);
+
+        for (tmp = manager->priv->active_notifications; tmp; tmp = g_list_next (tmp)) {
+                reason_data = (ReasonData *) tmp->data;
+                if (reason_data) {
+                        if (reason_data->notification_close_id > 0 &&
+                            g_signal_handler_is_connected (reason_data->notification,
+                                                           reason_data->notification_close_id)) {
+                                g_signal_handler_disconnect (reason_data->notification,
+                                                             reason_data->notification_close_id);
+                                reason_data->notification_close_id = 0;
+                        }
+
+                        notify_notification_close (reason_data->notification, NULL);
+                }
+        }
+        g_list_free_full (manager->priv->active_notifications, free_reason_data);
 
         scp_handler (manager, FALSE);
 }
