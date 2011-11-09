@@ -1566,97 +1566,15 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
         GnomeRRConfig *config;
-        GnomeRROutputInfo **outputs;
-        int i;
-        GList *just_turned_on;
-        GList *l;
-        int x;
 
-        config = gnome_rr_config_new_current (priv->rw_screen, NULL);
-
-        /* For outputs that are connected and on (i.e. they have a CRTC assigned
-         * to them, so they are getting a signal), we leave them as they are
-         * with their current modes.
-         *
-         * For other outputs, we will turn on connected-but-off outputs and turn
-         * off disconnected-but-on outputs.
-         *
-         * FIXME: If an output remained connected+on, it would be nice to ensure
-         * that the output's CRTCs still has a reasonable mode (think of
-         * changing one monitor for another with different capabilities).
-         */
-
-        just_turned_on = NULL;
-        outputs = gnome_rr_config_get_outputs (config);
-
-        for (i = 0; outputs[i] != NULL; i++) {
-                GnomeRROutputInfo *output = outputs[i];
-
-                if (is_laptop_with_closed_lid (manager, priv->rw_screen, output)) {
-                        gnome_rr_output_info_set_active (output, FALSE);
-                        /* FIXME: gsd-power-manager.c sets DPMS GNOME_RR_DPMS_OFF when the lid is closed.  Should we do that here instead? */
-                } else if (gnome_rr_output_info_is_connected (output) && !gnome_rr_output_info_is_active (output)) {
-                        gnome_rr_output_info_set_active (output, TRUE);
-                        gnome_rr_output_info_set_rotation (output, GNOME_RR_ROTATION_0);
-                        just_turned_on = g_list_prepend (just_turned_on, GINT_TO_POINTER (i));
-                } else if (!gnome_rr_output_info_is_connected (output) && gnome_rr_output_info_is_active (output))
-                        gnome_rr_output_info_set_active (output, FALSE);
-        }
-
-        /* Now, lay out the outputs from left to right.  Put first the outputs
-         * which remained on; put last the outputs that were newly turned on.
-         */
-
-        x = 0;
-
-        /* First, outputs that remained on */
-
-        for (i = 0; outputs[i] != NULL; i++) {
-                GnomeRROutputInfo *output = outputs[i];
-
-                if (g_list_find (just_turned_on, GINT_TO_POINTER (i)))
-                        continue;
-
-                if (gnome_rr_output_info_is_active (output)) {
-                        int width, height;
-                        g_assert (gnome_rr_output_info_is_connected (output));
-
-                        gnome_rr_output_info_get_geometry (output, NULL, NULL, &width, &height);
-                        gnome_rr_output_info_set_geometry (output, x, 0, width, height);
-                        x += width;
-                }
-        }
-
-        /* Second, outputs that were newly-turned on */
-
-        for (l = just_turned_on; l; l = l->next) {
-                GnomeRROutputInfo *output;
-                int width;
-
-                i = GPOINTER_TO_INT (l->data);
-                output = outputs[i];
-
-                g_assert (gnome_rr_output_info_is_active (output) && gnome_rr_output_info_is_connected (output));
-
-                /* since the output was off, use its preferred width/height (it doesn't have a real width/height yet) */
-                width = gnome_rr_output_info_get_preferred_width (output);
-                gnome_rr_output_info_set_geometry (output, x, 0, width, gnome_rr_output_info_get_preferred_height (output));
-
-                x += width;
-        }
-
-        /* Apply the configuration! */
-
-        if (trim_rightmost_outputs_that_dont_fit_in_framebuffer (priv->rw_screen, config)) {
-                print_configuration (config, "auto configure");
-
+        config = make_xinerama_setup (manager, priv->rw_screen);
+        if (config) {
+                print_configuration (config, "auto-configure - xinerama mode");
                 apply_configuration (manager, config, timestamp, TRUE);
+                g_object_unref (config);
         } else {
-                g_debug ("Not an applicable config");
+                g_debug ("No applicable configuration found during auto-configure");
         }
-
-        g_list_free (just_turned_on);
-        g_object_unref (config);
 }
 
 static void
