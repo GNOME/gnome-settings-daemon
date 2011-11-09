@@ -1578,6 +1578,49 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 }
 
 static void
+use_stored_configuration_or_auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        char *intended_filename;
+        GError *error;
+        gboolean success;
+
+        intended_filename = gnome_rr_config_get_intended_filename ();
+
+        error = NULL;
+        success = apply_configuration_from_filename (manager, intended_filename, TRUE, timestamp, &error);
+        g_free (intended_filename);
+
+        if (!success) {
+                /* We don't bother checking the error type.
+                 *
+                 * Both G_FILE_ERROR_NOENT and
+                 * GNOME_RR_ERROR_NO_MATCHING_CONFIG would mean, "there
+                 * was no configuration to apply, or none that matched
+                 * the current outputs", and in that case we need to run
+                 * our fallback.
+                 *
+                 * Any other error means "we couldn't do the smart thing
+                 * of using a previously- saved configuration, anyway,
+                 * for some other reason.  In that case, we also need to
+                 * run our fallback to avoid leaving the user with a
+                 * bogus configuration.
+                 */
+
+                if (error)
+                        g_error_free (error);
+
+                if (timestamp != priv->last_config_timestamp) {
+                        priv->last_config_timestamp = timestamp;
+                        auto_configure_outputs (manager, timestamp);
+                        log_msg ("  Automatically configured outputs\n");
+                } else
+                        log_msg ("  Ignored autoconfiguration as old and new config timestamps are the same\n");
+        } else
+                log_msg ("Applied stored configuration\n");
+}
+
+static void
 on_randr_event (GnomeRRScreen *screen, gpointer data)
 {
         GsdXrandrManager *manager = GSD_XRANDR_MANAGER (data);
@@ -1626,45 +1669,8 @@ on_randr_event (GnomeRRScreen *screen, gpointer data)
                  * outputs in a sane way.
                  */
 
-                char *intended_filename;
-                GError *error;
-                gboolean success;
-
                 show_timestamps_dialog (manager, "need to deal with reconfiguration, as config > change");
-
-                intended_filename = gnome_rr_config_get_intended_filename ();
-
-                error = NULL;
-                success = apply_configuration_from_filename (manager, intended_filename, TRUE, config_timestamp, &error);
-                g_free (intended_filename);
-
-                if (!success) {
-                        /* We don't bother checking the error type.
-                         *
-                         * Both G_FILE_ERROR_NOENT and
-                         * GNOME_RR_ERROR_NO_MATCHING_CONFIG would mean, "there
-                         * was no configuration to apply, or none that matched
-                         * the current outputs", and in that case we need to run
-                         * our fallback.
-                         *
-                         * Any other error means "we couldn't do the smart thing
-                         * of using a previously- saved configuration, anyway,
-                         * for some other reason.  In that case, we also need to
-                         * run our fallback to avoid leaving the user with a
-                         * bogus configuration.
-                         */
-
-                        if (error)
-                                g_error_free (error);
-
-                        if (config_timestamp != priv->last_config_timestamp) {
-                                priv->last_config_timestamp = config_timestamp;
-                                auto_configure_outputs (manager, config_timestamp);
-                                log_msg ("  Automatically configured outputs to deal with event\n");
-                        } else
-                                log_msg ("  Ignored event as old and new config timestamps are the same\n");
-                } else
-                        log_msg ("Applied stored configuration to deal with event\n");
+                use_stored_configuration_or_auto_configure_outputs (manager, config_timestamp);
         }
 
         log_close ();
