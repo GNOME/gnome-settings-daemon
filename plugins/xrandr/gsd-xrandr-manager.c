@@ -104,6 +104,7 @@ struct GsdXrandrManagerPrivate
         gboolean running;
 
         UpClient *upower_client;
+        gboolean laptop_lid_is_closed;
 
         GSettings       *settings;
         GDBusNodeInfo   *introspection_data;
@@ -1839,6 +1840,45 @@ apply_default_configuration_from_file (GsdXrandrManager *manager, guint32 timest
         return result;
 }
 
+static void
+turn_off_laptop_display (GsdXrandrManager *manager, guint32 timestamp)
+{
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        GnomeRROutputInfo *laptop_info;
+        
+        config = gnome_rr_config_new_current (priv->rw_screen, NULL);
+
+        laptop_info = get_laptop_output_info (priv->rw_screen, config);
+        if (laptop_info) {
+                gnome_rr_output_info_set_active (laptop_info, FALSE);
+
+                /* We don't turn the laptop's display off if it is the only display present. */
+                if (!config_is_all_off (config))
+                        apply_configuration (manager, config, timestamp, FALSE);
+        }
+
+        g_object_unref (config);
+}
+
+static void
+power_client_notify_lid_is_closed_cb (GObject *object, GParamSpec *pspec, gpointer data)
+{
+        GsdXrandrManager *manager = data;
+        GsdXrandrManagerPrivate *priv = manager->priv;
+        gboolean is_closed;
+
+        is_closed = up_client_get_lid_is_closed (priv->upower_client);
+
+        if (is_closed != priv->laptop_lid_is_closed) {
+                priv->laptop_lid_is_closed = is_closed;
+
+                if (is_closed)
+                        turn_off_laptop_display (manager, GDK_CURRENT_TIME); /* sucks not to have a timestamp for the notification */
+                else
+                        use_stored_configuration_or_auto_configure_outputs (manager, GDK_CURRENT_TIME);
+        }
+}
+
 gboolean
 gsd_xrandr_manager_start (GsdXrandrManager *manager,
                           GError          **error)
@@ -1862,6 +1902,8 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         g_signal_connect (manager->priv->rw_screen, "changed", G_CALLBACK (on_randr_event), manager);
 
         manager->priv->upower_client = up_client_new ();
+        g_signal_connect (manager->priv->upower_client, "notify::lid-is-closed", G_CALLBACK (power_client_notify_lid_is_closed_cb), manager);
+        manager->priv->laptop_lid_is_closed = up_client_get_lid_is_closed (manager->priv->upower_client);
 
         log_msg ("State of screen at startup:\n");
         log_screen (manager->priv->rw_screen);
