@@ -789,7 +789,7 @@ laptop_lid_is_closed (GsdXrandrManager *manager)
 static gboolean
 is_laptop_with_closed_lid (GsdXrandrManager *manager, GnomeRRScreen *screen, GnomeRROutputInfo *info)
 {
-        return is_laptop (screen, output) && laptop_lid_is_closed (manager);
+        return is_laptop (screen, info) && laptop_lid_is_closed (manager);
 }
 
 static GnomeRRConfig *
@@ -1020,6 +1020,8 @@ trim_rightmost_outputs_that_dont_fit_in_framebuffer (GnomeRRScreen *rr_screen, G
 
         /* Trim! */
 
+        applicable = FALSE;
+
         for (i = num_on_outputs - 1; i >= 0; i--) {
                 GError *error = NULL;
                 gboolean is_bounds_error;
@@ -1071,7 +1073,7 @@ make_xinerama_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
-        if (!trim_rightmost_outputs_that_dont_fit_in_framebuffer (screen, result))
+        if (!trim_rightmost_outputs_that_dont_fit_in_framebuffer (screen, result)) {
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
@@ -1104,7 +1106,7 @@ make_other_setup (GnomeRRScreen *screen)
                }
         }
 
-        if (!trim_rightmost_outputs_that_dont_fit_in_framebuffer (screen, result))
+        if (!trim_rightmost_outputs_that_dont_fit_in_framebuffer (screen, result)) {
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
@@ -1569,7 +1571,6 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         GList *just_turned_on;
         GList *l;
         int x;
-        GError *error;
 
         config = gnome_rr_config_new_current (priv->rw_screen, NULL);
 
@@ -1825,7 +1826,7 @@ apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
         case GSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING:
                 return;
         case GSD_XRANDR_BOOT_BEHAVIOUR_CLONE:
-                config = make_clone_setup (screen);
+                config = make_clone_setup (mgr, screen);
                 break;
         case GSD_XRANDR_BOOT_BEHAVIOUR_DOCK:
                 config = make_other_setup (screen);
