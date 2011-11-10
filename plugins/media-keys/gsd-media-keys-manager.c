@@ -39,7 +39,6 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <gio/gdesktopappinfo.h>
-#include <gconf/gconf-client.h>
 
 #ifdef HAVE_GUDEV
 #include <gudev/gudev.h>
@@ -67,7 +66,7 @@
 #define GNOME_SESSION_DBUS_PATH "/org/gnome/SessionManager"
 #define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
 
-#define GCONF_BINDING_DIR "/desktop/gnome/keybindings"
+#define CUSTOM_BINDING_SCHEMA SETTINGS_BINDING_DIR ".custom-keybinding"
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -110,7 +109,7 @@ typedef struct {
         MediaKeyType key_type;
         const char *settings_key;
         const char *hard_coded;
-        char *gconf_dir;
+        char *custom_path;
         char *custom_command;
         Key *key;
 } MediaKey;
@@ -129,10 +128,9 @@ struct GsdMediaKeysManagerPrivate
 
         GtkWidget       *dialog;
         GSettings       *settings;
+        GHashTable      *custom_settings;
 
         GPtrArray       *keys;
-        GConfClient     *gconf;
-        guint            gconf_id;
 
         /* HighContrast theme settings */
         GSettings       *interface_settings;
@@ -165,6 +163,9 @@ static void     gsd_media_keys_manager_class_init  (GsdMediaKeysManagerClass *kl
 static void     gsd_media_keys_manager_init        (GsdMediaKeysManager      *media_keys_manager);
 static void     gsd_media_keys_manager_finalize    (GObject                  *object);
 static void     register_manager                   (GsdMediaKeysManager      *manager);
+static void     custom_binding_changed             (GSettings           *settings,
+                                                    const char          *settings_key,
+                                                    GsdMediaKeysManager *manager);
 G_DEFINE_TYPE (GsdMediaKeysManager, gsd_media_keys_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
@@ -195,7 +196,7 @@ media_key_free (MediaKey *key)
 {
         if (key == NULL)
                 return;
-        g_free (key->gconf_dir);
+        g_free (key->custom_path);
         g_free (key->custom_command);
         free_key (key->key);
         g_free (key);
@@ -304,13 +305,12 @@ get_key_string (GsdMediaKeysManager *manager,
 		return g_settings_get_string (manager->priv->settings, key->settings_key);
 	else if (key->hard_coded != NULL)
 		return g_strdup (key->hard_coded);
-	else if (key->gconf_dir != NULL) {
-		char *entry, *str;
+	else if (key->custom_path != NULL) {
+                GSettings *settings;
 
-		entry = g_strdup_printf ("%s/binding", key->gconf_dir);
-		str = gconf_client_get_string (manager->priv->gconf, entry, NULL);
-		g_free (entry);
-		return str;
+                settings = g_hash_table_lookup (manager->priv->custom_settings,
+                                                key->custom_path);
+		return g_settings_get_string (settings, "binding");
 	} else
 		g_assert_not_reached ();
 }
@@ -356,6 +356,10 @@ gsettings_changed_cb (GSettings           *settings,
         int      i;
         gboolean need_flush = TRUE;
 
+	/* handled in gsettings_custom_changed_cb() */
+        if (g_str_equal (settings_key, "custom-keybindings"))
+		return;
+
         gdk_error_trap_push ();
 
         /* Find the key that was modified */
@@ -380,148 +384,165 @@ gsettings_changed_cb (GSettings           *settings,
                 g_warning ("Grab failed for some keys, another application may already have access the them.");
 }
 
-static char *
-entry_get_string (GConfEntry *entry)
-{
-        GConfValue *value = gconf_entry_get_value (entry);
-
-        if (value == NULL || value->type != GCONF_VALUE_STRING) {
-                return NULL;
-        }
-
-        return g_strdup (gconf_value_get_string (value));
-}
-
 static MediaKey *
-media_key_new_for_gconf (GsdMediaKeysManager *manager,
-			 char                *dir)
+media_key_new_for_path (GsdMediaKeysManager *manager,
+			char                *path)
 {
-        GSList *list, *l;
-        char *action, *binding;
+        GSettings *settings;
+        char *command, *binding;
         MediaKey *key;
 
-        /* Get entries for this binding */
-        list = gconf_client_all_entries (manager->priv->gconf, dir, NULL);
-        action = NULL;
-        binding = NULL;
+        g_debug ("media_key_new_for_path: %s", path);
 
-        for (l = list; l != NULL; l = l->next) {
-                GConfEntry *entry = l->data;
-                char *key_name;
+	settings = g_hash_table_lookup (manager->priv->custom_settings, path);
+	if (settings == NULL) {
+		settings = g_settings_new_with_path (CUSTOM_BINDING_SCHEMA, path);
 
-                key_name = g_path_get_basename (gconf_entry_get_key (entry));
+		g_signal_connect (settings, "changed",
+				  G_CALLBACK (custom_binding_changed), manager);
+		g_hash_table_insert (manager->priv->custom_settings,
+				     g_strdup (path), settings);
+	}
 
-                if (key_name == NULL) {
-                        /* ignore entry */
-                } else if (strcmp (key_name, "action") == 0) {
-                        action = entry_get_string (entry);
-                } else if (strcmp (key_name, "binding") == 0) {
-                        binding = entry_get_string (entry);
-                }
+        command = g_settings_get_string (settings, "command");
+        binding = g_settings_get_string (settings, "binding");
 
-                g_free (key_name);
-                gconf_entry_free (entry);
-        }
-
-        g_slist_free (list);
-
-        if (action == NULL && binding == NULL) {
-                g_debug ("Key binding (%s) is incomplete", dir);
+        if (*command == '\0' && *binding == '\0') {
+                g_debug ("Key binding (%s) is incomplete", path);
+                g_free (command);
+                g_free (binding);
                 return NULL;
         }
         g_free (binding);
 
         key = g_new0 (MediaKey, 1);
         key->key_type = CUSTOM_KEY;
-        key->gconf_dir = dir;
-        key->custom_command = action;
+        key->custom_path = g_strdup (path);
+        key->custom_command = command;
 
         return key;
 }
 
 static void
-gconf_changed_cb (GConfClient         *client,
-                  guint                cnxn_id,
-                  GConfEntry          *entry,
-                  GsdMediaKeysManager *manager)
+update_custom_binding (GsdMediaKeysManager *manager,
+                       char                *path)
 {
-	char *gconf_key, **key_elems;
-	int      i;
-	MediaKey *key;
+        MediaKey *key;
+        int i;
 
-	g_return_if_fail (entry != NULL);
-	g_return_if_fail (entry->key[0] == '/');
+        /* Remove the existing key */
+        for (i = 0; i < manager->priv->keys->len; i++) {
+                key = g_ptr_array_index (manager->priv->keys, i);
 
-	/* Look for the dir that changed, thus the MediaKey */
-	key_elems = g_strsplit (entry->key + 1, "/", -1);
-	if (key_elems == NULL ||
-	    (g_strv_length (key_elems) != 4 &&
-	     g_strv_length (key_elems) != 5)) {
-		g_warning ("Unexpected GConf notification for key '%s'", entry->key);
-		g_strfreev (key_elems);
-		return;
-	}
+                if (key->custom_path == NULL)
+                        continue;
+                if (strcmp (key->custom_path, path) == 0) {
+                        g_debug ("Removing custom key binding %s", path);
+                        if (key->key) {
+                                gdk_error_trap_push ();
 
-	if (g_strv_length (key_elems) == 5 &&
-	    g_str_equal (key_elems[4], "binding") == FALSE &&
-	    g_str_equal (key_elems[4], "action") == FALSE) {
-		g_debug ("Not interested in notification for key '%s'", entry->key);
-		g_strfreev (key_elems);
-		return;
-	}
-	gconf_key = g_strdup_printf ("/%s/%s/%s/%s",
-				     key_elems[0],
-				     key_elems[1],
-				     key_elems[2],
-				     key_elems[3]);
-	g_strfreev (key_elems);
+                                grab_key_unsafe (key->key,
+                                                 FALSE,
+                                                 manager->priv->screens);
 
-	g_debug ("Got notification for key '%s' (dir: '%s')",
-		 entry->key, gconf_key);
+                                gdk_flush ();
+                                if (gdk_error_trap_pop ())
+                                        g_warning ("Ungrab failed for custom key '%s'", path);
+                        }
+                        g_ptr_array_remove_index_fast (manager->priv->keys, i);
+                        break;
+                }
+        }
 
-	/* Remove the existing key */
-	for (i = 0; i < manager->priv->keys->len; i++) {
-		key = g_ptr_array_index (manager->priv->keys, i);
+        /* And create a new one! */
+        key = media_key_new_for_path (manager, path);
+        if (key) {
+                g_debug ("Adding new custom key binding %s", path);
+                g_ptr_array_add (manager->priv->keys, key);
 
-		if (key->gconf_dir == NULL)
-			continue;
-		if (strcmp (key->gconf_dir, gconf_key) == 0) {
-			if (key->key) {
-				gdk_error_trap_push ();
+                gdk_error_trap_push ();
 
-				grab_key_unsafe (key->key, FALSE, manager->priv->screens);
+                grab_media_key (key, manager);
 
-				gdk_flush ();
-				if (gdk_error_trap_pop ())
-					g_warning ("Ungrab failed for GConf key '%s'", gconf_key);
-			}
-			g_ptr_array_remove_index_fast (manager->priv->keys, i);
-			break;
-		}
-	}
-
-	/* And create a new one! */
-	key = media_key_new_for_gconf (manager, gconf_key);
-	if (key) {
-		g_ptr_array_add (manager->priv->keys, key);
-
-		gdk_error_trap_push ();
-
-		grab_media_key (key, manager);
-
-		gdk_flush ();
-		if (gdk_error_trap_pop ())
-			g_warning ("Grab failed for GConf key '%s'", key->gconf_dir);
-	} else {
-		g_free (gconf_key);
-	}
+                gdk_flush ();
+                if (gdk_error_trap_pop ())
+                        g_warning ("Grab failed for custom key '%s'",
+                                   key->custom_path);
+        }
 }
+
+static void
+custom_binding_changed (GSettings           *settings,
+                        const char          *settings_key,
+                        GsdMediaKeysManager *manager)
+{
+        char *path;
+
+        if (strcmp (settings_key, "name") == 0)
+                return; /* we don't care */
+
+        g_object_get (settings, "path", &path, NULL);
+        update_custom_binding (manager, path);
+        g_free (path);
+}
+
+static void
+gsettings_custom_changed_cb (GSettings           *settings,
+                             const char          *settings_key,
+                             GsdMediaKeysManager *manager)
+{
+        char **bindings;
+        int i, j, n_bindings;
+
+        bindings = g_settings_get_strv (settings, settings_key);
+        n_bindings = g_strv_length (bindings);
+
+        /* Handle additions */
+        for (i = 0; i < n_bindings; i++) {
+                if (g_hash_table_lookup (manager->priv->custom_settings,
+                                         bindings[i]))
+                        continue;
+                update_custom_binding (manager, bindings[i]);
+        }
+
+        /* Handle removals */
+        for (i = 0; i < manager->priv->keys->len; i++) {
+                gboolean found = FALSE;
+                MediaKey *key = g_ptr_array_index (manager->priv->keys, i);
+                if (key->key_type != CUSTOM_KEY)
+                        continue;
+
+                for (j = 0; j < n_bindings && !found; j++)
+                        found = strcmp (bindings[j], key->custom_path) == 0;
+
+                if (found)
+                        continue;
+
+                if (key->key) {
+                        gdk_error_trap_push ();
+
+                        grab_key_unsafe (key->key,
+                                         FALSE,
+                                         manager->priv->screens);
+
+                        gdk_flush ();
+                        if (gdk_error_trap_pop ())
+                                g_warning ("Ungrab failed for custom key '%s'", key->custom_path);
+                }
+                g_hash_table_remove (manager->priv->custom_settings,
+                                     key->custom_path);
+                g_ptr_array_remove_index_fast (manager->priv->keys, i);
+                --i; /* make up for the removed key */
+        }
+        g_strfreev (bindings);
+}
+
 
 static void
 init_kbd (GsdMediaKeysManager *manager)
 {
+        char **custom_paths;
         int i;
-        GSList *list, *l;
 
         gnome_settings_profile_start (NULL);
 
@@ -544,20 +565,23 @@ init_kbd (GsdMediaKeysManager *manager)
         }
 
         /* Custom shortcuts */
-        list = gconf_client_all_dirs (manager->priv->gconf, GCONF_BINDING_DIR, NULL);
-        for (l = list; l != NULL; l = l->next) {
+        custom_paths = g_settings_get_strv (manager->priv->settings,
+                                            "custom-keybindings");
+
+        for (i = 0; i < g_strv_length (custom_paths); i++) {
                 MediaKey *key;
 
-                key = media_key_new_for_gconf (manager, l->data);
+                g_debug ("Setting up custom keybinding %s", custom_paths[i]);
+
+                key = media_key_new_for_path (manager, custom_paths[i]);
                 if (!key) {
-                        g_free (l->data);
                         continue;
                 }
                 g_ptr_array_add (manager->priv->keys, key);
 
                 grab_media_key (key, manager);
         }
-        g_slist_free (list);
+        g_strfreev (custom_paths);
 
         gdk_flush ();
         if (gdk_error_trap_pop ())
@@ -1987,15 +2011,12 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         manager->priv->settings = g_settings_new (SETTINGS_BINDING_DIR);
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (gsettings_changed_cb), manager);
+        g_signal_connect (G_OBJECT (manager->priv->settings), "changed::custom-keybindings",
+                          G_CALLBACK (gsettings_custom_changed_cb), manager);
 
-        manager->priv->gconf = gconf_client_get_default ();
-        gconf_client_add_dir (manager->priv->gconf, GCONF_BINDING_DIR, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
-        manager->priv->gconf_id = gconf_client_notify_add (manager->priv->gconf,
-                                                           GCONF_BINDING_DIR,
-                                                           (GConfClientNotifyFunc) gconf_changed_cb,
-                                                           manager,
-                                                           NULL,
-                                                           NULL);
+        manager->priv->custom_settings =
+          g_hash_table_new_full (g_str_hash, g_str_equal,
+                                 g_free, g_object_unref);
 
         /* Sound events */
         ca_context_create (&manager->priv->ca);
@@ -2201,17 +2222,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 
         gdk_flush ();
         gdk_error_trap_pop_ignored ();
-
-        if (priv->gconf_id) {
-                gconf_client_remove_dir (priv->gconf, GCONF_BINDING_DIR, NULL);
-                gconf_client_notify_remove (priv->gconf, priv->gconf_id);
-                priv->gconf_id = 0;
-        }
-
-        if (priv->gconf) {
-                g_object_unref (priv->gconf);
-                priv->gconf = NULL;
-        }
 
         if (priv->screens != NULL) {
                 g_slist_free (priv->screens);

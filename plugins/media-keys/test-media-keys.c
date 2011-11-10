@@ -45,6 +45,8 @@ main (int    argc,
         textdomain (GETTEXT_PACKAGE);
 #endif
 
+	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
+
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {
                 fprintf (stderr, "%s", error->message);

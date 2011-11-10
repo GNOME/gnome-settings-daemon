@@ -217,7 +217,7 @@ dnl ---------------------------------------------------------------------------
 dnl - media-keys plugin stuff
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra gconf-2.0 >= $GCONF_REQUIRED_VERSION])
+PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra])
 
 dnl ---------------------------------------------------------------------------
 dnl - color
