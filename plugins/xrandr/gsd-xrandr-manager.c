@@ -405,7 +405,7 @@ fail:
  * We just return whether setting the configuration succeeded.
  */
 static gboolean
-apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp, gboolean show_error)
+apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp, gboolean show_error, gboolean save_configuration)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
         GError *error;
@@ -417,7 +417,10 @@ apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 t
 
         error = NULL;
         success = gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, &error);
-        if (!success) {
+        if (success) {
+                if (save_configuration)
+                        gnome_rr_config_save (config, NULL); /* NULL-GError - there's not much we can do if this fails */
+        } else {
                 log_msg ("Could not switch to the following configuration (timestamp %u): %s\n", timestamp, error->message);
                 log_configuration (config);
                 if (show_error)
@@ -1341,7 +1344,7 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                 if (timestamp < server_timestamp)
                         timestamp = server_timestamp;
 
-                success = apply_configuration (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp, TRUE);
+                success = apply_configuration (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp, TRUE, TRUE);
 
                 if (success) {
                         log_msg ("Successfully switched to configuration (timestamp %u):\n", timestamp);
@@ -1554,7 +1557,7 @@ handle_rotate_windows (GsdXrandrManager *mgr,
 
         gnome_rr_output_info_set_rotation (rotatable_output_info, next_rotation);
 
-        success = apply_configuration (mgr, current, timestamp, show_error);
+        success = apply_configuration (mgr, current, timestamp, show_error, TRUE, TRUE);
         if (success)
                 rotate_touchscreens (mgr, next_rotation);
 
@@ -1571,7 +1574,7 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         config = make_xinerama_setup (manager, priv->rw_screen);
         if (config) {
                 print_configuration (config, "auto-configure - xinerama mode");
-                apply_configuration (manager, config, timestamp, TRUE);
+                apply_configuration (manager, config, timestamp, TRUE, TRUE);
                 g_object_unref (config);
         } else {
                 g_debug ("No applicable configuration found during auto-configure");
@@ -1761,7 +1764,10 @@ apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
         }
 
         if (config) {
-                apply_configuration (mgr, config, timestamp, TRUE);
+                /* We don't save the configuration (the "false" parameter to the following function) because we don't want to
+                 * install a user-side setting when *here* we are using a system-default setting.
+                 */
+                apply_configuration (mgr, config, timestamp, TRUE, FALSE);
                 g_object_unref (config);
         }
 }
@@ -1853,8 +1859,13 @@ turn_off_laptop_display (GsdXrandrManager *manager, guint32 timestamp)
                 gnome_rr_output_info_set_active (laptop_info, FALSE);
 
                 /* We don't turn the laptop's display off if it is the only display present. */
-                if (!config_is_all_off (config))
-                        apply_configuration (manager, config, timestamp, FALSE);
+                if (!config_is_all_off (config)) {
+                        /* We don't save the configuration (the "false" parameter to the following function) because we
+                         * wouldn't want to restore a configuration with the laptop's display turned off, if at some
+                         * point later the user booted his laptop with the lid open.
+                         */
+                        apply_configuration (manager, config, timestamp, FALSE, FALSE);
+                }
         }
 
         g_object_unref (config);
