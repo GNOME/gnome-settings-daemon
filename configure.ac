@@ -67,7 +67,7 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
         gmodule-2.0
         gthread-2.0
         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
-	gsettings-desktop-schemas >= 0.1.2
+	gsettings-desktop-schemas >= 3.3.0
 )
 
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
