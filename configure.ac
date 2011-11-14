@@ -304,7 +304,7 @@ dnl ==============================================
 PKG_CHECK_MODULES(UPOWER, upower-glib >= 0.9.1 libcanberra-gtk3)
 
 # ---------------------------------------------------------------------------
-# PolicyKit
+# PolicyKit for the date & time mechanism
 # ---------------------------------------------------------------------------
 
 POLKIT_REQUIRED=0.97
@@ -324,7 +324,7 @@ if test "x$enable_polkit" = "xno" ; then
   HAVE_POLKIT=no
 else
   HAVE_POLKIT=no
-  PKG_CHECK_MODULES(POLKIT, polkit-gobject-1 >= $POLKIT_REQUIRED dbus-1 >= $DBUS_REQUIRED, HAVE_POLKIT=yes, HAVE_POLKIT=no)
+  PKG_CHECK_MODULES(POLKIT, polkit-gobject-1 >= $POLKIT_REQUIRED dbus-1 >= $DBUS_REQUIRED dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION, HAVE_POLKIT=yes, HAVE_POLKIT=no)
 
   if test "x$enable_polkit" = "xyes" -a "x$HAVE_POLKIT" = "xno" ; then
     AC_MSG_ERROR(PolicyKit support explicity enabled but not available)
