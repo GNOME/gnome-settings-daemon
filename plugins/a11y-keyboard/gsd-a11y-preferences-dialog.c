@@ -31,8 +31,6 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
-#include <gconf/gconf-client.h>
-
 #include "gsd-a11y-preferences-dialog.h"
 
 #define SM_DBUS_NAME      "org.gnome.SessionManager"
@@ -62,8 +60,8 @@
 #define DPI_FACTOR_LARGEST 2.0
 
 #define KEY_GTK_THEME          "gtk-theme"
-#define KEY_METACITY_THEME     "/apps/metacity/general/theme"
 #define KEY_ICON_THEME         "icon-theme"
+#define KEY_METACITY_THEME     "theme"
 
 #define HIGH_CONTRAST_THEME    "HighContrast"
 
@@ -204,11 +202,11 @@ config_get_high_contrast (GsdA11yPreferencesDialog *dialog)
 static void
 config_set_high_contrast (gboolean enabled)
 {
-        GConfClient *client;
         GSettings *settings;
+        GSettings *wm_settings;
 
-        client = gconf_client_get_default ();
         settings = g_settings_new ("org.gnome.desktop.interface");
+        wm_settings = g_settings_new ("org.gnome.desktop.wm.preferences");
 
         if (enabled) {
                 g_settings_set_string (settings, KEY_GTK_THEME, HIGH_CONTRAST_THEME);
@@ -217,11 +215,11 @@ config_set_high_contrast (gboolean enabled)
         } else {
                 g_settings_reset (settings, KEY_GTK_THEME);
                 g_settings_reset (settings, KEY_ICON_THEME);
-                gconf_client_unset (client, KEY_METACITY_THEME, NULL);
+                g_settings_reset (wm_settings, KEY_METACITY_THEME);
         }
 
-        g_object_unref (client);
         g_object_unref (settings);
+        g_object_unref (wm_settings);
 }
 
 static gboolean
