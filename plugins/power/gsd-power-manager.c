@@ -91,8 +91,6 @@ static const gchar introspection_xml[] =
     "</property>"
     "<property name='Tooltip' type='s' access='read'>"
     "</property>"
-    "<signal name='Changed'>"
-    "</signal>"
     "<method name='GetPrimaryDevice'>"
       "<arg name='device' type='(susdut)' direction='out' />"
     "</method>"
@@ -206,6 +204,8 @@ static void     gsd_power_manager_finalize    (GObject              *object);
 
 static UpDevice *engine_get_composite_device (GsdPowerManager *manager, UpDevice *original_device);
 static UpDevice *engine_update_composite_device (GsdPowerManager *manager, UpDevice *original_device);
+static GIcon    *engine_get_icon (GsdPowerManager *manager);
+static gchar    *engine_get_summary (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
@@ -332,26 +332,81 @@ typedef enum {
         WARNING_ACTION          = 4
 } GsdPowerManagerWarning;
 
-static void
-engine_emit_changed (GsdPowerManager *manager)
+static GVariant *
+engine_get_icon_property_variant (GsdPowerManager  *manager)
 {
-        gboolean ret;
+        GIcon *icon;
+        GVariant *retval;
+
+        icon = engine_get_icon (manager);
+        if (icon != NULL) {
+                char *str;
+                str = g_icon_to_string (icon);
+                g_object_unref (icon);
+                retval = g_variant_new_string (str);
+                g_free (str);
+        } else {
+                retval = g_variant_new_string ("");
+        }
+        return retval;
+}
+
+static GVariant *
+engine_get_tooltip_property_variant (GsdPowerManager  *manager)
+{
+        char *tooltip;
+        GVariant *retval;
+
+        tooltip = engine_get_summary (manager);
+        retval = g_variant_new_string (tooltip != NULL ? tooltip : "");
+        g_free (tooltip);
+
+        return retval;
+}
+
+static void
+engine_emit_changed (GsdPowerManager *manager,
+                     gboolean         icon_changed,
+                     gboolean         state_changed)
+{
+        GVariantBuilder props_builder;
+        GVariant *props_changed = NULL;
         GError *error = NULL;
 
         /* not yet connected to the bus */
         if (manager->priv->connection == NULL)
                 return;
-        ret = g_dbus_connection_emit_signal (manager->priv->connection,
-                                             NULL,
-                                             GSD_POWER_DBUS_PATH,
-                                             GSD_POWER_DBUS_INTERFACE,
-                                             "Changed",
-                                             NULL,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to emit Changed: %s", error->message);
-                g_error_free (error);
+
+        g_variant_builder_init (&props_builder, G_VARIANT_TYPE ("a{sv}"));
+
+        if (icon_changed)
+                g_variant_builder_add (&props_builder, "{sv}", "Icon",
+                                       engine_get_icon_property_variant (manager));
+        if (state_changed)
+                g_variant_builder_add (&props_builder, "{sv}", "Tooltip",
+                                       engine_get_tooltip_property_variant (manager));
+
+        props_changed = g_variant_new ("(s@a{sv}@as)", GSD_POWER_DBUS_INTERFACE,
+                                       g_variant_builder_end (&props_builder),
+                                       g_variant_new_strv (NULL, 0));
+        g_variant_ref_sink (props_changed);
+
+        if (!g_dbus_connection_emit_signal (manager->priv->connection,
+                                            NULL,
+                                            GSD_POWER_DBUS_PATH,
+                                            "org.freedesktop.DBus.Properties",
+                                            "PropertiesChanged",
+                                            props_changed,
+                                            &error))
+                goto out;
+
+ out:
+        if (error) {
+                g_warning ("%s", error->message);
+                g_clear_error (&error);
         }
+        if (props_changed)
+                g_variant_unref (props_changed);
 }
 
 static GsdPowerManagerWarning
@@ -696,19 +751,15 @@ engine_recalculate_state_summary (GsdPowerManager *manager)
 static void
 engine_recalculate_state (GsdPowerManager *manager)
 {
-        gboolean ret;
-        gboolean has_changed = FALSE;
+        gboolean icon_changed = FALSE;
+        gboolean state_changed = FALSE;
 
-        ret = engine_recalculate_state_icon (manager);
-        if (ret)
-                has_changed = TRUE;
-        ret = engine_recalculate_state_summary (manager);
-        if (ret)
-                has_changed = TRUE;
+        icon_changed = engine_recalculate_state_icon (manager);
+        state_changed = engine_recalculate_state_summary (manager);
 
         /* only emit if the icon or summary has changed */
-        if (has_changed)
-                engine_emit_changed (manager);
+        if (icon_changed || state_changed)
+                engine_emit_changed (manager, icon_changed, state_changed);
 }
 
 static UpDevice *
@@ -770,7 +821,6 @@ engine_update_composite_device (GsdPowerManager *manager,
         gboolean is_charging = FALSE;
         gboolean is_discharging = FALSE;
         gboolean is_fully_charged = TRUE;
-        gboolean has_changed;
         GPtrArray *array;
         UpDevice *device;
         UpDeviceState state;
@@ -855,9 +905,8 @@ engine_update_composite_device (GsdPowerManager *manager,
                       NULL);
 
         /* force update of icon */
-        has_changed = engine_recalculate_state_icon (manager);
-        if (has_changed)
-                engine_emit_changed (manager);
+        if (engine_recalculate_state_icon (manager))
+                engine_emit_changed (manager, TRUE, FALSE);
 out:
         /* return composite device or original device */
         return device;
@@ -4040,24 +4089,9 @@ handle_get_property (GDBusConnection *connection,
         GVariant *retval = NULL;
 
         if (g_strcmp0 (property_name, "Icon") == 0) {
-                GIcon *icon;
-
-                icon = engine_get_icon (manager);
-                if (icon != NULL) {
-                        char *str;
-                        str = g_icon_to_string (icon);
-                        g_object_unref (icon);
-                        retval = g_variant_new_string (str);
-                        g_free (str);
-                } else {
-                        retval = g_variant_new_string ("");
-                }
+                retval = engine_get_icon_property_variant (manager);
         } else if (g_strcmp0 (property_name, "Tooltip") == 0) {
-                char *tooltip;
-
-                tooltip = engine_get_summary (manager);
-                retval = g_variant_new_string (tooltip != NULL ? tooltip : "");
-                g_free (tooltip);
+                retval = engine_get_tooltip_property_variant (manager);
         }
 
         return retval;
