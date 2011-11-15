@@ -357,10 +357,55 @@ print_configuration (GnomeRRConfig *config, const char *header)
                 print_output (outputs[i]);
 }
 
-/* This function centralizes the use of gnome_rr_config_apply_from_filename_with_time().
+static GnomeRROutputInfo *
+get_laptop_output_info (GnomeRRScreen *screen, GnomeRRConfig *config)
+{
+        int i;
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (config);
+
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (is_laptop (screen, outputs[i]))
+                        return outputs[i];
+        }
+
+        return NULL;
+}
+
+static gboolean
+non_laptop_outputs_are_active (GnomeRRConfig *config, GnomeRROutputInfo *laptop_info)
+{
+        GnomeRROutputInfo **outputs;
+        int i;
+
+        outputs = gnome_rr_config_get_outputs (config);
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (outputs[i] == laptop_info)
+                        continue;
+
+                if (gnome_rr_output_info_is_active (outputs[i]))
+                        return TRUE;
+        }
+
+        return FALSE;
+}
+
+static void
+turn_off_laptop_display_in_configuration (GnomeRRScreen *screen, GnomeRRConfig *config)
+{
+        GnomeRROutputInfo *laptop_info;
+
+        laptop_info = get_laptop_output_info (priv->rw_screen, config);
+        if (laptop_info) {
+                /* Turn off the laptop's screen only if other displays are on.  This is to avoid an all-black-screens scenario. */
+                if (non_laptop_outputs_are_active (config, laptop_info))
+                        gnome_rr_output_info_set_active (laptop_info, FALSE);
+        }
+}
+
+/* This function effectively centralizes the use of gnome_rr_config_apply_from_filename_with_time().
  *
- * Optionally filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from
- * gnome_rr_config_apply_from_filename_with_time(), since that is not usually an error.
+ * Optionally filters out GNOME_RR_ERROR_NO_MATCHING_CONFIG from the matching
+ * process(), since that is not usually an error.
  */
 static gboolean
 apply_configuration_from_filename (GsdXrandrManager *manager,
@@ -370,6 +415,7 @@ apply_configuration_from_filename (GsdXrandrManager *manager,
                                    GError          **error)
 {
         struct GsdXrandrManagerPrivate *priv = manager->priv;
+        GnomeRRConfig *config;
         GError *my_error;
         gboolean success;
         char *str;
@@ -379,13 +425,17 @@ apply_configuration_from_filename (GsdXrandrManager *manager,
         g_free (str);
 
         my_error = NULL;
-        success = gnome_rr_config_apply_from_filename_with_time (priv->rw_screen, filename, timestamp, &my_error);
-        if (success)
-                return TRUE;
 
-        if (g_error_matches (my_error, GNOME_RR_ERROR, GNOME_RR_ERROR_NO_MATCHING_CONFIG)) {
-                if (no_matching_config_is_an_error)
-                        goto fail;
+        config = g_object_new (GNOME_TYPE_RR_CONFIG, "screen", priv->rw_screen, NULL);
+        if (!gnome_rr_config_load_filename (config, filename, &my_error)) {
+                g_object_unref (config);
+
+                if (g_error_matches (my_error, GNOME_RR_ERROR, GNOME_RR_ERROR_NO_MATCHING_CONFIG)) {
+                        if (no_matching_config_is_an_error) {
+                                g_propagate_error (error, my_error);
+                                return FALSE;
+                        }
+                }
 
                 /* This is not an error; the user probably changed his monitors
                  * and so they don't match any of the stored configurations.
@@ -394,9 +444,15 @@ apply_configuration_from_filename (GsdXrandrManager *manager,
                 return TRUE;
         }
 
-fail:
-        g_propagate_error (error, my_error);
-        return FALSE;
+        if (up_client_get_lid_is_closed (priv->upower_client))
+                turn_off_laptop_display_in_configuration (priv->rw_screen, config);
+
+        gnome_rr_config_ensure_primary (config);
+	success = gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, error);
+
+        g_object_unref (config);
+
+        return success;
 }
 
 /* This function centralizes the use of gnome_rr_config_apply_with_time().
@@ -1360,20 +1416,6 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
         g_debug ("done handling fn-f7");
 }
 
-static GnomeRROutputInfo *
-get_laptop_output_info (GnomeRRScreen *screen, GnomeRRConfig *config)
-{
-        int i;
-        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (config);
-
-        for (i = 0; outputs[i] != NULL; i++) {
-                if (is_laptop (screen, outputs[i]))
-                        return outputs[i];
-        }
-
-        return NULL;
-}
-
 static GnomeRRRotation
 get_next_rotation (GnomeRRRotation allowed_rotations, GnomeRRRotation current_rotation)
 {
@@ -1850,22 +1892,18 @@ static void
 turn_off_laptop_display (GsdXrandrManager *manager, guint32 timestamp)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
-        GnomeRROutputInfo *laptop_info;
         
         config = gnome_rr_config_new_current (priv->rw_screen, NULL);
 
-        laptop_info = get_laptop_output_info (priv->rw_screen, config);
-        if (laptop_info) {
-                gnome_rr_output_info_set_active (laptop_info, FALSE);
+        turn_off_laptop_display_in_configuration (priv->rw_screen, config);
 
-                /* We don't turn the laptop's display off if it is the only display present. */
-                if (!config_is_all_off (config)) {
-                        /* We don't save the configuration (the "false" parameter to the following function) because we
-                         * wouldn't want to restore a configuration with the laptop's display turned off, if at some
-                         * point later the user booted his laptop with the lid open.
-                         */
-                        apply_configuration (manager, config, timestamp, FALSE, FALSE);
-                }
+        /* We don't turn the laptop's display off if it is the only display present. */
+        if (!config_is_all_off (config)) {
+                /* We don't save the configuration (the "false" parameter to the following function) because we
+                 * wouldn't want to restore a configuration with the laptop's display turned off, if at some
+                 * point later the user booted his laptop with the lid open.
+                 */
+                apply_configuration (manager, config, timestamp, FALSE, FALSE);
         }
 
         g_object_unref (config);
