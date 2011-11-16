@@ -357,6 +357,16 @@ print_configuration (GnomeRRConfig *config, const char *header)
                 print_output (outputs[i]);
 }
 
+static gboolean
+is_laptop (GnomeRRScreen *screen, GnomeRROutputInfo *output)
+{
+        GnomeRROutput *rr_output;
+
+        rr_output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (output));
+
+        return gnome_rr_output_is_laptop (rr_output);
+}
+
 static GnomeRROutputInfo *
 get_laptop_output_info (GnomeRRScreen *screen, GnomeRRConfig *config)
 {
@@ -394,7 +404,7 @@ turn_off_laptop_display_in_configuration (GnomeRRScreen *screen, GnomeRRConfig *
 {
         GnomeRROutputInfo *laptop_info;
 
-        laptop_info = get_laptop_output_info (priv->rw_screen, config);
+        laptop_info = get_laptop_output_info (screen, config);
         if (laptop_info) {
                 /* Turn off the laptop's screen only if other displays are on.  This is to avoid an all-black-screens scenario. */
                 if (non_laptop_outputs_are_active (config, laptop_info))
@@ -776,16 +786,6 @@ gsd_xrandr_manager_2_rotate_to (GsdXrandrManager *manager,
 
         handle_rotate_windows (manager, rotation, timestamp);
         return TRUE;
-}
-
-static gboolean
-is_laptop (GnomeRRScreen *screen, GnomeRROutputInfo *output)
-{
-        GnomeRROutput *rr_output;
-
-        rr_output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (output));
-
-        return gnome_rr_output_is_laptop (rr_output);
 }
 
 static gboolean
@@ -1892,6 +1892,7 @@ static void
 turn_off_laptop_display (GsdXrandrManager *manager, guint32 timestamp)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
+        GnomeRRConfig *config;
         
         config = gnome_rr_config_new_current (priv->rw_screen, NULL);
 
