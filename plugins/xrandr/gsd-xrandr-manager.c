@@ -1659,7 +1659,7 @@ use_stored_configuration_or_auto_configure_outputs (GsdXrandrManager *manager, g
                 if (error)
                         g_error_free (error);
 
-                if (timestamp != priv->last_config_timestamp) {
+                if (timestamp != priv->last_config_timestamp || timestamp == GDK_CURRENT_TIME) {
                         priv->last_config_timestamp = timestamp;
                         auto_configure_outputs (manager, timestamp);
                         log_msg ("  Automatically configured outputs\n");
