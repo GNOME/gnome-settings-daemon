@@ -1125,15 +1125,19 @@ make_xinerama_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
         for (i = 0; outputs[i] != NULL; ++i) {
                 GnomeRROutputInfo *info = outputs[i];
 
-                if (is_laptop (screen, info) && !laptop_lid_is_closed (manager))
+                if (is_laptop (screen, info) && !laptop_lid_is_closed (manager)) {
+                        gnome_rr_output_info_set_primary (info, TRUE);
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
+                }
         }
 
         for (i = 0; outputs[i] != NULL; ++i) {
                 GnomeRROutputInfo *info = outputs[i];
 
-                if (gnome_rr_output_info_is_connected (info) && !is_laptop (screen, info))
+                if (gnome_rr_output_info_is_connected (info) && !is_laptop (screen, info)) {
+                        gnome_rr_output_info_set_primary (info, FALSE);
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
+                }
         }
 
         if (!trim_rightmost_outputs_that_dont_fit_in_framebuffer (screen, result)) {
