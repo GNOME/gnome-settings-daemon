@@ -1911,7 +1911,7 @@ turn_off_laptop_display (GsdXrandrManager *manager, guint32 timestamp)
 }
 
 static void
-power_client_notify_lid_is_closed_cb (GObject *object, GParamSpec *pspec, gpointer data)
+power_client_changed_cb (UpClient *client, gpointer data)
 {
         GsdXrandrManager *manager = data;
         GsdXrandrManagerPrivate *priv = manager->priv;
@@ -1952,7 +1952,7 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         g_signal_connect (manager->priv->rw_screen, "changed", G_CALLBACK (on_randr_event), manager);
 
         manager->priv->upower_client = up_client_new ();
-        g_signal_connect (manager->priv->upower_client, "notify::lid-is-closed", G_CALLBACK (power_client_notify_lid_is_closed_cb), manager);
+        g_signal_connect (manager->priv->upower_client, "changed", G_CALLBACK (power_client_changed_cb), manager);
         manager->priv->laptop_lid_is_closed = up_client_get_lid_is_closed (manager->priv->upower_client);
 
         log_msg ("State of screen at startup:\n");
