@@ -444,14 +444,17 @@ apply_configuration_from_filename (GsdXrandrManager *manager,
                         if (no_matching_config_is_an_error) {
                                 g_propagate_error (error, my_error);
                                 return FALSE;
+                        } else {
+                                /* This is not an error; the user probably changed his monitors
+                                 * and so they don't match any of the stored configurations.
+                                 */
+                                g_error_free (my_error);
+                                return TRUE;
                         }
+                } else {
+                        g_propagate_error (error, my_error);
+                        return FALSE;
                 }
-
-                /* This is not an error; the user probably changed his monitors
-                 * and so they don't match any of the stored configurations.
-                 */
-                g_error_free (my_error);
-                return TRUE;
         }
 
         if (up_client_get_lid_is_closed (priv->upower_client))
