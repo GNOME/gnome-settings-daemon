@@ -1619,7 +1619,7 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         config = make_xinerama_setup (manager, priv->rw_screen);
         if (config) {
                 print_configuration (config, "auto-configure - xinerama mode");
-                apply_configuration (manager, config, timestamp, TRUE, TRUE);
+                apply_configuration (manager, config, timestamp, TRUE, FALSE);
                 g_object_unref (config);
         } else {
                 g_debug ("No applicable configuration found during auto-configure");
