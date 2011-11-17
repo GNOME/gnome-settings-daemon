@@ -29,6 +29,34 @@ libwacom_la_LIBADD  = 							\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	$(XINPUT_LIBS)
 
+noinst_PROGRAMS = test-wacom
+
+test_wacom_SOURCES =		\
+	test-wacom.c		\
+	gsd-wacom-manager.c	\
+	gsd-wacom-manager.h
+
+test_wacom_CPPFLAGS = \
+	-I$(top_srcdir)/data/					\
+	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/plugins/common				\
+	-DBINDIR=\"$(bindir)\"					\
+	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
+	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	$(AM_CPPFLAGS)
+
+test_wacom_CFLAGS =			\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
+test_wacom_LDADD = \
+	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
+	$(top_builddir)/plugins/common/libcommon.la			\
+	$(SETTINGS_DAEMON_LIBS)			\
+	$(SETTINGS_PLUGIN_LIBS)			\
+	-lm
+
 plugin_in_files = wacom.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
