@@ -42,8 +42,3 @@ DISTCLEANFILES =		\
 	$(plugin_DATA)
 
 @GSD_INTLTOOL_PLUGIN_RULE@
-
-# override to _not_ install the test plugin
-# do not copy into your plugin
-install-pluginDATA:
-install-pluginLTLIBRARIES:

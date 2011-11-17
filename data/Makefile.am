@@ -27,6 +27,12 @@ else
 all_schemas += org.gnome.settings-daemon.plugins.updates.gschema.xml
 endif
 
+if HAVE_IBUS
+gsettings_SCHEMAS += org.gnome.settings-daemon.plugins.ibus.gschema.xml
+else
+all_schemas += org.gnome.settings-daemon.plugins.ibus.gschema.xml
+endif
+
 if HAVE_GUDEV
 gsettings_SCHEMAS += org.gnome.settings-daemon.plugins.orientation.gschema.xml
 else
