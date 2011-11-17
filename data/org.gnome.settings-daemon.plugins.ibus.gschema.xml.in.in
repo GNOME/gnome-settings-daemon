@@ -1,0 +1,26 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.ibus" path="/org/gnome/settings-daemon/plugins/ibus/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>1</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" path="/desktop/ibus/shortcuts/" id="desktop.ibus.shortcuts">
+    <key type="s" name="next-input-source">
+      <default>''</default>
+      <summary>Switch to next source</summary>
+      <description>Switch to the next input source.</description>
+    </key>
+    <key type="s" name="previous-input-source">
+      <default>''</default>
+      <summary>Switch to previous source</summary>
+      <description>Switch to the previous input source.</description>
+    </key>
+  </schema>
+</schemalist>

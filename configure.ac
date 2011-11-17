@@ -371,6 +371,7 @@ fi
 
 AM_CONDITIONAL(BUILD_PRINT_NOTIFICATIONS, [test x"$enable_cups" = x"yes"])
 
+
 # ---------------------------------------------------------------------------
 # Enable Profiling
 # ---------------------------------------------------------------------------
@@ -382,6 +383,35 @@ if test "x$enable_profiling" = "xyes"; then
     AC_DEFINE(ENABLE_PROFILING,1,[enable profiling])
 fi
 
+#----------------------------------------------------------------------------
+# IBus
+# ---------------------------------------------------------------------------
+
+IBUS_CFLAGS=
+IBUS_LIBS=
+AC_ARG_ENABLE(ibus,
+              AS_HELP_STRING([--enable-ibus],
+                             [Enable IBus support (auto)]),
+              enable_ibus=$enableval,
+              enable_ibus=auto)
+
+if test "x$enable_ibus" = "xno" ; then
+  HAVE_IBUS=no
+else
+  HAVE_IBUS=no
+  PKG_CHECK_MODULES(IBUS, ibus-1.0, HAVE_IBUS=yes, HAVE_IBUS=no)
+
+  if test "x$enable_ibus" = "xyes" -a "x$HAVE_IBUS" = "xno" ; then
+    AC_MSG_ERROR(IBus support explicity enabled but not available)
+  fi
+
+  if test "x$HAVE_IBUS" = "xyes" ; then
+    AC_DEFINE(HAVE_IBUS, 1, [Defined if IBus support is enabled])
+  fi
+fi
+AM_CONDITIONAL(HAVE_IBUS, test "x$HAVE_IBUS" = "xyes")
+AC_SUBST(IBUS_CFLAGS)
+AC_SUBST(IBUS_LIBS)
 
 # ---------------------------------------------------------------------------
 # Plugins
@@ -471,6 +501,7 @@ plugins/common/Makefile
 plugins/cursor/Makefile
 plugins/datetime/Makefile
 plugins/dummy/Makefile
+plugins/ibus/Makefile
 plugins/power/Makefile
 plugins/housekeeping/Makefile
 plugins/keyboard/Makefile
@@ -494,6 +525,7 @@ data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.power.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.color.gschema.xml.in
+data/org.gnome.settings-daemon.plugins.ibus.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in

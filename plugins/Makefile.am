@@ -29,6 +29,12 @@ else
 disabled_plugins += updates
 endif
 
+if HAVE_IBUS
+enabled_plugins += ibus
+else
+disabled_plugins += ibus
+endif
+
 if SMARTCARD_SUPPORT
 enabled_plugins += smartcard
 else
