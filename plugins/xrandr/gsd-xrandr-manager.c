@@ -1606,7 +1606,7 @@ handle_rotate_windows (GsdXrandrManager *mgr,
 
         gnome_rr_output_info_set_rotation (rotatable_output_info, next_rotation);
 
-        success = apply_configuration (mgr, current, timestamp, show_error, TRUE, TRUE);
+        success = apply_configuration (mgr, current, timestamp, show_error, TRUE);
         if (success)
                 rotate_touchscreens (mgr, next_rotation);
 
