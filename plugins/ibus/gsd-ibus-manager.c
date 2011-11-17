@@ -64,6 +64,49 @@ G_DEFINE_TYPE (GsdIBusManager, gsd_ibus_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+static gchar *
+translate_accel (const gchar *in)
+{
+  struct {
+    guint mask;
+    const gchar *name;
+  } mods[] = {
+    { GDK_SHIFT_MASK, "Shift" },
+    { GDK_LOCK_MASK, "Lock" },
+    { GDK_CONTROL_MASK, "Control" },
+    { GDK_MOD1_MASK, "Alt" },
+    { GDK_MOD2_MASK, "Mod2" },
+    { GDK_MOD3_MASK, "Mod3" },
+    { GDK_MOD4_MASK, "Mod4" },
+    { GDK_MOD5_MASK, "Mod5" },
+    { GDK_SUPER_MASK, "Super" },
+    { GDK_HYPER_MASK, "Hyper" },
+    { GDK_META_MASK, "Meta" },
+    { GDK_RELEASE_MASK, "Release" }
+  };
+  guint key;
+  GdkModifierType mod;
+  GString *s;
+  gint i;
+
+  gtk_accelerator_parse (in, &key, &mod);
+
+  s = g_string_new ("");
+
+  for (i = 0; i < G_N_ELEMENTS(mods); i++)
+    {
+      if (mod & mods[i].mask)
+        {
+          g_string_append (s, mods[i].name);
+          g_string_append_c (s, '+');
+        }
+    }
+
+  g_string_append (s, gdk_keyval_name (gdk_keyval_to_lower (key)));
+
+  return g_string_free (s, FALSE);
+}
+
 static void
 set_ibus_shortcut (GsdIBusManager *manager,
                    const gchar    *key,
@@ -72,12 +115,15 @@ set_ibus_shortcut (GsdIBusManager *manager,
         IBusBus *bus;
         IBusConfig *config;
         GVariant *v;
+        gchar *accel;
         const gchar *str[2];
+
+        accel = translate_accel (value);
 
         bus = ibus_bus_new ();
         config = ibus_bus_get_config (bus);
 
-        str[0] = value;
+        str[0] = accel;
         str[1] = NULL;
 
         v = g_variant_new_strv (str, 1);
@@ -90,6 +136,7 @@ set_ibus_shortcut (GsdIBusManager *manager,
         }
 
         g_variant_unref (v);
+        g_free (accel);
 
         g_object_unref (bus);
 }
