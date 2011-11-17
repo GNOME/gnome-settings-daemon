@@ -151,6 +151,7 @@ ibus_settings_changed (GSettings      *settings,
                 gchar *value;
 
                 value = g_settings_get_string (settings, key);
+                g_debug ("Setting changed: %s %s, new value: %s", IBUS_SETTINGS, key, value);
                 set_ibus_shortcut (manager, key, value);
                 g_free (value);
         }
