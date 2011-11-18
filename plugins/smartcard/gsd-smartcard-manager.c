@@ -184,8 +184,8 @@ gsd_smartcard_manager_class_install_properties (GsdSmartcardManagerClass *card_c
         object_class->set_property = gsd_smartcard_manager_set_property;
         object_class->get_property = gsd_smartcard_manager_get_property;
 
-        param_spec = g_param_spec_string ("module-path", _("Module Path"),
-                                          _("path to smartcard PKCS #11 driver"),
+        param_spec = g_param_spec_string ("module-path", "Module Path",
+                                          "path to smartcard PKCS #11 driver",
                                           NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
         g_object_class_install_property (object_class, PROP_MODULE_PATH, param_spec);
 }

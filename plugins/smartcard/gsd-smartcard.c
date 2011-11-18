@@ -155,28 +155,28 @@ gsd_smartcard_class_install_properties (GsdSmartcardClass *card_class)
         object_class->set_property = gsd_smartcard_set_property;
         object_class->get_property = gsd_smartcard_get_property;
 
-        param_spec = g_param_spec_ulong ("slot-id", _("Slot ID"),
-                                   _("The slot the card is in"),
-                                   1, G_MAXULONG,
-                                   GSD_SMARTCARD_DEFAULT_SLOT_ID,
-                                   G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+        param_spec = g_param_spec_ulong ("slot-id", "Slot ID",
+                                         "The slot the card is in",
+                                         1, G_MAXULONG,
+                                         GSD_SMARTCARD_DEFAULT_SLOT_ID,
+                                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
         g_object_class_install_property (object_class, PROP_SLOT_ID, param_spec);
 
-        param_spec = g_param_spec_int ("slot-series", _("Slot Series"),
-                                   _("per-slot card identifier"),
-                                   -1, G_MAXINT,
-                                   GSD_SMARTCARD_DEFAULT_SLOT_SERIES,
-                                   G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+        param_spec = g_param_spec_int ("slot-series", "Slot Series",
+                                       "per-slot card identifier",
+                                       -1, G_MAXINT,
+                                       GSD_SMARTCARD_DEFAULT_SLOT_SERIES,
+                                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
         g_object_class_install_property (object_class, PROP_SLOT_SERIES, param_spec);
 
-        param_spec = g_param_spec_string ("name", _("name"),
-                                      _("name"), NULL,
-                                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+        param_spec = g_param_spec_string ("name", "name",
+                                          "name", NULL,
+                                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
         g_object_class_install_property (object_class, PROP_NAME, param_spec);
 
-        param_spec = g_param_spec_pointer ("module", _("Module"),
-                                       _("smartcard driver"),
-                                       G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY);
+        param_spec = g_param_spec_pointer ("module", "Module",
+                                           "smartcard driver",
+                                           G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY);
         g_object_class_install_property (object_class, PROP_MODULE, param_spec);
 }
 
