@@ -85,32 +85,6 @@ static void     gsd_a11y_preferences_dialog_finalize    (GObject                
 
 G_DEFINE_TYPE (GsdA11yPreferencesDialog, gsd_a11y_preferences_dialog, GTK_TYPE_DIALOG)
 
-static void
-gsd_a11y_preferences_dialog_set_property (GObject        *object,
-                                          guint           prop_id,
-                                          const GValue   *value,
-                                          GParamSpec     *pspec)
-{
-        switch (prop_id) {
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
-        }
-}
-
-static void
-gsd_a11y_preferences_dialog_get_property (GObject        *object,
-                                          guint           prop_id,
-                                          GValue         *value,
-                                          GParamSpec     *pspec)
-{
-        switch (prop_id) {
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
-        }
-}
-
 static GObject *
 gsd_a11y_preferences_dialog_constructor (GType                  type,
                                          guint                  n_construct_properties,
@@ -126,20 +100,11 @@ gsd_a11y_preferences_dialog_constructor (GType                  type,
 }
 
 static void
-gsd_a11y_preferences_dialog_dispose (GObject *object)
-{
-        G_OBJECT_CLASS (gsd_a11y_preferences_dialog_parent_class)->dispose (object);
-}
-
-static void
 gsd_a11y_preferences_dialog_class_init (GsdA11yPreferencesDialogClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->get_property = gsd_a11y_preferences_dialog_get_property;
-        object_class->set_property = gsd_a11y_preferences_dialog_set_property;
         object_class->constructor = gsd_a11y_preferences_dialog_constructor;
-        object_class->dispose = gsd_a11y_preferences_dialog_dispose;
         object_class->finalize = gsd_a11y_preferences_dialog_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdA11yPreferencesDialogPrivate));
