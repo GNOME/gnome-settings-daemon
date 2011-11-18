@@ -328,32 +328,6 @@ gsd_cursor_manager_stop (GsdCursorManager *manager)
         }
 }
 
-static void
-gsd_cursor_manager_set_property (GObject        *object,
-                                 guint           prop_id,
-                                 const GValue   *value,
-                                 GParamSpec     *pspec)
-{
-        switch (prop_id) {
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
-        }
-}
-
-static void
-gsd_cursor_manager_get_property (GObject        *object,
-                                 guint           prop_id,
-                                 GValue         *value,
-                                 GParamSpec     *pspec)
-{
-        switch (prop_id) {
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
-        }
-}
-
 static GObject *
 gsd_cursor_manager_constructor (GType                  type,
                                 guint                  n_construct_properties,
@@ -369,20 +343,11 @@ gsd_cursor_manager_constructor (GType                  type,
 }
 
 static void
-gsd_cursor_manager_dispose (GObject *object)
-{
-        G_OBJECT_CLASS (gsd_cursor_manager_parent_class)->dispose (object);
-}
-
-static void
 gsd_cursor_manager_class_init (GsdCursorManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->get_property = gsd_cursor_manager_get_property;
-        object_class->set_property = gsd_cursor_manager_set_property;
         object_class->constructor = gsd_cursor_manager_constructor;
-        object_class->dispose = gsd_cursor_manager_dispose;
         object_class->finalize = gsd_cursor_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdCursorManagerPrivate));
