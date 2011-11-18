@@ -6,7 +6,9 @@ libwacom_la_SOURCES = 		\
 	gsd-wacom-plugin.h	\
 	gsd-wacom-plugin.c	\
 	gsd-wacom-manager.h	\
-	gsd-wacom-manager.c
+	gsd-wacom-manager.c	\
+	gsd-wacom-device.c	\
+	gsd-wacom-device.h
 
 libwacom_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
@@ -34,7 +36,9 @@ noinst_PROGRAMS = test-wacom
 test_wacom_SOURCES =		\
 	test-wacom.c		\
 	gsd-wacom-manager.c	\
-	gsd-wacom-manager.h
+	gsd-wacom-manager.h	\
+	gsd-wacom-device.c	\
+	gsd-wacom-device.h
 
 test_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
