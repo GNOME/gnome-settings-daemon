@@ -1,4 +1,127 @@
 =============
+Version 3.3.2
+=============
+
+Common:
+- Remove left-over debug (Bastien Nocera) (#660073)
+- Fix handling of <Primary> (Bastien Nocera)
+- Update required gnome-desktop version (Bastien Nocera)
+- Return opcode when detecting XInput2 (Bastien Nocera)
+- Add helper to get the input device node (Bastien Nocera)
+- Use XInput2 to capture and match keys (Bastien Nocera)
+- Use GTK+ functions instead of own impl (Bastien Nocera) (#663343)
+- Fix small memleak (Bastien Nocera)
+- Allow to grab 'Print' without modifiers (Florian Müllner) (#663623)
+- Require gsettings-desktop-schemas 3.3.0 (Bastien Nocera)
+
+A11y keyboard:
+- Port to GSettings (Bastien Nocera) (#631502)
+
+Automount:
+- Call bind_textdomain_codeset() (Bastien Nocera)
+
+Color:
+- Do not load all the color devices twice at startup (Richard Hughes)
+- Don't assign the same device more than once at startup (Richard Hughes)
+- Fix a crash if ~/.local is deleted at runtime (Richard Hughes) (#660664)
+- Simplify gcm_profile_store_mkdir_with_parents() (Bastien Nocera)
+- Cancel any in-progress directory searching on plugin unload (Richard Hughes)
+- Do not check for directory presence sync (Richard Hughes)
+- Fix critical warning if the user disables the internal LCD screen (Richard Hughes)
+- Reset the gamma tables when the screen configuration changes (Richard Hughes) (#660164)
+- Unbreak loading profiles at startup (Cosimo Cecchi) (#660790)
+- Do not prefix the EDID profile title with 'Default' (Richard Hughes)
+- Set model and vendor to 'unknown' if not specified or unavailable (Richard Hughes)
+
+Daemon:
+- Create a reference to a GnomePnpIds object to speed up loading (Richard Hughes)
+
+Datetime:
+- Fix build requirements (Bastien Nocera)
+
+Media keys:
+- Use a GCancellable for g_bus_get calls so that they can be cancelled (Rodrigo Moya)
+- Don't assert if the user sets the 'button-power' action to 'shutdown' (Richard Hughes)
+- Don't assert if the user sets the 'button-power' action to 'nothing' (Richard Hughes)
+- Only ever send signals to specific apps (Bastien Nocera)
+- Document the MediaPlayerKeyPressed signal (Bastien Nocera)
+- Add some D-Bus API documentation (Bastien Nocera)
+- Fix OSD touchpad icon names (Bastien Nocera) (#661179)
+- Fix suspend button not locking the screen (Bastien Nocera) (#660267)
+- Fix the suspend key not working (Bastien Nocera) (#660267)
+- Remove unused allowed-keys entry (Bastien Nocera)
+- Cache the volume change event sound (Bastien Nocera)
+- Update for GVC API (Bastien Nocera)
+- Print warning for real errors (Bastien Nocera)
+- Apply volume on the device the key came from (Bastien Nocera) (#340720)
+- Add custom shortcut type (Bastien Nocera)
+- Implement GConf keyboard shortcuts (Bastien Nocera) (#625228)
+- Redraw volume OSD when not composited (Marien Zwart) (#660990)
+- Update for gsd-keygrab API change (Bastien Nocera) (#663343)
+- Move some metacity shortcuts into g-s-d (Florian Müllner) (#663623)
+- Port custom keybindings to GSettings (Florian Müllner) (#631502)
+
+Power:
+- Use a GCancellable for g_bus_get calls so that they can be cancelled (Rodrigo Moya)
+- Do not revert to the pre-idle brightness if idle dimming is disabled (Richard Hughes) (#660434)
+- Remove some unused schema for enabling the sleep-inactive actions (Richard Hughes) (#660395)
+- Clarify what a value of 0 is for sleep-inactive-x-timeout (Richard Hughes)
+- Do not sleep-on-idle by default (Richard Hughes)
+- Simplify hiding/showing the status icon (Bastien Nocera)
+- Ensure the DPMS state is 'on' at startup (Richard Hughes) (#660482)
+- Close low-battery notification when plugged in (Florian Müllner) (#660942)
+- Remove the window filter when the plugin is unloaded (Richard Hughes)
+- Don't crash when setting the dim timeout when using NX (Richard Hughes) (#661000)
+- Call XSyncInitialize() in case GTK+ wasn't compiled with XSync support (Richard Hughes)
+- Emit 'Changed' signal to all listeners (Gary Ching-Pang Lin)
+- Fix "undefined symbol: WEXITSTATUS" error (Richard Hughes) (#662020)
+- Make non-urgent notifications transient (Florian Müllner) (#662711)
+
+Printers:
+- Fix build on systems without LC_PAPER (Bastien Nocera) (#660626)
+- Call setlocale() (Bastien Nocera) (#660632)
+- Exit gsd-printer when session ends (Marek Kasik) (#660158)
+- Correct signature when calling PrinterAddOptionDefault (Marek Kasik)
+- Don't show "Not connected?" when not needed (Marek Kasik)
+- Unown name on the system bus when session goes idle (Marek Kasik) (#660158)
+- Set requesting-user-name when getting job info (Marek Kasik)
+- Show printer-state-reasons only when printing my jobs (Marek Kasik)
+- Don't allow "/" in printer name (Marek Kasik) (#661774)
+- Make notifications resident (Marek Kasik)
+- Fix a leak (Marek Kasik)
+
+Smartcard:
+- Remove unnecessary translations (Bastien Nocera)
+
+Xrandr:
+- Use a GCancellable for g_bus_get calls so that they can be cancelled (Rodrigo Moya)
+
+Xsettings:
+- Remove workaround to deal with g-s-d not exiting correctly (Rodrigo Moya)
+- Plug mem leaks (Christian Persch) (#663239)
+
+Wacom:
+- Fix possible crasher (Bastien Nocera) (#661170)
+- Set cursor devices to be in relative mode by default (Jason Gerecke) (#662977)
+- Add classes to manage settings and properties (Bastien Nocera)
+
+Translations:
+- ast (Xandru Armesto)
+- de (Mario Blättermann)
+- eo (Kristjan SCHMIDT)
+- es (Daniel Mustieles, Jorge González)
+- gl (Fran Dieguez)
+- lt (Algimantas Margevičius)
+- nb (Kjartan Maraas)
+- nl (Redmar, Wouter Bolsterlee)
+- or (Manoj Kumar Giri)
+- sl (Matej Urbančič)
+- sv (Daniel Nylander)
+- te (krishnababu k)
+- uk (Daniel Korostil)
+- vi (Nguyễn Thái Ngọc Duy)
+
+=============
 Version 3.2.0
 =============
 
