@@ -38,6 +38,7 @@
 
 struct GsdWacomStylusPrivate
 {
+	GsdWacomDevice *device;
 	char *name;
 	GSettings *settings;
 };
@@ -91,7 +92,8 @@ gsd_wacom_stylus_finalize (GObject *object)
 }
 
 static GsdWacomStylus *
-gsd_wacom_stylus_new (GSettings *settings,
+gsd_wacom_stylus_new (GsdWacomDevice *device,
+		      GSettings *settings,
 		      const char *name)
 {
 	GsdWacomStylus *stylus;
@@ -101,6 +103,7 @@ gsd_wacom_stylus_new (GSettings *settings,
 
 	stylus = GSD_WACOM_STYLUS (g_object_new (GSD_TYPE_WACOM_STYLUS,
 						 NULL));
+	stylus->priv->device = device;
 	stylus->priv->name = g_strdup (name);
 	stylus->priv->settings = settings;
 
@@ -121,6 +124,14 @@ gsd_wacom_stylus_get_name (GsdWacomStylus *stylus)
 	g_return_val_if_fail (GSD_IS_WACOM_STYLUS (stylus), NULL);
 
 	return stylus->priv->name;
+}
+
+GsdWacomDevice *
+gsd_wacom_stylus_get_device (GsdWacomStylus *stylus)
+{
+	g_return_val_if_fail (GSD_IS_WACOM_STYLUS (stylus), NULL);
+
+	return stylus->priv->device;
 }
 
 #define GSD_WACOM_DEVICE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_DEVICE, GsdWacomDevicePrivate))
@@ -313,7 +324,8 @@ gsd_wacom_device_constructor (GType                     type,
 	if (device->priv->type == WACOM_TYPE_STYLUS) {
 		GsdWacomStylus *stylus;
 
-		stylus = gsd_wacom_stylus_new (g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_STYLUS_DIR),
+		stylus = gsd_wacom_stylus_new (device,
+					       g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_STYLUS_DIR),
 					       _("Stylus"));
 		device->priv->styli = g_list_append (NULL, stylus);
 	}

@@ -26,6 +26,26 @@
 
 G_BEGIN_DECLS
 
+#define GSD_TYPE_WACOM_DEVICE         (gsd_wacom_device_get_type ())
+#define GSD_WACOM_DEVICE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_WACOM_DEVICE, GsdWacomDevice))
+#define GSD_WACOM_DEVICE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_WACOM_DEVICE, GsdWacomDeviceClass))
+#define GSD_IS_WACOM_DEVICE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_WACOM_DEVICE))
+#define GSD_IS_WACOM_DEVICE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_WACOM_DEVICE))
+#define GSD_WACOM_DEVICE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_WACOM_DEVICE, GsdWacomDeviceClass))
+
+typedef struct GsdWacomDevicePrivate GsdWacomDevicePrivate;
+
+typedef struct
+{
+        GObject                parent;
+        GsdWacomDevicePrivate *priv;
+} GsdWacomDevice;
+
+typedef struct
+{
+        GObjectClass   parent_class;
+} GsdWacomDeviceClass;
+
 #define GSD_TYPE_WACOM_STYLUS         (gsd_wacom_stylus_get_type ())
 #define GSD_WACOM_STYLUS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_WACOM_STYLUS, GsdWacomStylus))
 #define GSD_WACOM_STYLUS_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_WACOM_STYLUS, GsdWacomStylusClass))
@@ -46,16 +66,10 @@ typedef struct
         GObjectClass   parent_class;
 } GsdWacomStylusClass;
 
-GType gsd_wacom_stylus_get_type     (void);
-GSettings   * gsd_wacom_stylus_get_settings (GsdWacomStylus *stylus);
-const char  * gsd_wacom_stylus_get_name     (GsdWacomStylus *stylus);
-
-#define GSD_TYPE_WACOM_DEVICE         (gsd_wacom_device_get_type ())
-#define GSD_WACOM_DEVICE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_WACOM_DEVICE, GsdWacomDevice))
-#define GSD_WACOM_DEVICE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_WACOM_DEVICE, GsdWacomDeviceClass))
-#define GSD_IS_WACOM_DEVICE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_WACOM_DEVICE))
-#define GSD_IS_WACOM_DEVICE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_WACOM_DEVICE))
-#define GSD_WACOM_DEVICE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_WACOM_DEVICE, GsdWacomDeviceClass))
+GType            gsd_wacom_stylus_get_type     (void);
+GSettings      * gsd_wacom_stylus_get_settings (GsdWacomStylus *stylus);
+const char     * gsd_wacom_stylus_get_name     (GsdWacomStylus *stylus);
+GsdWacomDevice * gsd_wacom_stylus_get_device   (GsdWacomStylus *stylus);
 
 /* Device types to apply a setting to */
 typedef enum {
@@ -66,19 +80,6 @@ typedef enum {
         WACOM_TYPE_PAD     =     (1 << 4),
         WACOM_TYPE_ALL     =     WACOM_TYPE_STYLUS | WACOM_TYPE_ERASER | WACOM_TYPE_CURSOR | WACOM_TYPE_PAD
 } GsdWacomDeviceType;
-
-typedef struct GsdWacomDevicePrivate GsdWacomDevicePrivate;
-
-typedef struct
-{
-        GObject                parent;
-        GsdWacomDevicePrivate *priv;
-} GsdWacomDevice;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdWacomDeviceClass;
 
 GType gsd_wacom_device_get_type     (void);
 
