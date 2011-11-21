@@ -91,6 +91,7 @@ GSettings      * gsd_wacom_device_get_settings     (GsdWacomDevice *device);
 GSettings      * gsd_wacom_device_get_tool_settings     (GsdWacomDevice *device);
 
 GsdWacomDeviceType gsd_wacom_device_get_device_type (GsdWacomDevice *device);
+const char     * gsd_wacom_device_type_to_string   (GsdWacomDeviceType type);
 
 G_END_DECLS
 

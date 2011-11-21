@@ -456,3 +456,22 @@ gsd_wacom_device_get_device_type (GsdWacomDevice *device)
 
 	return device->priv->type;
 }
+
+const char *
+gsd_wacom_device_type_to_string (GsdWacomDeviceType type)
+{
+	switch (type) {
+	case WACOM_TYPE_INVALID:
+		return "Invalid";
+	case WACOM_TYPE_STYLUS:
+		return "Stylus";
+	case WACOM_TYPE_ERASER:
+		return "Eraser";
+	case WACOM_TYPE_CURSOR:
+		return "Wacom";
+	case WACOM_TYPE_PAD:
+		return "Pad";
+	default:
+		return "Unknown type";
+	}
+}
