@@ -63,8 +63,6 @@ test_wacom_LDADD = \
 
 list_wacom_SOURCES =		\
 	list-wacom.c		\
-	gsd-wacom-manager.c	\
-	gsd-wacom-manager.h	\
 	gsd-wacom-device.c	\
 	gsd-wacom-device.h
 
