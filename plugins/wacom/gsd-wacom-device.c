@@ -96,6 +96,9 @@ gsd_wacom_stylus_new (GSettings *settings,
 {
 	GsdWacomStylus *stylus;
 
+	g_return_val_if_fail (G_IS_SETTINGS (settings), NULL);
+	g_return_val_if_fail (name != NULL, NULL);
+
 	stylus = GSD_WACOM_STYLUS (g_object_new (GSD_TYPE_WACOM_STYLUS,
 						 NULL));
 	stylus->priv->name = g_strdup (name);
