@@ -25,6 +25,26 @@
 
 #include "gsd-wacom-device.h"
 
+static char *
+get_loc (GSettings *settings)
+{
+	char *path, *schema, *ret;
+
+	g_return_val_if_fail (G_IS_SETTINGS (settings), NULL);
+
+	g_object_get (G_OBJECT (settings),
+		      "path", &path,
+		      "schema", &schema,
+		      NULL);
+	ret = g_strdup_printf ("schema: %s (path: %s)", schema, path);
+	g_free (schema);
+	g_free (path);
+
+	return ret;
+}
+
+#define BOOL_AS_STR(x) (x ? "yes" : "no")
+
 int main (int argc, char **argv)
 {
 	GdkDeviceManager *mgr;
@@ -37,17 +57,43 @@ int main (int argc, char **argv)
 	list = gdk_device_manager_list_devices (mgr, GDK_DEVICE_TYPE_SLAVE);
 	for (l = list; l ; l = l->next) {
 		GsdWacomDevice *device;
+		char *loc;
 
 		device = gsd_wacom_device_new (l->data);
-		g_message ("Device '%s'", gsd_wacom_device_get_name (device));
-		/* FIXME print properties */
+		if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_INVALID) {
+			g_object_unref (device);
+			continue;
+		}
+		g_message ("*** Device '%s' (type: %s)",
+			   gsd_wacom_device_get_name (device),
+			   gsd_wacom_device_type_to_string (gsd_wacom_device_get_device_type (device)));
+		g_message ("\tReversible: %s", BOOL_AS_STR (gsd_wacom_device_reversible (device)));
+		g_message ("\tScreen Tablet: %s", BOOL_AS_STR (gsd_wacom_device_is_screen_tablet (device)));
+
+		loc = get_loc (gsd_wacom_device_get_settings (device));
+		g_message ("\tGeneric settings: %s", loc);
+		g_free (loc);
+
+		if (gsd_wacom_device_get_device_type (device) != WACOM_TYPE_STYLUS) {
+			loc = get_loc (gsd_wacom_device_get_tool_settings (device));
+			g_message ("\tTool settings: %s", loc);
+			g_free (loc);
+		}
+
 		if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS) {
 			GList *styli, *j;
 
 			styli = gsd_wacom_device_list_styli (device);
 			for (j = styli; j; j = j->next) {
-				g_message ("\tStylus '%s'", gsd_wacom_stylus_get_name (j->data));
-				/* FIXME print properties */
+				GsdWacomStylus *stylus;
+				char *loc;
+
+				stylus = j->data;
+				g_message ("\tStylus: '%s'", gsd_wacom_stylus_get_name (stylus));
+
+				loc = get_loc (gsd_wacom_stylus_get_settings (stylus));
+				g_message ("\t\tSettings: %s", loc);
+				g_free (loc);
 			}
 			g_list_free (styli);
 		}
