@@ -2098,6 +2098,46 @@ do_lid_open_action (GsdPowerManager *manager)
         }
 }
 
+static gboolean
+is_laptop (GnomeRRScreen *screen, GnomeRROutputInfo *output)
+{
+        GnomeRROutput *rr_output;
+
+        rr_output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (output));
+
+        return gnome_rr_output_is_laptop (rr_output);
+}
+
+static gboolean
+non_laptop_outputs_are_all_off (GnomeRRScreen *screen)
+{
+        GnomeRRConfig *config;
+        GnomeRROutputInfo **outputs;
+        int i;
+        gboolean all_off;
+
+        config = gnome_rr_config_new_current (screen, NULL); /* NULL-GError */
+        if (!config)
+                return FALSE;
+
+        outputs = gnome_rr_config_get_outputs (config);
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (is_laptop (screen, outputs[i]))
+                        continue;
+
+                if (gnome_rr_output_info_is_active (outputs[i])) {
+                        all_off = FALSE;
+                        goto out;
+                }
+        }
+
+        all_off = TRUE;
+
+out:
+        g_object_unref (config);
+        return all_off;
+}
+
 static void
 do_lid_closed_action (GsdPowerManager *manager)
 {
@@ -2131,12 +2171,6 @@ do_lid_closed_action (GsdPowerManager *manager)
                 }
         }
 
-        /* are we docked? */
-        if (up_client_get_is_docked (manager->priv->up_client)) {
-                g_debug ("ignoring lid closed action because we are docked");
-                return;
-        }
-
         /* ensure we turn the panel back on after resume */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
                                              GNOME_RR_DPMS_OFF,
@@ -2148,7 +2182,11 @@ do_lid_closed_action (GsdPowerManager *manager)
         }
 
         /* perform policy action */
-        do_power_action_type (manager, action_type);
+        if (non_laptop_outputs_are_all_off (manager->priv->x11_screen)) {
+                g_debug ("lid is closed; suspending or hibernating");
+                do_power_action_type (manager, action_type);
+        } else
+                g_debug ("lid is closed; not suspending nor hibernating since some external monitor outputs are still on");
 }
 
 
