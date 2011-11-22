@@ -17,10 +17,16 @@
     <child name="cursor" schema="org.gnome.settings-daemon.peripherals.wacom.cursor"/>
     <child name="pad" schema="org.gnome.settings-daemon.peripherals.wacom.pad"/>
 
+    <!-- is-absolute applies to all tools but PAD -->
+    <key name="is-absolute" type="b">
+      <default>true</default>
+      <_summary>Wacom stylus absolute mode</_summary>
+      <_description>Enable this to set the tablet to absolute mode.</_description>
+    </key>
     <key name="rotation" enum="org.gnome.settings-daemon.GsdWacomRotation">
-    <default>'none'</default>
-    <_summary>Wacom tablet rotation</_summary>
-    <_description>Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and 'ccw' for 90 degree counterclockwise.</_description>
+      <default>'none'</default>
+      <_summary>Wacom tablet rotation</_summary>
+      <_description>Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and 'ccw' for 90 degree counterclockwise.</_description>
     </key>
     <key name="touch" type="b">
       <default>true</default>
@@ -34,11 +40,6 @@
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.stylus" path="/org/gnome/settings-daemon/peripherals/wacom/stylus/">
-    <key name="is-absolute" type="b">
-      <default>true</default>
-      <_summary>Wacom stylus absolute mode</_summary>
-      <_description>Enable this to set the stylus to absolute mode.</_description>
-    </key>
     <key name="pressurecurve" type="ai">
       <default>[0, 0, 100, 100]</default>
       <_summary>Wacom stylus pressure curve</_summary>
@@ -61,11 +62,6 @@
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.eraser" path="/org/gnome/settings-daemon/peripherals/wacom/eraser/">
-    <key name="is-absolute" type="b">
-      <default>true</default>
-      <_summary>Wacom eraser absolute mode</_summary>
-      <_description>Enable this to set the eraser to absolute mode.</_description>
-    </key>
     <key name="pressurecurve" type="ai">
       <default>[0, 0, 100, 100]</default>
       <_summary>Wacom eraser pressure curve</_summary>
@@ -88,11 +84,6 @@
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.cursor" path="/org/gnome/settings-daemon/peripherals/wacom/cursor/">
-    <key name="is-absolute" type="b">
-      <default>false</default>
-      <_summary>Wacom cursor absolute mode</_summary>
-      <_description>Enable this to set the cursor to absolute mode.</_description>
-    </key>
     <key name="area" type="ai">
       <default>[-1, -1, -1, -1]</default>
       <_summary>Wacom cursor tablet area</_summary>
