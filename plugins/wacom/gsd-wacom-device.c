@@ -142,9 +142,7 @@ gsd_wacom_stylus_get_device (GsdWacomStylus *stylus)
  */
 #define SETTINGS_WACOM_DIR         "org.gnome.settings-daemon.peripherals.wacom"
 #define SETTINGS_STYLUS_DIR        "stylus"
-#define SETTINGS_CURSOR_DIR        "cursor"
 #define SETTINGS_ERASER_DIR        "eraser"
-#define SETTINGS_PAD_DIR           "pad"
 
 struct GsdWacomDevicePrivate
 {
@@ -156,7 +154,6 @@ struct GsdWacomDevicePrivate
 	gboolean is_screen_tablet;
 	GList *styli;
 	GSettings *wacom_settings;
-	GSettings *tool_settings;
 };
 
 enum {
@@ -246,37 +243,6 @@ get_device_name (XDeviceInfo *dev)
 	return g_strndup (dev->name, space - dev->name);
 }
 
-static GSettings *
-get_settings_for_type (GsdWacomDeviceType type)
-{
-	const char *s;
-	char *schema;
-	GSettings *settings;
-
-	switch (type) {
-	/* Styli go through GsdWacomStylus instead */
-	case WACOM_TYPE_STYLUS:
-		return NULL;
-	case WACOM_TYPE_ERASER:
-		s = SETTINGS_ERASER_DIR;
-		break;
-	case WACOM_TYPE_CURSOR:
-		s = SETTINGS_CURSOR_DIR;
-		break;
-	case WACOM_TYPE_PAD:
-		s = SETTINGS_PAD_DIR;
-		break;
-	default:
-		g_assert_not_reached ();
-	}
-
-	schema = g_strdup_printf ("%s.%s", SETTINGS_WACOM_DIR , s);
-	settings = g_settings_new (schema);
-	g_free (schema);
-
-	return settings;
-}
-
 static GObject *
 gsd_wacom_device_constructor (GType                     type,
                               guint                      n_construct_properties,
@@ -317,18 +283,23 @@ gsd_wacom_device_constructor (GType                     type,
 	/* FIXME
 	 * Those should have their own unique path based on a unique property */
 	device->priv->wacom_settings = g_settings_new (SETTINGS_WACOM_DIR);
-	device->priv->tool_settings = get_settings_for_type (device->priv->type);
 
 	/* FIXME
 	 * This needs to come from real data */
 	device->priv->reversible = FALSE;
 	device->priv->is_screen_tablet = FALSE;
-	if (device->priv->type == WACOM_TYPE_STYLUS) {
-		GsdWacomStylus *stylus;
 
-		stylus = gsd_wacom_stylus_new (device,
-					       g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_STYLUS_DIR),
-					       _("Stylus"));
+	if (device->priv->type == WACOM_TYPE_STYLUS ||
+	    device->priv->type == WACOM_TYPE_ERASER) {
+		GsdWacomStylus *stylus;
+		GSettings *settings;
+
+		if (device->priv->type == WACOM_TYPE_STYLUS)
+			settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_STYLUS_DIR);
+		else
+			settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_ERASER_DIR);
+
+		stylus = gsd_wacom_stylus_new (device, settings, _("Stylus"));
 		device->priv->styli = g_list_append (NULL, stylus);
 	}
 
@@ -399,11 +370,6 @@ gsd_wacom_device_finalize (GObject *object)
                 p->wacom_settings = NULL;
         }
 
-        if (p->tool_settings != NULL) {
-                g_object_unref (p->tool_settings);
-                p->tool_settings = NULL;
-        }
-
         g_free (p->name);
         p->name = NULL;
 
@@ -469,14 +435,6 @@ gsd_wacom_device_get_settings (GsdWacomDevice *device)
 	return device->priv->wacom_settings;
 }
 
-GSettings *
-gsd_wacom_device_get_tool_settings (GsdWacomDevice *device)
-{
-	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), NULL);
-
-	return device->priv->tool_settings;
-}
-
 GsdWacomDeviceType
 gsd_wacom_device_get_device_type (GsdWacomDevice *device)
 {
@@ -496,7 +454,7 @@ gsd_wacom_device_type_to_string (GsdWacomDeviceType type)
 	case WACOM_TYPE_ERASER:
 		return "Eraser";
 	case WACOM_TYPE_CURSOR:
-		return "Wacom";
+		return "Cursor";
 	case WACOM_TYPE_PAD:
 		return "Pad";
 	default:
