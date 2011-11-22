@@ -2118,20 +2118,15 @@ gsd_xrandr_manager_finalize (GObject *object)
 }
 
 static void
-handle_method_call (GDBusConnection       *connection,
-                    const gchar           *sender,
-                    const gchar           *object_path,
-                    const gchar           *interface_name,
-                    const gchar           *method_name,
-                    GVariant              *parameters,
-                    GDBusMethodInvocation *invocation,
-                    gpointer               user_data) 
+handle_method_call_xrandr_2 (GsdXrandrManager *manager,
+                             const gchar *method_name,
+                             GVariant *parameters,
+                             GDBusMethodInvocation *invocation)
 {
-        GsdXrandrManager *manager = (GsdXrandrManager *) user_data;
         gint64 timestamp;
         GError *error = NULL;
 
-        g_debug ("Calling method '%s' for XRandR", method_name);
+        g_debug ("Calling method '%s' for org.gnome.SettingsDaemon.XRANDR_2", method_name);
 
         if (g_strcmp0 (method_name, "ApplyConfiguration") == 0) {
                 gint64 parent_window_id;
@@ -2157,6 +2152,26 @@ handle_method_call (GDBusConnection       *connection,
                 gsd_xrandr_manager_2_rotate_to (manager, rotation, timestamp, NULL);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         }
+}
+
+static void
+handle_method_call (GDBusConnection       *connection,
+                    const gchar           *sender,
+                    const gchar           *object_path,
+                    const gchar           *interface_name,
+                    const gchar           *method_name,
+                    GVariant              *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer               user_data)
+{
+        GsdXrandrManager *manager = (GsdXrandrManager *) user_data;
+
+        g_debug ("Handling method call %s.%s", interface_name, method_name);
+
+        if (g_strcmp0 (interface_name, "org.gnome.SettingsDaemon.XRANDR_2") == 0)
+                handle_method_call_xrandr_2 (manager, method_name, parameters, invocation);
+        else
+                g_warning ("unknown interface: %s", interface_name);
 }
 
 
