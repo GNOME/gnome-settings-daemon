@@ -23,6 +23,11 @@
       <_summary>Wacom stylus absolute mode</_summary>
       <_description>Enable this to set the tablet to absolute mode.</_description>
     </key>
+    <key name="area" type="ai">
+      <default>[-1, -1, -1, -1]</default>
+      <_summary>Wacom tablet area</_summary>
+      <_description>Set this to x1, y1 and x2, y2 of the area usable by the tools.</_description>
+    </key>
     <key name="rotation" enum="org.gnome.settings-daemon.GsdWacomRotation">
       <default>'none'</default>
       <_summary>Wacom tablet rotation</_summary>
@@ -45,11 +50,6 @@
       <_summary>Wacom stylus pressure curve</_summary>
       <_description>Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus.</_description>
     </key>
-    <key name="area" type="ai">
-      <default>[-1, -1, -1, -1]</default>
-      <_summary>Wacom stylus tablet area</_summary>
-      <_description>Set this to x1, y1 and x2, y2 of the area usable by the stylus.</_description>
-    </key>
     <key name="buttonmapping" type="ai">
       <default>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]</default>
       <_summary>Wacom stylus button mapping</_summary>
@@ -67,11 +67,6 @@
       <_summary>Wacom eraser pressure curve</_summary>
       <_description>Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser.</_description>
     </key>
-    <key name="area" type="ai">
-      <default>[-1, -1, -1, -1]</default>
-      <_summary>Wacom eraser tablet area</_summary>
-      <_description>Set this to x1, y1 and x2, y2 of the area usable by the eraser.</_description>
-    </key>
     <key name="buttonmapping" type="ai">
       <default>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]</default>
       <_summary>Wacom eraser button mapping</_summary>
@@ -84,11 +79,6 @@
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.cursor" path="/org/gnome/settings-daemon/peripherals/wacom/cursor/">
-    <key name="area" type="ai">
-      <default>[-1, -1, -1, -1]</default>
-      <_summary>Wacom cursor tablet area</_summary>
-      <_description>Set this to x1, y1 and x2, y2 of the area usable by the cursor.</_description>
-    </key>
     <key name="buttonmapping" type="ai">
       <default>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]</default>
       <_summary>Wacom cursor button mapping</_summary>
