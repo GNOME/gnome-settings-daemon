@@ -410,6 +410,9 @@ turn_off_laptop_display_in_configuration (GnomeRRScreen *screen, GnomeRRConfig *
                 if (non_laptop_outputs_are_active (config, laptop_info))
                         gnome_rr_output_info_set_active (laptop_info, FALSE);
         }
+
+        /* Adjust the offsets of outputs so they start at (0, 0) */
+        gnome_rr_config_sanitize (config);
 }
 
 /* This function effectively centralizes the use of gnome_rr_config_apply_from_filename_with_time().
