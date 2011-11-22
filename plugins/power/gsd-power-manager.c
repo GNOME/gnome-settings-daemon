@@ -71,6 +71,10 @@
 #define GS_DBUS_PATH                            "/"
 #define GS_DBUS_INTERFACE                       "org.gnome.ScreenSaver"
 
+#define XRANDR_DBUS_NAME                        GSD_DBUS_SERVICE
+#define XRANDR_DBUS_PATH                        GSD_DBUS_PATH "/XRANDR"
+#define XRANDR_INTERNAL_DBUS_INTERFACE          "org.gnome.SettingsDaemon.XRANDR.Internal"
+
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER          0 /* ms */
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_SHORT          10 * 1000 /* ms */
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG           30 * 1000 /* ms */
@@ -158,6 +162,7 @@ struct GsdPowerManagerPrivate
         GCancellable            *bus_cancellable;
         GDBusProxy              *upower_proxy;
         GDBusProxy              *upower_kdb_proxy;
+        GDBusProxy              *xrandr_internal_proxy;
         gint                     kbd_brightness_now;
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
@@ -3167,6 +3172,23 @@ out:
 }
 
 static void
+xrandr_proxy_ready_cb (GObject             *source_object,
+                       GAsyncResult        *res,
+                       gpointer             user_data)
+{
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+        GError *error;
+
+        error = NULL;
+        manager->priv->xrandr_internal_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (manager->priv->xrandr_internal_proxy == NULL) {
+                g_warning ("Could not connect to the XRANDR.Internal interface: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+}
+
+static void
 upower_notify_sleep_cb (UpClient *client,
                         UpSleepKind sleep_kind,
                         GsdPowerManager *manager)
@@ -3348,6 +3370,17 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                   screensaver_proxy_ready_cb,
                                   manager);
 
+        /* connect to the xrandr plugin */
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                  NULL,
+                                  XRANDR_DBUS_NAME,
+                                  XRANDR_DBUS_PATH,
+                                  XRANDR_INTERNAL_DBUS_INTERFACE,
+                                  NULL,
+                                  xrandr_proxy_ready_cb,
+                                  manager);
+
         /* connect to the session */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
@@ -3460,40 +3493,76 @@ gsd_power_manager_stop (GsdPowerManager *manager)
                 manager->priv->connection = NULL;
         }
 
-        if (manager->priv->timeout_blank_id != 0)
+        if (manager->priv->timeout_blank_id != 0) {
                 g_source_remove (manager->priv->timeout_blank_id);
-        if (manager->priv->timeout_sleep_id != 0)
+                manager->priv->timeout_blank_id = 0;
+        }
+
+        if (manager->priv->timeout_sleep_id != 0) {
                 g_source_remove (manager->priv->timeout_sleep_id);
+                manager->priv->timeout_sleep_id = 0;
+        }
 
         g_object_unref (manager->priv->session);
         g_object_unref (manager->priv->settings);
         g_object_unref (manager->priv->settings_screensaver);
         g_object_unref (manager->priv->up_client);
-        if (manager->priv->x11_screen != NULL)
+        manager->priv->session = NULL;
+        manager->priv->settings = NULL;
+        manager->priv->settings_screensaver = NULL;
+        manager->priv->up_client = NULL;
+
+        if (manager->priv->x11_screen != NULL) {
                 g_object_unref (manager->priv->x11_screen);
+                manager->priv->x11_screen = NULL;
+        }
 
         g_ptr_array_unref (manager->priv->devices_array);
         g_object_unref (manager->priv->phone);
         g_object_unref (manager->priv->device_composite);
+        manager->priv->devices_array = NULL;
+        manager->priv->phone = NULL;
+        manager->priv->device_composite = NULL;
 
-        if (manager->priv->previous_icon != NULL)
+        if (manager->priv->previous_icon != NULL) {
                 g_object_unref (manager->priv->previous_icon);
+                manager->priv->previous_icon = NULL;
+        }
+
         g_free (manager->priv->previous_summary);
+        manager->priv->previous_summary = NULL;
 
-        if (manager->priv->upower_proxy != NULL)
+        if (manager->priv->upower_proxy != NULL) {
                 g_object_unref (manager->priv->upower_proxy);
-        if (manager->priv->session_proxy != NULL)
-                g_object_unref (manager->priv->session_proxy);
-        if (manager->priv->session_presence_proxy != NULL)
-                g_object_unref (manager->priv->session_presence_proxy);
+                manager->priv->upower_proxy = NULL;
+        }
 
-        if (manager->priv->critical_alert_timeout_id > 0)
+        if (manager->priv->session_proxy != NULL) {
+                g_object_unref (manager->priv->session_proxy);
+                manager->priv->session_proxy = NULL;
+        }
+
+        if (manager->priv->session_presence_proxy != NULL) {
+                g_object_unref (manager->priv->session_presence_proxy);
+                manager->priv->session_presence_proxy = NULL;
+        }
+
+        if (manager->priv->xrandr_internal_proxy != NULL) {
+                g_object_unref (manager->priv->xrandr_internal_proxy);
+                manager->priv->xrandr_internal_proxy = NULL;
+        }
+
+        if (manager->priv->critical_alert_timeout_id > 0) {
                 g_source_remove (manager->priv->critical_alert_timeout_id);
+                manager->priv->critical_alert_timeout_id = NULL;
+        }
 
         gpm_idletime_alarm_remove (manager->priv->idletime,
                                    GSD_POWER_IDLETIME_ID);
         g_object_unref (manager->priv->idletime);
         g_object_unref (manager->priv->status_icon);
+        manager->priv->idletime = NULL;
+        manager->priv->status_icon = NULL;
 }
 
 static void
