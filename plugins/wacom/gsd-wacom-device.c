@@ -151,6 +151,7 @@ struct GsdWacomDevicePrivate
 	GdkDevice *gdk_device;
 	GsdWacomDeviceType type;
 	char *name;
+	char *tool_name;
 	gboolean reversible;
 	gboolean is_screen_tablet;
 	GList *styli;
@@ -303,6 +304,7 @@ gsd_wacom_device_constructor (GType                     type,
 		if (device_info[i].id == id) {
 			device->priv->type = get_device_type (&device_info[i]);
 			device->priv->name = get_device_name (&device_info[i]);
+			device->priv->tool_name = g_strdup (device_info[i].name);
 			break;
 		}
 	}
@@ -405,6 +407,9 @@ gsd_wacom_device_finalize (GObject *object)
         g_free (p->name);
         p->name = NULL;
 
+        g_free (p->tool_name);
+        p->tool_name = NULL;
+
         G_OBJECT_CLASS (gsd_wacom_device_parent_class)->finalize (object);
 }
 
@@ -430,6 +435,14 @@ gsd_wacom_device_get_name (GsdWacomDevice *device)
 	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), NULL);
 
 	return device->priv->name;
+}
+
+const char *
+gsd_wacom_device_get_tool_name (GsdWacomDevice *device)
+{
+	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), NULL);
+
+	return device->priv->tool_name;
 }
 
 gboolean
