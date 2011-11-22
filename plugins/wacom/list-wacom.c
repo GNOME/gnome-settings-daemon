@@ -74,12 +74,6 @@ int main (int argc, char **argv)
 		g_message ("\tGeneric settings: %s", loc);
 		g_free (loc);
 
-		if (gsd_wacom_device_get_device_type (device) != WACOM_TYPE_STYLUS) {
-			loc = get_loc (gsd_wacom_device_get_tool_settings (device));
-			g_message ("\tTool settings: %s", loc);
-			g_free (loc);
-		}
-
 		if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS) {
 			GList *styli, *j;
 
