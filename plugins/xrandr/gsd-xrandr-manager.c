@@ -96,6 +96,11 @@ static const gchar introspection_xml[] =
 "       <arg name='timestamp' type='x' direction='in'/>"
 "    </method>"
 "  </interface>"
+"  <interface name='org.gnome.SettingsDaemon.XRANDR.Internal'>"
+"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='internal'/>"
+"    <method name='LidStateChanged'>"
+"    </method>"
+"  </interface>"
 "</node>";
 
 struct GsdXrandrManagerPrivate
@@ -1925,7 +1930,7 @@ turn_off_laptop_display (GsdXrandrManager *manager, guint32 timestamp)
 }
 
 static void
-power_client_changed_cb (UpClient *client, gpointer data)
+lid_state_changed (GsdXrandrManager *manager)
 {
         GsdXrandrManager *manager = data;
         GsdXrandrManagerPrivate *priv = manager->priv;
@@ -1966,7 +1971,6 @@ gsd_xrandr_manager_start (GsdXrandrManager *manager,
         g_signal_connect (manager->priv->rw_screen, "changed", G_CALLBACK (on_randr_event), manager);
 
         manager->priv->upower_client = up_client_new ();
-        g_signal_connect (manager->priv->upower_client, "changed", G_CALLBACK (power_client_changed_cb), manager);
         manager->priv->laptop_lid_is_closed = up_client_get_lid_is_closed (manager->priv->upower_client);
 
         log_msg ("State of screen at startup:\n");
@@ -2155,6 +2159,21 @@ handle_method_call_xrandr_2 (GsdXrandrManager *manager,
 }
 
 static void
+handle_method_call_internal (GsdXrandrManager *manager,
+                             const gchar *method_name,
+                             GVariant *parameters,
+                             GDBusMethodInvocation *invocation)
+{
+        g_debug ("Calling method '%s' for org.gnome.SettingsDaemon.XRANDR.Internal", method_name);
+
+        if (g_strcmp0 (method_name, "LidStateChanged") == 0) {
+                lid_state_changed (manager);
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        } else
+                g_warning ("unknown method: %s", method_name);
+}
+
+static void
 handle_method_call (GDBusConnection       *connection,
                     const gchar           *sender,
                     const gchar           *object_path,
@@ -2170,6 +2189,8 @@ handle_method_call (GDBusConnection       *connection,
 
         if (g_strcmp0 (interface_name, "org.gnome.SettingsDaemon.XRANDR_2") == 0)
                 handle_method_call_xrandr_2 (manager, method_name, parameters, invocation);
+        else if (g_strcmp0 (interface_name, "org.gnome.SettingsDaemon.XRANDR.Internal") == 0)
+                handle_method_call_internal (manager, method_name, parameters, invocation);
         else
                 g_warning ("unknown interface: %s", interface_name);
 }
