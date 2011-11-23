@@ -206,6 +206,7 @@ set_absolute (GsdWacomDevice  *device,
 	XDevice *xdev;
 
 	xdev = open_device (device);
+	gdk_error_trap_push ();
 	XSetDeviceMode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, is_absolute ? Absolute : Relative);
 	if (gdk_error_trap_pop ())
 		g_error ("Failed to set mode \"%s\" for \"%s\".",
