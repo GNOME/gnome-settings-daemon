@@ -40,7 +40,7 @@ device_set_property (XDevice        *xdevice,
                      const char     *device_name,
                      PropertyHelper *property)
 {
-        int rc;
+        int rc, i;
         Atom prop;
         Atom realtype;
         int realformat;
@@ -59,24 +59,29 @@ device_set_property (XDevice        *xdevice,
                                  XA_INTEGER, &realtype, &realformat, &nitems,
                                  &bytes_after, &data);
 
-        if (rc == Success && realtype == XA_INTEGER &&
-            realformat == property->format && nitems >= property->nitems) {
-                int i;
-                for (i = 0; i < nitems; i++) {
-                        switch (property->format) {
-                                case 8:
-                                        data[i] = property->data.c[i];
-                                        break;
-                                case 32:
-                                        ((long*)data)[i] = property->data.i[i];
-                                        break;
-                        }
-                }
-
-                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                       xdevice, prop, XA_INTEGER, realformat,
-                                       PropModeReplace, data, nitems);
+        if (rc != Success ||
+            realtype != XA_INTEGER ||
+            realformat != property->format ||
+            nitems < property->nitems) {
+                gdk_error_trap_pop_ignored ();
+                g_warning ("Error reading property \"%s\" for \"%s\"", property->name, device_name);
+                return FALSE;
         }
+
+        for (i = 0; i < nitems; i++) {
+                switch (property->format) {
+                        case 8:
+                                data[i] = property->data.c[i];
+                                break;
+                        case 32:
+                                ((long*)data)[i] = property->data.i[i];
+                                break;
+                }
+        }
+
+        XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                               xdevice, prop, XA_INTEGER, realformat,
+                               PropModeReplace, data, nitems);
 
         if (gdk_error_trap_pop ()) {
                 g_warning ("Error in setting \"%s\" for \"%s\"", property->name, device_name);
