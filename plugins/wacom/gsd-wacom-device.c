@@ -328,6 +328,26 @@ gsd_wacom_device_set_property (GObject        *object,
 }
 
 static void
+gsd_wacom_device_get_property (GObject        *object,
+                               guint           prop_id,
+                               GValue         *value,
+                               GParamSpec     *pspec)
+{
+        GsdWacomDevice *device;
+
+        device = GSD_WACOM_DEVICE (object);
+
+        switch (prop_id) {
+	case PROP_GDK_DEVICE:
+		g_value_set_pointer (value, device->priv->gdk_device);
+		break;
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                break;
+        }
+}
+
+static void
 gsd_wacom_device_class_init (GsdWacomDeviceClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
@@ -335,12 +355,13 @@ gsd_wacom_device_class_init (GsdWacomDeviceClass *klass)
         object_class->constructor = gsd_wacom_device_constructor;
         object_class->finalize = gsd_wacom_device_finalize;
         object_class->set_property = gsd_wacom_device_set_property;
+        object_class->get_property = gsd_wacom_device_get_property;
 
         g_type_class_add_private (klass, sizeof (GsdWacomDevicePrivate));
 
 	g_object_class_install_property (object_class, PROP_GDK_DEVICE,
 					 g_param_spec_pointer ("gdk-device", "gdk-device", "gdk-device",
-							       G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
+							       G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 }
 
 static void
