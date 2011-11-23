@@ -310,11 +310,15 @@ set_wacom_settings (GsdWacomManager *manager,
         type = gsd_wacom_device_get_device_type (device);
 
 	if (type == WACOM_TYPE_CURSOR) {
-		GVariant *variant;
+		GVariant *values[4], *variant;
+		guint i;
 
 		set_absolute (device, FALSE);
 
-		variant = g_variant_new ("ai", "[-1, -1, -1, -1]");
+		for (i = 0; i < G_N_ELEMENTS (values); i++)
+			values[i] = g_variant_new_int32 (-1);
+
+		variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
 		set_area (device, variant);
 		g_variant_unref (variant);
 		return;
