@@ -326,7 +326,9 @@ set_wacom_settings (GsdWacomManager *manager,
 		set_area (device, variant);
 		g_variant_unref (variant);
 		return;
-	} else if (type == WACOM_TYPE_PAD) {
+	}
+
+	if (type == WACOM_TYPE_PAD) {
 		set_device_buttonmap (device, g_settings_get_value (settings, KEY_PAD_BUTTON_MAPPING));
 		return;
 	}
