@@ -302,6 +302,10 @@ set_wacom_settings (GsdWacomManager *manager,
 	GsdWacomDeviceType type;
 	GSettings *settings;
 
+	g_debug ("Applying settings for device '%s' (type: %s)",
+		 gsd_wacom_device_get_tool_name (device),
+		 gsd_wacom_device_type_to_string (gsd_wacom_device_get_device_type (device)));
+
 	settings = gsd_wacom_device_get_settings (device);
         set_rotation (device, g_settings_get_enum (settings, KEY_ROTATION));
         set_touch (device, g_settings_get_boolean (settings, KEY_TOUCH));
@@ -417,6 +421,9 @@ device_added_cb (GdkDeviceManager *device_manager,
 		g_object_unref (device);
 		return;
 	}
+	g_debug ("Adding device '%s' (type: '%s') to known devices list",
+		 gsd_wacom_device_get_tool_name (device),
+		 gsd_wacom_device_type_to_string (gsd_wacom_device_get_device_type (device)));
 	g_hash_table_insert (manager->priv->devices, (gpointer) gdk_device, device);
 
 	settings = gsd_wacom_device_get_settings (device);
@@ -442,10 +449,12 @@ device_added_cb (GdkDeviceManager *device_manager,
 
 static void
 device_removed_cb (GdkDeviceManager *device_manager,
-                   GdkDevice        *device,
+                   GdkDevice        *gdk_device,
                    GsdWacomManager  *manager)
 {
-	g_hash_table_remove (manager->priv->devices, device);
+	g_debug ("Removing device '%s' from known devices list",
+		 gdk_device_get_name (gdk_device));
+	g_hash_table_remove (manager->priv->devices, gdk_device);
 }
 
 static void
