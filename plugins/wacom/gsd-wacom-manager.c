@@ -33,11 +33,7 @@
 
 #include <glib.h>
 #include <gtk/gtk.h>
-#include <gdk/gdk.h>
 #include <gdk/gdkx.h>
-#include <X11/Xatom.h>
-
-#include <X11/extensions/XInput.h>
 
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
