@@ -309,7 +309,6 @@ set_wacom_settings (GsdWacomManager *manager,
 	settings = gsd_wacom_device_get_settings (device);
         set_rotation (device, g_settings_get_enum (settings, KEY_ROTATION));
         set_touch (device, g_settings_get_boolean (settings, KEY_TOUCH));
-        set_tpcbutton (device, g_settings_get_boolean (settings, KEY_TPCBUTTON));
 
         type = gsd_wacom_device_get_device_type (device);
 
@@ -332,6 +331,9 @@ set_wacom_settings (GsdWacomManager *manager,
 		set_device_buttonmap (device, g_settings_get_value (settings, KEY_PAD_BUTTON_MAPPING));
 		return;
 	}
+
+	if (type == WACOM_TYPE_STYLUS)
+		set_tpcbutton (device, g_settings_get_boolean (settings, KEY_TPCBUTTON));
 
 	set_absolute (device, g_settings_get_boolean (settings, KEY_IS_ABSOLUTE));
 	set_area (device, g_settings_get_value (settings, KEY_AREA));
