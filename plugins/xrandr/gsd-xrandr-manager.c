@@ -2209,6 +2209,8 @@ on_bus_gotten (GObject             *source_object,
 {
         GDBusConnection *connection;
         GError *error = NULL;
+        GDBusInterfaceInfo **infos;
+        int i;
 
         if (manager->priv->bus_cancellable == NULL ||
             g_cancellable_is_cancelled (manager->priv->bus_cancellable)) {
@@ -2224,13 +2226,16 @@ on_bus_gotten (GObject             *source_object,
         }
         manager->priv->connection = connection;
 
-        g_dbus_connection_register_object (connection,
-                                           GSD_XRANDR_DBUS_PATH,
-                                           manager->priv->introspection_data->interfaces[0],
-                                           &interface_vtable,
-                                           manager,
-                                           NULL,
-                                           NULL);
+        infos = manager->priv->introspection_data->interfaces;
+        for (i = 0; infos[i] != NULL; i++) {
+                g_dbus_connection_register_object (connection,
+                                                   GSD_XRANDR_DBUS_PATH,
+                                                   infos[i],
+                                                   &interface_vtable,
+                                                   manager,
+                                                   NULL,
+                                                   NULL);
+        }
 }
 
 static void
