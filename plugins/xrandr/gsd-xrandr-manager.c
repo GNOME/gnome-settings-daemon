@@ -1932,7 +1932,6 @@ turn_off_laptop_display (GsdXrandrManager *manager, guint32 timestamp)
 static void
 lid_state_changed (GsdXrandrManager *manager)
 {
-        GsdXrandrManager *manager = data;
         GsdXrandrManagerPrivate *priv = manager->priv;
         gboolean is_closed;
 
