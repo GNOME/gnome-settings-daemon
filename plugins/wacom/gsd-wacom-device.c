@@ -31,7 +31,6 @@
 #include <X11/extensions/XInput.h>
 
 #include "gsd-enums.h"
-#include "gsd-input-helper.h"
 #include "gsd-wacom-device.h"
 
 #define GSD_WACOM_STYLUS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_STYLUS, GsdWacomStylusPrivate))
