@@ -58,6 +58,9 @@
 #define KEY_PRESSURETHRESHOLD   "pressurethreshold"
 #define KEY_PRESSURECURVE       "pressurecurve"
 
+/* See "Wacom Pressure Threshold" */
+#define DEFAULT_PRESSURE_THRESHOLD 27
+
 struct GsdWacomManagerPrivate
 {
         guint start_idle_id;
@@ -349,10 +352,16 @@ set_wacom_settings (GsdWacomManager *manager,
 		//FIXME we should only set the _current_ stylus
 		for (l = styli ; l ; l = l->next) {
 			GsdWacomStylus *stylus = l->data;
+			int threshold;
+
 			stylus_settings = gsd_wacom_stylus_get_settings (stylus);
 			set_pressurecurve (device, g_settings_get_value (stylus_settings, KEY_PRESSURECURVE));
-			set_pressurethreshold (device, g_settings_get_int (stylus_settings, KEY_PRESSURETHRESHOLD));
 			set_device_buttonmap (device, g_settings_get_value (stylus_settings, KEY_BUTTON_MAPPING));
+
+			threshold = g_settings_get_int (stylus_settings, KEY_PRESSURETHRESHOLD);
+			if (threshold == -1)
+				threshold = DEFAULT_PRESSURE_THRESHOLD;
+			set_pressurethreshold (device, threshold);
 		}
 
 		g_list_free (styli);
@@ -404,7 +413,12 @@ stylus_settings_changed (GSettings      *settings,
 	if (g_str_equal (key, KEY_PRESSURECURVE)) {
 		set_pressurecurve (device, g_settings_get_value (settings, key));
 	} else if (g_str_equal (key, KEY_PRESSURETHRESHOLD)) {
-		set_pressurethreshold (device, g_settings_get_int (settings, key));
+		int threshold;
+
+		threshold = g_settings_get_int (settings, KEY_PRESSURETHRESHOLD);
+		if (threshold == -1)
+			threshold = DEFAULT_PRESSURE_THRESHOLD;
+		set_pressurethreshold (device, threshold);
 	} else if (g_str_equal (key, KEY_BUTTON_MAPPING)) {
 		set_device_buttonmap (device, g_settings_get_value (settings, key));
 	}  else {
