@@ -115,11 +115,27 @@ list_actual_devices (void)
 	list_devices (devices);
 }
 
+static void
+list_fake_devices (void)
+{
+	GList *devices;
+
+	devices = gsd_wacom_device_create_fake_cintiq ();
+	list_devices (devices);
+
+	devices = gsd_wacom_device_create_fake_bt ();
+	list_devices (devices);
+
+	devices = gsd_wacom_device_create_fake_x201 ();
+	list_devices (devices);
+}
+
 int main (int argc, char **argv)
 {
 	gtk_init (&argc, &argv);
 
 	list_actual_devices ();
+//	list_fake_devices ();
 
 	return 0;
 }
