@@ -45,12 +45,11 @@ get_loc (GSettings *settings)
 
 #define BOOL_AS_STR(x) (x ? "yes" : "no")
 
-int main (int argc, char **argv)
+static void
+list_actual_devices (void)
 {
 	GdkDeviceManager *mgr;
 	GList *list, *l;
-
-	gtk_init (&argc, &argv);
 
 	mgr = gdk_display_get_device_manager (gdk_display_get_default ());
 
@@ -94,6 +93,13 @@ int main (int argc, char **argv)
 		g_object_unref (device);
 	}
 	g_list_free (list);
+}
+
+int main (int argc, char **argv)
+{
+	gtk_init (&argc, &argv);
+
+	list_actual_devices ();
 
 	return 0;
 }
