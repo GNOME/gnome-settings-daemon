@@ -75,7 +75,6 @@ list_devices (GList *devices)
 			styli = gsd_wacom_device_list_styli (device);
 			for (j = styli; j; j = j->next) {
 				GsdWacomStylus *stylus;
-				char *loc;
 
 				stylus = j->data;
 				g_message ("\tStylus: '%s'", gsd_wacom_stylus_get_name (stylus));
