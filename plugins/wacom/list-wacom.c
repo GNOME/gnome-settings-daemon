@@ -46,23 +46,16 @@ get_loc (GSettings *settings)
 #define BOOL_AS_STR(x) (x ? "yes" : "no")
 
 static void
-list_actual_devices (void)
+list_devices (GList *devices)
 {
-	GdkDeviceManager *mgr;
-	GList *list, *l;
+	GList *l;
 
-	mgr = gdk_display_get_device_manager (gdk_display_get_default ());
-
-	list = gdk_device_manager_list_devices (mgr, GDK_DEVICE_TYPE_SLAVE);
-	for (l = list; l ; l = l->next) {
+	for (l = devices; l ; l = l->next) {
 		GsdWacomDevice *device;
 		char *loc;
 
-		device = gsd_wacom_device_new (l->data);
-		if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_INVALID) {
-			g_object_unref (device);
-			continue;
-		}
+		device = l->data;
+
 		g_message ("*** Device '%s' (type: %s)",
 			   gsd_wacom_device_get_name (device),
 			   gsd_wacom_device_type_to_string (gsd_wacom_device_get_device_type (device)));
@@ -92,7 +85,32 @@ list_actual_devices (void)
 		}
 		g_object_unref (device);
 	}
+	g_list_free (devices);
+}
+
+static void
+list_actual_devices (void)
+{
+	GdkDeviceManager *mgr;
+	GList *list, *l, *devices;
+
+	mgr = gdk_display_get_device_manager (gdk_display_get_default ());
+
+	list = gdk_device_manager_list_devices (mgr, GDK_DEVICE_TYPE_SLAVE);
+	devices = NULL;
+	for (l = list; l ; l = l->next) {
+		GsdWacomDevice *device;
+
+		device = gsd_wacom_device_new (l->data);
+		if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_INVALID) {
+			g_object_unref (device);
+			continue;
+		}
+		devices = g_list_prepend (devices, device);
+	}
 	g_list_free (list);
+
+	list_devices (devices);
 }
 
 int main (int argc, char **argv)
