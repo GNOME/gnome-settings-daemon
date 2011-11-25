@@ -52,6 +52,7 @@ list_devices (GList *devices)
 
 	for (l = devices; l ; l = l->next) {
 		GsdWacomDevice *device;
+		GsdWacomDeviceType type;
 		char *loc;
 
 		device = l->data;
@@ -66,7 +67,9 @@ list_devices (GList *devices)
 		g_message ("\tGeneric settings: %s", loc);
 		g_free (loc);
 
-		if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS) {
+		type = gsd_wacom_device_get_device_type (device);
+		if (type == WACOM_TYPE_STYLUS ||
+		    type == WACOM_TYPE_ERASER) {
 			GList *styli, *j;
 
 			styli = gsd_wacom_device_list_styli (device);
