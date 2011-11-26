@@ -929,8 +929,10 @@ device_perhaps_recall_delay_cb (gpointer user_data)
 
         /* TRANSLATORS: the battery may be recalled by it's vendor */
         title = _("Battery may be recalled");
-        message = g_string_new (_("A battery in your computer may have been "
-                                  "recalled by %s and you may be at risk."));
+        message = g_string_new ("");
+        g_string_append_printf (message,
+                                _("A battery in your computer may have been "
+                                  "recalled by %s and you may be at risk."), vendor);
         g_string_append (message, "\n\n");
         g_string_append (message, _("For more information visit the battery recall website."));
         dialog = gtk_message_dialog_new_with_markup (NULL,
