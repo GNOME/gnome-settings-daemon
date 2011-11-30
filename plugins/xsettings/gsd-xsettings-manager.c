@@ -344,6 +344,7 @@ static FixedEntry fixed_entries [] = {
         { "Gtk/ShowInputMethodMenu", fixed_false_int },
         { "Gtk/ShowUnicodeMenu",     fixed_false_int },
         { "Gtk/AutoMnemonics",       fixed_true_int },
+        { "Gtk/EnablePrimaryPaste",  fixed_false_int },
 };
 
 static TranslationEntry translations [] = {
