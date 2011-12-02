@@ -239,6 +239,8 @@ struct GnomeXSettingsManagerPrivate
         fontconfig_monitor_handle_t *fontconfig_handle;
 
         GsdXSettingsGtk   *gtk;
+
+        guint              shell_name_watch_id;
 };
 
 #define GSD_XSETTINGS_ERROR gsd_xsettings_error_quark ()
@@ -663,6 +665,39 @@ stop_fontconfig_monitor (GnomeXSettingsManager  *manager)
 }
 
 static void
+notify_have_shell (GnomeXSettingsManager   *manager,
+                   gboolean                 have_shell)
+{
+        int i;
+        int timestamp = time (NULL);
+
+        gnome_settings_profile_start (NULL);
+
+        for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/ShellShowsAppMenu", have_shell);
+                xsettings_manager_notify (manager->priv->managers [i]);
+        }
+        gnome_settings_profile_end (NULL);
+}
+
+static void
+on_shell_appeared (GDBusConnection *connection,
+                   const gchar     *name,
+                   const gchar     *name_owner,
+                   gpointer         user_data)
+{
+        notify_have_shell (user_data, TRUE);
+}
+
+static void
+on_shell_disappeared (GDBusConnection *connection,
+                      const gchar     *name,
+                      gpointer         user_data)
+{
+        notify_have_shell (user_data, FALSE);
+}
+
+static void
 process_value (GnomeXSettingsManager *manager,
                TranslationEntry      *trans,
                GVariant              *value)
@@ -847,6 +882,15 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
 
         start_fontconfig_monitor (manager);
 
+        /* Shell flag */
+        manager->priv->shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                                               "org.gnome.Shell",
+                                                               0,
+                                                               on_shell_appeared,
+                                                               on_shell_disappeared,
+                                                               manager,
+                                                               NULL);
+
         for (i = 0; manager->priv->managers [i]; i++)
                 xsettings_manager_set_string (manager->priv->managers [i],
                                               "Net/FallbackIconTheme",
@@ -884,6 +928,8 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
         }
 
         stop_fontconfig_monitor (manager);
+
+        g_bus_unwatch_name (manager->priv->shell_name_watch_id);
 
         if (p->settings != NULL) {
                 g_hash_table_destroy (p->settings);
