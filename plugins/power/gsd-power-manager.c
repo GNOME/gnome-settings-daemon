@@ -32,7 +32,7 @@
 #include <canberra-gtk.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
+#include <libgnome-desktop/gnome-rr-config.h>
 
 #include "gpm-common.h"
 #include "gpm-phone.h"
