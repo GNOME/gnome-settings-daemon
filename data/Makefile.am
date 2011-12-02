@@ -45,6 +45,9 @@ desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = gnome-settings-daemon.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
+gnome-settings-daemon.desktop.in: gnome-settings-daemon.desktop.in.in
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@.tmp && mv $@.tmp $@
+
 servicedir = $(datadir)/dbus-1/services
 service_in_files = org.gnome.SettingsDaemon.service.in
 service_DATA = $(service_in_files:.service.in=.service)

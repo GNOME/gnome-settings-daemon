@@ -36,8 +36,6 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Name of default gettext
 
 AM_GLIB_GNU_GETTEXT
 
-AS_AC_EXPAND(LIBEXECDIR, "$libexecdir")
-
 GSD_INTLTOOL_PLUGIN_RULE='%.gnome-settings-plugin:   %.gnome-settings-plugin.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< [$]@'
 AC_SUBST([GSD_INTLTOOL_PLUGIN_RULE])
 
@@ -486,7 +484,6 @@ plugins/wacom/Makefile
 plugins/xrandr/Makefile
 plugins/xsettings/Makefile
 data/Makefile
-data/gnome-settings-daemon.desktop.in
 data/gnome-settings-daemon.pc
 data/gnome-settings-daemon-uninstalled.pc
 data/org.gnome.settings-daemon.plugins.gschema.xml.in
