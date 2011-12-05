@@ -2212,13 +2212,14 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
 
         /* tell the RANDR plugin to update its state; the display on the lid needs to be turned off */
         if (manager->priv->xrandr_internal_proxy != NULL) {
-                g_dbus_proxy_call_sync (manager->priv->xrandr_internal_proxy,
-                                        "LidStateChanged",
-                                        NULL,                     /* parameters */
-                                        G_DBUS_CALL_FLAGS_NONE,   /* flags */
-                                        -1,                       /* timeout */
-                                        NULL,                     /* cancellable */
-                                        NULL);                    /* NULL-GError */
+                g_dbus_proxy_call (manager->priv->xrandr_internal_proxy,
+                                   "LidStateChanged",
+                                   NULL,                     /* parameters */
+                                   G_DBUS_CALL_FLAGS_NONE,   /* flags */
+                                   -1,                       /* timeout */
+                                   NULL,                     /* cancellable */
+                                   NULL,                     /* callback */
+                                   NULL);                   /* user_data */
         }
 
         /* fake a keypress */
