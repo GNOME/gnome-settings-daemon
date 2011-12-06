@@ -21,6 +21,7 @@ libgsdwacom_la_CPPFLAGS = \
 libgsdwacom_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
 libgsdwacom_la_LDFLAGS =		\
@@ -29,7 +30,7 @@ libgsdwacom_la_LDFLAGS =		\
 libgsdwacom_la_LIBADD  =						\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_PLUGIN_LIBS)						\
-	$(XINPUT_LIBS)
+	$(WACOM_LIBS)
 
 noinst_PROGRAMS = test-wacom list-wacom
 
@@ -52,6 +53,7 @@ test_wacom_CPPFLAGS = \
 
 test_wacom_CFLAGS =			\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
 test_wacom_LDADD = \
@@ -59,6 +61,7 @@ test_wacom_LDADD = \
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
+	$(WACOM_LIBS)				\
 	-lm
 
 list_wacom_SOURCES =		\
@@ -85,6 +88,7 @@ list_wacom_LDADD = \
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
+	$(WACOM_LIBS)				\
 	-lm
 
 plugin_in_files = wacom.gnome-settings-plugin.in
