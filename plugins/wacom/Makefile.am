@@ -1,8 +1,8 @@
 plugin_name = wacom
 
-plugin_LTLIBRARIES = libwacom.la
+plugin_LTLIBRARIES = libgsdwacom.la
 
-libwacom_la_SOURCES = 		\
+libgsdwacom_la_SOURCES =	\
 	gsd-wacom-plugin.h	\
 	gsd-wacom-plugin.c	\
 	gsd-wacom-manager.h	\
@@ -10,7 +10,7 @@ libwacom_la_SOURCES = 		\
 	gsd-wacom-device.c	\
 	gsd-wacom-device.h
 
-libwacom_la_CPPFLAGS = \
+libgsdwacom_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/plugins/common/			\
 	-I$(top_srcdir)/data/				\
@@ -18,15 +18,15 @@ libwacom_la_CPPFLAGS = \
 	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
 	$(AM_CPPFLAGS)
 
-libwacom_la_CFLAGS = \
+libgsdwacom_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-libwacom_la_LDFLAGS = 		\
+libgsdwacom_la_LDFLAGS =		\
 	$(GSD_PLUGIN_LDFLAGS)
 
-libwacom_la_LIBADD  = 							\
+libgsdwacom_la_LIBADD  =						\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	$(XINPUT_LIBS)
