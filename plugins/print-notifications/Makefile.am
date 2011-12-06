@@ -48,6 +48,32 @@ gsd_printer_LDADD  = 		\
 	$(CUPS_LIBS)		\
 	$(LIBNOTIFY_LIBS)
 
+noinst_PROGRAMS = \
+	test-print-notifications
+
+test_print_notifications_SOURCES =		\
+	gsd-print-notifications-manager.c	\
+	gsd-print-notifications-manager.h	\
+	test-print-notifications.c
+
+test_print_notifications_CPPFLAGS =				\
+	-I$(top_srcdir)/gnome-settings-daemon			\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" 	\
+	-DLIBEXECDIR=\""$(libexecdir)"\"			\
+	$(AM_CPPFLAGS)
+
+test_print_notifications_CFLAGS =	\
+	$(PLUGIN_CFLAGS)		\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
+test_print_notifications_LDADD =				\
+	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la	\
+	$(SETTINGS_DAEMON_LIBS)					\
+	$(SETTINGS_PLUGIN_LIBS)					\
+	$(CUPS_LIBS)						\
+	$(LIBNOTIFY_LIBS)
+
 EXTRA_DIST = 			\
 	$(plugin_in_files)
 
