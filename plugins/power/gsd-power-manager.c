@@ -3341,8 +3341,8 @@ gsd_power_manager_start (GsdPowerManager *manager,
                           G_CALLBACK (engine_device_removed_cb), manager);
         g_signal_connect (manager->priv->up_client, "device-changed",
                           G_CALLBACK (engine_device_changed_cb), manager);
-        g_signal_connect (manager->priv->up_client, "changed",
-                          G_CALLBACK (up_client_changed_cb), manager);
+        g_signal_connect_after (manager->priv->up_client, "changed",
+                                G_CALLBACK (up_client_changed_cb), manager);
 
         /* use the fallback name from gnome-power-manager so the shell
          * blocks this, and uses the power extension instead */
