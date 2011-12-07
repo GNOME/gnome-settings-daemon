@@ -3363,7 +3363,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
-        manager->priv->up_client = up_client_new ();
+        manager->priv->up_client = gnome_settings_session_get_upower_client ();
         g_signal_connect (manager->priv->up_client, "notify-sleep",
                           G_CALLBACK (upower_notify_sleep_cb), manager);
         g_signal_connect (manager->priv->up_client, "notify-resume",
