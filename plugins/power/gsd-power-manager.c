@@ -2104,12 +2104,12 @@ is_laptop (GnomeRRScreen *screen, GnomeRROutputInfo *output)
 }
 
 static gboolean
-non_laptop_outputs_are_all_disconnected (GnomeRRScreen *screen)
+non_laptop_outputs_are_all_off (GnomeRRScreen *screen)
 {
         GnomeRRConfig *config;
         GnomeRROutputInfo **outputs;
         int i;
-        gboolean all_disco;
+        gboolean all_off;
 
         config = gnome_rr_config_new_current (screen, NULL); /* NULL-GError */
         if (!config)
@@ -2120,17 +2120,17 @@ non_laptop_outputs_are_all_disconnected (GnomeRRScreen *screen)
                 if (is_laptop (screen, outputs[i]))
                         continue;
 
-                if (gnome_rr_output_info_is_connected (outputs[i])) {
-                        all_disco = FALSE;
+                if (gnome_rr_output_info_is_active (outputs[i])) {
+                        all_off = FALSE;
                         goto out;
                 }
         }
 
-        all_disco = TRUE;
+        all_off = TRUE;
 
 out:
         g_object_unref (config);
-        return all_disco;
+        return all_off;
 }
 
 static void
@@ -2177,11 +2177,11 @@ do_lid_closed_action (GsdPowerManager *manager)
         }
 
         /* perform policy action */
-        if (non_laptop_outputs_are_all_disconnected (manager->priv->x11_screen)) {
+        if (non_laptop_outputs_are_all_off (manager->priv->x11_screen)) {
                 g_debug ("lid is closed; suspending or hibernating");
                 do_power_action_type (manager, action_type);
         } else
-                g_debug ("lid is closed; not suspending nor hibernating since some external monitor outputs are still connected");
+                g_debug ("lid is closed; not suspending nor hibernating since some external monitor outputs are still active");
 }
 
 
