@@ -1936,6 +1936,14 @@ power_client_changed_cb (UpClient *client, gpointer data)
         if (is_closed != priv->laptop_lid_is_closed) {
                 priv->laptop_lid_is_closed = is_closed;
 
+                /* Refresh the RANDR state.  The lid just got opened/closed, so we can afford to
+                 * probe the outputs right now.  It will also help the case where we can't detect
+                 * hotplug/unplug, but the fact that the lid's state changed lets us know that the
+                 * user probably did something interesting.
+                 */
+
+                gnome_rr_screen_refresh (priv->rw_screen, NULL); /* NULL-GError */
+
                 if (is_closed)
                         turn_off_laptop_display (manager, GDK_CURRENT_TIME); /* sucks not to have a timestamp for the notification */
                 else
