@@ -322,3 +322,17 @@ gnome_settings_session_get_screen (GError **error)
 
 	return screen;
 }
+
+UpClient *
+gnome_settings_session_get_upower_client (void)
+{
+	static UpClient *client;
+
+	if (client != NULL)
+		return g_object_ref (client);
+
+	client = up_client_new ();
+	g_object_add_weak_pointer (G_OBJECT (client), (gpointer *) &client);
+
+	return client;
+}

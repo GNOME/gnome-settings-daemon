@@ -9,6 +9,7 @@ INCLUDES = \
 	$(DISABLE_DEPRECATED_CFLAGS)				\
 	$(SETTINGS_DAEMON_CFLAGS)				\
 	$(LIBNOTIFY_CFLAGS)					\
+	$(UPOWER_CFLAGS)					\
 	$(GNOME_DESKTOP_CFLAGS)					\
 	$(NULL)
 
@@ -75,6 +76,7 @@ gnome_settings_daemon_LDADD = 		\
 	libgsd-profile.la		\
 	$(SETTINGS_DAEMON_LIBS)		\
 	$(LIBNOTIFY_LIBS)		\
+	$(UPOWER_LIBS)			\
 	$(GNOME_DESKTOP_LIBS)		\
 	$(NULL)
 
