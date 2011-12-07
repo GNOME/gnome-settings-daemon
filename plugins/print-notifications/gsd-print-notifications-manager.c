@@ -405,6 +405,10 @@ on_cups_notification (GDBusConnection *connection,
                         g_free (job_uri);
                 }
         }
+        else {
+                g_warning ("Invalid number of parameters for signal '%s'", signal_name);
+                return;
+        }
 
         if (g_strcmp0 (signal_name, "PrinterAdded") == 0) {
                 cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
