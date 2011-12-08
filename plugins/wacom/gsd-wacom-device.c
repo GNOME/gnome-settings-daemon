@@ -167,12 +167,14 @@ struct GsdWacomDevicePrivate
 	gboolean reversible;
 	gboolean is_screen_tablet;
 	GList *styli;
+	GsdWacomStylus *last_stylus;
 	GSettings *wacom_settings;
 };
 
 enum {
 	PROP_0,
-	PROP_GDK_DEVICE
+	PROP_GDK_DEVICE,
+	PROP_LAST_STYLUS
 };
 
 static void     gsd_wacom_device_class_init  (GsdWacomDeviceClass *klass);
@@ -338,6 +340,9 @@ gsd_wacom_device_set_property (GObject        *object,
 	case PROP_GDK_DEVICE:
 		device->priv->gdk_device = g_value_get_pointer (value);
 		break;
+	case PROP_LAST_STYLUS:
+		device->priv->last_stylus = g_value_get_pointer (value);
+		break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                 break;
@@ -357,6 +362,9 @@ gsd_wacom_device_get_property (GObject        *object,
         switch (prop_id) {
 	case PROP_GDK_DEVICE:
 		g_value_set_pointer (value, device->priv->gdk_device);
+		break;
+	case PROP_LAST_STYLUS:
+		g_value_set_pointer (value, device->priv->last_stylus);
 		break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -379,6 +387,9 @@ gsd_wacom_device_class_init (GsdWacomDeviceClass *klass)
 	g_object_class_install_property (object_class, PROP_GDK_DEVICE,
 					 g_param_spec_pointer ("gdk-device", "gdk-device", "gdk-device",
 							       G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	g_object_class_install_property (object_class, PROP_LAST_STYLUS,
+					 g_param_spec_pointer ("last-stylus", "last-stylus", "last-stylus",
+							       G_PARAM_READWRITE));
 }
 
 static void
