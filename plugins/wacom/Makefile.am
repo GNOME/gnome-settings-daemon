@@ -81,6 +81,7 @@ list_wacom_CPPFLAGS = \
 
 list_wacom_CFLAGS =			\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
 list_wacom_LDADD = \

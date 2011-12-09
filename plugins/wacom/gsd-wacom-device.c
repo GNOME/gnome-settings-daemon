@@ -28,7 +28,10 @@
 #include <gdk/gdkx.h>
 #include <X11/Xatom.h>
 
+#include <libwacom/libwacom.h>
 #include <X11/extensions/XInput.h>
+
+#include "gsd-input-helper.h"
 
 #include "gsd-enums.h"
 #include "gsd-wacom-device.h"
@@ -250,14 +253,11 @@ get_device_type (XDeviceInfo *dev)
 }
 
 static char *
-get_device_name (XDeviceInfo *dev)
+get_device_name (WacomDevice *device)
 {
-	const char *space;
-
-	space = g_strrstr (dev->name, " ");
-	if (space == NULL)
-		return g_strdup (dev->name);
-	return g_strndup (dev->name, space - dev->name);
+	return g_strdup_printf ("%s %s",
+				libwacom_get_vendor (device),
+				libwacom_get_product (device));
 }
 
 static GObject *
@@ -267,8 +267,10 @@ gsd_wacom_device_constructor (GType                     type,
 {
         GsdWacomDevice *device;
         XDeviceInfo *device_info;
+        WacomDevice *wacom_device;
         int n_devices, id;
         guint i;
+        char *path;
 
         device = GSD_WACOM_DEVICE (G_OBJECT_CLASS (gsd_wacom_device_parent_class)->constructor (type,
 												n_construct_properties,
@@ -280,13 +282,14 @@ gsd_wacom_device_constructor (GType                     type,
         g_object_get (device->priv->gdk_device, "device-id", &id, NULL);
 
         device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
-        if (device_info == NULL)
+        if (device_info == NULL) {
+		g_warning ("Could not list any input devices through XListInputDevices()");
 		goto end;
+	}
 
         for (i = 0; i < n_devices; i++) {
 		if (device_info[i].id == id) {
 			device->priv->type = get_device_type (&device_info[i]);
-			device->priv->name = get_device_name (&device_info[i]);
 			device->priv->tool_name = g_strdup (device_info[i].name);
 			break;
 		}
@@ -297,15 +300,51 @@ gsd_wacom_device_constructor (GType                     type,
 	if (device->priv->type == WACOM_TYPE_INVALID)
 		goto end;
 
+	path = xdevice_get_device_node (id);
+	if (path == NULL) {
+		g_warning ("Could not get the device node path for ID '%d'", id);
+		device->priv->type = WACOM_TYPE_INVALID;
+		goto end;
+	}
+
+	wacom_device = libwacom_new_from_path (path, FALSE, NULL);
+	if (!wacom_device) {
+		WacomError *wacom_error;
+
+		g_debug ("Creating fallback driver for wacom tablet '%s' (at '%s')",
+			 gdk_device_get_name (device->priv->gdk_device),
+			 path);
+
+		wacom_error = libwacom_error_new ();
+		wacom_device = libwacom_new_from_path (path, TRUE, wacom_error);
+		if (wacom_device == NULL) {
+			g_warning ("Failed to create fallback wacom device for '%s': %s (%d)",
+				   path,
+				   libwacom_error_get_message (wacom_error),
+				   libwacom_error_get_code (wacom_error));
+			g_free (path);
+			libwacom_error_free (&wacom_error);
+			device->priv->type = WACOM_TYPE_INVALID;
+			goto end;
+		}
+	}
+	g_free (path);
+
 	/* FIXME
 	 * Those should have their own unique path based on a unique property */
 	device->priv->wacom_settings = g_settings_new (SETTINGS_WACOM_DIR);
 
-	/* FIXME
-	 * This needs to come from real data */
-	device->priv->reversible = TRUE;
-	device->priv->is_screen_tablet = FALSE;
-	device->priv->icon_name = g_strdup ("wacom-tablet");
+	device->priv->name = get_device_name (wacom_device);
+	device->priv->reversible = libwacom_is_reversible (wacom_device);
+	device->priv->is_screen_tablet = libwacom_is_builtin (wacom_device);
+	if (device->priv->is_screen_tablet) {
+		if (libwacom_get_class (wacom_device) == WCLASS_CINTIQ)
+			device->priv->icon_name = g_strdup ("wacom-tablet-cintiq");
+		else
+			device->priv->icon_name = g_strdup ("wacom-tablet-pc");
+	} else {
+		device->priv->icon_name = g_strdup ("wacom-tablet");
+	}
 
 	if (device->priv->type == WACOM_TYPE_STYLUS ||
 	    device->priv->type == WACOM_TYPE_ERASER) {
