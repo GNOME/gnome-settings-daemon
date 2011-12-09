@@ -38,6 +38,8 @@
 
 #define GSD_WACOM_STYLUS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_STYLUS, GsdWacomStylusPrivate))
 
+static WacomDeviceDatabase *db = NULL;
+
 struct GsdWacomStylusPrivate
 {
 	GsdWacomDevice *device;
@@ -307,7 +309,10 @@ gsd_wacom_device_constructor (GType                     type,
 		goto end;
 	}
 
-	wacom_device = libwacom_new_from_path (path, FALSE, NULL);
+	if (db == NULL)
+		db = libwacom_database_new ();
+
+	wacom_device = libwacom_new_from_path (db, path, FALSE, NULL);
 	if (!wacom_device) {
 		WacomError *wacom_error;
 
@@ -316,7 +321,7 @@ gsd_wacom_device_constructor (GType                     type,
 			 path);
 
 		wacom_error = libwacom_error_new ();
-		wacom_device = libwacom_new_from_path (path, TRUE, wacom_error);
+		wacom_device = libwacom_new_from_path (db, path, TRUE, wacom_error);
 		if (wacom_device == NULL) {
 			g_warning ("Failed to create fallback wacom device for '%s': %s (%d)",
 				   path,
