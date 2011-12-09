@@ -43,8 +43,9 @@ static WacomDeviceDatabase *db = NULL;
 struct GsdWacomStylusPrivate
 {
 	GsdWacomDevice *device;
+	int id;
 	char *name;
-	char *icon_name;
+	const char *icon_name;
 	GSettings *settings;
 };
 
@@ -93,29 +94,39 @@ gsd_wacom_stylus_finalize (GObject *object)
         g_free (p->name);
         p->name = NULL;
 
-        g_free (p->icon_name);
-        p->icon_name = NULL;
-
         G_OBJECT_CLASS (gsd_wacom_stylus_parent_class)->finalize (object);
 }
 
+static const char *
+get_icon_name_from_type (WacomStylusType type)
+{
+	switch (type) {
+	case WSTYLUS_INKING:
+		return "wacom-stylus-inking";
+	case WSTYLUS_AIRBRUSH:
+		return "wacom-stylus-airbrush";
+	default:
+		return "wacom-stylus";
+	}
+}
+
 static GsdWacomStylus *
-gsd_wacom_stylus_new (GsdWacomDevice *device,
-		      GSettings *settings,
-		      const char *name,
-		      const char *icon_name)
+gsd_wacom_stylus_new (GsdWacomDevice    *device,
+		      const WacomStylus *wstylus,
+		      GSettings         *settings)
 {
 	GsdWacomStylus *stylus;
 
 	g_return_val_if_fail (G_IS_SETTINGS (settings), NULL);
-	g_return_val_if_fail (name != NULL, NULL);
+	g_return_val_if_fail (wstylus != NULL, NULL);
 
 	stylus = GSD_WACOM_STYLUS (g_object_new (GSD_TYPE_WACOM_STYLUS,
 						 NULL));
 	stylus->priv->device = device;
-	stylus->priv->name = g_strdup (name);
+	stylus->priv->id = libwacom_stylus_get_id (wstylus);
+	stylus->priv->name = g_strdup (libwacom_stylus_get_name (wstylus));
 	stylus->priv->settings = settings;
-	stylus->priv->icon_name = g_strdup (icon_name);
+	stylus->priv->icon_name = get_icon_name_from_type (libwacom_stylus_get_type (wstylus));
 
 	return stylus;
 }
@@ -353,17 +364,38 @@ gsd_wacom_device_constructor (GType                     type,
 
 	if (device->priv->type == WACOM_TYPE_STYLUS ||
 	    device->priv->type == WACOM_TYPE_ERASER) {
-		GsdWacomStylus *stylus;
-		GSettings *settings;
+		int *ids;
+		int num_styli;
+		guint i;
 
-		if (device->priv->type == WACOM_TYPE_STYLUS) {
-			settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_STYLUS_DIR);
-			stylus = gsd_wacom_stylus_new (device, settings, _("Stylus"), "wacom-stylus");
-		} else {
-			settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_ERASER_DIR);
-			stylus = gsd_wacom_stylus_new (device, settings, "Eraser XXX", NULL);
+		ids = libwacom_get_supported_styli(wacom_device, &num_styli);
+		for (i = 0; i < num_styli; i++) {
+			const WacomStylus *wstylus;
+
+			wstylus = libwacom_stylus_get_for_id (db, ids[i]);
+			if (wstylus) {
+				GsdWacomStylus *stylus;
+				GSettings *settings;
+
+				if (device->priv->type == WACOM_TYPE_STYLUS &&
+				    libwacom_stylus_is_eraser (wstylus))
+					continue;
+				if (device->priv->type == WACOM_TYPE_ERASER &&
+				    libwacom_stylus_is_eraser (wstylus) == FALSE)
+					continue;
+
+				//FIXME settings path!
+				if (device->priv->type == WACOM_TYPE_STYLUS) {
+					settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_STYLUS_DIR);
+					stylus = gsd_wacom_stylus_new (device, wstylus, settings);
+				} else {
+					settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_ERASER_DIR);
+					stylus = gsd_wacom_stylus_new (device, wstylus, settings);
+				}
+				device->priv->styli = g_list_prepend (device->priv->styli, stylus);
+			}
 		}
-		device->priv->styli = g_list_append (NULL, stylus);
+		device->priv->styli = g_list_reverse (device->priv->styli);
 	}
 
 end:
@@ -575,6 +607,8 @@ gsd_wacom_device_create_fake (GsdWacomDeviceType  type,
 			      const char         *icon_name,
 			      guint               num_styli)
 {
+	/* FIXME Look in libwacom's database instead */
+#if 0
 	GsdWacomDevice *device;
 	GsdWacomDevicePrivate *priv;
 	guint i;
@@ -605,6 +639,8 @@ gsd_wacom_device_create_fake (GsdWacomDeviceType  type,
 	}
 
 	return device;
+#endif
+	return NULL;
 }
 
 GList *
