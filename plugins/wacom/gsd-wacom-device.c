@@ -273,6 +273,64 @@ get_device_name (WacomDevice *device)
 				libwacom_get_product (device));
 }
 
+static void
+gsd_wacom_device_update_from_db (GsdWacomDevice *device,
+				 WacomDevice    *wacom_device,
+				 const char     *identifier)
+{
+	/* FIXME
+	 * Those should have their own unique path based on a unique property */
+	device->priv->wacom_settings = g_settings_new (SETTINGS_WACOM_DIR);
+
+	device->priv->name = get_device_name (wacom_device);
+	device->priv->reversible = libwacom_is_reversible (wacom_device);
+	device->priv->is_screen_tablet = libwacom_is_builtin (wacom_device);
+	if (device->priv->is_screen_tablet) {
+		if (libwacom_get_class (wacom_device) == WCLASS_CINTIQ)
+			device->priv->icon_name = g_strdup ("wacom-tablet-cintiq");
+		else
+			device->priv->icon_name = g_strdup ("wacom-tablet-pc");
+	} else {
+		device->priv->icon_name = g_strdup ("wacom-tablet");
+	}
+
+	if (device->priv->type == WACOM_TYPE_STYLUS ||
+	    device->priv->type == WACOM_TYPE_ERASER) {
+		int *ids;
+		int num_styli;
+		guint i;
+
+		ids = libwacom_get_supported_styli(wacom_device, &num_styli);
+		for (i = 0; i < num_styli; i++) {
+			const WacomStylus *wstylus;
+
+			wstylus = libwacom_stylus_get_for_id (db, ids[i]);
+			if (wstylus) {
+				GsdWacomStylus *stylus;
+				GSettings *settings;
+
+				if (device->priv->type == WACOM_TYPE_STYLUS &&
+				    libwacom_stylus_is_eraser (wstylus))
+					continue;
+				if (device->priv->type == WACOM_TYPE_ERASER &&
+				    libwacom_stylus_is_eraser (wstylus) == FALSE)
+					continue;
+
+				//FIXME settings path!
+				if (device->priv->type == WACOM_TYPE_STYLUS) {
+					settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_STYLUS_DIR);
+					stylus = gsd_wacom_stylus_new (device, wstylus, settings);
+				} else {
+					settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_ERASER_DIR);
+					stylus = gsd_wacom_stylus_new (device, wstylus, settings);
+				}
+				device->priv->styli = g_list_prepend (device->priv->styli, stylus);
+			}
+		}
+		device->priv->styli = g_list_reverse (device->priv->styli);
+	}
+}
+
 static GObject *
 gsd_wacom_device_constructor (GType                     type,
                               guint                      n_construct_properties,
@@ -327,7 +385,7 @@ gsd_wacom_device_constructor (GType                     type,
 	if (!wacom_device) {
 		WacomError *wacom_error;
 
-		g_debug ("Creating fallback driver for wacom tablet '%s' (at '%s')",
+		g_debug ("Creating fallback driver for wacom tablet '%s' ('%s')",
 			 gdk_device_get_name (device->priv->gdk_device),
 			 path);
 
@@ -344,59 +402,10 @@ gsd_wacom_device_constructor (GType                     type,
 			goto end;
 		}
 	}
+
+	gsd_wacom_device_update_from_db (device, wacom_device, path);
+	libwacom_destroy (wacom_device);
 	g_free (path);
-
-	/* FIXME
-	 * Those should have their own unique path based on a unique property */
-	device->priv->wacom_settings = g_settings_new (SETTINGS_WACOM_DIR);
-
-	device->priv->name = get_device_name (wacom_device);
-	device->priv->reversible = libwacom_is_reversible (wacom_device);
-	device->priv->is_screen_tablet = libwacom_is_builtin (wacom_device);
-	if (device->priv->is_screen_tablet) {
-		if (libwacom_get_class (wacom_device) == WCLASS_CINTIQ)
-			device->priv->icon_name = g_strdup ("wacom-tablet-cintiq");
-		else
-			device->priv->icon_name = g_strdup ("wacom-tablet-pc");
-	} else {
-		device->priv->icon_name = g_strdup ("wacom-tablet");
-	}
-
-	if (device->priv->type == WACOM_TYPE_STYLUS ||
-	    device->priv->type == WACOM_TYPE_ERASER) {
-		int *ids;
-		int num_styli;
-		guint i;
-
-		ids = libwacom_get_supported_styli(wacom_device, &num_styli);
-		for (i = 0; i < num_styli; i++) {
-			const WacomStylus *wstylus;
-
-			wstylus = libwacom_stylus_get_for_id (db, ids[i]);
-			if (wstylus) {
-				GsdWacomStylus *stylus;
-				GSettings *settings;
-
-				if (device->priv->type == WACOM_TYPE_STYLUS &&
-				    libwacom_stylus_is_eraser (wstylus))
-					continue;
-				if (device->priv->type == WACOM_TYPE_ERASER &&
-				    libwacom_stylus_is_eraser (wstylus) == FALSE)
-					continue;
-
-				//FIXME settings path!
-				if (device->priv->type == WACOM_TYPE_STYLUS) {
-					settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_STYLUS_DIR);
-					stylus = gsd_wacom_stylus_new (device, wstylus, settings);
-				} else {
-					settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_ERASER_DIR);
-					stylus = gsd_wacom_stylus_new (device, wstylus, settings);
-				}
-				device->priv->styli = g_list_prepend (device->priv->styli, stylus);
-			}
-		}
-		device->priv->styli = g_list_reverse (device->priv->styli);
-	}
 
 end:
         return G_OBJECT (device);
