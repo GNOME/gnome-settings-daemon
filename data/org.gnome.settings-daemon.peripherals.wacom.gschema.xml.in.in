@@ -11,7 +11,7 @@
       <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom" path="/org/gnome/settings-daemon/peripherals/wacom/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom">
     <child name="stylus" schema="org.gnome.settings-daemon.peripherals.wacom.stylus"/>
     <child name="eraser" schema="org.gnome.settings-daemon.peripherals.wacom.eraser"/>
 
@@ -48,7 +48,7 @@
       <_description>Set this to the logical button mapping.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.stylus" path="/org/gnome/settings-daemon/peripherals/wacom/stylus/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.stylus">
     <key name="pressurecurve" type="ai">
       <default>[0, 0, 100, 100]</default>
       <_summary>Wacom stylus pressure curve</_summary>
@@ -65,7 +65,7 @@
       <_description>Set this to the pressure value at which a stylus click event is generated.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.eraser" path="/org/gnome/settings-daemon/peripherals/wacom/eraser/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.eraser">
     <key name="pressurecurve" type="ai">
       <default>[0, 0, 100, 100]</default>
       <_summary>Wacom eraser pressure curve</_summary>

@@ -38,6 +38,11 @@
 
 #define GSD_WACOM_STYLUS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_STYLUS, GsdWacomStylusPrivate))
 
+#define WACOM_TABLET_SCHEMA "org.gnome.settings-daemon.peripherals.wacom"
+#define WACOM_DEVICE_CONFIG_BASE "/org/gnome/settings-daemon/peripherals/wacom/%s"
+#define WACOM_STYLUS_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.stylus"
+#define WACOM_ERASER_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.eraser"
+
 static WacomDeviceDatabase *db = NULL;
 
 struct GsdWacomStylusPrivate
@@ -278,9 +283,11 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 				 WacomDevice    *wacom_device,
 				 const char     *identifier)
 {
-	/* FIXME
-	 * Those should have their own unique path based on a unique property */
-	device->priv->wacom_settings = g_settings_new (SETTINGS_WACOM_DIR);
+	char *settings_path;
+
+	settings_path = g_strdup_printf (WACOM_DEVICE_CONFIG_BASE, libwacom_get_match (wacom_device));
+	device->priv->wacom_settings = g_settings_new_with_path (WACOM_TABLET_SCHEMA,
+								 settings_path);
 
 	device->priv->name = get_device_name (wacom_device);
 	device->priv->reversible = libwacom_is_reversible (wacom_device);
@@ -307,6 +314,7 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 			wstylus = libwacom_stylus_get_for_id (db, ids[i]);
 			if (wstylus) {
 				GsdWacomStylus *stylus;
+				char *stylus_settings_path;
 				GSettings *settings;
 
 				if (device->priv->type == WACOM_TYPE_STYLUS &&
@@ -316,19 +324,21 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 				    libwacom_stylus_is_eraser (wstylus) == FALSE)
 					continue;
 
-				//FIXME settings path!
+				stylus_settings_path = g_strdup_printf ("%s/0x%x", settings_path, ids[i]);
 				if (device->priv->type == WACOM_TYPE_STYLUS) {
-					settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_STYLUS_DIR);
+					settings = g_settings_new_with_path (WACOM_STYLUS_SCHEMA, stylus_settings_path);
 					stylus = gsd_wacom_stylus_new (device, wstylus, settings);
 				} else {
-					settings = g_settings_new (SETTINGS_WACOM_DIR "." SETTINGS_ERASER_DIR);
+					settings = g_settings_new_with_path (WACOM_ERASER_SCHEMA, stylus_settings_path);
 					stylus = gsd_wacom_stylus_new (device, wstylus, settings);
 				}
+				g_free (stylus_settings_path);
 				device->priv->styli = g_list_prepend (device->priv->styli, stylus);
 			}
 		}
 		device->priv->styli = g_list_reverse (device->priv->styli);
 	}
+	g_free (settings_path);
 }
 
 static GObject *
