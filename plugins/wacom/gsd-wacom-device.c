@@ -279,6 +279,39 @@ get_device_name (WacomDevice *device)
 }
 
 static void
+add_stylus_to_device (GsdWacomDevice *device,
+		      const char     *settings_path,
+		      int             id)
+{
+	const WacomStylus *wstylus;
+
+	wstylus = libwacom_stylus_get_for_id (db, id);
+	if (wstylus) {
+		GsdWacomStylus *stylus;
+		char *stylus_settings_path;
+		GSettings *settings;
+
+		if (device->priv->type == WACOM_TYPE_STYLUS &&
+		    libwacom_stylus_is_eraser (wstylus))
+			return;
+		if (device->priv->type == WACOM_TYPE_ERASER &&
+		    libwacom_stylus_is_eraser (wstylus) == FALSE)
+			return;
+
+		stylus_settings_path = g_strdup_printf ("%s/0x%x", settings_path, id);
+		if (device->priv->type == WACOM_TYPE_STYLUS) {
+			settings = g_settings_new_with_path (WACOM_STYLUS_SCHEMA, stylus_settings_path);
+			stylus = gsd_wacom_stylus_new (device, wstylus, settings);
+		} else {
+			settings = g_settings_new_with_path (WACOM_ERASER_SCHEMA, stylus_settings_path);
+			stylus = gsd_wacom_stylus_new (device, wstylus, settings);
+		}
+		g_free (stylus_settings_path);
+		device->priv->styli = g_list_prepend (device->priv->styli, stylus);
+	}
+}
+
+static void
 gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 				 WacomDevice    *wacom_device,
 				 const char     *identifier)
@@ -308,34 +341,14 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 		guint i;
 
 		ids = libwacom_get_supported_styli(wacom_device, &num_styli);
-		for (i = 0; i < num_styli; i++) {
-			const WacomStylus *wstylus;
+		for (i = 0; i < num_styli; i++)
+			add_stylus_to_device (device, settings_path, ids[i]);
+		/* Create a fallback stylus if we don't have one */
+		if (num_styli == 0)
+			add_stylus_to_device (device, settings_path,
+					      device->priv->type == WACOM_TYPE_STYLUS ?
+					      WACOM_STYLUS_FALLBACK_ID : WACOM_ERASER_FALLBACK_ID);
 
-			wstylus = libwacom_stylus_get_for_id (db, ids[i]);
-			if (wstylus) {
-				GsdWacomStylus *stylus;
-				char *stylus_settings_path;
-				GSettings *settings;
-
-				if (device->priv->type == WACOM_TYPE_STYLUS &&
-				    libwacom_stylus_is_eraser (wstylus))
-					continue;
-				if (device->priv->type == WACOM_TYPE_ERASER &&
-				    libwacom_stylus_is_eraser (wstylus) == FALSE)
-					continue;
-
-				stylus_settings_path = g_strdup_printf ("%s/0x%x", settings_path, ids[i]);
-				if (device->priv->type == WACOM_TYPE_STYLUS) {
-					settings = g_settings_new_with_path (WACOM_STYLUS_SCHEMA, stylus_settings_path);
-					stylus = gsd_wacom_stylus_new (device, wstylus, settings);
-				} else {
-					settings = g_settings_new_with_path (WACOM_ERASER_SCHEMA, stylus_settings_path);
-					stylus = gsd_wacom_stylus_new (device, wstylus, settings);
-				}
-				g_free (stylus_settings_path);
-				device->priv->styli = g_list_prepend (device->priv->styli, stylus);
-			}
-		}
 		device->priv->styli = g_list_reverse (device->priv->styli);
 	}
 	g_free (settings_path);
