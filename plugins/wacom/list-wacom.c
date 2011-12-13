@@ -82,6 +82,8 @@ list_devices (GList *devices)
 				loc = get_loc (gsd_wacom_stylus_get_settings (stylus));
 				g_message ("\t\tSettings: %s", loc);
 				g_free (loc);
+
+				g_message ("\t\tIcon name: %s", gsd_wacom_stylus_get_icon_name (stylus));
 			}
 			g_list_free (styli);
 		}
