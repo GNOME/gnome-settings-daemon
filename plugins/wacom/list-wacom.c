@@ -58,14 +58,14 @@ list_devices (GList *devices)
 
 		device = l->data;
 
-		g_message ("*** Device '%s' (type: %s)",
-			   gsd_wacom_device_get_name (device),
-			   gsd_wacom_device_type_to_string (gsd_wacom_device_get_device_type (device)));
-		g_message ("\tReversible: %s", BOOL_AS_STR (gsd_wacom_device_reversible (device)));
-		g_message ("\tScreen Tablet: %s", BOOL_AS_STR (gsd_wacom_device_is_screen_tablet (device)));
+		g_print ("Device '%s' (type: %s)\n",
+			 gsd_wacom_device_get_name (device),
+			 gsd_wacom_device_type_to_string (gsd_wacom_device_get_device_type (device)));
+		g_print ("\tReversible: %s\n", BOOL_AS_STR (gsd_wacom_device_reversible (device)));
+		g_print ("\tScreen Tablet: %s\n", BOOL_AS_STR (gsd_wacom_device_is_screen_tablet (device)));
 
 		loc = get_loc (gsd_wacom_device_get_settings (device));
-		g_message ("\tGeneric settings: %s", loc);
+		g_print ("\tGeneric settings: %s\n", loc);
 		g_free (loc);
 
 		type = gsd_wacom_device_get_device_type (device);
@@ -81,15 +81,15 @@ list_devices (GList *devices)
 				GsdWacomStylus *stylus;
 
 				stylus = j->data;
-				g_message ("\tStylus%s: '%s'",
-					   current_stylus == stylus ? " (current)" : "",
-					   gsd_wacom_stylus_get_name (stylus));
+				g_print ("\t%sStylus: '%s'\n",
+					 current_stylus == stylus ? "*** " : "",
+					 gsd_wacom_stylus_get_name (stylus));
 
 				loc = get_loc (gsd_wacom_stylus_get_settings (stylus));
-				g_message ("\t\tSettings: %s", loc);
+				g_print ("\t\tSettings: %s\n", loc);
 				g_free (loc);
 
-				g_message ("\t\tIcon name: %s", gsd_wacom_stylus_get_icon_name (stylus));
+				g_print ("\t\tIcon name: %s\n", gsd_wacom_stylus_get_icon_name (stylus));
 			}
 			g_list_free (styli);
 		}
