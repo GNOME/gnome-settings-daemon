@@ -344,14 +344,11 @@ set_wacom_settings (GsdWacomManager *manager,
         /* only pen and eraser have pressure threshold and curve settings */
         if (type == WACOM_TYPE_STYLUS ||
             type == WACOM_TYPE_ERASER) {
-		GList *styli, *l;
 		GSettings *stylus_settings;
+		GsdWacomStylus *stylus;
 
-		styli = gsd_wacom_device_list_styli (device);
-
-		//FIXME we should only set the _current_ stylus
-		for (l = styli ; l ; l = l->next) {
-			GsdWacomStylus *stylus = l->data;
+		g_object_get (device, "last-stylus", &stylus, NULL);
+		if (stylus != NULL) {
 			int threshold;
 
 			stylus_settings = gsd_wacom_stylus_get_settings (stylus);
@@ -363,8 +360,6 @@ set_wacom_settings (GsdWacomManager *manager,
 				threshold = DEFAULT_PRESSURE_THRESHOLD;
 			set_pressurethreshold (device, threshold);
 		}
-
-		g_list_free (styli);
 	}
 }
 
@@ -405,10 +400,17 @@ stylus_settings_changed (GSettings      *settings,
 			 GsdWacomStylus *stylus)
 {
 	GsdWacomDevice *device;
+	GsdWacomStylus *last_stylus;
 
 	device = gsd_wacom_stylus_get_device (stylus);
 
-	//FIXME check that the stylus/eraser is the current one
+	g_object_get (device, "last-stylus", &last_stylus, NULL);
+	if (last_stylus != stylus) {
+		g_debug ("Not applying changed settings because '%s' is the current stylus, not '%s'",
+			 last_stylus ? gsd_wacom_stylus_get_name (last_stylus) : "NONE",
+			 gsd_wacom_stylus_get_name (stylus));
+		return;
+	}
 
 	if (g_str_equal (key, KEY_PRESSURECURVE)) {
 		set_pressurecurve (device, g_settings_get_value (settings, key));
