@@ -289,6 +289,61 @@ out:
         return NULL;
 }
 
+int
+xdevice_get_last_tool_id (int deviceid)
+{
+        Atom           prop;
+        Atom           act_type;
+        int            act_format;
+        unsigned long  nitems, bytes_after;
+        unsigned char *data, *ptr;
+        int            id;
+
+        id = 0x0;
+
+        gdk_display_sync (gdk_display_get_default ());
+
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Wacom Serial IDs", False);
+        if (!prop)
+                return id;
+
+        gdk_error_trap_push ();
+
+        if (!XIGetProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                            deviceid, prop, 0, 1000, False,
+                            AnyPropertyType, &act_type, &act_format,
+                            &nitems, &bytes_after, &data) == Success) {
+                gdk_error_trap_pop_ignored ();
+                return 0x0;
+        }
+
+        if (gdk_error_trap_pop ())
+                goto out;
+
+	if (nitems != 4)
+		goto out;
+
+	if (act_type != XA_INTEGER)
+		goto out;
+
+	if (act_format != 32)
+		goto out;
+
+	/* item 0 = tablet ID
+	 * item 1 = old device serial number (== last tool in proximity)
+	 * item 2 = old hardware serial number (including tool ID)
+	 * item 3 = current serial number (0 if no tool in proximity) */
+	ptr = data;
+	ptr += act_format/8 * 2;
+
+	id = *((int32_t*)ptr);
+	id = id & 0xfffff;
+
+out:
+        XFree (data);
+        return id;
+}
+
 gboolean
 set_device_enabled (int device_id,
                     gboolean enabled)
