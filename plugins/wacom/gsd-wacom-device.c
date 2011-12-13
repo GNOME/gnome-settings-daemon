@@ -603,6 +603,27 @@ gsd_wacom_device_get_settings (GsdWacomDevice *device)
 	return device->priv->wacom_settings;
 }
 
+void
+gsd_wacom_device_set_current_stylus (GsdWacomDevice *device,
+				     int             stylus_id)
+{
+	GList *l;
+
+	g_return_if_fail (GSD_IS_WACOM_DEVICE (device));
+
+	for (l = device->priv->styli; l; l = l->next) {
+		GsdWacomStylus *stylus = l->data;
+
+		if (stylus->priv->id == stylus_id) {
+			g_object_set (device, "last-stylus", stylus, NULL);
+			g_object_notify (G_OBJECT (device), "last-stylus");
+			return;
+		}
+	}
+
+	g_warning ("Could not find stylus ID 0x%x for tablet '%s'", stylus_id, device->priv->name);
+}
+
 GsdWacomDeviceType
 gsd_wacom_device_get_device_type (GsdWacomDevice *device)
 {
