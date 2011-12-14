@@ -25,6 +25,9 @@
 
 #include "gsd-wacom-device.h"
 
+static gboolean fake_devices = FALSE;
+static gboolean monitor_styli = FALSE;
+
 static char *
 get_loc (GSettings *settings)
 {
@@ -118,7 +121,9 @@ list_devices (GList *devices)
 			}
 			g_list_free (styli);
 		}
-		g_object_unref (device);
+
+		if (monitor_styli == FALSE)
+			g_object_unref (device);
 	}
 	g_list_free (devices);
 }
@@ -166,10 +171,31 @@ list_fake_devices (void)
 
 int main (int argc, char **argv)
 {
+	GError *error = NULL;
+	GOptionContext *context;
+	const GOptionEntry entries[] = {
+		{ "fake", 'f', 0, G_OPTION_ARG_NONE, &fake_devices, "Output fake devices", NULL },
+		{ "monitor", 'm', 0, G_OPTION_ARG_NONE, &monitor_styli, "Monitor changing styli", NULL },
+		{ NULL }
+	};
+
 	gtk_init (&argc, &argv);
 
-	list_actual_devices ();
-//	list_fake_devices ();
+	context = g_option_context_new ("- test parser functions");
+	g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
+
+	if (g_option_context_parse (context, &argc, &argv, &error) == FALSE) {
+		g_print ("Option parsing failed: %s\n", error->message);
+		return 1;
+	}
+
+	if (fake_devices == FALSE)
+		list_actual_devices ();
+	else
+		list_fake_devices ();
+
+	if (monitor_styli)
+		gtk_main ();
 
 	return 0;
 }
