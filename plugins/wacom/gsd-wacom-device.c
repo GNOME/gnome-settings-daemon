@@ -623,6 +623,13 @@ gsd_wacom_device_set_current_stylus (GsdWacomDevice *device,
 	for (l = device->priv->styli; l; l = l->next) {
 		GsdWacomStylus *stylus = l->data;
 
+		/* Set a nice default if 0x0 */
+		if (stylus_id == 0x0 &&
+		    stylus->priv->type == WSTYLUS_GENERAL) {
+			g_object_set (device, "last-stylus", stylus, NULL);
+			return;
+		}
+
 		if (stylus->priv->id == stylus_id) {
 			g_object_set (device, "last-stylus", stylus, NULL);
 			return;
