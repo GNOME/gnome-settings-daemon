@@ -303,7 +303,7 @@ xdevice_get_last_tool_id (int deviceid)
 
         gdk_display_sync (gdk_display_get_default ());
 
-        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Wacom Serial IDs", False);
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), WACOM_SERIAL_IDS_PROP, False);
         if (!prop)
                 return id;
 

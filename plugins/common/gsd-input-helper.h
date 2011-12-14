@@ -27,6 +27,8 @@ G_BEGIN_DECLS
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XIproto.h>
 
+#define WACOM_SERIAL_IDS_PROP "Wacom Serial IDs"
+
 typedef enum {
         COMMAND_DEVICE_ADDED,
         COMMAND_DEVICE_REMOVED,
