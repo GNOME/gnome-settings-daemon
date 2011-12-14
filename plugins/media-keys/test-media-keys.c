@@ -37,13 +37,9 @@ main (int    argc,
 {
         GError  *error;
 
-#ifdef ENABLE_NLS
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
-# ifdef HAVE_BIND_TEXTDOMAIN_CODESET
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-# endif
         textdomain (GETTEXT_PACKAGE);
-#endif
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 
