@@ -623,7 +623,6 @@ gsd_wacom_device_set_current_stylus (GsdWacomDevice *device,
 
 		if (stylus->priv->id == stylus_id) {
 			g_object_set (device, "last-stylus", stylus, NULL);
-			g_object_notify (G_OBJECT (device), "last-stylus");
 			return;
 		}
 	}
