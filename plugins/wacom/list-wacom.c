@@ -43,6 +43,29 @@ get_loc (GSettings *settings)
 	return ret;
 }
 
+static void
+last_stylus_changed (GsdWacomDevice  *device,
+		     GParamSpec      *pspec,
+		     gpointer         user_data)
+{
+	GsdWacomStylus *stylus;
+	char *loc;
+
+	g_object_get (device, "last-stylus", &stylus, NULL);
+
+	g_print ("Stylus changed for device '%s'\n",
+		 gsd_wacom_device_get_name (device));
+
+	g_print ("\t*** Stylus: '%s'\n",
+		 gsd_wacom_stylus_get_name (stylus));
+
+	loc = get_loc (gsd_wacom_stylus_get_settings (stylus));
+	g_print ("\t\tSettings: %s\n", loc);
+	g_free (loc);
+
+	g_print ("\t\tIcon name: %s\n", gsd_wacom_stylus_get_icon_name (stylus));
+}
+
 #define BOOL_AS_STR(x) (x ? "yes" : "no")
 
 static void
@@ -56,6 +79,9 @@ list_devices (GList *devices)
 		char *loc;
 
 		device = l->data;
+
+		g_signal_connect (G_OBJECT (device), "notify::last-stylus",
+				  G_CALLBACK (last_stylus_changed), NULL);
 
 		g_print ("Device '%s' (type: %s)\n",
 			 gsd_wacom_device_get_name (device),
