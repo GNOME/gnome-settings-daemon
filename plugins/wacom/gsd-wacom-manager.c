@@ -528,6 +528,11 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
+        if (supports_xinput2_devices (NULL) == FALSE) {
+                g_debug ("No Xinput2 support, disabling plugin");
+                return TRUE;
+        }
+
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
 
         gnome_settings_profile_end (NULL);
