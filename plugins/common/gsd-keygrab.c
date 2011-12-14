@@ -335,53 +335,6 @@ match_xi2_key (Key *key, XIDeviceEvent *event)
                 && key_uses_keycode (key, keycode));
 }
 
-gboolean
-match_key (Key *key, XEvent *event)
-{
-	guint keyval;
-	GdkModifierType consumed;
-	gint group;
-
-	if (key == NULL)
-		return FALSE;
-
-	setup_modifiers ();
-
-	if (have_xkb (event->xkey.display))
-		group = XkbGroupForCoreState (event->xkey.state);
-	else
-		group = (event->xkey.state & GDK_KEY_Mode_switch) ? 1 : 0;
-
-	/* Check if we find a keysym that matches our current state */
-	if (gdk_keymap_translate_keyboard_state (gdk_keymap_get_default (), event->xkey.keycode,
-					     event->xkey.state, group,
-					     &keyval, NULL, NULL, &consumed)) {
-		guint lower, upper;
-		guint mask;
-
-		/* The Key structure contains virtual modifiers, whereas
-		 * the XEvent will be using the real modifier, so translate those */
-		mask = key->state;
-		gdk_keymap_map_virtual_modifiers (gdk_keymap_get_default (), &mask);
-
-		gdk_keyval_convert_case (keyval, &lower, &upper);
-
-		/* If we are checking against the lower version of the
-		 * keysym, we might need the Shift state for matching,
-		 * so remove it from the consumed modifiers */
-		if (lower == key->keysym)
-			consumed &= ~GDK_SHIFT_MASK;
-
-		return ((lower == key->keysym || upper == key->keysym)
-			&& (event->xkey.state & ~consumed & gsd_used_mods) == mask);
-	}
-
-	/* The key we passed doesn't have a keysym, so try with just the keycode */
-        return (key != NULL
-                && key->state == (event->xkey.state & gsd_used_mods)
-                && key_uses_keycode (key, event->xkey.keycode));
-}
-
 Key *
 parse_key (const char *str)
 {
