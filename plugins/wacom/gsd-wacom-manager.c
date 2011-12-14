@@ -450,7 +450,8 @@ device_added_cb (GdkDeviceManager *device_manager,
 	g_signal_connect (G_OBJECT (settings), "changed",
 			  G_CALLBACK (wacom_settings_changed), device);
 
-	if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS) {
+	if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS ||
+	    gsd_wacom_device_get_device_type (device) == WACOM_TYPE_ERASER) {
 		GList *styli, *l;
 
 		styli = gsd_wacom_device_list_styli (device);
