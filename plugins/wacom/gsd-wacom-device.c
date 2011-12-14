@@ -30,6 +30,7 @@
 
 #include <libwacom/libwacom.h>
 #include <X11/extensions/XInput.h>
+#include <X11/extensions/XInput2.h>
 
 #include "gsd-input-helper.h"
 
@@ -208,6 +209,76 @@ static void     gsd_wacom_device_init        (GsdWacomDevice      *wacom_device)
 static void     gsd_wacom_device_finalize    (GObject              *object);
 
 G_DEFINE_TYPE (GsdWacomDevice, gsd_wacom_device, G_TYPE_OBJECT)
+
+static GdkFilterReturn
+filter_events (XEvent         *xevent,
+               GdkEvent       *event,
+               GsdWacomDevice *device)
+{
+	XIEvent             *xiev;
+	XIPropertyEvent     *pev;
+	XGenericEventCookie *cookie;
+	char                *name;
+	int                  tool_id;
+
+        /* verify we have a property event */
+	if (xevent->type != GenericEvent)
+		return GDK_FILTER_CONTINUE;
+
+	cookie = &xevent->xcookie;
+	if (cookie->extension != device->priv->opcode)
+		return GDK_FILTER_CONTINUE;
+
+	xiev = (XIEvent *) xevent->xcookie.data;
+
+	if (xiev->evtype != XI_PropertyEvent)
+		return GDK_FILTER_CONTINUE;
+
+	pev = (XIPropertyEvent *) xiev;
+
+	/* Is the event for us? */
+	if (pev->deviceid != device->priv->device_id)
+		return GDK_FILTER_CONTINUE;
+
+	name = XGetAtomName (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), pev->property);
+	if (name == NULL ||
+	    g_strcmp0 (name, WACOM_SERIAL_IDS_PROP) != 0) {
+		return GDK_FILTER_CONTINUE;
+	}
+	XFree (name);
+
+	tool_id = xdevice_get_last_tool_id (device->priv->device_id);
+	gsd_wacom_device_set_current_stylus (device, tool_id);
+
+	return GDK_FILTER_CONTINUE;
+}
+
+static gboolean
+setup_property_notify (GsdWacomDevice *device)
+{
+	Display *dpy;
+	XIEventMask evmask;
+	unsigned char bitmask[2] = { 0 };
+	int tool_id;
+
+	XISetMask (bitmask, XI_PropertyEvent);
+
+	evmask.deviceid = device->priv->device_id;
+	evmask.mask_len = sizeof (bitmask);
+	evmask.mask = bitmask;
+
+	dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+	XISelectEvents (dpy, DefaultRootWindow(dpy), &evmask, 1);
+
+	gdk_window_add_filter (NULL,
+			       (GdkFilterFunc) filter_events,
+			       device);
+
+	tool_id = xdevice_get_last_tool_id (device->priv->device_id);
+	gsd_wacom_device_set_current_stylus (device, tool_id);
+
+	return TRUE;
+}
 
 static GsdWacomDeviceType
 get_device_type (XDeviceInfo *dev)
@@ -439,6 +510,11 @@ gsd_wacom_device_constructor (GType                     type,
 	libwacom_destroy (wacom_device);
 	g_free (path);
 
+	if (device->priv->type == WACOM_TYPE_STYLUS ||
+	    device->priv->type == WACOM_TYPE_ERASER) {
+		setup_property_notify (device);
+	}
+
 end:
         return G_OBJECT (device);
 }
@@ -544,6 +620,10 @@ gsd_wacom_device_finalize (GObject *object)
 
         g_free (p->icon_name);
         p->icon_name = NULL;
+
+	gdk_window_remove_filter (NULL,
+				  (GdkFilterFunc) filter_events,
+				  device);
 
         G_OBJECT_CLASS (gsd_wacom_device_parent_class)->finalize (object);
 }
