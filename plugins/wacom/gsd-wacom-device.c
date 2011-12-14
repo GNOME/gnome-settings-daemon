@@ -49,6 +49,7 @@ struct GsdWacomStylusPrivate
 {
 	GsdWacomDevice *device;
 	int id;
+	WacomStylusType type;
 	char *name;
 	const char *icon_name;
 	GSettings *settings;
@@ -131,7 +132,8 @@ gsd_wacom_stylus_new (GsdWacomDevice    *device,
 	stylus->priv->id = libwacom_stylus_get_id (wstylus);
 	stylus->priv->name = g_strdup (libwacom_stylus_get_name (wstylus));
 	stylus->priv->settings = settings;
-	stylus->priv->icon_name = get_icon_name_from_type (libwacom_stylus_get_type (wstylus));
+	stylus->priv->type = libwacom_stylus_get_type (wstylus);
+	stylus->priv->icon_name = get_icon_name_from_type (stylus->priv->type);
 
 	return stylus;
 }
