@@ -183,6 +183,9 @@ gsd_wacom_stylus_get_device (GsdWacomStylus *stylus)
 struct GsdWacomDevicePrivate
 {
 	GdkDevice *gdk_device;
+	int device_id;
+	int opcode;
+
 	GsdWacomDeviceType type;
 	char *name;
 	char *icon_name;
@@ -362,9 +365,10 @@ gsd_wacom_device_constructor (GType                     type,
                               GObjectConstructParam     *construct_properties)
 {
         GsdWacomDevice *device;
+        GdkDeviceManager *device_manager;
         XDeviceInfo *device_info;
         WacomDevice *wacom_device;
-        int n_devices, id;
+        int n_devices;
         guint i;
         char *path;
 
@@ -375,7 +379,10 @@ gsd_wacom_device_constructor (GType                     type,
 	if (device->priv->gdk_device == NULL)
 		return G_OBJECT (device);
 
-        g_object_get (device->priv->gdk_device, "device-id", &id, NULL);
+	device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+	g_object_get (device_manager, "opcode", &device->priv->opcode, NULL);
+
+        g_object_get (device->priv->gdk_device, "device-id", &device->priv->device_id, NULL);
 
         device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
         if (device_info == NULL) {
@@ -384,7 +391,7 @@ gsd_wacom_device_constructor (GType                     type,
 	}
 
         for (i = 0; i < n_devices; i++) {
-		if (device_info[i].id == id) {
+		if (device_info[i].id == device->priv->device_id) {
 			device->priv->type = get_device_type (&device_info[i]);
 			device->priv->tool_name = g_strdup (device_info[i].name);
 			break;
@@ -396,9 +403,9 @@ gsd_wacom_device_constructor (GType                     type,
 	if (device->priv->type == WACOM_TYPE_INVALID)
 		goto end;
 
-	path = xdevice_get_device_node (id);
+	path = xdevice_get_device_node (device->priv->device_id);
 	if (path == NULL) {
-		g_warning ("Could not get the device node path for ID '%d'", id);
+		g_warning ("Could not get the device node path for ID '%d'", device->priv->device_id);
 		device->priv->type = WACOM_TYPE_INVALID;
 		goto end;
 	}
