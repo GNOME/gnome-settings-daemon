@@ -23,7 +23,6 @@
 
 #include <gtk/gtk.h>
 
-#include "gsd-input-helper.h"
 #include "gsd-wacom-device.h"
 
 static char *
@@ -110,19 +109,11 @@ list_actual_devices (void)
 	devices = NULL;
 	for (l = list; l ; l = l->next) {
 		GsdWacomDevice *device;
-		int device_id, tool_id;
 
 		device = gsd_wacom_device_new (l->data);
 		if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_INVALID) {
 			g_object_unref (device);
 			continue;
-		}
-
-		if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS ||
-		    gsd_wacom_device_get_device_type (device) == WACOM_TYPE_ERASER) {
-			g_object_get (l->data, "device-id", &device_id, NULL);
-			tool_id = xdevice_get_last_tool_id (device_id);
-			gsd_wacom_device_set_current_stylus (device, tool_id);
 		}
 
 		devices = g_list_prepend (devices, device);
