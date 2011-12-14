@@ -611,6 +611,13 @@ gsd_wacom_device_set_current_stylus (GsdWacomDevice *device,
 
 	g_return_if_fail (GSD_IS_WACOM_DEVICE (device));
 
+	/* Don't change anything if the stylus is already set */
+	if (device->priv->last_stylus != NULL) {
+		GsdWacomStylus *stylus = device->priv->last_stylus;
+		if (stylus->priv->id == stylus_id)
+			return;
+	}
+
 	for (l = device->priv->styli; l; l = l->next) {
 		GsdWacomStylus *stylus = l->data;
 
