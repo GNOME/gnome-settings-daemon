@@ -299,6 +299,28 @@ set_pressurethreshold (GsdWacomDevice *device,
 }
 
 static void
+apply_stylus_settings (GsdWacomDevice *device)
+{
+	GSettings *stylus_settings;
+	GsdWacomStylus *stylus;
+	int threshold;
+
+	g_object_get (device, "last-stylus", &stylus, NULL);
+	g_debug ("Applying setting for stylus '%s' on device '%s'",
+		 gsd_wacom_stylus_get_name (stylus),
+		 gsd_wacom_device_get_name (device));
+
+	stylus_settings = gsd_wacom_stylus_get_settings (stylus);
+	set_pressurecurve (device, g_settings_get_value (stylus_settings, KEY_PRESSURECURVE));
+	set_device_buttonmap (device, g_settings_get_value (stylus_settings, KEY_BUTTON_MAPPING));
+
+	threshold = g_settings_get_int (stylus_settings, KEY_PRESSURETHRESHOLD);
+	if (threshold == -1)
+		threshold = DEFAULT_PRESSURE_THRESHOLD;
+	set_pressurethreshold (device, threshold);
+}
+
+static void
 set_wacom_settings (GsdWacomManager *manager,
 		    GsdWacomDevice  *device)
 {
@@ -343,23 +365,8 @@ set_wacom_settings (GsdWacomManager *manager,
 
         /* only pen and eraser have pressure threshold and curve settings */
         if (type == WACOM_TYPE_STYLUS ||
-            type == WACOM_TYPE_ERASER) {
-		GSettings *stylus_settings;
-		GsdWacomStylus *stylus;
-
-		g_object_get (device, "last-stylus", &stylus, NULL);
-		if (stylus != NULL) {
-			int threshold;
-
-			stylus_settings = gsd_wacom_stylus_get_settings (stylus);
-			set_pressurecurve (device, g_settings_get_value (stylus_settings, KEY_PRESSURECURVE));
-			set_device_buttonmap (device, g_settings_get_value (stylus_settings, KEY_BUTTON_MAPPING));
-
-			threshold = g_settings_get_int (stylus_settings, KEY_PRESSURETHRESHOLD);
-			if (threshold == -1)
-				threshold = DEFAULT_PRESSURE_THRESHOLD;
-			set_pressurethreshold (device, threshold);
-		}
+	    type == WACOM_TYPE_ERASER) {
+		apply_stylus_settings (device);
 	}
 }
 
