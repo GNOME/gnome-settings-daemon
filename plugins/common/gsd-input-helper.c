@@ -289,6 +289,9 @@ out:
         return NULL;
 }
 
+#define STYLUS_DEVICE_ID        0x02
+#define ERASER_DEVICE_ID        0x0A
+
 int
 xdevice_get_last_tool_id (int deviceid)
 {
@@ -338,6 +341,11 @@ xdevice_get_last_tool_id (int deviceid)
 
 	id = *((int32_t*)ptr);
 	id = id & 0xfffff;
+
+	/* That means that no tool was set down yet */
+	if (id == STYLUS_DEVICE_ID ||
+	    id == ERASER_DEVICE_ID)
+		return 0x0;
 
 out:
         XFree (data);
