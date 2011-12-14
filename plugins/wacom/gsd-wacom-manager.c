@@ -436,6 +436,16 @@ stylus_settings_changed (GSettings      *settings,
 }
 
 static void
+last_stylus_changed (GsdWacomDevice  *device,
+		     GParamSpec      *pspec,
+		     GsdWacomManager *manager)
+{
+	g_debug ("Stylus for device '%s' changed, applying settings",
+		 gsd_wacom_device_get_name (device));
+	apply_stylus_settings (device);
+}
+
+static void
 device_added_cb (GdkDeviceManager *device_manager,
                  GdkDevice        *gdk_device,
                  GsdWacomManager  *manager)
@@ -470,6 +480,9 @@ device_added_cb (GdkDeviceManager *device_manager,
 		}
 
 		g_list_free (styli);
+
+		g_signal_connect (G_OBJECT (device), "notify::last-stylus",
+				  G_CALLBACK (last_stylus_changed), manager);
 	}
 
         set_wacom_settings (manager, device);
