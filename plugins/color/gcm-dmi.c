@@ -121,6 +121,7 @@ gcm_dmi_class_init (GcmDmiClass *klass)
 static void
 gcm_dmi_init (GcmDmi *dmi)
 {
+#if defined(__linux__)
         const gchar *sysfs_name[] = {
                 "/sys/class/dmi/id/product_name",
                 "/sys/class/dmi/id/board_name",
@@ -135,6 +136,12 @@ gcm_dmi_init (GcmDmi *dmi)
                 "/sys/class/dmi/id/chassis_vendor",
                 "/sys/class/dmi/id/board_vendor",
                 NULL};
+#else
+#warning Please add dmi support for your OS
+        const gchar *sysfs_name[] = { NULL };
+        const gchar *sysfs_version[] = { NULL };
+        const gchar *sysfs_vendor[] = { NULL };
+#endif
 
         dmi->priv = GCM_DMI_GET_PRIVATE (dmi);
 
