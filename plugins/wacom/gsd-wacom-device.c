@@ -767,10 +767,13 @@ gsd_wacom_device_create_fake (GsdWacomDeviceType  type,
 	if (db == NULL)
 		db = libwacom_database_new ();
 
+	wacom_device = libwacom_new_from_name (db, name, NULL);
+	if (wacom_device == NULL)
+		return NULL;
+
 	priv = device->priv;
 	priv->type = type;
 	priv->tool_name = g_strdup (tool_name);
-	wacom_device = libwacom_new_from_name (db, name, NULL);
 	gsd_wacom_device_update_from_db (device, wacom_device, name);
 	libwacom_destroy (wacom_device);
 
