@@ -68,6 +68,7 @@ EXTRA_DIST = 					\
 	$(all_schemas:.xml=.xml.in.in)		\
 	$(service_in_files)			\
 	$(desktop_in_files)			\
+	gnome-settings-daemon.desktop.in.in	\
 	$(gsettings_ENUM_FILES)			\
 	gnome-settings-daemon.pc.in		\
 	$(api_DATA)				\
