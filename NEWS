@@ -1,4 +1,40 @@
 =============
+Version 3.3.3
+=============
+
+Build:
+- Require GTK+ 3.3.4 (for key accel parsing)
+- Require XI2 (for wacom support)
+
+Common:
+- Remove unused X key event code (Bastien)
+
+Wacom:
+- Lots of infrastructure buildup that I can't really
+  summarize here (Bastien Nocera)
+- Rename plugin to avoid name clash with libwacom (Bastien)
+- Use libwacom to get tablet metadata (Bastien)
+- Implement per-device and per-stylus settings (Bastien)
+
+Power:
+- Add the vendor name to the battery recall
+  warning (Dominique Leuenberger) (#664418)
+- Add automatic dimming of keyboard backlight (Alex Murray)
+Print:
+- Prevent crashes when cups sends malformed
+  D-Bus signals (Lars Uebernickel) (#665689)
+
+XSettings:
+- Set GtkShellShowsAppMenu xsetting when the shell is running (Colin Walters)
+
+
+Translations:
+ Hebrew
+ Norwegian bokmål
+ Romanian
+ Spanish
+
+=============
 Version 3.3.2
 =============
 
