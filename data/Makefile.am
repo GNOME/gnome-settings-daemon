@@ -42,8 +42,8 @@ convert_DATA = gnome-settings-daemon.convert
 
 @INTLTOOL_DESKTOP_RULE@
 desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = gnome-settings-daemon.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+desktop_in_files = gnome-settings-daemon.desktop.in.in
+desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
 
 gnome-settings-daemon.desktop.in: gnome-settings-daemon.desktop.in.in
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@.tmp && mv $@.tmp $@
@@ -68,7 +68,6 @@ EXTRA_DIST = 					\
 	$(all_schemas:.xml=.xml.in.in)		\
 	$(service_in_files)			\
 	$(desktop_in_files)			\
-	gnome-settings-daemon.desktop.in.in	\
 	$(gsettings_ENUM_FILES)			\
 	gnome-settings-daemon.pc.in		\
 	$(api_DATA)				\
