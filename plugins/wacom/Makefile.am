@@ -1,4 +1,4 @@
-plugin_name = gsdwacom
+plugin_name = wacom
 
 plugin_LTLIBRARIES = libgsdwacom.la
 
