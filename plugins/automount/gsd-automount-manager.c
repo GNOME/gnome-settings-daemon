@@ -29,6 +29,7 @@
 #include <gio/gio.h>
 
 #include "gnome-settings-profile.h"
+#include "gnome-settings-session.h"
 #include "gsd-automount-manager.h"
 #include "gsd-autorun.h"
 
@@ -41,9 +42,8 @@ struct GsdAutomountManagerPrivate
 	GVolumeMonitor *volume_monitor;
 	unsigned int automount_idle_id;
 
+        GnomeSettingsSession *session;
         gboolean session_is_active;
-        GDBusProxy *ck_proxy;
-
         gboolean screensaver_active;
         guint ss_watch_id;
         GDBusProxy *ss_proxy;
@@ -287,160 +287,34 @@ mount_added_callback (GVolumeMonitor *monitor,
 }
 
 
-#define CK_NAME       "org.freedesktop.ConsoleKit"
-#define CK_PATH       "/org/freedesktop/ConsoleKit"
-#define CK_INTERFACE  "org.freedesktop.ConsoleKit"
-
 static void
-ck_session_proxy_signal_cb (GDBusProxy *proxy,
-			    const char *sender_name,
-			    const char *signal_name,
-			    GVariant   *parameters,
-			    gpointer    user_data)
+session_state_changed (GnomeSettingsSession *session, GParamSpec *pspec, gpointer user_data)
 {
-	GsdAutomountManager *manager = user_data;
+        GsdAutomountManager *manager = user_data;
         GsdAutomountManagerPrivate *p = manager->priv;
 
-	if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
-		g_variant_get (parameters, "(b)", &p->session_is_active);
-		g_debug ("ConsoleKit session is active %d", p->session_is_active);
-
-                if (!p->session_is_active) {
-                        if (manager->priv->volume_queue != NULL) {
-                                g_list_free_full (manager->priv->volume_queue, g_object_unref);
-                                manager->priv->volume_queue = NULL;
-                        }
-                }
-	}
-}
-
-static void
-ck_call_is_active_cb (GDBusProxy   *proxy,
-		      GAsyncResult *result,
-		      gpointer      user_data)
-{
-	GsdAutomountManager *manager = user_data;
-        GsdAutomountManagerPrivate *p = manager->priv;
-	GVariant *variant;
-	GError *error = NULL;
-
-	variant = g_dbus_proxy_call_finish (proxy, result, &error);
-
-	if (variant == NULL) {
-		g_warning ("Error when calling IsActive(): %s\n", error->message);
-		p->session_is_active = TRUE;
-
-		g_error_free (error);
-		return;
-	}
-
-	g_variant_get (variant, "(b)", &p->session_is_active);
-	g_debug ("ConsoleKit session is active %d", p->session_is_active);
-
-	g_variant_unref (variant);
-}
-
-static void
-session_proxy_appeared (GObject       *source,
-                        GAsyncResult *res,
-                        gpointer      user_data)
-{
-	GsdAutomountManager *manager = user_data;
-        GsdAutomountManagerPrivate *p = manager->priv;
-        GDBusProxy *proxy;
-	GError *error = NULL;
-
-        proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-
-	if (error != NULL) {
-		g_warning ("Failed to get the current CK session: %s", error->message);
-		g_error_free (error);
-
-		p->session_is_active = TRUE;
-		return;
-	}
-
-	g_signal_connect (proxy, "g-signal",
-			  G_CALLBACK (ck_session_proxy_signal_cb),
-			  manager);
-
-	g_dbus_proxy_call (proxy,
-			   "IsActive",
-			   g_variant_new ("()"),
-			   G_DBUS_CALL_FLAGS_NONE,
-			   -1,
-			   NULL,
-			   (GAsyncReadyCallback) ck_call_is_active_cb,
-			   manager);
-
-        p->ck_proxy = proxy;
-}
-
-static void
-ck_get_current_session_cb (GDBusConnection *connection,
-			   GAsyncResult    *result,
-			   gpointer         user_data)
-{
-	GsdAutomountManager *manager = user_data;
-        GsdAutomountManagerPrivate *p = manager->priv;
-	GVariant *variant;
-	const char *session_path = NULL;
-	GError *error = NULL;
-
-	variant = g_dbus_connection_call_finish (connection, result, &error);
-
-	if (variant == NULL) {
-		g_warning ("Failed to get the current CK session: %s", error->message);
-		g_error_free (error);
-
-		p->session_is_active = TRUE;
-		return;
-	}
-
-	g_variant_get (variant, "(&o)", &session_path);
-
-	g_debug ("Found ConsoleKit session at path %s", session_path);
-
-	g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-				  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-				  NULL,
-				  CK_NAME,
-				  session_path,
-				  CK_INTERFACE ".Session",
-				  NULL,
-				  session_proxy_appeared,
-				  manager);
-
-	g_variant_unref (variant);
-}
-
-static void
-do_initialize_consolekit (GsdAutomountManager *manager)
-{
-        GDBusConnection *connection;
-        GsdAutomountManagerPrivate *p = manager->priv;
-
-        connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
-
-        if (connection == NULL) {
+        if (gnome_settings_session_get_state (session) == GNOME_SETTINGS_SESSION_STATE_ACTIVE) {
                 p->session_is_active = TRUE;
-                return;
+        }
+        else {
+                p->session_is_active = FALSE;
         }
 
-        g_dbus_connection_call (connection,
-                                CK_NAME,
-                                CK_PATH "/Manager",
-                                CK_INTERFACE ".Manager",
-                                "GetCurrentSession",
-                                g_variant_new ("()"),
-                                G_VARIANT_TYPE ("(o)"),
-                                G_DBUS_CALL_FLAGS_NONE,
-                                -1,
-                                NULL,
-                                (GAsyncReadyCallback) ck_get_current_session_cb,
-                                manager);
+        if (!p->session_is_active) {
+                if (p->volume_queue != NULL) {
+                        g_list_free_full (p->volume_queue, g_object_unref);
+                        p->volume_queue = NULL;
+                }
+        }
+}
 
-        g_object_unref (connection);
+static void
+do_initialize_session (GsdAutomountManager *manager)
+{
+        manager->priv->session = gnome_settings_session_new ();
+        g_signal_connect (manager->priv->session, "notify::state",
+                          G_CALLBACK (session_state_changed), manager);
+        session_state_changed (manager->priv->session, NULL, manager);
 }
 
 #define SCREENSAVER_NAME "org.gnome.ScreenSaver"
@@ -590,7 +464,7 @@ do_initialize_screensaver (GsdAutomountManager *manager)
 static void
 setup_automounter (GsdAutomountManager *manager)
 {
-        do_initialize_consolekit (manager);
+        do_initialize_session (manager);
         do_initialize_screensaver (manager);
         
 	manager->priv->volume_monitor = g_volume_monitor_get ();
@@ -629,7 +503,7 @@ gsd_automount_manager_stop (GsdAutomountManager *manager)
 
         g_debug ("Stopping automounting manager");
 
-        g_clear_object (&p->ck_proxy);
+        g_clear_object (&p->session);
         g_clear_object (&p->volume_monitor);
         g_clear_object (&p->settings);
         g_clear_object (&p->ss_proxy);

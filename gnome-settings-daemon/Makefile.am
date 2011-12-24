@@ -16,6 +16,7 @@ INCLUDES = \
 
 noinst_LTLIBRARIES = 			\
 	libgsd-profile.la		\
+	libgsd-session.la		\
 	$(NULL)
 
 libgsd_profile_la_SOURCES =		\
@@ -35,6 +36,25 @@ libgsd_profile_la_LIBADD =		\
 	$(NULL)
 
 libgsd_profile_la_LDFLAGS = 	\
+	-export-dynamic 	\
+	$(NULL)
+
+libgsd_session_la_SOURCES =		\
+	gnome-settings-session.c	\
+	gnome-settings-session.h	\
+	$(NULL)
+
+libgsd_session_la_CPPFLAGS = 		\
+	$(DISABLE_DEPRECATED_CFLAGS)	\
+	$(NULL)
+
+libgsd_session_la_CFLAGS =		\
+	$(NULL)
+
+libgsd_session_la_LIBADD =		\
+	$(NULL)
+
+libgsd_session_la_LDFLAGS = 	\
 	-export-dynamic 	\
 	$(NULL)
 
@@ -60,8 +80,6 @@ gnome_settings_daemon_SOURCES =		\
 	gnome-settings-plugin-info.h	\
 	gnome-settings-module.c		\
 	gnome-settings-module.h		\
-	gnome-settings-session.c	\
-	gnome-settings-session.h	\
 	$(NULL)
 
 gnome_settings_daemon_CPPFLAGS = \
@@ -75,6 +93,7 @@ gnome_settings_daemon_LDFLAGS = 	\
 
 gnome_settings_daemon_LDADD = 		\
 	libgsd-profile.la		\
+	libgsd-session.la		\
 	$(SETTINGS_DAEMON_LIBS)		\
 	$(LIBNOTIFY_LIBS)		\
 	$(UPOWER_LIBS)			\
