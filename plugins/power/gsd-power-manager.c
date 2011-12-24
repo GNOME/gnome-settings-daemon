@@ -52,6 +52,10 @@
 #define CONSOLEKIT_DBUS_PATH_MANAGER            "/org/freedesktop/ConsoleKit/Manager"
 #define CONSOLEKIT_DBUS_INTERFACE_MANAGER       "org.freedesktop.ConsoleKit.Manager"
 
+#define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
+#define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
+#define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
+
 #define UPOWER_DBUS_NAME                        "org.freedesktop.UPower"
 #define UPOWER_DBUS_PATH                        "/org/freedesktop/UPower"
 #define UPOWER_DBUS_PATH_KBDBACKLIGHT           "/org/freedesktop/UPower/KbdBacklight"
@@ -1955,6 +1959,26 @@ gnome_session_shutdown (void)
         g_object_unref (proxy);
 }
 
+#ifdef HAVE_SYSTEMD
+
+static void
+systemd_stop (void)
+{
+        GDBusConnection *bus;
+
+        bus = g_bus_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
+        g_dbus_connection_call (bus,
+                                SYSTEMD_DBUS_NAME,
+                                SYSTEMD_DBUS_PATH,
+                                SYSTEMD_DBUS_INTERFACE,
+                                "PowerOff",
+                                g_variant_new ("(b)", FALSE),
+                                NULL, 0, G_MAXINT, NULL, NULL, NULL);
+        g_object_unref (bus);
+}
+
+#else
+
 static void
 consolekit_stop_cb (GObject *source_object,
                     GAsyncResult *res,
@@ -2003,6 +2027,7 @@ consolekit_stop (void)
                            consolekit_stop_cb, NULL);
         g_object_unref (proxy);
 }
+#endif
 
 static void
 upower_sleep_cb (GObject *source_object,
@@ -2055,7 +2080,11 @@ do_power_action_type (GsdPowerManager *manager,
                 /* this is only used on critically low battery where
                  * hibernate is not available and is marginally better
                  * than just powering down the computer mid-write */
+#ifdef HAVE_SYSTEMD
+                systemd_stop ();
+#else
                 consolekit_stop ();
+#endif
                 break;
         case GSD_POWER_ACTION_BLANK:
                 ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
