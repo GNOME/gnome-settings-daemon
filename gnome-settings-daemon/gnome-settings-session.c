@@ -29,6 +29,90 @@
 
 #include "gnome-settings-session.h"
 
+#ifdef HAVE_SYSTEMD
+#include <systemd/sd-login.h>
+
+typedef struct
+{
+  GSource source;
+  GPollFD pollfd;
+  sd_login_monitor *monitor;
+} SdSource;
+
+static gboolean
+sd_source_prepare (GSource *source,
+                   gint    *timeout)
+{
+  *timeout = -1;
+  return FALSE;
+}
+
+static gboolean
+sd_source_check (GSource *source)
+{
+  SdSource *sd_source = (SdSource *)source;
+
+  return sd_source->pollfd.revents != 0;
+}
+
+static gboolean
+sd_source_dispatch (GSource     *source,
+                    GSourceFunc  callback,
+                    gpointer     user_data)
+
+{
+  SdSource *sd_source = (SdSource *)source;
+  gboolean ret;
+
+  g_warn_if_fail (callback != NULL);
+
+  ret = (*callback) (user_data);
+
+  sd_login_monitor_flush (sd_source->monitor);
+  return ret;
+}
+
+static void
+sd_source_finalize (GSource *source)
+{
+  SdSource *sd_source = (SdSource*)source;
+
+  sd_login_monitor_unref (sd_source->monitor);
+}
+
+static GSourceFuncs sd_source_funcs = {
+  sd_source_prepare,
+  sd_source_check,
+  sd_source_dispatch,
+  sd_source_finalize
+};
+
+static GSource *
+sd_source_new (void)
+{
+  GSource *source;
+  SdSource *sd_source;
+  int ret;
+
+  source = g_source_new (&sd_source_funcs, sizeof (SdSource));
+  sd_source = (SdSource *)source;
+
+  if ((ret = sd_login_monitor_new (NULL, &sd_source->monitor)) < 0)
+    {
+      g_printerr ("Error getting login monitor: %d", ret);
+    }
+  else
+    {
+      sd_source->pollfd.fd = sd_login_monitor_get_fd (sd_source->monitor);
+      sd_source->pollfd.events = G_IO_IN;
+      g_source_add_poll (source, &sd_source->pollfd);
+    }
+
+  return source;
+}
+
+#endif
+
 static void     gnome_settings_session_finalize	(GObject		*object);
 
 #define GNOME_SETTINGS_SESSION_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_SETTINGS_SESSION, GnomeSettingsSessionPrivate))
@@ -44,9 +128,13 @@ static void     gnome_settings_session_finalize	(GObject		*object);
 
 struct GnomeSettingsSessionPrivate
 {
+#ifdef HAVE_SYSTEMD
+        GSource                   *sd_source;
+#else
 	GDBusProxy		*proxy_session;
-	gchar			*session_id;
 	GCancellable		*cancellable;
+#endif
+	gchar			*session_id;
 	GnomeSettingsSessionState state;
 };
 
@@ -70,24 +158,14 @@ static void
 gnome_settings_session_set_state (GnomeSettingsSession *session,
 				  gboolean active)
 {
-	session->priv->state = active ? GNOME_SETTINGS_SESSION_STATE_ACTIVE :
-					GNOME_SETTINGS_SESSION_STATE_INACTIVE;
-	g_object_notify (G_OBJECT (session), "state");
-}
+        GnomeSettingsSessionState  state;
 
-static void
-gnome_settings_session_proxy_signal_cb (GDBusProxy *proxy,
-					const gchar *sender_name,
-					const gchar *signal_name,
-					GVariant *parameters,
-					GnomeSettingsSession *session)
-{
-	gboolean active;
-	if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
-		g_variant_get (parameters, "(b)", &active);
-		g_debug ("emitting active: %i", active);
-		gnome_settings_session_set_state (session, active);
-	}
+        state = active ? GNOME_SETTINGS_SESSION_STATE_ACTIVE
+                       : GNOME_SETTINGS_SESSION_STATE_INACTIVE;
+        if (session->priv->state != state) {
+                session->priv->state = state;
+                g_object_notify (G_OBJECT (session), "state");
+        }
 }
 
 static void
@@ -143,6 +221,37 @@ gnome_settings_session_class_init (GnomeSettingsSessionClass *klass)
 							    GNOME_TYPE_SETTINGS_SESSION_STATE,
 							    GNOME_SETTINGS_SESSION_STATE_UNKNOWN,
 							    G_PARAM_READABLE));
+}
+
+#ifdef HAVE_SYSTEMD
+
+static gboolean
+sessions_changed (gpointer user_data)
+{
+        GnomeSettingsSession *session = user_data;
+        gboolean active;
+
+        active = sd_session_is_active (session->priv->session_id);
+        gnome_settings_session_set_state (session, active);
+
+        return TRUE;
+}
+
+#else /* HAVE_SYSTEMD */
+
+static void
+gnome_settings_session_proxy_signal_cb (GDBusProxy *proxy,
+					const gchar *sender_name,
+					const gchar *signal_name,
+					GVariant *parameters,
+					GnomeSettingsSession *session)
+{
+	gboolean active;
+	if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
+		g_variant_get (parameters, "(b)", &active);
+		g_debug ("emitting active: %i", active);
+		gnome_settings_session_set_state (session, active);
+	}
 }
 
 static void
@@ -262,10 +371,22 @@ got_manager_proxy_cb (GObject *source_object, GAsyncResult *res, gpointer user_d
 	g_object_unref (proxy_manager);
 }
 
+#endif /* HAVE_SYSTEMD */
+
 static void
 gnome_settings_session_init (GnomeSettingsSession *session)
 {
 	session->priv = GNOME_SETTINGS_SESSION_GET_PRIVATE (session);
+
+#ifdef HAVE_SYSTEMD
+        sd_pid_get_session (getpid(), &session->priv->session_id);
+
+        session->priv->sd_source = sd_source_new ();
+        g_source_set_callback (session->priv->sd_source, sessions_changed, session, NULL);
+        g_source_attach (session->priv->sd_source, NULL);
+
+        sessions_changed (session);
+#else
 	session->priv->cancellable = g_cancellable_new ();
 
 	/* connect to ConsoleKit */
@@ -278,6 +399,7 @@ gnome_settings_session_init (GnomeSettingsSession *session)
 				  session->priv->cancellable,
 				  got_manager_proxy_cb,
 				  session);
+#endif
 }
 
 static void
@@ -285,17 +407,22 @@ gnome_settings_session_finalize (GObject *object)
 {
 	GnomeSettingsSession *session;
 
-	g_return_if_fail (GNOME_IS_SETTINGS_SESSION (object));
-
 	session = GNOME_SETTINGS_SESSION (object);
 
+        g_free (session->priv->session_id);
+
+#ifdef HAVE_SYSTEMD
+        if (session->priv->sd_source != NULL) {
+                g_source_destroy (session->priv->sd_source);
+                g_source_unref (session->priv->sd_source);
+        }
+#else
 	g_cancellable_cancel (session->priv->cancellable);
 
-	g_return_if_fail (session->priv != NULL);
 	if (session->priv->proxy_session != NULL)
 		g_object_unref (session->priv->proxy_session);
 	g_object_unref (session->priv->cancellable);
-	g_free (session->priv->session_id);
+#endif
 
 	G_OBJECT_CLASS (gnome_settings_session_parent_class)->finalize (object);
 }

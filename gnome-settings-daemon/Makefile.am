@@ -11,6 +11,7 @@ INCLUDES = \
 	$(LIBNOTIFY_CFLAGS)					\
 	$(UPOWER_CFLAGS)					\
 	$(GNOME_DESKTOP_CFLAGS)					\
+	$(SYSTEMD_CFLAGS)					\
 	$(NULL)
 
 noinst_LTLIBRARIES = 			\
@@ -78,6 +79,7 @@ gnome_settings_daemon_LDADD = 		\
 	$(LIBNOTIFY_LIBS)		\
 	$(UPOWER_LIBS)			\
 	$(GNOME_DESKTOP_LIBS)		\
+	$(SYSTEMD_LIBS)			\
 	$(NULL)
 
 
