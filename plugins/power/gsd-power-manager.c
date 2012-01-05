@@ -3340,7 +3340,7 @@ gsd_power_manager_class_init (GsdPowerManagerClass *klass)
 }
 
 static void
-screensaver_proxy_ready_cb (GObject *source_object,
+sleep_cb_screensaver_proxy_ready_cb (GObject *source_object,
                             GAsyncResult *res,
                             gpointer user_data)
 {
@@ -3352,7 +3352,15 @@ screensaver_proxy_ready_cb (GObject *source_object,
                 g_warning ("Could not connect to gnome-screensaver: %s",
                            error->message);
                 g_error_free (error);
+                return;
         }
+
+        /* Finish the upower_notify_sleep_cb() call by locking the screen */
+        g_debug ("gnome-screensaver activated, doing gnome-screensaver lock");
+        g_dbus_proxy_call (manager->priv->screensaver_proxy,
+                           "Lock",
+                           NULL, G_DBUS_CALL_FLAGS_NONE, -1,
+                           NULL, NULL, NULL);
 }
 
 static void
@@ -3524,6 +3532,17 @@ upower_notify_sleep_cb (UpClient *client,
                                    "Lock",
                                    NULL, G_DBUS_CALL_FLAGS_NONE, -1,
                                    NULL, NULL, NULL);
+        } else {
+                /* connect to the screensaver first */
+                g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                          G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                          NULL,
+                                          GS_DBUS_NAME,
+                                          GS_DBUS_PATH,
+                                          GS_DBUS_INTERFACE,
+                                          NULL,
+                                          sleep_cb_screensaver_proxy_ready_cb,
+                                          manager);
         }
 }
 
@@ -3676,17 +3695,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                   UPOWER_DBUS_INTERFACE_KBDBACKLIGHT,
                                   NULL,
                                   power_keyboard_proxy_ready_cb,
-                                  manager);
-
-        /* connect to the screensaver */
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                  NULL,
-                                  GS_DBUS_NAME,
-                                  GS_DBUS_PATH,
-                                  GS_DBUS_INTERFACE,
-                                  NULL,
-                                  screensaver_proxy_ready_cb,
                                   manager);
 
         /* connect to the session */
