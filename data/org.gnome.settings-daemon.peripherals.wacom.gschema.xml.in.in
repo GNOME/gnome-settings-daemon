@@ -41,6 +41,11 @@
       <_summary>Wacom tablet PC feature</_summary>
       <_description>Enable this to only report stylus events when the tip is pressed.</_description>
     </key>
+    <key name="display" type="as">
+      <default>["", "", ""]</default>
+      <_summary>Wacom display mapping</_summary>
+      <_description>EDID information of monitor to map tablet to. Must be in the format [vendor, product, serial]. ["","",""] disables mapping.</_description>
+    </key>
     <!-- Applies only to the PAD tool -->
     <key name="pad-buttonmapping" type="ai">
       <default>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]</default>
