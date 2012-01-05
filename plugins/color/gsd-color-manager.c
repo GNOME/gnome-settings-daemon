@@ -951,6 +951,45 @@ out:
         return output;
 }
 
+/* this function is more complicated than it should be, due to the
+ * fact that XOrg sometimes assigns no primary devices when using
+ * "xrandr --auto" or when the version of RANDR is < 1.3 */
+static gboolean
+gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
+                                           GnomeRROutput *output)
+{
+        gboolean has_laptop = FALSE;
+        gboolean has_primary = FALSE;
+        GnomeRROutput **outputs;
+        guint i;
+
+        /* do we have any screens marked as primary */
+        outputs = gnome_rr_screen_list_outputs (manager->priv->x11_screen);
+        if (outputs == NULL || outputs[0] == NULL) {
+                g_warning ("failed to get outputs");
+                return FALSE;
+        }
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (!gnome_rr_output_is_connected (outputs[i]))
+                        continue;
+                if (gnome_rr_output_get_is_primary (outputs[i]))
+                        has_primary = TRUE;
+                if (gnome_rr_output_is_laptop (outputs[i]))
+                        has_laptop = TRUE;
+        }
+
+        /* we have an assigned primary device, are we that? */
+        if (has_primary)
+                return gnome_rr_output_get_is_primary (output);
+
+        /* choosing the internal panel is probably sane */
+        if (has_laptop)
+                return gnome_rr_output_is_laptop (output);
+
+        /* we have to choose one, so go for the first listed device */
+        return gnome_rr_output_get_id (outputs[0]) == gnome_rr_output_get_id (output);
+}
+
 static void
 gcm_session_device_assign_profile_connect_cb (GObject *object,
                                               GAsyncResult *res,
@@ -985,7 +1024,8 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
                 goto out;
 
         /* set the _ICC_PROFILE atom */
-        if (gnome_rr_output_get_is_primary (output)) {
+        ret = gcm_session_use_output_profile_for_screen (manager, output);
+        if (ret) {
                 ret = gcm_session_screen_set_icc_profile (manager,
                                                           filename,
                                                           &error);
