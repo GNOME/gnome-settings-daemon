@@ -393,6 +393,9 @@ parse_args (int *argc, char ***argv)
         g_option_context_free (context);
 
         gnome_settings_profile_end (NULL);
+
+        if (debug)
+                g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 }
 
 int
