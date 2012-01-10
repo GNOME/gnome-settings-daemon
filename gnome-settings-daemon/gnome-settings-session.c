@@ -307,17 +307,3 @@ gnome_settings_session_new (void)
 	session = g_object_new (GNOME_TYPE_SETTINGS_SESSION, NULL);
 	return GNOME_SETTINGS_SESSION (session);
 }
-
-UpClient *
-gnome_settings_session_get_upower_client (void)
-{
-	static UpClient *client;
-
-	if (client != NULL)
-		return g_object_ref (client);
-
-	client = up_client_new ();
-	g_object_add_weak_pointer (G_OBJECT (client), (gpointer *) &client);
-
-	return client;
-}

@@ -24,8 +24,6 @@
 
 #include <glib-object.h>
 
-#include <libupower-glib/upower.h>
-
 G_BEGIN_DECLS
 
 #define GNOME_TYPE_SETTINGS_SESSION		(gnome_settings_session_get_type ())
@@ -59,9 +57,6 @@ GType			 gnome_settings_session_get_type	(void);
 GType			 gnome_settings_session_state_get_type	(void);
 GnomeSettingsSession	*gnome_settings_session_new		(void);
 GnomeSettingsSessionState gnome_settings_session_get_state	(GnomeSettingsSession	*session);
-
-UpClient                *gnome_settings_session_get_upower_client (void);
-
 
 
 G_END_DECLS
