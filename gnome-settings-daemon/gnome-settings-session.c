@@ -308,21 +308,6 @@ gnome_settings_session_new (void)
 	return GNOME_SETTINGS_SESSION (session);
 }
 
-GnomeRRScreen *
-gnome_settings_session_get_screen (GError **error)
-{
-	static GnomeRRScreen *screen = NULL;
-
-	if (screen != NULL)
-		return g_object_ref (screen);
-
-	screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-	if (screen != NULL)
-		g_object_add_weak_pointer (G_OBJECT (screen), (gpointer *) &screen);
-
-	return screen;
-}
-
 UpClient *
 gnome_settings_session_get_upower_client (void)
 {

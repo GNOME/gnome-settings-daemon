@@ -24,9 +24,6 @@
 
 #include <glib-object.h>
 
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
-
 #include <libupower-glib/upower.h>
 
 G_BEGIN_DECLS
@@ -62,8 +59,6 @@ GType			 gnome_settings_session_get_type	(void);
 GType			 gnome_settings_session_state_get_type	(void);
 GnomeSettingsSession	*gnome_settings_session_new		(void);
 GnomeSettingsSessionState gnome_settings_session_get_state	(GnomeSettingsSession	*session);
-
-GnomeRRScreen           *gnome_settings_session_get_screen      (GError **error);
 
 UpClient                *gnome_settings_session_get_upower_client (void);
 
