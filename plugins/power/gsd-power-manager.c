@@ -32,7 +32,7 @@
 #include <canberra-gtk.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
+#include <libgnome-desktop/gnome-rr-config.h>
 
 #include "gpm-common.h"
 #include "gpm-phone.h"
@@ -2163,6 +2163,46 @@ do_lid_open_action (GsdPowerManager *manager)
 
 }
 
+static gboolean
+is_laptop (GnomeRRScreen *screen, GnomeRROutputInfo *output)
+{
+        GnomeRROutput *rr_output;
+
+        rr_output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (output));
+
+        return gnome_rr_output_is_laptop (rr_output);
+}
+
+static gboolean
+non_laptop_outputs_are_all_off (GnomeRRScreen *screen)
+{
+        GnomeRRConfig *config;
+        GnomeRROutputInfo **outputs;
+        int i;
+        gboolean all_off;
+
+        config = gnome_rr_config_new_current (screen, NULL); /* NULL-GError */
+        if (!config)
+                return FALSE;
+
+        outputs = gnome_rr_config_get_outputs (config);
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (is_laptop (screen, outputs[i]))
+                        continue;
+
+                if (gnome_rr_output_info_is_active (outputs[i])) {
+                        all_off = FALSE;
+                        goto out;
+                }
+        }
+
+        all_off = TRUE;
+
+out:
+        g_object_unref (config);
+        return all_off;
+}
+
 static void
 do_lid_closed_action (GsdPowerManager *manager)
 {
@@ -2196,12 +2236,6 @@ do_lid_closed_action (GsdPowerManager *manager)
                 }
         }
 
-        /* are we docked? */
-        if (up_client_get_is_docked (manager->priv->up_client)) {
-                g_debug ("ignoring lid closed action because we are docked");
-                return;
-        }
-
         /* ensure we turn the panel back on after resume */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
                                              GNOME_RR_DPMS_OFF,
@@ -2224,7 +2258,11 @@ do_lid_closed_action (GsdPowerManager *manager)
         }
 
         /* perform policy action */
-        do_power_action_type (manager, action_type);
+        if (non_laptop_outputs_are_all_off (manager->priv->x11_screen)) {
+                g_debug ("lid is closed; suspending or hibernating");
+                do_power_action_type (manager, action_type);
+        } else
+                g_debug ("lid is closed; not suspending nor hibernating since some external monitor outputs are still active");
 }
 
 
@@ -3487,8 +3525,8 @@ gsd_power_manager_start (GsdPowerManager *manager,
                           G_CALLBACK (engine_device_removed_cb), manager);
         g_signal_connect (manager->priv->up_client, "device-changed",
                           G_CALLBACK (engine_device_changed_cb), manager);
-        g_signal_connect (manager->priv->up_client, "changed",
-                          G_CALLBACK (up_client_changed_cb), manager);
+        g_signal_connect_after (manager->priv->up_client, "changed",
+                                G_CALLBACK (up_client_changed_cb), manager);
 
         /* use the fallback name from gnome-power-manager so the shell
          * blocks this, and uses the power extension instead */
@@ -3601,7 +3639,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
                           G_CALLBACK (idle_idletime_alarm_expired_cb), manager);
 
         /* coldplug the list of screens */
-        manager->priv->x11_screen = gnome_settings_session_get_screen (error);
+        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
         if (manager->priv->x11_screen == NULL)
                 return FALSE;
 
@@ -3644,40 +3682,71 @@ gsd_power_manager_stop (GsdPowerManager *manager)
                 manager->priv->connection = NULL;
         }
 
-        if (manager->priv->timeout_blank_id != 0)
+        if (manager->priv->timeout_blank_id != 0) {
                 g_source_remove (manager->priv->timeout_blank_id);
-        if (manager->priv->timeout_sleep_id != 0)
+                manager->priv->timeout_blank_id = 0;
+        }
+
+        if (manager->priv->timeout_sleep_id != 0) {
                 g_source_remove (manager->priv->timeout_sleep_id);
+                manager->priv->timeout_sleep_id = 0;
+        }
 
         g_object_unref (manager->priv->session);
         g_object_unref (manager->priv->settings);
         g_object_unref (manager->priv->settings_screensaver);
         g_object_unref (manager->priv->up_client);
-        if (manager->priv->x11_screen != NULL)
+        manager->priv->session = NULL;
+        manager->priv->settings = NULL;
+        manager->priv->settings_screensaver = NULL;
+        manager->priv->up_client = NULL;
+
+        if (manager->priv->x11_screen != NULL) {
                 g_object_unref (manager->priv->x11_screen);
+                manager->priv->x11_screen = NULL;
+        }
 
         g_ptr_array_unref (manager->priv->devices_array);
         g_object_unref (manager->priv->phone);
         g_object_unref (manager->priv->device_composite);
+        manager->priv->devices_array = NULL;
+        manager->priv->phone = NULL;
+        manager->priv->device_composite = NULL;
 
-        if (manager->priv->previous_icon != NULL)
+        if (manager->priv->previous_icon != NULL) {
                 g_object_unref (manager->priv->previous_icon);
+                manager->priv->previous_icon = NULL;
+        }
+
         g_free (manager->priv->previous_summary);
+        manager->priv->previous_summary = NULL;
 
-        if (manager->priv->upower_proxy != NULL)
+        if (manager->priv->upower_proxy != NULL) {
                 g_object_unref (manager->priv->upower_proxy);
-        if (manager->priv->session_proxy != NULL)
-                g_object_unref (manager->priv->session_proxy);
-        if (manager->priv->session_presence_proxy != NULL)
-                g_object_unref (manager->priv->session_presence_proxy);
+                manager->priv->upower_proxy = NULL;
+        }
 
-        if (manager->priv->critical_alert_timeout_id > 0)
+        if (manager->priv->session_proxy != NULL) {
+                g_object_unref (manager->priv->session_proxy);
+                manager->priv->session_proxy = NULL;
+        }
+
+        if (manager->priv->session_presence_proxy != NULL) {
+                g_object_unref (manager->priv->session_presence_proxy);
+                manager->priv->session_presence_proxy = NULL;
+        }
+
+        if (manager->priv->critical_alert_timeout_id > 0) {
                 g_source_remove (manager->priv->critical_alert_timeout_id);
+                manager->priv->critical_alert_timeout_id = 0;
+        }
 
         gpm_idletime_alarm_remove (manager->priv->idletime,
                                    GSD_POWER_IDLETIME_ID);
         g_object_unref (manager->priv->idletime);
         g_object_unref (manager->priv->status_icon);
+        manager->priv->idletime = NULL;
+        manager->priv->status_icon = NULL;
 }
 
 static void
