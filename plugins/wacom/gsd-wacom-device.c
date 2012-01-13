@@ -487,6 +487,37 @@ find_output_by_display (GsdWacomDevice *device)
 	return find_output_by_edid (edid[0], edid[1], edid[2]);
 }
 
+static void
+set_display_by_output (GsdWacomDevice    *device,
+                       GnomeRROutputInfo *rr_output_info)
+{
+	GSettings   *tablet;
+	GVariant    *c_array;
+	GVariant    *n_array;
+	const char **display;
+	gsize        nvalues;
+	gchar        o_vendor[4], *o_product, *o_serial;
+	const gchar *values[3];
+
+	tablet  = gsd_wacom_device_get_settings (device);
+	c_array = g_settings_get_value (tablet, "display");
+	display = g_variant_get_strv (c_array, &nvalues);
+	if (nvalues != 3) {
+		g_warning("Unable set set display property. Got %"G_GSIZE_FORMAT" items; expected %d items.\n", nvalues, 4);
+		return;
+	}
+
+	gnome_rr_output_info_get_vendor (rr_output_info, &o_vendor);
+	o_product = g_strdup_printf ("%d", gnome_rr_output_info_get_product (rr_output_info));
+	o_serial  = g_strdup_printf ("%d", gnome_rr_output_info_get_serial  (rr_output_info));
+
+	values[0] = o_vendor;
+	values[1] = o_product;
+	values[2] = o_serial;
+	n_array = g_variant_new_strv(&values, 3);
+	g_settings_set_value (tablet, "display", n_array);
+}
+
 static GnomeRROutputInfo*
 find_output (GsdWacomDevice *device)
 {
@@ -502,7 +533,14 @@ find_output (GsdWacomDevice *device)
 		{
 			rr_output_info = find_output_by_heuristic (device);
 			if (rr_output_info == NULL)
+			{
 				g_warning ("No fuzzy match based on heuristics was found.");
+			}
+			else
+			{
+				g_warning("Automatically mapping tablet to heuristically-found display.");
+				set_display_by_output (device, rr_output_info);
+			}
 		}
 	}
 
