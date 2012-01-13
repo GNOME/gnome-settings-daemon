@@ -53,6 +53,7 @@
 #define KEY_IS_ABSOLUTE         "is-absolute"
 #define KEY_AREA                "area"
 #define KEY_PAD_BUTTON_MAPPING  "pad-buttonmapping"
+#define KEY_DISPLAY             "display"
 
 /* Stylus and Eraser settings */
 #define KEY_BUTTON_MAPPING      "buttonmapping"
@@ -203,6 +204,25 @@ set_area (GsdWacomDevice  *device,
                 return;
         }
 
+        wacom_set_property (device, &property);
+}
+
+static void
+set_display (GsdWacomDevice  *device,
+             GVariant        *value)
+{
+        float matrix[9];
+        PropertyHelper property = {
+                .name   = "Coordinate Transformation Matrix",
+                .nitems = 9,
+                .format = 32,
+                .type   = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "FLOAT", True),
+        };
+
+        gsd_wacom_device_get_display_matrix (device, matrix);
+
+        property.data.i = (gint*)(&matrix);
+        g_debug ("Applying matrix to device...");
         wacom_set_property (device, &property);
 }
 
@@ -369,6 +389,7 @@ set_wacom_settings (GsdWacomManager *manager,
 
 	set_absolute (device, g_settings_get_boolean (settings, KEY_IS_ABSOLUTE));
 	set_area (device, g_settings_get_value (settings, KEY_AREA));
+	set_display (device, g_settings_get_value (settings, KEY_DISPLAY));
 
         /* only pen and eraser have pressure threshold and curve settings */
         if (type == WACOM_TYPE_STYLUS ||
@@ -403,6 +424,10 @@ wacom_settings_changed (GSettings      *settings,
 	} else if (g_str_equal (key, KEY_PAD_BUTTON_MAPPING)) {
 		if (type == WACOM_TYPE_PAD)
 			set_device_buttonmap (device, g_settings_get_value (settings, key));
+	} else if (g_str_equal (key, KEY_DISPLAY)) {
+		if (type != WACOM_TYPE_CURSOR &&
+		    type != WACOM_TYPE_PAD)
+			set_display (device, g_settings_get_value (settings, key));
 	} else {
 		g_warning ("Unhandled tablet-wide setting '%s' changed", key);
 	}
