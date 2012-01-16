@@ -106,6 +106,8 @@ gboolean         gsd_wacom_device_is_screen_tablet (GsdWacomDevice *device);
 GSettings      * gsd_wacom_device_get_settings     (GsdWacomDevice *device);
 void             gsd_wacom_device_set_current_stylus (GsdWacomDevice *device,
 						      int             stylus_id);
+GsdWacomStylus * gsd_wacom_device_get_stylus_for_type (GsdWacomDevice     *device,
+						       GsdWacomStylusType  type);
 
 GsdWacomDeviceType gsd_wacom_device_get_device_type (GsdWacomDevice *device);
 gint           * gsd_wacom_device_get_area          (GsdWacomDevice *device);

@@ -681,6 +681,23 @@ gsd_wacom_device_list_styli (GsdWacomDevice *device)
 	return g_list_copy (device->priv->styli);
 }
 
+GsdWacomStylus *
+gsd_wacom_device_get_stylus_for_type (GsdWacomDevice     *device,
+				      GsdWacomStylusType  type)
+{
+	GList *l;
+
+	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), NULL);
+
+	for (l = device->priv->styli; l != NULL; l = l->next) {
+		GsdWacomStylus *stylus = l->data;
+
+		if (gsd_wacom_stylus_get_stylus_type (stylus) == type)
+			return stylus;
+	}
+	return NULL;
+}
+
 const char *
 gsd_wacom_device_get_name (GsdWacomDevice *device)
 {
