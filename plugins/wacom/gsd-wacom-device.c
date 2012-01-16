@@ -111,6 +111,9 @@ get_icon_name_from_type (WacomStylusType type)
 {
 	switch (type) {
 	case WSTYLUS_INKING:
+	case WSTYLUS_STROKE:
+		/* The stroke pen is the same as the inking pen with
+		 * a different nib */
 		return "wacom-stylus-inking";
 	case WSTYLUS_AIRBRUSH:
 		return "wacom-stylus-airbrush";
