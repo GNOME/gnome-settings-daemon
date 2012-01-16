@@ -144,8 +144,22 @@ list_devices (GList *devices)
 
 				g_print ("\t\tIcon name: %s\n", gsd_wacom_stylus_get_icon_name (stylus));
 
-				if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS)
+				if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS) {
+					int num_buttons;
+					char *buttons;
+
 					g_print ("\t\tHas Eraser: %s\n", BOOL_AS_STR(gsd_wacom_stylus_get_has_eraser (stylus)));
+
+					num_buttons = gsd_wacom_stylus_get_num_buttons (stylus);
+					if (num_buttons < 0)
+						num_buttons = 2;
+					if (num_buttons > 0)
+						buttons = g_strdup_printf ("%d buttons", num_buttons);
+					else
+						buttons = g_strdup ("no button");
+					g_print ("\t\tButtons: %s\n", buttons);
+					g_free (buttons);
+				}
 			}
 			g_list_free (styli);
 		}
