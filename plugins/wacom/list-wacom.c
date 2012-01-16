@@ -195,6 +195,9 @@ list_fake_devices (void)
 
 	devices = gsd_wacom_device_create_fake_x201 ();
 	list_devices (devices);
+
+	devices = gsd_wacom_device_create_fake_intuos4 ();
+	list_devices (devices);
 }
 
 int main (int argc, char **argv)
