@@ -69,6 +69,30 @@ last_stylus_changed (GsdWacomDevice  *device,
 	g_print ("\t\tIcon name: %s\n", gsd_wacom_stylus_get_icon_name (stylus));
 }
 
+static const char *
+stylus_type_to_string (GsdWacomStylusType type)
+{
+	switch (type) {
+	case WACOM_STYLUS_TYPE_UNKNOWN:
+		return "Unknown";
+	case WACOM_STYLUS_TYPE_GENERAL:
+		return "General";
+	case WACOM_STYLUS_TYPE_INKING:
+		return "Inking";
+	case WACOM_STYLUS_TYPE_AIRBRUSH:
+		return "Airbrush";
+	case WACOM_STYLUS_TYPE_CLASSIC:
+		return "Classic";
+	case WACOM_STYLUS_TYPE_MARKER:
+		return "Marker";
+	case WACOM_STYLUS_TYPE_STROKE:
+		return "Stroke";
+	default:
+		g_assert_not_reached ();
+	}
+	return NULL;
+}
+
 #define BOOL_AS_STR(x) (x ? "yes" : "no")
 
 static void
@@ -109,15 +133,19 @@ list_devices (GList *devices)
 				GsdWacomStylus *stylus;
 
 				stylus = j->data;
-				g_print ("\t%sStylus: '%s'\n",
+				g_print ("\t%sStylus: '%s' (Type: %s)\n",
 					 current_stylus == stylus ? "*** " : "",
-					 gsd_wacom_stylus_get_name (stylus));
+					 gsd_wacom_stylus_get_name (stylus),
+					 stylus_type_to_string (gsd_wacom_stylus_get_stylus_type (stylus)));
 
 				loc = get_loc (gsd_wacom_stylus_get_settings (stylus));
 				g_print ("\t\tSettings: %s\n", loc);
 				g_free (loc);
 
 				g_print ("\t\tIcon name: %s\n", gsd_wacom_stylus_get_icon_name (stylus));
+
+				if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS)
+					g_print ("\t\tHas Eraser: %s\n", BOOL_AS_STR(gsd_wacom_stylus_get_has_eraser (stylus)));
 			}
 			g_list_free (styli);
 		}
