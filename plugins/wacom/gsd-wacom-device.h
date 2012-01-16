@@ -66,11 +66,23 @@ typedef struct
         GObjectClass   parent_class;
 } GsdWacomStylusClass;
 
-GType            gsd_wacom_stylus_get_type     (void);
-GSettings      * gsd_wacom_stylus_get_settings (GsdWacomStylus *stylus);
-const char     * gsd_wacom_stylus_get_name     (GsdWacomStylus *stylus);
-const char     * gsd_wacom_stylus_get_icon_name(GsdWacomStylus *stylus);
-GsdWacomDevice * gsd_wacom_stylus_get_device   (GsdWacomStylus *stylus);
+typedef enum {
+	WACOM_STYLUS_TYPE_UNKNOWN,
+	WACOM_STYLUS_TYPE_GENERAL,
+	WACOM_STYLUS_TYPE_INKING,
+	WACOM_STYLUS_TYPE_AIRBRUSH,
+	WACOM_STYLUS_TYPE_CLASSIC,
+	WACOM_STYLUS_TYPE_MARKER,
+	WACOM_STYLUS_TYPE_STROKE
+} GsdWacomStylusType;
+
+GType            gsd_wacom_stylus_get_type       (void);
+GSettings      * gsd_wacom_stylus_get_settings   (GsdWacomStylus *stylus);
+const char     * gsd_wacom_stylus_get_name       (GsdWacomStylus *stylus);
+const char     * gsd_wacom_stylus_get_icon_name  (GsdWacomStylus *stylus);
+GsdWacomDevice * gsd_wacom_stylus_get_device     (GsdWacomStylus *stylus);
+gboolean         gsd_wacom_stylus_get_has_eraser (GsdWacomStylus *stylus);
+GsdWacomStylusType gsd_wacom_stylus_get_stylus_type (GsdWacomStylus *stylus);
 
 /* Device types to apply a setting to */
 typedef enum {
