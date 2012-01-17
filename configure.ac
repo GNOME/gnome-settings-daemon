@@ -52,6 +52,7 @@ GNOME_DESKTOP_REQUIRED_VERSION=3.3.4
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
 UPOWER_GLIB_REQUIRED_VERSION=0.9.1
 PA_REQUIRED_VERSION=0.9.16
+LIBWACOM_REQUIRED_VERSION=0.2
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -221,7 +222,7 @@ dnl ---------------------------------------------------------------------------
 dnl - wacom
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(WACOM, [libwacom x11 xi])
+PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi])
 
 dnl ==============================================
 dnl PackageKit section
