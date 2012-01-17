@@ -34,6 +34,7 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
+#include <X11/Xatom.h>
 
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
@@ -151,6 +152,7 @@ set_rotation (GsdWacomDevice *device,
                 .name = "Wacom Rotation",
                 .nitems = 1,
                 .format = 8,
+                .type   = XA_INTEGER,
                 .data.c = &rot,
         };
 
@@ -164,6 +166,7 @@ set_pressurecurve (GsdWacomDevice *device,
         PropertyHelper property = {
                 .name = "Wacom Pressurecurve",
                 .nitems = 4,
+                .type   = XA_INTEGER,
                 .format = 32,
         };
         gsize nvalues;
@@ -188,6 +191,7 @@ set_area (GsdWacomDevice  *device,
         PropertyHelper property = {
                 .name = "Wacom Tablet Area",
                 .nitems = 4,
+                .type   = XA_INTEGER,
                 .format = 32,
         };
         gsize nvalues;
@@ -259,6 +263,7 @@ set_touch (GsdWacomDevice *device,
                 .name = "Wacom Enable Touch",
                 .nitems = 1,
                 .format = 8,
+                .type   = XA_INTEGER,
                 .data.c = &data,
         };
 
@@ -278,6 +283,7 @@ set_tpcbutton (GsdWacomDevice *device,
                 .name = "Wacom Hover Click",
                 .nitems = 1,
                 .format = 8,
+                .type   = XA_INTEGER,
                 .data.c = &data,
         };
 
@@ -292,6 +298,7 @@ set_pressurethreshold (GsdWacomDevice *device,
                 .name = "Wacom Pressure Threshold",
                 .nitems = 1,
                 .format = 32,
+                .type   = XA_INTEGER,
                 .data.i = &threshold,
         };
 
