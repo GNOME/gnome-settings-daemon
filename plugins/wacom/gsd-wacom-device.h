@@ -97,6 +97,10 @@ typedef enum {
 
 GType gsd_wacom_device_get_type     (void);
 
+gint     gsd_wacom_device_get_display_monitor (GsdWacomDevice *device);
+gboolean gsd_wacom_device_get_display_matrix  (GsdWacomDevice *device,
+                                               float           matrix[9]);
+
 GsdWacomDevice * gsd_wacom_device_new              (GdkDevice *device);
 GList          * gsd_wacom_device_list_styli       (GsdWacomDevice *device);
 const char     * gsd_wacom_device_get_name         (GsdWacomDevice *device);
