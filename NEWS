@@ -1,3 +1,29 @@
+=============
+Version 3.3.4
+=============
+
+Build:
+- Fix distribution of a pre-processed desktop file
+
+Daemon:
+- Fix --debug not working
+- Remove gnome_settings_session_get_screen() and
+  gnome_settings_session_get_upower_client(), as
+  the underlying functions return singletons
+
+Color:
+- Fix some screen setups not being color corrected
+
+XRandR:
+- Better handling of docking stations and plugging of
+  external monitors (for suspend, and turning off monitors
+  to work as designed)
+
+Wacom:
+- Fix loading of the plugin
+- Fix GSettings read/write for per-tablet/per-styli configs
+- Export more tablet and stylus metadata
+
 ===============
 Version 3.3.3.1
 ===============
