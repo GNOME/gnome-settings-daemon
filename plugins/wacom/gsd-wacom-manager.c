@@ -211,10 +211,10 @@ static void
 set_display (GsdWacomDevice  *device,
              GVariant        *value)
 {
-        float matrix[9];
+        float matrix[NUM_ELEMS_MATRIX];
         PropertyHelper property = {
                 .name   = "Coordinate Transformation Matrix",
-                .nitems = 9,
+                .nitems = NUM_ELEMS_MATRIX,
                 .format = 32,
                 .type   = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "FLOAT", True),
         };

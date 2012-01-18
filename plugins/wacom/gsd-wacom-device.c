@@ -548,7 +548,7 @@ find_output (GsdWacomDevice *device)
 }
 
 static void
-calculate_transformation_matrix (const GdkRectangle mapped, const GdkRectangle desktop, float matrix[9])
+calculate_transformation_matrix (const GdkRectangle mapped, const GdkRectangle desktop, float matrix[NUM_ELEMS_MATRIX])
 {
 	float x_scale = (float)mapped.x / desktop.width;
 	float y_scale = (float)mapped.y / desktop.height;
@@ -603,7 +603,7 @@ gsd_wacom_device_get_display_monitor (GsdWacomDevice *device)
 }
 
 gboolean
-gsd_wacom_device_get_display_matrix (GsdWacomDevice *device, float matrix[9])
+gsd_wacom_device_get_display_matrix (GsdWacomDevice *device, float matrix[NUM_ELEMS_MATRIX])
 {
 	int monitor;
 	GdkRectangle display;
