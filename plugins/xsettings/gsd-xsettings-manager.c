@@ -929,7 +929,8 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
 
         stop_fontconfig_monitor (manager);
 
-        g_bus_unwatch_name (manager->priv->shell_name_watch_id);
+        if (manager->priv->shell_name_watch_id > 0)
+                g_bus_unwatch_name (manager->priv->shell_name_watch_id);
 
         if (p->settings != NULL) {
                 g_hash_table_destroy (p->settings);
