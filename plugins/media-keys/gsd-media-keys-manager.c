@@ -2147,8 +2147,10 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                                           manager);
         }
 
-        g_signal_handlers_disconnect_by_func (manager->priv->gtksettings, sound_theme_changed, manager);
-        manager->priv->gtksettings = NULL;
+        if (manager->priv->gtksettings != NULL) {
+                g_signal_handlers_disconnect_by_func (manager->priv->gtksettings, sound_theme_changed, manager);
+                manager->priv->gtksettings = NULL;
+        }
 
         if (manager->priv->ca) {
                 ca_context_destroy (manager->priv->ca);
