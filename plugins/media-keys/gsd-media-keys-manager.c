@@ -2207,9 +2207,8 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->connection = NULL;
         }
 
-        gdk_error_trap_push ();
-
         if (priv->keys != NULL) {
+                gdk_error_trap_push ();
                 for (i = 0; i < priv->keys->len; ++i) {
                         MediaKey *key;
 
@@ -2220,10 +2219,10 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 }
                 g_ptr_array_free (priv->keys, TRUE);
                 priv->keys = NULL;
-        }
 
-        gdk_flush ();
-        gdk_error_trap_pop_ignored ();
+                gdk_flush ();
+                gdk_error_trap_pop_ignored ();
+        }
 
         if (priv->screens != NULL) {
                 g_slist_free (priv->screens);
