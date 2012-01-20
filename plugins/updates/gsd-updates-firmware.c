@@ -493,7 +493,7 @@ out:
         if (error_code != NULL)
                 g_object_unref (error_code);
         if (array != NULL)
-                g_object_unref (array);
+                g_ptr_array_unref (array);
         if (results != NULL)
                 g_object_unref (results);
         return item;
