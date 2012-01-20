@@ -2209,16 +2209,18 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 
         gdk_error_trap_push ();
 
-        for (i = 0; i < priv->keys->len; ++i) {
-                MediaKey *key;
+        if (priv->keys != NULL) {
+                for (i = 0; i < priv->keys->len; ++i) {
+                        MediaKey *key;
 
-                key = g_ptr_array_index (manager->priv->keys, i);
+                        key = g_ptr_array_index (manager->priv->keys, i);
 
-                if (key->key)
-                        grab_key_unsafe (key->key, FALSE, priv->screens);
+                        if (key->key)
+                                grab_key_unsafe (key->key, FALSE, priv->screens);
+                }
+                g_ptr_array_free (priv->keys, TRUE);
+                priv->keys = NULL;
         }
-        g_ptr_array_free (priv->keys, TRUE);
-        priv->keys = NULL;
 
         gdk_flush ();
         gdk_error_trap_pop_ignored ();
