@@ -480,6 +480,9 @@ find_output_by_display (GsdWacomDevice *device)
 	GVariant *display;
 	const gchar **edid;
 
+	if (device == NULL)
+		return NULL;
+
 	tablet   = device->priv->wacom_settings;
 	display  = g_settings_get_value (tablet, "display");
 	edid     = g_variant_get_strv (display, &n);
