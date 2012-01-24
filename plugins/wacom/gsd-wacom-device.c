@@ -1000,6 +1000,7 @@ gsd_wacom_device_set_current_stylus (GsdWacomDevice *device,
 				     int             stylus_id)
 {
 	GList *l;
+	GsdWacomStylus *stylus;
 
 	g_return_if_fail (GSD_IS_WACOM_DEVICE (device));
 
@@ -1011,7 +1012,7 @@ gsd_wacom_device_set_current_stylus (GsdWacomDevice *device,
 	}
 
 	for (l = device->priv->styli; l; l = l->next) {
-		GsdWacomStylus *stylus = l->data;
+		stylus = l->data;
 
 		/* Set a nice default if 0x0 */
 		if (stylus_id == 0x0 &&
@@ -1027,6 +1028,10 @@ gsd_wacom_device_set_current_stylus (GsdWacomDevice *device,
 	}
 
 	g_warning ("Could not find stylus ID 0x%x for tablet '%s'", stylus_id, device->priv->name);
+
+	/* Setting the default stylus to be the first one */
+	stylus = device->priv->styli->data;
+	g_object_set (device, "last-stylus", stylus, NULL);
 }
 
 GsdWacomDeviceType
