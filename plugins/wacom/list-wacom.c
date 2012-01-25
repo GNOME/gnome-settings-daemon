@@ -81,10 +81,11 @@ print_stylus (GsdWacomStylus *stylus,
 
 	device = gsd_wacom_stylus_get_device (stylus);
 
-	g_print ("\t%sStylus: '%s' (Type: %s)\n",
+	g_print ("\t%sStylus: '%s' (Type: %s, ID: 0x%x)\n",
 		 is_current ? "*** " : "",
 		 gsd_wacom_stylus_get_name (stylus),
-		 stylus_type_to_string (gsd_wacom_stylus_get_stylus_type (stylus)));
+		 stylus_type_to_string (gsd_wacom_stylus_get_stylus_type (stylus)),
+		 gsd_wacom_stylus_get_id (stylus));
 
 	loc = get_loc (gsd_wacom_stylus_get_settings (stylus));
 	g_print ("\t\tSettings: %s\n", loc);
