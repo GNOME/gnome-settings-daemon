@@ -407,14 +407,6 @@ get_device_type (XDeviceInfo *dev)
 	return ret;
 }
 
-static char *
-get_device_name (WacomDevice *device)
-{
-	return g_strdup_printf ("%s %s",
-				libwacom_get_vendor (device),
-				libwacom_get_product (device));
-}
-
 /* Finds an output which matches the given EDID information. Any NULL
  * parameter will be interpreted to match any value.
  */
@@ -704,7 +696,7 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 	device->priv->wacom_settings = g_settings_new_with_path (WACOM_TABLET_SCHEMA,
 								 settings_path);
 
-	device->priv->name = get_device_name (wacom_device);
+	device->priv->name = g_strdup (libwacom_get_name (wacom_device));
 	device->priv->reversible = libwacom_is_reversible (wacom_device);
 	device->priv->is_screen_tablet = libwacom_is_builtin (wacom_device);
 	if (device->priv->is_screen_tablet) {
