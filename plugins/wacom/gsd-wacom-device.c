@@ -224,6 +224,14 @@ gsd_wacom_stylus_get_stylus_type (GsdWacomStylus *stylus)
 	return WACOM_STYLUS_TYPE_UNKNOWN;
 }
 
+int
+gsd_wacom_stylus_get_id (GsdWacomStylus *stylus)
+{
+	g_return_val_if_fail (GSD_IS_WACOM_STYLUS (stylus), -1);
+
+	return stylus->priv->id;
+}
+
 #define GSD_WACOM_DEVICE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_DEVICE, GsdWacomDevicePrivate))
 
 /* we support two types of settings:
