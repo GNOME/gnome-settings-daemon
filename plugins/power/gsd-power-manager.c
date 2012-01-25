@@ -1966,7 +1966,7 @@ systemd_stop (void)
 {
         GDBusConnection *bus;
 
-        bus = g_bus_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
+        bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
         g_dbus_connection_call (bus,
                                 SYSTEMD_DBUS_NAME,
                                 SYSTEMD_DBUS_PATH,
