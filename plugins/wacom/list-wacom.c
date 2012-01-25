@@ -46,29 +46,6 @@ get_loc (GSettings *settings)
 	return ret;
 }
 
-static void
-last_stylus_changed (GsdWacomDevice  *device,
-		     GParamSpec      *pspec,
-		     gpointer         user_data)
-{
-	GsdWacomStylus *stylus;
-	char *loc;
-
-	g_object_get (device, "last-stylus", &stylus, NULL);
-
-	g_print ("Stylus changed for device '%s'\n",
-		 gsd_wacom_device_get_name (device));
-
-	g_print ("\t*** Stylus: '%s'\n",
-		 gsd_wacom_stylus_get_name (stylus));
-
-	loc = get_loc (gsd_wacom_stylus_get_settings (stylus));
-	g_print ("\t\tSettings: %s\n", loc);
-	g_free (loc);
-
-	g_print ("\t\tIcon name: %s\n", gsd_wacom_stylus_get_icon_name (stylus));
-}
-
 static const char *
 stylus_type_to_string (GsdWacomStylusType type)
 {
@@ -94,6 +71,59 @@ stylus_type_to_string (GsdWacomStylusType type)
 }
 
 #define BOOL_AS_STR(x) (x ? "yes" : "no")
+
+static void
+print_stylus (GsdWacomStylus *stylus,
+	      gboolean        is_current)
+{
+	GsdWacomDevice *device;
+	char *loc;
+
+	device = gsd_wacom_stylus_get_device (stylus);
+
+	g_print ("\t%sStylus: '%s' (Type: %s)\n",
+		 is_current ? "*** " : "",
+		 gsd_wacom_stylus_get_name (stylus),
+		 stylus_type_to_string (gsd_wacom_stylus_get_stylus_type (stylus)));
+
+	loc = get_loc (gsd_wacom_stylus_get_settings (stylus));
+	g_print ("\t\tSettings: %s\n", loc);
+	g_free (loc);
+
+	g_print ("\t\tIcon name: %s\n", gsd_wacom_stylus_get_icon_name (stylus));
+
+	if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS) {
+		int num_buttons;
+		char *buttons;
+
+		g_print ("\t\tHas Eraser: %s\n", BOOL_AS_STR(gsd_wacom_stylus_get_has_eraser (stylus)));
+
+		num_buttons = gsd_wacom_stylus_get_num_buttons (stylus);
+		if (num_buttons < 0)
+			num_buttons = 2;
+		if (num_buttons > 0)
+			buttons = g_strdup_printf ("%d buttons", num_buttons);
+		else
+			buttons = g_strdup ("no button");
+		g_print ("\t\tButtons: %s\n", buttons);
+		g_free (buttons);
+	}
+}
+
+static void
+last_stylus_changed (GsdWacomDevice  *device,
+		     GParamSpec      *pspec,
+		     gpointer         user_data)
+{
+	GsdWacomStylus *stylus;
+
+	g_object_get (device, "last-stylus", &stylus, NULL);
+
+	g_print ("Stylus changed for device '%s'\n",
+		 gsd_wacom_device_get_name (device));
+
+	print_stylus (stylus, TRUE);
+}
 
 static void
 list_devices (GList *devices)
@@ -133,33 +163,7 @@ list_devices (GList *devices)
 				GsdWacomStylus *stylus;
 
 				stylus = j->data;
-				g_print ("\t%sStylus: '%s' (Type: %s)\n",
-					 current_stylus == stylus ? "*** " : "",
-					 gsd_wacom_stylus_get_name (stylus),
-					 stylus_type_to_string (gsd_wacom_stylus_get_stylus_type (stylus)));
-
-				loc = get_loc (gsd_wacom_stylus_get_settings (stylus));
-				g_print ("\t\tSettings: %s\n", loc);
-				g_free (loc);
-
-				g_print ("\t\tIcon name: %s\n", gsd_wacom_stylus_get_icon_name (stylus));
-
-				if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS) {
-					int num_buttons;
-					char *buttons;
-
-					g_print ("\t\tHas Eraser: %s\n", BOOL_AS_STR(gsd_wacom_stylus_get_has_eraser (stylus)));
-
-					num_buttons = gsd_wacom_stylus_get_num_buttons (stylus);
-					if (num_buttons < 0)
-						num_buttons = 2;
-					if (num_buttons > 0)
-						buttons = g_strdup_printf ("%d buttons", num_buttons);
-					else
-						buttons = g_strdup ("no button");
-					g_print ("\t\tButtons: %s\n", buttons);
-					g_free (buttons);
-				}
+				print_stylus (stylus, current_stylus == stylus);
 			}
 			g_list_free (styli);
 		}
