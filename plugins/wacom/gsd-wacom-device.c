@@ -1163,17 +1163,17 @@ gsd_wacom_device_create_fake_cintiq (void)
 	GList *devices;
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_STYLUS,
-					       "Cintiq 21UX2",
+					       "Wacom Cintiq 21UX2",
 					       "Wacom Cintiq 21UX2 stylus");
 	devices = g_list_prepend (NULL, device);
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_ERASER,
-					       "Cintiq 21UX2",
+					       "Wacom Cintiq 21UX2",
 					       "Wacom Cintiq 21UX2 eraser");
 	devices = g_list_prepend (devices, device);
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_PAD,
-					       "Cintiq 21UX2",
+					       "Wacom Cintiq 21UX2",
 					       "Wacom Cintiq 21UX2 pad");
 	devices = g_list_prepend (devices, device);
 
@@ -1187,22 +1187,22 @@ gsd_wacom_device_create_fake_bt (void)
 	GList *devices;
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_STYLUS,
-					       "Graphire Wireless",
+					       "Wacom Graphire Wireless",
 					       "Graphire Wireless stylus");
 	devices = g_list_prepend (NULL, device);
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_ERASER,
-					       "Graphire Wireless",
+					       "Wacom Graphire Wireless",
 					       "Graphire Wireless eraser");
 	devices = g_list_prepend (devices, device);
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_PAD,
-					       "Graphire Wireless",
+					       "Wacom Graphire Wireless",
 					       "Graphire Wireless pad");
 	devices = g_list_prepend (devices, device);
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_CURSOR,
-					       "Graphire Wireless",
+					       "Wacom Graphire Wireless",
 					       "Graphire Wireless cursor");
 	devices = g_list_prepend (devices, device);
 
@@ -1216,13 +1216,13 @@ gsd_wacom_device_create_fake_x201 (void)
 	GList *devices;
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_STYLUS,
-					       "Serial Tablet WACf004",
-					       "Serial Tablet WACf004 stylus");
+					       "Wacom Serial Tablet WACf004",
+					       "Wacom Serial Tablet WACf004 stylus");
 	devices = g_list_prepend (NULL, device);
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_ERASER,
-					       "Serial Tablet WACf004",
-					       "Serial Tablet WACf004 eraser");
+					       "Wacom Serial Tablet WACf004",
+					       "Wacom Serial Tablet WACf004 eraser");
 	devices = g_list_prepend (devices, device);
 
 	return devices;
@@ -1235,22 +1235,22 @@ gsd_wacom_device_create_fake_intuos4 (void)
 	GList *devices;
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_STYLUS,
-					       "Intuos 4 M 6x9",
+					       "Wacom Intuos 4 M 6x9",
 					       "Wacom Intuos4 6x9 stylus");
 	devices = g_list_prepend (NULL, device);
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_ERASER,
-					       "Intuos 4 M 6x9",
+					       "Wacom Intuos 4 M 6x9",
 					       "Wacom Intuos4 6x9 eraser");
 	devices = g_list_prepend (devices, device);
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_PAD,
-					       "Intuos 4 M 6x9",
+					       "Wacom Intuos 4 M 6x9",
 					       "Wacom Intuos4 6x9 pad");
 	devices = g_list_prepend (devices, device);
 
 	device = gsd_wacom_device_create_fake (WACOM_TYPE_CURSOR,
-					       "Intuos 4 M 6x9",
+					       "Wacom Intuos 4 M 6x9",
 					       "Wacom Intuos4 6x9 cursor");
 	devices = g_list_prepend (devices, device);
 
