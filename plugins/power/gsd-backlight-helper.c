@@ -53,6 +53,7 @@ gsd_backlight_helper_get_best_backlight ()
 		"toshiba",
 		"eeepc",
 		"thinkpad_screen",
+		"dell_backlight",
 		"acpi_video1",
 		"mbp_backlight",
 		"acpi_video0",
