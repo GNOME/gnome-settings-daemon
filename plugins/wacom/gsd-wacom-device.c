@@ -1047,9 +1047,25 @@ gsd_wacom_device_set_current_stylus (GsdWacomDevice *device,
 		}
 	}
 
-	g_warning ("Could not find stylus ID 0x%x for tablet '%s'", stylus_id, device->priv->name);
+	/* Setting the default stylus to be the generic one */
+	for (l = device->priv->styli; l; l = l->next) {
+		stylus = l->data;
+
+		/* Set a nice default if 0x0 */
+		if (stylus->priv->type == WSTYLUS_GENERAL) {
+			g_debug ("Could not find stylus ID 0x%x for tablet '%s', setting general pen ID 0x%x instead",
+				 stylus_id, device->priv->name, stylus->priv->id);
+			g_object_set (device, "last-stylus", stylus, NULL);
+			return;
+		}
+	}
+
+	g_warning ("Could not set the current stylus ID 0x%x for tablet '%s', no general pen found",
+		   stylus_id, device->priv->name);
 
 	/* Setting the default stylus to be the first one */
+	g_assert (device->priv->styli);
+
 	stylus = device->priv->styli->data;
 	g_object_set (device, "last-stylus", stylus, NULL);
 }
