@@ -265,7 +265,6 @@ on_cups_notification (GDBusConnection *connection,
         gboolean                     known_reason;
         http_t                      *http;
         gchar                       *printer_name = NULL;
-        gchar                       *display_name = NULL;
         gchar                       *primary_text = NULL;
         gchar                       *secondary_text = NULL;
         gchar                       *text = NULL;
@@ -439,9 +438,6 @@ on_cups_notification (GDBusConnection *connection,
                 g_hash_table_remove (manager->priv->printing_printers,
                                      printer_name);
 
-                /* FIXME: get a better human readable name */
-                display_name = g_strdup (printer_name);
-
                 switch (job_state) {
                         case IPP_JOB_PENDING:
                         case IPP_JOB_HELD:
@@ -451,33 +447,28 @@ on_cups_notification (GDBusConnection *connection,
                                 /* Translators: A print job has been stopped */
                                 primary_text = g_strdup (_("Printing stopped"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, display_name);
+                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_CANCELED:
                                 /* Translators: A print job has been canceled */
                                 primary_text = g_strdup (_("Printing canceled"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, display_name);
+                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_ABORTED:
                                 /* Translators: A print job has been aborted */
                                 primary_text = g_strdup (_("Printing aborted"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, display_name);
+                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_COMPLETED:
                                 /* Translators: A print job has been completed */
                                 primary_text = g_strdup (_("Printing completed"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, display_name);
+                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
                                 break;
                 }
         } else if (g_strcmp0 (signal_name, "JobState") == 0 && my_job) {
-                display_name = get_dest_attr (printer_name,
-                                              "printer-info",
-                                              manager->priv->dests,
-                                              manager->priv->num_dests);
-
                 switch (job_state) {
                         case IPP_JOB_PROCESSING:
                                 g_hash_table_insert (manager->priv->printing_printers,
@@ -486,7 +477,7 @@ on_cups_notification (GDBusConnection *connection,
                                 /* Translators: A job is printing */
                                 primary_text = g_strdup (_("Printing"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, display_name);
+                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_STOPPED:
                         case IPP_JOB_CANCELED:
@@ -499,11 +490,6 @@ on_cups_notification (GDBusConnection *connection,
                                 break;
                 }
         } else if (g_strcmp0 (signal_name, "JobCreated") == 0 && my_job) {
-                display_name = get_dest_attr (printer_name,
-                                              "printer-info",
-                                              manager->priv->dests,
-                                              manager->priv->num_dests);
-
                 if (job_state == IPP_JOB_PROCESSING) {
                         g_hash_table_insert (manager->priv->printing_printers,
                                              g_strdup (printer_name), NULL);
@@ -511,7 +497,7 @@ on_cups_notification (GDBusConnection *connection,
                         /* Translators: A job is printing */
                         primary_text = g_strdup (_("Printing"));
                         /* Translators: "print-job xy" on a printer */
-                        secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, display_name);
+                        secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
                 }
         } else if (g_strcmp0 (signal_name, "PrinterStateChanged") == 0) {
                 cups_dest_t  *dest = NULL;
@@ -570,9 +556,6 @@ on_cups_notification (GDBusConnection *connection,
 
                 /* Check whether we are printing on this printer right now. */
                 if (g_hash_table_lookup_extended (manager->priv->printing_printers, printer_name, NULL, NULL)) {
-                        /* FIXME: get a better human readable name */
-                        display_name = g_strdup (printer_name);
-
                         dest = cupsGetDest (printer_name,
                                             NULL,
                                             manager->priv->num_dests,
@@ -785,8 +768,6 @@ on_cups_notification (GDBusConnection *connection,
                 if (old_state_reasons)
                         g_strfreev (old_state_reasons);
         }
-
-        g_free (display_name);
 
 
         if (primary_text) {
