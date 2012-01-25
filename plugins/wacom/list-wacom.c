@@ -27,6 +27,7 @@
 
 static gboolean fake_devices = FALSE;
 static gboolean monitor_styli = FALSE;
+static gboolean option_debug = FALSE;
 
 static char *
 get_loc (GSettings *settings)
@@ -226,6 +227,7 @@ int main (int argc, char **argv)
 	const GOptionEntry entries[] = {
 		{ "fake", 'f', 0, G_OPTION_ARG_NONE, &fake_devices, "Output fake devices", NULL },
 		{ "monitor", 'm', 0, G_OPTION_ARG_NONE, &monitor_styli, "Monitor changing styli", NULL },
+		{ "debug", 'd', 0, G_OPTION_ARG_NONE, &option_debug, "Debug output", NULL },
 		{ NULL }
 	};
 
@@ -238,6 +240,9 @@ int main (int argc, char **argv)
 		g_print ("Option parsing failed: %s\n", error->message);
 		return 1;
 	}
+
+	if (option_debug)
+		g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 
 	if (fake_devices == FALSE)
 		list_actual_devices ();
