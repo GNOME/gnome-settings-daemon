@@ -32,8 +32,10 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <glib/gstdio.h>
 
 #include <cups/cups.h>
+#include <cups/ppd.h>
 #include <libnotify/notify.h>
 
 #include "gnome-settings-profile.h"
@@ -260,6 +262,7 @@ on_cups_notification (GDBusConnection *connection,
         GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
         gboolean                     printer_is_accepting_jobs;
         gboolean                     my_job = FALSE;
+        gboolean                     known_reason;
         http_t                      *http;
         gchar                       *printer_name = NULL;
         gchar                       *display_name = NULL;
@@ -630,11 +633,13 @@ on_cups_notification (GDBusConnection *connection,
 
                         for (tmp_list = added_reasons; tmp_list; tmp_list = tmp_list->next) {
                                 gchar *data = (gchar *) tmp_list->data;
+                                known_reason = FALSE;
                                 for (j = 0; j < G_N_ELEMENTS (reasons); j++) {
                                         if (strncmp (data,
                                                      reasons[j],
                                                      strlen (reasons[j])) == 0) {
                                                 NotifyNotification *notification;
+                                                known_reason = TRUE;
 
                                                 if (g_strcmp0 (reasons[j], "connecting-to-device") == 0) {
                                                         TimeoutData *data;
@@ -681,6 +686,94 @@ on_cups_notification (GDBusConnection *connection,
                                                         g_free (second_row);
                                                 }
                                         }
+                                }
+
+                                if (!known_reason && !g_str_equal (data, "none")) {
+                                        NotifyNotification *notification;
+                                        ReasonData         *reason_data;
+                                        gchar              *first_row;
+                                        gchar              *second_row;
+                                        gchar              *text = NULL;
+                                        gchar              *ppd_file_name;
+                                        ppd_file_t         *ppd_file;
+                                        char                buffer[8192];
+
+                                        ppd_file_name = g_strdup (cupsGetPPD (printer_name));
+                                        if (ppd_file_name) {
+                                                ppd_file = ppdOpenFile (ppd_file_name);
+                                                if (ppd_file) {
+                                                        gchar **tmpv;
+                                                        static const char * const schemes[] = {
+                                                                "text", "http", "help", "file"
+                                                        };
+
+                                                        tmpv = g_new0 (gchar *, G_N_ELEMENTS (schemes) + 1);
+                                                        i = 0;
+                                                        for (j = 0; j < G_N_ELEMENTS (schemes); j++) {
+                                                                if (ppdLocalizeIPPReason (ppd_file, data, schemes[j], buffer, sizeof (buffer))) {
+                                                                        tmpv[i++] = g_strdup (buffer);
+                                                                }
+                                                        }
+
+                                                        if (i > 0)
+                                                                text = g_strjoinv (", ", tmpv);
+                                                        g_strfreev (tmpv);
+
+                                                        ppdClose (ppd_file);
+                                                }
+
+                                                g_unlink (ppd_file_name);
+                                                g_free (ppd_file_name);
+                                        }
+
+
+                                        if (g_str_has_suffix (data, "-report"))
+                                                /* Translators: This is a title of a report notification for a printer */
+                                                first_row = g_strdup (_("Printer report"));
+                                        else if (g_str_has_suffix (data, "-warning"))
+                                                /* Translators: This is a title of a warning notification for a printer */
+                                                first_row = g_strdup (_("Printer warning"));
+                                        else
+                                                /* Translators: This is a title of an error notification for a printer */
+                                                first_row = g_strdup (_("Printer error"));
+
+
+                                        if (text == NULL)
+                                                text = g_strdup (data);
+
+                                        /* Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'." */
+                                        second_row = g_strdup_printf (_("Printer '%s': '%s'."), printer_name, text);
+                                        g_free (text);
+
+
+                                        notification = notify_notification_new (first_row,
+                                                                                second_row,
+                                                                                "printer-symbolic");
+                                        notify_notification_set_app_name (notification, _("Printers"));
+                                        notify_notification_set_hint (notification,
+                                                                      "resident",
+                                                                      g_variant_new_boolean (TRUE));
+                                        notify_notification_set_timeout (notification, REASON_TIMEOUT);
+
+                                        reason_data = g_new0 (ReasonData, 1);
+                                        reason_data->printer_name = g_strdup (printer_name);
+                                        reason_data->reason = g_strdup (data);
+                                        reason_data->notification = notification;
+                                        reason_data->manager = manager;
+
+                                        reason_data->notification_close_id =
+                                                g_signal_connect (notification,
+                                                                  "closed",
+                                                                  G_CALLBACK (notification_closed_cb),
+                                                                  reason_data);
+
+                                        manager->priv->active_notifications =
+                                                g_list_append (manager->priv->active_notifications, reason_data);
+
+                                        notify_notification_show (notification, NULL);
+
+                                        g_free (first_row);
+                                        g_free (second_row);
                                 }
                         }
                         g_slist_free (added_reasons);
