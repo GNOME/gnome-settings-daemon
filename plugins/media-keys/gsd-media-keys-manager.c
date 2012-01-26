@@ -1808,6 +1808,18 @@ do_action (GsdMediaKeysManager *manager,
         case WINDOW_SCREENSHOT_KEY:
                 execute (manager, "gnome-screenshot --window", FALSE);
                 break;
+        case AREA_SCREENSHOT_KEY:
+                execute (manager, "gnome-screenshot --area", FALSE);
+                break;
+        case SCREENSHOT_CLIP_KEY:
+                execute (manager, "gnome-screenshot --clipboard", FALSE);
+                break;
+        case WINDOW_SCREENSHOT_CLIP_KEY:
+                execute (manager, "gnome-screenshot --window --clipboard", FALSE);
+                break;
+        case AREA_SCREENSHOT_CLIP_KEY:
+                execute (manager, "gnome-screenshot --area --clipboard", FALSE);
+                break;
         case WWW_KEY:
                 do_url_action (manager, "http", timestamp);
                 break;
