@@ -703,6 +703,8 @@ ldsm_check_all_mounts (gpointer data)
                 check_mounts = g_list_prepend (check_mounts, mount_info);
         }
 
+        g_list_free (mounts);
+
         number_of_mounts = g_list_length (check_mounts);
         if (number_of_mounts > 1)
                 multiple_volumes = TRUE;
