@@ -858,6 +858,7 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                 val = g_settings_get_value (settings, translations[i].gsettings_key);
 
                 process_value (manager, &translations[i], val);
+                g_variant_unref (val);
         }
 
         list = g_hash_table_get_values (manager->priv->settings);
