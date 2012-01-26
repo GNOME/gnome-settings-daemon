@@ -173,6 +173,7 @@ set_pressurecurve (GsdWacomDevice *device,
         gsize nvalues;
 
         property.data.i = g_variant_get_fixed_array (value, &nvalues, sizeof (gint32));
+        g_variant_unref (value);
 
         if (nvalues != 4) {
                 g_error ("Pressurecurve requires 4 values.");
@@ -198,6 +199,7 @@ set_area (GsdWacomDevice  *device,
         gsize nvalues;
 
         property.data.i = g_variant_get_fixed_array (value, &nvalues, sizeof (gint32));
+        g_variant_unref (value);
 
         if (nvalues != 4) {
                 g_error ("Area configuration requires 4 values.");
@@ -224,6 +226,8 @@ set_display (GsdWacomDevice  *device,
         property.data.i = (gint*)(&matrix);
         g_debug ("Applying matrix to device...");
         wacom_set_property (device, &property);
+
+        g_variant_unref (value);
 }
 
 static void
@@ -256,6 +260,7 @@ set_device_buttonmap (GsdWacomDevice *device,
 	intmap = g_variant_get_fixed_array (value, &nmap, sizeof (gint32));
 	for (i = 0; i < nmap && i < sizeof (map); i++)
 		map[i] = intmap[i];
+        g_variant_unref (value);
 
 	gdk_error_trap_push ();
 
@@ -375,7 +380,6 @@ set_wacom_settings (GsdWacomManager *manager,
 
 		variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
 		set_area (device, variant);
-		g_variant_unref (variant);
 		return;
 	}
 
