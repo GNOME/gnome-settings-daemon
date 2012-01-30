@@ -120,6 +120,10 @@ get_icon_name_from_type (WacomStylusType type)
 		return "wacom-stylus-inking";
 	case WSTYLUS_AIRBRUSH:
 		return "wacom-stylus-airbrush";
+	case WSTYLUS_MARKER:
+		return "wacom-stylus-art-pen";
+	case WSTYLUS_CLASSIC:
+		return "wacom-stylus-classic";
 	default:
 		return "wacom-stylus";
 	}
