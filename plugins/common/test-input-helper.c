@@ -105,8 +105,15 @@ int main (int argc, char **argv)
 
                 if (device_is_touchpad (device))
 			g_print ("Device %d is touchpad:\t\t%s\n", (int) device_info[i].id, "yes");
-		else
-			g_print ("Device %d is touchpad/touchscreen:\t%s\n", (int) device_info[i].id, "no");
+		else {
+			int tool_id;
+
+			tool_id = xdevice_get_last_tool_id (device_info[i].id);
+			if (tool_id >= 0x0)
+				g_print ("Device %d is touchpad/touchscreen:\t%s (tool ID: 0x%x)\n", (int) device_info[i].id, "no", tool_id);
+			else
+				g_print ("Device %d is touchpad/touchscreen:\t%s\n", (int) device_info[i].id, "no");
+		}
 
                 XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
         }
