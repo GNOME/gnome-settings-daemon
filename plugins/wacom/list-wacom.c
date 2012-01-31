@@ -65,6 +65,8 @@ stylus_type_to_string (GsdWacomStylusType type)
 		return "Marker";
 	case WACOM_STYLUS_TYPE_STROKE:
 		return "Stroke";
+	case WACOM_STYLUS_TYPE_PUCK:
+		return "Puck";
 	default:
 		g_assert_not_reached ();
 	}

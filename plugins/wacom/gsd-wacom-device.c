@@ -221,6 +221,8 @@ gsd_wacom_stylus_get_stylus_type (GsdWacomStylus *stylus)
 		return WACOM_STYLUS_TYPE_MARKER;
 	case WSTYLUS_STROKE:
 		return WACOM_STYLUS_TYPE_STROKE;
+	case WSTYLUS_PUCK:
+		return WACOM_STYLUS_TYPE_PUCK;
 	default:
 		g_assert_not_reached ();
 	}
