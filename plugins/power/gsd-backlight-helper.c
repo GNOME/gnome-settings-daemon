@@ -51,6 +51,7 @@ gsd_backlight_helper_get_best_backlight ()
 		"nv_backlight",
 		"asus_laptop",
 		"toshiba",
+		"eeepc-wmi",
 		"eeepc",
 		"thinkpad_screen",
 		"dell_backlight",
