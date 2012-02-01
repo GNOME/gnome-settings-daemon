@@ -1681,7 +1681,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 } else if (policy == GSD_POWER_ACTION_SUSPEND) {
                         /* TRANSLATORS: computer will suspend */
                         message = g_strdup (_("The battery is below the critical level and "
-                                              "this computer is about to suspend.<br>"
+                                              "this computer is about to suspend.\n"
                                               "<b>NOTE:</b> A small amount of power is required "
                                               "to keep your computer in a suspended state."));
 
