@@ -386,11 +386,11 @@ get_device_type (XDeviceInfo *dev)
 
 	if (dev->type == stylus)
 		ret = WACOM_TYPE_STYLUS;
-	if (dev->type == eraser)
+	else if (dev->type == eraser)
 		ret = WACOM_TYPE_ERASER;
-	if (dev->type == cursor)
+	else if (dev->type == cursor)
 		ret = WACOM_TYPE_CURSOR;
-	if (dev->type == pad)
+	else if (dev->type == pad)
 		ret = WACOM_TYPE_PAD;
 
 	if (ret == WACOM_TYPE_INVALID)
