@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 3.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-28 15:54+0100\n"
-"PO-Revision-Date: 2012-01-28 15:57+0100\n"
+"POT-Creation-Date: 2012-02-02 18:42+0100\n"
+"PO-Revision-Date: 2012-02-02 18:45+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -113,7 +113,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
-msgstr ""
+msgstr "Hvorvidt tegnebrettets orientering er låst eller roteres automatisk."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Device hotplug custom command"
@@ -182,19 +182,19 @@ msgstr "Prioritet som skal brukes for dette tilegget"
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr ""
+msgstr "Prioritet som skal brukes for dette tilegget i oppstartskøen for gnome-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
-msgstr ""
+msgstr "Absolutt modus for Wacom penn"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
 msgid "Enable this to set the tablet to absolute mode."
-msgstr ""
+msgstr "Slå på dette for å sette tegnebrettet til absolutt modus."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Wacom tablet area"
-msgstr ""
+msgstr "Område for Wacom tegnebrett"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
@@ -202,7 +202,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid "Wacom tablet rotation"
-msgstr ""
+msgstr "Rotering for Wacom tegnebrett"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid ""
@@ -212,7 +212,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Wacom touch feature"
-msgstr ""
+msgstr "Wacom berøringsfunksjon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid "Enable this to move the cursor when the user touches the tablet."
@@ -1336,7 +1336,7 @@ msgid "Clipboard plugin"
 msgstr "Tillegg for utklippstavle"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1680
+#: ../plugins/color/gsd-color-manager.c:1745
 msgid "Color"
 msgstr "Farger"
 
@@ -1344,40 +1344,40 @@ msgstr "Farger"
 msgid "Color plugin"
 msgstr "Tillegg for farger"
 
-#: ../plugins/color/gsd-color-manager.c:1685
+#: ../plugins/color/gsd-color-manager.c:1750
 msgid "Recalibrate now"
 msgstr "Kalibrer på nytt nå"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1727
+#: ../plugins/color/gsd-color-manager.c:1792
 msgid "Recalibration required"
 msgstr "Ny kalibrering kreves"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1739
+#: ../plugins/color/gsd-color-manager.c:1804
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Skjermen «%s» bør kalibreres på nytt snart."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1748
+#: ../plugins/color/gsd-color-manager.c:1813
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Skriver «%s» bør kalibreres på nytt snart."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2074
-#: ../plugins/color/gsd-color-manager.c:2090
+#: ../plugins/color/gsd-color-manager.c:2139
+#: ../plugins/color/gsd-color-manager.c:2155
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Fargetillegg for GNOME konfigurasjonstjeneste"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2076
+#: ../plugins/color/gsd-color-manager.c:2141
 msgid "Color calibration device added"
 msgstr "Enhet for kalibrering av farger ble lagt til"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2092
+#: ../plugins/color/gsd-color-manager.c:2157
 msgid "Color calibration device removed"
 msgstr "Enhet for kalibrering av farger ble fjernet"
 
@@ -2394,12 +2394,12 @@ msgstr ""
 #: ../plugins/power/gsd-power-manager.c:1683
 msgid ""
 "The battery is below the critical level and this computer is about to "
-"suspend.<br><b>NOTE:</b> A small amount of power is required to keep your "
-"computer in a suspended state."
+"suspend.\n"
+"<b>NOTE:</b> A small amount of power is required to keep your computer in a "
+"suspended state."
 msgstr ""
-"Batteriet er under kritisk nivå og denne datamaskinen er i ferd med å gå i "
-"hvilemodus.<br><b>MERK:</b> Det kreves noe strøm for å holde datamaskinen i "
-"hvilemodus."
+"Batteriet er under kritisk nivå og denne datamaskinen er i ferd med å gå i hvilemodus.\n"
+"<b>MERK:</b> Det kreves noe strøm for å holde datamaskinen i hvilemodus."
 
 #. TRANSLATORS: computer will hibernate
 #: ../plugins/power/gsd-power-manager.c:1690
