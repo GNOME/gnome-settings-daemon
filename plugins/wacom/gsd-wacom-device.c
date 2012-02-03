@@ -359,7 +359,7 @@ static GsdWacomDeviceType
 get_device_type (XDeviceInfo *dev)
 {
 	GsdWacomDeviceType ret;
-        static Atom stylus, cursor, eraser, pad, prop;
+        static Atom stylus, cursor, eraser, pad, touch, prop;
         XDevice *device;
         Atom realtype;
         int realformat;
@@ -380,6 +380,8 @@ get_device_type (XDeviceInfo *dev)
                 cursor = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "CURSOR", False);
         if (!pad)
                 pad = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "PAD", False);
+        if (!touch)
+                touch = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "TOUCH", False);
         /* FIXME: Add touch type? */
         if (!prop)
 		prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Wacom Tool Type", False);
@@ -392,6 +394,8 @@ get_device_type (XDeviceInfo *dev)
 		ret = WACOM_TYPE_CURSOR;
 	else if (dev->type == pad)
 		ret = WACOM_TYPE_PAD;
+	else if (dev->type == touch)
+		ret = WACOM_TYPE_TOUCH;
 
 	if (ret == WACOM_TYPE_INVALID)
 		return ret;
@@ -1149,6 +1153,8 @@ gsd_wacom_device_type_to_string (GsdWacomDeviceType type)
 		return "Cursor";
 	case WACOM_TYPE_PAD:
 		return "Pad";
+	case WACOM_TYPE_TOUCH:
+		return "Touch";
 	default:
 		return "Unknown type";
 	}

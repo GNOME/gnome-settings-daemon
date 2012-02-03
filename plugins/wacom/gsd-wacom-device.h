@@ -96,7 +96,8 @@ typedef enum {
         WACOM_TYPE_ERASER  =     (1 << 2),
         WACOM_TYPE_CURSOR  =     (1 << 3),
         WACOM_TYPE_PAD     =     (1 << 4),
-        WACOM_TYPE_ALL     =     WACOM_TYPE_STYLUS | WACOM_TYPE_ERASER | WACOM_TYPE_CURSOR | WACOM_TYPE_PAD
+        WACOM_TYPE_TOUCH   =     (1 << 5),
+        WACOM_TYPE_ALL     =     WACOM_TYPE_STYLUS | WACOM_TYPE_ERASER | WACOM_TYPE_CURSOR | WACOM_TYPE_PAD | WACOM_TYPE_TOUCH
 } GsdWacomDeviceType;
 
 GType gsd_wacom_device_get_type     (void);
