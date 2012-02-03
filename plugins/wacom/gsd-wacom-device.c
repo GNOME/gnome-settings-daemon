@@ -193,7 +193,7 @@ gsd_wacom_stylus_get_has_eraser (GsdWacomStylus *stylus)
 	return stylus->priv->has_eraser;
 }
 
-int
+guint
 gsd_wacom_stylus_get_num_buttons (GsdWacomStylus *stylus)
 {
 	g_return_val_if_fail (GSD_IS_WACOM_STYLUS (stylus), -1);
