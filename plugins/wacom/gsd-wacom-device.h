@@ -26,6 +26,8 @@
 
 G_BEGIN_DECLS
 
+#define NUM_ELEMS_MATRIX 9
+
 #define GSD_TYPE_WACOM_DEVICE         (gsd_wacom_device_get_type ())
 #define GSD_WACOM_DEVICE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_WACOM_DEVICE, GsdWacomDevice))
 #define GSD_WACOM_DEVICE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_WACOM_DEVICE, GsdWacomDeviceClass))
@@ -76,8 +78,6 @@ typedef enum {
 	WACOM_STYLUS_TYPE_STROKE,
 	WACOM_STYLUS_TYPE_PUCK
 } GsdWacomStylusType;
-
-#define NUM_ELEMS_MATRIX 9
 
 GType            gsd_wacom_stylus_get_type       (void);
 GSettings      * gsd_wacom_stylus_get_settings   (GsdWacomStylus *stylus);
