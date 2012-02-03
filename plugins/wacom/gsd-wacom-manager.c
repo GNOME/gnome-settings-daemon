@@ -42,9 +42,6 @@
 #include "gsd-wacom-manager.h"
 #include "gsd-wacom-device.h"
 
-/* Maximum number of buttons map-able. */
-#define WACOM_MAX_BUTTONS 32
-
 #define GSD_WACOM_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerPrivate))
 
 #define KEY_ROTATION            "rotation"
