@@ -72,11 +72,6 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gsettings-desktop-schemas
 )
 
-PKG_CHECK_MODULES(BACKLIGHT_HELPER,
-        glib-2.0 >= $GLIB_REQUIRED_VERSION
-        gio-2.0 >= $GIO_REQUIRED_VERSION
-)
-
 GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
 case $host_os in
   darwin*)
@@ -288,6 +283,12 @@ dnl ==============================================
 # UPower
 # ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(UPOWER, upower-glib >= $UPOWER_REQUIRED_VERSION libcanberra-gtk3)
+if test x$enable_gudev != xno; then
+	PKG_CHECK_MODULES(BACKLIGHT_HELPER,
+		glib-2.0 >= $GLIB_REQUIRED_VERSION
+		gudev-1.0
+	)
+fi
 
 # ---------------------------------------------------------------------------
 # systemd

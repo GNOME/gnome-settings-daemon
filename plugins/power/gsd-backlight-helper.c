@@ -28,125 +28,59 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <gudev/gudev.h>
 
 #define GSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS			0
 #define GSD_BACKLIGHT_HELPER_EXIT_CODE_FAILED			1
 #define GSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID	3
 #define GSD_BACKLIGHT_HELPER_EXIT_CODE_INVALID_USER		4
 
-#define GSD_BACKLIGHT_HELPER_SYSFS_LOCATION			"/sys/class/backlight"
-
-typedef enum {
-	GS_BACKLIGHT_TYPE_UNKNOWN,
-	GS_BACKLIGHT_TYPE_FIRMWARE,
-	GS_BACKLIGHT_TYPE_PLATFORM,
-	GS_BACKLIGHT_TYPE_RAW
-} GsdBacklightType;
-
-static GsdBacklightType
-gsd_backlight_helper_get_type (const gchar *sysfs_path)
+static gchar *
+gsd_backlight_helper_get_type (GList *devices, const gchar *type)
 {
-	gboolean ret;
-	gchar *filename = NULL;
-	GError *error = NULL;
-	gchar *type_tmp = NULL;
-	GsdBacklightType type = GS_BACKLIGHT_TYPE_UNKNOWN;
+	const gchar *type_tmp;
+	GList *d;
 
-	filename = g_build_filename (sysfs_path,
-				     "type", NULL);
-	ret = g_file_get_contents (filename,
-				   &type_tmp,
-				   NULL, &error);
-	if (!ret) {
-		g_warning ("failed to get type: %s", error->message);
-		g_error_free (error);
-		goto out;
+	for (d = devices; d != NULL; d = d->next) {
+		type_tmp = g_udev_device_get_sysfs_attr (d->data, "type");
+		if (g_strcmp0 (type_tmp, type) == 0)
+			return g_strdup (g_udev_device_get_sysfs_path (d->data));
 	}
-	if (g_str_has_prefix (type_tmp, "platform")) {
-		type = GS_BACKLIGHT_TYPE_PLATFORM;
-		goto out;
-	}
-	if (g_str_has_prefix (type_tmp, "firmware")) {
-		type = GS_BACKLIGHT_TYPE_FIRMWARE;
-		goto out;
-	}
-	if (g_str_has_prefix (type_tmp, "raw")) {
-		type = GS_BACKLIGHT_TYPE_RAW;
-		goto out;
-	}
-out:
-	g_free (filename);
-	g_free (type_tmp);
-	return type;
+	return NULL;
 }
 
 static gchar *
 gsd_backlight_helper_get_best_backlight ()
 {
-	const gchar *device_name;
-	const gchar *filename_tmp;
-	gchar *best_device = NULL;
-	gchar *filename = NULL;
-	GDir *dir = NULL;
+	gchar *path = NULL;
 	GError *error = NULL;
-	GPtrArray *sysfs_paths = NULL;
-	GsdBacklightType *backlight_types = NULL;
-	guint i;
+	GList *devices;
+	GUdevClient *client;
 
-	/* search the backlight devices and prefer the types:
-	 * firmware -> platform -> raw */
-	dir = g_dir_open (GSD_BACKLIGHT_HELPER_SYSFS_LOCATION, 0, &error);
-	if (dir == NULL) {
+	client = g_udev_client_new (NULL);
+	devices = g_udev_client_query_by_subsystem (client, "backlight");
+	if (devices == NULL) {
 		g_warning ("failed to find any devices: %s", error->message);
 		g_error_free (error);
 		goto out;
 	}
-	sysfs_paths = g_ptr_array_new_with_free_func (g_free);
-	device_name = g_dir_read_name (dir);
-	while (device_name != NULL) {
-		filename = g_build_filename (GSD_BACKLIGHT_HELPER_SYSFS_LOCATION,
-					     device_name, NULL);
-		g_ptr_array_add (sysfs_paths, filename);
-		device_name = g_dir_read_name (dir);
-	}
 
-	/* no backlights */
-	if (sysfs_paths->len == 0)
+	/* search the backlight devices and prefer the types:
+	 * firmware -> platform -> raw */
+	path = gsd_backlight_helper_get_type (devices, "firmware");
+	if (path != NULL)
 		goto out;
-
-	/* find out the type of each backlight */
-	backlight_types = g_new0 (GsdBacklightType, sysfs_paths->len);
-	for (i = 0; i < sysfs_paths->len; i++) {
-		filename_tmp = g_ptr_array_index (sysfs_paths, i);
-		backlight_types[i] = gsd_backlight_helper_get_type (filename_tmp);
-	}
-
-	/* any devices of type firmware -> platform -> raw? */
-	for (i = 0; i < sysfs_paths->len; i++) {
-		if (backlight_types[i] == GS_BACKLIGHT_TYPE_FIRMWARE) {
-			best_device = g_strdup (g_ptr_array_index (sysfs_paths, i));
-			goto out;
-		}
-	}
-	for (i = 0; i < sysfs_paths->len; i++) {
-		if (backlight_types[i] == GS_BACKLIGHT_TYPE_PLATFORM) {
-			best_device = g_strdup (g_ptr_array_index (sysfs_paths, i));
-			goto out;
-		}
-	}
-	for (i = 0; i < sysfs_paths->len; i++) {
-		if (backlight_types[i] == GS_BACKLIGHT_TYPE_RAW) {
-			best_device = g_strdup (g_ptr_array_index (sysfs_paths, i));
-			goto out;
-		}
-	}
+	path = gsd_backlight_helper_get_type (devices, "platform");
+	if (path != NULL)
+		goto out;
+	path = gsd_backlight_helper_get_type (devices, "raw");
+	if (path != NULL)
+		goto out;
 out:
-	g_free (backlight_types);
-	if (sysfs_paths != NULL)
-		g_ptr_array_unref (sysfs_paths);
-	if (dir != NULL)
-		g_dir_close (dir);
-	return best_device;
+	g_object_unref (client);
+	g_list_foreach (devices, (GFunc) g_object_unref, NULL);
+	g_list_free (devices);
+	return path;
 }
 
 static gboolean

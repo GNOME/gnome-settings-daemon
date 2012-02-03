@@ -57,22 +57,28 @@ polkit_policydir = $(datadir)/polkit-1/actions
 polkit_policy_in_files = org.gnome.settings-daemon.plugins.power.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
-libexec_PROGRAMS =					\
-	gsd-backlight-helper
-
+# so it always gets included in the tarball
 gsd_backlight_helper_SOURCES =				\
 	gsd-backlight-helper.c
 
+EXTRA_DIST = 						\
+	$(plugin_in_files)				\
+	$(gsd_backlight_helper_SOURCES)
+
+if HAVE_GUDEV
+libexec_PROGRAMS =					\
+	gsd-backlight-helper
+
 gsd_backlight_helper_LDFLAGS =				\
-	$(BACKLIGHT_HELPER_LIBS)				\
+	$(BACKLIGHT_HELPER_LIBS)			\
 	-lm
 
 gsd_backlight_helper_CFLAGS =				\
 	$(BACKLIGHT_HELPER_CFLAGS)
 
-EXTRA_DIST = 						\
-	org.gnome.settings-daemon.plugins.power.policy.in.in \
-	$(plugin_in_files)
+EXTRA_DIST += 						\
+	org.gnome.settings-daemon.plugins.power.policy.in.in
+endif
 
 clean-local:
 	rm -f *~
