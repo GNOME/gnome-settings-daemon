@@ -252,12 +252,13 @@ set_device_buttonmap (GsdWacomDevice *device,
 	XDevice *xdev;
 	gsize nmap;
 	const gint *intmap;
-	unsigned char map[WACOM_MAX_BUTTONS] = {};
+	unsigned char *map;
 	int i, j, rc;
 
 	xdev = open_device (device);
 
 	intmap = g_variant_get_fixed_array (value, &nmap, sizeof (gint32));
+	map = g_new0 (unsigned char, nmap);
 	for (i = 0; i < nmap && i < sizeof (map); i++)
 		map[i] = intmap[i];
         g_variant_unref (value);
@@ -275,6 +276,8 @@ set_device_buttonmap (GsdWacomDevice *device,
 
 	if (gdk_error_trap_pop () || rc != Success)
 		g_warning ("Error in setting button mapping for \"%s\"", gsd_wacom_device_get_tool_name (device));
+
+	g_free (map);
 
 	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
 }
