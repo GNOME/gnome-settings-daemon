@@ -382,7 +382,6 @@ get_device_type (XDeviceInfo *dev)
                 pad = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "PAD", False);
         if (!touch)
                 touch = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "TOUCH", False);
-        /* FIXME: Add touch type? */
         if (!prop)
 		prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Wacom Tool Type", False);
 
