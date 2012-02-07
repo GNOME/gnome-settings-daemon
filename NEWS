@@ -1,4 +1,50 @@
 =============
+Version 3.3.5
+=============
+
+Build:
+- Remove unused date & time mechanism. gnome-control-center
+  uses a different API, provided by systemd on some systems.
+
+A11y keyboard:
+- Reduce the number of settings updates on startup
+
+Power:
+- Require a newer upower
+- Optionally use systemd to shutdown when power is low
+- Use GDBusProxy-compatible PropertiesChanged signal
+- Fix "<br>" appearing in notification popups
+
+Wacom:
+- Add a way to get/set the screen associated with a tablet
+- Don't crash when using a generic tablet
+- Add support for the puck and touch device types
+- Add support for enumerating tablet buttons
+
+Printers:
+- Also notify for unknown error reasons
+- Unify printer name usage
+
+Color:
+- Set the brightness of the display if it was saved as
+  metadata in the color profile
+
+Media keys, XSettings, Updates:
+- Fix possible crashes on exit
+
+Housekeeping, Wacom, XSettings:
+- Fix memory leaks
+
+Media keys:
+- Add screenshot keyboard shortcuts
+
+Keyboard:
+- Don't save num-lock state when caps-lock changes
+
+Automounter:
+- Optionally use systemd to check for active seat
+
+=============
 Version 3.3.4
 =============
 
