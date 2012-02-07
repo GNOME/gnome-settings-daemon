@@ -89,6 +89,24 @@ guint            gsd_wacom_stylus_get_num_buttons(GsdWacomStylus *stylus);
 int              gsd_wacom_stylus_get_id         (GsdWacomStylus *stylus);
 GsdWacomStylusType gsd_wacom_stylus_get_stylus_type (GsdWacomStylus *stylus);
 
+/* Tablet Buttons */
+typedef enum {
+	WACOM_TABLET_BUTTON_TYPE_NORMAL,
+	WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
+	WACOM_TABLET_BUTTON_TYPE_HARDCODED
+} GsdWacomTabletButtonType;
+
+typedef struct
+{
+	char                     *name;
+	char                     *id;
+	GsdWacomTabletButtonType  type;
+	int                       group_id;
+} GsdWacomTabletButton;
+
+void                  gsd_wacom_tablet_button_free (GsdWacomTabletButton *button);
+GsdWacomTabletButton *gsd_wacom_tablet_button_copy (GsdWacomTabletButton *button);
+
 /* Device types to apply a setting to */
 typedef enum {
 	WACOM_TYPE_INVALID =     0,
@@ -122,6 +140,7 @@ GsdWacomStylus * gsd_wacom_device_get_stylus_for_type (GsdWacomDevice     *devic
 GsdWacomDeviceType gsd_wacom_device_get_device_type (GsdWacomDevice *device);
 gint           * gsd_wacom_device_get_area          (GsdWacomDevice *device);
 const char     * gsd_wacom_device_type_to_string    (GsdWacomDeviceType type);
+GList          * gsd_wacom_device_get_buttons       (GsdWacomDevice *device);
 
 /* Helper and debug functions */
 GsdWacomDevice * gsd_wacom_device_create_fake (GsdWacomDeviceType  type,
