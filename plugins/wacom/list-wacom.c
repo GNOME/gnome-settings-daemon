@@ -73,6 +73,21 @@ stylus_type_to_string (GsdWacomStylusType type)
 	return NULL;
 }
 
+static const char *
+button_type_to_string (GsdWacomTabletButtonType type)
+{
+	switch (type) {
+	case WACOM_TABLET_BUTTON_TYPE_NORMAL:
+		return "normal";
+	case WACOM_TABLET_BUTTON_TYPE_ELEVATOR:
+		return "elevator";
+	case WACOM_TABLET_BUTTON_TYPE_HARDCODED:
+		return "hard-coded";
+	default:
+		g_assert_not_reached ();
+	}
+}
+
 #define BOOL_AS_STR(x) (x ? "yes" : "no")
 
 static void
@@ -112,6 +127,31 @@ print_stylus (GsdWacomStylus *stylus,
 		g_print ("\t\tButtons: %s\n", buttons);
 		g_free (buttons);
 	}
+}
+
+static void
+print_buttons (GsdWacomDevice *device)
+{
+	GList *buttons, *l;
+
+	buttons = gsd_wacom_device_get_buttons (device);
+	if (buttons == NULL)
+		return;
+
+	g_print ("\tButtons:\n");
+	for (l = buttons; l != NULL; l = l->next) {
+		GsdWacomTabletButton *button = l->data;
+
+		g_print ("\t\t%s ('%s', type: %s",
+			 button->name,
+			 button->id,
+			 button_type_to_string (button->type));
+		if (button->group_id > 0)
+			g_print (", group: %d)\n", button->group_id);
+		else
+			g_print (")\n");
+	}
+	g_list_free (buttons);
 }
 
 static void
@@ -171,6 +211,8 @@ list_devices (GList *devices)
 			}
 			g_list_free (styli);
 		}
+
+		print_buttons (device);
 
 		if (monitor_styli == FALSE)
 			g_object_unref (device);
