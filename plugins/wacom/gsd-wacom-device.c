@@ -1109,6 +1109,8 @@ gsd_wacom_device_get_area (GsdWacomDevice *device)
 	unsigned char *data = NULL;
 	gint *device_area;
 
+	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), NULL);
+
 	g_object_get (device->priv->gdk_device, "device-id", &id, NULL);
 
 	area = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Wacom Tablet Area", False);
