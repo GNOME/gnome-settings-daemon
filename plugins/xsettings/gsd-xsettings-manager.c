@@ -669,7 +669,6 @@ notify_have_shell (GnomeXSettingsManager   *manager,
                    gboolean                 have_shell)
 {
         int i;
-        int timestamp = time (NULL);
 
         gnome_settings_profile_start (NULL);
 
