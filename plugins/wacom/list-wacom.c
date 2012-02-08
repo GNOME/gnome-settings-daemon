@@ -138,18 +138,19 @@ print_buttons (GsdWacomDevice *device)
 	if (buttons == NULL)
 		return;
 
-	g_print ("\tButtons:\n");
 	for (l = buttons; l != NULL; l = l->next) {
 		GsdWacomTabletButton *button = l->data;
 
-		g_print ("\t\t%s ('%s', type: %s",
-			 button->name,
-			 button->id,
-			 button_type_to_string (button->type));
+		g_print ("\tButton: %s (%s)\n", button->name, button->id);
+		g_print ("\t\tType: %s\n", button_type_to_string (button->type));
 		if (button->group_id > 0)
-			g_print (", group: %d)\n", button->group_id);
-		else
-			g_print (")\n");
+			g_print ("\t\tGroup: %d\n", button->group_id);
+		if (button->settings) {
+			char *loc;
+			loc = get_loc (button->settings);
+			g_print ("\t\tSettings: %s\n", loc);
+			g_free (loc);
+		}
 	}
 	g_list_free (buttons);
 }
