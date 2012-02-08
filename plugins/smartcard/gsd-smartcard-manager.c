@@ -359,11 +359,6 @@ gsd_smartcard_manager_init (GsdSmartcardManager *manager)
                                        g_str_equal,
                                        (GDestroyNotify) g_free,
                                        (GDestroyNotify) g_object_unref);
-
-        if (!g_thread_supported ()) {
-                g_thread_init (NULL);
-        }
-
 }
 
 static void
