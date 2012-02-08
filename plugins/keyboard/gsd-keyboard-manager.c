@@ -135,7 +135,7 @@ numlock_set_xkb_state (GsdNumLockState new_state)
         if (new_state != GSD_NUM_LOCK_STATE_ON && new_state != GSD_NUM_LOCK_STATE_OFF)
                 return;
         num_mask = numlock_NumLock_modifier_mask ();
-        XkbLockModifiers (dpy, XkbUseCoreKbd, num_mask, new_state ? num_mask : 0);
+        XkbLockModifiers (dpy, XkbUseCoreKbd, num_mask, new_state == GSD_NUM_LOCK_STATE_ON ? num_mask : 0);
 }
 
 static GdkFilterReturn
