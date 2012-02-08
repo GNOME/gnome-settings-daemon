@@ -100,8 +100,6 @@ gcm_test_edid_func (void)
 int
 main (int argc, char **argv)
 {
-        if (! g_thread_supported ())
-                g_thread_init (NULL);
         gtk_init (&argc, &argv);
         g_test_init (&argc, &argv, NULL);
 
