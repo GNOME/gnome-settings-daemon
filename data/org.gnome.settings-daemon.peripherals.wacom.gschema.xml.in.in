@@ -87,4 +87,16 @@
       <_description>Set this to the pressure value at which an eraser click event is generated.</_description>
     </key>
   </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.tablet-button">
+    <key name="action-type" enum="org.gnome.settings-daemon.GsdWacomActionType">
+      <default>'none'</default>
+      <_summary>Wacom button action type</_summary>
+      <_description>The type of action triggered by the button being pressed.</_description>
+    </key>
+    <key name="custom-action" type="s">
+      <default>''</default>
+      <_summary>Key combination for the custom action</_summary>
+      <_description>The keyboard shortcut generated when the button is pressed for custom actions.</_description>
+    </key>
+  </schema>
 </schemalist>
