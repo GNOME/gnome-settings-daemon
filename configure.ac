@@ -43,7 +43,6 @@ dnl ---------------------------------------------------------------------------
 dnl - Dependencies
 dnl ---------------------------------------------------------------------------
 
-DBUS_GLIB_REQUIRED_VERSION=0.74
 GLIB_REQUIRED_VERSION=2.29.14
 GTK_REQUIRED_VERSION=3.3.4
 GCONF_REQUIRED_VERSION=2.6.1
