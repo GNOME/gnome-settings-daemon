@@ -46,6 +46,10 @@ gboolean        key_uses_keycode (const Key *key,
 Key *           parse_key        (const char    *str);
 void            free_key         (Key           *key);
 
+void            grab_button      (int      deviceid,
+                                  gboolean grab,
+                                  GSList  *screens);
+
 G_END_DECLS
 
 #endif /* __GSD_COMMON_KEYGRAB_H */

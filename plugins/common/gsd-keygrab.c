@@ -366,3 +366,59 @@ free_key (Key *key)
 	g_free (key->keycodes);
 	g_free (key);
 }
+
+static void
+grab_button_real (int        deviceid,
+		  gboolean   grab,
+		  GdkWindow *root)
+{
+	XIGrabModifiers mods;
+
+	mods.modifiers = XIAnyModifier;
+
+	if (grab) {
+		XIEventMask evmask;
+		unsigned char mask[(XI_LASTEVENT + 7)/8];
+
+		memset (mask, 0, sizeof (mask));
+		XISetMask (mask, XI_ButtonRelease);
+
+		evmask.deviceid = deviceid;
+		evmask.mask_len = sizeof (mask);
+		evmask.mask = mask;
+
+		XIGrabButton (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+			      deviceid,
+			      XIAnyButton,
+			      GDK_WINDOW_XID (root),
+			      None,
+			      GrabModeAsync,
+			      GrabModeAsync,
+			      False,
+			      &evmask,
+			      1,
+			      &mods);
+	} else {
+		XIUngrabButton (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+				deviceid,
+				XIAnyButton,
+		                GDK_WINDOW_XID (root),
+				1, &mods);
+	}
+}
+
+void
+grab_button (int      deviceid,
+	     gboolean grab,
+	     GSList  *screens)
+{
+        GSList *l;
+
+        for (l = screens; l; l = l->next) {
+                GdkScreen *screen = l->data;
+
+		grab_button_real (deviceid,
+				  grab,
+				  gdk_screen_get_root_window (screen));
+        }
+}
