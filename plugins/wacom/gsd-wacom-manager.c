@@ -38,6 +38,7 @@
 
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
+#include "gsd-keygrab.h"
 #include "gnome-settings-profile.h"
 #include "gsd-wacom-manager.h"
 #include "gsd-wacom-device.h"
@@ -49,7 +50,6 @@
 #define KEY_TPCBUTTON           "tablet-pc-button"
 #define KEY_IS_ABSOLUTE         "is-absolute"
 #define KEY_AREA                "area"
-#define KEY_PAD_BUTTON_MAPPING  "pad-buttonmapping"
 #define KEY_DISPLAY             "display"
 
 /* Stylus and Eraser settings */
@@ -67,6 +67,10 @@ struct GsdWacomManagerPrivate
         guint device_added_id;
         guint device_removed_id;
         GHashTable *devices;
+
+        /* button capture */
+        GSList *screens;
+        int      opcode;
 };
 
 static void     gsd_wacom_manager_class_init  (GsdWacomManagerClass *klass);
@@ -363,6 +367,71 @@ apply_stylus_settings (GsdWacomDevice *device)
 	set_pressurethreshold (device, threshold);
 }
 
+static struct {
+	const char *button;
+	int         num;
+} def_buttons[] = {
+	/* Touchrings */
+	{ "AbsWheelUp", 90 },
+	{ "AbsWheelDown", 91 },
+	{ "AbsWheel2Up", 92 },
+	{ "AbsWheel2Down", 93 },
+	/* Touchstrips */
+	{ "StripLeftUp", 94 },
+	{ "StripLeftDown", 95 },
+	{ "StripRightUp", 96 },
+	{ "StripRightDown", 97 }
+};
+
+static void
+reset_pad_buttons (GsdWacomDevice *device)
+{
+	XDevice *xdev;
+	int nmap;
+	unsigned char *map;
+	int i, j, rc;
+
+	/* Normal buttons */
+	xdev = open_device (device);
+
+	gdk_error_trap_push ();
+
+	nmap = 256;
+	map = g_new0 (unsigned char, nmap);
+	for (i = 0; i < nmap && i < sizeof (map); i++)
+		map[i] = i + 1;
+
+	/* X refuses to change the mapping while buttons are engaged,
+	 * so if this is the case we'll retry a few times */
+	for (j = 0;
+	     j < 20 && (rc = XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, map, nmap)) == MappingBusy;
+	     ++j) {
+		g_usleep (300);
+	}
+
+	if (gdk_error_trap_pop () || rc != Success)
+		g_warning ("Error in resetting button mapping for \"%s\"", gsd_wacom_device_get_tool_name (device));
+
+	g_free (map);
+
+	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
+
+	/* Touchring and touchstrip buttons
+	 * FIXME implement this without using xsetwacom */
+	for (i = 0; i < G_N_ELEMENTS (def_buttons); i++) {
+		char *cmd;
+
+		cmd = g_strdup_printf ("xsetwacom --set \"%s\" \"%s\" %d",
+				       gsd_wacom_device_get_tool_name (device),
+				       def_buttons[i].button,
+				       def_buttons[i].num);
+		g_spawn_command_line_sync (cmd, NULL, NULL, NULL, NULL);
+		g_free (cmd);
+	}
+
+	/* FIXME, set the LED(s) for the mode(s) too */
+}
+
 static void
 set_wacom_settings (GsdWacomManager *manager,
 		    GsdWacomDevice  *device)
@@ -395,7 +464,11 @@ set_wacom_settings (GsdWacomManager *manager,
 	}
 
 	if (type == WACOM_TYPE_PAD) {
-		set_device_buttonmap (device, g_settings_get_value (settings, KEY_PAD_BUTTON_MAPPING));
+		int id;
+
+		id = get_device_id (device);
+		reset_pad_buttons (device);
+		grab_button (id, TRUE, manager->priv->screens);
 		return;
 	}
 
@@ -436,9 +509,6 @@ wacom_settings_changed (GSettings      *settings,
 		if (type != WACOM_TYPE_CURSOR &&
 		    type != WACOM_TYPE_PAD)
 			set_area (device, g_settings_get_value (settings, key));
-	} else if (g_str_equal (key, KEY_PAD_BUTTON_MAPPING)) {
-		if (type == WACOM_TYPE_PAD)
-			set_device_buttonmap (device, g_settings_get_value (settings, key));
 	} else if (g_str_equal (key, KEY_DISPLAY)) {
 		if (type != WACOM_TYPE_CURSOR &&
 		    type != WACOM_TYPE_PAD)
@@ -545,6 +615,87 @@ device_removed_cb (GdkDeviceManager *device_manager,
 	g_hash_table_remove (manager->priv->devices, gdk_device);
 }
 
+static GsdWacomDevice *
+device_id_to_device (GsdWacomManager *manager,
+		     int              deviceid)
+{
+	GList *devices, *l;
+	GsdWacomDevice *ret;
+
+	ret = NULL;
+	devices = g_hash_table_get_keys (manager->priv->devices);
+
+	for (l = devices; l != NULL; l = l->next) {
+		GdkDevice *device = l->data;
+		int id;
+
+		g_object_get (device, "device-id", &id, NULL);
+		if (id == deviceid) {
+			ret = g_hash_table_lookup (manager->priv->devices, device);
+			break;
+		}
+	}
+
+	g_list_free (devices);
+	return ret;
+}
+
+static GdkFilterReturn
+filter_button_events (XEvent          *xevent,
+                      GdkEvent        *event,
+                      GsdWacomManager *manager)
+{
+	XIEvent             *xiev;
+	XIDeviceEvent       *xev;
+	XGenericEventCookie *cookie;
+	guint                deviceid;
+	GsdWacomDevice      *device;
+	int                  button;
+	GsdWacomTabletButton *wbutton;
+	GtkDirectionType      dir;
+
+        /* verify we have a key event */
+	if (xevent->type != GenericEvent)
+		return GDK_FILTER_CONTINUE;
+	cookie = &xevent->xcookie;
+	if (cookie->extension != manager->priv->opcode)
+		return GDK_FILTER_CONTINUE;
+
+	xiev = (XIEvent *) xevent->xcookie.data;
+
+	if (xiev->evtype != XI_ButtonRelease)
+		return GDK_FILTER_CONTINUE;
+
+	xev = (XIDeviceEvent *) xiev;
+
+	deviceid = xev->sourceid;
+	device = device_id_to_device (manager, deviceid);
+	if (gsd_wacom_device_get_device_type (device) != WACOM_TYPE_PAD)
+		return GDK_FILTER_CONTINUE;
+
+	button = xev->detail;
+
+	/* FIXME, we'll also need to pass the current mode(s) */
+	wbutton = gsd_wacom_device_get_button (device, button, &dir);
+	if (wbutton == NULL) {
+		g_warning ("Could not find matching button for '%d' on '%s'",
+			   button, gsd_wacom_device_get_name (device));
+		return GDK_FILTER_CONTINUE;
+	}
+
+	g_message ("Received event button '%s'%s ('%d') on device '%s' ('%d')",
+		   wbutton->id,
+		   wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR ?
+		   (dir == GTK_DIR_UP ? " 'up'" : " 'down'") : "",
+		   button,
+		   gsd_wacom_device_get_name (device),
+		   deviceid);
+
+	/* FIXME implement */
+
+	return GDK_FILTER_REMOVE;
+}
+
 static void
 set_devicepresence_handler (GsdWacomManager *manager)
 {
@@ -571,6 +722,7 @@ static gboolean
 gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 {
 	GList *devices, *l;
+	GSList *ls;
 
         gnome_settings_profile_start (NULL);
 
@@ -583,11 +735,36 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 		device_added_cb (manager->priv->device_manager, l->data, manager);
         g_list_free (devices);
 
+        /* Start filtering the button events */
+        for (ls = manager->priv->screens; ls != NULL; ls = ls->next) {
+                gdk_window_add_filter (gdk_screen_get_root_window (ls->data),
+                                       (GdkFilterFunc) filter_button_events,
+                                       manager);
+        }
+
         gnome_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
 
         return FALSE;
+}
+
+static void
+init_screens (GsdWacomManager *manager)
+{
+        GdkDisplay *display;
+        int i;
+
+        display = gdk_display_get_default ();
+        for (i = 0; i < gdk_display_get_n_screens (display); i++) {
+                GdkScreen *screen;
+
+                screen = gdk_display_get_screen (display, i);
+                if (screen == NULL) {
+                        continue;
+                }
+                manager->priv->screens = g_slist_append (manager->priv->screens, screen);
+        }
 }
 
 gboolean
@@ -596,10 +773,12 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
-        if (supports_xinput2_devices (NULL) == FALSE) {
+        if (supports_xinput2_devices (&manager->priv->opcode) == FALSE) {
                 g_debug ("No Xinput2 support, disabling plugin");
                 return TRUE;
         }
+
+        init_screens (manager);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
 
@@ -612,6 +791,7 @@ void
 gsd_wacom_manager_stop (GsdWacomManager *manager)
 {
         GsdWacomManagerPrivate *p = manager->priv;
+        GSList *ls;
 
         g_debug ("Stopping wacom manager");
 
@@ -619,6 +799,12 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
                 g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
                 p->device_manager = NULL;
+        }
+
+        for (ls = p->screens; ls != NULL; ls = ls->next) {
+                gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
+                                          (GdkFilterFunc) filter_button_events,
+                                          manager);
         }
 }
 
@@ -637,6 +823,11 @@ gsd_wacom_manager_finalize (GObject *object)
         if (wacom_manager->priv->devices) {
                 g_hash_table_destroy (wacom_manager->priv->devices);
                 wacom_manager->priv->devices = NULL;
+        }
+
+        if (wacom_manager->priv->screens != NULL) {
+                g_slist_free (wacom_manager->priv->screens);
+                wacom_manager->priv->screens = NULL;
         }
 
         if (wacom_manager->priv->start_idle_id != 0)
