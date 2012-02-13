@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-07 20:13+0100\n"
-"PO-Revision-Date: 2012-02-07 20:15+0100\n"
+"POT-Creation-Date: 2012-02-13 03:09+0100\n"
+"PO-Revision-Date: 2012-02-13 03:11+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -331,6 +331,25 @@ msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
 "Activar isto ao valor de presión no que se xera o evento de clic do borrador."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom button action type"
+msgstr "Wacom: tipo de acción do botón"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "The type of action triggered by the button being pressed."
+msgstr "O tipo de acción que realizar ao premer o botón."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Key combination for the custom action"
+msgstr "Combinación de teclas para a acción personalizada"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid ""
+"The keyboard shortcut generated when the button is pressed for custom "
+"actions."
+msgstr ""
+"O atallo de teclado xerado ao premer o botón para accións personalizadas."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 msgid "The duration a display profile is valid"
@@ -2871,32 +2890,32 @@ msgstr "Notificacións da impresora"
 msgid "Print-notifications plugin"
 msgstr "Engadido de notificacións da impresora"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:528
+#: ../plugins/smartcard/gsd-smartcard-manager.c:523
 msgid "received error or hang up from event source"
 msgstr "recibiuse un erro ou un colgue desde o evento orixe"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#: ../plugins/smartcard/gsd-smartcard-manager.c:657
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "Non foi posíbel inicializar o sistema de seguranza NSS"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:790
+#: ../plugins/smartcard/gsd-smartcard-manager.c:785
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr ""
 "non foi posíbel atopar un controlador axeitado para a tarxeta intelixente"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:804
+#: ../plugins/smartcard/gsd-smartcard-manager.c:799
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "non foi posíbel cargar o controlador «%s» da tarxeta intelixente"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:876
+#: ../plugins/smartcard/gsd-smartcard-manager.c:871
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "non foi posíbel monitorizar os eventos entrantes de tarxetas - %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1269
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr ""
@@ -3087,67 +3106,67 @@ msgstr "Tentar de novo"
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Estase executando unha transacción que non se pode interromper"
 
-#: ../plugins/wacom/gsd-wacom-device.c:790
+#: ../plugins/wacom/gsd-wacom-device.c:876
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Modo de anel esquerdo nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:797
+#: ../plugins/wacom/gsd-wacom-device.c:883
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Modo de anel dereito nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:824
+#: ../plugins/wacom/gsd-wacom-device.c:911
 #, c-format
 msgid "Left Touchstrip Mode #%d"
-msgstr ""
+msgstr "Modo da banda táctil esquerda nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:831
+#: ../plugins/wacom/gsd-wacom-device.c:918
 #, c-format
 msgid "Right Touchstrip Mode #%d"
-msgstr ""
+msgstr "Modo da banda táctil dereita nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:846
+#: ../plugins/wacom/gsd-wacom-device.c:933
 #, c-format
 msgid "Left Touchring Mode Switch"
-msgstr ""
+msgstr "Modo de cambio do anel táctil esquerdo"
 
-#: ../plugins/wacom/gsd-wacom-device.c:848
+#: ../plugins/wacom/gsd-wacom-device.c:935
 #, c-format
 msgid "Right Touchring Mode Switch"
-msgstr ""
+msgstr "Modo de cambio do anel táctil dereito"
 
-#: ../plugins/wacom/gsd-wacom-device.c:851
+#: ../plugins/wacom/gsd-wacom-device.c:938
 #, c-format
 msgid "Left Touchstrip Mode Switch"
-msgstr ""
+msgstr "Modo de cambio da banda táctil esquerda"
 
-#: ../plugins/wacom/gsd-wacom-device.c:853
+#: ../plugins/wacom/gsd-wacom-device.c:940
 #, c-format
 msgid "Right Touchstrip Mode Switch"
-msgstr ""
+msgstr "Modo de cambio da banda táctil dereita"
 
-#: ../plugins/wacom/gsd-wacom-device.c:858
+#: ../plugins/wacom/gsd-wacom-device.c:945
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Modo conmutador #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:928
+#: ../plugins/wacom/gsd-wacom-device.c:1017
 #, c-format
 msgid "Left Button #%d"
 msgstr "Botón esquerdo nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:931
+#: ../plugins/wacom/gsd-wacom-device.c:1020
 #, c-format
 msgid "Right Button #%d"
 msgstr "Botón dereito nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:934
+#: ../plugins/wacom/gsd-wacom-device.c:1023
 #, c-format
 msgid "Top Button #%d"
 msgstr "Botón superior nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:937
+#: ../plugins/wacom/gsd-wacom-device.c:1026
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Botón inferior nº %d"
