@@ -1014,16 +1014,16 @@ gsd_wacom_device_add_buttons (GsdWacomDevice *device,
 
 	ret = NULL;
 
-	l = gsd_wacom_device_add_buttons_dir (wacom_device, settings_path, WACOM_BUTTON_POSITION_LEFT, _("Left Button #%d"), "left-button");
+	l = gsd_wacom_device_add_buttons_dir (wacom_device, settings_path, WACOM_BUTTON_POSITION_LEFT, _("Left Button #%d"), "button");
 	if (l)
 		ret = l;
-	l = gsd_wacom_device_add_buttons_dir (wacom_device, settings_path, WACOM_BUTTON_POSITION_RIGHT, _("Right Button #%d"), "right-button");
+	l = gsd_wacom_device_add_buttons_dir (wacom_device, settings_path, WACOM_BUTTON_POSITION_RIGHT, _("Right Button #%d"), "button");
 	if (l)
 		ret = g_list_concat (ret, l);
-	l = gsd_wacom_device_add_buttons_dir (wacom_device, settings_path, WACOM_BUTTON_POSITION_TOP, _("Top Button #%d"), "top-button");
+	l = gsd_wacom_device_add_buttons_dir (wacom_device, settings_path, WACOM_BUTTON_POSITION_TOP, _("Top Button #%d"), "button");
 	if (l)
 		ret = g_list_concat (ret, l);
-	l = gsd_wacom_device_add_buttons_dir (wacom_device, settings_path, WACOM_BUTTON_POSITION_BOTTOM, _("Bottom Button #%d"), "bottom-button");
+	l = gsd_wacom_device_add_buttons_dir (wacom_device, settings_path, WACOM_BUTTON_POSITION_BOTTOM, _("Bottom Button #%d"), "button");
 	if (l)
 		ret = g_list_concat (ret, l);
 
