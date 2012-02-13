@@ -57,6 +57,9 @@
 #define KEY_PRESSURETHRESHOLD   "pressurethreshold"
 #define KEY_PRESSURECURVE       "pressurecurve"
 
+/* Button settings */
+#define KEY_ACTION_TYPE         "action-type"
+
 /* See "Wacom Pressure Threshold" */
 #define DEFAULT_PRESSURE_THRESHOLD 27
 
@@ -691,7 +694,10 @@ filter_button_events (XEvent          *xevent,
 		   gsd_wacom_device_get_name (device),
 		   deviceid);
 
-	/* FIXME implement */
+	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == GSD_WACOM_ACTION_TYPE_NONE)
+		return GDK_FILTER_REMOVE;
+
+	/* FIXME implement custom action type */
 
 	return GDK_FILTER_REMOVE;
 }
