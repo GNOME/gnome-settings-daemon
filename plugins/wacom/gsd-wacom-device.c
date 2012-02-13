@@ -1492,6 +1492,80 @@ gsd_wacom_device_get_buttons (GsdWacomDevice *device)
 	return g_list_copy (device->priv->buttons);
 }
 
+static GsdWacomTabletButton *
+find_button_with_id (GsdWacomDevice *device,
+		     const char     *id)
+{
+	GList *l;
+
+	for (l = device->priv->buttons; l != NULL; l = l->next) {
+		GsdWacomTabletButton *button = l->data;
+
+		if (g_strcmp0 (button->id, id) == 0)
+			return button;
+	}
+	return NULL;
+}
+
+GsdWacomTabletButton *
+gsd_wacom_device_get_button (GsdWacomDevice   *device,
+			     int               button,
+			     GtkDirectionType *dir)
+{
+	if (button <= 26) {
+		char *id;
+		GsdWacomTabletButton *ret;
+		int physical_button;
+
+		/* mouse_button = physical_button < 4 ? physical_button : physical_button + 4 */
+		if (button > 4)
+			physical_button = button - 4;
+		else
+			physical_button = button;
+
+		id = g_strdup_printf ("button%c", 'A' + physical_button - 1);
+		ret = find_button_with_id (device, id);
+		g_free (id);
+
+		return ret;
+	}
+
+	switch (button) {
+	case 90:
+	case 92:
+	case 94:
+	case 96:
+		*dir = GTK_DIR_UP;
+		break;
+	case 91:
+	case 93:
+	case 95:
+	case 97:
+		*dir = GTK_DIR_DOWN;
+		break;
+	default:
+		;;
+	}
+
+	/* FIXME handle the mode */
+	switch (button) {
+	case 90:
+	case 91:
+		return find_button_with_id (device, "left-ring-mode-1");
+	case 92:
+	case 93:
+		return find_button_with_id (device, "right-ring-mode-1");
+	case 94:
+	case 95:
+		return find_button_with_id (device, "left-strip-mode-1");
+	case 96:
+	case 97:
+		return find_button_with_id (device, "right-strip-mode-1");
+	default:
+		return NULL;
+	}
+}
+
 GsdWacomDevice *
 gsd_wacom_device_create_fake (GsdWacomDeviceType  type,
 			      const char         *name,
