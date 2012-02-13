@@ -96,6 +96,8 @@ typedef enum {
 	WACOM_TABLET_BUTTON_TYPE_HARDCODED
 } GsdWacomTabletButtonType;
 
+#define MAX_GROUP_ID 4
+
 typedef struct
 {
 	char                     *name;
