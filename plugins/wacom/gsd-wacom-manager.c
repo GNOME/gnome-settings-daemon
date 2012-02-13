@@ -109,17 +109,28 @@ gsd_wacom_manager_class_init (GsdWacomManagerClass *klass)
         g_type_class_add_private (klass, sizeof (GsdWacomManagerPrivate));
 }
 
-static XDevice *
-open_device (GsdWacomDevice *device)
+static int
+get_device_id (GsdWacomDevice *device)
 {
-	XDevice *xdev;
 	GdkDevice *gdk_device;
 	int id;
 
 	g_object_get (device, "gdk-device", &gdk_device, NULL);
 	if (gdk_device == NULL)
-		return NULL;
+		return -1;
 	g_object_get (gdk_device, "device-id", &id, NULL);
+	return id;
+}
+
+static XDevice *
+open_device (GsdWacomDevice *device)
+{
+	XDevice *xdev;
+	int id;
+
+	id = get_device_id (device);
+	if (id < 0)
+		return NULL;
 
 	gdk_error_trap_push ();
 	xdev = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), id);
