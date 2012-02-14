@@ -35,6 +35,8 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 #include <X11/Xatom.h>
+#include <X11/extensions/XTest.h>
+#include <X11/keysym.h>
 
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
@@ -644,6 +646,34 @@ device_id_to_device (GsdWacomManager *manager,
 	return ret;
 }
 
+struct {
+	guint mask;
+	KeySym keysym;
+} mods_keysyms[] = {
+	{ GDK_MOD1_MASK, XK_Alt_L },
+	{ GDK_SHIFT_MASK, XK_Shift_L },
+	{ GDK_CONTROL_MASK, XK_Control_L },
+};
+
+static void
+send_modifiers (Display *display,
+		XDevice *dev,
+		guint mask,
+		gboolean is_press)
+{
+	guint i;
+
+	for (i = 0; i < G_N_ELEMENTS(mods_keysyms); i++) {
+		if (mask & mods_keysyms[i].mask) {
+			guint keycode;
+
+			keycode = XKeysymToKeycode (display, mods_keysyms[i].keysym);
+			XTestFakeDeviceKeyEvent (display, dev, keycode,
+						 is_press ? True : False, NULL, 0, 0);
+		}
+	}
+}
+
 static GdkFilterReturn
 filter_button_events (XEvent          *xevent,
                       GdkEvent        *event,
@@ -657,6 +687,11 @@ filter_button_events (XEvent          *xevent,
 	int                  button;
 	GsdWacomTabletButton *wbutton;
 	GtkDirectionType      dir;
+	XDevice               dev;
+	char                 *str;
+	guint                 keyval;
+	guint                *keycodes;
+	guint                 mods;
 
         /* verify we have a key event */
 	if (xevent->type != GenericEvent)
@@ -708,7 +743,28 @@ filter_button_events (XEvent          *xevent,
 	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == GSD_WACOM_ACTION_TYPE_NONE)
 		return GDK_FILTER_REMOVE;
 
-	/* FIXME implement custom action type */
+	str = g_settings_get_string (wbutton->settings, KEY_CUSTOM_ACTION);
+	g_message ("about to send '%s'", str);
+	gtk_accelerator_parse_with_keycode (str, &keyval, &keycodes, &mods);
+
+	if (keycodes == NULL) {
+		g_warning ("Failed to find a keycode for shortcut '%s'", str);
+		g_free (str);
+		return GDK_FILTER_REMOVE;
+	}
+	g_free (str);
+
+	dev.device_id = deviceid; /* that's cheating, but whot did it first */
+
+	/* And send out the keys! */
+	send_modifiers (xev->display, &dev, mods, TRUE);
+	XTestFakeDeviceKeyEvent (xev->display, &dev, keycodes[0],
+				 True, NULL, 0, 0);
+	XTestFakeDeviceKeyEvent (xev->display, &dev, keycodes[0],
+				 False, NULL, 0, 0);
+	send_modifiers (xev->display, &dev, mods, FALSE);
+
+	g_free (keycodes);
 
 	return GDK_FILTER_REMOVE;
 }
@@ -788,10 +844,17 @@ gboolean
 gsd_wacom_manager_start (GsdWacomManager *manager,
                          GError         **error)
 {
+	int a, b, c, d;
+
         gnome_settings_profile_start (NULL);
 
         if (supports_xinput2_devices (&manager->priv->opcode) == FALSE) {
                 g_debug ("No Xinput2 support, disabling plugin");
+                return TRUE;
+        }
+
+        if (!XTestQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &a, &b, &c, &d)) {
+                g_debug ("No XTest extension support, disabling plugin");
                 return TRUE;
         }
 
