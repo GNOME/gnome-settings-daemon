@@ -382,6 +382,7 @@ grab_button_real (int        deviceid,
 
 		memset (mask, 0, sizeof (mask));
 		XISetMask (mask, XI_ButtonRelease);
+		XISetMask (mask, XI_ButtonPress);
 
 		evmask.deviceid = deviceid;
 		evmask.mask_len = sizeof (mask);
