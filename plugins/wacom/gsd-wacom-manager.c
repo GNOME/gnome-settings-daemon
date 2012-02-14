@@ -59,6 +59,7 @@
 
 /* Button settings */
 #define KEY_ACTION_TYPE         "action-type"
+#define KEY_CUSTOM_ACTION       "custom-action"
 
 /* See "Wacom Pressure Threshold" */
 #define DEFAULT_PRESSURE_THRESHOLD 27
@@ -695,6 +696,15 @@ filter_button_events (XEvent          *xevent,
 		   gsd_wacom_device_get_name (device),
 		   deviceid);
 
+	/* FIXME, don't know how to handle those yet */
+	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR)
+		return GDK_FILTER_REMOVE;
+
+	/* FIXME, we need to switch mode here */
+	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED)
+		return GDK_FILTER_REMOVE;
+
+	/* Nothing to do */
 	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == GSD_WACOM_ACTION_TYPE_NONE)
 		return GDK_FILTER_REMOVE;
 
