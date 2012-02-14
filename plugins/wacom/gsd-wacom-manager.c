@@ -666,7 +666,8 @@ filter_button_events (XEvent          *xevent,
 
 	xiev = (XIEvent *) xevent->xcookie.data;
 
-	if (xiev->evtype != XI_ButtonRelease)
+	if (xiev->evtype != XI_ButtonRelease &&
+	    xiev->evtype != XI_ButtonPress)
 		return GDK_FILTER_CONTINUE;
 
 	xev = (XIDeviceEvent *) xiev;
