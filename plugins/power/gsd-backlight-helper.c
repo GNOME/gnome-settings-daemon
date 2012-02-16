@@ -53,15 +53,13 @@ static gchar *
 gsd_backlight_helper_get_best_backlight ()
 {
 	gchar *path = NULL;
-	GError *error = NULL;
 	GList *devices;
 	GUdevClient *client;
 
 	client = g_udev_client_new (NULL);
 	devices = g_udev_client_query_by_subsystem (client, "backlight");
 	if (devices == NULL) {
-		g_warning ("failed to find any devices: %s", error->message);
-		g_error_free (error);
+		g_warning ("failed to find any devices");
 		goto out;
 	}
 
