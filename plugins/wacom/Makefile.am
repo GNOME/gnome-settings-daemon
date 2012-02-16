@@ -57,7 +57,7 @@ test_wacom_CFLAGS =			\
 	$(AM_CFLAGS)
 
 test_wacom_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
@@ -85,7 +85,7 @@ list_wacom_CFLAGS =			\
 	$(AM_CFLAGS)
 
 list_wacom_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\

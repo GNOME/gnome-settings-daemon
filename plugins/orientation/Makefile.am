@@ -18,7 +18,7 @@ test_orientation_CFLAGS =					\
 	$(AM_CFLAGS)
 
 test_orientation_LDADD =						\
-	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(GUDEV_LIBS)							\
 	$(SETTINGS_PLUGIN_LIBS)

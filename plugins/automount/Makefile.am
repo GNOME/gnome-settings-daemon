@@ -21,8 +21,7 @@ gnome_fallback_mount_helper_LDADD =	\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(SYSTEMD_LIBS)			\
 	$(AUTOMOUNT_LIBS)		\
-	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la \
-	$(top_builddir)/gnome-settings-daemon/libgsd-session.la
+	$(top_builddir)/gnome-settings-daemon/libgsd.la
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_in_files = gnome-fallback-mount-helper.desktop.in

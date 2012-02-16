@@ -33,7 +33,7 @@ libcolor_la_LDFLAGS = 			\
 	$(GSD_PLUGIN_LDFLAGS)
 
 libcolor_la_LIBADD  = 			\
-	$(top_builddir)/gnome-settings-daemon/libgsd-session.la	\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la	\
 	$(COLOR_LIBS)			\
 	$(LCMS_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)		\

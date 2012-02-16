@@ -38,7 +38,7 @@ libpower_la_LDFLAGS = 					\
 
 libpower_la_LIBADD  = 					\
 	$(top_builddir)/plugins/common/libcommon.la	\
-	$(top_builddir)/gnome-settings-daemon/libgsd-session.la \
+	$(top_builddir)/gnome-settings-daemon/libgsd.la \
 	$(UPOWER_LIBS)					\
 	$(GNOME_DESKTOP_LIBS)				\
 	$(KEYRING_LIBS)					\

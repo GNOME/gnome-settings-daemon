@@ -126,7 +126,7 @@ test_media_keys_CFLAGS = \
 	$(AM_CFLAGS)
 
 test_media_keys_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la		\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(SETTINGS_DAEMON_LIBS)			\

@@ -14,47 +14,28 @@ INCLUDES = \
 	$(SYSTEMD_CFLAGS)					\
 	$(NULL)
 
-noinst_LTLIBRARIES = 			\
-	libgsd-profile.la		\
-	libgsd-session.la		\
+pkglib_LTLIBRARIES = 			\
+	libgsd.la		\
 	$(NULL)
 
-libgsd_profile_la_SOURCES =		\
+libgsd_la_SOURCES =		\
 	gnome-settings-profile.c	\
 	gnome-settings-profile.h	\
-	$(NULL)
-
-libgsd_profile_la_CPPFLAGS = 		\
-	$(DISABLE_DEPRECATED_CFLAGS)	\
-	$(NULL)
-
-libgsd_profile_la_CFLAGS =		\
-	$(SIMPLE_GREETER_CFLAGS)	\
-	$(NULL)
-
-libgsd_profile_la_LIBADD =		\
-	$(NULL)
-
-libgsd_profile_la_LDFLAGS = 	\
-	-export-dynamic 	\
-	$(NULL)
-
-libgsd_session_la_SOURCES =		\
 	gnome-settings-session.c	\
 	gnome-settings-session.h	\
 	$(NULL)
 
-libgsd_session_la_CPPFLAGS = 		\
+libgsd_la_CPPFLAGS = 		\
 	$(DISABLE_DEPRECATED_CFLAGS)	\
 	$(NULL)
 
-libgsd_session_la_CFLAGS =		\
+libgsd_la_CFLAGS =		\
 	$(NULL)
 
-libgsd_session_la_LIBADD =		\
+libgsd_la_LIBADD =		\
 	$(NULL)
 
-libgsd_session_la_LDFLAGS = 	\
+libgsd_la_LDFLAGS = 	\
 	-export-dynamic 	\
 	$(NULL)
 
@@ -92,8 +73,7 @@ gnome_settings_daemon_LDFLAGS = 	\
 	$(AM_LDFLAGS)
 
 gnome_settings_daemon_LDADD = 		\
-	libgsd-profile.la		\
-	libgsd-session.la		\
+	libgsd.la		\
 	$(SETTINGS_DAEMON_LIBS)		\
 	$(LIBNOTIFY_LIBS)		\
 	$(UPOWER_LIBS)			\
