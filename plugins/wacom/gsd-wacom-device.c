@@ -566,7 +566,7 @@ find_output_by_display (GsdWacomDevice *device)
 	}
 
 	if (strlen(edid[0]) == 0 || strlen(edid[1]) == 0 || strlen(edid[2]) == 0) {
-		g_warning ("EDID not completely defined.");
+		g_debug ("EDID not completely defined.");
 		return NULL;
 	}
 
@@ -696,7 +696,7 @@ find_output (GsdWacomDevice *device)
 
 	if (rr_output_info == NULL)
 	{
-		g_warning ("No strict EDID match was found.");
+		g_debug ("No strict EDID match was found.");
 
 		if (gsd_wacom_device_is_screen_tablet (device))
 		{
