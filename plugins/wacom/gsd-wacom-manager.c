@@ -723,13 +723,13 @@ filter_button_events (XEvent          *xevent,
 		return GDK_FILTER_CONTINUE;
 	}
 
-	g_message ("Received event button '%s'%s ('%d') on device '%s' ('%d')",
-		   wbutton->id,
-		   wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR ?
-		   (dir == GTK_DIR_UP ? " 'up'" : " 'down'") : "",
-		   button,
-		   gsd_wacom_device_get_name (device),
-		   deviceid);
+	g_debug ("Received event button '%s'%s ('%d') on device '%s' ('%d')",
+		 wbutton->id,
+		 wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR ?
+		 (dir == GTK_DIR_UP ? " 'up'" : " 'down'") : "",
+		 button,
+		 gsd_wacom_device_get_name (device),
+		 deviceid);
 
 	/* FIXME, don't know how to handle those yet */
 	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR)
@@ -744,7 +744,6 @@ filter_button_events (XEvent          *xevent,
 		return GDK_FILTER_REMOVE;
 
 	str = g_settings_get_string (wbutton->settings, KEY_CUSTOM_ACTION);
-	g_message ("about to send '%s'", str);
 	gtk_accelerator_parse_with_keycode (str, &keyval, &keycodes, &mods);
 
 	if (keycodes == NULL) {
