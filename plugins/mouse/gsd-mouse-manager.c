@@ -359,7 +359,9 @@ set_left_handed (GsdMouseManager *manager,
 
         configure_button_layout (buttons, n_buttons, left_handed);
 
+	gdk_error_trap_push ();
         XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, buttons, n_buttons);
+        gdk_error_trap_pop_ignored ();
 
 out:
         XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
