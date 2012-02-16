@@ -529,6 +529,10 @@ find_output_by_edid (const gchar *vendor, const gchar *product, const gchar *ser
 
 	g_object_unref (rr_config);
 
+	if (retval == NULL)
+		g_debug ("Did not find a matching output for EDID '%s,%s,%s'",
+			 vendor, product, serial);
+
 	return retval;
 }
 
@@ -565,10 +569,8 @@ find_output_by_display (GsdWacomDevice *device)
 		return NULL;
 	}
 
-	if (strlen(edid[0]) == 0 || strlen(edid[1]) == 0 || strlen(edid[2]) == 0) {
-		g_debug ("EDID not completely defined.");
+	if (strlen(edid[0]) == 0 || strlen(edid[1]) == 0 || strlen(edid[2]) == 0)
 		return NULL;
-	}
 
 	return find_output_by_edid (edid[0], edid[1], edid[2]);
 }
@@ -694,19 +696,12 @@ find_output (GsdWacomDevice *device)
 
 	rr_output_info = find_output_by_display(device);
 
-	if (rr_output_info == NULL)
-	{
-		g_debug ("No strict EDID match was found.");
-
-		if (gsd_wacom_device_is_screen_tablet (device))
-		{
+	if (rr_output_info == NULL) {
+		if (gsd_wacom_device_is_screen_tablet (device)) {
 			rr_output_info = find_output_by_heuristic (device);
-			if (rr_output_info == NULL)
-			{
+			if (rr_output_info == NULL) {
 				g_warning ("No fuzzy match based on heuristics was found.");
-			}
-			else
-			{
+			} else {
 				g_warning("Automatically mapping tablet to heuristically-found display.");
 				set_display_by_output (device, rr_output_info);
 			}
