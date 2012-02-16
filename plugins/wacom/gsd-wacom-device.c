@@ -494,9 +494,19 @@ find_output_by_edid (const gchar *vendor, const gchar *product, const gchar *ser
 	GnomeRROutputInfo **rr_output_info;
         GnomeRROutputInfo *retval = NULL;
 
-	/* TODO: Check the value of 'error' */
 	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
+	if (rr_screen == NULL) {
+		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
+		g_error_free (error);
+		return NULL;
+	}
 	rr_config = gnome_rr_config_new_current (rr_screen, &error);
+	if (rr_config == NULL) {
+		g_warning ("Failed to get current screen configuration: %s", error->message);
+		g_error_free (error);
+		g_object_unref (rr_screen);
+		return NULL;
+	}
 	rr_output_info = gnome_rr_config_get_outputs (rr_config);
 
 	for (; *rr_output_info != NULL; rr_output_info++) {
@@ -528,6 +538,7 @@ find_output_by_edid (const gchar *vendor, const gchar *product, const gchar *ser
 	}
 
 	g_object_unref (rr_config);
+	g_object_unref (rr_screen);
 
 	if (retval == NULL)
 		g_debug ("Did not find a matching output for EDID '%s,%s,%s'",
