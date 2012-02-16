@@ -292,7 +292,8 @@ set_device_buttonmap (GsdWacomDevice *device,
 		g_usleep (300);
 	}
 
-	if (gdk_error_trap_pop () || rc != Success)
+	if ((gdk_error_trap_pop () && rc != MappingSuccess) ||
+	    rc != MappingSuccess)
 		g_warning ("Error in setting button mapping for \"%s\"", gsd_wacom_device_get_tool_name (device));
 
 	g_free (map);
@@ -415,8 +416,9 @@ reset_pad_buttons (GsdWacomDevice *device)
 		g_usleep (300);
 	}
 
-	if (gdk_error_trap_pop () || rc != Success)
-		g_warning ("Error in resetting button mapping for \"%s\"", gsd_wacom_device_get_tool_name (device));
+	if ((gdk_error_trap_pop () && rc != MappingSuccess) ||
+	    rc != MappingSuccess)
+		g_warning ("Error in resetting button mapping for \"%s\" (rc=%d)", gsd_wacom_device_get_tool_name (device), rc);
 
 	g_free (map);
 
