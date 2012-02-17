@@ -374,6 +374,24 @@ apply_stylus_settings (GsdWacomDevice *device)
 	set_pressurethreshold (device, threshold);
 }
 
+/* Copied from Xwacom.h in linuxwacom */
+
+/* The following flags are used for XWACOM_PARAM_BUTTON# values to mark
+ * the type of event that should be emitted when that button is pressed;
+ * combined together they form an Action Code (AC).
+ */
+#define AC_CODE             0x0000ffff	/* Mask to isolate button number or key code */
+#define AC_BUTTON           0x00000000	/* Emit button events */
+#define AC_KEY              0x00010000	/* Emit key events */
+#define AC_MODETOGGLE       0x00020000	/* Toggle absolute/relative mode */
+#define AC_DBLCLICK         0x00030000	/* Emit a button1 double-click event */
+#define AC_DISPLAYTOGGLE    0x00040000  /* Toggle among displays (screen plus whole desktop) */
+#define AC_SCREENTOGGLE     0x00050000  /* Toggle among screens */
+#define AC_TYPE             0x000f0000	/* The mask to isolate event type bits */
+#define AC_NUM_KEYS         0x0ff00000  /* The mask to isolate number of keys to send */
+#define AC_CORE             0x10000000	/* Always emit a core event */
+#define AC_EVENT            0xf00f0000	/* Mask to isolate event flag */
+
 static struct {
 	const char *button;
 	int         num;
@@ -389,6 +407,45 @@ static struct {
 	{ "StripRightUp", 96 },
 	{ "StripRightDown", 97 }
 };
+#define NUM_TOUCH_BUTTONS 4
+
+static void
+reset_touch_buttons (XDevice    *xdev,
+		     guint       offset,
+		     const char *device_property)
+{
+	Atom actions[NUM_TOUCH_BUTTONS];
+	Atom action_prop;
+	guint i;
+
+	/* Create a device property with the action for button i */
+	for (i = 0; i < NUM_TOUCH_BUTTONS; i++)
+	{
+		char *propname;
+		int action[2]; /* press + release */
+		Atom prop;
+		int mapped_button = def_buttons[i + offset].num;
+
+		action[0] = AC_BUTTON | mapped_button;
+
+		propname = g_strdup_printf ("Button %s action", def_buttons[i + offset].button);
+		prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), propname, False);
+		g_free (propname);
+		XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev,
+				       prop, XA_INTEGER, 32, PropModeReplace,
+				       (const guchar *) &action, 2);
+
+		/* prop now contains press + release for the mapped button */
+		actions[i] = prop;
+	}
+
+	/* Now set the actual action property to contain references to the various
+	 * actions */
+	action_prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_property, True);
+	XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev,
+			       action_prop, XA_ATOM, 32, PropModeReplace,
+			       (const guchar *) actions, NUM_TOUCH_BUTTONS);
+}
 
 static void
 reset_pad_buttons (GsdWacomDevice *device)
@@ -422,20 +479,12 @@ reset_pad_buttons (GsdWacomDevice *device)
 
 	g_free (map);
 
+	gdk_error_trap_push ();
+	reset_touch_buttons (xdev, 0, "Wacom Wheel Buttons");
+	reset_touch_buttons (xdev, 4, "Wacom Strip Buttons");
+	gdk_error_trap_pop_ignored ();
+
 	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
-
-	/* Touchring and touchstrip buttons
-	 * FIXME implement this without using xsetwacom */
-	for (i = 0; i < G_N_ELEMENTS (def_buttons); i++) {
-		char *cmd;
-
-		cmd = g_strdup_printf ("xsetwacom --set \"%s\" \"%s\" %d",
-				       gsd_wacom_device_get_tool_name (device),
-				       def_buttons[i].button,
-				       def_buttons[i].num);
-		g_spawn_command_line_sync (cmd, NULL, NULL, NULL, NULL);
-		g_free (cmd);
-	}
 
 	/* FIXME, set the LED(s) for the mode(s) too */
 }
