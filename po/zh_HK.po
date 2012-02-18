@@ -11,10 +11,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 3.3.4\n"
+"Project-Id-Version: gnome-settings-daemon 3.3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-29 23:29+0800\n"
-"PO-Revision-Date: 2012-01-29 23:29+0800\n"
+"POT-Creation-Date: 2012-02-18 08:44+0800\n"
+"PO-Revision-Date: 2012-02-18 08:44+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "Language: \n"
@@ -162,6 +162,10 @@ msgid "Enable this to set the tablet to absolute mode."
 msgstr "啟用此項將繪圖板設為絕對模式。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Key combination for the custom action"
+msgstr "自選動作的熱鍵組合"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
@@ -176,7 +180,7 @@ msgstr "啟用此項將繪圖板設為絕對模式。"
 msgid "Priority to use for this plugin"
 msgstr "這個外掛程式的優先順序"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
@@ -191,93 +195,103 @@ msgstr "這個外掛程式的優先順序"
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr "這個外掛程式用於 gnome-settings-daemon 啟動佇列中的優先順序"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
 msgstr "將此項設為「none」、「cw」為順時鐘 90 度，「half」為 180 度，而「ccw」為 90 度逆時鐘。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid "Set this to the logical button mapping."
 msgstr "將此項設為邏輯按鈕映射。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr "將此項設為觸控筆點選事件產生的壓力值。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr "將此項設為橡皮擦點選事件產生的壓力值。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr "將此項設為工具使用區域的 x1, y1 和 x2, y2。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr "將此項設為橡皮擦壓力曲線的 x1, y1 和 x2, y2。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr "將此項設為觸控筆壓力曲線的 x1, y1 和 x2, y2。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid ""
+"The keyboard shortcut generated when the button is pressed for custom "
+"actions."
+msgstr "當自選動作的按鈕被下時產生的鍵盤捷徑鍵。"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid "The type of action triggered by the button being pressed."
+msgstr "當按鈕被下時觸發的動作類型。"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid "Wacom button action type"
+msgstr "Wacom 按鈕類型"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom display mapping"
 msgstr "Wacom 顯示對映"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid "Wacom eraser button mapping"
 msgstr "Wacom 橡皮擦按鈕對映"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom eraser pressure curve"
 msgstr "Wacom 橡皮擦壓力曲線"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Wacom eraser pressure threshold"
 msgstr "Wacom 橡皮擦壓力臨界值"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
-msgid "Wacom pad button mapping"
-msgstr "Wacom 手寫板按鈕映射"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom stylus absolute mode"
 msgstr "Wacom 觸控筆絕對模式"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Wacom stylus button mapping"
 msgstr "Wacom 觸控筆按鈕對映"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom stylus pressure curve"
 msgstr "Wacom 觸控筆壓力曲線"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid "Wacom stylus pressure threshold"
 msgstr "Wacom 觸控筆壓力臨界值"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom tablet PC feature"
 msgstr "Wacom 平板 PC 功能"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom tablet area"
 msgstr "Wacom 繪圖板區域"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Wacom tablet rotation"
 msgstr "Wacom 手寫板旋轉"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom touch feature"
 msgstr "Wacom touch 功能"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
@@ -1058,7 +1072,7 @@ msgstr "你按住 Shift 鍵達 8 秒。這是使用遲緩鍵功能的捷徑，�
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:529
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
-#: ../plugins/mouse/gsd-mouse-manager.c:835
+#: ../plugins/mouse/gsd-mouse-manager.c:837
 msgid "Universal Access"
 msgstr "無障礙功能"
 
@@ -1541,11 +1555,11 @@ msgstr "多媒體按鍵"
 msgid "Media keys plugin"
 msgstr "多媒體按鍵外掛程式"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:831
+#: ../plugins/mouse/gsd-mouse-manager.c:833
 msgid "Could not enable mouse accessibility features"
 msgstr "無法啟用滑鼠可存取性功能"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:833
+#: ../plugins/mouse/gsd-mouse-manager.c:835
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "滑鼠無障礙功能需要你的系統安裝 Mousetweaks。"
@@ -2323,9 +2337,12 @@ msgstr "電池電量已在極低的程度之下，在電力用完時這臺電腦
 #: ../plugins/power/gsd-power-manager.c:1683
 msgid ""
 "The battery is below the critical level and this computer is about to "
-"suspend.<br><b>NOTE:</b> A small amount of power is required to keep your "
-"computer in a suspended state."
-msgstr "電池電量已在極低的程度之下，這臺電腦將會進入暫停模式。<br><b>注意：</b>將電腦進入暫停模式仍需要少量的電力。"
+"suspend.\n"
+"<b>NOTE:</b> A small amount of power is required to keep your computer in a "
+"suspended state."
+msgstr ""
+"電池電量已在極低的程度之下，這台電腦將會進入暫停模式。\n"
+"<b>注意：</b>將電腦進入暫停模式仍需要少量的電力。"
 
 #. TRANSLATORS: computer will hibernate
 #: ../plugins/power/gsd-power-manager.c:1690
@@ -2606,9 +2623,8 @@ msgstr "正在打印"
 
 #. Translators: This is a title of a report notification for a printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:715
-#, fuzzy
 msgid "Printer report"
-msgstr "打印機錯誤"
+msgstr "打印機報告"
 
 #. Translators: This is a title of a warning notification for a printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:718
@@ -2629,31 +2645,31 @@ msgstr "列印通知"
 msgid "Print-notifications plugin"
 msgstr "列印通知外掛程式"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:528
+#: ../plugins/smartcard/gsd-smartcard-manager.c:523
 msgid "received error or hang up from event source"
 msgstr "接收到錯誤或是從事件來源掛斷"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#: ../plugins/smartcard/gsd-smartcard-manager.c:657
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "無法初始化 NSS 安全系統"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:790
+#: ../plugins/smartcard/gsd-smartcard-manager.c:785
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr "找不到適合的智慧卡讀卡機"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:804
+#: ../plugins/smartcard/gsd-smartcard-manager.c:799
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "無法載入智慧卡讀卡機「%s」"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:876
+#: ../plugins/smartcard/gsd-smartcard-manager.c:871
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "無法監看剛剛的卡片事件 - %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1269
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "當等候智慧卡事件時遇到未預期的錯誤"
@@ -2832,6 +2848,71 @@ msgstr "再試一次"
 msgid "A transaction that cannot be interrupted is running"
 msgstr "有無法中斷的處理正在執行"
 
+#: ../plugins/wacom/gsd-wacom-device.c:882
+#, fuzzy, c-format
+msgid "Left Ring Mode #%d"
+msgstr "左手無名指模式 #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:889
+#, fuzzy, c-format
+msgid "Right Ring Mode #%d"
+msgstr "左手無名指模式 #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:917
+#, fuzzy, c-format
+msgid "Left Touchstrip Mode #%d"
+msgstr "左手無名指模式 #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:924
+#, fuzzy, c-format
+msgid "Right Touchstrip Mode #%d"
+msgstr "切換全螢幕模式"
+
+#: ../plugins/wacom/gsd-wacom-device.c:939
+#, fuzzy, c-format
+msgid "Left Touchring Mode Switch"
+msgstr "切換至離線模式"
+
+#: ../plugins/wacom/gsd-wacom-device.c:941
+#, fuzzy, c-format
+msgid "Right Touchring Mode Switch"
+msgstr "切換至離線模式"
+
+#: ../plugins/wacom/gsd-wacom-device.c:944
+#, fuzzy, c-format
+msgid "Left Touchstrip Mode Switch"
+msgstr "切換至離線模式"
+
+#: ../plugins/wacom/gsd-wacom-device.c:946
+#, fuzzy, c-format
+msgid "Right Touchstrip Mode Switch"
+msgstr "切換至離線模式"
+
+#: ../plugins/wacom/gsd-wacom-device.c:951
+#, fuzzy, c-format
+msgid "Mode Switch #%d"
+msgstr "mode switch"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1023
+#, fuzzy, c-format
+msgid "Left Button #%d"
+msgstr "滑鼠左鍵"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1026
+#, fuzzy, c-format
+msgid "Right Button #%d"
+msgstr "滑鼠右鍵"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1029
+#, fuzzy, c-format
+msgid "Top Button #%d"
+msgstr "頂端按鈕"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1032
+#, fuzzy, c-format
+msgid "Bottom Button #%d"
+msgstr "單選按鈕"
+
 #: ../plugins/xrandr/gsd-xrandr-manager.c:500
 msgid "Could not switch the monitor configuration"
 msgstr "無法切換顯示器組態"
@@ -2895,3 +2976,6 @@ msgstr "管理 X 設定值"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X 設定值"
+
+#~ msgid "Wacom pad button mapping"
+#~ msgstr "Wacom 手寫板按鈕映射"
