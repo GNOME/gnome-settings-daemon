@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 3.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-02 18:42+0100\n"
-"PO-Revision-Date: 2012-02-02 18:45+0100\n"
+"POT-Creation-Date: 2012-02-19 19:59+0100\n"
+"PO-Revision-Date: 2012-02-19 20:01+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -182,7 +182,9 @@ msgstr "Prioritet som skal brukes for dette tilegget"
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Prioritet som skal brukes for dette tilegget i oppstartskøen for gnome-settings-daemon"
+msgstr ""
+"Prioritet som skal brukes for dette tilegget i oppstartskøen for gnome-"
+"settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -237,56 +239,70 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
-msgid "Wacom pad button mapping"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
-msgid "Set this to the logical button mapping."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom stylus pressure curve"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom stylus button mapping"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Set this to the logical button mapping."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom stylus pressure threshold"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom eraser pressure curve"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser button mapping"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid "Wacom eraser pressure threshold"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom button action type"
+msgstr "Type handling for knapp på Wacom tegnebrett"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "The type of action triggered by the button being pressed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Key combination for the custom action"
+msgstr "Tastekombinasjon for egendefinert handling"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid ""
+"The keyboard shortcut generated when the button is pressed for custom "
+"actions."
+msgstr "Tastatursnarvei som genereres når knappen trykkes ned for egendefinerte handlinger."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 msgid "The duration a display profile is valid"
@@ -1072,7 +1088,7 @@ msgstr ""
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:529
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
-#: ../plugins/mouse/gsd-mouse-manager.c:835
+#: ../plugins/mouse/gsd-mouse-manager.c:837
 msgid "Universal Access"
 msgstr "Universell tilgang"
 
@@ -1575,11 +1591,11 @@ msgstr "Medietaster"
 msgid "Media keys plugin"
 msgstr "Tillegg for medietaster"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:831
+#: ../plugins/mouse/gsd-mouse-manager.c:833
 msgid "Could not enable mouse accessibility features"
 msgstr "Kunne ikke aktivere tilgjengelighetsfunksjoner for mus"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:833
+#: ../plugins/mouse/gsd-mouse-manager.c:835
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
@@ -2398,7 +2414,8 @@ msgid ""
 "<b>NOTE:</b> A small amount of power is required to keep your computer in a "
 "suspended state."
 msgstr ""
-"Batteriet er under kritisk nivå og denne datamaskinen er i ferd med å gå i hvilemodus.\n"
+"Batteriet er under kritisk nivå og denne datamaskinen er i ferd med å gå i "
+"hvilemodus.\n"
 "<b>MERK:</b> Det kreves noe strøm for å holde datamaskinen i hvilemodus."
 
 #. TRANSLATORS: computer will hibernate
@@ -2711,31 +2728,31 @@ msgstr "Utskriftsvarsling"
 msgid "Print-notifications plugin"
 msgstr "Tillegg for varsling av utskrift"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:528
+#: ../plugins/smartcard/gsd-smartcard-manager.c:523
 msgid "received error or hang up from event source"
 msgstr "fikk en feil fra, eller så la hendelseskilden på"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#: ../plugins/smartcard/gsd-smartcard-manager.c:657
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "NSS-sikkerhetssystemet kunne ikke initieres"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:790
+#: ../plugins/smartcard/gsd-smartcard-manager.c:785
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr "fant ingen passende driver for smartkort"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:804
+#: ../plugins/smartcard/gsd-smartcard-manager.c:799
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "kunne ikke laste smartkortdriver «%s»"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:876
+#: ../plugins/smartcard/gsd-smartcard-manager.c:871
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "kunne ikke se etter innkommende hendelser fra kort - %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1269
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "fikk en uventet feil ved venting på smartkorthendelser"
@@ -2921,6 +2938,71 @@ msgstr "Prøv igjen"
 #: ../plugins/updates/gsd-updates-manager.c:1096
 msgid "A transaction that cannot be interrupted is running"
 msgstr "En transaksjon som ikke kan avbytes kjører"
+
+#: ../plugins/wacom/gsd-wacom-device.c:882
+#, c-format
+msgid "Left Ring Mode #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:889
+#, c-format
+msgid "Right Ring Mode #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:917
+#, c-format
+msgid "Left Touchstrip Mode #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:924
+#, c-format
+msgid "Right Touchstrip Mode #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:939
+#, c-format
+msgid "Left Touchring Mode Switch"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:941
+#, c-format
+msgid "Right Touchring Mode Switch"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:944
+#, c-format
+msgid "Left Touchstrip Mode Switch"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:946
+#, c-format
+msgid "Right Touchstrip Mode Switch"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:951
+#, c-format
+msgid "Mode Switch #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1023
+#, c-format
+msgid "Left Button #%d"
+msgstr "Venstre knapp #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1026
+#, c-format
+msgid "Right Button #%d"
+msgstr "Høyre knapp #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1029
+#, c-format
+msgid "Top Button #%d"
+msgstr "Øverste knapp #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1032
+#, c-format
+msgid "Bottom Button #%d"
+msgstr "Nederste knapp #%d"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:500
 msgid "Could not switch the monitor configuration"
