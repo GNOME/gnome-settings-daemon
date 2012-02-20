@@ -165,7 +165,7 @@ last_stylus_changed (GsdWacomDevice  *device,
 	g_object_get (device, "last-stylus", &stylus, NULL);
 
 	g_print ("Stylus changed for device '%s'\n",
-		 gsd_wacom_device_get_name (device));
+		 gsd_wacom_device_get_tool_name (device));
 
 	print_stylus (stylus, TRUE);
 }
