@@ -961,6 +961,7 @@ gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
         gboolean has_laptop = FALSE;
         gboolean has_primary = FALSE;
         GnomeRROutput **outputs;
+        GnomeRROutput *connected = NULL;
         guint i;
 
         /* do we have any screens marked as primary */
@@ -972,6 +973,8 @@ gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
         for (i = 0; outputs[i] != NULL; i++) {
                 if (!gnome_rr_output_is_connected (outputs[i]))
                         continue;
+                if (connected == NULL)
+                        connected = outputs[i];
                 if (gnome_rr_output_get_is_primary (outputs[i]))
                         has_primary = TRUE;
                 if (gnome_rr_output_is_laptop (outputs[i]))
@@ -986,8 +989,11 @@ gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
         if (has_laptop)
                 return gnome_rr_output_is_laptop (output);
 
-        /* we have to choose one, so go for the first listed device */
-        return gnome_rr_output_get_id (outputs[0]) == gnome_rr_output_get_id (output);
+        /* we have to choose one, so go for the first connected device */
+        if (connected != NULL)
+                return gnome_rr_output_get_id (connected) == gnome_rr_output_get_id (output);
+
+        return FALSE;
 }
 
 /* TODO: remove when we can dep on a released version of colord */
