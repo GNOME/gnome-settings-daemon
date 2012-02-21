@@ -33,6 +33,7 @@ libgsd_la_CFLAGS =		\
 	$(NULL)
 
 libgsd_la_LIBADD =		\
+	$(SYSTEMD_LIBS)		\
 	$(NULL)
 
 libgsd_la_LDFLAGS = 	\
@@ -78,7 +79,6 @@ gnome_settings_daemon_LDADD = 		\
 	$(LIBNOTIFY_LIBS)		\
 	$(UPOWER_LIBS)			\
 	$(GNOME_DESKTOP_LIBS)		\
-	$(SYSTEMD_LIBS)			\
 	$(NULL)
 
 
