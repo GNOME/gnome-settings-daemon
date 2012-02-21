@@ -1,3 +1,25 @@
+==============
+Version 3.3.90
+==============
+
+Build:
+- Remove last requirement for dbus-glib
+- Remove use of deprecated g_thread_init()
+- Fix linking with -Bsymbolic
+
+Wacom:
+- Add tablet button listing and settings
+- Add display mapping
+
+Keyboard:
+- Fix blinking num-lock in some circumstances
+
+Color:
+- Set _ICC_PROFILE correctly when there is no primary device specified
+
+Power:
+- Fix possible crasher in backlight helper on error
+
 =============
 Version 3.3.5
 =============
