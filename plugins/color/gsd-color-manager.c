@@ -356,8 +356,7 @@ gcm_session_profile_assign_find_device_cb (GObject *object,
                                                res,
                                                &error);
         if (device == NULL) {
-                g_warning ("not found device %s which should have been added: %s",
-                           cd_device_get_id (device),
+                g_warning ("not found device which should have been added: %s",
                            error->message);
                 g_error_free (error);
                 gcm_session_async_helper_free (helper);
@@ -1463,8 +1462,7 @@ gcm_session_profile_gamma_find_device_cb (GObject *object,
                                                            res,
                                                            &error);
         if (device == NULL) {
-                g_warning ("not found device %s: %s",
-                           cd_device_get_id (device),
+                g_warning ("could not find device: %s",
                            error->message);
                 g_error_free (error);
                 goto out;
