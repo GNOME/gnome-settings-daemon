@@ -1,7 +1,8 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
- * Copyright (C) 2011 Richard Hughes <richard@hughsiec
+ * Copyright (C) 2011 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2011 Ritesh Khadgaray <khadgaray@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,6 +113,8 @@ static const gchar introspection_xml[] =
 "      <arg type='u' name='percentage' direction='in'/>"
 "      <arg type='u' name='new_percentage' direction='out'/>"
 "    </method>"
+"    <signal name='Changed'>"
+"    </signal>"
 "  </interface>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Keyboard'>"
 "    <method name='StepUp'>"
@@ -2637,6 +2640,28 @@ backlight_get_max (GsdPowerManager *manager, GError **error)
         return  backlight_helper_get_value ("get-max-brightness", error);
 }
 
+static void
+backlight_emit_changed (GsdPowerManager *manager)
+{
+        gboolean ret;
+        GError *error = NULL;
+
+        /* not yet connected to the bus */
+        if (manager->priv->connection == NULL)
+                return;
+        ret = g_dbus_connection_emit_signal (manager->priv->connection,
+                                             GSD_DBUS_SERVICE,
+                                             GSD_POWER_DBUS_PATH,
+                                             GSD_POWER_DBUS_INTERFACE_SCREEN,
+                                             "Changed",
+                                             NULL,
+                                             &error);
+        if (!ret) {
+                g_warning ("failed to emit Changed: %s", error->message);
+                g_error_free (error);
+        }
+}
+
 static gboolean
 backlight_set_percentage (GsdPowerManager *manager,
                           guint value,
@@ -2673,6 +2698,7 @@ backlight_set_percentage (GsdPowerManager *manager,
                                           discrete,
                                           error);
 out:
+        backlight_emit_changed (manager);
         return ret;
 }
 
@@ -2722,6 +2748,7 @@ backlight_step_up (GsdPowerManager *manager, GError **error)
         if (ret)
                 percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
 out:
+        backlight_emit_changed (manager);
         return percentage_value;
 }
 
@@ -2771,6 +2798,7 @@ backlight_step_down (GsdPowerManager *manager, GError **error)
         if (ret)
                 percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
 out:
+        backlight_emit_changed (manager);
         return percentage_value;
 }
 
@@ -2796,6 +2824,7 @@ backlight_set_abs (GsdPowerManager *manager,
                                           value,
                                           error);
 out:
+        backlight_emit_changed (manager);
         return ret;
 }
 
