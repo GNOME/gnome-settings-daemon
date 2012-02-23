@@ -245,7 +245,8 @@ gsd_wacom_tablet_button_new (const char               *name,
 			     const char               *id,
 			     const char               *settings_path,
 			     GsdWacomTabletButtonType  type,
-			     int                       group_id)
+			     int                       group_id,
+			     int                       idx)
 {
 	GsdWacomTabletButton *ret;
 
@@ -260,6 +261,7 @@ gsd_wacom_tablet_button_new (const char               *name,
 		g_free (button_settings_path);
 	}
 	ret->group_id = group_id;
+	ret->idx = idx;
 	ret->type = type;
 
 	return ret;
@@ -881,14 +883,14 @@ gsd_wacom_device_add_ring_modes (WacomDevice      *wacom_device,
 		for (i = 1; i <= num_modes; i++) {
 			name = g_strdup_printf (_("Left Ring Mode #%d"), i);
 			id = g_strdup_printf ("left-ring-mode-%d", i);
-			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_ELEVATOR, flags_to_group (WACOM_BUTTON_RING_MODESWITCH)));
+			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_ELEVATOR, flags_to_group (WACOM_BUTTON_RING_MODESWITCH), i - 1));
 		}
 	} else if ((direction & WACOM_BUTTON_POSITION_RIGHT) && libwacom_has_ring2 (wacom_device)) {
 		num_modes = libwacom_get_ring2_num_modes (wacom_device);
 		for (i = 1; i <= num_modes; i++) {
 			name = g_strdup_printf (_("Right Ring Mode #%d"), i);
 			id = g_strdup_printf ("right-ring-mode-%d", i);
-			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_ELEVATOR, flags_to_group (WACOM_BUTTON_RING2_MODESWITCH)));
+			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_ELEVATOR, flags_to_group (WACOM_BUTTON_RING2_MODESWITCH), i - 1));
 		}
 	}
 
@@ -916,14 +918,14 @@ gsd_wacom_device_add_strip_modes (WacomDevice      *wacom_device,
 		for (i = 1; i <= num_modes; i++) {
 			name = g_strdup_printf (_("Left Touchstrip Mode #%d"), i);
 			id = g_strdup_printf ("left-strip-mode-%d", i);
-			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_ELEVATOR, flags_to_group (WACOM_BUTTON_TOUCHSTRIP_MODESWITCH)));
+			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_ELEVATOR, flags_to_group (WACOM_BUTTON_TOUCHSTRIP_MODESWITCH), i - 1));
 		}
 	} else if ((direction & WACOM_BUTTON_POSITION_RIGHT) && num_strips >= 2) {
 		num_modes = libwacom_get_strips_num_modes (wacom_device);
 		for (i = 1; i <= num_modes; i++) {
 			name = g_strdup_printf (_("Right Touchstrip Mode #%d"), i);
 			id = g_strdup_printf ("right-strip-mode-%d", i);
-			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_ELEVATOR, flags_to_group (WACOM_BUTTON_TOUCHSTRIP2_MODESWITCH)));
+			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_ELEVATOR, flags_to_group (WACOM_BUTTON_TOUCHSTRIP2_MODESWITCH), i - 1));
 		}
 	}
 
@@ -977,7 +979,7 @@ gsd_wacom_device_add_buttons_dir (WacomDevice      *wacom_device,
 
 		name = g_strdup_printf (button_str, button_num++);
 		id = g_strdup_printf ("%s%c", button_str_id, i);
-		l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_NORMAL, flags_to_group (flags)));
+		l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_NORMAL, flags_to_group (flags), -1));
 		g_free (name);
 		g_free (id);
 	}
@@ -995,7 +997,7 @@ gsd_wacom_device_add_buttons_dir (WacomDevice      *wacom_device,
 
 			name = gsd_wacom_device_modeswitch_name (flags, button_num++);
 			id = g_strdup_printf ("%s%c", button_str_id, i);
-			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_HARDCODED, flags_to_group (flags)));
+			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_HARDCODED, flags_to_group (flags), -1));
 			g_free (name);
 			g_free (id);
 

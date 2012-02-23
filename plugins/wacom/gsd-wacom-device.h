@@ -104,7 +104,7 @@ typedef struct
 	char                     *id;
 	GSettings                *settings;
 	GsdWacomTabletButtonType  type;
-	int                       group_id;
+	int                       group_id, idx;
 } GsdWacomTabletButton;
 
 void                  gsd_wacom_tablet_button_free (GsdWacomTabletButton *button);
