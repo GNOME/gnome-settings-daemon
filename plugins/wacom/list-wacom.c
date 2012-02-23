@@ -143,8 +143,13 @@ print_buttons (GsdWacomDevice *device)
 
 		g_print ("\tButton: %s (%s)\n", button->name, button->id);
 		g_print ("\t\tType: %s\n", button_type_to_string (button->type));
-		if (button->group_id > 0)
-			g_print ("\t\tGroup: %d\n", button->group_id);
+		if (button->group_id > 0) {
+			g_print ("\t\tGroup: %d", button->group_id);
+			if (button->idx >= 0)
+				g_print (" Index: %d\n", button->idx);
+			else
+				g_print ("\n");
+		}
 		if (button->settings) {
 			char *loc;
 			loc = get_loc (button->settings);
