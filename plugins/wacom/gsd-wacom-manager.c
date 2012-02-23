@@ -192,7 +192,6 @@ set_pressurecurve (GsdWacomDevice *device,
         gsize nvalues;
 
         property.data.i = g_variant_get_fixed_array (value, &nvalues, sizeof (gint32));
-        g_variant_unref (value);
 
         if (nvalues != 4) {
                 g_error ("Pressurecurve requires 4 values.");
@@ -200,6 +199,7 @@ set_pressurecurve (GsdWacomDevice *device,
         }
 
         wacom_set_property (device, &property);
+        g_variant_unref (value);
 }
 
 /* Area handling. Each area is defined as top x/y, bottom x/y and limits the
@@ -218,7 +218,6 @@ set_area (GsdWacomDevice  *device,
         gsize nvalues;
 
         property.data.i = g_variant_get_fixed_array (value, &nvalues, sizeof (gint32));
-        g_variant_unref (value);
 
         if (nvalues != 4) {
                 g_error ("Area configuration requires 4 values.");
@@ -226,6 +225,7 @@ set_area (GsdWacomDevice  *device,
         }
 
         wacom_set_property (device, &property);
+        g_variant_unref (value);
 }
 
 static void
