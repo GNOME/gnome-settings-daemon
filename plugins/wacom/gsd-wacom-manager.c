@@ -489,6 +489,11 @@ set_wacom_settings (GsdWacomManager *manager,
 
         type = gsd_wacom_device_get_device_type (device);
 
+	if (type == WACOM_TYPE_TOUCH) {
+		set_absolute (device, FALSE);
+		return;
+	}
+
 	if (type == WACOM_TYPE_CURSOR) {
 		GVariant *values[4], *variant;
 		guint i;
