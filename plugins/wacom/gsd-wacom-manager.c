@@ -715,6 +715,38 @@ send_modifiers (Display *display,
 	}
 }
 
+static void
+generate_key (GsdWacomTabletButton *wbutton,
+	      Display              *display,
+	      gboolean              is_press)
+{
+	char                 *str;
+	guint                 keyval;
+	guint                *keycodes;
+	guint                 mods;
+
+	str = g_settings_get_string (wbutton->settings, KEY_CUSTOM_ACTION);
+	gtk_accelerator_parse_with_keycode (str, &keyval, &keycodes, &mods);
+
+	if (keycodes == NULL) {
+		g_warning ("Failed to find a keycode for shortcut '%s'", str);
+		g_free (str);
+		return;
+	}
+	g_debug ("Emitting '%s'", str);
+	g_free (str);
+
+	/* And send out the keys! */
+	if (is_press)
+		send_modifiers (display, mods, TRUE);
+	XTestFakeKeyEvent (display, keycodes[0],
+			   is_press ? True : False, 0);
+	if (is_press == FALSE)
+		send_modifiers (display, mods, FALSE);
+
+	g_free (keycodes);
+}
+
 static GdkFilterReturn
 filter_button_events (XEvent          *xevent,
                       GdkEvent        *event,
@@ -728,10 +760,6 @@ filter_button_events (XEvent          *xevent,
 	int                  button;
 	GsdWacomTabletButton *wbutton;
 	GtkDirectionType      dir;
-	char                 *str;
-	guint                 keyval;
-	guint                *keycodes;
-	guint                 mods;
 
         /* verify we have a key event */
 	if (xevent->type != GenericEvent)
@@ -784,26 +812,8 @@ filter_button_events (XEvent          *xevent,
 	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == GSD_WACOM_ACTION_TYPE_NONE)
 		return GDK_FILTER_REMOVE;
 
-	str = g_settings_get_string (wbutton->settings, KEY_CUSTOM_ACTION);
-	gtk_accelerator_parse_with_keycode (str, &keyval, &keycodes, &mods);
-
-	if (keycodes == NULL) {
-		g_warning ("Failed to find a keycode for shortcut '%s'", str);
-		g_free (str);
-		return GDK_FILTER_REMOVE;
-	}
-	g_debug ("Emitting '%s' on device %d", str, deviceid);
-	g_free (str);
-
-	/* And send out the keys! */
-	if (xiev->evtype == XI_ButtonPress)
-		send_modifiers (xev->display, mods, TRUE);
-	XTestFakeKeyEvent (xev->display, keycodes[0],
-			   xiev->evtype == XI_ButtonPress ? True : False, 0);
-	if (xiev->evtype == XI_ButtonRelease)
-		send_modifiers (xev->display, mods, FALSE);
-
-	g_free (keycodes);
+	/* Send a key combination out */
+	generate_key (wbutton, xev->display, xiev->evtype == XI_ButtonPress ? True : False);
 
 	return GDK_FILTER_REMOVE;
 }
