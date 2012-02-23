@@ -73,7 +73,7 @@ struct GsdWacomManagerPrivate
         GdkDeviceManager *device_manager;
         guint device_added_id;
         guint device_removed_id;
-        GHashTable *devices;
+        GHashTable *devices; /* key = GdkDevice, value = GsdWacomDevice */
 
         /* button capture */
         GSList *screens;
