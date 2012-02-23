@@ -765,7 +765,8 @@ filter_button_events (XEvent          *xevent,
 		return GDK_FILTER_CONTINUE;
 	}
 
-	g_debug ("Received event button '%s'%s ('%d') on device '%s' ('%d')",
+	g_debug ("Received event button %s '%s'%s ('%d') on device '%s' ('%d')",
+		 xiev->evtype == XI_ButtonPress ? "press" : "release",
 		 wbutton->id,
 		 wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR ?
 		 (dir == GTK_DIR_UP ? " 'up'" : " 'down'") : "",
