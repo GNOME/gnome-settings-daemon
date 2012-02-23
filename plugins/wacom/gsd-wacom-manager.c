@@ -696,7 +696,6 @@ struct {
 
 static void
 send_modifiers (Display *display,
-		XDevice *dev,
 		guint mask,
 		gboolean is_press)
 {
@@ -729,7 +728,6 @@ filter_button_events (XEvent          *xevent,
 	int                  button;
 	GsdWacomTabletButton *wbutton;
 	GtkDirectionType      dir;
-	XDevice               dev;
 	char                 *str;
 	guint                 keyval;
 	guint                *keycodes;
@@ -797,15 +795,13 @@ filter_button_events (XEvent          *xevent,
 	g_debug ("Emitting '%s' on device %d", str, deviceid);
 	g_free (str);
 
-	dev.device_id = deviceid; /* that's cheating, but whot did it first */
-
 	/* And send out the keys! */
 	if (xiev->evtype == XI_ButtonPress)
-		send_modifiers (xev->display, &dev, mods, TRUE);
+		send_modifiers (xev->display, mods, TRUE);
 	XTestFakeKeyEvent (xev->display, keycodes[0],
 			   xiev->evtype == XI_ButtonPress ? True : False, 0);
 	if (xiev->evtype == XI_ButtonRelease)
-		send_modifiers (xev->display, &dev, mods, FALSE);
+		send_modifiers (xev->display, mods, FALSE);
 
 	g_free (keycodes);
 
