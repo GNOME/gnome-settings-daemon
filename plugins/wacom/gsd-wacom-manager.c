@@ -710,8 +710,8 @@ send_modifiers (Display *display,
 			guint keycode;
 
 			keycode = XKeysymToKeycode (display, mods_keysyms[i].keysym);
-			XTestFakeDeviceKeyEvent (display, dev, keycode,
-						 is_press ? True : False, NULL, 0, 0);
+			XTestFakeKeyEvent (display, keycode,
+					   is_press ? True : False, 0);
 		}
 	}
 }
@@ -794,17 +794,18 @@ filter_button_events (XEvent          *xevent,
 		g_free (str);
 		return GDK_FILTER_REMOVE;
 	}
+	g_debug ("Emitting '%s' on device %d", str, deviceid);
 	g_free (str);
 
 	dev.device_id = deviceid; /* that's cheating, but whot did it first */
 
 	/* And send out the keys! */
-	send_modifiers (xev->display, &dev, mods, TRUE);
-	XTestFakeDeviceKeyEvent (xev->display, &dev, keycodes[0],
-				 True, NULL, 0, 0);
-	XTestFakeDeviceKeyEvent (xev->display, &dev, keycodes[0],
-				 False, NULL, 0, 0);
-	send_modifiers (xev->display, &dev, mods, FALSE);
+	if (xiev->evtype == XI_ButtonPress)
+		send_modifiers (xev->display, &dev, mods, TRUE);
+	XTestFakeKeyEvent (xev->display, keycodes[0],
+			   xiev->evtype == XI_ButtonPress ? True : False, 0);
+	if (xiev->evtype == XI_ButtonRelease)
+		send_modifiers (xev->display, &dev, mods, FALSE);
 
 	g_free (keycodes);
 
