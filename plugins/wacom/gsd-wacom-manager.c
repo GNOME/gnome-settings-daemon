@@ -557,7 +557,8 @@ wacom_settings_changed (GSettings      *settings,
 		set_tpcbutton (device, g_settings_get_boolean (settings, key));
 	} else if (g_str_equal (key, KEY_IS_ABSOLUTE)) {
 		if (type != WACOM_TYPE_CURSOR &&
-		    type != WACOM_TYPE_PAD)
+		    type != WACOM_TYPE_PAD &&
+		    type != WACOM_TYPE_TOUCH)
 			set_absolute (device, g_settings_get_boolean (settings, key));
 	} else if (g_str_equal (key, KEY_AREA)) {
 		if (type != WACOM_TYPE_CURSOR &&
