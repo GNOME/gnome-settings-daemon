@@ -702,6 +702,9 @@ send_modifiers (Display *display,
 {
 	guint i;
 
+	if (mask == 0)
+		return;
+
 	for (i = 0; i < G_N_ELEMENTS(mods_keysyms); i++) {
 		if (mask & mods_keysyms[i].mask) {
 			guint keycode;
