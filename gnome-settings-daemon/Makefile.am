@@ -14,7 +14,9 @@ INCLUDES = \
 	$(SYSTEMD_CFLAGS)					\
 	$(NULL)
 
-pkglib_LTLIBRARIES = 			\
+privlibdir = $(pkglibdir)-$(GSD_API_VERSION)
+
+privlib_LTLIBRARIES =		\
 	libgsd.la		\
 	$(NULL)
 
