@@ -38,8 +38,10 @@ libgsd_la_LIBADD =		\
 	$(SYSTEMD_LIBS)		\
 	$(NULL)
 
-libgsd_la_LDFLAGS = 	\
-	-export-dynamic 	\
+libgsd_la_LDFLAGS =		\
+	-export-dynamic		\
+	-avoid-version		\
+	-no-undefined		\
 	$(NULL)
 
 gsddir = $(libexecdir)
