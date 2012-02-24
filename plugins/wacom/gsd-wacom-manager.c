@@ -375,43 +375,52 @@ apply_stylus_settings (GsdWacomDevice *device)
 	set_pressurethreshold (device, threshold);
 }
 
-static struct {
+struct DefaultButtons {
 	const char *button;
 	int         num;
-} def_buttons[] = {
+};
+
+struct DefaultButtons def_touchrings_buttons[] = {
 	/* Touchrings */
 	{ "AbsWheelUp", 90 },
 	{ "AbsWheelDown", 91 },
+	{ "RelWheelUp", 90 },
+	{ "RelWheelDown", 91 },
 	{ "AbsWheel2Up", 92 },
 	{ "AbsWheel2Down", 93 },
+	{ NULL, 0 }
+};
+
+struct DefaultButtons def_touchstrip_buttons[] = {
 	/* Touchstrips */
 	{ "StripLeftUp", 94 },
 	{ "StripLeftDown", 95 },
 	{ "StripRightUp", 96 },
-	{ "StripRightDown", 97 }
+	{ "StripRightDown", 97 },
+	{ NULL, 0 }
 };
-#define NUM_TOUCH_BUTTONS 4
 
 static void
-reset_touch_buttons (XDevice    *xdev,
-		     guint       offset,
-		     const char *device_property)
+reset_touch_buttons (XDevice               *xdev,
+		     struct DefaultButtons *buttons,
+		     const char            *device_property)
 {
-	Atom actions[NUM_TOUCH_BUTTONS];
+	Atom actions[6];
 	Atom action_prop;
 	guint i;
 
 	/* Create a device property with the action for button i */
-	for (i = 0; i < NUM_TOUCH_BUTTONS; i++)
+	for (i = 0; buttons[i].button != NULL; i++)
 	{
 		char *propname;
 		int action[2]; /* press + release */
 		Atom prop;
-		int mapped_button = def_buttons[i + offset].num;
+		int mapped_button = buttons[i].num;
 
 		action[0] = AC_BUTTON | mapped_button;
 
-		propname = g_strdup_printf ("Button %s action", def_buttons[i + offset].button);
+		g_message ("Resetting button to action %s", buttons[i].button);
+		propname = g_strdup_printf ("Button %s action", buttons[i].button);
 		prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), propname, False);
 		g_free (propname);
 		XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev,
@@ -427,7 +436,7 @@ reset_touch_buttons (XDevice    *xdev,
 	action_prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_property, True);
 	XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev,
 			       action_prop, XA_ATOM, 32, PropModeReplace,
-			       (const guchar *) actions, NUM_TOUCH_BUTTONS);
+			       (const guchar *) actions, i);
 }
 
 static void
@@ -463,8 +472,8 @@ reset_pad_buttons (GsdWacomDevice *device)
 	g_free (map);
 
 	gdk_error_trap_push ();
-	reset_touch_buttons (xdev, 0, "Wacom Wheel Buttons");
-	reset_touch_buttons (xdev, 4, "Wacom Strip Buttons");
+	reset_touch_buttons (xdev, def_touchrings_buttons, "Wacom Wheel Buttons");
+	reset_touch_buttons (xdev, def_touchstrip_buttons, "Wacom Strip Buttons");
 	gdk_error_trap_pop_ignored ();
 
 	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
