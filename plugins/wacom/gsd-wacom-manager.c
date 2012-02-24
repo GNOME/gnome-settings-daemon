@@ -417,7 +417,8 @@ reset_touch_buttons (XDevice               *xdev,
 		Atom prop;
 		int mapped_button = buttons[i].num;
 
-		action[0] = AC_BUTTON | mapped_button;
+		action[0] = AC_BUTTON | AC_KEYBTNPRESS | mapped_button;
+		action[1] = AC_BUTTON | mapped_button;
 
 		propname = g_strdup_printf ("Button %s action", buttons[i].button);
 		prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), propname, False);
