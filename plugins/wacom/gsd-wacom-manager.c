@@ -419,7 +419,6 @@ reset_touch_buttons (XDevice               *xdev,
 
 		action[0] = AC_BUTTON | mapped_button;
 
-		g_message ("Resetting button to action %s", buttons[i].button);
 		propname = g_strdup_printf ("Button %s action", buttons[i].button);
 		prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), propname, False);
 		g_free (propname);
