@@ -692,14 +692,13 @@ void
 gsd_wacom_device_set_display (GsdWacomDevice *device,
                               int             monitor)
 {
-	GnomeRROutputInfo *output;
+	GnomeRROutputInfo *output = NULL;
 
         g_return_if_fail (GSD_IS_WACOM_DEVICE (device));
-        g_return_if_fail (monitor >= 0);
 
-	output = find_output_by_monitor (gdk_screen_get_default (), monitor);
-	if (output != NULL)
-		set_display_by_output (device, output);
+	if (monitor >= 0)
+		output = find_output_by_monitor (gdk_screen_get_default (), monitor);
+	set_display_by_output (device, output);
 }
 
 static GnomeRROutputInfo*
