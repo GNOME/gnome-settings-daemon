@@ -487,7 +487,10 @@ reset_pad_buttons (GsdWacomDevice *device)
 
 	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
 
-	/* FIXME, set the LED(s) for the mode(s) too */
+	/* Reset all the LEDs */
+	/* FIXME, get the number of modes somewhere else */
+	for (i = 0; i < 4; i++)
+		set_led (device, i, 0);
 }
 
 static void
