@@ -1336,6 +1336,15 @@ gsd_wacom_device_finalize (GObject *object)
         g_free (p->icon_name);
         p->icon_name = NULL;
 
+        if (p->modes) {
+                g_hash_table_destroy (p->modes);
+                p->modes = NULL;
+        }
+        if (p->num_modes) {
+                g_hash_table_destroy (p->num_modes);
+                p->num_modes = NULL;
+        }
+
 	gdk_window_remove_filter (NULL,
 				  (GdkFilterFunc) filter_events,
 				  device);
