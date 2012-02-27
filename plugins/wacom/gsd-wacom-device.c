@@ -985,27 +985,27 @@ gsd_wacom_device_add_buttons_dir (WacomDevice      *wacom_device,
 	/* Handle modeswitches */
 	for (i = 'A'; i < 'A' + num_buttons; i++) {
 		WacomButtonFlags flags;
+		char *name, *id;
 
 		flags = libwacom_get_button_flag (wacom_device, i);
 		if (!(flags & direction))
 			continue;
 		/* Ignore non-mode switches */
-		if (flags & WACOM_BUTTON_MODESWITCH) {
-			char *name, *id;
+		if (!(flags & WACOM_BUTTON_MODESWITCH))
+			continue;
 
-			name = gsd_wacom_device_modeswitch_name (flags, button_num++);
-			id = g_strdup_printf ("%s%c", button_str_id, i);
-			l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_HARDCODED, flags_to_group (flags), -1));
-			g_free (name);
-			g_free (id);
+		name = gsd_wacom_device_modeswitch_name (flags, button_num++);
+		id = g_strdup_printf ("%s%c", button_str_id, i);
+		l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_HARDCODED, flags_to_group (flags), -1));
+		g_free (name);
+		g_free (id);
 
-			if (flags & WACOM_BUTTON_RINGS_MODESWITCH)
-				l = g_list_concat (l, gsd_wacom_device_add_ring_modes (wacom_device, settings_path, direction));
-			else if (flags & WACOM_BUTTON_TOUCHSTRIPS_MODESWITCH)
-				l = g_list_concat (l, gsd_wacom_device_add_strip_modes (wacom_device, settings_path, direction));
-			else
-				g_warning ("Unhandled modeswitches");
-		}
+		if (flags & WACOM_BUTTON_RINGS_MODESWITCH)
+			l = g_list_concat (l, gsd_wacom_device_add_ring_modes (wacom_device, settings_path, direction));
+		else if (flags & WACOM_BUTTON_TOUCHSTRIPS_MODESWITCH)
+			l = g_list_concat (l, gsd_wacom_device_add_strip_modes (wacom_device, settings_path, direction));
+		else
+			g_warning ("Unhandled modeswitches");
 	}
 
 	return l;
