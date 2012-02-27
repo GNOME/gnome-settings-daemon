@@ -687,7 +687,6 @@ set_display_by_output (GsdWacomDevice    *device,
 	g_free (o_serial);
 }
 
-
 void
 gsd_wacom_device_set_display (GsdWacomDevice *device,
                               int             monitor)
