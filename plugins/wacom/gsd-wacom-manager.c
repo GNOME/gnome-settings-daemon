@@ -806,7 +806,7 @@ filter_button_events (XEvent          *xevent,
 	button = xev->detail;
 
 	/* FIXME, we'll also need to pass the current mode(s) */
-	wbutton = gsd_wacom_device_get_button (device, button, &dir);
+	wbutton = gsd_wacom_device_get_button (device, button, 0, &dir);
 	if (wbutton == NULL) {
 		g_warning ("Could not find matching button for '%d' on '%s'",
 			   button, gsd_wacom_device_get_name (device));
@@ -827,8 +827,13 @@ filter_button_events (XEvent          *xevent,
 		return GDK_FILTER_REMOVE;
 
 	/* FIXME, we need to switch mode here */
-	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED)
+	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED) {
+		int new_mode;
+
+		new_mode = gsd_wacom_device_set_next_mode (device, wbutton->group_id);
+		set_led (device, wbutton->group_id, new_mode);
 		return GDK_FILTER_REMOVE;
+	}
 
 	/* Nothing to do */
 	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == GSD_WACOM_ACTION_TYPE_NONE)
