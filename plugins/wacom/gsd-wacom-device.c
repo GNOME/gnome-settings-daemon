@@ -851,6 +851,30 @@ add_stylus_to_device (GsdWacomDevice *device,
 	}
 }
 
+int
+gsd_wacom_device_set_next_mode (GsdWacomDevice *device,
+				int             group_id)
+{
+	int current_idx;
+	int num_modes;
+
+	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), -1);
+	current_idx = GPOINTER_TO_INT (g_hash_table_lookup (device->priv->modes, GINT_TO_POINTER(group_id)));
+	/* That means that the mode doesn't exist, see gsd_wacom_device_add_modes() */
+	g_return_val_if_fail (current_idx != 0, -1);
+
+	current_idx++;
+
+	num_modes = GPOINTER_TO_INT (g_hash_table_lookup (device->priv->num_modes, GINT_TO_POINTER(group_id)));
+
+	if (current_idx > num_modes)
+		current_idx = 1;
+
+	g_hash_table_insert (device->priv->modes, GINT_TO_POINTER (group_id), GINT_TO_POINTER (current_idx));
+
+	return current_idx;
+}
+
 static int
 flags_to_group (WacomButtonFlags flags)
 {

@@ -150,6 +150,8 @@ GsdWacomTabletButton *gsd_wacom_device_get_button   (GsdWacomDevice   *device,
 						     int               button,
 						     int               index,
 						     GtkDirectionType *dir);
+int gsd_wacom_device_set_next_mode                  (GsdWacomDevice *device,
+						     int             group_id);
 
 /* Helper and debug functions */
 GsdWacomDevice * gsd_wacom_device_create_fake (GsdWacomDeviceType  type,
