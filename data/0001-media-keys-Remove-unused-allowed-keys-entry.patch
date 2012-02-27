@@ -1,0 +1,29 @@
+From d9ee620115e27696a77efa73da9d48b8b4925364 Mon Sep 17 00:00:00 2001
+From: Bastien Nocera <hadess@hadess.net>
+Date: Thu, 20 Oct 2011 10:36:16 +0100
+Subject: [PATCH] media-keys: Remove unused allowed-keys entry
+
+Unused by the media-keys plugin.
+---
+ ...ngs-daemon.plugins.media-keys.gschema.xml.in.in |    5 -----
+ 1 files changed, 0 insertions(+), 5 deletions(-)
+
+diff --git a/data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in b/data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in
+index 87c7249..85438c5 100644
+--- a/data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in
++++ b/data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in
+@@ -5,11 +5,6 @@
+       <_summary>Activation of this plugin</_summary>
+       <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+     </key>
+-    <key name="allowed-keys" type="as">
+-      <default>[]</default>
+-      <_summary>Allowed keys</_summary>
+-      <_description>If non-empty, keybindings will be ignored unless their settings directory is in the list. This is useful for lockdown.</_description>
+-    </key>
+     <key name="calculator" type="s">
+       <default>'XF86Calculator'</default>
+       <_summary>Launch calculator</_summary>
+-- 
+1.7.6.4
+
