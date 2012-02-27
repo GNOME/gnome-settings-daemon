@@ -1590,7 +1590,7 @@ find_button_with_index (GsdWacomDevice *device,
 	GsdWacomTabletButton *button;
 	char *str;
 
-	str = g_strdup_printf ("%s-mode-%d", id, index + 1);
+	str = g_strdup_printf ("%s-mode-%d", id, index);
 	button = find_button_with_id (device, str);
 	g_free (str);
 
