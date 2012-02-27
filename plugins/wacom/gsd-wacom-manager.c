@@ -63,6 +63,7 @@
 /* Button settings */
 #define KEY_ACTION_TYPE         "action-type"
 #define KEY_CUSTOM_ACTION       "custom-action"
+#define KEY_CUSTOM_ELEVATOR_ACTION "custom-elevator-action"
 
 /* See "Wacom Pressure Threshold" */
 #define DEFAULT_PRESSURE_THRESHOLD 27
@@ -737,9 +738,34 @@ send_modifiers (Display *display,
 	}
 }
 
+static char *
+get_elevator_shortcut_string (GSettings        *settings,
+			      GtkDirectionType  dir)
+{
+	char **strv, *str;
+
+	strv = g_settings_get_strv (settings, KEY_CUSTOM_ELEVATOR_ACTION);
+	if (strv == NULL)
+		return NULL;
+	if (g_strv_length (strv) != 2) {
+		g_strfreev (strv);
+		return NULL;
+	}
+
+	if (dir == GTK_DIR_UP)
+		str = g_strdup (strv[0]);
+	else
+		str = g_strdup (strv[1]);
+
+	g_strfreev (strv);
+
+	return str;
+}
+
 static void
 generate_key (GsdWacomTabletButton *wbutton,
 	      Display              *display,
+	      GtkDirectionType      dir,
 	      gboolean              is_press)
 {
 	char                 *str;
@@ -747,7 +773,10 @@ generate_key (GsdWacomTabletButton *wbutton,
 	guint                *keycodes;
 	guint                 mods;
 
-	str = g_settings_get_string (wbutton->settings, KEY_CUSTOM_ACTION);
+	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR)
+		str = get_elevator_shortcut_string (wbutton->settings, dir);
+	else
+		str = g_settings_get_string (wbutton->settings, KEY_CUSTOM_ACTION);
 	gtk_accelerator_parse_with_keycode (str, &keyval, &keycodes, &mods);
 
 	if (keycodes == NULL) {
@@ -821,10 +850,6 @@ filter_button_events (XEvent          *xevent,
 		 gsd_wacom_device_get_name (device),
 		 deviceid);
 
-	/* FIXME, don't know how to handle those yet */
-	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR)
-		return GDK_FILTER_REMOVE;
-
 	/* FIXME, we need to switch mode here */
 	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED) {
 		int new_mode;
@@ -843,7 +868,7 @@ filter_button_events (XEvent          *xevent,
 		return GDK_FILTER_REMOVE;
 
 	/* Send a key combination out */
-	generate_key (wbutton, xev->display, xiev->evtype == XI_ButtonPress ? True : False);
+	generate_key (wbutton, xev->display, dir, xiev->evtype == XI_ButtonPress ? True : False);
 
 	return GDK_FILTER_REMOVE;
 }
