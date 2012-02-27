@@ -805,8 +805,7 @@ filter_button_events (XEvent          *xevent,
 
 	button = xev->detail;
 
-	/* FIXME, we'll also need to pass the current mode(s) */
-	wbutton = gsd_wacom_device_get_button (device, button, 0, &dir);
+	wbutton = gsd_wacom_device_get_button (device, button, &dir);
 	if (wbutton == NULL) {
 		g_warning ("Could not find matching button for '%d' on '%s'",
 			   button, gsd_wacom_device_get_name (device));

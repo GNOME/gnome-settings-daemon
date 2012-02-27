@@ -1591,9 +1591,10 @@ find_button_with_index (GsdWacomDevice *device,
 GsdWacomTabletButton *
 gsd_wacom_device_get_button (GsdWacomDevice   *device,
 			     int               button,
-			     int               index,
 			     GtkDirectionType *dir)
 {
+	int index;
+
 	if (button <= 26) {
 		char *id;
 		GsdWacomTabletButton *ret;
@@ -1633,15 +1634,19 @@ gsd_wacom_device_get_button (GsdWacomDevice   *device,
 	switch (button) {
 	case 90:
 	case 91:
+		index = GPOINTER_TO_INT (g_hash_table_lookup (device->priv->modes, GINT_TO_POINTER (1)));
 		return find_button_with_index (device, "left-ring", index);
 	case 92:
 	case 93:
+		index = GPOINTER_TO_INT (g_hash_table_lookup (device->priv->modes, GINT_TO_POINTER (2)));
 		return find_button_with_index (device, "right-ring", index);
 	case 94:
 	case 95:
+		index = GPOINTER_TO_INT (g_hash_table_lookup (device->priv->modes, GINT_TO_POINTER (3)));
 		return find_button_with_index (device, "left-strip", index);
 	case 96:
 	case 97:
+		index = GPOINTER_TO_INT (g_hash_table_lookup (device->priv->modes, GINT_TO_POINTER (4)));
 		return find_button_with_index (device, "right-strip", index);
 	default:
 		return NULL;
