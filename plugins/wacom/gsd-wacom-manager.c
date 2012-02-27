@@ -375,6 +375,15 @@ apply_stylus_settings (GsdWacomDevice *device)
 	set_pressurethreshold (device, threshold);
 }
 
+static void
+set_led (GsdWacomDevice *device,
+	 int             group_id,
+	 int             index)
+{
+	/* FIXME implement */
+	g_message ("Switched group ID %d to index %d", group_id, index);
+}
+
 struct DefaultButtons {
 	const char *button;
 	int         num;
