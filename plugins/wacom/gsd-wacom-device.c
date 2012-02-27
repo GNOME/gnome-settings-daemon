@@ -1514,9 +1514,25 @@ find_button_with_id (GsdWacomDevice *device,
 	return NULL;
 }
 
+static GsdWacomTabletButton *
+find_button_with_index (GsdWacomDevice *device,
+			const char     *id,
+			int             index)
+{
+	GsdWacomTabletButton *button;
+	char *str;
+
+	str = g_strdup_printf ("%s-mode-%d", id, index + 1);
+	button = find_button_with_id (device, str);
+	g_free (str);
+
+	return button;
+}
+
 GsdWacomTabletButton *
 gsd_wacom_device_get_button (GsdWacomDevice   *device,
 			     int               button,
+			     int               index,
 			     GtkDirectionType *dir)
 {
 	if (button <= 26) {
@@ -1554,20 +1570,20 @@ gsd_wacom_device_get_button (GsdWacomDevice   *device,
 		;;
 	}
 
-	/* FIXME handle the mode */
+	/* The group ID is implied by the button number */
 	switch (button) {
 	case 90:
 	case 91:
-		return find_button_with_id (device, "left-ring-mode-1");
+		return find_button_with_index (device, "left-ring", index);
 	case 92:
 	case 93:
-		return find_button_with_id (device, "right-ring-mode-1");
+		return find_button_with_index (device, "right-ring", index);
 	case 94:
 	case 95:
-		return find_button_with_id (device, "left-strip-mode-1");
+		return find_button_with_index (device, "left-strip", index);
 	case 96:
 	case 97:
-		return find_button_with_id (device, "right-strip-mode-1");
+		return find_button_with_index (device, "right-strip", index);
 	default:
 		return NULL;
 	}
