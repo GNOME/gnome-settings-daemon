@@ -322,6 +322,8 @@ struct GsdWacomDevicePrivate
 	GList *styli;
 	GsdWacomStylus *last_stylus;
 	GList *buttons;
+	GHashTable *modes; /* key = int (group), value = int (index) */
+	GHashTable *num_modes; /* key = int (group), value = int (index) */
 	GSettings *wacom_settings;
 };
 
@@ -1037,6 +1039,38 @@ gsd_wacom_device_add_buttons (GsdWacomDevice *device,
 }
 
 static void
+gsd_wacom_device_add_modes (GsdWacomDevice *device,
+			    WacomDevice    *wacom_device)
+{
+	GList *l;
+
+	device->priv->modes = g_hash_table_new (g_direct_hash, g_direct_equal);
+	device->priv->num_modes = g_hash_table_new (g_direct_hash, g_direct_equal);
+
+	for (l = device->priv->buttons; l != NULL; l = l->next) {
+		GsdWacomTabletButton *button = l->data;
+
+		if (button->group_id > 0)
+			g_hash_table_insert (device->priv->modes, GINT_TO_POINTER (button->group_id), GINT_TO_POINTER (1));
+
+		/* See flags_to_group() for group ID/button type matches */
+		if (button->group_id == 1) {
+			g_hash_table_insert (device->priv->num_modes,
+					     GINT_TO_POINTER (button->group_id),
+					     GINT_TO_POINTER (libwacom_get_ring_num_modes (wacom_device)));
+		} else if (button->group_id == 2) {
+			g_hash_table_insert (device->priv->num_modes,
+					     GINT_TO_POINTER (button->group_id),
+					     GINT_TO_POINTER (libwacom_get_ring2_num_modes (wacom_device)));
+		} else if (button->group_id == 3 || button->group_id == 4) {
+			g_hash_table_insert (device->priv->num_modes,
+					     GINT_TO_POINTER (button->group_id),
+					     GINT_TO_POINTER (libwacom_get_strips_num_modes (wacom_device)));
+		}
+	}
+}
+
+static void
 gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 				 WacomDevice    *wacom_device,
 				 const char     *identifier)
@@ -1059,8 +1093,10 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 		device->priv->icon_name = g_strdup ("wacom-tablet");
 	}
 
-	if (device->priv->type == WACOM_TYPE_PAD)
+	if (device->priv->type == WACOM_TYPE_PAD) {
 		gsd_wacom_device_add_buttons (device, wacom_device, settings_path);
+		gsd_wacom_device_add_modes (device, wacom_device);
+	}
 
 	if (device->priv->type == WACOM_TYPE_STYLUS ||
 	    device->priv->type == WACOM_TYPE_ERASER) {
