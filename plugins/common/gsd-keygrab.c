@@ -312,6 +312,14 @@ match_xi2_key (Key *key, XIDeviceEvent *event)
 		guint lower, upper;
 		guint mask;
 
+		/* HACK: we don't want to use SysRq as a keybinding, so we avoid
+		 * its translation from Alt+Print. */
+		if (keyval == GDK_KEY_Sys_Req &&
+		    (state & GDK_MOD1_MASK) != 0) {
+			consumed = 0;
+			keyval = GDK_KEY_Print;
+		}
+
 		/* The Key structure contains virtual modifiers, whereas
 		 * the XEvent will be using the real modifier, so translate those */
 		mask = key->state;
