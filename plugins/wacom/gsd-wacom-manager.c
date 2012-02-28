@@ -747,15 +747,13 @@ get_elevator_shortcut_string (GSettings        *settings,
 	strv = g_settings_get_strv (settings, KEY_CUSTOM_ELEVATOR_ACTION);
 	if (strv == NULL)
 		return NULL;
-	if (g_strv_length (strv) != 2) {
-		g_strfreev (strv);
-		return NULL;
-	}
 
-	if (dir == GTK_DIR_UP)
+	if (g_strv_length (strv) >= 1 && dir == GTK_DIR_UP)
 		str = g_strdup (strv[0]);
-	else
+	else if (g_strv_length (strv) >= 2 && dir == GTK_DIR_DOWN)
 		str = g_strdup (strv[1]);
+	else
+		str = NULL;
 
 	g_strfreev (strv);
 
@@ -777,6 +775,10 @@ generate_key (GsdWacomTabletButton *wbutton,
 		str = get_elevator_shortcut_string (wbutton->settings, dir);
 	else
 		str = g_settings_get_string (wbutton->settings, KEY_CUSTOM_ACTION);
+
+	if (str == NULL)
+		return;
+
 	gtk_accelerator_parse_with_keycode (str, &keyval, &keycodes, &mods);
 
 	if (keycodes == NULL) {
