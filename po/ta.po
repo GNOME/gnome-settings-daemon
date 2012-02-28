@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-25 11:52+0530\n"
-"PO-Revision-Date: 2012-02-25 17:32+0530\n"
+"POT-Creation-Date: 2012-02-28 17:33+0530\n"
+"PO-Revision-Date: 2012-02-28 17:44+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -159,8 +159,8 @@ msgid ""
 "EDID information of monitor to map tablet to. Must be in the format [vendor, "
 "product, serial]. [\"\",\"\",\"\"] disables mapping."
 msgstr ""
-"தொடுகணினியை வடிவமைக்க திரையின் EDID தகவல். அது இந்த ஒழுங்கில் இருக்க வேண்டும் [விற்பனையாளர், "
-"பொருள், வரிசை]. [\"\",\"\",\"\"] என்பது வடிவமைப்பை செயலிழக்கவைக்கும்"
+"தொடுகணினியை வடிவமைக்க திரையின் EDID தகவல். அது இந்த ஒழுங்கில் இருக்க வேண்டும் "
+"[விற்பனையாளர், பொருள், வரிசை]. [\"\",\"\",\"\"] என்பது வடிவமைப்பை செயலிழக்கவைக்கும்"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to move the cursor when the user touches the tablet."
@@ -179,6 +179,10 @@ msgid "Key combination for the custom action"
 msgstr "தனிப்பயன் செயலுக்கு விசை தொகுப்பு"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+msgid "Key combinations for an elevator custom action"
+msgstr "மின்தூக்கி தனிப்பயன் செயலுக்கு விசை தொகுப்புகள்"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
@@ -193,7 +197,7 @@ msgstr "தனிப்பயன் செயலுக்கு விசை த
 msgid "Priority to use for this plugin"
 msgstr "சொருகிக்கான முன்னுரிமை"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
@@ -208,7 +212,7 @@ msgstr "சொருகிக்கான முன்னுரிமை"
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr "க்னோம்-அமைப்பு-கிங்கரன் துவக்க வரிசையில் இந்த சொருகிக்கு முன்னுரிமை"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
@@ -216,93 +220,101 @@ msgstr ""
 "இதை 'none' என அமைக்கவும், 'cw' 90 பாகைகள் வலச்சுழியாக என்பதற்கு, 'half' 180 "
 "பாகைகளுக்கு, மற்றும் 'ccw'  90 இடச்சுழியாக என்பதற்கு."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Set this to the logical button mapping."
 msgstr "இதை தர்க்கரீதியான பொத்தான் அமைப்புக்கு அமைக்கவும். "
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid "Set this to the pressure value at which a stylus click event is generated."
 msgstr "எழுத்தாணியின் சொடுக்கு நிகழ்வு உருவாக அழுத்த மதிப்புக்கு இதை அமைக்கவும்."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Set this to the pressure value at which an eraser click event is generated."
 msgstr "அழிப்பி சொடுக்கு நிகழ்வு உருவாக அழுத்த மதிப்புக்கு இதை அமைக்கவும்."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr "கருவிகளால் பயன்படுத்தும் பரப்பால் இதை x1, y1  மற்றும் x2, y2  ஆக அமைக்கவும்."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr "அழிப்பிக்கு தரப்படும் அழுத்த வளைவுக்கு இதை x1, y1  மற்றும் x2, y2  ஆக அமைகக்வும்."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr "எழுத்தாணிக்கு தரப்படும் அழுத்த வளைவுக்கு இதை x1, y1  மற்றும் x2, y2  ஆக அமைகக்வும்."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
 "The keyboard shortcut generated when the button is pressed for custom "
 "actions."
 msgstr "தனிப்பயன் செயல்களுக்கு பொத்தானை அழுத்தியபோது உருவாக்கப்பட்ட விசைப்பலகை குறுக்கு வழி"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid ""
+"The keyboard shortcuts generated when a touchring or touchstrip is used for "
+"custom actions (up followed by down)."
+msgstr ""
+"தனிப்பயன் செயல்களுக்கு (மேல், தொடர்ந்து கீழ்) தொடுவளையம் அல்லது தொடுதிட்டு ஐ அழுத்தியபோது "
+"உருவாக்கப்பட்ட விசைப்பலகை குறுக்கு வழிக"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "The type of action triggered by the button being pressed."
 msgstr "பொத்தானை அழுத்தியபோது செயலாக்கப்படும் செயல் வகை"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid "Wacom button action type"
 msgstr "வாகாம்  பொத்தான் செயல் வகை"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom display mapping"
 msgstr "வாகாம் காட்சி வரைபடம்"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Wacom eraser button mapping"
 msgstr "வாகாம் அழிப்பி  பொத்தான் வரைபடம்"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom eraser pressure curve"
 msgstr "வாகாம் அழிப்பி அழுத்த வளைவு"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Wacom eraser pressure threshold"
 msgstr "வாகாம் அழிப்பி அழுத்த விளிம்பு"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom stylus absolute mode"
 msgstr "வாகாம் எழுத்தாணி முழுமைப் பாங்கு"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid "Wacom stylus button mapping"
 msgstr "வாகாம் எழுத்தாணி பொத்தான் வரைபடம்"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom stylus pressure curve"
 msgstr "வாகாம் எழுத்தாணி அழுத்த வளைவு"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom stylus pressure threshold"
 msgstr "வாகாம் எழுத்தாணி அழுத்த விளிம்பு"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Wacom tablet PC feature"
 msgstr "வாகாம் தொடுதிட்டு பிசி அம்சம்"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom tablet area"
 msgstr "வாகாம் தொடுதிட்டு பரப்பு"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "Wacom tablet rotation"
 msgstr "வாகாம் தொடுதிட்டு சுழற்சி"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Wacom touch feature"
 msgstr "வாகாம் தொடுதல் அம்சம்"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
@@ -2989,67 +3001,67 @@ msgstr "மீண்டும் முயற்சிக்கவும்"
 msgid "A transaction that cannot be interrupted is running"
 msgstr "ஒரு பரிமாற்றம் இடைபுகுவது இயங்குகிறது"
 
-#: ../plugins/wacom/gsd-wacom-device.c:884
+#: ../plugins/wacom/gsd-wacom-device.c:908
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "இடது வளைய பாங்கு #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:891
+#: ../plugins/wacom/gsd-wacom-device.c:915
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "வலது வளைய பாங்கு #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:919
+#: ../plugins/wacom/gsd-wacom-device.c:943
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "இடது தொடுப்பட்டை பாங்கு #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:926
+#: ../plugins/wacom/gsd-wacom-device.c:950
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "வலது தொடுப்பட்டை பாங்கு #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:941
+#: ../plugins/wacom/gsd-wacom-device.c:965
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "இடது தொடுவளைய பாங்கு மாற்றி"
 
-#: ../plugins/wacom/gsd-wacom-device.c:943
+#: ../plugins/wacom/gsd-wacom-device.c:967
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "வலது தொடுவளைய பாங்கு மாற்றி"
 
-#: ../plugins/wacom/gsd-wacom-device.c:946
+#: ../plugins/wacom/gsd-wacom-device.c:970
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "இடது தொடுப்பட்டை பாங்கு  மாற்றி "
 
-#: ../plugins/wacom/gsd-wacom-device.c:948
+#: ../plugins/wacom/gsd-wacom-device.c:972
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "வலது தொடுப்பட்டை பாங்கு  மாற்றி "
 
-#: ../plugins/wacom/gsd-wacom-device.c:953
+#: ../plugins/wacom/gsd-wacom-device.c:977
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "பாங்கு  மாற்றி #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1025
+#: ../plugins/wacom/gsd-wacom-device.c:1049
 #, c-format
 msgid "Left Button #%d"
 msgstr "இடது பொத்தான் #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1028
+#: ../plugins/wacom/gsd-wacom-device.c:1052
 #, c-format
 msgid "Right Button #%d"
 msgstr "வலது பொத்தான் #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1031
+#: ../plugins/wacom/gsd-wacom-device.c:1055
 #, c-format
 msgid "Top Button #%d"
 msgstr "மேல் பொத்தான் #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1034
+#: ../plugins/wacom/gsd-wacom-device.c:1058
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "கீழ் பொத்தான் #%d"
