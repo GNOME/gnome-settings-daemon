@@ -882,7 +882,6 @@ filter_button_events (XEvent          *xevent,
 		 gsd_wacom_device_get_name (device),
 		 deviceid);
 
-	/* FIXME, we need to switch mode here */
 	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED) {
 		int new_mode;
 
