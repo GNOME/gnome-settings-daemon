@@ -762,6 +762,7 @@ get_elevator_shortcut_string (GSettings        *settings,
 
 static void
 generate_key (GsdWacomTabletButton *wbutton,
+	      int                   group,
 	      Display              *display,
 	      GtkDirectionType      dir,
 	      gboolean              is_press)
@@ -769,7 +770,11 @@ generate_key (GsdWacomTabletButton *wbutton,
 	char                 *str;
 	guint                 keyval;
 	guint                *keycodes;
+	guint                 keycode;
 	guint                 mods;
+	GdkKeymapKey         *keys;
+	int                   n_keys;
+	guint                 i;
 
 	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR)
 		str = get_elevator_shortcut_string (wbutton->settings, dir);
@@ -780,26 +785,49 @@ generate_key (GsdWacomTabletButton *wbutton,
 		return;
 
 	gtk_accelerator_parse_with_keycode (str, &keyval, &keycodes, &mods);
-
 	if (keycodes == NULL) {
 		g_warning ("Failed to find a keycode for shortcut '%s'", str);
 		g_free (str);
 		return;
 	}
+	g_free (keycodes);
 
-	g_debug ("Emitting '%s' (keyval: %d, keycodes[0]: %d mods: 0x%x)",
-		 str, keyval, keycodes[0], mods);
+	/* Now look for our own keycode, in the group as us */
+	if (!gdk_keymap_get_entries_for_keyval (gdk_keymap_get_default (), keyval, &keys, &n_keys)) {
+		g_warning ("Failed to find a keycode for keyval '%s' (0x%x)", gdk_keyval_name (keyval), keyval);
+		g_free (str);
+		return;
+	}
+
+	keycode = 0;
+	for (i = 0; i < n_keys; i++) {
+		if (keys[i].group != group)
+			continue;
+		if (keys[i].level > 0)
+			continue;
+		keycode = keys[i].keycode;
+	}
+	/* Couldn't find it in the current group? Look in group 0 */
+	if (keycode == 0) {
+		for (i = 0; i < n_keys; i++) {
+			if (keys[i].level > 0)
+				continue;
+			keycode = keys[i].keycode;
+		}
+	}
+	g_free (keys);
+
+	g_debug ("Emitting '%s' (keyval: %d, keycode: %d mods: 0x%x)",
+		 str, keyval, keycode, mods);
 	g_free (str);
 
 	/* And send out the keys! */
 	if (is_press)
 		send_modifiers (display, mods, TRUE);
-	XTestFakeKeyEvent (display, keycodes[0],
+	XTestFakeKeyEvent (display, keycode,
 			   is_press ? True : False, 0);
 	if (is_press == FALSE)
 		send_modifiers (display, mods, FALSE);
-
-	g_free (keycodes);
 }
 
 static GdkFilterReturn
@@ -872,7 +900,7 @@ filter_button_events (XEvent          *xevent,
 		return GDK_FILTER_REMOVE;
 
 	/* Send a key combination out */
-	generate_key (wbutton, xev->display, dir, xiev->evtype == XI_ButtonPress ? True : False);
+	generate_key (wbutton, xev->group.effective, xev->display, dir, xiev->evtype == XI_ButtonPress ? True : False);
 
 	return GDK_FILTER_REMOVE;
 }
