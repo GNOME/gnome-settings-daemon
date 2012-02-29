@@ -786,7 +786,9 @@ generate_key (GsdWacomTabletButton *wbutton,
 		g_free (str);
 		return;
 	}
-	g_debug ("Emitting '%s'", str);
+
+	g_debug ("Emitting '%s' (keyval: %d, keycodes[0]: %d mods: 0x%x)",
+		 str, keyval, keycodes[0], mods);
 	g_free (str);
 
 	/* And send out the keys! */
