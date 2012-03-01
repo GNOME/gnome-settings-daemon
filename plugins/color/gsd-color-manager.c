@@ -199,14 +199,24 @@ gcm_session_get_output_id (GsdColorManager *manager, GnomeRROutput *output)
                 goto out;
         }
 
-        /* get EDID data */
+        /* check EDID data is okay to use */
         vendor = gcm_edid_get_vendor_name (edid);
+        name = gcm_edid_get_monitor_name (edid);
+        serial = gcm_edid_get_serial_number (edid);
+        if (vendor == NULL && name == NULL && serial == NULL) {
+                g_debug ("edid invalid for %s, falling back to connection name",
+                         gnome_rr_output_get_name (output));
+                g_string_append_printf (device_id,
+                                        "-%s",
+                                        gnome_rr_output_get_name (output));
+                goto out;
+        }
+
+        /* use EDID data */
         if (vendor != NULL)
                 g_string_append_printf (device_id, "-%s", vendor);
-        name = gcm_edid_get_monitor_name (edid);
         if (name != NULL)
                 g_string_append_printf (device_id, "-%s", name);
-        serial = gcm_edid_get_serial_number (edid);
         if (serial != NULL)
                 g_string_append_printf (device_id, "-%s", serial);
 out:
