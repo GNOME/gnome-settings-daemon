@@ -63,4 +63,4 @@ case $type in
 esac
 
 # All further processing will be disabled if $retval == 0
-return $retval
+exit $retval
