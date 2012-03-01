@@ -194,7 +194,7 @@ gcm_session_get_output_id (GsdColorManager *manager, GnomeRROutput *output)
                          error->message);
                 g_error_free (error);
                 g_string_append_printf (device_id,
-                                        "_%s",
+                                        "-%s",
                                         gnome_rr_output_get_name (output));
                 goto out;
         }
