@@ -401,7 +401,7 @@ gcm_edid_parse (GcmEdid *edid, const guint8 *data, gsize length, GError **error)
         }
 
         /* calculate checksum */
-        priv->checksum = g_compute_checksum_for_data (G_CHECKSUM_MD5, data, 0x6c);
+        priv->checksum = g_compute_checksum_for_data (G_CHECKSUM_MD5, data, length);
 out:
         return ret;
 }
