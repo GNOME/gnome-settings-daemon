@@ -174,6 +174,8 @@ update_cursor_for_current (GsdCursorManager *manager)
                         continue;
                 }
 
+                g_debug ("Counting '%s' as mouse", device_info[i].name);
+
                 num_mice++;
         }
         XFreeDeviceList (device_info);
