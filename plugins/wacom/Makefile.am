@@ -75,6 +75,7 @@ test_wacom_CPPFLAGS = \
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
 test_wacom_CFLAGS =			\

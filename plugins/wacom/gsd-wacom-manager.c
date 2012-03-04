@@ -381,8 +381,35 @@ set_led (GsdWacomDevice *device,
 	 int             group_id,
 	 int             index)
 {
-	/* FIXME implement */
-	g_message ("Switched group ID %d to index %d", group_id, index);
+	GError *error = NULL;
+	const char *path;
+	char *command;
+	gboolean ret;
+
+#ifndef HAVE_GUDEV
+	/* Not implemented on non-Linux systems */
+	return;
+#endif
+	g_return_if_fail (index >= 1);
+
+	path = gsd_wacom_device_get_path (device);
+
+	g_debug ("Switching group ID %d to index %d for device %s", group_id, index, path);
+
+	command = g_strdup_printf ("pkexec " LIBEXECDIR "/gsd-wacom-led-helper --path %s --group %d --led %d",
+				   path, group_id - 1, index - 1);
+	ret = g_spawn_command_line_sync (command,
+					 NULL,
+					 NULL,
+					 NULL,
+					 &error);
+
+	if (ret == FALSE) {
+		g_debug ("Failed to launch '%s': %s", command, error->message);
+		g_error_free (error);
+	}
+
+	g_free (command);
 }
 
 struct DefaultButtons {
@@ -490,8 +517,8 @@ reset_pad_buttons (GsdWacomDevice *device)
 
 	/* Reset all the LEDs */
 	/* FIXME, get the number of modes somewhere else */
-	for (i = 0; i < 4; i++)
-		set_led (device, i, 0);
+	for (i = 1; i <= 4; i++)
+		set_led (device, i, 1);
 }
 
 static void
