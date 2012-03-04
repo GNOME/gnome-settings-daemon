@@ -279,7 +279,7 @@ set_device_buttonmap (GsdWacomDevice *device,
 
 	intmap = g_variant_get_fixed_array (value, &nmap, sizeof (gint32));
 	map = g_new0 (unsigned char, nmap);
-	for (i = 0; i < nmap && i < sizeof (map); i++)
+	for (i = 0; i < nmap; i++)
 		map[i] = intmap[i];
         g_variant_unref (value);
 
