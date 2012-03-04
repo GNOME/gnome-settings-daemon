@@ -32,6 +32,32 @@ libgsdwacom_la_LIBADD  =						\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	$(WACOM_LIBS)
 
+org.gnome.settings-daemon.plugins.wacom.policy.in: org.gnome.settings-daemon.plugins.wacom.policy.in.in Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+@INTLTOOL_POLICY_RULE@
+polkit_policydir = $(datadir)/polkit-1/actions
+polkit_policy_in_files = org.gnome.settings-daemon.plugins.wacom.policy.in
+polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
+
+# so it always gets included in the tarball
+gsd_wacom_led_helper_SOURCES =	gsd-wacom-led-helper.c
+
+EXTRA_DIST = $(gsd_wacom_led_helper_SOURCES)
+
+if HAVE_GUDEV
+libexec_PROGRAMS = gsd-wacom-led-helper
+
+gsd_wacom_led_helper_LDFLAGS =				\
+	$(BACKLIGHT_HELPER_LIBS)			\
+	-lm
+
+gsd_wacom_led_helper_CFLAGS =				\
+	$(BACKLIGHT_HELPER_CFLAGS)
+endif
+
+EXTRA_DIST += org.gnome.settings-daemon.plugins.wacom.policy.in.in
+
 noinst_PROGRAMS = test-wacom list-wacom
 
 test_wacom_SOURCES =		\
@@ -96,7 +122,7 @@ plugin_in_files = wacom.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-EXTRA_DIST = $(plugin_in_files)
+EXTRA_DIST += $(plugin_in_files)
 CLEANFILES = $(plugin_DATA)
 DISTCLEANFILES = $(plugin_DATA)
 

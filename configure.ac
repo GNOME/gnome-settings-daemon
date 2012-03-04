@@ -199,7 +199,7 @@ dnl ---------------------------------------------------------------------------
 dnl - wacom
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION xorg-wacom])
+PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst $GUDEV_PKG gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION xorg-wacom])
 
 dnl ==============================================
 dnl PackageKit section
