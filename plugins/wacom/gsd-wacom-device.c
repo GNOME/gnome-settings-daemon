@@ -315,7 +315,7 @@ struct GsdWacomDevicePrivate
 
 	GsdWacomDeviceType type;
 	char *name;
-	char *icon_name;
+	const char *icon_name;
 	char *tool_name;
 	gboolean reversible;
 	gboolean is_screen_tablet;
@@ -1110,11 +1110,11 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 	device->priv->is_screen_tablet = libwacom_is_builtin (wacom_device);
 	if (device->priv->is_screen_tablet) {
 		if (libwacom_get_class (wacom_device) == WCLASS_CINTIQ)
-			device->priv->icon_name = g_strdup ("wacom-tablet-cintiq");
+			device->priv->icon_name = "wacom-tablet-cintiq";
 		else
-			device->priv->icon_name = g_strdup ("wacom-tablet-pc");
+			device->priv->icon_name = "wacom-tablet-pc";
 	} else {
-		device->priv->icon_name = g_strdup ("wacom-tablet");
+		device->priv->icon_name = "wacom-tablet";
 	}
 
 	if (device->priv->type == WACOM_TYPE_PAD) {
@@ -1332,9 +1332,6 @@ gsd_wacom_device_finalize (GObject *object)
 
         g_free (p->tool_name);
         p->tool_name = NULL;
-
-        g_free (p->icon_name);
-        p->icon_name = NULL;
 
         if (p->modes) {
                 g_hash_table_destroy (p->modes);
