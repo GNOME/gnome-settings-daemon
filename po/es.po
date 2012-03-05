@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-02-27 18:55+0000\n"
-"PO-Revision-Date: 2012-02-28 16:16+0100\n"
+"POT-Creation-Date: 2012-03-04 21:29+0000\n"
+"PO-Revision-Date: 2012-03-05 10:48+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -347,14 +347,10 @@ msgstr ""
 "El atajo de teclado generado al pulsar el botón para acciones personalizadas."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
-#| msgid "Key combination for the custom action"
 msgid "Key combinations for an elevator custom action"
 msgstr "Combinación de teclas para una acción personalizada"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
-#| msgid ""
-#| "The keyboard shortcut generated when the button is pressed for custom "
-#| "actions."
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
 "custom actions (up followed by down)."
@@ -1525,7 +1521,7 @@ msgid "Clipboard plugin"
 msgstr "Complemento del portapapeles"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1749
+#: ../plugins/color/gsd-color-manager.c:1759
 msgid "Color"
 msgstr "Color"
 
@@ -1533,40 +1529,40 @@ msgstr "Color"
 msgid "Color plugin"
 msgstr "Complemento de color"
 
-#: ../plugins/color/gsd-color-manager.c:1754
+#: ../plugins/color/gsd-color-manager.c:1764
 msgid "Recalibrate now"
 msgstr "Recalibrar ahora"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1796
+#: ../plugins/color/gsd-color-manager.c:1806
 msgid "Recalibration required"
 msgstr "Se necesita recalibrar"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1808
+#: ../plugins/color/gsd-color-manager.c:1818
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "La pantalla «%s» se debería recalibrar pronto."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1817
+#: ../plugins/color/gsd-color-manager.c:1827
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "La impresora «%s» se debería recalibrar pronto."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2143
-#: ../plugins/color/gsd-color-manager.c:2159
+#: ../plugins/color/gsd-color-manager.c:2153
+#: ../plugins/color/gsd-color-manager.c:2169
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Complemento de color del administrador de preferencias de GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2145
+#: ../plugins/color/gsd-color-manager.c:2155
 msgid "Color calibration device added"
 msgstr "Dispositivo de calibración de color añadido"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2161
+#: ../plugins/color/gsd-color-manager.c:2171
 msgid "Color calibration device removed"
 msgstr "Dispositivo de calibración de color quitado"
 
@@ -3121,70 +3117,85 @@ msgstr "Intentarlo de nuevo"
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Se está ejecutando una transacción que no se puede interrumpir"
 
-#: ../plugins/wacom/gsd-wacom-device.c:908
+#: ../plugins/wacom/gsd-wacom-device.c:909
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Modo del anillo izquierdo nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:915
+#: ../plugins/wacom/gsd-wacom-device.c:916
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Modo del anillo derecho nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:943
+#: ../plugins/wacom/gsd-wacom-device.c:944
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Modo de la banda táctil izquierda nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:950
+#: ../plugins/wacom/gsd-wacom-device.c:951
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Modo de la banda táctil derecha nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:965
+#: ../plugins/wacom/gsd-wacom-device.c:966
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Modo de cambio del anillo táctil izquierdo"
 
-#: ../plugins/wacom/gsd-wacom-device.c:967
+#: ../plugins/wacom/gsd-wacom-device.c:968
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Modo de cambio del anillo táctil derecho"
 
-#: ../plugins/wacom/gsd-wacom-device.c:970
+#: ../plugins/wacom/gsd-wacom-device.c:971
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Modo de cambio de la banda táctil izquierda"
 
-#: ../plugins/wacom/gsd-wacom-device.c:972
+#: ../plugins/wacom/gsd-wacom-device.c:973
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Modo de cambio de la banda táctil derecha"
 
-#: ../plugins/wacom/gsd-wacom-device.c:977
+#: ../plugins/wacom/gsd-wacom-device.c:978
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Modo de cambio nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1049
+#: ../plugins/wacom/gsd-wacom-device.c:1050
 #, c-format
 msgid "Left Button #%d"
 msgstr "Botón izquierdo nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1052
+#: ../plugins/wacom/gsd-wacom-device.c:1053
 #, c-format
 msgid "Right Button #%d"
 msgstr "Botón derecho nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1055
+#: ../plugins/wacom/gsd-wacom-device.c:1056
 #, c-format
 msgid "Top Button #%d"
 msgstr "Botón superior nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1058
+#: ../plugins/wacom/gsd-wacom-device.c:1059
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Botón inferior nº %d"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the LED setting for a Wacom tablet
+#.
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
+msgid "Modify the lit LED for a Wacom tablet"
+msgstr "Modificar la iluminación del LED de una tableta Wacom"
+
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
+#| msgid "Authentication is required to modify the laptop brightness"
+msgid "Authentication is required to modify the lit LED for a Wacom tablet"
+msgstr ""
+"Se requiere autenticación para modificar la iluminación del LED de una "
+"tableta Wacom"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:500
 msgid "Could not switch the monitor configuration"
