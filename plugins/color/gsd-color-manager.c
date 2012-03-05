@@ -752,7 +752,7 @@ gcm_session_generate_vcgt (CdProfile *profile, guint size)
                 goto out;
 
         /* get tone curves from profile */
-        vcgt = cmsReadTag (lcms_profile, cmsSigVcgtType);
+        vcgt = cmsReadTag (lcms_profile, cmsSigVcgtTag);
         if (vcgt == NULL || vcgt[0] == NULL) {
                 g_debug ("profile does not have any VCGT data");
                 goto out;
