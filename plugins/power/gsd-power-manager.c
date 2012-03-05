@@ -136,8 +136,10 @@ static const gchar introspection_xml[] =
 static int
 abs_to_percentage (int min, int max, int value)
 {
-	g_return_val_if_fail (max > min, -1);
-	return (((value - min) * 100) / (max - min));
+        g_return_val_if_fail (max > min, -1);
+        g_return_val_if_fail (value < min, -1);
+        g_return_val_if_fail (value > max, -1);
+        return (((value - min) * 100) / (max - min));
 }
 #define ABS_TO_PERCENTAGE(min, max, value) abs_to_percentage(min, max, value)
 #define PERCENTAGE_TO_ABS(min, max, value) (min + (((max - min) * value) / 100))
@@ -3892,7 +3894,7 @@ handle_method_call_keyboard (GsdPowerManager *manager,
                              GVariant *parameters,
                              GDBusMethodInvocation *invocation)
 {
-        guint step;
+        gint step;
         gint value = -1;
         gboolean ret;
         guint percentage;
