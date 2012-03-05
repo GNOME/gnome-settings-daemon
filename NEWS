@@ -1,3 +1,30 @@
+==============
+Version 3.3.91
+==============
+
+Color:
+- Fix warning with non-present devices
+- Make displays without EDID data use the correct device ID
+- Create the correct device ID for EDIDs with no text data
+- Fix EDID checksum generation
+
+Power:
+- Emit a Changed() signal when the backlight changes
+- Don't overflow when pressing the keyboard brightness button
+
+Media-keys:
+- Make Alt+Print appear as Alt+Print not Alt+SysRq
+
+Wacom:
+- Add support for mode switch buttons, touchrings, touchstrips,
+  and light up the LEDs appropriately
+- Add support for current tool ID from Wacom driver
+- Fix possible crasher setting pressure curve or display area
+- Force touchpads to use relative mode and ignore mode changes
+- Fix double-event generation
+- Fix installation problems with libexecdir == libdir
+- Make monitor == -1 reset the display configuration
+
 ================
 Version 3.3.90.1
 ================
