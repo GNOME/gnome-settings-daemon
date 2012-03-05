@@ -95,9 +95,18 @@ int main (int argc, char **argv)
 	GOptionContext *context;
 	GUdevClient *client;
 	GUdevDevice *device, *parent;
+	int uid, euid;
 	char *filename;
 	GError *error = NULL;
         const char * const subsystems[] = { "input", NULL };
+
+	/* get calling process */
+	uid = getuid ();
+	euid = geteuid ();
+	if (uid != 0 || euid != 0) {
+		g_print ("This program can only be used by the root user\n");
+		return 1;
+	}
 
 	g_type_init ();
 
