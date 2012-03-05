@@ -2502,6 +2502,16 @@ backlight_helper_get_value (const gchar *argument, GError **error)
                 goto out;
         }
 
+        /* Fetching the value failed, for some other reason */
+        if (value < 0) {
+                g_set_error (error,
+                             GSD_POWER_MANAGER_ERROR,
+                             GSD_POWER_MANAGER_ERROR_FAILED,
+                             "value negative, but helper did not fail: %s",
+                             stdout_data);
+                goto out;
+        }
+
 out:
         g_free (command);
         g_free (stdout_data);
