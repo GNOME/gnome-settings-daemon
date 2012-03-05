@@ -223,15 +223,6 @@ main (int argc, char *argv[])
 		goto out;
 	}
 
-	/* check we're not being spoofed */
-	pkexec_uid_str = g_getenv ("PKEXEC_UID");
-	if (pkexec_uid_str == NULL) {
-		g_print ("%s\n",
-			 "This program must only be run through pkexec");
-		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_INVALID_USER;
-		goto out;
-	}
-
 	/* SetBrightness */
 	if (set_brightness != -1) {
 		filename_file = g_build_filename (filename, "brightness", NULL);
