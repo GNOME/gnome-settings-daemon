@@ -213,7 +213,7 @@ main (int argc, char *argv[])
 		goto out;
 	}
 
-	/* get calling process */
+	/* check calling UID */
 	uid = getuid ();
 	euid = geteuid ();
 	if (uid != 0 || euid != 0) {
