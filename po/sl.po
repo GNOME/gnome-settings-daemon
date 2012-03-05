@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-deamon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-03-02 12:06+0000\n"
-"PO-Revision-Date: 2012-03-02 13:56+0100\n"
+"POT-Creation-Date: 2012-03-05 16:28+0000\n"
+"PO-Revision-Date: 2012-03-05 17:39+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -2303,7 +2303,7 @@ msgstr "Pokrov računalnika je zaprt"
 
 #. TRANSLATORS: this is the title of the power manager status icon
 #. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:3645
+#: ../plugins/power/gsd-power-manager.c:3655
 msgid "Power Manager"
 msgstr "Upravljalnik porabe"
 
@@ -2767,70 +2767,82 @@ msgstr "Poskusite znova"
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Zagnan je prenos, ki ga ni mogoče prekiniti"
 
-#: ../plugins/wacom/gsd-wacom-device.c:908
+#: ../plugins/wacom/gsd-wacom-device.c:909
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Levi način drsnega obroča #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:915
+#: ../plugins/wacom/gsd-wacom-device.c:916
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Desni način drsnega obroča #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:943
+#: ../plugins/wacom/gsd-wacom-device.c:944
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Levi način drsne ploščice #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:950
+#: ../plugins/wacom/gsd-wacom-device.c:951
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Desni način drsne ploščice #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:965
+#: ../plugins/wacom/gsd-wacom-device.c:966
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Levi gumb preklopa drsnega obroča"
 
-#: ../plugins/wacom/gsd-wacom-device.c:967
+#: ../plugins/wacom/gsd-wacom-device.c:968
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Desni gumb preklopa drsnega obroča"
 
-#: ../plugins/wacom/gsd-wacom-device.c:970
+#: ../plugins/wacom/gsd-wacom-device.c:971
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Levi gumb preklopa drsne ploščice"
 
-#: ../plugins/wacom/gsd-wacom-device.c:972
+#: ../plugins/wacom/gsd-wacom-device.c:973
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Desni gumb preklopa drsne ploščice"
 
-#: ../plugins/wacom/gsd-wacom-device.c:977
+#: ../plugins/wacom/gsd-wacom-device.c:978
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Gumb preklopa #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1049
+#: ../plugins/wacom/gsd-wacom-device.c:1050
 #, c-format
 msgid "Left Button #%d"
 msgstr "Levi gumb #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1052
+#: ../plugins/wacom/gsd-wacom-device.c:1053
 #, c-format
 msgid "Right Button #%d"
 msgstr "Desni gumb #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1055
+#: ../plugins/wacom/gsd-wacom-device.c:1056
 #, c-format
 msgid "Top Button #%d"
 msgstr "Zgornji gumb #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1058
+#: ../plugins/wacom/gsd-wacom-device.c:1059
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Spodnji gumb #%d"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the LED setting for a Wacom tablet
+#.
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
+msgid "Modify the lit LED for a Wacom tablet"
+msgstr "Spremeni osvetlitev LED tablice Wacom"
+
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
+msgid "Authentication is required to modify the lit LED for a Wacom tablet"
+msgstr "Za spremembo osvetljenosti LED tablice Wacom je zahtevana overitev"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:500
 msgid "Could not switch the monitor configuration"
