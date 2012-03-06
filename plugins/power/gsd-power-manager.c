@@ -137,8 +137,8 @@ static int
 abs_to_percentage (int min, int max, int value)
 {
         g_return_val_if_fail (max > min, -1);
-        g_return_val_if_fail (value < min, -1);
-        g_return_val_if_fail (value > max, -1);
+        g_return_val_if_fail (value >= min, -1);
+        g_return_val_if_fail (value <= max, -1);
         return (((value - min) * 100) / (max - min));
 }
 #define ABS_TO_PERCENTAGE(min, max, value) abs_to_percentage(min, max, value)
