@@ -15,6 +15,9 @@
 # The script should return 0 if the device is to be
 # ignored from future configuration.
 #
+# Set the script to be used with:
+# gsettings set org.gnome.settings-daemon.peripherals.input-devices hotplug-command /path/to/script/input-devices.sh
+#
 
 args=`getopt "t:i:" $*`
 
