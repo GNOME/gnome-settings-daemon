@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-02-13 18:22+0000\n"
-"PO-Revision-Date: 2012-02-17 11:42+0300\n"
+"POT-Creation-Date: 2012-03-04 21:29+0000\n"
+"PO-Revision-Date: 2012-03-07 19:52+0300\n"
 "Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -272,7 +272,6 @@ msgid "Set this to the pressure value at which an eraser click event is generate
 msgstr "Установите значение силы нажатия, при котором создаётся событие нажатия ластика."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
-#| msgid "Wacom pad button mapping"
 msgid "Wacom button action type"
 msgstr "Тип действия клавиш Wacom"
 
@@ -281,13 +280,24 @@ msgid "The type of action triggered by the button being pressed."
 msgstr "Тип действия, переключаемый нажатием клавиши."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
-#| msgid "Binding for the custom binding"
 msgid "Key combination for the custom action"
 msgstr "Комбинация клавиш для пользовательского действия"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "The keyboard shortcut generated when the button is pressed for custom actions."
 msgstr "Комбинация клавиш для пользовательских действий, генерируемая при нажатии на клавишу."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+#| msgid "Key combination for the custom action"
+msgid "Key combinations for an elevator custom action"
+msgstr "Комбинации клавиш, генерируемые при использовании сенсорного кольца или сенсорной полосы"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+#| msgid ""
+#| "The keyboard shortcut generated when the button is pressed for custom "
+#| "actions."
+msgid "The keyboard shortcuts generated when a touchring or touchstrip is used for custom actions (up followed by down)."
+msgstr "Комбинации клавиш, генерируемые при использовании сенсорного кольца или сенсорной полосы (состояние нажатости)."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 msgid "The duration a display profile is valid"
@@ -967,7 +977,7 @@ msgstr "Вы только что удержали клавишу Shift нажа�
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:529
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
-#: ../plugins/mouse/gsd-mouse-manager.c:835
+#: ../plugins/mouse/gsd-mouse-manager.c:837
 msgid "Universal Access"
 msgstr "Универсальный доступ"
 
@@ -1219,7 +1229,7 @@ msgid "Clipboard plugin"
 msgstr "Модуль буфера обмена"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1745
+#: ../plugins/color/gsd-color-manager.c:1759
 msgid "Color"
 msgstr "Управление цветом"
 
@@ -1227,40 +1237,40 @@ msgstr "Управление цветом"
 msgid "Color plugin"
 msgstr "Модуль управления цветом"
 
-#: ../plugins/color/gsd-color-manager.c:1750
+#: ../plugins/color/gsd-color-manager.c:1764
 msgid "Recalibrate now"
 msgstr "Перекалибровать сейчас"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1792
+#: ../plugins/color/gsd-color-manager.c:1806
 msgid "Recalibration required"
 msgstr "Требуется перекалибровка"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1804
+#: ../plugins/color/gsd-color-manager.c:1818
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Монитор «%s» должен быть перекалиброван как можно скорее."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1813
+#: ../plugins/color/gsd-color-manager.c:1827
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Принтер «%s» должен быть перекалиброван как можно скорее."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2139
-#: ../plugins/color/gsd-color-manager.c:2155
+#: ../plugins/color/gsd-color-manager.c:2153
+#: ../plugins/color/gsd-color-manager.c:2169
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Модуль управления цветом для службы параметров GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2141
+#: ../plugins/color/gsd-color-manager.c:2155
 msgid "Color calibration device added"
 msgstr "Добавлено устройство калибровки цветопередачи"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2157
+#: ../plugins/color/gsd-color-manager.c:2171
 msgid "Color calibration device removed"
 msgstr "Удалено устройство калибровки цветопередачи"
 
@@ -1438,11 +1448,11 @@ msgstr "Мультимедийные клавиши"
 msgid "Media keys plugin"
 msgstr "Модуль мультимедийных клавиш"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:831
+#: ../plugins/mouse/gsd-mouse-manager.c:833
 msgid "Could not enable mouse accessibility features"
 msgstr "Не удалось включить возможности вспомогательных технологий мыши"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:833
+#: ../plugins/mouse/gsd-mouse-manager.c:835
 msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Вспомогательным технологиям мыши требуется наличие установленного пакета Mousetweaks."
 
@@ -1974,279 +1984,275 @@ msgid "Computer is charged"
 msgstr "Компьютер заряжен"
 
 #. TRANSLATORS: the battery may be recalled by it's vendor
-#: ../plugins/power/gsd-power-manager.c:985
+#: ../plugins/power/gsd-power-manager.c:988
 msgid "Battery may be recalled"
 msgstr "Батарея может быть отозвана"
 
-#: ../plugins/power/gsd-power-manager.c:988
+#: ../plugins/power/gsd-power-manager.c:991
 #, c-format
 msgid "A battery in your computer may have been recalled by %s and you may be at risk."
 msgstr "Батарея вашего компьютера может быть отозвана %s, вы можете подвергаться опасности."
 
-#: ../plugins/power/gsd-power-manager.c:991
+#: ../plugins/power/gsd-power-manager.c:994
 msgid "For more information visit the battery recall website."
 msgstr "Более подробную информацию об отзыве батареи можно найти на веб-сайте."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:1002
+#: ../plugins/power/gsd-power-manager.c:1005
 msgid "Visit recall website"
 msgstr "Посетить веб-сайт отзыва"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:1006
+#: ../plugins/power/gsd-power-manager.c:1009
 msgid "Do not show me this again"
 msgstr "Больше не показывать это сообщение"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1217
+#: ../plugins/power/gsd-power-manager.c:1220
 msgid "UPS Discharging"
 msgstr "ИБП разряжается"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1222
+#: ../plugins/power/gsd-power-manager.c:1225
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Время работы от ИБП — %s"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1243
-#: ../plugins/power/gsd-power-manager.c:1421
-#: ../plugins/power/gsd-power-manager.c:1602
-#: ../plugins/power/gsd-power-manager.c:1751
+#: ../plugins/power/gsd-power-manager.c:1246
+#: ../plugins/power/gsd-power-manager.c:1424
+#: ../plugins/power/gsd-power-manager.c:1605
+#: ../plugins/power/gsd-power-manager.c:1754
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Электропитание"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1336
+#: ../plugins/power/gsd-power-manager.c:1339
 msgid "Battery low"
 msgstr "Низкий заряд батареи"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1339
+#: ../plugins/power/gsd-power-manager.c:1342
 msgid "Laptop battery low"
 msgstr "Низкий заряд батареи ноутбука"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1345
+#: ../plugins/power/gsd-power-manager.c:1348
 #, c-format
 msgid "Approximately <b>%s</b> remaining (%.0f%%)"
 msgstr "Приблизительно осталось <b>%s</b> (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1349
+#: ../plugins/power/gsd-power-manager.c:1352
 msgid "UPS low"
 msgstr "Низкий заряд ИБП"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1353
+#: ../plugins/power/gsd-power-manager.c:1356
 #, c-format
 msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
 msgstr "Приблизительное время работы от ИБП — <b>%s</b> (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1357
-#: ../plugins/power/gsd-power-manager.c:1523
+#: ../plugins/power/gsd-power-manager.c:1360
+#: ../plugins/power/gsd-power-manager.c:1526
 msgid "Mouse battery low"
 msgstr "Низкий заряд батареи мыши"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1360
+#: ../plugins/power/gsd-power-manager.c:1363
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Низкий заряд батареи беспроводной мыши (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1364
-#: ../plugins/power/gsd-power-manager.c:1531
+#: ../plugins/power/gsd-power-manager.c:1367
+#: ../plugins/power/gsd-power-manager.c:1534
 msgid "Keyboard battery low"
 msgstr "Низкий заряд батареи клавиатуры"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1367
+#: ../plugins/power/gsd-power-manager.c:1370
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Низкий заряд батареи беспроводной клавиатуры (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1371
-#: ../plugins/power/gsd-power-manager.c:1540
+#: ../plugins/power/gsd-power-manager.c:1374
+#: ../plugins/power/gsd-power-manager.c:1543
 msgid "PDA battery low"
 msgstr "Низкий заряд батареи КПК"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1374
+#: ../plugins/power/gsd-power-manager.c:1377
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "Низкий заряд батареи КПК (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1378
-#: ../plugins/power/gsd-power-manager.c:1550
-#: ../plugins/power/gsd-power-manager.c:1561
+#: ../plugins/power/gsd-power-manager.c:1381
+#: ../plugins/power/gsd-power-manager.c:1553
+#: ../plugins/power/gsd-power-manager.c:1564
 msgid "Cell phone battery low"
 msgstr "Низкий заряд батареи мобильного телефона"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1381
+#: ../plugins/power/gsd-power-manager.c:1384
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Низкий заряд батареи мобильного телефона (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1386
+#: ../plugins/power/gsd-power-manager.c:1389
 msgid "Media player battery low"
 msgstr "Низкий заряд батареи медиаплеера"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1389
+#: ../plugins/power/gsd-power-manager.c:1392
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Низкий заряд батареи медиаплеера (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1393
-#: ../plugins/power/gsd-power-manager.c:1570
+#: ../plugins/power/gsd-power-manager.c:1396
+#: ../plugins/power/gsd-power-manager.c:1573
 msgid "Tablet battery low"
 msgstr "Низкий заряд батареи планшета"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1396
+#: ../plugins/power/gsd-power-manager.c:1399
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Низкий заряд батареи планшета (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1400
-#: ../plugins/power/gsd-power-manager.c:1579
+#: ../plugins/power/gsd-power-manager.c:1403
+#: ../plugins/power/gsd-power-manager.c:1582
 msgid "Attached computer battery low"
 msgstr "Низкий заряд батареи подключённого компьютера"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1403
+#: ../plugins/power/gsd-power-manager.c:1406
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Низкий заряд батареи подключённого компьютера (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1440
+#: ../plugins/power/gsd-power-manager.c:1443
 msgid "Battery is low"
 msgstr "Низкий заряд батареи"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1482
+#: ../plugins/power/gsd-power-manager.c:1485
 msgid "Battery critically low"
 msgstr "Критически низкий заряд батареи"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1485
-#: ../plugins/power/gsd-power-manager.c:1669
+#: ../plugins/power/gsd-power-manager.c:1488
+#: ../plugins/power/gsd-power-manager.c:1672
 msgid "Laptop battery critically low"
 msgstr "Критически низкий заряд батареи ноутбука"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1494
+#: ../plugins/power/gsd-power-manager.c:1497
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "Подключите адаптер переменного тока, чтобы избежать потери данных."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1498
+#: ../plugins/power/gsd-power-manager.c:1501
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "Компьютер очень скоро перейдёт в ждущий режим, если не будет подключён к электропитанию."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1502
+#: ../plugins/power/gsd-power-manager.c:1505
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "Компьютер очень скоро перейдёт в спящий режим, если не будет подключён к электропитанию."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1506
+#: ../plugins/power/gsd-power-manager.c:1509
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "Компьютер очень скоро выключится, если не будет подключён к электропитанию."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1513
-#: ../plugins/power/gsd-power-manager.c:1705
+#: ../plugins/power/gsd-power-manager.c:1516
+#: ../plugins/power/gsd-power-manager.c:1708
 msgid "UPS critically low"
 msgstr "Критически низкий заряд ИБП"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1517
+#: ../plugins/power/gsd-power-manager.c:1520
 #, c-format
 msgid "Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to your computer to avoid losing data."
 msgstr "Приблизительное время работы от ИБП — <b>%s</b> (%.0f%%). Восстановите электропитание, чтобы избежать потери данных."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1526
+#: ../plugins/power/gsd-power-manager.c:1529
 #, c-format
 msgid "Wireless mouse is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "Очень низкий заряд батареи беспроводной мыши (%.0f%%). Если устройство не зарядить, то очень скоро оно перестанет работать."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1534
+#: ../plugins/power/gsd-power-manager.c:1537
 #, c-format
 msgid "Wireless keyboard is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "Очень низкий заряд батареи беспроводной клавиатуры (%.0f%%). Если устройство не зарядить, то очень скоро оно перестанет работать."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1543
+#: ../plugins/power/gsd-power-manager.c:1546
 #, c-format
 msgid "PDA is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "Очень низкий заряд батареи КПК (%.0f%%). Если устройство не зарядить, то очень скоро оно перестанет работать."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1553
+#: ../plugins/power/gsd-power-manager.c:1556
 #, c-format
 msgid "Cell phone is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "Очень низкий заряд батареи мобильного телефона (%.0f%%). Если устройство не зарядить, то очень скоро оно перестанет работать."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1564
+#: ../plugins/power/gsd-power-manager.c:1567
 #, c-format
 msgid "Media player is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "Очень низкий заряд батареи медиаплеера (%.0f%%). Если устройство не зарядить, то очень скоро оно перестанет работать."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1573
+#: ../plugins/power/gsd-power-manager.c:1576
 #, c-format
 msgid "Tablet is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "Очень низкий заряд батареи планшета (%.0f%%). Если устройство не зарядить, то очень скоро оно перестанет работать."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1582
+#: ../plugins/power/gsd-power-manager.c:1585
 #, c-format
 msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "Очень низкий заряд батареи подключённого компьютера (%.0f%%). Если устройство не зарядить, то очень скоро оно перестанет работать."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1622
-#: ../plugins/power/gsd-power-manager.c:1632
-#: ../plugins/power/gsd-power-manager.c:1768
+#: ../plugins/power/gsd-power-manager.c:1625
+#: ../plugins/power/gsd-power-manager.c:1635
+#: ../plugins/power/gsd-power-manager.c:1771
 msgid "Battery is critically low"
 msgstr "Критически низкий заряд батареи"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1677
+#: ../plugins/power/gsd-power-manager.c:1680
 msgid "The battery is below the critical level and this computer will <b>power-off</b> when the battery becomes completely empty."
 msgstr "Заряд батареи упал ниже критического уровня. У данного компьютера <b>пропадёт электропитание</b>, когда батарея полностью разрядится."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1683
-#| msgid ""
-#| "The battery is below the critical level and this computer is about to "
-#| "suspend.<br><b>NOTE:</b> A small amount of power is required to keep your "
-#| "computer in a suspended state."
+#: ../plugins/power/gsd-power-manager.c:1686
 msgid ""
 "The battery is below the critical level and this computer is about to suspend.\n"
 "<b>NOTE:</b> A small amount of power is required to keep your computer in a suspended state."
@@ -2255,43 +2261,43 @@ msgstr ""
 "<b>ЗАМЕЧАНИЕ:</b> для поддержания компьютера в режиме ожидания требуется небольшое количество энергии."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1690
+#: ../plugins/power/gsd-power-manager.c:1693
 msgid "The battery is below the critical level and this computer is about to hibernate."
 msgstr "Заряд батареи упал ниже критического уровня. Данный компьютер будет переведёт в спящий режим."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1695
+#: ../plugins/power/gsd-power-manager.c:1698
 msgid "The battery is below the critical level and this computer is about to shutdown."
 msgstr "Заряд батареи упал ниже критического уровня. Данный компьютер будет выключен."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1713
+#: ../plugins/power/gsd-power-manager.c:1716
 msgid "UPS is below the critical level and this computer will <b>power-off</b> when the UPS becomes completely empty."
 msgstr "Заряд ИБП упал ниже критического уровня. У данного компьютера <b>пропадёт электропитание</b>, когда ИБП полностью разрядится."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1719
+#: ../plugins/power/gsd-power-manager.c:1722
 msgid "UPS is below the critical level and this computer is about to hibernate."
 msgstr "Заряд ИБП упал ниже критического уровня. Данный компьютер будет переведёт в спящий режим."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1724
+#: ../plugins/power/gsd-power-manager.c:1727
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "Заряд ИБП упал ниже критического уровня. Данный компьютер будет выключен."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2218
+#: ../plugins/power/gsd-power-manager.c:2221
 msgid "Lid has been opened"
 msgstr "Крышка открыта"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2295
+#: ../plugins/power/gsd-power-manager.c:2298
 msgid "Lid has been closed"
 msgstr "Крышка закрыта"
 
 #. TRANSLATORS: this is the title of the power manager status icon
 #. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:3616
+#: ../plugins/power/gsd-power-manager.c:3645
 msgid "Power Manager"
 msgstr "Управление электропитанием"
 
@@ -2751,70 +2757,83 @@ msgstr "Попробовать ещё раз"
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Запущенную транзакцию нельзя прервать"
 
-#: ../plugins/wacom/gsd-wacom-device.c:876
+#: ../plugins/wacom/gsd-wacom-device.c:909
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Левое сенсорное кольцо; режим #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:883
+#: ../plugins/wacom/gsd-wacom-device.c:916
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Правое сенсорное кольцо; режим #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:911
+#: ../plugins/wacom/gsd-wacom-device.c:944
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Левая сенсорная полоса; режим #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:918
+#: ../plugins/wacom/gsd-wacom-device.c:951
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Правая сенсорная полоса; режим #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:933
+#: ../plugins/wacom/gsd-wacom-device.c:966
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Переключение режима левого сенсорного кольца"
 
-#: ../plugins/wacom/gsd-wacom-device.c:935
+#: ../plugins/wacom/gsd-wacom-device.c:968
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Переключение режима правого сенсорного кольца"
 
-#: ../plugins/wacom/gsd-wacom-device.c:938
+#: ../plugins/wacom/gsd-wacom-device.c:971
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Переключение режима левой сенсорной полосы"
 
-#: ../plugins/wacom/gsd-wacom-device.c:940
+#: ../plugins/wacom/gsd-wacom-device.c:973
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Переключение режима правой сенсорной полосы"
 
-#: ../plugins/wacom/gsd-wacom-device.c:945
+#: ../plugins/wacom/gsd-wacom-device.c:978
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Переключение режима #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1017
+#: ../plugins/wacom/gsd-wacom-device.c:1050
 #, c-format
 msgid "Left Button #%d"
 msgstr "Левая кнопка #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1020
+#: ../plugins/wacom/gsd-wacom-device.c:1053
 #, c-format
 msgid "Right Button #%d"
 msgstr "Правая кнопка #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1023
+#: ../plugins/wacom/gsd-wacom-device.c:1056
 #, c-format
 msgid "Top Button #%d"
 msgstr "Верхняя кнопка #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1026
+#: ../plugins/wacom/gsd-wacom-device.c:1059
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Нижняя кнопка #%d"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the LED setting for a Wacom tablet
+#.
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
+msgid "Modify the lit LED for a Wacom tablet"
+msgstr "Изменение работы светодиода для планшета Wacom"
+
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
+#| msgid "Authentication is required to modify the laptop brightness"
+msgid "Authentication is required to modify the lit LED for a Wacom tablet"
+msgstr "Для изменения работы светодиода для планшета Wacom требуется аутентификация"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:500
 msgid "Could not switch the monitor configuration"
