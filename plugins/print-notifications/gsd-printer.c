@@ -109,7 +109,6 @@ get_missing_executables (const gchar *ppd_file_name)
 {
         GHashTable *executables = NULL;
         GDBusProxy *proxy;
-        GVariant   *input;
         GVariant   *output;
         GVariant   *array;
         GError     *error = NULL;
@@ -133,18 +132,14 @@ get_missing_executables (const gchar *ppd_file_name)
                 return NULL;
         }
 
-        input = g_variant_new ("(s)",
-                               ppd_file_name);
-
         output = g_dbus_proxy_call_sync (proxy,
                                          "MissingExecutables",
-                                         input,
+                                         g_variant_new ("(s)",
+                                                        ppd_file_name),
                                          G_DBUS_CALL_FLAGS_NONE,
                                          DBUS_TIMEOUT,
                                          NULL,
                                          &error);
-
-        g_variant_unref (input);
 
         if (output && g_variant_n_children (output) == 1) {
                 array = g_variant_get_child_value (output, 0);
@@ -179,7 +174,6 @@ find_packages_for_executables (GHashTable *executables)
         GHashTableIter  exec_iter;
         GHashTable     *packages = NULL;
         GDBusProxy     *proxy;
-        GVariant       *input;
         GVariant       *output;
         gpointer        key, value;
         GError         *error = NULL;
@@ -207,16 +201,15 @@ find_packages_for_executables (GHashTable *executables)
 
         g_hash_table_iter_init (&exec_iter, executables);
         while (g_hash_table_iter_next (&exec_iter, &key, &value)) {
-                input = g_variant_new ("(ss)", (gchar *) key, "");
-
                 output = g_dbus_proxy_call_sync (proxy,
                                                  "SearchFile",
-                                                 input,
+                                                 g_variant_new ("(ss)",
+                                                                (gchar *) key,
+                                                                ""),
                                                  G_DBUS_CALL_FLAGS_NONE,
                                                  DBUS_TIMEOUT,
                                                  NULL,
                                                  &error);
-                g_variant_unref (input);
 
                 if (output) {
                         gboolean  installed;
@@ -247,7 +240,6 @@ install_packages (GHashTable *packages)
         GVariantBuilder  array_builder;
         GHashTableIter   pkg_iter;
         GDBusProxy      *proxy;
-        GVariant        *input;
         GVariant        *output;
         gpointer         key, value;
         GError          *error = NULL;
@@ -279,20 +271,16 @@ install_packages (GHashTable *packages)
                                        (gchar *) key);
         }
 
-        input = g_variant_new ("(uass)",
-                0,
-                &array_builder,
-                "hide-finished");
-
         output = g_dbus_proxy_call_sync (proxy,
                                          "InstallPackageNames",
-                                         input,
+                                         g_variant_new ("(uass)",
+                                                        0,
+                                                        &array_builder,
+                                                        "hide-finished"),
                                          G_DBUS_CALL_FLAGS_NONE,
                                          DBUS_INSTALL_TIMEOUT,
                                          NULL,
                                          &error);
-
-        g_variant_unref (input);
 
         if (output) {
                 g_variant_unref (output);
@@ -310,7 +298,6 @@ get_best_ppd (gchar *device_id,
               gchar *device_uri)
 {
         GDBusProxy  *proxy;
-        GVariant    *input;
         GVariant    *output;
         GVariant    *array;
         GVariant    *tuple;
@@ -339,20 +326,16 @@ get_best_ppd (gchar *device_id,
                 return NULL;
         }
 
-        input = g_variant_new ("(sss)",
-                               device_id ? device_id : "",
-                               device_make_and_model ? device_make_and_model : "",
-                               device_uri ? device_uri : "");
-
         output = g_dbus_proxy_call_sync (proxy,
                                          "GetBestDrivers",
-                                         input,
+                                         g_variant_new ("(sss)",
+                                                 device_id ? device_id : "",
+                                                 device_make_and_model ? device_make_and_model : "",
+                                                 device_uri ? device_uri : ""),
                                          G_DBUS_CALL_FLAGS_NONE,
                                          DBUS_TIMEOUT,
                                          NULL,
                                          &error);
-
-        g_variant_unref (input);
 
         if (output && g_variant_n_children (output) >= 1) {
                 array = g_variant_get_child_value (output, 0);
@@ -466,7 +449,6 @@ add_printer (gchar *printer_name,
         cups_dest_t *dests;
         GDBusProxy  *proxy;
         gboolean     success = FALSE;
-        GVariant    *input;
         GVariant    *output;
         GError      *error = NULL;
         gint         num_dests;
@@ -490,16 +472,14 @@ add_printer (gchar *printer_name,
                 return FALSE;
         }
 
-        input = g_variant_new ("(sssss)",
-                               printer_name ? printer_name : "",
-                               device_uri ? device_uri : "",
-                               ppd_name ? ppd_name : "",
-                               info ? info : "",
-                               location ? location : "");
-
         output = g_dbus_proxy_call_sync (proxy,
                                          "PrinterAdd",
-                                         input,
+                                         g_variant_new ("(sssss)",
+                                                        printer_name ? printer_name : "",
+                                                        device_uri ? device_uri : "",
+                                                        ppd_name ? ppd_name : "",
+                                                        info ? info : "",
+                                                        location ? location : ""),
                                          G_DBUS_CALL_FLAGS_NONE,
                                          DBUS_TIMEOUT,
                                          NULL,
@@ -512,7 +492,6 @@ add_printer (gchar *printer_name,
                 g_error_free (error);
         }
 
-        g_variant_unref (input);
         g_object_unref (proxy);
 
         num_dests = cupsGetDests (&dests);
@@ -530,7 +509,6 @@ printer_set_enabled (const gchar *printer_name,
 {
         GDBusProxy *proxy;
         gboolean    result = TRUE;
-        GVariant   *input;
         GVariant   *output;
         GError     *error = NULL;
 
@@ -552,13 +530,11 @@ printer_set_enabled (const gchar *printer_name,
                 return FALSE;
         }
 
-        input = g_variant_new ("(sb)",
-                               printer_name,
-                               enabled);
-
         output = g_dbus_proxy_call_sync (proxy,
                                          "PrinterSetEnabled",
-                                         input,
+                                         g_variant_new ("(sb)",
+                                                        printer_name,
+                                                        enabled),
                                          G_DBUS_CALL_FLAGS_NONE,
                                          DBUS_TIMEOUT,
                                          NULL,
@@ -572,7 +548,6 @@ printer_set_enabled (const gchar *printer_name,
                 result = FALSE;
         }
 
-        g_variant_unref (input);
         g_object_unref (proxy);
 
         return result;
@@ -585,7 +560,6 @@ printer_set_accepting_jobs (const gchar *printer_name,
 {
         GDBusProxy *proxy;
         gboolean    result = TRUE;
-        GVariant   *input;
         GVariant   *output;
         GError     *error = NULL;
 
@@ -607,14 +581,12 @@ printer_set_accepting_jobs (const gchar *printer_name,
                 return FALSE;
         }
 
-        input = g_variant_new ("(sbs)",
-                               printer_name,
-                               accepting_jobs,
-                               reason ? reason : "");
-
         output = g_dbus_proxy_call_sync (proxy,
                                          "PrinterSetAcceptJobs",
-                                         input,
+                                         g_variant_new ("(sbs)",
+                                                        printer_name,
+                                                        accepting_jobs,
+                                                        reason ? reason : ""),
                                          G_DBUS_CALL_FLAGS_NONE,
                                          DBUS_TIMEOUT,
                                          NULL,
@@ -628,7 +600,6 @@ printer_set_accepting_jobs (const gchar *printer_name,
                 result = FALSE;
         }
 
-        g_variant_unref (input);
         g_object_unref (proxy);
 
         return result;
@@ -770,7 +741,6 @@ set_default_paper_size (const gchar *printer_name,
 {
         ppd_file_t  *ppd_file = NULL;
         GDBusProxy  *proxy;
-        GVariant    *input;
         GVariant    *output;
         GError      *error = NULL;
         gchar       *value = NULL;
@@ -829,14 +799,12 @@ set_default_paper_size (const gchar *printer_name,
                 builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
                 g_variant_builder_add (builder, "s", value);
 
-                input = g_variant_new ("(ssas)",
-                                       printer_name ? printer_name : "",
-                                       "PageSize",
-                                       builder);
-
                 output = g_dbus_proxy_call_sync (proxy,
                                                  "PrinterAddOptionDefault",
-                                                 input,
+                                                 g_variant_new ("(ssas)",
+                                                         printer_name ? printer_name : "",
+                                                         "PageSize",
+                                                         builder),
                                                  G_DBUS_CALL_FLAGS_NONE,
                                                  DBUS_TIMEOUT,
                                                  NULL,
@@ -849,8 +817,6 @@ set_default_paper_size (const gchar *printer_name,
                         g_error_free (error);
                 }
 
-                g_variant_builder_unref (builder);
-                g_variant_unref (input);
                 g_free (value);
         }
 
@@ -1045,20 +1011,17 @@ handle_method_call (GDBusConnection       *connection,
 
                 if (proxy && device) {
                         GVariantBuilder *builder;
-                        GVariant        *input;
                         GVariant        *output;
 
                         builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
                         g_variant_builder_add (builder, "s", device);
 
-                        input = g_variant_new ("(uass)",
-                                               0,
-                                               builder,
-                                               "hide-finished");
-
                         output = g_dbus_proxy_call_sync (proxy,
                                                          "InstallPrinterDrivers",
-                                                         input,
+                                                         g_variant_new ("(uass)",
+                                                                        0,
+                                                                        builder,
+                                                                        "hide-finished"),
                                                          G_DBUS_CALL_FLAGS_NONE,
                                                          DBUS_INSTALL_TIMEOUT,
                                                          NULL,
@@ -1071,8 +1034,6 @@ handle_method_call (GDBusConnection       *connection,
                                 g_error_free (error);
                         }
 
-                        g_variant_unref (input);
-                        g_variant_builder_unref (builder);
                         g_object_unref (proxy);
                 }
 
