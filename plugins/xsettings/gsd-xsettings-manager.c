@@ -841,6 +841,7 @@ gboolean
 gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                GError               **error)
 {
+        GVariant    *overrides;
         guint        i;
         GList       *list, *l;
 
@@ -917,9 +918,12 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                               "Net/FallbackIconTheme",
                                               "gnome");
 
+        overrides = g_settings_get_value (manager->priv->plugin_settings, XSETTINGS_OVERRIDE_KEY);
         for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_set_overrides (manager->priv->managers [i], overrides);
                 xsettings_manager_notify (manager->priv->managers [i]);
         }
+        g_variant_unref (overrides);
 
 
         gnome_settings_profile_end (NULL);
