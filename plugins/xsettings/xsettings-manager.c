@@ -203,9 +203,11 @@ xsettings_manager_delete_setting (XSettingsManager *manager,
 static void
 xsettings_manager_set_setting (XSettingsManager *manager,
                                const gchar      *name,
-                               XSettingsSetting *value)
+                               GVariant         *value)
 {
   XSettingsSetting *setting;
+
+  g_variant_ref_sink (value);
 
   setting = g_hash_table_lookup (manager->settings, name);
 
@@ -221,6 +223,8 @@ xsettings_manager_set_setting (XSettingsManager *manager,
       xsettings_setting_set (setting, value);
       setting->last_change_serial = manager->serial;
     }
+
+  g_variant_unref (value);
 }
 
 void
@@ -228,13 +232,7 @@ xsettings_manager_set_int (XSettingsManager *manager,
 			   const char       *name,
 			   int               value)
 {
-  XSettingsSetting setting;
-
-  setting.name = (char *)name;
-  setting.type = XSETTINGS_TYPE_INT;
-  setting.data.v_int = value;
-
-  xsettings_manager_set_setting (manager, name, &setting);
+  xsettings_manager_set_setting (manager, name, g_variant_new_int32 (value));
 }
 
 void
@@ -242,13 +240,7 @@ xsettings_manager_set_string (XSettingsManager *manager,
 			      const char       *name,
 			      const char       *value)
 {
-  XSettingsSetting setting;
-
-  setting.name = (char *)name;
-  setting.type = XSETTINGS_TYPE_STRING;
-  setting.data.v_string = (char *)value;
-
-  xsettings_manager_set_setting (manager, name, &setting);
+  xsettings_manager_set_setting (manager, name, g_variant_new_string (value));
 }
 
 void
@@ -256,23 +248,41 @@ xsettings_manager_set_color (XSettingsManager *manager,
 			     const char       *name,
 			     XSettingsColor   *value)
 {
-  XSettingsSetting setting;
+  GVariant *tmp;
 
-  setting.name = (char *)name;
-  setting.type = XSETTINGS_TYPE_COLOR;
-  setting.data.v_color = *value;
+  tmp = g_variant_new ("(qqqq)", value->red, value->green, value->blue, value->alpha);
+  xsettings_manager_set_setting (manager, name, tmp);
+}
 
-  xsettings_manager_set_setting (manager, name, &setting);
+static gchar
+xsettings_get_typecode (GVariant *value)
+{
+  switch (g_variant_classify (value))
+    {
+    case G_VARIANT_CLASS_INT32:
+      return XSETTINGS_TYPE_INT;
+    case G_VARIANT_CLASS_STRING:
+      return XSETTINGS_TYPE_STRING;
+    case G_VARIANT_CLASS_TUPLE:
+      return XSETTINGS_TYPE_COLOR;
+    default:
+      g_assert_not_reached ();
+    }
 }
 
 static void
 setting_store (XSettingsSetting *setting,
                GString          *buffer)
 {
+  XSettingsType type;
+  GVariant *value;
   guint16 len16;
-  guint32 len32;
 
-  g_string_append_c (buffer, setting->type);
+  value = setting->value;
+
+  type = xsettings_get_typecode (value);
+
+  g_string_append_c (buffer, type);
   g_string_append_c (buffer, 0);
 
   len16 = strlen (setting->name);
@@ -284,30 +294,23 @@ setting_store (XSettingsSetting *setting,
 
   g_string_append_len (buffer, (gchar *) &setting->last_change_serial, 4);
 
-  switch (setting->type)
+  if (type == XSETTINGS_TYPE_STRING)
     {
-    case XSETTINGS_TYPE_INT:
-      g_string_append_len (buffer, (gchar *) &setting->data.v_int, 4);
-      break;
+      const gchar *string;
+      gsize stringlen;
+      guint32 len32;
 
-    case XSETTINGS_TYPE_STRING:
-      len32 = strlen (setting->data.v_string);
+      string = g_variant_get_string (value, &stringlen);
+      len32 = stringlen;
       g_string_append_len (buffer, (gchar *) &len32, 4);
-
-      g_string_append (buffer, setting->data.v_string);
+      g_string_append (buffer, string);
 
       while (buffer->len & 3)
         g_string_append_c (buffer, '\0');
-
-      break;
-
-    case XSETTINGS_TYPE_COLOR:
-      g_string_append_len (buffer, (gchar *) &setting->data.v_color.red, 2);
-      g_string_append_len (buffer, (gchar *) &setting->data.v_color.green, 2);
-      g_string_append_len (buffer, (gchar *) &setting->data.v_color.blue, 2);
-      g_string_append_len (buffer, (gchar *) &setting->data.v_color.alpha, 2);
-      break;
     }
+  else
+    /* GVariant format is the same as XSETTINGS format for the non-string types */
+    g_string_append_len (buffer, g_variant_get_data (value), g_variant_get_size (value));
 }
 
 void

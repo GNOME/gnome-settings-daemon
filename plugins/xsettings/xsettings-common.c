@@ -38,7 +38,7 @@ xsettings_setting_new (const gchar *name)
 
   result = g_slice_new (XSettingsSetting);
   result->name = g_strdup (name);
-  result->type = XSETTINGS_TYPE_INT;
+  result->value = NULL;
   result->last_change_serial = 0;
 
   return result;
@@ -46,58 +46,26 @@ xsettings_setting_new (const gchar *name)
 
 void
 xsettings_setting_set (XSettingsSetting *setting,
-                       XSettingsSetting *value)
+                       GVariant         *value)
 {
-  if (setting->type == XSETTINGS_TYPE_STRING)
-    g_free (setting->data.v_string);
+  if (setting->value)
+    g_variant_unref (setting->value);
 
-  setting->type = value->type;
-
-  switch (value->type)
-    {
-    case XSETTINGS_TYPE_INT:
-      setting->data.v_int = value->data.v_int;
-      break;
-    case XSETTINGS_TYPE_COLOR:
-      setting->data.v_color = value->data.v_color;
-      break;
-    case XSETTINGS_TYPE_STRING:
-      setting->data.v_string = g_strdup (value->data.v_string);
-      break;
-    }
+  setting->value = value ? g_variant_ref (value) : NULL;
 }
 
 gboolean
 xsettings_setting_equal (XSettingsSetting *setting,
-                         XSettingsSetting *value)
+                         GVariant         *value)
 {
-  if (setting->type != value->type)
-    return FALSE;
-
-  if (strcmp (setting->name, value->name) != 0)
-    return FALSE;
-
-  switch (setting->type)
-    {
-    case XSETTINGS_TYPE_INT:
-      return setting->data.v_int == value->data.v_int;
-    case XSETTINGS_TYPE_COLOR:
-      return (setting->data.v_color.red == value->data.v_color.red &&
-              setting->data.v_color.green == value->data.v_color.green &&
-              setting->data.v_color.blue == value->data.v_color.blue &&
-              setting->data.v_color.alpha == value->data.v_color.alpha);
-    case XSETTINGS_TYPE_STRING:
-      return strcmp (setting->data.v_string, value->data.v_string) == 0;
-    }
-
-  return FALSE;
+  return setting->value && g_variant_equal (setting->value, value);
 }
 
 void
 xsettings_setting_free (XSettingsSetting *setting)
 {
-  if (setting->type == XSETTINGS_TYPE_STRING)
-    g_free (setting->data.v_string);
+  if (setting->value)
+    g_variant_unref (setting->value);
 
   g_free (setting->name);
 

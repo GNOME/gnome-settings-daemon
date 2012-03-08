@@ -23,6 +23,8 @@
 #ifndef XSETTINGS_COMMON_H
 #define XSETTINGS_COMMON_H
 
+#include <glib.h>
+
 typedef struct _XSettingsColor   XSettingsColor;
 typedef struct _XSettingsSetting XSettingsSetting;
 
@@ -44,23 +46,16 @@ struct _XSettingsColor
 struct _XSettingsSetting
 {
   char *name;
-  XSettingsType type;
-  
-  union {
-    int v_int;
-    char *v_string;
-    XSettingsColor v_color;
-  } data;
-
+  GVariant *value;
   unsigned long last_change_serial;
 };
 
 XSettingsSetting *xsettings_setting_new   (const gchar      *name);
 void              xsettings_setting_set   (XSettingsSetting *setting,
-                                           XSettingsSetting *value);
+                                           GVariant         *value);
 void              xsettings_setting_free  (XSettingsSetting *setting);
 gboolean          xsettings_setting_equal (XSettingsSetting *setting,
-                                           XSettingsSetting *value);
+                                           GVariant         *value);
 
 char xsettings_byte_order (void);
 
