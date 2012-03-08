@@ -52,6 +52,7 @@
 #define SOUND_SETTINGS_SCHEMA     "org.gnome.desktop.sound"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
+#define XSETTINGS_OVERRIDE_KEY  "overrides"
 
 #define GTK_MODULES_DISABLED_KEY "disabled-gtk-modules"
 #define GTK_MODULES_ENABLED_KEY  "enabled-gtk-modules"
@@ -575,6 +576,24 @@ xft_callback (GSettings             *settings,
 }
 
 static void
+override_callback (GSettings             *settings,
+                   const gchar           *key,
+                   GnomeXSettingsManager *manager)
+{
+        GVariant *value;
+        int i;
+
+        value = g_settings_get_value (settings, XSETTINGS_OVERRIDE_KEY);
+
+        for (i = 0; manager->priv->managers[i]; i++) {
+                xsettings_manager_set_overrides (manager->priv->managers[i], value);
+                xsettings_manager_notify (manager->priv->managers [i]);
+        }
+
+        g_variant_unref (value);
+}
+
+static void
 plugin_callback (GSettings             *settings,
                  const char            *key,
                  GnomeXSettingsManager *manager)
@@ -582,6 +601,8 @@ plugin_callback (GSettings             *settings,
         if (g_str_equal (key, GTK_MODULES_DISABLED_KEY) ||
             g_str_equal (key, GTK_MODULES_ENABLED_KEY)) {
                 /* Do nothing, as GsdXsettingsGtk will handle it */
+        } else if (g_str_equal (key, XSETTINGS_OVERRIDE_KEY)) {
+                override_callback (settings, key, manager);
         } else {
                 xft_callback (settings, key, manager);
         }
