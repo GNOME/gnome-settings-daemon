@@ -202,15 +202,16 @@ xsettings_manager_delete_setting (XSettingsManager *manager,
 
 static void
 xsettings_manager_set_setting (XSettingsManager *manager,
+                               const gchar      *name,
                                XSettingsSetting *value)
 {
   XSettingsSetting *setting;
 
-  setting = g_hash_table_lookup (manager->settings, value->name);
+  setting = g_hash_table_lookup (manager->settings, name);
 
   if (setting == NULL)
     {
-      setting = xsettings_setting_new (value->name);
+      setting = xsettings_setting_new (name);
       setting->last_change_serial = manager->serial;
       g_hash_table_insert (manager->settings, setting->name, setting);
     }
@@ -233,7 +234,7 @@ xsettings_manager_set_int (XSettingsManager *manager,
   setting.type = XSETTINGS_TYPE_INT;
   setting.data.v_int = value;
 
-  xsettings_manager_set_setting (manager, &setting);
+  xsettings_manager_set_setting (manager, name, &setting);
 }
 
 void
@@ -247,7 +248,7 @@ xsettings_manager_set_string (XSettingsManager *manager,
   setting.type = XSETTINGS_TYPE_STRING;
   setting.data.v_string = (char *)value;
 
-  xsettings_manager_set_setting (manager, &setting);
+  xsettings_manager_set_setting (manager, name, &setting);
 }
 
 void
@@ -261,7 +262,7 @@ xsettings_manager_set_color (XSettingsManager *manager,
   setting.type = XSETTINGS_TYPE_COLOR;
   setting.data.v_color = *value;
 
-  xsettings_manager_set_setting (manager, &setting);
+  xsettings_manager_set_setting (manager, name, &setting);
 }
 
 static void
