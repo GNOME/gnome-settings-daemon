@@ -207,8 +207,6 @@ xsettings_manager_set_setting (XSettingsManager *manager,
 {
   XSettingsSetting *setting;
 
-  g_variant_ref_sink (value);
-
   setting = g_hash_table_lookup (manager->settings, name);
 
   if (setting == NULL)
@@ -218,13 +216,7 @@ xsettings_manager_set_setting (XSettingsManager *manager,
       g_hash_table_insert (manager->settings, setting->name, setting);
     }
 
-  if (xsettings_setting_equal (setting, value))
-    {
-      xsettings_setting_set (setting, value);
-      setting->last_change_serial = manager->serial;
-    }
-
-  g_variant_unref (value);
+  xsettings_setting_set (setting, value, manager->serial);
 }
 
 void

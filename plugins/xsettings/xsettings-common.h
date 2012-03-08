@@ -52,10 +52,9 @@ struct _XSettingsSetting
 
 XSettingsSetting *xsettings_setting_new   (const gchar      *name);
 void              xsettings_setting_set   (XSettingsSetting *setting,
-                                           GVariant         *value);
+                                           GVariant         *value,
+                                           guint32           serial);
 void              xsettings_setting_free  (XSettingsSetting *setting);
-gboolean          xsettings_setting_equal (XSettingsSetting *setting,
-                                           GVariant         *value);
 
 char xsettings_byte_order (void);
 

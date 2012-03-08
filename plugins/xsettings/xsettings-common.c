@@ -44,21 +44,35 @@ xsettings_setting_new (const gchar *name)
   return result;
 }
 
-void
-xsettings_setting_set (XSettingsSetting *setting,
-                       GVariant         *value)
+static gboolean
+xsettings_variant_equal0 (GVariant *a,
+                          GVariant *b)
 {
-  if (setting->value)
-    g_variant_unref (setting->value);
+  if (a == b)
+    return TRUE;
 
-  setting->value = value ? g_variant_ref (value) : NULL;
+  if (!a || !b)
+    return FALSE;
+
+  return g_variant_equal (a, b);
 }
 
-gboolean
-xsettings_setting_equal (XSettingsSetting *setting,
-                         GVariant         *value)
+void
+xsettings_setting_set (XSettingsSetting *setting,
+                       GVariant         *value,
+                       guint32           serial)
 {
-  return setting->value && g_variant_equal (setting->value, value);
+  GVariant *old_value;
+
+  old_value = setting->value;
+
+  setting->value = value ? g_variant_ref_sink (value) : NULL;
+
+  if (!xsettings_variant_equal0 (old_value, setting->value))
+    setting->last_change_serial = serial;
+
+  if (old_value)
+    g_variant_unref (old_value);
 }
 
 void
