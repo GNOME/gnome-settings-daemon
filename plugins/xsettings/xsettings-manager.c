@@ -202,26 +202,24 @@ xsettings_manager_delete_setting (XSettingsManager *manager,
 
 static void
 xsettings_manager_set_setting (XSettingsManager *manager,
-			       XSettingsSetting *setting)
+                               XSettingsSetting *value)
 {
-  XSettingsSetting *old_setting = g_hash_table_lookup (manager->settings, setting->name);
-  XSettingsSetting *new_setting;
+  XSettingsSetting *setting;
 
-  if (old_setting)
+  setting = g_hash_table_lookup (manager->settings, value->name);
+
+  if (setting == NULL)
     {
-      if (xsettings_setting_equal (old_setting, setting))
-        return;
-
-      g_hash_table_remove (manager->settings, setting->name);
+      setting = xsettings_setting_new (value->name);
+      setting->last_change_serial = manager->serial;
+      g_hash_table_insert (manager->settings, setting->name, setting);
     }
 
-  new_setting = xsettings_setting_copy (setting);
-  if (!new_setting)
+  if (xsettings_setting_equal (setting, value))
     return;
-  
-  new_setting->last_change_serial = manager->serial;
-  
-  g_hash_table_insert (manager->settings, new_setting->name, new_setting);
+
+  xsettings_setting_set (setting, value);
+  setting->last_change_serial = manager->serial;
 }
 
 void

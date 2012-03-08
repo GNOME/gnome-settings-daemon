@@ -55,7 +55,9 @@ struct _XSettingsSetting
   unsigned long last_change_serial;
 };
 
-XSettingsSetting *xsettings_setting_copy  (XSettingsSetting *setting);
+XSettingsSetting *xsettings_setting_new   (const gchar      *name);
+void              xsettings_setting_set   (XSettingsSetting *setting,
+                                           XSettingsSetting *value);
 void              xsettings_setting_free  (XSettingsSetting *setting);
 int               xsettings_setting_equal (XSettingsSetting *setting_a,
 					   XSettingsSetting *setting_b);

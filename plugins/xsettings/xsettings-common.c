@@ -32,31 +32,39 @@
 #include "xsettings-common.h"
 
 XSettingsSetting *
-xsettings_setting_copy (XSettingsSetting *setting)
+xsettings_setting_new (const gchar *name)
 {
   XSettingsSetting *result;
 
   result = g_slice_new (XSettingsSetting);
-  result->name = g_strdup (setting->name);
-
-  result->type = setting->type;
-
-  switch (setting->type)
-    {
-    case XSETTINGS_TYPE_INT:
-      result->data.v_int = setting->data.v_int;
-      break;
-    case XSETTINGS_TYPE_COLOR:
-      result->data.v_color = setting->data.v_color;
-      break;
-    case XSETTINGS_TYPE_STRING:
-      result->data.v_string = g_strdup (setting->data.v_string);
-      break;
-    }
-
-  result->last_change_serial = setting->last_change_serial;
+  result->name = g_strdup (name);
+  result->type = XSETTINGS_TYPE_INT;
+  result->last_change_serial = 0;
 
   return result;
+}
+
+void
+xsettings_setting_set (XSettingsSetting *setting,
+                       XSettingsSetting *value)
+{
+  if (setting->type == XSETTINGS_TYPE_STRING)
+    g_free (setting->data.v_string);
+
+  setting->type = value->type;
+
+  switch (value->type)
+    {
+    case XSETTINGS_TYPE_INT:
+      setting->data.v_int = value->data.v_int;
+      break;
+    case XSETTINGS_TYPE_COLOR:
+      setting->data.v_color = value->data.v_color;
+      break;
+    case XSETTINGS_TYPE_STRING:
+      setting->data.v_string = g_strdup (value->data.v_string);
+      break;
+    }
 }
 
 int
