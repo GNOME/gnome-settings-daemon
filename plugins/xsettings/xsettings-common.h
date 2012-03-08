@@ -29,7 +29,6 @@ extern "C" {
 
 typedef struct _XSettingsBuffer  XSettingsBuffer;
 typedef struct _XSettingsColor   XSettingsColor;
-typedef struct _XSettingsList    XSettingsList;
 typedef struct _XSettingsSetting XSettingsSetting;
 
 /* Types of settings possible. Enum values correspond to
@@ -65,12 +64,6 @@ struct _XSettingsColor
   unsigned short red, green, blue, alpha;
 };
 
-struct _XSettingsList
-{
-  XSettingsSetting *setting;
-  XSettingsList *next;
-};
-
 struct _XSettingsSetting
 {
   char *name;
@@ -89,15 +82,6 @@ XSettingsSetting *xsettings_setting_copy  (XSettingsSetting *setting);
 void              xsettings_setting_free  (XSettingsSetting *setting);
 int               xsettings_setting_equal (XSettingsSetting *setting_a,
 					   XSettingsSetting *setting_b);
-
-void              xsettings_list_free   (XSettingsList     *list);
-XSettingsList    *xsettings_list_copy   (XSettingsList     *list);
-XSettingsResult   xsettings_list_insert (XSettingsList    **list,
-					 XSettingsSetting  *setting);
-XSettingsSetting *xsettings_list_lookup (XSettingsList     *list,
-					 const char        *name);
-XSettingsResult   xsettings_list_delete (XSettingsList    **list,
-					 const char        *name);
 
 char xsettings_byte_order (void);
 
