@@ -196,6 +196,7 @@ xsettings_manager_destroy (XSettingsManager *manager)
 static void
 xsettings_manager_set_setting (XSettingsManager *manager,
                                const gchar      *name,
+                               gint              tier,
                                GVariant         *value)
 {
   XSettingsSetting *setting;
@@ -209,7 +210,7 @@ xsettings_manager_set_setting (XSettingsManager *manager,
       g_hash_table_insert (manager->settings, setting->name, setting);
     }
 
-  xsettings_setting_set (setting, value, manager->serial);
+  xsettings_setting_set (setting, tier, value, manager->serial);
 
   if (xsettings_setting_get (setting) == NULL)
     g_hash_table_remove (manager->settings, name);
@@ -220,7 +221,7 @@ xsettings_manager_set_int (XSettingsManager *manager,
 			   const char       *name,
 			   int               value)
 {
-  xsettings_manager_set_setting (manager, name, g_variant_new_int32 (value));
+  xsettings_manager_set_setting (manager, name, 0, g_variant_new_int32 (value));
 }
 
 void
@@ -228,7 +229,7 @@ xsettings_manager_set_string (XSettingsManager *manager,
 			      const char       *name,
 			      const char       *value)
 {
-  xsettings_manager_set_setting (manager, name, g_variant_new_string (value));
+  xsettings_manager_set_setting (manager, name, 0, g_variant_new_string (value));
 }
 
 void
@@ -239,14 +240,14 @@ xsettings_manager_set_color (XSettingsManager *manager,
   GVariant *tmp;
 
   tmp = g_variant_new ("(qqqq)", value->red, value->green, value->blue, value->alpha);
-  xsettings_manager_set_setting (manager, name, tmp);
+  xsettings_manager_set_setting (manager, name, 0, tmp);
 }
 
 void
 xsettings_manager_delete_setting (XSettingsManager *manager,
                                   const char       *name)
 {
-  xsettings_manager_set_setting (manager, name, NULL);
+  xsettings_manager_set_setting (manager, name, 0, NULL);
 }
 
 static gchar

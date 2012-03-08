@@ -36,10 +36,8 @@ xsettings_setting_new (const gchar *name)
 {
   XSettingsSetting *result;
 
-  result = g_slice_new (XSettingsSetting);
+  result = g_slice_new0 (XSettingsSetting);
   result->name = g_strdup (name);
-  result->value = NULL;
-  result->last_change_serial = 0;
 
   return result;
 }
@@ -60,11 +58,18 @@ xsettings_variant_equal0 (GVariant *a,
 GVariant *
 xsettings_setting_get (XSettingsSetting *setting)
 {
-  return setting->value;
+  gint i;
+
+  for (i = G_N_ELEMENTS (setting->value) - 1; 0 <= i; i--)
+    if (setting->value[i])
+      return setting->value[i];
+
+  return NULL;
 }
 
 void
 xsettings_setting_set (XSettingsSetting *setting,
+                       gint              tier,
                        GVariant         *value,
                        guint32           serial)
 {
@@ -74,9 +79,9 @@ xsettings_setting_set (XSettingsSetting *setting,
   if (old_value)
     g_variant_ref (old_value);
 
-  if (setting->value)
-    g_variant_unref (setting->value);
-  setting->value = value ? g_variant_ref_sink (value) : NULL;
+  if (setting->value[tier])
+    g_variant_unref (setting->value[tier]);
+  setting->value[tier] = value ? g_variant_ref_sink (value) : NULL;
 
   if (!xsettings_variant_equal0 (old_value, xsettings_setting_get (setting)))
     setting->last_change_serial = serial;
@@ -88,8 +93,11 @@ xsettings_setting_set (XSettingsSetting *setting,
 void
 xsettings_setting_free (XSettingsSetting *setting)
 {
-  if (setting->value)
-    g_variant_unref (setting->value);
+  gint i;
+
+  for (i = 0; i < G_N_ELEMENTS (setting->value); i++)
+    if (setting->value[i])
+      g_variant_unref (setting->value[i]);
 
   g_free (setting->name);
 

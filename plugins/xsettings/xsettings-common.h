@@ -25,6 +25,8 @@
 
 #include <glib.h>
 
+#define XSETTINGS_N_TIERS 1
+
 typedef struct _XSettingsColor   XSettingsColor;
 typedef struct _XSettingsSetting XSettingsSetting;
 
@@ -46,13 +48,14 @@ struct _XSettingsColor
 struct _XSettingsSetting
 {
   char *name;
-  GVariant *value;
+  GVariant *value[XSETTINGS_N_TIERS];
   unsigned long last_change_serial;
 };
 
 XSettingsSetting *xsettings_setting_new   (const gchar      *name);
 GVariant *        xsettings_setting_get   (XSettingsSetting *setting);
 void              xsettings_setting_set   (XSettingsSetting *setting,
+                                           gint              tier,
                                            GVariant         *value,
                                            guint32           serial);
 void              xsettings_setting_free  (XSettingsSetting *setting);
