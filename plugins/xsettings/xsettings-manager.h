@@ -43,9 +43,6 @@ XSettingsManager *xsettings_manager_new (Display                *display,
 					 void                   *cb_data);
 
 void   xsettings_manager_destroy       (XSettingsManager *manager);
-Window xsettings_manager_get_window    (XSettingsManager *manager);
-Bool   xsettings_manager_process_event (XSettingsManager *manager,
-					XEvent           *xev);
 
 void   xsettings_manager_delete_setting (XSettingsManager *manager,
                                          const char       *name);

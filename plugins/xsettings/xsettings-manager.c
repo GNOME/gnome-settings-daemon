@@ -194,27 +194,6 @@ xsettings_manager_destroy (XSettingsManager *manager)
   free (manager);
 }
 
-Window
-xsettings_manager_get_window (XSettingsManager *manager)
-{
-  return manager->window;
-}
-
-Bool
-xsettings_manager_process_event (XSettingsManager *manager,
-				 XEvent           *xev)
-{
-  if (xev->xany.window == manager->window &&
-      xev->xany.type == SelectionClear &&
-      xev->xselectionclear.selection == manager->selection_atom)
-    {
-      manager->terminate (manager->cb_data);
-      return True;
-    }
-
-  return False;
-}
-
 void
 xsettings_manager_delete_setting (XSettingsManager *manager,
                                   const char       *name)
