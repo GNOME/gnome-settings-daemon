@@ -44,6 +44,8 @@ struct _XSettingsManager
 
   GHashTable *settings;
   unsigned long serial;
+
+  GVariant *overrides;
 };
 
 typedef struct 
@@ -142,6 +144,7 @@ xsettings_manager_new (Display                *display,
 
   manager->settings = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify) xsettings_setting_free);
   manager->serial = 0;
+  manager->overrides = NULL;
 
   manager->window = XCreateSimpleWindow (display,
 					 RootWindow (display, screen),
@@ -338,4 +341,43 @@ xsettings_manager_notify (XSettingsManager *manager)
 
   g_string_free (buffer, TRUE);
   manager->serial++;
+}
+
+void
+xsettings_manager_set_overrides (XSettingsManager *manager,
+                                 GVariant         *overrides)
+{
+  GVariantIter iter;
+  const gchar *key;
+  GVariant *value;
+
+  g_return_if_fail (overrides != NULL && g_variant_is_of_type (overrides, G_VARIANT_TYPE_VARDICT));
+
+  if (manager->overrides)
+    {
+      /* unset the existing overrides */
+
+      g_variant_iter_init (&iter, manager->overrides);
+      while (g_variant_iter_next (&iter, "{&sv}", &key, NULL))
+        /* only unset it at this point if it's not in the new list */
+        if (!g_variant_lookup (overrides, key, "*", NULL))
+          xsettings_manager_set_setting (manager, key, 1, NULL);
+      g_variant_unref (manager->overrides);
+    }
+
+  /* save this so we can do the unsets next time */
+  manager->overrides = g_variant_ref_sink (overrides);
+
+  /* set the new values */
+  g_variant_iter_init (&iter, overrides);
+  while (g_variant_iter_loop (&iter, "{&sv}", &key, &value))
+    {
+      /* only accept recognised types... */
+      if (!g_variant_is_of_type (value, G_VARIANT_TYPE_STRING) &&
+          !g_variant_is_of_type (value, G_VARIANT_TYPE_INT32) &&
+          !g_variant_is_of_type (value, G_VARIANT_TYPE ("(qqqq)")))
+        continue;
+
+      xsettings_manager_set_setting (manager, key, 1, value);
+    }
 }

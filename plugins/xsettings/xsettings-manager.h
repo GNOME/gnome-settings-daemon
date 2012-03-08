@@ -52,5 +52,7 @@ void   xsettings_manager_set_color      (XSettingsManager *manager,
                                          const char       *name,
                                          XSettingsColor   *value);
 void   xsettings_manager_notify         (XSettingsManager *manager);
+void   xsettings_manager_set_overrides  (XSettingsManager *manager,
+                                         GVariant         *overrides);
 
 #endif /* XSETTINGS_MANAGER_H */

@@ -25,7 +25,7 @@
 
 #include <glib.h>
 
-#define XSETTINGS_N_TIERS 1
+#define XSETTINGS_N_TIERS 2
 
 typedef struct _XSettingsColor   XSettingsColor;
 typedef struct _XSettingsSetting XSettingsSetting;
