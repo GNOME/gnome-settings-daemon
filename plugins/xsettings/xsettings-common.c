@@ -20,6 +20,9 @@
  *
  * Author:  Owen Taylor, Red Hat, Inc.
  */
+
+#include <glib.h>
+
 #include "string.h"
 #include "stdlib.h"
 
@@ -32,18 +35,9 @@ XSettingsSetting *
 xsettings_setting_copy (XSettingsSetting *setting)
 {
   XSettingsSetting *result;
-  size_t str_len;
-  
-  result = malloc (sizeof *result);
-  if (!result)
-    return NULL;
 
-  str_len = strlen (setting->name);
-  result->name = malloc (str_len + 1);
-  if (!result->name)
-    goto err;
-
-  memcpy (result->name, setting->name, str_len + 1);
+  result = g_slice_new (XSettingsSetting);
+  result->name = g_strdup (setting->name);
 
   result->type = setting->type;
 
@@ -56,25 +50,13 @@ xsettings_setting_copy (XSettingsSetting *setting)
       result->data.v_color = setting->data.v_color;
       break;
     case XSETTINGS_TYPE_STRING:
-      str_len = strlen (setting->data.v_string);
-      result->data.v_string = malloc (str_len + 1);
-      if (!result->data.v_string)
-	goto err;
-
-      memcpy (result->data.v_string, setting->data.v_string, str_len + 1);
+      result->data.v_string = g_strdup (setting->data.v_string);
       break;
     }
 
   result->last_change_serial = setting->last_change_serial;
 
   return result;
-
- err:
-  if (result->name)
-    free (result->name);
-  free (result);
-  
-  return NULL;
 }
 
 int
@@ -107,12 +89,11 @@ void
 xsettings_setting_free (XSettingsSetting *setting)
 {
   if (setting->type == XSETTINGS_TYPE_STRING)
-    free (setting->data.v_string);
-  
-  if (setting->name)
-    free (setting->name);
+    g_free (setting->data.v_string);
 
-  free (setting);
+  g_free (setting->name);
+
+  g_slice_free (XSettingsSetting, setting);
 }
 
 char

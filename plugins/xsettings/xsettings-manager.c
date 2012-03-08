@@ -126,10 +126,8 @@ xsettings_manager_new (Display                *display,
   XClientMessageEvent xev;
 
   char buffer[256];
-  
-  manager = malloc (sizeof *manager);
-  if (!manager)
-    return NULL;
+
+  manager = g_slice_new (XSettingsManager);
 
   manager->display = display;
   manager->screen = screen;
@@ -189,9 +187,10 @@ void
 xsettings_manager_destroy (XSettingsManager *manager)
 {
   XDestroyWindow (manager->display, manager->window);
-  
+
   g_hash_table_unref (manager->settings);
-  free (manager);
+
+  g_slice_free (XSettingsManager, manager);
 }
 
 void
