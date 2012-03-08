@@ -26,10 +26,6 @@
 #include <X11/Xlib.h>
 #include "xsettings-common.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 typedef struct _XSettingsManager XSettingsManager;
 
 typedef void (*XSettingsTerminateFunc)  (void *cb_data);
@@ -56,11 +52,5 @@ void   xsettings_manager_set_color      (XSettingsManager *manager,
                                          const char       *name,
                                          XSettingsColor   *value);
 void   xsettings_manager_notify         (XSettingsManager *manager);
-
-
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
 
 #endif /* XSETTINGS_MANAGER_H */

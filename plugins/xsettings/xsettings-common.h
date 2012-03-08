@@ -23,10 +23,6 @@
 #ifndef XSETTINGS_COMMON_H
 #define XSETTINGS_COMMON_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 typedef struct _XSettingsColor   XSettingsColor;
 typedef struct _XSettingsSetting XSettingsSetting;
 
@@ -65,9 +61,5 @@ int               xsettings_setting_equal (XSettingsSetting *setting_a,
 					   XSettingsSetting *setting_b);
 
 char xsettings_byte_order (void);
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
 
 #endif /* XSETTINGS_COMMON_H */
