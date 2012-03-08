@@ -214,14 +214,14 @@ xsettings_manager_process_event (XSettingsManager *manager,
   return False;
 }
 
-XSettingsResult
+void
 xsettings_manager_delete_setting (XSettingsManager *manager,
                                   const char       *name)
 {
-  return xsettings_list_delete (&manager->settings, name);
+  xsettings_list_delete (&manager->settings, name);
 }
 
-static XSettingsResult
+static void
 xsettings_manager_set_setting (XSettingsManager *manager,
 			       XSettingsSetting *setting)
 {
@@ -232,14 +232,14 @@ xsettings_manager_set_setting (XSettingsManager *manager,
   if (old_setting)
     {
       if (xsettings_setting_equal (old_setting, setting))
-	return XSETTINGS_SUCCESS;
+        return;
 
       xsettings_list_delete (&manager->settings, setting->name);
     }
 
   new_setting = xsettings_setting_copy (setting);
   if (!new_setting)
-    return XSETTINGS_NO_MEM;
+    return;
   
   new_setting->last_change_serial = manager->serial;
   
@@ -247,11 +247,9 @@ xsettings_manager_set_setting (XSettingsManager *manager,
   
   if (result != XSETTINGS_SUCCESS)
     xsettings_setting_free (new_setting);
-
-  return result;
 }
 
-XSettingsResult
+void
 xsettings_manager_set_int (XSettingsManager *manager,
 			   const char       *name,
 			   int               value)
@@ -262,10 +260,10 @@ xsettings_manager_set_int (XSettingsManager *manager,
   setting.type = XSETTINGS_TYPE_INT;
   setting.data.v_int = value;
 
-  return xsettings_manager_set_setting (manager, &setting);
+  xsettings_manager_set_setting (manager, &setting);
 }
 
-XSettingsResult
+void
 xsettings_manager_set_string (XSettingsManager *manager,
 			      const char       *name,
 			      const char       *value)
@@ -276,10 +274,10 @@ xsettings_manager_set_string (XSettingsManager *manager,
   setting.type = XSETTINGS_TYPE_STRING;
   setting.data.v_string = (char *)value;
 
-  return xsettings_manager_set_setting (manager, &setting);
+  xsettings_manager_set_setting (manager, &setting);
 }
 
-XSettingsResult
+void
 xsettings_manager_set_color (XSettingsManager *manager,
 			     const char       *name,
 			     XSettingsColor   *value)
@@ -290,7 +288,7 @@ xsettings_manager_set_color (XSettingsManager *manager,
   setting.type = XSETTINGS_TYPE_COLOR;
   setting.data.v_color = *value;
 
-  return xsettings_manager_set_setting (manager, &setting);
+  xsettings_manager_set_setting (manager, &setting);
 }
 
 static size_t
@@ -375,7 +373,7 @@ setting_store (XSettingsSetting *setting,
     }
 }
 
-XSettingsResult
+void
 xsettings_manager_notify (XSettingsManager *manager)
 {
   XSettingsBuffer buffer;
@@ -394,7 +392,7 @@ xsettings_manager_notify (XSettingsManager *manager)
 
   buffer.data = buffer.pos = malloc (buffer.len);
   if (!buffer.data)
-    return XSETTINGS_NO_MEM;
+    return;
 
   *buffer.pos = xsettings_byte_order ();
 
@@ -416,7 +414,5 @@ xsettings_manager_notify (XSettingsManager *manager)
 		   8, PropModeReplace, buffer.data, buffer.len);
 
   free (buffer.data);
-
-  return XSETTINGS_SUCCESS;
 }
 

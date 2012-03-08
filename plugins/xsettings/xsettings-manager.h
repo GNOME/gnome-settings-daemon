@@ -47,18 +47,18 @@ Window xsettings_manager_get_window    (XSettingsManager *manager);
 Bool   xsettings_manager_process_event (XSettingsManager *manager,
 					XEvent           *xev);
 
-XSettingsResult xsettings_manager_delete_setting (XSettingsManager *manager,
-                                                  const char       *name);
-XSettingsResult xsettings_manager_set_int        (XSettingsManager *manager,
-                                                  const char       *name,
-                                                  int               value);
-XSettingsResult xsettings_manager_set_string     (XSettingsManager *manager,
-                                                  const char       *name,
-                                                  const char       *value);
-XSettingsResult xsettings_manager_set_color      (XSettingsManager *manager,
-                                                  const char       *name,
-                                                  XSettingsColor   *value);
-XSettingsResult xsettings_manager_notify         (XSettingsManager *manager);
+void   xsettings_manager_delete_setting (XSettingsManager *manager,
+                                         const char       *name);
+void   xsettings_manager_set_int        (XSettingsManager *manager,
+                                         const char       *name,
+                                         int               value);
+void   xsettings_manager_set_string     (XSettingsManager *manager,
+                                         const char       *name,
+                                         const char       *value);
+void   xsettings_manager_set_color      (XSettingsManager *manager,
+                                         const char       *name,
+                                         XSettingsColor   *value);
+void   xsettings_manager_notify         (XSettingsManager *manager);
 
 
 
