@@ -217,10 +217,10 @@ xsettings_manager_set_setting (XSettingsManager *manager,
     }
 
   if (xsettings_setting_equal (setting, value))
-    return;
-
-  xsettings_setting_set (setting, value);
-  setting->last_change_serial = manager->serial;
+    {
+      xsettings_setting_set (setting, value);
+      setting->last_change_serial = manager->serial;
+    }
 }
 
 void
