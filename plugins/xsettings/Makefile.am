@@ -2,7 +2,7 @@ NULL =
 
 plugin_name = xsettings
 
-noinst_PROGRAMS = test-gtk-modules
+noinst_PROGRAMS = test-gtk-modules test-xsettings
 
 test_gtk_modules_SOURCES =	\
 	gsd-xsettings-gtk.c	\
@@ -23,6 +23,18 @@ test_gtk_modules_CPPFLAGS =				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\" \
 	$(AM_CPPFLAGS)
+
+test_xsettings_SOURCES = \
+	gsd-xsettings-gtk.c	\
+	gsd-xsettings-manager.c	\
+	xsettings-common.c	\
+	xsettings-manager.c	\
+	fontconfig-monitor.c	\
+	test-xsettings.c
+
+test_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
+test_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS)
+test_xsettings_LDADD = $(test_gtk_modules_LDADD)
 
 plugin_LTLIBRARIES = \
 	libxsettings.la		\
