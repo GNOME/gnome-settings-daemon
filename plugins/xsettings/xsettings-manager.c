@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <glib.h>
 #include <X11/Xmd.h>		/* For CARD16 */
 
 #include "xsettings-manager.h"
@@ -41,7 +42,7 @@ struct _XSettingsManager
   XSettingsTerminateFunc terminate;
   void *cb_data;
 
-  XSettingsList *settings;
+  GHashTable *settings;
   unsigned long serial;
 };
 
@@ -141,7 +142,7 @@ xsettings_manager_new (Display                *display,
   manager->terminate = terminate;
   manager->cb_data = cb_data;
 
-  manager->settings = NULL;
+  manager->settings = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify) xsettings_setting_free);
   manager->serial = 0;
 
   manager->window = XCreateSimpleWindow (display,
@@ -189,7 +190,7 @@ xsettings_manager_destroy (XSettingsManager *manager)
 {
   XDestroyWindow (manager->display, manager->window);
   
-  xsettings_list_free (manager->settings);
+  g_hash_table_unref (manager->settings);
   free (manager);
 }
 
@@ -218,23 +219,22 @@ void
 xsettings_manager_delete_setting (XSettingsManager *manager,
                                   const char       *name)
 {
-  xsettings_list_delete (&manager->settings, name);
+  g_hash_table_remove (manager->settings, name);
 }
 
 static void
 xsettings_manager_set_setting (XSettingsManager *manager,
 			       XSettingsSetting *setting)
 {
-  XSettingsSetting *old_setting = xsettings_list_lookup (manager->settings, setting->name);
+  XSettingsSetting *old_setting = g_hash_table_lookup (manager->settings, setting->name);
   XSettingsSetting *new_setting;
-  XSettingsResult result;
 
   if (old_setting)
     {
       if (xsettings_setting_equal (old_setting, setting))
         return;
 
-      xsettings_list_delete (&manager->settings, setting->name);
+      g_hash_table_remove (manager->settings, setting->name);
     }
 
   new_setting = xsettings_setting_copy (setting);
@@ -243,10 +243,7 @@ xsettings_manager_set_setting (XSettingsManager *manager,
   
   new_setting->last_change_serial = manager->serial;
   
-  result = xsettings_list_insert (&manager->settings, new_setting);
-  
-  if (result != XSETTINGS_SUCCESS)
-    xsettings_setting_free (new_setting);
+  g_hash_table_insert (manager->settings, new_setting->name, new_setting);
 }
 
 void
@@ -377,17 +374,17 @@ void
 xsettings_manager_notify (XSettingsManager *manager)
 {
   XSettingsBuffer buffer;
-  XSettingsList *iter;
+  GHashTableIter iter;
   int n_settings = 0;
+  gpointer value;
 
   buffer.len = 12;		/* byte-order + pad + SERIAL + N_SETTINGS */
 
-  iter = manager->settings;
-  while (iter)
+  g_hash_table_iter_init (&iter, manager->settings);
+  while (g_hash_table_iter_next (&iter, NULL, &value))
     {
-      buffer.len += setting_length (iter->setting);
+      buffer.len += setting_length (value);
       n_settings++;
-      iter = iter->next;
     }
 
   buffer.data = buffer.pos = malloc (buffer.len);
@@ -402,12 +399,9 @@ xsettings_manager_notify (XSettingsManager *manager)
   *(CARD32 *)buffer.pos = n_settings;
   buffer.pos += 4;
 
-  iter = manager->settings;
-  while (iter)
-    {
-      setting_store (iter->setting, &buffer);
-      iter = iter->next;
-    }
+  g_hash_table_iter_init (&iter, manager->settings);
+  while (g_hash_table_iter_next (&iter, NULL, &value))
+    setting_store (value, &buffer);
 
   XChangeProperty (manager->display, manager->window,
 		   manager->xsettings_atom, manager->xsettings_atom,
