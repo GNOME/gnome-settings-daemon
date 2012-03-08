@@ -288,84 +288,47 @@ xsettings_manager_set_color (XSettingsManager *manager,
   xsettings_manager_set_setting (manager, &setting);
 }
 
-static size_t
-setting_length (XSettingsSetting *setting)
-{
-  size_t length = 8;	/* type + pad + name-len + last-change-serial */
-  length += XSETTINGS_PAD (strlen (setting->name), 4);
-
-  switch (setting->type)
-    {
-    case XSETTINGS_TYPE_INT:
-      length += 4;
-      break;
-    case XSETTINGS_TYPE_STRING:
-      length += 4 + XSETTINGS_PAD (strlen (setting->data.v_string), 4);
-      break;
-    case XSETTINGS_TYPE_COLOR:
-      length += 8;
-      break;
-    }
-
-  return length;
-}
-
 static void
 setting_store (XSettingsSetting *setting,
-	       XSettingsBuffer *buffer)
+               GString          *buffer)
 {
-  size_t string_len;
-  size_t length;
+  guint16 len16;
+  guint32 len32;
 
-  *(buffer->pos++) = setting->type;
-  *(buffer->pos++) = 0;
+  g_string_append_c (buffer, setting->type);
+  g_string_append_c (buffer, 0);
 
-  string_len = strlen (setting->name);
-  *(CARD16 *)(buffer->pos) = string_len;
-  buffer->pos += 2;
+  len16 = strlen (setting->name);
+  g_string_append_len (buffer, (gchar *) &len16, 2);
+  g_string_append (buffer, setting->name);
 
-  length = XSETTINGS_PAD (string_len, 4);
-  memcpy (buffer->pos, setting->name, string_len);
-  length -= string_len;
-  buffer->pos += string_len;
-  
-  while (length > 0)
-    {
-      *(buffer->pos++) = 0;
-      length--;
-    }
+  while (buffer->len & 3)
+    g_string_append_c (buffer, '\0');
 
-  *(CARD32 *)(buffer->pos) = setting->last_change_serial;
-  buffer->pos += 4;
+  g_string_append_len (buffer, (gchar *) &setting->last_change_serial, 4);
 
   switch (setting->type)
     {
     case XSETTINGS_TYPE_INT:
-      *(CARD32 *)(buffer->pos) = setting->data.v_int;
-      buffer->pos += 4;
+      g_string_append_len (buffer, (gchar *) &setting->data.v_int, 4);
       break;
+
     case XSETTINGS_TYPE_STRING:
-      string_len = strlen (setting->data.v_string);
-      *(CARD32 *)(buffer->pos) = string_len;
-      buffer->pos += 4;
-      
-      length = XSETTINGS_PAD (string_len, 4);
-      memcpy (buffer->pos, setting->data.v_string, string_len);
-      length -= string_len;
-      buffer->pos += string_len;
-      
-      while (length > 0)
-	{
-	  *(buffer->pos++) = 0;
-	  length--;
-	}
+      len32 = strlen (setting->data.v_string);
+      g_string_append_len (buffer, (gchar *) &len32, 4);
+
+      g_string_append (buffer, setting->data.v_string);
+
+      while (buffer->len & 3)
+        g_string_append_c (buffer, '\0');
+
       break;
+
     case XSETTINGS_TYPE_COLOR:
-      *(CARD16 *)(buffer->pos) = setting->data.v_color.red;
-      *(CARD16 *)(buffer->pos + 2) = setting->data.v_color.green;
-      *(CARD16 *)(buffer->pos + 4) = setting->data.v_color.blue;
-      *(CARD16 *)(buffer->pos + 6) = setting->data.v_color.alpha;
-      buffer->pos += 8;
+      g_string_append_len (buffer, (gchar *) &setting->data.v_color.red, 2);
+      g_string_append_len (buffer, (gchar *) &setting->data.v_color.green, 2);
+      g_string_append_len (buffer, (gchar *) &setting->data.v_color.blue, 2);
+      g_string_append_len (buffer, (gchar *) &setting->data.v_color.alpha, 2);
       break;
     }
 }
@@ -373,40 +336,30 @@ setting_store (XSettingsSetting *setting,
 void
 xsettings_manager_notify (XSettingsManager *manager)
 {
-  XSettingsBuffer buffer;
+  GString *buffer;
   GHashTableIter iter;
-  int n_settings = 0;
+  int n_settings;
   gpointer value;
 
-  buffer.len = 12;		/* byte-order + pad + SERIAL + N_SETTINGS */
+  n_settings = g_hash_table_size (manager->settings);
+
+  buffer = g_string_new (NULL);
+  g_string_append_c (buffer, xsettings_byte_order ());
+  g_string_append_c (buffer, '\0');
+  g_string_append_c (buffer, '\0');
+  g_string_append_c (buffer, '\0');
+
+  g_string_append_len (buffer, (gchar *) &manager->serial, 4);
+  g_string_append_len (buffer, (gchar *) &n_settings, 4);
 
   g_hash_table_iter_init (&iter, manager->settings);
   while (g_hash_table_iter_next (&iter, NULL, &value))
-    {
-      buffer.len += setting_length (value);
-      n_settings++;
-    }
-
-  buffer.data = buffer.pos = malloc (buffer.len);
-  if (!buffer.data)
-    return;
-
-  *buffer.pos = xsettings_byte_order ();
-
-  buffer.pos += 4;
-  *(CARD32 *)buffer.pos = manager->serial++;
-  buffer.pos += 4;
-  *(CARD32 *)buffer.pos = n_settings;
-  buffer.pos += 4;
-
-  g_hash_table_iter_init (&iter, manager->settings);
-  while (g_hash_table_iter_next (&iter, NULL, &value))
-    setting_store (value, &buffer);
+    setting_store (value, buffer);
 
   XChangeProperty (manager->display, manager->window,
-		   manager->xsettings_atom, manager->xsettings_atom,
-		   8, PropModeReplace, buffer.data, buffer.len);
+                   manager->xsettings_atom, manager->xsettings_atom,
+                   8, PropModeReplace, (guchar *) buffer->str, buffer->len);
 
-  free (buffer.data);
+  g_string_free (buffer, TRUE);
+  manager->serial++;
 }
-

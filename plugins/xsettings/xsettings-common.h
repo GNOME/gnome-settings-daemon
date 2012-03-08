@@ -27,7 +27,6 @@
 extern "C" {
 #endif /* __cplusplus */
 
-typedef struct _XSettingsBuffer  XSettingsBuffer;
 typedef struct _XSettingsColor   XSettingsColor;
 typedef struct _XSettingsSetting XSettingsSetting;
 
@@ -40,14 +39,6 @@ typedef enum
   XSETTINGS_TYPE_STRING  = 1,
   XSETTINGS_TYPE_COLOR   = 2
 } XSettingsType;
-
-struct _XSettingsBuffer
-{
-  char byte_order;
-  size_t len;
-  unsigned char *data;
-  unsigned char *pos;
-};
 
 struct _XSettingsColor
 {
@@ -74,8 +65,6 @@ int               xsettings_setting_equal (XSettingsSetting *setting_a,
 					   XSettingsSetting *setting_b);
 
 char xsettings_byte_order (void);
-
-#define XSETTINGS_PAD(n,m) ((n + m - 1) & (~(m-1)))
 
 #ifdef __cplusplus
 }
