@@ -223,7 +223,7 @@ xsettings_manager_delete_setting (XSettingsManager *manager,
   return xsettings_list_delete (&settings, name);
 }
 
-XSettingsResult
+static XSettingsResult
 xsettings_manager_set_setting (XSettingsManager *manager,
 			       XSettingsSetting *setting)
 {
