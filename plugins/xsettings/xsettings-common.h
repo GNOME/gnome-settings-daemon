@@ -41,16 +41,6 @@ typedef enum
   XSETTINGS_TYPE_COLOR   = 2
 } XSettingsType;
 
-typedef enum
-{
-  XSETTINGS_SUCCESS,
-  XSETTINGS_NO_MEM,
-  XSETTINGS_ACCESS,
-  XSETTINGS_FAILED,
-  XSETTINGS_NO_ENTRY,
-  XSETTINGS_DUPLICATE_ENTRY
-} XSettingsResult;
-
 struct _XSettingsBuffer
 {
   char byte_order;
