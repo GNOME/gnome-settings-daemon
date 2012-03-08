@@ -51,6 +51,7 @@ struct _XSettingsSetting
 };
 
 XSettingsSetting *xsettings_setting_new   (const gchar      *name);
+GVariant *        xsettings_setting_get   (XSettingsSetting *setting);
 void              xsettings_setting_set   (XSettingsSetting *setting,
                                            GVariant         *value,
                                            guint32           serial);

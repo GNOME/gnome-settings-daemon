@@ -270,7 +270,7 @@ setting_store (XSettingsSetting *setting,
   GVariant *value;
   guint16 len16;
 
-  value = setting->value;
+  value = xsettings_setting_get (setting);
 
   type = xsettings_get_typecode (value);
 

@@ -57,6 +57,12 @@ xsettings_variant_equal0 (GVariant *a,
   return g_variant_equal (a, b);
 }
 
+GVariant *
+xsettings_setting_get (XSettingsSetting *setting)
+{
+  return setting->value;
+}
+
 void
 xsettings_setting_set (XSettingsSetting *setting,
                        GVariant         *value,
@@ -64,11 +70,15 @@ xsettings_setting_set (XSettingsSetting *setting,
 {
   GVariant *old_value;
 
-  old_value = setting->value;
+  old_value = xsettings_setting_get (setting);
+  if (old_value)
+    g_variant_ref (old_value);
 
+  if (setting->value)
+    g_variant_unref (setting->value);
   setting->value = value ? g_variant_ref_sink (value) : NULL;
 
-  if (!xsettings_variant_equal0 (old_value, setting->value))
+  if (!xsettings_variant_equal0 (old_value, xsettings_setting_get (setting)))
     setting->last_change_serial = serial;
 
   if (old_value)
