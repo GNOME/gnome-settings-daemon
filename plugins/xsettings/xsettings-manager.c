@@ -45,8 +45,6 @@ struct _XSettingsManager
   unsigned long serial;
 };
 
-static XSettingsList *settings;
-
 typedef struct 
 {
   Window window;
@@ -220,14 +218,14 @@ XSettingsResult
 xsettings_manager_delete_setting (XSettingsManager *manager,
                                   const char       *name)
 {
-  return xsettings_list_delete (&settings, name);
+  return xsettings_list_delete (&manager->settings, name);
 }
 
 static XSettingsResult
 xsettings_manager_set_setting (XSettingsManager *manager,
 			       XSettingsSetting *setting)
 {
-  XSettingsSetting *old_setting = xsettings_list_lookup (settings, setting->name);
+  XSettingsSetting *old_setting = xsettings_list_lookup (manager->settings, setting->name);
   XSettingsSetting *new_setting;
   XSettingsResult result;
 
@@ -236,7 +234,7 @@ xsettings_manager_set_setting (XSettingsManager *manager,
       if (xsettings_setting_equal (old_setting, setting))
 	return XSETTINGS_SUCCESS;
 
-      xsettings_list_delete (&settings, setting->name);
+      xsettings_list_delete (&manager->settings, setting->name);
     }
 
   new_setting = xsettings_setting_copy (setting);
@@ -245,7 +243,7 @@ xsettings_manager_set_setting (XSettingsManager *manager,
   
   new_setting->last_change_serial = manager->serial;
   
-  result = xsettings_list_insert (&settings, new_setting);
+  result = xsettings_list_insert (&manager->settings, new_setting);
   
   if (result != XSETTINGS_SUCCESS)
     xsettings_setting_free (new_setting);
@@ -386,7 +384,7 @@ xsettings_manager_notify (XSettingsManager *manager)
 
   buffer.len = 12;		/* byte-order + pad + SERIAL + N_SETTINGS */
 
-  iter = settings;
+  iter = manager->settings;
   while (iter)
     {
       buffer.len += setting_length (iter->setting);
@@ -406,7 +404,7 @@ xsettings_manager_notify (XSettingsManager *manager)
   *(CARD32 *)buffer.pos = n_settings;
   buffer.pos += 4;
 
-  iter = settings;
+  iter = manager->settings;
   while (iter)
     {
       setting_store (iter->setting, &buffer);
