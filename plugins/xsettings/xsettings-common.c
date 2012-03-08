@@ -67,30 +67,30 @@ xsettings_setting_set (XSettingsSetting *setting,
     }
 }
 
-int
-xsettings_setting_equal (XSettingsSetting *setting_a,
-			 XSettingsSetting *setting_b)
+gboolean
+xsettings_setting_equal (XSettingsSetting *setting,
+                         XSettingsSetting *value)
 {
-  if (setting_a->type != setting_b->type)
-    return 0;
+  if (setting->type != value->type)
+    return FALSE;
 
-  if (strcmp (setting_a->name, setting_b->name) != 0)
-    return 0;
+  if (strcmp (setting->name, value->name) != 0)
+    return FALSE;
 
-  switch (setting_a->type)
+  switch (setting->type)
     {
     case XSETTINGS_TYPE_INT:
-      return setting_a->data.v_int == setting_b->data.v_int;
+      return setting->data.v_int == value->data.v_int;
     case XSETTINGS_TYPE_COLOR:
-      return (setting_a->data.v_color.red == setting_b->data.v_color.red &&
-	      setting_a->data.v_color.green == setting_b->data.v_color.green &&
-	      setting_a->data.v_color.blue == setting_b->data.v_color.blue &&
-	      setting_a->data.v_color.alpha == setting_b->data.v_color.alpha);
+      return (setting->data.v_color.red == value->data.v_color.red &&
+              setting->data.v_color.green == value->data.v_color.green &&
+              setting->data.v_color.blue == value->data.v_color.blue &&
+              setting->data.v_color.alpha == value->data.v_color.alpha);
     case XSETTINGS_TYPE_STRING:
-      return strcmp (setting_a->data.v_string, setting_b->data.v_string) == 0;
+      return strcmp (setting->data.v_string, value->data.v_string) == 0;
     }
 
-  return 0;
+  return FALSE;
 }
 
 void

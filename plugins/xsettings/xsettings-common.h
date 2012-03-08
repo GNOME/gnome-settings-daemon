@@ -59,8 +59,8 @@ XSettingsSetting *xsettings_setting_new   (const gchar      *name);
 void              xsettings_setting_set   (XSettingsSetting *setting,
                                            XSettingsSetting *value);
 void              xsettings_setting_free  (XSettingsSetting *setting);
-int               xsettings_setting_equal (XSettingsSetting *setting_a,
-					   XSettingsSetting *setting_b);
+gboolean          xsettings_setting_equal (XSettingsSetting *setting,
+                                           XSettingsSetting *value);
 
 char xsettings_byte_order (void);
 
