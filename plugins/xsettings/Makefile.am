@@ -88,6 +88,7 @@ plugin_in_files = 		\
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 EXTRA_DIST = 			\
+	README.xsettings	\
 	$(plugin_in_files)	\
 	$(NULL)
 
