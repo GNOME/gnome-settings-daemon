@@ -49,9 +49,6 @@ gsddir = $(libexecdir)
 gsd_PROGRAMS = \
 	gnome-settings-daemon
 
-BUILT_SOURCES = 			\
-	$(NULL)
-
 apidir   = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings-daemon
 api_DATA = 				\
 	gnome-settings-plugin.h
@@ -84,15 +81,5 @@ gnome_settings_daemon_LDADD = 		\
 	$(UPOWER_LIBS)			\
 	$(GNOME_DESKTOP_LIBS)		\
 	$(NULL)
-
-
-EXTRA_DIST = 				\
-	$(Dbusapi_DATA)			\
-	$(NULL)
-
-CLEANFILES = 				\
-	$(BUILT_SOURCES)		\
-	$(NULL)
-
 
 # vim: ts=8
