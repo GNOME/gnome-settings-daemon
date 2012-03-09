@@ -29,6 +29,8 @@
 
 #include "xsettings-manager.h"
 
+#define XSETTINGS_VARIANT_TYPE_COLOR  (G_VARIANT_TYPE ("(qqqq)"))
+
 struct _XSettingsManager
 {
   Display *display;
@@ -243,6 +245,7 @@ xsettings_manager_set_color (XSettingsManager *manager,
   GVariant *tmp;
 
   tmp = g_variant_new ("(qqqq)", value->red, value->green, value->blue, value->alpha);
+  g_assert (g_variant_is_of_type (tmp, XSETTINGS_VARIANT_TYPE_COLOR)); /* paranoia... */
   xsettings_manager_set_setting (manager, name, 0, tmp);
 }
 
@@ -375,7 +378,7 @@ xsettings_manager_set_overrides (XSettingsManager *manager,
       /* only accept recognised types... */
       if (!g_variant_is_of_type (value, G_VARIANT_TYPE_STRING) &&
           !g_variant_is_of_type (value, G_VARIANT_TYPE_INT32) &&
-          !g_variant_is_of_type (value, G_VARIANT_TYPE ("(qqqq)")))
+          !g_variant_is_of_type (value, XSETTINGS_VARIANT_TYPE_COLOR))
         continue;
 
       xsettings_manager_set_setting (manager, key, 1, value);
