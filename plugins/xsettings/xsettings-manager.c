@@ -273,6 +273,17 @@ xsettings_get_typecode (GVariant *value)
 }
 
 static void
+align_string (GString *string,
+              gint     alignment)
+{
+  /* Adds nul-bytes to the string until its length is an even multiple
+   * of the specified alignment requirement.
+   */
+  while ((string->len % alignment) != 0)
+    g_string_append_c (string, '\0');
+}
+
+static void
 setting_store (XSettingsSetting *setting,
                GString          *buffer)
 {
@@ -290,9 +301,7 @@ setting_store (XSettingsSetting *setting,
   len16 = strlen (setting->name);
   g_string_append_len (buffer, (gchar *) &len16, 2);
   g_string_append (buffer, setting->name);
-
-  while (buffer->len & 3)
-    g_string_append_c (buffer, '\0');
+  align_string (buffer, 4);
 
   g_string_append_len (buffer, (gchar *) &setting->last_change_serial, 4);
 
@@ -306,9 +315,7 @@ setting_store (XSettingsSetting *setting,
       len32 = stringlen;
       g_string_append_len (buffer, (gchar *) &len32, 4);
       g_string_append (buffer, string);
-
-      while (buffer->len & 3)
-        g_string_append_c (buffer, '\0');
+      align_string (buffer, 4);
     }
   else
     /* GVariant format is the same as XSETTINGS format for the non-string types */
