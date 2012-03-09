@@ -26,10 +26,15 @@ test_gtk_modules_CPPFLAGS =				\
 
 test_xsettings_SOURCES = \
 	gsd-xsettings-gtk.c	\
+	gsd-xsettings-gtk.h	\
 	gsd-xsettings-manager.c	\
+	gsd-xsettings-gtk.h	\
 	xsettings-common.c	\
+	xsettings-common.h	\
 	xsettings-manager.c	\
+	xsettings-manager.h	\
 	fontconfig-monitor.c	\
+	fontconfig-monitor.h	\
 	test-xsettings.c
 
 test_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
