@@ -986,7 +986,7 @@ device_perhaps_recall_delay_cb (gpointer user_data)
                       "recall-vendor", &vendor,
                       NULL);
 
-        /* TRANSLATORS: the battery may be recalled by it's vendor */
+        /* TRANSLATORS: the battery may be recalled by its vendor */
         title = _("Battery may be recalled");
         message = g_string_new ("");
         g_string_append_printf (message,
