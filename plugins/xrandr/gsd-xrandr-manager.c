@@ -764,7 +764,7 @@ gsd_xrandr_manager_2_rotate (GsdXrandrManager *manager,
                              guint32           timestamp,
                              GError          **error)
 {
-        handle_rotate_windows (manager, -1, timestamp);
+        handle_rotate_windows (manager, GNOME_RR_ROTATION_NEXT, timestamp);
         return TRUE;
 }
 
