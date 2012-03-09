@@ -1301,8 +1301,8 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
         g_ptr_array_add (array, gnome_rr_config_new_current (screen, NULL));
         g_ptr_array_add (array, make_clone_setup (mgr, screen));
         g_ptr_array_add (array, make_xinerama_setup (mgr, screen));
-        g_ptr_array_add (array, make_laptop_setup (mgr, screen));
         g_ptr_array_add (array, make_other_setup (screen));
+        g_ptr_array_add (array, make_laptop_setup (mgr, screen));
 
         array = sanitize (mgr, array);
 
