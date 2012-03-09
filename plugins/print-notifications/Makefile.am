@@ -68,7 +68,7 @@ test_print_notifications_CFLAGS =	\
 	$(AM_CFLAGS)
 
 test_print_notifications_LDADD =				\
-	$(top_builddir)/gnome-settings-daemon/libgsd-profile.la	\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
 	$(CUPS_LIBS)						\
