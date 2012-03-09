@@ -36,6 +36,7 @@ libgsd_la_CFLAGS =		\
 
 libgsd_la_LIBADD =		\
 	$(SYSTEMD_LIBS)		\
+	$(GIOUNIX_LIBS)		\
 	$(NULL)
 
 libgsd_la_LDFLAGS =		\
