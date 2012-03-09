@@ -136,6 +136,7 @@ test_media_keys_LDADD = \
 
 EXTRA_DIST = 				\
 	gsd-marshal.list		\
+	README.media-keys-API		\
 	$(plugin_in_files)
 
 CLEANFILES = 			\
