@@ -14,8 +14,9 @@ test_gtk_modules_CFLAGS =		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-test_gtk_modules_LDADD =		\
-	$(FONTCONFIG_LIBS)		\
+test_gtk_modules_LDADD =					\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(FONTCONFIG_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 test_gtk_modules_CPPFLAGS =				\
@@ -61,10 +62,10 @@ libxsettings_la_SOURCES = 	\
 	fontconfig-monitor.c	\
 	$(NULL)
 
-libxsettings_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+libxsettings_la_CPPFLAGS =					\
+	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/data/					\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\" \
 	$(AM_CPPFLAGS)
 
@@ -77,9 +78,10 @@ libxsettings_la_LDFLAGS = 	\
 	$(GSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
-libxsettings_la_LIBADD  = 	\
-	$(SETTINGS_PLUGIN_LIBS)	\
-	$(FONTCONFIG_LIBS)	\
+libxsettings_la_LIBADD  =					\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(SETTINGS_PLUGIN_LIBS)					\
+	$(FONTCONFIG_LIBS)					\
 	$(NULL)
 
 plugin_in_files = 		\
