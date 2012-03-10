@@ -15,6 +15,7 @@ test_gtk_modules_CFLAGS =		\
 	$(AM_CFLAGS)
 
 test_gtk_modules_LDADD =		\
+	$(FONTCONFIG_LIBS)		\
 	$(SETTINGS_PLUGIN_LIBS)
 
 test_gtk_modules_CPPFLAGS =				\
