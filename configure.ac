@@ -69,6 +69,7 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
         gio-2.0 >= $GIO_REQUIRED_VERSION
         gsettings-desktop-schemas
+        x11
 )
 
 GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
