@@ -123,7 +123,7 @@ plugin_in_files = wacom.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-EXTRA_DIST += $(plugin_in_files)
+EXTRA_DIST += $(plugin_in_files) README.config-storage
 CLEANFILES =						\
 	$(plugin_DATA)					\
 	org.gnome.settings-daemon.plugins.wacom.policy	\
