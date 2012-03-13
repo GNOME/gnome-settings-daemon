@@ -394,8 +394,8 @@ parse_args (int *argc, char ***argv)
 
         gnome_settings_profile_end (NULL);
 
-        if (debug && g_getenv ("G_MESSAGES_DEBUG") == NULL)
-                g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
+        if (debug)
+                g_setenv ("G_MESSAGES_DEBUG", "all", FALSE);
 }
 
 int
