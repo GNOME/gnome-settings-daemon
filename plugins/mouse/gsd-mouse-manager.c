@@ -28,6 +28,9 @@
 #include <string.h>
 #include <errno.h>
 #include <math.h>
+#ifdef __linux
+#include <sys/prctl.h>
+#endif
 
 #include <locale.h>
 
@@ -502,6 +505,26 @@ set_middle_button (GsdMouseManager *manager,
         XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
 }
 
+/* Ensure that syndaemon dies together with us, to avoid running several of
+ * them */
+static void
+setup_syndaemon (gpointer user_data)
+{
+#ifdef __linux
+        prctl (PR_SET_PDEATHSIG, SIGHUP);
+#endif
+}
+
+static void
+syndaemon_died (GPid pid, gint status, gpointer user_data)
+{
+        GsdMouseManager *manager = GSD_MOUSE_MANAGER (user_data);
+
+        g_debug ("syndaemon stopped with status %i", status);
+        g_spawn_close_pid (pid);
+        manager->priv->syndaemon_spawned = FALSE;
+}
+
 static int
 set_disable_w_typing (GsdMouseManager *manager, gboolean state)
 {
@@ -522,15 +545,22 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
                 if (!g_find_program_in_path (args[0]))
                         return 0;
 
+                /* we must use G_SPAWN_DO_NOT_REAP_CHILD to avoid
+                 * double-forking, otherwise syndaemon will immediately get
+                 * killed again through (PR_SET_PDEATHSIG when the intermediate
+                 * process dies */
                 g_spawn_async (g_get_home_dir (), args, NULL,
-                                G_SPAWN_SEARCH_PATH, NULL, NULL,
+                                G_SPAWN_SEARCH_PATH|G_SPAWN_DO_NOT_REAP_CHILD, setup_syndaemon, NULL,
                                 &manager->priv->syndaemon_pid, &error);
 
                 manager->priv->syndaemon_spawned = (error == NULL);
 
                 if (error) {
+                        g_warning ("Failed to launch syndaemon: %s", error->message);
                         g_settings_set_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING, FALSE);
                         g_error_free (error);
+                } else {
+                        g_child_watch_add (manager->priv->syndaemon_pid, syndaemon_died, manager);
                 }
         } else if (manager->priv->syndaemon_spawned) {
                 kill (manager->priv->syndaemon_pid, SIGHUP);
