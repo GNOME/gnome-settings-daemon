@@ -537,6 +537,20 @@ gsettings_custom_changed_cb (GSettings           *settings,
         g_strfreev (bindings);
 }
 
+static void
+add_key (GsdMediaKeysManager *manager, guint i)
+{
+	MediaKey *key;
+
+	key = g_new0 (MediaKey, 1);
+	key->key_type = media_keys[i].key_type;
+	key->settings_key = media_keys[i].settings_key;
+	key->hard_coded = media_keys[i].hard_coded;
+
+	g_ptr_array_add (manager->priv->keys, key);
+
+	grab_media_key (key, manager);
+}
 
 static void
 init_kbd (GsdMediaKeysManager *manager)
@@ -550,18 +564,15 @@ init_kbd (GsdMediaKeysManager *manager)
 
         manager->priv->keys = g_ptr_array_new_with_free_func ((GDestroyNotify) media_key_free);
 
-        /* Media keys */
+        /* Media keys
+         * Add hard-coded shortcuts first so that they can't be preempted */
         for (i = 0; i < G_N_ELEMENTS (media_keys); i++) {
-                MediaKey *key;
-
-                key = g_new0 (MediaKey, 1);
-                key->key_type = media_keys[i].key_type;
-                key->settings_key = media_keys[i].settings_key;
-                key->hard_coded = media_keys[i].hard_coded;
-
-                g_ptr_array_add (manager->priv->keys, key);
-
-                grab_media_key (key, manager);
+                if (media_keys[i].hard_coded)
+                        add_key (manager, i);
+        }
+        for (i = 0; i < G_N_ELEMENTS (media_keys); i++) {
+                if (media_keys[i].hard_coded == NULL)
+                        add_key (manager, i);
         }
 
         /* Custom shortcuts */
