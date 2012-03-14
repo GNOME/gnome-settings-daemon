@@ -48,6 +48,8 @@ main (int argc, char *argv[])
 
         setlocale (LC_ALL, "");
 
+	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
+
         gtk_init (&argc, &argv);
 
         manager = gsd_background_manager_new ();
