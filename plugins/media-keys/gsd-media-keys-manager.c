@@ -701,9 +701,34 @@ do_media_action (GsdMediaKeysManager *manager,
 }
 
 static void
-do_logout_action (GsdMediaKeysManager *manager)
+gnome_session_shutdown (GsdMediaKeysManager *manager)
 {
-        execute (manager, "gnome-session-quit --logout", FALSE);
+	GError *error = NULL;
+	GVariant *variant;
+
+	/* Shouldn't happen, but you never know */
+	if (manager->priv->connection == NULL) {
+		execute (manager, "gnome-session-quit --logout", FALSE);
+		return;
+	}
+
+	variant = g_dbus_connection_call_sync (manager->priv->connection,
+					       GNOME_SESSION_DBUS_NAME,
+					       GNOME_SESSION_DBUS_PATH,
+					       GNOME_SESSION_DBUS_INTERFACE,
+					       "Shutdown",
+					       NULL,
+					       NULL,
+					       G_DBUS_CALL_FLAGS_NONE,
+					       -1,
+					       NULL,
+					       &error);
+	if (variant == NULL) {
+		g_warning ("Failed to call Shutdown on session manager: %s", error->message);
+		g_error_free (error);
+		return;
+	}
+	g_variant_unref (variant);
 }
 
 static void
@@ -1536,55 +1561,6 @@ do_toggle_contrast_action (GsdMediaKeysManager *manager)
 }
 
 static void
-gnome_session_shutdown_cb (GObject *source_object,
-                           GAsyncResult *res,
-                           gpointer user_data)
-{
-        GVariant *result;
-        GError *error = NULL;
-
-        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
-                                           res,
-                                           &error);
-        if (result == NULL) {
-                g_warning ("couldn't shutdown using gnome-session: %s",
-                           error->message);
-                g_error_free (error);
-        } else {
-                g_variant_unref (result);
-        }
-}
-
-static void
-gnome_session_shutdown (void)
-{
-        GError *error = NULL;
-        GDBusProxy *proxy;
-
-        /* ask gnome-session to show the shutdown dialog with a timeout */
-        proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                               G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                               NULL,
-                                               GNOME_SESSION_DBUS_NAME,
-                                               GNOME_SESSION_DBUS_PATH,
-                                               GNOME_SESSION_DBUS_INTERFACE,
-                                               NULL, &error);
-        if (proxy == NULL) {
-                g_warning ("cannot connect to gnome-session: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-        g_dbus_proxy_call (proxy,
-                           "Shutdown",
-                           NULL,
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1, NULL,
-                           gnome_session_shutdown_cb, NULL);
-        g_object_unref (proxy);
-}
-
-static void
 upower_sleep_cb (GObject *source_object,
                  GAsyncResult *res,
                  gpointer user_data)
@@ -1623,7 +1599,7 @@ do_config_power_action (GsdMediaKeysManager *manager,
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
         case GSD_POWER_ACTION_SHUTDOWN:
-                gnome_session_shutdown ();
+                gnome_session_shutdown (manager);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
                 g_dbus_proxy_call (manager->priv->upower_proxy,
@@ -1788,7 +1764,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_sound_action (manager, deviceid, VOLUME_UP_KEY, TRUE);
                 break;
         case LOGOUT_KEY:
-                do_logout_action (manager);
+                gnome_session_shutdown (manager);
                 break;
         case EJECT_KEY:
                 do_eject_action (manager);
