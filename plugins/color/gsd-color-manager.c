@@ -1197,35 +1197,33 @@ gcm_session_device_assign_connect_cb (GObject *object,
                 goto out;
         }
 
-        /* get the output EDID */
+        /* create profile from device edid if it exists */
         edid = gcm_session_get_output_edid (manager, output, &error);
         if (edid == NULL) {
                 g_warning ("unable to get EDID for %s: %s",
                            cd_device_get_id (device),
                            error->message);
-                g_error_free (error);
-                goto out;
-        }
+                g_clear_error (&error);
 
-        /* create profile from device edid if it does not exist */
-        autogen_filename = g_strdup_printf ("edid-%s.icc",
-                                            gcm_edid_get_checksum (edid));
-        autogen_path = g_build_filename (g_get_user_data_dir (),
-                                         "icc", autogen_filename, NULL);
-
-        if (g_file_test (autogen_path, G_FILE_TEST_EXISTS)) {
-                g_debug ("auto-profile edid %s exists", autogen_path);
         } else {
-                g_debug ("auto-profile edid does not exist, creating as %s",
-                         autogen_path);
-                ret = gcm_apply_create_icc_profile_for_edid (manager,
-                                                             edid,
-                                                             autogen_path,
-                                                             &error);
-                if (!ret) {
-                        g_warning ("failed to create profile from EDID data: %s",
-                                     error->message);
-                        g_clear_error (&error);
+                autogen_filename = g_strdup_printf ("edid-%s.icc",
+                                                    gcm_edid_get_checksum (edid));
+                autogen_path = g_build_filename (g_get_user_data_dir (),
+                                                 "icc", autogen_filename, NULL);
+                if (g_file_test (autogen_path, G_FILE_TEST_EXISTS)) {
+                        g_debug ("auto-profile edid %s exists", autogen_path);
+                } else {
+                        g_debug ("auto-profile edid does not exist, creating as %s",
+                                 autogen_path);
+                        ret = gcm_apply_create_icc_profile_for_edid (manager,
+                                                                     edid,
+                                                                     autogen_path,
+                                                                     &error);
+                        if (!ret) {
+                                g_warning ("failed to create profile from EDID data: %s",
+                                             error->message);
+                                g_clear_error (&error);
+                        }
                 }
         }
 
