@@ -1337,9 +1337,9 @@ gcm_session_create_device_cb (GObject *object,
 static void
 gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
 {
-        const gchar *model;
-        const gchar *serial;
-        const gchar *vendor;
+        const gchar *model = NULL;
+        const gchar *serial = NULL;
+        const gchar *vendor = NULL;
         gboolean ret;
         gchar *device_id = NULL;
         GcmEdid *edid;
@@ -1347,37 +1347,38 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
         GHashTable *device_props = NULL;
         GsdColorManagerPrivate *priv = manager->priv;
 
-        /* get edid */
+        /* try to get edid */
         edid = gcm_session_get_output_edid (manager, output, &error);
         if (edid == NULL) {
                 g_warning ("failed to get edid: %s",
                            error->message);
-                g_error_free (error);
-                goto out;
+                g_clear_error (&error);
         }
 
-        /* is this an internal device? */
+        /* prefer DMI data for the internal output */
         ret = gnome_rr_output_is_laptop (output);
         if (ret) {
                 model = gcm_dmi_get_name (priv->dmi);
                 vendor = gcm_dmi_get_vendor (priv->dmi);
-        } else {
-                model = gcm_edid_get_monitor_name (edid);
-                if (model == NULL)
-                        model = gnome_rr_output_get_name (output);
-                vendor = gcm_edid_get_vendor_name (edid);
         }
 
-        /* get a serial number if one exists */
-        serial = gcm_edid_get_serial_number (edid);
-        if (serial == NULL)
-                serial = "unknown";
+        /* use EDID data if we have it */
+        if (edid != NULL) {
+                if (model == NULL)
+                        model = gcm_edid_get_monitor_name (edid);
+                if (vendor == NULL)
+                        vendor = gcm_edid_get_vendor_name (edid);
+                if (serial == NULL)
+                        serial = gcm_edid_get_serial_number (edid);
+        }
 
         /* ensure mandatory fields are set */
         if (model == NULL)
-                model = "unknown";
+                model = gnome_rr_output_get_name (output);
         if (vendor == NULL)
                 vendor = "unknown";
+        if (serial == NULL)
+                serial = "unknown";
 
         device_id = gcm_session_get_output_id (manager, output);
         g_debug ("output %s added", device_id);
@@ -1411,7 +1412,6 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
                                  NULL,
                                  gcm_session_create_device_cb,
                                  manager);
-out:
         g_free (device_id);
         if (device_props != NULL)
                 g_hash_table_unref (device_props);
