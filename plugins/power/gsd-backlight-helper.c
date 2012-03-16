@@ -170,7 +170,6 @@ main (int argc, char *argv[])
 	/* find device */
 	filename = gsd_backlight_helper_get_best_backlight ();
 	if (filename == NULL) {
-		g_print ("%s\n", "No backlights were found on your system");
 		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_INVALID_USER;
 		goto out;
 	}
