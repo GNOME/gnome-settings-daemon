@@ -212,6 +212,7 @@ static UpDevice *engine_update_composite_device (GsdPowerManager *manager, UpDev
 static GIcon    *engine_get_icon (GsdPowerManager *manager);
 static gchar    *engine_get_summary (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
+static void      lock_screensaver (GsdPowerManager *manager);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -2300,6 +2301,9 @@ do_lid_closed_action (GsdPowerManager *manager)
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
                          NULL);
 
+        /* maybe lock the screen if the lid is closed */
+        lock_screensaver (manager);
+
         /* we have different settings depending on AC state */
         if (up_client_get_on_battery (manager->priv->up_client)) {
                 action_type = g_settings_get_enum (manager->priv->settings,
@@ -3515,9 +3519,7 @@ out:
 }
 
 static void
-upower_notify_sleep_cb (UpClient *client,
-                        UpSleepKind sleep_kind,
-                        GsdPowerManager *manager)
+lock_screensaver (GsdPowerManager *manager)
 {
         gboolean do_lock;
 
@@ -3544,6 +3546,14 @@ upower_notify_sleep_cb (UpClient *client,
                                           sleep_cb_screensaver_proxy_ready_cb,
                                           manager);
         }
+}
+
+static void
+upower_notify_sleep_cb (UpClient *client,
+                        UpSleepKind sleep_kind,
+                        GsdPowerManager *manager)
+{
+        lock_screensaver (manager);
 }
 
 static void
