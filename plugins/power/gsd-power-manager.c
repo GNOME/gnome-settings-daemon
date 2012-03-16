@@ -2681,6 +2681,7 @@ backlight_emit_changed (GsdPowerManager *manager)
 static gboolean
 backlight_set_percentage (GsdPowerManager *manager,
                           guint value,
+                          gboolean emit_changed,
                           GError **error)
 {
         GnomeRROutput *output;
@@ -2714,7 +2715,8 @@ backlight_set_percentage (GsdPowerManager *manager,
                                           discrete,
                                           error);
 out:
-        backlight_emit_changed (manager);
+        if (emit_changed)
+                backlight_emit_changed (manager);
         return ret;
 }
 
@@ -2821,6 +2823,7 @@ out:
 static gint
 backlight_set_abs (GsdPowerManager *manager,
                    guint value,
+                   gboolean emit_changed,
                    GError **error)
 {
         GnomeRROutput *output;
@@ -2840,7 +2843,8 @@ backlight_set_abs (GsdPowerManager *manager,
                                           value,
                                           error);
 out:
-        backlight_emit_changed (manager);
+        if (emit_changed)
+                backlight_emit_changed (manager);
         return ret;
 }
 
@@ -2877,6 +2881,7 @@ display_backlight_dim (GsdPowerManager *manager,
         }
         ret = backlight_set_abs (manager,
                                  idle,
+                                 FALSE,
                                  error);
         if (!ret) {
                 goto out;
@@ -3030,6 +3035,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 if (manager->priv->pre_dim_brightness >= 0) {
                         ret = backlight_set_abs (manager,
                                                  manager->priv->pre_dim_brightness,
+                                                 FALSE,
                                                  &error);
                         if (!ret) {
                                 g_warning ("failed to restore backlight to %i: %s",
@@ -3972,7 +3978,7 @@ handle_method_call_screen (GsdPowerManager *manager,
         } else if (g_strcmp0 (method_name, "SetPercentage") == 0) {
                 g_debug ("screen set percentage");
                 g_variant_get (parameters, "(u)", &value_tmp);
-                ret = backlight_set_percentage (manager, value_tmp, &error);
+                ret = backlight_set_percentage (manager, value_tmp, TRUE, &error);
                 if (ret)
                         value = value_tmp;
 
