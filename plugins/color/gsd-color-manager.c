@@ -2057,9 +2057,7 @@ gcm_session_profile_store_added_cb (GcmProfileStore *profile_store,
                 g_error_free (error);
                 goto out;
         }
-        profile_id = g_strdup_printf ("icc-%s-%s",
-                                      checksum,
-                                      g_get_user_name ());
+        profile_id = g_strdup_printf ("icc-%s", checksum);
         profile_props = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                NULL, NULL);
         g_hash_table_insert (profile_props,
