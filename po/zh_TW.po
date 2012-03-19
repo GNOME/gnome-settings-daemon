@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 3.3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-17 14:13+0800\n"
-"PO-Revision-Date: 2012-03-06 02:02+0800\n"
-"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"POT-Creation-Date: 2012-03-19 23:49+0800\n"
+"PO-Revision-Date: 2012-03-19 20:23+0800\n"
+"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Taiwan) <zh-l10n@lists.linux.org.tw>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -250,14 +250,10 @@ msgid ""
 msgstr "當自訂動作的按鈕被下時產生的鍵盤捷徑鍵。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
-#, fuzzy
-#| msgid ""
-#| "The keyboard shortcut generated when the button is pressed for custom "
-#| "actions."
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
 "custom actions (up followed by down)."
-msgstr "當自訂動作的按鈕被下時產生的鍵盤捷徑鍵。"
+msgstr "當觸控環或觸控列用在自訂動作 (上接在下之後) 時產生的鍵盤捷徑鍵。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "The type of action triggered by the button being pressed."
@@ -1435,18 +1431,18 @@ msgid "The printer '%s' should be recalibrated soon."
 msgstr "印表機「%s」不應該這麼快就重新校正。"
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2151
-#: ../plugins/color/gsd-color-manager.c:2167
+#: ../plugins/color/gsd-color-manager.c:2149
+#: ../plugins/color/gsd-color-manager.c:2165
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "GNOME 設定值伺服程式顏色外掛程式"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2153
+#: ../plugins/color/gsd-color-manager.c:2151
 msgid "Color calibration device added"
 msgstr "加入的顏色校正裝置"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2169
+#: ../plugins/color/gsd-color-manager.c:2167
 msgid "Color calibration device removed"
 msgstr "移除的顏色校正裝置"
 
@@ -2471,7 +2467,7 @@ msgstr "上蓋已經關閉"
 
 #. TRANSLATORS: this is the title of the power manager status icon
 #. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:3686
+#: ../plugins/power/gsd-power-manager.c:3692
 msgid "Power Manager"
 msgstr "電源管理程式"
 
@@ -2932,44 +2928,44 @@ msgid "A transaction that cannot be interrupted is running"
 msgstr "有無法中斷的處理正在執行"
 
 #: ../plugins/wacom/gsd-wacom-device.c:909
-#, fuzzy, c-format
+#, c-format
 msgid "Left Ring Mode #%d"
-msgstr "左手無名指模式 #%d"
+msgstr "左觸控環模式 #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:916
-#, fuzzy, c-format
+#, c-format
 msgid "Right Ring Mode #%d"
-msgstr "左手無名指模式 #%d"
+msgstr "右觸控環模式 #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:944
-#, fuzzy, c-format
+#, c-format
 msgid "Left Touchstrip Mode #%d"
-msgstr "左手無名指模式 #%d"
+msgstr "左觸控列模式 #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:951
-#, fuzzy, c-format
+#, c-format
 msgid "Right Touchstrip Mode #%d"
-msgstr "切換全螢幕模式"
+msgstr "右觸控列模式 #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:966
-#, fuzzy, c-format
+#, c-format
 msgid "Left Touchring Mode Switch"
-msgstr "切換至離線模式"
+msgstr "左觸控環模式切換"
 
 #: ../plugins/wacom/gsd-wacom-device.c:968
-#, fuzzy, c-format
+#, c-format
 msgid "Right Touchring Mode Switch"
-msgstr "切換至離線模式"
+msgstr "右觸控環模式切換"
 
 #: ../plugins/wacom/gsd-wacom-device.c:971
-#, fuzzy, c-format
+#, c-format
 msgid "Left Touchstrip Mode Switch"
-msgstr "切換至離線模式"
+msgstr "左觸控列模式切換"
 
 #: ../plugins/wacom/gsd-wacom-device.c:973
-#, fuzzy, c-format
+#, c-format
 msgid "Right Touchstrip Mode Switch"
-msgstr "切換至離線模式"
+msgstr "右觸控列模式切換"
 
 #: ../plugins/wacom/gsd-wacom-device.c:978
 #, c-format
@@ -2997,8 +2993,6 @@ msgid "Bottom Button #%d"
 msgstr "底部按鈕 #%d"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:1
-#, fuzzy
-#| msgid "Authentication is required to modify the laptop brightness"
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr "修改 Wacom 繪圖板的發亮 LED 需要驗證"
 
@@ -3007,7 +3001,6 @@ msgstr "修改 Wacom 繪圖板的發亮 LED 需要驗證"
 #. to change the LED setting for a Wacom tablet
 #.
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
-#, fuzzy
 msgid "Modify the lit LED for a Wacom tablet"
 msgstr "修改 Wacom 繪圖板的發光 LED"
 
