@@ -122,7 +122,6 @@ main (int argc, char *argv[])
 	gint uid;
 	gint euid;
 	guint retval = 0;
-	const gchar *pkexec_uid_str;
 	GError *error = NULL;
 	gboolean ret = FALSE;
 	gint set_brightness = -1;
