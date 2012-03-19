@@ -1,4 +1,82 @@
 ==============
+Version 3.3.92
+==============
+
+Color:
+- Apply the color profile even if the device has an invalid EDID (Richard Hughes)
+- Create a color device even if the device has an invalid EDID (Richard Hughes)
+- Don't use the username in the profile ID, it's optional and not-required (Richard Hughes)
+
+Common:
+- Add hint on how to set the script path (Bastien Nocera)
+- Fix library linkage on Mageia (Jani Välimaa)
+- Support explicitly setting G_MESSAGES_DEBUG (Martin Pitt)
+
+Media Keys:
+- Avoid hard-coded shortcuts not working (Bastien Nocera)
+- Call Shutdown for the logout action (Bastien Nocera)
+
+Mouse:
+- Stop syndaemon when settings-daemon dies (Martin Pitt)
+
+Power:
+- Do not emit DBus interface change signals when doing the idle dim (Richard Hughes)
+- Don't print a message when no backlights are detected (Richard Hughes)
+- Failing to clear DPMS timeouts should not be fatal (Alexandre Rostovtsev)
+- Fix broken abs_to_percentage() logic (Cosimo Cecchi)
+- Lazily connect to gnome-screensaver (Martin Pitt)
+- Lock the screensaver if the lid is closed and lock is enabled (Richard Hughes)
+- Make the idle dim time 90 seconds to match OSX (Richard Hughes)
+
+Print Notifications:
+- Add test tool (Lars Uebernickel)
+- Don't unref floating GVariant (Marek Kasik)
+
+Wacom:
+- Add README about configuration storage (Bastien Nocera)
+
+XRandR:
+- Fix the rotate display button not working (Sjoerd Simons)
+- List external display only before internal only (Bastien Nocera)
+
+XSettings:
+- Add README.xsettings about overrides (Ryan Lortie)
+- Add test-xsettings program (Ryan Lortie)
+- Add xsettings_setting_get() accessor (Ryan Lortie)
+- Add XSETTINGS_VARIANT_TYPE_COLOR macro (Ryan Lortie)
+- Always call xsettings_setting_set() (Ryan Lortie)
+- Don't return XSettingsResult codes (Ryan Lortie)
+- Introduce 'tiers' of XSettings (Ryan Lortie)
+- Load overrides on startup (Ryan Lortie)
+- Remove global 'settings' list (Ryan Lortie)
+- Switch manager to GLib memory functions (Ryan Lortie)
+- Switch to GVariant for value storage (Ryan Lortie)
+- Use GHashTable in the xsettings manager (Ryan Lortie)
+- Wire overrides into GSettings (Ryan Lortie)
+
+Translations:
+- Belarusian (Ihar Hrachyshka, Kasia Bondarava)
+- British English (Bruce Cowan)
+- Bulgarian (Alexander Shopov)
+- Catalan (Joan Duran)
+- Catalan (Valencian) (Carles Ferrando)
+- Czech (Adam Matoušek, Marek Černocký)
+- Finnish (Timo Jyrinki)
+- Galician (Fran Diéguez)
+- Gujarati (Sweta Kothari)
+- Hungarian (Gabor Kelemen)
+- Korean (Changwoo Ryu)
+- Latvian (Anita Reitere)
+- Norwegian bokmål (Kjartan Maraas)
+- Russian (Yuri Myasoedov)
+- Serbian (Мирослав Николић)
+- Slovenian (Matej Urbančič)
+- Traditional Chinese (Cheng-Chia Tseng)
+- Vietnamese (Nguyễn Thái Ngọc Duy)
+- Punjabi (A S Alam)
+- Ukranian (Daniel Korostil)
+
+==============
 Version 3.3.91
 ==============
 
