@@ -362,6 +362,11 @@ apply_stylus_settings (GsdWacomDevice *device)
 	int threshold;
 
 	g_object_get (device, "last-stylus", &stylus, NULL);
+	if (stylus == NULL) {
+		g_warning ("Last stylus is not set");
+		return;
+	}
+
 	g_debug ("Applying setting for stylus '%s' on device '%s'",
 		 gsd_wacom_stylus_get_name (stylus),
 		 gsd_wacom_device_get_name (device));
