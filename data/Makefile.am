@@ -16,7 +16,6 @@ gsettings_SCHEMAS =							\
 	org.gnome.settings-daemon.plugins.xsettings.gschema.xml		\
 	org.gnome.settings-daemon.plugins.housekeeping.gschema.xml	\
 	org.gnome.settings-daemon.plugins.print-notifications.gschema.xml	\
-	org.gnome.settings-daemon.peripherals.wacom.gschema.xml		\
 	org.gnome.settings-daemon.plugins.xrandr.gschema.xml
 
 all_schemas = $(gsettings_SCHEMAS)
@@ -31,6 +30,12 @@ if HAVE_GUDEV
 gsettings_SCHEMAS += org.gnome.settings-daemon.plugins.orientation.gschema.xml
 else
 all_schemas += org.gnome.settings-daemon.plugins.orientation.gschema.xml
+endif
+
+if HAVE_WACOM
+gsettings_SCHEMAS += org.gnome.settings-daemon.peripherals.wacom.gschema.xml
+else
+all_schemas += org.gnome.settings-daemon.peripherals.wacom.gschema.xml
 endif
 
 @INTLTOOL_XML_NOMERGE_RULE@

@@ -15,7 +15,6 @@ enabled_plugins =	\
 	media-keys	\
 	mouse		\
 	sound		\
-	wacom		\
 	xrandr		\
 	xsettings	\
 	$(NULL)
@@ -38,6 +37,12 @@ if HAVE_GUDEV
 enabled_plugins += orientation
 else
 disabled_plugins += orientation
+endif
+
+if HAVE_WACOM
+enabled_plugins += wacom
+else
+disabled_plugins += wacom
 endif
 
 if BUILD_PRINT_NOTIFICATIONS
