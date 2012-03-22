@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-03-17 06:13+0000\n"
-"PO-Revision-Date: 2012-03-22 10:35+0700\n"
+"PO-Revision-Date: 2012-03-22 10:40+0700\n"
 "Last-Translator: Nguyễn Thái Ngọc Duy <pclouds@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -245,6 +245,8 @@ msgid ""
 "EDID information of monitor to map tablet to. Must be in the format [vendor, "
 "product, serial]. [\"\",\"\",\"\"] disables mapping."
 msgstr ""
+"Thông tin EDID của màn hình để ánh xạ tablet sang. Phải theo định dạng [nhà-"
+"sản-xuất, sản-phẩm, số-sê-ri]. [\"\",\"\",\"\"] tắt ánh xạ."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid "Wacom stylus pressure curve"
@@ -300,17 +302,17 @@ msgstr "Kiểu hành động nút Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "The type of action triggered by the button being pressed."
-msgstr ""
+msgstr "Loại hành động cần thực hiện khi nhấn nút."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Key combination for the custom action"
-msgstr ""
+msgstr "Tổ hợp phím cho hành động tự chọn"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid ""
 "The keyboard shortcut generated when the button is pressed for custom "
 "actions."
-msgstr ""
+msgstr "Tổ hợp phím được phát sinh khi nhấn nút cho hành động tự chọn."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Key combinations for an elevator custom action"
@@ -766,16 +768,20 @@ msgid ""
 "If time based notifications should be used. If set to false, then the "
 "percentage change is used instead, which may fix a broken ACPI BIOS."
 msgstr ""
+"Có dùng thông báo dựa trên thời gian không. Nếu đặt là sai, dùng phần trăm "
+"thay đổi, có thể tốt hơn với BIOS ACPI lỗi."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
 msgid "If we should show the recalled battery warning for a broken battery"
-msgstr ""
+msgstr "Có hiện thông báo thu hồi pin cho pin lỗi không"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
 msgid ""
 "If we should show the recalled battery warning for a broken battery. Set "
 "this to false only if you know your battery is okay."
 msgstr ""
+"Có hiện thông báo thu hồi pin cho pin lỗi không. Đặt là sai chỉ khi bạn biết "
+"chắc pin tốt."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
 msgid "The install root to use when adding and removing packages"
@@ -2980,12 +2986,12 @@ msgstr "Giao dịch bị ngắt khi đang chạy"
 #: ../plugins/wacom/gsd-wacom-device.c:909
 #, c-format
 msgid "Left Ring Mode #%d"
-msgstr ""
+msgstr "Chế độ vòng trái #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:916
 #, c-format
 msgid "Right Ring Mode #%d"
-msgstr ""
+msgstr "Chế độ vòng phải #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:944
 #, c-format
@@ -3020,7 +3026,7 @@ msgstr ""
 #: ../plugins/wacom/gsd-wacom-device.c:978
 #, c-format
 msgid "Mode Switch #%d"
-msgstr ""
+msgstr "Công tắc chế độ #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1050
 #, c-format
@@ -3048,13 +3054,12 @@ msgstr "Nút dưới #%d"
 #.
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
 msgid "Modify the lit LED for a Wacom tablet"
-msgstr ""
+msgstr "Điều chỉnh LED sáng trên tablet Wacom"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
-#, fuzzy
 #| msgid "Authentication is required to modify the laptop brightness"
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
-msgstr "Cần xác thực để điều chỉnh độ sáng laptop"
+msgstr "Cần xác thực để điều chỉnh LED sáng cho tablet Wacom"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:500
 msgid "Could not switch the monitor configuration"
