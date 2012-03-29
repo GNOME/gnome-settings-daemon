@@ -2052,8 +2052,8 @@ gcm_session_profile_store_added_cb (GcmProfileStore *profile_store,
         /* generate ID */
         checksum = gcm_session_get_md5_for_filename (filename, &error);
         if (checksum == NULL) {
-                g_warning ("failed to get profile checksum: %s",
-                           error->message);
+                g_debug ("failed to get profile checksum for %s: %s",
+                         filename, error->message);
                 g_error_free (error);
                 goto out;
         }
