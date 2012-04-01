@@ -330,6 +330,7 @@ try_activating_xkb_config_if_new (GkbdKeyboardConfig *
 			return FALSE;
 		}
 	}
+	gkbd_keyboard_config_patch (&current_kbd_config);
 	return TRUE;
 }
 
