@@ -1,4 +1,30 @@
 =============
+Version 3.2.3
+=============
+
+Media keys:
+- Fix capture of keys
+
+Color:
+- Make devices without EDID work (such as TVs on composite connections)
+- Fix some screens not getting the primary monitor set properly
+- Set _ICC_PROFILE correctly if there's no primary device specified
+- Fix a possible critical warning
+- Make displays without EDID data use the correct device ID
+- Apply the color profile even if the device has an invalid EDID
+- Create a color device even if the device has an invalid EDID
+- Set model and vendor to 'unknown' if not specified or unavailable
+
+Power:
+- Battery may have been recalled by 'vendor' was lacking vendor name
+
+Print notifications:
+- Fix crash when CUPS sends malformed D-Bus signals
+
+A11y keyboard:
+- Only update GSettings on user input
+
+=============
 Version 3.2.2
 =============
 
