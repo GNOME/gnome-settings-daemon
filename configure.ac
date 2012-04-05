@@ -44,7 +44,7 @@ dnl - Dependencies
 dnl ---------------------------------------------------------------------------
 
 GLIB_REQUIRED_VERSION=2.31.0
-GTK_REQUIRED_VERSION=3.3.4
+GTK_REQUIRED_VERSION=3.3.18
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.26.0
 GNOME_DESKTOP_REQUIRED_VERSION=3.3.92

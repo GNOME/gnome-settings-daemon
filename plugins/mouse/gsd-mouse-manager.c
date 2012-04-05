@@ -1014,7 +1014,10 @@ device_added_cb (GdkDeviceManager *device_manager,
                  GdkDevice        *device,
                  GsdMouseManager  *manager)
 {
-        if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
+        GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_MOUSE || source == GDK_SOURCE_TOUCHPAD) {
                 if (run_custom_command (device, COMMAND_DEVICE_ADDED) == FALSE) {
                         set_mouse_settings (manager, device);
                 } else {
@@ -1034,7 +1037,10 @@ device_removed_cb (GdkDeviceManager *device_manager,
                    GdkDevice        *device,
                    GsdMouseManager  *manager)
 {
-        if (gdk_device_get_source (device) == GDK_SOURCE_MOUSE) {
+        GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_MOUSE || source == GDK_SOURCE_TOUCHPAD) {
                 int id;
 
                 run_custom_command (device, COMMAND_DEVICE_REMOVED);
