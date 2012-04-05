@@ -437,16 +437,12 @@ main (int argc, char *argv[])
                 goto out;
         }
 
-        /* If we aren't started by dbus then load the plugins
-           automatically.  Otherwise, wait for an Awake etc. */
-        if (g_getenv ("DBUS_STARTER_BUS_TYPE") == NULL) {
-                error = NULL;
-                res = gnome_settings_manager_start (manager, &error);
-                if (! res) {
-                        g_warning ("Unable to start: %s", error->message);
-                        g_error_free (error);
-                        goto out;
-                }
+        error = NULL;
+        res = gnome_settings_manager_start (manager, &error);
+        if (! res) {
+                g_warning ("Unable to start: %s", error->message);
+                g_error_free (error);
+                goto out;
         }
 
         if (do_timed_exit) {
