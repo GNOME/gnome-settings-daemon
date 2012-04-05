@@ -409,11 +409,11 @@ gnome_settings_manager_stop (GnomeSettingsManager *manager)
                 manager->priv->owner_id = 0;
         }
 
-        g_object_unref (manager->priv->settings);
-        manager->priv->settings = NULL;
+        if (manager->priv->settings)
+                g_clear_object (&manager->priv->settings);
 
-        g_object_unref (manager->priv->pnp_ids);
-        manager->priv->pnp_ids = NULL;
+        if (manager->priv->pnp_ids)
+                g_clear_object (&manager->priv->pnp_ids);
 }
 
 static void
