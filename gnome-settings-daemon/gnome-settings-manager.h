@@ -65,9 +65,6 @@ gboolean               gnome_settings_manager_start      (GnomeSettingsManager *
                                                           GError              **error);
 void                   gnome_settings_manager_stop       (GnomeSettingsManager *manager);
 
-gboolean               gnome_settings_manager_awake      (GnomeSettingsManager *manager,
-                                                          GError              **error);
-
 G_END_DECLS
 
 #endif /* __GNOME_SETTINGS_MANAGER_H */

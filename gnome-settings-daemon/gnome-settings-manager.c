@@ -50,8 +50,6 @@ static const gchar introspection_xml[] =
 "<node name='/org/gnome/SettingsDaemon'>"
 "  <interface name='org.gnome.SettingsDaemon'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gnome_settings_manager'/>"
-"    <method name='Awake'/>"
-"    <method name='Start'/>"
 "    <signal name='PluginActivated'>"
 "      <arg name='name' type='s'/>"
 "    </signal>"
@@ -324,56 +322,6 @@ _unload_all (GnomeSettingsManager *manager)
          manager->priv->plugins = NULL;
 }
 
-/*
-  Example:
-  dbus-send --session --dest=org.gnome.SettingsDaemon \
-  --type=method_call --print-reply --reply-timeout=2000 \
-  /org/gnome/SettingsDaemon \
-  org.gnome.SettingsDaemon.Awake
-*/
-gboolean
-gnome_settings_manager_awake (GnomeSettingsManager *manager,
-                              GError              **error)
-{
-        g_debug ("Awake called");
-        return gnome_settings_manager_start (manager, error);
-}
-
-static void
-handle_method_call (GDBusConnection       *connection,
-                    const gchar           *sender,
-                    const gchar           *object_path,
-                    const gchar           *interface_name,
-                    const gchar           *method_name,
-                    GVariant              *parameters,
-                    GDBusMethodInvocation *invocation,
-                    gpointer               user_data)
-{
-        GnomeSettingsManager *manager = (GnomeSettingsManager *) user_data;
-        GError *error = NULL;
-
-        g_debug ("Calling method '%s' for settings daemon", method_name);
-
-        if (g_strcmp0 (method_name, "Awake") == 0) {
-                if (gnome_settings_manager_awake (manager, &error) == FALSE)
-                        g_dbus_method_invocation_return_gerror (invocation, error);
-                else
-                        g_dbus_method_invocation_return_value (invocation, NULL);
-        } else if (g_strcmp0 (method_name, "Start") == 0) {
-                if (gnome_settings_manager_start (manager, &error) == FALSE)
-                        g_dbus_method_invocation_return_gerror (invocation, error);
-                else
-                        g_dbus_method_invocation_return_value (invocation, NULL);
-        }
-}
-
-static const GDBusInterfaceVTable interface_vtable =
-{
-        handle_method_call,
-        NULL, /* Get Property */
-        NULL, /* Set Property */
-};
-
 static void
 on_bus_gotten (GObject             *source_object,
                GAsyncResult        *res,
@@ -393,8 +341,8 @@ on_bus_gotten (GObject             *source_object,
         g_dbus_connection_register_object (connection,
                                            GSD_MANAGER_DBUS_PATH,
                                            manager->priv->introspection_data->interfaces[0],
-                                           &interface_vtable,
-                                           manager,
+                                           NULL,
+                                           NULL,
                                            NULL,
                                            NULL);
 }

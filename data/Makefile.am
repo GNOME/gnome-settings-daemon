@@ -53,13 +53,6 @@ desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
 gnome-settings-daemon.desktop.in: gnome-settings-daemon.desktop.in.in
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@.tmp && mv $@.tmp $@
 
-servicedir = $(datadir)/dbus-1/services
-service_in_files = org.gnome.SettingsDaemon.service.in
-service_DATA = $(service_in_files:.service.in=.service)
-
-org.gnome.SettingsDaemon.service: org.gnome.SettingsDaemon.service.in Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gnome-settings-daemon.pc
 
@@ -71,7 +64,6 @@ EXTRA_DIST = 					\
 	$(man_MANS)				\
 	$(convert_DATA)				\
 	$(all_schemas:.xml=.xml.in.in)		\
-	$(service_in_files)			\
 	$(desktop_in_files)			\
 	$(gsettings_ENUM_FILES)			\
 	gnome-settings-daemon.pc.in		\
@@ -80,7 +72,6 @@ EXTRA_DIST = 					\
 
 DISTCLEANFILES = 			\
 	$(all_schemas)			\
-	$(service_DATA)			\
 	$(desktop_DATA)			\
 	gnome-settings-daemon.desktop.in \
 	$(NULL)
