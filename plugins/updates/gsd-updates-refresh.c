@@ -616,6 +616,8 @@ gsd_updates_refresh_finalize (GObject *object)
         if (refresh->priv->force_get_updates_login_timeout_id != 0)
                 g_source_remove (refresh->priv->force_get_updates_login_timeout_id);
 
+        g_signal_handlers_disconnect_by_data (refresh->priv->client, refresh);
+
         g_object_unref (refresh->priv->control);
         g_object_unref (refresh->priv->settings);
         g_object_unref (refresh->priv->client);
