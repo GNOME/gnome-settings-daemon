@@ -2026,6 +2026,7 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         }
 
         if (manager->priv->upower_client != NULL) {
+                g_signal_handlers_disconnect_by_data (manager->priv->upower_client, manager);
                 g_object_unref (manager->priv->upower_client);
                 manager->priv->upower_client = NULL;
         }

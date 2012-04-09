@@ -3837,6 +3837,8 @@ gsd_power_manager_stop (GsdPowerManager *manager)
                 manager->priv->timeout_sleep_id = 0;
         }
 
+        g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
+
         g_object_unref (manager->priv->session);
         g_object_unref (manager->priv->settings);
         g_object_unref (manager->priv->settings_screensaver);
