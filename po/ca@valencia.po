@@ -7,12 +7,13 @@
 # Xavier Conde Rueda <xavi.conde@gmail.com>, 2005 
 # Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>, 2005, 2006, 2007.
 # Joan Duran <jodufi@gmail.com>, 2008-2012.
+# Jordi Serratosa <jordis@softcatala.cat>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-19 01:21+0100\n"
+"POT-Creation-Date: 2012-04-11 00:21+0200\n"
 "PO-Revision-Date: 2012-03-05 23:18+0100\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -815,7 +816,7 @@ msgid ""
 msgstr ""
 "Si s'haurien d'utilitzar les notificacions basades en el temps. Si "
 "s'estableix a «false» (fals), llavors s'utilitzarà el canvi de percentatge, "
-"que pot solucionar un problema de l'ACPI de la BIOS."
+"que pot solucionar un problema de l'ACPI del BIOS."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
 msgid "If we should show the recalled battery warning for a broken battery"
@@ -1561,12 +1562,12 @@ msgstr "Connector de color del dimoni de paràmetres del GNOME"
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2151
 msgid "Color calibration device added"
-msgstr "S'ha afegit el dispositiu de calibració del color"
+msgstr "S'ha afegit el dispositiu de calibratge del color"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2167
 msgid "Color calibration device removed"
-msgstr "S'ha suprimit el dispositiu de calibració del color"
+msgstr "S'ha suprimit el dispositiu de calibratge del color"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -2047,7 +2048,7 @@ msgstr "Plom i àcid"
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:686
 msgid "Nickel Cadmium"
-msgstr "Níquel i càdmi"
+msgstr "Níquel i cadmi"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:690
@@ -2122,7 +2123,7 @@ msgstr "S'està descarregant el SAI"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:809
 msgid "UPS is empty"
-msgstr "S'està descarregat el SAI"
+msgstr "El SAI està descarregat"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:813
@@ -2187,7 +2188,7 @@ msgstr "La PDA està carregada"
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:892
 msgid "PDA is charged"
-msgstr "La PDA està descarregada"
+msgstr "La PDA està carregada"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:904
@@ -2337,7 +2338,7 @@ msgstr "Queden aproximadament <b>%s</b> (%.0f%%)"
 #. TRANSLATORS: UPS is starting to get a little low
 #: ../plugins/power/gsd-power-manager.c:1355
 msgid "UPS low"
-msgstr "SAI baixa"
+msgstr "SAI baix"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:1359
@@ -2462,27 +2463,26 @@ msgstr ""
 #: ../plugins/power/gsd-power-manager.c:1504
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
-msgstr ""
-"L'ordinador es pararà temporalment d'ací poc a no ser que el connecteu."
+msgstr "L'ordinador es pararà temporalment d'ací poc si no el connecteu."
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1508
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
-msgstr "L'ordinador hibernarà d'ací poc a no ser que el connecteu."
+msgstr "L'ordinador hibernarà d'ací poc si no el connecteu."
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1512
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
-msgstr "L'ordinador es pararà d'ací poc a no ser que el connecteu."
+msgstr "L'ordinador es pararà d'ací poc si no el connecteu."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
 #: ../plugins/power/gsd-power-manager.c:1519
 #: ../plugins/power/gsd-power-manager.c:1711
 msgid "UPS critically low"
-msgstr "SAI críticament baixa"
+msgstr "SAI críticament baix"
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1523
@@ -2617,15 +2617,15 @@ msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
 msgstr ""
-"La SAI està per sota del nivell crític i l'ordinador <b>s'apagarà</b> quan "
-"la SAI estiga completament buida."
+"El SAI està per sota del nivell crític i l'ordinador <b>s'apagarà</b> quan "
+"el SAI estiga completament buit."
 
 #. TRANSLATORS: computer will hibernate
 #: ../plugins/power/gsd-power-manager.c:1725
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
-"La SAI està per sota del nivell crític i l'ordinador està a punt d'hibernar."
+"El SAI està per sota del nivell crític i l'ordinador està a punt d'hibernar."
 
 #. TRANSLATORS: computer will just shutdown
 #: ../plugins/power/gsd-power-manager.c:1730
@@ -2733,12 +2733,12 @@ msgstr "Porta oberta"
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:309
 msgid "Marker supply low"
-msgstr "Nivell baix del subministra d'un marcador"
+msgstr "Nivell baix del subministrament d'un marcador"
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:311
 msgid "Out of a marker supply"
-msgstr "Sense subministra d'un marcador"
+msgstr "Sense subministrament d'un marcador"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:313
@@ -2802,13 +2802,13 @@ msgstr "La impressora «%s» té la porta oberta."
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
-msgstr "La impressora «%s» té poc subministra en un marcador."
+msgstr "La impressora «%s» té poc subministrament en un marcador."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:338
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
-msgstr "La impressora «%s» no té subministra en un marcador."
+msgstr "La impressora «%s» no té subministrament en un marcador."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
