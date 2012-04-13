@@ -734,18 +734,24 @@ printer_autoconfigure (gchar *printer_name)
         g_free (commands_lowercase);
 }
 
+/* Return default media size for current locale */
+static const gchar *
+get_paper_size_from_locale ()
+{
+  if (g_str_equal (gtk_paper_size_get_default (), GTK_PAPER_NAME_LETTER))
+    return "na-letter";
+  else
+    return "iso-a4";
+}
 
 static void
 set_default_paper_size (const gchar *printer_name,
                         const gchar *ppd_file_name)
 {
-        ppd_file_t  *ppd_file = NULL;
         GDBusProxy  *proxy;
         GVariant    *output;
         GError      *error = NULL;
-        gchar       *value = NULL;
-        gint         i, j, k;
-        const gchar *paper_size;
+        GVariantBuilder *builder;
 
         proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                G_DBUS_PROXY_FLAGS_NONE,
@@ -762,62 +768,31 @@ set_default_paper_size (const gchar *printer_name,
                 return;
         }
 
-        /* Set default PaperSize according to the locale
+        /* Set default media size according to the locale
          * FIXME: Handle more than A4 and Letter:
          * https://bugzilla.gnome.org/show_bug.cgi?id=660769 */
-        paper_size = gtk_paper_size_get_default ();
-        if (g_str_equal (paper_size, GTK_PAPER_NAME_LETTER))
-                paper_size = "Letter";
-        else
-                paper_size = "A4";
+        builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
+        g_variant_builder_add (builder, "s", get_paper_size_from_locale ());
 
-        if (ppd_file_name) {
-                ppd_file = ppdOpenFile (ppd_file_name);
-                if (ppd_file) {
-                        ppdMarkDefaults (ppd_file);
-                        for (i = 0; i < ppd_file->num_groups; i++)
-                                for (j = 0; j < ppd_file->groups[i].num_options; j++)
-                                        if (g_strcmp0 ("PageSize", ppd_file->groups[i].options[j].keyword) == 0) {
-                                                for (k = 0; k < ppd_file->groups[i].options[j].num_choices; k++) {
-                                                        if (g_ascii_strncasecmp (paper_size,
-                                                                                 ppd_file->groups[i].options[j].choices[k].choice,
-                                                                                 strlen (paper_size)) == 0 &&
-                                                            !ppd_file->groups[i].options[j].choices[k].marked) {
-                                                            value = g_strdup (ppd_file->groups[i].options[j].choices[k].choice);
-                                                            break;
-                                                        }
-                                                }
-                                                break;
-                                        }
-                      ppdClose (ppd_file);
-                }
-        }
+        output = g_dbus_proxy_call_sync (proxy,
+                                         "PrinterAddOption",
+                                         g_variant_new ("(ssas)",
+                                                        printer_name ? printer_name : "",
+                                                        "media",
+                                                        builder),
+                                         G_DBUS_CALL_FLAGS_NONE,
+                                         DBUS_TIMEOUT,
+                                         NULL,
+                                         &error);
 
-        if (value) {
-                GVariantBuilder *builder;
-
-                builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
-                g_variant_builder_add (builder, "s", value);
-
-                output = g_dbus_proxy_call_sync (proxy,
-                                                 "PrinterAddOptionDefault",
-                                                 g_variant_new ("(ssas)",
-                                                         printer_name ? printer_name : "",
-                                                         "PageSize",
-                                                         builder),
-                                                 G_DBUS_CALL_FLAGS_NONE,
-                                                 DBUS_TIMEOUT,
-                                                 NULL,
-                                                 &error);
-
-                if (output) {
-                        g_variant_unref (output);
-                } else {
+        if (output) {
+                g_variant_unref (output);
+        } else {
+                if (!(error->domain == G_DBUS_ERROR &&
+                      (error->code == G_DBUS_ERROR_SERVICE_UNKNOWN ||
+                       error->code == G_DBUS_ERROR_UNKNOWN_METHOD)))
                         g_warning ("%s", error->message);
-                        g_error_free (error);
-                }
-
-                g_free (value);
+                g_error_free (error);
         }
 
         g_object_unref (proxy);
