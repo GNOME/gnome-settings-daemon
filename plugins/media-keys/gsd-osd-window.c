@@ -49,7 +49,6 @@
 
 struct GsdOsdWindowPrivate
 {
-        guint                    is_composited : 1;
         guint                    hide_timeout_id;
         guint                    fade_timeout_id;
         double                   fade_out_alpha;
@@ -102,14 +101,10 @@ fade_timeout (GsdOsdWindow *window)
 static gboolean
 hide_timeout (GsdOsdWindow *window)
 {
-        if (window->priv->is_composited) {
-                window->priv->hide_timeout_id = 0;
-                window->priv->fade_timeout_id = g_timeout_add (FADE_TIMEOUT,
-                                                               (GSourceFunc) fade_timeout,
-                                                               window);
-        } else {
-                gtk_widget_hide (GTK_WIDGET (window));
-        }
+	window->priv->hide_timeout_id = 0;
+	window->priv->fade_timeout_id = g_timeout_add (FADE_TIMEOUT,
+						       (GSourceFunc) fade_timeout,
+						       window);
 
         return FALSE;
 }
@@ -132,14 +127,7 @@ remove_hide_timeout (GsdOsdWindow *window)
 static void
 add_hide_timeout (GsdOsdWindow *window)
 {
-        int timeout;
-
-        if (window->priv->is_composited) {
-                timeout = DIALOG_FADE_TIMEOUT;
-        } else {
-                timeout = DIALOG_TIMEOUT;
-        }
-        window->priv->hide_timeout_id = g_timeout_add (timeout,
+        window->priv->hide_timeout_id = g_timeout_add (DIALOG_FADE_TIMEOUT,
                                                        (GSourceFunc) hide_timeout,
                                                        window);
 }
@@ -449,10 +437,7 @@ draw_when_composited (GtkWidget *widget, cairo_t *orig_cr)
         cairo_paint (cr);
 
         /* draw a box */
-        if (window->priv->is_composited)
-                corner_radius = height / 10;
-        else
-                corner_radius = 0.0;
+	corner_radius = height / 10;
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.0, 0.0, corner_radius, width-1, height-1);
         gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &acolor);
         gsd_osd_window_color_reverse (&acolor);
@@ -653,18 +638,6 @@ gsd_osd_window_class_init (GsdOsdWindowClass *klass)
 }
 
 /**
- * gsd_osd_window_is_composited:
- * @window: a #GsdOsdWindow
- *
- * Return value: whether the window was created on a composited screen.
- */
-gboolean
-gsd_osd_window_is_composited (GsdOsdWindow *window)
-{
-        return window->priv->is_composited;
-}
-
-/**
  * gsd_osd_window_is_valid:
  * @window: a #GsdOsdWindow
  *
@@ -688,7 +661,7 @@ gsd_osd_window_is_valid (GsdOsdWindow *window)
             window->priv->screen_height != mon_rect.height)
                 return FALSE;
 
-        return gdk_screen_is_composited (screen) == window->priv->is_composited;
+	return TRUE;
 }
 
 static void
@@ -703,7 +676,6 @@ gsd_osd_window_init (GsdOsdWindow *window)
 
         screen = gtk_widget_get_screen (GTK_WIDGET (window));
 
-        window->priv->is_composited = gdk_screen_is_composited (screen);
         window->priv->monitor = gdk_screen_get_primary_monitor (screen);
         gdk_screen_get_monitor_geometry (screen, window->priv->monitor, &monitor);
         window->priv->screen_width = monitor.width;
