@@ -280,6 +280,57 @@ gsd_osd_window_color_reverse (GdkRGBA *a)
         a->blue = blue;
 }
 
+static void
+gsd_osd_window_draw_rounded_rectangle (cairo_t* cr,
+                                       gdouble  aspect,
+                                       gdouble  x,
+                                       gdouble  y,
+                                       gdouble  corner_radius,
+                                       gdouble  width,
+                                       gdouble  height)
+{
+        gdouble radius = corner_radius / aspect;
+
+        cairo_move_to (cr, x + radius, y);
+
+        cairo_line_to (cr,
+                       x + width - radius,
+                       y);
+        cairo_arc (cr,
+                   x + width - radius,
+                   y + radius,
+                   radius,
+                   -90.0f * G_PI / 180.0f,
+                   0.0f * G_PI / 180.0f);
+        cairo_line_to (cr,
+                       x + width,
+                       y + height - radius);
+        cairo_arc (cr,
+                   x + width - radius,
+                   y + height - radius,
+                   radius,
+                   0.0f * G_PI / 180.0f,
+                   90.0f * G_PI / 180.0f);
+        cairo_line_to (cr,
+                       x + radius,
+                       y + height);
+        cairo_arc (cr,
+                   x + radius,
+                   y + height - radius,
+                   radius,
+                   90.0f * G_PI / 180.0f,
+                   180.0f * G_PI / 180.0f);
+        cairo_line_to (cr,
+                       x,
+                       y + radius);
+        cairo_arc (cr,
+                   x + radius,
+                   y + radius,
+                   radius,
+                   180.0f * G_PI / 180.0f,
+                   270.0f * G_PI / 180.0f);
+        cairo_close_path (cr);
+}
 
 static gboolean
 fade_timeout (GsdOsdWindow *window)
@@ -894,59 +945,6 @@ draw_action_custom (GsdOsdWindow *window,
                                    bright_box_width,
                                    bright_box_height);
         }
-}
-
-
-void
-gsd_osd_window_draw_rounded_rectangle (cairo_t* cr,
-                                       gdouble  aspect,
-                                       gdouble  x,
-                                       gdouble  y,
-                                       gdouble  corner_radius,
-                                       gdouble  width,
-                                       gdouble  height)
-{
-        gdouble radius = corner_radius / aspect;
-
-        cairo_move_to (cr, x + radius, y);
-
-        cairo_line_to (cr,
-                       x + width - radius,
-                       y);
-        cairo_arc (cr,
-                   x + width - radius,
-                   y + radius,
-                   radius,
-                   -90.0f * G_PI / 180.0f,
-                   0.0f * G_PI / 180.0f);
-        cairo_line_to (cr,
-                       x + width,
-                       y + height - radius);
-        cairo_arc (cr,
-                   x + width - radius,
-                   y + height - radius,
-                   radius,
-                   0.0f * G_PI / 180.0f,
-                   90.0f * G_PI / 180.0f);
-        cairo_line_to (cr,
-                       x + radius,
-                       y + height);
-        cairo_arc (cr,
-                   x + radius,
-                   y + height - radius,
-                   radius,
-                   90.0f * G_PI / 180.0f,
-                   180.0f * G_PI / 180.0f);
-        cairo_line_to (cr,
-                       x,
-                       y + radius);
-        cairo_arc (cr,
-                   x + radius,
-                   y + radius,
-                   radius,
-                   180.0f * G_PI / 180.0f,
-                   270.0f * G_PI / 180.0f);
-        cairo_close_path (cr);
 }
 
 static gboolean

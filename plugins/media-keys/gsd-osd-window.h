@@ -91,14 +91,6 @@ void                  gsd_osd_window_set_volume_muted  (GsdOsdWindow       *wind
 void                  gsd_osd_window_set_volume_level  (GsdOsdWindow       *window,
                                                         int                 level);
 
-void                  gsd_osd_window_draw_rounded_rectangle (cairo_t *cr,
-                                                             gdouble  aspect,
-                                                             gdouble  x,
-                                                             gdouble  y,
-                                                             gdouble  corner_radius,
-                                                             gdouble  width,
-                                                             gdouble  height);
-
 G_END_DECLS
 
 #endif
