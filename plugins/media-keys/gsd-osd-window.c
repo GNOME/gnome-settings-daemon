@@ -397,12 +397,9 @@ gsd_osd_window_color_reverse (GdkRGBA *a)
         a->blue = blue;
 }
 
-/* This is our draw handler when the window is in a compositing manager.
- * We draw everything by hand, using Cairo, so that we can have a nice
- * transparent/rounded look.
- */
-static void
-draw_when_composited (GtkWidget *widget, cairo_t *orig_cr)
+static gboolean
+gsd_osd_window_draw (GtkWidget *widget,
+                     cairo_t   *orig_cr)
 {
         GsdOsdWindow    *window;
         cairo_t         *cr;
@@ -461,13 +458,6 @@ draw_when_composited (GtkWidget *widget, cairo_t *orig_cr)
         if (surface != NULL) {
                 cairo_surface_destroy (surface);
         }
-}
-
-static gboolean
-gsd_osd_window_draw (GtkWidget *widget,
-                     cairo_t   *cr)
-{
-        draw_when_composited (widget, cr);
 
         return FALSE;
 }
