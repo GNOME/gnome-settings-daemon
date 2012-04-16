@@ -543,7 +543,8 @@ set_wacom_settings (GsdWacomManager *manager,
 
         type = gsd_wacom_device_get_device_type (device);
 
-	if ((type == WACOM_TYPE_TOUCH) && (!libwacom_is_builtin (device))) {
+	if (type == WACOM_TYPE_TOUCH &&
+	    gsd_wacom_device_is_screen_tablet (device) == FALSE) {
 		set_absolute (device, FALSE);
 		return;
 	}
