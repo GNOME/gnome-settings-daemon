@@ -1096,12 +1096,27 @@ gsd_osd_window_constructor (GType                  type,
 }
 
 static void
+gsd_osd_window_finalize (GObject *object)
+{
+	GsdOsdWindow *window;
+
+	window = GSD_OSD_WINDOW (object);
+	if (window->priv->icon_name) {
+		g_free (window->priv->icon_name);
+		window->priv->icon_name = NULL;
+	}
+
+	G_OBJECT_CLASS (gsd_osd_window_parent_class)->finalize (object);
+}
+
+static void
 gsd_osd_window_class_init (GsdOsdWindowClass *klass)
 {
         GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
         gobject_class->constructor = gsd_osd_window_constructor;
+        gobject_class->finalize = gsd_osd_window_finalize;
 
         widget_class->show = gsd_osd_window_real_show;
         widget_class->hide = gsd_osd_window_real_hide;
