@@ -53,6 +53,7 @@ struct GsdOsdWindowPrivate
         guint                    hide_timeout_id;
         guint                    fade_timeout_id;
         double                   fade_out_alpha;
+        int                      size;
 
         gint                     screen_width;
         gint                     screen_height;
@@ -766,7 +767,7 @@ draw_action_volume (GsdOsdWindow *window,
         double volume_box_height;
         gboolean res;
 
-        gtk_window_get_size (GTK_WINDOW (window), &window_width, &window_height);
+	window_width = window_height = window->priv->size;
 
         icon_box_width = round (window_width * ICON_SCALE);
         icon_box_height = round (window_height * ICON_SCALE);
@@ -1174,7 +1175,6 @@ gsd_osd_window_init (GsdOsdWindow *window)
         GdkScreen *screen;
         gdouble scalew, scaleh, scale;
         GdkRectangle monitor;
-        gint size;
 
         window->priv = GSD_OSD_WINDOW_GET_PRIVATE (window);
 
@@ -1194,8 +1194,10 @@ gsd_osd_window_init (GsdOsdWindow *window)
         scalew = monitor.width / 640.0;
         scaleh = monitor.height / 480.0;
         scale = MIN (scalew, scaleh);
-        size = 130 * MAX (1, scale);
-        gtk_window_set_default_size (GTK_WINDOW (window), size, size);
+        window->priv->size = 130 * MAX (1, scale);
+        gtk_window_set_default_size (GTK_WINDOW (window),
+                                     window->priv->size,
+                                     window->priv->size);
 
         window->priv->fade_out_alpha = 1.0;
 }
