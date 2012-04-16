@@ -467,16 +467,7 @@ static gboolean
 gsd_osd_window_draw (GtkWidget *widget,
                      cairo_t   *cr)
 {
-        GsdOsdWindow *window;
-        GtkWidget *child;
-
-        window = GSD_OSD_WINDOW (widget);
-
         draw_when_composited (widget, cr);
-
-        child = gtk_bin_get_child (GTK_BIN (window));
-        if (child)
-                gtk_container_propagate_draw (GTK_CONTAINER (window), child, cr);
 
         return FALSE;
 }
