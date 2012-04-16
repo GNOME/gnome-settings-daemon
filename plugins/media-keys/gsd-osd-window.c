@@ -682,11 +682,11 @@ draw_speaker (cairo_t *cr,
 
 static gboolean
 render_speaker (GsdOsdWindow *window,
-                cairo_t            *cr,
-                double              _x0,
-                double              _y0,
-                double              width,
-                double              height)
+                cairo_t      *cr,
+                double        _x0,
+                double        _y0,
+                double        width,
+                double        height)
 {
         GdkPixbuf         *pixbuf;
         const char        *icon_name;
@@ -716,12 +716,12 @@ render_speaker (GsdOsdWindow *window,
 
 static void
 draw_volume_boxes (GsdOsdWindow *window,
-                   cairo_t            *cr,
-                   double              percentage,
-                   double              _x0,
-                   double              _y0,
-                   double              width,
-                   double              height)
+                   cairo_t      *cr,
+                   double        percentage,
+                   double        _x0,
+                   double        _y0,
+                   double        width,
+                   double        height)
 {
         gdouble   x1;
         GtkStyleContext *context;
@@ -753,7 +753,7 @@ draw_volume_boxes (GsdOsdWindow *window,
 
 static void
 draw_action_volume (GsdOsdWindow *window,
-                    cairo_t            *cr)
+                    cairo_t      *cr)
 {
         int window_width;
         int window_height;
