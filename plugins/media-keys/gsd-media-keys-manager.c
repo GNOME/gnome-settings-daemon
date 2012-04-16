@@ -671,7 +671,6 @@ dialog_show (GsdMediaKeysManager *manager)
         int            screen_h;
         int            x;
         int            y;
-        GtkRequisition win_req;
         GdkRectangle   geometry;
         int            monitor;
 
@@ -684,12 +683,6 @@ dialog_show (GsdMediaKeysManager *manager)
          * know its true size, yet, so we need to jump through hoops
          */
         gtk_window_get_default_size (GTK_WINDOW (manager->priv->dialog), &orig_w, &orig_h);
-        gtk_widget_size_request (manager->priv->dialog, &win_req);
-
-        if (win_req.width > orig_w)
-                orig_w = win_req.width;
-        if (win_req.height > orig_h)
-                orig_h = win_req.height;
 
         monitor = gdk_screen_get_primary_monitor (manager->priv->current_screen);
 
