@@ -447,7 +447,7 @@ volume_muted_changed (GsdOsdWindow *window)
 
 void
 gsd_osd_window_set_action (GsdOsdWindow      *window,
-                                  GsdOsdWindowAction action)
+                           GsdOsdWindowAction action)
 {
         g_return_if_fail (GSD_IS_OSD_WINDOW (window));
         g_return_if_fail (action == GSD_OSD_WINDOW_ACTION_VOLUME);
@@ -462,8 +462,8 @@ gsd_osd_window_set_action (GsdOsdWindow      *window,
 
 void
 gsd_osd_window_set_action_custom (GsdOsdWindow      *window,
-                                         const char              *icon_name,
-                                         gboolean                 show_level)
+                                  const char        *icon_name,
+                                  gboolean           show_level)
 {
         g_return_if_fail (GSD_IS_OSD_WINDOW (window));
         g_return_if_fail (icon_name != NULL);
@@ -483,7 +483,7 @@ gsd_osd_window_set_action_custom (GsdOsdWindow      *window,
 
 void
 gsd_osd_window_set_volume_muted (GsdOsdWindow *window,
-                                        gboolean            muted)
+                                 gboolean      muted)
 {
         g_return_if_fail (GSD_IS_OSD_WINDOW (window));
 
@@ -495,7 +495,7 @@ gsd_osd_window_set_volume_muted (GsdOsdWindow *window,
 
 void
 gsd_osd_window_set_volume_level (GsdOsdWindow *window,
-                                        int                 level)
+                                 int           level)
 {
         g_return_if_fail (GSD_IS_OSD_WINDOW (window));
 
@@ -507,8 +507,8 @@ gsd_osd_window_set_volume_level (GsdOsdWindow *window,
 
 static GdkPixbuf *
 load_pixbuf (GsdOsdWindow *window,
-             const char         *name,
-             int                 icon_size)
+             const char   *name,
+             int           icon_size)
 {
         GtkIconTheme    *theme;
         GtkIconInfo     *info;
