@@ -56,14 +56,16 @@ struct GsdOsdWindowPrivate
 
         gint                     screen_width;
         gint                     screen_height;
-        gint                     monitor;
+        gint                     primary_monitor;
+        guint                    monitors_changed_id;
+        guint                    monitor_changed : 1;
 
         GsdOsdWindowAction       action;
         char                    *icon_name;
         gboolean                 show_level;
 
-        guint                    volume_muted : 1;
         int                      volume_level;
+        guint                    volume_muted : 1;
 };
 
 G_DEFINE_TYPE (GsdOsdWindow, gsd_osd_window, GTK_TYPE_WINDOW)
@@ -1106,6 +1108,13 @@ gsd_osd_window_finalize (GObject *object)
 		window->priv->icon_name = NULL;
 	}
 
+	if (window->priv->monitors_changed_id > 0) {
+		GdkScreen *screen;
+		screen = gtk_widget_get_screen (GTK_WIDGET (object));
+		g_signal_handler_disconnect (G_OBJECT (screen), window->priv->monitors_changed_id);
+		window->priv->monitors_changed_id = 0;
+	}
+
 	G_OBJECT_CLASS (gsd_osd_window_parent_class)->finalize (object);
 }
 
@@ -1136,21 +1145,27 @@ gsd_osd_window_class_init (GsdOsdWindowClass *klass)
 gboolean
 gsd_osd_window_is_valid (GsdOsdWindow *window)
 {
-        GdkScreen *screen = gtk_widget_get_screen (GTK_WIDGET (window));
-        gint monitor;
+	return window->priv->monitor_changed;
+}
+
+static void
+monitors_changed_cb (GdkScreen    *screen,
+		     GsdOsdWindow *window)
+{
+        gint primary_monitor;
         GdkRectangle mon_rect;
 
-	monitor = gdk_screen_get_primary_monitor (screen);
-	if (monitor != window->priv->monitor)
-		return FALSE;
+	primary_monitor = gdk_screen_get_primary_monitor (screen);
+	if (primary_monitor != window->priv->primary_monitor) {
+		window->priv->monitor_changed = TRUE;
+		return;
+	}
 
-	gdk_screen_get_monitor_geometry (screen, monitor, &mon_rect);
+	gdk_screen_get_monitor_geometry (screen, primary_monitor, &mon_rect);
 
         if (window->priv->screen_width != mon_rect.width ||
             window->priv->screen_height != mon_rect.height)
-                return FALSE;
-
-	return TRUE;
+                window->priv->monitor_changed = TRUE;
 }
 
 static void
@@ -1164,9 +1179,11 @@ gsd_osd_window_init (GsdOsdWindow *window)
         window->priv = GSD_OSD_WINDOW_GET_PRIVATE (window);
 
         screen = gtk_widget_get_screen (GTK_WIDGET (window));
+        window->priv->monitors_changed_id = g_signal_connect (G_OBJECT (screen), "monitors-changed",
+                                                              G_CALLBACK (monitors_changed_cb), window);
 
-        window->priv->monitor = gdk_screen_get_primary_monitor (screen);
-        gdk_screen_get_monitor_geometry (screen, window->priv->monitor, &monitor);
+        window->priv->primary_monitor = gdk_screen_get_primary_monitor (screen);
+        gdk_screen_get_monitor_geometry (screen, window->priv->primary_monitor, &monitor);
         window->priv->screen_width = monitor.width;
         window->priv->screen_height = monitor.height;
 
