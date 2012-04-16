@@ -38,65 +38,60 @@ update_state (GtkWidget *window)
 
         switch (count) {
         case 1:
-                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window),
-                                                        50);
+                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window), 50);
                 gsd_osd_window_set_action (GSD_OSD_WINDOW (window),
-                                                  GSD_OSD_WINDOW_ACTION_VOLUME);
+                                           GSD_OSD_WINDOW_ACTION_VOLUME);
 
                 gtk_widget_show (window);
                 break;
         case 2:
-                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window),
-                                                        100);
+                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window), 100);
                 gsd_osd_window_set_action (GSD_OSD_WINDOW (window),
-                                                  GSD_OSD_WINDOW_ACTION_VOLUME);
+                                           GSD_OSD_WINDOW_ACTION_VOLUME);
 
                 gtk_widget_show (window);
                 break;
         case 3:
-                gsd_osd_window_set_volume_muted (GSD_OSD_WINDOW (window),
-                                                        TRUE);
+                gsd_osd_window_set_volume_muted (GSD_OSD_WINDOW (window), TRUE);
                 gsd_osd_window_set_action (GSD_OSD_WINDOW (window),
-                                                  GSD_OSD_WINDOW_ACTION_VOLUME);
+                                           GSD_OSD_WINDOW_ACTION_VOLUME);
 
                 gtk_widget_show (window);
                 break;
         case 4:
                 gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (window),
-                                                         "media-eject-symbolic",
-                                                         FALSE);
+                                                  "media-eject-symbolic",
+                                                  FALSE);
 
                 gtk_widget_show (window);
                 break;
         case 5:
-                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window),
-                                                        50);
+                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window), 50);
                 gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (window),
-                                                         "display-brightness-symbolic",
-                                                         TRUE);
+                                                  "display-brightness-symbolic",
+                                                  TRUE);
 
                 gtk_widget_show (window);
                 break;
         case 6:
-                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window),
-                                                        50);
+                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window), 50);
                 gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (window),
-                                                         "keyboard-brightness-symbolic",
-                                                         TRUE);
+                                                  "keyboard-brightness-symbolic",
+                                                  TRUE);
 
                 gtk_widget_show (window);
                 break;
         case 7:
                 gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (window),
-                                                         "touchpad-disabled-symbolic",
-                                                         TRUE);
+                                                  "touchpad-disabled-symbolic",
+                                                  TRUE);
 
                 gtk_widget_show (window);
                 break;
         case 8:
                 gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (window),
-                                                         "input-touchpad-symbolic",
-                                                         TRUE);
+                                                  "input-touchpad-symbolic",
+                                                  TRUE);
 
                 gtk_widget_show (window);
                 break;
@@ -116,10 +111,9 @@ test_window (void)
         window = gsd_osd_window_new ();
         gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER_ALWAYS);
 
-        gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window),
-                                                0);
+        gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window), 0);
         gsd_osd_window_set_action (GSD_OSD_WINDOW (window),
-                                          GSD_OSD_WINDOW_ACTION_VOLUME);
+                                   GSD_OSD_WINDOW_ACTION_VOLUME);
 
         gtk_widget_show (window);
 
