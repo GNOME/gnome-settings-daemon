@@ -47,7 +47,7 @@ GLIB_REQUIRED_VERSION=2.31.0
 GTK_REQUIRED_VERSION=3.3.18
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.26.0
-GNOME_DESKTOP_REQUIRED_VERSION=3.3.92
+GNOME_DESKTOP_REQUIRED_VERSION=3.5.1
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
 UPOWER_GLIB_REQUIRED_VERSION=0.9.1
 PA_REQUIRED_VERSION=0.9.16
@@ -175,8 +175,7 @@ dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
 dnl ---------------------------------------------------------------------------
 
-LIBGNOMEKBD_REQUIRED=3.5.1
-PKG_CHECK_MODULES(KEYBOARD, [libgnomekbdui >= $LIBGNOMEKBD_REQUIRED libgnomekbd >= $LIBGNOMEKBD_REQUIRED libxklavier >= 5.0 kbproto])
+PKG_CHECK_MODULES(KEYBOARD, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - Housekeeping plugin stuff

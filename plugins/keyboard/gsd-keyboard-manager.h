@@ -51,7 +51,6 @@ GsdKeyboardManager *       gsd_keyboard_manager_new                 (void);
 gboolean                gsd_keyboard_manager_start               (GsdKeyboardManager *manager,
                                                                GError         **error);
 void                    gsd_keyboard_manager_stop                (GsdKeyboardManager *manager);
-void                    gsd_keyboard_manager_apply_settings      (GsdKeyboardManager *manager);
 
 G_END_DECLS
 
