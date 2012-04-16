@@ -24,8 +24,6 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-plugin.c		\
 	gsd-media-keys-manager.h	\
 	gsd-media-keys-manager.c	\
-	gsd-media-keys-window.h		\
-	gsd-media-keys-window.c		\
 	gsd-osd-window.c		\
 	gsd-osd-window.h		\
 	shortcuts-list.h		\
@@ -72,8 +70,6 @@ noinst_PROGRAMS =				\
 test_media_window_SOURCES =			\
 	gsd-osd-window.c			\
 	gsd-osd-window.h			\
-	gsd-media-keys-window.c			\
-	gsd-media-keys-window.h			\
 	test-media-window.c			\
 	$(NULL)
 
@@ -101,8 +97,6 @@ test_media_window_LDADD = \
 test_media_keys_SOURCES =			\
 	gsd-media-keys-manager.c		\
 	gsd-media-keys-manager.h		\
-	gsd-media-keys-window.h			\
-	gsd-media-keys-window.c			\
 	gsd-osd-window.c			\
 	gsd-osd-window.h			\
 	test-media-keys.c			\
