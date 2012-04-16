@@ -959,8 +959,6 @@ gsd_osd_window_draw (GtkWidget *widget,
         GsdOsdWindow    *window;
         cairo_t         *cr;
         cairo_surface_t *surface;
-        int              width;
-        int              height;
         GtkStyleContext *context;
         GdkRGBA          acolor;
         gdouble          corner_radius;
@@ -969,12 +967,11 @@ gsd_osd_window_draw (GtkWidget *widget,
 
         context = gtk_widget_get_style_context (widget);
         cairo_set_operator (orig_cr, CAIRO_OPERATOR_SOURCE);
-        gtk_window_get_size (GTK_WINDOW (widget), &width, &height);
 
         surface = cairo_surface_create_similar (cairo_get_target (orig_cr),
                                                 CAIRO_CONTENT_COLOR_ALPHA,
-                                                width,
-                                                height);
+                                                window->priv->size,
+                                                window->priv->size);
 
         if (cairo_surface_status (surface) != CAIRO_STATUS_SUCCESS) {
                 goto done;
@@ -989,8 +986,8 @@ gsd_osd_window_draw (GtkWidget *widget,
         cairo_paint (cr);
 
         /* draw a box */
-	corner_radius = height / 10;
-        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.0, 0.0, corner_radius, width-1, height-1);
+	corner_radius = window->priv->size / 10;
+        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.0, 0.0, corner_radius, window->priv->size - 1, window->priv->size - 1);
         gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &acolor);
         gsd_osd_window_color_reverse (&acolor);
         acolor.alpha = BG_ALPHA;
@@ -1011,7 +1008,7 @@ gsd_osd_window_draw (GtkWidget *widget,
         cairo_destroy (cr);
 
         /* Make sure we have a transparent background */
-        cairo_rectangle (orig_cr, 0, 0, width, height);
+        cairo_rectangle (orig_cr, 0, 0, window->priv->size, window->priv->size);
         cairo_set_source_rgba (orig_cr, 0.0, 0.0, 0.0, 0.0);
         cairo_fill (orig_cr);
 
