@@ -498,7 +498,7 @@ numlock_xkb_init (GsdKeyboardManager *manager)
         dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
         XkbSelectEventDetails (dpy,
                                XkbUseCoreKbd,
-                               XkbStateNotifyMask,
+                               XkbStateNotify,
                                XkbModifierLockMask,
                                XkbModifierLockMask);
 }
