@@ -68,6 +68,8 @@ struct GsdOsdWindowPrivate
 
 G_DEFINE_TYPE (GsdOsdWindow, gsd_osd_window, GTK_TYPE_WINDOW)
 
+static void gsd_osd_window_update_and_hide (GsdOsdWindow *window);
+
 static void
 rgb_to_hls (gdouble *r,
             gdouble *g,
@@ -1237,7 +1239,7 @@ gsd_osd_window_new (void)
  *
  * Queues the @window for immediate drawing, and queues a timer to hide the window.
  */
-void
+static void
 gsd_osd_window_update_and_hide (GsdOsdWindow *window)
 {
         remove_hide_timeout (window);

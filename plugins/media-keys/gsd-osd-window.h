@@ -80,7 +80,6 @@ GType                 gsd_osd_window_get_type          (void);
 
 GtkWidget *           gsd_osd_window_new               (void);
 gboolean              gsd_osd_window_is_valid          (GsdOsdWindow       *window);
-void                  gsd_osd_window_update_and_hide   (GsdOsdWindow       *window);
 void                  gsd_osd_window_set_action        (GsdOsdWindow       *window,
                                                         GsdOsdWindowAction  action);
 void                  gsd_osd_window_set_action_custom (GsdOsdWindow       *window,
