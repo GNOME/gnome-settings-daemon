@@ -1174,8 +1174,8 @@ gsd_osd_window_class_init (GsdOsdWindowClass *klass)
  * gsd_osd_window_is_valid:
  * @window: a #GsdOsdWindow
  *
- * Return value: TRUE if the @window's idea of being composited matches whether
- * its current screen is actually composited.
+ * Return value: TRUE if the @window's idea of the screen geometry is the
+ * same as the current screen's.
  */
 gboolean
 gsd_osd_window_is_valid (GsdOsdWindow *window)
