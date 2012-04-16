@@ -67,8 +67,6 @@ struct GsdOsdWindow {
 
 struct GsdOsdWindowClass {
         GtkWindowClass parent_class;
-
-        void (* draw_when_composited) (GsdOsdWindow *window, cairo_t *cr);
 };
 
 typedef enum {
