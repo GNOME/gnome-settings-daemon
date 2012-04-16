@@ -175,8 +175,14 @@ dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
 dnl ---------------------------------------------------------------------------
 
-LIBGNOMEKBD_REQUIRED=3.5.1
-PKG_CHECK_MODULES(KEYBOARD, [libgnomekbdui >= $LIBGNOMEKBD_REQUIRED libgnomekbd >= $LIBGNOMEKBD_REQUIRED libxklavier >= 5.0 kbproto])
+PKG_CHECK_MODULES(KEYBOARD, [xkbfile])
+
+AC_ARG_WITH(xkb-config-root,
+        AS_HELP_STRING([--with-xkb-config-root=<paths>],
+                       [Set default XKB config root (default: ${datadir}/X11/xkb)]),
+        [XKBCONFIGROOT="$withval"],
+        [XKBCONFIGROOT=${datadir}/X11/xkb])
+AC_SUBST([XKBCONFIGROOT])
 
 dnl ---------------------------------------------------------------------------
 dnl - Housekeeping plugin stuff

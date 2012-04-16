@@ -20,9 +20,9 @@ libkeyboard_la_SOURCES = 	\
 	gsd-keyboard-plugin.c	\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\
-	delayed-dialog.h	\
-	delayed-dialog.c	\
 	$(NULL)
+
+XKBCONFIGROOT=@XKBCONFIGROOT@
 
 libkeyboard_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
@@ -30,6 +30,7 @@ libkeyboard_la_CPPFLAGS = \
 	-I$(top_srcdir)/plugins/common			\
 	-DDATADIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DDFLT_XKB_CONFIG_ROOT=\"$(XKBCONFIGROOT)\"	\
 	$(AM_CPPFLAGS)
 
 libkeyboard_la_CFLAGS = \
@@ -54,8 +55,8 @@ test_keyboard_SOURCES =		\
 	test-keyboard.c		\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\
-	delayed-dialog.h	\
-	delayed-dialog.c
+	$(NULL)
+
 test_keyboard_CFLAGS = $(libkeyboard_la_CFLAGS)
 test_keyboard_CPPFLAGS = $(libkeyboard_la_CPPFLAGS)
 test_keyboard_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
