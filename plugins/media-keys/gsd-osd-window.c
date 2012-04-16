@@ -1075,62 +1075,6 @@ gsd_osd_window_real_realize (GtkWidget *widget)
         cairo_region_destroy (region);
 }
 
-static void
-gsd_osd_window_style_updated (GtkWidget *widget)
-{
-        GtkStyleContext *context;
-        GtkBorder padding;
-
-        GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->style_updated (widget);
-
-        /* We set our border width to 12 (per the GNOME standard), plus the
-         * thickness of the frame that we draw in our draw handler.  This will
-         * make our child be 12 pixels away from the frame.
-         */
-
-        context = gtk_widget_get_style_context (widget);
-        gtk_style_context_get_padding (context, GTK_STATE_NORMAL, &padding);
-        gtk_container_set_border_width (GTK_CONTAINER (widget), 12 + MAX (padding.left, padding.top));
-}
-
-static void
-gsd_osd_window_get_preferred_width (GtkWidget *widget,
-                                    gint      *minimum,
-                                    gint      *natural)
-{
-        GtkStyleContext *context;
-        GtkBorder padding;
-
-        GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->get_preferred_width (widget, minimum, natural);
-
-        /* See the comment in gsd_osd_window_style_updated() for why we add the padding here */
-
-        context = gtk_widget_get_style_context (widget);
-        gtk_style_context_get_padding (context, GTK_STATE_NORMAL, &padding);
-
-        *minimum += padding.left;
-        *natural += padding.left;
-}
-
-static void
-gsd_osd_window_get_preferred_height (GtkWidget *widget,
-                                     gint      *minimum,
-                                     gint      *natural)
-{
-        GtkStyleContext *context;
-        GtkBorder padding;
-
-        GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->get_preferred_height (widget, minimum, natural);
-
-        /* See the comment in gsd_osd_window_style_updated() for why we add the padding here */
-
-        context = gtk_widget_get_style_context (widget);
-        gtk_style_context_get_padding (context, GTK_STATE_NORMAL, &padding);
-
-        *minimum += padding.top;
-        *natural += padding.top;
-}
-
 static GObject *
 gsd_osd_window_constructor (GType                  type,
                             guint                  n_construct_properties,
@@ -1162,9 +1106,6 @@ gsd_osd_window_class_init (GsdOsdWindowClass *klass)
         widget_class->show = gsd_osd_window_real_show;
         widget_class->hide = gsd_osd_window_real_hide;
         widget_class->realize = gsd_osd_window_real_realize;
-        widget_class->style_updated = gsd_osd_window_style_updated;
-        widget_class->get_preferred_width = gsd_osd_window_get_preferred_width;
-        widget_class->get_preferred_height = gsd_osd_window_get_preferred_height;
         widget_class->draw = gsd_osd_window_draw;
 
         g_type_class_add_private (klass, sizeof (GsdOsdWindowPrivate));
