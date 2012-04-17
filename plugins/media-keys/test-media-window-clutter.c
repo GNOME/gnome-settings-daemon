@@ -1,6 +1,7 @@
 // gcc -o test-media-window-clutter `pkg-config --libs --cflags clutter-1.0 gtk+-3.0 cairo` -I../../ -lm test-media-window-clutter.c gsd-osd-window.c
 
 #include <stdlib.h>
+#include <string.h>
 
 #include <gtk/gtk.h>
 #include <clutter/clutter.h>
