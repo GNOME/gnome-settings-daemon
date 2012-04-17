@@ -55,7 +55,6 @@ test_window (void)
   actor = clutter_actor_new ();
   clutter_actor_add_constraint (actor, clutter_bind_constraint_new (stage, CLUTTER_BIND_SIZE, 0));
   clutter_actor_set_content (actor, canvas);
-  clutter_content_invalidate (canvas);
   g_object_unref (canvas);
 
   clutter_actor_add_child (stage, actor);
@@ -67,6 +66,7 @@ test_window (void)
   ctx.theme = gtk_icon_theme_get_default ();
 
   g_signal_connect (canvas, "draw", G_CALLBACK (draw_box), &ctx);
+  clutter_content_invalidate (canvas);
 
   g_signal_connect (stage, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 
