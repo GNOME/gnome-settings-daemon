@@ -790,26 +790,11 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 	}
 }
 
-static GObject *
-gsd_keyboard_manager_constructor (GType                  type,
-                                  guint                  n_construct_properties,
-                                  GObjectConstructParam *construct_properties)
-{
-        GsdKeyboardManager      *keyboard_manager;
-
-        keyboard_manager = GSD_KEYBOARD_MANAGER (G_OBJECT_CLASS (gsd_keyboard_manager_parent_class)->constructor (type,
-                                                                                                      n_construct_properties,
-                                                                                                      construct_properties));
-
-        return G_OBJECT (keyboard_manager);
-}
-
 static void
 gsd_keyboard_manager_class_init (GsdKeyboardManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_keyboard_manager_constructor;
         object_class->finalize = gsd_keyboard_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdKeyboardManagerPrivate));
