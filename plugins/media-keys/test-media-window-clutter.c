@@ -62,7 +62,7 @@ test_window (void)
   memset (&ctx, 0, sizeof(ctx));
   widget = gsd_osd_window_new ();
   ctx.style = gtk_widget_get_style_context (widget);
-  ctx.direction = gtk_widget_get_direction (GTK_WIDGET (widget));;
+  ctx.direction = clutter_get_default_text_direction ();
   ctx.theme = gtk_icon_theme_get_default ();
 
   g_signal_connect (canvas, "draw", G_CALLBACK (draw_box), &ctx);
