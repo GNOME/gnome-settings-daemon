@@ -38,7 +38,7 @@ test_window (void)
   GsdOsdDrawContext ctx;
   ClutterActor *stage, *actor;
   ClutterContent *canvas;
-  GtkWidget *widget;
+  GtkWidgetPath *widget_path;
 
   /* create a resizable stage */
   stage = clutter_stage_new ();
@@ -60,8 +60,12 @@ test_window (void)
   clutter_actor_add_child (stage, actor);
 
   memset (&ctx, 0, sizeof(ctx));
-  widget = gsd_osd_window_new ();
-  ctx.style = gtk_widget_get_style_context (widget);
+
+  widget_path = gtk_widget_path_new ();
+  gtk_widget_path_append_type (widget_path, GTK_TYPE_WINDOW);
+  ctx.style = gtk_style_context_new ();
+  gtk_style_context_set_path (ctx.style, widget_path);
+
   ctx.direction = clutter_get_default_text_direction ();
   ctx.theme = gtk_icon_theme_get_default ();
 
