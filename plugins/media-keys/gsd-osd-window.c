@@ -53,7 +53,6 @@ struct GsdOsdWindowPrivate
         guint                    hide_timeout_id;
         guint                    fade_timeout_id;
         double                   fade_out_alpha;
-        int                      size;
 
         gint                     screen_width;
         gint                     screen_height;
@@ -978,16 +977,19 @@ gsd_osd_window_obj_draw (GtkWidget *widget,
         cairo_surface_t   *surface;
         GtkStyleContext   *context;
         GsdOsdDrawContext  ctx;
+        int                width, height, size;
 
         window = GSD_OSD_WINDOW (widget);
+        gtk_window_get_size (GTK_WINDOW (widget), &width, &height);
+        size = MIN (width, height);
 
         context = gtk_widget_get_style_context (widget);
         cairo_set_operator (orig_cr, CAIRO_OPERATOR_SOURCE);
 
         surface = cairo_surface_create_similar (cairo_get_target (orig_cr),
                                                 CAIRO_CONTENT_COLOR_ALPHA,
-                                                window->priv->size,
-                                                window->priv->size);
+                                                size,
+                                                size);
 
         if (cairo_surface_status (surface) != CAIRO_STATUS_SUCCESS) {
                 goto done;
@@ -1001,7 +1003,7 @@ gsd_osd_window_obj_draw (GtkWidget *widget,
         cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
         cairo_paint (cr);
 
-        ctx.size = window->priv->size;
+        ctx.size = size;
         ctx.style = context;
         ctx.volume_level = window->priv->volume_level;
         ctx.volume_muted = window->priv->volume_muted;
@@ -1019,7 +1021,7 @@ gsd_osd_window_obj_draw (GtkWidget *widget,
         cairo_destroy (cr);
 
         /* Make sure we have a transparent background */
-        cairo_rectangle (orig_cr, 0, 0, window->priv->size, window->priv->size);
+        cairo_rectangle (orig_cr, 0, 0, size, size);
         cairo_set_source_rgba (orig_cr, 0.0, 0.0, 0.0, 0.0);
         cairo_fill (orig_cr);
 
@@ -1183,6 +1185,7 @@ gsd_osd_window_init (GsdOsdWindow *window)
         GdkScreen *screen;
         gdouble scalew, scaleh, scale;
         GdkRectangle monitor;
+        int size;
 
         window->priv = GSD_OSD_WINDOW_GET_PRIVATE (window);
 
@@ -1202,10 +1205,8 @@ gsd_osd_window_init (GsdOsdWindow *window)
         scalew = monitor.width / 640.0;
         scaleh = monitor.height / 480.0;
         scale = MIN (scalew, scaleh);
-        window->priv->size = 130 * MAX (1, scale);
-        gtk_window_set_default_size (GTK_WINDOW (window),
-                                     window->priv->size,
-                                     window->priv->size);
+        size = 130 * MAX (1, scale);
+        gtk_window_set_default_size (GTK_WINDOW (window), size, size);
 
         window->priv->fade_out_alpha = 1.0;
 }
