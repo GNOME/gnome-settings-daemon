@@ -45,6 +45,10 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-xkb-info.h>
 
+#ifdef HAVE_IBUS
+#include <ibus.h>
+#endif
+
 #include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
 #include "gsd-input-helper.h"
@@ -66,12 +70,19 @@
 #define KEY_BELL_DURATION  "bell-duration"
 #define KEY_BELL_MODE      "bell-mode"
 
+#define GNOME_DESKTOP_INTERFACE_DIR "org.gnome.desktop.interface"
+
+#define KEY_GTK_IM_MODULE    "gtk-im-module"
+#define GTK_IM_MODULE_SIMPLE "gtk-im-context-simple"
+#define GTK_IM_MODULE_IBUS   "ibus"
+
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
 
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
 
-#define INPUT_SOURCE_TYPE_XKB "xkb"
+#define INPUT_SOURCE_TYPE_XKB  "xkb"
+#define INPUT_SOURCE_TYPE_IBUS "ibus"
 
 #define DEFAULT_LANGUAGE "en_US"
 
@@ -80,7 +91,13 @@ struct GsdKeyboardManagerPrivate
 	guint      start_idle_id;
         GSettings *settings;
         GSettings *input_sources_settings;
+        GSettings *interface_settings;
         GnomeXkbInfo *xkb_info;
+#ifdef HAVE_IBUS
+        IBusBus   *ibus;
+        GHashTable *ibus_engines;
+        GCancellable *ibus_cancellable;
+#endif
         gint       xkb_event_base;
         GsdNumLockState old_state;
         GdkDeviceManager *device_manager;
@@ -91,10 +108,105 @@ struct GsdKeyboardManagerPrivate
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
 static void     gsd_keyboard_manager_init        (GsdKeyboardManager      *keyboard_manager);
 static void     gsd_keyboard_manager_finalize    (GObject                 *object);
+static void     apply_input_sources_settings     (GSettings               *settings,
+                                                  gchar                   *key,
+                                                  GsdKeyboardManager      *manager);
 
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+#ifdef HAVE_IBUS
+static void
+clear_ibus (GsdKeyboardManager *manager)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+
+        g_cancellable_cancel (priv->ibus_cancellable);
+        g_clear_object (&priv->ibus_cancellable);
+        g_clear_pointer (&priv->ibus_engines, g_hash_table_destroy);
+}
+
+static void
+fetch_ibus_engines_result (GObject            *object,
+                           GAsyncResult       *result,
+                           GsdKeyboardManager *manager)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+        GList *list, *l;
+        GError *error;
+
+        error = NULL;
+        list = ibus_bus_list_engines_async_finish (priv->ibus,
+                                                   result,
+                                                   &error);
+        g_clear_object (&priv->ibus_cancellable);
+
+        if (!list && error) {
+                g_warning ("Couldn't finish IBus request: %s", error->message);
+                g_error_free (error);
+
+                clear_ibus (manager);
+                return;
+        }
+
+        priv->ibus_engines = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, g_object_unref);
+
+        for (l = list; l; l = l->next) {
+                IBusEngineDesc *engine = l->data;
+                g_hash_table_replace (priv->ibus_engines,
+                                      (gpointer)ibus_engine_desc_get_name (engine),
+                                      engine);
+        }
+        g_list_free (list);
+
+        apply_input_sources_settings (priv->input_sources_settings, NULL, manager);
+}
+
+static void
+fetch_ibus_engines (GsdKeyboardManager *manager)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+
+        priv->ibus_cancellable = g_cancellable_new ();
+
+        ibus_bus_list_engines_async (priv->ibus,
+                                     -1,
+                                     priv->ibus_cancellable,
+                                     (GAsyncReadyCallback)fetch_ibus_engines_result,
+                                     manager);
+}
+
+static void
+maybe_start_ibus (GsdKeyboardManager *manager,
+                  GVariant           *sources)
+{
+        gboolean need_ibus = FALSE;
+        GVariantIter iter;
+        const gchar *type;
+
+        g_variant_iter_init (&iter, sources);
+        while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL))
+                if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
+                        need_ibus = TRUE;
+                        break;
+                }
+
+        if (!need_ibus)
+                return;
+
+        /* IBus doesn't export API in the session bus. The only thing
+         * we have there is a well known name which we can use as a
+         * sure-fire way to activate it. */
+        g_bus_unwatch_name (g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                              IBUS_SERVICE_IBUS,
+                                              G_BUS_NAME_WATCHER_FLAGS_AUTO_START,
+                                              NULL,
+                                              NULL,
+                                              NULL,
+                                              NULL));
+}
+#endif  /* HAVE_IBUS */
 
 static gboolean
 xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
@@ -408,6 +520,22 @@ apply_xkb_layout (GsdKeyboardManager *manager,
 }
 
 static void
+set_gtk_im_module (GsdKeyboardManager *manager,
+                   const gchar        *new_module)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+        gchar *current_module;
+
+        current_module = g_settings_get_string (priv->interface_settings,
+                                                KEY_GTK_IM_MODULE);
+        if (!g_str_equal (current_module, new_module))
+                g_settings_set_string (priv->interface_settings,
+                                       KEY_GTK_IM_MODULE,
+                                       new_module);
+        g_free (current_module);
+}
+
+static void
 apply_input_sources_settings (GSettings          *settings,
                               gchar              *key,
                               GsdKeyboardManager *manager)
@@ -435,17 +563,47 @@ apply_input_sources_settings (GSettings          *settings,
                 goto exit;
         }
 
+#ifdef HAVE_IBUS
+        maybe_start_ibus (manager, sources);
+#endif
+
         g_variant_get_child (sources, current, "(&s&s)", &type, &id);
 
-        if (!g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
-                g_warning ("Unknown input source type '%s'", type);
+        if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
+                gnome_xkb_info_get_layout_info (priv->xkb_info, id, NULL, NULL, &layout, &variant);
+
+                if (!layout || !layout[0]) {
+                        g_warning ("Couldn't find XKB input source '%s'", id);
+                        goto exit;
+                }
+                set_gtk_im_module (manager, GTK_IM_MODULE_SIMPLE);
+        } else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
+#ifdef HAVE_IBUS
+                IBusEngineDesc *engine_desc = NULL;
+
+                if (priv->ibus_engines)
+                        engine_desc = g_hash_table_lookup (priv->ibus_engines, id);
+                else
+                        goto exit; /* we'll be called again when ibus is up and running */
+
+                if (engine_desc) {
+                        layout = ibus_engine_desc_get_layout (engine_desc);
+                        variant = "";
+                } else {
+                        g_warning ("Couldn't find IBus input source '%s'", id);
+                        goto exit;
+                }
+
+                if (ibus_bus_set_global_engine (priv->ibus, id))
+                        set_gtk_im_module (manager, GTK_IM_MODULE_IBUS);
+                else
+                        g_warning ("Couldn't set IBus engine '%s'", id);
+#else
+                g_warning ("IBus input source type specified but IBus support was not compiled");
                 goto exit;
-        }
-
-        gnome_xkb_info_get_layout_info (priv->xkb_info, id, NULL, NULL, &layout, &variant);
-
-        if (!layout || !layout[0]) {
-                g_warning ("Couldn't find XKB input source '%s'", id);
+#endif
+        } else {
+                g_warning ("Unknown input source type '%s'", type);
                 goto exit;
         }
 
@@ -579,9 +737,17 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 	set_devicepresence_handler (manager);
 
         manager->priv->input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
-
+        manager->priv->interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
         manager->priv->xkb_info = gnome_xkb_info_new ();
 
+#ifdef HAVE_IBUS
+        ibus_init ();
+        manager->priv->ibus = ibus_bus_new_async ();
+        g_signal_connect_swapped (manager->priv->ibus, "connected",
+                                  G_CALLBACK (fetch_ibus_engines), manager);
+        g_signal_connect_swapped (manager->priv->ibus, "disconnected",
+                                  G_CALLBACK (clear_ibus), manager);
+#endif
         /* apply current settings before we install the callback */
         apply_settings (manager->priv->settings, NULL, manager);
         apply_input_sources_settings (manager->priv->input_sources_settings, NULL, manager);
@@ -627,7 +793,13 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 
         g_clear_object (&p->settings);
         g_clear_object (&p->input_sources_settings);
+        g_clear_object (&p->interface_settings);
         g_clear_object (&p->xkb_info);
+
+#ifdef HAVE_IBUS
+        clear_ibus (manager);
+        g_clear_object (&p->ibus);
+#endif
 
         if (p->device_manager != NULL) {
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);

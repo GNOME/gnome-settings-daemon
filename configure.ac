@@ -175,7 +175,21 @@ dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(KEYBOARD, xkbfile gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
+AC_ARG_ENABLE(ibus,
+        AS_HELP_STRING([--disable-ibus],
+                       [Disable IBus support]),
+        enable_ibus=$enableval,
+        enable_ibus=yes)
+
+if test "x$enable_ibus" = "xyes" ; then
+        IBUS_MODULE=ibus-1.0
+        AC_DEFINE(HAVE_IBUS, 1, [Defined if IBus support is enabled])
+else
+        IBUS_MODULE=
+fi
+AM_CONDITIONAL(HAVE_IBUS, test "x$enable_ibus" == "xyes")
+
+PKG_CHECK_MODULES(KEYBOARD, xkbfile $IBUS_MODULE gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - Housekeeping plugin stuff
@@ -535,7 +549,7 @@ echo "
 
         Session tracking:         ${SESSION_TRACKING}
         LCMS DICT support:        ${have_new_lcms}
-
+        IBus support:             ${enable_ibus}
         Libnotify support:        ${have_libnotify}
         PackageKit support:       ${have_packagekit}
         Smartcard support:        ${have_smartcard_support}

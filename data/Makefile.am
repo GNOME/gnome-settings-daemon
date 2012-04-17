@@ -60,6 +60,8 @@ pkgconfig_DATA = gnome-settings-daemon.pc
 
 man_MANS = gnome-settings-daemon.1
 
+dbusservice_in_files = org.freedesktop.IBus.service.in
+
 EXTRA_DIST = 					\
 	$(man_MANS)				\
 	$(convert_DATA)				\
@@ -68,6 +70,7 @@ EXTRA_DIST = 					\
 	$(gsettings_ENUM_FILES)			\
 	gnome-settings-daemon.pc.in		\
 	$(api_DATA)				\
+	$(dbusservice_in_files)			\
 	$(NULL)
 
 DISTCLEANFILES = 			\
@@ -80,3 +83,13 @@ MAINTAINERCLEANFILES =			\
 	*~				\
 	Makefile.in			\
 	$(all_schemas:.xml=.valid)
+
+if HAVE_IBUS
+dbusservicedir=${datadir}/dbus-1/services
+dbusservice_DATA = $(dbusservice_in_files:.service.in=.service)
+
+org.freedesktop.IBus.service: org.freedesktop.IBus.service.in
+	$(AM_V_GEN) sed -e "s|\@bindir\@|$(bindir)|" $< > $@.tmp && mv $@.tmp $@
+
+CLEANFILES = $(dbusservice_DATA)
+endif
