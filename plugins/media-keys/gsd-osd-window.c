@@ -38,13 +38,13 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include "gsd-osd-window.h"
+#include "gsd-osd-window-private.h"
 
 #define DIALOG_TIMEOUT 2000       /* dialog timeout in ms */
 #define DIALOG_FADE_TIMEOUT 1500  /* timeout before fade starts */
 #define FADE_TIMEOUT 10           /* timeout in ms between each frame of the fade */
-#define ICON_SCALE 0.50           /* The size of the icon compared to the whole OSD */
-
-#define BG_ALPHA 0.75
+#define ICON_SCALE 0.50           /* size of the icon compared to the whole OSD */
+#define BG_ALPHA 0.75             /* background transparency */
 
 #define GSD_OSD_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_OSD_WINDOW, GsdOsdWindowPrivate))
 
@@ -404,7 +404,7 @@ add_hide_timeout (GsdOsdWindow *window)
 
 static const char *
 get_image_name_for_volume (gboolean muted,
-			   int volume)
+                           int volume)
 {
         static const char *icon_names[] = {
                 "audio-volume-muted-symbolic",
@@ -509,25 +509,16 @@ gsd_osd_window_set_volume_level (GsdOsdWindow *window,
 }
 
 static GdkPixbuf *
-load_pixbuf (GsdOsdWindow *window,
-             const char   *name,
-             int           icon_size)
+load_pixbuf (GsdOsdDrawContext *ctx,
+             const char        *name,
+             int                icon_size)
 {
-        GtkIconTheme    *theme;
         GtkIconInfo     *info;
         GdkPixbuf       *pixbuf;
-        GtkStyleContext *context;
         GdkRGBA          color;
 
-        if (window != NULL && gtk_widget_has_screen (GTK_WIDGET (window))) {
-                theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (window)));
-        } else {
-                theme = gtk_icon_theme_get_default ();
-        }
-
-        context = gtk_widget_get_style_context (GTK_WIDGET (window));
-        gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &color);
-        info = gtk_icon_theme_lookup_icon (theme,
+        gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &color);
+        info = gtk_icon_theme_lookup_icon (ctx->theme,
                                            name,
                                            icon_size,
                                            GTK_ICON_LOOKUP_FORCE_SIZE | GTK_ICON_LOOKUP_GENERIC_FALLBACK);
@@ -681,23 +672,23 @@ draw_speaker (cairo_t *cr,
 }
 
 static gboolean
-render_speaker (GsdOsdWindow *window,
-                cairo_t      *cr,
-                double        _x0,
-                double        _y0,
-                double        width,
-                double        height)
+render_speaker (GsdOsdDrawContext *ctx,
+                cairo_t           *cr,
+                double             _x0,
+                double             _y0,
+                double             width,
+                double             height)
 {
         GdkPixbuf         *pixbuf;
         const char        *icon_name;
         int                icon_size;
 
-	icon_name = get_image_name_for_volume (window->priv->volume_muted,
-					       window->priv->volume_level);
+        icon_name = get_image_name_for_volume (ctx->volume_muted,
+                                               ctx->volume_level);
 
-        icon_size = (int)width;
+        icon_size = (int) width;
 
-        pixbuf = load_pixbuf (window, icon_name, icon_size);
+        pixbuf = load_pixbuf (ctx, icon_name, icon_size);
 
         if (pixbuf == NULL) {
                 return FALSE;
@@ -715,25 +706,23 @@ render_speaker (GsdOsdWindow *window,
 #define DARKNESS_MULT   0.7
 
 static void
-draw_volume_boxes (GsdOsdWindow *window,
-                   cairo_t      *cr,
-                   double        percentage,
-                   double        _x0,
-                   double        _y0,
-                   double        width,
-                   double        height)
+draw_volume_boxes (GsdOsdDrawContext *ctx,
+                   cairo_t           *cr,
+                   double             percentage,
+                   double             _x0,
+                   double             _y0,
+                   double             width,
+                   double             height)
 {
         gdouble   x1;
-        GtkStyleContext *context;
         GdkRGBA  acolor;
 
         height = round (height) - 1;
         width = round (width) - 1;
         x1 = round ((width - 1) * percentage);
-        context = gtk_widget_get_style_context (GTK_WIDGET (window));
 
         /* bar background */
-        gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &acolor);
+        gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
         gsd_osd_window_color_shade (&acolor, DARKNESS_MULT);
         gsd_osd_window_color_reverse (&acolor);
         acolor.alpha = GSD_OSD_WINDOW_FG_ALPHA / 2;
@@ -744,7 +733,7 @@ draw_volume_boxes (GsdOsdWindow *window,
         /* bar progress */
         if (percentage < 0.01)
                 return;
-        gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &acolor);
+        gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
         acolor.alpha = GSD_OSD_WINDOW_FG_ALPHA;
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, x1, height);
         gdk_cairo_set_source_rgba (cr, &acolor);
@@ -752,8 +741,8 @@ draw_volume_boxes (GsdOsdWindow *window,
 }
 
 static void
-draw_action_volume (GsdOsdWindow *window,
-                    cairo_t      *cr)
+draw_action_volume (GsdOsdDrawContext *ctx,
+                    cairo_t           *cr)
 {
         int window_width;
         int window_height;
@@ -767,7 +756,7 @@ draw_action_volume (GsdOsdWindow *window,
         double volume_box_height;
         gboolean res;
 
-	window_width = window_height = window->priv->size;
+	window_width = window_height = ctx->size;
 
         icon_box_width = round (window_width * ICON_SCALE);
         icon_box_height = round (window_height * ICON_SCALE);
@@ -792,7 +781,7 @@ draw_action_volume (GsdOsdWindow *window,
                    volume_box_y0);
 #endif
 
-        res = render_speaker (window,
+        res = render_speaker (ctx,
                               cr,
                               icon_box_x0, icon_box_y0,
                               icon_box_width, icon_box_height);
@@ -818,7 +807,7 @@ draw_action_volume (GsdOsdWindow *window,
                 /* draw speaker symbol */
                 draw_speaker (cr, speaker_cx, speaker_cy, speaker_width, speaker_height);
 
-                if (! window->priv->volume_muted) {
+                if (!ctx->volume_muted) {
                         /* draw sound waves */
                         double wave_x0;
                         double wave_y0;
@@ -828,7 +817,7 @@ draw_action_volume (GsdOsdWindow *window,
                         wave_y0 = speaker_cy;
                         wave_radius = icon_box_width / 2;
 
-                        draw_waves (cr, wave_x0, wave_y0, wave_radius, window->priv->volume_level);
+                        draw_waves (cr, wave_x0, wave_y0, wave_radius, ctx->volume_level);
                 } else {
                         /* draw 'mute' cross */
                         double cross_x0;
@@ -844,9 +833,9 @@ draw_action_volume (GsdOsdWindow *window,
         }
 
         /* draw volume meter */
-        draw_volume_boxes (window,
+        draw_volume_boxes (ctx,
                            cr,
-                           (double)window->priv->volume_level / 100.0,
+                           (double) ctx->volume_level / 100.0,
                            volume_box_x0,
                            volume_box_y0,
                            volume_box_width,
@@ -854,7 +843,7 @@ draw_action_volume (GsdOsdWindow *window,
 }
 
 static gboolean
-render_custom (GsdOsdWindow *window,
+render_custom (GsdOsdDrawContext  *ctx,
                cairo_t            *cr,
                double              _x0,
                double              _y0,
@@ -866,15 +855,15 @@ render_custom (GsdOsdWindow *window,
 
         icon_size = (int)width;
 
-        pixbuf = load_pixbuf (window, window->priv->icon_name, icon_size);
+        pixbuf = load_pixbuf (ctx, ctx->icon_name, icon_size);
 
         if (pixbuf == NULL) {
                 char *name;
-                if (gtk_widget_get_direction (GTK_WIDGET (window)) == GTK_TEXT_DIR_RTL)
-                        name = g_strdup_printf ("%s-rtl", window->priv->icon_name);
+                if (ctx->direction == GTK_TEXT_DIR_RTL)
+                        name = g_strdup_printf ("%s-rtl", ctx->icon_name);
                 else
-                        name = g_strdup_printf ("%s-ltr", window->priv->icon_name);
-                pixbuf = load_pixbuf (window, name, icon_size);
+                        name = g_strdup_printf ("%s-ltr", ctx->icon_name);
+                pixbuf = load_pixbuf (ctx, name, icon_size);
                 g_free (name);
                 if (pixbuf == NULL)
                         return FALSE;
@@ -889,7 +878,7 @@ render_custom (GsdOsdWindow *window,
 }
 
 static void
-draw_action_custom (GsdOsdWindow *window,
+draw_action_custom (GsdOsdDrawContext  *ctx,
                     cairo_t            *cr)
 {
         int window_width;
@@ -904,7 +893,7 @@ draw_action_custom (GsdOsdWindow *window,
         double bright_box_height;
         gboolean res;
 
-        gtk_window_get_size (GTK_WINDOW (window), &window_width, &window_height);
+	window_width = window_height = ctx->size;
 
         icon_box_width = round (window_width * ICON_SCALE);
         icon_box_height = round (window_height * ICON_SCALE);
@@ -929,22 +918,22 @@ draw_action_custom (GsdOsdWindow *window,
                    bright_box_y0);
 #endif
 
-        res = render_custom (window,
+        res = render_custom (ctx,
                              cr,
                              icon_box_x0, icon_box_y0,
                              icon_box_width, icon_box_height);
-        if (! res && g_str_has_prefix (window->priv->icon_name, "media-eject")) {
+        if (!res && g_str_has_prefix (ctx->icon_name, "media-eject")) {
                 /* draw eject symbol */
                 draw_eject (cr,
                             icon_box_x0, icon_box_y0,
                             icon_box_width, icon_box_height);
         }
 
-        if (window->priv->show_level != FALSE) {
+        if (ctx->show_level != FALSE) {
                 /* draw volume meter */
-                draw_volume_boxes (window,
+                draw_volume_boxes (ctx,
                                    cr,
-                                   (double)window->priv->volume_level / 100.0,
+                                   (double) ctx->volume_level / 100.0,
                                    bright_box_x0,
                                    bright_box_y0,
                                    bright_box_width,
@@ -952,16 +941,43 @@ draw_action_custom (GsdOsdWindow *window,
         }
 }
 
+void
+gsd_osd_window_draw (GsdOsdDrawContext *ctx,
+                     cairo_t           *cr)
+{
+        gdouble          corner_radius;
+        GdkRGBA          acolor;
+
+        /* draw a box */
+        corner_radius = ctx->size / 10;
+        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.0, 0.0, corner_radius, ctx->size - 1, ctx->size - 1);
+        gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
+        gsd_osd_window_color_reverse (&acolor);
+        acolor.alpha = BG_ALPHA;
+        gdk_cairo_set_source_rgba (cr, &acolor);
+        cairo_fill (cr);
+
+        switch (ctx->action) {
+        case GSD_OSD_WINDOW_ACTION_VOLUME:
+                draw_action_volume (ctx, cr);
+                break;
+        case GSD_OSD_WINDOW_ACTION_CUSTOM:
+                draw_action_custom (ctx, cr);
+                break;
+        default:
+                break;
+        }
+}
+
 static gboolean
-gsd_osd_window_draw (GtkWidget *widget,
+gsd_osd_window_obj_draw (GtkWidget *widget,
                      cairo_t   *orig_cr)
 {
-        GsdOsdWindow    *window;
-        cairo_t         *cr;
-        cairo_surface_t *surface;
-        GtkStyleContext *context;
-        GdkRGBA          acolor;
-        gdouble          corner_radius;
+        GsdOsdWindow      *window;
+        cairo_t           *cr;
+        cairo_surface_t   *surface;
+        GtkStyleContext   *context;
+        GsdOsdDrawContext  ctx;
 
         window = GSD_OSD_WINDOW (widget);
 
@@ -985,25 +1001,20 @@ gsd_osd_window_draw (GtkWidget *widget,
         cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
         cairo_paint (cr);
 
-        /* draw a box */
-	corner_radius = window->priv->size / 10;
-        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.0, 0.0, corner_radius, window->priv->size - 1, window->priv->size - 1);
-        gtk_style_context_get_background_color (context, GTK_STATE_NORMAL, &acolor);
-        gsd_osd_window_color_reverse (&acolor);
-        acolor.alpha = BG_ALPHA;
-        gdk_cairo_set_source_rgba (cr, &acolor);
-        cairo_fill (cr);
-
-        switch (window->priv->action) {
-        case GSD_OSD_WINDOW_ACTION_VOLUME:
-                draw_action_volume (window, cr);
-                break;
-        case GSD_OSD_WINDOW_ACTION_CUSTOM:
-                draw_action_custom (window, cr);
-                break;
-        default:
-                break;
+        ctx.size = window->priv->size;
+        ctx.style = context;
+        ctx.volume_level = window->priv->volume_level;
+        ctx.volume_muted = window->priv->volume_muted;
+        ctx.icon_name = window->priv->icon_name;
+        ctx.direction = gtk_widget_get_direction (GTK_WIDGET (window));
+        ctx.show_level = window->priv->show_level;
+        ctx.action = window->priv->action;
+        if (window != NULL && gtk_widget_has_screen (GTK_WIDGET (window))) {
+                ctx.theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (window)));
+        } else {
+                ctx.theme = gtk_icon_theme_get_default ();
         }
+        gsd_osd_window_draw (&ctx, cr);
 
         cairo_destroy (cr);
 
@@ -1128,7 +1139,7 @@ gsd_osd_window_class_init (GsdOsdWindowClass *klass)
         widget_class->show = gsd_osd_window_real_show;
         widget_class->hide = gsd_osd_window_real_hide;
         widget_class->realize = gsd_osd_window_real_realize;
-        widget_class->draw = gsd_osd_window_draw;
+        widget_class->draw = gsd_osd_window_obj_draw;
 
         g_type_class_add_private (klass, sizeof (GsdOsdWindowPrivate));
 }

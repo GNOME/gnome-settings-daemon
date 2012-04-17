@@ -131,6 +131,7 @@ test_media_keys_LDADD = \
 EXTRA_DIST = 				\
 	gsd-marshal.list		\
 	README.media-keys-API		\
+	test-media-window-clutter.c	\
 	$(plugin_in_files)
 
 CLEANFILES = 			\
