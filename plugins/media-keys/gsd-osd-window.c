@@ -970,7 +970,7 @@ gsd_osd_window_draw (GsdOsdDrawContext *ctx,
 
 static gboolean
 gsd_osd_window_obj_draw (GtkWidget *widget,
-                     cairo_t   *orig_cr)
+                         cairo_t   *orig_cr)
 {
         GsdOsdWindow      *window;
         cairo_t           *cr;
