@@ -37,6 +37,7 @@ libkeyboard_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(KEYBOARD_CFLAGS)		\
+	$(IBUS_CFLAGS)			\
 	$(AM_CFLAGS)
 
 libkeyboard_la_LDFLAGS = 	\
@@ -48,6 +49,7 @@ libkeyboard_la_LIBADD  =				\
 	$(SETTINGS_PLUGIN_LIBS)				\
 	$(XF86MISC_LIBS)				\
 	$(KEYBOARD_LIBS)				\
+	$(IBUS_LIBS)					\
 	$(NULL)
 
 noinst_PROGRAMS = test-keyboard

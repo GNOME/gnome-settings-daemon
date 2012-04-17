@@ -42,6 +42,10 @@
 #include <X11/keysym.h>
 #include <X11/extensions/XKBrules.h>
 
+#ifdef HAVE_IBUS
+#include <ibus.h>
+#endif
+
 #include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
 #include "gsd-input-helper.h"
@@ -81,11 +85,22 @@
 #define DFLT_XKB_MODEL "pc105"
 #endif
 
+#ifdef HAVE_IBUS
+#define GNOME_DESKTOP_INTERFACE_DIR "org.gnome.desktop.interface"
+
+#define KEY_GTK_IM_MODULE "gtk-im-module"
+#define GTK_IM_MODULE_SIMPLE "gtk-im-context-simple"
+#define GTK_IM_MODULE_IBUS   "ibus"
+#endif
+
 struct GsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
         GSettings *settings;
         GSettings *is_settings;
+#ifdef HAVE_IBUS
+        GSettings *interface_settings;
+#endif
         gulong     ignore_serial;
         gint       xkb_event_base;
         GsdNumLockState old_state;
@@ -330,6 +345,28 @@ apply_xkb_layout (GsdKeyboardManager *manager,
         g_free (rules_path);
 }
 
+#ifdef HAVE_IBUS
+static void
+apply_ibus_engine (GsdKeyboardManager *manager,
+                   const gchar        *engine)
+{
+        IBusEngineDesc *desc = NULL;
+        IBusBus *ibus = ibus_bus_new ();
+
+        if (!ibus_bus_set_global_engine (ibus, engine) ||
+            !(desc = ibus_bus_get_global_engine (ibus)))
+                g_warning ("Couldn't set IBus engine");
+        else
+                g_settings_set_string (manager->priv->interface_settings,
+                                       KEY_GTK_IM_MODULE,
+                                       GTK_IM_MODULE_IBUS);
+
+        g_object_unref (ibus);
+        if (desc)
+                g_object_unref (desc);
+}
+#endif
+
 static void
 apply_input_sources_settings (GSettings          *settings,
                               gchar              *key,
@@ -343,6 +380,14 @@ apply_input_sources_settings (GSettings          *settings,
                         "(&s&s&s&s&s)", NULL, NULL, &layout, &variant, &engine);
 
         apply_xkb_layout (manager, layout, variant);
+#ifdef HAVE_IBUS
+        if (engine && engine[0] != '\0')
+                apply_ibus_engine (manager, engine);
+        else
+                g_settings_set_string (manager->priv->interface_settings,
+                                       KEY_GTK_IM_MODULE,
+                                       GTK_IM_MODULE_SIMPLE);
+#endif
 }
 
 static void
@@ -472,6 +517,11 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         manager->priv->is_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
         manager->priv->ignore_serial = XLastKnownRequestProcessed (display) - 1;
 
+#ifdef HAVE_IBUS
+        ibus_init ();
+        manager->priv->interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
+#endif
+
         /* apply current settings before we install the callback */
         apply_settings (manager->priv->settings, NULL, manager);
         apply_input_sources_settings (manager->priv->is_settings, NULL, manager);
@@ -524,6 +574,12 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
                 g_object_unref (p->is_settings);
                 p->is_settings = NULL;
         }
+#ifdef HAVE_IBUS
+        if (p->interface_settings != NULL) {
+                g_object_unref (p->interface_settings);
+                p->interface_settings = NULL;
+        }
+#endif
 
         if (p->device_manager != NULL) {
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);

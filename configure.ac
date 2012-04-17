@@ -184,6 +184,32 @@ AC_ARG_WITH(xkb-config-root,
         [XKBCONFIGROOT=${datadir}/X11/xkb])
 AC_SUBST([XKBCONFIGROOT])
 
+IBUS_CFLAGS=
+IBUS_LIBS=
+AC_ARG_ENABLE(ibus,
+        AS_HELP_STRING([--enable-ibus],
+                       [Enable IBus support (auto)]),
+        enable_ibus=$enableval,
+        enable_ibus=auto)
+
+if test "x$enable_ibus" = "xno" ; then
+        have_ibus=no
+else
+        have_ibus=no
+        PKG_CHECK_MODULES(IBUS, ibus-1.0, have_ibus=yes, have_ibus=no)
+
+        if test "x$enable_ibus" = "xyes" -a "x$have_ibus" = "xno" ; then
+                AC_MSG_ERROR(IBus support explicity enabled but not available)
+        fi
+
+        if test "x$have_ibus" = "xyes" ; then
+                AC_DEFINE(HAVE_IBUS, 1, [Defined if IBus support is enabled])
+        fi
+fi
+AM_CONDITIONAL(HAVE_IBUS, test "x$have_ibus" = "xyes")
+AC_SUBST(IBUS_CFLAGS)
+AC_SUBST(IBUS_LIBS)
+
 dnl ---------------------------------------------------------------------------
 dnl - Housekeeping plugin stuff
 dnl ---------------------------------------------------------------------------
@@ -515,7 +541,7 @@ echo "
 
         Session tracking:         ${SESSION_TRACKING}
         LCMS DICT support:        ${have_new_lcms}
-
+        IBus support:             ${have_ibus}
         Libnotify support:        ${have_libnotify}
         PackageKit support:       ${have_packagekit}
         Smartcard support:        ${have_smartcard_support}
