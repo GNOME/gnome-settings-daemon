@@ -74,8 +74,6 @@ test_window (void)
   clutter_content_invalidate (canvas);
 
   g_signal_connect (stage, "destroy", G_CALLBACK (gtk_main_quit), NULL);
-
-  clutter_content_invalidate (canvas);
 }
 
 int
