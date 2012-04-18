@@ -42,7 +42,7 @@
 
 #define DIALOG_TIMEOUT 2000       /* dialog timeout in ms */
 #define DIALOG_FADE_TIMEOUT 1500  /* timeout before fade starts */
-#define FADE_TIMEOUT 10           /* timeout in ms between each frame of the fade */
+#define FADE_FRAME_TIMEOUT 10           /* timeout in ms between each frame of the fade */
 #define ICON_SCALE 0.50           /* size of the icon compared to the whole OSD */
 #define BG_ALPHA 0.75             /* background transparency */
 #define FG_ALPHA 1.0              /* Alpha value to be used for foreground objects drawn in an OSD window */
@@ -372,7 +372,7 @@ static gboolean
 hide_timeout (GsdOsdWindow *window)
 {
 	window->priv->hide_timeout_id = 0;
-	window->priv->fade_timeout_id = g_timeout_add (FADE_TIMEOUT,
+	window->priv->fade_timeout_id = g_timeout_add (FADE_FRAME_TIMEOUT,
 						       (GSourceFunc) fade_timeout,
 						       window);
 
