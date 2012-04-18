@@ -45,9 +45,6 @@
 
 G_BEGIN_DECLS
 
-/* Alpha value to be used for foreground objects drawn in an OSD window */
-#define GSD_OSD_WINDOW_FG_ALPHA 1.0
-
 #define GSD_TYPE_OSD_WINDOW            (gsd_osd_window_get_type ())
 #define GSD_OSD_WINDOW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj),  GSD_TYPE_OSD_WINDOW, GsdOsdWindow))
 #define GSD_OSD_WINDOW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),   GSD_TYPE_OSD_WINDOW, GsdOsdWindowClass))
