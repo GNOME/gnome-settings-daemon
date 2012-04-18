@@ -40,8 +40,6 @@
 #include "gsd-osd-window.h"
 #include "gsd-osd-window-private.h"
 
-#define DIALOG_FADE_TIMEOUT 1500  /* timeout before fade starts */
-#define FADE_FRAME_TIMEOUT 10           /* timeout in ms between each frame of the fade */
 #define ICON_SCALE 0.50           /* size of the icon compared to the whole OSD */
 #define BG_ALPHA 0.75             /* background transparency */
 #define FG_ALPHA 1.0              /* Alpha value to be used for foreground objects drawn in an OSD window */
