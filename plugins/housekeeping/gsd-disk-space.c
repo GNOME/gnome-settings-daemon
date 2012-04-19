@@ -37,6 +37,7 @@
 
 #include "gsd-disk-space.h"
 #include "gsd-ldsm-dialog.h"
+#include "gsd-disk-space-helper.h"
 
 #define GIGABYTE                   1024 * 1024 * 1024
 
@@ -479,93 +480,6 @@ ldsm_mount_is_user_ignore (const gchar *path)
 }                
 
 
-static gboolean
-is_in (const gchar *value, const gchar *set[])
-{
-        int i;
-        for (i = 0; set[i] != NULL; i++)
-        {
-              if (strcmp (set[i], value) == 0)
-                return TRUE;
-        }
-        return FALSE;
-}
-
-static gboolean
-ldsm_mount_should_ignore (GUnixMountEntry *mount)
-{
-        const gchar *fs, *device, *path;
-        
-        path = g_unix_mount_get_mount_path (mount);
-        if (ldsm_mount_is_user_ignore (path))
-                return TRUE;
-        
-        /* This is borrowed from GLib and used as a way to determine
-         * which mounts we should ignore by default. GLib doesn't
-         * expose this in a way that allows it to be used for this
-         * purpose
-         */
-         
-         /* We also ignore network filesystems */
-                 
-        const gchar *ignore_fs[] = {
-                "adfs",
-                "afs",
-                "auto",
-                "autofs",
-                "autofs4",
-                "cifs",
-                "cxfs",
-                "devfs",
-                "devpts",
-                "ecryptfs",
-                "fdescfs",
-                "gfs",
-                "gfs2",
-                "kernfs",
-                "linprocfs",
-                "linsysfs",
-                "lustre",
-                "lustre_lite",
-                "ncpfs",
-                "nfs",
-                "nfs4",
-                "nfsd",
-                "ocfs2",
-                "proc",
-                "procfs",
-                "ptyfs",
-                "rpc_pipefs",
-                "selinuxfs",
-                "smbfs",
-                "sysfs",
-                "tmpfs",
-                "usbfs",
-                "zfs",
-                NULL
-        };
-        const gchar *ignore_devices[] = {
-                "none",
-                "sunrpc",
-                "devpts",
-                "nfsd",
-                "/dev/loop",
-                "/dev/vn",
-                NULL
-        };
-        
-        fs = g_unix_mount_get_fs_type (mount);
-        device = g_unix_mount_get_device_path (mount);
-        
-        if (is_in (fs, ignore_fs))
-                return TRUE;
-  
-        if (is_in (device, ignore_devices))
-                return TRUE;
-
-        return FALSE;
-}
-
 static void
 ldsm_free_mount_info (gpointer data)
 {
@@ -685,7 +599,12 @@ ldsm_check_all_mounts (gpointer data)
                         continue;
                 }
 
-                if (ldsm_mount_should_ignore (mount)) {
+                if (ldsm_mount_is_user_ignore (g_unix_mount_get_mount_path (mount))) {
+                        ldsm_free_mount_info (mount_info);
+                        continue;
+                }
+
+                if (gsd_should_ignore_unix_mount (mount)) {
                         ldsm_free_mount_info (mount_info);
                         continue;
                 }
