@@ -512,9 +512,7 @@ load_pixbuf (GsdOsdDrawContext *ctx,
 {
         GtkIconInfo     *info;
         GdkPixbuf       *pixbuf;
-        GdkRGBA          color;
 
-        gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &color);
         info = gtk_icon_theme_lookup_icon (ctx->theme,
                                            name,
                                            icon_size,
@@ -525,13 +523,10 @@ load_pixbuf (GsdOsdDrawContext *ctx,
                 return NULL;
         }
 
-        pixbuf = gtk_icon_info_load_symbolic (info,
-                                              &color,
-                                              NULL,
-                                              NULL,
-                                              NULL,
-                                              NULL,
-                                              NULL);
+        pixbuf = gtk_icon_info_load_symbolic_for_context (info,
+                                                          ctx->style,
+                                                          NULL,
+                                                          NULL);
         gtk_icon_info_free (info);
 
         return pixbuf;
@@ -691,8 +686,8 @@ render_speaker (GsdOsdDrawContext *ctx,
                 return FALSE;
         }
 
-        gdk_cairo_set_source_pixbuf (cr, pixbuf, _x0, _y0);
-        cairo_paint_with_alpha (cr, FG_ALPHA);
+        gtk_render_icon (ctx->style, cr,
+                         pixbuf, _x0, _y0);
 
         g_object_unref (pixbuf);
 
@@ -719,22 +714,28 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
         x1 = round ((width - 1) * percentage);
 
         /* bar background */
+        gtk_style_context_save (ctx->style);
+        gtk_style_context_add_class (ctx->style, GTK_STYLE_CLASS_TROUGH);
         gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
-        gsd_osd_window_color_shade (&acolor, DARKNESS_MULT);
-        gsd_osd_window_color_reverse (&acolor);
-        acolor.alpha = FG_ALPHA / 2;
+
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, width, height);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
 
+        gtk_style_context_restore (ctx->style);
+
         /* bar progress */
         if (percentage < 0.01)
                 return;
+        gtk_style_context_save (ctx->style);
+        gtk_style_context_add_class (ctx->style, GTK_STYLE_CLASS_PROGRESSBAR);
         gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
-        acolor.alpha = FG_ALPHA;
+
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, x1, height);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
+
+        gtk_style_context_restore (ctx->style);
 }
 
 static void
@@ -866,8 +867,8 @@ render_custom (GsdOsdDrawContext  *ctx,
                         return FALSE;
         }
 
-        gdk_cairo_set_source_pixbuf (cr, pixbuf, _x0, _y0);
-        cairo_paint_with_alpha (cr, FG_ALPHA);
+        gtk_render_icon (ctx->style, cr,
+                         pixbuf, _x0, _y0);
 
         g_object_unref (pixbuf);
 
@@ -948,9 +949,8 @@ gsd_osd_window_draw (GsdOsdDrawContext *ctx,
         /* draw a box */
         corner_radius = ctx->size / 10;
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.0, 0.0, corner_radius, ctx->size - 1, ctx->size - 1);
+
         gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
-        gsd_osd_window_color_reverse (&acolor);
-        acolor.alpha = BG_ALPHA;
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
 
@@ -982,6 +982,9 @@ gsd_osd_window_obj_draw (GtkWidget *widget,
         size = MIN (width, height);
 
         context = gtk_widget_get_style_context (widget);
+        gtk_style_context_save (context);
+        gtk_style_context_add_class (context, "osd");
+
         cairo_set_operator (orig_cr, CAIRO_OPERATOR_SOURCE);
 
         surface = cairo_surface_create_similar (cairo_get_target (orig_cr),
@@ -1017,6 +1020,7 @@ gsd_osd_window_obj_draw (GtkWidget *widget,
         gsd_osd_window_draw (&ctx, cr);
 
         cairo_destroy (cr);
+        gtk_style_context_restore (context);
 
         /* Make sure we have a transparent background */
         cairo_rectangle (orig_cr, 0, 0, size, size);
