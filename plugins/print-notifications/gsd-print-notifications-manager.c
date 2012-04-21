@@ -54,7 +54,6 @@
 
 struct GsdPrintNotificationsManagerPrivate
 {
-        GDBusProxy                   *cups_proxy;
         GDBusConnection              *cups_bus_connection;
         gint                          subscription_id;
         cups_dest_t                  *dests;
@@ -909,8 +908,6 @@ gboolean
 gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
                                        GError                      **error)
 {
-        GError     *lerror;
-
         g_debug ("Starting print-notifications manager");
 
         gnome_settings_profile_start (NULL);
@@ -925,25 +922,12 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
 
         renew_subscription (manager);
         g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription, manager);
+        gnome_settings_profile_msg ("renewed subscriptions");
 
         manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+        gnome_settings_profile_msg ("got dests");
 
-        lerror = NULL;
-        manager->priv->cups_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                                                   0,
-                                                                   NULL,
-                                                                   CUPS_DBUS_NAME,
-                                                                   CUPS_DBUS_PATH,
-                                                                   CUPS_DBUS_INTERFACE,
-                                                                   NULL,
-                                                                   &lerror);
-
-        if (lerror != NULL) {
-                g_propagate_error (error, lerror);
-                return FALSE;
-        }
-
-        manager->priv->cups_bus_connection = g_dbus_proxy_get_connection (manager->priv->cups_proxy);
+        manager->priv->cups_bus_connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
 
         g_dbus_connection_signal_subscribe (manager->priv->cups_bus_connection,
                                             NULL,
@@ -981,12 +965,7 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
 
         g_hash_table_destroy (manager->priv->printing_printers);
 
-        manager->priv->cups_bus_connection = NULL;
-
-        if (manager->priv->cups_proxy != NULL) {
-                g_object_unref (manager->priv->cups_proxy);
-                manager->priv->cups_proxy = NULL;
-        }
+        g_clear_object (&manager->priv->cups_bus_connection);
 
         for (tmp = manager->priv->timeouts; tmp; tmp = g_list_next (tmp)) {
                 data = (TimeoutData *) tmp->data;
@@ -1057,10 +1036,6 @@ gsd_print_notifications_manager_finalize (GObject *object)
         manager = GSD_PRINT_NOTIFICATIONS_MANAGER (object);
 
         g_return_if_fail (manager->priv != NULL);
-
-        if (manager->priv->cups_proxy != NULL) {
-                g_object_unref (manager->priv->cups_proxy);
-        }
 
         G_OBJECT_CLASS (gsd_print_notifications_manager_parent_class)->finalize (object);
 }
