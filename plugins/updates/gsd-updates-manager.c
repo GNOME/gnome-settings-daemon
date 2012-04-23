@@ -27,6 +27,7 @@
 #include <gtk/gtk.h>
 #include <packagekit-glib2/packagekit.h>
 #include <libnotify/notify.h>
+#include <gdesktop-enums.h>
 
 #include "gsd-enums.h"
 #include "gsd-updates-manager.h"
@@ -46,6 +47,7 @@ struct GsdUpdatesManagerPrivate
         GCancellable            *cancellable;
         GsdUpdatesRefresh       *refresh;
         GsdUpdatesFirmware      *firmware;
+        GSettings               *settings_proxy;
         GSettings               *settings_ftp;
         GSettings               *settings_gsd;
         GSettings               *settings_http;
@@ -918,10 +920,10 @@ get_proxy_http (GsdUpdatesManager *manager)
         gchar *username = NULL;
         GString *string = NULL;
         guint port;
+        GDesktopProxyMode proxy_mode;
 
-        ret = g_settings_get_boolean (manager->priv->settings_http,
-                                      "enabled");
-        if (!ret)
+        proxy_mode = g_settings_get_enum (manager->priv->settings_proxy, "mode");
+        if (proxy_mode != G_DESKTOP_PROXY_MODE_MANUAL)
                 goto out;
 
         host = g_settings_get_string (manager->priv->settings_http,
@@ -962,23 +964,24 @@ out:
 static gchar *
 get_proxy_ftp (GsdUpdatesManager *manager)
 {
-        gboolean ret;
         gchar *host = NULL;
         gchar *proxy = NULL;
         GString *string = NULL;
         guint port;
+        GDesktopProxyMode proxy_mode;
 
-        ret = g_settings_get_boolean (manager->priv->settings_http,
-                                      "enabled");
-        if (!ret)
+        proxy_mode = g_settings_get_enum (manager->priv->settings_proxy, "mode");
+        if (proxy_mode != G_DESKTOP_PROXY_MODE_MANUAL)
                 goto out;
 
-        host = g_settings_get_string (manager->priv->settings_http,
+        host = g_settings_get_string (manager->priv->settings_ftp,
                                       "host");
         if (host == NULL)
                 goto out;
-        port = g_settings_get_int (manager->priv->settings_http,
+        port = g_settings_get_int (manager->priv->settings_ftp,
                                    "port");
+        if (port == 0)
+                goto out;
 
         /* make PackageKit proxy string */
         string = g_string_new (host);
@@ -1358,6 +1361,11 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         g_signal_connect (manager->priv->refresh, "get-updates",
                           G_CALLBACK (due_get_updates_cb), manager);
 
+        /* get proxy settings */
+        manager->priv->settings_proxy = g_settings_new ("org.gnome.system.proxy");
+        g_signal_connect (manager->priv->settings_proxy, "changed",
+                          G_CALLBACK (settings_changed_cb), manager);
+
         /* get http settings */
         manager->priv->settings_http = g_settings_new ("org.gnome.system.proxy.http");
         g_signal_connect (manager->priv->settings_http, "changed",
@@ -1435,6 +1443,10 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
 {
         g_debug ("Stopping updates manager");
 
+        if (manager->priv->settings_proxy != NULL) {
+                g_object_unref (manager->priv->settings_proxy);
+                manager->priv->settings_proxy = NULL;
+        }
         if (manager->priv->settings_http != NULL) {
                 g_object_unref (manager->priv->settings_http);
                 manager->priv->settings_http = NULL;
