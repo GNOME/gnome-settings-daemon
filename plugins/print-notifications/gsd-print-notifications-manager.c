@@ -904,25 +904,17 @@ renew_subscription (gpointer data)
         return TRUE;
 }
 
-gboolean
-gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
-                                       GError                      **error)
+static gboolean
+gsd_print_notifications_manager_start_idle (gpointer data)
 {
-        g_debug ("Starting print-notifications manager");
+        GsdPrintNotificationsManager *manager = data;
 
         gnome_settings_profile_start (NULL);
 
-        manager->priv->subscription_id = -1;
-        manager->priv->dests = NULL;
-        manager->priv->num_dests = 0;
-        manager->priv->scp_handler_spawned = FALSE;
-        manager->priv->timeouts = NULL;
         manager->priv->printing_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-        manager->priv->active_notifications = NULL;
 
         renew_subscription (manager);
         g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription, manager);
-        gnome_settings_profile_msg ("renewed subscriptions");
 
         manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
         gnome_settings_profile_msg ("got dests");
@@ -941,6 +933,30 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
                                             NULL);
 
         scp_handler (manager, TRUE);
+
+        gnome_settings_profile_end (NULL);
+
+        return G_SOURCE_REMOVE;
+}
+
+gboolean
+gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
+                                       GError                      **error)
+{
+        g_debug ("Starting print-notifications manager");
+
+        gnome_settings_profile_start (NULL);
+
+        manager->priv->subscription_id = -1;
+        manager->priv->dests = NULL;
+        manager->priv->num_dests = 0;
+        manager->priv->scp_handler_spawned = FALSE;
+        manager->priv->timeouts = NULL;
+        manager->priv->printing_printers = NULL;
+        manager->priv->active_notifications = NULL;
+        manager->priv->cups_bus_connection = NULL;
+
+        g_idle_add (gsd_print_notifications_manager_start_idle, manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -963,7 +979,8 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
         if (manager->priv->subscription_id >= 0)
                 cancel_subscription (manager->priv->subscription_id);
 
-        g_hash_table_destroy (manager->priv->printing_printers);
+        if (manager->priv->printing_printers)
+                g_hash_table_destroy (manager->priv->printing_printers);
 
         g_clear_object (&manager->priv->cups_bus_connection);
 
