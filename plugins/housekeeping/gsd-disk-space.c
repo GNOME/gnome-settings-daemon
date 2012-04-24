@@ -682,7 +682,7 @@ ldsm_mounts_changed (GObject  *monitor,
         mounts = g_unix_mounts_get (time_read);
         g_hash_table_foreach_remove (ldsm_notified_hash,
                                      ldsm_is_hash_item_not_in_mounts, mounts);
-        g_list_foreach (mounts, (GFunc) g_unix_mount_free, NULL);
+        g_list_free_full (mounts, (GDestroyNotify) g_unix_mount_free);
 
         /* check the status now, for the new mounts */
         ldsm_check_all_mounts (NULL);
