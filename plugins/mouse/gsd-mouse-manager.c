@@ -515,6 +515,18 @@ setup_syndaemon (gpointer user_data)
 #endif
 }
 
+static gboolean
+have_program_in_path (const char *name)
+{
+        gchar *path;
+        gboolean result;
+
+        path = g_find_program_in_path (name);
+        result = (path != NULL);
+        g_free (path);
+        return result;
+}
+
 static void
 syndaemon_died (GPid pid, gint status, gpointer user_data)
 {
@@ -542,7 +554,7 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
                 args[4] = "-R";
                 args[5] = NULL;
 
-                if (!g_find_program_in_path (args[0]))
+                if (!have_program_in_path (args[0]))
                         return 0;
 
                 /* we must use G_SPAWN_DO_NOT_REAP_CHILD to avoid
