@@ -317,8 +317,6 @@ set_left_handed (GsdMouseManager *manager,
         gint n_buttons;
         const char *name;
 
-        buttons = g_new (guchar, buttons_capacity);
-
         name = gdk_device_get_name (device);
         if (name != NULL && g_str_equal ("Virtual core XTEST pointer", name))
                 return;
@@ -328,6 +326,8 @@ set_left_handed (GsdMouseManager *manager,
         xdevice = open_gdk_device (device);
         if (xdevice == NULL)
                 return;
+
+        buttons = g_new (guchar, buttons_capacity);
 
         /* If the device is a touchpad, swap tap buttons
          * around too, otherwise a tap would be a right-click */
