@@ -316,6 +316,7 @@ struct GsdWacomDevicePrivate
 	GsdWacomDeviceType type;
 	char *name;
 	char *path;
+	char *machine_id;
 	const char *icon_name;
 	char *tool_name;
 	gboolean reversible;
@@ -1317,6 +1318,10 @@ gsd_wacom_device_init (GsdWacomDevice *device)
 {
         device->priv = GSD_WACOM_DEVICE_GET_PRIVATE (device);
         device->priv->type = WACOM_TYPE_INVALID;
+
+        if (g_file_get_contents ("/etc/machine-id", &device->priv->machine_id, NULL, NULL) == FALSE)
+                if (g_file_get_contents ("/var/lib/dbus/machine-id", &device->priv->machine_id, NULL, NULL) == FALSE)
+                        device->priv->machine_id = g_strdup ("00000000000000000000000000000000");
 }
 
 static void
@@ -1350,6 +1355,9 @@ gsd_wacom_device_finalize (GObject *object)
 
         g_free (p->path);
         p->path = NULL;
+
+        g_free (p->machine_id);
+        p->machine_id = NULL;
 
         if (p->modes) {
                 g_hash_table_destroy (p->modes);
