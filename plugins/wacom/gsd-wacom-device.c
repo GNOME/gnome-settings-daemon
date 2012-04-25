@@ -1096,23 +1096,6 @@ gsd_wacom_device_add_modes (GsdWacomDevice *device,
 	}
 }
 
-static char *
-settings_path_for_device (WacomDevice *wacom_device)
-{
-	char *machine_id, *settings_path;
-
-	machine_id = g_dbus_get_machine_id (NULL);
-	g_assert (machine_id);
-
-	settings_path = g_strdup_printf (WACOM_DEVICE_CONFIG_BASE,
-					 machine_id,
-					 libwacom_get_match (wacom_device));
-
-	g_free (machine_id);
-
-	return settings_path;
-}
-
 static void
 gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 				 WacomDevice    *wacom_device,
@@ -1120,7 +1103,9 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 {
 	char *settings_path;
 
-	settings_path = settings_path_for_device (wacom_device);
+	settings_path = g_strdup_printf (WACOM_DEVICE_CONFIG_BASE,
+					 device->priv->machine_id,
+					 libwacom_get_match (wacom_device));
 	device->priv->wacom_settings = g_settings_new_with_path (WACOM_TABLET_SCHEMA,
 								 settings_path);
 
@@ -1322,6 +1307,8 @@ gsd_wacom_device_init (GsdWacomDevice *device)
         if (g_file_get_contents ("/etc/machine-id", &device->priv->machine_id, NULL, NULL) == FALSE)
                 if (g_file_get_contents ("/var/lib/dbus/machine-id", &device->priv->machine_id, NULL, NULL) == FALSE)
                         device->priv->machine_id = g_strdup ("00000000000000000000000000000000");
+
+        device->priv->machine_id = g_strstrip (device->priv->machine_id);
 }
 
 static void
