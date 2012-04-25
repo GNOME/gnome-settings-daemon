@@ -1149,6 +1149,9 @@ engine_coldplug (GsdPowerManager *manager)
 
         /* add to database */
         array = up_client_get_devices (manager->priv->up_client);
+        if (array == NULL)
+                goto out;
+
         for (i=0;i<array->len;i++) {
                 device = g_ptr_array_index (array, i);
                 engine_device_add (manager, device);
