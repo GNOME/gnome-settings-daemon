@@ -43,7 +43,7 @@
 #define GSD_WACOM_STYLUS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_STYLUS, GsdWacomStylusPrivate))
 
 #define WACOM_TABLET_SCHEMA "org.gnome.settings-daemon.peripherals.wacom"
-#define WACOM_DEVICE_CONFIG_BASE "/org/gnome/settings-daemon/peripherals/wacom/%s/"
+#define WACOM_DEVICE_CONFIG_BASE "/org/gnome/settings-daemon/peripherals/wacom/%s-%s/"
 #define WACOM_STYLUS_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.stylus"
 #define WACOM_ERASER_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.eraser"
 #define WACOM_BUTTON_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.tablet-button"
@@ -1095,6 +1095,23 @@ gsd_wacom_device_add_modes (GsdWacomDevice *device,
 	}
 }
 
+static char *
+settings_path_for_device (WacomDevice *wacom_device)
+{
+	char *machine_id, *settings_path;
+
+	machine_id = g_dbus_get_machine_id (NULL);
+	g_assert (machine_id);
+
+	settings_path = g_strdup_printf (WACOM_DEVICE_CONFIG_BASE,
+					 machine_id,
+					 libwacom_get_match (wacom_device));
+
+	g_free (machine_id);
+
+	return settings_path;
+}
+
 static void
 gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 				 WacomDevice    *wacom_device,
@@ -1102,7 +1119,7 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 {
 	char *settings_path;
 
-	settings_path = g_strdup_printf (WACOM_DEVICE_CONFIG_BASE, libwacom_get_match (wacom_device));
+	settings_path = settings_path_for_device (wacom_device);
 	device->priv->wacom_settings = g_settings_new_with_path (WACOM_TABLET_SCHEMA,
 								 settings_path);
 

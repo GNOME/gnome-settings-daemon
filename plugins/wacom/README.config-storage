@@ -13,9 +13,10 @@ configurations, whether on a single machine, or using a shared home directory.
 
 The configuration scheme is:
 schema: org.gnome.settings-daemon.peripherals.wacom
-path: /org/gnome/settings-daemon/peripherals/wacom/<device ID>/
+path: /org/gnome/settings-daemon/peripherals/wacom/<machine ID>-<device ID>/
 
-where <device ID> is a unique identifier for the tablet.
+where <machine ID> is the D-Bus machine-id for the machine, and
+<device ID> is a unique identifier for the tablet.
 
 Stylus
 ------
