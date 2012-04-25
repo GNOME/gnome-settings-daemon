@@ -4123,6 +4123,12 @@ handle_method_call (GDBusConnection       *connection,
 {
         GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
 
+        /* Check session pointer as a proxy for whether the manager is in the
+           start or stop state */
+        if (manager->priv->session == NULL) {
+                return;
+        }
+
         g_debug ("Calling method '%s.%s' for Power",
                  interface_name, method_name);
 
@@ -4156,6 +4162,12 @@ handle_get_property (GDBusConnection *connection,
 {
         GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
         GVariant *retval = NULL;
+
+        /* Check session pointer as a proxy for whether the manager is in the
+           start or stop state */
+        if (manager->priv->session == NULL) {
+                return NULL;
+        }
 
         if (g_strcmp0 (property_name, "Icon") == 0) {
                 retval = engine_get_icon_property_variant (manager);
