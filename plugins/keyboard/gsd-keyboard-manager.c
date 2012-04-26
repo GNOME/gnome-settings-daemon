@@ -434,17 +434,6 @@ filter_xkb_config (GsdKeyboardManager *manager)
 }
 
 static void
-gsd_keyboard_xkb_analyze_sysconfig (GsdKeyboardManager *manager)
-{
-	if (manager->priv->xkl_engine == NULL)
-		return;
-
-	gkbd_keyboard_config_init (&manager->priv->initial_sys_kbd_config, manager->priv->xkl_engine);
-	gkbd_keyboard_config_load_from_x_initial (&manager->priv->initial_sys_kbd_config,
-						  NULL);
-}
-
-static void
 gsd_keyboard_xkb_init (GsdKeyboardManager *manager)
 {
 	Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
@@ -457,7 +446,9 @@ gsd_keyboard_xkb_init (GsdKeyboardManager *manager)
 	gkbd_keyboard_config_init (&manager->priv->current_kbd_config,
 				   manager->priv->xkl_engine);
 	xkl_engine_backup_names_prop (manager->priv->xkl_engine);
-	gsd_keyboard_xkb_analyze_sysconfig (manager);
+	gkbd_keyboard_config_init (&manager->priv->initial_sys_kbd_config, manager->priv->xkl_engine);
+	gkbd_keyboard_config_load_from_x_initial (&manager->priv->initial_sys_kbd_config,
+						  NULL);
 
 	manager->priv->settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
 	manager->priv->settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
