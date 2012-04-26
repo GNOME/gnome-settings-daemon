@@ -220,28 +220,7 @@ status_icon_popup_menu_cb (GtkStatusIcon * icon, guint button, guint time)
 	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
 
 	for (i = 0; *current_name; i++, current_name++) {
-		gchar *image_file = gkbd_status_get_image_filename (i);
-
-		if (image_file == NULL) {
-			item =
-			    gtk_menu_item_new_with_label (*current_name);
-		} else {
-			GdkPixbuf *pixbuf =
-			    gdk_pixbuf_new_from_file_at_size (image_file,
-							      24, 24,
-							      NULL);
-			GtkWidget *img =
-			    gtk_image_new_from_pixbuf (pixbuf);
-			item =
-			    gtk_image_menu_item_new_with_label
-			    (*current_name);
-			gtk_widget_show (img);
-			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM
-						       (item), img);
-			gtk_image_menu_item_set_always_show_image
-			    (GTK_IMAGE_MENU_ITEM (item), TRUE);
-			g_free (image_file);
-		}
+		item = gtk_menu_item_new_with_label (*current_name);
 		gtk_widget_show (item);
 		gtk_menu_shell_append (GTK_MENU_SHELL (groups_menu), item);
 		g_signal_connect (item, "activate",
