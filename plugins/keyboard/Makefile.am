@@ -49,6 +49,19 @@ libkeyboard_la_LIBADD  = 	\
 	$(KEYBOARD_LIBS)	\
 	$(NULL)
 
+noinst_PROGRAMS = test-keyboard
+test_keyboard_SOURCES =		\
+	test-keyboard.c		\
+	gsd-keyboard-manager.h	\
+	gsd-keyboard-manager.c	\
+	gsd-keyboard-xkb.h	\
+	gsd-keyboard-xkb.c	\
+	delayed-dialog.h	\
+	delayed-dialog.c
+test_keyboard_CFLAGS = $(libkeyboard_la_CFLAGS)
+test_keyboard_CPPFLAGS = $(libkeyboard_la_CPPFLAGS) -I$(top_srcdir)/plugins/common
+test_keyboard_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
+
 plugin_in_files = 		\
 	keyboard.gnome-settings-plugin.in	\
 	$(NULL)
