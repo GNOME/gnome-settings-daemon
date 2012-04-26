@@ -93,6 +93,7 @@ struct GsdKeyboardManagerPrivate
 	GSettings *settings_keyboard;
 
 	GtkStatusIcon *icon;
+	GtkMenu *popup_menu;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
@@ -294,10 +295,7 @@ popup_menu_set_group (GtkMenuItem * item, gpointer param)
 }
 
 static void
-status_icon_popup_menu_cb (GtkStatusIcon      *icon,
-			   guint               button,
-			   guint               time,
-			   GsdKeyboardManager *manager)
+ensure_popup_menu (GsdKeyboardManager *manager)
 {
 	GtkMenu *popup_menu = GTK_MENU (gtk_menu_new ());
 	GtkMenu *groups_menu = GTK_MENU (gtk_menu_new ());
@@ -331,7 +329,19 @@ status_icon_popup_menu_cb (GtkStatusIcon      *icon,
 				  GINT_TO_POINTER (i));
 	}
 
-	gtk_menu_popup (popup_menu, NULL, NULL,
+	if (manager->priv->popup_menu != NULL)
+		gtk_widget_destroy (GTK_WIDGET (manager->priv->popup_menu));
+	manager->priv->popup_menu = popup_menu;
+}
+
+static void
+status_icon_popup_menu_cb (GtkStatusIcon      *icon,
+			   guint               button,
+			   guint               time,
+			   GsdKeyboardManager *manager)
+{
+	ensure_popup_menu (manager);
+	gtk_menu_popup (manager->priv->popup_menu, NULL, NULL,
 			gtk_status_icon_position_menu,
 			(gpointer) icon, button, time);
 }
@@ -787,6 +797,11 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
                 g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
                 p->device_manager = NULL;
         }
+
+        if (manager->priv->popup_menu != NULL) {
+                gtk_widget_destroy (GTK_WIDGET (manager->priv->popup_menu));
+                manager->priv->popup_menu = NULL;
+	}
 
 	if (manager->priv->have_xkb)
 		remove_xkb_filter (manager);
