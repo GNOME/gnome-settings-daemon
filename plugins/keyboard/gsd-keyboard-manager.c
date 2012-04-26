@@ -204,7 +204,7 @@ apply_xkb_settings (GsdKeyboardManager *manager)
 			activation_error ();
 		}
 	} else
-		xkl_debug (100,
+		g_debug (
 			   "Actual KBD configuration was not changed: redundant notification\n");
 
 	gkbd_keyboard_config_term (&current_sys_kbd_config);
@@ -279,14 +279,14 @@ popup_menu_set_group (GtkMenuItem * item, gpointer param)
 	xkl_engine_allow_one_switch_to_secondary_group (engine);
 	cur = xkl_engine_get_current_window (engine);
 	if (cur != (Window) NULL) {
-		xkl_debug (150, "Enforcing the state %d for window %lx\n",
+		g_debug ("Enforcing the state %d for window %lx\n",
 			   st.group, cur);
 		xkl_engine_save_state (engine,
 				       xkl_engine_get_current_window
 				       (engine), &st);
 /*    XSetInputFocus( GDK_DISPLAY(), cur, RevertToNone, CurrentTime );*/
 	} else {
-		xkl_debug (150,
+		g_debug (
 			   "??? Enforcing the state %d for unknown window\n",
 			   st.group);
 		/* strange situation - bad things can happen */
@@ -351,7 +351,7 @@ show_hide_icon (GsdKeyboardManager *manager)
 {
 	if (g_strv_length (manager->priv->current_kbd_config.layouts_variants) > 1) {
 		if (manager->priv->icon == NULL) {
-			xkl_debug (150, "Creating keyboard status icon\n");
+			g_debug ("Creating keyboard status icon\n");
 			manager->priv->icon = gkbd_status_new ();
 			g_signal_connect (manager->priv->icon, "popup-menu",
 					  G_CALLBACK
@@ -361,7 +361,7 @@ show_hide_icon (GsdKeyboardManager *manager)
 		}
 	} else {
 		if (manager->priv->icon != NULL) {
-			xkl_debug (150, "Destroying icon\n");
+			g_debug ("Destroying icon\n");
 			g_object_unref (manager->priv->icon);
 			manager->priv->icon = NULL;
 		}
@@ -392,21 +392,21 @@ filter_xkb_config (GsdKeyboardManager *manager)
 	gchar **lv;
 	gboolean any_change = FALSE;
 
-	xkl_debug (100, "Filtering configuration against the registry\n");
+	g_debug ("Filtering configuration against the registry\n");
 	if (!ensure_manager_xkl_registry (manager))
 		return FALSE;
 
 	lv = manager->priv->current_kbd_config.layouts_variants;
 	item = xkl_config_item_new ();
 	while (*lv) {
-		xkl_debug (100, "Checking [%s]\n", *lv);
+		g_debug ("Checking [%s]\n", *lv);
 		if (gkbd_keyboard_config_split_items (*lv, &lname, &vname)) {
 			gboolean should_be_dropped = FALSE;
 			g_snprintf (item->name, sizeof (item->name), "%s",
 				    lname);
 			if (!xkl_config_registry_find_layout
 			    (manager->priv->xkl_registry, item)) {
-				xkl_debug (100, "Bad layout [%s]\n",
+				g_debug ("Bad layout [%s]\n",
 					   lname);
 				should_be_dropped = TRUE;
 			} else if (vname) {
@@ -415,7 +415,7 @@ filter_xkb_config (GsdKeyboardManager *manager)
 					    vname);
 				if (!xkl_config_registry_find_variant
 				    (manager->priv->xkl_registry, lname, item)) {
-					xkl_debug (100,
+					g_debug (
 						   "Bad variant [%s(%s)]\n",
 						   lname, vname);
 					should_be_dropped = TRUE;
