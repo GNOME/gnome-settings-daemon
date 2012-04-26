@@ -443,57 +443,50 @@ gsd_keyboard_new_device (XklEngine * engine)
 void
 gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 {
-	Display *display =
-	    GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-	gnome_settings_profile_start (NULL);
+	Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 
-	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
-					   DATADIR G_DIR_SEPARATOR_S
-					   "icons");
+	xkl_engine = xkl_engine_get_instance (dpy);
+	if (!xkl_engine)
+		return;
 
-	manager = kbd_manager;
-	gnome_settings_profile_start ("xkl_engine_get_instance");
-	xkl_engine = xkl_engine_get_instance (display);
-	gnome_settings_profile_end ("xkl_engine_get_instance");
-	if (xkl_engine) {
-		inited_ok = TRUE;
+	inited_ok = TRUE;
 
-		gkbd_desktop_config_init (&current_config, xkl_engine);
-		gkbd_keyboard_config_init (&current_kbd_config,
-					   xkl_engine);
-		xkl_engine_backup_names_prop (xkl_engine);
-		gsd_keyboard_xkb_analyze_sysconfig ();
+	gkbd_desktop_config_init (&current_config, xkl_engine);
+	gkbd_keyboard_config_init (&current_kbd_config,
+				   xkl_engine);
+	xkl_engine_backup_names_prop (xkl_engine);
+	gsd_keyboard_xkb_analyze_sysconfig ();
 
-		settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
-		settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
-		g_signal_connect (settings_desktop, "changed",
-				  (GCallback) apply_desktop_settings,
-				  NULL);
-		g_signal_connect (settings_keyboard, "changed",
-				  (GCallback) apply_xkb_settings, NULL);
+	settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
+	settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
+	g_signal_connect (settings_desktop, "changed",
+			  (GCallback) apply_desktop_settings,
+			  NULL);
+	g_signal_connect (settings_keyboard, "changed",
+			  (GCallback) apply_xkb_settings, NULL);
 
-		gdk_window_add_filter (NULL, (GdkFilterFunc)
-				       gsd_keyboard_xkb_evt_filter, NULL);
+	gdk_window_add_filter (NULL, (GdkFilterFunc)
+			       gsd_keyboard_xkb_evt_filter, NULL);
 
-		if (xkl_engine_get_features (xkl_engine) &
-		    XKLF_DEVICE_DISCOVERY)
-			g_signal_connect (xkl_engine, "X-new-device",
-					  G_CALLBACK
-					  (gsd_keyboard_new_device), NULL);
+	if (xkl_engine_get_features (xkl_engine) &
+	    XKLF_DEVICE_DISCOVERY)
+		g_signal_connect (xkl_engine, "X-new-device",
+				  G_CALLBACK
+				  (gsd_keyboard_new_device), NULL);
 
-		gnome_settings_profile_start ("xkl_engine_start_listen");
-		xkl_engine_start_listen (xkl_engine,
-					 XKLL_MANAGE_LAYOUTS |
-					 XKLL_MANAGE_WINDOW_STATES);
-		gnome_settings_profile_end ("xkl_engine_start_listen");
+	gnome_settings_profile_start ("xkl_engine_start_listen");
+	xkl_engine_start_listen (xkl_engine,
+				 XKLL_MANAGE_LAYOUTS |
+				 XKLL_MANAGE_WINDOW_STATES);
+	gnome_settings_profile_end ("xkl_engine_start_listen");
 
-		gnome_settings_profile_start ("apply_desktop_settings");
-		apply_desktop_settings ();
-		gnome_settings_profile_end ("apply_desktop_settings");
-		gnome_settings_profile_start ("apply_xkb_settings");
-		apply_xkb_settings ();
-		gnome_settings_profile_end ("apply_xkb_settings");
-	}
+	gnome_settings_profile_start ("apply_desktop_settings");
+	apply_desktop_settings ();
+	gnome_settings_profile_end ("apply_desktop_settings");
+	gnome_settings_profile_start ("apply_xkb_settings");
+	apply_xkb_settings ();
+	gnome_settings_profile_end ("apply_xkb_settings");
+
 	preview_dialogs = g_hash_table_new (g_direct_hash, g_direct_equal);
 
 	gnome_settings_profile_end (NULL);
