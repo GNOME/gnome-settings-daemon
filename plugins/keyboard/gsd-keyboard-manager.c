@@ -74,7 +74,6 @@ struct GsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
         GSettings *settings;
-        gboolean   have_xkb;
         gint       xkb_event_base;
         GsdNumLockState old_state;
         GdkDeviceManager *device_manager;
@@ -639,7 +638,7 @@ apply_settings (GSettings          *settings,
 
         manager->priv->old_state = g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE);
 
-        if (manager->priv->have_xkb && rnumlock)
+        if (rnumlock)
                 numlock_set_xkb_state (manager->priv->old_state);
 
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
@@ -705,10 +704,8 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 	manager->priv->settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
 	manager->priv->settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
 
-	if (manager->priv->have_xkb) {
-		gsd_keyboard_xkb_init (manager);
-		numlock_xkb_init (manager);
-	}
+	gsd_keyboard_xkb_init (manager);
+	numlock_xkb_init (manager);
 
 	set_devicepresence_handler (manager);
 
@@ -722,8 +719,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 	g_signal_connect (manager->priv->settings_keyboard, "changed",
 			  (GCallback) xkb_settings_changed, manager);
 
-	if (manager->priv->have_xkb)
-		install_xkb_filter (manager);
+	install_xkb_filter (manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -781,8 +777,7 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
                 p->popup_menu = NULL;
 	}
 
-	if (p->have_xkb)
-		remove_xkb_filter (manager);
+	remove_xkb_filter (manager);
 
 	if (p->xkl_registry != NULL) {
 		g_object_unref (p->xkl_registry);
