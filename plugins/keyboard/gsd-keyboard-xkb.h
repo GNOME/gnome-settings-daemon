@@ -30,10 +30,4 @@
 void gsd_keyboard_xkb_init (GsdKeyboardManager *manager);
 void gsd_keyboard_xkb_shutdown (void);
 
-typedef void (*PostActivationCallback) (void *userData);
-
-void
-gsd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
-                                               void                  *userData);
-
 #endif

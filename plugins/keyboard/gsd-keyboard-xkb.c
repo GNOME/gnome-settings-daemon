@@ -58,9 +58,6 @@ static gboolean inited_ok = FALSE;
 static GSettings *settings_desktop = NULL;
 static GSettings *settings_keyboard = NULL;
 
-static PostActivationCallback pa_callback = NULL;
-static void *pa_callback_user_data = NULL;
-
 static GtkStatusIcon *icon = NULL;
 
 static GHashTable *preview_dialogs = NULL;
@@ -322,11 +319,6 @@ try_activating_xkb_config_if_new (GkbdKeyboardConfig *
 	if (!gkbd_keyboard_config_equals
 	    (&current_kbd_config, current_sys_kbd_config)) {
 		if (gkbd_keyboard_config_activate (&current_kbd_config)) {
-			if (pa_callback != NULL) {
-				(*pa_callback) (pa_callback_user_data);
-				return TRUE;
-			}
-		} else {
 			return FALSE;
 		}
 	}
@@ -432,14 +424,6 @@ gsd_keyboard_xkb_analyze_sysconfig (void)
 						  NULL);
 }
 
-void
-gsd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
-					       void *user_data)
-{
-	pa_callback = fun;
-	pa_callback_user_data = user_data;
-}
-
 static GdkFilterReturn
 gsd_keyboard_xkb_evt_filter (GdkXEvent * xev, GdkEvent * event)
 {
@@ -521,8 +505,6 @@ gsd_keyboard_xkb_shutdown (void)
 	if (!inited_ok)
 		return;
 
-	pa_callback = NULL;
-	pa_callback_user_data = NULL;
 	manager = NULL;
 
 	if (preview_dialogs != NULL)
