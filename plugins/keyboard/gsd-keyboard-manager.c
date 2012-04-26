@@ -483,30 +483,6 @@ gsd_keyboard_xkb_init (GsdKeyboardManager *manager)
 	gnome_settings_profile_end (NULL);
 }
 
-static void
-gsd_keyboard_xkb_shutdown (GsdKeyboardManager *manager)
-{
-	if (manager->priv->xkl_engine == NULL)
-		return;
-
-	xkl_engine_stop_listen (manager->priv->xkl_engine,
-				XKLL_MANAGE_LAYOUTS |
-				XKLL_MANAGE_WINDOW_STATES);
-
-	g_object_unref (manager->priv->settings_desktop);
-	manager->priv->settings_desktop = NULL;
-	g_object_unref (manager->priv->settings_keyboard);
-	manager->priv->settings_keyboard = NULL;
-
-	if (manager->priv->xkl_registry) {
-		g_object_unref (manager->priv->xkl_registry);
-	}
-
-	g_object_unref (manager->priv->xkl_engine);
-
-	manager->priv->xkl_engine = NULL;
-}
-
 static gboolean
 xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
 {
@@ -791,6 +767,14 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
                 g_object_unref (p->settings);
                 p->settings = NULL;
         }
+        if (p->settings_desktop != NULL) {
+		g_object_unref (p->settings_desktop);
+		p->settings_desktop = NULL;
+	}
+	if (p->settings_keyboard != NULL) {
+		g_object_unref (p->settings_keyboard);
+		p->settings_keyboard = NULL;
+	}
 
         if (p->device_manager != NULL) {
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
@@ -798,14 +782,25 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
                 p->device_manager = NULL;
         }
 
-        if (manager->priv->popup_menu != NULL) {
-                gtk_widget_destroy (GTK_WIDGET (manager->priv->popup_menu));
-                manager->priv->popup_menu = NULL;
+        if (p->popup_menu != NULL) {
+                gtk_widget_destroy (GTK_WIDGET (p->popup_menu));
+                p->popup_menu = NULL;
 	}
 
-	if (manager->priv->have_xkb)
+	if (p->have_xkb)
 		remove_xkb_filter (manager);
-        gsd_keyboard_xkb_shutdown (manager);
+
+	if (p->xkl_registry != NULL) {
+		g_object_unref (p->xkl_registry);
+		p->xkl_registry = NULL;
+	}
+
+	if (p->xkl_engine != NULL) {
+		xkl_engine_stop_listen (p->xkl_engine,
+					XKLL_MANAGE_LAYOUTS | XKLL_MANAGE_WINDOW_STATES);
+		g_object_unref (p->xkl_engine);
+		p->xkl_engine = NULL;
+	}
 }
 
 static GObject *
