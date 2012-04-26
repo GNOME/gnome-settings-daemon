@@ -528,9 +528,6 @@ numlock_xkb_init (GsdKeyboardManager *manager)
 {
         Display *dpy;
 
-	if (manager->priv->have_xkb == FALSE)
-		return;
-
         dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
         XkbSelectEventDetails (dpy,
                                XkbUseCoreKbd,
