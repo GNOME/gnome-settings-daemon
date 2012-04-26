@@ -50,6 +50,7 @@
 
 #include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
+#include "gsd-input-helper.h"
 #include "gsd-enums.h"
 #include "delayed-dialog.h"
 
@@ -76,6 +77,9 @@ struct GsdKeyboardManagerPrivate
         gboolean   have_xkb;
         gint       xkb_event_base;
         GsdNumLockState old_state;
+        GdkDeviceManager *device_manager;
+        guint device_added_id;
+        guint device_removed_id;
 
         /* XKB */
 	XklEngine *xkl_engine;
@@ -438,15 +442,6 @@ gsd_keyboard_xkb_evt_filter (GdkXEvent * xev, GdkEvent * event, GsdKeyboardManag
 	return GDK_FILTER_CONTINUE;
 }
 
-/* When new Keyboard is plugged in - reload the settings */
-static void
-gsd_keyboard_new_device (XklEngine          *engine,
-			 GsdKeyboardManager *manager)
-{
-	apply_desktop_settings (manager);
-	apply_xkb_settings (manager);
-}
-
 static void
 gsd_keyboard_xkb_init (GsdKeyboardManager *manager)
 {
@@ -472,12 +467,6 @@ gsd_keyboard_xkb_init (GsdKeyboardManager *manager)
 
 	gdk_window_add_filter (NULL, (GdkFilterFunc)
 			       gsd_keyboard_xkb_evt_filter, manager);
-
-	if (xkl_engine_get_features (manager->priv->xkl_engine) &
-	    XKLF_DEVICE_DISCOVERY)
-		g_signal_connect (manager->priv->xkl_engine, "X-new-device",
-				  G_CALLBACK
-				  (gsd_keyboard_new_device), manager);
 
 	gnome_settings_profile_start ("xkl_engine_start_listen");
 	xkl_engine_start_listen (manager->priv->xkl_engine,
@@ -711,6 +700,48 @@ gsd_keyboard_manager_apply_settings (GsdKeyboardManager *manager)
         apply_settings (manager->priv->settings, NULL, manager);
 }
 
+static void
+device_added_cb (GdkDeviceManager   *device_manager,
+                 GdkDevice          *device,
+                 GsdKeyboardManager *manager)
+{
+        GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_KEYBOARD) {
+                apply_desktop_settings (manager);
+                apply_xkb_settings (manager);
+                run_custom_command (device, COMMAND_DEVICE_ADDED);
+        }
+}
+
+static void
+device_removed_cb (GdkDeviceManager   *device_manager,
+                   GdkDevice          *device,
+                   GsdKeyboardManager *manager)
+{
+        GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_KEYBOARD) {
+                run_custom_command (device, COMMAND_DEVICE_REMOVED);
+        }
+}
+
+static void
+set_devicepresence_handler (GsdKeyboardManager *manager)
+{
+        GdkDeviceManager *device_manager;
+
+        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+
+        manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
+                                                           G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
+                                                             G_CALLBACK (device_removed_cb), manager);
+        manager->priv->device_manager = device_manager;
+}
+
 static gboolean
 start_keyboard_idle_cb (GsdKeyboardManager *manager)
 {
@@ -725,6 +756,8 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 		gsd_keyboard_xkb_init (manager);
 		numlock_xkb_init (manager);
 	}
+
+	set_devicepresence_handler (manager);
 
         /* apply current settings before we install the callback */
         gsd_keyboard_manager_apply_settings (manager);
@@ -764,6 +797,12 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
         if (p->settings != NULL) {
                 g_object_unref (p->settings);
                 p->settings = NULL;
+        }
+
+        if (p->device_manager != NULL) {
+                g_signal_handler_disconnect (p->device_manager, p->device_added_id);
+                g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
+                p->device_manager = NULL;
         }
 
         numlock_remove_xkb_callback (manager);

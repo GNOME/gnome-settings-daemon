@@ -27,6 +27,7 @@ libkeyboard_la_SOURCES = 	\
 libkeyboard_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/data				\
+	-I$(top_srcdir)/plugins/common			\
 	-DDATADIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
@@ -41,10 +42,11 @@ libkeyboard_la_LDFLAGS = 	\
 	$(GSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
-libkeyboard_la_LIBADD  = 	\
-	$(SETTINGS_PLUGIN_LIBS)	\
-	$(XF86MISC_LIBS)	\
-	$(KEYBOARD_LIBS)	\
+libkeyboard_la_LIBADD  =				\
+	$(top_builddir)/plugins/common/libcommon.la	\
+	$(SETTINGS_PLUGIN_LIBS)				\
+	$(XF86MISC_LIBS)				\
+	$(KEYBOARD_LIBS)				\
 	$(NULL)
 
 noinst_PROGRAMS = test-keyboard
@@ -55,7 +57,7 @@ test_keyboard_SOURCES =		\
 	delayed-dialog.h	\
 	delayed-dialog.c
 test_keyboard_CFLAGS = $(libkeyboard_la_CFLAGS)
-test_keyboard_CPPFLAGS = $(libkeyboard_la_CPPFLAGS) -I$(top_srcdir)/plugins/common
+test_keyboard_CPPFLAGS = $(libkeyboard_la_CPPFLAGS)
 test_keyboard_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
 
 plugin_in_files = 		\
