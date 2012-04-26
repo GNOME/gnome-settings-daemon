@@ -56,8 +56,6 @@ static GSettings *settings_keyboard = NULL;
 
 static GtkStatusIcon *icon = NULL;
 
-static GHashTable *preview_dialogs = NULL;
-
 static void
 activation_error (void)
 {
@@ -151,12 +149,6 @@ popup_menu_launch_capplet ()
 		g_object_unref (ctx);
 	}
 
-}
-
-static void
-show_layout_destroy (GtkWidget * dialog, gint group)
-{
-	g_hash_table_remove (preview_dialogs, GINT_TO_POINTER (group));
 }
 
 static void
@@ -458,8 +450,6 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 	apply_xkb_settings ();
 	gnome_settings_profile_end ("apply_xkb_settings");
 
-	preview_dialogs = g_hash_table_new (g_direct_hash, g_direct_equal);
-
 	gnome_settings_profile_end (NULL);
 }
 
@@ -470,9 +460,6 @@ gsd_keyboard_xkb_shutdown (void)
 		return;
 
 	manager = NULL;
-
-	if (preview_dialogs != NULL)
-		g_hash_table_destroy (preview_dialogs);
 
 	xkl_engine_stop_listen (xkl_engine,
 				XKLL_MANAGE_LAYOUTS |
