@@ -480,8 +480,9 @@ check_xkb_extension (GsdKeyboardManager *manager)
 {
         Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
         int opcode, error_base, major, minor;
+        gboolean have_xkb;
 
-        manager->priv->have_xkb = XkbQueryExtension (dpy,
+        have_xkb = XkbQueryExtension (dpy,
                                       &opcode,
                                       &manager->priv->xkb_event_base,
                                       &error_base,
@@ -489,7 +490,7 @@ check_xkb_extension (GsdKeyboardManager *manager)
                                       &minor)
                 && XkbUseExtension (dpy, &major, &minor);
 
-        return manager->priv->have_xkb;
+        return have_xkb;
 }
 
 static void
@@ -736,6 +737,11 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
                             GError            **error)
 {
         gnome_settings_profile_start (NULL);
+
+	if (check_xkb_extension (manager) == FALSE) {
+		g_debug ("XKB is not supported, not applying any settings");
+		return TRUE;
+	}
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
 
