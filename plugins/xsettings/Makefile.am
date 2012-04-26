@@ -40,7 +40,7 @@ test_xsettings_SOURCES = \
 	test-xsettings.c
 
 test_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
-test_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS)
+test_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS) -I$(top_srcdir)/plugins/common
 test_xsettings_LDADD = $(test_gtk_modules_LDADD)
 
 plugin_LTLIBRARIES = \

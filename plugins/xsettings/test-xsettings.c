@@ -1,26 +1,6 @@
-#include "config.h"
-
+#define NEW gnome_xsettings_manager_new
+#define START gnome_xsettings_manager_start
+#define MANAGER GnomeXSettingsManager
 #include "gsd-xsettings-manager.h"
-#include <glib/gi18n.h>
-#include <gtk/gtk.h>
 
-int
-main (void)
-{
-  GnomeXSettingsManager *manager;
-  GError *error = NULL;
-
-  bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
-  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-  textdomain (GETTEXT_PACKAGE);
-
-  gtk_init (NULL, NULL);
-
-  manager = gnome_xsettings_manager_new ();
-  gnome_xsettings_manager_start (manager, &error);
-  g_assert_no_error (error);
-
-  gtk_main ();
-
-  return 0;
-}
+#include "test-plugin.h"
