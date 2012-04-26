@@ -128,27 +128,21 @@ popup_menu_launch_capplet ()
 	GdkAppLaunchContext *ctx;
 	GError *error = NULL;
 
-	info =
-	    g_app_info_create_from_commandline
-	    ("gnome-control-center region", NULL, 0, &error);
+	info = g_app_info_create_from_commandline ("gnome-control-center region", NULL, 0, NULL);
+	if (info == NULL)
+		return;
 
-	if (info != NULL) {
-		ctx =
-		    gdk_display_get_app_launch_context
-		    (gdk_display_get_default ());
+	ctx = gdk_display_get_app_launch_context (gdk_display_get_default ());
 
-		if (g_app_info_launch (info, NULL,
-				   G_APP_LAUNCH_CONTEXT (ctx), &error) == FALSE) {
-			g_warning
-				("Could not execute keyboard properties capplet: [%s]\n",
-				 error->message);
-			g_error_free (error);
-		}
-
-		g_object_unref (info);
-		g_object_unref (ctx);
+	if (g_app_info_launch (info, NULL,
+			       G_APP_LAUNCH_CONTEXT (ctx), &error) == FALSE) {
+		g_warning ("Could not execute keyboard properties capplet: [%s]\n",
+			   error->message);
+		g_error_free (error);
 	}
 
+	g_object_unref (info);
+	g_object_unref (ctx);
 }
 
 static void
