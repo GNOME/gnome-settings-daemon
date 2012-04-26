@@ -261,7 +261,7 @@ popup_menu_show_layout (GtkMenuItem *menuitem,
 	if (xkl_state->group < 0)
 		return;
 
-	command = g_strdup_printf ("gkbd-keyboard-display -g %d", xkl_state->group);
+	command = g_strdup_printf ("gkbd-keyboard-display -g %d", xkl_state->group + 1);
 	g_spawn_command_line_async (command, NULL);
 	g_free (command);
 }
