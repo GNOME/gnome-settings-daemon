@@ -40,8 +40,6 @@
 #include "delayed-dialog.h"
 #include "gnome-settings-profile.h"
 
-#define SETTINGS_KEYBOARD_DIR "org.gnome.settings-daemon.plugins.keyboard"
-
 static GsdKeyboardManager *manager = NULL;
 
 static XklEngine *xkl_engine;
