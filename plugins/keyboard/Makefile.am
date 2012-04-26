@@ -20,8 +20,6 @@ libkeyboard_la_SOURCES = 	\
 	gsd-keyboard-plugin.c	\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\
-	gsd-keyboard-xkb.h	\
-	gsd-keyboard-xkb.c	\
 	delayed-dialog.h	\
 	delayed-dialog.c	\
 	$(NULL)
@@ -54,8 +52,6 @@ test_keyboard_SOURCES =		\
 	test-keyboard.c		\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\
-	gsd-keyboard-xkb.h	\
-	gsd-keyboard-xkb.c	\
 	delayed-dialog.h	\
 	delayed-dialog.c
 test_keyboard_CFLAGS = $(libkeyboard_la_CFLAGS)

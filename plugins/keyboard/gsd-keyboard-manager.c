@@ -2,6 +2,7 @@
  *
  * Copyright © 2001 Ximian, Inc.
  * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
+ * Written by Sergey V. Oudaltsov <svu@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,11 +41,17 @@
 #include <X11/XKBlib.h>
 #include <X11/keysym.h>
 
+#include <libxklavier/xklavier.h>
+#include <libgnomekbd/gkbd-status.h>
+#include <libgnomekbd/gkbd-keyboard-drawing.h>
+#include <libgnomekbd/gkbd-desktop-config.h>
+#include <libgnomekbd/gkbd-keyboard-config.h>
+#include <libgnomekbd/gkbd-util.h>
+
 #include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
 #include "gsd-enums.h"
-
-#include "gsd-keyboard-xkb.h"
+#include "delayed-dialog.h"
 
 #define GSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerPrivate))
 
@@ -62,8 +69,6 @@
 #define KEY_BELL_DURATION  "bell-duration"
 #define KEY_BELL_MODE      "bell-mode"
 
-
-
 struct GsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
@@ -71,6 +76,19 @@ struct GsdKeyboardManagerPrivate
         gboolean   have_xkb;
         gint       xkb_event_base;
         GsdNumLockState old_state;
+
+        /* XKB */
+	XklEngine *xkl_engine;
+	XklConfigRegistry *xkl_registry;
+
+	GkbdDesktopConfig current_config;
+	GkbdKeyboardConfig current_kbd_config;
+
+	GkbdKeyboardConfig initial_sys_kbd_config;
+	GSettings *settings_desktop;
+	GSettings *settings_keyboard;
+
+	GtkStatusIcon *icon;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
@@ -80,6 +98,429 @@ static void     gsd_keyboard_manager_finalize    (GObject                 *objec
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static gboolean try_activating_xkb_config_if_new (GsdKeyboardManager *manager,
+						  GkbdKeyboardConfig *current_sys_kbd_config);
+static gboolean filter_xkb_config (GsdKeyboardManager *manager);
+static void show_hide_icon (GsdKeyboardManager *manager);
+
+static void
+activation_error (void)
+{
+	char const *vendor;
+	GtkWidget *dialog;
+
+	vendor =
+	    ServerVendor (GDK_DISPLAY_XDISPLAY
+			  (gdk_display_get_default ()));
+
+	/* VNC viewers will not work, do not barrage them with warnings */
+	if (NULL != vendor && NULL != strstr (vendor, "VNC"))
+		return;
+
+	dialog = gtk_message_dialog_new_with_markup (NULL,
+						     0,
+						     GTK_MESSAGE_ERROR,
+						     GTK_BUTTONS_CLOSE,
+						     _
+						     ("Error activating XKB configuration.\n"
+						      "There can be various reasons for that.\n\n"
+						      "If you report this situation as a bug, include the results of\n"
+						      " • <b>%s</b>\n"
+						      " • <b>%s</b>\n"
+						      " • <b>%s</b>\n"
+						      " • <b>%s</b>"),
+						     "xprop -root | grep XKB",
+						     "gsettings get org.gnome.libgnomekbd.keyboard model",
+						     "gsettings get org.gnome.libgnomekbd.keyboard layouts",
+						     "gsettings get org.gnome.libgnomekbd.keyboard options");
+	g_signal_connect (dialog, "response",
+			  G_CALLBACK (gtk_widget_destroy), NULL);
+	gsd_delayed_show_dialog (dialog);
+}
+
+static gboolean
+ensure_manager_xkl_registry (GsdKeyboardManager *manager)
+{
+	if (!manager->priv->xkl_registry) {
+		manager->priv->xkl_registry =
+		    xkl_config_registry_get_instance (manager->priv->xkl_engine);
+		/* load all materials, unconditionally! */
+		if (!xkl_config_registry_load (manager->priv->xkl_registry, TRUE)) {
+			g_object_unref (manager->priv->xkl_registry);
+			manager->priv->xkl_registry = NULL;
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
+static void
+apply_desktop_settings (GsdKeyboardManager *manager)
+{
+	if (manager->priv->xkl_engine == NULL)
+		return;
+
+	gsd_keyboard_manager_apply_settings (manager);
+	gkbd_desktop_config_load (&manager->priv->current_config);
+	/* again, probably it would be nice to compare things
+	   before activating them */
+	gkbd_desktop_config_activate (&manager->priv->current_config);
+}
+
+static void
+apply_xkb_settings (GsdKeyboardManager *manager)
+{
+	GkbdKeyboardConfig current_sys_kbd_config;
+
+	if (manager->priv->xkl_engine == NULL)
+		return;
+
+	gkbd_keyboard_config_init (&current_sys_kbd_config, manager->priv->xkl_engine);
+
+	gkbd_keyboard_config_load (&manager->priv->current_kbd_config,
+				   &manager->priv->initial_sys_kbd_config);
+
+	gkbd_keyboard_config_load_from_x_current (&current_sys_kbd_config,
+						  NULL);
+
+	if (!try_activating_xkb_config_if_new (manager, &current_sys_kbd_config)) {
+		if (filter_xkb_config (manager)) {
+			if (!try_activating_xkb_config_if_new
+			    (manager, &current_sys_kbd_config)) {
+				g_warning
+				    ("Could not activate the filtered XKB configuration");
+				activation_error ();
+			}
+		} else {
+			g_warning
+			    ("Could not activate the XKB configuration");
+			activation_error ();
+		}
+	} else
+		xkl_debug (100,
+			   "Actual KBD configuration was not changed: redundant notification\n");
+
+	gkbd_keyboard_config_term (&current_sys_kbd_config);
+	show_hide_icon (manager);
+}
+
+static void
+desktop_settings_changed (GSettings          *settings,
+			  gchar              *key,
+			  GsdKeyboardManager *manager)
+{
+	apply_desktop_settings (manager);
+}
+
+static void
+xkb_settings_changed (GSettings          *settings,
+		      gchar              *key,
+		      GsdKeyboardManager *manager)
+{
+	apply_xkb_settings (manager);
+}
+
+static void
+popup_menu_launch_capplet (void)
+{
+	GAppInfo *info;
+	GdkAppLaunchContext *ctx;
+	GError *error = NULL;
+
+	info = g_app_info_create_from_commandline ("gnome-control-center region", NULL, 0, NULL);
+	if (info == NULL)
+		return;
+
+	ctx = gdk_display_get_app_launch_context (gdk_display_get_default ());
+
+	if (g_app_info_launch (info, NULL,
+			       G_APP_LAUNCH_CONTEXT (ctx), &error) == FALSE) {
+		g_warning ("Could not execute keyboard properties capplet: [%s]\n",
+			   error->message);
+		g_error_free (error);
+	}
+
+	g_object_unref (info);
+	g_object_unref (ctx);
+}
+
+static void
+popup_menu_show_layout (GtkMenuItem *menuitem,
+			GsdKeyboardManager *manager)
+{
+	XklState *xkl_state;
+	char *command;
+
+	xkl_state = xkl_engine_get_current_state (manager->priv->xkl_engine);
+	if (xkl_state->group < 0)
+		return;
+
+	command = g_strdup_printf ("gkbd-keyboard-display -g %d", xkl_state->group);
+	g_spawn_command_line_async (command, NULL);
+	g_free (command);
+}
+
+static void
+popup_menu_set_group (GtkMenuItem * item, gpointer param)
+{
+	gint group_number = GPOINTER_TO_INT (param);
+	XklEngine *engine = gkbd_status_get_xkl_engine ();
+	XklState st;
+	Window cur;
+
+	st.group = group_number;
+	xkl_engine_allow_one_switch_to_secondary_group (engine);
+	cur = xkl_engine_get_current_window (engine);
+	if (cur != (Window) NULL) {
+		xkl_debug (150, "Enforcing the state %d for window %lx\n",
+			   st.group, cur);
+		xkl_engine_save_state (engine,
+				       xkl_engine_get_current_window
+				       (engine), &st);
+/*    XSetInputFocus( GDK_DISPLAY(), cur, RevertToNone, CurrentTime );*/
+	} else {
+		xkl_debug (150,
+			   "??? Enforcing the state %d for unknown window\n",
+			   st.group);
+		/* strange situation - bad things can happen */
+	}
+	xkl_engine_lock_group (engine, st.group);
+}
+
+static void
+status_icon_popup_menu_cb (GtkStatusIcon      *icon,
+			   guint               button,
+			   guint               time,
+			   GsdKeyboardManager *manager)
+{
+	GtkMenu *popup_menu = GTK_MENU (gtk_menu_new ());
+	GtkMenu *groups_menu = GTK_MENU (gtk_menu_new ());
+	int i = 0;
+	gchar **current_name = gkbd_status_get_group_names ();
+
+	GtkWidget *item = gtk_menu_item_new_with_mnemonic (_("_Layouts"));
+	gtk_widget_show (item);
+	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (item),
+				   GTK_WIDGET (groups_menu));
+
+	item = gtk_menu_item_new_with_mnemonic (_("Show _Keyboard Layout..."));
+	gtk_widget_show (item);
+	g_signal_connect (item, "activate", G_CALLBACK (popup_menu_show_layout), manager);
+	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
+
+	/* translators note:
+	 * This is the name of the gnome-control-center "region" panel */
+	item = gtk_menu_item_new_with_mnemonic (_("Region and Language Settings"));
+	gtk_widget_show (item);
+	g_signal_connect (item, "activate", popup_menu_launch_capplet, NULL);
+	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
+
+	for (i = 0; *current_name; i++, current_name++) {
+		item = gtk_menu_item_new_with_label (*current_name);
+		gtk_widget_show (item);
+		gtk_menu_shell_append (GTK_MENU_SHELL (groups_menu), item);
+		g_signal_connect (item, "activate",
+				  G_CALLBACK (popup_menu_set_group),
+				  GINT_TO_POINTER (i));
+	}
+
+	gtk_menu_popup (popup_menu, NULL, NULL,
+			gtk_status_icon_position_menu,
+			(gpointer) icon, button, time);
+}
+
+static void
+show_hide_icon (GsdKeyboardManager *manager)
+{
+	if (g_strv_length (manager->priv->current_kbd_config.layouts_variants) > 1) {
+		if (manager->priv->icon == NULL) {
+			xkl_debug (150, "Creating keyboard status icon\n");
+			manager->priv->icon = gkbd_status_new ();
+			g_signal_connect (manager->priv->icon, "popup-menu",
+					  G_CALLBACK
+					  (status_icon_popup_menu_cb),
+					  manager);
+
+		}
+	} else {
+		if (manager->priv->icon != NULL) {
+			xkl_debug (150, "Destroying icon\n");
+			g_object_unref (manager->priv->icon);
+			manager->priv->icon = NULL;
+		}
+	}
+}
+
+static gboolean
+try_activating_xkb_config_if_new (GsdKeyboardManager *manager,
+				  GkbdKeyboardConfig *current_sys_kbd_config)
+{
+	/* Activate - only if different! */
+	if (!gkbd_keyboard_config_equals
+	    (&manager->priv->current_kbd_config, current_sys_kbd_config)) {
+		if (gkbd_keyboard_config_activate (&manager->priv->current_kbd_config)) {
+			return FALSE;
+		}
+	}
+	gkbd_keyboard_config_patch (&manager->priv->current_kbd_config);
+	return TRUE;
+}
+
+static gboolean
+filter_xkb_config (GsdKeyboardManager *manager)
+{
+	XklConfigItem *item;
+	gchar *lname;
+	gchar *vname;
+	gchar **lv;
+	gboolean any_change = FALSE;
+
+	xkl_debug (100, "Filtering configuration against the registry\n");
+	if (!ensure_manager_xkl_registry (manager))
+		return FALSE;
+
+	lv = manager->priv->current_kbd_config.layouts_variants;
+	item = xkl_config_item_new ();
+	while (*lv) {
+		xkl_debug (100, "Checking [%s]\n", *lv);
+		if (gkbd_keyboard_config_split_items (*lv, &lname, &vname)) {
+			gboolean should_be_dropped = FALSE;
+			g_snprintf (item->name, sizeof (item->name), "%s",
+				    lname);
+			if (!xkl_config_registry_find_layout
+			    (manager->priv->xkl_registry, item)) {
+				xkl_debug (100, "Bad layout [%s]\n",
+					   lname);
+				should_be_dropped = TRUE;
+			} else if (vname) {
+				g_snprintf (item->name,
+					    sizeof (item->name), "%s",
+					    vname);
+				if (!xkl_config_registry_find_variant
+				    (manager->priv->xkl_registry, lname, item)) {
+					xkl_debug (100,
+						   "Bad variant [%s(%s)]\n",
+						   lname, vname);
+					should_be_dropped = TRUE;
+				}
+			}
+			if (should_be_dropped) {
+				gkbd_strv_behead (lv);
+				any_change = TRUE;
+				continue;
+			}
+		}
+		lv++;
+	}
+	g_object_unref (item);
+	return any_change;
+}
+
+static void
+gsd_keyboard_xkb_analyze_sysconfig (GsdKeyboardManager *manager)
+{
+	if (manager->priv->xkl_engine == NULL)
+		return;
+
+	gkbd_keyboard_config_init (&manager->priv->initial_sys_kbd_config, manager->priv->xkl_engine);
+	gkbd_keyboard_config_load_from_x_initial (&manager->priv->initial_sys_kbd_config,
+						  NULL);
+}
+
+static GdkFilterReturn
+gsd_keyboard_xkb_evt_filter (GdkXEvent * xev, GdkEvent * event, GsdKeyboardManager *manager)
+{
+	XEvent *xevent = (XEvent *) xev;
+	xkl_engine_filter_events (manager->priv->xkl_engine, xevent);
+	return GDK_FILTER_CONTINUE;
+}
+
+/* When new Keyboard is plugged in - reload the settings */
+static void
+gsd_keyboard_new_device (XklEngine          *engine,
+			 GsdKeyboardManager *manager)
+{
+	apply_desktop_settings (manager);
+	apply_xkb_settings (manager);
+}
+
+static void
+gsd_keyboard_xkb_init (GsdKeyboardManager *manager)
+{
+	Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+
+	manager->priv->xkl_engine = xkl_engine_get_instance (dpy);
+	if (!manager->priv->xkl_engine)
+		return;
+
+	gkbd_desktop_config_init (&manager->priv->current_config, manager->priv->xkl_engine);
+	gkbd_keyboard_config_init (&manager->priv->current_kbd_config,
+				   manager->priv->xkl_engine);
+	xkl_engine_backup_names_prop (manager->priv->xkl_engine);
+	gsd_keyboard_xkb_analyze_sysconfig (manager);
+
+	manager->priv->settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
+	manager->priv->settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
+	g_signal_connect (manager->priv->settings_desktop, "changed",
+			  (GCallback) desktop_settings_changed,
+			  manager);
+	g_signal_connect (manager->priv->settings_keyboard, "changed",
+			  (GCallback) xkb_settings_changed, manager);
+
+	gdk_window_add_filter (NULL, (GdkFilterFunc)
+			       gsd_keyboard_xkb_evt_filter, manager);
+
+	if (xkl_engine_get_features (manager->priv->xkl_engine) &
+	    XKLF_DEVICE_DISCOVERY)
+		g_signal_connect (manager->priv->xkl_engine, "X-new-device",
+				  G_CALLBACK
+				  (gsd_keyboard_new_device), manager);
+
+	gnome_settings_profile_start ("xkl_engine_start_listen");
+	xkl_engine_start_listen (manager->priv->xkl_engine,
+				 XKLL_MANAGE_LAYOUTS |
+				 XKLL_MANAGE_WINDOW_STATES);
+	gnome_settings_profile_end ("xkl_engine_start_listen");
+
+	gnome_settings_profile_start ("apply_desktop_settings");
+	apply_desktop_settings (manager);
+	gnome_settings_profile_end ("apply_desktop_settings");
+	gnome_settings_profile_start ("apply_xkb_settings");
+	apply_xkb_settings (manager);
+	gnome_settings_profile_end ("apply_xkb_settings");
+
+	gnome_settings_profile_end (NULL);
+}
+
+static void
+gsd_keyboard_xkb_shutdown (GsdKeyboardManager *manager)
+{
+	if (manager->priv->xkl_engine == NULL)
+		return;
+
+	xkl_engine_stop_listen (manager->priv->xkl_engine,
+				XKLL_MANAGE_LAYOUTS |
+				XKLL_MANAGE_WINDOW_STATES);
+
+	gdk_window_remove_filter (NULL, (GdkFilterFunc)
+				  gsd_keyboard_xkb_evt_filter, manager);
+
+	g_object_unref (manager->priv->settings_desktop);
+	manager->priv->settings_desktop = NULL;
+	g_object_unref (manager->priv->settings_keyboard);
+	manager->priv->settings_keyboard = NULL;
+
+	if (manager->priv->xkl_registry) {
+		g_object_unref (manager->priv->xkl_registry);
+	}
+
+	g_object_unref (manager->priv->xkl_engine);
+
+	manager->priv->xkl_engine = NULL;
+}
 
 static gboolean
 xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
@@ -326,7 +767,7 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
         }
 
         numlock_remove_xkb_callback (manager);
-        gsd_keyboard_xkb_shutdown ();
+        gsd_keyboard_xkb_shutdown (manager);
 }
 
 static GObject *
