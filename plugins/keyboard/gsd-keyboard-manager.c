@@ -62,6 +62,8 @@
 #define KEY_BELL_DURATION  "bell-duration"
 #define KEY_BELL_MODE      "bell-mode"
 
+
+
 struct GsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
