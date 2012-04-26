@@ -58,6 +58,7 @@ test_print_notifications_SOURCES =		\
 
 test_print_notifications_CPPFLAGS =				\
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" 	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
