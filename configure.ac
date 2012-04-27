@@ -197,15 +197,22 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
 
 dnl ---------------------------------------------------------------------------
-dnl - wacom (disabled for s390/s390x)
+dnl - wacom (disabled for s390/s390x and non Linux platforms)
 dnl ---------------------------------------------------------------------------
 
-if test "$host_cpu" = s390 -o "$host_cpu" = s390x; then
+case $host_os in
+  linux*)
+    if test "$host_cpu" = s390 -o "$host_cpu" = s390x; then
+      have_wacom=no
+    else
+      PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst $GUDEV_PKG gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION xorg-wacom])
+      have_wacom=yes
+    fi
+    ;;
+  *)
     have_wacom=no
-else
-    PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst $GUDEV_PKG gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION xorg-wacom])
-    have_wacom=yes
-fi
+    ;;
+esac
 AM_CONDITIONAL(HAVE_WACOM, test x$have_wacom = xyes)
 
 dnl ==============================================
