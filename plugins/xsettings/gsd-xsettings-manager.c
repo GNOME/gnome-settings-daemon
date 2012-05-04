@@ -884,15 +884,13 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
 
         list = g_hash_table_get_values (manager->priv->settings);
         for (l = list; l != NULL; l = l->next) {
-                g_signal_connect (G_OBJECT (l->data), "changed",
-                                  G_CALLBACK (xsettings_callback), manager);
+                g_signal_connect_object (G_OBJECT (l->data), "changed", G_CALLBACK (xsettings_callback), manager, 0);
         }
         g_list_free (list);
 
         /* Plugin settings (GTK modules and Xft) */
         manager->priv->plugin_settings = g_settings_new (XSETTINGS_PLUGIN_SCHEMA);
-        g_signal_connect (manager->priv->plugin_settings, "changed",
-                          G_CALLBACK (plugin_callback), manager);
+        g_signal_connect_object (manager->priv->plugin_settings, "changed", G_CALLBACK (plugin_callback), manager, 0);
 
         manager->priv->gtk = gsd_xsettings_gtk_new ();
         g_signal_connect (G_OBJECT (manager->priv->gtk), "notify::gtk-modules",

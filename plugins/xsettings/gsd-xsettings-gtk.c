@@ -129,8 +129,7 @@ process_desktop_file (const char      *path,
                 g_object_set_data_full (G_OBJECT (settings), "module-name", g_strdup (module_name), (GDestroyNotify) g_free);
 
                 signal = g_strdup_printf ("changed::%s", key);
-                g_signal_connect (G_OBJECT (settings), signal,
-                                  G_CALLBACK (cond_setting_changed), gtk);
+                g_signal_connect_object (G_OBJECT (settings), signal, G_CALLBACK (cond_setting_changed), gtk, 0);
                 g_free (signal);
                 g_free (schema);
                 g_free (key);
