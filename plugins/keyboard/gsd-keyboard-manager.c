@@ -378,7 +378,6 @@ try_activating_xkb_config_if_new (GsdKeyboardManager *manager,
 			return FALSE;
 		}
 	}
-	gkbd_keyboard_config_patch (&manager->priv->current_kbd_config);
 	return TRUE;
 }
 
