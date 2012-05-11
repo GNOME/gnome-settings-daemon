@@ -57,6 +57,7 @@
 #define KEY_IS_ABSOLUTE         "is-absolute"
 #define KEY_AREA                "area"
 #define KEY_DISPLAY             "display"
+#define KEY_KEEP_ASPECT         "keep-aspect"
 
 /* Stylus and Eraser settings */
 #define KEY_BUTTON_MAPPING      "buttonmapping"
@@ -268,6 +269,115 @@ set_absolute (GsdWacomDevice  *device,
 			 is_absolute ? "Absolute" : "Relative", gsd_wacom_device_get_tool_name (device));
 	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
 }
+
+static void
+compute_aspect_area (gint monitor,
+                     gint *area,
+                     GsdWacomRotation rotation)
+{
+	gint width  = area[2] - area[0];
+	gint height = area[3] - area[1];
+	GdkScreen *screen;
+	GdkRectangle monitor_geometry;
+	float aspect;
+
+	screen = gdk_screen_get_default ();
+	if (monitor < 0) {
+		monitor_geometry.width = gdk_screen_get_width (screen);
+		monitor_geometry.height = gdk_screen_get_height (screen);
+	} else {
+		gdk_screen_get_monitor_geometry (screen, monitor, &monitor_geometry);
+	}
+
+	if (rotation == GSD_WACOM_ROTATION_CW || rotation == GSD_WACOM_ROTATION_CCW)
+		aspect = (float) monitor_geometry.height / (float) monitor_geometry.width;
+	else
+		aspect = (float) monitor_geometry.width / (float) monitor_geometry.height;
+
+	if ((float) width / (float) height > aspect)
+		width = height * aspect;
+	else
+		height = width / aspect;
+
+	switch (rotation)
+	{
+		case GSD_WACOM_ROTATION_NONE:
+			area[2] = area[0] + width;
+			area[3] = area[1] + height;
+			break;
+		case GSD_WACOM_ROTATION_CW:
+			area[0] = area[2] - width;
+			area[3] = area[1] + height;
+			break;
+		case GSD_WACOM_ROTATION_HALF:
+			area[0] = area[2] - width;
+			area[1] = area[3] - height;
+			break;
+		case GSD_WACOM_ROTATION_CCW:
+			area[2] = area[0] + width;
+			area[1] = area[3] - height;
+			break;
+		default:
+			break;
+	}
+}
+
+static void
+set_keep_aspect (GsdWacomDevice *device,
+                 gboolean        keep_aspect)
+{
+        GVariant *values[4], *variant;
+	guint i;
+
+	gint *area;
+	gint monitor = -1;
+	GsdWacomRotation rotation;
+	GSettings *settings;
+
+        settings = gsd_wacom_device_get_settings (device);
+
+        /* Set area to default values for the device */
+	for (i = 0; i < G_N_ELEMENTS (values); i++)
+		values[i] = g_variant_new_int32 (-1);
+	variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
+
+        /* If keep_aspect is not set, just reset the area to default and let
+         * gsettings notification call set_area() for us...
+         */
+	if (!keep_aspect) {
+		g_settings_set_value (settings, KEY_AREA, variant);
+		return;
+        }
+
+        /* Reset the device area to get the default area */
+	set_area (device, variant);
+
+	/* Get current rotation */
+	rotation = g_settings_get_enum (settings, KEY_ROTATION);
+
+	/* Get current area */
+	area = gsd_wacom_device_get_area (device);
+	if (!area) {
+		g_warning("Device area not available.\n");
+		return;
+	}
+
+	/* Get corresponding monitor size */
+	monitor = gsd_wacom_device_get_display_monitor (device);
+
+	/* Adjust area to match the monitor aspect ratio */
+	g_debug ("Initial device area: (%d,%d) (%d,%d)", area[0], area[1], area[2], area[3]);
+	compute_aspect_area (monitor, area, rotation);
+	g_debug ("Adjusted device area: (%d,%d) (%d,%d)", area[0], area[1], area[2], area[3]);
+
+	for (i = 0; i < G_N_ELEMENTS (values); i++)
+		values[i] = g_variant_new_int32 (area[i]);
+	variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
+	g_settings_set_value (settings, KEY_AREA, variant);
+
+	g_free (area);
+}
+
 
 static void
 set_device_buttonmap (GsdWacomDevice *device,
@@ -580,6 +690,8 @@ set_wacom_settings (GsdWacomManager *manager,
 		set_tpcbutton (device, g_settings_get_boolean (settings, KEY_TPCBUTTON));
 
 	set_absolute (device, g_settings_get_boolean (settings, KEY_IS_ABSOLUTE));
+	if (!gsd_wacom_device_is_screen_tablet (device))
+		set_keep_aspect (device, g_settings_get_boolean (settings, KEY_KEEP_ASPECT));
 	set_area (device, g_settings_get_value (settings, KEY_AREA));
 	set_display (device, g_settings_get_value (settings, KEY_DISPLAY));
 
@@ -618,6 +730,11 @@ wacom_settings_changed (GSettings      *settings,
 		if (type != WACOM_TYPE_CURSOR &&
 		    type != WACOM_TYPE_PAD)
 			set_display (device, g_settings_get_value (settings, key));
+	} else if (g_str_equal (key, KEY_KEEP_ASPECT)) {
+		if (type != WACOM_TYPE_CURSOR &&
+		    type != WACOM_TYPE_PAD &&
+		    !gsd_wacom_device_is_screen_tablet (device))
+			set_keep_aspect (device, g_settings_get_boolean (settings, key));
 	} else {
 		g_warning ("Unhandled tablet-wide setting '%s' changed", key);
 	}
