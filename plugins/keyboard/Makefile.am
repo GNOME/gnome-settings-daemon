@@ -20,6 +20,8 @@ libkeyboard_la_SOURCES = 	\
 	gsd-keyboard-plugin.c	\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\
+	xkb-rules-db.c		\
+	xkb-rules-db.h		\
 	$(NULL)
 
 XKBCONFIGROOT=@XKBCONFIGROOT@
@@ -57,6 +59,8 @@ test_keyboard_SOURCES =		\
 	test-keyboard.c		\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\
+	xkb-rules-db.c		\
+	xkb-rules-db.h		\
 	$(NULL)
 
 test_keyboard_CFLAGS = $(libkeyboard_la_CFLAGS)

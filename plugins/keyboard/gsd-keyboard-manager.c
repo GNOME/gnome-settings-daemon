@@ -50,6 +50,7 @@
 #include "gsd-keyboard-manager.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
+#include "xkb-rules-db.h"
 
 #define GSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerPrivate))
 
@@ -296,6 +297,86 @@ upload_xkb_description (gchar                *rules_file,
                 g_warning ("Couldn't update the XKB root window property");
 }
 
+static gchar *
+language_code_from_locale (const gchar *locale)
+{
+        if (!locale || !locale[0] || !locale[1])
+                return NULL;
+
+        if (!locale[2] || locale[2] == '_' || locale[2] == '.')
+                return g_strndup (locale, 2);
+
+        if (!locale[3] || locale[3] == '_' || locale[3] == '.')
+                return g_strndup (locale, 3);
+
+        return NULL;
+}
+
+static void
+replace_layout_and_variant (XkbRF_VarDefsRec *xkb_var_defs,
+                            const gchar      *layout,
+                            const gchar      *variant)
+{
+        /* Toolkits need to know about both a latin layout to handle
+         * accelerators which are usually defined like Ctrl+C and a
+         * layout with the symbols for the language used in UI strings
+         * to handle mnemonics like Alt+Ф, so we try to find and add
+         * them in XKB group slots after the layout which the user
+         * actually intends to type with. */
+        const gchar *latin_layout = "us";
+        const gchar *latin_variant = "";
+        const gchar *locale_layout;
+        const gchar *locale_variant;
+        const gchar *locale = setlocale (LC_MESSAGES, NULL);
+        gchar *language = language_code_from_locale (locale);
+
+        xkb_rules_db_get_layout_info_for_language (language,
+                                                   NULL,
+                                                   NULL,
+                                                   &locale_layout,
+                                                   &locale_variant);
+        g_free (language);
+
+        if ((g_strcmp0 (latin_layout, locale_layout) == 0 &&
+             g_strcmp0 (latin_variant, locale_variant) == 0)
+            ||
+            (g_strcmp0 (latin_layout, layout) == 0 &&
+             g_strcmp0 (latin_variant, variant) == 0)) {
+                latin_layout = NULL;
+                latin_variant = NULL;
+        }
+
+        if (g_strcmp0 (locale_layout, layout) == 0 &&
+            g_strcmp0 (locale_variant, variant) == 0) {
+                locale_layout = NULL;
+                locale_variant = NULL;
+        }
+
+        if (xkb_var_defs->layout)
+                free (xkb_var_defs->layout);
+
+        xkb_var_defs->layout =
+                locale_layout && latin_layout ?
+                g_strdup_printf ("%s,%s,%s", layout, locale_layout, latin_layout) :
+                locale_layout ?
+                g_strdup_printf ("%s,%s", layout, locale_layout) :
+                latin_layout ?
+                g_strdup_printf ("%s,%s", layout, latin_layout) :
+                g_strdup_printf ("%s", layout);
+
+        if (xkb_var_defs->variant)
+                free (xkb_var_defs->variant);
+
+        xkb_var_defs->variant =
+                locale_variant && latin_variant ?
+                g_strdup_printf ("%s,%s,%s", variant, locale_variant, latin_variant) :
+                locale_variant ?
+                g_strdup_printf ("%s,%s", variant, locale_variant) :
+                latin_variant ?
+                g_strdup_printf ("%s,%s", variant, latin_variant) :
+                g_strdup_printf ("%s", variant);
+}
+
 static void
 apply_xkb_layout (GsdKeyboardManager *manager,
                   const gchar        *layout,
@@ -317,13 +398,7 @@ apply_xkb_layout (GsdKeyboardManager *manager,
                                               DFLT_XKB_CONFIG_ROOT,
                                               rules_file);
 
-        /* Replace the layout with our current setting */
-        if (xkb_var_defs->layout)
-                free (xkb_var_defs->layout);
-        xkb_var_defs->layout = strdup (layout);
-        if (xkb_var_defs->variant)
-                free (xkb_var_defs->variant);
-        xkb_var_defs->variant = strdup (variant);
+        replace_layout_and_variant (xkb_var_defs, layout, variant);
 
         xkb_rules = XkbRF_Load (rules_path, "C", True, True);
         if (xkb_rules) {
