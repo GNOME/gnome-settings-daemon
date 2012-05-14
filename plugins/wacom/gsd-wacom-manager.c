@@ -38,6 +38,9 @@
 #include <X11/extensions/XTest.h>
 #include <X11/keysym.h>
 #include <Xwacom.h>
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#include <libgnome-desktop/gnome-rr.h>
+#include <libgnome-desktop/gnome-rr-config.h>
 
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
@@ -75,6 +78,7 @@ struct GsdWacomManagerPrivate
         guint device_added_id;
         guint device_removed_id;
         GHashTable *devices; /* key = GdkDevice, value = GsdWacomDevice */
+        GList *rr_screens;
 
         /* button capture */
         GSList *screens;
@@ -997,6 +1001,33 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
         return FALSE;
 }
 
+/*
+ * The monitors-changed signal is emitted when the number, size or
+ * position of the monitors attached to the screen change.
+ */
+static void
+on_screen_changed_cb (GnomeRRScreen *rr_screen,
+		      GsdWacomManager *manager)
+{
+	GList *devices, *l;
+
+        g_debug ("Screen configuration changed");
+	devices = g_hash_table_get_values (manager->priv->devices);
+	for (l = devices; l != NULL; l = l->next) {
+		GsdWacomDevice *device = l->data;
+		GsdWacomDeviceType type;
+		GSettings *settings;
+
+		type = gsd_wacom_device_get_device_type (device);
+		if (type == WACOM_TYPE_CURSOR || type == WACOM_TYPE_PAD)
+			continue;
+
+		settings = gsd_wacom_device_get_settings (device);
+		set_display (device, g_settings_get_value (settings, KEY_DISPLAY));
+	}
+	g_list_free (devices);
+}
+
 static void
 init_screens (GsdWacomManager *manager)
 {
@@ -1005,13 +1036,31 @@ init_screens (GsdWacomManager *manager)
 
         display = gdk_display_get_default ();
         for (i = 0; i < gdk_display_get_n_screens (display); i++) {
+                GError *error = NULL;
                 GdkScreen *screen;
+                GnomeRRScreen *rr_screen;
 
                 screen = gdk_display_get_screen (display, i);
                 if (screen == NULL) {
                         continue;
                 }
                 manager->priv->screens = g_slist_append (manager->priv->screens, screen);
+
+		/*
+		 * We also keep a list of GnomeRRScreen to monitor changes such as rotation
+		 * which are not reported by Gdk's "monitors-changed" callback
+		 */
+		rr_screen = gnome_rr_screen_new (screen, &error);
+		if (rr_screen == NULL) {
+			g_warning ("Failed to create GnomeRRScreen: %s", error->message);
+			g_error_free (error);
+			continue;
+		}
+		manager->priv->rr_screens = g_list_prepend (manager->priv->rr_screens, rr_screen);
+		g_signal_connect (rr_screen,
+				  "changed",
+				  G_CALLBACK (on_screen_changed_cb),
+			          manager);
         }
 }
 
@@ -1047,6 +1096,7 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
 {
         GsdWacomManagerPrivate *p = manager->priv;
         GSList *ls;
+        GList *l;
 
         g_debug ("Stopping wacom manager");
 
@@ -1061,6 +1111,9 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
                                           (GdkFilterFunc) filter_button_events,
                                           manager);
         }
+
+	for (l = p->rr_screens; l != NULL; l = l->next)
+		g_signal_handlers_disconnect_by_func (l->data, on_screen_changed_cb, manager);
 }
 
 static void
@@ -1084,6 +1137,11 @@ gsd_wacom_manager_finalize (GObject *object)
                 g_slist_free (wacom_manager->priv->screens);
                 wacom_manager->priv->screens = NULL;
         }
+
+	if (wacom_manager->priv->rr_screens != NULL) {
+		g_list_free_full (wacom_manager->priv->rr_screens, g_object_unref);
+		wacom_manager->priv->rr_screens = NULL;
+	}
 
         if (wacom_manager->priv->start_idle_id != 0)
                 g_source_remove (wacom_manager->priv->start_idle_id);
