@@ -493,20 +493,11 @@ get_device_type (XDeviceInfo *dev)
 /* Finds an output which matches the given EDID information. Any NULL
  * parameter will be interpreted to match any value. */
 static GnomeRROutput *
-find_output_by_edid (const gchar *vendor, const gchar *product, const gchar *serial)
+find_output_by_edid (GnomeRRScreen *rr_screen, const gchar *vendor, const gchar *product, const gchar *serial)
 {
-	GError *error = NULL;
-	GnomeRRScreen *rr_screen;
 	GnomeRROutput **rr_outputs;
 	GnomeRROutput *retval = NULL;
 	guint i;
-
-	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
-	if (rr_screen == NULL) {
-		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
-		g_error_free (error);
-		return NULL;
-	}
 
 	rr_outputs = gnome_rr_screen_list_outputs (rr_screen);
 
@@ -547,8 +538,6 @@ find_output_by_edid (const gchar *vendor, const gchar *product, const gchar *ser
 		}
 	}
 
-	g_object_unref (rr_screen);
-
 	if (retval == NULL)
 		g_debug ("Did not find a matching output for EDID '%s,%s,%s'",
 			 vendor, product, serial);
@@ -556,8 +545,32 @@ find_output_by_edid (const gchar *vendor, const gchar *product, const gchar *ser
 	return retval;
 }
 
+static GnomeRROutput*
+find_builtin_output (GnomeRRScreen *rr_screen)
+{
+	GnomeRROutput **rr_outputs;
+	GnomeRROutput *retval = NULL;
+	guint i;
+
+	rr_outputs = gnome_rr_screen_list_outputs (rr_screen);
+	for (i = 0; rr_outputs[i] != NULL; i++) {
+		if (!gnome_rr_output_is_connected (rr_outputs[i]))
+			continue;
+
+		if (gnome_rr_output_is_laptop(rr_outputs[i])) {
+			retval = g_object_ref (rr_outputs[i]);
+			break;
+		}
+	}
+
+	if (retval == NULL)
+		g_debug ("Did not find a built-in monitor");
+
+	return retval;
+}
+
 static GnomeRROutput *
-find_output_by_heuristic (GsdWacomDevice *device)
+find_output_by_heuristic (GnomeRRScreen *rr_screen, GsdWacomDevice *device)
 {
 	GnomeRROutput *rr_output;
 
@@ -565,12 +578,16 @@ find_output_by_heuristic (GsdWacomDevice *device)
 	 * tablets and may give the wrong result if multiple Wacom
 	 * display tablets are connected.
 	 */
-	rr_output = find_output_by_edid ("WAC", NULL, NULL);
+	rr_output = find_output_by_edid (rr_screen, "WAC", NULL, NULL);
+
+	if (!rr_output)
+		rr_output = find_builtin_output (rr_screen);
+
 	return rr_output;
 }
 
 static GnomeRROutput *
-find_output_by_display (GsdWacomDevice *device)
+find_output_by_display (GnomeRRScreen *rr_screen, GsdWacomDevice *device)
 {
 	gsize n;
 	GSettings *tablet;
@@ -594,7 +611,7 @@ find_output_by_display (GsdWacomDevice *device)
 	if (strlen (edid[0]) == 0 || strlen (edid[1]) == 0 || strlen (edid[2]) == 0)
 		goto out;
 
-	ret = find_output_by_edid (edid[0], edid[1], edid[2]);
+	ret = find_output_by_edid (rr_screen, edid[0], edid[1], edid[2]);
 
 out:
 	g_free (edid);
@@ -725,13 +742,22 @@ gsd_wacom_device_set_display (GsdWacomDevice *device,
 static GnomeRROutput *
 find_output (GsdWacomDevice *device)
 {
+	GError *error = NULL;
+	GnomeRRScreen *rr_screen;
 	GnomeRROutput *rr_output;
 
-	rr_output = find_output_by_display (device);
+	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
+	if (rr_screen == NULL) {
+		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
+		g_error_free (error);
+		return NULL;
+	}
+
+	rr_output = find_output_by_display (rr_screen, device);
 
 	if (rr_output == NULL) {
 		if (gsd_wacom_device_is_screen_tablet (device)) {
-			rr_output = find_output_by_heuristic (device);
+			rr_output = find_output_by_heuristic (rr_screen, device);
 			if (rr_output == NULL) {
 				g_warning ("No fuzzy match based on heuristics was found.");
 			} else {
@@ -740,6 +766,8 @@ find_output (GsdWacomDevice *device)
 			}
 		}
 	}
+
+	g_object_unref (rr_screen);
 
 	return rr_output;
 }
