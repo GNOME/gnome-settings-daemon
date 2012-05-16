@@ -233,10 +233,48 @@ set_area (GsdWacomDevice  *device,
         g_variant_unref (value);
 }
 
+/* Returns the rotation to apply a device relative to the current rotation of the output */
+static GsdWacomRotation
+get_relative_rotation (GsdWacomRotation device_rotation,
+                       GsdWacomRotation output_rotation)
+{
+	GsdWacomRotation rotations[] = { GSD_WACOM_ROTATION_HALF,
+	                                 GSD_WACOM_ROTATION_CW,
+	                                 GSD_WACOM_ROTATION_NONE,
+	                                 GSD_WACOM_ROTATION_CCW };
+	guint i;
+
+	if (device_rotation == output_rotation)
+		return GSD_WACOM_ROTATION_NONE;
+
+	if (output_rotation == GSD_WACOM_ROTATION_NONE)
+		return device_rotation;
+
+	for (i = 0; i < G_N_ELEMENTS (rotations); i++){
+		if (device_rotation == rotations[i])
+			break;
+	}
+
+	if (output_rotation == GSD_WACOM_ROTATION_HALF)
+		return rotations[(i + G_N_ELEMENTS (rotations) - 2) % G_N_ELEMENTS (rotations)];
+
+	if (output_rotation == GSD_WACOM_ROTATION_CW)
+		return rotations[(i + G_N_ELEMENTS (rotations) - 1) % G_N_ELEMENTS (rotations)];
+
+	if (output_rotation == GSD_WACOM_ROTATION_CCW)
+		return rotations[(i + 1) % G_N_ELEMENTS (rotations)];
+
+	/* fallback */
+	return GSD_WACOM_ROTATION_NONE;
+}
+
 static void
 set_display (GsdWacomDevice  *device,
              GVariant        *value)
 {
+        GsdWacomRotation  device_rotation;
+	GsdWacomRotation  output_rotation;
+	GSettings        *settings;
         float matrix[NUM_ELEMS_MATRIX];
         PropertyHelper property = {
                 .name   = "Coordinate Transformation Matrix",
@@ -250,6 +288,14 @@ set_display (GsdWacomDevice  *device,
         property.data.i = (gint*)(&matrix);
         g_debug ("Applying matrix to device...");
         wacom_set_property (device, &property);
+
+        /* Compute rotation to apply relative to the output */
+	settings = gsd_wacom_device_get_settings (device);
+	device_rotation = g_settings_get_enum (settings, KEY_ROTATION);
+	output_rotation = gsd_wacom_device_get_display_rotation (device);
+
+        /* Apply display rotation to device */
+        set_rotation (device, get_relative_rotation (device_rotation, output_rotation));
 
         g_variant_unref (value);
 }

@@ -51,6 +51,7 @@ libxrandr_la_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(XRANDR_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
 libxrandr_la_LDFLAGS = 			\
@@ -59,6 +60,7 @@ libxrandr_la_LDFLAGS = 			\
 libxrandr_la_LIBADD  =					\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(XRANDR_LIBS)					\
+	$(WACOM_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files =			\

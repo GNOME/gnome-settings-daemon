@@ -47,6 +47,10 @@
 #include <libgnome-desktop/gnome-rr.h>
 #include <libgnome-desktop/gnome-rr-labeler.h>
 
+#ifdef HAVE_WACOM
+#include <libwacom/libwacom.h>
+#endif /* HAVE_WACOM */
+
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
 #include "gnome-settings-profile.h"
@@ -118,6 +122,10 @@ struct GsdXrandrManagerPrivate
 
         /* Last time at which we got a "screen got reconfigured" event; see on_randr_event() */
         guint32 last_config_timestamp;
+
+#ifdef HAVE_WACOM
+        WacomDeviceDatabase *wacom_db;
+#endif /* HAVE_WACOM */
 };
 
 static const GnomeRRRotation possible_rotations[] = {
@@ -1507,6 +1515,40 @@ get_rotation_index (GnomeRRRotation rotation)
         g_assert_not_reached ();
 }
 
+static gboolean
+is_wacom_tablet_device (GsdXrandrManager *mgr,
+                        XDeviceInfo      *device_info)
+{
+#ifdef HAVE_WACOM
+        GsdXrandrManagerPrivate *priv = mgr->priv;
+        gchar       *device_node;
+        WacomDevice *wacom_device;
+        gboolean     is_tablet = FALSE;
+
+        if (priv->wacom_db == NULL)
+                priv->wacom_db = libwacom_database_new ();
+
+        device_node = xdevice_get_device_node (device_info->id);
+        if (device_node == NULL)
+                return FALSE;
+
+        wacom_device = libwacom_new_from_path (priv->wacom_db, device_node, FALSE, NULL);
+        g_free (device_node);
+        if (wacom_device == NULL) {
+                g_free (device_node);
+                return FALSE;
+        }
+        is_tablet = libwacom_has_touch (wacom_device) &&
+                    libwacom_is_builtin (wacom_device);
+
+        libwacom_destroy (wacom_device);
+
+        return is_tablet;
+#else  /* HAVE_WACOM */
+        return FALSE;
+#endif /* HAVE_WACOM */
+}
+
 static void
 rotate_touchscreens (GsdXrandrManager *mgr,
                      GnomeRRRotation   rotation)
@@ -1527,6 +1569,11 @@ rotate_touchscreens (GsdXrandrManager *mgr,
         rot_idx = get_rotation_index (rotation);
 
         for (i = 0; i < n_devices; i++) {
+                if (is_wacom_tablet_device  (mgr, &device_info[i])) {
+                        g_debug ("Not rotating tablet device '%s'", device_info[i].name);
+                        continue;
+                }
+
                 if (device_info_is_touchscreen (&device_info[i])) {
                         XDevice *device;
                         char c = evdev_rotations[rot_idx].axes_swap;
@@ -2048,6 +2095,13 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                 g_object_unref (manager->priv->connection);
                 manager->priv->connection = NULL;
         }
+
+#ifdef HAVE_WACOM
+        if (manager->priv->wacom_db != NULL) {
+                libwacom_database_destroy (manager->priv->wacom_db);
+                manager->priv->wacom_db = NULL;
+        }
+#endif /* HAVE_WACOM */
 
         log_open ();
         log_msg ("STOPPING XRANDR PLUGIN\n------------------------------------------------------------\n");
