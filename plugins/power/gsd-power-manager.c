@@ -82,6 +82,7 @@
 
 #define GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT        5 /* seconds */
 #define GSD_POWER_MANAGER_RECALL_DELAY                  30 /* seconds */
+#define GSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT      30 /* seconds */
 
 #define GSD_POWER_IDLETIME_ID                           1 /* counter id */
 
@@ -196,6 +197,7 @@ struct GsdPowerManagerPrivate
         GsdPowerIdleMode         current_idle_mode;
         guint                    timeout_blank_id;
         guint                    timeout_sleep_id;
+        guint                    lid_close_safety_timer_id;
         GtkStatusIcon           *status_icon;
 };
 
@@ -212,6 +214,7 @@ static UpDevice *engine_update_composite_device (GsdPowerManager *manager, UpDev
 static GIcon    *engine_get_icon (GsdPowerManager *manager);
 static gchar    *engine_get_summary (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
+static void      do_lid_closed_action (GsdPowerManager *manager);
 static void      lock_screensaver (GsdPowerManager *manager);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
@@ -2287,6 +2290,39 @@ out:
         return all_off;
 }
 
+/* Timeout callback used to check conditions when the laptop's lid is closed but
+ * the machine is not suspended yet.  We try to suspend again, so that the laptop
+ * won't overheat if placed in a backpack.
+ */
+static gboolean
+lid_close_safety_timer_cb (GsdPowerManager *manager)
+{
+        GsdPowerActionType action_type;
+
+        manager->priv->lid_close_safety_timer_id = 0;
+
+        g_debug ("lid has been closed for a while; trying to suspend again");
+        do_lid_closed_action (manager);
+
+        return FALSE;
+}
+
+/* Sets up a timer to be triggered some seconds after closing the laptop lid
+ * when the laptop is *not* suspended for some reason.  We'll check conditions
+ * again in the timeout handler to see if we can suspend then.
+ */
+static void
+setup_lid_close_safety_timer (GsdPowerManager *manager)
+{
+        if (manager->priv->lid_close_safety_timer_id != 0)
+                return;
+
+        manager->priv->lid_close_safety_timer_id = g_timeout_add_seconds (GSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT,
+                                                                          (GSourceFunc) lid_close_safety_timer_cb,
+                                                                          manager);
+        g_source_set_name_by_id (manager->priv->lid_close_safety_timer_id, "[GsdPowerManager] lid close safety timer");
+}
+
 static void
 do_lid_closed_action (GsdPowerManager *manager)
 {
@@ -2300,6 +2336,9 @@ do_lid_closed_action (GsdPowerManager *manager)
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
                          NULL);
+
+        /* refresh RANDR so we get an accurate view of what monitors are plugged in when the lid is closed */
+        gnome_rr_screen_refresh (manager->priv->x11_screen, NULL); /* NULL-GError */
 
         /* maybe lock the screen if the lid is closed */
         lock_screensaver (manager);
@@ -2349,8 +2388,10 @@ do_lid_closed_action (GsdPowerManager *manager)
             || non_laptop_outputs_are_all_off (manager->priv->x11_screen)) {
                 g_debug ("lid is closed; suspending or hibernating");
                 do_power_action_type (manager, action_type);
-        } else
+        } else {
                 g_debug ("lid is closed; not suspending nor hibernating since some external monitor outputs are still active");
+                setup_lid_close_safety_timer (manager);
+        }
 }
 
 
@@ -3836,6 +3877,11 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         if (manager->priv->timeout_sleep_id != 0) {
                 g_source_remove (manager->priv->timeout_sleep_id);
                 manager->priv->timeout_sleep_id = 0;
+        }
+
+        if (manager->priv->lid_close_safety_timer_id != 0) {
+                g_source_remove (manager->priv->lid_close_safety_timer_id);
+                manager->priv->lid_close_safety_timer_id = 0;
         }
 
         g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
