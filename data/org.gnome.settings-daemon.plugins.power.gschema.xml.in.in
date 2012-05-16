@@ -97,10 +97,10 @@
       <summary>Laptop lid, when closed, will suspend even if there is an external monitor plugged in</summary>
       <description>With no external monitors plugged in, closing a laptop's lid
 	will suspend the machine (as set by the lid-close-battery-action and
-	lid-close-ac-action keys).  However, when an external monitor is plugged in to
-	the laptop, closing the lid will not suspend the machine so that one can keep
+	lid-close-ac-action keys).  By default, however, closing the lid when
+	an external monitor is present will not suspend the machine, so that one can keep
 	working on that monitor (e.g. for docking stations or media viewers).  Set this
-	key to False to take this action, or to True to suspend the laptop whenever the
+	key to False to keep the default behavior, or to True to suspend the laptop whenever the
 	lid is closed and regardless of external monitors.</description>
     </key>
     <key name="critical-battery-action" enum="org.gnome.settings-daemon.GsdPowerActionType">
