@@ -92,6 +92,17 @@
       <summary>Laptop lid close action when on AC</summary>
       <description>The action to take when the laptop lid is closed and the laptop is on AC power.</description>
     </key>
+    <key name="lid-close-suspend-with-external-monitor" type="b">
+      <default>false</default>
+      <summary>Laptop lid, when closed, will suspend even if there is an external monitor plugged in</summary>
+      <description>With no external monitors plugged in, closing a laptop's lid
+	will suspend the machine (as set by the lid-close-battery-action and
+	lid-close-ac-action keys).  However, when an external monitor is plugged in to
+	the laptop, closing the lid will not suspend the machine so that one can keep
+	working on that monitor (e.g. for docking stations or media viewers).  Set this
+	key to False to take this action, or to True to suspend the laptop whenever the
+	lid is closed and regardless of external monitors.</description>
+    </key>
     <key name="critical-battery-action" enum="org.gnome.settings-daemon.GsdPowerActionType">
       <default>'hibernate'</default>
       <summary>Battery critical low action</summary>

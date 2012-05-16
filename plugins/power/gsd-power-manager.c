@@ -2345,7 +2345,8 @@ do_lid_closed_action (GsdPowerManager *manager)
         }
 
         /* perform policy action */
-        if (non_laptop_outputs_are_all_off (manager->priv->x11_screen)) {
+        if (g_settings_get_boolean (manager->priv->settings, "lid-close-suspend-with-external-monitor")
+            || non_laptop_outputs_are_all_off (manager->priv->x11_screen)) {
                 g_debug ("lid is closed; suspending or hibernating");
                 do_power_action_type (manager, action_type);
         } else
