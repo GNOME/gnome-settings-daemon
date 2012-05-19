@@ -19,14 +19,15 @@
 # Mario Blättermann <mariobl@freenet.de>, 2009-2011.
 # Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2010.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010, 2011, 2012.
+# Wolfgang Stöggl <c72578@yahoo.de>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-03-30 19:31+0000\n"
-"PO-Revision-Date: 2012-04-01 11:55+0100\n"
+"POT-Creation-Date: 2012-05-17 17:34+0000\n"
+"PO-Revision-Date: 2012-05-19 09:12+0200\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -362,15 +363,18 @@ msgstr ""
 "Die Tastenkombination für eigene Aktionen, welche ausgelöst wird, wenn der "
 "Knopf gedrückt wird."
 
+# Wacom Elevator Knöpfe. Heben, senken (hoch, runter).
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Key combinations for an elevator custom action"
-msgstr ""
+msgstr "Tastenkombinationen für angepasste Hebe- und Senk-Aktionen"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
 "custom actions (up followed by down)."
 msgstr ""
+"Die erzeugten Tastenkombinationen, wenn ein Berührungsring oder -streifen "
+"für eigene Aktionen verwendet wird (hoch gefolgt von runter)."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 msgid "The duration a display profile is valid"
@@ -737,9 +741,8 @@ msgid "Binding"
 msgstr "Kürzel"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
-#, fuzzy
 msgid "Binding for the custom binding"
-msgstr "Tastenkürzel zum Verkleinern mit der Bildschirmlupe"
+msgstr "Tastenkürzel des benutzerdefinierten Tastenkürzels"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Command"
@@ -1279,7 +1282,7 @@ msgstr ""
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:529
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
-#: ../plugins/mouse/gsd-mouse-manager.c:867
+#: ../plugins/mouse/gsd-mouse-manager.c:879
 msgid "Universal Access"
 msgstr "Barrierefreiheit"
 
@@ -1791,11 +1794,11 @@ msgstr "Medientasten"
 msgid "Media keys plugin"
 msgstr "Medientastenmodul"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:863
+#: ../plugins/mouse/gsd-mouse-manager.c:875
 msgid "Could not enable mouse accessibility features"
 msgstr "Barrierefreie Maushilfen konnten nicht aktiviert werden"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:865
+#: ../plugins/mouse/gsd-mouse-manager.c:877
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
@@ -2701,32 +2704,32 @@ msgid "Power plugin"
 msgstr "Energie-Plugin"
 
 #. Translators: We are configuring new printer
-#: ../plugins/print-notifications/gsd-printer.c:908
+#: ../plugins/print-notifications/gsd-printer.c:883
 msgid "Configuring new printer"
 msgstr "Neuer Drucker wird konfiguriert"
 
 #. Translators: Just wait
-#: ../plugins/print-notifications/gsd-printer.c:910
+#: ../plugins/print-notifications/gsd-printer.c:885
 msgid "Please wait..."
 msgstr "Bitte warten ..."
 
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:937
+#: ../plugins/print-notifications/gsd-printer.c:912
 msgid "Missing printer driver"
 msgstr "Fehlender Druckertreiber"
 
 #. Translators: We have no driver installed for the device
-#: ../plugins/print-notifications/gsd-printer.c:946
+#: ../plugins/print-notifications/gsd-printer.c:921
 #, c-format
 msgid "No printer driver for %s."
 msgstr "Kein Druckertreiber für %s vorhanden."
 
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:951
+#: ../plugins/print-notifications/gsd-printer.c:926
 msgid "No driver for this printer."
 msgstr "Kein Treiber für diesen Drucker vorhanden."
 
-#: ../plugins/print-notifications/gsd-printer.c:1049
+#: ../plugins/print-notifications/gsd-printer.c:1024
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:646
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:735
@@ -3156,42 +3159,42 @@ msgstr "Eine Übertragung läuft, die nicht unterbrochen werden kann"
 #: ../plugins/wacom/gsd-wacom-device.c:909
 #, c-format
 msgid "Left Ring Mode #%d"
-msgstr ""
+msgstr "Linker Ringmodus #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:916
 #, c-format
 msgid "Right Ring Mode #%d"
-msgstr ""
+msgstr "Rechter Ringmodus #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:944
 #, c-format
 msgid "Left Touchstrip Mode #%d"
-msgstr ""
+msgstr "Linker Berührungsstreifen-Modus #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:951
 #, c-format
 msgid "Right Touchstrip Mode #%d"
-msgstr ""
+msgstr "Rechter Berührungsstreifen-Modus #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:966
 #, c-format
 msgid "Left Touchring Mode Switch"
-msgstr ""
+msgstr "Moduswechsel des linken Berührungsrings"
 
 #: ../plugins/wacom/gsd-wacom-device.c:968
 #, c-format
 msgid "Right Touchring Mode Switch"
-msgstr ""
+msgstr "Moduswechsel des rechten Berührungsrings"
 
 #: ../plugins/wacom/gsd-wacom-device.c:971
 #, c-format
 msgid "Left Touchstrip Mode Switch"
-msgstr ""
+msgstr "Moduswechsel des linken Berührungsstreifens"
 
 #: ../plugins/wacom/gsd-wacom-device.c:973
 #, c-format
 msgid "Right Touchstrip Mode Switch"
-msgstr ""
+msgstr "Moduswechsel des rechten Berührungsstreifens"
 
 #: ../plugins/wacom/gsd-wacom-device.c:978
 #, c-format
