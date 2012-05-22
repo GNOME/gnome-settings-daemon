@@ -153,6 +153,7 @@ grab_key_unsafe (Key                 *key,
         /* XGrabKey requires real modifiers, not virtual ones */
         modifiers = key->state;
         gdk_keymap_map_virtual_modifiers (gdk_keymap_get_default (), &modifiers);
+        modifiers &= ~(GDK_META_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK);
 
         /* If key doesn't have a usable modifier, we don't want
          * to grab it, since the user might lose a useful key.
@@ -324,6 +325,7 @@ match_xi2_key (Key *key, XIDeviceEvent *event)
 		 * the XEvent will be using the real modifier, so translate those */
 		mask = key->state;
 		gdk_keymap_map_virtual_modifiers (gdk_keymap_get_default (), &mask);
+                mask &= ~(GDK_META_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK);
 
 		gdk_keyval_convert_case (keyval, &lower, &upper);
 
