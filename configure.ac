@@ -290,6 +290,38 @@ fi
 
 AC_SUBST(NSS_DATABASE)
 
+dnl ==============================================
+dnl kerberos section
+dnl ==============================================
+AC_ARG_ENABLE([kerberos],
+              AS_HELP_STRING([--enable-kerberos], [Use Kerberos]),
+              [with_kerberos=$enableval],
+              [with_kerberos=no])
+
+AC_PATH_PROG([KRB5_CONFIG], krb5-config, none, $PATH:/usr/kerberos/bin)
+
+if test "x$KRB5_CONFIG" != "xnone"; then
+    KRB5_LIBS="`${KRB5_CONFIG} --libs krb5`"
+    KRB5_CFLAGS="`${KRB5_CONFIG} --cflags krb5`"
+    have_kerberos=yes
+else
+    KRB5_LIBS=""
+    KRB5_CFLAGS=""
+    have_kerberos=no
+fi
+AC_SUBST(KRB5_CFLAGS)
+AC_SUBST(KRB5_LIBS)
+
+if test "$with_kerberos" = "yes" ; then
+  if test "$have_kerberos" = "no" ; then
+      AC_MSG_ERROR([kerberos support requested, but not available])
+  fi
+
+  PKG_CHECK_MODULES(GCR, gcr-3)
+  AC_DEFINE(GCR_API_SUBJECT_TO_CHANGE, 1, [Define to use the GCR API])
+  AC_DEFINE(HAVE_KERBEROS, 1, [Define to 1 if kerberos is available])
+fi
+AM_CONDITIONAL(BUILD_KERBEROS, [test x$with_kerberos = xyes])
 
 dnl ==============================================
 dnl power section
@@ -461,6 +493,7 @@ plugins/color/Makefile
 plugins/common/Makefile
 plugins/cursor/Makefile
 plugins/dummy/Makefile
+plugins/identity/Makefile
 plugins/power/Makefile
 plugins/housekeeping/Makefile
 plugins/keyboard/Makefile
@@ -482,6 +515,7 @@ data/org.gnome.settings-daemon.plugins.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.power.gschema.xml.in
+data/org.gnome.settings-daemon.plugins.identity.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.color.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.gschema.xml.in

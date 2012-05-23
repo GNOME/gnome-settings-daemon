@@ -33,6 +33,12 @@ else
 disabled_plugins += smartcard
 endif
 
+if BUILD_KERBEROS
+enabled_plugins += identity
+else
+disabled_plugins += identity
+endif
+
 if HAVE_GUDEV
 enabled_plugins += orientation
 else
