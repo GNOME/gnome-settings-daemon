@@ -52,6 +52,34 @@ gsd_locate_pointer_LDADD  = 		\
 	$(MOUSE_LIBS)			\
 	-lm
 
+noinst_PROGRAMS = test-mouse
+
+test_mouse_SOURCES =			\
+	test-mouse.c			\
+	gsd-mouse-manager.c		\
+	gsd-mouse-manager.h
+
+test_mouse_CPPFLAGS = \
+	-I$(top_srcdir)/data/					\
+	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/plugins/common				\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DLIBEXECDIR=\""$(libexecdir)"\"			\
+	$(AM_CPPFLAGS)
+
+test_mouse_CFLAGS =			\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(MOUSE_CFLAGS)		\
+	$(AM_CFLAGS)
+
+test_mouse_LDADD =						\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(top_builddir)/plugins/common/libcommon.la		\
+	$(SETTINGS_DAEMON_LIBS)			\
+	$(SETTINGS_PLUGIN_LIBS)			\
+	$(MOUSE_LIBS)			\
+	-lm
+
 EXTRA_DIST = $(plugin_in_files)
 CLEANFILES = $(plugin_DATA)
 DISTCLEANFILES = $(plugin_DATA)
