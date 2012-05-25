@@ -337,14 +337,16 @@ xdevice_get_last_tool_id (int  deviceid)
         if (!prop)
                 return -1;
 
+        data = NULL;
+
         gdk_error_trap_push ();
 
-        if (!XIGetProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+        if (XIGetProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                             deviceid, prop, 0, 1000, False,
                             AnyPropertyType, &act_type, &act_format,
-                            &nitems, &bytes_after, &data) == Success) {
+                            &nitems, &bytes_after, &data) != Success) {
                 gdk_error_trap_pop_ignored ();
-                return -1;
+                goto out;
         }
 
         if (gdk_error_trap_pop ())
@@ -375,10 +377,11 @@ xdevice_get_last_tool_id (int  deviceid)
 	/* That means that no tool was set down yet */
 	if (id == STYLUS_DEVICE_ID ||
 	    id == ERASER_DEVICE_ID)
-		return 0x0;
+		id = 0x0;
 
 out:
-        XFree (data);
+        if (data != NULL)
+                XFree (data);
         return id;
 }
 
