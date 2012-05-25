@@ -83,6 +83,8 @@ device_set_property (XDevice        *xdevice,
                                xdevice, prop, realtype, realformat,
                                PropModeReplace, data, nitems);
 
+        XFree (data);
+
         if (gdk_error_trap_pop ()) {
                 g_warning ("Error in setting \"%s\" for \"%s\"", property->name, device_name);
                 return FALSE;
