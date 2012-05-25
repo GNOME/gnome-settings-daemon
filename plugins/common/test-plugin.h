@@ -43,5 +43,8 @@ main (int argc, char **argv)
 
         gtk_main ();
 
+        STOP (manager);
+        g_object_unref (manager);
+
         return 0;
 }
