@@ -119,7 +119,7 @@ dnl ---------------------------------------------------------------------------
 dnl - GUdev integration (default enabled)
 dnl ---------------------------------------------------------------------------
 GUDEV_PKG=""
-AC_ARG_ENABLE(gudev, AS_HELP_STRING([--disable-gudev],[Disable GUdev support]), enable_gudev=$enableval)
+AC_ARG_ENABLE(gudev, AS_HELP_STRING([--disable-gudev],[Disable GUdev support (not optional on Linux platforms)]), enable_gudev=$enableval)
 if test x$enable_gudev != xno; then
 	PKG_CHECK_MODULES(GUDEV, gudev-1.0, HAVE_GUDEV="yes", HAVE_GUDEV="no")
 	if test "x$HAVE_GUDEV" = "xyes"; then
@@ -205,7 +205,11 @@ case $host_os in
     if test "$host_cpu" = s390 -o "$host_cpu" = s390x; then
       have_wacom=no
     else
-      PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst $GUDEV_PKG gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION xorg-wacom])
+      if test x$enable_gudev != xno; then
+        PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst gudev-1.0 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION xorg-wacom])
+      else
+        AC_MSG_ERROR([GUdev is necessary to compile Wacom support])
+      fi
       have_wacom=yes
     fi
     ;;
