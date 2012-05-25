@@ -478,10 +478,10 @@ get_device_type (XDeviceInfo *dev)
                                  device, prop, 0, 1, False,
                                  XA_ATOM, &realtype, &realformat, &nitems,
                                  &bytes_after, &data);
-        if (gdk_error_trap_pop () || rc != Success || realtype == None) {
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+
+        if (gdk_error_trap_pop () || rc != Success || realtype == None)
                 ret = WACOM_TYPE_INVALID;
-        }
 
         XFree (data);
 
