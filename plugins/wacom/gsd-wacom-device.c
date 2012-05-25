@@ -374,6 +374,8 @@ filter_events (XEvent         *xevent,
 	name = XGetAtomName (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), pev->property);
 	if (name == NULL ||
 	    g_strcmp0 (name, WACOM_SERIAL_IDS_PROP) != 0) {
+		if (name)
+			XFree (name);
 		return GDK_FILTER_CONTINUE;
 	}
 	XFree (name);
