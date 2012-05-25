@@ -168,6 +168,23 @@ device_is_blacklisted (GsdMouseManager *manager,
         return FALSE;
 }
 
+static gboolean
+device_is_ignored (GsdMouseManager *manager,
+		   GdkDevice       *device)
+{
+	GdkInputSource source;
+
+	if (device_is_blacklisted (manager, device))
+		return TRUE;
+
+	source = gdk_device_get_source (device);
+	if (source != GDK_SOURCE_MOUSE &&
+	    source != GDK_SOURCE_TOUCHPAD)
+		return TRUE;
+
+	return FALSE;
+}
+
 static void
 configure_button_layout (guchar   *buttons,
                          gint      n_buttons,
@@ -957,7 +974,7 @@ mouse_callback (GSettings       *settings,
         for (l = devices; l != NULL; l = l->next) {
                 GdkDevice *device = l->data;
 
-                if (device_is_blacklisted (manager, device))
+                if (device_is_ignored (manager, device))
                         return;
 
                 if (g_str_equal (key, KEY_LEFT_HANDED)) {
@@ -991,7 +1008,7 @@ touchpad_callback (GSettings       *settings,
         for (l = devices; l != NULL; l = l->next) {
                 GdkDevice *device = l->data;
 
-                if (device_is_blacklisted (manager, device))
+                if (device_is_ignored (manager, device))
                         return;
 
                 if (g_str_equal (key, KEY_TAP_TO_CLICK)) {
@@ -1036,10 +1053,7 @@ device_added_cb (GdkDeviceManager *device_manager,
                  GdkDevice        *device,
                  GsdMouseManager  *manager)
 {
-        GdkInputSource source;
-
-        source = gdk_device_get_source (device);
-        if (source == GDK_SOURCE_MOUSE || source == GDK_SOURCE_TOUCHPAD) {
+        if (device_is_ignored (manager, device) == FALSE) {
                 if (run_custom_command (device, COMMAND_DEVICE_ADDED) == FALSE) {
                         set_mouse_settings (manager, device);
                 } else {
@@ -1059,17 +1073,16 @@ device_removed_cb (GdkDeviceManager *device_manager,
                    GdkDevice        *device,
                    GsdMouseManager  *manager)
 {
-        GdkInputSource source;
+	int id;
 
-        source = gdk_device_get_source (device);
-        if (source == GDK_SOURCE_MOUSE || source == GDK_SOURCE_TOUCHPAD) {
-                int id;
+	/* Remove the device from the hash table so that
+	 * device_is_ignored () doesn't check for blacklisted devices */
+	g_object_get (G_OBJECT (device), "device-id", &id, NULL);
+	g_hash_table_remove (manager->priv->blacklist,
+			     GINT_TO_POINTER (id));
 
+        if (device_is_ignored (manager, device) == FALSE) {
                 run_custom_command (device, COMMAND_DEVICE_REMOVED);
-
-                g_object_get (G_OBJECT (device), "device-id", &id, NULL);
-                g_hash_table_remove (manager->priv->blacklist,
-                                     GINT_TO_POINTER (id));
 
                 /* If a touchpad was to disappear... */
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
@@ -1129,6 +1142,9 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
         devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
         for (l = devices; l != NULL; l = l->next) {
                 GdkDevice *device = l->data;
+
+                if (device_is_ignored (manager, device))
+                        continue;
 
                 if (run_custom_command (device, COMMAND_DEVICE_PRESENT) == FALSE) {
                         set_mouse_settings (manager, device);
