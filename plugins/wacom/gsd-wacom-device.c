@@ -573,23 +573,31 @@ find_output_by_display (GsdWacomDevice *device)
 	GSettings *tablet;
 	GVariant *display;
 	const gchar **edid;
+	GnomeRROutputInfo *ret;
 
 	if (device == NULL)
 		return NULL;
 
+	ret      = NULL;
 	tablet   = device->priv->wacom_settings;
 	display  = g_settings_get_value (tablet, "display");
 	edid     = g_variant_get_strv (display, &n);
 
 	if (n != 3) {
 		g_critical ("Expected 'display' key to store %d values; got %"G_GSIZE_FORMAT".", 3, n);
-		return NULL;
+		goto out;
 	}
 
 	if (strlen(edid[0]) == 0 || strlen(edid[1]) == 0 || strlen(edid[2]) == 0)
-		return NULL;
+		goto out;
 
-	return find_output_by_edid (edid[0], edid[1], edid[2]);
+	ret = find_output_by_edid (edid[0], edid[1], edid[2]);
+
+out:
+	g_free (edid);
+	g_variant_unref (display);
+
+	return ret;
 }
 
 static GnomeRROutputInfo*
