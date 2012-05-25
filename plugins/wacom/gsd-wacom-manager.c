@@ -714,6 +714,13 @@ device_removed_cb (GdkDeviceManager *device_manager,
 	g_debug ("Removing device '%s' from known devices list",
 		 gdk_device_get_name (gdk_device));
 	g_hash_table_remove (manager->priv->devices, gdk_device);
+
+	/* Enable this chunk of code if you want to valgrind
+	 * test-wacom. It will exit when there are no Wacom devices left */
+#if 0
+	if (g_hash_table_size (manager->priv->devices) == 0)
+		gtk_main_quit ();
+#endif
 }
 
 static GsdWacomDevice *
