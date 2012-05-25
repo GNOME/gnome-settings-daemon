@@ -179,7 +179,8 @@ device_is_ignored (GsdMouseManager *manager,
 
 	source = gdk_device_get_source (device);
 	if (source != GDK_SOURCE_MOUSE &&
-	    source != GDK_SOURCE_TOUCHPAD)
+	    source != GDK_SOURCE_TOUCHPAD &&
+	    source != GDK_SOURCE_CURSOR)
 		return TRUE;
 
 	return FALSE;
