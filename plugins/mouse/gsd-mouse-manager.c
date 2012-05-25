@@ -173,6 +173,7 @@ device_is_ignored (GsdMouseManager *manager,
 		   GdkDevice       *device)
 {
 	GdkInputSource source;
+	const char *name;
 
 	if (device_is_blacklisted (manager, device))
 		return TRUE;
@@ -181,6 +182,10 @@ device_is_ignored (GsdMouseManager *manager,
 	if (source != GDK_SOURCE_MOUSE &&
 	    source != GDK_SOURCE_TOUCHPAD &&
 	    source != GDK_SOURCE_CURSOR)
+		return TRUE;
+
+	name = gdk_device_get_name (device);
+	if (name != NULL && g_str_equal ("Virtual core XTEST pointer", name))
 		return TRUE;
 
 	return FALSE;
@@ -333,11 +338,7 @@ set_left_handed (GsdMouseManager *manager,
         gsize buttons_capacity = 16;
         gboolean left_handed;
         gint n_buttons;
-        const char *name;
 
-        name = gdk_device_get_name (device);
-        if (name != NULL && g_str_equal ("Virtual core XTEST pointer", name))
-                return;
         if (!xinput_device_has_buttons (device))
                 return;
 
