@@ -327,6 +327,8 @@ set_left_handed (GsdMouseManager *manager,
         if (xdevice == NULL)
                 return;
 
+	g_debug ("setting handedness on %s", gdk_device_get_name (device));
+
         buttons = g_new (guchar, buttons_capacity);
 
         /* If the device is a touchpad, swap tap buttons
@@ -388,6 +390,8 @@ set_motion (GsdMouseManager *manager,
         xdevice = open_gdk_device (device);
         if (xdevice == NULL)
                 return;
+
+	g_debug ("setting motion on %s", gdk_device_get_name (device));
 
         if (device_is_touchpad (xdevice))
                 settings = manager->priv->touchpad_settings;
@@ -482,6 +486,8 @@ set_middle_button (GsdMouseManager *manager,
         xdevice = open_gdk_device (device);
         if (xdevice == NULL)
                 return;
+
+	g_debug ("setting middle button on %s", gdk_device_get_name (device));
 
         gdk_error_trap_push ();
 
@@ -607,6 +613,8 @@ set_tap_to_click (GdkDevice *device,
                 return;
         }
 
+	g_debug ("setting tap to click on %s", gdk_device_get_name (device));
+
         gdk_error_trap_push ();
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
                                  False, XA_INTEGER, &type, &format, &nitems,
@@ -655,6 +663,8 @@ set_horiz_scroll (GdkDevice *device,
                 XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
                 return;
         }
+
+	g_debug ("setting horiz scroll on %s", gdk_device_get_name (device));
 
         gdk_error_trap_push ();
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
@@ -718,6 +728,8 @@ set_edge_scroll (GdkDevice               *device,
                 XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
                 return;
         }
+
+	g_debug ("setting edge scroll on %s", gdk_device_get_name (device));
 
         gdk_error_trap_push ();
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
@@ -978,8 +990,6 @@ touchpad_callback (GSettings       *settings,
 
         for (l = devices; l != NULL; l = l->next) {
                 GdkDevice *device = l->data;
-
-                g_message ("checking on device %s", gdk_device_get_name (device));
 
                 if (device_is_blacklisted (manager, device))
                         return;
