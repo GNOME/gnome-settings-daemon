@@ -2248,43 +2248,32 @@ do_lid_open_action (GsdPowerManager *manager)
 }
 
 static gboolean
-is_laptop (GnomeRRScreen *screen, GnomeRROutputInfo *output)
+is_on (GnomeRROutput *output)
 {
-        GnomeRROutput *rr_output;
+	GnomeRRCrtc *crtc;
 
-        rr_output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (output));
-
-        return gnome_rr_output_is_laptop (rr_output);
+	crtc = gnome_rr_output_get_crtc (output);
+	if (!crtc)
+		return FALSE;
+	return gnome_rr_crtc_get_current_mode (crtc) != NULL;
 }
 
 static gboolean
 non_laptop_outputs_are_all_off (GnomeRRScreen *screen)
 {
-        GnomeRRConfig *config;
-        GnomeRROutputInfo **outputs;
+        GnomeRROutput **outputs;
         int i;
-        gboolean all_off;
 
-        config = gnome_rr_config_new_current (screen, NULL); /* NULL-GError */
-        if (!config)
-                return FALSE;
-
-        outputs = gnome_rr_config_get_outputs (config);
+        outputs = gnome_rr_screen_list_outputs (screen);
         for (i = 0; outputs[i] != NULL; i++) {
-                if (is_laptop (screen, outputs[i]))
+                if (gnome_rr_output_is_laptop (outputs[i]))
                         continue;
 
-                if (gnome_rr_output_info_is_active (outputs[i])) {
-                        all_off = FALSE;
-                        goto out;
-                }
+                if (is_on (outputs[i]))
+                        return FALSE;
         }
 
-        all_off = TRUE;
-
-out:
-        g_object_unref (config);
-        return all_off;
+        return TRUE;
 }
 
 static void
