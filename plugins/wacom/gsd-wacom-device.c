@@ -403,7 +403,7 @@ setup_property_notify (GsdWacomDevice *device)
 	XISetMask (evmask.mask, XI_PropertyEvent);
 
 	dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-	XISelectEvents (dpy, DefaultRootWindow(dpy), &evmask, 1);
+	XISelectEvents (dpy, DefaultRootWindow (dpy), &evmask, 1);
 
 	g_free (evmask.mask);
 
@@ -493,7 +493,7 @@ get_device_type (XDeviceInfo *dev)
 /* Finds an output which matches the given EDID information. Any NULL
  * parameter will be interpreted to match any value.
  */
-static GnomeRROutputInfo*
+static GnomeRROutputInfo *
 find_output_by_edid (const gchar *vendor, const gchar *product, const gchar *serial)
 {
 	GError *error = NULL;
@@ -555,7 +555,7 @@ find_output_by_edid (const gchar *vendor, const gchar *product, const gchar *ser
 	return retval;
 }
 
-static GnomeRROutputInfo*
+static GnomeRROutputInfo *
 find_output_by_heuristic (GsdWacomDevice *device)
 {
 	GnomeRROutputInfo *rr_output_info;
@@ -564,11 +564,11 @@ find_output_by_heuristic (GsdWacomDevice *device)
 	 * tablets and may give the wrong result if multiple Wacom
 	 * display tablets are connected.
 	 */
-	rr_output_info = find_output_by_edid("WAC", NULL, NULL);
+	rr_output_info = find_output_by_edid ("WAC", NULL, NULL);
 	return rr_output_info;
 }
 
-static GnomeRROutputInfo*
+static GnomeRROutputInfo *
 find_output_by_display (GsdWacomDevice *device)
 {
 	gsize n;
@@ -590,7 +590,7 @@ find_output_by_display (GsdWacomDevice *device)
 		goto out;
 	}
 
-	if (strlen(edid[0]) == 0 || strlen(edid[1]) == 0 || strlen(edid[2]) == 0)
+	if (strlen (edid[0]) == 0 || strlen (edid[1]) == 0 || strlen (edid[2]) == 0)
 		goto out;
 
 	ret = find_output_by_edid (edid[0], edid[1], edid[2]);
@@ -602,7 +602,7 @@ out:
 	return ret;
 }
 
-static GnomeRROutputInfo*
+static GnomeRROutputInfo *
 find_output_by_monitor (GdkScreen *screen,
 			int        monitor)
 {
@@ -672,7 +672,7 @@ set_display_by_output (GsdWacomDevice    *device,
 	c_array = g_settings_get_value (tablet, "display");
 	g_variant_get_strv (c_array, &nvalues);
 	if (nvalues != 3) {
-		g_warning("Unable set set display property. Got %"G_GSIZE_FORMAT" items; expected %d items.\n", nvalues, 4);
+		g_warning ("Unable set set display property. Got %"G_GSIZE_FORMAT" items; expected %d items.\n", nvalues, 4);
 		return;
 	}
 
@@ -693,7 +693,7 @@ set_display_by_output (GsdWacomDevice    *device,
 	values[0] = o_vendor;
 	values[1] = o_product;
 	values[2] = o_serial;
-	n_array = g_variant_new_strv((const gchar * const *) &values, 3);
+	n_array = g_variant_new_strv ((const gchar * const *) &values, 3);
 	g_settings_set_value (tablet, "display", n_array);
 
 	g_free (o_vendor);
@@ -714,12 +714,12 @@ gsd_wacom_device_set_display (GsdWacomDevice *device,
 	set_display_by_output (device, output);
 }
 
-static GnomeRROutputInfo*
+static GnomeRROutputInfo *
 find_output (GsdWacomDevice *device)
 {
 	GnomeRROutputInfo *rr_output_info;
 
-	rr_output_info = find_output_by_display(device);
+	rr_output_info = find_output_by_display (device);
 
 	if (rr_output_info == NULL) {
 		if (gsd_wacom_device_is_screen_tablet (device)) {
@@ -727,7 +727,7 @@ find_output (GsdWacomDevice *device)
 			if (rr_output_info == NULL) {
 				g_warning ("No fuzzy match based on heuristics was found.");
 			} else {
-				g_warning("Automatically mapping tablet to heuristically-found display.");
+				g_warning ("Automatically mapping tablet to heuristically-found display.");
 				set_display_by_output (device, rr_output_info);
 			}
 		}
@@ -773,7 +773,7 @@ gsd_wacom_device_get_display_monitor (GsdWacomDevice *device)
 
         g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), -1);
 
-	rr_output_info = find_output(device);
+	rr_output_info = find_output (device);
 	if (rr_output_info == NULL)
 		return -1;
 
@@ -1150,7 +1150,7 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 		int num_styli;
 		guint i;
 
-		ids = libwacom_get_supported_styli(wacom_device, &num_styli);
+		ids = libwacom_get_supported_styli (wacom_device, &num_styli);
 		g_assert (num_styli >= 1);
 		for (i = 0; i < num_styli; i++)
 			add_stylus_to_device (device, settings_path, ids[i]);
@@ -1564,7 +1564,7 @@ gsd_wacom_device_get_area (GsdWacomDevice *device)
 
 	device_area = g_new0 (int, nitems);
 	for (i = 0; i < nitems; i++)
-		device_area[i] = ((long*)data)[i];
+		device_area[i] = ((long *)data)[i];
 
 	XFree (data);
 	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
