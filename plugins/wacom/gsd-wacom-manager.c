@@ -40,7 +40,6 @@
 #include <Xwacom.h>
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
-#include <libgnome-desktop/gnome-rr-config.h>
 
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
