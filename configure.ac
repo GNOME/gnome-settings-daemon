@@ -175,7 +175,7 @@ dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(KEYBOARD, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
+PKG_CHECK_MODULES(KEYBOARD, xkbfile gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - Housekeeping plugin stuff
