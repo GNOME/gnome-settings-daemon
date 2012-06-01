@@ -715,6 +715,10 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
 
         /* icon before, now different */
         if (!g_icon_equal (manager->priv->previous_icon, icon)) {
+
+                /* set fallback icon */
+                gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
+
                 g_object_unref (manager->priv->previous_icon);
                 manager->priv->previous_icon = icon;
                 return TRUE;
