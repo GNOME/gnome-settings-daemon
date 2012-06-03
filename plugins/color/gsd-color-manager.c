@@ -555,6 +555,8 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         cmsToneCurve *transfer_curve[3] = { NULL, NULL, NULL };
         const gchar *data;
         gboolean ret = FALSE;
+        gchar *str;
+        gfloat edid_gamma;
         gfloat localgamma;
 #ifdef HAVE_NEW_LCMS
         cmsHANDLE dict = NULL;
@@ -691,6 +693,32 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         data = gcm_edid_get_vendor_name (edid);
         if (data != NULL)
                 _cmsDictAddEntryAscii (dict, "EDID_manufacturer", data);
+        edid_gamma = gcm_edid_get_gamma (edid);
+        if (edid_gamma > 0.0 && edid_gamma < 10.0) {
+                str = g_strdup_printf ("%f", edid_gamma);
+                _cmsDictAddEntryAscii (dict, "EDID_gamma", str);
+                g_free (str);
+        }
+
+        /* also add the primaries */
+        str = g_strdup_printf ("%f", chroma.Red.x);
+        _cmsDictAddEntryAscii (dict, "EDID_red_x", str);
+        g_free (str);
+        str = g_strdup_printf ("%f", chroma.Red.y);
+        _cmsDictAddEntryAscii (dict, "EDID_red_y", str);
+        g_free (str);
+        str = g_strdup_printf ("%f", chroma.Green.x);
+        _cmsDictAddEntryAscii (dict, "EDID_green_x", str);
+        g_free (str);
+        str = g_strdup_printf ("%f", chroma.Green.y);
+        _cmsDictAddEntryAscii (dict, "EDID_green_y", str);
+        g_free (str);
+        str = g_strdup_printf ("%f", chroma.Blue.x);
+        _cmsDictAddEntryAscii (dict, "EDID_blue_x", str);
+        g_free (str);
+        str = g_strdup_printf ("%f", chroma.Blue.y);
+        _cmsDictAddEntryAscii (dict, "EDID_blue_y", str);
+        g_free (str);
 
         /* write new tag */
         ret = cmsWriteTag (lcms_profile, cmsSigMetaTag, dict);
