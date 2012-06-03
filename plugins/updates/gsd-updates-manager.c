@@ -1346,6 +1346,9 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         g_object_set (manager->priv->task,
                       "background", TRUE,
                       "interactive", FALSE,
+#if PK_CHECK_VERSION(0,1,8)
+                      "only-prepare", TRUE,
+#endif
                       NULL);
 
         /* watch UDev for missing firmware */
