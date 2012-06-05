@@ -216,6 +216,7 @@ static gchar    *engine_get_summary (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 static void      do_lid_closed_action (GsdPowerManager *manager);
 static void      lock_screensaver (GsdPowerManager *manager);
+static void      kill_lid_close_safety_timer (GsdPowerManager *manager);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -2248,6 +2249,7 @@ do_lid_open_action (GsdPowerManager *manager)
                 }
         }
 
+        kill_lid_close_safety_timer (manager);
 }
 
 static gboolean
@@ -2321,6 +2323,15 @@ setup_lid_close_safety_timer (GsdPowerManager *manager)
                                                                           (GSourceFunc) lid_close_safety_timer_cb,
                                                                           manager);
         g_source_set_name_by_id (manager->priv->lid_close_safety_timer_id, "[GsdPowerManager] lid close safety timer");
+}
+
+static void
+kill_lid_close_safety_timer (GsdPowerManager *manager)
+{
+        if (manager->priv->lid_close_safety_timer_id != 0) {
+                g_source_remove (manager->priv->lid_close_safety_timer_id);
+                manager->priv->lid_close_safety_timer_id = 0;
+        }
 }
 
 static void
@@ -3879,10 +3890,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
                 manager->priv->timeout_sleep_id = 0;
         }
 
-        if (manager->priv->lid_close_safety_timer_id != 0) {
-                g_source_remove (manager->priv->lid_close_safety_timer_id);
-                manager->priv->lid_close_safety_timer_id = 0;
-        }
+        kill_lid_close_safety_timer (manager);
 
         g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
 
