@@ -1,4 +1,62 @@
 =============
+Version 3.5.2
+=============
+
+- Remove ability to D-Bus activate (Ray Strode)
+
+Media-keys:
+- Get proper gnome-keyring environment (Bastien Nocera)
+- Simplify the OSD code (Bastien)
+- Add keybindings to switch input sources (Rui Matos)
+
+Mouse:
+- Fix applying settings to newly added touchpads (Owen Taylor)
+- Reduce default touchpad deactivation to 1s (Nicolas Dufresne)
+
+Housekeeping:
+- Split out 'ingnore unix mount' code (Bastien)
+
+Keyboard:
+- Always apply xmodmap (Sergey V. Udaltsov)
+- Lots of cleanups (Bastien)
+- Apply XKB layouts ourselfs and stop relying on libgnomekbd (Rui Matos)
+
+Power:
+- Disconnect from upower signals when needed (Richard Hughes)
+- Add org.gnome.settings-daemon.plugins.power.lid-close-suspend-with-extrnal-monitors
+  key to allow forcing suspend on lid close (Paolo Bonzini)
+
+Print:
+- Fix setting of default media size (Marek Kasik)
+- Don't create an unused proxy object (Matthias Clasen)
+- Speed up initialization (Matthias)
+
+Updates:
+- Automatically download updates rather than installing them (Richard)
+
+Wacom:
+- Disable wacom support on s390 (Dan Horák)
+- Disable wacom support on non-linux (Antoine Jacoutot)
+- Don't put touchscreens in relative mode (Timo Aaltonen)
+- Make tablet configuration per-machine (Bastien)
+
+Color:
+- Be quiet about unloadable profiles (Richard)
+
+Translations:
+- Catalan
+- Crimean Tatar
+- Dutch
+- Galician
+- German
+- Hebrew
+- Italian
+- Kannada
+- Norwegian bokmål
+- Slovenian
+- Swedish
+
+=============
 Version 3.4.0
 =============
 
