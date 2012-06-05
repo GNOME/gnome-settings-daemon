@@ -912,6 +912,8 @@ make_clone_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
                 result = NULL;
         }
 
+        gnome_rr_config_set_clone (result, TRUE);
+
         print_configuration (result, "clone setup");
 
         return result;
@@ -1012,6 +1014,8 @@ make_laptop_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
+
+        gnome_rr_config_set_clone (result, FALSE);
 
         print_configuration (result, "Laptop setup");
 
@@ -1153,6 +1157,8 @@ make_xinerama_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
                 result = NULL;
         }
 
+        gnome_rr_config_set_clone (result, FALSE);
+
         print_configuration (result, "xinerama setup");
 
         return result;
@@ -1185,6 +1191,8 @@ make_other_setup (GnomeRRScreen *screen)
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
+
+        gnome_rr_config_set_clone (result, FALSE);
 
         print_configuration (result, "other setup");
 
