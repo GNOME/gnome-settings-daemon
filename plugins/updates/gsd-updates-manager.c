@@ -1347,7 +1347,7 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
                       "background", TRUE,
                       "interactive", FALSE,
 #if PK_CHECK_VERSION(0,1,8)
-                      "only-prepare", TRUE,
+                      "only-download", TRUE,
 #endif
                       NULL);
 
