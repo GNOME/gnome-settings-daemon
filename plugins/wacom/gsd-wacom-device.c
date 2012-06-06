@@ -321,6 +321,7 @@ struct GsdWacomDevicePrivate
 	char *tool_name;
 	gboolean reversible;
 	gboolean is_screen_tablet;
+	gboolean is_fallback;
 	GList *styli;
 	GsdWacomStylus *last_stylus;
 	GList *buttons;
@@ -1220,6 +1221,7 @@ gsd_wacom_device_constructor (GType                     type,
 			 gdk_device_get_name (device->priv->gdk_device),
 			 device->priv->path);
 
+		device->priv->is_fallback = TRUE;
 		wacom_error = libwacom_error_new ();
 		wacom_device = libwacom_new_from_path (db, device->priv->path, TRUE, wacom_error);
 		if (wacom_device == NULL) {
@@ -1457,6 +1459,14 @@ gsd_wacom_device_is_screen_tablet (GsdWacomDevice *device)
 	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), FALSE);
 
 	return device->priv->is_screen_tablet;
+}
+
+gboolean
+gsd_wacom_device_is_fallback (GsdWacomDevice *device)
+{
+	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), FALSE);
+
+	return device->priv->is_fallback;
 }
 
 GSettings *
