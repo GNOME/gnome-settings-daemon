@@ -52,7 +52,8 @@ struct GsdUpdatesManagerPrivate
         GSettings               *settings_gsd;
         GSettings               *settings_http;
         guint                    number_updates_critical_last_shown;
-        guint                    timeout;
+        guint                    offline_update_id;
+        PkError                 *offline_update_error;
         NotifyNotification      *notification_updates;
         PkControl               *control;
         PkTask                  *task;
@@ -76,6 +77,118 @@ static void emit_changed (GsdUpdatesManager *manager);
 G_DEFINE_TYPE (GsdUpdatesManager, gsd_updates_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static void
+clear_offline_updates_message (void)
+{
+        gboolean ret;
+        GError *error = NULL;
+        ret = g_spawn_command_line_async ("pkexec " LIBEXECDIR "/pk-clear-offline-update",
+                                          &error);
+        if (!ret) {
+                g_warning ("Failure clearing offline update message: %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+show_offline_updates_error (GsdUpdatesManager *manager)
+{
+        const gchar *title;
+        gboolean show_geeky = FALSE;
+        GString *msg;
+        GtkWidget *dialog;
+
+        /* TRANSLATORS: this is when the offline update failed */
+        title = _("Failed To Update");
+        msg = g_string_new ("");
+        switch (pk_error_get_code (manager->priv->offline_update_error)) {
+        case PK_ERROR_ENUM_UNFINISHED_TRANSACTION:
+                /* TRANSLATORS: the transaction could not be completed
+                 * as a previous transaction was unfinished */
+                g_string_append (msg, _("A previous update was unfinished."));
+                show_geeky = TRUE;
+                break;
+        case PK_ERROR_ENUM_PACKAGE_DOWNLOAD_FAILED:
+        case PK_ERROR_ENUM_NO_CACHE:
+        case PK_ERROR_ENUM_NO_NETWORK:
+        case PK_ERROR_ENUM_NO_MORE_MIRRORS_TO_TRY:
+        case PK_ERROR_ENUM_CANNOT_FETCH_SOURCES:
+                /* TRANSLATORS: the package manager needed to download
+                 * something with no network available */
+                g_string_append (msg, _("Network access was required but not available."));
+                break;
+        case PK_ERROR_ENUM_BAD_GPG_SIGNATURE:
+        case PK_ERROR_ENUM_CANNOT_UPDATE_REPO_UNSIGNED:
+        case PK_ERROR_ENUM_GPG_FAILURE:
+        case PK_ERROR_ENUM_MISSING_GPG_SIGNATURE:
+        case PK_ERROR_ENUM_PACKAGE_CORRUPT:
+                /* TRANSLATORS: if the package is not signed correctly
+                 *  */
+                g_string_append (msg, _("An update was not signed in the correct way."));
+                show_geeky = TRUE;
+                break;
+        case PK_ERROR_ENUM_DEP_RESOLUTION_FAILED:
+        case PK_ERROR_ENUM_FILE_CONFLICTS:
+        case PK_ERROR_ENUM_INCOMPATIBLE_ARCHITECTURE:
+        case PK_ERROR_ENUM_PACKAGE_CONFLICTS:
+                /* TRANSLATORS: the transaction failed in a way the user
+                 * probably cannot comprehend. Package management systems
+                 * really are teh suck.*/
+                g_string_append (msg, _("The update could not be completed."));
+                show_geeky = TRUE;
+                break;
+        case PK_ERROR_ENUM_TRANSACTION_CANCELLED:
+                /* TRANSLATORS: the user aborted the update manually */
+                g_string_append (msg, _("The update was cancelled."));
+                break;
+        case PK_ERROR_ENUM_NO_PACKAGES_TO_UPDATE:
+        case PK_ERROR_ENUM_UPDATE_NOT_FOUND:
+                /* TRANSLATORS: the user must have updated manually after
+                 * the updates were prepared */
+                g_string_append (msg, _("An offline update was requested but no packages required updating."));
+                break;
+        case PK_ERROR_ENUM_NO_SPACE_ON_DEVICE:
+                /* TRANSLATORS: we ran out of disk space */
+                g_string_append (msg, _("No space was left on the drive."));
+                break;
+        case PK_ERROR_ENUM_PACKAGE_FAILED_TO_BUILD:
+        case PK_ERROR_ENUM_PACKAGE_FAILED_TO_INSTALL:
+        case PK_ERROR_ENUM_PACKAGE_FAILED_TO_REMOVE:
+                /* TRANSLATORS: the update process failed in a general
+                 * way, usually this message will come from source distros
+                 * like gentoo */
+                g_string_append (msg, _("An update failed to install correctly."));
+                show_geeky = TRUE;
+                break;
+        default:
+                /* TRANSLATORS: We didn't handle the error type */
+                g_string_append (msg, _("The offline update failed in an unexpected way."));
+                show_geeky = TRUE;
+                break;
+        }
+        if (show_geeky) {
+                g_string_append_printf (msg, "\n%s\n\n%s",
+                                        /* TRANSLATORS: these are geeky messages from the
+                                         * package manager no mortal is supposed to understand,
+                                         * but google might know what they mean */
+                                        _("Detailed errors from the package manager follow:"),
+                                        pk_error_get_details (manager->priv->offline_update_error));
+        }
+        dialog = gtk_message_dialog_new (NULL,
+                                         0,
+                                         GTK_MESSAGE_INFO,
+                                         GTK_BUTTONS_CLOSE,
+                                         "%s", title);
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+                                                  "%s", msg->str);
+        g_signal_connect_swapped (dialog, "response",
+                                  G_CALLBACK (gtk_widget_destroy),
+                                  dialog);
+        gtk_widget_show (dialog);
+        clear_offline_updates_message ();
+}
 
 static void
 libnotify_action_cb (NotifyNotification *notification,
@@ -112,6 +225,14 @@ libnotify_action_cb (NotifyNotification *notification,
                                              NULL, NULL,
                                              (GAsyncReadyCallback) update_packages_finished_cb,
                                              manager);
+                goto out;
+        }
+        if (g_strcmp0 (action, "clear-offline-updates") == 0) {
+                clear_offline_updates_message ();
+                goto out;
+        }
+        if (g_strcmp0 (action, "error-offline-updates") == 0) {
+                show_offline_updates_error (manager);
                 goto out;
         }
         if (g_strcmp0 (action, "cancel") == 0) {
@@ -1327,6 +1448,137 @@ on_bus_gotten (GObject *source_object,
                                            NULL);
 }
 
+#define PK_OFFLINE_UPDATE_RESULTS_GROUP		"PackageKit Offline Update Results"
+#define PK_OFFLINE_UPDATE_RESULTS_FILENAME	"/var/lib/PackageKit/offline-update-competed"
+
+static gboolean
+check_offline_update_cb (gpointer user_data)
+{
+        const gchar *message;
+        const gchar *title;
+        gboolean ret;
+        gboolean success;
+        gchar *error_code = NULL;
+        gchar *error_details = NULL;
+        gchar *packages = NULL;
+        GError *error = NULL;
+        GKeyFile *key_file = NULL;
+        GsdUpdatesManager *manager = (GsdUpdatesManager *) user_data;
+        guint i;
+        guint num_packages = 1;
+        NotifyNotification *notification;
+        PkErrorEnum error_enum = PK_ERROR_ENUM_UNKNOWN;
+
+        /* was any offline update attempted */
+        if (!g_file_test (PK_OFFLINE_UPDATE_RESULTS_FILENAME, G_FILE_TEST_EXISTS))
+                goto out;
+
+        /* open the file and see what happened */
+        key_file = g_key_file_new ();
+        ret = g_key_file_load_from_file (key_file,
+                                         PK_OFFLINE_UPDATE_RESULTS_FILENAME,
+                                         G_KEY_FILE_NONE,
+                                         &error);
+        if (!ret) {
+                g_warning ("failed to open %s: %s",
+                           PK_OFFLINE_UPDATE_RESULTS_FILENAME,
+                           error->message);
+                g_error_free (error);
+                goto out;
+        }
+        success = g_key_file_get_boolean (key_file,
+                                          PK_OFFLINE_UPDATE_RESULTS_GROUP,
+                                          "Success",
+                                          NULL);
+        if (success) {
+                packages = g_key_file_get_string (key_file,
+                                                  PK_OFFLINE_UPDATE_RESULTS_GROUP,
+                                                  "Packages",
+                                                  NULL);
+                if (packages == NULL) {
+                        g_warning ("No 'Packages' in %s",
+                                   PK_OFFLINE_UPDATE_RESULTS_FILENAME);
+                        goto out;
+                }
+
+                /* count the packages for translators */
+                for (i = 0; packages[i] != '\0'; i++) {
+                        if (packages[i] == ',')
+                                num_packages++;
+                }
+
+                /* TRANSLATORS: title in the libnotify popup */
+                title = ngettext ("Software Update Installed",
+                                  "Software Updates Installed",
+                                  num_packages);
+
+                /* TRANSLATORS: message when we've done offline updates */
+                message = ngettext ("An important OS update has been installed.",
+                                    "Important OS updates have been installed.",
+                                    num_packages);
+        } else {
+                /* get error details */
+                manager->priv->offline_update_error = pk_error_new ();
+
+                error_code = g_key_file_get_string (key_file,
+                                                    PK_OFFLINE_UPDATE_RESULTS_GROUP,
+                                                    "ErrorCode",
+                                                    NULL);
+                if (error_code != NULL)
+                        error_enum = pk_error_enum_from_string (error_code);
+                error_details = g_key_file_get_string (key_file,
+                                                       PK_OFFLINE_UPDATE_RESULTS_GROUP,
+                                                       "ErrorDetails",
+                                                       NULL);
+                g_object_set (manager->priv->offline_update_error,
+                              "code", error_enum,
+                              "details", error_details,
+                              NULL);
+
+                /* TRANSLATORS: title in the libnotify popup */
+                title = _("Software Updates Failed");
+
+                /* TRANSLATORS: message when we've not done offline updates */
+                message = _("An important OS update failed to be installed.");
+        }
+
+        /* do the bubble */
+        g_debug ("title=%s, message=%s", title, message);
+        notification = notify_notification_new (title,
+                                                message,
+                                                GSD_UPDATES_ICON_URGENT);
+        notify_notification_set_app_name (notification, _("Software Updates"));
+        notify_notification_set_timeout (notification, -1);
+        notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
+        if (success) {
+#if 0
+                notify_notification_add_action (notification, "review-offline-updates",
+                                                /* TRANSLATORS: button: review the offline update changes */
+                                                _("Review"), libnotify_action_cb, manager, NULL);
+#endif
+        } else {
+                notify_notification_add_action (notification, "error-offline-updates",
+                                                /* TRANSLATORS: button: review the offline update changes */
+                                                _("Show details"), libnotify_action_cb, manager, NULL);
+        }
+        notify_notification_add_action (notification, "clear-offline-updates",
+                                        /* TRANSLATORS: button: clear notification */
+                                        _("OK"), libnotify_action_cb, manager, NULL);
+        ret = notify_notification_show (notification, &error);
+        if (!ret) {
+                g_warning ("error: %s", error->message);
+                g_error_free (error);
+        }
+out:
+        g_free (packages);
+        g_free (error_code);
+        g_free (error_details);
+        if (key_file != NULL)
+                g_key_file_free (key_file);
+        manager->priv->offline_update_id = 0;
+        return FALSE;
+}
+
 gboolean
 gsd_updates_manager_start (GsdUpdatesManager *manager,
                            GError **error)
@@ -1433,6 +1685,12 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 
+        /* check for offline update */
+        manager->priv->offline_update_id =
+                g_timeout_add_seconds (5,
+                                       check_offline_update_cb,
+                                       manager);
+
         /* success */
         ret = TRUE;
         g_debug ("Started updates manager");
@@ -1502,9 +1760,13 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
                 g_bus_unown_name (manager->priv->owner_id);
                 manager->priv->owner_id = 0;
         }
-        if (manager->priv->timeout) {
-                g_source_remove (manager->priv->timeout);
-                manager->priv->timeout = 0;
+        if (manager->priv->offline_update_id) {
+                g_source_remove (manager->priv->offline_update_id);
+                manager->priv->offline_update_id = 0;
+        }
+        if (manager->priv->offline_update_error != NULL) {
+                g_object_unref (manager->priv->offline_update_error);
+                manager->priv->offline_update_error = 0;
         }
 }
 
