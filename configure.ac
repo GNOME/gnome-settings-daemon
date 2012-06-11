@@ -523,7 +523,7 @@ echo "
         Libnotify support:        ${have_libnotify}
         PackageKit support:       ${have_packagekit}
         Smartcard support:        ${have_smartcard_support}
-        Cups support:             ${have_cups}
+        Cups support:             ${enable_cups}
         Wacom support:            ${have_wacom}
 ${NSS_DATABASE:+\
         System nssdb:             ${NSS_DATABASE}
