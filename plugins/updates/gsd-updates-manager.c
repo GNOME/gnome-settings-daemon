@@ -1152,42 +1152,6 @@ reload_proxy_settings (GsdUpdatesManager *manager)
 }
 
 static void
-set_install_root_cb (GObject *object, GAsyncResult *res, gpointer user_data)
-{
-        gboolean ret;
-        GError *error = NULL;
-        PkControl *control = PK_CONTROL (object);
-
-        /* get the result */
-        ret = pk_control_set_root_finish (control, res, &error);
-        if (!ret) {
-                g_warning ("failed to set install root: %s", error->message);
-                g_error_free (error);
-        }
-}
-
-static void
-set_install_root (GsdUpdatesManager *manager)
-{
-        gchar *root;
-
-        /* get install root */
-        root = g_settings_get_string (manager->priv->settings_gsd,
-                                      "install-root");
-        if (root == NULL) {
-                g_warning ("could not read install root");
-                goto out;
-        }
-
-        pk_control_set_root_async (manager->priv->control,
-                                   root,
-                                   NULL,
-                                   set_install_root_cb, manager);
-out:
-        g_free (root);
-}
-
-static void
 settings_changed_cb (GSettings         *settings,
                      const char        *key,
                      GsdUpdatesManager *manager)
@@ -1200,7 +1164,6 @@ settings_gsd_changed_cb (GSettings         *settings,
                          const char        *key,
                          GsdUpdatesManager *manager)
 {
-        set_install_root (manager);
 }
 
 static void
@@ -1666,7 +1629,6 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
 
         /* coldplug */
         reload_proxy_settings (manager);
-        set_install_root (manager);
 
         /* load introspection from file */
         file = g_file_new_for_path (DATADIR "/dbus-1/interfaces/org.gnome.SettingsDaemonUpdates.xml");
