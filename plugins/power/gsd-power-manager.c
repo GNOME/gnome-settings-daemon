@@ -2292,8 +2292,6 @@ non_laptop_outputs_are_all_off (GnomeRRScreen *screen)
 static gboolean
 lid_close_safety_timer_cb (GsdPowerManager *manager)
 {
-        GsdPowerActionType action_type;
-
         manager->priv->lid_close_safety_timer_id = 0;
 
         g_debug ("lid has been closed for a while; trying to suspend again");
