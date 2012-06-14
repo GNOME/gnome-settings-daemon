@@ -26,6 +26,10 @@
 #define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
 #define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
 
+#define CONSOLEKIT_DBUS_NAME                    "org.freedesktop.ConsoleKit"
+#define CONSOLEKIT_DBUS_PATH_MANAGER            "/org/freedesktop/ConsoleKit/Manager"
+#define CONSOLEKIT_DBUS_INTERFACE_MANAGER       "org.freedesktop.ConsoleKit.Manager"
+
 #ifdef HAVE_SYSTEMD
 static void
 systemd_stop (void)
