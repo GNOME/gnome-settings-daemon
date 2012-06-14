@@ -51,6 +51,7 @@
 #include "shortcuts-list.h"
 #include "gsd-osd-window.h"
 #include "gsd-input-helper.h"
+#include "gsd-power-helper.h"
 #include "gsd-enums.h"
 
 #include <canberra.h>
@@ -1619,26 +1620,6 @@ do_toggle_contrast_action (GsdMediaKeysManager *manager)
 }
 
 static void
-upower_sleep_cb (GObject *source_object,
-                 GAsyncResult *res,
-                 gpointer user_data)
-{
-        GVariant *result;
-        GError *error = NULL;
-
-        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
-                                           res,
-                                           &error);
-        if (result == NULL) {
-                g_warning ("couldn't sleep using UPower: %s",
-                           error->message);
-                g_error_free (error);
-        } else {
-                g_variant_unref (result);
-        }
-}
-
-static void
 do_config_power_action (GsdMediaKeysManager *manager,
                         const gchar *config_key)
 {
@@ -1648,24 +1629,14 @@ do_config_power_action (GsdMediaKeysManager *manager,
                                            config_key);
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
-                g_dbus_proxy_call (manager->priv->upower_proxy,
-                                   "Suspend",
-                                   NULL,
-                                   G_DBUS_CALL_FLAGS_NONE,
-                                   -1, NULL,
-                                   upower_sleep_cb, NULL);
+                gsd_power_suspend (manager->priv->upower_proxy);
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
         case GSD_POWER_ACTION_SHUTDOWN:
                 gnome_session_shutdown (manager);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                g_dbus_proxy_call (manager->priv->upower_proxy,
-                                   "Hibernate",
-                                   NULL,
-                                   G_DBUS_CALL_FLAGS_NONE,
-                                   -1, NULL,
-                                   upower_sleep_cb, NULL);
+                gsd_power_hibernate (manager->priv->upower_proxy);
                 break;
         case GSD_POWER_ACTION_BLANK:
         case GSD_POWER_ACTION_NOTHING:
