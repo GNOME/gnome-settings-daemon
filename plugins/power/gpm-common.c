@@ -751,12 +751,6 @@ gpm_device_to_localised_string (UpDevice *device)
                       "state", &state,
                       NULL);
 
-        /* line power */
-        if (kind == UP_DEVICE_KIND_LINE_POWER) {
-                /* TRANSLATORS: system power cord */
-                return _("AC adapter");
-        }
-
         /* laptop battery */
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
@@ -788,9 +782,6 @@ gpm_device_to_localised_string (UpDevice *device)
                         /* TRANSLATORS: battery state */
                         return _("Laptop battery is waiting to discharge");
                 }
-
-                /* TRANSLATORS: laptop primary battery */
-                return _("Laptop battery");
         }
 
         /* UPS */
@@ -812,16 +803,6 @@ gpm_device_to_localised_string (UpDevice *device)
                         /* TRANSLATORS: battery state */
                         return _("UPS is charged");
                 }
-
-                /* TRANSLATORS: battery-backed AC power source */
-                return _("UPS");
-        }
-
-        /* monitor */
-        if (kind == UP_DEVICE_KIND_MONITOR) {
-
-                /* TRANSLATORS: a monitor is a device to measure voltage and current */
-                return _("Monitor");
         }
 
         /* mouse */
@@ -843,9 +824,6 @@ gpm_device_to_localised_string (UpDevice *device)
                         /* TRANSLATORS: battery state */
                         return _("Mouse is charged");
                 }
-
-                /* TRANSLATORS: wireless mice with internal batteries */
-                return _("Mouse");
         }
 
         /* keyboard */
@@ -867,9 +845,6 @@ gpm_device_to_localised_string (UpDevice *device)
                         /* TRANSLATORS: battery state */
                         return _("Keyboard is charged");
                 }
-
-                /* TRANSLATORS: wireless keyboard with internal battery */
-                return _("Keyboard");
         }
 
         /* PDA */
@@ -891,9 +866,6 @@ gpm_device_to_localised_string (UpDevice *device)
                         /* TRANSLATORS: battery state */
                         return _("PDA is charged");
                 }
-
-                /* TRANSLATORS: portable device */
-                return _("PDA");
         }
 
         /* phone */
@@ -915,9 +887,6 @@ gpm_device_to_localised_string (UpDevice *device)
                         /* TRANSLATORS: battery state */
                         return _("Cell phone is charged");
                 }
-
-                /* TRANSLATORS: cell phone (mobile...) */
-                return _("Cell phone");
         }
 #if UP_CHECK_VERSION(0,9,5)
 
@@ -940,9 +909,6 @@ gpm_device_to_localised_string (UpDevice *device)
                         /* TRANSLATORS: battery state */
                         return _("Media player is charged");
                 }
-
-                /* TRANSLATORS: media player, mp3 etc */
-                return _("Media player");
         }
 
         /* tablet */
@@ -964,9 +930,6 @@ gpm_device_to_localised_string (UpDevice *device)
                         /* TRANSLATORS: battery state */
                         return _("Tablet is charged");
                 }
-
-                /* TRANSLATORS: tablet device */
-                return _("Tablet");
         }
 
         /* computer */
@@ -988,10 +951,8 @@ gpm_device_to_localised_string (UpDevice *device)
                         /* TRANSLATORS: battery state */
                         return _("Computer is charged");
                 }
-
-                /* TRANSLATORS: tablet device */
-                return _("Computer");
         }
 #endif
-        return NULL;
+
+        return gpm_device_kind_to_localised_string (kind, 1);
 }
