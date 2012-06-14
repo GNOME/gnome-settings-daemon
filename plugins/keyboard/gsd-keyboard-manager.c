@@ -73,6 +73,8 @@
 
 #define INPUT_SOURCE_TYPE_XKB "xkb"
 
+#define DEFAULT_LANGUAGE "en_US"
+
 struct GsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
@@ -324,9 +326,12 @@ replace_layout_and_variant (GsdKeyboardManager *manager,
         locale = setlocale (LC_MESSAGES, NULL);
         /* If LANG is empty, default to en_US */
         if (!locale)
-                language = g_strdup ("en_US");
+                language = g_strdup (DEFAULT_LANGUAGE);
         else
                 language = language_code_from_locale (locale);
+
+        if (!language)
+                language = language_code_from_locale (DEFAULT_LANGUAGE);
 
         gnome_xkb_info_get_layout_info_for_language (manager->priv->xkb_info,
                                                      language,
