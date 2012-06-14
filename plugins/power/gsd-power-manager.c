@@ -50,14 +50,6 @@
 #define GNOME_SESSION_DBUS_INTERFACE            "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_INTERFACE_PRESENCE   "org.gnome.SessionManager.Presence"
 
-#define CONSOLEKIT_DBUS_NAME                    "org.freedesktop.ConsoleKit"
-#define CONSOLEKIT_DBUS_PATH_MANAGER            "/org/freedesktop/ConsoleKit/Manager"
-#define CONSOLEKIT_DBUS_INTERFACE_MANAGER       "org.freedesktop.ConsoleKit.Manager"
-
-#define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
-#define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
-#define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
-
 #define UPOWER_DBUS_NAME                        "org.freedesktop.UPower"
 #define UPOWER_DBUS_PATH                        "/org/freedesktop/UPower"
 #define UPOWER_DBUS_PATH_KBDBACKLIGHT           "/org/freedesktop/UPower/KbdBacklight"
