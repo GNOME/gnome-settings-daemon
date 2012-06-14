@@ -76,6 +76,7 @@ test_power_SOURCES =					\
 test_power_CFLAGS = $(libpower_la_CFLAGS)
 test_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
 test_power_LDADD =					\
+	-lm						\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la \
 	$(UPOWER_LIBS)					\
