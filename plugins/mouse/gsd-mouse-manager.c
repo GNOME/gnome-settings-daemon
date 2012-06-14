@@ -598,11 +598,13 @@ set_disable_w_typing (GsdMouseManager *manager, gboolean state)
                         g_error_free (error);
                 } else {
                         g_child_watch_add (manager->priv->syndaemon_pid, syndaemon_died, manager);
+                        g_debug ("Launched syndaemon");
                 }
         } else if (manager->priv->syndaemon_spawned) {
                 kill (manager->priv->syndaemon_pid, SIGHUP);
                 g_spawn_close_pid (manager->priv->syndaemon_pid);
                 manager->priv->syndaemon_spawned = FALSE;
+                g_debug ("Killed syndaemon");
         }
 
         return 0;
