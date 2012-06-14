@@ -318,8 +318,15 @@ replace_layout_and_variant (GsdKeyboardManager *manager,
         const gchar *latin_variant = "";
         const gchar *locale_layout = NULL;
         const gchar *locale_variant = NULL;
-        const gchar *locale = setlocale (LC_MESSAGES, NULL);
-        gchar *language = language_code_from_locale (locale);
+        const gchar *locale;
+        gchar *language;
+
+        locale = setlocale (LC_MESSAGES, NULL);
+        /* If LANG is empty, default to en_US */
+        if (!locale)
+                language = g_strdup ("en_US");
+        else
+                language = language_code_from_locale (locale);
 
         gnome_xkb_info_get_layout_info_for_language (manager->priv->xkb_info,
                                                      language,
