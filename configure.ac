@@ -121,8 +121,8 @@ dnl ---------------------------------------------------------------------------
 GUDEV_PKG=""
 AC_ARG_ENABLE(gudev, AS_HELP_STRING([--disable-gudev],[Disable GUdev support (not optional on Linux platforms)]), enable_gudev=$enableval)
 if test x$enable_gudev != xno; then
-	PKG_CHECK_MODULES(GUDEV, gudev-1.0, HAVE_GUDEV="yes", HAVE_GUDEV="no")
-	if test "x$HAVE_GUDEV" = "xyes"; then
+	PKG_CHECK_MODULES(GUDEV, gudev-1.0, have_gudev="yes", have_gudev="no")
+	if test "x$have_gudev" = "xyes"; then
 		AC_DEFINE(HAVE_GUDEV, 1, [define if GUdev is available])
 		GUDEV_PKG="gudev-1.0"
 	else
@@ -131,9 +131,9 @@ if test x$enable_gudev != xno; then
 		fi
 	fi
 else
-	HAVE_GUDEV=no
+	have_gudev=no
 fi
-AM_CONDITIONAL(HAVE_GUDEV, test x$HAVE_GUDEV = xyes)
+AM_CONDITIONAL(HAVE_GUDEV, test x$have_gudev = xyes)
 
 dnl ---------------------------------------------------------------------------
 dnl - common
