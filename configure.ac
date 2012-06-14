@@ -298,7 +298,7 @@ dnl ==============================================
 # ---------------------------------------------------------------------------
 # UPower
 # ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(UPOWER, upower-glib >= $UPOWER_REQUIRED_VERSION libcanberra-gtk3)
+PKG_CHECK_MODULES(UPOWER, upower-glib >= $UPOWER_REQUIRED_VERSION libcanberra-gtk3 libnotify)
 if test x$enable_gudev != xno; then
 	PKG_CHECK_MODULES(BACKLIGHT_HELPER,
 		glib-2.0 >= $GLIB_REQUIRED_VERSION
