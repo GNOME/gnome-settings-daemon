@@ -7,7 +7,8 @@ libcommon_la_SOURCES = \
 	gsd-keygrab.h		\
 	gsd-input-helper.c	\
 	gsd-input-helper.h	\
-	test-plugin.h
+	gsd-power-helper.c	\
+	gsd-power-helper.h
 
 libcommon_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
@@ -38,4 +39,4 @@ test_egg_key_parsing_CFLAGS = $(libcommon_la_CFLAGS)
 scriptsdir = $(datadir)/gnome-settings-daemon-@GSD_API_VERSION@
 scripts_DATA = input-device-example.sh
 
-EXTRA_DIST = $(scripts_DATA)
+EXTRA_DIST = $(scripts_DATA) test-plugin.h
