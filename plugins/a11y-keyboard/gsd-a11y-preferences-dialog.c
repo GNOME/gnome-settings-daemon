@@ -321,7 +321,7 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
         g_signal_connect (widget,
                           "toggled",
                           G_CALLBACK (on_high_contrast_checkbutton_toggled),
-                          NULL);
+                          dialog);
         enabled = config_get_high_contrast (dialog);
         ui_set_high_contrast (dialog, enabled);
 
@@ -371,7 +371,7 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
         g_signal_connect (widget,
                           "toggled",
                           G_CALLBACK (on_large_print_checkbutton_toggled),
-                          NULL);
+                          dialog);
         enabled = config_get_large_print (dialog, &is_writable);
         ui_set_large_print (dialog, enabled);
         if (! is_writable) {
