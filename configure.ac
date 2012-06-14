@@ -208,7 +208,7 @@ fi
 # ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(POWER, upower-glib >= $UPOWER_REQUIRED_VERSION gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3 libnotify x11 xext)
 
-if test x$enable_gudev != xno; then
+if test x$have_gudev != xno; then
 	PKG_CHECK_MODULES(BACKLIGHT_HELPER,
 		glib-2.0 >= $GLIB_REQUIRED_VERSION
 		gudev-1.0
