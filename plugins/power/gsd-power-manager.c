@@ -42,6 +42,7 @@
 #include "gnome-settings-session.h"
 #include "gsd-enums.h"
 #include "gsd-power-manager.h"
+#include "gsd-power-helper.h"
 
 #define GNOME_SESSION_DBUS_NAME                 "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_PATH                 "/org/gnome/SessionManager"
@@ -2036,96 +2037,6 @@ gnome_session_shutdown (void)
         g_object_unref (proxy);
 }
 
-#ifdef HAVE_SYSTEMD
-
-static void
-systemd_stop (void)
-{
-        GDBusConnection *bus;
-
-        bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
-        g_dbus_connection_call (bus,
-                                SYSTEMD_DBUS_NAME,
-                                SYSTEMD_DBUS_PATH,
-                                SYSTEMD_DBUS_INTERFACE,
-                                "PowerOff",
-                                g_variant_new ("(b)", FALSE),
-                                NULL, 0, G_MAXINT, NULL, NULL, NULL);
-        g_object_unref (bus);
-}
-
-#else
-
-static void
-consolekit_stop_cb (GObject *source_object,
-                    GAsyncResult *res,
-                    gpointer user_data)
-{
-        GVariant *result;
-        GError *error = NULL;
-
-        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
-                                           res,
-                                           &error);
-        if (result == NULL) {
-                g_warning ("couldn't stop using ConsoleKit: %s",
-                           error->message);
-                g_error_free (error);
-        } else {
-                g_variant_unref (result);
-        }
-}
-
-static void
-consolekit_stop (void)
-{
-        GError *error = NULL;
-        GDBusProxy *proxy;
-
-        /* power down the machine in a safe way */
-        proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                               G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                               NULL,
-                                               CONSOLEKIT_DBUS_NAME,
-                                               CONSOLEKIT_DBUS_PATH_MANAGER,
-                                               CONSOLEKIT_DBUS_INTERFACE_MANAGER,
-                                               NULL, &error);
-        if (proxy == NULL) {
-                g_warning ("cannot connect to ConsoleKit: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-        g_dbus_proxy_call (proxy,
-                           "Stop",
-                           NULL,
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1, NULL,
-                           consolekit_stop_cb, NULL);
-        g_object_unref (proxy);
-}
-#endif
-
-static void
-upower_sleep_cb (GObject *source_object,
-                 GAsyncResult *res,
-                 gpointer user_data)
-{
-        GVariant *result;
-        GError *error = NULL;
-
-        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
-                                           res,
-                                           &error);
-        if (result == NULL) {
-                g_warning ("couldn't sleep using UPower: %s",
-                           error->message);
-                g_error_free (error);
-        } else {
-                g_variant_unref (result);
-        }
-}
-
 static void
 do_power_action_type (GsdPowerManager *manager,
                       GsdPowerActionType action_type)
@@ -2135,33 +2046,19 @@ do_power_action_type (GsdPowerManager *manager,
 
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
-                g_dbus_proxy_call (manager->priv->upower_proxy,
-                                   "Suspend",
-                                   NULL,
-                                   G_DBUS_CALL_FLAGS_NONE,
-                                   -1, NULL,
-                                   upower_sleep_cb, NULL);
+                gsd_power_suspend (manager->priv->upower_proxy);
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
                 gnome_session_shutdown ();
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                g_dbus_proxy_call (manager->priv->upower_proxy,
-                                   "Hibernate",
-                                   NULL,
-                                   G_DBUS_CALL_FLAGS_NONE,
-                                   -1, NULL,
-                                   upower_sleep_cb, NULL);
+                gsd_power_hibernate (manager->priv->upower_proxy);
                 break;
         case GSD_POWER_ACTION_SHUTDOWN:
                 /* this is only used on critically low battery where
                  * hibernate is not available and is marginally better
                  * than just powering down the computer mid-write */
-#ifdef HAVE_SYSTEMD
-                systemd_stop ();
-#else
-                consolekit_stop ();
-#endif
+                gsd_power_poweroff ();
                 break;
         case GSD_POWER_ACTION_BLANK:
                 ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
