@@ -27,7 +27,6 @@ libpower_la_CPPFLAGS = \
 
 libpower_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)				\
-	$(KEYRING_CFLAGS)				\
 	$(UPOWER_CFLAGS)				\
 	$(GNOME_DESKTOP_CFLAGS)				\
 	$(SETTINGS_PLUGIN_CFLAGS)			\
@@ -41,7 +40,6 @@ libpower_la_LIBADD  = 					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la \
 	$(UPOWER_LIBS)					\
 	$(GNOME_DESKTOP_LIBS)				\
-	$(KEYRING_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = 					\
@@ -81,7 +79,6 @@ test_power_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la \
 	$(UPOWER_LIBS)					\
 	$(GNOME_DESKTOP_LIBS)				\
-	$(KEYRING_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 EXTRA_DIST = 						\
