@@ -189,6 +189,12 @@ dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra])
 
+dnl ---------------------------------------------------------------------------
+dnl - xrandr plugin stuff
+dnl ---------------------------------------------------------------------------
+
+PKG_CHECK_MODULES(XRANDR, [gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION upower-glib >= $UPOWER_REQUIRED_VERSION])
+
 # ---------------------------------------------------------------------------
 # Power
 # ---------------------------------------------------------------------------

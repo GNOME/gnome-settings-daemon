@@ -49,9 +49,8 @@ libxrandr_la_CPPFLAGS =						\
 
 libxrandr_la_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
-	$(POWER_CFLAGS)			\
+	$(XRANDR_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(GNOME_DESKTOP_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libxrandr_la_LDFLAGS = 			\
@@ -59,9 +58,8 @@ libxrandr_la_LDFLAGS = 			\
 
 libxrandr_la_LIBADD  =					\
 	$(top_builddir)/plugins/common/libcommon.la	\
-	$(POWER_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)				\
-	$(GNOME_DESKTOP_LIBS)
+	$(XRANDR_LIBS)					\
+	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files =			\
 	xrandr.gnome-settings-plugin.in
