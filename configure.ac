@@ -189,6 +189,18 @@ dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra])
 
+# ---------------------------------------------------------------------------
+# Power
+# ---------------------------------------------------------------------------
+PKG_CHECK_MODULES(POWER, upower-glib >= $UPOWER_REQUIRED_VERSION gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3 libnotify x11 xext)
+
+if test x$enable_gudev != xno; then
+	PKG_CHECK_MODULES(BACKLIGHT_HELPER,
+		glib-2.0 >= $GLIB_REQUIRED_VERSION
+		gudev-1.0
+	)
+fi
+
 dnl ---------------------------------------------------------------------------
 dnl - color
 dnl ---------------------------------------------------------------------------
@@ -292,23 +304,8 @@ AC_SUBST(NSS_DATABASE)
 
 
 dnl ==============================================
-dnl power section
+dnl systemd check
 dnl ==============================================
-
-# ---------------------------------------------------------------------------
-# UPower
-# ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(UPOWER, upower-glib >= $UPOWER_REQUIRED_VERSION libcanberra-gtk3 libnotify)
-if test x$enable_gudev != xno; then
-	PKG_CHECK_MODULES(BACKLIGHT_HELPER,
-		glib-2.0 >= $GLIB_REQUIRED_VERSION
-		gudev-1.0
-	)
-fi
-
-# ---------------------------------------------------------------------------
-# systemd
-# ---------------------------------------------------------------------------
 
 AC_ARG_ENABLE([systemd],
               AS_HELP_STRING([--enable-systemd], [Use systemd for session tracking]),
@@ -326,7 +323,6 @@ AC_SUBST(SYSTEMD_CFLAGS)
 AC_SUBST(SYSTEMD_LIBS)
 
 AM_CONDITIONAL(WITH_SYSTEMD, [test "$with_systemd" = "yes"], [Using systemd])
-
 
 # ---------------------------------------------------------------------------
 # CUPS
