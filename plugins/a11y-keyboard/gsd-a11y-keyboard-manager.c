@@ -373,7 +373,7 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
 
                 err = NULL;
                 if (!gtk_show_uri (screen,
-                                   "ghelp:user-guide#goscustaccess-6",
+                                   "help:gnome-help/a11y",
                                    gtk_get_current_event_time(),
                                    &err)) {
                         GtkWidget *error_dialog = gtk_message_dialog_new (parent,
