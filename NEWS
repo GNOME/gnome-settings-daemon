@@ -1,4 +1,47 @@
 =============
+Version 3.5.3
+=============
+
+Keyboard A11y:
+- Don't crash when changing large print in fallback mode
+- Link to an existing help page
+
+Housekeeping:
+- Support new XDG thumbnail directory locations
+
+Keyboard:
+- Don't crash if LANG is empty
+
+Media-keys:
+- Make <Super> keyboard shortcuts work again
+- Use systemd to shutdown or suspend if available
+
+Mouse:
+- Only inhibits mouse clicks and scrolls with syndaemon
+
+Power:
+- End the lid-close safety timer when the lid gets opened
+- Update fallback status icon on icon state change
+- Don't leak notifications
+- Avoid duplicate translations
+- Use systemd to shutdown or suspend if available
+- Don't enable backlight helper if GUdev is not available
+
+Updates:
+- Adapt to new upstream property name
+- Add a notification for offline updates
+
+Wacom:
+- Update display mapping on monitor changes
+- Flag unknown devices created from fallback
+- Add keep aspect ratio option
+- Use GnomeRROutput instead of GnomeRROutputInfo
+- Match built-in monitor
+
+XRandr:
+- Explicitly set clone state variable when generating monitor configs
+
+=============
 Version 3.5.2
 =============
 
