@@ -47,10 +47,11 @@
 #define CUPS_DBUS_PATH      "/org/cups/cupsd/Notifier"
 #define CUPS_DBUS_INTERFACE "org.cups.cupsd.Notifier"
 
-#define RENEW_INTERVAL        3500
-#define SUBSCRIPTION_DURATION 3600
-#define CONNECTING_TIMEOUT    60
-#define REASON_TIMEOUT        15000
+#define RENEW_INTERVAL                   3500
+#define SUBSCRIPTION_DURATION            3600
+#define CONNECTING_TIMEOUT               60
+#define REASON_TIMEOUT                   15000
+#define CUPS_CONNECTION_TEST_INTERVAL    300
 
 struct GsdPrintNotificationsManagerPrivate
 {
@@ -63,6 +64,7 @@ struct GsdPrintNotificationsManagerPrivate
         GList                        *timeouts;
         GHashTable                   *printing_printers;
         GList                        *active_notifications;
+        guint                         cups_connection_timeout_id;
 };
 
 enum {
@@ -72,6 +74,7 @@ enum {
 static void     gsd_print_notifications_manager_class_init  (GsdPrintNotificationsManagerClass *klass);
 static void     gsd_print_notifications_manager_init        (GsdPrintNotificationsManager      *print_notifications_manager);
 static void     gsd_print_notifications_manager_finalize    (GObject                           *object);
+static gboolean cups_connection_test                        (gpointer                           user_data);
 
 G_DEFINE_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, G_TYPE_OBJECT)
 
@@ -904,6 +907,140 @@ renew_subscription (gpointer data)
         return TRUE;
 }
 
+static void
+renew_subscription_with_connection_test_cb (GObject      *source_object,
+                                            GAsyncResult *res,
+                                            gpointer      user_data)
+{
+        GSocketConnection *connection;
+        GError            *error = NULL;
+
+        connection = g_socket_client_connect_to_host_finish (G_SOCKET_CLIENT (source_object),
+                                                             res,
+                                                             &error);
+
+        if (connection) {
+                g_debug ("Test connection to CUPS server \'%s:%d\' succeeded.", cupsServer (), ippPort ());
+
+                g_io_stream_close (G_IO_STREAM (connection), NULL, NULL);
+                g_object_unref (connection);
+
+                renew_subscription (user_data);
+        }
+        else {
+                g_debug ("Test connection to CUPS server \'%s:%d\' failed.", cupsServer (), ippPort ());
+        }
+}
+
+static gboolean
+renew_subscription_with_connection_test (gpointer user_data)
+{
+        GSocketClient *client;
+        gchar         *address;
+
+        address = g_strdup_printf ("%s:%d", cupsServer (), ippPort ());
+
+        if (address && address[0] != '/') {
+                client = g_socket_client_new ();
+
+                g_debug ("Initiating test connection to CUPS server \'%s:%d\'.", cupsServer (), ippPort ());
+
+                g_socket_client_connect_to_host_async (client,
+                                                       address,
+                                                       631,
+                                                       NULL,
+                                                       renew_subscription_with_connection_test_cb,
+                                                       user_data);
+
+                g_object_unref (client);
+        }
+        else {
+                renew_subscription (user_data);
+        }
+
+        g_free (address);
+
+        return TRUE;
+}
+
+static void
+cups_connection_test_cb (GObject      *source_object,
+                         GAsyncResult *res,
+                         gpointer      user_data)
+{
+        GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
+        GSocketConnection            *connection;
+        GError                       *error = NULL;
+
+        connection = g_socket_client_connect_to_host_finish (G_SOCKET_CLIENT (source_object),
+                                                             res,
+                                                             &error);
+
+        if (connection) {
+                g_debug ("Test connection to CUPS server \'%s:%d\' succeeded.", cupsServer (), ippPort ());
+
+                g_io_stream_close (G_IO_STREAM (connection), NULL, NULL);
+                g_object_unref (connection);
+
+                manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+                gnome_settings_profile_msg ("got dests");
+
+                renew_subscription (user_data);
+                g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription_with_connection_test, manager);
+        }
+        else {
+                g_debug ("Test connection to CUPS server \'%s:%d\' failed.", cupsServer (), ippPort ());
+                if (manager->priv->cups_connection_timeout_id == 0)
+                        manager->priv->cups_connection_timeout_id =
+                                g_timeout_add_seconds (CUPS_CONNECTION_TEST_INTERVAL, cups_connection_test, manager);
+        }
+}
+
+static gboolean
+cups_connection_test (gpointer user_data)
+{
+        GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
+        GSocketClient                *client;
+        gchar                        *address;
+
+        if (!manager->priv->dests) {
+                address = g_strdup_printf ("%s:%d", cupsServer (), ippPort ());
+
+                if (address && address[0] != '/') {
+                        client = g_socket_client_new ();
+
+                        g_debug ("Initiating test connection to CUPS server \'%s:%d\'.", cupsServer (), ippPort ());
+
+                        g_socket_client_connect_to_host_async (client,
+                                                               address,
+                                                               631,
+                                                               NULL,
+                                                               cups_connection_test_cb,
+                                                               manager);
+
+                        g_object_unref (client);
+                }
+                else {
+                        manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+                        gnome_settings_profile_msg ("got dests");
+
+                        renew_subscription (user_data);
+                        g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription_with_connection_test, manager);
+                }
+
+                g_free (address);
+        }
+
+        if (manager->priv->dests) {
+                manager->priv->cups_connection_timeout_id = 0;
+
+                return FALSE;
+        }
+        else {
+                return TRUE;
+        }
+}
+
 static gboolean
 gsd_print_notifications_manager_start_idle (gpointer data)
 {
@@ -913,11 +1050,7 @@ gsd_print_notifications_manager_start_idle (gpointer data)
 
         manager->priv->printing_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
-        renew_subscription (manager);
-        g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription, manager);
-
-        manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
-        gnome_settings_profile_msg ("got dests");
+        cups_connection_test (manager);
 
         manager->priv->cups_bus_connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
 
@@ -955,6 +1088,7 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         manager->priv->printing_printers = NULL;
         manager->priv->active_notifications = NULL;
         manager->priv->cups_bus_connection = NULL;
+        manager->priv->cups_connection_timeout_id = 0;
 
         g_idle_add (gsd_print_notifications_manager_start_idle, manager);
 
