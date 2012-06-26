@@ -80,6 +80,7 @@
 
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
+#define KEY_KEYBOARD_OPTIONS     "xkb-options"
 
 #define INPUT_SOURCE_TYPE_XKB  "xkb"
 #define INPUT_SOURCE_TYPE_IBUS "ibus"
@@ -484,6 +485,52 @@ replace_layout_and_variant (GsdKeyboardManager *manager,
         xkb_var_defs->variant = build_xkb_group_string (variant, locale_variant, latin_variant);
 }
 
+static gchar *
+build_xkb_options_string (gchar **options)
+{
+        gchar *string;
+
+        if (*options) {
+                gint i;
+                gsize len;
+                gchar *ptr;
+
+                /* First part, getting length */
+                len = 1 + strlen (options[0]);
+                for (i = 1; options[i] != NULL; i++)
+                        len += strlen (options[i]);
+                len += (i - 1); /* commas */
+
+                /* Second part, building string */
+                string = malloc (len);
+                ptr = g_stpcpy (string, *options);
+                for (i = 1; options[i] != NULL; i++) {
+                        ptr = g_stpcpy (ptr, ",");
+                        ptr = g_stpcpy (ptr, options[i]);
+                }
+        } else {
+                string = malloc (1);
+                *string = '\0';
+        }
+
+        return string;
+}
+
+static void
+add_xkb_options (GsdKeyboardManager *manager,
+                 XkbRF_VarDefsRec   *xkb_var_defs)
+{
+        gchar **options;
+
+        options = g_settings_get_strv (manager->priv->input_sources_settings,
+                                       KEY_KEYBOARD_OPTIONS);
+
+        free (xkb_var_defs->options);
+        xkb_var_defs->options = build_xkb_options_string (options);
+
+        g_strfreev (options);
+}
+
 static void
 apply_xkb_layout (GsdKeyboardManager *manager,
                   const gchar        *layout,
@@ -495,6 +542,7 @@ apply_xkb_layout (GsdKeyboardManager *manager,
 
         gnome_xkb_info_get_var_defs (&rules_file_path, &xkb_var_defs);
 
+        add_xkb_options (manager, xkb_var_defs);
         replace_layout_and_variant (manager, xkb_var_defs, layout, variant);
 
         gdk_error_trap_push ();
