@@ -711,7 +711,8 @@ wacom_settings_changed (GSettings      *settings,
 	type = gsd_wacom_device_get_device_type (device);
 
 	if (g_str_equal (key, KEY_ROTATION)) {
-		set_rotation (device, g_settings_get_enum (settings, key));
+	        if (type != WACOM_TYPE_PAD)
+		        set_rotation (device, g_settings_get_enum (settings, key));
 	} else if (g_str_equal (key, KEY_TOUCH)) {
 		set_touch (device, g_settings_get_boolean (settings, key));
 	} else if (g_str_equal (key, KEY_TPCBUTTON)) {
