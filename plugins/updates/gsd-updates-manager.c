@@ -531,10 +531,7 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
 static gboolean
 update_check_on_battery (GsdUpdatesManager *manager)
 {
-        const gchar *message;
         gboolean ret;
-        GError *error = NULL;
-        NotifyNotification *notification;
 
         ret = g_settings_get_boolean (manager->priv->settings_gsd,
                                       GSD_SETTINGS_UPDATE_BATTERY);
@@ -547,32 +544,6 @@ update_check_on_battery (GsdUpdatesManager *manager)
         if (!ret) {
                 g_debug ("okay to update as on AC");
                 return TRUE;
-        }
-
-        /* do we do the notification? */
-        ret = g_settings_get_boolean (manager->priv->settings_gsd,
-                                      GSD_SETTINGS_NOTIFY_UPDATE_NOT_BATTERY);
-        if (!ret) {
-                g_debug ("ignoring due to GSettings");
-                return FALSE;
-        }
-
-        /* TRANSLATORS: policy says update, but we are on battery and so prompt */
-        message = _("Automatic updates are not being installed as the computer is running on battery power");
-        /* TRANSLATORS: informs user will not install by default */
-        notification = notify_notification_new (_("Updates not installed"),
-                                                message,
-                                                GSD_UPDATES_ICON_NORMAL);
-        notify_notification_set_app_name (notification, _("Software Updates"));
-        notify_notification_set_timeout (notification, 15000);
-        notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
-        notify_notification_add_action (notification, "update-all-packages",
-                                        /* TRANSLATORS: to hell with my battery life, just do it */
-                                        _("Install the updates anyway"), libnotify_action_cb, manager, NULL);
-        ret = notify_notification_show (notification, &error);
-        if (!ret) {
-                g_warning ("error: %s", error->message);
-                g_error_free (error);
         }
 
         return FALSE;
