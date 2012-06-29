@@ -57,8 +57,6 @@ struct GsdUpdatesRefreshPrivate
         gboolean                 session_idle;
         gboolean                 on_battery;
         gboolean                 network_active;
-        gboolean                 force_get_updates_login;
-        guint                    force_get_updates_login_timeout_id;
         guint                    timeout_id;
         guint                    periodic_id;
         UpClient                *client;
@@ -211,16 +209,6 @@ maybe_get_updates (GsdUpdatesRefresh *refresh)
 
         g_return_if_fail (GSD_IS_UPDATES_REFRESH (refresh));
 
-        if (!refresh->priv->force_get_updates_login) {
-                refresh->priv->force_get_updates_login = TRUE;
-                if (g_settings_get_boolean (refresh->priv->settings,
-                                            GSD_SETTINGS_FORCE_GET_UPDATES_LOGIN)) {
-                        g_debug ("forcing get update due to GSettings");
-                        g_signal_emit (refresh, signals [GET_UPDATES], 0);
-                        return;
-                }
-        }
-
         /* if we don't want to auto check for updates, don't do this either */
         thresh = g_settings_get_int (refresh->priv->settings,
                                      GSD_SETTINGS_FREQUENCY_GET_UPDATES);
@@ -303,17 +291,8 @@ change_state_cb (GsdUpdatesRefresh *refresh)
 }
 
 static gboolean
-maybe_get_updates_logon_cb (GsdUpdatesRefresh *refresh)
-{
-        maybe_get_updates (refresh);
-        /* never repeat, even if failure */
-        return FALSE;
-}
-
-static gboolean
 change_state (GsdUpdatesRefresh *refresh)
 {
-        gboolean force;
         guint value;
 
         g_return_val_if_fail (GSD_IS_UPDATES_REFRESH (refresh), FALSE);
@@ -322,27 +301,6 @@ change_state (GsdUpdatesRefresh *refresh)
         if (!refresh->priv->network_active) {
                 g_debug ("not when no network");
                 return FALSE;
-        }
-
-        /* only force a check if the user REALLY, REALLY wants to break
-         * set policy and have an update at startup */
-        if (!refresh->priv->force_get_updates_login) {
-                force = g_settings_get_boolean (refresh->priv->settings,
-                                                GSD_SETTINGS_FORCE_GET_UPDATES_LOGIN);
-                if (force) {
-                        /* don't immediately send the signal, if we are
-                         * called during object initialization
-                         * we need to wait until upper layers finish
-                         * hooking up to the signal first */
-                        if (refresh->priv->force_get_updates_login_timeout_id == 0) {
-                                refresh->priv->force_get_updates_login_timeout_id =
-                                        g_timeout_add_seconds (LOGIN_TIMEOUT,
-                                                               (GSourceFunc) maybe_get_updates_logon_cb,
-                                                               refresh);
-                                g_source_set_name_by_id (refresh->priv->force_get_updates_login_timeout_id,
-                                                         "[GsdUpdatesRefresh] maybe-get-updates");
-                        }
-                }
         }
 
         /* wait a little time for things to settle down */
@@ -366,7 +324,6 @@ settings_key_changed_cb (GSettings *client,
 {
         g_return_if_fail (GSD_IS_UPDATES_REFRESH (refresh));
         if (g_strcmp0 (key, GSD_SETTINGS_SESSION_STARTUP_TIMEOUT) == 0 ||
-            g_strcmp0 (key, GSD_SETTINGS_FORCE_GET_UPDATES_LOGIN) == 0 ||
             g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_GET_UPDATES) == 0 ||
             g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_GET_UPGRADES) == 0 ||
             g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_REFRESH_CACHE) == 0 ||
@@ -521,10 +478,8 @@ gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
         refresh->priv = GSD_UPDATES_REFRESH_GET_PRIVATE (refresh);
         refresh->priv->on_battery = FALSE;
         refresh->priv->network_active = FALSE;
-        refresh->priv->force_get_updates_login = FALSE;
         refresh->priv->timeout_id = 0;
         refresh->priv->periodic_id = 0;
-        refresh->priv->force_get_updates_login_timeout_id = 0;
 
         /* we need to know the updates frequency */
         refresh->priv->settings = g_settings_new (GSD_SETTINGS_SCHEMA);
@@ -608,8 +563,6 @@ gsd_updates_refresh_finalize (GObject *object)
                 g_source_remove (refresh->priv->timeout_id);
         if (refresh->priv->periodic_id != 0)
                 g_source_remove (refresh->priv->periodic_id);
-        if (refresh->priv->force_get_updates_login_timeout_id != 0)
-                g_source_remove (refresh->priv->force_get_updates_login_timeout_id);
 
         g_signal_handlers_disconnect_by_data (refresh->priv->client, refresh);
 
