@@ -399,11 +399,6 @@ convert_network_state (GsdUpdatesRefresh *refresh, PkNetworkEnum state)
                 return g_settings_get_boolean (refresh->priv->settings,
                                                GSD_SETTINGS_CONNECTION_USE_MOBILE);
 
-        /* check policy */
-        if (state == PK_NETWORK_ENUM_WIFI)
-                return g_settings_get_boolean (refresh->priv->settings,
-                                               GSD_SETTINGS_CONNECTION_USE_WIFI);
-
         /* not recognised */
         g_warning ("state unknown: %i", state);
         return TRUE;

@@ -27,7 +27,6 @@ G_BEGIN_DECLS
 #define GSD_SETTINGS_AUTO_UPDATE_TYPE                   "auto-update-type"
 #define GSD_SETTINGS_BANNED_FIRMWARE                    "banned-firmware"
 #define GSD_SETTINGS_CONNECTION_USE_MOBILE              "connection-use-mobile"
-#define GSD_SETTINGS_CONNECTION_USE_WIFI                "connection-use-wifi"
 #define GSD_SETTINGS_ENABLE_CHECK_FIRMWARE              "enable-check-firmware"
 #define GSD_SETTINGS_FORCE_GET_UPDATES_LOGIN            "force-get-updates-login"
 #define GSD_SETTINGS_FREQUENCY_GET_UPDATES              "frequency-get-updates"
