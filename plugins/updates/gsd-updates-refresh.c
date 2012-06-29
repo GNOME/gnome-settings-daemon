@@ -34,6 +34,7 @@ static void     gsd_updates_refresh_finalize    (GObject            *object);
 
 #define PERIODIC_CHECK_TIME     60*60   /* poke PackageKit every hour */
 #define LOGIN_TIMEOUT           3       /* seconds */
+#define SESSION_STARTUP_TIMEOUT 10      /* seconds */
 
 enum {
         PRESENCE_STATUS_AVAILABLE = 0,
@@ -293,8 +294,6 @@ change_state_cb (GsdUpdatesRefresh *refresh)
 static gboolean
 change_state (GsdUpdatesRefresh *refresh)
 {
-        guint value;
-
         g_return_val_if_fail (GSD_IS_UPDATES_REFRESH (refresh), FALSE);
 
         /* no point continuing if we have no network */
@@ -306,11 +305,12 @@ change_state (GsdUpdatesRefresh *refresh)
         /* wait a little time for things to settle down */
         if (refresh->priv->timeout_id != 0)
                 g_source_remove (refresh->priv->timeout_id);
-        value = g_settings_get_int (refresh->priv->settings,
-                                    GSD_SETTINGS_SESSION_STARTUP_TIMEOUT);
-        g_debug ("defering action for %i seconds", value);
+        g_debug ("defering action for %i seconds",
+                 SESSION_STARTUP_TIMEOUT);
         refresh->priv->timeout_id =
-                g_timeout_add_seconds (value, (GSourceFunc) change_state_cb, refresh);
+                g_timeout_add_seconds (SESSION_STARTUP_TIMEOUT,
+                                       (GSourceFunc) change_state_cb,
+                                       refresh);
         g_source_set_name_by_id (refresh->priv->timeout_id,
                                  "[GsdUpdatesRefresh] change-state");
 
@@ -323,8 +323,7 @@ settings_key_changed_cb (GSettings *client,
                          GsdUpdatesRefresh *refresh)
 {
         g_return_if_fail (GSD_IS_UPDATES_REFRESH (refresh));
-        if (g_strcmp0 (key, GSD_SETTINGS_SESSION_STARTUP_TIMEOUT) == 0 ||
-            g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_GET_UPDATES) == 0 ||
+        if (g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_GET_UPDATES) == 0 ||
             g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_GET_UPGRADES) == 0 ||
             g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_REFRESH_CACHE) == 0 ||
             g_strcmp0 (key, GSD_SETTINGS_AUTO_UPDATE_TYPE) == 0 ||

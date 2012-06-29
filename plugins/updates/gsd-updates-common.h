@@ -40,7 +40,6 @@ G_BEGIN_DECLS
 #define GSD_SETTINGS_NOTIFY_UPDATE_COMPLETE_RESTART     "notify-update-complete-restart"
 #define GSD_SETTINGS_NOTIFY_UPDATE_NOT_BATTERY          "notify-update-not-battery"
 #define GSD_SETTINGS_SCHEMA                             "org.gnome.settings-daemon.plugins.updates"
-#define GSD_SETTINGS_SESSION_STARTUP_TIMEOUT            "session-startup-timeout"
 #define GSD_SETTINGS_UPDATE_BATTERY                     "update-battery"
 #define GSD_SETTINGS_AUTO_DOWNLOAD_UPDATES              "auto-download-updates"
 
