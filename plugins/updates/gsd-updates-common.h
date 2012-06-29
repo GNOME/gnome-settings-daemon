@@ -36,7 +36,6 @@ G_BEGIN_DECLS
 #define GSD_SETTINGS_LAST_UPDATES_NOTIFICATION          "last-updates-notification"
 #define GSD_SETTINGS_MEDIA_REPO_FILENAMES               "media-repo-filenames"
 #define GSD_SETTINGS_NOTIFY_DISTRO_UPGRADES             "notify-distro-upgrades"
-#define GSD_SETTINGS_NOTIFY_UPDATE_COMPLETE             "notify-update-complete"
 #define GSD_SETTINGS_SCHEMA                             "org.gnome.settings-daemon.plugins.updates"
 #define GSD_SETTINGS_UPDATE_BATTERY                     "update-battery"
 #define GSD_SETTINGS_AUTO_DOWNLOAD_UPDATES              "auto-download-updates"
