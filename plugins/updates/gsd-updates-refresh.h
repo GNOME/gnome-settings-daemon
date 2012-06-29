@@ -46,7 +46,6 @@ typedef struct
 
 GType                    gsd_updates_refresh_get_type           (void);
 GsdUpdatesRefresh       *gsd_updates_refresh_new                (void);
-gboolean                 gsd_updates_refresh_get_on_battery     (GsdUpdatesRefresh *refresh);
 
 G_END_DECLS
 

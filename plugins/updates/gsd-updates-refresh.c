@@ -146,12 +146,6 @@ maybe_refresh_cache (GsdUpdatesRefresh *refresh)
                 return;
         }
 
-        /* not on battery */
-        if (refresh->priv->on_battery) {
-                g_debug ("not when on battery");
-                return;
-        }
-
         /* only do the refresh cache when the user is idle */
         if (!refresh->priv->session_idle) {
                 g_debug ("not when session active");
@@ -294,11 +288,21 @@ change_state_cb (GsdUpdatesRefresh *refresh)
 static gboolean
 change_state (GsdUpdatesRefresh *refresh)
 {
+        gboolean ret;
+
         g_return_val_if_fail (GSD_IS_UPDATES_REFRESH (refresh), FALSE);
 
         /* no point continuing if we have no network */
         if (!refresh->priv->network_active) {
                 g_debug ("not when no network");
+                return FALSE;
+        }
+
+        /* not on battery unless overridden */
+        ret = g_settings_get_boolean (refresh->priv->settings,
+                                      GSD_SETTINGS_UPDATE_BATTERY);
+        if (!ret && refresh->priv->on_battery) {
+                g_debug ("not when on battery");
                 return FALSE;
         }
 
@@ -326,16 +330,8 @@ settings_key_changed_cb (GSettings *client,
         if (g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_GET_UPDATES) == 0 ||
             g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_GET_UPGRADES) == 0 ||
             g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_REFRESH_CACHE) == 0 ||
-            g_strcmp0 (key, GSD_SETTINGS_AUTO_UPDATE_TYPE) == 0 ||
             g_strcmp0 (key, GSD_SETTINGS_UPDATE_BATTERY) == 0)
                 change_state (refresh);
-}
-
-gboolean
-gsd_updates_refresh_get_on_battery (GsdUpdatesRefresh *refresh)
-{
-        g_return_val_if_fail (GSD_IS_UPDATES_REFRESH (refresh), FALSE);
-        return refresh->priv->on_battery;
 }
 
 static gboolean

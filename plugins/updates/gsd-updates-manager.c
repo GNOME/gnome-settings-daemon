@@ -66,6 +66,7 @@ struct GsdUpdatesManagerPrivate
         GDBusConnection         *connection;
         guint                    owner_id;
         GDBusNodeInfo           *introspection;
+        GPtrArray               *update_packages;
 };
 
 static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
@@ -528,27 +529,6 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
         manager->priv->notification_updates = notification;
 }
 
-static gboolean
-update_check_on_battery (GsdUpdatesManager *manager)
-{
-        gboolean ret;
-
-        ret = g_settings_get_boolean (manager->priv->settings_gsd,
-                                      GSD_SETTINGS_UPDATE_BATTERY);
-        if (ret) {
-                g_debug ("okay to update due to policy");
-                return TRUE;
-        }
-
-        ret = gsd_updates_refresh_get_on_battery (manager->priv->refresh);
-        if (!ret) {
-                g_debug ("okay to update as on AC");
-                return TRUE;
-        }
-
-        return FALSE;
-}
-
 static void
 update_packages_finished_cb (PkTask *task,
                              GAsyncResult *res,
@@ -634,6 +614,31 @@ out:
 }
 
 static void
+check_updates_for_importance (GsdUpdatesManager *manager)
+{
+        guint i;
+        PkPackage *pkg;
+        GPtrArray *important_array;
+
+        /* check each package */
+        important_array = g_ptr_array_new ();
+        for (i = 0; i < manager->priv->update_packages->len; i++) {
+                pkg = g_ptr_array_index (manager->priv->update_packages, i);
+                if (pk_package_get_info (pkg) == PK_INFO_ENUM_SECURITY ||
+                    pk_package_get_info (pkg) == PK_INFO_ENUM_IMPORTANT)
+                        g_ptr_array_add (important_array, pkg);
+        }
+        if (important_array->len > 0) {
+                notify_critical_updates (manager,
+                                         important_array);
+        } else {
+                notify_normal_updates_maybe (manager,
+                                             manager->priv->update_packages);
+        }
+        g_ptr_array_unref (important_array);
+}
+
+static void
 package_download_finished_cb (GObject *object,
                               GAsyncResult *res,
                               GsdUpdatesManager *manager)
@@ -663,6 +668,9 @@ package_download_finished_cb (GObject *object,
                 goto out;
         }
 
+        /* check to see if should notify */
+        check_updates_for_importance (manager);
+
         /* we succeeded, so allow the shell to query us */
         manager->priv->pending_updates = TRUE;
         emit_changed (manager);
@@ -674,20 +682,28 @@ out:
 }
 
 static void
-auto_download_updates (GsdUpdatesManager *manager,
-                       GPtrArray *array)
+auto_download_updates (GsdUpdatesManager *manager)
 {
         gchar **package_ids;
         guint i;
         PkPackage *pkg;
 
         /* download each package */
-        package_ids = g_new0 (gchar *, array->len + 1);
-        for (i=0; i<array->len; i++) {
-                pkg = g_ptr_array_index (array, i);
+        package_ids = g_new0 (gchar *, manager->priv->update_packages->len + 1);
+        for (i = 0; i < manager->priv->update_packages->len; i++) {
+                pkg = g_ptr_array_index (manager->priv->update_packages, i);
                 package_ids[i] = g_strdup (pk_package_get_id (pkg));
         }
 
+#if PK_CHECK_VERSION(0,1,8)
+        /* we've set only-download in PkTask */
+        pk_task_update_packages_async (manager->priv->task,
+                                       package_ids,
+                                       manager->priv->cancellable,
+                                       NULL, NULL,
+                                       (GAsyncReadyCallback) package_download_finished_cb,
+                                       manager);
+#else
         /* download them all */
         pk_client_download_packages_async (PK_CLIENT(manager->priv->task),
                                            package_ids,
@@ -696,6 +712,7 @@ auto_download_updates (GsdUpdatesManager *manager,
                                            NULL, NULL,
                                            (GAsyncReadyCallback) package_download_finished_cb,
                                            manager);
+#endif
         g_strfreev (package_ids);
 }
 
@@ -707,13 +724,7 @@ get_updates_finished_cb (GObject *object,
         PkClient *client = PK_CLIENT(object);
         PkResults *results;
         GError *error = NULL;
-        PkPackage *item;
-        guint i;
         gboolean ret;
-        GsdUpdateType update;
-        GPtrArray *security_array = NULL;
-        gchar **package_ids;
-        GPtrArray *array = NULL;
         PkError *error_code = NULL;
 
         /* get the results */
@@ -739,103 +750,30 @@ get_updates_finished_cb (GObject *object,
         /* we succeeded, so clear the count */
         manager->priv->failed_get_updates_count = 0;
 
-        /* get data */
-        array = pk_results_get_package_array (results);
+        /* so we can download or check for important & security updates */
+        if (manager->priv->update_packages != NULL)
+                g_ptr_array_unref (manager->priv->update_packages);
+        manager->priv->update_packages = pk_results_get_package_array (results);
 
         /* we have no updates */
-        if (array->len == 0) {
+        if (manager->priv->update_packages->len == 0) {
                 g_debug ("no updates");
                 goto out;
         }
 
-        /* we have updates to process */
-        security_array = g_ptr_array_new_with_free_func (g_free);
-
-        /* find the security updates first */
-        for (i=0; i<array->len; i++) {
-                item = g_ptr_array_index (array, i);
-                if (pk_package_get_info (item) != PK_INFO_ENUM_SECURITY)
-                        continue;
-                g_ptr_array_add (security_array, g_strdup (pk_package_get_id (item)));
-        }
-
-        /* do we do the automatic updates? */
-        update = g_settings_get_enum (manager->priv->settings_gsd,
-                                      GSD_SETTINGS_AUTO_UPDATE_TYPE);
-
-        /* is policy none? */
-        if (update == GSD_UPDATE_TYPE_NONE) {
-                g_debug ("not updating as policy NONE");
-                /* do we warn the user? */
-                if (security_array->len > 0)
-                        notify_critical_updates (manager, security_array);
-                else
-                        notify_normal_updates_maybe (manager, array);
-
-                /* should we auto-download other updates? */
-                ret = g_settings_get_boolean (manager->priv->settings_gsd,
-                                              GSD_SETTINGS_AUTO_DOWNLOAD_UPDATES);
-                if (ret)
-                        auto_download_updates (manager, array);
+        /* should we auto-download the updates? */
+        ret = g_settings_get_boolean (manager->priv->settings_gsd,
+                                      GSD_SETTINGS_AUTO_DOWNLOAD_UPDATES);
+        if (ret) {
+                auto_download_updates (manager);
                 goto out;
         }
 
-        /* are we on battery and configured to skip the action */
-        ret = update_check_on_battery (manager);
-        if (!ret &&
-            ((update == GSD_UPDATE_TYPE_SECURITY && security_array->len > 0) ||
-              update == GSD_UPDATE_TYPE_ALL)) {
-                g_debug ("on battery so not doing update");
-                if (security_array->len > 0)
-                        notify_critical_updates (manager, security_array);
-                goto out;
-        }
-
-        /* just do security updates */
-        if (update == GSD_UPDATE_TYPE_SECURITY) {
-                if (security_array->len == 0) {
-                        g_debug ("policy security, but none available");
-                        notify_normal_updates_maybe (manager, array);
-                        goto out;
-                }
-
-                /* even if this is TRUE, we're doing something about it */
-                manager->priv->pending_updates = FALSE;
-
-                /* convert */
-                package_ids = pk_ptr_array_to_strv (security_array);
-                pk_task_update_packages_async (manager->priv->task, package_ids,
-                                               manager->priv->cancellable,
-                                               NULL, NULL,
-                                               (GAsyncReadyCallback) update_packages_finished_cb, manager);
-                g_strfreev (package_ids);
-                goto out;
-        }
-
-        /* just do everything */
-        if (update == GSD_UPDATE_TYPE_ALL) {
-
-                /* even if this is TRUE, we're doing something about it */
-                manager->priv->pending_updates = FALSE;
-
-                g_debug ("we should do the update automatically!");
-                pk_task_update_system_async (manager->priv->task,
-                                             manager->priv->cancellable,
-                                             NULL, NULL,
-                                             (GAsyncReadyCallback) update_packages_finished_cb,
-                                             manager);
-                goto out;
-        }
-
-        /* shouldn't happen */
-        g_warning ("unknown update mode");
+        /* just check to see if should notify */
+        check_updates_for_importance (manager);
 out:
         if (error_code != NULL)
                 g_object_unref (error_code);
-        if (security_array != NULL)
-                g_ptr_array_unref (security_array);
-        if (array != NULL)
-                g_ptr_array_unref (array);
         if (results != NULL)
                 g_object_unref (results);
 }
@@ -1521,6 +1459,10 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
         if (manager->priv->offline_update_id) {
                 g_source_remove (manager->priv->offline_update_id);
                 manager->priv->offline_update_id = 0;
+        }
+        if (manager->priv->update_packages != NULL) {
+                g_ptr_array_unref (manager->priv->update_packages);
+                manager->priv->update_packages = NULL;
         }
         g_clear_object (&manager->priv->offline_update_error);
 }

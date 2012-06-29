@@ -24,7 +24,6 @@
 
 G_BEGIN_DECLS
 
-#define GSD_SETTINGS_AUTO_UPDATE_TYPE                   "auto-update-type"
 #define GSD_SETTINGS_BANNED_FIRMWARE                    "banned-firmware"
 #define GSD_SETTINGS_CONNECTION_USE_MOBILE              "connection-use-mobile"
 #define GSD_SETTINGS_ENABLE_CHECK_FIRMWARE              "enable-check-firmware"
