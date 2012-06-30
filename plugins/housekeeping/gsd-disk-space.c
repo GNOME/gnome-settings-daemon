@@ -293,7 +293,7 @@ empty_trash_callback (NotifyNotification *n,
 static void
 on_notification_closed (NotifyNotification *notification)
 {
-        notification = NULL;
+        g_object_unref (notification);
 }
 
 static gboolean
