@@ -1763,8 +1763,15 @@ gcm_session_notify_cb (NotifyNotification *notification,
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
 
         if (g_strcmp0 (action, "recalibrate") == 0) {
+                notify_notification_close (notification, NULL);
                 gcm_session_exec_control_center (manager);
         }
+}
+
+static void
+closed_cb (NotifyNotification *notification, gpointer data)
+{
+        g_object_unref (notification);
 }
 
 static gboolean
@@ -1791,6 +1798,7 @@ gcm_session_notify_recalibrate (GsdColorManager *manager,
                                         gcm_session_notify_cb,
                                         priv, NULL);
 
+        g_signal_connect (notification, "closed", G_CALLBACK (closed_cb), NULL);
         ret = notify_notification_show (notification, &error);
         if (!ret) {
                 g_warning ("failed to show notification: %s",
