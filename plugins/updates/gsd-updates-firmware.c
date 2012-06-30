@@ -213,7 +213,6 @@ out:
         g_string_free (string, TRUE);
         return ret;
 }
-
 static void
 libnotify_cb (NotifyNotification *notification, gchar *action, gpointer data)
 {
@@ -226,6 +225,13 @@ libnotify_cb (NotifyNotification *notification, gchar *action, gpointer data)
         } else {
                 g_warning ("unknown action id: %s", action);
         }
+        notify_notification_close (notification, NULL);
+}
+
+static void
+on_notification_closed (NotifyNotification *notification, gpointer data)
+{
+        g_object_unref (notification);
 }
 
 static void
@@ -244,6 +250,8 @@ require_restart (GsdUpdatesFirmware *firmware)
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
+        g_signal_connect (notification, "closed",
+                          G_CALLBACK (on_notification_closed), NULL);
 
         /* show the bubble */
         ret = notify_notification_show (notification, &error);
@@ -269,6 +277,8 @@ require_replug (GsdUpdatesFirmware *firmware)
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
+        g_signal_connect (notification, "closed",
+                          G_CALLBACK (on_notification_closed), NULL);
 
         /* show the bubble */
         ret = notify_notification_show (notification, &error);
@@ -294,6 +304,8 @@ require_nothing (GsdUpdatesFirmware *firmware)
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
+        g_signal_connect (notification, "closed",
+                          G_CALLBACK (on_notification_closed), NULL);
 
         /* show the bubble */
         ret = notify_notification_show (notification, &error);
@@ -589,6 +601,9 @@ delay_timeout_cb (gpointer data)
         notify_notification_add_action (notification, "ignore-devices",
                                         /* TRANSLATORS: we should ignore this device and not ask anymore */
                                         _("Ignore devices"), libnotify_cb, firmware, NULL);
+        g_signal_connect (notification, "closed",
+                          G_CALLBACK (on_notification_closed), NULL);
+
         ret = notify_notification_show (notification, &error);
         if (!ret) {
                 g_warning ("error: %s", error->message);

@@ -200,6 +200,7 @@ libnotify_action_cb (NotifyNotification *notification,
         GError *error = NULL;
         GsdUpdatesManager *manager = GSD_UPDATES_MANAGER (user_data);
 
+        notify_notification_close (notification, NULL);
         if (g_strcmp0 (action, "distro-upgrade-info") == 0) {
                 ret = g_spawn_command_line_async (DATADIR "/PackageKit/pk-upgrade-distro.sh",
                                                   &error);
@@ -244,6 +245,12 @@ libnotify_action_cb (NotifyNotification *notification,
         g_warning ("unknown action id: %s", action);
 out:
         return;
+}
+
+static void
+on_notification_closed (NotifyNotification *notification, gpointer data)
+{
+        g_object_unref (notification);
 }
 
 static void
@@ -332,6 +339,8 @@ get_distro_upgrades_finished_cb (GObject *object,
                                         _("More information"),
                                         libnotify_action_cb,
                                         manager, NULL);
+        g_signal_connect (notification, "closed",
+                          G_CALLBACK (on_notification_closed), NULL);
         ret = notify_notification_show (notification, &error);
         if (!ret) {
                 g_warning ("error: %s", error->message);
@@ -455,6 +464,8 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
         notify_notification_add_action (notification, "show-update-viewer",
                                         /* TRANSLATORS: button: open the update viewer to install updates*/
                                         _("Install updates"), libnotify_action_cb, manager, NULL);
+        g_signal_connect (notification, "closed",
+                          G_CALLBACK (on_notification_closed), NULL);
         ret = notify_notification_show (notification, &error);
         if (!ret) {
                 g_warning ("error: %s", error->message);
@@ -514,6 +525,8 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
         notify_notification_add_action (notification, "show-update-viewer",
                                         /* TRANSLATORS: button: open the update viewer to install updates*/
                                         _("Install updates"), libnotify_action_cb, manager, NULL);
+        g_signal_connect (notification, "closed",
+                          G_CALLBACK (on_notification_closed), NULL);
         ret = notify_notification_show (notification, &error);
         if (!ret) {
                 g_warning ("error: %s", error->message);
@@ -602,6 +615,8 @@ notify_failed_get_updates_maybe (GsdUpdatesManager *manager)
                                         button,
                                         libnotify_action_cb,
                                         manager, NULL);
+        g_signal_connect (notification, "closed",
+                          G_CALLBACK (on_notification_closed), NULL);
         ret = notify_notification_show (notification, &error);
         if (!ret) {
                 g_warning ("failed to show notification: %s",
@@ -1297,6 +1312,8 @@ check_offline_update_cb (gpointer user_data)
         notify_notification_add_action (notification, "clear-offline-updates",
                                         /* TRANSLATORS: button: clear notification */
                                         _("OK"), libnotify_action_cb, manager, NULL);
+        g_signal_connect (notification, "closed",
+                          G_CALLBACK (on_notification_closed), NULL);
         ret = notify_notification_show (notification, &error);
         if (!ret) {
                 g_warning ("error: %s", error->message);
