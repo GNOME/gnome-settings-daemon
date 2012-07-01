@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-06-29 12:15+0000\n"
-"PO-Revision-Date: 2012-07-01 11:06+0700\n"
+"PO-Revision-Date: 2012-07-01 11:49+0700\n"
 "Last-Translator: Nguyễn Thái Ngọc Duy <pclouds@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -209,18 +209,16 @@ msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr "Đặt x1, y1 và x2, y2 làm vùng có thể dùng công cụ."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
-#, fuzzy
 #| msgid "Wacom tablet rotation"
 msgid "Wacom tablet aspect ratio"
-msgstr "Quay bảng Wacom"
+msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
-#, fuzzy
 #| msgid "Enable this to set the tablet to absolute mode."
 msgid ""
 "Enable this to restrict the Wacom tablet area to match the aspect ratio of "
 "the output."
-msgstr "Bật để đặt tablet trong trong chế độ tuyệt đối."
+msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Wacom tablet rotation"
@@ -680,23 +678,21 @@ msgstr "Tổ hợp phím để thu nhỏ kính lúp"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
 msgid "Switch input source"
-msgstr ""
+msgstr "Chuyển nguồn nhập"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
-#, fuzzy
 #| msgid "Binding to skip to next track."
 msgid "Binding to select the next input source"
-msgstr "Tổ hợp để nhảy tới rãnh kế tiếp."
+msgstr "Tổ hợp để nhảy tới nguồn nhập kế tiếp"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Switch input source backward"
-msgstr ""
+msgstr "Chuyển nguồn nhập ngược lại"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
-#, fuzzy
 #| msgid "Binding to skip to previous track."
 msgid "Binding to select the previous input source"
-msgstr "Tổ hợp để nhảy về rãnh trước."
+msgstr "Tổ hợp để nhảy về nguồn nhập trước"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Name"
@@ -831,7 +827,6 @@ msgid "Automatically download updates in the background without confirmation"
 msgstr "Tự động âm thầm tải bản cập nhật về không cần xác nhận"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
-#, fuzzy
 #| msgid ""
 #| "Automatically download updates in the background without confirmation. "
 #| "Updates will be auto-downloaded when using wired network connnections, "
@@ -843,8 +838,8 @@ msgid ""
 "mobile broadband if 'connection-use-mobile' is enabled."
 msgstr ""
 "Tự động âm thầm tải các bản cập nhật về không cần xác nhận. Các bản cập nhật "
-"sẽ được tự động tải về bằng kết nối có dây, và WiFi nếu 'connection-use-"
-"wifi' được bật và mạng di động nếu 'connection-use-mobile' được bật."
+"sẽ được tự động tải về bằng kết nối có dây, và mạng di động nếu 'connection-"
+"use-mobile' được bật."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "How often to check for updates"
@@ -906,16 +901,14 @@ msgstr ""
 "Bao lâu cập nhật thông tin gói phầm mềm một lần. Giá trị tính theo giây."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
-#, fuzzy
 #| msgid "Install updates automatically when running on battery power"
 msgid "Check for updates when running on battery power"
-msgstr "Cài bản cập nhật tự động khi chạy nguồn pin"
+msgstr "Kiểm tra bản cập nhật khi chạy nguồn pin"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
-#, fuzzy
 #| msgid "Install updates automatically when running on battery power."
 msgid "Check for updates when running on battery power."
-msgstr "Cài bản cập nhật tự động khi chạy nguồn pin."
+msgstr "Kiểm tra bản cập nhật khi chạy nguồn pin."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid "Notify the user when distribution upgrades are available"
@@ -2785,71 +2778,69 @@ msgstr "Bỏ qua thiết bị"
 #. TRANSLATORS: this is when the offline update failed
 #: ../plugins/updates/gsd-updates-manager.c:105
 msgid "Failed To Update"
-msgstr ""
+msgstr "Lỗi cập nhật"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
 #: ../plugins/updates/gsd-updates-manager.c:111
 msgid "A previous update was unfinished."
-msgstr ""
+msgstr "Chưa hoàn tất bản cập nhật trước."
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
 #: ../plugins/updates/gsd-updates-manager.c:121
 msgid "Network access was required but not available."
-msgstr ""
+msgstr "Cần truy cập mạng nhưng không có."
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
 #: ../plugins/updates/gsd-updates-manager.c:130
 msgid "An update was not signed in the correct way."
-msgstr ""
+msgstr "Bản cập nhật không được ký đúng cách."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
 #: ../plugins/updates/gsd-updates-manager.c:140
-#, fuzzy
 #| msgid "The system update has completed"
 msgid "The update could not be completed."
-msgstr "Hoàn tất cập nhật hệ thống"
+msgstr "Không thể hoàn tất cập nhật."
 
 #. TRANSLATORS: the user aborted the update manually
 #: ../plugins/updates/gsd-updates-manager.c:145
-#, fuzzy
 #| msgid "The system update has completed"
 msgid "The update was cancelled."
-msgstr "Hoàn tất cập nhật hệ thống"
+msgstr "Huỷ cập nhật."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
 #: ../plugins/updates/gsd-updates-manager.c:151
 msgid "An offline update was requested but no packages required updating."
-msgstr ""
+msgstr "Được yêu cầu cập nhật ngoại tuyến nhưng không có gói nào cần cập nhật."
 
 #. TRANSLATORS: we ran out of disk space
 #: ../plugins/updates/gsd-updates-manager.c:155
 msgid "No space was left on the drive."
-msgstr ""
+msgstr "Không còn chỗ trên đĩa."
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
 #: ../plugins/updates/gsd-updates-manager.c:163
 msgid "An update failed to install correctly."
-msgstr ""
+msgstr "Lỗi cài đặt bản cập nhật."
 
 #. TRANSLATORS: We didn't handle the error type
 #: ../plugins/updates/gsd-updates-manager.c:168
 msgid "The offline update failed in an unexpected way."
-msgstr ""
+msgstr "Lỗi lạ cài cập nhật ngoại tuyến."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
 #: ../plugins/updates/gsd-updates-manager.c:177
 msgid "Detailed errors from the package manager follow:"
-msgstr ""
+msgstr "Lỗi chi tiết từ trình quản lý gói:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
 #: ../plugins/updates/gsd-updates-manager.c:323
@@ -2909,50 +2900,46 @@ msgstr "Giao dịch bị ngắt khi đang chạy"
 
 #. TRANSLATORS: title in the libnotify popup
 #: ../plugins/updates/gsd-updates-manager.c:1244
-#, fuzzy
 #| msgid "Software Updates"
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
-msgstr[0] "Bản cập nhật phần mềm"
+msgstr[0] "Đã cài đặt bản cập nhật phần mềm"
 
 #. TRANSLATORS: message when we've done offline updates
 #: ../plugins/updates/gsd-updates-manager.c:1249
-#, fuzzy
 #| msgid "An important software update is available"
 #| msgid_plural "Important software updates are available"
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
-msgstr[0] "Có một bản cập nhật quan trọng"
+msgstr[0] "Đẵ cài đặt bản cập nhật OS quan trọng."
 
 #. TRANSLATORS: title in the libnotify popup
 #: ../plugins/updates/gsd-updates-manager.c:1272
-#, fuzzy
 #| msgid "Software Updates"
 msgid "Software Updates Failed"
-msgstr "Bản cập nhật phần mềm"
+msgstr "Lỗi cập nhật phần mềm"
 
 #. TRANSLATORS: message when we've not done offline updates
 #: ../plugins/updates/gsd-updates-manager.c:1275
-#, fuzzy
 #| msgid "An important software update is available"
 #| msgid_plural "Important software updates are available"
 msgid "An important OS update failed to be installed."
-msgstr "Có một bản cập nhật quan trọng"
+msgstr "Lỗi cài đặt một bản cập nhật OS quan trọng."
 
 #. TRANSLATORS: button: review the offline update changes
 #: ../plugins/updates/gsd-updates-manager.c:1290
 msgid "Review"
-msgstr ""
+msgstr "Xem lại"
 
 #. TRANSLATORS: button: review the offline update changes
 #: ../plugins/updates/gsd-updates-manager.c:1295
 msgid "Show details"
-msgstr ""
+msgstr "Hiện chi tiết"
 
 #. TRANSLATORS: button: clear notification
 #: ../plugins/updates/gsd-updates-manager.c:1299
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../plugins/wacom/gsd-wacom-device.c:961
 #, c-format
