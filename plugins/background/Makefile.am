@@ -2,32 +2,30 @@ NULL =
 
 plugin_name = background
 
-noinst_PROGRAMS = 			\
-	test-background			\
-	$(NULL)
+libexec_PROGRAMS = gsd-test-background
 
-test_background_SOURCES = 		\
+gsd_test_background_SOURCES =		\
 	test-background.c		\
 	gsd-background-manager.h	\
 	gsd-background-manager.c	\
 	$(NULL)
 
-test_background_CPPFLAGS = \
+gsd_test_background_CPPFLAGS =				\
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/plugins/common			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
-test_background_CFLAGS = \
+gsd_test_background_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(BACKGROUND_CFLAGS)		\
 	$(AM_CFLAGS)
 
-test_background_LDADD =		\
+gsd_test_background_LDADD =				\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la	\
-	$(SETTINGS_PLUGIN_LIBS)	\
-	$(BACKGROUND_LIBS)	\
+	$(SETTINGS_PLUGIN_LIBS)				\
+	$(BACKGROUND_LIBS)				\
 	$(NULL)
 
 plugin_LTLIBRARIES = \
