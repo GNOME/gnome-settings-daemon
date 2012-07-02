@@ -17,7 +17,6 @@ libsound_la_CPPFLAGS = \
 libsound_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS) \
-	$(GNOME_CFLAGS)	\
 	$(PULSE_CFLAGS)	\
 	$(AM_CFLAGS)
 
