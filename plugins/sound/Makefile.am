@@ -1,25 +1,25 @@
 plugin_name = sound
 
-noinst_PROGRAMS = test-sound
+libexec_PROGRAMS = gsd-test-sound
 
-test_sound_SOURCES =		\
+gsd_test_sound_SOURCES =	\
 	gsd-sound-manager.h	\
 	gsd-sound-manager.c	\
 	test-sound.c
 
-test_sound_CFLAGS =					\
+gsd_test_sound_CFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	$(SOUND_CFLAGS)					\
+	$(SOUND_CFLAGS)						\
 	$(PLUGIN_CFLAGS)					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-test_sound_LDADD =					\
+gsd_test_sound_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(SOUND_LIBS)					\
+	$(SOUND_LIBS)						\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_LTLIBRARIES = \
