@@ -161,7 +161,7 @@ static gboolean
 device_rebind (GsdUpdatesFirmware *firmware)
 {
         gboolean ret;
-        gchar *command;
+        gchar *argv[4];
         gchar *rebind_stderr = NULL;
         gchar *rebind_stdout = NULL;
         GError *error = NULL;
@@ -185,17 +185,22 @@ device_rebind (GsdUpdatesFirmware *firmware)
                 g_string_set_size (string, string->len-1);
 
         /* use PolicyKit to do this as root */
-        command = g_strdup_printf ("pkexec %s %s",
-                                   GSD_UPDATES_FIRMWARE_DEVICE_REBIND_PROGRAM,
-                                   string->str);
-        ret = g_spawn_command_line_sync (command,
-                                         &rebind_stdout,
-                                         &rebind_stderr,
-                                         &exit_status,
-                                         &error);
+        argv[0] = "pkexec";
+        argv[1] = GSD_UPDATES_FIRMWARE_DEVICE_REBIND_PROGRAM;
+        argv[2] = string->str;
+        argv[3] = NULL;
+        ret = g_spawn_sync (NULL,
+                            argv,
+                            NULL,
+                            0,
+                            NULL, NULL,
+                            &rebind_stdout,
+                            &rebind_stderr,
+                            &exit_status,
+                            &error);
         if (!ret) {
                 g_warning ("failed to spawn '%s': %s",
-                           command, error->message);
+                           argv[1], error->message);
                 g_error_free (error);
                 goto out;
         }
@@ -210,7 +215,6 @@ device_rebind (GsdUpdatesFirmware *firmware)
 out:
         g_free (rebind_stdout);
         g_free (rebind_stderr);
-        g_free (command);
         g_string_free (string, TRUE);
         return ret;
 }
