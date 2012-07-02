@@ -203,6 +203,12 @@ if test x$enable_gudev != xno; then
 	PKG_CHECK_MODULES(ORIENTATION, [gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION gudev-1.0])
 fi
 
+dnl ---------------------------------------------------------------------------
+dnl - sound plugin stuff
+dnl ---------------------------------------------------------------------------
+
+PKG_CHECK_MODULES(SOUND, [libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION])
+
 # ---------------------------------------------------------------------------
 # Power
 # ---------------------------------------------------------------------------

@@ -17,7 +17,7 @@ libsound_la_CPPFLAGS = \
 libsound_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS) \
-	$(PULSE_CFLAGS)	\
+	$(SOUND_CFLAGS)	\
 	$(AM_CFLAGS)
 
 libsound_la_LDFLAGS = \
@@ -25,7 +25,7 @@ libsound_la_LDFLAGS = \
 
 libsound_la_LIBADD = \
 	$(SETTINGS_PLUGIN_LIBS)	\
-	$(PULSE_LIBS)
+	$(SOUND_LIBS)
 
 plugin_in_files = \
 	sound.gnome-settings-plugin.in
