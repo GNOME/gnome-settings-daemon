@@ -79,6 +79,7 @@ test_wacom_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 test_wacom_CFLAGS =			\
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
