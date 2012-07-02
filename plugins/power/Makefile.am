@@ -57,8 +57,8 @@ polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 gsd_backlight_helper_SOURCES =				\
 	gsd-backlight-helper.c
 
-noinst_PROGRAMS = test-power
-test_power_SOURCES =					\
+libexec_PROGRAMS = gsd-test-power
+gsd_test_power_SOURCES =				\
 	gpm-common.c					\
 	gpm-common.h					\
 	gpm-phone.c					\
@@ -69,9 +69,9 @@ test_power_SOURCES =					\
 	gsd-power-manager.h				\
 	test-power.c
 
-test_power_CFLAGS = $(libpower_la_CFLAGS)
-test_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
-test_power_LDADD =					\
+gsd_test_power_CFLAGS = $(libpower_la_CFLAGS)
+gsd_test_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
+gsd_test_power_LDADD =					\
 	-lm						\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la \
