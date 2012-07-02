@@ -1,4 +1,4 @@
-plugin_name = ally-settings
+plugin_name = a11y-settings
 
 plugin_LTLIBRARIES = \
 	liba11y-settings.la
