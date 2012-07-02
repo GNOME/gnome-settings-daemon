@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-06-11 14:40+0000\n"
-"PO-Revision-Date: 2012-06-11 17:14+0200\n"
+"POT-Creation-Date: 2012-06-29 12:15+0000\n"
+"PO-Revision-Date: 2012-07-02 16:57+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -233,12 +233,10 @@ msgstr ""
 "Establecer esto a x1, y1 y x2, y2 del área usable por las herramientas."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
-#| msgid "Wacom tablet rotation"
 msgid "Wacom tablet aspect ratio"
 msgstr "Relación de aspecto de la tableta Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
-#| msgid "Enable this to set the tablet to absolute mode."
 msgid ""
 "Enable this to restrict the Wacom tablet area to match the aspect ratio of "
 "the output."
@@ -862,82 +860,42 @@ msgstr ""
 "defectuosa. Desactive esto sólo si sabe que su batería está bien."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
-msgid "The install root to use when adding and removing packages"
-msgstr "La raíz de instalación que usar al añadir y quitar paquetes"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid ""
-"The install root to use when processing packages, which is changed when "
-"using LTSP or when testing."
-msgstr ""
-"La raíz de instalación que usar al añadir y quitar paquetes, cambiada al "
-"usar LTSP o en pruebas."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Use mobile broadband connections"
 msgstr "Usar conexiones de banda ancha móvil"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid ""
 "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
 "Usar conexiones móviles de banda ancha como GSM o CDMA para buscar "
 "actualizaciones."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
-msgid "Use WiFi connections"
-msgstr "Usar conexiones WiFi"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
-msgid ""
-"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
-"to download packages when on a wired connection, and the VPN or proxy "
-"required may also only be available on wired connections."
-msgstr ""
-"Usar conexión WiFi (LAN inalámbrica) para comprobar si hay actualizaciones. "
-"Una red cableada puede ser más rápida para bajar paquetes, y la VPN o el "
-"proxy requeridos puede estar disponibles sólo para conexiones cableadas."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically download updates in the background without confirmation"
 msgstr ""
 "Descargar automáticamente actualizaciones en segundo plano sin confirmación"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#| msgid ""
+#| "Automatically download updates in the background without confirmation. "
+#| "Updates will be auto-downloaded when using wired network connnections, "
+#| "and also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+#| "'connection-use-mobile' is enabled."
 msgid ""
 "Automatically download updates in the background without confirmation. "
 "Updates will be auto-downloaded when using wired network connnections, and "
-"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
-"'connection-use-mobile' is enabled."
+"mobile broadband if 'connection-use-mobile' is enabled."
 msgstr ""
 "Descargar automáticamente actualizaciones en segundo plano sin confirmación. "
 "Las actualizaciones se descargarán automáticamente al usar conexiones "
-"cableadas, y WiFi en el caso de que «connection-use-wifi» esté activada, y "
-"conexiones móviles de banda ancha si «connection-use-mobile» está activada."
+"cableadas, y conexiones móviles de banda ancha si «connection-use-mobile» "
+"está activada."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
-msgid "Automatically install these types of updates"
-msgstr "Instalar automáticamente estos tipos de actualizaciones"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
-msgid "Automatically install these types of updates."
-msgstr "Instalar automáticamente estos tipos de actualizaciones."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
-msgid "Get the update list when the session starts"
-msgstr "Obtener la lista de actualizaciones al iniciar la sesión"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
-msgid "Get the update list when the session starts, even if not scheduled to."
-msgstr ""
-"Obtener la lista de actualizaciones al iniciar la sesión, incluso si no está "
-"programado."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "How often to check for updates"
 msgstr "Con qué frecuencia deben comprobarse las actualizaciones"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid ""
 "How often to check for updates. Value is in seconds. This is a maximum "
 "amount of time that can pass between a security update being published, and "
@@ -948,13 +906,13 @@ msgstr ""
 "se publica una actualización de seguridad, y se instala automáticamente o se "
 "notifica al usuario."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid "How often to notify the user that non-critical updates are available"
 msgstr ""
 "Con qué frecuencia se debe avisar al usuario que existen actualizaciones no "
 "críticas disponibles"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
@@ -967,12 +925,12 @@ msgstr ""
 "pero las notificaciones de las actualizaciones no críticas se deberían "
 "mostrar con menos frecuencia."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "The last time we told the user about non-critical notifications"
 msgstr ""
 "La última vez que se preguntó al usuario acerca de los avisos no críticos"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
@@ -980,126 +938,63 @@ msgstr ""
 "La última vez que se notificó al usuario sobre actualizaciones no críticas. "
 "El valor es en segundos desde la época, o cero para «nunca»."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades"
 msgstr ""
 "Con qué frecuencia se deben comprobar las actualizaciones de la distribución"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr ""
 "Con qué frecuencia se debe comprobar si hay actualizaciones de la "
 "distribución. Valor en segundos."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid "How often to refresh the package cache"
 msgstr "Con qué frecuencia se debe comprobar la caché de paquetes"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr ""
 "Con qué frecuencia se debe actualizar la caché de paquetes. Valor en "
 "segundos."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
-msgid ""
-"The number of seconds at session startup to wait before checking for updates"
-msgstr ""
-"El número de segundos que se debe esperar al inicio de la sesión para "
-"comprobar si hay actualizaciones"
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#| msgid "Install updates automatically when running on battery power"
+msgid "Check for updates when running on battery power"
+msgstr "Comprobar si hay actualizaciones cuando esté en modo batería"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
-msgid ""
-"The number of seconds at session startup to wait before checking for "
-"updates. Value is in seconds."
-msgstr ""
-"El número de segundos que esperar al inicio de la sesión para comprobar si "
-"hay actualizaciones. El valor es en segundos."
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#| msgid "Install updates automatically when running on battery power."
+msgid "Check for updates when running on battery power."
+msgstr "Comprobar si hay actualizaciones cuando esté en modo batería."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
-msgid "Install updates automatically when running on battery power"
-msgstr ""
-"Instalar las actualizaciones automáticamente cuando esté en modo batería"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
-msgid "Install updates automatically when running on battery power."
-msgstr ""
-"Instalar las actualizaciones automáticamente cuando esté en modo batería."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid "Notify the user when distribution upgrades are available"
 msgstr ""
 "Avisar al usuario cuando haya actualizaciones de la distribución disponibles"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Notify the user when distribution upgrades are available."
 msgstr ""
 "Avisar al usuario cuando haya actualizaciones de la distribución disponibles"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
-msgid "Notify the user for completed updates"
-msgstr "Avisar al usuario cuando se completen las actualizaciones"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
-msgid ""
-"Notify the user for completed updates. This may be a useful notification for "
-"some users as installing updates prevents shutdown."
-msgstr ""
-"Avisar la usuario cuando se hayan completado las actualizaciones. Puede ser "
-"un aviso útil para algunos usuarios ya que la instalación de paquetes "
-"previene el apagado."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
-msgid "Notify the user for completed updates where the user needs to restart"
-msgstr ""
-"Avisar al usuario cuando se haya completado una actualización y se necesite "
-"reiniciar"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
-msgid "Notify the user for completed updates where the user needs to restart."
-msgstr ""
-"Avisar al usuario cuando se haya completado una actualización y se necesite "
-"reiniciar."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
-msgid ""
-"Notify the user when the automatic update was not started on battery power"
-msgstr ""
-"Avisar al usuario cuando no se haya iniciado una actualización automática en "
-"modo batería"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
-msgid ""
-"Notify the user when the update was not automatically started because the "
-"machine is running on battery power."
-msgstr ""
-"Avisar al usuario cuando no se inicie automáticamente la actualización "
-"porque el equipo está funcionando con batería baja."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
-msgid "Notify the user when the update was started"
-msgstr "Avisar al usuario cuando se inicie la actualización"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
-msgid "Notify the user when the update was started."
-msgstr "Avisar al usuario cuando se inicie la actualización."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Ask the user if additional firmware should be installed"
 msgstr "Preguntar al usuario si se debe instalar el firmware adicional"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid ""
 "Ask the user if additional firmware should be installed if it is available."
 msgstr ""
 "Preguntar al usuario si se debe instalar el firmware adicional si está "
 "disponible"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Firmware files that should not be searched for"
 msgstr "Archivos de firmware que no se deben buscar"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
@@ -1107,11 +1002,11 @@ msgstr ""
 "Archivos de firmware que no se deben buscar, separados por comas. Se pueden "
 "incluir los caracteres «*» y «?»."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid "Devices that should be ignored"
 msgstr "Dispositivos que se deben ignorar"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
@@ -1119,13 +1014,13 @@ msgstr ""
 "Dispositivos que se deben ignorar, separados por comas. Pueden incluir los "
 "caracteres «*» y «?»."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "The filenames on removable media that designate it a software source."
 msgstr ""
 "Los nombres de archivos en dispositivos extraíbles que lo designan como una "
 "fuente de software."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -1284,7 +1179,7 @@ msgstr ""
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:529
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
-#: ../plugins/mouse/gsd-mouse-manager.c:910
+#: ../plugins/mouse/gsd-mouse-manager.c:916
 msgid "Universal Access"
 msgstr "Acceso universal"
 
@@ -1709,7 +1604,7 @@ msgstr "Examinar…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
+#: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Teclado"
@@ -1755,11 +1650,11 @@ msgstr "Teclas multimedia"
 msgid "Media keys plugin"
 msgstr "Complemento de teclas multimedia"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:906
+#: ../plugins/mouse/gsd-mouse-manager.c:912
 msgid "Could not enable mouse accessibility features"
 msgstr "No se pudieron activar las características de accesibilidad del ratón"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:908
+#: ../plugins/mouse/gsd-mouse-manager.c:914
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
@@ -1768,7 +1663,7 @@ msgstr ""
 
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
+#: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Ratón"
@@ -1954,63 +1849,63 @@ msgid "Charge rate:"
 msgstr "Tasa de carga:"
 
 #. TRANSLATORS: system power cord
-#: ../plugins/power/gpm-common.c:565 ../plugins/power/gpm-common.c:757
+#: ../plugins/power/gpm-common.c:565
 msgid "AC adapter"
 msgid_plural "AC adapters"
 msgstr[0] "Adaptador de corriente"
 msgstr[1] "Adaptadores de corriente"
 
 #. TRANSLATORS: laptop primary battery
-#: ../plugins/power/gpm-common.c:569 ../plugins/power/gpm-common.c:793
+#: ../plugins/power/gpm-common.c:569
 msgid "Laptop battery"
 msgid_plural "Laptop batteries"
 msgstr[0] "Batería de portátil"
 msgstr[1] "Baterías de portátil"
 
 #. TRANSLATORS: battery-backed AC power source
-#: ../plugins/power/gpm-common.c:573 ../plugins/power/gpm-common.c:817
+#: ../plugins/power/gpm-common.c:573
 msgid "UPS"
 msgid_plural "UPSs"
 msgstr[0] "SAI"
 msgstr[1] "SAI"
 
 #. TRANSLATORS: a monitor is a device to measure voltage and current
-#: ../plugins/power/gpm-common.c:577 ../plugins/power/gpm-common.c:824
+#: ../plugins/power/gpm-common.c:577
 msgid "Monitor"
 msgid_plural "Monitors"
 msgstr[0] "Monitor"
 msgstr[1] "Monitores"
 
 #. TRANSLATORS: portable device
-#: ../plugins/power/gpm-common.c:589 ../plugins/power/gpm-common.c:896
+#: ../plugins/power/gpm-common.c:589
 msgid "PDA"
 msgid_plural "PDAs"
 msgstr[0] "PDA"
 msgstr[1] "PDA"
 
 #. TRANSLATORS: cell phone (mobile...)
-#: ../plugins/power/gpm-common.c:593 ../plugins/power/gpm-common.c:920
+#: ../plugins/power/gpm-common.c:593
 msgid "Cell phone"
 msgid_plural "Cell phones"
 msgstr[0] "Teléfono móvil"
 msgstr[1] "Teléfonos móviles"
 
 #. TRANSLATORS: media player, mp3 etc
-#: ../plugins/power/gpm-common.c:598 ../plugins/power/gpm-common.c:945
+#: ../plugins/power/gpm-common.c:598
 msgid "Media player"
 msgid_plural "Media players"
 msgstr[0] "Reproductor multimedia"
 msgstr[1] "Reproductores multimedia"
 
 #. TRANSLATORS: tablet device
-#: ../plugins/power/gpm-common.c:602 ../plugins/power/gpm-common.c:969
+#: ../plugins/power/gpm-common.c:602
 msgid "Tablet"
 msgid_plural "Tablets"
 msgstr[0] "Tableta"
 msgstr[1] "Tabletas"
 
 #. TRANSLATORS: tablet device
-#: ../plugins/power/gpm-common.c:606 ../plugins/power/gpm-common.c:993
+#: ../plugins/power/gpm-common.c:606
 msgid "Computer"
 msgid_plural "Computers"
 msgstr[0] "Equipo"
@@ -2067,206 +1962,206 @@ msgid "Waiting to discharge"
 msgstr "Esperando para descargar"
 
 #. TRANSLATORS: device not present
-#: ../plugins/power/gpm-common.c:765
+#: ../plugins/power/gpm-common.c:759
 msgid "Laptop battery not present"
 msgstr "Falta la batería del portátil"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:769
+#: ../plugins/power/gpm-common.c:763
 msgid "Laptop battery is charging"
 msgstr "La batería del portátil se está cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:773
+#: ../plugins/power/gpm-common.c:767
 msgid "Laptop battery is discharging"
 msgstr "La batería del portátil se está descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:777
+#: ../plugins/power/gpm-common.c:771
 msgid "Laptop battery is empty"
 msgstr "La batería del portátil está vacía"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:781
+#: ../plugins/power/gpm-common.c:775
 msgid "Laptop battery is charged"
 msgstr "La batería del portátil está cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:785
+#: ../plugins/power/gpm-common.c:779
 msgid "Laptop battery is waiting to charge"
 msgstr "La batería del portátil está esperando para cargarse"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:789
+#: ../plugins/power/gpm-common.c:783
 msgid "Laptop battery is waiting to discharge"
 msgstr "La batería del portátil está esperando para descargarse"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:801
+#: ../plugins/power/gpm-common.c:792
 msgid "UPS is charging"
 msgstr "El SAI se está cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:805
+#: ../plugins/power/gpm-common.c:796
 msgid "UPS is discharging"
 msgstr "El SAI se está descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:809
+#: ../plugins/power/gpm-common.c:800
 msgid "UPS is empty"
 msgstr "La batería del SAI está vacía"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:813
+#: ../plugins/power/gpm-common.c:804
 msgid "UPS is charged"
 msgstr "La batería del SAI está cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:832
+#: ../plugins/power/gpm-common.c:813
 msgid "Mouse is charging"
 msgstr "El ratón se está cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:836
+#: ../plugins/power/gpm-common.c:817
 msgid "Mouse is discharging"
 msgstr "El ratón se está descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:840
+#: ../plugins/power/gpm-common.c:821
 msgid "Mouse is empty"
 msgstr "La batería del ratón está vacía"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:844
+#: ../plugins/power/gpm-common.c:825
 msgid "Mouse is charged"
 msgstr "La batería del ratón está cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:856
+#: ../plugins/power/gpm-common.c:834
 msgid "Keyboard is charging"
 msgstr "El teclado se está cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:860
+#: ../plugins/power/gpm-common.c:838
 msgid "Keyboard is discharging"
 msgstr "El teclado se está descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:864
+#: ../plugins/power/gpm-common.c:842
 msgid "Keyboard is empty"
 msgstr "La batería del teclado está vacía"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:868
+#: ../plugins/power/gpm-common.c:846
 msgid "Keyboard is charged"
 msgstr "La batería del teclado está cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:880
+#: ../plugins/power/gpm-common.c:855
 msgid "PDA is charging"
 msgstr "La PDA se está cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:884
+#: ../plugins/power/gpm-common.c:859
 msgid "PDA is discharging"
 msgstr "La PDA se está descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:888
+#: ../plugins/power/gpm-common.c:863
 msgid "PDA is empty"
 msgstr "La batería de la PDA está vacía"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:892
+#: ../plugins/power/gpm-common.c:867
 msgid "PDA is charged"
 msgstr "La batería del la PDA está cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:904
+#: ../plugins/power/gpm-common.c:876
 msgid "Cell phone is charging"
 msgstr "El teléfono móvil se está cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:908
+#: ../plugins/power/gpm-common.c:880
 msgid "Cell phone is discharging"
 msgstr "El teléfono móvil se está descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:912
+#: ../plugins/power/gpm-common.c:884
 msgid "Cell phone is empty"
 msgstr "La batería del teléfono móvil está vacía"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:916
+#: ../plugins/power/gpm-common.c:888
 msgid "Cell phone is charged"
 msgstr "La batería del teléfono móvil está cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:929
+#: ../plugins/power/gpm-common.c:898
 msgid "Media player is charging"
 msgstr "El reproductor multimedia se está cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:933
+#: ../plugins/power/gpm-common.c:902
 msgid "Media player is discharging"
 msgstr "El reproductor multimedia se está descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:937
+#: ../plugins/power/gpm-common.c:906
 msgid "Media player is empty"
 msgstr "La batería del reproductor multimedia está vacía"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:941
+#: ../plugins/power/gpm-common.c:910
 msgid "Media player is charged"
 msgstr "La batería del reproductor multimedia está cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:953
+#: ../plugins/power/gpm-common.c:919
 msgid "Tablet is charging"
 msgstr "La tableta se está cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:957
+#: ../plugins/power/gpm-common.c:923
 msgid "Tablet is discharging"
 msgstr "La tableta se está descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:961
+#: ../plugins/power/gpm-common.c:927
 msgid "Tablet is empty"
 msgstr "La batería de la tableta está vacía"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:965
+#: ../plugins/power/gpm-common.c:931
 msgid "Tablet is charged"
 msgstr "La batería de la tableta está cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:977
+#: ../plugins/power/gpm-common.c:940
 msgid "Computer is charging"
 msgstr "El equipo se está cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:981
+#: ../plugins/power/gpm-common.c:944
 msgid "Computer is discharging"
 msgstr "El equipo se está descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:985
+#: ../plugins/power/gpm-common.c:948
 msgid "Computer is empty"
 msgstr "La batería del equipo está vacía"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:989
+#: ../plugins/power/gpm-common.c:952
 msgid "Computer is charged"
 msgstr "La batería del equipo está cargada"
 
 #. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:999
+#: ../plugins/power/gsd-power-manager.c:992
 msgid "Battery may be recalled"
 msgstr "La batería podría estar reclamada"
 
-#: ../plugins/power/gsd-power-manager.c:1002
+#: ../plugins/power/gsd-power-manager.c:995
 #, c-format
 msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
@@ -2275,64 +2170,64 @@ msgstr ""
 "La batería en su equipo quizá haya sido reclamada por %s y usted puede estar "
 "en riesgo."
 
-#: ../plugins/power/gsd-power-manager.c:1005
+#: ../plugins/power/gsd-power-manager.c:998
 msgid "For more information visit the battery recall website."
 msgstr ""
 "Para obtener más información visite el sitio de reclamación de baterías."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:1016
+#: ../plugins/power/gsd-power-manager.c:1009
 msgid "Visit recall website"
 msgstr "Visitar sitio web de reclamaciones"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:1020
+#: ../plugins/power/gsd-power-manager.c:1013
 msgid "Do not show me this again"
 msgstr "No mostrar esto más"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1231
+#: ../plugins/power/gsd-power-manager.c:1246
 msgid "UPS Discharging"
 msgstr "SAI descargándose"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1236
+#: ../plugins/power/gsd-power-manager.c:1251
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Quedan %s de SAI de respaldo"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1257
-#: ../plugins/power/gsd-power-manager.c:1435
-#: ../plugins/power/gsd-power-manager.c:1616
-#: ../plugins/power/gsd-power-manager.c:1765
+#: ../plugins/power/gsd-power-manager.c:1272
+#: ../plugins/power/gsd-power-manager.c:1448
+#: ../plugins/power/gsd-power-manager.c:1627
+#: ../plugins/power/gsd-power-manager.c:1774
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Energía"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1350
+#: ../plugins/power/gsd-power-manager.c:1363
 msgid "Battery low"
 msgstr "Batería baja"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1353
+#: ../plugins/power/gsd-power-manager.c:1366
 msgid "Laptop battery low"
 msgstr "Batería del portátil baja"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1359
+#: ../plugins/power/gsd-power-manager.c:1372
 #, c-format
 msgid "Approximately <b>%s</b> remaining (%.0f%%)"
 msgstr "Quedan aproximadamente <b>%s</b> (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1363
+#: ../plugins/power/gsd-power-manager.c:1376
 msgid "UPS low"
 msgstr "SAI bajo"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1367
+#: ../plugins/power/gsd-power-manager.c:1380
 #, c-format
 msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
 msgstr ""
@@ -2340,143 +2235,143 @@ msgstr ""
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1371
-#: ../plugins/power/gsd-power-manager.c:1537
+#: ../plugins/power/gsd-power-manager.c:1384
+#: ../plugins/power/gsd-power-manager.c:1548
 msgid "Mouse battery low"
 msgstr "Batería del ratón baja"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1374
+#: ../plugins/power/gsd-power-manager.c:1387
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "El ratón inalámbrico tiene poca batería (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1378
-#: ../plugins/power/gsd-power-manager.c:1545
+#: ../plugins/power/gsd-power-manager.c:1391
+#: ../plugins/power/gsd-power-manager.c:1556
 msgid "Keyboard battery low"
 msgstr "Batería del teclado baja"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1381
+#: ../plugins/power/gsd-power-manager.c:1394
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "El teclado inalámbrico tiene poca batería (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1385
-#: ../plugins/power/gsd-power-manager.c:1554
+#: ../plugins/power/gsd-power-manager.c:1398
+#: ../plugins/power/gsd-power-manager.c:1565
 msgid "PDA battery low"
 msgstr "Batería del PDA baja"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1388
+#: ../plugins/power/gsd-power-manager.c:1401
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "La pda tiene poca batería (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1392
-#: ../plugins/power/gsd-power-manager.c:1564
+#: ../plugins/power/gsd-power-manager.c:1405
 #: ../plugins/power/gsd-power-manager.c:1575
+#: ../plugins/power/gsd-power-manager.c:1586
 msgid "Cell phone battery low"
 msgstr "Batería del teléfono móvil baja"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1395
+#: ../plugins/power/gsd-power-manager.c:1408
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "El teléfono móvil tiene poca batería (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1400
+#: ../plugins/power/gsd-power-manager.c:1413
 msgid "Media player battery low"
 msgstr "Batería del reproductor multimedia baja"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1403
+#: ../plugins/power/gsd-power-manager.c:1416
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "El reproductor multimedia tiene poca batería (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1407
-#: ../plugins/power/gsd-power-manager.c:1584
+#: ../plugins/power/gsd-power-manager.c:1420
+#: ../plugins/power/gsd-power-manager.c:1595
 msgid "Tablet battery low"
 msgstr "Batería de la tableta baja"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1410
+#: ../plugins/power/gsd-power-manager.c:1423
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "La tableta tiene poca batería (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1414
-#: ../plugins/power/gsd-power-manager.c:1593
+#: ../plugins/power/gsd-power-manager.c:1427
+#: ../plugins/power/gsd-power-manager.c:1604
 msgid "Attached computer battery low"
 msgstr "El equipo conectado tiene poca batería"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1417
+#: ../plugins/power/gsd-power-manager.c:1430
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "El equipo conectado tiene poca batería (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1454
+#: ../plugins/power/gsd-power-manager.c:1465
 msgid "Battery is low"
 msgstr "La batería está baja"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1496
+#: ../plugins/power/gsd-power-manager.c:1507
 msgid "Battery critically low"
 msgstr "Batería críticamente baja"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1499
-#: ../plugins/power/gsd-power-manager.c:1683
+#: ../plugins/power/gsd-power-manager.c:1510
+#: ../plugins/power/gsd-power-manager.c:1692
 msgid "Laptop battery critically low"
 msgstr "Batería del portátil críticamente baja"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1508
+#: ../plugins/power/gsd-power-manager.c:1519
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "Conecte su adaptador de corriente para evitar la pérdida de datos."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1512
+#: ../plugins/power/gsd-power-manager.c:1523
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "El equipo se suspenderá muy pronto a menos que lo conecte."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1516
+#: ../plugins/power/gsd-power-manager.c:1527
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "El equipo hibernará muy pronto a menos que lo conecte."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1520
+#: ../plugins/power/gsd-power-manager.c:1531
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "El equipo se apagará muy pronto a menos que lo conecte."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1527
-#: ../plugins/power/gsd-power-manager.c:1719
+#: ../plugins/power/gsd-power-manager.c:1538
+#: ../plugins/power/gsd-power-manager.c:1728
 msgid "UPS critically low"
 msgstr "SAI críticamente bajo"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1531
+#: ../plugins/power/gsd-power-manager.c:1542
 #, c-format
 msgid ""
 "Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
@@ -2486,7 +2381,7 @@ msgstr ""
 "Restablezca la CA en su equipo para evitar la pérdida de datos."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1540
+#: ../plugins/power/gsd-power-manager.c:1551
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -2496,7 +2391,7 @@ msgstr ""
 "dispositivo dejará de funcionar muy pronto."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1548
+#: ../plugins/power/gsd-power-manager.c:1559
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2506,7 +2401,7 @@ msgstr ""
 "dispositivo dejará de funcionar muy pronto."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1557
+#: ../plugins/power/gsd-power-manager.c:1568
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2516,7 +2411,7 @@ msgstr ""
 "dejará de funcionar muy pronto."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1567
+#: ../plugins/power/gsd-power-manager.c:1578
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2526,7 +2421,7 @@ msgstr ""
 "dispositivo dejará de funcionar muy pronto."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1578
+#: ../plugins/power/gsd-power-manager.c:1589
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2536,7 +2431,7 @@ msgstr ""
 "este dispositivo dejará de funcionar muy pronto."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1587
+#: ../plugins/power/gsd-power-manager.c:1598
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2546,7 +2441,7 @@ msgstr ""
 "dejará de funcionar muy pronto."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1596
+#: ../plugins/power/gsd-power-manager.c:1607
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2556,14 +2451,14 @@ msgstr ""
 "dispositivo dejará de funcionar muy pronto."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1636
-#: ../plugins/power/gsd-power-manager.c:1646
-#: ../plugins/power/gsd-power-manager.c:1782
+#: ../plugins/power/gsd-power-manager.c:1645
+#: ../plugins/power/gsd-power-manager.c:1655
+#: ../plugins/power/gsd-power-manager.c:1789
 msgid "Battery is critically low"
 msgstr "La batería está críticamente baja"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1691
+#: ../plugins/power/gsd-power-manager.c:1700
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
@@ -2572,7 +2467,7 @@ msgstr ""
 "cuando la batería se agote completamente."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1697
+#: ../plugins/power/gsd-power-manager.c:1706
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -2585,7 +2480,7 @@ msgstr ""
 "estado suspendido."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1704
+#: ../plugins/power/gsd-power-manager.c:1713
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2594,7 +2489,7 @@ msgstr ""
 "hibernar."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1709
+#: ../plugins/power/gsd-power-manager.c:1718
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -2603,7 +2498,7 @@ msgstr ""
 "apagarse."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1727
+#: ../plugins/power/gsd-power-manager.c:1736
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
@@ -2612,7 +2507,7 @@ msgstr ""
 "cuando el SAI se agote completamente."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1733
+#: ../plugins/power/gsd-power-manager.c:1742
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2620,25 +2515,25 @@ msgstr ""
 "hibernar."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1738
+#: ../plugins/power/gsd-power-manager.c:1747
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "El SAI está por debajo del nivel crítico y este equipo está a punto de "
 "apagarse."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2232
+#: ../plugins/power/gsd-power-manager.c:2135
 msgid "Lid has been opened"
 msgstr "La tapa se ha abierto"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2341
+#: ../plugins/power/gsd-power-manager.c:2242
 msgid "Lid has been closed"
 msgstr "La tapa se ha cerrado"
 
 #. TRANSLATORS: this is the title of the power manager status icon
 #. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:3738
+#: ../plugins/power/gsd-power-manager.c:3639
 msgid "Power Manager"
 msgstr "Gestor de energía"
 
@@ -2685,204 +2580,204 @@ msgid "No driver for this printer."
 msgstr "No existe un controlador para esta impresora."
 
 #: ../plugins/print-notifications/gsd-printer.c:1024
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:645
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:734
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:777
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:223
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:648
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:737
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:780
 msgid "Printers"
 msgstr "Impresoras"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:296
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:299
 msgid "Toner low"
 msgstr "Nivel de tóner bajo"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:298
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:301
 msgid "Toner empty"
 msgstr "Tóner vacío"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:300
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:303
 msgid "Not connected?"
 msgstr "¿No está conectada?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
 msgid "Cover open"
 msgstr "Tapa abierta"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:304
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:307
 msgid "Printer configuration error"
 msgstr "Error de configuración de la impresora"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:306
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:309
 msgid "Door open"
 msgstr "Puerta abierta"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:308
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:311
 msgid "Marker supply low"
 msgstr "Nivel de marcador bajo"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:310
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:313
 msgid "Out of a marker supply"
 msgstr "Marcador agotado"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:312
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:315
 msgid "Paper low"
 msgstr "Nivel de papel bajo"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:314
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:317
 msgid "Out of paper"
 msgstr "Papel agotado"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:316
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
 msgid "Printer off-line"
 msgstr "Impresora desconectada"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:318
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:720
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:723
 msgid "Printer error"
 msgstr "Error en la impresora"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:322
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "A la impresora «%s» le queda poco tóner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:324
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "A la impresora «%s» no le queda tóner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:326
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Puede que la impresora «%s» no esté conectada."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:328
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "La tapa de la impresora «%s» está abierta."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:330
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "No se encuentra un filtro para la impresora «%s»."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "La puerta de la impresora «%s» está abierta."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:335
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:338
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "La impresora «%s» tiene poco marcador."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "La impresora «%s» no tiene marcador."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "La impresora «%s» tiene poco papel."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:341
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:344
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "La impresora «%s» no tiene papel."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:343
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "La impresora «%s» está actualmente desconectada."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:345
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:348
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "Existe un problema con la impresora «%s»."
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:422
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:425
 msgid "Printer added"
 msgstr "Impresora añadida"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:430
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:433
 msgid "Printer removed"
 msgstr "Impresora quitada"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:447
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:450
 msgid "Printing stopped"
 msgstr "Impresión detenida"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:461
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:467
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:479
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:499
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:452
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:458
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:464
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:470
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:482
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:502
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "«%s» en %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:453
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:456
 msgid "Printing canceled"
 msgstr "Impresión cancelada"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:459
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:462
 msgid "Printing aborted"
 msgstr "Impresión abortada"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:468
 msgid "Printing completed"
 msgstr "Impresión completa"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:497
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:500
 msgid "Printing"
 msgstr "Imprimiendo"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:714
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:717
 msgid "Printer report"
 msgstr "Informe de la impresora"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:717
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:720
 msgid "Printer warning"
 msgstr "Advertencia de la impresora"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:727
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:730
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "Impresora «%s»: «%s»."
@@ -2945,13 +2840,11 @@ msgstr "Se instaló software adicional"
 #: ../plugins/updates/gsd-updates-firmware.c:269
 #: ../plugins/updates/gsd-updates-firmware.c:294
 #: ../plugins/updates/gsd-updates-firmware.c:583
-#: ../plugins/updates/gsd-updates-manager.c:326
-#: ../plugins/updates/gsd-updates-manager.c:451
-#: ../plugins/updates/gsd-updates-manager.c:510
-#: ../plugins/updates/gsd-updates-manager.c:566
-#: ../plugins/updates/gsd-updates-manager.c:698
-#: ../plugins/updates/gsd-updates-manager.c:786
-#: ../plugins/updates/gsd-updates-manager.c:1550
+#: ../plugins/updates/gsd-updates-manager.c:327
+#: ../plugins/updates/gsd-updates-manager.c:452
+#: ../plugins/updates/gsd-updates-manager.c:511
+#: ../plugins/updates/gsd-updates-manager.c:598
+#: ../plugins/updates/gsd-updates-manager.c:1283
 msgid "Software Updates"
 msgstr "Actualizaciones de software"
 
@@ -2994,293 +2887,232 @@ msgid "Ignore devices"
 msgstr "Ignorar dispositivos"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:104
+#: ../plugins/updates/gsd-updates-manager.c:105
 msgid "Failed To Update"
 msgstr "Falló al actualizar"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:110
+#: ../plugins/updates/gsd-updates-manager.c:111
 msgid "A previous update was unfinished."
 msgstr "No se terminó una actualización previa."
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:120
+#: ../plugins/updates/gsd-updates-manager.c:121
 msgid "Network access was required but not available."
 msgstr "Se necesita una conexión de red, pero no está disponible."
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:129
+#: ../plugins/updates/gsd-updates-manager.c:130
 msgid "An update was not signed in the correct way."
 msgstr "No se ha firmado correctamente una actualización."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:139
+#: ../plugins/updates/gsd-updates-manager.c:140
 msgid "The update could not be completed."
 msgstr "No se pudo completar la actualización."
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:144
+#: ../plugins/updates/gsd-updates-manager.c:145
 msgid "The update was cancelled."
 msgstr "Se ha cancelado la actualización."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:150
+#: ../plugins/updates/gsd-updates-manager.c:151
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "Se solicitó una actualización en modo desconectado, pero no hay ningún "
 "paquete que necesite actualizarse."
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:154
+#: ../plugins/updates/gsd-updates-manager.c:155
 msgid "No space was left on the drive."
 msgstr "No hay espacio libre en el disco"
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:162
+#: ../plugins/updates/gsd-updates-manager.c:163
 msgid "An update failed to install correctly."
 msgstr "Falló al instalar correctamente una actualización."
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:167
+#: ../plugins/updates/gsd-updates-manager.c:168
 msgid "The offline update failed in an unexpected way."
 msgstr "Falló la actualización en modo desconectado de manera inesperada."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:176
+#: ../plugins/updates/gsd-updates-manager.c:177
 msgid "Detailed errors from the package manager follow:"
 msgstr ""
 "A continuación se muestran los errores detallados del gestor de paquetes:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:322
+#: ../plugins/updates/gsd-updates-manager.c:323
 msgid "Distribution upgrades available"
 msgstr "Existen actualizaciones para la distribución"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:331
+#: ../plugins/updates/gsd-updates-manager.c:332
 msgid "More information"
 msgstr "Más información"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:434
-#: ../plugins/updates/gsd-updates-manager.c:493
+#: ../plugins/updates/gsd-updates-manager.c:435
+#: ../plugins/updates/gsd-updates-manager.c:494
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Actualización"
 msgstr[1] "Actualizaciones"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:437
+#: ../plugins/updates/gsd-updates-manager.c:438
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Existe una importante actualización de software disponible"
 msgstr[1] "Existen importantes actualizaciones de software disponibles"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:456
-#: ../plugins/updates/gsd-updates-manager.c:515
+#: ../plugins/updates/gsd-updates-manager.c:457
+#: ../plugins/updates/gsd-updates-manager.c:516
 msgid "Install updates"
 msgstr "Instalar actualizaciones"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:496
+#: ../plugins/updates/gsd-updates-manager.c:497
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Existe una actualización de software disponible"
 msgstr[1] "Existen actualizaciones de software disponibles"
 
-#. TRANSLATORS: policy says update, but we are on battery and so prompt
-#: ../plugins/updates/gsd-updates-manager.c:561
-msgid ""
-"Automatic updates are not being installed as the computer is running on "
-"battery power"
-msgstr ""
-"Las actualizaciones automáticas no se van a instalar porque el equipo está "
-"en modo batería"
-
-#. TRANSLATORS: informs user will not install by default
-#: ../plugins/updates/gsd-updates-manager.c:563
-msgid "Updates not installed"
-msgstr "Actualizaciones no instaladas"
-
-#. TRANSLATORS: to hell with my battery life, just do it
-#: ../plugins/updates/gsd-updates-manager.c:571
-msgid "Install the updates anyway"
-msgstr "Instalar las actualizaciones de todos modos"
-
-#: ../plugins/updates/gsd-updates-manager.c:587
-msgid "No restart is required."
-msgstr "No es necesario reiniciar."
-
-#: ../plugins/updates/gsd-updates-manager.c:590
-msgid "A restart is required."
-msgstr "Es necesario reiniciar."
-
-#: ../plugins/updates/gsd-updates-manager.c:593
-msgid "You need to log out and log back in."
-msgstr "Debe cerrar la sesión e iniciarla de nuevo."
-
-#: ../plugins/updates/gsd-updates-manager.c:596
-msgid "You need to restart the application."
-msgstr "Debe reiniciar la aplicación."
-
-#: ../plugins/updates/gsd-updates-manager.c:599
-msgid "You need to log out and log back in to remain secure."
-msgstr ""
-"Debe salir de la sesión e iniciar sesión de nuevo para mantener la seguridad."
-
-#: ../plugins/updates/gsd-updates-manager.c:602
-msgid "A restart is required to remain secure."
-msgstr "Será necesario reiniciar para mantener la seguridad."
-
-#. TRANSLATORS: we did the update, but some updates were skipped and not applied
-#: ../plugins/updates/gsd-updates-manager.c:663
-msgid "One package was skipped:"
-msgid_plural "Some packages were skipped:"
-msgstr[0] "Se ha omitido un paquete:"
-msgstr[1] "Se han omitido algunos paquetes:"
-
-#. TRANSLATORS: title: system update completed all okay
-#: ../plugins/updates/gsd-updates-manager.c:695
-msgid "The system update has completed"
-msgstr "Se ha completado la actualización del sistema"
-
-#. TRANSLATORS: restart computer as system packages need update
-#: ../plugins/updates/gsd-updates-manager.c:704
-msgid "Restart computer now"
-msgstr "Reiniciar el equipo ahora"
-
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:774
+#: ../plugins/updates/gsd-updates-manager.c:586
 msgid "Updates"
 msgstr "Actualizaciones"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:778
+#: ../plugins/updates/gsd-updates-manager.c:590
 msgid "Unable to access software updates"
 msgstr "No se pudo acceder a las actualizaciones de software"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:781
+#: ../plugins/updates/gsd-updates-manager.c:593
 msgid "Try again"
 msgstr "Intentarlo de nuevo"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1220
+#: ../plugins/updates/gsd-updates-manager.c:953
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Se está ejecutando una transacción que no se puede interrumpir"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1511
+#: ../plugins/updates/gsd-updates-manager.c:1244
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Actualización de software instalada"
 msgstr[1] "Actualizaciones de software instaladas"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1516
+#: ../plugins/updates/gsd-updates-manager.c:1249
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Se ha instalado una actualización importante del sistema."
 msgstr[1] "Se han instalado actualizaciones importantes del sistema."
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1539
+#: ../plugins/updates/gsd-updates-manager.c:1272
 msgid "Software Updates Failed"
 msgstr "Falló al actualizar el software"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1542
+#: ../plugins/updates/gsd-updates-manager.c:1275
 msgid "An important OS update failed to be installed."
 msgstr "Falló al instalar una actualización importante del sistema."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1557
+#: ../plugins/updates/gsd-updates-manager.c:1290
 msgid "Review"
 msgstr "Revisar"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1562
+#: ../plugins/updates/gsd-updates-manager.c:1295
 msgid "Show details"
 msgstr "Mostrar detalles"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1566
+#: ../plugins/updates/gsd-updates-manager.c:1299
 msgid "OK"
 msgstr "Aceptar"
 
-#: ../plugins/wacom/gsd-wacom-device.c:921
+#: ../plugins/wacom/gsd-wacom-device.c:961
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Modo del anillo izquierdo nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:930
+#: ../plugins/wacom/gsd-wacom-device.c:970
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Modo del anillo derecho nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:960
+#: ../plugins/wacom/gsd-wacom-device.c:1000
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Modo de la banda táctil izquierda nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:969
+#: ../plugins/wacom/gsd-wacom-device.c:1009
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Modo de la banda táctil derecha nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:986
+#: ../plugins/wacom/gsd-wacom-device.c:1026
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Modo de cambio del anillo táctil izquierdo"
 
-#: ../plugins/wacom/gsd-wacom-device.c:988
+#: ../plugins/wacom/gsd-wacom-device.c:1028
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Modo de cambio del anillo táctil derecho"
 
-#: ../plugins/wacom/gsd-wacom-device.c:991
+#: ../plugins/wacom/gsd-wacom-device.c:1031
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Modo de cambio de la banda táctil izquierda"
 
-#: ../plugins/wacom/gsd-wacom-device.c:993
+#: ../plugins/wacom/gsd-wacom-device.c:1033
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Modo de cambio de la banda táctil derecha"
 
-#: ../plugins/wacom/gsd-wacom-device.c:998
+#: ../plugins/wacom/gsd-wacom-device.c:1038
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Modo de cambio nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1070
+#: ../plugins/wacom/gsd-wacom-device.c:1110
 #, c-format
 msgid "Left Button #%d"
 msgstr "Botón izquierdo nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1073
+#: ../plugins/wacom/gsd-wacom-device.c:1113
 #, c-format
 msgid "Right Button #%d"
 msgstr "Botón derecho nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1076
+#: ../plugins/wacom/gsd-wacom-device.c:1116
 #, c-format
 msgid "Top Button #%d"
 msgstr "Botón superior nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1079
+#: ../plugins/wacom/gsd-wacom-device.c:1119
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Botón inferior nº %d"
@@ -3364,6 +3196,144 @@ msgstr "Ajustes de las X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Gestionar los ajustes de las X"
+
+#~ msgid "The install root to use when adding and removing packages"
+#~ msgstr "La raíz de instalación que usar al añadir y quitar paquetes"
+
+#~ msgid ""
+#~ "The install root to use when processing packages, which is changed when "
+#~ "using LTSP or when testing."
+#~ msgstr ""
+#~ "La raíz de instalación que usar al añadir y quitar paquetes, cambiada al "
+#~ "usar LTSP o en pruebas."
+
+#~ msgid "Use WiFi connections"
+#~ msgstr "Usar conexiones WiFi"
+
+#~ msgid ""
+#~ "Use WiFi (wireless LAN) connections to check for updates. It may be "
+#~ "faster to download packages when on a wired connection, and the VPN or "
+#~ "proxy required may also only be available on wired connections."
+#~ msgstr ""
+#~ "Usar conexión WiFi (LAN inalámbrica) para comprobar si hay "
+#~ "actualizaciones. Una red cableada puede ser más rápida para bajar "
+#~ "paquetes, y la VPN o el proxy requeridos puede estar disponibles sólo "
+#~ "para conexiones cableadas."
+
+#~ msgid "Automatically install these types of updates"
+#~ msgstr "Instalar automáticamente estos tipos de actualizaciones"
+
+#~ msgid "Automatically install these types of updates."
+#~ msgstr "Instalar automáticamente estos tipos de actualizaciones."
+
+#~ msgid "Get the update list when the session starts"
+#~ msgstr "Obtener la lista de actualizaciones al iniciar la sesión"
+
+#~ msgid ""
+#~ "Get the update list when the session starts, even if not scheduled to."
+#~ msgstr ""
+#~ "Obtener la lista de actualizaciones al iniciar la sesión, incluso si no "
+#~ "está programado."
+
+#~ msgid ""
+#~ "The number of seconds at session startup to wait before checking for "
+#~ "updates"
+#~ msgstr ""
+#~ "El número de segundos que se debe esperar al inicio de la sesión para "
+#~ "comprobar si hay actualizaciones"
+
+#~ msgid ""
+#~ "The number of seconds at session startup to wait before checking for "
+#~ "updates. Value is in seconds."
+#~ msgstr ""
+#~ "El número de segundos que esperar al inicio de la sesión para comprobar "
+#~ "si hay actualizaciones. El valor es en segundos."
+
+#~ msgid "Notify the user for completed updates"
+#~ msgstr "Avisar al usuario cuando se completen las actualizaciones"
+
+#~ msgid ""
+#~ "Notify the user for completed updates. This may be a useful notification "
+#~ "for some users as installing updates prevents shutdown."
+#~ msgstr ""
+#~ "Avisar la usuario cuando se hayan completado las actualizaciones. Puede "
+#~ "ser un aviso útil para algunos usuarios ya que la instalación de paquetes "
+#~ "previene el apagado."
+
+#~ msgid ""
+#~ "Notify the user for completed updates where the user needs to restart"
+#~ msgstr ""
+#~ "Avisar al usuario cuando se haya completado una actualización y se "
+#~ "necesite reiniciar"
+
+#~ msgid ""
+#~ "Notify the user for completed updates where the user needs to restart."
+#~ msgstr ""
+#~ "Avisar al usuario cuando se haya completado una actualización y se "
+#~ "necesite reiniciar."
+
+#~ msgid ""
+#~ "Notify the user when the automatic update was not started on battery power"
+#~ msgstr ""
+#~ "Avisar al usuario cuando no se haya iniciado una actualización automática "
+#~ "en modo batería"
+
+#~ msgid ""
+#~ "Notify the user when the update was not automatically started because the "
+#~ "machine is running on battery power."
+#~ msgstr ""
+#~ "Avisar al usuario cuando no se inicie automáticamente la actualización "
+#~ "porque el equipo está funcionando con batería baja."
+
+#~ msgid "Notify the user when the update was started"
+#~ msgstr "Avisar al usuario cuando se inicie la actualización"
+
+#~ msgid "Notify the user when the update was started."
+#~ msgstr "Avisar al usuario cuando se inicie la actualización."
+
+#~ msgid ""
+#~ "Automatic updates are not being installed as the computer is running on "
+#~ "battery power"
+#~ msgstr ""
+#~ "Las actualizaciones automáticas no se van a instalar porque el equipo "
+#~ "está en modo batería"
+
+#~ msgid "Updates not installed"
+#~ msgstr "Actualizaciones no instaladas"
+
+#~ msgid "Install the updates anyway"
+#~ msgstr "Instalar las actualizaciones de todos modos"
+
+#~ msgid "No restart is required."
+#~ msgstr "No es necesario reiniciar."
+
+#~ msgid "A restart is required."
+#~ msgstr "Es necesario reiniciar."
+
+#~ msgid "You need to log out and log back in."
+#~ msgstr "Debe cerrar la sesión e iniciarla de nuevo."
+
+#~ msgid "You need to restart the application."
+#~ msgstr "Debe reiniciar la aplicación."
+
+#~ msgid "You need to log out and log back in to remain secure."
+#~ msgstr ""
+#~ "Debe salir de la sesión e iniciar sesión de nuevo para mantener la "
+#~ "seguridad."
+
+#~ msgid "A restart is required to remain secure."
+#~ msgstr "Será necesario reiniciar para mantener la seguridad."
+
+#~ msgid "One package was skipped:"
+#~ msgid_plural "Some packages were skipped:"
+#~ msgstr[0] "Se ha omitido un paquete:"
+#~ msgstr[1] "Se han omitido algunos paquetes:"
+
+#~ msgid "The system update has completed"
+#~ msgstr "Se ha completado la actualización del sistema"
+
+#~ msgid "Restart computer now"
+#~ msgstr "Reiniciar el equipo ahora"
 
 #~ msgid ""
 #~ "Error activating XKB configuration.\n"
