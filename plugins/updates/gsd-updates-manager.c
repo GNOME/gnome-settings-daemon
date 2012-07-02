@@ -189,6 +189,7 @@ show_offline_updates_error (GsdUpdatesManager *manager)
                                   dialog);
         gtk_widget_show (dialog);
         clear_offline_updates_message ();
+        g_string_free (msg, TRUE);
 }
 
 static void
@@ -956,7 +957,7 @@ session_inhibit (GsdUpdatesManager *manager)
 {
         const gchar *reason;
         GError *error = NULL;
-        GVariant *retval;
+        GVariant *retval = NULL;
 
         /* state invalid somehow */
         if (manager->priv->inhibit_cookie != 0) {
@@ -988,14 +989,15 @@ session_inhibit (GsdUpdatesManager *manager)
         g_variant_get (retval, "(u)",
                        &manager->priv->inhibit_cookie);
 out:
-        return;
+        if (retval != NULL)
+                g_variant_unref (retval);
 }
 
 static void
 session_uninhibit (GsdUpdatesManager *manager)
 {
         GError *error = NULL;
-        GVariant *retval;
+        GVariant *retval = NULL;
 
         /* state invalid somehow */
         if (manager->priv->inhibit_cookie == 0) {
@@ -1018,7 +1020,8 @@ session_uninhibit (GsdUpdatesManager *manager)
         }
 out:
         manager->priv->inhibit_cookie = 0;
-        return;
+        if (retval != NULL)
+                g_variant_unref (retval);
 }
 
 static void
