@@ -22,7 +22,6 @@ libsmartcard_la_CPPFLAGS = \
 libsmartcard_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)	\
 	$(SETTINGS_PLUGIN_CFLAGS) \
-	$(GNOME_CFLAGS)	\
 	$(NSS_CFLAGS)	\
 	$(AM_CFLAGS)
 
