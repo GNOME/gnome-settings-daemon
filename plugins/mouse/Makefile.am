@@ -68,6 +68,7 @@ test_mouse_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 test_mouse_CFLAGS =			\
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MOUSE_CFLAGS)		\
 	$(AM_CFLAGS)
