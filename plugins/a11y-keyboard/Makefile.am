@@ -1,6 +1,6 @@
 NULL =
 
-plugin_name = keyboard
+plugin_name = a11y-keyboard
 
 gtkbuilderdir = $(pkgdatadir)
 gtkbuilder_DATA = 			\
