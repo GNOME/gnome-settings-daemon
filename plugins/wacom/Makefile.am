@@ -54,20 +54,22 @@ gsd_wacom_led_helper_LDFLAGS =				\
 
 gsd_wacom_led_helper_CFLAGS =				\
 	$(BACKLIGHT_HELPER_CFLAGS)
+else
+libexec_PROGRAMS =
 endif
 
 EXTRA_DIST += org.gnome.settings-daemon.plugins.wacom.policy.in.in
 
-noinst_PROGRAMS = test-wacom list-wacom
+libexec_PROGRAMS += gsd-test-wacom gsd-list-wacom
 
-test_wacom_SOURCES =		\
+gsd_test_wacom_SOURCES =	\
 	test-wacom.c		\
 	gsd-wacom-manager.c	\
 	gsd-wacom-manager.h	\
 	gsd-wacom-device.c	\
 	gsd-wacom-device.h
 
-test_wacom_CPPFLAGS = \
+gsd_test_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -79,26 +81,26 @@ test_wacom_CPPFLAGS = \
 	-DSCHEMA_NAME=\""gsdwacom"\"				\
 	$(AM_CPPFLAGS)
 
-test_wacom_CFLAGS =			\
+gsd_test_wacom_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-test_wacom_LDADD = \
+gsd_test_wacom_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(SETTINGS_DAEMON_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)			\
-	$(WACOM_LIBS)				\
+	$(top_builddir)/plugins/common/libcommon.la		\
+	$(SETTINGS_DAEMON_LIBS)					\
+	$(SETTINGS_PLUGIN_LIBS)					\
+	$(WACOM_LIBS)						\
 	-lm
 
-list_wacom_SOURCES =		\
+gsd_list_wacom_SOURCES =	\
 	list-wacom.c		\
 	gsd-wacom-device.c	\
 	gsd-wacom-device.h
 
-list_wacom_CPPFLAGS = \
+gsd_list_wacom_CPPFLAGS =					\
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -108,17 +110,17 @@ list_wacom_CPPFLAGS = \
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
-list_wacom_CFLAGS =			\
+gsd_list_wacom_CFLAGS =			\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-list_wacom_LDADD = \
+gsd_list_wacom_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(SETTINGS_DAEMON_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)			\
-	$(WACOM_LIBS)				\
+	$(top_builddir)/plugins/common/libcommon.la		\
+	$(SETTINGS_DAEMON_LIBS)					\
+	$(SETTINGS_PLUGIN_LIBS)					\
+	$(WACOM_LIBS)						\
 	-lm
 
 plugin_in_files = wacom.gnome-settings-plugin.in
