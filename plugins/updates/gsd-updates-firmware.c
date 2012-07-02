@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2007-2011 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2007-2012 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -742,12 +742,10 @@ get_device (GsdUpdatesFirmware *firmware, const gchar *filename)
         GFile *file;
         GFileInfo *info;
         const gchar *symlink_path;
-        guint len;
         gchar *syspath = NULL;
-        gchar **split = NULL;
         GError *error = NULL;
         gchar *target = NULL;
-        guint i;
+        gchar *tmp;
 
         /* get the file data */
         file = g_file_new_for_path (filename);
@@ -771,30 +769,24 @@ get_device (GsdUpdatesFirmware *firmware, const gchar *filename)
         }
 
         /* prepend sys to make '/sys/devices/pci0000:00/0000:00:1d.0/usb5/5-2/firmware/5-2' */
-        syspath = g_strjoin (NULL, "/sys", symlink_path, NULL);
+        syspath = g_strconcat ("/sys", symlink_path, NULL);
 
-        /* now find device without the junk */
-        split = g_strsplit (syspath, "/", -1);
-        len = g_strv_length (split);
-
-        /* start with the longest, and try to find a path that exists */
-        for (i=len; i>1; i--) {
-                split[i] = NULL;
-                target = g_strjoinv ("/", split);
+        /* start with the longest, and try to find a sub-path that exists */
+        tmp = &syspath[strlen (syspath)];
+        while (tmp != NULL) {
+                *tmp = '\0';
                 g_debug ("testing %s", target);
-                if (g_file_test (target, G_FILE_TEST_EXISTS))
+                if (g_file_test (syspath, G_FILE_TEST_EXISTS)) {
+                        target = g_strdup (syspath);
                         goto out;
-                g_free (target);
+                }
+                tmp = g_strrstr (syspath, "/");
         }
-
-        /* ensure we return error if nothing found */
-        target = NULL;
 out:
         if (info != NULL)
                 g_object_unref (info);
         g_object_unref (file);
         g_free (syspath);
-        g_strfreev (split);
         return target;
 }
 
