@@ -140,7 +140,8 @@ request_new (const gchar *filename, const gchar *sysfs_path)
         id_product = g_udev_device_get_property (device, "ID_MODEL_ID");
         req->id = g_strdup_printf ("%s_%s", id_vendor, id_product);
 out:
-        g_object_unref (device);
+        if (device != NULL)
+                g_object_unref (device);
         g_object_unref (client);
 #endif
         return req;
@@ -690,6 +691,8 @@ remove_ignored (GsdUpdatesFirmware *firmware, GPtrArray *array)
         /* remove any ignored pattern matches */
         for (i=0; i<array->len; i++) {
                 req = g_ptr_array_index (array, i);
+                if (req->id == NULL)
+                        continue;
                 for (j=0; ignored[j] != NULL; j++) {
                         ret = g_pattern_match_simple (ignored[j], req->id);
                         if (ret) {
