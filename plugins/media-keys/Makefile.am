@@ -63,10 +63,7 @@ plugin_in_files = 		\
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-noinst_PROGRAMS =				\
-	test-media-keys				\
-	test-media-window			\
-	$(NULL)
+noinst_PROGRAMS = test-media-window
 
 test_media_window_SOURCES =			\
 	gsd-osd-window.c			\
@@ -96,7 +93,9 @@ test_media_window_LDADD = \
 	$(SETTINGS_PLUGIN_LIBS)			\
 	-lm
 
-test_media_keys_SOURCES =			\
+libexec_PROGRAMS = gsd-test-media-keys
+
+gsd_test_media_keys_SOURCES =			\
 	gsd-media-keys-manager.c		\
 	gsd-media-keys-manager.h		\
 	gsd-osd-window.c			\
@@ -106,7 +105,7 @@ test_media_keys_SOURCES =			\
 	$(BUILT_SOURCES)			\
 	$(NULL)
 
-test_media_keys_CPPFLAGS = \
+gsd_test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -117,13 +116,13 @@ test_media_keys_CPPFLAGS = \
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
-test_media_keys_CFLAGS = \
+gsd_test_media_keys_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MEDIA_KEYS_CFLAGS)		\
 	$(AM_CFLAGS)
 
-test_media_keys_LDADD = \
+gsd_test_media_keys_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
