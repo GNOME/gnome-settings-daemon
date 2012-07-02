@@ -47,16 +47,16 @@ libkeyboard_la_LIBADD  =				\
 	$(KEYBOARD_LIBS)				\
 	$(NULL)
 
-noinst_PROGRAMS = test-keyboard
-test_keyboard_SOURCES =		\
+libexec_PROGRAMS = gsd-test-keyboard
+gsd_test_keyboard_SOURCES =	\
 	test-keyboard.c		\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\
 	$(NULL)
 
-test_keyboard_CFLAGS = $(libkeyboard_la_CFLAGS)
-test_keyboard_CPPFLAGS = $(libkeyboard_la_CPPFLAGS)
-test_keyboard_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
+gsd_test_keyboard_CFLAGS = $(libkeyboard_la_CFLAGS)
+gsd_test_keyboard_CPPFLAGS = $(libkeyboard_la_CPPFLAGS)
+gsd_test_keyboard_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
 
 plugin_in_files = 		\
 	keyboard.gnome-settings-plugin.in	\
