@@ -76,6 +76,7 @@ test_wacom_CPPFLAGS = \
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
+	-DSCHEMA_NAME=\""gsdwacom"\"				\
 	$(AM_CPPFLAGS)
 
 test_wacom_CFLAGS =			\
