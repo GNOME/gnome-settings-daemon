@@ -166,10 +166,10 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(CURSOR, xfixes)
 
 dnl ---------------------------------------------------------------------------
-dnl - Fontconfig
+dnl - xsettings
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(FONTCONFIG, fontconfig)
+PKG_CHECK_MODULES(XSETTINGS, fontconfig)
 
 dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff

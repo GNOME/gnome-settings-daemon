@@ -16,7 +16,7 @@ test_gtk_modules_CFLAGS =		\
 
 test_gtk_modules_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
-	$(FONTCONFIG_LIBS)					\
+	$(XSETTINGS_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 test_gtk_modules_CPPFLAGS =				\
@@ -71,7 +71,7 @@ libxsettings_la_CPPFLAGS =					\
 
 libxsettings_la_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(FONTCONFIG_CFLAGS)		\
+	$(XSETTINGS_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libxsettings_la_LDFLAGS = 	\
@@ -81,7 +81,7 @@ libxsettings_la_LDFLAGS = 	\
 libxsettings_la_LIBADD  =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(SETTINGS_PLUGIN_LIBS)					\
-	$(FONTCONFIG_LIBS)					\
+	$(XSETTINGS_LIBS)					\
 	$(NULL)
 
 plugin_in_files = 		\
