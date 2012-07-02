@@ -118,6 +118,7 @@ test_media_keys_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 test_media_keys_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MEDIA_KEYS_CFLAGS)		\
 	$(AM_CFLAGS)
