@@ -72,6 +72,8 @@ enum _GsdSmartcardManagerError {
 GType gsd_smartcard_manager_get_type (void) G_GNUC_CONST;
 GQuark gsd_smartcard_manager_error_quark (void) G_GNUC_CONST;
 
+GsdSmartcardManager *gsd_smartcard_manager_new_default (void);
+
 GsdSmartcardManager *gsd_smartcard_manager_new (const char *module);
 
 gboolean gsd_smartcard_manager_start (GsdSmartcardManager  *manager,

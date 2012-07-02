@@ -12,6 +12,8 @@ gsd_test_smartcard_SOURCES =	\
 gsd_test_smartcard_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
+	-DSYSCONFDIR=\""$(sysconfdir)"\" \
+	-DLIBDIR=\""$(libdir)"\" \
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(NSS_CFLAGS)						\
 	$(PLUGIN_CFLAGS)					\

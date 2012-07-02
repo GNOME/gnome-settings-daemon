@@ -392,6 +392,12 @@ gsd_smartcard_manager_error_quark (void)
 }
 
 GsdSmartcardManager *
+gsd_smartcard_manager_new_default (void)
+{
+  return gsd_smartcard_manager_new (NULL);
+}
+
+GsdSmartcardManager *
 gsd_smartcard_manager_new (const char *module_path)
 {
         GsdSmartcardManager *instance;
