@@ -1,13 +1,13 @@
 plugin_name = orientation
 
-noinst_PROGRAMS = test-orientation
+libexec_PROGRAMS = gsd-test-orientation
 
-test_orientation_SOURCES =		\
+gsd_test_orientation_SOURCES =		\
 	gsd-orientation-manager.h	\
 	gsd-orientation-manager.c	\
 	test-orientation.c
 
-test_orientation_CFLAGS =					\
+gsd_test_orientation_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -16,7 +16,7 @@ test_orientation_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-test_orientation_LDADD =					\
+gsd_test_orientation_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(ORIENTATION_LIBS)					\
