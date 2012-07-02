@@ -7,16 +7,18 @@ gtkbuilder_DATA = 			\
 	gsd-a11y-preferences-dialog.ui	\
 	$(NULL)
 
-noinst_PROGRAMS = test-a11y-preferences-dialog test-a11y-keyboard
+noinst_PROGRAMS = test-a11y-preferences-dialog
 
-test_a11y_keyboard_SOURCES =			\
+libexec_PROGRAMS = gsd-test-a11y-keyboard
+
+gsd_test_a11y_keyboard_SOURCES =		\
 	gsd-a11y-keyboard-manager.h		\
 	gsd-a11y-keyboard-manager.c		\
 	gsd-a11y-preferences-dialog.c		\
 	gsd-a11y-preferences-dialog.h		\
 	test-a11y-keyboard.c
 
-test_a11y_keyboard_CFLAGS =					\
+gsd_test_a11y_keyboard_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -26,7 +28,7 @@ test_a11y_keyboard_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-test_a11y_keyboard_LDADD =					\
+gsd_test_a11y_keyboard_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(LIBNOTIFY_LIBS)					\
