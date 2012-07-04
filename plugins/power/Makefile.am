@@ -83,7 +83,7 @@ EXTRA_DIST = 						\
 	$(gsd_backlight_helper_SOURCES)
 
 if HAVE_GUDEV
-libexec_PROGRAMS =					\
+libexec_PROGRAMS +=					\
 	gsd-backlight-helper
 
 gsd_backlight_helper_LDFLAGS =				\

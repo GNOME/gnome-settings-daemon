@@ -52,7 +52,7 @@ gsd_locate_pointer_LDADD  = 		\
 	$(MOUSE_LIBS)			\
 	-lm
 
-libexec_PROGRAMS = gsd-test-mouse
+libexec_PROGRAMS += gsd-test-mouse
 
 gsd_test_mouse_SOURCES =		\
 	test-mouse.c			\

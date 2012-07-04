@@ -48,7 +48,7 @@ gsd_printer_LDADD  = 		\
 	$(CUPS_LIBS)		\
 	$(LIBNOTIFY_LIBS)
 
-libexec_PROGRAMS = gsd-test-print-notifications
+libexec_PROGRAMS += gsd-test-print-notifications
 
 gsd_test_print_notifications_SOURCES =		\
 	gsd-print-notifications-manager.c	\
