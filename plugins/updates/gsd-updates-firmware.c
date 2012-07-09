@@ -35,7 +35,6 @@
 #endif /* HAVE_UNISTD_H */
 #include <glib/gi18n.h>
 #include <gio/gio.h>
-#include <gtk/gtk.h>
 #include <libnotify/notify.h>
 #include <packagekit-glib2/packagekit.h>
 #ifdef HAVE_GUDEV
