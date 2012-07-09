@@ -80,17 +80,37 @@ G_DEFINE_TYPE (GsdUpdatesManager, gsd_updates_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 static void
+child_exit_cb (GPid pid, gint status, gpointer user_data)
+{
+        g_spawn_close_pid (pid);
+}
+
+static void
 clear_offline_updates_message (void)
 {
         gboolean ret;
         GError *error = NULL;
-        ret = g_spawn_command_line_async ("pkexec " LIBEXECDIR "/pk-clear-offline-update",
-                                          &error);
+        gchar *argv[3];
+        GPid pid;
+
+        argv[0] = BINDIR "/pkexec";
+        argv[1] = LIBEXECDIR "/pk-clear-offline-update";
+        argv[2] = NULL;
+        ret = g_spawn_async (NULL,
+                             argv,
+                             NULL,
+                             G_SPAWN_DO_NOT_REAP_CHILD,
+                             NULL,
+                             NULL,
+                             &pid,
+                             &error);
         if (!ret) {
                 g_warning ("Failure clearing offline update message: %s",
                            error->message);
                 g_error_free (error);
+                return;
         }
+        g_child_watch_add (pid, child_exit_cb, NULL);
 }
 
 static void
