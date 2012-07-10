@@ -1544,7 +1544,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                 /* TRANSLATORS: the UPS is very low */
                 title = _("UPS critically low");
                 tmp = gpm_get_timestring (time_to_empty);
-                remaining_text = g_strconcat ("<b>", tmp", </b>", NULL);
+                remaining_text = g_strconcat ("<b>", tmp, "</b>", NULL);
                 g_free (tmp);
 
                 /* TRANSLATORS: give the user a ultimatum */
