@@ -108,8 +108,9 @@ struct GsdKeyboardManagerPrivate
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
 static void     gsd_keyboard_manager_init        (GsdKeyboardManager      *keyboard_manager);
 static void     gsd_keyboard_manager_finalize    (GObject                 *object);
-static void     apply_input_sources_settings     (GSettings               *settings,
-                                                  gchar                   *key,
+static gboolean apply_input_sources_settings     (GSettings               *settings,
+                                                  gpointer                 keys,
+                                                  gint                     n_keys,
                                                   GsdKeyboardManager      *manager);
 
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
@@ -160,7 +161,7 @@ fetch_ibus_engines_result (GObject            *object,
         }
         g_list_free (list);
 
-        apply_input_sources_settings (priv->input_sources_settings, NULL, manager);
+        apply_input_sources_settings (priv->input_sources_settings, NULL, 0, manager);
 }
 
 static void
@@ -535,9 +536,10 @@ set_gtk_im_module (GsdKeyboardManager *manager,
         g_free (current_module);
 }
 
-static void
+static gboolean
 apply_input_sources_settings (GSettings          *settings,
-                              gchar              *key,
+                              gpointer            keys,
+                              gint                n_keys,
                               GsdKeyboardManager *manager)
 {
         GsdKeyboardManagerPrivate *priv = manager->priv;
@@ -611,6 +613,9 @@ apply_input_sources_settings (GSettings          *settings,
 
  exit:
         g_variant_unref (sources);
+        /* Prevent individual "changed" signal invocations since we
+           don't need them. */
+        return TRUE;
 }
 
 static void
@@ -691,7 +696,7 @@ device_added_cb (GdkDeviceManager   *device_manager,
         source = gdk_device_get_source (device);
         if (source == GDK_SOURCE_KEYBOARD) {
                 apply_settings (manager->priv->settings, NULL, manager);
-                apply_input_sources_settings (manager->priv->input_sources_settings, NULL, manager);
+                apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
                 run_custom_command (device, COMMAND_DEVICE_ADDED);
         }
 }
@@ -750,11 +755,11 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 #endif
         /* apply current settings before we install the callback */
         apply_settings (manager->priv->settings, NULL, manager);
-        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, manager);
+        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
 
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (apply_settings), manager);
-        g_signal_connect (G_OBJECT (manager->priv->input_sources_settings), "changed",
+        g_signal_connect (G_OBJECT (manager->priv->input_sources_settings), "change-event",
                           G_CALLBACK (apply_input_sources_settings), manager);
 
 	install_xkb_filter (manager);
