@@ -1332,6 +1332,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         const gchar *title = NULL;
         gboolean ret;
         gchar *message = NULL;
+        gchar *tmp;
         gchar *remaining_text;
         gdouble percentage;
         GIcon *icon = NULL;
@@ -1365,20 +1366,25 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                         /* TRANSLATORS: laptop battery low, and we have more than one kind of battery */
                         title = _("Laptop battery low");
                 }
-
-                remaining_text = gpm_get_timestring (time_to_empty);
+                tmp = gpm_get_timestring (time_to_empty);
+                remaining_text = g_strconcat ("<b>", tmp, "</b>", NULL);
+                g_free (tmp);
 
                 /* TRANSLATORS: tell the user how much time they have got */
-                message = g_strdup_printf (_("Approximately <b>%s</b> remaining (%.0f%%)"), remaining_text, percentage);
+                message = g_strdup_printf (_("Approximately %s remaining (%.0f%%)"), remaining_text, percentage);
+                g_free (remaining_text);
 
         } else if (kind == UP_DEVICE_KIND_UPS) {
                 /* TRANSLATORS: UPS is starting to get a little low */
                 title = _("UPS low");
-                remaining_text = gpm_get_timestring (time_to_empty);
+                tmp = gpm_get_timestring (time_to_empty);
+                remaining_text = g_strconcat ("<b>", tmp, "</b>", NULL);
+                g_free (tmp);
 
                 /* TRANSLATORS: tell the user how much time they have got */
-                message = g_strdup_printf (_("Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"),
+                message = g_strdup_printf (_("Approximately %s of remaining UPS backup power (%.0f%%)"),
                                            remaining_text, percentage);
+                g_free (remaining_text);
         } else if (kind == UP_DEVICE_KIND_MOUSE) {
                 /* TRANSLATORS: mouse is getting a little low */
                 title = _("Mouse battery low");
@@ -1533,13 +1539,16 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         } else if (kind == UP_DEVICE_KIND_UPS) {
                 gchar *remaining_text;
+                gchar *tmp;
 
                 /* TRANSLATORS: the UPS is very low */
                 title = _("UPS critically low");
-                remaining_text = gpm_get_timestring (time_to_empty);
+                tmp = gpm_get_timestring (time_to_empty);
+                remaining_text = g_strconcat ("<b>", tmp", </b>", NULL);
+                g_free (tmp);
 
                 /* TRANSLATORS: give the user a ultimatum */
-                message = g_strdup_printf (_("Approximately <b>%s</b> of remaining UPS power (%.0f%%). "
+                message = g_strdup_printf (_("Approximately %s of remaining UPS power (%.0f%%). "
                                              "Restore AC power to your computer to avoid losing data."),
                                            remaining_text, percentage);
                 g_free (remaining_text);
