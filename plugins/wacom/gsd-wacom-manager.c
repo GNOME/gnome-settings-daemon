@@ -1032,16 +1032,20 @@ generate_key (GsdWacomTabletButton *wbutton,
 	} else {
 		g_debug ("Emitting '%s' (keyval: %d, keycode: %d mods: 0x%x)",
 			 str, keyval, keycode, mods);
-		g_free (str);
 	}
 
 	/* And send out the keys! */
+	gdk_error_trap_push ();
 	if (is_press)
 		send_modifiers (display, mods, TRUE);
 	XTestFakeKeyEvent (display, keycode,
 			   is_press ? True : False, 0);
 	if (is_press == FALSE)
 		send_modifiers (display, mods, FALSE);
+	if (gdk_error_trap_pop ())
+		g_warning ("Failed to generate fake key event '%s'", str);
+
+	g_free (str);
 }
 
 static GdkFilterReturn
