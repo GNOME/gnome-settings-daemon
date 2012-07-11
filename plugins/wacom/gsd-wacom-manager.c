@@ -1024,9 +1024,16 @@ generate_key (GsdWacomTabletButton *wbutton,
 	}
 	g_free (keys);
 
-	g_debug ("Emitting '%s' (keyval: %d, keycode: %d mods: 0x%x)",
-		 str, keyval, keycode, mods);
-	g_free (str);
+	if (keycode == 0) {
+		g_warning ("Not emitting '%s' (keyval: %d, keycode: %d mods: 0x%x), invalid keycode",
+			   str, keyval, keycode, mods);
+		g_free (str);
+		return;
+	} else {
+		g_debug ("Emitting '%s' (keyval: %d, keycode: %d mods: 0x%x)",
+			 str, keyval, keycode, mods);
+		g_free (str);
+	}
 
 	/* And send out the keys! */
 	if (is_press)
