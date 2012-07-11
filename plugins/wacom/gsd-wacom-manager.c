@@ -1017,7 +1017,7 @@ generate_key (GsdWacomTabletButton *wbutton,
 	/* Couldn't find it in the current group? Look in group 0 */
 	if (keycode == 0) {
 		for (i = 0; i < n_keys; i++) {
-			if (keys[i].level > 0)
+			if (keys[i].group > 0)
 				continue;
 			keycode = keys[i].keycode;
 		}
