@@ -63,6 +63,14 @@ static GDBusNodeInfo *pdi_introspection_data = NULL;
 #define GNOME_SESSION_PRESENCE_DBUS_PATH  "/org/gnome/SessionManager/Presence"
 #define GNOME_SESSION_PRESENCE_DBUS_IFACE "org.gnome.SessionManager.Presence"
 
+#if (CUPS_VERSION_MAJOR > 1) || (CUPS_VERSION_MINOR > 5)
+#define HAVE_CUPS_1_6 1
+#endif
+
+#ifndef HAVE_CUPS_1_6
+#define ippGetState(ipp) ipp->state
+#endif
+
 enum {
   PRESENCE_STATUS_AVAILABLE = 0,
   PRESENCE_STATUS_INVISIBLE,
@@ -725,7 +733,7 @@ printer_autoconfigure (gchar *printer_name)
                                                         "AutoConfigure",
                                                         ("Automatic configuration"));
                 if (response) {
-                        if (response->state == IPP_ERROR)
+                        if (ippGetState (response) == IPP_ERROR)
                                 g_warning ("An error has occured during automatic configuration of new printer.");
                         ippDelete (response);
                 }

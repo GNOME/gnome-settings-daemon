@@ -53,6 +53,16 @@
 #define REASON_TIMEOUT                   15000
 #define CUPS_CONNECTION_TEST_INTERVAL    300
 
+#if (CUPS_VERSION_MAJOR > 1) || (CUPS_VERSION_MINOR > 5)
+#define HAVE_CUPS_1_6 1
+#endif
+
+#ifndef HAVE_CUPS_1_6
+#define ippGetStatusCode(ipp) ipp->request.status.status_code
+#define ippGetInteger(attr, element) attr->values[element].integer
+#define ippGetString(attr, element, language) attr->values[element].string.text
+#endif
+
 struct GsdPrintNotificationsManagerPrivate
 {
         GDBusConnection              *cups_bus_connection;
@@ -398,10 +408,10 @@ on_cups_notification (GDBusConnection *connection,
                         response = cupsDoRequest (http, request, "/");
 
                         if (response) {
-                                if (response->request.status.status_code <= IPP_OK_CONFLICT &&
+                                if (ippGetStatusCode (response) <= IPP_OK_CONFLICT &&
                                     (attr = ippFindAttribute(response, "job-originating-user-name",
                                                              IPP_TAG_NAME))) {
-                                        if (g_strcmp0 (attr->values[0].string.text, cupsUser ()) == 0)
+                                        if (g_strcmp0 (ippGetString (attr, 0, NULL), cupsUser ()) == 0)
                                                 my_job = TRUE;
                                 }
                                 ippDelete(response);
@@ -891,12 +901,12 @@ renew_subscription (gpointer data)
                                        "notify-lease-duration", SUBSCRIPTION_DURATION);
                         response = cupsDoRequest (http, request, "/");
 
-                        if (response != NULL && response->request.status.status_code <= IPP_OK_CONFLICT) {
+                        if (response != NULL && ippGetStatusCode (response) <= IPP_OK_CONFLICT) {
                                 if ((attr = ippFindAttribute (response, "notify-subscription-id",
                                                               IPP_TAG_INTEGER)) == NULL)
                                         g_debug ("No notify-subscription-id in response!\n");
                                 else
-                                        manager->priv->subscription_id = attr->values[0].integer;
+                                        manager->priv->subscription_id = ippGetInteger (attr, 0);
                         }
 
                         if (response)
