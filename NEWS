@@ -1,4 +1,35 @@
 =============
+Version 3.5.5
+=============
+
+* Add test applications for a number of plugins
+
+Color:
+- Fix notification-related memory leaks
+
+Keyboard:
+- Add support for switching to IBus input methods
+
+Wacom:
+- Fix crasher related to screen tablets
+- Do not rotate "pad" devices
+- Apply display rotation to device that's mapped to it
+- Make shortcuts that require Shift work as expected
+- Re-apply calibration and aspect-ratio when the screen changes
+  but don't apply it to touch devices
+
+Housekeeping:
+- Fix notification-related memory leaks
+
+Updates:
+- Remove unused settings
+- Remove a number of unused notifications
+- Don't ever live-update packages in the session
+- Fix a number of memory leaks
+- Prevent crash if a device that requires a firmware is removed before the
+  firmware search completes
+
+=============
 Version 3.5.4
 =============
 
