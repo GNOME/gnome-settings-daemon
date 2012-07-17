@@ -735,9 +735,13 @@ set_wacom_settings (GsdWacomManager *manager,
 		set_tpcbutton (device, g_settings_get_boolean (settings, KEY_TPCBUTTON));
 
 	set_absolute (device, g_settings_get_boolean (settings, KEY_IS_ABSOLUTE));
-	if (!gsd_wacom_device_is_screen_tablet (device))
-		set_keep_aspect (device, g_settings_get_boolean (settings, KEY_KEEP_ASPECT));
-	set_area (device, g_settings_get_value (settings, KEY_AREA));
+
+	/* Ignore touch devices as they do not share the same range of values for area */
+	if (type != WACOM_TYPE_TOUCH) {
+		if (gsd_wacom_device_is_screen_tablet (device) == FALSE)
+			set_keep_aspect (device, g_settings_get_boolean (settings, KEY_KEEP_ASPECT));
+		set_area (device, g_settings_get_value (settings, KEY_AREA));
+	}
 	set_display (device, g_settings_get_value (settings, KEY_DISPLAY));
 
         /* only pen and eraser have pressure threshold and curve settings */
@@ -770,7 +774,8 @@ wacom_settings_changed (GSettings      *settings,
 			set_absolute (device, g_settings_get_boolean (settings, key));
 	} else if (g_str_equal (key, KEY_AREA)) {
 		if (type != WACOM_TYPE_CURSOR &&
-		    type != WACOM_TYPE_PAD)
+		    type != WACOM_TYPE_PAD &&
+		    type != WACOM_TYPE_TOUCH)
 			set_area (device, g_settings_get_value (settings, key));
 	} else if (g_str_equal (key, KEY_DISPLAY)) {
 		if (type != WACOM_TYPE_CURSOR &&
@@ -779,6 +784,7 @@ wacom_settings_changed (GSettings      *settings,
 	} else if (g_str_equal (key, KEY_KEEP_ASPECT)) {
 		if (type != WACOM_TYPE_CURSOR &&
 		    type != WACOM_TYPE_PAD &&
+		    type != WACOM_TYPE_TOUCH &&
 		    !gsd_wacom_device_is_screen_tablet (device))
 			set_keep_aspect (device, g_settings_get_boolean (settings, key));
 	} else {
@@ -1197,9 +1203,12 @@ on_screen_changed_cb (GnomeRRScreen *rr_screen,
 			continue;
 
 		settings = gsd_wacom_device_get_settings (device);
-		if (!gsd_wacom_device_is_screen_tablet (device))
-			set_keep_aspect (device, g_settings_get_boolean (settings, KEY_KEEP_ASPECT));
-		set_area (device, g_settings_get_value (settings, KEY_AREA));
+		/* Ignore touch devices as they do not share the same range of values for area */
+		if (type != WACOM_TYPE_TOUCH) {
+			if (gsd_wacom_device_is_screen_tablet (device) == FALSE)
+				set_keep_aspect (device, g_settings_get_boolean (settings, KEY_KEEP_ASPECT));
+			set_area (device, g_settings_get_value (settings, KEY_AREA));
+		}
 		set_display (device, g_settings_get_value (settings, KEY_DISPLAY));
 	}
 	g_list_free (devices);
