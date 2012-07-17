@@ -1197,6 +1197,9 @@ on_screen_changed_cb (GnomeRRScreen *rr_screen,
 			continue;
 
 		settings = gsd_wacom_device_get_settings (device);
+		if (!gsd_wacom_device_is_screen_tablet (device))
+			set_keep_aspect (device, g_settings_get_boolean (settings, KEY_KEEP_ASPECT));
+		set_area (device, g_settings_get_value (settings, KEY_AREA));
 		set_display (device, g_settings_get_value (settings, KEY_DISPLAY));
 	}
 	g_list_free (devices);
