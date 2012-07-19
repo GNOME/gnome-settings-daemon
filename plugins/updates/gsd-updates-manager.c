@@ -242,14 +242,6 @@ libnotify_action_cb (NotifyNotification *notification,
                 }
                 goto out;
         }
-        if (g_strcmp0 (action, "update-all-packages") == 0) {
-                pk_task_update_system_async (manager->priv->task,
-                                             manager->priv->cancellable,
-                                             NULL, NULL,
-                                             (GAsyncReadyCallback) update_packages_finished_cb,
-                                             manager);
-                goto out;
-        }
         if (g_strcmp0 (action, "clear-offline-updates") == 0) {
                 clear_offline_updates_message ();
                 goto out;
