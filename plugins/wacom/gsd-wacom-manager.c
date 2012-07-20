@@ -1191,6 +1191,14 @@ on_screen_changed_cb (GnomeRRScreen *rr_screen,
 {
 	GList *devices, *l;
 
+        /*
+         * A ::changed signal may be received at startup before
+         * the devices get added, in this case simply ignore the
+         * notification
+         */
+        if (manager->priv->devices == NULL)
+                return;
+
         g_debug ("Screen configuration changed");
 	devices = g_hash_table_get_values (manager->priv->devices);
 	for (l = devices; l != NULL; l = l->next) {
