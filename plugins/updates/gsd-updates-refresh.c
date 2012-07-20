@@ -343,6 +343,7 @@ convert_network_state (GsdUpdatesRefresh *refresh, PkNetworkEnum state)
 
         /* online */
         if (state == PK_NETWORK_ENUM_ONLINE ||
+            state == PK_NETWORK_ENUM_WIFI ||
             state == PK_NETWORK_ENUM_WIRED)
                 return TRUE;
 
