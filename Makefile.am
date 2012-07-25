@@ -5,6 +5,7 @@ SUBDIRS = 			\
 	plugins			\
 	data			\
 	po 			\
+	man			\
 	$(NULL)
 
 # Honor aclocal flags

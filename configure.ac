@@ -415,6 +415,8 @@ AC_SUBST([plugindir])
 PLUGIN_CFLAGS="-DG_LOG_DOMAIN=\"\\\"\$(plugin_name)-plugin\\\"\" -DPLUGIN_NAME=\"\\\"\$(plugin_name)\\\"\" "
 AC_SUBST(PLUGIN_CFLAGS)
 
+AC_PATH_PROG([XSLTPROC], [xsltproc])
+
 dnl ---------------------------------------------------------------------------
 dnl - Finish
 dnl ---------------------------------------------------------------------------
@@ -523,6 +525,7 @@ data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in
 po/Makefile.in
+man/Makefile
 ])
 
 dnl ---------------------------------------------------------------------------
