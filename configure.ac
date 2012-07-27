@@ -53,6 +53,7 @@ UPOWER_GLIB_REQUIRED_VERSION=0.9.1
 PA_REQUIRED_VERSION=0.9.16
 LIBWACOM_REQUIRED_VERSION=0.5
 UPOWER_REQUIRED_VERSION=0.9.11
+IBUS_REQUIRED_VERSION=1.4.99
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -182,7 +183,7 @@ AC_ARG_ENABLE(ibus,
         enable_ibus=yes)
 
 if test "x$enable_ibus" = "xyes" ; then
-        IBUS_MODULE=ibus-1.0
+        IBUS_MODULE="ibus-1.0 >= $IBUS_REQUIRED_VERSION"
         AC_DEFINE(HAVE_IBUS, 1, [Defined if IBus support is enabled])
 else
         IBUS_MODULE=
