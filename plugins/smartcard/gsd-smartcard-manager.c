@@ -737,8 +737,8 @@ load_driver (GsdSmartcardManager  *manager,
                 g_free (module_spec);
                 module_spec = NULL;
 
-                if (!SECMOD_HasRemovableSlots (module) ||
-                    !module->loaded) {
+                if (SECMOD_HasRemovableSlots (module) &&
+                    module->loaded) {
                         modules = g_list_prepend (modules, module);
                 } else {
                         g_debug ("fallback module found but not %s",
@@ -773,8 +773,8 @@ load_driver (GsdSmartcardManager  *manager,
                         g_free (module_spec);
                         module_spec = NULL;
 
-                        if (!SECMOD_HasRemovableSlots (module) ||
-                            !module->loaded) {
+                        if (SECMOD_HasRemovableSlots (module) &&
+                            module->loaded) {
                                 modules = g_list_prepend (modules, module);
                         } else {
                                 g_debug ("fallback module found but not loaded");
