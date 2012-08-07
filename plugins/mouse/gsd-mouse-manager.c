@@ -983,7 +983,7 @@ mouse_callback (GSettings       *settings,
                 GdkDevice *device = l->data;
 
                 if (device_is_ignored (manager, device))
-                        return;
+                        continue;
 
                 if (g_str_equal (key, KEY_LEFT_HANDED)) {
                         gboolean mouse_left_handed;
@@ -1017,7 +1017,7 @@ touchpad_callback (GSettings       *settings,
                 GdkDevice *device = l->data;
 
                 if (device_is_ignored (manager, device))
-                        return;
+                        continue;
 
                 if (g_str_equal (key, KEY_TAP_TO_CLICK)) {
                         set_tap_to_click (device, g_settings_get_boolean (settings, key),
