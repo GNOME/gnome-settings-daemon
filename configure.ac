@@ -415,7 +415,17 @@ AC_SUBST([plugindir])
 PLUGIN_CFLAGS="-DG_LOG_DOMAIN=\"\\\"\$(plugin_name)-plugin\\\"\" -DPLUGIN_NAME=\"\\\"\$(plugin_name)\\\"\" "
 AC_SUBST(PLUGIN_CFLAGS)
 
-AC_PATH_PROG([XSLTPROC], [xsltproc])
+AC_ARG_ENABLE(man,
+              [AS_HELP_STRING([--enable-man],
+                              [generate man pages [default=yes]])],,
+              enable_man=yes)
+if test "$enable_man" != no; then
+  AC_PATH_PROG([XSLTPROC], [xsltproc])
+  if test -z "$XSLTPROC"; then
+    AC_MSG_ERROR([xsltproc is required for --enable-man])
+  fi
+fi
+AM_CONDITIONAL(ENABLE_MAN, test "$enable_man" != no)
 
 dnl ---------------------------------------------------------------------------
 dnl - Finish
