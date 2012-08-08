@@ -1,4 +1,28 @@
 =============
+Version 3.5.6
+=============
+
+Build:
+- Add optional man page
+- List plugin schemas as children of the main schema
+
+Updates:
+- Remove unused code
+- Avoid compilation warnings due to PackageKit API changes
+
+Mouse:
+- If one device was ignored, we would ignore all the devices
+
+Smartcard:
+- Don't try to use smartcard drivers that didn't load
+
+Keyboard:
+- Require ibus 1.4.99 for ibus support
+
+Wacom:
+- Avoid a warning at login
+
+=============
 Version 3.5.5
 =============
 
