@@ -66,7 +66,7 @@
 #define GSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.gnome.SettingsDaemon.Power.Keyboard"
 
 #define GS_DBUS_NAME                            "org.gnome.ScreenSaver"
-#define GS_DBUS_PATH                            "/"
+#define GS_DBUS_PATH                            "/org/gnome/ScreenSaver"
 #define GS_DBUS_INTERFACE                       "org.gnome.ScreenSaver"
 
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER          0 /* ms */
