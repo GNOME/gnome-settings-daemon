@@ -314,7 +314,11 @@ gpm_idletime_alarm_set (GpmIdletime *idletime,
 
         g_return_val_if_fail (GPM_IS_IDLETIME (idletime), FALSE);
         g_return_val_if_fail (id != 0, FALSE);
-        g_return_val_if_fail (timeout != 0, FALSE);
+
+        if (timeout == 0) {
+                gpm_idletime_alarm_remove (idletime, id);
+                return FALSE;
+        }
 
         /* see if we already created an alarm with this ID */
         alarm_item = gpm_idletime_alarm_find_id (idletime, id);

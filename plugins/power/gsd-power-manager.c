@@ -77,7 +77,15 @@
 #define GSD_POWER_MANAGER_RECALL_DELAY                  30 /* seconds */
 #define GSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT      30 /* seconds */
 
-#define GSD_POWER_IDLETIME_ID                           1 /* counter id */
+/* Keep this in sync with gnome-shell */
+#define SCREENSAVER_FADE_TIME                           10 /* seconds */
+
+enum {
+        GSD_POWER_IDLETIME_NULL_ID,
+        GSD_POWER_IDLETIME_DIM_ID,
+        GSD_POWER_IDLETIME_BLANK_ID,
+        GSD_POWER_IDLETIME_SLEEP_ID
+};
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -186,10 +194,7 @@ struct GsdPowerManagerPrivate
         GDBusProxy              *session_proxy;
         GDBusProxy              *session_presence_proxy;
         GpmIdletime             *idletime;
-        gboolean                 x_idle;
         GsdPowerIdleMode         current_idle_mode;
-        guint                    timeout_blank_id;
-        guint                    timeout_sleep_id;
         guint                    lid_close_safety_timer_id;
         GtkStatusIcon           *status_icon;
 };
@@ -2915,6 +2920,11 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         if (mode == manager->priv->current_idle_mode)
                 return;
 
+        /* Ignore attempts to set "less idle" modes */
+        if (mode < manager->priv->current_idle_mode &&
+            mode != GSD_POWER_IDLE_MODE_NORMAL)
+                return;
+
         /* ensure we're still on an active console */
         state = gnome_settings_session_get_state (manager->priv->session);
         if (state == GNOME_SETTINGS_SESSION_STATE_INACTIVE) {
@@ -3054,18 +3064,6 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 }
 
 static gboolean
-idle_blank_cb (GsdPowerManager *manager)
-{
-        if (manager->priv->current_idle_mode > GSD_POWER_IDLE_MODE_BLANK) {
-                g_debug ("ignoring current mode %s",
-                         idle_mode_to_string (manager->priv->current_idle_mode));
-                return FALSE;
-        }
-        idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
-        return FALSE;
-}
-
-static gboolean
 idle_is_session_idle (GsdPowerManager *manager)
 {
         gboolean ret;
@@ -3127,130 +3125,10 @@ idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
         return ret;
 }
 
-static gboolean
-idle_sleep_cb (GsdPowerManager *manager)
-{
-        gboolean is_idle;
-        gboolean is_inhibited;
-
-        /* check the session is not now inhibited */
-        is_inhibited = idle_is_session_inhibited (manager,
-                                                  SESSION_INHIBIT_MASK_SUSPEND);
-        if (is_inhibited) {
-                g_debug ("suspend inhibited");
-                if (manager->priv->timeout_sleep_id != 0) {
-                        g_source_remove (manager->priv->timeout_sleep_id);
-                        manager->priv->timeout_sleep_id = 0;
-                }
-                /* try again in the same timeout */
-                return TRUE;
-        }
-
-        /* check the session is really idle*/
-        is_idle = idle_is_session_idle (manager);
-        if (!is_idle) {
-                g_debug ("session is not idle, cannot SLEEP");
-                /* try again in the same timeout */
-                return TRUE;
-        }
-
-        /* send to sleep, and cancel timeout */
-        g_debug ("sending to SLEEP");
-        idle_set_mode (manager, GSD_POWER_IDLE_MODE_SLEEP);
-        return FALSE;
-}
-
-static void
-idle_evaluate (GsdPowerManager *manager)
-{
-        gboolean is_idle_inhibited;
-        guint timeout_blank;
-        guint timeout_sleep;
-        gboolean on_battery;
-
-        /* check we are really idle */
-        if (!manager->priv->x_idle) {
-                idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
-                g_debug ("X not idle");
-                if (manager->priv->timeout_blank_id != 0) {
-                        g_source_remove (manager->priv->timeout_blank_id);
-                        manager->priv->timeout_blank_id = 0;
-                }
-                if (manager->priv->timeout_sleep_id != 0) {
-                        g_source_remove (manager->priv->timeout_sleep_id);
-                        manager->priv->timeout_sleep_id = 0;
-                }
-                return;
-        }
-
-        /* are we inhibited from going idle */
-        is_idle_inhibited = idle_is_session_inhibited (manager,
-                                                       SESSION_INHIBIT_MASK_IDLE);
-        if (is_idle_inhibited) {
-                g_debug ("inhibited, so using normal state");
-                idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
-                if (manager->priv->timeout_blank_id != 0) {
-                        g_source_remove (manager->priv->timeout_blank_id);
-                        manager->priv->timeout_blank_id = 0;
-                }
-                if (manager->priv->timeout_sleep_id != 0) {
-                        g_source_remove (manager->priv->timeout_sleep_id);
-                        manager->priv->timeout_sleep_id = 0;
-                }
-                return;
-        }
-
-        /* normal to dim */
-        if (manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_NORMAL) {
-                g_debug ("normal to dim");
-                idle_set_mode (manager, GSD_POWER_IDLE_MODE_DIM);
-        }
-
-        /* set up blank callback even when session is not idle,
-         * but only if we actually want to blank. */
-        on_battery = up_client_get_on_battery (manager->priv->up_client);
-        if (on_battery) {
-                timeout_blank = g_settings_get_int (manager->priv->settings,
-                                                    "sleep-display-battery");
-        } else {
-                timeout_blank = g_settings_get_int (manager->priv->settings,
-                                                    "sleep-display-ac");
-        }
-        if (manager->priv->timeout_blank_id == 0 &&
-            timeout_blank != 0) {
-                g_debug ("setting up blank callback for %is",
-                         timeout_blank);
-                manager->priv->timeout_blank_id = g_timeout_add_seconds (timeout_blank,
-                                                                      (GSourceFunc) idle_blank_cb, manager);
-                g_source_set_name_by_id (manager->priv->timeout_blank_id,
-                                         "[GsdPowerManager] blank");
-        }
-
-        /* only do the sleep timeout when the session is idle
-         * and we aren't inhibited from sleeping */
-        if (on_battery) {
-                timeout_sleep = g_settings_get_int (manager->priv->settings,
-                                                    "sleep-inactive-battery-timeout");
-        } else {
-                timeout_sleep = g_settings_get_int (manager->priv->settings,
-                                                    "sleep-inactive-ac-timeout");
-        }
-        if (manager->priv->timeout_sleep_id == 0 &&
-            timeout_sleep != 0) {
-                g_debug ("setting up sleep callback %is",
-                         timeout_sleep);
-                manager->priv->timeout_sleep_id = g_timeout_add_seconds (timeout_sleep,
-                                                                      (GSourceFunc) idle_sleep_cb, manager);
-                g_source_set_name_by_id (manager->priv->timeout_sleep_id,
-                                         "[GsdPowerManager] sleep");
-        }
-}
-
-
 /**
- *  idle_adjust_timeout_dim:
- *  @idle_time: The new timeout we want to set, in seconds.
- *  @timeout: Current idle time, in seconds.
+ *  idle_adjust_timeout:
+ *  @idle_time: Current idle time, in seconds.
+ *  @timeout: The new timeout we want to set, in seconds.
  *
  *  On slow machines, or machines that have lots to load duing login,
  *  the current idle time could be bigger than the requested timeout.
@@ -3263,7 +3141,7 @@ idle_evaluate (GsdPowerManager *manager)
  *  Return value: timeout to set, adjusted acccording to current idle time.
  **/
 static guint
-idle_adjust_timeout_dim (guint idle_time, guint timeout)
+idle_adjust_timeout (guint idle_time, guint timeout)
 {
         /* allow 2 sec margin for messaging delay. */
         idle_time += 2;
@@ -3279,30 +3157,108 @@ idle_adjust_timeout_dim (guint idle_time, guint timeout)
 }
 
 /**
+ * idle_adjust_timeout_blank:
+ * @idle_time: current idle time, in seconds.
+ * @timeout: the new timeout we want to set, in seconds.
+ *
+ * Same as idle_adjust_timeout(), but also accounts for the duration
+ * of the fading animation in the screensaver (so that blanking happens
+ * exactly at the end of it, if configured with the same timeouts)
+ */
+static guint
+idle_adjust_timeout_blank (guint idle_time, guint timeout)
+{
+        return idle_adjust_timeout (idle_time,
+                                    timeout + SCREENSAVER_FADE_TIME);
+}
+
+static void
+idle_configure (GsdPowerManager *manager)
+{
+        gboolean is_idle_inhibited;
+        guint current_idle_time;
+        guint timeout_blank;
+        guint timeout_sleep;
+        gboolean on_battery;
+
+        /* are we inhibited from going idle */
+        is_idle_inhibited = idle_is_session_inhibited (manager,
+                                                       SESSION_INHIBIT_MASK_IDLE);
+        if (is_idle_inhibited) {
+                g_debug ("inhibited, so using normal state");
+                idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
+
+                gpm_idletime_alarm_remove (manager->priv->idletime,
+                                           GSD_POWER_IDLETIME_BLANK_ID);
+                gpm_idletime_alarm_remove (manager->priv->idletime,
+                                           GSD_POWER_IDLETIME_SLEEP_ID);
+                return;
+        }
+
+        current_idle_time = gpm_idletime_get_time (manager->priv->idletime) / 1000;
+
+        /* set up blank callback even when session is not idle,
+         * but only if we actually want to blank. */
+        on_battery = up_client_get_on_battery (manager->priv->up_client);
+        if (on_battery) {
+                timeout_blank = g_settings_get_int (manager->priv->settings,
+                                                    "sleep-display-battery");
+        } else {
+                timeout_blank = g_settings_get_int (manager->priv->settings,
+                                                    "sleep-display-ac");
+        }
+        if (timeout_blank != 0) {
+                g_debug ("setting up blank callback for %is", timeout_blank);
+
+                gpm_idletime_alarm_set (manager->priv->idletime,
+                                        GSD_POWER_IDLETIME_BLANK_ID,
+                                        idle_adjust_timeout_blank (current_idle_time, timeout_blank) * 1000);
+        } else {
+                gpm_idletime_alarm_remove (manager->priv->idletime,
+                                           GSD_POWER_IDLETIME_BLANK_ID);
+        }
+
+        /* only do the sleep timeout when the session is idle
+         * and we aren't inhibited from sleeping */
+        if (on_battery) {
+                timeout_sleep = g_settings_get_int (manager->priv->settings,
+                                                    "sleep-inactive-battery-timeout");
+        } else {
+                timeout_sleep = g_settings_get_int (manager->priv->settings,
+                                                    "sleep-inactive-ac-timeout");
+        }
+        if (timeout_sleep != 0) {
+                g_debug ("setting up sleep callback %is", timeout_sleep);
+
+                gpm_idletime_alarm_set (manager->priv->idletime,
+                                        GSD_POWER_IDLETIME_SLEEP_ID,
+                                        idle_adjust_timeout (current_idle_time, timeout_sleep) * 1000);
+        } else {
+                gpm_idletime_alarm_remove (manager->priv->idletime,
+                                           GSD_POWER_IDLETIME_SLEEP_ID);
+        }
+}
+
+/**
  * @timeout: The new timeout we want to set, in seconds
  **/
 static gboolean
 idle_set_timeout_dim (GsdPowerManager *manager, guint timeout)
 {
-        gint64 idle_time_in_msec;
-        guint timeout_adjusted;
+        guint idle_time;
 
-        idle_time_in_msec = gpm_idletime_get_time (manager->priv->idletime);
-        if (idle_time_in_msec == 0)
+        idle_time = gpm_idletime_get_time (manager->priv->idletime) / 1000;
+        if (idle_time == 0)
                 return FALSE;
-        timeout_adjusted  = idle_adjust_timeout_dim (idle_time_in_msec / 1000, timeout);
-        g_debug ("Current idle time=%lldms, timeout was %us, becomes %us after adjustment",
-                   (long long int)idle_time_in_msec, timeout, timeout_adjusted);
-        timeout = timeout_adjusted;
 
         g_debug ("Setting dim idle timeout: %ds", timeout);
         if (timeout > 0) {
                 gpm_idletime_alarm_set (manager->priv->idletime,
-                                        GSD_POWER_IDLETIME_ID,
-                                        timeout * 1000);
+                                        GSD_POWER_IDLETIME_DIM_ID,
+                                        idle_adjust_timeout (idle_time, timeout) * 1000);
         } else {
                 gpm_idletime_alarm_remove (manager->priv->idletime,
-                                           GSD_POWER_IDLETIME_ID);
+                                           GSD_POWER_IDLETIME_DIM_ID);
         }
         return TRUE;
 }
@@ -3363,7 +3319,7 @@ idle_dbus_signal_cb (GDBusProxy *proxy,
         if (g_strcmp0 (signal_name, "InhibitorAdded") == 0 ||
             g_strcmp0 (signal_name, "InhibitorRemoved") == 0) {
                 g_debug ("Received gnome session inhibitor change");
-                idle_evaluate (manager);
+                idle_configure (manager);
         }
         if (g_strcmp0 (signal_name, "StatusChanged") == 0) {
                 guint status;
@@ -3372,7 +3328,7 @@ idle_dbus_signal_cb (GDBusProxy *proxy,
                 g_dbus_proxy_set_cached_property (proxy, "status",
                                                   g_variant_new ("u", status));
                 g_debug ("Received gnome session status change");
-                idle_evaluate (manager);
+                idle_configure (manager);
         }
 }
 
@@ -3575,13 +3531,49 @@ upower_notify_resume_cb (UpClient *client,
 }
 
 static void
+idle_send_to_sleep (GsdPowerManager *manager)
+{
+        gboolean is_inhibited;
+        gboolean is_idle;
+
+        /* check the session is not now inhibited */
+        is_inhibited = idle_is_session_inhibited (manager,
+                                                  SESSION_INHIBIT_MASK_SUSPEND);
+        if (is_inhibited) {
+                g_debug ("suspend inhibited");
+                return;
+        }
+
+        /* check the session is really idle*/
+        is_idle = idle_is_session_idle (manager);
+        if (!is_idle) {
+                g_debug ("session is not idle, cannot SLEEP");
+                return;
+        }
+
+        /* send to sleep, and cancel timeout */
+        g_debug ("sending to SLEEP");
+        idle_set_mode (manager, GSD_POWER_IDLE_MODE_SLEEP);
+}
+
+static void
 idle_idletime_alarm_expired_cb (GpmIdletime *idletime,
                                 guint alarm_id,
                                 GsdPowerManager *manager)
 {
         g_debug ("idletime alarm: %i", alarm_id);
-        manager->priv->x_idle = TRUE;
-        idle_evaluate (manager);
+
+        switch (alarm_id) {
+        case GSD_POWER_IDLETIME_DIM_ID:
+                idle_set_mode (manager, GSD_POWER_IDLE_MODE_DIM);
+                break;
+        case GSD_POWER_IDLETIME_BLANK_ID:
+                idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
+                break;
+        case GSD_POWER_IDLETIME_SLEEP_ID:
+                idle_send_to_sleep (manager);
+                break;
+        }
 }
 
 static void
@@ -3589,8 +3581,8 @@ idle_idletime_reset_cb (GpmIdletime *idletime,
                         GsdPowerManager *manager)
 {
         g_debug ("idletime reset");
-        manager->priv->x_idle = FALSE;
-        idle_evaluate (manager);
+
+        idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
 }
 
 static void
@@ -3606,9 +3598,9 @@ engine_settings_key_changed_cb (GSettings *settings,
                 refresh_idle_dim_settings (manager);
                 return;
         }
-        if (g_str_has_prefix (key, "idle-dim") ||
-            g_str_has_prefix (key, "sleep-inactive")) {
-                idle_evaluate (manager);
+        if (g_str_has_prefix (key, "sleep-inactive") ||
+            g_str_has_prefix (key, "sleep-display")) {
+                idle_configure (manager);
                 return;
         }
 }
@@ -3775,7 +3767,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
 
         /* coldplug the engine */
         engine_coldplug (manager);
-        idle_evaluate (manager);
+        idle_configure (manager);
 
         /* set the initial dim time that can adapt for the user */
         refresh_idle_dim_settings (manager);
@@ -3803,16 +3795,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         if (manager->priv->connection != NULL) {
                 g_object_unref (manager->priv->connection);
                 manager->priv->connection = NULL;
-        }
-
-        if (manager->priv->timeout_blank_id != 0) {
-                g_source_remove (manager->priv->timeout_blank_id);
-                manager->priv->timeout_blank_id = 0;
-        }
-
-        if (manager->priv->timeout_sleep_id != 0) {
-                g_source_remove (manager->priv->timeout_sleep_id);
-                manager->priv->timeout_sleep_id = 0;
         }
 
         kill_lid_close_safety_timer (manager);
@@ -3868,8 +3850,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
                 manager->priv->critical_alert_timeout_id = 0;
         }
 
-        gpm_idletime_alarm_remove (manager->priv->idletime,
-                                   GSD_POWER_IDLETIME_ID);
         g_object_unref (manager->priv->idletime);
         g_object_unref (manager->priv->status_icon);
         manager->priv->idletime = NULL;
