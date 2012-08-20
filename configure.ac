@@ -6,7 +6,7 @@ AC_INIT([gnome-settings-daemon],
 
 AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
 
-AM_INIT_AUTOMAKE([1.9 tar-ustar dist-xz no-dist-gzip])
+AM_INIT_AUTOMAKE([1.9 tar-ustar dist-xz no-dist-gzip check-news])
 AM_MAINTAINER_MODE([enable])
 
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
