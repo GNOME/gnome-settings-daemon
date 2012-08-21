@@ -93,7 +93,8 @@ typedef enum
 typedef enum
 {
   GSD_WACOM_ACTION_TYPE_NONE,
-  GSD_WACOM_ACTION_TYPE_CUSTOM
+  GSD_WACOM_ACTION_TYPE_CUSTOM,
+  GSD_WACOM_ACTION_TYPE_SWITCH_MONITOR
 } GsdWacomActionType;
 
 typedef enum

@@ -375,7 +375,7 @@ set_keep_aspect (GsdWacomDevice *device,
 	guint i;
 
 	gint *area;
-	gint monitor = -1;
+	gint monitor = GSD_WACOM_SET_ALL_MONITORS;
 	GsdWacomRotation rotation;
 	GSettings *settings;
 
@@ -1054,6 +1054,32 @@ generate_key (GsdWacomTabletButton *wbutton,
 	g_free (str);
 }
 
+static void
+switch_monitor (GsdWacomDevice *device)
+{
+	gint current_monitor, n_monitors;
+
+	/* We dont; do that for screen tablets, sorry... */
+	if (gsd_wacom_device_is_screen_tablet (device))
+		return;
+
+	n_monitors = gdk_screen_get_n_monitors (gdk_screen_get_default ());
+
+	/* There's no point in switching if there just one monitor */
+	if (n_monitors < 2)
+		return;
+
+	current_monitor = gsd_wacom_device_get_display_monitor (device);
+
+	/* Select next monitor */
+	current_monitor++;
+
+	if (current_monitor >= n_monitors)
+		current_monitor = GSD_WACOM_SET_ALL_MONITORS;
+
+	gsd_wacom_device_set_display (device, current_monitor);
+}
+
 static GdkFilterReturn
 filter_button_events (XEvent          *xevent,
                       GdkEvent        *event,
@@ -1121,6 +1147,13 @@ filter_button_events (XEvent          *xevent,
 	/* Nothing to do */
 	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == GSD_WACOM_ACTION_TYPE_NONE)
 		return GDK_FILTER_REMOVE;
+
+	/* Switch monitor */
+	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == GSD_WACOM_ACTION_TYPE_SWITCH_MONITOR) {
+		if (xiev->evtype == XI_ButtonRelease)
+			switch_monitor (device);
+		return GDK_FILTER_REMOVE;
+	}
 
 	/* Send a key combination out */
 	generate_key (wbutton, xev->group.effective, xev->display, dir, xiev->evtype == XI_ButtonPress ? True : False);
