@@ -906,7 +906,7 @@ gsd_wacom_device_get_display_rotation (GsdWacomDevice *device)
 	if (rr_screen == NULL) {
 		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
 		g_error_free (error);
-		return -1;
+		return GSD_WACOM_ROTATION_NONE;
 	}
 
 	rr_output = find_output (rr_screen, device);
