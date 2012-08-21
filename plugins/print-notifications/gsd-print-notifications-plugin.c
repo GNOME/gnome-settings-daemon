@@ -100,9 +100,3 @@ gsd_print_notifications_plugin_class_init (GsdPrintNotificationsPluginClass *kla
 
         g_type_class_add_private (klass, sizeof (GsdPrintNotificationsPluginPrivate));
 }
-
-static void
-gsd_print_notifications_plugin_class_finalize (GsdPrintNotificationsPluginClass *klass)
-{
-}
-

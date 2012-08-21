@@ -102,9 +102,3 @@ gsd_media_keys_plugin_class_init (GsdMediaKeysPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdMediaKeysPluginPrivate));
 }
-
-static void
-gsd_media_keys_plugin_class_finalize (GsdMediaKeysPluginClass *klass)
-{
-}
-

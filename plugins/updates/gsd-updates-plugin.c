@@ -98,9 +98,3 @@ gsd_updates_plugin_class_init (GsdUpdatesPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdUpdatesPluginPrivate));
 }
-
-static void
-gsd_updates_plugin_class_finalize (GsdUpdatesPluginClass *klass)
-{
-}
-

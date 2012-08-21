@@ -103,8 +103,3 @@ gsd_a11y_keyboard_plugin_class_init (GsdA11yKeyboardPluginClass *klass)
         g_type_class_add_private (klass, sizeof (GsdA11yKeyboardPluginPrivate));
 }
 
-static void
-gsd_a11y_keyboard_plugin_class_finalize (GsdA11yKeyboardPluginClass *klass)
-{
-}
-

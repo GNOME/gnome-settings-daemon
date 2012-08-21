@@ -102,9 +102,3 @@ gsd_background_plugin_class_init (GsdBackgroundPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdBackgroundPluginPrivate));
 }
-
-static void
-gsd_background_plugin_class_finalize (GsdBackgroundPluginClass *klass)
-{
-}
-

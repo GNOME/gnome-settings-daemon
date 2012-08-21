@@ -102,9 +102,3 @@ gnome_xsettings_plugin_class_init (GnomeXSettingsPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GnomeXSettingsPluginPrivate));
 }
-
-static void
-gnome_xsettings_plugin_class_finalize (GnomeXSettingsPluginClass *klass)
-{
-}
-

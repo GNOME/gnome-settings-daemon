@@ -102,9 +102,3 @@ gsd_keyboard_plugin_class_init (GsdKeyboardPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdKeyboardPluginPrivate));
 }
-
-static void
-gsd_keyboard_plugin_class_finalize (GsdKeyboardPluginClass *klass)
-{
-}
-

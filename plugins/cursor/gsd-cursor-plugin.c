@@ -102,9 +102,3 @@ gsd_cursor_plugin_class_init (GsdCursorPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdCursorPluginPrivate));
 }
-
-static void
-gsd_cursor_plugin_class_finalize (GsdCursorPluginClass *klass)
-{
-}
-

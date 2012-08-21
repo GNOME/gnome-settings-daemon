@@ -68,7 +68,12 @@ register_gnome_settings_plugin (GTypeModule *type_module)                      \
         plugin_name##_register_type (type_module);                             \
                                                                                \
         return plugin_name##_get_type();                                       \
-}
+}                                                                              \
+                                                                               \
+static void                                                                    \
+plugin_name##_class_finalize (PluginName##Class *plugin_name##_class)          \
+{                                                                              \
+}                                                                              \
 
 G_END_DECLS
 

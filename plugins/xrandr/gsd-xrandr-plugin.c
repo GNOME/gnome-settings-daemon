@@ -102,9 +102,3 @@ gsd_xrandr_plugin_class_init (GsdXrandrPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdXrandrPluginPrivate));
 }
-
-static void
-gsd_xrandr_plugin_class_finalize (GsdXrandrPluginClass *klass)
-{
-}
-

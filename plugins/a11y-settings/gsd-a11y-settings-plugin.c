@@ -102,9 +102,3 @@ gsd_a11y_settings_plugin_class_init (GsdA11ySettingsPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdA11ySettingsPluginPrivate));
 }
-
-static void
-gsd_a11y_settings_plugin_class_finalize (GsdA11ySettingsPluginClass *klass)
-{
-}
-

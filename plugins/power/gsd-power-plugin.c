@@ -102,9 +102,3 @@ gsd_power_plugin_class_init (GsdPowerPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdPowerPluginPrivate));
 }
-
-static void
-gsd_power_plugin_class_finalize (GsdPowerPluginClass *klass)
-{
-}
-

@@ -102,9 +102,3 @@ gsd_housekeeping_plugin_class_init (GsdHousekeepingPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdHousekeepingPluginPrivate));
 }
-
-static void
-gsd_housekeeping_plugin_class_finalize (GsdHousekeepingPluginClass *klass)
-{
-}
-

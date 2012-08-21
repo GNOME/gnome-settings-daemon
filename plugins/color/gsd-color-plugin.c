@@ -103,9 +103,3 @@ gsd_color_plugin_class_init (GsdColorPluginClass *klass)
 
         g_type_class_add_private (klass, sizeof (GsdColorPluginPrivate));
 }
-
-static void
-gsd_color_plugin_class_finalize (GsdColorPluginClass *klass)
-{
-}
-
