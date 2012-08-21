@@ -63,7 +63,7 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
         gio-2.0 >= $GIO_REQUIRED_VERSION
         gmodule-2.0
         gthread-2.0
-	gsettings-desktop-schemas >= 3.5.5
+	gsettings-desktop-schemas >= 3.5.90
 )
 
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
