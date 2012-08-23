@@ -1765,15 +1765,31 @@ static void
 do_keyboard_brightness_action (GsdMediaKeysManager *manager,
                                MediaKeyType type)
 {
+        const char *cmd;
+
         if (manager->priv->connection == NULL ||
             manager->priv->power_keyboard_proxy == NULL) {
                 g_warning ("No existing D-Bus connection trying to handle power keys");
                 return;
         }
 
+        switch (type) {
+        case KEYBOARD_BRIGHTNESS_UP_KEY:
+                cmd = "StepUp";
+                break;
+        case KEYBOARD_BRIGHTNESS_DOWN_KEY:
+                cmd = "StepDown";
+                break;
+        case KEYBOARD_BRIGHTNESS_TOGGLE_KEY:
+                cmd = "Toggle";
+                break;
+        default:
+                g_assert_not_reached ();
+        }
+
         /* call into the power plugin */
         g_dbus_proxy_call (manager->priv->power_keyboard_proxy,
-                           type == KEYBOARD_BRIGHTNESS_UP_KEY ? "StepUp" : "StepDown",
+                           cmd,
                            NULL,
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
