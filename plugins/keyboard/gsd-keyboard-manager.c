@@ -97,6 +97,7 @@ struct GsdKeyboardManagerPrivate
 #ifdef HAVE_IBUS
         IBusBus   *ibus;
         GHashTable *ibus_engines;
+        GHashTable *ibus_xkb_engines;
         GCancellable *ibus_cancellable;
         gboolean session_is_fallback;
 #endif
@@ -128,7 +129,47 @@ clear_ibus (GsdKeyboardManager *manager)
         g_cancellable_cancel (priv->ibus_cancellable);
         g_clear_object (&priv->ibus_cancellable);
         g_clear_pointer (&priv->ibus_engines, g_hash_table_destroy);
+        g_clear_pointer (&priv->ibus_xkb_engines, g_hash_table_destroy);
         g_clear_object (&priv->ibus);
+}
+
+static gchar *
+make_xkb_source_id (const gchar *engine_id)
+{
+        gchar *id;
+        gchar *p;
+        gint n_colons = 0;
+
+        /* engine_id is like "xkb:layout:variant:lang" where
+         * 'variant' and 'lang' might be empty */
+
+        engine_id += 4;
+
+        for (p = (gchar *)engine_id; *p; ++p)
+                if (*p == ':')
+                        if (++n_colons == 2)
+                                break;
+        if (!*p)
+                return NULL;
+
+        id = g_strndup (engine_id, p - engine_id + 1);
+
+        id[p - engine_id] = '\0';
+
+        /* id is "layout:variant" where 'variant' might be empty */
+
+        for (p = id; *p; ++p)
+                if (*p == ':') {
+                        if (*(p + 1) == '\0')
+                                *p = '\0';
+                        else
+                                *p = '+';
+                        break;
+                }
+
+        /* id is "layout+variant" or "layout" */
+
+        return id;
 }
 
 static void
@@ -154,13 +195,24 @@ fetch_ibus_engines_result (GObject            *object,
                 return;
         }
 
+        /* Maps IBus engine ids to engine description objects */
         priv->ibus_engines = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, g_object_unref);
+        /* Maps XKB source id strings to engine description objects */
+        priv->ibus_xkb_engines = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
         for (l = list; l; l = l->next) {
                 IBusEngineDesc *engine = l->data;
-                g_hash_table_replace (priv->ibus_engines,
-                                      (gpointer)ibus_engine_desc_get_name (engine),
-                                      engine);
+                const gchar *engine_id = ibus_engine_desc_get_name (engine);
+
+                g_hash_table_replace (priv->ibus_engines, (gpointer)engine_id, engine);
+
+                if (strncmp ("xkb:", engine_id, 4) == 0) {
+                        gchar *xkb_source_id = make_xkb_source_id (engine_id);
+                        if (xkb_source_id)
+                                g_hash_table_replace (priv->ibus_xkb_engines,
+                                                      xkb_source_id,
+                                                      engine);
+                }
         }
         g_list_free (list);
 
@@ -291,6 +343,23 @@ got_bus (GObject            *object,
                                 priv->ibus_cancellable,
                                 (GAsyncReadyCallback)got_session_name,
                                 manager);
+}
+
+static void
+set_ibus_xkb_engine (GsdKeyboardManager *manager,
+                     const gchar        *xkb_id)
+{
+        IBusEngineDesc *engine;
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+
+        if (!priv->ibus_xkb_engines)
+                return;
+
+        engine = g_hash_table_lookup (priv->ibus_xkb_engines, xkb_id);
+        if (!engine)
+                return;
+
+        ibus_bus_set_global_engine (priv->ibus, ibus_engine_desc_get_name (engine));
 }
 #endif  /* HAVE_IBUS */
 
@@ -711,6 +780,9 @@ apply_input_sources_settings (GSettings          *settings,
                         goto exit;
                 }
                 set_gtk_im_module (manager, GTK_IM_MODULE_SIMPLE);
+#ifdef HAVE_IBUS
+                set_ibus_xkb_engine (manager, id);
+#endif
         } else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
 #ifdef HAVE_IBUS
                 IBusEngineDesc *engine_desc = NULL;
