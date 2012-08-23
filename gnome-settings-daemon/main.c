@@ -220,6 +220,77 @@ set_locale (GDBusProxy *proxy)
 }
 
 static void
+register_with_gnome_session (GDBusProxy *proxy)
+{
+        const char *startup_id;
+
+        g_signal_connect (G_OBJECT (proxy), "g-signal",
+                          G_CALLBACK (on_session_over), NULL);
+        startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
+        g_dbus_proxy_call (proxy,
+                           "RegisterClient",
+                           g_variant_new ("(ss)", "gnome-settings-daemon", startup_id ? startup_id : ""),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           NULL,
+                           (GAsyncReadyCallback) on_client_registered,
+                           manager);
+}
+
+#ifdef HAVE_IBUS
+static void
+got_session_name (GObject      *object,
+                  GAsyncResult *res,
+                  gpointer      data)
+{
+        GDBusProxy *proxy;
+        GVariant *result, *variant;
+        const gchar *session_name = NULL;
+        GError *error = NULL;
+
+        proxy = G_DBUS_PROXY (object);
+
+        result = g_dbus_proxy_call_finish (proxy, res, &error);
+        if (!result) {
+                g_debug ("Failed to get session name: %s", error->message);
+                g_error_free (error);
+                register_with_gnome_session (proxy);
+                return;
+        }
+
+        g_variant_get (result, "(v)", &variant);
+        g_variant_unref (result);
+
+        g_variant_get (variant, "&s", &session_name);
+
+        if (g_strcmp0 (session_name, "gnome") == 0) {
+                set_session_env (proxy, "QT_IM_MODULE", "ibus");
+                set_session_env (proxy, "XMODIFIERS", "@im=ibus");
+        }
+
+        g_variant_unref (variant);
+
+        /* Finally we can register. */
+        register_with_gnome_session (proxy);
+}
+
+static void
+set_legacy_ibus_env_vars (GDBusProxy *proxy)
+{
+        g_dbus_proxy_call (proxy,
+                           "org.freedesktop.DBus.Properties.Get",
+                           g_variant_new ("(ss)",
+                                          "org.gnome.SessionManager",
+                                          "SessionName"),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           NULL,
+                           got_session_name,
+                           NULL);
+}
+#endif
+
+static void
 got_session_proxy (GObject      *source_object,
                    GAsyncResult *res,
                    gpointer      user_data)
@@ -232,24 +303,15 @@ got_session_proxy (GObject      *source_object,
                 g_debug ("Could not connect to the Session manager: %s", error->message);
                 g_error_free (error);
         } else {
-                const char *startup_id;
-
                 /* Always call this first, as Setenv can only be called before
                    any client registers */
                 set_locale (proxy);
-
-                /* Register the daemon with gnome-session */
-                g_signal_connect (G_OBJECT (proxy), "g-signal",
-                                  G_CALLBACK (on_session_over), NULL);
-                startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
-                g_dbus_proxy_call (proxy,
-                                   "RegisterClient",
-                                   g_variant_new ("(ss)", "gnome-settings-daemon", startup_id ? startup_id : ""),
-                                   G_DBUS_CALL_FLAGS_NONE,
-                                   -1,
-                                   NULL,
-                                   (GAsyncReadyCallback) on_client_registered,
-                                   manager);
+#ifdef HAVE_IBUS
+                /* This will register with gnome-session after calling Setenv. */
+                set_legacy_ibus_env_vars (proxy);
+#else
+                register_with_gnome_session (proxy);
+#endif
         }
 }
 
