@@ -98,6 +98,7 @@ struct GsdKeyboardManagerPrivate
         IBusBus   *ibus;
         GHashTable *ibus_engines;
         GCancellable *ibus_cancellable;
+        gboolean session_is_fallback;
 #endif
         gint       xkb_event_base;
         GsdNumLockState old_state;
@@ -127,6 +128,7 @@ clear_ibus (GsdKeyboardManager *manager)
         g_cancellable_cancel (priv->ibus_cancellable);
         g_clear_object (&priv->ibus_cancellable);
         g_clear_pointer (&priv->ibus_engines, g_hash_table_destroy);
+        g_clear_object (&priv->ibus);
 }
 
 static void
@@ -187,6 +189,9 @@ maybe_start_ibus (GsdKeyboardManager *manager,
         GVariantIter iter;
         const gchar *type;
 
+        if (manager->priv->session_is_fallback)
+                return;
+
         g_variant_iter_init (&iter, sources);
         while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL))
                 if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
@@ -197,6 +202,14 @@ maybe_start_ibus (GsdKeyboardManager *manager,
         if (!need_ibus)
                 return;
 
+        if (!manager->priv->ibus) {
+                ibus_init ();
+                manager->priv->ibus = ibus_bus_new_async ();
+                g_signal_connect_swapped (manager->priv->ibus, "connected",
+                                          G_CALLBACK (fetch_ibus_engines), manager);
+                g_signal_connect_swapped (manager->priv->ibus, "disconnected",
+                                          G_CALLBACK (clear_ibus), manager);
+        }
         /* IBus doesn't export API in the session bus. The only thing
          * we have there is a well known name which we can use as a
          * sure-fire way to activate it. */
@@ -207,6 +220,77 @@ maybe_start_ibus (GsdKeyboardManager *manager,
                                               NULL,
                                               NULL,
                                               NULL));
+}
+
+static void
+got_session_name (GObject            *object,
+                  GAsyncResult       *res,
+                  GsdKeyboardManager *manager)
+{
+        GVariant *result, *variant;
+        GDBusConnection *connection = G_DBUS_CONNECTION (object);
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+        const gchar *session_name = NULL;
+        GError *error = NULL;
+
+        g_clear_object (&priv->ibus_cancellable);
+
+        result = g_dbus_connection_call_finish (connection, res, &error);
+        if (!result) {
+                g_warning ("Couldn't get session name: %s", error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        g_variant_get (result, "(v)", &variant);
+        g_variant_unref (result);
+
+        g_variant_get (variant, "&s", &session_name);
+
+        if (g_strcmp0 (session_name, "gnome") == 0)
+                manager->priv->session_is_fallback = FALSE;
+
+        g_variant_unref (variant);
+ out:
+        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
+        g_object_unref (connection);
+}
+
+static void
+got_bus (GObject            *object,
+         GAsyncResult       *res,
+         GsdKeyboardManager *manager)
+{
+        GDBusConnection *connection;
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+        GError *error = NULL;
+
+        g_clear_object (&priv->ibus_cancellable);
+
+        connection = g_bus_get_finish (res, &error);
+        if (!connection) {
+                g_warning ("Couldn't get session bus: %s", error->message);
+                g_error_free (error);
+                apply_input_sources_settings (priv->input_sources_settings, NULL, 0, manager);
+                return;
+        }
+
+        priv->ibus_cancellable = g_cancellable_new ();
+
+        g_dbus_connection_call (connection,
+                                "org.gnome.SessionManager",
+                                "/org/gnome/SessionManager",
+                                "org.freedesktop.DBus.Properties",
+                                "Get",
+                                g_variant_new ("(ss)",
+                                               "org.gnome.SessionManager",
+                                               "SessionName"),
+                                NULL,
+                                G_DBUS_CALL_FLAGS_NONE,
+                                -1,
+                                priv->ibus_cancellable,
+                                (GAsyncReadyCallback)got_session_name,
+                                manager);
 }
 #endif  /* HAVE_IBUS */
 
@@ -631,6 +715,9 @@ apply_input_sources_settings (GSettings          *settings,
 #ifdef HAVE_IBUS
                 IBusEngineDesc *engine_desc = NULL;
 
+                if (priv->session_is_fallback)
+                        goto exit;
+
                 if (priv->ibus_engines)
                         engine_desc = g_hash_table_lookup (priv->ibus_engines, id);
                 else
@@ -794,16 +881,19 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         manager->priv->xkb_info = gnome_xkb_info_new ();
 
 #ifdef HAVE_IBUS
-        ibus_init ();
-        manager->priv->ibus = ibus_bus_new_async ();
-        g_signal_connect_swapped (manager->priv->ibus, "connected",
-                                  G_CALLBACK (fetch_ibus_engines), manager);
-        g_signal_connect_swapped (manager->priv->ibus, "disconnected",
-                                  G_CALLBACK (clear_ibus), manager);
+        /* We don't want to touch IBus until we are sure this isn't a
+           fallback session. */
+        manager->priv->session_is_fallback = TRUE;
+        manager->priv->ibus_cancellable = g_cancellable_new ();
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   manager->priv->ibus_cancellable,
+                   (GAsyncReadyCallback)got_bus,
+                   manager);
+#else
+        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
 #endif
         /* apply current settings before we install the callback */
         apply_settings (manager->priv->settings, NULL, manager);
-        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
 
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (apply_settings), manager);
@@ -851,7 +941,6 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 
 #ifdef HAVE_IBUS
         clear_ibus (manager);
-        g_clear_object (&p->ibus);
 #endif
 
         if (p->device_manager != NULL) {
