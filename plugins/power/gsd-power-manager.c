@@ -2671,7 +2671,7 @@ backlight_set_percentage (GsdPowerManager *manager,
                                           discrete,
                                           error);
 out:
-        if (emit_changed)
+        if (ret && emit_changed)
                 backlight_emit_changed (manager);
         return ret;
 }
@@ -2680,7 +2680,7 @@ static gint
 backlight_step_up (GsdPowerManager *manager, GError **error)
 {
         GnomeRROutput *output;
-        gboolean ret;
+        gboolean ret = FALSE;
         gint percentage_value = -1;
         gint min = 0;
         gint max;
@@ -2722,7 +2722,8 @@ backlight_step_up (GsdPowerManager *manager, GError **error)
         if (ret)
                 percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
 out:
-        backlight_emit_changed (manager);
+        if (ret)
+                backlight_emit_changed (manager);
         return percentage_value;
 }
 
@@ -2730,7 +2731,7 @@ static gint
 backlight_step_down (GsdPowerManager *manager, GError **error)
 {
         GnomeRROutput *output;
-        gboolean ret;
+        gboolean ret = FALSE;
         gint percentage_value = -1;
         gint min = 0;
         gint max;
@@ -2772,7 +2773,8 @@ backlight_step_down (GsdPowerManager *manager, GError **error)
         if (ret)
                 percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
 out:
-        backlight_emit_changed (manager);
+        if (ret)
+                backlight_emit_changed (manager);
         return percentage_value;
 }
 
@@ -2799,7 +2801,7 @@ backlight_set_abs (GsdPowerManager *manager,
                                           value,
                                           error);
 out:
-        if (emit_changed)
+        if (ret && emit_changed)
                 backlight_emit_changed (manager);
         return ret;
 }
