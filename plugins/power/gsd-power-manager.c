@@ -2687,11 +2687,21 @@ backlight_step_up (GsdPowerManager *manager, GError **error)
         gint now;
         gint step;
         guint discrete;
+        GnomeRRCrtc *crtc;
 
         /* prefer xbacklight */
         output = get_primary_output (manager);
         if (output != NULL) {
 
+                crtc = gnome_rr_output_get_crtc (output);
+                if (crtc == NULL) {
+                        g_set_error (error,
+                                     GSD_POWER_MANAGER_ERROR,
+                                     GSD_POWER_MANAGER_ERROR_FAILED,
+                                     "no crtc for %s",
+                                     gnome_rr_output_get_name (output));
+                        goto out;
+                }
                 min = gnome_rr_output_get_backlight_min (output);
                 max = gnome_rr_output_get_backlight_max (output);
                 now = gnome_rr_output_get_backlight (output, error);
@@ -2738,11 +2748,21 @@ backlight_step_down (GsdPowerManager *manager, GError **error)
         gint now;
         gint step;
         guint discrete;
+        GnomeRRCrtc *crtc;
 
         /* prefer xbacklight */
         output = get_primary_output (manager);
         if (output != NULL) {
 
+                crtc = gnome_rr_output_get_crtc (output);
+                if (crtc == NULL) {
+                        g_set_error (error,
+                                     GSD_POWER_MANAGER_ERROR,
+                                     GSD_POWER_MANAGER_ERROR_FAILED,
+                                     "no crtc for %s",
+                                     gnome_rr_output_get_name (output));
+                        goto out;
+                }
                 min = gnome_rr_output_get_backlight_min (output);
                 max = gnome_rr_output_get_backlight_max (output);
                 now = gnome_rr_output_get_backlight (output, error);
