@@ -64,6 +64,7 @@ plugin_in_files = 		\
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
+if HAVE_IBUS
 noinst_PROGRAMS = test-make-xkb-source-id
 test_make_xkb_source_id_SOURCES = test-make-xkb-source-id.c
 test_make_xkb_source_id_CFLAGS = $(libkeyboard_la_CFLAGS)
@@ -72,6 +73,7 @@ test_make_xkb_source_id_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-s
 
 check-local: test-make-xkb-source-id
 	$(builddir)/test-make-xkb-source-id > /dev/null
+endif
 
 EXTRA_DIST = 			\
 	$(icons_DATA)		\
