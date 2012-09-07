@@ -2243,21 +2243,11 @@ kill_lid_close_safety_timer (GsdPowerManager *manager)
 }
 
 static void
-do_lid_closed_action (GsdPowerManager *manager)
+suspend_with_lid_closed (GsdPowerManager *manager)
 {
         gboolean ret;
         GError *error = NULL;
         GsdPowerActionType action_type;
-
-        /* play a sound, using sounds from the naming spec */
-        ca_context_play (manager->priv->canberra_context, 0,
-                         CA_PROP_EVENT_ID, "lid-close",
-                         /* TRANSLATORS: this is the sound description */
-                         CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
-                         NULL);
-
-        /* refresh RANDR so we get an accurate view of what monitors are plugged in when the lid is closed */
-        gnome_rr_screen_refresh (manager->priv->x11_screen, NULL); /* NULL-GError */
 
         /* maybe lock the screen if the lid is closed */
         lock_screensaver (manager);
@@ -2302,11 +2292,27 @@ do_lid_closed_action (GsdPowerManager *manager)
                 }
         }
 
+        do_power_action_type (manager, action_type);
+}
+
+static void
+do_lid_closed_action (GsdPowerManager *manager)
+{
+        /* play a sound, using sounds from the naming spec */
+        ca_context_play (manager->priv->canberra_context, 0,
+                         CA_PROP_EVENT_ID, "lid-close",
+                         /* TRANSLATORS: this is the sound description */
+                         CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
+                         NULL);
+
+        /* refresh RANDR so we get an accurate view of what monitors are plugged in when the lid is closed */
+        gnome_rr_screen_refresh (manager->priv->x11_screen, NULL); /* NULL-GError */
+
         /* perform policy action */
         if (g_settings_get_boolean (manager->priv->settings, "lid-close-suspend-with-external-monitor")
             || non_laptop_outputs_are_all_off (manager->priv->x11_screen)) {
                 g_debug ("lid is closed; suspending or hibernating");
-                do_power_action_type (manager, action_type);
+                suspend_with_lid_closed (manager);
         } else {
                 g_debug ("lid is closed; not suspending nor hibernating since some external monitor outputs are still active");
                 setup_lid_close_safety_timer (manager);
