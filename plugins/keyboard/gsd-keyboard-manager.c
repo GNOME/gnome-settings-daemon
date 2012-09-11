@@ -115,6 +115,8 @@ static gboolean apply_input_sources_settings     (GSettings               *setti
                                                   gpointer                 keys,
                                                   gint                     n_keys,
                                                   GsdKeyboardManager      *manager);
+static void     set_gtk_im_module                (GsdKeyboardManager      *manager,
+                                                  const gchar             *new_module);
 
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
 
@@ -346,6 +348,46 @@ got_bus (GObject            *object,
 }
 
 static void
+set_ibus_engine_finish (GObject            *object,
+                        GAsyncResult       *res,
+                        GsdKeyboardManager *manager)
+{
+        gboolean result;
+        IBusBus *ibus = IBUS_BUS (object);
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+        GError *error = NULL;
+
+        g_clear_object (&priv->ibus_cancellable);
+
+        result = ibus_bus_set_global_engine_async_finish (ibus, res, &error);
+        if (!result) {
+                g_warning ("Couldn't set IBus engine: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        set_gtk_im_module (manager, GTK_IM_MODULE_IBUS);
+}
+
+static void
+set_ibus_engine (GsdKeyboardManager *manager,
+                 const gchar        *engine_id)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+
+        g_cancellable_cancel (priv->ibus_cancellable);
+        g_clear_object (&priv->ibus_cancellable);
+        priv->ibus_cancellable = g_cancellable_new ();
+
+        ibus_bus_set_global_engine_async (priv->ibus,
+                                          engine_id,
+                                          -1,
+                                          priv->ibus_cancellable,
+                                          (GAsyncReadyCallback)set_ibus_engine_finish,
+                                          manager);
+}
+
+static void
 set_ibus_xkb_engine (GsdKeyboardManager *manager,
                      const gchar        *xkb_id)
 {
@@ -359,7 +401,7 @@ set_ibus_xkb_engine (GsdKeyboardManager *manager,
         if (!engine)
                 return;
 
-        ibus_bus_set_global_engine (priv->ibus, ibus_engine_desc_get_name (engine));
+        set_ibus_engine (manager, ibus_engine_desc_get_name (engine));
 }
 #endif  /* HAVE_IBUS */
 
@@ -803,10 +845,7 @@ apply_input_sources_settings (GSettings          *settings,
                         goto exit;
                 }
 
-                if (ibus_bus_set_global_engine (priv->ibus, id))
-                        set_gtk_im_module (manager, GTK_IM_MODULE_IBUS);
-                else
-                        g_warning ("Couldn't set IBus engine '%s'", id);
+                set_ibus_engine (manager, id);
 #else
                 g_warning ("IBus input source type specified but IBus support was not compiled");
                 goto exit;
