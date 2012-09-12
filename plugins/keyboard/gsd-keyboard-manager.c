@@ -647,6 +647,9 @@ replace_layout_and_variant (GsdKeyboardManager *manager,
         const gchar *locale;
         gchar *language;
 
+        if (!layout)
+                return;
+
         locale = setlocale (LC_MESSAGES, NULL);
         /* If LANG is empty, default to en_US */
         if (!locale)
@@ -803,6 +806,7 @@ apply_input_sources_settings (GSettings          *settings,
         GsdKeyboardManagerPrivate *priv = manager->priv;
         GVariant *sources;
         guint current;
+        guint n_sources;
         const gchar *type = NULL;
         const gchar *id = NULL;
         const gchar *layout = NULL;
@@ -810,16 +814,15 @@ apply_input_sources_settings (GSettings          *settings,
 
         sources = g_settings_get_value (priv->input_sources_settings, KEY_INPUT_SOURCES);
         current = g_settings_get_uint (priv->input_sources_settings, KEY_CURRENT_INPUT_SOURCE);
+        n_sources = g_variant_n_children (sources);
 
-        if (g_variant_n_children (sources) < 1) {
-                g_warning ("No input source configured, resetting");
-                g_settings_reset (priv->input_sources_settings, KEY_INPUT_SOURCES);
+        if (n_sources < 1)
                 goto exit;
-        }
-        if (current >= g_variant_n_children (sources)) {
+
+        if (current >= n_sources) {
                 g_settings_set_uint (priv->input_sources_settings,
                                      KEY_CURRENT_INPUT_SOURCE,
-                                     g_variant_n_children (sources) - 1);
+                                     n_sources - 1);
                 goto exit;
         }
 
@@ -863,16 +866,13 @@ apply_input_sources_settings (GSettings          *settings,
                 set_ibus_engine (manager, id);
 #else
                 g_warning ("IBus input source type specified but IBus support was not compiled");
-                goto exit;
 #endif
         } else {
                 g_warning ("Unknown input source type '%s'", type);
-                goto exit;
         }
 
-        apply_xkb_layout (manager, layout, variant);
-
  exit:
+        apply_xkb_layout (manager, layout, variant);
         g_variant_unref (sources);
         /* Prevent individual "changed" signal invocations since we
            don't need them. */
