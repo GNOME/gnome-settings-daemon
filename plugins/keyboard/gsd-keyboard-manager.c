@@ -745,9 +745,9 @@ add_xkb_options (GsdKeyboardManager *manager,
 }
 
 static void
-apply_xkb_layout (GsdKeyboardManager *manager,
-                  const gchar        *layout,
-                  const gchar        *variant)
+apply_xkb_settings (GsdKeyboardManager *manager,
+                    const gchar        *layout,
+                    const gchar        *variant)
 {
         XkbRF_RulesRec *xkb_rules;
         XkbRF_VarDefsRec *xkb_var_defs;
@@ -872,7 +872,7 @@ apply_input_sources_settings (GSettings          *settings,
         }
 
  exit:
-        apply_xkb_layout (manager, layout, variant);
+        apply_xkb_settings (manager, layout, variant);
         g_variant_unref (sources);
         /* Prevent individual "changed" signal invocations since we
            don't need them. */
