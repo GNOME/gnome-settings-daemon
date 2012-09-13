@@ -8,8 +8,6 @@ libpower_la_SOURCES = 					\
 	gpm-common.h					\
 	gpm-phone.c					\
 	gpm-phone.h					\
-	gpm-idletime.c					\
-	gpm-idletime.h					\
 	gsd-power-manager.c				\
 	gsd-power-manager.h				\
 	gsd-power-plugin.c				\
@@ -63,8 +61,6 @@ gsd_test_power_SOURCES =				\
 	gpm-common.h					\
 	gpm-phone.c					\
 	gpm-phone.h					\
-	gpm-idletime.c					\
-	gpm-idletime.h					\
 	gsd-power-manager.c				\
 	gsd-power-manager.h				\
 	test-power.c
