@@ -181,14 +181,16 @@ fetch_ibus_engines_result (GObject            *object,
 {
         GsdKeyboardManagerPrivate *priv = manager->priv;
         GList *list, *l;
-        GError *error;
+        GError *error = NULL;
 
-        error = NULL;
+        /* engines shouldn't be there yet */
+        g_return_if_fail (priv->ibus_engines == NULL);
+
+        g_clear_object (&priv->ibus_cancellable);
+
         list = ibus_bus_list_engines_async_finish (priv->ibus,
                                                    result,
                                                    &error);
-        g_clear_object (&priv->ibus_cancellable);
-
         if (!list && error) {
                 g_warning ("Couldn't finish IBus request: %s", error->message);
                 g_error_free (error);
@@ -225,6 +227,10 @@ static void
 fetch_ibus_engines (GsdKeyboardManager *manager)
 {
         GsdKeyboardManagerPrivate *priv = manager->priv;
+
+        /* engines shouldn't be there yet */
+        g_return_if_fail (priv->ibus_engines == NULL);
+        g_return_if_fail (priv->ibus_cancellable == NULL);
 
         priv->ibus_cancellable = g_cancellable_new ();
 
@@ -287,6 +293,9 @@ got_session_name (GObject            *object,
         const gchar *session_name = NULL;
         GError *error = NULL;
 
+        /* IBus shouldn't have been touched yet */
+        g_return_if_fail (priv->ibus == NULL);
+
         g_clear_object (&priv->ibus_cancellable);
 
         result = g_dbus_connection_call_finish (connection, res, &error);
@@ -318,6 +327,9 @@ got_bus (GObject            *object,
         GDBusConnection *connection;
         GsdKeyboardManagerPrivate *priv = manager->priv;
         GError *error = NULL;
+
+        /* IBus shouldn't have been touched yet */
+        g_return_if_fail (priv->ibus == NULL);
 
         g_clear_object (&priv->ibus_cancellable);
 
@@ -374,6 +386,9 @@ set_ibus_engine (GsdKeyboardManager *manager,
                  const gchar        *engine_id)
 {
         GsdKeyboardManagerPrivate *priv = manager->priv;
+
+        g_return_if_fail (priv->ibus != NULL);
+        g_return_if_fail (priv->ibus_engines != NULL);
 
         g_cancellable_cancel (priv->ibus_cancellable);
         g_clear_object (&priv->ibus_cancellable);
