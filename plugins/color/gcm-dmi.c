@@ -54,7 +54,8 @@ gcm_dmi_get_from_filename (const gchar *filename)
         /* get the contents */
         ret = g_file_get_contents (filename, &data, NULL, &error);
         if (!ret) {
-                g_warning ("failed to get contents of %s: %s", filename, error->message);
+		if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+			g_warning ("failed to get contents of %s: %s", filename, error->message);
                 g_error_free (error);
         }
 
