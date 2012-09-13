@@ -3078,7 +3078,7 @@ idle_is_session_idle (GsdPowerManager *manager)
 
         /* not yet connected to gnome-session */
         if (manager->priv->session_presence_proxy == NULL) {
-                g_warning ("gnome-session is not available");
+                g_warning ("session idleness not available, gnome-session is not available");
                 return FALSE;
         }
 
@@ -3107,7 +3107,7 @@ idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
 
         /* not yet connected to gnome-session */
         if (manager->priv->session_proxy == NULL) {
-                g_warning ("gnome-session is not available");
+                g_warning ("session inhibition not available, gnome-session is not available");
                 return FALSE;
         }
 
