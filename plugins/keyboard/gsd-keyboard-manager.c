@@ -375,10 +375,7 @@ set_ibus_engine_finish (GObject            *object,
         if (!result) {
                 g_warning ("Couldn't set IBus engine: %s", error->message);
                 g_error_free (error);
-                return;
         }
-
-        set_gtk_im_module (manager, GTK_IM_MODULE_IBUS);
 }
 
 static void
@@ -863,6 +860,7 @@ apply_input_sources_settings (GSettings          *settings,
                         goto exit;
                 }
 
+                set_gtk_im_module (manager, GTK_IM_MODULE_IBUS);
                 set_ibus_engine (manager, id);
 #else
                 g_warning ("IBus input source type specified but IBus support was not compiled");
