@@ -63,6 +63,7 @@
 #define KEY_INTERVAL       "repeat-interval"
 #define KEY_DELAY          "delay"
 #define KEY_CLICK_VOLUME   "click-volume"
+#define KEY_REMEMBER_NUMLOCK_STATE "remember-numlock-state"
 #define KEY_NUMLOCK_STATE  "numlock-state"
 
 #define KEY_BELL_VOLUME    "bell-volume"
@@ -473,6 +474,21 @@ numlock_set_xkb_state (GsdNumLockState new_state)
         XkbLockModifiers (dpy, XkbUseCoreKbd, num_mask, new_state == GSD_NUM_LOCK_STATE_ON ? num_mask : 0);
 }
 
+static const char *
+num_lock_state_to_string (GsdNumLockState numlock_state)
+{
+	switch (numlock_state) {
+	case GSD_NUM_LOCK_STATE_UNKNOWN:
+		return "GSD_NUM_LOCK_STATE_UNKNOWN";
+	case GSD_NUM_LOCK_STATE_ON:
+		return "GSD_NUM_LOCK_STATE_ON";
+	case GSD_NUM_LOCK_STATE_OFF:
+		return "GSD_NUM_LOCK_STATE_OFF";
+	default:
+		return "UNKNOWN";
+	}
+}
+
 static GdkFilterReturn
 xkb_events_filter (GdkXEvent *xev_,
 		   GdkEvent  *gdkev_,
@@ -494,6 +510,9 @@ xkb_events_filter (GdkXEvent *xev_,
 		numlock_state = (num_mask & locked_mods) ? GSD_NUM_LOCK_STATE_ON : GSD_NUM_LOCK_STATE_OFF;
 
 		if (numlock_state != manager->priv->old_state) {
+			g_debug ("New num-lock state '%s' != Old num-lock state '%s'",
+				 num_lock_state_to_string (numlock_state),
+				 num_lock_state_to_string (manager->priv->old_state));
 			g_settings_set_enum (manager->priv->settings,
 					     KEY_NUMLOCK_STATE,
 					     numlock_state);
@@ -878,34 +897,77 @@ apply_input_sources_settings (GSettings          *settings,
 }
 
 static void
-apply_settings (GSettings          *settings,
-                const char         *key,
-                GsdKeyboardManager *manager)
+apply_bell (GsdKeyboardManager *manager)
 {
+	GSettings       *settings;
         XKeyboardControl kbdcontrol;
-        gboolean         repeat;
         gboolean         click;
-        guint            interval;
-        guint            delay;
-        int              click_volume;
         int              bell_volume;
         int              bell_pitch;
         int              bell_duration;
         GsdBellMode      bell_mode;
-        gboolean         rnumlock;
+        int              click_volume;
 
-        repeat        = g_settings_get_boolean  (settings, KEY_REPEAT);
+	settings      = manager->priv->settings;
         click         = g_settings_get_boolean  (settings, KEY_CLICK);
-        interval      = g_settings_get_uint  (settings, KEY_INTERVAL);
-        delay         = g_settings_get_uint  (settings, KEY_DELAY);
         click_volume  = g_settings_get_int   (settings, KEY_CLICK_VOLUME);
+
         bell_pitch    = g_settings_get_int   (settings, KEY_BELL_PITCH);
         bell_duration = g_settings_get_int   (settings, KEY_BELL_DURATION);
 
         bell_mode = g_settings_get_enum (settings, KEY_BELL_MODE);
         bell_volume   = (bell_mode == GSD_BELL_MODE_ON) ? 50 : 0;
 
-        rnumlock      = g_settings_get_boolean  (settings, "remember-numlock-state");
+        /* as percentage from 0..100 inclusive */
+        if (click_volume < 0) {
+                click_volume = 0;
+        } else if (click_volume > 100) {
+                click_volume = 100;
+        }
+        kbdcontrol.key_click_percent = click ? click_volume : 0;
+        kbdcontrol.bell_percent = bell_volume;
+        kbdcontrol.bell_pitch = bell_pitch;
+        kbdcontrol.bell_duration = bell_duration;
+
+        gdk_error_trap_push ();
+        XChangeKeyboardControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                KBKeyClickPercent | KBBellPercent | KBBellPitch | KBBellDuration,
+                                &kbdcontrol);
+
+        XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
+        gdk_error_trap_pop_ignored ();
+}
+
+static void
+apply_numlock (GsdKeyboardManager *manager)
+{
+	GSettings *settings;
+        gboolean rnumlock;
+
+	settings      = manager->priv->settings;
+        rnumlock = g_settings_get_boolean  (settings, KEY_REMEMBER_NUMLOCK_STATE);
+        manager->priv->old_state = g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE);
+
+        gdk_error_trap_push ();
+        if (rnumlock)
+                numlock_set_xkb_state (manager->priv->old_state);
+
+        XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
+        gdk_error_trap_pop_ignored ();
+}
+
+static void
+apply_repeat (GsdKeyboardManager *manager)
+{
+	GSettings       *settings;
+        gboolean         repeat;
+        guint            interval;
+        guint            delay;
+
+	settings      = manager->priv->settings;
+        repeat        = g_settings_get_boolean  (settings, KEY_REPEAT);
+        interval      = g_settings_get_uint  (settings, KEY_INTERVAL);
+        delay         = g_settings_get_uint  (settings, KEY_DELAY);
 
         gdk_error_trap_push ();
         if (repeat) {
@@ -922,27 +984,43 @@ apply_settings (GSettings          *settings,
                 XAutoRepeatOff (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
         }
 
-        /* as percentage from 0..100 inclusive */
-        if (click_volume < 0) {
-                click_volume = 0;
-        } else if (click_volume > 100) {
-                click_volume = 100;
-        }
-        kbdcontrol.key_click_percent = click ? click_volume : 0;
-        kbdcontrol.bell_percent = bell_volume;
-        kbdcontrol.bell_pitch = bell_pitch;
-        kbdcontrol.bell_duration = bell_duration;
-        XChangeKeyboardControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                KBKeyClickPercent | KBBellPercent | KBBellPitch | KBBellDuration,
-                                &kbdcontrol);
-
-        manager->priv->old_state = g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE);
-
-        if (rnumlock)
-                numlock_set_xkb_state (manager->priv->old_state);
-
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
         gdk_error_trap_pop_ignored ();
+}
+
+static void
+apply_all_settings (GsdKeyboardManager *manager)
+{
+	apply_repeat (manager);
+	apply_bell (manager);
+	apply_numlock (manager);
+}
+
+static void
+settings_changed (GSettings          *settings,
+                  const char         *key,
+                  GsdKeyboardManager *manager)
+{
+	if (g_strcmp0 (key, KEY_CLICK) == 0||
+	    g_strcmp0 (key, KEY_CLICK_VOLUME) == 0 ||
+	    g_strcmp0 (key, KEY_BELL_PITCH) == 0 ||
+	    g_strcmp0 (key, KEY_BELL_DURATION) == 0 ||
+	    g_strcmp0 (key, KEY_BELL_MODE) == 0) {
+		g_debug ("Bell setting '%s' changed, applying bell settings", key);
+		apply_bell (manager);
+	} else if (g_strcmp0 (key, KEY_REMEMBER_NUMLOCK_STATE) == 0 ||
+		 g_strcmp0 (key, KEY_NUMLOCK_STATE) == 0) {
+		g_debug ("Num-Lock state '%s' changed, applying num-lock state settings", key);
+		apply_numlock (manager);
+	} else if (g_strcmp0 (key, KEY_REPEAT) == 0 ||
+		 g_strcmp0 (key, KEY_INTERVAL) == 0 ||
+		 g_strcmp0 (key, KEY_DELAY) == 0) {
+		g_debug ("Key repeat setting '%s' changed, applying key repeat settings", key);
+		apply_repeat (manager);
+	} else {
+		g_warning ("Unhandled settings change, key '%s'", key);
+	}
+
 }
 
 static void
@@ -954,7 +1032,7 @@ device_added_cb (GdkDeviceManager   *device_manager,
 
         source = gdk_device_get_source (device);
         if (source == GDK_SOURCE_KEYBOARD) {
-                apply_settings (manager->priv->settings, NULL, manager);
+                apply_all_settings (manager);
                 apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
                 run_custom_command (device, COMMAND_DEVICE_ADDED);
         }
@@ -1017,10 +1095,10 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
 #endif
         /* apply current settings before we install the callback */
-        apply_settings (manager->priv->settings, NULL, manager);
+        apply_all_settings (manager);
 
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
-                          G_CALLBACK (apply_settings), manager);
+                          G_CALLBACK (settings_changed), manager);
         g_signal_connect (G_OBJECT (manager->priv->input_sources_settings), "change-event",
                           G_CALLBACK (apply_input_sources_settings), manager);
 
