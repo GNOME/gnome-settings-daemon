@@ -908,7 +908,8 @@ apply_bell (GsdKeyboardManager *manager)
         GsdBellMode      bell_mode;
         int              click_volume;
 
-	settings      = manager->priv->settings;
+        g_debug ("Applying the bell settings");
+        settings      = manager->priv->settings;
         click         = g_settings_get_boolean  (settings, KEY_CLICK);
         click_volume  = g_settings_get_int   (settings, KEY_CLICK_VOLUME);
 
@@ -944,7 +945,8 @@ apply_numlock (GsdKeyboardManager *manager)
 	GSettings *settings;
         gboolean rnumlock;
 
-	settings      = manager->priv->settings;
+        g_debug ("Applying the num-lock settings");
+        settings      = manager->priv->settings;
         rnumlock = g_settings_get_boolean  (settings, KEY_REMEMBER_NUMLOCK_STATE);
         manager->priv->old_state = g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE);
 
@@ -964,7 +966,8 @@ apply_repeat (GsdKeyboardManager *manager)
         guint            interval;
         guint            delay;
 
-	settings      = manager->priv->settings;
+        g_debug ("Applying the repeat settings");
+        settings      = manager->priv->settings;
         repeat        = g_settings_get_boolean  (settings, KEY_REPEAT);
         interval      = g_settings_get_uint  (settings, KEY_INTERVAL);
         delay         = g_settings_get_uint  (settings, KEY_DELAY);
@@ -1032,6 +1035,7 @@ device_added_cb (GdkDeviceManager   *device_manager,
 
         source = gdk_device_get_source (device);
         if (source == GDK_SOURCE_KEYBOARD) {
+                g_debug ("New keyboard plugged in, applying all settings");
                 apply_all_settings (manager);
                 apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
                 run_custom_command (device, COMMAND_DEVICE_ADDED);
@@ -1095,6 +1099,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
 #endif
         /* apply current settings before we install the callback */
+        g_debug ("Started the keyboard plugin, applying all settings");
         apply_all_settings (manager);
 
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
