@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
 "cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-07-10 11:33+0000\n"
-"PO-Revision-Date: 2012-09-20 17:53+0530\n"
+"PO-Revision-Date: 2012-09-20 22:31+0530\n"
 "Last-Translator: Nilamdyuti Goswami <ngoswami@redhat.com>\n"
 "Language-Team: as_IN <kde-i18n-doc@kde.org>\n"
 "Language: as\n"
@@ -33,6 +33,8 @@ msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
 "action will get performed when the smartcard used for log in is removed."
 msgstr ""
+"ইয়াক \"none\", \"lock-screen\", অথবা \"force-logout\" ত সংহতি কৰক। কাৰ্য্য "
+"পৰিৱেশন কৰা হব যেতিয়া লগ ইনৰ বাবে ব্যৱহাৰ কৰা স্মাৰ্টকাৰ্ড আতৰোৱা হব।"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
@@ -61,7 +63,6 @@ msgid "Select the touchpad scroll method"
 msgstr "টাচ-পেড স্ক্ৰোলৰ ব্যৱস্থা নিৰ্বাচন কৰা হ'ব"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-#, fuzzy
 #| msgid ""
 #| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
 #| "- edge scrolling, 2 - two-finger scrolling"
@@ -69,8 +70,8 @@ msgid ""
 "Select the touchpad scroll method. Supported values are: \"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
-"টাচ-পেড স্ক্ৰোলৰ ব্যৱস্থা নিৰ্বাচন কৰা হ'ব । সমৰ্থিত মান হ'ল: ০ - নিষ্ক্ৰিয়, ১ - "
-"প্ৰান্তে স্ক্ৰোলিং, ২ - দুই আঙ্গুলিৰ স্ক্ৰোলিং"
+"টাচপেড স্ক্ৰল পদ্ধতি বাছক। সমৰ্থিত মানসমূহ হল: \"disabled\", "
+"\"edge-scrolling\", \"two-finger-scrolling\"।"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable mouse clicks with touchpad"
@@ -96,7 +97,7 @@ msgstr "সকলো টাচপেড সামৰ্থবান কৰিব
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
-msgstr ""
+msgstr "যেতিয়া Control কি' টিপি এৰা হয় তেতিয়া পইন্টাৰৰ বৰ্তমান অৱস্থান উজ্জ্বল কৰা হয়।"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Double click time"
@@ -122,7 +123,7 @@ msgstr "মাজৰ বুটাম ইমুলেষণ"
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
-msgstr ""
+msgstr "একেলগে বাঁও আৰু সোঁ বুটাম ক্লিকৰ সহায়ত মাজৰ মাউছ বুটামৰ ইমুলেষণ সামৰ্থবান কৰা হয়।"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
@@ -231,6 +232,8 @@ msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
 msgstr ""
+"ইয়াক 'none', ৯০ ডিগ্ৰি ঘড়ীৰ দিশত চলিবলে 'cw', ১৮০ ডিগ্ৰিৰ বাবে 'half', আৰু ৯০ ডিগ্ৰি "
+"ঘড়ীৰ উলোটা দিশৰ বাবে 'ccw'। "
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Wacom touch feature"
@@ -257,6 +260,8 @@ msgid ""
 "EDID information of monitor to map tablet to. Must be in the format [vendor, "
 "product, serial]. [\"\",\"\",\"\"] disables mapping."
 msgstr ""
+"টেবলেট মেপ কৰিবলে EDID তথ্য। বিন্যাস [বিক্ৰেতা, উৎপাদন, ক্ৰমিক] ত থাকিব লাগিব। [\"\",\"\",\"\"] এ "
+"মেপিং অসামৰ্থবান কৰে।"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom stylus pressure curve"
@@ -366,7 +371,6 @@ msgid "Free percentage notify threshold"
 msgstr "সতৰ্কতামূলক সূচনা উৎপন্ন কৰাৰ বাবে চিহ্নিত অৱশিষ্ট শতাংশৰ পৰিমাণৰ প্ৰান্তিক মাপ"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
-#, fuzzy
 #| msgid ""
 #| "Percentage free space threshold for initial warning of low disk space. If "
 #| "the percentage free space drops below this, a warning will be shown"
@@ -374,9 +378,8 @@ msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
 msgstr ""
-"ডিস্কৰ স্থান হ্ৰাস হোৱাৰ প্ৰাৰম্ভিক সতৰ্কবাৰ্তা প্ৰদৰ্শনৰ বাবে অৱশিষ্ট ৰিক্ত স্থানৰ "
-"প্ৰান্তিক পৰিমান শতাংশত ধাৰ্য । শতাংশত চিহ্নিত ডিস্কৰ অৱশিষ্ট স্থান এই পৰিমাণৰ পৰা "
-"কম হৈ গ'লে এটা সতৰ্কবাৰ্তা প্ৰদৰ্শন কৰা হ'ব ।"
+"নিম্ন ডিস্ক স্থানৰ আৰম্ভণি সতৰ্কবাৰ্তাৰ বাবে শতাংশ মুক্ত স্থানৰ ডেউৰী। যদি শতাংশ মুক্ত স্থান ইয়াৰ তল পৰে, "
+"এটা সতৰ্কবাৰ্তা দেখুৱা হব।"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #| msgid "Subsequent free percentage notify threshold"
@@ -384,16 +387,13 @@ msgid "Subsequent free space percentage notify threshold"
 msgstr "পৰৱৰ্তী মুক্ত স্থান শতাংশ অধিসূচনা ডেউৰী"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#, fuzzy
 #| msgid ""
 #| "Specify the percentage that the free disk space should reduce by before "
 #| "issuing a subsequent warning"
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
-msgstr ""
-"পৰবৰ্তী সতৰ্কবাৰ্তা প্ৰদৰ্শনৰ পূৰ্বে ডিস্কৰ অৱশিষ্ট স্থানৰ পৰিমাণ কি শতাংশ হ্ৰাস হ'ব "
-"সেইটো নিৰ্ধাৰণ কৰক"
+msgstr "এটা পৰৱৰ্তী সতৰ্কবাৰ্তা প্ৰেৰণ কৰাৰ আগত মুক্ত ডিস্ক স্থান কমাৰ শতাংশ ধাৰ্য্য কৰক।"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 #| msgid "Free space no notify threshold"
@@ -401,14 +401,13 @@ msgid "Free space notify threshold"
 msgstr "মুক্ত স্থান অধিসূচনা ডেউৰী"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
-#, fuzzy
 #| msgid ""
 #| "Specify an amount in GB. If the amount of free space is more than this, "
 #| "no warning will be shown"
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
-msgstr "GB অনুযায়ী এটা পৰিমাণ ধাৰ্য কৰা হ'ব । এই পৰিমাণৰ পৰা অৱশিষ্ট স্থান  উপস্থিত থাকিলে কোনো সতৰ্কবাৰ্তা প্ৰদৰ্শন কৰা ন'হ'ব ।"
+msgstr "GB এটা পৰিমাণ ধাৰ্য্য কৰক। যদি মুক্ত স্থানৰ পৰিমাণ ইয়াতকৈ বেছি, কোনো সতৰ্কবাৰ্তা দেখুৱা নহব।"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid "Minimum notify period for repeated warnings"
@@ -756,6 +755,8 @@ msgid ""
 "The percentage of the battery when it is considered low. Only valid when use-"
 "time-for-policy is false."
 msgstr ""
+"বেটাৰিৰ শতাংশ যেতিয়া ইয়াক নিম্ন বুলি ধাৰ্য্য কৰা হয়। কেৱল তেতিয়াহে বৈধ যেতিয়া use-"
+"time-for-policy false হয়।"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 msgid "Percentage considered critical"
@@ -766,6 +767,8 @@ msgid ""
 "The percentage of the battery when it is considered critical. Only valid "
 "when use-time-for-policy is false."
 msgstr ""
+"বেটাৰিৰ শতাংশ যেতিয়া ইয়াক মাৰাত্মক ধাৰ্য্য কৰা হয়। কেৱল তেতিয়াহে প্ৰযোজ্য যেতিয়া use-time-for-policy "
+"false হয়।"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
 msgid "Percentage action is taken"
@@ -776,6 +779,8 @@ msgid ""
 "The percentage of the battery when the critical action is performed. Only "
 "valid when use-time-for-policy is false."
 msgstr ""
+"বেটাৰিৰ শতাংশ যেতিয়া মাৰাত্মক কাৰ্য্য পৰিৱেশন কৰা হয়। কেৱল তেতিয়াহে প্ৰযোজ্য যেতিয়া "
+"use-time-for-policy false হয়।"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid "The time remaining when low"
@@ -786,6 +791,8 @@ msgid ""
 "The time remaining in seconds of the battery when it is considered low. Only "
 "valid when use-time-for-policy is true."
 msgstr ""
+"ছেকেণ্ডত বেটাৰিৰ অৱশিষ্ট সময় যেতিয়া ইয়াক নিম্ন ধৰা হয়। কেৱল তেতিয়াহে প্ৰযোজ্য যেতিয়া "
+"use-time-for-policy true হয়।"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid "The time remaining when critical"
@@ -796,6 +803,8 @@ msgid ""
 "The time remaining in seconds of the battery when it is considered critical. "
 "Only valid when use-time-for-policy is true."
 msgstr ""
+"ছেকেণ্ডত বেটাৰিৰ অৱশিষ্ট সময় যেতিয়া ইয়াক মাৰাত্মক ধৰা হয়। কেৱল তেতিয়াহে বৈধ যেতিয়া "
+"use-time-for-policy true হয়।"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
 msgid "The time remaining when action is taken"
@@ -806,6 +815,8 @@ msgid ""
 "The time remaining in seconds of the battery when critical action is taken. "
 "Only valid when use-time-for-policy is true."
 msgstr ""
+"ছেকেণ্ডত বেটাৰিৰ অৱশিষ্ট সময় যেতিয়া মাৰাত্মক কাৰ্য্য কৰা হয়। কেৱল তেতিয়াহে বৈধ যেতিয়া "
+"use-time-for-policy true হয়।"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
 msgid "Whether to use time-based notifications"
@@ -921,27 +932,31 @@ msgstr "যদি উপলব্ধ অতিৰিক্ত ফাৰ্মৱ
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Firmware files that should not be searched for"
-msgstr ""
+msgstr "যিসমূহ ফাৰ্মৱেৰ ফাইল সন্ধান কৰিব নালাগিব"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
 msgstr ""
+"যিসমূহ ফাৰ্মৱেৰ ফাইল সন্ধান কৰিব নালাগিব, কমা দ্বাৰা পৃথকিত। ই '*' আৰু '?' আখৰসমূহ অন্তৰ্ভুক্ত "
+"কৰিব পাৰে।"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid "Devices that should be ignored"
-msgstr ""
+msgstr "ডিভাইচসমূহ যি উপেক্ষা কৰিব নালাগিব"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
 msgstr ""
+"ডিভাইচসমূহ যি উপেক্ষা কৰিব নালাগিব, কমা দ্বাৰা পৃথকিত। ই '*' আৰু '?' আখৰসমূহ অন্তৰ্ভুক্ত কৰিব "
+"পাৰে।"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "The filenames on removable media that designate it a software source."
-msgstr ""
+msgstr "আতৰাব পৰা মাধ্যমত থকা ফাইলনামসমূহ যি ইয়াক এটা চফ্টৱেৰ উৎস হিচাপে ধাৰ্য্য কৰে।"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
@@ -953,7 +968,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
-msgstr ""
+msgstr "RandR ৰ অবিকল্পিত সংৰূপৰ বাবে ফাইল"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
@@ -966,7 +981,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 msgid "Whether to turn off specific monitors after boot"
-msgstr ""
+msgstr "বুটৰ পিছত বিশেষ মনিটৰসমূহ বন্ধ কৰা হব নে"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid ""
@@ -1021,7 +1036,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "List of explicitly disabled GTK+ modules"
-msgstr ""
+msgstr "সূকীয়াভাৱে অসামৰ্থবান কৰা GTK+ মডিউলসমূহ"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
@@ -1031,7 +1046,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid "List of explicitly enabled GTK+ modules"
-msgstr ""
+msgstr "সূকীয়াভাৱে সামৰ্থবান কৰা GTK+ মডিউলসমূহৰ তালিকা"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid ""
@@ -1046,7 +1061,7 @@ msgstr "কোড ডিবাগ ব্যৱস্থা সক্ৰিয় �
 
 #: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
-msgstr ""
+msgstr "এটা সময়ৰ পিছত প্ৰস্থান কৰিব (ডিবাগিংৰ বাবে)"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -1063,17 +1078,15 @@ msgstr "সহায়িকা প্ৰদৰ্শনত সমস্যা: %s
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:507
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:570
-#, fuzzy
 #| msgid "Slow Keys Alert"
 msgid "Slow Keys Turned On"
-msgstr "ধীৰ কী  সম্পৰ্কিত সতৰ্কবাণী"
+msgstr "লেহেম কি'সমূহ অন কৰা আছে"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:571
-#, fuzzy
 #| msgid "Slow Keys Alert"
 msgid "Slow Keys Turned Off"
-msgstr "ধীৰ কী  সম্পৰ্কিত সতৰ্কবাণী"
+msgstr "লেহেম কি'সমূহ অফ কৰা আছে"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
@@ -1087,64 +1100,61 @@ msgstr ""
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:663
 #: ../plugins/mouse/gsd-mouse-manager.c:916
-#, fuzzy
 #| msgid "Universal Access Preferences"
 msgid "Universal Access"
-msgstr "সাৰ্বজনীন ব্যৱহাৰ সংক্ৰান্ত পছন্দ"
+msgstr "সাৰ্বভৈমক অভিগম"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
 msgid "Turn Off"
-msgstr ""
+msgstr "অফ কৰক"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
 msgid "Turn On"
-msgstr ""
+msgstr "অন কৰক"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
 msgid "Leave On"
-msgstr ""
+msgstr "অন ৰাখক"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
 msgid "Leave Off"
-msgstr ""
+msgstr "অফ ৰাখক"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
 msgid "_Turn Off"
-msgstr ""
+msgstr "অফ কৰক (_T)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
 msgid "_Turn On"
-msgstr ""
+msgstr "অন কৰক (_T)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
 msgid "_Leave On"
-msgstr ""
+msgstr "অন ৰাখক (_L)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
 msgid "_Leave Off"
-msgstr ""
+msgstr "অফ ৰাখক (_L)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:639
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
-#, fuzzy
 #| msgid "Sticky Keys Alert"
 msgid "Sticky Keys Turned On"
-msgstr "স্টিকি কী  সম্পৰ্কিত সতৰ্কবাণী"
+msgstr "স্টিকি কি'সমূহ অন কৰা আছে"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:706
-#, fuzzy
 #| msgid "Sticky Keys Alert"
 msgid "Sticky Keys Turned Off"
-msgstr "স্টিকি কী  সম্পৰ্কিত সতৰ্কবাণী"
+msgstr "স্টিকি কি'সমূহ অফ কৰা আছে"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
@@ -1204,125 +1214,122 @@ msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "কি গ্ৰহণ কৰা বাবে সেসমূহজ টিপে ৰাখুন (ধীৰগতিৰ কি) (_h)"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
-#, fuzzy
 #| msgid "Accessibility"
 msgid "Accessibility settings"
-msgstr "সহায়ক প্ৰযুক্তি"
+msgstr "অভিগম্যতা সংহতিসমূহ"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
-#, fuzzy
 #| msgid "Accessibility keyboard plugin"
 msgid "Accessibility settings plugin"
-msgstr "সহায়ক প্ৰযুক্তি বিশিষ্ট চাবিৰ ফলকৰ প্লাগ-ইন"
+msgstr "অভিগম্যতা সংহতিসমূহ প্লাগিন"
 
 #: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
 msgid "Mount Helper"
-msgstr ""
+msgstr "মাউন্ট সহায়ক"
 
 #: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
 msgid "Automount and autorun plugged devices"
-msgstr ""
+msgstr "স্বমাউন্ট আৰু স্বৰান প্লাগ্ড ডিভাইচসমূহ"
 
 #: ../plugins/automount/gsd-automount-manager.c:151
 #, c-format
 msgid "Unable to mount %s"
-msgstr ""
+msgstr "%s মাউন্ট কৰিবলে অক্ষম"
 
 #: ../plugins/automount/gsd-automount-manager.c:264
 #, c-format
 msgid "Unable to open a folder for %s"
-msgstr ""
+msgstr "%s ৰ বাবে এটা ফোল্ডাৰ খোলিবলে অক্ষম"
 
 #: ../plugins/automount/gsd-autorun.c:340
 msgid "Ask what to do"
-msgstr ""
+msgstr "কি কৰিব সোধক"
 
 #: ../plugins/automount/gsd-autorun.c:346
 msgid "Do Nothing"
-msgstr ""
+msgstr "একো নকৰিব"
 
 #: ../plugins/automount/gsd-autorun.c:352
-#, fuzzy
 #| msgid "Home folder"
 msgid "Open Folder"
-msgstr "ব্যক্তিগত ফোল্ডাৰ"
+msgstr "ফোল্ডাৰ খোলক"
 
 #: ../plugins/automount/gsd-autorun.c:495
 #, c-format
 msgid "Unable to eject %p"
-msgstr ""
+msgstr "%p বাহিৰ উলিয়াবলে অক্ষম"
 
 #: ../plugins/automount/gsd-autorun.c:497
 #, c-format
 msgid "Unable to unmount %p"
-msgstr ""
+msgstr "%p আনমাউন্ট কৰিবলে অক্ষম"
 
 #: ../plugins/automount/gsd-autorun.c:702
 msgid "You have just inserted an Audio CD."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা অডিঅ' CD সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:704
 msgid "You have just inserted an Audio DVD."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা অডিঅ' DVD সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:706
 msgid "You have just inserted a Video DVD."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা ভিডিঅ' DVD সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:708
 msgid "You have just inserted a Video CD."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা ভিডিঅ' CD সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:710
 msgid "You have just inserted a Super Video CD."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা চুপাৰ ভিডিঅ' CD সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:712
 msgid "You have just inserted a blank CD."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা ৰিক্ত CD সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:714
 msgid "You have just inserted a blank DVD."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা ৰিক্ত DVD সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:716
 msgid "You have just inserted a blank Blu-Ray disc."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা ৰিক্ত Blu-Ray ডিস্ক সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:718
 msgid "You have just inserted a blank HD DVD."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা ৰিক্ত HD DVD সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:720
 msgid "You have just inserted a Photo CD."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা ফটো CD সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:722
 msgid "You have just inserted a Picture CD."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা ছবিৰ CD সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:724
 msgid "You have just inserted a medium with digital photos."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ ডিগিটেল ফটোৰ সৈতে এটা মাধ্যম সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:726
 msgid "You have just inserted a digital audio player."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা ডিজিটেল অডিঅ' প্লেয়াৰ সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:728
 msgid ""
 "You have just inserted a medium with software intended to be automatically "
 "started."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ স্বচালিতভাৱে আৰম্ভ হব লগিয়া চফ্টৱেৰৰ সৈতে এটা মাধ্যম সুমুৱাইছে।"
 
 #. fallback to generic greeting
 #: ../plugins/automount/gsd-autorun.c:731
 msgid "You have just inserted a medium."
-msgstr ""
+msgstr "আপুনি এইমাত্ৰ এটা মাধ্যম সুমুৱাইছে।"
 
 #: ../plugins/automount/gsd-autorun.c:733
 msgid "Choose what application to launch."
-msgstr ""
+msgstr "আৰম্ভ কৰিবলে এপ্লিকেচন বাছক।"
 
 #: ../plugins/automount/gsd-autorun.c:742
 #, c-format
@@ -1330,21 +1337,21 @@ msgid ""
 "Select how to open \"%s\" and whether to perform this action in the future "
 "for other media of type \"%s\"."
 msgstr ""
+"\"%s\" কিধৰণে খোলা হব বাছক আৰু \"%s\" ধৰণৰ অন্য মাধ্যমৰ বাবে ভৱিষ্যতত এই কাৰ্য্য পৰিৱেশন "
+"কৰা হব নে।"
 
 #: ../plugins/automount/gsd-autorun.c:769
 msgid "_Always perform this action"
-msgstr ""
+msgstr "এই কাৰ্য্য সদায় পৰিৱেশন কৰিব (_A)"
 
-#
 #: ../plugins/automount/gsd-autorun.c:785
-#, fuzzy
 #| msgid "Eject"
 msgid "_Eject"
-msgstr "বহিষ্কাৰ"
+msgstr "বাহিৰ উলিৱাওক (_E)"
 
 #: ../plugins/automount/gsd-autorun.c:790
 msgid "_Unmount"
-msgstr ""
+msgstr "আনমাউন্ট কৰক (_U)"
 
 #
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
@@ -1366,53 +1373,50 @@ msgstr "ক্লিপ-বোৰ্ডৰ প্লাগ-ইন"
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
-msgstr ""
+msgstr "ৰঙ"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:2
-#, fuzzy
 #| msgid "Clipboard plugin"
 msgid "Color plugin"
-msgstr "ক্লিপ-বোৰ্ডৰ প্লাগ-ইন"
+msgstr "ৰঙৰ প্লাগিন"
 
 #: ../plugins/color/gsd-color-manager.c:1797
 msgid "Recalibrate now"
-msgstr ""
+msgstr "এতিয়ায়ে পুনৰমানাংকন কৰক"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
 #: ../plugins/color/gsd-color-manager.c:1840
 msgid "Recalibration required"
-msgstr ""
+msgstr "পুনৰমানাংকনৰ প্ৰয়োজন"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-manager.c:1852
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
-msgstr ""
+msgstr "প্ৰদৰ্শন '%s' সোনকালে পুনৰমানাংকন কৰিব লাগিব।"
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-manager.c:1861
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
-msgstr ""
+msgstr "প্ৰিন্টাৰ '%s' সোনকালে পুনৰমানাংকন কৰিব লাগিব।"
 
-#
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-#, fuzzy
 #| msgid "GNOME Settings Daemon"
 msgid "GNOME Settings Daemon Color Plugin"
-msgstr "GNOME Settings ডেমন"
+msgstr "GNOME Settings Daemon ৰঙৰ প্লাগিন"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2187
 msgid "Color calibration device added"
-msgstr ""
+msgstr "ৰঙ মানাংকন ডিভাইচ যোগ কৰা হৈছে"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2203
 msgid "Color calibration device removed"
-msgstr ""
+msgstr "ৰঙ মানাংকন ডিভাইচ আতৰোৱা হৈছে"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -1423,18 +1427,20 @@ msgid "Dummy plugin"
 msgstr "ডামি প্লাগ-ইন"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:333
-#, fuzzy, c-format
+#, c-format
 #| msgid "Low Disk Space"
 msgid "Low Disk Space on \"%s\""
-msgstr "কম ডিষ্ক স্থান"
+msgstr "\"%s\" ত কম ডিস্ক স্থান"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:335
-#, fuzzy, c-format
+#, c-format
 #| msgid "The volume \"%s\" has only %s disk space remaining."
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
-msgstr "\"%s\" ভলিউমত অকল %s স্থান ডিস্কত অৱশিষ্ট আছে ।"
+msgstr ""
+"ভলিউম \"%s\" ৰ কেৱল %s ডিস্ক স্থান অৱশিষ্ট আছে।  আপুনি আবৰ্জনা খালি কৰি কিছুমান ঠাই উলিয়াব "
+"পাৰিব।"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:339
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
@@ -1449,12 +1455,12 @@ msgid "Low Disk Space"
 msgstr "কম ডিষ্ক স্থান"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:346
-#, fuzzy, c-format
+#, c-format
 #| msgid "This computer has only %s disk space remaining."
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
 "by emptying the trash."
-msgstr "এই কম্পিউটাৰত অকল %s স্থান ডিস্কত অৱশিষ্ট আছে ।"
+msgstr "এই কমপিউটাৰৰ কেৱল %s ডিস্ক অৱশিষ্ট আছে। আপুনি আবৰ্জনা খালি কৰি কিছুমান ঠাই মুক্ত কৰিব পাৰিব।"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:349
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
@@ -1463,16 +1469,14 @@ msgid "This computer has only %s disk space remaining."
 msgstr "এই কম্পিউটাৰত অকল %s স্থান ডিস্কত অৱশিষ্ট আছে ।"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:364
-#, fuzzy
 #| msgid "Low Disk Space"
 msgid "Disk space"
-msgstr "কম ডিষ্ক স্থান"
+msgstr "ডিস্ক স্থান"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:371
-#, fuzzy
 #| msgid "Examine..."
 msgid "Examine"
-msgstr "পৰীক্ষা কৰক..."
+msgstr "পৰীক্ষা কৰক"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:379
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
@@ -1485,10 +1489,9 @@ msgid "Ignore"
 msgstr "অগ্ৰাহ্য কৰা হ'ব"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-#, fuzzy
 #| msgid "Don't show any warnings again for this filesystem"
 msgid "Don't show any warnings again for this file system"
-msgstr "এই নথিপত্ৰ-প্ৰণালীৰ বাবে কোনো সতৰ্কবাৰ্তা প্ৰদৰ্শন কৰা ন'হ'ব"
+msgstr "এই ফাইল চিস্টেমৰ বাবে কোনো সতৰ্কবাৰ্তা আকৌ নেদেখুৱাব"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
 msgid "Don't show any warnings again"
@@ -1528,21 +1531,18 @@ msgstr ""
 "বৃদ্ধি কৰা যাব ।"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:445
-#, fuzzy
 #| msgid "Examine..."
 msgid "Examine…"
-msgstr "পৰীক্ষা কৰক..."
+msgstr "পৰীক্ষা কৰক…"
 
-#
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
-#, fuzzy
 #| msgid "Keyboard"
 msgid "Keyboard"
 msgid_plural "Keyboards"
-msgstr[0] "কীবোৰ্ড"
-msgstr[1] "কীবোৰ্ড"
+msgstr[0] "কি'বৰ্ড"
+msgstr[1] "কিবৰ্ডসমূহ"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
 msgid "Keyboard plugin"
@@ -1589,22 +1589,19 @@ msgid "Could not enable mouse accessibility features"
 msgstr "মাউছ ব্যৱহাৰৰ বিশেষ সহায়ক বৈশিষ্ট্য সক্ৰিয় কৰিবলৈ ব্যৰ্থ"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:914
-#, fuzzy
 #| msgid ""
 #| "Mouse accessibility requires mousetweaks to be installed on your system."
 msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
-msgstr "মাউছ অভিগম্যতাৰ বাবে আপোনাৰ ব্যৱস্থাপ্ৰণালীত mousetweaks সংস্থাপিত হোৱাৰ প্ৰয়োজন  ।"
+msgstr "মাউছ অভিগম্যতাৰ বাবে আপোনাৰ চিস্টেমত Mousetweaks ইনস্টল হব লাগিব।"
 
-#
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
-#, fuzzy
 #| msgid "Mouse"
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "মাউছ"
-msgstr[1] "মাউছ"
+msgstr[1] "মাউছসমূহ"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
@@ -1612,47 +1609,47 @@ msgstr "মাউছ প্লাগ-ইন"
 
 #: ../plugins/power/gpm-common.c:47
 msgid "Unknown time"
-msgstr ""
+msgstr "অজ্ঞাত সময়"
 
 #: ../plugins/power/gpm-common.c:52
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%i মিনিট"
+msgstr[1] "%i মিনিট"
 
 #: ../plugins/power/gpm-common.c:62
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%i ঘন্টা"
+msgstr[1] "%i ঘন্টা"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
 #: ../plugins/power/gpm-common.c:68
 #, c-format
 msgid "%i %s %i %s"
-msgstr ""
+msgstr "%i %s %i %s"
 
 #: ../plugins/power/gpm-common.c:69
 msgid "hour"
 msgid_plural "hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ঘন্টা"
+msgstr[1] "ঘন্টা"
 
 #: ../plugins/power/gpm-common.c:70
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "মিনিট"
+msgstr[1] "মিনিট"
 
 #. TRANSLATORS: The laptop battery is charged, and we know a time.
 #. * The parameter is the time, e.g. 7 hours 6 minutes
 #: ../plugins/power/gpm-common.c:317
 #, c-format
 msgid "provides %s laptop runtime"
-msgstr ""
+msgstr "%s লেপটপ চলনসময় প্ৰদান কৰে"
 
 #. TRANSLATORS: the device is discharging, and we have a time remaining
 #. * The first parameter is the device type, e.g. "Laptop battery" and
@@ -1660,7 +1657,7 @@ msgstr ""
 #: ../plugins/power/gpm-common.c:328
 #, c-format
 msgid "%s %s remaining"
-msgstr ""
+msgstr "%s %s অৱশিষ্ট"
 
 #. TRANSLATORS: device is charging, and we have a time to full and a percentage
 #. * The first parameter is the device type, e.g. "Laptop battery" and
@@ -1671,19 +1668,19 @@ msgstr ""
 #: ../plugins/power/gpm-common.c:349 ../plugins/power/gpm-common.c:366
 #, c-format
 msgid "%s %s until charged"
-msgstr ""
+msgstr "%s %s সম্পূৰ্ণভাৱে চাৰ্জ হবলৈ"
 
 #. TRANSLATORS: the device is charging, and we have a time to full and empty.
 #. * The parameter is a time string, e.g. "7 hours 6 minutes"
 #: ../plugins/power/gpm-common.c:356
 #, c-format
 msgid "provides %s battery runtime"
-msgstr ""
+msgstr "%s বেটাৰি চলনসময় প্ৰদান কৰে"
 
 #. TRANSLATORS: the type of data, e.g. Laptop battery
 #: ../plugins/power/gpm-common.c:447
 msgid "Product:"
-msgstr ""
+msgstr "উৎপাদন:"
 
 #. TRANSLATORS: device is missing
 #. TRANSLATORS: device is charged
@@ -1692,427 +1689,418 @@ msgstr ""
 #: ../plugins/power/gpm-common.c:451 ../plugins/power/gpm-common.c:454
 #: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:460
 msgid "Status:"
-msgstr ""
+msgstr "অৱস্থা:"
 
 #: ../plugins/power/gpm-common.c:451
 msgid "Missing"
-msgstr ""
+msgstr "সন্ধানহিন"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:454 ../plugins/power/gpm-common.c:723
 msgid "Charged"
-msgstr ""
+msgstr "চাৰ্জ্ড"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:711
 msgid "Charging"
-msgstr ""
+msgstr "চাৰ্জ কৰা হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:460 ../plugins/power/gpm-common.c:715
 msgid "Discharging"
-msgstr ""
+msgstr "চাৰ্জ শেষ কৰা হৈছে"
 
 #. TRANSLATORS: percentage
 #: ../plugins/power/gpm-common.c:465
 msgid "Percentage charge:"
-msgstr ""
+msgstr "শতাংশ চাৰ্জ:"
 
 #. TRANSLATORS: manufacturer
 #: ../plugins/power/gpm-common.c:469
 msgid "Vendor:"
-msgstr ""
+msgstr "বিক্ৰেতা:"
 
 #. TRANSLATORS: how the battery is made, e.g. Lithium Ion
 #: ../plugins/power/gpm-common.c:474
 msgid "Technology:"
-msgstr ""
+msgstr "প্ৰযুক্তি:"
 
 #. TRANSLATORS: serial number of the battery
 #: ../plugins/power/gpm-common.c:478
 msgid "Serial number:"
-msgstr ""
+msgstr "ক্ৰমিক সংখ্যা:"
 
 #. TRANSLATORS: model number of the battery
 #: ../plugins/power/gpm-common.c:482
 msgid "Model:"
-msgstr ""
+msgstr "আৰ্হি:"
 
 #. TRANSLATORS: time to fully charged
 #: ../plugins/power/gpm-common.c:487
 msgid "Charge time:"
-msgstr ""
+msgstr "চাৰ্জৰ সময়:"
 
 #. TRANSLATORS: time to empty
 #: ../plugins/power/gpm-common.c:493
 msgid "Discharge time:"
-msgstr ""
+msgstr "চাৰ্জ শেষ হোৱা সময়:"
 
 #. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
 #: ../plugins/power/gpm-common.c:500
 msgid "Excellent"
-msgstr ""
+msgstr "উত্তম"
 
 #: ../plugins/power/gpm-common.c:502
 msgid "Good"
-msgstr ""
+msgstr "ভাল"
 
 #: ../plugins/power/gpm-common.c:504
 msgid "Fair"
-msgstr ""
+msgstr "নিৰপেক্ষ"
 
 #: ../plugins/power/gpm-common.c:506
 msgid "Poor"
-msgstr ""
+msgstr "বেয়া"
 
 #: ../plugins/power/gpm-common.c:510
 msgid "Capacity:"
-msgstr ""
+msgstr "ক্ষমতা:"
 
 #: ../plugins/power/gpm-common.c:516 ../plugins/power/gpm-common.c:541
 msgid "Current charge:"
-msgstr ""
+msgstr "বৰ্তমান চাৰ্জ:"
 
 #: ../plugins/power/gpm-common.c:522
 msgid "Last full charge:"
-msgstr ""
+msgstr "সৰ্বশেষ সম্পূৰ্ণ চাৰ্জ:"
 
 #: ../plugins/power/gpm-common.c:528 ../plugins/power/gpm-common.c:546
 msgid "Design charge:"
-msgstr ""
+msgstr "ৰূপাঙ্কণ চাৰ্জ:"
 
 #: ../plugins/power/gpm-common.c:533
 msgid "Charge rate:"
-msgstr ""
+msgstr "চাৰ্জৰ হাৰ:"
 
 #. TRANSLATORS: system power cord
 #: ../plugins/power/gpm-common.c:565
 msgid "AC adapter"
 msgid_plural "AC adapters"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "AC এডাপ্টাৰ"
+msgstr[1] "AC এডাপ্টাৰসমূহ"
 
 #. TRANSLATORS: laptop primary battery
 #: ../plugins/power/gpm-common.c:569
 msgid "Laptop battery"
 msgid_plural "Laptop batteries"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "লেপটপ বেটাৰি"
+msgstr[1] "লেপটপ বেটাৰিবোৰ"
 
 #. TRANSLATORS: battery-backed AC power source
 #: ../plugins/power/gpm-common.c:573
 msgid "UPS"
 msgid_plural "UPSs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "UPS"
+msgstr[1] "UPSs"
 
 #. TRANSLATORS: a monitor is a device to measure voltage and current
 #: ../plugins/power/gpm-common.c:577
 msgid "Monitor"
 msgid_plural "Monitors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "মনিটৰ"
+msgstr[1] "মনিটৰবোৰ"
 
 #. TRANSLATORS: portable device
 #: ../plugins/power/gpm-common.c:589
 msgid "PDA"
 msgid_plural "PDAs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "PDA"
+msgstr[1] "PDAs"
 
 #. TRANSLATORS: cell phone (mobile...)
 #: ../plugins/power/gpm-common.c:593
 msgid "Cell phone"
 msgid_plural "Cell phones"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "চেল ফোন"
+msgstr[1] "চেল ফোনসমূহ"
 
 #. TRANSLATORS: media player, mp3 etc
 #: ../plugins/power/gpm-common.c:598
-#, fuzzy
 #| msgid "Launch media player"
 msgid "Media player"
 msgid_plural "Media players"
-msgstr[0] "মিডিয়া প্লেয়াৰ আৰম্ভ কৰক"
-msgstr[1] "মিডিয়া প্লেয়াৰ আৰম্ভ কৰক"
+msgstr[0] "মিডিয়া প্লেয়াৰ"
+msgstr[1] "মিডিয়া প্লেয়াৰসমূহ"
 
 #. TRANSLATORS: tablet device
 #: ../plugins/power/gpm-common.c:602
 msgid "Tablet"
 msgid_plural "Tablets"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "টেবলেট"
+msgstr[1] "টেবলেটসমূহ"
 
 #. TRANSLATORS: tablet device
 #: ../plugins/power/gpm-common.c:606
 msgid "Computer"
 msgid_plural "Computers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "কমপিউটাৰ"
+msgstr[1] "কমপিউটাৰসমূহ"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:670
 msgid "Lithium Ion"
-msgstr ""
+msgstr "লিথিয়াম আঅ'ন"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:674
 msgid "Lithium Polymer"
-msgstr ""
+msgstr "লিথিয়াম পলিমাৰ"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:678
 msgid "Lithium Iron Phosphate"
-msgstr ""
+msgstr "লিথিয়াম আইৰন ফছফেট"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:682
 msgid "Lead acid"
-msgstr ""
+msgstr "লেড এচিড"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:686
 msgid "Nickel Cadmium"
-msgstr ""
+msgstr "নিকেল কেডমিয়াম"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:690
 msgid "Nickel metal hydride"
-msgstr ""
+msgstr "নিকেল মেটেল হাইড্ৰাইড"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:694
 msgid "Unknown technology"
-msgstr ""
+msgstr "অজ্ঞাত প্ৰযুক্তি"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:719
-#, fuzzy
 #| msgid "Empty Trash"
 msgid "Empty"
-msgstr "আবৰ্জনাৰ বক্স ৰিক্ত কৰক"
+msgstr "ৰিক্ত"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:727
 msgid "Waiting to charge"
-msgstr ""
+msgstr "চাৰ্জ হবলে অপেক্ষা কৰি আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:731
 msgid "Waiting to discharge"
-msgstr ""
+msgstr "ডিচ্চাৰ্জ হবলে অপেক্ষা কৰি আছে"
 
 #. TRANSLATORS: device not present
 #: ../plugins/power/gpm-common.c:759
 msgid "Laptop battery not present"
-msgstr ""
+msgstr "লেপটপ বেটাৰি উপলব্ধ নহয়"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:763
 msgid "Laptop battery is charging"
-msgstr ""
+msgstr "লেপটপ বেটাৰি চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:767
 msgid "Laptop battery is discharging"
-msgstr ""
+msgstr "লেপটপ বেটাৰি ডিচ্চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:771
 msgid "Laptop battery is empty"
-msgstr ""
+msgstr "লেপটপ বেটাৰি খালি"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:775
 msgid "Laptop battery is charged"
-msgstr ""
+msgstr "লেপটপ বেটাৰি চাৰ্জ্ড"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:779
 msgid "Laptop battery is waiting to charge"
-msgstr ""
+msgstr "লেপটপ বেটাৰি চাৰ্জ হবলে অপেক্ষা কৰি আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:783
 msgid "Laptop battery is waiting to discharge"
-msgstr ""
+msgstr "লেপটপ বেটাৰি ডিচ্চাৰ্জ হবলে অপেক্ষা কৰি আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:792
 msgid "UPS is charging"
-msgstr ""
+msgstr "UPS চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:796
 msgid "UPS is discharging"
-msgstr ""
+msgstr "UPS ডিচ্চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:800
 msgid "UPS is empty"
-msgstr ""
+msgstr "UPS খালি"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:804
 msgid "UPS is charged"
-msgstr ""
+msgstr "UPS চাৰ্জ্ড"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:813
-#, fuzzy
 #| msgid "Mouse plugin"
 msgid "Mouse is charging"
-msgstr "মাউছ প্লাগ-ইন"
+msgstr "মাউছ চাৰ্জ হৈছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:817
 msgid "Mouse is discharging"
-msgstr ""
+msgstr "মাউছ ডিচ্চাৰ্জ হৈছে"
 
-#
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:821
-#, fuzzy
 #| msgid "Mouse keys"
 msgid "Mouse is empty"
-msgstr "মাউছ চাবি "
+msgstr "মাউছ ৰিক্ত"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:825
 msgid "Mouse is charged"
-msgstr ""
+msgstr "মাউছ চাৰ্জ্ড"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:834
-#, fuzzy
 #| msgid "Keyboard plugin"
 msgid "Keyboard is charging"
-msgstr "চাবিৰ ফলক প্লাগ-ইন"
+msgstr "কিবৰ্ড চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:838
-#, fuzzy
 #| msgid "Keyboard plugin"
 msgid "Keyboard is discharging"
-msgstr "চাবিৰ ফলক প্লাগ-ইন"
+msgstr "কি'বৰ্ড ডিচ্চাৰ্জ হৈ আছে"
 
-#
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:842
-#, fuzzy
 #| msgid "Keyboard"
 msgid "Keyboard is empty"
-msgstr "কীবোৰ্ড"
+msgstr "কিবৰ্ড ৰিক্ত"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:846
 msgid "Keyboard is charged"
-msgstr ""
+msgstr "কিবৰ্ড চাৰ্জ্ড"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:855
 msgid "PDA is charging"
-msgstr ""
+msgstr "PDA চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:859
 msgid "PDA is discharging"
-msgstr ""
+msgstr "PDA ডিচ্চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:863
 msgid "PDA is empty"
-msgstr ""
+msgstr "PDA ৰিক্ত"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:867
 msgid "PDA is charged"
-msgstr ""
+msgstr "PDA চাৰ্জ্ড"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:876
 msgid "Cell phone is charging"
-msgstr ""
+msgstr "চেল ফোন চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:880
 msgid "Cell phone is discharging"
-msgstr ""
+msgstr "চেল ফোন ডিচ্চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:884
 msgid "Cell phone is empty"
-msgstr ""
+msgstr "চেল ফোন ৰিক্ত"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:888
 msgid "Cell phone is charged"
-msgstr ""
+msgstr "চেল ফোন চাৰ্জ্ড"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:898
 msgid "Media player is charging"
-msgstr ""
+msgstr "মিডিয়া প্লেয়াৰ চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:902
 msgid "Media player is discharging"
-msgstr ""
+msgstr "মিডিয়া প্লেয়াৰ ডিচ্চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:906
 msgid "Media player is empty"
-msgstr ""
+msgstr "মিডিয়া প্লেয়াৰ ৰিক্ত"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:910
 msgid "Media player is charged"
-msgstr ""
+msgstr "মিডিয়া প্লেয়াৰ চাৰ্জ্ড"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:919
 msgid "Tablet is charging"
-msgstr ""
+msgstr "টেবলেট চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:923
 msgid "Tablet is discharging"
-msgstr ""
+msgstr "টেবলেট ডিচ্চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:927
 msgid "Tablet is empty"
-msgstr ""
+msgstr "টেবলেট ৰিক্ত"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:931
 msgid "Tablet is charged"
-msgstr ""
+msgstr "টেবলেট চাৰ্জ্ড"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:940
 msgid "Computer is charging"
-msgstr ""
+msgstr "কমপিউটাৰ চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:944
 msgid "Computer is discharging"
-msgstr ""
+msgstr "কমপিউটাৰ ডিচ্চাৰ্জ হৈ আছে"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:948
 msgid "Computer is empty"
-msgstr ""
+msgstr "কমপিউটাৰ ৰিক্ত"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:952
 msgid "Computer is charged"
-msgstr ""
+msgstr "কমপিউটাৰ চাৰ্জ্ড"
 
 #. TRANSLATORS: the battery may be recalled by its vendor
 #: ../plugins/power/gsd-power-manager.c:992
 msgid "Battery may be recalled"
-msgstr ""
+msgstr "বেটাৰি পুনৰ কল কৰা হব পাৰে"
 
 #: ../plugins/power/gsd-power-manager.c:995
 #, c-format
@@ -2123,30 +2111,29 @@ msgstr ""
 
 #: ../plugins/power/gsd-power-manager.c:998
 msgid "For more information visit the battery recall website."
-msgstr ""
+msgstr "অধিক তথ্যৰ বাবে বেটাৰি ৰিকল ৱেবছাইট ভ্ৰমণ কৰক।"
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
 #: ../plugins/power/gsd-power-manager.c:1009
 msgid "Visit recall website"
-msgstr ""
+msgstr "ৰিকল ৱেবছাইট ভ্ৰমণ কৰক"
 
 #. TRANSLATORS: button text, do not show this bubble again
 #: ../plugins/power/gsd-power-manager.c:1013
-#, fuzzy
 #| msgid "_Do not show this message again"
 msgid "Do not show me this again"
-msgstr "আৰ কখনো এই তথ্যটি দেখাবে না (_D)"
+msgstr "এইটো মোক আকৌ নেদেখুৱাব"
 
 #. TRANSLATORS: UPS is now discharging
 #: ../plugins/power/gsd-power-manager.c:1246
 msgid "UPS Discharging"
-msgstr ""
+msgstr "UPS ডিচ্চাৰ্জ কৰা হৈছে"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:1251
 #, c-format
 msgid "%s of UPS backup power remaining"
-msgstr ""
+msgstr "অবশিষ্ট UPS বেকআপ শক্তিৰ %s"
 
 #. TRANSLATORS: this is the notification application name
 #: ../plugins/power/gsd-power-manager.c:1272
@@ -2155,73 +2142,73 @@ msgstr ""
 #: ../plugins/power/gsd-power-manager.c:1783
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
-msgstr ""
+msgstr "শক্তি"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
 #: ../plugins/power/gsd-power-manager.c:1364
 msgid "Battery low"
-msgstr ""
+msgstr "বেটাৰি নিম্ন"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
 #: ../plugins/power/gsd-power-manager.c:1367
 msgid "Laptop battery low"
-msgstr ""
+msgstr "লেপটপ বেটাৰি কম আছে"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:1374
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
-msgstr ""
+msgstr "আনুমানিক %s অৱশিষ্ট (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
 #: ../plugins/power/gsd-power-manager.c:1379
 msgid "UPS low"
-msgstr ""
+msgstr "UPS কম"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:1385
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
-msgstr ""
+msgstr "অৱশিষ্ট UPS বেকআপ শক্তিৰ আনুমানিক %s (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
 #: ../plugins/power/gsd-power-manager.c:1390
 #: ../plugins/power/gsd-power-manager.c:1557
 msgid "Mouse battery low"
-msgstr ""
+msgstr "মাউছ বেটাৰি নিম্ন"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1393
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
-msgstr ""
+msgstr "বেতাঁৰ মাউছৰ শক্তি কম হৈছে (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
 #: ../plugins/power/gsd-power-manager.c:1397
 #: ../plugins/power/gsd-power-manager.c:1565
 msgid "Keyboard battery low"
-msgstr ""
+msgstr "কি'বৰ্ড বেটাৰি কম হৈছে"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1400
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
-msgstr ""
+msgstr "বেতাঁৰ কি'বৰ্ডৰ শক্তি কম হৈছে (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
 #: ../plugins/power/gsd-power-manager.c:1404
 #: ../plugins/power/gsd-power-manager.c:1574
 msgid "PDA battery low"
-msgstr ""
+msgstr "PDA বেটাৰি নিম্ন"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1407
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
-msgstr ""
+msgstr "PDA ৰ শক্তি কম হৈছে (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -2229,97 +2216,97 @@ msgstr ""
 #: ../plugins/power/gsd-power-manager.c:1584
 #: ../plugins/power/gsd-power-manager.c:1595
 msgid "Cell phone battery low"
-msgstr ""
+msgstr "চেল ফোন বেটাৰি নিম্ন"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1414
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
-msgstr ""
+msgstr "চেল ফোন বেটাৰিৰ শক্তি কম হৈছে (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
 #: ../plugins/power/gsd-power-manager.c:1419
 msgid "Media player battery low"
-msgstr ""
+msgstr "মিডিয়া প্লেয়াৰ বেটাৰি নিম্ন"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1422
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
-msgstr ""
+msgstr "মিডিয়া প্লেয়াৰৰ শক্তি কম হৈছে (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:1426
 #: ../plugins/power/gsd-power-manager.c:1604
 msgid "Tablet battery low"
-msgstr ""
+msgstr "টেবলেট বেটাৰি নিম্ন"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1429
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
-msgstr ""
+msgstr "টেবলেটৰ শক্তি কম হৈছে (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:1433
 #: ../plugins/power/gsd-power-manager.c:1613
 msgid "Attached computer battery low"
-msgstr ""
+msgstr "সংলগ্ন কমপিউটাৰ বেটাৰি নিম্ন"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1436
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
-msgstr ""
+msgstr "সংলগ্ন কমপিউটাৰ বেটাৰিৰ শক্তি কম হৈছে (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:1471
 msgid "Battery is low"
-msgstr ""
+msgstr "বেটাৰি নিম্ন"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
 #: ../plugins/power/gsd-power-manager.c:1513
 msgid "Battery critically low"
-msgstr ""
+msgstr "বেটাৰি মাৰাত্মকভাৱে নিম্ন"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
 #: ../plugins/power/gsd-power-manager.c:1516
 #: ../plugins/power/gsd-power-manager.c:1701
 msgid "Laptop battery critically low"
-msgstr ""
+msgstr "লেপটপ বেটাৰি মাৰাত্মকভাৱে নিম্ন"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
 #: ../plugins/power/gsd-power-manager.c:1525
 msgid "Plug in your AC adapter to avoid losing data."
-msgstr ""
+msgstr "তথ্য নেহেৰুৱাবলে আপোনাৰ AC এডাপ্টাৰ প্লাগ ইন কৰক।"
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1529
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
-msgstr ""
+msgstr "ইয়াক প্লাগ নকৰিলে কমপিউটাৰ অতি সোনকালে স্থগিত হব।"
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1533
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
-msgstr ""
+msgstr "ইয়াক প্লাগ ইন নকৰিলে কমপিউটাৰ অতি সোনকালে হাইবাৰনেইট কৰিব।"
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1537
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
-msgstr ""
+msgstr "ইয়াক প্লাগ নকৰিলে কমপিউটাৰ অতি সোনকালে বন্ধ হব।"
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
 #: ../plugins/power/gsd-power-manager.c:1545
 #: ../plugins/power/gsd-power-manager.c:1737
 msgid "UPS critically low"
-msgstr ""
+msgstr "UPS মাৰাত্মকভাৱে নিম্ন"
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1551
@@ -2328,6 +2315,8 @@ msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
 "computer to avoid losing data."
 msgstr ""
+"আনুমানিক %s অৱশিষ্ট UPS শক্তি (%.0f%%)। তথ্য নেহেৰুৱাবলে আপোনাৰ কমপিউটাৰত AC শক্তি "
+"পুনৰস্থাপন কৰক।"
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1560
