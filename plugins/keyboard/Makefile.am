@@ -27,6 +27,7 @@ libkeyboard_la_CPPFLAGS = \
 	-I$(top_srcdir)/data				\
 	-I$(top_srcdir)/plugins/common			\
 	-DDATADIR=\""$(pkgdatadir)"\"			\
+	-DLIBEXECDIR=\""$(libexecdir)"\"		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
@@ -74,6 +75,28 @@ test_make_xkb_source_id_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-s
 check-local: test-make-xkb-source-id
 	$(builddir)/test-make-xkb-source-id > /dev/null
 endif
+
+libexec_PROGRAMS += gsd-input-sources-switcher
+
+gsd_input_sources_switcher_SOURCES = 	\
+	gsd-input-sources-switcher.c	\
+	$(NULL)
+
+gsd_input_sources_switcher_CPPFLAGS =	\
+	-I$(top_srcdir)/data		\
+	-I$(top_srcdir)/plugins/common	\
+	$(AM_CPPFLAGS)			\
+	$(NULL)
+
+gsd_input_sources_switcher_CFLAGS =	\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)			\
+	$(NULL)
+
+gsd_input_sources_switcher_LDADD  = 	\
+	$(top_builddir)/plugins/common/libcommon.la	\
+	$(SETTINGS_PLUGIN_LIBS)		\
+	$(NULL)
 
 EXTRA_DIST = 			\
 	$(icons_DATA)		\

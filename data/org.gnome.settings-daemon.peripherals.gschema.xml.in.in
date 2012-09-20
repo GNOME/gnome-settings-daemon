@@ -106,6 +106,10 @@
       <summary>NumLock state</summary>
       <description>The remembered state of the NumLock LED.</description>
     </key>
+    <key name="input-sources-switcher" enum="org.gnome.settings-daemon.GsdInputSourcesSwitcher">
+      <default>'off'</default>
+      <summary>Modifiers-only input sources switcher shortcut</summary>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.mouse" path="/org/gnome/settings-daemon/peripherals/mouse/">
     <key name="locate-pointer" type="b">
