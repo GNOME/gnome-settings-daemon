@@ -1072,6 +1072,65 @@ set_devicepresence_handler (GsdKeyboardManager *manager)
         manager->priv->device_manager = device_manager;
 }
 
+static void
+create_sources_from_current_xkb_config (GSettings *settings)
+{
+        GVariantBuilder builder;
+        XkbRF_VarDefsRec *xkb_var_defs;
+        gchar *tmp;
+        gchar **layouts = NULL;
+        gchar **variants = NULL;
+        guint i, n;
+
+        gnome_xkb_info_get_var_defs (&tmp, &xkb_var_defs);
+        g_free (tmp);
+
+        if (xkb_var_defs->layout)
+                layouts = g_strsplit (xkb_var_defs->layout, ",", 0);
+        if (xkb_var_defs->variant)
+                variants = g_strsplit (xkb_var_defs->variant, ",", 0);
+
+        gnome_xkb_info_free_var_defs (xkb_var_defs);
+
+        if (!layouts)
+                goto out;
+
+        if (variants && variants[0])
+                n = MIN (g_strv_length (layouts), g_strv_length (variants));
+        else
+                n = g_strv_length (layouts);
+
+        g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ss)"));
+        for (i = 0; i < n && layouts[i][0]; ++i) {
+                if (variants && variants[i] && variants[i][0])
+                        tmp = g_strdup_printf ("%s+%s", layouts[i], variants[i]);
+                else
+                        tmp = g_strdup (layouts[i]);
+
+                g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_XKB, tmp);
+                g_free (tmp);
+        }
+        g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
+out:
+        g_strfreev (layouts);
+        g_strfreev (variants);
+}
+
+static void
+maybe_create_input_sources (GsdKeyboardManager *manager)
+{
+        GVariant *sources;
+        gsize n;
+
+        sources = g_settings_get_value (manager->priv->input_sources_settings, KEY_INPUT_SOURCES);
+        n = g_variant_n_children (sources);
+        g_variant_unref (sources);
+        if (n > 0)
+                return;
+
+        create_sources_from_current_xkb_config (manager->priv->input_sources_settings);
+}
+
 static gboolean
 start_keyboard_idle_cb (GsdKeyboardManager *manager)
 {
@@ -1088,6 +1147,8 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         manager->priv->input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
         manager->priv->interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
         manager->priv->xkb_info = gnome_xkb_info_new ();
+
+        maybe_create_input_sources (manager);
 
 #ifdef HAVE_IBUS
         /* We don't want to touch IBus until we are sure this isn't a
