@@ -293,6 +293,7 @@ static void
 on_notification_closed (NotifyNotification *notification)
 {
         g_object_unref (notification);
+        notificaton = NULL;
 }
 
 static gboolean
