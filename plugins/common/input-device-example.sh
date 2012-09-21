@@ -65,5 +65,5 @@ case $type in
                 ;;
 esac
 
-# All further processing will be disabled if $retval == 0
+# All further processing will be disabled if $retval == 1
 exit $retval

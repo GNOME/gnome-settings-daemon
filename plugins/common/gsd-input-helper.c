@@ -493,7 +493,7 @@ run_custom_command (GdkDevice              *device,
         g_free (argv[4]);
         g_free (argv[5]);
 
-        return (exit_status == 0);
+        return (exit_status == 1);
 }
 
 GList *

@@ -157,7 +157,7 @@
     <key name="hotplug-command" type="s">
       <default>''</default>
       <_summary>Device hotplug custom command</_summary>
-      <_description>Command to be run when a device is added or removed.</_description>
+      <_description>Command to be run when a device is added or removed. An exit value of 1 means that the device will not be handled further by gnome-settings-daemon.</_description>
     </key>
   </schema>
 </schemalist>
