@@ -1715,6 +1715,15 @@ void
 gsd_color_manager_stop (GsdColorManager *manager)
 {
         g_debug ("Stopping color manager");
+
+        g_clear_object (&manager->priv->settings);
+        g_clear_object (&manager->priv->client);
+        g_clear_object (&manager->priv->profile_store);
+        g_clear_object (&manager->priv->dmi);
+        g_clear_object (&manager->priv->session);
+        g_clear_pointer (&manager->priv->edid_cache, g_hash_table_destroy);
+        g_clear_pointer (&manager->priv->device_assign_hash, g_hash_table_destroy);
+        g_clear_object (&manager->priv->x11_screen);
 }
 
 static void
@@ -2306,17 +2315,14 @@ gsd_color_manager_finalize (GObject *object)
 
         manager = GSD_COLOR_MANAGER (object);
 
-        g_return_if_fail (manager->priv != NULL);
-
-        g_object_unref (manager->priv->settings);
-        g_object_unref (manager->priv->client);
-        g_object_unref (manager->priv->profile_store);
-        g_object_unref (manager->priv->dmi);
-        g_object_unref (manager->priv->session);
-        g_hash_table_destroy (manager->priv->edid_cache);
-        g_hash_table_destroy (manager->priv->device_assign_hash);
-        if (manager->priv->x11_screen != NULL)
-                g_object_unref (manager->priv->x11_screen);
+        g_clear_object (&manager->priv->settings);
+        g_clear_object (&manager->priv->client);
+        g_clear_object (&manager->priv->profile_store);
+        g_clear_object (&manager->priv->dmi);
+        g_clear_object (&manager->priv->session);
+        g_clear_pointer (&manager->priv->edid_cache, g_hash_table_destroy);
+        g_clear_pointer (&manager->priv->device_assign_hash, g_hash_table_destroy);
+        g_clear_object (&manager->priv->x11_screen);
 
         G_OBJECT_CLASS (gsd_color_manager_parent_class)->finalize (object);
 }
