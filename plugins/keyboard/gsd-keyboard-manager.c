@@ -1120,15 +1120,17 @@ static void
 maybe_create_input_sources (GsdKeyboardManager *manager)
 {
         GVariant *sources;
+        gboolean gdm;
         gsize n;
+
+        gdm = g_getenv ("RUNNING_UNDER_GDM") != NULL;
 
         sources = g_settings_get_value (manager->priv->input_sources_settings, KEY_INPUT_SOURCES);
         n = g_variant_n_children (sources);
         g_variant_unref (sources);
-        if (n > 0)
-                return;
 
-        create_sources_from_current_xkb_config (manager->priv->input_sources_settings);
+        if (n < 1 || gdm)
+                create_sources_from_current_xkb_config (manager->priv->input_sources_settings);
 }
 
 static gboolean
