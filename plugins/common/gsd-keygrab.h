@@ -32,10 +32,18 @@ typedef struct {
         guint *keycodes;
 } Key;
 
+typedef enum {
+        GSD_KEYGRAB_NORMAL           = 0,
+        GSD_KEYGRAB_ALLOW_UNMODIFIED = 1 << 0,
+        GSD_KEYGRAB_SYNCHRONOUS      = 1 << 1
+} GsdKeygrabFlags;
 
 void	        grab_key_unsafe	(Key     *key,
-				 gboolean grab,
+				 GsdKeygrabFlags flags,
 			         GSList  *screens);
+
+void            ungrab_key_unsafe (Key     *key,
+                                   GSList  *screens);
 
 gboolean        match_xi2_key   (Key           *key,
                                  XIDeviceEvent *event);
