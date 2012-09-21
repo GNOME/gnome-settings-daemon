@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
- * Copyright (C) 2011 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2011-2012 Richard Hughes <richard@hughsie.com>
  * Copyright (C) 2011 Ritesh Khadgaray <khadgaray@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -32,6 +32,7 @@
 #include <libupower-glib/upower.h>
 #include <libnotify/notify.h>
 #include <canberra-gtk.h>
+#include <gio/gunixfdlist.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -43,7 +44,6 @@
 #include "gnome-settings-session.h"
 #include "gsd-enums.h"
 #include "gsd-power-manager.h"
-#include "gsd-power-helper.h"
 
 #define GNOME_SESSION_DBUS_NAME                 "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_PATH_PRESENCE        "/org/gnome/SessionManager/Presence"
@@ -75,6 +75,10 @@
 #define GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT        5 /* seconds */
 #define GSD_POWER_MANAGER_RECALL_DELAY                  30 /* seconds */
 #define GSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT      30 /* seconds */
+
+#define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
+#define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
+#define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
 
 /* Keep this in sync with gnome-shell */
 #define SCREENSAVER_FADE_TIME                           10 /* seconds */
@@ -191,14 +195,20 @@ struct GsdPowerManagerPrivate
         ca_context              *canberra_context;
         ca_proplist             *critical_alert_loop_props;
         guint32                  critical_alert_timeout_id;
-        GDBusProxy              *screensaver_proxy;
         GDBusProxy              *session_proxy;
         GDBusProxy              *session_presence_proxy;
         GpmIdletime             *idletime;
         GsdPowerIdleMode         current_idle_mode;
-        guint                    lid_close_safety_timer_id;
         GtkStatusIcon           *status_icon;
         guint                    xscreensaver_watchdog_timer_id;
+
+        /* systemd stuff */
+        GDBusProxy              *logind_proxy;
+        gint                     inhibit_lid_switch_fd;
+        gboolean                 inhibit_lid_switch_taken;
+        gint                     inhibit_suspend_fd;
+        gboolean                 inhibit_suspend_taken;
+        guint                    inhibit_lid_switch_timer_id;
 };
 
 enum {
@@ -215,8 +225,8 @@ static GIcon    *engine_get_icon (GsdPowerManager *manager);
 static gchar    *engine_get_summary (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 static void      do_lid_closed_action (GsdPowerManager *manager);
-static void      lock_screensaver (GsdPowerManager *manager);
-static void      kill_lid_close_safety_timer (GsdPowerManager *manager);
+static void      uninhibit_lid_switch (GsdPowerManager *manager);
+static gboolean  external_monitor_is_connected (GnomeRRScreen *screen);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -2028,6 +2038,57 @@ gnome_session_shutdown (GsdPowerManager *manager)
 }
 
 static void
+action_poweroff (GsdPowerManager *manager)
+{
+        if (manager->priv->logind_proxy == NULL) {
+                g_warning ("no systemd support");
+                return;
+        }
+        g_dbus_proxy_call (manager->priv->logind_proxy,
+                           "PowerOff",
+                           g_variant_new ("(b)", FALSE),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           G_MAXINT,
+                           NULL,
+                           NULL,
+                           NULL);
+}
+
+static void
+action_suspend (GsdPowerManager *manager)
+{
+        if (manager->priv->logind_proxy == NULL) {
+                g_warning ("no systemd support");
+                return;
+        }
+        g_dbus_proxy_call (manager->priv->logind_proxy,
+                           "Suspend",
+                           g_variant_new ("(b)", FALSE),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           G_MAXINT,
+                           NULL,
+                           NULL,
+                           NULL);
+}
+
+static void
+action_hibernate (GsdPowerManager *manager)
+{
+        if (manager->priv->logind_proxy == NULL) {
+                g_warning ("no systemd support");
+                return;
+        }
+        g_dbus_proxy_call (manager->priv->logind_proxy,
+                           "Hibernate",
+                           g_variant_new ("(b)", FALSE),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           G_MAXINT,
+                           NULL,
+                           NULL,
+                           NULL);
+}
+
+static void
 do_power_action_type (GsdPowerManager *manager,
                       GsdPowerActionType action_type)
 {
@@ -2036,19 +2097,19 @@ do_power_action_type (GsdPowerManager *manager,
 
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
-                gsd_power_suspend (manager->priv->upower_proxy);
+                action_suspend (manager);
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
                 gnome_session_shutdown (manager);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                gsd_power_hibernate (manager->priv->upower_proxy);
+                action_hibernate (manager);
                 break;
         case GSD_POWER_ACTION_SHUTDOWN:
                 /* this is only used on critically low battery where
                  * hibernate is not available and is marginally better
                  * than just powering down the computer mid-write */
-                gsd_power_poweroff ();
+                action_poweroff (manager);
                 break;
         case GSD_POWER_ACTION_BLANK:
                 ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
@@ -2120,6 +2181,53 @@ upower_kbd_toggle (GsdPowerManager *manager,
         return ret;
 }
 
+static gboolean
+inhibit_lid_switch_timer_cb (GsdPowerManager *manager)
+{
+        if (!external_monitor_is_connected (manager->priv->x11_screen) ||
+            g_settings_get_boolean (manager->priv->settings,
+                                    "lid-close-suspend-with-external-monitor")) {
+                g_debug ("no external monitors for a while; uninhibiting lid close");
+                uninhibit_lid_switch (manager);
+                manager->priv->inhibit_lid_switch_timer_id = 0;
+                return G_SOURCE_REMOVE;
+        }
+
+        g_debug ("external monitor still there; trying again later");
+        return G_SOURCE_CONTINUE;
+}
+
+/* Sets up a timer to be triggered some seconds after closing the laptop lid
+ * when the laptop is *not* suspended for some reason.  We'll check conditions
+ * again in the timeout handler to see if we can suspend then.
+ */
+static void
+setup_inhibit_lid_switch_timer (GsdPowerManager *manager)
+{
+        if (manager->priv->inhibit_lid_switch_timer_id != 0) {
+                g_debug ("lid close safety timer already set up");
+                return;
+        }
+
+        g_debug ("setting up lid close safety timer");
+
+        manager->priv->inhibit_lid_switch_timer_id = g_timeout_add_seconds (GSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT,
+                                                                          (GSourceFunc) inhibit_lid_switch_timer_cb,
+                                                                          manager);
+        g_source_set_name_by_id (manager->priv->inhibit_lid_switch_timer_id, "[GsdPowerManager] lid close safety timer");
+}
+
+static void
+restart_inhibit_lid_switch_timer (GsdPowerManager *manager)
+{
+        if (manager->priv->inhibit_lid_switch_timer_id != 0) {
+                g_debug ("restarting lid close safety timer");
+                g_source_remove (manager->priv->inhibit_lid_switch_timer_id);
+                manager->priv->inhibit_lid_switch_timer_id = 0;
+                setup_inhibit_lid_switch_timer (manager);
+        }
+}
+
 static void
 do_lid_open_action (GsdPowerManager *manager)
 {
@@ -2153,135 +2261,14 @@ do_lid_open_action (GsdPowerManager *manager)
                         g_error_free (error);
                 }
         }
-
-        kill_lid_close_safety_timer (manager);
-}
-
-static gboolean
-is_on (GnomeRROutput *output)
-{
-	GnomeRRCrtc *crtc;
-
-	crtc = gnome_rr_output_get_crtc (output);
-	if (!crtc)
-		return FALSE;
-	return gnome_rr_crtc_get_current_mode (crtc) != NULL;
-}
-
-static gboolean
-non_laptop_outputs_are_all_off (GnomeRRScreen *screen)
-{
-        GnomeRROutput **outputs;
-        int i;
-
-        outputs = gnome_rr_screen_list_outputs (screen);
-        for (i = 0; outputs[i] != NULL; i++) {
-                if (gnome_rr_output_is_laptop (outputs[i]))
-                        continue;
-
-                if (is_on (outputs[i]))
-                        return FALSE;
-        }
-
-        return TRUE;
-}
-
-/* Timeout callback used to check conditions when the laptop's lid is closed but
- * the machine is not suspended yet.  We try to suspend again, so that the laptop
- * won't overheat if placed in a backpack.
- */
-static gboolean
-lid_close_safety_timer_cb (GsdPowerManager *manager)
-{
-        manager->priv->lid_close_safety_timer_id = 0;
-
-        g_debug ("lid has been closed for a while; trying to suspend again");
-        do_lid_closed_action (manager);
-
-        return FALSE;
-}
-
-/* Sets up a timer to be triggered some seconds after closing the laptop lid
- * when the laptop is *not* suspended for some reason.  We'll check conditions
- * again in the timeout handler to see if we can suspend then.
- */
-static void
-setup_lid_close_safety_timer (GsdPowerManager *manager)
-{
-        if (manager->priv->lid_close_safety_timer_id != 0)
-                return;
-
-        manager->priv->lid_close_safety_timer_id = g_timeout_add_seconds (GSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT,
-                                                                          (GSourceFunc) lid_close_safety_timer_cb,
-                                                                          manager);
-        g_source_set_name_by_id (manager->priv->lid_close_safety_timer_id, "[GsdPowerManager] lid close safety timer");
-}
-
-static void
-kill_lid_close_safety_timer (GsdPowerManager *manager)
-{
-        if (manager->priv->lid_close_safety_timer_id != 0) {
-                g_source_remove (manager->priv->lid_close_safety_timer_id);
-                manager->priv->lid_close_safety_timer_id = 0;
-        }
-}
-
-static void
-suspend_with_lid_closed (GsdPowerManager *manager)
-{
-        gboolean ret;
-        GError *error = NULL;
-        GsdPowerActionType action_type;
-
-        /* maybe lock the screen if the lid is closed */
-        lock_screensaver (manager);
-
-        /* we have different settings depending on AC state */
-        if (up_client_get_on_battery (manager->priv->up_client)) {
-                action_type = g_settings_get_enum (manager->priv->settings,
-                                                   "lid-close-battery-action");
-        } else {
-                action_type = g_settings_get_enum (manager->priv->settings,
-                                                   "lid-close-ac-action");
-        }
-
-        /* check we won't melt when the lid is closed */
-        if (action_type != GSD_POWER_ACTION_SUSPEND &&
-            action_type != GSD_POWER_ACTION_HIBERNATE) {
-                if (up_client_get_lid_force_sleep (manager->priv->up_client)) {
-                        g_warning ("to prevent damage, now forcing suspend");
-                        do_power_action_type (manager, GSD_POWER_ACTION_SUSPEND);
-                        return;
-                }
-        }
-
-        /* ensure we turn the panel back on after resume */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
-                                             GNOME_RR_DPMS_OFF,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to turn the panel off after lid close: %s",
-                           error->message);
-                g_clear_error (&error);
-        }
-
-        /* only toggle keyboard if present and not already toggled */
-        if (manager->priv->upower_kdb_proxy &&
-            manager->priv->kbd_brightness_old == -1) {
-                ret = upower_kbd_toggle (manager, &error);
-                if (!ret) {
-                        g_warning ("failed to turn the kbd backlight off: %s",
-                                   error->message);
-                        g_error_free (error);
-                }
-        }
-
-        do_power_action_type (manager, action_type);
 }
 
 static void
 do_lid_closed_action (GsdPowerManager *manager)
 {
+        gboolean ret;
+        GError *error = NULL;
+
         /* play a sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
                          CA_PROP_EVENT_ID, "lid-close",
@@ -2289,20 +2276,21 @@ do_lid_closed_action (GsdPowerManager *manager)
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
                          NULL);
 
+        /* turn the panel off if the lid is closed (mainly for Dells...) */
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                                             GNOME_RR_DPMS_OFF,
+                                             &error);
+        if (!ret) {
+                g_warning ("failed to turn the panel off after lid close: %s",
+                           error->message);
+                g_error_free (error);
+        }
+
         /* refresh RANDR so we get an accurate view of what monitors are plugged in when the lid is closed */
         gnome_rr_screen_refresh (manager->priv->x11_screen, NULL); /* NULL-GError */
 
-        /* perform policy action */
-        if (g_settings_get_boolean (manager->priv->settings, "lid-close-suspend-with-external-monitor")
-            || non_laptop_outputs_are_all_off (manager->priv->x11_screen)) {
-                g_debug ("lid is closed; suspending or hibernating");
-                suspend_with_lid_closed (manager);
-        } else {
-                g_debug ("lid is closed; not suspending nor hibernating since some external monitor outputs are still active");
-                setup_lid_close_safety_timer (manager);
-        }
+        restart_inhibit_lid_switch_timer (manager);
 }
-
 
 static void
 up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
@@ -2323,6 +2311,7 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
         if (manager->priv->lid_is_closed == tmp)
                 return;
         manager->priv->lid_is_closed = tmp;
+        g_debug ("up changed: lid is now %s", tmp ? "closed" : "open");
 
         /* fake a keypress */
         if (tmp)
@@ -3274,30 +3263,6 @@ gsd_power_manager_class_init (GsdPowerManagerClass *klass)
 }
 
 static void
-sleep_cb_screensaver_proxy_ready_cb (GObject *source_object,
-                            GAsyncResult *res,
-                            gpointer user_data)
-{
-        GError *error = NULL;
-        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
-
-        manager->priv->screensaver_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (manager->priv->screensaver_proxy == NULL) {
-                g_warning ("Could not connect to gnome-screensaver: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-
-        /* Finish the upower_notify_sleep_cb() call by locking the screen */
-        g_debug ("gnome-screensaver activated, doing gnome-screensaver lock");
-        g_dbus_proxy_call (manager->priv->screensaver_proxy,
-                           "Lock",
-                           NULL, G_DBUS_CALL_FLAGS_NONE, -1,
-                           NULL, NULL, NULL);
-}
-
-static void
 idle_dbus_signal_cb (GDBusProxy *proxy,
                      const gchar *sender_name,
                      const gchar *signal_name,
@@ -3430,75 +3395,38 @@ out:
 }
 
 static void
-lock_screensaver (GsdPowerManager *manager)
+lock_screensaver (GsdPowerManager *manager,
+                  GSourceFunc      done_cb)
 {
         gboolean do_lock;
 
         do_lock = g_settings_get_boolean (manager->priv->settings_screensaver,
                                           "lock-enabled");
-        if (!do_lock)
+        if (!do_lock && done_cb) {
+                done_cb (manager);
                 return;
-
-        if (manager->priv->screensaver_proxy != NULL) {
-                g_debug ("doing gnome-screensaver lock");
-                g_dbus_proxy_call (manager->priv->screensaver_proxy,
-                                   "Lock",
-                                   NULL, G_DBUS_CALL_FLAGS_NONE, -1,
-                                   NULL, NULL, NULL);
-        } else {
-                /* connect to the screensaver first */
-                g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                          G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                          NULL,
-                                          GS_DBUS_NAME,
-                                          GS_DBUS_PATH,
-                                          GS_DBUS_INTERFACE,
-                                          NULL,
-                                          sleep_cb_screensaver_proxy_ready_cb,
-                                          manager);
-        }
-}
-
-static void
-upower_notify_sleep_cb (UpClient *client,
-                        UpSleepKind sleep_kind,
-                        GsdPowerManager *manager)
-{
-        lock_screensaver (manager);
-}
-
-static void
-upower_notify_resume_cb (UpClient *client,
-                         UpSleepKind sleep_kind,
-                         GsdPowerManager *manager)
-{
-        gboolean ret;
-        GError *error = NULL;
-
-        /* this displays the unlock dialogue so the user doesn't have
-         * to move the mouse or press any key before the window comes up */
-        if (manager->priv->screensaver_proxy != NULL) {
-                g_dbus_proxy_call (manager->priv->screensaver_proxy,
-                                   "SimulateUserActivity",
-                                   NULL,
-                                   G_DBUS_CALL_FLAGS_NONE,
-                                   -1, NULL, NULL, NULL);
         }
 
-        /* close existing notifications on resume, the system power
-         * state is probably different now */
-        notify_close_if_showing (manager->priv->notification_low);
-        notify_close_if_showing (manager->priv->notification_discharging);
+        g_dbus_connection_call (manager->priv->connection,
+                                GS_DBUS_NAME,
+                                GS_DBUS_PATH,
+                                GS_DBUS_INTERFACE,
+                                "Lock",
+                                NULL, NULL,
+                                G_DBUS_CALL_FLAGS_NONE, -1,
+                                NULL, NULL, NULL);
 
-        /* ensure we turn the panel back on after resume */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
-                                             GNOME_RR_DPMS_ON,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to turn the panel on after resume: %s",
-                           error->message);
-                g_error_free (error);
-        }
+        /* Wait until gnome-shell shield animation is done
+         *
+         * FIXME: the shell should mark the lock as active
+         * when the shield is down, then we could wait for
+         * that. This would also fix the problem that we wait
+         * needlessly when the shell has already locked the
+         * screen because it is initiating the suspend.
+         *
+         * https://bugzilla.gnome.org/show_bug.cgi?id=685053
+         */
+        g_timeout_add (500, done_cb, manager);
 }
 
 static void
@@ -3657,6 +3585,287 @@ disable_builtin_screensaver (gpointer unused)
         return TRUE;
 }
 
+static void
+inhibit_lid_switch_done (GObject      *source,
+                         GAsyncResult *result,
+                         gpointer      user_data)
+{
+        GDBusProxy *proxy = G_DBUS_PROXY (source);
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+        GError *error = NULL;
+        GVariant *res;
+        GUnixFDList *fd_list = NULL;
+        gint idx;
+
+        res = g_dbus_proxy_call_with_unix_fd_list_finish (proxy, &fd_list, result, &error);
+        if (res == NULL) {
+                g_warning ("Unable to inhibit lid switch: %s", error->message);
+                g_error_free (error);
+        } else {
+                g_variant_get (res, "(h)", &idx);
+                manager->priv->inhibit_lid_switch_fd = g_unix_fd_list_get (fd_list, idx, &error);
+                if (manager->priv->inhibit_lid_switch_fd == -1) {
+                        g_warning ("Failed to receive system inhibitor fd: %s", error->message);
+                        g_error_free (error);
+                }
+                g_debug ("System inhibitor fd is %d", manager->priv->inhibit_lid_switch_fd);
+                g_object_unref (fd_list);
+                g_variant_unref (res);
+        }
+}
+
+static void
+inhibit_lid_switch (GsdPowerManager *manager)
+{
+        GVariant *params;
+
+        if (manager->priv->inhibit_lid_switch_taken) {
+                g_debug ("already inhibited lid-switch");
+                return;
+        }
+        g_debug ("Adding lid switch system inhibitor");
+        manager->priv->inhibit_lid_switch_taken = TRUE;
+
+        params = g_variant_new ("(ssss)",
+                                "handle-lid-switch",
+                                g_get_user_name (),
+                                "Multiple displays attached",
+                                "block");
+        g_dbus_proxy_call_with_unix_fd_list (manager->priv->logind_proxy,
+                                             "Inhibit",
+                                             params,
+                                             0,
+                                             G_MAXINT,
+                                             NULL,
+                                             NULL,
+                                             inhibit_lid_switch_done,
+                                             manager);
+}
+
+static void
+uninhibit_lid_switch (GsdPowerManager *manager)
+{
+        if (manager->priv->inhibit_lid_switch_fd == -1) {
+                g_debug ("no lid-switch inhibitor");
+                return;
+        }
+        g_debug ("Removing lid switch system inhibitor");
+        close (manager->priv->inhibit_lid_switch_fd);
+        manager->priv->inhibit_lid_switch_fd = -1;
+        manager->priv->inhibit_lid_switch_taken = FALSE;
+}
+
+static void
+inhibit_suspend_done (GObject      *source,
+                      GAsyncResult *result,
+                      gpointer      user_data)
+{
+        GDBusProxy *proxy = G_DBUS_PROXY (source);
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+        GError *error = NULL;
+        GVariant *res;
+        GUnixFDList *fd_list = NULL;
+        gint idx;
+
+        res = g_dbus_proxy_call_with_unix_fd_list_finish (proxy, &fd_list, result, &error);
+        if (res == NULL) {
+                g_warning ("Unable to inhibit suspend: %s", error->message);
+                g_error_free (error);
+        } else {
+                g_variant_get (res, "(h)", &idx);
+                manager->priv->inhibit_suspend_fd = g_unix_fd_list_get (fd_list, idx, &error);
+                if (manager->priv->inhibit_suspend_fd == -1) {
+                        g_warning ("Failed to receive system inhibitor fd: %s", error->message);
+                        g_error_free (error);
+                }
+                g_debug ("System inhibitor fd is %d", manager->priv->inhibit_suspend_fd);
+                g_object_unref (fd_list);
+                g_variant_unref (res);
+        }
+}
+
+/* We take a delay inhibitor here, which causes logind to send a
+ * PrepareToSleep signal, which gives us a chance to lock the screen
+ * and do some other preparations.
+ */
+static void
+inhibit_suspend (GsdPowerManager *manager)
+{
+        if (manager->priv->inhibit_suspend_taken) {
+                g_debug ("already inhibited lid-switch");
+                return;
+        }
+        g_debug ("Adding suspend delay inhibitor");
+        manager->priv->inhibit_suspend_taken = TRUE;
+        g_dbus_proxy_call_with_unix_fd_list (manager->priv->logind_proxy,
+                                             "Inhibit",
+                                             g_variant_new ("(ssss)",
+                                                            "sleep",
+                                                            g_get_user_name (),
+                                                            "GNOME needs to lock the screen",
+                                                            "delay"),
+                                             0,
+                                             G_MAXINT,
+                                             NULL,
+                                             NULL,
+                                             inhibit_suspend_done,
+                                             manager);
+}
+
+static void
+uninhibit_suspend (GsdPowerManager *manager)
+{
+        if (manager->priv->inhibit_suspend_fd == -1) {
+                g_debug ("no suspend delay inhibitor");
+                return;
+        }
+        g_debug ("Removing suspend delay inhibitor");
+        close (manager->priv->inhibit_suspend_fd);
+        manager->priv->inhibit_suspend_fd = -1;
+        manager->priv->inhibit_suspend_taken = FALSE;
+}
+
+static gboolean
+randr_output_is_on (GnomeRROutput *output)
+{
+	GnomeRRCrtc *crtc;
+
+	crtc = gnome_rr_output_get_crtc (output);
+	if (!crtc)
+		return FALSE;
+	return gnome_rr_crtc_get_current_mode (crtc) != NULL;
+}
+
+static gboolean
+external_monitor_is_connected (GnomeRRScreen *screen)
+{
+        GnomeRROutput **outputs;
+        guint i;
+
+        if (g_file_test ("/tmp/external_connected", G_FILE_TEST_EXISTS))
+                return TRUE;
+
+        /* see if we have more than one screen plugged in */
+        outputs = gnome_rr_screen_list_outputs (screen);
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (randr_output_is_on (outputs[i]) &&
+                    !gnome_rr_output_is_laptop (outputs[i]))
+                        return TRUE;
+        }
+
+        return FALSE;
+}
+
+static void
+on_randr_event (GnomeRRScreen *screen, gpointer user_data)
+{
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        /* when a second monitor is plugged in, we take the
+         * handle-lid-switch inhibitor lock of logind to prevent
+         * it from suspending.
+         *
+         * Uninhibiting is done in the inhibit_lid_switch_timer,
+         * since we want to give users a few seconds when unplugging
+         * and replugging an external monitor, not suspend right away.
+         */
+        if (external_monitor_is_connected (screen) &&
+            !g_settings_get_boolean (manager->priv->settings,
+                                     "lid-close-suspend-with-external-monitor")) {
+                inhibit_lid_switch (manager);
+                setup_inhibit_lid_switch_timer (manager);
+        }
+        else {
+                restart_inhibit_lid_switch_timer (manager);
+        }
+}
+
+static gboolean
+screen_lock_done_cb (gpointer data)
+{
+        GsdPowerManager *manager = data;
+
+        /* lift the delay inhibit, so logind can proceed */
+        uninhibit_suspend (manager);
+
+        return FALSE;
+}
+
+static void
+handle_suspend_actions (GsdPowerManager *manager)
+{
+        gboolean ret;
+        GError *error = NULL;
+
+        /* ensure we turn the panel back on after resume */
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                                             GNOME_RR_DPMS_ON,
+                                             &error);
+        if (!ret) {
+                g_warning ("failed to turn the panel on after resume: %s",
+                           error->message);
+                g_error_free (error);
+        }
+
+        lock_screensaver (manager, screen_lock_done_cb);
+}
+
+static void
+handle_resume_actions (GsdPowerManager *manager)
+{
+        gboolean ret;
+        GError *error = NULL;
+
+        /* this displays the unlock dialogue so the user doesn't have
+         * to move the mouse or press any key before the window comes up */
+        g_dbus_connection_call (manager->priv->connection,
+                                GS_DBUS_NAME,
+                                GS_DBUS_PATH,
+                                GS_DBUS_INTERFACE,
+                                "SimulateUserActivity",
+                                NULL, NULL,
+                                G_DBUS_CALL_FLAGS_NONE, -1,
+                                NULL, NULL, NULL);
+
+        /* close existing notifications on resume, the system power
+         * state is probably different now */
+        notify_close_if_showing (manager->priv->notification_low);
+        notify_close_if_showing (manager->priv->notification_discharging);
+
+        /* ensure we turn the panel back on after resume */
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                                             GNOME_RR_DPMS_ON,
+                                             &error);
+        if (!ret) {
+                g_warning ("failed to turn the panel on after resume: %s",
+                           error->message);
+                g_error_free (error);
+        }
+
+        /* set up the delay again */
+        inhibit_suspend (manager);
+}
+
+static void
+logind_proxy_signal_cb (GDBusProxy  *proxy,
+                        const gchar *sender_name,
+                        const gchar *signal_name,
+                        GVariant    *parameters,
+                        gpointer     user_data)
+{
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+        gboolean is_about_to_suspend;
+
+        if (g_strcmp0 (signal_name, "PrepareForSleep") != 0)
+                return;
+        g_variant_get (parameters, "(b)", &is_about_to_suspend);
+        if (is_about_to_suspend) {
+                handle_suspend_actions (manager);
+        } else {
+                handle_resume_actions (manager);
+        }
+}
+
 gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
@@ -3665,6 +3874,25 @@ gsd_power_manager_start (GsdPowerManager *manager,
 
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
+
+        manager->priv->logind_proxy =
+                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               0,
+                                               NULL,
+                                               SYSTEMD_DBUS_NAME,
+                                               SYSTEMD_DBUS_PATH,
+                                               SYSTEMD_DBUS_INTERFACE,
+                                               NULL,
+                                               error);
+        if (manager->priv->logind_proxy == NULL) {
+                g_warning ("no systemd support");
+                return FALSE;
+        }
+        g_signal_connect (manager->priv->logind_proxy, "g-signal",
+                          G_CALLBACK (logind_proxy_signal_cb),
+                          manager);
+        /* Set up a delay inhibitor to be informed about suspend attempts */
+        inhibit_suspend (manager);
 
         /* track the active session */
         manager->priv->session = gnome_settings_session_new ();
@@ -3680,10 +3908,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
         manager->priv->up_client = up_client_new ();
-        g_signal_connect (manager->priv->up_client, "notify-sleep",
-                          G_CALLBACK (upower_notify_sleep_cb), manager);
-        g_signal_connect (manager->priv->up_client, "notify-resume",
-                          G_CALLBACK (upower_notify_resume_cb), manager);
         manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
         g_signal_connect (manager->priv->up_client, "device-added",
                           G_CALLBACK (engine_device_added_cb), manager);
@@ -3792,6 +4016,9 @@ gsd_power_manager_start (GsdPowerManager *manager,
         manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
         if (manager->priv->x11_screen == NULL)
                 return FALSE;
+        g_signal_connect (manager->priv->x11_screen, "changed", G_CALLBACK (on_randr_event), manager);
+        /* set up initial state */
+        on_randr_event (manager->priv->x11_screen, manager);
 
         /* ensure the default dpms timeouts are cleared */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
@@ -3821,6 +4048,11 @@ gsd_power_manager_stop (GsdPowerManager *manager)
 {
         g_debug ("Stopping power manager");
 
+        if (manager->priv->inhibit_lid_switch_timer_id != 0) {
+                g_source_remove (manager->priv->inhibit_lid_switch_timer_id);
+                manager->priv->inhibit_lid_switch_timer_id = 0;
+        }
+
         if (manager->priv->bus_cancellable != NULL) {
                 g_cancellable_cancel (manager->priv->bus_cancellable);
                 g_object_unref (manager->priv->bus_cancellable);
@@ -3832,8 +4064,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
                 manager->priv->introspection_data = NULL;
         }
 
-        kill_lid_close_safety_timer (manager);
-
         g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
 
         g_clear_object (&manager->priv->connection);
@@ -3841,6 +4071,19 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->settings_screensaver);
         g_clear_object (&manager->priv->up_client);
+
+        if (manager->priv->inhibit_lid_switch_fd != -1) {
+                close (manager->priv->inhibit_lid_switch_fd);
+                manager->priv->inhibit_lid_switch_fd = -1;
+                manager->priv->inhibit_lid_switch_taken = FALSE;
+        }
+        if (manager->priv->inhibit_suspend_fd != -1) {
+                close (manager->priv->inhibit_suspend_fd);
+                manager->priv->inhibit_suspend_fd = -1;
+                manager->priv->inhibit_suspend_taken = FALSE;
+        }
+
+        g_clear_object (&manager->priv->logind_proxy);
         g_clear_object (&manager->priv->x11_screen);
 
         g_ptr_array_unref (manager->priv->devices_array);
@@ -3874,6 +4117,8 @@ static void
 gsd_power_manager_init (GsdPowerManager *manager)
 {
         manager->priv = GSD_POWER_MANAGER_GET_PRIVATE (manager);
+        manager->priv->inhibit_lid_switch_fd = -1;
+        manager->priv->inhibit_suspend_fd = -1;
 }
 
 static void

@@ -39,6 +39,7 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <gio/gdesktopappinfo.h>
+#include <gio/gunixfdlist.h>
 
 #ifdef HAVE_GUDEV
 #include <gudev/gudev.h>
@@ -52,7 +53,6 @@
 #include "shortcuts-list.h"
 #include "gsd-osd-window.h"
 #include "gsd-input-helper.h"
-#include "gsd-power-helper.h"
 #include "gsd-enums.h"
 
 #include <canberra.h>
@@ -102,6 +102,10 @@ static const gchar introspection_xml[] =
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
 
+#define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
+#define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
+#define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
+
 #define GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MEDIA_KEYS_MANAGER, GsdMediaKeysManagerPrivate))
 
 typedef struct {
@@ -145,9 +149,12 @@ struct GsdMediaKeysManagerPrivate
 
         /* Power stuff */
         GSettings       *power_settings;
-        GDBusProxy      *upower_proxy;
         GDBusProxy      *power_screen_proxy;
         GDBusProxy      *power_keyboard_proxy;
+
+        /* systemd stuff */
+        GDBusProxy      *logind_proxy;
+        gint             inhibit_keys_fd;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -1608,6 +1615,38 @@ do_toggle_contrast_action (GsdMediaKeysManager *manager)
 }
 
 static void
+power_action_suspend (GsdMediaKeysManager *manager)
+{
+#ifndef HAVE_SYSTEMD
+        g_warning ("no systemd support");
+        return;
+#endif
+        g_dbus_proxy_call (manager->priv->logind_proxy,
+                           "Suspend",
+                           g_variant_new ("(b)", TRUE),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           G_MAXINT,
+                           manager->priv->bus_cancellable,
+                           NULL, NULL);
+}
+
+static void
+power_action_hibernate (GsdMediaKeysManager *manager)
+{
+#ifndef HAVE_SYSTEMD
+        g_warning ("no systemd support");
+        return;
+#endif
+        g_dbus_proxy_call (manager->priv->logind_proxy,
+                           "Hibernate",
+                           g_variant_new ("(b)", TRUE),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           G_MAXINT,
+                           manager->priv->bus_cancellable,
+                           NULL, NULL);
+}
+
+static void
 do_config_power_action (GsdMediaKeysManager *manager,
                         const gchar *config_key)
 {
@@ -1617,14 +1656,14 @@ do_config_power_action (GsdMediaKeysManager *manager,
                                            config_key);
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
-                gsd_power_suspend (manager->priv->upower_proxy);
+                power_action_suspend (manager);
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
         case GSD_POWER_ACTION_SHUTDOWN:
                 gnome_session_shutdown (manager);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                gsd_power_hibernate (manager->priv->upower_proxy);
+                power_action_hibernate (manager);
                 break;
         case GSD_POWER_ACTION_BLANK:
         case GSD_POWER_ACTION_NOTHING:
@@ -2238,6 +2277,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         }
 #endif /* HAVE_GUDEV */
 
+        g_clear_object (&priv->logind_proxy);
         if (priv->settings) {
                 g_object_unref (priv->settings);
                 priv->settings = NULL;
@@ -2256,11 +2296,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         if (priv->power_keyboard_proxy) {
                 g_object_unref (priv->power_keyboard_proxy);
                 priv->power_keyboard_proxy = NULL;
-        }
-
-        if (priv->upower_proxy) {
-                g_object_unref (priv->upower_proxy);
-                priv->upower_proxy = NULL;
         }
 
         if (priv->cancellable != NULL) {
@@ -2353,9 +2388,85 @@ gsd_media_keys_manager_class_init (GsdMediaKeysManagerClass *klass)
 }
 
 static void
+inhibit_done (GObject      *source,
+              GAsyncResult *result,
+              gpointer      user_data)
+{
+        GDBusProxy *proxy = G_DBUS_PROXY (source);
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+        GError *error = NULL;
+        GVariant *res;
+        GUnixFDList *fd_list = NULL;
+        gint idx;
+
+        res = g_dbus_proxy_call_with_unix_fd_list_finish (proxy, &fd_list, result, &error);
+        if (res == NULL) {
+                g_warning ("Unable to inhibit keypresses: %s", error->message);
+                g_error_free (error);
+        } else {
+                g_variant_get (res, "(h)", &idx);
+                manager->priv->inhibit_keys_fd = g_unix_fd_list_get (fd_list, idx, &error);
+                if (manager->priv->inhibit_keys_fd == -1) {
+                        g_warning ("Failed to receive system inhibitor fd: %s", error->message);
+                        g_error_free (error);
+                }
+                g_debug ("System inhibitor fd is %d", manager->priv->inhibit_keys_fd);
+                g_object_unref (fd_list);
+                g_variant_unref (res);
+        }
+}
+
+static void
 gsd_media_keys_manager_init (GsdMediaKeysManager *manager)
 {
+        GError *error;
+        GDBusConnection *bus;
+
+        error = NULL;
         manager->priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+
+        bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &error);
+        if (bus == NULL) {
+                g_warning ("Failed to connect to system bus: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+
+        manager->priv->logind_proxy =
+                g_dbus_proxy_new_sync (bus,
+                                       0,
+                                       NULL,
+                                       SYSTEMD_DBUS_NAME,
+                                       SYSTEMD_DBUS_PATH,
+                                       SYSTEMD_DBUS_INTERFACE,
+                                       NULL,
+                                       &error);
+
+        if (manager->priv->logind_proxy == NULL) {
+                g_warning ("Failed to connect to systemd: %s",
+                           error->message);
+                g_error_free (error);
+        }
+
+        g_object_unref (bus);
+
+        g_debug ("Adding system inhibitors for power keys");
+        manager->priv->inhibit_keys_fd = -1;
+        g_dbus_proxy_call_with_unix_fd_list (manager->priv->logind_proxy,
+                                             "Inhibit",
+                                             g_variant_new ("(ssss)",
+                                                            "handle-power-key:handle-suspend-key:handle-hibernate-key",
+                                                            g_get_user_name (),
+                                                            "GNOME handling keypresses",
+                                                            "block"),
+                                             0,
+                                             G_MAXINT,
+                                             NULL,
+                                             NULL,
+                                             inhibit_done,
+                                             manager);
+
 }
 
 static void
@@ -2372,6 +2483,8 @@ gsd_media_keys_manager_finalize (GObject *object)
 
         if (media_keys_manager->priv->start_idle_id != 0)
                 g_source_remove (media_keys_manager->priv->start_idle_id);
+        if (media_keys_manager->priv->inhibit_keys_fd != -1)
+                close (media_keys_manager->priv->inhibit_keys_fd);
 
         G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->finalize (object);
 }
@@ -2386,21 +2499,6 @@ xrandr_ready_cb (GObject             *source_object,
         manager->priv->xrandr_proxy = g_dbus_proxy_new_finish (res, &error);
         if (manager->priv->xrandr_proxy == NULL) {
                 g_warning ("Failed to get proxy for XRandR operations: %s", error->message);
-                g_error_free (error);
-        }
-}
-
-static void
-upower_ready_cb (GObject             *source_object,
-                 GAsyncResult        *res,
-                 GsdMediaKeysManager *manager)
-{
-        GError *error = NULL;
-
-        manager->priv->upower_proxy = g_dbus_proxy_new_finish (res, &error);
-        if (manager->priv->upower_proxy == NULL) {
-                g_warning ("Failed to get proxy for upower: %s",
-                           error->message);
                 g_error_free (error);
         }
 }
@@ -2507,16 +2605,6 @@ register_manager (GsdMediaKeysManager *manager)
                    manager->priv->bus_cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
-
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                  G_DBUS_PROXY_FLAGS_NONE,
-                                  NULL,
-                                  "org.freedesktop.UPower",
-                                  "/org/freedesktop/UPower",
-                                  "org.freedesktop.UPower",
-                                  NULL,
-                                  (GAsyncReadyCallback) upower_ready_cb,
-                                  manager);
 }
 
 GsdMediaKeysManager *
