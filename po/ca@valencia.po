@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-11 00:21+0200\n"
-"PO-Revision-Date: 2012-03-05 23:18+0100\n"
+"POT-Creation-Date: 2012-09-23 01:21+0200\n"
+"PO-Revision-Date: 2012-09-22 18:20+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca-XV\n"
@@ -719,7 +719,7 @@ msgstr "Nom de la vinculació personalitzada"
 # FIXME
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Binding"
-msgstr "Vinculació "
+msgstr "Vinculació"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Binding for the custom binding"
@@ -875,6 +875,7 @@ msgstr ""
 "Baixa automàticament les actualitzacions en segon pla sense confirmació"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#, fuzzy
 msgid ""
 "Automatically download updates in the background without confirmation. "
 "Updates will be auto-downloaded when using wired network connnections, and "
@@ -883,8 +884,8 @@ msgid ""
 msgstr ""
 "Baixa automàticament les actualitzacions en segon pla sense confirmació. Les "
 "actualitzacions es baixaran automàticament utilitzant les connexions de "
-"xarxa amb fil, amb Wi-Fi si «connection-use-wifi» està habilitat o amb banda "
-"ampla mòbil si «connection-use-mobile» està habilitat."
+"xarxa amb fil o amb banda ampla mòbil si «connection-use-mobile» està "
+"habilitat."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "Automatically install these types of updates"
@@ -987,12 +988,14 @@ msgstr ""
 "comprovar si hi ha actualitzacions. El valor és en segons."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+#, fuzzy
 msgid "Install updates automatically when running on battery power"
-msgstr "Instal·la actualitzacions automàticament en mode bateria"
+msgstr "Comprova si hi ha actualitzacions en mode bateria"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+#, fuzzy
 msgid "Install updates automatically when running on battery power."
-msgstr "Instal·la actualitzacions automàticament en mode bateria."
+msgstr "Comprova si hi ha actualitzacions en mode bateria."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
 msgid "Notify the user when distribution upgrades are available"
@@ -1108,7 +1111,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
-msgstr "Fitxer per a la configuració predeterminada del RandR"
+msgstr "Fitxer per a la configuració per defecte del RandR"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
@@ -1118,7 +1121,7 @@ msgid ""
 "such a file, or has one that does not match the user's setup of monitors, "
 "then the file specified by this key will be used instead."
 msgstr ""
-"El connector XRandR cercarà la configuració predeterminada en el fitxer "
+"El connector XRandR cercarà la configuració per defecte en el fitxer "
 "especificat per esta clau. Este és paregut al ~/.config/monitors.xml que "
 "normalment s'emmagatzema al directori d'usuari. Si un usuari no té este "
 "fitxer o en té un que no coincideix amb la configuració de monitors de "
@@ -1137,7 +1140,7 @@ msgid ""
 msgstr ""
 "«clone» (clona) mostrarà el mateix en tots els monitors, «dock» (acobla) "
 "apagarà el monitor intern, «do-nothing» (no faces res) utilitzarà el "
-"comportament predeterminat de l'Xorg (en versions recents ampliarà "
+"comportament per defecte de l'Xorg (en versions recents ampliarà "
 "l'escriptori)"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
@@ -1189,28 +1192,28 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "List of explicitly disabled GTK+ modules"
-msgstr "Llista de mòduls de GTK+ inhabilitats explícitament"
+msgstr "Llista de mòduls de la GTK+ inhabilitats explícitament"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
 msgstr ""
-"Una llista de cadenes que representen els mòduls de GTK+ que no es "
-"carregaran, encara que estiguen habilitats en la seua configuració "
-"predeterminada."
+"Una llista de cadenes que representen els mòduls de la GTK+ que no es "
+"carregaran, encara que estiguen habilitats en la seua configuració per "
+"defecte."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid "List of explicitly enabled GTK+ modules"
-msgstr "Llista de mòduls de GTK+ habilitats explícitament"
+msgstr "Llista de mòduls de la GTK+ habilitats explícitament"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
 msgstr ""
-"Una llista de cadenes que representen els mòduls de GTK+ que es carregaran, "
-"normalment a més dels condicionals i dels inhabilitats per força."
+"Una llista de cadenes que representen els mòduls de la GTK+ que es "
+"carregaran, normalment a més dels condicionals i dels inhabilitats per força."
 
 #: ../gnome-settings-daemon/main.c:54
 msgid "Enable debugging code"
@@ -2331,9 +2334,9 @@ msgstr "Bateria del portàtil baixa"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:1351
-#, c-format
+#, fuzzy, c-format
 msgid "Approximately <b>%s</b> remaining (%.0f%%)"
-msgstr "Queden aproximadament <b>%s</b> (%.0f%%)"
+msgstr "Queden aproximadament %s (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
 #: ../plugins/power/gsd-power-manager.c:1355
@@ -2342,9 +2345,9 @@ msgstr "SAI baix"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:1359
-#, c-format
+#, fuzzy, c-format
 msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
-msgstr "Queden aproximadament <b>%s</b> d'energia de reserva del SAI (%.0f%%)"
+msgstr "Queden aproximadament %s d'energia de reserva del SAI (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
@@ -2486,13 +2489,13 @@ msgstr "SAI críticament baix"
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1523
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
 "your computer to avoid losing data."
 msgstr ""
-"Queden aproximadament <b>%s</b> d'energia del SAI (%.0f%%). Connecteu "
-"l'ordinador a la xarxa elèctrica per evitar la pèrdua de dades."
+"Queden aproximadament %s d'energia del SAI (%.0f%%). Connecteu l'ordinador a "
+"la xarxa elèctrica per evitar la pèrdua de dades."
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1532
@@ -3092,8 +3095,9 @@ msgstr[1] "S'han omés alguns paquets:"
 
 #. TRANSLATORS: title: system update completed all okay
 #: ../plugins/updates/gsd-updates-manager.c:572
+#, fuzzy
 msgid "The system update has completed"
-msgstr "S'ha completat l'actualització del sistema"
+msgstr "No es va poder completar l'actualització."
 
 #. TRANSLATORS: restart computer as system packages need update
 #: ../plugins/updates/gsd-updates-manager.c:581
@@ -3268,6 +3272,90 @@ msgstr "Paràmetres d'X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Gestiona els paràmetres d'X"
+
+#~ msgid "Wacom tablet aspect ratio"
+#~ msgstr "Relació de l'aspecte de la tauleta gràfica Wacom"
+
+#~ msgid ""
+#~ "Enable this to restrict the Wacom tablet area to match the aspect ratio "
+#~ "of the output."
+#~ msgstr ""
+#~ "Habilita-ho per per restringir l'àrea de la tauleta gràfica Wacom perquè "
+#~ "coincideixi amb la relació d'aspecte de la sortida."
+
+#~ msgid "Switch input source"
+#~ msgstr "Commuta la font d'entrada"
+
+#~ msgid "Binding to select the next input source"
+#~ msgstr "Vinculació per seleccionar la font d'entrada següent"
+
+#~ msgid "Switch input source backward"
+#~ msgstr "Commuta la font d'entrada enrere"
+
+#~ msgid "Binding to select the previous input source"
+#~ msgstr "Vinculació per seleccionar la font d'entrada anterior"
+
+#~ msgid "Failed To Update"
+#~ msgstr "Ha fallat l'actualització"
+
+#~ msgid "A previous update was unfinished."
+#~ msgstr "No va finalitzar una actualització anterior."
+
+#~ msgid "Network access was required but not available."
+#~ msgstr "Es necessitava accés a la xarxa però no estava disponible."
+
+#~ msgid "An update was not signed in the correct way."
+#~ msgstr "Una actualització no estava signada de manera correcta."
+
+#~ msgid "The update was cancelled."
+#~ msgstr "Es va cancel·lar l'actualització."
+
+#~ msgid "An offline update was requested but no packages required updating."
+#~ msgstr ""
+#~ "Es va sol·licitar una actualització fora de línia però cap paquet "
+#~ "necessitava actualitzar-se."
+
+#~ msgid "No space was left on the drive."
+#~ msgstr "No quedava espai lliure a la unitat."
+
+#~ msgid "An update failed to install correctly."
+#~ msgstr "Va fallar la instal·lació d'una actualització."
+
+#~ msgid "The offline update failed in an unexpected way."
+#~ msgstr "L'actualització fora de línia va fallar de manera inesperada."
+
+#~ msgid "Detailed errors from the package manager follow:"
+#~ msgstr ""
+#~ "Ha continuació es mostren els errors detallats del gestor de paquets:"
+
+#~ msgid "Software Update Installed"
+#~ msgid_plural "Software Updates Installed"
+#~ msgstr[0] "S'ha instal·lat l'actualització de programari"
+#~ msgstr[1] "S'han instal·lat les actualitzacions de programari"
+
+#~ msgid "An important OS update has been installed."
+#~ msgid_plural "Important OS updates have been installed."
+#~ msgstr[0] ""
+#~ "S'ha instal·lat una actualització del sistema operatiu important."
+#~ msgstr[1] ""
+#~ "S'han instal·lat unes actualitzacions del sistema operatiu importants."
+
+#~ msgid "Software Updates Failed"
+#~ msgstr "Han fallat les actualitzacions de programari"
+
+#~ msgid "An important OS update failed to be installed."
+#~ msgstr ""
+#~ "Ha fallat la instal·lació d'una actualització del sistema operatiu "
+#~ "important."
+
+#~ msgid "Review"
+#~ msgstr "Revisa"
+
+#~ msgid "Show details"
+#~ msgstr "Mostra els detalls"
+
+#~ msgid "OK"
+#~ msgstr "D'acord"
 
 #~ msgid "Allowed keys"
 #~ msgstr "Tecles permeses"
@@ -4014,14 +4102,14 @@ msgstr "Gestiona els paràmetres d'X"
 #~ msgstr "Sincronitza els gestors text/plain i text/*"
 
 #~ msgid "Enable default editor plugin"
-#~ msgstr "Habilita el connector d'editor de text predeterminat"
+#~ msgstr "Habilita el connector d'editor de text per defecte"
 
 #~ msgid ""
 #~ "Set to True to enable the plugin to manage the default text editor "
 #~ "setting."
 #~ msgstr ""
 #~ "Establiu-ho a «True» (cert) per habilitar el connector per gestionar el "
-#~ "paràmetre d'editor de text predeterminat."
+#~ "paràmetre d'editor de text per defecte."
 
 #~ msgid "Key Binding (%s) has its action defined multiple times\n"
 #~ msgstr "L'assignació de tecla (%s) té l'acció definida múltiples vegades\n"
