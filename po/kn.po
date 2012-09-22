@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Shankar Prasad <svenkate@redhat.com>, 2008, 2009, 2010, 2011.
+# Shankar Prasad <svenkate@redhat.com>, 2008, 2009, 2010, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master.kn\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-21 10:21+0000\n"
-"PO-Revision-Date: 2011-04-02 17:56+0530\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-09-20 12:25+0000\n"
+"PO-Revision-Date: 2012-09-22 23:39+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
-"Language-Team: kn_IN <kde-i18n-doc@kde.org>\n"
+"Language-Team: Kannada <kde-i18n-doc@kde.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Lokalize 1.2\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
@@ -23,11 +24,13 @@ msgid "GNOME Settings Daemon"
 msgstr "GNOME ಸಿದ್ಧತೆಗಳ ಡೀಮನ್"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
-msgid "Command to be run when a device is added or removed."
-msgstr ""
+msgid "Smartcard removal action"
+msgstr "ಸ್ಮಾರ್ಟ್ ಕಾರ್ಡ್ ತೆಗೆದುಹಾಕುವಿಕೆ ಕ್ರಿಯೆ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
-msgid "Device hotplug custom command"
+msgid ""
+"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
+"action will get performed when the smartcard used for log in is removed."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
@@ -35,55 +38,30 @@ msgid "Disable touchpad while typing"
 msgstr "ಟೈಪ್ ಮಾಡುವಾಗ ಟಚ್‌ಪ್ಯಾಡನ್ನು ಅಶಕ್ತಗೊಳಿಸು"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
-msgid "Distance before a drag is started."
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
 msgstr ""
+"ಟೈಪಿಸುವಾಗ ಆಕಸ್ಮಿಕವಾಗಿ ಟಚ್‌ಪ್ಯಾಡ್ ಗೆ ಕೈ ತಾಗುವ ತೊಂದರೆ ಇದ್ದರೆ ಇದನ್ನು TRUE ಗೆ "
+"ಬದಲಾಯಿಸಿ."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
-msgid "Double click time"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
-msgid "Drag threshold"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Enable horizontal scrolling"
 msgstr "ಅಡ್ಡ ಚಲಿಸುವಿಕೆಯನ್ನು ಶಕ್ತಗೊಳಿಸು"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-msgid "Enable mouse clicks with touchpad"
-msgstr "ಟಚ್‌ಪ್ಯಾಡಿನಿಂದ ಮೌಸ್‌ಕ್ಲಿಕ್‌ಗಳನ್ನು ಶಕ್ತಗೊಳಿಸಿ"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
-#, fuzzy
-msgid "Enable touchpad"
-msgstr "ಟಚ್‌ಪ್ಯಾಡಿನಿಂದ ಮೌಸ್‌ಕ್ಲಿಕ್‌ಗಳನ್ನು ಶಕ್ತಗೊಳಿಸಿ"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
 msgid ""
-"Enables middle mouse button emulation through simultaneous left and right "
-"button click."
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
 msgstr ""
+"scroll_method ಕೀಲಿಯಿಂದ ಆರಿಸಲಾದ ವಿಧಾನದ ರೀತಿಯಲ್ಲಿಯೆ ಅಡ್ಡ ಚಲನೆಯನ್ನು ಅನುಮತಿಸಲು "
+"ಇದನ್ನು TRUE ಗೆ ಬದಲಾಯಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
-msgid ""
-"Highlights the current location of the pointer when the Control key is "
-"pressed and released."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
-msgid "Length of a double click in milliseconds."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
-msgid "Middle button emulation"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Select the touchpad scroll method"
 msgstr "ಟಚ್‌ಪ್ಯಾಡ್ ಚಲನೆಯ ವಿಧಾನವನ್ನು ಆರಿಸಿ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 #, fuzzy
 #| msgid ""
 #| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
@@ -92,112 +70,311 @@ msgid ""
 "Select the touchpad scroll method. Supported values are: \"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr ""
-"ಟಚ್‌ಪ್ಯಾಡ್ ಚಲನೆಯ ವಿಧಾನವನ್ನು ಆರಿಸಿ. ಬೆಂಬಲವಿರುವ ಮೌಲ್ಯಗಳೆಂದರೆ: 0 - ಅಶಕ್ತಗೊಂಡ, 1 - "
+"ಟಚ್‌ಪ್ಯಾಡ್ ಚಲನೆಯ ವಿಧಾನವನ್ನು ಆರಿಸಿ. ಬೆಂಬಲವಿರುವ ಮೌಲ್ಯಗಳೆಂದರೆ: 0 - ಅಶಕ್ತಗೊಂಡ, 1 "
+"- "
 "ಅಂಚಿನಲ್ಲಿ ಚಲನೆ, 2 - ಎರಡು ಬೆರಳಿನ ಚಲನೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "Enable mouse clicks with touchpad"
+msgstr "ಟಚ್‌ಪ್ಯಾಡಿನಿಂದ ಮೌಸ್‌ಕ್ಲಿಕ್‌ಗಳನ್ನು ಶಕ್ತಗೊಳಿಸಿ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
-"Set this to TRUE if you have problems with accidentally hitting the touchpad "
-"while typing."
-msgstr "ಟೈಪಿಸುವಾಗ ಆಕಸ್ಮಿಕವಾಗಿ ಟಚ್‌ಪ್ಯಾಡ್ ಗೆ ಕೈ ತಾಗುವ ತೊಂದರೆ ಇದ್ದರೆ ಇದನ್ನು TRUE ಗೆ ಬದಲಾಯಿಸಿ."
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"ಟಚ್‌ಪ್ಯಾಡ್‌ನಲ್ಲಿ ಮೆಲ್ಲಗೆ ತಟ್ಟುವುದರ ಮೂಲಕ ಮೌಸ್‌ ಕ್ಲಿಕ್‌ಗಳನ್ನು ಕಳುಹಿಸುವುದನ್ನು "
+"ಶಕ್ತಗೊಳಿಸಲು ಇದನ್ನು "
+"TRUE ಗೆ ಬದಲಾಯಿಸಿ."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid "Enable touchpad"
+msgstr "ಟಚ್‌ಪ್ಯಾಡನ್ನು ಸಕ್ರಿಯಗೊಳಿಸು"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "ಟಚ್‌ಪ್ಯಾಡ್‌ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಇದನ್ನು TRUE ಗೆ ಬದಲಾಯಿಸಿ."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+msgid ""
+"Highlights the current location of the pointer when the Control key is "
+"pressed and released."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+msgid "Double click time"
+msgstr "ಜೋಡಿ ಕ್ಲಿಕ್ ಸಮಯ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+msgid "Length of a double click in milliseconds."
+msgstr "ಜೋಡಿ-ಕ್ಲಿಕ್‌ನ (ಡಬಲ್ ಕ್ಲಿಕ್) ಗಾತ್ರ, ಮಿಲಿಸೆಕೆಂಡುಗಳಲ್ಲಿ."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid "Drag threshold"
+msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
-msgid ""
-"Set this to TRUE to allow horizontal scrolling by the same method selected "
-"with the scroll_method key."
-msgstr ""
-"scroll_method ಕೀಲಿಯಿಂದ ಆರಿಸಲಾದ ವಿಧಾನದ ರೀತಿಯಲ್ಲಿಯೆ ಅಡ್ಡ ಚಲನೆಯನ್ನು ಅನುಮತಿಸಲು "
-"ಇದನ್ನು TRUE ಗೆ ಬದಲಾಯಿಸಿ."
+msgid "Distance before a drag is started."
+msgstr "ಎಳೆಯುವಿಕೆಯನ್ನು ಆರಂಭಗೊಳಿಸುವುದಕ್ಕೂ ಮುಂಚಿನ ದೂರ."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
-msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgid "Middle button emulation"
 msgstr ""
-"ಟಚ್‌ಪ್ಯಾಡ್‌ನಲ್ಲಿ ಮೆಲ್ಲಗೆ ತಟ್ಟುವುದರ ಮೂಲಕ ಮೌಸ್‌ ಕ್ಲಿಕ್‌ಗಳನ್ನು ಕಳುಹಿಸುವುದನ್ನು ಶಕ್ತಗೊಳಿಸಲು ಇದನ್ನು "
-"TRUE ಗೆ ಬದಲಾಯಿಸಿ."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
-#, fuzzy
-msgid "Set this to TRUE to enable all touchpads."
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
 msgstr ""
-"ಟಚ್‌ಪ್ಯಾಡ್‌ನಲ್ಲಿ ಮೆಲ್ಲಗೆ ತಟ್ಟುವುದರ ಮೂಲಕ ಮೌಸ್‌ ಕ್ಲಿಕ್‌ಗಳನ್ನು ಕಳುಹಿಸುವುದನ್ನು ಶಕ್ತಗೊಳಿಸಲು ಇದನ್ನು "
-"TRUE ಗೆ ಬದಲಾಯಿಸಿ."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
-msgid ""
-"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-"action will get performed when the smartcard used for log in is removed."
+msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
-msgid "Smartcard removal action"
+msgid "Device hotplug custom command"
 msgstr ""
 
-#. g-p-m is not a GSD plugin, yet
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+msgid "Command to be run when a device is added or removed."
+msgstr "ಸಾಧನವನ್ನು ಸೇರಿಸಿದಾಗ ಅಥವ ತೆಗೆದುಹಾಕಿದಾಗ ಚಲಾಯಿಸಬೇಕಿರುವ ಆಜ್ಞೆ."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr ""
 
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
-msgid "Priority to use for this plugin"
-msgstr ""
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgstr "ಈ ಪ್ಲಗ್‌ಇನ್‌ ಅನ್ನು gnome-settings-daemon ಇಂದ ಸಕ್ರಿಯಗೊಳಿಸಬೇಕೆ ಅಥವ ಬೇಡವೆ"
 
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr ""
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "Priority to use for this plugin"
+msgstr "ಈ ಪ್ಲಗ್‌ಇನ್‌ಗಾಗಿ ಬಳಸಬೇಕಿರುವ ಆದ್ಯತೆ"
 
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgstr ""
+"ಈ ಪ್ಲಗ್‌ಇನ್‌ಗಾಗಿ gnome-settings-daemon ಆರಂಭದ ಸರತಿಯಲ್ಲಿ ಬಳಸಬೇಕಿರುವ ಆದ್ಯತೆ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Wacom stylus absolute mode"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
-msgid "Free percentage notify threshold"
-msgstr "ಮುಕ್ತ ಪ್ರತಿಶತ ಸೂಚನೆಯ ಮಿತಿ"
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the tablet to absolute mode."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+msgid "Wacom tablet area"
+msgstr "ವೇಕಾಮ್ ಕಿಸೆಗಣಕ (ಟ್ಯಾಬ್ಲೆಟ್) ಪ್ರದೇಶ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+msgid "Wacom tablet aspect ratio"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid ""
+"Enable this to restrict the Wacom tablet area to match the aspect ratio of "
+"the output."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+msgid "Wacom tablet rotation"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+msgid ""
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Wacom touch feature"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Enable this to move the cursor when the user touches the tablet."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Wacom tablet PC feature"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid "Wacom display mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid ""
+"EDID information of monitor to map tablet to. Must be in the format [vendor, "
+"product, serial]. [\"\",\"\",\"\"] disables mapping."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom stylus pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom stylus button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Set this to the logical button mapping."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom stylus pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid ""
+"Set this to the pressure value at which a stylus click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure curve"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom eraser button mapping"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom eraser pressure threshold"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom button action type"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "The type of action triggered by the button being pressed."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Key combination for the custom action"
+msgstr "ಅಗತ್ಯಾನುಗುಣ ಕ್ರಿಯೆಯ ಕೀಲಿ ಸಂಯೋಜನೆ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid ""
+"The keyboard shortcut generated when the button is pressed for custom "
+"actions."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Key combinations for an elevator custom action"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid ""
+"The keyboard shortcuts generated when a touchring or touchstrip is used for "
+"custom actions (up followed by down)."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+#| msgid "The selected configuration for displays could not be applied"
+msgid "The duration a display profile is valid"
+msgstr "ಮುದ್ರಕದ ಪ್ರೊಫೈಲ್ ಅಮಾನ್ಯತೆಯ ಕಾಲಾವಧಿ"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+msgid ""
+"This is the number of days after which the display color profile is "
+"considered invalid."
+msgstr ""
+"ಇಷ್ಟು ದಿನಗಳ ನಂತರ ಪ್ರದರ್ಶಕದ ಬಣ್ಣದ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಅಮಾನ್ಯವಾಗಿದೆ ಎಂದು "
+"ಪರಿಗಣಿಸಲಾಗುತ್ತದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid "The duration a printer profile is valid"
+msgstr "ಮುದ್ರಕದ ಪ್ರೊಫೈಲ್ ಮಾನ್ಯವಾಗಿರುವ ಕಾಲಾವಧಿ"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid ""
+"This is the number of days after which the printer color profile is "
+"considered invalid."
+msgstr ""
+"ಇಷ್ಟು ದಿನಗಳ ನಂತರ ಮುದ್ರಕದ ಬಣ್ಣದ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಅಮಾನ್ಯವಾಗಿದೆ ಎಂದು "
+"ಪರಿಗಣಿಸಲಾಗುತ್ತದೆ."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
-#, fuzzy
-#| msgid "Free space no notify threshold"
-msgid "Free space notify threshold"
-msgstr "ಮುಕ್ತ ಸ್ಥಳದ ಸೂಚನೆ ಇರದ ಮಿತಿ"
-
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
-msgid "Minimum notify period for repeated warnings"
-msgstr "ಪುನರಾವರ್ತಿತ ಎಚ್ಚರಿಕೆಗಳ ಕನಿಷ್ಟ ಸೂಚನಾ ಕಾಲಾವಧಿ"
-
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
 msgstr "ಆಲಕ್ಷಿಸಬೇಕಿರುವ ಆರೋಹಣಾ ಮಾರ್ಗಗಳು"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr ""
+"ಸ್ಥಳಾವಕಾಶವು ಕಡಿಮೆ ಇದ್ದಾಗ ಯಾವ ಆರೋಹಣಾ ಮಾರ್ಗಗಳ ಪಟ್ಟಿಯನ್ನು ಆಲಕ್ಷಿಸಬೇಕು ಎಂದು "
+"ಸೂಚಿಸಿ."
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+msgid "Free percentage notify threshold"
+msgstr "ಮುಕ್ತ ಪ್ರತಿಶತ ಸೂಚನೆಯ ಮಿತಿ"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 #, fuzzy
@@ -208,34 +385,17 @@ msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
 msgstr ""
-"ಕಡಿಮೆ ಡಿಸ್ಕ್ ಸ್ಥಳವಿದೆ ಎಂದು ಎಚ್ಚರಿಸಲು ಅಗತ್ಯವಿರುವ ಮುಕ್ತ ಸ್ಥಳದ ಪ್ರತಿಶತದ ಮಿತಿ. ಮುಕ್ತ ಸ್ಥಳದ "
+"ಕಡಿಮೆ ಡಿಸ್ಕ್ ಸ್ಥಳವಿದೆ ಎಂದು ಎಚ್ಚರಿಸಲು ಅಗತ್ಯವಿರುವ ಮುಕ್ತ ಸ್ಥಳದ ಪ್ರತಿಶತದ ಮಿತಿ. "
+"ಮುಕ್ತ ಸ್ಥಳದ "
 "ಪ್ರತಿಶತವು ಇದಕ್ಕಿಂತ ಕಡಿಮೆಯಾದಲ್ಲಿ, ಒಂದು ಎಚ್ಚರಿಕೆಯನ್ನು ತೋರಿಸಲಾಗುತ್ತದೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
-msgid "Specify a list of mount paths to ignore when they run low on space."
-msgstr "ಸ್ಥಳಾವಕಾಶವು ಕಡಿಮೆ ಇದ್ದಾಗ ಯಾವ ಆರೋಹಣಾ ಮಾರ್ಗಗಳ ಪಟ್ಟಿಯನ್ನು ಆಲಕ್ಷಿಸಬೇಕು ಎಂದು ಸೂಚಿಸಿ."
-
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
-msgid ""
-"Specify a time in minutes. Subsequent warnings for a volume will not appear "
-"more often than this period."
-msgstr ""
-"ಸಮಯವನ್ನು ನಿಮಿಷದಲ್ಲಿ ಸೂಚಿಸಿ. ಒಂದು ಪರಿಮಾಣಕ್ಕೆ ತರುವಾಯದ ಎಚ್ಚರಿಕೆಗಳು ಈ ಕಾಲಾವಧಿಯ ನಂತರ "
-"ಕಾಣಿಸಿಕೊಳ್ಳುವುದಿಲ್ಲ."
-
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #, fuzzy
-#| msgid ""
-#| "Specify an amount in GB. If the amount of free space is more than this, "
-#| "no warning will be shown"
-msgid ""
-"Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown."
-msgstr ""
-"ಪ್ರಮಾಣವನ್ನು GB ಯಲ್ಲಿ ಸೂಚಿಸಿ. ಮುಕ್ತ ಸ್ಥಳದ ಪ್ರಮಾಣವು ಇದಕ್ಕಿಂತ ಹೆಚ್ಚಿದ್ದಲ್ಲಿ, ಯಾವುದೆ "
-"ಎಚ್ಚರಿಕೆಗಳು ಕಾಣಿಸಿಕೊಳ್ಳುವುದಿಲ್ಲ"
+#| msgid "Subsequent free percentage notify threshold"
+msgid "Subsequent free space percentage notify threshold"
+msgstr "ಆನಂತರದ ಮುಕ್ತ ಪ್ರತಿಶತ ಸೂಚನಾ ಮಿತಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #, fuzzy
 #| msgid ""
 #| "Specify the percentage that the free disk space should reduce by before "
@@ -244,366 +404,493 @@ msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
 msgstr ""
-"ತರುವಾಯದ ಎಚ್ಚರಿಕೆಯನ್ನು ನೀಡುವ ಮೊದಲು ಡಿಸ್ಕಿನ ಮುಕ್ತ ಸ್ಥಳವು ಯಾವ ಪ್ರತಿಶತಕ್ಕೆ ಕಡಿಮೆ ಆಗ "
+"ತರುವಾಯದ ಎಚ್ಚರಿಕೆಯನ್ನು ನೀಡುವ ಮೊದಲು ಡಿಸ್ಕಿನ ಮುಕ್ತ ಸ್ಥಳವು ಯಾವ ಪ್ರತಿಶತಕ್ಕೆ ಕಡಿಮೆ "
+"ಆಗ "
 "ಬೇಕು ಎಂದು ಸೂಚಿಸಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 #, fuzzy
-#| msgid "Subsequent free percentage notify threshold"
-msgid "Subsequent free space percentage notify threshold"
-msgstr "ಆನಂತರದ ಮುಕ್ತ ಪ್ರತಿಶತ ಸೂಚನಾ ಮಿತಿ"
+#| msgid "Free space no notify threshold"
+msgid "Free space notify threshold"
+msgstr "ಮುಕ್ತ ಸ್ಥಳದ ಸೂಚನೆ ಇರದ ಮಿತಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+#, fuzzy
+#| msgid ""
+#| "Specify an amount in GB. If the amount of free space is more than this, "
+#| "no warning will be shown"
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown."
 msgstr ""
+"ಪ್ರಮಾಣವನ್ನು GB ಯಲ್ಲಿ ಸೂಚಿಸಿ. ಮುಕ್ತ ಸ್ಥಳದ ಪ್ರಮಾಣವು ಇದಕ್ಕಿಂತ ಹೆಚ್ಚಿದ್ದಲ್ಲಿ, "
+"ಯಾವುದೆ "
+"ಎಚ್ಚರಿಕೆಗಳು ಕಾಣಿಸಿಕೊಳ್ಳುವುದಿಲ್ಲ"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+msgid "Minimum notify period for repeated warnings"
+msgstr "ಪುನರಾವರ್ತಿತ ಎಚ್ಚರಿಕೆಗಳ ಕನಿಷ್ಟ ಸೂಚನಾ ಕಾಲಾವಧಿ"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
 msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
-msgid "Allowed keys"
-msgstr "ಅನುಮತಿ ಇರುವ ಕೀಲಿಗಳು"
+"ಸಮಯವನ್ನು ನಿಮಿಷದಲ್ಲಿ ಸೂಚಿಸಿ. ಒಂದು ಪರಿಮಾಣಕ್ಕೆ ತರುವಾಯದ ಎಚ್ಚರಿಕೆಗಳು ಈ ಕಾಲಾವಧಿಯ "
+"ನಂತರ "
+"ಕಾಣಿಸಿಕೊಳ್ಳುವುದಿಲ್ಲ."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
 #, fuzzy
-#| msgid "Binding to toggle the magnifier."
-msgid "Binding for the magnifier to zoom in"
-msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
+#| msgid "Keybindings"
+msgid "Custom keybindings"
+msgstr "ಕೀಲಿಬದ್ಧತೆಗಳು"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
-#, fuzzy
-#| msgid "Binding to toggle the magnifier."
-msgid "Binding for the magnifier to zoom out"
-msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
+msgid "List of custom keybindings"
+msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
-#, fuzzy
-#| msgid "Binding to raise the system volume."
-msgid "Binding to decrease the text size"
-msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+msgid "Launch calculator"
+msgstr "ಕ್ಯಾಲ್ಕುಲೇಟರನ್ನು ಆರಂಭಿಸು"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
-#, fuzzy
-#| msgid "Binding to eject an optical disk."
-msgid "Binding to eject an optical disc."
-msgstr "ಒಂದು ಆಪ್ಟಿಕಲ್ ಡಿಸ್ಕನ್ನು ಹೊರತಳ್ಳಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
-#, fuzzy
-msgid "Binding to enable or disable the touchpad."
-msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
-#, fuzzy
-#| msgid "Binding to raise the system volume."
-msgid "Binding to increase the text size"
-msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
 msgstr "ಕ್ಯಾಲ್ಕುಲೇಟರನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+msgid "Launch email client"
+msgstr "ಇಮೈಲ್ ಕ್ಲೈಂಟನ್ನು ಆರಂಭಿಸು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the email client."
 msgstr "ಇಮೈಲ್ ಕ್ಲೈಂಟನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+msgid "Eject"
+msgstr "ಹೊರತಳ್ಳು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#| msgid "Binding to eject an optical disk."
+msgid "Binding to eject an optical disc."
+msgstr "ಒಂದು ಆಪ್ಟಿಕಲ್ ಡಿಸ್ಕನ್ನು ಹೊರತಳ್ಳುವ ಬದ್ಧತೆ."
+
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+msgid "Launch help browser"
+msgstr "ನೆರವಿನ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the help browser."
 msgstr "ನೆರವಿನ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+msgid "Home folder"
+msgstr "ನೆಲೆ ಕಡತಕೋಶ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+msgid "Binding to open the Home folder."
+msgstr "ನೆಲೆ ಕಡತಕೋಶವನ್ನು ತೆರೆಯಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+msgid "Launch media player"
+msgstr "ಮೀಡಿಯಾ ಪ್ಲೇಯರನ್ನು ಆರಂಭಿಸು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to launch the media player."
 msgstr "ಮೀಡಿಯಾ ಪ್ಲೇಯರನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
-msgid "Binding to launch the search tool."
-msgstr "ಹುಡುಕು ಉಪಕರಣವನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
-msgid "Binding to launch the web browser."
-msgstr "ಜಾಲ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
-msgid "Binding to lock the screen."
-msgstr "ತೆರೆಯನ್ನು ಲಾಕ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
-msgid "Binding to log out."
-msgstr "ನಿರ್ಗಮಿಸಲು ಬದ್ಧವಾಗಿದೆ."
-
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
-msgid "Binding to lower the system volume."
-msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಕಡಿಮೆ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
+msgid "Next track"
+msgstr "ಮುಂದಿನ ಹಾಡು"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
-msgid "Binding to mute the system volume."
-msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಮೂಕಗೊಳಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+msgid "Binding to skip to next track."
+msgstr "ಮುಂದಿನ ಹಾಡಿಗೆ ಹೋಗಲು ಬದ್ಧವಾಗಿದೆ."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
-msgid "Binding to open the Home folder."
-msgstr "ನೆಲೆ ಕಡತಕೋಶವನ್ನು ತೆರೆಯಲು ಬದ್ಧವಾಗಿದೆ."
+msgid "Pause playback"
+msgstr "ಪ್ಲೇಬ್ಯಾಕನ್ನು ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತಗೊಳಿಸು"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "ಪ್ಲೇಬ್ಯಾಕ್ ಅನ್ನು ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತಗೊಳಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
-msgid "Binding to raise the system volume."
-msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
-#, fuzzy
-#| msgid "Binding to toggle the on-screen keyboard."
-msgid "Binding to show the on-screen keyboard"
-msgstr "ತೆರೆಯ ಮೇಲಣ ಕೀಲಿಮಣೆಯನ್ನು ಟಾಗಲ್‌ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
-#, fuzzy
-#| msgid "Binding to toggle the magnifier."
-msgid "Binding to show the screen magnifier"
-msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
-msgid "Binding to skip to next track."
-msgstr "ಮುಂದಿನ ಹಾಡಿಗೆ ಹೋಗಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
-msgid "Binding to skip to previous track."
-msgstr "ಹಿಂದಿನ ಹಾಡಿಗೆ ಹೋಗಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
-msgid "Binding to start playback (or toggle play/pause)."
-msgstr "ಪ್ಲೇಬ್ಯಾಕ್ ಅನ್ನು(ಅಥವ ಪ್ಲೇ/ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತದ ನಡುವೆ ಬದಲಾಯಿಸಲು) ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
-#, fuzzy
-#| msgid "Binding to toggle the screen reader."
-msgid "Binding to start the screen reader"
-msgstr "ತೆರೆ ಓದುಗನನ್ನು ಟಾಗಲ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
-msgid "Binding to stop playback."
-msgstr "ಪ್ಲೇಬ್ಯಾಕ್ ಅನ್ನು ನಿಲ್ಲಿಸಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
-#, fuzzy
-#| msgid "Binding to toggle the magnifier."
-msgid "Binding to toggle the interface contrast"
-msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
-msgid "Decrease text size"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
-msgid "Eject"
-msgstr "ಹೊರತಳ್ಳು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
-msgid "Home folder"
-msgstr "ನೆಲೆ ಕಡತಕೋಶ"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
-#, fuzzy
-#| msgid ""
-#| "If non-empty, keybindings will be ignored unless their GConf directory is "
-#| "in the list. This is useful for lockdown."
-msgid ""
-"If non-empty, keybindings will be ignored unless their settings directory is "
-"in the list. This is useful for lockdown."
-msgstr ""
-"ಖಾಲಿ ಇಲ್ಲದೆ ಹೋದಲ್ಲಿ, GConf ಕೋಶವು ಪಟ್ಟಿಯಲ್ಲಿ ಇರದ ಹೊರತು ಕೀಲಿಬೈಂಡಿಂಗ್‌ಗಳನ್ನು "
-"ಆಲಕ್ಷಿಸಲಾಗುವುದು. ಇದು ಒಂದು ಉಪಯುಕ್ತ ಲಾಕ್‌ಡೌನ್ ಆಗಿರುತ್ತದೆ."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
-msgid "Increase text size"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
-msgid "Launch calculator"
-msgstr "ಕ್ಯಾಲ್ಕುಲೇಟರನ್ನು ಆರಂಭಿಸು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
-msgid "Launch email client"
-msgstr "ಇಮೈಲ್ ಕ್ಲೈಂಟನ್ನು ಆರಂಭಿಸು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
-msgid "Launch help browser"
-msgstr "ನೆರವಿನ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
-msgid "Launch media player"
-msgstr "ಮೀಡಿಯಾ ಪ್ಲೇಯರನ್ನು ಆರಂಭಿಸು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
-msgid "Launch web browser"
-msgstr "ಜಾಲ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
-msgid "Lock screen"
-msgstr "ತೆರೆಯನ್ನು ಲಾಕ್ ಮಾಡು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
-msgid "Log out"
-msgstr "ನಿರ್ಗಮಿಸು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
-msgid "Magnifier zoom in"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
-msgid "Magnifier zoom out"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
-msgid "Next track"
-msgstr "ಮುಂದಿನ ಹಾಡು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
-msgid "Pause playback"
-msgstr "ಪ್ಲೇಬ್ಯಾಕನ್ನು ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತಗೊಳಿಸು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Play (or play/pause)"
 msgstr "ಪ್ಲೇ (ಅಥವ ಪ್ಲೇ/ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತ)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+msgid "Binding to start playback (or toggle play/pause)."
+msgstr ""
+"ಪ್ಲೇಬ್ಯಾಕ್ ಅನ್ನು(ಅಥವ ಪ್ಲೇ/ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತದ ನಡುವೆ ಬದಲಾಯಿಸಲು) ಆರಂಭಿಸಲು "
+"ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+msgid "Log out"
+msgstr "ನಿರ್ಗಮಿಸು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+msgid "Binding to log out."
+msgstr "ನಿರ್ಗಮಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Previous track"
 msgstr "ಹಿಂದಿನ ಹಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+msgid "Binding to skip to previous track."
+msgstr "ಹಿಂದಿನ ಹಾಡಿಗೆ ಹೋಗಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+msgid "Lock screen"
+msgstr "ತೆರೆಯನ್ನು ಲಾಕ್ ಮಾಡು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+msgid "Binding to lock the screen."
+msgstr "ತೆರೆಯನ್ನು ಲಾಕ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Search"
 msgstr "ಹುಡುಕು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+msgid "Binding to launch the search tool."
+msgstr "ಹುಡುಕು ಉಪಕರಣವನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Stop playback"
 msgstr "ಪ್ಲೇಬ್ಯಾಕನ್ನು ನಿಲ್ಲಿಸು"
 
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+msgid "Binding to stop playback."
+msgstr "ಪ್ಲೇಬ್ಯಾಕ್ ಅನ್ನು ನಿಲ್ಲಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+msgid "Volume down"
+msgstr "ಧ್ವನಿ ಪ್ರಮಾಣ ಇಳಿಕೆ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+msgid "Binding to lower the system volume."
+msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಕಡಿಮೆ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+msgid "Volume mute"
+msgstr "ಧ್ವನಿ ಪ್ರಮಾಣ ಮೂಕ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+msgid "Binding to mute the system volume."
+msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಮೂಕಗೊಳಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+msgid "Volume up"
+msgstr "ಧ್ವನಿ ಪ್ರಮಾಣ ಏರಿಕೆ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+msgid "Binding to raise the system volume."
+msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+msgid "Take a screenshot"
+msgstr "ತೆರೆಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#| msgid "Binding to lock the screen."
+msgid "Binding to take a screenshot."
+msgstr "ತೆರೆಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Take a screenshot of a window"
+msgstr "ಕಿಟಕಿಯ ತೆರೆಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#| msgid "Binding to toggle the screen reader."
+msgid "Binding to take a screenshot of a window."
+msgstr "ಕಿಟಕಿಯ ತೆರೆಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳುವ ಬದ್ಧತೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+msgid "Take a screenshot of an area"
+msgstr "ಒಂದು ಜಾಗದ ತೆರೆಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#| msgid "Binding to toggle the screen reader."
+msgid "Binding to take a screenshot of an area."
+msgstr "ಒಂದು ಜಾಗದ ತೆರೆ ಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+msgid "Copy a screenshot to clipboard"
+msgstr "ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#| msgid "Binding to toggle the on-screen keyboard."
+msgid "Binding to copy a screenshot to clipboard."
+msgstr "ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡುವ ಬದ್ಧತೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+msgid "Copy a screenshot of a window to clipboard"
+msgstr "ಕಿಟಕಿಯ ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+msgid "Binding to copy a screenshot of a window to clipboard."
+msgstr "ಕಿಟಕಿಯ ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡುವ ಬದ್ಧತೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+msgid "Copy a screenshot of an area to clipboard"
+msgstr "ಒಂದು ಜಾಗದ ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡು"
+
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+msgid "Binding to copy a screenshot of an area to clipboard."
+msgstr "ಒಂದು ಜಾಗದ ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡುವ ಬದ್ಧತೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+msgid "Launch web browser"
+msgstr "ಜಾಲ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+msgid "Binding to launch the web browser."
+msgstr "ಜಾಲ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+msgid "Toggle magnifier"
+msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to show the screen magnifier"
+msgstr "ತೆರೆಯ ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ತೋರಿಸಲು ಬದ್ಧವಾಗಿದೆ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+msgid "Toggle screen reader"
+msgstr "ತೆರೆ ಓದುಗನನ್ನು ಟಾಗಲ್ ಮಾಡು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#| msgid "Binding to toggle the screen reader."
+msgid "Binding to start the screen reader"
+msgstr "ತೆರೆಯ ಓದುಗನನ್ನು ತೋರಿಸಲು ಬದ್ಧವಾಗಿದೆ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+msgid "Toggle on-screen keyboard"
+msgstr "ತೆರೆಯ ಮೇಲಣ ಕೀಲಿ ಮಣೆಯನ್ನು ಟಾಗಲ್ ಮಾಡು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#| msgid "Binding to toggle the on-screen keyboard."
+msgid "Binding to show the on-screen keyboard"
+msgstr "ತೆರೆಯ-ಮೇಲಣ ಕೀಲಿಮಣೆಯನ್ನು ತೋರಿಸಲು ಬದ್ಧವಾಗಿದೆ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+msgid "Increase text size"
+msgstr "ಪಠ್ಯದ ಗಾತ್ರವನ್ನು ಹೆಚ್ಚಿಸು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#| msgid "Binding to raise the system volume."
+msgid "Binding to increase the text size"
+msgstr "ಪಠ್ಯದ ಗಾತ್ರವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+msgid "Decrease text size"
+msgstr "ಪಠ್ಯದ ಗಾತ್ರವನ್ನು ಕುಗ್ಗಿಸು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#, fuzzy
+#| msgid "Binding to raise the system volume."
+msgid "Binding to decrease the text size"
+msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 #, fuzzy
 #| msgid "Toggle screen reader"
 msgid "Toggle contrast"
 msgstr "ತೆರೆ ಓದುಗನನ್ನು ಟಾಗಲ್ ಮಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
-msgid "Toggle magnifier"
-msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡು"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#, fuzzy
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to toggle the interface contrast"
+msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
-msgid "Toggle on-screen keyboard"
-msgstr "ತೆರೆಯ ಮೇಲಣ ಕೀಲಿ ಮಣೆಯನ್ನು ಟಾಗಲ್ ಮಾಡು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
-msgid "Toggle screen reader"
-msgstr "ತೆರೆ ಓದುಗನನ್ನು ಟಾಗಲ್ ಮಾಡು"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
-msgid "Toggle touchpad"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+msgid "Magnifier zoom in"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
-msgid "Volume down"
-msgstr "ಧ್ವನಿ ಪ್ರಮಾಣ ಇಳಿಕೆ"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#, fuzzy
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding for the magnifier to zoom in"
+msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
-msgid "Volume mute"
-msgstr "ಧ್ವನಿ ಪ್ರಮಾಣ ಮೂಕ"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
-msgid "Volume up"
-msgstr "ಧ್ವನಿ ಪ್ರಮಾಣ ಏರಿಕೆ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
-msgid "Ask the user if additional firmware should be installed"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+msgid "Magnifier zoom out"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
-msgid "Ask the user if additional firmware should be installed if it is available."
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#, fuzzy
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding for the magnifier to zoom out"
+msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+msgid "Switch input source"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
-msgid "Automatically download updates in the background without confirmation"
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#, fuzzy
+#| msgid "Binding to skip to next track."
+msgid "Binding to select the next input source"
+msgstr "ಮುಂದಿನ ಹಾಡಿಗೆ ಹೋಗಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+msgid "Switch input source backward"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#, fuzzy
+#| msgid "Binding to skip to previous track."
+msgid "Binding to select the previous input source"
+msgstr "ಹಿಂದಿನ ಹಾಡಿಗೆ ಹೋಗಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+msgid "Name"
+msgstr "ಹೆಸರು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+msgid "Name of the custom binding"
+msgstr "ಅಗತ್ಯಾನುಗುಣ ಬದ್ಧತೆಯ ಹೆಸರು"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+#| msgid "Keybindings"
+msgid "Binding"
+msgstr "ಬದ್ಧತೆ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding for the custom binding"
+msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಹೊರಳಿಸಲು ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
+msgid "Command"
+msgstr "ಆಜ್ಞೆ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
+msgid "Command to run when the binding is invoked"
+msgstr "ಬದ್ಧತೆಯನ್ನು ರದ್ದುಗೊಳಿಸಿದಾಗ ಚಲಾಯಿಸಬೇಕಿರುವ ಆಜ್ಞೆ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Percentage considered low"
+msgstr "ಕಡಿಮೆ ಪರಿಗಣಿಸಲಾಗುವ ಪ್ರತಿಶತ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid ""
+"The percentage of the battery when it is considered low. Only valid when use-"
+"time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Percentage considered critical"
+msgstr "ಗಂಭೀರ ಪರಿಗಣಿಸಲಾಗುವ ಪ್ರತಿಶತ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+msgid ""
+"The percentage of the battery when it is considered critical. Only valid "
+"when use-time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+msgid "Percentage action is taken"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The percentage of the battery when the critical action is performed. Only "
+"valid when use-time-for-policy is false."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid "The time remaining when low"
+msgstr "ಕಡಿಮೆ ಇದ್ದಾಗ ಬಾಕಿ ಇರುವ ಸಮಯ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+msgid ""
+"The time remaining in seconds of the battery when it is considered low. Only "
+"valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+msgid "The time remaining when critical"
+msgstr "ಗಂಭೀರ ಸ್ಥಿತಿಯಲ್ಲಿದ್ದಾಗ ಬಾಕಿ ಇರುವ ಸಮಯ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid ""
+"The time remaining in seconds of the battery when it is considered critical. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+msgid "The time remaining when action is taken"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+msgid ""
+"The time remaining in seconds of the battery when critical action is taken. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+msgid "Whether to use time-based notifications"
+msgstr "ಸಮಯ-ಆಧರಿತವಾದ ಸೂಚನೆಗಳನ್ನು ಬಳಸಬೇಕೆ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+msgid ""
+"If time based notifications should be used. If set to false, then the "
+"percentage change is used instead, which may fix a broken ACPI BIOS."
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
+msgid "If we should show the recalled battery warning for a broken battery"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
+msgid ""
+"If we should show the recalled battery warning for a broken battery. Set "
+"this to false only if you know your battery is okay."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
-msgid ""
-"Automatically download updates in the background without confirmation. "
-"Updates will be auto-downloaded when using wired network connnections, and "
-"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
-"'connection-use-mobile' is enabled."
-msgstr ""
+msgid "Use mobile broadband connections"
+msgstr "ಮೊಬೈಲ್ ಬ್ರಾಡ್‌ಬ್ಯಾಂಡ್ ಸಂಪರ್ಕಗಳನ್ನು ಬಳಸು"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid "Automatically update these types of updates"
+msgid ""
+"Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
+"ಅಪ್‌ಡೇಟ್‌ಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸಲು GSM ಮತ್ತು CDMA ಯಂತಹ ಮೊಬೈಲ್ ಬ್ರಾಡ್‌ಬ್ಯಾಂಡ್ "
+"ಸಂಪರ್ಕಗಳನ್ನು ಬಳಸು."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically update these types of updates."
+msgid "Automatically download updates in the background without confirmation"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
-msgid "Devices that should be ignored"
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"mobile broadband if 'connection-use-mobile' is enabled."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
-msgid ""
-"Devices that should be ignored, separated by commas. These can include '*' "
-"and '?' characters."
-msgstr ""
+msgid "How often to check for updates"
+msgstr "ಅಪ್‌ಡೇಟ್‌ಗಳಿಗಾಗಿ ಎಷ್ಟು ಸಮಯಕ್ಕೊಮ್ಮೆ ಪರೀಕ್ಷಿಸಬೇಕು"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
-msgid "Firmware files that should not be searched for"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
-msgid ""
-"Firmware files that should not be searched for, separated by commas. These "
-"can include '*' and '?' characters."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
-msgid "Get the update list when the session starts"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
-msgid "Get the update list when the session starts, even if not scheduled to."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
-msgid "How often to check for distribution upgrades"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
-msgid "How often to check for distribution upgrades. Value is in seconds."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
-msgid "How often to check for updates"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid ""
 "How often to check for updates. Value is in seconds. This is a maximum "
 "amount of time that can pass between a security update being published, and "
 "the update being automatically installed or the user notified."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid "How often to notify the user that non-critical updates are available"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
-msgid "How often to refresh the package cache"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
-msgid "How often to refresh the package cache. Value is in seconds."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
@@ -611,112 +898,83 @@ msgid ""
 "frequently."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
-msgid "Install updates automatically when running on battery power"
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+msgid "The last time we told the user about non-critical notifications"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
-msgid "Install updates automatically when running on battery power."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
-msgid "Notify the user for completed updates"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
-msgid "Notify the user for completed updates where the user needs to restart"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
-msgid "Notify the user for completed updates where the user needs to restart."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
-msgid ""
-"Notify the user for completed updates. This may be a useful notification for "
-"some users as installing updates prevents shutdown."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
-msgid "Notify the user when distribution upgrades are available"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
-msgid "Notify the user when distribution upgrades are available."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
-msgid "Notify the user when the automatic update was not started on battery power"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
-msgid ""
-"Notify the user when the update was not automatically started because the "
-"machine is running on battery power."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
-msgid "Notify the user when the update was started"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
-msgid "Notify the user when the update was started."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
-msgid "The filenames on removable media that designate it a software source."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
-msgid "The install root to use when adding and removing packages"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
-msgid ""
-"The install root to use when processing packages, which is changed when "
-"using LTSP or when testing."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
-msgid "The last time we told the user about non-critical notifications"
-msgstr ""
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+msgid "How often to check for distribution upgrades"
+msgstr "ವಿತರಣೆಯ ನವೀಕರಣಗಳಿಗಾಗಿ ಎಷ್ಟು ಸಮಯಕ್ಕೊಮ್ಮೆ ಪರೀಕ್ಷಿಸಬೇಕು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
-msgid "The number of seconds at session startup to wait before checking for updates"
-msgstr ""
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+msgid "How often to check for distribution upgrades. Value is in seconds."
+msgstr "ವಿತರಣೆಯ ನವೀಕರಣಗಳಿಗಾಗಿ ಎಷ್ಟು ಸಮಯಕ್ಕೊಮ್ಮೆ ಪರೀಕ್ಷಿಸಬೇಕು. ಸೆಕೆಂಡುಗಳಲ್ಲಿ."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+msgid "How often to refresh the package cache"
+msgstr "ಪ್ಯಾಕೇಜ್ ಕ್ಯಾಶೆಯನ್ನು ಎಷ್ಟು ಸಮಯಕ್ಕೊಮ್ಮೆ ತಾಜಾಗೊಳಿಸಬೇಕು"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+msgid "How often to refresh the package cache. Value is in seconds."
+msgstr "ಪ್ಯಾಕೇಜ್ ಕ್ಯಾಶೆಯನ್ನು ಎಷ್ಟು ಸಮಯಕ್ಕೊಮ್ಮೆ ತಾಜಾಗೊಳಿಸಬೇಕು. ಸೆಕೆಂಡುಗಳಲ್ಲಿ."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+msgid "Check for updates when running on battery power"
+msgstr "ಬ್ಯಾಟರಿ ವಿದ್ಯುಚ್ಛಕ್ತಿಯಲ್ಲಿ ಚಲಾಯಿತಗೊಳ್ಳುವಾಗ ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸು"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+msgid "Check for updates when running on battery power."
+msgstr "ಬ್ಯಾಟರಿ ವಿದ್ಯುಚ್ಛಕ್ತಿಯಲ್ಲಿ ಚಲಾಯಿತಗೊಳ್ಳುವಾಗ ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸು."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+msgid "Notify the user when distribution upgrades are available"
+msgstr "ವಿತರಣೆಯ ನವೀಕರಣವು ಲಭ್ಯವಿದ್ದಾಗ ಬಳಕೆದಾರರಿಗೆ ಸೂಚಿಸು"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+msgid "Notify the user when distribution upgrades are available."
+msgstr "ವಿತರಣೆಯ ನವೀಕರಣವು ಲಭ್ಯವಿದ್ದಾಗ ಬಳಕೆದಾರರಿಗೆ ಸೂಚಿಸು."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+msgid "Ask the user if additional firmware should be installed"
+msgstr "ಹೆಚ್ಚುವರಿ ಫರ್ಮವೇರುಗಳನ್ನು ಅನುಸ್ಥಾಪಿಬೇಕಿದ್ದರೆ ಬಳಕೆದಾರನನ್ನು ಕೇಳು"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid ""
-"The number of seconds at session startup to wait before checking for "
-"updates. Value is in seconds."
+"Ask the user if additional firmware should be installed if it is available."
+msgstr ""
+"ಲಭ್ಯವಿದ್ದಲ್ಲಿ ಹೆಚ್ಚುವರಿ ಫರ್ಮವೇರುಗಳನ್ನು ಅನುಸ್ಥಾಪಿಬೇಕಿದ್ದರೆ ಬಳಕೆದಾರನನ್ನು ಕೇಳು."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+msgid "Firmware files that should not be searched for"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid ""
-"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
-"to download packages when on a wired connection, and the VPN or proxy "
-"required may also only be available on wired connections."
+"Firmware files that should not be searched for, separated by commas. These "
+"can include '*' and '?' characters."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
-msgid "Use WiFi connections"
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+msgid "Devices that should be ignored"
+msgstr "ಕಡೆಗಣಿಸಬೇಕಿರುವ ಸಾಧನಗಳು"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+msgid ""
+"Devices that should be ignored, separated by commas. These can include '*' "
+"and '?' characters."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
-msgid "Use mobile broadband connections"
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+msgid "The filenames on removable media that designate it a software source."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
-msgid "Use mobile broadband connections such as GSM and CDMA to check for updates."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -724,18 +982,11 @@ msgid ""
 "update running systems."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
-msgid ""
-"'clone' will display the same thing on all monitors, 'dock' will switch off "
-"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
-"(extend the desktop in recent versions)"
-msgstr ""
-
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
-msgstr ""
+msgstr "RandR ಗಾಗಿನ ಪೂರ್ವನಿಯೋಜಿತ ಸಂರಚನೆಯ ಕಡತ"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -744,208 +995,86 @@ msgid ""
 "then the file specified by this key will be used instead."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 msgid "Whether to turn off specific monitors after boot"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid ""
-"A list of strings representing the GTK+ modules that will be loaded, usually "
-"in addition to conditional and forcibly disabled ones."
+"'clone' will display the same thing on all monitors, 'dock' will switch off "
+"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
+"(extend the desktop in recent versions)"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid ""
-"A list of strings representing the GTK+ modules that will not be loaded, "
-"even if enabled by default in their configuration."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Antialiasing"
 msgstr "ಆಂಟಿಅಲಿಯಾಸಿಂಗ್"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+msgid ""
+"The type of antialiasing to use when rendering fonts. Possible values are: "
+"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
+"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+msgstr ""
+"ಅಕ್ಷರಶೈಲಿಗಳನ್ನು ಆಂಟಿಅಲಿಯಾಸಿಂಗ್ ಮಾಡುವಾಗ ಬಳಸಬೇಕಿರುವ ಬಗೆಗಳು. ಸಾಧ್ಯವಿರುವ "
+"ಮೌಲ್ಯಗಳೆಂದರೆ: "
+"ಯಾವುದೆ ಆಂಟಿಅಲಿಯಾಸಿಂಗ್ ಬೇಡವಾದಲ್ಲಿ \"ಯಾವುದೂ ಇಲ್ಲ\", ಮಾನ್ಯವಾದ ಗ್ರೇಸ್ಕೇಲ್ "
+"ಆಂಟಿಅಲಿಯಾಸಿಂಗ್‌ಗಾಗಿ \"ಗ್ರೇಸ್ಕೇಲ್\", ಹಾಗು ಸಬ್‌ಪಿಕ್ಸೆಲ್ ಆಂಟಿಅಲಿಯಾಸಿಂಗ್‌ಗಾಗಿ "
+"\"rgba"
+"\" (ಕೇವಲ LCD ತೆರೆಗಳಿಗೆ ಮಾತ್ರ)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "ಹಿಂಟಿಂಗ್"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
-msgid "List of explicitly disabled GTK+ modules"
+msgid ""
+"The type of hinting to use when rendering fonts. Possible values are: \"none"
+"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
+"\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
+"ಅಕ್ಷರಶೈಲಿಗಳನ್ನು ರೆಂಡರಿಂಗ್ ಮಾಡಲು ಬಳಸಬೇಕಿರುವ ಹಿಂಟಿಂಗ್ ಪ್ರಕಾರ. ಸಾಧ್ಯವಿರುವ "
+"ಮೌಲ್ಯಗಳೆಂದರೆ: "
+"ಯಾವುದೆ ಹಿಂಟಿಂಗ್ ಬೇಡವಾದಲ್ಲಿ \"ಯಾವುದೂ ಇಲ್ಲ\", ಆರಂಭಿಕ ಮಟ್ಟಕ್ಕಾಗಿ \"ಕೊಂಚ\", ಮಧ್ಯಮ "
+"ಮಟ್ಟಕ್ಕಾಗಿ \"ಮಧ್ಯಮ\", ಹಾಗು ಗರಿಷ್ಟ ಹಿಂಟಿಂಗ್‌ಗಾಗಿ \"ಸಂಪೂರ್ಣ\" (ಇದು ಅಕ್ಷರಗಳನ್ನು "
+"ವಿರೂಪಗೊಳಿಸಬಹುದು)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
-msgid "List of explicitly enabled GTK+ modules"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
 msgstr "RGBA ಕ್ರಮ"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
 "common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
 "on bottom."
 msgstr ""
-"ಒಂದು LCD ತೆರೆಯಲ್ಲಿ ಸಬ್‌ಪಿಕ್ಸೆಲ್‌ ಘಟಕಗಳ ಕ್ರಮ; ಕೇವಲ \"rgba\" ಗೆ ಆಂಟಿಅಲಿಯಾಸಿಂಗ್ ಮಾಡುವಾಗ "
-"ಮಾತ್ರ ಬಳಸಲಾಗುತ್ತದೆ. ಸಾಧ್ಯವಿರುವ ಮೌಲ್ಯಗಳೆಂದರೆ: ಎಡಭಾಗದಲ್ಲಿ ಕೆಂಪಿಗಾಗಿ \"rgb\" (ಸರ್ವೆ "
+"ಒಂದು LCD ತೆರೆಯಲ್ಲಿ ಸಬ್‌ಪಿಕ್ಸೆಲ್‌ ಘಟಕಗಳ ಕ್ರಮ; ಕೇವಲ \"rgba\" ಗೆ ಆಂಟಿಅಲಿಯಾಸಿಂಗ್ "
+"ಮಾಡುವಾಗ "
+"ಮಾತ್ರ ಬಳಸಲಾಗುತ್ತದೆ. ಸಾಧ್ಯವಿರುವ ಮೌಲ್ಯಗಳೆಂದರೆ: ಎಡಭಾಗದಲ್ಲಿ ಕೆಂಪಿಗಾಗಿ \"rgb\" "
+"(ಸರ್ವೆ "
 "ಸಾಮಾನ್ಯ), ಎಡಭಾಗದಲ್ಲಿ ನೀಲಿಗಾಗಿ \"bgr\", ಮೇಲ್ಭಾಗದಲ್ಲಿ ಕೆಂಪಿಗಾಗಿ \"vrgb\", "
 "ಅಡಿಭಾಗದಲ್ಲಿ ಕೆಂಪಿಗಾಗಿ \"vbgr\"."
 
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+msgid "List of explicitly disabled GTK+ modules"
+msgstr ""
+
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
-"The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
 msgstr ""
-"ಅಕ್ಷರಶೈಲಿಗಳನ್ನು ಆಂಟಿಅಲಿಯಾಸಿಂಗ್ ಮಾಡುವಾಗ ಬಳಸಬೇಕಿರುವ ಬಗೆಗಳು. ಸಾಧ್ಯವಿರುವ ಮೌಲ್ಯಗಳೆಂದರೆ: "
-"ಯಾವುದೆ ಆಂಟಿಅಲಿಯಾಸಿಂಗ್ ಬೇಡವಾದಲ್ಲಿ \"ಯಾವುದೂ ಇಲ್ಲ\", ಮಾನ್ಯವಾದ ಗ್ರೇಸ್ಕೇಲ್ "
-"ಆಂಟಿಅಲಿಯಾಸಿಂಗ್‌ಗಾಗಿ \"ಗ್ರೇಸ್ಕೇಲ್\", ಹಾಗು ಸಬ್‌ಪಿಕ್ಸೆಲ್ ಆಂಟಿಅಲಿಯಾಸಿಂಗ್‌ಗಾಗಿ \"rgba"
-"\" (ಕೇವಲ LCD ತೆರೆಗಳಿಗೆ ಮಾತ್ರ)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+msgid "List of explicitly enabled GTK+ modules"
+msgstr ""
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
-msgstr ""
-"ಅಕ್ಷರಶೈಲಿಗಳನ್ನು ರೆಂಡರಿಂಗ್ ಮಾಡಲು ಬಳಸಬೇಕಿರುವ ಹಿಂಟಿಂಗ್ ಪ್ರಕಾರ. ಸಾಧ್ಯವಿರುವ ಮೌಲ್ಯಗಳೆಂದರೆ: "
-"ಯಾವುದೆ ಹಿಂಟಿಂಗ್ ಬೇಡವಾದಲ್ಲಿ \"ಯಾವುದೂ ಇಲ್ಲ\", ಆರಂಭಿಕ ಮಟ್ಟಕ್ಕಾಗಿ \"ಕೊಂಚ\", ಮಧ್ಯಮ "
-"ಮಟ್ಟಕ್ಕಾಗಿ \"ಮಧ್ಯಮ\", ಹಾಗು ಗರಿಷ್ಟ ಹಿಂಟಿಂಗ್‌ಗಾಗಿ \"ಸಂಪೂರ್ಣ\" (ಇದು ಅಕ್ಷರಗಳನ್ನು "
-"ವಿರೂಪಗೊಳಿಸಬಹುದು)."
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-msgid "Enable this to only move the cursor when the user touches the tablet."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
-msgid "Enable this to only report stylus events when the tip is pressed."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
-msgid "Enable this to set the cursor to absolute mode."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
-msgid "Enable this to set the eraser to absolute mode."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
-msgid "Enable this to set the stylus to absolute mode."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
-msgid ""
-"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
-"'ccw' for 90 degree counterclockwise."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
-msgid "Set this to the logical button mapping."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
-msgid "Set this to the pressure value at which a stylus click event is generated."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
-msgid "Set this to the pressure value at which an eraser click event is generated."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
-msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
-msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
-msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
-msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
-msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
-msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
-msgid "Wacom cursor absolute mode"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
-msgid "Wacom cursor button mapping"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
-msgid "Wacom cursor tablet area"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
-msgid "Wacom eraser absolute mode"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
-msgid "Wacom eraser button mapping"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
-msgid "Wacom eraser pressure curve"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
-msgid "Wacom eraser pressure threshold"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
-msgid "Wacom eraser tablet area"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
-msgid "Wacom pad button mapping"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
-msgid "Wacom pad tablet area"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
-msgid "Wacom stylus absolute mode"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
-msgid "Wacom stylus button mapping"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
-msgid "Wacom stylus pressure curve"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
-msgid "Wacom stylus pressure threshold"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
-msgid "Wacom stylus tablet area"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
-msgid "Wacom tablet PC feature"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
-msgid "Wacom tablet rotation"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
-msgid "Wacom touch feature"
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
 msgstr ""
 
 #: ../gnome-settings-daemon/main.c:54
@@ -953,10 +1082,9 @@ msgid "Enable debugging code"
 msgstr "ದೋಷನಿವಾರಣಾ ಸಂಕೇತವನ್ನು ಶಕ್ತಗೊಳಿಸು"
 
 #: ../gnome-settings-daemon/main.c:55
-#, fuzzy
 #| msgid "Exit after a time - for debugging"
 msgid "Exit after a time (for debugging)"
-msgstr "ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ನಿರ್ಗಮಿಸು - ದೋಷನಿವಾರಣೆಗಾಗಿ"
+msgstr "ನಿಗದಿತ ಸಮಯದ ನಂತರ ನಿರ್ಗಮಿಸು (ದೋಷನಿವಾರಣೆಗಾಗಿ)"
 
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
@@ -966,176 +1094,181 @@ msgstr "ನಿಲುಕಣಾ ಕೀಲಿಮಣೆ"
 msgid "Accessibility keyboard plugin"
 msgstr "ನಿಲುಕಣಾ ಕೀಲಿಮಣೆ ಪ್ಲಗ್ಇನ್"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:392
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:383
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "ನೆರವನ್ನು ತೋರಿಸುವಾಗ ಒಂದು ದೋಷ ಉಂಟಾಗಿದೆ: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:517
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:579
-msgid "Do you want to activate Slow Keys?"
-msgstr "ನಿಧಾನ ಕೀಲಿಗಳನ್ನು ನೀವು ಸಕ್ರಿಯಗೊಳಿಸಲು ಬಯಸುತ್ತೀರೆ?"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:507
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:570
+#| msgid "Slow Keys Alert"
+msgid "Slow Keys Turned On"
+msgstr "ನಿಧಾನ ಕೀಲಿಗಳನ್ನು ಚಾಲಿತಗೊಳಿಸಲಾಗಿದೆ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:518
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:580
-msgid "Do you want to deactivate Slow Keys?"
-msgstr "ನಿಧಾನ ಕೀಲಿಗಳನ್ನು ನೀವು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲು ಬಯಸುತ್ತೀರೆ?"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:571
+#| msgid "Slow Keys Alert"
+msgid "Slow Keys Turned Off"
+msgstr "ನಿಧಾನ ಕೀಲಿಗಳನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:581
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
-"ನೀವು ಈಗತಾನ ಶಿಫ್ಟ್‍ ಕೀಲಿಯನ್ನು ಎಂಟು ಸೆಕೆಂಡುಗಳ ಕಾಲ ಒತ್ತಿ ಹಿಡಿದಿದ್ದೀರಿ.  ಈ ಶಾರ್ಟ್-ಕಟ್, "
+"ನೀವು ಈಗತಾನ ಶಿಫ್ಟ್‍ ಕೀಲಿಯನ್ನು ಎಂಟು ಸೆಕೆಂಡುಗಳ ಕಾಲ ಒತ್ತಿ ಹಿಡಿದಿದ್ದೀರಿ.  ಈ "
+"ಶಾರ್ಟ್-ಕಟ್, "
 "ನಿಧಾನ ಕೀಲಿಗಳ ಸವಲತ್ತಾಗಿದ್ದು, ನಿಮ್ಮ ಕೀಲಿಮಣೆ ಕೆಲಸಮಾಡುವ ರೀತಿಯ ಮೇಲೆ ಇದು ಪರಿಣಾಮ "
 "ಬೀರುತ್ತದೆ."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
-msgid "Don't activate"
-msgstr "ಸಕ್ರಿಯಗೊಳಿಸಬೇಡ"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:663
+#: ../plugins/mouse/gsd-mouse-manager.c:920
+#| msgid "Universal Access Preferences"
+msgid "Universal Access"
+msgstr "ಜಾಗತಿಕ ನಿಲುಕಣೆ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:542
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
-msgid "Don't deactivate"
-msgstr "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಬೇಡ"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+msgid "Turn Off"
+msgstr ""
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
-msgid "Activate"
-msgstr "ಸಕ್ರಿಯಗೊಳಿಸು"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+msgid "Turn On"
+msgstr ""
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:683
-msgid "Deactivate"
-msgstr "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸು"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+msgid "Leave On"
+msgstr ""
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
-msgid "Do_n't activate"
-msgstr "ಸಕ್ರಿಯಗೊಳಿಸಬೇಡ(_n)"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+msgid "Leave Off"
+msgstr ""
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:602
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:739
-msgid "Do_n't deactivate"
-msgstr "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಬೇಡ(_n)"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
+msgid "_Turn Off"
+msgstr "ಸ್ಥಗಿತಗೊಳಿಸು (_T)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
-msgid "_Activate"
-msgstr "ಸಕ್ರಿಯಗೊಳಿಸು(_A)"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
+msgid "_Turn On"
+msgstr "ಚಾಲನೆಗೊಳಿಸು (_T)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:605
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:742
-msgid "_Deactivate"
-msgstr "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸು(_D)"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
+msgid "_Leave On"
+msgstr ""
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:609
-msgid "Slow Keys Alert"
-msgstr "ನಿಧಾನ ಕೀಲಿಗಳ ಎಚ್ಚರಿಕೆ"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
+msgid "_Leave Off"
+msgstr ""
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:649
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:713
-msgid "Do you want to activate Sticky Keys?"
-msgstr "ನೀವು ಸ್ಟಿಕಿ ಕೀಲಿಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಬಯಸುತ್ತೀರೆ?"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:639
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#| msgid "Sticky Keys Alert"
+msgid "Sticky Keys Turned On"
+msgstr "ಸ್ಟಿಕಿ ಕೀಲಿಗಳನ್ನು ಚಾಲನೆಗೊಳಿಸಲಾಗಿದೆ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:650
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:714
-msgid "Do you want to deactivate Sticky Keys?"
-msgstr "ನೀವು ಸ್ಟಿಕಿ ಕೀಲಿಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲು ಬಯಸುತ್ತೀರೆ?"
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:706
+#| msgid "Sticky Keys Alert"
+msgid "Sticky Keys Turned Off"
+msgstr "ಸ್ಟಿಕಿ ಕೀಲಿಗಳನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:652
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:716
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
-"ನೀವು ಈಗತಾನ ಶಿಫ್ಟ್‍ ಕೀಲಿಯನ್ನು ಕ್ರಮವಾಗಿ ಐದು ಬಾರಿ ಒತ್ತಿದ್ದೀರಿ.  ಈ ಶಾರ್ಟ್-ಕಟ್ ಸ್ಟಿಕಿ ಕೀಲಿಗಳ "
+"ನೀವು ಈಗತಾನ ಶಿಫ್ಟ್‍ ಕೀಲಿಯನ್ನು ಕ್ರಮವಾಗಿ ಐದು ಬಾರಿ ಒತ್ತಿದ್ದೀರಿ.  ಈ ಶಾರ್ಟ್-ಕಟ್ "
+"ಸ್ಟಿಕಿ ಕೀಲಿಗಳ "
 "ಸವಲತ್ತಾಗಿದ್ದು, ನಿಮ್ಮ ಕೀಲಿಮಣೆ ಕೆಲಸಮಾಡುವ ರೀತಿಯ ಮೇಲೆ ಇದು ಪರಿಣಾಮ ಬೀರುತ್ತದೆ."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:654
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:718
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:644
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:710
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
-"ನೀವು ಈಗತಾನೆ ಎರಡು ಕೀಲಿಗಳನ್ನು ಒಂದೆ ಬಾರಿಗೆ, ಅಥವ ಶಿಫ್ಟ್‍ ಕೀಲಿಯನ್ನು ಕ್ರಮವಾಗಿ ಐದು ಬಾರಿ "
-"ಒತ್ತಿದ್ದೀರಿ  ಈ ಶಾರ್ಟ್-ಕಟ್, ಸ್ಟಿಕಿ ಕೀಲಿಗಳ ಸವಲತ್ತಾಗಿದ್ದು, ನಿಮ್ಮ ಕೀಲಿಮಣೆ ಕೆಲಸಮಾಡುವ ರೀತಿಯ "
+"ನೀವು ಈಗತಾನೆ ಎರಡು ಕೀಲಿಗಳನ್ನು ಒಂದೆ ಬಾರಿಗೆ, ಅಥವ ಶಿಫ್ಟ್‍ ಕೀಲಿಯನ್ನು ಕ್ರಮವಾಗಿ ಐದು "
+"ಬಾರಿ "
+"ಒತ್ತಿದ್ದೀರಿ  ಈ ಶಾರ್ಟ್-ಕಟ್, ಸ್ಟಿಕಿ ಕೀಲಿಗಳ ಸವಲತ್ತಾಗಿದ್ದು, ನಿಮ್ಮ ಕೀಲಿಮಣೆ "
+"ಕೆಲಸಮಾಡುವ ರೀತಿಯ "
 "ಮೇಲೆ ಇದು ಪರಿಣಾಮ ಬೀರುತ್ತದೆ."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:746
-msgid "Sticky Keys Alert"
-msgstr "ಸ್ಟಿಕಿ ಕೀಲಿಗಳ ಎಚ್ಚರಿಕೆ"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:442
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:412
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
 msgid "Universal Access Preferences"
 msgstr "ಜಾಗತಿಕ ನಿಲುಕಣಾ ಆದ್ಯತೆಗಳು"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
-msgid "Enhance _contrast in colors"
-msgstr "ಬಣ್ಣಗಳ ಗಾಢತೆಯನ್ನು ಹೆಚ್ಚಿಸು(_c)"
-
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
-msgid "Make _text larger and easier to read"
-msgstr "ಪಠ್ಯವನ್ನು ದೊಡ್ಡದಾಗಿ, ಓದಲು ಸುಲಭವಾಗುವಂತೆ ಮಾಡು(_t)"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
-msgid "Press and _hold keys to accept them (Slow Keys)"
-msgstr "ಕೀಲಿಗಳನ್ನು ಅಂಗೀಕರಿಸಲು ಅವನ್ನು ಒತ್ತಿ ಹಿಡಿಯಿರಿ(ನಿಧಾನ ಕೀಲಿಗಳು) (_h)"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
 msgid "Use on-screen _keyboard"
 msgstr "ತೆರೆಯ ಮೇಲಣ ಕೀಲಿ ಮಣೆ(_k)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
+msgid "Use screen _reader"
+msgstr "ತೆರೆ ಓದುಗನ್ನು ಬಳಸು(_r)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
 msgid "Use screen _magnifier"
 msgstr "ತೆರೆಯ ಮ್ಯಾಗ್ನಿಫೈರ್‌ ಅನ್ನು ಬಳಸು(_m)"
 
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
+msgid "Enhance _contrast in colors"
+msgstr "ಬಣ್ಣಗಳ ಗಾಢತೆಯನ್ನು ಹೆಚ್ಚಿಸು(_c)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
+msgid "Make _text larger and easier to read"
+msgstr "ಪಠ್ಯವನ್ನು ದೊಡ್ಡದಾಗಿ, ಓದಲು ಸುಲಭವಾಗುವಂತೆ ಮಾಡು(_t)"
+
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
-msgid "Use screen _reader"
-msgstr "ತೆರೆ ಓದುಗನ್ನು ಬಳಸು(_r)"
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr ""
+"ಕೀಲಿಮಣೆ ಶಾರ್ಟ್-ಕಟ್‌ಗಳನ್ನು ಒಂದು ಬಾರಿಗೆ ಒಂದರಂತೆ ಒತ್ತು(_P) (ಸ್ಟಿಕಿ ಕೀಲಿಗಳು)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
 msgstr "ನಕಲಿ ಕೀಲಿಒತ್ತುಗಳನ್ನು ಆಲಕ್ಷಿಸು(_I)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
-msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr "ಕೀಲಿಮಣೆ ಶಾರ್ಟ್-ಕಟ್‌ಗಳನ್ನು ಒಂದು ಬಾರಿಗೆ ಒಂದರಂತೆ ಒತ್ತು(_P) (ಸ್ಟಿಕಿ ಕೀಲಿಗಳು)"
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "ಕೀಲಿಗಳನ್ನು ಅಂಗೀಕರಿಸಲು ಅವನ್ನು ಒತ್ತಿ ಹಿಡಿಯಿರಿ(ನಿಧಾನ ಕೀಲಿಗಳು) (_h)"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
-#, fuzzy
 #| msgid "Accessibility"
 msgid "Accessibility settings"
-msgstr "ನಿಲುಕಣೆ"
+msgstr "ನಿಲುಕಣೆಯ ಸಿದ್ಧತೆಗಳು"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
-#, fuzzy
 #| msgid "Accessibility keyboard plugin"
 msgid "Accessibility settings plugin"
-msgstr "ನಿಲುಕಣಾ ಕೀಲಿಮಣೆ ಪ್ಲಗ್ಇನ್"
+msgstr "ನಿಲುಕಣಾ ಸಿದ್ಧತೆಗಳ ಪ್ಲಗ್ಇನ್"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
-msgid "Automount"
-msgstr "ಸ್ವಯಂಆರೋಹಣ"
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
+msgid "Mount Helper"
+msgstr ""
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
-#| msgid "Font plugin"
-msgid "Automounter plugin"
-msgstr "ಸ್ವಯಂಆರೋಹಣ ಪ್ಲಗ್ಇನ್"
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
+msgid "Automount and autorun plugged devices"
+msgstr ""
 
-#: ../plugins/automount/gsd-automount-manager.c:154
+#: ../plugins/automount/gsd-automount-manager.c:151
 #, c-format
 msgid "Unable to mount %s"
 msgstr "%s ಅನ್ನು ಆರೋಹಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: ../plugins/automount/gsd-automount-manager.c:271
+#: ../plugins/automount/gsd-automount-manager.c:264
 #, c-format
 msgid "Unable to open a folder for %s"
-msgstr ""
+msgstr "%s ಎನ್ನುವದಕ್ಕಾಗಿ ಕಡತಕೋಶವನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
 #: ../plugins/automount/gsd-autorun.c:340
 msgid "Ask what to do"
@@ -1146,107 +1279,108 @@ msgid "Do Nothing"
 msgstr "ಏನನ್ನೂ ಮಾಡಬೇಡ"
 
 #: ../plugins/automount/gsd-autorun.c:352
-#| msgid "Home folder"
 msgid "Open Folder"
 msgstr "ಕಡತಕೋಶವನ್ನು ತೆರೆ"
 
 #: ../plugins/automount/gsd-autorun.c:495
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to eject %p"
-msgstr "ಟಚ್‌ಪ್ಯಾಡಿನಿಂದ ಮೌಸ್‌ಕ್ಲಿಕ್‌ಗಳನ್ನು ಶಕ್ತಗೊಳಿಸಿ"
+msgstr "%p ಅನ್ನು ಹೊರ ತಳ್ಳಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
 #: ../plugins/automount/gsd-autorun.c:497
 #, c-format
 msgid "Unable to unmount %p"
-msgstr ""
-
-#: ../plugins/automount/gsd-autorun.c:700
-msgid "You have just inserted an Audio CD."
-msgstr ""
+msgstr "%p ಅನ್ನು ಅವರೋಹಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
 #: ../plugins/automount/gsd-autorun.c:702
-msgid "You have just inserted an Audio DVD."
-msgstr ""
+msgid "You have just inserted an Audio CD."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಆಡಿಯೋ CDಯನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:704
-msgid "You have just inserted a Video DVD."
-msgstr ""
+msgid "You have just inserted an Audio DVD."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಆಡಿಯೋ DVD ಯನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:706
-msgid "You have just inserted a Video CD."
-msgstr ""
+msgid "You have just inserted a Video DVD."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ವೀಡಿಯೋ DVD ಯನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:708
-msgid "You have just inserted a Super Video CD."
-msgstr ""
+msgid "You have just inserted a Video CD."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ವೀಡಿಯೋ CD ಯನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:710
-msgid "You have just inserted a blank CD."
-msgstr ""
+msgid "You have just inserted a Super Video CD."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಸೂಪರ್ ವೀಡಿಯೋ CD ಯನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:712
-msgid "You have just inserted a blank DVD."
-msgstr ""
+msgid "You have just inserted a blank CD."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಖಾಲಿ CDಯನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:714
-msgid "You have just inserted a blank Blu-Ray disc."
-msgstr ""
+msgid "You have just inserted a blank DVD."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಖಾಲಿ DVDಯನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:716
-msgid "You have just inserted a blank HD DVD."
-msgstr ""
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಖಾಲಿ ಬ್ಲೂ-ರೇ ಡಿಸ್ಕನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:718
-msgid "You have just inserted a Photo CD."
-msgstr ""
+msgid "You have just inserted a blank HD DVD."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಖಾಲಿ HD DVDಯನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:720
-msgid "You have just inserted a Picture CD."
-msgstr ""
+msgid "You have just inserted a Photo CD."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಫೋಟೊ CDಯನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:722
-msgid "You have just inserted a medium with digital photos."
-msgstr ""
+msgid "You have just inserted a Picture CD."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಪಿಕ್ಚರ್ CDಯನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:724
-msgid "You have just inserted a digital audio player."
+msgid "You have just inserted a medium with digital photos."
 msgstr ""
+"ನೀವು ಈಗ ತಾನೆ ಡಿಜಿಟಲ್ ಫೋಟೊಗಳನ್ನು ಹೊಂದಿರುವ ಒಂದು ಮಾಧ್ಯಮವನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
 #: ../plugins/automount/gsd-autorun.c:726
+msgid "You have just inserted a digital audio player."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಡಿಜಿಟಲ್ ಆಡಿಯೋ ಚಾಲಕವನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
+
+#: ../plugins/automount/gsd-autorun.c:728
 msgid ""
 "You have just inserted a medium with software intended to be automatically "
 "started."
 msgstr ""
+"ನೀವು ಈಗ ತಾನೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಆರಂಭಗೊಳ್ಳುವ ತಂತ್ರಾಂಶವನ್ನು ಹೊಂದಿರುವ ಮಾಧ್ಯಮವನ್ನು "
+"ತೂರಿಸಿದ್ದೀರಿ."
 
 #. fallback to generic greeting
-#: ../plugins/automount/gsd-autorun.c:729
-msgid "You have just inserted a medium."
-msgstr ""
-
 #: ../plugins/automount/gsd-autorun.c:731
-msgid "Choose what application to launch."
-msgstr ""
+msgid "You have just inserted a medium."
+msgstr "ನೀವು ಈಗ ತಾನೆ ಒಂದು ಮಾಧ್ಯಮವನ್ನು ತೂರಿಸಿದ್ದೀರಿ."
 
-#: ../plugins/automount/gsd-autorun.c:740
+#: ../plugins/automount/gsd-autorun.c:733
+msgid "Choose what application to launch."
+msgstr "ಯಾವ ಅನ್ವಯವನ್ನು ಆರಂಭಿಸಬೇಕು ಎನ್ನುವುದನ್ನು ಆಯ್ಕೆ ಮಾಡಿ."
+
+#: ../plugins/automount/gsd-autorun.c:742
 #, c-format
 msgid ""
 "Select how to open \"%s\" and whether to perform this action in the future "
 "for other media of type \"%s\"."
 msgstr ""
 
-#: ../plugins/automount/gsd-autorun.c:767
+#: ../plugins/automount/gsd-autorun.c:769
 msgid "_Always perform this action"
-msgstr ""
+msgstr "ಯಾವಾಗಲೂ ಈ ಕಾರ್ಯವನ್ನು ನಿರ್ವಹಿಸು (_A)"
 
-#: ../plugins/automount/gsd-autorun.c:783
-#, fuzzy
+#: ../plugins/automount/gsd-autorun.c:785
 #| msgid "Eject"
 msgid "_Eject"
-msgstr "ಹೊರತಳ್ಳು"
+msgstr "ಹೊರತಳ್ಳು (_E)"
 
-#: ../plugins/automount/gsd-autorun.c:788
+#: ../plugins/automount/gsd-autorun.c:790
 msgid "_Unmount"
-msgstr ""
+msgstr "ಇಳಿಸು (_U)"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -1264,6 +1398,54 @@ msgstr "ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"
 msgid "Clipboard plugin"
 msgstr "ಕ್ಲಿಪ್‌ಬೋರ್ಡ್ ಪ್ಲಗ್ಇನ್"
 
+#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/gsd-color-manager.c:1792
+msgid "Color"
+msgstr "ಬಣ್ಣ"
+
+#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#| msgid "Clipboard plugin"
+msgid "Color plugin"
+msgstr "ಬಣ್ಣದ ಪ್ಲಗ್ಇನ್"
+
+#: ../plugins/color/gsd-color-manager.c:1797
+msgid "Recalibrate now"
+msgstr ""
+
+#. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1840
+msgid "Recalibration required"
+msgstr ""
+
+#. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1852
+#, c-format
+msgid "The display '%s' should be recalibrated soon."
+msgstr ""
+
+#. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1861
+#, c-format
+msgid "The printer '%s' should be recalibrated soon."
+msgstr ""
+
+#. TRANSLATORS: this is the application name
+#: ../plugins/color/gsd-color-manager.c:2185
+#: ../plugins/color/gsd-color-manager.c:2201
+#| msgid "GNOME Settings Daemon"
+msgid "GNOME Settings Daemon Color Plugin"
+msgstr "GNOME ಸಿದ್ಧತೆಗಳ ಡೀಮನ್ ಬಣ್ಣದ ಪ್ಲಗ್‌ಇನ್"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:2187
+msgid "Color calibration device added"
+msgstr ""
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:2203
+msgid "Color calibration device removed"
+msgstr ""
+
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "ಡಮ್ಮಿ"
@@ -1272,67 +1454,74 @@ msgstr "ಡಮ್ಮಿ"
 msgid "Dummy plugin"
 msgstr "ಡಮ್ಮಿ ಪ್ಲಗ್ಇನ್"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:332
-#, fuzzy, c-format
+#: ../plugins/housekeeping/gsd-disk-space.c:333
+#, c-format
 #| msgid "Low Disk Space"
 msgid "Low Disk Space on \"%s\""
-msgstr "ಡಿಸ್ಕ್‌ ಜಾಗ ಕಡಿಮೆ ಇದೆ"
+msgstr "\"%s\" ಡಿಸ್ಕ್‌ ಜಾಗ ಕಡಿಮೆ ಇದೆ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:334
-#, fuzzy, c-format
+#: ../plugins/housekeeping/gsd-disk-space.c:335
+#, c-format
 #| msgid "The volume \"%s\" has only %s disk space remaining."
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
-msgstr "ಪರಿಮಾಣ \"%s\" ದಲ್ಲಿ ಕೇವಲ %s ಡಿಸ್ಕ್ ಸ್ಥಳವು ಮಾತ್ರ ಬಾಕಿ ಇದೆ."
+msgstr ""
+"ಪರಿಮಾಣ \"%s\" ದಲ್ಲಿ ಕೇವಲ %s ಡಿಸ್ಕ್ ಸ್ಥಳವು ಮಾತ್ರ ಬಾಕಿ ಇದೆ. ಕಸದ ಬುಟ್ಟಿಯನ್ನು "
+"ಖಾಲಿ ಮಾಡುವ ಮೂಲಕ ನೀವು ಕೆಲವು ಜಾಗವನ್ನು ಮುಕ್ತಗೊಳಿಸಬಹುದು."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:338
+#: ../plugins/housekeeping/gsd-disk-space.c:339
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "ಪರಿಮಾಣ \"%s\" ದಲ್ಲಿ ಕೇವಲ %s ಡಿಸ್ಕ್ ಸ್ಥಳವು ಮಾತ್ರ ಬಾಕಿ ಇದೆ."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:343
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
+#: ../plugins/housekeeping/gsd-disk-space.c:344
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
 msgid "Low Disk Space"
 msgstr "ಡಿಸ್ಕ್‌ ಜಾಗ ಕಡಿಮೆ ಇದೆ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:345
-#, fuzzy, c-format
+#: ../plugins/housekeeping/gsd-disk-space.c:346
+#, c-format
 #| msgid "This computer has only %s disk space remaining."
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
 "by emptying the trash."
-msgstr "ಈ ಗಣಕದಲ್ಲಿ ಕೇವಲ %s ಡಿಸ್ಕ್ ಸ್ಥಳವು ಮಾತ್ರ ಬಾಕಿ ಇದೆ."
+msgstr ""
+"ಈ ಗಣಕದಲ್ಲಿನ \"%s\" ದಲ್ಲಿ ಕೇವಲ %s ಡಿಸ್ಕ್ ಸ್ಥಳವು ಮಾತ್ರ ಬಾಕಿ ಇದೆ. ಕಸದ "
+"ಬುಟ್ಟಿಯನ್ನು ಖಾಲಿ ಮಾಡುವ ಮೂಲಕ ನೀವು ಕೆಲವು ಜಾಗವನ್ನು ಮುಕ್ತಗೊಳಿಸಬಹುದು."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:348
+#: ../plugins/housekeeping/gsd-disk-space.c:349
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "ಈ ಗಣಕದಲ್ಲಿ ಕೇವಲ %s ಡಿಸ್ಕ್ ಸ್ಥಳವು ಮಾತ್ರ ಬಾಕಿ ಇದೆ."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:369
-#, fuzzy
+#: ../plugins/housekeeping/gsd-disk-space.c:364
+#| msgid "Low Disk Space"
+msgid "Disk space"
+msgstr "ಡಿಸ್ಕ್‌ ಜಾಗ"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:371
 #| msgid "Examine..."
 msgid "Examine"
-msgstr "ಪರಿಶೀಲಿಸು..."
+msgstr "ಪರಿಶೀಲಿಸು"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:377
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:436
+#: ../plugins/housekeeping/gsd-disk-space.c:379
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
 msgid "Empty Trash"
 msgstr "ಕಸಬುಟ್ಟಿಯನ್ನು ಖಾಲಿಮಾಡು"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:384
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:451
+#: ../plugins/housekeeping/gsd-disk-space.c:386
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:452
 msgid "Ignore"
 msgstr "ಅಲಕ್ಷಿಸು"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-#, fuzzy
 #| msgid "Don't show any warnings again for this filesystem"
 msgid "Don't show any warnings again for this file system"
-msgstr "ಈ ಕಡತ ವ್ಯವಸ್ಥೆಗಾಗಿ ಈ ಸಂದೇಶವನ್ನು ಪುನಃ ತೋರಿಸಬೇಡ"
+msgstr "ಈ ಕಡತ ವ್ಯವಸ್ಥೆಗಾಗಿ ಪುನಃ ಯಾವುದೆ ಎಚ್ಚರಿಕೆಗಳನ್ನು ತೋರಿಸಬೇಡ"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
 msgid "Don't show any warnings again"
@@ -1343,8 +1532,10 @@ msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
 msgstr ""
-"ಕಸದಬುಟ್ಟಿಯನ್ನು ಖಾಲಿ ಮಾಡುವ ಮೂಲಕ, ಬಳಕೆಗೆ ಬಾರದ ಪ್ರೊಗ್ರಾಮ್‌ಗಳನ್ನು ಅಥವ ಕಡತಗಳನ್ನು ತೆಗೆಯುವ "
-"ಮೂಲಕ, ಅಥವ ಕಡತಗಳನ್ನು ಇನ್ನೊಂದು ಡಿಸ್ಕಿಗೆ ಅಥವ ವಿಭಾಗಕ್ಕೆ ಸ್ಥಳಾಂತರಿಸುವ ಮೂಲಕ ಡಿಸ್ಕಿನಲ್ಲಿ "
+"ಕಸದಬುಟ್ಟಿಯನ್ನು ಖಾಲಿ ಮಾಡುವ ಮೂಲಕ, ಬಳಕೆಗೆ ಬಾರದ ಪ್ರೊಗ್ರಾಮ್‌ಗಳನ್ನು ಅಥವ ಕಡತಗಳನ್ನು "
+"ತೆಗೆಯುವ "
+"ಮೂಲಕ, ಅಥವ ಕಡತಗಳನ್ನು ಇನ್ನೊಂದು ಡಿಸ್ಕಿಗೆ ಅಥವ ವಿಭಾಗಕ್ಕೆ ಸ್ಥಳಾಂತರಿಸುವ ಮೂಲಕ "
+"ಡಿಸ್ಕಿನಲ್ಲಿ "
 "ಸ್ಥಳವನ್ನು ಮುಕ್ತಗೊಳಿಸಬಹುದು."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
@@ -1352,16 +1543,20 @@ msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
 msgstr ""
-"ಬಳಕೆಗೆ ಬಾರದ ಪ್ರೊಗ್ರಾಮ್‌ಗಳನ್ನು ಅಥವ ಕಡತಗಳನ್ನು ತೆಗೆಯುವ ಮೂಲಕ, ಅಥವ ಕಡತಗಳನ್ನು ಬೇರೊಂದು "
-"ಡಿಸ್ಕಿಗೆ ಅಥವ ವಿಭಾಗಕ್ಕೆ ಸ್ಥಳಾಂತರಿಸುವ ಮೂಲಕ ಡಿಸ್ಕಿನಲ್ಲಿ ಸ್ಥಳವನ್ನು ಮುಕ್ತಗೊಳಿಸಬಹುದು."
+"ಬಳಕೆಗೆ ಬಾರದ ಪ್ರೊಗ್ರಾಮ್‌ಗಳನ್ನು ಅಥವ ಕಡತಗಳನ್ನು ತೆಗೆಯುವ ಮೂಲಕ, ಅಥವ ಕಡತಗಳನ್ನು "
+"ಬೇರೊಂದು "
+"ಡಿಸ್ಕಿಗೆ ಅಥವ ವಿಭಾಗಕ್ಕೆ ಸ್ಥಳಾಂತರಿಸುವ ಮೂಲಕ ಡಿಸ್ಕಿನಲ್ಲಿ ಸ್ಥಳವನ್ನು "
+"ಮುಕ್ತಗೊಳಿಸಬಹುದು."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
 msgstr ""
-"ಕಸದಬುಟ್ಟಿಯನ್ನು ಖಾಲಿ ಮಾಡುವ ಮೂಲಕ, ಬಳಕೆಗೆ ಬಾರದ ಪ್ರೊಗ್ರಾಮ್‌ಗಳನ್ನು ಅಥವ ಕಡತಗಳನ್ನು ತೆಗೆಯುವ "
-"ಮೂಲಕ, ಅಥವ ಕಡತಗಳನ್ನು ಒಂದು ಹೊರಗಿನ ಡಿಸ್ಕಿಗೆ ಸ್ಥಳಾಂತರಿಸುವ ಮೂಲಕ ಡಿಸ್ಕಿನಲ್ಲಿ ಸ್ಥಳವನ್ನು "
+"ಕಸದಬುಟ್ಟಿಯನ್ನು ಖಾಲಿ ಮಾಡುವ ಮೂಲಕ, ಬಳಕೆಗೆ ಬಾರದ ಪ್ರೊಗ್ರಾಮ್‌ಗಳನ್ನು ಅಥವ ಕಡತಗಳನ್ನು "
+"ತೆಗೆಯುವ "
+"ಮೂಲಕ, ಅಥವ ಕಡತಗಳನ್ನು ಒಂದು ಹೊರಗಿನ ಡಿಸ್ಕಿಗೆ ಸ್ಥಳಾಂತರಿಸುವ ಮೂಲಕ ಡಿಸ್ಕಿನಲ್ಲಿ "
+"ಸ್ಥಳವನ್ನು "
 "ಮುಕ್ತಗೊಳಿಸಬಹುದು."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
@@ -1369,101 +1564,37 @@ msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
 msgstr ""
-"ಬಳಕೆಗೆ ಬಾರದ ಪ್ರೊಗ್ರಾಮ್‌ಗಳನ್ನು ಅಥವ ಕಡತಗಳನ್ನು ತೆಗೆಯುವ ಮೂಲಕ, ಅಥವ ಕಡತಗಳನ್ನು ಒಂದು ಹೊರಗಿನ "
+"ಬಳಕೆಗೆ ಬಾರದ ಪ್ರೊಗ್ರಾಮ್‌ಗಳನ್ನು ಅಥವ ಕಡತಗಳನ್ನು ತೆಗೆಯುವ ಮೂಲಕ, ಅಥವ ಕಡತಗಳನ್ನು ಒಂದು "
+"ಹೊರಗಿನ "
 "ಡಿಸ್ಕಿಗೆ ಸ್ಥಳಾಂತರಿಸುವ ಮೂಲಕ ಡಿಸ್ಕಿನಲ್ಲಿ ಸ್ಥಳವನ್ನು ಮುಕ್ತಗೊಳಿಸಬಹುದು."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:444
-#, fuzzy
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:445
 #| msgid "Examine..."
 msgid "Examine…"
-msgstr "ಪರಿಶೀಲಿಸು..."
+msgstr "ಪರಿಶೀಲಿಸು…"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:139
-#, c-format
-msgid "Key binding (%s) is invalid"
-msgstr "ಕೀಲಿಬದ್ಧತೆಯು (%s) ಅಮಾನ್ಯವಾಗಿದೆ"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:197
-#, c-format
-msgid "Key binding (%s) is incomplete"
-msgstr "ಕೀಲಿಬದ್ಧತೆ (%s) ಪೂರ್ಣವಾಗಿಲ್ಲ"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:493
-#, c-format
-msgid ""
-"Error while trying to run (%s)\n"
-"which is linked to the key (%s)"
-msgstr ""
-"(%s) ಅನ್ನು ಚಲಾಯಿಸುವಾಗ ದೋಷ\n"
-"ಎದುರಾಗಿದೆ. ಅದು (%s) ಕೀಲಿಗೆ ಹೊಂದಿಕೊಂಡಿದೆ"
-
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
-msgid "Keybindings"
-msgstr "ಕೀಲಿಬದ್ಧತೆಗಳು"
-
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
-msgid "Keybindings plugin"
-msgstr "ಕೀಲಿಬದ್ಧತೆಗಳ ಪ್ಲಗ್ಇನ್"
-
+#. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gpm-common.c:585
+#| msgid "Keyboard"
 msgid "Keyboard"
-msgstr "ಕೀಲಿ ಮಣೆ"
+msgid_plural "Keyboards"
+msgstr[0] "ಕೀಲಿಮಣೆ"
+msgstr[1] "ಕೀಲಿಮಣೆಗಳು"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "ಕೀಲಿ ಮಣೆ ಪ್ಲಗ್ಇನ್"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:87
-#, c-format
-msgid ""
-"Error activating XKB configuration.\n"
-"There can be various reasons for that.\n"
-"\n"
-"If you report this situation as a bug, include the results of\n"
-" • <b>%s</b>\n"
-" • <b>%s</b>\n"
-" • <b>%s</b>\n"
-" • <b>%s</b>"
-msgstr ""
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:223
-msgid "_Layouts"
-msgstr ""
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:230
-msgid "Keyboard _Preferences"
-msgstr "ಕೀಲಿಮಣೆ ಆದ್ಯತೆಗಳು(_P)"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:236
-msgid "Show _Current Layout"
-msgstr ""
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:218
-msgid ""
-"Could not get default terminal. Verify that your default terminal command is "
-"set and points to a valid application."
-msgstr ""
-"ಪೂರ್ವನಿಯೋಜಿತಟರ್ಮಿನಲ್ ಪಡೆಯಲಾಗಿಲ್ಲ. ನಿಮ್ಮ ಪೂರ್ವನಿಯೋಜಿತ ಟರ್ಮಿನಲ್ ಆಜ್ಞೆಯನ್ನು ಹೊಂದಿಸಲಾಗಿದೆ "
-"ಹಾಗು ಒಂದು ಮಾನ್ಯವಾದ ಅನ್ವಯಕ್ಕೆ ಸೂಚಿತಗೊಂಡಿದೆ ಎಂದು ಪರಿಶೀಲಿಸಿ."
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:258
-#, c-format
-msgid ""
-"Couldn't execute command: %s\n"
-"Verify that this is a valid command."
-msgstr ""
-"ಆಜ್ಞೆಯನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ: %s\n"
-"ಇದು ಒಂದು ಮಾನ್ಯವಾದ ಆಜ್ಞೆಯಾಗಿದೆ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ."
-
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1091
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1087
 msgid "Disabled"
 msgstr "ಅಶಕ್ತಗೊಂಡ"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1098
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1094
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1472,14 +1603,14 @@ msgstr[1] "%u ಔಟ್‌ಪುಟ್‌ಗಳು"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1108
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1104
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
 msgstr[0] "%u ಇನ್‌ಪುಟ್‌"
 msgstr[1] "%u ಇನ್‌ಪುಟ್‌ಗಳು"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1406
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1402
 msgid "System Sounds"
 msgstr "ಗಣಕದ ಧ್ವನಿಗಳು"
 
@@ -1491,30 +1622,1124 @@ msgstr "ಮೀಡಿಯಾ ಕೀಲಿಗಳು"
 msgid "Media keys plugin"
 msgstr "ಮೀಡಿಯಾ ಕೀಲಿಗಳು ಪ್ಲಗ್ಇನ್"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:864
+#: ../plugins/mouse/gsd-mouse-manager.c:916
 msgid "Could not enable mouse accessibility features"
 msgstr "ಮೌಸ್‌ ನಿಲುಕಣಾ ಸೌಕರ್ಯಗಳನ್ನು ಶಕ್ತಗೊಳಿಸಲಾಗಿಲ್ಲ"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:866
+#: ../plugins/mouse/gsd-mouse-manager.c:918
 #, fuzzy
 #| msgid ""
 #| "Mouse accessibility requires mousetweaks to be installed on your system."
-msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
-msgstr "ಮೌಸ್‌ ನಿಲುಕಣೆಗಾಗಿ ನಿಮ್ಮ ಗಣಕದಲ್ಲಿ ಮೌಸ್‌ಟ್ವೀಕ್‌ಗಳು ಅನುಸ್ಥಾಪಿಸಬೇಕಾಗುತ್ತದೆ."
+msgid ""
+"Mouse accessibility requires Mousetweaks to be installed on your system."
+msgstr ""
+"ಮೌಸ್‌ ನಿಲುಕಣೆಗಾಗಿ ನಿಮ್ಮ ಗಣಕದಲ್ಲಿ ಮೌಸ್‌ಟ್ವೀಕ್‌ಗಳು ಅನುಸ್ಥಾಪಿಸಬೇಕಾಗುತ್ತದೆ."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:868
-#, fuzzy
-#| msgid "Universal Access Preferences"
-msgid "Universal Access"
-msgstr "ಜಾಗತಿಕ ನಿಲುಕಣಾ ಆದ್ಯತೆಗಳು"
-
+#. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gpm-common.c:581
+#| msgid "Mouse"
 msgid "Mouse"
-msgstr "ಮೌಸ್"
+msgid_plural "Mice"
+msgstr[0] "ಮೌಸ್"
+msgstr[1] "ಮೌಸ್‌ಗಳು"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "ಮೌಸ್ ಪ್ಲಗ್‌ಇನ್"
+
+#: ../plugins/power/gpm-common.c:47
+#| msgid "Unknown"
+msgid "Unknown time"
+msgstr "ಗೊತ್ತಿರದ ಸಮಯ"
+
+#: ../plugins/power/gpm-common.c:52
+#, c-format
+msgid "%i minute"
+msgid_plural "%i minutes"
+msgstr[0] "%i ನಿಮಿಷ"
+msgstr[1] "%i ನಿಮಿಷಗಳು"
+
+#: ../plugins/power/gpm-common.c:62
+#, c-format
+msgid "%i hour"
+msgid_plural "%i hours"
+msgstr[0] "%i ಗಂಟೆ"
+msgstr[1] "%i ಗಂಟೆಗಳು"
+
+#. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
+#. * Swap order with "%2$s %2$i %1$s %1$i if needed
+#: ../plugins/power/gpm-common.c:68
+#, c-format
+msgid "%i %s %i %s"
+msgstr "%i %s %i %s"
+
+#: ../plugins/power/gpm-common.c:69
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "ಗಂಟೆ"
+msgstr[1] "ಗಂಟೆಗಳು"
+
+#: ../plugins/power/gpm-common.c:70
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "ನಿಮಿಷ"
+msgstr[1] "ನಿಮಿಷಗಳು"
+
+#. TRANSLATORS: The laptop battery is charged, and we know a time.
+#. * The parameter is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:317
+#, c-format
+msgid "provides %s laptop runtime"
+msgstr ""
+
+#. TRANSLATORS: the device is discharging, and we have a time remaining
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:328
+#, c-format
+msgid "%s %s remaining"
+msgstr "%s %s ಬಾಕಿ ಇದೆ"
+
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage.
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:349 ../plugins/power/gpm-common.c:366
+#, c-format
+msgid "%s %s until charged"
+msgstr ""
+
+#. TRANSLATORS: the device is charging, and we have a time to full and empty.
+#. * The parameter is a time string, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:356
+#, c-format
+msgid "provides %s battery runtime"
+msgstr ""
+
+#. TRANSLATORS: the type of data, e.g. Laptop battery
+#: ../plugins/power/gpm-common.c:447
+msgid "Product:"
+msgstr "ಉತ್ಪನ್ನ:"
+
+#. TRANSLATORS: device is missing
+#. TRANSLATORS: device is charged
+#. TRANSLATORS: device is charging
+#. TRANSLATORS: device is discharging
+#: ../plugins/power/gpm-common.c:451 ../plugins/power/gpm-common.c:454
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:460
+msgid "Status:"
+msgstr "ಸ್ಥಿತಿ:"
+
+#: ../plugins/power/gpm-common.c:451
+msgid "Missing"
+msgstr "ಕಾಣಿಸುತ್ತಿಲ್ಲ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:454 ../plugins/power/gpm-common.c:723
+msgid "Charged"
+msgstr "ಚಾರ್ಜ್ ಆಗಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:711
+msgid "Charging"
+msgstr "ಚಾರ್ಜ್ ಆಗುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:460 ../plugins/power/gpm-common.c:715
+msgid "Discharging"
+msgstr "ಡಿಸ್‌ಚಾರ್ಜ್ ಆಗುತ್ತಿದೆ"
+
+#. TRANSLATORS: percentage
+#: ../plugins/power/gpm-common.c:465
+msgid "Percentage charge:"
+msgstr "ಚಾರ್ಜಿನ ಪ್ರತಿಶತ:"
+
+#. TRANSLATORS: manufacturer
+#: ../plugins/power/gpm-common.c:469
+msgid "Vendor:"
+msgstr "ಮಾರಾಟಗಾರ:"
+
+#. TRANSLATORS: how the battery is made, e.g. Lithium Ion
+#: ../plugins/power/gpm-common.c:474
+msgid "Technology:"
+msgstr "ತಂತ್ರಜ್ಞಾನದ:"
+
+#. TRANSLATORS: serial number of the battery
+#: ../plugins/power/gpm-common.c:478
+msgid "Serial number:"
+msgstr "ಅನುಕ್ರಮ ಸಂಖ್ಯೆ:"
+
+#. TRANSLATORS: model number of the battery
+#: ../plugins/power/gpm-common.c:482
+msgid "Model:"
+msgstr "ಮಾದರಿ:"
+
+#. TRANSLATORS: time to fully charged
+#: ../plugins/power/gpm-common.c:487
+msgid "Charge time:"
+msgstr "ಚಾರ್ಜಿನ ಸಮಯ:"
+
+#. TRANSLATORS: time to empty
+#: ../plugins/power/gpm-common.c:493
+msgid "Discharge time:"
+msgstr "ಡಿಸ್‌ಚಾರ್ಜ್ ಸಮಯ:"
+
+#. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
+#: ../plugins/power/gpm-common.c:500
+msgid "Excellent"
+msgstr "ಅತ್ಯುತ್ತಮ"
+
+#: ../plugins/power/gpm-common.c:502
+msgid "Good"
+msgstr "ಉತ್ತಮ"
+
+#: ../plugins/power/gpm-common.c:504
+msgid "Fair"
+msgstr "ಪರವಾಗಿಲ್ಲ"
+
+#: ../plugins/power/gpm-common.c:506
+msgid "Poor"
+msgstr "ದುರ್ಬಲ"
+
+#: ../plugins/power/gpm-common.c:510
+msgid "Capacity:"
+msgstr "ಸಾಮರ್ಥ್ಯ:"
+
+#: ../plugins/power/gpm-common.c:516 ../plugins/power/gpm-common.c:541
+msgid "Current charge:"
+msgstr "ಪ್ರಸಕ್ತ ಚಾರ್ಜ್:"
+
+#: ../plugins/power/gpm-common.c:522
+msgid "Last full charge:"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:528 ../plugins/power/gpm-common.c:546
+msgid "Design charge:"
+msgstr ""
+
+#: ../plugins/power/gpm-common.c:533
+msgid "Charge rate:"
+msgstr ""
+
+#. TRANSLATORS: system power cord
+#: ../plugins/power/gpm-common.c:565
+msgid "AC adapter"
+msgid_plural "AC adapters"
+msgstr[0] "AC ಅಡಾಪ್ಟರ್"
+msgstr[1] "AC ಅಡಾಪ್ಟರುಗಳು"
+
+#. TRANSLATORS: laptop primary battery
+#: ../plugins/power/gpm-common.c:569
+msgid "Laptop battery"
+msgid_plural "Laptop batteries"
+msgstr[0] "ಲ್ಯಾಪ್‌ಟಾಪ್ ಬ್ಯಾಟರಿ"
+msgstr[1] "ಲ್ಯಾಪ್‌ಟಾಪ್‌ ಬ್ಯಾಟರಿಗಳು"
+
+#. TRANSLATORS: battery-backed AC power source
+#: ../plugins/power/gpm-common.c:573
+msgid "UPS"
+msgid_plural "UPSs"
+msgstr[0] "UPS"
+msgstr[1] "UPSಗಳು"
+
+#. TRANSLATORS: a monitor is a device to measure voltage and current
+#: ../plugins/power/gpm-common.c:577
+msgid "Monitor"
+msgid_plural "Monitors"
+msgstr[0] "ತೆರೆ"
+msgstr[1] "ತೆರೆಗಳು"
+
+#. TRANSLATORS: portable device
+#: ../plugins/power/gpm-common.c:589
+msgid "PDA"
+msgid_plural "PDAs"
+msgstr[0] "PDA"
+msgstr[1] "PDAಗಳು"
+
+#. TRANSLATORS: cell phone (mobile...)
+#: ../plugins/power/gpm-common.c:593
+msgid "Cell phone"
+msgid_plural "Cell phones"
+msgstr[0] "ಸೆಲ್ ಫೋನ್"
+msgstr[1] "ಸೆಲ್‌ ಫೋನ್‌ಗಳು"
+
+#. TRANSLATORS: media player, mp3 etc
+#: ../plugins/power/gpm-common.c:598
+#| msgid "Launch media player"
+msgid "Media player"
+msgid_plural "Media players"
+msgstr[0] "ಮಾಧ್ಯಮ ಚಾಲಕ"
+msgstr[1] "ಮಾಧ್ಯಮ ಚಾಲಕಗಳು"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:602
+msgid "Tablet"
+msgid_plural "Tablets"
+msgstr[0] "ಕಿಸೆಗಣಕ (ಟ್ಯಾಬ್ಲೆಟ್)"
+msgstr[1] "ಕಿಸೆಗಣಕಗಳು (ಟ್ಯಾಬ್ಲೆಟ್ಸ್‍)"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:606
+msgid "Computer"
+msgid_plural "Computers"
+msgstr[0] "ಗಣಕ"
+msgstr[1] "ಗಣಕಗಳು"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:670
+msgid "Lithium Ion"
+msgstr "ಲಿತಿಯಮ್ ಅಯಾನ್"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:674
+msgid "Lithium Polymer"
+msgstr "ಲಿತಿಯಮ್ ಪಾಲಿಮರ್"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:678
+msgid "Lithium Iron Phosphate"
+msgstr "ಲಿತಿಯಮ್ ಐರನ್ ಫಾಸ್ಫೇಟ್"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:682
+msgid "Lead acid"
+msgstr "ಲೆಡ್ ಆಮ್ಲ"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:686
+msgid "Nickel Cadmium"
+msgstr "ನಿಕಲ್‌ ಕ್ಯಾಡ್ಮಿಯಮ್"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:690
+msgid "Nickel metal hydride"
+msgstr "ನಿಕಲ್ ಮೆಟಲ್ ಹೈಡ್ರೈಡ್"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:694
+msgid "Unknown technology"
+msgstr "ಗೊತ್ತಿರದ ತಂತ್ರಜ್ಞಾನ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:719
+#| msgid "Empty Trash"
+msgid "Empty"
+msgstr "ಖಾಲಿ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:727
+msgid "Waiting to charge"
+msgstr "ಚಾರ್ಜ್ ಆಗಲು ಕಾಯುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:731
+msgid "Waiting to discharge"
+msgstr "ಡಿಸ್‌ಚಾರ್ಜ್ ಆಗಲು ಕಾಯುತ್ತಿದೆ"
+
+#. TRANSLATORS: device not present
+#: ../plugins/power/gpm-common.c:759
+msgid "Laptop battery not present"
+msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್ ಬ್ಯಾಟರಿ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:763
+msgid "Laptop battery is charging"
+msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್ ಬ್ಯಾಟರಿ ಚಾರ್ಜ್ ಆಗುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:767
+msgid "Laptop battery is discharging"
+msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್ ಬ್ಯಾಟರಿ ಡಿಸ್‌ಚಾರ್ಜ್ ಆಗುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:771
+msgid "Laptop battery is empty"
+msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್ ಬ್ಯಾಟರಿ ಖಾಲಿ ಇದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:775
+msgid "Laptop battery is charged"
+msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್ ಬ್ಯಾಟರಿ ಚಾರ್ಜ್ ಆಗಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:779
+msgid "Laptop battery is waiting to charge"
+msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್ ಬ್ಯಾಟರಿ ಚಾರ್ಜ್ ಆಗಲು ಕಾಯುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:783
+msgid "Laptop battery is waiting to discharge"
+msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್ ಬ್ಯಾಟರಿ ಡಿಸ್‌ಚಾರ್ಜ್ ಆಗಲು ಕಾಯುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:792
+msgid "UPS is charging"
+msgstr "UPS ಚಾರ್ಜ್ ಆಗುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:796
+msgid "UPS is discharging"
+msgstr "UPS ಡಿಸ್‌ಚಾರ್ಜ್ ಆಗುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:800
+msgid "UPS is empty"
+msgstr "UPS ಖಾಲಿ ಇದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:804
+msgid "UPS is charged"
+msgstr "UPS ಚಾರ್ಜ್ ಆಗಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:813
+#| msgid "Mouse plugin"
+msgid "Mouse is charging"
+msgstr "ಮೌಸ್ ಚಾರ್ಜ್ ಆಗುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:817
+msgid "Mouse is discharging"
+msgstr "ಮೌಸ್ ಡಿಸ್‌ಚಾರ್ಜ್ ಆಗುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:821
+#| msgid "Mouse keys"
+msgid "Mouse is empty"
+msgstr "ಮೌಸ್‌ ಖಾಲಿ ಇದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:825
+msgid "Mouse is charged"
+msgstr "ಮೌಸ್‌ ಚಾರ್ಜ್ ಆಗಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:834
+#| msgid "Keyboard plugin"
+msgid "Keyboard is charging"
+msgstr "ಕೀಲಿಮಣೆ ಚಾರ್ಜ್ ಆಗುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:838
+#| msgid "Keyboard plugin"
+msgid "Keyboard is discharging"
+msgstr "ಕೀಲಿಮಣೆ ಡಿಸ್‌ಚಾರ್ಜ್ ಆಗುತ್ತಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:842
+#| msgid "Keyboard"
+msgid "Keyboard is empty"
+msgstr "ಕೀಲಿ ಮಣೆ ಖಾಲಿ ಇದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:846
+msgid "Keyboard is charged"
+msgstr "ಕೀಲಿ ಮಣೆ ಜಾರ್ಜ್ ಆಗಿದೆ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:855
+msgid "PDA is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:859
+msgid "PDA is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:863
+msgid "PDA is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:867
+msgid "PDA is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:876
+msgid "Cell phone is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:880
+msgid "Cell phone is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:884
+msgid "Cell phone is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:888
+msgid "Cell phone is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:898
+msgid "Media player is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:902
+msgid "Media player is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:906
+msgid "Media player is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:910
+msgid "Media player is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:919
+msgid "Tablet is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:923
+msgid "Tablet is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:927
+msgid "Tablet is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:931
+msgid "Tablet is charged"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:940
+msgid "Computer is charging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:944
+msgid "Computer is discharging"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:948
+msgid "Computer is empty"
+msgstr ""
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:952
+msgid "Computer is charged"
+msgstr ""
+
+#. TRANSLATORS: the battery may be recalled by its vendor
+#: ../plugins/power/gsd-power-manager.c:997
+msgid "Battery may be recalled"
+msgstr ""
+
+#: ../plugins/power/gsd-power-manager.c:1000
+#, c-format
+msgid ""
+"A battery in your computer may have been recalled by %s and you may be at "
+"risk."
+msgstr ""
+
+#: ../plugins/power/gsd-power-manager.c:1003
+msgid "For more information visit the battery recall website."
+msgstr ""
+
+#. TRANSLATORS: button text, visit the manufacturers recall website
+#: ../plugins/power/gsd-power-manager.c:1014
+msgid "Visit recall website"
+msgstr ""
+
+#. TRANSLATORS: button text, do not show this bubble again
+#: ../plugins/power/gsd-power-manager.c:1018
+#, fuzzy
+#| msgid "_Do not show this message again"
+msgid "Do not show me this again"
+msgstr "ಈ ಸಂದೇಶವನ್ನು ಪುನಃ ತೋರಿಸಬೇಡ(_D)"
+
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:1251
+msgid "UPS Discharging"
+msgstr ""
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1256
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr ""
+
+#. TRANSLATORS: this is the notification application name
+#: ../plugins/power/gsd-power-manager.c:1277
+#: ../plugins/power/gsd-power-manager.c:1459
+#: ../plugins/power/gsd-power-manager.c:1641
+#: ../plugins/power/gsd-power-manager.c:1788
+#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+msgid "Power"
+msgstr ""
+
+#. TRANSLATORS: laptop battery low, and we only have one battery
+#: ../plugins/power/gsd-power-manager.c:1369
+msgid "Battery low"
+msgstr ""
+
+#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1372
+msgid "Laptop battery low"
+msgstr ""
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1379
+#, c-format
+msgid "Approximately %s remaining (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: UPS is starting to get a little low
+#: ../plugins/power/gsd-power-manager.c:1384
+msgid "UPS low"
+msgstr ""
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1390
+#, c-format
+msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: mouse is getting a little low
+#. TRANSLATORS: the mouse battery is very low
+#: ../plugins/power/gsd-power-manager.c:1395
+#: ../plugins/power/gsd-power-manager.c:1562
+msgid "Mouse battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1398
+#, c-format
+msgid "Wireless mouse is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: keyboard is getting a little low
+#. TRANSLATORS: the keyboard battery is very low
+#: ../plugins/power/gsd-power-manager.c:1402
+#: ../plugins/power/gsd-power-manager.c:1570
+#, fuzzy
+#| msgid "Keyboard Layout"
+msgid "Keyboard battery low"
+msgstr "ಕೀಲಿಮಣೆ ಲೇಔಟ್"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1405
+#, c-format
+msgid "Wireless keyboard is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: PDA is getting a little low
+#. TRANSLATORS: the PDA battery is very low
+#: ../plugins/power/gsd-power-manager.c:1409
+#: ../plugins/power/gsd-power-manager.c:1579
+msgid "PDA battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1412
+#, c-format
+msgid "PDA is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: cell phone (mobile) is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1416
+#: ../plugins/power/gsd-power-manager.c:1589
+#: ../plugins/power/gsd-power-manager.c:1600
+msgid "Cell phone battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1419
+#, c-format
+msgid "Cell phone is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: media player, e.g. mp3 is getting a little low
+#: ../plugins/power/gsd-power-manager.c:1424
+msgid "Media player battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1427
+#, c-format
+msgid "Media player is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1431
+#: ../plugins/power/gsd-power-manager.c:1609
+msgid "Tablet battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1434
+#, c-format
+msgid "Tablet is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: computer, e.g. ipad is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1438
+#: ../plugins/power/gsd-power-manager.c:1618
+msgid "Attached computer battery low"
+msgstr ""
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1441
+#, c-format
+msgid "Attached computer is low in power (%.0f%%)"
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1476
+msgid "Battery is low"
+msgstr ""
+
+#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1518
+msgid "Battery critically low"
+msgstr ""
+
+#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
+#. TRANSLATORS: laptop battery is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1521
+#: ../plugins/power/gsd-power-manager.c:1706
+msgid "Laptop battery critically low"
+msgstr ""
+
+#. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
+#: ../plugins/power/gsd-power-manager.c:1530
+msgid "Plug in your AC adapter to avoid losing data."
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1534
+#, c-format
+msgid "Computer will suspend very soon unless it is plugged in."
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1538
+#, c-format
+msgid "Computer will hibernate very soon unless it is plugged in."
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1542
+#, c-format
+msgid "Computer will shutdown very soon unless it is plugged in."
+msgstr ""
+
+#. TRANSLATORS: the UPS is very low
+#. TRANSLATORS: UPS is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1550
+#: ../plugins/power/gsd-power-manager.c:1742
+msgid "UPS critically low"
+msgstr ""
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1556
+#, c-format
+msgid ""
+"Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
+"computer to avoid losing data."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1565
+#, c-format
+msgid ""
+"Wireless mouse is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1573
+#, c-format
+msgid ""
+"Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1582
+#, c-format
+msgid ""
+"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
+"not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1592
+#, c-format
+msgid ""
+"Cell phone is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1603
+#, c-format
+msgid ""
+"Media player is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1612
+#, c-format
+msgid ""
+"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1621
+#, c-format
+msgid ""
+"Attached computer is very low in power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1659
+#: ../plugins/power/gsd-power-manager.c:1669
+#: ../plugins/power/gsd-power-manager.c:1803
+msgid "Battery is critically low"
+msgstr ""
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1714
+msgid ""
+"The battery is below the critical level and this computer will <b>power-off</"
+"b> when the battery becomes completely empty."
+msgstr ""
+
+#. TRANSLATORS: computer will suspend
+#: ../plugins/power/gsd-power-manager.c:1720
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"suspend.\n"
+"<b>NOTE:</b> A small amount of power is required to keep your computer in a "
+"suspended state."
+msgstr ""
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1727
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"hibernate."
+msgstr ""
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1732
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"shutdown."
+msgstr ""
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1750
+msgid ""
+"UPS is below the critical level and this computer will <b>power-off</b> when "
+"the UPS becomes completely empty."
+msgstr ""
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1756
+msgid ""
+"UPS is below the critical level and this computer is about to hibernate."
+msgstr ""
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1761
+msgid "UPS is below the critical level and this computer is about to shutdown."
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2149
+msgid "Lid has been opened"
+msgstr ""
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2305
+msgid "Lid has been closed"
+msgstr ""
+
+#. TRANSLATORS: this is the title of the power manager status icon
+#. * that is only shown in fallback mode
+#: ../plugins/power/gsd-power-manager.c:3668
+msgid "Power Manager"
+msgstr ""
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the backlight brightness.
+#.
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:5
+msgid "Modify the laptop brightness"
+msgstr ""
+
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+msgid "Authentication is required to modify the laptop brightness"
+msgstr ""
+
+#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#, fuzzy
+#| msgid "Mouse plugin"
+msgid "Power plugin"
+msgstr "ಮೌಸ್ ಪ್ಲಗ್‌ಇನ್"
+
+#. Translators: We are configuring new printer
+#: ../plugins/print-notifications/gsd-printer.c:891
+msgid "Configuring new printer"
+msgstr ""
+
+#. Translators: Just wait
+#: ../plugins/print-notifications/gsd-printer.c:893
+msgid "Please wait..."
+msgstr ""
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:920
+msgid "Missing printer driver"
+msgstr ""
+
+#. Translators: We have no driver installed for the device
+#: ../plugins/print-notifications/gsd-printer.c:929
+#, c-format
+msgid "No printer driver for %s."
+msgstr ""
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:934
+msgid "No driver for this printer."
+msgstr ""
+
+#: ../plugins/print-notifications/gsd-printer.c:1032
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:233
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:658
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:747
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:790
+#, fuzzy
+#| msgid "Hinting"
+msgid "Printers"
+msgstr "ಹಿಂಟಿಂಗ್"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:309
+msgid "Toner low"
+msgstr ""
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:311
+msgid "Toner empty"
+msgstr ""
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:313
+msgid "Not connected?"
+msgstr ""
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:315
+msgid "Cover open"
+msgstr ""
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:317
+msgid "Printer configuration error"
+msgstr ""
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+msgid "Door open"
+msgstr ""
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
+msgid "Marker supply low"
+msgstr ""
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:323
+msgid "Out of a marker supply"
+msgstr ""
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+msgid "Paper low"
+msgstr ""
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
+msgid "Out of paper"
+msgstr ""
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
+msgid "Printer off-line"
+msgstr ""
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#. Translators: This is a title of an error notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:733
+msgid "Printer error"
+msgstr ""
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:335
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr ""
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr ""
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr ""
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:341
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr ""
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:343
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr ""
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr ""
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:348
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr ""
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr ""
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr ""
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr ""
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr ""
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr ""
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:435
+msgid "Printer added"
+msgstr ""
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
+msgid "Printer removed"
+msgstr ""
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:460
+msgid "Printing stopped"
+msgstr ""
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:462
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:468
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:474
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:492
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
+#, c-format
+msgid "\"%s\" on %s"
+msgstr ""
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:466
+msgid "Printing canceled"
+msgstr ""
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:472
+msgid "Printing aborted"
+msgstr ""
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:478
+msgid "Printing completed"
+msgstr ""
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:490
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:510
+#, fuzzy
+#| msgid "Hinting"
+msgid "Printing"
+msgstr "ಹಿಂಟಿಂಗ್"
+
+#. Translators: This is a title of a report notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:727
+msgid "Printer report"
+msgstr ""
+
+#. Translators: This is a title of a warning notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:730
+#, fuzzy
+#| msgid "Hinting"
+msgid "Printer warning"
+msgstr "ಹಿಂಟಿಂಗ್"
+
+#. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:740
+#, c-format
+msgid "Printer '%s': '%s'."
+msgstr ""
 
 #: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
 msgid "Print-notifications"
@@ -1524,524 +2749,510 @@ msgstr ""
 msgid "Print-notifications plugin"
 msgstr ""
 
-#. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:175
-msgid "Toner low"
-msgstr ""
-
-#. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:177
-msgid "Toner empty"
-msgstr ""
-
-#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:179
-msgid "Not connected?"
-msgstr ""
-
-#. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:181
-msgid "Cover open"
-msgstr ""
-
-#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:183
-msgid "Printer configuration error"
-msgstr ""
-
-#. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:185
-msgid "Door open"
-msgstr ""
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:187
-msgid "Marker supply low"
-msgstr ""
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:189
-msgid "Out of a marker supply"
-msgstr ""
-
-#. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:191
-msgid "Paper low"
-msgstr ""
-
-#. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:193
-msgid "Out of paper"
-msgstr ""
-
-#. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:195
-msgid "Printer off-line"
-msgstr ""
-
-#. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:197
-msgid "Printer error"
-msgstr ""
-
-#. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:201
-#, c-format
-msgid "Printer '%s' is low on toner."
-msgstr ""
-
-#. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:203
-#, c-format
-msgid "Printer '%s' has no toner left."
-msgstr ""
-
-#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:205
-#, c-format
-msgid "Printer '%s' may not be connected."
-msgstr ""
-
-#. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:207
-#, c-format
-msgid "The cover is open on printer '%s'."
-msgstr ""
-
-#. Trnaslators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:209
-#, c-format
-msgid "There is a missing print filter for printer '%s'."
-msgstr ""
-
-#. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:212
-#, c-format
-msgid "The door is open on printer '%s'."
-msgstr ""
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:214
-#, c-format
-msgid "Printer '%s' is low on a marker supply."
-msgstr ""
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:216
-#, c-format
-msgid "Printer '%s' is out of a marker supply."
-msgstr ""
-
-#. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:218
-#, c-format
-msgid "Printer '%s' is low on paper."
-msgstr ""
-
-#. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:220
-#, c-format
-msgid "Printer '%s' is out of paper."
-msgstr ""
-
-#. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:222
-#, c-format
-msgid "Printer '%s' is currently off-line."
-msgstr ""
-
-#. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:224
-#, c-format
-msgid "There is a problem on printer '%s'."
-msgstr ""
-
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:294
-msgid "Printer added"
-msgstr ""
-
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:302
-msgid "Printer removed"
-msgstr ""
-
-#. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
-msgid "Printing stopped"
-msgstr ""
-
-#. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
-#, c-format
-msgid "\"%s\" on %s"
-msgstr ""
-
-#. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
-msgid "Printing canceled"
-msgstr ""
-
-#. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
-msgid "Printing aborted"
-msgstr ""
-
-#. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
-msgid "Printing completed"
-msgstr ""
-
-#. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
-#, fuzzy
-#| msgid "Hinting"
-msgid "Printing"
-msgstr "ಹಿಂಟಿಂಗ್"
-
-#. Translators: We are configuring new printer
-#: ../plugins/print-notifications/gsd-printer.c:91
-msgid "Configuring new printer"
-msgstr ""
-
-#. Translators: Just wait
-#: ../plugins/print-notifications/gsd-printer.c:93
-msgid "Please wait..."
-msgstr ""
-
-#. name is a URI, no queue was generated, because no suitable
-#. * driver was found
-#.
-#. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:114
-msgid "Missing printer driver"
-msgstr ""
-
-#. Translators: We have no driver installed for the device
-#: ../plugins/print-notifications/gsd-printer.c:123
-#, c-format
-msgid "No printer driver for %s."
-msgstr ""
-
-#. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:128
-msgid "No driver for this printer."
-msgstr ""
-
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
-msgid "Set up screen size and rotation settings"
-msgstr "ತೆರೆಯ ಗಾತ್ರ ಹಾಗು ಸುತ್ತುವಿಕೆಯನ್ನು ಹೊಂದಿಸು"
-
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
-msgid "XRandR"
-msgstr "XRandR"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:413
-msgid "Could not switch the monitor configuration"
-msgstr "ತೆರೆಯ ಸಂರಚನೆಯನ್ನು ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:437
-msgid "Could not restore the display's configuration"
-msgstr "ಪ್ರದರ್ಶಕದ ಸಂರಚನೆಯನ್ನು ಮರಳಿ ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:462
-msgid "Could not restore the display's configuration from a backup"
-msgstr "ಪ್ರದರ್ಶಕದ ಸಂರಚನೆಯನ್ನು ಬ್ಯಾಕ್‌ಅಪ್‌ನಿಂದ ಮರಳಿ ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:483
-#, c-format
-msgid "The display will be reset to its previous configuration in %d second"
-msgid_plural "The display will be reset to its previous configuration in %d seconds"
-msgstr[0] "%d ಸೆಕೆಂಡಿನಲ್ಲಿ ಪ್ರದರ್ಶಕವನ್ನು ಅದರ ಹಿಂದಿನ ಸಂರಚನೆಗೆ ಮರಳಿಸಲಾಗುವುದು"
-msgstr[1] "%d ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಪ್ರದರ್ಶಕವನ್ನು ಅದರ ಹಿಂದಿನ ಸಂರಚನೆಗೆ ಮರಳಿಸಲಾಗುವುದು"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
-msgid "Does the display look OK?"
-msgstr "ಪ್ರದರ್ಶಕವು ಸರಿಯಾಗಿ ಕಾಣಿಸುತ್ತಿದೆಯೆ?"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:539
-msgid "_Restore Previous Configuration"
-msgstr "ಹಿಂದಿನ ಸಂರಚನೆಯನ್ನು ಮರಳಿ ಸ್ಥಾಪಿಸು(_R)"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:540
-msgid "_Keep This Configuration"
-msgstr "ಈ ಸಂರಚನೆಯನ್ನು ಇರಿಸಿಕೊ(_K)"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:621
-msgid "The selected configuration for displays could not be applied"
-msgstr "ಆಯ್ಕೆ ಮಾಡಲಾದ ಪ್ರದರ್ಶಕದ ಸಂರಚನೆಯನ್ನು ಅನ್ವಯಿಸಲಾಗಿಲ್ಲ"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1165
-#, c-format
-msgid "Could not refresh the screen information: %s"
-msgstr "ತೆರೆಯ ಮಾಹಿತಿಯನ್ನು ಪುನಶ್ಚೇತನಗೊಳಿಸಲಾಗಲಿಲ್ಲ: %s"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1169
-msgid "Trying to switch the monitor configuration anyway."
-msgstr "ಆದರೂ ಸಹ ತೆರೆಯ ಸಂರಚನೆಯನ್ನು ಬದಲಾಯಿಸಲು ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ."
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1639
-msgid "Could not apply the stored configuration for monitors"
-msgstr "ತೆರೆಗಳಿಗಾಗಿ ಶೇಖರಿಸಲಾದ ಸಂರಚನೆಯನ್ನು ಅನ್ವಯಿಸಲಾಗಿಲ್ಲ"
-
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
-msgid "Manage X Settings"
-msgstr "X ಸಿದ್ಧತೆಗಳನ್ನು ವ್ಯವಸ್ಥಾಪಿಸು"
-
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
-msgid "X Settings"
-msgstr "X ಸಿದ್ಧತೆಗಳು"
-
-#: ../plugins/smartcard/gsd-smartcard-manager.c:187
-msgid "Module Path"
-msgstr ""
-
-#: ../plugins/smartcard/gsd-smartcard-manager.c:188
-msgid "path to smartcard PKCS #11 driver"
-msgstr ""
-
-#: ../plugins/smartcard/gsd-smartcard-manager.c:528
+#: ../plugins/smartcard/gsd-smartcard-manager.c:529
 msgid "received error or hang up from event source"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:662
+#: ../plugins/smartcard/gsd-smartcard-manager.c:663
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:790
+#: ../plugins/smartcard/gsd-smartcard-manager.c:791
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:804
+#: ../plugins/smartcard/gsd-smartcard-manager.c:805
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:876
+#: ../plugins/smartcard/gsd-smartcard-manager.c:877
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1274
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1275
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr ""
 
-#: ../plugins/smartcard/gsd-smartcard.c:158
-msgid "Slot ID"
-msgstr ""
-
-#: ../plugins/smartcard/gsd-smartcard.c:159
-msgid "The slot the card is in"
-msgstr ""
-
-#: ../plugins/smartcard/gsd-smartcard.c:165
-#, fuzzy
-#| msgid "Slow keys"
-msgid "Slot Series"
-msgstr "ನಿಧಾನಗತಿಯ ಕೀಲಿಗಳು"
-
-#: ../plugins/smartcard/gsd-smartcard.c:166
-msgid "per-slot card identifier"
-msgstr ""
-
-#: ../plugins/smartcard/gsd-smartcard.c:172
-#: ../plugins/smartcard/gsd-smartcard.c:173
-msgid "name"
-msgstr ""
-
-#: ../plugins/smartcard/gsd-smartcard.c:177
-#, fuzzy
-#| msgid "Mouse"
-msgid "Module"
-msgstr "ಮೌಸ್"
-
-#: ../plugins/smartcard/gsd-smartcard.c:178
-msgid "smartcard driver"
-msgstr ""
-
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:1
-#, fuzzy
-#| msgid "Set up screen size and rotation settings"
-msgid "Change system time and date settings"
-msgstr "ತೆರೆಯ ಗಾತ್ರ ಹಾಗು ಸುತ್ತುವಿಕೆಯನ್ನು ಹೊಂದಿಸು"
-
-#: ../plugins/datetime/org.gnome.settingsdaemon.datetimemechanism.policy.in.h:2
-msgid "Privileges are required to configure time and date settings."
-msgstr ""
-
-#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:194
-msgid "Distribution upgrades available"
-msgstr ""
-
-#. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:204
-msgid "More information"
-msgstr ""
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:307
-#: ../plugins/updates/gsd-updates-manager.c:367
-msgid "Update"
-msgid_plural "Updates"
-msgstr[0] ""
-msgstr[1] ""
-
-#. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:310
-msgid "An important software update is available"
-msgid_plural "Important software updates are available"
-msgstr[0] ""
-msgstr[1] ""
-
-#. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:330
-#: ../plugins/updates/gsd-updates-manager.c:390
-msgid "Install updates"
-msgstr ""
-
-#. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:370
-msgid "A software update is available."
-msgid_plural "Software updates are available."
-msgstr[0] ""
-msgstr[1] ""
-
-#. TRANSLATORS: policy says update, but we are on battery and so prompt
-#: ../plugins/updates/gsd-updates-manager.c:436
-msgid ""
-"Automatic updates are not being installed as the computer is running on "
-"battery power"
-msgstr ""
-
-#. TRANSLATORS: informs user will not install by default
-#: ../plugins/updates/gsd-updates-manager.c:438
-msgid "Updates not installed"
-msgstr ""
-
-#. TRANSLATORS: to hell with my battery life, just do it
-#: ../plugins/updates/gsd-updates-manager.c:444
-msgid "Install the updates anyway"
-msgstr ""
-
-#: ../plugins/updates/gsd-updates-manager.c:460
-msgid "No restart is required."
-msgstr ""
-
-#: ../plugins/updates/gsd-updates-manager.c:463
-msgid "A restart is required."
-msgstr ""
-
-#: ../plugins/updates/gsd-updates-manager.c:466
-msgid "You need to log out and log back in."
-msgstr ""
-
-#: ../plugins/updates/gsd-updates-manager.c:469
-msgid "You need to restart the application."
-msgstr ""
-
-#: ../plugins/updates/gsd-updates-manager.c:472
-msgid "You need to log out and log back in to remain secure."
-msgstr ""
-
-#: ../plugins/updates/gsd-updates-manager.c:475
-msgid "A restart is required to remain secure."
-msgstr ""
-
-#. TRANSLATORS: we did the update, but some updates were skipped and not applied
-#: ../plugins/updates/gsd-updates-manager.c:536
-msgid "One package was skipped:"
-msgid_plural "Some packages were skipped:"
-msgstr[0] ""
-msgstr[1] ""
-
-#. TRANSLATORS: title: system update completed all okay
-#: ../plugins/updates/gsd-updates-manager.c:568
-msgid "The system update has completed"
-msgstr ""
-
-#. TRANSLATORS: restart computer as system packages need update
-#: ../plugins/updates/gsd-updates-manager.c:575
-msgid "Restart computer now"
-msgstr ""
-
-#. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:646
-msgid "Updates"
-msgstr ""
-
-#. TRANSLATORS: we failed to get the updates multiple times,
-#. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:650
-msgid "Unable to access software updates"
-msgstr ""
-
-#. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:653
-msgid "Try again"
-msgstr ""
-
-#. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1092
-msgid "A transaction that cannot be interrupted is running"
-msgstr ""
-
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:240
+#: ../plugins/updates/gsd-updates-firmware.c:250
 msgid ""
 "You will need to restart this computer before the hardware will work "
 "correctly."
 msgstr ""
 
 #. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:243
-#: ../plugins/updates/gsd-updates-firmware.c:267
-#: ../plugins/updates/gsd-updates-firmware.c:291
+#: ../plugins/updates/gsd-updates-firmware.c:253
+#: ../plugins/updates/gsd-updates-firmware.c:280
+#: ../plugins/updates/gsd-updates-firmware.c:307
 msgid "Additional software was installed"
 msgstr ""
 
+#: ../plugins/updates/gsd-updates-firmware.c:254
+#: ../plugins/updates/gsd-updates-firmware.c:281
+#: ../plugins/updates/gsd-updates-firmware.c:308
+#: ../plugins/updates/gsd-updates-firmware.c:599
+#: ../plugins/updates/gsd-updates-manager.c:347
+#: ../plugins/updates/gsd-updates-manager.c:474
+#: ../plugins/updates/gsd-updates-manager.c:535
+#: ../plugins/updates/gsd-updates-manager.c:624
+#: ../plugins/updates/gsd-updates-manager.c:1313
+msgid "Software Updates"
+msgstr ""
+
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:264
+#: ../plugins/updates/gsd-updates-firmware.c:277
 msgid ""
 "You will need to remove and then reinsert the hardware before it will work "
 "correctly."
 msgstr ""
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:288
+#: ../plugins/updates/gsd-updates-firmware.c:304
 msgid "Your hardware has been set up and is now ready to use."
 msgstr ""
 
 #. TRANSLATORS: we need another package to keep udev quiet
-#: ../plugins/updates/gsd-updates-firmware.c:566
+#: ../plugins/updates/gsd-updates-firmware.c:584
 msgid ""
 "Additional firmware is required to make hardware in this computer function "
 "correctly."
 msgstr ""
 
 #. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:580
+#: ../plugins/updates/gsd-updates-firmware.c:598
 msgid "Additional firmware required"
 msgstr ""
 
 #. TRANSLATORS: button label
-#: ../plugins/updates/gsd-updates-firmware.c:585
+#: ../plugins/updates/gsd-updates-firmware.c:604
 msgid "Install firmware"
 msgstr ""
 
 #. TRANSLATORS: we should ignore this device and not ask anymore
-#: ../plugins/updates/gsd-updates-firmware.c:588
+#: ../plugins/updates/gsd-updates-firmware.c:607
 #, fuzzy
 #| msgid "Ignore"
 msgid "Ignore devices"
 msgstr "ಅಲಕ್ಷಿಸು"
+
+#. TRANSLATORS: this is when the offline update failed
+#: ../plugins/updates/gsd-updates-manager.c:125
+msgid "Failed To Update"
+msgstr ""
+
+#. TRANSLATORS: the transaction could not be completed
+#. * as a previous transaction was unfinished
+#: ../plugins/updates/gsd-updates-manager.c:131
+msgid "A previous update was unfinished."
+msgstr ""
+
+#. TRANSLATORS: the package manager needed to download
+#. * something with no network available
+#: ../plugins/updates/gsd-updates-manager.c:141
+msgid "Network access was required but not available."
+msgstr ""
+
+#. TRANSLATORS: if the package is not signed correctly
+#. *
+#: ../plugins/updates/gsd-updates-manager.c:150
+msgid "An update was not signed in the correct way."
+msgstr ""
+
+#. TRANSLATORS: the transaction failed in a way the user
+#. * probably cannot comprehend. Package management systems
+#. * really are teh suck.
+#: ../plugins/updates/gsd-updates-manager.c:160
+msgid "The update could not be completed."
+msgstr ""
+
+#. TRANSLATORS: the user aborted the update manually
+#: ../plugins/updates/gsd-updates-manager.c:165
+msgid "The update was cancelled."
+msgstr ""
+
+#. TRANSLATORS: the user must have updated manually after
+#. * the updates were prepared
+#: ../plugins/updates/gsd-updates-manager.c:171
+msgid "An offline update was requested but no packages required updating."
+msgstr ""
+
+#. TRANSLATORS: we ran out of disk space
+#: ../plugins/updates/gsd-updates-manager.c:175
+msgid "No space was left on the drive."
+msgstr ""
+
+#. TRANSLATORS: the update process failed in a general
+#. * way, usually this message will come from source distros
+#. * like gentoo
+#: ../plugins/updates/gsd-updates-manager.c:183
+msgid "An update failed to install correctly."
+msgstr ""
+
+#. TRANSLATORS: We didn't handle the error type
+#: ../plugins/updates/gsd-updates-manager.c:188
+msgid "The offline update failed in an unexpected way."
+msgstr ""
+
+#. TRANSLATORS: these are geeky messages from the
+#. * package manager no mortal is supposed to understand,
+#. * but google might know what they mean
+#: ../plugins/updates/gsd-updates-manager.c:197
+msgid "Detailed errors from the package manager follow:"
+msgstr ""
+
+#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
+#: ../plugins/updates/gsd-updates-manager.c:343
+msgid "Distribution upgrades available"
+msgstr ""
+
+#. TRANSLATORS: provides more information about the upgrade
+#: ../plugins/updates/gsd-updates-manager.c:352
+msgid "More information"
+msgstr ""
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:457
+#: ../plugins/updates/gsd-updates-manager.c:518
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: message when there are security updates
+#: ../plugins/updates/gsd-updates-manager.c:460
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: button: open the update viewer to install updates
+#: ../plugins/updates/gsd-updates-manager.c:479
+#: ../plugins/updates/gsd-updates-manager.c:540
+msgid "Install updates"
+msgstr ""
+
+#. TRANSLATORS: message when there are non-security updates
+#: ../plugins/updates/gsd-updates-manager.c:521
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: the updates mechanism
+#: ../plugins/updates/gsd-updates-manager.c:612
+msgid "Updates"
+msgstr ""
+
+#. TRANSLATORS: we failed to get the updates multiple times,
+#. * and now we need to inform the user that something might be wrong
+#: ../plugins/updates/gsd-updates-manager.c:616
+msgid "Unable to access software updates"
+msgstr ""
+
+#. TRANSLATORS: try again, this time launching the update viewer
+#: ../plugins/updates/gsd-updates-manager.c:619
+msgid "Try again"
+msgstr ""
+
+#. TRANSLATORS: the reason why we've inhibited it
+#: ../plugins/updates/gsd-updates-manager.c:981
+msgid "A transaction that cannot be interrupted is running"
+msgstr ""
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:1274
+msgid "Software Update Installed"
+msgid_plural "Software Updates Installed"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: message when we've done offline updates
+#: ../plugins/updates/gsd-updates-manager.c:1279
+msgid "An important OS update has been installed."
+msgid_plural "Important OS updates have been installed."
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:1302
+msgid "Software Updates Failed"
+msgstr ""
+
+#. TRANSLATORS: message when we've not done offline updates
+#: ../plugins/updates/gsd-updates-manager.c:1305
+msgid "An important OS update failed to be installed."
+msgstr ""
+
+#. TRANSLATORS: button: review the offline update changes
+#: ../plugins/updates/gsd-updates-manager.c:1320
+msgid "Review"
+msgstr ""
+
+#. TRANSLATORS: button: review the offline update changes
+#: ../plugins/updates/gsd-updates-manager.c:1325
+msgid "Show details"
+msgstr ""
+
+#. TRANSLATORS: button: clear notification
+#: ../plugins/updates/gsd-updates-manager.c:1329
+msgid "OK"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1010
+#, c-format
+msgid "Left Ring Mode #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1019
+#, c-format
+msgid "Right Ring Mode #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1049
+#, c-format
+msgid "Left Touchstrip Mode #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1058
+#, c-format
+msgid "Right Touchstrip Mode #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1075
+#, c-format
+msgid "Left Touchring Mode Switch"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1077
+#, c-format
+msgid "Right Touchring Mode Switch"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1080
+#, c-format
+msgid "Left Touchstrip Mode Switch"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1082
+#, c-format
+msgid "Right Touchstrip Mode Switch"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1087
+#, c-format
+msgid "Mode Switch #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1159
+#, c-format
+msgid "Left Button #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1162
+#, c-format
+msgid "Right Button #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1165
+#, c-format
+msgid "Top Button #%d"
+msgstr ""
+
+#: ../plugins/wacom/gsd-wacom-device.c:1168
+#, c-format
+msgid "Bottom Button #%d"
+msgstr ""
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the LED setting for a Wacom tablet
+#.
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
+msgid "Modify the lit LED for a Wacom tablet"
+msgstr ""
+
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
+msgid "Authentication is required to modify the lit LED for a Wacom tablet"
+msgstr ""
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:508
+msgid "Could not switch the monitor configuration"
+msgstr "ತೆರೆಯ ಸಂರಚನೆಯನ್ನು ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+msgid "Could not restore the display's configuration"
+msgstr "ಪ್ರದರ್ಶಕದ ಸಂರಚನೆಯನ್ನು ಮರಳಿ ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:557
+msgid "Could not restore the display's configuration from a backup"
+msgstr "ಪ್ರದರ್ಶಕದ ಸಂರಚನೆಯನ್ನು ಬ್ಯಾಕ್‌ಅಪ್‌ನಿಂದ ಮರಳಿ ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:578
+#, c-format
+msgid "The display will be reset to its previous configuration in %d second"
+msgid_plural ""
+"The display will be reset to its previous configuration in %d seconds"
+msgstr[0] "%d ಸೆಕೆಂಡಿನಲ್ಲಿ ಪ್ರದರ್ಶಕವನ್ನು ಅದರ ಹಿಂದಿನ ಸಂರಚನೆಗೆ ಮರಳಿಸಲಾಗುವುದು"
+msgstr[1] "%d ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಪ್ರದರ್ಶಕವನ್ನು ಅದರ ಹಿಂದಿನ ಸಂರಚನೆಗೆ ಮರಳಿಸಲಾಗುವುದು"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:627
+msgid "Does the display look OK?"
+msgstr "ಪ್ರದರ್ಶಕವು ಸರಿಯಾಗಿ ಕಾಣಿಸುತ್ತಿದೆಯೆ?"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:634
+msgid "_Restore Previous Configuration"
+msgstr "ಹಿಂದಿನ ಸಂರಚನೆಯನ್ನು ಮರಳಿ ಸ್ಥಾಪಿಸು(_R)"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:635
+msgid "_Keep This Configuration"
+msgstr "ಈ ಸಂರಚನೆಯನ್ನು ಇರಿಸಿಕೊ(_K)"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:716
+msgid "The selected configuration for displays could not be applied"
+msgstr "ಆಯ್ಕೆ ಮಾಡಲಾದ ಪ್ರದರ್ಶಕದ ಸಂರಚನೆಯನ್ನು ಅನ್ವಯಿಸಲಾಗಿಲ್ಲ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1374
+#, c-format
+msgid "Could not refresh the screen information: %s"
+msgstr "ತೆರೆಯ ಮಾಹಿತಿಯನ್ನು ಪುನಶ್ಚೇತನಗೊಳಿಸಲಾಗಲಿಲ್ಲ: %s"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1378
+msgid "Trying to switch the monitor configuration anyway."
+msgstr "ಆದರೂ ಸಹ ತೆರೆಯ ಸಂರಚನೆಯನ್ನು ಬದಲಾಯಿಸಲು ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1848
+msgid "Could not apply the stored configuration for monitors"
+msgstr "ತೆರೆಗಳಿಗಾಗಿ ಶೇಖರಿಸಲಾದ ಸಂರಚನೆಯನ್ನು ಅನ್ವಯಿಸಲಾಗಿಲ್ಲ"
+
+#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+msgid "XRandR"
+msgstr "XRandR"
+
+#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+msgid "Set up screen size and rotation settings"
+msgstr "ತೆರೆಯ ಗಾತ್ರ ಹಾಗು ಸುತ್ತುವಿಕೆಯನ್ನು ಹೊಂದಿಸು"
+
+#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+msgid "X Settings"
+msgstr "X ಸಿದ್ಧತೆಗಳು"
+
+#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+msgid "Manage X Settings"
+msgstr "X ಸಿದ್ಧತೆಗಳನ್ನು ವ್ಯವಸ್ಥಾಪಿಸು"
+
+#~ msgid "Allowed keys"
+#~ msgstr "ಅನುಮತಿ ಇರುವ ಕೀಲಿಗಳು"
+
+#, fuzzy
+#~ msgid "Binding to enable or disable the touchpad."
+#~ msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
+
+#, fuzzy
+#~| msgid ""
+#~| "If non-empty, keybindings will be ignored unless their GConf directory "
+#~| "is in the list. This is useful for lockdown."
+#~ msgid ""
+#~ "If non-empty, keybindings will be ignored unless their settings directory "
+#~ "is in the list. This is useful for lockdown."
+#~ msgstr ""
+#~ "ಖಾಲಿ ಇಲ್ಲದೆ ಹೋದಲ್ಲಿ, GConf ಕೋಶವು ಪಟ್ಟಿಯಲ್ಲಿ ಇರದ ಹೊರತು ಕೀಲಿಬೈಂಡಿಂಗ್‌ಗಳನ್ನು "
+#~ "ಆಲಕ್ಷಿಸಲಾಗುವುದು. ಇದು ಒಂದು ಉಪಯುಕ್ತ ಲಾಕ್‌ಡೌನ್ ಆಗಿರುತ್ತದೆ."
+
+#~ msgid "Do you want to activate Slow Keys?"
+#~ msgstr "ನಿಧಾನ ಕೀಲಿಗಳನ್ನು ನೀವು ಸಕ್ರಿಯಗೊಳಿಸಲು ಬಯಸುತ್ತೀರೆ?"
+
+#~ msgid "Do you want to deactivate Slow Keys?"
+#~ msgstr "ನಿಧಾನ ಕೀಲಿಗಳನ್ನು ನೀವು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲು ಬಯಸುತ್ತೀರೆ?"
+
+#~ msgid "Don't activate"
+#~ msgstr "ಸಕ್ರಿಯಗೊಳಿಸಬೇಡ"
+
+#~ msgid "Don't deactivate"
+#~ msgstr "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಬೇಡ"
+
+#~ msgid "Activate"
+#~ msgstr "ಸಕ್ರಿಯಗೊಳಿಸು"
+
+#~ msgid "Deactivate"
+#~ msgstr "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸು"
+
+#~ msgid "Do_n't activate"
+#~ msgstr "ಸಕ್ರಿಯಗೊಳಿಸಬೇಡ(_n)"
+
+#~ msgid "Do_n't deactivate"
+#~ msgstr "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಬೇಡ(_n)"
+
+#~ msgid "_Activate"
+#~ msgstr "ಸಕ್ರಿಯಗೊಳಿಸು(_A)"
+
+#~ msgid "_Deactivate"
+#~ msgstr "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸು(_D)"
+
+#~ msgid "Do you want to activate Sticky Keys?"
+#~ msgstr "ನೀವು ಸ್ಟಿಕಿ ಕೀಲಿಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಬಯಸುತ್ತೀರೆ?"
+
+#~ msgid "Do you want to deactivate Sticky Keys?"
+#~ msgstr "ನೀವು ಸ್ಟಿಕಿ ಕೀಲಿಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲು ಬಯಸುತ್ತೀರೆ?"
+
+#~ msgid "Automount"
+#~ msgstr "ಸ್ವಯಂಆರೋಹಣ"
+
+#~| msgid "Font plugin"
+#~ msgid "Automounter plugin"
+#~ msgstr "ಸ್ವಯಂಆರೋಹಣ ಪ್ಲಗ್ಇನ್"
+
+#~ msgid "Key binding (%s) is invalid"
+#~ msgstr "ಕೀಲಿಬದ್ಧತೆಯು (%s) ಅಮಾನ್ಯವಾಗಿದೆ"
+
+#~ msgid "Key binding (%s) is incomplete"
+#~ msgstr "ಕೀಲಿಬದ್ಧತೆ (%s) ಪೂರ್ಣವಾಗಿಲ್ಲ"
+
+#~ msgid ""
+#~ "Error while trying to run (%s)\n"
+#~ "which is linked to the key (%s)"
+#~ msgstr ""
+#~ "(%s) ಅನ್ನು ಚಲಾಯಿಸುವಾಗ ದೋಷ\n"
+#~ "ಎದುರಾಗಿದೆ. ಅದು (%s) ಕೀಲಿಗೆ ಹೊಂದಿಕೊಂಡಿದೆ"
+
+#~ msgid "Keybindings plugin"
+#~ msgstr "ಕೀಲಿಬದ್ಧತೆಗಳ ಪ್ಲಗ್ಇನ್"
+
+#~ msgid "Keyboard _Preferences"
+#~ msgstr "ಕೀಲಿಮಣೆ ಆದ್ಯತೆಗಳು(_P)"
+
+#~ msgid ""
+#~ "Could not get default terminal. Verify that your default terminal command "
+#~ "is set and points to a valid application."
+#~ msgstr ""
+#~ "ಪೂರ್ವನಿಯೋಜಿತಟರ್ಮಿನಲ್ ಪಡೆಯಲಾಗಿಲ್ಲ. ನಿಮ್ಮ ಪೂರ್ವನಿಯೋಜಿತ ಟರ್ಮಿನಲ್ ಆಜ್ಞೆಯನ್ನು "
+#~ "ಹೊಂದಿಸಲಾಗಿದೆ ಹಾಗು ಒಂದು ಮಾನ್ಯವಾದ ಅನ್ವಯಕ್ಕೆ ಸೂಚಿತಗೊಂಡಿದೆ ಎಂದು ಪರಿಶೀಲಿಸಿ."
+
+#~ msgid ""
+#~ "Couldn't execute command: %s\n"
+#~ "Verify that this is a valid command."
+#~ msgstr ""
+#~ "ಆಜ್ಞೆಯನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ: %s\n"
+#~ "ಇದು ಒಂದು ಮಾನ್ಯವಾದ ಆಜ್ಞೆಯಾಗಿದೆ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ."
+
+#, fuzzy
+#~| msgid "Slow keys"
+#~ msgid "Slot Series"
+#~ msgstr "ನಿಧಾನಗತಿಯ ಕೀಲಿಗಳು"
+
+#, fuzzy
+#~| msgid "Mouse"
+#~ msgid "Module"
+#~ msgstr "ಮೌಸ್"
+
+#, fuzzy
+#~| msgid "Set up screen size and rotation settings"
+#~ msgid "Change system time and date settings"
+#~ msgstr "ತೆರೆಯ ಗಾತ್ರ ಹಾಗು ಸುತ್ತುವಿಕೆಯನ್ನು ಹೊಂದಿಸು"
 
 #~ msgid "Volume step"
 #~ msgstr "ಧ್ವನಿ ಪ್ರಮಾಣದ ಹಂತ"
@@ -2122,9 +3333,6 @@ msgstr "ಅಲಕ್ಷಿಸು"
 
 #~ msgid "Enable xsettings plugin"
 #~ msgstr "xsettings ಪ್ಲಗ್‌ಇನ್ ಅನ್ನು ಶಕ್ತಗೊಳಿಸು"
-
-#~ msgid "Mouse keys"
-#~ msgstr "ಮೌಸ್‌ ಕೀಲಿಗಳು"
 
 #~ msgid "On-screen keyboard"
 #~ msgstr "ತೆರೆಯ ಮೇಲಣ ಕೀಲಿ ಮಣೆ"
@@ -2303,9 +3511,6 @@ msgstr "ಅಲಕ್ಷಿಸು"
 #~ msgid "_Empty Trash"
 #~ msgstr "ಕಸಬುಟ್ಟಿಯನ್ನು ಖಾಲಿಮಾಡು(_E)"
 
-#~ msgid "Unknown"
-#~ msgstr "ಗೊತ್ತಿರದ"
-
 #~ msgid "Keyboard Layout \"%s\""
 #~ msgstr "\"%s\" ಕೀಲಿಮಣೆ ಲೇಔಟ್"
 
@@ -2318,17 +3523,11 @@ msgstr "ಅಲಕ್ಷಿಸು"
 #~ msgid "Would you like to load the modmap file(s)?"
 #~ msgstr "ಮೋಡ್‌ಮ್ಯಾಪ್ ಕಡತವನ್ನು(ಗಳನ್ನು) ಲೋಡ್ ಮಾಡಲು ಬಯಸುತ್ತೀರೆ?"
 
-#~ msgid "_Do not show this message again"
-#~ msgstr "ಈ ಸಂದೇಶವನ್ನು ಪುನಃ ತೋರಿಸಬೇಡ(_D)"
-
 #~ msgid "_Load"
 #~ msgstr "ಲೋಡ್ ಮಾಡು(_L)"
 
 #~ msgid "_Loaded files:"
 #~ msgstr "ಲೋಡ್ ಮಾಡಲಾದ ಕಡತಗಳು(_L):"
-
-#~ msgid "Keyboard Layout"
-#~ msgstr "ಕೀಲಿಮಣೆ ಲೇಔಟ್"
 
 #~ msgid "Mouse Preferences"
 #~ msgstr "ಮೌಸ್ ಆದ್ಯತೆಗಳು"
