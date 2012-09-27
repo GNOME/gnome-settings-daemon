@@ -66,14 +66,14 @@ plugin_in_files = 		\
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 if HAVE_IBUS
-noinst_PROGRAMS = test-make-xkb-source-id
-test_make_xkb_source_id_SOURCES = test-make-xkb-source-id.c
-test_make_xkb_source_id_CFLAGS = $(libkeyboard_la_CFLAGS)
-test_make_xkb_source_id_CPPFLAGS = $(libkeyboard_la_CPPFLAGS)
-test_make_xkb_source_id_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
+noinst_PROGRAMS = test-keyboard-ibus-utils
+test_keyboard_ibus_utils_SOURCES = test-keyboard-ibus-utils.c
+test_keyboard_ibus_utils_CFLAGS = $(libkeyboard_la_CFLAGS)
+test_keyboard_ibus_utils_CPPFLAGS = $(libkeyboard_la_CPPFLAGS)
+test_keyboard_ibus_utils_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
 
-check-local: test-make-xkb-source-id
-	$(builddir)/test-make-xkb-source-id > /dev/null
+check-local: test-keyboard-ibus-utils
+	$(builddir)/test-keyboard-ibus-utils > /dev/null
 endif
 
 libexec_PROGRAMS += gsd-input-sources-switcher
