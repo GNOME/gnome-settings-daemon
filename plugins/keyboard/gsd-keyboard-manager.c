@@ -421,6 +421,92 @@ set_ibus_xkb_engine (GsdKeyboardManager *manager,
 
         set_ibus_engine (manager, ibus_engine_desc_get_name (engine));
 }
+
+static gchar *
+layout_from_ibus_layout (const gchar *ibus_layout)
+{
+        const gchar *p;
+
+        /* we get something like "layout(variant)[option1,option2]" */
+
+        p = ibus_layout;
+        while (*p) {
+                if (*p == '(' || *p == '[')
+                        break;
+                p += 1;
+        }
+
+        return g_strndup (ibus_layout, p - ibus_layout);
+}
+
+static gchar *
+variant_from_ibus_layout (const gchar *ibus_layout)
+{
+        const gchar *a, *b;
+
+        /* we get something like "layout(variant)[option1,option2]" */
+
+        a = ibus_layout;
+        while (*a) {
+                if (*a == '(')
+                        break;
+                a += 1;
+        }
+        if (!*a)
+                return NULL;
+
+        a += 1;
+        b = a;
+        while (*b) {
+                if (*b == ')')
+                        break;
+                b += 1;
+        }
+        if (!*b)
+                return NULL;
+
+        return g_strndup (a, b - a);
+}
+
+static gchar **
+options_from_ibus_layout (const gchar *ibus_layout)
+{
+        const gchar *a, *b;
+        GPtrArray *opt_array;
+
+        /* we get something like "layout(variant)[option1,option2]" */
+
+        a = ibus_layout;
+        while (*a) {
+                if (*a == '[')
+                        break;
+                a += 1;
+        }
+        if (!*a)
+                return NULL;
+
+        opt_array = g_ptr_array_new ();
+
+        do {
+                a += 1;
+                b = a;
+                while (*b) {
+                        if (*b == ',' || *b == ']')
+                                break;
+                        b += 1;
+                }
+                if (!*b)
+                        goto out;
+
+                g_ptr_array_add (opt_array, g_strndup (a, b - a));
+
+                a = b;
+        } while (*a && *a == ',');
+
+out:
+        g_ptr_array_add (opt_array, NULL);
+        return (gchar **) g_ptr_array_free (opt_array, FALSE);
+}
 #endif  /* HAVE_IBUS */
 
 static gboolean
@@ -671,6 +757,9 @@ replace_layout_and_variant (GsdKeyboardManager *manager,
         if (!layout)
                 return;
 
+        if (!variant)
+                variant = "";
+
         locale = setlocale (LC_MESSAGES, NULL);
         /* If LANG is empty, default to en_US */
         if (!locale)
@@ -750,14 +839,48 @@ build_xkb_options_string (gchar **options)
         return string;
 }
 
+static gchar **
+append_options (gchar **a,
+                gchar **b)
+{
+        gchar **c, **p;
+
+        if (!a && !b)
+                return NULL;
+        else if (!a)
+                return g_strdupv (b);
+        else if (!b)
+                return g_strdupv (a);
+
+        c = g_new0 (gchar *, g_strv_length (a) + g_strv_length (b) + 1);
+        p = c;
+
+        while (*a) {
+                *p = g_strdup (*a);
+                p += 1;
+                a += 1;
+        }
+        while (*b) {
+                *p = g_strdup (*b);
+                p += 1;
+                b += 1;
+        }
+
+        return c;
+}
+
 static void
 add_xkb_options (GsdKeyboardManager *manager,
-                 XkbRF_VarDefsRec   *xkb_var_defs)
+                 XkbRF_VarDefsRec   *xkb_var_defs,
+                 gchar             **extra_options)
 {
         gchar **options;
+        gchar **settings_options;
 
-        options = g_settings_get_strv (manager->priv->input_sources_settings,
-                                       KEY_KEYBOARD_OPTIONS);
+        settings_options = g_settings_get_strv (manager->priv->input_sources_settings,
+                                                KEY_KEYBOARD_OPTIONS);
+        options = append_options (settings_options, extra_options);
+        g_strfreev (settings_options);
 
         free (xkb_var_defs->options);
         xkb_var_defs->options = build_xkb_options_string (options);
@@ -768,7 +891,8 @@ add_xkb_options (GsdKeyboardManager *manager,
 static void
 apply_xkb_settings (GsdKeyboardManager *manager,
                     const gchar        *layout,
-                    const gchar        *variant)
+                    const gchar        *variant,
+                    gchar             **options)
 {
         XkbRF_RulesRec *xkb_rules;
         XkbRF_VarDefsRec *xkb_var_defs;
@@ -776,7 +900,7 @@ apply_xkb_settings (GsdKeyboardManager *manager,
 
         gnome_xkb_info_get_var_defs (&rules_file_path, &xkb_var_defs);
 
-        add_xkb_options (manager, xkb_var_defs);
+        add_xkb_options (manager, xkb_var_defs, options);
         replace_layout_and_variant (manager, xkb_var_defs, layout, variant);
 
         gdk_error_trap_push ();
@@ -830,8 +954,9 @@ apply_input_sources_settings (GSettings          *settings,
         guint n_sources;
         const gchar *type = NULL;
         const gchar *id = NULL;
-        const gchar *layout = NULL;
-        const gchar *variant = NULL;
+        gchar *layout = NULL;
+        gchar *variant = NULL;
+        gchar **options = NULL;
 
         sources = g_settings_get_value (priv->input_sources_settings, KEY_INPUT_SOURCES);
         current = g_settings_get_uint (priv->input_sources_settings, KEY_CURRENT_INPUT_SOURCE);
@@ -854,7 +979,11 @@ apply_input_sources_settings (GSettings          *settings,
         g_variant_get_child (sources, current, "(&s&s)", &type, &id);
 
         if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
-                gnome_xkb_info_get_layout_info (priv->xkb_info, id, NULL, NULL, &layout, &variant);
+                const gchar *l, *v;
+                gnome_xkb_info_get_layout_info (priv->xkb_info, id, NULL, NULL, &l, &v);
+
+                layout = g_strdup (l);
+                variant = g_strdup (v);
 
                 if (!layout || !layout[0]) {
                         g_warning ("Couldn't find XKB input source '%s'", id);
@@ -877,8 +1006,14 @@ apply_input_sources_settings (GSettings          *settings,
                         goto exit; /* we'll be called again when ibus is up and running */
 
                 if (engine_desc) {
-                        layout = ibus_engine_desc_get_layout (engine_desc);
-                        variant = "";
+                        const gchar *ibus_layout;
+                        ibus_layout = ibus_engine_desc_get_layout (engine_desc);
+
+                        if (ibus_layout) {
+                                layout = layout_from_ibus_layout (ibus_layout);
+                                variant = variant_from_ibus_layout (ibus_layout);
+                                options = options_from_ibus_layout (ibus_layout);
+                        }
                 } else {
                         g_warning ("Couldn't find IBus input source '%s'", id);
                         goto exit;
@@ -894,8 +1029,11 @@ apply_input_sources_settings (GSettings          *settings,
         }
 
  exit:
-        apply_xkb_settings (manager, layout, variant);
+        apply_xkb_settings (manager, layout, variant, options);
         g_variant_unref (sources);
+        g_free (layout);
+        g_free (variant);
+        g_strfreev (options);
         /* Prevent individual "changed" signal invocations since we
            don't need them. */
         return TRUE;
