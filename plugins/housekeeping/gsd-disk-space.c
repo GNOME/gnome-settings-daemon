@@ -291,7 +291,7 @@ empty_trash_callback (NotifyNotification *n,
 }
 
 static void
-on_notification_closed (NotifyNotification *notification)
+on_notification_closed (NotifyNotification *n)
 {
         g_object_unref (notification);
         notification = NULL;
