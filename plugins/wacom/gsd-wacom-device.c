@@ -335,6 +335,8 @@ struct GsdWacomDevicePrivate
 	GList *styli;
 	GsdWacomStylus *last_stylus;
 	GList *buttons;
+	gint num_rings;
+	gint num_strips;
 	GHashTable *modes; /* key = int (group), value = int (index) */
 	GHashTable *num_modes; /* key = int (group), value = int (index) */
 	GSettings *wacom_settings;
@@ -1173,6 +1175,21 @@ gsd_wacom_device_add_buttons (GsdWacomDevice *device,
 }
 
 static void
+gsd_wacom_device_get_modeswitches (WacomDevice      *wacom_device,
+				   gint             *num_rings,
+				   gint             *num_strips)
+{
+	*num_strips = libwacom_get_num_strips (wacom_device);
+
+	if (libwacom_has_ring2 (wacom_device))
+		*num_rings = 2;
+	else if  (libwacom_has_ring (wacom_device))
+		*num_rings = 1;
+	else
+		*num_rings = 0;
+}
+
+static void
 gsd_wacom_device_add_modes (GsdWacomDevice *device,
 			    WacomDevice    *wacom_device)
 {
@@ -1230,6 +1247,9 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 	}
 
 	if (device->priv->type == WACOM_TYPE_PAD) {
+		gsd_wacom_device_get_modeswitches (wacom_device,
+						   &device->priv->num_rings,
+						   &device->priv->num_strips);
 		gsd_wacom_device_add_buttons (device, wacom_device, settings_path);
 		gsd_wacom_device_add_modes (device, wacom_device);
 	}
@@ -1556,6 +1576,22 @@ gsd_wacom_device_is_fallback (GsdWacomDevice *device)
 	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), FALSE);
 
 	return device->priv->is_fallback;
+}
+
+gint
+gsd_wacom_device_get_num_strips (GsdWacomDevice *device)
+{
+	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), 0);
+
+	return device->priv->num_strips;
+}
+
+gint
+gsd_wacom_device_get_num_rings (GsdWacomDevice *device)
+{
+	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), 0);
+
+	return device->priv->num_rings;
 }
 
 GSettings *

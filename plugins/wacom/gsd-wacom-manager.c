@@ -540,6 +540,52 @@ apply_stylus_settings (GsdWacomDevice *device)
 	set_pressurethreshold (device, threshold);
 }
 
+/*
+ * The rule to determine the status LED to use is as follow:
+ *
+ * "[...] if a device has only one ring/strip, use status_led0_select;
+ *  otherwise the left ring/strip is controlled by status_led1_select and
+ *  the right ring/strip by status_led0_select."
+ *
+ * http://sourceforge.net/mailarchive/message.php?msg_id=29898591
+ */
+static int
+get_led_group_id(GsdWacomDevice *device,
+		 int             group_id)
+{
+	gint num_rings;
+	gint num_strips;
+
+	num_rings = gsd_wacom_device_get_num_rings (device);
+	num_strips = gsd_wacom_device_get_num_strips (device);
+
+	/* Given group_id is in {1..4} as follow
+	 * WACOM_BUTTON_RING_MODESWITCH        => group_id == 1
+	 * WACOM_BUTTON_RING2_MODESWITCH       => group_id == 2
+	 * WACOM_BUTTON_TOUCHSTRIP_MODESWITCH  => group_id == 3
+	 * WACOM_BUTTON_TOUCHSTRIP2_MODESWITCH => group_id == 4
+	 *
+	 * see function flags_to_group() in gsd-wacom-device.c
+	 */
+
+	if ((num_rings == 1) && (group_id == 1))
+		return 0;
+
+	if ((num_strips == 1) && (group_id == 3))
+		return 0;
+
+	if ((num_rings == 2) && (group_id == 1 ||  group_id == 2))
+		return (group_id & 1);
+
+	if ((num_strips == 2) && (group_id == 3 ||  group_id == 4))
+		return (group_id & 1);
+
+	g_debug ("Unhandled number of rings/strips setup (%d ring(s), %d strip(s), mode=%d",
+		 num_rings, num_strips, group_id);
+
+	return -1;
+}
+
 static void
 set_led (GsdWacomDevice *device,
 	 int             group_id,
@@ -548,6 +594,7 @@ set_led (GsdWacomDevice *device,
 	GError *error = NULL;
 	const char *path;
 	char *command;
+	gint status_led;
 	gboolean ret;
 
 #ifndef HAVE_GUDEV
@@ -557,11 +604,17 @@ set_led (GsdWacomDevice *device,
 	g_return_if_fail (index >= 1);
 
 	path = gsd_wacom_device_get_path (device);
+	status_led = get_led_group_id (device, group_id);
 
+	if (status_led < 0) {
+		g_debug ("Ignoring unhandled group ID %d for device %s",
+		         group_id, gsd_wacom_device_get_name (device));
+		return;
+	}
 	g_debug ("Switching group ID %d to index %d for device %s", group_id, index, path);
 
 	command = g_strdup_printf ("pkexec " LIBEXECDIR "/gsd-wacom-led-helper --path %s --group %d --led %d",
-				   path, group_id - 1, index - 1);
+				   path, status_led, index - 1);
 	ret = g_spawn_command_line_sync (command,
 					 NULL,
 					 NULL,
