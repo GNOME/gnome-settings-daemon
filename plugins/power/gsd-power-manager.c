@@ -3798,68 +3798,37 @@ gsd_power_manager_stop (GsdPowerManager *manager)
                 manager->priv->introspection_data = NULL;
         }
 
-        if (manager->priv->connection != NULL) {
-                g_object_unref (manager->priv->connection);
-                manager->priv->connection = NULL;
-        }
-
         kill_lid_close_safety_timer (manager);
 
         g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
 
-        g_object_unref (manager->priv->session);
-        g_object_unref (manager->priv->settings);
-        g_object_unref (manager->priv->settings_screensaver);
-        g_object_unref (manager->priv->up_client);
-        manager->priv->session = NULL;
-        manager->priv->settings = NULL;
-        manager->priv->settings_screensaver = NULL;
-        manager->priv->up_client = NULL;
-
-        if (manager->priv->x11_screen != NULL) {
-                g_object_unref (manager->priv->x11_screen);
-                manager->priv->x11_screen = NULL;
-        }
+        g_clear_object (&manager->priv->connection);
+        g_clear_object (&manager->priv->session);
+        g_clear_object (&manager->priv->settings);
+        g_clear_object (&manager->priv->settings_screensaver);
+        g_clear_object (&manager->priv->up_client);
+        g_clear_object (&manager->priv->x11_screen);
 
         g_ptr_array_unref (manager->priv->devices_array);
-        g_object_unref (manager->priv->phone);
-        g_object_unref (manager->priv->device_composite);
         manager->priv->devices_array = NULL;
-        manager->priv->phone = NULL;
-        manager->priv->device_composite = NULL;
-
-        if (manager->priv->previous_icon != NULL) {
-                g_object_unref (manager->priv->previous_icon);
-                manager->priv->previous_icon = NULL;
-        }
+        g_clear_object (&manager->priv->phone);
+        g_clear_object (&manager->priv->device_composite);
+        g_clear_object (&manager->priv->previous_icon);
 
         g_free (manager->priv->previous_summary);
         manager->priv->previous_summary = NULL;
 
-        if (manager->priv->upower_proxy != NULL) {
-                g_object_unref (manager->priv->upower_proxy);
-                manager->priv->upower_proxy = NULL;
-        }
-
-        if (manager->priv->session_proxy != NULL) {
-                g_object_unref (manager->priv->session_proxy);
-                manager->priv->session_proxy = NULL;
-        }
-
-        if (manager->priv->session_presence_proxy != NULL) {
-                g_object_unref (manager->priv->session_presence_proxy);
-                manager->priv->session_presence_proxy = NULL;
-        }
+        g_clear_object (&manager->priv->upower_proxy);
+        g_clear_object (&manager->priv->session_proxy);
+        g_clear_object (&manager->priv->session_presence_proxy);
 
         if (manager->priv->critical_alert_timeout_id > 0) {
                 g_source_remove (manager->priv->critical_alert_timeout_id);
                 manager->priv->critical_alert_timeout_id = 0;
         }
 
-        g_object_unref (manager->priv->idletime);
-        g_object_unref (manager->priv->status_icon);
-        manager->priv->idletime = NULL;
-        manager->priv->status_icon = NULL;
+        g_clear_object (&manager->priv->idletime);
+        g_clear_object (&manager->priv->status_icon);
 }
 
 static void
