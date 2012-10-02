@@ -8,6 +8,8 @@ libgsdwacom_la_SOURCES =	\
 	gsd-wacom-manager.c	\
 	gsd-wacom-osd-window.h	\
 	gsd-wacom-osd-window.c	\
+	gsd-wacom-oled.h	\
+	gsd-wacom-oled.c	\
 	gsd-wacom-device.c	\
 	gsd-wacom-device.h	\
 	gsd-wacom-resources.c
@@ -52,18 +54,27 @@ polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
 gsd_wacom_led_helper_SOURCES =	gsd-wacom-led-helper.c
+gsd_wacom_oled_helper_SOURCES =	gsd-wacom-oled-helper.c
 
-EXTRA_DIST = $(gsd_wacom_led_helper_SOURCES) wacom.gresource.xml tablet-layout.css
+EXTRA_DIST = $(gsd_wacom_led_helper_SOURCES) wacom.gresource.xml tablet-layout.css \
+	     $(gsd_wacom_oled_helper_SOURCES)
 
 if HAVE_GUDEV
-libexec_PROGRAMS = gsd-wacom-led-helper
+libexec_PROGRAMS = gsd-wacom-led-helper gsd-wacom-oled-helper
 
 gsd_wacom_led_helper_LDFLAGS =				\
 	$(BACKLIGHT_HELPER_LIBS)			\
 	-lm
 
+gsd_wacom_oled_helper_LDFLAGS =				\
+	$(WACOM_OLED_LIBS)				\
+	-lm
+
 gsd_wacom_led_helper_CFLAGS =				\
 	$(BACKLIGHT_HELPER_CFLAGS)
+
+gsd_wacom_oled_helper_CFLAGS =				\
+	$(WACOM_OLED_CFLAGS)
 else
 libexec_PROGRAMS =
 endif
@@ -78,6 +89,8 @@ gsd_test_wacom_SOURCES =	\
 	gsd-wacom-manager.h	\
 	gsd-wacom-osd-window.h	\
 	gsd-wacom-osd-window.c	\
+	gsd-wacom-oled.h	\
+	gsd-wacom-oled.c	\
 	gsd-wacom-device.c	\
 	gsd-wacom-device.h	\
 	gsd-wacom-resources.c

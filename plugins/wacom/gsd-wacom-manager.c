@@ -49,6 +49,7 @@
 #include "gnome-settings-profile.h"
 #include "gsd-wacom-manager.h"
 #include "gsd-wacom-device.h"
+#include "gsd-wacom-oled.h"
 #include "gsd-wacom-osd-window.h"
 
 #define GSD_WACOM_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerPrivate))
@@ -68,9 +69,10 @@
 #define KEY_PRESSURECURVE       "pressurecurve"
 
 /* Button settings */
-#define KEY_ACTION_TYPE         "action-type"
-#define KEY_CUSTOM_ACTION       "custom-action"
+#define KEY_ACTION_TYPE            "action-type"
+#define KEY_CUSTOM_ACTION          "custom-action"
 #define KEY_CUSTOM_ELEVATOR_ACTION "custom-elevator-action"
+#define OLED_LABEL                 "oled-label"
 
 /* See "Wacom Pressure Threshold" */
 #define DEFAULT_PRESSURE_THRESHOLD 27
@@ -701,7 +703,7 @@ reset_pad_buttons (GsdWacomDevice *device)
 
 	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
 
-	/* Reset all the LEDs */
+	/* Reset all the LEDs and OLEDs*/
 	buttons = gsd_wacom_device_get_buttons (device);
 	for (l = buttons; l != NULL; l = l->next) {
 		GsdWacomTabletButton *button = l->data;
@@ -709,8 +711,27 @@ reset_pad_buttons (GsdWacomDevice *device)
                     button->status_led != GSD_WACOM_NO_LED) {
                         set_led (device, button, 1);
                 }
-        }
+		if (button->has_oled) {
+			char *label;
+			label = g_settings_get_string (button->settings, OLED_LABEL);
+			set_oled (device, button->id, label);
+			g_free (label);
+		}
+	}
         g_list_free (buttons);
+}
+
+static void
+gsettings_oled_changed (GSettings *settings,
+			gchar *key,
+			GsdWacomTabletButton *button)
+{
+	GsdWacomDevice *device;
+	char *label;
+
+	label = g_settings_get_string (settings, OLED_LABEL);
+	device = g_object_get_data (G_OBJECT (button->settings), "parent-device");
+	set_oled (device, button->id, label);
 }
 
 static void
@@ -719,6 +740,7 @@ set_wacom_settings (GsdWacomManager *manager,
 {
 	GsdWacomDeviceType type;
 	GSettings *settings;
+	GList *buttons, *l;
 
 	g_debug ("Applying settings for device '%s' (type: %s)",
 		 gsd_wacom_device_get_tool_name (device),
@@ -756,6 +778,18 @@ set_wacom_settings (GsdWacomManager *manager,
 		id = get_device_id (device);
 		reset_pad_buttons (device);
 		grab_button (id, TRUE, manager->priv->screen);
+
+		buttons = gsd_wacom_device_get_buttons (device);
+		for (l = buttons; l != NULL; l = l->next) {
+			GsdWacomTabletButton *button = l->data;
+			if (button->has_oled) {
+				g_signal_connect (G_OBJECT (button->settings), "changed::oled-label",
+						  G_CALLBACK (gsettings_oled_changed), button);
+				g_object_set_data (G_OBJECT (button->settings), "parent-device", device);
+			}
+		}
+		g_list_free (buttons);
+
 		return;
 	}
 
