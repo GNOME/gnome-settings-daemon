@@ -1,12 +1,12 @@
 # Bulgarian translation of gnome-settings-daemon po-file.
 # Copyright (C) 2002, 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
-# Copyright (C) 2009, 2010 Free Software Foundation, Inc.
+# Copyright (C) 2009, 2010, 2012 Free Software Foundation, Inc.
 # Copyright (C) 2010 Damyan Ivanov.
 # Borislav Aleksandrov <B.Aleksandrov@cnsys.bg>, 2002.
 # Yanko Kaneti <yaneti@declera.com>, 2002.
 # Rostislav Raykov <zbrox@i-space.org>, 2004, 2005.
 # Vladimir Petkov <vpetkov@i-space.org>, 2004, 2005, 2006.
-# Alexander Shopov <ash@kambanaria.org>, 2006, 2007, 2008, 2009, 2010.
+# Alexander Shopov <ash@kambanaria.org>, 2006, 2007, 2008, 2009, 2010, 2012.
 # Yavor Doganov <yavor@gnu.org>, 2007, 2008.
 # Damyan Ivanov <dam+gnome@ktnx.net>, 2010.
 #
@@ -14,15 +14,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-07 06:50+0200\n"
-"PO-Revision-Date: 2012-03-07 06:50+0200\n"
+"POT-Creation-Date: 2012-10-02 07:11+0300\n"
+"PO-Revision-Date: 2012-10-02 07:10+0300\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -225,10 +225,22 @@ msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr "Координатите на областта достъпна за инструментите (x1, y1 и x2, y2)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+msgid "Wacom tablet aspect ratio"
+msgstr "Активна площ според отношението на страните."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid ""
+"Enable this to restrict the Wacom tablet area to match the aspect ratio of "
+"the output."
+msgstr ""
+"Ако е истина, активната площ на таблета се ограничава, за да съвпадне с "
+"отношението на страните на изходното устройство."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Wacom tablet rotation"
 msgstr "Завъртане на таблета."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
@@ -236,30 +248,30 @@ msgstr ""
 "Позволените стойности са „none“ (без завъртане), „cw“ (90° по часовниковата "
 "стрелка), „half“ (180°) и „ccw“ (90° обратно на часовниковата стрелка)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Wacom touch feature"
 msgstr "Допир на таблета."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr ""
 "Ако е истина, показалецът ще се мести, когато потребителят докосва таблета."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Wacom tablet PC feature"
 msgstr "Функции на таблета за компютъра."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr ""
 "Ако е истина, събитията от писалката ще се докладват, само когато перото ѝ е "
 "натиснато."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid "Wacom display mapping"
 msgstr "Настроен монитор"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
 "EDID information of monitor to map tablet to. Must be in the format [vendor, "
 "product, serial]. [\"\",\"\",\"\"] disables mapping."
@@ -268,69 +280,69 @@ msgstr ""
 "във формат „[производител, продукт, сериен №]“. За изключване на настройката "
 "използвайте „[\"\",\"\",\"\"]“."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom stylus pressure curve"
 msgstr "Крива на натиск на писалката."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr "Координатите на кривата за натиска за писалката (x1, y1 и x2, y2)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom stylus button mapping"
 msgstr "Режим на абсолютни координати на писалката."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Set this to the logical button mapping."
 msgstr "Логическото разпределение на бутона."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom stylus pressure threshold"
 msgstr "Праг на натиск на писалката."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr "Ниво на натиск за генериране на събитие „натискане“ чрез писалката."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser pressure curve"
 msgstr "Крива на натиска на гумата."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr "Координатите на кривата за натиска за гумата (x1, y1 и x2, y2)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom eraser button mapping"
 msgstr "Функции на бутоните на гумата."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom eraser pressure threshold"
 msgstr "Праг на натиска на гумата."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
 "Ниво на натиск за генериране на събитие „натискане за изтриване“ чрез "
 "писалката."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom button action type"
 msgstr "Вид действие на бутоните"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "The type of action triggered by the button being pressed."
 msgstr "Видът на действието задействано чрез натискане на бутона."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Key combination for the custom action"
 msgstr "Клавишна комбинация за потребителско действие"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid ""
 "The keyboard shortcut generated when the button is pressed for custom "
 "actions."
@@ -338,11 +350,11 @@ msgstr ""
 "Клавишната комбинация, която се генерира при натискането на бутона за "
 "потребителско действие."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 msgid "Key combinations for an elevator custom action"
 msgstr "Клавишни комбинации за издигащо потребителско действие"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
 "custom actions (up followed by down)."
@@ -702,26 +714,42 @@ msgid "Binding for the magnifier to zoom out"
 msgstr "Клавишна комбинация за намаляване на мащаба на лупата"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+msgid "Switch input source"
+msgstr "Към следващия източник на аудио"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+msgid "Binding to select the next input source"
+msgstr "Клавишна комбинация за отиване на следващия източник на аудио."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+msgid "Switch input source backward"
+msgstr "Към предишния източник на аудио"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+msgid "Binding to select the previous input source"
+msgstr "Клавишна комбинация за отиване на предишния източник на аудио."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Name"
 msgstr "Име"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Name of the custom binding"
 msgstr "Име на потребителската клавишна комбинация"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
 msgid "Binding"
 msgstr "Клавишна комбинация"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 msgid "Binding for the custom binding"
 msgstr "Потребителска клавишна комбинация"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
 msgid "Command"
 msgstr "Команда"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
 msgid "Command to run when the binding is invoked"
 msgstr "Команда при клавишната комбинация"
 
@@ -826,85 +854,38 @@ msgstr ""
 "Задайте да е лъжа, само ако сте сигурни, че батерията ви е наред."
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
-msgid "The install root to use when adding and removing packages"
-msgstr "Коренова папка при добавяне и изтриване на пакети."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid ""
-"The install root to use when processing packages, which is changed when "
-"using LTSP or when testing."
-msgstr ""
-"Коренова папка при добавяне и изтриване на пакети. Обикновено се сменя при "
-"тестване на пакет или LTSP (проекта за терминални сървъри базирани на "
-"Линукс)."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Use mobile broadband connections"
 msgstr "Използване на мобилни, широколентови връзки."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid ""
 "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
 "Използване на мобилни широколентови връзки (GSM, CDMA) за проверка и "
 "изтегляне на обновления."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
-msgid "Use WiFi connections"
-msgstr "Използване на безжичните връзки."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
-msgid ""
-"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
-"to download packages when on a wired connection, and the VPN or proxy "
-"required may also only be available on wired connections."
-msgstr ""
-"Използване на безжични мрежи (WiFi) за проверка и изтегляне на обновления. "
-"Все пак е възможно по жична мрежа обновленията да се изтеглят по-бързо и/или "
-"ВЧМ и сървърът-посредник да работят."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically download updates in the background without confirmation"
 msgstr ""
 "Автоматично изтегляне на обновленията на заден фон без искане на "
 "потвърждение."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid ""
 "Automatically download updates in the background without confirmation. "
 "Updates will be auto-downloaded when using wired network connnections, and "
-"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
-"'connection-use-mobile' is enabled."
+"mobile broadband if 'connection-use-mobile' is enabled."
 msgstr ""
 "Автоматично изтегляне без питане на потребителя на обновления на заден фон. "
-"Обновленията се изтеглят, когато се ползва жична, безжична (WiFi) мрежа, "
-"когато ключът „connection-use-wifi“ (ползване на WiFi) е истина, и мобилна "
+"Обновленията се изтеглят, когато се ползва жична мрежа, както и мобилна "
 "безжична мрежа, когато ключът „connection-use-mobile“ (ползване на мобилна "
 "безжична мрежа) е истина."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
-msgid "Automatically install these types of updates"
-msgstr "Автоматично инсталиране на такива обновления"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
-msgid "Automatically install these types of updates."
-msgstr "Автоматично инсталиране на такива обновления."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
-msgid "Get the update list when the session starts"
-msgstr "Изтегляне на списъка с обновления в началото на сесията"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
-msgid "Get the update list when the session starts, even if not scheduled to."
-msgstr ""
-"Изтегляне на списъка с обновления в началото на сесията, дори това да не е "
-"запланувано."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "How often to check for updates"
 msgstr "Честота на проверка за обновления"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid ""
 "How often to check for updates. Value is in seconds. This is a maximum "
 "amount of time that can pass between a security update being published, and "
@@ -914,11 +895,11 @@ msgstr ""
 "максималното време между публикуването на обновление по сигурността и "
 "момента на инсталиране или предупреждаване на потребителя."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid "How often to notify the user that non-critical updates are available"
 msgstr "Честота на уведомяване на потребителя за некритични обновления"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
@@ -929,11 +910,11 @@ msgstr ""
 "Обновленията по сигурността винаги се показват при проверка за обновления, "
 "но за некритични, честотата за уведомяване трябва да е по-малка."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "The last time we told the user about non-critical notifications"
 msgstr "Време на последно уведомяване за некритични обновления."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
@@ -941,117 +922,54 @@ msgstr ""
 "Време на последно уведомяване за некритични обновления. Стойността е секунди "
 "след епохата, 0 означава, че досега уведомяване не е имало."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades"
 msgstr "Честота на проверка за обновления на дистрибуцията"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr "Честота на проверка за обновленията на дистрибуцията в секунди."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid "How often to refresh the package cache"
 msgstr "Честота на опресняване на кеша с пакетите"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr "Честота на опресняване на кеша с пакетите в секунди."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
-msgid ""
-"The number of seconds at session startup to wait before checking for updates"
-msgstr ""
-"Брой секунди след стартирането на сесията, след които да се провери за "
-"обновления."
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+msgid "Check for updates when running on battery power"
+msgstr "Проверка за обновления при захранване от батерии"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
-msgid ""
-"The number of seconds at session startup to wait before checking for "
-"updates. Value is in seconds."
-msgstr ""
-"Брой секунди след стартирането на сесията, след които да се провери за "
-"обновления."
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+msgid "Check for updates when running on battery power."
+msgstr "Проверка за обновления при захранване от батерии."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
-msgid "Install updates automatically when running on battery power"
-msgstr "Автоматично инсталиране на обновленията при захранване от батерии."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
-msgid "Install updates automatically when running on battery power."
-msgstr "Автоматично инсталиране на обновленията при захранване от батерии."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid "Notify the user when distribution upgrades are available"
 msgstr "Уведомяване на потребителя при наличие на обновления на дистрибуцията."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Notify the user when distribution upgrades are available."
 msgstr "Уведомяване на потребителя при наличие на обновления на дистрибуцията."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
-msgid "Notify the user for completed updates"
-msgstr "Уведомяване на потребителя при завършване на обновяване."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
-msgid ""
-"Notify the user for completed updates. This may be a useful notification for "
-"some users as installing updates prevents shutdown."
-msgstr ""
-"Уведомяване на потребителя при завършване на обновяване. За някои "
-"потребители това е важно, защото по време на този процес компютърът не може "
-"да бъде изключен."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
-msgid "Notify the user for completed updates where the user needs to restart"
-msgstr ""
-"Уведомяване на потребителя при завършване на обновяване и необходимост от "
-"рестартиране."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
-msgid "Notify the user for completed updates where the user needs to restart."
-msgstr ""
-"Уведомяване на потребителя при завършване на обновяване и необходимост от "
-"рестартиране."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
-msgid ""
-"Notify the user when the automatic update was not started on battery power"
-msgstr ""
-"Уведомяване на потребителя при пропускане на автоматично обновяване при "
-"захранване от батерии."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
-msgid ""
-"Notify the user when the update was not automatically started because the "
-"machine is running on battery power."
-msgstr ""
-"Уведомяване на потребителя при пропускане на автоматично обновяване при "
-"захранване от батерии."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
-msgid "Notify the user when the update was started"
-msgstr "Уведомяване на потребителя при начало на обновяване."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
-msgid "Notify the user when the update was started."
-msgstr "Уведомяване на потребителя при начало на обновяване."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Ask the user if additional firmware should be installed"
 msgstr "Питане на потребителя при инсталиране на допълнителен фърмуер."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid ""
 "Ask the user if additional firmware should be installed if it is available."
 msgstr ""
 "Запитване на потребителя при появата на допълнителен фърмуер дали той да "
 "бъде инсталиран."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Firmware files that should not be searched for"
 msgstr "Файлове с фърмуер, които да не се търсят"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
@@ -1059,11 +977,11 @@ msgstr ""
 "Файлове с фърмуер, които да не бъдат търсени. Имената им, които могат да "
 "включват знаците „*“ и „?“, са разделени със запетаи."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid "Devices that should be ignored"
 msgstr "Устройства, които да бъдат прескачани"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
@@ -1071,12 +989,12 @@ msgstr ""
 "Устройства, които да бъдат пренебрегвани. Имената им, които могат да "
 "включват знаците „*“ и „?“, са разделени със запетаи."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "The filenames on removable media that designate it a software source."
 msgstr ""
 "Имена на файлове върху носителя, които го определят като източник на софтуер."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -1211,18 +1129,18 @@ msgstr "Приставка за достъпност на клавиатурат
 msgid "There was an error displaying help: %s"
 msgstr "Възникна грешка при показването на помощта: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:507
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:570
 msgid "Slow Keys Turned On"
 msgstr "Бавните клавиши са включени"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:573
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:571
 msgid "Slow Keys Turned Off"
 msgstr "Бавните клавиши са изключени"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:510
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:574
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -1230,64 +1148,64 @@ msgstr ""
 "Току що задържахте клавиша „Shift“ за 8 секунди. Това е бърз клавиш за "
 "функцията „Бавни клавиши“, която влияе върху работата на клавиатурата ви."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:529
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
-#: ../plugins/mouse/gsd-mouse-manager.c:837
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:663
+#: ../plugins/mouse/gsd-mouse-manager.c:920
 msgid "Universal Access"
 msgstr "Универсален достъп"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:535
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
 msgid "Turn Off"
 msgstr "Изключване"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:535
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
 msgid "Turn On"
 msgstr "Включване"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:541
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
 msgid "Leave On"
 msgstr "Оставяне включено"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:541
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
 msgid "Leave Off"
 msgstr "Оставяне изключено"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:733
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
 msgid "_Turn Off"
 msgstr "_Изключване"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:733
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
 msgid "_Turn On"
 msgstr "_Включване"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:736
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
 msgid "_Leave On"
 msgstr "_Оставане включено"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:736
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
 msgid "_Leave Off"
 msgstr "_Оставане изключено"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:641
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:639
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
 msgid "Sticky Keys Turned On"
 msgstr "Лепкавите клавиши са включени"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:706
 msgid "Sticky Keys Turned Off"
 msgstr "Лепкавите клавиши са изключени"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:644
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:710
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -1296,8 +1214,8 @@ msgstr ""
 "клавиш за функцията „Лепкави клавиши“, която влияе върху работата на "
 "клавиатурата ви."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:646
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:712
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:644
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:710
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1499,7 +1417,7 @@ msgid "Clipboard plugin"
 msgstr "Приставка за буфера за обмен"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1759
+#: ../plugins/color/gsd-color-manager.c:1801
 msgid "Color"
 msgstr "Цветове"
 
@@ -1507,40 +1425,40 @@ msgstr "Цветове"
 msgid "Color plugin"
 msgstr "Приставка за цветове"
 
-#: ../plugins/color/gsd-color-manager.c:1764
+#: ../plugins/color/gsd-color-manager.c:1806
 msgid "Recalibrate now"
 msgstr "Калибриране на цвета"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1806
+#: ../plugins/color/gsd-color-manager.c:1849
 msgid "Recalibration required"
 msgstr "Необходимо е да калибрирате цветовете"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1818
+#: ../plugins/color/gsd-color-manager.c:1861
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Дисплеят „%s“ скоро ще трябва да бъде калибриран наново."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1827
+#: ../plugins/color/gsd-color-manager.c:1870
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Принтерът „%s“ скоро ще трябва да бъде калибриран наново."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2153
-#: ../plugins/color/gsd-color-manager.c:2169
+#: ../plugins/color/gsd-color-manager.c:2194
+#: ../plugins/color/gsd-color-manager.c:2210
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Приставка за цветове към сървъра за настройките на GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2155
+#: ../plugins/color/gsd-color-manager.c:2196
 msgid "Color calibration device added"
 msgstr "Добавено е устройство за калибриране по цвят"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2171
+#: ../plugins/color/gsd-color-manager.c:2212
 msgid "Color calibration device removed"
 msgstr "Махнато е устройство за калибриране по цвят"
 
@@ -1552,31 +1470,31 @@ msgstr "Фиктивна"
 msgid "Dummy plugin"
 msgstr "Фиктивна приставка (за тестване)"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:332
+#: ../plugins/housekeeping/gsd-disk-space.c:334
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "Дисковото пространство на „%s“ привършва"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:334
+#: ../plugins/housekeeping/gsd-disk-space.c:336
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
 msgstr "В „%s“ са останали свободни само %s. Пробвайте да изчистите кошчето."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:338
+#: ../plugins/housekeeping/gsd-disk-space.c:340
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "В „%s“ са останали свободни само %s."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:343
+#: ../plugins/housekeeping/gsd-disk-space.c:345
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
 msgid "Low Disk Space"
 msgstr "Дисковото пространство привършва"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:345
+#: ../plugins/housekeeping/gsd-disk-space.c:347
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1584,26 +1502,26 @@ msgid ""
 msgstr ""
 "На компютъра са останали свободни само %s. Пробвайте да изчистите кошчето."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:348
+#: ../plugins/housekeeping/gsd-disk-space.c:350
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "На компютъра са останали свободни само %s."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:363
+#: ../plugins/housekeeping/gsd-disk-space.c:365
 msgid "Disk space"
 msgstr "Дисково пространство"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:370
+#: ../plugins/housekeeping/gsd-disk-space.c:372
 msgid "Examine"
 msgstr "Проверка"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:378
+#: ../plugins/housekeeping/gsd-disk-space.c:380
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
 msgid "Empty Trash"
 msgstr "Изчистване на кошчето"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:385
+#: ../plugins/housekeeping/gsd-disk-space.c:387
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:452
 msgid "Ignore"
 msgstr "Пренебрегване"
@@ -1655,45 +1573,9 @@ msgstr ""
 msgid "Examine…"
 msgstr "Проверка…"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:87
-#, c-format
-msgid ""
-"Error activating XKB configuration.\n"
-"There can be various reasons for that.\n"
-"\n"
-"If you report this situation as a bug, include the results of\n"
-" • <b>%s</b>\n"
-" • <b>%s</b>\n"
-" • <b>%s</b>\n"
-" • <b>%s</b>"
-msgstr ""
-"Грешка при прилагане на настройките на XKB.\n"
-"Причините за това могат да са най-различни.\n"
-"\n"
-"Ако решите да докладвате инцидента като грешка, включете резултатите от "
-"изпълнението на следните команди:\n"
-" • <b>%s</b>\n"
-" • <b>%s</b>\n"
-" • <b>%s</b>\n"
-" • <b>%s</b>"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:242
-msgid "_Layouts"
-msgstr "_Подредби"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:248
-msgid "Show _Keyboard Layout..."
-msgstr "Показване на _текущата подредба…"
-
-#. translators note:
-#. * This is the name of the gnome-control-center "region" panel
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:255
-msgid "Region and Language Settings"
-msgstr "Настройки на региона и езика"
-
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
+#: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Клавиатура"
@@ -1739,11 +1621,11 @@ msgstr "Мултимедийни клавиши"
 msgid "Media keys plugin"
 msgstr "Приставка за мултимедийни клавиши"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:833
+#: ../plugins/mouse/gsd-mouse-manager.c:916
 msgid "Could not enable mouse accessibility features"
 msgstr "Неуспех при включване на функциите за достъпност на мишката"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:835
+#: ../plugins/mouse/gsd-mouse-manager.c:918
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
@@ -1751,7 +1633,7 @@ msgstr ""
 
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
+#: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Мишка"
@@ -1937,63 +1819,63 @@ msgid "Charge rate:"
 msgstr "Скорост на зареждане:"
 
 #. TRANSLATORS: system power cord
-#: ../plugins/power/gpm-common.c:565 ../plugins/power/gpm-common.c:757
+#: ../plugins/power/gpm-common.c:565
 msgid "AC adapter"
 msgid_plural "AC adapters"
 msgstr[0] "Адаптер за ел. мрежа"
 msgstr[1] "Адаптери за ел. мрежа"
 
 #. TRANSLATORS: laptop primary battery
-#: ../plugins/power/gpm-common.c:569 ../plugins/power/gpm-common.c:793
+#: ../plugins/power/gpm-common.c:569
 msgid "Laptop battery"
 msgid_plural "Laptop batteries"
 msgstr[0] "Батерия на преносим компютър"
 msgstr[1] "Батерии на преносим компютър"
 
 #. TRANSLATORS: battery-backed AC power source
-#: ../plugins/power/gpm-common.c:573 ../plugins/power/gpm-common.c:817
+#: ../plugins/power/gpm-common.c:573
 msgid "UPS"
 msgid_plural "UPSs"
 msgstr[0] "Непрекъсваемо токозахранване"
 msgstr[1] "Непрекъсваеми токозахранвания"
 
 #. TRANSLATORS: a monitor is a device to measure voltage and current
-#: ../plugins/power/gpm-common.c:577 ../plugins/power/gpm-common.c:824
+#: ../plugins/power/gpm-common.c:577
 msgid "Monitor"
 msgid_plural "Monitors"
 msgstr[0] "Монитор"
 msgstr[1] "Монитори"
 
 #. TRANSLATORS: portable device
-#: ../plugins/power/gpm-common.c:589 ../plugins/power/gpm-common.c:896
+#: ../plugins/power/gpm-common.c:589
 msgid "PDA"
 msgid_plural "PDAs"
 msgstr[0] "Цифрово помощник"
 msgstr[1] "Цифрови помощници"
 
 #. TRANSLATORS: cell phone (mobile...)
-#: ../plugins/power/gpm-common.c:593 ../plugins/power/gpm-common.c:920
+#: ../plugins/power/gpm-common.c:593
 msgid "Cell phone"
 msgid_plural "Cell phones"
 msgstr[0] "Мобилен телефон"
 msgstr[1] "Мобилни телефони"
 
 #. TRANSLATORS: media player, mp3 etc
-#: ../plugins/power/gpm-common.c:598 ../plugins/power/gpm-common.c:945
+#: ../plugins/power/gpm-common.c:598
 msgid "Media player"
 msgid_plural "Media players"
 msgstr[0] "Музикално устройство"
 msgstr[1] "Музикално устройство"
 
 #. TRANSLATORS: tablet device
-#: ../plugins/power/gpm-common.c:602 ../plugins/power/gpm-common.c:969
+#: ../plugins/power/gpm-common.c:602
 msgid "Tablet"
 msgid_plural "Tablets"
 msgstr[0] "Таблет"
 msgstr[1] "Таблети"
 
 #. TRANSLATORS: tablet device
-#: ../plugins/power/gpm-common.c:606 ../plugins/power/gpm-common.c:993
+#: ../plugins/power/gpm-common.c:606
 msgid "Computer"
 msgid_plural "Computers"
 msgstr[0] "Компютър"
@@ -2050,206 +1932,206 @@ msgid "Waiting to discharge"
 msgstr "Изчаква разреждане"
 
 #. TRANSLATORS: device not present
-#: ../plugins/power/gpm-common.c:765
+#: ../plugins/power/gpm-common.c:759
 msgid "Laptop battery not present"
 msgstr "Липсва батерия на преносимия компютър"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:769
+#: ../plugins/power/gpm-common.c:763
 msgid "Laptop battery is charging"
 msgstr "Зареждане на батерията на преносимия компютър"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:773
+#: ../plugins/power/gpm-common.c:767
 msgid "Laptop battery is discharging"
 msgstr "Разреждане на батерията на преносимия компютър"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:777
+#: ../plugins/power/gpm-common.c:771
 msgid "Laptop battery is empty"
 msgstr "Батерията на преносимия компютър е разредена"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:781
+#: ../plugins/power/gpm-common.c:775
 msgid "Laptop battery is charged"
 msgstr "Батерията на преносимия компютър е заредена"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:785
+#: ../plugins/power/gpm-common.c:779
 msgid "Laptop battery is waiting to charge"
 msgstr "Батерията на преносимия компютър изчаква зареждане"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:789
+#: ../plugins/power/gpm-common.c:783
 msgid "Laptop battery is waiting to discharge"
 msgstr "Батерията на преносимия компютър изчаква разреждане"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:801
+#: ../plugins/power/gpm-common.c:792
 msgid "UPS is charging"
 msgstr "Непрекъсваемото токозахранване се зарежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:805
+#: ../plugins/power/gpm-common.c:796
 msgid "UPS is discharging"
 msgstr "Непрекъсваемото токозахранване се разрежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:809
+#: ../plugins/power/gpm-common.c:800
 msgid "UPS is empty"
 msgstr "Непрекъсваемото токозахранване е разредено"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:813
+#: ../plugins/power/gpm-common.c:804
 msgid "UPS is charged"
 msgstr "Непрекъсваемото токозахранване е заредено"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:832
+#: ../plugins/power/gpm-common.c:813
 msgid "Mouse is charging"
 msgstr "Мишката се зарежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:836
+#: ../plugins/power/gpm-common.c:817
 msgid "Mouse is discharging"
 msgstr "Мишката се разрежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:840
+#: ../plugins/power/gpm-common.c:821
 msgid "Mouse is empty"
 msgstr "Мишката е разредена"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:844
+#: ../plugins/power/gpm-common.c:825
 msgid "Mouse is charged"
 msgstr "Мишката е заредена"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:856
+#: ../plugins/power/gpm-common.c:834
 msgid "Keyboard is charging"
 msgstr "Клавиатурата се зарежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:860
+#: ../plugins/power/gpm-common.c:838
 msgid "Keyboard is discharging"
 msgstr "Клавиатурата се разрежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:864
+#: ../plugins/power/gpm-common.c:842
 msgid "Keyboard is empty"
 msgstr "Клавиатурата е разредена"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:868
+#: ../plugins/power/gpm-common.c:846
 msgid "Keyboard is charged"
 msgstr "Клавиатурата е заредена"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:880
+#: ../plugins/power/gpm-common.c:855
 msgid "PDA is charging"
 msgstr "Цифровият помощник се зарежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:884
+#: ../plugins/power/gpm-common.c:859
 msgid "PDA is discharging"
 msgstr "Цифровият помощник се разрежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:888
+#: ../plugins/power/gpm-common.c:863
 msgid "PDA is empty"
 msgstr "Цифровият помощник е разреден"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:892
+#: ../plugins/power/gpm-common.c:867
 msgid "PDA is charged"
 msgstr "Цифровият помощник е зареден"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:904
+#: ../plugins/power/gpm-common.c:876
 msgid "Cell phone is charging"
 msgstr "Мобилният телефон се зарежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:908
+#: ../plugins/power/gpm-common.c:880
 msgid "Cell phone is discharging"
 msgstr "Мобилният телефон се разрежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:912
+#: ../plugins/power/gpm-common.c:884
 msgid "Cell phone is empty"
 msgstr "Мобилният телефон е разреден"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:916
+#: ../plugins/power/gpm-common.c:888
 msgid "Cell phone is charged"
 msgstr "Мобилният телефон е зареден"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:929
+#: ../plugins/power/gpm-common.c:898
 msgid "Media player is charging"
 msgstr "Музикалното устройство се зарежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:933
+#: ../plugins/power/gpm-common.c:902
 msgid "Media player is discharging"
 msgstr "Музикалното устройство се разрежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:937
+#: ../plugins/power/gpm-common.c:906
 msgid "Media player is empty"
 msgstr "Музикалното устройство е разредено"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:941
+#: ../plugins/power/gpm-common.c:910
 msgid "Media player is charged"
 msgstr "Музикалното устройство е заредено"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:953
+#: ../plugins/power/gpm-common.c:919
 msgid "Tablet is charging"
 msgstr "Таблетът се зарежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:957
+#: ../plugins/power/gpm-common.c:923
 msgid "Tablet is discharging"
 msgstr "Таблетът се разрежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:961
+#: ../plugins/power/gpm-common.c:927
 msgid "Tablet is empty"
 msgstr "Таблетът е разреден"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:965
+#: ../plugins/power/gpm-common.c:931
 msgid "Tablet is charged"
 msgstr "Таблетът е зареден"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:977
+#: ../plugins/power/gpm-common.c:940
 msgid "Computer is charging"
 msgstr "Компютърът се зарежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:981
+#: ../plugins/power/gpm-common.c:944
 msgid "Computer is discharging"
 msgstr "Компютърът се разрежда"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:985
+#: ../plugins/power/gpm-common.c:948
 msgid "Computer is empty"
 msgstr "Компютърът е разреден"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:989
+#: ../plugins/power/gpm-common.c:952
 msgid "Computer is charged"
 msgstr "Компютърът е зареден"
 
-#. TRANSLATORS: the battery may be recalled by it's vendor
-#: ../plugins/power/gsd-power-manager.c:990
+#. TRANSLATORS: the battery may be recalled by its vendor
+#: ../plugins/power/gsd-power-manager.c:997
 msgid "Battery may be recalled"
 msgstr "Батерията може да е обявена за връщане"
 
-#: ../plugins/power/gsd-power-manager.c:993
+#: ../plugins/power/gsd-power-manager.c:1000
 #, c-format
 msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
@@ -2258,183 +2140,182 @@ msgstr ""
 "Батерия на компютъра може да е обявена за връщане от %s, възможно е да сте "
 "изложени на риск."
 
-#: ../plugins/power/gsd-power-manager.c:996
+#: ../plugins/power/gsd-power-manager.c:1003
 msgid "For more information visit the battery recall website."
 msgstr "За повече информация посетете сайта за връщане на батерии."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:1007
+#: ../plugins/power/gsd-power-manager.c:1014
 msgid "Visit recall website"
 msgstr "Посещаване на сайта за връщане на батерии"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:1011
+#: ../plugins/power/gsd-power-manager.c:1018
 msgid "Do not show me this again"
 msgstr "Съобщението да не се показва повече"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1222
+#: ../plugins/power/gsd-power-manager.c:1251
 msgid "UPS Discharging"
 msgstr "Разреждане на непрекъсваемото токозахранване"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1227
+#: ../plugins/power/gsd-power-manager.c:1256
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Остават %s работа от непрекъсваемо токозахранване"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1248
-#: ../plugins/power/gsd-power-manager.c:1426
-#: ../plugins/power/gsd-power-manager.c:1607
-#: ../plugins/power/gsd-power-manager.c:1756
+#: ../plugins/power/gsd-power-manager.c:1277
+#: ../plugins/power/gsd-power-manager.c:1459
+#: ../plugins/power/gsd-power-manager.c:1641
+#: ../plugins/power/gsd-power-manager.c:1788
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Заряд"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1341
+#: ../plugins/power/gsd-power-manager.c:1369
 msgid "Battery low"
 msgstr "Зарядът на батерията е нисък"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1344
+#: ../plugins/power/gsd-power-manager.c:1372
 msgid "Laptop battery low"
 msgstr "Зарядът на батерията на компютъра е нисък"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1350
+#: ../plugins/power/gsd-power-manager.c:1379
 #, c-format
-msgid "Approximately <b>%s</b> remaining (%.0f%%)"
-msgstr "Остават приблизително <b>%s</b> (%.0f%%)"
+msgid "Approximately %s remaining (%.0f%%)"
+msgstr "Остават приблизително %s (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1354
+#: ../plugins/power/gsd-power-manager.c:1384
 msgid "UPS low"
 msgstr "Зарядът на непрекъсваемото токозахранване е нисък"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1358
+#: ../plugins/power/gsd-power-manager.c:1390
 #, c-format
-msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
+msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr ""
-"Оставят приблизително <b>%s</b> работа с непрекъсваемото токозахранване (%.0f"
-"%%)"
+"Оставят приблизително %s работа с непрекъсваемото токозахранване (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1362
-#: ../plugins/power/gsd-power-manager.c:1528
+#: ../plugins/power/gsd-power-manager.c:1395
+#: ../plugins/power/gsd-power-manager.c:1562
 msgid "Mouse battery low"
 msgstr "Зарядът на мишката е нисък"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1365
+#: ../plugins/power/gsd-power-manager.c:1398
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Зарядът на безжичната мишката е нисък (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1369
-#: ../plugins/power/gsd-power-manager.c:1536
+#: ../plugins/power/gsd-power-manager.c:1402
+#: ../plugins/power/gsd-power-manager.c:1570
 msgid "Keyboard battery low"
 msgstr "Зарядът на клавиатурата е нисък"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1372
+#: ../plugins/power/gsd-power-manager.c:1405
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Зарядът на безжичната клавиатура е нисък (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1376
-#: ../plugins/power/gsd-power-manager.c:1545
+#: ../plugins/power/gsd-power-manager.c:1409
+#: ../plugins/power/gsd-power-manager.c:1579
 msgid "PDA battery low"
 msgstr "Зарядът на цифровия помощник е нисък"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1379
+#: ../plugins/power/gsd-power-manager.c:1412
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "Зарядът на цифровия помощник е нисък (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1383
-#: ../plugins/power/gsd-power-manager.c:1555
-#: ../plugins/power/gsd-power-manager.c:1566
+#: ../plugins/power/gsd-power-manager.c:1416
+#: ../plugins/power/gsd-power-manager.c:1589
+#: ../plugins/power/gsd-power-manager.c:1600
 msgid "Cell phone battery low"
 msgstr "Зарядът на мобилния телефон е нисък"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1386
+#: ../plugins/power/gsd-power-manager.c:1419
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Зарядът на мобилния телефон е нисък (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1391
+#: ../plugins/power/gsd-power-manager.c:1424
 msgid "Media player battery low"
 msgstr "Зарядът на плеъра е нисък"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1394
+#: ../plugins/power/gsd-power-manager.c:1427
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Зарядът на плеъра е нисък (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1398
-#: ../plugins/power/gsd-power-manager.c:1575
+#: ../plugins/power/gsd-power-manager.c:1431
+#: ../plugins/power/gsd-power-manager.c:1609
 msgid "Tablet battery low"
 msgstr "Зарядът на таблета е нисък"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1401
+#: ../plugins/power/gsd-power-manager.c:1434
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Зарядът на таблета е нисък (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1405
-#: ../plugins/power/gsd-power-manager.c:1584
+#: ../plugins/power/gsd-power-manager.c:1438
+#: ../plugins/power/gsd-power-manager.c:1618
 msgid "Attached computer battery low"
 msgstr "Ниско ниво на батерията на свързания компютър"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1408
+#: ../plugins/power/gsd-power-manager.c:1441
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Зарядът на свързания компютър е нисък (%.0f %%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1445
+#: ../plugins/power/gsd-power-manager.c:1476
 msgid "Battery is low"
 msgstr "Ниско ниво на батерията"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1487
+#: ../plugins/power/gsd-power-manager.c:1518
 msgid "Battery critically low"
 msgstr "Критично ниско ниво на батерията"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1490
-#: ../plugins/power/gsd-power-manager.c:1674
+#: ../plugins/power/gsd-power-manager.c:1521
+#: ../plugins/power/gsd-power-manager.c:1706
 msgid "Laptop battery critically low"
 msgstr "Критично ниско ниво на батерията на преносимия компютър"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1499
+#: ../plugins/power/gsd-power-manager.c:1530
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "Включете адаптера за електрическата мрежа, за да не загубите данни."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1503
+#: ../plugins/power/gsd-power-manager.c:1534
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr ""
@@ -2442,7 +2323,7 @@ msgstr ""
 "електрическата мрежа."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1507
+#: ../plugins/power/gsd-power-manager.c:1538
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -2450,7 +2331,7 @@ msgstr ""
 "електрическата мрежа."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1511
+#: ../plugins/power/gsd-power-manager.c:1542
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -2459,24 +2340,23 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1518
-#: ../plugins/power/gsd-power-manager.c:1710
+#: ../plugins/power/gsd-power-manager.c:1550
+#: ../plugins/power/gsd-power-manager.c:1742
 msgid "UPS critically low"
 msgstr "Критично ниско ниво на непрекъсваемото токозахранване"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1522
+#: ../plugins/power/gsd-power-manager.c:1556
 #, c-format
 msgid ""
-"Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
-"your computer to avoid losing data."
+"Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
+"computer to avoid losing data."
 msgstr ""
-"Остава приблизително <b>%s</b> живот на непрекъсваемото токозахранване (%.0f "
-"%%). Включете компютъра към електрическата мрежа, за да избегнете загуба на "
-"данни."
+"Остава приблизително %s живот на непрекъсваемото токозахранване (%.0f %%). "
+"Включете компютъра към електрическата мрежа, за да избегнете загуба на данни."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1531
+#: ../plugins/power/gsd-power-manager.c:1565
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -2486,7 +2366,7 @@ msgstr ""
 "се изключи."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1539
+#: ../plugins/power/gsd-power-manager.c:1573
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2496,7 +2376,7 @@ msgstr ""
 "ще се изключи."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1548
+#: ../plugins/power/gsd-power-manager.c:1582
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2506,7 +2386,7 @@ msgstr ""
 "ще се изключи."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1558
+#: ../plugins/power/gsd-power-manager.c:1592
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2516,7 +2396,7 @@ msgstr ""
 "се изключи."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1569
+#: ../plugins/power/gsd-power-manager.c:1603
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2526,7 +2406,7 @@ msgstr ""
 "презаредите, ще се изключи."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1578
+#: ../plugins/power/gsd-power-manager.c:1612
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2536,7 +2416,7 @@ msgstr ""
 "изключи."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1587
+#: ../plugins/power/gsd-power-manager.c:1621
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2546,14 +2426,14 @@ msgstr ""
 "ще се изключи."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1627
-#: ../plugins/power/gsd-power-manager.c:1637
-#: ../plugins/power/gsd-power-manager.c:1773
+#: ../plugins/power/gsd-power-manager.c:1659
+#: ../plugins/power/gsd-power-manager.c:1669
+#: ../plugins/power/gsd-power-manager.c:1803
 msgid "Battery is critically low"
 msgstr "Зарядът на батерията е критично нисък"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1682
+#: ../plugins/power/gsd-power-manager.c:1714
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
@@ -2562,7 +2442,7 @@ msgstr ""
 "когато батерията напълно се изчерпи."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1688
+#: ../plugins/power/gsd-power-manager.c:1720
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -2574,7 +2454,7 @@ msgstr ""
 "малък заряд на батерията."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1695
+#: ../plugins/power/gsd-power-manager.c:1727
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2582,14 +2462,14 @@ msgstr ""
 "Батерията е под критично ниското ниво. Този компютър ще бъде дълбоко приспан."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1700
+#: ../plugins/power/gsd-power-manager.c:1732
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr "Батерията е под критично ниското ниво. Този компютър ще бъде изключен."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1718
+#: ../plugins/power/gsd-power-manager.c:1750
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
@@ -2598,7 +2478,7 @@ msgstr ""
 "бъде <b>изгасен</b>, когато непрекъсваемото токозахранване се разреди."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1724
+#: ../plugins/power/gsd-power-manager.c:1756
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2606,25 +2486,25 @@ msgstr ""
 "бъде дълбоко приспан."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1729
+#: ../plugins/power/gsd-power-manager.c:1761
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "Непрекъсваемото токозахранване е под критично ниското ниво. Този компютър ще "
 "бъде изключен."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2223
+#: ../plugins/power/gsd-power-manager.c:2149
 msgid "Lid has been opened"
 msgstr "Екранът е отворен"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2300
+#: ../plugins/power/gsd-power-manager.c:2305
 msgid "Lid has been closed"
 msgstr "Екранът е затворен"
 
 #. TRANSLATORS: this is the title of the power manager status icon
 #. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:3657
+#: ../plugins/power/gsd-power-manager.c:3668
 msgid "Power Manager"
 msgstr "Управление на захранването"
 
@@ -2645,230 +2525,230 @@ msgid "Power plugin"
 msgstr "Приставка за захранването"
 
 #. Translators: We are configuring new printer
-#: ../plugins/print-notifications/gsd-printer.c:942
+#: ../plugins/print-notifications/gsd-printer.c:891
 msgid "Configuring new printer"
 msgstr "Настройване на нов принтер"
 
 #. Translators: Just wait
-#: ../plugins/print-notifications/gsd-printer.c:944
+#: ../plugins/print-notifications/gsd-printer.c:893
 msgid "Please wait..."
 msgstr "Изчакайте…"
 
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:971
+#: ../plugins/print-notifications/gsd-printer.c:920
 msgid "Missing printer driver"
 msgstr "Драйверът за принтера липсва"
 
 #. Translators: We have no driver installed for the device
-#: ../plugins/print-notifications/gsd-printer.c:980
+#: ../plugins/print-notifications/gsd-printer.c:929
 #, c-format
 msgid "No printer driver for %s."
 msgstr "Драйверът за принтера „%s“ липсва."
 
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:985
+#: ../plugins/print-notifications/gsd-printer.c:934
 msgid "No driver for this printer."
 msgstr "Драйверът за този принтер липсва."
 
-#: ../plugins/print-notifications/gsd-printer.c:1088
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:646
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:735
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:778
+#: ../plugins/print-notifications/gsd-printer.c:1032
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:233
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:658
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:747
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:790
 msgid "Printers"
 msgstr "Принтери"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:297
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:309
 msgid "Toner low"
 msgstr "Тонерът е на привършване"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:299
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:311
 msgid "Toner empty"
 msgstr "Тонерът свърши"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:301
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:313
 msgid "Not connected?"
 msgstr "Дали няма връзка?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:303
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:315
 msgid "Cover open"
 msgstr "Отворен капак"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:317
 msgid "Printer configuration error"
 msgstr "Грешка в настройките на принтера"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:307
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
 msgid "Door open"
 msgstr "Отворена вратичка"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:309
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
 msgid "Marker supply low"
 msgstr "Мастилото е на привършване"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:311
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:323
 msgid "Out of a marker supply"
 msgstr "Мастилото свърши"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:313
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
 msgid "Paper low"
 msgstr "Хартията е на привършване"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:315
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
 msgid "Out of paper"
 msgstr "Хартията свърши"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:317
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
 msgid "Printer off-line"
 msgstr "Принтерът е недостъпен"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:721
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:733
 msgid "Printer error"
 msgstr "Грешка при печат"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:323
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:335
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "Тонерът на принтера „%s“ е на привършване."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "Тонерът на принтера „%s“ свърши."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Принтерът „%s“ вероятно не е свързан."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:341
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "Капакът на принтера „%s“ не е затворен."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:343
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "Липсва филтър за печат на принтера „%s“."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:334
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "Някоя вратичка на принтера „%s“ не е затворена."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:348
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "Мастилото на принтера „%s“ е на привършване."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:338
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "Мастилото на принтера „%s“ свърши."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "Хартията на принтера „%s“ е на привършване."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "Хартията на принтера „%s“ свърши."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:344
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "Принтерът „%s“ е недостъпен."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "Проблеми с печата на „%s“."
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:423
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:435
 msgid "Printer added"
 msgstr "Добавен е принтер"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:431
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
 msgid "Printer removed"
 msgstr "Принтерът е махнат"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:448
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:460
 msgid "Printing stopped"
 msgstr "Печатането е спряно"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:450
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:456
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:462
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:468
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:474
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:500
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:492
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "„%s“ на %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:454
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:466
 msgid "Printing canceled"
 msgstr "Печатането е отказано"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:460
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:472
 msgid "Printing aborted"
 msgstr "Печатането е преустановено"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:466
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:478
 msgid "Printing completed"
 msgstr "Печатането завърши"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:478
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:498
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:490
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:510
 msgid "Printing"
 msgstr "Печатане"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:715
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:727
 msgid "Printer report"
 msgstr "Доклад за печат"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:718
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:730
 msgid "Printer warning"
 msgstr "Предупреждение за печат"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:728
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:740
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "Принтерът „%s“: „%s“."
@@ -2881,37 +2761,37 @@ msgstr "Уведомяване при печат"
 msgid "Print-notifications plugin"
 msgstr "Приставка за уведомяване при печат"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:523
+#: ../plugins/smartcard/gsd-smartcard-manager.c:529
 msgid "received error or hang up from event source"
 msgstr "получена е грешка или прекъсване при комуникация с чип-картата"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:657
+#: ../plugins/smartcard/gsd-smartcard-manager.c:663
 #, c-format
 msgid "NSS security system could not be initialized"
 msgstr "Неуспех при инициализиране на системата за сигурност NSS"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:785
+#: ../plugins/smartcard/gsd-smartcard-manager.c:791
 #, c-format
 msgid "no suitable smartcard driver could be found"
 msgstr "не е намерен подходящ драйвер за чип-картата"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:799
+#: ../plugins/smartcard/gsd-smartcard-manager.c:805
 #, c-format
 msgid "smartcard driver '%s' could not be loaded"
 msgstr "неуспех при зареждане на драйвера за чип-карти „%s“"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:871
+#: ../plugins/smartcard/gsd-smartcard-manager.c:877
 #, c-format
 msgid "could not watch for incoming card events - %s"
 msgstr "неуспех при получаване на данни от картата – %s"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1269
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1275
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "неочаквана грешка при изчакване на информация от чип-картата"
 
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:240
+#: ../plugins/updates/gsd-updates-firmware.c:250
 msgid ""
 "You will need to restart this computer before the hardware will work "
 "correctly."
@@ -2919,27 +2799,26 @@ msgstr ""
 "Трябва да рестартирате компютъра, за да може хардуерът да проработи правилно."
 
 #. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:243
-#: ../plugins/updates/gsd-updates-firmware.c:268
-#: ../plugins/updates/gsd-updates-firmware.c:293
+#: ../plugins/updates/gsd-updates-firmware.c:253
+#: ../plugins/updates/gsd-updates-firmware.c:280
+#: ../plugins/updates/gsd-updates-firmware.c:307
 msgid "Additional software was installed"
 msgstr "Инсталиран бе допълнителен софтуер"
 
-#: ../plugins/updates/gsd-updates-firmware.c:244
-#: ../plugins/updates/gsd-updates-firmware.c:269
-#: ../plugins/updates/gsd-updates-firmware.c:294
-#: ../plugins/updates/gsd-updates-firmware.c:583
-#: ../plugins/updates/gsd-updates-manager.c:203
-#: ../plugins/updates/gsd-updates-manager.c:328
-#: ../plugins/updates/gsd-updates-manager.c:387
-#: ../plugins/updates/gsd-updates-manager.c:443
-#: ../plugins/updates/gsd-updates-manager.c:575
-#: ../plugins/updates/gsd-updates-manager.c:663
+#: ../plugins/updates/gsd-updates-firmware.c:254
+#: ../plugins/updates/gsd-updates-firmware.c:281
+#: ../plugins/updates/gsd-updates-firmware.c:308
+#: ../plugins/updates/gsd-updates-firmware.c:599
+#: ../plugins/updates/gsd-updates-manager.c:347
+#: ../plugins/updates/gsd-updates-manager.c:474
+#: ../plugins/updates/gsd-updates-manager.c:535
+#: ../plugins/updates/gsd-updates-manager.c:624
+#: ../plugins/updates/gsd-updates-manager.c:1313
 msgid "Software Updates"
 msgstr "Обновления на софтуера"
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:265
+#: ../plugins/updates/gsd-updates-firmware.c:277
 msgid ""
 "You will need to remove and then reinsert the hardware before it will work "
 "correctly."
@@ -2947,12 +2826,12 @@ msgstr ""
 "Трябва да извадите и повторно да сложите хардуера, за да проработи правилно."
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:290
+#: ../plugins/updates/gsd-updates-firmware.c:304
 msgid "Your hardware has been set up and is now ready to use."
 msgstr "Хардуерът е настроен и може да го ползвате."
 
 #. TRANSLATORS: we need another package to keep udev quiet
-#: ../plugins/updates/gsd-updates-firmware.c:568
+#: ../plugins/updates/gsd-updates-firmware.c:584
 msgid ""
 "Additional firmware is required to make hardware in this computer function "
 "correctly."
@@ -2961,201 +2840,246 @@ msgstr ""
 "компютъра."
 
 #. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:582
+#: ../plugins/updates/gsd-updates-firmware.c:598
 msgid "Additional firmware required"
 msgstr "Необходим е допълнителен фърмуер"
 
 #. TRANSLATORS: button label
-#: ../plugins/updates/gsd-updates-firmware.c:588
+#: ../plugins/updates/gsd-updates-firmware.c:604
 msgid "Install firmware"
 msgstr "Инсталиране на фърмуер"
 
 #. TRANSLATORS: we should ignore this device and not ask anymore
-#: ../plugins/updates/gsd-updates-firmware.c:591
+#: ../plugins/updates/gsd-updates-firmware.c:607
 msgid "Ignore devices"
 msgstr "Прескачане на устройствата"
 
+#. TRANSLATORS: this is when the offline update failed
+#: ../plugins/updates/gsd-updates-manager.c:125
+msgid "Failed To Update"
+msgstr "Неуспешно обновяване"
+
+#. TRANSLATORS: the transaction could not be completed
+#. * as a previous transaction was unfinished
+#: ../plugins/updates/gsd-updates-manager.c:131
+msgid "A previous update was unfinished."
+msgstr "Някое предишно обновяване не е завършено."
+
+#. TRANSLATORS: the package manager needed to download
+#. * something with no network available
+#: ../plugins/updates/gsd-updates-manager.c:141
+msgid "Network access was required but not available."
+msgstr "Изисква се достъп до мрежата, а в момента такъв липсва."
+
+#. TRANSLATORS: if the package is not signed correctly
+#. *
+#: ../plugins/updates/gsd-updates-manager.c:150
+msgid "An update was not signed in the correct way."
+msgstr "Едно от обновленията не е подписано правилно."
+
+#. TRANSLATORS: the transaction failed in a way the user
+#. * probably cannot comprehend. Package management systems
+#. * really are teh suck.
+#: ../plugins/updates/gsd-updates-manager.c:160
+msgid "The update could not be completed."
+msgstr "Обновяването на системата не успя да завърши."
+
+#. TRANSLATORS: the user aborted the update manually
+#: ../plugins/updates/gsd-updates-manager.c:165
+msgid "The update was cancelled."
+msgstr "Обновяването на системата бе отменено."
+
+#. TRANSLATORS: the user must have updated manually after
+#. * the updates were prepared
+#: ../plugins/updates/gsd-updates-manager.c:171
+msgid "An offline update was requested but no packages required updating."
+msgstr ""
+"Заявено бе обновяване без достъп до мрежата, но всички пакети са вече "
+"обновени."
+
+#. TRANSLATORS: we ran out of disk space
+#: ../plugins/updates/gsd-updates-manager.c:175
+msgid "No space was left on the drive."
+msgstr "Свърши свободното пространство."
+
+#. TRANSLATORS: the update process failed in a general
+#. * way, usually this message will come from source distros
+#. * like gentoo
+#: ../plugins/updates/gsd-updates-manager.c:183
+msgid "An update failed to install correctly."
+msgstr "Някое от обновленията не се инсталира правилно."
+
+#. TRANSLATORS: We didn't handle the error type
+#: ../plugins/updates/gsd-updates-manager.c:188
+msgid "The offline update failed in an unexpected way."
+msgstr "Обновяването без достъп до мрежата бе неуспешно."
+
+#. TRANSLATORS: these are geeky messages from the
+#. * package manager no mortal is supposed to understand,
+#. * but google might know what they mean
+#: ../plugins/updates/gsd-updates-manager.c:197
+msgid "Detailed errors from the package manager follow:"
+msgstr "Следват подробните съобщения от пакетната система:"
+
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:199
+#: ../plugins/updates/gsd-updates-manager.c:343
 msgid "Distribution upgrades available"
 msgstr "Налични са обновления на дистрибуцията"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:208
+#: ../plugins/updates/gsd-updates-manager.c:352
 msgid "More information"
 msgstr "Повече информация"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:311
-#: ../plugins/updates/gsd-updates-manager.c:370
+#: ../plugins/updates/gsd-updates-manager.c:457
+#: ../plugins/updates/gsd-updates-manager.c:518
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Обновление"
 msgstr[1] "Обновления"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:314
+#: ../plugins/updates/gsd-updates-manager.c:460
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Налично е важно обновление на софтуера."
 msgstr[1] "Налични са важни обновления на софтуера."
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:333
-#: ../plugins/updates/gsd-updates-manager.c:392
+#: ../plugins/updates/gsd-updates-manager.c:479
+#: ../plugins/updates/gsd-updates-manager.c:540
 msgid "Install updates"
 msgstr "Инсталиране на обновления"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:373
+#: ../plugins/updates/gsd-updates-manager.c:521
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Налично е обновление на софтуера."
 msgstr[1] "Налични са обновления на софтуера."
 
-#. TRANSLATORS: policy says update, but we are on battery and so prompt
-#: ../plugins/updates/gsd-updates-manager.c:438
-msgid ""
-"Automatic updates are not being installed as the computer is running on "
-"battery power"
-msgstr ""
-"Докато компютърът се захранва от батерии, обновленията няма да се инсталират "
-"автоматично."
-
-#. TRANSLATORS: informs user will not install by default
-#: ../plugins/updates/gsd-updates-manager.c:440
-msgid "Updates not installed"
-msgstr "Обновления не се инсталират"
-
-#. TRANSLATORS: to hell with my battery life, just do it
-#: ../plugins/updates/gsd-updates-manager.c:448
-msgid "Install the updates anyway"
-msgstr "Обновленията да се инсталират"
-
-#: ../plugins/updates/gsd-updates-manager.c:464
-msgid "No restart is required."
-msgstr "Не е необходимо да рестартирате системата."
-
-#: ../plugins/updates/gsd-updates-manager.c:467
-msgid "A restart is required."
-msgstr "Необходимо е да рестартирате системата."
-
-#: ../plugins/updates/gsd-updates-manager.c:470
-msgid "You need to log out and log back in."
-msgstr "Необходимо е да излезете и да влезете в системата."
-
-#: ../plugins/updates/gsd-updates-manager.c:473
-msgid "You need to restart the application."
-msgstr "Необходимо е да рестартирате програмата."
-
-#: ../plugins/updates/gsd-updates-manager.c:476
-msgid "You need to log out and log back in to remain secure."
-msgstr ""
-"Необходимо е да излезете и да влезете в системата, за да бъдете защитени."
-
-#: ../plugins/updates/gsd-updates-manager.c:479
-msgid "A restart is required to remain secure."
-msgstr "Необходимо е да рестартирате системата, за да бъдете защитени."
-
-#. TRANSLATORS: we did the update, but some updates were skipped and not applied
-#: ../plugins/updates/gsd-updates-manager.c:540
-msgid "One package was skipped:"
-msgid_plural "Some packages were skipped:"
-msgstr[0] "Пропуснат е един пакет:"
-msgstr[1] "Пропуснати са няколко пакета:"
-
-#. TRANSLATORS: title: system update completed all okay
-#: ../plugins/updates/gsd-updates-manager.c:572
-msgid "The system update has completed"
-msgstr "Обновяването на системата завърши"
-
-#. TRANSLATORS: restart computer as system packages need update
-#: ../plugins/updates/gsd-updates-manager.c:581
-msgid "Restart computer now"
-msgstr "Рестартиране на компютъра"
-
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:651
+#: ../plugins/updates/gsd-updates-manager.c:612
 msgid "Updates"
 msgstr "Обновления"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:655
+#: ../plugins/updates/gsd-updates-manager.c:616
 msgid "Unable to access software updates"
 msgstr "Няма достъп до обновленията на софтуера"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:658
+#: ../plugins/updates/gsd-updates-manager.c:619
 msgid "Try again"
 msgstr "Пробвайте отново"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1096
+#: ../plugins/updates/gsd-updates-manager.c:981
 msgid "A transaction that cannot be interrupted is running"
 msgstr "В момента тече транзакция, която не може да бъде прекъсната"
 
-#: ../plugins/wacom/gsd-wacom-device.c:909
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:1274
+msgid "Software Update Installed"
+msgid_plural "Software Updates Installed"
+msgstr[0] "Обновлението на софтуера е инсталирано"
+msgstr[1] "Обновленията на софтуера са инсталирани"
+
+#. TRANSLATORS: message when we've done offline updates
+#: ../plugins/updates/gsd-updates-manager.c:1279
+msgid "An important OS update has been installed."
+msgid_plural "Important OS updates have been installed."
+msgstr[0] "Важното обновление на софтуера е инсталирано."
+msgstr[1] "Важните обновления на софтуера са инсталирани."
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:1302
+msgid "Software Updates Failed"
+msgstr "Неуспешно обновление на софтуера"
+
+#. TRANSLATORS: message when we've not done offline updates
+#: ../plugins/updates/gsd-updates-manager.c:1305
+msgid "An important OS update failed to be installed."
+msgstr "Неуспешно инсталиране на важното обновление на софтуера."
+
+#. TRANSLATORS: button: review the offline update changes
+#: ../plugins/updates/gsd-updates-manager.c:1320
+msgid "Review"
+msgstr "Преглед"
+
+#. TRANSLATORS: button: review the offline update changes
+#: ../plugins/updates/gsd-updates-manager.c:1325
+msgid "Show details"
+msgstr "Подробности"
+
+#. TRANSLATORS: button: clear notification
+#: ../plugins/updates/gsd-updates-manager.c:1329
+msgid "OK"
+msgstr "Добре"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1010
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Режим на левия пръстен № %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:916
+#: ../plugins/wacom/gsd-wacom-device.c:1019
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Режим на десния пръстен № %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:944
+#: ../plugins/wacom/gsd-wacom-device.c:1049
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Режим на лявата сензорна лента № %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:951
+#: ../plugins/wacom/gsd-wacom-device.c:1058
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Режим на дясната сензорна лента № %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:966
+#: ../plugins/wacom/gsd-wacom-device.c:1075
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Превключвател на режима на левия сензорен пръстен"
 
-#: ../plugins/wacom/gsd-wacom-device.c:968
+#: ../plugins/wacom/gsd-wacom-device.c:1077
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Превключвател на режима на десния сензорен пръстен"
 
-#: ../plugins/wacom/gsd-wacom-device.c:971
+#: ../plugins/wacom/gsd-wacom-device.c:1080
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Превключвател на режима на лявата сензорна лента"
 
-#: ../plugins/wacom/gsd-wacom-device.c:973
+#: ../plugins/wacom/gsd-wacom-device.c:1082
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Превключвател на режима на дясната сензорна лента"
 
-#: ../plugins/wacom/gsd-wacom-device.c:978
+#: ../plugins/wacom/gsd-wacom-device.c:1087
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Превключвател на режима № %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1050
+#: ../plugins/wacom/gsd-wacom-device.c:1159
 #, c-format
 msgid "Left Button #%d"
 msgstr "Ляв бутон № %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1053
+#: ../plugins/wacom/gsd-wacom-device.c:1162
 #, c-format
 msgid "Right Button #%d"
 msgstr "Десен бутон № %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1056
+#: ../plugins/wacom/gsd-wacom-device.c:1165
 #, c-format
 msgid "Top Button #%d"
 msgstr "Горен бутон № %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1059
+#: ../plugins/wacom/gsd-wacom-device.c:1168
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Долен бутон № %d"
@@ -3173,19 +3097,19 @@ msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr ""
 "За промяна на светенето на светодиода на таблета се изисква идентификация"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:500
+#: ../plugins/xrandr/gsd-xrandr-manager.c:508
 msgid "Could not switch the monitor configuration"
 msgstr "Настройките на екрана не могат да бъдат сменени"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:524
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
 msgid "Could not restore the display's configuration"
 msgstr "Настройките на екрана не могат да бъдат възстановени"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:549
+#: ../plugins/xrandr/gsd-xrandr-manager.c:557
 msgid "Could not restore the display's configuration from a backup"
 msgstr "Настройките на екрана не могат да бъдат възстановени от резервно копие"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:570
+#: ../plugins/xrandr/gsd-xrandr-manager.c:578
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -3193,32 +3117,32 @@ msgid_plural ""
 msgstr[0] "След %d секунда ще бъдат върнати старите настройки на екрана"
 msgstr[1] "След %d секунди ще бъдат върнати старите настройки на екрана"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:619
+#: ../plugins/xrandr/gsd-xrandr-manager.c:627
 msgid "Does the display look OK?"
 msgstr "Наред ли е екрана?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:626
+#: ../plugins/xrandr/gsd-xrandr-manager.c:634
 msgid "_Restore Previous Configuration"
 msgstr "_Възстановяване на предишните настройки"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:627
+#: ../plugins/xrandr/gsd-xrandr-manager.c:635
 msgid "_Keep This Configuration"
 msgstr "_Запазване на тези настройки"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:708
+#: ../plugins/xrandr/gsd-xrandr-manager.c:716
 msgid "The selected configuration for displays could not be applied"
 msgstr "Избраните настройки на екраните не могат да бъдат приложени"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1358
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1374
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Информацията за екрана не може да бъде обновена: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1362
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1378
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Опит за смяна на настройките на екрана въпреки това."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1793
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1848
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Запазените настройките на екраните не можаха да бъдат приложени"
 
