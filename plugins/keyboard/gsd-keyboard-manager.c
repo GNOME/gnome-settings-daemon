@@ -509,6 +509,65 @@ out:
         g_ptr_array_add (opt_array, NULL);
         return (gchar **) g_ptr_array_free (opt_array, FALSE);
 }
+
+static const gchar *
+engine_from_locale (void)
+{
+        const gchar *locale;
+        const gchar *locale_engine[][2] = {
+                { "ja_JP", "anthy" },
+                { "ko_KR", "hangul" },
+                { "zh_CN", "pinyin" },
+                { "zh_HK", "cangjie3" },
+                { "zh_TW", "chewing" },
+        };
+        gint i;
+
+        locale = setlocale (LC_CTYPE, NULL);
+        if (!locale)
+                return NULL;
+
+        for (i = 0; i < G_N_ELEMENTS (locale_engine); ++i)
+                if (g_str_has_prefix (locale, locale_engine[i][0]))
+                        return locale_engine[i][1];
+
+        return NULL;
+}
+
+static void
+init_builder_with_sources (GVariantBuilder *builder,
+                           GSettings       *settings)
+{
+        const gchar *type;
+        const gchar *id;
+        GVariantIter iter;
+        GVariant *sources;
+
+        sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
+
+        g_variant_builder_init (builder, G_VARIANT_TYPE ("a(ss)"));
+
+        g_variant_iter_init (&iter, sources);
+        while (g_variant_iter_next (&iter, "(&s&s)", &type, &id))
+                g_variant_builder_add (builder, "(ss)", type, id);
+
+        g_variant_unref (sources);
+}
+
+static void
+add_ibus_sources_from_locale (GSettings *settings)
+{
+        const gchar *locale_engine;
+        GVariantBuilder builder;
+
+        locale_engine = engine_from_locale ();
+        if (!locale_engine)
+                return;
+
+        init_builder_with_sources (&builder, settings);
+        g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_IBUS, locale_engine);
+        g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
+}
 #endif  /* HAVE_IBUS */
 
 static gboolean
@@ -1318,8 +1377,12 @@ maybe_create_input_sources (GsdKeyboardManager *manager)
         }
 
         sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
-        if (g_variant_n_children (sources) < 1)
+        if (g_variant_n_children (sources) < 1) {
                 create_sources_from_current_xkb_config (settings);
+#ifdef HAVE_IBUS
+                add_ibus_sources_from_locale (settings);
+#endif
+        }
         g_variant_unref (sources);
 }
 
