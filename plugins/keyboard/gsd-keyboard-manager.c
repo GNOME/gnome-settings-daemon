@@ -128,6 +128,40 @@ G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+static void
+init_builder_with_sources (GVariantBuilder *builder,
+                           GSettings       *settings)
+{
+        const gchar *type;
+        const gchar *id;
+        GVariantIter iter;
+        GVariant *sources;
+
+        sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
+
+        g_variant_builder_init (builder, G_VARIANT_TYPE ("a(ss)"));
+
+        g_variant_iter_init (&iter, sources);
+        while (g_variant_iter_next (&iter, "(&s&s)", &type, &id))
+                g_variant_builder_add (builder, "(ss)", type, id);
+
+        g_variant_unref (sources);
+}
+
+static gboolean
+schema_is_installed (const gchar *name)
+{
+        const gchar * const *schemas;
+        const gchar * const *s;
+
+        schemas = g_settings_list_schemas ();
+        for (s = schemas; *s; ++s)
+                if (g_str_equal (*s, name))
+                        return TRUE;
+
+        return FALSE;
+}
+
 #ifdef HAVE_IBUS
 static void
 clear_ibus (GsdKeyboardManager *manager)
@@ -535,26 +569,6 @@ engine_from_locale (void)
 }
 
 static void
-init_builder_with_sources (GVariantBuilder *builder,
-                           GSettings       *settings)
-{
-        const gchar *type;
-        const gchar *id;
-        GVariantIter iter;
-        GVariant *sources;
-
-        sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
-
-        g_variant_builder_init (builder, G_VARIANT_TYPE ("a(ss)"));
-
-        g_variant_iter_init (&iter, sources);
-        while (g_variant_iter_next (&iter, "(&s&s)", &type, &id))
-                g_variant_builder_add (builder, "(ss)", type, id);
-
-        g_variant_unref (sources);
-}
-
-static void
 add_ibus_sources_from_locale (GSettings *settings)
 {
         const gchar *locale_engine;
@@ -567,6 +581,29 @@ add_ibus_sources_from_locale (GSettings *settings)
         init_builder_with_sources (&builder, settings);
         g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_IBUS, locale_engine);
         g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
+}
+
+static void
+convert_ibus (GSettings *settings)
+{
+        GVariantBuilder builder;
+        GSettings *ibus_settings;
+        gchar **engines, **e;
+
+        if (!schema_is_installed ("org.freedesktop.ibus.general"))
+                return;
+
+        init_builder_with_sources (&builder, settings);
+
+        ibus_settings = g_settings_new ("org.freedesktop.ibus.general");
+        engines = g_settings_get_strv (ibus_settings, "preload-engines");
+        for (e = engines; *e; ++e)
+                g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_IBUS, *e);
+
+        g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
+
+        g_strfreev (engines);
+        g_object_unref (ibus_settings);
 }
 #endif  /* HAVE_IBUS */
 
@@ -1364,6 +1401,125 @@ out:
 }
 
 static void
+convert_libgnomekbd_options (GSettings *settings)
+{
+        GPtrArray *opt_array;
+        GSettings *libgnomekbd_settings;
+        gchar **options, **o;
+
+        if (!schema_is_installed ("org.gnome.libgnomekbd.keyboard"))
+                return;
+
+        opt_array = g_ptr_array_new_with_free_func (g_free);
+
+        libgnomekbd_settings = g_settings_new ("org.gnome.libgnomekbd.keyboard");
+        options = g_settings_get_strv (libgnomekbd_settings, "options");
+
+        for (o = options; *o; ++o) {
+                gchar **strv;
+
+                strv = g_strsplit (*o, "\t", 2);
+                if (strv[0] && strv[1]) {
+                        /* We don't want the group switcher because
+                         * it's incompatible with the way we use XKB
+                         * groups. */
+                        if (!g_str_has_prefix (strv[1], "grp:"))
+                                g_ptr_array_add (opt_array, g_strdup (strv[1]));
+                }
+                g_strfreev (strv);
+        }
+        g_ptr_array_add (opt_array, NULL);
+
+        g_settings_set_strv (settings, KEY_KEYBOARD_OPTIONS, (const gchar * const*) opt_array->pdata);
+
+        g_strfreev (options);
+        g_object_unref (libgnomekbd_settings);
+        g_ptr_array_free (opt_array, TRUE);
+}
+
+static void
+convert_libgnomekbd_layouts (GSettings *settings)
+{
+        GVariantBuilder builder;
+        GSettings *libgnomekbd_settings;
+        gchar **layouts, **l;
+
+        if (!schema_is_installed ("org.gnome.libgnomekbd.keyboard"))
+                return;
+
+        init_builder_with_sources (&builder, settings);
+
+        libgnomekbd_settings = g_settings_new ("org.gnome.libgnomekbd.keyboard");
+        layouts = g_settings_get_strv (libgnomekbd_settings, "layouts");
+
+        for (l = layouts; *l; ++l) {
+                gchar *id;
+                gchar **strv;
+
+                strv = g_strsplit (*l, "\t", 2);
+                if (strv[0] && !strv[1])
+                        id = g_strdup (strv[0]);
+                else if (strv[0] && strv[1])
+                        id = g_strdup_printf ("%s+%s", strv[0], strv[1]);
+                else
+                        id = NULL;
+
+                if (id)
+                        g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_XKB, id);
+
+                g_free (id);
+                g_strfreev (strv);
+        }
+
+        g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
+
+        g_strfreev (layouts);
+        g_object_unref (libgnomekbd_settings);
+}
+
+static void
+maybe_convert_old_settings (GSettings *settings)
+{
+        GVariant *sources;
+        gchar **options;
+        gchar *stamp_dir_path = NULL;
+        gchar *stamp_file_path = NULL;
+        GError *error = NULL;
+
+        stamp_dir_path = g_build_filename (g_get_user_data_dir (), PACKAGE_NAME, NULL);
+        if (g_mkdir_with_parents (stamp_dir_path, 0755)) {
+                g_warning ("Failed to create directory %s: %s", stamp_dir_path, g_strerror (errno));
+                goto out;
+        }
+
+        stamp_file_path = g_build_filename (stamp_dir_path, "input-sources-converted", NULL);
+        if (g_file_test (stamp_file_path, G_FILE_TEST_EXISTS))
+                goto out;
+
+        sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
+        if (g_variant_n_children (sources) < 1) {
+                convert_libgnomekbd_layouts (settings);
+#ifdef HAVE_IBUS
+                convert_ibus (settings);
+#endif
+        }
+        g_variant_unref (sources);
+
+        options = g_settings_get_strv (settings, KEY_KEYBOARD_OPTIONS);
+        if (g_strv_length (options) < 1)
+                convert_libgnomekbd_options (settings);
+        g_strfreev (options);
+
+        if (!g_file_set_contents (stamp_file_path, "", 0, &error)) {
+                g_warning ("%s", error->message);
+                g_error_free (error);
+        }
+out:
+        g_free (stamp_file_path);
+        g_free (stamp_dir_path);
+}
+
+static void
 maybe_create_input_sources (GsdKeyboardManager *manager)
 {
         GSettings *settings;
@@ -1376,6 +1532,9 @@ maybe_create_input_sources (GsdKeyboardManager *manager)
                 return;
         }
 
+        maybe_convert_old_settings (settings);
+
+        /* if we still don't have anything do some educated guesses */
         sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
         if (g_variant_n_children (sources) < 1) {
                 create_sources_from_current_xkb_config (settings);
