@@ -238,6 +238,18 @@ register_with_gnome_session (GDBusProxy *proxy)
 }
 
 #ifdef HAVE_IBUS
+static gboolean
+is_program_in_path (const char *binary)
+{
+	char *path;
+
+	path = g_find_program_in_path (binary);
+	if (path == NULL)
+		return FALSE;
+	g_free (path);
+	return TRUE;
+}
+
 static void
 got_session_name (GObject      *object,
                   GAsyncResult *res,
@@ -263,7 +275,8 @@ got_session_name (GObject      *object,
 
         g_variant_get (variant, "&s", &session_name);
 
-        if (g_strcmp0 (session_name, "gnome") == 0) {
+        if (g_strcmp0 (session_name, "gnome") == 0 &&
+            is_program_in_path ("ibus-daemon")) {
                 set_session_env (proxy, "QT_IM_MODULE", "ibus");
                 set_session_env (proxy, "XMODIFIERS", "@im=ibus");
         }
