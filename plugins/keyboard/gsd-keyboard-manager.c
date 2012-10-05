@@ -422,6 +422,8 @@ set_ibus_xkb_engine (GsdKeyboardManager *manager,
         set_ibus_engine (manager, ibus_engine_desc_get_name (engine));
 }
 
+/* XXX: See upstream bug:
+ * https://codereview.appspot.com/6586075/ */
 static gchar *
 layout_from_ibus_layout (const gchar *ibus_layout)
 {
