@@ -72,7 +72,6 @@ struct GsdUpdatesManagerPrivate
 static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
 static void gsd_updates_manager_init (GsdUpdatesManager *updates_manager);
 static void gsd_updates_manager_finalize (GObject *object);
-static void update_packages_finished_cb (PkTask *task, GAsyncResult *res, GsdUpdatesManager *manager);
 static void emit_changed (GsdUpdatesManager *manager);
 
 G_DEFINE_TYPE (GsdUpdatesManager, gsd_updates_manager, G_TYPE_OBJECT)
@@ -553,42 +552,6 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
 
         /* track so we can prevent doubled notifications */
         manager->priv->notification_updates = notification;
-}
-
-static void
-update_packages_finished_cb (PkTask *task,
-                             GAsyncResult *res,
-                             GsdUpdatesManager *manager)
-{
-        PkResults *results;
-        GError *error = NULL;
-        PkError *error_code = NULL;
-
-        /* get the results */
-        results = pk_task_generic_finish (task, res, &error);
-        if (results == NULL) {
-                g_warning ("failed to update system: %s",
-                           error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        /* check error code */
-        error_code = pk_results_get_error_code (results);
-        if (error_code != NULL) {
-                g_warning ("failed to update system: %s, %s",
-                           pk_error_enum_to_string (pk_error_get_code (error_code)),
-                           pk_error_get_details (error_code));
-                goto out;
-        }
-
-        /* notify */
-        manager->priv->number_updates_critical_last_shown = 0;
-out:
-        if (error_code != NULL)
-                g_object_unref (error_code);
-        if (results != NULL)
-                g_object_unref (results);
 }
 
 static void
