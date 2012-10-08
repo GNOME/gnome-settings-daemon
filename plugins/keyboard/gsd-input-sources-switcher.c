@@ -164,6 +164,94 @@ init_keys (void)
       the_keys[1].keysym = GDK_KEY_Control_R;
       the_keys[1].state = GDK_SHIFT_MASK;
       break;
+
+    case GSD_INPUT_SOURCES_SWITCHER_SHIFT_L_SHIFT_R:
+      n_keys = 2;
+      the_keys = g_new0 (Key, n_keys);
+
+      the_keys[0].keysym = GDK_KEY_Shift_L;
+      the_keys[0].state = GDK_SHIFT_MASK;
+      the_keys[1].keysym = GDK_KEY_Shift_R;
+      the_keys[1].state = GDK_SHIFT_MASK;
+      break;
+
+    case GSD_INPUT_SOURCES_SWITCHER_ALT_L_ALT_R:
+      n_keys = 4;
+      the_keys = g_new0 (Key, n_keys);
+
+      the_keys[0].keysym = GDK_KEY_Alt_L;
+      the_keys[0].state = GDK_MOD1_MASK;
+      the_keys[1].keysym = GDK_KEY_Alt_R;
+      the_keys[1].state = GDK_MOD1_MASK;
+      the_keys[2].keysym = GDK_KEY_Alt_L;
+      the_keys[2].state = GDK_MOD5_MASK;
+      the_keys[3].keysym = GDK_KEY_ISO_Level3_Shift;
+      the_keys[3].state = GDK_MOD1_MASK;
+      break;
+
+    case GSD_INPUT_SOURCES_SWITCHER_CTRL_L_CTRL_R:
+      n_keys = 2;
+      the_keys = g_new0 (Key, n_keys);
+
+      the_keys[0].keysym = GDK_KEY_Control_L;
+      the_keys[0].state = GDK_CONTROL_MASK;
+      the_keys[1].keysym = GDK_KEY_Control_R;
+      the_keys[1].state = GDK_CONTROL_MASK;
+      break;
+
+    case GSD_INPUT_SOURCES_SWITCHER_ALT_SHIFT:
+      n_keys = 7;
+      the_keys = g_new0 (Key, n_keys);
+
+      the_keys[0].keysym = GDK_KEY_Shift_L;
+      the_keys[0].state = GDK_MOD1_MASK;
+      the_keys[1].keysym = GDK_KEY_Shift_L;
+      the_keys[1].state = GDK_MOD5_MASK;
+      the_keys[2].keysym = GDK_KEY_Shift_R;
+      the_keys[2].state = GDK_MOD1_MASK;
+      the_keys[3].keysym = GDK_KEY_Shift_R;
+      the_keys[3].state = GDK_MOD5_MASK;
+      the_keys[4].keysym = GDK_KEY_Alt_L;
+      the_keys[4].state = GDK_SHIFT_MASK;
+      the_keys[5].keysym = GDK_KEY_Alt_R;
+      the_keys[5].state = GDK_SHIFT_MASK;
+      the_keys[6].keysym = GDK_KEY_ISO_Level3_Shift;
+      the_keys[6].state = GDK_SHIFT_MASK;
+      break;
+
+    case GSD_INPUT_SOURCES_SWITCHER_CTRL_SHIFT:
+      n_keys = 4;
+      the_keys = g_new0 (Key, n_keys);
+
+      the_keys[0].keysym = GDK_KEY_Shift_L;
+      the_keys[0].state = GDK_CONTROL_MASK;
+      the_keys[1].keysym = GDK_KEY_Shift_R;
+      the_keys[1].state = GDK_CONTROL_MASK;
+      the_keys[2].keysym = GDK_KEY_Control_L;
+      the_keys[2].state = GDK_SHIFT_MASK;
+      the_keys[3].keysym = GDK_KEY_Control_R;
+      the_keys[3].state = GDK_SHIFT_MASK;
+      break;
+
+    case GSD_INPUT_SOURCES_SWITCHER_ALT_CTRL:
+      n_keys = 7;
+      the_keys = g_new0 (Key, n_keys);
+
+      the_keys[0].keysym = GDK_KEY_Control_L;
+      the_keys[0].state = GDK_MOD1_MASK;
+      the_keys[1].keysym = GDK_KEY_Control_L;
+      the_keys[1].state = GDK_MOD5_MASK;
+      the_keys[2].keysym = GDK_KEY_Control_R;
+      the_keys[2].state = GDK_MOD1_MASK;
+      the_keys[3].keysym = GDK_KEY_Control_R;
+      the_keys[3].state = GDK_MOD5_MASK;
+      the_keys[4].keysym = GDK_KEY_Alt_L;
+      the_keys[4].state = GDK_CONTROL_MASK;
+      the_keys[5].keysym = GDK_KEY_Alt_R;
+      the_keys[5].state = GDK_CONTROL_MASK;
+      the_keys[6].keysym = GDK_KEY_ISO_Level3_Shift;
+      the_keys[6].state = GDK_CONTROL_MASK;
+      break;
     }
 
   g_object_unref (settings);
