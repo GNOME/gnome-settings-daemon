@@ -38,6 +38,8 @@ static GSettings *input_sources_settings;
 static Key *the_keys = NULL;
 static guint n_keys = 0;
 
+static guint master_keyboard_id = 0;
+
 static void
 do_switch (void)
 {
@@ -328,19 +330,30 @@ filter (XEvent   *xevent,
 {
   XIEvent *xiev;
   XIDeviceEvent *xev;
+  XIGrabModifiers mods;
+  XIEventMask evmask;
+  unsigned char mask[(XI_LASTEVENT + 7)/8] = { 0 };
 
   if (xevent->type != GenericEvent)
     return GDK_FILTER_CONTINUE;
 
   xiev = (XIEvent *) xevent->xcookie.data;
 
-  if (xiev->evtype != XI_KeyPress &&
+  if (xiev->evtype != XI_ButtonPress &&
+      xiev->evtype != XI_KeyPress &&
       xiev->evtype != XI_KeyRelease)
     return GDK_FILTER_CONTINUE;
 
   xev = (XIDeviceEvent *) xiev;
 
-  if (matches_key (xiev))
+  mods.modifiers = XIAnyModifier;
+  XISetMask (mask, XI_ButtonPress);
+  evmask.deviceid = XIAllMasterDevices;
+  evmask.mask_len = sizeof (mask);
+  evmask.mask = mask;
+
+  if (xiev->evtype != XI_ButtonPress &&
+      matches_key (xiev))
     {
       if (xiev->evtype == XI_KeyPress)
         {
@@ -348,13 +361,30 @@ filter (XEvent   *xevent,
                          xev->deviceid,
                          XISyncDevice,
                          xev->time);
+          XIGrabButton (xev->display,
+                        XIAllMasterDevices,
+                        XIAnyButton,
+                        xev->root,
+                        None,
+                        XIGrabModeSync,
+                        XIGrabModeSync,
+                        False,
+                        &evmask,
+                        1,
+                        &mods);
         }
       else
         {
           do_switch ();
           XIUngrabDevice (xev->display,
-                          xev->deviceid,
+                          master_keyboard_id,
                           xev->time);
+          XIUngrabButton (xev->display,
+                          XIAllMasterDevices,
+                          XIAnyButton,
+                          xev->root,
+                          1,
+                          &mods);
         }
     }
   else
@@ -363,6 +393,15 @@ filter (XEvent   *xevent,
                      xev->deviceid,
                      XIReplayDevice,
                      xev->time);
+      XIUngrabDevice (xev->display,
+                      master_keyboard_id,
+                      xev->time);
+      XIUngrabButton (xev->display,
+                      XIAllMasterDevices,
+                      XIAnyButton,
+                      xev->root,
+                      1,
+                      &mods);
     }
 
   return GDK_FILTER_CONTINUE;
@@ -400,6 +439,26 @@ grab_key (Key        *key,
   g_free (keys);
 }
 
+static guint
+get_master_keyboard_id (GdkDisplay *display)
+{
+  XIDeviceInfo *info;
+  guint id;
+  int i, n;
+
+  id = 0;
+  info = XIQueryDevice (GDK_DISPLAY_XDISPLAY (display), XIAllMasterDevices, &n);
+  for (i = 0; i < n; ++i)
+    if (info[i].use == XIMasterKeyboard && info[i].enabled)
+      {
+        id = info[i].deviceid;
+        break;
+      }
+  XIFreeDeviceInfo (info);
+
+  return id;
+}
+
 static void
 set_input_sources_switcher (void)
 {
@@ -428,6 +487,8 @@ set_input_sources_switcher (void)
     }
 
   g_slist_free (screens);
+
+  master_keyboard_id = get_master_keyboard_id (display);
 }
 
 int
