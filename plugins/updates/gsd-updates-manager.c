@@ -692,7 +692,15 @@ package_download_finished_cb (GObject *object,
                 g_warning ("failed to download: %s, %s",
                            pk_error_enum_to_string (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
-                notify_failed_get_updates_maybe (manager);
+                switch (pk_error_get_code (error_code)) {
+                case PK_ERROR_ENUM_CANCELLED_PRIORITY:
+                case PK_ERROR_ENUM_TRANSACTION_CANCELLED:
+                        g_debug ("ignoring error");
+                        break;
+                default:
+                        notify_failed_get_updates_maybe (manager);
+                        break;
+                }
                 goto out;
         }
 
@@ -771,7 +779,15 @@ get_updates_finished_cb (GObject *object,
                 g_warning ("failed to get updates: %s, %s",
                            pk_error_enum_to_string (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
-                notify_failed_get_updates_maybe (manager);
+                switch (pk_error_get_code (error_code)) {
+                case PK_ERROR_ENUM_CANCELLED_PRIORITY:
+                case PK_ERROR_ENUM_TRANSACTION_CANCELLED:
+                        g_debug ("ignoring error");
+                        break;
+                default:
+                        notify_failed_get_updates_maybe (manager);
+                        break;
+                }
                 goto out;
         }
 
