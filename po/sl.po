@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-deamon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-09-16 01:21+0000\n"
-"PO-Revision-Date: 2012-09-16 21:02+0100\n"
+"POT-Creation-Date: 2012-10-10 05:29+0000\n"
+"PO-Revision-Date: 2012-10-10 09:29+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -113,8 +113,8 @@ msgid "Device hotplug custom command"
 msgstr "Ukaz po meri za hitro priklapljanje naprave"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
-msgid "Command to be run when a device is added or removed."
-msgstr "Ukaz, ki naj se izvede, ko je naprava dodana ali odstranjena."
+msgid "Command to be run when a device is added or removed. An exit value of 1 means that the device will not be handled further by gnome-settings-daemon."
+msgstr "Ukaz, ki naj se izvede, kadar je naprava dodana ali odstranjena. Izhodna vrednost 1 pomeni, da naprava ne bo več upravljana preko programa gnome-settings-deamon."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
@@ -293,8 +293,8 @@ msgid "The keyboard shortcut generated when the button is pressed for custom act
 msgstr "Tipkovna bližnica, ki se ustvari ob pritisku gumba za dejanja po meri."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
-msgid "Key combinations for an elevator custom action"
-msgstr "Tipkovna kombinacija za dejanja po meri"
+msgid "Key combinations for a touchring or touchstrip custom action"
+msgstr "Tipkovna kombinacija za dejanja po meri na sledilni ploščici ali sledilnem obroču."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid "The keyboard shortcuts generated when a touchring or touchstrip is used for custom actions (up followed by down)."
@@ -1170,7 +1170,7 @@ msgid "Clipboard plugin"
 msgstr "Vstavek odložišča"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1792
+#: ../plugins/color/gsd-color-manager.c:1801
 msgid "Color"
 msgstr "Barva"
 
@@ -1178,40 +1178,40 @@ msgstr "Barva"
 msgid "Color plugin"
 msgstr "Vstavek barv"
 
-#: ../plugins/color/gsd-color-manager.c:1797
+#: ../plugins/color/gsd-color-manager.c:1806
 msgid "Recalibrate now"
 msgstr "Ponovno umeri takoj"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1840
+#: ../plugins/color/gsd-color-manager.c:1849
 msgid "Recalibration required"
 msgstr "Zahtevano je ponovno umerjanje"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1852
+#: ../plugins/color/gsd-color-manager.c:1861
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Zaslon '%s' bo treba kmalu ponovno umeriti."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1861
+#: ../plugins/color/gsd-color-manager.c:1870
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Tiskalnik '%s' bo treba kmalu ponovno umeriti."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2185
-#: ../plugins/color/gsd-color-manager.c:2201
+#: ../plugins/color/gsd-color-manager.c:2194
+#: ../plugins/color/gsd-color-manager.c:2210
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Vstavek barve ozadnjega programa GNOME nastavitev"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2187
+#: ../plugins/color/gsd-color-manager.c:2196
 msgid "Color calibration device added"
 msgstr "Naprava za umerjanje barve je dodana"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2203
+#: ../plugins/color/gsd-color-manager.c:2212
 msgid "Color calibration device removed"
 msgstr "Naprava za umerjanje barve je bila odstranjena"
 
@@ -1223,53 +1223,53 @@ msgstr "Poskusno"
 msgid "Dummy plugin"
 msgstr "Poskusni vstavek"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:333
+#: ../plugins/housekeeping/gsd-disk-space.c:334
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "Ni prostora na \"%s\""
 
-#: ../plugins/housekeeping/gsd-disk-space.c:335
+#: ../plugins/housekeeping/gsd-disk-space.c:336
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining.  You may free up some space by emptying the trash."
 msgstr "Na razdelku \"%s\" je le še %s razpoložljivega prostora. Prostor je mogoče povečati z rednim praznjenjem smeti."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:339
+#: ../plugins/housekeeping/gsd-disk-space.c:340
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "Na razdelku \"%s\" je le še %s razpoložljivega prostora."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:344
+#: ../plugins/housekeeping/gsd-disk-space.c:345
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
 msgid "Low Disk Space"
 msgstr "Na disku zmanjkuje prostora"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:346
+#: ../plugins/housekeeping/gsd-disk-space.c:347
 #, c-format
 msgid "This computer has only %s disk space remaining.  You may free up some space by emptying the trash."
 msgstr "Računalnik ima na voljo še %s prostora na disku. Prostor je mogoče povečati z rednim praznjenjem smeti."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:349
+#: ../plugins/housekeeping/gsd-disk-space.c:350
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Računalnik ima na voljo še %s prostora na disku."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:364
+#: ../plugins/housekeeping/gsd-disk-space.c:365
 msgid "Disk space"
 msgstr "Prostor na disku"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:371
+#: ../plugins/housekeeping/gsd-disk-space.c:372
 msgid "Examine"
 msgstr "Preišči"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:379
+#: ../plugins/housekeeping/gsd-disk-space.c:380
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
 msgid "Empty Trash"
 msgstr "Izprazni smeti"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:386
+#: ../plugins/housekeeping/gsd-disk-space.c:387
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:452
 msgid "Ignore"
 msgstr "Prezri"
@@ -2511,11 +2511,11 @@ msgstr "Nameščena je bila dodatna programska oprema"
 #: ../plugins/updates/gsd-updates-firmware.c:281
 #: ../plugins/updates/gsd-updates-firmware.c:308
 #: ../plugins/updates/gsd-updates-firmware.c:599
-#: ../plugins/updates/gsd-updates-manager.c:347
-#: ../plugins/updates/gsd-updates-manager.c:474
-#: ../plugins/updates/gsd-updates-manager.c:535
-#: ../plugins/updates/gsd-updates-manager.c:624
-#: ../plugins/updates/gsd-updates-manager.c:1313
+#: ../plugins/updates/gsd-updates-manager.c:346
+#: ../plugins/updates/gsd-updates-manager.c:473
+#: ../plugins/updates/gsd-updates-manager.c:534
+#: ../plugins/updates/gsd-updates-manager.c:587
+#: ../plugins/updates/gsd-updates-manager.c:1292
 msgid "Software Updates"
 msgstr "Programske posodobitve"
 
@@ -2550,83 +2550,83 @@ msgid "Ignore devices"
 msgstr "Prezri naprave"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:125
+#: ../plugins/updates/gsd-updates-manager.c:124
 msgid "Failed To Update"
 msgstr "Posodobitev ni uspela"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:131
+#: ../plugins/updates/gsd-updates-manager.c:130
 msgid "A previous update was unfinished."
 msgstr "Prejšnja posodobitev še ni zaključena."
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:141
+#: ../plugins/updates/gsd-updates-manager.c:140
 msgid "Network access was required but not available."
 msgstr "Potreben je omrežni dostop, ki pa ni na voljo."
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:150
+#: ../plugins/updates/gsd-updates-manager.c:149
 msgid "An update was not signed in the correct way."
 msgstr "Posodobitev ni podpisana na ustrezen način."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:160
+#: ../plugins/updates/gsd-updates-manager.c:159
 msgid "The update could not be completed."
 msgstr "Posodobitve sistema ni mogoče dokončati."
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:165
+#: ../plugins/updates/gsd-updates-manager.c:164
 msgid "The update was cancelled."
 msgstr "Posodobitev je preklicana."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:171
+#: ../plugins/updates/gsd-updates-manager.c:170
 msgid "An offline update was requested but no packages required updating."
 msgstr "Prejeta zahteva za posodobitev brez povezave, vendar noben paket ne zahteva posodabljanja."
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:175
+#: ../plugins/updates/gsd-updates-manager.c:174
 msgid "No space was left on the drive."
 msgstr "Na pogonu ni več prostora."
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:183
+#: ../plugins/updates/gsd-updates-manager.c:182
 msgid "An update failed to install correctly."
 msgstr "Posodobitve ni mogoče pravilno namestiti."
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:188
+#: ../plugins/updates/gsd-updates-manager.c:187
 msgid "The offline update failed in an unexpected way."
 msgstr "Posodobitev brez povezave je spodletela na nepričakovan način."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:197
+#: ../plugins/updates/gsd-updates-manager.c:196
 msgid "Detailed errors from the package manager follow:"
 msgstr "Sledijo podrobne napake iz upravitelja paketov:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:343
+#: ../plugins/updates/gsd-updates-manager.c:342
 msgid "Distribution upgrades available"
 msgstr "Na voljo je posodobitev distribucije"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:352
+#: ../plugins/updates/gsd-updates-manager.c:351
 msgid "More information"
 msgstr "Več podrobnosti"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:457
-#: ../plugins/updates/gsd-updates-manager.c:518
+#: ../plugins/updates/gsd-updates-manager.c:456
+#: ../plugins/updates/gsd-updates-manager.c:517
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Posodobitve"
@@ -2635,7 +2635,7 @@ msgstr[2] "Posodobitvi"
 msgstr[3] "Posodobitve"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:460
+#: ../plugins/updates/gsd-updates-manager.c:459
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Na voljo so pomembne programske posodobitve."
@@ -2644,13 +2644,13 @@ msgstr[2] "Na voljo sta pomembni programski posodobitvi."
 msgstr[3] "Na voljo so pomembne programske posodobitve."
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:479
-#: ../plugins/updates/gsd-updates-manager.c:540
+#: ../plugins/updates/gsd-updates-manager.c:478
+#: ../plugins/updates/gsd-updates-manager.c:539
 msgid "Install updates"
 msgstr "Namesti posodobitve"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:521
+#: ../plugins/updates/gsd-updates-manager.c:520
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Na voljo so programske posodobitve"
@@ -2659,28 +2659,28 @@ msgstr[2] "Na voljo sta programski posodobitvi"
 msgstr[3] "Na voljo so programske posodobitve"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:612
+#: ../plugins/updates/gsd-updates-manager.c:575
 msgid "Updates"
 msgstr "Posodobitve"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:616
+#: ../plugins/updates/gsd-updates-manager.c:579
 msgid "Unable to access software updates"
 msgstr "Ni mogoč dostop do posodobitev programske opreme"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:619
+#: ../plugins/updates/gsd-updates-manager.c:582
 msgid "Try again"
 msgstr "Poskusite znova"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:981
+#: ../plugins/updates/gsd-updates-manager.c:960
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Zagnan je prenos, ki ga ni mogoče prekiniti"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1274
+#: ../plugins/updates/gsd-updates-manager.c:1253
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Programske posodobitve so nameščene"
@@ -2689,7 +2689,7 @@ msgstr[2] "Programski posodobitvi sta nameščeni"
 msgstr[3] "Programske posodobitve so nameščene"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1279
+#: ../plugins/updates/gsd-updates-manager.c:1258
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Pomembne programske posodobitve so nameščene."
@@ -2698,91 +2698,91 @@ msgstr[2] "Pomembni programski posodobitvi sta nameščeni."
 msgstr[3] "Pomembne programske posodobitve so nameščene."
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1302
+#: ../plugins/updates/gsd-updates-manager.c:1281
 msgid "Software Updates Failed"
 msgstr "Programske posodobitve spodletele"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1305
+#: ../plugins/updates/gsd-updates-manager.c:1284
 msgid "An important OS update failed to be installed."
 msgstr "Pomembne programske posodobitve ni mogoče namestiti."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1320
+#: ../plugins/updates/gsd-updates-manager.c:1299
 msgid "Review"
 msgstr "Preglej"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1325
+#: ../plugins/updates/gsd-updates-manager.c:1304
 msgid "Show details"
 msgstr "Pokaži podrobnosti"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1329
+#: ../plugins/updates/gsd-updates-manager.c:1308
 msgid "OK"
 msgstr "V redu"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1010
+#: ../plugins/wacom/gsd-wacom-device.c:1012
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Levi način drsnega obroča #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1019
+#: ../plugins/wacom/gsd-wacom-device.c:1021
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Desni način drsnega obroča #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1049
+#: ../plugins/wacom/gsd-wacom-device.c:1051
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Levi način drsne ploščice #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1058
+#: ../plugins/wacom/gsd-wacom-device.c:1060
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Desni način drsne ploščice #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1075
+#: ../plugins/wacom/gsd-wacom-device.c:1077
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Levi gumb preklopa drsnega obroča"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1077
+#: ../plugins/wacom/gsd-wacom-device.c:1079
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Desni gumb preklopa drsnega obroča"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1080
+#: ../plugins/wacom/gsd-wacom-device.c:1082
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Levi gumb preklopa drsne ploščice"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1082
+#: ../plugins/wacom/gsd-wacom-device.c:1084
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Desni gumb preklopa drsne ploščice"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1087
+#: ../plugins/wacom/gsd-wacom-device.c:1089
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Gumb preklopa #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1159
+#: ../plugins/wacom/gsd-wacom-device.c:1161
 #, c-format
 msgid "Left Button #%d"
 msgstr "Levi gumb #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1162
+#: ../plugins/wacom/gsd-wacom-device.c:1164
 #, c-format
 msgid "Right Button #%d"
 msgstr "Desni gumb #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1165
+#: ../plugins/wacom/gsd-wacom-device.c:1167
 #, c-format
 msgid "Top Button #%d"
 msgstr "Zgornji gumb #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1168
+#: ../plugins/wacom/gsd-wacom-device.c:1170
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Spodnji gumb #%d"
@@ -2865,3 +2865,5 @@ msgstr "Nastavitve X"
 msgid "Manage X Settings"
 msgstr "Upravljanje nastavitev strežnika X"
 
+#~ msgid "Command to be run when a device is added or removed."
+#~ msgstr "Ukaz, ki naj se izvede, ko je naprava dodana ali odstranjena."
