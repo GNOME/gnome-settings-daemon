@@ -34,6 +34,7 @@
 #define GSD_BACKLIGHT_HELPER_EXIT_CODE_FAILED			1
 #define GSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID	3
 #define GSD_BACKLIGHT_HELPER_EXIT_CODE_INVALID_USER		4
+#define GSD_BACKLIGHT_HELPER_EXIT_CODE_NO_DEVICES		5
 
 static gchar *
 gsd_backlight_helper_get_type (GList *devices, const gchar *type)
@@ -58,10 +59,8 @@ gsd_backlight_helper_get_best_backlight ()
 
 	client = g_udev_client_new (NULL);
 	devices = g_udev_client_query_by_subsystem (client, "backlight");
-	if (devices == NULL) {
-		g_warning ("failed to find any devices");
+	if (devices == NULL)
 		goto out;
-	}
 
 	/* search the backlight devices and prefer the types:
 	 * firmware -> platform -> raw */
@@ -169,7 +168,10 @@ main (int argc, char *argv[])
 	/* find device */
 	filename = gsd_backlight_helper_get_best_backlight ();
 	if (filename == NULL) {
-		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_INVALID_USER;
+		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_NO_DEVICES;
+		g_print ("%s: %s\n",
+			 "Could not get or set the value of the backlight",
+			 "No backlight devices present");
 		goto out;
 	}
 
