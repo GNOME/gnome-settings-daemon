@@ -15,6 +15,7 @@
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#include <libnotify/notify.h>
 
 #ifndef SCHEMA_NAME
 #define SCHEMA_NAME PLUGIN_NAME
@@ -49,6 +50,7 @@ main (int argc, char **argv)
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
+        notify_init ("gnome-settings-daemon");
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 
