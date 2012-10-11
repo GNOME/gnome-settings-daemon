@@ -1124,6 +1124,14 @@ touchpad_callback (GSettings       *settings,
         }
 }
 
+/* Re-enable touchpad when any other pointing device isn't present. */
+static void
+ensure_touchpad_active (GsdMouseManager *manager)
+{
+        if (mouse_is_present () == FALSE && touchscreen_is_present () == FALSE && trackball_is_present () == FALSE && touchpad_is_present ())
+                g_settings_set_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED, TRUE);
+}
+
 static void
 device_added_cb (GdkDeviceManager *device_manager,
                  GdkDevice        *device,
@@ -1162,6 +1170,8 @@ device_removed_cb (GdkDeviceManager *device_manager,
 
                 /* If a touchpad was to disappear... */
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
+
+                ensure_touchpad_active (manager);
         }
 }
 
@@ -1232,6 +1242,8 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                 }
         }
         g_list_free (devices);
+
+        ensure_touchpad_active (manager);
 
         if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED)) {
                 devices = get_disabled_devices (manager->priv->device_manager);
