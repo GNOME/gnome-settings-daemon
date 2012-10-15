@@ -549,8 +549,21 @@ engine_from_locale (void)
 {
         const gchar *locale;
         const gchar *locale_engine[][2] = {
+                { "as_IN", "m17n:as:phonetic" },
+                { "bn_IN", "m17n:bn:inscript" },
+                { "gu_IN", "m17n:gu:inscript" },
+                { "hi_IN", "m17n:hi:inscript" },
                 { "ja_JP", "anthy" },
+                { "kn_IN", "m17n:kn:kgp" },
                 { "ko_KR", "hangul" },
+                { "mai_IN", "m17n:mai:inscript" },
+                { "ml_IN", "m17n:ml:inscript" },
+                { "mr_IN", "m17n:mr:inscript" },
+                { "or_IN", "m17n:or:inscript" },
+                { "pa_IN", "m17n:pa:inscript" },
+                { "sd_IN", "m17n:sd:inscript" },
+                { "ta_IN", "m17n:ta:tamil99" },
+                { "te_IN", "m17n:te:inscript" },
                 { "zh_CN", "pinyin" },
                 { "zh_HK", "cangjie3" },
                 { "zh_TW", "chewing" },
