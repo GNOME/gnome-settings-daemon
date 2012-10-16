@@ -1007,7 +1007,8 @@ gsd_wacom_device_add_ring_modes (WacomDevice      *wacom_device,
 	l = NULL;
 
 	if ((direction & WACOM_BUTTON_POSITION_LEFT) && libwacom_has_ring (wacom_device)) {
-		num_modes = libwacom_get_ring_num_modes (wacom_device);
+		/* There is a ring so there must be at least one mode */
+		num_modes = MAX (1, libwacom_get_ring_num_modes (wacom_device));
 		for (i = 1; i <= num_modes; i++) {
 			name = g_strdup_printf (_("Left Ring Mode #%d"), i);
 			id = g_strdup_printf ("left-ring-mode-%d", i);
@@ -1016,7 +1017,8 @@ gsd_wacom_device_add_ring_modes (WacomDevice      *wacom_device,
 			g_free (id);
 		}
 	} else if ((direction & WACOM_BUTTON_POSITION_RIGHT) && libwacom_has_ring2 (wacom_device)) {
-		num_modes = libwacom_get_ring2_num_modes (wacom_device);
+		/* There is a ring so there must be at least one mode */
+		num_modes = MAX (1, libwacom_get_ring2_num_modes (wacom_device));
 		for (i = 1; i <= num_modes; i++) {
 			name = g_strdup_printf (_("Right Ring Mode #%d"), i);
 			id = g_strdup_printf ("right-ring-mode-%d", i);
@@ -1046,7 +1048,8 @@ gsd_wacom_device_add_strip_modes (WacomDevice      *wacom_device,
 		g_warning ("Unhandled number of touchstrips: %d", num_strips);
 
 	if ((direction & WACOM_BUTTON_POSITION_LEFT) && num_strips >= 1) {
-		num_modes = libwacom_get_strips_num_modes (wacom_device);
+		/* There is a strip so there must be at least one mode */
+		num_modes = MAX (1, libwacom_get_strips_num_modes (wacom_device));
 		for (i = 1; i <= num_modes; i++) {
 			name = g_strdup_printf (_("Left Touchstrip Mode #%d"), i);
 			id = g_strdup_printf ("left-strip-mode-%d", i);
@@ -1055,7 +1058,8 @@ gsd_wacom_device_add_strip_modes (WacomDevice      *wacom_device,
 			g_free (id);
 		}
 	} else if ((direction & WACOM_BUTTON_POSITION_RIGHT) && num_strips >= 2) {
-		num_modes = libwacom_get_strips_num_modes (wacom_device);
+		/* There is a strip so there must be at least one mode */
+		num_modes = MAX (1, libwacom_get_strips_num_modes (wacom_device));
 		for (i = 1; i <= num_modes; i++) {
 			name = g_strdup_printf (_("Right Touchstrip Mode #%d"), i);
 			id = g_strdup_printf ("right-strip-mode-%d", i);
@@ -1137,14 +1141,13 @@ gsd_wacom_device_add_buttons_dir (WacomDevice      *wacom_device,
 		l = g_list_append (l, gsd_wacom_tablet_button_new (name, id, settings_path, WACOM_TABLET_BUTTON_TYPE_HARDCODED, flags_to_group (flags), -1));
 		g_free (name);
 		g_free (id);
-
-		if (flags & WACOM_BUTTON_RINGS_MODESWITCH)
-			l = g_list_concat (l, gsd_wacom_device_add_ring_modes (wacom_device, settings_path, direction));
-		else if (flags & WACOM_BUTTON_TOUCHSTRIPS_MODESWITCH)
-			l = g_list_concat (l, gsd_wacom_device_add_strip_modes (wacom_device, settings_path, direction));
-		else
-			g_warning ("Unhandled modeswitches");
 	}
+
+	/* Handle touch{strips,rings} */
+	if (libwacom_has_ring2 (wacom_device) || libwacom_has_ring (wacom_device))
+		l = g_list_concat (l, gsd_wacom_device_add_ring_modes (wacom_device, settings_path, direction));
+	if  (libwacom_get_num_strips (wacom_device) > 0)
+		l = g_list_concat (l, gsd_wacom_device_add_strip_modes (wacom_device, settings_path, direction));
 
 	return l;
 }
