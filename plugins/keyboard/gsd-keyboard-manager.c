@@ -1336,7 +1336,6 @@ device_added_cb (GdkDeviceManager   *device_manager,
         source = gdk_device_get_source (device);
         if (source == GDK_SOURCE_KEYBOARD) {
                 g_debug ("New keyboard plugged in, applying all settings");
-                apply_all_settings (manager);
                 apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
                 run_custom_command (device, COMMAND_DEVICE_ADDED);
         }
