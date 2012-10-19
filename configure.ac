@@ -197,6 +197,8 @@ dnl - media-keys plugin stuff
 dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra])
+PKG_CHECK_MODULES(GVC, [gobject-2.0 libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION])
+AM_CONDITIONAL(HAVE_INTROSPECTION, false)
 
 dnl ---------------------------------------------------------------------------
 dnl - xrandr plugin stuff
@@ -483,7 +485,7 @@ plugins/power/Makefile
 plugins/housekeeping/Makefile
 plugins/keyboard/Makefile
 plugins/media-keys/Makefile
-plugins/media-keys/cut-n-paste/Makefile
+plugins/media-keys/gvc/Makefile
 plugins/mouse/Makefile
 plugins/orientation/Makefile
 plugins/print-notifications/Makefile

@@ -5,7 +5,7 @@ plugin_name = media-keys
 
 NULL =
 
-SUBDIRS = cut-n-paste
+SUBDIRS = gvc
 plugin_LTLIBRARIES = libmedia-keys.la
 
 BUILT_SOURCES = 			\
@@ -35,7 +35,7 @@ libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
+	-I$(top_srcdir)/plugins/media-keys/gvc			\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
@@ -53,7 +53,7 @@ libmedia_keys_la_LDFLAGS = 		\
 
 libmedia_keys_la_LIBADD  = 		\
 	$(top_builddir)/plugins/common/libcommon.la			\
-	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
+	$(top_builddir)/plugins/media-keys/gvc/libgvc.la		\
 	$(MEDIA_KEYS_LIBS)						\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	-lm
@@ -76,7 +76,7 @@ test_media_window_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
+	-I$(top_srcdir)/plugins/media-keys/gvc			\
 	-DDATADIR=\""$(datadir)"\"				\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
@@ -109,7 +109,7 @@ gsd_test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
+	-I$(top_srcdir)/plugins/media-keys/gvc			\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
@@ -124,8 +124,8 @@ gsd_test_media_keys_CFLAGS = \
 
 gsd_test_media_keys_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
+	$(top_builddir)/plugins/common/libcommon.la		\
+	$(top_builddir)/plugins/media-keys/gvc/libgvc.la	\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(MEDIA_KEYS_LIBS)			\
