@@ -2282,7 +2282,7 @@ suspend_with_lid_closed (GsdPowerManager *manager)
         if (!ret) {
                 g_warning ("failed to turn the panel off after lid close: %s",
                            error->message);
-                g_error_free (error);
+                g_clear_error (&error);
         }
 
         /* only toggle keyboard if present and not already toggled */
@@ -2991,7 +2991,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 if (!ret) {
                         g_warning ("failed to turn the panel off: %s",
                                    error->message);
-                        g_error_free (error);
+                        g_clear_error (&error);
                 }
 
                 /* only toggle keyboard if present and not already toggled */
@@ -3039,7 +3039,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                                 g_warning ("failed to restore backlight to %i: %s",
                                            manager->priv->pre_dim_brightness,
                                            error->message);
-                                g_error_free (error);
+                                g_clear_error (&error);
                         } else {
                                 manager->priv->pre_dim_brightness = -1;
                         }
@@ -3052,7 +3052,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                         if (!ret) {
                                 g_warning ("failed to turn the kbd backlight on: %s",
                                            error->message);
-                                g_error_free (error);
+                                g_clear_error (&error);
                         }
                 }
 
