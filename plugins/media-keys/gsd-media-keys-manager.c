@@ -2155,6 +2155,41 @@ update_theme_settings (GSettings           *settings,
 	}
 }
 
+static void
+initialize_volume_handler (GsdMediaKeysManager *manager)
+{
+        /* initialise Volume handler
+         *
+         * We do this one here to force checking gstreamer cache, etc.
+         * The rest (grabbing and setting the keys) can happen in an
+         * idle.
+         */
+        gnome_settings_profile_start ("gvc_mixer_control_new");
+
+        manager->priv->volume = gvc_mixer_control_new ("GNOME Volume Control Media Keys");
+
+        g_signal_connect (manager->priv->volume,
+                          "state-changed",
+                          G_CALLBACK (on_control_state_changed),
+                          manager);
+        g_signal_connect (manager->priv->volume,
+                          "default-sink-changed",
+                          G_CALLBACK (on_control_default_sink_changed),
+                          manager);
+        g_signal_connect (manager->priv->volume,
+                          "default-source-changed",
+                          G_CALLBACK (on_control_default_source_changed),
+                          manager);
+        g_signal_connect (manager->priv->volume,
+                          "stream-removed",
+                          G_CALLBACK (on_control_stream_removed),
+                          manager);
+
+        gvc_mixer_control_open (manager->priv->volume);
+
+        gnome_settings_profile_end ("gvc_mixer_control_new");
+}
+
 static gboolean
 start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 {
@@ -2163,6 +2198,8 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 
         g_debug ("Starting media_keys manager");
         gnome_settings_profile_start (NULL);
+
+        initialize_volume_handler (manager);
 
         manager->priv->settings = g_settings_new (SETTINGS_BINDING_DIR);
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
@@ -2244,37 +2281,6 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         manager->priv->streams = g_hash_table_new (g_direct_hash, g_direct_equal);
         manager->priv->udev_client = g_udev_client_new (subsystems);
 #endif
-
-        /* initialise Volume handler
-         *
-         * We do this one here to force checking gstreamer cache, etc.
-         * The rest (grabbing and setting the keys) can happen in an
-         * idle.
-         */
-        gnome_settings_profile_start ("gvc_mixer_control_new");
-
-        manager->priv->volume = gvc_mixer_control_new ("GNOME Volume Control Media Keys");
-
-        g_signal_connect (manager->priv->volume,
-                          "state-changed",
-                          G_CALLBACK (on_control_state_changed),
-                          manager);
-        g_signal_connect (manager->priv->volume,
-                          "default-sink-changed",
-                          G_CALLBACK (on_control_default_sink_changed),
-                          manager);
-        g_signal_connect (manager->priv->volume,
-                          "default-source-changed",
-                          G_CALLBACK (on_control_default_source_changed),
-                          manager);
-        g_signal_connect (manager->priv->volume,
-                          "stream-removed",
-                          G_CALLBACK (on_control_stream_removed),
-                          manager);
-
-        gvc_mixer_control_open (manager->priv->volume);
-
-        gnome_settings_profile_end ("gvc_mixer_control_new");
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_media_keys_idle_cb, manager);
 
