@@ -242,6 +242,9 @@ struct GnomeXSettingsManagerPrivate
         GsdXSettingsGtk   *gtk;
 
         guint              shell_name_watch_id;
+        gboolean           have_shell;
+
+        guint              notify_idle_id;
 };
 
 #define GSD_XSETTINGS_ERROR gsd_xsettings_error_quark ()
@@ -362,6 +365,27 @@ static TranslationEntry translations [] = {
         { "org.gnome.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
         { "org.gnome.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int }
 };
+
+static gboolean
+notify_idle (gpointer data)
+{
+        GnomeXSettingsManager *manager = data;
+        gint i;
+        for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_notify (manager->priv->managers[i]);
+        }
+        manager->priv->notify_idle_id = 0;
+        return G_SOURCE_REMOVE;
+}
+
+static void
+queue_notify (GnomeXSettingsManager *manager)
+{
+        if (manager->priv->notify_idle_id != 0)
+                return;
+
+        manager->priv->notify_idle_id = g_idle_add (notify_idle, manager);
+}
 
 static double
 get_dpi_from_gsettings (GnomeXSettingsManager *manager)
@@ -566,13 +590,8 @@ xft_callback (GSettings             *settings,
               const gchar           *key,
               GnomeXSettingsManager *manager)
 {
-        int i;
-
         update_xft_settings (manager);
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_notify (manager->priv->managers [i]);
-        }
+        queue_notify (manager);
 }
 
 static void
@@ -587,8 +606,8 @@ override_callback (GSettings             *settings,
 
         for (i = 0; manager->priv->managers[i]; i++) {
                 xsettings_manager_set_overrides (manager->priv->managers[i], value);
-                xsettings_manager_notify (manager->priv->managers [i]);
         }
+        queue_notify (manager);
 
         g_variant_unref (value);
 }
@@ -629,9 +648,7 @@ gtk_modules_callback (GsdXSettingsGtk       *gtk,
                 }
         }
 
-        for (i = 0; manager->priv->managers [i]; ++i) {
-                xsettings_manager_notify (manager->priv->managers [i]);
-        }
+        queue_notify (manager);
 }
 
 static void
@@ -645,8 +662,8 @@ fontconfig_callback (fontconfig_monitor_handle_t *handle,
 
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_int (manager->priv->managers [i], "Fontconfig/Timestamp", timestamp);
-                xsettings_manager_notify (manager->priv->managers [i]);
         }
+        queue_notify (manager);
         gnome_settings_profile_end (NULL);
 }
 
@@ -692,11 +709,13 @@ notify_have_shell (GnomeXSettingsManager   *manager,
         int i;
 
         gnome_settings_profile_start (NULL);
-
+        if (manager->priv->have_shell == have_shell)
+                return;
+        manager->priv->have_shell = have_shell;
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_int (manager->priv->managers [i], "Gtk/ShellShowsAppMenu", have_shell);
-                xsettings_manager_notify (manager->priv->managers [i]);
         }
+        queue_notify (manager);
         gnome_settings_profile_end (NULL);
 }
 
@@ -776,10 +795,7 @@ xsettings_callback (GSettings             *settings,
                                               "Net/FallbackIconTheme",
                                               "gnome");
         }
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_notify (manager->priv->managers [i]);
-        }
+        queue_notify (manager);
 }
 
 static void
@@ -835,6 +851,20 @@ setup_xsettings_managers (GnomeXSettingsManager *manager)
         }
 
         return TRUE;
+}
+
+static void
+start_shell_monitor (GnomeXSettingsManager *manager)
+{
+        notify_have_shell (manager, TRUE);
+        manager->priv->have_shell = TRUE;
+        manager->priv->shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                                               "org.gnome.Shell",
+                                                               0,
+                                                               on_shell_appeared,
+                                                               on_shell_disappeared,
+                                                               manager,
+                                                               NULL);
 }
 
 gboolean
@@ -902,14 +932,7 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
 
         start_fontconfig_monitor (manager);
 
-        /* Shell flag */
-        manager->priv->shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                                               "org.gnome.Shell",
-                                                               0,
-                                                               on_shell_appeared,
-                                                               on_shell_disappeared,
-                                                               manager,
-                                                               NULL);
+        start_shell_monitor (manager);
 
         for (i = 0; manager->priv->managers [i]; i++)
                 xsettings_manager_set_string (manager->priv->managers [i],
@@ -919,8 +942,8 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         overrides = g_settings_get_value (manager->priv->plugin_settings, XSETTINGS_OVERRIDE_KEY);
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_overrides (manager->priv->managers [i], overrides);
-                xsettings_manager_notify (manager->priv->managers [i]);
         }
+        queue_notify (manager);
         g_variant_unref (overrides);
 
 
