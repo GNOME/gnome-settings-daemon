@@ -248,12 +248,19 @@ gnome_settings_session_finalize (GObject *object)
 	G_OBJECT_CLASS (gnome_settings_session_parent_class)->finalize (object);
 }
 
+static GnomeSettingsSession *session;
+
 GnomeSettingsSession *
 gnome_settings_session_new (void)
 {
-	GnomeSettingsSession *session;
-	session = g_object_new (GNOME_TYPE_SETTINGS_SESSION, NULL);
-	return GNOME_SETTINGS_SESSION (session);
+        if (session != NULL) {
+                g_object_ref (session);
+        } else {
+                session = g_object_new (GNOME_TYPE_SETTINGS_SESSION, NULL);
+                g_object_add_weak_pointer ((GObject*)session, (gpointer*)&session);
+        }
+
+	return session;
 }
 
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
