@@ -58,6 +58,7 @@ GType			 gnome_settings_session_state_get_type	(void);
 GnomeSettingsSession	*gnome_settings_session_new		(void);
 GnomeSettingsSessionState gnome_settings_session_get_state	(GnomeSettingsSession	*session);
 
+GDBusProxy              *gnome_settings_session_get_session_proxy  (void);
 
 G_END_DECLS
 
