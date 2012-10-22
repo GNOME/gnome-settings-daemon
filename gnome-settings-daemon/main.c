@@ -31,17 +31,15 @@
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
-#include <gio/gio.h>
 #include <libnotify/notify.h>
 
 #include "gnome-settings-manager.h"
 #include "gnome-settings-profile.h"
+#include "gnome-settings-session.h"
 
 #define GSD_DBUS_NAME         "org.gnome.SettingsDaemon"
 
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
-#define GNOME_SESSION_DBUS_OBJECT    "/org/gnome/SessionManager"
-#define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
 #define GNOME_SESSION_CLIENT_PRIVATE_DBUS_INTERFACE "org.gnome.SessionManager.ClientPrivate"
 
 static gboolean   debug        = FALSE;
@@ -251,82 +249,27 @@ is_program_in_path (const char *binary)
 }
 
 static void
-got_session_name (GObject      *object,
-                  GAsyncResult *res,
-                  gpointer      data)
-{
-        GDBusProxy *proxy;
-        GVariant *result, *variant;
-        const gchar *session_name = NULL;
-        GError *error = NULL;
-
-        proxy = G_DBUS_PROXY (object);
-
-        result = g_dbus_proxy_call_finish (proxy, res, &error);
-        if (!result) {
-                g_debug ("Failed to get session name: %s", error->message);
-                g_error_free (error);
-                register_with_gnome_session (proxy);
-                return;
-        }
-
-        g_variant_get (result, "(v)", &variant);
-        g_variant_unref (result);
-
-        g_variant_get (variant, "&s", &session_name);
-
-        if (g_strcmp0 (session_name, "gnome") == 0 &&
-            is_program_in_path ("ibus-daemon")) {
-                set_session_env (proxy, "QT_IM_MODULE", "ibus");
-                set_session_env (proxy, "XMODIFIERS", "@im=ibus");
-        }
-
-        g_variant_unref (variant);
-
-        /* Finally we can register. */
-        register_with_gnome_session (proxy);
-}
-
-static void
 set_legacy_ibus_env_vars (GDBusProxy *proxy)
 {
-        g_dbus_proxy_call (proxy,
-                           "org.freedesktop.DBus.Properties.Get",
-                           g_variant_new ("(ss)",
-                                          "org.gnome.SessionManager",
-                                          "SessionName"),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           NULL,
-                           got_session_name,
-                           NULL);
-}
-#endif
+        GVariant *prop;
+        const gchar *name;
 
-static void
-got_session_proxy (GObject      *source_object,
-                   GAsyncResult *res,
-                   gpointer      user_data)
-{
-        GDBusProxy *proxy;
-        GError *error = NULL;
+        prop = g_dbus_proxy_get_cached_property (proxy, "session-name");
+        if (prop) {
+                g_variant_get (prop, "&s", &name);
 
-        proxy = g_dbus_proxy_new_finish (res, &error);
-        if (proxy == NULL) {
-                g_debug ("Could not connect to the Session manager: %s", error->message);
-                g_error_free (error);
+                if (g_strcmp0 (name, "gnome") == 0 &&
+                    is_program_in_path ("ibus-daemon")) {
+                        set_session_env (proxy, "QT_IM_MODULE", "ibus");
+                        set_session_env (proxy, "XMODIFIERS", "@im=ibus");
+                }
+
+                g_variant_unref (prop);
         } else {
-                /* Always call this first, as Setenv can only be called before
-                   any client registers */
-                set_locale (proxy);
-#ifdef HAVE_IBUS
-                /* This will register with gnome-session after calling Setenv. */
-                set_legacy_ibus_env_vars (proxy);
-#else
-                register_with_gnome_session (proxy);
-#endif
+                g_print ("failed to get SessionName\n");
         }
 }
+#endif
 
 static gboolean
 on_term_signal_pipe_closed (GIOChannel *source,
@@ -375,18 +318,18 @@ watch_for_term_signal (GnomeSettingsManager *manager)
 static void
 set_session_over_handler (GDBusConnection *bus)
 {
+        GDBusProxy *proxy;
+
         g_assert (bus != NULL);
 
-        g_dbus_proxy_new (bus,
-                          G_DBUS_PROXY_FLAGS_NONE,
-                          NULL,
-                          GNOME_SESSION_DBUS_NAME,
-                          GNOME_SESSION_DBUS_OBJECT,
-                          GNOME_SESSION_DBUS_INTERFACE,
-                          NULL,
-                          (GAsyncReadyCallback) got_session_proxy,
-                          NULL);
-
+        proxy = gnome_settings_session_get_session_proxy ();
+        /* Always call this first, as Setenv can only be called before
+           any client registers */
+        set_locale (proxy);
+#ifdef HAVE_IBUS
+        set_legacy_ibus_env_vars (proxy);
+#endif
+        register_with_gnome_session (proxy);
         watch_for_term_signal (manager);
 }
 
