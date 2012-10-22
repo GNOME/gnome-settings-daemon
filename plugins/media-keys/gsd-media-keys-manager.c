@@ -1617,10 +1617,6 @@ do_toggle_contrast_action (GsdMediaKeysManager *manager)
 static void
 power_action_suspend (GsdMediaKeysManager *manager)
 {
-#ifndef HAVE_SYSTEMD
-        g_warning ("no systemd support");
-        return;
-#endif
         g_dbus_proxy_call (manager->priv->logind_proxy,
                            "Suspend",
                            g_variant_new ("(b)", TRUE),
@@ -1633,10 +1629,6 @@ power_action_suspend (GsdMediaKeysManager *manager)
 static void
 power_action_hibernate (GsdMediaKeysManager *manager)
 {
-#ifndef HAVE_SYSTEMD
-        g_warning ("no systemd support");
-        return;
-#endif
         g_dbus_proxy_call (manager->priv->logind_proxy,
                            "Hibernate",
                            g_variant_new ("(b)", TRUE),
