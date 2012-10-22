@@ -31,11 +31,8 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
+#include "gnome-settings-session.h"
 #include "gsd-a11y-preferences-dialog.h"
-
-#define SM_DBUS_NAME      "org.gnome.SessionManager"
-#define SM_DBUS_PATH      "/org/gnome/SessionManager"
-#define SM_DBUS_INTERFACE "org.gnome.SessionManager"
 
 
 #define GSD_A11Y_PREFERENCES_DIALOG_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_A11Y_PREFERENCES_DIALOG, GsdA11yPreferencesDialogPrivate))
@@ -203,19 +200,7 @@ config_have_at_gsettings_condition (const char *condition)
                 g_error_free (error);
                 return FALSE;
         }
-        sm_proxy = g_dbus_proxy_new_sync (connection,
-                                          0, NULL,
-                                          SM_DBUS_NAME,
-                                          SM_DBUS_PATH,
-                                          SM_DBUS_INTERFACE,
-                                          NULL,
-                                          &error);
-        if (sm_proxy == NULL) {
-                g_warning ("Unable to get proxy for %s: %s", SM_DBUS_NAME, error->message);
-                g_error_free (error);
-                return FALSE;
-        }
-
+        sm_proxy = gnome_settings_session_get_session_proxy ();
         is_handled = FALSE;
         res = g_dbus_proxy_call_sync (sm_proxy,
                                       "IsAutostartConditionHandled",

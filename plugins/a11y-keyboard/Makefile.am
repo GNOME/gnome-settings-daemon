@@ -50,11 +50,14 @@ test_a11y_preferences_dialog_CPPFLAGS = \
 test_a11y_preferences_dialog_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(SYSTEMD_CFLAGS)		\
 	$(AM_CFLAGS)
 
-test_a11y_preferences_dialog_LDADD = \
-	$(SETTINGS_DAEMON_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)			\
+test_a11y_preferences_dialog_LDADD =			\
+	$(SETTINGS_DAEMON_LIBS)				\
+	$(SETTINGS_PLUGIN_LIBS)				\
+	$(SYSTEMD_LIBS)					\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la	\
 	$(NULL)
 
 plugin_LTLIBRARIES = \
