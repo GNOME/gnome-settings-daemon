@@ -3885,7 +3885,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                                NULL,
                                                error);
         if (manager->priv->logind_proxy == NULL) {
-                g_warning ("no systemd support");
+                g_debug ("No systemd (logind) support, disabling plugin");
                 return FALSE;
         }
         g_signal_connect (manager->priv->logind_proxy, "g-signal",
