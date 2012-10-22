@@ -42,6 +42,7 @@
 #include <libgnome-desktop/gnome-bg.h>
 #include <X11/Xatom.h>
 
+#include "gnome-settings-session.h"
 #include "gnome-settings-profile.h"
 #include "gsd-background-manager.h"
 
@@ -333,25 +334,8 @@ on_session_manager_signal (GDBusProxy   *proxy,
 static void
 draw_background_after_session_loads (GsdBackgroundManager *manager)
 {
-        GError *error = NULL;
-        GDBusProxyFlags flags;
-
-        flags = G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
-                G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START;
-        manager->priv->proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                                              flags,
-                                                              NULL, /* GDBusInterfaceInfo */
-                                                              "org.gnome.SessionManager",
-                                                              "/org/gnome/SessionManager",
-                                                              "org.gnome.SessionManager",
-                                                              NULL, /* GCancellable */
-                                                              &error);
-        if (manager->priv->proxy == NULL) {
-                g_warning ("Could not listen to session manager: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
+        manager->priv->proxy =
+                gnome_settings_session_get_session_proxy ();
 
         manager->priv->proxy_signal_id = g_signal_connect (manager->priv->proxy,
                                                            "g-signal",
@@ -457,7 +441,7 @@ gsd_background_manager_stop (GsdBackgroundManager *manager)
 
         if (manager->priv->proxy) {
                 disconnect_session_manager_listener (manager);
-                g_object_unref (manager->priv->proxy);
+                g_clear_object (&manager->priv->proxy);
         }
 
         g_signal_handlers_disconnect_by_func (manager->priv->settings,
