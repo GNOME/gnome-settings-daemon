@@ -1,4 +1,36 @@
 =============
+Version 3.7.1
+=============
+
+Daemon:
+- Provide a singleton SessionManager proxy object
+- Ensure session registration happens before other idles
+- Use logind for suspending and rebooting the system
+- Require logind for session tracking
+
+Input:
+- Clarify hotplug command exit value handling
+- Add trackball detection
+
+Keyboard:
+- Add default ibus engine for Indic locales
+- Don't apply global settings for every keyboard
+
+Mouse:
+- Re-enable touchpad when mouse isn't present
+
+Power:
+- Fix "no devices" error path in gsd-backlight-helper
+- Add a watchdog to keep X's builtin screen saver disabled
+- Fix a number of possible crashers
+
+Wacom:
+- Add support for touchstrips and touchrings without a modeswitch
+
+XSettings:
+- Optimise xsettings changes
+
+=============
 Version 3.6.1
 =============
 
