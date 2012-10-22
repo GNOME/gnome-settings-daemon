@@ -33,6 +33,7 @@ libgsd_la_CFLAGS =		\
 	$(NULL)
 
 libgsd_la_LIBADD =		\
+	$(SETTINGS_DAEMON_LIBS)		\
 	$(GIOUNIX_LIBS)		\
 	$(NULL)
 
