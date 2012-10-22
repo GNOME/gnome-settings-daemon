@@ -44,6 +44,7 @@
 #include <gudev/gudev.h>
 #endif
 
+#include "gnome-settings-session.h"
 #include "gnome-settings-profile.h"
 #include "gsd-marshal.h"
 #include "gsd-media-keys-manager.h"
@@ -62,10 +63,6 @@
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"
-
-#define GNOME_SESSION_DBUS_NAME "org.gnome.SessionManager"
-#define GNOME_SESSION_DBUS_PATH "/org/gnome/SessionManager"
-#define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
 
 #define GNOME_KEYRING_DBUS_NAME "org.gnome.keyring"
 #define GNOME_KEYRING_DBUS_PATH "/org/gnome/keyring/daemon"
@@ -762,30 +759,23 @@ gnome_session_shutdown (GsdMediaKeysManager *manager)
 {
 	GError *error = NULL;
 	GVariant *variant;
+        GDBusProxy *proxy;
 
-	/* Shouldn't happen, but you never know */
-	if (manager->priv->connection == NULL) {
-		execute (manager, "gnome-session-quit --logout", FALSE);
-		return;
-	}
-
-	variant = g_dbus_connection_call_sync (manager->priv->connection,
-					       GNOME_SESSION_DBUS_NAME,
-					       GNOME_SESSION_DBUS_PATH,
-					       GNOME_SESSION_DBUS_INTERFACE,
-					       "Shutdown",
-					       NULL,
-					       NULL,
-					       G_DBUS_CALL_FLAGS_NONE,
-					       -1,
-					       NULL,
-					       &error);
+        proxy = gnome_settings_session_get_session_proxy ();
+	variant = g_dbus_proxy_call_sync (proxy,
+					  "Shutdown",
+					  NULL,
+					  G_DBUS_CALL_FLAGS_NONE,
+					  -1,
+					  NULL,
+					  &error);
 	if (variant == NULL) {
 		g_warning ("Failed to call Shutdown on session manager: %s", error->message);
 		g_error_free (error);
 		return;
 	}
 	g_variant_unref (variant);
+        g_object_unref (proxy);
 }
 
 static void
