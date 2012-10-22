@@ -35,6 +35,7 @@
 #include "gsd-updates-refresh.h"
 #include "gsd-updates-common.h"
 #include "gnome-settings-profile.h"
+#include "gnome-settings-session.h"
 
 #define GSD_UPDATES_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_UPDATES_MANAGER, GsdUpdatesManagerPrivate))
 
@@ -1382,14 +1383,7 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
 
         /* use gnome-session for the idle detection */
         manager->priv->proxy_session =
-                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                               G_DBUS_PROXY_FLAGS_NONE,
-                                               NULL, /* GDBusInterfaceInfo */
-                                               "org.gnome.SessionManager",
-                                               "/org/gnome/SessionManager",
-                                               "org.gnome.SessionManager",
-                                               manager->priv->cancellable,
-                                               error);
+                gnome_settings_session_get_session_proxy ();
         if (manager->priv->proxy_session == NULL)
                 goto out;
 

@@ -25,6 +25,8 @@
 #include <packagekit-glib2/packagekit.h>
 #include <libupower-glib/upower.h>
 
+#include "gnome-settings-session.h"
+
 #include "gsd-updates-common.h"
 #include "gsd-updates-refresh.h"
 
@@ -467,7 +469,6 @@ session_presence_signal_cb (GDBusProxy *proxy,
 static void
 gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
 {
-        GError *error = NULL;
         GVariant *status;
         guint status_code;
 
@@ -505,19 +506,8 @@ gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
 
         /* use gnome-session for the idle detection */
         refresh->priv->proxy_session =
-                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                               G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
-                                               NULL, /* GDBusInterfaceInfo */
-                                               "org.gnome.SessionManager",
-                                               "/org/gnome/SessionManager/Presence",
-                                               "org.gnome.SessionManager.Presence",
-                                               NULL, /* GCancellable */
-                                               &error);
-        if (refresh->priv->proxy_session == NULL) {
-                g_warning ("Error creating proxy: %s",
-                           error->message);
-                g_error_free (error);
-        } else {
+                gnome_settings_session_get_session_proxy ();
+        if (refresh->priv->proxy_session != NULL) {
                 g_signal_connect (refresh->priv->proxy_session,
                                   "g-signal",
                                   G_CALLBACK (session_presence_signal_cb),
