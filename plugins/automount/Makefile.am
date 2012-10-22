@@ -14,12 +14,10 @@ gnome_fallback_mount_helper_CPPFLAGS = \
 
 gnome_fallback_mount_helper_CFLAGS =	\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(SYSTEMD_CFLAGS)		\
 	$(AUTOMOUNT_CFLAGS)
 
 gnome_fallback_mount_helper_LDADD =	\
 	$(SETTINGS_PLUGIN_LIBS)		\
-	$(SYSTEMD_LIBS)			\
 	$(AUTOMOUNT_LIBS)		\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la
 
