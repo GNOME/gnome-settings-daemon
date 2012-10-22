@@ -46,9 +46,7 @@
 #include "gsd-power-helper.h"
 
 #define GNOME_SESSION_DBUS_NAME                 "org.gnome.SessionManager"
-#define GNOME_SESSION_DBUS_PATH                 "/org/gnome/SessionManager"
 #define GNOME_SESSION_DBUS_PATH_PRESENCE        "/org/gnome/SessionManager/Presence"
-#define GNOME_SESSION_DBUS_INTERFACE            "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_INTERFACE_PRESENCE   "org.gnome.SessionManager.Presence"
 
 #define UPOWER_DBUS_NAME                        "org.freedesktop.UPower"
@@ -2019,32 +2017,14 @@ gnome_session_shutdown_cb (GObject *source_object,
 }
 
 static void
-gnome_session_shutdown (void)
+gnome_session_shutdown (GsdPowerManager *manager)
 {
-        GError *error = NULL;
-        GDBusProxy *proxy;
-
-        /* ask gnome-session to show the shutdown dialog with a timeout */
-        proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                               G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                               NULL,
-                                               GNOME_SESSION_DBUS_NAME,
-                                               GNOME_SESSION_DBUS_PATH,
-                                               GNOME_SESSION_DBUS_INTERFACE,
-                                               NULL, &error);
-        if (proxy == NULL) {
-                g_warning ("cannot connect to gnome-session: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-        g_dbus_proxy_call (proxy,
+        g_dbus_proxy_call (manager->priv->session_proxy,
                            "Shutdown",
                            NULL,
                            G_DBUS_CALL_FLAGS_NONE,
                            -1, NULL,
                            gnome_session_shutdown_cb, NULL);
-        g_object_unref (proxy);
 }
 
 static void
@@ -2059,7 +2039,7 @@ do_power_action_type (GsdPowerManager *manager,
                 gsd_power_suspend (manager->priv->upower_proxy);
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
-                gnome_session_shutdown ();
+                gnome_session_shutdown (manager);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
                 gsd_power_hibernate (manager->priv->upower_proxy);
@@ -3343,25 +3323,6 @@ idle_dbus_signal_cb (GDBusProxy *proxy,
 }
 
 static void
-session_proxy_ready_cb (GObject *source_object,
-                        GAsyncResult *res,
-                        gpointer user_data)
-{
-        GError *error = NULL;
-        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
-
-        manager->priv->session_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (manager->priv->session_proxy == NULL) {
-                g_warning ("Could not connect to gnome-session: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-        g_signal_connect (manager->priv->session_proxy, "g-signal",
-                          G_CALLBACK (idle_dbus_signal_cb), manager);
-}
-
-static void
 session_presence_proxy_ready_cb (GObject *source_object,
                                  GAsyncResult *res,
                                  gpointer user_data)
@@ -3765,15 +3726,10 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                   manager);
 
         /* connect to the session */
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                  NULL,
-                                  GNOME_SESSION_DBUS_NAME,
-                                  GNOME_SESSION_DBUS_PATH,
-                                  GNOME_SESSION_DBUS_INTERFACE,
-                                  NULL,
-                                  session_proxy_ready_cb,
-                                  manager);
+        manager->priv->session_proxy =
+                gnome_settings_session_get_session_proxy ();
+        g_signal_connect (manager->priv->session_proxy, "g-signal",
+                          G_CALLBACK (idle_dbus_signal_cb), manager);
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                   0,
                                   NULL,
