@@ -28,6 +28,7 @@
 #include <gio/gio.h>
 
 #include "gnome-settings-plugin.h"
+#include "gnome-settings-session.h"
 #include "gsd-smartcard-plugin.h"
 #include "gsd-smartcard-manager.h"
 
@@ -49,9 +50,6 @@ typedef enum
 #define SCREENSAVER_DBUS_PATH      "/"
 #define SCREENSAVER_DBUS_INTERFACE "org.gnome.ScreenSaver"
 
-#define SM_DBUS_NAME      "org.gnome.SessionManager"
-#define SM_DBUS_PATH      "/org/gnome/SessionManager"
-#define SM_DBUS_INTERFACE "org.gnome.SessionManager"
 #define SM_LOGOUT_MODE_FORCE 2
 
 #define KEY_REMOVE_ACTION "removal-action"
@@ -110,12 +108,7 @@ force_logout (GsdSmartcardPlugin *plugin)
         GVariant   *res;
 
         g_debug ("GsdSmartcardPlugin telling session manager to force logout");
-        sm_proxy = g_dbus_proxy_new_sync (plugin->priv->bus_connection,
-                                          0, NULL,
-                                          SM_DBUS_NAME,
-                                          SM_DBUS_PATH,
-                                          SM_DBUS_INTERFACE,
-                                          NULL, NULL);
+        sm_proxy = gnome_settings_session_get_session_proxy ();
 
         error = NULL;
         res = g_dbus_proxy_call_sync (sm_proxy,
