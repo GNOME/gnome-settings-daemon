@@ -49,6 +49,7 @@
 #include <ibus.h>
 #endif
 
+#include "gnome-settings-session.h"
 #include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
 #include "gsd-input-helper.h"
@@ -320,83 +321,6 @@ maybe_start_ibus (GsdKeyboardManager *manager,
                                               NULL,
                                               NULL,
                                               NULL));
-}
-
-static void
-got_session_name (GObject            *object,
-                  GAsyncResult       *res,
-                  GsdKeyboardManager *manager)
-{
-        GVariant *result, *variant;
-        GDBusConnection *connection = G_DBUS_CONNECTION (object);
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-        const gchar *session_name = NULL;
-        GError *error = NULL;
-
-        /* IBus shouldn't have been touched yet */
-        g_return_if_fail (priv->ibus == NULL);
-
-        g_clear_object (&priv->ibus_cancellable);
-
-        result = g_dbus_connection_call_finish (connection, res, &error);
-        if (!result) {
-                g_warning ("Couldn't get session name: %s", error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        g_variant_get (result, "(v)", &variant);
-        g_variant_unref (result);
-
-        g_variant_get (variant, "&s", &session_name);
-
-        if (g_strcmp0 (session_name, "gnome") == 0)
-                manager->priv->session_is_fallback = FALSE;
-
-        g_variant_unref (variant);
- out:
-        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
-        g_object_unref (connection);
-}
-
-static void
-got_bus (GObject            *object,
-         GAsyncResult       *res,
-         GsdKeyboardManager *manager)
-{
-        GDBusConnection *connection;
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-        GError *error = NULL;
-
-        /* IBus shouldn't have been touched yet */
-        g_return_if_fail (priv->ibus == NULL);
-
-        g_clear_object (&priv->ibus_cancellable);
-
-        connection = g_bus_get_finish (res, &error);
-        if (!connection) {
-                g_warning ("Couldn't get session bus: %s", error->message);
-                g_error_free (error);
-                apply_input_sources_settings (priv->input_sources_settings, NULL, 0, manager);
-                return;
-        }
-
-        priv->ibus_cancellable = g_cancellable_new ();
-
-        g_dbus_connection_call (connection,
-                                "org.gnome.SessionManager",
-                                "/org/gnome/SessionManager",
-                                "org.freedesktop.DBus.Properties",
-                                "Get",
-                                g_variant_new ("(ss)",
-                                               "org.gnome.SessionManager",
-                                               "SessionName"),
-                                NULL,
-                                G_DBUS_CALL_FLAGS_NONE,
-                                -1,
-                                priv->ibus_cancellable,
-                                (GAsyncReadyCallback)got_session_name,
-                                manager);
 }
 
 static void
@@ -1560,6 +1484,10 @@ maybe_create_input_sources (GsdKeyboardManager *manager)
 static gboolean
 start_keyboard_idle_cb (GsdKeyboardManager *manager)
 {
+        GDBusProxy *proxy;
+        GVariant *prop;
+        const gchar *name;
+
         gnome_settings_profile_start (NULL);
 
         g_debug ("Starting keyboard manager");
@@ -1576,18 +1504,19 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         maybe_create_input_sources (manager);
 
-#ifdef HAVE_IBUS
-        /* We don't want to touch IBus until we are sure this isn't a
-           fallback session. */
-        manager->priv->session_is_fallback = TRUE;
-        manager->priv->ibus_cancellable = g_cancellable_new ();
-        g_bus_get (G_BUS_TYPE_SESSION,
-                   manager->priv->ibus_cancellable,
-                   (GAsyncReadyCallback)got_bus,
-                   manager);
-#else
+        proxy = gnome_settings_session_get_session_proxy ();
+        prop = g_dbus_proxy_get_cached_property (proxy, "session-name");
+        if (prop) {
+                g_variant_get (prop, "&s", &name);
+                manager->priv->session_is_fallback = g_strcmp0 (name, "gnome") == 0;
+                g_variant_unref (prop);
+        } else {
+                manager->priv->session_is_fallback = FALSE;
+                g_warning ("failed to get SessionName, assuming gnome\n");
+        }
+        g_object_unref (proxy);
+
         apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
-#endif
         /* apply current settings before we install the callback */
         g_debug ("Started the keyboard plugin, applying all settings");
         apply_all_settings (manager);
