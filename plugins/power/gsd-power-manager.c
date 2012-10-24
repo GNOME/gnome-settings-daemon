@@ -3742,9 +3742,6 @@ external_monitor_is_connected (GnomeRRScreen *screen)
         GnomeRROutput **outputs;
         guint i;
 
-        if (g_file_test ("/tmp/external_connected", G_FILE_TEST_EXISTS))
-                return TRUE;
-
         /* see if we have more than one screen plugged in */
         outputs = gnome_rr_screen_list_outputs (screen);
         for (i = 0; outputs[i] != NULL; i++) {
