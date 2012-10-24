@@ -352,48 +352,6 @@ name_lost_handler (GDBusConnection *connection,
         gtk_main_quit ();
 }
 
-static gboolean
-do_register_client (GDBusProxy *proxy)
-{
-        const char *startup_id;
-
-        g_assert (proxy != NULL);
-
-        startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
-        g_dbus_proxy_call (proxy,
-                           "RegisterClient",
-                           g_variant_new ("(ss)", "gnome-settings-daemon", startup_id ? startup_id : ""),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           NULL,
-                           (GAsyncReadyCallback) on_client_registered,
-                           manager);
-
-        return FALSE;
-}
-
-static void
-queue_register_client (void)
-{
-        GDBusConnection *bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
-        GDBusProxy *proxy;
-
-        if (!bus)
-                return;
-
-        proxy = gnome_settings_session_get_session_proxy ();
-        if (proxy == NULL) {
-                g_debug ("Could not connect to the Session manager");
-                return;
-        }
-
-        /* Register the daemon with gnome-session */
-        g_signal_connect (G_OBJECT (proxy), "g-signal",
-                          G_CALLBACK (on_session_over), NULL);
-
-        g_idle_add_full (G_PRIORITY_DEFAULT, (GSourceFunc) do_register_client, proxy, NULL);
-}
-
 static void
 bus_register (void)
 {
@@ -486,8 +444,6 @@ main (int argc, char *argv[])
         g_log_set_default_handler (gsd_log_default_handler, NULL);
 
         notify_init ("gnome-settings-daemon");
-
-        queue_register_client ();
 
         bus_register ();
 
