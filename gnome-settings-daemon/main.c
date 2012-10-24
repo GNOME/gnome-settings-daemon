@@ -133,6 +133,29 @@ got_client_proxy (GObject *object,
 }
 
 static void
+start_settings_manager (void)
+{
+        gboolean res;
+        GError *error;
+
+        gnome_settings_profile_start ("gnome_settings_manager_new");
+        manager = gnome_settings_manager_new ();
+        gnome_settings_profile_end ("gnome_settings_manager_new");
+        if (manager == NULL) {
+                g_warning ("Unable to register object");
+                gtk_main_quit ();
+        }
+
+        error = NULL;
+        res = gnome_settings_manager_start (manager, &error);
+        if (! res) {
+                g_warning ("Unable to start: %s", error->message);
+                g_error_free (error);
+                gtk_main_quit ();
+        }
+}
+
+static void
 on_client_registered (GObject             *source_object,
                       GAsyncResult        *res,
                       gpointer             user_data)
@@ -161,6 +184,8 @@ on_client_registered (GObject             *source_object,
                 g_free (object_path);
                 g_variant_unref (variant);
         }
+
+        start_settings_manager ();
 }
 
 static void
@@ -316,11 +341,11 @@ watch_for_term_signal (GnomeSettingsManager *manager)
 }
 
 static void
-set_session_over_handler (GDBusConnection *bus)
+name_acquired_handler (GDBusConnection *connection,
+                       const gchar *name,
+                       gpointer user_data)
 {
         GDBusProxy *proxy;
-
-        g_assert (bus != NULL);
 
         proxy = gnome_settings_session_get_session_proxy ();
         /* Always call this first, as Setenv can only be called before
@@ -331,14 +356,6 @@ set_session_over_handler (GDBusConnection *bus)
 #endif
         register_with_gnome_session (proxy);
         watch_for_term_signal (manager);
-}
-
-static void
-name_acquired_handler (GDBusConnection *connection,
-                       const gchar *name,
-                       gpointer user_data)
-{
-        set_session_over_handler (connection);
 }
 
 static void
@@ -419,10 +436,6 @@ parse_args (int *argc, char ***argv)
 int
 main (int argc, char *argv[])
 {
-
-        gboolean              res;
-        GError               *error;
-
         gnome_settings_profile_start (NULL);
 
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
@@ -447,22 +460,6 @@ main (int argc, char *argv[])
 
         bus_register ();
 
-        gnome_settings_profile_start ("gnome_settings_manager_new");
-        manager = gnome_settings_manager_new ();
-        gnome_settings_profile_end ("gnome_settings_manager_new");
-        if (manager == NULL) {
-                g_warning ("Unable to register object");
-                goto out;
-        }
-
-        error = NULL;
-        res = gnome_settings_manager_start (manager, &error);
-        if (! res) {
-                g_warning ("Unable to start: %s", error->message);
-                g_error_free (error);
-                goto out;
-        }
-
         if (do_timed_exit) {
                 g_timeout_add_seconds (30, (GSourceFunc) timed_exit_cb, NULL);
         }
@@ -471,7 +468,6 @@ main (int argc, char *argv[])
 
         g_debug ("Shutting down");
 
-out:
         if (name_id > 0) {
                 g_bus_unown_name (name_id);
                 name_id = 0;
