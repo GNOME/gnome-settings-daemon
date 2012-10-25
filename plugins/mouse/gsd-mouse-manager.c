@@ -974,7 +974,7 @@ set_natural_scroll (GsdMouseManager *manager,
         int rc, act_format;
         unsigned long nitems, bytes_after;
         unsigned char *data;
-        gint32 *ptr;
+        glong *ptr;
 
         xdevice = open_gdk_device (device);
         if (xdevice == NULL)
@@ -999,7 +999,7 @@ set_natural_scroll (GsdMouseManager *manager,
                                  &bytes_after, &data);
 
         if (rc == Success && act_type == XA_INTEGER && act_format == 32 && nitems >= 2) {
-                ptr = (gint32 *) data;
+                ptr = (glong *) data;
 
                 if (natural_scroll) {
                         ptr[0] = -abs(ptr[0]);
