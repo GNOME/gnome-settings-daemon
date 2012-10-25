@@ -209,6 +209,7 @@ struct GsdPowerManagerPrivate
         gint                     inhibit_suspend_fd;
         gboolean                 inhibit_suspend_taken;
         guint                    inhibit_lid_switch_timer_id;
+        gboolean                 is_virtual_machine;
 };
 
 enum {
@@ -2915,6 +2916,13 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         manager->priv->current_idle_mode = mode;
         g_debug ("Doing a state transition: %s", idle_mode_to_string (mode));
 
+        /* don't do any power saving if we're a VM */
+        if (manager->priv->is_virtual_machine) {
+                g_debug ("ignoring state transition to %s as virtual machine",
+                         idle_mode_to_string (mode));
+                return;
+        }
+
         /* save current brightness, and set dim level */
         if (mode == GSD_POWER_IDLE_MODE_DIM) {
 
@@ -3863,6 +3871,58 @@ logind_proxy_signal_cb (GDBusProxy  *proxy,
         }
 }
 
+static gboolean
+is_hardware_a_virtual_machine (void)
+{
+        const gchar *str;
+        gboolean ret = FALSE;
+        GDBusProxy *systemd_proxy;
+        GError *error = NULL;
+        GVariant *inner;
+        GVariant *variant = NULL;
+
+        systemd_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                                       G_DBUS_PROXY_FLAGS_NONE,
+                                                       NULL,
+                                                       "org.freedesktop.systemd1",
+                                                       "/org/freedesktop/systemd1",
+                                                       "org.freedesktop.systemd1",
+                                                       NULL,
+                                                       &error);
+
+        if (systemd_proxy == NULL) {
+                g_debug ("systemd not available: %s", error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        variant = g_dbus_proxy_call_sync (systemd_proxy,
+                                          "org.freedesktop.DBus.Properties.Get",
+                                          g_variant_new ("(ss)", "org.freedesktop.systemd1.Manager", "Virtualization"),
+                                          G_DBUS_CALL_FLAGS_NONE,
+                                          -1,
+                                          NULL,
+                                          &error);
+        if (variant == NULL) {
+                g_debug ("Failed to get property '%s': %s", "Virtualization", error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        /* on bare-metal hardware this is the empty string,
+         * otherwise an identifier such as "kvm", "vmware", etc. */
+        g_variant_get (variant, "(v)", &inner);
+        str = g_variant_get_string (inner, NULL);
+        if (str != NULL && str[0] != '\0')
+                ret = TRUE;
+out:
+        if (variant != NULL)
+                g_variant_unref (variant);
+        if (systemd_proxy != NULL)
+                g_object_unref (systemd_proxy);
+        return ret;
+}
+
 gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
@@ -4036,6 +4096,9 @@ gsd_power_manager_start (GsdPowerManager *manager,
         manager->priv->xscreensaver_watchdog_timer_id = g_timeout_add_seconds (XSCREENSAVER_WATCHDOG_TIMEOUT,
                                                                                disable_builtin_screensaver,
                                                                                NULL);
+        /* don't blank inside a VM */
+        manager->priv->is_virtual_machine = is_hardware_a_virtual_machine ();
+
         gnome_settings_profile_end (NULL);
         return TRUE;
 }
