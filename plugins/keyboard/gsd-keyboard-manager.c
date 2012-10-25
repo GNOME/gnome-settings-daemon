@@ -1508,7 +1508,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         prop = g_dbus_proxy_get_cached_property (proxy, "session-name");
         if (prop) {
                 g_variant_get (prop, "&s", &name);
-                manager->priv->session_is_fallback = g_strcmp0 (name, "gnome") == 0;
+                manager->priv->session_is_fallback = g_strcmp0 (name, "gnome") != 0;
                 g_variant_unref (prop);
         } else {
                 manager->priv->session_is_fallback = FALSE;
