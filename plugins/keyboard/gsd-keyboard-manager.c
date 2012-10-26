@@ -1484,7 +1484,9 @@ maybe_create_input_sources (GsdKeyboardManager *manager)
 static gboolean
 start_keyboard_idle_cb (GsdKeyboardManager *manager)
 {
+#ifdef HAVE_IBUS
         GDBusProxy *proxy;
+#endif
         GVariant *prop;
         const gchar *name;
 
@@ -1504,6 +1506,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         maybe_create_input_sources (manager);
 
+#ifdef HAVE_IBUS
         proxy = gnome_settings_session_get_session_proxy ();
         prop = g_dbus_proxy_get_cached_property (proxy, "session-name");
         if (prop) {
@@ -1515,6 +1518,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
                 g_warning ("failed to get SessionName, assuming gnome\n");
         }
         g_object_unref (proxy);
+#endif /* HAVE_IBUS */
 
         apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
         /* apply current settings before we install the callback */
