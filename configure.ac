@@ -216,7 +216,7 @@ dnl ---------------------------------------------------------------------------
 dnl - orientation plugin stuff
 dnl ---------------------------------------------------------------------------
 
-if test x$enable_gudev != xno; then
+if test x$have_gudev != xno; then
 	PKG_CHECK_MODULES(ORIENTATION, [gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION gudev-1.0])
 fi
 
