@@ -81,17 +81,6 @@
       <summary>Power button action</summary>
       <description>The action to take when the system power button is pressed.</description>
     </key>
-    <!-- See http://bugzilla.gnome.org/637473 for rationale -->
-    <key name="lid-close-battery-action" enum="org.gnome.settings-daemon.GsdPowerActionType">
-      <default>'suspend'</default>
-      <summary>Laptop lid close action on battery</summary>
-      <description>The action to take when the laptop lid is closed and the laptop is on battery power.</description>
-    </key>
-    <key name="lid-close-ac-action" enum="org.gnome.settings-daemon.GsdPowerActionType">
-      <default>'suspend'</default>
-      <summary>Laptop lid close action when on AC</summary>
-      <description>The action to take when the laptop lid is closed and the laptop is on AC power.</description>
-    </key>
     <key name="lid-close-suspend-with-external-monitor" type="b">
       <default>false</default>
       <summary>Laptop lid, when closed, will suspend even if there is an external monitor plugged in</summary>
