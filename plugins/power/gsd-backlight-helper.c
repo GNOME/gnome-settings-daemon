@@ -143,9 +143,6 @@ main (int argc, char *argv[])
 		{ NULL}
 	};
 
-	/* setup type system */
-	g_type_init ();
-
 	context = g_option_context_new (NULL);
 	g_option_context_set_summary (context, "GNOME Settings Daemon Backlight Helper");
 	g_option_context_add_main_entries (context, options, NULL);

@@ -36,7 +36,6 @@ main (int argc,
         GsdAutomountManager *manager;
         GError *error = NULL;
 
-        g_type_init ();
         gtk_init (&argc, &argv);
 
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);

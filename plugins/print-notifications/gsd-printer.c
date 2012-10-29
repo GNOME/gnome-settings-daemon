@@ -1302,8 +1302,6 @@ main (int argc, char *argv[])
   npn_owner_id = 0;
   pdi_owner_id = 0;
 
-  g_type_init ();
-
   notify_init ("gnome-settings-daemon-printer");
 
   npn_introspection_data =

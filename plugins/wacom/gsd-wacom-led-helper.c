@@ -108,8 +108,6 @@ int main (int argc, char **argv)
 		return 1;
 	}
 
-	g_type_init ();
-
 	context = g_option_context_new (NULL);
 	g_option_context_set_summary (context, "GNOME Settings Daemon Wacom LED Helper");
 	g_option_context_add_main_entries (context, options, NULL);

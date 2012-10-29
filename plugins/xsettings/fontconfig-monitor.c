@@ -180,8 +180,6 @@ main (void)
 {
         GMainLoop *loop;
 
-        g_type_init ();
-
         fontconfig_monitor_start ((GFunc) yay, NULL);
 
         loop = g_main_loop_new (NULL, TRUE);

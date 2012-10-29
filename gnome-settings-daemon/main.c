@@ -445,8 +445,6 @@ main (int argc, char *argv[])
 
         parse_args (&argc, &argv);
 
-        g_type_init ();
-
         gnome_settings_profile_start ("opening gtk display");
         if (! gtk_init_check (NULL, NULL)) {
                 g_warning ("Unable to initialize GTK+");
