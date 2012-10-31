@@ -3876,33 +3876,32 @@ is_hardware_a_virtual_machine (void)
 {
         const gchar *str;
         gboolean ret = FALSE;
-        GDBusProxy *systemd_proxy;
         GError *error = NULL;
         GVariant *inner;
         GVariant *variant = NULL;
+        GDBusConnection *connection;
 
-        systemd_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                                       G_DBUS_PROXY_FLAGS_NONE,
-                                                       NULL,
-                                                       "org.freedesktop.systemd1",
-                                                       "/org/freedesktop/systemd1",
-                                                       "org.freedesktop.systemd1",
-                                                       NULL,
-                                                       &error);
-
-        if (systemd_proxy == NULL) {
-                g_debug ("systemd not available: %s", error->message);
+        connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM,
+                                     NULL,
+                                     &error);
+        if (connection == NULL) {
+                g_warning ("system bus not available: %s", error->message);
                 g_error_free (error);
                 goto out;
         }
-
-        variant = g_dbus_proxy_call_sync (systemd_proxy,
-                                          "org.freedesktop.DBus.Properties.Get",
-                                          g_variant_new ("(ss)", "org.freedesktop.systemd1.Manager", "Virtualization"),
-                                          G_DBUS_CALL_FLAGS_NONE,
-                                          -1,
-                                          NULL,
-                                          &error);
+        variant = g_dbus_connection_call_sync (connection,
+                                               "org.freedesktop.systemd1",
+                                               "/org/freedesktop/systemd1",
+                                               "org.freedesktop.DBus.Properties",
+                                               "Get",
+                                               g_variant_new ("(ss)",
+                                                              "org.freedesktop.systemd1.Manager",
+                                                              "Virtualization"),
+                                               NULL,
+                                               G_DBUS_CALL_FLAGS_NONE,
+                                               -1,
+                                               NULL,
+                                               &error);
         if (variant == NULL) {
                 g_debug ("Failed to get property '%s': %s", "Virtualization", error->message);
                 g_error_free (error);
@@ -3916,10 +3915,10 @@ is_hardware_a_virtual_machine (void)
         if (str != NULL && str[0] != '\0')
                 ret = TRUE;
 out:
+        if (connection != NULL)
+                g_object_unref (connection);
         if (variant != NULL)
                 g_variant_unref (variant);
-        if (systemd_proxy != NULL)
-                g_object_unref (systemd_proxy);
         return ret;
 }
 
