@@ -1259,6 +1259,9 @@ check_offline_update_cb (gpointer user_data)
                 message = ngettext ("An important OS update has been installed.",
                                     "Important OS updates have been installed.",
                                     num_packages);
+
+                /* no need to keep the file around anymore */
+                clear_offline_updates_message ();
         } else {
                 /* get error details */
                 manager->priv->offline_update_error = pk_error_new ();
