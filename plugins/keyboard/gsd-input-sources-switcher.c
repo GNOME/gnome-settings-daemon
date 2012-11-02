@@ -23,6 +23,8 @@
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkx.h>
 
+#include <X11/XKBlib.h>
+
 #include "gsd-enums.h"
 #include "gsd-keygrab.h"
 
@@ -39,6 +41,9 @@ static Key *the_keys = NULL;
 static guint n_keys = 0;
 
 static guint master_keyboard_id = 0;
+
+static gboolean includes_caps = FALSE;
+static Time caps_press_time = 0;
 
 static void
 do_switch (void)
@@ -254,6 +259,58 @@ init_keys (void)
       the_keys[6].keysym = GDK_KEY_ISO_Level3_Shift;
       the_keys[6].state = GDK_CONTROL_MASK;
       break;
+
+    case GSD_INPUT_SOURCES_SWITCHER_CAPS:
+      includes_caps = TRUE;
+      n_keys = 1;
+      the_keys = g_new0 (Key, n_keys);
+
+      the_keys[0].keysym = GDK_KEY_Caps_Lock;
+      the_keys[0].state = 0;
+      break;
+
+    case GSD_INPUT_SOURCES_SWITCHER_SHIFT_CAPS:
+      includes_caps = TRUE;
+      n_keys = 3;
+      the_keys = g_new0 (Key, n_keys);
+
+      the_keys[0].keysym = GDK_KEY_Caps_Lock;
+      the_keys[0].state = GDK_SHIFT_MASK;
+      the_keys[1].keysym = GDK_KEY_Shift_L;
+      the_keys[1].state = GDK_LOCK_MASK;
+      the_keys[2].keysym = GDK_KEY_Shift_R;
+      the_keys[2].state = GDK_LOCK_MASK;
+      break;
+
+    case GSD_INPUT_SOURCES_SWITCHER_ALT_CAPS:
+      includes_caps = TRUE;
+      n_keys = 5;
+      the_keys = g_new0 (Key, n_keys);
+
+      the_keys[0].keysym = GDK_KEY_Caps_Lock;
+      the_keys[0].state = GDK_MOD1_MASK;
+      the_keys[1].keysym = GDK_KEY_Caps_Lock;
+      the_keys[1].state = GDK_MOD5_MASK;
+      the_keys[2].keysym = GDK_KEY_Alt_L;
+      the_keys[2].state = GDK_LOCK_MASK;
+      the_keys[3].keysym = GDK_KEY_Alt_R;
+      the_keys[3].state = GDK_LOCK_MASK;
+      the_keys[4].keysym = GDK_KEY_ISO_Level3_Shift;
+      the_keys[4].state = GDK_LOCK_MASK;
+      break;
+
+    case GSD_INPUT_SOURCES_SWITCHER_CTRL_CAPS:
+      includes_caps = TRUE;
+      n_keys = 3;
+      the_keys = g_new0 (Key, n_keys);
+
+      the_keys[0].keysym = GDK_KEY_Caps_Lock;
+      the_keys[0].state = GDK_CONTROL_MASK;
+      the_keys[1].keysym = GDK_KEY_Control_L;
+      the_keys[1].state = GDK_LOCK_MASK;
+      the_keys[2].keysym = GDK_KEY_Control_R;
+      the_keys[2].state = GDK_LOCK_MASK;
+      break;
     }
 
   g_object_unref (settings);
@@ -271,10 +328,28 @@ free_keys (void)
 }
 
 static gboolean
+match_caps_locked (const Key     *key,
+                   XIDeviceEvent *xev)
+{
+  if (key->state & xev->mods.effective &&
+      key->keysym == XkbKeycodeToKeysym (xev->display, xev->detail, 0, 0))
+    return TRUE;
+
+  return FALSE;
+}
+
+static gboolean
 match_modifier (const Key *key,
                 XIEvent   *xiev)
 {
   Key meta;
+
+  /* When the grab is established with Caps Lock as the modifier
+     (i.e. key->state == GDK_LOCK_MASK) we can't use match_xi2_key()
+     as this modifier is black listed there, so we do the match
+     ourselves. */
+  if (key->state == GDK_LOCK_MASK)
+    return match_caps_locked (key, (XIDeviceEvent *) xiev);
 
   meta = *key;
 
@@ -372,6 +447,8 @@ filter (XEvent   *xevent,
                         &evmask,
                         1,
                         &mods);
+          if (includes_caps)
+            caps_press_time = xev->time;
         }
       else
         {
@@ -385,6 +462,11 @@ filter (XEvent   *xevent,
                           xev->root,
                           1,
                           &mods);
+          if (includes_caps && caps_press_time < xev->time)
+            {
+              XkbLockModifiers (xev->display, XkbUseCoreKbd, LockMask, 0);
+              caps_press_time = xev->time;
+            }
         }
     }
   else
