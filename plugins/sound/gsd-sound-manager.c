@@ -34,10 +34,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-
-#ifdef HAVE_PULSE
 #include <pulse/pulseaudio.h>
-#endif
 
 #include "gsd-sound-manager.h"
 #include "gnome-settings-profile.h"
@@ -58,8 +55,6 @@ static void gsd_sound_manager_finalize (GObject *object);
 G_DEFINE_TYPE (GsdSoundManager, gsd_sound_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
-
-#ifdef HAVE_PULSE
 
 static void
 sample_info_cb (pa_context *c, const pa_sample_info *i, int eol, void *userdata)
@@ -256,22 +251,15 @@ register_directory_callback (GsdSoundManager *manager,
         return succ;
 }
 
-#endif
-
 gboolean
 gsd_sound_manager_start (GsdSoundManager *manager,
                          GError **error)
 {
-
-#ifdef HAVE_PULSE
         char *p, **ps, **k;
         const char *env, *dd;
-#endif
 
         g_debug ("Starting sound manager");
         gnome_settings_profile_start (NULL);
-
-#ifdef HAVE_PULSE
 
         /* We listen for change of the selected theme ... */
         register_config_callback (manager);
@@ -301,7 +289,6 @@ gsd_sound_manager_start (GsdSoundManager *manager,
                 register_directory_callback (manager, *k, NULL);
 
         g_strfreev (ps);
-#endif
 
         gnome_settings_profile_end (NULL);
 
@@ -313,7 +300,6 @@ gsd_sound_manager_stop (GsdSoundManager *manager)
 {
         g_debug ("Stopping sound manager");
 
-#ifdef HAVE_PULSE
         if (manager->priv->settings != NULL) {
                 g_object_unref (manager->priv->settings);
                 manager->priv->settings = NULL;
@@ -329,7 +315,6 @@ gsd_sound_manager_stop (GsdSoundManager *manager)
                 g_object_unref (manager->priv->monitors->data);
                 manager->priv->monitors = g_list_delete_link (manager->priv->monitors, manager->priv->monitors);
         }
-#endif
 }
 
 static GObject *
