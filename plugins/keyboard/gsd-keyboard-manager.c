@@ -209,6 +209,9 @@ apply_settings (GSettings          *settings,
         GsdBellMode      bell_mode;
         gboolean         rnumlock;
 
+        if (g_strcmp0 (key, KEY_NUMLOCK_STATE) == 0)
+                return;
+
         repeat        = g_settings_get_boolean  (settings, KEY_REPEAT);
         click         = g_settings_get_boolean  (settings, KEY_CLICK);
         interval      = _gsd_settings_get_uint  (settings, KEY_INTERVAL);
@@ -219,8 +222,6 @@ apply_settings (GSettings          *settings,
 
         bell_mode = g_settings_get_enum (settings, KEY_BELL_MODE);
         bell_volume   = (bell_mode == GSD_BELL_MODE_ON) ? 50 : 0;
-
-        rnumlock      = g_settings_get_boolean  (settings, "remember-numlock-state");
 
         gdk_error_trap_push ();
         if (repeat) {
@@ -251,10 +252,14 @@ apply_settings (GSettings          *settings,
                                 KBKeyClickPercent | KBBellPercent | KBBellPitch | KBBellDuration,
                                 &kbdcontrol);
 
-        manager->priv->old_state = g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE);
+	if (g_strcmp0 (key, "remember-numlock-state") == 0 || key == NULL) {
+		rnumlock      = g_settings_get_boolean  (settings, "remember-numlock-state");
 
-        if (manager->priv->have_xkb && rnumlock)
-                numlock_set_xkb_state (manager->priv->old_state);
+		manager->priv->old_state = g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE);
+
+		if (manager->priv->have_xkb && rnumlock)
+			numlock_set_xkb_state (manager->priv->old_state);
+	}
 
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
         gdk_error_trap_pop_ignored ();
