@@ -42,7 +42,7 @@ struct GsdAutomountManagerPrivate
 	GVolumeMonitor *volume_monitor;
 	unsigned int automount_idle_id;
 
-        GnomeSettingsSession *session;
+        GDBusProxy *session;
         gboolean session_is_active;
         gboolean screensaver_active;
         guint ss_watch_id;
@@ -288,17 +288,21 @@ mount_added_callback (GVolumeMonitor *monitor,
 
 
 static void
-session_state_changed (GnomeSettingsSession *session, GParamSpec *pspec, gpointer user_data)
+session_props_changed (GDBusProxy *session, GVariant *v, char **props, gpointer user_data)
 {
         GsdAutomountManager *manager = user_data;
         GsdAutomountManagerPrivate *p = manager->priv;
+        GVariant *active_v = NULL;
+        gboolean is_active;
 
-        if (gnome_settings_session_get_state (session) == GNOME_SETTINGS_SESSION_STATE_ACTIVE) {
-                p->session_is_active = TRUE;
-        }
-        else {
-                p->session_is_active = FALSE;
-        }
+        active_v = g_dbus_proxy_get_cached_property (session, "SessionIsActive");
+        if (!active_v)
+                return;
+
+        g_variant_get (active_v, "(b)", &is_active);
+        g_variant_unref (active_v);
+        g_printerr ("AUTOMOUNT: session is active: %d -> %d\n", p->session_is_active, is_active);
+        p->session_is_active = is_active;
 
         if (!p->session_is_active) {
                 if (p->volume_queue != NULL) {
@@ -311,10 +315,10 @@ session_state_changed (GnomeSettingsSession *session, GParamSpec *pspec, gpointe
 static void
 do_initialize_session (GsdAutomountManager *manager)
 {
-        manager->priv->session = gnome_settings_session_new ();
-        g_signal_connect (manager->priv->session, "notify::state",
-                          G_CALLBACK (session_state_changed), manager);
-        session_state_changed (manager->priv->session, NULL, manager);
+        manager->priv->session = gnome_settings_session_get_session_proxy ();
+        g_signal_connect (manager->priv->session, "g-properties-changed",
+                          G_CALLBACK (session_props_changed), manager);
+        session_props_changed (manager->priv->session, NULL, NULL, manager);
 }
 
 #define SCREENSAVER_NAME "org.gnome.ScreenSaver"
