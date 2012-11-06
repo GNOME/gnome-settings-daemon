@@ -1233,10 +1233,11 @@ settings_changed (GSettings          *settings,
 	    g_strcmp0 (key, KEY_BELL_MODE) == 0) {
 		g_debug ("Bell setting '%s' changed, applying bell settings", key);
 		apply_bell (manager);
-	} else if (g_strcmp0 (key, KEY_REMEMBER_NUMLOCK_STATE) == 0 ||
-		 g_strcmp0 (key, KEY_NUMLOCK_STATE) == 0) {
-		g_debug ("Num-Lock state '%s' changed, applying num-lock state settings", key);
+	} else if (g_strcmp0 (key, KEY_REMEMBER_NUMLOCK_STATE) == 0) {
+		g_debug ("Remember Num-Lock state '%s' changed, applying num-lock settings", key);
 		apply_numlock (manager);
+	} else if (g_strcmp0 (key, KEY_NUMLOCK_STATE) == 0) {
+		g_debug ("Num-Lock state '%s' changed, will apply at next startup", key);
 	} else if (g_strcmp0 (key, KEY_REPEAT) == 0 ||
 		 g_strcmp0 (key, KEY_INTERVAL) == 0 ||
 		 g_strcmp0 (key, KEY_DELAY) == 0) {
