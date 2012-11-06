@@ -63,7 +63,6 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
         gmodule-2.0
         gthread-2.0
 	gsettings-desktop-schemas >= 3.5.90
-	libsystemd-login
 )
 
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
@@ -222,7 +221,7 @@ PKG_CHECK_MODULES(SOUND, [libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-m
 # ---------------------------------------------------------------------------
 # Power
 # ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(POWER, upower-glib >= $UPOWER_REQUIRED_VERSION gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3 libnotify x11 xext)
+PKG_CHECK_MODULES(POWER, libsystemd-login upower-glib >= $UPOWER_REQUIRED_VERSION gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3 libnotify x11 xext)
 
 if test x$have_gudev != xno; then
 	PKG_CHECK_MODULES(BACKLIGHT_HELPER,

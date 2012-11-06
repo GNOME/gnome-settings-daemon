@@ -26,38 +26,6 @@
 
 G_BEGIN_DECLS
 
-#define GNOME_TYPE_SETTINGS_SESSION		(gnome_settings_session_get_type ())
-#define GNOME_SETTINGS_SESSION(o)		(G_TYPE_CHECK_INSTANCE_CAST ((o), GNOME_TYPE_SETTINGS_SESSION, GnomeSettingsSession))
-#define GNOME_SETTINGS_SESSION_CLASS(k)	(G_TYPE_CHECK_CLASS_CAST((k), GNOME_TYPE_SETTINGS_SESSION, GnomeSettingsSessionClass))
-#define GNOME_IS_SETTINGS_SESSION(o)		(G_TYPE_CHECK_INSTANCE_TYPE ((o), GNOME_TYPE_SETTINGS_SESSION))
-#define GNOME_IS_SETTINGS_SESSION_CLASS(k)	(G_TYPE_CHECK_CLASS_TYPE ((k), GNOME_TYPE_SETTINGS_SESSION))
-#define GNOME_SETTINGS_SESSION_GET_CLASS(o)	(G_TYPE_INSTANCE_GET_CLASS ((o), GNOME_TYPE_SETTINGS_SESSION, GnomeSettingsSessionClass))
-#define GNOME_TYPE_SETTINGS_SESSION_STATE	(gnome_settings_session_state_get_type())
-
-typedef struct GnomeSettingsSessionPrivate GnomeSettingsSessionPrivate;
-
-typedef struct
-{
-	 GObject			 parent;
-	 GnomeSettingsSessionPrivate	*priv;
-} GnomeSettingsSession;
-
-typedef struct
-{
-	GObjectClass	parent_class;
-} GnomeSettingsSessionClass;
-
-typedef enum {
-	GNOME_SETTINGS_SESSION_STATE_UNKNOWN,
-	GNOME_SETTINGS_SESSION_STATE_ACTIVE,
-	GNOME_SETTINGS_SESSION_STATE_INACTIVE,
-} GnomeSettingsSessionState;
-
-GType			 gnome_settings_session_get_type	(void);
-GType			 gnome_settings_session_state_get_type	(void);
-GnomeSettingsSession	*gnome_settings_session_new		(void);
-GnomeSettingsSessionState gnome_settings_session_get_state	(GnomeSettingsSession	*session);
-
 GDBusProxy              *gnome_settings_session_get_session_proxy  (void);
 
 G_END_DECLS
