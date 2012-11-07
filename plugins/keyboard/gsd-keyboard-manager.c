@@ -233,7 +233,8 @@ fetch_ibus_engines_result (GObject            *object,
                                                    result,
                                                    &error);
         if (!list && error) {
-                g_warning ("Couldn't finish IBus request: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Couldn't finish IBus request: %s", error->message);
                 g_error_free (error);
 
                 clear_ibus (manager);
@@ -337,7 +338,8 @@ set_ibus_engine_finish (GObject            *object,
 
         result = ibus_bus_set_global_engine_async_finish (ibus, res, &error);
         if (!result) {
-                g_warning ("Couldn't set IBus engine: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Couldn't set IBus engine: %s", error->message);
                 g_error_free (error);
         }
 }
