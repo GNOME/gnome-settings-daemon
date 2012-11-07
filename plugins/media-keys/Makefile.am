@@ -26,6 +26,8 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-osd-window.c		\
 	gsd-osd-window.h		\
 	gsd-osd-window-private.h	\
+	gsd-screenshot-utils.h		\
+	gsd-screenshot-utils.c		\
 	shortcuts-list.h		\
 	$(BUILT_SOURCES)		\
 	$(NULL)
@@ -100,6 +102,8 @@ gsd_test_media_keys_SOURCES =			\
 	gsd-osd-window.c			\
 	gsd-osd-window.h			\
 	gsd-osd-window-private.h		\
+	gsd-screenshot-utils.h			\
+	gsd-screenshot-utils.c			\
 	test-media-keys.c			\
 	$(BUILT_SOURCES)			\
 	$(NULL)

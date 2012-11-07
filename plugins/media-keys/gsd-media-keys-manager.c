@@ -53,6 +53,7 @@
 
 #include "shortcuts-list.h"
 #include "gsd-osd-window.h"
+#include "gsd-screenshot-utils.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
 
@@ -1866,22 +1867,12 @@ do_action (GsdMediaKeysManager *manager,
                 do_url_action (manager, "ghelp", timestamp);
                 break;
         case SCREENSHOT_KEY:
-                execute (manager, "gnome-screenshot", FALSE);
-                break;
-        case WINDOW_SCREENSHOT_KEY:
-                execute (manager, "gnome-screenshot --window", FALSE);
-                break;
-        case AREA_SCREENSHOT_KEY:
-                execute (manager, "gnome-screenshot --area", FALSE);
-                break;
         case SCREENSHOT_CLIP_KEY:
-                execute (manager, "gnome-screenshot --clipboard", FALSE);
-                break;
+        case WINDOW_SCREENSHOT_KEY:
         case WINDOW_SCREENSHOT_CLIP_KEY:
-                execute (manager, "gnome-screenshot --window --clipboard", FALSE);
-                break;
+        case AREA_SCREENSHOT_KEY:
         case AREA_SCREENSHOT_CLIP_KEY:
-                execute (manager, "gnome-screenshot --area --clipboard", FALSE);
+                gsd_screenshot_take (type);
                 break;
         case WWW_KEY:
                 do_url_action (manager, "http", timestamp);
