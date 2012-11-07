@@ -2234,7 +2234,7 @@ gcm_session_active_changed_cb (GnomeSettingsSession *session,
         state_new = gnome_settings_session_get_state (session);
         if (priv->session_state != GNOME_SETTINGS_SESSION_STATE_UNKNOWN &&
             state_new == GNOME_SETTINGS_SESSION_STATE_ACTIVE) {
-                g_warning ("Done switch to new account, reload devices");
+                g_debug ("Done switch to new account, reload devices");
                 cd_client_get_devices (manager->priv->client, NULL,
                                        gcm_session_get_devices_cb,
                                        manager);
