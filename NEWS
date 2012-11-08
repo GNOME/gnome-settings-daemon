@@ -1,4 +1,34 @@
 =============
+Version 3.6.2
+=============
+
+- Make test applications work when libnotify was used
+
+Keyboard:
+- Add default ibus engine for Indic locales
+- Prevent 100% CPU usage related to remembering Num-Lock state
+- Don't print warning messages when resuming from suspend
+
+Power:
+- Fix screen dimming and power saving even when inhibited
+- Don't suspend, dim or blank when running in virtual machines
+- Fix warning output in the Brightness & Lock panel
+- Fix possible crash when the backlight fails to be turned off for example
+
+Updates:
+- Don't require the user to click OK to clear the message for successful
+  offline updates
+
+Sound:
+- Fix alert sound changes requiring a log out/login to apply
+
+Wacom:
+- Fix touchstrips and touchrings without a modeswitch
+
+XSettings:
+- Make startup smoother by batching settings updates together
+
+=============
 Version 3.6.1
 =============
 
