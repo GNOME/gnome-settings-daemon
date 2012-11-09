@@ -144,12 +144,6 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(COMMON, x11 kbproto xi)
 
 dnl ---------------------------------------------------------------------------
-dnl - automount
-dnl ---------------------------------------------------------------------------
-
-PKG_CHECK_MODULES(AUTOMOUNT, x11 kbproto)
-
-dnl ---------------------------------------------------------------------------
 dnl - background
 dnl ---------------------------------------------------------------------------
 
@@ -480,7 +474,6 @@ gnome-settings-daemon/Makefile
 plugins/Makefile
 plugins/a11y-keyboard/Makefile
 plugins/a11y-settings/Makefile
-plugins/automount/Makefile
 plugins/background/Makefile
 plugins/clipboard/Makefile
 plugins/color/Makefile
