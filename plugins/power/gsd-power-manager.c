@@ -704,7 +704,7 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
         icon = engine_get_icon (manager);
 
         if (g_icon_equal (icon, manager->priv->previous_icon)) {
-                g_object_unref (icon);
+                g_clear_object (&icon);
                 return FALSE;
         }
 
