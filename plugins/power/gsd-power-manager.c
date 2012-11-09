@@ -199,7 +199,6 @@ struct GsdPowerManagerPrivate
         GDBusProxy              *session_presence_proxy;
         GpmIdletime             *idletime;
         GsdPowerIdleMode         current_idle_mode;
-        GtkStatusIcon           *status_icon;
         guint                    xscreensaver_watchdog_timer_id;
 
         /* systemd stuff */
@@ -703,7 +702,6 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
 
         /* show a different icon if we are disconnected */
         icon = engine_get_icon (manager);
-        gtk_status_icon_set_visible (manager->priv->status_icon, icon != NULL);
 
         if (icon == NULL) {
                 /* none before, now none */
@@ -719,16 +717,12 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
         if (manager->priv->previous_icon == NULL) {
 
                 /* set fallback icon */
-                gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
                 manager->priv->previous_icon = icon;
                 return TRUE;
         }
 
         /* icon before, now different */
         if (!g_icon_equal (manager->priv->previous_icon, icon)) {
-
-                /* set fallback icon */
-                gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
 
                 g_object_unref (manager->priv->previous_icon);
                 manager->priv->previous_icon = icon;
@@ -749,22 +743,12 @@ engine_recalculate_state_summary (GsdPowerManager *manager)
         summary = engine_get_summary (manager);
         if (manager->priv->previous_summary == NULL) {
                 manager->priv->previous_summary = summary;
-
-                /* set fallback tooltip */
-                gtk_status_icon_set_tooltip_text (manager->priv->status_icon,
-                                                  summary);
-
                 return TRUE;
         }
 
         if (strcmp (manager->priv->previous_summary, summary) != 0) {
                 g_free (manager->priv->previous_summary);
                 manager->priv->previous_summary = summary;
-
-                /* set fallback tooltip */
-                gtk_status_icon_set_tooltip_text (manager->priv->status_icon,
-                                                  summary);
-
                 return TRUE;
         }
         g_debug ("no change");
@@ -3974,15 +3958,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect_after (manager->priv->up_client, "changed",
                                 G_CALLBACK (up_client_changed_cb), manager);
 
-        /* use the fallback name from gnome-power-manager so the shell
-         * blocks this, and uses the power extension instead */
-        manager->priv->status_icon = gtk_status_icon_new ();
-        gtk_status_icon_set_name (manager->priv->status_icon,
-                                  "gnome-power-manager");
-        /* TRANSLATORS: this is the title of the power manager status icon
-         * that is only shown in fallback mode */
-        gtk_status_icon_set_title (manager->priv->status_icon, _("Power Manager"));
-
         /* connect to UPower for async power operations */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
@@ -4164,7 +4139,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         }
 
         g_clear_object (&manager->priv->idletime);
-        g_clear_object (&manager->priv->status_icon);
 
         if (manager->priv->xscreensaver_watchdog_timer_id > 0) {
                 g_source_remove (manager->priv->xscreensaver_watchdog_timer_id);
