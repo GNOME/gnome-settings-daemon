@@ -103,7 +103,6 @@ struct GsdKeyboardManagerPrivate
         GHashTable *ibus_engines;
         GHashTable *ibus_xkb_engines;
         GCancellable *ibus_cancellable;
-        gboolean session_is_fallback;
 #endif
         gint       xkb_event_base;
         GsdNumLockState old_state;
@@ -290,9 +289,6 @@ maybe_start_ibus (GsdKeyboardManager *manager,
         gboolean need_ibus = FALSE;
         GVariantIter iter;
         const gchar *type;
-
-        if (manager->priv->session_is_fallback)
-                return;
 
         g_variant_iter_init (&iter, sources);
         while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL))
@@ -1034,9 +1030,6 @@ apply_input_sources_settings (GSettings          *settings,
 #ifdef HAVE_IBUS
                 IBusEngineDesc *engine_desc = NULL;
 
-                if (priv->session_is_fallback)
-                        goto exit;
-
                 if (priv->ibus_engines)
                         engine_desc = g_hash_table_lookup (priv->ibus_engines, id);
                 else
@@ -1487,12 +1480,6 @@ maybe_create_input_sources (GsdKeyboardManager *manager)
 static gboolean
 start_keyboard_idle_cb (GsdKeyboardManager *manager)
 {
-#ifdef HAVE_IBUS
-        GDBusProxy *proxy;
-#endif
-        GVariant *prop;
-        const gchar *name;
-
         gnome_settings_profile_start (NULL);
 
         g_debug ("Starting keyboard manager");
@@ -1508,20 +1495,6 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         manager->priv->xkb_info = gnome_xkb_info_new ();
 
         maybe_create_input_sources (manager);
-
-#ifdef HAVE_IBUS
-        proxy = gnome_settings_session_get_session_proxy ();
-        prop = g_dbus_proxy_get_cached_property (proxy, "session-name");
-        if (prop) {
-                g_variant_get (prop, "&s", &name);
-                manager->priv->session_is_fallback = g_strcmp0 (name, "gnome") != 0;
-                g_variant_unref (prop);
-        } else {
-                manager->priv->session_is_fallback = FALSE;
-                g_warning ("failed to get SessionName, assuming gnome\n");
-        }
-        g_object_unref (proxy);
-#endif /* HAVE_IBUS */
 
         apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
         /* apply current settings before we install the callback */
