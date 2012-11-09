@@ -703,58 +703,37 @@ engine_recalculate_state_icon (GsdPowerManager *manager)
         /* show a different icon if we are disconnected */
         icon = engine_get_icon (manager);
 
-        if (icon == NULL) {
-                /* none before, now none */
-                if (manager->priv->previous_icon == NULL)
-                        return FALSE;
-
-                g_object_unref (manager->priv->previous_icon);
-                manager->priv->previous_icon = NULL;
-                return TRUE;
+        if (g_icon_equal (icon, manager->priv->previous_icon)) {
+                g_object_unref (icon);
+                return FALSE;
         }
 
-        /* no icon before, now icon */
-        if (manager->priv->previous_icon == NULL) {
+        g_clear_object (&manager->priv->previous_icon);
+        manager->priv->previous_icon = icon;
 
-                /* set fallback icon */
-                manager->priv->previous_icon = icon;
-                return TRUE;
-        }
+        g_debug ("Icon changed");
 
-        /* icon before, now different */
-        if (!g_icon_equal (manager->priv->previous_icon, icon)) {
-
-                g_object_unref (manager->priv->previous_icon);
-                manager->priv->previous_icon = icon;
-                return TRUE;
-        }
-
-        g_debug ("no change");
-        /* nothing to do */
-        g_object_unref (icon);
-        return FALSE;
+        return TRUE;
 }
 
 static gboolean
 engine_recalculate_state_summary (GsdPowerManager *manager)
 {
-        gchar *summary;
+        char *summary;
 
         summary = engine_get_summary (manager);
-        if (manager->priv->previous_summary == NULL) {
-                manager->priv->previous_summary = summary;
-                return TRUE;
+
+        if (g_strcmp0 (manager->priv->previous_summary, summary) == 0) {
+                g_free (summary);
+                return FALSE;
         }
 
-        if (strcmp (manager->priv->previous_summary, summary) != 0) {
-                g_free (manager->priv->previous_summary);
-                manager->priv->previous_summary = summary;
-                return TRUE;
-        }
-        g_debug ("no change");
-        /* nothing to do */
-        g_free (summary);
-        return FALSE;
+        g_free (manager->priv->previous_summary);
+        manager->priv->previous_summary = summary;
+
+        g_debug ("Summary changed");
+
+        return TRUE;
 }
 
 static void
@@ -4126,8 +4105,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_clear_object (&manager->priv->device_composite);
         g_clear_object (&manager->priv->previous_icon);
 
-        g_free (manager->priv->previous_summary);
-        manager->priv->previous_summary = NULL;
+        g_clear_pointer (&manager->priv->previous_summary, g_free);
 
         g_clear_object (&manager->priv->upower_proxy);
         g_clear_object (&manager->priv->session_proxy);
