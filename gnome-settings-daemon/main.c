@@ -276,22 +276,9 @@ is_program_in_path (const char *binary)
 static void
 set_legacy_ibus_env_vars (GDBusProxy *proxy)
 {
-        GVariant *prop;
-        const gchar *name;
-
-        prop = g_dbus_proxy_get_cached_property (proxy, "session-name");
-        if (prop) {
-                g_variant_get (prop, "&s", &name);
-
-                if (g_strcmp0 (name, "gnome") == 0 &&
-                    is_program_in_path ("ibus-daemon")) {
-                        set_session_env (proxy, "QT_IM_MODULE", "ibus");
-                        set_session_env (proxy, "XMODIFIERS", "@im=ibus");
-                }
-
-                g_variant_unref (prop);
-        } else {
-                g_print ("failed to get SessionName\n");
+        if (is_program_in_path ("ibus-daemon")) {
+                set_session_env (proxy, "QT_IM_MODULE", "ibus");
+                set_session_env (proxy, "XMODIFIERS", "@im=ibus");
         }
 }
 #endif
