@@ -47,7 +47,7 @@
 
 struct GsdColorManagerPrivate
 {
-        GnomeSettingsSession *session;
+        GDBusProxy      *session;
         CdClient        *client;
         GSettings       *settings;
         GcmProfileStore *profile_store;
@@ -55,7 +55,7 @@ struct GsdColorManagerPrivate
         GnomeRRScreen   *x11_screen;
         GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
-        GnomeSettingsSessionState session_state;
+        gboolean         session_is_active;
         GHashTable      *device_assign_hash;
 };
 
@@ -2213,16 +2213,25 @@ gcm_session_sensor_removed_cb (CdClient *client,
 }
 
 static void
-gcm_session_active_changed_cb (GnomeSettingsSession *session,
-                               GParamSpec *pspec,
+gcm_session_active_changed_cb (GDBusProxy      *session,
+                               GVariant        *changed,
+                               char           **invalidated,
                                GsdColorManager *manager)
 {
-        GnomeSettingsSessionState state_new;
         GsdColorManagerPrivate *priv = manager->priv;
+        GVariant *active_v = NULL;
+        gboolean is_active;
 
         /* not yet connected to the daemon */
         if (!cd_client_get_connected (priv->client))
                 return;
+
+        active_v = g_dbus_proxy_get_cached_property (session, "SessionIsActive");
+        if (!active_v)
+                return;
+
+        is_active = g_variant_get_boolean (active_v);
+        g_variant_unref (active_v);
 
         /* When doing the fast-user-switch into a new account, load the
          * new users chosen profiles.
@@ -2231,15 +2240,13 @@ gcm_session_active_changed_cb (GnomeSettingsSession *session,
          * loaded, then we'll get a change from unknown to active
          * and we want to avoid reprobing the devices for that.
          */
-        state_new = gnome_settings_session_get_state (session);
-        if (priv->session_state != GNOME_SETTINGS_SESSION_STATE_UNKNOWN &&
-            state_new == GNOME_SETTINGS_SESSION_STATE_ACTIVE) {
-                g_debug ("Done switch to new account, reload devices");
+        if (is_active && !priv->session_is_active) {
+                g_warning ("Done switch to new account, reload devices");
                 cd_client_get_devices (manager->priv->client, NULL,
                                        gcm_session_get_devices_cb,
                                        manager);
         }
-        priv->session_state = state_new;
+        priv->session_is_active = is_active;
 }
 
 static void
@@ -2259,11 +2266,9 @@ gsd_color_manager_init (GsdColorManager *manager)
         priv = manager->priv = GSD_COLOR_MANAGER_GET_PRIVATE (manager);
 
         /* track the active session */
-        priv->session = gnome_settings_session_new ();
-        priv->session_state = gnome_settings_session_get_state (priv->session);
-        g_signal_connect (priv->session, "notify::state",
-                          G_CALLBACK (gcm_session_active_changed_cb),
-                          manager);
+        priv->session = gnome_settings_session_get_session_proxy ();
+        g_signal_connect (priv->session, "g-properties-changed",
+                          G_CALLBACK (gcm_session_active_changed_cb), manager);
 
         /* set the _ICC_PROFILE atoms on the root screen */
         priv->gdk_window = gdk_screen_get_root_window (gdk_screen_get_default ());
