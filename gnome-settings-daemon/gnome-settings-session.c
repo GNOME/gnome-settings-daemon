@@ -26,7 +26,6 @@
 #include <stdio.h>
 #include <glib.h>
 #include <gio/gio.h>
-#include <systemd/sd-login.h>
 
 #include "gnome-settings-session.h"
 
