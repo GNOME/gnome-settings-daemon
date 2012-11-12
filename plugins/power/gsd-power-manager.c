@@ -162,7 +162,7 @@ typedef enum {
 
 struct GsdPowerManagerPrivate
 {
-        GnomeSettingsSession    *session;
+        GDBusProxy              *session;
         gboolean                 lid_is_closed;
         GSettings               *settings;
         GSettings               *settings_screensaver;
@@ -2858,7 +2858,8 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         GError *error = NULL;
         gint idle_percentage;
         GsdPowerActionType action_type;
-        GnomeSettingsSessionState state;
+        GVariant *active_v;
+        gboolean is_active = FALSE;
 
         if (mode == manager->priv->current_idle_mode)
                 return;
@@ -2869,8 +2870,14 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 return;
 
         /* ensure we're still on an active console */
-        state = gnome_settings_session_get_state (manager->priv->session);
-        if (state == GNOME_SETTINGS_SESSION_STATE_INACTIVE) {
+        active_v = g_dbus_proxy_get_cached_property (manager->priv->session_proxy,
+                                                     "SessionIsActive");
+        if (active_v) {
+                is_active = g_variant_get_boolean (active_v);
+                g_variant_unref (active_v);
+        }
+
+        if (!is_active) {
                 g_debug ("ignoring state transition to %s as inactive",
                          idle_mode_to_string (mode));
                 return;
@@ -3476,8 +3483,9 @@ engine_settings_key_changed_cb (GSettings *settings,
 }
 
 static void
-engine_session_active_changed_cb (GnomeSettingsSession *session,
-                                  GParamSpec *pspec,
+engine_session_active_changed_cb (GDBusProxy      *session,
+                                  GVariant        *changed,
+                                  char           **invalidated,
                                   GsdPowerManager *manager)
 {
         /* when doing the fast-user-switch into a new account,
@@ -3914,8 +3922,8 @@ gsd_power_manager_start (GsdPowerManager *manager,
         inhibit_suspend (manager);
 
         /* track the active session */
-        manager->priv->session = gnome_settings_session_new ();
-        g_signal_connect (manager->priv->session, "notify::state",
+        manager->priv->session = gnome_settings_session_get_session_proxy ();
+        g_signal_connect (manager->priv->session, "g-properties-changed",
                           G_CALLBACK (engine_session_active_changed_cb),
                           manager);
 
