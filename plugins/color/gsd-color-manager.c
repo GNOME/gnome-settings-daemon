@@ -2212,6 +2212,18 @@ gcm_session_sensor_removed_cb (CdClient *client,
                          CA_PROP_EVENT_DESCRIPTION, _("Color calibration device removed"), NULL);
 }
 
+static gboolean
+has_changed (char       **strv,
+	     const char  *str)
+{
+        guint i;
+        for (i = 0; strv[i] != NULL; i++) {
+                if (g_str_equal (str, strv[i]))
+                        return TRUE;
+        }
+        return FALSE;
+}
+
 static void
 gcm_session_active_changed_cb (GDBusProxy      *session,
                                GVariant        *changed,
@@ -2222,14 +2234,15 @@ gcm_session_active_changed_cb (GDBusProxy      *session,
         GVariant *active_v = NULL;
         gboolean is_active;
 
+        if (has_changed (invalidated, "SessionIsActive"))
+                return;
+
         /* not yet connected to the daemon */
         if (!cd_client_get_connected (priv->client))
                 return;
 
         active_v = g_dbus_proxy_get_cached_property (session, "SessionIsActive");
-        if (!active_v)
-                return;
-
+        g_return_if_fail (active_v != NULL);
         is_active = g_variant_get_boolean (active_v);
         g_variant_unref (active_v);
 
