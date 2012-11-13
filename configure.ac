@@ -159,7 +159,7 @@ dnl ---------------------------------------------------------------------------
 dnl - cursor
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(CURSOR, xfixes)
+PKG_CHECK_MODULES(CURSOR, xfixes gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - xsettings

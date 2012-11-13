@@ -38,25 +38,26 @@
 #include <X11/Xatom.h>
 #include <X11/extensions/Xfixes.h>
 
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#include <libgnome-desktop/gnome-idle-monitor.h>
+
 #include "gnome-settings-profile.h"
 #include "gsd-cursor-manager.h"
 #include "gsd-input-helper.h"
 
 #define XFIXES_CURSOR_HIDING_MAJOR 4
 
+#define IDLE_TIME 1
+
 #define GSD_CURSOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_CURSOR_MANAGER, GsdCursorManagerPrivate))
 
 struct GsdCursorManagerPrivate
 {
-        guint start_idle_id;
         guint added_id;
         guint removed_id;
         guint changed_id;
         gboolean cursor_shown;
-};
-
-enum {
-        PROP_0,
+        GHashTable *monitors;
 };
 
 static void     gsd_cursor_manager_class_init  (GsdCursorManagerClass *klass);
@@ -67,59 +68,57 @@ G_DEFINE_TYPE (GsdCursorManager, gsd_cursor_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-static gboolean
-device_is_xtest (XDevice *xdevice)
+static void add_all_devices (GsdCursorManager *manager, GdkDevice *exception);
+
+typedef void (*ForeachScreenFunc) (GdkDisplay *display, GdkScreen *screen, GsdCursorManager *manager, gpointer user_data);
+
+static void
+foreach_screen (GsdCursorManager  *manager,
+                ForeachScreenFunc  func,
+                gpointer           user_data)
 {
-        Atom realtype, prop;
-        int realformat;
-        unsigned long nitems, bytes_after;
-        unsigned char *data;
+        GdkDisplay *display;
+        guint n_screens;
+        guint i;
 
-        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "XTEST Device", False);
-        if (!prop)
-                return FALSE;
+        display = gdk_display_get_default ();
+        n_screens = gdk_display_get_n_screens (display);
+        for (i = 0; i < n_screens; i++) {
+                GdkScreen *screen;
 
-        gdk_error_trap_push ();
-        if ((XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 1, False,
-                                XA_INTEGER, &realtype, &realformat, &nitems,
-                                &bytes_after, &data) == Success) && (realtype != None)) {
-                gdk_error_trap_pop_ignored ();
-                XFree (data);
-                return TRUE;
+                screen = gdk_display_get_screen (display, i);
+                (func) (display, screen, manager, user_data);
         }
-        gdk_error_trap_pop_ignored ();
+}
 
-        return FALSE;
+static void
+set_cursor_visibility_foreach (GdkDisplay       *display,
+                               GdkScreen        *screen,
+                               GsdCursorManager *manager,
+                               gpointer          user_data)
+{
+        Display *xdisplay;
+        gboolean visible = GPOINTER_TO_INT (user_data);
+
+        xdisplay = GDK_DISPLAY_XDISPLAY (display);
+
+        if (visible)
+                XFixesShowCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
+        else
+                XFixesHideCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
 }
 
 static void
 set_cursor_visibility (GsdCursorManager *manager,
                        gboolean          visible)
 {
-        Display *xdisplay;
-        GdkDisplay *display;
-        guint n_screens;
-        guint i;
-
         g_debug ("Attempting to %s the cursor", visible ? "show" : "hide");
 
-        display = gdk_display_get_default ();
-        xdisplay = GDK_DISPLAY_XDISPLAY (display);
-
-        n_screens = gdk_display_get_n_screens (display);
+        if (manager->priv->cursor_shown == visible)
+                return;
 
         gdk_error_trap_push ();
-
-        for (i = 0; i < n_screens; i++) {
-                GdkScreen *screen;
-
-                screen = gdk_display_get_screen (display, i);
-
-                if (visible)
-                        XFixesShowCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
-                else
-                        XFixesHideCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
-        }
+        foreach_screen (manager, set_cursor_visibility_foreach, GINT_TO_POINTER (visible));
         if (gdk_error_trap_pop ()) {
                 g_warning ("An error occurred trying to %s the cursor",
                            visible ? "show" : "hide");
@@ -128,73 +127,26 @@ set_cursor_visibility (GsdCursorManager *manager,
         manager->priv->cursor_shown = visible;
 }
 
-static gboolean
-device_info_is_ps2_mouse (XDeviceInfo *info)
-{
-	return (g_strcmp0 (info->name, "ImPS/2 Generic Wheel Mouse") == 0);
-}
-
 static void
-update_cursor_for_current (GsdCursorManager *manager)
+monitor_became_active (GnomeIdleMonitor *monitor,
+                       GsdCursorManager *manager)
 {
-        XDeviceInfo *device_info;
-        guint num_mice;
-        int n_devices;
-        guint i;
+        GdkDevice *device;
 
-        /* List all the pointer devices
-         * ignore the touchscreens
-         * ignore the XTest devices
-         * see if there's anything left */
+        /* Oh, so you're active? */
+        g_object_get (G_OBJECT (monitor), "device", &device, NULL);
+        g_debug ("Device %d '%s' became active", gdk_x11_device_get_id (device), gdk_device_get_name (device));
+        set_cursor_visibility (manager,
+                               gdk_device_get_source (device) != GDK_SOURCE_TOUCHSCREEN);
 
-        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
-        if (device_info == NULL)
-                return;
+        /* Remove the device from the watch */
+        g_hash_table_remove (manager->priv->monitors, device);
 
-        num_mice = 0;
+        /* Make sure that all the other devices are watched
+         * (but not the one we just stopped monitoring */
+        add_all_devices (manager, device);
 
-        for (i = 0; i < n_devices; i++) {
-                XDevice *device;
-
-                if (device_info[i].use != IsXExtensionPointer)
-                        continue;
-
-                if (device_info_is_touchscreen (&device_info[i]))
-                        continue;
-
-                if (device_info_is_ps2_mouse (&device_info[i]))
-                        continue;
-
-                gdk_error_trap_push ();
-                device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
-                if (gdk_error_trap_pop () || (device == NULL))
-                        continue;
-
-                if (device_is_xtest (device)) {
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
-                        continue;
-                }
-
-                g_debug ("Counting '%s' as mouse", device_info[i].name);
-
-                num_mice++;
-        }
-        XFreeDeviceList (device_info);
-
-        g_debug ("Found %d devices that aren't touchscreens or fake devices", num_mice);
-
-        if (num_mice > 0) {
-                g_debug ("Mice are present");
-
-                if (manager->priv->cursor_shown == FALSE) {
-                        set_cursor_visibility (manager, TRUE);
-                }
-        } else {
-                g_debug ("No mice present");
-                if (manager->priv->cursor_shown != FALSE) {
-                        set_cursor_visibility (manager, FALSE);
-                }
-        }
+        g_object_unref (device);
 }
 
 static void
@@ -202,7 +154,28 @@ device_added_cb (GdkDeviceManager *device_manager,
                  GdkDevice        *device,
                  GsdCursorManager *manager)
 {
-        update_cursor_for_current (manager);
+        GnomeIdleMonitor *monitor;
+
+        if (g_hash_table_lookup (manager->priv->monitors, device) != NULL)
+                return;
+        if (gdk_device_get_device_type (device) != GDK_DEVICE_TYPE_SLAVE)
+                return;
+        if (gdk_device_get_source (device) == GDK_SOURCE_KEYBOARD)
+                return;
+        if (strstr (gdk_device_get_name (device), "XTEST") != NULL)
+                return;
+
+        /* Create IdleMonitors for each pointer device */
+        monitor = gnome_idle_monitor_new_for_device (device);
+        g_hash_table_insert (manager->priv->monitors,
+                             device,
+                             monitor);
+        g_signal_connect (monitor, "became-active",
+                          G_CALLBACK (monitor_became_active), manager);
+        /* We become idle very quickly so that the became-active
+         * kicks in fast */
+        gnome_idle_monitor_add_watch (monitor, IDLE_TIME,
+                                      NULL, NULL, NULL);
 }
 
 static void
@@ -210,12 +183,8 @@ device_removed_cb (GdkDeviceManager *device_manager,
                    GdkDevice        *device,
                    GsdCursorManager *manager)
 {
-        /* If devices are removed, then it's unlikely
-         * a mouse appeared */
-        if (manager->priv->cursor_shown == FALSE)
-                return;
-
-        update_cursor_for_current (manager);
+        g_hash_table_remove (manager->priv->monitors,
+                             device);
 }
 
 static void
@@ -223,10 +192,10 @@ device_changed_cb (GdkDeviceManager *device_manager,
                    GdkDevice        *device,
                    GsdCursorManager *manager)
 {
-	if (gdk_device_get_device_type (device) == GDK_DEVICE_TYPE_FLOATING)
-		device_removed_cb (device_manager, device, manager);
-	else
-		device_added_cb (device_manager, device, manager);
+        if (gdk_device_get_device_type (device) == GDK_DEVICE_TYPE_FLOATING)
+                device_removed_cb (device_manager, device, manager);
+        else
+                device_added_cb (device_manager, device, manager);
 }
 
 static gboolean
@@ -239,6 +208,32 @@ supports_xfixes (void)
                                 &op_code,
                                 &event,
                                 &error);
+}
+
+static void
+initialize_root_cursor_foreach (GdkDisplay       *display,
+                                GdkScreen        *screen,
+                                GsdCursorManager *manager,
+                                Cursor           *xcursor)
+{
+        Display *xdisplay;
+
+        xdisplay = GDK_DISPLAY_XDISPLAY (display);
+        XDefineCursor (xdisplay,
+                       GDK_WINDOW_XID (gdk_screen_get_root_window (screen)),
+                       *xcursor);
+}
+
+static void
+initialize_root_cursor (GsdCursorManager *manager)
+{
+        GdkCursor *cursor;
+        Cursor xcursor;
+
+        cursor = gdk_cursor_new (GDK_LEFT_PTR);
+        xcursor = gdk_x11_cursor_get_xcursor (cursor);
+        foreach_screen (manager, (ForeachScreenFunc) initialize_root_cursor_foreach, &xcursor);
+        g_object_unref (cursor);
 }
 
 static gboolean
@@ -266,32 +261,49 @@ supports_cursor_xfixes (void)
         return FALSE;
 }
 
-static gboolean
-gsd_cursor_manager_idle_cb (GsdCursorManager *manager)
+static void
+add_all_devices (GsdCursorManager *manager,
+                 GdkDevice        *exception)
+{
+        GdkDeviceManager *device_manager;
+        GList *devices, *l;
+
+        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+        devices = gdk_device_manager_list_devices (device_manager, GDK_DEVICE_TYPE_SLAVE);
+        for (l = devices; l != NULL; l = l->next) {
+                GdkDevice *device = l->data;
+                if (device == exception)
+                        continue;
+                device_added_cb (device_manager, device, manager);
+        }
+        g_list_free (devices);
+}
+
+gboolean
+gsd_cursor_manager_start (GsdCursorManager *manager,
+                          GError               **error)
 {
         GdkDeviceManager *device_manager;
 
+        g_debug ("Starting cursor manager");
         gnome_settings_profile_start (NULL);
 
         if (supports_cursor_xfixes () == FALSE) {
                 g_debug ("XFixes cursor extension not available, will not hide the cursor");
+                initialize_root_cursor (manager);
                 return FALSE;
         }
 
         if (supports_xinput_devices () == FALSE) {
                 g_debug ("XInput support not available, will not hide the cursor");
+                initialize_root_cursor (manager);
                 return FALSE;
         }
 
-        /* We assume that the touchscreen is builtin and
-         * won't be appearing in the middle of the session... */
-        if (touchscreen_is_present () == FALSE) {
-                g_debug ("Did not find a touchscreen, will not hide the cursor");
-                gnome_settings_profile_end (NULL);
-                return FALSE;
-        }
-
-        update_cursor_for_current (manager);
+        /* Start by hiding the cursor, and then initialising the default
+         * root window cursor, as the window manager shouldn't do that. */
+        set_cursor_visibility (manager, FALSE);
+        initialize_root_cursor (manager);
 
         device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
         manager->priv->added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
@@ -301,19 +313,7 @@ gsd_cursor_manager_idle_cb (GsdCursorManager *manager)
         manager->priv->changed_id = g_signal_connect (G_OBJECT (device_manager), "device-changed",
                                                       G_CALLBACK (device_changed_cb), manager);
 
-        gnome_settings_profile_end (NULL);
-
-        return FALSE;
-}
-
-gboolean
-gsd_cursor_manager_start (GsdCursorManager *manager,
-                          GError               **error)
-{
-        g_debug ("Starting cursor manager");
-        gnome_settings_profile_start (NULL);
-
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_cursor_manager_idle_cb, manager);
+        add_all_devices (manager, NULL);
 
         gnome_settings_profile_end (NULL);
 
@@ -344,23 +344,8 @@ gsd_cursor_manager_stop (GsdCursorManager *manager)
                 manager->priv->changed_id = 0;
         }
 
-        if (manager->priv->cursor_shown == FALSE) {
+        if (manager->priv->cursor_shown == FALSE)
                 set_cursor_visibility (manager, TRUE);
-        }
-}
-
-static GObject *
-gsd_cursor_manager_constructor (GType                  type,
-                                guint                  n_construct_properties,
-                                GObjectConstructParam *construct_properties)
-{
-        GsdCursorManager      *cursor_manager;
-
-        cursor_manager = GSD_CURSOR_MANAGER (G_OBJECT_CLASS (gsd_cursor_manager_parent_class)->constructor (type,
-                                                                                                            n_construct_properties,
-                                                                                                            construct_properties));
-
-        return G_OBJECT (cursor_manager);
 }
 
 static void
@@ -368,7 +353,6 @@ gsd_cursor_manager_class_init (GsdCursorManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_cursor_manager_constructor;
         object_class->finalize = gsd_cursor_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdCursorManagerPrivate));
@@ -379,7 +363,10 @@ gsd_cursor_manager_init (GsdCursorManager *manager)
 {
         manager->priv = GSD_CURSOR_MANAGER_GET_PRIVATE (manager);
         manager->priv->cursor_shown = TRUE;
-
+        manager->priv->monitors = g_hash_table_new_full (g_direct_hash,
+                                                         g_direct_equal,
+                                                         NULL,
+                                                         g_object_unref);
 }
 
 static void
@@ -392,7 +379,7 @@ gsd_cursor_manager_finalize (GObject *object)
 
         cursor_manager = GSD_CURSOR_MANAGER (object);
 
-        g_return_if_fail (cursor_manager->priv != NULL);
+        g_clear_pointer (&cursor_manager->priv->monitors, g_hash_table_destroy);
 
         G_OBJECT_CLASS (gsd_cursor_manager_parent_class)->finalize (object);
 }
