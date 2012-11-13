@@ -197,17 +197,17 @@ update_cursor_for_current (GsdCursorManager *manager)
 }
 
 static void
-devices_added_cb (GdkDeviceManager *device_manager,
-                  GdkDevice        *device,
-                  GsdCursorManager *manager)
+device_added_cb (GdkDeviceManager *device_manager,
+                 GdkDevice        *device,
+                 GsdCursorManager *manager)
 {
         update_cursor_for_current (manager);
 }
 
 static void
-devices_removed_cb (GdkDeviceManager *device_manager,
-                    GdkDevice        *device,
-                    GsdCursorManager *manager)
+device_removed_cb (GdkDeviceManager *device_manager,
+                   GdkDevice        *device,
+                   GsdCursorManager *manager)
 {
         /* If devices are removed, then it's unlikely
          * a mouse appeared */
@@ -283,9 +283,9 @@ gsd_cursor_manager_idle_cb (GsdCursorManager *manager)
 
         device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
         manager->priv->added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
-                                                    G_CALLBACK (devices_added_cb), manager);
+                                                    G_CALLBACK (device_added_cb), manager);
         manager->priv->removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
-                                                      G_CALLBACK (devices_removed_cb), manager);
+                                                      G_CALLBACK (device_removed_cb), manager);
 
         gnome_settings_profile_end (NULL);
 
