@@ -3363,10 +3363,12 @@ session_proxy_ready_cb (GObject *source_object,
                 g_warning ("Could not connect to gnome-session: %s",
                            error->message);
                 g_error_free (error);
-                return;
+        } else {
+                g_signal_connect (manager->priv->session_proxy, "g-signal",
+                                  G_CALLBACK (idle_dbus_signal_cb), manager);
         }
-        g_signal_connect (manager->priv->session_proxy, "g-signal",
-                          G_CALLBACK (idle_dbus_signal_cb), manager);
+
+        idle_configure (manager);
 }
 
 static void
@@ -3907,7 +3909,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
 
         /* coldplug the engine */
         engine_coldplug (manager);
-        idle_configure (manager);
 
         /* set the initial dim time that can adapt for the user */
         refresh_idle_dim_settings (manager);
