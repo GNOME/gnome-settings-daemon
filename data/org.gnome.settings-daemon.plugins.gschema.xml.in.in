@@ -1,5 +1,14 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins" path="/org/gnome/settings-daemon/plugins/">
+    <key name="whitelisted-plugins" type="as">
+      <default>['all']</default>
+      <_summary>List of plugins that are allowed to be loaded</_summary>
+      <_description>
+        A list of strings representing the plugins that are allowed to be loaded (default: 'all').
+        The plugins still need to be marked as active to get loaded.
+        This is only evaluated on startup.
+      </_description>
+    </key>
     <child name="a11y-keyboard" schema="org.gnome.settings-daemon.plugins.a11y-keyboard"/>
     <child name="a11y-settings" schema="org.gnome.settings-daemon.plugins.a11y-settings"/>
     <child name="background" schema="org.gnome.settings-daemon.plugins.background"/>

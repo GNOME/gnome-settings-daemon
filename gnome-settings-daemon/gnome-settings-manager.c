@@ -65,6 +65,7 @@ struct GnomeSettingsManagerPrivate
         GDBusNodeInfo              *introspection_data;
         GDBusConnection            *connection;
         GSettings                  *settings;
+        char                      **whitelist;
         GnomePnpIds                *pnp_ids;
         GSList                     *plugins;
 };
@@ -200,6 +201,17 @@ is_schema (const char *schema)
         return contained (g_settings_list_schemas (), schema);
 }
 
+static gboolean
+is_whitelisted (char       **whitelist,
+                const char  *plugin_name)
+{
+        if (whitelist == NULL ||
+            whitelist[0] == NULL ||
+            g_strcmp0 (whitelist[0], "all") == 0)
+                return TRUE;
+
+        return contained ((const char * const *) whitelist, plugin_name);
+}
 
 static void
 _load_file (GnomeSettingsManager *manager,
@@ -221,6 +233,13 @@ _load_file (GnomeSettingsManager *manager,
                                  info,
                                  (GCompareFunc) compare_location);
         if (l != NULL) {
+                goto out;
+        }
+
+        if (!is_whitelisted (manager->priv->whitelist,
+                             gnome_settings_plugin_info_get_location (info))) {
+                g_debug ("Plugin %s ignored as it's not whitelisted",
+                         gnome_settings_plugin_info_get_location (info));
                 goto out;
         }
 
@@ -386,6 +405,7 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
 
         gnome_settings_profile_start ("initializing plugins");
         manager->priv->settings = g_settings_new (DEFAULT_SETTINGS_PREFIX ".plugins");
+        manager->priv->whitelist = g_settings_get_strv (manager->priv->settings, "whitelisted-plugins");
 
         _load_all (manager);
         gnome_settings_profile_end ("initializing plugins");
@@ -409,6 +429,7 @@ gnome_settings_manager_stop (GnomeSettingsManager *manager)
                 manager->priv->owner_id = 0;
         }
 
+        g_clear_pointer (&manager->priv->whitelist, g_strfreev);
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->pnp_ids);
 }
