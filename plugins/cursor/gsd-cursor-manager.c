@@ -51,6 +51,7 @@ struct GsdCursorManagerPrivate
         guint start_idle_id;
         guint added_id;
         guint removed_id;
+        guint changed_id;
         gboolean cursor_shown;
 };
 
@@ -217,6 +218,17 @@ device_removed_cb (GdkDeviceManager *device_manager,
         update_cursor_for_current (manager);
 }
 
+static void
+device_changed_cb (GdkDeviceManager *device_manager,
+                   GdkDevice        *device,
+                   GsdCursorManager *manager)
+{
+	if (gdk_device_get_device_type (device) == GDK_DEVICE_TYPE_FLOATING)
+		device_removed_cb (device_manager, device, manager);
+	else
+		device_added_cb (device_manager, device, manager);
+}
+
 static gboolean
 supports_xfixes (void)
 {
@@ -286,6 +298,8 @@ gsd_cursor_manager_idle_cb (GsdCursorManager *manager)
                                                     G_CALLBACK (device_added_cb), manager);
         manager->priv->removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
                                                       G_CALLBACK (device_removed_cb), manager);
+        manager->priv->changed_id = g_signal_connect (G_OBJECT (device_manager), "device-changed",
+                                                      G_CALLBACK (device_changed_cb), manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -323,6 +337,11 @@ gsd_cursor_manager_stop (GsdCursorManager *manager)
         if (manager->priv->removed_id > 0) {
                 g_signal_handler_disconnect (G_OBJECT (device_manager), manager->priv->removed_id);
                 manager->priv->removed_id = 0;
+        }
+
+        if (manager->priv->changed_id > 0) {
+                g_signal_handler_disconnect (G_OBJECT (device_manager), manager->priv->changed_id);
+                manager->priv->changed_id = 0;
         }
 
         if (manager->priv->cursor_shown == FALSE) {
