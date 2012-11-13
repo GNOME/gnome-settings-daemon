@@ -41,6 +41,15 @@ has_settings (void)
 	return FALSE;
 }
 
+static void
+print_enable_disable_help (void)
+{
+	fprintf (stderr, "To deactivate:\n");
+	fprintf (stderr, "\tgsettings set org.gnome.settings-daemon.plugins." SCHEMA_NAME " active false\n");
+	fprintf (stderr, "To reactivate:\n");
+	fprintf (stderr, "\tgsettings set org.gnome.settings-daemon.plugins." SCHEMA_NAME " active true\n");
+}
+
 int
 main (int argc, char **argv)
 {
@@ -69,12 +78,10 @@ main (int argc, char **argv)
         settings = g_settings_new ("org.gnome.settings-daemon.plugins." SCHEMA_NAME);
         if (g_settings_get_boolean (settings, "active") != FALSE) {
 		fprintf (stderr, "Plugin '%s' is not disabled. You need to disable it before launching the test application.\n", SCHEMA_NAME);
-		fprintf (stderr, "To deactivate:\n");
-		fprintf (stderr, "\tgsettings set org.gnome.settings-daemon.plugins." SCHEMA_NAME " active false\n");
-		fprintf (stderr, "To reactivate:\n");
-		fprintf (stderr, "\tgsettings set org.gnome.settings-daemon.plugins." SCHEMA_NAME " active true\n");
+		print_enable_disable_help ();
 		exit (1);
 	}
+	print_enable_disable_help();
 
         manager = NEW ();
 
