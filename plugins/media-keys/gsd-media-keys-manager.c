@@ -2025,6 +2025,10 @@ filter_key_events (XEvent              *xevent,
                         case VOLUME_UP_KEY:
                         case VOLUME_DOWN_QUIET_KEY:
                         case VOLUME_UP_QUIET_KEY:
+                        case SCREEN_BRIGHTNESS_UP_KEY:
+                        case SCREEN_BRIGHTNESS_DOWN_KEY:
+                        case KEYBOARD_BRIGHTNESS_UP_KEY:
+                        case KEYBOARD_BRIGHTNESS_DOWN_KEY:
                                 /* auto-repeatable keys */
                                 if (xiev->evtype != XI_KeyPress)
                                         return GDK_FILTER_CONTINUE;
