@@ -110,7 +110,7 @@ static const gchar introspection_xml[] =
 
 typedef struct {
         char   *application;
-        char   *name;
+        char   *dbus_name;
         guint32 time;
         guint   watch_id;
 } MediaPlayer;
@@ -1207,7 +1207,7 @@ free_media_player (MediaPlayer *player)
                 player->watch_id = 0;
         }
         g_free (player->application);
-        g_free (player->name);
+        g_free (player->dbus_name);
         g_free (player);
 }
 
@@ -1222,7 +1222,7 @@ static gint
 find_by_name (gconstpointer a,
               gconstpointer b)
 {
-        return strcmp (((MediaPlayer *)a)->name, b);
+        return strcmp (((MediaPlayer *)a)->dbus_name, b);
 }
 
 static gint
@@ -1247,7 +1247,7 @@ name_vanished_handler (GDBusConnection     *connection,
                 MediaPlayer *player;
 
                 player = iter->data;
-                g_debug ("Deregistering vanished %s (name: %s)", player->application, player->name);
+                g_debug ("Deregistering vanished %s (dbus_name: %s)", player->application, player->dbus_name);
                 free_media_player (player);
                 manager->priv->media_players = g_list_delete_link (manager->priv->media_players, iter);
         }
@@ -1263,7 +1263,7 @@ name_vanished_handler (GDBusConnection     *connection,
 static void
 gsd_media_keys_manager_grab_media_player_keys (GsdMediaKeysManager *manager,
                                                const char          *application,
-                                               const char          *name,
+                                               const char          *dbus_name,
                                                guint32              time)
 {
         GList       *iter;
@@ -1292,7 +1292,7 @@ gsd_media_keys_manager_grab_media_player_keys (GsdMediaKeysManager *manager,
         }
 
         watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                     name,
+                                     dbus_name,
                                      G_BUS_NAME_WATCHER_FLAGS_NONE,
                                      NULL,
                                      (GBusNameVanishedCallback) name_vanished_handler,
@@ -1302,7 +1302,7 @@ gsd_media_keys_manager_grab_media_player_keys (GsdMediaKeysManager *manager,
         g_debug ("Registering %s at %u", application, time);
         media_player = g_new0 (MediaPlayer, 1);
         media_player->application = g_strdup (application);
-        media_player->name = g_strdup (name);
+        media_player->dbus_name = g_strdup (dbus_name);
         media_player->time = time;
         media_player->watch_id = watch_id;
 
@@ -1336,7 +1336,7 @@ gsd_media_keys_manager_release_media_player_keys (GsdMediaKeysManager *manager,
                 MediaPlayer *player;
 
                 player = iter->data;
-                g_debug ("Deregistering %s (name: %s)", application, player->name);
+                g_debug ("Deregistering %s (dbus_name: %s)", application, player->dbus_name);
                 free_media_player (player);
                 manager->priv->media_players = g_list_delete_link (manager->priv->media_players, iter);
         }
@@ -1371,7 +1371,7 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
         application = player->application;
 
         if (g_dbus_connection_emit_signal (manager->priv->connection,
-                                           player->name,
+                                           player->dbus_name,
                                            GSD_MEDIA_KEYS_DBUS_PATH,
                                            GSD_MEDIA_KEYS_DBUS_NAME,
                                            "MediaPlayerKeyPressed",
