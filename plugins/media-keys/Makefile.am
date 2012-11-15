@@ -11,6 +11,8 @@ plugin_LTLIBRARIES = libmedia-keys.la
 BUILT_SOURCES = 			\
 	gsd-marshal.h			\
 	gsd-marshal.c			\
+	shell-key-grabber.c		\
+	shell-key-grabber.h		\
 	$(NULL)
 
 gsd-marshal.c: gsd-marshal.list
@@ -18,6 +20,13 @@ gsd-marshal.c: gsd-marshal.list
 
 gsd-marshal.h: gsd-marshal.list
 	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --internal > $@
+
+shell-key-grabber.c: shell-key-grabber.h
+shell-key-grabber.h: Makefile.am org.gnome.ShellKeyGrabber.xml
+	gdbus-codegen --interface-prefix org.gnome.		\
+	              --generate-c-code shell-key-grabber	\
+	              --c-namespace Shell			\
+	              org.gnome.ShellKeyGrabber.xml
 
 libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-plugin.c		\
@@ -138,6 +147,7 @@ EXTRA_DIST = 				\
 	gsd-marshal.list		\
 	README.media-keys-API		\
 	test-media-window-clutter.c	\
+	org.gnome.ShellKeyGrabber.xml	\
 	$(plugin_in_files)
 
 CLEANFILES = 			\
