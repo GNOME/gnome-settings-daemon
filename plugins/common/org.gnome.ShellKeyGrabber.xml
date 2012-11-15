@@ -1,0 +1,21 @@
+<node>
+  <interface name="org.gnome.Shell">
+    <annotation name="org.gtk.GDBus.C.Name" value="KeyGrabber"/>
+    <method name="GrabKey">
+      <arg type="u" direction="in" name="keysym"/>
+      <arg type="u" direction="in" name="modifiers"/>
+      <arg type="u" direction="in" name="flags"/>
+      <arg type="b" direction="out" name="success"/>
+    </method>
+    <method name="UngrabKey">
+      <arg type="u" direction="in" name="keysym"/>
+      <arg type="u" direction="in" name="modifiers"/>
+      <arg type="b" direction="out" name="success"/>
+    </method>
+    <signal name="KeyActivated">
+      <arg type="u" name="keysym"/>
+      <arg type="u" name="modifiers"/>
+      <arg type="u" name="device"/>
+    </signal>
+  </interface>
+</node>

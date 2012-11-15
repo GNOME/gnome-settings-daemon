@@ -49,6 +49,20 @@ static GdkModifierType gsd_used_mods = 0;
 
 #define IN_RANGE(x, min, max) (x >= min && x <= max)
 
+#define SHELL_DBUS_NAME              "org.gnome.Shell"
+#define SHELL_DBUS_PATH              "/org/gnome/Shell"
+
+static gboolean retry_grab (gpointer data);
+static void grab_key_complete (GObject *object, GAsyncResult *result, gpointer user_data);
+
+static ShellKeyGrabber *shell_key_grabber = NULL;
+
+typedef struct {
+        guint keysym;
+        guint modifiers;
+        guint modes;
+} KeygrabData;
+
 static void
 setup_modifiers (void)
 {
@@ -72,6 +86,7 @@ setup_modifiers (void)
 	}
 }
 
+#if 0
 static void
 grab_key_real (guint      keycode,
                GdkWindow *root,
@@ -111,6 +126,74 @@ grab_key_real (guint      keycode,
                                  mods);
         }
 }
+#endif
+
+ShellKeyGrabber *
+get_key_grabber () {
+        if (shell_key_grabber)
+                return shell_key_grabber;
+
+        shell_key_grabber =
+                shell_key_grabber_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                                          G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+                                                          SHELL_DBUS_NAME,
+                                                          SHELL_DBUS_PATH,
+                                                          NULL, NULL);
+        return shell_key_grabber;
+}
+
+static gboolean
+retry_grab (gpointer data)
+{
+        KeygrabData *grab_data = data;
+
+        if (grab_data->modes)
+                shell_key_grabber_call_grab_key (shell_key_grabber,
+                                                 grab_data->keysym,
+                                                 grab_data->modifiers,
+                                                 grab_data->modes,
+                                                 NULL,
+                                                 grab_key_complete, grab_data);
+        else
+                shell_key_grabber_call_ungrab_key (shell_key_grabber,
+                                                   grab_data->keysym,
+                                                   grab_data->modifiers,
+                                                   NULL,
+                                                   grab_key_complete, grab_data);
+        return FALSE;
+}
+
+static void
+grab_key_complete (GObject      *object,
+                   GAsyncResult *result,
+                   gpointer      user_data)
+{
+        gboolean success = FALSE;
+        gboolean retry = TRUE;
+        GError *error = NULL;
+        KeygrabData *grab_data = user_data;
+
+        if (grab_data->modes)
+                shell_key_grabber_call_grab_key_finish (SHELL_KEY_GRABBER (object),
+                                                        &success, result, &error); 
+        else
+                shell_key_grabber_call_ungrab_key_finish (SHELL_KEY_GRABBER (object),
+                                                          &success, result, &error); 
+
+        if (error) {
+                retry = error->code == G_DBUS_ERROR_UNKNOWN_METHOD;
+                if (!retry)
+                        g_warning ("%d: %s", error->code, error->message);
+                g_error_free (error);
+        } else {
+                retry = !success;
+        }
+
+        if (retry)
+                g_timeout_add_seconds (1, retry_grab, grab_data);
+        else
+                g_free (grab_data);
+}
 
 /* Grab the key. In order to ignore GSD_IGNORED_MODS we need to grab
  * all combinations of the ignored modifiers and those actually used
@@ -139,6 +222,7 @@ grab_key_internal (Key             *key,
                    GsdKeygrabFlags  flags,
                    GSList          *screens)
 {
+#if 0
         int     indexes[N_BITS]; /* indexes of bits we need to flip */
         int     i;
         int     bit;
@@ -147,10 +231,11 @@ grab_key_internal (Key             *key,
         guint   mask, modifiers;
         GArray *all_mods;
         GSList *l;
+#endif
+        KeygrabData *grab_data;
+        guint modifiers;
 
         setup_modifiers ();
-
-        mask = gsd_ignored_mods & ~key->state & GDK_MODIFIER_MASK;
 
         /* XGrabKey requires real modifiers, not virtual ones */
         modifiers = key->state;
@@ -188,6 +273,26 @@ grab_key_internal (Key             *key,
                 return;
         }
 
+        grab_data = g_new (KeygrabData, 1);
+        grab_data->keysym = key->keysym;
+        grab_data->modifiers = modifiers;
+        grab_data->modes = grab ? ~0 : 0;
+
+        get_key_grabber ();
+
+        if (grab)
+                shell_key_grabber_call_grab_key (shell_key_grabber,
+                                                 key->keysym, modifiers, ~0,
+                                                 NULL,
+                                                 grab_key_complete, grab_data);
+        else
+                shell_key_grabber_call_ungrab_key (shell_key_grabber,
+                                                   key->keysym, modifiers,
+                                                   NULL,
+                                                   grab_key_complete, grab_data);
+#if 0
+        mask = gsd_ignored_mods & ~key->state & GDK_MODIFIER_MASK;
+
         bit = 0;
         /* store the indexes of all set bits in mask in the array */
         for (i = 0; mask; ++i, mask >>= 1) {
@@ -197,7 +302,6 @@ grab_key_internal (Key             *key,
         }
 
         bits_set_cnt = bit;
-
 	all_mods = g_array_new (FALSE, TRUE, sizeof(XIGrabModifiers));
         uppervalue = 1 << bits_set_cnt;
         /* store all possible modifier combinations for our mask into all_mods */
@@ -234,6 +338,7 @@ grab_key_internal (Key             *key,
                 }
         }
         g_array_free (all_mods, TRUE);
+#endif
 }
 
 void

@@ -26,6 +26,8 @@ G_BEGIN_DECLS
 #include <X11/keysym.h>
 #include <X11/extensions/XInput2.h>
 
+#include "shell-key-grabber.h"
+
 typedef struct {
         guint keysym;
         guint state;
@@ -60,6 +62,8 @@ void            free_key         (Key           *key);
 void            grab_button      (int      deviceid,
                                   gboolean grab,
                                   GSList  *screens);
+
+ShellKeyGrabber *get_key_grabber (void);
 
 G_END_DECLS
 

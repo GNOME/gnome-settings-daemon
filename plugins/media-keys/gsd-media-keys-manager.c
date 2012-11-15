@@ -2011,89 +2011,53 @@ do_action (GsdMediaKeysManager *manager,
         return FALSE;
 }
 
-static GdkScreen *
-get_screen_from_root (GsdMediaKeysManager *manager,
-                      Window               root)
+static void
+on_shell_restart (GObject             *object,
+                  GParamSpec          *pspec,
+                  GsdMediaKeysManager *manager)
 {
-        GSList    *l;
+        guint i;
+        char *owner;
 
-        /* Look for which screen we're receiving events */
-        for (l = manager->priv->screens; l != NULL; l = l->next) {
-                GdkScreen *screen = (GdkScreen *) l->data;
-                GdkWindow *window = gdk_screen_get_root_window (screen);
+        if (manager->priv->keys == NULL)
+              return;
 
-                if (GDK_WINDOW_XID (window) == root)
-                        return screen;
+        g_object_get (object, "g-name-owner", &owner, NULL);
+        if (!owner)
+            return;
+        g_free (owner);
+
+        for (i = 0; i < manager->priv->keys->len; i++) {
+                MediaKey *key;
+
+                key = g_ptr_array_index (manager->priv->keys, i);
+                grab_media_key (key, manager);
         }
-
-        return NULL;
 }
 
-static GdkFilterReturn
-filter_key_events (XEvent              *xevent,
-                   GdkEvent            *event,
-                   GsdMediaKeysManager *manager)
+static void
+on_key_activated (ShellKeyGrabber     *grabber,
+                  guint                keysym,
+                  guint                modifiers,
+                  guint                deviceid,
+                  GsdMediaKeysManager *manager)
 {
-	XIEvent             *xiev;
-	XIDeviceEvent       *xev;
-	XGenericEventCookie *cookie;
-        guint                i;
-	guint                deviceid;
-
-        /* verify we have a key event */
-	if (xevent->type != GenericEvent)
-		return GDK_FILTER_CONTINUE;
-	cookie = &xevent->xcookie;
-	if (cookie->extension != manager->priv->opcode)
-		return GDK_FILTER_CONTINUE;
-
-	xiev = (XIEvent *) xevent->xcookie.data;
-
-	if (xiev->evtype != XI_KeyPress &&
-	    xiev->evtype != XI_KeyRelease)
-		return GDK_FILTER_CONTINUE;
-
-	xev = (XIDeviceEvent *) xiev;
-
-	deviceid = xev->sourceid;
+        guint i;
 
         for (i = 0; i < manager->priv->keys->len; i++) {
                 MediaKey *key;
 
                 key = g_ptr_array_index (manager->priv->keys, i);
 
-                if (match_xi2_key (key->key, xev)) {
-                        switch (key->key_type) {
-                        case VOLUME_DOWN_KEY:
-                        case VOLUME_UP_KEY:
-                        case VOLUME_DOWN_QUIET_KEY:
-                        case VOLUME_UP_QUIET_KEY:
-                                /* auto-repeatable keys */
-                                if (xiev->evtype != XI_KeyPress)
-                                        return GDK_FILTER_CONTINUE;
-                                break;
-                        default:
-                                if (xiev->evtype != XI_KeyRelease) {
-                                        return GDK_FILTER_CONTINUE;
-                                }
-                        }
+                if (!match_key (key->key, keysym, modifiers))
+                        continue;
 
-                        manager->priv->current_screen = get_screen_from_root (manager, xev->root);
-
-                        if (key->key_type == CUSTOM_KEY) {
-                                do_custom_action (manager, key, xev->time);
-                                return GDK_FILTER_REMOVE;
-                        }
-
-                        if (do_action (manager, deviceid, key->key_type, xev->time) == FALSE) {
-                                return GDK_FILTER_REMOVE;
-                        } else {
-                                return GDK_FILTER_CONTINUE;
-                        }
-                }
+                if (key->key_type == CUSTOM_KEY)
+                        do_custom_action (manager, key, GDK_CURRENT_TIME);
+                else
+                        do_action (manager, deviceid, key->key_type, GDK_CURRENT_TIME);
+                return;
         }
-
-        return GDK_FILTER_CONTINUE;
 }
 
 static void
@@ -2120,7 +2084,7 @@ update_theme_settings (GSettings           *settings,
 static gboolean
 start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 {
-        GSList *l;
+        ShellKeyGrabber *proxy;
         char *theme_name;
 
         g_debug ("Starting media_keys manager");
@@ -2169,18 +2133,11 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         init_screens (manager);
         init_kbd (manager);
 
-        /* Start filtering the events */
-        for (l = manager->priv->screens; l != NULL; l = l->next) {
-                gnome_settings_profile_start ("gdk_window_add_filter");
-
-                g_debug ("adding key filter for screen: %d",
-                         gdk_screen_get_number (l->data));
-
-                gdk_window_add_filter (gdk_screen_get_root_window (l->data),
-                                       (GdkFilterFunc) filter_key_events,
-                                       manager);
-                gnome_settings_profile_end ("gdk_window_add_filter");
-        }
+        proxy = get_key_grabber ();
+        g_signal_connect (proxy, "notify::g-name-owner",
+                          G_CALLBACK (on_shell_restart), manager);
+        g_signal_connect (proxy, "key-activated",
+                          G_CALLBACK (on_key_activated), manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -2247,7 +2204,6 @@ void
 gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 {
         GsdMediaKeysManagerPrivate *priv = manager->priv;
-        GSList *ls;
         GList *l;
         int i;
 
@@ -2257,12 +2213,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 g_cancellable_cancel (priv->bus_cancellable);
                 g_object_unref (priv->bus_cancellable);
                 priv->bus_cancellable = NULL;
-        }
-
-        for (ls = priv->screens; ls != NULL; ls = ls->next) {
-                gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
-                                          (GdkFilterFunc) filter_key_events,
-                                          manager);
         }
 
         if (manager->priv->gtksettings != NULL) {
