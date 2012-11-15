@@ -1891,12 +1891,8 @@ do_action (GsdMediaKeysManager *manager,
                 do_home_key_action (manager, timestamp);
                 break;
         case SEARCH_KEY:
-                cmd = NULL;
-                if ((cmd = g_find_program_in_path ("tracker-search-tool")))
-                        do_execute_desktop (manager, "tracker-needle.desktop", timestamp);
-                else
-                        do_execute_desktop (manager, "gnome-search-tool.desktop", timestamp);
-                g_free (cmd);
+                do_execute_desktop_or_desktop ("tracker-needle.desktop",
+                                               "gnome-search-tool.desktop");
                 break;
         case EMAIL_KEY:
                 do_url_action (manager, "mailto", timestamp);
