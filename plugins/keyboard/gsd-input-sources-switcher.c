@@ -43,7 +43,6 @@ static guint n_keys = 0;
 static guint master_keyboard_id = 0;
 
 static gboolean includes_caps = FALSE;
-static Time caps_press_time = 0;
 
 static void
 do_switch (void)
@@ -432,23 +431,32 @@ filter (XEvent   *xevent,
     {
       if (xiev->evtype == XI_KeyPress)
         {
-          XIAllowEvents (xev->display,
-                         xev->deviceid,
-                         XISyncDevice,
-                         xev->time);
-          XIGrabButton (xev->display,
-                        XIAllMasterDevices,
-                        XIAnyButton,
-                        xev->root,
-                        None,
-                        XIGrabModeSync,
-                        XIGrabModeSync,
-                        False,
-                        &evmask,
-                        1,
-                        &mods);
           if (includes_caps)
-            caps_press_time = xev->time;
+            {
+              do_switch ();
+              XIUngrabDevice (xev->display,
+                              master_keyboard_id,
+                              xev->time);
+              XkbLockModifiers (xev->display, XkbUseCoreKbd, LockMask, 0);
+            }
+          else
+            {
+              XIAllowEvents (xev->display,
+                             xev->deviceid,
+                             XISyncDevice,
+                             xev->time);
+              XIGrabButton (xev->display,
+                            XIAllMasterDevices,
+                            XIAnyButton,
+                            xev->root,
+                            None,
+                            XIGrabModeSync,
+                            XIGrabModeSync,
+                            False,
+                            &evmask,
+                            1,
+                            &mods);
+            }
         }
       else
         {
@@ -462,11 +470,6 @@ filter (XEvent   *xevent,
                           xev->root,
                           1,
                           &mods);
-          if (includes_caps && caps_press_time < xev->time)
-            {
-              XkbLockModifiers (xev->display, XkbUseCoreKbd, LockMask, 0);
-              caps_press_time = xev->time;
-            }
         }
     }
   else
