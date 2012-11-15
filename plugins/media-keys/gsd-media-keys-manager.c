@@ -889,11 +889,12 @@ do_execute_desktop (GsdMediaKeysManager *manager,
         } else {
                 g_warning ("Could not find application '%s'", desktop);
 	}
+}
 
 static void
 do_execute_desktop_or_desktop (GsdMediaKeysManager *manager,
 			       const char          *desktop,
-			       const char          *alt_desktop;
+			       const char          *alt_desktop,
 			       gint64               timestamp)
 {
         GDesktopAppInfo *app_info;
@@ -1853,8 +1854,6 @@ do_action (GsdMediaKeysManager *manager,
            MediaKeyType         type,
            gint64               timestamp)
 {
-        char *cmd;
-
         g_debug ("Launching action for key type '%d' (on device id %d)", type, deviceid);
 
         switch (type) {
@@ -1891,8 +1890,10 @@ do_action (GsdMediaKeysManager *manager,
                 do_home_key_action (manager, timestamp);
                 break;
         case SEARCH_KEY:
-                do_execute_desktop_or_desktop ("tracker-needle.desktop",
-                                               "gnome-search-tool.desktop");
+                do_execute_desktop_or_desktop (manager,
+                                               "tracker-needle.desktop",
+                                               "gnome-search-tool.desktop",
+                                               timestamp);
                 break;
         case EMAIL_KEY:
                 do_url_action (manager, "mailto", timestamp);
