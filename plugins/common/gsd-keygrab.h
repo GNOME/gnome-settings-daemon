@@ -48,7 +48,8 @@ void            ungrab_key_unsafe (Key     *key,
 gboolean        match_xi2_key   (Key           *key,
                                  XIDeviceEvent *event);
 gboolean        match_key       (Key           *key,
-				 XEvent        *event);
+				 guint          keysym,
+                                 guint          modifiers);
 
 gboolean        key_uses_keycode (const Key *key,
                                   guint keycode);
