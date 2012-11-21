@@ -1433,6 +1433,13 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
         g_hash_table_insert (device_props,
                              (gpointer) CD_DEVICE_METADATA_XRANDR_NAME,
                              (gpointer) gnome_rr_output_get_name (output));
+#if CD_CHECK_VERSION(0,1,25)
+        g_hash_table_insert (device_props,
+                             (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY,
+                             gnome_rr_output_get_is_primary (output) ?
+                             (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY_PRIMARY :
+                             (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY_SECONDARY);
+#endif
         cd_client_create_device (priv->client,
                                  device_id,
                                  CD_OBJECT_SCOPE_TEMP,
