@@ -1126,6 +1126,14 @@ trim_rightmost_outputs_that_dont_fit_in_framebuffer (GnomeRRScreen *rr_screen, G
         return applicable;
 }
 
+static gboolean
+follow_laptop_lid(GsdXrandrManager *manager)
+{
+        GsdXrandrBootBehaviour val;
+        val = g_settings_get_enum (manager->priv->settings, CONF_KEY_DEFAULT_MONITORS_SETUP);
+        return val == GSD_XRANDR_BOOT_BEHAVIOUR_FOLLOW_LID || val == GSD_XRANDR_BOOT_BEHAVIOUR_CLONE;
+}
+
 static GnomeRRConfig *
 make_xinerama_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
 {
@@ -1142,7 +1150,7 @@ make_xinerama_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
                 GnomeRROutputInfo *info = outputs[i];
 
                 if (is_laptop (screen, info)) {
-                        if (laptop_lid_is_closed (manager))
+                        if (laptop_lid_is_closed (manager) && follow_laptop_lid (manager))
                                 gnome_rr_output_info_set_active (info, FALSE);
                         else {
                                 gnome_rr_output_info_set_primary (info, TRUE);
@@ -1867,6 +1875,12 @@ apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
         switch (boot) {
         case GSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING:
                 return;
+        case GSD_XRANDR_BOOT_BEHAVIOUR_FOLLOW_LID:
+                if (laptop_lid_is_closed (mgr))
+                        config = make_other_setup (screen);
+                else
+                        config = make_xinerama_setup (mgr, screen);
+                break;
         case GSD_XRANDR_BOOT_BEHAVIOUR_CLONE:
                 config = make_clone_setup (mgr, screen);
                 break;
@@ -1993,6 +2007,8 @@ power_client_changed_cb (UpClient *client, gpointer data)
 
         if (is_closed != priv->laptop_lid_is_closed) {
                 priv->laptop_lid_is_closed = is_closed;
+                if (!follow_laptop_lid(manager))
+                        return;
 
                 /* Refresh the RANDR state.  The lid just got opened/closed, so we can afford to
                  * probe the outputs right now.  It will also help the case where we can't detect

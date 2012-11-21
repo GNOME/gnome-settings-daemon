@@ -56,6 +56,7 @@
 #define UPOWER_DBUS_INTERFACE_KBDBACKLIGHT      "org.freedesktop.UPower.KbdBacklight"
 
 #define GSD_POWER_SETTINGS_SCHEMA               "org.gnome.settings-daemon.plugins.power"
+#define GSD_XRANDR_SETTINGS_SCHEMA              "org.gnome.settings-daemon.plugins.xrandr"
 
 #define GSD_DBUS_SERVICE                        "org.gnome.SettingsDaemon"
 #define GSD_DBUS_PATH                           "/org/gnome/SettingsDaemon"
@@ -159,6 +160,7 @@ struct GsdPowerManagerPrivate
         gboolean                 lid_is_closed;
         GSettings               *settings;
         GSettings               *settings_screensaver;
+        GSettings               *settings_xrandr;
         UpClient                *up_client;
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
@@ -2143,11 +2145,21 @@ upower_kbd_toggle (GsdPowerManager *manager,
 }
 
 static gboolean
+suspend_on_lid_close (GsdPowerManager *manager)
+{
+        GsdXrandrBootBehaviour val;
+
+        if (!external_monitor_is_connected (manager->priv->x11_screen))
+                return TRUE;
+
+        val = g_settings_get_enum (manager->priv->settings_xrandr, "default-monitors-setup");
+        return val == GSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING;
+}
+
+static gboolean
 inhibit_lid_switch_timer_cb (GsdPowerManager *manager)
 {
-        if (!external_monitor_is_connected (manager->priv->x11_screen) ||
-            g_settings_get_boolean (manager->priv->settings,
-                                    "lid-close-suspend-with-external-monitor")) {
+        if (suspend_on_lid_close (manager)) {
                 g_debug ("no external monitors for a while; uninhibiting lid close");
                 uninhibit_lid_switch (manager);
                 manager->priv->inhibit_lid_switch_timer_id = 0;
@@ -3736,6 +3748,11 @@ on_randr_event (GnomeRRScreen *screen, gpointer user_data)
 {
         GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
 
+        if (suspend_on_lid_close (manager)) {
+                restart_inhibit_lid_switch_timer (manager);
+                return;
+        }
+
         /* when a second monitor is plugged in, we take the
          * handle-lid-switch inhibitor lock of logind to prevent
          * it from suspending.
@@ -3744,15 +3761,8 @@ on_randr_event (GnomeRRScreen *screen, gpointer user_data)
          * since we want to give users a few seconds when unplugging
          * and replugging an external monitor, not suspend right away.
          */
-        if (external_monitor_is_connected (screen) &&
-            !g_settings_get_boolean (manager->priv->settings,
-                                     "lid-close-suspend-with-external-monitor")) {
-                inhibit_lid_switch (manager);
-                setup_inhibit_lid_switch_timer (manager);
-        }
-        else {
-                restart_inhibit_lid_switch_timer (manager);
-        }
+        inhibit_lid_switch (manager);
+        setup_inhibit_lid_switch_timer (manager);
 }
 
 static gboolean
@@ -3933,6 +3943,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
+        manager->priv->settings_xrandr = g_settings_new (GSD_XRANDR_SETTINGS_SCHEMA);
         manager->priv->up_client = up_client_new ();
         manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
         g_signal_connect (manager->priv->up_client, "device-added",
