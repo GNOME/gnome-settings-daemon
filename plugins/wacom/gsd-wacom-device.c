@@ -775,12 +775,10 @@ find_output (GnomeRRScreen  *rr_screen,
 	if (rr_output == NULL) {
 		if (gsd_wacom_device_is_screen_tablet (device)) {
 			rr_output = find_output_by_heuristic (rr_screen, device);
-			if (rr_output == NULL) {
+			if (rr_output == NULL)
 				g_warning ("No fuzzy match based on heuristics was found.");
-			} else {
+			else
 				g_warning ("Automatically mapping tablet to heuristically-found display.");
-				set_display_by_output (device, rr_output);
-			}
 		}
 	}
 
