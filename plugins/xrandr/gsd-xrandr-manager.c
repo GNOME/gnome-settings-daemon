@@ -45,7 +45,6 @@
 
 #include <libgnome-desktop/gnome-rr-config.h>
 #include <libgnome-desktop/gnome-rr.h>
-#include <libgnome-desktop/gnome-rr-labeler.h>
 
 #ifdef HAVE_WACOM
 #include <libwacom/libwacom.h>
