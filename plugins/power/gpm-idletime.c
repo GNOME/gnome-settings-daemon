@@ -69,7 +69,6 @@ typedef enum {
 } GpmIdletimeAlarmType;
 
 static guint signals [LAST_SIGNAL] = { 0 };
-static gpointer gpm_idletime_object = NULL;
 
 G_DEFINE_TYPE (GpmIdletime, gpm_idletime, G_TYPE_OBJECT)
 
@@ -479,13 +478,6 @@ gpm_idletime_finalize (GObject *object)
 GpmIdletime *
 gpm_idletime_new (void)
 {
-        if (gpm_idletime_object != NULL) {
-                g_object_ref (gpm_idletime_object);
-        } else {
-                gpm_idletime_object = g_object_new (GPM_IDLETIME_TYPE, NULL);
-                g_object_add_weak_pointer (gpm_idletime_object,
-                                           &gpm_idletime_object);
-        }
-        return GPM_IDLETIME (gpm_idletime_object);
+        return g_object_new (GPM_IDLETIME_TYPE, NULL);
 }
 
