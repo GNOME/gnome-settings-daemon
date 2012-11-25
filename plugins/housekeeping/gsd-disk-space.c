@@ -52,6 +52,11 @@
 #define SETTINGS_MIN_NOTIFY_PERIOD    "min-notify-period"
 #define SETTINGS_IGNORE_PATHS         "ignore-paths"
 
+#define PRIVACY_SETTINGS              "org.gnome.desktop.privacy"
+#define SETTINGS_PURGE_TRASH          "remove-old-trash-files"
+#define SETTINGS_PURGE_TEMP_FILES     "remove-old-temp-files"
+#define SETTINGS_PURGE_AFTER          "old-files-age"
+
 typedef struct
 {
         GUnixMountEntry *mount;
@@ -68,10 +73,17 @@ static unsigned int       free_size_gb_no_notify = 2;
 static unsigned int       min_notify_period = 10;
 static GSList            *ignore_paths = NULL;
 static GSettings         *settings = NULL;
+static GSettings         *privacy_settings = NULL;
 static GsdLdsmDialog     *dialog = NULL;
 static NotifyNotification *notification = NULL;
 
 static guint64           *time_read;
+
+static gboolean           purge_trash;
+static gboolean           purge_temp_files;
+static guint              purge_after;
+static guint              purge_trash_id = 0;
+static guint              purge_temp_id = 0;
 
 static gchar*
 ldsm_get_fs_id_for_path (const gchar *path)
@@ -215,77 +227,312 @@ examine_callback (NotifyNotification *n,
         notify_notification_close (n, NULL);
 }
 
-static void
-nautilus_empty_trash_cb (GObject *object,
-                         GAsyncResult *res,
-                         gpointer _unused)
+static gboolean
+should_purge_file (GFile        *file,
+                   GCancellable *cancellable,
+                   GDateTime    *old)
 {
-        GDBusProxy *proxy = G_DBUS_PROXY (object);
-        GError *error = NULL;
+        GFileInfo *info;
+        GDateTime *date;
+        gboolean should_purge;
 
-        g_dbus_proxy_call_finish (proxy, res, &error);
+        should_purge = FALSE;
 
-        if (error != NULL) {
-                g_warning ("Unable to call EmptyTrash() on the Nautilus DBus interface: %s",
-                           error->message);
-                g_error_free (error);
+        info = g_file_query_info (file,
+                                  G_FILE_ATTRIBUTE_TRASH_DELETION_DATE ","
+                                  G_FILE_ATTRIBUTE_UNIX_UID ","
+                                  G_FILE_ATTRIBUTE_TIME_CHANGED,
+                                  G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                  cancellable,
+                                  NULL);
+
+        date = g_file_info_get_deletion_date (info);
+        if (date == NULL) {
+                guint uid;
+                guint64 ctime;
+
+                uid = g_file_info_get_attribute_uint32 (info, G_FILE_ATTRIBUTE_UNIX_UID);
+                if (uid != getuid ()) {
+                        should_purge = FALSE;
+                        goto out;
+                }
+
+                ctime = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_CHANGED);
+                date = g_date_time_new_from_unix_local ((gint64) ctime);
         }
 
-        /* clean up the proxy object */
-        g_object_unref (proxy);
+        should_purge = g_date_time_difference (old, date) >= 0;
+        g_date_time_unref (date);
+
+out:
+        g_object_unref (info);
+
+        return should_purge;
+}
+
+typedef struct {
+        gint ref_count;
+        GFile           *file;
+        GCancellable    *cancellable;
+        GDateTime       *old;
+        gboolean         dry_run;
+        gboolean         trash;
+        gchar           *name;
+        gint             depth;
+} DeleteData;
+
+static DeleteData *
+delete_data_new (GFile        *file,
+                 GCancellable *cancellable,
+                 GDateTime    *old,
+                 gboolean      dry_run,
+                 gboolean      trash,
+                 gint          depth)
+{
+        DeleteData *data;
+
+        data = g_new (DeleteData, 1);
+        data->ref_count = 1;
+        data->file = g_object_ref (file);
+        data->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
+        data->old = g_date_time_ref (old);
+        data->dry_run = dry_run;
+        data->trash = trash;
+        data->depth = depth;
+        data->name = g_file_get_parse_name (data->file);
+
+        return data;
+}
+
+static DeleteData *
+delete_data_ref (DeleteData *data)
+{
+  data->ref_count += 1;
+  return data;
 }
 
 static void
-nautilus_proxy_ready_cb (GObject *object,
-                         GAsyncResult *res,
-                         gpointer _unused)
+delete_data_unref (DeleteData *data)
 {
-        GDBusProxy *proxy = NULL;
+        data->ref_count -= 1;
+        if (data->ref_count > 0)
+                return;
+
+        g_object_unref (data->file);
+        if (data->cancellable)
+                g_object_unref (data->cancellable);
+        g_date_time_unref (data->old);
+        g_free (data->name);
+        g_free (data);
+}
+
+static void delete_recursively_by_age (DeleteData *data);
+
+static void
+delete_batch (GObject      *source,
+              GAsyncResult *res,
+              gpointer      user_data)
+{
+        GFileEnumerator *enumerator = G_FILE_ENUMERATOR (source);
+        DeleteData *data = user_data;
+        GList *files, *f;
+        GFile *child_file;
+        DeleteData *child;
+        GFileInfo *info;
         GError *error = NULL;
 
-        proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        files = g_file_enumerator_next_files_finish (enumerator, res, &error);
 
-        if (proxy == NULL) {
-                g_warning ("Unable to create a proxy object for the Nautilus DBus interface: %s",
-                           error->message);
+        g_debug ("GsdHousekeeping: purging %d children of %s", g_list_length (files), data->name);
+
+        if (files) {
+                for (f = files; f; f = f->next) {
+                        if (g_cancellable_is_cancelled (data->cancellable))
+                                break;
+                        info = f->data;
+
+                        child_file = g_file_get_child (data->file, g_file_info_get_name (info));
+                        child = delete_data_new (child_file,
+                                                 data->cancellable,
+                                                 data->old,
+                                                 data->dry_run,
+                                                 data->trash,
+                                                 data->depth + 1);
+                        delete_recursively_by_age (child);
+                        delete_data_unref (child);
+                        g_object_unref (child_file);
+                }
+                g_list_free_full (files, g_object_unref);
+                if (!g_cancellable_is_cancelled (data->cancellable)) {
+                        g_file_enumerator_next_files_async (enumerator, 20,
+                                                            0,
+                                                            data->cancellable,
+                                                            delete_batch,
+                                                            data);
+                        return;
+                }
+        }
+
+        g_file_enumerator_close (enumerator, data->cancellable, NULL);
+        g_object_unref (enumerator);
+
+        if (data->depth > 0 && !g_cancellable_is_cancelled (data->cancellable)) {
+                if ((data->trash && data->depth > 1) ||
+                     should_purge_file (data->file, data->cancellable, data->old)) {
+                        g_debug ("GsdHousekeeping: purging %s\n", data->name);
+                        if (!data->dry_run) {
+                                g_file_delete (data->file, data->cancellable, NULL);
+                        }
+                }
+        }
+        delete_data_unref (data);
+}
+
+static void
+delete_subdir (GObject      *source,
+               GAsyncResult *res,
+               gpointer      user_data)
+{
+        GFile *file = G_FILE (source);
+        DeleteData *data = user_data;
+        GFileEnumerator *enumerator;
+        GError *error = NULL;
+
+        g_debug ("GsdHousekeeping: purging %s in %s\n",
+                 data->trash ? "trash" : "temporary files", data->name);
+
+        enumerator = g_file_enumerate_children_finish (file, res, &error);
+        if (error) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY))
+                        g_warning ("Failed to enumerate children of %s: %s\n", data->name, error->message);
                 g_error_free (error);
+        }
+        if (enumerator) {
+                g_file_enumerator_next_files_async (enumerator, 20,
+                                                    0,
+                                                    data->cancellable,
+                                                    delete_batch,
+                                                    delete_data_ref (data));
+        }
+        delete_data_unref (data);
+}
 
+static void
+delete_recursively_by_age (DeleteData *data)
+{
+        if (data->trash && (data->depth == 1) &&
+            !should_purge_file (data->file, data->cancellable, data->old)) {
+                /* no need to recurse into trashed directories */
                 return;
         }
 
-        g_dbus_proxy_call (proxy,
-                           "EmptyTrash",
-                           NULL,
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           NULL,
-                           nautilus_empty_trash_cb,
-                           NULL);
+        g_file_enumerate_children_async (data->file,
+                                         G_FILE_ATTRIBUTE_STANDARD_NAME ","
+                                         G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                                         G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                         0,
+                                         data->cancellable,
+                                         delete_subdir,
+                                         delete_data_ref (data));
+}
+
+void
+gsd_ldsm_purge_trash (GDateTime *old)
+{
+        GFile *file;
+        DeleteData *data;
+
+        file = g_file_new_for_uri ("trash:");
+        data = delete_data_new (file, NULL, old, FALSE, TRUE, 0);
+        delete_recursively_by_age (data);
+        delete_data_unref (data);
+        g_object_unref (file);
+}
+
+void
+gsd_ldsm_purge_temp_files (GDateTime *old)
+{
+        DeleteData *data;
+        GFile *file;
+
+        file = g_file_new_for_path (g_get_tmp_dir ());
+        data = delete_data_new (file, NULL, old, FALSE, FALSE, 0);
+        delete_recursively_by_age (data);
+
+        if (g_strcmp0 (g_get_tmp_dir (), "/var/tmp") != 0) {
+                g_assert (data->ref_count == 1);
+                g_assert (data->depth == 0);
+                g_object_unref (data->file);
+                data->file = g_file_new_for_path ("/var/tmp");
+                data->depth = 0;
+                delete_recursively_by_age (data);
+        }
+
+        if (g_strcmp0 (g_get_tmp_dir (), "/tmp") != 0) {
+                g_assert (data->ref_count == 1);
+                g_assert (data->depth == 0);
+                g_object_unref (data->file);
+                data->file = g_file_new_for_path ("/tmp");
+                data->depth = 0;
+                delete_recursively_by_age (data);
+        }
+
+        delete_data_unref (data);
+        g_object_unref (file);
 }
 
 void
 gsd_ldsm_show_empty_trash (void)
 {
-        /* prepare the Nautilus proxy object */
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                  G_DBUS_PROXY_FLAGS_NONE,
-                                  NULL,
-                                  "org.gnome.Nautilus",
-                                  "/org/gnome/Nautilus",
-                                  "org.gnome.Nautilus.FileOperations",
-                                  NULL,
-                                  nautilus_proxy_ready_cb,
-                                  NULL);
+        GFile *file;
+        GDateTime *old;
+        DeleteData *data;
+
+        old = g_date_time_new_now_local ();
+        file = g_file_new_for_uri ("trash:");
+        data = delete_data_new (file, NULL, old, TRUE, TRUE, 0);
+        g_object_unref (file);
+        g_date_time_unref (old);
+
+        delete_recursively_by_age (data);
+        delete_data_unref (data);
+}
+
+static gboolean
+ldsm_purge_trash_and_temp (gpointer data)
+{
+        GDateTime *now, *old;
+
+        now = g_date_time_new_now_local ();
+        old = g_date_time_add_days (now, - purge_after);
+
+        if (purge_trash) {
+                g_debug ("housekeeping: purge trash older than %u days", purge_after);
+                gsd_ldsm_purge_trash (old);
+        }
+        if (purge_temp_files) {
+                g_debug ("housekeeping: purge temp files older than %u days", purge_after);
+                gsd_ldsm_purge_temp_files (old);
+        }
+
+        g_date_time_unref (old);
+        g_date_time_unref (now);
+
+        return G_SOURCE_CONTINUE;
 }
 
 static void
 empty_trash_callback (NotifyNotification *n,
                       const char         *action)
 {
+        GDateTime *old;
+
         g_assert (action != NULL);
         g_assert (strcmp (action, "empty-trash") == 0);
 
-        gsd_ldsm_show_empty_trash ();
+        old = g_date_time_new_now_local ();
+        gsd_ldsm_purge_trash (old);
+        g_date_time_unref (old);
 
         notify_notification_close (n, NULL);
 }
@@ -445,7 +692,7 @@ ldsm_mount_has_space (LdsmMountInfo *mount)
         /* enough free space, nothing to do */
         if (free_space > free_percent_notify)
                 return TRUE;
-                
+
         if (((gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail) > ((gint64) free_size_gb_no_notify * GIGABYTE))
                 return TRUE;
 
@@ -478,7 +725,7 @@ ldsm_mount_is_user_ignore (const gchar *path)
                 return TRUE;
         else
                 return FALSE;
-}                
+}
 
 
 static void
@@ -746,6 +993,10 @@ gsd_ldsm_get_config (void)
 
                 g_strfreev (settings_list);
         }
+
+        purge_trash = g_settings_get_boolean (privacy_settings, SETTINGS_PURGE_TRASH);
+        purge_temp_files = g_settings_get_boolean (privacy_settings, SETTINGS_PURGE_TEMP_FILES);
+        purge_after = g_settings_get_uint (privacy_settings, SETTINGS_PURGE_AFTER);
 }
 
 static void
@@ -769,6 +1020,7 @@ gsd_ldsm_setup (gboolean check_now)
                                                     ldsm_free_mount_info);
 
         settings = g_settings_new (SETTINGS_HOUSEKEEPING_DIR);
+        privacy_settings = g_settings_new (PRIVACY_SETTINGS);
         gsd_ldsm_get_config ();
         g_signal_connect (G_OBJECT (settings), "changed",
                           G_CALLBACK (gsd_ldsm_update_config), NULL);
@@ -783,11 +1035,21 @@ gsd_ldsm_setup (gboolean check_now)
 
         ldsm_timeout_id = g_timeout_add_seconds (CHECK_EVERY_X_SECONDS,
                                                  ldsm_check_all_mounts, NULL);
+
+        purge_trash_id = g_timeout_add_seconds (3600, ldsm_purge_trash_and_temp, NULL);
 }
 
 void
 gsd_ldsm_clean (void)
 {
+        if (purge_trash_id)
+                g_source_remove (purge_trash_id);
+        purge_trash_id = 0;
+
+        if (purge_temp_id)
+                g_source_remove (purge_temp_id);
+        purge_temp_id = 0;
+
         if (ldsm_timeout_id)
                 g_source_remove (ldsm_timeout_id);
         ldsm_timeout_id = 0;
@@ -803,6 +1065,8 @@ gsd_ldsm_clean (void)
         if (settings != NULL) {
                 g_object_unref (settings);
         }
+
+        g_clear_object (&privacy_settings);
 
         if (dialog) {
                 gtk_widget_destroy (GTK_WIDGET (dialog));

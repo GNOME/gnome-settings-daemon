@@ -33,6 +33,8 @@ void gsd_ldsm_clean (void);
 
 /* for the test */
 void gsd_ldsm_show_empty_trash (void);
+void gsd_ldsm_purge_trash      (GDateTime *old);
+void gsd_ldsm_purge_temp_files (GDateTime *old);
 
 G_END_DECLS
 
