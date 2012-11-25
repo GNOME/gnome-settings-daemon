@@ -50,6 +50,7 @@
 #define MOUSE_SETTINGS_SCHEMA     "org.gnome.settings-daemon.peripherals.mouse"
 #define INTERFACE_SETTINGS_SCHEMA "org.gnome.desktop.interface"
 #define SOUND_SETTINGS_SCHEMA     "org.gnome.desktop.sound"
+#define PRIVACY_SETTINGS_SCHEMA     "org.gnome.desktop.privacy"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
 #define XSETTINGS_OVERRIDE_KEY  "overrides"
@@ -363,7 +364,9 @@ static TranslationEntry translations [] = {
 
         { "org.gnome.desktop.sound", "theme-name",                 "Net/SoundThemeName",            translate_string_string },
         { "org.gnome.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
-        { "org.gnome.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int }
+        { "org.gnome.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int },
+
+        { "org.gnome.desktop.privacy", "recent-files-max-age",      "Gtk/RecentFilesMaxAge", translate_int_int }
 };
 
 static gboolean
@@ -894,6 +897,8 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                              INTERFACE_SETTINGS_SCHEMA, g_settings_new (INTERFACE_SETTINGS_SCHEMA));
         g_hash_table_insert (manager->priv->settings,
                              SOUND_SETTINGS_SCHEMA, g_settings_new (SOUND_SETTINGS_SCHEMA));
+        g_hash_table_insert (manager->priv->settings,
+                             PRIVACY_SETTINGS_SCHEMA, g_settings_new (PRIVACY_SETTINGS_SCHEMA));
 
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
                 GVariant *val;
