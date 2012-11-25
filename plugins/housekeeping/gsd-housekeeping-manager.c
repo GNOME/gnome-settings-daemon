@@ -38,12 +38,25 @@
 #define THUMB_AGE_KEY "maximum-age"
 #define THUMB_SIZE_KEY "maximum-size"
 
+#define GSD_HOUSEKEEPING_DBUS_PATH "/org/gnome/SettingsDaemon/Housekeeping"
+
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.gnome.SettingsDaemon.Housekeeping'>"
+"    <method name='EmptyTrash'/>"
+"    <method name='RemoveTempFiles'/>"
+"  </interface>"
+"</node>";
+
 struct GsdHousekeepingManagerPrivate {
         GSettings *settings;
         guint long_term_cb;
         guint short_term_cb;
-};
 
+        GDBusNodeInfo   *introspection_data;
+        GDBusConnection *connection;
+        GCancellable    *bus_cancellable;
+};
 
 #define GSD_HOUSEKEEPING_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_HOUSEKEEPING_MANAGER, GsdHousekeepingManagerPrivate))
 
@@ -276,6 +289,85 @@ settings_changed_callback (GSettings              *settings,
         do_cleanup_soon (manager);
 }
 
+static void
+handle_method_call (GDBusConnection       *connection,
+                    const gchar           *sender,
+                    const gchar           *object_path,
+                    const gchar           *interface_name,
+                    const gchar           *method_name,
+                    GVariant              *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer               user_data)
+{
+        GDateTime *now;
+        now = g_date_time_new_now_local ();
+        if (g_strcmp0 (method_name, "EmptyTrash") == 0) {
+                gsd_ldsm_purge_trash (now);
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        }
+        else if (g_strcmp0 (method_name, "RemoveTempFiles") == 0) {
+                gsd_ldsm_purge_temp_files (now);
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        }
+        g_date_time_unref (now);
+}
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+        handle_method_call,
+        NULL, /* Get Property */
+        NULL, /* Set Property */
+};
+
+static void
+on_bus_gotten (GObject                *source_object,
+               GAsyncResult           *res,
+               GsdHousekeepingManager *manager)
+{
+        GDBusConnection *connection;
+        GError *error = NULL;
+        GDBusInterfaceInfo **infos;
+        int i;
+
+        if (manager->priv->bus_cancellable == NULL ||
+            g_cancellable_is_cancelled (manager->priv->bus_cancellable)) {
+                g_warning ("Operation has been cancelled, so not retrieving session bus");
+                return;
+        }
+
+        connection = g_bus_get_finish (res, &error);
+        if (connection == NULL) {
+                g_warning ("Could not get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        manager->priv->connection = connection;
+
+        infos = manager->priv->introspection_data->interfaces;
+        for (i = 0; infos[i] != NULL; i++) {
+                g_dbus_connection_register_object (connection,
+                                                   GSD_HOUSEKEEPING_DBUS_PATH,
+                                                   infos[i],
+                                                   &interface_vtable,
+                                                   manager,
+                                                   NULL,
+                                                   NULL);
+        }
+}
+
+static void
+register_manager_dbus (GsdHousekeepingManager *manager)
+{
+        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->priv->introspection_data != NULL);
+        manager->priv->bus_cancellable = g_cancellable_new ();
+
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   manager->priv->bus_cancellable,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   manager);
+}
+
 gboolean
 gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
                                 GError                **error)
@@ -308,6 +400,22 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
         GsdHousekeepingManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping housekeeping manager");
+
+        if (manager->priv->bus_cancellable != NULL) {
+                g_cancellable_cancel (manager->priv->bus_cancellable);
+                g_object_unref (manager->priv->bus_cancellable);
+                manager->priv->bus_cancellable = NULL;
+        }
+
+        if (manager->priv->introspection_data) {
+                g_dbus_node_info_unref (manager->priv->introspection_data);
+                manager->priv->introspection_data = NULL;
+        }
+
+        if (manager->priv->connection != NULL) {
+                g_object_unref (manager->priv->connection);
+                manager->priv->connection = NULL;
+        }
 
         if (p->short_term_cb) {
                 g_source_remove (p->short_term_cb);
@@ -353,6 +461,8 @@ gsd_housekeeping_manager_new (void)
                 manager_object = g_object_new (GSD_TYPE_HOUSEKEEPING_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
+
+                register_manager_dbus (manager_object);
         }
 
         return GSD_HOUSEKEEPING_MANAGER (manager_object);
