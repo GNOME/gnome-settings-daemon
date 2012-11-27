@@ -605,7 +605,8 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         /* copyright */
         ret = _cmsWriteTagTextAscii (lcms_profile,
                                      cmsSigCopyrightTag,
-                                     "No copyright");
+                                     /* deliberately not translated */
+                                     "This profile is free of known copyright restrictions.");
         if (!ret) {
                 g_set_error_literal (error,
                                      GSD_COLOR_MANAGER_ERROR,
