@@ -599,8 +599,7 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
 
         cmsSetColorSpace (lcms_profile, cmsSigRgbData);
         cmsSetPCS (lcms_profile, cmsSigXYZData);
-        cmsSetHeaderRenderingIntent (lcms_profile,
-                                     INTENT_RELATIVE_COLORIMETRIC);
+        cmsSetHeaderRenderingIntent (lcms_profile, INTENT_PERCEPTUAL);
         cmsSetDeviceClass (lcms_profile, cmsSigDisplayClass);
 
         /* copyright */
