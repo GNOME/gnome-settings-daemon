@@ -489,6 +489,7 @@ plugins/media-keys/gvc/Makefile
 plugins/mouse/Makefile
 plugins/orientation/Makefile
 plugins/print-notifications/Makefile
+plugins/screensaver-proxy/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
 plugins/updates/Makefile
