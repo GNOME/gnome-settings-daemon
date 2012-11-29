@@ -216,7 +216,6 @@ enum {
 
 static void     gsd_power_manager_class_init  (GsdPowerManagerClass *klass);
 static void     gsd_power_manager_init        (GsdPowerManager      *power_manager);
-static void     gsd_power_manager_finalize    (GObject              *object);
 
 static UpDevice *engine_get_composite_device (GsdPowerManager *manager, UpDevice *original_device);
 static UpDevice *engine_update_composite_device (GsdPowerManager *manager, UpDevice *original_device);
@@ -3248,10 +3247,6 @@ refresh_idle_dim_settings (GsdPowerManager *manager)
 static void
 gsd_power_manager_class_init (GsdPowerManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
-
-        object_class->finalize = gsd_power_manager_finalize;
-
         g_type_class_add_private (klass, sizeof (GsdPowerManagerPrivate));
 }
 
@@ -4148,19 +4143,6 @@ gsd_power_manager_init (GsdPowerManager *manager)
         manager->priv = GSD_POWER_MANAGER_GET_PRIVATE (manager);
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
-}
-
-static void
-gsd_power_manager_finalize (GObject *object)
-{
-        GsdPowerManager *manager;
-
-        manager = GSD_POWER_MANAGER (object);
-
-        g_return_if_fail (manager->priv != NULL);
-
-
-        G_OBJECT_CLASS (gsd_power_manager_parent_class)->finalize (object);
 }
 
 /* returns new level */
