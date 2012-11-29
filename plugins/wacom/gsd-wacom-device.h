@@ -93,7 +93,8 @@ GsdWacomStylusType gsd_wacom_stylus_get_stylus_type (GsdWacomStylus *stylus);
 /* Tablet Buttons */
 typedef enum {
 	WACOM_TABLET_BUTTON_TYPE_NORMAL,
-	WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
+	WACOM_TABLET_BUTTON_TYPE_STRIP,
+	WACOM_TABLET_BUTTON_TYPE_RING,
 	WACOM_TABLET_BUTTON_TYPE_HARDCODED
 } GsdWacomTabletButtonType;
 

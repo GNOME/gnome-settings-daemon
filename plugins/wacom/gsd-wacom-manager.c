@@ -1042,7 +1042,8 @@ generate_key (GsdWacomTabletButton *wbutton,
 	int                   n_keys;
 	guint                 i;
 
-	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR)
+	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_STRIP ||
+	    wbutton->type == WACOM_TABLET_BUTTON_TYPE_RING)
 		str = get_elevator_shortcut_string (wbutton->settings, dir);
 	else
 		str = g_settings_get_string (wbutton->settings, KEY_CUSTOM_ACTION);
@@ -1133,6 +1134,19 @@ switch_monitor (GsdWacomDevice *device)
 	gsd_wacom_device_set_display (device, current_monitor);
 }
 
+static const char*
+get_direction_name (GsdWacomTabletButtonType type,
+                    GtkDirectionType         dir)
+{
+        if (type == WACOM_TABLET_BUTTON_TYPE_RING)
+                return (dir == GTK_DIR_UP ? " 'CCW'" : " 'CW'");
+
+        if (type == WACOM_TABLET_BUTTON_TYPE_STRIP)
+                return (dir == GTK_DIR_UP ? " 'up'" : " 'down'");
+
+        return "";
+}
+
 static GdkFilterReturn
 filter_button_events (XEvent          *xevent,
                       GdkEvent        *event,
@@ -1179,8 +1193,7 @@ filter_button_events (XEvent          *xevent,
 	g_debug ("Received event button %s '%s'%s ('%d') on device '%s' ('%d')",
 		 xiev->evtype == XI_ButtonPress ? "press" : "release",
 		 wbutton->id,
-		 wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR ?
-		 (dir == GTK_DIR_UP ? " 'up'" : " 'down'") : "",
+		 get_direction_name (wbutton->type, dir),
 		 button,
 		 gsd_wacom_device_get_name (device),
 		 deviceid);

@@ -79,8 +79,10 @@ button_type_to_string (GsdWacomTabletButtonType type)
 	switch (type) {
 	case WACOM_TABLET_BUTTON_TYPE_NORMAL:
 		return "normal";
-	case WACOM_TABLET_BUTTON_TYPE_ELEVATOR:
-		return "elevator";
+	case WACOM_TABLET_BUTTON_TYPE_STRIP:
+		return "touch-strip";
+	case WACOM_TABLET_BUTTON_TYPE_RING:
+		return "touch-ring";
 	case WACOM_TABLET_BUTTON_TYPE_HARDCODED:
 		return "hard-coded";
 	default:

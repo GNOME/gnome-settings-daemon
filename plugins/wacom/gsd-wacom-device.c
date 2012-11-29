@@ -1044,7 +1044,7 @@ gsd_wacom_device_add_ring_modes (WacomDevice      *wacom_device,
 			l = g_list_append (l, gsd_wacom_tablet_button_new (_("Left Ring"),
 									   "left-ring-mode-1",
 									   settings_path,
-									   WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
+									   WACOM_TABLET_BUTTON_TYPE_RING,
 									   group,
 									   0));
 		} else {
@@ -1054,7 +1054,7 @@ gsd_wacom_device_add_ring_modes (WacomDevice      *wacom_device,
 				l = g_list_append (l, gsd_wacom_tablet_button_new (name,
 				                                                   id,
 				                                                   settings_path,
-				                                                   WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
+				                                                   WACOM_TABLET_BUTTON_TYPE_RING,
 				                                                   group,
 				                                                   i - 1));
 				g_free (name);
@@ -1069,7 +1069,7 @@ gsd_wacom_device_add_ring_modes (WacomDevice      *wacom_device,
 			l = g_list_append (l, gsd_wacom_tablet_button_new (_("Right Ring"),
 									   "right-ring-mode-1",
 									   settings_path,
-									   WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
+									   WACOM_TABLET_BUTTON_TYPE_RING,
 									   group,
 									   0));
 		} else {
@@ -1079,7 +1079,7 @@ gsd_wacom_device_add_ring_modes (WacomDevice      *wacom_device,
 				l = g_list_append (l, gsd_wacom_tablet_button_new (name,
 				                                                   id,
 				                                                   settings_path,
-				                                                   WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
+				                                                   WACOM_TABLET_BUTTON_TYPE_RING,
 				                                                   group,
 				                                                   i - 1));
 				g_free (name);
@@ -1116,7 +1116,7 @@ gsd_wacom_device_add_strip_modes (WacomDevice      *wacom_device,
 			l = g_list_append (l, gsd_wacom_tablet_button_new (_("Left Touchstrip"),
 									   "left-strip-mode-1",
 									   settings_path,
-									   WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
+									   WACOM_TABLET_BUTTON_TYPE_STRIP,
 									   group,
 									   0));
 		} else {
@@ -1126,7 +1126,7 @@ gsd_wacom_device_add_strip_modes (WacomDevice      *wacom_device,
 				l = g_list_append (l, gsd_wacom_tablet_button_new (name,
 				                                                   id,
 				                                                   settings_path,
-				                                                   WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
+				                                                   WACOM_TABLET_BUTTON_TYPE_STRIP,
 				                                                   group,
 				                                                   i - 1));
 				g_free (name);
@@ -1141,7 +1141,7 @@ gsd_wacom_device_add_strip_modes (WacomDevice      *wacom_device,
 			l = g_list_append (l, gsd_wacom_tablet_button_new (_("Right Touchstrip"),
 									   "right-strip-mode-1",
 									   settings_path,
-									   WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
+									   WACOM_TABLET_BUTTON_TYPE_STRIP,
 									   group,
 									   0));
 		} else {
@@ -1151,7 +1151,7 @@ gsd_wacom_device_add_strip_modes (WacomDevice      *wacom_device,
 				l = g_list_append (l, gsd_wacom_tablet_button_new (name,
 				                                                   id,
 				                                                   settings_path,
-				                                                   WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
+				                                                   WACOM_TABLET_BUTTON_TYPE_STRIP,
 				                                                   group,
 				                                                   i - 1));
 				g_free (name);
