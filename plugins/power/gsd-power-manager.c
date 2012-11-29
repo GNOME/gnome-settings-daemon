@@ -1266,8 +1266,30 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         g_free (remaining_text);
 }
 
+static GsdPowerActionType
+manager_critical_action_get (GsdPowerManager *manager,
+                             gboolean         is_ups)
+{
+        GsdPowerActionType policy;
+
+        policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
+        if (policy == GSD_POWER_ACTION_SUSPEND) {
+                if (is_ups == FALSE &&
+                    up_client_get_can_suspend (manager->priv->up_client))
+                        return policy;
+                return GSD_POWER_ACTION_SHUTDOWN;
+        } else if (policy == GSD_POWER_ACTION_HIBERNATE) {
+                if (up_client_get_can_hibernate (manager->priv->up_client))
+                        return policy;
+                return GSD_POWER_ACTION_SHUTDOWN;
+        }
+
+        return policy;
+}
+
 static gboolean
-manager_critical_action_do (GsdPowerManager *manager)
+manager_critical_action_do (GsdPowerManager *manager,
+                            gboolean         is_ups)
 {
         GsdPowerActionType action_type;
 
@@ -1275,10 +1297,23 @@ manager_critical_action_do (GsdPowerManager *manager)
         if (manager->priv->critical_alert_timeout_id > 0)
                 play_loop_stop (manager);
 
-        action_type = g_settings_get_enum (manager->priv->settings,
-                                           "critical-battery-action");
+        action_type = manager_critical_action_get (manager, is_ups);
         do_power_action_type (manager, action_type);
 
+        return FALSE;
+}
+
+static gboolean
+manager_critical_action_do_cb (GsdPowerManager *manager)
+{
+        manager_critical_action_do (manager, FALSE);
+        return FALSE;
+}
+
+static gboolean
+manager_critical_ups_action_do_cb (GsdPowerManager *manager)
+{
+        manager_critical_action_do (manager, TRUE);
         return FALSE;
 }
 
@@ -1496,7 +1531,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                 }
 
                 /* we have to do different warnings depending on the policy */
-                policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
+                policy = manager_critical_action_get (manager, FALSE);
 
                 /* use different text for different actions */
                 if (policy == GSD_POWER_ACTION_NOTHING) {
@@ -1680,7 +1715,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 title = _("Laptop battery critically low");
 
                 /* we have to do different warnings depending on the policy */
-                policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
+                policy = manager_critical_action_get (manager, FALSE);
 
                 /* use different text for different actions */
                 if (policy == GSD_POWER_ACTION_NOTHING) {
@@ -1708,7 +1743,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 }
 
                 /* wait 20 seconds for user-panic */
-                timer_id = g_timeout_add_seconds (20, (GSourceFunc) manager_critical_action_do, manager);
+                timer_id = g_timeout_add_seconds (20, (GSourceFunc) manager_critical_action_do_cb, manager);
                 g_source_set_name_by_id (timer_id, "[GsdPowerManager] battery critical-action");
 
         } else if (kind == UP_DEVICE_KIND_UPS) {
@@ -1716,7 +1751,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 title = _("UPS critically low");
 
                 /* we have to do different warnings depending on the policy */
-                policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
+                policy = manager_critical_action_get (manager, TRUE);
 
                 /* use different text for different actions */
                 if (policy == GSD_POWER_ACTION_NOTHING) {
@@ -1737,7 +1772,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 }
 
                 /* wait 20 seconds for user-panic */
-                timer_id = g_timeout_add_seconds (20, (GSourceFunc) manager_critical_action_do, manager);
+                timer_id = g_timeout_add_seconds (20, (GSourceFunc) manager_critical_ups_action_do_cb, manager);
                 g_source_set_name_by_id (timer_id, "[GsdPowerManager] ups critical-action");
         }
 
