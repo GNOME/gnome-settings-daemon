@@ -16,27 +16,10 @@ gsettings_SCHEMAS =							\
 	org.gnome.settings-daemon.plugins.xsettings.gschema.xml		\
 	org.gnome.settings-daemon.plugins.housekeeping.gschema.xml	\
 	org.gnome.settings-daemon.plugins.print-notifications.gschema.xml	\
-	org.gnome.settings-daemon.plugins.xrandr.gschema.xml
-
-all_schemas = $(gsettings_SCHEMAS)
-
-if HAVE_PACKAGEKIT
-gsettings_SCHEMAS += org.gnome.settings-daemon.plugins.updates.gschema.xml
-else
-all_schemas += org.gnome.settings-daemon.plugins.updates.gschema.xml
-endif
-
-if HAVE_GUDEV
-gsettings_SCHEMAS += org.gnome.settings-daemon.plugins.orientation.gschema.xml
-else
-all_schemas += org.gnome.settings-daemon.plugins.orientation.gschema.xml
-endif
-
-if HAVE_WACOM
-gsettings_SCHEMAS += org.gnome.settings-daemon.peripherals.wacom.gschema.xml
-else
-all_schemas += org.gnome.settings-daemon.peripherals.wacom.gschema.xml
-endif
+	org.gnome.settings-daemon.plugins.xrandr.gschema.xml		\
+	org.gnome.settings-daemon.plugins.updates.gschema.xml		\
+	org.gnome.settings-daemon.plugins.orientation.gschema.xml	\
+	org.gnome.settings-daemon.peripherals.wacom.gschema.xml
 
 @INTLTOOL_XML_NOMERGE_RULE@
 
@@ -65,7 +48,7 @@ dbusservice_in_files = org.freedesktop.IBus.service.in
 EXTRA_DIST = 					\
 	$(man_MANS)				\
 	$(convert_DATA)				\
-	$(all_schemas:.xml=.xml.in.in)		\
+	$(gsettings_SCHEMAS:.xml=.xml.in.in)	\
 	$(desktop_in_files)			\
 	$(gsettings_ENUM_FILES)			\
 	gnome-settings-daemon.pc.in		\
@@ -74,7 +57,7 @@ EXTRA_DIST = 					\
 	$(NULL)
 
 DISTCLEANFILES = 			\
-	$(all_schemas)			\
+	$(gsettings_SCHEMAS)		\
 	$(desktop_DATA)			\
 	gnome-settings-daemon.desktop.in \
 	$(NULL)
@@ -82,7 +65,7 @@ DISTCLEANFILES = 			\
 MAINTAINERCLEANFILES =			\
 	*~				\
 	Makefile.in			\
-	$(all_schemas:.xml=.valid)
+	$(gsettings_SCHEMAS:.xml=.valid)
 
 if HAVE_IBUS
 dbusservicedir=${datadir}/dbus-1/services
