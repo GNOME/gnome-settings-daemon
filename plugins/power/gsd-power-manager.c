@@ -1849,8 +1849,9 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
                 if (state == UP_DEVICE_STATE_DISCHARGING) {
                         g_debug ("discharging");
                         engine_ups_discharging (manager, device);
-                } else if (state == UP_DEVICE_STATE_FULLY_CHARGED) {
-                        g_debug ("fully charged, hiding notifications if any");
+                } else if (state == UP_DEVICE_STATE_FULLY_CHARGED ||
+                           state == UP_DEVICE_STATE_CHARGING) {
+                        g_debug ("fully charged or charging, hiding notifications if any");
                         notify_close_if_showing (manager->priv->notification_low);
                         notify_close_if_showing (manager->priv->notification_discharging);
                 }
