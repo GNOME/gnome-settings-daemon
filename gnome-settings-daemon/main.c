@@ -273,10 +273,23 @@ is_program_in_path (const char *binary)
 	return TRUE;
 }
 
+static gboolean
+keyboard_plugin_is_enabled (void)
+{
+        GSettings *settings;
+
+        settings = g_settings_new ("org.gnome.settings-daemon.plugins.keyboard");
+        enabled = g_settings_get_boolen (settings, "active");
+        g_object_unref (settings);
+
+        return enabled;
+}
+
 static void
 set_legacy_ibus_env_vars (GDBusProxy *proxy)
 {
-        if (is_program_in_path ("ibus-daemon")) {
+        if (is_program_in_path ("ibus-daemon") &&
+            keyboard_plugin_is_enabled ()) {
                 set_session_env (proxy, "QT_IM_MODULE", "ibus");
                 set_session_env (proxy, "XMODIFIERS", "@im=ibus");
         }
