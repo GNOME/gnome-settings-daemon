@@ -277,9 +277,10 @@ static gboolean
 keyboard_plugin_is_enabled (void)
 {
         GSettings *settings;
+        gboolean enabled;
 
         settings = g_settings_new ("org.gnome.settings-daemon.plugins.keyboard");
-        enabled = g_settings_get_boolen (settings, "active");
+        enabled = g_settings_get_boolean (settings, "active");
         g_object_unref (settings);
 
         return enabled;
