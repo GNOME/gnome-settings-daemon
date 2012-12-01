@@ -42,6 +42,7 @@
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
 #define GNOME_SESSION_CLIENT_PRIVATE_DBUS_INTERFACE "org.gnome.SessionManager.ClientPrivate"
 
+static gboolean   replace      = FALSE;
 static gboolean   debug        = FALSE;
 static gboolean   do_timed_exit = FALSE;
 static int        term_signal_pipe_fds[2];
@@ -50,6 +51,7 @@ static GnomeSettingsManager *manager = NULL;
 
 static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL },
+        { "replace", 'r', 0, G_OPTION_ARG_NONE, &replace, N_("Replace existing daemon"), NULL },
         { "timed-exit", 0, 0, G_OPTION_ARG_NONE, &do_timed_exit, N_("Exit after a time (for debugging)"), NULL },
         {NULL}
 };
@@ -367,15 +369,23 @@ name_lost_handler (GDBusConnection *connection,
         /* Name was already taken, or the bus went away */
 
         g_warning ("Name taken or bus went away - shutting down");
+        stop_manager (manager);
         gtk_main_quit ();
 }
 
 static void
 bus_register (void)
 {
+        GBusNameOwnerFlags flags;
+
+        flags = G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT;
+
+        if (replace)
+                flags |= G_BUS_NAME_OWNER_FLAGS_REPLACE;
+
         name_id = g_bus_own_name (G_BUS_TYPE_SESSION,
                                   GSD_DBUS_NAME,
-                                  G_BUS_NAME_OWNER_FLAGS_NONE,
+                                  flags,
                                   NULL,
                                   (GBusNameAcquiredCallback) name_acquired_handler,
                                   (GBusNameLostCallback) name_lost_handler,
