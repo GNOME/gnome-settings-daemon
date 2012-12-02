@@ -117,6 +117,7 @@ typedef struct {
 
 typedef struct {
         MediaKeyType key_type;
+        GsdKeygrabModes modes;
         const char *settings_key;
         const char *hard_coded;
         char *custom_path;
@@ -411,7 +412,7 @@ grab_media_key (MediaKey            *key,
 		return need_flush;
 	}
 
-	grab_key_unsafe (key->key, GSD_KEYGRAB_NORMAL, ~0, manager->priv->screens);
+	grab_key_unsafe (key->key, GSD_KEYGRAB_NORMAL, key->modes, manager->priv->screens);
 
 	g_free (tmp);
 
@@ -487,6 +488,7 @@ media_key_new_for_path (GsdMediaKeysManager *manager,
 
         key = g_new0 (MediaKey, 1);
         key->key_type = CUSTOM_KEY;
+        key->modes = GSD_KEYGRAB_MODE_NORMAL | GSD_KEYGRAB_MODE_OVERVIEW;
         key->custom_path = g_strdup (path);
         key->custom_command = command;
 
@@ -614,6 +616,7 @@ add_key (GsdMediaKeysManager *manager, guint i)
 	key->key_type = media_keys[i].key_type;
 	key->settings_key = media_keys[i].settings_key;
 	key->hard_coded = media_keys[i].hard_coded;
+        key->modes = media_keys[i].modes;
 
 	g_ptr_array_add (manager->priv->keys, key);
 
