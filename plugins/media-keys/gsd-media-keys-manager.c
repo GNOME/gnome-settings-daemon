@@ -411,7 +411,7 @@ grab_media_key (MediaKey            *key,
 		return need_flush;
 	}
 
-	grab_key_unsafe (key->key, GSD_KEYGRAB_NORMAL, manager->priv->screens);
+	grab_key_unsafe (key->key, GSD_KEYGRAB_NORMAL, ~0, manager->priv->screens);
 
 	g_free (tmp);
 

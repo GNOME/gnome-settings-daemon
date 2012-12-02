@@ -517,7 +517,7 @@ grab_key (Key        *key,
 
   gdk_x11_display_error_trap_push (display);
 
-  grab_key_unsafe (key, GSD_KEYGRAB_ALLOW_UNMODIFIED | GSD_KEYGRAB_SYNCHRONOUS, screens);
+  grab_key_unsafe (key, GSD_KEYGRAB_ALLOW_UNMODIFIED | GSD_KEYGRAB_SYNCHRONOUS, ~0, screens);
 
   gdk_x11_display_error_trap_pop_ignored (display);
 

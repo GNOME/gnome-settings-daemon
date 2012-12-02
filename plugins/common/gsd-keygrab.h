@@ -40,8 +40,21 @@ typedef enum {
         GSD_KEYGRAB_SYNCHRONOUS      = 1 << 1
 } GsdKeygrabFlags;
 
+typedef enum {
+        GSD_KEYGRAB_MODE_NONE          = 0,
+        GSD_KEYGRAB_MODE_NORMAL        = 1 << 0,
+        GSD_KEYGRAB_MODE_OVERVIEW      = 1 << 1,
+        GSD_KEYGRAB_MODE_LOCK_SCREEN   = 1 << 2,
+        GSD_KEYGRAB_MODE_UNLOCK_SCREEN = 1 << 3,
+        GSD_KEYGRAB_MODE_LOGIN_SCREEN  = 1 << 4,
+        GSD_KEYGRAB_MODE_MESSAGE_TRAY  = 1 << 5,
+        GSD_KEYGRAB_MODE_SYSTEM_MODAL  = 1 << 6,
+        GSD_KEYGRAB_MODE_LOOKING_GLASS = 1 << 7
+} GsdKeygrabModes;
+
 void	        grab_key_unsafe	(Key     *key,
 				 GsdKeygrabFlags flags,
+                                 GsdKeygrabModes modes,
 			         GSList  *screens);
 
 void            ungrab_key_unsafe (Key     *key,

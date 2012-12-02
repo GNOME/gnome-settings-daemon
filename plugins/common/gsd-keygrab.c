@@ -220,6 +220,7 @@ static void
 grab_key_internal (Key             *key,
                    gboolean         grab,
                    GsdKeygrabFlags  flags,
+                   GsdKeygrabModes  modes,
                    GSList          *screens)
 {
 #if 0
@@ -276,13 +277,13 @@ grab_key_internal (Key             *key,
         grab_data = g_new (KeygrabData, 1);
         grab_data->keysym = key->keysym;
         grab_data->modifiers = modifiers;
-        grab_data->modes = grab ? ~0 : 0;
+        grab_data->modes = grab ? modes : 0;
 
         get_key_grabber ();
 
         if (grab)
                 shell_key_grabber_call_grab_key (shell_key_grabber,
-                                                 key->keysym, modifiers, ~0,
+                                                 key->keysym, modifiers, modes,
                                                  NULL,
                                                  grab_key_complete, grab_data);
         else
@@ -344,16 +345,17 @@ grab_key_internal (Key             *key,
 void
 grab_key_unsafe (Key             *key,
                  GsdKeygrabFlags  flags,
+                 GsdKeygrabModes  modes,
                  GSList          *screens)
 {
-        grab_key_internal (key, TRUE, flags, screens);
+        grab_key_internal (key, TRUE, flags, modes, screens);
 }
 
 void
 ungrab_key_unsafe (Key    *key,
                    GSList *screens)
 {
-        grab_key_internal (key, FALSE, 0, screens);
+        grab_key_internal (key, FALSE, 0, 0, screens);
 }
 
 static gboolean
