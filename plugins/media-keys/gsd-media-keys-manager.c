@@ -124,6 +124,7 @@ typedef struct {
 
 typedef struct {
         MediaKeyType key_type;
+        ShellKeyBindingMode modes;
         const char *settings_key;
         const char *hard_coded;
         char *custom_path;
@@ -443,7 +444,7 @@ grab_media_keys (GsdMediaKeysManager *manager)
 
                 key = g_ptr_array_index (manager->priv->keys, i);
                 tmp = get_key_string (manager, key);
-                g_variant_builder_add (&builder, "(su)", tmp, ~0);
+                g_variant_builder_add (&builder, "(su)", tmp, key->modes);
                 g_free (tmp);
         }
 
@@ -487,7 +488,7 @@ grab_media_key (MediaKey            *key,
 
 	ensure_grab_cancellable (manager);
 	shell_key_grabber_call_grab_accelerator (manager->priv->key_grabber,
-	                                         tmp, ~0,
+	                                         tmp, key->modes,
 	                                         manager->priv->grab_cancellable,
 	                                         grab_accelerator_complete,
 	                                         data);
@@ -582,6 +583,7 @@ media_key_new_for_path (GsdMediaKeysManager *manager,
 
         key = g_new0 (MediaKey, 1);
         key->key_type = CUSTOM_KEY;
+        key->modes = GSD_KEYBINDING_MODE_LAUNCHER;
         key->custom_path = g_strdup (path);
         key->custom_command = command;
 
@@ -684,6 +686,7 @@ add_key (GsdMediaKeysManager *manager, guint i)
 	key->key_type = media_keys[i].key_type;
 	key->settings_key = media_keys[i].settings_key;
 	key->hard_coded = media_keys[i].hard_coded;
+	key->modes = media_keys[i].modes;
 
 	g_ptr_array_add (manager->priv->keys, key);
 }

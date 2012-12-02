@@ -38,6 +38,7 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-screenshot-utils.h		\
 	gsd-screenshot-utils.c		\
 	shortcuts-list.h		\
+	shell-keybinding-modes.h	\
 	$(BUILT_SOURCES)		\
 	$(NULL)
 
