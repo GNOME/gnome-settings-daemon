@@ -93,6 +93,9 @@
 #define DEFAULT_LANGUAGE "en_US"
 #define DEFAULT_LAYOUT "us"
 
+#define GSD_KEYBOARD_DBUS_NAME  "org.gnome.SettingsDaemon.Keyboard"
+#define GSD_KEYBOARD_DBUS_PATH  "/org/gnome/SettingsDaemon/Keyboard"
+
 struct GsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
@@ -115,6 +118,11 @@ struct GsdKeyboardManagerPrivate
 
         gboolean input_sources_switcher_spawned;
         GPid input_sources_switcher_pid;
+
+        GDBusConnection *dbus_connection;
+        GDBusNodeInfo *dbus_introspection;
+        guint dbus_own_name_id;
+        guint dbus_register_object_id;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
@@ -128,6 +136,12 @@ static void     set_gtk_im_module                (GsdKeyboardManager      *manag
                                                   GVariant                *sources);
 
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
+
+static const gchar introspection_xml[] =
+        "<node>"
+        "  <interface name='org.gnome.SettingsDaemon.Keyboard'>"
+        "  </interface>"
+        "</node>";
 
 static gpointer manager_object = NULL;
 
@@ -1530,6 +1544,79 @@ out:
         apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
 }
 
+static void
+on_bus_name_lost (GDBusConnection *connection,
+                  const gchar     *name,
+                  gpointer         data)
+{
+        g_warning ("DBus name %s lost", name);
+}
+
+static void
+got_session_bus (GObject            *source,
+                 GAsyncResult       *res,
+                 GsdKeyboardManager *manager)
+{
+        GsdKeyboardManagerPrivate *priv;
+        GDBusConnection *connection;
+        GError *error = NULL;
+        GDBusInterfaceVTable vtable = {
+                NULL,
+                NULL,
+                NULL,
+        };
+
+        connection = g_bus_get_finish (res, &error);
+        if (!connection) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Couldn't get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        priv = manager->priv;
+        priv->dbus_connection = connection;
+
+        priv->dbus_register_object_id = g_dbus_connection_register_object (priv->dbus_connection,
+                                                                           GSD_KEYBOARD_DBUS_PATH,
+                                                                           priv->dbus_introspection->interfaces[0],
+                                                                           &vtable,
+                                                                           manager,
+                                                                           NULL,
+                                                                           &error);
+        if (!priv->dbus_register_object_id) {
+                g_warning ("Error registering object: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        priv->dbus_own_name_id = g_bus_own_name_on_connection (priv->dbus_connection,
+                                                               GSD_KEYBOARD_DBUS_NAME,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               on_bus_name_lost,
+                                                               NULL,
+                                                               NULL);
+}
+
+static void
+register_manager_dbus (GsdKeyboardManager *manager)
+{
+        GError *error = NULL;
+
+        manager->priv->dbus_introspection = g_dbus_node_info_new_for_xml (introspection_xml, &error);
+        if (error) {
+                g_warning ("Error creating introspection data: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   manager->priv->cancellable,
+                   (GAsyncReadyCallback) got_session_bus,
+                   manager);
+}
+
 static gboolean
 start_keyboard_idle_cb (GsdKeyboardManager *manager)
 {
@@ -1570,6 +1657,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
 	install_xkb_filter (manager);
         set_input_sources_switcher (manager, enable_switcher (manager));
+        register_manager_dbus (manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -1603,6 +1691,17 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 
         g_debug ("Stopping keyboard manager");
 
+        if (p->dbus_own_name_id) {
+                g_bus_unown_name (p->dbus_own_name_id);
+                p->dbus_own_name_id = 0;
+        }
+
+        if (p->dbus_register_object_id) {
+                g_dbus_connection_unregister_object (p->dbus_connection,
+                                                     p->dbus_register_object_id);
+                p->dbus_register_object_id = 0;
+        }
+
         g_cancellable_cancel (p->cancellable);
         g_clear_object (&p->cancellable);
 
@@ -1625,6 +1724,9 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 	remove_xkb_filter (manager);
 
         set_input_sources_switcher (manager, FALSE);
+
+        g_clear_pointer (&p->dbus_introspection, g_dbus_node_info_unref);
+        g_clear_object (&p->dbus_connection);
 }
 
 static void
