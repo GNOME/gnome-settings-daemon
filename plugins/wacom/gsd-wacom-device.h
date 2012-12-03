@@ -143,6 +143,7 @@ const char     * gsd_wacom_device_get_icon_name    (GsdWacomDevice *device);
 const char     * gsd_wacom_device_get_tool_name    (GsdWacomDevice *device);
 gboolean         gsd_wacom_device_reversible       (GsdWacomDevice *device);
 gboolean         gsd_wacom_device_is_screen_tablet (GsdWacomDevice *device);
+gboolean         gsd_wacom_device_is_isd           (GsdWacomDevice *device);
 gboolean         gsd_wacom_device_is_fallback      (GsdWacomDevice *device);
 gint             gsd_wacom_device_get_num_strips   (GsdWacomDevice *device);
 gint             gsd_wacom_device_get_num_rings    (GsdWacomDevice *device);

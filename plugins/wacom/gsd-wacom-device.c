@@ -331,6 +331,7 @@ struct GsdWacomDevicePrivate
 	char *tool_name;
 	gboolean reversible;
 	gboolean is_screen_tablet;
+	gboolean is_isd; /* integrated system device */
 	gboolean is_fallback;
 	GList *styli;
 	GsdWacomStylus *last_stylus;
@@ -1321,6 +1322,7 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 				 const char     *identifier)
 {
 	char *settings_path;
+	WacomIntegrationFlags integration_flags;
 
 	settings_path = g_strdup_printf (WACOM_DEVICE_CONFIG_BASE,
 					 device->priv->machine_id,
@@ -1330,9 +1332,11 @@ gsd_wacom_device_update_from_db (GsdWacomDevice *device,
 
 	device->priv->name = g_strdup (libwacom_get_name (wacom_device));
 	device->priv->reversible = libwacom_is_reversible (wacom_device);
-	device->priv->is_screen_tablet = libwacom_is_builtin (wacom_device);
+	integration_flags = libwacom_get_integration_flags (wacom_device);
+	device->priv->is_screen_tablet = (integration_flags & WACOM_DEVICE_INTEGRATED_DISPLAY);
+	device->priv->is_isd = (integration_flags & WACOM_DEVICE_INTEGRATED_SYSTEM);
 	if (device->priv->is_screen_tablet) {
-		if (libwacom_get_class (wacom_device) == WCLASS_CINTIQ)
+		if (!device->priv->is_isd)
 			device->priv->icon_name = "wacom-tablet-cintiq";
 		else
 			device->priv->icon_name = "wacom-tablet-pc";
@@ -1662,6 +1666,14 @@ gsd_wacom_device_is_screen_tablet (GsdWacomDevice *device)
 	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), FALSE);
 
 	return device->priv->is_screen_tablet;
+}
+
+gboolean
+gsd_wacom_device_is_isd (GsdWacomDevice *device)
+{
+	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), FALSE);
+
+	return device->priv->is_isd;
 }
 
 gboolean
