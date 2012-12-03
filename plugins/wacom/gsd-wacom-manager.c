@@ -540,56 +540,10 @@ apply_stylus_settings (GsdWacomDevice *device)
 	set_pressurethreshold (device, threshold);
 }
 
-/*
- * The rule to determine the status LED to use is as follow:
- *
- * "[...] if a device has only one ring/strip, use status_led0_select;
- *  otherwise the left ring/strip is controlled by status_led1_select and
- *  the right ring/strip by status_led0_select."
- *
- * http://sourceforge.net/mailarchive/message.php?msg_id=29898591
- */
-static int
-get_led_group_id(GsdWacomDevice *device,
-		 int             group_id)
-{
-	gint num_rings;
-	gint num_strips;
-
-	num_rings = gsd_wacom_device_get_num_rings (device);
-	num_strips = gsd_wacom_device_get_num_strips (device);
-
-	/* Given group_id is in {1..4} as follow
-	 * WACOM_BUTTON_RING_MODESWITCH        => group_id == 1
-	 * WACOM_BUTTON_RING2_MODESWITCH       => group_id == 2
-	 * WACOM_BUTTON_TOUCHSTRIP_MODESWITCH  => group_id == 3
-	 * WACOM_BUTTON_TOUCHSTRIP2_MODESWITCH => group_id == 4
-	 *
-	 * see function flags_to_group() in gsd-wacom-device.c
-	 */
-
-	if ((num_rings == 1) && (group_id == 1))
-		return 0;
-
-	if ((num_strips == 1) && (group_id == 3))
-		return 0;
-
-	if ((num_rings == 2) && (group_id == 1 ||  group_id == 2))
-		return (group_id & 1);
-
-	if ((num_strips == 2) && (group_id == 3 ||  group_id == 4))
-		return (group_id & 1);
-
-	g_debug ("Unhandled number of rings/strips setup (%d ring(s), %d strip(s), mode=%d",
-		 num_rings, num_strips, group_id);
-
-	return -1;
-}
-
 static void
-set_led (GsdWacomDevice *device,
-	 int             group_id,
-	 int             index)
+set_led (GsdWacomDevice       *device,
+	 GsdWacomTabletButton *button,
+	 int                   index)
 {
 	GError *error = NULL;
 	const char *path;
@@ -604,14 +558,14 @@ set_led (GsdWacomDevice *device,
 	g_return_if_fail (index >= 1);
 
 	path = gsd_wacom_device_get_path (device);
-	status_led = get_led_group_id (device, group_id);
+	status_led = button->status_led;
 
-	if (status_led < 0) {
+	if (status_led == GSD_WACOM_NO_LED) {
 		g_debug ("Ignoring unhandled group ID %d for device %s",
-		         group_id, gsd_wacom_device_get_name (device));
+		         button->group_id, gsd_wacom_device_get_name (device));
 		return;
 	}
-	g_debug ("Switching group ID %d to index %d for device %s", group_id, index, path);
+	g_debug ("Switching group ID %d to index %d for device %s", button->group_id, index, path);
 
 	command = g_strdup_printf ("pkexec " LIBEXECDIR "/gsd-wacom-led-helper --path %s --group %d --led %d",
 				   path, status_led, index - 1);
@@ -700,6 +654,7 @@ reset_pad_buttons (GsdWacomDevice *device)
 	int nmap;
 	unsigned char *map;
 	int i, j, rc;
+	GList *buttons, *l;
 
 	/* Normal buttons */
 	xdev = open_device (device);
@@ -733,9 +688,15 @@ reset_pad_buttons (GsdWacomDevice *device)
 	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
 
 	/* Reset all the LEDs */
-	/* FIXME, get the number of modes somewhere else */
-	for (i = 1; i <= 4; i++)
-		set_led (device, i, 1);
+	buttons = gsd_wacom_device_get_buttons (device);
+	for (l = buttons; l != NULL; l = l->next) {
+		GsdWacomTabletButton *button = l->data;
+                if (button->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED &&
+                    button->status_led != GSD_WACOM_NO_LED) {
+                        set_led (device, button, 1);
+                }
+        }
+        g_list_free (buttons);
 }
 
 static void
@@ -1206,7 +1167,7 @@ filter_button_events (XEvent          *xevent,
 			return GDK_FILTER_REMOVE;
 
 		new_mode = gsd_wacom_device_set_next_mode (device, wbutton);
-		set_led (device, wbutton->group_id, new_mode);
+		set_led (device, wbutton, new_mode);
 		return GDK_FILTER_REMOVE;
 	}
 

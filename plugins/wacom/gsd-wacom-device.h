@@ -100,6 +100,8 @@ typedef enum {
 
 #define MAX_GROUP_ID 4
 
+#define GSD_WACOM_NO_LED -1
+
 typedef struct
 {
 	char                     *name;
@@ -107,6 +109,7 @@ typedef struct
 	GSettings                *settings;
 	GsdWacomTabletButtonType  type;
 	int                       group_id, idx;
+	int                       status_led;
 } GsdWacomTabletButton;
 
 void                  gsd_wacom_tablet_button_free (GsdWacomTabletButton *button);
