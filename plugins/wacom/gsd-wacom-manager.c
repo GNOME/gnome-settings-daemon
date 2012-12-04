@@ -47,6 +47,7 @@
 #include "gnome-settings-profile.h"
 #include "gsd-wacom-manager.h"
 #include "gsd-wacom-device.h"
+#include "gsd-wacom-osd-window.h"
 
 #define GSD_WACOM_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerPrivate))
 
@@ -83,6 +84,9 @@ struct GsdWacomManagerPrivate
         /* button capture */
         GSList *screens;
         int      opcode;
+
+        /* Help OSD window */
+        GtkWidget *osd_window;
 };
 
 static void     gsd_wacom_manager_class_init  (GsdWacomManagerClass *klass);
@@ -851,6 +855,97 @@ last_stylus_changed (GsdWacomDevice  *device,
 }
 
 static void
+osd_window_destroy (GsdWacomManager *manager)
+{
+	g_return_if_fail (manager != NULL);
+
+        g_clear_pointer (&manager->priv->osd_window, gtk_widget_destroy);
+}
+
+static gboolean
+osd_window_on_key_release_event (GtkWidget   *widget,
+                                 GdkEventKey *event,
+                                 GsdWacomManager *manager)
+{
+	osd_window_destroy (manager);
+
+	return FALSE;
+}
+
+static gboolean
+osd_window_on_focus_out_event (GtkWidget *widget,
+                               GdkEvent  *event,
+                               GsdWacomManager *manager)
+{
+	/* If the OSD window loses focus, hide it */
+	osd_window_destroy (manager);
+
+	return FALSE;
+}
+
+static gboolean
+osd_window_toggle_visibility (GsdWacomManager *manager,
+                              GsdWacomDevice  *device)
+{
+	GtkWidget *widget;
+        const gchar *layout_path;
+
+	if (manager->priv->osd_window) {
+		osd_window_destroy (manager);
+		return FALSE;
+	}
+
+        layout_path = gsd_wacom_device_get_layout_path (device);
+        if (layout_path == NULL) {
+                g_warning ("Cannot display the on-screen help window as the tablet "
+                           "definition for %s is missing the layout\n"
+                           "Please consider contributing the layout for your "
+                           "tablet to libwacom at linuxwacom-devel@lists.sourceforge.net\n",
+                           gsd_wacom_device_get_name (device));
+		return FALSE;
+        }
+
+        if (g_file_test (layout_path, G_FILE_TEST_EXISTS) == FALSE) {
+                g_warning ("Cannot display the on-screen help window as the "
+                           "layout file %s cannot be found on disk\n"
+                           "Please check your libwacom installation\n",
+                           layout_path);
+		return FALSE;
+        }
+
+	widget = gsd_wacom_osd_window_new (device, NULL);
+
+	/* Connect some signals to the OSD window */
+	g_signal_connect (widget, "key-release-event",
+			  G_CALLBACK(osd_window_on_key_release_event), manager);
+	g_signal_connect (widget, "focus-out-event",
+			  G_CALLBACK(osd_window_on_focus_out_event), manager);
+	g_object_add_weak_pointer (G_OBJECT (widget), (gpointer *) &manager->priv->osd_window);
+
+	gtk_window_present (GTK_WINDOW(widget));
+	manager->priv->osd_window = widget;
+
+	return TRUE;
+}
+
+static gboolean
+osd_window_update_viewable (GsdWacomManager      *manager,
+                            GsdWacomTabletButton *button,
+                            GtkDirectionType      dir,
+                            XIEvent              *xiev)
+{
+	if (manager->priv->osd_window == NULL)
+		return FALSE;
+
+	gsd_wacom_osd_window_set_active (GSD_WACOM_OSD_WINDOW (manager->priv->osd_window),
+	                                 button,
+	                                 dir,
+	                                 xiev->evtype == XI_ButtonPress);
+
+	return TRUE;
+}
+
+static void
 device_added_cb (GdkDeviceManager *device_manager,
                  GdkDevice        *gdk_device,
                  GsdWacomManager  *manager)
@@ -1121,6 +1216,7 @@ filter_button_events (XEvent          *xevent,
 	int                  button;
 	GsdWacomTabletButton *wbutton;
 	GtkDirectionType      dir;
+	gboolean emulate;
 
         /* verify we have a key event */
 	if (xevent->type != GenericEvent)
@@ -1142,6 +1238,11 @@ filter_button_events (XEvent          *xevent,
 	if (gsd_wacom_device_get_device_type (device) != WACOM_TYPE_PAD)
 		return GDK_FILTER_CONTINUE;
 
+	if ((manager->priv->osd_window != NULL) &&
+	    (device != gsd_wacom_osd_window_get_device (GSD_WACOM_OSD_WINDOW(manager->priv->osd_window))))
+		/* This is a button event from another device while showing OSD window */
+		osd_window_destroy (manager);
+
 	button = xev->detail;
 
 	wbutton = gsd_wacom_device_get_button (device, button, &dir);
@@ -1162,6 +1263,10 @@ filter_button_events (XEvent          *xevent,
 	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED) {
 		int new_mode;
 
+		/* Update OSD window if shown */
+		if (osd_window_update_viewable (manager, wbutton, dir, xiev))
+			return GDK_FILTER_REMOVE;
+
 		/* We switch modes on key release */
 		if (xiev->evtype == XI_ButtonRelease)
 			return GDK_FILTER_REMOVE;
@@ -1171,8 +1276,21 @@ filter_button_events (XEvent          *xevent,
 		return GDK_FILTER_REMOVE;
 	}
 
+	/* Update OSD window if shown */
+	emulate = osd_window_update_viewable (manager, wbutton, dir, xiev);
+
 	/* Nothing to do */
 	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == GSD_WACOM_ACTION_TYPE_NONE)
+		return GDK_FILTER_REMOVE;
+
+	/* Show OSD window when requested */
+	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == GSD_WACOM_ACTION_TYPE_HELP) {
+		if (xiev->evtype == XI_ButtonRelease)
+			osd_window_toggle_visibility (manager, device);
+		return GDK_FILTER_REMOVE;
+	}
+
+	if (emulate)
 		return GDK_FILTER_REMOVE;
 
 	/* Switch monitor */
@@ -1385,6 +1503,8 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
 
 	for (l = p->rr_screens; l != NULL; l = l->next)
 		g_signal_handlers_disconnect_by_func (l->data, on_screen_changed_cb, manager);
+
+        g_clear_pointer (&p->osd_window, gtk_widget_destroy);
 }
 
 static void

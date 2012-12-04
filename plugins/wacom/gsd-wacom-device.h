@@ -98,6 +98,18 @@ typedef enum {
 	WACOM_TABLET_BUTTON_TYPE_HARDCODED
 } GsdWacomTabletButtonType;
 
+/*
+ * Positions of the buttons on the tablet in default right-handed mode
+ * (ie with no rotation applied).
+ */
+typedef enum {
+	WACOM_TABLET_BUTTON_POS_UNDEF = 0,
+	WACOM_TABLET_BUTTON_POS_LEFT,
+	WACOM_TABLET_BUTTON_POS_RIGHT,
+	WACOM_TABLET_BUTTON_POS_TOP,
+	WACOM_TABLET_BUTTON_POS_BOTTOM
+} GsdWacomTabletButtonPos;
+
 #define MAX_GROUP_ID 4
 
 #define GSD_WACOM_NO_LED -1
@@ -108,6 +120,7 @@ typedef struct
 	char                     *id;
 	GSettings                *settings;
 	GsdWacomTabletButtonType  type;
+	GsdWacomTabletButtonPos   pos;
 	int                       group_id, idx;
 	int                       status_led;
 } GsdWacomTabletButton;
@@ -141,6 +154,7 @@ GsdWacomRotation gsd_wacom_device_get_display_rotation (GsdWacomDevice *device);
 GsdWacomDevice * gsd_wacom_device_new              (GdkDevice *device);
 GList          * gsd_wacom_device_list_styli       (GsdWacomDevice *device);
 const char     * gsd_wacom_device_get_name         (GsdWacomDevice *device);
+const char     * gsd_wacom_device_get_layout_path  (GsdWacomDevice *device);
 const char     * gsd_wacom_device_get_path         (GsdWacomDevice *device);
 const char     * gsd_wacom_device_get_icon_name    (GsdWacomDevice *device);
 const char     * gsd_wacom_device_get_tool_name    (GsdWacomDevice *device);
@@ -163,6 +177,10 @@ GList          * gsd_wacom_device_get_buttons       (GsdWacomDevice *device);
 GsdWacomTabletButton *gsd_wacom_device_get_button   (GsdWacomDevice   *device,
 						     int               button,
 						     GtkDirectionType *dir);
+int gsd_wacom_device_get_num_modes                  (GsdWacomDevice   *device,
+						     int               group_id);
+int gsd_wacom_device_get_current_mode               (GsdWacomDevice   *device,
+						     int               group_id);
 int gsd_wacom_device_set_next_mode                  (GsdWacomDevice       *device,
 						     GsdWacomTabletButton *button);
 GsdWacomRotation gsd_wacom_device_rotation_name_to_type (const char *rotation);
