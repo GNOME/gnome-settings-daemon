@@ -3942,6 +3942,12 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
 
+        /* coldplug the list of screens */
+        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+        if (manager->priv->x11_screen == NULL)
+                return FALSE;
+
+        /* Set up the logind proxy */
         manager->priv->logind_proxy =
                 g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                0,
@@ -4071,12 +4077,8 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect (manager->priv->idle_monitor, "triggered-idle",
                           G_CALLBACK (idle_triggered_idle_cb), manager);
 
-        /* coldplug the list of screens */
-        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        if (manager->priv->x11_screen == NULL)
-                return FALSE;
+        /* set up the screens */
         g_signal_connect (manager->priv->x11_screen, "changed", G_CALLBACK (on_randr_event), manager);
-        /* set up initial state */
         on_randr_event (manager->priv->x11_screen, manager);
 
         /* ensure the default dpms timeouts are cleared */
