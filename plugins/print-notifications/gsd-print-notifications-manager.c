@@ -250,6 +250,20 @@ show_notification (gpointer user_data)
         return FALSE;
 }
 
+static gboolean
+reason_is_blacklisted (const gchar *reason) {
+        if (g_str_equal (reason, "none"))
+                return TRUE;
+        if (g_str_equal (reason, "other"))
+                return TRUE;
+        if (g_str_equal (reason, "com.apple.print.recoverable"))
+                return TRUE;
+        /* https://bugzilla.redhat.com/show_bug.cgi?id=883401 */
+        if (g_str_has_prefix (reason, "cups-remote-"))
+                return TRUE;
+        return FALSE;
+}
+
 static void
 on_cups_notification (GDBusConnection *connection,
                       const char      *sender_name,
@@ -671,7 +685,8 @@ on_cups_notification (GDBusConnection *connection,
                                         }
                                 }
 
-                                if (!known_reason && !g_str_equal (data, "none")) {
+                                if (!known_reason &&
+                                    !reason_is_blacklisted (data)) {
                                         NotifyNotification *notification;
                                         ReasonData         *reason_data;
                                         gchar              *first_row;
