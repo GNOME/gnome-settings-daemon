@@ -695,7 +695,7 @@ auto_download_updates (GsdUpdatesManager *manager)
                 package_ids[i] = g_strdup (pk_package_get_id (pkg));
         }
 
-#if PK_CHECK_VERSION(0,1,8)
+#if PK_CHECK_VERSION(0,8,1)
         /* we've set only-download in PkTask */
         pk_task_update_packages_async (manager->priv->task,
                                        package_ids,
@@ -1346,7 +1346,7 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         g_object_set (manager->priv->task,
                       "background", TRUE,
                       "interactive", FALSE,
-#if PK_CHECK_VERSION(0,1,8)
+#if PK_CHECK_VERSION(0,8,1)
                       "only-download", TRUE,
 #endif
                       NULL);
