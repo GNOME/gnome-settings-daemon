@@ -3802,6 +3802,11 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
 
+        /* coldplug the list of screens */
+        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+        if (manager->priv->x11_screen == NULL)
+                return FALSE;
+
         /* track the active session */
         manager->priv->session = gnome_settings_session_new ();
         g_signal_connect (manager->priv->session, "notify::state",
@@ -3928,11 +3933,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
                           G_CALLBACK (idle_idletime_reset_cb), manager);
         g_signal_connect (manager->priv->idletime, "alarm-expired",
                           G_CALLBACK (idle_idletime_alarm_expired_cb), manager);
-
-        /* coldplug the list of screens */
-        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        if (manager->priv->x11_screen == NULL)
-                return FALSE;
 
         /* ensure the default dpms timeouts are cleared */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
