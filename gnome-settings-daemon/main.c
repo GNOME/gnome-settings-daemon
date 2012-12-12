@@ -369,8 +369,12 @@ name_lost_handler (GDBusConnection *connection,
         /* Name was already taken, or the bus went away */
 
         g_warning ("Name taken or bus went away - shutting down");
-        stop_manager (manager);
+
+        if (manager != NULL)
+                stop_manager (manager);
+
         gtk_main_quit ();
+
 }
 
 static void
