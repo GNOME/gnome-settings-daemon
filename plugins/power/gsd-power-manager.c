@@ -42,6 +42,7 @@
 #include "gsd-power-constants.h"
 #include "gsm-inhibitor-flag.h"
 #include "gsm-presence-flag.h"
+#include "gsm-manager-logout-mode.h"
 #include "gpm-common.h"
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
@@ -178,6 +179,7 @@ struct GsdPowerManagerPrivate
         GnomeRRScreen           *rr_screen;
         NotifyNotification      *notification_ups_discharging;
         NotifyNotification      *notification_low;
+        NotifyNotification      *notification_logout_warning;
         gboolean                 battery_is_low; /* laptop battery low, or UPS discharging */
 
         /* Brightness */
@@ -210,6 +212,7 @@ struct GsdPowerManagerPrivate
         GnomeIdleMonitor        *idle_monitor;
         guint                    idle_dim_id;
         guint                    idle_blank_id;
+        guint                    idle_logout_warning_id;
         guint                    idle_sleep_id;
         GsdPowerIdleMode         current_idle_mode;
 
@@ -1666,7 +1669,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                              icon,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
-                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
+                                         NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (manager->priv->notification_low,
                                          NOTIFY_URGENCY_CRITICAL);
         notify_notification_set_app_name (manager->priv->notification_low, _("Power"));
@@ -1964,6 +1967,38 @@ gnome_session_shutdown (GsdPowerManager *manager)
 }
 
 static void
+gnome_session_logout_cb (GObject *source_object,
+                         GAsyncResult *res,
+                         gpointer user_data)
+{
+        GVariant *result;
+        GError *error = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL) {
+                g_warning ("couldn't log out using gnome-session: %s",
+                           error->message);
+                g_error_free (error);
+        } else {
+                g_variant_unref (result);
+        }
+}
+
+static void
+gnome_session_logout (GsdPowerManager *manager,
+                      guint            logout_mode)
+{
+        g_dbus_proxy_call (manager->priv->session,
+                           "Logout",
+                           g_variant_new ("(u)", logout_mode),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1, NULL,
+                           gnome_session_logout_cb, NULL);
+}
+
+static void
 action_poweroff (GsdPowerManager *manager)
 {
         if (manager->priv->logind_proxy == NULL) {
@@ -2089,7 +2124,44 @@ do_power_action_type (GsdPowerManager *manager,
                 break;
         case GSD_POWER_ACTION_NOTHING:
                 break;
+        case GSD_POWER_ACTION_LOGOUT:
+                gnome_session_logout (manager, GSM_MANAGER_LOGOUT_MODE_FORCE);
+                break;
         }
+}
+
+static GsmInhibitorFlag
+get_idle_inhibitors_for_action (GsdPowerActionType action_type)
+{
+        switch (action_type) {
+        case GSD_POWER_ACTION_BLANK:
+        case GSD_POWER_ACTION_SHUTDOWN:
+        case GSD_POWER_ACTION_INTERACTIVE:
+                return GSM_INHIBITOR_FLAG_IDLE;
+        case GSD_POWER_ACTION_HIBERNATE:
+        case GSD_POWER_ACTION_SUSPEND:
+                return GSM_INHIBITOR_FLAG_SUSPEND; /* in addition to idle */
+        case GSD_POWER_ACTION_NOTHING:
+                return 0;
+        case GSD_POWER_ACTION_LOGOUT:
+                return GSM_INHIBITOR_FLAG_LOGOUT; /* in addition to idle */
+        }
+        return 0;
+}
+
+static gboolean
+is_action_inhibited (GsdPowerManager *manager, GsdPowerActionType action_type)
+{
+        GsmInhibitorFlag flag;
+        gboolean is_inhibited;
+
+        flag = get_idle_inhibitors_for_action (action_type);
+        if (!flag)
+                return FALSE;
+        idle_is_session_inhibited (manager,
+                                   flag,
+                                   &is_inhibited);
+        return is_inhibited;
 }
 
 static gboolean
@@ -2324,6 +2396,8 @@ idle_watch_id_to_string (GsdPowerManager *manager, guint id)
                 return "blank";
         if (id == manager->priv->idle_sleep_id)
                 return "sleep";
+        if (id == manager->priv->idle_logout_warning_id)
+                return "logout-warning";
         return NULL;
 }
 
@@ -2616,6 +2690,7 @@ static void
 idle_configure (GsdPowerManager *manager)
 {
         gboolean is_idle_inhibited;
+        GsdPowerActionType action_type;
         guint timeout_blank;
         guint timeout_sleep;
         guint timeout_dim;
@@ -2639,6 +2714,9 @@ idle_configure (GsdPowerManager *manager)
                                   &manager->priv->idle_sleep_id);
                 clear_idle_watch (manager->priv->idle_monitor,
                                   &manager->priv->idle_dim_id);
+                clear_idle_watch (manager->priv->idle_monitor,
+                                  &manager->priv->idle_logout_warning_id);
+                notify_close_if_showing (manager->priv->notification_logout_warning);
                 return;
         }
 
@@ -2666,17 +2744,18 @@ idle_configure (GsdPowerManager *manager)
         }
 
         /* only do the sleep timeout when the session is idle
-         * and we aren't inhibited from sleeping */
-        if (on_battery) {
-                timeout_sleep = g_settings_get_int (manager->priv->settings,
-                                                    "sleep-inactive-battery-timeout");
-        } else {
-                timeout_sleep = g_settings_get_int (manager->priv->settings,
-                                                    "sleep-inactive-ac-timeout");
+         * and we aren't inhibited from sleeping (or logging out, etc.) */
+        action_type = g_settings_get_enum (manager->priv->settings, on_battery ?
+                                           "sleep-inactive-battery-type" : "sleep-inactive-ac-type");
+        if (!is_action_inhibited (manager, action_type)) {
+                timeout_sleep = g_settings_get_int (manager->priv->settings, on_battery ?
+                                                    "sleep-inactive-battery-timeout" : "sleep-inactive-ac-timeout");
         }
 
         clear_idle_watch (manager->priv->idle_monitor,
                           &manager->priv->idle_sleep_id);
+        clear_idle_watch (manager->priv->idle_monitor,
+                          &manager->priv->idle_logout_warning_id);
 
         if (timeout_sleep != 0) {
 		g_debug ("setting up sleep callback %is", timeout_sleep);
@@ -2684,7 +2763,23 @@ idle_configure (GsdPowerManager *manager)
                 manager->priv->idle_sleep_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
                                                                              timeout_sleep * 1000,
                                                                              NULL, NULL, NULL);
+                if (action_type == GSD_POWER_ACTION_LOGOUT) {
+                        guint timeout_logout_warning;
+
+                        timeout_logout_warning = timeout_sleep * IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER;
+                        if (timeout_logout_warning < MINIMUM_IDLE_DIM_DELAY)
+                                timeout_logout_warning = 0;
+
+                        g_debug ("setting up logout warning callback %is", timeout_logout_warning);
+
+                        manager->priv->idle_logout_warning_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
+                                                                                              timeout_logout_warning * 1000,
+                                                                                              NULL, NULL, NULL);
+                }
         }
+
+        if (manager->priv->idle_logout_warning_id == 0)
+                notify_close_if_showing (manager->priv->notification_logout_warning);
 
         /* set up dim callback for when the screen lock is not active,
          * but only if we actually want to dim. */
@@ -2963,6 +3058,25 @@ out:
 }
 
 static void
+show_logout_warning (GsdPowerManager *manager)
+{
+        /* close any existing notification of this class */
+        notify_close_if_showing (manager->priv->notification_logout_warning);
+
+        /* create a new notification */
+        create_notification (_("Automatic logout"), _("You will soon log out because of inactivity."),
+                             NULL,
+                             &manager->priv->notification_logout_warning);
+        notify_notification_set_timeout (manager->priv->notification_logout_warning,
+                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
+        notify_notification_set_urgency (manager->priv->notification_logout_warning,
+                                         NOTIFY_URGENCY_CRITICAL);
+        notify_notification_set_app_name (manager->priv->notification_logout_warning, _("Power"));
+
+        notify_notification_show (manager->priv->notification_logout_warning, NULL);
+}
+
+static void
 idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
                         guint             watch_id,
                         GsdPowerManager  *manager)
@@ -2981,6 +3095,8 @@ idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
         } else if (watch_id == manager->priv->idle_sleep_id) {
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_SLEEP);
+        } else if (watch_id == manager->priv->idle_logout_warning_id) {
+                show_logout_warning (manager);
         }
 }
 
