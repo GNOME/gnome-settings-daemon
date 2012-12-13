@@ -158,8 +158,8 @@ GList          * gsd_wacom_device_get_buttons       (GsdWacomDevice *device);
 GsdWacomTabletButton *gsd_wacom_device_get_button   (GsdWacomDevice   *device,
 						     int               button,
 						     GtkDirectionType *dir);
-int gsd_wacom_device_set_next_mode                  (GsdWacomDevice *device,
-						     int             group_id);
+int gsd_wacom_device_set_next_mode                  (GsdWacomDevice       *device,
+						     GsdWacomTabletButton *button);
 GsdWacomRotation gsd_wacom_device_rotation_name_to_type (const char *rotation);
 const char     * gsd_wacom_device_rotation_type_to_name (GsdWacomRotation type);
 

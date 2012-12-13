@@ -1192,7 +1192,7 @@ filter_button_events (XEvent          *xevent,
 		if (xiev->evtype == XI_ButtonRelease)
 			return GDK_FILTER_REMOVE;
 
-		new_mode = gsd_wacom_device_set_next_mode (device, wbutton->group_id);
+		new_mode = gsd_wacom_device_set_next_mode (device, wbutton);
 		set_led (device, wbutton->group_id, new_mode);
 		return GDK_FILTER_REMOVE;
 	}
