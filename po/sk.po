@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-10-24 10:48+0000\n"
-"PO-Revision-Date: 2012-10-24 15:18+0200\n"
+"POT-Creation-Date: 2012-11-13 10:48+0000\n"
+"PO-Revision-Date: 2012-11-16 18:04+0000\n"
 "Last-Translator: Pavol Klačanský <pavol@klacansky.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -483,9 +483,7 @@ msgstr ""
 "Zadajte percento, o ktoré sa musí zmenšiť veľkosť voľného miesta pred "
 "zobrazením nasledujúceho upozornenia."
 
-# MČ: „oznamovania“ ?
 # PM: tu sa viac hodí neoznamovania pozri si históriu tohto prekladu
-# PK: pozri petom komentar
 # summary
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Free space notify threshold"
@@ -765,19 +763,15 @@ msgstr "Prepnúť lupu"
 msgid "Binding to show the screen magnifier"
 msgstr "Klávesová skratka na zobrazenie lupy."
 
-# PM: nie je zaužívané skôr čítačka obrazovky? je to tu inde aj tak preložené
 # summary
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
-#, fuzzy
 msgid "Toggle screen reader"
-msgstr "Prepnúť čítač obrazovky"
+msgstr "Prepnúť čítačku obrazovky"
 
-# PM: nie je zaužívané skôr čítačka obrazovky?
 # description
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
-#, fuzzy
 msgid "Binding to start the screen reader"
-msgstr "Klávesová skratka na spustenie čítača obrazovky"
+msgstr "Klávesová skratka na spustenie čítačky obrazovky"
 
 # summary
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
@@ -849,11 +843,9 @@ msgstr "Prepnúť zdroj vstupu"
 msgid "Binding to select the next input source"
 msgstr "Klávesová skratka na preskočenie na nasledujúci zdroj vstupu"
 
-# PM: ja by som dal naspäť
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
-#, fuzzy
 msgid "Switch input source backward"
-msgstr "Prepnúť zdroj vstupu spätne"
+msgstr "Prepnúť zdroj vstupu naspäť"
 
 # description
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
@@ -875,11 +867,18 @@ msgid "Binding"
 msgstr "Klávesová skratka"
 
 # PM: toto mi nedáva zmysel
+# PK: ani mne
+# MČ: Podľa mňa sú tri možnosti, neviem ktorá je správna, nepoužívam to:
+# MČ:  1) určuje prednastavený predraďovač pre klávesové skratky (nejaká kombinácia Shift-Ctrl-Alt-mod4)
+# MČ:  2) určuje klávesovú skratku predradenú pred klávesovú skratku (v pekwm sa to nazýva „chain“, vo ViM LocalLeader), aby bolo možné definovať viac klávesových skratiek, aby sa vzájomne nebili
+# MČ:  3) určuje klávesovú skratku, ktorá spustí program, na nastavovanie klávesových skratiek.
+# PK: mas moznost to otestovat, lebo ja to tam nemam v ubuntu
+# PK: podla mna to je to je klavesova skratka, ktora spusti napr prehravanie (vlastna akcia)
 # description
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 #, fuzzy
 msgid "Binding for the custom binding"
-msgstr "Klávesová skratka prispôsobenej klávesovej skratky"
+msgstr "Klávesová skratka pre vlastnú klávesovú skratku"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
 msgid "Command"
@@ -979,17 +978,16 @@ msgstr ""
 msgid "Whether to use time-based notifications"
 msgstr "Či sa majú použiť upozornenia na základe časových údajov"
 
-# PM: Skôr ACPI v systéme BIOS
+# MČ: BIOS znamená „Basic Input Output System“, Je to niečo ako LED dióda (Light Emiting diode dióda), ale myslím, že to nerobí nejaký problém.
 # description
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
-#, fuzzy
 msgid ""
 "If time based notifications should be used. If set to false, then the "
 "percentage change is used instead, which may fix a broken ACPI BIOS."
 msgstr ""
 "Či by sa malo použiť upozorňovanie na základe časových údajov. Ak je "
 "nastavené na false, potom budú miesto nich použité percentuálne zmeny, čo "
-"môže vyriešiť problém chybného ACPI BIOSu."
+"môže vyriešiť problém chybného ACPI v systéme BIOS."
 
 # summary
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
@@ -1317,38 +1315,35 @@ msgstr "Ukončí sa po určitom čase (vhodné pre ladenie)"
 
 # Name
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
-#, fuzzy
 msgid "Accessibility Keyboard"
-msgstr "Prístupnosť klávesnice"
+msgstr "Klávesnica na zjednodušenie ovládania"
 
-# PM: viď ML
 # Description
 #: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Accessibility keyboard plugin"
-msgstr "Modul prístupnosti klávesnice"
+msgstr "Zásuvný modul klávesnice na zjednodušenie ovládania"
 
 # error
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:383
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:379
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "Pri pokuse o zobrazenie Pomocníka nastala chyba: %s"
 
 # title
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:507
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:570
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:488
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
 msgid "Slow Keys Turned On"
 msgstr "Pomalé klávesy zapnuté"
 
 # title
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:571
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:489
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:547
 msgid "Slow Keys Turned Off"
 msgstr "Pomalé klávesy vypnuté"
 
 # message
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -1357,8 +1352,8 @@ msgstr ""
 "klávesy, ktorá ovplyvňuje fungovanie vašej klávesnice."
 
 # notification app name
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:663
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:634
 #: ../plugins/mouse/gsd-mouse-manager.c:920
 msgid "Universal Access"
 msgstr "Bezbariérový prístup"
@@ -1366,74 +1361,74 @@ msgstr "Bezbariérový prístup"
 # notification
 # on_slow_keys_action
 # on_sticky_keys_action
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:510
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
 msgid "Turn Off"
 msgstr "Vypnúť"
 
 # notification
 # on_slow_keys_action
 # on_sticky_keys_action
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:510
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
 msgid "Turn On"
 msgstr "Zapnúť"
 
 # notification
 # on_slow_keys_action
 # on_sticky_keys_action
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:516
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:646
 msgid "Leave On"
 msgstr "Ponechať"
 
 # notification
 # on_slow_keys_action
 # on_sticky_keys_action
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:516
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:646
 msgid "Leave Off"
 msgstr "Zrušiť"
 
 # dialog button
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:569
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
 msgid "_Turn Off"
 msgstr "_Vypnúť"
 
 # dialog button
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:569
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
 msgid "_Turn On"
 msgstr "_Zapnúť"
 
 # dialog button
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
 msgid "_Leave On"
 msgstr "_Ponechať"
 
 # dialog button
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
 msgid "_Leave Off"
 msgstr "Z_rušiť"
 
 # title
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:639
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:676
 msgid "Sticky Keys Turned On"
 msgstr "Lepkavé klávesy zapnuté"
 
 # title
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:706
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:616
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Sticky Keys Turned Off"
 msgstr "Lepkavé klávesy vypnuté"
 
 # mesage
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:679
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -1442,8 +1437,8 @@ msgstr ""
 "Lepkavé klávesy, ktorá ovplyvňuje fungovanie vašej klávesnice."
 
 # mesage
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:644
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:710
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:681
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1452,221 +1447,15 @@ msgstr ""
 "Práve ste stlačili dve klávesy naraz, alebo 5-krát za sebou kláves Shift. To "
 "vypína funkciu Lepkavé klávesy, ktorá ovplyvňuje fungovanie vašej klávesnice."
 
-# windows title
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:397
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
-msgid "Universal Access Preferences"
-msgstr "Nastavenie bezbariérového prístupu"
-
-# check button
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
-msgid "Use on-screen _keyboard"
-msgstr "Použiť _klávesnicu na obrazovke"
-
-# check button
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
-msgid "Use screen _reader"
-msgstr "Použiť čítačku _obrazovky"
-
-# check button
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
-msgid "Use screen _magnifier"
-msgstr "Použiť l_upu obrazovky"
-
-# check button
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
-msgid "Enhance _contrast in colors"
-msgstr "Zlepšiť kontrast _farieb"
-
-# check button
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
-msgid "Make _text larger and easier to read"
-msgstr "Zväčšiť _text pre lepšiu čitateľnosť"
-
-# check button
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
-msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr "_Stláčať klávesové skratky po jednom klávese (lepkavé klávesy)"
-
-# check button
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
-msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "_Ignorovať opakované klávesy (poskakujúce klávesy)"
-
-# check button
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
-msgid "Press and _hold keys to accept them (Slow Keys)"
-msgstr "Stlačiť a po_držať klávesy pre ich prijatie (pomalé klávesy)"
-
 # plugin name
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
-#, fuzzy
 msgid "Accessibility settings"
-msgstr "Nastavenia pristupnosti"
+msgstr "Nastavenia zjednodušenia ovládania"
 
 # plugin desc
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Accessibility settings plugin"
-msgstr "Modul pre nastavenie prístupnosti"
-
-# plugin name
-#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
-msgid "Mount Helper"
-msgstr "Pomocník pre pripájanie diskov"
-
-# plugin desc
-#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
-msgid "Automount and autorun plugged devices"
-msgstr "Automaticky pripája a spúšťa zastrčené zariadenia"
-
-# error; %s mount name
-#: ../plugins/automount/gsd-automount-manager.c:151
-#, c-format
-msgid "Unable to mount %s"
-msgstr "Nepodarilo sa pripojiť %s"
-
-# error; %s mount name
-#: ../plugins/automount/gsd-automount-manager.c:264
-#, c-format
-msgid "Unable to open a folder for %s"
-msgstr "Nepodarilo sa otvoriť priečinok pre %s"
-
-# app_chooser_button
-#: ../plugins/automount/gsd-autorun.c:340
-msgid "Ask what to do"
-msgstr "Opýtať sa, čo urobiť"
-
-# app_chooser_button
-#: ../plugins/automount/gsd-autorun.c:346
-msgid "Do Nothing"
-msgstr "Neurobiť nič"
-
-# app_chooser_button
-#: ../plugins/automount/gsd-autorun.c:352
-msgid "Open Folder"
-msgstr "Otvoriť priečinok"
-
-#: ../plugins/automount/gsd-autorun.c:495
-#, c-format
-msgid "Unable to eject %p"
-msgstr "Nepodarilo sa vysunúť %p"
-
-#: ../plugins/automount/gsd-autorun.c:497
-#, c-format
-msgid "Unable to unmount %p"
-msgstr "Nepodarilo sa odpojiť %p"
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:702
-msgid "You have just inserted an Audio CD."
-msgstr "Práve ste vložili Audio CD."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:704
-msgid "You have just inserted an Audio DVD."
-msgstr "Práve ste vložili Audio DVD."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:706
-msgid "You have just inserted a Video DVD."
-msgstr "Práve ste vložili Video DVD."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:708
-msgid "You have just inserted a Video CD."
-msgstr "Práve ste vložili Video CD."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:710
-msgid "You have just inserted a Super Video CD."
-msgstr "Práve ste vložili Super Video CD."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:712
-msgid "You have just inserted a blank CD."
-msgstr "Práve ste vložili prázdne CD."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:714
-msgid "You have just inserted a blank DVD."
-msgstr "Práve ste vložili prázdne DVD."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:716
-msgid "You have just inserted a blank Blu-Ray disc."
-msgstr "Práve ste vložili prázdny disk Blu-Ray."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:718
-msgid "You have just inserted a blank HD DVD."
-msgstr "Práve ste vložili prázdne HD DVD."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:720
-msgid "You have just inserted a Photo CD."
-msgstr "Práve ste vložili Photo CD."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:722
-msgid "You have just inserted a Picture CD."
-msgstr "Práve ste vložili Picture CD."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:724
-msgid "You have just inserted a medium with digital photos."
-msgstr "Práve ste vložili nosič s digitálnymi fotografiami."
-
-# PŠ: grrr, možno pripojili...
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:726
-msgid "You have just inserted a digital audio player."
-msgstr "Práve ste vložili digitálny prehrávač zvuku."
-
-# media_greeting
-#: ../plugins/automount/gsd-autorun.c:728
-msgid ""
-"You have just inserted a medium with software intended to be automatically "
-"started."
-msgstr ""
-"Práve ste vložili nosič so softvérom, ktorý je určený pre automatické "
-"spustenie."
-
-# media_greeting
-#. fallback to generic greeting
-#: ../plugins/automount/gsd-autorun.c:731
-msgid "You have just inserted a medium."
-msgstr "Práve ste vložili nosič."
-
-# label
-#: ../plugins/automount/gsd-autorun.c:733
-msgid "Choose what application to launch."
-msgstr "Zvoľte aplikáciu, ktorá sa spustí"
-
-# label
-#: ../plugins/automount/gsd-autorun.c:742
-#, c-format
-msgid ""
-"Select how to open \"%s\" and whether to perform this action in the future "
-"for other media of type \"%s\"."
-msgstr ""
-"Vyberte ako sa má otvoriť „%s“, a či sa má táto akcia vykonať aj pri "
-"ostatných nosičoch typu „%s“."
-
-# check button
-#: ../plugins/automount/gsd-autorun.c:769
-msgid "_Always perform this action"
-msgstr "Vždy vykonať túto _akciu"
-
-# button
-#: ../plugins/automount/gsd-autorun.c:785
-msgid "_Eject"
-msgstr "Vy_sunúť"
-
-# button
-#: ../plugins/automount/gsd-autorun.c:790
-msgid "_Unmount"
-msgstr "_Odpojiť"
+msgstr "Zásuvný modul nastavení zjednodušenia ovládania"
 
 # plugin name
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
@@ -1748,10 +1537,10 @@ msgstr "Atrapa"
 msgid "Dummy plugin"
 msgstr "Modul Atrapa"
 
-# PM: prosím uviesť čo je %s
+# %s je pripojny bod
 # notification
 #: ../plugins/housekeeping/gsd-disk-space.c:334
-#, fuzzy, c-format
+#, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "Nedostatok diskového priestoru na „%s“"
 
@@ -1828,15 +1617,13 @@ msgstr "Nezobrazovať už žiadne upozornenia pre tento súborový systém"
 msgid "Don't show any warnings again"
 msgstr "Nezobrazovať už žiadne upozornenia"
 
-# PM: nepáči sa mi slovosled
 # dialog secondary text
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
-#, fuzzy
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
 msgstr ""
-"Uvoľniť diskový priestor môžete vyprázdnením Koša, odstránením nepoužívaných "
+"Diskový priestor môžete uvoľniť vyprázdnením Koša, odstránením nepoužívaných "
 "programov alebo súborov, alebo presunutím súborov na iný disk či oddiel."
 
 # dialog secondary text
@@ -1928,17 +1715,15 @@ msgid "Media keys plugin"
 msgstr "Modul Multimediálne klávesy"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:916
-#, fuzzy
 msgid "Could not enable mouse accessibility features"
-msgstr "Nepodarilo sa povoliť sprístupnenie myši"
+msgstr "Nepodarilo sa povoliť funkcie na zjednodušenie ovládania myšou"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:918
-#, fuzzy
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
-"Sprístupnenie myši vyžaduje, aby bol vo vašom systéme nainštalovaný program "
-"Mousetweaks."
+"Myš na zjednodušenie ovládania vyžaduje, aby bol vo vašom systéme "
+"nainštalovaný program Mousetweaks."
 
 # BUG: https://bugzilla.gnome.org/show_bug.cgi?id=669732
 #. TRANSLATORS: wireless mice with internal batteries
@@ -2459,219 +2244,219 @@ msgid "Computer is charged"
 msgstr "Počítač je nabitý"
 
 #. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:1009
+#: ../plugins/power/gsd-power-manager.c:970
 msgid "Battery may be recalled"
 msgstr "Batéria by mala byť vrátená"
 
 # PM: tak som to pochopil neviem či správne
-#: ../plugins/power/gsd-power-manager.c:1012
+#: ../plugins/power/gsd-power-manager.c:973
 #, c-format
 msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
 "risk."
 msgstr "Batéria vo vašom počítači by mala byť vrátená %s kvôli možným rizikám."
 
-#: ../plugins/power/gsd-power-manager.c:1015
+#: ../plugins/power/gsd-power-manager.c:976
 msgid "For more information visit the battery recall website."
 msgstr "Viac informácií sa dozviete na stránke o vrátení batérií."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:1026
+#: ../plugins/power/gsd-power-manager.c:987
 msgid "Visit recall website"
 msgstr "Navštíviť stránku o recyklácii"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:1030
+#: ../plugins/power/gsd-power-manager.c:991
 msgid "Do not show me this again"
 msgstr "Túto správu už nezobrazovať"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1263
+#: ../plugins/power/gsd-power-manager.c:1224
 msgid "UPS Discharging"
 msgstr "Záložný zdroj sa vybíja"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1268
+#: ../plugins/power/gsd-power-manager.c:1229
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Záložný zdroj vydrží %s"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1289
-#: ../plugins/power/gsd-power-manager.c:1471
-#: ../plugins/power/gsd-power-manager.c:1653
-#: ../plugins/power/gsd-power-manager.c:1800
+#: ../plugins/power/gsd-power-manager.c:1250
+#: ../plugins/power/gsd-power-manager.c:1432
+#: ../plugins/power/gsd-power-manager.c:1614
+#: ../plugins/power/gsd-power-manager.c:1761
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Napájanie"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1381
+#: ../plugins/power/gsd-power-manager.c:1342
 msgid "Battery low"
 msgstr "Batéria je slabá"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1384
+#: ../plugins/power/gsd-power-manager.c:1345
 msgid "Laptop battery low"
 msgstr "Batéria notebooku je slabá"
 
 # %s čas; %.0f%% percentá
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1391
+#: ../plugins/power/gsd-power-manager.c:1352
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Zostáva približne %s (%.0f %%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1396
+#: ../plugins/power/gsd-power-manager.c:1357
 msgid "UPS low"
 msgstr "Záložný zdroj je slabý"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1402
+#: ../plugins/power/gsd-power-manager.c:1363
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Do vybitia záložného zdroja zostáva približne %s (%.0f %%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1407
-#: ../plugins/power/gsd-power-manager.c:1574
+#: ../plugins/power/gsd-power-manager.c:1368
+#: ../plugins/power/gsd-power-manager.c:1535
 msgid "Mouse battery low"
 msgstr "Batéria myši ja slabá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1410
+#: ../plugins/power/gsd-power-manager.c:1371
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Bezdrôtová myš má málo energie (%.0f %%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1414
-#: ../plugins/power/gsd-power-manager.c:1582
+#: ../plugins/power/gsd-power-manager.c:1375
+#: ../plugins/power/gsd-power-manager.c:1543
 msgid "Keyboard battery low"
 msgstr "Batéria klávesnice je slabá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1417
+#: ../plugins/power/gsd-power-manager.c:1378
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Bezdrôtová klávesnica má málo energie (%.0f %%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1421
-#: ../plugins/power/gsd-power-manager.c:1591
+#: ../plugins/power/gsd-power-manager.c:1382
+#: ../plugins/power/gsd-power-manager.c:1552
 msgid "PDA battery low"
 msgstr "Batéria zariadenia PDA je slabá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1424
+#: ../plugins/power/gsd-power-manager.c:1385
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "Zariadenie PDA má málo energie (%.0f %%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1428
-#: ../plugins/power/gsd-power-manager.c:1601
-#: ../plugins/power/gsd-power-manager.c:1612
+#: ../plugins/power/gsd-power-manager.c:1389
+#: ../plugins/power/gsd-power-manager.c:1562
+#: ../plugins/power/gsd-power-manager.c:1573
 msgid "Cell phone battery low"
 msgstr "Batéria mobilného telefónu je slabá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1431
+#: ../plugins/power/gsd-power-manager.c:1392
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Mobilný telefón má málo energie (%.0f %%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1436
+#: ../plugins/power/gsd-power-manager.c:1397
 msgid "Media player battery low"
 msgstr "Batéria prenosného prehrávača je slabá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1439
+#: ../plugins/power/gsd-power-manager.c:1400
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Prenosný prehrávač má málo energie (%.0f %%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1443
-#: ../plugins/power/gsd-power-manager.c:1621
+#: ../plugins/power/gsd-power-manager.c:1404
+#: ../plugins/power/gsd-power-manager.c:1582
 msgid "Tablet battery low"
 msgstr "Batéria tabletu je slabá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1446
+#: ../plugins/power/gsd-power-manager.c:1407
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Tablet má málo energie (%.0f %%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1450
-#: ../plugins/power/gsd-power-manager.c:1630
+#: ../plugins/power/gsd-power-manager.c:1411
+#: ../plugins/power/gsd-power-manager.c:1591
 msgid "Attached computer battery low"
 msgstr "Batéria pripojeného počítača je slabá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1453
+#: ../plugins/power/gsd-power-manager.c:1414
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Pripojený počítač má málo energie (%.0f %%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1488
+#: ../plugins/power/gsd-power-manager.c:1449
 msgid "Battery is low"
 msgstr "Batéria je slabá"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1530
+#: ../plugins/power/gsd-power-manager.c:1491
 msgid "Battery critically low"
 msgstr "Batéria je veľmi slabá"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1533
-#: ../plugins/power/gsd-power-manager.c:1718
+#: ../plugins/power/gsd-power-manager.c:1494
+#: ../plugins/power/gsd-power-manager.c:1679
 msgid "Laptop battery critically low"
 msgstr "Batéria notebooku je veľmi slabá"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1542
+#: ../plugins/power/gsd-power-manager.c:1503
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "Zastrčte napájací zdroj, aby ste predišli strate údajov."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1546
+#: ../plugins/power/gsd-power-manager.c:1507
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "Ak ho nezastrčíte, počítač sa čoskoro uspí."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1550
+#: ../plugins/power/gsd-power-manager.c:1511
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "Ak ho nezastrčíte, počítač sa čoskoro hibernuje."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1554
+#: ../plugins/power/gsd-power-manager.c:1515
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "Ak ho nezastrčíte, počítač sa čoskoro vypne."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1562
-#: ../plugins/power/gsd-power-manager.c:1754
+#: ../plugins/power/gsd-power-manager.c:1523
+#: ../plugins/power/gsd-power-manager.c:1715
 msgid "UPS critically low"
 msgstr "Záložný zdroj je veľmi slabý"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1568
+#: ../plugins/power/gsd-power-manager.c:1529
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -2681,7 +2466,7 @@ msgstr ""
 "napájanie počítača, aby ste predišli strate údajov."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1577
+#: ../plugins/power/gsd-power-manager.c:1538
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -2691,7 +2476,7 @@ msgstr ""
 "prestane fungovať."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1585
+#: ../plugins/power/gsd-power-manager.c:1546
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2701,7 +2486,7 @@ msgstr ""
 "čoskoro prestane fungovať."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1594
+#: ../plugins/power/gsd-power-manager.c:1555
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2711,7 +2496,7 @@ msgstr ""
 "prestane fungovať."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1604
+#: ../plugins/power/gsd-power-manager.c:1565
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2721,7 +2506,7 @@ msgstr ""
 "prestane fungovať."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1615
+#: ../plugins/power/gsd-power-manager.c:1576
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2731,7 +2516,7 @@ msgstr ""
 "čoskoro prestane fungovať."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1624
+#: ../plugins/power/gsd-power-manager.c:1585
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2741,7 +2526,7 @@ msgstr ""
 "fungovať."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1633
+#: ../plugins/power/gsd-power-manager.c:1594
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2751,14 +2536,14 @@ msgstr ""
 "sa vypne."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1671
-#: ../plugins/power/gsd-power-manager.c:1681
-#: ../plugins/power/gsd-power-manager.c:1815
+#: ../plugins/power/gsd-power-manager.c:1632
+#: ../plugins/power/gsd-power-manager.c:1642
+#: ../plugins/power/gsd-power-manager.c:1776
 msgid "Battery is critically low"
 msgstr "Batéria je veľmi slabá"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1726
+#: ../plugins/power/gsd-power-manager.c:1687
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
@@ -2767,7 +2552,7 @@ msgstr ""
 "počítač sa <b>násilne vypne</b>."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1732
+#: ../plugins/power/gsd-power-manager.c:1693
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -2780,7 +2565,7 @@ msgstr ""
 "množstvo energie."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1739
+#: ../plugins/power/gsd-power-manager.c:1700
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2789,7 +2574,7 @@ msgstr ""
 "počítač sa hibernuje."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1744
+#: ../plugins/power/gsd-power-manager.c:1705
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -2798,7 +2583,7 @@ msgstr ""
 "počítač sa vypne."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1762
+#: ../plugins/power/gsd-power-manager.c:1723
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
@@ -2807,7 +2592,7 @@ msgstr ""
 "tento počítač sa <b>násilne vypne</b>."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1768
+#: ../plugins/power/gsd-power-manager.c:1729
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2815,27 +2600,21 @@ msgstr ""
 "tento počítač sa hibernuje."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1773
+#: ../plugins/power/gsd-power-manager.c:1734
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "Energia záložného zdroja klesla pod kritickú úroveň a kým sa úplne vybije, "
 "tento počítač sa vypne."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2241
+#: ../plugins/power/gsd-power-manager.c:2202
 msgid "Lid has been opened"
 msgstr "Kryt bol otvorený"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2276
+#: ../plugins/power/gsd-power-manager.c:2237
 msgid "Lid has been closed"
 msgstr "Kryt bol zatvorený"
-
-#. TRANSLATORS: this is the title of the power manager status icon
-#. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:3925
-msgid "Power Manager"
-msgstr "Správca napájania"
 
 # desc
 #. SECURITY:
@@ -3149,7 +2928,7 @@ msgstr "Prídavný softvér bol nainštalovaný"
 #: ../plugins/updates/gsd-updates-manager.c:474
 #: ../plugins/updates/gsd-updates-manager.c:535
 #: ../plugins/updates/gsd-updates-manager.c:588
-#: ../plugins/updates/gsd-updates-manager.c:1293
+#: ../plugins/updates/gsd-updates-manager.c:1296
 msgid "Software Updates"
 msgstr "Aktualizácie softvéru"
 
@@ -3228,10 +3007,10 @@ msgstr "Aktualizácia bola zrušená."
 # MČ: väčšinou ako nepripojený, ale keď sa prekladá IM. Sem sa to moc nehodí. Jedine, že by sa to preložilo ako „bez siete“, alebo „bez prístupnosti k sieti(internetu)“.
 # PK: necham offline, lebo offline aktualizacia to je taka ze sa to nainstaluje ked vypinas/zapinas pc
 # PM: súhlasím s majom ide o aktualizáciu bez pripojenia k sieti
+# PK: to neznamena ze tam neni siet, http://blogs.gnome.org/hughsie/2012/06/04/offline-os-updates-looking-forward-to-gnome-3-6/
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
 #: ../plugins/updates/gsd-updates-manager.c:171
-#, fuzzy
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "Bola požadovaná offline aktualizácia, ale žiadne balíky nevyžadujú "
@@ -3249,11 +3028,8 @@ msgstr "Na disku nie je žiadne voľné miesto."
 msgid "An update failed to install correctly."
 msgstr "Nepodarilo sa nainštalovať aktualizáciu korektne."
 
-# PK: prekladame offline?
-# MČ: väčšinou ako nepripojený, ale keď sa prekladá IM. Sem sa to moc nehodí. Jedine, že by sa to preložilo ako „bez siete“, alebo „bez prístupnosti k sieti(internetu)“.
 #. TRANSLATORS: We didn't handle the error type
 #: ../plugins/updates/gsd-updates-manager.c:188
-#, fuzzy
 msgid "The offline update failed in an unexpected way."
 msgstr "Offline aktualizácia zlyhala neočakávaným spôsobom."
 
@@ -3348,40 +3124,34 @@ msgstr[2] "Boli nainštalované dôležité aktualizácie systému."
 
 # notification app name
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1282
+#: ../plugins/updates/gsd-updates-manager.c:1285
 msgid "Software Updates Failed"
 msgstr "Zlyhanie aktualizácie softvéru"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1285
+#: ../plugins/updates/gsd-updates-manager.c:1288
 msgid "An important OS update failed to be installed."
 msgstr "Nepodarilo sa nainštalovať dôležitú aktualizáciu systému."
 
-# PK: neviem ci je to dobre
-# MČ: podľa mňa áno, ale to ešte nič neznamená. :-)
-# PK: necham na commitera
-# PM: podľa mňa tiež
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1300
+#: ../plugins/updates/gsd-updates-manager.c:1303
 msgid "Review"
 msgstr "Revízia"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1305
+#: ../plugins/updates/gsd-updates-manager.c:1308
 msgid "Show details"
 msgstr "Zobraziť podrobnosti"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1309
+#: ../plugins/updates/gsd-updates-manager.c:1312
 msgid "OK"
 msgstr "Ok"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1015
-#, fuzzy
-#| msgid "Left Ring Mode #%d"
 msgid "Left Ring"
-msgstr "Režim ľavého kruhu č. %d"
+msgstr "Ľavý kruh"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1023
 #, c-format
@@ -3390,10 +3160,8 @@ msgstr "Režim ľavého kruhu č. %d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1040
-#, fuzzy
-#| msgid "Right Ring Mode #%d"
 msgid "Right Ring"
-msgstr "Režim pravého kruhu č. %d"
+msgstr "Pravý kruh"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1048
 #, c-format
@@ -3402,10 +3170,8 @@ msgstr "Režim pravého kruhu č. %d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1087
-#, fuzzy
-#| msgid "Left Touchstrip Mode #%d"
 msgid "Left Touchstrip"
-msgstr "Režim ľavého posuvníka č. %d"
+msgstr "Ľavý posuvník"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1095
 #, c-format
@@ -3414,10 +3180,8 @@ msgstr "Režim ľavého posuvníka č. %d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1112
-#, fuzzy
-#| msgid "Right Touchstrip Mode #%d"
 msgid "Right Touchstrip"
-msgstr "Režim pravého posuvníka č. %d"
+msgstr "Pravý posuvník"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1120
 #, c-format
@@ -3558,6 +3322,168 @@ msgstr "Nastavenia X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Spravovanie nastavenia X"
+
+# windows title
+#~ msgid "Universal Access Preferences"
+#~ msgstr "Nastavenie bezbariérového prístupu"
+
+# check button
+#~ msgid "Use on-screen _keyboard"
+#~ msgstr "Použiť _klávesnicu na obrazovke"
+
+# check button
+#~ msgid "Use screen _reader"
+#~ msgstr "Použiť čítačku _obrazovky"
+
+# check button
+#~ msgid "Use screen _magnifier"
+#~ msgstr "Použiť l_upu obrazovky"
+
+# check button
+#~ msgid "Enhance _contrast in colors"
+#~ msgstr "Zlepšiť kontrast _farieb"
+
+# check button
+#~ msgid "Make _text larger and easier to read"
+#~ msgstr "Zväčšiť _text pre lepšiu čitateľnosť"
+
+# check button
+#~ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+#~ msgstr "_Stláčať klávesové skratky po jednom klávese (lepkavé klávesy)"
+
+# check button
+#~ msgid "_Ignore duplicate keypresses (Bounce Keys)"
+#~ msgstr "_Ignorovať opakované klávesy (poskakujúce klávesy)"
+
+# check button
+#~ msgid "Press and _hold keys to accept them (Slow Keys)"
+#~ msgstr "Stlačiť a po_držať klávesy pre ich prijatie (pomalé klávesy)"
+
+# plugin name
+#~ msgid "Mount Helper"
+#~ msgstr "Pomocník pre pripájanie diskov"
+
+# plugin desc
+#~ msgid "Automount and autorun plugged devices"
+#~ msgstr "Automaticky pripája a spúšťa zastrčené zariadenia"
+
+# error; %s mount name
+#~ msgid "Unable to mount %s"
+#~ msgstr "Nepodarilo sa pripojiť %s"
+
+# error; %s mount name
+#~ msgid "Unable to open a folder for %s"
+#~ msgstr "Nepodarilo sa otvoriť priečinok pre %s"
+
+# app_chooser_button
+#~ msgid "Ask what to do"
+#~ msgstr "Opýtať sa, čo urobiť"
+
+# app_chooser_button
+#~ msgid "Do Nothing"
+#~ msgstr "Neurobiť nič"
+
+# app_chooser_button
+#~ msgid "Open Folder"
+#~ msgstr "Otvoriť priečinok"
+
+#~ msgid "Unable to eject %p"
+#~ msgstr "Nepodarilo sa vysunúť %p"
+
+#~ msgid "Unable to unmount %p"
+#~ msgstr "Nepodarilo sa odpojiť %p"
+
+# media_greeting
+#~ msgid "You have just inserted an Audio CD."
+#~ msgstr "Práve ste vložili Audio CD."
+
+# media_greeting
+#~ msgid "You have just inserted an Audio DVD."
+#~ msgstr "Práve ste vložili Audio DVD."
+
+# media_greeting
+#~ msgid "You have just inserted a Video DVD."
+#~ msgstr "Práve ste vložili Video DVD."
+
+# media_greeting
+#~ msgid "You have just inserted a Video CD."
+#~ msgstr "Práve ste vložili Video CD."
+
+# media_greeting
+#~ msgid "You have just inserted a Super Video CD."
+#~ msgstr "Práve ste vložili Super Video CD."
+
+# media_greeting
+#~ msgid "You have just inserted a blank CD."
+#~ msgstr "Práve ste vložili prázdne CD."
+
+# media_greeting
+#~ msgid "You have just inserted a blank DVD."
+#~ msgstr "Práve ste vložili prázdne DVD."
+
+# media_greeting
+#~ msgid "You have just inserted a blank Blu-Ray disc."
+#~ msgstr "Práve ste vložili prázdny disk Blu-Ray."
+
+# media_greeting
+#~ msgid "You have just inserted a blank HD DVD."
+#~ msgstr "Práve ste vložili prázdne HD DVD."
+
+# media_greeting
+#~ msgid "You have just inserted a Photo CD."
+#~ msgstr "Práve ste vložili Photo CD."
+
+# media_greeting
+#~ msgid "You have just inserted a Picture CD."
+#~ msgstr "Práve ste vložili Picture CD."
+
+# media_greeting
+#~ msgid "You have just inserted a medium with digital photos."
+#~ msgstr "Práve ste vložili nosič s digitálnymi fotografiami."
+
+# PŠ: grrr, možno pripojili...
+# media_greeting
+#~ msgid "You have just inserted a digital audio player."
+#~ msgstr "Práve ste vložili digitálny prehrávač zvuku."
+
+# media_greeting
+#~ msgid ""
+#~ "You have just inserted a medium with software intended to be "
+#~ "automatically started."
+#~ msgstr ""
+#~ "Práve ste vložili nosič so softvérom, ktorý je určený pre automatické "
+#~ "spustenie."
+
+# media_greeting
+#~ msgid "You have just inserted a medium."
+#~ msgstr "Práve ste vložili nosič."
+
+# label
+#~ msgid "Choose what application to launch."
+#~ msgstr "Zvoľte aplikáciu, ktorá sa spustí"
+
+# label
+#~ msgid ""
+#~ "Select how to open \"%s\" and whether to perform this action in the "
+#~ "future for other media of type \"%s\"."
+#~ msgstr ""
+#~ "Vyberte ako sa má otvoriť „%s“, a či sa má táto akcia vykonať aj pri "
+#~ "ostatných nosičoch typu „%s“."
+
+# check button
+#~ msgid "_Always perform this action"
+#~ msgstr "Vždy vykonať túto _akciu"
+
+# button
+#~ msgid "_Eject"
+#~ msgstr "Vy_sunúť"
+
+# button
+#~ msgid "_Unmount"
+#~ msgstr "_Odpojiť"
+
+#~ msgid "Power Manager"
+#~ msgstr "Správca napájania"
 
 # description
 #~ msgid "Command to be run when a device is added or removed."
