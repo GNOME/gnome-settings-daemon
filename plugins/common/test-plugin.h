@@ -71,17 +71,16 @@ main (int argc, char **argv)
         }
 
 	if (has_settings () == FALSE) {
-		fprintf (stderr, "The schemas for plugin '%s' aren't available, check your installation.\n", SCHEMA_NAME);
-		exit (1);
+		fprintf (stderr, "The schemas for plugin '%s' isn't available, check your installation.\n", SCHEMA_NAME);
+	} else {
+		settings = g_settings_new ("org.gnome.settings-daemon.plugins." SCHEMA_NAME);
+		if (g_settings_get_boolean (settings, "active") != FALSE) {
+			fprintf (stderr, "Plugin '%s' is not disabled. You need to disable it before launching the test application.\n", SCHEMA_NAME);
+			print_enable_disable_help ();
+			exit (1);
+		}
+		print_enable_disable_help();
 	}
-
-        settings = g_settings_new ("org.gnome.settings-daemon.plugins." SCHEMA_NAME);
-        if (g_settings_get_boolean (settings, "active") != FALSE) {
-		fprintf (stderr, "Plugin '%s' is not disabled. You need to disable it before launching the test application.\n", SCHEMA_NAME);
-		print_enable_disable_help ();
-		exit (1);
-	}
-	print_enable_disable_help();
 
         manager = NEW ();
 
