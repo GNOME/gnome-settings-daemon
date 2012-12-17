@@ -13,6 +13,7 @@ enabled_plugins =	\
 	keyboard	\
 	media-keys	\
 	mouse		\
+	remote-display	\
 	screensaver-proxy \
 	sound		\
 	xrandr		\
