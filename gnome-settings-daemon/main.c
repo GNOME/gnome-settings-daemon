@@ -186,8 +186,6 @@ on_client_registered (GObject             *source_object,
                 g_free (object_path);
                 g_variant_unref (variant);
         }
-
-        start_settings_manager ();
 }
 
 static void
@@ -357,6 +355,7 @@ name_acquired_handler (GDBusConnection *connection,
 #ifdef HAVE_IBUS
         set_legacy_ibus_env_vars (proxy);
 #endif
+        start_settings_manager ();
         register_with_gnome_session (proxy);
         watch_for_term_signal (manager);
 }
