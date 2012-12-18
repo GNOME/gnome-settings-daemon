@@ -210,32 +210,6 @@ supports_xfixes (void)
                                 &error);
 }
 
-static void
-initialize_root_cursor_foreach (GdkDisplay       *display,
-                                GdkScreen        *screen,
-                                GsdCursorManager *manager,
-                                Cursor           *xcursor)
-{
-        Display *xdisplay;
-
-        xdisplay = GDK_DISPLAY_XDISPLAY (display);
-        XDefineCursor (xdisplay,
-                       GDK_WINDOW_XID (gdk_screen_get_root_window (screen)),
-                       *xcursor);
-}
-
-static void
-initialize_root_cursor (GsdCursorManager *manager)
-{
-        GdkCursor *cursor;
-        Cursor xcursor;
-
-        cursor = gdk_cursor_new (GDK_LEFT_PTR);
-        xcursor = gdk_x11_cursor_get_xcursor (cursor);
-        foreach_screen (manager, (ForeachScreenFunc) initialize_root_cursor_foreach, &xcursor);
-        g_object_unref (cursor);
-}
-
 static gboolean
 supports_cursor_xfixes (void)
 {
@@ -290,20 +264,17 @@ gsd_cursor_manager_start (GsdCursorManager *manager,
 
         if (supports_cursor_xfixes () == FALSE) {
                 g_debug ("XFixes cursor extension not available, will not hide the cursor");
-                initialize_root_cursor (manager);
                 return FALSE;
         }
 
         if (supports_xinput_devices () == FALSE) {
                 g_debug ("XInput support not available, will not hide the cursor");
-                initialize_root_cursor (manager);
                 return FALSE;
         }
 
         /* Start by hiding the cursor, and then initialising the default
          * root window cursor, as the window manager shouldn't do that. */
         set_cursor_visibility (manager, FALSE);
-        initialize_root_cursor (manager);
 
         device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
         manager->priv->added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
