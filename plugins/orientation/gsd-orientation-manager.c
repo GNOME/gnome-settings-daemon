@@ -50,6 +50,7 @@ typedef enum {
 struct GsdOrientationManagerPrivate
 {
         guint start_idle_id;
+        guint name_id;
 
         /* Accelerometer */
         char *sysfs_path;
@@ -70,6 +71,7 @@ struct GsdOrientationManagerPrivate
 #define CONF_SCHEMA "org.gnome.settings-daemon.peripherals.touchscreen"
 #define ORIENTATION_LOCK_KEY "orientation-lock"
 
+#define GSD_ORIENTATION_DBUS_NAME GSD_DBUS_NAME ".Orientation"
 #define GSD_ORIENTATION_DBUS_PATH GSD_DBUS_PATH "/Orientation"
 
 static const gchar introspection_xml[] =
@@ -350,6 +352,14 @@ on_bus_gotten (GObject               *source_object,
         }
         manager->priv->connection = connection;
 
+        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+                                                               GSD_ORIENTATION_DBUS_NAME,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
+
         g_dbus_connection_register_object (connection,
                                            GSD_ORIENTATION_DBUS_PATH,
                                            manager->priv->introspection_data->interfaces[0],
@@ -506,6 +516,9 @@ gsd_orientation_manager_finalize (GObject *object)
 
         if (orientation_manager->priv->start_idle_id != 0)
                 g_source_remove (orientation_manager->priv->start_idle_id);
+
+        if (orientation_manager->priv->name_id != 0)
+                g_bus_unown_name (orientation_manager->priv->name_id);
 
         G_OBJECT_CLASS (gsd_orientation_manager_parent_class)->finalize (object);
 }
