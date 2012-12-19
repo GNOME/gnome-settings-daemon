@@ -40,6 +40,7 @@
 
 #include "gpm-common.h"
 #include "gpm-phone.h"
+#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-session.h"
 #include "gsd-enums.h"
@@ -58,12 +59,11 @@
 #define GSD_POWER_SETTINGS_SCHEMA               "org.gnome.settings-daemon.plugins.power"
 #define GSD_XRANDR_SETTINGS_SCHEMA              "org.gnome.settings-daemon.plugins.xrandr"
 
-#define GSD_DBUS_SERVICE                        "org.gnome.SettingsDaemon"
-#define GSD_DBUS_PATH                           "/org/gnome/SettingsDaemon"
+#define GSD_POWER_DBUS_NAME                     GSD_DBUS_NAME ".Power"
 #define GSD_POWER_DBUS_PATH                     GSD_DBUS_PATH "/Power"
-#define GSD_POWER_DBUS_INTERFACE                "org.gnome.SettingsDaemon.Power"
-#define GSD_POWER_DBUS_INTERFACE_SCREEN         "org.gnome.SettingsDaemon.Power.Screen"
-#define GSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.gnome.SettingsDaemon.Power.Keyboard"
+#define GSD_POWER_DBUS_INTERFACE                GSD_DBUS_BASE_INTERFACE ".Power"
+#define GSD_POWER_DBUS_INTERFACE_SCREEN         GSD_POWER_DBUS_INTERFACE ".Screen"
+#define GSD_POWER_DBUS_INTERFACE_KEYBOARD       GSD_POWER_DBUS_INTERFACE ".Keyboard"
 
 #define GS_DBUS_NAME                            "org.gnome.ScreenSaver"
 #define GS_DBUS_PATH                            "/org/gnome/ScreenSaver"
@@ -157,6 +157,7 @@ typedef enum {
 struct GsdPowerManagerPrivate
 {
         GDBusProxy              *session;
+        guint                    name_id;
         gboolean                 lid_is_closed;
         GSettings               *settings;
         GSettings               *settings_screensaver;
@@ -2622,7 +2623,7 @@ backlight_emit_changed (GsdPowerManager *manager)
         if (manager->priv->connection == NULL)
                 return;
         ret = g_dbus_connection_emit_signal (manager->priv->connection,
-                                             GSD_DBUS_SERVICE,
+                                             GSD_DBUS_NAME,
                                              GSD_POWER_DBUS_PATH,
                                              GSD_POWER_DBUS_INTERFACE_SCREEN,
                                              "Changed",
@@ -3289,9 +3290,30 @@ refresh_idle_dim_settings (GsdPowerManager *manager)
 }
 
 static void
+gsd_power_manager_finalize (GObject *object)
+{
+        GsdPowerManager *manager;
+
+        g_return_if_fail (object != NULL);
+        g_return_if_fail (GSD_IS_POWER_MANAGER (object));
+
+        manager = GSD_POWER_MANAGER (object);
+
+        g_return_if_fail (manager->priv != NULL);
+
+        if (manager->priv->name_id != 0)
+                g_bus_unown_name (manager->priv->name_id);
+
+        G_OBJECT_CLASS (gsd_power_manager_parent_class)->finalize (object);
+}
+
+static void
 gsd_power_manager_class_init (GsdPowerManagerClass *klass)
 {
+        GObjectClass *object_class = G_OBJECT_CLASS (klass);
         const char* env_action_delay;
+
+        object_class->finalize = gsd_power_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdPowerManagerPrivate));
 
@@ -4506,6 +4528,14 @@ on_bus_gotten (GObject             *source_object,
                                                    NULL,
                                                    NULL);
         }
+
+        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+                                                               GSD_POWER_DBUS_NAME,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
 }
 
 static void
