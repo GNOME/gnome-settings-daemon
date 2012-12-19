@@ -52,6 +52,10 @@ GType            gnome_settings_plugin_get_type           (void) G_GNUC_CONST;
 void             gnome_settings_plugin_activate           (GnomeSettingsPlugin *plugin);
 void             gnome_settings_plugin_deactivate         (GnomeSettingsPlugin *plugin);
 
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
+
 /*
  * Utility macro used to register plugins
  *
