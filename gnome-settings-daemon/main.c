@@ -34,10 +34,9 @@
 #include <libnotify/notify.h>
 
 #include "gnome-settings-manager.h"
+#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-session.h"
-
-#define GSD_DBUS_NAME         "org.gnome.SettingsDaemon"
 
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
 #define GNOME_SESSION_CLIENT_PRIVATE_DBUS_INTERFACE "org.gnome.SessionManager.ClientPrivate"

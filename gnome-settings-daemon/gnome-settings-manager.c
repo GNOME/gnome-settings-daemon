@@ -33,12 +33,10 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-pnp-ids.h>
 
+#include "gnome-settings-plugin.h"
 #include "gnome-settings-plugin-info.h"
 #include "gnome-settings-manager.h"
 #include "gnome-settings-profile.h"
-
-#define GSD_MANAGER_DBUS_PATH "/org/gnome/SettingsDaemon"
-#define GSD_MANAGER_DBUS_NAME "org.gnome.SettingsDaemon"
 
 #define DEFAULT_SETTINGS_PREFIX "org.gnome.settings-daemon"
 
@@ -149,8 +147,8 @@ emit_signal (GnomeSettingsManager    *manager,
 
         if (g_dbus_connection_emit_signal (manager->priv->connection,
                                            NULL,
-                                           GSD_MANAGER_DBUS_PATH,
-                                           GSD_MANAGER_DBUS_NAME,
+                                           GSD_DBUS_PATH,
+                                           GSD_DBUS_NAME,
                                            "PluginActivated",
                                            g_variant_new ("(s)", name),
                                            &error) == FALSE) {
@@ -358,7 +356,7 @@ on_bus_gotten (GObject             *source_object,
         manager->priv->connection = connection;
 
         g_dbus_connection_register_object (connection,
-                                           GSD_MANAGER_DBUS_PATH,
+                                           GSD_DBUS_PATH,
                                            manager->priv->introspection_data->interfaces[0],
                                            NULL,
                                            NULL,
