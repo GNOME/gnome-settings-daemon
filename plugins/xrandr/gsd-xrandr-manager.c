@@ -75,7 +75,7 @@
 #define GSD_XRANDR_DBUS_PATH GSD_DBUS_PATH "/XRANDR"
 
 static const gchar introspection_xml[] =
-"<node>"
+"<node name='/org/gnome/SettingsDaemon/XRANDR'>"
 "  <interface name='org.gnome.SettingsDaemon.XRANDR_2'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_xrandr_manager_2'/>"
 "    <method name='ApplyConfiguration'>"
