@@ -63,17 +63,12 @@ struct GsdUpdatesManagerPrivate
         guint                    update_viewer_watcher_id;
         GVolumeMonitor          *volume_monitor;
         guint                    failed_get_updates_count;
-        gboolean                 pending_updates;
-        GDBusConnection         *connection;
-        guint                    owner_id;
-        GDBusNodeInfo           *introspection;
         GPtrArray               *update_packages;
 };
 
 static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
 static void gsd_updates_manager_init (GsdUpdatesManager *updates_manager);
 static void gsd_updates_manager_finalize (GObject *object);
-static void emit_changed (GsdUpdatesManager *manager);
 
 G_DEFINE_TYPE (GsdUpdatesManager, gsd_updates_manager, G_TYPE_OBJECT)
 
@@ -671,9 +666,6 @@ package_download_finished_cb (GObject *object,
         /* check to see if should notify */
         check_updates_for_importance (manager);
 
-        /* we succeeded, so allow the shell to query us */
-        manager->priv->pending_updates = TRUE;
-        emit_changed (manager);
 out:
         if (error_code != NULL)
                 g_object_unref (error_code);
@@ -1118,79 +1110,6 @@ out:
         g_object_unref (root);
 }
 
-static GVariant *
-handle_get_property (GDBusConnection *connection_, const gchar *sender,
-                     const gchar *object_path, const gchar *interface_name,
-                     const gchar *property_name, GError **error,
-                     gpointer user_data)
-{
-        GVariant *retval = NULL;
-        GsdUpdatesManager *manager = GSD_UPDATES_MANAGER(user_data);
-
-        if (g_strcmp0 (property_name, "PendingUpdates") == 0) {
-                retval = g_variant_new_boolean (manager->priv->pending_updates);
-        }
-
-        return retval;
-}
-
-static void
-emit_changed (GsdUpdatesManager *manager)
-{
-        gboolean ret;
-        GError *error = NULL;
-
-        /* check we are connected */
-        if (manager->priv->connection == NULL)
-                return;
-
-        /* just emit signal */
-        ret = g_dbus_connection_emit_signal (manager->priv->connection,
-                                             NULL,
-                                             "/",
-                                             "org.gnome.SettingsDaemonUpdates",
-                                             "Changed",
-                                             NULL,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to emit signal: %s", error->message);
-                g_error_free (error);
-        }
-}
-
-static const GDBusInterfaceVTable interface_vtable =
-{
-        NULL, /* MethodCall */
-        handle_get_property, /* GetProperty */
-        NULL, /* SetProperty */
-};
-
-static void
-on_bus_gotten (GObject *source_object,
-               GAsyncResult *res,
-               GsdUpdatesManager *manager)
-{
-        GDBusConnection *connection;
-        GError *error = NULL;
-
-        connection = g_bus_get_finish (res, &error);
-        if (connection == NULL) {
-                g_warning ("Could not get session bus: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-        manager->priv->connection = connection;
-
-        g_dbus_connection_register_object (connection,
-                                           "/",
-                                           manager->priv->introspection->interfaces[0],
-                                           &interface_vtable,
-                                           manager,
-                                           NULL,
-                                           NULL);
-}
-
 #define PK_OFFLINE_UPDATE_RESULTS_GROUP		"PackageKit Offline Update Results"
 #define PK_OFFLINE_UPDATE_RESULTS_FILENAME	"/var/lib/PackageKit/offline-update-competed"
 
@@ -1332,8 +1251,6 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
                            GError **error)
 {
         gboolean ret = FALSE;
-        gchar *introspection_data = NULL;
-        GFile *file = NULL;
 
         g_debug ("Starting updates manager");
 
@@ -1408,23 +1325,6 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         /* coldplug */
         reload_proxy_settings (manager);
 
-        /* load introspection from file */
-        file = g_file_new_for_path (DATADIR "/dbus-1/interfaces/org.gnome.SettingsDaemonUpdates.xml");
-        ret = g_file_load_contents (file, NULL, &introspection_data, NULL, NULL, error);
-        if (!ret)
-                goto out;
-
-        /* build introspection from XML */
-        manager->priv->introspection = g_dbus_node_info_new_for_xml (introspection_data, error);
-        if (manager->priv->introspection == NULL)
-                goto out;
-
-        /* export the object */
-        g_bus_get (G_BUS_TYPE_SESSION,
-                   NULL,
-                   (GAsyncReadyCallback) on_bus_gotten,
-                   manager);
-
         /* check for offline update */
         manager->priv->offline_update_id =
                 g_timeout_add_seconds (5,
@@ -1435,7 +1335,6 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         ret = TRUE;
         g_debug ("Started updates manager");
 out:
-        g_free (introspection_data);
         return ret;
 }
 
@@ -1455,14 +1354,9 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
         g_clear_object (&manager->priv->proxy_session);
         g_clear_object (&manager->priv->volume_monitor);
         g_clear_object (&manager->priv->cancellable);
-        g_clear_pointer (&manager->priv->introspection, g_dbus_node_info_unref);
         if (manager->priv->update_viewer_watcher_id != 0) {
                 g_bus_unwatch_name (manager->priv->update_viewer_watcher_id);
                 manager->priv->update_viewer_watcher_id = 0;
-        }
-        if (manager->priv->owner_id > 0) {
-                g_bus_unown_name (manager->priv->owner_id);
-                manager->priv->owner_id = 0;
         }
         if (manager->priv->offline_update_id) {
                 g_source_remove (manager->priv->offline_update_id);

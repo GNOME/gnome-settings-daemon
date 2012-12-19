@@ -1,8 +1,5 @@
 plugin_name = updates
 
-introspectiondir = $(datadir)/dbus-1/interfaces
-dist_introspection_DATA = org.gnome.SettingsDaemonUpdates.xml
-
 plugin_LTLIBRARIES = \
 	libupdates.la
 
