@@ -53,6 +53,7 @@
 
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
+#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-session.h"
 #include "gsd-xrandr-manager.h"
@@ -71,7 +72,7 @@
 /* name of the icon files (gsd-xrandr.svg, etc.) */
 #define GSD_XRANDR_ICON_NAME "gsd-xrandr"
 
-#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_XRANDR_DBUS_NAME GSD_DBUS_NAME ".XRANDR"
 #define GSD_XRANDR_DBUS_PATH GSD_DBUS_PATH "/XRANDR"
 
 static const gchar introspection_xml[] =
@@ -103,8 +104,7 @@ static const gchar introspection_xml[] =
 "  </interface>"
 "</node>";
 
-struct GsdXrandrManagerPrivate
-{
+struct GsdXrandrManagerPrivate {
         GnomeRRScreen *rw_screen;
         gboolean running;
 
@@ -113,6 +113,7 @@ struct GsdXrandrManagerPrivate
 
         GSettings       *settings;
         GDBusNodeInfo   *introspection_data;
+        guint            name_id;
         GDBusConnection *connection;
         GCancellable    *bus_cancellable;
 
@@ -2164,14 +2165,17 @@ gsd_xrandr_manager_init (GsdXrandrManager *manager)
 static void
 gsd_xrandr_manager_finalize (GObject *object)
 {
-        GsdXrandrManager *xrandr_manager;
+        GsdXrandrManager *manager;
 
         g_return_if_fail (object != NULL);
         g_return_if_fail (GSD_IS_XRANDR_MANAGER (object));
 
-        xrandr_manager = GSD_XRANDR_MANAGER (object);
+        manager = GSD_XRANDR_MANAGER (object);
 
-        g_return_if_fail (xrandr_manager->priv != NULL);
+        g_return_if_fail (manager->priv != NULL);
+
+        if (manager->priv->name_id != 0)
+                g_bus_unown_name (manager->priv->name_id);
 
         G_OBJECT_CLASS (gsd_xrandr_manager_parent_class)->finalize (object);
 }
@@ -2275,6 +2279,14 @@ on_bus_gotten (GObject             *source_object,
                                                    NULL,
                                                    NULL);
         }
+
+        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+                                                               GSD_XRANDR_DBUS_NAME,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
 }
 
 static void
