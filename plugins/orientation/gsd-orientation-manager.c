@@ -33,6 +33,7 @@
 #include <libgnome-desktop/gnome-rr.h>
 
 #include "gsd-input-helper.h"
+#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gsd-orientation-manager.h"
 
@@ -69,7 +70,6 @@ struct GsdOrientationManagerPrivate
 #define CONF_SCHEMA "org.gnome.settings-daemon.peripherals.touchscreen"
 #define ORIENTATION_LOCK_KEY "orientation-lock"
 
-#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
 #define GSD_ORIENTATION_DBUS_PATH GSD_DBUS_PATH "/Orientation"
 
 static const gchar introspection_xml[] =
@@ -361,9 +361,9 @@ on_bus_gotten (GObject               *source_object,
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
                           NULL,
-                          "org.gnome.SettingsDaemon",
-                          "/org/gnome/SettingsDaemon/XRANDR",
-                          "org.gnome.SettingsDaemon.XRANDR_2",
+                          GSD_DBUS_NAME ".XRANDR",
+                          GSD_DBUS_PATH "/XRANDR",
+                          GSD_DBUS_BASE_INTERFACE ".XRANDR_2",
                           NULL,
                           (GAsyncReadyCallback) xrandr_ready_cb,
                           manager);
