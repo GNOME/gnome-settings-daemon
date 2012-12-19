@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-09 13:13+0200\n"
-"PO-Revision-Date: 2012-11-09 13:13+0200\n"
+"POT-Creation-Date: 2012-12-19 10:07+0200\n"
+"PO-Revision-Date: 2012-12-19 10:09+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <kde-il@yahoogroups.com>\n"
 "Language: he\n"
@@ -116,7 +116,7 @@ msgstr "Command to be run when a device is added or removed. An exit value of 1 
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
@@ -131,7 +131,7 @@ msgstr "Activation of this plugin"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
@@ -146,7 +146,7 @@ msgstr "Whether this plugin would be activated by gnome-settings-daemon or not"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
@@ -161,7 +161,7 @@ msgstr "Priority to use for this plugin"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
@@ -313,6 +313,14 @@ msgstr "The duration a printer profile is valid"
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid "This is the number of days after which the printer color profile is considered invalid."
 msgstr "This is the number of days after which the printer color profile is considered invalid."
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+msgid "List of plugins that are allowed to be loaded"
+msgstr "List of plugins that are allowed to be loaded"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+msgid "A list of strings representing the plugins that are allowed to be loaded (default: 'all'). The plugins still need to be marked as active to get loaded. This is only evaluated on startup."
+msgstr "A list of strings representing the plugins that are allowed to be loaded (default: 'all'). The plugins still need to be marked as active to get loaded. This is only evaluated on startup."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 msgid "Mount paths to ignore"
@@ -619,42 +627,26 @@ msgid "Binding for the magnifier to zoom out"
 msgstr "Binding for the magnifier to zoom out"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
-msgid "Switch input source"
-msgstr "Switch input source"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
-msgid "Binding to select the next input source"
-msgstr "Binding to select the next input source"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
-msgid "Switch input source backward"
-msgstr "Switch input source backward"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
-msgid "Binding to select the previous input source"
-msgstr "Binding to select the previous input source"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Name"
 msgstr "Name"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
 msgid "Name of the custom binding"
 msgstr "Name of the custom binding"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Binding"
 msgstr "Binding"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Binding for the custom binding"
 msgstr "Binding for the custom binding"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Command"
 msgstr "Command"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Command to run when the binding is invoked"
 msgstr "Command to run when the binding is invoked"
 
@@ -839,8 +831,8 @@ msgid "Whether to turn off specific monitors after boot"
 msgstr "Whether to turn off specific monitors after boot"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
-msgid "'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions)"
-msgstr "'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions)"
+msgid "'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions). The default, 'follow-lid', will choose between 'do-nothing' and 'dock' depending on whether the lid is (respectively) open or closed."
+msgstr "'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions). The default, 'follow-lid', will choose between 'do-nothing' and 'dock' depending on whether the lid is (respectively) open or closed."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Antialiasing"
@@ -882,11 +874,15 @@ msgstr "List of explicitly enabled GTK+ modules"
 msgid "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
 msgstr "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:53
 msgid "Enable debugging code"
 msgstr "Enable debugging code"
 
-#: ../gnome-settings-daemon/main.c:53
+#: ../gnome-settings-daemon/main.c:54
+msgid "Replace existing daemon"
+msgstr "Replace existing daemon"
+
+#: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Exit after a time (for debugging)"
 
@@ -898,128 +894,91 @@ msgstr "מקלדת נגישות"
 msgid "Accessibility keyboard plugin"
 msgstr "תוסף מקלדת נגישות"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:383
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:379
 #, c-format
 msgid "There was an error displaying help: %s"
 msgstr "ארעה שגיאה בהצגת העזרה: %s"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:507
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:570
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:488
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
 msgid "Slow Keys Turned On"
 msgstr "מקשים אטיים פעילים"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:571
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:489
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:547
 msgid "Slow Keys Turned Off"
 msgstr "מקשים אטיים כבויים"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:548
 msgid "You just held down the Shift key for 8 seconds.  This is the shortcut for the Slow Keys feature, which affects the way your keyboard works."
 msgstr "כרגע הוחזק מקש ה־Shift למשך 8 שניות.  זהו הקיצור עבור תכונת המקשים האטיים, המשפיעה על אופן פעולת המקלדת."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:663
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:504
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:634
 #: ../plugins/mouse/gsd-mouse-manager.c:920
 msgid "Universal Access"
 msgstr "גישה אוניברסלית"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:510
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
 msgid "Turn Off"
 msgstr "כיבוי"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:510
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
 msgid "Turn On"
 msgstr "הפעלה"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:516
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:646
 msgid "Leave On"
 msgstr "להשאיר פועל"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:516
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:646
 msgid "Leave Off"
 msgstr "להשאיר כבוי"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:569
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
 msgid "_Turn Off"
 msgstr "_כיבוי"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:569
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:702
 msgid "_Turn On"
 msgstr "ה_פעלה"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
 msgid "_Leave On"
 msgstr "להשאיר פו_על"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
 msgid "_Leave Off"
 msgstr "להשאיר כ_בוי"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:639
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:676
 msgid "Sticky Keys Turned On"
 msgstr "מקשים דביקים פעילים"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:706
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:616
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
 msgid "Sticky Keys Turned Off"
 msgstr "מקשים דביקים כבויים"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:618
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:679
 msgid "You just pressed the Shift key 5 times in a row.  This is the shortcut for the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "כרגע לחצת על מקש ה־Shift 5 פעמים ברצף. זהו הקיצור עבור תכונת המקשים הדביקים, המשפיעה על אופן פעולת המקלדת שלך."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:644
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:710
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:620
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:681
 msgid "You just pressed two keys at once, or pressed the Shift key 5 times in a row.  This turns off the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "כרגע לחצת על שני מקשים יחדיו, או שלחצת על מקש ה־Shift 5 פעמים ברצף. בכך מבוטלת תכונת המקשים הדביקים, המשפיעה על אופן פעולת המקלדת שלך."
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:397
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
-msgid "Universal Access Preferences"
-msgstr "העדפות גישה אוניברסלית"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
-msgid "Use on-screen _keyboard"
-msgstr "שימוש ב_מקלדת על המסך"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
-msgid "Use screen _reader"
-msgstr "שימוש ב_קורא מסך"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
-msgid "Use screen _magnifier"
-msgstr "שימוש במ_גדיל מסך"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
-msgid "Enhance _contrast in colors"
-msgstr "הגברת _ניגודיות הצבעים"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
-msgid "Make _text larger and easier to read"
-msgstr "ה_גדלת הטקסט לקריאה נוחה יותר"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
-msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr "לחיצה על אחד ממקשי הקיצורים בכל פעם (מקשים דביקים)"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
-msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "ה_תעלמות מלחיצות מקשים נשנות (הקפצת מקשים)"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
-msgid "Press and _hold keys to accept them (Slow Keys)"
-msgstr "יש ללחוץ ולהח_זיק כדי לקבלם (מקשים אטיים)"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
 msgid "Accessibility settings"
@@ -1028,128 +987,6 @@ msgstr "הגדרות נגישות"
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "תוסף הגדרות נגישות"
-
-#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
-msgid "Mount Helper"
-msgstr "מסייע העיגון"
-
-#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
-msgid "Automount and autorun plugged devices"
-msgstr "עיגון והפעלה אוטומטית של התקנים בעת חיבורם"
-
-#: ../plugins/automount/gsd-automount-manager.c:151
-#, c-format
-msgid "Unable to mount %s"
-msgstr "לא ניתן לעגן את %s"
-
-#: ../plugins/automount/gsd-automount-manager.c:264
-#, c-format
-msgid "Unable to open a folder for %s"
-msgstr "לא ניתן לפתוח את התיקייה לצורך %s"
-
-#: ../plugins/automount/gsd-autorun.c:340
-msgid "Ask what to do"
-msgstr "הצגת שאלה מה לעשות"
-
-#: ../plugins/automount/gsd-autorun.c:346
-msgid "Do Nothing"
-msgstr "לא לעשות דבר"
-
-#: ../plugins/automount/gsd-autorun.c:352
-msgid "Open Folder"
-msgstr "פתיחת תיקייה"
-
-#: ../plugins/automount/gsd-autorun.c:495
-#, c-format
-msgid "Unable to eject %p"
-msgstr "לא ניתן לשלוף את %p"
-
-#: ../plugins/automount/gsd-autorun.c:497
-#, c-format
-msgid "Unable to unmount %p"
-msgstr "לא ניתן לנתק את %p"
-
-#: ../plugins/automount/gsd-autorun.c:702
-msgid "You have just inserted an Audio CD."
-msgstr "הרגע הכנסת תקליטור שמע."
-
-#: ../plugins/automount/gsd-autorun.c:704
-msgid "You have just inserted an Audio DVD."
-msgstr "הרגע הכנסת DVD שמע."
-
-#: ../plugins/automount/gsd-autorun.c:706
-msgid "You have just inserted a Video DVD."
-msgstr "הרגע הכנסת DVD וידאו."
-
-#: ../plugins/automount/gsd-autorun.c:708
-msgid "You have just inserted a Video CD."
-msgstr "הרגע הכנסת תקליטור וידאו (VCD)."
-
-#: ../plugins/automount/gsd-autorun.c:710
-msgid "You have just inserted a Super Video CD."
-msgstr "הרגע הכנסת תקליטור סופר וידאו (SVCD)."
-
-#: ../plugins/automount/gsd-autorun.c:712
-msgid "You have just inserted a blank CD."
-msgstr "הרגע הכנסת תקליטור ריק."
-
-#: ../plugins/automount/gsd-autorun.c:714
-msgid "You have just inserted a blank DVD."
-msgstr "הרגע הכנסת DVD ריק."
-
-#: ../plugins/automount/gsd-autorun.c:716
-msgid "You have just inserted a blank Blu-Ray disc."
-msgstr "הרגע הכנסת תקליטור Blu-Ray ריק."
-
-#: ../plugins/automount/gsd-autorun.c:718
-msgid "You have just inserted a blank HD DVD."
-msgstr "הרגע הכנסת HD DVD ריק."
-
-#: ../plugins/automount/gsd-autorun.c:720
-msgid "You have just inserted a Photo CD."
-msgstr "הרגע הכנסת תקליטור תמונות."
-
-#: ../plugins/automount/gsd-autorun.c:722
-msgid "You have just inserted a Picture CD."
-msgstr "הרגע הכנסת תקליטור צילומים."
-
-#: ../plugins/automount/gsd-autorun.c:724
-msgid "You have just inserted a medium with digital photos."
-msgstr "הרגע הכנסת אמצעי מדיה עם תמונות דיגיטליות."
-
-#: ../plugins/automount/gsd-autorun.c:726
-msgid "You have just inserted a digital audio player."
-msgstr "הרגע הכנסת נגן שמע דיגיטלי."
-
-#: ../plugins/automount/gsd-autorun.c:728
-msgid "You have just inserted a medium with software intended to be automatically started."
-msgstr "הרגע הכנסת אמצעי מדיה עם תכנה המיועדת להפעלה אוטומטית."
-
-#. fallback to generic greeting
-#: ../plugins/automount/gsd-autorun.c:731
-msgid "You have just inserted a medium."
-msgstr "הרגע הכנסת אמצעי מדיה."
-
-#: ../plugins/automount/gsd-autorun.c:733
-msgid "Choose what application to launch."
-msgstr "נא לבחור איזה יישום לטעון."
-
-#: ../plugins/automount/gsd-autorun.c:742
-#, c-format
-msgid "Select how to open \"%s\" and whether to perform this action in the future for other media of type \"%s\"."
-msgstr "נא לבחור כיצד לפתוח \"%s\" והאם לבצע פעולה זו בעתיד לסוגי מדיה אחרים מסוג \"%s\"."
-
-#: ../plugins/automount/gsd-autorun.c:769
-msgid "_Always perform this action"
-msgstr "_תמיד יש לבצע פעולה זו"
-
-#: ../plugins/automount/gsd-autorun.c:785
-msgid "_Eject"
-msgstr "_שליפה"
-
-#: ../plugins/automount/gsd-autorun.c:790
-msgid "_Unmount"
-msgstr "_ניתוק"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -1168,7 +1005,7 @@ msgid "Clipboard plugin"
 msgstr "תוסף לוח"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1801
+#: ../plugins/color/gsd-color-manager.c:1808
 msgid "Color"
 msgstr "צבע"
 
@@ -1176,40 +1013,40 @@ msgstr "צבע"
 msgid "Color plugin"
 msgstr "תוסף צבע"
 
-#: ../plugins/color/gsd-color-manager.c:1806
+#: ../plugins/color/gsd-color-manager.c:1813
 msgid "Recalibrate now"
 msgstr "כיול מחדש כעת"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1849
+#: ../plugins/color/gsd-color-manager.c:1856
 msgid "Recalibration required"
 msgstr "נדרש כיול מחדש"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1861
+#: ../plugins/color/gsd-color-manager.c:1868
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "יש לכייל את התצוגה '%s' מחדש בהקדם האפשרי."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1870
+#: ../plugins/color/gsd-color-manager.c:1877
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "יש לכייל את המדפסת '%s' מחדש בהקדם האפשרי."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2194
-#: ../plugins/color/gsd-color-manager.c:2210
+#: ../plugins/color/gsd-color-manager.c:2201
+#: ../plugins/color/gsd-color-manager.c:2217
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "תוסף הצבע של מנוע ההגדרות של GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2196
+#: ../plugins/color/gsd-color-manager.c:2203
 msgid "Color calibration device added"
 msgstr "נוסף התקן כיול צבע"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2212
+#: ../plugins/color/gsd-color-manager.c:2219
 msgid "Color calibration device removed"
 msgstr "התקן כיול צבע הוסר"
 
@@ -1221,53 +1058,53 @@ msgstr "מדומה"
 msgid "Dummy plugin"
 msgstr "תוסף מדומה"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:334
+#: ../plugins/housekeeping/gsd-disk-space.c:581
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "השטח הפנוי בכונן „%s“ נמוך"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:336
+#: ../plugins/housekeeping/gsd-disk-space.c:583
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining.  You may free up some space by emptying the trash."
 msgstr "בכרך \"%s\" נותרו %s של מקום פנוי בכונן בלבד. ניתן לפנות מעט מקום פנוי על ידי פינוי האשפה."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:340
+#: ../plugins/housekeeping/gsd-disk-space.c:587
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "בכרך \"%s\" נותרו %s של מקום פנוי בכונן בלבד."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:345
+#: ../plugins/housekeeping/gsd-disk-space.c:592
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
 msgid "Low Disk Space"
 msgstr "השטח הפנוי מועט"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:347
+#: ../plugins/housekeeping/gsd-disk-space.c:594
 #, c-format
 msgid "This computer has only %s disk space remaining.  You may free up some space by emptying the trash."
 msgstr "במחשב זה ישנם %s פנויים בכונן הקשיח. ניתן לפנות מעט מקום פנוי על ידי פינוי האשפה."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:350
+#: ../plugins/housekeeping/gsd-disk-space.c:597
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "במחשב זה ישנם %s פנויים בכונן הקשיח."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:365
+#: ../plugins/housekeeping/gsd-disk-space.c:612
 msgid "Disk space"
 msgstr "נפח בכונן"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:372
+#: ../plugins/housekeeping/gsd-disk-space.c:619
 msgid "Examine"
 msgstr "בחינה"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:380
+#: ../plugins/housekeeping/gsd-disk-space.c:627
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
 msgid "Empty Trash"
 msgstr "פינוי האשפה"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:387
+#: ../plugins/housekeeping/gsd-disk-space.c:634
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:452
 msgid "Ignore"
 msgstr "התעלמות"
@@ -1311,34 +1148,6 @@ msgstr[1] "מקלדות"
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "תוסף מקלדת"
-
-#. translators:
-#. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1087
-msgid "Disabled"
-msgstr "לא זמין"
-
-#. translators:
-#. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1094
-#, c-format
-msgid "%u Output"
-msgid_plural "%u Outputs"
-msgstr[0] "פלט אחד"
-msgstr[1] "%u פלטים"
-
-#. translators:
-#. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1104
-#, c-format
-msgid "%u Input"
-msgid_plural "%u Inputs"
-msgstr[0] "קלט אחד"
-msgstr[1] "%u קלטים"
-
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1402
-msgid "System Sounds"
-msgstr "צלילי מערכת"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -1860,275 +1669,275 @@ msgid "Computer is charged"
 msgstr "המחשב טעון"
 
 #. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:1010
+#: ../plugins/power/gsd-power-manager.c:971
 msgid "Battery may be recalled"
 msgstr "יתכן שישנה בקשת החזרה לסוללה"
 
-#: ../plugins/power/gsd-power-manager.c:1013
+#: ../plugins/power/gsd-power-manager.c:974
 #, c-format
 msgid "A battery in your computer may have been recalled by %s and you may be at risk."
 msgstr "הסוללה שבמחשב שלך נדרשה להחזרה על ידי %s ויתכן שהיא מסכנת אותך."
 
-#: ../plugins/power/gsd-power-manager.c:1016
+#: ../plugins/power/gsd-power-manager.c:977
 msgid "For more information visit the battery recall website."
 msgstr "למידע נוסף יש לבקר באתר ההחזרות של הסוללה."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:1027
+#: ../plugins/power/gsd-power-manager.c:988
 msgid "Visit recall website"
 msgstr "נא לבקר באתר ההחזרות"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:1031
+#: ../plugins/power/gsd-power-manager.c:992
 msgid "Do not show me this again"
 msgstr "לא להציג הודעה זו שוב"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1264
+#: ../plugins/power/gsd-power-manager.c:1225
 msgid "UPS Discharging"
 msgstr "האל־פסק נפרק"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1269
+#: ../plugins/power/gsd-power-manager.c:1230
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "נותרו %s מעצמת הגיבוי של האל־פסק"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1290
-#: ../plugins/power/gsd-power-manager.c:1472
-#: ../plugins/power/gsd-power-manager.c:1654
-#: ../plugins/power/gsd-power-manager.c:1801
+#: ../plugins/power/gsd-power-manager.c:1251
+#: ../plugins/power/gsd-power-manager.c:1468
+#: ../plugins/power/gsd-power-manager.c:1650
+#: ../plugins/power/gsd-power-manager.c:1797
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "צריכת חשמל"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1382
+#: ../plugins/power/gsd-power-manager.c:1378
 msgid "Battery low"
 msgstr "הסוללה חלשה"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1385
+#: ../plugins/power/gsd-power-manager.c:1381
 msgid "Laptop battery low"
 msgstr "סוללת המחשב הנייד חלשה"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1392
+#: ../plugins/power/gsd-power-manager.c:1388
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "נותרו בערך %s‏ (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1397
+#: ../plugins/power/gsd-power-manager.c:1393
 msgid "UPS low"
 msgstr "האל־פסק חלש"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1403
+#: ../plugins/power/gsd-power-manager.c:1399
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "נותרו בערך %s של עצמת גיבוי באל־פסק (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1408
-#: ../plugins/power/gsd-power-manager.c:1575
+#: ../plugins/power/gsd-power-manager.c:1404
+#: ../plugins/power/gsd-power-manager.c:1571
 msgid "Mouse battery low"
 msgstr "סוללת העכבר חלשה מאוד"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1411
+#: ../plugins/power/gsd-power-manager.c:1407
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "סוללת העכבר האלחוטי חלשה (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1415
-#: ../plugins/power/gsd-power-manager.c:1583
+#: ../plugins/power/gsd-power-manager.c:1411
+#: ../plugins/power/gsd-power-manager.c:1579
 msgid "Keyboard battery low"
 msgstr "סוללת המקלדת חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1418
+#: ../plugins/power/gsd-power-manager.c:1414
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "סוללת המקלדת האלחוטית חלשה (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1422
-#: ../plugins/power/gsd-power-manager.c:1592
+#: ../plugins/power/gsd-power-manager.c:1418
+#: ../plugins/power/gsd-power-manager.c:1588
 msgid "PDA battery low"
 msgstr "סוללת מחשב כף היד חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1425
+#: ../plugins/power/gsd-power-manager.c:1421
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "סוללת מחשב כף היד חלשה (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1429
-#: ../plugins/power/gsd-power-manager.c:1602
-#: ../plugins/power/gsd-power-manager.c:1613
+#: ../plugins/power/gsd-power-manager.c:1425
+#: ../plugins/power/gsd-power-manager.c:1598
+#: ../plugins/power/gsd-power-manager.c:1609
 msgid "Cell phone battery low"
 msgstr "סוללת המכשיר הסלולרי חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1432
+#: ../plugins/power/gsd-power-manager.c:1428
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "סוללת המכשיר הסלולרי חלשה (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1437
+#: ../plugins/power/gsd-power-manager.c:1433
 msgid "Media player battery low"
 msgstr "סוללת נגן המדיה חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1440
+#: ../plugins/power/gsd-power-manager.c:1436
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "סוללת נגן המדיה חלשה (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1444
-#: ../plugins/power/gsd-power-manager.c:1622
+#: ../plugins/power/gsd-power-manager.c:1440
+#: ../plugins/power/gsd-power-manager.c:1618
 msgid "Tablet battery low"
 msgstr "סוללת מחשב הלוח חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1447
+#: ../plugins/power/gsd-power-manager.c:1443
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "סוללת מחשב הלוח חלשה (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1451
-#: ../plugins/power/gsd-power-manager.c:1631
+#: ../plugins/power/gsd-power-manager.c:1447
+#: ../plugins/power/gsd-power-manager.c:1627
 msgid "Attached computer battery low"
 msgstr "עצמת סוללת המחשב המחובר חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1454
+#: ../plugins/power/gsd-power-manager.c:1450
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "עצמת סוללת המחשב המחובר חלשה (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1489
+#: ../plugins/power/gsd-power-manager.c:1485
 msgid "Battery is low"
 msgstr "הסוללה חלשה"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1531
+#: ../plugins/power/gsd-power-manager.c:1527
 msgid "Battery critically low"
 msgstr "הסוללה חלשה באופן מהותי"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1534
-#: ../plugins/power/gsd-power-manager.c:1719
+#: ../plugins/power/gsd-power-manager.c:1530
+#: ../plugins/power/gsd-power-manager.c:1715
 msgid "Laptop battery critically low"
 msgstr "סוללת המחשב הנייד חלשה באופן מהותי"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1543
+#: ../plugins/power/gsd-power-manager.c:1539
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "יש לחבר את המתאם לרשת החשמל כדי להימנע מאיבוד נתונים."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1547
+#: ../plugins/power/gsd-power-manager.c:1543
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "המחשב יושהה ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1551
+#: ../plugins/power/gsd-power-manager.c:1547
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "המחשב ייכנס לתרדמת ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1555
+#: ../plugins/power/gsd-power-manager.c:1551
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "המחשב ייכבה ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1563
-#: ../plugins/power/gsd-power-manager.c:1755
+#: ../plugins/power/gsd-power-manager.c:1559
+#: ../plugins/power/gsd-power-manager.c:1751
 msgid "UPS critically low"
 msgstr "האל־פסק חלש באופן מהותי"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1569
+#: ../plugins/power/gsd-power-manager.c:1565
 #, c-format
 msgid "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your computer to avoid losing data."
 msgstr "נותרו בערך%s של עצמת גיבוי באל־פסק (%.0f%%). יש להתחבר שוב לחשמל כדי להימנע מאבדן נתונים."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1578
+#: ../plugins/power/gsd-power-manager.c:1574
 #, c-format
 msgid "Wireless mouse is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת העכבר האלחוטי חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1586
+#: ../plugins/power/gsd-power-manager.c:1582
 #, c-format
 msgid "Wireless keyboard is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת המקלדת האלחוטית חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1595
+#: ../plugins/power/gsd-power-manager.c:1591
 #, c-format
 msgid "PDA is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת מחשב כף היד חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1605
+#: ../plugins/power/gsd-power-manager.c:1601
 #, c-format
 msgid "Cell phone is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת הטלפון הנייד חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1616
+#: ../plugins/power/gsd-power-manager.c:1612
 #, c-format
 msgid "Media player is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת נגן המדיה חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1625
+#: ../plugins/power/gsd-power-manager.c:1621
 #, c-format
 msgid "Tablet is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת מחשב הלוח חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1634
+#: ../plugins/power/gsd-power-manager.c:1630
 #, c-format
 msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "עצמת המחשב המחובר חלשה (%.0f%%). ההתקן יכבה בקרוב אם לא יוטען."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1672
-#: ../plugins/power/gsd-power-manager.c:1682
-#: ../plugins/power/gsd-power-manager.c:1816
+#: ../plugins/power/gsd-power-manager.c:1668
+#: ../plugins/power/gsd-power-manager.c:1678
+#: ../plugins/power/gsd-power-manager.c:1812
 msgid "Battery is critically low"
 msgstr "הסוללה חלשה באופן מהותי"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1727
+#: ../plugins/power/gsd-power-manager.c:1723
 msgid "The battery is below the critical level and this computer will <b>power-off</b> when the battery becomes completely empty."
 msgstr "עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה <b>יכבה</b> כאשר הסוללה תתרוקן לחלוטין."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1733
+#: ../plugins/power/gsd-power-manager.c:1729
 msgid ""
 "The battery is below the critical level and this computer is about to suspend.\n"
 "<b>NOTE:</b> A small amount of power is required to keep your computer in a suspended state."
@@ -2137,45 +1946,39 @@ msgstr ""
 "<b>לתשומת לבך:</b> כדי להשאיר את המחשב במצב השהיה ייעשה שימוש בכמות קטנה מעצמת הסוללה."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1740
+#: ../plugins/power/gsd-power-manager.c:1736
 msgid "The battery is below the critical level and this computer is about to hibernate."
 msgstr "עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה עומד להיכנס למצב תרדמת."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1745
+#: ../plugins/power/gsd-power-manager.c:1741
 msgid "The battery is below the critical level and this computer is about to shutdown."
 msgstr "עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה עומד לכבות."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1763
+#: ../plugins/power/gsd-power-manager.c:1759
 msgid "UPS is below the critical level and this computer will <b>power-off</b> when the UPS becomes completely empty."
 msgstr "עצמת האל־פסק נמצאת מתחת לרמה הקריטית ומחשב זה <b>יכבה</b> כאשר האל־פסק יתרוקן לחלוטין."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1769
+#: ../plugins/power/gsd-power-manager.c:1765
 msgid "UPS is below the critical level and this computer is about to hibernate."
 msgstr "עצמת האל־פסק היא מתחת לרמה המהותית ומחשב זה עומד לעבור למצב תרדמת."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1774
+#: ../plugins/power/gsd-power-manager.c:1770
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "עצמת האל־פסק היא מתחת לרמה המהותית ומחשב זה עומד לכבות."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2242
+#: ../plugins/power/gsd-power-manager.c:2249
 msgid "Lid has been opened"
 msgstr "מכסה המחשב נפתח"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2277
+#: ../plugins/power/gsd-power-manager.c:2284
 msgid "Lid has been closed"
 msgstr "מכסה המחשב נסגר"
-
-#. TRANSLATORS: this is the title of the power manager status icon
-#. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:3984
-msgid "Power Manager"
-msgstr "מנהל צריכת החשמל"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -2221,203 +2024,203 @@ msgstr "אין מנהל התקן למדפסת זו."
 
 #: ../plugins/print-notifications/gsd-printer.c:1032
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:233
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:658
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:747
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:790
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:672
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:762
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:805
 msgid "Printers"
 msgstr "מדפסות"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:309
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:323
 msgid "Toner low"
 msgstr "הטונר עומד להסתיים"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:311
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
 msgid "Toner empty"
 msgstr "הטונר ריק"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:313
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
 msgid "Not connected?"
 msgstr "לא מחוברת?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:315
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
 msgid "Cover open"
 msgstr "המכסה פתוח"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:317
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
 msgid "Printer configuration error"
 msgstr "שגיאה בתצורת המדפסת"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
 msgid "Door open"
 msgstr "הדלת פתוחה"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:335
 msgid "Marker supply low"
 msgstr "אספקת הדיו נמוכה"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:323
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
 msgid "Out of a marker supply"
 msgstr "נגמרה אספקת הדיו"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
 msgid "Paper low"
 msgstr "נותרו מעט דפים"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:341
 msgid "Out of paper"
 msgstr "נגמרו הדפים"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:343
 msgid "Printer off-line"
 msgstr "המדפסת אינה מקוונת"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:733
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:345
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:748
 msgid "Printer error"
 msgstr "שגיאת מדפסת"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:335
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:349
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "הטונר במדפסת '%s' כמעט נגמר."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "הטונר במדפסת '%s' אזל לחלוטין."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "יתכן כי המדפסת '%s' אינה מחוברת."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:341
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:355
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "המכסה פתוח במדפסת '%s'."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:343
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:357
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "ישנו מסנן הדפסה חסר עבור המדפסת '%s'."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:360
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "הדלת במדפסת '%s' פתוחה."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:348
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "הדיו במדפסת '%s' כמעט נגמר."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:364
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "הדיו במדפסת '%s' אזל לחלוטין."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "נותרו מעט דפים במדפסת '%s'."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "נגמרו הדפים במדפסת '%s'."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:370
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "המדפסת '%s' אינה מקוונת כעת."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:372
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "ישנה בעיה במדפסת '%s'."
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:435
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
 msgid "Printer added"
 msgstr "נוספה מדפסת"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Printer removed"
 msgstr "המדפסת הוסרה"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:460
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:474
 msgid "Printing stopped"
 msgstr "ההדפסה נעצרה"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:462
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:468
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:474
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:492
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:476
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:482
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:488
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:494
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:506
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "“%s„ במדפסת %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:466
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
 msgid "Printing canceled"
 msgstr "ההדפסה בוטלה"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:472
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:486
 msgid "Printing aborted"
 msgstr "ההדפסה התבטלה"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:478
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:492
 msgid "Printing completed"
 msgstr "ההדפסה הושלמה"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:490
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:510
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:504
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:524
 msgid "Printing"
 msgstr "בהדפסה"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:727
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:742
 msgid "Printer report"
 msgstr "דוח מדפסת"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:730
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:745
 msgid "Printer warning"
 msgstr "אזהרת מדפסת"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:740
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:755
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "מדפסת '%s':‏ '%s'."
@@ -2677,86 +2480,86 @@ msgid "OK"
 msgstr "אישור"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1015
+#: ../plugins/wacom/gsd-wacom-device.c:1044
 msgid "Left Ring"
 msgstr "טבעת שמאלית"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1023
+#: ../plugins/wacom/gsd-wacom-device.c:1052
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "מצב טבעת שמאלית מס׳ %d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1040
+#: ../plugins/wacom/gsd-wacom-device.c:1069
 msgid "Right Ring"
 msgstr "טבעת ימנית"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1048
+#: ../plugins/wacom/gsd-wacom-device.c:1077
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "מצב טבעת ימנית מס׳ %d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1087
+#: ../plugins/wacom/gsd-wacom-device.c:1116
 msgid "Left Touchstrip"
 msgstr "פס מגע שמאלי"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1095
+#: ../plugins/wacom/gsd-wacom-device.c:1124
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "מצב פס מגע שמאלי מס׳ %d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1112
+#: ../plugins/wacom/gsd-wacom-device.c:1141
 msgid "Right Touchstrip"
 msgstr "פס מגע ימני"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1120
+#: ../plugins/wacom/gsd-wacom-device.c:1149
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "מצב פס מגע ימני מס׳ %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1143
+#: ../plugins/wacom/gsd-wacom-device.c:1172
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "מתג מצב טבעת שמאלית"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1145
+#: ../plugins/wacom/gsd-wacom-device.c:1174
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "מתג מצב טבעת ימנית"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1148
+#: ../plugins/wacom/gsd-wacom-device.c:1177
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "מתג מצב פס מגע שמאלי"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1150
+#: ../plugins/wacom/gsd-wacom-device.c:1179
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "מתג מצב פס מגע ימני"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1155
+#: ../plugins/wacom/gsd-wacom-device.c:1184
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "מתג מצב מס׳ %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1226
+#: ../plugins/wacom/gsd-wacom-device.c:1255
 #, c-format
 msgid "Left Button #%d"
 msgstr "לחצן שמאלי מס׳ %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1229
+#: ../plugins/wacom/gsd-wacom-device.c:1258
 #, c-format
 msgid "Right Button #%d"
 msgstr "לחצן ימני מס׳ %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1232
+#: ../plugins/wacom/gsd-wacom-device.c:1261
 #, c-format
 msgid "Top Button #%d"
 msgstr "לחצן עליון מס׳ %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1235
+#: ../plugins/wacom/gsd-wacom-device.c:1264
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "לחצן תחתון מס׳ %d"
@@ -2767,57 +2570,57 @@ msgstr "לחצן תחתון מס׳ %d"
 #.
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
 msgid "Modify the lit LED for a Wacom tablet"
-msgstr "שינוי מצב הנורית הדולקת בלוח Wacom"
+msgstr "שינוי מצב הנורית הדולקת בלוח מגע"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
-msgstr "נדרש אימות כדי לשנות את מצב הנורית הדולקת של לוח ה־Wacom"
+msgstr "נדרש אימות כדי לשנות את מצב הנורית הדולקת של לוח המגע"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:508
+#: ../plugins/xrandr/gsd-xrandr-manager.c:507
 msgid "Could not switch the monitor configuration"
 msgstr "לא ניתן להחליף את תצורת הצג"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:531
 msgid "Could not restore the display's configuration"
 msgstr "לא ניתן לשחזר את תצורת התצוגה"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:557
+#: ../plugins/xrandr/gsd-xrandr-manager.c:556
 msgid "Could not restore the display's configuration from a backup"
 msgstr "לא ניתן לשחזר את תצורת התצוגה מגיבוי"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:578
+#: ../plugins/xrandr/gsd-xrandr-manager.c:577
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural "The display will be reset to its previous configuration in %d seconds"
 msgstr[0] "התצוגה תאופס לתצורה הקודמת בעוד שניה אחת"
 msgstr[1] "התצוגה תאופס לתצורה הקודמת בעוד %d שניות"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:627
+#: ../plugins/xrandr/gsd-xrandr-manager.c:626
 msgid "Does the display look OK?"
 msgstr "האם התצוגה נראית בסדר?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:634
+#: ../plugins/xrandr/gsd-xrandr-manager.c:633
 msgid "_Restore Previous Configuration"
 msgstr "ש_חזור התצורה הקודמת"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:635
+#: ../plugins/xrandr/gsd-xrandr-manager.c:634
 msgid "_Keep This Configuration"
 msgstr "_שמירת תצורה זו"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:716
+#: ../plugins/xrandr/gsd-xrandr-manager.c:715
 msgid "The selected configuration for displays could not be applied"
 msgstr "לא ניתן להחיל את תצורת התצוגות הנבחרת"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1374
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1381
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "לא ניתן לרענן את פרטי המסך: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1378
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1385
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "מתבצע נסיון להחלפת תצורת הצג בכל אופן"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1848
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1855
 msgid "Could not apply the stored configuration for monitors"
 msgstr "לא ניתן להחיל את התצורה השמורה על הצגים"
 
@@ -2836,6 +2639,159 @@ msgstr "הגדרות X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "ניהול הגדרות X"
+
+#~ msgid "Switch input source"
+#~ msgstr "Switch input source"
+
+#~ msgid "Binding to select the next input source"
+#~ msgstr "Binding to select the next input source"
+
+#~ msgid "Switch input source backward"
+#~ msgstr "Switch input source backward"
+
+#~ msgid "Binding to select the previous input source"
+#~ msgstr "Binding to select the previous input source"
+
+#~ msgid "Universal Access Preferences"
+#~ msgstr "העדפות גישה אוניברסלית"
+
+#~ msgid "Use on-screen _keyboard"
+#~ msgstr "שימוש ב_מקלדת על המסך"
+
+#~ msgid "Use screen _reader"
+#~ msgstr "שימוש ב_קורא מסך"
+
+#~ msgid "Use screen _magnifier"
+#~ msgstr "שימוש במ_גדיל מסך"
+
+#~ msgid "Enhance _contrast in colors"
+#~ msgstr "הגברת _ניגודיות הצבעים"
+
+#~ msgid "Make _text larger and easier to read"
+#~ msgstr "ה_גדלת הטקסט לקריאה נוחה יותר"
+
+#~ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+#~ msgstr "לחיצה על אחד ממקשי הקיצורים בכל פעם (מקשים דביקים)"
+
+#~ msgid "_Ignore duplicate keypresses (Bounce Keys)"
+#~ msgstr "ה_תעלמות מלחיצות מקשים נשנות (הקפצת מקשים)"
+
+#~ msgid "Press and _hold keys to accept them (Slow Keys)"
+#~ msgstr "יש ללחוץ ולהח_זיק כדי לקבלם (מקשים אטיים)"
+
+#~ msgid "Mount Helper"
+#~ msgstr "מסייע העיגון"
+
+#~ msgid "Automount and autorun plugged devices"
+#~ msgstr "עיגון והפעלה אוטומטית של התקנים בעת חיבורם"
+
+#~ msgid "Unable to mount %s"
+#~ msgstr "לא ניתן לעגן את %s"
+
+#~ msgid "Unable to open a folder for %s"
+#~ msgstr "לא ניתן לפתוח את התיקייה לצורך %s"
+
+#~ msgid "Ask what to do"
+#~ msgstr "הצגת שאלה מה לעשות"
+
+#~ msgid "Do Nothing"
+#~ msgstr "לא לעשות דבר"
+
+#~ msgid "Open Folder"
+#~ msgstr "פתיחת תיקייה"
+
+#~ msgid "Unable to eject %p"
+#~ msgstr "לא ניתן לשלוף את %p"
+
+#~ msgid "Unable to unmount %p"
+#~ msgstr "לא ניתן לנתק את %p"
+
+#~ msgid "You have just inserted an Audio CD."
+#~ msgstr "הרגע הכנסת תקליטור שמע."
+
+#~ msgid "You have just inserted an Audio DVD."
+#~ msgstr "הרגע הכנסת DVD שמע."
+
+#~ msgid "You have just inserted a Video DVD."
+#~ msgstr "הרגע הכנסת DVD וידאו."
+
+#~ msgid "You have just inserted a Video CD."
+#~ msgstr "הרגע הכנסת תקליטור וידאו (VCD)."
+
+#~ msgid "You have just inserted a Super Video CD."
+#~ msgstr "הרגע הכנסת תקליטור סופר וידאו (SVCD)."
+
+#~ msgid "You have just inserted a blank CD."
+#~ msgstr "הרגע הכנסת תקליטור ריק."
+
+#~ msgid "You have just inserted a blank DVD."
+#~ msgstr "הרגע הכנסת DVD ריק."
+
+#~ msgid "You have just inserted a blank Blu-Ray disc."
+#~ msgstr "הרגע הכנסת תקליטור Blu-Ray ריק."
+
+#~ msgid "You have just inserted a blank HD DVD."
+#~ msgstr "הרגע הכנסת HD DVD ריק."
+
+#~ msgid "You have just inserted a Photo CD."
+#~ msgstr "הרגע הכנסת תקליטור תמונות."
+
+#~ msgid "You have just inserted a Picture CD."
+#~ msgstr "הרגע הכנסת תקליטור צילומים."
+
+#~ msgid "You have just inserted a medium with digital photos."
+#~ msgstr "הרגע הכנסת אמצעי מדיה עם תמונות דיגיטליות."
+
+#~ msgid "You have just inserted a digital audio player."
+#~ msgstr "הרגע הכנסת נגן שמע דיגיטלי."
+
+#~ msgid ""
+#~ "You have just inserted a medium with software intended to be "
+#~ "automatically started."
+#~ msgstr "הרגע הכנסת אמצעי מדיה עם תכנה המיועדת להפעלה אוטומטית."
+
+#~ msgid "You have just inserted a medium."
+#~ msgstr "הרגע הכנסת אמצעי מדיה."
+
+#~ msgid "Choose what application to launch."
+#~ msgstr "נא לבחור איזה יישום לטעון."
+
+#~ msgid ""
+#~ "Select how to open \"%s\" and whether to perform this action in the "
+#~ "future for other media of type \"%s\"."
+#~ msgstr ""
+#~ "נא לבחור כיצד לפתוח \"%s\" והאם לבצע פעולה זו בעתיד לסוגי מדיה אחרים מסוג "
+#~ "\"%s\"."
+
+#~ msgid "_Always perform this action"
+#~ msgstr "_תמיד יש לבצע פעולה זו"
+
+#~ msgid "_Eject"
+#~ msgstr "_שליפה"
+
+#~ msgid "_Unmount"
+#~ msgstr "_ניתוק"
+
+#~ msgid "Disabled"
+#~ msgstr "לא זמין"
+
+#~ msgid "%u Output"
+
+#~ msgid_plural "%u Outputs"
+#~ msgstr[0] "פלט אחד"
+#~ msgstr[1] "%u פלטים"
+
+#~ msgid "%u Input"
+
+#~ msgid_plural "%u Inputs"
+#~ msgstr[0] "קלט אחד"
+#~ msgstr[1] "%u קלטים"
+
+#~ msgid "System Sounds"
+#~ msgstr "צלילי מערכת"
+
+#~ msgid "Power Manager"
+#~ msgstr "מנהל צריכת החשמל"
 
 #~ msgid "Command to be run when a device is added or removed."
 #~ msgstr "Command to be run when a device is added or removed."
@@ -3125,8 +3081,6 @@ msgstr "ניהול הגדרות X"
 #~ msgstr "האם ברצונך להפעיל מקשים דביקים?"
 #~ msgid "Do you want to deactivate Sticky Keys?"
 #~ msgstr "האם ברצונך להפסיק מקשים דביקים?"
-#~ msgid "If notifications are allowed to be shown"
-#~ msgstr "If notifications are allowed to be shown"
 #~ msgid ""
 #~ "If notifications should be shown at session start if a profile is invalid."
 #~ msgstr ""
