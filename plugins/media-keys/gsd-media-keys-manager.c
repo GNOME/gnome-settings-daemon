@@ -45,6 +45,7 @@
 #include <gudev/gudev.h>
 #endif
 
+#include "gnome-settings-plugin.h"
 #include "gnome-settings-session.h"
 #include "gnome-settings-profile.h"
 #include "gsd-marshal.h"
@@ -59,8 +60,6 @@
 #include <pulse/pulseaudio.h>
 #include "gvc-mixer-control.h"
 
-#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
-#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"
 
@@ -71,7 +70,7 @@
 #define CUSTOM_BINDING_SCHEMA SETTINGS_BINDING_DIR ".custom-keybinding"
 
 static const gchar introspection_xml[] =
-"<node>"
+"<node name='/org/gnome/SettingsDaemon/MediaKeys'>"
 "  <interface name='org.gnome.SettingsDaemon.MediaKeys'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_media_keys_manager'/>"
 "    <method name='GrabMediaPlayerKeys'>"
@@ -2533,9 +2532,9 @@ on_bus_gotten (GObject             *source_object,
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
                           NULL,
-                          "org.gnome.SettingsDaemon",
-                          "/org/gnome/SettingsDaemon/XRANDR",
-                          "org.gnome.SettingsDaemon.XRANDR_2",
+                          GSD_DBUS_NAME ".XRANDR",
+                          GSD_DBUS_PATH "/XRANDR",
+                          GSD_DBUS_BASE_INTERFACE ".XRANDR_2",
                           NULL,
                           (GAsyncReadyCallback) xrandr_ready_cb,
                           manager);
@@ -2543,9 +2542,9 @@ on_bus_gotten (GObject             *source_object,
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
                           NULL,
-                          "org.gnome.SettingsDaemon",
-                          "/org/gnome/SettingsDaemon/Power",
-                          "org.gnome.SettingsDaemon.Power.Screen",
+                          GSD_DBUS_NAME ".Power",
+                          GSD_DBUS_PATH "/Power",
+                          GSD_DBUS_BASE_INTERFACE ".Power.Screen",
                           NULL,
                           (GAsyncReadyCallback) power_screen_ready_cb,
                           manager);
@@ -2553,9 +2552,9 @@ on_bus_gotten (GObject             *source_object,
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
                           NULL,
-                          "org.gnome.SettingsDaemon",
-                          "/org/gnome/SettingsDaemon/Power",
-                          "org.gnome.SettingsDaemon.Power.Keyboard",
+                          GSD_DBUS_NAME ".Power",
+                          GSD_DBUS_PATH "/Power",
+                          GSD_DBUS_BASE_INTERFACE ".Power.Keyboard",
                           NULL,
                           (GAsyncReadyCallback) power_keyboard_ready_cb,
                           manager);
