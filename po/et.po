@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: GNOME Settings Daemon MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-09-23 10:26+0000\n"
-"PO-Revision-Date: 2012-09-24 10:55+0300\n"
+"POT-Creation-Date: 2012-11-13 10:48+0000\n"
+"PO-Revision-Date: 2012-12-18 18:47+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz@gmail.com>\n"
 "Language-Team: Estonian <>\n"
 "Language: et\n"
@@ -121,8 +121,12 @@ msgstr "Kas tahvelarvuti suund on lukus või pöördub automaatselt."
 msgid "Device hotplug custom command"
 msgstr "Kohandatud käsk seadme ühendamisel"
 
-msgid "Command to be run when a device is added or removed."
-msgstr "Seadme lisamisel või eemaldamisel käivitatav käsk."
+msgid ""
+"Command to be run when a device is added or removed. An exit value of 1 "
+"means that the device will not be handled further by gnome-settings-daemon."
+msgstr ""
+"Käsk, mis tuleb käivitada seadme lisamisel või eemaldamisel. Väljumise kood "
+"1 tähendab, et gnome-settings-daemon ei pea seadet haldama."
 
 msgid "Activation of this plugin"
 msgstr "Selle plugina aktiveerimine"
@@ -251,8 +255,8 @@ msgstr ""
 "Klaviatuuri klahviseos, mis genereeritakse kohandatud tegevuse nupu "
 "vajutamisel."
 
-msgid "Key combinations for an elevator custom action"
-msgstr "Tõstetegevuse klahviseosed"
+msgid "Key combinations for a touchring or touchstrip custom action"
+msgstr "Klahviseosed puuteringi ja puuteriba kohandatud tegevuste jaoks"
 
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
@@ -918,141 +922,11 @@ msgstr ""
 "järjest. See lülitab sisse kleepuvate klahvide funktsionaalsuse ja seetõttu "
 "muudab ka Sinu klaviatuuri käitumist."
 
-msgid "Universal Access Preferences"
-msgstr "Universaalse ligipääsu eelistused"
-
-msgid "Use on-screen _keyboard"
-msgstr "Kasutatakse ekraani_klaviatuuri"
-
-msgid "Use screen _reader"
-msgstr "Kasutatakse ekraanilu_gejat"
-
-msgid "Use screen _magnifier"
-msgstr "Kasutatakse ekraani_luupi"
-
-msgid "Enhance _contrast in colors"
-msgstr "_Värvustel on suurem kontrastsus"
-
-msgid "Make _text larger and easier to read"
-msgstr "_Tekst on suurem ja seda on lihtsam lugeda"
-
-msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr ""
-"_Kiirklahvide kombinatsioone on võimalik valida klahvhaaval (kleepuvad "
-"klahvid)"
-
-msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "Klahvide topeltvajutusi _eiratakse (hüpikklahvid)"
-
-msgid "Press and _hold keys to accept them (Slow Keys)"
-msgstr ""
-"Vajutusega nõustumiseks tuleb klahvi pikalt all _hoida (aeglased klahvid)"
-
 msgid "Accessibility settings"
 msgstr "Hõlbustuste sätted"
 
 msgid "Accessibility settings plugin"
 msgstr "Hõlbustuste sätete plugin"
-
-msgid "Mount Helper"
-msgstr "Haakimise abiline"
-
-msgid "Automount and autorun plugged devices"
-msgstr "Ühendatud seadmete automaatne haakimine ja käivitamine"
-
-#, c-format
-msgid "Unable to mount %s"
-msgstr "%s haakimine pole võimalik"
-
-#, c-format
-msgid "Unable to open a folder for %s"
-msgstr "%s jaoks kataloogi avamine pole võimalik"
-
-msgid "Ask what to do"
-msgstr "Küsitakse, mida teha"
-
-msgid "Do Nothing"
-msgstr "Ära tee midagi"
-
-msgid "Open Folder"
-msgstr "Ava kaust"
-
-#, c-format
-msgid "Unable to eject %p"
-msgstr "%p väljastamine pole võimalik"
-
-#, c-format
-msgid "Unable to unmount %p"
-msgstr "%p lahtihaakimine pole võimalik"
-
-msgid "You have just inserted an Audio CD."
-msgstr "Sa sisestasid audio-CD."
-
-msgid "You have just inserted an Audio DVD."
-msgstr "Sa sisestasid audio-DVD."
-
-msgid "You have just inserted a Video DVD."
-msgstr "Sa sisestasid video-DVD."
-
-msgid "You have just inserted a Video CD."
-msgstr "Sa sisestasid video-CD."
-
-msgid "You have just inserted a Super Video CD."
-msgstr "Sa sisestasid Super Video CD."
-
-msgid "You have just inserted a blank CD."
-msgstr "Sa sisestasid tühja CD-plaadi."
-
-msgid "You have just inserted a blank DVD."
-msgstr "Sa sisestasid tühja DVD-plaadi."
-
-msgid "You have just inserted a blank Blu-Ray disc."
-msgstr "Sa sisestasid tühja Blu-Ray plaadi."
-
-msgid "You have just inserted a blank HD DVD."
-msgstr "Sa sisestasid tühja HD-DVD-plaadi."
-
-msgid "You have just inserted a Photo CD."
-msgstr "Sa sisestasid foto-CD."
-
-msgid "You have just inserted a Picture CD."
-msgstr "Sa sisestasid pildi-CD."
-
-msgid "You have just inserted a medium with digital photos."
-msgstr "Sa sisestasid digifotosid sisaldava meediumi."
-
-msgid "You have just inserted a digital audio player."
-msgstr "Sa sisestasid digitaalse audioesitaja."
-
-msgid ""
-"You have just inserted a medium with software intended to be automatically "
-"started."
-msgstr ""
-"Sa sisestasid meediumi, mis sisaldab automaatkäivituseks määratud tarkvara."
-
-#. fallback to generic greeting
-msgid "You have just inserted a medium."
-msgstr "Sa sisestasid meediumi."
-
-msgid "Choose what application to launch."
-msgstr "Vali, milline rakedus käivitada."
-
-#, c-format
-msgid ""
-"Select how to open \"%s\" and whether to perform this action in the future "
-"for other media of type \"%s\"."
-msgstr ""
-"Vali, kuidas avada \"%s\" ning kas tulevikus kasutada seda toimingut sama "
-"liiki (%s) meedia jaoks."
-
-msgid "_Always perform this action"
-msgstr "_Alati tehakse nii"
-
-msgid "_Eject"
-msgstr "_Väljasta"
-
-msgid "_Unmount"
-msgstr "_Haagi lahti"
 
 msgid "Background"
 msgstr "Taust"
@@ -1936,11 +1810,6 @@ msgstr "Ekraan avati"
 msgid "Lid has been closed"
 msgstr "Ekraan suleti"
 
-#. TRANSLATORS: this is the title of the power manager status icon
-#. * that is only shown in fallback mode
-msgid "Power Manager"
-msgstr "Vooluhaldur"
-
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
 #. to change the backlight brightness.
@@ -2335,17 +2204,33 @@ msgstr "Näita üksikasju"
 msgid "OK"
 msgstr "Olgu"
 
+#. If no mode is available, we use "left-ring-mode-1" for backward compat
+msgid "Left Ring"
+msgstr "Vasak ratas"
+
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Vasaku ratta režiim nr %d"
+
+#. If no mode is available, we use "right-ring-mode-1" for backward compat
+msgid "Right Ring"
+msgstr "Parem ratas"
 
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Parema ratta režiim nr %d"
 
+#. If no mode is available, we use "left-strip-mode-1" for backward compat
+msgid "Left Touchstrip"
+msgstr "Vasak puuteriba"
+
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Vasaku puuteringi režiim %d"
+
+#. If no mode is available, we use "right-strip-mode-1" for backward compat
+msgid "Right Touchstrip"
+msgstr "Parem puuteriba"
 
 #, c-format
 msgid "Right Touchstrip Mode #%d"
@@ -2446,3 +2331,134 @@ msgstr "X'i sätted"
 
 msgid "Manage X Settings"
 msgstr "X'i seadistuste haldamine"
+
+#~ msgid "Command to be run when a device is added or removed."
+#~ msgstr "Seadme lisamisel või eemaldamisel käivitatav käsk."
+
+#~ msgid "Universal Access Preferences"
+#~ msgstr "Universaalse ligipääsu eelistused"
+
+#~ msgid "Use on-screen _keyboard"
+#~ msgstr "Kasutatakse ekraani_klaviatuuri"
+
+#~ msgid "Use screen _reader"
+#~ msgstr "Kasutatakse ekraanilu_gejat"
+
+#~ msgid "Use screen _magnifier"
+#~ msgstr "Kasutatakse ekraani_luupi"
+
+#~ msgid "Enhance _contrast in colors"
+#~ msgstr "_Värvustel on suurem kontrastsus"
+
+#~ msgid "Make _text larger and easier to read"
+#~ msgstr "_Tekst on suurem ja seda on lihtsam lugeda"
+
+#~ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+#~ msgstr ""
+#~ "_Kiirklahvide kombinatsioone on võimalik valida klahvhaaval (kleepuvad "
+#~ "klahvid)"
+
+#~ msgid "_Ignore duplicate keypresses (Bounce Keys)"
+#~ msgstr "Klahvide topeltvajutusi _eiratakse (hüpikklahvid)"
+
+#~ msgid "Press and _hold keys to accept them (Slow Keys)"
+#~ msgstr ""
+#~ "Vajutusega nõustumiseks tuleb klahvi pikalt all _hoida (aeglased klahvid)"
+
+#~ msgid "Mount Helper"
+#~ msgstr "Haakimise abiline"
+
+#~ msgid "Automount and autorun plugged devices"
+#~ msgstr "Ühendatud seadmete automaatne haakimine ja käivitamine"
+
+#~ msgid "Unable to mount %s"
+#~ msgstr "%s haakimine pole võimalik"
+
+#~ msgid "Unable to open a folder for %s"
+#~ msgstr "%s jaoks kataloogi avamine pole võimalik"
+
+#~ msgid "Ask what to do"
+#~ msgstr "Küsitakse, mida teha"
+
+#~ msgid "Do Nothing"
+#~ msgstr "Ära tee midagi"
+
+#~ msgid "Open Folder"
+#~ msgstr "Ava kaust"
+
+#~ msgid "Unable to eject %p"
+#~ msgstr "%p väljastamine pole võimalik"
+
+#~ msgid "Unable to unmount %p"
+#~ msgstr "%p lahtihaakimine pole võimalik"
+
+#~ msgid "You have just inserted an Audio CD."
+#~ msgstr "Sa sisestasid audio-CD."
+
+#~ msgid "You have just inserted an Audio DVD."
+#~ msgstr "Sa sisestasid audio-DVD."
+
+#~ msgid "You have just inserted a Video DVD."
+#~ msgstr "Sa sisestasid video-DVD."
+
+#~ msgid "You have just inserted a Video CD."
+#~ msgstr "Sa sisestasid video-CD."
+
+#~ msgid "You have just inserted a Super Video CD."
+#~ msgstr "Sa sisestasid Super Video CD."
+
+#~ msgid "You have just inserted a blank CD."
+#~ msgstr "Sa sisestasid tühja CD-plaadi."
+
+#~ msgid "You have just inserted a blank DVD."
+#~ msgstr "Sa sisestasid tühja DVD-plaadi."
+
+#~ msgid "You have just inserted a blank Blu-Ray disc."
+#~ msgstr "Sa sisestasid tühja Blu-Ray plaadi."
+
+#~ msgid "You have just inserted a blank HD DVD."
+#~ msgstr "Sa sisestasid tühja HD-DVD-plaadi."
+
+#~ msgid "You have just inserted a Photo CD."
+#~ msgstr "Sa sisestasid foto-CD."
+
+#~ msgid "You have just inserted a Picture CD."
+#~ msgstr "Sa sisestasid pildi-CD."
+
+#~ msgid "You have just inserted a medium with digital photos."
+#~ msgstr "Sa sisestasid digifotosid sisaldava meediumi."
+
+#~ msgid "You have just inserted a digital audio player."
+#~ msgstr "Sa sisestasid digitaalse audioesitaja."
+
+#~ msgid ""
+#~ "You have just inserted a medium with software intended to be "
+#~ "automatically started."
+#~ msgstr ""
+#~ "Sa sisestasid meediumi, mis sisaldab automaatkäivituseks määratud "
+#~ "tarkvara."
+
+#~ msgid "You have just inserted a medium."
+#~ msgstr "Sa sisestasid meediumi."
+
+#~ msgid "Choose what application to launch."
+#~ msgstr "Vali, milline rakedus käivitada."
+
+#~ msgid ""
+#~ "Select how to open \"%s\" and whether to perform this action in the "
+#~ "future for other media of type \"%s\"."
+#~ msgstr ""
+#~ "Vali, kuidas avada \"%s\" ning kas tulevikus kasutada seda toimingut sama "
+#~ "liiki (%s) meedia jaoks."
+
+#~ msgid "_Always perform this action"
+#~ msgstr "_Alati tehakse nii"
+
+#~ msgid "_Eject"
+#~ msgstr "_Väljasta"
+
+#~ msgid "_Unmount"
+#~ msgstr "_Haagi lahti"
+
+#~ msgid "Power Manager"
+#~ msgstr "Vooluhaldur"
