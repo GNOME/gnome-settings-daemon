@@ -1648,7 +1648,7 @@ handle_rotate_windows (GsdXrandrManager *mgr,
         GnomeRRRotation next_rotation;
         gboolean success, show_error;
 
-        g_debug ("Handling XF86RotateWindows");
+        g_debug ("Handling XF86RotateWindows with rotation %d", rotation);
 
         /* Which output? */
 
