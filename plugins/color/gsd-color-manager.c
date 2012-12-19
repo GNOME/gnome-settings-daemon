@@ -32,6 +32,7 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
 
+#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-session.h"
 #include "gsd-color-manager.h"
@@ -1038,9 +1039,8 @@ gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
 #define CD_PROFILE_METADATA_SCREEN_BRIGHTNESS		"SCREEN_brightness"
 #endif
 
-#define GSD_DBUS_SERVICE		"org.gnome.SettingsDaemon"
-#define GSD_DBUS_INTERFACE_POWER_SCREEN	"org.gnome.SettingsDaemon.Power.Screen"
-#define GSD_DBUS_PATH_POWER		"/org/gnome/SettingsDaemon/Power"
+#define GSD_DBUS_INTERFACE_POWER_SCREEN	GSD_DBUS_BASE_INTERFACE ".Power.Screen"
+#define GSD_DBUS_PATH_POWER		GSD_DBUS_PATH "/Power"
 
 static void
 gcm_session_set_output_percentage_cb (GObject *source_object,
@@ -1072,7 +1072,7 @@ gcm_session_set_output_percentage (guint percentage)
         if (connection == NULL)
                 return;
         g_dbus_connection_call (connection,
-                                GSD_DBUS_SERVICE,
+                                GSD_DBUS_NAME,
                                 GSD_DBUS_PATH_POWER,
                                 GSD_DBUS_INTERFACE_POWER_SCREEN,
                                 "SetPercentage",
