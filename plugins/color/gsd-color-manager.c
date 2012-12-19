@@ -1039,6 +1039,7 @@ gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
 #define CD_PROFILE_METADATA_SCREEN_BRIGHTNESS		"SCREEN_brightness"
 #endif
 
+#define GSD_DBUS_NAME_POWER		GSD_DBUS_NAME ".Power"
 #define GSD_DBUS_INTERFACE_POWER_SCREEN	GSD_DBUS_BASE_INTERFACE ".Power.Screen"
 #define GSD_DBUS_PATH_POWER		GSD_DBUS_PATH "/Power"
 
@@ -1072,7 +1073,7 @@ gcm_session_set_output_percentage (guint percentage)
         if (connection == NULL)
                 return;
         g_dbus_connection_call (connection,
-                                GSD_DBUS_NAME,
+                                GSD_DBUS_NAME_POWER,
                                 GSD_DBUS_PATH_POWER,
                                 GSD_DBUS_INTERFACE_POWER_SCREEN,
                                 "SetPercentage",
