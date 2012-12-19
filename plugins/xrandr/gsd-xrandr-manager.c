@@ -45,6 +45,7 @@
 
 #include <libgnome-desktop/gnome-rr-config.h>
 #include <libgnome-desktop/gnome-rr.h>
+#include <libgnome-desktop/gnome-pnp-ids.h>
 
 #ifdef HAVE_WACOM
 #include <libwacom/libwacom.h>
@@ -1906,7 +1907,9 @@ apply_stored_configuration_at_startup (GsdXrandrManager *manager, guint32 timest
         gboolean success;
         char *backup_filename;
         char *intended_filename;
+        GnomePnpIds *pnp_ids;
 
+        pnp_ids = gnome_pnp_ids_new ();
         backup_filename = gnome_rr_config_get_backup_filename ();
         intended_filename = gnome_rr_config_get_intended_filename ();
 
@@ -1946,6 +1949,7 @@ apply_stored_configuration_at_startup (GsdXrandrManager *manager, guint32 timest
         success = apply_intended_configuration (manager, intended_filename, timestamp);
 
 out:
+	g_object_unref (pnp_ids);
 
         if (my_error)
                 g_error_free (my_error);
