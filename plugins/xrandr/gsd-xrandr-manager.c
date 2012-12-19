@@ -1583,7 +1583,8 @@ rotate_touchscreens (GsdXrandrManager *mgr,
                         continue;
                 }
 
-                if (device_info_is_touchscreen (&device_info[i])) {
+                if (device_info_is_touchscreen (&device_info[i]) ||
+                            device_info_is_tablet (&device_info[i])) {
                         XDevice *device;
                         char c = evdev_rotations[rot_idx].axes_swap;
                         PropertyHelper axes_swap = {
