@@ -1660,7 +1660,7 @@ handle_rotate_windows (GsdXrandrManager *mgr,
                 goto out;
         }
 
-        if (rotation < 0) {
+        if (rotation <= GNOME_RR_ROTATION_NEXT) {
                 /* Which rotation? */
 
                 get_allowed_rotations_for_output (current, priv->rw_screen, rotatable_output_info, &num_allowed_rotations, &allowed_rotations);
