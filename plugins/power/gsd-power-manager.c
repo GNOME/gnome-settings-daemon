@@ -1780,7 +1780,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
 
                 /* wait 20 seconds for user-panic */
                 timer_id = g_timeout_add_seconds (critical_action_delay,
-                                                  (GSourceFunc) manager_critical_action_do_cb,
+                                                  (GSourceFunc) manager_critical_ups_action_do_cb,
                                                   manager);
                 g_source_set_name_by_id (timer_id, "[GsdPowerManager] ups critical-action");
         }
