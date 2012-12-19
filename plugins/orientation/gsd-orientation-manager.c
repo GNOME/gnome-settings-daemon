@@ -352,14 +352,6 @@ on_bus_gotten (GObject               *source_object,
         }
         manager->priv->connection = connection;
 
-        manager->priv->name_id = g_bus_own_name_on_connection (connection,
-                                                               GSD_ORIENTATION_DBUS_NAME,
-                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
-                                                               NULL,
-                                                               NULL,
-                                                               NULL,
-                                                               NULL);
-
         g_dbus_connection_register_object (connection,
                                            GSD_ORIENTATION_DBUS_PATH,
                                            manager->priv->introspection_data->interfaces[0],
@@ -377,6 +369,14 @@ on_bus_gotten (GObject               *source_object,
                           NULL,
                           (GAsyncReadyCallback) xrandr_ready_cb,
                           manager);
+
+        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+                                                               GSD_ORIENTATION_DBUS_NAME,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
 }
 
 static GUdevDevice *
