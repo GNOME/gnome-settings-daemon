@@ -104,6 +104,10 @@ int main (int argc, char **argv)
 			g_print ("Device %d is trackball:\t\t\t%s\n", (int) device_info[i].id, "yes");
 			continue;
 		}
+		if (device_info_is_tablet (&device_info[i])) {
+			g_print ("Device %d is tablet:\t\t\t%s\n", (int) device_info[i].id, "yes");
+			continue;
+		}
 
                 gdk_error_trap_push ();
                 device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
