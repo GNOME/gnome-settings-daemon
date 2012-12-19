@@ -2128,26 +2128,11 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         log_close ();
 }
 
-static GObject *
-gsd_xrandr_manager_constructor (GType                  type,
-                              guint                  n_construct_properties,
-                              GObjectConstructParam *construct_properties)
-{
-        GsdXrandrManager      *xrandr_manager;
-
-        xrandr_manager = GSD_XRANDR_MANAGER (G_OBJECT_CLASS (gsd_xrandr_manager_parent_class)->constructor (type,
-                                                                                                      n_construct_properties,
-                                                                                                      construct_properties));
-
-        return G_OBJECT (xrandr_manager);
-}
-
 static void
 gsd_xrandr_manager_class_init (GsdXrandrManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_xrandr_manager_constructor;
         object_class->finalize = gsd_xrandr_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdXrandrManagerPrivate));
