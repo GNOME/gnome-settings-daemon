@@ -1,4 +1,73 @@
 =============
+Version 3.7.3
+=============
+
+- Add implementation for Freedesktop.org ScreenSaver inhibition API
+- Disable animations on slow links (VNC for example)
+- Remove fallback mode handling code
+- Disable the smartcard plugin for now
+
+Daemon:
+- Many plugins ordering bug fixes
+- Use gnome-session properties instead of libsystemd-login
+- Allow whitelisting plugins, to make it easier for gdm to catch up
+- Install all the schemas, even the ones for which the plugins aren't
+  installed
+- Add a way to replace the daemon
+- exit gracefully if the session name is already taken
+
+Power:
+- Remove unused settings keys
+- Do not attempt to suspend, dim or blank if running inside a VM
+- Port to GnomeIdleMonitor from gnome-desktop
+- Adjust sleep timer to blank timer in some cases
+- Check if action is available before taking action
+- Hide critical battery warning when power is plugged
+- Fix possible race with gnome-shell on startup
+
+Sound:
+- Fix sound plugin never working properly
+
+Media-keys:
+- Use the shared libgnome-volume-control code
+- Support launching gnome-calculator instead of gcalctool
+- Add default shortcuts for the magnifier
+- Add repeat to the brightness keys
+
+Keyboard:
+- Fix build without IBus
+- Fix potential infinite loop due to num-lock handling
+- Don't print warnings when calls are cancelled
+- Handle keyboard shortcuts with Caps Lock for switching inputs
+
+Mouse:
+- Fix natural horizontal scroll
+
+XRandR:
+- Add new follow-lid behavior and tie gsd-power lid-close to XRandR
+- Avoid crasher if XRandR calls fail on startup
+- Fix the "rotate" button not working
+- Swap axes for some (non-Wacom) tablets as well
+
+Wacom:
+- Avoid infinite recursion with a non-Wacom display
+- Fix handling of Cintiq 24HD mode-switch buttons
+- Mode switch LED fixes for some tablets
+- Add OSD help window (see gnome-control-center for how to launch it)
+
+Cursor:
+- Only show the cursor when the mouse gets used
+
+Housekeeping:
+- Implement automatic purging of trash, along with a D-Bus interface for it
+
+Print-notifications:
+- Don't show strange notifications when printing
+
+Updates:
+- Fix warning on startup with PackageKit < 0.8.1
+
+=============
 Version 3.7.1
 =============
 
