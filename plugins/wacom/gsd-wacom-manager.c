@@ -1355,8 +1355,25 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
         g_debug ("Stopping wacom manager");
 
         if (p->device_manager != NULL) {
+                GList *devices;
+
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
                 g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
+
+                devices = gdk_device_manager_list_devices (p->device_manager, GDK_DEVICE_TYPE_SLAVE);
+                for (l = devices; l != NULL; l = l->next) {
+                        GsdWacomDeviceType type;
+
+                        type = gsd_wacom_device_get_device_type (l->data);
+                        if (type == WACOM_TYPE_PAD) {
+                                int id;
+
+                                id = get_device_id (l->data);
+                                grab_button (id, FALSE, manager->priv->screens);
+                        }
+                }
+                g_list_free (devices);
+
                 p->device_manager = NULL;
         }
 
