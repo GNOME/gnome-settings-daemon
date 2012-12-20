@@ -6,8 +6,7 @@ plugin_LTLIBRARIES = \
 libprint_notifications_la_SOURCES = 		\
 	gsd-print-notifications-manager.c	\
 	gsd-print-notifications-manager.h	\
-	gsd-print-notifications-plugin.c	\
-	gsd-print-notifications-plugin.h
+	gsd-print-notifications-plugin.c
 
 libprint_notifications_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\

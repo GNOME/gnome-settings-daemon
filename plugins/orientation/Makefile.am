@@ -25,7 +25,6 @@ gsd_test_orientation_LDADD =					\
 plugin_LTLIBRARIES = liborientation.la
 
 liborientation_la_SOURCES = 		\
-	gsd-orientation-plugin.h	\
 	gsd-orientation-plugin.c	\
 	gsd-orientation-manager.h	\
 	gsd-orientation-manager.c

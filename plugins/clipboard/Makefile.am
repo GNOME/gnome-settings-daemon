@@ -7,7 +7,6 @@ plugin_LTLIBRARIES = \
 	$(NULL)
 
 libclipboard_la_SOURCES = 	\
-	gsd-clipboard-plugin.h	\
 	gsd-clipboard-plugin.c	\
 	gsd-clipboard-manager.h	\
 	gsd-clipboard-manager.c	\

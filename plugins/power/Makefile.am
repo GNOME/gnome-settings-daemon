@@ -10,8 +10,7 @@ libpower_la_SOURCES = 					\
 	gpm-phone.h					\
 	gsd-power-manager.c				\
 	gsd-power-manager.h				\
-	gsd-power-plugin.c				\
-	gsd-power-plugin.h
+	gsd-power-plugin.c
 
 libpower_la_CPPFLAGS = \
 	-I$(top_srcdir)/data/				\

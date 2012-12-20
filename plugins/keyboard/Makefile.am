@@ -16,7 +16,6 @@ icons_DATA = \
 	  kbd-capslock-on.png kbd-numlock-on.png kbd-scrolllock-on.png
 
 libkeyboard_la_SOURCES = 	\
-	gsd-keyboard-plugin.h	\
 	gsd-keyboard-plugin.c	\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\

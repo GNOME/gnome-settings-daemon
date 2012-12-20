@@ -64,8 +64,7 @@ libhousekeeping_la_SOURCES =		\
 	$(COMMON_FILES)			\
 	gsd-housekeeping-manager.c	\
 	gsd-housekeeping-manager.h	\
-	gsd-housekeeping-plugin.c	\
-	gsd-housekeeping-plugin.h
+	gsd-housekeeping-plugin.c
 
 libhousekeeping_la_CPPFLAGS = 					\
 	-I$(top_srcdir)/gnome-settings-daemon			\

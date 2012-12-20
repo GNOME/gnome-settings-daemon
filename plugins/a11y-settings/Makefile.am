@@ -26,8 +26,7 @@ plugin_LTLIBRARIES = \
 liba11y_settings_la_SOURCES = 		\
 	gsd-a11y-settings-manager.c	\
 	gsd-a11y-settings-manager.h	\
-	gsd-a11y-settings-plugin.c	\
-	gsd-a11y-settings-plugin.h
+	gsd-a11y-settings-plugin.c
 
 liba11y_settings_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\

@@ -3,7 +3,6 @@ plugin_name = wacom
 plugin_LTLIBRARIES = libgsdwacom.la
 
 libgsdwacom_la_SOURCES =	\
-	gsd-wacom-plugin.h	\
 	gsd-wacom-plugin.c	\
 	gsd-wacom-manager.h	\
 	gsd-wacom-manager.c	\

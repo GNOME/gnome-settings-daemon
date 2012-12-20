@@ -5,8 +5,7 @@ plugin_LTLIBRARIES = libscreensaver-proxy.la
 libscreensaver_proxy_la_SOURCES =	\
 	gsd-screensaver-proxy-manager.c	\
 	gsd-screensaver-proxy-manager.h	\
-	gsd-screensaver-proxy-plugin.c	\
-	gsd-screensaver-proxy-plugin.h
+	gsd-screensaver-proxy-plugin.c
 
 libscreensaver_proxy_la_CPPFLAGS =				\
 	-I$(top_srcdir)/gnome-settings-daemon			\

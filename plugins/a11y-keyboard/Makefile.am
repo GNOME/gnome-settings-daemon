@@ -30,7 +30,6 @@ plugin_LTLIBRARIES = \
 	$(NULL)
 
 liba11y_keyboard_la_SOURCES = 		\
-	gsd-a11y-keyboard-plugin.h	\
 	gsd-a11y-keyboard-plugin.c	\
 	gsd-a11y-keyboard-manager.h	\
 	gsd-a11y-keyboard-manager.c	\

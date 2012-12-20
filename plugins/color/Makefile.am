@@ -12,8 +12,7 @@ libcolor_la_SOURCES = 			\
 	gcm-edid.h			\
 	gsd-color-manager.c		\
 	gsd-color-manager.h		\
-	gsd-color-plugin.c		\
-	gsd-color-plugin.h
+	gsd-color-plugin.c
 
 libcolor_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\

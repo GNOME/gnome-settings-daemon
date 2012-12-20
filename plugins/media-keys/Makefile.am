@@ -20,7 +20,6 @@ gsd-marshal.h: gsd-marshal.list
 	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --internal > $@
 
 libmedia_keys_la_SOURCES = 		\
-	gsd-media-keys-plugin.h		\
 	gsd-media-keys-plugin.c		\
 	gsd-media-keys-manager.h	\
 	gsd-media-keys-manager.c	\

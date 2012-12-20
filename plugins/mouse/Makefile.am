@@ -3,7 +3,6 @@ plugin_name = mouse
 plugin_LTLIBRARIES = libmouse.la
 
 libmouse_la_SOURCES = 		\
-	gsd-mouse-plugin.h	\
 	gsd-mouse-plugin.c	\
 	gsd-mouse-manager.h	\
 	gsd-mouse-manager.c

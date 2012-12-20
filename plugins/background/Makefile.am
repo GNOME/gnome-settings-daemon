@@ -33,7 +33,6 @@ plugin_LTLIBRARIES = \
 	$(NULL)
 
 libbackground_la_SOURCES =		\
-	gsd-background-plugin.h		\
 	gsd-background-plugin.c		\
 	gsd-background-manager.h	\
 	gsd-background-manager.c	\

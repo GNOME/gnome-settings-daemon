@@ -50,7 +50,6 @@ plugin_LTLIBRARIES = \
 	$(NULL)
 
 libxsettings_la_SOURCES = 	\
-	gsd-xsettings-plugin.h	\
 	gsd-xsettings-plugin.c	\
 	gsd-xsettings-manager.h	\
 	gsd-xsettings-manager.c	\

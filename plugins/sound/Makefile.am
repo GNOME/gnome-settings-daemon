@@ -26,7 +26,6 @@ plugin_LTLIBRARIES = \
 	libsound.la
 
 libsound_la_SOURCES = \
-	gsd-sound-plugin.h \
 	gsd-sound-plugin.c \
 	gsd-sound-manager.h \
 	gsd-sound-manager.c

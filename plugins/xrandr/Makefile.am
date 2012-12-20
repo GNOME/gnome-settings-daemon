@@ -62,7 +62,6 @@ plugin_LTLIBRARIES = \
 	libxrandr.la
 
 libxrandr_la_SOURCES = 		\
-	gsd-xrandr-plugin.h	\
 	gsd-xrandr-plugin.c	\
 	gsd-xrandr-manager.h	\
 	gsd-xrandr-manager.c

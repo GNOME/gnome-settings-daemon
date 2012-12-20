@@ -6,8 +6,7 @@ plugin_LTLIBRARIES = \
 libcursor_la_SOURCES =		\
 	gsd-cursor-manager.c	\
 	gsd-cursor-manager.h	\
-	gsd-cursor-plugin.c	\
-	gsd-cursor-plugin.h
+	gsd-cursor-plugin.c
 
 libcursor_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
