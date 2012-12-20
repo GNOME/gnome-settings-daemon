@@ -5,8 +5,7 @@ plugin_LTLIBRARIES = libremote-display.la
 libremote_display_la_SOURCES =	\
 	gsd-remote-display-manager.c	\
 	gsd-remote-display-manager.h	\
-	gsd-remote-display-plugin.c	\
-	gsd-remote-display-plugin.h
+	gsd-remote-display-plugin.c
 
 libremote_display_la_CPPFLAGS =				\
 	-I$(top_srcdir)/gnome-settings-daemon			\
