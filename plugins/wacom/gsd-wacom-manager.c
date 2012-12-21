@@ -625,7 +625,7 @@ reset_touch_buttons (XDevice               *xdev,
 	for (i = 0; buttons[i].button != NULL; i++)
 	{
 		char *propname;
-		int action[2]; /* press + release */
+		glong action[2]; /* press + release */
 		Atom prop;
 		int mapped_button = buttons[i].num;
 
