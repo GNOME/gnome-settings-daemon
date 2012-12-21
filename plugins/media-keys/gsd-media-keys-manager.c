@@ -174,9 +174,7 @@ struct GsdMediaKeysManagerPrivate
         GDBusProxy      *logind_proxy;
         gint             inhibit_keys_fd;
 
-        /* Multihead stuff */
-        GdkScreen       *current_screen;
-        GSList          *screens;
+        GdkScreen       *screen;
         int              opcode;
 
         GList           *media_players;
@@ -206,26 +204,6 @@ G_DEFINE_TYPE (GsdMediaKeysManager, gsd_media_keys_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-
-static void
-init_screens (GsdMediaKeysManager *manager)
-{
-        GdkDisplay *display;
-        int i;
-
-        display = gdk_display_get_default ();
-        for (i = 0; i < gdk_display_get_n_screens (display); i++) {
-                GdkScreen *screen;
-
-                screen = gdk_display_get_screen (display, i);
-                if (screen == NULL) {
-                        continue;
-                }
-                manager->priv->screens = g_slist_append (manager->priv->screens, screen);
-        }
-
-        manager->priv->current_screen = manager->priv->screens->data;
-}
 
 static void
 media_key_free (MediaKey *key)
@@ -766,7 +744,7 @@ dialog_show (GsdMediaKeysManager *manager)
         int            monitor;
 
         gtk_window_set_screen (GTK_WINDOW (manager->priv->dialog),
-                               manager->priv->current_screen);
+                               manager->priv->screen);
 
         /*
          * get the window size
@@ -775,9 +753,9 @@ dialog_show (GsdMediaKeysManager *manager)
          */
         gtk_window_get_default_size (GTK_WINDOW (manager->priv->dialog), &orig_w, &orig_h);
 
-        monitor = gdk_screen_get_primary_monitor (manager->priv->current_screen);
+        monitor = gdk_screen_get_primary_monitor (manager->priv->screen);
 
-        gdk_screen_get_monitor_geometry (manager->priv->current_screen,
+        gdk_screen_get_monitor_geometry (manager->priv->screen,
                                          monitor,
                                          &geometry);
 
@@ -791,7 +769,7 @@ dialog_show (GsdMediaKeysManager *manager)
 
         gtk_widget_show (manager->priv->dialog);
 
-        gdk_display_sync (gdk_screen_get_display (manager->priv->current_screen));
+        gdk_display_sync (gdk_screen_get_display (manager->priv->screen));
 }
 
 static void
@@ -2319,7 +2297,7 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 	}
 	manager->priv->icon_theme = g_settings_get_string (manager->priv->interface_settings, "icon-theme");
 
-        init_screens (manager);
+        manager->priv->screen = gdk_display_get_screen (gdk_display_get_default (), 0);
 
         ensure_grab_cancellable (manager);
         shell_key_grabber_proxy_new_for_bus (G_BUS_TYPE_SESSION,
@@ -2420,7 +2398,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 g_clear_object (&priv->grab_cancellable);
         }
 
-        g_clear_pointer (&priv->screens, g_slist_free);
         g_clear_object (&priv->sink);
         g_clear_object (&priv->source);
         g_clear_object (&priv->volume);
