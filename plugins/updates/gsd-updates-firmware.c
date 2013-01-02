@@ -251,6 +251,7 @@ require_restart (GsdUpdatesFirmware *firmware)
 
         /* TRANSLATORS: title of libnotify bubble */
         notification = notify_notification_new (_("Additional software was installed"), message, NULL);
+        notify_notification_set_hint_string (n, "desktop-entry", "gpk-update-viewer");
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
@@ -278,6 +279,7 @@ require_replug (GsdUpdatesFirmware *firmware)
 
         /* TRANSLATORS: title of libnotify bubble */
         notification = notify_notification_new (_("Additional software was installed"), message, NULL);
+        notify_notification_set_hint_string (n, "desktop-entry", "gpk-update-viewer");
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
@@ -305,6 +307,7 @@ require_nothing (GsdUpdatesFirmware *firmware)
 
         /* TRANSLATORS: title of libnotify bubble */
         notification = notify_notification_new (_("Additional software was installed"), message, NULL);
+        notify_notification_set_hint_string (n, "desktop-entry", "gpk-update-viewer");
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
@@ -596,6 +599,7 @@ delay_timeout_cb (gpointer data)
 
         /* TRANSLATORS: title of libnotify bubble */
         notification = notify_notification_new (_("Additional firmware required"), string->str, NULL);
+        notify_notification_set_hint_string (n, "desktop-entry", "gpk-update-viewer");
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);

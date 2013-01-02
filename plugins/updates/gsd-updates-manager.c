@@ -339,6 +339,7 @@ get_distro_upgrades_finished_cb (GObject *object,
         notification = notify_notification_new (title,
                                                 string->str,
                                                 GSD_UPDATES_ICON_NORMAL);
+        notify_notification_set_hint_string (n, "desktop-entry", "gpk-update-viewer");
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
@@ -466,6 +467,7 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
         notification = notify_notification_new (title,
                                                 message,
                                                 GSD_UPDATES_ICON_URGENT);
+        notify_notification_set_hint_string (n, "desktop-entry", "gpk-update-viewer");
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
@@ -527,6 +529,7 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
         notification = notify_notification_new (title,
                                                 message,
                                                 GSD_UPDATES_ICON_NORMAL);
+        notify_notification_set_hint_string (n, "desktop-entry", "gpk-update-viewer");
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
@@ -580,6 +583,7 @@ notify_failed_get_updates_maybe (GsdUpdatesManager *manager)
         notification = notify_notification_new (title,
                                                 message,
                                                 GSD_UPDATES_ICON_NORMAL);
+        notify_notification_set_hint_string (n, "desktop-entry", "gpk-update-viewer");
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 120*1000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
@@ -1212,6 +1216,7 @@ check_offline_update_cb (gpointer user_data)
         notification = notify_notification_new (title,
                                                 message,
                                                 GSD_UPDATES_ICON_URGENT);
+        notify_notification_set_hint_string (n, "desktop-entry", "gpk-update-viewer");
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, -1);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
