@@ -97,7 +97,7 @@ plugin_name##_plugin_init (PluginName##Plugin *plugin)                         \
 {                                                                              \
         plugin->priv = G_TYPE_INSTANCE_GET_PRIVATE ((plugin),                  \
                 plugin_name##_plugin_get_type(), PluginName##PluginPrivate);   \
-        g_debug ("PluginName## initializing");                                 \
+        g_debug (#PluginName " initializing");                                 \
         plugin->priv->manager = plugin_name##_manager_new ();                  \
 }                                                                              \
                                                                                \
