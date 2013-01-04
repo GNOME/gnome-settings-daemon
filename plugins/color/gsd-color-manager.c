@@ -1441,6 +1441,15 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
                              (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY_PRIMARY :
                              (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY_SECONDARY);
 #endif
+#if CD_CHECK_VERSION(0,1,27)
+        /* set this so we can call the device a 'Laptop Screen' in the
+         * control center main panel */
+        if (gnome_rr_output_is_laptop (output)) {
+                g_hash_table_insert (device_props,
+                                     (gpointer) CD_DEVICE_METADATA_CONNECTION_TYPE,
+                                     (gpointer) CD_DEVICE_METADATA_CONNECTION_TYPE_INTERNAL);
+        }
+#endif
         cd_client_create_device (priv->client,
                                  device_id,
                                  CD_OBJECT_SCOPE_TEMP,
