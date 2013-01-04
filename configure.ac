@@ -144,6 +144,14 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(COMMON, x11 kbproto xi)
 
 dnl ---------------------------------------------------------------------------
+dnl - XTest
+dnl ---------------------------------------------------------------------------
+
+PKG_CHECK_MODULES(XTEST, x11 xtst)
+AC_SUBST(XTEST_CFLAGS)
+AC_SUBST(XTEST_LIBS)
+
+dnl ---------------------------------------------------------------------------
 dnl - background
 dnl ---------------------------------------------------------------------------
 
@@ -517,6 +525,7 @@ data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in
 po/Makefile.in
 man/Makefile
+tests/Makefile
 ])
 
 dnl ---------------------------------------------------------------------------

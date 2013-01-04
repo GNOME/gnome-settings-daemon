@@ -5,6 +5,7 @@ SUBDIRS = 			\
 	plugins			\
 	data			\
 	po 			\
+	tests 			\
 	$(NULL)
 
 if ENABLE_MAN
