@@ -75,7 +75,9 @@ gsd_test_power_LDADD =					\
 
 EXTRA_DIST = 						\
 	$(plugin_in_files)				\
-	$(gsd_backlight_helper_SOURCES)
+	$(gsd_backlight_helper_SOURCES)			\
+	test.py						\
+	$(NULL)
 
 if HAVE_GUDEV
 libexec_PROGRAMS +=					\
@@ -92,6 +94,9 @@ EXTRA_DIST += 						\
 	org.gnome.settings-daemon.plugins.power.policy.in.in
 endif
 
+check-local: $(top_builddir)/tests/shiftkey gsd-test-power
+	BUILDDIR=$(builddir) TOP_BUILDDIR=$(top_builddir) ${PYTHON} $(srcdir)/test.py
+ 
 clean-local:
 	rm -f *~
 
