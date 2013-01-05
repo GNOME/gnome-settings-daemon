@@ -191,7 +191,6 @@ struct GsdPowerManagerPrivate
         ca_context              *canberra_context;
         ca_proplist             *critical_alert_loop_props;
         guint32                  critical_alert_timeout_id;
-        GDBusProxy              *session_proxy;
         GDBusProxy              *session_presence_proxy;
         GsdPowerIdleMode         current_idle_mode;
         guint                    xscreensaver_watchdog_timer_id;
@@ -2036,7 +2035,7 @@ gnome_session_shutdown_cb (GObject *source_object,
 static void
 gnome_session_shutdown (GsdPowerManager *manager)
 {
-        g_dbus_proxy_call (manager->priv->session_proxy,
+        g_dbus_proxy_call (manager->priv->session,
                            "Shutdown",
                            NULL,
                            G_DBUS_CALL_FLAGS_NONE,
@@ -2923,7 +2922,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 return;
 
         /* ensure we're still on an active console */
-        active_v = g_dbus_proxy_get_cached_property (manager->priv->session_proxy,
+        active_v = g_dbus_proxy_get_cached_property (manager->priv->session,
                                                      "SessionIsActive");
         if (active_v) {
                 is_active = g_variant_get_boolean (active_v);
@@ -3110,12 +3109,12 @@ idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
         GError *error = NULL;
 
         /* not yet connected to gnome-session */
-        if (manager->priv->session_proxy == NULL) {
+        if (manager->priv->session == NULL) {
                 g_warning ("session inhibition not available, gnome-session is not available");
                 return FALSE;
         }
 
-        retval = g_dbus_proxy_call_sync (manager->priv->session_proxy,
+        retval = g_dbus_proxy_call_sync (manager->priv->session,
                                          "IsInhibited",
                                          g_variant_new ("(u)",
                                                         mask),
@@ -4057,9 +4056,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                   manager);
 
         /* connect to the session */
-        manager->priv->session_proxy =
-                gnome_settings_session_get_session_proxy ();
-        g_signal_connect (manager->priv->session_proxy, "g-signal",
+        g_signal_connect (manager->priv->session, "g-signal",
                           G_CALLBACK (idle_dbus_signal_cb), manager);
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                   0,
@@ -4201,7 +4198,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_clear_pointer (&manager->priv->previous_summary, g_free);
 
         g_clear_object (&manager->priv->upower_proxy);
-        g_clear_object (&manager->priv->session_proxy);
         g_clear_object (&manager->priv->session_presence_proxy);
 
         if (manager->priv->critical_alert_timeout_id > 0) {
