@@ -2960,41 +2960,6 @@ out:
 }
 
 static void
-lock_screensaver (GsdPowerManager *manager,
-                  GSourceFunc      done_cb)
-{
-        gboolean do_lock;
-
-        do_lock = g_settings_get_boolean (manager->priv->settings_screensaver,
-                                          "lock-enabled");
-        if (!do_lock && done_cb) {
-                done_cb (manager);
-                return;
-        }
-
-        g_dbus_connection_call (manager->priv->connection,
-                                GS_DBUS_NAME,
-                                GS_DBUS_PATH,
-                                GS_DBUS_INTERFACE,
-                                "Lock",
-                                NULL, NULL,
-                                G_DBUS_CALL_FLAGS_NONE, -1,
-                                NULL, NULL, NULL);
-
-        /* Wait until gnome-shell shield animation is done
-         *
-         * FIXME: the shell should mark the lock as active
-         * when the shield is down, then we could wait for
-         * that. This would also fix the problem that we wait
-         * needlessly when the shell has already locked the
-         * screen because it is initiating the suspend.
-         *
-         * https://bugzilla.gnome.org/show_bug.cgi?id=685053
-         */
-        g_timeout_add (500, done_cb, manager);
-}
-
-static void
 idle_send_to_sleep (GsdPowerManager *manager)
 {
         gboolean is_inhibited;
@@ -3251,17 +3216,6 @@ received_sigusr2 (GsdPowerManager *manager)
 }
 #endif /* MOCK_EXTERNAL_MONITOR */
 
-static gboolean
-screen_lock_done_cb (gpointer data)
-{
-        GsdPowerManager *manager = data;
-
-        /* lift the delay inhibit, so logind can proceed */
-        uninhibit_suspend (manager);
-
-        return FALSE;
-}
-
 static void
 handle_suspend_actions (GsdPowerManager *manager)
 {
@@ -3277,7 +3231,7 @@ handle_suspend_actions (GsdPowerManager *manager)
         if (manager->priv->pre_dpms_brightness != -1)
                 backlight_set_abs (manager->priv->rr_screen, backlight_get_min (manager->priv->rr_screen), NULL);
 
-        lock_screensaver (manager, screen_lock_done_cb);
+        uninhibit_suspend (manager);
 }
 
 static void
