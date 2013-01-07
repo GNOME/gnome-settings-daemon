@@ -1446,8 +1446,8 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
          * control center main panel */
         if (gnome_rr_output_is_laptop (output)) {
                 g_hash_table_insert (device_props,
-                                     (gpointer) CD_DEVICE_METADATA_CONNECTION_TYPE,
-                                     (gpointer) CD_DEVICE_METADATA_CONNECTION_TYPE_INTERNAL);
+                                     (gpointer) CD_DEVICE_PROPERTY_EMBEDDED,
+                                     NULL);
         }
 #endif
         cd_client_create_device (priv->client,
