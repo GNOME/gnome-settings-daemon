@@ -154,12 +154,6 @@ AC_SUBST(XTEST_CFLAGS)
 AC_SUBST(XTEST_LIBS)
 
 dnl ---------------------------------------------------------------------------
-dnl - background
-dnl ---------------------------------------------------------------------------
-
-PKG_CHECK_MODULES(BACKGROUND, x11 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
-
-dnl ---------------------------------------------------------------------------
 dnl - mouse
 dnl ---------------------------------------------------------------------------
 
@@ -487,7 +481,6 @@ gnome-settings-daemon/Makefile
 plugins/Makefile
 plugins/a11y-keyboard/Makefile
 plugins/a11y-settings/Makefile
-plugins/background/Makefile
 plugins/clipboard/Makefile
 plugins/color/Makefile
 plugins/common/Makefile
