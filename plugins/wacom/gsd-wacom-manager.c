@@ -1263,15 +1263,16 @@ filter_button_events (XEvent          *xevent,
 	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED) {
 		int new_mode;
 
-		/* Update OSD window if shown */
-		if (osd_window_update_viewable (manager, wbutton, dir, xiev))
-			return GDK_FILTER_REMOVE;
-
 		/* We switch modes on key release */
-		if (xiev->evtype == XI_ButtonRelease)
+		if (xiev->evtype == XI_ButtonRelease) {
+			osd_window_update_viewable (manager, wbutton, dir, xiev);
 			return GDK_FILTER_REMOVE;
-
+                }
 		new_mode = gsd_wacom_device_set_next_mode (device, wbutton);
+                if (manager->priv->osd_window != NULL) {
+			gsd_wacom_osd_window_set_mode (GSD_WACOM_OSD_WINDOW(manager->priv->osd_window), wbutton->group_id, new_mode);
+			osd_window_update_viewable (manager, wbutton, dir, xiev);
+                }
 		set_led (device, wbutton, new_mode);
 		return GDK_FILTER_REMOVE;
 	}
