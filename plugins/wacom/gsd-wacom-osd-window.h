@@ -55,6 +55,9 @@ void                      gsd_wacom_osd_window_set_active      (GsdWacomOSDWindo
                                                                 GsdWacomTabletButton     *button,
                                                                 GtkDirectionType          dir,
                                                                 gboolean                  active);
+void                      gsd_wacom_osd_window_set_mode        (GsdWacomOSDWindow        *osd_window,
+                                                                gint                      group_id,
+                                                                gint                      mode);
 GtkWidget *               gsd_wacom_osd_window_new             (GsdWacomDevice           *pad,
                                                                 const gchar              *message);
 

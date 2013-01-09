@@ -250,12 +250,14 @@ enum {
 	PROP_OSD_BUTTON_CLASS,
 	PROP_OSD_BUTTON_LABEL,
 	PROP_OSD_BUTTON_ACTIVE,
+	PROP_OSD_BUTTON_VISIBLE,
 	PROP_OSD_BUTTON_AUTO_OFF
 };
 
 #define GSD_WACOM_OSD_BUTTON_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), \
 					     GSD_TYPE_WACOM_OSD_BUTTON, \
 					     GsdWacomOSDButtonPrivate))
+#define MATCH_ID(b,s) (g_strcmp0 (b->priv->id, s) == 0)
 
 struct GsdWacomOSDButtonPrivate {
 	GtkWidget                *widget;
@@ -267,6 +269,7 @@ struct GsdWacomOSDButtonPrivate {
 	GsdWacomTabletButtonType  type;
 	GsdWacomTabletButtonPos   position;
 	gboolean                  active;
+	gboolean                  visible;
 	guint                     auto_off;
 	guint                     timeout;
 };
@@ -402,6 +405,15 @@ gsd_wacom_osd_button_set_active (GsdWacomOSDButton *osd_button,
 		gsd_wacom_osd_button_redraw (osd_button);
 }
 
+static void
+gsd_wacom_osd_button_set_visible (GsdWacomOSDButton *osd_button,
+				  gboolean           visible)
+{
+	g_return_if_fail (GSD_IS_WACOM_OSD_BUTTON (osd_button));
+
+	osd_button->priv->visible = visible;
+}
+
 static GsdWacomOSDButton *
 gsd_wacom_osd_button_new (GtkWidget *widget,
                           gchar *id)
@@ -439,6 +451,9 @@ gsd_wacom_osd_button_set_property (GObject        *object,
 	case PROP_OSD_BUTTON_ACTIVE:
 		gsd_wacom_osd_button_set_active (osd_button, g_value_get_boolean (value));
 		break;
+	case PROP_OSD_BUTTON_VISIBLE:
+		gsd_wacom_osd_button_set_visible (osd_button, g_value_get_boolean (value));
+		break;
 	case PROP_OSD_BUTTON_AUTO_OFF:
 		gsd_wacom_osd_button_set_auto_off (osd_button, g_value_get_uint (value));
 		break;
@@ -470,6 +485,9 @@ gsd_wacom_osd_button_get_property (GObject        *object,
 		break;
 	case PROP_OSD_BUTTON_ACTIVE:
 		g_value_set_boolean (value, osd_button->priv->active);
+		break;
+	case PROP_OSD_BUTTON_VISIBLE:
+		g_value_set_boolean (value, osd_button->priv->visible);
 		break;
 	case PROP_OSD_BUTTON_AUTO_OFF:
 		g_value_set_uint (value, osd_button->priv->auto_off);
@@ -516,6 +534,13 @@ gsd_wacom_osd_button_class_init (GsdWacomOSDButtonClass *klass)
 	                                                       "Active",
 	                                                       "Whether the button is active",
 	                                                       FALSE,
+	                                                       G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 PROP_OSD_BUTTON_VISIBLE,
+	                                 g_param_spec_boolean ("visible",
+	                                                       "Visible",
+	                                                       "Whether the button is visible",
+	                                                       TRUE,
 	                                                       G_PARAM_READWRITE));
 	g_object_class_install_property (object_class,
 	                                 PROP_OSD_BUTTON_AUTO_OFF,
@@ -606,6 +631,8 @@ gsd_wacom_osd_button_draw_label (GsdWacomOSDButton *osd_button,
 	g_return_if_fail (GSD_IS_WACOM_OSD_BUTTON (osd_button));
 
 	priv = osd_button->priv;
+	if (priv->visible == FALSE)
+		return;
 
 	actual_position = get_actual_position (priv->position, rotation);
 	layout = pango_layout_new (pango_context);
@@ -715,6 +742,9 @@ gsd_wacom_osd_window_update (GsdWacomOSDWindow *osd_window)
 	for (l = osd_window->priv->buttons; l != NULL; l = l->next) {
 		GsdWacomOSDButton *osd_button = l->data;
 
+		if (osd_button->priv->visible == FALSE)
+			continue;
+
 		if (osd_button->priv->active) {
 			buttons_section = g_strconcat (buttons_section,
 			                               ".", osd_button->priv->class, " {\n"
@@ -790,6 +820,9 @@ gsd_wacom_osd_window_draw_labels (GsdWacomOSDWindow   *osd_window,
 
 	for (l = osd_window->priv->buttons; l != NULL; l = l->next) {
 		GsdWacomOSDButton *osd_button = l->data;
+
+		if (osd_button->priv->visible == FALSE)
+			continue;
 
 		gsd_wacom_osd_button_draw_label (osd_button,
 			                         style_context,
@@ -960,8 +993,6 @@ get_tablet_button_label_touch  (GsdWacomDevice       *device,
 				GtkDirectionType      dir)
 {
 	char **strv, *name, *str;
-	gint mode;
-
 
 	strv = g_settings_get_strv (button->settings, CUSTOM_ELEVATOR_ACTION_KEY);
 	name = NULL;
@@ -980,8 +1011,7 @@ get_tablet_button_label_touch  (GsdWacomDevice       *device,
 
 	/* With multiple modes, also show the current mode for that action */
 	if (gsd_wacom_device_get_num_modes (device, button->group_id) > 1) {
-		mode = gsd_wacom_device_get_current_mode (device, button->group_id);
-		name = g_strdup_printf (_("Mode %d: %s"), mode, str);
+		name = g_strdup_printf (_("Mode %d: %s"), button->idx + 1, str);
 		g_free (str);
 	}
 
@@ -1108,7 +1138,7 @@ get_elevator_current_mode (GsdWacomOSDWindow    *osd_window,
 	return mode;
 }
 
-static void
+static GsdWacomOSDButton *
 gsd_wacom_osd_window_add_button_with_dir (GsdWacomOSDWindow    *osd_window,
                                           GsdWacomTabletButton *tablet_button,
                                           guint                 timeout,
@@ -1133,38 +1163,44 @@ gsd_wacom_osd_window_add_button_with_dir (GsdWacomOSDWindow    *osd_window,
 	gsd_wacom_osd_button_set_position (osd_button, tablet_button->pos);
 	gsd_wacom_osd_button_set_auto_off (osd_button, timeout);
 	osd_window->priv->buttons = g_list_append (osd_window->priv->buttons, osd_button);
+
+	return osd_button;
 }
 
 static void
 gsd_wacom_osd_window_add_tablet_button (GsdWacomOSDWindow    *osd_window,
                                         GsdWacomTabletButton *tablet_button)
 {
+	GsdWacomOSDButton    *osd_button;
 	gint                  mode;
 
 	switch (tablet_button->type) {
 	case WACOM_TABLET_BUTTON_TYPE_NORMAL:
 	case WACOM_TABLET_BUTTON_TYPE_HARDCODED:
-		gsd_wacom_osd_window_add_button_with_dir (osd_window,
-		                                          tablet_button,
-		                                          0,
-		                                          0);
+		osd_button = gsd_wacom_osd_window_add_button_with_dir (osd_window,
+		                                                       tablet_button,
+		                                                       0,
+		                                                       0);
+		gsd_wacom_osd_button_set_visible (osd_button, TRUE);
 		break;
 	case WACOM_TABLET_BUTTON_TYPE_RING:
 	case WACOM_TABLET_BUTTON_TYPE_STRIP:
-		mode = get_elevator_current_mode (osd_window, tablet_button);
-		if (tablet_button->idx != mode - 1)
-			break;
+		mode = get_elevator_current_mode (osd_window, tablet_button) - 1;
 
 		/* Add 2 buttons per elevator, one "Up"... */
-		gsd_wacom_osd_window_add_button_with_dir (osd_window,
-		                                          tablet_button,
-		                                          ELEVATOR_TIMEOUT,
-		                                          GTK_DIR_UP);
+		osd_button = gsd_wacom_osd_window_add_button_with_dir (osd_window,
+		                                                       tablet_button,
+		                                                       ELEVATOR_TIMEOUT,
+		                                                       GTK_DIR_UP);
+		gsd_wacom_osd_button_set_visible (osd_button, tablet_button->idx == mode);
+
 		/* ... and one "Down" */
-		gsd_wacom_osd_window_add_button_with_dir (osd_window,
-		                                          tablet_button,
-		                                          ELEVATOR_TIMEOUT,
-		                                          GTK_DIR_DOWN);
+		osd_button = gsd_wacom_osd_window_add_button_with_dir (osd_window,
+		                                                       tablet_button,
+		                                                       ELEVATOR_TIMEOUT,
+		                                                       GTK_DIR_DOWN);
+		gsd_wacom_osd_button_set_visible (osd_button, tablet_button->idx == mode);
+
 		break;
 	default:
 		g_warning ("Unknown button type");
@@ -1364,10 +1400,47 @@ gsd_wacom_osd_window_set_active (GsdWacomOSDWindow    *osd_window,
 	id = get_tablet_button_id_name (button, dir);
 	for (l = osd_window->priv->buttons; l != NULL; l = l->next) {
 		GsdWacomOSDButton *osd_button = l->data;
-		if (g_strcmp0 (osd_button->priv->id, id) == 0)
+		if (MATCH_ID (osd_button, id))
 			gsd_wacom_osd_button_set_active (osd_button, active);
 	}
 	g_free (id);
+}
+
+void
+gsd_wacom_osd_window_set_mode (GsdWacomOSDWindow    *osd_window,
+                               gint                  group_id,
+                               gint                  mode)
+{
+	GList                *list, *l;
+
+	list = gsd_wacom_device_get_buttons (osd_window->priv->pad);
+	for (l = list; l != NULL; l = l->next) {
+		GsdWacomTabletButton *tablet_button = l->data;
+		GList                *l2;
+		gchar                *id_up, *id_down;
+
+		if (tablet_button->type != WACOM_TABLET_BUTTON_TYPE_STRIP &&
+		    tablet_button->type != WACOM_TABLET_BUTTON_TYPE_RING)
+			continue;
+		if (tablet_button->group_id != group_id)
+			continue;
+
+		id_up = get_tablet_button_id_name (tablet_button, GTK_DIR_UP);
+		id_down = get_tablet_button_id_name (tablet_button, GTK_DIR_DOWN);
+
+		for (l2 = osd_window->priv->buttons; l2 != NULL; l2 = l2->next) {
+			GsdWacomOSDButton *osd_button = l2->data;
+			gboolean           visible = (tablet_button->idx == mode - 1);
+
+			if (MATCH_ID (osd_button, id_up) || MATCH_ID (osd_button, id_down))
+				gsd_wacom_osd_button_set_visible (osd_button, visible);
+		}
+
+		g_free (id_up);
+		g_free (id_down);
+
+	}
+	g_list_free (list);
 }
 
 GtkWidget *
