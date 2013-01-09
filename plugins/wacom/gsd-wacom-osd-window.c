@@ -917,7 +917,7 @@ gsd_wacom_osd_window_draw (GtkWidget *widget,
 		gsd_wacom_osd_window_adjust_cairo (osd_window, cr);
 
 		/* And render the tablet layout */
-		gsd_wacom_osd_window_update(osd_window);
+		gsd_wacom_osd_window_update (osd_window);
 		rsvg_handle_render_cairo (osd_window->priv->handle, cr);
 
 		gsd_wacom_osd_window_place_buttons (osd_window, cr);
