@@ -1263,7 +1263,7 @@ filter_button_events (XEvent          *xevent,
 	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED) {
 		int new_mode;
 
-		/* We switch modes on key release */
+		/* We switch modes on key press */
 		if (xiev->evtype == XI_ButtonRelease) {
 			osd_window_update_viewable (manager, wbutton, dir, xiev);
 			return GDK_FILTER_REMOVE;
