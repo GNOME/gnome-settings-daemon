@@ -1,4 +1,40 @@
 =============
+Version 3.6.4
+=============
+
+- Don't set IBus envvars if keyboard plugin is disabled
+- Proxy the org.freedesktop.ScreenSaver D-Bus API to gnome-session as
+  needed
+
+Color:
+- Fix choosing the correct profile for "legacy" applications
+- Use a perceptual intent when creating the auto-EDID profile
+
+Keyboard:
+- Trigger input source switching on key press for Caps Lock
+- Don't migrate useless XKB IBus sources from old IBus user settings
+
+Media keys:
+- Add default shortcuts for the magnifier
+- Repeat screen and keyboard brightness keys
+
+Power:
+- Fix showing an "About to hibernate" warning when the machine cannot
+  suspend
+- Hide critical battery warning when power is plugged
+- Avoid crasher if XRandR calls fail on startup
+
+Printers:
+- Don't show notifications which are not actual errors for the user
+
+Wacom:
+- Avoid infinite recursion in gsettings callback
+- Stop capturing mouse buttons when deactivating
+
+XRandr:
+- Fix "next rotation" not working
+
+=============
 Version 3.6.3
 =============
 
