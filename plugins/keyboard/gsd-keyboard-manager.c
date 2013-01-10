@@ -532,8 +532,11 @@ convert_ibus (GSettings *settings)
 
         ibus_settings = g_settings_new ("org.freedesktop.ibus.general");
         engines = g_settings_get_strv (ibus_settings, "preload-engines");
-        for (e = engines; *e; ++e)
+        for (e = engines; *e; ++e) {
+                if (g_str_has_prefix (*e, "xkb:"))
+                        continue;
                 g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_IBUS, *e);
+        }
 
         g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
 
