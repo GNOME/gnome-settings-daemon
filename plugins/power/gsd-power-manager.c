@@ -3260,16 +3260,16 @@ idle_configure (GsdPowerManager *manager)
 static gboolean
 idle_set_timeout_dim (GsdPowerManager *manager, guint timeout)
 {
-        guint idle_time;
+        gint64 idle_time;
 
-        idle_time = gnome_idle_monitor_get_idletime (manager->priv->idle_monitor) / 1000;
-        if (idle_time == 0)
+        idle_time = gnome_idle_monitor_get_idletime (manager->priv->idle_monitor);
+        if (idle_time < 0)
                 return FALSE;
 
         g_debug ("Setting dim idle timeout: %ds", timeout);
         if (timeout > 0) {
                 manager->priv->idle_dim_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
-                                                                          idle_adjust_timeout (idle_time, timeout) * 1000,
+                                                                          idle_adjust_timeout (idle_time / 1000, timeout) * 1000,
                                                                           NULL, NULL, NULL);
         } else {
                 gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
