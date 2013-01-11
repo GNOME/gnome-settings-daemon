@@ -137,9 +137,6 @@ main (int    argc,
                 exit (1);
         }
 
-        gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
-                                           DATADIR G_DIR_SEPARATOR_S "gnome-power-manager" G_DIR_SEPARATOR_S "icons");
-
         test_window ();
 
         gtk_main ();
