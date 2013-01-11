@@ -321,25 +321,23 @@ load_pixbuf (GsdOsdDrawContext *ctx,
 
 static void
 draw_eject (cairo_t *cr,
-            double   _x0,
-            double   _y0,
-            double   width,
-            double   height)
+            GdkRectangle *icon_box)
 {
         int box_height;
         int tri_height;
         int separation;
 
-        box_height = height * 0.2;
+        box_height = icon_box->height * 0.2;
         separation = box_height / 3;
-        tri_height = height - box_height - separation;
+        tri_height = icon_box->height - box_height - separation;
 
-        cairo_rectangle (cr, _x0, _y0 + height - box_height, width, box_height);
+        cairo_rectangle (cr, icon_box->x, icon_box->y + icon_box->height - box_height,
+                         icon_box->width, box_height);
 
-        cairo_move_to (cr, _x0, _y0 + tri_height);
-        cairo_rel_line_to (cr, width, 0);
-        cairo_rel_line_to (cr, -width / 2, -tri_height);
-        cairo_rel_line_to (cr, -width / 2, tri_height);
+        cairo_move_to (cr, icon_box->x, icon_box->y + tri_height);
+        cairo_rel_line_to (cr, icon_box->width, 0);
+        cairo_rel_line_to (cr, -icon_box->width / 2, -tri_height);
+        cairo_rel_line_to (cr, -icon_box->width / 2, tri_height);
         cairo_close_path (cr);
         cairo_set_source_rgba (cr, 1.0, 1.0, 1.0, FG_ALPHA);
         cairo_fill_preserve (cr);
@@ -453,28 +451,21 @@ draw_speaker (cairo_t *cr,
 static gboolean
 render_speaker (GsdOsdDrawContext *ctx,
                 cairo_t           *cr,
-                double             _x0,
-                double             _y0,
-                double             width,
-                double             height)
+                GdkRectangle      *icon_box)
 {
         GdkPixbuf         *pixbuf;
         const char        *icon_name;
-        int                icon_size;
 
         icon_name = get_image_name_for_volume (ctx->volume_muted,
                                                ctx->volume_level);
-
-        icon_size = (int) width;
-
-        pixbuf = load_pixbuf (ctx, icon_name, icon_size);
+        pixbuf = load_pixbuf (ctx, icon_name, icon_box->width);
 
         if (pixbuf == NULL) {
                 return FALSE;
         }
 
         gtk_render_icon (ctx->style, cr,
-                         pixbuf, _x0, _y0);
+                         pixbuf, icon_box->x, icon_box->y);
 
         g_object_unref (pixbuf);
 
@@ -485,24 +476,21 @@ static void
 draw_volume_boxes (GsdOsdDrawContext *ctx,
                    cairo_t           *cr,
                    double             percentage,
-                   double             _x0,
-                   double             _y0,
-                   double             width,
-                   double             height)
+                   GdkRectangle      *volume_box)
 {
         gdouble   x1;
         GdkRGBA  acolor;
 
-        height = round (height) - 1;
-        width = round (width) - 1;
-        x1 = round ((width - 1) * percentage);
+        x1 = round ((volume_box->width - 1) * percentage);
 
         /* bar background */
         gtk_style_context_save (ctx->style);
         gtk_style_context_add_class (ctx->style, GTK_STYLE_CLASS_TROUGH);
         gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
 
-        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, width, height);
+        gsd_osd_window_draw_rounded_rectangle (cr, 1.0,
+                                               volume_box->x, volume_box->y, volume_box->height / 6,
+                                               volume_box->width, volume_box->height);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
 
@@ -515,7 +503,9 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
         gtk_style_context_add_class (ctx->style, GTK_STYLE_CLASS_PROGRESSBAR);
         gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
 
-        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, x1, height);
+        gsd_osd_window_draw_rounded_rectangle (cr, 1.0,
+                                               volume_box->x, volume_box->y, volume_box->height / 6,
+                                               x1, volume_box->height);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
 
@@ -523,63 +513,68 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
 }
 
 static void
-draw_action_volume (GsdOsdDrawContext *ctx,
-                    cairo_t           *cr)
+get_icon_and_volume_boxes (GsdOsdDrawContext *ctx,
+                           GdkRectangle *icon_box_out,
+                           GdkRectangle *volume_box_out)
 {
         int window_width;
         int window_height;
-        double icon_box_width;
-        double icon_box_height;
-        double icon_box_x0;
-        double icon_box_y0;
-        double volume_box_x0;
-        double volume_box_y0;
-        double volume_box_width;
-        double volume_box_height;
-        gboolean res;
+        GdkRectangle icon_box, volume_box;
 
 	window_width = window_height = ctx->size;
 
-        icon_box_width = round (window_width * ICON_SCALE);
-        icon_box_height = round (window_height * ICON_SCALE);
-        volume_box_width = icon_box_width;
-        volume_box_height = round (window_height * 0.05);
+        icon_box.width = round (window_width * ICON_SCALE);
+        icon_box.height = round (window_height * ICON_SCALE);
+        volume_box.width = icon_box.width;
+        volume_box.height = round (window_height * 0.05);
 
-        icon_box_x0 = round ((window_width - icon_box_width) / 2);
-        icon_box_y0 = round ((window_height - icon_box_height - volume_box_height) / 2 - volume_box_height);
-        volume_box_x0 = round (icon_box_x0);
-        volume_box_y0 = round (icon_box_height + icon_box_y0) + volume_box_height;
+        icon_box.x = round ((window_width - icon_box.width) / 2);
+        icon_box.y = round ((window_height - icon_box.height - volume_box.height) / 2 - volume_box.height);
+        volume_box.x = round (icon_box.x);
+        volume_box.y = round (icon_box.height + icon_box.y) + volume_box.height;
+
+        if (icon_box_out)
+                *icon_box_out = icon_box;
+        if (volume_box_out)
+                *volume_box_out = volume_box;
+}
+
+static void
+draw_action_volume (GsdOsdDrawContext *ctx,
+                    cairo_t           *cr)
+{
+        gboolean res;
+        GdkRectangle icon_box, volume_box;
+
+        get_icon_and_volume_boxes (ctx, &icon_box, &volume_box);
 
 #if 0
-        g_message ("icon box: w=%f h=%f _x0=%f _y0=%f",
-                   icon_box_width,
-                   icon_box_height,
-                   icon_box_x0,
-                   icon_box_y0);
-        g_message ("volume box: w=%f h=%f _x0=%f _y0=%f",
-                   volume_box_width,
-                   volume_box_height,
-                   volume_box_x0,
-                   volume_box_y0);
+        g_message ("icon box: w=%d h=%d _x0=%d _y0=%d",
+                   icon_box.width,
+                   icon_box.height,
+                   icon_box.x,
+                   icon_box.y);
+        g_message ("volume box: w=%d h=%d _x0=%d _y0=%d",
+                   volume_box.width,
+                   volume_box.height,
+                   volume_box.x,
+                   volume_box.y);
 #endif
 
-        res = render_speaker (ctx,
-                              cr,
-                              icon_box_x0, icon_box_y0,
-                              icon_box_width, icon_box_height);
+        res = render_speaker (ctx, cr, &icon_box);
         if (! res) {
                 double speaker_width;
                 double speaker_height;
                 double speaker_cx;
                 double speaker_cy;
 
-                speaker_width = icon_box_width * 0.5;
-                speaker_height = icon_box_height * 0.75;
-                speaker_cx = icon_box_x0 + speaker_width / 2;
-                speaker_cy = icon_box_y0 + speaker_height / 2;
+                speaker_width = icon_box.width * 0.5;
+                speaker_height = icon_box.height * 0.75;
+                speaker_cx = icon_box.x + speaker_width / 2;
+                speaker_cy = icon_box.y + speaker_height / 2;
 
 #if 0
-                g_message ("speaker box: w=%f h=%f cx=%f cy=%f",
+                g_message ("speaker box: w=%d h=%d cx=%d cy=%d",
                            speaker_width,
                            speaker_height,
                            speaker_cx,
@@ -595,9 +590,9 @@ draw_action_volume (GsdOsdDrawContext *ctx,
                         double wave_y0;
                         double wave_radius;
 
-                        wave_x0 = window_width / 2;
+                        wave_x0 = ctx->size / 2;
                         wave_y0 = speaker_cy;
-                        wave_radius = icon_box_width / 2;
+                        wave_radius = icon_box.width / 2;
 
                         draw_waves (cr, wave_x0, wave_y0, wave_radius, ctx->volume_level);
                 } else {
@@ -607,7 +602,7 @@ draw_action_volume (GsdOsdDrawContext *ctx,
                         double cross_size;
 
                         cross_size = speaker_width * 3 / 4;
-                        cross_x0 = icon_box_x0 + icon_box_width - cross_size;
+                        cross_x0 = icon_box.x + icon_box.width - cross_size;
                         cross_y0 = speaker_cy;
 
                         draw_cross (cr, cross_x0, cross_y0, cross_size);
@@ -615,29 +610,17 @@ draw_action_volume (GsdOsdDrawContext *ctx,
         }
 
         /* draw volume meter */
-        draw_volume_boxes (ctx,
-                           cr,
-                           (double) ctx->volume_level / 100.0,
-                           volume_box_x0,
-                           volume_box_y0,
-                           volume_box_width,
-                           volume_box_height);
+        draw_volume_boxes (ctx, cr, (double) ctx->volume_level / 100.0, &volume_box);
 }
 
 static gboolean
 render_custom (GsdOsdDrawContext  *ctx,
                cairo_t            *cr,
-               double              _x0,
-               double              _y0,
-               double              width,
-               double              height)
+               GdkRectangle       *icon_box)
 {
         GdkPixbuf         *pixbuf;
-        int                icon_size;
 
-        icon_size = (int)width;
-
-        pixbuf = load_pixbuf (ctx, ctx->icon_name, icon_size);
+        pixbuf = load_pixbuf (ctx, ctx->icon_name, icon_box->width);
 
         if (pixbuf == NULL) {
                 char *name;
@@ -645,14 +628,14 @@ render_custom (GsdOsdDrawContext  *ctx,
                         name = g_strdup_printf ("%s-rtl", ctx->icon_name);
                 else
                         name = g_strdup_printf ("%s-ltr", ctx->icon_name);
-                pixbuf = load_pixbuf (ctx, name, icon_size);
+                pixbuf = load_pixbuf (ctx, name, icon_box->width);
                 g_free (name);
                 if (pixbuf == NULL)
                         return FALSE;
         }
 
         gtk_render_icon (ctx->style, cr,
-                         pixbuf, _x0, _y0);
+                         pixbuf, icon_box->x, icon_box->y);
 
         g_object_unref (pixbuf);
 
@@ -663,63 +646,33 @@ static void
 draw_action_custom (GsdOsdDrawContext  *ctx,
                     cairo_t            *cr)
 {
-        int window_width;
-        int window_height;
-        double icon_box_width;
-        double icon_box_height;
-        double icon_box_x0;
-        double icon_box_y0;
-        double bright_box_x0;
-        double bright_box_y0;
-        double bright_box_width;
-        double bright_box_height;
         gboolean res;
+        GdkRectangle icon_box, bright_box;
 
-	window_width = window_height = ctx->size;
-
-        icon_box_width = round (window_width * ICON_SCALE);
-        icon_box_height = round (window_height * ICON_SCALE);
-        bright_box_width = round (icon_box_width);
-        bright_box_height = round (window_height * 0.05);
-
-        icon_box_x0 = round ((window_width - icon_box_width) / 2);
-        icon_box_y0 = round ((window_height - icon_box_height - bright_box_height) / 2 - bright_box_height);
-        bright_box_x0 = round (icon_box_x0);
-        bright_box_y0 = round (icon_box_height + icon_box_y0) + bright_box_height;
+        get_icon_and_volume_boxes (ctx, &icon_box, &bright_box);
 
 #if 0
-        g_message ("icon box: w=%f h=%f _x0=%f _y0=%f",
-                   icon_box_width,
-                   icon_box_height,
-                   icon_box_x0,
-                   icon_box_y0);
-        g_message ("brightness box: w=%f h=%f _x0=%f _y0=%f",
-                   bright_box_width,
-                   bright_box_height,
-                   bright_box_x0,
-                   bright_box_y0);
+        g_message ("icon box: w=%d h=%d _x0=%d _y0=%d",
+                   icon_box.width,
+                   icon_box.height,
+                   icon_box.x,
+                   icon_box.y);
+        g_message ("brightness box: w=%d h=%d _x0=%d _y0=%d",
+                   bright_box.width,
+                   bright_box.height,
+                   bright_box.x,
+                   bright_box.y);
 #endif
 
-        res = render_custom (ctx,
-                             cr,
-                             icon_box_x0, icon_box_y0,
-                             icon_box_width, icon_box_height);
+        res = render_custom (ctx, cr, &icon_box);
         if (!res && g_str_has_prefix (ctx->icon_name, "media-eject")) {
                 /* draw eject symbol */
-                draw_eject (cr,
-                            icon_box_x0, icon_box_y0,
-                            icon_box_width, icon_box_height);
+                draw_eject (cr, &icon_box);
         }
 
         if (ctx->show_level != FALSE) {
                 /* draw volume meter */
-                draw_volume_boxes (ctx,
-                                   cr,
-                                   (double) ctx->volume_level / 100.0,
-                                   bright_box_x0,
-                                   bright_box_y0,
-                                   bright_box_width,
-                                   bright_box_height);
+                draw_volume_boxes (ctx, cr, (double) ctx->volume_level / 100.0, &bright_box);
         }
 }
 
