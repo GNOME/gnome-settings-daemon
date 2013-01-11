@@ -486,7 +486,7 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
         /* bar background */
         gtk_style_context_save (ctx->style);
         gtk_style_context_add_class (ctx->style, GTK_STYLE_CLASS_TROUGH);
-        gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
+        gtk_style_context_get_background_color (ctx->style, GTK_STATE_FLAG_NORMAL, &acolor);
 
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0,
                                                volume_box->x, volume_box->y, volume_box->height / 6,
@@ -501,7 +501,7 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
                 return;
         gtk_style_context_save (ctx->style);
         gtk_style_context_add_class (ctx->style, GTK_STYLE_CLASS_PROGRESSBAR);
-        gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
+        gtk_style_context_get_background_color (ctx->style, GTK_STATE_FLAG_NORMAL, &acolor);
 
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0,
                                                volume_box->x, volume_box->y, volume_box->height / 6,
@@ -687,7 +687,7 @@ gsd_osd_window_draw (GsdOsdDrawContext *ctx,
         corner_radius = ctx->size / 10;
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.0, 0.0, corner_radius, ctx->size - 1, ctx->size - 1);
 
-        gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
+        gtk_style_context_get_background_color (ctx->style, GTK_STATE_FLAG_NORMAL, &acolor);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
 
