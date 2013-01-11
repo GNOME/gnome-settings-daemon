@@ -53,6 +53,7 @@ update_state (GtkWidget *window)
                 break;
         case 3:
                 gsd_osd_window_set_volume_muted (GSD_OSD_WINDOW (window), TRUE);
+                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window), 0);
                 gsd_osd_window_set_action (GSD_OSD_WINDOW (window),
                                            GSD_OSD_WINDOW_ACTION_VOLUME);
 
@@ -84,14 +85,14 @@ update_state (GtkWidget *window)
         case 7:
                 gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (window),
                                                   "touchpad-disabled-symbolic",
-                                                  TRUE);
+                                                  FALSE);
 
                 gtk_widget_show (window);
                 break;
         case 8:
                 gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (window),
                                                   "input-touchpad-symbolic",
-                                                  TRUE);
+                                                  FALSE);
 
                 gtk_widget_show (window);
                 break;
