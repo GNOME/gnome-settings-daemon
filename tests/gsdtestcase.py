@@ -93,9 +93,9 @@ class GSDTestCase(dbusmock.DBusTestCase):
         shows all log files.
         '''
         if result:
-            orig_err_fail = result.errors + result.failures
+            orig_err_fail = len(result.errors) + len(result.failures)
         super(GSDTestCase, self).run(result)
-        if result and result.errors + result.failures > orig_err_fail:
+        if result and len(result.errors) + len(result.failures) > orig_err_fail:
             if 'SHELL_ON_FAIL' in os.environ:
                 subprocess.call(['bash', '-i'], cwd=self.workdir)
             else:
