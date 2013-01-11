@@ -40,7 +40,7 @@
 #include "gsd-osd-window.h"
 #include "gsd-osd-window-private.h"
 
-#define ICON_SCALE 0.50           /* size of the icon compared to the whole OSD */
+#define ICON_SCALE 0.55           /* size of the icon compared to the whole OSD */
 #define FG_ALPHA 1.0              /* Alpha value to be used for foreground objects drawn in an OSD window */
 
 #define GSD_OSD_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_OSD_WINDOW, GsdOsdWindowPrivate))
@@ -940,11 +940,11 @@ gsd_osd_window_init (GsdOsdWindow *window)
         gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
         gtk_widget_set_app_paintable (GTK_WIDGET (window), TRUE);
 
-        /* assume 130x130 on a 640x480 display and scale from there */
+        /* assume 110x110 on a 640x480 display and scale from there */
         scalew = monitor.width / 640.0;
         scaleh = monitor.height / 480.0;
         scale = MIN (scalew, scaleh);
-        size = 130 * MAX (1, scale);
+        size = 110 * MAX (1, scale);
         gtk_window_set_default_size (GTK_WINDOW (window), size, size);
 
         window->priv->fade_out_alpha = 1.0;
