@@ -108,7 +108,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # check that it did not suspend or hibernate yet
         log = self.logind.stdout.read()
-        self.assertFalse(b' Suspend' in log, 'too early Suspend request')
+        if log:
+            self.assertFalse(b' Suspend' in log, 'too early Suspend request')
 
         # suspend should happen after inactive sleep timeout + 1 s notification
         # delay + 1 s error margin
@@ -128,7 +129,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # check that it did not suspend or hibernate yet
         log = self.logind.stdout.read()
-        self.assertFalse(b' Suspend' in log, 'too early Suspend request')
+        if log:
+            self.assertFalse(b' Suspend' in log, 'too early Suspend request')
 
         # suspend should happen after timeout_blank + 12 s screen saver fade +
         # 1 s notification delay + 1 s error margin
