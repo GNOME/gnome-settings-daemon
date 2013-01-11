@@ -80,6 +80,8 @@ void                  gsd_osd_window_set_volume_muted  (GsdOsdWindow       *wind
                                                         gboolean            muted);
 void                  gsd_osd_window_set_volume_level  (GsdOsdWindow       *window,
                                                         int                 level);
+void                  gsd_osd_window_set_volume_label  (GsdOsdWindow       *window,
+                                                        const char         *label);
 
 G_END_DECLS
 

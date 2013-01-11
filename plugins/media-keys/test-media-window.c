@@ -111,6 +111,7 @@ test_window (void)
 
         window = gsd_osd_window_new ();
         gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER_ALWAYS);
+        gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (window), "Headphones");
 
         gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (window), 0);
         gsd_osd_window_set_action (GSD_OSD_WINDOW (window),

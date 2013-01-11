@@ -52,6 +52,7 @@ G_BEGIN_DECLS
 typedef struct {
         int                 size;
         GtkStyleContext    *style;
+        PangoContext       *pango_context;
         GtkTextDirection    direction;
 
         GsdOsdWindowAction  action;
@@ -60,6 +61,7 @@ typedef struct {
 
         gboolean            show_level;
         int                 volume_level;
+        const char         *volume_label;
         guint               volume_muted : 1;
 } GsdOsdDrawContext;
 

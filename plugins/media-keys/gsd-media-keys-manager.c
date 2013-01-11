@@ -946,6 +946,9 @@ update_dialog (GsdMediaKeysManager *manager,
                gboolean             sound_changed,
                gboolean             quiet)
 {
+        GvcMixerUIDevice *device;
+        const GvcMixerStreamPort *port;
+
         if (!muted) {
                 vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
                 vol = CLAMP (vol, 0, 100);
@@ -959,6 +962,15 @@ update_dialog (GsdMediaKeysManager *manager,
         gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (manager->priv->dialog), vol);
         gsd_osd_window_set_action (GSD_OSD_WINDOW (manager->priv->dialog),
                                           GSD_OSD_WINDOW_ACTION_VOLUME);
+
+        port = gvc_mixer_stream_get_port (stream);
+        if (g_strcmp0 (gvc_mixer_stream_get_form_factor (stream), "internal") != 0 ||
+            g_strcmp0 (port->port, "analog-output-speaker") != 0) {
+                device = gvc_mixer_control_lookup_device_from_stream (manager->priv->volume, stream);
+                gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
+                                                 gvc_mixer_ui_device_get_description (device));
+        }
+
         dialog_show (manager);
 
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {

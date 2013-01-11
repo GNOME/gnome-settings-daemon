@@ -41,6 +41,7 @@
 #include "gsd-osd-window-private.h"
 
 #define ICON_SCALE 0.55           /* size of the icon compared to the whole OSD */
+#define LABEL_HSCALE 0.80         /* size of the volume label compared to the whole OSD */
 #define VOLUME_HSCALE 0.65        /* hsize of the volume bar compared to the whole OSD */
 #define VOLUME_VSCALE 0.04        /* vsize of the volume bar compared to the whole OSD */
 #define FG_ALPHA 1.0              /* Alpha value to be used for foreground objects drawn in an OSD window */
@@ -64,6 +65,7 @@ struct GsdOsdWindowPrivate
         gboolean                 show_level;
 
         int                      volume_level;
+        char                    *volume_label;
         guint                    volume_muted : 1;
 };
 
@@ -294,6 +296,18 @@ gsd_osd_window_set_volume_level (GsdOsdWindow *window,
         }
 }
 
+void
+gsd_osd_window_set_volume_label (GsdOsdWindow *window,
+                                 const char   *label)
+{
+        g_return_if_fail (GSD_IS_OSD_WINDOW (window));
+
+        if (g_strcmp0 (window->priv->volume_label, label) != 0) {
+                g_free (window->priv->volume_label);
+                window->priv->volume_label = g_strdup (label);
+        }
+}
+
 static GdkPixbuf *
 load_pixbuf (GsdOsdDrawContext *ctx,
              const char        *name,
@@ -516,13 +530,54 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
 }
 
 static void
-get_icon_and_volume_boxes (GsdOsdDrawContext *ctx,
-                           GdkRectangle *icon_box_out,
-                           GdkRectangle *volume_box_out)
+draw_volume_label (GsdOsdDrawContext *ctx,
+                   cairo_t           *cr,
+                   GdkRectangle      *label_box)
+{
+        PangoLayout *layout;
+        PangoAttrList *attrs;
+        PangoAttribute *attr;
+        gint width, height;
+        gdouble scale;
+
+        if (!ctx->volume_label)
+                return;
+
+        layout = pango_layout_new (ctx->pango_context);
+        pango_layout_set_text (layout, ctx->volume_label, -1);
+        pango_layout_get_pixel_size (layout, &width, &height);
+
+        scale = MIN ((gdouble) label_box->width / width, (gdouble) label_box->height / height);
+        attrs = pango_attr_list_new ();
+
+        attr = pango_attr_scale_new (scale);
+        pango_attr_list_insert (attrs, attr);
+
+        attr = pango_attr_weight_new (PANGO_WEIGHT_BOLD);
+        pango_attr_list_insert (attrs, attr);
+
+        pango_layout_set_attributes (layout, attrs);
+
+        pango_layout_get_pixel_size (layout, &width, &height);
+
+        gtk_render_layout (ctx->style, cr,
+                           label_box->x + ((label_box->width - width) / 2),
+                           label_box->y + ((label_box->height - height) / 2),
+                           layout);
+
+        g_object_unref (layout);
+        pango_attr_list_unref (attrs);
+}
+
+static void
+get_bounding_boxes (GsdOsdDrawContext *ctx,
+                    GdkRectangle *icon_box_out,
+                    GdkRectangle *label_box_out,
+                    GdkRectangle *volume_box_out)
 {
         int window_width;
         int window_height;
-        GdkRectangle icon_box, volume_box;
+        GdkRectangle icon_box, label_box, volume_box;
 
 	window_width = window_height = ctx->size;
 
@@ -532,12 +587,19 @@ get_icon_and_volume_boxes (GsdOsdDrawContext *ctx,
         volume_box.height = round (window_height * VOLUME_VSCALE);
 
         icon_box.x = round ((window_width - icon_box.width) / 2);
-        icon_box.y = round ((window_height - icon_box.height - volume_box.height) / 2 - volume_box.height);
+        icon_box.y = round ((window_height - icon_box.height - 6 * volume_box.height) / 2);
         volume_box.x = round ((window_width - volume_box.width) / 2);
         volume_box.y = round (window_height - 4 * volume_box.height);
 
+        label_box.width = round (window_width * LABEL_HSCALE);
+        label_box.x = round ((window_width - label_box.width) / 2);
+        label_box.y = (icon_box.y + icon_box.height + volume_box.height);
+        label_box.height = (volume_box.y - volume_box.height - label_box.y);
+
         if (icon_box_out)
                 *icon_box_out = icon_box;
+        if (label_box_out)
+                *label_box_out = label_box;
         if (volume_box_out)
                 *volume_box_out = volume_box;
 }
@@ -547,9 +609,9 @@ draw_action_volume (GsdOsdDrawContext *ctx,
                     cairo_t           *cr)
 {
         gboolean res;
-        GdkRectangle icon_box, volume_box;
+        GdkRectangle icon_box, label_box, volume_box;
 
-        get_icon_and_volume_boxes (ctx, &icon_box, &volume_box);
+        get_bounding_boxes (ctx, &icon_box, &label_box, &volume_box);
 
 #if 0
         g_message ("icon box: w=%d h=%d _x0=%d _y0=%d",
@@ -612,6 +674,9 @@ draw_action_volume (GsdOsdDrawContext *ctx,
                 }
         }
 
+        /* draw volume label */
+        draw_volume_label (ctx, cr, &label_box);
+
         /* draw volume meter */
         draw_volume_boxes (ctx, cr, (double) ctx->volume_level / 100.0, &volume_box);
 }
@@ -652,7 +717,7 @@ draw_action_custom (GsdOsdDrawContext  *ctx,
         gboolean res;
         GdkRectangle icon_box, bright_box;
 
-        get_icon_and_volume_boxes (ctx, &icon_box, &bright_box);
+        get_bounding_boxes (ctx, &icon_box, NULL, &bright_box);
 
 #if 0
         g_message ("icon box: w=%d h=%d _x0=%d _y0=%d",
@@ -746,8 +811,10 @@ gsd_osd_window_obj_draw (GtkWidget *widget,
 
         ctx.size = size;
         ctx.style = context;
+        ctx.pango_context = gtk_widget_get_pango_context (widget);
         ctx.volume_level = window->priv->volume_level;
         ctx.volume_muted = window->priv->volume_muted;
+        ctx.volume_label = window->priv->volume_label;
         ctx.icon_name = window->priv->icon_name;
         ctx.direction = gtk_widget_get_direction (GTK_WIDGET (window));
         ctx.show_level = window->priv->show_level;
@@ -860,6 +927,11 @@ gsd_osd_window_finalize (GObject *object)
 		g_free (window->priv->icon_name);
 		window->priv->icon_name = NULL;
 	}
+
+        if (window->priv->volume_label) {
+                g_free (window->priv->volume_label);
+                window->priv->volume_label = NULL;
+        }
 
 	if (window->priv->monitors_changed_id > 0) {
 		GdkScreen *screen;
