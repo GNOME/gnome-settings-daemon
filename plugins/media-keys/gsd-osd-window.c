@@ -41,6 +41,8 @@
 #include "gsd-osd-window-private.h"
 
 #define ICON_SCALE 0.55           /* size of the icon compared to the whole OSD */
+#define VOLUME_HSCALE 0.65        /* hsize of the volume bar compared to the whole OSD */
+#define VOLUME_VSCALE 0.04        /* vsize of the volume bar compared to the whole OSD */
 #define FG_ALPHA 1.0              /* Alpha value to be used for foreground objects drawn in an OSD window */
 
 #define GSD_OSD_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_OSD_WINDOW, GsdOsdWindowPrivate))
@@ -478,10 +480,11 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
                    double             percentage,
                    GdkRectangle      *volume_box)
 {
-        gdouble   x1;
+        gdouble   x1, radius;
         GdkRGBA  acolor;
 
         x1 = round ((volume_box->width - 1) * percentage);
+        radius = MAX (round (volume_box->height / 6), 4);
 
         /* bar background */
         gtk_style_context_save (ctx->style);
@@ -489,7 +492,7 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
         gtk_style_context_get_background_color (ctx->style, GTK_STATE_FLAG_NORMAL, &acolor);
 
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0,
-                                               volume_box->x, volume_box->y, volume_box->height / 6,
+                                               volume_box->x, volume_box->y, radius,
                                                volume_box->width, volume_box->height);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
@@ -504,7 +507,7 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
         gtk_style_context_get_background_color (ctx->style, GTK_STATE_FLAG_NORMAL, &acolor);
 
         gsd_osd_window_draw_rounded_rectangle (cr, 1.0,
-                                               volume_box->x, volume_box->y, volume_box->height / 6,
+                                               volume_box->x, volume_box->y, radius,
                                                x1, volume_box->height);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
@@ -525,13 +528,13 @@ get_icon_and_volume_boxes (GsdOsdDrawContext *ctx,
 
         icon_box.width = round (window_width * ICON_SCALE);
         icon_box.height = round (window_height * ICON_SCALE);
-        volume_box.width = icon_box.width;
-        volume_box.height = round (window_height * 0.05);
+        volume_box.width = round (window_width * VOLUME_HSCALE);
+        volume_box.height = round (window_height * VOLUME_VSCALE);
 
         icon_box.x = round ((window_width - icon_box.width) / 2);
         icon_box.y = round ((window_height - icon_box.height - volume_box.height) / 2 - volume_box.height);
-        volume_box.x = round (icon_box.x);
-        volume_box.y = round (icon_box.height + icon_box.y) + volume_box.height;
+        volume_box.x = round ((window_width - volume_box.width) / 2);
+        volume_box.y = round (window_height - 4 * volume_box.height);
 
         if (icon_box_out)
                 *icon_box_out = icon_box;
