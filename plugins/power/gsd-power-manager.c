@@ -3289,6 +3289,14 @@ idle_configure (GsdPowerManager *manager)
         }
 }
 
+static void
+up_client_on_battery_cb (UpClient *client,
+                         GParamSpec *pspec,
+                         GsdPowerManager *manager)
+{
+        idle_configure (manager);
+}
+
 /**
  * @timeout: The new timeout we want to set, in seconds
  **/
@@ -4069,6 +4077,8 @@ gsd_power_manager_start (GsdPowerManager *manager,
                           G_CALLBACK (engine_device_changed_cb), manager);
         g_signal_connect_after (manager->priv->up_client, "changed",
                                 G_CALLBACK (up_client_changed_cb), manager);
+        g_signal_connect (manager->priv->up_client, "notify::on-battery",
+                          G_CALLBACK (up_client_on_battery_cb), manager);
 
         /* connect to UPower for async power operations */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
