@@ -2212,7 +2212,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 {
         GsdMediaKeysManagerPrivate *priv = manager->priv;
         GSList *ls;
-        GList *l;
         int i;
 
         g_debug ("Stopping media_keys manager");
@@ -2251,41 +2250,18 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 #endif /* HAVE_GUDEV */
 
         g_clear_object (&priv->logind_proxy);
-        if (priv->settings) {
-                g_object_unref (priv->settings);
-                priv->settings = NULL;
-        }
-
-        if (priv->power_settings) {
-                g_object_unref (priv->power_settings);
-                priv->power_settings = NULL;
-        }
-
-        if (priv->power_screen_proxy) {
-                g_object_unref (priv->power_screen_proxy);
-                priv->power_screen_proxy = NULL;
-        }
-
-        if (priv->power_keyboard_proxy) {
-                g_object_unref (priv->power_keyboard_proxy);
-                priv->power_keyboard_proxy = NULL;
-        }
+        g_clear_object (&priv->settings);
+        g_clear_object (&priv->power_settings);
+        g_clear_object (&priv->power_screen_proxy);
+        g_clear_object (&priv->power_keyboard_proxy);
 
         if (priv->cancellable != NULL) {
                 g_cancellable_cancel (priv->cancellable);
-                g_object_unref (priv->cancellable);
-                priv->cancellable = NULL;
+                g_clear_object (&priv->cancellable);
         }
 
-        if (priv->introspection_data) {
-                g_dbus_node_info_unref (priv->introspection_data);
-                priv->introspection_data = NULL;
-        }
-
-        if (priv->connection != NULL) {
-                g_object_unref (priv->connection);
-                priv->connection = NULL;
-        }
+        g_clear_pointer (&priv->introspection_data, g_dbus_node_info_unref);
+        g_clear_object (&priv->connection);
 
         if (priv->keys != NULL) {
                 gdk_error_trap_push ();
@@ -2304,33 +2280,13 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 gdk_error_trap_pop_ignored ();
         }
 
-        if (priv->screens != NULL) {
-                g_slist_free (priv->screens);
-                priv->screens = NULL;
-        }
-
-        if (priv->stream) {
-                g_object_unref (priv->stream);
-                priv->stream = NULL;
-        }
-
-        if (priv->volume) {
-                g_object_unref (priv->volume);
-                priv->volume = NULL;
-        }
-
-        if (priv->dialog != NULL) {
-                gtk_widget_destroy (priv->dialog);
-                priv->dialog = NULL;
-        }
+        g_clear_pointer (&priv->screens, g_slist_free);
+        g_clear_object (&priv->stream);
+        g_clear_object (&priv->volume);
+        g_clear_object (&priv->dialog);
 
         if (priv->media_players != NULL) {
-                for (l = priv->media_players; l; l = l->next) {
-                        MediaPlayer *mp = l->data;
-                        g_free (mp->application);
-                        g_free (mp);
-                }
-                g_list_free (priv->media_players);
+                g_list_free_full (priv->media_players, (GDestroyNotify) free_media_player);
                 priv->media_players = NULL;
         }
 }
