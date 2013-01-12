@@ -191,7 +191,8 @@ add_hide_timeout (GsdOsdWindow *window)
 }
 
 static GIcon *
-get_image_name_for_volume (gboolean muted,
+get_image_name_for_volume (gboolean is_mic,
+                           gboolean muted,
                            int volume)
 {
         static const char *icon_names[] = {
@@ -199,6 +200,13 @@ get_image_name_for_volume (gboolean muted,
                 "audio-volume-low-symbolic",
                 "audio-volume-medium-symbolic",
                 "audio-volume-high-symbolic",
+                NULL
+        };
+        static const char *mic_icon_names[] = {
+                "microphone-sensitivity-muted-symbolic",
+                "microphone-sensitivity-low-symbolic",
+                "microphone-sensitivity-medium-symbolic",
+                "microphone-sensitivity-high-symbolic",
                 NULL
         };
         int n;
@@ -215,7 +223,10 @@ get_image_name_for_volume (gboolean muted,
                 }
         }
 
-	return g_themed_icon_new_with_default_fallbacks (icon_names[n]);
+	if (is_mic)
+		return g_themed_icon_new_with_default_fallbacks (mic_icon_names[n]);
+	else
+		return g_themed_icon_new_with_default_fallbacks (icon_names[n]);
 }
 
 static void
@@ -241,7 +252,8 @@ gsd_osd_window_set_action (GsdOsdWindow      *window,
                            GsdOsdWindowAction action)
 {
         g_return_if_fail (GSD_IS_OSD_WINDOW (window));
-        g_return_if_fail (action == GSD_OSD_WINDOW_ACTION_VOLUME);
+        g_return_if_fail (action == GSD_OSD_WINDOW_ACTION_VOLUME ||
+                          action == GSD_OSD_WINDOW_ACTION_MIC_VOLUME);
 
         if (window->priv->action != action) {
                 window->priv->action = action;
@@ -354,7 +366,33 @@ render_speaker (GsdOsdDrawContext *ctx,
         GdkPixbuf  *pixbuf;
         GIcon      *icon;
 
-        icon = get_image_name_for_volume (ctx->volume_muted,
+        icon = get_image_name_for_volume (FALSE,
+                                          ctx->volume_muted,
+                                          ctx->volume_level);
+        pixbuf = load_pixbuf (ctx, icon, icon_box->width);
+
+        if (pixbuf == NULL) {
+                return FALSE;
+        }
+
+        gtk_render_icon (ctx->style, cr,
+                         pixbuf, icon_box->x, icon_box->y);
+
+        g_object_unref (pixbuf);
+
+        return TRUE;
+}
+
+static gboolean
+render_mic (GsdOsdDrawContext *ctx,
+            cairo_t           *cr,
+            GdkRectangle      *icon_box)
+{
+        GdkPixbuf  *pixbuf;
+        GIcon      *icon;
+
+        icon = get_image_name_for_volume (TRUE,
+                                          ctx->volume_muted,
                                           ctx->volume_level);
         pixbuf = load_pixbuf (ctx, icon, icon_box->width);
 
@@ -487,6 +525,36 @@ get_bounding_boxes (GsdOsdDrawContext *ctx,
 }
 
 static void
+draw_action_mic_volume (GsdOsdDrawContext *ctx,
+                        cairo_t           *cr)
+{
+        GdkRectangle icon_box, label_box, volume_box;
+
+        get_bounding_boxes (ctx, &icon_box, &label_box, &volume_box);
+
+#if 0
+        g_message ("icon box: w=%d h=%d _x0=%d _y0=%d",
+                   icon_box.width,
+                   icon_box.height,
+                   icon_box.x,
+                   icon_box.y);
+        g_message ("volume box: w=%d h=%d _x0=%d _y0=%d",
+                   volume_box.width,
+                   volume_box.height,
+                   volume_box.x,
+                   volume_box.y);
+#endif
+
+        render_mic (ctx, cr, &icon_box);
+
+        /* draw volume label */
+        draw_volume_label (ctx, cr, &label_box);
+
+        /* draw volume meter */
+        draw_volume_boxes (ctx, cr, (double) ctx->volume_level / 100.0, &volume_box);
+}
+
+static void
 draw_action_volume (GsdOsdDrawContext *ctx,
                     cairo_t           *cr)
 {
@@ -598,6 +666,9 @@ gsd_osd_window_draw (GsdOsdDrawContext *ctx,
         switch (ctx->action) {
         case GSD_OSD_WINDOW_ACTION_VOLUME:
                 draw_action_volume (ctx, cr);
+                break;
+        case GSD_OSD_WINDOW_ACTION_MIC_VOLUME:
+                draw_action_mic_volume (ctx, cr);
                 break;
         case GSD_OSD_WINDOW_ACTION_CUSTOM:
                 draw_action_custom (ctx, cr);

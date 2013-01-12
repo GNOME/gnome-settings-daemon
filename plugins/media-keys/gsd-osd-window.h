@@ -64,6 +64,7 @@ struct GsdOsdWindowClass {
 
 typedef enum {
         GSD_OSD_WINDOW_ACTION_VOLUME,
+        GSD_OSD_WINDOW_ACTION_MIC_VOLUME,
         GSD_OSD_WINDOW_ACTION_CUSTOM
 } GsdOsdWindowAction;
 
