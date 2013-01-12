@@ -3297,6 +3297,8 @@ gsd_power_manager_finalize (GObject *object)
 
         g_return_if_fail (manager->priv != NULL);
 
+        g_clear_object (&manager->priv->connection);
+
         if (manager->priv->name_id != 0)
                 g_bus_unown_name (manager->priv->name_id);
 
@@ -4166,7 +4168,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
 
         g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
 
-        g_clear_object (&manager->priv->connection);
         g_clear_object (&manager->priv->session);
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->settings_screensaver);
