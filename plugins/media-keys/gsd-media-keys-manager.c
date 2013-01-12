@@ -1063,6 +1063,8 @@ get_stream_for_device_id (GsdMediaKeysManager *manager,
 			break;
 	}
 
+	g_slist_free (sinks);
+
 	if (res)
 		g_hash_table_insert (manager->priv->streams,
 				     GUINT_TO_POINTER (deviceid),
