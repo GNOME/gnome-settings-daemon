@@ -946,11 +946,10 @@ update_dialog (GsdMediaKeysManager *manager,
         }
 
         dialog_init (manager);
-        gsd_osd_window_set_volume_muted (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                muted);
+        gsd_osd_window_set_volume_muted (GSD_OSD_WINDOW (manager->priv->dialog), muted);
         gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (manager->priv->dialog), vol);
         gsd_osd_window_set_action (GSD_OSD_WINDOW (manager->priv->dialog),
-                                          GSD_OSD_WINDOW_ACTION_VOLUME);
+                                   GSD_OSD_WINDOW_ACTION_VOLUME);
 
         port = gvc_mixer_stream_get_port (stream);
         if (g_strcmp0 (gvc_mixer_stream_get_form_factor (stream), "internal") != 0 ||
