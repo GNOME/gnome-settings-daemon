@@ -336,34 +336,6 @@ load_pixbuf (GsdOsdDrawContext *ctx,
 }
 
 static void
-draw_eject (cairo_t *cr,
-            GdkRectangle *icon_box)
-{
-        int box_height;
-        int tri_height;
-        int separation;
-
-        box_height = icon_box->height * 0.2;
-        separation = box_height / 3;
-        tri_height = icon_box->height - box_height - separation;
-
-        cairo_rectangle (cr, icon_box->x, icon_box->y + icon_box->height - box_height,
-                         icon_box->width, box_height);
-
-        cairo_move_to (cr, icon_box->x, icon_box->y + tri_height);
-        cairo_rel_line_to (cr, icon_box->width, 0);
-        cairo_rel_line_to (cr, -icon_box->width / 2, -tri_height);
-        cairo_rel_line_to (cr, -icon_box->width / 2, tri_height);
-        cairo_close_path (cr);
-        cairo_set_source_rgba (cr, 1.0, 1.0, 1.0, FG_ALPHA);
-        cairo_fill_preserve (cr);
-
-        cairo_set_source_rgba (cr, 0.6, 0.6, 0.6, FG_ALPHA / 2);
-        cairo_set_line_width (cr, 2);
-        cairo_stroke (cr);
-}
-
-static void
 draw_waves (cairo_t *cr,
             double   cx,
             double   cy,
@@ -714,7 +686,6 @@ static void
 draw_action_custom (GsdOsdDrawContext  *ctx,
                     cairo_t            *cr)
 {
-        gboolean res;
         GdkRectangle icon_box, bright_box;
 
         get_bounding_boxes (ctx, &icon_box, NULL, &bright_box);
@@ -732,11 +703,7 @@ draw_action_custom (GsdOsdDrawContext  *ctx,
                    bright_box.y);
 #endif
 
-        res = render_custom (ctx, cr, &icon_box);
-        if (!res && g_str_has_prefix (ctx->icon_name, "media-eject")) {
-                /* draw eject symbol */
-                draw_eject (cr, &icon_box);
-        }
+        render_custom (ctx, cr, &icon_box);
 
         if (ctx->show_level != FALSE) {
                 /* draw volume meter */
