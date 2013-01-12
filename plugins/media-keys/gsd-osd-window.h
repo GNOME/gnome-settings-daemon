@@ -76,6 +76,9 @@ void                  gsd_osd_window_set_action        (GsdOsdWindow       *wind
 void                  gsd_osd_window_set_action_custom (GsdOsdWindow       *window,
                                                         const char         *icon_name,
                                                         gboolean            show_level);
+void                  gsd_osd_window_set_action_custom_gicon (GsdOsdWindow *window,
+                                                              GIcon        *icon,
+                                                              gboolean      show_level);
 void                  gsd_osd_window_set_volume_muted  (GsdOsdWindow       *window,
                                                         gboolean            muted);
 void                  gsd_osd_window_set_volume_level  (GsdOsdWindow       *window,

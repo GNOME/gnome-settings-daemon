@@ -61,7 +61,7 @@ struct GsdOsdWindowPrivate
         guint                    monitor_changed : 1;
 
         GsdOsdWindowAction       action;
-        char                    *icon_name;
+        GIcon                   *icon;
         gboolean                 show_level;
 
         int                      volume_level;
@@ -190,7 +190,7 @@ add_hide_timeout (GsdOsdWindow *window)
                                                        window);
 }
 
-static const char *
+static GIcon *
 get_image_name_for_volume (gboolean muted,
                            int volume)
 {
@@ -215,7 +215,7 @@ get_image_name_for_volume (gboolean muted,
                 }
         }
 
-	return icon_names[n];
+	return g_themed_icon_new_with_default_fallbacks (icon_names[n]);
 }
 
 static void
@@ -256,15 +256,26 @@ gsd_osd_window_set_action_custom (GsdOsdWindow      *window,
                                   const char        *icon_name,
                                   gboolean           show_level)
 {
+        GIcon *icon;
+
         g_return_if_fail (GSD_IS_OSD_WINDOW (window));
         g_return_if_fail (icon_name != NULL);
 
+        icon = g_themed_icon_new_with_default_fallbacks (icon_name);
+        gsd_osd_window_set_action_custom_gicon (window, icon, show_level);
+}
+
+void
+gsd_osd_window_set_action_custom_gicon (GsdOsdWindow *window,
+                                        GIcon        *icon,
+                                        gboolean      show_level)
+{
         if (window->priv->action != GSD_OSD_WINDOW_ACTION_CUSTOM ||
-            g_strcmp0 (window->priv->icon_name, icon_name) != 0 ||
+            g_icon_equal (window->priv->icon, icon) == FALSE ||
             window->priv->show_level != show_level) {
                 window->priv->action = GSD_OSD_WINDOW_ACTION_CUSTOM;
-                g_free (window->priv->icon_name);
-                window->priv->icon_name = g_strdup (icon_name);
+                g_clear_object (&window->priv->icon);
+                window->priv->icon = g_object_ref (icon);
                 window->priv->show_level = show_level;
                 action_changed (window);
         } else {
@@ -310,19 +321,19 @@ gsd_osd_window_set_volume_label (GsdOsdWindow *window,
 
 static GdkPixbuf *
 load_pixbuf (GsdOsdDrawContext *ctx,
-             const char        *name,
+             GIcon             *icon,
              int                icon_size)
 {
         GtkIconInfo     *info;
         GdkPixbuf       *pixbuf;
 
-        info = gtk_icon_theme_lookup_icon (ctx->theme,
-                                           name,
-                                           icon_size,
-                                           GTK_ICON_LOOKUP_FORCE_SIZE | GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+        info = gtk_icon_theme_lookup_by_gicon (ctx->theme,
+                                               icon,
+                                               icon_size,
+                                               GTK_ICON_LOOKUP_FORCE_SIZE | GTK_ICON_LOOKUP_GENERIC_FALLBACK);
 
         if (info == NULL) {
-                g_warning ("Failed to load '%s'", name);
+                g_warning ("Failed to load '%s'", g_icon_to_string (icon));
                 return NULL;
         }
 
@@ -340,12 +351,12 @@ render_speaker (GsdOsdDrawContext *ctx,
                 cairo_t           *cr,
                 GdkRectangle      *icon_box)
 {
-        GdkPixbuf         *pixbuf;
-        const char        *icon_name;
+        GdkPixbuf  *pixbuf;
+        GIcon      *icon;
 
-        icon_name = get_image_name_for_volume (ctx->volume_muted,
-                                               ctx->volume_level);
-        pixbuf = load_pixbuf (ctx, icon_name, icon_box->width);
+        icon = get_image_name_for_volume (ctx->volume_muted,
+                                          ctx->volume_level);
+        pixbuf = load_pixbuf (ctx, icon, icon_box->width);
 
         if (pixbuf == NULL) {
                 return FALSE;
@@ -512,9 +523,11 @@ render_custom (GsdOsdDrawContext  *ctx,
 {
         GdkPixbuf         *pixbuf;
 
-        pixbuf = load_pixbuf (ctx, ctx->icon_name, icon_box->width);
+        pixbuf = load_pixbuf (ctx, ctx->icon, icon_box->width);
 
         if (pixbuf == NULL) {
+/* FIXME */
+#if 0
                 char *name;
                 if (ctx->direction == GTK_TEXT_DIR_RTL)
                         name = g_strdup_printf ("%s-rtl", ctx->icon_name);
@@ -523,6 +536,7 @@ render_custom (GsdOsdDrawContext  *ctx,
                 pixbuf = load_pixbuf (ctx, name, icon_box->width);
                 g_free (name);
                 if (pixbuf == NULL)
+#endif
                         return FALSE;
         }
 
@@ -634,7 +648,7 @@ gsd_osd_window_obj_draw (GtkWidget *widget,
         ctx.volume_level = window->priv->volume_level;
         ctx.volume_muted = window->priv->volume_muted;
         ctx.volume_label = window->priv->volume_label;
-        ctx.icon_name = window->priv->icon_name;
+        ctx.icon = window->priv->icon;
         ctx.direction = gtk_widget_get_direction (GTK_WIDGET (window));
         ctx.show_level = window->priv->show_level;
         ctx.action = window->priv->action;
@@ -742,10 +756,8 @@ gsd_osd_window_finalize (GObject *object)
 	GsdOsdWindow *window;
 
 	window = GSD_OSD_WINDOW (object);
-	if (window->priv->icon_name) {
-		g_free (window->priv->icon_name);
-		window->priv->icon_name = NULL;
-	}
+
+	g_clear_object (&window->priv->icon);
 
         if (window->priv->volume_label) {
                 g_free (window->priv->volume_label);

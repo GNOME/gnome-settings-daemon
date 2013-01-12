@@ -57,7 +57,7 @@ typedef struct {
 
         GsdOsdWindowAction  action;
         GtkIconTheme       *theme;
-        const char         *icon_name;
+        GIcon              *icon;
 
         gboolean            show_level;
         int                 volume_level;
