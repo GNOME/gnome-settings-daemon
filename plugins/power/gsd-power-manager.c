@@ -91,6 +91,7 @@ static const gchar introspection_xml[] =
   "<interface name='org.gnome.SettingsDaemon.Power'>"
     "<property name='Icon' type='s' access='read'/>"
     "<property name='Tooltip' type='s' access='read'/>"
+    "<property name='Percentage' type='d' access='read'/>"
     "<method name='GetPrimaryDevice'>"
       "<arg name='device' type='(susdut)' direction='out' />"
     "</method>"
@@ -218,6 +219,7 @@ static UpDevice *engine_get_composite_device (GsdPowerManager *manager, UpDevice
 static UpDevice *engine_update_composite_device (GsdPowerManager *manager, UpDevice *original_device);
 static GIcon    *engine_get_icon (GsdPowerManager *manager);
 static gchar    *engine_get_summary (GsdPowerManager *manager);
+static gdouble   engine_get_percentage (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 static void      do_lid_closed_action (GsdPowerManager *manager);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
@@ -404,6 +406,8 @@ engine_emit_changed (GsdPowerManager *manager,
         if (state_changed)
                 g_variant_builder_add (&props_builder, "{sv}", "Tooltip",
                                        engine_get_tooltip_property_variant (manager));
+        g_variant_builder_add (&props_builder, "{sv}", "Percentage",
+                               g_variant_new_double (engine_get_percentage (manager)));
 
         props_changed = g_variant_new ("(s@a{sv}@as)", GSD_POWER_DBUS_INTERFACE,
                                        g_variant_builder_end (&props_builder),
@@ -588,6 +592,40 @@ engine_get_summary (GsdPowerManager *manager)
         g_debug ("tooltip: %s", tooltip->str);
 
         return g_string_free (tooltip, FALSE);
+}
+
+static gdouble
+engine_get_percentage (GsdPowerManager *manager)
+{
+        guint i;
+        GPtrArray *array;
+        UpDevice *device;
+        UpDeviceKind kind;
+        gboolean is_present;
+        gdouble percentage;
+
+        array = manager->priv->devices_array;
+        for (i = 0; i < array->len ; i++) {
+                device = g_ptr_array_index (array, i);
+
+                /* get device properties */
+                g_object_get (device,
+                              "kind", &kind,
+                              "is-present", &is_present,
+                              NULL);
+
+                /* if battery then use composite device to cope with multiple batteries */
+                if (kind == UP_DEVICE_KIND_BATTERY)
+                        device = engine_get_composite_device (manager, device);
+
+                if (is_present) {
+                        /* Doing it here as it could be a composite device */
+                        g_object_get (device, "percentage", &percentage, NULL);
+                        return percentage;
+                }
+        }
+        return -1;
+
 }
 
 static GIcon *
@@ -4477,6 +4515,11 @@ handle_get_property (GDBusConnection *connection,
                 retval = engine_get_icon_property_variant (manager);
         } else if (g_strcmp0 (property_name, "Tooltip") == 0) {
                 retval = engine_get_tooltip_property_variant (manager);
+        } else if (g_strcmp0 (property_name, "Percentage") == 0) {
+                gdouble percentage;
+                percentage = engine_get_percentage (manager);
+                if (percentage >= 0)
+                        retval = g_variant_new_double (percentage);
         }
 
         return retval;
