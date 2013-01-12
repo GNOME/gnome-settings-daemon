@@ -145,6 +145,7 @@ struct GsdMediaKeysManagerPrivate
 
         /* Power stuff */
         GSettings       *power_settings;
+        GDBusProxy      *power_proxy;
         GDBusProxy      *power_screen_proxy;
         GDBusProxy      *power_keyboard_proxy;
 
@@ -1825,6 +1826,38 @@ do_keyboard_brightness_action (GsdMediaKeysManager *manager,
 }
 
 static void
+do_battery_action (GsdMediaKeysManager *manager)
+{
+        GVariant *icon_var, *percentage;
+        GIcon *icon;
+        gboolean show_percentage = FALSE;
+
+        if (manager->priv->power_proxy == NULL)
+                return;
+
+        icon_var = g_dbus_proxy_get_cached_property (manager->priv->power_proxy, "Icon");
+        percentage = g_dbus_proxy_get_cached_property (manager->priv->power_proxy, "Percentage");
+
+        dialog_init (manager);
+        if (g_variant_get_double (percentage) >= 0.0) {
+                char *str;
+
+                show_percentage = TRUE;
+                str = g_strdup_printf ("%d %%", (int) g_variant_get_double (percentage));
+                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (manager->priv->dialog),
+                                                 g_variant_get_double (percentage));
+                gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
+                                                 str);
+                g_free (str);
+        }
+        icon = g_icon_new_for_string (g_variant_get_string (icon_var, NULL), NULL);
+        gsd_osd_window_set_action_custom_gicon (GSD_OSD_WINDOW (manager->priv->dialog),
+                                                icon,
+                                                show_percentage);
+        dialog_show (manager);
+}
+
+static void
 do_custom_action (GsdMediaKeysManager *manager,
                   MediaKey            *key,
                   gint64               timestamp)
@@ -1971,7 +2004,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_keyboard_brightness_action (manager, type);
                 break;
         case BATTERY_KEY:
-                do_execute_desktop (manager, "gnome-power-statistics.desktop", timestamp);
+                do_battery_action (manager);
                 break;
         /* Note, no default so compiler catches missing keys */
         case CUSTOM_KEY:
@@ -2262,6 +2295,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         g_clear_object (&priv->logind_proxy);
         g_clear_object (&priv->settings);
         g_clear_object (&priv->power_settings);
+        g_clear_object (&priv->power_proxy);
         g_clear_object (&priv->power_screen_proxy);
         g_clear_object (&priv->power_keyboard_proxy);
 
@@ -2443,6 +2477,21 @@ xrandr_ready_cb (GObject             *source_object,
 }
 
 static void
+power_ready_cb (GObject             *source_object,
+                GAsyncResult        *res,
+                GsdMediaKeysManager *manager)
+{
+        GError *error = NULL;
+
+        manager->priv->power_proxy = g_dbus_proxy_new_finish (res, &error);
+        if (manager->priv->power_proxy == NULL) {
+                g_warning ("Failed to get proxy for power: %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
 power_screen_ready_cb (GObject             *source_object,
                        GAsyncResult        *res,
                        GsdMediaKeysManager *manager)
@@ -2510,6 +2559,16 @@ on_bus_gotten (GObject             *source_object,
                           GSD_DBUS_BASE_INTERFACE ".XRANDR_2",
                           NULL,
                           (GAsyncReadyCallback) xrandr_ready_cb,
+                          manager);
+
+        g_dbus_proxy_new (manager->priv->connection,
+                          G_DBUS_PROXY_FLAGS_NONE,
+                          NULL,
+                          GSD_DBUS_NAME ".Power",
+                          GSD_DBUS_PATH "/Power",
+                          GSD_DBUS_BASE_INTERFACE ".Power",
+                          NULL,
+                          (GAsyncReadyCallback) power_ready_cb,
                           manager);
 
         g_dbus_proxy_new (manager->priv->connection,
