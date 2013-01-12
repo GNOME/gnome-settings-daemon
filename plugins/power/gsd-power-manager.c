@@ -2931,6 +2931,9 @@ kbd_backlight_dim (GsdPowerManager *manager,
         return TRUE;
 }
 
+static gboolean
+idle_is_session_inhibited (GsdPowerManager *manager, guint mask);
+
 static void
 idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 {
@@ -2986,6 +2989,12 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 }
                 if (!ret) {
                         g_debug ("not dimming due to policy");
+                        return;
+                }
+
+                ret = idle_is_session_inhibited (manager, SESSION_INHIBIT_MASK_IDLE);
+                if (ret) {
+                        g_debug ("not dimming because idle is inhibited");
                         return;
                 }
 
