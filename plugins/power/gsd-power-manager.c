@@ -193,6 +193,8 @@ struct GsdPowerManagerPrivate
         GDBusProxy              *session_presence_proxy;
         GsdPowerIdleMode         current_idle_mode;
         guint                    xscreensaver_watchdog_timer_id;
+        GDBusProxy              *screensaver_proxy;
+        gboolean                 screensaver_active;
 
         /* systemd stuff */
         GDBusProxy              *logind_proxy;
@@ -3246,12 +3248,16 @@ idle_configure (GsdPowerManager *manager)
         /* set up blank callback even when session is not idle,
          * but only if we actually want to blank. */
         on_battery = up_client_get_on_battery (manager->priv->up_client);
-        if (on_battery) {
+        if (manager->priv->screensaver_active) {
+                timeout_blank = 30;
+        } else if (on_battery) {
                 timeout_blank = g_settings_get_int (manager->priv->settings,
                                                     "sleep-display-battery");
+                timeout_blank += SCREENSAVER_FADE_TIME;
         } else {
                 timeout_blank = g_settings_get_int (manager->priv->settings,
                                                     "sleep-display-ac");
+                timeout_blank += SCREENSAVER_FADE_TIME;
         }
         if (timeout_blank != 0) {
                 g_debug ("setting up blank callback for %is", timeout_blank);
@@ -3407,6 +3413,67 @@ session_presence_proxy_ready_cb (GObject *source_object,
         }
         g_signal_connect (manager->priv->session_presence_proxy, "g-signal",
                           G_CALLBACK (idle_dbus_signal_cb), manager);
+}
+
+static void
+screensaver_signal_cb (GDBusProxy *proxy,
+                       const gchar *sender_name,
+                       const gchar *signal_name,
+                       GVariant *parameters,
+                       gpointer user_data)
+{
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+        gboolean active;
+
+        if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
+                g_variant_get (parameters, "(b)", &active);
+                g_print ("Received screensaver ActiveChanged signal: %d\n", active);
+                if (manager->priv->screensaver_active != active) {
+                        manager->priv->screensaver_active = active;
+                        idle_configure (manager);
+                }
+        }
+}
+
+static void
+get_active_cb (GDBusProxy *proxy,
+               GAsyncResult *result,
+               GsdPowerManager *manager)
+{
+        GVariant *res;
+        gboolean active = FALSE;
+
+        res = g_dbus_proxy_call_finish (proxy, result, NULL);
+        if (res)
+                g_variant_get (res, "(b)", &active);
+
+        manager->priv->screensaver_active = active;
+}
+
+static void
+screensaver_proxy_ready_cb (GObject *source_object,
+                            GAsyncResult *res,
+                            GsdPowerManager *manager)
+{
+        GError *error = NULL;
+
+        manager->priv->screensaver_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (manager->priv->screensaver_proxy == NULL) {
+                g_warning ("Could not connect to screensaver: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+        g_signal_connect (manager->priv->screensaver_proxy, "g-signal",
+                          G_CALLBACK (screensaver_signal_cb), manager);
+        g_dbus_proxy_call (manager->priv->screensaver_proxy,
+                           "GetActive",
+                           NULL,
+                           0,
+                           G_MAXINT,
+                           NULL,
+                           (GAsyncReadyCallback)get_active_cb,
+                           manager);
 }
 
 static void
@@ -4143,6 +4210,16 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                   session_presence_proxy_ready_cb,
                                   manager);
 
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  0,
+                                  NULL,
+                                  GS_DBUS_NAME,
+                                  GS_DBUS_PATH,
+                                  GS_DBUS_INTERFACE,
+                                  NULL,
+                                  (GAsyncReadyCallback)screensaver_proxy_ready_cb,
+                                  manager);
+
         manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
         manager->priv->canberra_context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
 
@@ -4273,6 +4350,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
 
         g_clear_object (&manager->priv->upower_proxy);
         g_clear_object (&manager->priv->session_presence_proxy);
+        g_clear_object (&manager->priv->screensaver_proxy);
 
         if (manager->priv->critical_alert_timeout_id > 0) {
                 g_source_remove (manager->priv->critical_alert_timeout_id);
