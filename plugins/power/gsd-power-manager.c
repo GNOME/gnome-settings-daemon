@@ -3173,58 +3173,10 @@ idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
         return ret;
 }
 
-/**
- *  idle_adjust_timeout:
- *  @idle_time: Current idle time, in seconds.
- *  @timeout: The new timeout we want to set, in seconds.
- *
- *  On slow machines, or machines that have lots to load duing login,
- *  the current idle time could be bigger than the requested timeout.
- *  In this case the scheduled idle timeout will never fire, unless
- *  some user activity (keyboard, mouse) resets the current idle time.
- *  Instead of relying on user activity to correct this issue, we need
- *  to adjust timeout, as related to current idle time, so the idle
- *  timeout will fire as designed.
- *
- *  Return value: timeout to set, adjusted acccording to current idle time.
- **/
-static guint
-idle_adjust_timeout (guint idle_time, guint timeout)
-{
-        /* allow 2 sec margin for messaging delay. */
-        idle_time += 2;
-
-        /* Double timeout until it's larger than current idle time.
-         * Give up for ultra slow machines. (86400 sec = 24 hours) */
-        while (timeout < idle_time &&
-               timeout < 86400 &&
-               timeout > 0) {
-                timeout *= 2;
-        }
-        return timeout;
-}
-
-/**
- * idle_adjust_timeout_blank:
- * @idle_time: current idle time, in seconds.
- * @timeout: the new timeout we want to set, in seconds.
- *
- * Same as idle_adjust_timeout(), but also accounts for the duration
- * of the fading animation in the screensaver (so that blanking happens
- * exactly at the end of it, if configured with the same timeouts)
- */
-static guint
-idle_adjust_timeout_blank (guint idle_time, guint timeout)
-{
-        return idle_adjust_timeout (idle_time,
-                                    timeout + SCREENSAVER_FADE_TIME);
-}
-
 static void
 idle_configure (GsdPowerManager *manager)
 {
         gboolean is_idle_inhibited;
-        guint current_idle_time;
         guint timeout_blank;
         guint timeout_sleep;
         gboolean on_battery;
@@ -3243,8 +3195,6 @@ idle_configure (GsdPowerManager *manager)
                 return;
         }
 
-        current_idle_time = gnome_idle_monitor_get_idletime (manager->priv->idle_monitor) / 1000;
-
         /* set up blank callback even when session is not idle,
          * but only if we actually want to blank. */
         on_battery = up_client_get_on_battery (manager->priv->up_client);
@@ -3262,8 +3212,9 @@ idle_configure (GsdPowerManager *manager)
         if (timeout_blank != 0) {
                 g_debug ("setting up blank callback for %is", timeout_blank);
 
+                timeout_blank += SCREENSAVER_FADE_TIME;
                 manager->priv->idle_blank_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
-                                                                             idle_adjust_timeout_blank (current_idle_time, timeout_blank) * 1000,
+                                                                             timeout_blank * 1000,
                                                                              NULL, NULL, NULL);
         } else {
                 gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
@@ -3289,7 +3240,7 @@ idle_configure (GsdPowerManager *manager)
                 }
 
                 manager->priv->idle_sleep_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
-                                                                             idle_adjust_timeout (current_idle_time, timeout_sleep) * 1000,
+                                                                             timeout_sleep * 1000,
                                                                              NULL, NULL, NULL);
         } else {
                 gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
@@ -3320,7 +3271,7 @@ idle_set_timeout_dim (GsdPowerManager *manager, guint timeout)
         g_debug ("Setting dim idle timeout: %ds", timeout);
         if (timeout > 0) {
                 manager->priv->idle_dim_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
-                                                                          idle_adjust_timeout (idle_time / 1000, timeout) * 1000,
+                                                                           timeout * 1000,
                                                                           NULL, NULL, NULL);
         } else {
                 gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
