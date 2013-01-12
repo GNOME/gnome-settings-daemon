@@ -96,6 +96,22 @@ update_state (GtkWidget *window)
 
                 gtk_widget_show (window);
                 break;
+
+        case 9: {
+                GIcon *icon;
+
+                icon = g_icon_new_for_string (". GThemedIcon battery-full-charging-symbolic gpm-battery-100-charging battery-full-charging ",
+                                              NULL);
+
+                gsd_osd_window_set_action_custom_gicon (GSD_OSD_WINDOW (window),
+                                                        icon,
+                                                        FALSE);
+
+                g_object_unref (icon);
+
+                gtk_widget_show (window);
+                break;
+                }
         default:
                 gtk_main_quit ();
                 break;
