@@ -552,9 +552,9 @@ static void
 draw_action_custom (GsdOsdDrawContext  *ctx,
                     cairo_t            *cr)
 {
-        GdkRectangle icon_box, bright_box;
+        GdkRectangle icon_box, bright_box, label_box;
 
-        get_bounding_boxes (ctx, &icon_box, NULL, &bright_box);
+        get_bounding_boxes (ctx, &icon_box, &label_box, &bright_box);
 
 #if 0
         g_message ("icon box: w=%d h=%d _x0=%d _y0=%d",
@@ -570,6 +570,9 @@ draw_action_custom (GsdOsdDrawContext  *ctx,
 #endif
 
         render_custom (ctx, cr, &icon_box);
+
+        /* draw label */
+        draw_volume_label (ctx, cr, &label_box);
 
         if (ctx->show_level != FALSE) {
                 /* draw volume meter */

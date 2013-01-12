@@ -60,6 +60,7 @@ update_state (GtkWidget *window)
                 gtk_widget_show (window);
                 break;
         case 4:
+                gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (window), NULL);
                 gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (window),
                                                   "media-eject-symbolic",
                                                   FALSE);

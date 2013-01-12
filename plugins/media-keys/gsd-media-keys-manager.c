@@ -829,6 +829,8 @@ do_eject_action (GsdMediaKeysManager *manager)
 
         /* Show the dialogue */
         dialog_init (manager);
+        gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
+                                         NULL);
         gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
                                                  "media-eject-symbolic",
                                                  FALSE);
@@ -912,6 +914,8 @@ static void
 do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
 {
         dialog_init (manager);
+        gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
+                                         NULL);
         gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
                                                  state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
                                                  FALSE);
@@ -1389,6 +1393,8 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
         if (!have_listeners) {
                 /* Popup a dialog with an (/) icon */
                 dialog_init (manager);
+                gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
+                                                 NULL);
                 gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
                                                          "action-unavailable-symbolic",
                                                          FALSE);
@@ -1716,6 +1722,8 @@ update_screen_cb (GObject             *source_object,
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
         dialog_init (manager);
+        gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
+                                         NULL);
         gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
                                                  "display-brightness-symbolic",
                                                  TRUE);
@@ -1768,6 +1776,8 @@ update_keyboard_cb (GObject             *source_object,
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
         dialog_init (manager);
+        gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
+                                         NULL);
         gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
                                                  "keyboard-brightness-symbolic",
                                                  TRUE);
