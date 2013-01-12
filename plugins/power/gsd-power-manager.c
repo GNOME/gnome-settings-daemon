@@ -3388,15 +3388,6 @@ idle_dbus_signal_cb (GDBusProxy *proxy,
                 g_debug ("Received gnome session inhibitor change");
                 idle_configure (manager);
         }
-        if (g_strcmp0 (signal_name, "StatusChanged") == 0) {
-                guint status;
-
-                g_variant_get (parameters, "(u)", &status);
-                g_dbus_proxy_set_cached_property (proxy, "status",
-                                                  g_variant_new ("u", status));
-                g_debug ("Received gnome session status change");
-                idle_configure (manager);
-        }
 }
 
 static void
