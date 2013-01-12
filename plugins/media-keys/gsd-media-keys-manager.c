@@ -832,8 +832,8 @@ do_eject_action (GsdMediaKeysManager *manager)
         gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
                                          NULL);
         gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                 "media-eject-symbolic",
-                                                 FALSE);
+                                          "media-eject-symbolic",
+                                          FALSE);
         dialog_show (manager);
 
         /* Clean up the drive selection and exit if no suitable
@@ -917,8 +917,8 @@ do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
         gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
                                          NULL);
         gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                 state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
-                                                 FALSE);
+                                          state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
+                                          FALSE);
         dialog_show (manager);
 }
 
@@ -1396,8 +1396,8 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
                 gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
                                                  NULL);
                 gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                         "action-unavailable-symbolic",
-                                                         FALSE);
+                                                  "action-unavailable-symbolic",
+                                                  FALSE);
                 dialog_show (manager);
                 return TRUE;
         }
@@ -1725,8 +1725,8 @@ update_screen_cb (GObject             *source_object,
         gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
                                          NULL);
         gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                 "display-brightness-symbolic",
-                                                 TRUE);
+                                          "display-brightness-symbolic",
+                                          TRUE);
         gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (manager->priv->dialog),
                                                 percentage);
         dialog_show (manager);
@@ -1779,8 +1779,8 @@ update_keyboard_cb (GObject             *source_object,
         gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
                                          NULL);
         gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                 "keyboard-brightness-symbolic",
-                                                 TRUE);
+                                          "keyboard-brightness-symbolic",
+                                          TRUE);
         gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (manager->priv->dialog),
                                                 percentage);
         dialog_show (manager);
