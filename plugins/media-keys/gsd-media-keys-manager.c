@@ -875,22 +875,6 @@ do_home_key_action (GsdMediaKeysManager *manager,
 }
 
 static void
-do_execute_desktop (GsdMediaKeysManager *manager,
-		    const char          *desktop,
-		    gint64               timestamp)
-{
-        GDesktopAppInfo *app_info;
-
-        app_info = g_desktop_app_info_new (desktop);
-        if (app_info != NULL) {
-                launch_app (G_APP_INFO (app_info), timestamp);
-                g_object_unref (app_info);
-        } else {
-                g_warning ("Could not find application '%s'", desktop);
-	}
-}
-
-static void
 do_execute_desktop_or_desktop (GsdMediaKeysManager *manager,
 			       const char          *desktop,
 			       const char          *alt_desktop,
