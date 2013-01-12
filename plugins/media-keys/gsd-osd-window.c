@@ -761,11 +761,7 @@ gsd_osd_window_finalize (GObject *object)
 	window = GSD_OSD_WINDOW (object);
 
 	g_clear_object (&window->priv->icon);
-
-        if (window->priv->volume_label) {
-                g_free (window->priv->volume_label);
-                window->priv->volume_label = NULL;
-        }
+	g_clear_pointer (&window->priv->volume_label, g_free);
 
 	if (window->priv->monitors_changed_id > 0) {
 		GdkScreen *screen;
