@@ -2261,20 +2261,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 manager->priv->gtksettings = NULL;
         }
 
-        if (manager->priv->ca) {
-                ca_context_destroy (manager->priv->ca);
-                manager->priv->ca = NULL;
-        }
+        g_clear_pointer (&manager->priv->ca, ca_context_destroy);
 
 #ifdef HAVE_GUDEV
-        if (priv->streams) {
-                g_hash_table_destroy (priv->streams);
-                priv->streams = NULL;
-        }
-        if (priv->udev_client) {
-                g_object_unref (priv->udev_client);
-                priv->udev_client = NULL;
-        }
+        g_clear_pointer (&priv->streams, g_hash_table_destroy);
+        g_clear_object (&priv->udev_client);
 #endif /* HAVE_GUDEV */
 
         g_clear_object (&priv->logind_proxy);
