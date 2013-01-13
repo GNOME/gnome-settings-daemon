@@ -60,6 +60,7 @@
 #include <canberra.h>
 #include <pulse/pulseaudio.h>
 #include "gvc-mixer-control.h"
+#include "gvc-mixer-sink.h"
 
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"
@@ -124,7 +125,8 @@ struct GsdMediaKeysManagerPrivate
 {
         /* Volume bits */
         GvcMixerControl *volume;
-        GvcMixerStream  *stream;
+        GvcMixerStream  *sink;
+        GvcMixerStream  *source;
         ca_context      *ca;
         GtkSettings     *gtksettings;
 #ifdef HAVE_GUDEV
@@ -937,6 +939,7 @@ update_dialog (GsdMediaKeysManager *manager,
 {
         GvcMixerUIDevice *device;
         const GvcMixerStreamPort *port;
+        GsdOsdWindowAction action;
 
         if (!muted) {
                 vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
@@ -945,11 +948,12 @@ update_dialog (GsdMediaKeysManager *manager,
                 vol = 0.0;
         }
 
+        action = GVC_IS_MIXER_SINK (stream) ? GSD_OSD_WINDOW_ACTION_VOLUME : GSD_OSD_WINDOW_ACTION_MIC_VOLUME;
+
         dialog_init (manager);
         gsd_osd_window_set_volume_muted (GSD_OSD_WINDOW (manager->priv->dialog), muted);
         gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (manager->priv->dialog), vol);
-        gsd_osd_window_set_action (GSD_OSD_WINDOW (manager->priv->dialog),
-                                   GSD_OSD_WINDOW_ACTION_VOLUME);
+        gsd_osd_window_set_action (GSD_OSD_WINDOW (manager->priv->dialog), action);
 
         port = gvc_mixer_stream_get_port (stream);
         if (g_strcmp0 (gvc_mixer_stream_get_form_factor (stream), "internal") != 0 ||
@@ -991,13 +995,14 @@ get_udev_device_for_sysfs_path (GsdMediaKeysManager *manager,
 
 static GvcMixerStream *
 get_stream_for_device_id (GsdMediaKeysManager *manager,
+			  gboolean             is_output,
 			  guint                deviceid)
 {
 	char *devnode;
 	gpointer id_ptr;
 	GvcMixerStream *res;
 	GUdevDevice *dev, *parent;
-	GSList *sinks, *l;
+	GSList *streams, *l;
 
 	id_ptr = g_hash_table_lookup (manager->priv->streams, GUINT_TO_POINTER (deviceid));
 	if (id_ptr != NULL) {
@@ -1038,31 +1043,34 @@ get_stream_for_device_id (GsdMediaKeysManager *manager,
 	}
 
 	res = NULL;
-	sinks = gvc_mixer_control_get_sinks (manager->priv->volume);
-	for (l = sinks; l; l = l->next) {
+	if (is_output)
+		streams = gvc_mixer_control_get_sinks (manager->priv->volume);
+	else
+		streams = gvc_mixer_control_get_sources (manager->priv->volume);
+	for (l = streams; l; l = l->next) {
 		GvcMixerStream *stream = l->data;
 		const char *sysfs_path;
-		GUdevDevice *sink_dev, *sink_parent;
+		GUdevDevice *stream_dev, *stream_parent;
 
 		sysfs_path = gvc_mixer_stream_get_sysfs_path (stream);
-		sink_dev = get_udev_device_for_sysfs_path (manager, sysfs_path);
-		if (sink_dev == NULL)
+		stream_dev = get_udev_device_for_sysfs_path (manager, sysfs_path);
+		if (stream_dev == NULL)
 			continue;
-		sink_parent = g_udev_device_get_parent_with_subsystem (sink_dev, "usb", "usb_device");
-		g_object_unref (sink_dev);
-		if (sink_parent == NULL)
+		stream_parent = g_udev_device_get_parent_with_subsystem (stream_dev, "usb", "usb_device");
+		g_object_unref (stream_dev);
+		if (stream_parent == NULL)
 			continue;
 
-		if (g_strcmp0 (g_udev_device_get_sysfs_path (sink_parent),
+		if (g_strcmp0 (g_udev_device_get_sysfs_path (stream_parent),
 			       g_udev_device_get_sysfs_path (parent)) == 0) {
 			res = stream;
 		}
-		g_object_unref (sink_parent);
+		g_object_unref (stream_parent);
 		if (res != NULL)
 			break;
 	}
 
-	g_slist_free (sinks);
+	g_slist_free (streams);
 
 	if (res)
 		g_hash_table_insert (manager->priv->streams,
@@ -1081,6 +1089,7 @@ static void
 do_sound_action (GsdMediaKeysManager *manager,
 		 guint                deviceid,
                  int                  type,
+                 gboolean             is_output,
                  gboolean             quiet)
 {
 	GvcMixerStream *stream;
@@ -1089,11 +1098,18 @@ do_sound_action (GsdMediaKeysManager *manager,
         gboolean sound_changed;
 
         /* Find the stream that corresponds to the device, if any */
+        stream = NULL;
 #ifdef HAVE_GUDEV
-        stream = get_stream_for_device_id (manager, deviceid);
-        if (stream == NULL)
+        stream = get_stream_for_device_id (manager, is_output, deviceid);
 #endif /* HAVE_GUDEV */
-                stream = manager->priv->stream;
+
+        if (stream == NULL) {
+                if (is_output)
+                        stream = manager->priv->sink;
+                else
+                        stream = manager->priv->source;
+        }
+
         if (stream == NULL)
                 return;
 
@@ -1158,18 +1174,34 @@ update_default_sink (GsdMediaKeysManager *manager)
         GvcMixerStream *stream;
 
         stream = gvc_mixer_control_get_default_sink (manager->priv->volume);
-        if (stream == manager->priv->stream)
+        if (stream == manager->priv->sink)
                 return;
 
-        if (manager->priv->stream != NULL) {
-                g_object_unref (manager->priv->stream);
-                manager->priv->stream = NULL;
-        }
+        g_clear_object (&manager->priv->sink);
 
         if (stream != NULL) {
-                manager->priv->stream = g_object_ref (stream);
+                manager->priv->sink = g_object_ref (stream);
         } else {
                 g_warning ("Unable to get default sink");
+        }
+}
+
+static void
+update_default_source (GsdMediaKeysManager *manager)
+{
+        GvcMixerStream *stream;
+
+        stream = gvc_mixer_control_get_default_source (manager->priv->volume);
+        if (stream == manager->priv->source)
+                return;
+
+        g_clear_object (&manager->priv->source);
+
+        if (stream != NULL) {
+                manager->priv->source = g_object_ref (stream);
+                g_message ("update_default_source done ");
+        } else {
+                g_warning ("Unable to get default source");
         }
 }
 
@@ -1179,6 +1211,7 @@ on_control_state_changed (GvcMixerControl     *control,
                           GsdMediaKeysManager *manager)
 {
         update_default_sink (manager);
+        update_default_source (manager);
 }
 
 static void
@@ -1187,6 +1220,14 @@ on_control_default_sink_changed (GvcMixerControl     *control,
                                  GsdMediaKeysManager *manager)
 {
         update_default_sink (manager);
+}
+
+static void
+on_control_default_source_changed (GvcMixerControl     *control,
+                                   guint                id,
+                                   GsdMediaKeysManager *manager)
+{
+        update_default_source (manager);
 }
 
 #ifdef HAVE_GUDEV
@@ -1206,11 +1247,13 @@ on_control_stream_removed (GvcMixerControl     *control,
                            guint                id,
                            GsdMediaKeysManager *manager)
 {
-        if (manager->priv->stream != NULL) {
-		if (gvc_mixer_stream_get_id (manager->priv->stream) == id) {
-	                g_object_unref (manager->priv->stream);
-			manager->priv->stream = NULL;
-		}
+        if (manager->priv->sink != NULL) {
+		if (gvc_mixer_stream_get_id (manager->priv->sink) == id)
+			g_clear_object (&manager->priv->sink);
+        }
+        if (manager->priv->source != NULL) {
+		if (gvc_mixer_stream_get_id (manager->priv->source) == id)
+			g_clear_object (&manager->priv->source);
         }
 
 #ifdef HAVE_GUDEV
@@ -1871,16 +1914,19 @@ do_action (GsdMediaKeysManager *manager,
         case MUTE_KEY:
         case VOLUME_DOWN_KEY:
         case VOLUME_UP_KEY:
-                do_sound_action (manager, deviceid, type, FALSE);
+                do_sound_action (manager, deviceid, type, TRUE, FALSE);
+                break;
+        case MIC_MUTE_KEY:
+                do_sound_action (manager, deviceid, MUTE_KEY, FALSE, TRUE);
                 break;
         case MUTE_QUIET_KEY:
-                do_sound_action (manager, deviceid, MUTE_KEY, TRUE);
+                do_sound_action (manager, deviceid, MUTE_KEY, TRUE, TRUE);
                 break;
         case VOLUME_DOWN_QUIET_KEY:
-                do_sound_action (manager, deviceid, VOLUME_DOWN_KEY, TRUE);
+                do_sound_action (manager, deviceid, VOLUME_DOWN_KEY, TRUE, TRUE);
                 break;
         case VOLUME_UP_QUIET_KEY:
-                do_sound_action (manager, deviceid, VOLUME_UP_KEY, TRUE);
+                do_sound_action (manager, deviceid, VOLUME_UP_KEY, TRUE, TRUE);
                 break;
         case LOGOUT_KEY:
                 gnome_session_shutdown (manager);
@@ -2218,6 +2264,10 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
                           G_CALLBACK (on_control_default_sink_changed),
                           manager);
         g_signal_connect (manager->priv->volume,
+                          "default-source-changed",
+                          G_CALLBACK (on_control_default_source_changed),
+                          manager);
+        g_signal_connect (manager->priv->volume,
                           "stream-removed",
                           G_CALLBACK (on_control_stream_removed),
                           manager);
@@ -2301,7 +2351,8 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         }
 
         g_clear_pointer (&priv->screens, g_slist_free);
-        g_clear_object (&priv->stream);
+        g_clear_object (&priv->sink);
+        g_clear_object (&priv->source);
         g_clear_object (&priv->volume);
         g_clear_object (&priv->dialog);
 
