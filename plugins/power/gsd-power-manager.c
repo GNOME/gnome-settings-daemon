@@ -183,6 +183,7 @@ struct GsdPowerManagerPrivate
         guint                    low_percentage;
         guint                    low_time;
         gint                     pre_dim_brightness; /* level, not percentage */
+        gint                     pre_dpms_brightness;
         UpDevice                *device_composite;
         NotifyNotification      *notification_discharging;
         NotifyNotification      *notification_low;
@@ -224,6 +225,11 @@ static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionT
 static void      do_lid_closed_action (GsdPowerManager *manager);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static gboolean  external_monitor_is_connected (GnomeRRScreen *screen);
+static gint      backlight_set_abs (GsdPowerManager *manager,
+                                    guint value,
+                                    gboolean emit_changed,
+                                    GError **error);
+static gint      backlight_get_abs (GsdPowerManager *manager, GError **error);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -3883,6 +3889,18 @@ screen_lock_done_cb (gpointer data)
 static void
 handle_suspend_actions (GsdPowerManager *manager)
 {
+        GnomeRRDpmsMode mode;
+
+        /* Save the backlight, as DPMS isn't on yet, so we can capture it */
+        if (!gnome_rr_screen_get_dpms_mode (manager->priv->x11_screen, &mode, NULL) ||
+            mode != GNOME_RR_DPMS_ON) {
+                manager->priv->pre_dpms_brightness = -1;
+        } else {
+                manager->priv->pre_dpms_brightness = backlight_get_abs (manager, NULL);
+        }
+        if (manager->priv->pre_dpms_brightness != -1)
+                backlight_set_abs (manager, backlight_get_min (manager), FALSE, NULL);
+
         lock_screensaver (manager, screen_lock_done_cb);
 }
 
@@ -3905,6 +3923,11 @@ handle_resume_actions (GsdPowerManager *manager)
                 g_warning ("failed to turn the panel on after resume: %s",
                            error->message);
                 g_error_free (error);
+        }
+
+        if (manager->priv->pre_dpms_brightness != -1) {
+                backlight_set_abs (manager, manager->priv->pre_dpms_brightness, FALSE, &error);
+                manager->priv->pre_dpms_brightness = -1;
         }
 
         /* set up the delay again */
