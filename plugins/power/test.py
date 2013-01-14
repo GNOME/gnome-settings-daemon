@@ -55,6 +55,12 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # always start with zero idle time
         self.reset_idle_timer()
 
+        # flush notification log
+        try:
+            self.p_notify.stdout.read()
+        except IOError:
+            pass
+
     def tearDown(self):
         # reactivate screen, in case tests triggered a display blank
         self.reset_idle_timer()
@@ -94,6 +100,17 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         else:
             self.fail('timed out waiting for logind Suspend() call')
 
+    def check_no_suspend(self, seconds):
+        '''Check that no Suspend or Hibernate is requested in the given time'''
+
+        # wait for specified time to ensure it didn't do anything
+        time.sleep(seconds)
+        # check that it did not suspend or hibernate
+        log = self.logind.stdout.read()
+        if log:
+            self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
+            self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
+
     def test_sleep_inactive_battery_no_blank(self):
         '''sleep-inactive-battery-timeout without screen blanking'''
 
@@ -103,13 +120,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
 
-        # wait for idle delay
-        time.sleep(2)
-
-        # check that it did not suspend or hibernate yet
-        log = self.logind.stdout.read()
-        if log:
-            self.assertFalse(b' Suspend' in log, 'too early Suspend request')
+        # wait for idle delay; should not yet suspend
+        self.check_no_suspend(2)
 
         # suspend should happen after inactive sleep timeout + 1 s notification
         # delay + 1 s error margin
@@ -125,12 +137,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
 
         # wait for idle delay + display sleep time
-        time.sleep(4)
-
         # check that it did not suspend or hibernate yet
-        log = self.logind.stdout.read()
-        if log:
-            self.assertFalse(b' Suspend' in log, 'too early Suspend request')
+        self.check_no_suspend(4)
 
         # suspend should happen after timeout_blank + 12 s screen saver fade +
         # 1 s notification delay + 1 s error margin
@@ -145,24 +153,12 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
 
-        # flush notification log
-        try:
-            self.p_notify.stdout.read()
-        except IOError:
-            pass
-
         # create inhibitor
         inhibit_id = self.obj_session_mgr.Inhibit(
             'testsuite', dbus.UInt32(0), 'for testing',
             dbus.UInt32(gsdtestcase.GSM_INHIBITOR_FLAG_IDLE | gsdtestcase.GSM_INHIBITOR_FLAG_SUSPEND))
         try:
-            # wait long enough to ensure it didn't do anything
-            time.sleep(7)
-            # check that it did not suspend or hibernate
-            log = self.logind.stdout.read()
-            if log:
-                self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
-                self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
+            self.check_no_suspend(7)
         finally:
             self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
 
@@ -228,11 +224,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # wait long enough to ensure it didn't do anything (as we still have
         # the second battery)
-        time.sleep(5)
-        # check that it did not suspend or hibernate
-        log = self.logind.stdout.read()
-        self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
-        self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
+        self.check_no_suspend(5)
 
         # now change the other battery to critical charge as well
         obj_bat2.Set('org.freedesktop.UPower.Device', 'TimeToEmpty',
