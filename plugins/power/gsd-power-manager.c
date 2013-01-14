@@ -3955,6 +3955,45 @@ logind_proxy_signal_cb (GDBusProxy  *proxy,
 }
 
 static gboolean
+parse_vm_kernel_cmdline (gboolean *is_virtual_machine)
+{
+        gboolean ret = FALSE;
+        GRegex *regex;
+        GMatchInfo *match;
+        char *contents;
+        char *word;
+        const char *arg;
+
+        if (!g_file_get_contents ("/proc/cmdline", &contents, NULL, NULL))
+                return ret;
+
+        regex = g_regex_new ("gnome.is_vm=(\\S+)", 0, G_REGEX_MATCH_NOTEMPTY, NULL);
+        if (!g_regex_match (regex, contents, G_REGEX_MATCH_NOTEMPTY, &match))
+                goto out;
+
+        word = g_match_info_fetch (match, 0);
+        g_debug ("Found command-line match '%s'", word);
+        arg = word + strlen ("gnome.is_vm=");
+        if (*arg != '0' && *arg != '1') {
+                g_warning ("Invalid value '%s' for gnome.is_vm passed in kernel command line.\n", arg);
+        } else {
+                *is_virtual_machine = atoi (arg);
+                ret = TRUE;
+        }
+        g_free (word);
+
+out:
+        g_match_info_free (match);
+        g_regex_unref (regex);
+        g_free (contents);
+
+        if (ret)
+                g_debug ("Kernel command-line parsed to %d", *is_virtual_machine);
+
+        return ret;
+}
+
+static gboolean
 is_hardware_a_virtual_machine (void)
 {
         const gchar *str;
@@ -3963,6 +4002,9 @@ is_hardware_a_virtual_machine (void)
         GVariant *inner;
         GVariant *variant = NULL;
         GDBusConnection *connection;
+
+        if (parse_vm_kernel_cmdline (&ret))
+                return ret;
 
         connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM,
                                      NULL,
