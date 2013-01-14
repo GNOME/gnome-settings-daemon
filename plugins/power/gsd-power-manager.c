@@ -3918,17 +3918,6 @@ handle_resume_actions (GsdPowerManager *manager)
         gboolean ret;
         GError *error = NULL;
 
-        /* this displays the unlock dialogue so the user doesn't have
-         * to move the mouse or press any key before the window comes up */
-        g_dbus_connection_call (manager->priv->connection,
-                                GS_DBUS_NAME,
-                                GS_DBUS_PATH,
-                                GS_DBUS_INTERFACE,
-                                "SimulateUserActivity",
-                                NULL, NULL,
-                                G_DBUS_CALL_FLAGS_NONE, -1,
-                                NULL, NULL, NULL);
-
         /* close existing notifications on resume, the system power
          * state is probably different now */
         notify_close_if_showing (manager->priv->notification_low);
