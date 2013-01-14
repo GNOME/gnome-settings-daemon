@@ -173,12 +173,6 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         time.sleep(1)
 
-        # flush notification log
-        try:
-            self.p_notify.stdout.read()
-        except IOError:
-            pass
-
         # now change battery to critical charge
         obj_bat.Set('org.freedesktop.UPower.Device', 'TimeToEmpty',
                     dbus.Int64(30, variant_level=1),
