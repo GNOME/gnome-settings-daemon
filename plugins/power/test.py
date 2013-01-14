@@ -136,6 +136,36 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # 1 s notification delay + 1 s error margin
         self.check_for_suspend(16)
 
+    def test_sleep_inhibition(self):
+        '''Does not sleep under idle inhibition'''
+
+        self.settings_session['idle-delay'] = 2
+        # disable screen blanking
+        self.settings_gsd_power['sleep-display-battery'] = 0
+        self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
+        self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
+
+        # flush notification log
+        try:
+            self.p_notify.stdout.read()
+        except IOError:
+            pass
+
+        # create inhibitor
+        inhibit_id = self.obj_session_mgr.Inhibit(
+            'testsuite', dbus.UInt32(0), 'for testing',
+            dbus.UInt32(gsdtestcase.GSM_INHIBITOR_FLAG_IDLE | gsdtestcase.GSM_INHIBITOR_FLAG_SUSPEND))
+        try:
+            # wait long enough to ensure it didn't do anything
+            time.sleep(7)
+            # check that it did not suspend or hibernate
+            log = self.logind.stdout.read()
+            if log:
+                self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
+                self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
+        finally:
+            self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
+
     def test_action_critical_battery(self):
         '''action on critical battery'''
 

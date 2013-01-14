@@ -34,6 +34,13 @@ if subprocess.call(['which', 'gnome-session'], stdout=subprocess.PIPE) != 0:
 top_builddir = os.environ.get('TOP_BUILDDIR',
                               os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# from gnome-session/gsm-inhibitor.h
+GSM_INHIBITOR_FLAG_LOGOUT      = 1 << 0
+GSM_INHIBITOR_FLAG_SWITCH_USER = 1 << 1
+GSM_INHIBITOR_FLAG_SUSPEND     = 1 << 2
+GSM_INHIBITOR_FLAG_IDLE        = 1 << 3
+GSM_INHIBITOR_FLAG_AUTOMOUNT   = 1 << 4
+
 
 def set_nonblock(fd):
     '''Set a file object to non-blocking'''
