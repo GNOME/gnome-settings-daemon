@@ -2317,25 +2317,12 @@ do_lid_open_action (GsdPowerManager *manager)
 static void
 do_lid_closed_action (GsdPowerManager *manager)
 {
-        gboolean ret;
-        GError *error = NULL;
-
         /* play a sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
                          CA_PROP_EVENT_ID, "lid-close",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
                          NULL);
-
-        /* turn the panel off if the lid is closed (mainly for Dells...) */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
-                                             GNOME_RR_DPMS_OFF,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to turn the panel off after lid close: %s",
-                           error->message);
-                g_error_free (error);
-        }
 
         /* refresh RANDR so we get an accurate view of what monitors are plugged in when the lid is closed */
         gnome_rr_screen_refresh (manager->priv->x11_screen, NULL); /* NULL-GError */
