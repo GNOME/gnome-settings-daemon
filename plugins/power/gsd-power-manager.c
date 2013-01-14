@@ -3896,19 +3896,6 @@ screen_lock_done_cb (gpointer data)
 static void
 handle_suspend_actions (GsdPowerManager *manager)
 {
-        gboolean ret;
-        GError *error = NULL;
-
-        /* ensure we turn the panel back on after resume */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
-                                             GNOME_RR_DPMS_ON,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to turn the panel on after resume: %s",
-                           error->message);
-                g_error_free (error);
-        }
-
         lock_screensaver (manager, screen_lock_done_cb);
 }
 
