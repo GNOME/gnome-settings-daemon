@@ -57,6 +57,7 @@ struct GsdUpdatesManagerPrivate
         guint                    offline_update_id;
         PkError                 *offline_update_error;
         NotifyNotification      *notification_updates;
+        NotifyNotification      *notification_offline_success;
         PkControl               *control;
         PkTask                  *task;
         guint                    inhibit_cookie;
@@ -1229,6 +1230,13 @@ check_offline_update_cb (gpointer user_data)
 
         /* do the bubble */
         g_debug ("title=%s, message=%s", title, message);
+
+        /* close any existing notification */
+        if (manager->priv->notification_offline_success != NULL) {
+                notify_notification_close (manager->priv->notification_offline_success, NULL);
+                manager->priv->notification_offline_success = NULL;
+        }
+
         notification = notify_notification_new (title,
                                                 message,
                                                 GSD_UPDATES_ICON_URGENT);
@@ -1252,6 +1260,9 @@ check_offline_update_cb (gpointer user_data)
                                         _("OK"), libnotify_action_cb, manager, NULL);
         g_signal_connect (notification, "closed",
                           G_CALLBACK (on_notification_closed), NULL);
+        manager->priv->notification_offline_success = notification;
+        g_object_add_weak_pointer (G_OBJECT (manager->priv->notification_offline_success),
+                                   (void **) &manager->priv->notification_offline_success);
         ret = notify_notification_show (notification, &error);
         if (!ret) {
                 g_warning ("error: %s", error->message);
