@@ -1,4 +1,45 @@
 =============
+Version 3.7.4
+=============
+
+Updates:
+- Support notification filtering
+
+Media-keys:
+- Save screenshots without using gnome-screenshot
+- Updated design for the on-screen OSD
+- Show output device when changing the volume
+- Add OSD support for the "Battery" key on certain laptops
+- Add support for the microphone mute key on certain keyboards
+- Move sound initialisation out of the critical startup path
+
+Color:
+- Addition to implement new mockups in gnome-control-center
+
+Housekeeping:
+- Fix purging not working
+
+Keyboard:
+- Don't migrate ibus xkb engines
+
+Power:
+- Add test suite
+- Fix Power settings panel not picking up the updated brightness
+- Fix dimming of the screen not working, and don't dim when inhibited
+- Fix timeouts being longer than configured in some cases
+- Aggressively blank the screen when the shield is down
+- Update idle configuration when plugging or unplugging the mains
+- Really turn off the screen on suspend for MacBook laptops
+- Allow overriding VM detection with the gnome.is_vm=[01] kernel command-line parameter
+
+Wacom:
+- Fix problems resetting touch buttons on 64-bit systems
+- Allow switching modes while OSD is active
+
+XRandR:
+- use default-monitors-setup for autoconfiguration even after boot
+
+=============
 Version 3.7.3
 =============
 
