@@ -326,7 +326,7 @@ set_server_from_gsettings (GsdA11yKeyboardManager *manager)
         gnome_settings_profile_end (NULL);
 }
 
-static gboolean
+static void
 ax_response_callback (GsdA11yKeyboardManager *manager,
                       gint                    response_id,
                       guint                   revert_controls_mask,
@@ -347,8 +347,6 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
 
                 set_server_from_gsettings (manager);
         }
-
-        return TRUE;
 }
 
 static void
@@ -364,7 +362,6 @@ on_slow_keys_action (NotifyNotification     *notification,
                      const char             *action,
                      GsdA11yKeyboardManager *manager)
 {
-        gboolean res;
         int      response_id;
 
         g_assert (action != NULL);
@@ -377,12 +374,10 @@ on_slow_keys_action (NotifyNotification     *notification,
                 return;
         }
 
-        res = ax_response_callback (manager,
-                                    response_id, XkbSlowKeysMask,
-                                    manager->priv->slowkeys_shortcut_val);
-        if (res) {
-                notify_notification_close (manager->priv->notification, NULL);
-        }
+        ax_response_callback (manager,
+                              response_id, XkbSlowKeysMask,
+                              manager->priv->slowkeys_shortcut_val);
+        notify_notification_close (manager->priv->notification, NULL);
 }
 
 static void
@@ -390,7 +385,6 @@ on_sticky_keys_action (NotifyNotification     *notification,
                        const char             *action,
                        GsdA11yKeyboardManager *manager)
 {
-        gboolean res;
         int      response_id;
 
         g_assert (action != NULL);
@@ -403,12 +397,10 @@ on_sticky_keys_action (NotifyNotification     *notification,
                 return;
         }
 
-        res = ax_response_callback (manager,
-                                    response_id, XkbStickyKeysMask,
-                                    manager->priv->stickykeys_shortcut_val);
-        if (res) {
-                notify_notification_close (manager->priv->notification, NULL);
-        }
+        ax_response_callback (manager,
+                              response_id, XkbStickyKeysMask,
+                              manager->priv->stickykeys_shortcut_val);
+        notify_notification_close (manager->priv->notification, NULL);
 }
 
 static gboolean
