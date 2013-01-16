@@ -11,6 +11,7 @@ libpower_la_SOURCES = 					\
 	gsd-power-manager.c				\
 	gsd-power-manager.h				\
 	gsm-inhibitor-flag.h				\
+	gsm-presence-flag.h				\
 	gsd-power-plugin.c
 
 libpower_la_CPPFLAGS = \
@@ -64,6 +65,7 @@ gsd_test_power_SOURCES =				\
 	gsd-power-manager.c				\
 	gsd-power-manager.h				\
 	gsm-inhibitor-flag.h				\
+	gsm-presence-flag.h				\
 	test-power.c
 
 gsd_test_power_CFLAGS = $(libpower_la_CFLAGS)
