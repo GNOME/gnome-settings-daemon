@@ -332,31 +332,22 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
                       guint                   revert_controls_mask,
                       gboolean                enabled)
 {
-        GSettings *settings;
-
-        settings = manager->priv->settings;
-
-        switch (response_id) {
-        case GTK_RESPONSE_REJECT:
-
+        if (response_id == GTK_RESPONSE_REJECT) {
                 /* we're reverting, so we invert sense of 'enabled' flag */
                 g_debug ("cancelling AccessX request");
                 if (revert_controls_mask == XkbStickyKeysMask) {
-                        g_settings_set_boolean (settings,
+                        g_settings_set_boolean (manager->priv->settings,
                                                 "stickykeys-enable",
                                                 !enabled);
                 } else if (revert_controls_mask == XkbSlowKeysMask) {
-                        g_settings_set_boolean (settings,
+                        g_settings_set_boolean (manager->priv->settings,
                                                 "slowkeys-enable",
                                                 !enabled);
                 }
 
                 set_server_from_gsettings (manager);
-                break;
-
-        default:
-                break;
         }
+
         return TRUE;
 }
 
