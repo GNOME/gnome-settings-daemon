@@ -84,6 +84,7 @@
 #define SCREENSAVER_FADE_TIME                           10 /* seconds */
 
 #define SCREENSAVER_TIMEOUT_BLANK                       20 /* seconds */
+#define IDLE_DIM_BLANK_DISABLED_MIN                     60 /* seconds */
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -2640,10 +2641,25 @@ idle_configure (GsdPowerManager *manager)
         /* set up dim callback for when the screen lock is not active,
          * but only if we actually want to dim. */
         timeout_dim = 0;
-        if (!manager->priv->screensaver_active) {
-                if (g_settings_get_boolean (manager->priv->settings, "idle-dim"))
-                        timeout_dim = g_settings_get_int (manager->priv->settings,
-                                                          "idle-dim-time");
+        if (manager->priv->screensaver_active) {
+                /* Don't dim when the screen lock is active */
+        } else if (!on_battery) {
+                /* Don't dim when charging */
+        } else if (manager->priv->battery_is_low) {
+                /* Aggressively blank when battery is low */
+                timeout_dim = SCREENSAVER_TIMEOUT_BLANK;
+        } else {
+                if (g_settings_get_boolean (manager->priv->settings, "idle-dim")) {
+                        timeout_dim = g_settings_get_int (manager->priv->settings_session,
+                                                          "idle-delay");
+                        if (timeout_dim == 0) {
+                                timeout_dim = IDLE_DIM_BLANK_DISABLED_MIN;
+                        } else {
+                                timeout_dim /= 3;
+                                if (timeout_dim < 10)
+                                        timeout_dim = 0;
+                        }
+                }
         }
         if (timeout_dim != 0) {
                 g_debug ("setting up dim callback for %is", timeout_blank);
@@ -2980,7 +2996,6 @@ engine_settings_key_changed_cb (GSettings *settings,
                 return;
         }
         if (g_str_has_prefix (key, "sleep-inactive") ||
-            g_strcmp0 (key, "idle-dim-time") == 0 ||
             g_str_equal (key, "idle-delay")) {
                 idle_configure (manager);
                 return;
