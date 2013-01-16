@@ -2743,12 +2743,7 @@ idle_configure (GsdPowerManager *manager)
          * but only if we actually want to dim. */
         timeout_dim = 0;
         if (!manager->priv->screensaver_active) {
-                gboolean do_dim;
-
-                do_dim = g_settings_get_boolean (manager->priv->settings,
-                                                 on_battery ? "idle-dim-battery" : "idle-dim-ac");
-
-                if (do_dim)
+                if (g_settings_get_boolean (manager->priv->settings, "idle-dim"))
                         timeout_dim = g_settings_get_int (manager->priv->settings,
                                                           "idle-dim-time");
         }
