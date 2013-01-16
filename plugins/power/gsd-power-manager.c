@@ -39,6 +39,7 @@
 #include <libgnome-desktop/gnome-idle-monitor.h>
 
 #include "gsm-inhibitor-flag.h"
+#include "gsm-presence-flag.h"
 #include "gpm-common.h"
 #include "gpm-phone.h"
 #include "gnome-settings-plugin.h"
@@ -2365,14 +2366,6 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
                 do_lid_open_action (manager);
 }
 
-typedef enum {
-        SESSION_STATUS_CODE_AVAILABLE = 0,
-        SESSION_STATUS_CODE_INVISIBLE,
-        SESSION_STATUS_CODE_BUSY,
-        SESSION_STATUS_CODE_IDLE,
-        SESSION_STATUS_CODE_UNKNOWN
-} SessionStatusCode;
-
 static const gchar *
 idle_mode_to_string (GsdPowerIdleMode mode)
 {
@@ -3126,7 +3119,7 @@ idle_is_session_idle (GsdPowerManager *manager)
         }
 
         g_variant_get (result, "u", &status);
-        ret = (status == SESSION_STATUS_CODE_IDLE);
+        ret = (status == GSM_PRESENCE_STATUS_IDLE);
         g_variant_unref (result);
 
         return ret;
