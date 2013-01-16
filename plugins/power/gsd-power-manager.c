@@ -2449,9 +2449,6 @@ kbd_backlight_dim (GsdPowerManager *manager,
         return TRUE;
 }
 
-static gboolean
-idle_is_session_inhibited (GsdPowerManager *manager, guint mask);
-
 static void
 idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 {
@@ -2496,26 +2493,6 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 
         /* save current brightness, and set dim level */
         if (mode == GSD_POWER_IDLE_MODE_DIM) {
-
-                /* have we disabled the action */
-                if (up_client_get_on_battery (manager->priv->up_client)) {
-                        ret = g_settings_get_boolean (manager->priv->settings,
-                                                      "idle-dim-battery");
-                } else {
-                        ret = g_settings_get_boolean (manager->priv->settings,
-                                                      "idle-dim-ac");
-                }
-                if (!ret) {
-                        g_debug ("not dimming due to policy");
-                        return;
-                }
-
-                ret = idle_is_session_inhibited (manager, GSM_INHIBITOR_FLAG_IDLE);
-                if (ret) {
-                        g_debug ("not dimming because idle is inhibited");
-                        return;
-                }
-
                 /* display backlight */
                 idle_percentage = g_settings_get_int (manager->priv->settings,
                                                       "idle-brightness");
@@ -2694,6 +2671,7 @@ idle_configure (GsdPowerManager *manager)
         gboolean is_idle_inhibited;
         guint timeout_blank;
         guint timeout_sleep;
+        guint timeout_dim;
         gboolean on_battery;
 
         /* are we inhibited from going idle */
@@ -2707,6 +2685,8 @@ idle_configure (GsdPowerManager *manager)
                                                  manager->priv->idle_blank_id);
                 gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
                                                  manager->priv->idle_sleep_id);
+                gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
+                                                 manager->priv->idle_dim_id);
                 return;
         }
 
@@ -2761,6 +2741,30 @@ idle_configure (GsdPowerManager *manager)
                 gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
                                                  manager->priv->idle_sleep_id);
         }
+
+        /* set up dim callback for when the screen lock is not active,
+         * but only if we actually want to dim. */
+        timeout_dim = 0;
+        if (!manager->priv->screensaver_active) {
+                gboolean do_dim;
+
+                do_dim = g_settings_get_boolean (manager->priv->settings,
+                                                 on_battery ? "idle-dim-battery" : "idle-dim-ac");
+
+                if (do_dim)
+                        timeout_dim = g_settings_get_int (manager->priv->settings,
+                                                          "idle-dim-time");
+        }
+        if (timeout_dim != 0) {
+                g_debug ("setting up dim callback for %is", timeout_blank);
+
+                manager->priv->idle_dim_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
+                                                                           timeout_dim * 1000,
+                                                                           NULL, NULL, NULL);
+        } else {
+                gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
+                                                 manager->priv->idle_dim_id);
+        }
 }
 
 static void
@@ -2769,40 +2773,6 @@ up_client_on_battery_cb (UpClient *client,
                          GsdPowerManager *manager)
 {
         idle_configure (manager);
-}
-
-/**
- * @timeout: The new timeout we want to set, in seconds
- **/
-static gboolean
-idle_set_timeout_dim (GsdPowerManager *manager, guint timeout)
-{
-        gint64 idle_time;
-
-        idle_time = gnome_idle_monitor_get_idletime (manager->priv->idle_monitor);
-        if (idle_time < 0)
-                return FALSE;
-
-        g_debug ("Setting dim idle timeout: %ds", timeout);
-        if (timeout > 0) {
-                manager->priv->idle_dim_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
-                                                                           timeout * 1000,
-                                                                          NULL, NULL, NULL);
-        } else {
-                gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
-                                                 manager->priv->idle_dim_id);
-        }
-        return TRUE;
-}
-
-static void
-refresh_idle_dim_settings (GsdPowerManager *manager)
-{
-        gint timeout_dim;
-        timeout_dim = g_settings_get_int (manager->priv->settings,
-                                          "idle-dim-time");
-        g_debug ("idle dim set with timeout %i", timeout_dim);
-        idle_set_timeout_dim (manager, timeout_dim);
 }
 
 static void
@@ -3125,12 +3095,9 @@ engine_settings_key_changed_cb (GSettings *settings,
                 manager->priv->use_time_primary = g_settings_get_boolean (settings, key);
                 return;
         }
-        if (g_strcmp0 (key, "idle-dim-time") == 0) {
-                refresh_idle_dim_settings (manager);
-                return;
-        }
         if (g_str_has_prefix (key, "sleep-inactive") ||
-            g_str_has_prefix (key, "sleep-display")) {
+            g_str_has_prefix (key, "sleep-display") ||
+            g_strcmp0 (key, "idle-dim-time") == 0) {
                 idle_configure (manager);
                 return;
         }
@@ -3586,9 +3553,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
         /* coldplug the engine */
         engine_coldplug (manager);
         idle_configure (manager);
-
-        /* set the initial dim time that can adapt for the user */
-        refresh_idle_dim_settings (manager);
 
         manager->priv->xscreensaver_watchdog_timer_id = gsd_power_enable_screensaver_watchdog ();
 
