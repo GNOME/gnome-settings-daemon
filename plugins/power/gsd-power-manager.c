@@ -84,6 +84,8 @@
 /* Keep this in sync with gnome-shell */
 #define SCREENSAVER_FADE_TIME                           10 /* seconds */
 
+#define SCREENSAVER_TIMEOUT_BLANK                       30 /* seconds */
+
 static const gchar introspection_xml[] =
 "<node>"
   "<interface name='org.gnome.SettingsDaemon.Power'>"
@@ -2695,7 +2697,7 @@ idle_configure (GsdPowerManager *manager)
          * but only if we actually want to blank. */
         on_battery = up_client_get_on_battery (manager->priv->up_client);
         if (manager->priv->screensaver_active) {
-                timeout_blank = 30;
+                timeout_blank = SCREENSAVER_TIMEOUT_BLANK;
         } else {
                 timeout_blank = g_settings_get_int (manager->priv->settings_session,
                                                     "idle-delay");
