@@ -42,6 +42,7 @@ gchar           *gpm_upower_get_device_description      (UpDevice       *device)
 
 /* Power helpers */
 gboolean         gsd_power_is_hardware_a_vm             (void);
+guint            gsd_power_enable_screensaver_watchdog  (void);
 
 G_END_DECLS
 
