@@ -38,6 +38,7 @@
 #include <libgnome-desktop/gnome-rr.h>
 #include <libgnome-desktop/gnome-idle-monitor.h>
 
+#include "gsm-inhibitor-flag.h"
 #include "gpm-common.h"
 #include "gpm-phone.h"
 #include "gnome-settings-plugin.h"
@@ -2372,13 +2373,6 @@ typedef enum {
         SESSION_STATUS_CODE_UNKNOWN
 } SessionStatusCode;
 
-typedef enum {
-        SESSION_INHIBIT_MASK_LOGOUT = 1,
-        SESSION_INHIBIT_MASK_SWITCH = 2,
-        SESSION_INHIBIT_MASK_SUSPEND = 4,
-        SESSION_INHIBIT_MASK_IDLE = 8
-} SessionInhibitMask;
-
 static const gchar *
 idle_mode_to_string (GsdPowerIdleMode mode)
 {
@@ -2992,7 +2986,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                         return;
                 }
 
-                ret = idle_is_session_inhibited (manager, SESSION_INHIBIT_MASK_IDLE);
+                ret = idle_is_session_inhibited (manager, GSM_INHIBITOR_FLAG_IDLE);
                 if (ret) {
                         g_debug ("not dimming because idle is inhibited");
                         return;
@@ -3181,7 +3175,7 @@ idle_configure (GsdPowerManager *manager)
 
         /* are we inhibited from going idle */
         is_idle_inhibited = idle_is_session_inhibited (manager,
-                                                       SESSION_INHIBIT_MASK_IDLE);
+                                                       GSM_INHIBITOR_FLAG_IDLE);
         if (is_idle_inhibited) {
                 g_debug ("inhibited, so using normal state");
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
@@ -3556,7 +3550,7 @@ idle_send_to_sleep (GsdPowerManager *manager)
 
         /* check the session is not now inhibited */
         is_inhibited = idle_is_session_inhibited (manager,
-                                                  SESSION_INHIBIT_MASK_SUSPEND);
+                                                  GSM_INHIBITOR_FLAG_SUSPEND);
         if (is_inhibited) {
                 g_debug ("suspend inhibited");
                 return;
