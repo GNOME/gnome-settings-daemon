@@ -27,6 +27,7 @@
 
 G_BEGIN_DECLS
 
+/* UPower helpers */
 gchar           *gpm_get_timestring                     (guint           time);
 const gchar     *gpm_device_to_localised_string         (UpDevice       *device);
 const gchar     *gpm_device_kind_to_localised_string    (UpDeviceKind    kind,
@@ -38,6 +39,9 @@ GIcon           *gpm_upower_get_device_icon             (UpDevice       *device,
                                                          gboolean        use_symbolic);
 gchar           *gpm_upower_get_device_summary          (UpDevice       *device);
 gchar           *gpm_upower_get_device_description      (UpDevice       *device);
+
+/* Power helpers */
+gboolean         gsd_power_is_hardware_a_vm             (void);
 
 G_END_DECLS
 

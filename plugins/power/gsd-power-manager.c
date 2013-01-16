@@ -3973,99 +3973,6 @@ logind_proxy_signal_cb (GDBusProxy  *proxy,
         }
 }
 
-static gboolean
-parse_vm_kernel_cmdline (gboolean *is_virtual_machine)
-{
-        gboolean ret = FALSE;
-        GRegex *regex;
-        GMatchInfo *match;
-        char *contents;
-        char *word;
-        const char *arg;
-
-        if (!g_file_get_contents ("/proc/cmdline", &contents, NULL, NULL))
-                return ret;
-
-        regex = g_regex_new ("gnome.is_vm=(\\S+)", 0, G_REGEX_MATCH_NOTEMPTY, NULL);
-        if (!g_regex_match (regex, contents, G_REGEX_MATCH_NOTEMPTY, &match))
-                goto out;
-
-        word = g_match_info_fetch (match, 0);
-        g_debug ("Found command-line match '%s'", word);
-        arg = word + strlen ("gnome.is_vm=");
-        if (*arg != '0' && *arg != '1') {
-                g_warning ("Invalid value '%s' for gnome.is_vm passed in kernel command line.\n", arg);
-        } else {
-                *is_virtual_machine = atoi (arg);
-                ret = TRUE;
-        }
-        g_free (word);
-
-out:
-        g_match_info_free (match);
-        g_regex_unref (regex);
-        g_free (contents);
-
-        if (ret)
-                g_debug ("Kernel command-line parsed to %d", *is_virtual_machine);
-
-        return ret;
-}
-
-static gboolean
-is_hardware_a_virtual_machine (void)
-{
-        const gchar *str;
-        gboolean ret = FALSE;
-        GError *error = NULL;
-        GVariant *inner;
-        GVariant *variant = NULL;
-        GDBusConnection *connection;
-
-        if (parse_vm_kernel_cmdline (&ret))
-                return ret;
-
-        connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM,
-                                     NULL,
-                                     &error);
-        if (connection == NULL) {
-                g_warning ("system bus not available: %s", error->message);
-                g_error_free (error);
-                goto out;
-        }
-        variant = g_dbus_connection_call_sync (connection,
-                                               "org.freedesktop.systemd1",
-                                               "/org/freedesktop/systemd1",
-                                               "org.freedesktop.DBus.Properties",
-                                               "Get",
-                                               g_variant_new ("(ss)",
-                                                              "org.freedesktop.systemd1.Manager",
-                                                              "Virtualization"),
-                                               NULL,
-                                               G_DBUS_CALL_FLAGS_NONE,
-                                               -1,
-                                               NULL,
-                                               &error);
-        if (variant == NULL) {
-                g_debug ("Failed to get property '%s': %s", "Virtualization", error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        /* on bare-metal hardware this is the empty string,
-         * otherwise an identifier such as "kvm", "vmware", etc. */
-        g_variant_get (variant, "(v)", &inner);
-        str = g_variant_get_string (inner, NULL);
-        if (str != NULL && str[0] != '\0')
-                ret = TRUE;
-out:
-        if (connection != NULL)
-                g_object_unref (connection);
-        if (variant != NULL)
-                g_variant_unref (variant);
-        return ret;
-}
-
 gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
@@ -4244,7 +4151,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                                                                disable_builtin_screensaver,
                                                                                NULL);
         /* don't blank inside a VM */
-        manager->priv->is_virtual_machine = is_hardware_a_virtual_machine ();
+        manager->priv->is_virtual_machine = gsd_power_is_hardware_a_vm ();
 
         gnome_settings_profile_end (NULL);
         return TRUE;
