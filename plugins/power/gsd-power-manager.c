@@ -170,7 +170,7 @@ struct GsdPowerManagerPrivate
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
         gint                     kbd_brightness_pre_dim;
-        GnomeRRScreen           *x11_screen;
+        GnomeRRScreen           *rr_screen;
         gboolean                 use_time_primary;
         gchar                   *previous_summary;
         GIcon                   *previous_icon;
@@ -2160,7 +2160,7 @@ do_power_action_type (GsdPowerManager *manager,
                 action_poweroff (manager);
                 break;
         case GSD_POWER_ACTION_BLANK:
-                ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
                                                      GNOME_RR_DPMS_OFF,
                                                      &error);
                 if (!ret) {
@@ -2234,7 +2234,7 @@ suspend_on_lid_close (GsdPowerManager *manager)
 {
         GsdXrandrBootBehaviour val;
 
-        if (!external_monitor_is_connected (manager->priv->x11_screen))
+        if (!external_monitor_is_connected (manager->priv->rr_screen))
                 return TRUE;
 
         val = g_settings_get_enum (manager->priv->settings_xrandr, "default-monitors-setup");
@@ -2300,7 +2300,7 @@ do_lid_open_action (GsdPowerManager *manager)
                          NULL);
 
         /* ensure we turn the panel back on after lid open */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
                                              GNOME_RR_DPMS_ON,
                                              &error);
         if (!ret) {
@@ -2332,7 +2332,7 @@ do_lid_closed_action (GsdPowerManager *manager)
                          NULL);
 
         /* refresh RANDR so we get an accurate view of what monitors are plugged in when the lid is closed */
-        gnome_rr_screen_refresh (manager->priv->x11_screen, NULL); /* NULL-GError */
+        gnome_rr_screen_refresh (manager->priv->rr_screen, NULL); /* NULL-GError */
 
         restart_inhibit_lid_switch_timer (manager);
 }
@@ -2841,15 +2841,15 @@ display_backlight_dim (GsdPowerManager *manager,
         gint idle;
         gboolean ret = FALSE;
 
-        now = backlight_get_abs (manager->priv->x11_screen, error);
+        now = backlight_get_abs (manager->priv->rr_screen, error);
         if (now < 0) {
                 goto out;
         }
 
         /* is the dim brightness actually *dimmer* than the
          * brightness we have now? */
-        min = backlight_get_min (manager->priv->x11_screen);
-        max = backlight_get_max (manager->priv->x11_screen, error);
+        min = backlight_get_min (manager->priv->rr_screen);
+        max = backlight_get_max (manager->priv->rr_screen, error);
         if (max < 0) {
                 goto out;
         }
@@ -2861,7 +2861,7 @@ display_backlight_dim (GsdPowerManager *manager,
                 ret = TRUE;
                 goto out;
         }
-        ret = backlight_set_abs (manager->priv->x11_screen,
+        ret = backlight_set_abs (manager->priv->rr_screen,
                                  idle,
                                  error);
         if (!ret) {
@@ -2996,7 +2996,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         /* turn off screen and kbd */
         } else if (mode == GSD_POWER_IDLE_MODE_BLANK) {
 
-                ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
                                                      GNOME_RR_DPMS_OFF,
                                                      &error);
                 if (!ret) {
@@ -3031,7 +3031,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         /* turn on screen and restore user-selected brightness level */
         } else if (mode == GSD_POWER_IDLE_MODE_NORMAL) {
 
-                ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
                                                      GNOME_RR_DPMS_ON,
                                                      &error);
                 if (!ret) {
@@ -3042,7 +3042,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 
                 /* reset brightness if we dimmed */
                 if (manager->priv->pre_dim_brightness >= 0) {
-                        ret = backlight_set_abs (manager->priv->x11_screen,
+                        ret = backlight_set_abs (manager->priv->rr_screen,
                                                  manager->priv->pre_dim_brightness,
                                                  &error);
                         if (!ret) {
@@ -3811,14 +3811,14 @@ handle_suspend_actions (GsdPowerManager *manager)
         GnomeRRDpmsMode mode;
 
         /* Save the backlight, as DPMS isn't on yet, so we can capture it */
-        if (!gnome_rr_screen_get_dpms_mode (manager->priv->x11_screen, &mode, NULL) ||
+        if (!gnome_rr_screen_get_dpms_mode (manager->priv->rr_screen, &mode, NULL) ||
             mode != GNOME_RR_DPMS_ON) {
                 manager->priv->pre_dpms_brightness = -1;
         } else {
-                manager->priv->pre_dpms_brightness = backlight_get_abs (manager->priv->x11_screen, NULL);
+                manager->priv->pre_dpms_brightness = backlight_get_abs (manager->priv->rr_screen, NULL);
         }
         if (manager->priv->pre_dpms_brightness != -1)
-                backlight_set_abs (manager->priv->x11_screen, backlight_get_min (manager->priv->x11_screen), NULL);
+                backlight_set_abs (manager->priv->rr_screen, backlight_get_min (manager->priv->rr_screen), NULL);
 
         lock_screensaver (manager, screen_lock_done_cb);
 }
@@ -3835,7 +3835,7 @@ handle_resume_actions (GsdPowerManager *manager)
         notify_close_if_showing (manager->priv->notification_discharging);
 
         /* ensure we turn the panel back on after resume */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
                                              GNOME_RR_DPMS_ON,
                                              &error);
         if (!ret) {
@@ -3845,7 +3845,7 @@ handle_resume_actions (GsdPowerManager *manager)
         }
 
         if (manager->priv->pre_dpms_brightness != -1) {
-                backlight_set_abs (manager->priv->x11_screen, manager->priv->pre_dpms_brightness, &error);
+                backlight_set_abs (manager->priv->rr_screen, manager->priv->pre_dpms_brightness, &error);
                 manager->priv->pre_dpms_brightness = -1;
         }
 
@@ -3883,8 +3883,8 @@ gsd_power_manager_start (GsdPowerManager *manager,
         gnome_settings_profile_start (NULL);
 
         /* coldplug the list of screens */
-        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        if (manager->priv->x11_screen == NULL)
+        manager->priv->rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+        if (manager->priv->rr_screen == NULL)
                 return FALSE;
 
         /* Set up the logind proxy */
@@ -4028,11 +4028,11 @@ gsd_power_manager_start (GsdPowerManager *manager,
                           G_CALLBACK (idle_triggered_idle_cb), manager);
 
         /* set up the screens */
-        g_signal_connect (manager->priv->x11_screen, "changed", G_CALLBACK (on_randr_event), manager);
-        on_randr_event (manager->priv->x11_screen, manager);
+        g_signal_connect (manager->priv->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
+        on_randr_event (manager->priv->rr_screen, manager);
 
         /* ensure the default dpms timeouts are cleared */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
                                              GNOME_RR_DPMS_ON,
                                              error);
         if (!ret) {
@@ -4096,7 +4096,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         }
 
         g_clear_object (&manager->priv->logind_proxy);
-        g_clear_object (&manager->priv->x11_screen);
+        g_clear_object (&manager->priv->rr_screen);
 
         g_ptr_array_unref (manager->priv->devices_array);
         manager->priv->devices_array = NULL;
@@ -4191,12 +4191,12 @@ handle_method_call_screen (GsdPowerManager *manager,
 
         if (g_strcmp0 (method_name, "GetPercentage") == 0) {
                 g_debug ("screen get percentage");
-                value = backlight_get_percentage (manager->priv->x11_screen, &error);
+                value = backlight_get_percentage (manager->priv->rr_screen, &error);
 
         } else if (g_strcmp0 (method_name, "SetPercentage") == 0) {
                 g_debug ("screen set percentage");
                 g_variant_get (parameters, "(u)", &value_tmp);
-                ret = backlight_set_percentage (manager->priv->x11_screen, value_tmp, &error);
+                ret = backlight_set_percentage (manager->priv->rr_screen, value_tmp, &error);
                 if (ret) {
                         value = value_tmp;
                         backlight_emit_changed (manager);
@@ -4204,12 +4204,12 @@ handle_method_call_screen (GsdPowerManager *manager,
 
         } else if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("screen step up");
-                value = backlight_step_up (manager->priv->x11_screen, &error);
+                value = backlight_step_up (manager->priv->rr_screen, &error);
                 if (value != -1)
                         backlight_emit_changed (manager);
         } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("screen step down");
-                value = backlight_step_down (manager->priv->x11_screen, &error);
+                value = backlight_step_down (manager->priv->rr_screen, &error);
                 if (value != -1)
                         backlight_emit_changed (manager);
         } else {
