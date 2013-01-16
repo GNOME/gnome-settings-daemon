@@ -334,15 +334,11 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
                       gboolean                enabled)
 {
         GSettings *settings;
-        GdkScreen *screen;
-        GError *err;
 
         settings = manager->priv->settings;
 
         switch (response_id) {
-        case GTK_RESPONSE_DELETE_EVENT:
         case GTK_RESPONSE_REJECT:
-        case GTK_RESPONSE_CANCEL:
 
                 /* we're reverting, so we invert sense of 'enabled' flag */
                 g_debug ("cancelling AccessX request");
@@ -359,30 +355,6 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
                 set_server_from_gsettings (manager);
                 break;
 
-        case GTK_RESPONSE_HELP:
-                if (!parent)
-                        screen = gdk_screen_get_default ();
-                else
-                        screen = gtk_widget_get_screen (GTK_WIDGET (parent));
-
-                err = NULL;
-                if (!gtk_show_uri (screen,
-                                   "help:gnome-help/a11y",
-                                   gtk_get_current_event_time(),
-                                   &err)) {
-                        GtkWidget *error_dialog = gtk_message_dialog_new (parent,
-                                                                          0,
-                                                                          GTK_MESSAGE_ERROR,
-                                                                          GTK_BUTTONS_CLOSE,
-                                                                          _("There was an error displaying help: %s"),
-                                                                          err->message);
-                        g_signal_connect (error_dialog, "response",
-                                          G_CALLBACK (gtk_widget_destroy), NULL);
-                        gtk_window_set_resizable (GTK_WINDOW (error_dialog), FALSE);
-                        gtk_widget_show (error_dialog);
-                        g_error_free (err);
-                }
-                return FALSE;
         default:
                 break;
         }
