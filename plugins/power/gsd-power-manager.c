@@ -141,6 +141,7 @@ struct GsdPowerManagerPrivate
         guint                    name_id;
         gboolean                 lid_is_closed;
         GSettings               *settings;
+        GSettings               *settings_session;
         GSettings               *settings_screensaver;
         GSettings               *settings_xrandr;
         UpClient                *up_client;
@@ -2695,14 +2696,9 @@ idle_configure (GsdPowerManager *manager)
         on_battery = up_client_get_on_battery (manager->priv->up_client);
         if (manager->priv->screensaver_active) {
                 timeout_blank = 30;
-        } else if (on_battery) {
-                timeout_blank = g_settings_get_int (manager->priv->settings,
-                                                    "sleep-display-battery");
-                if (timeout_blank != 0)
-                        timeout_blank += SCREENSAVER_FADE_TIME;
         } else {
-                timeout_blank = g_settings_get_int (manager->priv->settings,
-                                                    "sleep-display-ac");
+                timeout_blank = g_settings_get_int (manager->priv->settings_session,
+                                                    "idle-delay");
                 if (timeout_blank != 0)
                         timeout_blank += SCREENSAVER_FADE_TIME;
         }
@@ -3097,8 +3093,8 @@ engine_settings_key_changed_cb (GSettings *settings,
                 return;
         }
         if (g_str_has_prefix (key, "sleep-inactive") ||
-            g_str_has_prefix (key, "sleep-display") ||
-            g_strcmp0 (key, "idle-dim-time") == 0) {
+            g_strcmp0 (key, "idle-dim-time") == 0 ||
+            g_str_equal (key, "idle-delay")) {
                 idle_configure (manager);
                 return;
         }
@@ -3431,6 +3427,9 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
+        manager->priv->settings_session = g_settings_new ("org.gnome.desktop.session");
+        g_signal_connect (manager->priv->settings_session, "changed",
+                          G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_xrandr = g_settings_new (GSD_XRANDR_SETTINGS_SCHEMA);
         manager->priv->up_client = up_client_new ();
         manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
@@ -3590,6 +3589,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_clear_object (&manager->priv->session);
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->settings_screensaver);
+        g_clear_object (&manager->priv->settings_session);
         g_clear_object (&manager->priv->up_client);
 
         if (manager->priv->inhibit_lid_switch_fd != -1) {
