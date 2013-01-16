@@ -3,6 +3,7 @@
  * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
  * Copyright (C) 2011-2012 Richard Hughes <richard@hughsie.com>
  * Copyright (C) 2011 Ritesh Khadgaray <khadgaray@gmail.com>
+ * Copyright (C) 2012-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
