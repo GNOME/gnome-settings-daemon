@@ -3708,9 +3708,8 @@ handle_method_call_keyboard (GsdPowerManager *manager,
 
         /* return value */
         if (!ret) {
-                g_dbus_method_invocation_return_gerror (invocation,
-                                                        error);
-                g_error_free (error);
+                g_dbus_method_invocation_take_error (invocation,
+                                                     error);
         } else {
                 percentage = ABS_TO_PERCENTAGE (0,
                                                 manager->priv->kbd_brightness_max,
@@ -3761,9 +3760,8 @@ handle_method_call_screen (GsdPowerManager *manager,
 
         /* return value */
         if (value < 0) {
-                g_dbus_method_invocation_return_gerror (invocation,
-                                                        error);
-                g_error_free (error);
+                g_dbus_method_invocation_take_error (invocation,
+                                                     error);
         } else {
                 g_dbus_method_invocation_return_value (invocation,
                                                        g_variant_new ("(u)",
