@@ -35,7 +35,6 @@
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
-#include <gtk/gtk.h>
 #include <libnotify/notify.h>
 
 #include <X11/XKBlib.h>
@@ -328,11 +327,11 @@ set_server_from_gsettings (GsdA11yKeyboardManager *manager)
 
 static void
 ax_response_callback (GsdA11yKeyboardManager *manager,
-                      gint                    response_id,
+                      const char             *action,
                       guint                   revert_controls_mask,
                       gboolean                enabled)
 {
-        if (response_id == GTK_RESPONSE_REJECT) {
+        if (g_strcmp0 (action, "reject") == 0) {
                 /* we're reverting, so we invert sense of 'enabled' flag */
                 g_debug ("cancelling AccessX request");
                 if (revert_controls_mask == XkbStickyKeysMask) {
@@ -362,20 +361,10 @@ on_slow_keys_action (NotifyNotification     *notification,
                      const char             *action,
                      GsdA11yKeyboardManager *manager)
 {
-        int      response_id;
-
         g_assert (action != NULL);
 
-        if (strcmp (action, "accept") == 0) {
-                response_id = GTK_RESPONSE_ACCEPT;
-        } else if (strcmp (action, "reject") == 0) {
-                response_id = GTK_RESPONSE_REJECT;
-        } else {
-                return;
-        }
-
         ax_response_callback (manager,
-                              response_id, XkbSlowKeysMask,
+                              action, XkbSlowKeysMask,
                               manager->priv->slowkeys_shortcut_val);
         notify_notification_close (manager->priv->notification, NULL);
 }
@@ -385,20 +374,10 @@ on_sticky_keys_action (NotifyNotification     *notification,
                        const char             *action,
                        GsdA11yKeyboardManager *manager)
 {
-        int      response_id;
-
         g_assert (action != NULL);
 
-        if (strcmp (action, "accept") == 0) {
-                response_id = GTK_RESPONSE_ACCEPT;
-        } else if (strcmp (action, "reject") == 0) {
-                response_id = GTK_RESPONSE_REJECT;
-        } else {
-                return;
-        }
-
         ax_response_callback (manager,
-                              response_id, XkbStickyKeysMask,
+                              action, XkbStickyKeysMask,
                               manager->priv->stickykeys_shortcut_val);
         notify_notification_close (manager->priv->notification, NULL);
 }
