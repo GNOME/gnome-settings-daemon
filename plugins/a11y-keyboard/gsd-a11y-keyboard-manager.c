@@ -328,7 +328,6 @@ set_server_from_gsettings (GsdA11yKeyboardManager *manager)
 
 static gboolean
 ax_response_callback (GsdA11yKeyboardManager *manager,
-                      GtkWindow              *parent,
                       gint                    response_id,
                       guint                   revert_controls_mask,
                       gboolean                enabled)
@@ -387,7 +386,7 @@ on_slow_keys_action (NotifyNotification     *notification,
                 return;
         }
 
-        res = ax_response_callback (manager, NULL,
+        res = ax_response_callback (manager,
                                     response_id, XkbSlowKeysMask,
                                     manager->priv->slowkeys_shortcut_val);
         if (res) {
@@ -413,7 +412,7 @@ on_sticky_keys_action (NotifyNotification     *notification,
                 return;
         }
 
-        res = ax_response_callback (manager, NULL,
+        res = ax_response_callback (manager,
                                     response_id, XkbStickyKeysMask,
                                     manager->priv->stickykeys_shortcut_val);
         if (res) {
