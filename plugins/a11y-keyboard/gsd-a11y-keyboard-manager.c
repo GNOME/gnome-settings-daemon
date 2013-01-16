@@ -451,7 +451,6 @@ static gboolean
 ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                                    gboolean                enabled)
 {
-#if 1
         gboolean    res;
         const char *title;
         const char *message;
@@ -504,7 +503,6 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         }
 
         return res;
-#endif /* 1 */
 }
 
 static void
