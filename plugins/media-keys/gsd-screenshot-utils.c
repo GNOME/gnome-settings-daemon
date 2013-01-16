@@ -87,6 +87,18 @@ screenshot_context_error (ScreenshotContext *ctx,
 }
 
 static void
+screenshot_save_to_recent (ScreenshotContext *ctx)
+{
+  GFile *file = g_file_new_for_path (ctx->used_filename);
+  gchar *uri = g_file_get_uri (file);
+
+  gtk_recent_manager_add_item (gtk_recent_manager_get_default (), uri);
+
+  g_free (uri);
+  g_object_unref (file);
+}
+
+static void
 screenshot_save_to_clipboard (ScreenshotContext *ctx)
 {
   GdkPixbuf *screenshot;
@@ -135,9 +147,14 @@ bus_call_ready_cb (GObject *source,
   if (success)
     {
       if (ctx->copy_to_clipboard)
-        screenshot_save_to_clipboard (ctx);
+        {
+          screenshot_save_to_clipboard (ctx);
+        }
       else
-        screenshot_play_sound_effect ("screen-capture", _("Screenshot taken"));
+        {
+          screenshot_play_sound_effect ("screen-capture", _("Screenshot taken"));
+          screenshot_save_to_recent (ctx);
+        }
     }
 
   screenshot_context_free (ctx);
