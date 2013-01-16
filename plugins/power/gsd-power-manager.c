@@ -84,7 +84,7 @@
 /* Keep this in sync with gnome-shell */
 #define SCREENSAVER_FADE_TIME                           10 /* seconds */
 
-#define SCREENSAVER_TIMEOUT_BLANK                       30 /* seconds */
+#define SCREENSAVER_TIMEOUT_BLANK                       20 /* seconds */
 
 static const gchar introspection_xml[] =
 "<node>"
