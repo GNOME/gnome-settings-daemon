@@ -227,11 +227,10 @@ static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionT
 static void      do_lid_closed_action (GsdPowerManager *manager);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static gboolean  external_monitor_is_connected (GnomeRRScreen *screen);
-static gint      backlight_set_abs (GsdPowerManager *manager,
+static gint      backlight_set_abs (GnomeRRScreen *rr_screen,
                                     guint value,
-                                    gboolean emit_changed,
                                     GError **error);
-static gint      backlight_get_abs (GsdPowerManager *manager, GError **error);
+static gint      backlight_get_abs (GnomeRRScreen *rr_screen, GError **error);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -2381,14 +2380,14 @@ idle_mode_to_string (GsdPowerIdleMode mode)
 }
 
 static GnomeRROutput *
-get_primary_output (GsdPowerManager *manager)
+get_primary_output (GnomeRRScreen *rr_screen)
 {
         GnomeRROutput *output = NULL;
         GnomeRROutput **outputs;
         guint i;
 
         /* search all X11 outputs for the device id */
-        outputs = gnome_rr_screen_list_outputs (manager->priv->x11_screen);
+        outputs = gnome_rr_screen_list_outputs (rr_screen);
         if (outputs == NULL)
                 goto out;
 
@@ -2540,12 +2539,12 @@ out:
 }
 
 static gint
-backlight_get_abs (GsdPowerManager *manager, GError **error)
+backlight_get_abs (GnomeRRScreen *rr_screen, GError **error)
 {
         GnomeRROutput *output;
 
         /* prefer xbacklight */
-        output = get_primary_output (manager);
+        output = get_primary_output (rr_screen);
         if (output != NULL) {
                 return gnome_rr_output_get_backlight (output,
                                                       error);
@@ -2556,7 +2555,7 @@ backlight_get_abs (GsdPowerManager *manager, GError **error)
 }
 
 static gint
-backlight_get_percentage (GsdPowerManager *manager, GError **error)
+backlight_get_percentage (GnomeRRScreen *rr_screen, GError **error)
 {
         GnomeRROutput *output;
         gint now;
@@ -2565,7 +2564,7 @@ backlight_get_percentage (GsdPowerManager *manager, GError **error)
         gint max;
 
         /* prefer xbacklight */
-        output = get_primary_output (manager);
+        output = get_primary_output (rr_screen);
         if (output != NULL) {
 
                 min = gnome_rr_output_get_backlight_min (output);
@@ -2590,13 +2589,13 @@ out:
 }
 
 static gint
-backlight_get_min (GsdPowerManager *manager)
+backlight_get_min (GnomeRRScreen *rr_screen)
 {
         GnomeRROutput *output;
 
         /* if we have no xbacklight device, then hardcode zero as sysfs
          * offsets everything to 0 as min */
-        output = get_primary_output (manager);
+        output = get_primary_output (rr_screen);
         if (output == NULL)
                 return 0;
 
@@ -2605,13 +2604,13 @@ backlight_get_min (GsdPowerManager *manager)
 }
 
 static gint
-backlight_get_max (GsdPowerManager *manager, GError **error)
+backlight_get_max (GnomeRRScreen *rr_screen, GError **error)
 {
         gint value;
         GnomeRROutput *output;
 
         /* prefer xbacklight */
-        output = get_primary_output (manager);
+        output = get_primary_output (rr_screen);
         if (output != NULL) {
                 value = gnome_rr_output_get_backlight_max (output);
                 if (value < 0) {
@@ -2650,9 +2649,8 @@ backlight_emit_changed (GsdPowerManager *manager)
 }
 
 static gboolean
-backlight_set_percentage (GsdPowerManager *manager,
+backlight_set_percentage (GnomeRRScreen *rr_screen,
                           guint value,
-                          gboolean emit_changed,
                           GError **error)
 {
         GnomeRROutput *output;
@@ -2662,37 +2660,35 @@ backlight_set_percentage (GsdPowerManager *manager,
         guint discrete;
 
         /* prefer xbacklight */
-        output = get_primary_output (manager);
+        output = get_primary_output (rr_screen);
         if (output != NULL) {
                 min = gnome_rr_output_get_backlight_min (output);
                 max = gnome_rr_output_get_backlight_max (output);
                 if (min < 0 || max < 0) {
                         g_warning ("no xrandr backlight capability");
-                        goto out;
+                        return ret;
                 }
                 discrete = PERCENTAGE_TO_ABS (min, max, value);
                 ret = gnome_rr_output_set_backlight (output,
                                                      discrete,
                                                      error);
-                goto out;
+                return ret;
         }
 
         /* fall back to the polkit helper */
         max = backlight_helper_get_value ("get-max-brightness", error);
         if (max < 0)
-                goto out;
+                return ret;
         discrete = PERCENTAGE_TO_ABS (min, max, value);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
                                           error);
-out:
-        if (ret && emit_changed)
-                backlight_emit_changed (manager);
+
         return ret;
 }
 
 static gint
-backlight_step_up (GsdPowerManager *manager, GError **error)
+backlight_step_up (GnomeRRScreen *rr_screen, GError **error)
 {
         GnomeRROutput *output;
         gboolean ret = FALSE;
@@ -2705,7 +2701,7 @@ backlight_step_up (GsdPowerManager *manager, GError **error)
         GnomeRRCrtc *crtc;
 
         /* prefer xbacklight */
-        output = get_primary_output (manager);
+        output = get_primary_output (rr_screen);
         if (output != NULL) {
 
                 crtc = gnome_rr_output_get_crtc (output);
@@ -2715,13 +2711,13 @@ backlight_step_up (GsdPowerManager *manager, GError **error)
                                      GSD_POWER_MANAGER_ERROR_FAILED,
                                      "no crtc for %s",
                                      gnome_rr_output_get_name (output));
-                        goto out;
+                        return percentage_value;
                 }
                 min = gnome_rr_output_get_backlight_min (output);
                 max = gnome_rr_output_get_backlight_max (output);
                 now = gnome_rr_output_get_backlight (output, error);
                 if (now < 0)
-                       goto out;
+                       return percentage_value;
                 step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
                 discrete = MIN (now + step, max);
                 ret = gnome_rr_output_set_backlight (output,
@@ -2729,16 +2725,16 @@ backlight_step_up (GsdPowerManager *manager, GError **error)
                                                      error);
                 if (ret)
                         percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
-                goto out;
+                return percentage_value;
         }
 
         /* fall back to the polkit helper */
         now = backlight_helper_get_value ("get-brightness", error);
         if (now < 0)
-                goto out;
+                return percentage_value;
         max = backlight_helper_get_value ("get-max-brightness", error);
         if (max < 0)
-                goto out;
+                return percentage_value;
         step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
         discrete = MIN (now + step, max);
         ret = backlight_helper_set_value ("set-brightness",
@@ -2746,14 +2742,12 @@ backlight_step_up (GsdPowerManager *manager, GError **error)
                                           error);
         if (ret)
                 percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
-out:
-        if (ret)
-                backlight_emit_changed (manager);
+
         return percentage_value;
 }
 
 static gint
-backlight_step_down (GsdPowerManager *manager, GError **error)
+backlight_step_down (GnomeRRScreen *rr_screen, GError **error)
 {
         GnomeRROutput *output;
         gboolean ret = FALSE;
@@ -2766,7 +2760,7 @@ backlight_step_down (GsdPowerManager *manager, GError **error)
         GnomeRRCrtc *crtc;
 
         /* prefer xbacklight */
-        output = get_primary_output (manager);
+        output = get_primary_output (rr_screen);
         if (output != NULL) {
 
                 crtc = gnome_rr_output_get_crtc (output);
@@ -2776,13 +2770,13 @@ backlight_step_down (GsdPowerManager *manager, GError **error)
                                      GSD_POWER_MANAGER_ERROR_FAILED,
                                      "no crtc for %s",
                                      gnome_rr_output_get_name (output));
-                        goto out;
+                        return percentage_value;
                 }
                 min = gnome_rr_output_get_backlight_min (output);
                 max = gnome_rr_output_get_backlight_max (output);
                 now = gnome_rr_output_get_backlight (output, error);
                 if (now < 0)
-                       goto out;
+                       return percentage_value;
                 step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
                 discrete = MAX (now - step, 0);
                 ret = gnome_rr_output_set_backlight (output,
@@ -2790,16 +2784,16 @@ backlight_step_down (GsdPowerManager *manager, GError **error)
                                                      error);
                 if (ret)
                         percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
-                goto out;
+                return percentage_value;
         }
 
         /* fall back to the polkit helper */
         now = backlight_helper_get_value ("get-brightness", error);
         if (now < 0)
-                goto out;
+                return percentage_value;
         max = backlight_helper_get_value ("get-max-brightness", error);
         if (max < 0)
-                goto out;
+                return percentage_value;
         step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
         discrete = MAX (now - step, 0);
         ret = backlight_helper_set_value ("set-brightness",
@@ -2807,37 +2801,32 @@ backlight_step_down (GsdPowerManager *manager, GError **error)
                                           error);
         if (ret)
                 percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
-out:
-        if (ret)
-                backlight_emit_changed (manager);
+
         return percentage_value;
 }
 
 static gint
-backlight_set_abs (GsdPowerManager *manager,
+backlight_set_abs (GnomeRRScreen *rr_screen,
                    guint value,
-                   gboolean emit_changed,
                    GError **error)
 {
         GnomeRROutput *output;
         gboolean ret = FALSE;
 
         /* prefer xbacklight */
-        output = get_primary_output (manager);
+        output = get_primary_output (rr_screen);
         if (output != NULL) {
                 ret = gnome_rr_output_set_backlight (output,
                                                      value,
                                                      error);
-                goto out;
+                return ret;
         }
 
         /* fall back to the polkit helper */
         ret = backlight_helper_set_value ("set-brightness",
                                           value,
                                           error);
-out:
-        if (ret && emit_changed)
-                backlight_emit_changed (manager);
+
         return ret;
 }
 
@@ -2852,15 +2841,15 @@ display_backlight_dim (GsdPowerManager *manager,
         gint idle;
         gboolean ret = FALSE;
 
-        now = backlight_get_abs (manager, error);
+        now = backlight_get_abs (manager->priv->x11_screen, error);
         if (now < 0) {
                 goto out;
         }
 
         /* is the dim brightness actually *dimmer* than the
          * brightness we have now? */
-        min = backlight_get_min (manager);
-        max = backlight_get_max (manager, error);
+        min = backlight_get_min (manager->priv->x11_screen);
+        max = backlight_get_max (manager->priv->x11_screen, error);
         if (max < 0) {
                 goto out;
         }
@@ -2872,9 +2861,8 @@ display_backlight_dim (GsdPowerManager *manager,
                 ret = TRUE;
                 goto out;
         }
-        ret = backlight_set_abs (manager,
+        ret = backlight_set_abs (manager->priv->x11_screen,
                                  idle,
-                                 FALSE,
                                  error);
         if (!ret) {
                 goto out;
@@ -3054,9 +3042,8 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 
                 /* reset brightness if we dimmed */
                 if (manager->priv->pre_dim_brightness >= 0) {
-                        ret = backlight_set_abs (manager,
+                        ret = backlight_set_abs (manager->priv->x11_screen,
                                                  manager->priv->pre_dim_brightness,
-                                                 FALSE,
                                                  &error);
                         if (!ret) {
                                 g_warning ("failed to restore backlight to %i: %s",
@@ -3828,10 +3815,10 @@ handle_suspend_actions (GsdPowerManager *manager)
             mode != GNOME_RR_DPMS_ON) {
                 manager->priv->pre_dpms_brightness = -1;
         } else {
-                manager->priv->pre_dpms_brightness = backlight_get_abs (manager, NULL);
+                manager->priv->pre_dpms_brightness = backlight_get_abs (manager->priv->x11_screen, NULL);
         }
         if (manager->priv->pre_dpms_brightness != -1)
-                backlight_set_abs (manager, backlight_get_min (manager), FALSE, NULL);
+                backlight_set_abs (manager->priv->x11_screen, backlight_get_min (manager->priv->x11_screen), NULL);
 
         lock_screensaver (manager, screen_lock_done_cb);
 }
@@ -3858,7 +3845,7 @@ handle_resume_actions (GsdPowerManager *manager)
         }
 
         if (manager->priv->pre_dpms_brightness != -1) {
-                backlight_set_abs (manager, manager->priv->pre_dpms_brightness, FALSE, &error);
+                backlight_set_abs (manager->priv->x11_screen, manager->priv->pre_dpms_brightness, &error);
                 manager->priv->pre_dpms_brightness = -1;
         }
 
@@ -4204,21 +4191,27 @@ handle_method_call_screen (GsdPowerManager *manager,
 
         if (g_strcmp0 (method_name, "GetPercentage") == 0) {
                 g_debug ("screen get percentage");
-                value = backlight_get_percentage (manager, &error);
+                value = backlight_get_percentage (manager->priv->x11_screen, &error);
 
         } else if (g_strcmp0 (method_name, "SetPercentage") == 0) {
                 g_debug ("screen set percentage");
                 g_variant_get (parameters, "(u)", &value_tmp);
-                ret = backlight_set_percentage (manager, value_tmp, TRUE, &error);
-                if (ret)
+                ret = backlight_set_percentage (manager->priv->x11_screen, value_tmp, &error);
+                if (ret) {
                         value = value_tmp;
+                        backlight_emit_changed (manager);
+                }
 
         } else if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("screen step up");
-                value = backlight_step_up (manager, &error);
+                value = backlight_step_up (manager->priv->x11_screen, &error);
+                if (value != -1)
+                        backlight_emit_changed (manager);
         } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("screen step down");
-                value = backlight_step_down (manager, &error);
+                value = backlight_step_down (manager->priv->x11_screen, &error);
+                if (value != -1)
+                        backlight_emit_changed (manager);
         } else {
                 g_assert_not_reached ();
         }
