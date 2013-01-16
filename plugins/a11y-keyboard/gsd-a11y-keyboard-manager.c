@@ -57,8 +57,6 @@ struct GsdA11yKeyboardManagerPrivate
         guint             device_added_id;
         gboolean          stickykeys_shortcut_val;
         gboolean          slowkeys_shortcut_val;
-        GtkWidget        *stickykeys_alert;
-        GtkWidget        *slowkeys_alert;
 
         GSettings        *settings;
 
@@ -392,30 +390,6 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
 }
 
 static void
-ax_stickykeys_response (GtkDialog              *dialog,
-                        gint                    response_id,
-                        GsdA11yKeyboardManager *manager)
-{
-        if (ax_response_callback (manager, GTK_WINDOW (dialog),
-                                  response_id, XkbStickyKeysMask,
-                                  manager->priv->stickykeys_shortcut_val)) {
-                gtk_widget_destroy (GTK_WIDGET (dialog));
-        }
-}
-
-static void
-ax_slowkeys_response (GtkDialog              *dialog,
-                      gint                    response_id,
-                      GsdA11yKeyboardManager *manager)
-{
-        if (ax_response_callback (manager, GTK_WINDOW (dialog),
-                                  response_id, XkbSlowKeysMask,
-                                  manager->priv->slowkeys_shortcut_val)) {
-                gtk_widget_destroy (GTK_WIDGET (dialog));
-        }
-}
-
-static void
 on_notification_closed (NotifyNotification     *notification,
                         GsdA11yKeyboardManager *manager)
 {
@@ -490,10 +464,6 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         message = _("You just held down the Shift key for 8 seconds.  This is the shortcut "
                     "for the Slow Keys feature, which affects the way your keyboard works.");
 
-        if (manager->priv->slowkeys_alert != NULL) {
-                gtk_widget_destroy (manager->priv->slowkeys_alert);
-        }
-
         if (manager->priv->notification != NULL) {
                 notify_notification_close (manager->priv->notification, NULL);
         }
@@ -536,69 +506,12 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
 
 
 static void
-ax_slowkeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
-                                 gboolean                enabled)
-{
-        const char *title;
-        const char *message;
-
-        title = enabled ?
-                _("Slow Keys Turned On") :
-                _("Slow Keys Turned Off");
-        message = _("You just held down the Shift key for 8 seconds.  This is the shortcut "
-                    "for the Slow Keys feature, which affects the way your keyboard works.");
-
-        if (manager->priv->slowkeys_alert != NULL) {
-                gtk_widget_show (manager->priv->slowkeys_alert);
-                return;
-        }
-
-        manager->priv->slowkeys_alert = gtk_message_dialog_new (NULL,
-                                                                0,
-                                                                GTK_MESSAGE_WARNING,
-                                                                GTK_BUTTONS_NONE,
-                                                                "%s", title);
-
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (manager->priv->slowkeys_alert),
-                                                  "%s", message);
-
-        gtk_dialog_add_button (GTK_DIALOG (manager->priv->slowkeys_alert),
-                               GTK_STOCK_HELP,
-                               GTK_RESPONSE_HELP);
-        gtk_dialog_add_button (GTK_DIALOG (manager->priv->slowkeys_alert),
-                               enabled ? _("_Turn Off") : _("_Turn On"),
-                               GTK_RESPONSE_REJECT);
-        gtk_dialog_add_button (GTK_DIALOG (manager->priv->slowkeys_alert),
-                               enabled ? _("_Leave On") : _("_Leave Off"),
-                               GTK_RESPONSE_ACCEPT);
-
-        gtk_window_set_title (GTK_WINDOW (manager->priv->slowkeys_alert), "");
-        gtk_window_set_icon_name (GTK_WINDOW (manager->priv->slowkeys_alert),
-                                  "preferences-desktop-accessibility");
-        gtk_dialog_set_default_response (GTK_DIALOG (manager->priv->slowkeys_alert),
-                                         GTK_RESPONSE_ACCEPT);
-
-        g_signal_connect (manager->priv->slowkeys_alert,
-                          "response",
-                          G_CALLBACK (ax_slowkeys_response),
-                          manager);
-        gtk_widget_show (manager->priv->slowkeys_alert);
-
-        g_object_add_weak_pointer (G_OBJECT (manager->priv->slowkeys_alert),
-                                   (gpointer*) &manager->priv->slowkeys_alert);
-}
-
-static void
 ax_slowkeys_warning_post (GsdA11yKeyboardManager *manager,
                           gboolean                enabled)
 {
 
         manager->priv->slowkeys_shortcut_val = enabled;
-
-        /* alway try to show something */
-        if (! ax_slowkeys_warning_post_bubble (manager, enabled)) {
-                ax_slowkeys_warning_post_dialog (manager, enabled);
-        }
+        ax_slowkeys_warning_post_bubble (manager, enabled);
 }
 
 static gboolean
@@ -619,10 +532,6 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                   "for the Sticky Keys feature, which affects the way your keyboard works.") :
                 _("You just pressed two keys at once, or pressed the Shift key 5 times in a row.  "
                   "This turns off the Sticky Keys feature, which affects the way your keyboard works.");
-
-        if (manager->priv->slowkeys_alert != NULL) {
-                gtk_widget_destroy (manager->priv->slowkeys_alert);
-        }
 
         if (manager->priv->notification != NULL) {
                 notify_notification_close (manager->priv->notification, NULL);
@@ -666,72 +575,12 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
 }
 
 static void
-ax_stickykeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
-                                   gboolean                enabled)
-{
-        const char *title;
-        const char *message;
-
-        title = enabled ?
-                _("Sticky Keys Turned On") :
-                _("Sticky Keys Turned Off");
-        message = enabled ?
-                _("You just pressed the Shift key 5 times in a row.  This is the shortcut "
-                  "for the Sticky Keys feature, which affects the way your keyboard works.") :
-                _("You just pressed two keys at once, or pressed the Shift key 5 times in a row.  "
-                  "This turns off the Sticky Keys feature, which affects the way your keyboard works.");
-
-        if (manager->priv->stickykeys_alert != NULL) {
-                gtk_widget_show (manager->priv->stickykeys_alert);
-                return;
-        }
-
-        manager->priv->stickykeys_alert = gtk_message_dialog_new (NULL,
-                                                                  0,
-                                                                  GTK_MESSAGE_WARNING,
-                                                                  GTK_BUTTONS_NONE,
-                                                                  "%s", title);
-
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (manager->priv->stickykeys_alert),
-                                                  "%s", message);
-
-        gtk_dialog_add_button (GTK_DIALOG (manager->priv->stickykeys_alert),
-                               GTK_STOCK_HELP,
-                               GTK_RESPONSE_HELP);
-        gtk_dialog_add_button (GTK_DIALOG (manager->priv->stickykeys_alert),
-                               enabled ? _("_Turn Off") : _("_Turn On"),
-                               GTK_RESPONSE_REJECT);
-        gtk_dialog_add_button (GTK_DIALOG (manager->priv->stickykeys_alert),
-                               enabled ? _("_Leave On") : _("_Leave Off"),
-                               GTK_RESPONSE_ACCEPT);
-
-        gtk_window_set_title (GTK_WINDOW (manager->priv->stickykeys_alert), "");
-        gtk_window_set_icon_name (GTK_WINDOW (manager->priv->stickykeys_alert),
-                                  "preferences-desktop-accessibility");
-        gtk_dialog_set_default_response (GTK_DIALOG (manager->priv->stickykeys_alert),
-                                         GTK_RESPONSE_ACCEPT);
-
-        g_signal_connect (manager->priv->stickykeys_alert,
-                          "response",
-                          G_CALLBACK (ax_stickykeys_response),
-                          manager);
-        gtk_widget_show (manager->priv->stickykeys_alert);
-
-        g_object_add_weak_pointer (G_OBJECT (manager->priv->stickykeys_alert),
-                                   (gpointer*) &manager->priv->stickykeys_alert);
-}
-
-static void
 ax_stickykeys_warning_post (GsdA11yKeyboardManager *manager,
                             gboolean                enabled)
 {
 
         manager->priv->stickykeys_shortcut_val = enabled;
-
-        /* alway try to show something */
-        if (! ax_stickykeys_warning_post_bubble (manager, enabled)) {
-                ax_stickykeys_warning_post_dialog (manager, enabled);
-        }
+        ax_stickykeys_warning_post_bubble (manager, enabled);
 }
 
 static void
@@ -977,16 +826,6 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
         gdk_window_remove_filter (NULL,
                                   (GdkFilterFunc) cb_xkb_event_filter,
                                   manager);
-
-        if (p->slowkeys_alert != NULL) {
-                gtk_widget_destroy (p->slowkeys_alert);
-                p->slowkeys_alert = NULL;
-        }
-
-        if (p->stickykeys_alert != NULL) {
-                gtk_widget_destroy (p->stickykeys_alert);
-                p->stickykeys_alert = NULL;
-        }
 
         p->slowkeys_shortcut_val = FALSE;
         p->stickykeys_shortcut_val = FALSE;
