@@ -44,6 +44,27 @@ gchar           *gpm_upower_get_device_description      (UpDevice       *device)
 gboolean         gsd_power_is_hardware_a_vm             (void);
 guint            gsd_power_enable_screensaver_watchdog  (void);
 
+/* Backlight helpers */
+
+/* on ACPI machines we have 4-16 levels, on others it's ~150 */
+#define BRIGHTNESS_STEP_AMOUNT(max) ((max) < 20 ? 1 : (max) / 20)
+
+#define ABS_TO_PERCENTAGE(min, max, value) gsd_power_backlight_abs_to_percentage(min, max, value)
+#define PERCENTAGE_TO_ABS(min, max, value) (min + (((max - min) * value) / 100))
+
+int              gsd_power_backlight_abs_to_percentage  (int min, int max, int value);
+int              backlight_get_abs                      (GnomeRRScreen *rr_screen, GError **error);
+int              backlight_get_percentage               (GnomeRRScreen *rr_screen, GError **error);
+int              backlight_get_min                      (GnomeRRScreen *rr_screen);
+int              backlight_get_max                      (GnomeRRScreen *rr_screen, GError **error);
+gboolean         backlight_set_percentage               (GnomeRRScreen *rr_screen,
+                                                         guint value,
+                                                         GError **error);
+int              backlight_step_up                      (GnomeRRScreen *rr_screen, GError **error);
+int              backlight_step_down                    (GnomeRRScreen *rr_screen, GError **error);
+int              backlight_set_abs                      (GnomeRRScreen *rr_screen,
+                                                         guint value,
+                                                         GError **error);
 G_END_DECLS
 
 #endif  /* __GPMCOMMON_H */
