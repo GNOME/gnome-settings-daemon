@@ -762,26 +762,11 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
         p->stickykeys_shortcut_val = FALSE;
 }
 
-static GObject *
-gsd_a11y_keyboard_manager_constructor (GType                  type,
-                                       guint                  n_construct_properties,
-                                       GObjectConstructParam *construct_properties)
-{
-        GsdA11yKeyboardManager      *a11y_keyboard_manager;
-
-        a11y_keyboard_manager = GSD_A11Y_KEYBOARD_MANAGER (G_OBJECT_CLASS (gsd_a11y_keyboard_manager_parent_class)->constructor (type,
-                                                                                                      n_construct_properties,
-                                                                                                      construct_properties));
-
-        return G_OBJECT (a11y_keyboard_manager);
-}
-
 static void
 gsd_a11y_keyboard_manager_class_init (GsdA11yKeyboardManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_a11y_keyboard_manager_constructor;
         object_class->finalize = gsd_a11y_keyboard_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdA11yKeyboardManagerPrivate));
