@@ -39,7 +39,6 @@
 #include "gsm-inhibitor-flag.h"
 #include "gsm-presence-flag.h"
 #include "gpm-common.h"
-#include "gpm-phone.h"
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-session.h"
@@ -160,7 +159,6 @@ struct GsdPowerManagerPrivate
         gboolean                 use_time_primary;
         gchar                   *previous_summary;
         GIcon                   *previous_icon;
-        GpmPhone                *phone;
         GPtrArray               *devices_array;
         guint                    action_percentage;
         guint                    action_time;
@@ -1133,9 +1131,6 @@ engine_coldplug (GsdPowerManager *manager)
                 goto out;
         }
 
-        /* connected mobile phones */
-        gpm_phone_coldplug (manager->priv->phone);
-
         engine_recalculate_state (manager);
 
         /* add to database */
@@ -1905,90 +1900,6 @@ engine_get_primary_device (GsdPowerManager *manager)
                 break;
         }
         return device;
-}
-
-static void
-phone_device_added_cb (GpmPhone *phone, guint idx, GsdPowerManager *manager)
-{
-        UpDevice *device;
-        device = up_device_new ();
-
-        g_debug ("phone added %i", idx);
-
-        /* get device properties */
-        g_object_set (device,
-                      "kind", UP_DEVICE_KIND_PHONE,
-                      "is-rechargeable", TRUE,
-                      "native-path", g_strdup_printf ("dummy:phone_%i", idx),
-                      "is-present", TRUE,
-                      NULL);
-
-        /* state changed */
-        engine_device_add (manager, device);
-        g_ptr_array_add (manager->priv->devices_array, g_object_ref (device));
-        engine_recalculate_state (manager);
-}
-
-static void
-phone_device_removed_cb (GpmPhone *phone, guint idx, GsdPowerManager *manager)
-{
-        guint i;
-        UpDevice *device;
-        UpDeviceKind kind;
-
-        g_debug ("phone removed %i", idx);
-
-        for (i=0; i<manager->priv->devices_array->len; i++) {
-                device = g_ptr_array_index (manager->priv->devices_array, i);
-
-                /* get device properties */
-                g_object_get (device,
-                              "kind", &kind,
-                              NULL);
-
-                if (kind == UP_DEVICE_KIND_PHONE) {
-                        g_ptr_array_remove_index (manager->priv->devices_array, i);
-                        break;
-                }
-        }
-
-        /* state changed */
-        engine_recalculate_state (manager);
-}
-
-static void
-phone_device_refresh_cb (GpmPhone *phone, guint idx, GsdPowerManager *manager)
-{
-        guint i;
-        UpDevice *device;
-        UpDeviceKind kind;
-        UpDeviceState state;
-        gboolean is_present;
-        gdouble percentage;
-
-        g_debug ("phone refresh %i", idx);
-
-        for (i=0; i<manager->priv->devices_array->len; i++) {
-                device = g_ptr_array_index (manager->priv->devices_array, i);
-
-                /* get device properties */
-                g_object_get (device,
-                              "kind", &kind,
-                              "state", &state,
-                              "percentage", &percentage,
-                              "is-present", &is_present,
-                              NULL);
-
-                if (kind == UP_DEVICE_KIND_PHONE) {
-                        is_present = gpm_phone_get_present (phone, idx);
-                        state = gpm_phone_get_on_ac (phone, idx) ? UP_DEVICE_STATE_CHARGING : UP_DEVICE_STATE_DISCHARGING;
-                        percentage = gpm_phone_get_percentage (phone, idx);
-                        break;
-                }
-        }
-
-        /* state changed */
-        engine_recalculate_state (manager);
 }
 
 static void
@@ -3451,14 +3362,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
         manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
         manager->priv->canberra_context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
 
-        manager->priv->phone = gpm_phone_new ();
-        g_signal_connect (manager->priv->phone, "device-added",
-                          G_CALLBACK (phone_device_added_cb), manager);
-        g_signal_connect (manager->priv->phone, "device-removed",
-                          G_CALLBACK (phone_device_removed_cb), manager);
-        g_signal_connect (manager->priv->phone, "device-refresh",
-                          G_CALLBACK (phone_device_refresh_cb), manager);
-
         /* create a fake virtual composite battery */
         manager->priv->device_composite = up_device_new ();
         g_object_set (manager->priv->device_composite,
@@ -3567,7 +3470,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
 
         g_ptr_array_unref (manager->priv->devices_array);
         manager->priv->devices_array = NULL;
-        g_clear_object (&manager->priv->phone);
         g_clear_object (&manager->priv->device_composite);
         g_clear_object (&manager->priv->previous_icon);
 
