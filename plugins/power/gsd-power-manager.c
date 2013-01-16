@@ -2698,16 +2698,17 @@ idle_configure (GsdPowerManager *manager)
         } else if (on_battery) {
                 timeout_blank = g_settings_get_int (manager->priv->settings,
                                                     "sleep-display-battery");
-                timeout_blank += SCREENSAVER_FADE_TIME;
+                if (timeout_blank != 0)
+                        timeout_blank += SCREENSAVER_FADE_TIME;
         } else {
                 timeout_blank = g_settings_get_int (manager->priv->settings,
                                                     "sleep-display-ac");
-                timeout_blank += SCREENSAVER_FADE_TIME;
+                if (timeout_blank != 0)
+                        timeout_blank += SCREENSAVER_FADE_TIME;
         }
         if (timeout_blank != 0) {
                 g_debug ("setting up blank callback for %is", timeout_blank);
 
-                timeout_blank += SCREENSAVER_FADE_TIME;
                 manager->priv->idle_blank_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
                                                                              timeout_blank * 1000,
                                                                              NULL, NULL, NULL);
@@ -2728,7 +2729,7 @@ idle_configure (GsdPowerManager *manager)
         if (timeout_sleep != 0) {
                 if (timeout_blank && timeout_blank >= timeout_sleep) {
                         /* adjust sleep timer to blank timer and allow 2 secs margin delay */
-                        timeout_sleep = timeout_blank + SCREENSAVER_FADE_TIME + 2;
+                        timeout_sleep = timeout_blank + 2;
                         g_debug ("blank timer >= sleep timer, setting up sleep callback %is", timeout_sleep);
                 } else {
                         g_debug ("setting up sleep callback %is", timeout_sleep);
