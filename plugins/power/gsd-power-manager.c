@@ -2248,6 +2248,18 @@ idle_mode_to_string (GsdPowerIdleMode mode)
         return "unknown";
 }
 
+static const char *
+idle_watch_id_to_string (GsdPowerManager *manager, guint id)
+{
+        if (id == manager->priv->idle_dim_id)
+                return "dim";
+        if (id == manager->priv->idle_blank_id)
+                return "blank";
+        if (id == manager->priv->idle_sleep_id)
+                return "sleep";
+        return NULL;
+}
+
 static void
 backlight_emit_changed (GsdPowerManager *manager)
 {
@@ -2964,7 +2976,13 @@ idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
                         guint             watch_id,
                         GsdPowerManager  *manager)
 {
-        g_debug ("idletime watch: %i", watch_id);
+        const char *id_name;
+
+        id_name = idle_watch_id_to_string (manager, watch_id);
+        if (id_name == NULL)
+                g_debug ("idletime watch: %i", watch_id);
+        else
+                g_debug ("idletime watch: %s (%i)", id_name, watch_id);
 
         if (watch_id == manager->priv->idle_dim_id) {
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_DIM);
