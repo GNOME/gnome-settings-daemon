@@ -174,7 +174,7 @@ struct GsdPowerManagerPrivate
         gint                     pre_dpms_brightness;
         UpDevice                *device_composite;
         GnomeRRScreen           *rr_screen;
-        NotifyNotification      *notification_discharging;
+        NotifyNotification      *notification_ups_discharging;
         NotifyNotification      *notification_low;
 
         /* Keyboard */
@@ -1263,22 +1263,22 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         icon = gpm_upower_get_device_icon (device, TRUE);
 
         /* close any existing notification of this class */
-        notify_close_if_showing (manager->priv->notification_discharging);
+        notify_close_if_showing (manager->priv->notification_ups_discharging);
 
         /* create a new notification */
         create_notification (title, message->str,
                              icon,
-                             &manager->priv->notification_discharging);
-        notify_notification_set_timeout (manager->priv->notification_discharging,
+                             &manager->priv->notification_ups_discharging);
+        notify_notification_set_timeout (manager->priv->notification_ups_discharging,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
-        notify_notification_set_urgency (manager->priv->notification_discharging,
+        notify_notification_set_urgency (manager->priv->notification_ups_discharging,
                                          NOTIFY_URGENCY_NORMAL);
         /* TRANSLATORS: this is the notification application name */
-        notify_notification_set_app_name (manager->priv->notification_discharging, _("Power"));
-        notify_notification_set_hint (manager->priv->notification_discharging,
+        notify_notification_set_app_name (manager->priv->notification_ups_discharging, _("Power"));
+        notify_notification_set_hint (manager->priv->notification_ups_discharging,
                                       "transient", g_variant_new_boolean (TRUE));
 
-        notify_notification_show (manager->priv->notification_discharging, NULL);
+        notify_notification_show (manager->priv->notification_ups_discharging, NULL);
 
         g_string_free (message, TRUE);
         if (icon != NULL)
@@ -1848,7 +1848,7 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
                            state == UP_DEVICE_STATE_CHARGING) {
                         g_debug ("fully charged or charging, hiding notifications if any");
                         notify_close_if_showing (manager->priv->notification_low);
-                        notify_close_if_showing (manager->priv->notification_discharging);
+                        notify_close_if_showing (manager->priv->notification_ups_discharging);
                 }
 
                 /* save new state */
@@ -3206,7 +3206,7 @@ handle_resume_actions (GsdPowerManager *manager)
         /* close existing notifications on resume, the system power
          * state is probably different now */
         notify_close_if_showing (manager->priv->notification_low);
-        notify_close_if_showing (manager->priv->notification_discharging);
+        notify_close_if_showing (manager->priv->notification_ups_discharging);
 
         /* ensure we turn the panel back on after resume */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
