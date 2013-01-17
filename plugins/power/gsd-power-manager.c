@@ -3185,12 +3185,12 @@ uninhibit_suspend (GsdPowerManager *manager)
 static gboolean
 randr_output_is_on (GnomeRROutput *output)
 {
-	GnomeRRCrtc *crtc;
+        GnomeRRCrtc *crtc;
 
-	crtc = gnome_rr_output_get_crtc (output);
-	if (!crtc)
-		return FALSE;
-	return gnome_rr_crtc_get_current_mode (crtc) != NULL;
+        crtc = gnome_rr_output_get_crtc (output);
+        if (!crtc)
+                return FALSE;
+        return gnome_rr_crtc_get_current_mode (crtc) != NULL;
 }
 
 static gboolean
