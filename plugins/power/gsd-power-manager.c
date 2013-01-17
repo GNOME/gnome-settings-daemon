@@ -176,6 +176,7 @@ struct GsdPowerManagerPrivate
         GnomeRRScreen           *rr_screen;
         NotifyNotification      *notification_ups_discharging;
         NotifyNotification      *notification_low;
+        gboolean                 battery_is_low; /* laptop battery low, or UPS discharging */
 
         /* Keyboard */
         GDBusProxy              *upower_kdb_proxy;
@@ -224,6 +225,7 @@ static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionT
 static void      do_lid_closed_action (GsdPowerManager *manager);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static gboolean  external_monitor_is_connected (GnomeRRScreen *screen);
+static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -1243,6 +1245,8 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         if (kind != UP_DEVICE_KIND_UPS)
                 return;
 
+        main_battery_or_ups_low_changed (manager, TRUE);
+
         /* only show text if there is a valid time */
         if (time_to_empty > 0)
                 remaining_text = gpm_get_timestring (time_to_empty);
@@ -1407,6 +1411,8 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                 message = g_strdup_printf (_("Approximately %s remaining (%.0f%%)"), remaining_text, percentage);
                 g_free (remaining_text);
 
+                main_battery_or_ups_low_changed (manager, TRUE);
+
         } else if (kind == UP_DEVICE_KIND_UPS) {
                 /* TRANSLATORS: UPS is starting to get a little low */
                 title = _("UPS low");
@@ -1559,6 +1565,8 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                         /* TRANSLATORS: give the user a ultimatum */
                         message = g_strdup_printf (_("Computer will shutdown very soon unless it is plugged in."));
                 }
+
+                main_battery_or_ups_low_changed (manager, TRUE);
 
         } else if (kind == UP_DEVICE_KIND_UPS) {
                 gchar *remaining_text;
@@ -1849,6 +1857,7 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
                         g_debug ("fully charged or charging, hiding notifications if any");
                         notify_close_if_showing (manager->priv->notification_low);
                         notify_close_if_showing (manager->priv->notification_ups_discharging);
+                        main_battery_or_ups_low_changed (manager, FALSE);
                 }
 
                 /* save new state */
@@ -2210,6 +2219,7 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
                  play_loop_stop (manager);
             }
             notify_close_if_showing (manager->priv->notification_low);
+            main_battery_or_ups_low_changed (manager, FALSE);
         }
 
         /* same state */
@@ -2645,6 +2655,16 @@ idle_configure (GsdPowerManager *manager)
                 gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
                                                  manager->priv->idle_dim_id);
         }
+}
+
+static void
+main_battery_or_ups_low_changed (GsdPowerManager *manager,
+                          gboolean         is_low)
+{
+        if (is_low == manager->priv->battery_is_low)
+                return;
+        manager->priv->battery_is_low = is_low;
+        idle_configure (manager);
 }
 
 static void
@@ -3207,6 +3227,7 @@ handle_resume_actions (GsdPowerManager *manager)
          * state is probably different now */
         notify_close_if_showing (manager->priv->notification_low);
         notify_close_if_showing (manager->priv->notification_ups_discharging);
+        main_battery_or_ups_low_changed (manager, FALSE);
 
         /* ensure we turn the panel back on after resume */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
