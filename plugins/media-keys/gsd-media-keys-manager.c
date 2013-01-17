@@ -1199,7 +1199,6 @@ update_default_source (GsdMediaKeysManager *manager)
 
         if (stream != NULL) {
                 manager->priv->source = g_object_ref (stream);
-                g_message ("update_default_source done ");
         } else {
                 g_warning ("Unable to get default source");
         }
