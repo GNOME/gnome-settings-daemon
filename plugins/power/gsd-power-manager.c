@@ -144,7 +144,6 @@ struct GsdPowerManagerPrivate
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
-        GDBusProxy              *upower_proxy;
         GDBusProxy              *session_presence_proxy;
 
         /* Settings */
@@ -2794,22 +2793,6 @@ screensaver_proxy_ready_cb (GObject *source_object,
 }
 
 static void
-power_proxy_ready_cb (GObject             *source_object,
-                      GAsyncResult        *res,
-                      gpointer             user_data)
-{
-        GError *error = NULL;
-        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
-
-        manager->priv->upower_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (manager->priv->upower_proxy == NULL) {
-                g_warning ("Could not connect to UPower: %s",
-                           error->message);
-                g_error_free (error);
-        }
-}
-
-static void
 power_keyboard_proxy_ready_cb (GObject             *source_object,
                                GAsyncResult        *res,
                                gpointer             user_data)
@@ -3328,17 +3311,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect (manager->priv->up_client, "notify::on-battery",
                           G_CALLBACK (up_client_on_battery_cb), manager);
 
-        /* connect to UPower for async power operations */
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                  NULL,
-                                  UPOWER_DBUS_NAME,
-                                  UPOWER_DBUS_PATH,
-                                  UPOWER_DBUS_INTERFACE,
-                                  NULL,
-                                  power_proxy_ready_cb,
-                                  manager);
-
         /* connect to UPower for keyboard backlight control */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
@@ -3489,7 +3461,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
 
         g_clear_pointer (&manager->priv->previous_summary, g_free);
 
-        g_clear_object (&manager->priv->upower_proxy);
         g_clear_object (&manager->priv->session_presence_proxy);
         g_clear_object (&manager->priv->screensaver_proxy);
 
