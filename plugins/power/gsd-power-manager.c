@@ -2612,16 +2612,16 @@ idle_configure (GsdPowerManager *manager)
                 return;
         }
 
-        /* set up blank callback even when session is not idle,
-         * but only if we actually want to blank. */
+        /* set up blank callback only when the screensaver is on,
+         * as it's what will drive the blank */
         on_battery = up_client_get_on_battery (manager->priv->up_client);
+        timeout_blank = 0;
         if (manager->priv->screensaver_active) {
+                /* The tail is wagging the dog.
+                 * The screensaver coming on will blank the screen.
+                 * If an event occurs while the screensaver is on,
+                 * the aggressive idle watch will handle it */
                 timeout_blank = SCREENSAVER_TIMEOUT_BLANK;
-        } else {
-                timeout_blank = g_settings_get_uint (manager->priv->settings_session,
-                                                     "idle-delay");
-                if (timeout_blank != 0)
-                        timeout_blank += SCREENSAVER_FADE_TIME;
         }
 
         clear_idle_watch (manager->priv->idle_monitor,
@@ -2803,6 +2803,13 @@ screensaver_signal_cb (GDBusProxy *proxy,
                 if (manager->priv->screensaver_active != active) {
                         manager->priv->screensaver_active = active;
                         idle_configure (manager);
+
+                        /* Setup blank as soon as the screensaver comes on,
+                         * and its fade has finished.
+                         *
+                         * See also idle_configure() */
+                        if (active)
+                                idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
                 }
         }
 }
