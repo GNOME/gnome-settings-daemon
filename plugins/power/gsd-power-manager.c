@@ -211,6 +211,9 @@ struct GsdPowerManagerPrivate
         guint                    idle_sleep_id;
         GsdPowerIdleMode         current_idle_mode;
 
+        guint                    temporary_unidle_on_ac_id;
+        GsdPowerIdleMode         previous_idle_mode;
+
         guint                    xscreensaver_watchdog_timer_id;
 };
 
@@ -2750,12 +2753,46 @@ main_battery_or_ups_low_changed (GsdPowerManager *manager,
         idle_configure (manager);
 }
 
+static gboolean
+temporary_unidle_done_cb (GsdPowerManager *manager)
+{
+        idle_set_mode (manager, manager->priv->previous_idle_mode);
+        manager->priv->temporary_unidle_on_ac_id = 0;
+        return FALSE;
+}
+
+static void
+set_temporary_unidle_on_ac (GsdPowerManager *manager,
+                            gboolean         enable)
+{
+        if (!enable) {
+                if (manager->priv->temporary_unidle_on_ac_id != 0) {
+                        g_source_remove (manager->priv->temporary_unidle_on_ac_id);
+                        manager->priv->temporary_unidle_on_ac_id = 0;
+
+                        idle_set_mode (manager, manager->priv->previous_idle_mode);
+                }
+        } else {
+                manager->priv->previous_idle_mode = manager->priv->current_idle_mode;
+                idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
+                manager->priv->temporary_unidle_on_ac_id = g_timeout_add_seconds (POWER_UP_TIME_ON_AC,
+                                                                                  (GSourceFunc) temporary_unidle_done_cb,
+                                                                                  manager);
+        }
+}
+
 static void
 up_client_on_battery_cb (UpClient *client,
                          GParamSpec *pspec,
                          GsdPowerManager *manager)
 {
         idle_configure (manager);
+
+        if (!up_client_get_on_battery (manager->priv->up_client)) {
+                if (manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_BLANK ||
+                    manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_DIM)
+                        set_temporary_unidle_on_ac (manager, TRUE);
+        }
 }
 
 static void
@@ -3026,6 +3063,7 @@ idle_became_active_cb (GnomeIdleMonitor *monitor,
 {
         g_debug ("idletime reset");
 
+        set_temporary_unidle_on_ac (manager, FALSE);
         idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
 }
 

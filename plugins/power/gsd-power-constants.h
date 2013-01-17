@@ -30,3 +30,6 @@
 
 /* The dim delay under which we do not bother dimming */
 #define MINIMUM_IDLE_DIM_DELAY                          10 /* seconds */
+
+/* The amount of time we'll undim if the machine is idle when plugged in */
+#define POWER_UP_TIME_ON_AC                             10 /* seconds */
