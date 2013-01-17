@@ -3320,6 +3320,8 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect (manager->priv->session, "g-properties-changed",
                           G_CALLBACK (engine_session_active_changed_cb),
                           manager);
+        g_signal_connect (manager->priv->session, "g-signal",
+                          G_CALLBACK (idle_dbus_signal_cb), manager);
 
         manager->priv->kbd_brightness_old = -1;
         manager->priv->kbd_brightness_pre_dim = -1;
@@ -3357,8 +3359,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                   manager);
 
         /* connect to the session */
-        g_signal_connect (manager->priv->session, "g-signal",
-                          G_CALLBACK (idle_dbus_signal_cb), manager);
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                   0,
                                   NULL,
