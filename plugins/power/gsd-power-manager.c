@@ -2596,8 +2596,8 @@ idle_configure (GsdPowerManager *manager)
         if (manager->priv->screensaver_active) {
                 timeout_blank = SCREENSAVER_TIMEOUT_BLANK;
         } else {
-                timeout_blank = g_settings_get_int (manager->priv->settings_session,
-                                                    "idle-delay");
+                timeout_blank = g_settings_get_uint (manager->priv->settings_session,
+                                                     "idle-delay");
                 if (timeout_blank != 0)
                         timeout_blank += SCREENSAVER_FADE_TIME;
         }
@@ -2650,8 +2650,8 @@ idle_configure (GsdPowerManager *manager)
                 timeout_dim = SCREENSAVER_TIMEOUT_BLANK;
         } else {
                 if (g_settings_get_boolean (manager->priv->settings, "idle-dim")) {
-                        timeout_dim = g_settings_get_int (manager->priv->settings_session,
-                                                          "idle-delay");
+                        timeout_dim = g_settings_get_uint (manager->priv->settings_session,
+                                                           "idle-delay");
                         if (timeout_dim == 0) {
                                 timeout_dim = IDLE_DIM_BLANK_DISABLED_MIN;
                         } else {
