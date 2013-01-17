@@ -226,49 +226,6 @@ out:
         return g_string_free (device_id, FALSE);
 }
 
-static GnomeRROutput *
-gcm_session_get_output_by_edid_checksum (GnomeRRScreen *screen,
-                                         const gchar *edid_md5,
-                                         GError **error)
-{
-        const guint8 *data;
-        gchar *checksum;
-        GnomeRROutput *output = NULL;
-        GnomeRROutput **outputs;
-        gsize size;
-        guint i;
-
-        outputs = gnome_rr_screen_list_outputs (screen);
-        if (outputs == NULL) {
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "Failed to get outputs");
-                goto out;
-        }
-
-        /* find the output */
-        for (i = 0; outputs[i] != NULL && output == NULL; i++) {
-
-                /* get edid */
-                data = gnome_rr_output_get_edid_data (outputs[i], &size);
-                if (data == NULL || size < 0x6c)
-                        continue;
-                checksum = g_compute_checksum_for_data (G_CHECKSUM_MD5, data, 0x6c);
-                if (g_strcmp0 (checksum, edid_md5) == 0)
-                        output = outputs[i];
-                g_free (checksum);
-        }
-        if (output == NULL) {
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "no connected output with that edid hash");
-        }
-out:
-        return output;
-}
-
 typedef struct {
         GsdColorManager         *manager;
         CdProfile               *profile;
@@ -286,169 +243,6 @@ gcm_session_async_helper_free (GcmSessionAsyncHelper *helper)
         if (helper->device != NULL)
                 g_object_unref (helper->device);
         g_free (helper);
-}
-
-static void
-gcm_session_profile_assign_add_profile_cb (GObject *object,
-                                           GAsyncResult *res,
-                                           gpointer user_data)
-{
-        CdDevice *device = CD_DEVICE (object);
-        gboolean ret;
-        GError *error = NULL;
-        GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
-
-        /* add the profile to the device */
-        ret = cd_device_add_profile_finish (device,
-                                            res,
-                                            &error);
-        if (!ret) {
-                /* this will fail if the profile is already added */
-                g_debug ("failed to assign auto-edid profile to device %s: %s",
-                         cd_device_get_id (device),
-                         error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        /* phew! */
-        g_debug ("successfully assigned %s to %s",
-                 cd_profile_get_object_path (helper->profile),
-                 cd_device_get_object_path (device));
-out:
-        gcm_session_async_helper_free (helper);
-}
-
-static void
-gcm_session_profile_assign_device_connect_cb (GObject *object,
-                                              GAsyncResult *res,
-                                              gpointer user_data)
-{
-        CdDevice *device = CD_DEVICE (object);
-        gboolean ret;
-        GError *error = NULL;
-        GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
-
-        /* get properties */
-        ret = cd_device_connect_finish (device, res, &error);
-        if (!ret) {
-                g_warning ("cannot connect to device: %s",
-                           error->message);
-                g_error_free (error);
-                gcm_session_async_helper_free (helper);
-                goto out;
-        }
-
-        /* add the profile to the device */
-        cd_device_add_profile (device,
-                               CD_DEVICE_RELATION_SOFT,
-                               helper->profile,
-                               NULL,
-                               gcm_session_profile_assign_add_profile_cb,
-                               helper);
-out:
-        return;
-}
-
-static void
-gcm_session_profile_assign_find_device_cb (GObject *object,
-                                           GAsyncResult *res,
-                                           gpointer user_data)
-{
-        CdClient *client = CD_CLIENT (object);
-        CdDevice *device = NULL;
-        GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
-        GError *error = NULL;
-
-        device = cd_client_find_device_finish (client,
-                                               res,
-                                               &error);
-        if (device == NULL) {
-                g_warning ("not found device which should have been added: %s",
-                           error->message);
-                g_error_free (error);
-                gcm_session_async_helper_free (helper);
-                goto out;
-        }
-
-        /* get properties */
-        cd_device_connect (device,
-                           NULL,
-                           gcm_session_profile_assign_device_connect_cb,
-                           helper);
-out:
-        if (device != NULL)
-                g_object_unref (device);
-}
-
-static void
-gcm_session_profile_assign_profile_connect_cb (GObject *object,
-                                               GAsyncResult *res,
-                                               gpointer user_data)
-{
-        CdProfile *profile = CD_PROFILE (object);
-        const gchar *edid_md5;
-        gboolean ret;
-        gchar *device_id = NULL;
-        GcmSessionAsyncHelper *helper;
-        GError *error = NULL;
-        GHashTable *metadata = NULL;
-        GnomeRROutput *output = NULL;
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-
-        /* get properties */
-        ret = cd_profile_connect_finish (profile, res, &error);
-        if (!ret) {
-                g_warning ("cannot connect to profile: %s",
-                           error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        /* does the profile have EDID metadata? */
-        metadata = cd_profile_get_metadata (profile);
-        edid_md5 = g_hash_table_lookup (metadata,
-                                        CD_PROFILE_METADATA_EDID_MD5);
-        if (edid_md5 == NULL)
-                goto out;
-
-        /* get the GnomeRROutput for the edid */
-        output = gcm_session_get_output_by_edid_checksum (manager->priv->x11_screen,
-                                                          edid_md5,
-                                                          &error);
-        if (output == NULL) {
-                g_debug ("edid hash %s ignored: %s",
-                         edid_md5,
-                         error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        /* get the CdDevice for this ID */
-        helper = g_new0 (GcmSessionAsyncHelper, 1);
-        helper->manager = g_object_ref (manager);
-        helper->profile = g_object_ref (profile);
-        device_id = gcm_session_get_output_id (manager, output);
-        cd_client_find_device (manager->priv->client,
-                               device_id,
-                               NULL,
-                               gcm_session_profile_assign_find_device_cb,
-                               helper);
-out:
-        g_free (device_id);
-        if (metadata != NULL)
-                g_hash_table_unref (metadata);
-}
-
-static void
-gcm_session_profile_added_assign_cb (CdClient *client,
-                                     CdProfile *profile,
-                                     GsdColorManager *manager)
-{
-        cd_profile_connect (profile,
-                            NULL,
-                            gcm_session_profile_assign_profile_connect_cb,
-                            manager);
 }
 
 static cmsBool
@@ -545,6 +339,7 @@ out:
 
 static gboolean
 gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
+                                       CdDevice *device,
                                        GcmEdid *edid,
                                        const gchar *filename,
                                        GError **error)
@@ -673,6 +468,9 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         _cmsDictAddEntryAscii (dict,
                                CD_PROFILE_METADATA_CMF_VERSION,
                                PACKAGE_VERSION);
+        _cmsDictAddEntryAscii (dict,
+                               CD_PROFILE_METADATA_MAPPING_DEVICE_ID,
+                               cd_device_get_id (device));
 
         /* set the data source so we don't ever prompt the user to
          * recalibrate (as the EDID data won't have changed) */
@@ -1173,6 +971,54 @@ out:
         gcm_session_async_helper_free (helper);
 }
 
+/*
+ * Check to see if the on-disk profile has the MAPPING_device_id
+ * metadata, and if not, we should delete the profile and re-create it
+ * so that it gets mapped by the daemon.
+ */
+static gboolean
+gcm_session_check_profile_device_md (const gchar *filename)
+{
+        cmsHANDLE dict;
+        cmsHPROFILE lcms_profile;
+        const cmsDICTentry *entry;
+        gboolean ret = FALSE;
+        gchar ascii_name[1024];
+        gsize len;
+
+        /* parse the ICC file */
+        lcms_profile = cmsOpenProfileFromFile (filename, "r");
+        if (lcms_profile == NULL)
+                goto out;
+
+        /* does profile have metadata? */
+        dict = cmsReadTag (lcms_profile, cmsSigMetaTag);
+        if (dict == NULL) {
+                g_debug ("auto-edid profile is old, and contains no metadata");
+                goto out;
+        }
+        for (entry = cmsDictGetEntryList (dict);
+             entry != NULL;
+             entry = cmsDictNextEntry (entry)) {
+                if (entry->Name == NULL)
+                        continue;
+                len = wcstombs (ascii_name, entry->Name, sizeof (ascii_name));
+                if (len == (gsize) -1)
+                        continue;
+                if (g_strcmp0 (ascii_name,
+                               CD_PROFILE_METADATA_MAPPING_DEVICE_ID) == 0) {
+                        ret = TRUE;
+                        goto out;
+                }
+        }
+        g_debug ("auto-edid profile is old, and contains no %s data",
+                 CD_PROFILE_METADATA_MAPPING_DEVICE_ID);
+out:
+        if (lcms_profile != NULL)
+                cmsCloseProfile (lcms_profile);
+        return ret;
+}
+
 static void
 gcm_session_device_assign_connect_cb (GObject *object,
                                       GAsyncResult *res,
@@ -1239,12 +1085,15 @@ gcm_session_device_assign_connect_cb (GObject *object,
                                                     gcm_edid_get_checksum (edid));
                 autogen_path = g_build_filename (g_get_user_data_dir (),
                                                  "icc", autogen_filename, NULL);
-                if (g_file_test (autogen_path, G_FILE_TEST_EXISTS)) {
-                        g_debug ("auto-profile edid %s exists", autogen_path);
+
+                /* check if auto-profile has up-to-date metadata */
+                if (gcm_session_check_profile_device_md (autogen_path)) {
+                        g_debug ("auto-profile edid %s exists with md", autogen_path);
                 } else {
                         g_debug ("auto-profile edid does not exist, creating as %s",
                                  autogen_path);
                         ret = gcm_apply_create_icc_profile_for_edid (manager,
+                                                                     device,
                                                                      edid,
                                                                      autogen_path,
                                                                      &error);
@@ -1683,9 +1532,6 @@ gcm_session_client_connect_cb (GObject *source_object,
                           G_CALLBACK (gnome_rr_screen_output_changed_cb),
                           manager);
 
-        g_signal_connect (priv->client, "profile-added",
-                          G_CALLBACK (gcm_session_profile_added_assign_cb),
-                          manager);
         g_signal_connect (priv->client, "device-added",
                           G_CALLBACK (gcm_session_device_added_assign_cb),
                           manager);
