@@ -2656,6 +2656,9 @@ idle_configure (GsdPowerManager *manager)
                                 timeout_dim = IDLE_DIM_BLANK_DISABLED_MIN;
                         } else {
                                 timeout_dim /= 3;
+                                /* Don't bother dimming if the idle-delay is
+                                 * too low, we'll do that when we bring down the
+                                 * screen lock */
                                 if (timeout_dim < 10)
                                         timeout_dim = 0;
                         }
