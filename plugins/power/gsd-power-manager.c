@@ -2646,13 +2646,7 @@ idle_configure (GsdPowerManager *manager)
                           &manager->priv->idle_sleep_id);
 
         if (timeout_sleep != 0) {
-                if (timeout_blank && timeout_blank >= timeout_sleep) {
-                        /* adjust sleep timer to blank timer and allow 2 secs margin delay */
-                        timeout_sleep = timeout_blank + 2;
-                        g_debug ("blank timer >= sleep timer, setting up sleep callback %is", timeout_sleep);
-                } else {
-                        g_debug ("setting up sleep callback %is", timeout_sleep);
-                }
+		g_debug ("setting up sleep callback %is", timeout_sleep);
 
                 manager->priv->idle_sleep_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
                                                                              timeout_sleep * 1000,
