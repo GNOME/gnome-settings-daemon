@@ -2575,6 +2575,16 @@ idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
 }
 
 static void
+clear_idle_watch (GnomeIdleMonitor *monitor,
+                  guint            *id)
+{
+        if (*id == 0)
+                return;
+        gnome_idle_monitor_remove_watch (monitor, *id);
+        *id = 0;
+}
+
+static void
 idle_configure (GsdPowerManager *manager)
 {
         gboolean is_idle_inhibited;
@@ -2590,12 +2600,12 @@ idle_configure (GsdPowerManager *manager)
                 g_debug ("inhibited, so using normal state");
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
 
-                gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
-                                                 manager->priv->idle_blank_id);
-                gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
-                                                 manager->priv->idle_sleep_id);
-                gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
-                                                 manager->priv->idle_dim_id);
+                clear_idle_watch (manager->priv->idle_monitor,
+                                  &manager->priv->idle_blank_id);
+                clear_idle_watch (manager->priv->idle_monitor,
+                                  &manager->priv->idle_sleep_id);
+                clear_idle_watch (manager->priv->idle_monitor,
+                                  &manager->priv->idle_dim_id);
                 return;
         }
 
@@ -2610,15 +2620,16 @@ idle_configure (GsdPowerManager *manager)
                 if (timeout_blank != 0)
                         timeout_blank += SCREENSAVER_FADE_TIME;
         }
+
+        clear_idle_watch (manager->priv->idle_monitor,
+                          &manager->priv->idle_blank_id);
+
         if (timeout_blank != 0) {
                 g_debug ("setting up blank callback for %is", timeout_blank);
 
                 manager->priv->idle_blank_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
                                                                              timeout_blank * 1000,
                                                                              NULL, NULL, NULL);
-        } else {
-                gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
-                                                 manager->priv->idle_blank_id);
         }
 
         /* only do the sleep timeout when the session is idle
@@ -2630,6 +2641,10 @@ idle_configure (GsdPowerManager *manager)
                 timeout_sleep = g_settings_get_int (manager->priv->settings,
                                                     "sleep-inactive-ac-timeout");
         }
+
+        clear_idle_watch (manager->priv->idle_monitor,
+                          &manager->priv->idle_sleep_id);
+
         if (timeout_sleep != 0) {
                 if (timeout_blank && timeout_blank >= timeout_sleep) {
                         /* adjust sleep timer to blank timer and allow 2 secs margin delay */
@@ -2642,9 +2657,6 @@ idle_configure (GsdPowerManager *manager)
                 manager->priv->idle_sleep_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
                                                                              timeout_sleep * 1000,
                                                                              NULL, NULL, NULL);
-        } else {
-                gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
-                                                 manager->priv->idle_sleep_id);
         }
 
         /* set up dim callback for when the screen lock is not active,
@@ -2673,15 +2685,16 @@ idle_configure (GsdPowerManager *manager)
                         }
                 }
         }
+
+        clear_idle_watch (manager->priv->idle_monitor,
+                          &manager->priv->idle_dim_id);
+
         if (timeout_dim != 0) {
                 g_debug ("setting up dim callback for %is", timeout_blank);
 
                 manager->priv->idle_dim_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
                                                                            timeout_dim * 1000,
                                                                            NULL, NULL, NULL);
-        } else {
-                gnome_idle_monitor_remove_watch (manager->priv->idle_monitor,
-                                                 manager->priv->idle_dim_id);
         }
 }
 
