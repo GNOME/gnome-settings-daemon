@@ -790,15 +790,12 @@ engine_get_composite_device (GsdPowerManager *manager,
         }
 
         /* just use the original device if only one primary battery */
-        if (battery_devices <= 1) {
-                g_debug ("using original device as only one primary battery");
-                device = original_device;
-                goto out;
-        }
+        if (battery_devices <= 1)
+                return original_device;
 
         /* use the composite device */
         device = manager->priv->device_composite;
-out:
+
         /* return composite device or original device */
         return device;
 }
