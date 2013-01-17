@@ -2763,8 +2763,6 @@ session_presence_proxy_ready_cb (GObject *source_object,
                 g_error_free (error);
                 return;
         }
-        g_signal_connect (manager->priv->session_presence_proxy, "g-signal",
-                          G_CALLBACK (idle_dbus_signal_cb), manager);
 }
 
 static void
