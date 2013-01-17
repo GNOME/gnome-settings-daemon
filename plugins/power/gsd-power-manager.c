@@ -2777,7 +2777,7 @@ screensaver_signal_cb (GDBusProxy *proxy,
 
         if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
                 g_variant_get (parameters, "(b)", &active);
-                g_debug ("Received screensaver ActiveChanged signal: %d\n", active);
+                g_debug ("Received screensaver ActiveChanged signal: %d", active);
                 if (manager->priv->screensaver_active != active) {
                         manager->priv->screensaver_active = active;
                         idle_configure (manager);
