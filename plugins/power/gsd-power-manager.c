@@ -303,17 +303,9 @@ play_loop_start (GsdPowerManager *manager,
 static void
 notify_close_if_showing (NotifyNotification *notification)
 {
-        gboolean ret;
-        GError *error = NULL;
-
         if (notification == NULL)
                 return;
-        ret = notify_notification_close (notification, &error);
-        if (!ret) {
-                g_warning ("failed to close notification: %s",
-                           error->message);
-                g_error_free (error);
-        }
+        notify_notification_close (notification, NULL);
 }
 
 static const gchar *
@@ -1224,10 +1216,8 @@ static void
 engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
 {
         const gchar *title;
-        gboolean ret;
         gchar *remaining_text = NULL;
         gdouble percentage;
-        GError *error = NULL;
         GIcon *icon = NULL;
         gint64 time_to_empty;
         GString *message;
@@ -1278,14 +1268,8 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         notify_notification_set_hint (manager->priv->notification_discharging,
                                       "transient", g_variant_new_boolean (TRUE));
 
-        /* try to show */
-        ret = notify_notification_show (manager->priv->notification_discharging,
-                                        &error);
-        if (!ret) {
-                g_warning ("failed to show notification: %s", error->message);
-                g_error_free (error);
-                g_object_unref (manager->priv->notification_discharging);
-        }
+        notify_notification_show (manager->priv->notification_discharging, NULL);
+
         g_string_free (message, TRUE);
         if (icon != NULL)
                 g_object_unref (icon);
@@ -1378,7 +1362,6 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         GIcon *icon = NULL;
         gint64 time_to_empty;
         UpDeviceKind kind;
-        GError *error = NULL;
 
         /* get device properties */
         g_object_get (device,
@@ -1493,14 +1476,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         notify_notification_set_hint (manager->priv->notification_low,
                                       "transient", g_variant_new_boolean (TRUE));
 
-        /* try to show */
-        ret = notify_notification_show (manager->priv->notification_low,
-                                        &error);
-        if (!ret) {
-                g_warning ("failed to show notification: %s", error->message);
-                g_error_free (error);
-                g_object_unref (manager->priv->notification_low);
-        }
+        notify_notification_show (manager->priv->notification_low, NULL);
 
         /* play the sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
@@ -1525,7 +1501,6 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         gint64 time_to_empty;
         GsdPowerActionType policy;
         UpDeviceKind kind;
-        GError *error = NULL;
 
         /* get device properties */
         g_object_get (device,
@@ -1670,14 +1645,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                                          NOTIFY_URGENCY_CRITICAL);
         notify_notification_set_app_name (manager->priv->notification_low, _("Power"));
 
-        /* try to show */
-        ret = notify_notification_show (manager->priv->notification_low,
-                                        &error);
-        if (!ret) {
-                g_warning ("failed to show notification: %s", error->message);
-                g_error_free (error);
-                g_object_unref (manager->priv->notification_low);
-        }
+        notify_notification_show (manager->priv->notification_low, NULL);
 
         switch (kind) {
 
@@ -1709,9 +1677,7 @@ static void
 engine_charge_action (GsdPowerManager *manager, UpDevice *device)
 {
         const gchar *title = NULL;
-        gboolean ret;
         gchar *message = NULL;
-        GError *error = NULL;
         GIcon *icon = NULL;
         GsdPowerActionType policy;
         guint timer_id;
@@ -1822,13 +1788,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
         notify_notification_set_app_name (manager->priv->notification_low, _("Power"));
 
         /* try to show */
-        ret = notify_notification_show (manager->priv->notification_low,
-                                        &error);
-        if (!ret) {
-                g_warning ("failed to show notification: %s", error->message);
-                g_error_free (error);
-                g_object_unref (manager->priv->notification_low);
-        }
+        notify_notification_show (manager->priv->notification_low, NULL);
 
         /* play the sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
