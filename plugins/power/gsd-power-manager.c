@@ -308,24 +308,6 @@ notify_close_if_showing (NotifyNotification *notification)
         notify_notification_close (notification, NULL);
 }
 
-static const gchar *
-get_first_themed_icon_name (GIcon *icon)
-{
-        const gchar* const *icon_names;
-        const gchar *icon_name = NULL;
-
-        /* no icon */
-        if (icon == NULL)
-                goto out;
-
-        /* just use the first icon */
-        icon_names = g_themed_icon_get_names (G_THEMED_ICON (icon));
-        if (icon_names != NULL)
-                icon_name = icon_names[0];
-out:
-        return icon_name;
-}
-
 typedef enum {
         WARNING_NONE            = 0,
         WARNING_DISCHARGING     = 1,
@@ -1196,15 +1178,35 @@ on_notification_closed (NotifyNotification *notification, gpointer data)
     g_object_unref (notification);
 }
 
+static const gchar *
+get_first_themed_icon_name (GIcon *icon)
+{
+        const gchar* const *icon_names;
+        const gchar *icon_name = NULL;
+
+        /* no icon */
+        if (icon == NULL)
+                goto out;
+
+        /* just use the first icon */
+        icon_names = g_themed_icon_get_names (G_THEMED_ICON (icon));
+        if (icon_names != NULL)
+                icon_name = icon_names[0];
+out:
+        return icon_name;
+}
+
 static void
 create_notification (const char *summary,
                      const char *body,
-                     const char *icon,
+                     GIcon      *icon,
                      NotifyNotification **weak_pointer_location)
 {
         NotifyNotification *notification;
 
-        notification = notify_notification_new (summary, body, icon);
+        notification = notify_notification_new (summary,
+                                                body,
+                                                icon ? get_first_themed_icon_name (icon) : NULL);
         *weak_pointer_location = notification;
         g_object_add_weak_pointer (G_OBJECT (notification),
                                    (gpointer *) weak_pointer_location);
@@ -1257,7 +1259,7 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message->str,
-                             get_first_themed_icon_name (icon),
+                             icon,
                              &manager->priv->notification_discharging);
         notify_notification_set_timeout (manager->priv->notification_discharging,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
@@ -1466,7 +1468,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message,
-                             get_first_themed_icon_name (icon),
+                             icon,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
@@ -1637,7 +1639,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message,
-                             get_first_themed_icon_name (icon),
+                             icon,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
@@ -1779,7 +1781,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message,
-                             get_first_themed_icon_name (icon),
+                             icon,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
