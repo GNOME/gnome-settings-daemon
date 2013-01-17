@@ -138,47 +138,57 @@ typedef enum {
 
 struct GsdPowerManagerPrivate
 {
+        /* D-Bus */
         GDBusProxy              *session;
         guint                    name_id;
-        gboolean                 lid_is_closed;
-        GSettings               *settings;
-        GSettings               *settings_session;
-        GSettings               *settings_screensaver;
-        GSettings               *settings_xrandr;
-        UpClient                *up_client;
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
         GDBusProxy              *upower_proxy;
-        GDBusProxy              *upower_kdb_proxy;
-        gint                     kbd_brightness_now;
-        gint                     kbd_brightness_max;
-        gint                     kbd_brightness_old;
-        gint                     kbd_brightness_pre_dim;
-        GnomeRRScreen           *rr_screen;
+        GDBusProxy              *session_presence_proxy;
+
+        /* Settings */
+        GSettings               *settings;
+        GSettings               *settings_session;
+        GSettings               *settings_screensaver;
+        GSettings               *settings_xrandr;
+
         gboolean                 use_time_primary;
-        gchar                   *previous_summary;
-        GIcon                   *previous_icon;
-        GPtrArray               *devices_array;
         guint                    action_percentage;
         guint                    action_time;
         guint                    critical_percentage;
         guint                    critical_time;
         guint                    low_percentage;
         guint                    low_time;
+
+        /* Screensaver */
+        GDBusProxy              *screensaver_proxy;
+        gboolean                 screensaver_active;
+
+        /* State */
+        gboolean                 lid_is_closed;
+        UpClient                *up_client;
+        gchar                   *previous_summary;
+        GIcon                   *previous_icon;
+        GPtrArray               *devices_array;
         gint                     pre_dim_brightness; /* level, not percentage */
         gint                     pre_dpms_brightness;
         UpDevice                *device_composite;
+        GnomeRRScreen           *rr_screen;
         NotifyNotification      *notification_discharging;
         NotifyNotification      *notification_low;
+
+        /* Keyboard */
+        GDBusProxy              *upower_kdb_proxy;
+        gint                     kbd_brightness_now;
+        gint                     kbd_brightness_max;
+        gint                     kbd_brightness_old;
+        gint                     kbd_brightness_pre_dim;
+
+        /* Sound */
         ca_context              *canberra_context;
         ca_proplist             *critical_alert_loop_props;
         guint32                  critical_alert_timeout_id;
-        GDBusProxy              *session_presence_proxy;
-        GsdPowerIdleMode         current_idle_mode;
-        guint                    xscreensaver_watchdog_timer_id;
-        GDBusProxy              *screensaver_proxy;
-        gboolean                 screensaver_active;
 
         /* systemd stuff */
         GDBusProxy              *logind_proxy;
@@ -189,10 +199,14 @@ struct GsdPowerManagerPrivate
         guint                    inhibit_lid_switch_timer_id;
         gboolean                 is_virtual_machine;
 
+        /* Idles */
         GnomeIdleMonitor        *idle_monitor;
         guint                    idle_dim_id;
         guint                    idle_blank_id;
         guint                    idle_sleep_id;
+        GsdPowerIdleMode         current_idle_mode;
+
+        guint                    xscreensaver_watchdog_timer_id;
 };
 
 enum {
