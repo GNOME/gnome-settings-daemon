@@ -184,14 +184,14 @@ device_rebind (GsdUpdatesFirmware *firmware)
                 g_string_set_size (string, string->len-1);
 
         /* use PolicyKit to do this as root */
-        argv[0] = BINDIR "/pkexec";
+        argv[0] = "pkexec";
         argv[1] = GSD_UPDATES_FIRMWARE_DEVICE_REBIND_PROGRAM;
         argv[2] = string->str;
         argv[3] = NULL;
         ret = g_spawn_sync (NULL,
                             argv,
                             NULL,
-                            0,
+                            G_SPAWN_SEARCH_PATH,
                             NULL, NULL,
                             &rebind_stdout,
                             &rebind_stderr,

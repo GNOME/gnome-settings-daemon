@@ -88,13 +88,13 @@ clear_offline_updates_message (void)
         gchar *argv[3];
         GPid pid;
 
-        argv[0] = BINDIR "/pkexec";
+        argv[0] = "pkexec";
         argv[1] = LIBEXECDIR "/pk-clear-offline-update";
         argv[2] = NULL;
         ret = g_spawn_async (NULL,
                              argv,
                              NULL,
-                             G_SPAWN_DO_NOT_REAP_CHILD,
+                             G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH,
                              NULL,
                              NULL,
                              &pid,
