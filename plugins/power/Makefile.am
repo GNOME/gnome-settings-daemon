@@ -10,6 +10,7 @@ libpower_la_SOURCES = 					\
 	gsd-power-manager.h				\
 	gsm-inhibitor-flag.h				\
 	gsm-presence-flag.h				\
+	gsd-power-constants.h				\
 	gsd-power-plugin.c
 
 libpower_la_CPPFLAGS = \
