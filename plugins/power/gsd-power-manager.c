@@ -2684,7 +2684,7 @@ idle_configure (GsdPowerManager *manager)
                           &manager->priv->idle_dim_id);
 
         if (timeout_dim != 0) {
-                g_debug ("setting up dim callback for %is", timeout_blank);
+                g_debug ("setting up dim callback for %is", timeout_dim);
 
                 manager->priv->idle_dim_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
                                                                            timeout_dim * 1000,
