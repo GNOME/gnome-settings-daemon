@@ -49,18 +49,21 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # start power plugin
         self.settings_gsd_power['active'] = False
         Gio.Settings.sync()
-        self.plugin_log = open(os.path.join(self.workdir, 'plugin_power.log'), 'wb')
+        self.plugin_log_write = open(os.path.join(self.workdir, 'plugin_power.log'), 'wb')
         # avoid painfully long delays of actions for tests
         env = os.environ.copy()
         env['GSD_ACTION_DELAY'] = '1'
         self.daemon = subprocess.Popen(
             [os.path.join(builddir, 'gsd-test-power')],
             # comment out this line if you want to see the logs in real time
-            stdout=self.plugin_log,
+            stdout=self.plugin_log_write,
             stderr=subprocess.STDOUT,
             env=env)
         # give it some time to settle down
         time.sleep(1)
+
+        # you can use this for reading the current daemon log in tests
+        self.plugin_log = open(self.plugin_log_write.name)
 
         # always start with zero idle time
         self.reset_idle_timer()
@@ -77,8 +80,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         self.daemon.terminate()
         self.daemon.wait()
-        self.plugin_log.flush()
         self.plugin_log.close()
+        self.plugin_log_write.flush()
+        self.plugin_log_write.close()
 
         self.upowerd.terminate()
         self.upowerd.wait()
@@ -133,12 +137,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             time.sleep(1)
             timeout -= 1
             # check that it requested blank
-            try:
-                log = self.plugin_log.read()
-            except IOError:
-                break
+            log = self.plugin_log.read()
 
-            if log and (b'TESTSUITE: Blanked screen' in log):
+            if 'TESTSUITE: Blanked screen' in log:
                 break
         else:
             self.fail('timed out waiting for blank')
@@ -153,12 +154,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             time.sleep(1)
             timeout -= 1
             # check that it requested unblank
-            try:
-                log = self.plugin_log.read()
-            except IOError:
-                break
+            log = self.plugin_log.read()
 
-            if log and (b'TESTSUITE: Unblanked screen' in log):
+            if 'TESTSUITE: Unblanked screen' in log:
                 break
         else:
             self.fail('timed out waiting for unblank')
@@ -169,9 +167,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # wait for specified time to ensure it didn't blank
         time.sleep(seconds)
         # check that it did not blank
-        log = self.daemon.stdout.read()
-        if log:
-            self.assertFalse(b'TESTSUITE: Blanked screen' in log, 'unexpected blank request')
+        log = self.plugin_log.read()
+        self.assertFalse('TESTSUITE: Blanked screen' in log, 'unexpected blank request')
 
     def test_sleep_inactive_blank(self):
         '''screensaver/blank interaction'''
