@@ -111,12 +111,10 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
             self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
 
-    def test_sleep_inactive_battery_no_blank(self):
-        '''sleep-inactive-battery-timeout without screen blanking'''
+    def test_sleep_inactive_battery(self):
+        '''sleep-inactive-battery-timeout'''
 
         self.settings_session['idle-delay'] = 2
-        # disable screen blanking
-        self.settings_gsd_power['sleep-display-battery'] = 0
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
 
@@ -127,29 +125,10 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # delay + 1 s error margin
         self.check_for_suspend(7)
 
-    def test_sleep_inactive_battery_with_blank(self):
-        '''sleep-inactive-battery-timeout with screen blanking'''
-
-        self.settings_session['idle-delay'] = 2
-        # set blank timeout > sleep timeout, which should adjust sleep timeout
-        self.settings_gsd_power['sleep-display-battery'] = 2
-        self.settings_gsd_power['sleep-inactive-battery-timeout'] = 1
-        self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
-
-        # wait for idle delay + display sleep time
-        # check that it did not suspend or hibernate yet
-        self.check_no_suspend(4)
-
-        # suspend should happen after timeout_blank + 12 s screen saver fade +
-        # 1 s notification delay + 1 s error margin
-        self.check_for_suspend(16)
-
     def test_sleep_inhibition(self):
         '''Does not sleep under idle inhibition'''
 
         self.settings_session['idle-delay'] = 2
-        # disable screen blanking
-        self.settings_gsd_power['sleep-display-battery'] = 0
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
 
