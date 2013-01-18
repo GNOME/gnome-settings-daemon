@@ -32,6 +32,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             'upower', {'OnBattery': True}, stdout=subprocess.PIPE)
         gsdtestcase.set_nonblock(self.upowerd.stdout)
 
+        # start mock gnome-shell screensaver
+        (self.screensaver, self.obj_screensaver) = self.spawn_server_template(
+            'gnome_screensaver', stdout=subprocess.PIPE)
+        gsdtestcase.set_nonblock(self.screensaver.stdout)
+
         self.start_logind()
 
         # ensure that our tests don't lock the screen when the screensaver
@@ -77,6 +82,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         self.upowerd.terminate()
         self.upowerd.wait()
+        self.screensaver.terminate()
+        self.screensaver.wait()
         self.stop_logind()
 
         # reset all changed gsettings, so that tests are independent from each
@@ -115,6 +122,72 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         if log:
             self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
             self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
+
+    def check_blank(self, timeout):
+        '''Check that blank is requested.
+
+        Fail after the given timeout.
+        '''
+        # check that it request blank
+        while timeout > 0:
+            time.sleep(1)
+            timeout -= 1
+            # check that it requested suspend
+            try:
+                log = self.plugin_log.read()
+            except IOError:
+                break
+
+            if log and (b'TESTSUITE: Blanked screen' in log):
+                break
+        else:
+            self.fail('timed out waiting for blank')
+
+    def check_unblank(self, timeout):
+        '''Check that unblank is requested.
+
+        Fail after the given timeout.
+        '''
+        # check that it request blank
+        while timeout > 0:
+            time.sleep(1)
+            timeout -= 1
+            # check that it requested suspend
+            try:
+                log = self.plugin_log.read()
+            except IOError:
+                break
+
+            if log and (b'TESTSUITE: Unblanked screen' in log):
+                break
+        else:
+            self.fail('timed out waiting for unblank')
+
+    def check_no_blank(self, seconds):
+        '''Check that no blank is requested in the given time'''
+
+        # wait for specified time to ensure it didn't do anything
+        time.sleep(seconds)
+        # check that it did not suspend or hibernate
+        log = self.daemon.stdout.read()
+        if log:
+            self.assertFalse(b'TESTSUITE: Blanked screen' in log, 'unexpected Blank request')
+
+    def test_sleep_inactive_blank(self):
+        '''screensaver/blank interaction'''
+
+        self.obj_screensaver.SetActive(True)
+        self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
+
+        # wait for short fade timeout, should blank
+        self.check_blank(11)
+
+        # wiggle the mouse now and check for unblank
+        self.reset_idle_timer()
+        self.check_unblank(1)
+
+        # and check for blank after 20 seconds
+        self.check_blank(21)
 
     def test_sleep_inactive_battery(self):
         '''sleep-inactive-battery-timeout'''
