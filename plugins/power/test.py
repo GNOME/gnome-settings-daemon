@@ -132,7 +132,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         while timeout > 0:
             time.sleep(1)
             timeout -= 1
-            # check that it requested suspend
+            # check that it requested blank
             try:
                 log = self.plugin_log.read()
             except IOError:
@@ -152,7 +152,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         while timeout > 0:
             time.sleep(1)
             timeout -= 1
-            # check that it requested suspend
+            # check that it requested unblank
             try:
                 log = self.plugin_log.read()
             except IOError:
@@ -166,12 +166,12 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def check_no_blank(self, seconds):
         '''Check that no blank is requested in the given time'''
 
-        # wait for specified time to ensure it didn't do anything
+        # wait for specified time to ensure it didn't blank
         time.sleep(seconds)
-        # check that it did not suspend or hibernate
+        # check that it did not blank
         log = self.daemon.stdout.read()
         if log:
-            self.assertFalse(b'TESTSUITE: Blanked screen' in log, 'unexpected Blank request')
+            self.assertFalse(b'TESTSUITE: Blanked screen' in log, 'unexpected blank request')
 
     def test_sleep_inactive_blank(self):
         '''screensaver/blank interaction'''
