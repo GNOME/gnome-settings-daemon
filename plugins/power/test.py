@@ -34,6 +34,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         self.start_logind()
 
+        # ensure that our tests don't lock the screen when the screensaver
+        # gets active
+        self.settings_screensaver = Gio.Settings('org.gnome.desktop.screensaver')
+        self.settings_screensaver['lock-enabled'] = False
+
         self.settings_gsd_power = Gio.Settings('org.gnome.settings-daemon.plugins.power')
 
         # start power plugin
