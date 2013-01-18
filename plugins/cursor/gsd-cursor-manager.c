@@ -47,8 +47,6 @@
 
 #define XFIXES_CURSOR_HIDING_MAJOR 4
 
-#define IDLE_TIME 1
-
 #define GSD_CURSOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_CURSOR_MANAGER, GsdCursorManagerPrivate))
 
 struct GsdCursorManagerPrivate
@@ -129,9 +127,11 @@ set_cursor_visibility (GsdCursorManager *manager,
 
 static void
 monitor_became_active (GnomeIdleMonitor *monitor,
-                       GsdCursorManager *manager)
+                       guint             watch_id,
+                       gpointer          user_data)
 {
         GdkDevice *device;
+        GsdCursorManager *manager = GSD_CURSOR_MANAGER (user_data);
 
         /* Oh, so you're active? */
         g_object_get (G_OBJECT (monitor), "device", &device, NULL);
@@ -170,12 +170,10 @@ device_added_cb (GdkDeviceManager *device_manager,
         g_hash_table_insert (manager->priv->monitors,
                              device,
                              monitor);
-        g_signal_connect (monitor, "became-active",
-                          G_CALLBACK (monitor_became_active), manager);
-        /* We become idle very quickly so that the became-active
-         * kicks in fast */
-        gnome_idle_monitor_add_watch (monitor, IDLE_TIME,
-                                      NULL, NULL, NULL);
+        gnome_idle_monitor_add_user_active_watch (monitor,
+                                                  monitor_became_active,
+                                                  manager,
+                                                  NULL);
 }
 
 static void

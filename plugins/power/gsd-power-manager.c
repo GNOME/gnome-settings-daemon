@@ -245,6 +245,8 @@ static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
 static gboolean  idle_is_session_inhibited (GsdPowerManager *manager, guint mask, gboolean *is_inhibited);
 static void      idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode);
+static void      idle_triggered_idle_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
+static void      idle_became_active_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -2485,6 +2487,15 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 return;
         }
 
+        /* if we're moving to an idle mode, make sure
+         * we add a watch to take us back to normal */
+        if (mode != GSD_POWER_IDLE_MODE_NORMAL) {
+                gnome_idle_monitor_add_user_active_watch (manager->priv->idle_monitor,
+                                                          idle_became_active_cb,
+                                                          manager,
+                                                          NULL);
+        }
+
         /* save current brightness, and set dim level */
         if (mode == GSD_POWER_IDLE_MODE_DIM) {
                 /* display backlight */
@@ -2670,9 +2681,9 @@ idle_configure (GsdPowerManager *manager)
         if (timeout_blank != 0) {
                 g_debug ("setting up blank callback for %is", timeout_blank);
 
-                manager->priv->idle_blank_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
-                                                                             timeout_blank * 1000,
-                                                                             NULL, NULL, NULL);
+                manager->priv->idle_blank_id = gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
+                                                                                  timeout_blank * 1000,
+                                                                                  idle_triggered_idle_cb, manager, NULL);
         }
 
         /* only do the sleep timeout when the session is idle
@@ -2693,9 +2704,9 @@ idle_configure (GsdPowerManager *manager)
         if (timeout_sleep != 0) {
                 g_debug ("setting up sleep callback %is", timeout_sleep);
 
-                manager->priv->idle_sleep_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
-                                                                             timeout_sleep * 1000,
-                                                                             NULL, NULL, NULL);
+                manager->priv->idle_sleep_id = gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
+                                                                                  timeout_sleep * 1000,
+                                                                                  idle_triggered_idle_cb, manager, NULL);
                 if (action_type == GSD_POWER_ACTION_LOGOUT ||
                     action_type == GSD_POWER_ACTION_SUSPEND ||
                     action_type == GSD_POWER_ACTION_HIBERNATE) {
@@ -2708,9 +2719,9 @@ idle_configure (GsdPowerManager *manager)
 
                         g_debug ("setting up sleep warning callback %is", timeout_sleep_warning);
 
-                        manager->priv->idle_sleep_warning_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
-                                                                                              timeout_sleep_warning * 1000,
-                                                                                              NULL, NULL, NULL);
+                        manager->priv->idle_sleep_warning_id = gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
+                                                                                                  timeout_sleep_warning * 1000,
+                                                                                                  idle_triggered_idle_cb, manager, NULL);
                 }
         }
 
@@ -2750,9 +2761,9 @@ idle_configure (GsdPowerManager *manager)
         if (timeout_dim != 0) {
                 g_debug ("setting up dim callback for %is", timeout_dim);
 
-                manager->priv->idle_dim_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
-                                                                           timeout_dim * 1000,
-                                                                           NULL, NULL, NULL);
+                manager->priv->idle_dim_id = gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
+                                                                                timeout_dim * 1000,
+                                                                                idle_triggered_idle_cb, manager, NULL);
         }
 }
 
@@ -3081,8 +3092,9 @@ show_sleep_warning (GsdPowerManager *manager)
 static void
 idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
                         guint             watch_id,
-                        GsdPowerManager  *manager)
+                        gpointer          user_data)
 {
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
         const char *id_name;
 
         id_name = idle_watch_id_to_string (manager, watch_id);
@@ -3104,8 +3116,11 @@ idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
 
 static void
 idle_became_active_cb (GnomeIdleMonitor *monitor,
-                       GsdPowerManager *manager)
+                       guint             watch_id,
+                       gpointer          user_data)
 {
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
         g_debug ("idletime reset");
 
         set_temporary_unidle_on_ac (manager, FALSE);
@@ -3510,10 +3525,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
 
         /* create IDLETIME watcher */
         manager->priv->idle_monitor = gnome_idle_monitor_new ();
-        g_signal_connect (manager->priv->idle_monitor, "became-active",
-                          G_CALLBACK (idle_became_active_cb), manager);
-        g_signal_connect (manager->priv->idle_monitor, "triggered-idle",
-                          G_CALLBACK (idle_triggered_idle_cb), manager);
 
         /* set up the screens */
         g_signal_connect (manager->priv->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
