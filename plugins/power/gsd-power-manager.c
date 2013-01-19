@@ -3293,6 +3293,10 @@ handle_resume_actions (GsdPowerManager *manager)
                 manager->priv->pre_dpms_brightness = -1;
         }
 
+        /* And work-around Xorg bug:
+         * https://bugs.freedesktop.org/show_bug.cgi?id=59576 */
+        reset_idletime ();
+
         /* set up the delay again */
         inhibit_suspend (manager);
 }
