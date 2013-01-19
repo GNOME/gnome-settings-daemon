@@ -1441,8 +1441,6 @@ gboolean
 gsd_wacom_manager_start (GsdWacomManager *manager,
                          GError         **error)
 {
-	int a, b, c, d;
-
         gnome_settings_profile_start (NULL);
 
         if (supports_xinput2_devices (&manager->priv->opcode) == FALSE) {
@@ -1450,7 +1448,7 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
                 return TRUE;
         }
 
-        if (!XTestQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &a, &b, &c, &d)) {
+        if (supports_xtest () == FALSE) {
                 g_debug ("No XTest extension support, disabling plugin");
                 return TRUE;
         }
