@@ -28,6 +28,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gdk/gdkx.h>
+#include <X11/extensions/XTest.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -1576,4 +1577,14 @@ backlight_set_abs (GnomeRRScreen *rr_screen,
                                           error);
 
         return ret;
+}
+
+void
+reset_idletime (void)
+{
+        gdk_error_trap_push ();
+        /* send a left shift key; first press, then release */
+        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Shift_L, True, 0);
+        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Shift_L, False, 0);
+        gdk_error_trap_pop_ignored ();
 }
