@@ -96,7 +96,7 @@ static struct {
         { MUTE_KEY, "volume-mute", NULL, NULL },
         { VOLUME_DOWN_KEY, "volume-down", NULL, NULL },
         { VOLUME_UP_KEY, "volume-up", NULL, NULL },
-        { MIC_MUTE_KEY, NULL, N_("Microphone Mute"), "F2" },
+        { MIC_MUTE_KEY, NULL, N_("Microphone Mute"), "F20" },
         { MUTE_QUIET_KEY, NULL, N_("Quiet Volume Mute"), "<Alt>XF86AudioMute" },
         { VOLUME_DOWN_QUIET_KEY, NULL, N_("Quiet Volume Down"), "<Alt>XF86AudioLowerVolume" },
         { VOLUME_UP_QUIET_KEY, NULL, N_("Quiet Volume Up"), "<Alt>XF86AudioRaiseVolume" },
