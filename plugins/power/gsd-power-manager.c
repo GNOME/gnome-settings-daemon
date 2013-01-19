@@ -3326,7 +3326,8 @@ gsd_power_manager_start (GsdPowerManager *manager,
 
         /* coldplug the list of screens */
         manager->priv->rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        if (manager->priv->rr_screen == NULL)
+        if (manager->priv->rr_screen == NULL) {
+                g_debug ("Couldn't detect any screens, disabling plugin");
                 return FALSE;
 
         /* Set up the logind proxy */
