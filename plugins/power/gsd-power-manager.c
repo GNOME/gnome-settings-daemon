@@ -36,6 +36,8 @@
 #include <libgnome-desktop/gnome-rr.h>
 #include <libgnome-desktop/gnome-idle-monitor.h>
 
+#include <gsd-input-helper.h>
+
 #include "gsd-power-constants.h"
 #include "gsm-inhibitor-flag.h"
 #include "gsm-presence-flag.h"
@@ -3329,6 +3331,13 @@ gsd_power_manager_start (GsdPowerManager *manager,
         if (manager->priv->rr_screen == NULL) {
                 g_debug ("Couldn't detect any screens, disabling plugin");
                 return FALSE;
+        }
+
+        /* Check for XTEST support */
+        if (supports_xtest () == FALSE) {
+                g_debug ("XTEST extension required, disabling plugin");
+                return FALSE;
+        }
 
         /* Set up the logind proxy */
         manager->priv->logind_proxy =
