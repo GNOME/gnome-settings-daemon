@@ -62,11 +62,18 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             stdout=self.plugin_log_write,
             stderr=subprocess.STDOUT,
             env=env)
-        # give it some time to settle down
-        time.sleep(1)
 
         # you can use this for reading the current daemon log in tests
         self.plugin_log = open(self.plugin_log_write.name)
+
+        # wait until plugin is ready
+        timeout = 100
+        while timeout > 0:
+            time.sleep(0.1)
+            timeout -= 1
+            log = self.plugin_log.read()
+            if 'System inhibitor fd is' in log:
+                break
 
         # always start with zero idle time
         self.reset_idle_timer()
