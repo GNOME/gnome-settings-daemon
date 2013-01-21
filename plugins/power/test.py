@@ -179,15 +179,20 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.obj_screensaver.SetActive(True)
         self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
 
-        # wait for short fade timeout, should blank
-        self.check_blank(11)
+        # blank is supposed to happen straight away
+        self.check_blank(2)
 
-        # wiggle the mouse now and check for unblank
+        # wiggle the mouse now and check for unblank; this is expected to pop up
+        # the locked screen saver
         self.reset_idle_timer()
-        self.check_unblank(1)
+        self.check_unblank(2)
+
+        # Check for no blank before the normal blank timeout
+        self.check_no_blank(gsdpowerconstants.SCREENSAVER_TIMEOUT_BLANK - 4)
+        self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
 
         # and check for blank after the blank timeout
-        self.check_blank(gsdpowerconstants.SCREENSAVER_TIMEOUT_BLANK + 1)
+        self.check_blank(10)
 
     def test_sleep_inactive_battery(self):
         '''sleep-inactive-battery-timeout'''
