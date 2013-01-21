@@ -77,7 +77,6 @@ gsd_test_power_LDADD =					\
 EXTRA_DIST = 						\
 	$(plugin_in_files)				\
 	$(gsd_backlight_helper_SOURCES)			\
-	test.py						\
 	$(NULL)
 
 if HAVE_GUDEV
@@ -128,7 +127,7 @@ gsd_power_enums_update_SOURCES =		\
 gsd_power_enums_update_CFLAGS = $(libpower_la_CFLAGS)
 gsd_power_enums_update_LDFLAGS = $(POWER_LIBS)
 
-EXTRA_DIST += gsdpowerconstants.py gsdpowerenums.py
+EXTRA_DIST += gsdpowerconstants.py gsdpowerenums.py test.py
 
 check-local: $(top_builddir)/tests/shiftkey gsd-test-power test.py gsdpowerconstants.py gsdpowerenums.py
 	BUILDDIR=$(builddir) TOP_BUILDDIR=$(top_builddir) ${PYTHON} $(srcdir)/test.py
