@@ -2819,6 +2819,7 @@ get_active_cb (GDBusProxy *proxy,
                 g_variant_get (res, "(b)", &active);
 
         manager->priv->screensaver_active = active;
+        g_variant_unref (res);
 }
 
 static void
