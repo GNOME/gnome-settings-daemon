@@ -128,7 +128,7 @@ gsd_power_enums_update_CFLAGS = $(libpower_la_CFLAGS)
 gsd_power_enums_update_CPPFLAGS = $(libpower_la_CPPFLAGS) -I$(top_builddir)/plugins/power
 gsd_power_enums_update_LDFLAGS = $(POWER_LIBS)
 
-EXTRA_DIST += gsdpowerconstants.py gsdpowerenums.py test.py
+EXTRA_DIST += gsd-power-constants-update.pl gsdpowerconstants.py gsdpowerenums.py test.py
 
 check-local: $(top_builddir)/tests/shiftkey gsd-test-power test.py gsdpowerconstants.py gsdpowerenums.py
 	BUILDDIR=$(builddir) TOP_BUILDDIR=$(top_builddir) ${PYTHON} $(srcdir)/test.py
