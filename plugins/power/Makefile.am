@@ -117,7 +117,7 @@ gsdpowerconstants.py: gsd-power-constants-update.pl gsd-power-constants.h
 	$(AM_V_GEN) $(srcdir)/gsd-power-constants-update.pl
 
 gsdpowerenums.py: gsd-power-enums-update gsd-power-enums.h gsd-power-enums.c
-	$(AM_V_GEN) $(srcdir)/gsd-power-enums-update > $@
+	$(AM_V_GEN) $(builddir)/gsd-power-enums-update > $@
 
 noinst_PROGRAMS = gsd-power-enums-update
 gsd_power_enums_update_SOURCES =		\
