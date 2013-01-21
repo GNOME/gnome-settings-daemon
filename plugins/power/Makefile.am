@@ -131,6 +131,8 @@ gsd_power_enums_update_LDFLAGS = $(POWER_LIBS)
 EXTRA_DIST += gsd-power-constants-update.pl gsdpowerconstants.py gsdpowerenums.py test.py
 
 check-local: $(top_builddir)/tests/shiftkey gsd-test-power test.py gsdpowerconstants.py gsdpowerenums.py
+# This is how you run a single test
+#	BUILDDIR=$(builddir) TOP_BUILDDIR=$(top_builddir) ${PYTHON} $(srcdir)/test.py PowerPluginTest.test_sleep_inactive_blank
 	BUILDDIR=$(builddir) TOP_BUILDDIR=$(top_builddir) ${PYTHON} $(srcdir)/test.py
 
 clean-local:
