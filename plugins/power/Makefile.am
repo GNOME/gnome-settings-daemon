@@ -125,6 +125,7 @@ gsd_power_enums_update_SOURCES =		\
 	gsd-power-enums.h			\
 	gsd-power-enums.c
 gsd_power_enums_update_CFLAGS = $(libpower_la_CFLAGS)
+gsd_power_enums_update_CPPFLAGS = $(libpower_la_CPPFLAGS) -I$(top_builddir)/plugins/power
 gsd_power_enums_update_LDFLAGS = $(POWER_LIBS)
 
 EXTRA_DIST += gsdpowerconstants.py gsdpowerenums.py test.py
