@@ -84,6 +84,7 @@ esac
 AC_SUBST([GSD_PLUGIN_LDFLAGS])
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
+AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 
 dnl ================================================================
 dnl GSettings stuff

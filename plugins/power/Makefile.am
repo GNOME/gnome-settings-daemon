@@ -95,9 +95,44 @@ EXTRA_DIST += 						\
 	org.gnome.settings-daemon.plugins.power.policy.in.in
 endif
 
-check-local: $(top_builddir)/tests/shiftkey gsd-test-power
+# Enums
+GSD_POWER_ENUM_FILES = gsd-power-enums.c gsd-power-enums.h
+
+gsd-power-enums.h: gsm-inhibitor-flag.h gsm-presence-flag.h Makefile
+	$(AM_V_GEN)($(GLIB_MKENUMS) \
+			--fhead "#ifndef GSD_POWER_ENUMS_H\n#define GSD_POWER_ENUMS_H\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n" \
+			--fprod "/* enumerations from \"@filename@\" */\n" \
+			--vhead "GType @enum_name@_get_type (void) G_GNUC_CONST;\n#define GSD_POWER_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
+			--ftail "G_END_DECLS\n\n#endif /* !GSD_POWER_ENUMS_H */" $(srcdir)/gsm-inhibitor-flag.h $(srcdir)/gsm-presence-flag.h > $@)
+
+gsd-power-enums.c: gsd-power-constants.h gsm-inhibitor-flag.h gsm-presence-flag.h Makefile gsd-power-enums.h
+	$(AM_V_GEN)($(GLIB_MKENUMS) \
+			--fhead "#include \"gsm-inhibitor-flag.h\"\n#include \"gsm-presence-flag.h\"\n#include \"gsd-power-enums.h\"" \
+			--fprod "\n/* enumerations from \"@filename@\" */" \
+			--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {" \
+			--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
+			--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (\"@EnumName@\", values);\n  }\n  return etype;\n}\n" \
+		$(srcdir)/gsm-inhibitor-flag.h $(srcdir)/gsm-presence-flag.h > $@)
+
+gsdpowerconstants.py: gsd-power-constants-update.pl gsd-power-constants.h
+	$(AM_V_GEN) $(srcdir)/gsd-power-constants-update.pl
+
+gsdpowerenums.py: gsd-power-enums-update gsd-power-enums.h gsd-power-enums.c
+	$(AM_V_GEN) $(srcdir)/gsd-power-enums-update > $@
+
+noinst_PROGRAMS = gsd-power-enums-update
+gsd_power_enums_update_SOURCES =		\
+	gsd-power-enums-update.c		\
+	gsd-power-enums.h			\
+	gsd-power-enums.c
+gsd_power_enums_update_CFLAGS = $(libpower_la_CFLAGS)
+gsd_power_enums_update_LDFLAGS = $(POWER_LIBS)
+
+EXTRA_DIST += gsdpowerconstants.py gsdpowerenums.py
+
+check-local: $(top_builddir)/tests/shiftkey gsd-test-power test.py gsdpowerconstants.py gsdpowerenums.py
 	BUILDDIR=$(builddir) TOP_BUILDDIR=$(top_builddir) ${PYTHON} $(srcdir)/test.py
- 
+
 clean-local:
 	rm -f *~
 
