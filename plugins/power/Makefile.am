@@ -1,3 +1,5 @@
+BUILT_SOURCES =
+
 plugin_name = power
 
 plugin_LTLIBRARIES =					\
@@ -112,6 +114,8 @@ gsd-power-enums.c: gsd-power-constants.h gsm-inhibitor-flag.h gsm-presence-flag.
 			--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
 			--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (\"@EnumName@\", values);\n  }\n  return etype;\n}\n" \
 		$(srcdir)/gsm-inhibitor-flag.h $(srcdir)/gsm-presence-flag.h > $@)
+
+BUILT_SOURCES += $(GSD_POWER_ENUM_FILES)
 
 gsdpowerconstants.py: gsd-power-constants-update.pl gsd-power-constants.h
 	$(AM_V_GEN) $(srcdir)/gsd-power-constants-update.pl
