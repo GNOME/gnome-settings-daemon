@@ -16,7 +16,10 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 builddir = os.environ.get('BUILDDIR', os.path.dirname(__file__))
 
 sys.path.insert(0, os.path.join(project_root, 'tests'))
+sys.path.insert(0, builddir)
 import gsdtestcase
+import gsdpowerconstants
+import gsdpowerenums
 
 import dbus
 
@@ -210,7 +213,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # create inhibitor
         inhibit_id = self.obj_session_mgr.Inhibit(
             'testsuite', dbus.UInt32(0), 'for testing',
-            dbus.UInt32(gsdtestcase.GSM_INHIBITOR_FLAG_IDLE | gsdtestcase.GSM_INHIBITOR_FLAG_SUSPEND))
+            dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_IDLE | gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND))
         try:
             self.check_no_suspend(7)
         finally:
