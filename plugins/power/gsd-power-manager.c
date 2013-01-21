@@ -2813,11 +2813,15 @@ get_active_cb (GDBusProxy *proxy,
 {
         GVariant *res;
         gboolean active = FALSE;
+        GError *error = NULL;
 
-        res = g_dbus_proxy_call_finish (proxy, result, NULL);
-        if (res)
-                g_variant_get (res, "(b)", &active);
+        res = g_dbus_proxy_call_finish (proxy, result, &error);
+        if (!res) {
+                g_warning ("Failed to run GetActive() function on screensaver: %s", error->message);
+                g_error_free (error);
+        }
 
+        g_variant_get (res, "(b)", &active);
         manager->priv->screensaver_active = active;
         g_variant_unref (res);
 }
