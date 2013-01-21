@@ -186,8 +186,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.reset_idle_timer()
         self.check_unblank(1)
 
-        # and check for blank after 20 seconds
-        self.check_blank(21)
+        # and check for blank after the blank timeout
+        self.check_blank(gsdpowerconstants.SCREENSAVER_TIMEOUT_BLANK + 1)
 
     def test_sleep_inactive_battery(self):
         '''sleep-inactive-battery-timeout'''
