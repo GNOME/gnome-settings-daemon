@@ -234,6 +234,29 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         time.sleep(5)
         self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
 
+    def test_idle_time_reset_on_resume(self):
+        '''Check that the IDLETIME is reset when resuming'''
+
+        obj_session_presence = self.session_bus_con.get_object(
+            'org.gnome.SessionManager', '/org/gnome/SessionManager/Presence')
+        dbus_props = dbus.Interface(obj_session_presence, dbus.PROPERTIES_IFACE)
+
+        # Go idle
+        self.settings_session['idle-delay'] = 5
+        time.sleep(7)
+        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
+
+        # Go to sleep
+        self.obj_logind.EmitSignal('', 'PrepareForSleep', 'b', [True], dbus_interface='org.freedesktop.DBus.Mock')
+        time.sleep(1)
+
+        # Wake up
+        self.obj_logind.EmitSignal('', 'PrepareForSleep', 'b', [False], dbus_interface='org.freedesktop.DBus.Mock')
+        time.sleep(1)
+
+        # And check we're not idle
+        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+
     def test_sleep_inactive_battery(self):
         '''sleep-inactive-battery-timeout'''
 
