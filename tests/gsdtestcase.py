@@ -56,6 +56,11 @@ class GSDTestCase(dbusmock.DBusTestCase):
         os.environ['LC_MESSAGES'] = 'C'
         klass.workdir = tempfile.mkdtemp(prefix='gsd-power-test')
 
+        # start X.org server with dummy driver; this is needed until Xvfb
+        # supports XRandR:
+        # http://lists.x.org/archives/xorg-devel/2013-January/035114.html
+        klass.start_xorg()
+
         # tell dconf and friends to use our config/runtime directories
         os.environ['XDG_CONFIG_HOME'] = os.path.join(klass.workdir, 'config')
         os.environ['XDG_DATA_HOME'] = os.path.join(klass.workdir, 'data')
@@ -84,6 +89,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
         klass.p_notify.wait()
         klass.stop_session()
         dbusmock.DBusTestCase.tearDownClass()
+        klass.stop_xorg()
         shutil.rmtree(klass.workdir)
 
     def run(self, result=None):
@@ -181,6 +187,53 @@ class GSDTestCase(dbusmock.DBusTestCase):
 
         self.logind.terminate()
         self.logind.wait()
+
+    @classmethod
+    def start_xorg(klass):
+        '''start X.org server with dummy driver'''
+
+        conf = os.path.join(os.path.dirname(__file__), 'xorg-dummy.conf')
+
+        # some distros like Fedora install Xorg as suid root; copy it into our
+        # workdir to drop the suid bit and run it as user
+        which = subprocess.Popen(['which', 'Xorg'], stdout=subprocess.PIPE)
+        out = which.communicate()[0].strip()
+        if which.returncode != 0 or not out:
+            sys.stderr.write('ERROR: Xorg not installed\n')
+            sys.exit(1)
+        xorg = os.path.join(klass.workdir, 'Xorg')
+        shutil.copy(out, xorg)
+
+        # You can rename the log file to *.log if you want to see it on test
+        # case failures
+        log = os.path.join(klass.workdir, 'Xorg.out')
+        klass.xorg = subprocess.Popen([xorg, '-config', conf, '-logfile', log, ':99'],
+                                      stderr=subprocess.PIPE)
+        os.environ['DISPLAY'] = ':99'
+
+        # wait until the server is ready
+        timeout = 50
+        while timeout > 0:
+            time.sleep(0.1)
+            timeout -= 1
+            if klass.xorg.poll():
+                # ended prematurely
+                timeout = -1
+                break
+            if subprocess.call(['xprop', '-root'], stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE) == 0:
+                break
+        if timeout <= 0:
+            with open(log) as f:
+                sys.stderr.write('Cannot start X.org with dummy driver.  Log:\n%s\n--------' % f.read())
+            sys.exit(1)
+
+    @classmethod
+    def stop_xorg(klass):
+        '''stop X.org server with dummy driver'''
+
+        klass.xorg.terminate()
+        klass.xorg.wait()
 
     @classmethod
     def reset_idle_timer(klass):
