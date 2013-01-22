@@ -30,6 +30,7 @@
 #include <libupower-glib/upower.h>
 #include <libnotify/notify.h>
 #include <canberra-gtk.h>
+#include <glib-unix.h>
 #include <gio/gunixfdlist.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
@@ -3212,6 +3213,15 @@ on_randr_event (GnomeRRScreen *screen, gpointer user_data)
         setup_inhibit_lid_switch_timer (manager);
 }
 
+#ifdef MOCK_EXTERNAL_MONITOR
+static gboolean
+received_sigusr2 (GsdPowerManager *manager)
+{
+        on_randr_event (NULL, manager);
+        return TRUE;
+}
+#endif /* MOCK_EXTERNAL_MONITOR */
+
 static gboolean
 screen_lock_done_cb (gpointer data)
 {
@@ -3446,6 +3456,10 @@ gsd_power_manager_start (GsdPowerManager *manager,
         /* set up the screens */
         g_signal_connect (manager->priv->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
         on_randr_event (manager->priv->rr_screen, manager);
+
+#ifdef MOCK_EXTERNAL_MONITOR
+        g_unix_signal_add (SIGUSR2, (GSourceFunc) received_sigusr2, manager);
+#endif /* MOCK_EXTERNAL_MONITOR */
 
         /* ensure the default dpms timeouts are cleared */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
