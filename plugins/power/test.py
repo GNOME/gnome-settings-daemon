@@ -138,15 +138,15 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
             self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
 
-    def check_no_idle(self, seconds):
-        '''Check that no idle mode is set in the given time'''
+    def check_no_dim(self, seconds):
+        '''Check that mode is not set to dim in the given time'''
 
         # wait for specified time to ensure it didn't do anything
         time.sleep(seconds)
         # check that we don't dim
         log = self.plugin_log.read()
         if log:
-            self.assertFalse(b' Doing a state transition: dim' in log, 'unexpected dim request')
+            self.assertFalse(b'Doing a state transition: dim' in log, 'unexpected dim request')
 
     def check_dim(self, timeout):
         '''Check that mode is set to dim in the given time'''
@@ -299,7 +299,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def test_sleep_inhibition(self):
         '''Does not sleep under idle inhibition'''
 
-        self.settings_session['idle-delay'] = 2
+        idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
+
+        self.settings_session['idle-delay'] = idle_delay
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
 
@@ -307,8 +309,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         inhibit_id = self.obj_session_mgr.Inhibit(
             'testsuite', dbus.UInt32(0), 'for testing',
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_IDLE | gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND))
-        self.check_no_suspend(7)
-        self.check_no_idle(0)
+        self.check_no_suspend(idle_delay + 2)
+        self.check_no_dim(0)
 
         # Check that we didn't go to idle either
         obj_session_presence = self.session_bus_con.get_object(
