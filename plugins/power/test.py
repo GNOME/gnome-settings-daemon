@@ -116,6 +116,16 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
 
+    def set_has_external_monitor(self, external):
+        f = open('GSD_MOCK_EXTERNAL_MONITOR', 'w')
+        if external:
+            f.write('1')
+        else:
+            f.write('0')
+        f.close ()
+
+        os.kill(self.daemon.pid, signal.SIGUSR2)
+
     def check_for_suspend(self, timeout):
         '''Check that Suspend() or Hibernate() is requested.
 
@@ -334,6 +344,26 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY)
 
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+
+    def test_no_suspend_lid_close(self):
+        '''Check that we don't suspend on lid close with an external monitor'''
+
+        # Add an external monitor
+        self.set_has_external_monitor(True)
+        time.sleep (1)
+
+        # Close the lid
+        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
+        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+
+        # Check for suspend
+        self.check_no_suspend (10)
+
+        # Unplug the external monitor
+        self.set_has_external_monitor(False)
+        self.check_for_suspend (10)
+
+        os.unlink('GSD_MOCK_EXTERNAL_MONITOR')
 
     def test_action_critical_battery(self):
         '''action on critical battery'''
