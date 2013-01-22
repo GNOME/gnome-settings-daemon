@@ -229,6 +229,8 @@ static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionT
 static void      do_lid_closed_action (GsdPowerManager *manager);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
+static gboolean  idle_is_session_inhibited (GsdPowerManager *manager, guint mask, gboolean *is_inhibited);
+static void      idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -2194,6 +2196,25 @@ do_lid_open_action (GsdPowerManager *manager)
         }
 }
 
+static gboolean
+lock_screensaver (GsdPowerManager *manager)
+{
+        gboolean do_lock;
+
+        do_lock = g_settings_get_boolean (manager->priv->settings_screensaver,
+                                          "lock-enabled");
+        if (!do_lock)
+                return FALSE;
+
+        g_dbus_proxy_call_sync (manager->priv->screensaver_proxy,
+                                "Lock",
+                                NULL,
+                                G_DBUS_CALL_FLAGS_NONE,
+                                -1, NULL, NULL);
+
+        return TRUE;
+}
+
 static void
 do_lid_closed_action (GsdPowerManager *manager)
 {
@@ -2208,6 +2229,20 @@ do_lid_closed_action (GsdPowerManager *manager)
         gnome_rr_screen_refresh (manager->priv->rr_screen, NULL); /* NULL-GError */
 
         restart_inhibit_lid_switch_timer (manager);
+
+        if (suspend_on_lid_close (manager)) {
+                gboolean is_inhibited;
+
+                idle_is_session_inhibited (manager,
+                                           GSM_INHIBITOR_FLAG_SUSPEND,
+                                           &is_inhibited);
+                if (is_inhibited) {
+                        /* We put the screensaver on, or blanking
+                         * as we're not suspending, but the lid is closed */
+                        if (!lock_screensaver (manager))
+                                idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
+                }
+        }
 }
 
 static void
