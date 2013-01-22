@@ -2433,9 +2433,8 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                         g_warning ("failed to turn the panel off: %s",
                                    error->message);
                         g_clear_error (&error);
-                } else {
-                        g_debug ("TESTSUITE: Blanked screen");
                 }
+                g_debug ("TESTSUITE: Blanked screen");
 
                 /* only toggle keyboard if present and not already toggled */
                 if (manager->priv->upower_kdb_proxy &&
@@ -2470,9 +2469,9 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                         g_warning ("failed to turn the panel on: %s",
                                    error->message);
                         g_clear_error (&error);
-                } else {
-                        g_debug ("TESTSUITE: Unblanked screen");
                 }
+                g_debug ("TESTSUITE: Unblanked screen");
+                
                 /* reset brightness if we dimmed */
                 if (manager->priv->pre_dim_brightness >= 0) {
                         ret = backlight_set_abs (manager->priv->rr_screen,
@@ -3284,9 +3283,8 @@ handle_resume_actions (GsdPowerManager *manager)
                 g_warning ("failed to turn the panel on after resume: %s",
                            error->message);
                 g_error_free (error);
-        } else {
-                g_debug ("TESTSUITE: Unblanked screen on resume");
         }
+        g_debug ("TESTSUITE: Unblanked screen on resume");
 
         if (manager->priv->pre_dpms_brightness != -1) {
                 backlight_set_abs (manager->priv->rr_screen, manager->priv->pre_dpms_brightness, &error);
