@@ -148,6 +148,21 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         if log:
             self.assertFalse(b' Doing a state transition: dim' in log, 'unexpected dim request')
 
+    def check_dim(self, timeout):
+        '''Check that mode is set to dim in the given time'''
+
+        # wait for specified time to ensure it didn't do anything
+        while timeout > 0:
+            time.sleep(1)
+            timeout -= 1
+            # check that it requested blank
+            log = self.plugin_log.read()
+
+            if 'Doing a state transition: dim' in log:
+                break
+        else:
+            self.fail('timed out waiting for dim')
+
     def check_blank(self, timeout):
         '''Check that blank is requested.
 
@@ -302,6 +317,26 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
+
+    def test_dim(self):
+        '''Check that we do go to dim'''
+
+        idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
+
+        self.settings_session['idle-delay'] = idle_delay
+        self.settings_gsd_power['sleep-inactive-battery-timeout'] = idle_delay + 1
+        self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
+
+        # Check that we're not idle
+        obj_session_presence = self.session_bus_con.get_object(
+            'org.gnome.SessionManager', '/org/gnome/SessionManager/Presence')
+        dbus_props = dbus.Interface(obj_session_presence, dbus.PROPERTIES_IFACE)
+        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+
+        # Wait and check we're not idle, but dimmed
+        self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY)
+
+        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
     def test_action_critical_battery(self):
         '''action on critical battery'''
