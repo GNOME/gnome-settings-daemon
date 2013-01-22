@@ -1608,7 +1608,6 @@ external_monitor_is_connected (GnomeRRScreen *screen)
 
 #ifdef MOCK_EXTERNAL_MONITOR
 	char *mock_external_monitor_contents;
-	gboolean ret;
 
 	if (g_file_get_contents ("GSD_MOCK_EXTERNAL_MONITOR", &mock_external_monitor_contents, NULL, NULL)) {
 		if (mock_external_monitor_contents[0] == '1') {
