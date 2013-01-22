@@ -80,6 +80,8 @@ class GSDTestCase(dbusmock.DBusTestCase):
 
     @classmethod
     def tearDownClass(klass):
+        klass.p_notify.terminate()
+        klass.p_notify.wait()
         klass.stop_session()
         dbusmock.DBusTestCase.tearDownClass()
         shutil.rmtree(klass.workdir)
