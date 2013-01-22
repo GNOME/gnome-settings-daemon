@@ -226,7 +226,6 @@ static gdouble   engine_get_percentage (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 static void      do_lid_closed_action (GsdPowerManager *manager);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
-static gboolean  external_monitor_is_connected (GnomeRRScreen *screen);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
@@ -3189,34 +3188,6 @@ uninhibit_suspend (GsdPowerManager *manager)
         close (manager->priv->inhibit_suspend_fd);
         manager->priv->inhibit_suspend_fd = -1;
         manager->priv->inhibit_suspend_taken = FALSE;
-}
-
-static gboolean
-randr_output_is_on (GnomeRROutput *output)
-{
-        GnomeRRCrtc *crtc;
-
-        crtc = gnome_rr_output_get_crtc (output);
-        if (!crtc)
-                return FALSE;
-        return gnome_rr_crtc_get_current_mode (crtc) != NULL;
-}
-
-static gboolean
-external_monitor_is_connected (GnomeRRScreen *screen)
-{
-        GnomeRROutput **outputs;
-        guint i;
-
-        /* see if we have more than one screen plugged in */
-        outputs = gnome_rr_screen_list_outputs (screen);
-        for (i = 0; outputs[i] != NULL; i++) {
-                if (randr_output_is_on (outputs[i]) &&
-                    !gnome_rr_output_is_laptop (outputs[i]))
-                        return TRUE;
-        }
-
-        return FALSE;
 }
 
 static void

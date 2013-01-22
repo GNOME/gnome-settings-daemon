@@ -66,6 +66,10 @@ int              backlight_step_down                    (GnomeRRScreen *rr_scree
 int              backlight_set_abs                      (GnomeRRScreen *rr_screen,
                                                          guint value,
                                                          GError **error);
+
+/* RandR helpers */
+gboolean         external_monitor_is_connected          (GnomeRRScreen *screen);
+
 G_END_DECLS
 
 #endif  /* __GPMCOMMON_H */

@@ -1588,3 +1588,31 @@ reset_idletime (void)
         XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Shift_L, False, 0);
         gdk_error_trap_pop_ignored ();
 }
+
+static gboolean
+randr_output_is_on (GnomeRROutput *output)
+{
+        GnomeRRCrtc *crtc;
+
+        crtc = gnome_rr_output_get_crtc (output);
+        if (!crtc)
+                return FALSE;
+        return gnome_rr_crtc_get_current_mode (crtc) != NULL;
+}
+
+gboolean
+external_monitor_is_connected (GnomeRRScreen *screen)
+{
+        GnomeRROutput **outputs;
+        guint i;
+
+        /* see if we have more than one screen plugged in */
+        outputs = gnome_rr_screen_list_outputs (screen);
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (randr_output_is_on (outputs[i]) &&
+                    !gnome_rr_output_is_laptop (outputs[i]))
+                        return TRUE;
+        }
+
+        return FALSE;
+}
