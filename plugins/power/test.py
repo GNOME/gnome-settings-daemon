@@ -108,8 +108,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # reset all changed gsettings, so that tests are independent from each
         # other
-        for k in self.settings_gsd_power.list_keys():
-            self.settings_gsd_power.reset(k)
+        for schema in [self.settings_gsd_power, self.settings_session, self.settings_screensaver]:
+            for k in schema.list_keys():
+                schema.reset(k)
         Gio.Settings.sync()
 
     def get_status(self):
