@@ -2549,17 +2549,18 @@ idle_is_session_idle (GsdPowerManager *manager)
 }
 
 static gboolean
-idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
+idle_is_session_inhibited (GsdPowerManager *manager,
+                           guint            mask,
+                           gboolean        *is_inhibited)
 {
-        gboolean ret;
         GVariant *retval = NULL;
         GError *error = NULL;
 
+        *is_inhibited = FALSE;
+
         /* not yet connected to gnome-session */
-        if (manager->priv->session == NULL) {
-                g_warning ("session inhibition not available, gnome-session is not available");
+        if (manager->priv->session == NULL)
                 return FALSE;
-        }
 
         retval = g_dbus_proxy_call_sync (manager->priv->session,
                                          "IsInhibited",
@@ -2572,13 +2573,13 @@ idle_is_session_inhibited (GsdPowerManager *manager, guint mask)
                 /* abort as the DBUS method failed */
                 g_warning ("IsInhibited failed: %s", error->message);
                 g_error_free (error);
-                return FALSE;
+                return TRUE;
         }
 
-        g_variant_get (retval, "(b)", &ret);
+        g_variant_get (retval, "(b)", is_inhibited);
         g_variant_unref (retval);
 
-        return ret;
+        return TRUE;
 }
 
 static void
@@ -2600,9 +2601,14 @@ idle_configure (GsdPowerManager *manager)
         guint timeout_dim;
         gboolean on_battery;
 
+        if (!idle_is_session_inhibited (manager,
+                                        GSM_INHIBITOR_FLAG_IDLE,
+                                        &is_idle_inhibited)) {
+                /* Session isn't available yet, postpone */
+                return;
+        }
+
         /* are we inhibited from going idle */
-        is_idle_inhibited = idle_is_session_inhibited (manager,
-                                                       GSM_INHIBITOR_FLAG_IDLE);
         if (is_idle_inhibited) {
                 g_debug ("inhibited, so using normal state");
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
@@ -2994,8 +3000,10 @@ idle_send_to_sleep (GsdPowerManager *manager)
         gboolean is_idle;
 
         /* check the session is not now inhibited */
-        is_inhibited = idle_is_session_inhibited (manager,
-                                                  GSM_INHIBITOR_FLAG_SUSPEND);
+        idle_is_session_inhibited (manager,
+                                   GSM_INHIBITOR_FLAG_SUSPEND,
+                                   &is_inhibited);
+
         if (is_inhibited) {
                 g_debug ("suspend inhibited");
                 return;
