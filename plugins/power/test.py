@@ -43,6 +43,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         self.start_logind()
 
+        # Set up the gnome-session presence
+        obj_session_presence = self.session_bus_con.get_object(
+            'org.gnome.SessionManager', '/org/gnome/SessionManager/Presence')
+        self.obj_session_presence_props = dbus.Interface(obj_session_presence, dbus.PROPERTIES_IFACE)
+
         # ensure that our tests don't lock the screen when the screensaver
         # gets active
         self.settings_screensaver = Gio.Settings('org.gnome.desktop.screensaver')
@@ -106,6 +111,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         for k in self.settings_gsd_power.list_keys():
             self.settings_gsd_power.reset(k)
         Gio.Settings.sync()
+
+    def get_status(self):
+        return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
 
     def check_for_suspend(self, timeout):
         '''Check that Suspend() or Hibernate() is requested.
@@ -230,15 +238,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def test_session_idle_delay(self):
         '''verify that session idle delay works as expected when changed'''
 
-        obj_session_presence = self.session_bus_con.get_object(
-            'org.gnome.SessionManager', '/org/gnome/SessionManager/Presence')
-        dbus_props = dbus.Interface(obj_session_presence, dbus.PROPERTIES_IFACE)
-
         # Verify that idle is set after 5 seconds
         self.settings_session['idle-delay'] = 5
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
         time.sleep(7)
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
 
         # Raise the idle delay, and see that we stop being idle
         # and get idle again after the timeout
@@ -246,30 +250,26 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.reset_idle_timer()
         time.sleep(5)
         os.kill(self.session.pid, signal.SIGUSR2)
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
         time.sleep(10)
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
 
         # Lower the delay again, and see that we get idle as we should
         self.settings_session['idle-delay'] = 5
         self.reset_idle_timer()
         time.sleep(2)
         os.kill(self.session.pid, signal.SIGUSR2)
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
         time.sleep(5)
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
 
     def test_idle_time_reset_on_resume(self):
         '''Check that the IDLETIME is reset when resuming'''
 
-        obj_session_presence = self.session_bus_con.get_object(
-            'org.gnome.SessionManager', '/org/gnome/SessionManager/Presence')
-        dbus_props = dbus.Interface(obj_session_presence, dbus.PROPERTIES_IFACE)
-
         # Go idle
         self.settings_session['idle-delay'] = 5
         time.sleep(7)
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
 
         # Go to sleep
         self.obj_logind.EmitSignal('', 'PrepareForSleep', 'b', [True], dbus_interface='org.freedesktop.DBus.Mock')
@@ -280,7 +280,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         time.sleep(1)
 
         # And check we're not idle
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
     def test_sleep_inactive_battery(self):
         '''sleep-inactive-battery-timeout'''
@@ -313,10 +313,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.check_no_dim(0)
 
         # Check that we didn't go to idle either
-        obj_session_presence = self.session_bus_con.get_object(
-            'org.gnome.SessionManager', '/org/gnome/SessionManager/Presence')
-        dbus_props = dbus.Interface(obj_session_presence, dbus.PROPERTIES_IFACE)
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
 
@@ -330,15 +327,12 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
 
         # Check that we're not idle
-        obj_session_presence = self.session_bus_con.get_object(
-            'org.gnome.SessionManager', '/org/gnome/SessionManager/Presence')
-        dbus_props = dbus.Interface(obj_session_presence, dbus.PROPERTIES_IFACE)
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
         # Wait and check we're not idle, but dimmed
         self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY)
 
-        self.assertEqual(dbus_props.Get('org.gnome.SessionManager.Presence', 'status'), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
     def test_action_critical_battery(self):
         '''action on critical battery'''
