@@ -113,6 +113,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                 schema.reset(k)
         Gio.Settings.sync()
 
+        try:
+            os.unlink('GSD_MOCK_EXTERNAL_MONITOR')
+        except OSError:
+            pass
+
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
 
@@ -362,8 +367,6 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # Unplug the external monitor
         self.set_has_external_monitor(False)
         self.check_for_suspend (10)
-
-        os.unlink('GSD_MOCK_EXTERNAL_MONITOR')
 
     def test_action_critical_battery(self):
         '''action on critical battery'''
