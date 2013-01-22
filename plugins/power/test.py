@@ -138,17 +138,15 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
             self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
 
-    def check_no_idle_no_suspend(self, seconds):
+    def check_no_idle(self, seconds):
         '''Check that no idle mode is set in the given time'''
 
         # wait for specified time to ensure it didn't do anything
         time.sleep(seconds)
-        # check that it did not suspend or hibernate
-        log = self.logind.stdout.read()
+        # check that we don't dim
+        log = self.plugin_log.read()
         if log:
             self.assertFalse(b' Doing a state transition: dim' in log, 'unexpected dim request')
-            self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
-            self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
 
     def check_blank(self, timeout):
         '''Check that blank is requested.
@@ -294,7 +292,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         inhibit_id = self.obj_session_mgr.Inhibit(
             'testsuite', dbus.UInt32(0), 'for testing',
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_IDLE | gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND))
-        self.check_no_idle_no_suspend(7)
+        self.check_no_suspend(7)
+        self.check_no_idle(0)
 
         # Check that we didn't go to idle either
         obj_session_presence = self.session_bus_con.get_object(
