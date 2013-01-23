@@ -239,10 +239,10 @@ gsd_ldsm_dialog_init (GsdLdsmDialog *dialog)
         /* Now set up the dialog's GtkBox's' */
         gtk_box_set_spacing (GTK_BOX (main_vbox), 14);
 	
-        hbox = gtk_hbox_new (FALSE, 12);
+        hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
         gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
 	
-        text_vbox = gtk_vbox_new (FALSE, 12);
+        text_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
         
         gtk_box_pack_start (GTK_BOX (text_vbox), dialog->priv->primary_label, FALSE, FALSE, 0);
         gtk_box_pack_start (GTK_BOX (text_vbox), dialog->priv->secondary_label, TRUE, TRUE, 0);
