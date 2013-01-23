@@ -2014,12 +2014,59 @@ action_hibernate (GsdPowerManager *manager)
 }
 
 static void
-do_power_action_type (GsdPowerManager *manager,
-                      GsdPowerActionType action_type)
+backlight_enable (GsdPowerManager *manager)
 {
         gboolean ret;
         GError *error = NULL;
 
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
+                                             GNOME_RR_DPMS_ON,
+                                             &error);
+        if (!ret) {
+                g_warning ("failed to turn the panel on: %s",
+                           error->message);
+                g_error_free (error);
+        }
+
+        if (manager->priv->pre_dpms_brightness != -1) {
+                backlight_set_abs (manager->priv->rr_screen, manager->priv->pre_dpms_brightness, &error);
+                manager->priv->pre_dpms_brightness = -1;
+        }
+        g_debug ("TESTSUITE: Unblanked screen");
+}
+
+static void
+backlight_disable (GsdPowerManager *manager)
+{
+        GnomeRRDpmsMode mode;
+        gboolean ret;
+        GError *error = NULL;
+
+        /* Save the backlight, if DPMS isn't on yet, so we can capture it */
+        if (!gnome_rr_screen_get_dpms_mode (manager->priv->rr_screen, &mode, NULL) ||
+            mode != GNOME_RR_DPMS_ON) {
+                manager->priv->pre_dpms_brightness = -1;
+        } else {
+                manager->priv->pre_dpms_brightness = backlight_get_abs (manager->priv->rr_screen, NULL);
+        }
+        if (manager->priv->pre_dpms_brightness != -1)
+                backlight_set_abs (manager->priv->rr_screen, backlight_get_min (manager->priv->rr_screen), NULL);
+
+        ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
+                                             GNOME_RR_DPMS_OFF,
+                                             &error);
+        if (!ret) {
+                g_warning ("failed to turn the panel off: %s",
+                           error->message);
+                g_error_free (error);
+        }
+        g_debug ("TESTSUITE: Blanked screen");
+}
+
+static void
+do_power_action_type (GsdPowerManager *manager,
+                      GsdPowerActionType action_type)
+{
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
                 action_suspend (manager);
@@ -2037,14 +2084,7 @@ do_power_action_type (GsdPowerManager *manager,
                 action_poweroff (manager);
                 break;
         case GSD_POWER_ACTION_BLANK:
-                ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
-                                                     GNOME_RR_DPMS_OFF,
-                                                     &error);
-                if (!ret) {
-                        g_warning ("failed to turn the panel off for policy action: %s",
-                                   error->message);
-                        g_error_free (error);
-                }
+                backlight_disable (manager);
                 break;
         case GSD_POWER_ACTION_NOTHING:
                 break;
@@ -2448,15 +2488,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         /* turn off screen and kbd */
         } else if (mode == GSD_POWER_IDLE_MODE_BLANK) {
 
-                ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
-                                                     GNOME_RR_DPMS_OFF,
-                                                     &error);
-                if (!ret) {
-                        g_warning ("failed to turn the panel off: %s",
-                                   error->message);
-                        g_clear_error (&error);
-                }
-                g_debug ("TESTSUITE: Blanked screen");
+                backlight_disable (manager);
 
                 /* only toggle keyboard if present and not already toggled */
                 if (manager->priv->upower_kdb_proxy &&
@@ -2484,16 +2516,8 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         /* turn on screen and restore user-selected brightness level */
         } else if (mode == GSD_POWER_IDLE_MODE_NORMAL) {
 
-                ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
-                                                     GNOME_RR_DPMS_ON,
-                                                     &error);
-                if (!ret) {
-                        g_warning ("failed to turn the panel on: %s",
-                                   error->message);
-                        g_clear_error (&error);
-                }
-                g_debug ("TESTSUITE: Unblanked screen");
-                
+                backlight_enable (manager);
+
                 /* reset brightness if we dimmed */
                 if (manager->priv->pre_dim_brightness >= 0) {
                         ret = backlight_set_abs (manager->priv->rr_screen,
@@ -3236,27 +3260,13 @@ received_sigusr2 (GsdPowerManager *manager)
 static void
 handle_suspend_actions (GsdPowerManager *manager)
 {
-        GnomeRRDpmsMode mode;
-
-        /* Save the backlight, as DPMS isn't on yet, so we can capture it */
-        if (!gnome_rr_screen_get_dpms_mode (manager->priv->rr_screen, &mode, NULL) ||
-            mode != GNOME_RR_DPMS_ON) {
-                manager->priv->pre_dpms_brightness = -1;
-        } else {
-                manager->priv->pre_dpms_brightness = backlight_get_abs (manager->priv->rr_screen, NULL);
-        }
-        if (manager->priv->pre_dpms_brightness != -1)
-                backlight_set_abs (manager->priv->rr_screen, backlight_get_min (manager->priv->rr_screen), NULL);
-
+        backlight_disable (manager);
         uninhibit_suspend (manager);
 }
 
 static void
 handle_resume_actions (GsdPowerManager *manager)
 {
-        gboolean ret;
-        GError *error = NULL;
-
         /* close existing notifications on resume, the system power
          * state is probably different now */
         notify_close_if_showing (manager->priv->notification_low);
@@ -3264,20 +3274,7 @@ handle_resume_actions (GsdPowerManager *manager)
         main_battery_or_ups_low_changed (manager, FALSE);
 
         /* ensure we turn the panel back on after resume */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
-                                             GNOME_RR_DPMS_ON,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to turn the panel on after resume: %s",
-                           error->message);
-                g_error_free (error);
-        }
-        g_debug ("TESTSUITE: Unblanked screen on resume");
-
-        if (manager->priv->pre_dpms_brightness != -1) {
-                backlight_set_abs (manager->priv->rr_screen, manager->priv->pre_dpms_brightness, &error);
-                manager->priv->pre_dpms_brightness = -1;
-        }
+        backlight_enable (manager);
 
         /* And work-around Xorg bug:
          * https://bugs.freedesktop.org/show_bug.cgi?id=59576 */
@@ -3311,8 +3308,6 @@ gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
 {
-        gboolean ret;
-
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
 
@@ -3461,13 +3456,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
 #endif /* MOCK_EXTERNAL_MONITOR */
 
         /* ensure the default dpms timeouts are cleared */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
-                                             GNOME_RR_DPMS_ON,
-                                             error);
-        if (!ret) {
-                g_warning ("Failed set DPMS mode: %s", (*error)->message);
-                g_clear_error (error);
-        }
+        backlight_enable (manager);
 
         /* coldplug the engine */
         engine_coldplug (manager);
