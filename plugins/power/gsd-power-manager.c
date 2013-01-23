@@ -2164,9 +2164,6 @@ restart_inhibit_lid_switch_timer (GsdPowerManager *manager)
 static void
 do_lid_open_action (GsdPowerManager *manager)
 {
-        gboolean ret;
-        GError *error = NULL;
-
         /* play a sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
                          CA_PROP_EVENT_ID, "lid-open",
@@ -2174,26 +2171,9 @@ do_lid_open_action (GsdPowerManager *manager)
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been opened"),
                          NULL);
 
-        /* ensure we turn the panel back on after lid open */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
-                                             GNOME_RR_DPMS_ON,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to turn the panel on after lid open: %s",
-                           error->message);
-                g_clear_error (&error);
-        }
-
-        /* only toggle keyboard if present and already toggled off */
-        if (manager->priv->upower_kdb_proxy != NULL &&
-            manager->priv->kbd_brightness_old != -1) {
-                ret = upower_kbd_toggle (manager, &error);
-                if (!ret) {
-                        g_warning ("failed to turn the kbd backlight on: %s",
-                                   error->message);
-                        g_error_free (error);
-                }
-        }
+        /* This might already have happened when resuming, but
+         * if we didn't sleep, we'll need to wake it up */
+        reset_idletime ();
 }
 
 static gboolean
