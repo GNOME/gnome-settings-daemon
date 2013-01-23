@@ -181,6 +181,7 @@ struct GsdPowerManagerPrivate
         gboolean                 battery_is_low; /* laptop battery low, or UPS discharging */
 
         /* Brightness */
+        gboolean                 backlight_available;
         gint                     pre_dim_brightness; /* level, not percentage */
         gint                     pre_dpms_brightness;
 
@@ -2028,7 +2029,8 @@ backlight_enable (GsdPowerManager *manager)
                 g_error_free (error);
         }
 
-        if (manager->priv->pre_dpms_brightness != -1) {
+        if (manager->priv->backlight_available &&
+            manager->priv->pre_dpms_brightness != -1) {
                 backlight_set_abs (manager->priv->rr_screen, manager->priv->pre_dpms_brightness, &error);
                 manager->priv->pre_dpms_brightness = -1;
         }
@@ -2043,10 +2045,9 @@ backlight_disable (GsdPowerManager *manager)
         GError *error = NULL;
 
         /* Save the backlight, if DPMS isn't on yet, so we can capture it */
-        if (!gnome_rr_screen_get_dpms_mode (manager->priv->rr_screen, &mode, NULL) ||
-            mode != GNOME_RR_DPMS_ON) {
-                manager->priv->pre_dpms_brightness = -1;
-        } else {
+        if (manager->priv->backlight_available &&
+            gnome_rr_screen_get_dpms_mode (manager->priv->rr_screen, &mode, NULL) &&
+            mode == GNOME_RR_DPMS_ON) {
                 manager->priv->pre_dpms_brightness = backlight_get_abs (manager->priv->rr_screen, NULL);
         }
         if (manager->priv->pre_dpms_brightness != -1)
@@ -2354,6 +2355,9 @@ display_backlight_dim (GsdPowerManager *manager,
         gint now;
         gint idle;
         gboolean ret = FALSE;
+
+        if (!manager->priv->backlight_available)
+                return TRUE;
 
         now = backlight_get_abs (manager->priv->rr_screen, error);
         if (now < 0) {
@@ -3455,6 +3459,9 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_unix_signal_add (SIGUSR2, (GSourceFunc) received_sigusr2, manager);
 #endif /* MOCK_EXTERNAL_MONITOR */
 
+        /* check whether a backlight is available */
+        manager->priv->backlight_available = backlight_available (manager->priv->rr_screen);
+
         /* ensure the default dpms timeouts are cleared */
         backlight_enable (manager);
 
@@ -3607,6 +3614,14 @@ handle_method_call_screen (GsdPowerManager *manager,
         guint value_tmp;
         GError *error = NULL;
 
+        if (!manager->priv->backlight_available) {
+               g_set_error_literal (&error,
+                                    GSD_POWER_MANAGER_ERROR,
+                                    GSD_POWER_MANAGER_ERROR_FAILED,
+                                    "Screen backlight not available");
+                goto out;
+        }
+
         if (g_strcmp0 (method_name, "GetPercentage") == 0) {
                 g_debug ("screen get percentage");
                 value = backlight_get_percentage (manager->priv->rr_screen, &error);
@@ -3634,6 +3649,7 @@ handle_method_call_screen (GsdPowerManager *manager,
                 g_assert_not_reached ();
         }
 
+out:
         /* return value */
         if (value < 0) {
                 g_dbus_method_invocation_take_error (invocation,
