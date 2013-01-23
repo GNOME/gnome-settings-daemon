@@ -429,8 +429,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
         self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
 
-        # Check for suspend
+        # Check for no suspend, and for no screen blanking
         self.check_no_suspend (10)
+        self.check_no_blank(0)
 
         # Unplug the external monitor
         self.set_has_external_monitor(False)
