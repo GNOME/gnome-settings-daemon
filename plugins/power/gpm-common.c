@@ -1277,7 +1277,7 @@ backlight_helper_set_value (const gchar *argument,
                             gint value,
                             GError **error)
 {
-        gboolean ret;
+        gboolean ret = FALSE;
         gint exit_status = 0;
         gchar *command = NULL;
 
