@@ -42,6 +42,7 @@
 #define MAX_FAILED_GET_UPDATES              10 /* the maximum number of tries */
 #define GSD_UPDATES_ICON_NORMAL             "software-update-available-symbolic"
 #define GSD_UPDATES_ICON_URGENT             "software-update-urgent-symbolic"
+#define GSD_UPDATES_CHECK_OFFLINE_TIMEOUT   30 /* time in seconds */
 
 struct GsdUpdatesManagerPrivate
 {
@@ -1332,7 +1333,7 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
 
         /* check for offline update */
         manager->priv->offline_update_id =
-                g_timeout_add_seconds (5,
+                g_timeout_add_seconds (GSD_UPDATES_CHECK_OFFLINE_TIMEOUT,
                                        check_offline_update_cb,
                                        manager);
 
