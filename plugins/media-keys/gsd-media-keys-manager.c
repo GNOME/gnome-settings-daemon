@@ -69,6 +69,10 @@
 #define GNOME_KEYRING_DBUS_PATH "/org/gnome/keyring/daemon"
 #define GNOME_KEYRING_DBUS_INTERFACE "org.gnome.keyring.Daemon"
 
+#define GS_DBUS_NAME                            "org.gnome.ScreenSaver"
+#define GS_DBUS_PATH                            "/org/gnome/ScreenSaver"
+#define GS_DBUS_INTERFACE                       "org.gnome.ScreenSaver"
+
 #define CUSTOM_BINDING_SCHEMA SETTINGS_BINDING_DIR ".custom-keybinding"
 
 static const gchar introspection_xml[] =
@@ -927,6 +931,25 @@ do_touchpad_action (GsdMediaKeysManager *manager)
 
         g_settings_set_boolean (settings, TOUCHPAD_ENABLED_KEY, !state);
         g_object_unref (settings);
+}
+
+static void
+do_lock_screensaver (GsdMediaKeysManager *manager)
+{
+        GsdMediaKeysManagerPrivate *priv = manager->priv;
+
+        if (priv->connection == NULL) {
+                g_warning ("No existing D-Bus connection trying to handle screensaver lock key");
+                return;
+        }
+        g_dbus_connection_call (manager->priv->connection,
+                                GS_DBUS_NAME,
+                                GS_DBUS_PATH,
+                                GS_DBUS_INTERFACE,
+                                "Lock",
+                                NULL, NULL,
+                                G_DBUS_CALL_FLAGS_NONE, -1,
+                                NULL, NULL, NULL);
 }
 
 static void
@@ -1946,7 +1969,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_url_action (manager, "mailto", timestamp);
                 break;
         case SCREENSAVER_KEY:
-                execute (manager, "gnome-screensaver-command --lock", FALSE);
+                do_lock_screensaver (manager);
                 break;
         case HELP_KEY:
                 do_url_action (manager, "ghelp", timestamp);
