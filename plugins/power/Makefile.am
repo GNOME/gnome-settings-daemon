@@ -55,6 +55,8 @@ polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
 gsd_backlight_helper_SOURCES =				\
+	gsd-backlight-linux.c				\
+	gsd-backlight-linux.h				\
 	gsd-backlight-helper.c
 
 libexec_PROGRAMS = gsd-test-power
