@@ -8,6 +8,8 @@ plugin_LTLIBRARIES =					\
 libpower_la_SOURCES = 					\
 	gpm-common.c					\
 	gpm-common.h					\
+	gsd-backlight-linux.c				\
+	gsd-backlight-linux.h				\
 	gsd-power-manager.c				\
 	gsd-power-manager.h				\
 	gsm-inhibitor-flag.h				\
@@ -63,6 +65,8 @@ libexec_PROGRAMS = gsd-test-power
 gsd_test_power_SOURCES =				\
 	gpm-common.c					\
 	gpm-common.h					\
+	gsd-backlight-linux.c				\
+	gsd-backlight-linux.h				\
 	gsd-power-manager.c				\
 	gsd-power-manager.h				\
 	gsm-inhibitor-flag.h				\

@@ -35,6 +35,7 @@
 
 #include "gpm-common.h"
 #include "gsd-power-manager.h"
+#include "gsd-backlight-linux.h"
 
 #define XSCREENSAVER_WATCHDOG_TIMEOUT           120 /* seconds */
 
@@ -1188,6 +1189,23 @@ backlight_helper_disabled (void)
                         return TRUE;
         }
         return FALSE;
+}
+
+gboolean
+backlight_available (GnomeRRScreen *rr_screen)
+{
+        char *path;
+
+        if (!backlight_helper_disabled ())
+                return FALSE;
+        if (get_primary_output (rr_screen) != NULL)
+                return TRUE;
+        path = gsd_backlight_helper_get_best_backlight ();
+        if (path == NULL)
+                return FALSE;
+
+        g_free (path);
+        return TRUE;
 }
 
 /**

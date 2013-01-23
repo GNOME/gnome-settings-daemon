@@ -54,6 +54,7 @@ void             reset_idletime                         (void);
 #define PERCENTAGE_TO_ABS(min, max, value) (min + (((max - min) * value) / 100))
 
 int              gsd_power_backlight_abs_to_percentage  (int min, int max, int value);
+gboolean         backlight_available                    (GnomeRRScreen *rr_screen);
 int              backlight_get_abs                      (GnomeRRScreen *rr_screen, GError **error);
 int              backlight_get_percentage               (GnomeRRScreen *rr_screen, GError **error);
 int              backlight_get_min                      (GnomeRRScreen *rr_screen);
