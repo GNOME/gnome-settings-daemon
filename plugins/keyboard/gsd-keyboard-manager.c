@@ -713,21 +713,6 @@ upload_xkb_description (const gchar          *rules_file_path,
 }
 
 static gchar *
-language_code_from_locale (const gchar *locale)
-{
-        if (!locale || !locale[0] || !locale[1])
-                return NULL;
-
-        if (!locale[2] || locale[2] == '_' || locale[2] == '.')
-                return g_strndup (locale, 2);
-
-        if (!locale[3] || locale[3] == '_' || locale[3] == '.')
-                return g_strndup (locale, 3);
-
-        return NULL;
-}
-
-static gchar *
 build_xkb_group_string (const gchar *user,
                         const gchar *locale,
                         const gchar *latin)
@@ -788,7 +773,7 @@ replace_layout_and_variant (GsdKeyboardManager *manager,
         const gchar *locale_layout = NULL;
         const gchar *locale_variant = NULL;
         const gchar *locale;
-        gchar *language;
+        gboolean got_info;
 
         if (!layout)
                 return;
@@ -799,21 +784,23 @@ replace_layout_and_variant (GsdKeyboardManager *manager,
         locale = setlocale (LC_MESSAGES, NULL);
         /* If LANG is empty, default to en_US */
         if (!locale)
-                language = g_strdup (DEFAULT_LANGUAGE);
-        else
-                language = language_code_from_locale (locale);
+                locale = DEFAULT_LANGUAGE;
 
-        if (!language)
-                language = language_code_from_locale (DEFAULT_LANGUAGE);
-
-        gnome_xkb_info_get_layout_info_for_language (manager->priv->xkb_info,
-                                                     language,
-                                                     NULL,
-                                                     NULL,
-                                                     NULL,
-                                                     &locale_layout,
-                                                     &locale_variant);
-        g_free (language);
+        got_info = gnome_xkb_info_get_layout_info_for_locale (manager->priv->xkb_info,
+                                                              locale,
+                                                              NULL,
+                                                              NULL,
+                                                              NULL,
+                                                              &locale_layout,
+                                                              &locale_variant);
+        if (!got_info)
+                gnome_xkb_info_get_layout_info_for_locale (manager->priv->xkb_info,
+                                                           DEFAULT_LANGUAGE,
+                                                           NULL,
+                                                           NULL,
+                                                           NULL,
+                                                           &locale_layout,
+                                                           &locale_variant);
 
         /* We want to minimize the number of XKB groups if we have
          * duplicated layout+variant pairs.
