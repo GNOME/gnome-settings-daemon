@@ -174,13 +174,15 @@ struct GsdPowerManagerPrivate
         gchar                   *previous_summary;
         GIcon                   *previous_icon;
         GPtrArray               *devices_array;
-        gint                     pre_dim_brightness; /* level, not percentage */
-        gint                     pre_dpms_brightness;
         UpDevice                *device_composite;
         GnomeRRScreen           *rr_screen;
         NotifyNotification      *notification_ups_discharging;
         NotifyNotification      *notification_low;
         gboolean                 battery_is_low; /* laptop battery low, or UPS discharging */
+
+        /* Brightness */
+        gint                     pre_dim_brightness; /* level, not percentage */
+        gint                     pre_dpms_brightness;
 
         /* Keyboard */
         GDBusProxy              *upower_kdb_proxy;
