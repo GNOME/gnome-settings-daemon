@@ -62,6 +62,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # avoid painfully long delays of actions for tests
         env = os.environ.copy()
         env['GSD_ACTION_DELAY'] = '1'
+        env['GSD_DISABLE_BACKLIGHT_HELPER'] = '1'
         self.daemon = subprocess.Popen(
             [os.path.join(builddir, 'gsd-test-power')],
             # comment out this line if you want to see the logs in real time

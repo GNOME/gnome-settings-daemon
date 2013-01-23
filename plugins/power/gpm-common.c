@@ -1175,6 +1175,21 @@ out:
         return output;
 }
 
+static gboolean
+backlight_helper_disabled (void)
+{
+        const char *disable_backlight;
+
+        disable_backlight = g_getenv ("GSD_DISABLE_BACKLIGHT_HELPER");
+        if (disable_backlight) {
+                int disabled;
+                disabled = atoi (disable_backlight);
+                if (disabled > 0)
+                        return TRUE;
+        }
+        return FALSE;
+}
+
 /**
  * backlight_helper_get_value:
  *
@@ -1201,6 +1216,8 @@ backlight_helper_get_value (const gchar *argument, GError **error)
                              "The sysfs backlight helper is only for Linux");
         goto out;
 #endif
+        if (backlight_helper_disabled ())
+                goto out;
 
         /* get the data */
         command = g_strdup_printf (LIBEXECDIR "/gsd-backlight-helper --%s",
@@ -1289,6 +1306,8 @@ backlight_helper_set_value (const gchar *argument,
                              "The sysfs backlight helper is only for Linux");
         goto out;
 #endif
+        if (backlight_helper_disabled ())
+                goto out;
 
         /* get the data */
         command = g_strdup_printf ("pkexec " LIBEXECDIR "/gsd-backlight-helper --%s %i",
