@@ -334,6 +334,73 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
 
+    def test_lock_on_lid_close(self):
+        '''Check that we do lock on lid closing, if the machine will not suspend'''
+
+        self.settings_screensaver['lock-enabled'] = True
+
+        # create inhibitor
+        inhibit_id = self.obj_session_mgr.Inhibit(
+            'testsuite', dbus.UInt32(0), 'for testing',
+            dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND))
+
+        # Close the lid
+        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
+        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+
+        # Check that we've blanked
+        time.sleep(2)
+        self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
+        self.check_blank(2)
+
+        # Drop the inhibit and see whether we suspend
+        self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
+        self.check_for_suspend(5)
+
+    def test_blank_on_lid_close(self):
+        '''Check that we do blank on lid closing, if the machine will not suspend'''
+
+        # create inhibitor
+        inhibit_id = self.obj_session_mgr.Inhibit(
+            'testsuite', dbus.UInt32(0), 'for testing',
+            dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND))
+
+        # Close the lid
+        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
+        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+
+        # Check that we've blanked
+        self.check_blank(4)
+
+        # Drop the inhibit and see whether we suspend
+        self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
+        self.check_for_suspend(5)
+
+    def test_unblank_on_lid_open(self):
+        '''Check that we do unblank on lid opening, if the machine will not suspend'''
+
+        # create inhibitor
+        inhibit_id = self.obj_session_mgr.Inhibit(
+            'testsuite', dbus.UInt32(0), 'for testing',
+            dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND))
+
+        # Close the lid
+        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
+        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+
+        # Check that we've blanked
+        self.check_blank(2)
+
+        # Reopen the lid
+        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', False)
+        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+
+        # Check for unblanking
+        self.check_unblank(2)
+
+        # Drop the inhibit
+        self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
+
     def test_dim(self):
         '''Check that we do go to dim'''
 
