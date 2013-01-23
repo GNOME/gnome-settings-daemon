@@ -284,6 +284,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # Go idle
         self.settings_session['idle-delay'] = 5
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
         time.sleep(7)
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
 
