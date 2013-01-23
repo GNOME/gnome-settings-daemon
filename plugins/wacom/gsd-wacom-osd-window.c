@@ -196,34 +196,6 @@ get_pango_vertical_offset (PangoLayout *layout)
 	return PANGO_PIXELS (baseline - strikethrough - thickness / 2);
 }
 
-static void
-set_grab_keyboard (GdkWindow *window, gboolean grab)
-{
-	GdkDisplay *display;
-	GdkDeviceManager *device_manager;
-	GList *devices, *dev;
-
-	display = gdk_window_get_display (window);
-	device_manager = gdk_display_get_device_manager (display);
-	devices = gdk_device_manager_list_devices (device_manager, GDK_DEVICE_TYPE_MASTER);
-
-	for (dev = devices; dev; dev = dev->next) {
-		GdkDevice *device = dev->data;
-		if (gdk_device_get_source (device) != GDK_SOURCE_KEYBOARD)
-			continue;
-		if (grab)
-			gdk_device_grab (device,
-			                 window,
-			                 GDK_OWNERSHIP_NONE,
-			                 TRUE,
-			                 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK,
-			                 NULL,
-			                 GDK_CURRENT_TIME);
-		else
-			gdk_device_ungrab (device, GDK_CURRENT_TIME);
-	}
-}
-
 #define GSD_TYPE_WACOM_OSD_BUTTON         (gsd_wacom_osd_button_get_type ())
 #define GSD_WACOM_OSD_BUTTON(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_WACOM_OSD_BUTTON, GsdWacomOSDButton))
 #define GSD_WACOM_OSD_BUTTON_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_WACOM_OSD_BUTTON, GsdWacomOSDButtonClass))
@@ -1248,16 +1220,88 @@ display_relative_rotation (GsdWacomRotation device_rotation,
 }
 
 static void
+gsd_wacom_osd_window_mapped (GtkWidget *widget,
+                             gpointer   data)
+{
+	GsdWacomOSDWindow *osd_window = GSD_WACOM_OSD_WINDOW (widget);
+
+	g_return_if_fail (GSD_IS_WACOM_OSD_WINDOW (osd_window));
+
+	/* Position the window at its expected postion before moving
+	 * to fullscreen, so the window will be on the right monitor.
+	 */
+	gtk_window_move (GTK_WINDOW (osd_window),
+	                 osd_window->priv->screen_area.x,
+	                 osd_window->priv->screen_area.y);
+
+	gtk_window_fullscreen (GTK_WINDOW (osd_window));
+	gtk_window_set_keep_above (GTK_WINDOW (osd_window), TRUE);
+}
+
+static void
+gsd_wacom_osd_window_realized (GtkWidget *widget,
+                               gpointer   data)
+{
+	GsdWacomOSDWindow *osd_window = GSD_WACOM_OSD_WINDOW (widget);
+	GdkWindow         *gdk_window;
+	GdkRGBA            transparent;
+	GdkScreen         *screen;
+	GdkCursor         *cursor;
+	gint               monitor;
+	gboolean           status;
+
+	g_return_if_fail (GSD_IS_WACOM_OSD_WINDOW (osd_window));
+	g_return_if_fail (GSD_IS_WACOM_DEVICE (osd_window->priv->pad));
+
+	if (!gtk_widget_get_realized (widget))
+		return;
+
+	screen = gtk_widget_get_screen (widget);
+	gdk_window = gtk_widget_get_window (widget);
+
+	transparent.red = transparent.green = transparent.blue = 0.0;
+	transparent.alpha = BACK_OPACITY;
+	gdk_window_set_background_rgba (gdk_window, &transparent);
+
+	cursor = gdk_cursor_new (GDK_BLANK_CURSOR);
+	gdk_window_set_cursor (gdk_window, cursor);
+	g_object_unref (cursor);
+
+	/* Determine the monitor for that device and set appropriate fullscreen mode*/
+	monitor = gsd_wacom_device_get_display_monitor (osd_window->priv->pad);
+	if (monitor == GSD_WACOM_SET_ALL_MONITORS) {
+		/* Covers the entire screen */
+		osd_window->priv->screen_area.x = 0;
+		osd_window->priv->screen_area.y = 0;
+		osd_window->priv->screen_area.width = gdk_screen_get_width (screen);
+		osd_window->priv->screen_area.height = gdk_screen_get_height (screen);
+		gdk_screen_get_monitor_geometry (screen, 0, &osd_window->priv->monitor_area);
+		gdk_window_set_fullscreen_mode (gdk_window, GDK_FULLSCREEN_ON_ALL_MONITORS);
+	} else {
+		gdk_screen_get_monitor_geometry (screen, monitor, &osd_window->priv->screen_area);
+		osd_window->priv->monitor_area = osd_window->priv->screen_area;
+		gdk_window_set_fullscreen_mode (gdk_window, GDK_FULLSCREEN_ON_CURRENT_MONITOR);
+	}
+
+	gtk_window_set_default_size (GTK_WINDOW (osd_window),
+	                             osd_window->priv->screen_area.width,
+	                             osd_window->priv->screen_area.height);
+
+	status = get_image_size (gsd_wacom_device_get_layout_path (osd_window->priv->pad),
+	                         &osd_window->priv->tablet_area.width,
+	                         &osd_window->priv->tablet_area.height);
+	if (status == FALSE)
+		osd_window->priv->tablet_area = osd_window->priv->monitor_area;
+}
+
+static void
 gsd_wacom_osd_window_set_device (GsdWacomOSDWindow *osd_window,
 				 GsdWacomDevice    *device)
 {
 	GsdWacomRotation  device_rotation;
 	GsdWacomRotation  output_rotation;
 	GSettings        *settings;
-	gint              monitor;
-	GdkScreen        *screen;
 	GList            *list, *l;
-	gboolean          status;
 
 	g_return_if_fail (GSD_IS_WACOM_OSD_WINDOW (osd_window));
 	g_return_if_fail (GSD_IS_WACOM_DEVICE (device));
@@ -1276,26 +1320,6 @@ gsd_wacom_osd_window_set_device (GsdWacomOSDWindow *osd_window,
 	g_object_weak_ref (G_OBJECT(osd_window->priv->pad),
 	                   (GWeakNotify) gtk_widget_destroy,
 	                   osd_window);
-
-	/* Determine the monitor for that device */
-	screen = gdk_screen_get_default ();
-	monitor = gsd_wacom_device_get_display_monitor (device);
-	if (monitor == GSD_WACOM_SET_ALL_MONITORS) {
-		/* Covers the entire screen */
-		osd_window->priv->screen_area.x = 0;
-		osd_window->priv->screen_area.y = 0;
-		osd_window->priv->screen_area.width = gdk_screen_get_width (screen);
-		osd_window->priv->screen_area.height = gdk_screen_get_height (screen);
-		gdk_screen_get_monitor_geometry (screen, 0, &osd_window->priv->monitor_area);
-	} else {
-		gdk_screen_get_monitor_geometry (screen, monitor, &osd_window->priv->screen_area);
-		osd_window->priv->monitor_area = osd_window->priv->screen_area;
-	}
-	status = get_image_size (gsd_wacom_device_get_layout_path (device),
-	                         &osd_window->priv->tablet_area.width,
-	                         &osd_window->priv->tablet_area.height);
-	if (status == FALSE)
-		osd_window->priv->tablet_area = osd_window->priv->monitor_area;
 
 	/* Capture current rotation, we do not update that later, OSD window is meant to be short lived */
 	settings = gsd_wacom_device_get_settings (osd_window->priv->pad);
@@ -1448,72 +1472,37 @@ gsd_wacom_osd_window_new (GsdWacomDevice       *pad,
                           const gchar          *message)
 {
 	GsdWacomOSDWindow *osd_window;
-	GdkWindow         *window;
-	GdkRGBA            transparent;
-	GdkCursor         *cursor;
-	GdkVisual         *visual;
 	GdkScreen         *screen;
+	GdkVisual         *visual;
 
 	osd_window = GSD_WACOM_OSD_WINDOW (g_object_new (GSD_TYPE_WACOM_OSD_WINDOW,
-	                                                 "wacom-device", pad,
-	                                                 "message", message,
-	                                                 "type", GTK_WINDOW_POPUP,
+	                                                 "type",              GTK_WINDOW_TOPLEVEL,
+	                                                 "skip-pager-hint",   TRUE,
+	                                                 "skip-taskbar-hint", TRUE,
+	                                                 "focus-on-map",      TRUE,
+	                                                 "decorated",         FALSE,
+	                                                 "deletable",         FALSE,
+	                                                 "accept-focus",      TRUE,
+	                                                 "wacom-device",      pad,
+	                                                 "message",           message,
 	                                                 NULL));
 
+	/* Must set the visual before realizing the window */
 	gtk_widget_set_app_paintable (GTK_WIDGET (osd_window), TRUE);
-
-	screen = gtk_widget_get_screen (GTK_WIDGET (osd_window));
+	screen = gdk_screen_get_default ();
 	visual = gdk_screen_get_rgba_visual (screen);
 	if (visual == NULL)
 		visual = gdk_screen_get_system_visual (screen);
 	gtk_widget_set_visual (GTK_WIDGET (osd_window), visual);
-	gtk_widget_realize (GTK_WIDGET (osd_window));
 
-	gtk_window_move (GTK_WINDOW (osd_window),
-	                 osd_window->priv->screen_area.x,
-	                 osd_window->priv->screen_area.y);
-	gtk_window_set_default_size (GTK_WINDOW (osd_window),
-	                             osd_window->priv->screen_area.width,
-	                             osd_window->priv->screen_area.height);
-
-	transparent.red = transparent.green = transparent.blue = 0.0;
-	transparent.alpha = BACK_OPACITY;
-	window = gtk_widget_get_window (GTK_WIDGET (osd_window));
-	gdk_window_set_background_rgba (window, &transparent);
-
-	cursor = gdk_cursor_new (GDK_BLANK_CURSOR);
-	gdk_window_set_cursor (window, cursor);
-	g_object_unref (cursor);
+	g_signal_connect (GTK_WIDGET (osd_window), "realize",
+	                  G_CALLBACK (gsd_wacom_osd_window_realized),
+	                  NULL);
+	g_signal_connect (GTK_WIDGET (osd_window), "map",
+	                  G_CALLBACK (gsd_wacom_osd_window_mapped),
+	                  NULL);
 
 	return GTK_WIDGET (osd_window);
-}
-
-static gboolean
-gsd_wacom_osd_window_map_event (GtkWidget   *widget,
-                                GdkEventAny *event)
-{
-	GsdWacomOSDWindow *osd_window = GSD_WACOM_OSD_WINDOW (widget);
-
-	g_return_val_if_fail (GSD_IS_WACOM_OSD_WINDOW (osd_window), FALSE);
-	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (osd_window->priv->pad), FALSE);
-
-	set_grab_keyboard (gtk_widget_get_window (widget), TRUE);
-
-	return TRUE;
-}
-
-static gboolean
-gsd_wacom_osd_window_unmap_event (GtkWidget   *widget,
-                                  GdkEventAny *event)
-{
-	GsdWacomOSDWindow *osd_window = GSD_WACOM_OSD_WINDOW (widget);
-
-	g_return_val_if_fail (GSD_IS_WACOM_OSD_WINDOW (osd_window), FALSE);
-	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (osd_window->priv->pad), FALSE);
-
-	set_grab_keyboard (gtk_widget_get_window (widget), FALSE);
-
-	return TRUE;
 }
 
 static void
@@ -1529,8 +1518,6 @@ gsd_wacom_osd_window_class_init (GsdWacomOSDWindowClass *klass)
 	gobject_class->get_property = gsd_wacom_osd_window_get_property;
 	gobject_class->finalize     = gsd_wacom_osd_window_finalize;
 	widget_class->draw          = gsd_wacom_osd_window_draw;
-	widget_class->map_event     = gsd_wacom_osd_window_map_event;
-	widget_class->unmap_event   = gsd_wacom_osd_window_unmap_event;
 
 	g_object_class_install_property (gobject_class,
 	                                 PROP_OSD_WINDOW_MESSAGE,

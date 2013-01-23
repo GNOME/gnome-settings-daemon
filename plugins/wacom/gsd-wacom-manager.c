@@ -867,6 +867,12 @@ osd_window_on_key_release_event (GtkWidget   *widget,
                                  GdkEventKey *event,
                                  GsdWacomManager *manager)
 {
+
+	if (event->type != GDK_KEY_RELEASE)
+		return FALSE;
+	if (event->keyval != GDK_KEY_Escape)
+		return FALSE;
+
 	osd_window_destroy (manager);
 
 	return FALSE;
