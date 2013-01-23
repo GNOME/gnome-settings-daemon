@@ -2373,13 +2373,14 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         GVariant *active_v;
         gboolean is_active = FALSE;
 
-        if (mode == manager->priv->current_idle_mode)
-                return;
-
         /* Ignore attempts to set "less idle" modes */
-        if (mode < manager->priv->current_idle_mode &&
-            mode != GSD_POWER_IDLE_MODE_NORMAL)
+        if (mode <= manager->priv->current_idle_mode &&
+            mode != GSD_POWER_IDLE_MODE_NORMAL) {
+                g_debug ("Not going to 'less idle' mode %s (current: %s)",
+                         idle_mode_to_string (mode),
+                         idle_mode_to_string (manager->priv->current_idle_mode));
                 return;
+        }
 
         /* ensure we're still on an active console */
         active_v = g_dbus_proxy_get_cached_property (manager->priv->session,
@@ -2809,7 +2810,7 @@ screensaver_signal_cb (GDBusProxy *proxy,
 
         if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
                 g_variant_get (parameters, "(b)", &active);
-                g_debug ("Received screensaver ActiveChanged signal: %d", active);
+                g_debug ("Received screensaver ActiveChanged signal: %d (old: %d)", active, manager->priv->screensaver_active);
                 if (manager->priv->screensaver_active != active) {
                         manager->priv->screensaver_active = active;
                         idle_configure (manager);
