@@ -51,7 +51,7 @@ gsd_backlight_helper_get_type (GList *devices, const gchar *type)
 }
 
 static gchar *
-gsd_backlight_helper_get_best_backlight ()
+gsd_backlight_helper_get_best_backlight (void)
 {
 	gchar *path = NULL;
 	GList *devices;
