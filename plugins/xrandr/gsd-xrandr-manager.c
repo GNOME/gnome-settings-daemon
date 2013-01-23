@@ -879,6 +879,8 @@ make_clone_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
                 return NULL;
 
         result = gnome_rr_config_new_current (screen, NULL);
+        gnome_rr_config_set_clone (result, TRUE);
+
         outputs = gnome_rr_config_get_outputs (result);
 
         for (i = 0; outputs[i] != NULL; ++i) {
@@ -919,8 +921,6 @@ make_clone_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
-
-        gnome_rr_config_set_clone (result, TRUE);
 
         print_configuration (result, "clone setup");
 
@@ -1003,6 +1003,8 @@ make_laptop_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
         GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
         int i;
 
+        gnome_rr_config_set_clone (result, FALSE);
+
         for (i = 0; outputs[i] != NULL; ++i) {
                 GnomeRROutputInfo *info = outputs[i];
 
@@ -1018,12 +1020,11 @@ make_laptop_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
                 }
         }
 
+
         if (config_is_all_off (result)) {
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
-
-        gnome_rr_config_set_clone (result, FALSE);
 
         print_configuration (result, "Laptop setup");
 
@@ -1137,6 +1138,8 @@ make_xinerama_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
         int i;
         int x;
 
+        gnome_rr_config_set_clone (result, FALSE);
+
         x = 0;
         for (i = 0; outputs[i] != NULL; ++i) {
                 GnomeRROutputInfo *info = outputs[i];
@@ -1165,8 +1168,6 @@ make_xinerama_setup (GsdXrandrManager *manager, GnomeRRScreen *screen)
                 result = NULL;
         }
 
-        gnome_rr_config_set_clone (result, FALSE);
-
         print_configuration (result, "xinerama setup");
 
         return result;
@@ -1182,6 +1183,8 @@ make_other_setup (GnomeRRScreen *screen)
         GnomeRRConfig *result = gnome_rr_config_new_current (screen, NULL);
         GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
         int i;
+
+        gnome_rr_config_set_clone (result, FALSE);
 
         for (i = 0; outputs[i] != NULL; ++i) {
                 GnomeRROutputInfo *info = outputs[i];
@@ -1199,8 +1202,6 @@ make_other_setup (GnomeRRScreen *screen)
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
-
-        gnome_rr_config_set_clone (result, FALSE);
 
         print_configuration (result, "other setup");
 
