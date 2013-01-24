@@ -2219,23 +2219,27 @@ do_lid_open_action (GsdPowerManager *manager)
         reset_idletime ();
 }
 
-static gboolean
+static void
 lock_screensaver (GsdPowerManager *manager)
 {
         gboolean do_lock;
 
         do_lock = g_settings_get_boolean (manager->priv->settings_screensaver,
                                           "lock-enabled");
-        if (!do_lock)
-                return FALSE;
+        if (!do_lock) {
+                g_dbus_proxy_call_sync (manager->priv->screensaver_proxy,
+                                        "SetActive",
+                                        g_variant_new ("(b)", TRUE),
+                                        G_DBUS_CALL_FLAGS_NONE,
+                                        -1, NULL, NULL);
+                return;
+        }
 
         g_dbus_proxy_call_sync (manager->priv->screensaver_proxy,
                                 "Lock",
                                 NULL,
                                 G_DBUS_CALL_FLAGS_NONE,
                                 -1, NULL, NULL);
-
-        return TRUE;
 }
 
 static void
@@ -2260,10 +2264,10 @@ do_lid_closed_action (GsdPowerManager *manager)
                                            GSM_INHIBITOR_FLAG_SUSPEND,
                                            &is_inhibited);
                 if (is_inhibited) {
-                        /* We put the screensaver on, or blanking
-                         * as we're not suspending, but the lid is closed */
-                        if (!lock_screensaver (manager))
-                                idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
+                        g_debug ("Suspend is inhibited but lid is closed, locking the screen");
+                        /* We put the screensaver on * as we're not suspending,
+                         * but the lid is closed */
+                        lock_screensaver (manager);
                 }
         }
 }
