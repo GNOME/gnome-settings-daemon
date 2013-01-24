@@ -146,9 +146,6 @@ class GSDTestCase(dbusmock.DBusTestCase):
         klass.obj_session_mgr = klass.session_bus_con.get_object(
             'org.gnome.SessionManager', '/org/gnome/SessionManager')
 
-        # give g-session some time to lazily initialize idle timers, etc.
-        time.sleep(3)
-
     @classmethod
     def stop_session(klass):
         '''Stop GNOME session'''
