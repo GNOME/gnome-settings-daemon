@@ -201,12 +201,18 @@ class GSDTestCase(dbusmock.DBusTestCase):
         xorg = os.path.join(klass.workdir, 'Xorg')
         shutil.copy(out, xorg)
 
+        display_num = 99
+
+        if os.path.isfile('/tmp/.X%d-lock' % display_num):
+            sys.stderr.write('Cannot start X.org, an instance already exists\n')
+            sys.exit(1)
+
         # You can rename the log file to *.log if you want to see it on test
         # case failures
         log = os.path.join(klass.workdir, 'Xorg.out')
-        klass.xorg = subprocess.Popen([xorg, '-config', conf, '-logfile', log, ':99'],
+        klass.xorg = subprocess.Popen([xorg, '-config', conf, '-logfile', log, ':%d' % display_num],
                                       stderr=subprocess.PIPE)
-        os.environ['DISPLAY'] = ':99'
+        os.environ['DISPLAY'] = ':%d' % display_num
 
         # wait until the server is ready
         timeout = 50
