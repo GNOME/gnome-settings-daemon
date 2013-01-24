@@ -95,6 +95,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # reactivate screen, in case tests triggered a display blank
         self.reset_idle_timer()
 
+        daemon_running = self.daemon.poll() == None
         self.daemon.terminate()
         self.daemon.wait()
         self.plugin_log.close()
@@ -118,6 +119,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             os.unlink('GSD_MOCK_EXTERNAL_MONITOR')
         except OSError:
             pass
+
+        # we check this at the end so that the other cleanup always happens
+        self.assertTrue(daemon_running, 'daemon died during the test')
 
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
