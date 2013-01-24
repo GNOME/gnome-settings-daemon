@@ -375,7 +375,10 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
 
         # Check that we've blanked
-        self.check_blank(4)
+        # FIXME: For some reason, gnome-session is taking a long time asking
+        # logind whether it's inhibited, which is blocking our idle_configure() call
+        # thus the screensaver coming on
+        self.check_blank(10)
 
         # Drop the inhibit and see whether we suspend
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
