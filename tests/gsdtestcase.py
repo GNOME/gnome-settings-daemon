@@ -80,6 +80,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
         set_nonblock(klass.p_notify.stdout)
 
         klass.start_session()
+        klass.start_monitor()
 
         klass.settings_session = Gio.Settings('org.gnome.desktop.session')
 
@@ -87,6 +88,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
     def tearDownClass(klass):
         klass.p_notify.terminate()
         klass.p_notify.wait()
+        klass.stop_monitor()
         klass.stop_session()
         dbusmock.DBusTestCase.tearDownClass()
         klass.stop_xorg()
@@ -156,6 +158,28 @@ class GSDTestCase(dbusmock.DBusTestCase):
 
         klass.session_log.flush()
         klass.session_log.close()
+
+    @classmethod
+    def start_monitor(klass):
+        '''Start dbus-monitor'''
+
+        # You can rename the log file to *.log if you want to see it on test
+        # case failures
+        klass.monitor_log = open(os.path.join(klass.workdir, 'dbus-monitor.out'), 'wb')
+        klass.monitor = subprocess.Popen(['dbus-monitor', '--monitor'],
+                                         stdout=klass.monitor_log,
+                                         stderr=subprocess.STDOUT)
+
+    @classmethod
+    def stop_monitor(klass):
+        '''Stop dbus-monitor'''
+
+        assert klass.monitor
+        klass.monitor.terminate()
+        klass.monitor.wait()
+
+        klass.monitor_log.flush()
+        klass.monitor_log.close()
 
     def start_logind(self):
         '''start mock logind'''
