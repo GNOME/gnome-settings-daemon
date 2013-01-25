@@ -1196,7 +1196,7 @@ backlight_available (GnomeRRScreen *rr_screen)
 {
         char *path;
 
-        if (!backlight_helper_disabled ())
+        if (backlight_helper_disabled ())
                 return FALSE;
         if (get_primary_output (rr_screen) != NULL)
                 return TRUE;
