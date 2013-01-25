@@ -385,8 +385,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # Check that we've blanked
         time.sleep(2)
         self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
-	# FIXME: See test_blank_on_lid_close
-        self.check_blank(10)
+        self.check_blank(2)
 
         # Drop the inhibit and see whether we suspend
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
@@ -405,10 +404,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
 
         # Check that we've blanked
-        # FIXME: For some reason, gnome-session is taking a long time asking
-        # logind whether it's inhibited, which is blocking our idle_configure() call
-        # thus the screensaver coming on
-        self.check_blank(10)
+        self.check_blank(4)
 
         # Drop the inhibit and see whether we suspend
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
@@ -427,8 +423,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
 
         # Check that we've blanked
-        # FIXME: See test_blank_on_lid_close
-        self.check_blank(10)
+        self.check_blank(2)
 
         # Reopen the lid
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', False)
