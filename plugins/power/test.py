@@ -112,7 +112,6 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             pass
 
     def tearDown(self):
-        self.stop_session()
 
         daemon_running = self.daemon.poll() == None
         self.daemon.terminate()
@@ -125,6 +124,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.upowerd.wait()
         self.screensaver.terminate()
         self.screensaver.wait()
+        self.stop_session()
         self.stop_logind()
 
         # reset all changed gsettings, so that tests are independent from each
