@@ -31,11 +31,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
 
     def setUp(self):
-        self.session_log = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb')
+        self.session_log_write = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb')
         self.session = subprocess.Popen(['gnome-session', '-f',
                                          '-a', os.path.join(self.workdir, 'autostart'),
                                          '--session=dummy', '--debug'],
-                                        stdout=self.session_log,
+                                        stdout=self.session_log_write,
                                         stderr=subprocess.STDOUT)
 
         # wait until the daemon is on the bus
@@ -44,9 +44,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                                      '/org/gnome/SessionManager')
         except:
             # on failure, print log
-            with open(self.session_log.name) as f:
+            with open(self.session_log_write.name) as f:
                 print('----- session log -----\n%s\n------' % f.read())
             raise
+
+        self.session_log = open(self.session_log_write.name)
 
         self.obj_session_mgr = self.session_bus_con.get_object(
             'org.gnome.SessionManager', '/org/gnome/SessionManager')
@@ -149,7 +151,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.session.terminate()
         self.session.wait()
 
-        self.session_log.flush()
+        self.session_log_write.flush()
+        self.session_log_write.close()
         self.session_log.close()
 
     def get_status(self):
@@ -164,6 +167,36 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         f.close ()
 
         os.kill(self.daemon.pid, signal.SIGUSR2)
+
+    def check_for_logout(self, timeout):
+        '''Check that logout is requested.
+
+        Fail after the tiven timeout.
+        '''
+        # check that it request suspend
+        while timeout > 0:
+            time.sleep(1)
+            timeout -= 1
+            # check that it requested suspend
+            try:
+                log = self.session_log.read()
+            except IOError:
+                break
+
+            if log and (b'GsmManager: requesting logout' in log):
+                break
+        else:
+            self.fail('timed out waiting for gnome-session logout call')
+
+    def check_no_logout(self, seconds):
+        '''Check that no logout is requested in the given time'''
+
+        # wait for specified time to ensure it didn't do anything
+        time.sleep(seconds)
+        # check that it did not logout
+        log = self.session_log.read()
+        if log:
+            self.assertFalse(b'GsmManager: requesting logout' in log, 'unexpected logout request')
 
     def check_for_suspend(self, timeout):
         '''Check that Suspend() or Hibernate() is requested.
@@ -550,6 +583,39 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         self.check_for_suspend(5)
 
+    def test_forced_logout(self):
+        '''Test forced logout'''
+
+        idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
+
+        self.settings_session['idle-delay'] = idle_delay
+        self.settings_gsd_power['sleep-inactive-battery-timeout'] = idle_delay + 1
+        self.settings_gsd_power['sleep-inactive-battery-type'] = 'logout'
+
+        self.check_for_logout(idle_delay + 2)
+
+        # The notification should have been received before the logout, but it's saved anyway
+        notify_log = self.p_notify.stdout.read()
+        self.assertTrue(b'You will soon log out because of inactivity.' in notify_log)
+
+    def test_forced_logout_inhibition(self):
+        '''Test we don't force logout when inhibited'''
+
+        idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
+
+        self.settings_session['idle-delay'] = idle_delay
+        self.settings_gsd_power['sleep-inactive-battery-timeout'] = idle_delay + 1
+        self.settings_gsd_power['sleep-inactive-battery-type'] = 'logout'
+
+        # create suspend inhibitor which should stop us logging out
+        inhibit_id = self.obj_session_mgr.Inhibit(
+            'testsuite', dbus.UInt32(0), 'for testing',
+            dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_LOGOUT))
+
+        self.check_no_logout(idle_delay + 3)
+
+        # Drop inhibitor
+        self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
 
 # avoid writing to stderr
 unittest.main(testRunner=unittest.TextTestRunner(stream=sys.stdout, verbosity=2))
