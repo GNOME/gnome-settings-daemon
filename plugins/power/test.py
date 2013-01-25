@@ -267,6 +267,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def test_sleep_inactive_blank(self):
         '''screensaver/blank interaction'''
 
+        # create suspend inhibitor which should have no effect on the idle
+        inhibit_id = self.obj_session_mgr.Inhibit(
+            'testsuite', dbus.UInt32(0), 'for testing',
+            dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND))
+
         self.obj_screensaver.SetActive(True)
         self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
 
@@ -284,6 +289,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # and check for blank after the blank timeout
         self.check_blank(10)
+
+        # Drop inhibitor
+        self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
 
     def test_session_idle_delay(self):
         '''verify that session idle delay works as expected when changed'''
