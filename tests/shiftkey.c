@@ -34,6 +34,7 @@ main()
 {
         Display *display = NULL;
         int event_base, error_base, major_version, minor_version;
+        KeyCode keycode;
 
         display = XOpenDisplay (NULL);
 
@@ -48,8 +49,9 @@ main()
         }
 
         /* send a left shift key; first press, then release */
-        XTestFakeKeyEvent (display, XK_Shift_L, True, 0);
-        XTestFakeKeyEvent (display, XK_Shift_L, False, 0);
+        keycode = XKeysymToKeycode (display, XK_Shift_L);
+        XTestFakeKeyEvent (display, keycode, True, 0);
+        XTestFakeKeyEvent (display, keycode, False, 0);
 
         XCloseDisplay (display);
         return 0;
