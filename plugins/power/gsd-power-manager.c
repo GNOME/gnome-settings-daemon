@@ -87,6 +87,7 @@
 /* Keep this in sync with gnome-shell */
 #define SCREENSAVER_FADE_TIME                           10 /* seconds */
 
+#define UPS_SOUND_LOOP_ID 99
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -194,7 +195,6 @@ struct GsdPowerManagerPrivate
         gint                     kbd_brightness_pre_dim;
 
         /* Sound */
-        ca_proplist             *critical_alert_loop_props;
         guint32                  critical_alert_timeout_id;
 
         /* systemd stuff */
@@ -253,73 +253,42 @@ gsd_power_manager_error_quark (void)
         return quark;
 }
 
-static gboolean
-play_loop_timeout_cb (GsdPowerManager *manager)
+static void
+play_sound (void)
 {
-        ca_context *context;
-        context = ca_gtk_context_get ();
-        ca_context_play_full (context, 0,
-                              manager->priv->critical_alert_loop_props,
-                              NULL,
-                              NULL);
-        return TRUE;
+        ca_context_play (ca_gtk_context_get (), UPS_SOUND_LOOP_ID,
+                         CA_PROP_EVENT_ID, "battery-caution",
+                         CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
 }
 
 static gboolean
+play_loop_timeout_cb (gpointer user_data)
+{
+        play_sound ();
+        return TRUE;
+}
+
+static void
 play_loop_stop (GsdPowerManager *manager)
 {
-        if (manager->priv->critical_alert_timeout_id == 0) {
-                g_warning ("no sound loop present to stop");
-                return FALSE;
-        }
+        if (manager->priv->critical_alert_timeout_id == 0)
+                return;
 
+        ca_context_cancel (ca_gtk_context_get (), UPS_SOUND_LOOP_ID);
         g_source_remove (manager->priv->critical_alert_timeout_id);
-        ca_proplist_destroy (manager->priv->critical_alert_loop_props);
-
-        manager->priv->critical_alert_loop_props = NULL;
         manager->priv->critical_alert_timeout_id = 0;
-
-        return TRUE;
 }
 
-static gboolean
-play_loop_start (GsdPowerManager *manager,
-                 const gchar *id,
-                 const gchar *desc,
-                 gboolean force,
-                 guint timeout)
+static void
+play_loop_start (GsdPowerManager *manager)
 {
-        ca_context *context;
+        if (manager->priv->critical_alert_timeout_id != 0)
+                return;
 
-        if (timeout == 0) {
-                g_warning ("received invalid timeout");
-                return FALSE;
-        }
-
-        /* if a sound loop is already running, stop the existing loop */
-        if (manager->priv->critical_alert_timeout_id != 0) {
-                g_warning ("was instructed to play a sound loop with one already playing");
-                play_loop_stop (manager);
-        }
-
-        ca_proplist_create (&(manager->priv->critical_alert_loop_props));
-        ca_proplist_sets (manager->priv->critical_alert_loop_props,
-                          CA_PROP_EVENT_ID, id);
-        ca_proplist_sets (manager->priv->critical_alert_loop_props,
-                          CA_PROP_EVENT_DESCRIPTION, desc);
-
-        manager->priv->critical_alert_timeout_id = g_timeout_add_seconds (timeout,
+        manager->priv->critical_alert_timeout_id = g_timeout_add_seconds (GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT,
                                                                           (GSourceFunc) play_loop_timeout_cb,
-                                                                          manager);
-        g_source_set_name_by_id (manager->priv->critical_alert_timeout_id,
-                                 "[GsdPowerManager] play-loop");
-
-        /* play the sound, using sounds from the naming spec */
-        context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
-        ca_context_play (context, 0,
-                         CA_PROP_EVENT_ID, id,
-                         CA_PROP_EVENT_DESCRIPTION, desc, NULL);
-        return TRUE;
+                                                                          NULL);
+        play_sound ();
 }
 
 static void
@@ -1327,8 +1296,7 @@ manager_critical_action_do (GsdPowerManager *manager,
         GsdPowerActionType action_type;
 
         /* stop playing the alert as it's too late to do anything now */
-        if (manager->priv->critical_alert_timeout_id > 0)
-                play_loop_stop (manager);
+        play_loop_stop (manager);
 
         action_type = manager_critical_action_get (manager, is_ups);
         do_power_action_type (manager, action_type);
@@ -1679,11 +1647,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         case UP_DEVICE_KIND_BATTERY:
         case UP_DEVICE_KIND_UPS:
                 g_debug ("critical charge level reached, starting sound loop");
-                play_loop_start (manager,
-                                 "battery-caution",
-                                 _("Battery is critically low"),
-                                 TRUE,
-                                 GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT);
+                play_loop_start (manager);
                 break;
 
         default:
@@ -2349,10 +2313,7 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
 
         if (!up_client_get_on_battery (client)) {
             /* if we are playing a critical charge sound loop on AC, stop it */
-            if (manager->priv->critical_alert_timeout_id > 0) {
-                 g_debug ("stopping alert loop due to ac being present");
-                 play_loop_stop (manager);
-            }
+            play_loop_stop (manager);
             notify_close_if_showing (manager->priv->notification_low);
             main_battery_or_ups_low_changed (manager, FALSE);
         }
@@ -3593,10 +3554,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_clear_object (&manager->priv->session_presence_proxy);
         g_clear_object (&manager->priv->screensaver_proxy);
 
-        if (manager->priv->critical_alert_timeout_id > 0) {
-                g_source_remove (manager->priv->critical_alert_timeout_id);
-                manager->priv->critical_alert_timeout_id = 0;
-        }
+        play_loop_stop (manager);
 
         g_clear_object (&manager->priv->idle_monitor);
 
