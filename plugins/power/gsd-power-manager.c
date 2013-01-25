@@ -2665,10 +2665,11 @@ idle_is_session_inhibited (GsdPowerManager  *manager,
 
         variant = g_dbus_proxy_get_cached_property (manager->priv->session,
                                                     "InhibitedActions");
-        if (variant) {
-                inhibited_actions = g_variant_get_uint32 (variant);
-                g_variant_unref (variant);
-        }
+        if (!variant)
+                return FALSE;
+
+        inhibited_actions = g_variant_get_uint32 (variant);
+        g_variant_unref (variant);
 
         *is_inhibited = (inhibited_actions & mask);
 
@@ -2746,6 +2747,7 @@ idle_configure (GsdPowerManager *manager)
          * and we aren't inhibited from sleeping (or logging out, etc.) */
         action_type = g_settings_get_enum (manager->priv->settings, on_battery ?
                                            "sleep-inactive-battery-type" : "sleep-inactive-ac-type");
+        timeout_sleep = 0;
         if (!is_action_inhibited (manager, action_type)) {
                 timeout_sleep = g_settings_get_int (manager->priv->settings, on_battery ?
                                                     "sleep-inactive-battery-timeout" : "sleep-inactive-ac-timeout");
