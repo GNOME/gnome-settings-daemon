@@ -44,6 +44,8 @@ struct GsdRemoteDisplayManagerPrivate
 {
         GSettings *desktop_settings;
         GSettings *vnc_settings;
+        gboolean   spice_in_use;
+        gboolean   vnc_in_use;
 };
 
 static void     gsd_remote_display_manager_class_init  (GsdRemoteDisplayManagerClass *klass);
@@ -54,17 +56,30 @@ G_DEFINE_TYPE (GsdRemoteDisplayManager, gsd_remote_display_manager, G_TYPE_OBJEC
 static gpointer manager_object = NULL;
 
 static void
+update_settings_from_state (GsdRemoteDisplayManager *manager)
+{
+	gboolean enabled;
+
+	enabled = (manager->priv->spice_in_use || manager->priv->vnc_in_use);
+	g_debug ("%s because remote display is in use (vnc: %d spice: %d)",
+		 enabled ? "Enabling" : "Disabling",
+		 manager->priv->vnc_in_use,
+		 manager->priv->spice_in_use);
+	g_settings_set_boolean (manager->priv->desktop_settings,
+				"enable-animations",
+				enabled);
+}
+
+static void
 vnc_settings_changed (GSettings *settings,
 		      gchar     *key,
 		      GsdRemoteDisplayManager *manager)
 {
-	gboolean state;
-
 	if (g_strcmp0 (key, "enabled") != 0)
 		return;
 
-	state = g_settings_get_boolean (settings, key);
-	g_settings_set_boolean (manager->priv->desktop_settings, "enable-animations", !state);
+	manager->priv->vnc_in_use = g_settings_get_boolean (settings, key);
+	update_settings_from_state (manager);
 }
 
 static gboolean
@@ -91,16 +106,21 @@ gsd_remote_display_manager_start (GsdRemoteDisplayManager *manager,
 
         manager->priv->desktop_settings = g_settings_new ("org.gnome.desktop.interface");
 
+	/* Check if spice is used:
+	 * https://bugzilla.gnome.org/show_bug.cgi?id=680195#c7 */
+	if (g_file_test ("/dev/virtio-ports/com.redhat.spice.0", G_FILE_TEST_EXISTS))
+		manager->priv->spice_in_use = TRUE;
+
 	/* Check if vino is installed */
 	if (schema_is_installed ("org.gnome.Vino")) {
 		manager->priv->vnc_settings = g_settings_new ("org.gnome.Vino");
-		g_signal_connect (G_OBJECT (manager->priv->vnc_settings), "changed",
+		g_signal_connect (G_OBJECT (manager->priv->vnc_settings), "changed::enabled",
 				  G_CALLBACK (vnc_settings_changed), manager);
-		vnc_settings_changed (manager->priv->vnc_settings, "enabled", manager);
+
+		manager->priv->vnc_in_use = g_settings_get_boolean (manager->priv->vnc_settings, "enabled");
 	}
 
-	/* FIXME:
-	 * Check if session is being used in spice */
+	update_settings_from_state (manager);
 
         gnome_settings_profile_end (NULL);
         return TRUE;
@@ -111,6 +131,7 @@ gsd_remote_display_manager_stop (GsdRemoteDisplayManager *manager)
 {
         g_debug ("Stopping remote_display manager");
         g_clear_object (&manager->priv->vnc_settings);
+        g_settings_reset (manager->priv->desktop_settings, "enable-animations");
         g_clear_object (&manager->priv->desktop_settings);
 }
 
