@@ -1622,10 +1622,20 @@ backlight_set_abs (GnomeRRScreen *rr_screen,
 void
 reset_idletime (void)
 {
+        static gboolean inited = FALSE;
+        static KeyCode keycode1, keycode2;
+        static gboolean first_keycode = FALSE;
+
+        if (inited == FALSE) {
+                keycode1 = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Alt_L);
+                keycode2 = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Alt_R);
+        }
+
         gdk_error_trap_push ();
         /* send a left shift key; first press, then release */
-        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Shift_L, True, 0);
-        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Shift_L, False, 0);
+        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), keycode1, True, 0);
+        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), keycode2, False, 0);
+        first_keycode = !first_keycode;
         gdk_error_trap_pop_ignored ();
 }
 
