@@ -73,7 +73,6 @@
 #define GS_DBUS_PATH                            "/org/gnome/ScreenSaver"
 #define GS_DBUS_INTERFACE                       "org.gnome.ScreenSaver"
 
-#define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER          0 /* ms */
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_SHORT          10 * 1000 /* ms */
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG           30 * 1000 /* ms */
 
@@ -1811,7 +1810,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                              icon,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
-                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
+                                         NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (manager->priv->notification_low,
                                          NOTIFY_URGENCY_CRITICAL);
         notify_notification_set_app_name (manager->priv->notification_low, _("Power"));
@@ -3068,7 +3067,7 @@ show_logout_warning (GsdPowerManager *manager)
                              NULL,
                              &manager->priv->notification_logout_warning);
         notify_notification_set_timeout (manager->priv->notification_logout_warning,
-                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
+                                         NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (manager->priv->notification_logout_warning,
                                          NOTIFY_URGENCY_CRITICAL);
         notify_notification_set_app_name (manager->priv->notification_logout_warning, _("Power"));
