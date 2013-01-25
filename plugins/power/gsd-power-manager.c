@@ -2599,9 +2599,9 @@ idle_is_session_idle (GsdPowerManager *manager)
 }
 
 static gboolean
-idle_is_session_inhibited (GsdPowerManager *manager,
-                           guint            mask,
-                           gboolean        *is_inhibited)
+idle_is_session_inhibited (GsdPowerManager  *manager,
+                           GsmInhibitorFlag  mask,
+                           gboolean         *is_inhibited)
 {
         GVariant *retval = NULL;
         GError *error = NULL;
