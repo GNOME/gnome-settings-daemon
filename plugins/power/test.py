@@ -248,7 +248,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         while timeout > 0:
             time.sleep(1)
             timeout -= 1
-            # check that it requested blank
+            # check that it requested dim
             log = self.plugin_log.read()
 
             if 'Doing a state transition: dim' in log:
