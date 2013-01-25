@@ -2612,31 +2612,21 @@ idle_is_session_inhibited (GsdPowerManager  *manager,
                            GsmInhibitorFlag  mask,
                            gboolean         *is_inhibited)
 {
-        GVariant *retval = NULL;
-        GError *error = NULL;
-
-        *is_inhibited = FALSE;
+        GVariant *variant;
+        GsmInhibitorFlag inhibited_actions;
 
         /* not yet connected to gnome-session */
         if (manager->priv->session == NULL)
                 return FALSE;
 
-        retval = g_dbus_proxy_call_sync (manager->priv->session,
-                                         "IsInhibited",
-                                         g_variant_new ("(u)",
-                                                        mask),
-                                         G_DBUS_CALL_FLAGS_NONE,
-                                         -1, NULL,
-                                         &error);
-        if (retval == NULL) {
-                /* abort as the DBUS method failed */
-                g_warning ("IsInhibited failed: %s", error->message);
-                g_error_free (error);
-                return TRUE;
+        variant = g_dbus_proxy_get_cached_property (manager->priv->session,
+                                                    "InhibitedActions");
+        if (variant) {
+                inhibited_actions = g_variant_get_uint32 (variant);
+                g_variant_unref (variant);
         }
 
-        g_variant_get (retval, "(b)", is_inhibited);
-        g_variant_unref (retval);
+        *is_inhibited = (inhibited_actions & mask);
 
         return TRUE;
 }
@@ -2820,22 +2810,6 @@ gsd_power_manager_class_init (GsdPowerManagerClass *klass)
                         g_warning ("Invalid value '%s' of $GSD_ACTION_DELAY, ignoring", env_action_delay);
                         critical_action_delay = 20;
                 }
-        }
-}
-
-static void
-idle_dbus_signal_cb (GDBusProxy *proxy,
-                     const gchar *sender_name,
-                     const gchar *signal_name,
-                     GVariant *parameters,
-                     gpointer user_data)
-{
-        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
-
-        if (g_strcmp0 (signal_name, "InhibitorAdded") == 0 ||
-            g_strcmp0 (signal_name, "InhibitorRemoved") == 0) {
-                g_debug ("Received gnome session inhibitor change");
-                idle_configure (manager);
         }
 }
 
@@ -3107,6 +3081,13 @@ engine_session_properties_changed_cb (GDBusProxy      *session,
                  * ensure the new account is undimmed and with the backlight on */
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
         }
+
+        v = g_variant_lookup_value (changed, "InhibitedActions", G_VARIANT_TYPE_UINT32);
+        if (v) {
+                g_variant_unref (v);
+                g_debug ("Received gnome session inhibitor change");
+                idle_configure (manager);
+        }
 }
 
 static void
@@ -3372,8 +3353,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect (manager->priv->session, "g-properties-changed",
                           G_CALLBACK (engine_session_properties_changed_cb),
                           manager);
-        g_signal_connect (manager->priv->session, "g-signal",
-                          G_CALLBACK (idle_dbus_signal_cb), manager);
 
         manager->priv->kbd_brightness_old = -1;
         manager->priv->kbd_brightness_pre_dim = -1;
