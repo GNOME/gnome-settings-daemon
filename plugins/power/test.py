@@ -31,6 +31,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
 
     def setUp(self):
+        self.daemon_death_expected = False
         self.session_log_write = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb')
         self.session = subprocess.Popen(['gnome-session', '-f',
                                          '-a', os.path.join(self.workdir, 'autostart'),
@@ -116,8 +117,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def tearDown(self):
 
         daemon_running = self.daemon.poll() == None
-        self.daemon.terminate()
-        self.daemon.wait()
+        if daemon_running:
+            self.daemon.terminate()
+            self.daemon.wait()
         self.plugin_log.close()
         self.plugin_log_write.flush()
         self.plugin_log_write.close()
@@ -142,7 +144,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             pass
 
         # we check this at the end so that the other cleanup always happens
-        self.assertTrue(daemon_running, 'daemon died during the test')
+        self.assertTrue(daemon_running or self.daemon_death_expected, 'daemon died during the test')
 
     def stop_session(self):
         '''Stop GNOME session'''
@@ -586,6 +588,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def test_forced_logout(self):
         '''Test forced logout'''
 
+        self.daemon_death_expected = True
         idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
 
         self.settings_session['idle-delay'] = idle_delay
