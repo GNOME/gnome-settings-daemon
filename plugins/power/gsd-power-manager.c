@@ -3084,14 +3084,20 @@ engine_settings_key_changed_cb (GSettings *settings,
 }
 
 static void
-engine_session_active_changed_cb (GDBusProxy      *session,
-                                  GVariant        *changed,
-                                  char           **invalidated,
-                                  GsdPowerManager *manager)
+engine_session_properties_changed_cb (GDBusProxy      *session,
+                                      GVariant        *changed,
+                                      char           **invalidated,
+                                      GsdPowerManager *manager)
 {
-        /* when doing the fast-user-switch into a new account,
-         * ensure the new account is undimmed and with the backlight on */
-        idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
+        GVariant *v;
+
+        v = g_variant_lookup_value (changed, "SessionIsActive", G_VARIANT_TYPE_BOOLEAN);
+        if (v) {
+                g_variant_unref (v);
+                /* when doing the fast-user-switch into a new account,
+                 * ensure the new account is undimmed and with the backlight on */
+                idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
+        }
 }
 
 static void
@@ -3355,7 +3361,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
         /* track the active session */
         manager->priv->session = gnome_settings_session_get_session_proxy ();
         g_signal_connect (manager->priv->session, "g-properties-changed",
-                          G_CALLBACK (engine_session_active_changed_cb),
+                          G_CALLBACK (engine_session_properties_changed_cb),
                           manager);
         g_signal_connect (manager->priv->session, "g-signal",
                           G_CALLBACK (idle_dbus_signal_cb), manager);
