@@ -194,7 +194,6 @@ struct GsdPowerManagerPrivate
         gint                     kbd_brightness_pre_dim;
 
         /* Sound */
-        ca_context              *canberra_context;
         ca_proplist             *critical_alert_loop_props;
         guint32                  critical_alert_timeout_id;
 
@@ -258,7 +257,7 @@ static gboolean
 play_loop_timeout_cb (GsdPowerManager *manager)
 {
         ca_context *context;
-        context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
+        context = ca_gtk_context_get ();
         ca_context_play_full (context, 0,
                               manager->priv->critical_alert_loop_props,
                               NULL,
@@ -1505,7 +1504,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         notify_notification_show (manager->priv->notification_low, NULL);
 
         /* play the sound, using sounds from the naming spec */
-        ca_context_play (manager->priv->canberra_context, 0,
+        ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "battery-low",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Battery is low"), NULL);
@@ -1689,7 +1688,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         default:
                 /* play the sound, using sounds from the naming spec */
-                ca_context_play (manager->priv->canberra_context, 0,
+                ca_context_play (ca_gtk_context_get (), 0,
                                  CA_PROP_EVENT_ID, "battery-caution",
                                  /* TRANSLATORS: this is the sound description */
                                  CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
@@ -1819,7 +1818,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
         notify_notification_show (manager->priv->notification_low, NULL);
 
         /* play the sound, using sounds from the naming spec */
-        ca_context_play (manager->priv->canberra_context, 0,
+        ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "battery-caution",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
@@ -2279,7 +2278,7 @@ static void
 do_lid_open_action (GsdPowerManager *manager)
 {
         /* play a sound, using sounds from the naming spec */
-        ca_context_play (manager->priv->canberra_context, 0,
+        ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "lid-open",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been opened"),
@@ -2317,7 +2316,7 @@ static void
 do_lid_closed_action (GsdPowerManager *manager)
 {
         /* play a sound, using sounds from the naming spec */
-        ca_context_play (manager->priv->canberra_context, 0,
+        ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "lid-close",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
@@ -3471,7 +3470,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
                                   NULL);
 
         manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
-        manager->priv->canberra_context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
 
         /* create a fake virtual composite battery */
         manager->priv->device_composite = up_device_new ();
