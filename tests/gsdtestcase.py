@@ -89,7 +89,6 @@ class GSDTestCase(dbusmock.DBusTestCase):
         klass.p_notify.terminate()
         klass.p_notify.wait()
         klass.stop_monitor()
-        klass.stop_session()
         dbusmock.DBusTestCase.tearDownClass()
         klass.stop_xorg()
         shutil.rmtree(klass.workdir)
@@ -127,37 +126,6 @@ class GSDTestCase(dbusmock.DBusTestCase):
         if not os.path.isdir(d):
             os.makedirs(d)
         shutil.copy(os.path.join(os.path.dirname(__file__), 'dummyapp.desktop'), d)
-
-        klass.session_log = open(os.path.join(klass.workdir, 'gnome-session.log'), 'wb')
-        klass.session = subprocess.Popen(['gnome-session', '-f',
-                                          '-a', os.path.join(klass.workdir, 'autostart'),
-                                          '--session=dummy', '--debug'],
-                                         stdout=klass.session_log,
-                                         stderr=subprocess.STDOUT)
-
-        # wait until the daemon is on the bus
-        try:
-            klass.wait_for_bus_object('org.gnome.SessionManager',
-                                      '/org/gnome/SessionManager')
-        except:
-            # on failure, print log
-            with open(klass.session_log.name) as f:
-                print('----- session log -----\n%s\n------' % f.read())
-            raise
-
-        klass.obj_session_mgr = klass.session_bus_con.get_object(
-            'org.gnome.SessionManager', '/org/gnome/SessionManager')
-
-    @classmethod
-    def stop_session(klass):
-        '''Stop GNOME session'''
-
-        assert klass.session
-        klass.session.terminate()
-        klass.session.wait()
-
-        klass.session_log.flush()
-        klass.session_log.close()
 
     @classmethod
     def start_monitor(klass):

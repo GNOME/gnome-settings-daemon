@@ -31,6 +31,26 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
 
     def setUp(self):
+        self.session_log = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb')
+        self.session = subprocess.Popen(['gnome-session', '-f',
+                                         '-a', os.path.join(self.workdir, 'autostart'),
+                                         '--session=dummy', '--debug'],
+                                        stdout=self.session_log,
+                                        stderr=subprocess.STDOUT)
+
+        # wait until the daemon is on the bus
+        try:
+            self.wait_for_bus_object('org.gnome.SessionManager',
+                                     '/org/gnome/SessionManager')
+        except:
+            # on failure, print log
+            with open(self.session_log.name) as f:
+                print('----- session log -----\n%s\n------' % f.read())
+            raise
+
+        self.obj_session_mgr = self.session_bus_con.get_object(
+            'org.gnome.SessionManager', '/org/gnome/SessionManager')
+
         # start mock upowerd
         (self.upowerd, self.obj_upower) = self.spawn_server_template(
             'upower', {'OnBattery': True, 'LidIsClosed': False}, stdout=subprocess.PIPE)
@@ -92,8 +112,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             pass
 
     def tearDown(self):
-        # reactivate screen, in case tests triggered a display blank
-        self.reset_idle_timer()
+        self.stop_session()
 
         daemon_running = self.daemon.poll() == None
         self.daemon.terminate()
@@ -122,6 +141,16 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # we check this at the end so that the other cleanup always happens
         self.assertTrue(daemon_running, 'daemon died during the test')
+
+    def stop_session(self):
+        '''Stop GNOME session'''
+
+        assert self.session
+        self.session.terminate()
+        self.session.wait()
+
+        self.session_log.flush()
+        self.session_log.close()
 
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
