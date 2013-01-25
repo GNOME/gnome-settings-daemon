@@ -71,6 +71,10 @@ int              backlight_set_abs                      (GnomeRRScreen *rr_scree
 /* RandR helpers */
 gboolean         external_monitor_is_connected          (GnomeRRScreen *screen);
 
+/* Sound helpers */
+void             play_loop_start                        (guint *id);
+void             play_loop_stop                         (guint *id);
+
 G_END_DECLS
 
 #endif  /* __GPMCOMMON_H */

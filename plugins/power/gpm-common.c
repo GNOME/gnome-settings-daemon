@@ -29,6 +29,7 @@
 #include <glib/gi18n.h>
 #include <gdk/gdkx.h>
 #include <X11/extensions/XTest.h>
+#include <canberra-gtk.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -38,6 +39,8 @@
 #include "gsd-backlight-linux.h"
 
 #define XSCREENSAVER_WATCHDOG_TIMEOUT           120 /* seconds */
+#define UPS_SOUND_LOOP_ID                        99
+#define GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT  5 /* seconds */
 
 /* take a discrete value with offset and convert to percentage */
 int
@@ -1669,4 +1672,42 @@ external_monitor_is_connected (GnomeRRScreen *screen)
         }
 
         return FALSE;
+}
+
+static void
+play_sound (void)
+{
+        ca_context_play (ca_gtk_context_get (), UPS_SOUND_LOOP_ID,
+                         CA_PROP_EVENT_ID, "battery-caution",
+                         CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
+}
+
+static gboolean
+play_loop_timeout_cb (gpointer user_data)
+{
+        play_sound ();
+        return TRUE;
+}
+
+void
+play_loop_start (guint *id)
+{
+        if (*id != 0)
+                return;
+
+        *id = g_timeout_add_seconds (GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT,
+                                     (GSourceFunc) play_loop_timeout_cb,
+                                     NULL);
+        play_sound ();
+}
+
+void
+play_loop_stop (guint *id)
+{
+        if (*id == 0)
+                return;
+
+        ca_context_cancel (ca_gtk_context_get (), UPS_SOUND_LOOP_ID);
+        g_source_remove (*id);
+        *id = 0;
 }

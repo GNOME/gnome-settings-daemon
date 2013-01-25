@@ -76,7 +76,6 @@
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_SHORT          10 * 1000 /* ms */
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG           30 * 1000 /* ms */
 
-#define GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT        5 /* seconds */
 #define GSD_POWER_MANAGER_RECALL_DELAY                  30 /* seconds */
 #define GSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT      30 /* seconds */
 
@@ -86,8 +85,6 @@
 
 /* Keep this in sync with gnome-shell */
 #define SCREENSAVER_FADE_TIME                           10 /* seconds */
-
-#define UPS_SOUND_LOOP_ID 99
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -251,44 +248,6 @@ gsd_power_manager_error_quark (void)
         if (!quark)
                 quark = g_quark_from_static_string ("gsd_power_manager_error");
         return quark;
-}
-
-static void
-play_sound (void)
-{
-        ca_context_play (ca_gtk_context_get (), UPS_SOUND_LOOP_ID,
-                         CA_PROP_EVENT_ID, "battery-caution",
-                         CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
-}
-
-static gboolean
-play_loop_timeout_cb (gpointer user_data)
-{
-        play_sound ();
-        return TRUE;
-}
-
-static void
-play_loop_stop (GsdPowerManager *manager)
-{
-        if (manager->priv->critical_alert_timeout_id == 0)
-                return;
-
-        ca_context_cancel (ca_gtk_context_get (), UPS_SOUND_LOOP_ID);
-        g_source_remove (manager->priv->critical_alert_timeout_id);
-        manager->priv->critical_alert_timeout_id = 0;
-}
-
-static void
-play_loop_start (GsdPowerManager *manager)
-{
-        if (manager->priv->critical_alert_timeout_id != 0)
-                return;
-
-        manager->priv->critical_alert_timeout_id = g_timeout_add_seconds (GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT,
-                                                                          (GSourceFunc) play_loop_timeout_cb,
-                                                                          NULL);
-        play_sound ();
 }
 
 static void
@@ -1296,7 +1255,7 @@ manager_critical_action_do (GsdPowerManager *manager,
         GsdPowerActionType action_type;
 
         /* stop playing the alert as it's too late to do anything now */
-        play_loop_stop (manager);
+        play_loop_stop (&manager->priv->critical_alert_timeout_id);
 
         action_type = manager_critical_action_get (manager, is_ups);
         do_power_action_type (manager, action_type);
@@ -1647,7 +1606,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         case UP_DEVICE_KIND_BATTERY:
         case UP_DEVICE_KIND_UPS:
                 g_debug ("critical charge level reached, starting sound loop");
-                play_loop_start (manager);
+                play_loop_start (&manager->priv->critical_alert_timeout_id);
                 break;
 
         default:
@@ -2313,7 +2272,7 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
 
         if (!up_client_get_on_battery (client)) {
             /* if we are playing a critical charge sound loop on AC, stop it */
-            play_loop_stop (manager);
+            play_loop_stop (&manager->priv->critical_alert_timeout_id);
             notify_close_if_showing (manager->priv->notification_low);
             main_battery_or_ups_low_changed (manager, FALSE);
         }
@@ -3554,7 +3513,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_clear_object (&manager->priv->session_presence_proxy);
         g_clear_object (&manager->priv->screensaver_proxy);
 
-        play_loop_stop (manager);
+        play_loop_stop (&manager->priv->critical_alert_timeout_id);
 
         g_clear_object (&manager->priv->idle_monitor);
 
