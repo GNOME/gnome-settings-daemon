@@ -356,7 +356,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # Check that we've blanked
         time.sleep(2)
         self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
-        self.check_blank(2)
+	# FIXME: See test_blank_on_lid_close
+        self.check_blank(10)
 
         # Drop the inhibit and see whether we suspend
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
@@ -397,7 +398,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
 
         # Check that we've blanked
-        self.check_blank(2)
+        # FIXME: See test_blank_on_lid_close
+        self.check_blank(10)
 
         # Reopen the lid
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', False)
