@@ -2579,35 +2579,6 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 }
 
 static gboolean
-idle_is_session_idle (GsdPowerManager *manager)
-{
-        gboolean ret;
-        GVariant *result;
-        guint status;
-
-        /* not yet connected to gnome-session */
-        if (manager->priv->session_presence_proxy == NULL) {
-                g_warning ("session idleness not available, gnome-session is not available");
-                return FALSE;
-        }
-
-        /* get the session status */
-        result = g_dbus_proxy_get_cached_property (manager->priv->session_presence_proxy,
-                                                   "status");
-        if (result == NULL) {
-                g_warning ("no readable status property on %s",
-                           g_dbus_proxy_get_interface_name (manager->priv->session_presence_proxy));
-                return FALSE;
-        }
-
-        g_variant_get (result, "u", &status);
-        ret = (status == GSM_PRESENCE_STATUS_IDLE);
-        g_variant_unref (result);
-
-        return ret;
-}
-
-static gboolean
 idle_is_session_inhibited (GsdPowerManager  *manager,
                            GsmInhibitorFlag  mask,
                            gboolean         *is_inhibited)
@@ -2992,34 +2963,6 @@ out:
 }
 
 static void
-idle_send_to_sleep (GsdPowerManager *manager)
-{
-        gboolean is_inhibited;
-        gboolean is_idle;
-
-        /* check the session is not now inhibited */
-        idle_is_session_inhibited (manager,
-                                   GSM_INHIBITOR_FLAG_SUSPEND,
-                                   &is_inhibited);
-
-        if (is_inhibited) {
-                g_debug ("suspend inhibited");
-                return;
-        }
-
-        /* check the session is really idle*/
-        is_idle = idle_is_session_idle (manager);
-        if (!is_idle) {
-                g_debug ("session is not idle, cannot SLEEP");
-                return;
-        }
-
-        /* send to sleep, and cancel timeout */
-        g_debug ("sending to SLEEP");
-        idle_set_mode (manager, GSD_POWER_IDLE_MODE_SLEEP);
-}
-
-static void
 idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
                         guint             watch_id,
                         GsdPowerManager  *manager)
@@ -3037,7 +2980,7 @@ idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
         } else if (watch_id == manager->priv->idle_blank_id) {
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
         } else if (watch_id == manager->priv->idle_sleep_id) {
-                idle_send_to_sleep (manager);
+                idle_set_mode (manager, GSD_POWER_IDLE_MODE_SLEEP);
         }
 }
 
@@ -3077,6 +3020,7 @@ engine_session_properties_changed_cb (GDBusProxy      *session,
         v = g_variant_lookup_value (changed, "SessionIsActive", G_VARIANT_TYPE_BOOLEAN);
         if (v) {
                 g_variant_unref (v);
+                g_debug ("Received session is active change");
                 /* when doing the fast-user-switch into a new account,
                  * ensure the new account is undimmed and with the backlight on */
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
