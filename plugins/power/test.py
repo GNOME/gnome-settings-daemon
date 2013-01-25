@@ -256,6 +256,21 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         else:
             self.fail('timed out waiting for dim')
 
+    def check_undim(self, timeout):
+        '''Check that mode is set to normal in the given time'''
+
+        # wait for specified time to ensure it didn't do anything
+        while timeout > 0:
+            time.sleep(1)
+            timeout -= 1
+            # check that it requested normal
+            log = self.plugin_log.read()
+
+            if 'Doing a state transition: normal' in log:
+                break
+        else:
+            self.fail('timed out waiting for normal mode')
+
     def check_blank(self, timeout):
         '''Check that blank is requested.
 
@@ -619,6 +634,23 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # Drop inhibitor
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
+
+    def test_unindle_on_ac_plug(self):
+        idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
+        self.settings_session['idle-delay'] = idle_delay
+
+        # Wait for idle
+        self.check_dim(idle_delay + 2)
+
+        # Plug in the AC
+        self.obj_upower.Set('org.freedesktop.UPower', 'OnBattery', False)
+        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+
+        # Check that we undim
+        self.check_undim(gsdpowerconstants.POWER_UP_TIME_ON_AC / 2)
+
+        # And wait a little more to see us dim again
+        self.check_dim(idle_delay + 2)
 
 # avoid writing to stderr
 unittest.main(testRunner=unittest.TextTestRunner(stream=sys.stdout, verbosity=2))
