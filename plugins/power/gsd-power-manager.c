@@ -2428,6 +2428,22 @@ kbd_backlight_dim (GsdPowerManager *manager,
         return TRUE;
 }
 
+static gboolean
+is_session_active (GsdPowerManager *manager)
+{
+        GVariant *variant;
+        gboolean is_session_active = FALSE;
+
+        variant = g_dbus_proxy_get_cached_property (manager->priv->session,
+                                                    "SessionIsActive");
+        if (variant) {
+                is_session_active = g_variant_get_boolean (variant);
+                g_variant_unref (variant);
+        }
+
+        return is_session_active;
+}
+
 static void
 idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 {
@@ -2435,7 +2451,6 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         GError *error = NULL;
         gint idle_percentage;
         GsdPowerActionType action_type;
-        GVariant *active_v;
         gboolean is_active = FALSE;
 
         /* Ignore attempts to set "less idle" modes */
@@ -2448,13 +2463,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         }
 
         /* ensure we're still on an active console */
-        active_v = g_dbus_proxy_get_cached_property (manager->priv->session,
-                                                     "SessionIsActive");
-        if (active_v) {
-                is_active = g_variant_get_boolean (active_v);
-                g_variant_unref (active_v);
-        }
-
+        is_active = is_session_active (manager);
         if (!is_active) {
                 g_debug ("ignoring state transition to %s as inactive",
                          idle_mode_to_string (mode));
