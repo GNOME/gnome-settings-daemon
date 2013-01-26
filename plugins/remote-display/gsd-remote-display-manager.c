@@ -42,10 +42,11 @@
 
 struct GsdRemoteDisplayManagerPrivate
 {
-        GSettings *desktop_settings;
-        GSettings *vnc_settings;
-        gboolean   spice_in_use;
-        gboolean   vnc_in_use;
+        GSettings    *desktop_settings;
+        GDBusProxy   *vino_proxy;
+        GCancellable *cancellable;
+        guint         vino_watch_id;
+        gboolean      vnc_in_use;
 };
 
 static void     gsd_remote_display_manager_class_init  (GsdRemoteDisplayManagerClass *klass);
@@ -56,44 +57,90 @@ G_DEFINE_TYPE (GsdRemoteDisplayManager, gsd_remote_display_manager, G_TYPE_OBJEC
 static gpointer manager_object = NULL;
 
 static void
-update_settings_from_state (GsdRemoteDisplayManager *manager)
+update_settings_from_variant (GsdRemoteDisplayManager *manager,
+			      GVariant                *variant)
 {
-	gboolean enabled;
+	manager->priv->vnc_in_use = g_variant_get_boolean (variant);
 
-	enabled = (manager->priv->spice_in_use || manager->priv->vnc_in_use);
-	g_debug ("%s because remote display is in use (vnc: %d spice: %d)",
-		 enabled ? "Enabling" : "Disabling",
-		 manager->priv->vnc_in_use,
-		 manager->priv->spice_in_use);
+	g_debug ("%s because of remote display status (vnc: %d)",
+		 !manager->priv->vnc_in_use ? "Enabling" : "Disabling",
+		 manager->priv->vnc_in_use);
 	g_settings_set_boolean (manager->priv->desktop_settings,
 				"enable-animations",
-				enabled);
+				!manager->priv->vnc_in_use);
 }
 
 static void
-vnc_settings_changed (GSettings *settings,
-		      gchar     *key,
-		      GsdRemoteDisplayManager *manager)
+props_changed (GDBusProxy              *proxy,
+	       GVariant                *changed_properties,
+	       GStrv                    invalidated_properties,
+	       GsdRemoteDisplayManager *manager)
 {
-	if (g_strcmp0 (key, "enabled") != 0)
-		return;
+        GVariant *v;
 
-	manager->priv->vnc_in_use = g_settings_get_boolean (settings, key);
-	update_settings_from_state (manager);
+        v = g_variant_lookup_value (changed_properties, "Connected", G_VARIANT_TYPE_BOOLEAN);
+        if (v) {
+                g_debug ("Received connected change");
+                update_settings_from_variant (manager, v);
+                g_variant_unref (v);
+        }
 }
 
-static gboolean
-schema_is_installed (const gchar *name)
+static void
+got_vino_proxy (GObject                 *source_object,
+		GAsyncResult            *res,
+		GsdRemoteDisplayManager *manager)
 {
-	const gchar * const *schemas;
-	const gchar * const *s;
+	GError *error = NULL;
+	GVariant *v;
 
-	schemas = g_settings_list_schemas ();
-	for (s = schemas; *s; ++s)
-		if (g_str_equal (*s, name))
-			return TRUE;
+	manager->priv->vino_proxy = g_dbus_proxy_new_finish (res, &error);
+	if (manager->priv->vino_proxy == NULL) {
+		g_warning ("Failed to get Vino's D-Bus proxy: %s", error->message);
+		g_error_free (error);
+		return;
+	}
 
-	return FALSE;
+	g_signal_connect (manager->priv->vino_proxy, "g-properties-changed",
+			  G_CALLBACK (props_changed), manager);
+
+	v = g_dbus_proxy_get_cached_property (manager->priv->vino_proxy, "Connected");
+	if (v) {
+                g_debug ("Setting original state");
+		update_settings_from_variant (manager, v);
+                g_variant_unref (v);
+        }
+}
+
+static void
+vino_appeared_cb (GDBusConnection         *connection,
+		  const gchar             *name,
+		  const gchar             *name_owner,
+		  GsdRemoteDisplayManager *manager)
+{
+	g_debug ("Vino appeared");
+	g_dbus_proxy_new (connection,
+			  G_DBUS_PROXY_FLAGS_NONE,
+			  NULL,
+			  name,
+			  "/org/gnome/vino/screens/0",
+			  "org.gnome.VinoScreen",
+			  manager->priv->cancellable,
+			  (GAsyncReadyCallback) got_vino_proxy,
+			  manager);
+}
+
+static void
+vino_vanished_cb (GDBusConnection         *connection,
+		  const char              *name,
+		  GsdRemoteDisplayManager *manager)
+{
+	g_debug ("Vino vanished");
+	if (manager->priv->cancellable != NULL) {
+		g_cancellable_cancel (manager->priv->cancellable);
+		g_clear_object (&manager->priv->cancellable);
+	}
+	g_clear_object (&manager->priv->vino_proxy);
 }
 
 gboolean
@@ -107,21 +154,25 @@ gsd_remote_display_manager_start (GsdRemoteDisplayManager *manager,
         manager->priv->desktop_settings = g_settings_new ("org.gnome.desktop.interface");
 
 	/* Check if spice is used:
-	 * https://bugzilla.gnome.org/show_bug.cgi?id=680195#c7 */
-	if (g_file_test ("/dev/virtio-ports/com.redhat.spice.0", G_FILE_TEST_EXISTS))
-		manager->priv->spice_in_use = TRUE;
-
-	/* Check if vino is installed */
-	if (schema_is_installed ("org.gnome.Vino")) {
-		manager->priv->vnc_settings = g_settings_new ("org.gnome.Vino");
-		g_signal_connect (G_OBJECT (manager->priv->vnc_settings), "changed::enabled",
-				  G_CALLBACK (vnc_settings_changed), manager);
-
-		manager->priv->vnc_in_use = g_settings_get_boolean (manager->priv->vnc_settings, "enabled");
+	 * https://bugzilla.gnome.org/show_bug.cgi?id=680195#c7
+	 * This doesn't change at run-time, so it's to the point */
+	if (g_file_test ("/dev/virtio-ports/com.redhat.spice.0", G_FILE_TEST_EXISTS)) {
+		g_debug ("Disabling animations because SPICE is in use");
+		g_settings_set_boolean (manager->priv->desktop_settings,
+					"enable-animations",
+					FALSE);
+		goto out;
 	}
 
-	update_settings_from_state (manager);
+	/* Monitor Vino's usage */
+	manager->priv->vino_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+							 "org.gnome.Vino",
+							 G_BUS_NAME_WATCHER_FLAGS_NONE,
+							 (GBusNameAppearedCallback) vino_appeared_cb,
+							 (GBusNameVanishedCallback) vino_vanished_cb,
+							 manager, NULL);
 
+out:
         gnome_settings_profile_end (NULL);
         return TRUE;
 }
@@ -130,9 +181,17 @@ void
 gsd_remote_display_manager_stop (GsdRemoteDisplayManager *manager)
 {
         g_debug ("Stopping remote_display manager");
-        g_clear_object (&manager->priv->vnc_settings);
-        g_settings_reset (manager->priv->desktop_settings, "enable-animations");
-        g_clear_object (&manager->priv->desktop_settings);
+
+	if (manager->priv->cancellable != NULL) {
+		g_cancellable_cancel (manager->priv->cancellable);
+		g_clear_object (&manager->priv->cancellable);
+	}
+	g_clear_object (&manager->priv->vino_proxy);
+
+	if (manager->priv->desktop_settings) {
+		g_settings_reset (manager->priv->desktop_settings, "enable-animations");
+		g_clear_object (&manager->priv->desktop_settings);
+	}
 }
 
 static void
