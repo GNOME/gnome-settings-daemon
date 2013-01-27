@@ -652,5 +652,15 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # And wait a little more to see us dim again
         self.check_dim(idle_delay + 2)
 
+        # Unplug the AC
+        self.obj_upower.Set('org.freedesktop.UPower', 'OnBattery', True)
+        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+
+        # Check that we undim
+        self.check_undim(gsdpowerconstants.POWER_UP_TIME_ON_AC / 2)
+
+        # And wait a little more to see us dim again
+        self.check_dim(idle_delay + 2)
+
 # avoid writing to stderr
 unittest.main(testRunner=unittest.TextTestRunner(stream=sys.stdout, verbosity=2))
