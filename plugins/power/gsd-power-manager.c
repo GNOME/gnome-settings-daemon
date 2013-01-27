@@ -2788,11 +2788,9 @@ up_client_on_battery_cb (UpClient *client,
 {
         idle_configure (manager);
 
-        if (!up_client_get_on_battery (manager->priv->up_client)) {
-                if (manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_BLANK ||
-                    manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_DIM)
-                        set_temporary_unidle_on_ac (manager, TRUE);
-        }
+        if (manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_BLANK ||
+            manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_DIM)
+                set_temporary_unidle_on_ac (manager, TRUE);
 }
 
 static void
