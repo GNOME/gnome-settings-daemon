@@ -62,6 +62,17 @@ struct GsdA11yKeyboardManagerPrivate
         NotifyNotification *notification;
 };
 
+#define DEFAULT_XKB_SET_CONTROLS_MASK           XkbSlowKeysMask         | \
+                                                XkbBounceKeysMask       | \
+                                                XkbStickyKeysMask       | \
+                                                XkbMouseKeysMask        | \
+                                                XkbMouseKeysAccelMask   | \
+                                                XkbAccessXKeysMask      | \
+                                                XkbAccessXTimeoutMask   | \
+                                                XkbAccessXFeedbackMask  | \
+                                                XkbControlsEnabledMask
+
+
 static void     gsd_a11y_keyboard_manager_class_init  (GsdA11yKeyboardManagerClass *klass);
 static void     gsd_a11y_keyboard_manager_init        (GsdA11yKeyboardManager      *a11y_keyboard_manager);
 static void     gsd_a11y_keyboard_manager_finalize    (GObject             *object);
@@ -306,15 +317,7 @@ set_server_from_gsettings (GsdA11yKeyboardManager *manager)
 
         gdk_error_trap_push ();
         XkbSetControls (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                        XkbSlowKeysMask         |
-                        XkbBounceKeysMask       |
-                        XkbStickyKeysMask       |
-                        XkbMouseKeysMask        |
-                        XkbMouseKeysAccelMask   |
-                        XkbAccessXKeysMask      |
-                        XkbAccessXTimeoutMask   |
-                        XkbAccessXFeedbackMask  |
-                        XkbControlsEnabledMask,
+                        DEFAULT_XKB_SET_CONTROLS_MASK,
                         desc);
 
         XkbFreeKeyboard (desc, XkbAllComponentsMask, True);
