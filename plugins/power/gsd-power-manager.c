@@ -3588,6 +3588,7 @@ gsd_power_manager_init (GsdPowerManager *manager)
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
         manager->priv->screensaver_cancellable = g_cancellable_new ();
+        manager->priv->bus_cancellable = g_cancellable_new ();
 }
 
 /* returns new level */
@@ -3888,19 +3889,16 @@ on_bus_gotten (GObject             *source_object,
         GError *error = NULL;
         guint i;
 
-        if (manager->priv->bus_cancellable == NULL ||
-            g_cancellable_is_cancelled (manager->priv->bus_cancellable)) {
-                g_warning ("Operation has been cancelled, so not retrieving session bus");
-                return;
-        }
-
         connection = g_bus_get_finish (res, &error);
         if (connection == NULL) {
-                g_warning ("Could not get session bus: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Could not get session bus: %s", error->message);
                 g_error_free (error);
                 return;
         }
+
         manager->priv->connection = connection;
+
         infos = manager->priv->introspection_data->interfaces;
         for (i = 0; infos[i] != NULL; i++) {
                 g_dbus_connection_register_object (connection,
@@ -3925,7 +3923,6 @@ static void
 register_manager_dbus (GsdPowerManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
-        manager->priv->bus_cancellable = g_cancellable_new ();
         g_assert (manager->priv->introspection_data != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
